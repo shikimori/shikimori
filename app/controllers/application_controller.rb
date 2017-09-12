@@ -77,7 +77,11 @@ class ApplicationController < ActionController::Base
 
   # хелпер для перевода params к виду, который можно засунуть в url хелперы
   def url_params merged = nil
-    new_params = safe_params.to_unsafe_h.except(:action, :controller).symbolize_keys
+    new_params = safe_params
+      .to_unsafe_h
+      .except(:action, :controller)
+      .symbolize_keys
+
     merged ? new_params.merge(merged) : new_params
   end
 
