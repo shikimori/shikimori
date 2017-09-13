@@ -29,6 +29,18 @@ ul.b-list.block
 .b-collection_search
   .field
     form
+      - if params[:is_verified].present?
+        input[
+          type="hidden"
+          name="is_verified"
+          value="#{params[:is_verified]}"
+        ]
+      - if params[:anime_id].present?
+        input[
+          type="hidden"
+          name="anime_id"
+          value="#{params[:anime_id]}"
+        ]
       input[
         type="text"
         placeholder="Имя автора"
@@ -42,6 +54,18 @@ ul.b-list.block
 
   .collection.block
     form
+      - if params[:is_verified].present?
+        input[
+          type="hidden"
+          name="is_verified"
+          value="#{params[:is_verified]}"
+        ]
+      - if params[:search].present?
+        input[
+          type="hidden"
+          name="search"
+          value="#{params[:search]}"
+        ]
       input#anime_id name="anime_id" type="hidden" value="#{params[:anime_id]}"
       input.anime-suggest.subheadline-input.downgrade_landscape[
         data-autocomplete="#{autocomplete_animes_url}"
@@ -53,7 +77,7 @@ ul.b-list.block
         ' Авторы аниме
         a.b-link.bubbled href="#{anime_url @anime}"
           = localization_span @anime
-        a.misc-link href="#{moderations_anime_video_authors_url}" без аниме
+        a.misc-link href="#{url_for url_params.except(:anime_id)}" без аниме
       - else
         | Все авторы
 
