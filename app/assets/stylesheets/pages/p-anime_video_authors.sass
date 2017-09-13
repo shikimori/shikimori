@@ -2,40 +2,6 @@
 @import mixins/icons
 @import mixins/shiki_check
 
-.p-anime_video_authors-edit
-  .anime_video_author
-    margin-bottom: 2px
-
-    .url
-      color: $gray-3
-      font-size: 11px
-      word-wrap: break-word
-
-  .item-edit
-    +icon_button('\e842')
-
-  .clear-anime
-    +brackets_surrounded
-    font-size: 11px
-    margin-left: 5px
-
-    &:hover
-      text-decoration: none
-
-  .subheadline-buttons
-    .b-link
-      font-size: 11px
-      margin-left: 15px
-
-      &:first-child:last-child
-        margin-left: 0
-
-      &:last-child
-        margin-right: 5px
-
-  .subheadline-buttons + .subheadline
-    padding-right: 160px
-
 .p-anime_video_authors-index
   .b-collection_search .clear
     display: block
@@ -51,3 +17,38 @@
 
   .not-verified
     +shiki_check($red-check)
+
+.p-anime_video_authors
+  .subheadline-buttons
+    .b-link
+      font-size: 11px
+      margin-left: 15px
+
+      &:first-child:last-child
+        margin-left: 0
+
+      &:last-child
+        margin-right: 5px
+
+  .subheadline-buttons + .subheadline
+    padding-right: 160px
+
+  .anime_video_author
+    margin-bottom: 5px
+
+    .url
+      color: $gray-3
+      font-size: 11px
+      word-wrap: break-word
+
+.p-anime_video_authors-edit
+  .item-edit
+    +icon_button('\e842')
+
+  .clear-anime
+    +brackets_surrounded
+    font-size: 11px
+    margin-left: 5px
+
+    &:hover
+      text-decoration: none

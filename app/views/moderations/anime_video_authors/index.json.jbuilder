@@ -7,6 +7,6 @@ json.content render(
 if @add_postloader
   json.postloader render(
     'blocks/postloader',
-    next_url: moderations_anime_video_authors_url(page: @page+1, search: params[:search], is_verified: params[:is_verified])
+    next_url: url_for(url_params(page: @page+1))
   )
 end

@@ -4,9 +4,10 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
   # rubocop:disable MethodLength
   # rubocop:disable AbcSize
   def index
-    @anime = Anime.find_by id: params[:anime_id] if params[:anime_id]
+    @anime = Anime.find params[:anime_id] if params[:anime_id].present?
+    @limit = (params[:limit] || 100).to_i
 
-    @collection = postload_paginate(params[:page], 100) do
+    @collection = postload_paginate(params[:page], @limit) do
       scope =
         if @anime
           AnimeVideoAuthor.where(id: filter_authors(@anime))
@@ -35,11 +36,18 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
     @back_url = moderations_anime_video_authors_url
     breadcrumb i18n_t('page_title'), @back_url
 
-    @scope = AnimeVideo
-      .where(anime_video_author_id: nil)
-      .order(:anime_id, :episode, :kind, :id)
-      .includes(:anime)
-      .limit(1000)
+    if params[:anime_id]
+      @anime = Anime.find params[:anime_id]
+
+      @scope = AnimeVideo
+        .where(anime_video_author_id: nil)
+        .where(anime_id: params[:anime_id])
+        .order(:episode, :kind, :id)
+
+      if params[:kind].present?
+        @scope.where! kind: params[:kind]
+      end
+    end
   end
 
   # rubocop:disable MethodLength

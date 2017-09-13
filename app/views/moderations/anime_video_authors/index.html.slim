@@ -13,6 +13,12 @@ ul.b-list.block
     a.b-link[
       href="#{request.fullpath == url_for(url_params(is_verified: nil)) ? moderations_anime_video_authors_url : url_for(url_params(is_verified: nil))}"
     ] Все авторы
+
+  li
+    a.b-link[
+      href="#{url_for url_params(limit: 5000)}"
+    ] limit=5000
+
   li
     a.b-link[
       href="#{url_for url_params(is_verified: true)}"
@@ -30,17 +36,12 @@ ul.b-list.block
   .field
     form
       - if params[:is_verified].present?
-        input[
-          type="hidden"
-          name="is_verified"
-          value="#{params[:is_verified]}"
-        ]
+        input type="hidden" name="is_verified" value="#{params[:is_verified]}"
       - if params[:anime_id].present?
-        input[
-          type="hidden"
-          name="anime_id"
-          value="#{params[:anime_id]}"
-        ]
+        input type="hidden" name="anime_id" value="#{params[:anime_id]}"
+      - if params[:limit].present?
+        input type="hidden" name="limit" value="#{params[:limit]}"
+
       input[
         type="text"
         placeholder="Имя автора"
@@ -55,23 +56,19 @@ ul.b-list.block
   .collection.block
     form
       - if params[:is_verified].present?
-        input[
-          type="hidden"
-          name="is_verified"
-          value="#{params[:is_verified]}"
-        ]
+        input type="hidden" name="is_verified" value="#{params[:is_verified]}"
       - if params[:search].present?
-        input[
-          type="hidden"
-          name="search"
-          value="#{params[:search]}"
-        ]
+        input type="hidden" name="search" value="#{params[:search]}"
+      - if params[:limit].present?
+        input type="hidden" name="limit" value="#{params[:limit]}"
+
       input#anime_id name="anime_id" type="hidden" value="#{params[:anime_id]}"
       input.anime-suggest.subheadline-input.downgrade_landscape[
         data-autocomplete="#{autocomplete_animes_url}"
         placeholder="#{t 'anime_title'}"
         type="text"
       ]
+
     .subheadline.m10
       - if @anime
         ' Авторы аниме
@@ -89,6 +86,6 @@ ul.b-list.block
 
         - if @add_postloader
           = render 'blocks/postloader',
-            next_url: moderations_anime_video_authors_url(page: @page+1, search: params[:search], is_verified: params[:is_verified])
+            next_url: url_for(url_params(page: @page+1))
       - else
         .b-nothing_here Нет авторов
