@@ -7,6 +7,13 @@ set :user, 'devops'
 set :group, 'apps'
 set :unicorn_user, 'devops'
 
+set :rbenv_type, :user
+set :rbenv_ruby, `cat .ruby-version`.chomp
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} "\
+  "RBENV_VERSION=#{fetch(:rbenv_ruby)} "\
+  "#{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+
 set :linked_files, %w[
   config/database.yml
   config/secrets.yml
@@ -35,21 +42,11 @@ def current_branch
   ENV['BRANCH'] || `git rev-parse --abbrev-ref HEAD`.chomp
 end
 
-def shell_exec command
-  execute "source /home/#{fetch :user}/.rvm/scripts/rvm && #{command}"
-end
-
 def bundle_exec command, witin_path = "#{self.deploy_to}/current"
-  shell_exec "cd #{witin_path} && RAILS_ENV=#{fetch :rails_env} bundle exec #{command}"
+  execute "cd #{witin_path} && "\
+    "RAILS_ENV=#{fetch :rails_env} #{fetch :rbenv_prefix} "\
+    "bundle exec #{command}"
 end
-
-# namespace :webpacker do
-  # task :install do
-    # on roles(:web) do
-      # bundle_exec 'bin/yarn install', release_path
-    # end
-  # end
-# end
 
 namespace :deploy do
   desc 'Restart application'
@@ -96,13 +93,13 @@ end
 namespace :test do
   task :ruby do
     on roles(:app), in: :sequence, wait: 5 do
-      shell_exec "ruby -v"
+      bundle_exec "ruby -v"
     end
   end
 
   task :whoami do
     on roles(:app), in: :sequence, wait: 5 do
-      shell_exec "whoami"
+      execute "whoami"
     end
   end
 
@@ -203,8 +200,6 @@ namespace :whenever do
     end
   end
 end
-
-# after 'bundler:install', 'webpacker:install'
 
 after 'deploy:starting', 'deploy:file:lock'
 after 'deploy:published', 'deploy:file:unlock'

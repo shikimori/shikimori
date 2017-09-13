@@ -18,10 +18,7 @@ install_plugin Capistrano::SCM::Git
 #   https://github.com/capistrano/rails/tree/master/assets
 #   https://github.com/capistrano/rails/tree/master/migrations
 #
-require 'rvm1/capistrano3'
-# require 'capistrano/rbenv'
-# require 'capistrano/chruby'
-#require 'slackistrano'
+require 'capistrano/rbenv'
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
