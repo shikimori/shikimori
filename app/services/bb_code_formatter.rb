@@ -199,8 +199,13 @@ class BbCodeFormatter
       .parse(text)
       .to_html(save_with: Nokogiri::XML::Node::SaveOptions::AS_HTML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
 
-  rescue LoadError # LoadError: cannot load such file -- enc/trans/single_byte
-    text
+  # LoadError: cannot load such file -- enc/trans/single_byte
+  rescue StandardError => e
+    if e.message =~ /cannot load such file/
+      text
+    else
+      raise
+    end
   end
 
   # TODO: refactor to name match
