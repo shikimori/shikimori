@@ -164,30 +164,76 @@ describe Topic do
       end
 
       describe 'Topics::ClubUserTopic' do
-        let(:club_role) { build_stubbed :club_role, :member, user: user }
-        let(:topic) { build_stubbed :club_user_topic, user: user, linked: club }
+        let(:club_role) { build_stubbed :club_role, member_role, user: user }
+        let(:topic) do
+          build_stubbed :club_user_topic,
+            created_at: 1.year.ago,
+            user: user,
+            linked: club,
+            comments_count: comments_count
+        end
         let(:club) do
           build_stubbed :club,
             topic_policy: topic_policy,
             member_roles: [club_role]
         end
+        let(:member_role) { :member }
+        let(:topic_policy) { Types::Club::TopicPolicy[:members] }
+        let(:comments_count) { 2_000 }
 
-        context 'can create_topic' do
-          let(:topic_policy) { Types::Club::TopicPolicy[:members] }
-          it { is_expected.to be_able_to :new, topic }
+        context 'own topic' do
           it { is_expected.to be_able_to :edit, topic }
-          it { is_expected.to be_able_to :create, topic }
           it { is_expected.to be_able_to :update, topic }
-          it { is_expected.to be_able_to :destroy, topic }
+
+          context 'comments_count < 2000' do
+            let(:comments_count) { 1_999 }
+            it { is_expected.to be_able_to :destroy, topic }
+          end
+
+          context 'comments_count >= 2000' do
+            it { is_expected.to_not be_able_to :destroy, topic }
+          end
+
+          context 'members policy' do
+            it { is_expected.to be_able_to :new, topic }
+            it { is_expected.to be_able_to :create, topic }
+          end
+
+          context 'admins policy' do
+            let(:topic_policy) { Types::Club::TopicPolicy[:admins] }
+
+            context 'not admin' do
+              it { is_expected.to_not be_able_to :new, topic }
+              it { is_expected.to_not be_able_to :create, topic }
+            end
+
+            context 'admin' do
+              let(:member_role) { :admin }
+              it { is_expected.to be_able_to :new, topic }
+              it { is_expected.to be_able_to :create, topic }
+            end
+          end
         end
 
-        context 'cannot create_topic' do
-          let(:topic_policy) { Types::Club::TopicPolicy[:admins] }
-          it { is_expected.to_not be_able_to :new, topic }
-          it { is_expected.to_not be_able_to :edit, topic }
-          it { is_expected.to_not be_able_to :create, topic }
-          it { is_expected.to_not be_able_to :update, topic }
-          it { is_expected.to_not be_able_to :destroy, topic }
+        context 'other user topic' do
+          let(:topic) do
+            build_stubbed :club_user_topic,
+              user: build_stubbed(:user),
+              linked: club
+          end
+
+          context 'admin' do
+            let(:member_role) { :admin }
+            it { is_expected.to be_able_to :edit, topic }
+            it { is_expected.to be_able_to :update, topic }
+            it { is_expected.to be_able_to :destroy, topic }
+          end
+
+          context 'not admin' do
+            it { is_expected.to_not be_able_to :edit, topic }
+            it { is_expected.to_not be_able_to :update, topic }
+            it { is_expected.to_not be_able_to :destroy, topic }
+          end
         end
       end
     end

@@ -38,20 +38,27 @@ class Abilities::User
   end
 
   def topic_abilities
-    can %i[new edit create update], Topic do |topic|
-      topic.user_id == @user.id &&
-        (
-          USER_TOPIC_TYPES.include?(topic.type) || (
-            topic.type == Topics::ClubUserTopic.name &&
-            can?(:create_topic, topic.linked)
-          )
+    can %i[new create], Topic do |topic|
+      topic.user_id == @user.id && (
+        USER_TOPIC_TYPES.include?(topic.type) || (
+          topic.type == Topics::ClubUserTopic.name &&
+          can?(:create_topic, topic.linked)
         )
+      )
     end
-    can :destroy, Topic do |topic|
-      (can?(:create, topic) && topic.created_at + 1.day > Time.zone.now) || (
+    can %i[edit update], Topic do |topic|
+      topic.user_id == @user.id || (
         topic.type == Topics::ClubUserTopic.name &&
-        can?(:create_topic, topic.linked) &&
-        topic.comments_count < 2_000
+        topic.linked.admin?(@user)
+      )
+    end
+
+    can :destroy, Topic do |topic|
+      can?(:edit, topic) && (
+        topic.created_at + 1.day > Time.zone.now || (
+          topic.type == Topics::ClubUserTopic.name &&
+          topic.comments_count < 2_000
+        )
       )
     end
     can :broadcast, Topic do |topic|
