@@ -77,7 +77,7 @@ private
   def get_avatar url
     @user.avatar = open url
 
-  rescue OpenURI::HTTPError, URI::InvalidURIError, SocketError, Net::OpenTimeout
+  rescue OpenURI::HTTPError, URI::InvalidURIError, SocketError, Net::OpenTimeout, Errno::ECONNRESET
     @user.avatar = nil
   end
 
