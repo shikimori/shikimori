@@ -25,4 +25,6 @@ Raven.configure do |config|
     BadImageError
     Errors::NotIdentifiedByImageMagickError
   ]
+  config.environments = %w[production]
+  config.ssl_verification = false
 end if defined?(Raven)
