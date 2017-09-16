@@ -55,9 +55,10 @@ ru:
   best_roles: Лучшие роли
   best_works: Лучшие работы
   calendar: Календарь
-  character_name: Имя персонажа
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
+  character_name: Имя персонажа
+  club_name: Название клуба
   collapse: свернуть
   cosplay: Косплей
   deleted:
@@ -87,6 +88,7 @@ ru:
   mail: Почта
   male: муж.
   manga_list: Список манги
+  manga_title: Название манги
   mangaka: Мангака
   news: Новости
   no_comments: Нет комментариев
@@ -99,12 +101,14 @@ ru:
     back: Назад
     next: Вперед
   person: Человек
+  person_name: Имя человека
   producer: Режиссёр
+  ranobe_title: Название ранобэ
   roles_in_anime: Роли в аниме
+  search: Поиск по названию...
   settings: Настройки
   seyu: Сэйю
   share: Поделиться
-  search: Поиск по названию...
   shikimori: Шикимори
   source: Источник
   sponsors: Спонсоры

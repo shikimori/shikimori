@@ -45,12 +45,14 @@
             = t 'activerecord.attributes.topic.linked'
           input.string.optional#topic_linked[
             type="text"
-            data-anime-placeholder="Название аниме"
-            data-manga-placeholder="Название манги"
-            data-character-placeholder="Имя персонажа"
-            data-person-placeholder="Имя персонажа"
+            data-anime-placeholder="#{t 'anime_title'}"
+            data-manga-placeholder="#{t 'manga_title'}"
+            data-ranobe-placeholder="#{t 'ranobe_title'}"
+            data-character-placeholder="#{t 'character_name'}"
+            data-person-placeholder="#{t 'person_name'}"
             data-anime-autocomplete="#{autocomplete_animes_url}"
             data-manga-autocomplete="#{autocomplete_mangas_url}"
+            data-ranobe-autocomplete="#{autocomplete_ranobe_index_url}"
             data-character-autocomplete="#{autocomplete_characters_url}"
             data-person-autocomplete="#{autocomplete_people_url}"
             style="#{'display: none;' if topic.linked.present?}"
@@ -60,6 +62,7 @@
           ]
             option value="#{Anime.name}" = Anime.model_name.human
             option value="#{Manga.name}" = Manga.model_name.human
+            option value="#{Ranobe.name}" = Ranobe.model_name.human
             option value="#{Character.name}" = Character.model_name.human
             option value="#{Person.name}" = Person.model_name.human
 

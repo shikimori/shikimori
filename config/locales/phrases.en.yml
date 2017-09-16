@@ -58,6 +58,7 @@ en:
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
   character_name: Character name
+  club_name: Club name
   collapse: collapse
   cosplay: Cosplay
   deleted:
@@ -87,6 +88,7 @@ en:
   mail: Mail
   male: male
   manga_list: Manga List
+  manga_title: Manga title
   mangaka: Mangaka
   news: News
   no_comments: No comments
@@ -99,7 +101,9 @@ en:
     back: Back
     next: Next
   person: Person
+  person_name: Person name
   producer: Director
+  ranobe_title: Light Novel title
   roles_in_anime: Roles in anime
   settings: Settings
   seyu: Seiyu
