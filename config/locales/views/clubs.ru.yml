@@ -23,12 +23,6 @@ ru:
     edit:
       main:
         required_option_for_adult_clubs: Обязательная опция для клубов со "взрослыми" картинками и текстами
-      links:
-        anime_title: Название аниме
-        manga_title: Название манги
-        ranobe_title: Название ранобэ
-        character_name: Имя персонажа
-        club_name: Название клуба
       members:
         remove_users: Удаление пользователей
 

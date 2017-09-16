@@ -23,12 +23,6 @@ en:
     edit:
       main:
         required_option_for_adult_clubs: Required option for clubs with "adult" images and texts
-      links:
-        anime_title: Anime title
-        manga_title: Manga title
-        ranobe_title: Light Novel title
-        character_name: Character name
-        club_name: Club name
       members:
         remove_users: Remove users
 
