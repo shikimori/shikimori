@@ -1,4 +1,5 @@
-toastr = require './jquery.toastr'
+toastr = require 'toastr'
+toastr.options.progressBar = true
 
 (($) ->
   $.extend
