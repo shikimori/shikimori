@@ -22,6 +22,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
 
   VIDEO_PROPERTIES = %w[
     meta[name='twitter:player']
+    meta[property='og:video:iframe']
     meta[property='og:video']
     meta[property='og:video:url']
   ]
@@ -43,7 +44,9 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     doc = Nokogiri::HTML html
 
     og_image = doc.css(IMAGE_PROPERTIES.join(',')).first
-    og_video = VIDEO_PROPERTIES.map { |v| doc.css(v).first }.find(&:present?)
+    og_video = self.class::VIDEO_PROPERTIES
+      .map { |v| doc.css(v).first }
+      .find(&:present?)
 
     if og_image && og_video
       [og_image[:content], og_video[:content] || og_video[:value]]

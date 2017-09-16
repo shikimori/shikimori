@@ -22,14 +22,6 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       end
     end
 
-    # context 'rutube' do
-      # let(:url) { 'http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a' }
-
-      # its(:hosting) { is_expected.to eq :rutube }
-      # its(:image_url) { is_expected.to eq '//pic.rutube.ru/video/d2/81/d281c126ac608e6f66642009f1be59e0.jpg' }
-      # its(:player_url) { is_expected.to eq '//rutube.ru/play/embed/6797624' }
-    # end
-
     context 'myvi' do
       let(:url) { 'http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2' }
 
@@ -43,7 +35,7 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
 
       its(:hosting) { is_expected.to eq :sibnet }
       its(:image_url) { is_expected.to eq '//video.sibnet.ru/upload/cover/video_1234982_0.jpg' }
-      its(:player_url) { is_expected.to eq '//video.sibnet.ru/shell.swf?videoid=1234982' }
+      its(:player_url) { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1234982' }
 
       context 'broken_video' do
         let(:url) { 'http://video.sibnet.ru/video996603-Kyou_no_Asuka_Show_1_5_serii__rus__sub_' }
@@ -51,13 +43,13 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       end
     end
 
-    #context 'yandex' do
-      #let(:url) { 'http://video.yandex.ru/users/allod2008/view/78' }
+    # context 'yandex' do
+      # let(:url) { 'http://video.yandex.ru/users/allod2008/view/78' }
 
-      #its(:hosting) { is_expected.to eq :yandex }
-      #its(:image_url) { is_expected.to eq 'http://static.video.yandex.ru/get/allod2008/khubzhabwp.1610/m320x240.jpg' }
-      #its(:player_url) { is_expected.to eq 'http://static.video.yandex.ru/full-10/allod2008/khubzhabwp.1610/player.swf' }
-    #end
+      # its(:hosting) { is_expected.to eq :yandex }
+      # its(:image_url) { is_expected.to eq 'http://static.video.yandex.ru/get/allod2008/khubzhabwp.1610/m320x240.jpg' }
+      # its(:player_url) { is_expected.to eq 'http://static.video.yandex.ru/full-10/allod2008/khubzhabwp.1610/player.swf' }
+    # end
 
     context 'streamable' do
       let(:url) { 'https://streamable.com/efgm' }

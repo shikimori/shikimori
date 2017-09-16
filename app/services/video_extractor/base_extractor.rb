@@ -19,7 +19,8 @@ class VideoExtractor::BaseExtractor
   OPEN_URI_OPTIONS = {
     'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
     ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
-    allow_redirections: :all
+    allow_redirections: :all,
+    read_timeout: 7
   }.merge(PROXY_OPTIONS)
 
   def url
