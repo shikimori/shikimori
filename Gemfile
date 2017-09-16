@@ -122,6 +122,7 @@ gem 'dry-struct'
 gem 'chainable_methods'
 
 group :beta, :production do
+  gem 'raygun4ruby'
   # gem 'honeybadger'
   # gem 'appsignal'
   gem 'newrelic_rpm'

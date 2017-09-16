@@ -532,6 +532,11 @@ GEM
       rake
     raindrops (0.18.0)
     rake (12.1.0)
+    raygun4ruby (2.4.1)
+      concurrent-ruby
+      httparty (> 0.13.7)
+      json
+      rack
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.10.2)
@@ -784,6 +789,7 @@ DEPENDENCIES
   rails
   rails-controller-testing
   rails-i18n
+  raygun4ruby
   rb-fchange
   rb-fsevent
   rb-inotify

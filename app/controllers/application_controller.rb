@@ -242,6 +242,7 @@ class ApplicationController < ActionController::Base
 
   def runtime_error e
     Honeybadger.notify(e) if defined?(Honeybadger)
+    Raygun.track_exception(e) if defined?(Raygun)
 
     NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
     Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"

@@ -154,8 +154,6 @@ module CommentHelper
   @@type_matchers.each do |klass, (matcher, preloader)|
     define_method("#{klass.name.to_underscore}_to_html") do |text|
       while text =~ matcher
-        Honeybadger.context text: text, matcher: matcher if defined? Honeybadger
-
         if klass == Topic || klass == Message
           url = if klass == Message
             message_url id: $~[:id], format: :html
