@@ -1,0 +1,130 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://ya.ru/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Date:
+      - Sun, 17 Sep 2017 20:59:36 GMT
+      Cache-Control:
+      - no-cache,no-store,max-age=0,must-revalidate
+      Location:
+      - https://ya.ru/
+      Expires:
+      - Sun, 17 Sep 2017 20:59:37 GMT
+      Last-Modified:
+      - Sun, 17 Sep 2017 20:59:37 GMT
+      P3p:
+      - policyref="/w3c/p3p.xml", CP="NON DSP ADM DEV PSD IVDo OUR IND STP PHY PRE
+        NAV UNI"
+      Set-Cookie:
+      - yandexuid=4533861531505681976; Expires=Wed, 15-Sep-2027 20:59:36 GMT; Domain=.ya.ru;
+        Path=/
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 17 Sep 2017 20:59:36 GMT
+- request:
+    method: get
+    uri: https://ya.ru/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Cookie:
+      - yandexuid=4533861531505681976
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: Ok
+    headers:
+      Date:
+      - Sun, 17 Sep 2017 20:59:36 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Cache-Control:
+      - no-cache,no-store,max-age=0,must-revalidate
+      Expires:
+      - Sun, 17 Sep 2017 20:59:37 GMT
+      Last-Modified:
+      - Sun, 17 Sep 2017 20:59:37 GMT
+      Content-Security-Policy:
+      - 'connect-src ''self'' wss://webasr.yandex.net https://mc.webvisor.com https://mc.webvisor.org
+        wss://push.yandex.ru wss://portal-xiva.yandex.net https://yastatic.net https://home.yastatic.net
+        https://yandex.ru https://*.yandex.ru static.yandex.sx br.yastatic.net et.yastatic.net
+        portal-xiva.yandex.net yastatic.net home.yastatic.net yandex.ru *.yandex.ru
+        *.yandex.net yandex.st; default-src ''self'' blob: wss://portal-xiva.yandex.net
+        yastatic.net portal-xiva.yandex.net; font-src ''self'' https://yastatic.net
+        static.yandex.sx br.yastatic.net et.yastatic.net yastatic.net; frame-src ''self''
+        yabrowser: data: https://www.youtube.com https://player.video.yandex.net https://yastatic.net
+        https://yandex.ru https://*.yandex.ru wfarm.yandex.net yastatic.net yandex.ru
+        *.yandex.ru awaps.yandex.net *.cdn.yandex.net; img-src ''self'' data: https://yastatic.net
+        https://home.yastatic.net https://*.yandex.ru https://*.yandex.net https://*.tns-counter.ru
+        *.yastatic.net gdeua.hit.gemius.pl pa.tns-ua.com mc.yandex.com mc.webvisor.com
+        mc.webvisor.org static.yandex.sx br.yastatic.net et.yastatic.net yastatic.net
+        home.yastatic.net yandex.ru *.yandex.ru *.yandex.net *.tns-counter.ru *.gemius.pl
+        yandex.st; media-src ''self'' blob: data: *.storage.yandex.net yastatic.net
+        kiks.yandex.ru strm.yandex.ru; object-src ''self'' *.yandex.net music.yandex.ru
+        strm.yandex.ru yastatic.net kiks.yandex.ru awaps.yandex.net storage.mds.yandex.net;
+        report-uri https://csp.yandex.net/csp?from=yaru.ru&showid=1505681976.70247.22891.20543&h=f67&yandexuid=4533861531505681976;
+        script-src ''self'' ''unsafe-inline'' ''unsafe-eval'' blob: https://suburban-widget.rasp.yandex.ru
+        https://suburban-widget.rasp.yandex.net https://music.yandex.ru https://mc.yandex.fr
+        https://mc.webvisor.com https://yandex.fr https://mc.webvisor.org https://yastatic.net
+        https://home.yastatic.net https://mc.yandex.ru https://pass.yandex.ru an.yandex.ru
+        api-maps.yandex.ru static.yandex.sx webasr.yandex.net br.yastatic.net et.yastatic.net
+        yastatic.net home.yastatic.net yandex.ru www.yandex.ru mc.yandex.ru suggest.yandex.ru
+        clck.yandex.ru awaps.yandex.net; style-src ''self'' ''unsafe-inline'' https://yastatic.net
+        https://home.yastatic.net static.yandex.sx br.yastatic.net et.yastatic.net
+        yastatic.net home.yastatic.net;'
+      P3p:
+      - policyref="/w3c/p3p.xml", CP="NON DSP ADM DEV PSD IVDo OUR IND STP PHY PRE
+        NAV UNI"
+      Set-Cookie:
+      - i=PGr/767p9fi7Thhvt2A6bcsFX39kopEQ73AwoZnRgiwRHSQEJeYwXjb4/2gbXrFWw+BtrUwMmbF3dNKoG96O4UTBykg=;
+        Expires=Wed, 15-Sep-2027 20:59:36 GMT; Domain=.ya.ru; Path=/; Secure; HttpOnly
+      - mda=0; Expires=Mon, 17-Sep-2018 20:59:36 GMT; Domain=.ya.ru; Path=/
+      - yandex_gid=15; Expires=Tue, 17-Oct-2017 20:59:36 GMT; Domain=.ya.ru; Path=/
+      - yp=1508273977.ygu.1; Expires=Wed, 15-Sep-2027 20:59:36 GMT; Domain=.ya.ru;
+        Path=/
+      X-Frame-Options:
+      - DENY
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PCFET0NUWVBFIGh0bWw+PGh0bWwgY2xhc3M9ImktdWFfanNfbm8gaS11YV9jc3Nfc3RhbmRhcnQgaS11YV9icm93c2VyX3Vua25vd24gaS11YV9icm93c2VyX2Rlc2t0b3AgaS11YV9wbGF0Zm9ybV9vdGhlciIgbGFuZz0icnUiPjxoZWFkIHhtbG5zOm9nPSJodHRwOi8vb2dwLm1lL25zIyI+PG1ldGEgaHR0cC1lcXVpdj0iWC1VQS1Db21wYXRpYmxlIiBjb250ZW50PSJJRT1lZGdlIj48dGl0bGU+0K/QvdC00LXQutGBIOKAlCDQv9C+0LjRgdC6IOKEljEg0LIg0KDQvtGB0YHQuNC4PC90aXRsZT48bGluayByZWw9InNob3J0Y3V0IGljb24iIGhyZWY9Ii8veWFzdGF0aWMubmV0L2ljb25vc3Rhc2lzL18vOGxGYVRITER6bXNFWnotNVhhUWc5aVRXWkdFLnBuZyI+PG1ldGEgaHR0cC1lcXVpdj1Db250ZW50LVR5cGUgY29udGVudD0idGV4dC9odG1sO2NoYXJzZXQ9VVRGLTgiPjxsaW5rIHJlbD0iYXBwbGUtdG91Y2gtaWNvbiIgaHJlZj0iLy95YXN0YXRpYy5uZXQvaWNvbm9zdGFzaXMvXy81bWRQcTRWN2doUmd6QnZNa0NhVHpkMmZqWWcucG5nIiBzaXplcz0iNzZ4NzYiPjxsaW5rIHJlbD0iYXBwbGUtdG91Y2gtaWNvbiIgaHJlZj0iLy95YXN0YXRpYy5uZXQvaWNvbm9zdGFzaXMvXy9zLWhHb0NRTVVvc1R6aXVBUkJrczA4SVV4bWMucG5nIiBzaXplcz0iMTIweDEyMCI+PGxpbmsgcmVsPSJhcHBsZS10b3VjaC1pY29uIiBocmVmPSIvL3lhc3RhdGljLm5ldC9pY29ub3N0YXNpcy9fL0tuVTgyM2lXd2pfdnJQcmE3eDlhUS00eWpSdy5wbmciIHNpemVzPSIxNTJ4MTUyIj48bGluayByZWw9ImFwcGxlLXRvdWNoLWljb24iIGhyZWY9Ii8veWFzdGF0aWMubmV0L2ljb25vc3Rhc2lzL18vd1Q5Z2ZHWlo4MHNQMFZzb1I2ZGdEeVhKZjJZLnBuZyIgc2l6ZXM9IjE4MHgxODAiPjxsaW5rIHJlbD0iYWx0ZXJuYXRlIiB0eXBlPSJhcHBsaWNhdGlvbi9yc3MreG1sIiB0aXRsZT0i0J3QvtCy0L7RgdGC0Lgg0K/QvdC00LXQutGB0LAiIGhyZWY9Imh0dHBzOi8veWFuZGV4LnJ1L2NvbXBhbnkvcHJlc3NfcmVsZWFzZXMvbmV3cy5yc3MiPjxsaW5rIHJlbD0iYWx0ZXJuYXRlIiB0eXBlPSJhcHBsaWNhdGlvbi9yc3MreG1sIiB0aXRsZT0i0JHQu9C+0LMg0K/QvdC00LXQutGB0LAiIGhyZWY9Imh0dHBzOi8veWFuZGV4LnJ1L2Jsb2cvY29tcGFueS9yc3MiPjxsaW5rIHJlbD0ic2VhcmNoIiBocmVmPSIvL3lhbmRleC5ydS9vcGVuc2VhcmNoLnhtbCIgdGl0bGU9ItCv0L3QtNC10LrRgSIgdHlwZT0iYXBwbGljYXRpb24vb3BlbnNlYXJjaGRlc2NyaXB0aW9uK3htbCI+PG1ldGEgbmFtZT0iZGVzY3JpcHRpb24iIGNvbnRlbnQ9ItCv0L3QtNC10LrRgSDigJQg0L/QvtC40YHQutC+0LLQsNGPINGB0LjRgdGC0LXQvNCwIOKEljEg0LIg0KDQvtGB0YHQuNC4INC4INC40L3RgtC10YDQvdC10YIt0L/QvtGA0YLQsNC7LiDQkdGL0YHRgtGA0YvQuSDQv9C+0LjRgdC6INCyINC40L3RgtC10YDQvdC10YLQtSDQvdCwINC80L7QsdC40LvRjNC90YvRhSDRg9GB0YLRgNC+0LnRgdGC0LLQsNGFINC4INC60L7QvNC/0YzRjtGC0LXRgNC1LiDQo9C00L7QsdC90YvQtSDRgdC10YDQstC40YHRiyDQuCDQsdC10YHQv9C70LDRgtC90YvQtSDQv9GA0LjQu9C+0LbQtdC90LjRjy4iPjxtZXRhIHByb3BlcnR5PSJvZzp0aXRsZSIgY29udGVudD0i0K/QvdC00LXQutGBIOKAlCDQv9C+0LjRgdC6IOKEljEg0LIg0KDQvtGB0YHQuNC4Ij48bWV0YSBwcm9wZXJ0eT0ib2c6dHlwZSIgY29udGVudD0id2Vic2l0ZSI+PG1ldGEgcHJvcGVydHk9Im9nOmltYWdlIiBjb250ZW50PSIvL3lhc3RhdGljLm5ldC9tb3JkYS1sb2dvL2kvc2hhcmUtbG9nby1ydS5wbmciPjxtZXRhIHByb3BlcnR5PSJvZzpzaXRlX25hbWUiIGNvbnRlbnQ9ItCv0L3QtNC10LrRgSI+PG1ldGEgcHJvcGVydHk9Im9nOmxvY2FsZSIgY29udGVudD0icnVfUlUiPjxtZXRhIHByb3BlcnR5PSJvZzpkZXNjcmlwdGlvbiIgY29udGVudD0i0K/QvdC00LXQutGBIOKAlCDQv9C+0LjRgdC60L7QstCw0Y8g0YHQuNGB0YLQtdC80LAg4oSWMSDQsiDQoNC+0YHRgdC40Lgg0Lgg0LjQvdGC0LXRgNC90LXRgi3Qv9C+0YDRgtCw0LsuINCR0YvRgdGC0YDRi9C5INC/0L7QuNGB0Log0LIg0LjQvdGC0LXRgNC90LXRgtC1INC90LAg0LzQvtCx0LjQu9GM0L3Ri9GFINGD0YHRgtGA0L7QudGB0YLQstCw0YUg0Lgg0LrQvtC80L/RjNGO0YLQtdGA0LUuINCj0LTQvtCx0L3Ri9C1INGB0LXRgNCy0LjRgdGLINC4INCx0LXRgdC/0LvQsNGC0L3Ri9C1INC/0YDQuNC70L7QttC10L3QuNGPLiI+PHNjcmlwdD4hZnVuY3Rpb24obil7bi5ob21lPW4uaG9tZXx8e307dmFyIHQ9e30sZT17fSxpPXdpbmRvdy5wZXJmb3JtYW5jZSYmd2luZG93LnBlcmZvcm1hbmNlLnRpbWluZztpZihpKXt2YXIgcj1pLm5hdmlnYXRpb25TdGFydCxvPWkucmVzcG9uc2VTdGFydCxhPWkmJnImJm87aG9tZS5tYXJrPXt0aW1lOmZ1bmN0aW9uKCl7aWYoYSl7dmFyIG49K25ldyBEYXRlO3JldHVybltuLXIsbi1vXX19LGFkZDpmdW5jdGlvbihuKXt2YXIgaT10aGlzLnRpbWUoKTtpJiYhdFtuXSYmKHRbbl09aVswXSxlW25dPWlbMV0pfSxnZXQ6ZnVuY3Rpb24obil7cmV0dXJuIHRbbl0/W3Rbbl0sZVtuXV06bnVsbH19fX0odGhpcyksZnVuY3Rpb24oKXt2YXIgbj13aW5kb3cucmVxdWVzdEFuaW1hdGlvbkZyYW1lOyJmdW5jdGlvbiI9PXR5cGVvZiBuJiZob21lLm1hcmsmJm4oZnVuY3Rpb24oKXtob21lLm1hcmsuYWRkKCJyYWYiKX0pfSgpOzwvc2NyaXB0PjxsaW5rIHJlbD0ic3R5bGVzaGVldCIgaHJlZj0iLy95YXN0YXRpYy5uZXQvd3d3L18vTC9iL1NpNm9jVkRpdEY1aHNVTTNpQWF0eGJEUGcuY3NzIj48c2NyaXB0PmZ1bmN0aW9uIERldGVjdG9yKCl7InVzZSBzdHJpY3QiO3ZhciBlPWRvY3VtZW50LmRvY3VtZW50RWxlbWVudDtyZXR1cm57aXNQbGFjZWhvbGRlclN1cHBvcnRlZDpmdW5jdGlvbigpe3JldHVybiJwbGFjZWhvbGRlciJpbiBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJpbnB1dCIpfSxnZXRDU1MzVHJhbnNmb3JtUHJvcGVydHk6ZnVuY3Rpb24oKXtmb3IodmFyIGU9ZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50LnN0eWxlLHQ9WyJ0cmFuc2Zvcm0iLCJNb3pUcmFuc2Zvcm0iLCJNc1RyYW5zZm9ybSIsIm1zVHJhbnNmb3JtIiwiV2Via2l0VHJhbnNmb3JtIiwiT1RyYW5zZm9ybSJdLG49IiIsaT0wLHI9dC5sZW5ndGg7cj5pOysraSlpZih2b2lkIDAhPT1lW3RbaV1dKXtuPXRbaV07YnJlYWt9cmV0dXJuIHRoaXMuZ2V0Q1NTM1RyYW5zZm9ybVByb3BlcnR5PWZ1bmN0aW9uKCl7cmV0dXJuIG59LG59LGNoZWNrRGF0YVVSTFN1cHBvcnQ6ZnVuY3Rpb24oZSl7dmFyIHQ9bmV3IEltYWdlO3Qub25sb2FkPXQub25lcnJvcj1mdW5jdGlvbigpe2UoMT09PXRoaXMud2lkdGgmJjE9PT10aGlzLmhlaWdodCl9LHQuc3JjPSJkYXRhOmltYWdlL2dpZjtiYXNlNjQsUjBsR09EbGhBUUFCQUlBQUFBQUFBUC8vL3l3QUFBQUFBUUFCQUFBQ0FVd0FPdz09In0saXNBY3RpdmV4RW5hYmxlZDpmdW5jdGlvbigpe3ZhciBlPSExO3RyeXtlPSEhbmV3IHdpbmRvdy5BY3RpdmVYT2JqZWN0KCJodG1sZmlsZSIpfWNhdGNoKHQpe2U9ITF9cmV0dXJuIGV9LGlzV2luNjQ6ZnVuY3Rpb24oKXtyZXR1cm4gd2luZG93Lm5hdmlnYXRvciYmIldpbjY0Ij09PXdpbmRvdy5uYXZpZ2F0b3IucGxhdGZvcm19LGlzRnVsbFNjcmVlbjpmdW5jdGlvbigpe3JldHVybiB3aW5kb3cuaW5uZXJXaWR0aCYmd2luZG93LnNjcmVlbiYmd2luZG93LnNjcmVlbi53aWR0aCYmd2luZG93LnNjcmVlbi5oZWlnaHQmJndpbmRvdy5pbm5lckhlaWdodCYmd2luZG93LmlubmVyV2lkdGg9PT1zY3JlZW4ud2lkdGgmJndpbmRvdy5pbm5lckhlaWdodD09PXNjcmVlbi5oZWlnaHR9LGlzSUVNZXRyb01vZGU6ZnVuY3Rpb24oKXtyZXR1cm4gdGhpcy5pc0Z1bGxTY3JlZW4oKSYmdGhpcy5pc1dpbjY0KCkmJiF0aGlzLmlzQWN0aXZleEVuYWJsZWQoKX0saXNTVkdTdXBwb3J0ZWQ6ZnVuY3Rpb24oKXtpZigib3BlcmEiaW4gd2luZG93KXJldHVybiExO3ZhciBlPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInN2ZyIpO3JldHVybiBlLmlubmVySFRNTD0iPHN2Zy8+IixlLmZpcnN0Q2hpbGQmJiJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI9PT1lLmZpcnN0Q2hpbGQubmFtZXNwYWNlVVJJfSxpc0FuaW1hdGlvblN1cHBvcnRlZDpmdW5jdGlvbigpe2lmKCJvcGVyYSJpbiB3aW5kb3cpcmV0dXJuITE7Zm9yKHZhciBlPWRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5zdHlsZSx0PVsiYW5pbWF0aW9uTmFtZSIsIndlYmtpdEFuaW1hdGlvbk5hbWUiXSxuPTAsaT10Lmxlbmd0aDtpPm47bisrKWlmKHZvaWQgMCE9PWVbdFtuXV0pcmV0dXJuITB9LGdldFVzZXJGb250U2l6ZTpmdW5jdGlvbigpe3ZhciB0LG4saT1bXSxyPTE2LG89ImktdWFfdXNlci1mb250LXNpemVfIixhPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoImRpdiIpO3JldHVybiBhLnN0eWxlLmhlaWdodD0iMWVtIixlLmFwcGVuZENoaWxkKGEpLHQ9cGFyc2VJbnQoYS5vZmZzZXRIZWlnaHQpLGUucmVtb3ZlQ2hpbGQoYSksbj10PT09cj8ibm9ybWFsIjpyPnQ/InNtYWxsIjoibGFyZ2UiLGkucHVzaChvK24pLGkucHVzaChvK3QrInB4IiksaS5qb2luKCIgIil9LGlzUmV0aW5hOmZ1bmN0aW9uKCl7dmFyIGU9ImRldmljZVBpeGVsUmF0aW8iaW4gd2luZG93P3dpbmRvdy5kZXZpY2VQaXhlbFJhdGlvOjE7cmV0dXJuIGU+PTEuM319fWZ1bmN0aW9uIE15TWFwKCl7dGhpcy5ydWxlcz17fSx0aGlzLnJ1bGVzRGF0YT1bXX1NeU1hcC5wcm90b3R5cGU9e2FkZDpmdW5jdGlvbihlKXtyZXR1cm4gZT1lfHxudWxsLGUmJiF0aGlzLnJ1bGVzW2VdJiYodGhpcy5ydWxlc0RhdGEucHVzaChlKSx0aGlzLnJ1bGVzW2VdPXRoaXMucnVsZXNEYXRhLmxlbmd0aC0xKSx0aGlzfSxnZXQ6ZnVuY3Rpb24oZSl7dmFyIHQ9dGhpcy5ydWxlc1tlXTtyZXR1cm4gdCYmdGhpcy5ydWxlc0RhdGFbdF18fG51bGx9LGdldEFsbDpmdW5jdGlvbigpe3JldHVybiB0aGlzLnJ1bGVzRGF0YS5qb2luKCIgIil9fTt2YXIgZGV0ZWN0b3I9bmV3IERldGVjdG9yOyFmdW5jdGlvbigpe3ZhciBlLHQ9bmV3IE15TWFwO3QuYWRkKCJqcyIpLmFkZCgiaS11YV9wbGFjZWhvbGRlcl8iKyhkZXRlY3Rvci5pc1BsYWNlaG9sZGVyU3VwcG9ydGVkKCk/InllcyI6Im5vIikpLmFkZChkZXRlY3Rvci5pc0lFTWV0cm9Nb2RlKCkmJiJtLWllMTAtbWV0cm8iKS5hZGQoZGV0ZWN0b3IuaXNTVkdTdXBwb3J0ZWQoKT8iaS11YV9pbmxpbmVzdmdfeWVzIG0tc3ZnIjoiaS11YV9pbmxpbmVzdmdfbm8gbm8tZGF0YS11cmwiKS5hZGQoZGV0ZWN0b3IuaXNBbmltYXRpb25TdXBwb3J0ZWQoKSYmImktdWFfYW5pbWF0aW9uX3llcyIpLmFkZCh0aGlzLmRldmljZSYmIm0tdG91Y2giKS5hZGQoZGV0ZWN0b3IuZ2V0VXNlckZvbnRTaXplKCkpLmFkZCgiaS11YV9yZXRpbmFfIisoZGV0ZWN0b3IuaXNSZXRpbmEoKT8ieWVzIjoibm8iKSksZGV0ZWN0b3IuY2hlY2tEYXRhVVJMU3VwcG9ydChmdW5jdGlvbihlKXtlfHwoZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50LmNsYXNzTmFtZSs9IiBuby1kYXRhLXVybCIpfSksdGhpcy5kb2N1bWVudCYmdGhpcy5kb2N1bWVudC5kb2N1bWVudEVsZW1lbnQmJihlPXRoaXMuZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50LGUuY2xhc3NOYW1lPWUuY2xhc3NOYW1lLnJlcGxhY2UoImktdWFfanNfbm8iLCJpLXVhX2pzX3llcyIpKyIgIit0LmdldEFsbCgpKX0oKTs8L3NjcmlwdD48L2hlYWQ+PGJvZHkgY2xhc3M9ImItcGFnZSBjc3MzLXRyYW5zaXRpb24tb2ZmIj48dGFibGUgY2xhc3M9ImItdGFibGUgbGF5b3V0X190YWJsZSI+PHRyIGNsYXNzPSJiLXRhYmxlX19yb3cgbGF5b3V0X19oZWFkZXIiPjx0ZCBjbGFzcz0iYi10YWJsZV9fY2VsbCBsYXlvdXRfX2hlYWRlci1jZWxsIj48ZGl2IGNsYXNzPSJwZXJzb25hbCBpLWJlbSIgZGF0YS1iZW09InsmcXVvdDtwZXJzb25hbCZxdW90Ozp7JnF1b3Q7YXV0aFVybCZxdW90OzomcXVvdDtodHRwczovL3lhbmRleC5ydS9kYXRhL21haWwuanM/eWFydT15JnF1b3Q7LCZxdW90O3JldHBhdGgmcXVvdDs6JnF1b3Q7aHR0cHMlM0ElMkYlMkZ5YS5ydSZxdW90OywmcXVvdDtzdGF0JnF1b3Q7OjB9fSI+PGEgaHJlZj0iaHR0cHM6Ly9tYWlsLnlhbmRleC5ydSIgY2xhc3M9ImxpbmtfYmxhY2tfbm92aXNpdCBsaW5rIGItaW5saW5lIGxpbmtfbG9nb3V0IiB0YWJpbmRleD0iMyI+PGRpdiBjbGFzcz0iYi1pbmxpbmUiPtCS0L7QudGC0LgmbmJzcDvQsiZuYnNwO9C/0L7Rh9GC0YM8L2Rpdj48L2E+PC9kaXY+PC90ZD48L3RyPjx0ciBjbGFzcz0iYi10YWJsZV9fcm93IGxheW91dF9fc2VhcmNoIj48dGQgY2xhc3M9ImItdGFibGVfX2NlbGwiPjxmb3JtIGNsYXNzPSJzZWFyY2gyIHN1Z2dlc3QyLWZvcm0gc3VnZ2VzdDItZm9ybV9fbm9kZSBzdWdnZXN0Mi1jb3VudGVyIGktYmVtIiBhY3Rpb249Imh0dHBzOi8veWFuZGV4LnJ1L3NlYXJjaC8iIHJvbGU9InNlYXJjaCIgYXJpYS1sYWJlbD0i0J/QvtC40YHQuiDQsiDQuNC90YLQtdGA0L3QtdGC0LUiIG9uY2xpY2s9InJldHVybiB7JnF1b3Q7c3VnZ2VzdDItZm9ybSZxdW90Ozp7fSwmcXVvdDtzdWdnZXN0Mi1jb3VudGVyJnF1b3Q7OnsmcXVvdDtzZXJ2aWNlJnF1b3Q7OiZxdW90O21vcmRhX3J1X2Rlc2t0b3AmcXVvdDssJnF1b3Q7aG9zdCZxdW90OzomcXVvdDsvL3lhbmRleC5ydS9jbGNrJnF1b3Q7LCZxdW90O3BhdGgmcXVvdDs6JnF1b3Q7amNsY2smcXVvdDssJnF1b3Q7c3VibWl0QnlTZWxlY3QmcXVvdDs6dHJ1ZSwmcXVvdDtwcmV2ZW50U3VibWl0JnF1b3Q7OnRydWUsJnF1b3Q7c3VnZ2VzdFJlcUlEJnF1b3Q7OnRydWUsJnF1b3Q7cGFyYW1zJnF1b3Q7OnsmcXVvdDtkdHlwZSZxdW90OzomcXVvdDtzdHJlZCZxdW90OywmcXVvdDtwaWQmcXVvdDs6JnF1b3Q7MCZxdW90OywmcXVvdDtjaWQmcXVvdDs6JnF1b3Q7Mjg3MyZxdW90O319LCZxdW90O3NlYXJjaDImcXVvdDs6eyZxdW90O2NsZWFuT25TdWJtaXQmcXVvdDs6ZmFsc2UsJnF1b3Q7bmwmcXVvdDs6dHJ1ZX19Ij48aW5wdXQgdHlwZT0iaGlkZGVuIiBuYW1lPSJtc2lkIiB2YWx1ZT0iMTUwNTY4MTk3Ni43MDI0Ny4yMjg5MS4yMDU0MyIvPjxkaXYgY2xhc3M9InNlYXJjaDJfX2lucHV0Ij48c3BhbiBjbGFzcz0iaW5wdXQgc3VnZ2VzdDItZm9ybV9faW5wdXQgaW5wdXRfc2l6ZV94bCBpbnB1dF90aGVtZV93ZWJzZWFyY2ggaW5wdXRfc2VhcmNoMi1jbGVhci1oaWRlX3llcyBpbnB1dF9hdXRvZm9jdXNfY2FwdHVyZSBpbnB1dF9jbGVhcl95ZXMgaS1iZW0iIGRhdGEtYmVtPSJ7JnF1b3Q7aW5wdXQmcXVvdDs6eyZxdW90O2xpdmUmcXVvdDs6ZmFsc2UsJnF1b3Q7YXV0b0ZvY3VzJnF1b3Q7OnRydWV9fSI+PHNwYW4gY2xhc3M9ImlucHV0X19ib3giPjxzcGFuIGNsYXNzPSJpbnB1dF9fY2xlYXIiIHVuc2VsZWN0YWJsZT0ib24iPiZuYnNwOzwvc3Bhbj48aW5wdXQgY2xhc3M9ImlucHV0X19jb250cm9sIGlucHV0X19pbnB1dCIgdGFiaW5kZXg9IjIiIGF1dG9jb21wbGV0ZT0ib2ZmIiBhdXRvY29ycmVjdD0ib2ZmIiBhdXRvY2FwaXRhbGl6ZT0ib2ZmIiBzcGVsbGNoZWNrPSJmYWxzZSIgYXJpYS1hdXRvY29tcGxldGU9Imxpc3QiIGFyaWEtbGFiZWw9ItCX0LDQv9GA0L7RgSIgaWQ9InRleHQiIG1heGxlbmd0aD0iNDAwIiBuYW1lPSJ0ZXh0Ii8+PC9zcGFuPjwvc3Bhbj48L2Rpdj48ZGl2IGNsYXNzPSJzZWFyY2gyX19idXR0b24iPjxidXR0b24gY2xhc3M9ImJ1dHRvbiBzdWdnZXN0Mi1mb3JtX19idXR0b24gYnV0dG9uX3RoZW1lX3dlYnNlYXJjaCBidXR0b25fc2l6ZV94bCBpLWJlbSIgZGF0YS1iZW09InsmcXVvdDtidXR0b24mcXVvdDs6e319IiB0YWJpbmRleD0iLTEiIHJvbGU9ImJ1dHRvbiIgdHlwZT0ic3VibWl0Ij48c3BhbiBjbGFzcz0iYnV0dG9uX190ZXh0Ij7QndCw0LnRgtC4PC9zcGFuPjwvYnV0dG9uPjwvZGl2PjxkaXYgY2xhc3M9ImktYmVtIHBvcHVwIHN1Z2dlc3QyIHN1Z2dlc3QyX3RoZW1lX3RyYW5zcGFyZW50IHN1Z2dlc3QyX3NpemVfbSBzdWdnZXN0Ml9hZGFwdGl2ZV95ZXMgc3VnZ2VzdDJfdHlwZV9hZHZhbmNlZCBzdWdnZXN0Ml9haGVhZF95ZXMgcG9wdXBfYWRhcHRpdmVfeWVzIHBvcHVwX2FuaW1hdGVfbm8gcG9wdXBfYXV0b2Nsb3NhYmxlX3llcyBwb3B1cF90aGVtZV9mZmZmZmYiIGRhdGEtYmVtPSJ7JnF1b3Q7cG9wdXAmcXVvdDs6eyZxdW90O2RpcmVjdGlvbnMmcXVvdDs6JnF1b3Q7Ym90dG9tLWxlZnQmcXVvdDt9LCZxdW90O3N1Z2dlc3QyJnF1b3Q7OnsmcXVvdDt1cmwmcXVvdDs6JnF1b3Q7Ly9zdWdnZXN0LnlhbmRleC5ydS9zdWdnZXN0LXlhLmNnaT9zcnY9bW9yZGFfcnVfZGVza3RvcCZhbXA7d2l6PVRyV3RoJmFtcDt1aWw9cnUmYW1wO2ZhY3Q9MSZhbXA7dj00JmFtcDtpY29uPTEmYW1wO2xyPTE1JmFtcDtobD0xJmFtcDtiZW1qc29uPTEmYW1wO2h0bWw9MSZhbXA7eXU9NDUzMzg2MTUzMTUwNTY4MTk3NiZxdW90OywmcXVvdDtvbkZvY3VzJnF1b3Q7OiZxdW90O3Nob3cmcXVvdDssJnF1b3Q7YWhlYWRGcm9tU2VydmVyJnF1b3Q7OnRydWUsJnF1b3Q7c3VibWl0QnlTZWxlY3QmcXVvdDs6dHJ1ZSwmcXVvdDtyZXF1ZXN0T25FbXB0eUlucHV0JnF1b3Q7OmZhbHNlfSwmcXVvdDtzdWdnZXN0Mi1kZXRlY3QmcXVvdDs6e319Ij48ZGl2IGNsYXNzPSJwb3B1cF9fdW5kZXIiPjwvZGl2PjxkaXYgY2xhc3M9InBvcHVwX19jb250ZW50Ij4gPC9kaXY+PC9kaXY+PC9mb3JtPjwvdGQ+PC90cj48dHIgY2xhc3M9ImItdGFibGVfX3JvdyBsYXlvdXRfX2Zvb3RlciI+PHRkIGNsYXNzPSJiLXRhYmxlX19jZWxsIj48YSBocmVmPSIvL3lhbmRleC5ydSIgY2xhc3M9ImxpbmsgbGF5b3V0X19mb290ZXItbG9nbyIgdGFiaW5kZXg9IjYiIHRpdGxlPSLQr9C90LTQtdC60YEg4oCUINC/0L7QuNGB0Log4oSWMSDQsiDQoNC+0YHRgdC40LgiPjwvYT48L3RkPjwvdHI+PC90YWJsZT48c2NyaXB0IHNyYz0iLy95YXN0YXRpYy5uZXQvanF1ZXJ5LzEuOC4zL2pxdWVyeS5taW4uanMiPjwvc2NyaXB0PjxzY3JpcHQgc3JjPSIvL3lhc3RhdGljLm5ldC93d3cvMi4xMzUxL3doaXRlL3BhZ2VzL3lhcnUvX3lhcnUucnUuanMiPjwvc2NyaXB0PjxzY3JpcHQ+QkVNLkRPTS5zY29wZT0kKCdib2R5Jyk7TGVnby5pbml0KHsibG9jYWxlIjoicnUiLCJtc2lkIjoiMTUwNTY4MTk3Ni43MDI0Ny4yMjg5MS4yMDU0MyIsImpzTWRhVXJsIjoiaHR0cHM6Ly95YW5kZXgucnUvcG9ydGFsL3NldC9hbnkvP3NrPXliNGEwMjllY2IxZWY1ZWZiOGRkNzY5NDZmY2FmOTQ1NCZtZGE9MCZlbXB0eT0xIiwiY2xpY2staG9zdCI6InlhbmRleC5ydS9jbGNrIiwicmV0cGF0aCI6Imh0dHBzOi8vbWFpbC55YW5kZXgucnUifSk7QkVNLkRPTS5pbml0KCk7PC9zY3JpcHQ+PHNjcmlwdD53aW5kb3cuaG9tZT13aW5kb3cuaG9tZXx8e307d2luZG93LmhvbWVbJ2V4cG9ydCddPXsiY29tbW9uIjp7ImNsaWNrLWhyZWYiOiJodHRwczovL3lhbmRleC5ydS9jbGNrLyJ9LCJzdGF0bG9nIjp7ImNvbmZpZyI6eyJzdGF0Um9vdCI6IiIsInNob3dJZCI6IjE1MDU2ODE5NzYuNzAyNDcuMjI4OTEuMjA1NDMiLCJlbmFibGVkIjpmYWxzZSwicmVkaXJIb3N0IjoiaHR0cHM6Ly95YW5kZXgucnUvY2xjay8iLCJjbGNrRGVtb25Ib3N0IjoiaHR0cHM6Ly95YW5kZXgucnUvY2xjay8iLCJ1c2VCZWFjb24iOmZhbHNlfX0sInRpbWluZyI6eyJ2YXJzIjp7IjE0MyI6IjI4LjE1LjUyMyIsIjI4NyI6IjE1IiwiMTk2MSI6MCwiMTk2NCI6MCwiMTk2NSI6MH0sInJlcWlkIjoiMTUwNTY4MTk3Ni43MDI0Ny4yMjg5MS4yMDU0MyJ9LCJleHAiOnsiZGF0YSI6IiJ9LCJzZXJ2aWNlLXdvcmtlciI6eyJtb2RlIjoib2ZmIiwidXJsIjoiL3BvcnRhbC9zZXJ2aWNlLXdvcmtlci93aGl0ZS9feWFydS5qcyJ9fTtob21lLmRhdGFDYWxsYmFja3MmJmhvbWUuZGF0YUNhbGxiYWNrcy5mb3JFYWNoKGZ1bmN0aW9uKGNhbGxiYWNrKXtjYWxsYmFjaygpO30pOzwvc2NyaXB0PjxzY3JpcHQ+TGVnby5pbml0KHsnc3RhdFJvb3QnOiAnJywnc3RhdEVuYWJsZWQnOiBmYWxzZSwnbXNpZCc6ICcxNTA1NjgxOTc2LjcwMjQ3LjIyODkxLjIwNTQzJywnY2xpY2staG9zdCc6ICd5YW5kZXgucnUvY2xjayd9KTs8L3NjcmlwdD48c2NyaXB0PkJFTS5ET00uaW5pdCgpOzwvc2NyaXB0PjwhLS1ub2luZGV4LS0+PGRpdiBzdHlsZT0iZGlzcGxheTpub25lIiBjbGFzcz0icGFnZS1pbmZvIj57InN0YXRpYyI6IjIuMTM1MSJ9PC9kaXY+PCEtLS9ub2luZGV4LS0+PHNjcmlwdD4hZnVuY3Rpb24oKXsidXNlIHN0cmljdCI7dmFyIGU9ZnVuY3Rpb24oZSx0LG4pe2UmJih3aW5kb3dbInlhQ291bnRlciIrZV09bmV3IFlhLk1ldHJpa2EodCksbiYmKHdpbmRvdy5kZWZhdWx0TWV0cmlrYUNvdW50ZXI9d2luZG93WyJ5YUNvdW50ZXIiK2VdKSl9LHQ9ZnVuY3Rpb24oKXt0cnl7Zm9yKHZhciB0PVt7ImlkIjo3MjMyMzMsInRyYWNrTGlua3MiOnRydWV9XSxuPSIiLHI9MDtyPHQubGVuZ3RoOysrcil7dmFyIG89dFtyXTtuJiYoby5leHBlcmltZW50cz1uKSxlKG8uaWQsbywwPT09cil9fWNhdGNoKGEpe319LG49ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgic2NyaXB0Iik7bi5vbmxvYWQ9dCxuLnNyYz0iaHR0cHM6Ly9tYy55YW5kZXgucnUvbWV0cmlrYS93YXRjaC5qcyIsZG9jdW1lbnQuZ2V0RWxlbWVudHNCeVRhZ05hbWUoImJvZHkiKVswXS5hcHBlbmRDaGlsZChuKX0oKTs8L3NjcmlwdD48bm9zY3JpcHQ+PGRpdiBzdHlsZT0icG9zaXRpb246YWJzb2x1dGU7dG9wOjAiPjxpbWcgc3JjPSJodHRwczovL21jLnlhbmRleC5ydS93YXRjaC83MjMyMzMiIGFsdD0iIj48L2Rpdj48L25vc2NyaXB0PjxpIGNsYXNzPSJiLWNvdW50ZXIiIHN0eWxlPSJiYWNrZ3JvdW5kOiB1cmwoLy93d3cudG5zLWNvdW50ZXIucnUvVjEzYSoqKip5YW5kZXhfcnUvcnUvQ1AxMjUxL3Rtc2VjPXlhbmRleF95YS8wKTsiPjwvaT48IS0tZjY3Lndmcm9udC55YW5kZXgubmV0LS0+PC9ib2R5PjwvaHRtbD4=
+    http_version: 
+  recorded_at: Sun, 17 Sep 2017 20:59:36 GMT
+recorded_with: VCR 3.0.3
