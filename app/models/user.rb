@@ -21,7 +21,6 @@ class User < ApplicationRecord
     database_authenticatable
     registerable
     recoverable
-    rememberable
     trackable
     validatable
     omniauthable
@@ -327,10 +326,6 @@ class User < ApplicationRecord
         self[:last_online_at] &&
         self[:last_online_at] > ACTIVE_SITE_USER_INTERVAL.ago
       )
-  end
-
-  def remember_me
-    true
   end
 
   def avatar_url size
