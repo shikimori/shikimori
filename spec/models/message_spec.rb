@@ -16,10 +16,10 @@ describe Message do
 
     describe '#check_spam_abuse' do
       before do
-        allow(Messages::CheckSpamAbuse).to receive :call
-        allow(Messages::CheckHacked).to receive :call
+        allow(Messages::CheckSpamAbuse).to receive(:call).and_return true
+        allow(Messages::CheckHacked).to receive(:call).and_return true
       end
-      let!(:message) { create :message, :with_check_spam_abuse }
+      let!(:message) { create :message, :private, :with_check_spam_abuse }
 
       it do
         expect(Messages::CheckSpamAbuse).to have_received(:call).with message
