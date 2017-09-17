@@ -36,7 +36,7 @@ private
     flash[:notice] = I18n.t 'devise.omniauth_callbacks.success',
       kind: omniauth_data.provider.titleize
 
-    @resource.remember_me = true
+    # @resource.remember_me = true
     sign_in_and_redirect :user, @resource
 
     true
@@ -70,7 +70,7 @@ private
     flash[:notice] = I18n.t 'devise.omniauth_callbacks.register',
       kind: omniauth_data.provider.titleize
 
-    @resource.remember_me = true
+    # @resource.remember_me = true
     sign_in_and_redirect :user, @resource
   end
 
