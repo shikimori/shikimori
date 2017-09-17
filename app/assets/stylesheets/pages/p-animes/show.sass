@@ -134,6 +134,22 @@
       +gte_ipad
         float: right
 
+    &>.c-column:first-child:last-child
+      +column(1)
+      +gte_ipad
+        float: none
+
+      .b-db_entry-note
+        +iphone
+          +column(1)
+
+        +gte_ipad
+          +column(2)
+
+          &:nth-child(2)
+            border-top: none
+            padding-top: 0
+
   // блок "показать остальное"
   .related-shower
     +plashka

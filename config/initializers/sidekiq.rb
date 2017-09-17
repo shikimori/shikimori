@@ -4,10 +4,6 @@ require 'sidekiq/web'
 
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 Sidekiq::Web.set :sessions, Rails.application.config.session_options
-# Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-  # username == Rails.application.secrets.sidekiq_username &&
-    # password == Rails.application.secrets.sidekiq_password
-# end
 
 # The Delayed Extensions delay, delay_in and delay_until APIs are no longer
 # available by default. The extensions allow you to marshal job
