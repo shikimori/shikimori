@@ -40,8 +40,8 @@ class VideoExtractor::BaseExtractor
       end
     end
 
-  rescue OpenURI::HTTPError, EmptyContentError, URI::InvalidURIError,
-      SocketError, TypeError, Net::OpenTimeout => e
+  rescue *(Network::FaradayGet::NET_ERRORS + [EmptyContentError]) => e
+    nil
   end
 
   def hosting

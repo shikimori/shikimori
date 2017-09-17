@@ -44,7 +44,7 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
     sleep 1 unless Rails.env.test?
 
     open("http://i.ytimg.com/vi/#{matches[:key]}/mqdefault.jpg").read.present?
-  rescue OpenURI::HTTPError
+  rescue *Network::FaradayGet::NET_ERRORS
     false
   end
 end

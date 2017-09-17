@@ -10,7 +10,7 @@ class DbImport::MalImage
 
   def call
     @entry.image = download_image if image_policy.need_import?
-  rescue OpenURI::HTTPError
+  rescue *Network::FaradayGet::NET_ERRORS
   end
 
 private

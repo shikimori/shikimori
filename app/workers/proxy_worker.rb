@@ -4,7 +4,7 @@ class ProxyWorker
 
   def perform is_api
     if is_api
-      Retryable.retryable tries: 2, on: [OpenURI::HTTPError], sleep: 1 do
+      Retryable.retryable tries: 2, on: Network::FaradayGet::NET_ERRORS, sleep: 1 do
         api_import
       end
     else

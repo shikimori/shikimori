@@ -385,7 +385,7 @@ private
 
     update avatar: open(gravatar_url)
 
-  rescue OpenURI::HTTPError
+  rescue *Network::FaradayGet::NET_ERRORS
     update avatar: open('app/assets/images/globals/missing_avatar/x160.png')
   end
 

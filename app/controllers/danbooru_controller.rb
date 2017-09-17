@@ -6,14 +6,7 @@ class DanbooruController < ShikimoriController
 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36",
     ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
   }
-  EXCEPTIONS = [
-    Timeout::Error,
-    Net::ReadTimeout,
-    OpenSSL::SSL::SSLError,
-    Errno::ETIMEDOUT,
-    Errno::ECONNREFUSED,
-    OpenURI::HTTPError
-  ]
+  EXCEPTIONS = Network::FaradayGet::NET_ERRORS
 
   def autocomplete
     @collection = DanbooruTagsQuery.new(params[:search]).complete

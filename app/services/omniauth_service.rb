@@ -77,7 +77,7 @@ private
   def get_avatar url
     @user.avatar = open url
 
-  rescue OpenURI::HTTPError, URI::InvalidURIError, SocketError, Net::OpenTimeout, Errno::ECONNRESET
+  rescue *Network::FaradayGet::NET_ERRORS
     @user.avatar = nil
   end
 
