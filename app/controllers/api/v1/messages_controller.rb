@@ -18,10 +18,16 @@ class Api::V1::MessagesController < Api::V1Controller
   end
   error code: 422
   def create
-    if faye.create(@resource) && frontent_request?
-      render :message, locals: { notice: i18n_t('message.created') }
+    if faye.create @resource
+      if frontent_request?
+        render :message, locals: { notice: i18n_t('message.created') }
+      else
+        respond_with @resource.decorate
+      end
     else
-      respond_with @resource.decorate
+      render json: {
+        errors: @resource.errors.full_messages
+      }, status: 422
     end
   end
 
@@ -32,10 +38,16 @@ class Api::V1::MessagesController < Api::V1Controller
   end
   error code: 422
   def update
-    if faye.update(@resource, update_params) && frontent_request?
-      render :message, locals: { notice: i18n_t('message.updated') }
+    if faye.update @resource, update_params
+      if frontent_request?
+        render :message, locals: { notice: i18n_t('message.updated') }
+      else
+        respond_with @resource.decorate
+      end
     else
-      respond_with @resource.decorate
+      render json: {
+        errors: @resource.errors.full_messages
+      }, status: 422
     end
   end
 
