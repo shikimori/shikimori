@@ -15,16 +15,23 @@ describe Message do
     let(:user) { build_stubbed :user, :user }
 
     describe '#check_spam_abuse' do
-      before { allow(Messages::CheckSpamAbuse).to receive :call }
-      let!(:message) { create :message }
-      it { expect(Messages::CheckSpamAbuse).to have_received(:call).with message }
+      before do
+        allow(Messages::CheckSpamAbuse).to receive :call
+        allow(Messages::CheckHacked).to receive :call
+      end
+      let!(:message) { create :message, :with_check_spam_abuse }
+
+      it do
+        expect(Messages::CheckSpamAbuse).to have_received(:call).with message
+        expect(Messages::CheckHacked).to have_received(:call).with message
+      end
     end
 
     describe '#check_antispam' do
       before { Message.antispam = true }
       after { Message.antispam = false }
 
-      it 'works', :focis do
+      it 'works' do
         create :message, to: user, from: user
 
         expect(proc do

@@ -7,6 +7,7 @@ FactoryGirl.define do
 
     after :build do |message|
       message.stub :send_push_notifications
+      message.stub :check_spam_abuse
     end
 
     kind MessageType::Private
@@ -30,6 +31,9 @@ FactoryGirl.define do
 
     trait :with_push_notifications do
       after(:build) { |message| message.unstub :send_push_notifications }
+    end
+    trait :with_check_spam_abuse do
+      after(:build) { |message| message.unstub :check_spam_abuse }
     end
   end
 end

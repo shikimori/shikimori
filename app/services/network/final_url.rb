@@ -1,13 +1,5 @@
-class Network::FinalUrl < ServiceObjectBase
+class Network::FinalUrl
   method_object :url
-
-  GENERIC_ANDROID_URL = 'https://play.google.com/store/apps/details?id=%s&hl=ru'
-  MOBILE_ANDROID_URL = %r{
-    market://details\?id=
-      (?<id>
-       .*? (?= &|$ )
-      )
-  }mix
 
   def call
     result = faraday_get url

@@ -18,7 +18,8 @@ class Message < ApplicationRecord
     presence: true,
     if: ->(message) { kind == MessageType::Private }
 
-  before_create :check_spam_abuse
+  before_create :check_spam_abuse,
+    if: -> { kind == MessageType::Private && !from.bot? }
   after_create :send_email
   after_create :send_push_notifications
 
@@ -83,7 +84,8 @@ class Message < ApplicationRecord
 private
 
   def check_spam_abuse
-    Messages::CheckSpamAbuse.call self if kind == MessageType::Private
+    throw :abort unless Messages::CheckSpamAbuse.call(self)
+    throw :abort unless Messages::CheckHacked.call(self)
   end
 
   def send_email

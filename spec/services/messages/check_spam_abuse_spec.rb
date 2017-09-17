@@ -11,9 +11,13 @@ describe Messages::CheckSpamAbuse do
 
   context 'spam' do
     context 'link' do
-      it { is_expected.to eq false }
-      it { expect(message.errors[:base]).to eq [I18n.t('messages/check_spam_abuse.ban_text', email: Site::EMAIL)] }
-      it { expect(Users::BanSpamAbuse).to have_received(:perform_async).with message.from_id }
+      it do
+        is_expected.to eq false
+        expect(message.errors[:base]).to eq [I18n.t('messages/check_spam_abuse.ban_text', email: Site::EMAIL)]
+        expect(Users::BanSpamAbuse)
+          .to have_received(:perform_async)
+          .with message.from_id
+      end
     end
 
     context 'phrase' do
@@ -25,16 +29,20 @@ describe Messages::CheckSpamAbuse do
   context 'not private message' do
     let(:kind) { :notification }
 
-    it { is_expected.to eq true }
-    it { expect(message.errors[:base]).to be_empty }
-    it { expect(Users::BanSpamAbuse).to_not have_received :perform_async }
+    it do
+      is_expected.to eq true
+      expect(message.errors[:base]).to be_empty
+      expect(Users::BanSpamAbuse).to_not have_received :perform_async
+    end
   end
 
   context 'not spam' do
     let(:text) { '' }
 
-    it { is_expected.to eq true }
-    it { expect(message.errors[:base]).to be_empty }
-    it { expect(Users::BanSpamAbuse).to_not have_received :perform_async }
+    it do
+      is_expected.to eq true
+      expect(message.errors[:base]).to be_empty
+      expect(Users::BanSpamAbuse).to_not have_received :perform_async
+    end
   end
 end

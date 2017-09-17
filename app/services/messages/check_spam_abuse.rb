@@ -1,6 +1,6 @@
-class Messages::CheckSpamAbuse < ServiceObjectBase
+class Messages::CheckSpamAbuse
   include Translation
-  pattr_initialize :message
+  method_object :message
 
   SPAM_LINKS = %r{
     cos30.ru/M=5j-N9 |
@@ -19,10 +19,11 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
   # rubocop:enable LineLength
 
   def call
-    if spam?
-      message.errors[:base] << ban_text
-      Users::BanSpamAbuse.perform_async message.from_id
-      NamedLogger.spam_abuse.info message.attributes.to_yaml
+    if spam? @message
+      message.errors.add :base, ban_text(@message)
+      Users::BanSpamAbuse.perform_async @message.from_id
+      NamedLogger.spam_abuse.info @message.attributes.to_yaml
+
       false
     else
       true
@@ -31,15 +32,16 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
 
 private
 
-  def spam?
-    message.kind == MessageType::Private &&
-      (
-        message.body =~ SPAM_LINKS ||
-        SPAM_PHRASES.any? { |phrase| message.body.include? phrase }
-      )
+  def spam? message
+    return false unless message.kind == MessageType::Private
+
+    (
+      message.body =~ SPAM_LINKS ||
+      SPAM_PHRASES.any? { |phrase| message.body.include? phrase }
+    )
   end
 
-  def ban_text
+  def ban_text message
     i18n_t :ban_text, email: Site::EMAIL, locale: message.from.locale
   end
 end

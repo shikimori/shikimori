@@ -1,8 +1,7 @@
-class Network::ExtractMetaRedirect < ServiceObjectBase
-  pattr_initialize :html
-  instance_cache :meta
+class Network::ExtractMetaRedirect
+  method_object :html
 
-  def perform
+  def call
     meta = Nokogiri::HTML(@html).css('meta[http-equiv="refresh"]').first
     return unless meta
 

@@ -108,5 +108,12 @@ en:
       You are banned for spam.
       Send a word to %{email} in case if you are innocent.
 
+  messages/check_hacked:
+    lock_text: >-
+      This accout was used to spam on the site. Account access has been blocked.
+      To recover access, use the password recovery page. %{recovery_url}
+      In order to avoid such situations in the future,
+      we recommend that you do not use simple passwords like "123", "qwerty", "anime", "naruto", etc.
+
   banhammer:
     ban_reason: '[url=%{url}]site rule #3[/url]'

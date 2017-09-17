@@ -1,4 +1,4 @@
-class Network::FaradayGet < ServiceObjectBase
+class Network::FaradayGet
   method_object :url
 
   TOO_LARGE_FOR_META_REDIRECT_SIZE = 10_000
@@ -6,7 +6,7 @@ class Network::FaradayGet < ServiceObjectBase
 
   NET_ERRORS = [
     Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError,
-    URI::InvalidURIError, NoMethodError, TypeError, OpenURI::HTTPError,
+    URI::InvalidURIError, OpenURI::HTTPError,
     SocketError, Net::OpenTimeout, Errno::ECONNRESET, Errno::ETIMEDOUT,
     Faraday::ConnectionFailed,
     (Addressable::URI::InvalidURIError if defined? Addressable)

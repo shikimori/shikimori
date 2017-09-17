@@ -1,20 +1,19 @@
-class Users::BanSpamAbuse
+class Users::LockHacked
   include Sidekiq::Worker
   sidekiq_options queue: :critical
-
-  BAN_DURATION = 100.years
 
   def perform user_id
     user = User.find user_id
 
-    ban user
+    lock user
     notify user
   end
 
 private
 
-  def ban user
-    user.read_only_at = BAN_DURATION.from_now
+  def lock user
+    user.password = Devise.friendly_token
+    user.api_access_token = Devise.friendly_token
     user.save! validate: false
   end
 
@@ -29,9 +28,12 @@ private
 
   def ban_text user
     I18n.t(
-      'messages/check_spam_abuse.ban_text',
+      'messages/check_hacked.lock_text',
       email: Site::EMAIL,
-      locale: user.locale
+      locale: user.locale,
+      recovery_url: UrlGenerator.instance.new_user_password_url(
+        protocol: Site::ALLOWED_PROTOCOL
+      )
     )
   end
 end

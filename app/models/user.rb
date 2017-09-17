@@ -235,7 +235,7 @@ class User < ApplicationRecord
 
   # бот ли пользователь
   def bot?
-    BotsService.posters.include?(id) || id == COSPLAYER_ID
+    BotsService.posters.include?(id) || id == COSPLAYER_ID || id == BANHAMMER_ID
   end
 
   def censored?

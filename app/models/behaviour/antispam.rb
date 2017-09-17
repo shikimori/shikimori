@@ -37,16 +37,13 @@ module Antispam
   def check_antispam
     return if id # если id есть, значит это редактирование
     return unless with_antispam?
-    return if User::ADMINS.include?(user_id)
+    return if user.admin? || user.bot?
 
     prior = self
       .class
       .where(user_id: user_id)
       .order(id: :desc)
       .first
-
-    return unless prior
-    return if BotsService.posters.include?(self.user_id)
 
     if prior && DateTime.now.to_i - prior.created_at.to_i < 3
       interval = 3 - (DateTime.now.to_i - prior.created_at.to_i)
