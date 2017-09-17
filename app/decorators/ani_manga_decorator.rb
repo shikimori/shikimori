@@ -1,3 +1,4 @@
+# TODO: refactor ro view objects
 class AniMangaDecorator < DbEntryDecorator
   include AniMangaDecorator::UrlHelpers
   include AniMangaDecorator::SeoHelpers

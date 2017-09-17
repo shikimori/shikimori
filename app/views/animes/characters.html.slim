@@ -2,17 +2,25 @@
   = cache [@resource, params[:action]] do
     - if @resource.roles.main_characters.any?
       .block.m0
-        h2.subheadline.m10 = t '.main_characters'
-        .cc.eight-characters.to-process[
-          data-dynamic="cutted_covers" 
+        - if @resource.roles.supporting_characters.any?
+          h2.subheadline.m10 = t '.main_characters'
+        - else
+          h2.subheadline.m10 = t '.characters'
+
+        .cc-characters.to-process[
+          data-dynamic="cutted_covers"
           data-ratio_type="person"
         ]
           = render @resource.roles.main_characters
 
     - if @resource.roles.supporting_characters.any?
       .block.m0
-        h2.subheadline.m10 = t '.supporting_characters'
-        .cc.eight-characters.to-process[
+        - if @resource.roles.main_characters.any?
+          h2.subheadline.m10 = t '.supporting_characters'
+        - else
+          h2.subheadline.m10 = t '.characters'
+
+        .cc-characters.to-process[
           data-dynamic="cutted_covers"
           data-ratio_type="person"
         ]

@@ -41,13 +41,22 @@
             collection: @resource.roles.main_people
 
 - if @resource.roles.main_characters.any?
-  .cc.m0.eight-characters
+  .cc-characters
     .c-characters.m0
       .subheadline.m10
         span.linkeable data-href="#{@resource.characters_url}"
           = t 'animes.page.main_characters'
       .cc.m0.to-process data-dynamic="cutted_covers" data-ratio_type="person"
         = render @resource.roles.main_characters
+
+- elsif @resource.roles.supporting_characters.any?
+  .cc-characters
+    .c-characters.m0
+      .subheadline.m10
+        span.linkeable data-href="#{@resource.characters_url}"
+          = t 'animes.page.characters'
+      .cc.m0.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+        = render @resource.roles.supporting_characters.take(7)
 
 /- if @resource.roles.main_characters.any? || @resource.roles.main_people.any?
   .cc.m0 class="#{@resource.roles.grouping_class}"
