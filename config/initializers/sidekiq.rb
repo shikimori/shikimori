@@ -1,5 +1,13 @@
 # https://github.com/mperham/sidekiq/issues/750
 require 'sidekiq/middleware/i18n'
+require 'sidekiq/web'
+
+Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
+Sidekiq::Web.set :sessions, Rails.application.config.session_options
+# Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+  # username == Rails.application.secrets.sidekiq_username &&
+    # password == Rails.application.secrets.sidekiq_password
+# end
 
 # The Delayed Extensions delay, delay_in and delay_until APIs are no longer
 # available by default. The extensions allow you to marshal job
@@ -9,11 +17,6 @@ require 'sidekiq/middleware/i18n'
 # Sidekiq is designed for jobs with small, simple arguments.
 # Add this line to your initializer to re-enable them and get the old behavior:
 Sidekiq::Extensions.enable_delay!
-
-if defined? Sidekiq::Web
-  Sidekiq::Web.set :sessions, Rails.application.config.session_options
-  Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
-end
 
 SidekiqUniqueJobs.config.unique_args_enabled = true
 SidekiqUniqueJobs.config.default_expiration = 30.days
