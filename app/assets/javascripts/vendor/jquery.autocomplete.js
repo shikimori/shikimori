@@ -1,5 +1,5 @@
 /*
- * jQuery Autocomplete plugin 1.2.3
+ * jQuery Autocomplete plugin 1.1
  *
  * Copyright (c) 2009 Jörn Zaefferer
  *
@@ -7,13 +7,10 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  *
- * With small modifications by Alfonso Gómez-Arzola.
- * See changelog for details.
- *
+ * Revision: $Id: jquery.autocomplete.js 15 2009-08-22 10:30:27Z joern.zaefferer $
  */
 
-// taken from https://github.com/agarzola/jQueryAutocompletePlugin with some fixes
-
+// плагин сильно пропатчен!
 ;(function($) {
 
 $.fn.extend({
@@ -23,8 +20,7 @@ $.fn.extend({
       url: isUrl ? urlOrData : null,
       data: isUrl ? null : urlOrData,
       delay: isUrl ? $.Autocompleter.defaults.delay : 10,
-      max: options && !options.scroll ? 10 : 150,
-      noRecord: "No Records."
+      max: options && !options.scroll ? 10 : 150
     }, options);
 
     // if highlight is set to false, replace it with a do-nothing function
@@ -69,11 +65,6 @@ $.Autocompleter = function(input, options) {
     BACKSPACE: 8
   };
 
-  var globalFailure = null;
-  if(options.failure != null && typeof options.failure == "function") {
-    globalFailure = options.failure;
-  }
-
   // Create $ object for input element
   var $input = $(input).attr("autocomplete", "off").addClass(options.inputClass);
 
@@ -90,15 +81,15 @@ $.Autocompleter = function(input, options) {
   var blockSubmit;
 
   // prevent form submit in opera when selecting with return key
-  navigator.userAgent.indexOf("Opera") != -1 && $(input.form).bind("submit.autocomplete", function() {
+  $.browser.opera && $(input.form).bind("submit.autocomplete", function() {
     if (blockSubmit) {
       blockSubmit = false;
       return false;
     }
   });
 
-  // older versions of opera don't trigger keydown multiple times while pressed, others don't work with keypress at all
-  $input.bind((navigator.userAgent.indexOf("Opera") != -1 && !'KeyboardEvent' in window ? "keypress" : "keydown") + ".autocomplete", function(event) {
+  // only opera doesn't trigger keydown multiple times while pressed, others don't work with keypress at all
+  $input.bind(($.browser.opera ? "keypress" : "keydown") + ".autocomplete", function(event) {
     // a keypress means the input has focus
     // avoids issue where input had focus before the autocomplete was applied
     hasFocus = 1;
@@ -107,8 +98,8 @@ $.Autocompleter = function(input, options) {
     switch(event.keyCode) {
 
       case KEY.UP:
+        event.preventDefault();
         if ( select.visible() ) {
-          event.preventDefault();
           select.prev();
         } else {
           onChange(0, true);
@@ -116,8 +107,8 @@ $.Autocompleter = function(input, options) {
         break;
 
       case KEY.DOWN:
+        event.preventDefault();
         if ( select.visible() ) {
-          event.preventDefault();
           select.next();
         } else {
           onChange(0, true);
@@ -125,8 +116,8 @@ $.Autocompleter = function(input, options) {
         break;
 
       case KEY.PAGEUP:
+        event.preventDefault();
         if ( select.visible() ) {
-          event.preventDefault();
           select.pageUp();
         } else {
           onChange(0, true);
@@ -134,8 +125,8 @@ $.Autocompleter = function(input, options) {
         break;
 
       case KEY.PAGEDOWN:
+        event.preventDefault();
         if ( select.visible() ) {
-          event.preventDefault();
           select.pageDown();
         } else {
           onChange(0, true);
@@ -151,6 +142,8 @@ $.Autocompleter = function(input, options) {
           event.preventDefault();
           blockSubmit = true;
           return false;
+        } else {
+          event.preventDefault();
         }
         break;
 
@@ -174,16 +167,8 @@ $.Autocompleter = function(input, options) {
     }
   }).click(function() {
     // show select when clicking in a focused field
-    // but if clickFire is true, don't require field
-    // to be focused to begin with; just show select
-    if( options.clickFire ) {
-      if ( !select.visible() ) {
-        onChange(0, true);
-      }
-    } else {
-      if ( hasFocus++ > 1 && !select.visible() ) {
-        onChange(0, true);
-      }
+    if ( hasFocus++ > 1 && !select.visible() ) {
+      onChange(0, true);
     }
   }).bind("search", function() {
     // TODO why not just specifying both arguments?
@@ -207,7 +192,7 @@ $.Autocompleter = function(input, options) {
   }).bind("flushCache", function() {
     cache.flush();
   }).bind("setOptions", function() {
-    $.extend(true, options, arguments[1]);
+    $.extend(options, arguments[1]);
     // if we've updated the data, repopulate
     if ( "data" in arguments[1] )
       cache.populate();
@@ -257,12 +242,15 @@ $.Autocompleter = function(input, options) {
   }
 
   function onChange(crap, skipPrevCheck) {
+    if (!url()) {
+      return;
+    }
     if( lastKeyPressCode == KEY.DEL ) {
       select.hide();
       return;
     }
 
-    var currentValue = $input.val();
+    var currentValue = encodeURIComponent($input.val());
 
     if ( !skipPrevCheck && currentValue == previousValue )
       return;
@@ -270,7 +258,7 @@ $.Autocompleter = function(input, options) {
     previousValue = currentValue;
 
     currentValue = lastWord(currentValue);
-    if ( currentValue.length >= options.minChars && !currentValue.match(/^https?:\/\//)) {
+    if ( currentValue.length >= options.minChars && !currentValue.match(/^https?(?::\/\/|%3A%2F%2F)/)) {
       $input.addClass(options.loadingClass);
       if (!options.matchCase)
         currentValue = currentValue.toLowerCase();
@@ -370,14 +358,8 @@ $.Autocompleter = function(input, options) {
       term = term.toLowerCase();
     var data = cache.load(term);
     // recieve the cached data
-    if (data) {
-      if(data.length)  {
-        success(term, data);
-      }
-      else{
-        var parsed = options.parse && options.parse(options.noRecord) || parse(options.noRecord);
-        success(term,parsed);
-      }
+    if (data && data.length) {
+      success(term, data);
     // if an AJAX url has been supplied, try loading the data now
     } else if( (typeof options.url == "string") && (options.url.length > 0) ){
 
@@ -388,7 +370,10 @@ $.Autocompleter = function(input, options) {
         extraParams[key] = typeof param == "function" ? param() : param;
       });
 
-      $.ajax({
+      if (arguments.callee.$ajax) {
+        arguments.callee.$ajax.abort();
+      }
+      arguments.callee.$ajax = $.ajax({
         // try to leverage ajaxQueue plugin to abort previous requests
         mode: "abort",
         // limit abortion to this input
@@ -406,12 +391,7 @@ $.Autocompleter = function(input, options) {
     } else {
       // if we have a failure, we need to empty the list -- this prevents the the [TAB] key from selecting the last successful match
       select.emptyList();
-      if(globalFailure != null) {
-        globalFailure();
-      }
-      else {
-        failure(term);
-      }
+      failure(term);
     }
   };
 
@@ -447,8 +427,8 @@ $.Autocompleter.defaults = {
   matchCase: false,
   matchSubset: true,
   matchContains: false,
-  cacheLength: 100,
-  max: 1000,
+  cacheLength: 10,
+  max: 100,
   mustMatch: false,
   extraParams: {},
   selectFirst: true,
@@ -457,15 +437,12 @@ $.Autocompleter.defaults = {
   autoFill: false,
   width: 0,
   multiple: false,
-  multipleSeparator: " ",
-  inputFocus: true,
-  clickFire: false,
+  multipleSeparator: ", ",
   highlight: function(value, term) {
     return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
   },
     scroll: true,
-    scrollHeight: 180,
-    scrollJumpPosition: true
+    scrollHeight: 180
 };
 
 $.Autocompleter.Cache = function(options) {
@@ -628,14 +605,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
     .hide()
     .addClass(options.resultsClass)
     .css("position", "absolute")
-    .appendTo(document.body)
-    .hover(function(event) {
-      // Browsers except FF do not fire mouseup event on scrollbars, resulting in mouseDownOnSelect remaining true, and results list not always hiding.
-      if($(this).is(":visible")) {
-        input.focus();
-      }
-      config.mouseDownOnSelect = false;
-    });
+    .appendTo(document.body);
 
     list = $("<ul/>").appendTo(element).mouseover( function(event) {
       if(target(event).nodeName && target(event).nodeName.toUpperCase() == 'LI') {
@@ -645,8 +615,8 @@ $.Autocompleter.Select = function (options, input, select, config) {
     }).click(function(event) {
       $(target(event)).addClass(CLASSES.ACTIVE);
       select();
-      if( options.inputFocus )
-        input.focus();
+      // TODO provide option to avoid setting focus again after selection? useful for cleanup-on-focus
+      input.focus();
       return false;
     }).mousedown(function() {
       config.mouseDownOnSelect = true;
@@ -688,16 +658,13 @@ $.Autocompleter.Select = function (options, input, select, config) {
   };
 
   function movePosition(step) {
-    if (options.scrollJumpPosition || (!options.scrollJumpPosition && !((step < 0 && active == 0) || (step > 0 && active == listItems.size() - 1)) )) {
-      active += step;
-      if (active < 0) {
-        active = listItems.size() - 1;
-      } else if (active >= listItems.size()) {
-        active = 0;
-      }
+    active += step;
+    if (active < 0) {
+      active = listItems.size() - 1;
+    } else if (active >= listItems.size()) {
+      active = 0;
     }
   }
-
 
   function limitNumberOfItems(available) {
     return options.max && options.max < available
@@ -711,7 +678,7 @@ $.Autocompleter.Select = function (options, input, select, config) {
     for (var i=0; i < max; i++) {
       if (!data[i])
         continue;
-      // var formatted = options.formatItem(data[i].data, i+1, max, data[i].value, term);
+
       var formatted = options.formatItem(data[i], i+1, max);
       if ( formatted === false )
         continue;
