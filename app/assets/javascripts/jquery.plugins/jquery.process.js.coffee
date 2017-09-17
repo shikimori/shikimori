@@ -98,15 +98,6 @@ process_current_dom = (root = document.body, JS_EXPORTS = window.JS_EXPORTS) ->
     .removeClass('unprocessed')
     .show_more()
 
-  # сворачиваение всех нужных блоков "свернуть"
-  ($.cookie('collapses') || '')
-    .replace(/;$/, '')
-    .split(';')
-    .forEach (v, k) ->
-      $with("#collapse-#{v}", $root)
-        .filter(':not(.triggered)')
-        .trigger('click', true)
-
   # выравнивание картинок в галерее аниме постеров
   $posters = $with('.align-posters.unprocessed', $root)
   if $posters.length
@@ -125,3 +116,16 @@ process_current_dom = (root = document.body, JS_EXPORTS = window.JS_EXPORTS) ->
         false
       else
         $(@).attr href: "#{href}?reason=#{reason}"
+
+  # с задержкой делаем потому, что collapsed блоки могут быть в контенте,
+  # загруженном аяксом, а process для таких случаев вызывается ещё до вставки в
+  # DOM
+  delay().then ->
+    # сворачиваение всех нужных блоков "свернуть"
+    ($.cookie('collapses') || '')
+      .replace(/;$/, '')
+      .split(';')
+      .forEach (id) ->
+        $("#collapse-#{id}")
+          .filter(':not(.triggered)')
+          .trigger('click', true)
