@@ -1,6 +1,7 @@
 // https://chrisbateman.github.io/webpack-visualizer/
 const webpack = require('webpack')
 const { environment } = require('@rails/webpacker')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 environment.loaders.get('babel').exclude =
   /node_modules\/(?!delay|p-defer|get-js)/
@@ -26,6 +27,11 @@ environment.plugins.set(
     throttle: 'throttle-debounce/throttle',
     debounce: 'throttle-debounce/debounce',
   })
+)
+
+environment.plugins.set(
+  'HardSourceWebpackPlugin',
+  new HardSourceWebpackPlugin()
 )
 
 // https://webpack.js.org/plugins/commons-chunk-plugin/
