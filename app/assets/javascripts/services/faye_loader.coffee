@@ -28,7 +28,7 @@ module.exports = class FayeLoader
 
     #@client.disable 'eventsource'
     @client.disable('websocket') if $.cookie('faye-disable-websocket')
-    console.log 'faye connected'
+    # console.log 'faye connected'
 
   # отписка ото всех не актуальных каналов
   unsubscribe: (channels) ->

@@ -10,15 +10,8 @@
 .p-recommendations-index,
 .p-userlist_comparer-show
   .l-content
-    &.ajax_request
-      &::before
-        background: #fff
-        content: ' '
-        height: 100%
-        opacity: 0.6
-        position: absolute
-        width: 100%
-        z-index: 1
+    &.b-ajax::after
+      display: none
 
   .cc-entries
     +clear_left

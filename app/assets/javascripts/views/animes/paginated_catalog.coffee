@@ -136,7 +136,7 @@ module.exports = class Animes.PaginatedCatalog
       url: url
       dataType: 'json'
       beforeSend: (xhr) =>
-        @$content.addClass('ajax_request')
+        @$content.addClass('b-ajax')
 
         if @pending_request && break_pending
           if 'abort' in pending_request
@@ -161,7 +161,7 @@ module.exports = class Animes.PaginatedCatalog
           else
             @_process_ajax_content cached_data, url
             @pending_request = null
-            @$content.removeClass('ajax_request')
+            @$content.removeClass('b-ajax')
 
         else
           pending_request = xhr
@@ -180,7 +180,7 @@ module.exports = class Animes.PaginatedCatalog
 
       complete: (xhr) =>
         @pending_request = null
-        @$content.removeClass('ajax_request')
+        @$content.removeClass('b-ajax')
 
       error: (xhr, status, error) =>
         if xhr?.responseText?.includes('age-restricted-warning')
@@ -197,7 +197,9 @@ module.exports = class Animes.PaginatedCatalog
 
     $content = $(data.content)
 
-    UserRatesTracker.track data.JS_EXPORTS, $content
+    # используем Object.clone т.к. UserRatesTracker изменяет передаваемый в него
+    # массив
+    UserRatesTracker.track Object.clone(data.JS_EXPORTS), $content
 
     # чтобы cutted_covers сработал
     if @$content.data 'dynamic'
