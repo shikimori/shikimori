@@ -1,7 +1,7 @@
 // https://chrisbateman.github.io/webpack-visualizer/
 const webpack = require('webpack')
 const { environment } = require('@rails/webpacker')
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
+// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 environment.loaders.get('babel').exclude =
   /node_modules\/(?!delay|p-defer|get-js)/
@@ -29,10 +29,10 @@ environment.plugins.set(
   })
 )
 
-environment.plugins.set(
-  'HardSourceWebpackPlugin',
-  new HardSourceWebpackPlugin()
-)
+// environment.plugins.set(
+  // 'HardSourceWebpackPlugin',
+  // new HardSourceWebpackPlugin()
+// )
 
 // https://webpack.js.org/plugins/commons-chunk-plugin/
 environment.plugins.set(
