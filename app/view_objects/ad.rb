@@ -8,22 +8,26 @@ class Ad < ViewObjectBase
   BANNERS = {
     istari_x300: {
       provider: Types::Ad::Provider[:istari],
-      url: 'http://kimi.istaricomics.com',
-      src: '/assets/globals/events/i1_1.jpg',
-      src_2x: '/assets/globals/events/i1_1@2x.jpg',
+      url: 'https://vk.com/istaricomics',
+      images: (1..5).map do |i|
+        {
+          src: "/assets/globals/events/i2_#{i}.jpg",
+          src_2x: "/assets/globals/events/i2_#{i}@2x.jpg"
+        }
+      end,
       rules: {
-        cookie: 'i1_1',
+        cookie: 'i2',
         shows_per_week: 30
       },
       placement: Types::Ad::Placement[:menu]
     },
-    istari_x1170: {
-      provider: Types::Ad::Provider[:istari],
-      url: 'http://kimi.istaricomics.com',
-      src: '/assets/globals/events/i1_2.jpg',
-      src_2x: '/assets/globals/events/i1_2@2x.jpg',
-      placement: Types::Ad::Placement[:content]
-    },
+    # istari_x1170: {
+      # provider: Types::Ad::Provider[:istari],
+      # url: 'http://kimi.istaricomics.com',
+      # src: '/assets/globals/events/i1_2.jpg',
+      # src_2x: '/assets/globals/events/i1_2@2x.jpg',
+      # placement: Types::Ad::Placement[:content]
+    # },
     advrtr_x728: {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 1_256,
@@ -164,8 +168,9 @@ private
     if yandex_direct?
       "<div id='#{@banner_type}'></div>"
     elsif istari?
+      image = banner[:images].sample
       "<a href='#{banner[:url]}'>"\
-        "<img src='#{banner[:src]}' srcset='#{banner[:src_2x]} 2x'></a>"
+        "<img src='#{image[:src]}' srcset='#{image[:src_2x]} 2x'></a>"
     else
       "<iframe src='#{advertur_url}' width='#{banner[:width]}px' "\
         "height='#{banner[:height]}px'>"

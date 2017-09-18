@@ -188,22 +188,22 @@ describe Ad do
     context 'istari' do
       let(:cookie_key) { Ad::BANNERS[:istari_x300][:rules][:cookie] }
 
-      context 'without rules' do
-        let(:banner_type) { :istari_x1170 }
-        it do
-          is_expected.to eq(
-            <<-HTML.gsub(/\n|^\ +/, '')
-              <div class="b-spnsrs-istari_x1170">
-                <center>
-                  <a href='http://kimi.istaricomics.com'>
-                    <img src='/assets/globals/events/i1_2.jpg' srcset='/assets/globals/events/i1_2@2x.jpg 2x'>
-                  </a>
-                </center>
-              </div>
-            HTML
-          )
-        end
-      end
+      # context 'without rules' do
+        # let(:banner_type) { :istari_x1170 }
+        # it do
+          # is_expected.to eq(
+            # <<-HTML.gsub(/\n|^\ +/, '')
+              # <div class="b-spnsrs-istari_x1170">
+                # <center>
+                  # <a href='http://kimi.istaricomics.com'>
+                    # <img src='/assets/globals/events/i1_2.jpg' srcset='/assets/globals/events/i1_2@2x.jpg 2x'>
+                  # </a>
+                # </center>
+              # </div>
+            # HTML
+          # )
+        # end
+      # end
 
       context 'with rules' do
         let(:banner_type) { :istari_x300 }
