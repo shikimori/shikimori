@@ -1,7 +1,25 @@
+# слияния ишноров с шики и мал графа
+=begin
+loader = { 'A' => Anime, 'M' => Manga };
+shiki_data = YAML.load_file(BannedRelations::CONFIG_PATH);
+mal_data = JSON.parse(open('https://raw.githubusercontent.com/anime-plus/graph/master/data/banned-franchise-coupling.json').read).map {|k,v| ([k] + v) };
+
+combined_data = (shiki_data + mal_data).map(&:sort).sort.uniq.map do |ids|
+  ids.map do |id|
+    "#{id[0]}#{id[/\d+/]}###" + loader[id[0]].find(id[/\d+/]).name
+  end
+end;
+
+File.open(BannedRelations::CONFIG_PATH, 'w') do |v|
+  v.write(
+    data.to_yaml.gsub(/^- -/, "-\n  -").gsub('###', ' # ').gsub("'", '')
+  )
+end
+=end
 class BannedRelations
   include Singleton
 
-  CONFIG_PATH = Rails.root.join 'config/app/banned-franchise-coupling.lst'
+  CONFIG_PATH = "#{Rails.root}/config/app/banned-franchise-coupling.yml"
 
   def anime id
     animes[id] || []
@@ -46,16 +64,15 @@ private
     @banned ||= malgraph_data
       .each_with_object({animes: [], mangas: []}) do |group, memo|
         if group.first.starts_with? 'A'
-          memo[:animes] << group.map {|v| v.sub(/^A/, '').to_i }
+          memo[:animes] << group.map {|v| v.sub(/^A|-.*$/, '').to_i }
         else
-          memo[:mangas] << group.map {|v| v.sub(/^M/, '').to_i }
+          memo[:mangas] << group.map {|v| v.sub(/^M|-.*$/, '').to_i }
         end
       end
   end
 
   # TODO: migrate to https://github.com/anime-plus/graph/blob/master/data/banned-franchise-coupling.json
   def malgraph_data
-    data = open(CONFIG_PATH).read
-    LstParser.new.parse(data)
+    YAML.load_file CONFIG_PATH
   end
 end
