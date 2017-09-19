@@ -6,15 +6,17 @@ mal_data = JSON.parse(open('https://raw.githubusercontent.com/anime-plus/graph/m
 
 combined_data = (shiki_data + mal_data).map(&:sort).sort.uniq.map do |ids|
   ids.map do |id|
-    "#{id[0]}#{id[/\d+/]}###" + loader[id[0]].find(id[/\d+/]).name
+    "#{id[0]}#{id[/\d+/]}###" + loader[id[0]].find(id[/\d+/]).name[0..60]
   end
 end;
 
 File.open(BannedRelations::CONFIG_PATH, 'w') do |v|
   v.write(
-    data.to_yaml.gsub(/^- -/, "-\n  -").gsub('###', ' # ').gsub("'", '')
+    combined_data.to_yaml.gsub(/^- -/, "-\n  -").gsub('###', ' # ').gsub("'", '')
   )
-end
+end;
+
+ap combined_data
 =end
 class BannedRelations
   include Singleton
