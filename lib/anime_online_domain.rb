@@ -1,4 +1,4 @@
-odule AnimeOnlineDomain
+module AnimeOnlineDomain
   DOMAIN_COMMON = 'play'
   DOMAIN_ADULT = 'xplay'
   HOST_PLAY = "#{DOMAIN_COMMON}.shikimori.#{Rails.env.development? ? :dev : :org}"
