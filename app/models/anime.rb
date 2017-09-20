@@ -25,7 +25,7 @@ class Anime < DbEntry
   ADULT_RATING = 'rx'
   SUB_ADULT_RATING = 'r_plus'
   # забанено роскомнадзором
-  FORBIDDEN_ADULT_IDS = [5042, 7593, 8861]
+  FORBIDDEN_ADULT_IDS = [5042, 7593, 8861, 6987]
 
   has_and_belongs_to_many :genres
   has_and_belongs_to_many :studios
