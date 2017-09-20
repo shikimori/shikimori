@@ -24,6 +24,8 @@ class Anime < DbEntry
 
   ADULT_RATING = 'rx'
   SUB_ADULT_RATING = 'r_plus'
+  # забанено роскомнадзором
+  FORBIDDEN_ADULT_IDS = [5042, 7593, 8861]
 
   has_and_belongs_to_many :genres
   has_and_belongs_to_many :studios
@@ -188,12 +190,12 @@ class Anime < DbEntry
     ongoing? || anons? || (aired_on && aired_on > 1.year.ago)
   end
 
-  def adult?
-    censored || ADULT_RATING == rating# || (
-      # SUB_ADULT_RATING == rating &&
-      # ((kind_ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || kind_special?)
-    # )
-  end
+  # def adult?
+    # censored || ADULT_RATING == rating# || (
+      # # SUB_ADULT_RATING == rating &&
+      # # ((kind_ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || kind_special?)
+    # # )
+  # end
 
   def name
     self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if self[:name].present?
@@ -254,6 +256,17 @@ class Anime < DbEntry
   def torrents_1080p=(data)
     BlobData.set("anime_%d_torrents_1080p" % id, data) unless data.empty?
     @torrents_1080p = nil
+  end
+
+  # забанено роскомнадзором
+  def forbidden?
+    FORBIDDEN_ADULT_IDS.include? id
+  end
+
+  def censored?
+    super ||
+      ADULT_RATING == rating ||
+      (kind_ova? && SUB_ADULT_RATING == rating)
   end
 
 private

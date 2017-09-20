@@ -132,6 +132,10 @@ class Manga < DbEntry
     Manga::DURATION
   end
 
+  def forbidden?
+    false
+  end
+
 private
 
   def set_type

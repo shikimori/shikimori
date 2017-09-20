@@ -31,7 +31,7 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def files?
-    anime? && display_sensitive? &&
+    anime? && display_sensitive? && !forbidden? &&
       h.user_signed_in? && h.current_user.day_registered?
   end
 

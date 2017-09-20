@@ -2,7 +2,7 @@
   "name": "shikimori",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "morr/webpacker#cache-loader",
+    "@rails/webpacker": "^3.0.1",
     "autosize": "^4.0.0",
     "axios": "^0.16.2",
     "blueimp-md5": "^2.10.0",

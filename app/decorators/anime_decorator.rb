@@ -18,6 +18,7 @@ class AnimeDecorator < AniMangaDecorator
     return [] if Copyright::SCREENSHOTS.include?(id)
     return [] unless h.ignore_copyright?
     return [] unless display_sensitive?
+    # return [] if forbidden?
 
     @screenshots ||= {}
     @screenshots[limit] ||=
@@ -30,7 +31,9 @@ class AnimeDecorator < AniMangaDecorator
 
   # видео
   def videos limit = nil
-    return [] if Copyright::VIDEOS.include?(id) || !h.ignore_copyright?
+    return [] if Copyright::VIDEOS.include?(id)
+    return unless h.ignore_copyright?
+    # return [] if forbidden?
 
     @videos ||= {}
     @videos[limit] ||=

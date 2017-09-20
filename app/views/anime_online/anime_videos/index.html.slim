@@ -18,7 +18,7 @@
       .subheadline Просмотр недоступен
       p Отключено по требованию правообладателя.
 
-  - elsif @resource.censored?
+  - elsif @resource.censored? || @resource.forbidden?
     .b-errors
       .subheadline Просмотр недоступен
       p Отключено после принятия в 2016 году закона в РФ,

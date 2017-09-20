@@ -14,8 +14,6 @@ environment.loaders.set('jade', {
   exclude: /node_modules/
 })
 
-environment.plugins.get('ExtractText').options.allChunks = true
-
 environment.plugins.set(
   'Provide',
   new webpack.ProvidePlugin({
@@ -35,6 +33,7 @@ environment.plugins.set(
 // )
 
 // https://webpack.js.org/plugins/commons-chunk-plugin/
+environment.plugins.get('ExtractText').options.allChunks = true
 environment.plugins.set(
   'CommonsChunk',
   new webpack.optimize.CommonsChunkPlugin({

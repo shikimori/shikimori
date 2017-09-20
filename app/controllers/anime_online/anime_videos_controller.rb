@@ -14,6 +14,8 @@ class AnimeOnline::AnimeVideosController < AnimesController
   ]
 
   def index
+    raise ActionController::RoutingError, 'Not Found' if @anime.forbidden?
+
     @player = AnimeOnline::VideoPlayer.new @anime
     @video = @player.current_video
     page_title @player.episode_title

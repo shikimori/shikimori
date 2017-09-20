@@ -244,7 +244,7 @@ private
       gon.push watch_online: {
         is_allowed: ignore_copyright?,
         is_licensed: @resource.licensed?,
-        is_censored: @resource.censored?,
+        is_censored: @resource.censored? || @resource.forbidden?,
         has_videos: @resource.anime_videos?,
         watch_url: @resource.video_online_url,
         upload_url: @resource.upload_first_video_online_url
