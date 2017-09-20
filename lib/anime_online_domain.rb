@@ -1,4 +1,4 @@
-module AnimeOnlineDomain
+odule AnimeOnlineDomain
   DOMAIN_COMMON = 'play'
   DOMAIN_ADULT = 'xplay'
   HOST_PLAY = "#{DOMAIN_COMMON}.shikimori.#{Rails.env.development? ? :dev : :org}"
@@ -11,7 +11,7 @@ module AnimeOnlineDomain
   end
 
   def self.valid_host? anime, request
-    if anime.adult?
+    if anime.censored?
       self.adult_host? request
     else
       !!(request.host =~ /^#{DOMAIN_COMMON}\./)
@@ -23,7 +23,7 @@ module AnimeOnlineDomain
   end
 
   def self.host anime
-    if anime.adult?
+    if anime.censored?
       AnimeOnlineDomain::HOST_XPLAY
     else
       AnimeOnlineDomain::HOST_PLAY

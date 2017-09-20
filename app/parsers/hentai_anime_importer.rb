@@ -3,6 +3,6 @@
 
   # def find_match entry
     # anime = super
-    # anime if anime && anime.adult?
+    # anime if anime && anime.censored?
   # end
 # end
