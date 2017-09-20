@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@rails/webpacker@^3.0.1":
+"@rails/webpacker@morr/webpacker#cache-loader":
   version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-3.0.1.tgz#54da0c2a0d2b7c482cd4eb2eca73beb28150c45d"
+  resolved "https://codeload.github.com/morr/webpacker/tar.gz/a6c989dafb923045deffa9a8e8f768dea7e35ec1"
   dependencies:
     babel-core "^6.26.0"
     babel-loader "^7.1.2"
@@ -13,6 +13,7 @@
     babel-plugin-transform-object-rest-spread "^6.26.0"
     babel-polyfill "^6.26.0"
     babel-preset-env "^1.6.0"
+    cache-loader "^1.0.3"
     coffee-loader "^0.8.0"
     coffeescript "^1.12.7"
     compression-webpack-plugin "^1.0.0"
@@ -284,7 +285,7 @@ async@^2.1.2, async@^2.1.5:
   dependencies:
     lodash "^4.14.0"
 
-async@^2.4.1:
+async@^2.3.0, async@^2.4.1:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
   dependencies:
@@ -1098,6 +1099,14 @@ builtin-status-codes@^3.0.0:
 bytes@2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-2.3.0.tgz#d5b680a165b6201739acb611542aabc2d8ceb070"
+
+cache-loader@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/cache-loader/-/cache-loader-1.0.3.tgz#7717963ec082db068b17a1412deaaa72d21c4e30"
+  dependencies:
+    async "^2.3.0"
+    loader-utils "^1.1.0"
+    mkdirp "^0.5.1"
 
 camelcase-css@^1.0.1:
   version "1.0.1"
