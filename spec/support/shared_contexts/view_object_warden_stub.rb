@@ -2,7 +2,7 @@ shared_context :view_object_warden_stub do
   before do
     view_context = view.h
 
-    view_context.request.env['warden'] ||= double(authenticate: nil)
+    view_context.request.env['warden'] ||= WardenStub.new
     allow(view_context).to receive(:current_user).and_return(
       user ? user.decorate : nil
     )
