@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const environment = require('./environment')
 
 // https://webpack.js.org/plugins/commons-chunk-plugin/
