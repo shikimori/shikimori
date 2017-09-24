@@ -30,7 +30,7 @@ module.exports = class LoaderBase
 
   _fetch_fail: =>
     @is_loading = false
-    console.warn 'fetch failure', arguments
+    console.warn 'fetch failure'
 
   # private methods
   _xhr_to_images: (xhr_images) ->

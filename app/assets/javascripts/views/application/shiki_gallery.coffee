@@ -38,7 +38,7 @@ module.exports = class ShikiGallery extends View
   _deploy_image: (image_node, delay_interval, action) =>
     $image = $(image_node)
       .shiki_image()
-      .css(bottom: 9999)
+      .css(left: -9999)
       .prependTo(@$container)
 
     delay(delay_interval).then => @packery[action]($image[0])
