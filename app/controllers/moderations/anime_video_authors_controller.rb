@@ -1,8 +1,9 @@
+# rubocop:disable AbcSize
+# rubocop:disable MethodLength
+# rubocop:disable ClassLength
 class Moderations::AnimeVideoAuthorsController < ModerationsController
   load_and_authorize_resource
 
-  # rubocop:disable MethodLength
-  # rubocop:disable AbcSize
   def index
     @anime = Anime.find params[:anime_id] if params[:anime_id].present?
     @limit = (params[:limit] || 100).to_i
@@ -13,7 +14,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
           AnimeVideoAuthor.where(id: filter_authors(@anime))
         else
           AnimeVideoAuthor.where(
-            id: AnimeVideo.available.select('distinct(anime_video_author_id)')
+            id: videos_scope.select('distinct(anime_video_author_id)')
           )
         end
 
@@ -28,8 +29,6 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
       scope.order(:name, :id)
     end
   end
-  # rubocop:enable AbcSize
-  # rubocop:enable MethodLength
 
   def none
     page_title 'Видео без авторов'
@@ -44,14 +43,10 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
         .where(anime_id: params[:anime_id])
         .order(:episode, :kind, :id)
 
-      if params[:kind].present?
-        @scope.where! kind: params[:kind]
-      end
+      @scope.where! kind: params[:kind] if params[:kind].present?
     end
   end
 
-  # rubocop:disable MethodLength
-  # rubocop:disable AbcSize
   def edit
     page_title "Редактирование автора ##{@resource.id}"
     page_title @resource.name
@@ -66,9 +61,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
       @anime = Anime.find params[:anime_id]
       @scope.where! anime_id: params[:anime_id]
 
-      if params[:kind].present?
-        @scope.where! kind: params[:kind]
-      end
+      @scope.where! kind: params[:kind] if params[:kind].present?
     end
   end
 
@@ -89,8 +82,6 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
       redirect_back fallback_location: moderations_anime_video_authors_url
     end
   end
-  # rubocop:enable AbcSize
-  # rubocop:enable MethodLength
 
 private
 
@@ -112,12 +103,22 @@ private
   end
 
   def filter_authors anime
-    anime.anime_videos
-      .available
+    scope = anime.anime_videos
+    scope = scope.available unless params[:broken_videos] == 'true'
+
+    scope
       .except(:order)
       .distinct
       .pluck(:anime_video_author_id)
       .compact
+  end
+
+  def videos_scope
+    if params[:broken_videos] == 'true'
+      AnimeVideo.all
+    else
+      AnimeVideo.available
+    end
   end
 
   def cache_key

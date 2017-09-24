@@ -19,14 +19,25 @@ ul.b-list.block
       href="#{url_for url_params(limit: 5000)}"
     ] limit=5000
 
+  - if params[:broken_videos] == 'true'
+    li
+      a.b-link[
+        href="#{url_for url_params(broken_videos: nil)}"
+      ] Не показывать у кого все видео сломаны
+  - else
+    li
+      a.b-link[
+        href="#{url_for url_params(broken_videos: true)}"
+      ] Показывать у кого все видео сломаны
+
   li
     a.b-link[
       href="#{url_for url_params(is_verified: true)}"
-    ] Проверенные авторы
+    ] Только проверенные авторы
   li
     a.b-link[
       href="#{url_for url_params(is_verified: false)}"
-    ] Не проверенные авторы
+    ] Только не проверенные авторы
   li
     a.b-link[
       href="#{none_moderations_anime_video_authors_url}"
@@ -37,6 +48,8 @@ ul.b-list.block
     form
       - if params[:is_verified].present?
         input type="hidden" name="is_verified" value="#{params[:is_verified]}"
+      - if params[:broken_videos].present?
+        input type="hidden" name="broken_videos" value="#{params[:broken_videos]}"
       - if params[:anime_id].present?
         input type="hidden" name="anime_id" value="#{params[:anime_id]}"
       - if params[:limit].present?
@@ -57,6 +70,8 @@ ul.b-list.block
     form
       - if params[:is_verified].present?
         input type="hidden" name="is_verified" value="#{params[:is_verified]}"
+      - if params[:broken_videos].present?
+        input type="hidden" name="broken_videos" value="#{params[:broken_videos]}"
       - if params[:search].present?
         input type="hidden" name="search" value="#{params[:search]}"
       - if params[:limit].present?
