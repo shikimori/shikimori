@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class AnimeVideoAuthor::SplitRename < ServiceObjectBase
-  pattr_initialize %i[model! anime_id! kind new_name!]
+  pattr_initialize %i[model! new_name! anime_id kind]
 
   # updated_at is touched because it is used as cache key animes_videos#index
   def call
     new_author_name = AnimeVideoAuthor.fix_name @new_name
     return if @model.name == new_author_name
+
     scope = build_scope @model, @anime_id, @kind
 
     if one_group? scope, @model
@@ -14,7 +15,7 @@ class AnimeVideoAuthor::SplitRename < ServiceObjectBase
     elsif new_author_name.present?
       move_videos scope, new_author_name
     else
-      change_author @model, @anime_id, nil
+      remove_author scope
     end
   end
 
@@ -37,20 +38,19 @@ private
     )
   end
 
-  def change_author from_author, anime_id, to_author
-    from_author.anime_videos
-      .where(anime_id: anime_id)
-      .update_all(
-        anime_video_author_id: to_author&.id,
-        updated_at: Time.zone.now
-      )
+  def remove_author scope
+    scope.update_all(
+      anime_video_author_id: nil,
+      updated_at: Time.zone.now
+    )
   end
 
   def build_scope author, anime_id, kind
-    if kind
-      author.anime_videos.where(anime_id: anime_id, kind: kind)
-    else
-      author.anime_videos.where(anime_id: anime_id)
-    end
+    scope = author.anime_videos.all
+
+    scope.where! anime_id: anime_id if anime_id
+    scope.where! kind: kind if kind
+
+    scope
   end
 end
