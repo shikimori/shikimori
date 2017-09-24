@@ -1,11 +1,13 @@
 - cache scope.cache_key do
   - if scope.pluck(:kind).uniq.many?
     .block
-      .subheadline-buttons
+      p.m5 Типы видео:
+      ul.b-list
         - scope.pluck(:kind).uniq.sort_by { |kind| AnimeVideo.kind.values.index kind.to_s }.each do |kind|
-          a.b-link[
-            href="#{edit_moderations_anime_video_author_url anime_video_author, kind: kind}"
-          ] = t "enumerize.anime_video.kind.#{kind}"
+          li
+            a.b-link[
+              href="#{edit_moderations_anime_video_author_url anime_video_author, kind: kind}"
+            ] = t "enumerize.anime_video.kind.#{kind}"
 
   - scope.group_by(&:anime).each do |anime, anime_videos|
     .block
