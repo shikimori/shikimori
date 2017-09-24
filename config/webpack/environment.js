@@ -27,11 +27,6 @@ environment.plugins.set(
   })
 )
 
-// environment.plugins.set(
-  // 'HardSourceWebpackPlugin',
-  // new HardSourceWebpackPlugin()
-// )
-
 // https://webpack.js.org/plugins/commons-chunk-plugin/
 environment.plugins.get('ExtractText').options.allChunks = true
 environment.plugins.set(

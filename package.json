@@ -2,7 +2,7 @@
   "name": "shikimori",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.0.1",
+    "@rails/webpacker": "morr/webpacker#af540e04e76a029ee74290c1d85bfa150c6e9296",
     "autosize": "^4.0.0",
     "axios": "^0.16.2",
     "blueimp-md5": "^2.10.0",

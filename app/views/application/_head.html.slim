@@ -60,7 +60,8 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
   script src="//dmc1acwvwny3.cloudfront.net/atatus.js"
 
 - unless Rails.env.test?
-  = stylesheet_pack_tag 'vendor', media: 'all', data: { 'turbolinks-track' => '' }
+  - unless Rails.env.development? # does not generated with cache-loader in development mode
+    = stylesheet_pack_tag 'vendor', media: 'all', data: { 'turbolinks-track' => '' }
   = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => ''}
 
   - if anime_online?
