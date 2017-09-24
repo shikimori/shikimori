@@ -3,39 +3,42 @@
 @import mixins/shikimori
 
 .b-to-top
-  cursor: pointer
-  height: 100%
-  left: 0
-  position: fixed
-  top: 0
-  visibility: collapse
-  width: 120px
   z-index: 2
 
-  +responsive(desktop)
-    visibility: visible
+  +lte_ipad
+    display: none
 
   .slide
-    background: #f0f0f0
-    cursor: pointer
     height: 100%
     left: 0
-    opacity: 0
     position: fixed
     top: 0
-    width: 60px
+    width: 0
+
+    &:before
+      background: #f0f0f0
+      content: ''
+      height: 100%
+      left: 0
+      opacity: 0
+      position: fixed
+      top: 0
+      width: 60px
 
   &.active
     .slide
-      opacity: 0.6
-      transition: opacity 0.3s ease
+      cursor: pointer
+      width: 120px
+
+      &:before
+        transition: opacity 0.25s ease
+        opacity: 0.6
+
+      &:active:before
+        opacity: 0.85
 
     .arrow
       opacity: 1
-
-  &:active
-    .slide
-      opacity: 0.85
 
   .arrow
     color: #fff
