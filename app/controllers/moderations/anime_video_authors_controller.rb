@@ -60,9 +60,9 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
     if params[:anime_id].present?
       @anime = Anime.find params[:anime_id]
       @scope.where! anime_id: params[:anime_id]
-
-      @scope.where! kind: params[:kind] if params[:kind].present?
     end
+
+    @scope.where! kind: params[:kind] if params[:kind].present?
   end
 
   def update
@@ -86,11 +86,11 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
 private
 
   def rename_author
-    if params[:anime_id].present?
+    if params[:anime_id].present? || params[:kind].present?
       AnimeVideoAuthor::SplitRename.call(
         model: @resource,
         new_name: update_params[:name],
-        anime_id: params[:anime_id],
+        anime_id: (params[:anime_id] if params[:anime_id].present?),
         kind: (params[:kind] if params[:kind].present?)
       )
     else

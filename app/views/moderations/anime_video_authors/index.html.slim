@@ -14,10 +14,16 @@ ul.b-list.block
       href="#{request.fullpath == url_for(url_params(is_verified: nil)) ? moderations_anime_video_authors_url : url_for(url_params(is_verified: nil))}"
     ] Все авторы
 
-  li
-    a.b-link[
-      href="#{url_for url_params(limit: 5000)}"
-    ] limit=5000
+  - if params[:limit].present?
+    li
+      a.b-link[
+        href="#{url_for url_params(limit: nil)}"
+      ] убрать limit=5000
+  - else
+    li
+      a.b-link[
+        href="#{url_for url_params(limit: 5000)}"
+      ] limit=5000
 
   - if params[:broken_videos] == 'true'
     li

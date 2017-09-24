@@ -19,7 +19,7 @@ header.head
           a.b-link.bubbled href="#{anime_url @anime}"
             = localization_span @anime
           a.clear-anime[
-            href="#{url_for url_params.except(:anime_id, :kind)}"
+            href="#{url_for url_params.except(:anime_id)}"
           ] отменить
 
       - if params[:kind].present?
