@@ -227,10 +227,10 @@ ru:
           other: опросы
       contest:
         subjective:
-          one: опрос
-          few: опроса
-          many: опросов
-          other: опросы
+          one: турнир
+          few: турнира
+          many: турниров
+          other: турниры
       error:
         subjective:
           one: ошибка
