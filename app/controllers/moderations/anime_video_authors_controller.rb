@@ -104,7 +104,7 @@ private
 
   def filter_authors anime
     scope = anime.anime_videos
-    scope = scope.available unless params[:broken_videos] == 'true'
+    scope = scope.available if params[:broken_videos] == 'false'
 
     scope
       .except(:order)
@@ -114,10 +114,10 @@ private
   end
 
   def videos_scope
-    if params[:broken_videos] == 'true'
-      AnimeVideo.all
-    else
+    if params[:broken_videos] == 'false'
       AnimeVideo.available
+    else
+      AnimeVideo.all
     end
   end
 
