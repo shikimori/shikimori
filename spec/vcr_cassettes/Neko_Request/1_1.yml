@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://localhost:4000/user_rate
+    body:
+      encoding: UTF-8
+      string: '{"user_id":1,"action":"noop"}'
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Authorization:
+      - foo
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Mon, 25 Sep 2017 18:25:55 GMT
+      Content-Length:
+      - '344'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+    body:
+      encoding: UTF-8
+      string: '{"updated":[],"removed":[{"user_id":1,"progress":0,"neko_id":"test","level":1}],"added":[{"user_id":1,"progress":100,"neko_id":1,"level":0},{"user_id":1,"progress":100,"neko_id":1,"level":1},{"user_id":1,"progress":100,"neko_id":1,"level":2},{"user_id":1,"progress":100,"neko_id":1,"level":3},{"user_id":1,"progress":70,"neko_id":1,"level":4}]}'
+    http_version: 
+  recorded_at: Mon, 25 Sep 2017 18:25:56 GMT
+recorded_with: VCR 3.0.3
