@@ -1,4 +1,6 @@
 - if @resource.related.related.any? || @resource.roles.main_people.any?
+  - related_size = @resource.roles.main_people.none? ? 4 : [@resource.roles.main_people.size, 3].max
+
   .cc-related-authors
     / связанное
     - if @resource.related.related.any?
@@ -18,15 +20,15 @@
         .subheadline.m5 = t '.linked'
         .cc.to-process data-dynamic="cutted_covers"
           = render partial: 'animes/relation_note',
-            collection: @resource.related.related.take([@resource.roles.main_people.size, 3].max)
+            collection: @resource.related.related.take(related_size)
 
-          - if @resource.related.related.size > [@resource.roles.main_people.size, 3].max
+          - if @resource.related.related.size > related_size
             .b-show_more.unprocessed
               ' + #{t '.show_all'}
-              | (#{@resource.related.related.size - [@resource.roles.main_people.size, 3].max})
+              | (#{@resource.related.related.size - related_size})
             .b-show_more-more
               = render partial: 'animes/relation_note',
-                collection: @resource.related.related[[@resource.roles.main_people.size, 3].max..-1]
+                collection: @resource.related.related[related_size..-1]
 
               .hide-more
                 | &mdash; #{t '.hide'}
