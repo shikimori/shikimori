@@ -2,6 +2,9 @@ module Types
   module Achievement
     NekoId = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:test)
+      .enum(*%i[
+        test
+        animelist
+      ])
   end
 end
