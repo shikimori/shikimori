@@ -7,6 +7,7 @@ describe Neko::Apply do
   end
 
   let(:user) { seed :user }
+
   let!(:achievement) do
     create :achievement,
       user: user,
@@ -25,7 +26,18 @@ describe Neko::Apply do
   let(:updated) { [] }
   let(:removed) { [] }
 
-  describe 'add' do
+  before { allow(user).to receive :touch }
+
+  context 'no changes' do
+    it do
+      expect { subject }.to_not change Achievement, :count
+      expect(achievement.reload).to be_persisted
+      expect(achievement_2.reload).to be_persisted
+      expect(user).to_not have_received :touch
+    end
+  end
+
+  context 'added' do
     let(:added) do
       [
         Neko::AchievementData.new(
@@ -40,10 +52,11 @@ describe Neko::Apply do
       expect { subject }.to change(Achievement, :count).by 1
       expect(user.achievements.last).to have_attributes added[0].to_h.except(:neko_id)
       expect(user.achievements.last.neko_id).to eq added[0].neko_id
+      expect(user).to have_received :touch
     end
   end
 
-  describe 'update' do
+  context 'updated' do
     let(:updated) do
       [
         Neko::AchievementData.new(
@@ -58,10 +71,11 @@ describe Neko::Apply do
       expect { subject }.to_not change Achievement, :count
       expect(achievement.reload).to have_attributes updated[0].to_h.except(:neko_id)
       expect(achievement.neko_id).to eq updated[0].neko_id
+      expect(user).to have_received :touch
     end
   end
 
-  describe 'remove' do
+  context 'removed' do
     let(:removed) do
       [
         Neko::AchievementData.new(
@@ -75,6 +89,7 @@ describe Neko::Apply do
     it do
       expect { subject }.to change(Achievement, :count).by(-1)
       expect { achievement.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect(user).to have_received :touch
     end
   end
 end
