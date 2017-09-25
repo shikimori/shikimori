@@ -4,7 +4,13 @@ class Neko::Request
   URL = 'http://localhost:4000/user_rate'
 
   def call
-    JSON.parse post_request(@params).body, symbolize_names: true
+    data = JSON.parse post_request(@params).body, symbolize_names: true
+
+    {
+      added: parse(data[:added]),
+      updated: parse(data[:updated]),
+      removed: parse(data[:removed])
+    }
   end
 
 private
@@ -15,6 +21,12 @@ private
       req.headers['Authorization'] = 'foo'
       req.headers['Content-Type'] = 'application/json'
       req.body = params.to_json
+    end
+  end
+
+  def parse achievements
+    achievements.map do |achievement|
+      Neko::AchievementData.new achievement
     end
   end
 end

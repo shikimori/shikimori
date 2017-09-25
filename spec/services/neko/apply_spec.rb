@@ -27,39 +27,50 @@ describe Neko::Apply do
 
   describe 'add' do
     let(:added) do
-      [{
-        neko_id: Types::Achievement::NekoId[:test].to_s,
-        level: 1,
-        progress: 0
-      }]
+      [
+        Neko::AchievementData.new(
+          user_id: user.id,
+          neko_id: Types::Achievement::NekoId[:test],
+          level: 1,
+          progress: 0
+        )
+      ]
     end
     it do
       expect { subject }.to change(Achievement, :count).by 1
-      expect(user.achievements.last).to have_attributes added[0]
+      expect(user.achievements.last).to have_attributes added[0].to_h.except(:neko_id)
+      expect(user.achievements.last.neko_id).to eq added[0].neko_id
     end
   end
 
   describe 'update' do
     let(:updated) do
-      [{
-        neko_id: achievement.neko_id.to_s,
-        level: achievement.level,
-        progress: achievement.progress + 1,
-      }]
+      [
+        Neko::AchievementData.new(
+          user_id: user.id,
+          neko_id: achievement.neko_id,
+          level: achievement.level,
+          progress: achievement.progress + 1
+        )
+      ]
     end
     it do
       expect { subject }.to_not change Achievement, :count
-      expect(achievement.reload).to have_attributes updated[0]
+      expect(achievement.reload).to have_attributes updated[0].to_h.except(:neko_id)
+      expect(achievement.neko_id).to eq updated[0].neko_id
     end
   end
 
   describe 'remove' do
     let(:removed) do
-      [{
-        neko_id: achievement.neko_id.to_s,
-        level: achievement.level,
-        progress: achievement.progress + 1,
-      }]
+      [
+        Neko::AchievementData.new(
+          user_id: user.id,
+          neko_id: achievement.neko_id,
+          level: achievement.level,
+          progress: achievement.progress + 1
+        )
+      ]
     end
     it do
       expect { subject }.to change(Achievement, :count).by(-1)
