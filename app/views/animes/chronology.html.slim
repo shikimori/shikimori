@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, cookies['related_view'] || 'list', params[:action]] do
+  = cache [@resource, cookies['related_view'] || 'list', params[:action], :v2] do
     .b-options-floated.mobile-phone.before-buttons-2
       a href="#{@resource.related_url}" = t '.linked_directly'
       span.link.selected = t '.chronology'
