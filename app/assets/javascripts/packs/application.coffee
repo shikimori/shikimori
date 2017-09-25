@@ -78,7 +78,7 @@ $(document).on Object.keys(bindings).join(' '), (e) ->
 
     if !group.conditions.length
       group.callback()
-    else if body_classes && body_classes.length && body_classes.some((v) -> document.body.className.indexOf(v) != -1)
+    else if body_classes?.some((v) -> document.body.className.indexOf(v) != -1)
       group.callback()
     else if group.conditions.some((v) -> document.body.id == v)
       group.callback()
