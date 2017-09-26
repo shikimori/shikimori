@@ -11,6 +11,6 @@ class Achievements::Track
 
     Neko::Update.call user,
       user_rate_id: user_rate_id,
-      action: Types::Achievement::NekoId[action]
+      action: Types::Neko::Action[action]
   end
 end
