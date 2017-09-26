@@ -1,4 +1,4 @@
-class Achievements::Update
+class Achievements::Track
   include Sidekiq::Worker
 
   sidekiq_options(

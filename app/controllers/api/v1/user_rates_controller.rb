@@ -68,12 +68,23 @@ class Api::V1::UserRatesController < Api::V1Controller
     deprecated: true
   def increment
     @resource.update increment_params
+    Achievements::Track.perform_async(
+      @resource.user_id,
+      @resource.id,
+      Types::Neko::Action[:update]
+    )
     respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
   api :DELETE, '/user_rates/:id', 'Destroy an user rate', deprecated: true
   def destroy
     @resource.destroy!
+    Achievements::Track.perform_async(
+      @resource.user_id,
+      @resource.id,
+      Types::Neko::Action[:destroy]
+    )
+
     head 204
   end
 
@@ -121,12 +132,24 @@ private
   def create_rate user_rate
     @resource = user_rate
     raise NotSaved unless @resource.save
+
+    Achievements::Track.perform_async(
+      @resource.user_id,
+      @resource.id,
+      Types::Neko::Action[:create]
+    )
   rescue *ALLOWED_EXCEPTIONS
   end
 
   def update_rate user_rate
     @resource = user_rate
     raise NotSaved unless @resource.update update_params
+
+    Achievements::Track.perform_async(
+      @resource.user_id,
+      @resource.id,
+      Types::Neko::Action[:update]
+    )
   rescue *ALLOWED_EXCEPTIONS
   end
 end

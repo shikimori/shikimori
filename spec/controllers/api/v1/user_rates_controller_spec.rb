@@ -1,4 +1,6 @@
 describe Api::V1::UserRatesController do
+  before { allow(Achievements::Track).to receive :perform_async }
+
   context 'token authentication' do
     let!(:user) { create :user, api_access_token: 'zzzxxxccc' }
 
@@ -25,7 +27,13 @@ describe Api::V1::UserRatesController do
       end
 
       it do
+        expect(resource).to be_persisted
         expect(resource).to have_attributes create_params
+
+        expect(Achievements::Track)
+          .to have_received(:perform_async)
+          .with resource.user_id, resource.id, Types::Neko::Action[:create]
+
         expect(response).to have_http_status :success
       end
     end
@@ -63,7 +71,13 @@ describe Api::V1::UserRatesController do
         before { make_request }
 
         it do
+          expect(resource).to be_persisted
           expect(resource).to have_attributes create_params
+
+          expect(Achievements::Track)
+            .to have_received(:perform_async)
+            .with resource.user_id, resource.id, Types::Neko::Action[:create]
+
           expect(response).to have_http_status :success
         end
       end
@@ -75,6 +89,11 @@ describe Api::V1::UserRatesController do
         it do
           expect(resource).to have_attributes create_params
           expect(resource.id).to eq user_rate.id
+
+          expect(Achievements::Track)
+            .to have_received(:perform_async)
+            .with resource.user_id, resource.id, Types::Neko::Action[:update]
+
           expect(response).to have_http_status :success
         end
       end
@@ -97,6 +116,11 @@ describe Api::V1::UserRatesController do
 
       it do
         expect(resource).to have_attributes update_params
+
+        expect(Achievements::Track)
+          .to have_received(:perform_async)
+          .with resource.user_id, resource.id, Types::Neko::Action[:update]
+
         expect(response).to have_http_status :success
       end
     end
@@ -107,6 +131,11 @@ describe Api::V1::UserRatesController do
 
       it do
         expect(resource.episodes).to eq user_rate.episodes + 1
+
+        expect(Achievements::Track)
+          .to have_received(:perform_async)
+          .with resource.user_id, resource.id, Types::Neko::Action[:update]
+
         expect(response).to have_http_status :created
       end
     end
@@ -117,6 +146,11 @@ describe Api::V1::UserRatesController do
 
       it do
         expect(resource).to be_destroyed
+
+        expect(Achievements::Track)
+          .to have_received(:perform_async)
+          .with resource.user_id, resource.id, Types::Neko::Action[:destroy]
+
         expect(response).to have_http_status :no_content
       end
     end

@@ -1,5 +1,5 @@
-describe Achievements::Update do
-  let(:worker) { Achievements::Update.new }
+describe Achievements::Track do
+  let(:worker) { Achievements::Track.new }
 
   before { allow(Neko::Update).to receive :call }
 
