@@ -40,7 +40,6 @@ describe User do
     it { is_expected.to have_many(:collections).dependent(:destroy) }
     it { is_expected.to have_many(:versions).dependent(:destroy) }
 
-    it { is_expected.to have_many(:contest_user_votes).dependent(:destroy) }
     it { is_expected.to have_many :topics }
     it { is_expected.to have_many(:topic_ignores).dependent(:destroy) }
     it { is_expected.to have_many :ignored_topics }

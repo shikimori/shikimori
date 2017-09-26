@@ -3,7 +3,6 @@ describe ContestMatch do
     it { is_expected.to belong_to :round }
     it { is_expected.to belong_to :left }
     it { is_expected.to belong_to :right }
-    it { is_expected.to have_many(:contest_user_votes).dependent :destroy }
   end
 
   describe 'state_machine' do

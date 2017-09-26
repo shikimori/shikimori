@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170925192747) do
+ActiveRecord::Schema.define(version: 20170926194249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -379,16 +379,6 @@ ActiveRecord::Schema.define(version: 20170925192747) do
     t.datetime "updated_at", null: false
     t.index ["contest_id"], name: "index_contest_suggestions_on_contest_id"
     t.index ["user_id"], name: "index_contest_suggestions_on_user_id"
-  end
-
-  create_table "contest_user_votes", id: :serial, force: :cascade do |t|
-    t.integer "contest_match_id", null: false
-    t.integer "user_id", null: false
-    t.integer "item_id", null: false
-    t.string "ip", limit: 255, null: false
-    t.index ["contest_match_id", "ip"], name: "index_contest_user_votes_on_contest_vote_id_and_ip", unique: true
-    t.index ["contest_match_id", "item_id"], name: "index_contest_user_votes_on_contest_vote_id_and_item_id"
-    t.index ["contest_match_id", "user_id"], name: "index_contest_user_votes_on_contest_vote_id_and_user_id", unique: true
   end
 
   create_table "contest_winners", id: :serial, force: :cascade do |t|

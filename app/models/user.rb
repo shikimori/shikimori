@@ -89,7 +89,6 @@ class User < ApplicationRecord
 
   has_many :versions, dependent: :destroy
 
-  has_many :contest_user_votes, dependent: :destroy
   has_many :topics, class_name: Topic.name
   has_many :topic_ignores, dependent: :destroy
   has_many :ignored_topics, through: :topic_ignores, source: :topic

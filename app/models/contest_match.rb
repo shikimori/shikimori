@@ -15,8 +15,6 @@ class ContestMatch < ApplicationRecord
   belongs_to :left, polymorphic: true
   belongs_to :right, polymorphic: true
 
-  has_many :contest_user_votes, dependent: :destroy
-
   delegate :contest, :strategy, to: :round
 
   # rubocop:disable Style/HashSyntax
