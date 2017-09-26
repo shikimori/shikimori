@@ -4,7 +4,10 @@ class Neko::Request
   URL = 'http://localhost:4000/user_rate'
 
   def call
-    data = JSON.parse post_request(@params).body, symbolize_names: true
+    response = post_request(@params)
+    failure! response if failed? response
+
+    data = JSON.parse response.body, symbolize_names: true
 
     {
       added: parse(data[:added]),
@@ -28,5 +31,15 @@ private
     achievements.map do |achievement|
       Neko::AchievementData.new achievement
     end
+  end
+
+  def failed? response
+    ![200, 201].include?(response.status)
+  end
+
+  def failure! response
+    raise(
+      "#{response.status} #{response.reason_phrase} #{response.body}".strip
+    )
   end
 end
