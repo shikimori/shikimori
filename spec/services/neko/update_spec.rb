@@ -1,7 +1,7 @@
-describe Neko::Achievements do
+describe Neko::Update do
   let(:user) { build_stubbed :user }
   let(:action) { Types::Neko::Action[:noop] }
-  let(:user_rate) { build_stubbed :user_rate }
+  let(:user_rate_id) { 123 }
 
   before do
     allow(Neko::Request)
@@ -13,18 +13,16 @@ describe Neko::Achievements do
   let(:neko_result) { { updated: 'qq', remove: 'ww', added: 'xx' } }
 
   subject! do
-    Neko::Achievements.call(
-      user: user,
-      user_rate: user_rate,
+    Neko::Update.call user,
+      user_rate_id: user_rate_id,
       action: action
-    )
   end
 
   it do
     expect(Neko::Request)
       .to have_received(:call)
       .with(
-        id: user_rate.id,
+        id: user_rate_id,
         user_id: user.id,
         action: action
       )
