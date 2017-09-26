@@ -23,6 +23,7 @@ production:
   - [low_priority, 1]
   - [mailers, 5]
   - [imports, 4]
+  - [achievements, 6]
 
 :limits:
   cpu_intensive: 2
