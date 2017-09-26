@@ -34,8 +34,12 @@
   .plus
     +link_color
     +menu_icon('+')
+
     &:before
       line-height: inherit
+
+    &:hover
+      color: inherit
 
   $icon-size: 18px
   &.planned
@@ -45,13 +49,7 @@
       color: $link
 
     .trigger-arrow
-      color: $gray-2
-
-      &:hover
-        color: $link-3
-
-      &:active
-        color: $link-2
+      color: $link-3
 
     .edit
       +menu_icon($icon-planned, $icon-size + 2)
