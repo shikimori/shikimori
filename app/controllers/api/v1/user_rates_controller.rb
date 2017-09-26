@@ -69,27 +69,32 @@ class Api::V1::UserRatesController < Api::V1Controller
   def increment
     @resource.update increment_params
 
-    Achievements::Track.perform_async(
-      @resource.user_id,
-      @resource.id,
-      Types::Neko::Action[:update]
-    ) if @resource.anime?
+    if @resource.anime? && @resource.completed?
+      Achievements::Track.perform_async(
+        @resource.user_id,
+        @resource.id,
+        Types::Neko::Action[:update]
+      )
+    end
     respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
   api :DELETE, '/user_rates/:id', 'Destroy an user rate', deprecated: true
   def destroy
     @resource.destroy!
-    Achievements::Track.perform_async(
-      @resource.user_id,
-      @resource.id,
-      Types::Neko::Action[:destroy]
-    ) if @resource.anime?
+
+    if @resource.anime? && @resource.completed?
+      Achievements::Track.perform_async(
+        @resource.user_id,
+        @resource.id,
+        Types::Neko::Action[:destroy]
+      )
+    end
     head 204
   end
 
   # очистка списка и истории
-  api :DELETE, "/user_rates/:type/cleanup", "Delete entire user rates and history"
+  api :DELETE, '/user_rates/:type/cleanup', 'Delete entire user rates and history'
   def cleanup
     user = current_user.object
 
@@ -99,28 +104,32 @@ class Api::V1::UserRatesController < Api::V1Controller
     user.send("#{params[:type]}_rates").delete_all
     user.touch
 
-    Achievements::Track.perform_async(
-      user.id,
-      nil,
-      Types::Neko::Action[:reset]
-    ) if params[:type] == 'anime'
+    if params[:type] == 'anime'
+      Achievements::Track.perform_async(
+        user.id,
+        nil,
+        Types::Neko::Action[:reset]
+      )
+    end
 
     render json: { notice: i18n_t("list_and_history_cleared.#{params[:type]}") }
   end
 
   # сброс оценок в списке
-  api :DELETE, "/user_rates/:type/reset", "Reset all user scores to 0"
+  api :DELETE, '/user_rates/:type/reset', 'Reset all user scores to 0'
   def reset
     user = current_user.object
 
     user.send("#{params[:type]}_rates").update_all score: 0
     user.touch
 
-    Achievements::Track.perform_async(
-      user.id,
-      nil,
-      Types::Neko::Action[:reset]
-    ) if params[:type] == 'anime'
+    if params[:type] == 'anime'
+      Achievements::Track.perform_async(
+        user.id,
+        nil,
+        Types::Neko::Action[:reset]
+      )
+    end
 
     render json: { notice: i18n_t("scores_reset.#{params[:type]}") }
   end
@@ -147,11 +156,13 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.save
 
-    Achievements::Track.perform_async(
-      @resource.user_id,
-      @resource.id,
-      Types::Neko::Action[:create]
-    ) if @resource.anime?
+    if @resource.anime? && @resource.completed?
+      Achievements::Track.perform_async(
+        @resource.user_id,
+        @resource.id,
+        Types::Neko::Action[:create]
+      )
+    end
   rescue *ALLOWED_EXCEPTIONS
   end
 
@@ -159,11 +170,13 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.update update_params
 
-    Achievements::Track.perform_async(
-      @resource.user_id,
-      @resource.id,
-      Types::Neko::Action[:update]
-    ) if @resource.anime?
+    if @resource.anime? && @resource.completed?
+      Achievements::Track.perform_async(
+        @resource.user_id,
+        @resource.id,
+        Types::Neko::Action[:update]
+      )
+    end
   rescue *ALLOWED_EXCEPTIONS
   end
 end

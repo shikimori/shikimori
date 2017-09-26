@@ -104,7 +104,7 @@ class Api::V2::UserRatesController < Api::V2Controller
   def increment
     @resource.update increment_params
 
-    if @resource.anime?
+    if @resource.anime? && @resource.completed?
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
@@ -119,7 +119,7 @@ class Api::V2::UserRatesController < Api::V2Controller
   def destroy
     @resource.destroy!
 
-    if @resource.anime?
+    if @resource.anime? && @resource.completed?
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
@@ -156,7 +156,7 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.save
 
-    if @resource.anime?
+    if @resource.anime? && @resource.completed?
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
@@ -171,7 +171,7 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.update update_params
 
-    if @resource.anime?
+    if @resource.anime? && @resource.completed?
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
