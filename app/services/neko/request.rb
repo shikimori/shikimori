@@ -19,13 +19,11 @@ class Neko::Request
 private
 
   def post_request params
-    RedisMutex.with_lock("neko_#{params[:user_id]}", block: 10, expire: 60) do
-      Faraday.post do |req|
-        req.url URL
-        req.headers['Authorization'] = 'foo'
-        req.headers['Content-Type'] = 'application/json'
-        req.body = params.to_json
-      end
+    Faraday.post do |req|
+      req.url URL
+      req.headers['Authorization'] = 'foo'
+      req.headers['Content-Type'] = 'application/json'
+      req.body = params.to_json
     end
   end
 
