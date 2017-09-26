@@ -164,10 +164,15 @@ describe Api::V1::UserRatesController do
         before { delete :cleanup, params: { type: :anime } }
 
         it do
-          expect(response).to have_http_status :success
           expect(user.anime_rates).to be_empty
           expect(user.history).to be_empty
+
+          expect(Achievements::Track)
+            .to have_received(:perform_async)
+            .with user.id, nil, Types::Neko::Action[:reset]
+
           expect(json[:notice]).to eq 'Выполнена очистка вашего списка аниме и вашей истории по аниме'
+          expect(response).to have_http_status :success
         end
       end
 
@@ -176,10 +181,13 @@ describe Api::V1::UserRatesController do
         before { delete :cleanup, params: { type: :manga } }
 
         it do
-          expect(response).to have_http_status :success
           expect(user.manga_rates).to be_empty
           expect(user.history).to be_empty
+
+          expect(Achievements::Track).to_not have_received :perform_async
+
           expect(json[:notice]).to eq 'Выполнена очистка вашего списка манги и вашей истории по манге'
+          expect(response).to have_http_status :success
         end
       end
     end
@@ -192,9 +200,14 @@ describe Api::V1::UserRatesController do
         before { post :reset, params: { type: :anime } }
 
         it do
-          expect(response).to have_http_status :success
           expect(user_rate.reload.score).to be_zero
+
+          expect(Achievements::Track)
+            .to have_received(:perform_async)
+            .with user.id, nil, Types::Neko::Action[:reset]
+
           expect(json[:notice]).to eq 'Выполнен сброс оценок в вашем списке аниме'
+          expect(response).to have_http_status :success
         end
       end
 
@@ -203,9 +216,12 @@ describe Api::V1::UserRatesController do
         before { post :reset, params: { type: :manga } }
 
         it do
-          expect(response).to have_http_status :success
           expect(user_rate.reload.score).to be_zero
+
+          expect(Achievements::Track).to_not have_received :perform_async
+
           expect(json[:notice]).to eq 'Выполнен сброс оценок в вашем списке манги'
+          expect(response).to have_http_status :success
         end
       end
     end

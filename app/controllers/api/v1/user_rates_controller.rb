@@ -72,7 +72,7 @@ class Api::V1::UserRatesController < Api::V1Controller
       @resource.user_id,
       @resource.id,
       Types::Neko::Action[:update]
-    )
+    ) if @resource.anime?
     respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
@@ -83,8 +83,7 @@ class Api::V1::UserRatesController < Api::V1Controller
       @resource.user_id,
       @resource.id,
       Types::Neko::Action[:destroy]
-    )
-
+    ) if @resource.anime?
     head 204
   end
 
@@ -99,14 +98,28 @@ class Api::V1::UserRatesController < Api::V1Controller
     user.send("#{params[:type]}_rates").delete_all
     user.touch
 
+    Achievements::Track.perform_async(
+      user.id,
+      nil,
+      Types::Neko::Action[:reset]
+    ) if params[:type] == 'anime'
+
     render json: { notice: i18n_t("list_and_history_cleared.#{params[:type]}") }
   end
 
   # сброс оценок в списке
   api :DELETE, "/user_rates/:type/reset", "Reset all user scores to 0"
   def reset
-    current_user.send("#{params[:type]}_rates").update_all score: 0
-    current_user.touch
+    user = current_user.object
+
+    user.send("#{params[:type]}_rates").update_all score: 0
+    user.touch
+
+    Achievements::Track.perform_async(
+      user.id,
+      nil,
+      Types::Neko::Action[:reset]
+    ) if params[:type] == 'anime'
 
     render json: { notice: i18n_t("scores_reset.#{params[:type]}") }
   end
@@ -137,7 +150,7 @@ private
       @resource.user_id,
       @resource.id,
       Types::Neko::Action[:create]
-    )
+    ) if @resource.anime?
   rescue *ALLOWED_EXCEPTIONS
   end
 
@@ -149,7 +162,7 @@ private
       @resource.user_id,
       @resource.id,
       Types::Neko::Action[:update]
-    )
+    ) if @resource.anime?
   rescue *ALLOWED_EXCEPTIONS
   end
 end
