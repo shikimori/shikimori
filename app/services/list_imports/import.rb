@@ -20,6 +20,7 @@ private
       specific_error ListImport::ERROR_MISMATCHED_LIST_TYPE
     else
       import list
+      track_achievements
     end
   end
 
@@ -28,6 +29,14 @@ private
 
     @list_import.save!
     @list_import.finish!
+  end
+
+  def track_achievements
+    Achievements::Track.perform_async(
+      @list_import.user_id,
+      nil,
+      Types::Neko::Action[:reset]
+    )
   end
 
   def specific_error error_type

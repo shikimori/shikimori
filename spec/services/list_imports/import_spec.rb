@@ -3,6 +3,8 @@ describe ListImports::Import do
   let(:user) { seed :user }
   let!(:anime) { nil }
 
+  before { allow(Achievements::Track).to receive :perform_async }
+
   subject! { service.call }
 
   context 'valid list' do
@@ -35,6 +37,10 @@ describe ListImports::Import do
         chapters: 0
       )
       expect(user.manga_rates).to be_empty
+
+      expect(Achievements::Track)
+        .to have_received(:perform_async)
+        .with list_import.user_id, nil, Types::Neko::Action[:reset]
     end
   end
 
@@ -51,6 +57,8 @@ describe ListImports::Import do
 
       expect(user.anime_rates).to be_empty
       expect(user.manga_rates).to be_empty
+
+      expect(Achievements::Track).to_not have_received :perform_async
     end
   end
 
@@ -67,6 +75,8 @@ describe ListImports::Import do
 
       expect(user.anime_rates).to be_empty
       expect(user.manga_rates).to be_empty
+
+      expect(Achievements::Track).to_not have_received :perform_async
     end
   end
 
@@ -83,6 +93,8 @@ describe ListImports::Import do
 
       expect(user.anime_rates).to be_empty
       expect(user.manga_rates).to be_empty
+
+      expect(Achievements::Track).to_not have_received :perform_async
     end
   end
 
@@ -105,6 +117,8 @@ describe ListImports::Import do
 
       expect(user.anime_rates).to be_empty
       expect(user.manga_rates).to be_empty
+
+      expect(Achievements::Track).to_not have_received :perform_async
     end
   end
 end
