@@ -3,6 +3,8 @@ require 'cancan/matchers'
 describe Api::V2::UserRatesController, :show_in_doc do
   include_context :authenticated, :user
 
+  before { allow(Achievements::Track).to receive :perform_async }
+
   describe '#show' do
     let(:user_rate) { create :user_rate, user: user }
     before { get :show, params: { id: user_rate.id }, format: :json }
@@ -43,7 +45,13 @@ describe Api::V2::UserRatesController, :show_in_doc do
       before { make_request }
 
       it do
+        expect(resource).to be_persisted
         expect(resource).to have_attributes create_params
+
+        expect(Achievements::Track)
+          .to have_received(:perform_async)
+          .with resource.user_id, resource.id, Types::Neko::Action[:create]
+
         expect(response).to have_http_status :success
       end
     end
@@ -55,6 +63,11 @@ describe Api::V2::UserRatesController, :show_in_doc do
       it do
         expect(resource).to have_attributes create_params
         expect(resource.id).to eq user_rate.id
+
+        expect(Achievements::Track)
+          .to have_received(:perform_async)
+          .with resource.user_id, resource.id, Types::Neko::Action[:update]
+
         expect(response).to have_http_status :success
       end
     end
@@ -77,6 +90,11 @@ describe Api::V2::UserRatesController, :show_in_doc do
 
     it do
       expect(resource).to have_attributes update_params
+
+      expect(Achievements::Track)
+        .to have_received(:perform_async)
+        .with resource.user_id, resource.id, Types::Neko::Action[:update]
+
       expect(response).to have_http_status :success
     end
   end
@@ -87,6 +105,11 @@ describe Api::V2::UserRatesController, :show_in_doc do
 
     it do
       expect(resource.episodes).to eq user_rate.episodes + 1
+
+      expect(Achievements::Track)
+        .to have_received(:perform_async)
+        .with resource.user_id, resource.id, Types::Neko::Action[:update]
+
       expect(response).to have_http_status :created
     end
   end
@@ -97,6 +120,11 @@ describe Api::V2::UserRatesController, :show_in_doc do
 
     it do
       expect(resource).to be_destroyed
+
+      expect(Achievements::Track)
+        .to have_received(:perform_async)
+        .with resource.user_id, resource.id, Types::Neko::Action[:destroy]
+
       expect(response).to have_http_status :no_content
     end
   end

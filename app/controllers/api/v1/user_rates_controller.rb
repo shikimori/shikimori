@@ -68,6 +68,7 @@ class Api::V1::UserRatesController < Api::V1Controller
     deprecated: true
   def increment
     @resource.update increment_params
+
     Achievements::Track.perform_async(
       @resource.user_id,
       @resource.id,

@@ -101,6 +101,12 @@ class Api::V2::UserRatesController < Api::V2Controller
   api :POST, '/v2/user_rates/:id/increment', 'Increment episodes/chapters by 1'
   def increment
     @resource.update increment_params
+
+    Achievements::Track.perform_async(
+      @resource.user_id,
+      @resource.id,
+      Types::Neko::Action[:update]
+    ) if @resource.anime?
     respond_with @resource, location: nil
   end
 
@@ -108,6 +114,13 @@ class Api::V2::UserRatesController < Api::V2Controller
   api :DELETE, '/v2/user_rates/:id', 'Destroy an user rate'
   def destroy
     @resource.destroy!
+
+    Achievements::Track.perform_async(
+      @resource.user_id,
+      @resource.id,
+      Types::Neko::Action[:destroy]
+    ) if @resource.anime?
+
     head 204
   end
 
@@ -137,6 +150,11 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.save
 
+    Achievements::Track.perform_async(
+      @resource.user_id,
+      @resource.id,
+      Types::Neko::Action[:create]
+    ) if @resource.anime?
   rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
     nil
   end
@@ -145,6 +163,11 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.update update_params
 
+    Achievements::Track.perform_async(
+      @resource.user_id,
+      @resource.id,
+      Types::Neko::Action[:update]
+    ) if @resource.anime?
   rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
     nil
   end
