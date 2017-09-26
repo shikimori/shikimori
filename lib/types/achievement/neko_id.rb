@@ -5,6 +5,7 @@ module Types
       .enum(*%i[
         test
         animelist
+        comedy
       ])
   end
 end
