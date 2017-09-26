@@ -16,9 +16,11 @@ class Api::V2::UserRatesController < Api::V2Controller
   param :target_id, :number, required: false
   param :target_type, %w[Anime Manga], required: false
   param :status, UserRate.statuses.keys, required: false
-  param :page, :pagination, required: false,
+  param :page, :pagination,
+    required: false,
     desc: 'This field is ignored when user_id is set'
-  param :limit, :pagination, required: false,
+  param :limit, :pagination,
+    required: false,
     desc: "#{MAX_LIMIT} maximum. This field is ignored when user_id is set"
   def index
     limit = [[params[:limit].to_i, 1].max, MAX_LIMIT].min
@@ -42,7 +44,7 @@ class Api::V2::UserRatesController < Api::V2Controller
       end
 
     # TODO: remove `unless params[:user_id]` after 01-09-2017
-    scope.offset!(limit * (page-1)).limit!(limit) unless params[:user_id]
+    scope.offset!(limit * (page - 1)).limit!(limit) unless params[:user_id]
 
     @collection = Rails.cache.fetch(scope) { scope.to_a }
 
@@ -102,11 +104,13 @@ class Api::V2::UserRatesController < Api::V2Controller
   def increment
     @resource.update increment_params
 
-    Achievements::Track.perform_async(
-      @resource.user_id,
-      @resource.id,
-      Types::Neko::Action[:update]
-    ) if @resource.anime?
+    if @resource.anime?
+      Achievements::Track.perform_async(
+        @resource.user_id,
+        @resource.id,
+        Types::Neko::Action[:update]
+      )
+    end
     respond_with @resource, location: nil
   end
 
@@ -115,11 +119,13 @@ class Api::V2::UserRatesController < Api::V2Controller
   def destroy
     @resource.destroy!
 
-    Achievements::Track.perform_async(
-      @resource.user_id,
-      @resource.id,
-      Types::Neko::Action[:destroy]
-    ) if @resource.anime?
+    if @resource.anime?
+      Achievements::Track.perform_async(
+        @resource.user_id,
+        @resource.id,
+        Types::Neko::Action[:destroy]
+      )
+    end
 
     head 204
   end
@@ -150,11 +156,13 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.save
 
-    Achievements::Track.perform_async(
-      @resource.user_id,
-      @resource.id,
-      Types::Neko::Action[:create]
-    ) if @resource.anime?
+    if @resource.anime?
+      Achievements::Track.perform_async(
+        @resource.user_id,
+        @resource.id,
+        Types::Neko::Action[:create]
+      )
+    end
   rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
     nil
   end
@@ -163,11 +171,13 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.update update_params
 
-    Achievements::Track.perform_async(
-      @resource.user_id,
-      @resource.id,
-      Types::Neko::Action[:update]
-    ) if @resource.anime?
+    if @resource.anime?
+      Achievements::Track.perform_async(
+        @resource.user_id,
+        @resource.id,
+        Types::Neko::Action[:update]
+      )
+    end
   rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
     nil
   end

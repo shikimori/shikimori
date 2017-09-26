@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1Controller
-  before_action :authenticate_user!, only: [:messages, :unread_messages]
-  before_action :authorize_lists_access, only: [:anime_rates, :manga_rates]
+  before_action :authenticate_user!, only: %i[messages unread_messages]
+  before_action :authorize_lists_access, only: %i[anime_rates manga_rates]
 
   caches_action :anime_rates, :manga_rates,
     cache_path: proc {
@@ -38,22 +38,22 @@ class Api::V1::UsersController < Api::V1Controller
     respond_with user, serializer: UserInfoSerializer
   end
 
-  api :GET, "/users/whoami", "Show current user's brief info"
+  api :GET, '/users/whoami', "Show current user's brief info"
   def whoami
     respond_with current_user, serializer: UserInfoSerializer
   end
 
-  api :GET, "/users/:id/friends", "Show user's friends"
+  api :GET, '/users/:id/friends', "Show user's friends"
   def friends
     respond_with user.friends
   end
 
-  api :GET, "/users/:id/clubs", "Show user's clubs"
+  api :GET, '/users/:id/clubs', "Show user's clubs"
   def clubs
     respond_with user.clubs
   end
 
-  api :GET, "/users/:id/anime_rates", "Show user's anime list"
+  api :GET, '/users/:id/anime_rates', "Show user's anime list"
   param :page, :pagination, required: false
   param :limit, :pagination,
     required: false,
@@ -68,11 +68,11 @@ class Api::V1::UsersController < Api::V1Controller
       rates.to_a
     end
 
-    @rates = @rates[@limit * (@page-1), @limit+1]
+    @rates = @rates[@limit * (@page - 1), @limit + 1]
     respond_with @rates, each_serializer: UserRateFullSerializer
   end
 
-  api :GET, "/users/:id/manga_rates", "Show user's manga list"
+  api :GET, '/users/:id/manga_rates', "Show user's manga list"
   param :page, :pagination, required: false
   param :limit, :pagination,
     required: false,
@@ -87,27 +87,27 @@ class Api::V1::UsersController < Api::V1Controller
       rates.to_a
     end
 
-    @rates = @rates[@limit * (@page-1), @limit+1]
+    @rates = @rates[@limit * (@page - 1), @limit + 1]
     respond_with @rates, each_serializer: UserRateFullSerializer
   end
 
-  api :GET, "/users/:id/favourites", "Show user's favourites"
+  api :GET, '/users/:id/favourites', "Show user's favourites"
   def favourites
     respond_with(
-      animes: user.fav_animes.map {|v| FavouriteSerializer.new v },
-      mangas: user.fav_mangas.map {|v| FavouriteSerializer.new v },
-      characters: user.fav_characters.map {|v| FavouriteSerializer.new v },
-      people: user.fav_persons.map {|v| FavouriteSerializer.new v },
-      mangakas: user.fav_mangakas.map {|v| FavouriteSerializer.new v },
-      seyu: user.fav_seyu.map {|v| FavouriteSerializer.new v },
-      producers: user.fav_producers.map {|v| FavouriteSerializer.new v }
+      animes: user.fav_animes.map { |v| FavouriteSerializer.new v },
+      mangas: user.fav_mangas.map { |v| FavouriteSerializer.new v },
+      characters: user.fav_characters.map { |v| FavouriteSerializer.new v },
+      people: user.fav_persons.map { |v| FavouriteSerializer.new v },
+      mangakas: user.fav_mangakas.map { |v| FavouriteSerializer.new v },
+      seyu: user.fav_seyu.map { |v| FavouriteSerializer.new v },
+      producers: user.fav_producers.map { |v| FavouriteSerializer.new v }
     )
   end
 
-  api :GET, "/users/:id/messages", "Show current user's messages. Authorization required."
+  api :GET, '/users/:id/messages', "Show current user's messages. Authorization required."
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{MESSAGES_LIMIT} maximum"
-  param :type, %w(inbox private sent news notifications), required: true
+  param :type, %w[inbox private sent news notifications], required: true
   def messages
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 1].max, MESSAGES_LIMIT].min
@@ -120,7 +120,7 @@ class Api::V1::UsersController < Api::V1Controller
     respond_with messages
   end
 
-  api :GET, "/users/:id/unread_messages", "Show current user's unread messages counts. Authorization required."
+  api :GET, '/users/:id/unread_messages', "Show current user's unread messages counts. Authorization required."
   def unread_messages
     respond_with(
       messages: current_user.unread_messages,
@@ -138,7 +138,7 @@ class Api::V1::UsersController < Api::V1Controller
 
     @collection = user
       .all_history
-      .offset(@limit * (@page-1))
+      .offset(@limit * (@page - 1))
       .limit(@limit + 1)
 
     if params[:updated_at_gte]
