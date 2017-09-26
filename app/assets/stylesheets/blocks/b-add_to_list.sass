@@ -48,8 +48,8 @@
       border-color: #bce6ff
       color: $link
 
-    .trigger-arrow
-      color: $link-3
+    .trigger-arrow:hover
+      color: $link
 
     .edit
       +menu_icon($icon-planned, $icon-size + 2)
@@ -60,7 +60,7 @@
       border-color: #DBE0E6
       color: $gray-3
 
-    .trigger-arrow
+    .trigger-arrow:hover
       color: $gray-3
 
     .edit
@@ -73,8 +73,8 @@
       border-color: #bce6ff
       color: $link
 
-    .trigger-arrow
-      +link_color($gray-2)
+    .trigger-arrow:hover
+      color: $link
 
     .edit
       +menu_icon($icon-watching, $icon-size)
@@ -85,8 +85,8 @@
       border-color: #bce6ff
       color: $link
 
-    .trigger-arrow
-      +link_color($gray-2)
+    .trigger-arrow:hover
+      color: $link
 
     .edit
       +menu_icon($icon-rewatching, $icon-size - 2)
@@ -97,7 +97,7 @@
       border-color: #E0EFC0
       color: $released_tag
 
-    .trigger-arrow
+    .trigger-arrow:hover
       color: $released_tag
 
     .edit
@@ -110,7 +110,7 @@
       border-color: #FEC2C5
       color: #FC575E
 
-    .trigger-arrow
+    .trigger-arrow:hover
       color: #FC575E
 
     .edit
@@ -131,6 +131,7 @@
   .trigger-arrow
     +menu_icon('\e846')
     //+link_color($gray-2)
+    color: $gray-2
     float: right
 
     &:before
