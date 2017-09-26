@@ -12,7 +12,7 @@ describe Api::V1::UserRatesController do
           target_id: target.id,
           target_type: target.class.name,
           score: 10,
-          status: 'watching',
+          status: %w[watching completed].sample,
           episodes: 2,
           volumes: 3,
           chapters: 4,
@@ -30,9 +30,13 @@ describe Api::V1::UserRatesController do
         expect(resource).to be_persisted
         expect(resource).to have_attributes create_params
 
-        expect(Achievements::Track)
-          .to have_received(:perform_async)
-          .with resource.user_id, resource.id, Types::Neko::Action[:create]
+        if resource.completed?
+          expect(Achievements::Track)
+            .to have_received(:perform_async)
+            .with resource.user_id, resource.id, Types::Neko::Action[:put]
+        else
+          expect(Achievements::Track).to_not have_received :perform_async
+        end
 
         expect(response).to have_http_status :success
       end
@@ -57,7 +61,7 @@ describe Api::V1::UserRatesController do
           target_id: target.id,
           target_type: target.class.name,
           score: 10,
-          status: 'watching',
+          status: %w[watching completed].sample,
           episodes: 2,
           volumes: 3,
           chapters: 4,
@@ -74,9 +78,13 @@ describe Api::V1::UserRatesController do
           expect(resource).to be_persisted
           expect(resource).to have_attributes create_params
 
-          expect(Achievements::Track)
-            .to have_received(:perform_async)
-            .with resource.user_id, resource.id, Types::Neko::Action[:create]
+          if resource.completed?
+            expect(Achievements::Track)
+              .to have_received(:perform_async)
+              .with resource.user_id, resource.id, Types::Neko::Action[:put]
+          else
+            expect(Achievements::Track).to_not have_received :perform_async
+          end
 
           expect(response).to have_http_status :success
         end
@@ -92,7 +100,7 @@ describe Api::V1::UserRatesController do
 
           expect(Achievements::Track)
             .to have_received(:perform_async)
-            .with resource.user_id, resource.id, Types::Neko::Action[:update]
+            .with resource.user_id, resource.id, Types::Neko::Action[:put]
 
           expect(response).to have_http_status :success
         end
@@ -119,7 +127,7 @@ describe Api::V1::UserRatesController do
 
         expect(Achievements::Track)
           .to have_received(:perform_async)
-          .with resource.user_id, resource.id, Types::Neko::Action[:update]
+          .with resource.user_id, resource.id, Types::Neko::Action[:put]
 
         expect(response).to have_http_status :success
       end
@@ -134,22 +142,26 @@ describe Api::V1::UserRatesController do
 
         expect(Achievements::Track)
           .to have_received(:perform_async)
-          .with resource.user_id, resource.id, Types::Neko::Action[:update]
+          .with resource.user_id, resource.id, Types::Neko::Action[:put]
 
         expect(response).to have_http_status :created
       end
     end
 
     describe '#destroy', :show_in_doc do
-      let(:user_rate) { create :user_rate, user: user }
+      let(:user_rate) { create :user_rate, %i[planned completed].sample, user: user }
       before { delete :destroy, params: { id: user_rate.id }, format: :json }
 
       it do
         expect(resource).to be_destroyed
 
-        expect(Achievements::Track)
-          .to have_received(:perform_async)
-          .with resource.user_id, resource.id, Types::Neko::Action[:destroy]
+        if resource.completed?
+          expect(Achievements::Track)
+            .to have_received(:perform_async)
+            .with resource.user_id, resource.id, Types::Neko::Action[:delete]
+        else
+          expect(Achievements::Track).to_not have_received :perform_async
+        end
 
         expect(response).to have_http_status :no_content
       end

@@ -104,11 +104,11 @@ class Api::V2::UserRatesController < Api::V2Controller
   def increment
     @resource.update increment_params
 
-    if @resource.anime? && @resource.completed?
+    if @resource.anime?
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
-        Types::Neko::Action[:update]
+        Types::Neko::Action[:put]
       )
     end
     respond_with @resource, location: nil
@@ -123,7 +123,7 @@ class Api::V2::UserRatesController < Api::V2Controller
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
-        Types::Neko::Action[:destroy]
+        Types::Neko::Action[:delete]
       )
     end
 
@@ -160,7 +160,7 @@ private
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
-        Types::Neko::Action[:create]
+        Types::Neko::Action[:put]
       )
     end
   rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
@@ -171,11 +171,11 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.update update_params
 
-    if @resource.anime? && @resource.completed?
+    if @resource.anime?
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
-        Types::Neko::Action[:update]
+        Types::Neko::Action[:put]
       )
     end
   rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS

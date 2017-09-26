@@ -6,7 +6,7 @@ describe Achievements::Track do
   subject! { worker.perform user.id, user_rate_id, action }
   let(:user) { seed :user }
   let(:user_rate_id) { 123 }
-  let(:action) { Types::Neko::Action[:update].to_s }
+  let(:action) { Types::Neko::Action[:put].to_s }
 
   it do
     expect(Neko::Update)
