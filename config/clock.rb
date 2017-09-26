@@ -8,7 +8,7 @@ module Clockwork
   every 10.minutes, 'history.toshokan' do
     HistoryWorker.perform_async
     ImportToshokanTorrents.perform_async true
-    ImportNyaaTorrents.perform_async
+    # ImportNyaaTorrents.perform_async
     # ProxyWorker.perform_async(true)
     SidekiqHeartbeat.new.perform
   end
