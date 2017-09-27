@@ -83,3 +83,7 @@ RAILS_ENV=development NODE_ENV=development NODE_PATH=node_modules node --inspect
 
 ### Webpack visualizer
 https://chrisbateman.github.io/webpack-visualizer/
+
+### Parse Achievements
+require 'smarter_csv'
+File.open('/tmp/achievements.yml', 'w') {|f| f.write SmarterCSV.process(open('/tmp/achievements.csv')).to_yaml }
