@@ -3,3 +3,15 @@
 
   - if @user.nickname == 'test2'
     = render 'achievements/demo'
+  - else
+    h2.headline.blue = Anime.model_name.human
+    .cc-achievements
+      - @user.achievements.sort_by(&:level).reverse.group_by(&:neko_id).values.map(&:first).each do |achievement|
+        .b-achievement
+          .image
+            = image_tag 'http://img01.deviantart.net/b26e/i/2013/313/7/e/__fave_shounen_animes___by_erichankun-d6tku83.png'
+          .about
+            .title = achievement.neko_id
+            .info level #{achievement.level + 1}
+            .progress: .bar style="width: #{achievement.progress}%"
+            .notice Бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
