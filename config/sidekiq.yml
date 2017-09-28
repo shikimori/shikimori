@@ -36,3 +36,4 @@ production:
   mal_parsers: 50
   push_notifications: 5
   imports: 2
+  achievement: 50

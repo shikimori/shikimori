@@ -8,7 +8,7 @@ class Achievements::Track
   )
   sidekiq_retry_in { 60 * 60 * 24 }
 
-  MUTEX_OPTIONS = { block: 10, expire: 10 }
+  MUTEX_OPTIONS = { block: 60, expire: 60 }
   ERRORS = Network::FaradayGet::NET_ERRORS + [RedisMutex::LockError]
 
   def perform user_id, user_rate_id, action
