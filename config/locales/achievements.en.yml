@@ -3,5 +3,5 @@ en:
     neko_name:
       longshounen: Long Shounen
     hint:
-      default: '%{neko_id} level %{level}'
+      default: '%{neko_name} level %{level}'
       animelist: '%{threshold} watched anime'

@@ -34,5 +34,21 @@ describe Neko::Rule do
       let(:neko_id) { Types::Achievement::NekoId[:animelist] }
       it { expect(rule.hint).to eq '15 просмотренных аниме' }
     end
+
+    %i[ru en].each do |locale|
+      context locale do
+        include_context :stub_locale, locale
+
+        Types::Achievement::NekoId.values.to_a.each do |neko_id_spec|
+          context neko_id_spec do
+            let(:neko_id) { neko_id_spec }
+            it do
+              expect(rule.hint).to be_present
+              expect(rule.hint).to eq rule.hint
+            end
+          end
+        end
+      end
+    end
   end
 end
