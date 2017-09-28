@@ -9,11 +9,11 @@ class Neko::Repository
   end
 
   def find neko_id, level
-    neko_id = Types::Achievement::NekoId[neko_id]
+    neko_id = neko_id.to_sym
     level = level.to_i
 
     super() { |rule| rule.neko_id == neko_id && rule.level == level } ||
-      raise(ActiveRecord::RecordNotFound)
+      Neko::Rule::NO_RULE
   end
 
 private

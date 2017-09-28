@@ -6,12 +6,4 @@
   - else
     h2.headline.blue = Anime.model_name.human
     .cc-achievements
-      - @user.achievements.sort_by(&:level).reverse.group_by(&:neko_id).values.map(&:first).each do |achievement|
-        .b-achievement
-          .image
-            = image_tag achievement.image
-          .about
-            .title = achievement.title
-            .info level #{achievement.level + 1}
-            .progress: .bar style="width: #{achievement.progress}%"
-            .notice = achievement.text
+      = render @user.achievements.sort_by(&:level).reverse.group_by(&:neko_id).values.map(&:first)

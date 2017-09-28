@@ -13,14 +13,16 @@
     position: relative
     width: 250px
 
-    img
+    img, .no-image
       height: 100%
       max-width: 100%
       width: 100%
 
+    .no-image
+      background: lighten($gray-1, 25%)
+
     .border
-      border-color: 3px
-      border-style: solid
+      border: 3px solid $gray-2
       height: 100%
       position: absolute
       width: 100%

@@ -19,14 +19,14 @@ describe Achievement do
   end
 
   describe 'instance methods' do
-    describe '#image, #border, #title, #text' do
+    describe '#image, #border_color, #title, #text' do
       let(:neko) do
         Neko::Repository.instance.find achievement.neko_id, achievement.level
       end
       let(:achievement) { build :achievement, neko_id: :animelist }
 
       it { expect(achievement.image).to eq neko.image }
-      it { expect(achievement.border).to eq neko.border }
+      it { expect(achievement.border_color).to eq neko.border_color }
       it { expect(achievement.title).to eq neko.title_ru }
       it { expect(achievement.text).to eq neko.text_ru }
     end

@@ -12,7 +12,7 @@ describe Neko::Repository do
     it do
       expect(service.find [:animelist, 'animelist'].sample, ['1', 1].sample)
         .to be_kind_of Neko::Rule
-      expect { service.find :test, 1 }.to raise_error ActiveRecord::RecordNotFound
+      expect(service.find %i[test zxc].sample, 1).to eq Neko::Rule::NO_RULE
     end
   end
 end

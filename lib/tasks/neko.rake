@@ -22,10 +22,10 @@ namespace :neko do
       Neko::Rule.new(
         neko_id: raw_rule['neko_id'],
         level: raw_rule['level'],
-        image: raw_rule['shikimori']['image'],
-        border: raw_rule['shikimori']['border'],
-        title_ru: raw_rule['shikimori']['title_ru'],
-        text_ru: raw_rule['shikimori']['text_ru'],
+        image: raw_rule['metadata']['image'],
+        border_color: raw_rule['metadata']['border_color'],
+        title_ru: raw_rule['metadata']['title_ru'],
+        text_ru: raw_rule['metadata']['text_ru'],
       )
     end
     File.open(Neko::Repository::CONFIG_FILE, 'w') do |file|

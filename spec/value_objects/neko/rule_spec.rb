@@ -4,7 +4,7 @@ describe Neko::Rule do
       neko_id: Types::Achievement::NekoId[:test],
       level: 1,
       image: '',
-      border: nil,
+      border_color: nil,
       title_ru: 'zxc',
       text_ru: 'vbn'
     )
