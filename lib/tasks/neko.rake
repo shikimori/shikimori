@@ -28,7 +28,7 @@ namespace :neko do
         text_ru: raw_rule['shikimori']['text_ru'],
       )
     end
-    File.open(Neko::Data::CONFIG_FILE, 'w') do |file|
+    File.open(Neko::Repository::CONFIG_FILE, 'w') do |file|
       file.write neko_rules.map(&:to_hash).to_yaml
     end
 

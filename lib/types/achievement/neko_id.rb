@@ -1,11 +1,14 @@
 module Types
   module Achievement
+    NEKO_IDS = %i[
+      test
+      animelist
+      comedy
+      otaku
+    ]
+
     NekoId = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(*%i[
-        test
-        animelist
-        comedy
-      ])
+      .enum(*NEKO_IDS)
   end
 end
