@@ -13,11 +13,15 @@
 
 .p-achievements-index
   .cc-achievements
-    +clear_left
-    +block
+    +cc
 
     .b-achievement
-      +column(2)
+      +gte_ipad
+        +column(2)
+
+      +iphone
+        +column(1)
+
       //+gt_laptop
         //+column(4)
       //+gt_laptop

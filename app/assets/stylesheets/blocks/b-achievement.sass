@@ -1,35 +1,63 @@
 @import globals/variables
 @import mixins/block
 @import mixins/brackets_surrounded
+@import mixins/column
+@import mixins/responsive
 
 .b-achievement
+  +cc
   +block_m
-  padding-left: 5px
 
-  .image
-    float: right
-    height: 125px
-    margin-left: $block_offset
-    position: relative
-    width: 250px
+  +gte_iphone-landscape
+    .c-about
+      +column(2)
 
-    img, .no-image
+    .c-image
+      +column(2)
+      padding-top: 24%
+
+  +iphone_portrait
+    .c-about
+      +column(1)
+
+    .c-image
+      +column(1)
+      padding-top: 50%
+
+    // height: 125px
+    // position: relative
+    // width: 250px
+
+    // +gte_ipad
+      // float: right
+      // margin-left: $block_offset
+
+    // +iphone
+      // margin-bottom: $block_offset / 2
+
+  .c-image
+    .inner
       height: 100%
-      max-width: 100%
-      width: 100%
-
-    .no-image
-      background: lighten($gray-1, 25%)
-
-    .border
-      border: 3px solid $gray-2
-      height: 100%
+      left: 0
       position: absolute
+      top: 0
       width: 100%
 
-  .about
-    overflow: hidden
+      img, .no-image
+        height: 100%
+        max-width: 100%
+        width: 100%
 
+      .no-image
+        background: lighten($gray-1, 25%)
+
+      .border
+        border: 3px solid $gray-2
+        height: 100%
+        position: absolute
+        width: 100%
+
+  .c-about
     .title
       color: #123
       font-size: 15px
@@ -63,4 +91,3 @@
 
     .text
       margin-bottom: 5px
-

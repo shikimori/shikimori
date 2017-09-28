@@ -10,7 +10,7 @@ page_load '.tests', ->
         $(@).trigger 'change'
 
     .on 'blur change', ->
-      $('.b-achievement .image img').attr src: @value
+      $('.b-achievement .c-image img').attr src: @value
       set_link()
 
     .on 'paste', (e) ->
@@ -20,7 +20,7 @@ page_load '.tests', ->
 
   $('#image_border')
     .on 'keyup blur change', (e) ->
-      $('.b-achievement .image .border').css(borderColor: @value)
+      $('.b-achievement .c-image .border').css(borderColor: @value)
       set_link()
 
     .on 'paste', (e) ->

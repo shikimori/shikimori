@@ -1,14 +1,15 @@
 .b-achievement
-  .image
-    .border style="border-color: #{achievement.border_color}"
-
-    - if achievement.image.present?
-      = image_tag achievement.image
-    - else
-      .no-image
-
-  .about
+  .c-about
     .title = achievement.title
     .hint = achievement.hint
     .progress: .bar style="width: #{achievement.progress}%"
     .text = achievement.text
+
+  .c-image
+    .inner
+      .border style="border-color: #{achievement.border_color}"
+
+      - if achievement.image.present?
+        = image_tag achievement.image
+      - else
+        .no-image
