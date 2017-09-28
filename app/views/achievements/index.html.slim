@@ -9,9 +9,9 @@
       - @user.achievements.sort_by(&:level).reverse.group_by(&:neko_id).values.map(&:first).each do |achievement|
         .b-achievement
           .image
-            = image_tag 'http://img01.deviantart.net/b26e/i/2013/313/7/e/__fave_shounen_animes___by_erichankun-d6tku83.png'
+            = image_tag achievement.image
           .about
-            .title = achievement.neko_id
+            .title = achievement.title
             .info level #{achievement.level + 1}
             .progress: .bar style="width: #{achievement.progress}%"
-            .notice Бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
+            .notice = achievement.text
