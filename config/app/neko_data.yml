@@ -5,12 +5,22 @@
   :border_color: "#E52B50"
   :title_ru: Добро пожаловать!
   :text_ru: Даже путь в тысячу ли начинается с первого шага.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 15
 - :neko_id: :animelist
   :level: 2
   :image: https://kawai.shikimori.org/system/user_images/original/50587/459471.jpg
   :border_color: "#ff0000"
   :title_ru: Это всего лишь начало.
   :text_ru: 
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 50
 - :neko_id: :animelist
   :level: 3
   :image: https://shikimori.org/assets/achievements/anime/list_2-0d3f017394ff1743a05c4971ef759a3fe3c17c6520c3e0cb7a7d8e2eea23f576.jpg
@@ -18,72 +28,132 @@
   :title_ru: Мои силы растут!
   :text_ru: Вы достигли магического трехзначного числа. Но не время останавливаться,
     все еще впереди!
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 100
 - :neko_id: :animelist
   :level: 4
   :image: 
   :border_color: 
   :title_ru: 
   :text_ru: 
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 150
 - :neko_id: :animelist
   :level: 5
   :image: 
   :border_color: 
   :title_ru: 
   :text_ru: 
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 200
 - :neko_id: :animelist
   :level: 6
   :image: 
   :border_color: 
   :title_ru: Знаток
   :text_ru: 
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 300
 - :neko_id: :animelist
   :level: 7
   :image: 
   :border_color: 
   :title_ru: 
   :text_ru: 
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 400
 - :neko_id: :animelist
   :level: 8
   :image: 
   :border_color: 
   :title_ru: 
   :text_ru: 
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 500
 - :neko_id: :animelist
   :level: 9
   :image: http://i.imgur.com/8dY1YdU.jpg
   :border_color: "#071746"
   :title_ru: Сатанинский предел?
   :text_ru: Вами движет поистине дьявольское упорство.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 666
 - :neko_id: :animelist
   :level: 10
   :image: 
   :border_color: 
   :title_ru: 
   :text_ru: 
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 750
 - :neko_id: :animelist
   :level: 11
   :image: 
   :border_color: 
   :title_ru: Коллекционер
   :text_ru: Аниме много не бывает.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 888
 - :neko_id: :animelist
   :level: 12
   :image: 
   :border_color: 
   :title_ru: Маньяк
   :text_ru: Может все же стоит взять передышку и заняться чем-нибудь другим?
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 1000
 - :neko_id: :animelist
   :level: 13
   :image: 
   :border_color: 
   :title_ru: Легенда
   :text_ru: 
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 1500
 - :neko_id: :animelist
   :level: 14
   :image: 
   :border_color: 
   :title_ru: Ками-сама
   :text_ru: 
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 2500
 - :neko_id: :animelist
   :level: 15
   :image: 
@@ -91,24 +161,54 @@
   :title_ru: Недосягаемый
   :text_ru: Такое не под силу живому человеку. Вы уверены в том, что посмотрели все
     это?
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 5000
 - :neko_id: :comedy
   :level: 1
   :image: https://kawai.shikimori.org/system/user_images/original/50587/458876.jpg
   :border_color: "#5dbdd9"
   :title_ru: But then i lol'd
   :text_ru: Неужели вам понравился японский юмор?
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 30
+    :filters:
+      genre_id: 4
 - :neko_id: :otaku
   :level: 1
   :image: http://i.yapx.ru/JEvZ.jpg
   :border_color: "#FF496C"
   :title_ru: Эскапизм
   :text_ru: Иллюзии захватывают ваш разум.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 30
+    :filters:
+      genre_id:
+      - 9
+      - 12
 - :neko_id: :otaku
   :level: 2
   :image: https://shikimori.org/assets/achievements/anime/otaku_4-381b895909dc0141f22bd836188fc43bd64f06f655c3c708d41a2ce56018fc13.jpg
   :border_color: "#474A51"
   :title_ru: Фетишизм
   :text_ru: Как рыба в воде.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 50
+    :filters:
+      genre_id:
+      - 9
+      - 12
 - :neko_id: :otaku
   :level: 3
   :image: https://yapcdn.net/se3/1/tSDzHDAI3i0.jpg
@@ -116,9 +216,27 @@
   :title_ru: NEET
   :text_ru: Увлечение эротическим контентом начинает сказываться на вашей реальной
     жизни.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 70
+    :filters:
+      genre_id:
+      - 9
+      - 12
 - :neko_id: :otaku
   :level: 4
   :image: https://i.yapx.ru/JMeO.gif
   :border_color: "#CD9575"
   :title_ru: Хикикомори
   :text_ru: Уровень вашего либидо достиг максимального. Окружающие трепещут.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_id:
+      - 9
+      - 12

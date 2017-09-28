@@ -24,8 +24,11 @@ namespace :neko do
         level: raw_rule['level'],
         image: raw_rule['metadata']['image'],
         border_color: raw_rule['metadata']['border_color'],
-        title_ru: raw_rule['metadata']['title_ru'],
-        text_ru: raw_rule['metadata']['text_ru'],
+        title_ru: (raw_rule['metadata']['title_ru'] if raw_rule['metadata']['title_ru'].present?),
+        text_ru: (raw_rule['metadata']['text_ru'] if raw_rule['metadata']['text_ru'].present?),
+        title_en: (raw_rule['metadata']['title_en'] if raw_rule['metadata']['title_en'].present?),
+        text_en: (raw_rule['metadata']['text_en'] if raw_rule['metadata']['text_en'].present?),
+        rule: raw_rule.except('neko_id', 'level', 'metadata').symbolize_keys
       )
     end
     File.open(Neko::Repository::CONFIG_FILE, 'w') do |file|

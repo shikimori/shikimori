@@ -7,7 +7,7 @@ class Achievement < ApplicationRecord
     in: Types::Achievement::NekoId.values,
     predicates: { prefix: true }
 
-  %i[image border_color title text].each do |field|
+  %i[image border_color title hint text].each do |field|
     delegate field, to: :neko
   end
 

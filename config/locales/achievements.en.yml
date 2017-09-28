@@ -1,0 +1,7 @@
+en:
+  achievements:
+    neko_name:
+      longshounen: Long Shounen
+    hint:
+      default: '%{neko_id} level %{level}'
+      animelist: '%{threshold} watched anime'
