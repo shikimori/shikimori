@@ -6,4 +6,14 @@ class Achievement < ApplicationRecord
   enumerize :neko_id,
     in: Types::Achievement::NekoId.values,
     predicates: { prefix: true }
+
+  %i[image border title text].each do |field|
+    delegate field, to: :neko
+  end
+
+private
+
+  def neko
+    @neko ||= Neko::Repository.instance.find neko_id, level
+  end
 end

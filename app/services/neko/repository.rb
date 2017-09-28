@@ -12,7 +12,8 @@ class Neko::Repository
     neko_id = Types::Achievement::NekoId[neko_id]
     level = level.to_i
 
-    super() { |rule| rule.neko_id == neko_id && rule.level == level }
+    super() { |rule| rule.neko_id == neko_id && rule.level == level } ||
+      raise(ActiveRecord::RecordNotFound)
   end
 
 private
