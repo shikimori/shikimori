@@ -168,4 +168,18 @@ describe Api::V1::AnimesController, :show_in_doc do
       expect(response.content_type).to eq 'application/json'
     end
   end
+
+  describe '#neko', show_in_doc: false do
+    let!(:anime_1) { create :anime, name: 'asdf', genres: [genre] }
+    let!(:anime_2) { create :anime, name: 'zxcv' }
+    let(:genre) { create :genre }
+
+    before { get :neko }
+
+    it do
+      expect(json).to have(2).items
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end

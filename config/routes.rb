@@ -193,7 +193,10 @@ Rails.application.routes.draw do
           get :videos
           get :external_links
         end
-        get :search, on: :collection
+        collection do
+          get :neko
+          get :search
+        end
 
         resources :anime_videos, only: %i[index create destroy]
         resources :videos, only: %i[index create destroy]

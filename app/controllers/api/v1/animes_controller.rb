@@ -1,5 +1,7 @@
 class Api::V1::AnimesController < Api::V1Controller
-  before_action :fetch_resource, except: [:index, :search]
+  before_action :fetch_resource, except: %i[index search neko]
+
+  caches_action :neko, expires_in: 1.week
 
   LIMIT = 50
   ORDERS = %w[
@@ -226,6 +228,15 @@ class Api::V1::AnimesController < Api::V1Controller
   def search
     params[:limit] ||= 16
     index
+  end
+
+  def neko
+    data = Anime
+      .includes(:genres)
+      .select(:id)
+      .map { |anime| { anime_id: anime.id, genre_ids: anime.genres.map(&:id) } }
+
+    render json: data
   end
 
 private
