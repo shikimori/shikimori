@@ -10,14 +10,14 @@
   :image: https://kawai.shikimori.org/system/user_images/original/50587/459471.jpg
   :border_color: "#ff0000"
   :title_ru: Это всего лишь начало.
-  :text_ru: Вы достигли магического трехзначного числа. Но не время останавливаться,
-    все еще впереди!
+  :text_ru: 
 - :neko_id: :animelist
   :level: 3
   :image: https://shikimori.org/assets/achievements/anime/list_2-0d3f017394ff1743a05c4971ef759a3fe3c17c6520c3e0cb7a7d8e2eea23f576.jpg
   :border_color: "#6A5ACD"
   :title_ru: Мои силы растут!
-  :text_ru: 
+  :text_ru: Вы достигли магического трехзначного числа. Но не время останавливаться,
+    все еще впереди!
 - :neko_id: :animelist
   :level: 4
   :image: 
@@ -38,42 +38,54 @@
   :text_ru: 
 - :neko_id: :animelist
   :level: 7
+  :image: 
+  :border_color: 
+  :title_ru: 
+  :text_ru: 
+- :neko_id: :animelist
+  :level: 8
+  :image: 
+  :border_color: 
+  :title_ru: 
+  :text_ru: 
+- :neko_id: :animelist
+  :level: 9
   :image: http://i.imgur.com/8dY1YdU.jpg
   :border_color: "#071746"
   :title_ru: Сатанинский предел?
   :text_ru: Вами движет поистине дьявольское упорство.
 - :neko_id: :animelist
-  :level: 8
+  :level: 10
   :image: 
   :border_color: 
-  :title_ru: This is not even my final form!
+  :title_ru: 
   :text_ru: 
 - :neko_id: :animelist
-  :level: 9
+  :level: 11
   :image: 
   :border_color: 
   :title_ru: Коллекционер
   :text_ru: Аниме много не бывает.
 - :neko_id: :animelist
-  :level: 10
+  :level: 12
   :image: 
   :border_color: 
   :title_ru: Маньяк
   :text_ru: Может все же стоит взять передышку и заняться чем-нибудь другим?
 - :neko_id: :animelist
-  :level: 11
+  :level: 13
   :image: 
   :border_color: 
   :title_ru: Легенда
   :text_ru: 
 - :neko_id: :animelist
-  :level: 12
+  :level: 14
   :image: 
   :border_color: 
   :title_ru: Ками-сама
   :text_ru: 
 - :neko_id: :animelist
-  :level: 13
+  :level: 15
   :image: 
   :border_color: 
   :title_ru: Недосягаемый
