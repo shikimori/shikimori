@@ -1,3 +1,4 @@
+# rubocop:disable ClassLength
 class Api::V1::AnimesController < Api::V1Controller
   before_action :fetch_resource, except: %i[index search neko]
 
@@ -234,7 +235,7 @@ class Api::V1::AnimesController < Api::V1Controller
     data = Anime
       .includes(:genres)
       .select(:id)
-      .map { |anime| { anime_id: anime.id, genre_ids: anime.genres.map(&:id) } }
+      .map { |anime| { id: anime.id, genre_ids: anime.genres.map(&:id) } }
 
     render json: data
   end
