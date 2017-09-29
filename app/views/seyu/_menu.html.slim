@@ -5,7 +5,7 @@
         src="#{cdn_image @resource, :original}"
         alt="#{localized_name @resource}"
       ]
-- else
+/ - else
   = render 'spnsrs/ad', ad: Ad.new(:istari_x300)
 
 /- if user_signed_in?

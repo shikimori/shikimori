@@ -35,7 +35,7 @@
           - else
             = t '.one_user_has_it_in_his_list'
 
-  - if @itemtype
+  / - if @itemtype
     = render 'spnsrs/ad', ad: Ad.new(:istari_x300)
 
   - if user_signed_in?
