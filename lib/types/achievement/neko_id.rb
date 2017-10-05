@@ -3,8 +3,13 @@ module Types
     NEKO_IDS = %i[
       test
       animelist
-      comedy
+      fujoshi
+      longshounen
+      moe
       otaku
+      sovietanime
+      tsundere
+      yandere
     ]
 
     NekoId = Types::Strict::Symbol

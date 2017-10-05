@@ -2,7 +2,7 @@
 - :neko_id: :animelist
   :level: 1
   :image: http://i.imgur.com/v7x2w7p.png
-  :border_color: "#E52B50"
+  :border_color: "#e52b50"
   :title_ru: Добро пожаловать!
   :text_ru: Даже путь в тысячу ли начинается с первого шага.
   :title_en: 
@@ -24,7 +24,7 @@
 - :neko_id: :animelist
   :level: 3
   :image: https://shikimori.org/assets/achievements/anime/list_2-0d3f017394ff1743a05c4971ef759a3fe3c17c6520c3e0cb7a7d8e2eea23f576.jpg
-  :border_color: "#6A5ACD"
+  :border_color: "#6a5acd"
   :title_ru: Мои силы растут!
   :text_ru: Вы достигли магического трехзначного числа. Но не время останавливаться,
     все еще впереди!
@@ -166,23 +166,354 @@
   :rule:
     :algo: simple
     :threshold: 5000
-- :neko_id: :comedy
+- :neko_id: :fujoshi
   :level: 1
-  :image: https://kawai.shikimori.org/system/user_images/original/50587/458876.jpg
-  :border_color: "#5dbdd9"
-  :title_ru: But then i lol'd
-  :text_ru: Неужели вам понравился японский юмор?
+  :image: http://i.imgur.com/R6PqIoT.png
+  :border_color: "#e82a8d"
+  :title_ru: Вуайерист-любитель
+  :text_ru: Поздравляем! В тебе проснулась внутренняя фудзёси!
   :title_en: 
   :text_en: 
   :rule:
     :algo: simple
     :threshold: 30
     :filters:
-      genre_id: 4
+      genre_ids:
+      - 28
+      - 33
+- :neko_id: :fujoshi
+  :level: 2
+  :image: http://i.imgur.com/TLvZb0E.png
+  :border_color: "#e82a8d"
+  :title_ru: Голубок
+  :text_ru: Поворачивать назад уже слишком поздно. Пора совершить каминг-аут и наконец-то
+    признать свою любовь к "не очень традиционным" историям.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 50
+    :filters:
+      genre_ids:
+      - 28
+      - 33
+- :neko_id: :fujoshi
+  :level: 3
+  :image: http://i.imgur.com/DKfMKBR.png
+  :border_color: "#e82a8d"
+  :title_ru: Шиппер
+  :text_ru: Мужская дружба? Не, не слышали.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 70
+    :filters:
+      genre_ids:
+      - 28
+      - 33
+- :neko_id: :fujoshi
+  :level: 4
+  :image: http://nyaa.shikimori.org/images/user_image/original/22828/107095.jpg
+  :border_color: "#e82a8d"
+  :title_ru: Яойный бог
+  :text_ru: Яой - не жанр. Яой — это стиль жизни.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 28
+      - 33
+- :neko_id: :longshounen
+  :level: 1
+  :image:
+  - http://i.imgur.com/ktKNeQO.png
+  - http://img01.deviantart.net/b26e/i/2013/313/7/e/__fave_shounen_animes___by_erichankun-d6tku83.png
+  :border_color:
+  - "#da7f51"
+  - "#1c1c1c"
+  :title_ru: Хокаге
+  :text_ru: 100 эпизодов для вас не проблема.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 30%
+    :filters:
+      anime_ids: &1
+      - 10033
+      - 11061
+      - 1254
+      - 12929
+      - 1425
+      - 15
+      - 1604
+      - 1735
+      - 20
+      - 2076
+      - 21
+      - 21639
+      - 22
+      - 22043
+      - 2222
+      - 223
+      - 235
+      - 249
+      - 250
+      - 269
+      - 2747
+      - 392
+      - 3972
+      - 481
+      - 482
+      - 516
+      - 6702
+      - 813
+      - 918
+      - 966
+      - 967
+- :neko_id: :longshounen
+  :level: 2
+  :image:
+  - http://i.imgur.com/1UP6Bxk.png
+  - https://i.yapx.ru/JK7W.jpg
+  :border_color:
+  - "#373b3e"
+  - "#1c1c1c"
+  :title_ru: Король пиратов
+  :text_ru: Качество работы пропорционально количеству серий. Чем длиннее — тем выше
+    потенциал! В длинном аниме персонажи раскрыты лучше всего! Нужно больше длинносёненов!
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 55%
+    :filters:
+      anime_ids: *1
+- :neko_id: :moe
+  :level: 1
+  :image: http://i944.photobucket.com/albums/ad284/dzh2011/02/yuruyuri22.jpg
+  :border_color: "#f0d698"
+  :title_ru: Начинающий моэфаг
+  :text_ru: Позволь проводить тебя в удивительный 2д-мир.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 30%
+    :filters:
+      anime_ids: &2
+      - 10012
+      - 10080
+      - 10165
+      - 10249
+      - 10278
+      - 10378
+      - 10396
+      - 10491
+      - 10495
+      - 10521
+      - 10532
+      - 10638
+      - 10805
+      - 10807
+      - 10849
+      - 10863
+      - 11013
+      - 11743
+      - 11757
+      - 12187
+      - 12189
+      - 12291
+      - 12403
+      - 13263
+      - 13267
+      - 13403
+      - 13469
+      - 13655
+      - 13759
+      - 14741
+      - 14807
+      - 14811
+      - 14829
+      - 15039
+      - 15051
+      - 15117
+      - 15315
+      - 15453
+      - 15535
+      - 15687
+      - 15879
+      - 15927
+      - 1593
+      - 16049
+      - 16273
+      - 16405
+      - 16417
+      - 16444
+      - 16700
+      - 16706
+      - 16732
+      - 16742
+      - 16934
+      - 16936
+      - 17437
+      - 17549
+      - 17637
+      - 17643
+      - 17725
+      - 17879
+      - 18195
+      - 18419
+      - 18671
+      - 18851
+      - 1887
+      - 1889
+      - 18897
+      - 19021
+      - 19109
+      - 19111
+      - 19697
+      - 19815
+      - 20021
+      - 20035
+      - 20047
+      - 20449
+      - 20509
+      - 20517
+      - 20541
+      - 21273
+      - 21635
+      - 21647
+      - 21667
+      - 2167
+      - 21797
+      - 21881
+      - 22071
+      - 22123
+      - 22147
+      - 22759
+      - 22859
+      - 23225
+      - 23227
+      - 23237
+      - 23269
+      - 23399
+      - 23587
+      - 23623
+      - 24227
+      - 24991
+      - 24997
+      - 25011
+      - 2563
+      - 25861
+      - 25879
+      - 26057
+      - 26351
+      - 27509
+      - 27525
+      - 27601
+      - 27787
+      - 29787
+      - 29893
+      - 30056
+      - 30206
+      - 30279
+      - 30344
+      - 30379
+      - 30902
+      - 31519
+      - 31706
+      - 31715
+      - 32526
+      - 32547
+      - 32553
+      - 32886
+      - 3297
+      - 33034
+      - 33094
+      - 33456
+      - 33674
+      - 33746
+      - 34100
+      - 34257
+      - 34973
+      - 3652
+      - 3958
+      - 4382
+      - 4472
+      - 4654
+      - 477
+      - 4772
+      - 5118
+      - 5196
+      - 5244
+      - 5680
+      - 5955
+      - 5957
+      - 5978
+      - 6064
+      - 6213
+      - 6547
+      - 659
+      - 66
+      - 6862
+      - 6956
+      - 7017
+      - 7311
+      - 7791
+      - 8023
+      - 8440
+      - 849
+      - 8525
+      - 8557
+      - 8857
+      - 8937
+      - 9047
+      - 9062
+      - 9063
+      - 9203
+      - 9253
+      - 934
+      - 9379
+      - 9617
+      - 962
+      - 9734
+      - 9888
+      - 9989
+- :neko_id: :moe
+  :level: 2
+  :image: http://i.imgur.com/ao63S07.png
+  :border_color: "#fdbdba"
+  :title_ru: Лучи кавая
+  :text_ru: Поражают в самое сердце.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 55%
+    :filters:
+      anime_ids: *2
+- :neko_id: :moe
+  :level: 3
+  :image: http://i.imgur.com/Arxun3R.gif
+  :border_color: "#ff0000"
+  :title_ru: Первоклассная моэта
+  :text_ru: Вы приняли слишком большую дозу тортиков и сами стали моэ.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 80%
+    :filters:
+      anime_ids: *2
 - :neko_id: :otaku
   :level: 1
   :image: http://i.yapx.ru/JEvZ.jpg
-  :border_color: "#FF496C"
+  :border_color: "#ff496c"
   :title_ru: Эскапизм
   :text_ru: Иллюзии захватывают ваш разум.
   :title_en: 
@@ -191,13 +522,13 @@
     :algo: simple
     :threshold: 30
     :filters:
-      genre_id:
+      genre_ids:
       - 9
       - 12
 - :neko_id: :otaku
   :level: 2
   :image: https://shikimori.org/assets/achievements/anime/otaku_4-381b895909dc0141f22bd836188fc43bd64f06f655c3c708d41a2ce56018fc13.jpg
-  :border_color: "#474A51"
+  :border_color: "#474a51"
   :title_ru: Фетишизм
   :text_ru: Как рыба в воде.
   :title_en: 
@@ -206,13 +537,13 @@
     :algo: simple
     :threshold: 50
     :filters:
-      genre_id:
+      genre_ids:
       - 9
       - 12
 - :neko_id: :otaku
   :level: 3
   :image: https://yapcdn.net/se3/1/tSDzHDAI3i0.jpg
-  :border_color: "#2F4F4F"
+  :border_color: "#2f4f4f"
   :title_ru: NEET
   :text_ru: Увлечение эротическим контентом начинает сказываться на вашей реальной
     жизни.
@@ -222,13 +553,13 @@
     :algo: simple
     :threshold: 70
     :filters:
-      genre_id:
+      genre_ids:
       - 9
       - 12
 - :neko_id: :otaku
   :level: 4
   :image: https://i.yapx.ru/JMeO.gif
-  :border_color: "#CD9575"
+  :border_color: "#cd9575"
   :title_ru: Хикикомори
   :text_ru: Уровень вашего либидо достиг максимального. Окружающие трепещут.
   :title_en: 
@@ -237,6 +568,495 @@
     :algo: simple
     :threshold: 90
     :filters:
-      genre_id:
+      genre_ids:
       - 9
       - 12
+- :neko_id: :sovietanime
+  :level: 1
+  :image: http://i.imgur.com/Edt5PrL.png
+  :border_color: "#daa520"
+  :title_ru: MIWKA, VODKA, BALALAIKA
+  :text_ru: Из России с любовью <3
+  :title_en: MIWKA, VODKA, BALALAIKA
+  :text_en: From Russia with love <3
+  :rule:
+    :algo: simple
+    :threshold: 30%
+    :filters:
+      anime_ids:
+      - 10073
+      - 1013
+      - 1016
+      - 10463
+      - 1051
+      - 107
+      - 1082
+      - 1088
+      - 1091
+      - 10937
+      - 1096
+      - 1097
+      - 11021
+      - 1103
+      - 11241
+      - 1153
+      - 1165
+      - 1166
+      - 11699
+      - 11741
+      - 11755
+      - 11813
+      - 1186
+      - 1210
+      - 12149
+      - 12317
+      - 1233
+      - 12413
+      - 1243
+      - 1246
+      - 12471
+      - 1329
+      - 13331
+      - 134
+      - 1362
+      - 13655
+      - 1412
+      - 14131
+      - 1420
+      - 1424
+      - 1425
+      - 1426
+      - 14407
+      - 1445
+      - 14467
+      - 1457
+      - 1460
+      - 1462
+      - 1483
+      - 1491
+      - 15
+      - 150
+      - 15051
+      - 1508
+      - 1519
+      - 15195
+      - 1583
+      - 16662
+      - 17265
+      - 1742
+      - 1792
+      - 18617
+      - 1910
+      - 19115
+      - 19221
+      - 19367
+      - 194
+      - 1941
+      - 1946
+      - 197
+      - 2057
+      - 2063
+      - 20971
+      - 20973
+      - 2215
+      - 22663
+      - 22687
+      - 22729
+      - 2279
+      - 2308
+      - 23199
+      - 2332
+      - 237
+      - 23725
+      - 24439
+      - 24921
+      - 2510
+      - 25183
+      - 25457
+      - 2557
+      - 25731
+      - 2581
+      - 25835
+      - 26085
+      - 263
+      - 2696
+      - 272
+      - 27503
+      - 27631
+      - 27829
+      - 27833
+      - 2795
+      - 282
+      - 28211
+      - 284
+      - 28625
+      - 288
+      - 2881
+      - 28907
+      - 28999
+      - 2904
+      - 2929
+      - 294
+      - 2972
+      - 29786
+      - 29893
+      - 30
+      - 3079
+      - 30806
+      - 31157
+      - 31163
+      - 31318
+      - 31339
+      - 31452
+      - 31637
+      - 32245
+      - 3229
+      - 3231
+      - 324
+      - 32615
+      - 3270
+      - 32866
+      - 329
+      - 32995
+      - 33091
+      - 3342
+      - 33797
+      - 34013
+      - 3568
+      - 3588
+      - 364
+      - 366
+      - 3667
+      - 370
+      - 375
+      - 3751
+      - 3784
+      - 3785
+      - 3800
+      - 400
+      - 4039
+      - 4066
+      - 4087
+      - 4094
+      - 424
+      - 4477
+      - 4618
+      - 4654
+      - 467
+      - 476
+      - 4901
+      - 497
+      - 5060
+      - 5178
+      - 525
+      - 530
+      - 532
+      - 551
+      - 561
+      - 5620
+      - 5690
+      - 573
+      - 581
+      - 6
+      - 6041
+      - 6116
+      - 6166
+      - 624
+      - 636
+      - 6377
+      - 6444
+      - 650
+      - 6500
+      - 6512
+      - 6573
+      - 6610
+      - 6702
+      - 6746
+      - 6747
+      - 6946
+      - 6973
+      - 71
+      - 7176
+      - 72
+      - 73
+      - 777
+      - 801
+      - 8092
+      - 82
+      - 820
+      - 84
+      - 8425
+      - 8479
+      - 8888
+      - 889
+      - 90
+      - 92
+      - 9340
+      - 949
+      - 9525
+      - 958
+      - 96
+      - 97
+      - 9751
+      - 9941
+      - 9957
+- :neko_id: :tsundere
+  :level: 1
+  :image: http://4.downloader.disk.yandex.ru/preview/5eac620f443f2af84a5c53a0be61e12eb674dab2f29021fd67d88c398a890ee8/inf/Ulc4l6Nw6Zl9PBaWaDlZYRPYq3rOstOLpJUfGvZu19XShMYPQViaEYZ0V3sfrDiY_Az5g_fyC-WAg7wGwBuGuw%3D%3D?uid=0&filename=0_10a1fd_b2db1e85_XL.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=XXL
+  :border_color: "#c5d0e6"
+  :title_ru: Это не то, о чем ты подумал
+  :text_ru: Н-не то, что я бы волновалась о тебе, я-ясно?
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 30%
+    :filters:
+      anime_ids: &3
+      - 1010
+      - 10165
+      - 10719
+      - 10790
+      - 11319
+      - 11577
+      - 11597
+      - 1170
+      - 1172
+      - 11743
+      - 1195
+      - 12291
+      - 1293
+      - 133
+      - 13659
+      - 14653
+      - 14967
+      - 15039
+      - 15379
+      - 15451
+      - 16049
+      - 1691
+      - 16982
+      - 17074
+      - 18041
+      - 1815
+      - 1840
+      - 1887
+      - 18893
+      - 18897
+      - 1919
+      - 1920
+      - 1921
+      - 1922
+      - 1923
+      - 1924
+      - 2026
+      - 210
+      - 2167
+      - 22043
+      - 22297
+      - 23277
+      - 24
+      - 24703
+      - 249
+      - 24919
+      - 24921
+      - 2494
+      - 25099
+      - 269
+      - 2759
+      - 27787
+      - 2787
+      - 28171
+      - 28701
+      - 28883
+      - 30
+      - 31
+      - 31564
+      - 31798
+      - 32
+      - 32282
+      - 32407
+      - 3299
+      - 33487
+      - 35338
+      - 355
+      - 3712
+      - 3784
+      - 3785
+      - 3786
+      - 4028
+      - 412
+      - 418
+      - 4181
+      - 4192
+      - 4224
+      - 449
+      - 450
+      - 451
+      - 452
+      - 4654
+      - 5081
+      - 5233
+      - 5233
+      - 534
+      - 535
+      - 536
+      - 5530
+      - 587
+      - 5941
+      - 6213
+      - 6351
+      - 637
+      - 64
+      - 65
+      - 6512
+      - 6572
+      - 6702
+      - 6773
+      - 6811
+      - 7590
+      - 7748
+      - 7769
+      - 7817
+      - 792
+      - 8074
+      - 8424
+      - 8425
+      - 846
+      - 8630
+      - 866
+      - 868
+      - 869
+      - 8769
+      - 8841
+      - 8937
+      - 9253
+      - 934
+      - 9958
+      - 9989
+- :neko_id: :tsundere
+  :level: 2
+  :image:
+  - http://1.downloader.disk.yandex.ru/preview/6abb7cdad4a4e9bcbe6d7d1b52180c3153b83338dc2c25b2cc35448d74786fe4/inf/Ulc4l6Nw6Zl9PBaWaDlZYas_zL30hhAMoNSEx-4FEwSdgKKeqy0Dxd0MIshL0EghqCLhu2E1FRq6wZXHvNLFyA%3D%3D?uid=0&filename=x_b269fbe6.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+  - http://i.imgur.com/P0S1kjy.jpg
+  :border_color:
+  - "#f0d698"
+  - "#423189"
+  :title_ru: Дурак!
+  :text_ru: Заткнись! Заткнись! Заткнись!
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 55%
+    :filters:
+      anime_ids: *3
+- :neko_id: :tsundere
+  :level: 3
+  :image: http://i.imgur.com/Gy4zW05.gif
+  :border_color: "#cd7f32"
+  :title_ru: Цундере мне вовсе не интересны!
+  :text_ru: Ну, если только совсем чуть-чуть...
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 80%
+    :filters:
+      anime_ids: *3
+- :neko_id: :yandere
+  :level: 1
+  :image: https://lh3.googleusercontent.com/5GlJJYYzodzjTuR5IiDN9Fj2KR_X-CYZtTEqPN6iUHAOHfKr3QvI_jElrRwEg7rNR-Jctcvq89-jliPlLA8sI7ZNHAOWZp3EEZhQcDmogawgqs9mIklOkHUxDQ89MbyN-nEYU9rGwtTa63p0og
+  :border_color: "#821d60"
+  :title_ru: Бездна
+  :text_ru: Если долго всматриваться в бездну — бездна начнет всматриваться в тебя.
+  :title_en: Abyss
+  :text_en: When you look into the abyss, the abyss stares back at you.
+  :rule:
+    :algo: simple
+    :threshold: 30%
+    :filters:
+      anime_ids: &4
+      - 10620
+      - 11285
+      - 11981
+      - 13663
+      - 15037
+      - 1519
+      - 1535
+      - 15583
+      - 16700
+      - 16762
+      - 1719
+      - 17729
+      - 18041
+      - 1836
+      - 1889
+      - 19163
+      - 22199
+      - 226
+      - 22961
+      - 23199
+      - 24655
+      - 2476
+      - 2476
+      - 2593
+      - 27831
+      - 27833
+      - 2899
+      - 29095
+      - 31634
+      - 356
+      - 376
+      - 3782
+      - 3783
+      - 4282
+      - 437
+      - 4725
+      - 4896
+      - 4901
+      - 4970
+      - 5177
+      - 5177
+      - 5356
+      - 64
+      - 65
+      - 6594
+      - 6746
+      - 6880
+      - 7059
+      - 7311
+      - 7311
+      - 7396
+      - 756
+      - 7724
+      - 79
+      - 8460
+      - 849
+      - 934
+- :neko_id: :yandere
+  :level: 2
+  :image: http://i.imgur.com/5Dk8pth.png?1
+  :border_color: "#9a4cb7"
+  :title_ru: Ураган
+  :text_ru: Ураганы имеют одну интересную особенность — в их центре всегда спокойно.
+  :title_en: Hurricane
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 55%
+    :filters:
+      anime_ids: *4
+- :neko_id: :yandere
+  :level: 3
+  :image: http://i.imgur.com/hcBxX2e.png
+  :border_color: "#d54956"
+  :title_ru: Безумие
+  :text_ru: Умри, пожалуйста!
+  :title_en: Insanity
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 80%
+    :filters:
+      anime_ids: *4
