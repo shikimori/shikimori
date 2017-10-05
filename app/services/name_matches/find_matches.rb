@@ -32,6 +32,7 @@ private
     if groups.any?
       groups.first.second
         .map { |match| match.send entry_type }
+        .compact
         .uniq
     else
       []

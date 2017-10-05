@@ -8,12 +8,12 @@ describe NameMatches::ResolveAmbiguousity do
     subject { service.call }
 
     describe 'no options' do
-      let(:options) {{ }}
+      let(:options) { {} }
       it { should eq animes }
     end
 
     describe 'year' do
-      let(:options) {{ year: 2000 }}
+      let(:options) { { year: 2000 } }
 
       describe 'no exact matches' do
         it { should eq animes }
@@ -26,7 +26,7 @@ describe NameMatches::ResolveAmbiguousity do
     end
 
     describe 'status' do
-      let(:options) {{ status: :ongoing }}
+      let(:options) { { status: :ongoing } }
 
       describe 'no_exact_matches' do
         it { should eq animes }
@@ -39,7 +39,7 @@ describe NameMatches::ResolveAmbiguousity do
     end
 
     describe 'episodes' do
-      let(:options) { {episodes: 21} }
+      let(:options) { { episodes: 21 } }
 
       describe 'no exact matches' do
         it { should eq animes }
@@ -47,6 +47,19 @@ describe NameMatches::ResolveAmbiguousity do
 
       describe 'exact match by year' do
         let(:anime_1) { build_stubbed :anime, name: ['test'], episodes: 20 }
+        it { should eq [anime_1] }
+      end
+    end
+
+    describe 'kind' do
+      let(:options) { { kind: :ova } }
+
+      describe 'no_exact_matches' do
+        it { should eq animes }
+      end
+
+      describe 'exact match by status' do
+        let(:anime_1) { build_stubbed :anime, kind: :ova }
         it { should eq [anime_1] }
       end
     end
