@@ -10,6 +10,7 @@ module Types
       sovietanime
       tsundere
       yandere
+      comedy
     ]
 
     NekoId = Types::Strict::Symbol
