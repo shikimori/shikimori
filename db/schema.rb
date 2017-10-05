@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926194249) do
+ActiveRecord::Schema.define(version: 20171004212911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -667,6 +667,7 @@ ActiveRecord::Schema.define(version: 20170926194249) do
     t.integer "group", null: false
     t.integer "target_id", null: false
     t.string "target_type", null: false
+    t.index ["phrase"], name: "index_name_matches_on_phrase"
     t.index ["target_type", "target_id"], name: "index_name_matches_on_target_type_and_target_id"
   end
 
