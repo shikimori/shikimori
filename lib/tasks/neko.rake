@@ -1,3 +1,4 @@
+GITHUB_URL = 'https://github.com/shikimori/neko-achievements/tree/master/'
 NEKO_RULES_FILE = "#{Rails.root.join}/../neko-achievements/priv/rules/*"
 NEKO_IDS_FILE = "#{Rails.root.join}/lib/types/achievement/neko_id.rb"
 
@@ -5,7 +6,10 @@ namespace :neko do
   desc "generate achievements.yml"
   task update: :environment do
     rules = Dir[NEKO_RULES_FILE].flat_map do |rule_file|
-      YAML.load_file(rule_file)
+      YAML.load_file(rule_file).map do |rule|
+        rule.merge 'source' =>
+          GITHUB_URL + rule_file.sub(%r{^.*\.\./neko-achievements/}, '')
+      end
     end
 
     neko_ids = %w[test] + rules.map { |v| v['neko_id'] }.uniq.sort
