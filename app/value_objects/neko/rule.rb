@@ -41,6 +41,11 @@ class Neko::Rule < Dry::Struct
       default: proc { default_hint }
   end
 
+  def neko_name
+    I18n.t "achievements.neko_name.#{neko_id}",
+    default: neko_id.to_s.capitalize
+  end
+
   def progress
     0
   end
@@ -48,9 +53,6 @@ class Neko::Rule < Dry::Struct
 private
 
   def default_hint
-    neko_name = I18n.t "achievements.neko_name.#{neko_id}",
-      default: neko_id.to_s.capitalize
-
     I18n.t 'achievements.hint.default',
       neko_name: neko_name,
       level: level

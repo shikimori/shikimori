@@ -24,6 +24,14 @@ describe Neko::Rule do
     it { expect(rule.text).to eq rule.text_ru }
   end
 
+  describe '#neko_name' do
+    it { expect(rule.neko_name).to eq 'Неизвестная ачивка' }
+  end
+
+  describe '#progress' do
+    it { expect(rule.progress).to eq 0 }
+  end
+
   describe '#hint' do
     context 'test' do
       let(:neko_id) { Types::Achievement::NekoId[:test] }

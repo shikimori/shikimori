@@ -1,6 +1,8 @@
+# require "#{Rails.root}/lib/types"
+# require "#{Rails.root}/lib/types/achievement/neko_id"
 GITHUB_URL = 'https://github.com/shikimori/neko-achievements/tree/master/'
-NEKO_RULES_FILE = "#{Rails.root.join}/../neko-achievements/priv/rules/*"
-NEKO_IDS_FILE = "#{Rails.root.join}/lib/types/achievement/neko_id.rb"
+NEKO_RULES_FILE = "#{Rails.root}/../neko-achievements/priv/rules/*"
+NEKO_IDS_FILE = "#{Rails.root}/lib/types/achievement/neko_id.rb"
 
 namespace :neko do
   desc "generate achievements.yml"
@@ -12,15 +14,24 @@ namespace :neko do
       end
     end
 
-    neko_ids = %w[test] + rules.map { |v| v['neko_id'] }.uniq.sort
-    neko_ids_type = open(NEKO_IDS_FILE).read.gsub(
+    neko_ids = %w[test] + rules.map { |v| v['neko_id'] }.uniq
+    shiki_ids = open(NEKO_IDS_FILE).read.match(
       /(?<=NEKO_IDS\ =\ %i\[).*?(?=\])/mix,
-      "\n      " + neko_ids.join("\n      ") + "\n    "
-    )
+    )[0].strip.split("\n").map(&:strip).select(&:present?)
 
-    File.open(NEKO_IDS_FILE, 'w') do |file|
-      file.write neko_ids_type
+    if (neko_ids & shiki_ids).size != neko_ids.size
+      raise '[unmatched neko_ids] missing ids: ' +
+        (neko_ids - shiki_ids).join(',') + ' unknown ids: ' + 
+        (shiki_ids - neko_ids).join(',')
     end
+    # neko_ids_type = open(NEKO_IDS_FILE).read.gsub(
+      # /(?<=NEKO_IDS\ =\ %i\[).*?(?=\])/mix,
+      # "\n      " + neko_ids.join("\n      ") + "\n    "
+    # )
+
+    # File.open(NEKO_IDS_FILE, 'w') do |file|
+      # file.write neko_ids_type
+    # end
 
     neko_rules = rules.map do |raw_rule|
       Neko::Rule.new(

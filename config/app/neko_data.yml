@@ -16,8 +16,8 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: &1
+    :filters: &1
+      genre_ids:
       - 1
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
 - :neko_id: :action
@@ -31,8 +31,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids: *1
+    :filters: *1
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
 - :neko_id: :action
   :level: 3
@@ -45,8 +44,7 @@
   :rule:
     :algo: simple
     :threshold: 140
-    :filters:
-      genre_ids: *1
+    :filters: *1
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
 - :neko_id: :action
   :level: 4
@@ -59,8 +57,7 @@
   :rule:
     :algo: simple
     :threshold: 200
-    :filters:
-      genre_ids: *1
+    :filters: *1
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
 - :neko_id: :animelist
   :level: 1
@@ -255,8 +252,8 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: &2
+    :filters: &2
+      genre_ids:
       - 4
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
 - :neko_id: :comedy
@@ -270,8 +267,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids: *2
+    :filters: *2
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
 - :neko_id: :comedy
   :level: 3
@@ -284,8 +280,7 @@
   :rule:
     :algo: simple
     :threshold: 140
-    :filters:
-      genre_ids: *2
+    :filters: *2
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
 - :neko_id: :comedy
   :level: 4
@@ -298,8 +293,7 @@
   :rule:
     :algo: simple
     :threshold: 200
-    :filters:
-      genre_ids: *2
+    :filters: *2
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
 - :neko_id: :dementia_psychological
   :level: 1
@@ -312,8 +306,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &3
+    :filters: &3
+      genre_ids:
       - 5
       - 40
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
@@ -333,8 +327,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *3
+    :filters: *3
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
 - :neko_id: :dementia_psychological
   :level: 3
@@ -347,8 +340,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *3
+    :filters: *3
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
 - :neko_id: :dementia_psychological
   :level: 4
@@ -365,8 +357,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *3
+    :filters: *3
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
 - :neko_id: :drama
   :level: 1
@@ -383,8 +374,8 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: &4
+    :filters: &4
+      genre_ids:
       - 8
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
 - :neko_id: :drama
@@ -402,8 +393,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids: *4
+    :filters: *4
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
 - :neko_id: :drama
   :level: 3
@@ -420,8 +410,7 @@
   :rule:
     :algo: simple
     :threshold: 140
-    :filters:
-      genre_ids: *4
+    :filters: *4
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
 - :neko_id: :drama
   :level: 4
@@ -434,8 +423,7 @@
   :rule:
     :algo: simple
     :threshold: 200
-    :filters:
-      genre_ids: *4
+    :filters: *4
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
 - :neko_id: :fantasy
   :level: 1
@@ -448,8 +436,8 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: &5
+    :filters: &5
+      genre_ids:
       - 10
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
 - :neko_id: :fantasy
@@ -463,8 +451,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids: *5
+    :filters: *5
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
 - :neko_id: :fantasy
   :level: 3
@@ -477,8 +464,7 @@
   :rule:
     :algo: simple
     :threshold: 140
-    :filters:
-      genre_ids: *5
+    :filters: *5
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
 - :neko_id: :fantasy
   :level: 4
@@ -497,8 +483,7 @@
   :rule:
     :algo: simple
     :threshold: 200
-    :filters:
-      genre_ids: *5
+    :filters: *5
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
 - :neko_id: :fujoshi
   :level: 1
@@ -511,8 +496,8 @@
   :rule:
     :algo: simple
     :threshold: 30
-    :filters:
-      genre_ids: &6
+    :filters: &6
+      genre_ids:
       - 28
       - 33
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
@@ -528,8 +513,7 @@
   :rule:
     :algo: simple
     :threshold: 50
-    :filters:
-      genre_ids: *6
+    :filters: *6
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
 - :neko_id: :fujoshi
   :level: 3
@@ -542,8 +526,7 @@
   :rule:
     :algo: simple
     :threshold: 70
-    :filters:
-      genre_ids: *6
+    :filters: *6
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
 - :neko_id: :fujoshi
   :level: 4
@@ -556,10 +539,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids:
-      - 28
-      - 33
+    :filters: *6
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
 - :neko_id: :gar
   :level: 1
@@ -572,8 +552,8 @@
   :rule:
     :algo: simple
     :threshold: 10%
-    :filters:
-      anime_ids: &7
+    :filters: &7
+      anime_ids:
       - 1
       - 1000
       - 10017
@@ -1046,8 +1026,7 @@
   :rule:
     :algo: simple
     :threshold: 25%
-    :filters:
-      anime_ids: *7
+    :filters: *7
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - :neko_id: :gar
   :level: 3
@@ -1060,8 +1039,7 @@
   :rule:
     :algo: simple
     :threshold: 40%
-    :filters:
-      anime_ids: *7
+    :filters: *7
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - :neko_id: :historical
   :level: 1
@@ -1074,8 +1052,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &8
+    :filters: &8
+      genre_ids:
       - 13
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
 - :neko_id: :historical
@@ -1089,8 +1067,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *8
+    :filters: *8
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
 - :neko_id: :historical
   :level: 3
@@ -1103,8 +1080,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *8
+    :filters: *8
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
 - :neko_id: :historical
   :level: 4
@@ -1124,8 +1100,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *8
+    :filters: *8
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
 - :neko_id: :horror_thriller
   :level: 1
@@ -1139,8 +1114,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &9
+    :filters: &9
+      genre_ids:
       - 14
       - 41
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
@@ -1155,8 +1130,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *9
+    :filters: *9
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
 - :neko_id: :horror_thriller
   :level: 3
@@ -1169,8 +1143,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *9
+    :filters: *9
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
 - :neko_id: :horror_thriller
   :level: 4
@@ -1183,8 +1156,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *9
+    :filters: *9
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
 - :neko_id: :josei
   :level: 1
@@ -1197,8 +1169,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &10
+    :filters: &10
+      genre_ids:
       - 43
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
 - :neko_id: :josei
@@ -1212,8 +1184,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *10
+    :filters: *10
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
 - :neko_id: :josei
   :level: 3
@@ -1226,8 +1197,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *10
+    :filters: *10
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
 - :neko_id: :josei
   :level: 4
@@ -1240,8 +1210,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *10
+    :filters: *10
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
 - :neko_id: :kuudere
   :level: 1
@@ -1254,8 +1223,8 @@
   :rule:
     :algo: simple
     :threshold: 30%
-    :filters:
-      anime_ids: &11
+    :filters: &11
+      anime_ids:
       - 9999999999
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - :neko_id: :kuudere
@@ -1269,8 +1238,7 @@
   :rule:
     :algo: simple
     :threshold: 55%
-    :filters:
-      anime_ids: *11
+    :filters: *11
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - :neko_id: :kuudere
   :level: 3
@@ -1285,8 +1253,7 @@
   :rule:
     :algo: simple
     :threshold: 80%
-    :filters:
-      anime_ids: *11
+    :filters: *11
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - :neko_id: :longshounen
   :level: 1
@@ -1303,8 +1270,8 @@
   :rule:
     :algo: simple
     :threshold: 30%
-    :filters:
-      anime_ids: &12
+    :filters: &12
+      anime_ids:
       - 10033
       - 11061
       - 1254
@@ -1353,8 +1320,7 @@
   :rule:
     :algo: simple
     :threshold: 55%
-    :filters:
-      anime_ids: *12
+    :filters: *12
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
 - :neko_id: :mahou_shoujo
   :level: 1
@@ -1367,8 +1333,8 @@
   :rule:
     :algo: simple
     :threshold: 20
-    :filters:
-      anime_ids: &13
+    :filters: &13
+      anime_ids:
       - 100
       - 10000
       - 10028
@@ -1890,8 +1856,7 @@
   :rule:
     :algo: simple
     :threshold: 35
-    :filters:
-      anime_ids: *13
+    :filters: *13
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - :neko_id: :mahou_shoujo
   :level: 3
@@ -1909,8 +1874,7 @@
   :rule:
     :algo: simple
     :threshold: 55
-    :filters:
-      anime_ids: *13
+    :filters: *13
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - :neko_id: :mahou_shoujo
   :level: 4
@@ -1923,8 +1887,7 @@
   :rule:
     :algo: simple
     :threshold: 85
-    :filters:
-      anime_ids: *13
+    :filters: *13
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - :neko_id: :mecha
   :level: 1
@@ -1941,8 +1904,8 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: &14
+    :filters: &14
+      genre_ids:
       - 18
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
 - :neko_id: :mecha
@@ -1957,8 +1920,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids: *14
+    :filters: *14
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
 - :neko_id: :mecha
   :level: 3
@@ -1971,8 +1933,7 @@
   :rule:
     :algo: simple
     :threshold: 140
-    :filters:
-      genre_ids: *14
+    :filters: *14
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
 - :neko_id: :mecha
   :level: 4
@@ -1991,8 +1952,7 @@
   :rule:
     :algo: simple
     :threshold: 200
-    :filters:
-      genre_ids: *14
+    :filters: *14
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
 - :neko_id: :military
   :level: 1
@@ -2005,8 +1965,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &15
+    :filters: &15
+      genre_ids:
       - 38
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
 - :neko_id: :military
@@ -2020,8 +1980,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *15
+    :filters: *15
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
 - :neko_id: :military
   :level: 3
@@ -2034,8 +1993,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *15
+    :filters: *15
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
 - :neko_id: :military
   :level: 4
@@ -2050,8 +2008,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *15
+    :filters: *15
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
 - :neko_id: :moe
   :level: 1
@@ -2064,8 +2021,8 @@
   :rule:
     :algo: simple
     :threshold: 30%
-    :filters:
-      anime_ids: &16
+    :filters: &16
+      anime_ids:
       - 10012
       - 10080
       - 10165
@@ -2256,8 +2213,7 @@
   :rule:
     :algo: simple
     :threshold: 55%
-    :filters:
-      anime_ids: *16
+    :filters: *16
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - :neko_id: :moe
   :level: 3
@@ -2270,8 +2226,7 @@
   :rule:
     :algo: simple
     :threshold: 80%
-    :filters:
-      anime_ids: *16
+    :filters: *16
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - :neko_id: :music
   :level: 1
@@ -2284,8 +2239,8 @@
   :rule:
     :algo: simple
     :threshold: 20
-    :filters:
-      genre_ids: &17
+    :filters: &17
+      genre_ids:
       - 19
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
 - :neko_id: :music
@@ -2299,8 +2254,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *17
+    :filters: *17
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
 - :neko_id: :music
   :level: 3
@@ -2318,8 +2272,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *17
+    :filters: *17
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
 - :neko_id: :music
   :level: 4
@@ -2333,8 +2286,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *17
+    :filters: *17
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
 - :neko_id: :mystery
   :level: 1
@@ -2348,8 +2300,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &18
+    :filters: &18
+      genre_ids:
       - 7
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
 - :neko_id: :mystery
@@ -2363,8 +2315,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *18
+    :filters: *18
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
 - :neko_id: :mystery
   :level: 3
@@ -2381,8 +2332,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *18
+    :filters: *18
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
 - :neko_id: :mystery
   :level: 4
@@ -2396,8 +2346,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *18
+    :filters: *18
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
 - :neko_id: :oldfag
   :level: 1
@@ -2410,7 +2359,7 @@
   :rule:
     :algo: simple
     :threshold: 70
-    :filters:
+    :filters: &19
       year_lte: 2000
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
 - :neko_id: :oldfag
@@ -2424,8 +2373,7 @@
   :rule:
     :algo: simple
     :threshold: 150
-    :filters:
-      year_lte: 2000
+    :filters: *19
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
 - :neko_id: :oldfag
   :level: 3
@@ -2438,8 +2386,7 @@
   :rule:
     :algo: simple
     :threshold: 350
-    :filters:
-      year_lte: 2000
+    :filters: *19
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
 - :neko_id: :oldfag
   :level: 4
@@ -2452,8 +2399,7 @@
   :rule:
     :algo: simple
     :threshold: 500
-    :filters:
-      year_lte: 2000
+    :filters: *19
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
 - :neko_id: :onniichan
   :level: 1
@@ -2503,8 +2449,8 @@
   :rule:
     :algo: simple
     :threshold: 30
-    :filters:
-      genre_ids: &19
+    :filters: &20
+      genre_ids:
       - 9
       - 12
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
@@ -2519,8 +2465,7 @@
   :rule:
     :algo: simple
     :threshold: 50
-    :filters:
-      genre_ids: *19
+    :filters: *20
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
 - :neko_id: :otaku
   :level: 3
@@ -2534,8 +2479,7 @@
   :rule:
     :algo: simple
     :threshold: 70
-    :filters:
-      genre_ids: *19
+    :filters: *20
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
 - :neko_id: :otaku
   :level: 4
@@ -2547,9 +2491,8 @@
   :text_en: 
   :rule:
     :algo: simple
-    :threshold: 90
-    :filters:
-      genre_ids: *19
+    :threshold: 30
+    :filters: *20
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
 - :neko_id: :police
   :level: 1
@@ -2562,8 +2505,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &20
+    :filters: &21
+      genre_ids:
       - 39
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - :neko_id: :police
@@ -2577,8 +2520,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *20
+    :filters: *21
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - :neko_id: :police
   :level: 3
@@ -2595,8 +2537,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *20
+    :filters: *21
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - :neko_id: :police
   :level: 4
@@ -2609,8 +2550,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *20
+    :filters: *21
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - :neko_id: :romance
   :level: 1
@@ -2627,8 +2567,8 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: &21
+    :filters: &22
+      genre_ids:
       - 22
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
 - :neko_id: :romance
@@ -2646,8 +2586,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids: *21
+    :filters: *22
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
 - :neko_id: :romance
   :level: 3
@@ -2664,8 +2603,7 @@
   :rule:
     :algo: simple
     :threshold: 140
-    :filters:
-      genre_ids: *21
+    :filters: *22
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
 - :neko_id: :romance
   :level: 4
@@ -2686,8 +2624,7 @@
   :rule:
     :algo: simple
     :threshold: 200
-    :filters:
-      genre_ids: *21
+    :filters: *22
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
 - :neko_id: :scifi
   :level: 1
@@ -2701,8 +2638,8 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: &22
+    :filters: &23
+      genre_ids:
       - 24
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
 - :neko_id: :scifi
@@ -2721,8 +2658,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids: *22
+    :filters: *23
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
 - :neko_id: :scifi
   :level: 3
@@ -2736,8 +2672,7 @@
   :rule:
     :algo: simple
     :threshold: 140
-    :filters:
-      genre_ids: *22
+    :filters: *23
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
 - :neko_id: :scifi
   :level: 4
@@ -2750,8 +2685,7 @@
   :rule:
     :algo: simple
     :threshold: 200
-    :filters:
-      genre_ids: *22
+    :filters: *23
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
 - :neko_id: :seinen
   :level: 1
@@ -2766,8 +2700,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &23
+    :filters: &24
+      genre_ids:
       - 42
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
 - :neko_id: :seinen
@@ -2782,8 +2716,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *23
+    :filters: *24
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
 - :neko_id: :seinen
   :level: 3
@@ -2796,8 +2729,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *23
+    :filters: *24
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
 - :neko_id: :seinen
   :level: 4
@@ -2811,8 +2743,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *23
+    :filters: *24
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
 - :neko_id: :slice_of_life
   :level: 1
@@ -2825,8 +2756,8 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: &24
+    :filters: &25
+      genre_ids:
       - 36
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
 - :neko_id: :slice_of_life
@@ -2844,8 +2775,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids: *24
+    :filters: *25
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
 - :neko_id: :slice_of_life
   :level: 3
@@ -2863,8 +2793,7 @@
   :rule:
     :algo: simple
     :threshold: 140
-    :filters:
-      genre_ids: *24
+    :filters: *25
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
 - :neko_id: :slice_of_life
   :level: 4
@@ -2882,8 +2811,7 @@
   :rule:
     :algo: simple
     :threshold: 200
-    :filters:
-      genre_ids: *24
+    :filters: *25
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
 - :neko_id: :sovietanime
   :level: 1
@@ -3130,8 +3058,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &25
+    :filters: &26
+      genre_ids:
       - 29
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
 - :neko_id: :space
@@ -3152,8 +3080,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *25
+    :filters: *26
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
 - :neko_id: :space
   :level: 3
@@ -3170,8 +3097,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *25
+    :filters: *26
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
 - :neko_id: :space
   :level: 4
@@ -3193,8 +3119,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *25
+    :filters: *26
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
 - :neko_id: :sports
   :level: 1
@@ -3211,8 +3136,8 @@
   :rule:
     :algo: simple
     :threshold: 25
-    :filters:
-      genre_ids: &26
+    :filters: &27
+      genre_ids:
       - 30
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
 - :neko_id: :sports
@@ -3230,8 +3155,7 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: *26
+    :filters: *27
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
 - :neko_id: :sports
   :level: 3
@@ -3248,8 +3172,7 @@
   :rule:
     :algo: simple
     :threshold: 60
-    :filters:
-      genre_ids: *26
+    :filters: *27
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
 - :neko_id: :sports
   :level: 4
@@ -3266,8 +3189,7 @@
   :rule:
     :algo: simple
     :threshold: 100
-    :filters:
-      genre_ids: *26
+    :filters: *27
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
 - :neko_id: :supernatural
   :level: 1
@@ -3280,8 +3202,8 @@
   :rule:
     :algo: simple
     :threshold: 40
-    :filters:
-      genre_ids: &27
+    :filters: &28
+      genre_ids:
       - 37
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
 - :neko_id: :supernatural
@@ -3296,8 +3218,7 @@
   :rule:
     :algo: simple
     :threshold: 90
-    :filters:
-      genre_ids: *27
+    :filters: *28
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
 - :neko_id: :supernatural
   :level: 3
@@ -3311,8 +3232,7 @@
   :rule:
     :algo: simple
     :threshold: 140
-    :filters:
-      genre_ids: *27
+    :filters: *28
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
 - :neko_id: :supernatural
   :level: 4
@@ -3325,8 +3245,7 @@
   :rule:
     :algo: simple
     :threshold: 200
-    :filters:
-      genre_ids: *27
+    :filters: *28
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
 - :neko_id: :tsundere
   :level: 1
@@ -3339,8 +3258,8 @@
   :rule:
     :algo: simple
     :threshold: 30%
-    :filters:
-      anime_ids: &28
+    :filters: &29
+      anime_ids:
       - 1010
       - 10165
       - 10719
@@ -3478,8 +3397,7 @@
   :rule:
     :algo: simple
     :threshold: 55%
-    :filters:
-      anime_ids: *28
+    :filters: *29
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
 - :neko_id: :tsundere
   :level: 3
@@ -3492,8 +3410,7 @@
   :rule:
     :algo: simple
     :threshold: 80%
-    :filters:
-      anime_ids: *28
+    :filters: *29
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
 - :neko_id: :yandere
   :level: 1
@@ -3506,8 +3423,8 @@
   :rule:
     :algo: simple
     :threshold: 30%
-    :filters:
-      anime_ids: &29
+    :filters: &30
+      anime_ids:
       - 10620
       - 11285
       - 11981
@@ -3577,8 +3494,7 @@
   :rule:
     :algo: simple
     :threshold: 55%
-    :filters:
-      anime_ids: *29
+    :filters: *30
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - :neko_id: :yandere
   :level: 3
@@ -3591,8 +3507,7 @@
   :rule:
     :algo: simple
     :threshold: 80%
-    :filters:
-      anime_ids: *29
+    :filters: *30
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - :neko_id: :yuuri
   :level: 1
@@ -3609,8 +3524,8 @@
   :rule:
     :algo: simple
     :threshold: 30%
-    :filters:
-      genre_ids: &30
+    :filters: &31
+      genre_ids:
       - 26
       - 34
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
@@ -3625,8 +3540,7 @@
   :rule:
     :algo: simple
     :threshold: 55%
-    :filters:
-      genre_ids: *30
+    :filters: *31
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - :neko_id: :yuuri
   :level: 3
@@ -3643,8 +3557,7 @@
   :rule:
     :algo: simple
     :threshold: 80%
-    :filters:
-      genre_ids: *30
+    :filters: *31
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - :neko_id: :yuuri
   :level: 4
@@ -3661,6 +3574,5 @@
   :rule:
     :algo: simple
     :threshold: 80%
-    :filters:
-      genre_ids: *30
+    :filters: *31
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
