@@ -3,6 +3,8 @@ class NameValidator < ActiveModel::EachValidator
     Youtoome
   )
   PREDEFINED_PATHS = %i(
+    api
+    achievements
     animes
     mangas
     ranobe

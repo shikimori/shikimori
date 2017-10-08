@@ -25,8 +25,6 @@ en:
     achievements: Achievements
     users: Users
 
-  achievements_controller:
-    <<: *profiles_controller
   dialogs_controller:
     <<: *profiles_controller
     conversation_removed: Conversation removed
@@ -75,6 +73,8 @@ en:
       nothing_imported: Nothing imported.
       continuation_of_previous_message: (continuation of previous message)
     error_incorrect_file_format: Import error. Maybe incorrect file format.
+  users/achievements_controller:
+    <<: *profiles_controller
   users/list_exports_controller:
     <<: *profiles_controller
     title: Export list

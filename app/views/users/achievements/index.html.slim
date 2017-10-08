@@ -1,0 +1,10 @@
+= render layout: 'page' do
+  /h2.subheadline.m10 = @page_title.last
+
+  - if @user.nickname == 'test2'
+    = render 'users/achievements/demo'
+  - else
+    h2.headline.blue = Anime.model_name.human
+    .cc-achievements
+      = render partial: 'users/achievements/achievement',
+        collection: @user.achievements.sort_by(&:level).reverse.group_by(&:neko_id).values.map(&:first)

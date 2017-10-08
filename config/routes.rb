@@ -333,13 +333,13 @@ Rails.application.routes.draw do
   end
   # /api
 
-  constraints MangaOnlineDomain do
-    get '/', to: 'manga_online/mangas#index'
-    get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
-    get 'chapters/:id(/:page)' => 'manga_online/chapters#show', as: :online_manga_chapter_show
+  # constraints MangaOnlineDomain do
+    # get '/', to: 'manga_online/mangas#index'
+    # get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
+    # get 'chapters/:id(/:page)' => 'manga_online/chapters#show', as: :online_manga_chapter_show
 
-    get 'robots.txt' => 'robots#manga_online'
-  end
+    # get 'robots.txt' => 'robots#manga_online'
+  # end
 
   constraints AnimeOnlineDomain do
     get '/', to: 'anime_online/dashboard#show'
@@ -601,6 +601,8 @@ Rails.application.routes.draw do
     resources :genres, only: %i[index edit update] do
       get :tooltip, on: :member
     end
+
+    resources :achievements, only: %i[index show]
 
     # seo redirects
     constraints kind: /animes|mangas/, other: /.*/, other2: /.*/ do
@@ -911,11 +913,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :achievements, only: %i[index] do
-        get :franchise, on: :collection
-      end
-
       scope module: :users do
+        resources :achievements, only: %i[index] do
+          get :franchise, on: :collection
+        end
         resources :polls do
           post :start, on: :member
           post :stop, on: :member

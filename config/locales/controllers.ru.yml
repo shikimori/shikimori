@@ -25,8 +25,6 @@ ru:
     achievements: Достижения
     users: Пользователи
 
-  achievements_controller:
-    <<: *profiles_controller
   dialogs_controller:
     <<: *profiles_controller
     conversation_removed: Диалог удалён
@@ -75,6 +73,8 @@ ru:
       nothing_imported: Ничего нового не импортировано.
       continuation_of_previous_message: (продолжение предыдущего сообщения)
     error_incorrect_file_format: Произошла ошибка. Возможно, некорректный формат файла.
+  users/achievements_controller:
+    <<: *profiles_controller
   users/list_exports_controller:
     <<: *profiles_controller
     title: Экспорт списка
