@@ -2,7 +2,9 @@
 class Api::V1::AnimesController < Api::V1Controller
   before_action :fetch_resource, except: %i[index search neko]
 
-  caches_action :neko, expires_in: 1.week
+  caches_action :neko, expires_in: 1.week, cache_path: lambda {
+    "#{params[:controller]}_#{params[:action]}_v2"
+  }
 
   LIMIT = 50
   ORDERS = %w[
@@ -231,14 +233,23 @@ class Api::V1::AnimesController < Api::V1Controller
     index
   end
 
+  # rubocop:disable MethodLength
   def neko
-    data = Anime
+    animes = Anime
       .includes(:genres)
       .select(:id)
-      .map { |anime| { id: anime.id, genre_ids: anime.genres.map(&:id) } }
+
+    data = animes.map do |anime|
+      {
+        id: anime.id,
+        genre_ids: anime.genres.map(&:id),
+        year: anime.year
+      }
+    end
 
     render json: data
   end
+  # rubocop:enable MethodLength
 
 private
 
