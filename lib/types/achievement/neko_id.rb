@@ -4,6 +4,7 @@ module Types
       test
       animelist
       fujoshi
+      kuudere
       longshounen
       moe
       otaku

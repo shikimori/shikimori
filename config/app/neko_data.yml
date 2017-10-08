@@ -510,6 +510,48 @@
     :threshold: 80%
     :filters:
       anime_ids: *2
+- :neko_id: :kuudere
+  :level: 1
+  :image: http://gifok.net/images/2015/06/23/KUDERE1LVL.jpg
+  :border_color: "#9ad1ee"
+  :title_ru: Тишина
+  :text_ru: Кудере молчит только потому, что того хочет.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 30%
+    :filters:
+      anime_ids: &3
+      - 9999999999
+- :neko_id: :kuudere
+  :level: 2
+  :image: http://gifok.net/images/2015/06/23/KUDERE2LVL.jpg
+  :border_color: "#4a4a40"
+  :title_ru: Мудрость
+  :text_ru: Умный менее всего одинок тогда, когда он находится в одиночестве.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 55%
+    :filters:
+      anime_ids: *3
+- :neko_id: :kuudere
+  :level: 3
+  :image: http://gifok.net/images/2015/06/23/KUDERE3LVL.jpg
+  :border_color: "#533e41"
+  :title_ru: Хладнокровие
+  :text_ru: |-
+    - Как вы можете оставаться таким холодным?
+    - Практика.
+  :title_en: 
+  :text_en: 
+  :rule:
+    :algo: simple
+    :threshold: 80%
+    :filters:
+      anime_ids: *3
 - :neko_id: :otaku
   :level: 1
   :image: http://i.yapx.ru/JEvZ.jpg
@@ -812,7 +854,7 @@
     :algo: simple
     :threshold: 30%
     :filters:
-      anime_ids: &3
+      anime_ids: &4
       - 1010
       - 10165
       - 10719
@@ -950,7 +992,7 @@
     :algo: simple
     :threshold: 55%
     :filters:
-      anime_ids: *3
+      anime_ids: *4
 - :neko_id: :tsundere
   :level: 3
   :image: http://i.imgur.com/Gy4zW05.gif
@@ -963,7 +1005,7 @@
     :algo: simple
     :threshold: 80%
     :filters:
-      anime_ids: *3
+      anime_ids: *4
 - :neko_id: :yandere
   :level: 1
   :image: https://lh3.googleusercontent.com/5GlJJYYzodzjTuR5IiDN9Fj2KR_X-CYZtTEqPN6iUHAOHfKr3QvI_jElrRwEg7rNR-Jctcvq89-jliPlLA8sI7ZNHAOWZp3EEZhQcDmogawgqs9mIklOkHUxDQ89MbyN-nEYU9rGwtTa63p0og
@@ -976,7 +1018,7 @@
     :algo: simple
     :threshold: 30%
     :filters:
-      anime_ids: &4
+      anime_ids: &5
       - 10620
       - 11285
       - 11981
@@ -1046,7 +1088,7 @@
     :algo: simple
     :threshold: 55%
     :filters:
-      anime_ids: *4
+      anime_ids: *5
 - :neko_id: :yandere
   :level: 3
   :image: http://i.imgur.com/hcBxX2e.png
@@ -1059,4 +1101,4 @@
     :algo: simple
     :threshold: 80%
     :filters:
-      anime_ids: *4
+      anime_ids: *5

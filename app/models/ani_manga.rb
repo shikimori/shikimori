@@ -2,7 +2,7 @@ module AniManga
   OngoingToReleasedDays = 2
 
   def year
-    aired_on ? aired_on.year : nil
+    aired_on&.year
   end
 
   # если жанров слишком много, то оставляем только 6 основных

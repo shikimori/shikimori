@@ -237,7 +237,7 @@ class Api::V1::AnimesController < Api::V1Controller
   def neko
     animes = Anime
       .includes(:genres)
-      .select(:id)
+      .select(:id, :aired_on)
 
     data = animes.map do |anime|
       {

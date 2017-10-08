@@ -4,7 +4,7 @@
     .percent #{achievement.progress}%
     .hint = achievement.hint
     .progress: .bar style="width: #{achievement.progress}%"
-    .text = achievement.text
+    .text == achievement.text.gsub("\n", "<br>")
 
   .c-image
     .inner
