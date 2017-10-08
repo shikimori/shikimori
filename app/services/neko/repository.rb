@@ -19,9 +19,9 @@ class Neko::Repository
 private
 
   def data
-    @data ||= read_config.map do |raw_rule|
-      Neko::Rule.new raw_rule
-    end
+    @data ||= read_config
+      .map { |raw_rule| Neko::Rule.new raw_rule }
+      .sort_by(&:sort_criteria)
   end
 
   def read_config

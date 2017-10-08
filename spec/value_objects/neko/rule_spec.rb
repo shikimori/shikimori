@@ -59,4 +59,13 @@ describe Neko::Rule do
       end
     end
   end
+
+  describe '#sort_criteria' do
+    it do
+      expect(rule.sort_criteria).to eq [
+        Types::Achievement::NEKO_IDS.index(rule.neko_id),
+        rule.level
+      ]
+    end
+  end
 end

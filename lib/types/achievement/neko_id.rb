@@ -7,9 +7,9 @@ module Types
       otaku
       fujoshi
       yuuri
-      kuudere
-      yandere
       tsundere
+      yandere
+      kuudere
       mahou_shoujo
       oldfag
       sovietanime

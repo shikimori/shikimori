@@ -5,8 +5,11 @@ header.head.misc
 
 - Neko::Repository.instance.group_by(&:neko_id).each do |neko_id, achievements|
   .block
-    .subheadline = achievements.first.neko_name
+    .subheadline.m10
+      a[
+        href="#{achievement_url neko_id}"
+      ] #{achievements.first.neko_name} (#{achievements.last.level})
 
-  / .cc-achievements
-    / = render partial: 'users/achievements/achievement',
-      / collection: Neko::Repository.instance.to_a
+    .cc-achievements
+      = render 'users/achievements/achievement', achievement: achievements.first
+      / = render partial: 'users/achievements/achievement', collection: achievements

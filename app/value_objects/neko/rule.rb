@@ -50,6 +50,26 @@ class Neko::Rule < Dry::Struct
     0
   end
 
+  def image
+    @image.is_a?(Array) ? @image.first : @image
+  end
+
+  def border_color
+    @border_color.is_a?(Array) ? @border_color.first : @border_color
+  end
+
+  def images
+    @image
+  end
+
+  def border_colors
+    @border_color
+  end
+
+  def sort_criteria
+    [Types::Achievement::NEKO_IDS.index(neko_id), level]
+  end
+
 private
 
   def default_hint
