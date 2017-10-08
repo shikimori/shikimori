@@ -1,6 +1,12 @@
 ru:
   inflections:
     cardinal:
+      achievement:
+        subjective:
+          one: ачивка
+          few: ачивки
+          many: ачивок
+          other: ачивки
       author:
         subjective:
           one: автор

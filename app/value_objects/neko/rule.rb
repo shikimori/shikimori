@@ -41,6 +41,10 @@ class Neko::Rule < Dry::Struct
       default: proc { default_hint }
   end
 
+  def progress
+    0
+  end
+
 private
 
   def default_hint
