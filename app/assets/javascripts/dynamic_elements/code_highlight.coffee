@@ -35,8 +35,8 @@ class DynamicElements.CodeHighlight extends View
 
     @worker = @build_worker ->
       importScripts(
-        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js' +
-          '/9.9.0/highlight.min.js'
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js'
       )
       # не убирать @. без этого uglifier переименует переменную onmessage
       @onmessage = (event) ->

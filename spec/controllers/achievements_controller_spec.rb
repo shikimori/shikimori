@@ -5,4 +5,9 @@ describe AchievementsController do
     before { get :index }
     it { expect(response).to have_http_status :success }
   end
+
+  describe '#show' do
+    before { get :show, params: { id: 'test' } }
+    it { expect(response).to have_http_status :success }
+  end
 end
