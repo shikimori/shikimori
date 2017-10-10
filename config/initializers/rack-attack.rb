@@ -6,9 +6,15 @@ Rack::Attack.throttle('req/ip', limit: 5, period: 1.second) do |req|
   #
   # If falsy, the cache key is neither incremented nor checked.
 
-  req.ip
+  # requests from neko are allowed
+  if req.ip != '136.243.135.217'
+    req.ip
+  end
 end
 
 Rack::Attack.throttle('req/ip', limit: 90, period: 60.second) do |req|
-  req.ip
+  # requests from neko are allowed
+  if req.ip != '136.243.135.217'
+    req.ip
+  end
 end
