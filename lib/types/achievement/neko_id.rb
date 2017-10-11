@@ -10,6 +10,7 @@ module Types
       tsundere
       yandere
       kuudere
+      onniichan
       mahou_shoujo
       oldfag
       sovietanime
@@ -29,7 +30,6 @@ module Types
       military
       music
       mystery
-      onniichan
       police
       romance
       scifi

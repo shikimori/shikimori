@@ -1,14 +1,8 @@
 ---
 - :neko_id: :action
   :level: 1
-  :image:
-  - https://kawai.shikimori.org/system/user_images/original/50587/459326.jpg
-  - https://moe.shikimori.org/system/user_images/original/50587/459327.jpg
-  - https://desu.shikimori.org/system/user_images/original/50587/459328.jpg
-  :border_color:
-  - "#86b3c5"
-  - "#6a8364"
-  - "#ecbcf4"
+  :image: []
+  :border_color: []
   :title_ru: Курс молодого бойца
   :text_ru: Вы обучены искусству уничтожения.
   :title_en: 
@@ -294,10 +288,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
 - :neko_id: :comedy
   :level: 2
-  :image:
-  - http://i761.photobucket.com/albums/xx252/star-san/kaskus/tsukkomi-boke.jpg
-  :border_color:
-  - "#f4a460"
+  :image: []
+  :border_color: []
   :title_ru: Комедиант
   :text_ru: Теперь вам известны основы комедии.
   :title_en: 
@@ -311,9 +303,9 @@
 - :neko_id: :comedy
   :level: 3
   :image:
-  - https://moe.shikimori.org/system/user_images/original/50587/458972.jpg
+  - https://s-media-cache-ak0.pinimg.com/originals/1f/9a/ff/1f9affe62feff2a1b3ecc16ea9268469.gif
   :border_color:
-  - "#02142d"
+  - "#7f8f18"
   :title_ru: Вечный смех
   :text_ru: В психушке вам будут рады. Для вас открыты двери каждой психбольницы.
   :title_en: 
@@ -326,10 +318,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
 - :neko_id: :comedy
   :level: 4
-  :image:
-  - https://s-media-cache-ak0.pinimg.com/originals/1f/9a/ff/1f9affe62feff2a1b3ecc16ea9268469.gif
-  :border_color:
-  - "#7f8f18"
+  :image: []
+  :border_color: []
   :title_ru: Why so serious?
   :text_ru: Юмор пронизывает вашу сущность, не оставляя места ничему другому.
   :title_en: 
@@ -363,9 +353,7 @@
   :level: 2
   :image:
   - http://s5.postimg.org/5i9mqo1uf/Psiho_7_00000.jpg
-  - http://s5.postimg.org/4dfklafdj/Psiho_2_00000.jpg
   :border_color:
-  - "#000000"
   - "#000000"
   :title_ru: Это вообще реально?
   :text_ru: Стало трудно отличить реальность и вымысел. Ориентация в пространстве
@@ -397,10 +385,8 @@
 - :neko_id: :dementia_psychological
   :level: 4
   :image:
-  - http://media.giphy.com/media/3oEduMSfJQyPqvgZxu/giphy.gif
   - http://i.imgur.com/iOrSsYl.gif
   :border_color:
-  - "#4169E1"
   - "#20B2AA"
   :title_ru: Вы видели слишком много.
   :text_ru: Вы превзошли человечество и находитесь совсем на другом уровне.
@@ -416,10 +402,8 @@
   :level: 1
   :image:
   - https://desu.shikimori.org/system/user_images/original/50587/459398.jpg
-  - http://i.imgur.com/2Wk4l1j.png
   :border_color:
   - "#f46c2d"
-  - "#868479"
   :title_ru: Скупая слеза
   :text_ru: Я не плачу, мне что-то в глаз попало!
   :title_en: 
@@ -435,11 +419,9 @@
 - :neko_id: :drama
   :level: 2
   :image:
-  - https://dere.shikimori.org/system/user_images/original/50587/459409.jpg
   - https://moe.shikimori.org/system/user_images/original/50587/459402.jpg
   :border_color:
   - "#031427"
-  - "#feea4a"
   :title_ru: Эмпатия среднего уровня
   :text_ru: Ну давай, расскажи, как ты плакал над Хатико
   :title_en: 
@@ -453,10 +435,8 @@
 - :neko_id: :drama
   :level: 3
   :image:
-  - https://moe.shikimori.org/system/user_images/original/50587/459427.jpg
   - https://kawai.shikimori.org/system/user_images/original/50587/459426.jpg
   :border_color:
-  - "#100200"
   - "#fefc9f"
   :title_ru: Идеальная грусть
   :text_ru: Вам стоит проявлять эмоции тогда, когда хотите. Незачем притворяться.
@@ -520,10 +500,11 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
 - :neko_id: :fantasy
   :level: 3
-  :image: []
+  :image:
+  - http://i.imgur.com/LIoCMIo.gif
   :border_color: []
-  :title_ru: Обыватель / Герой
-  :text_ru: Магия не вызывает удивления. / Ваши подвиги войдут в историю.
+  :title_ru: Герой
+  :text_ru: Ваши подвиги войдут в историю.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -536,14 +517,9 @@
   :level: 4
   :image:
   - https://media.giphy.com/media/OHQD6K0hmSctW/giphy.gif
-  - https://media.giphy.com/media/xUPGcKy6ccPcv8fTLq/source.gif
-  - http://i.imgur.com/LIoCMIo.gif
-  - http://i.imgur.com/8jrEVob.gif
   :border_color: []
-  :title_ru: Коренной житель фентези-миров. / Владыка / Король королей / Завоеватель
-    миров
-  :text_ru: Чудеса для кого-то есть реальность для вас. / Вы видели, как зарождались
-    легенды. / Этот мир покорен. Самое время приниматься за следующий!
+  :title_ru: Король королей
+  :text_ru: Вы видели, как зарождались легенды.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -607,7 +583,7 @@
 - :neko_id: :fujoshi
   :level: 4
   :image:
-  - http://nyaa.shikimori.org/images/user_image/original/22828/107095.jpg
+  - https://shikimori.org/assets/achievements/anime/fujoshi_3.jpg
   :border_color:
   - "#e82a8d"
   :title_ru: Яойный бог
@@ -1175,8 +1151,7 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
 - :neko_id: :historical
   :level: 4
-  :image:
-  - http://static.tumblr.com/0ac9f5d5a3a0a028355a46e3910a5fab/nzckboo/4bhni4w7q/tumblr_static_30o5xtxjuog0w0ssswsw40gco.gif
+  :image: []
   :border_color: []
   :title_ru: Путешественник во времени
   :text_ru: Машина времени есть у каждого. Для путешествия в прошлое есть воспоминания,
@@ -1231,9 +1206,9 @@
   - http://i.imgur.com/hWxL0YZ.png?1
   :border_color:
   - "#d7adb1"
-  :title_ru: All monsters are human./Все чудовища — это люди.
+  :title_ru: Все чудовища — это люди
   :text_ru: Только люди могут смотреть на убийство себе подобных ради развлечения.
-  :title_en: 
+  :title_en: All monsters are human
   :text_en: 
   :topic_id: 
   :rule:
@@ -1371,10 +1346,8 @@
   :level: 1
   :image:
   - http://i.imgur.com/ktKNeQO.png
-  - http://img01.deviantart.net/b26e/i/2013/313/7/e/__fave_shounen_animes___by_erichankun-d6tku83.png
   :border_color:
   - "#da7f51"
-  - "#1c1c1c"
   :title_ru: Хокаге
   :text_ru: 100 эпизодов для вас не проблема.
   :title_en: 
@@ -1419,12 +1392,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
 - :neko_id: :longshounen
   :level: 2
-  :image:
-  - http://i.imgur.com/1UP6Bxk.png
-  - https://i.yapx.ru/JK7W.jpg
-  :border_color:
-  - "#373b3e"
-  - "#1c1c1c"
+  :image: []
+  :border_color: []
   :title_ru: Король пиратов
   :text_ru: Качество работы пропорционально количеству серий. Чем длиннее — тем выше
     потенциал! В длинном аниме персонажи раскрыты лучше всего! Нужно больше длинносёненов!
@@ -1961,10 +1930,8 @@
   :level: 2
   :image:
   - https://blackgirlnerds.com/wp-content/uploads/2015/08/sailormoonteam.jpg
-  - http://i.imgur.com/eHeAOHy.png
   :border_color:
   - "#49678d"
-  - "#f28598"
   :title_ru: Магия - второе имя
   :text_ru: Не важно, каков ваш пол, вы можете превращаться в девушку с двумя хвостиками
     и нести возмездие во имя луны.
@@ -1978,12 +1945,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - :neko_id: :mahou_shoujo
   :level: 3
-  :image:
-  - https://yapcdn.net/se3/1/HA5wAVVK.jpg
-  - https://shikimori.org/assets/achievements/anime/mahou_shoujo_1-7d4cc46a600abd8e3b4fd4408ff52ea6134ac57d02f383c4d14d4399f2ba870a.jpg
-  :border_color:
-  - "#009b76"
-  - "#d8b1bf"
+  :image: []
+  :border_color: []
   :title_ru: Все враги побеждены
   :text_ru: Опасность миновала, жителям Волшебной страны остаётся только жить-поживать
     да добра наживать.
@@ -2014,10 +1977,8 @@
 - :neko_id: :mecha
   :level: 1
   :image:
-  - http://i.imgur.com/dd0fC8Z.png
   - http://68.media.tumblr.com/8cf1278fd22114a55608e9b09a5db1b4/tumblr_inline_nczxqyUFjI1rywm8k.png
   :border_color:
-  - "#ffffff"
   - "#1a153f"
   :title_ru: Пилот Евы
   :text_ru: ОЯШ, залезай в робота
@@ -2068,10 +2029,8 @@
   :level: 4
   :image:
   - http://i.imgur.com/YTDucCf.gif
-  - http://i.imgur.com/poc59of.png
   :border_color:
   - "#da4968"
-  - "#ff000f"
   :title_ru: DO THE IMPOSSIBLE, SEE THE INVISIBLE!
   :text_ru: |-
     Мы снесем любую стену вставшую на пути! Если нет пути ,мы его проложим!
@@ -2137,7 +2096,7 @@
 - :neko_id: :military
   :level: 4
   :image:
-  - http://i7.5cm.ru/i/nzrc.gif
+  - https://shikimori.org/assets/achievements/anime/military_4.gif
   :border_color:
   - "#2a456e"
   :title_ru: Генерал
@@ -2416,10 +2375,8 @@
 - :neko_id: :music
   :level: 3
   :image:
-  - http://i.imgur.com/JztS9XN.png
   - https://pp.userapi.com/c836632/v836632323/4248b/mWRXNkQqv5g.jpg
   :border_color:
-  - "#fb607f"
   - "#cd5c5c"
   :title_ru: Это не айдол
   :text_ru: Вы ведь знаете, неважно что они поют, но они должны вкладывать в это своё
@@ -2487,10 +2444,8 @@
 - :neko_id: :mystery
   :level: 3
   :image:
-  - https://38.media.tumblr.com/f2d2b5eaa71f9126d9037f6ddf77e8fb/tumblr_inline_ng25icmDJl1t1h0ms.jpg
   - https://i.yapx.ru/JK6g.jpg
   :border_color:
-  - "#919192"
   - "#919192"
   :title_ru: За семью печатями
   :text_ru: Мэтры детективного дела обращаются к вам за советами.
@@ -2538,10 +2493,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
 - :neko_id: :oldfag
   :level: 2
-  :image:
-  - https://i.yapx.ru/JK17.jpg
-  :border_color:
-  - "#b5b8b1"
+  :image: []
+  :border_color: []
   :title_ru: Золотая коллекция
   :text_ru: Видеосалоны, запись на VHS... Вы помните все так, будто это было вчера.
   :title_en: 
@@ -2591,7 +2544,7 @@
   :border_color:
   - "#f0d698"
   :title_ru: Братик
-  :text_ru: Вы знаете как счастливо жить с сестрёнкой вечно.
+  :text_ru: Вы знаете, как счастливо жить с сестрёнкой вечно.
   :title_en: 
   :text_en: 
   :topic_id: 227425
@@ -2730,10 +2683,8 @@
   :level: 3
   :image:
   - http://i.imgur.com/uTrpGUm.png
-  - https://i.yapx.ru/JP00.jpg
   :border_color:
   - "#f4a900"
-  - "#1c1c1c"
   :title_ru: Отдел особого назначения
   :text_ru: О скольких способах противостояния преступникам вы осведомлены?
   :title_en: 
@@ -2750,7 +2701,7 @@
   - https://i.yapx.ru/JP03.jpg
   :border_color:
   - "#c7d0cc"
-  :title_ru: Вершина иерархии? Высший начальствующий состав?
+  :title_ru: Вершина иерархии, высший начальствующий состав
   :text_ru: Как вы себя чувствуете, забравшись так далеко?
   :title_en: 
   :text_en: 
@@ -2763,10 +2714,8 @@
 - :neko_id: :romance
   :level: 1
   :image:
-  - http://s5.postimg.org/89ob3jazb/Rom_3_00000.jpg
   - http://s5.postimg.org/ykjbfqyqf/Rom_1_00000.jpg
   :border_color:
-  - "#79a02a"
   - "#e2b801"
   :title_ru: Сталкер
   :text_ru: Сталкер 24/7. Почему ты меня не замечаешь?
@@ -2783,12 +2732,10 @@
 - :neko_id: :romance
   :level: 2
   :image:
-  - http://s5.postimg.org/j0bxp7olz/Rom_6_00000.jpg
-  - http://s5.postimg.org/qb7g1c507/Rom_7_00000.jpg
+  - http://s5.postimg.org/fqxiir0if/Rom_5_00000.jpg
   :border_color:
-  - "#fc8e59"
-  - "#533a64"
-  :title_ru: Неразделенная любовь / Первое признание в любви.
+  - "#9e9cb2"
+  :title_ru: Первое признание в любви.
   :text_ru: Если ты не признаешься, он никогда не узнает о твоих чувствах.
   :title_en: 
   :text_en: 
@@ -2800,13 +2747,9 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
 - :neko_id: :romance
   :level: 3
-  :image:
-  - http://s5.postimg.org/exkwq4uhj/Rom_4_00000.jpg
-  - http://s5.postimg.org/fqxiir0if/Rom_5_00000.jpg
-  :border_color:
-  - "#f16251"
-  - "#9e9cb2"
-  :title_ru: Салат / Конфетно-букетный период
+  :image: []
+  :border_color: []
+  :title_ru: Конфетно-букетный период
   :text_ru: Теперь ты можешь на равных поддерживать разговор с Салатом.
   :title_en: 
   :text_en: 
@@ -2819,16 +2762,10 @@
 - :neko_id: :romance
   :level: 4
   :image:
-  - http://media.giphy.com/media/26BkNbAY61vlv4XUk/giphy.gif
   - http://media.giphy.com/media/3oEdv7Z9NDQFcTzMha/giphy.gif
-  - https://s-media-cache-ak0.pinimg.com/originals/78/47/1d/78471de23b90e7f4ea23a7878ee40d5d.jpg
-  - https://68.media.tumblr.com/2cc0ba9f421198e84867095d97c1706c/tumblr_oco095Mm4j1riqn3no2_500.gif
   :border_color:
-  - "#001831"
   - "#001a6e"
-  - "#3d2b1f"
-  - "#89ac76"
-  :title_ru: Сердце полное любви
+  :title_ru: Сердце, полное любви
   :text_ru: Эксперт в отношениях.
   :title_en: 
   :text_en: 
@@ -2860,11 +2797,9 @@
 - :neko_id: :scifi
   :level: 2
   :image:
-  - http://i7.5cm.ru/i/oqce.png
   - http://i.imgur.com/uhI7k2t.png?1
   :border_color:
   - "#256d7b"
-  - "#b5b8b1"
   :title_ru: Изобретатель
   :text_ru: Вероятно, вы способны сделать пригодным для использования даже то, что
     является кучей мусора в глазах других.
@@ -2899,7 +2834,7 @@
   - http://25.media.tumblr.com/tumblr_m880tlaKLy1qdfvslo1_500.gif
   :border_color:
   - "#2f353b"
-  :title_ru: Великий Разум/Разумный Океан/Повелитель времени
+  :title_ru: Великий Разум
   :text_ru: Фантастика — это реальность. Всё, о чём вы подумали, осуществляется.
   :title_en: 
   :text_en: 
@@ -2983,7 +2918,7 @@
   - http://i.imgur.com/XPesMmd.png
   :border_color:
   - "#1a5369"
-  :title_ru: Обычный Японский Школьник
+  :title_ru: Обычный японский школьник
   :text_ru: Довольно заурядно.
   :title_en: 
   :text_en: 
@@ -2999,10 +2934,8 @@
   :level: 2
   :image:
   - http://i.imgur.com/kUfjaIt.png
-  - https://shikimori.org/assets/achievements/anime/slice_of_life_1-c407071e1c1c445316fc133e21c11c928d1442cd5a939a87a352c3536d435aaa.jpg
   :border_color:
   - "#cb4842"
-  - "#f4a460"
   :title_ru: Чай с тортиком
   :text_ru: Полностью погрязли в повседневных делах и симпатичных вещах.
   :title_en: 
@@ -3017,10 +2950,8 @@
   :level: 3
   :image:
   - http://i.imgur.com/o1OQB4k.png
-  - http://i.imgur.com/1HQY56T.png
   :border_color:
   - "#ddada5"
-  - "#604b3e"
   :title_ru: Дзэн
   :text_ru: Предельная концентрация на будничной жизни. Когда вы перестали задумыватсья
     о прошлом, будущем и начали жить этим моментом?
@@ -3035,10 +2966,8 @@
 - :neko_id: :slice_of_life
   :level: 4
   :image:
-  - http://imgur.com/nqVieNU
   - https://i.yapx.ru/JDDR.gif
   :border_color:
-  - "#597fb9"
   - "#597fb9"
   :title_ru: Прима ундина
   :text_ru: Вы способны на чудо. Продлить незабываемые мгновения навечно для вас ничего
@@ -3287,10 +3216,8 @@
 - :neko_id: :space
   :level: 1
   :image:
-  - http://i.imgur.com/HdTeaD0.png
   - http://i.imgur.com/TxxXm8H.png
   :border_color:
-  - "#fa8072"
   - "#172d91"
   :title_ru: 3-2-1... Пуск!
   :text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
@@ -3308,13 +3235,9 @@
   :level: 2
   :image:
   - http://i.imgur.com/HZL23tN.png
-  - http://i.imgur.com/2OFphyH.png
   :border_color:
   - "#0000cd"
-  - "#0000cd"
-  :title_ru: |-
-    Земля отсюда совсем крошечная
-    Астронавт на земной орбите
+  :title_ru: Земля отсюда совсем крошечная
   :text_ru: До чего же прекрасна Земля, если глядеть на неё сверху! Однако, не слишком
     ли тесно? Вашему миру пора расширяться — от маленькой Земли до целой вселенной.
   :title_en: 
@@ -3327,12 +3250,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
 - :neko_id: :space
   :level: 3
-  :image:
-  - http://i.imgur.com/DgyTji6.png
-  - https://pp.userapi.com/c837536/v837536323/396a5/nxsMrmV_sFU.jpg
-  :border_color:
-  - "#fa8072"
-  - "#6699cc"
+  :image: []
+  :border_color: []
   :title_ru: Межзвездный скиталец.
   :text_ru: Космос. Он так пуст, но в то же время полон жизни.
   :title_en: 
@@ -3346,18 +3265,11 @@
 - :neko_id: :space
   :level: 4
   :image:
-  - http://media.giphy.com/media/3o85xFSeZ71u8PUxgI/giphy.gif
   - http://i.imgur.com/YcZihC4.gif
-  - http://media.giphy.com/media/3oEduKAVC0tbbE6NBm/giphy.gif
   :border_color:
-  - "#000000"
   - "#ffd700"
-  - "#001831"
   :title_ru: Император галактики
-  :text_ru: |-
-    На завтрак я сегодня ел темную энергию, укутавшись в незримую материю вселенной.
-    И запивая молоком гравитационных волн, разлитых звездами которых давно нет, я перевариваю боль вселенной.
-    Я здесь живу веками во тьме построенной из сгустков атомов рожденных смертью света и сотканных в агонии случайных встреч.
+  :text_ru: 
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -3369,10 +3281,8 @@
 - :neko_id: :sports
   :level: 1
   :image:
-  - http://s5.postimg.org/d499tpbh3/Ippo_2.jpg
   - http://s5.postimg.org/p7elh9mjb/Run_1.jpg
   :border_color:
-  - "#dc143c"
   - "#975916"
   :title_ru: Первый раз на площадке
   :text_ru: Стартовый свисток дан — пора в бой!
@@ -3390,11 +3300,9 @@
   :level: 2
   :image:
   - http://s5.postimg.org/6rypxlxsn/basketball_5.jpg
-  - http://s5.postimg.org/nylnyio9j/basketball_1.jpg
   :border_color:
   - "#ff0000"
-  - "#dc143c"
-  :title_ru: С головой ушел в игру.
+  :title_ru: С головой ушел в игру
   :text_ru: Борьба в самом разгаре, пора войти в Зону.
   :title_en: 
   :text_en: 
@@ -3407,12 +3315,10 @@
 - :neko_id: :sports
   :level: 3
   :image:
-  - http://s5.postimg.org/qxsklmxqv/3_3.jpg
   - http://s5.postimg.org/ljtse380n/image.jpg
   :border_color:
   - "#dfe2e7"
-  - "#fdfdfd"
-  :title_ru: Добро пожаловать в Высшую Лигу.
+  :title_ru: Добро пожаловать в Высшую лигу
   :text_ru: Остался последний рывок до победы.
   :title_en: 
   :text_en: 
@@ -3426,10 +3332,8 @@
   :level: 4
   :image:
   - http://i.imgur.com/9oBtlqF.gif
-  - http://4.bp.blogspot.com/-gs3mszOZ73s/UyDEDlTnWiI/AAAAAAAAC1w/gBVnt7Lym7I/s1600/tumblr_n256mx7FCE1rsobu7o2_400.gif
   :border_color:
   - "#ff4500"
-  - "#1c1c1c"
   :title_ru: Олимпийский чемпион
   :text_ru: Первый на пъедестале. Отличная работа!
   :title_en: 
@@ -3648,12 +3552,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
 - :neko_id: :tsundere
   :level: 2
-  :image:
-  - http://1.downloader.disk.yandex.ru/preview/6abb7cdad4a4e9bcbe6d7d1b52180c3153b83338dc2c25b2cc35448d74786fe4/inf/Ulc4l6Nw6Zl9PBaWaDlZYas_zL30hhAMoNSEx-4FEwSdgKKeqy0Dxd0MIshL0EghqCLhu2E1FRq6wZXHvNLFyA%3D%3D?uid=0&filename=x_b269fbe6.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
-  - http://i.imgur.com/P0S1kjy.jpg
-  :border_color:
-  - "#f0d698"
-  - "#423189"
+  :image: []
+  :border_color: []
   :title_ru: Дурак!
   :text_ru: Заткнись! Заткнись! Заткнись!
   :title_en: 
@@ -3772,10 +3672,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - :neko_id: :yandere
   :level: 3
-  :image:
-  - http://i.imgur.com/hcBxX2e.png
-  :border_color:
-  - "#d54956"
+  :image: []
+  :border_color: []
   :title_ru: Безумие
   :text_ru: Умри, пожалуйста!
   :title_en: Insanity
@@ -3790,10 +3688,8 @@
   :level: 1
   :image:
   - http://i.imgur.com/MXx0Dzc.png
-  - http://i.imgur.com/6BJW72n.png
   :border_color:
   - "#d5a471"
-  - "#656b5e"
   :title_ru: Женская дружба
   :text_ru: Лишь невинные заигрывания, только и всего.
   :title_en: 
@@ -3826,10 +3722,8 @@
 - :neko_id: :yuuri
   :level: 3
   :image:
-  - "/assets/achievements/anime/yuuri_3.jpg"
   - http://i.imgur.com/c5My2Mg.png
   :border_color:
-  - "#b99f9e"
   - "#935c49"
   :title_ru: Я поцеловала девушку...
   :text_ru: "... и мне понравилось!"
@@ -3845,10 +3739,8 @@
   :level: 4
   :image:
   - https://media.giphy.com/media/JynbO9pnGxPrO/giphy.gif
-  - https://i1.wp.com/deusexmagnifica.com/wp-content/uploads/2017/05/cd2f2b82ce28aa4885996abd364a116fb13b1e82_hq.gif
   :border_color:
   - "#e73a95"
-  - "#434b4d"
   :title_ru: Счастливая семейная жизнь
   :text_ru: Лилии цветут в вашем доме.
   :title_en: 
