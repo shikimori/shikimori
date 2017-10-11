@@ -9,6 +9,7 @@ describe Neko::Rule do
       text_ru: 'vbn',
       title_en: nil,
       text_en: nil,
+      topic_id: nil,
       rule: {
         threshold: 15
       }

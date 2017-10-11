@@ -41,6 +41,10 @@ class PagesController < ShikimoriController
     @blank_layout = true
   end
 
+  def how_to_edit_achievements
+    page_title i18n_t('.how_to_edit_achievements')
+  end
+
   # rss с новостями
   def news_feed
     @collection = Topics::Query.fetch(current_user, locale_from_host)
@@ -198,8 +202,5 @@ class PagesController < ShikimoriController
 
   def my_target_ad
     raise 'allowed on production only' unless Rails.env.production?
-  end
-
-  def how_to_edit_achievements
   end
 end

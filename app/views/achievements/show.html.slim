@@ -3,6 +3,8 @@ header.head.misc
     = @page_title.last
   = render 'blocks/breadcrumbs', breadcrumbs: @breadcrumbs
 
+= render 'achievements/info', achievements: @collection
+
 - @collection.each do |achievement|
   .block
     .subheadline.m10 = t '.level', level: achievement.level
@@ -12,28 +14,12 @@ header.head.misc
         = render 'users/achievements/achievement',
           achievement: achievement,
           images: true
-      / .c-column
-        / .b-entry-info
-          / .line
-            / .key #{t '.levels'}:&nbsp;
-            / .value = achievements.size
 
-          / .line
-            / .key #{t '.threshold'}:&nbsp;
-            / .value = achievements.map { |v| v.rule[:threshold] }.join(', ')
-
-          / .line
-            / .key #{t '.source'}:&nbsp;
-            / .value
-              / a.b-link[
-                / href="#{achievements.first.rule[:source]}"
-              / ] = achievements.first.rule[:source].gsub %r{\A.*/}, ''
-
-          / - if achievements.first.rule[:filters].present?
-            / .line
-              / .key = t '.rules'
-              / .value.filters
-                / = BbCodeFormatter.instance.format_comment "[code=json]#{JSON.pretty_generate(achievements.first.rule[:filters]).gsub(/\[.*\]/mix) {|match| match.gsub(/\n|\ /, '') }}[/code]"
+      .c-column
+        .b-entry-info
+          .line
+            .key #{t '.threshold'}:&nbsp;
+            .value = achievement.rule[:threshold]
 
 - if @topic_resource
   = render 'db_entries/comments', resource: @topic_resource

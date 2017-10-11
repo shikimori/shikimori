@@ -7,7 +7,7 @@ describe AchievementsController do
   end
 
   describe '#show' do
-    before { get :show, params: { id: 'test' } }
+    before { get :show, params: { id: 'animelist' } }
     it { expect(response).to have_http_status :success }
   end
 end

@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       get :raise_exception
       get :timeout_120s
       get :my_target_ad
+      get :how_to_edit_achievements
 
       get :bb_codes
       get :feedback

@@ -6,11 +6,11 @@
   cursor: help !important
   display: inline !important
 
-  &::before
+  &:before
+    +shikimori('\e82a')
     background: $gray-2
     border-radius: 13px
     color: #FFF
-    +shikimori('\e82a')
     display: inline-block
     font-size: 9px
     height: 14px
@@ -18,3 +18,6 @@
     margin-left: 5px
     text-align: center
     width: 14px
+
+a.b-question:before
+  cursor: pointer

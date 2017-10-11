@@ -2,9 +2,11 @@ ru:
   achievements:
     index:
       list_of_all_site_achievements: Список всех ачивок сайта
+    show:
+      level: Уровень %{level}
+      threshold: Порог срабатывания
+    info:
       levels: Уровней
       rules: Правила
       threshold: Порог срабатывания
       source: Исходный код
-    show:
-      level: Уровень %{level}
