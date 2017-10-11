@@ -12,6 +12,8 @@ class AchievementsController < ShikimoriController
       .select { |v| v[:neko_id] == params[:id].to_sym }
       .sort_by(&:sort_criteria)
 
+    raise ActiveRecord::RecordNotFound if @collection.empty?
+
     @topic_resource = build_topic_resource @collection.first.topic_id
 
     page_title(
@@ -29,8 +31,12 @@ private
 
     topic = Topic.find_by id: topic_id
 
-    OpenStruct.new(
-      preview_topic_view: Topics::TopicViewFactory.new(true, false).build(topic)
-    ) if topic
+    if topic
+      OpenStruct.new(
+        preview_topic_view: Topics::TopicViewFactory.new(true, false).build(
+          topic
+        )
+      )
+    end
   end
 end

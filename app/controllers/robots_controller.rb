@@ -6,12 +6,12 @@ class RobotsController < ShikimoriController
     EOS
   end
 
-  def manga_online
-    render plain: <<~EOS
-      User-agent: *
-      Disallow: /
-    EOS
-  end
+  # def manga_online
+    # render plain: <<~EOS
+      # User-agent: *
+      # Disallow: /
+    # EOS
+  # end
 
   def shikimori
     if ru_host?

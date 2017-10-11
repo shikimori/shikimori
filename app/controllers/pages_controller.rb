@@ -199,4 +199,7 @@ class PagesController < ShikimoriController
   def my_target_ad
     raise 'allowed on production only' unless Rails.env.production?
   end
+
+  def how_to_edit_achievements
+  end
 end
