@@ -9,6 +9,7 @@ class Neko::Rule < Dry::Struct
   attribute :text_ru, Types::String.optional
   attribute :title_en, Types::String.optional
   attribute :text_en, Types::String.optional
+  attribute :topic_id, Types::Coercible::Int.optional
   attribute :rule, Types::Hash
 
   NO_RULE = new(
@@ -20,6 +21,7 @@ class Neko::Rule < Dry::Struct
     text_ru: 'Нет текста',
     title_en: 'No title',
     text_en: 'No text',
+    topic_id: nil,
     rule: {}
   )
 
@@ -59,11 +61,11 @@ class Neko::Rule < Dry::Struct
   end
 
   def images
-    @image
+    Array(@image)
   end
 
   def border_colors
-    @border_color
+    Array(@border_color)
   end
 
   def sort_criteria

@@ -6,3 +6,5 @@ ru:
       rules: Правила
       threshold: Порог срабатывания
       source: Исходный код
+    show:
+      level: Уровень %{level}

@@ -39,15 +39,20 @@ namespace :neko do
         level: raw_rule['level'],
         image: raw_rule['metadata']['image'],
         border_color: raw_rule['metadata']['border_color'],
-        title_ru: (raw_rule['metadata']['title_ru'] if raw_rule['metadata']['title_ru'].present?),
-        text_ru: (raw_rule['metadata']['text_ru'] if raw_rule['metadata']['text_ru'].present?),
-        title_en: (raw_rule['metadata']['title_en'] if raw_rule['metadata']['title_en'].present?),
-        text_en: (raw_rule['metadata']['text_en'] if raw_rule['metadata']['text_en'].present?),
+        title_ru: raw_rule['metadata']['title_ru'],
+        text_ru: raw_rule['metadata']['text_ru'],
+        title_en: raw_rule['metadata']['title_en'],
+        text_en: raw_rule['metadata']['text_en'],
+        topic_id: raw_rule['metadata']['topic_id'],
         rule: raw_rule.except('neko_id', 'level', 'metadata').symbolize_keys
       )
     end
     File.open(Neko::Repository::CONFIG_FILE, 'w') do |file|
-      file.write neko_rules.map(&:to_hash).to_yaml
+      file.write(
+        neko_rules
+          .map { |rule| rule.to_hash.merge image: rule.images, border_color: rule.border_colors }
+          .to_yaml
+      )
     end
 
     neko_rules.each do |neko_rule|

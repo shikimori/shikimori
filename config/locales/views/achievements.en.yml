@@ -6,3 +6,5 @@ en:
       rules: Rules
       threshold: Threshold
       source: Source
+    show:
+      level: Level %{level}
