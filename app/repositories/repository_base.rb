@@ -1,13 +1,13 @@
-class Repos::RepositoryBase
+class RepositoryBase
   include Singleton
+  include Enumerable
 
   attr_implement :scope
 
-  delegate :[], :size, to: :collection
-
-  def reset
-    @collection = nil
-    true
+  def each
+    collection.values.each do |entry|
+      yield entry
+    end
   end
 
   def find id
@@ -16,8 +16,9 @@ class Repos::RepositoryBase
       raise(ActiveRecord::RecordNotFound)
   end
 
-  def all
-    collection.values
+  def reset
+    @collection = nil
+    true
   end
 
 private

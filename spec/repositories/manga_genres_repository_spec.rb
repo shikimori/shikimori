@@ -1,7 +1,7 @@
-describe Repos::MangaGenres do
-  let(:query) { Repos::MangaGenres.instance }
+describe MangaGenresRepository do
+  let(:query) { MangaGenresRepository.instance }
 
-  it { expect(query).to be_kind_of Repos::RepositoryBase }
+  it { expect(query).to be_kind_of RepositoryBase }
 
   describe '[]' do
     let!(:anime_genre) { create :genre, :anime }

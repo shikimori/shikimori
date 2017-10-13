@@ -15,11 +15,11 @@ ru:
       oldfag: Олдфаг
       gar: ГАР
       yuuri: Юри
-      horror_thriller: Хоррор и триллер
+      horror_thriller: Хоррор/Триллер
       mahou_shoujo: Махо-сёдзе
       sports: Спорт
       supernatural: Сверхъестественное
-      dementia_psychological: Безумие и психологическое
+      dementia_psychological: Безумие/Психологическое
       romance: Романтика
       slice_of_life: Повседневность
       action: Боевик
@@ -35,7 +35,7 @@ ru:
       music: Музыка
       police: Полиция
       seinen: Сейнен
-      fantasy: Фентези
+      fantasy: Фэнтези
 
     hint:
       default: '%{neko_name} %{level} уровня'

@@ -1,5 +1,5 @@
-describe Neko::Repository do
-  let(:service) { Neko::Repository.instance }
+describe NekoRepository do
+  let(:service) { NekoRepository.instance }
 
   describe 'enumerable' do
     it do

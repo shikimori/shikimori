@@ -3,7 +3,7 @@ header.head
     = @page_title.last
   p.notice.clearfix = t '.list_of_all_site_achievements'
 
-- Neko::Repository.instance.group_by(&:neko_id).each do |neko_id, achievements|
+- NekoRepository.instance.group_by(&:neko_id).each do |neko_id, achievements|
   .block
     .subheadline.m10
       a[

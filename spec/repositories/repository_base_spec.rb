@@ -1,11 +1,11 @@
-describe Repos::RepositoryBase do
-  class Repos::Test < Repos::RepositoryBase
+describe RepositoryBase do
+  class TestRepository < RepositoryBase
     def scope
       Genre.all
     end
   end
 
-  let(:query) { Repos::Test.instance }
+  let(:query) { TestRepository.instance }
   after { query.reset }
 
   describe '[]' do

@@ -21,7 +21,7 @@ describe Achievement do
   describe 'instance methods' do
     describe '#image, #border_color, #title, #text' do
       let(:neko) do
-        Neko::Repository.instance.find achievement.neko_id, achievement.level
+        NekoRepository.instance.find achievement.neko_id, achievement.level
       end
       let(:achievement) { build :achievement, neko_id: :animelist }
 

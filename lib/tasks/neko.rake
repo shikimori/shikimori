@@ -47,7 +47,7 @@ namespace :neko do
         rule: raw_rule.except('neko_id', 'level', 'metadata').symbolize_keys
       )
     end
-    File.open(Neko::Repository::CONFIG_FILE, 'w') do |file|
+    File.open(NekoRepository::CONFIG_FILE, 'w') do |file|
       file.write(
         neko_rules
           .map { |rule| rule.to_hash.merge image: rule.images, border_color: rule.border_colors }

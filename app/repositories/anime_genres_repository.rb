@@ -1,4 +1,4 @@
-class Repos::AnimeGenres < Repos::RepositoryBase
+class AnimeGenresRepository < RepositoryBase
   def find_mal_id mal_id
     collection.values.find { |genre| genre.mal_id == mal_id } ||
       (reset && collection.values.find { |genre| genre.mal_id == mal_id }) ||

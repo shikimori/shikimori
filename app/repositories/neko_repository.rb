@@ -1,11 +1,11 @@
-class Neko::Repository
+class NekoRepository
   include Singleton
   include Enumerable
 
   CONFIG_FILE = "#{Rails.root}/config/app/neko_data.yml"
 
   def each
-    data.each { |rule| yield rule }
+    collection.each { |rule| yield rule }
   end
 
   def find neko_id, level
@@ -16,10 +16,15 @@ class Neko::Repository
       Neko::Rule::NO_RULE
   end
 
+  def reset
+    @collection = nil
+    true
+  end
+
 private
 
-  def data
-    @data ||= read_config
+  def collection
+    @collection ||= read_config
       .map { |raw_rule| Neko::Rule.new raw_rule }
       .sort_by(&:sort_criteria)
   end

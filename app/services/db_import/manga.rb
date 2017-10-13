@@ -13,7 +13,7 @@ private
   def assign_genre genre
     db_genre =
       begin
-        Repos::MangaGenres.instance.find_mal_id genre[:id]
+        MangaGenresRepository.instance.find_mal_id genre[:id]
       rescue ActiveRecord::RecordNotFound
         Genre.create! mal_id: genre[:id], name: genre[:name], kind: :manga
       end
@@ -29,7 +29,7 @@ private
   def assign_publisher publisher
     db_publisher =
       begin
-        Repos::Publishers.instance.find publisher[:id]
+        PublishersRepository.instance.find publisher[:id]
       rescue ActiveRecord::RecordNotFound
         Publisher.create! id: publisher[:id], name: publisher[:name]
       end

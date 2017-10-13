@@ -1,4 +1,4 @@
-class Repos::Studios < Repos::RepositoryBase
+class StudiosRepository < RepositoryBase
 private
 
   def scope

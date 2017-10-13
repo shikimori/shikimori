@@ -1,4 +1,4 @@
-class Repos::Publishers < Repos::RepositoryBase
+class PublishersRepository < RepositoryBase
 private
 
   def scope

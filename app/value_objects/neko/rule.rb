@@ -72,6 +72,21 @@ class Neko::Rule < Dry::Struct
     [Types::Achievement::NEKO_IDS.index(neko_id), level]
   end
 
+  def animes_count
+    return unless rule[:filters]
+    return rule[:filters]['anime_ids'].size if rule[:filters]['anime_ids']
+
+    params = {}
+
+    if rule[:filters]['genre_ids']
+      params[:genre] = rule[:filters]['genre_ids'].join(',')
+      AniMangaQuery.new(Anime, params).fetch
+        .select('count(*) as count').to_a.first.count
+    end
+
+    0
+  end
+
 private
 
   def default_hint

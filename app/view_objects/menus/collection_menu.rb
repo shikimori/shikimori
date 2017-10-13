@@ -10,15 +10,15 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def genres
-    "Repos::#{klass.base_class.name}Genres".constantize.instance.all
+    "#{klass.base_class.name}GenresRepository".constantize.instance.to_a
   end
 
   def studios
-    Repos::Studios.instance.all
+    StudiosRepository.instance.to_a
   end
 
   def publishers
-    Repos::Publishers.instance.all
+    PublishersRepository.instance.to_a
   end
 
   def kinds

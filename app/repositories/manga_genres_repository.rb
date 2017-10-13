@@ -1,4 +1,4 @@
-class Repos::MangaGenres < Repos::AnimeGenres
+class MangaGenresRepository < AnimeGenresRepository
 private
 
   def scope

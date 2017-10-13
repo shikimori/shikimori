@@ -105,14 +105,14 @@ class ProfileStatsQuery
     {
       anime: stats.by_categories(
         'genre',
-        Repos::AnimeGenres.instance.all,
+        AnimeGenresRepository.instance.to_a,
         stats.anime_valuable_rates,
         [],
         19
       ),
       manga: stats.by_categories(
         'genre',
-        Repos::MangaGenres.instance.all,
+        MangaGenresRepository.instance.to_a,
         [],
         stats.manga_valuable_rates,
         19
@@ -124,7 +124,7 @@ class ProfileStatsQuery
     {
       anime: stats.by_categories(
         'studio',
-        Repos::Studios.instance.all.select(&:real?),
+        StudiosRepository.instance.select(&:real?),
         stats.anime_valuable_rates,
         nil,
         17
@@ -136,7 +136,7 @@ class ProfileStatsQuery
     {
       manga: stats.by_categories(
         'publisher',
-        Repos::Publishers.instance.all,
+        PublishersRepository.instance.to_a,
         nil,
         stats.manga_valuable_rates,
         17

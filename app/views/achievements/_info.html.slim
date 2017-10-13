@@ -12,6 +12,10 @@
       a.b-question href="#{how_to_edit_achievements_pages_url}"
 
   .line
+    .key #{t '.animes'}:&nbsp;
+    .value == achievements.first.animes_count || '&ndash;'
+
+  .line
     .key #{t '.threshold'}:&nbsp;
     .value = achievements.map { |v| v.rule[:threshold] }.join(', ')
 

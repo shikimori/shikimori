@@ -8,7 +8,7 @@ class AchievementsController < ShikimoriController
 
   # rubocop:disable AbcSize
   def show
-    @collection = Neko::Repository.instance
+    @collection = NekoRepository.instance
       .select { |v| v[:neko_id] == params[:id].to_sym }
       .sort_by(&:sort_criteria)
 

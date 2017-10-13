@@ -23,7 +23,7 @@ private
   def assign_genre genre
     db_genre =
       begin
-        Repos::AnimeGenres.instance.find_mal_id genre[:id]
+        AnimeGenresRepository.instance.find_mal_id genre[:id]
       rescue ActiveRecord::RecordNotFound
         Genre.create! mal_id: genre[:id], name: genre[:name], kind: :anime
       end
@@ -39,7 +39,7 @@ private
   def assign_studio studio
     db_studio =
       begin
-        Repos::Studios.instance.find studio[:id]
+        StudiosRepository.instance.find studio[:id]
       rescue ActiveRecord::RecordNotFound
         Studio.create! id: studio[:id], name: studio[:name]
       end

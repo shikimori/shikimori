@@ -14,6 +14,6 @@ class Achievement < ApplicationRecord
 private
 
   def neko
-    @neko ||= Neko::Repository.instance.find neko_id, level
+    @neko ||= NekoRepository.instance.find neko_id, level
   end
 end
