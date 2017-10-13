@@ -4,6 +4,8 @@ class RepositoryBase
 
   attr_implement :scope
 
+  delegate :[], to: :collection
+
   def each
     collection.values.each do |entry|
       yield entry

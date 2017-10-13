@@ -54,8 +54,8 @@ describe RepositoryBase do
     end
   end
 
-  describe '#all' do
+  describe '#to_a' do
     let!(:entry) { create :genre }
-    it { expect(query.all).to eq [entry] }
+    it { expect(query.to_a).to eq [entry] }
   end
 end
