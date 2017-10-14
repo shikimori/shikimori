@@ -72,20 +72,21 @@ class Neko::Rule < Dry::Struct
     [Types::Achievement::NEKO_IDS.index(neko_id), level]
   end
 
+  # rubocop:disable AbcSize
   def animes_count
-    return unless rule[:filters]
+    return if rule[:filters].blank?
     return rule[:filters]['anime_ids'].size if rule[:filters]['anime_ids']
 
-    params = {}
+    scope = Anime.all
 
     if rule[:filters]['genre_ids']
-      params[:genre] = rule[:filters]['genre_ids'].join(',')
-      AniMangaQuery.new(Anime, params).fetch
-        .select('count(*) as count').to_a.first.count
+      grenre_ids = rule[:filters]['genre_ids'].map(&:to_i).join(',')
+      scope.where! "genre_ids && '{#{grenre_ids}}'"
     end
 
-    0
+    scope.size
   end
+  # rubocop:enable AbcSize
 
 private
 
