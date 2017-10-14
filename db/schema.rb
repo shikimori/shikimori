@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014000039) do
+ActiveRecord::Schema.define(version: 20171014003015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,18 +146,6 @@ ActiveRecord::Schema.define(version: 20171014000039) do
     t.index ["russian"], name: "index_animes_on_russian"
     t.index ["score"], name: "index_animes_on_score"
     t.index ["status", "score", "kind"], name: "anime_online_dashboard_query"
-  end
-
-  create_table "animes_genres", id: :serial, force: :cascade do |t|
-    t.integer "anime_id"
-    t.integer "genre_id"
-    t.index ["anime_id", "genre_id"], name: "index_animes_genres_on_anime_id_and_genre_id", unique: true
-  end
-
-  create_table "animes_studios", id: :serial, force: :cascade do |t|
-    t.integer "anime_id"
-    t.integer "studio_id"
-    t.index ["anime_id", "studio_id"], name: "index_animes_studios_on_anime_id_and_studio_id", unique: true
   end
 
   create_table "bans", id: :serial, force: :cascade do |t|
@@ -548,13 +536,6 @@ ActiveRecord::Schema.define(version: 20171014000039) do
     t.index ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true
   end
 
-  create_table "genres_mangas", id: :serial, force: :cascade do |t|
-    t.integer "manga_id"
-    t.integer "genre_id"
-    t.index ["genre_id", "manga_id"], name: "index_genres_mangas_on_genre_id_and_manga_id", unique: true
-    t.index ["manga_id"], name: "index_genres_mangas_on_manga_id"
-  end
-
   create_table "ignores", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "target_id"
@@ -639,12 +620,6 @@ ActiveRecord::Schema.define(version: 20171014000039) do
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
-  end
-
-  create_table "mangas_publishers", id: :serial, force: :cascade do |t|
-    t.integer "manga_id"
-    t.integer "publisher_id"
-    t.index ["manga_id", "publisher_id"], name: "index_mangas_publishers_on_manga_id_and_publisher_id", unique: true
   end
 
   create_table "messages", id: :serial, force: :cascade do |t|
