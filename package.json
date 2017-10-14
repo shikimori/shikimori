@@ -2,7 +2,7 @@
   "name": "shikimori",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "morr/webpacker#af540e04e76a029ee74290c1d85bfa150c6e9296",
+    "@rails/webpacker": "^3.0.2",
     "autosize": "^4.0.0",
     "axios": "^0.16.2",
     "blueimp-md5": "^2.10.0",
@@ -43,6 +43,7 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "cache-loader": "^1.1.0",
     "coffee-loader": "^0.8.0",
     "coffeescript": "^1.12.7",
     "compression-webpack-plugin": "^1.0.0",
