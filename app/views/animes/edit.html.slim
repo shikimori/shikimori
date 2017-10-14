@@ -131,7 +131,7 @@
           .field = @resource.class.human_attribute_name(:genres)
           .value = @resource.genres.map { |v| localization_span v }.join(', ').html_safe
           - if can? :significant_change, Version
-            a.b-js-action href="#{@resource.edit_field_url(:genres)}"
+            a.b-js-action href="#{@resource.edit_field_url(:genre_ids)}"
               = t '.moderators_only'
           - else
             .b-js-action = t '.moderators_only'

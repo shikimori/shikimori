@@ -31,6 +31,7 @@ en:
         episodes: Episodes
         external_links: Links
         genres: Genres
+        genre_ids: Genres # used for item_diff in versions
         image: &poster Poster
         kind: Type
         name: Name

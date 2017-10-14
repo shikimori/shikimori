@@ -1,15 +1,21 @@
 class StudiosController < ShikimoriController
-  # список студий
+  SELECT_SQL = <<-SQL
+    studios.*,
+    count(animes.id) as animes_count,
+    max(animes.aired_on) as max_year,
+    min(animes.aired_on) as min_year
+  SQL
+
   def index
     @page_title = i18n_t 'page_title'
     @description = i18n_t 'description'
     set_meta_tags description: @description
 
     @collection = Studio
-      .joins(:animes)
-      .where("animes.kind != 'Special'")
+      .joins('left join animes on studios.id = any(animes.studio_ids)')
+      .where.not(animes: { kind: :special })
       .group('studios.id')
-      .select('studios.*, count(animes.id) as animes_count, max(animes.aired_on) as max_year, min(animes.aired_on) as min_year')
+      .select(SELECT_SQL)
       .order('animes_count desc')
   end
 end

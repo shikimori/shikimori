@@ -7,7 +7,7 @@ en:
       all_summaries: All summaries
       all_comments: All comments
     fields:
-      genres:
+      genre_ids:
         all_genres: All Genres
         current_genres: Current Genres
         down: move down

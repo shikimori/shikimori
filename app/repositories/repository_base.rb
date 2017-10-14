@@ -7,20 +7,31 @@ class RepositoryBase
   delegate :[], to: :collection
 
   def each
-    collection.values.each do |entry|
+    collection.each_value do |entry|
       yield entry
     end
   end
 
-  def find id
-    collection[id] ||
-      (reset && collection[id]) ||
-      raise(ActiveRecord::RecordNotFound)
+  def find ids
+    if ids.is_a? Array
+      ids.map { |id| find id }
+
+    else
+      id = ids.to_i
+
+      collection[id] ||
+        (reset && collection[id]) ||
+        raise(ActiveRecord::RecordNotFound)
+    end
   end
 
   def reset
     @collection = nil
     true
+  end
+
+  def self.find *args
+    instance.find(*args)
   end
 
 private

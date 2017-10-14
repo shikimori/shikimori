@@ -351,6 +351,7 @@ describe DbImport::Anime do
 
       context 'hentai' do
         let(:genre_id) { Genre::CENSORED_IDS.sample }
+        before { allow_any_instance_of(Genre).to receive(:id).and_return genre_id }
         it { expect(entry.censored).to eq true }
       end
     end

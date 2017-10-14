@@ -1,6 +1,7 @@
 AllCops:
   TargetRubyVersion: 2.4
   Exclude:
+    - app/chewy/*
     - config/**/*
     - db/**/*
     - lib/tasks/*
@@ -11,6 +12,7 @@ AllCops:
     - spec/spec_helper.rb
     - spec/rails_helper.rb
     - spec/support/*
+    - spec/factories/*
     - bin/*
     - node_modules/**/*
     - public/packs/**/*
@@ -78,6 +80,8 @@ Style/EmptyCaseCondition:
 Style/MultilineTernaryOperator:
   Enabled: false
 Lint/EndAlignment:
+  Enabled: false
+Lint/HandleExceptions:
   Enabled: false
 
 Style/StringLiterals:

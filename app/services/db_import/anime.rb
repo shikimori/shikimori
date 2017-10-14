@@ -1,10 +1,10 @@
 class DbImport::Anime < DbImport::ImportBase
-  SPECIAL_FIELDS = %i(
+  SPECIAL_FIELDS = %i[
     image synopsis
     genres studios related recommendations characters
     external_links
-  )
-  IGNORED_FIELDS = %i(members favorites)
+  ]
+  IGNORED_FIELDS = %i[members favorites]
 
 private
 
@@ -13,38 +13,25 @@ private
   end
 
   def assign_genres genres
-    entry.genres = []
-    genres.each { |genre| assign_genre genre }
-
-    entry.censored = entry.rating_rx? ||
-      genres.any? { |v| Genre::CENSORED_IDS.include? v[:id] }
+    entry.genre_ids = genres.map { |v| find_or_create_genre(v).id }
+    entry.censored = (entry.respond_to?(:rating_rx?) && entry.rating_rx?) ||
+      entry.genres.any?(&:censored?)
   end
 
-  def assign_genre genre
-    db_genre =
-      begin
-        AnimeGenresRepository.instance.find_mal_id genre[:id]
-      rescue ActiveRecord::RecordNotFound
-        Genre.create! mal_id: genre[:id], name: genre[:name], kind: :anime
-      end
-
-    entry.genres << db_genre
+  def find_or_create_genre data
+    AnimeGenresRepository.instance.find_by_mal_id data[:id]
+  rescue ActiveRecord::RecordNotFound
+    Genre.create! mal_id: data[:id], name: data[:name], kind: :anime
   end
 
   def assign_studios studios
-    entry.studios = []
-    studios.each { |studio| assign_studio studio }
+    entry.studio_ids = studios.map { |v| find_or_create_studio(v).id }
   end
 
-  def assign_studio studio
-    db_studio =
-      begin
-        StudiosRepository.instance.find studio[:id]
-      rescue ActiveRecord::RecordNotFound
-        Studio.create! id: studio[:id], name: studio[:name]
-      end
-
-    entry.studios << db_studio
+  def find_or_create_studio data
+    StudiosRepository.instance.find data[:id]
+  rescue ActiveRecord::RecordNotFound
+    Studio.create! id: data[:id], name: data[:name]
   end
 
   def assign_related related

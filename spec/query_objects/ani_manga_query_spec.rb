@@ -70,8 +70,18 @@ describe AniMangaQuery do
       let(:yaoi) { create :genre, id: Genre::YAOI_IDS.first }
       let(:porn) { create :studio }
 
-      let!(:anime_1) { create :anime, censored: true, genres: [yaoi, hentai], studios: [porn] }
-      let!(:anime_2) { create :anime, censored: true, genres: [yaoi], studios: [porn] }
+      let!(:anime_1) do
+        create :anime,
+          censored: true,
+          genre_ids: [yaoi.id, hentai.id],
+          studio_ids: [porn.id]
+      end
+      let!(:anime_2) do
+        create :anime,
+          censored: true,
+          genre_ids: [yaoi.id],
+          studio_ids: [porn.id]
+      end
       let!(:anime_3) { create :anime }
 
       describe 'no censored' do
@@ -135,11 +145,23 @@ describe AniMangaQuery do
       let(:ghibli) { create :studio }
       let(:shaft) { create :studio }
 
-      let!(:anime_1) { create :anime, genres: [shounen, shoujo], studios: [ghibli] }
-      let!(:anime_2) { create :anime, genres: [shounen], studios: [ghibli] }
-      let!(:anime_3) { create :anime, genres: [shounen], studios: [shaft, ghibli] }
-      let!(:anime_4) { create :anime, studios: [shaft] }
-      let!(:anime_5) { create :anime, genres: [shoujo] }
+      let!(:anime_1) do
+        create :anime,
+          genre_ids: [shounen.id, shoujo.id],
+          studio_ids: [ghibli.id]
+      end
+      let!(:anime_2) do
+        create :anime,
+          genre_ids: [shounen.id],
+          studio_ids: [ghibli.id]
+      end
+      let!(:anime_3) do
+        create :anime,
+          genre_ids: [shounen.id],
+          studio_ids: [shaft.id, ghibli.id]
+      end
+      let!(:anime_4) { create :anime, studio_ids: [shaft.id] }
+      let!(:anime_5) { create :anime, genre_ids: [shoujo.id] }
 
       describe 'genre' do
         it 'inclusive' do
@@ -186,8 +208,14 @@ describe AniMangaQuery do
       describe 'publisher' do
         let(:jump) { create :publisher }
 
-        let!(:manga1) { create :manga, publishers: [jump], genres: [shounen, shoujo] }
-        let!(:manga2) { create :manga, publishers: [jump], genres: [shounen] }
+        let!(:manga1) do
+          create :manga,
+            publisher_ids: [jump.id],
+            genre_ids: [shounen.id, shoujo.id]
+        end
+        let!(:manga2) do
+          create :manga, publisher_ids: [jump.id], genre_ids: [shounen.id]
+        end
         let!(:manga3) { create :manga }
 
         it 'inclusive' do
@@ -347,11 +375,11 @@ describe AniMangaQuery do
 
     describe 'exclude_ai_genres' do
       let!(:common_anime) { create :anime, id: 1 }
-      let!(:anime_yaoi) { create :anime, id: 2, genres: [yaoi] }
-      let!(:anime_hentai) { create :anime, id: 3, genres: [hentai] }
-      let!(:anime_yuri) { create :anime, id: 4, genres: [yuri] }
-      let!(:anime_shounen_ai) { create :anime, id: 5, genres: [shounen_ai] }
-      let!(:anime_shoujo_ai) { create :anime, id: 6, genres: [shoujo_ai] }
+      let!(:anime_yaoi) { create :anime, id: 2, genre_ids: [yaoi.id] }
+      let!(:anime_hentai) { create :anime, id: 3, genre_ids: [hentai.id] }
+      let!(:anime_yuri) { create :anime, id: 4, genre_ids: [yuri.id] }
+      let!(:anime_shounen_ai) { create :anime, id: 5, genre_ids: [shounen_ai.id] }
+      let!(:anime_shoujo_ai) { create :anime, id: 6, genre_ids: [shoujo_ai.id] }
 
       let(:yaoi) { create :genre, id: Genre::YAOI_IDS.sample }
       let(:yuri) { create :genre, id: Genre::YURI_IDS.sample }

@@ -11,11 +11,13 @@ describe Neko::Rule do
       text_en: nil,
       topic_id: nil,
       rule: {
-        threshold: 15
+        threshold: 15,
+        filters: filters
       }
     )
   end
   let(:neko_id) { Types::Achievement::NekoId[:test] }
+  let(:filters) { {} }
 
   describe '#title' do
     it { expect(rule.title).to eq rule.title_ru }
@@ -67,6 +69,25 @@ describe Neko::Rule do
         Types::Achievement::NEKO_IDS.index(rule.neko_id),
         rule.level
       ]
+    end
+  end
+
+  describe '#animes_count' do
+    let(:genre) { create :genre }
+    let!(:anime) { create :anime, genre_ids: [genre.id] }
+
+    context 'no filters' do
+      it { expect(rule.animes_count).to be_nil }
+    end
+
+    context 'anime_ids' do
+      let(:filters) { { 'anime_ids' => [0,1,2] } }
+      it { expect(rule.animes_count).to eq 3 }
+    end
+
+    context 'genre_ids' do
+      let(:filters) { { 'genre_ids' => [genre.id] } }
+      it { expect(rule.animes_count).to eq 1 }
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004212911) do
+ActiveRecord::Schema.define(version: 20171014000039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,8 @@ ActiveRecord::Schema.define(version: 20171004212911) do
     t.datetime "authorized_imported_at"
     t.text "synonyms", default: [], null: false, array: true
     t.integer "cached_rates_count", default: 0, null: false
+    t.integer "genre_ids", default: [], null: false, array: true
+    t.integer "studio_ids", default: [], null: false, array: true
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["russian"], name: "index_animes_on_russian"
@@ -632,6 +634,8 @@ ActiveRecord::Schema.define(version: 20171004212911) do
     t.datetime "authorized_imported_at"
     t.text "synonyms", default: [], null: false, array: true
     t.integer "cached_rates_count", default: 0, null: false
+    t.integer "genre_ids", default: [], null: false, array: true
+    t.integer "publisher_ids", default: [], null: false, array: true
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"

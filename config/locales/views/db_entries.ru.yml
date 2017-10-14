@@ -7,7 +7,7 @@ ru:
       all_summaries: Все отзывы
       all_comments: Все комментарии
     fields:
-      genres:
+      genre_ids:
         all_genres: Все жанры
         current_genres: Привязанные жанры
         down: вниз

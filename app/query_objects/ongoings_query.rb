@@ -3,7 +3,6 @@ class OngoingsQuery
 
   def fetch limit
     Anime
-      .includes(:studios)
       .where(status: :ongoing, kind: :tv)
       .where.not(rating: :g, id: Anime::EXCLUDED_ONGOINGS)
       .where('score < 9.9')

@@ -233,23 +233,19 @@ class Api::V1::AnimesController < Api::V1Controller
     index
   end
 
-  # rubocop:disable MethodLength
   def neko
-    animes = Anime
-      .includes(:genres)
-      .select(:id, :aired_on)
+    animes = Anime.select(:id, :aired_on, :genre_ids)
 
     data = animes.map do |anime|
       {
         id: anime.id,
-        genre_ids: anime.genres.map(&:id),
+        genre_ids: anime.genre_ids.map(&:to_i),
         year: anime.year
       }
     end
 
     render json: data
   end
-  # rubocop:enable MethodLength
 
 private
 

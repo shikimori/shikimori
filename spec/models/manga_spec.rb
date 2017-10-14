@@ -2,9 +2,6 @@
 
 describe Manga do
   describe 'relations' do
-    it { is_expected.to have_and_belong_to_many :genres }
-    it { is_expected.to have_and_belong_to_many :publishers }
-
     it { is_expected.to have_many :person_roles }
     it { is_expected.to have_many :characters }
     it { is_expected.to have_many :people }
@@ -64,6 +61,22 @@ describe Manga do
         let(:kind) { :novel }
         it { expect(manga.type).to eq Ranobe.name }
       end
+    end
+  end
+
+  describe 'instance methods' do
+    describe '#genres' do
+      let(:genre) { create :genre, :manga }
+      let(:manga) { build :manga, genre_ids: [genre.id] }
+
+      it { expect(manga.genres).to eq [genre] }
+    end
+
+    describe '#publishers' do
+      let(:publisher) { create :publisher }
+      let(:manga) { build :manga, publisher_ids: [publisher.id] }
+
+      it { expect(manga.publishers).to eq [publisher] }
     end
   end
 

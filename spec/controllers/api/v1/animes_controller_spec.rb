@@ -10,8 +10,8 @@ describe Api::V1::AnimesController, :show_in_doc do
         :released,
         name: 'Test',
         aired_on: Date.parse('2014-01-01'),
-        studios: [studio],
-        genres: [genre],
+        studio_ids: [studio.id],
+        genre_ids: [genre.id],
         duration: 90,
         rating: :r,
         score: 8
@@ -170,7 +170,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   end
 
   describe '#neko', show_in_doc: false do
-    let!(:anime_1) { create :anime, name: 'asdf', genres: [genre] }
+    let!(:anime_1) { create :anime, name: 'asdf', genre_ids: [genre.id] }
     let!(:anime_2) { create :anime, name: 'zxcv' }
     let(:genre) { create :genre }
 

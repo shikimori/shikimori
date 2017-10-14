@@ -17,10 +17,7 @@ class Manga < DbEntry
 
   attr_accessor :in_list
 
-  # Relations
-  has_and_belongs_to_many :genres
-  has_and_belongs_to_many :publishers
-
+  # relations
   has_many :person_roles, dependent: :destroy
   has_many :characters, through: :person_roles
   has_many :people, through: :person_roles
@@ -118,6 +115,14 @@ class Manga < DbEntry
     if self[:name].present?
       self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip
     end
+  end
+
+  def genres
+    @genres ||= MangaGenresRepository.find genre_ids
+  end
+
+  def publishers
+    @publishers ||= PublishersRepository.find publisher_ids
   end
 
   def volumes= value

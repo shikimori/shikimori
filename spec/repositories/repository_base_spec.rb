@@ -32,6 +32,13 @@ describe RepositoryBase do
   describe '#find' do
     let(:entry_id) { 999_999_999 }
 
+    describe 'array' do
+      let(:entry_id) { 999_999_999 }
+      let!(:entry) { create :genre, id: entry_id }
+
+      it { expect(query.find([entry_id])).to eq [entry] }
+    end
+
     context 'has entry' do
       let!(:entry) { create :genre, id: entry_id }
       it { expect(query.find(entry_id)).to eq entry }

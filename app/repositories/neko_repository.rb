@@ -21,15 +21,21 @@ class NekoRepository
     true
   end
 
+  def cache_key
+    [Digest::MD5.hexdigest(raw_config), Time.zone.today]
+  end
+
 private
 
+  # rubocop:disable Security/YAMLLoad
   def collection
-    @collection ||= read_config
+    @collection ||= YAML.load(raw_config)
       .map { |raw_rule| Neko::Rule.new raw_rule }
       .sort_by(&:sort_criteria)
   end
+  # rubocop:enable Security/YAMLLoad
 
-  def read_config
-    YAML.load_file CONFIG_FILE
+  def raw_config
+    @raw_config ||= open(CONFIG_FILE).read
   end
 end

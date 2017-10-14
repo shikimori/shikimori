@@ -58,9 +58,6 @@ class AniMangaQuery
 
   # выборка аниме или манги по заданным параметрам
   def fetch# page = nil, limit = nil
-    @query = @query.preload(:genres) # важно! не includes
-    @query = @query.preload(@klass == Anime ? :studios : :publishers) # важно! не includes
-
     type!
     censored!
     disable_music!
@@ -204,19 +201,27 @@ private
 
   # фильтрация по жанрам, студиям и издателям
   def associations!
-    havings = []
-    [[Genre, @genre], [Studio, @studio], [Publisher, @publisher]].each do |association_klass, values|
-      next if values.blank? || (@klass == Anime && association_klass == Publisher) || (@klass == Manga && association_klass == Studio)
-
-      ids = bang_split(values.split(','), true) {|v| association_klass.related(v.to_i) }
-      joined_filter(ids, association_klass.table_name)
-
-      ids[:include].each do |ids|
-        havings << "sum(case #{association_klass.table_name}.id %s else 0 end) > 0" % [ids.map {|v| "when #{v} then 1" }.join(' ')]
-      end if ids[:include].any?
+    [
+      [Genre, @genre],
+      [Studio, @studio],
+      [Publisher, @publisher]
+    ].each do |association_klass, values|
+      association! association_klass, values if values.present?
     end
-    # группировка при необходимости
-    @query = @query.group("#{table_name}.id").having(havings.join ' and ') if havings.any?
+  end
+
+  def association! association_klass, values
+    ids = bang_split(values.split(','), true) do |v|
+      association_klass.related(v.to_i)
+    end
+    field = "#{association_klass.name.downcase}_ids"
+
+    ids[:include].each do |ids|
+      @query.where! "#{field} @> '{#{ids.map(&:to_i).join ','}}'"
+    end
+    ids[:exclude].each do |ids|
+      @query.where! "not (#{field} @> '{#{ids.map(&:to_i).join ','}}')"
+    end
   end
 
   # фильтрация по рейнтингу
@@ -381,22 +386,6 @@ private
     end
 
     data
-  end
-
-  # применение включающего и исключающего фильтра для джойнящейся сущности
-  def joined_filter filters, joined_table_name
-    if filters[:include].any?
-      @query = @query.joins(joined_table_name.to_sym)
-          .where(joined_table_name => { id: filters[:include].flatten })
-    end
-
-    joined_table = (table_name + '_' + joined_table_name.to_s).sub('mangas_genres', 'genres_mangas')
-
-    @query = @query.where("#{table_name}.id not in (
-        select distinct(t.#{table_name.singularize}_id)
-          from #{joined_table} t
-            where t.#{joined_table_name.to_s.singularize}_id in (#{filters[:exclude].flatten.join(',')})
-      )") if filters[:exclude].any?
   end
 
   # sql представление сортировки датасорса

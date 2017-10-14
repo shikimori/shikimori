@@ -1,13 +1,13 @@
 describe StudiosController do
   let(:studio) { create :studio }
-  let(:anime) { create :anime }
-
-  before { anime.studios << studio }
+  let!(:anime) { create :anime, studio_ids: [studio.id] }
 
   describe '#index' do
     before { get :index }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(collection).to eq [studio] }
+    it do
+      expect(collection).to eq [studio]
+      expect(response).to have_http_status :success
+    end
   end
 end

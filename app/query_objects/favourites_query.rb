@@ -26,17 +26,13 @@ class FavouritesQuery
       .pluck(:target_id)
 
     # выкидываем жанры по гендерному признаку
-    ai_censored_ids = klass
-      .joins(:genres)
-      .where(genres: { id: AniMangaQuery::GENRES_EXCLUDED_BY_SEX[user.try(:sex) || ''] })
-      .pluck(:id)
+    ai_genre_ids = AniMangaQuery::GENRES_EXCLUDED_BY_SEX[user.try(:sex) || '']
 
     klass
       .where(id: fav_ids - in_list_ids - ignored_ids)
-      .includes(klass == Anime ? :studios : :publishers)
-      .where.not(kind: [:special, :music])
-      .where.not(id: ai_censored_ids)
-      .sort_by {|v| fav_ids.index v.id }
+      .where.not(kind: %i[special music])
+      .where.not("genre_ids && '{#{ai_genre_ids.join ','}}'")
+      .sort_by { |v| fav_ids.index v.id }
   end
 
   # получение списка людей, добавивших сущность в избранное

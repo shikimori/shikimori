@@ -31,6 +31,7 @@ ru:
         episodes: Эпизоды
         external_links: Ссылки
         genres: Жанры
+        genre_ids: Жанры # used for item_diff in versions
         image: &poster Постер
         kind: Тип
         name: Английское название

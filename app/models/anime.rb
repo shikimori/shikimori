@@ -12,14 +12,14 @@ class Anime < DbEntry
     name synonyms kind episodes rating aired_on released_on status genres
     description_en image external_links
   ]
-  EXCLUDED_ONGOINGS = %w[966 1199 1960 2406 4459 6149 7511 7643 8189 8336 8631
-    8687 9943 9947 10506 10797 10995 12393 13165 13433 13457 13463 15111 15749
-    16908 18227 18845 18941 19157 19445 19825 20261 21447 21523 24403 24969
-    24417 24835 25503 27687 26453 26163 27519 30131 29361 27785 29099 28247
-    28887 30144 29865 29722 29846 30342 30411 30470 30417 30232 30892 30989
-    31071 30777 31078 966 31539 30649 31555 30651 31746 31410 31562 32274
-    31753 32977 32353 32572 33099 32956 32944 32568 32571 33044 33002 32876
-    33262 34456
+  EXCLUDED_ONGOINGS = %w[
+    966 1199 1960 2406 4459 6149 7511 7643 8189 8336 8631 8687 9943 9947 10506
+    10797 10995 12393 13165 13433 13457 13463 15111 15749 16908 18227 18845
+    18941 19157 19445 19825 20261 21447 21523 24403 24969 24417 24835 25503
+    27687 26453 26163 27519 30131 29361 27785 29099 28247 28887 30144 29865
+    29722 29846 30342 30411 30470 30417 30232 30892 30989 31071 30777 31078
+    966 31539 30649 31555 30651 31746 31410 31562 32274 31753 32977 32353
+    32572 33099 32956 32944 32568 32571 33044 33002 32876 33262 34456
   ]
 
   ADULT_RATING = 'rx'
@@ -27,9 +27,7 @@ class Anime < DbEntry
   # забанено роскомнадзором
   FORBIDDEN_ADULT_IDS = [5042, 7593, 8861, 6987]
 
-  has_and_belongs_to_many :genres
-  has_and_belongs_to_many :studios
-
+  # relations
   has_many :person_roles, dependent: :destroy
   has_many :characters, through: :person_roles
   has_many :people, through: :person_roles
@@ -138,10 +136,10 @@ class Anime < DbEntry
       x96: ['96x150#', :jpg],
       x48: ['48x75#', :jpg]
     },
-    #convert_options: {
-      #original: " -gravity center -crop '225x310+0+0'",
-      #preview: " -gravity center -crop '160x220+0+0'"
-    #},
+    # convert_options: {
+      # original: " -gravity center -crop '225x310+0+0'",
+      # preview: " -gravity center -crop '160x220+0+0'"
+    # },
     url: '/system/animes/:style/:id.:extension',
     path: ':rails_root/public/system/animes/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
@@ -172,7 +170,7 @@ class Anime < DbEntry
     ]
   enumerize :status, in: %i[anons ongoing released], predicates: true
   enumerize :rating,
-    in: %i(none g pg pg_13 r r_plus rx),
+    in: %i[none g pg pg_13 r r_plus rx],
     predicates: { prefix: true }
 
   validates :name, presence: true
@@ -198,7 +196,17 @@ class Anime < DbEntry
   # end
 
   def name
-    self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if self[:name].present?
+    if self[:name].present?
+      self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip
+    end
+  end
+
+  def genres
+    @genres ||= AnimeGenresRepository.find genre_ids
+  end
+
+  def studios
+    @studios ||= StudiosRepository.find studio_ids
   end
 
   # название на торрентах. фикс на случай пустой строки
@@ -206,15 +214,13 @@ class Anime < DbEntry
     self[:torrents_name].present? ? self[:torrents_name] : nil
   end
 
-  # Subtitles
+  # subtitles
   def subtitles
-    BlobData.get("anime_%d_subtitles" % id) || {}
+    BlobData.get(format('anime_%d_subtitles', id)) || {}
   end
 
   def broadcast_at
-    if broadcast && (ongoing? || anons?)
-      BroadcastDate.parse broadcast, aired_on
-    end
+    BroadcastDate.parse broadcast, aired_on if broadcast && (ongoing? || anons?)
   end
 
   # torrents

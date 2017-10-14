@@ -2,9 +2,6 @@
 
 describe Anime do
   describe 'relations' do
-    it { is_expected.to have_and_belong_to_many :genres }
-    it { is_expected.to have_and_belong_to_many :studios }
-
     it { is_expected.to have_many(:person_roles).dependent :destroy }
     it { is_expected.to have_many :characters }
     it { is_expected.to have_many :people }
@@ -166,6 +163,20 @@ describe Anime do
   end
 
   describe 'instance methods' do
+    describe '#genres' do
+      let(:genre) { create :genre, :anime }
+      let(:anime) { build :anime, genre_ids: [genre.id] }
+
+      it { expect(anime.genres).to eq [genre] }
+    end
+
+    describe '#studios' do
+      let(:studio) { create :studio }
+      let(:anime) { build :anime, studio_ids: [studio.id] }
+
+      it { expect(anime.studios).to eq [studio] }
+    end
+
     # describe '#adult?' do
       # context 'by_rating' do
         # let(:anime) { build :anime, rating: rating, episodes: episodes, kind: kind }

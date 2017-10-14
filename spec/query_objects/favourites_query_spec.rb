@@ -1,5 +1,5 @@
 describe FavouritesQuery do
-  let(:person) { create :person, name: 'test', mangaka: true }
+  let!(:person) { create :person, name: 'test', mangaka: true }
 
   let!(:user_1) { create :user, favourite_persons: [create(:favourite, linked: person)] }
   let!(:user_2) { create :user, favourite_persons: [create(:favourite, linked: person)] }
@@ -14,8 +14,8 @@ describe FavouritesQuery do
   end
 
   describe 'top_entries' do
-    let(:person_2) { create :person, name: 'test', mangaka: true }
-    let(:person_3) { create :person, name: 'test', mangaka: true }
+    let!(:person_2) { create :person, name: 'test', mangaka: true }
+    let!(:person_3) { create :person, name: 'test', mangaka: true }
 
     let!(:user_5) { create :user, favourite_persons: [create(:favourite, linked: person_2)] }
     let!(:user_6) { create :user, favourite_persons: [create(:favourite, linked: person_2)] }
@@ -25,9 +25,9 @@ describe FavouritesQuery do
   end
 
   describe 'global_top' do
-    let(:anime_1) { create :anime }
-    let(:anime_2) { create :anime }
-    let(:anime_3) { create :anime }
+    let!(:anime_1) { create :anime }
+    let!(:anime_2) { create :anime }
+    let!(:anime_3) { create :anime }
 
     let!(:user_1) { create :user, favourite_persons: [create(:favourite, linked: anime_2)] }
     let!(:user_2) { create :user, favourite_persons: [create(:favourite, linked: anime_2)] }
@@ -51,7 +51,8 @@ describe FavouritesQuery do
       end
 
       context 'anime in genres excluded by sex' do
-        let(:anime_2) { create :anime, genres: [create(:genre, id: Genre::SHOUNEN_AI_IDS.sample)] }
+        let(:genre) { create :genre, id: Genre::SHOUNEN_AI_IDS.sample }
+        let!(:anime_2) { create :anime, genre_ids: [genre.id] }
         it { expect(query.global_top Anime, 100, user_4).to eq [anime_1] }
       end
     end

@@ -143,7 +143,6 @@ private
       .where(kind: @kinds)
       .select([:id, :aired_on, :kind, :rating, :score])
       .order(:aired_on)
-      .eager_load(:genres, :studios) # не использовать includes для HABTM ассоциаций!!! оно дико тормозит на больших объёмах данных
       .each do |anime|
         anime.singleton_class.class_eval do
           attr_accessor :mapped_genres, :mapped_studios

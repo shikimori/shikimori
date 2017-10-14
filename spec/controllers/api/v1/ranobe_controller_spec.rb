@@ -10,8 +10,8 @@ describe Api::V1::RanobeController, :show_in_doc do
       create :ranobe,
         name: 'Test',
         aired_on: Date.parse('2014-01-01'),
-        publishers: [publisher],
-        genres: [genre]
+        publisher_ids: [publisher.id],
+        genre_ids: [genre.id]
     end
 
     before do

@@ -34,8 +34,8 @@ class VersionDecorator < BaseDecorator
   def field_value field, value
     if field.to_s == 'anime_video_author_id'
       AnimeVideoAuthor.find_by(id: value).try :name
-    elsif field.to_s == 'genres'
-      genres value
+    elsif field.to_s == 'genre_ids'
+      "[#{genres value}]"
     else
       value
     end
@@ -53,11 +53,10 @@ class VersionDecorator < BaseDecorator
   end
 
   def genres ids
-    Genre
-      .where(id: ids)
+    "#{item_type}GenresRepository".constantize.instance
+      .find(ids)
       .sort_by { |genre| ids.index genre.id }
       .map { |genre| h.localized_name genre }
       .join(', ')
-
   end
 end

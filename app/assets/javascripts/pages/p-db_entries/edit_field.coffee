@@ -72,7 +72,7 @@ page_load '.db_entries-edit_field', ->
         $gallery.html(gallery_html)
         new Images.ImageboardGallery $gallery
 
-  if $('.edit-page.genres').exists()
+  if $('.edit-page.genre_ids').exists()
     $current_genres = $('.c-current_genres').children().last()
     $all_genres = $('.c-all_genres').children().last()
 
@@ -123,7 +123,7 @@ page_load '.db_entries-edit_field', ->
         .toArray()
       current_ids = $item_diff.data('current_ids')
 
-      diff = genres: [current_ids, new_ids]
+      diff = genre_ids: [current_ids, new_ids]
       $item_diff.find('input').val JSON.stringify(diff)
 
   if $('.edit-page.external_links').exists()

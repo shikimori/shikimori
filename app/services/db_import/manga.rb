@@ -5,35 +5,19 @@ class DbImport::Manga < DbImport::Anime
 
 private
 
-  def assign_genres genres
-    entry.genres = []
-    genres.each { |genre| assign_genre genre }
-  end
-
-  def assign_genre genre
-    db_genre =
-      begin
-        MangaGenresRepository.instance.find_mal_id genre[:id]
-      rescue ActiveRecord::RecordNotFound
-        Genre.create! mal_id: genre[:id], name: genre[:name], kind: :manga
-      end
-
-    entry.genres << db_genre
+  def find_or_create_genre data
+    MangaGenresRepository.instance.find_by_mal_id data[:id]
+  rescue ActiveRecord::RecordNotFound
+    Genre.create! mal_id: data[:id], name: data[:name], kind: :manga
   end
 
   def assign_publishers publishers
-    entry.publishers = []
-    publishers.each { |publisher| assign_publisher publisher }
+    entry.publisher_ids = publishers.map { |v| find_or_create_publisher(v).id }
   end
 
-  def assign_publisher publisher
-    db_publisher =
-      begin
-        PublishersRepository.instance.find publisher[:id]
-      rescue ActiveRecord::RecordNotFound
-        Publisher.create! id: publisher[:id], name: publisher[:name]
-      end
-
-    entry.publishers << db_publisher
+  def find_or_create_publisher data
+    PublishersRepository.instance.find data[:id]
+  rescue ActiveRecord::RecordNotFound
+    Publisher.create! id: data[:id], name: data[:name]
   end
 end
