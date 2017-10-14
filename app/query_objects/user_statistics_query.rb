@@ -298,13 +298,13 @@ class UserStatisticsQuery
       ids = (no_scores ? rates_data : rates_data.select { |v| v.score && v.score >= 7 }).map(&:target_id)
 
       rates += if ids.any?
-        query = "select #{category_name}_id from #{[category_name.tableize, type.pluralize].sort.join('_')} where #{type}_id in (#{ids.join(',')})"
-        ApplicationRecord
-          .connection
-          .execute(query)
-          .to_enum
-          .map { |v| categories_by_id.include?(v["#{category_name}_id"].to_i) ? categories_by_id[v["#{category_name}_id"].to_i] : nil }
-          .select { |v| v && v != 'School' && v != 'Action' }
+        type.classify.constantize
+          .where(id: ids)
+          .select("#{category_name}_ids")
+          .flat_map(&:"#{category_name}_ids")
+          .map { |id| categories_by_id[id] }
+          .select(&:present?)
+          # .select { |v| v && v.name != 'School' && v.name != 'Action' }
       else
           []
       end
