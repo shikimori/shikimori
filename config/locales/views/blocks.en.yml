@@ -1,5 +1,7 @@
 en:
   blocks:
+    spoiler:
+      expand: expand
     list_switchers:
       lines: Display as list
       list: Display as list

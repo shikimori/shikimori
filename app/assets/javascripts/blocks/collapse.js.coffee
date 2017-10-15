@@ -74,6 +74,9 @@ $(document).on 'click', '.collapsed', ->
   $trigger = $trigger.prev() unless $trigger.hasClass('collapse')
   $trigger.trigger('click')
 
+$(document).on 'click', '.hide-expanded', ->
+  $(@).parent().prev().trigger('click')
+
 # клик на содержимое спойлера
 $(document).on 'click', '.spoiler.target', ->
   return unless $(@).hasClass('dashed')

@@ -1,5 +1,7 @@
 ru:
   blocks:
+    spoiler:
+      expand: развернуть
     list_switchers:
       lines: Отображение списком
       list: Отображение списком

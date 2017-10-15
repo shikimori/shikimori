@@ -3,7 +3,9 @@ header.head.misc
     = @page_title.last
   = render 'blocks/breadcrumbs', breadcrumbs: @breadcrumbs
 
-= render 'achievements/info', achievements: @collection
+= render 'achievements/info',
+  achievements: @collection,
+  animes: true
 
 - @collection.each do |achievement|
   .block

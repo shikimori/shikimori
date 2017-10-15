@@ -11,3 +11,5 @@ ru:
       rules: Правила
       threshold: Порог срабатывания
       source: Исходный код
+      show_anime_list: Показать список аниме
+      hide: Скрыть

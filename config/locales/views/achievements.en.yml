@@ -11,3 +11,5 @@ en:
       rules: Rules
       threshold: Threshold
       source: Source
+      show_anime_list: Show anime list
+      hide: Hide
