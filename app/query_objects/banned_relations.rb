@@ -15,13 +15,12 @@ File.open(BannedRelations::CONFIG_PATH, 'w') do |v|
     combined_data.to_yaml.gsub(/^- -/, "-\n  -").gsub('###', ' # ').gsub("'", '')
   )
 end;
-
 ap combined_data
 =end
 class BannedRelations
   include Singleton
 
-  CONFIG_PATH = "#{Rails.root}/config/app/banned-franchise-coupling.yml"
+  CONFIG_PATH = "#{Rails.root}/config/app/banned_franchise_coupling.yml"
 
   def anime id
     animes[id] || []
@@ -73,7 +72,7 @@ private
       end
   end
 
-  # TODO: migrate to https://github.com/anime-plus/graph/blob/master/data/banned-franchise-coupling.json
+  # TODO: migrate to https://github.com/anime-plus/graph/blob/master/data/banned_franchise_coupling.json
   def malgraph_data
     YAML.load_file CONFIG_PATH
   end
