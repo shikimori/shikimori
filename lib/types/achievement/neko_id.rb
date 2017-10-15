@@ -10,7 +10,7 @@ module Types
       tsundere
       yandere
       kuudere
-      onniichan
+      oniichan
       mahou_shoujo
       oldfag
       sovietanime

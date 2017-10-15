@@ -2537,7 +2537,7 @@
     :threshold: 500
     :filters: *19
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
-- :neko_id: :onniichan
+- :neko_id: :oniichan
   :level: 1
   :image:
   - http://i.imgur.com/BQDF1Dq.png
@@ -2576,7 +2576,7 @@
       - 8769
       - 8861
       - 9587
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/onniichan.yml
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
 - :neko_id: :otaku
   :level: 1
   :image:
@@ -2642,7 +2642,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 30
+    :threshold: 90
     :filters: *20
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
 - :neko_id: :police
