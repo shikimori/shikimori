@@ -81,7 +81,7 @@ class Neko::Rule < Dry::Struct
 
     if rule[:filters]['genre_ids']
       grenre_ids = rule[:filters]['genre_ids'].map(&:to_i).join(',')
-      scope.where! "genre_ids && '{#{grenre_ids}}'"
+      scope.where! "genre_ids && '{#{grenre_ids}}' and kind != '#{:special}'"
     end
 
     scope.size
