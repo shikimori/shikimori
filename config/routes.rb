@@ -688,7 +688,7 @@ Rails.application.routes.draw do
         concerns :db_entry, fields: Regexp.new(%w{
           name russian synonyms description_ru description_en image
           kind rating volumes chapters
-          tags aired_on released_on status genres
+          tags aired_on released_on status genre_ids
           external_links
         }.join('|'))
       end
