@@ -21,5 +21,6 @@ header.head.misc
             .key #{t '.threshold'}:&nbsp;
             .value = achievement.rule[:threshold]
 
-- if @topic_resource
-  = render 'db_entries/comments', resource: @topic_resource
+.block
+  - if @topic_resource
+    = render 'db_entries/comments', resource: @topic_resource
