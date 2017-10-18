@@ -1,7 +1,7 @@
 toastr = require 'toastr'
 toastr.options.progressBar = true
 toastr.options.closeDuration = 250
-toastr.options.timeOut = 2000
+toastr.options.timeOut = 3000
 
 (($) ->
   $.extend

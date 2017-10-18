@@ -92,6 +92,9 @@ $icon_mobile_size: 30px
   margin-left: 0
   margin-bottom: 8px
 
+  &:after
+    content: attr(data-text)
+
 =icon_action($content)
   +link_color(#444444)
   cursor: pointer

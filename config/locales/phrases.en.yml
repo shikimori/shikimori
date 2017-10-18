@@ -11,6 +11,17 @@ en:
     delete: Delete
     edit: Edit
     ignore: Ignore
+    markers:
+      summary:
+        add: Add summary mark
+        remove: Remove summary mark
+        confirm_add: Add summary mark?
+        confirm_remove: Remove summary mark?
+      offtopic:
+        add: Add offtopic mark
+        remove: Remove offtopic mark
+        confirm_add: Add offtopic mark?
+        confirm_remove: Remove offtopic mark?
     moderate: Moderate
     moderation:
       abuse: Abuse
@@ -20,6 +31,9 @@ en:
       offtopic: It's offtopic
       spoiler: It's spoiler
       summary: It's summary
+      explain:
+        abuse: Please describe (optional)
+        spoiler: Please describe (optional)
     quote: Quote
     reject: Reject
     reply: Reply

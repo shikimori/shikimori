@@ -1,55 +1,47 @@
 aside.buttons
   .main-controls
-    span.item-ignore.to-process.translated-after[
+    span.item-ignore.to-process[
       title=t('actions.ignore')
-      data-text-ru=t('actions.ignore', locale: 'ru')
-      data-text-en=t('actions.ignore', locale: 'en')
+      data-text=t('actions.ignore')
       data-action=api_v2_topics_ignore_url(topic_view.id)
       data-dynamic='authorized'
       data-method='POST'
       data-remote='true'
       data-type='json'
     ]
-    span.item-quote.translated-after[
+    span.item-quote[
       title=t('actions.quote')
-      data-text-ru=t('actions.quote', locale: 'ru')
-      data-text-en=t('actions.quote', locale: 'en')
+      data-text=t('actions.quote')
     ]
-    span.item-reply.to-process.translated-after[
+    span.item-reply.to-process[
       title=t('actions.reply')
-      data-text-ru=t('actions.reply', locale: 'ru')
-      data-text-en=t('actions.reply', locale: 'en')
+      data-text=t('actions.reply')
       data-dynamic='authorized'
     ]
-    a.item-edit.short.translated-after[
+    a.item-edit.short[
       href=topic_view.urls.edit_url
-      data-text-ru=t('actions.edit', locale: 'ru')
-      data-text-en=t('actions.edit', locale: 'en')
+      data-text=t('actions.edit')
       title=t('actions.edit')
     ]
-    span.item-delete.short.translated-after[
+    span.item-delete.short[
       title=t('actions.delete')
-      data-text-ru=t('actions.delete', locale: 'ru')
-      data-text-en=t('actions.delete', locale: 'en')
+      data-text=t('actions.delete')
     ]
-    span.item-cancel.translated-after[
+    span.item-cancel[
       title=t('actions.cancel')
-      data-text-ru=t('actions.cancel', locale: 'ru')
-      data-text-en=t('actions.cancel', locale: 'en')
+      data-text=t('actions.cancel')
     ]
 
   .delete-controls
-    span.item-delete-confirm.translated-after[
+    span.item-delete-confirm[
       title=t('actions.delete')
-      data-text-ru=t('actions.delete', locale: 'ru')
-      data-text-en=t('actions.delete', locale: 'en')
+      data-text=t('actions.delete')
       data-action=topic_view.urls.destroy_url
       data-type='json'
       data-remote='true'
       data-method='DELETE'
     ]
-    span.item-delete-cancel.translated-after[
+    span.item-delete-cancel[
       title=t('actions.cancel')
-      data-text-ru=t('actions.cancel', locale: 'ru')
-      data-text-en=t('actions.cancel', locale: 'en')
+      data-text=t('actions.cancel')
     ]

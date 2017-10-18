@@ -64,6 +64,10 @@ class DynamicElements.Comment extends ShikiEditable
       @$('.main-controls').hide()
       @$('.moderation-controls').show()
 
+    @$('.item-offtopic, .item-summary').on 'click', (e) ->
+      confirm_type = if @classList.contains('selected') then 'remove' else 'add'
+      $(@).attr 'data-confirm', $(@).data("confirm-#{confirm_type}")
+
     @$('.item-spoiler, .item-abuse').on 'ajax:before', (e) ->
       reason = prompt $(@).data('reason-prompt')
 

@@ -150,17 +150,13 @@ $aside_width: 280px
               +icon_expandable
               &.selected
                 color: $green
-                .locale-ru &:after
-                  content: attr(data-text-alt-ru)
-                .locale-en &:after
-                  content: attr(data-text-alt-en)
+                &:after
+                  content: attr(data-text-alt)
             .item-offtopic
               +icon_expandable
               &.selected
                 color: $red
-                .locale-en &:after
-                  content: attr(data-text-alt-ru)
-                .locale-ru &:after
-                  content: attr(data-text-alt-en)
+                &:after
+                  content: attr(data-text-alt)
             .item-moderation-cancel
               +icon_expandable

@@ -20,22 +20,24 @@
           .b-summary_marker[
             class="#{:active if user_signed_in?}"
             style="#{'display: none;' unless comment.summary?}"
-            title="Снять метку отзыва"
-            data-action="#{summary_comment_abuse_requests_url comment}"
-            data-text="#{t 'markers.summary'}"
+            title=t('actions.markers.summary.remove')
+            data-text=t('markers.summary')
+            data-confirm=t('actions.markers.summary.confirm_remove')
+            data-action=summary_comment_abuse_requests_url(comment)
             data-method="post"
-            data-type="json"
             data-remote="true"
+            data-type="json"
           ]
         .b-offtopic_marker[
           class="#{:active if user_signed_in?}"
           style="#{'display: none;' unless comment.offtopic?}"
-          title="Снять метку оффтопика"
-          data-action="#{offtopic_comment_abuse_requests_url comment}"
-          data-text="#{t 'markers.offtopic'}"
+          title=t('actions.markers.offtopic.remove')
+          data-text=t('markers.offtopic')
+          data-confirm=t('actions.markers.offtopic.confirm_remove')
+          data-action=offtopic_comment_abuse_requests_url(comment)
           data-method="post"
-          data-type="json"
           data-remote="true"
+          data-type="json"
         ]
         - if comment.respond_to?(:broadcast?) && comment.broadcast?
           .b-broadcast_marker data-text="#{t '.broadcast'}"
