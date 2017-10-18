@@ -182,11 +182,12 @@ describe AnimeOnline::VideoPlayer do
   end
 
   describe '#try_select_by' do
-    subject { player.send :try_select_by, kind.to_s, hosting, author_id }
+    subject { player.send :try_select_by, kind.to_s, language.to_s, hosting, author_id }
     let(:anime) { create :anime }
 
     context 'author_nil' do
       let(:kind) { :fandub }
+      let(:language) { :russian }
       let(:hosting) { 'vk.com' }
       let(:author_id) { 1 }
       let!(:video) { create :anime_video, kind: kind, url: attributes_for(:anime_video)[:url], author: nil, anime: anime }

@@ -3,6 +3,9 @@ class Users::AchievementsController < ProfilesController
   before_action { page_title 'Достижения' }
 
   def index
+    unless current_user&.admin? || @user.nickname == 'test2'
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
   def franchise
