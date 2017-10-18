@@ -136,7 +136,7 @@ group :development do
   gem 'letter_opener'
   gem 'mactag'
 
-  gem 'better_errors', github: 'ellimist/better_errors', branch: 'master'
+  gem 'better_errors'
   gem 'binding_of_caller'
 
   # gem 'web-console'
