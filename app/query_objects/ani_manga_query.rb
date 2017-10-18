@@ -217,10 +217,10 @@ private
     field = "#{association_klass.name.downcase}_ids"
 
     ids[:include].each do |ids|
-      @query.where! "#{field} @> '{#{ids.map(&:to_i).join ','}}'"
+      @query.where! "#{field} && '{#{ids.map(&:to_i).join ','}}'"
     end
     ids[:exclude].each do |ids|
-      @query.where! "not (#{field} @> '{#{ids.map(&:to_i).join ','}}')"
+      @query.where! "not (#{field} && '{#{ids.map(&:to_i).join ','}}')"
     end
   end
 
