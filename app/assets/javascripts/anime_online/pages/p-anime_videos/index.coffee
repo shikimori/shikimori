@@ -80,18 +80,20 @@ init_video_player = ->
 
   # добавление в список
   $('.cc-player_controls').on 'ajax:success', '.create-user_rate', ->
-    $link = $(@)
+    # без delay срабатывает ещё increment-user_rate handler
+    delay().then =>
+      $link = $(@)
 
-    $.notice 'Аниме добавлено в список'
-    $link
-      .removeClass('create-user_rate')
-      .addClass('increment-user_rate')
-      .attr
-        href: $link.data('increment_url')
+      $.notice 'Аниме добавлено в список'
+      $link
+        .removeClass('create-user_rate')
+        .addClass('increment-user_rate')
+        .attr
+          href: $link.data('increment_url')
 
-    $link
-      .find('.label')
-      .text $link.data('increment_text')
+      $link
+        .find('.label')
+        .text $link.data('increment_text')
 
   # отметка о прочтении
   $('.cc-player_controls').on 'ajax:before', '.increment-user_rate', ->
@@ -103,7 +105,7 @@ init_video_player = ->
 
     delay(500).then =>
       $(@).removeClass 'b-ajax'
-      Turbolinks.visit $('.c-control.next').attr('href')
+      Turbolinks.visit $(@).data('next_url')
 
   # переключение номера эпизода
   $('.cc-player_controls .episode-num input')

@@ -84,13 +84,22 @@ class AnimeOnline::VideoPlayer
     episode = episodes.reverse.find { |v| v < current_episode }
     episode ||= episodes.last
     episode_url episode if episode
-
   end
 
   def next_url
     episode = episodes.find { |v| v > current_episode }
     episode ||= episodes.first
     episode_url episode if episode
+  end
+
+  def next_watch_url
+    episode = episodes.find { |v| v > current_episode }
+
+    if episode
+      episode_url episode
+    else
+      @anime.url false
+    end
   end
 
   def report_url kind

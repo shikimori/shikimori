@@ -61,9 +61,10 @@
             - if @video.in_list?
               a.c-column.c-control.increment-user_rate[
                 class="#{:watched if @video.watched?}"
-                data-remote="true"
-                data-method="post"
                 href="#{@video.viewed_url}"
+                data-method="post"
+                data-next_url="#{@player.next_watch_url}"
+                data-remote="true"
               ]
                 .icon
                 .label Просмотрено
