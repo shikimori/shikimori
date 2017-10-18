@@ -141,7 +141,7 @@ private
       .where('aired_on >= ?', start_on)
       .where('aired_on <= ?', finish_on)
       .where(kind: @kinds)
-      .select([:id, :aired_on, :kind, :rating, :score])
+      .select(%i[id aired_on kind rating score genre_ids studio_ids])
       .order(:aired_on)
       .each do |anime|
         anime.singleton_class.class_eval do
