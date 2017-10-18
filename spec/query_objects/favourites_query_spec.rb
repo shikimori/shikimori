@@ -13,7 +13,11 @@ describe FavouritesQuery do
     it { expect(query.favoured_by(person, 99).size).to eq(3) }
   end
 
-  describe 'top_entries' do
+  describe 'favoured_size' do
+    it { expect(query.favoured_size(person)).to eq(3) }
+  end
+
+  describe 'top_favourite_ids' do
     let!(:person_2) { create :person, name: 'test', mangaka: true }
     let!(:person_3) { create :person, name: 'test', mangaka: true }
 

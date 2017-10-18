@@ -1,53 +1,63 @@
 class FavouritesQuery
+  def favoured_by entry, limit
+    User
+      .where(id: scope(entry).limit(limit).select(:user_id))
+      .order(:nickname)
+  end
+
+  def favoured_size entry
+    Favourite
+      .where(linked_id: entry.id, linked_type: entry.class.name)
+      .size
+  end
+
   def top_favourite_ids klass, limit
     top_favourite(klass, limit).pluck(:linked_id)
   end
 
   def top_favourite klass, limit
     Favourite
-      .where(linked_type: klass.kind_of?(Array) ? klass : klass.name)
+      .where(linked_type: klass.is_a?(Array) ? klass : klass.name)
       .group(:linked_id, :linked_type)
       .order('count(*) desc')
       .select(:linked_id, :linked_type)
       .limit(limit)
   end
 
+  # rubocop:disable AbcSize
   def global_top klass, limit, user
-    fav_ids = FavouritesQuery.new.top_favourite_ids(klass, limit)
-
-    in_list_ids = !user ? [] : user
-      .send("#{klass.base_class.name.downcase}_rates")
-      .where.not(status: UserRate.statuses['planned'])
-      .pluck(:target_id)
-
-    ignored_ids = !user ? [] : user
-      .recommendation_ignores
-      .where(target_type: klass.name)
-      .pluck(:target_id)
-
-    # выкидываем жанры по гендерному признаку
+    global_top_favored_ids = FavouritesQuery.new.top_favourite_ids(klass, limit)
     ai_genre_ids = AniMangaQuery::GENRES_EXCLUDED_BY_SEX[user.try(:sex) || '']
 
     klass
-      .where(id: fav_ids - in_list_ids - ignored_ids)
+      .where(id: global_top_favored_ids - user_exclude_ids(user, klass))
       .where.not(kind: %i[special music])
       .where.not("genre_ids && '{#{ai_genre_ids.join ','}}'")
-      .sort_by { |v| fav_ids.index v.id }
+      .sort_by { |v| global_top_favored_ids.index v.id }
   end
-
-  # получение списка людей, добавивших сущность в избранное
-  def favoured_by entry, limit
-    User
-      .where(id: user_ids(entry, limit))
-      .order(:nickname)
-  end
+  # rubocop:enable AbcSize
 
 private
-  def user_ids entry, limit
-    Favourite
-      .where(linked_id: entry.id, linked_type: entry.class.name)
-      .group(:user_id)
-      .limit(limit)
-      .pluck(:user_id)
+
+  def scope entry
+    Favourite.where(linked_id: entry.id, linked_type: entry.class.name)
+  end
+
+  def user_exclude_ids user, klass
+    user_in_list_ids(user, klass) + user_ignored_ids(user, klass)
+  end
+
+  def user_in_list_ids user, klass
+    !user ? [] : user
+      .send("#{klass.base_class.name.downcase}_rates")
+      .where.not(status: UserRate.statuses['planned'])
+      .pluck(:target_id)
+  end
+
+  def user_ignored_ids user, klass
+    !user ? [] : user
+      .recommendation_ignores
+      .where(target_type: klass.name)
+      .pluck(:target_id)
   end
 end

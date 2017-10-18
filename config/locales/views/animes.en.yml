@@ -65,6 +65,10 @@ en:
         torrents_720p: 720p HD videos
         torrents_1080p: 1080p FullHD videos
         torrents: Other videos
+      and_more:
+        zero: And %{count} users more
+        one: And %{count} user more
+        other: And %{count} users more
 
     menu:
       scores: Scores

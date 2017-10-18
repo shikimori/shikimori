@@ -65,6 +65,10 @@ ru:
         torrents_720p: HD Эпизоды 720p
         torrents_1080p: FullHD Эпизоды 1080p
         torrents: Прочие эпизоды
+      and_more:
+        one: И ещё %{count} человек
+        few: И ещё %{count} человека
+        many: И ещё %{count} человек
 
     menu:
       scores: Оценки людей

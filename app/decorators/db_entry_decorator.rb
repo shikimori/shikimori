@@ -1,7 +1,7 @@
 class DbEntryDecorator < BaseDecorator
   instance_cache :description_html,
     :linked_clubs, :all_linked_clubs, :contest_winners,
-    :favoured, :favoured?, :all_favoured,
+    :favoured, :favoured?, :all_favoured, :favoured_size,
     :main_topic_view, :preview_topic_view
 
   MAX_CLUBS = 4
@@ -93,7 +93,6 @@ class DbEntryDecorator < BaseDecorator
     )
   end
 
-  # связанные клубы
   def linked_clubs
     query = clubs_for_domain
     if !object.try(:censored?) && h.censored_forbidden?
@@ -102,7 +101,6 @@ class DbEntryDecorator < BaseDecorator
     query.decorate.shuffle.take(MAX_CLUBS)
   end
 
-  # все связанные клубы
   def all_linked_clubs
     query = Clubs::Query.fetch(h.locale_from_host)
       .where(id: clubs_for_domain)
@@ -114,19 +112,20 @@ class DbEntryDecorator < BaseDecorator
     query.decorate
   end
 
-  # добавлено ли в избранное?
   def favoured?
     h.user_signed_in? && h.current_user.favoured?(object)
   end
 
-  # добавившие в избранное
   def favoured
     FavouritesQuery.new.favoured_by object, MAX_FAVOURITES
   end
 
-  # добавившие в избранное
   def all_favoured
-    FavouritesQuery.new.favoured_by object, 2000
+    FavouritesQuery.new.favoured_by object, 816
+  end
+
+  def favoured_size
+    FavouritesQuery.new.favoured_size object
   end
 
   def versions
