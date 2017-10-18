@@ -21,7 +21,7 @@ class DashboardView < ViewObjectBase
     Anime
   ).to_sql
 
-  IGNORE_ONGOING_IDS = [31_592, 32_585, 35_517, 32_977, 8_687]
+  IGNORE_ONGOING_IDS = [31_592, 32_585, 35_517, 32_977, 8_687, 36_231]
 
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
     :new_ongoings, :old_ongoings, :cache_keys
