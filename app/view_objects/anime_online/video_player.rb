@@ -8,6 +8,7 @@ class AnimeOnline::VideoPlayer
     :cache_key, :episode_videos_cache_key, :episode_cache_key
 
   PREFERENCES_KIND = 'anime_video_kind'
+  PREFERENCES_LANGUAGE = 'anime_video_language'
   PREFERENCES_HOSTING = 'anime_video_hosting'
   PREFERENCES_AUTHOR = 'anime_video_author'
 
@@ -23,9 +24,10 @@ class AnimeOnline::VideoPlayer
         videos.find { |v| v.id == video_id }
       else
         try_select_by(
-          h.cookies[PREFERENCES_KIND],
-          h.cookies[PREFERENCES_HOSTING],
-          h.cookies[PREFERENCES_AUTHOR]
+          h.session[:anime_videos]&.dig(PREFERENCES_KIND),
+          h.session[:anime_videos]&.dig(PREFERENCES_LANGUAGE),
+          h.session[:anime_videos]&.dig(PREFERENCES_HOSTING),
+          h.session[:anime_videos]&.dig(PREFERENCES_AUTHOR)
         )
       end
 
@@ -163,9 +165,12 @@ class AnimeOnline::VideoPlayer
 
   def remember_video_preferences
     if current_video && current_video.persisted? && current_video.valid?
-      h.cookies[PREFERENCES_KIND] = current_video.kind
-      h.cookies[PREFERENCES_HOSTING] = current_video.hosting
-      h.cookies[PREFERENCES_AUTHOR] = cleanup_author_name(current_video.author_name)
+      h.session[:anime_videos] ||= {}
+      h.session[:anime_videos][PREFERENCES_KIND] = current_video.kind
+      h.session[:anime_videos][PREFERENCES_LANGUAGE] = current_video.language
+      h.session[:anime_videos][PREFERENCES_HOSTING] = current_video.hosting
+      h.session[:anime_videos][PREFERENCES_AUTHOR] =
+        cleanup_author_name(current_video.author_name)
     end
   end
 
@@ -217,14 +222,15 @@ private
     anime_video_episodes.map(&:episode)
   end
 
-  def try_select_by kind, hosting, fixed_author_name
+  def try_select_by kind, language, hosting, fixed_author_name
     by_kind = videos.select(&:allowed?).select { |v| v.kind == kind }
-    by_hosting = by_kind.select { |v| v.hosting == hosting }
+    by_language = by_kind.select { |v| v.language == language }
+    by_hosting = by_language.select { |v| v.hosting == hosting }
     by_author = by_hosting.select do |anime_video|
       cleanup_author_name(anime_video.author_name) == fixed_author_name
     end
 
-    by_author.first || by_hosting.first || by_kind.first ||
+    by_author.first || by_hosting.first || by_language.first || by_kind.first ||
       videos.select(&:allowed?).first || videos.first
   end
 
