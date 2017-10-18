@@ -162,7 +162,11 @@ describe AnimesCollection::View do
         status: 'ongoing'
       }
     end
-    it { is_expected.to eq %w[Anime v8 page:1 status:ongoing] }
+    it do
+      is_expected.to eq(
+        %W[Anime #{AnimesCollection::View::CACHE_VERSION} page:1 status:ongoing]
+      )
+    end
   end
 
   describe '#cache_expires_in' do

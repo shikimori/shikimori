@@ -8,6 +8,8 @@ class AnimesCollection::View < ViewObjectBase
   PAGE_LIMIT = 20
   SEASON_LIMIT = 1000
 
+  CACHE_VERSION = 'v9'
+
   def collection
     if season_page?
       results.collection
@@ -37,7 +39,7 @@ class AnimesCollection::View < ViewObjectBase
     if h.params[:search] || h.params[:q]
       reindex = Elasticsearch::Reindex.time(klass.name.downcase)
     end
-    initial_key = [klass.name, user_key, reindex, 'v9']
+    initial_key = [klass.name, user_key, reindex, CACHE_VERSION]
 
     h.params
       .except(:format, :controller, :action)
