@@ -37,7 +37,7 @@ class AnimesCollection::View < ViewObjectBase
     if h.params[:search] || h.params[:q]
       reindex = Elasticsearch::Reindex.time(klass.name.downcase)
     end
-    initial_key = [klass.name, user_key, reindex, 'v8']
+    initial_key = [klass.name, user_key, reindex, 'v9']
 
     h.params
       .except(:format, :controller, :action)
