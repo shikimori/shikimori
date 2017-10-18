@@ -15,7 +15,7 @@
 
         .b-input.style_css
           label.text.optional.control-label for="style_css" CSS
-          #style_css_ace
+          .b-ajax#style_css_ace
             = f.object.css
           - if local_assigns[:css_hint].present?
             span.hint = local_assigns[:css_hint]

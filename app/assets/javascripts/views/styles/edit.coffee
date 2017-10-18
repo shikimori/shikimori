@@ -51,14 +51,17 @@ class Styles.Edit extends View
     @_sync_components()
 
   _init_editor: (Ace) ->
+    @$('#style_css_ace').removeClass 'b-ajax'
     editor = Ace.edit 'style_css_ace'
 
     editor.$blockScrolling = Infinity
     editor.setOptions
       wrap: true
 
-    editor.getSession().setMode('ace/mode/css')
+    editor.session.setMode('ace/mode/css')
+    editor.session.setUseWorker(false)
     editor.setTheme('ace/theme/solarized_light')
+
     editor
 
   _sync_components: ->
