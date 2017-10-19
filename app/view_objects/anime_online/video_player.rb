@@ -24,10 +24,10 @@ class AnimeOnline::VideoPlayer
         videos.find { |v| v.id == video_id }
       else
         try_select_by(
-          h.session[:anime_videos]&.dig(PREFERENCES_KIND),
-          h.session[:anime_videos]&.dig(PREFERENCES_LANGUAGE),
-          h.session[:anime_videos]&.dig(PREFERENCES_HOSTING),
-          h.session[:anime_videos]&.dig(PREFERENCES_AUTHOR)
+          h.cookies[PREFERENCES_KIND],
+          h.cookies[PREFERENCES_LANGUAGE],
+          h.cookies[PREFERENCES_HOSTING],
+          h.cookies[PREFERENCES_AUTHOR]
         )
       end
 
@@ -174,11 +174,10 @@ class AnimeOnline::VideoPlayer
 
   def remember_video_preferences
     if current_video && current_video.persisted? && current_video.valid?
-      h.session[:anime_videos] ||= {}
-      h.session[:anime_videos][PREFERENCES_KIND] = current_video.kind
-      h.session[:anime_videos][PREFERENCES_LANGUAGE] = current_video.language
-      h.session[:anime_videos][PREFERENCES_HOSTING] = current_video.hosting
-      h.session[:anime_videos][PREFERENCES_AUTHOR] =
+      h.cookies[PREFERENCES_KIND] = current_video.kind
+      h.cookies[PREFERENCES_LANGUAGE] = current_video.language
+      h.cookies[PREFERENCES_HOSTING] = current_video.hosting
+      h.cookies[PREFERENCES_AUTHOR] =
         cleanup_author_name(current_video.author_name)
     end
   end
