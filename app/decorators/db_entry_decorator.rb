@@ -103,6 +103,8 @@ class DbEntryDecorator < BaseDecorator
     if !object.try(:censored?) && h.censored_forbidden?
       scope.where! is_censored: false
     end
+
+    scope
   end
 
   def all_linked_clubs
