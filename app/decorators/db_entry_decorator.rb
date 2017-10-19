@@ -94,22 +94,25 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def linked_clubs
-    query = clubs_for_domain
+    linked_clubs_scope.shuffle.take(MAX_CLUBS).map(&:decorate)
+  end
+
+  def linked_clubs_scope
+    scope = clubs_for_domain
+
     if !object.try(:censored?) && h.censored_forbidden?
-      query = query.where(is_censored: false)
+      scope.where! is_censored: false
     end
-    query.decorate.shuffle.take(MAX_CLUBS)
   end
 
   def all_linked_clubs
-    query = Clubs::Query.fetch(h.locale_from_host)
-      .where(id: clubs_for_domain)
+    scope = Clubs::Query.fetch(h.locale_from_host).where(id: clubs_for_domain)
 
     if !object.try(:censored?) && h.censored_forbidden?
-      query = query.where(is_censored: false)
+      scope.where! is_censored: false
     end
 
-    query.decorate
+    scope.decorate
   end
 
   def favoured?

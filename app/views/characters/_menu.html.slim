@@ -9,7 +9,9 @@
   = render 'spnsrs/ad', ad: Ad.new(:istari_x300)
 
 = cache @resource do
-  = render 'blocks/favoured', favoured: resource.favoured, url: favoured_character_url(resource)
+  = render 'blocks/favoured',
+    resource: resource,
+    url: favoured_character_url(resource)
 
   - if resource.linked_clubs.any?
     .block
