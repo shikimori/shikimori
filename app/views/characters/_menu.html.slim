@@ -17,7 +17,9 @@
     .block
       .subheadline.m10
         - if resource.linked_clubs.size == DbEntryDecorator::MAX_CLUBS
-          .linkeable data-href="#{clubs_character_url(resource)}" = i18n_i 'Club', :other
+          .linkeable data-href="#{clubs_character_url(resource)}"
+            = i18n_i 'Club', :other
+            .count = resource.linked_clubs_scope.size
         - else
           = i18n_i 'Club', :other
 
