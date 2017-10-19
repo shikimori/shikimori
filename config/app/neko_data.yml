@@ -158,7 +158,6 @@
   :text_en: 
   :topic_id: 
   :rule:
-    :algo: simple
     :threshold: 400
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
@@ -1306,7 +1305,7 @@
     :threshold: 30%
     :filters: &11
       anime_ids:
-      - 9999999999
+      - 99999999
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - :neko_id: :kuudere
   :level: 2
