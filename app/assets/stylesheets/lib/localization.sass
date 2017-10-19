@@ -1,4 +1,16 @@
 body
+  .translated-after
+    .locale-ru &:after
+      content: attr(data-text-ru)
+    .locale-en &:after
+      content: attr(data-text-en)
+
+  .translated-before
+    .locale-ru &:before
+      content: attr(data-text-ru)
+    .locale-en &:before
+      content: attr(data-text-en)
+
   // names
   &.localized_names-ru
     .name-en

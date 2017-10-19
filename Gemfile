@@ -15,13 +15,7 @@ gem 'redis-mutex'
 gem 'redis-namespace'
 
 # frontend
-group :beta, :production do
-  gem 'autoprefixer-rails'
-end
-gem 'bourbon'
-gem 'coffee-rails'
 gem 'non-stupid-digest-assets'
-gem 'sassc-rails'
 # turbolinks
 # events migration https://github.com/turbolinks/turbolinks/blob/master/src/turbolinks/compatibility.coffee
 # new events https://github.com/turbolinks/turbolinks#full-list-of-events

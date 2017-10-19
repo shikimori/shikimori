@@ -14,6 +14,14 @@ environment.loaders.set('jade', {
   exclude: /node_modules/
 })
 
+environment.loaders.set('import-glob-loader', {
+  test: /\.(scss|sass)$/i,
+  enforce: 'pre',
+  loader: 'import-glob-loader'
+})
+
+environment.plugins.get('ExtractText').options.allChunks = true
+
 environment.plugins.set(
   'Provide',
   new webpack.ProvidePlugin({
