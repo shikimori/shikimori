@@ -42,4 +42,10 @@ class AdminLogInController < ShikimoriController
   def self.admin_id_to_restore_key
     'devise.admin_id_to_restore'
   end
+
+private
+
+  def devise_controller?
+    true
+  end
 end
