@@ -4,6 +4,7 @@ ru:
       # p-animes.coffee
       p_animes:
         no_data: Нет данных
+        watch_online: Смотреть онлайн
 
       # p-contests
       p_contests:

@@ -4,6 +4,7 @@ en:
       # p-animes.coffee
       p_animes:
         no_data: No data
+        watch_online: Watch Online
 
       # p-contests
       p_contests:
