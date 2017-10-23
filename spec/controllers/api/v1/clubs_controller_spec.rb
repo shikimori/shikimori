@@ -20,9 +20,53 @@ describe Api::V1::ClubsController, :show_in_doc do
     end
 
     it do
-      expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
       expect(collection).to eq [club_1, club_2]
+      expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#update' do
+    include_context :authenticated, :user, :week_registered
+    let(:club) { create :club, :with_topics, owner: user }
+
+    context 'valid params' do
+      before do
+        patch :update,
+          params: {
+            id: club.id,
+            club: params
+          },
+          format: :json
+      end
+      let(:params) { { name: 'test club' } }
+
+      it do
+        expect(resource.errors).to be_empty
+        expect(resource).to_not be_changed
+        expect(resource).to have_attributes params
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'invalid params' do
+      before do
+        patch 'update',
+          params: {
+            id: club.id,
+            club: params
+          },
+          format: :json
+      end
+      let(:params) { { name: '' } }
+
+      it do
+        expect(resource.errors).to be_present
+        expect(response.content_type).to eq 'application/json'
+        ap json
+        expect(response).to have_http_status 422
+      end
     end
   end
 

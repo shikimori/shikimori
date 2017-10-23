@@ -1,6 +1,8 @@
 class Api::V1::ClubsController < Api::V1Controller
+  load_and_authorize_resource :club, only: %i[update]
+
   before_action :fetch_club, except: :index
-  before_action :restrict_domain, except: [:index, :create, :new]
+  before_action :restrict_domain, except: %i[index create new]
 
   LIMIT = 30
 
@@ -24,6 +26,27 @@ class Api::V1::ClubsController < Api::V1Controller
     respond_with @collection
   end
 
+  api :PATCH, '/clubs/:id', 'Update a club'
+  api :PUT, '/clubs/:id', 'Update a club'
+  param :club, Hash do
+    param :name, String
+    param :description, String
+    param :display_images, [true, false]
+    param :comment_policy, Types::Club::CommentPolicy.values
+    param :topic_policy, Types::Club::TopicPolicy.values
+    param :image_upload_policy, Types::Club::ImageUploadPolicy.values
+  end
+  error code: 422
+  def update
+    Club::Update.call @resource, [], update_params, nil
+
+    if @resource.errors.none?
+      respond_with @resource.decorate, serializer: ClubProfileSerializer
+    else
+      respond_with @resource
+    end
+  end
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/clubs/:id', 'Show a club'
   def show
@@ -34,32 +57,32 @@ class Api::V1::ClubsController < Api::V1Controller
     end
   end
 
-  api :GET, "/clubs/:id/animes", "Show club's animes"
+  api :GET, '/clubs/:id/animes', "Show club's animes"
   def animes
     respond_with @club.all_animes
   end
 
-  api :GET, "/clubs/:id/mangas", "Show club's mangas"
+  api :GET, '/clubs/:id/mangas', "Show club's mangas"
   def mangas
     respond_with @club.all_mangas
   end
 
-  api :GET, "/clubs/:id/ranobe", "Show club's ranobe"
+  api :GET, '/clubs/:id/ranobe', "Show club's ranobe"
   def ranobe
     respond_with @club.all_ranobe
   end
 
-  api :GET, "/clubs/:id/characters", "Show club's characters"
+  api :GET, '/clubs/:id/characters', "Show club's characters"
   def characters
     respond_with @club.all_characters
   end
 
-  api :GET, "/clubs/:id/members", "Show club's members"
+  api :GET, '/clubs/:id/members', "Show club's members"
   def members
     respond_with @club.all_member_roles.map(&:user)
   end
 
-  api :GET, "/clubs/:id/images", "Show club's images"
+  api :GET, '/clubs/:id/images', "Show club's images"
   def images
     respond_with @club.all_images
   end
@@ -92,5 +115,9 @@ private
 
   def restrict_domain
     raise ActiveRecord::RecordNotFound if @club.locale != locale_from_host
+  end
+
+  def update_params
+    params.require(:club).permit(*::ClubsController::UPDATE_PARAMS)
   end
 end

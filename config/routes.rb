@@ -237,7 +237,7 @@ Rails.application.routes.draw do
       resources :topic_ignores, only: %i[create destroy]
       resources :user_images, only: %i[create]
 
-      resources :clubs, only: %i[show index] do
+      resources :clubs, only: %i[show index update] do
         member do
           get :members
           get :animes

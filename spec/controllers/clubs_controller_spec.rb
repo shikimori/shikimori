@@ -94,6 +94,8 @@ describe ClubsController do
 
       it do
         expect(resource.errors).to be_empty
+        expect(resource).to_not be_changed
+        expect(resource).to have_attributes params
         expect(response).to redirect_to edit_club_url(resource, page: :description)
       end
     end
