@@ -64,7 +64,6 @@ describe Api::V1::ClubsController, :show_in_doc do
       it do
         expect(resource.errors).to be_present
         expect(response.content_type).to eq 'application/json'
-        ap json
         expect(response).to have_http_status 422
       end
     end
