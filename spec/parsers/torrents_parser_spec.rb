@@ -133,7 +133,7 @@ describe TorrentsParser do
     let(:episodes_aired) { 1 }
     let(:episodes) { 24 }
     let(:anime) { create :anime, episodes_aired: episodes_aired, episodes: episodes, status: :ongoing }
-    let(:multiplier) { Site::DOMAIN_LOCALES.size }
+    let(:multiplier) { Shikimori::DOMAIN_LOCALES.size }
 
     subject { TorrentsParser.check_aired_episodes anime, feed }
 

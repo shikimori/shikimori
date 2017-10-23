@@ -16,7 +16,7 @@ require_relative '../lib/named_logger'
 
 Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
 
-module Site
+module Shikimori
   DOMAIN = 'shikimori.org'
   NAME = 'Шикимори'
   STATIC_SUBDOMAINS = %w(nyaa kawai moe desu dere)
@@ -89,20 +89,20 @@ module Site
     # достали эксепшены с ханибаджера
     config.action_dispatch.ip_spoofing_check = false
 
-    config.action_mailer.default_url_options = { host: Site::DOMAIN }
+    config.action_mailer.default_url_options = { host: Shikimori::DOMAIN }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
       address: 'smtp.mailgun.org',
       port: 587,
       user_name: Rails.application.secrets.mailgun[:login],
       password: Rails.application.secrets.mailgun[:password],
-      domain: Site::DOMAIN
+      domain: Shikimori::DOMAIN
     }
 
     #config.action_mailer.smtp_settings = {
       #address: "smtp.gmail.com",
       #port: 587,
-      #domain: Site::DOMAIN,
+      #domain: Shikimori::DOMAIN,
       #user_name: Rails.application.secrets.smtp[:login],
       #password: Rails.application.secrets.smtp[:password],
       #authentication: 'plain',

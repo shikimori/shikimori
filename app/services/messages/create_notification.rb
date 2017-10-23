@@ -87,7 +87,7 @@ class Messages::CreateNotification
   end
 
   def contest_started
-    Site::DOMAIN_LOCALES.each do |locale|
+    Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::ContestStatusTopic.call(
         @target,
         @target.user,
@@ -106,7 +106,7 @@ class Messages::CreateNotification
       )
     end
 
-    Site::DOMAIN_LOCALES.each do |locale|
+    Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::ContestStatusTopic.call(
         @target,
         @target.user,

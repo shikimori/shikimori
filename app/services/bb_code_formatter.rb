@@ -40,9 +40,9 @@ class BbCodeFormatter
     if Rails.env.development?
       'shikimori.dev'
     elsif Rails.env.beta?
-      "beta.#{Site::DOMAIN}"
+      "beta.#{Shikimori::DOMAIN}"
     else
-      Site::DOMAIN
+      Shikimori::DOMAIN
     end
 
   MALWARE_DOMAINS = %r{

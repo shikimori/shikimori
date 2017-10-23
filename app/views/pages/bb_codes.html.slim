@@ -132,7 +132,7 @@ header.head
       .title = t '.result_title'
       - cache [:demo, :links_2, :v1] do
         = BbCodeFormatter.instance.format_comment t('.anime_link_with_tooltip_example_2')
-    .notice == t '.anime_link_with_tooltip_notice', domain: Site::DOMAIN
+    .notice == t '.anime_link_with_tooltip_notice', domain: Shikimori::DOMAIN
 
   .block
     .name
@@ -278,10 +278,10 @@ header.head
     .name = t '.images_without_spaces'
     .example
       .title = t '.example_title'
-      .textarea == t '.images_without_spaces_example_1', domain: Site::DOMAIN
+      .textarea == t '.images_without_spaces_example_1', domain: Shikimori::DOMAIN
     .result
       .title = t '.result_title'
       br
       = BbCodeFormatter.instance.format_comment(\
-          t('.images_without_spaces_example_2', domain: Site::DOMAIN).gsub(/\s+/, '')\
+          t('.images_without_spaces_example_2', domain: Shikimori::DOMAIN).gsub(/\s+/, '')\
         )

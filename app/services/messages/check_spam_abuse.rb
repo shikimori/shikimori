@@ -42,6 +42,6 @@ private
   end
 
   def ban_text message
-    i18n_t :ban_text, email: Site::EMAIL, locale: message.from.locale
+    i18n_t :ban_text, email: Shikimori::EMAIL, locale: message.from.locale
   end
 end

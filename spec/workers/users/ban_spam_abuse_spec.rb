@@ -15,7 +15,7 @@ describe Users::BanSpamAbuse do
       from: banhammer,
       to: user,
       kind: MessageType::Private,
-      body: I18n.t('messages/check_spam_abuse.ban_text', email: Site::EMAIL)
+      body: I18n.t('messages/check_spam_abuse.ban_text', email: Shikimori::EMAIL)
     )
   end
 end

@@ -15,7 +15,7 @@ html
     .dialog
       p.error-500 500
       h1 = t 'page503.title'
-      == t 'page503.text', email: Site::EMAIL
+      == t 'page503.text', email: Shikimori::EMAIL
 
       img.image[
         src='/images/static/503.jpg'

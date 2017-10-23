@@ -13,7 +13,7 @@ describe Messages::CheckSpamAbuse do
     context 'link' do
       it do
         is_expected.to eq false
-        expect(message.errors[:base]).to eq [I18n.t('messages/check_spam_abuse.ban_text', email: Site::EMAIL)]
+        expect(message.errors[:base]).to eq [I18n.t('messages/check_spam_abuse.ban_text', email: Shikimori::EMAIL)]
         expect(Users::BanSpamAbuse)
           .to have_received(:perform_async)
           .with message.from_id

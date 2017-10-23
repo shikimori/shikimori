@@ -257,7 +257,7 @@ class TorrentsParser
           new_episodes << entry
 
           aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
-          Site::DOMAIN_LOCALES.each do |locale|
+          Shikimori::DOMAIN_LOCALES.each do |locale|
             Topics::Generate::News::EpisodeTopic.call(
               anime, anime.topic_user, locale, aired_at
             )

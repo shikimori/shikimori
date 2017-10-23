@@ -34,11 +34,11 @@ private
     if UserHistoryAction::Registration == entry.action
       Users::FormattedHistory.new(
         image: '/assets/blocks/history/shikimori.x43.png',
-        name: Site::DOMAIN,
+        name: Shikimori::DOMAIN,
         action: entries.reverse.map(&:format).join(', ').html_safe,
         action_info: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         created_at: entry.created_at,
-        url: "http://#{Site::DOMAIN}"
+        url: "http://#{Shikimori::DOMAIN}"
       )
 
     elsif [UserHistoryAction::MalAnimeImport, UserHistoryAction::MalMangaImport].include? entry.action

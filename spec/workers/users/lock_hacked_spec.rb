@@ -18,10 +18,10 @@ describe Users::LockHacked do
       kind: MessageType::Private,
       body: I18n.t(
         'messages/check_hacked.lock_text',
-        email: Site::EMAIL,
+        email: Shikimori::EMAIL,
         locale: user.locale,
         recovery_url: UrlGenerator.instance.new_user_password_url(
-          protocol: Site::ALLOWED_PROTOCOL
+          protocol: Shikimori::ALLOWED_PROTOCOL
         )
       )
     )

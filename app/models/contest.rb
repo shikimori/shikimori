@@ -77,7 +77,7 @@ class Contest < ApplicationRecord
     event(:finish) { transition started: :finished }
 
     after_transition :created => %i[proposing started] do |contest, transition|
-      contest.generate_topics Site::DOMAIN_LOCALES
+      contest.generate_topics Shikimori::DOMAIN_LOCALES
     end
   end
 

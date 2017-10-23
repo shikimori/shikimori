@@ -1,6 +1,6 @@
 require Rails.root.join 'config/environments/production'
 
-Site::Application.configure do
+Shikimori::Application.configure do
   config.cache_store = :dalli_store, 'localhost', {
     namespace: 'shikimori_beta',
     compress: true,

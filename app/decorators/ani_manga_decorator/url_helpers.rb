@@ -129,7 +129,7 @@ module AniMangaDecorator::UrlHelpers
   def upload_first_video_online_url
     h.new_video_online_url(object,
       'anime_video[anime_id]' => id,
-      'anime_video[source]' => Site::DOMAIN,
+      'anime_video[source]' => Shikimori::DOMAIN,
       'anime_video[state]' => 'uploaded',
       'anime_video[kind]' => 'fandub',
       'anime_video[episode]' => 1,

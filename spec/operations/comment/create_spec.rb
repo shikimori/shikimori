@@ -73,7 +73,7 @@ describe Comment::Create do
       let(:commentable_id) { anime.id }
       let(:commentable_type) { Anime.name }
 
-      let(:topic_locale) { (Site::DOMAIN_LOCALES - [locale]).sample }
+      let(:topic_locale) { (Shikimori::DOMAIN_LOCALES - [locale]).sample }
       let(:topic) { create :anime_topic, user: user, linked: anime, locale: topic_locale }
 
       it_behaves_like :comment

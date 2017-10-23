@@ -10,5 +10,5 @@ header.head
   p.notice Last updated: 01.04.2017
 
 .text
-  - email = Site::EMAIL.gsub(/^mail@/, 'mail+copyright@')
+  - email = Shikimori::EMAIL.gsub(/^mail@/, 'mail+copyright@')
   == BbCodeFormatter.instance.format_comment(t('.text')).gsub("{MAIL}", "<a href='mailto:#{email}'>#{email}</a>")

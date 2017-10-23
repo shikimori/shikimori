@@ -4,7 +4,7 @@ class ShikiMailer < ActionMailer::Base
   include Routing
   include Translation
 
-  default from: "noreply@#{Site::DOMAIN}"
+  default from: "noreply@#{Shikimori::DOMAIN}"
 
   rescue_from Net::SMTPSyntaxError do
     user = User.find_by email: message[:to].value
@@ -33,7 +33,7 @@ class ShikiMailer < ActionMailer::Base
     body = i18n_t(
       'private_message_email.body',
       nickname: message.to.nickname,
-      site_link: Site::DOMAIN,
+      site_link: Shikimori::DOMAIN,
       from_nickname: message.from.nickname,
       private_message_link: profile_dialogs_url(message.to, protocol: :https),
       message: message.body,
@@ -57,7 +57,7 @@ class ShikiMailer < ActionMailer::Base
     )
     body = i18n_t(
       'reset_password_instructions.body',
-      site_link: Site::DOMAIN,
+      site_link: Shikimori::DOMAIN,
       nickname: user.nickname,
       reset_password_link: edit_user_password_url(
         reset_password_token: token,

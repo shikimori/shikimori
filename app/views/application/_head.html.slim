@@ -34,8 +34,8 @@ meta name="msapplication-TileColor" content="#ffffff"
 /!-- For Opera Coast:
 link rel="icon" href="/favicons/favicon-228x228.png" sizes="228x228"
 
-link rel="search" type="application/opensearchdescription+xml" title="#{Site::DOMAIN}" href="/search.xml"
-link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-manifest.json"
+link rel="search" type="application/opensearchdescription+xml" title="#{Shikimori::DOMAIN}" href="/search.xml"
+link rel="yandex-tableau-widget" href="//#{Shikimori::DOMAIN}/yandex-tableau-widget-manifest.json"
 
 - if defined?(@next_page) && !@next_page.blank?
   link rel="next" href="#{{@next_page}}"
@@ -47,7 +47,7 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
   link rel="canonical" href="#{{@canonical}}"
 
 - if @page_title.blank?
-  title = Site::NAME
+  title = Shikimori::NAME
 
 / иначе page_title обрезаться в первом слове, а не в последнем
 - @page_title.reverse! if @page_title.is_a? Array

@@ -29,10 +29,10 @@ private
 
   def ban_text message
     i18n_t :lock_text,
-      email: Site::EMAIL,
+      email: Shikimori::EMAIL,
       locale: message.from.locale,
       recovery_url: UrlGenerator.instance.new_user_password_url(
-        protocol: Site::ALLOWED_PROTOCOL
+        protocol: Shikimori::ALLOWED_PROTOCOL
       )
   end
 

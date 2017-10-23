@@ -4,7 +4,7 @@ module Routing
 
   SHIKIMORI_DOMAIN = %r{
     \A
-    (?: (?:play|#{Site::STATIC_SUBDOMAINS.join '|'})\. )
+    (?: (?:play|#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )
     shikimori \. (?: org|dev )
     \Z
   }mix
@@ -14,7 +14,7 @@ module Routing
       if Rails.env.test?
         'test.host'
       elsif (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
-        Site::DOMAIN
+        Shikimori::DOMAIN
       else
         Draper::ViewContext.current.request.host
       end

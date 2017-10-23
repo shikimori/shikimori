@@ -1,7 +1,7 @@
 xml.instruct! :xml, version: '1.0'
 xml.rss version: '2.0' do
   xml.channel do
-    xml.title "#{@page_title.last} #{Site::DOMAIN}"
+    xml.title "#{@page_title.last} #{Shikimori::DOMAIN}"
     # xml.description @forum[:description]
     xml.link forum_url(forum: @forums_view.forum.try(:permalink))
 

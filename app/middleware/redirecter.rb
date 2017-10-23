@@ -9,7 +9,7 @@ class Redirecter
     request = Rack::Request.new env
 
     if !VALID_HOSTS.include? request.host
-      [301, {'Location' => request.url.sub(request.host, Site::DOMAIN)}, []]
+      [301, {'Location' => request.url.sub(request.host, Shikimori::DOMAIN)}, []]
 
     elsif request.host.starts_with? 'www.'
       [301, {'Location' => request.url.sub('//www.', '//')}, self]

@@ -6,7 +6,7 @@ xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
     xml.title @topic_view.topic_title
-    xml.description "Topic \"#{@topic_view.topic_title}\" comments #{Site::DOMAIN}"
+    xml.description "Topic \"#{@topic_view.topic_title}\" comments #{Shikimori::DOMAIN}"
     xml.link @topic_view.urls.topic_url
 
     comments.each do |comment|

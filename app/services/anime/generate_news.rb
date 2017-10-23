@@ -24,7 +24,7 @@ private
     return unless anime.anons?
     return if status_changed? 'ongoing', 'anons'
 
-    Site::DOMAIN_LOCALES.each do |locale|
+    Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::AnonsTopic.call(
         anime, anime.topic_user, locale
       )
@@ -35,7 +35,7 @@ private
     return unless anime.ongoing?
     return if status_changed? 'released', 'ongoing'
 
-    Site::DOMAIN_LOCALES.each do |locale|
+    Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::OngoingTopic.call(
         anime, anime.topic_user, locale
       )
@@ -46,7 +46,7 @@ private
     return unless anime.released?
     return unless new_release?
 
-    Site::DOMAIN_LOCALES.each do |locale|
+    Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::ReleasedTopic.call(
         anime, anime.topic_user, locale
       )

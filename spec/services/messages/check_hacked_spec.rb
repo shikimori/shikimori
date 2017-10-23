@@ -17,10 +17,10 @@ describe Messages::CheckHacked do
         expect(message.errors[:base]).to eq [
           I18n.t(
             'messages/check_hacked.lock_text',
-            email: Site::EMAIL,
+            email: Shikimori::EMAIL,
             locale: message.from.locale,
             recovery_url: UrlGenerator.instance.new_user_password_url(
-              protocol: Site::ALLOWED_PROTOCOL
+              protocol: Shikimori::ALLOWED_PROTOCOL
             )
           )
         ]
