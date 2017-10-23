@@ -44,15 +44,6 @@ GIT
     cancancan (1.16.0)
 
 GIT
-  remote: https://github.com/morr/russian.git
-  revision: 4b0c8f5c758748b8e61b5c33bad53152566df052
-  specs:
-    rs_russian (0.9.5)
-      activesupport (>= 3.0.0, < 6.0.0)
-      i18n (>= 0.6.0, < 0.9.0)
-      unicode (~> 0.4.4)
-
-GIT
   remote: https://github.com/morr/sidekiq-unique-jobs.git
   revision: a99ac38049be65d33dd28d444c219c2a10e9ae2a
   branch: master
@@ -542,6 +533,10 @@ GEM
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
     retryable (2.0.4)
+    rs_russian (0.10.1)
+      activesupport (>= 3.0.0, < 6.0.0)
+      i18n (~> 0.8.0)
+      unicode (~> 0.4.4)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -786,7 +781,7 @@ DEPENDENCIES
   redis-namespace
   responders
   retryable
-  rs_russian!
+  rs_russian
   rspec
   rspec-collection_matchers
   rspec-core
