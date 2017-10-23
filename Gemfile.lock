@@ -37,13 +37,6 @@ GIT
     ruby-svd (0.5.4)
 
 GIT
-  remote: https://github.com/morr/acts_as_votable.git
-  revision: 71047969b2d3f75f08e72e62a2636f152a8fed9f
-  branch: cacheable_strategy
-  specs:
-    acts_as_votable (0.10.0)
-
-GIT
   remote: https://github.com/morr/cancancan.git
   revision: ac270003130fed41392873ab08d9d3f50d2b12c7
   branch: master
@@ -82,6 +75,13 @@ GIT
   specs:
     htmldiff-lcs (0.0.1)
       diff-lcs
+
+GIT
+  remote: https://github.com/ryanto/acts_as_votable.git
+  revision: b4714198ea263154365e4d5c9e34631c43545ecc
+  branch: master
+  specs:
+    acts_as_votable (0.11.1)
 
 GIT
   remote: https://github.com/shikimori/mal_parser.git
