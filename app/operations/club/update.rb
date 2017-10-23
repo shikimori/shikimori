@@ -31,10 +31,10 @@ private
   end
 
   def cleaup_links
-    @model.links.where(linked_type: Anime.name).delete_all
-    @model.links.where(linked_type: Manga.name).delete_all
-    @model.links.where(linked_type: Ranobe.name).delete_all
-    @model.links.where(linked_type: Character.name).delete_all
+    [Anime, Manga, Ranobe, Character].each do |klass|
+      @model.links.where(linked_type: klass.name).delete_all
+    end
+    @model.touch # because links.delete_all wont update club's updated_at
   end
 
   def cleaup_members
