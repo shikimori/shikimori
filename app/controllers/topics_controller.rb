@@ -1,10 +1,10 @@
 # TODO: move forum topics actions to Forum::TopicsController
 # other actions should stay here
 class TopicsController < ShikimoriController
-  before_action :check_post_permission, only: [:create, :update, :destroy]
+  before_action :check_post_permission, only: %i[create update destroy]
   load_and_authorize_resource(
     class: Topic,
-    only: %i(new create edit update show destroy)
+    only: %i[new create edit update show destroy]
   )
 
   before_action :set_view
@@ -122,7 +122,7 @@ private
 
   def topic_params
     allowed_params =
-      if can?(:manage, Topic) || ['new', 'create'].include?(params[:action])
+      if can?(:manage, Topic) || %w[new create].include?(params[:action])
         CREATE_PARAMS
       else
         UPDATE_PARAMS
@@ -147,7 +147,7 @@ private
     page_title i18n_t('title')
     breadcrumb t('forum'), forum_url
 
-    if @resource && @resource.forum
+    if @resource&.forum
       page_title @resource.forum.name
       breadcrumb @resource.forum.name, forum_topics_url(@resource.forum)
 
@@ -161,10 +161,12 @@ private
       end
 
       page_title @topic_view ? @topic_view.topic_title : @resource.title
-      breadcrumb(
-        @topic_view ? @topic_view.topic_title : @resource.title,
-        UrlGenerator.instance.topic_url(@resource)
-      ) if params[:action] == 'edit' || params[:action] == 'update'
+      if %w[edit update].include? params[:action]
+        breadcrumb(
+          @topic_view ? @topic_view.topic_title : @resource.title,
+          UrlGenerator.instance.topic_url(@resource)
+        )
+      end
 
     elsif @forums_view.forum
       page_title @forums_view.forum.name
