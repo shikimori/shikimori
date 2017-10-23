@@ -375,8 +375,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/a4bc74275d37379dd0d200a2686611052fd89a88.jpg?1484049600",
-          "preview": "/system/screenshots/x332/a4bc74275d37379dd0d200a2686611052fd89a88.jpg?1484049600"
+          "original": "/system/screenshots/original/33f0e7a6e6def2de5352096554498a818ceeb2be.jpg?1484049600",
+          "preview": "/system/screenshots/x332/33f0e7a6e6def2de5352096554498a818ceeb2be.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -578,7 +578,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "u1ej0VY3cMxDvzJHlL+4agIzj3WHjefDmGDmZJACwzmFirOZtQ/L6ldOrnRaGeTMOdqo+x+Ljj+XMU2sN7YMVg=="
+        "authenticity_token": "Bv1lGMkIm5Mw/p+t/n9e+KbDv4xoev55nARcasmRJSmC1nx72Db+MZ1bXBYPeEAjAWQ8WABbdi7QWmdlBCBEZw=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -1189,7 +1189,7 @@
       "verb": "PATCH",
       "path": "/api/clubs/1",
       "versions": [
-
+        "1.0"
       ],
       "query": null,
       "request_data": {
@@ -1233,14 +1233,14 @@
         ]
       },
       "code": "200",
-      "show_in_doc": 0,
+      "show_in_doc": 1,
       "recorded": true
     },
     {
       "verb": "PATCH",
       "path": "/api/clubs/2",
       "versions": [
-
+        "1.0"
       ],
       "query": null,
       "request_data": {
@@ -2497,7 +2497,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 5615,
+          "id": 61188,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3218,7 +3218,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-10-24T00:06:08.875+03:00"
+          "last_online_at": "2017-10-24T00:21:17.948+03:00"
         }
       },
       "code": "200",
@@ -4099,7 +4099,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-10-24T00:06:08.875+03:00"
+            "last_online_at": "2017-10-24T00:21:17.948+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -4150,7 +4150,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-10-24T00:06:08.875+03:00"
+          "last_online_at": "2017-10-24T00:21:17.948+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -4188,7 +4188,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-10-24T00:06:08.875+03:00"
+            "last_online_at": "2017-10-24T00:21:17.948+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -4264,7 +4264,7 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "completed",
+          "status": "watching",
           "target_id": "37",
           "target_type": "Anime",
           "text": "test",
@@ -4275,7 +4275,7 @@
       "response_data": {
         "id": 6,
         "score": 10,
-        "status": "completed",
+        "status": "watching",
         "text": "test",
         "episodes": 2,
         "chapters": null,
@@ -5082,7 +5082,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 28,
+          "id": 30,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Запланировано",
           "target": {
@@ -5105,7 +5105,7 @@
           }
         },
         {
-          "id": 27,
+          "id": 29,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Импортировано аниме - 522 записи",
           "target": null

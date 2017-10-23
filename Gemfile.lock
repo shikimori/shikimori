@@ -284,7 +284,7 @@ GEM
     faraday-cookie_jar (0.0.6)
       faraday (>= 0.7.4)
       http-cookie (~> 1.0.0)
-    faraday_middleware (0.11.0.1)
+    faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     faye (1.2.4)
       cookiejar (>= 0.3.0)
