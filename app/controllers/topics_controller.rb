@@ -49,6 +49,7 @@ class TopicsController < ShikimoriController
   end
 
   def edit
+    ensure_redirect! @topic_view.urls.edit_url if params[:action] == 'edit'
   end
 
   def create
@@ -136,7 +137,7 @@ private
   def set_view
     @forums_view = Forums::View.new params[:forum]
 
-    if params[:action] == 'show' && @resource
+    if %w[show edit].include?(params[:action]) && @resource
       @topic_view = Topics::TopicViewFactory.new(false, false).build @resource
     end
   end

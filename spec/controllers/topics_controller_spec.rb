@@ -231,8 +231,18 @@ describe TopicsController do
 
     context 'authenticated' do
       before { sign_in user }
-      before { get :edit, params: { id: topic.id } }
-      it { expect(response).to have_http_status :success }
+      before { get :edit, params: { id: topic.to_param } }
+
+      context 'allowed edit url' do
+        it { expect(response).to have_http_status :success }
+      end
+
+      context 'disallowed edit url' do
+        let!(:topic) { create :collection_topic, user: user, linked: collection }
+        let(:collection) { create :collection, user: user }
+
+        it { expect(response).to redirect_to edit_collection_url(collection) }
+      end
     end
   end
 
