@@ -90,8 +90,7 @@
     if (!no_show_or_hide) {
       $tip.show()
     }
-    $tip.removeClass('tooltip-bottom')
-        .removeClass('tooltip-center');
+    $tip.removeClass('tooltip-bottom tooltip-center tooltip-moved');
 
     top  -= $tip.outerHeight() - conf.offset[0] - ($trigger.data('offset-top') || 0);
     left += $trigger.outerWidth() + conf.offset[1] - ($trigger.data('offset-left') || 0);
@@ -104,8 +103,8 @@
 
     // adjust Y
     var height = $tip.outerHeight() + $trigger.outerHeight();
-    if (pos == 'center')   { top += height / 2; }
-    if (pos == 'bottom')   { top += height; }
+    if (pos == 'center') { top += height / 2; }
+    if (pos == 'bottom') { top += height; }
 
     // adjust X
     pos = conf.position[1];
@@ -157,16 +156,17 @@
     // вписывание тултипа в экран по вертикали
     var offscreen_bottom_offset = (abs_top + tip_height + tip_vertical_shadow) - $(window).scrollTop() - $(window).height();
     if (!$trigger.data('no-align')) {
+      var old_top = top;
       if (offscreen_bottom_offset > 0 && !conf.no_y_adjustment) {
-        top -= offscreen_bottom_offset + 10;
+        top = [top - offscreen_bottom_offset + 10, 10].max();
       }
 
-      if (offscreen_bottom_offset > 0) {
-        $arrow.css('top', [$arrow.data('top') + offscreen_bottom_offset, tip_height - $arrow.data('top')].min());
+      if (old_top != top) {
+        $arrow.css('top', $arrow.data('top') + (old_top - top));
       }
       var offscreen_top_offset = abs_top - $(window).scrollTop();
       if (offscreen_top_offset < 0) {
-        top -= offscreen_top_offset - 10;
+        top = [top - offscreen_top_offset - 10, 10].max();
       }
     }
 
