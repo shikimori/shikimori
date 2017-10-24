@@ -190,7 +190,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # хром некорректно обрабатывает Back кнопку, если на аякс ответ не послан заголовок Vary: Accept
+  # хром некорректно обрабатывает Back кнопку,
+  # если на аякс ответ не послан заголовок Vary: Accept
   def force_vary_accept
     if json?
       response.headers['Vary'] = 'Accept'
@@ -201,23 +202,13 @@ class ApplicationController < ActionController::Base
   # трогаем lastonline у текущего пользователя
   def touch_last_online
     return unless user_signed_in? && current_user.class != Symbol
-    current_user.update_last_online if current_user.id != 1
+    current_user.update_last_online unless current_user.admin?
   end
 
-  # корректно определяющийся ip адрес пользователя
   def remote_addr
-    ip = request.headers['HTTP_X_FORWARDED_FOR'] ||
-      request.headers['HTTP_X_REAL_IP'] || request.headers['REMOTE_ADDR']
-
-    return ip if Rails.env.test?
-
-    if [231,296,3801,16029,43714,659,22828,56019,88150,93640,67810,102932,84945].include? current_user&.id
-      ip + 'z'
-    elsif [70628].include? current_user&.id
-      ip + 'x'
-    else
-      ip
-    end
+    request.headers['HTTP_X_FORWARDED_FOR'] ||
+      request.headers['HTTP_X_REAL_IP'] ||
+      request.headers['REMOTE_ADDR']
   end
 
   def local_addr?
@@ -225,7 +216,8 @@ class ApplicationController < ActionController::Base
   end
 
   def json?
-    request.format == Mime::Type.lookup_by_extension('json') || params[:format] == 'json'
+    request.format == Mime::Type.lookup_by_extension('json') ||
+      params[:format] == 'json'
   end
 
   def ignore_copyright?
@@ -241,11 +233,14 @@ class ApplicationController < ActionController::Base
   end
 
   def runtime_error e
-    Honeybadger.notify(e) if defined?(Honeybadger)
-    Raven.capture_exception(e) if defined?(Raven)
+    Honeybadger.notify(e) if defined? Honeybadger
+    Raven.capture_exception(e) if defined? Raven
+    Appsignal.set_error(e) if defined? Appsignal
 
-    NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
-    Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
+    # NamedLogger
+      # .send("#{Rails.env}_errors")
+      # .error("#{e.message}\n#{e.backtrace.join("\n")}")
+    # Rails.logger.error("#{e.message}\n#{e.backtrace.join("\n")}")
 
     raise e if local_addr? && (
       !e.is_a?(AgeRestricted) &&

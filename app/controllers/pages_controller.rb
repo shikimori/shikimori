@@ -96,10 +96,6 @@ class PagesController < ShikimoriController
     raise 'test'
   end
 
-  # информация закрытии регистрации с гугла и яндекса
-  def disabled_registration
-  end
-
   # статистика сервера
   def admin_panel
     raise Forbidden unless user_signed_in? && current_user.admin?

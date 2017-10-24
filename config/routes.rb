@@ -533,8 +533,6 @@ Rails.application.routes.draw do
 
         get :news_feed, format: :rss
 
-        get :disabled_registration
-        get :disabled_openid
         get :tableau
       end
     end
