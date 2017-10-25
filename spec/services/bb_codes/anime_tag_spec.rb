@@ -6,9 +6,8 @@ describe BbCodes::AnimeTag do
     let(:anime) { create :anime, id: 9_876_543, name: 'test', russian: russian }
 
     let(:html) do
-      <<-HTML.squish
-        <a href="//test.host/animes/9876543-test" title="test"
-        class="bubbled b-link"
+      <<~HTML.squish
+        <a href="//test.host/animes/9876543-test" title="test" class="bubbled b-link"
         data-tooltip_url="//test.host/animes/9876543-test/tooltip">#{name_html}</a>
       HTML
     end
@@ -31,6 +30,11 @@ describe BbCodes::AnimeTag do
     context '[anime=id]' do
       let(:text) { "[anime=#{anime.id}]" }
       it { is_expected.to eq html }
+
+      context 'bigint' do
+        let(:text) { '[anime=111111111111111111111]' }
+        it { is_expected.to eq text }
+      end
 
       context 'multiple bb codes' do
         let(:anime2) { create :anime, id: 98_765_432, name: 'zxcvbn', russian: russian }

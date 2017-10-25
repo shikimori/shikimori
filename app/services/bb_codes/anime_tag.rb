@@ -45,9 +45,11 @@ class BbCodes::AnimeTag
 private
 
   def html_for entry, name
-    <<-HTML.squish
-<a href="#{entry_url entry}" title="#{entry.name}" class="bubbled b-link"
-data-tooltip_url="#{tooltip_url entry}">#{name || localization_span(entry)}</a>
+    fixed_name = name || localization_span(entry)
+
+    <<~HTML.squish
+      <a href="#{entry_url entry}" title="#{entry.name}" class="bubbled b-link"
+      data-tooltip_url="#{tooltip_url entry}">#{fixed_name}</a>
     HTML
   end
 
@@ -69,16 +71,20 @@ data-tooltip_url="#{tooltip_url entry}">#{name || localization_span(entry)}</a>
   end
 
   def fetch_entries text
+    ids = extract_ids text
+    return {} if ids.none?
+
+    klass
+      .where(id: ids)
+      .each_with_object({}) { |v, memo| memo[v.id] = v }
+  end
+
+  def extract_ids text
     ids = []
-    text.scan(regexp) do |match|
+    text.scan(regexp) do
       ids.push $LAST_MATCH_INFO[:id].to_i if $LAST_MATCH_INFO[:id]
     end
-
-    if ids.any?
-      klass.where(id: ids).each_with_object({}) { |v, memo| memo[v.id] = v }
-    else
-      {}
-    end
+    ids
   end
 
   def name
