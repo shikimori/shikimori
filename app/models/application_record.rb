@@ -7,7 +7,8 @@ class ApplicationRecord < ActiveRecord::Base
     # fixes .where(id: 11111111111111111111111111) - bigint
     # https://github.com/rails/rails/issues/20428
     def where(*args)
-      id_key = args.size == 1 && args[0].is_a?(Hash) && args[0].key?(:id)
+      id_key = args.one? && args[0].is_a?(Hash) &&
+        args[0].one? && args[0].key?(:id)
 
       if id_key && _fixable_ids?(args[0][:id])
         super(id: _fix_ids(args[0][:id]))
