@@ -2,14 +2,15 @@
   link rel='canonical' href="#{{forum_url :reviews}}"
 
 = render layout: 'animes/page' do |f|
-  - if user_signed_in?
-    .subheadline-buttons
-      a.item-new-review href="#{@resource.new_review_url}" title="#{t '.create_review'}"
-  .subheadline = @page_title.last
-  - if @collection.any?
-    .b-forum[
-      data-faye='false'
-    ]
-      = render partial: 'topics/topic', collection: @collection, as: :topic_view
-  - else
-    p.b-nothing_here = t '.no_reviews'
+  .block
+    - if user_signed_in?
+      .subheadline-buttons
+        a.item-new-review href="#{@resource.new_review_url}" title="#{t '.create_review'}"
+    .subheadline = @page_title.last
+    - if @collection.any?
+      .b-forum[
+        data-faye='false'
+      ]
+        = render partial: 'topics/topic', collection: @collection, as: :topic_view
+    - else
+      p.b-nothing_here = t '.no_reviews'
