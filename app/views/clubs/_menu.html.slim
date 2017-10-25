@@ -43,7 +43,7 @@
       .subheadline.m10
         span.linkeable data-href="#{members_club_url club}"
           = i18n_i 'member', :other
-          |  (#{club.members.count})
+          .count = club.members.count
       .cc.members
         = render partial: 'users/user',
           collection: club.members_sample,

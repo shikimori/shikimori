@@ -7,7 +7,9 @@ class Clubs::ClubTopicsController < ShikimoriController
   # before_action :prepare_form, except: [:show]
 
   def index
-    @forums_view = Forums::View.new 'clubs', linked: @club.object
+    @forums_view = Forums::View.new 'clubs',
+      linked: @club.object,
+      linked_forum: true
     ensure_redirect! @forums_view.current_page_url
   end
 
@@ -77,7 +79,7 @@ class Clubs::ClubTopicsController < ShikimoriController
 
 private
 
-  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
   def prepare_club
     @club = @club.decorate
 
@@ -94,7 +96,7 @@ private
 
     page_title i18n_i('Topic', :other)
   end
-  # rubocop:enable MethodLength
+  # rubocop:enable AbcSize
 
   def create_params
     params.require(:topic).permit(*TopicsController::CREATE_PARAMS)

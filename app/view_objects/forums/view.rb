@@ -1,20 +1,22 @@
 class Forums::View < ViewObjectBase
-  pattr_initialize :forum, [:linked]
+  pattr_initialize :forum, %i[linked linked_forum]
   instance_cache :forum, :linked, :topic_views, :menu
 
   def forum
     Forum.find_by_permalink @forum
   end
 
+  # rubocop:disable AbcSize
   def linked
     return @linked if @linked
+    return unless h.params[:linked_id]
 
     h.params[:linked_type].camelize.constantize.find(
       CopyrightedIds.instance.restore(
         h.params[:linked_id],
         h.params[:linked_type]
       )
-    ) if h.params[:linked_id]
+    )
   end
 
   def topic_views
@@ -23,8 +25,9 @@ class Forums::View < ViewObjectBase
       .by_linked(linked)
       .search(h.params[:search], forum, h.current_user, h.locale_from_host)
       .paginate(page, limit)
-      .as_views(true, forum && forum.permalink == 'reviews')
+      .as_views(true, forum&.permalink == 'reviews')
   end
+  # rubocop:enable AbcSize
 
   def page_url page
     if linked.is_a? Club
@@ -48,25 +51,13 @@ class Forums::View < ViewObjectBase
 
   def faye_subscriptions
     return [] unless h.user_signed_in?
+    return user_subscriptions unless forum&.permalink
 
-    case forum && forum.permalink
-      when nil
-        user_forums = h.current_user.preferences.forums.select(&:present?)
-        user_clubs = h.current_user.clubs_for_domain
-
-        user_forums.map { |id| forum_channel(id, h.locale_from_host) } +
-          user_clubs.map { |club| "club-#{club.id}" }
-
-      #when Forum::static[:feed].permalink
-        #["user-#{current_user.id}", FayePublisher::BroadcastFeed]
-
-      else
-        [forum_channel(forum.id, h.locale_from_host)]
+    if linked_forum
+      [linked_channel(linked)]
+    else
+      [forum_channel(forum.id)]
     end
-  end
-
-  def forum_channel forum_id, locale
-    "forum-#{forum_id}/#{locale}"
   end
 
   def menu
@@ -82,6 +73,22 @@ class Forums::View < ViewObjectBase
   end
 
 private
+
+  def user_subscriptions
+    user_forums = h.current_user.preferences.forums.select(&:present?)
+    user_clubs = h.current_user.clubs_for_domain
+
+    user_forums.map { |id| forum_channel(id) } +
+      user_clubs.map { |club| "club-#{club.id}" }
+  end
+
+  def forum_channel forum_id
+    "forum-#{forum_id}/#{h.locale_from_host}"
+  end
+
+  def linked_channel linked
+    "#{linked.class.name.downcase}-#{linked.id}"
+  end
 
   def club_topics_url page
     h.club_club_topics_url linked,

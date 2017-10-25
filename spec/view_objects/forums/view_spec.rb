@@ -2,10 +2,11 @@ describe Forums::View do
   include_context :seeds
   include_context :view_object_warden_stub
 
-  let(:view) { Forums::View.new forum }
+  let(:view) { Forums::View.new forum, options }
   let(:anime) { create :anime }
   let(:forum) { nil }
   let(:params) { {} }
+  let(:options) { {} }
 
   before { allow(view.h).to receive(:params).and_return params }
 
@@ -88,8 +89,27 @@ describe Forums::View do
 
     context 'authenticated' do
       let(:is_signed_in) { true }
-      it do
-        expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}/ru"]
+
+      context 'no forum' do
+        it do
+          expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}/ru"]
+        end
+      end
+
+      context 'forum' do
+        let(:forum) { 'reviews' }
+        it do
+          expect(view.faye_subscriptions).to eq ["forum-#{reviews_forum.id}/ru"]
+        end
+      end
+
+      context 'linked_forum' do
+        let(:forum) { 'reviews' }
+        let(:options) { { linked: review, linked_forum: true } }
+        let(:review) { create :review }
+        it do
+          expect(view.faye_subscriptions).to eq ["review-#{review.id}"]
+        end
       end
     end
 

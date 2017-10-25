@@ -41,8 +41,6 @@ class FayePublisher
     publish_data data, comment_channels(comment, [])
   end
 
-private
-
   # отправка уведомлений о новом комментарии
   def publish_comment comment, event, channels
     # уведомление в открытые топики
@@ -69,10 +67,7 @@ private
       user_id: topic.user_id
     }
 
-    mixed_channels = channels + subscribed_channels(topic) +
-      [forum_channel(topic.forum_id, topic.locale), "/topic-#{topic.id}"]
-
-    publish_data data, mixed_channels
+    publish_data data, topic_channels(topic, channels)
   end
 
   # отправка уведомлений о новом сообщении
@@ -105,11 +100,13 @@ private
     publish_data data, comment_channels(comment, [])
   end
 
-  # отправка произвольных уведомлений
   def publish_data data, channels
     return if channels.empty?
-    run_event_machine
+
     channels = ["/#{BroadcastFeed}"] if channels.empty?
+
+    run_event_machine
+    log data, channels
 
     channels.each do |channel|
       faye_client.publish(
@@ -124,6 +121,37 @@ private
     raise unless e.message =~ /eventmachine not initialized/
   end
 
+private
+
+  def comment_channels comment, channels
+    topic = comment.commentable
+    topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
+
+    mixed_channels = channels +
+      subscribed_channels(topic) + linked_channels(topic) +
+      ["/#{topic_type}-#{topic.id}"]
+
+    # уведомление в открытые разделы
+    if topic.kind_of? Topics::EntryTopics::ClubTopic
+      mixed_channels += ["/club-#{topic.linked_id}"]
+    elsif topic.respond_to? :forum_id
+      mixed_channels += [forum_channel(topic.forum_id, topic.locale)]
+    end
+
+    mixed_channels
+  end
+
+  def topic_channels topic, channels
+    channels +
+      subscribed_channels(topic) + linked_channels(topic) +
+      [forum_channel(topic.forum_id, topic.locale), "/topic-#{topic.id}"]
+  end
+
+  def linked_channels topic
+    return [] unless topic.respond_to?(:linked_type) && topic.linked_type
+    ["/#{topic.linked_type.downcase}-#{topic.linked_id}"]
+  end
+
   def subscribed_channels target
     #Subscription
       #.where(target_id: target.id)
@@ -135,23 +163,8 @@ private
     []
   end
 
-private
-
-  def comment_channels comment, channels
-    topic = comment.commentable
-    topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
-
-    mixed_channels = channels + subscribed_channels(topic) +
-      ["/#{topic_type}-#{topic.id}"]
-
-    # уведомление в открытые разделы
-    if topic.kind_of? Topics::EntryTopics::ClubTopic
-      mixed_channels += ["/club-#{topic.linked_id}"]
-    elsif topic.respond_to? :forum_id
-      mixed_channels += [forum_channel(topic.forum_id, topic.locale)]
-    end
-
-    mixed_channels
+  def forum_channel forum_id, locale
+    "/forum-#{forum_id}/#{locale}"
   end
 
   def faye_client
@@ -173,7 +186,9 @@ private
     Thread.pass until EM.reactor_running?
   end
 
-  def forum_channel forum_id, locale
-    "/forum-#{forum_id}/#{locale}"
+  def log data, channels
+    if Rails.env.development?
+      NamedLogger.faye_publisher.info "#{data.to_json} #{channels}"
+    end
   end
 end
