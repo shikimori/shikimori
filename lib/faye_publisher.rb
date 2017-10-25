@@ -157,7 +157,7 @@ private
     ["/#{topic.linked_type.downcase}-#{topic.linked_id}"]
   end
 
-  def dialog_channels message
+  def dialog_channels message, channels
     channels + ["/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
   end
 
