@@ -1,11 +1,13 @@
 class ListImports::XmlStatus
-  method_object :shiki_status, :klass, :is_mal_status
+  method_object :shiki_status, :list_type, :is_mal_status
 
   def call
-    if @klass == Anime
+    if @list_type == ::ListImports::ParseXml::ANIME_TYPE
       anime_status
-    else
+    elsif @list_type == ::ListImports::ParseXml::MANGA_TYPE
       manga_status
+    else
+      raise ArgumentError, "#{@list_type}"
     end
   end
 

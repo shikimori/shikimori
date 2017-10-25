@@ -23,12 +23,12 @@ xml.myanimelist do
       xml.my_score user_rate.score || 0
       xml.my_status ListImports::XmlStatus.call(
         user_rate.status,
-        @klass,
+        @export_type,
         true
       )
       xml.shiki_status ListImports::XmlStatus.call(
         user_rate.status,
-        @klass,
+        @export_type,
         false
       )
       xml.my_comments user_rate.text

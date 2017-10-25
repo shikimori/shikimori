@@ -1,11 +1,11 @@
 describe ListImports::XmlStatus do
-  let(:service) { ListImports::XmlStatus.new status, klass, is_mal }
+  let(:service) { ListImports::XmlStatus.new status, list_type, is_mal }
   let(:is_mal) { [true, false].sample }
 
   subject { service.call }
 
   context 'anime' do
-    let(:klass) { Anime }
+    let(:list_type) { ::ListImports::ParseXml::ANIME_TYPE }
 
     context 'planned' do
       let(:status) { :planned }
@@ -48,7 +48,7 @@ describe ListImports::XmlStatus do
   end
 
   context 'manga' do
-    let(:klass) { Manga }
+    let(:list_type) { ::ListImports::ParseXml::MANGA_TYPE }
 
     context 'planned' do
       let(:status) { :planned }
