@@ -1,21 +1,22 @@
 # Публикация различных уведомлений через Faye
 # FayePublisher.new(User.first, nil).publish({ data: { comment_id: 999999999, topic_id: 79981 } }, ['/topic-79981'])
+# rubocop:disable ClassLength
 class FayePublisher
-  BroadcastFeed = 'myfeed'
+  BROADCAST_FEED = 'myfeed'
 
   def initialize actor, publisher_faye_id = nil
     @publisher_faye_id = publisher_faye_id
     @actor = actor
   end
 
-  def publish trackable, event, channels=[]
-    if trackable.kind_of? Comment
+  def publish trackable, event, channels = []
+    if trackable.is_a? Comment
       publish_comment trackable, event, channels
 
-    elsif trackable.kind_of? Topic
+    elsif trackable.is_a? Topic
       publish_topic trackable, event, channels
 
-    elsif trackable.kind_of? Message
+    elsif trackable.is_a? Message
       publish_message trackable, event, channels
 
     else
@@ -28,15 +29,15 @@ class FayePublisher
       .includes(:commentable)
       .where(id: comment_ids[0..100])
       .order(id: :desc)
-      .each {|v| publish_mark v, mark_kind, mark_value }
+      .each { |v| publish_mark v, mark_kind, mark_value }
   end
 
   def publish_replies comment, replies_html
     data = {
-      event: "comment:set_replies",
+      event: 'comment:set_replies',
       topic_id: comment.commentable_id,
       comment_id: comment.id,
-      replies_html: replies_html,
+      replies_html: replies_html
     }
     publish_data data, comment_channels(comment, [])
   end
@@ -80,11 +81,10 @@ class FayePublisher
       message_id: message.id
     }
 
-    mixed_channels = channels + ["/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
-    publish_data data, mixed_channels
+    publish_data data, dialog_channels(message, channels)
   end
 
-  # отправка уведомлений о пометке комментария либо оффтопиком, либо отзывов
+  # rubocop:disable MethodLength
   def publish_mark comment, mark_kind, mark_value
     # уведомление в открытые топики
     data = {
@@ -97,32 +97,35 @@ class FayePublisher
       mark_kind: mark_kind,
       mark_value: mark_value
     }
+
     publish_data data, comment_channels(comment, [])
   end
+  # rubocop:enable MethodLength
 
   def publish_data data, channels
     return if channels.empty?
 
-    channels = ["/#{BroadcastFeed}"] if channels.empty?
+    channels = ["/#{BROADCAST_FEED}"] if channels.empty?
 
     run_event_machine
     log data, channels
 
-    channels.each do |channel|
-      faye_client.publish(
-        channel, data.merge(
-          token: config[:server_token],
-          publisher_faye_id: @publisher_faye_id
-        )
-      )
-    end
-
+    channels.each { |channel| publish_to channel, data }
   rescue RuntimeError => e
-    raise unless e.message =~ /eventmachine not initialized/
+    raise unless e.message.match?(/eventmachine not initialized/)
   end
 
 private
 
+  def publish_to channel, data
+    faye_client.publish channel, data.merge(
+      token: config[:server_token],
+      publisher_faye_id: @publisher_faye_id
+    )
+  end
+
+  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
   def comment_channels comment, channels
     topic = comment.commentable
     topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
@@ -132,7 +135,7 @@ private
       ["/#{topic_type}-#{topic.id}"]
 
     # уведомление в открытые разделы
-    if topic.kind_of? Topics::EntryTopics::ClubTopic
+    if topic.is_a? Topics::EntryTopics::ClubTopic
       mixed_channels += ["/club-#{topic.linked_id}"]
     elsif topic.respond_to? :forum_id
       mixed_channels += [forum_channel(topic.forum_id, topic.locale)]
@@ -140,6 +143,8 @@ private
 
     mixed_channels
   end
+  # rubocop:enable AbcSize
+  # rubocop:enable MethodLength
 
   def topic_channels topic, channels
     channels +
@@ -152,14 +157,18 @@ private
     ["/#{topic.linked_type.downcase}-#{topic.linked_id}"]
   end
 
-  def subscribed_channels target
-    #Subscription
-      #.where(target_id: target.id)
-      #.where(target_type: target.class.name)
-      #.select(:user_id)
-      #.map do |v|
-        #"/user-#{v.user_id}"
-      #end
+  def dialog_channels message
+    channels + ["/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
+  end
+
+  def subscribed_channels _target
+    # Subscription
+      # .where(target_id: target.id)
+      # .where(target_type: target.class.name)
+      # .select(:user_id)
+      # .map do |v|
+        # "/user-#{v.user_id}"
+      # end
     []
   end
 
@@ -178,11 +187,13 @@ private
   end
 
   def run_event_machine
-    Thread.new do
-      EM.epoll
-      EM.set_descriptor_table_size 100000
-      EM.run
-    end unless EM.reactor_running?
+    unless EM.reactor_running?
+      Thread.new do
+        EM.epoll
+        EM.set_descriptor_table_size 100_000
+        EM.run
+      end
+    end
     Thread.pass until EM.reactor_running?
   end
 
