@@ -1,7 +1,7 @@
 class Api::V1::MessagesController < Api::V1Controller
-  load_and_authorize_resource except: [:read_all, :delete_all]
-  before_action :prepare_group_action, only: [:read_all, :delete_all]
-  before_action :append_info, only: [:create]
+  load_and_authorize_resource except: %i[read_all delete_all]
+  before_action :prepare_group_action, only: %i[read_all delete_all]
+  before_action :append_info, only: %i[create]
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/messages/:id', 'Show a message'
@@ -136,17 +136,21 @@ private
   def append_info
     return unless @resource.to.admin?
 
-    @resource.body = @resource.body.strip
-    @resource.body += info_text
+    @resource.body = @resource.body.strip + info_text
   end
 
   def info_text
-    <<-TEXT.strip
-[right][size=11][color=gray][spoiler=info][quote]
-#{params[:message][:user_agent] || request.env['HTTP_USER_AGENT']}
-#{location_text}#{feedback_address_text}\
-[/quote][/spoiler][/color][/size][/right]
-TEXT
+    info = [
+      "#{location_text}#{feedback_address_text}",
+      params[:message][:user_agent] || request.env['HTTP_USER_AGENT'],
+      remote_addr
+    ].select(&:present?).join("\n")
+
+    "\n" + <<~TEXT.strip
+      [right][size=11][color=gray][spoiler=info][quote]
+      #{info}
+      [/quote][/spoiler][/color][/size][/right]
+    TEXT
   end
 
   def location_text
