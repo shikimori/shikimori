@@ -19,7 +19,7 @@ $(document).on 'page:load', ->
         height: 0
         borderBottomWidth: 0
 
-    , $menu.data('duration') || 150
+    , 0, $menu.data('duration') || 150
 
   # mobile menu
   $('.mobile-menu-toggler').click ->

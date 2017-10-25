@@ -20,24 +20,42 @@
  */
 (function($) {
   $.fn.extend({
-    hover_delayed: function(mouse_over_callback, mouse_out_callback, mouse_out_delay) {
+    hover_delayed: function(mouse_over_callback, mouse_out_callback, mouse_over_delay, mouse_out_delay) {
       return this.each(function() {
+        var over_timer = null;
         var out_timer = null;
-        $(this).hover(function() {
-          mouse_over_callback();
 
+        $(this).hover(function(e) {
           if (out_timer) {
             clearInterval(out_timer);
             out_timer = null;
           }
-        }, function() {
+          if (!over_timer) {
+            var _this = this;
+            over_timer = setInterval(function() {
+              over.call(_this, e);
+            }, mouse_over_delay);
+          }
+        }, function(e) {
+          if (over_timer) {
+            clearInterval(over_timer);
+            over_timer = null;
+          }
           if (!out_timer) {
-            out_timer = setInterval(out, mouse_out_delay);
+            var _this = this;
+            out_timer = setInterval(function() {
+              out.call(_this, e);
+            }, mouse_out_delay);
           }
         });
 
-        function out() {
-          mouse_out_callback();
+        function over(e) {
+          mouse_over_callback.call(this, e);
+          clearInterval(over_timer);
+          over_timer = null;
+        }
+        function out(e) {
+          mouse_out_callback.call(this, e);
           clearInterval(out_timer);
           out_timer = null;
         }

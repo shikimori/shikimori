@@ -90,7 +90,8 @@ $(document).on 'page:load', ->
     $main_search.addClass 'hovered'
   , ->
     $main_search.removeClass 'hovered'
-  , 250
+  , 0, 250
+
 
 # конфигурация автодополнений
 searcheables =

@@ -177,8 +177,8 @@ ru:
       anime_video:
         url: Url
         episode: Эпизод
-        kind: Тип видео
-        language: Язык озвучки/субтитров
+        kind: Перевод
+        language: Язык перевода
         quality: Качество видео
         state: Статус
         author_name: Автор
