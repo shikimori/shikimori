@@ -58,7 +58,7 @@ class FayeService
     else
       ''
     end
-    replies_html = BbCode.instance.format_comment replies_text
+    replies_html = BbCodes::Text.call replies_text
 
     publisher.publish_replies comment, replies_html
   end

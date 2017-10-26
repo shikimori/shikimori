@@ -53,7 +53,7 @@ class Ban < ApplicationRecord
 
     i18n_t(i18n_key,
       duration: duration.humanize,
-      reason: BbCode.instance.format_comment(reason)
+      reason: BbCodes::Text.call(reason)
     ).sub /\.+\Z/, '.'
   end
 

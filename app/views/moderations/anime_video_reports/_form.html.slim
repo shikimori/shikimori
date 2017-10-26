@@ -2,7 +2,7 @@ p.m5
   b Жалоба на видео
 
 .m15
-  = BbCode.instance.format_comment t('profiles.page.admin_message_about_video', locale: :ru)
+  = BbCodes::Text.call t('profiles.page.admin_message_about_video', locale: :ru)
 
 = simple_form_for [:moderations, anime_video_report], remote: true, authenticity_token: true do |f|
   = f.input :anime_video_id, as: :hidden

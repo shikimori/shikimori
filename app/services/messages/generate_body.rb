@@ -42,7 +42,7 @@ private
   end
 
   def site_news
-    BbCode.instance.format_comment linked.body
+    BbCodes::Text.call linked.body
   end
 
   def profile_commented
@@ -88,13 +88,13 @@ private
   end
 
   def club_request
-    BbCode.instance.format_comment(
+    BbCodes::Text.call(
       i18n_t('club_request', club_id: message.linked.club_id)
     )
   end
 
   def version_accepted
-    BbCode.instance.format_comment(
+    BbCodes::Text.call(
       i18n_t(
         'version_accepted',
         version_id: message.linked.id,
@@ -108,7 +108,7 @@ private
   # rubocop:disable MethodLength
   def version_rejected
     if message.body.present?
-      BbCode.instance.format_comment i18n_t(
+      BbCodes::Text.call i18n_t(
         'version_rejected_with_reason',
         version_id: linked.id,
         item_type: linked.item_type.underscore,
@@ -117,7 +117,7 @@ private
         reason: message.body
       )
     else
-      BbCode.instance.format_comment i18n_t(
+      BbCodes::Text.call i18n_t(
         'version_rejected',
         version_id: linked.id,
         item_type: linked.item_type.underscore,
@@ -129,13 +129,13 @@ private
   # rubocop:enable AbcSize
 
   def contest_finished
-    BbCode.instance.format_comment(
+    BbCodes::Text.call(
       "[contest_status=#{message.linked_id}]"
     )
   end
 
   def club_broadcast
-    BbCode.instance.format_comment message.linked.body
+    BbCodes::Text.call message.linked.body
   end
 
   # rubocop:disable AbcSize

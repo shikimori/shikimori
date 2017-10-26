@@ -1,6 +1,6 @@
 # замена имён персонажей с транскрипцией на [character] теги
 class BbCodes::CharactersNames
-  method_object :data, :anime
+  method_object :data, :entry
 
   RUSSIAN_REPLACEMENTS = %w[
     а е ё и о у ы ю я ей ой ом ем ея еем ею эй ия ию ией
@@ -21,11 +21,11 @@ class BbCodes::CharactersNames
   }xi
 
   def call
-    characters = extract_characters(anime)
-    people = extract_people(anime)
+    characters = extract_characters(@entry)
+    people = extract_people(@entry)
 
     # может быть не строка, а SafeBuffer
-    text = (data.class == String ? data : String.new(data)).tr(' ', ' ')
+    text = (@data.class == String ? @data : String.new(@data)).tr(' ', ' ')
 
     # данные, по которым будет делаться замена
     matches = extract_transcribed_matches(text, characters, people)
@@ -40,16 +40,16 @@ class BbCodes::CharactersNames
 private
 
   # выборка персонажей
-  def extract_characters anime
-    anime.characters.each_with_object({}) do |v, rez|
+  def extract_characters entry
+    entry.characters.each_with_object({}) do |v, rez|
       rez[v.japanese.cleanup_japanese.delete(' ')] = v if v.japanese.present?
       rez[v.name.delete(' ')] = v
     end
   end
 
   # выборка людей
-  def extract_people anime
-    anime.people.each_with_object({}) do |v, rez|
+  def extract_people entry
+    entry.people.each_with_object({}) do |v, rez|
       rez[v.japanese.cleanup_japanese.delete(' ')] = v if v.japanese.present?
       rez[v.name.delete(' ')] = v
     end

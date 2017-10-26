@@ -1,11 +1,11 @@
 .subheadline Polls Test
 .block
   div: b stopped poll
-  = BbCode.instance.format_comment '[poll=12]'
+  = BbCodes::Text.call '[poll=12]'
 
   div: b started poll
-  = BbCode.instance.format_comment '[poll=6]'
-  = BbCode.instance.format_comment '[poll=6]'
+  = BbCodes::Text.call '[poll=6]'
+  = BbCodes::Text.call '[poll=6]'
 
   div: b pending poll
-  = BbCode.instance.format_comment '[poll=11]'
+  = BbCodes::Text.call '[poll=11]'

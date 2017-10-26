@@ -99,24 +99,26 @@ class Comment < ApplicationRecord
   # TODO: get rid of this method
   # для комментируемого объекта вызов колбеков, если они определены
   def creation_callbacks
-    commentable_klass = Object.const_get(self.commentable_type.to_sym)
-    commentable = commentable_klass.find(self.commentable_id)
+    commentable_klass = Object.const_get(commentable_type.to_sym)
+    commentable = commentable_klass.find(commentable_id)
     self.commentable_type = commentable_klass.base_class.name
 
     commentable.comment_added(self) if commentable.respond_to?(:comment_added)
-    #commentable.mark_as_viewed(self.user_id, self) if commentable.respond_to?(:mark_as_viewed)
+    # commentable.mark_as_viewed(self.user_id, self) if commentable.respond_to?(:mark_as_viewed)
 
-    save if saved_changes?
+    # save if saved_changes?
   end
 
   # TODO: get rid of this method
   # для комментируемого объекта вызов колбеков, если они определены
   def destruction_callbacks
-    commentable_klass = Object.const_get(self.commentable_type.to_sym)
-    commentable = commentable_klass.find(self.commentable_id)
+    commentable_klass = Object.const_get(commentable_type.to_sym)
+    commentable = commentable_klass.find(commentable_id)
 
-    commentable.comment_deleted(self) if commentable.respond_to?(:comment_deleted)
-  rescue ActiveRecord::RecordNotFound
+    if commentable.respond_to?(:comment_deleted)
+      commentable.comment_deleted(self)
+    end
+  # rescue ActiveRecord::RecordNotFound
   end
 
   def notify_quoted
@@ -150,16 +152,6 @@ class Comment < ApplicationRecord
     end
   end
 
-  # при изменении body будем менять и html_body для всех комментов,
-  # кроме содержащих правки модератора
-  def body= text
-    if text
-      self[:body] = BbCode.instance.preprocess_comment text
-    else
-      self[:body] = nil
-    end
-  end
-
   # TODO: move to CommentDecorator
   def html_body
     fixed_body = if offtopic_topic?
@@ -173,7 +165,7 @@ class Comment < ApplicationRecord
       body
     end
 
-    BbCode.instance.format_comment fixed_body
+    BbCodes::Text.call fixed_body
   end
 
   def mark_offtopic flag

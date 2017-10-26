@@ -7,6 +7,6 @@
 
   .block
     = cache @club_page do
-      = BbCode.instance.format_comment(@club_page.text)
+      = BbCodes::Text.call(@club_page.text)
 
   = render 'db_entries/comments', resource: @resource

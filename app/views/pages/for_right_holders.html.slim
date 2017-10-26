@@ -11,4 +11,4 @@ header.head
 
 .text
   - email = Shikimori::EMAIL.gsub(/^mail@/, 'mail+copyright@')
-  == BbCode.instance.format_comment(t('.text')).gsub("{MAIL}", "<a href='mailto:#{email}'>#{email}</a>")
+  == BbCodes::Text.call(t('.text')).gsub("{MAIL}", "<a href='mailto:#{email}'>#{email}</a>")

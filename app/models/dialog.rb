@@ -19,7 +19,7 @@ class Dialog
   end
 
   def html_body
-    BbCode.instance.format_comment message.body
+    BbCodes::Text.call message.body
   end
 
   def message

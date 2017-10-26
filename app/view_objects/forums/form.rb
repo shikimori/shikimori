@@ -8,7 +8,7 @@ class Forums::Form < ViewObjectBase
   end
 
   def news_rules_text
-    BbCode.instance.format_comment(
+    BbCodes::Text.call(
       news_rules_topic.body.gsub(/\[hr\].*/mix, '').strip
     )
   end

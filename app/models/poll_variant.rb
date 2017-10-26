@@ -6,6 +6,6 @@ class PollVariant < ApplicationRecord
   validates :label, presence: true
 
   def label_html
-    BbCode.instance.format_comment label
+    BbCodes::Text.call label
   end
 end

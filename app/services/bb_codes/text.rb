@@ -1,5 +1,5 @@
-class BbCode
-  include Singleton
+class BbCodes::Text
+  method_object :text
 
   include CommentHelper
   BB_CODE_REPLACERS = COMPLEX_BB_CODES.map { |v| "#{v}_to_html".to_sym }.reverse
@@ -41,12 +41,10 @@ class BbCode
       Shikimori::DOMAIN
     end
 
-  # форматирование текста комментариев
-  def format_comment original_body
-    text = (original_body || '').fix_encoding.strip
-    text = remove_wiki_codes text
+  def call
+    text = (@text || '').fix_encoding.strip
     text = strip_malware text
-    text = user_mention text
+    text = BbCodes::UserMention.call text
 
     text = String.new ERB::Util.h(text)
     text = bb_codes text
@@ -91,33 +89,6 @@ class BbCode
   # удаление из текста вредоносных доменов
   def strip_malware text
     text.gsub MALWARE_DOMAINS, 'malware.domain'
-  end
-
-  # обработка обращений к пользователю
-  def user_mention text
-    text.gsub(/@([^\n\r,]{1,20})/) do |matched|
-      nickname = Regexp.last_match(1)
-      text = []
-
-      while nickname.present?
-        user = User.find_by_nickname nickname
-
-        break if user
-        break if nickname !~ / |\./
-        nickname = nickname.sub(/(.*)((?: |\.).*)/, '\1')
-        text << Regexp.last_match(2)
-      end
-
-      if user
-        "[mention=#{user.id}]#{user.nickname}[/mention]#{text.reverse.join ''}"
-      else
-        matched
-      end
-    end
-  end
-
-  def preprocess_comment text
-    user_mention(text).strip
   end
 
   # удаление мусора из текста и нормализация битых тегов

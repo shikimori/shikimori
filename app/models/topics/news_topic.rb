@@ -17,7 +17,7 @@ class Topics::NewsTopic < Topic
   def full_title
     return title unless generated?
 
-    BbCode.instance.format_comment(I18n.t(
+    BbCodes::Text.call(I18n.t(
       "topics/news_topic.full_title.#{linked_type.underscore}",
       action_name: title,
       action_name_lower: title.downcase,

@@ -1,5 +1,3 @@
-require Rails.root.join 'lib', 'string'
-
 module CommentHelper
   include SiteHelper
   include Translation
@@ -251,11 +249,6 @@ module CommentHelper
 
       text
     end
-  end
-
-  # удаление ббкодов википедии
-  def remove_wiki_codes(html)
-    html.gsub(/\[\[[^\]|]+?\|(.*?)\]\]/, '\1').gsub(/\[\[(.*?)\]\]/, '\1')
   end
 
   def wrote_html gender

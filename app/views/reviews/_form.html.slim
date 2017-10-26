@@ -13,15 +13,15 @@
 
   .b-review-topic.block
     .body
-      = BbCode.instance.format_comment t '.introduction',
+      = BbCodes::Text.call t '.introduction',
         kind: "#{resource.anime? ? t('this.anime') : t('this.manga')}"
 
       - if @additional_text
         = @additional_text
-        = BbCode.instance.format_comment "[right][club]293[/club][/right]"
-        = BbCode.instance.format_comment "[right][profile=21887]Joseph[/profile][/right]"
+        = BbCodes::Text.call "[right][club]293[/club][/right]"
+        = BbCodes::Text.call "[right][profile=21887]Joseph[/profile][/right]"
       - else
-        = BbCode.instance.format_comment t '.guidelines'
+        = BbCodes::Text.call t '.guidelines'
 
       = render 'stars', review: review, in_edit: true, with_music: resource.anime?
 

@@ -14,4 +14,4 @@
 
   - if poll.bb_code
     span
-      = BbCode.instance.format_comment "[code]#{poll.bb_code}[/code]"
+      = BbCodes::Text.call "[code]#{poll.bb_code}[/code]"

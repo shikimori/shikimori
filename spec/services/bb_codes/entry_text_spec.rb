@@ -1,11 +1,11 @@
-describe BbCodes::Description do
+describe BbCodes::EntryText do
   before do
     allow(BbCodes::Paragraphs).to receive(:call) { |text| text + 'p' }
     allow(BbCodes::CharactersNames).to receive(:call) { |text| text + 'c' }
   end
 
   subject! { described_class.call text, entry }
-  let(:text) { 'z' }
+  let(:text) { '[[z]]' }
 
   context 'entry with characters' do
     let(:entry) { build :anime }

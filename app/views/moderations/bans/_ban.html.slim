@@ -14,7 +14,7 @@
     span.duration #{ban.duration.humanize}
 
   span = t '.for'
-  span.reason = BbCode.instance.format_comment(ban.reason)
+  span.reason = BbCodes::Text.call(ban.reason)
 
   - if ban.comment_id && ban.comment
     span == Messages::MentionSource.call ban.comment.commentable, ban.comment.id

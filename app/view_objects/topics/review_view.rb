@@ -70,7 +70,7 @@ class Topics::ReviewView < Topics::UserContentView
 private
 
   def format_body
-    BbCodes::Description.call review.text, review
+    BbCodes::EntryText.call review.text, review
   end
 
   def body

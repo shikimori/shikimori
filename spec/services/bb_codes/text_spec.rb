@@ -1,140 +1,19 @@
-describe BbCode do
-  let(:processor) { BbCode.instance }
+describe BbCodes::Text do
+  let(:service) { described_class.new text }
+  let(:text) { 'z' }
 
-  it '#remove_wiki_codes' do
-    expect(processor.remove_wiki_codes('[[test]]')).to eq 'test'
-    expect(processor.remove_wiki_codes('[[test|123]]')).to eq '123'
-  end
-
-  describe '#user_mention' do
-    let!(:user) { create :user, nickname: 'test' }
-    subject { processor.user_mention text }
-
-    describe 'just mention' do
-      let(:text) { '@test, hello' }
-      it { is_expected.to eq "[mention=#{user.id}]#{user.nickname}[/mention], hello" }
-    end
-
-    describe 'mention with period' do
-      let(:text) { '@test.' }
-      it { is_expected.to eq "[mention=#{user.id}]#{user.nickname}[/mention]." }
-    end
-    describe 'mention w/o comma' do
-      let(:text) { '@test test test' }
-      it { is_expected.to eq "[mention=#{user.id}]#{user.nickname}[/mention] test test" }
-    end
-
-    describe 'two mentions' do
-      let(:text) { '@test, @test' }
-      it { is_expected.to eq "[mention=#{user.id}]#{user.nickname}[/mention], [mention=#{user.id}]#{user.nickname}[/mention]" }
-    end
-  end
-
-  describe '#db_entry_mention' do
-    subject { processor.db_entry_mention text }
-
-    describe 'english' do
-      context 'anime' do
-        let(:anime) { create :anime, name: "Hayate no Gotoku! Can't Take My Eyes Off You" }
-        let(:text) { '[Hayate no Gotoku! Can&#x27;t Take My Eyes Off You]' }
-
-        it { should eq "[anime=#{anime.id}]" }
-
-        context 'score order' do
-          let!(:anime) { create :anime, name: 'test', score: 5 }
-          let!(:anime2) { create :anime, name: 'test', score: 9 }
-          let(:text) { "[#{anime.name}]" }
-          it { is_expected.to eq "[anime=#{anime2.id}]" }
-        end
-      end
-
-      context 'manga' do
-        let(:manga) { create :manga }
-        let(:text) { "[#{manga.name}]" }
-        it { is_expected.to eq "[manga=#{manga.id}]" }
-      end
-
-      context 'character' do
-        let(:character) { create :character }
-        let(:text) { "[#{character.name}]" }
-        it { is_expected.to eq "[character=#{character.id}]" }
-
-        context 'reversed name' do
-          let(:text) { "[#{character.name.split(' ').reverse.join ' '}]" }
-          it { is_expected.to eq "[character=#{character.id}]" }
-        end
-      end
-
-      context 'person' do
-        let(:person) { create :person }
-        let(:text) { "[#{person.name}]" }
-        it { is_expected.to eq "[person=#{person.id}]" }
-      end
-    end
-
-    describe 'russian' do
-      context 'anime' do
-        let(:anime) { create :anime, russian: 'руру' }
-        let(:text) { "[#{anime.russian}]" }
-        it { is_expected.to eq "[anime=#{anime.id}]" }
-      end
-
-      context 'manga' do
-        let(:manga) { create :manga, russian: 'руру' }
-        let(:text) { "[#{manga.russian}]" }
-        it { is_expected.to eq "[manga=#{manga.id}]" }
-      end
-
-      context 'character' do
-        let(:character) { create :character, russian: 'руру' }
-        let(:text) { "[#{character.russian}]" }
-        it { is_expected.to eq "[character=#{character.id}]" }
-      end
-    end
-
-    context 'no match' do
-      let(:text) { '[test]' }
-      it { is_expected.to eq '[test]' }
-    end
-  end
-
-  describe '#remove_old_tags' do
-    subject { processor.remove_old_tags text }
-
-    describe '<p>' do
-      let(:text) { "<p>\t\n\rTest.</p>\n<p>Zxc</p>" }
-      it { is_expected.to eq "Test.\nZxc" }
-    end
-
-    describe '&lt;p&gt;' do
-      let(:text) { "<p>\t\n\rTest.</p>\n&lt;p&gt;Zxc&lt;/p&gt;" }
-      it { is_expected.to eq "Test.\nZxc" }
-    end
-
-    describe '<br>' do
-      let(:text) { '123<br />456<br>789' }
-      it { is_expected.to eq "123\n456\n789" }
-    end
-
-    describe '&lt;br&gt;' do
-      let(:text) { '123&lt;br /&gt;456&lt;br/&gt;789' }
-      it { is_expected.to eq "123\n456\n789" }
-    end
-
-    describe 'trail \n' do
-      let(:text) { "123\n456\n789\n\n" }
-      it { is_expected.to eq "123\n456\n789" }
-    end
-  end
-
-  describe '#format_comment' do
-    subject { processor.format_comment text }
+  describe '#call' do
+    subject { service.call }
 
     describe '#cleanup' do
       describe 'smileys' do
         describe 'multiple with spaces' do
           let(:text) { ':):D:-D' }
-          it { is_expected.to eq '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley">' }
+          it do
+            is_expected.to eq(
+              '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley">'
+            )
+          end
         end
 
         describe 'multiline smileys' do
@@ -470,6 +349,103 @@ describe BbCode do
             '<div><br>test<br></div>'
         )
       end
+    end
+  end
+
+  describe '#db_entry_mention' do
+    subject { service.db_entry_mention text }
+
+    describe 'english' do
+      context 'anime' do
+        let(:anime) { create :anime, name: "Hayate no Gotoku! Can't Take My Eyes Off You" }
+        let(:text) { '[Hayate no Gotoku! Can&#x27;t Take My Eyes Off You]' }
+
+        it { should eq "[anime=#{anime.id}]" }
+
+        context 'score order' do
+          let!(:anime) { create :anime, name: 'test', score: 5 }
+          let!(:anime2) { create :anime, name: 'test', score: 9 }
+          let(:text) { "[#{anime.name}]" }
+          it { is_expected.to eq "[anime=#{anime2.id}]" }
+        end
+      end
+
+      context 'manga' do
+        let(:manga) { create :manga }
+        let(:text) { "[#{manga.name}]" }
+        it { is_expected.to eq "[manga=#{manga.id}]" }
+      end
+
+      context 'character' do
+        let(:character) { create :character }
+        let(:text) { "[#{character.name}]" }
+        it { is_expected.to eq "[character=#{character.id}]" }
+
+        context 'reversed name' do
+          let(:text) { "[#{character.name.split(' ').reverse.join ' '}]" }
+          it { is_expected.to eq "[character=#{character.id}]" }
+        end
+      end
+
+      context 'person' do
+        let(:person) { create :person }
+        let(:text) { "[#{person.name}]" }
+        it { is_expected.to eq "[person=#{person.id}]" }
+      end
+    end
+
+    describe 'russian' do
+      context 'anime' do
+        let(:anime) { create :anime, russian: 'руру' }
+        let(:text) { "[#{anime.russian}]" }
+        it { is_expected.to eq "[anime=#{anime.id}]" }
+      end
+
+      context 'manga' do
+        let(:manga) { create :manga, russian: 'руру' }
+        let(:text) { "[#{manga.russian}]" }
+        it { is_expected.to eq "[manga=#{manga.id}]" }
+      end
+
+      context 'character' do
+        let(:character) { create :character, russian: 'руру' }
+        let(:text) { "[#{character.russian}]" }
+        it { is_expected.to eq "[character=#{character.id}]" }
+      end
+    end
+
+    context 'no match' do
+      let(:text) { '[test]' }
+      it { is_expected.to eq '[test]' }
+    end
+  end
+
+  describe '#remove_old_tags' do
+    subject { service.remove_old_tags text }
+
+    describe '<p>' do
+      let(:text) { "<p>\t\n\rTest.</p>\n<p>Zxc</p>" }
+      it { is_expected.to eq "Test.\nZxc" }
+    end
+
+    describe '&lt;p&gt;' do
+      let(:text) { "<p>\t\n\rTest.</p>\n&lt;p&gt;Zxc&lt;/p&gt;" }
+      it { is_expected.to eq "Test.\nZxc" }
+    end
+
+    describe '<br>' do
+      let(:text) { '123<br />456<br>789' }
+      it { is_expected.to eq "123\n456\n789" }
+    end
+
+    describe '&lt;br&gt;' do
+      let(:text) { '123&lt;br /&gt;456&lt;br/&gt;789' }
+      it { is_expected.to eq "123\n456\n789" }
+    end
+
+    describe 'trail \n' do
+      let(:text) { "123\n456\n789\n\n" }
+      it { is_expected.to eq "123\n456\n789" }
     end
   end
 end
