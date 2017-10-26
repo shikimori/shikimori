@@ -41,10 +41,12 @@ class AnimeVideoReport < ApplicationRecord
     state :post_rejected
 
     event(:accept) { transition %i[pending accepted] => :accepted }
-    event(:accept_only) { transition :pending => :accepted }
-    event(:reject) { transition :pending => :rejected }
+    event(:accept_only) { transition pending: :accepted }
+    event(:reject) { transition pending: :rejected }
     event(:post_reject) { transition %i[pending accepted] => :post_rejected }
-    event(:cancel) { transition %i[accepted rejected post_rejected] => :pending }
+    event(:cancel) do
+      transition %i[accepted rejected post_rejected] => :pending
+    end
 
     before_transition pending: :accepted do |report, transition|
       report.approver = transition.args.first
@@ -57,7 +59,7 @@ class AnimeVideoReport < ApplicationRecord
       end
     end
 
-    before_transition :pending => :rejected do |report, transition|
+    before_transition pending: :rejected do |report, transition|
       report.approver = transition.args.first
       report.process_doubles(:rejected)
       report.anime_video.reject! if report.uploaded?

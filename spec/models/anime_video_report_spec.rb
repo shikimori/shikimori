@@ -405,7 +405,7 @@ describe AnimeVideoReport do
         it { is_expected.to_not be_able_to :create, report }
       end
 
-      [:wrong, :broken].each do |kind|
+      %i[wrong broken].each do |kind|
         context kind.to_s do
           let(:kind) { kind }
 
