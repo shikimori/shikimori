@@ -115,7 +115,7 @@ process_current_dom = (root = document.body, JS_EXPORTS = window.JS_EXPORTS) ->
       if reason == null
         false
       else
-        $(@).attr href: "#{href}?reason=#{reason}"
+        $(@).attr href: "#{href}?reason=#{encodeURIComponent reason}"
 
   # с задержкой делаем потому, что collapsed блоки могут быть в контенте,
   # загруженном аяксом, а process для таких случаев вызывается ещё до вставки в
