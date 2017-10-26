@@ -1,4 +1,4 @@
-# rubocop:disable *
+# rubocop:disable all
 class TranslationsController < ShikimoriController
   before_action :fetch_club
   before_action :set_breadcrumbs

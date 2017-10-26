@@ -1,3 +1,4 @@
+# rubocop:disable all
 # TODO: delete everything. inline into BbCodes::Text
 module CommentHelper
   include SiteHelper
