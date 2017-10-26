@@ -307,7 +307,7 @@ private
       .where.not("name like 'Duel Masters%'")
       .where.not("name like 'Pokemon%'")
       .where.not("name like 'Yu☆Gi☆Oh%'")
-      .where.not("name like 'Cardfight%")
+      .where.not("name like 'Cardfight%'")
       .order(:ranked)
   end
 
