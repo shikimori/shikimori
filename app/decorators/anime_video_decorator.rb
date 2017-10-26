@@ -22,7 +22,9 @@ class AnimeVideoDecorator < BaseDecorator
   def player_html
     fixed_url = Url.new(url).without_protocol.to_s if url
 
-    if (hosting == 'myvi.ru' && url.include?('flash')) || (hosting == 'sibnet.ru' && url.include?('.swf?'))
+    if (hosting == 'myvi.ru' && url.include?('flash')) ||
+        (hosting == 'sibnet.ru' && url.include?('.swf?')) ||
+        (hosting == 'i.ua')
       flash_player_html fixed_url
 
     elsif hosting == 'rutube.ru' && url =~ /\/\/video\.rutube.ru\/(.*)/
