@@ -1,7 +1,7 @@
 .news-rules
   .rules
     = form.news_rules_text
-    = BbCodeFormatter.instance.format_comment "\
+    = BbCode.instance.format_comment "\
 [right]\
 [profile=#{form.news_rules_topic.user_id}]#{form.news_rules_topic.user.nickname}[/profile]\
 [br][url]#{UrlGenerator.instance.topic_url form.news_rules_topic}[/url]\

@@ -62,4 +62,4 @@ header.head.misc
 
       - if @resource.can_start?
         .c-column.m0
-          = BbCodeFormatter.instance.format_comment @resource.bb_code
+          = BbCode.instance.format_comment @resource.bb_code

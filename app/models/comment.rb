@@ -154,7 +154,7 @@ class Comment < ApplicationRecord
   # кроме содержащих правки модератора
   def body= text
     if text
-      self[:body] = BbCodeFormatter.instance.preprocess_comment text
+      self[:body] = BbCode.instance.preprocess_comment text
     else
       self[:body] = nil
     end
@@ -173,7 +173,7 @@ class Comment < ApplicationRecord
       body
     end
 
-    BbCodeFormatter.instance.format_comment fixed_body
+    BbCode.instance.format_comment fixed_body
   end
 
   def mark_offtopic flag

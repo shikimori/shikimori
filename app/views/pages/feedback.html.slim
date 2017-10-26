@@ -1,7 +1,7 @@
 .b-feedback-inner
   .subheadline = t '.title'
   .about
-    = BbCodeFormatter.instance.format_comment t('.text')
+    = BbCode.instance.format_comment t('.text')
   .b-shiki_editor.unprocessed.block
     = simple_form_for @feedback_message,
         url: api_messages_url,

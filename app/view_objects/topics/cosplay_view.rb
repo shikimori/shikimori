@@ -23,7 +23,7 @@ class Topics::CosplayView < Topics::UserContentView
 
   def html_footer
     if is_preview
-      BbCodeFormatter.instance.format_comment "[wall]#{images_bb_codes}[/wall]"
+      BbCode.instance.format_comment "[wall]#{images_bb_codes}[/wall]"
     end
   end
 

@@ -70,7 +70,7 @@ class Topics::ReviewView < Topics::UserContentView
 private
 
   def format_body
-    BbCodeFormatter.instance.format_description(
+    BbCode.instance.format_description(
       review.text, review
     )
   end

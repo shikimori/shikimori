@@ -59,7 +59,7 @@ class Message < ApplicationRecord
   end
 
   def html_body
-    BbCodeFormatter.instance.format_comment body
+    BbCode.instance.format_comment body
   end
 
   def delete_by user

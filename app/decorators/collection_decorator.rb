@@ -14,7 +14,7 @@ class CollectionDecorator < DbEntryDecorator
     cached_links
       .select { |link| link.text.present? }
       .each_with_object({}) do |link, memo|
-        memo[link.linked_id] = BbCodeFormatter.instance.format_comment link.text
+        memo[link.linked_id] = BbCode.instance.format_comment link.text
       end
   end
 

@@ -37,7 +37,7 @@ private
   end
 
   def links html
-    html.scan(BbCodes::UrlTag::URL).map(&:first)
+    html.scan(BbCodes::Tags::UrlTag::URL).map(&:first)
   end
 
   def follow urls

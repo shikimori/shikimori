@@ -43,12 +43,12 @@ ru:
 
   omniauth_service:
     new_user: Новый пользователь
-  bb_codes/replies_tag:
+  bb_codes/tags/replies_tag:
     reply: 'Ответ: '
     replies: 'Ответы: '
-  bb_codes/contest_status_tag:
+  bb_codes/tags/contest_status_tag:
     finished: завершён
-  bb_codes/contest_round_status_tag:
+  bb_codes/tags/contest_round_status_tag:
     finished: завершён
 
   messages/generate_body:

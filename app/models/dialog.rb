@@ -19,7 +19,7 @@ class Dialog
   end
 
   def html_body
-    BbCodeFormatter.instance.format_comment message.body
+    BbCode.instance.format_comment message.body
   end
 
   def message

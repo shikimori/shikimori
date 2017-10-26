@@ -53,7 +53,7 @@ class UserRate < ApplicationRecord
   end
 
   def text_html
-    text.present? ? BbCodeFormatter.instance.format_comment(text) : text
+    text.present? ? BbCode.instance.format_comment(text) : text
   end
 
   def status= new_status

@@ -15,7 +15,7 @@ class Topics::ClubPageView < Topics::View
     return super if preview?
 
     Rails.cache.fetch [topic.linked, :html] do
-      BbCodeFormatter.instance.format_comment(topic.linked.text)
+      BbCode.instance.format_comment(topic.linked.text)
     end
   end
 end

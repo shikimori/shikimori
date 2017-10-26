@@ -3,7 +3,7 @@ require Rails.root.join 'lib', 'string'
 module CommentHelper
   include SiteHelper
   include Translation
-  #include AniMangaHelper
+  # include AniMangaHelper
 
   SIMPLE_BB_CODES = %i[
     b s u i url img list right center solid
@@ -16,43 +16,42 @@ module CommentHelper
 
   @@smileys_path = '/images/smileys/'
   @@smileys_synonym = {
-    ":)" => ":-)"
+    ':)' => ':-)'
   }
   @smiley_first_to_replace = [':dunno:']
   @@smiley_groups = [
-    [":)",":D", ":-D", ":lol:", ":ololo:", ":evil:", "+_+", ":cool:", ":thumbup:", ":yahoo:", ":tea2:", ":star:"],
-    [":oh:",":shy:", ":shy2:", ":hurray:", ":-P", ":roll:", ":!:", ":watching:", ":love:", ":love2:", ":bunch:", ":perveted:"],
-    [":(", ":very sad:", ":depressed:", ":depressed2:", ":hopeless:", ":very sad2:", ":-(", ":cry:", ":cry6:", ":Cry2:", ":Cry3:", ":Cry4:"],
-    [":-o", ":shock:", ":shock2:", ":scream:", ":dont want:", ":noooo:", ":scared:", ":shocked2:", ":shocked3:", ":shocked4:",
-     ":tea shock:", ":frozen3:"],
-    [":angry4:", ":revenge:", ":evil2:", ":twisted:", ":angry:", ":angry3:", ":angry5:", ":angry6:", ":cold:", ":strange4:", ":ball:", ":evil3:"],
-    [":8):", ":oh2:", ":ooph:", ":wink:", ":dunno:", ":dont listen:", ":hypno:", ":advise:", ":bored:", ":disappointment:", ":hunf:"],#, ":idea:"
-    [":hot:", ":hot2:", ":hot3:", ":stress:", ":strange3:", ":strange2:", ":strange1:", ":strange:", ":hope:", ":hope3:", ":diplom:"],
-    [":hi:", ":bye:", ":sleep:", ":bow:", ":Warning:", ":Ban:", ":Bath2:", ":Im dead:", ":sick:", ":s1:", ":s3:", ":s2:", ":happy_cry:"],
-    [":ill:",
-     ":sad2:",
-     ":bullied:", ":bdl2:",
-     ":Happy Birthday:", ":flute:",
-     ":cry5:",
-     ":gaze:", ":hope2:",
-     ":sleepy:",
-     ":study:", ":study2:", ":study3:", ":gamer:",
-     ":animal:",
-     ":caterpillar:",
-     ":cold2:", ":shocked:", ":frozen:", ":frozen2:", ":kia:", ":interested:",
-     ":happy:",
-     ":happy3:",
-     ":water:", ":dance:", ":liar:", ":prcl:",
-     ":play:",
-     ":s4:", ":s:",
-     ":bath:",
-     ":kiss:", ":whip:", ":relax:", ":smoker:", ":smoker2:", ":bdl:", ":cool2:",
-     ":V:", ":V2:", ":V3:",
-     ":sarcasm:", ":angry2:", ":kya:"
-    ]
+    [':)', ':D', ':-D', ':lol:', ':ololo:', ':evil:', '+_+', ':cool:', ':thumbup:', ':yahoo:', ':tea2:', ':star:'],
+    [':oh:', ':shy:', ':shy2:', ':hurray:', ':-P', ':roll:', ':!:', ':watching:', ':love:', ':love2:', ':bunch:', ':perveted:'],
+    [':(', ':very sad:', ':depressed:', ':depressed2:', ':hopeless:', ':very sad2:', ':-(', ':cry:', ':cry6:', ':Cry2:', ':Cry3:', ':Cry4:'],
+    [':-o', ':shock:', ':shock2:', ':scream:', ':dont want:', ':noooo:', ':scared:', ':shocked2:', ':shocked3:', ':shocked4:',
+     ':tea shock:', ':frozen3:'],
+    [':angry4:', ':revenge:', ':evil2:', ':twisted:', ':angry:', ':angry3:', ':angry5:', ':angry6:', ':cold:', ':strange4:', ':ball:', ':evil3:'],
+    [':8):', ':oh2:', ':ooph:', ':wink:', ':dunno:', ':dont listen:', ':hypno:', ':advise:', ':bored:', ':disappointment:', ':hunf:'], # , ":idea:"
+    [':hot:', ':hot2:', ':hot3:', ':stress:', ':strange3:', ':strange2:', ':strange1:', ':strange:', ':hope:', ':hope3:', ':diplom:'],
+    [':hi:', ':bye:', ':sleep:', ':bow:', ':Warning:', ':Ban:', ':Bath2:', ':Im dead:', ':sick:', ':s1:', ':s3:', ':s2:', ':happy_cry:'],
+    [':ill:',
+     ':sad2:',
+     ':bullied:', ':bdl2:',
+     ':Happy Birthday:', ':flute:',
+     ':cry5:',
+     ':gaze:', ':hope2:',
+     ':sleepy:',
+     ':study:', ':study2:', ':study3:', ':gamer:',
+     ':animal:',
+     ':caterpillar:',
+     ':cold2:', ':shocked:', ':frozen:', ':frozen2:', ':kia:', ':interested:',
+     ':happy:',
+     ':happy3:',
+     ':water:', ':dance:', ':liar:', ':prcl:',
+     ':play:',
+     ':s4:', ':s:',
+     ':bath:',
+     ':kiss:', ':whip:', ':relax:', ':smoker:', ':smoker2:', ':bdl:', ':cool2:',
+     ':V:', ':V2:', ':V3:',
+     ':sarcasm:', ':angry2:', ':kya:']
   ]
   @@smileys = @@smiley_groups.flatten
-  @@replaceable_smileys = @smiley_first_to_replace + (@@smileys.reverse-@smiley_first_to_replace)
+  @@replaceable_smileys = @smiley_first_to_replace + (@@smileys.reverse - @smiley_first_to_replace)
 
   def smileys
     @@smileys
@@ -66,14 +65,14 @@ module CommentHelper
     @@smiley_groups
   end
 
-  def smileys_to_html text, poster=nil
+  def smileys_to_html text, _poster = nil
     @@replaceable_smileys.each do |v|
-      text.gsub!(v, '<img src="%s%s.gif" alt="%s" title="%s" class="smiley" />' % [@@smileys_path, v, v, v])
+      text.gsub!(v, format('<img src="%s%s.gif" alt="%s" title="%s" class="smiley" />', @@smileys_path, v, v, v))
     end
     text
   end
 
-  def mention_to_html text, poster=nil
+  def mention_to_html text, _poster = nil
     text.gsub /\[mention=(?<user_id>\d+)\](?<nickname>[\s\S]*?)\[\/mention\]/ do |match|
       nickname = $LAST_MATCH_INFO[:nickname]
 
@@ -87,16 +86,9 @@ module CommentHelper
     end
   end
 
-  #def wall_container_to_html text, poster=nil
-    #text.sub /(^[\s\S]*)(<div class="wall")/ , '<div class="height-unchecked inner-block">\1</div>\2'
-  #end
-
   def spoiler_to_html text, nesting = 0
     return text if nesting > 10
     text = spoiler_to_html text, nesting + 1
-
-    #/\[spoiler\](?:<br ?\/?>|\n)?(.*?)(?:<br ?\/?>|\n)?\[\/spoiler\](?:<br ?\/?>|\n)?/mi,
-    #'<div class="collapse"><span class="action half-hidden" style="display: none;">развернуть</span></div><div class="collapsed spoiler">спойлер</div><div class="target spoiler" style="display: none;">\1<span class="closing"></span></div>')
 
     text.gsub(/
       \[spoiler (?:= (?<label> [^\[\]\n\r]*? ) )? \]
@@ -108,10 +100,10 @@ module CommentHelper
         )
         \n?
       \[\/spoiler\]
-    /xi) do |match|
-      '<div class="b-spoiler unprocessed">' +
-        "<label>#{$~[:label] || I18n.t('markers.spoiler')}</label>" +
-        "<div class='content'><div class='before'></div><div class='inner'>#{$~[:content]}</div><div class='after'></div></div>" +
+    /xi) do |_match|
+      '<div class="b-spoiler unprocessed">' \
+        "<label>#{$LAST_MATCH_INFO[:label] || I18n.t('markers.spoiler')}</label>" \
+        "<div class='content'><div class='before'></div><div class='inner'>#{$LAST_MATCH_INFO[:content]}</div><div class='after'></div></div>" \
       '</div>'
     end
   end
@@ -121,14 +113,14 @@ module CommentHelper
       .gsub(/(?:<|&lt;)p(?:>|&gt;)[\t\n\r]*([\s\S]*?)[\t\n\r]*(?:<|&lt;)\/p(?:>|&gt;)/i, '\1')
       .gsub(/(?:<|&lt;)br ?\/?(?:>|&gt;)/, "\n")
       .strip
-      #.gsub(/[\n\r\t ]+$/x, '')
+      # .gsub(/[\n\r\t ]+$/x, '')
   end
 
-  def posters_to_html text, poster=nil
-    return text unless text.include?("[anime_poster") || text.include?("[manga_poster")
+  def posters_to_html text, _poster = nil
+    return text unless text.include?('[anime_poster') || text.include?('[manga_poster')
 
     text.gsub(/\[(anime|manga)_poster=(\d+)\]/) do
-      entry = ($1 == 'anime' ? Anime : Manga).find_by_id($2)
+      entry = (Regexp.last_match(1) == 'anime' ? Anime : Manga).find_by_id(Regexp.last_match(2))
       if entry
         "<a href=\"#{url_for entry}\" title=\"#{entry.name}\"><img class=\"poster-image\" src=\"#{ImageUrlGenerator.instance.url entry, :preview}\" srcset=\"#{ImageUrlGenerator.instance.url entry, :original} 2x\" title=\"#{entry.name}\" alt=\"#{entry.name}\"/></a>"
       else
@@ -261,15 +253,6 @@ module CommentHelper
     end
   end
 
-  # больше "ката" нет
-  def cut(text)
-    #text.sub(/\[cut\][\s\S]*/, '')
-    (text || '').gsub('[h3]', '[b]')
-        .gsub('[/h3]', ":[/b]\n")
-        #.gsub('<li>', '<p>')
-        #.gsub('</li>', '</p>')
-  end
-
   # удаление ббкодов википедии
   def remove_wiki_codes(html)
     html.gsub(/\[\[[^\]|]+?\|(.*?)\]\]/, '\1').gsub(/\[\[(.*?)\]\]/, '\1')
@@ -277,8 +260,8 @@ module CommentHelper
 
   def wrote_html gender
     <<~HTML.tr("\n", '')
-    <span class='text-ru'>#{i18n_v('wrote', 1, gender: gender, locale: :ru)}:</span>
-    <span class='text-en' data-text='#{i18n_v('wrote', 1, gender: gender, locale: :en)}:'></span>
+      <span class='text-ru'>#{i18n_v('wrote', 1, gender: gender, locale: :ru)}:</span>
+      <span class='text-en' data-text='#{i18n_v('wrote', 1, gender: gender, locale: :en)}:'></span>
     HTML
   end
 end

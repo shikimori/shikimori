@@ -53,12 +53,12 @@ class FayeService
 
   # уведомление о том, что у комментария изменился блок с ответами
   def set_replies comment
-    replies_text = if comment.body =~ BbCodes::RepliesTag::REGEXP
+    replies_text = if comment.body =~ BbCodes::Tags::RepliesTag::REGEXP
       $LAST_MATCH_INFO[:tag]
     else
       ''
     end
-    replies_html = BbCodeFormatter.instance.format_comment replies_text
+    replies_html = BbCode.instance.format_comment replies_text
 
     publisher.publish_replies comment, replies_html
   end

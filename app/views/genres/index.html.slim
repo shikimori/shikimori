@@ -27,7 +27,7 @@ table.b-table.b-editable_grid
         td = genre.name
         td = genre.russian
         td = genre.kind_text
-        td.text == truncate_html(BbCodeFormatter.instance.format_comment(genre.description),
+        td.text == truncate_html(BbCode.instance.format_comment(genre.description),
           length: 50,
           separator: ' ',
           word_boundary: /\S[\.\?\!<>]/)

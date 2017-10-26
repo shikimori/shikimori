@@ -34,7 +34,7 @@ private
   end
 
   def camo_images css
-    css.gsub(BbCodes::UrlTag::URL) do
+    css.gsub(BbCodes::Tags::UrlTag::URL) do
       url = $LAST_MATCH_INFO[:url]
       if url =~ /(?<quote>["'`])$/
         quote = $LAST_MATCH_INFO[:quote]

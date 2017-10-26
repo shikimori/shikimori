@@ -28,7 +28,7 @@ class UserProfileDecorator < UserDecorator
     return if banned_profile?
 
     Rails.cache.fetch [:about, object] do
-      BbCodeFormatter.instance.format_comment about || ''
+      BbCode.instance.format_comment about || ''
     end
   end
 

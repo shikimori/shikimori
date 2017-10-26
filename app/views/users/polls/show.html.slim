@@ -7,9 +7,9 @@ header.head.misc
     .block.b-form.bold-labels
       .b-input
         label BBCode
-        = BbCodeFormatter.instance.format_comment "[code]\n#{@resource.bb_code}\n[/code]"
+        = BbCode.instance.format_comment "[code]\n#{@resource.bb_code}\n[/code]"
 
-      = BbCodeFormatter.instance.format_comment @resource.bb_code
+      = BbCode.instance.format_comment @resource.bb_code
 
     - if @resource.can_stop?
       a.stop.b-button[

@@ -26,7 +26,7 @@
             - if ru_host? && I18n.russian?
               li
                 | Шикимори никак не влияет на работу видео плеера при просмотре онлайн.&nbsp;
-                == BbCodeFormatter.instance.format_comment "[spoiler=Подробнее.]#{t '.admin_message_about_video'}[/spoiler]"
+                == BbCode.instance.format_comment "[spoiler=Подробнее.]#{t '.admin_message_about_video'}[/spoiler]"
           p = t '.admin_message_postscriptum'
 
       .editor-container

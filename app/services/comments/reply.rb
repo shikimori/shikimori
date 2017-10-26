@@ -45,7 +45,7 @@ private
   end
 
   def extract_replies
-    if comment.body =~ BbCodes::RepliesTag::REGEXP
+    if comment.body =~ BbCodes::Tags::RepliesTag::REGEXP
       [
         $LAST_MATCH_INFO[:tag],
         $LAST_MATCH_INFO[:ids].split(',').map(&:to_i),

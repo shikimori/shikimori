@@ -130,7 +130,7 @@ class Topics::View < ViewObjectBase
     return '' if @topic.original_body.blank?
 
     Rails.cache.fetch [:body, Digest::MD5.hexdigest(@topic.original_body)] do
-      BbCodeFormatter.instance.format_comment @topic.original_body
+      BbCode.instance.format_comment @topic.original_body
     end
   end
 
@@ -151,7 +151,7 @@ class Topics::View < ViewObjectBase
   end
 
   def html_footer
-    BbCodeFormatter.instance.format_comment @topic.appended_body
+    BbCode.instance.format_comment @topic.appended_body
   end
 
   # для совместимости с комментариями для рендера тултипа

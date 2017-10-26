@@ -134,9 +134,9 @@ private
     @abusivenesses ||= {}
     @abusivenesses[text] ||=
       text
-        .gsub(BbCodes::UrlTag::REGEXP, '')
-        .gsub(BbCodes::ImgTag::REGEXP, '')
-        .gsub(BbCodes::PosterTag::REGEXP, '')
+        .gsub(BbCodes::Tags::UrlTag::REGEXP, '')
+        .gsub(BbCodes::Tags::ImgTag::REGEXP, '')
+        .gsub(BbCodes::Tags::PosterTag::REGEXP, '')
         .scan(ABUSE)
         .select do |group|
           group

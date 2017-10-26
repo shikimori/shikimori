@@ -37,6 +37,6 @@ class Poll < ApplicationRecord
   end
 
   def text_html
-    BbCodeFormatter.instance.format_comment text
+    BbCode.instance.format_comment text
   end
 end

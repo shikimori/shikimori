@@ -5,7 +5,7 @@ class ImportStylesForUsers < ActiveRecord::Migration
       (?:
         /assets/background/\w+\.png
         |
-        #{BbCodes::UrlTag::URL.source}
+        #{BbCodes::Tags::UrlTag::URL.source}
       )
     \)
     (?: \s* fixed )?

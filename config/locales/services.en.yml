@@ -43,12 +43,12 @@ en:
       if you forget you password.
   omniauth_service:
     new_user: New user
-  bb_codes/replies_tag:
+  bb_codes/tags/replies_tag:
     reply: 'Reply: '
     replies: 'Replies: '
-  bb_codes/contest_status_tag:
+  bb_codes/tags/contest_status_tag:
     finished: has finished
-  bb_codes/contest_round_status_tag:
+  bb_codes/tags/contest_round_status_tag:
     finished: has finished
 
   messages/generate_body:
