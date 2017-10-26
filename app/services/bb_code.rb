@@ -6,31 +6,31 @@ class BbCode
 
   include Rails.application.routes.url_helpers
 
-  HASH_TAGS = [BbCodes::Tags::ImageTag, BbCodes::Tags::ImgTag]
-  TAGS = [
-    BbCodes::Tags::QuoteTag, BbCodes::Tags::RepliesTag, BbCodes::Tags::CommentTag,
-    BbCodes::Tags::DbEntryUrlTag, BbCodes::Tags::VideoUrlTag, BbCodes::Tags::VideoTag,
-    BbCodes::Tags::PosterTag, BbCodes::Tags::WallImageTag, BbCodes::Tags::EntriesTag,
-    BbCodes::Tags::WallTag, BbCodes::Tags::PollTag,
+  HASH_TAGS = BbCodes::ToTag.call %i[image img]
 
-    BbCodes::Tags::DivTag, BbCodes::Tags::HrTag, BbCodes::Tags::BrTag, BbCodes::Tags::PTag,
-    BbCodes::Tags::BTag, BbCodes::Tags::ITag, BbCodes::Tags::UTag, BbCodes::Tags::STag,
-    BbCodes::Tags::SizeTag, BbCodes::Tags::CenterTag, BbCodes::Tags::RightTag,
-    BbCodes::Tags::ColorTag, BbCodes::Tags::SolidTag, BbCodes::Tags::UrlTag,
-    BbCodes::Tags::ListTag, BbCodes::Tags::H3Tag,
+  TAGS = BbCodes::ToTag.call %i[
+    quote replies comment
+    db_entry_url video_url video
+    poster wall_image entries
+    wall poll
 
-    BbCodes::Tags::ContestStatusTag, BbCodes::Tags::ContestRoundStatusTag,
-    BbCodes::Tags::Html5VideoTag, BbCodes::Tags::SourceTag, BbCodes::Tags::BroadcastTag
+    contest_status contest_round_status
+    html5_video source broadcast
+
+    div hr br p
+    b i u s
+    size center right
+    color solid url
+    list h3
   ]
-  OBSOLETE_TAGS = %r{
-    \[user_change=\d+\] | \[\/user_change\]
-  }mix
 
-  DB_ENTRY_TAGS = [
-    BbCodes::Tags::AnimeTag, BbCodes::Tags::MangaTag, BbCodes::Tags::RanobeTag,
-    BbCodes::Tags::CharacterTag, BbCodes::Tags::PersonTag
-  ]
   DB_ENTRY_BB_CODES = %i[anime manga ranobe character person]
+  DB_ENTRY_TAGS = BbCodes::ToTag.call DB_ENTRY_BB_CODES
+
+  OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
+
+  MALWARE_DOMAINS = %r{(https?://)? (images.webpark.ru|shikme.ru) }mix
+  MIN_PARAGRAPH_SIZE = 110
 
   default_url_options[:protocol] = false
   default_url_options[:host] ||=
@@ -41,12 +41,6 @@ class BbCode
     else
       Shikimori::DOMAIN
     end
-
-  MALWARE_DOMAINS = %r{
-    (https?://)?
-    (images.webpark.ru|shikme.ru)
-  }mix
-  MIN_PARAGRAPH_SIZE = 110
 
   # форматирование описания чего-либо
   def format_description text, entry
