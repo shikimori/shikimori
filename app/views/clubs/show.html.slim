@@ -25,7 +25,8 @@
     .block
       .subheadline.m5
         a href="#{images_club_url @club}" title="#{i18n_i 'picture', :other}"
-          = "#{i18n_i 'picture', :other} (#{@club.all_images.count})"
+          = "#{i18n_i 'picture', :other}
+          .count = @club.all_images.count
 
       .b-gallery[
         data-can_upload="#{can? :upload, @club}"
