@@ -1,7 +1,17 @@
 using 'DynamicElements'
 module.exports = class DynamicElements.Forum extends ShikiView
+  FAYE_EVENTS = [
+    'faye:comment:marked'
+    'faye:comment:created'
+    'faye:comment:updated'
+    'faye:comment:deleted'
+    'faye:topic:updated'
+    'faye:topic:deleted'
+    'faye:comment:set_replies'
+  ]
+
   initialize: ->
-    @on 'faye:comment:marked faye:comment:created faye:comment:updated faye:comment:deleted faye:topic:updated faye:topic:deleted', (e, data) =>
+    @on FAYE_EVENTS.join(' '), (e, data) =>
       return if SHIKI_USER.topic_ignored(data.topic_id)
       return if SHIKI_USER.user_ignored(data.user_id)
 
