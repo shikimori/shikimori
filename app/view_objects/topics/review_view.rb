@@ -48,7 +48,7 @@ class Topics::ReviewView < Topics::UserContentView
   end
 
   def vote_results?
-    review.votes_count > 0
+    review.votes_count.positive?
   end
 
   def read_more_link?
@@ -60,7 +60,7 @@ class Topics::ReviewView < Topics::UserContentView
       format_body
         .gsub(/<img.*?>/, '')
         .strip
-        .gsub(/\A<center> \s* <\/center>/, '')
+        .gsub(%r{\A<center> \s* </center>}, '')
         .html_safe
     else
       format_body
@@ -70,9 +70,7 @@ class Topics::ReviewView < Topics::UserContentView
 private
 
   def format_body
-    BbCode.instance.format_description(
-      review.text, review
-    )
+    BbCodes::Description.call review.text, review
   end
 
   def body

@@ -48,7 +48,7 @@ class DbEntryDecorator < BaseDecorator
 
   def description_html_ru
     html = Rails.cache.fetch [:description_html_ru, object, :v2] do
-      BbCode.instance.format_description(description_ru.text, object)
+      BbCodes::Description.call description_ru.text, object
     end
 
     if html.blank?

@@ -7,6 +7,6 @@ class DescriptionComment < SimpleDelegator
   end
 
   def html_body
-    BbCode.instance.format_description(body, @target)
+    BbCodes::Description.call body, @target
   end
 end

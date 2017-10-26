@@ -144,7 +144,7 @@ private
     Rails.cache.fetch [reviews_club, :guideline] do
       if reviews_club.description =~ ADDITIONAL_TEXT
         text = $LAST_MATCH_INFO[:text]
-        BbCode.instance.format_description text, reviews_club
+        BbCodes::Description.call text, reviews_club
       end
     end
   end

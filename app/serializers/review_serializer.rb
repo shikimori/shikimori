@@ -8,7 +8,7 @@ class ReviewSerializer < ActiveModel::Serializer
 
   def html_body
     Rails.cache.fetch [object, 'body'], expires_in: 2.weeks do
-      BbCode.instance.format_description object.text, object
+      BbCodes::Description.call object.text, object
     end
   end
 

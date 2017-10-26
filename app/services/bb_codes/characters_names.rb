@@ -1,13 +1,26 @@
-class CharactersNamesService
-  include Singleton
+# замена имён персонажей с транскрипцией на [character] теги
+class BbCodes::CharactersNames
+  method_object :data, :anime
 
-  RussianReplacements = %w[
+  RUSSIAN_REPLACEMENTS = %w[
     а е ё и о у ы ю я ей ой ом ем ея еем ею эй ия ию ией
   ]
-  RussianCleaner = /(?:#{RussianReplacements.join('|')})$/
+  RUSSIAN_CLEANER = /(?:#{RUSSIAN_REPLACEMENTS.join('|')})$/
+  CHARACTER_NAME = %r{
+    \[character=\d+\]
+      (?<content>
+        [^\[\]]+
+        (
+          \s*
+          \[character=\d+\] .*? \[/character\]
+          \s*
+        )+
+        [^\[\]]+
+      )
+    \[/character\]
+  }xi
 
-  # замена имён персонажей с транскрипцией на [character] теги
-  def process data, anime
+  def call
     characters = extract_characters(anime)
     people = extract_people(anime)
 
@@ -29,16 +42,16 @@ private
   # выборка персонажей
   def extract_characters anime
     anime.characters.each_with_object({}) do |v, rez|
-     rez[v.japanese.cleanup_japanese.delete(' ')] = v if v.japanese.present?
-     rez[v.name.delete(' ')] = v
+      rez[v.japanese.cleanup_japanese.delete(' ')] = v if v.japanese.present?
+      rez[v.name.delete(' ')] = v
     end
   end
 
   # выборка людей
   def extract_people anime
     anime.people.each_with_object({}) do |v, rez|
-     rez[v.japanese.cleanup_japanese.delete(' ')] = v if v.japanese.present?
-     rez[v.name.delete(' ')] = v
+      rez[v.japanese.cleanup_japanese.delete(' ')] = v if v.japanese.present?
+      rez[v.name.delete(' ')] = v
     end
   end
 
@@ -53,7 +66,7 @@ private
       japanese = $LAST_MATCH_INFO[:japanese].cleanup_japanese.delete(' ')
 
       # отсечение частиц
-      fixed_name = name.split(' ').reject { |v| v.pretext? }.join(' ')
+      fixed_name = name.split(' ').reject(&:pretext?).join(' ')
       regexp = build_regexp(fixed_name)
       next unless regexp
 
@@ -76,7 +89,7 @@ private
 
   # выборка имён, напрямую совпадающих с именами персонажей в тексте
   def extract_russian_matches matches, text, characters
-    characters.each do |_japanese, character|
+    characters.each_value do |character|
       next if character.russian.blank?
       next if matches.any? { |v| v[:name] == character.russian }
       next unless text.include? character.russian
@@ -118,13 +131,12 @@ private
         else
           [data] + yield(data[:name]).map do |name|
             regexp = build_regexp(name)
-            if regexp && counts_map[name] == 1 && !name.pretext?
-              {
-                name: name,
-                regex: regexp,
-                character: data[:character]
-              }
-            end
+            next unless regexp && counts_map[name] == 1 && !name.pretext?
+            {
+              name: name,
+              regex: regexp,
+              character: data[:character]
+            }
           end
         end
       end
@@ -132,33 +144,40 @@ private
       .uniq { |v| v[:name] }
   end
 
-  # замена в тексте имён
   def replace_names text, matches
-    matches.each do |data|
-      if data.include?(:person)
-        text.gsub! data[:regex], "[person=#{data[:person].id}]#{data[:name]}[/person]"
-      else
-        text.gsub! data[:regex], "[character=#{data[:character].id}]#{data[:name]}[/character]"
+    replaced_text =
+      matches.inject(text) do |memo, data|
+        if data.include?(:person)
+          replace_person memo, data
+        else
+          replace_character memo, data
+        end
       end
-    end
 
-    # при именах из нескольких слов могли образоваться вложенные [character] теги - надо их почистить
-    text.gsub(/
-      \[character=\d+\]
-        (?<content>
-          [^\[\]]+
-          (
-            \s*
-            \[character=\d+\] .*? \[\/character\]
-            \s*
-          )+
-          [^\[\]]+
-        )
-      \[\/character\]
-    /xi) do |v|
+    # при именах из нескольких слов могли образоваться
+    # вложенные [character] теги - надо их почистить
+    cleanup_overlapped_tags replaced_text
+  end
+
+  def replace_person text, data
+    text.gsub(
+      data[:regex],
+      "[person=#{data[:person].id}]#{data[:name]}[/person]"
+    )
+  end
+
+  def replace_character text, data
+    text.gsub(
+      data[:regex],
+      "[character=#{data[:character].id}]#{data[:name]}[/character]"
+    )
+  end
+
+  def cleanup_overlapped_tags text
+    text.gsub(CHARACTER_NAME) do |v|
       v.sub(
         $LAST_MATCH_INFO[:content],
-        $LAST_MATCH_INFO[:content].gsub(/\[\/?character(=\d+)?\]/, '')
+        $LAST_MATCH_INFO[:content].gsub(%r{\[/?character(=\d+)?\]}, '')
       )
     end
   end
@@ -166,7 +185,7 @@ private
   # различные варианты написания слова с учётом разных падежей
   def russian_variations word
     return [word] if word.size < 3 || word.include?(' ')
-    cleaned_word = word.sub(RussianCleaner, '')
-    [word, cleaned_word] + RussianReplacements.map { |v| cleaned_word + v }
+    cleaned_word = word.sub(RUSSIAN_CLEANER, '')
+    [word, cleaned_word] + RUSSIAN_REPLACEMENTS.map { |v| cleaned_word + v }
   end
 end

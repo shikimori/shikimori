@@ -6,46 +6,6 @@ describe BbCode do
     expect(processor.remove_wiki_codes('[[test|123]]')).to eq '123'
   end
 
-  describe '#format_description' do
-    subject { processor.format_description text, anime }
-    let(:anime) { build :anime }
-
-    describe '[spoiler] with [b]' do
-      let(:text) { '[spoiler=[b]z[/b]]x[/spoiler]' }
-      it { is_expected.to_not include '<br' }
-    end
-  end
-
-  describe '#paragraphs' do
-    subject { processor.paragraphs text }
-    let(:long_line) { 'x' * BbCode::MIN_PARAGRAPH_SIZE }
-
-    describe '\n' do
-      let(:text) { "#{long_line}1\n#{long_line}2\n333" }
-      it { is_expected.to eq "[p]#{long_line}1[/p][p]#{long_line}2[/p]333" }
-    end
-
-    describe '<br>' do
-      let(:text) { "#{long_line}1<br>#{long_line}2<br />333" }
-      it { is_expected.to eq "[p]#{long_line}1[/p][p]#{long_line}2[/p]333" }
-    end
-
-    describe '&lt;br&gt;' do
-      let(:text) { "#{long_line}1&lt;br&gt;#{long_line}2&lt;br/&gt;333" }
-      it { is_expected.to eq "[p]#{long_line}1[/p][p]#{long_line}2[/p]333" }
-    end
-
-    describe '[*]' do
-      let(:text) { "[list]\n [*]#{long_line}\r\n[/list]" }
-      it { is_expected.to eq "[list]\n [*]#{long_line}\r\n[/list]" }
-    end
-
-    describe '[quote]' do
-      let(:text) { '[quote]zzz' }
-      it { is_expected.to eq "[quote]\nzzz" }
-    end
-  end
-
   describe '#user_mention' do
     let!(:user) { create :user, nickname: 'test' }
     subject { processor.user_mention text }

@@ -30,7 +30,6 @@ class BbCode
   OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
 
   MALWARE_DOMAINS = %r{(https?://)? (images.webpark.ru|shikme.ru) }mix
-  MIN_PARAGRAPH_SIZE = 110
 
   default_url_options[:protocol] = false
   default_url_options[:host] ||=
@@ -41,21 +40,6 @@ class BbCode
     else
       Shikimori::DOMAIN
     end
-
-  # форматирование описания чего-либо
-  def format_description text, entry
-    text ||= ''
-
-    if entry.is_a?(Review) || entry.is_a?(Contest) || entry.is_a?(Genre) || entry.is_a?(Club)
-      format_comment paragraphs(text)
-
-    elsif entry.respond_to? :characters
-      format_comment paragraphs(character_names(text, entry)) # очень важно сначала персонажей, а только потом параграфы
-
-    else
-      format_comment paragraphs(text)
-    end
-  end
 
   # форматирование текста комментариев
   def format_comment original_body
@@ -107,46 +91,6 @@ class BbCode
   # удаление из текста вредоносных доменов
   def strip_malware text
     text.gsub MALWARE_DOMAINS, 'malware.domain'
-  end
-
-  # замена концов строк на параграфы
-  def paragraphs text
-    code_tag = BbCodes::Tags::CodeTag.new(text)
-    text = code_tag.preprocess
-
-    # препроцессинг контента, чтобы теги параграфов не разрывали содержимое тегов
-    text = text.gsub(/
-      (?<tag>
-        \[
-          (?:quote|list|spoiler)
-          (\[.*?\] | [^\]])*
-        \]
-        (?!\r\n|\r|\n|<br>)
-      )
-    /mix) do |_line|
-      "#{$LAST_MATCH_INFO[:tag]}\n"
-    end
-
-    text = text
-      .gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
-        unbalanced_tags = %i[quote list spoiler].inject(0) do |memo, tag|
-          memo + (line.scan("[#{tag}").size - line.scan("[/#{tag}]").size).abs
-        end
-
-        if line.size >= MIN_PARAGRAPH_SIZE && line !~ /^ *\[\*\]/ && unbalanced_tags.zero?
-          "[p]#{line.gsub(/\r\n|\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}[/p]"
-        else
-          line
-        end
-      end
-      .html_safe
-
-    code_tag.restore(text)
-  end
-
-  # замена имён персонажей на ббкоды
-  def character_names text, entry
-    CharactersNamesService.instance.process(text, entry)
   end
 
   # обработка обращений к пользователю

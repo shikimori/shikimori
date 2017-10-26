@@ -58,7 +58,7 @@ class ContestDecorator < DbEntryDecorator
 
   # описание контеста
   #def description
-    #BbCode.instance.format_description(object.description, object).html_safe
+    # BbCodes::Description.call object.description, object
   #end
 
   # # победители контеста
