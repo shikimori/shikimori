@@ -75,7 +75,7 @@ class BbCodes::Text
     end
 
     text = text.gsub OBSOLETE_TAGS, ''
-    text = db_entry_mention text
+    text = BbCodes::DbEntryMention.call text
 
     DB_ENTRY_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text
@@ -111,32 +111,6 @@ class BbCodes::Text
       text
     else
       raise
-    end
-  end
-
-  # TODO: refactor to name match
-  def db_entry_mention text
-    text.gsub %r{\[(?!\/|#{(SIMPLE_BB_CODES + COMPLEX_BB_CODES + DB_ENTRY_BB_CODES).map { |v| "#{v}\\b" }.join('|') })(.*?)\]} do |matched|
-      name = Regexp.last_match(1).gsub('&#x27;', "'").gsub('&quot;', '"')
-
-      splitted_name = name.split(' ')
-
-      entry =
-        if name.contains_russian?
-          Anime.order('score desc').find_by_russian(name) ||
-            Manga.order('score desc').find_by_russian(name) ||
-            Character.find_by_russian(name) ||
-            (splitted_name.size == 2 ? Character.find_by_russian(splitted_name.reverse.join(' ')) : nil)
-        elsif name != 'manga' && name != 'list' && name != 'anime'
-          Anime.order('score desc').find_by_name(name) ||
-            Manga.order('score desc').find_by_name(name) ||
-            Character.find_by_name(name) ||
-            (splitted_name.size == 2 ? Character.find_by_name(splitted_name.reverse.join(' ')) : nil) ||
-            Person.find_by_name(name) ||
-            (splitted_name.size == 2 ? Person.find_by_name(splitted_name.reverse.join(' ')) : nil)
-        end
-
-      entry ? "[#{entry.class.name.downcase}=#{entry.id}]" : matched
     end
   end
 end
