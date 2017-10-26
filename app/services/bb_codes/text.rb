@@ -49,7 +49,7 @@ class BbCodes::Text
     text = String.new ERB::Util.h(text)
     text = bb_codes text
 
-    cleanup_html(text).html_safe
+    BbCodes::CleanupHtml.call text
   end
 
   # обработка ббкодов текста
@@ -89,28 +89,5 @@ class BbCodes::Text
   # удаление из текста вредоносных доменов
   def strip_malware text
     text.gsub MALWARE_DOMAINS, 'malware.domain'
-  end
-
-  # удаление мусора из текста и нормализация битых тегов
-  def cleanup_html text
-    text = text
-      .gsub(/!!!+/, '!')
-      .gsub(/\?\?\?+/, '?')
-      .gsub(/\.\.\.\.+/, '.')
-      .gsub(/\)\)\)+/, ')')
-      .gsub(/\(\(\(+/, '(')
-      .gsub(/(<img [^>]*? class="smiley" \/>)\s*<img [^>]*? class="smiley" \/>(?:\s*<img .*? class="smiley" \/>)+/, '\1')
-
-    Nokogiri::HTML::DocumentFragment
-      .parse(text)
-      .to_html(save_with: Nokogiri::XML::Node::SaveOptions::AS_HTML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
-
-  # LoadError: cannot load such file -- enc/trans/single_byte
-  rescue StandardError => e
-    if e.message =~ /cannot load such file/
-      text
-    else
-      raise
-    end
   end
 end
