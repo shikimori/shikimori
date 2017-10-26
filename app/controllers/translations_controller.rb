@@ -30,7 +30,8 @@ class TranslationsController < ShikimoriController
     30313, 25805, 17699, 30796, 28853, 29901, 30751, 29687, 23409, 19877, 28207,
     33672, 34540, 34299, 34527, 34198, 32797, 23849, 31237, 30947, 32809, 22755,
     22013, 32890, 31699, 34676, 35517, 35302, 34888, 34514, 34034, 31231, 16678,
-    16680, 23897, 18983, 32819, 18191
+    16680, 23897, 18983, 32819, 18191, 33398, 33782, 31370, 30920, 33188, 34292,
+    34502, 34223, 32830, 34891, 36002, 33388, 36231, 35510, 32805
   ]
   TRANSLATE_ME = [
     17389, 26055, 24893, 28701, 24227, 16385, 17080, 28155, 25689, 27741, 29093,
@@ -299,9 +300,14 @@ private
   def translatable
     Anime
       .where("kind = 'tv' or (kind = 'ona' and score >= 7.0) or (kind = 'ova' and score >= 7.5) or kind = 'movie'")
+      .where("score = 0 or score > 6.2")
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(rating: :g)
       .where.not("genre_ids && '{15}'")
+      .where.not("name like 'Duel Masters%'")
+      .where.not("name like 'Pokemon%'")
+      .where.not("name like 'Yu☆Gi☆Oh%'")
+      .where.not("name like 'Cardfight%")
       .order(:ranked)
   end
 

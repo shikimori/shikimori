@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, params[:action], :v3], expires_in: 1.week do
+  = cache [@resource, params[:action], :v5], expires_in: 1.week do
     .block.m0
       h2.subheadline.m10 = @page_title.last
       .cc-5.to-process data-dynamic="cutted_covers"
