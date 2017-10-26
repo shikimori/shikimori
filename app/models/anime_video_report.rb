@@ -16,19 +16,6 @@ class AnimeVideoReport < ApplicationRecord
   after_create :auto_check
   after_create :auto_accept
 
-  def doubles state = nil
-    reports = AnimeVideoReport
-      .where(anime_video_id: anime_video_id)
-      .where.not(id: id)
-
-    if state
-      reports.where! 'state = :state and user_id != :guest_id',
-        state: state, guest_id: User::GUEST_ID
-    end
-
-    reports.size
-  end
-
   state_machine :state, initial: :pending do
     state :pending
     state :accepted do
@@ -72,33 +59,44 @@ class AnimeVideoReport < ApplicationRecord
     end
   end
 
+  def doubles state = nil
+    reports = AnimeVideoReport
+      .where(anime_video_id: anime_video_id)
+      .where.not(id: id)
+
+    if state
+      reports.where! 'state = :state and user_id != :guest_id',
+        state: state, guest_id: User::GUEST_ID
+    end
+
+    reports.size
+  end
+
   def process_doubles to_state
-    AnimeVideoReport
-      .where(
-        kind: kind,
-        state: 'pending',
-        anime_video_id: anime_video_id
-      )
-      .update_all(
-        approver_id: approver.id,
-        state: to_state
-      )
+    pending_reports(kind).update_all(
+      approver_id: approver.id,
+      state: to_state,
+      updated_at: Time.zone.now
+    )
   end
 
   def process_conflict conflict_kind, to_state
-    AnimeVideoReport
-      .where(
-        kind: conflict_kind,
-        state: 'pending',
-        anime_video_id: anime_video_id
-      )
-      .update_all(
-        approver_id: approver.id,
-        state: to_state
-      )
+    pending_reports(conflict_kind).update_all(
+      approver_id: approver.id,
+      state: to_state,
+      updated_at: Time.zone.now
+    )
   end
 
 private
+
+  def pending_reports kind
+    AnimeVideoReport.where(
+      kind: kind,
+      state: 'pending',
+      anime_video_id: anime_video_id
+    )
+  end
 
   def auto_check
     AnimeOnline::ReportWorker.perform_in 10.seconds, id

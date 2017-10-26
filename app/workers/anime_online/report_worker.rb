@@ -11,7 +11,7 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
     /\n\nThis video was marked as Adult.Embedding adult videos/i
   ]
   SIBNET_BROKEN_TEXTS = ['Ошибка обработки видео', 'Îøèáêà îáðàáîòêè âèäåî']
-  EXCEPTIONS = [Errno::ECONNRESET, Net::ReadTimeout, Net::OpenTimeout]
+  EXCEPTIONS = Network::FaradayGet::NET_ERRORS
 
   def perform id
     report = AnimeVideoReport.find id
