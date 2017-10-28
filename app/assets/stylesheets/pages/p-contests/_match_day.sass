@@ -1,10 +1,4 @@
-@import mixins/column
-@import mixins/ellipsis2
-@import mixins/link
-@import mixins/responsive
-@import mixins/shikimori
-
-$line-height: 1.8
+$match-day-line-height: 1.8
 
 .p-contests .match-day
   overflow: hidden
@@ -15,7 +9,7 @@ $line-height: 1.8
     margin-bottom: 0
 
   &>.date
-    line-height: $line-height
+    line-height: $match_day-line_height
 
     .from
       color: $gray-3
@@ -46,7 +40,7 @@ $line-height: 1.8
       +link_color(#112233)
 
     .c-column
-      line-height: $line-height
+      line-height: $match_day-line_height
       margin-bottom: 0
 
       +gte_ipad

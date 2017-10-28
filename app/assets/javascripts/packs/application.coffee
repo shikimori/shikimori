@@ -1,3 +1,5 @@
+import '../../stylesheets/application'
+
 require('../vendor/sugar').extend()
 require('es6-promise').polyfill()
 

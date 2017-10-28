@@ -1,0 +1,56 @@
+img
+  border: none
+
+strike
+  color: #555
+em
+  font-style: italic
+strong, b
+  font-weight: bold
+
+input, select, button, textarea
+  border: 1px solid #999999
+  font-family: $font-family
+  outline: none
+
+  +gte_ipad
+    font-size: 13px
+
+  +iphone
+    font-size: 15px
+
+select
+  +gte_ipad
+    font-size: 11px
+
+  +iphone
+    font-size: 13px
+
+textarea
+  line-height: $line_height
+input[type=radio]
+  border: none
+textarea, input[type=submit], input[type=text], input[type=email], input[type=number]
+  -webkit-appearance: none
+  -webkit-border-radius: 0px
+
+li
+  list-style: none outside none
+
+p.flash-notice, p.flash-alert
+  display: none
+
+::selection, ::-moz-selection
+  background: #FFCC89
+  color: #555
+
+hr
+  border: 0
+  height: 1px
+  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+
+abbr[title]
+  border-bottom: none
