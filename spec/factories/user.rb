@@ -45,9 +45,7 @@ FactoryGirl.define do
     trait(:cosplayer) { id User::COSPLAYER_ID }
 
     Types::User::ROLES.each do |role|
-      trait(role) do
-        after(:build) { |model| model.roles << role }
-      end
+      trait(role) { roles [role] }
     end
 
     trait :suspicious do
