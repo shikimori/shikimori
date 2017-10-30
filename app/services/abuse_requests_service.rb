@@ -52,13 +52,13 @@ private
   # rubocop:enable MethodLength
 
   def allowed_summary_change?
-    reporter.moderator? ||
+    reporter.forum_moderator? ||
       (@comment.user_id == reporter.id &&
       @comment.created_at > SUMMARY_TIMEOUT.ago)
   end
 
   def allowed_offtopic_change?
-    reporter.moderator? ||
+    reporter.forum_moderator? ||
       (@comment.user_id == reporter.id &&
       @comment.created_at > OFFTOPIC_TIMEOUT.ago)
   end

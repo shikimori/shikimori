@@ -7,7 +7,7 @@ li.contest id="#{contest.id}"
     a href="#{contest_url contest}"
       = contest.title
 
-  - elsif current_user&.contests_moderator?
+  - elsif current_user&.contest_moderator?
     a href="#{edit_contest_url contest}"
       = contest.title
 

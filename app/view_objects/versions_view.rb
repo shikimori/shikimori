@@ -29,7 +29,8 @@ class VersionsView < ViewObjectBase
 
   def moderators
     User
-      .where(id: User::VERSIONS_MODERATORS - User::ADMINS)
+      .where("roles && '{version_moderator}'")
+      .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
   end
 

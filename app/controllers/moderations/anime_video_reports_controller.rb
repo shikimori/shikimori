@@ -5,7 +5,11 @@ class Moderations::AnimeVideoReportsController < ModerationsController
 
   def index
     @page_title = i18n_t 'page_title'
-    @moderators = User.where(id: User::VIDEO_MODERATORS - User::ADMINS)
+    @moderators = User
+      .where("roles && '{#{Types::User::Roles[:video_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
+
     @processed = processed_reports
     @pending = pending_reports unless json?
   end

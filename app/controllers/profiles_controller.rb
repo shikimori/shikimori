@@ -211,7 +211,10 @@ private
     @resource = UserProfileDecorator.new user
     @user = @resource
 
-    raise AgeRestricted if @resource.respond_to?(:censored?) && @resource.censored? && censored_forbidden?
+    if @resource.censored_profile? && censored_forbidden? &&
+        !@resource.own_profile?
+      raise AgeRestricted
+    end
   end
 
   def set_breadcrumbs

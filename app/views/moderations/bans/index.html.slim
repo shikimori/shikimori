@@ -7,15 +7,16 @@ header.head
   .subheadline.m10 = t '.instruction'
   .b-brief
     .moderators
-      = render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
+      = render partial: 'users/user',
+        collection: @moderators, locals: { content_by: :named_avatar }
 
     ul.b-list
       li: p
-        a.b-link href="#{@site_rules.url}" = @site_rules.title
+        a.b-link href=@site_rules.url = @site_rules.title
 
       - if @club
           li
-            a.b-link href="#{@club.url}"
+            a.b-link href=@club.url
               = "#{Club.model_name.human} \"#{@club.name}\""
       - elsif !ru_host?
         - t('.instructions').each do |instruction|
@@ -24,7 +25,7 @@ header.head
     - if @club
       = @club.description_html
 
-- if user_signed_in? && current_user.moderator?
+- if user_signed_in? && current_user.forum_moderator?
   - if @pending && @pending.any?
     .block
       .b-options-floated
@@ -32,7 +33,8 @@ header.head
       .subheadline = t '.queue'
       div
         - if @pending.any?
-          = render partial: 'moderations/abuse_requests/abuse_request', collection: @pending
+          = render partial: 'moderations/abuse_requests/abuse_request',
+            collection: @pending
         - else
           .b-nothing_here = t '.queue_empty'
 
@@ -40,13 +42,15 @@ header.head
     .subheadline = t '.declined'
     .block
       = spoiler '...' do
-        = render partial: 'moderations/abuse_requests/abuse_request', collection: @declined
+        = render partial: 'moderations/abuse_requests/abuse_request',
+          collection: @declined
 
 .block
   .b-options-floated
-    a href="#{moderations_abuse_requests_url}" = t '.offtopic_plus_summaries'
+    a href=moderations_abuse_requests_url = t '.offtopic_plus_summaries'
   .subheadline = t '.history'
   .block
     = render partial: 'ban', collection: @bans
     - if @add_postloader
-      = render partial: 'blocks/postloader', locals: { next_url: moderations_bans_url(page: @page+1) }
+      = render partial: 'blocks/postloader',
+        locals: { next_url: moderations_bans_url(page: @page+1) }

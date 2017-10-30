@@ -27,7 +27,7 @@ header.head
 
 - if @processed.any?
   .block
-    - if user_signed_in? && current_user.moderator?
+    - if user_signed_in? && current_user.forum_moderator?
       .b-options-floated
         a href="#{moderations_bans_url}" = t '.bans_plus_warnings'
     .subheadline = t '.history'

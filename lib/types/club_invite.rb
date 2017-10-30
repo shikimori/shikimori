@@ -1,7 +1,7 @@
 module Types
-  module Anime
+  module ClubInvite
     Status = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:anons, :ongoing, :released, :planned, :latest)
+      .enum(:pending, :closed)
   end
 end

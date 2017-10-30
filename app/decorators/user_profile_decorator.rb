@@ -1,3 +1,4 @@
+# TODO: refactor to view object
 class UserProfileDecorator < UserDecorator
   instance_cache :all_compatibility, :friends, :ignored?, :stats,
     :nickname_changes, :favourites,
@@ -14,7 +15,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def avatar_url size=160
-    super size
+    super size, own_profile?
   end
 
   def website
@@ -54,7 +55,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def nickname_changes
-    query = if h.user_signed_in? && h.current_user.moderator?
+    query = if h.user_signed_in? && h.current_user.forum_moderator?
       UserNicknameChange.unscoped.where(user: object)
     else
       object.nickname_changes

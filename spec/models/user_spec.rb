@@ -66,6 +66,7 @@ describe User do
   describe 'enumerize' do
     it { is_expected.to enumerize(:locale).in(:ru, :en).with_default(:ru) }
     it { is_expected.to enumerize(:locale_from_host).in(:ru, :en).with_default(:ru) }
+    it { is_expected.to enumerize(:roles).in(*Types::User::Roles.values) }
   end
 
   let(:user) { create :user }
@@ -428,22 +429,28 @@ describe User do
 
       context 'own profile' do
         let(:user) { profile }
+
         it { is_expected.to be_able_to :edit, profile }
         it { is_expected.to be_able_to :update, profile }
       end
 
       context 'admin' do
-        let(:user) { build_stubbed :user, id: User::ADMINS.first }
+        let(:user) { build_stubbed :user, :admin }
+
         it { is_expected.to be_able_to :edit, profile }
         it { is_expected.to be_able_to :update, profile }
       end
 
       context 'user' do
+        let(:user) { build_stubbed :user, :user }
+
         it { is_expected.to_not be_able_to :edit, profile }
         it { is_expected.to_not be_able_to :update, profile }
       end
 
       context 'guest' do
+        let(:user) { build_stubbed :user, :guest }
+
         it { is_expected.to_not be_able_to :edit, profile }
         it { is_expected.to_not be_able_to :update, profile }
       end

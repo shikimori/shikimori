@@ -28,22 +28,22 @@ set :job_template, "/usr/bin/zsh -i -c \"source /home/devops/.rvm/scripts/rvm &&
   #command 'rsync -ahvu /home/apps/shikimori/beta/shared/public/images/user_image /home/apps/shikimori/production/shared/public/images/'
 #end
 
-every 1.day, at: '0:45 am' do
-  command 'sudo service shikimori_unicorn_production upgrade'
+# every 1.day, at: '0:45 am' do
+  # command 'sudo service shikimori_unicorn_production upgrade'
   # runner "Delayed::Job.enqueue_uniq TorrentsLatestJob.new"
-end
+# end
 
-every 2.weeks, at: '2:30 am' do
-  runner "AnimeOnline::BrokenVkVideosCleaner.perform_async"
-end
+# every 2.weeks, at: '2:30 am' do
+  # runner "AnimeOnline::BrokenVkVideosCleaner.perform_async"
+# end
 
-every 32.days, at: '4:13 am' do
-  runner "WikipediaImporter.perform_async"
-end
+# every 32.days, at: '4:13 am' do
+  # runner "WikipediaImporter.perform_async"
+# end
 
-every 33.days, at: '4:13 am' do
-  runner "SvdWorker.perform_async 'anime', 'partial', 'none'"
-end
+# every 33.days, at: '4:13 am' do
+  # runner "SvdWorker.perform_async 'anime', 'partial', 'none'"
+# end
 
 # every 2.months, at: '0:09 am' do # макс цифра минус 1
   # runner "ImportListWorker.perform_async pages_limit: 1309, source: :all, type: Manga.name"

@@ -11,7 +11,7 @@ class Abilities::VideoModerator
       version.item_type == AnimeVideo.name
     end
 
-    if user.id == User::BAKSIII_ID
+    if user.super_video_moderator?
       can %i[index show none edit update], AnimeVideoAuthor
     end
   end

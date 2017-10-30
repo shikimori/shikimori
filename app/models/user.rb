@@ -1,9 +1,8 @@
 # TODO: refactor UserNotifications module inclusion
 class User < ApplicationRecord
   include PermissionsPolicy
-  include User::Notifications
   include Commentable
-  include User::Roles
+  include User::Notifications
   include User::TokenAuthenticatable
   include StylesConcern
   include ElasticsearchConcern
@@ -15,7 +14,10 @@ class User < ApplicationRecord
 
   ACTIVE_SITE_USER_INTERVAL = 1.month
 
-  CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544, 28046]
+  MORR_ID = 1
+  GUEST_ID = 5
+  BANHAMMER_ID = 6_942
+  COSPLAYER_ID = 1_680
 
   devise(*%i[
     database_authenticatable
@@ -111,6 +113,11 @@ class User < ApplicationRecord
     dependent: :destroy
   has_many :polls, -> { order id: :desc },
     dependent: :destroy
+
+  enumerize :roles,
+    in: Types::User::Roles.values,
+    predicates: true,
+    multiple: true
 
   has_attached_file :avatar,
     styles: {
@@ -231,15 +238,6 @@ class User < ApplicationRecord
     self.sex && self.sex == 'female' ? true : false
   end
 
-  # бот ли пользователь
-  def bot?
-    BotsService.posters.include?(id) || id == COSPLAYER_ID || id == BANHAMMER_ID
-  end
-
-  def censored?
-    CENCORED_AVATAR_IDS.include?(id)
-  end
-
   # last online time from memcached/or from database
   def last_online_at
     return Time.zone.now if new_record?
@@ -328,7 +326,7 @@ class User < ApplicationRecord
   end
 
   def avatar_url size
-    if censored?
+    if censored_avatar?
       "//www.gravatar.com/avatar/%s?s=%i&d=identicon" %
         [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
     else

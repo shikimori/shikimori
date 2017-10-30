@@ -177,8 +177,8 @@ describe Contest do
   describe 'permissions' do
     let(:contest) { build_stubbed :contest }
 
-    context 'contests_moderator' do
-      subject { Ability.new build_stubbed(:user, :contests_moderator) }
+    context 'contest_moderator' do
+      subject { Ability.new build_stubbed(:user, :contest_moderator) }
       it { is_expected.to be_able_to :manage, contest }
     end
 

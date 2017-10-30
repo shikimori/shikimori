@@ -6,7 +6,7 @@ class Moderations::AbuseRequestsController < ModerationsController
     @processed = postload_paginate(params[:page], 25) do
       scope = AbuseRequest.where.not(state: :pending)
 
-      unless current_user.moderator?
+      unless current_user.forum_moderator?
         scope = scope
           .where(kind: %i(summary offtopic))
           .or(AbuseRequest.where(state: :accepted))
@@ -27,7 +27,12 @@ class Moderations::AbuseRequestsController < ModerationsController
         .includes(:user, :approver, comment: :commentable)
         .order(:created_at)
 
-      @moderators = User.where(id: User::MODERATORS - User::ADMINS).sort_by { |v| v.nickname.downcase }
+      @moderators = User
+        .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
+        .where.not(id: User::MORR_ID)
+        .sort_by { |v| v.nickname.downcase }
+
+
     end
   end
 
@@ -62,7 +67,7 @@ class Moderations::AbuseRequestsController < ModerationsController
   # принятие запроса
   def take
     @request = AbuseRequest.find params[:id]
-    raise Forbidden unless current_user.moderator?
+    raise Forbidden unless current_user.forum_moderator?
     @request.take! current_user
 
   rescue StateMachine::InvalidTransition
@@ -73,7 +78,7 @@ class Moderations::AbuseRequestsController < ModerationsController
   # отказ запроса
   def deny
     @request = AbuseRequest.find params[:id]
-    raise Forbidden unless current_user.moderator?
+    raise Forbidden unless current_user.forum_moderator?
     @request.reject! current_user
 
   rescue StateMachine::InvalidTransition

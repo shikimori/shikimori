@@ -9,7 +9,7 @@ describe ModerationPolicy do
         .and_return(reviews_count)
     end
     let(:reviews_count) { 1 }
-    let(:user) { build :user, :reviews_moderator }
+    let(:user) { build :user, :review_moderator }
 
     it { expect(policy.reviews_count).to eq 1 }
 
@@ -108,7 +108,7 @@ describe ModerationPolicy do
         .and_return(content_count)
     end
     let(:content_count) { 1 }
-    let(:user) { build :user, :versions_moderator }
+    let(:user) { build :user, :version_moderator }
 
     it { expect(policy.content_count).to eq 1 }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014003015) do
+ActiveRecord::Schema.define(version: 20171030184541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1050,11 +1050,13 @@ ActiveRecord::Schema.define(version: 20171014003015) do
     t.string "locale", default: "ru", null: false
     t.string "locale_from_host", default: "ru", null: false
     t.integer "style_id"
+    t.string "roles", limit: 4096, default: [], null: false, array: true
     t.index ["api_access_token"], name: "index_users_on_api_access_token", unique: true
     t.index ["email"], name: "index_users_on_email"
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["remember_token"], name: "index_users_on_remember_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["roles"], name: "index_users_on_roles", using: :gin
     t.index ["style_id"], name: "index_users_on_style_id"
   end
 

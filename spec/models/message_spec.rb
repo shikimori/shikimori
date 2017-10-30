@@ -157,7 +157,7 @@ describe Message do
         let(:message) do
           build_stubbed :message,
             from_id: User::GUEST_ID,
-            to_id: User::ADMINS.first,
+            to_id: User::MORR_ID,
             kind: MessageType::Private
         end
         it { is_expected.to be_able_to :create, message }

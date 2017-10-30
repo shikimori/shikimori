@@ -77,7 +77,7 @@ describe Review do
     end
 
     context 'reviews moderator' do
-      let(:user) { build_stubbed :user, :reviews_moderator }
+      let(:user) { build_stubbed :user, :review_moderator }
       it { is_expected.to be_able_to :manage, review }
     end
 

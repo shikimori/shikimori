@@ -28,7 +28,7 @@ class UserDecorator < BaseDecorator
 
   # добавлен ли пользователь в друзья текущему пользователю
   def is_friended?
-    h.current_user && h.current_user.friend_links.any? { |v| v.dst_id == id }
+    h.current_user&.friend_links&.any? { |v| v.dst_id == id }
   end
 
   def mutual_friended?
@@ -49,7 +49,7 @@ class UserDecorator < BaseDecorator
   def last_online
     if object.admin?
       i18n_t 'always_online'
-    elsif object.banhammer? || object.bot?
+    elsif object.bot?
       i18n_t 'always_online_bot'
     elsif Time.zone.now - 5.minutes <= last_online_at || object.id == User::GUEST_ID
       i18n_t 'online'
@@ -62,24 +62,25 @@ class UserDecorator < BaseDecorator
 
   def unread_messages_url
     if unread_messages > 0 || (unread_news == 0 && unread_notifications == 0)
-       h.profile_dialogs_url object, subdomain: nil
+      h.profile_dialogs_url object, subdomain: nil
     elsif unread_news > 0
-       h.index_profile_messages_url object, messages_type: :news, subdomain: nil
+      h.index_profile_messages_url object, messages_type: :news, subdomain: nil
     else
-       h.index_profile_messages_url object, messages_type: :notifications, subdomain: nil
+      h.index_profile_messages_url object, messages_type: :notifications, subdomain: nil
     end
   end
 
-  def avatar_url size
-    # if avatar.exists?
-      if User::CENCORED_AVATAR_IDS.include?(id) && (!h.user_signed_in? || (h.user_signed_in? && !User::CENCORED_AVATAR_IDS.include?(h.current_user.id)))
-        "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
-      else
-        ImageUrlGenerator.instance.url object, "x#{size}".to_sym
-      end
-    # else
+  def avatar_url size, ignore_censored = false
+    if !ignore_censored && censored_avatar?
+      format(
+        'http://www.gravatar.com/avatar/%s?s=%i&d=identicon',
+        Digest::MD5.hexdigest('takandar+censored@gmail.com'),
+        size
+      )
+    else
       # "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest(email.downcase), size]
-    # end
+      ImageUrlGenerator.instance.url object, "x#{size}".to_sym
+    end
   end
 
 private

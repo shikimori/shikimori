@@ -57,7 +57,7 @@ class ContestsController < ShikimoriController
 
   # турнирная сетка
   def grid
-    if !user_signed_in? || !current_user.contests_moderator?
+    if !user_signed_in? || !current_user.contest_moderator?
       return redirect_to contests_url if @resource.created?
       return redirect_to contest_url(@resource) if @resource.proposing?
     end

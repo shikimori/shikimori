@@ -31,11 +31,7 @@ en:
     text: |
       <p>Are you over 18?</p>
       <p>
-        <span class='confirm' data-cookie="%{cookie}">
-          Yes
-        </span>
+        <span class='confirm' data-cookie="%{cookie}">Yes</span>
         &nbsp;&nbsp;&nbsp;
-        <a href='%{root_url}'>
-          No
-        </a>
+        <a href='%{root_url}'>No</a>
       </p>

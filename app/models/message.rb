@@ -27,10 +27,9 @@ class Message < ApplicationRecord
   def check_antispam
     return unless with_antispam?
     return if id != nil
-    return if BotsService.posters.include?(from_id)
+    return if from.bot? || from.admin?
     return if kind == MessageType::Notification
     return if kind == MessageType::ClubRequest
-    return if User::ADMINS.include?(from_id)
 
     prior_comment = Message
       .includes(:from, :to)

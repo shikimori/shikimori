@@ -33,5 +33,4 @@ function addCacheLoader(rules) {
 }
 addCacheLoader(config.module.rules)
 
-
 module.exports = config

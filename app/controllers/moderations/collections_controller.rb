@@ -8,7 +8,8 @@ class Moderations::CollectionsController < ModerationsController
     @page_title = i18n_t 'page_title'
 
     @moderators = User
-      .where(id: User::COLLECTIONS_MODERATORS - User::ADMINS)
+      .where("roles && '{#{Types::User::Roles[:collection_moderator]}}'")
+      .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
 
     @processed = postload_paginate(params[:page], 25) do

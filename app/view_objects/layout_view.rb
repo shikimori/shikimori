@@ -33,7 +33,7 @@ class LayoutView < ViewObjectBase
 
     {
       id: user&.id,
-      is_moderator: !!user&.moderator?,
+      is_moderator: !!user&.forum_moderator?,
       ignored_topics: user&.topic_ignores&.pluck(:topic_id) || [],
       ignored_users: user&.ignores&.pluck(:target_id) || [],
       is_day_registered: !!user&.day_registered?,

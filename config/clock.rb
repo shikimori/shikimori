@@ -115,9 +115,9 @@ module Clockwork
     PeopleVerifier.perform_async
   end
 
-  every 1.week, 'weekly.vacuum', at: 'Monday 05:00' do
-    VacuumDb.perform_async
-  end
+  # every 1.week, 'weekly.vacuum', at: 'Monday 05:00' do
+    # VacuumDb.perform_async
+  # end
 
   every 1.week, 'weekly.stuff.4', at: 'Monday 05:45' do
     NameMatches::Refresh.perform_async Anime.name
@@ -125,5 +125,9 @@ module Clockwork
 
   every 1.week, 'weekly.stuff.5', at: 'Monday 06:15' do
     NameMatches::Refresh.perform_async Manga.name
+  end
+
+  every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do
+    VacuumDb.perform_async
   end
 end
