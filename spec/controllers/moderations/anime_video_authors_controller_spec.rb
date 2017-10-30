@@ -1,5 +1,5 @@
 describe Moderations::AnimeVideoAuthorsController do
-  include_context :authenticated, :video_moderator
+  include_context :authenticated, :video_super_moderator
 
   let!(:anime_video) do
     create :anime_video,

@@ -2,7 +2,13 @@ describe Moderations::VersionsController do
   include_context :back_redirect
   include_context :authenticated, :version_moderator
 
-  let(:version) { create :version, item: anime, item_diff: { russian: ['a', 'bbb'] }, state: state, user: author }
+  let(:version) do
+    create :version,
+      item: anime,
+      item_diff: { russian: ['a', 'bbb'] },
+      state: state,
+      user: author
+  end
   let(:author) { user }
   let(:state) { 'pending' }
   let(:anime) { create :anime }

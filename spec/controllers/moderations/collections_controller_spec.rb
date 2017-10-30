@@ -1,6 +1,5 @@
 describe Moderations::CollectionsController do
-  let(:user) { create :user, id: 1 }
-  before { sign_in user }
+  include_context :authenticated, :collection_moderator
 
   describe 'index' do
     before { get :index }

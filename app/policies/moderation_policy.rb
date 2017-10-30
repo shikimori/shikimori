@@ -12,7 +12,7 @@ class ModerationPolicy
   end
 
   def collections_count
-    return 0 unless !@moderation_filter || @user&.collections_moderator?
+    return 0 unless !@moderation_filter || @user&.collection_moderator?
     Collection.pending.published.where(locale: @locale).size
   end
 

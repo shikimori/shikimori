@@ -46,7 +46,7 @@ class SiteStatistics
   end
 
   def developers
-    User.where(id: 1)
+    User.where(id: User::MORR_ID)
   end
 
   def android

@@ -1,6 +1,5 @@
 describe Moderations::ReviewsController do
-  let(:user) { create :user, id: 1 }
-  before { sign_in user }
+  include_context :authenticated, :review_moderator
 
   describe 'index' do
     before { get :index }

@@ -141,10 +141,10 @@ private
 
   def build_policy
     AdsPolicy.new(
-      user_id: h.current_user
+      user: h.current_user,
       ad_provider: provider,
       is_ru_host: h.ru_host?,
-      is_shikimori: h.shikimori?,
+      is_shikimori: h.shikimori?
     )
   end
 

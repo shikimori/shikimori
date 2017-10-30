@@ -45,7 +45,7 @@ describe ModerationPolicy do
         .and_return(collections_count)
     end
     let(:collections_count) { 1 }
-    let(:user) { build :user, :collections_moderator }
+    let(:user) { build :user, :collection_moderator }
 
     it { expect(policy.collections_count).to eq 1 }
 
@@ -86,7 +86,7 @@ describe ModerationPolicy do
     end
     let(:abuse_abuses_count) { 1 }
     let(:abuse_pending_count) { 2 }
-    let(:user) { build :user, :moderator }
+    let(:user) { build :user, :forum_moderator }
 
     it { expect(policy.abuses_count).to eq 3 }
 

@@ -31,7 +31,7 @@ describe AbuseRequestsService do
       end
 
       context 'moderator' do
-        let(:user) { create :user, id: 1 }
+        let(:user) { create :user, :forum_moderator }
         let(:comment) { create :comment, :offtopic, user: user, created_at: 1.month.ago }
         it { expect { act }.to change(AbuseRequest, :count).by 0 }
       end
@@ -72,9 +72,9 @@ describe AbuseRequestsService do
     end
   end
 
-  [:summary, :offtopic, :abuse, :spoiler].each do |method|
+  %i[summary offtopic abuse spoiler].each do |method|
     describe method.to_s do
-      if method == :summary || method == :offtopic
+      if %i[summary offtopic].include? method
         let(:reason) { nil }
         subject(:act) { service.send method, faye_token }
       else

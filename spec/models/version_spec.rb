@@ -311,10 +311,7 @@ describe Version do
     end
 
     context 'trusted_ranobe_external_links_changer' do
-      let(:user) do
-        build_stubbed :user,
-          id: User::TRUSTED_RANOBE_EXTERNAL_LINKS_CHANGERS.sample
-      end
+      let(:user) { build_stubbed :user, :trusted_ranobe_external_links_changer }
       let(:version) do
         build_stubbed :collection_version,
           item: item,

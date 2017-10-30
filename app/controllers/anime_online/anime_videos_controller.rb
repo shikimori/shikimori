@@ -26,7 +26,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
   def new
     page_title 'Новое видео'
 
-    if AnimeVideo::CopyrightBanAnimeIDs.include?(@anime.id) &&
+    if AnimeVideo::COPYRIGHT_BAN_ANIME_IDS.include?(@anime.id) &&
         (!user_signed_in? || !current_user.admin?)
       raise ActionController::RoutingError, 'Not Found'
     end

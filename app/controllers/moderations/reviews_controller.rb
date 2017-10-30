@@ -45,6 +45,7 @@ class Moderations::ReviewsController < ModerationsController
   end
 
 private
+
   def check_permissions
     raise Forbidden unless current_user.review_moderator?
   end

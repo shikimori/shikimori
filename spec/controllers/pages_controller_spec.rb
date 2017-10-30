@@ -68,12 +68,9 @@ describe PagesController do
   # end
 
   describe 'feedback' do
-    before do
-      create :user, id: 1
-      create :user, id: User::GUEST_ID
-      get :feedback
-    end
-
+    let!(:admin) { create :user, :admin }
+    let!(:guest) { create :user, :guest }
+    before { get :feedback }
     it { expect(response).to have_http_status :success }
   end
 

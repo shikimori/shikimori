@@ -323,9 +323,11 @@ describe DbImport::Anime do
 
   describe 'censored' do
     let(:genres) { [{ id: genre_id, name: 'test' }] }
+    let!(:genre) { create :genre, id: 98765, mal_id: genre_id }
 
     describe 'by rating' do
       let(:genre_id) { 1 }
+
       context 'not rx' do
         let(:rating) { 'pg' }
         it do

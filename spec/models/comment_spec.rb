@@ -390,7 +390,7 @@ describe Comment do
     end
 
     context 'forum moderator' do
-      let(:user) { build_stubbed :user, :moderator }
+      let(:user) { build_stubbed :user, :forum_moderator }
       let(:comment) { build_stubbed :comment, user: build_stubbed(:user) }
       it { is_expected.to be_able_to :manage, comment }
     end

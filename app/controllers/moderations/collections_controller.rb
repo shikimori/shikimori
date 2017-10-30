@@ -21,7 +21,7 @@ class Moderations::CollectionsController < ModerationsController
         .order(created_at: :desc)
     end
 
-    # if user_signed_in? && current_user.collections_moderator?
+    # if user_signed_in? && current_user.collection_moderator?
     @pending = Collection
       .where(moderation_state: :pending)
       .where(state: :published)
@@ -48,6 +48,6 @@ class Moderations::CollectionsController < ModerationsController
 
 private
   def check_permissions
-    raise Forbidden unless current_user.collections_moderator?
+    raise Forbidden unless current_user.collection_moderator?
   end
 end
