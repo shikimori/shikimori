@@ -8,7 +8,7 @@ class AnimesCollection::View < ViewObjectBase
   PAGE_LIMIT = 20
   SEASON_LIMIT = 1000
 
-  CACHE_VERSION = 'v9'
+  CACHE_VERSION = 'v10'
 
   def collection
     if season_page?
