@@ -23,6 +23,8 @@ private
       req.url URL
       req.headers['Authorization'] = 'foo'
       req.headers['Content-Type'] = 'application/json'
+      req.options.timeout = 90
+      req.options.open_timeout = 90
       req.body = params.to_json
     end
   end
