@@ -5,10 +5,20 @@
 .b-edit_styles
   .edit_style, .new_style
     .style_css
-      #style_css_ace
-        border: 1px solid #ddd
-        min-height: 400px
+      textarea
+        display: block
+        max-height: 417px
+        min-height: 89px
         width: 100%
+
+      .CodeMirror
+        clear: both
+        box-shadow: none
+        border: 1px solid #ddd
+
+        &.CodeMirror-fullscreen
+          z-index: 20
+
       label
         float: left
         margin-top: 15px

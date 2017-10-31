@@ -7,18 +7,12 @@
         html: { 'data-type' => :json } do |f|
       / = f.input :name
 
-      .editor-container
+      .editor-container.b-ajax
         .buttons.m15
           / a.cancel href="#{cancel_url}" = t 'actions.cancel'
           = f.button :magic_submit
-        = f.input :css, as: :hidden
-
-        .b-input.style_css
-          label.text.optional.control-label for="style_css" CSS
-          .b-ajax#style_css_ace
-            = f.object.css
-          - if local_assigns[:css_hint].present?
-            span.hint = local_assigns[:css_hint]
+        = f.input :css,
+          hint: local_assigns[:css_hint]
 
         .preview.ajax-loading.vk-like[
           data-url="#{preview_api_styles_url}"
@@ -27,6 +21,10 @@
           / a.cancel href="#{cancel_url}" = t 'actions.cancel'
           = f.button :magic_submit
         .clearfix
+
+      .block
+        div: b = t '.hotkeys'
+        div = t '.f11'
 
       - if ru_host?
         div: b Полезные ссылки

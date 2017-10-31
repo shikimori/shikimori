@@ -1,6 +1,8 @@
 ru:
   styles:
     editor:
+      hotkeys: Горячие кнопки
+      f11: F11 - полноэкранный режим
       page_background_color: Фон центральной области
       page_border: Полупрозрачная рамка по бокам страницы
       body_background: Фоновая картинка

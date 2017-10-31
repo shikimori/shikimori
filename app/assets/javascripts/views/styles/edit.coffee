@@ -2,15 +2,31 @@ using 'Styles'
 class Styles.Edit extends View
   initialize: ->
     require.ensure [], (require) =>
-      Ace = require 'brace'
-      require 'brace/mode/css'
-      require 'brace/theme/solarized_light'
+      CodeMirror = require 'codemirror'
 
-      @editor = @_init_editor(Ace)
+      require 'codemirror/addon/hint/show-hint.js'
+      require 'codemirror/addon/hint/css-hint.js'
+
+      require 'codemirror/lib/codemirror.css'
+      require 'codemirror/theme/solarized.css'
+      require 'codemirror/addon/hint/show-hint.css'
+      require 'codemirror/addon/dialog/dialog.css'
+      require 'codemirror/addon/display/fullscreen.css'
+      require 'codemirror/addon/search/matchesonscrollbar.css'
+
+      require 'codemirror/addon/display/fullscreen.js'
+      require 'codemirror/addon/dialog/dialog.js'
+      require 'codemirror/addon/search/searchcursor.js'
+      require 'codemirror/addon/search/search.js'
+      require 'codemirror/addon/scroll/annotatescrollbar.js'
+      require 'codemirror/addon/search/matchesonscrollbar.js'
+      require 'codemirror/addon/search/jump-to-line.js'
 
       @md5 = require('blueimp-md5')
       @$form = @$ '.edit_style'
       @$preview = @$ '.preview'
+
+      @editor = @_init_editor(CodeMirror)
 
       @css_cache = {}
 
@@ -29,8 +45,8 @@ class Styles.Edit extends View
         .on 'ajax:before', => @$form.find('.editor-container').addClass 'b-ajax'
         .on 'ajax:complete', => @$form.find('.editor-container').removeClass 'b-ajax'
 
-      @editor.on 'cut', @_debounced_sync
-      @editor.on 'paste', @_debounced_sync
+      # @editor.on 'cut', @_debounced_sync
+      # @editor.on 'paste', @_debounced_sync
       @editor.on 'change', @_debounced_sync
 
       @$root.on 'component:update', @_component_updated
@@ -50,19 +66,22 @@ class Styles.Edit extends View
     @preview()
     @_sync_components()
 
-  _init_editor: (Ace) ->
-    @$('#style_css_ace').removeClass 'b-ajax'
-    editor = Ace.edit 'style_css_ace'
+  _init_editor: (CodeMirror) ->
+    @$form.find('.editor-container').removeClass 'b-ajax'
 
-    editor.$blockScrolling = Infinity
-    editor.setOptions
-      wrap: true
-
-    editor.session.setMode('ace/mode/css')
-    editor.session.setUseWorker(false)
-    editor.setTheme('ace/theme/solarized_light')
-
-    editor
+    CodeMirror.fromTextArea @$('#style_css')[0],
+      mode: 'css'
+      theme: 'solarized light'
+      lineNumbers: true
+      styleActiveLine: true
+      matchBrackets: true
+      lineWrapping: true
+      extraKeys:
+        'F11': (editor) ->
+          editor.setOption 'fullScreen', !editor.getOption('fullScreen')
+        'Esc': (editor) ->
+          if editor.getOption 'fullScreen'
+            editor.setOption 'fullScreen', false
 
   _sync_components: ->
     css = @editor.getValue()
