@@ -6,7 +6,7 @@
     .progress: .bar style="width: #{achievement.progress}%"
     .text == achievement.text.gsub("\n", "<br>")
 
-  - if local_assigns[:images]
+  - if local_assigns[:images] && achievement.images.any?
     - achievement.images.each_with_index do |image, index|
       - if index > 0
         .c-about &nbsp;
