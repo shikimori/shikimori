@@ -6,11 +6,11 @@ class Achievements::Track
     queue: :achievements,
     dead: false
   )
-  sidekiq_retry_in { 60 * 60 * 24 }
+  # sidekiq_retry_in { 60 * 60 * 24 }
 
   RETRYABLE_OPTIONS = {
     tries: 5,
-    on: Network::FaradayGet::NET_ERRORS,
+    on: Network::FaradayGet::NET_ERRORS + [Neko::RequestError],
     sleep: 3
   }
 

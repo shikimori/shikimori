@@ -40,8 +40,7 @@ private
   end
 
   def failure! response
-    raise(
+    raise Neko::RequestError,
       "#{response.status} #{response.reason_phrase} #{response.body}".strip
-    )
   end
 end
