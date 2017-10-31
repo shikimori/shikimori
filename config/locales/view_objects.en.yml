@@ -22,6 +22,7 @@ en:
     title:
       anime: Anime &laquo;%{target_name}&raquo; review
       manga: Manga &laquo;%{target_name}&raquo; review
+      ranobe: Ranobe &laquo;%{target_name}&raquo; review
 
   topics/comments_view: &comments
     show_comments: Display %{comment_count} %{comment_word}
