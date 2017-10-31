@@ -11,6 +11,14 @@ require 'magnific-popup/dist/magnific-popup.css'
 require 'nouislider/distribute/nouislider.css'
 require 'pikaday/scss/pikaday.scss'
 
+# used in views/styles/edit.coffee
+require 'codemirror/lib/codemirror.css'
+require 'codemirror/theme/solarized.css'
+require 'codemirror/addon/hint/show-hint.css'
+require 'codemirror/addon/dialog/dialog.css'
+require 'codemirror/addon/display/fullscreen.css'
+require 'codemirror/addon/search/matchesonscrollbar.css'
+
 require 'imagesloaded'
 
 bowser = require 'bowser'

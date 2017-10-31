@@ -7,13 +7,6 @@ class Styles.Edit extends View
       require 'codemirror/addon/hint/show-hint.js'
       require 'codemirror/addon/hint/css-hint.js'
 
-      require 'codemirror/lib/codemirror.css'
-      require 'codemirror/theme/solarized.css'
-      require 'codemirror/addon/hint/show-hint.css'
-      require 'codemirror/addon/dialog/dialog.css'
-      require 'codemirror/addon/display/fullscreen.css'
-      require 'codemirror/addon/search/matchesonscrollbar.css'
-
       require 'codemirror/addon/display/fullscreen.js'
       require 'codemirror/addon/dialog/dialog.js'
       require 'codemirror/addon/search/searchcursor.js'
