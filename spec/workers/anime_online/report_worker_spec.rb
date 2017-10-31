@@ -149,11 +149,24 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
           state: 'pending',
           user: user
       end
-      before { AnimeOnline::Uploaders.reset }
 
-      context 'auto_check' do
-        before { allow(AnimeOnline::Uploaders).to receive(:responsible).and_return([user.id]) }
-        it { is_expected.to be_accepted }
+      context 'auto check' do
+        before do
+          allow(AnimeOnline::UploaderPolicy)
+            .to receive(:new)
+            .and_return uploader_policy
+        end
+        let(:uploader_policy) { double 'trusted?': is_trusted }
+
+        context 'trusted' do
+          let(:is_trusted) { true }
+          it { is_expected.to be_accepted }
+        end
+
+        context 'not trusted' do
+          let(:is_trusted) { false }
+          it { is_expected.to be_pending }
+        end
       end
 
       context 'manual_check' do

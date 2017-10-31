@@ -41,8 +41,14 @@ FactoryGirl.define do
 
     trait(:user) { sequence :id, 23_456_789 }
     trait(:guest) { id User::GUEST_ID }
-    trait(:banhammer) { id User::BANHAMMER_ID }
-    trait(:cosplayer) { id User::COSPLAYER_ID }
+    trait :banhammer do
+      id User::BANHAMMER_ID
+      roles %i[bot]
+    end
+    trait :cosplayer do
+      id User::COSPLAYER_ID
+      roles %i[bot]
+    end
 
     Types::User::ROLES.each do |role|
       trait(role) { roles [role] }

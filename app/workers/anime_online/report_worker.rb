@@ -50,7 +50,9 @@ private
   end
 
   def process_uploaded report
-    report.accept! approver if AnimeOnline::Uploaders.trusted?(report.user_id)
+    if AnimeOnline::UploaderPolicy.new(report.user).trusted?
+      report.accept! approver
+    end
   end
 
   def approver
