@@ -15,6 +15,7 @@ describe MalParsers::AnimeAuthorized do
         japanese: 'ソードアート・オンライン',
         kind: :tv,
         episodes: 25,
+        season: 'summer_2012',
         status: :released,
         aired_on: Date.parse('2012-07-08'),
         released_on: Date.parse('2012-12-23'),
