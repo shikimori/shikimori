@@ -7,7 +7,7 @@
         html: { 'data-type' => :json } do |f|
       / = f.input :name
 
-      .editor-container.b-ajax
+      .editor-container
         .buttons.m15
           / a.cancel href="#{cancel_url}" = t 'actions.cancel'
           = f.button :magic_submit

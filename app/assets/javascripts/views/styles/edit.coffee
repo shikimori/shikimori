@@ -1,6 +1,11 @@
 using 'Styles'
 class Styles.Edit extends View
   initialize: ->
+    @$form = @$ '.edit_style'
+    @$preview = @$ '.preview'
+
+    @_loading()
+
     require.ensure [], (require) =>
       CodeMirror = require 'codemirror'
 
@@ -16,8 +21,6 @@ class Styles.Edit extends View
       require 'codemirror/addon/search/jump-to-line.js'
 
       @md5 = require('blueimp-md5')
-      @$form = @$ '.edit_style'
-      @$preview = @$ '.preview'
 
       @editor = @_init_editor(CodeMirror)
 
@@ -34,9 +37,8 @@ class Styles.Edit extends View
 
       @_sync_components()
 
-      @$form
-        .on 'ajax:before', => @$form.find('.editor-container').addClass 'b-ajax'
-        .on 'ajax:complete', => @$form.find('.editor-container').removeClass 'b-ajax'
+      @$form.on 'ajax:before', @_loading
+      @$form.on 'ajax:complete', @_loaded
 
       # @editor.on 'cut', @_debounced_sync
       # @editor.on 'paste', @_debounced_sync
@@ -59,8 +61,14 @@ class Styles.Edit extends View
     @preview()
     @_sync_components()
 
-  _init_editor: (CodeMirror) ->
+  _loading: =>
+    @$form.find('.editor-container').addClass 'b-ajax'
+
+  _loaded: =>
     @$form.find('.editor-container').removeClass 'b-ajax'
+
+  _init_editor: (CodeMirror) ->
+    @_loaded()
 
     CodeMirror.fromTextArea @$('#style_css')[0],
       mode: 'css'
