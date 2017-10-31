@@ -17,7 +17,10 @@ class ModerationsController < ShikimoriController
         .where('user_id != approver_id')
         .group(:approver_id)
         .select('approver_id, count(*) as count')
-        .where(approver_id: User::Roles::MODERATORS - User::Roles::ADMINS)
+        .where(approver_id:
+          User.where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
+        )
+        .where.not(approver_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
 
@@ -26,7 +29,10 @@ class ModerationsController < ShikimoriController
         .where('user_id != moderator_id')
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
-        .where(moderator_id: User::Roles::MODERATORS - User::Roles::ADMINS)
+        .where(moderator_id:
+          User.where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
+        )
+        .where.not(moderator_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
 
@@ -35,7 +41,10 @@ class ModerationsController < ShikimoriController
         .where('user_id != moderator_id')
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
-        .where(moderator_id: User::Roles::VERSIONS_MODERATORS - User::Roles::ADMINS)
+        .where(moderator_id:
+          User.where("roles && '{#{Types::User::Roles[:version_moderator]}}'")
+        )
+        .where.not(moderator_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
     end
