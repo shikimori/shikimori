@@ -46,7 +46,7 @@ header.head
             = t '.edited_videos_journal'
             span.size = @moderation_policy.videos_count
 
-      - if current_user&.reviews_moderator?
+      - if current_user&.review_moderator?
         li
           a.b-link[
             href="#{moderations_reviews_url}"
@@ -55,7 +55,7 @@ header.head
             = t '.reviews_journal'
             span.size = @moderation_policy.reviews_count
 
-      - if current_user&.collections_moderator?
+      - if current_user&.collection_moderator?
         li
           a.b-link[
             href="#{moderations_collections_url}"

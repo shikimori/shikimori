@@ -127,7 +127,7 @@
             ]
 
       / - if Rails.env.production? && ru_host?
-        / - if !user_signed_in? || !current_user.moderator? || !current_user.versions_moderator? || current_user.admin?
+        / - if !user_signed_in? || !current_user.forum_moderator? || !current_user.version_moderator? || current_user.admin?
           / .y-sponsored#yandex_rtb_R-A-227837-1
             / javascript:
                 / (function(w, d, n, s, t) {

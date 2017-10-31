@@ -7,13 +7,17 @@ class Moderations::BansController < ModerationsController
     noindex && nofollow
     page_title i18n_t('page_title')
 
-    @moderators = User.where(id: User::MODERATORS - User::ADMINS).sort_by { |v| v.nickname.downcase }
+    @moderators = User
+      .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
+
     @bans = postload_paginate(params[:page], 25) { Ban.includes(:comment).order(created_at: :desc) }
 
     @site_rules = StickyTopicView.site_rules(locale_from_host)
     @club = Club.find_by(id: 917)&.decorate if ru_host?
 
-    if user_signed_in? && current_user.moderator?
+    if user_signed_in? && current_user.forum_moderator?
       @declined = AbuseRequest.where(state: 'rejected', kind: ['spoiler', 'abuse']).order('id desc').limit(15)
       @pending = AbuseRequest
         .where(state: 'pending')
@@ -30,7 +34,7 @@ class Moderations::BansController < ModerationsController
   end
 
   def create
-    raise Forbidden unless current_user.moderator?
+    raise Forbidden unless current_user.forum_moderator?
     @resource = Ban.new ban_params
 
     if @resource.save

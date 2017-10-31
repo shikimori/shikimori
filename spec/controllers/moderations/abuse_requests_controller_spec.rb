@@ -1,6 +1,5 @@
 describe Moderations::AbuseRequestsController do
-  let(:user) { create :user, :moderator }
-  before { sign_in user }
+  include_context :authenticated, :forum_moderator
 
   describe '#index' do
     before { get :index }

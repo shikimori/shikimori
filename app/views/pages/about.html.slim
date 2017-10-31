@@ -27,7 +27,7 @@ header.head
 
         .members-block.left
           p = t '.moderation_content'
-          = render @statistics.versions_moderators, content_by: :avatar
+          = render @statistics.version_moderators, content_by: :avatar
 
         - if @statistics.contest_moderators.any?
           .members-block.left

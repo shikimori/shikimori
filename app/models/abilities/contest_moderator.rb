@@ -1,4 +1,4 @@
-class Abilities::ContestsModerator
+class Abilities::ContestModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 

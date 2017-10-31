@@ -1,10 +1,14 @@
 describe Moderations::AnimeVideoReportsController do
-  before { sign_in moderator }
+  include_context :authenticated, :video_moderator
 
-  let(:user) { create :user, :user }
-  let(:moderator) { create :user, :video_moderator }
+  let(:user_2) { create :user }
   let(:anime_video) { create :anime_video, anime: create(:anime) }
-  let!(:anime_video_report) { create :anime_video_report, user: user, kind: kind, anime_video: anime_video }
+  let!(:anime_video_report) do
+    create :anime_video_report,
+      user: user_2,
+      kind: kind,
+      anime_video: anime_video
+  end
   let(:kind) { 'broken' }
 
   describe '#index' do
@@ -73,7 +77,7 @@ describe Moderations::AnimeVideoReportsController do
       {
         kind: 'broken',
         anime_video_id: anime_video.id,
-        user_id: user.id,
+        user_id: user_2.id,
         message: 'test'
       }
     end
@@ -88,7 +92,13 @@ describe Moderations::AnimeVideoReportsController do
 
   describe '#cancel' do
     let(:anime_video) { create :anime_video, anime: create(:anime), state: state }
-    let!(:anime_video_report) { create :anime_video_report, user: user, kind: kind, anime_video: anime_video, state: 'accepted' }
+    let!(:anime_video_report) do
+      create :anime_video_report,
+        user: user_2,
+        kind: kind,
+        anime_video: anime_video,
+        state: 'accepted'
+    end
     let(:state) { kind }
 
     before { post :cancel, params: { id: anime_video_report.id } }

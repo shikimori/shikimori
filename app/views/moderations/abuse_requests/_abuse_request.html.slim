@@ -48,7 +48,7 @@
     - if abuse_request.comment.commentable_type == User.name
       span.misc-comment = t '.profile_comment'
 
-    - if user_signed_in? && current_user.moderator?
+    - if user_signed_in? && current_user.forum_moderator?
       .spoiler.collapse: span.action.half-hidden style="display: none;" = t '.show'
       .collapsed.spoiler: span = t '.actions'
       .spoiler.target style="display: none;"

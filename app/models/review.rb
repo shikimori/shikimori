@@ -31,7 +31,7 @@ class Review < ApplicationRecord
   # хз что это за хрень и почему ReviewComment.first.linked.target
   # возвращает сам обзор. я так и не понял
   def entry
-    @entry ||= Object.const_get(target_type).find(target_id)
+    @entry ||= target_type.constantize.find(target_id)
   end
 
   def body

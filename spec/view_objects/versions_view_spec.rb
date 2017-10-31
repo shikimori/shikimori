@@ -8,7 +8,7 @@ describe VersionsView do
   let!(:version_3) { create :version, state: 'accepted', created_at: 50.hours.ago, updated_at: 3.minutes.ago }
   let!(:version_4) { create :version, state: 'deleted', created_at: 55.hours.ago, updated_at: 4.minutes.ago }
 
-  let!(:moderator) { create :user, :versions_moderator }
+  let!(:moderator) { create :user, :version_moderator }
 
   before do
     allow(view.h).to receive(:params)

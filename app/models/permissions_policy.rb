@@ -9,13 +9,20 @@ module PermissionsPolicy
     # 85018 - топик фака
     def can_be_edited_by?(user)
       user && (
-        (user.id == self.user_id && ((self.respond_to?(:moderated?) && self.moderated?) || self.kind_of?(Topic) || (self.created_at + 1.day > Time.zone.now))) || user.moderator?
+        (
+          user.id == self.user_id && (
+            (self.respond_to?(:moderated?) && self.moderated?) ||
+            self.kind_of?(Topic) ||
+            (self.created_at + 1.day > Time.zone.now)
+          )
+        ) || user.forum_moderator?
       )
     end
 
     def can_be_deleted_by?(user)
       user && (
-        (user.id == self.user_id && self.created_at + 1.day > Time.zone.now) || user.moderator?
+        (user.id == self.user_id && self.created_at + 1.day > Time.zone.now) ||
+          user.forum_moderator?
       )
     end
   end
@@ -33,7 +40,7 @@ module PermissionsPolicy
     # end
 
     # def can_cancel_offtopic?(user)
-      # can_be_deleted_by?(user) || user.moderator?
+      # can_be_deleted_by?(user) || user.forum_moderator?
     # end
   # end
 

@@ -60,7 +60,7 @@ class AnimeVideo < ApplicationRecord
 
   scope :available, -> { where state: %w(working uploaded) }
 
-  CopyrightBanAnimeIDs = [-1] # 10793
+  COPYRIGHT_BAN_ANIME_IDS = [-1] # 10793
 
   state_machine :state, initial: :working do
     state :working
@@ -127,7 +127,7 @@ class AnimeVideo < ApplicationRecord
   end
 
   def copyright_ban?
-    CopyrightBanAnimeIDs.include? anime_id
+    COPYRIGHT_BAN_ANIME_IDS.include? anime_id
   end
 
   def uploader

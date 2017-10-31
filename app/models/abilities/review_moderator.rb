@@ -1,8 +1,8 @@
-class Abilities::VersionsModerator
+class Abilities::ReviewModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
   def initialize user
-    can :manage, Version
+    can :manage, Review
   end
 end

@@ -1,7 +1,6 @@
 // https://chrisbateman.github.io/webpack-visualizer/
 const webpack = require('webpack')
 const { environment } = require('@rails/webpacker')
-// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 environment.loaders.get('babel').exclude =
   /node_modules\/(?!delay|p-defer|get-js)/

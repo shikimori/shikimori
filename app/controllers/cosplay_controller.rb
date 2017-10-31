@@ -10,7 +10,11 @@ class CosplayController < ShikimoriController
     set_meta_tags noindex: true, nofollow: true
     @page_title = ['Косплей', 'Модерация']
 
-    @moderators = User.where(id: User::COSPLAY_MODERATORS - User::ADMINS)
+    User
+      .where("roles && '{#{Types::User::Roles[:cosplay_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
+
     limit = 480
     @cosplay = CosplayGallery
       .where(confirmed: false, deleted: false)

@@ -6,6 +6,10 @@ describe ClubInvite do
     it { is_expected.to belong_to(:message).dependent :destroy }
   end
 
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:status).in(*Types::ClubInvite::Status.values) }
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of :src }
     it { is_expected.to validate_presence_of :dst }

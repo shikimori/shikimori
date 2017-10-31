@@ -8,8 +8,10 @@ class Moderations::ReviewsController < ModerationsController
     @page_title = i18n_t 'page_title'
 
     @moderators = User
-      .where(id: User::REVIEWS_MODERATORS - User::ADMINS)
+      .where("roles && '{#{Types::User::Roles[:review_moderator]}}'")
+      .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
+
     @processed = postload_paginate(params[:page], 25) do
       Review
         .where(moderation_state: %i[accepted rejected])
@@ -18,7 +20,7 @@ class Moderations::ReviewsController < ModerationsController
         .order(created_at: :desc)
     end
 
-    # if user_signed_in? && current_user.reviews_moderator?
+    # if user_signed_in? && current_user.review_moderator?
     @pending = Review
       .where(moderation_state: :pending)
       .where(locale: locale_from_host)
@@ -43,7 +45,8 @@ class Moderations::ReviewsController < ModerationsController
   end
 
 private
+
   def check_permissions
-    raise Forbidden unless current_user.reviews_moderator?
+    raise Forbidden unless current_user.review_moderator?
   end
 end

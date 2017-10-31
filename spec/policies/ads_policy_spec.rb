@@ -4,14 +4,14 @@ describe AdsPolicy do
       is_ru_host: is_ru_host,
       is_shikimori: is_shikimori,
       ad_provider: ad_provider,
-      user_id: user_id
+      user: user
     )
   end
 
   let(:is_ru_host) { true }
   let(:is_shikimori) { true }
   let(:ad_provider) { Types::Ad::Provider.values.sample }
-  let(:user_id) { nil }
+  let(:user) { nil }
 
   it { is_expected.to be_allowed }
 
@@ -22,17 +22,26 @@ describe AdsPolicy do
 
   describe 'user_id' do
     context 'user' do
-      let(:user_id) { 9_876_543 }
+      let(:user) { build :user, :user }
       it { is_expected.to be_allowed }
     end
 
     context 'admin' do
-      let(:user_id) { User::ADMINS.sample }
+      let(:user) { build :user, :admin }
       it { is_expected.to be_allowed }
     end
 
     context 'moderator' do
-      let(:user_id) { AdsPolicy::FORBIDDEN_USER_IDS.sample }
+      let(:user) do
+        build :user, %i[
+          forum_moderator
+          review_moderator
+          version_moderator
+          video_moderator
+          trusted_version_changer
+          trusted_video_uploader
+        ].sample
+      end
 
       context 'not istari' do
         let(:ad_provider) do

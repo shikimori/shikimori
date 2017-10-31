@@ -76,13 +76,13 @@ describe Review do
       end
     end
 
-    context 'reviews moderator' do
-      let(:user) { build_stubbed :user, :reviews_moderator }
+    context 'review_moderator' do
+      let(:user) { build_stubbed :user, :review_moderator }
       it { is_expected.to be_able_to :manage, review }
     end
 
-    context 'forum moderator' do
-      let(:user) { build_stubbed :user, :moderator }
+    context 'forum_moderator' do
+      let(:user) { build_stubbed :user, :forum_moderator }
       it { is_expected.to be_able_to :manage, review }
     end
 

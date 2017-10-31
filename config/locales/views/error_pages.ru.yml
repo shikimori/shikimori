@@ -31,11 +31,7 @@ ru:
     text: |
       <p>Вам уже есть 18 лет?</p>
       <p>
-        <span class='confirm' data-cookie="%{cookie}">
-          Да
-        </span>
+        <span class='confirm' data-cookie="%{cookie}">Да</span>
         &nbsp;&nbsp;&nbsp;
-        <a href='%{root_url}'>
-          Нет
-        </a>
+        <a href='%{root_url}'>Нет</a>
       </p>

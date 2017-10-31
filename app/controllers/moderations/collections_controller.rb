@@ -8,7 +8,8 @@ class Moderations::CollectionsController < ModerationsController
     @page_title = i18n_t 'page_title'
 
     @moderators = User
-      .where(id: User::COLLECTIONS_MODERATORS - User::ADMINS)
+      .where("roles && '{#{Types::User::Roles[:collection_moderator]}}'")
+      .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
 
     @processed = postload_paginate(params[:page], 25) do
@@ -20,7 +21,7 @@ class Moderations::CollectionsController < ModerationsController
         .order(created_at: :desc)
     end
 
-    # if user_signed_in? && current_user.collections_moderator?
+    # if user_signed_in? && current_user.collection_moderator?
     @pending = Collection
       .where(moderation_state: :pending)
       .where(state: :published)
@@ -47,6 +48,6 @@ class Moderations::CollectionsController < ModerationsController
 
 private
   def check_permissions
-    raise Forbidden unless current_user.collections_moderator?
+    raise Forbidden unless current_user.collection_moderator?
   end
 end

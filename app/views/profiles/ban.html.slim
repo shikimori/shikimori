@@ -6,7 +6,7 @@
         formatted_date: l(@resource.read_only_at, format: :full),
         iso_date: @resource.read_only_at.iso8601
 
-  - if current_user&.moderator?
+  - if current_user&.forum_moderator?
     .cc-2
       .c-column
         .subheadline = @page_title.last

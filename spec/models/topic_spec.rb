@@ -239,7 +239,7 @@ describe Topic do
     end
 
     context 'forum moderator' do
-      let(:user) { build_stubbed :user, :moderator }
+      let(:user) { build_stubbed :user, :forum_moderator }
       let(:topic) { build_stubbed :topic, user: build_stubbed(:user) }
 
       context 'common topic' do

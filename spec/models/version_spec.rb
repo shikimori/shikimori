@@ -192,7 +192,7 @@ describe Version do
     subject { Ability.new user }
 
     context 'user_chagnes_moderator' do
-      subject { Ability.new build_stubbed(:user, :versions_moderator) }
+      subject { Ability.new build_stubbed(:user, :version_moderator) }
       it { is_expected.to be_able_to :manage, version }
     end
 
@@ -249,8 +249,8 @@ describe Version do
             it { is_expected.to_not be_able_to :destroy, version }
           end
 
-          context 'version_vermin user' do
-            let(:user) { build_stubbed :user, :version_vermin }
+          context 'not_trusted_version_changer user' do
+            let(:user) { build_stubbed :user, :not_trusted_version_changer }
             it { is_expected.to_not be_able_to :create, version }
             it { is_expected.to_not be_able_to :destroy, version }
           end
@@ -311,10 +311,7 @@ describe Version do
     end
 
     context 'trusted_ranobe_external_links_changer' do
-      let(:user) do
-        build_stubbed :user,
-          id: User::TRUSTED_RANOBE_EXTERNAL_LINKS_CHANGERS.sample
-      end
+      let(:user) { build_stubbed :user, :trusted_ranobe_external_links_changer }
       let(:version) do
         build_stubbed :collection_version,
           item: item,

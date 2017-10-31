@@ -81,7 +81,7 @@ describe Genre do
     subject { Ability.new user }
 
     context 'forum moderator' do
-      let(:user) { build_stubbed :user, :moderator }
+      let(:user) { build_stubbed :user, :forum_moderator }
 
       it { is_expected.to be_able_to :read, genre }
       it { is_expected.to be_able_to :tooltip, genre }

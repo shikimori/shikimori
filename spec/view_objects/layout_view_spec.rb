@@ -117,7 +117,7 @@ describe LayoutView do
       it do
         expect(view.user_data).to eq(
           id: current_user.id,
-          is_moderator: current_user.moderator?,
+          is_moderator: current_user.forum_moderator?,
           ignored_topics: [offtopic_topic.id],
           ignored_users: [ignored_user.id],
           is_day_registered: false,

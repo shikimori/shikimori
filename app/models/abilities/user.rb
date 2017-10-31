@@ -206,20 +206,20 @@ class Abilities::User
 
   def anime_video_abilities
     can :create, AnimeVideoReport do |report|
-      !@user.banned? && !@user.version_vermin? &&
+      !@user.banned? && !@user.not_trusted_version_changer? &&
         report.user_id == @user.id && (
           report.broken? || report.wrong? || report.other?
         )
     end
     can %i[new create], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.version_vermin? && anime_video.uploaded?
+      !@user.banned? && !@user.not_trusted_version_changer? && anime_video.uploaded?
     end
     can %i[edit update], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.version_vermin? &&
+      !@user.banned? && !@user.not_trusted_version_changer? &&
         (anime_video.uploaded? || anime_video.working?)
     end
     can :destroy, AnimeVideo do |anime_video|
-      !@user.banned? && !@user.version_vermin? &&
+      !@user.banned? && !@user.not_trusted_version_changer? &&
         (anime_video.uploader == @user && (
           @user.api_video_uploader? || anime_video.created_at > 1.week.ago)
         )
@@ -233,7 +233,7 @@ class Abilities::User
           "#{version.item_type}::SIGNIFICANT_FIELDS".constantize
       ).first
 
-      !@user.banned? && !@user.version_vermin? &&
+      !@user.banned? && !@user.not_trusted_version_changer? &&
         version.user_id == @user.id && (
           significant_field.nil? ||
           version.item_diff.dig(significant_field, 0).nil? # changing from nil value

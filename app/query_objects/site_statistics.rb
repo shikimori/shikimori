@@ -39,11 +39,14 @@ class SiteStatistics
   end
 
   def contest_moderators
-    User.where(id: User::CONTEST_MODERATORS - User::ADMINS)
+    User
+      .where("roles && '{#{Types::User::Roles[:contest_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
   end
 
   def developers
-    User.where(id: 1)
+    User.where(id: User::MORR_ID)
   end
 
   def android
@@ -54,8 +57,11 @@ class SiteStatistics
     User.where(id: [2,11,19,861,950,1945,864,6452,28133,23002,30214]).order(:id)
   end
 
-  def versions_moderators
-    User.where(id: User::VERSIONS_MODERATORS - User::ADMINS)
+  def version_moderators
+    User
+      .where("roles && '{#{Types::User::Roles[:version_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
   end
 
   def retired_moderators
@@ -69,7 +75,10 @@ class SiteStatistics
   end
 
   def forum_moderators
-    User.where(id: User::MODERATORS - User::ADMINS)
+    User
+      .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
   end
 
   def cosplay_moderators
@@ -83,7 +92,8 @@ class SiteStatistics
   def translators
     User
       .joins(:versions)
-      .where.not(id: [1, User::GUEST_ID] + BotsService.posters)
+      .where.not("roles && '{#{Types::User::Roles[:bot]}}'")
+      .where.not(id: [User::MORR_ID, User::GUEST_ID])
       .where(versions: { state: [:accepted, :taken, :auto_accepted] })
       .where.not(versions: { item_type: AnimeVideo.name })
       .group('users.id')
@@ -102,7 +112,11 @@ class SiteStatistics
   end
 
   def newsmakers
-    newsmakers = Topics::NewsTopic.where(generated: false).group(:user_id).count
+    newsmakers = Topics::NewsTopic
+      .where(generated: false)
+      .group(:user_id)
+      .count
+
     newsmarker_ids = newsmakers
         .sort_by {|k,v| -v }
         .map(&:first)

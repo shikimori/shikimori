@@ -123,7 +123,7 @@ describe AnimeVideo do
         let(:anime) { create :anime, id: anime_id }
 
         context 'banned anime_id' do
-          let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
+          let(:anime_id) { AnimeVideo::COPYRIGHT_BAN_ANIME_IDS.first }
           it { is_expected.to be_copyrighted }
         end
 
@@ -344,12 +344,12 @@ describe AnimeVideo do
     end
 
     describe '#copyright_ban' do
-      before { stub_const('AnimeVideo::CopyrightBanAnimeIDs', [2]) }
+      before { stub_const('AnimeVideo::COPYRIGHT_BAN_ANIME_IDS', [2]) }
       let(:anime_video) { build :anime_video, anime_id: anime_id }
       subject { anime_video.copyright_ban? }
 
       context 'ban' do
-        let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
+        let(:anime_id) { AnimeVideo::COPYRIGHT_BAN_ANIME_IDS.first }
         it { is_expected.to eq true }
       end
 

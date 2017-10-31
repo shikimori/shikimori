@@ -2,7 +2,7 @@ describe Users::LockHacked do
   include_context :timecop
 
   let(:user) { seed :user }
-  let!(:banhammer) { create :user, id: User::BANHAMMER_ID }
+  let!(:banhammer) { create :user, :banhammer }
   let!(:original_password) { user.encrypted_password }
   let!(:original_api_access_token) { user.api_access_token }
 
