@@ -4,6 +4,7 @@ describe DbImport::Anime do
     {
       id: id,
       name: 'Test test 2',
+      season: 'fall_2012',
       rating: rating,
       genres: genres,
       studios: studios,
