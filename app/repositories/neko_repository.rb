@@ -22,7 +22,7 @@ class NekoRepository
   end
 
   def cache_key
-    [Digest::MD5.hexdigest(raw_config), Time.zone.today, :v2]
+    [Digest::MD5.hexdigest(raw_config), Time.zone.today, :v4]
   end
 
 private

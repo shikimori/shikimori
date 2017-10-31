@@ -16,3 +16,19 @@ header.head
           = render 'users/achievements/achievement', achievement: achievements.first
         .c-column
           = render 'achievements/info', achievements: achievements
+
+      .incomplete[
+        data-label=t('.incomplete_achievement')
+      ]
+        - achievements.each do |achievement|
+          - if achievement.image.blank? || achievement.title(true).blank? || achievement.text(true).blank?
+            .incomplete-achievement
+              .label = t '.level', level: achievement.level
+
+              - if achievement.image.blank?
+                .field = t '.image'
+              - if achievement.title(true).blank?
+                .field = t '.title'
+              - if achievement.text(true).blank?
+                .field = t '.image'
+

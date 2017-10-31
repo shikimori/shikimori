@@ -1,7 +1,26 @@
 @import mixins/block
-@import mixins/responsive
 @import mixins/clear_left
 @import mixins/column
+@import mixins/comma_separated
+@import mixins/responsive
+
+.p-achievements-index
+  .incomplete
+    &:not(:empty):before
+      content: attr(data-label)
+      display: block
+      color: $red
+
+    .incomplete-achievement
+      font-size: 12px
+
+      .label
+        display: inline-block
+        padding-right: 5px
+
+    .field
+      +comma_separated(5px)
+      display: inline-block
 
 .p-achievements-show
   .b-entry-info .level

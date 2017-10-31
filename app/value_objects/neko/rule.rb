@@ -25,16 +25,24 @@ class Neko::Rule < Dry::Struct
     rule: {}
   )
 
-  def title
-    send("title_#{I18n.locale}") ||
-      title_ru ||
-      (NO_RULE.title if self != NO_RULE)
+  def title show_blank = false
+    if show_blank
+      send("title_#{I18n.locale}")
+    else
+      send("title_#{I18n.locale}") ||
+        title_ru ||
+        (NO_RULE.title if self != NO_RULE)
+    end
   end
 
-  def text
-    send("text_#{I18n.locale}") ||
-      text_ru ||
-      (NO_RULE.text if self != NO_RULE)
+  def text show_blank = false
+    if show_blank
+      send("text_#{I18n.locale}")
+    else
+      send("text_#{I18n.locale}") ||
+        text_ru ||
+        (NO_RULE.text if self != NO_RULE)
+    end
   end
 
   def hint

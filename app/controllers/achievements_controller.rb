@@ -16,9 +16,7 @@ class AchievementsController < ShikimoriController
 
     @topic_resource = build_topic_resource @collection.first.topic_id
 
-    page_title(
-      "#{i18n_i 'Achievement', :one} \"#{@collection.first.neko_name}\""
-    )
+    page_title @collection.first.neko_name
     breadcrumb i18n_i('Achievement', :other), achievements_url
   end
   # rubocop:enable AbcSize
