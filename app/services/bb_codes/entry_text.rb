@@ -3,7 +3,7 @@ class BbCodes::EntryText
 
   def call
     BbCodes::Text.call(
-      paragraphs(character_names(fix(@text), @entry))
+      paragraphs(remove_wiki_codes(character_names(fix(@text), @entry)))
     )
   end
 
@@ -22,9 +22,11 @@ private
   end
 
   def fix text
-    remove_wiki_codes(text || '')
+    text || ''
   end
 
+  # must be called after character_names
+  # becase [[...]] are used in BbCodes::CharactersNames
   def remove_wiki_codes text
     text
       .gsub(/\[\[[^\]|]+?\|(.*?)\]\]/, '\1')
