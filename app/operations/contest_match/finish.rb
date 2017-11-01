@@ -5,14 +5,14 @@ class ContestMatch::Finish
     ContestMatch.transaction do
       unvote_suspicious
       @contest_match.finish!
-      @contest_match.update_column :winner_id, winner_id
+      @contest_match.update_column :winner_id, obtain_winner_id
     end
   end
 
 private
 
   # rubocop:disable MethodLength
-  def winner_id
+  def obtain_winner_id
     if @contest_match.right_id.nil?
       @contest_match.left_id
 
@@ -58,5 +58,10 @@ private
       .each do |suspicious_vote|
         @contest_match.unvote_by suspicious_vote.voter
       end
+
+    # спека и без этого не падает, но 30.10.2017 случился случай, когда
+    # победу получил участник, набравший меньшее число голосов
+    # возможно, это поможет
+    @contest_match.reload
   end
 end
