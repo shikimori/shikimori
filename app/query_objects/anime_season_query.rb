@@ -17,7 +17,13 @@ class AnimeSeasonQuery
           when 'winter'
             date_from = Date.new(year-1, 12) - 8.days
             date_to = Date.new(year, 3) - 8.days
-            additional = " and (aired_on != '#{year}-01-01' or season = 'winter_#{year}')"
+            additionals =
+              if @klass == Anime
+                "aired_on != '#{year}-01-01' or season = 'winter_#{year}'"
+              else
+                "aired_on != '#{year}-01-01'"
+              end
+            additional = " and (#{additionals})"
 
           when 'fall'
             date_from = Date.new(year, 9) - 8.days
