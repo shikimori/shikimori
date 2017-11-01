@@ -133,10 +133,10 @@ class AniMangaDecorator < DbEntryDecorator
 
     elsif anons?
       if aired_on
-        fix_month = !anime? || season != "winter_#{aired_on.year}"
+        no_fix_month = anime? && season == "winter_#{aired_on.year}"
         parts << i18n_t(
           'datetime.release_dates.for_date',
-          date: h.formatted_date(aired_on, true, true, fix_month)
+          date: h.formatted_date(aired_on, true, true, !no_fix_month)
         )
       end
 

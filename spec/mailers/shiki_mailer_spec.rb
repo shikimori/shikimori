@@ -100,7 +100,8 @@ describe ShikiMailer do
 
           Изменить пароль можно, перейдя по данной ссылке: https://test.host/users/password/edit?reset_password_token=#{token}
 
-          Если вам пришло несколько писем о восстановлении пароля, то переходить на страницу сброса пароля нужно ОБЯЗАТЕЛЬНО по ссылке из самого последнего письма.
+
+          Если вам пришло несколько писем о восстановлении пароля, то переходить на страницу сброса пароля нужно обязательно по ссылке из самого последнего письма.
 
           Если вы не запрашивали сброс пароля, то просто проигнорируйте это письмо.
 
@@ -121,6 +122,7 @@ describe ShikiMailer do
           Your acount login is #{user.nickname}.
 
           To reset you password click this link: https://test.host/users/password/edit?reset_password_token=#{token}
+
 
           If you didn't make a request to reset your password just ignore this message.
 
