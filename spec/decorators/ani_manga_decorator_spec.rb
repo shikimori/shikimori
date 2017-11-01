@@ -2,10 +2,17 @@ describe AniMangaDecorator do
   subject(:decorator) { anime.decorate }
 
   describe '#release_date_text & #release_date_tooltip' do
-    let(:anime) { build :anime, status: status, aired_on: aired_date, released_on: released_date }
+    let(:anime) do
+      build :anime,
+        status: status,
+        aired_on: aired_date,
+        released_on: released_date,
+        season: season
+    end
 
-    let(:aired_on) { }
-    let(:released_on) { }
+    let(:aired_on) { nil }
+    let(:released_on) { nil }
+    let(:season) { nil }
 
     let(:aired_date) { aired_on ? Time.zone.parse(aired_on) : nil }
     let(:released_date) { released_on ? Time.zone.parse(released_on) : nil }
@@ -80,6 +87,21 @@ describe AniMangaDecorator do
 
         its(:release_date_text) { is_expected.to eq 'на март 2012 г.' }
         its(:release_date_tooltip) { is_expected.to be_nil }
+      end
+
+      context 'aired_on wo month' do
+        let(:aired_on) { '01-01-2012' }
+
+        context 'w/o season' do
+          its(:release_date_text) { is_expected.to eq 'на 2012 г.' }
+          its(:release_date_tooltip) { is_expected.to be_nil }
+        end
+
+        context 'with season' do
+          let(:season) { 'winter_2012' }
+          its(:release_date_text) { is_expected.to eq 'на январь 2012 г.' }
+          its(:release_date_tooltip) { is_expected.to be_nil }
+        end
       end
     end
 

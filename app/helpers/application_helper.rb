@@ -30,13 +30,13 @@ module ApplicationHelper
     "#{request.protocol}#{request.host_with_port}#{file.url style, with_timestamp}"
   end
 
-  def formatted_date date, fix_1_1=false, short_month=true
+  def formatted_date date, fix_1_day = false, short_month = true, fix_1_month = true
     return unless date
 
-    if fix_1_1
-      if date.day == 1 && date.month == 1
+    if fix_1_day
+      if fix_1_month && date.day == 1 && date.month == 1
         "#{date.year}"
-      elsif fix_1_1 && date.day == 1
+      elsif fix_1_day && date.day == 1
         I18n.l date, format: :month_year_human
       else
         I18n.l(date, format: short_month ? :human_short : :human).strip

@@ -1,5 +1,10 @@
 shared_context :view_object_warden_stub do
   before do
+    # Draper::ViewContext.test_strategy :full
+    # Draper::ViewContext.build!
+    # Draper::ViewContext.current.controller.request =
+      # ActionController::TestRequest.create(ShikimoriController)
+
     view_context = view.h
 
     view_context.request.env['warden'] ||= WardenStub.new

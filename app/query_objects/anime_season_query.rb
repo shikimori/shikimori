@@ -12,11 +12,12 @@ class AnimeSeasonQuery
         date_from = nil
         date_to = nil
         additional = ''
+
         case season
           when 'winter'
             date_from = Date.new(year-1, 12) - 8.days
             date_to = Date.new(year, 3) - 8.days
-            additional = " and aired_on != '#{Date.new(year, 3).year}-01-01'"
+            additional = " and (aired_on != '#{year}-01-01' or season = 'winter_#{year}')"
 
           when 'fall'
             date_from = Date.new(year, 9) - 8.days

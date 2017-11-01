@@ -113,31 +113,53 @@ class AniMangaDecorator < DbEntryDecorator
     if released?
       if released_on && aired_on && released_on.year != aired_on.year
         # в 2011-2012 гг.
-        parts << i18n_t('datetime.release_dates.in_years',
-          from_date: aired_on.year, to_date: released_on.year)
+        parts << i18n_t(
+          'datetime.release_dates.in_years',
+          from_date: aired_on.year,
+          to_date: released_on.year
+        )
       elsif released_on && aired_on
-        parts << i18n_t('datetime.release_dates.since_till_date',
-          from_date: h.formatted_date(aired_on, true, true),
-          to_date: h.formatted_date(released_on, true, true))
+        parts << i18n_t(
+          'datetime.release_dates.since_till_date',
+          from_date: h.formatted_date(aired_on, true),
+          to_date: h.formatted_date(released_on, true)
+        )
       else
-        parts << i18n_t('datetime.release_dates.date',
-          date: h.formatted_date(released_on || aired_on, true))
+        parts << i18n_t(
+          'datetime.release_dates.date',
+          date: h.formatted_date(released_on || aired_on, true)
+        )
       end
 
     elsif anons?
-      parts << i18n_t('datetime.release_dates.for_date',
-        date: h.formatted_date(aired_on, true)) if aired_on
+      if aired_on
+        fix_month = season != "winter_#{aired_on.year}"
+        parts << i18n_t(
+          'datetime.release_dates.for_date',
+          date: h.formatted_date(aired_on, true, true, fix_month)
+        )
+      end
 
     else # ongoings
       if aired_on && released_on
-        parts << i18n_t('datetime.release_dates.since_till_date',
-          from_date: h.formatted_date(aired_on, true, true),
-          to_date: h.formatted_date(released_on, true, true))
+        parts << i18n_t(
+          'datetime.release_dates.since_till_date',
+          from_date: h.formatted_date(aired_on, true),
+          to_date: h.formatted_date(released_on, true)
+        )
       else
-        parts << i18n_t('datetime.release_dates.since_date',
-          date: h.formatted_date(aired_on, true, true)) if aired_on
-        parts << i18n_t('datetime.release_dates.till_date',
-          date: h.formatted_date(released_on, true, true)) if released_on
+        if aired_on
+          parts << i18n_t(
+            'datetime.release_dates.since_date',
+            date: h.formatted_date(aired_on, true)
+          )
+        end
+        if released_on
+          parts << i18n_t(
+            'datetime.release_dates.till_date',
+            date: h.formatted_date(released_on, true)
+          )
+        end
       end
     end
 
