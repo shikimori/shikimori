@@ -7,14 +7,17 @@
     .style_css
       textarea
         display: block
-        max-height: 417px
+        max-height: 700px
         min-height: 89px
         width: 100%
 
       .CodeMirror
-        clear: both
-        box-shadow: none
         border: 1px solid #ddd
+        box-shadow: none
+        clear: both
+        resize: vertical
+        min-height: 500px
+        min-height: 85vh
 
         &.CodeMirror-fullscreen
           z-index: 20
