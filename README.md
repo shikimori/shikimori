@@ -35,7 +35,7 @@ shikimori_production=# CREATE EXTENSION unaccent;
 ~ git clone git@github.com:shikimori/neko-achievements.git
 ~ git clone git@github.com:morr/camo.git
 ~ cd shikimori
-~ brew install poncho # https://github.com/nickstenning/honcho
+~ brew install honcho # https://github.com/nickstenning/honcho
 ~ honcho start
 ```
 
