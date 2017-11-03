@@ -14,6 +14,7 @@ en:
         zero: And %{count} users more
         one: And %{count} user more
         other: And %{count} users more
-
+      works:
+        all: All
     index:
       search_results_for_query: Search results for query "%{query}"

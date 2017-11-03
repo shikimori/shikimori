@@ -717,8 +717,7 @@ Rails.application.routes.draw do
       concerns :searcheable
 
       member do
-        get 'time' => redirect {|params, request| request.url.sub('/time', '') } # редирект со старых урлов
-        get 'works(order-by/:order_by)' => :works, order_by: /date/, as: :works
+        get :works
       end
     end
     get 'producers/search/:search(/page/:page)' => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }

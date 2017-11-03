@@ -1,5 +1,6 @@
 @import globals
 @import mixins/brackets_surrounded
+@import mixins/dash_separated
 @import mixins/ellipsis2
 @import mixins/hover_underlined
 @import mixins/input
@@ -86,11 +87,12 @@ header.head
   font-weight: bold
   line-height: $line_height
   margin-bottom: 5px
-  +gt_laptop
-    margin-bottom: 10px
   padding: 4px 10px 2px
   text-transform: uppercase
   transition: color 0.2s ease
+
+  +gt_laptop
+    margin-bottom: 10px
 
   &>a
     +ellipsis2
@@ -172,33 +174,29 @@ header.head
     +brackets_surrounded($gray-3)
     margin-left: 5px
 
-  .misc-link
-    +link
-    display: inline
-    font-size: 12px
-    font-weight: normal
-    padding-left: 10px
-    text-transform: none
+  .misc-links
+    +gte_ipad
+      padding-left: 10px
+      display: inline
 
-    &:before
-      display: none
+    +iphone
+      display: block
 
-  //.additional
-    //+brackets_surrounded
-    //font-size: 11px
-    //font-weight: normal
-    //text-transform: initial
-    //display: inline-block
-    //margin-left: $block_offset
+    & > a
+      +link
+      +dash_separated
+      display: inline
+      font-size: 12px
+      font-weight: normal
+      padding-right: 0
+      text-transform: none
 
-    //&:before
-      //content: '['
 
-    //&:after
-      //content: ']'
+      &.selected
+        color: $link-hover
 
-    //a
-      //+link
+        &:hover
+          color: $link-active
 
 .mischeadline
   font-size: 13px

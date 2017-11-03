@@ -8,20 +8,20 @@
   - if topic_type_policy.news_topic? && topic_view.topic.linked
     span.about = t '.about'
     a.b-link.bubbled[
-      href="#{topic_view.topic.linked.decorate.url}"
-      title="#{localized_name topic_view.topic.linked}"
+      href=topic_view.topic.linked.decorate.url
+      title=localized_name(topic_view.topic.linked)
     ] = localized_name topic_view.topic.linked
 
   span.time
     time[
       itemprop="commentTime"
-      datetime="#{topic_view.created_at.iso8601}"
+      datetime=topic_view.created_at.iso8601
     ] = topic_view.format_date topic_view.created_at
 
   - if topic_view.respond_to?(:changed_at) && topic_view.changed_at
     span.time.changed_at
       time[
-        datetime="#{topic_view.changed_at.iso8601}"
+        datetime=topic_view.changed_at.iso8601
       ] = topic_view.format_date topic_view.changed_at
 
   span.additional

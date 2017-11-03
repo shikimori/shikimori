@@ -3,7 +3,8 @@ class PersonDecorator < DbEntryDecorator
 
   rails_cache :best_works
   instance_cache :website,
-    :flatten_roles, :all_roles, :groupped_roles, :roles_names, :works,
+    :flatten_roles, :all_roles, :groupped_roles, :roles_names,
+    :works, :work_types,
     :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?,
     :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
 
@@ -17,6 +18,7 @@ class PersonDecorator < DbEntryDecorator
   FIXED_CUSTOM_MAIN_ROLES = {
     2337 => { producer: true }
   }
+  WORK_TYPES = [Anime, Manga, Ranobe]
 
   FAVOURITES_SQL = <<-SQL.squish
     (linked_type = '#{Anime.name}' and linked_id in (?)) or
@@ -58,10 +60,19 @@ class PersonDecorator < DbEntryDecorator
 
   def works
     all_roles
-      .select { |v| v.anime || v.manga }
-      .map { |v| RoleEntry.new((v.anime || v.manga).decorate, v.role) }
+      .select(&:entry)
+      .select { |role| h.params[:type] ? h.params[:type] == role.entry.class.name : true }
+      .map { |role| RoleEntry.new(role.entry.decorate, role.role) }
       .sort_by { |anime| sort_criteria anime }
       .reverse
+  end
+
+  def work_types
+    all_roles
+      .select(&:entry)
+      .map { |role| role.entry.class }
+      .uniq
+      .sort_by { |klass| WORK_TYPES.index klass }
   end
 
   def best_works

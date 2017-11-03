@@ -17,49 +17,49 @@ ul.b-list.block
   - if params[:limit].present?
     li
       a.b-link[
-        href="#{url_for url_params(limit: nil)}"
+        href=url_for(url_params(limit: nil))
       ] убрать limit=5000
   - else
     li
       a.b-link[
-        href="#{url_for url_params(limit: 5000)}"
+        href=url_for(url_params(limit: 5000))
       ] limit=5000
 
   - if params[:broken_videos] == 'false'
     li
       a.b-link[
-        href="#{url_for url_params(broken_videos: nil)}"
+        href=url_for(url_params(broken_videos: nil))
       ] Показывать у кого все видео сломаны
   - else
     li
       a.b-link[
-        href="#{url_for url_params(broken_videos: 'false')}"
+        href=url_for(url_params(broken_videos: 'false'))
       ] Не показывать у кого все видео сломаны
 
   li
     a.b-link[
-      href="#{url_for url_params(is_verified: true)}"
+      href=url_for(url_params(is_verified: true))
     ] Только проверенные авторы
   li
     a.b-link[
-      href="#{url_for url_params(is_verified: false)}"
+      href=url_for(url_params(is_verified: false))
     ] Только не проверенные авторы
   li
     a.b-link[
-      href="#{none_moderations_anime_video_authors_url}"
+      href=none_moderations_anime_video_authors_url
     ] Видео без авторов
 
 .b-collection_search
   .field
     form
       - if params[:is_verified].present?
-        input type="hidden" name="is_verified" value="#{params[:is_verified]}"
+        input type="hidden" name="is_verified" value=params[:is_verified]
       - if params[:broken_videos].present?
-        input type="hidden" name="broken_videos" value="#{params[:broken_videos]}"
+        input type="hidden" name="broken_videos" value=params[:broken_videos]
       - if params[:anime_id].present?
-        input type="hidden" name="anime_id" value="#{params[:anime_id]}"
+        input type="hidden" name="anime_id" value=params[:anime_id]
       - if params[:limit].present?
-        input type="hidden" name="limit" value="#{params[:limit]}"
+        input type="hidden" name="limit" value=params[:limit]
 
       input[
         type="text"
@@ -69,33 +69,33 @@ ul.b-list.block
       ]
       - if params[:search].present?
         a.clear[
-          href="#{url_for url_params.except(:search)}"
+          href=url_for(url_params.except(:search))
         ]
 
   .collection.block
     form
       - if params[:is_verified].present?
-        input type="hidden" name="is_verified" value="#{params[:is_verified]}"
+        input type="hidden" name="is_verified" value=params[:is_verified]
       - if params[:broken_videos].present?
-        input type="hidden" name="broken_videos" value="#{params[:broken_videos]}"
+        input type="hidden" name="broken_videos" value=params[:broken_videos]
       - if params[:search].present?
-        input type="hidden" name="search" value="#{params[:search]}"
+        input type="hidden" name="search" value=params[:search]
       - if params[:limit].present?
-        input type="hidden" name="limit" value="#{params[:limit]}"
+        input type="hidden" name="limit" value=params[:limit]
 
-      input#anime_id name="anime_id" type="hidden" value="#{params[:anime_id]}"
+      input#anime_id name="anime_id" type="hidden" value=params[:anime_id]
       input.anime-suggest.subheadline-input.downgrade_landscape[
-        data-autocomplete="#{autocomplete_animes_url}"
-        placeholder="#{t 'anime_title'}"
+        data-autocomplete=autocomplete_animes_url
+        placeholder=t('anime_title')
         type="text"
       ]
 
     .subheadline.m10
       - if @anime
         ' Авторы аниме
-        a.b-link.bubbled href="#{anime_url @anime}"
+        a.b-link.bubbled href=anime_url(@anime)
           = localization_span @anime
-        a.misc-link href="#{url_for url_params.except(:anime_id)}" без аниме
+        a.misc-link href=url_for(url_params.except(:anime_id)) без аниме
       - else
         | Все авторы
 

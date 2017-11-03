@@ -14,7 +14,7 @@
   .b-review-topic.block
     .body
       = BbCodes::Text.call t '.introduction',
-        kind: "#{resource.anime? ? t('this.anime') : t('this.manga')}"
+        kind: resource.anime? ? t('this.anime') : t('this.manga')
 
       - if @additional_text
         = @additional_text

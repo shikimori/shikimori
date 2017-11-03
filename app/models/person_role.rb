@@ -18,4 +18,8 @@ class PersonRole < ApplicationRecord
     people.
       where "role ilike '%Director%' or role ilike '%Original Creator%' or role ilike '%Story & Art%' or role ilike '%Story%' or role ilike '%Art%'"
   }
+
+  def entry
+    anime || manga
+  end
 end

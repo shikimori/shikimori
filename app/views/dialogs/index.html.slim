@@ -4,10 +4,10 @@
   .subheadline
     = @page_title.last
     - if params[:controller] == 'dialogs' && params[:action] == 'index'
-      a.misc-link[
-        href="#{index_profile_messages_url @resource, messages_type: :private}"
-      ]
-        = t '.unread_messages'
+      .misc-links
+        a[
+          href=index_profile_messages_url(@resource, messages_type: :private)
+        ] = t '.unread_messages'
 
   .block
     - if @collection.empty?

@@ -21,6 +21,8 @@ class LayoutView < ViewObjectBase
   end
 
   def custom_styles
+    return if blank_layout?
+
     <<-CSS.squish.strip.html_safe
       <style id="#{CUSTOM_CSS_ID}" type="text/css">#{custom_css}</style>
     CSS
@@ -70,8 +72,6 @@ private
   end
 
   def custom_css
-    return if blank_layout?
-
     try_style(h.controller.instance_variable_get('@user')) ||
       try_style(h.controller.instance_variable_get('@club')) ||
         try_style(h.current_user)

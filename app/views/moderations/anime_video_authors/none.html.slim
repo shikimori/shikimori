@@ -4,11 +4,11 @@ header.head
 
 .block
   form
-    input#anime_id name="anime_id" type="hidden" value="#{params[:anime_id]}"
+    input#anime_id name="anime_id" type="hidden" value=params[:anime_id]
     .b-input
       input.anime-suggest[
-        data-autocomplete="#{autocomplete_animes_url}"
-        placeholder="#{t 'anime_title'}"
+        data-autocomplete=autocomplete_animes_url
+        placeholder=t('anime_title')
         type="text"
       ]
 
@@ -23,14 +23,15 @@ header.head
               .uniq\
               .each do |kind|
             a.b-link[
-              href="#{url_for url_params(kind: kind)}"
+              href=url_for(url_params(kind: kind))
             ] = t "enumerize.anime_video.kind.#{kind}"
 
       .subheadline
-        a.b-link.bubbled href="#{anime_url @anime}"
+        a.b-link.bubbled href=anime_url(@anime)
           = localization_span @anime
         - if params[:kind].present?
-          a.misc-link href="#{url_for url_params.except(:kind)}" без типа
+          .misc-links
+            a href=url_for(url_params.except(:kind)) без типа
 
       .block
         - if @scope.any?
