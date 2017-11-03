@@ -1,6 +1,6 @@
 header.head
   h2
-    a.back href="#{@back_url}" data-text="#{t 'back'}"
+    a.back href=@back_url data-text=t('back')
     = @page_title.last
   .notice У автора #{@resource.anime_videos.count} видео
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
@@ -13,13 +13,13 @@ header.head
           input[
             type="hidden"
             name="anime_id"
-            value="#{@anime.id}"
+            value=@anime.id
           ]
           label = Anime.model_name.human
-          a.b-link.bubbled href="#{anime_url @anime}"
+          a.b-link.bubbled href=anime_url(@anime)
             = localization_span @anime
           a.clear-anime[
-            href="#{url_for url_params.except(:anime_id)}"
+            href=url_for(url_params.except(:anime_id))
           ] отменить
 
       - if params[:kind].present?
@@ -27,12 +27,12 @@ header.head
           input[
             type="hidden"
             name="kind"
-            value="#{params[:kind]}"
+            value=params[:kind]
           ]
           label = AnimeVideo.human_attribute_name :kind
           = t "enumerize.anime_video.kind.#{params[:kind]}"
           a.clear-anime[
-            href="#{url_for url_params.except(:kind)}"
+            href=url_for(url_params.except(:kind))
           ] отменить
 
       = f.input :name, hint: 'При задании пустого имени автор будет удалён'
@@ -40,7 +40,7 @@ header.head
         = f.input :is_verified
 
       .buttons
-        a.cancel href="#{@back_url}" = t 'actions.cancel'
+        a.cancel href=@back_url = t 'actions.cancel'
         = f.button :magic_submit
 
     .c-column

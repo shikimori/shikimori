@@ -32,7 +32,7 @@
       = render 'versions/reason'
 
       .buttons
-        a.cancel href="#{@back_url}" = t 'actions.cancel'
+        a.cancel href=@back_url = t 'actions.cancel'
         = f.button :magic_submit
 
   - if @video.versions.any?

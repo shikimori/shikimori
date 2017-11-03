@@ -1,22 +1,22 @@
 header.head.misc
   h1
     a.back[
-      href="#{contest_url @resource}"
+      href=contest_url(@resource)
       title=t('.back_to_contest_page')
-      data-text="#{t 'back'}"
+      data-text=t('back')
     ]
     = @page_title.last
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 - cache @resource do
-  .contest-grid class="#{@resource.strategy_type}"
+  .contest-grid class=@resource.strategy_type
     .final
       .round
         .match
           .entry.grid
             - if @resource.rounds.last.finished?
               p.finalist
-                a href="#{url_for @resource.final_match.winner}"
+                a href=url_for(@resource.final_match.winner)
                   = localization_span @resource.final_match.winner
             - else
               p.unknown ???

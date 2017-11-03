@@ -5,13 +5,13 @@
       ul.b-block_list
         - if can?(:edit, resource) && resource.persisted?
           li.edit-entry
-            a href="#{edit_contest_url resource}" = t '.edit_contest'
+            a href=edit_contest_url(resource) = t '.edit_contest'
 
   .block
     .subheadline.m5 = t '.contest_status'
     p = resource.status
     - if (resource.finished? && !resource.showing_results?) || params[:controller] != 'contests'
-      a.results href="#{contest_url resource}" title=t('.contest_results')
+      a.results href=contest_url(resource) title=t('.contest_results')
         = "#{t '.to_results'} →"
 
   .block
@@ -33,7 +33,7 @@
         .subheadline.m10 = t '.candidates'
         .cc-4a.to-process[
           data-dynamic='cutted_covers'
-          data-ratio_type="#{:person if resource.character?}"
+          data-ratio_type=(:person if resource.character?)
         ]
           - if resource.anime?
             = render partial: 'animes/anime',
@@ -50,8 +50,8 @@
       .block.grid
         .subheadline.m5 = t 'tournament_bracket'
         a[
-          href="#{grid_contest_url resource}"
-          title="#{t 'tournament_bracket'}"
+          href=grid_contest_url(resource)
+          title=t('tournament_bracket')
         ] = "#{t 'goto'} →"
 
   - if show_social?

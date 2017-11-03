@@ -4,42 +4,42 @@ table.b-table.list-lines
       tr
         th.index #
         th.name.order-control[
-          class="#{:active if library.sort_order == 'name' || library.sort_order == 'russian'}"
+          class=(:active if library.sort_order == 'name' || library.sort_order == 'russian')
           data-order='name'
-          title="#{t '.order_by.name'}"
+          title=t('.order_by.name')
         ] = i18n_i 'Name'
 
         th.num.order-control[
-          class="#{:active if library.sort_order == 'my'}"
+          class=(:active if library.sort_order == 'my')
           data-order='my'
-          title="#{t '.order_by.score'}"
+          title=t('.order_by.score')
         ] = i18n_i 'Score'
 
         - if library.anime?
           th.num.order-control[
-            class="#{:active if library.sort_order == 'episodes'}"
+            class=(:active if library.sort_order == 'episodes')
             data-order='episodes'
-            title="#{t '.order_by.episodes'}"
+            title=t('.order_by.episodes')
           ] = i18n_i 'Episode', :other
 
         - else
           th.num.order-control[
-            class="#{:active if library.sort_order == 'chapters'}"
+            class=(:active if library.sort_order == 'chapters')
             data-order='chapters'
-            title="#{t '.order_by.chapters'}"
+            title=t('.order_by.chapters')
           ] = i18n_i 'Chapter', :other
 
           - if @resource.preferences.volumes_in_manga?
             th.num.order-control[
-              class="#{:active if library.sort_order == 'volumes'}"
+              class=(:active if library.sort_order == 'volumes')
               data-order='volumes'
-              title="#{t '.order_by.volumes'}"
+              title=t('.order_by.volumes')
             ] = i18n_i 'Volume', :other
 
         th.num.order-control[
-          class="#{:active if library.sort_order == 'kind'}"
+          class=(:active if library.sort_order == 'kind')
           data-order='kind'
-          title="#{t '.order_by.kind'}"
+          title=t('.order_by.kind')
         ] = i18n_i 'Kind'
 
       tr.border
@@ -51,20 +51,20 @@ table.b-table.list-lines
   tbody.entries
     - list.user_rates.each_with_index do |user_rate, index|
       tr.user_rate.unprocessed.selectable[
-        class="#{:editable if library.user.own_profile?}"
-        data-remote="#{true if library.user.own_profile?}"
-        data-action="#{edit_user_rate_path user_rate if library.user.own_profile?}"
+        class=(:editable if library.user.own_profile?)
+        data-remote=(true if library.user.own_profile?)
+        data-action=(edit_user_rate_path(user_rate) if library.user.own_profile?)
         data-type='html'
-        data-rate_url="#{api_v2_user_rate_path user_rate}"
-        data-target_id="#{user_rate.target_id}"
-        data-title="#{user_rate.target_name}"
-        data-text="#{user_rate.text}"
+        data-rate_url=api_v2_user_rate_path(user_rate)
+        data-target_id=user_rate.target_id
+        data-title=user_rate.target_name
+        data-text=user_rate.text
       ]
         td.index
           span
             = list.index + index
         td.name
-          a.tooltipped href="#{user_rate.target_url}" data-predelay='500'
+          a.tooltipped href=user_rate.target_url data-predelay='500'
             = user_rate.target_name
 
           - if user_rate.target.ongoing?
@@ -83,13 +83,20 @@ table.b-table.list-lines
             - if user_rate.text.present?
               div = user_rate.text_html
 
-        td.num class="#{:hoverable if @resource.own_profile?}"
-          span.current-value data-field='score' data-max='10' data-min='0'
-            = user_rate.score.zero? ? '&ndash;'.html_safe : user_rate.score
+        td.num class=(:hoverable if @resource.own_profile?)
+          span.current-value[
+            data-field='score'
+            data-max='10'
+            data-min='0'
+          ] = user_rate.score.zero? ? '&ndash;'.html_safe : user_rate.score
 
         - if library.anime?
-          td.num class="#{:hoverable if @resource.own_profile?}"
-            span.current-value data-field='episodes' data-max="#{user_rate.anime.episodes}" data-min='0'
+          td.num class=(:hoverable if @resource.own_profile?)
+            span.current-value[
+              data-field='episodes'
+              data-max=user_rate.anime.episodes
+              data-min='0'
+            ]
               span
                 = user_rate.episodes
             span.misc-value
@@ -104,8 +111,12 @@ table.b-table.list-lines
                 = user_rate.anime.episodes.zero? ? '?' : user_rate.anime.episodes
 
         - else
-          td.num class="#{:hoverable if @resource.own_profile?}"
-            span.current-value data-field='chapters' data-max="#{user_rate.manga.chapters}" data-min='0'
+          td.num class=(:hoverable if @resource.own_profile?)
+            span.current-value[
+              data-field='chapters'
+              data-max=user_rate.manga.chapters
+              data-min='0'
+            ]
               span
                 = user_rate.chapters
             span.misc-value
@@ -114,8 +125,12 @@ table.b-table.list-lines
               = user_rate.manga.chapters.zero? ? '?' : user_rate.manga.chapters
 
           - if @resource.preferences.volumes_in_manga?
-            td.num class="#{:hoverable if @resource.own_profile?}"
-              span.current-value data-field='volumes' data-max="#{user_rate.manga.volumes}" data-min='0'
+            td.num class=(:hoverable if @resource.own_profile?)
+              span.current-value[
+                data-field='volumes'
+                data-max=user_rate.manga.volumes
+                data-min='0'
+              ]
                 span
                   = user_rate.volumes
               span.misc-value

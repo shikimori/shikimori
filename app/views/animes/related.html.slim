@@ -3,8 +3,8 @@
     - if @resource.related.chronology?
       .b-options-floated.mobile-phone.before-buttons-2
         span.link.selected = t '.linked_directly'
-        a href="#{@resource.chronology_url}" = t '.chronology'
-        a href="#{@resource.franchise_url}" = t '.franchise'
+        a href=@resource.chronology_url = t '.chronology'
+        a href=@resource.franchise_url = t '.franchise'
 
     .subheadline-buttons
       = render 'blocks/list_switchers',

@@ -32,13 +32,13 @@
       .field
         input[
           type="text"
-          placeholder="#{t 'search'}"
-          value="#{params[:search]}"
+          placeholder=t('search')
+          value=params[:search]
         ]
         .clear
 
       .collection.b-forum.to-process[
         data-dynamic='forum'
-        data-faye="#{@forums_view.faye_subscriptions.to_json}"
+        data-faye=@forums_view.faye_subscriptions.to_json
       ]
         = render 'topics/collection', forums_view: @forums_view

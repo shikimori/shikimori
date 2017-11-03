@@ -1,7 +1,7 @@
 .b-options-floated.mobile-phone_portrait
   a[
-    class="#{:selected if params[:controller] == 'dialogs'}"
-    href="#{profile_dialogs_url @resource}"
+    class=(:selected if params[:controller] == 'dialogs')
+    href=profile_dialogs_url(@resource)
     ]
     = t :mail
     - if @resource.unread_messages > 0
@@ -13,16 +13,16 @@
       /span.brackets = @resource.unread_messages
 
   a[
-      class="#{:selected if params[:controller] == 'messages' && params[:messages_type] == 'news'}"
-      href="#{index_profile_messages_url @resource, messages_type: :news}"
+      class=(:selected if params[:controller] == 'messages' && params[:messages_type] == 'news')
+      href=index_profile_messages_url(@resource, messages_type: :news)
     ]
     = t :news
     - if @resource.unread_news > 0
       span.brackets = @resource.unread_news
 
   a[
-      class="#{:selected if params[:controller] == 'messages' && params[:messages_type] == 'notifications'}"
-      href="#{index_profile_messages_url @resource, messages_type: :notifications}"
+      class=(:selected if params[:controller] == 'messages' && params[:messages_type] == 'notifications')
+      href=index_profile_messages_url(@resource, messages_type: :notifications)
     ]
     = t :notifications
     - if @resource.unread_notifications > 0

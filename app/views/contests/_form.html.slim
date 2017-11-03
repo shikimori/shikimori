@@ -60,23 +60,23 @@
           .contest_actions
             - if contest.object.can_propose?
               div: a.b-js-link[
-                href="#{propose_contest_url contest}"
+                href=propose_contest_url(contest)
                 data-method='post'
               ] = t '.accept_candidates'
 
             - if contest.can_stop_propose?
               div: a.b-js-link[
-                href="#{cleanup_suggestions_contest_url contest}"
+                href=cleanup_suggestions_contest_url(contest)
                 data-method='post'
               ] = t '.cleanup_candidates'
               div: a.b-js-link[
-                href="#{stop_propose_contest_url contest}"
+                href=stop_propose_contest_url(contest)
                 data-method='post'
               ] = t '.stop_accepting_candidates'
 
             - if contest.can_start?
               div: a.b-js-link[
-                href="#{build_contest_url contest}"
+                href=build_contest_url(contest)
                 data-method='post'
               ]
                 - if contest.rounds.empty?
@@ -85,7 +85,7 @@
                   = t '.shuffle_polls'
               - if contest.can_start? & contest.rounds.any?
                 div: a.b-js-link[
-                  href="#{start_contest_url contest}"
+                  href=start_contest_url(contest)
                   data-method='post'
                   data-confirm=t('.sure_to_start_contest')
                 ] = t '.start_contest'
@@ -110,7 +110,7 @@
         .subheadline = t 'tournament_bracket'
         .block_m.grid
           a[
-            href="#{grid_contest_url contest}"
+            href=grid_contest_url(contest)
             title=t('tournament_bracket')
           ] = "#{t 'goto'} →"
 
@@ -122,20 +122,20 @@
             type='text'
             placeholder=t('anime_title')
             data-variant_name='contest[member_ids][]'
-            data-autocomplete="#{autocomplete_animes_url}"
+            data-autocomplete=autocomplete_animes_url
           ]
         - else
           input.member-suggest.subheadline-input.downgrade_landscape [
             type='text'
             placeholder=t('character_name')
             data-variant_name='contest[member_ids][]'
-            data-autocomplete="#{autocomplete_characters_url}"
+            data-autocomplete=autocomplete_characters_url
           ]
 
         /input.member-suggest.suggest.subheadline-input.common [
           type='text'
-          data-member_type="#{contest.member_type}"
-          data-autocomplete="#{contest.anime? ? autocomplete_animes_url : autocomplete_characters_url}"
+          data-member_type=contest.member_type
+          data-autocomplete=(contest.anime? ? autocomplete_animes_url : autocomplete_characters_url)
           ]
         .subheadline = contest.anime? ? i18n_i('Anime') : i18n_i('Character', :other)
 
@@ -145,16 +145,16 @@
             .variant
               = check_box_tag 'contest[member_ids][]', member.id, checked: true
               - if contest.anime?
-                a.bubbled href="#{anime_url member}"
+                a.bubbled href=anime_url(member)
                   = member.name
                   span.b-bracket-details
                     = member.score
               - else
-                a.bubbled href="#{character_url member}" = member.name
+                a.bubbled href=character_url(member) = member.name
 
             /.variant
               = hidden_field_tag 'members[]', member.id
-              a.bubbled href="#{url_for member}"
+              a.bubbled href=url_for(member)
                 = member.name
               - if member.respond_to? :score
                 span.b-bracket-details
@@ -173,7 +173,7 @@
 
   .buttons
     a.cancel[
-      href="#{@resource.persisted? ? contest_url(@resource) : contests_url}"
+      href=(@resource.persisted? ? contest_url(@resource) : contests_url)
     ] = t 'actions.cancel'
     = f.button :magic_submit
 

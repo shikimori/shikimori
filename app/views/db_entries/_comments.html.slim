@@ -2,12 +2,12 @@
   - if resource.preview_topic_view.summaries_count > 0
     .b-options-floated.mobile-phone_portrait
       - if resource.preview_topic_view.summaries_count > 0
-        span.linkeable data-href="#{resource.summaries_url}"
+        span.linkeable data-href=resource.summaries_url
           = t '.all_summaries'
           span.brackets = resource.preview_topic_view.summaries_count
 
       - if resource.preview_topic_view.any_comments?
-        span.linkeable data-href="#{resource.preview_topic_view.url}"
+        span.linkeable data-href=resource.preview_topic_view.url
           = t '.all_comments'
           span.brackets = resource.preview_topic_view.comments_count
 
@@ -19,8 +19,8 @@
     .subheadline.m3
       - if resource.preview_topic_view.comments_count > 0
         a[
-          href="#{resource.preview_topic_view.url}"
-          title="#{t '.all_comments'}"
+          href=resource.preview_topic_view.url
+          title=t('.all_comments')
         ]
           = i18n_io 'Comment', :few
           .count = resource.preview_topic_view.comments_count
@@ -30,7 +30,7 @@
   div
     .b-topic.to-process[
       data-dynamic='topic'
-      data-faye="#{resource.preview_topic_view.faye_channel}"
+      data-faye=resource.preview_topic_view.faye_channel
     ]
       = render 'topics/comments',
         comments_view: resource.preview_topic_view.comments_view

@@ -15,10 +15,10 @@ html
   body[
     class="p-#{controller_name} #{base_controller_names} p-#{controller_name}-#{action_name} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{current_user&.preferences&.body_width || 'x1200'} #{@layout.localized_names_class} #{@layout.localized_genres_class} locale-#{I18n.locale}"
     id="#{@layout.body_id}"
-    data-env="#{Rails.env}"
-    data-user="#{@layout.user_data.to_json}"
-    data-locale="#{I18n.locale}"
-    data-server_time="#{Time.zone.now.iso8601}"
+    data-env=Rails.env
+    data-user=@layout.user_data.to_json
+    data-locale=I18n.locale
+    data-server_time=Time.zone.now.iso8601
   ]
     .turbolinks
 
@@ -88,10 +88,10 @@ html
       .hover-activator
       span.marker-positioner[
         data-remote='true'
-        data-action="#{feedback_pages_url}"
+        data-action=feedback_pages_url
         data-type='html'
       ]
-        .marker-text data-text="#{t 'application.aside.report_bug'}"
+        .marker-text data-text=t('application.aside.report_bug')
     - if user_signed_in?
       javascript:
         JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};

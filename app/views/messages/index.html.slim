@@ -4,15 +4,15 @@
   - unless @messages_type == :private
     .mass-actions
       .action: a.b-js-link[
-        href="#{read_all_api_messages_path type: @messages_type, frontend: true}"
+        href=read_all_api_messages_path(type: @messages_type, frontend: true)
         data-method='post'
-        data-confirm="#{t '.confirm_mark_as_read'}"
+        data-confirm=t('.confirm_mark_as_read')
       ] = t '.mark_as_read'
 
       .action: a.b-js-link[
-        href="#{delete_all_api_messages_url type: @messages_type, frontend: true}"
+        href=delete_all_api_messages_url(type: @messages_type, frontend: true)
         data-method='post'
-        data-confirm="#{t '.confirm_remove_all'}"
+        data-confirm=t('.confirm_remove_all')
       ] = t '.remove_all'
 
   = render 'dialogs/navigation'

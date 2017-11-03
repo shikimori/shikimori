@@ -1,11 +1,11 @@
 .character-suggest
   img.avatar[
-    src="#{cdn_image entry, :preview}"
-    title="#{entry.name}"
+    src=cdn_image(entry, :preview)
+    title=entry.name
   ]
   .name
     - if defined?(render_link) && render_link
-      a href="#{send url_builder, entry}" == entry_name
+      a href=send(url_builder, entry) == entry_name
     - else
       == entry_name
 
@@ -14,5 +14,5 @@
 
   .animes
     - (entry.animes+entry.mangas).shuffle.take(3).each do |entry|
-      div: a href="#{url_for entry}"
+      div: a href=url_for(entry)
         = localization_span entry

@@ -1,6 +1,6 @@
 .b-entry-info
   = info_line t('.name') do
-    a href="#{contest_url contest}"
+    a href=contest_url(contest)
       = localized_name contest
 
   = info_line t('.members'), contest.members.size

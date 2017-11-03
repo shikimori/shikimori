@@ -1,25 +1,25 @@
 .b-dialog.shiki-object.to-process[
-  id="#{dialog.message.id}"
+  id=dialog.message.id
   data-dynamic='short_dialog'
   data-appear_type='message'
-  data-message_id="#{dialog.message.id}"
+  data-message_id=dialog.message.id
 ]
   .inner.check_height
     span.item-mobile title="#{i18n_i 'Action', :other}"
     aside.markers
       - unless dialog.my_message?
         .b-new_marker.active[
-          class="#{!dialog.message.read ? '' : 'off'}"
+          class=(:off if dialog.message.read)
           data-reappear='true'
-          data-reappear_url="#{mark_read_api_messages_url is_read: '0'}"
-          data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
-          data-text="#{t 'markers.new'}"
+          data-reappear_url=mark_read_api_messages_url(is_read: '0')
+          data-appear_url=mark_read_api_messages_url(is_read: '1')
+          data-text=t('markers.new')
         ]
     aside.buttons
       .main-controls
         - if dialog.message.from != current_user
           a.item-reply.translated-after[
-            href="#{reply_profile_dialog_url dialog.user, dialog.target_user.to_param, dialog.message}"
+            href=reply_profile_dialog_url(dialog.user, dialog.target_user.to_param, dialog.message)
             title=t('actions.reply')
             data-text-ru=t('actions.reply', locale: 'ru')
             data-text-en=t('actions.reply', locale: 'en')
@@ -40,7 +40,7 @@
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
-          action="#{profile_dialog_url dialog.user, dialog.message}"
+          action=profile_dialog_url(dialog.user, dialog.message)
           data-type='json'
           data-remote='true'
           data-method='delete'
@@ -52,24 +52,24 @@
         ]
 
     header
-      span.linkeable data-href="#{profile_url dialog.target_user}"
+      span.linkeable data-href=profile_url(dialog.target_user)
         img[
-          src="#{dialog.target_user.avatar_url 48}"
+          src=dialog.target_user.avatar_url(48)
           srcset="#{dialog.target_user.avatar_url 80} 2x"
-          alt="#{dialog.target_user.nickname}"
+          alt=dialog.target_user.nickname
         ]
 
       .name-date
-        a.name href="#{profile_url dialog.target_user}"
+        a.name href=profile_url(dialog.target_user)
           = dialog.target_user.nickname
 
         - unless dialog.my_message?
           span.time: time[
-            datetime="#{dialog.created_at.iso8601}"
+            datetime=dialog.created_at.iso8601
           ] = l dialog.created_at, format: '%e %B %Y'
 
         a.to_dialog[
-          href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"
+          href=profile_dialog_url(dialog.user, dialog.target_user.to_param)
         ]
           ' <<<
           = t('.go_to_conversation')

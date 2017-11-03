@@ -50,7 +50,6 @@ en:
       moderators_only: for moderators only
       external_links: Links
       create_review: Create review
-      no_reviews: No reviews
       search_on:
         toshokan: Search on Toshokan
         rutracker: Search on Rutracker

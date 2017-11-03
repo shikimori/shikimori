@@ -2,8 +2,8 @@ p.warning Перед внесением изменений обязательн�
 
 = simple_form_for resource.object do |f|
   .b-shiki_editor.unprocessed.block[
-    data-target_id="#{resource.id}"
-    data-target_type="#{resource.object.class.name}"
+    data-target_id=resource.id
+    data-target_type=resource.object.class.name
   ]
     = f.input :description_ru, as: :hidden
 
@@ -29,5 +29,5 @@ p.warning Перед внесением изменений обязательн�
   = render 'versions/reason'
 
   .buttons
-    a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
+    a.cancel href=resource.edit_url = t 'actions.cancel'
     = f.button :magic_submit

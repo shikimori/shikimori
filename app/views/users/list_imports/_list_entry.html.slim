@@ -5,7 +5,7 @@
       = list_entry.target_title
     - else
       a.bubbled.b-link[
-        href="#{send "#{list_entry.target_type.downcase}_url", list_entry.target_id}"
+        href=send("#{list_entry.target_type.downcase}_url", list_entry.target_id)
       ] = list_entry.target_title
   - if local_assigns[:is_not_imported]
     span

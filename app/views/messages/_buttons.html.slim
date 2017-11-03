@@ -15,7 +15,7 @@ aside.buttons
           data-remote='true'
           data-method='post'
           data-type='json'
-          action="#{api_friend_url message.from_id}"
+          action=api_friend_url(message.from_id)
         ]
         span.item-request-reject.friend-request.translated-after[
           title=t('actions.reject')
@@ -26,7 +26,7 @@ aside.buttons
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
-          style="#{'display: none' unless message.read}"
+          style=('display: none' unless message.read)
         ]
 
     - elsif message.kind == MessageType::ClubRequest
@@ -38,7 +38,7 @@ aside.buttons
           data-remote='true'
           data-method='post'
           data-type='json'
-          action="#{accept_club_invite_url message.linked}"
+          action=accept_club_invite_url(message.linked)
         ]
         span.item-request-reject.translated-after[
           title=t('actions.reject')
@@ -47,13 +47,13 @@ aside.buttons
           data-remote='true'
           data-method='post'
           data-type='json'
-          action="#{reject_club_invite_url message.linked}"
+          action=reject_club_invite_url(message.linked)
         ]
         span.item-delete.translated-after[
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
-          style="#{'display: none' unless message.read}"
+          style=('display: none' unless message.read)
         ]
       - else
         span.item-delete.translated-after[
@@ -72,7 +72,7 @@ aside.buttons
 
         - if local_assigns[:reply_as_link]
           a.item-reply.translated-after[
-            href="#{reply_profile_dialog_url message.to.to_param, message.from.to_param, message}"
+            href=reply_profile_dialog_url(message.to.to_param, message.from.to_param, message)
             title=t('actions.reply')
             data-text-ru=t('actions.reply', locale: 'ru')
             data-text-en=t('actions.reply', locale: 'en')
@@ -89,14 +89,14 @@ aside.buttons
             title=t('actions.edit')
             data-text-ru=t('actions.edit', locale: 'ru')
             data-text-en=t('actions.edit', locale: 'en')
-            data-action="#{edit_message_url message}"
+            data-action=edit_message_url(message)
             data-type='html'
             data-remote='true'
           ]
 
       - elsif message.kind == MessageType::QuotedByUser
         a.item-reply.translated-after[
-          href="#{reply_comment_url message.linked}"
+          href=reply_comment_url(message.linked)
           title=t('actions.reply')
           data-text-ru=t('actions.reply', locale: 'ru')
           data-text-en=t('actions.reply', locale: 'en')
@@ -121,7 +121,7 @@ aside.buttons
         title=t('actions.delete')
         data-text-ru=t('actions.delete', locale: 'ru')
         data-text-en=t('actions.delete', locale: 'en')
-        action="#{api_message_url message}"
+        action=api_message_url(message)
         data-type='json'
         data-remote='true'
         data-method='delete'

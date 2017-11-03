@@ -6,7 +6,7 @@
         - scope.pluck(:kind).uniq.sort_by { |kind| AnimeVideo.kind.values.index kind.to_s }.each do |kind|
           li
             a.b-link[
-              href="#{edit_moderations_anime_video_author_url anime_video_author, kind: kind}"
+              href=edit_moderations_anime_video_author_url(anime_video_author, kind: kind)
             ] = t "enumerize.anime_video.kind.#{kind}"
 
   - scope.group_by(&:anime).each do |anime, anime_videos|
@@ -20,14 +20,14 @@
                 .uniq\
                 .each do |kind|
               a.b-link[
-                href="#{edit_moderations_anime_video_author_url anime_video_author, anime_id: anime.id, kind: kind}"
+                href=edit_moderations_anime_video_author_url(anime_video_author, anime_id: anime.id, kind: kind)
               ] = t "enumerize.anime_video.kind.#{kind}"
 
           - unless params[:anime_id].present?
-            a.item-edit href="#{edit_moderations_anime_video_author_url anime_video_author, anime_id: anime.id}"
+            a.item-edit href=edit_moderations_anime_video_author_url(anime_video_author, anime_id: anime.id)
 
       .subheadline
-        a.b-link.bubbled href="#{anime_url anime}"
+        a.b-link.bubbled href=anime_url(anime)
           = localization_span anime
 
       = render partial: 'moderations/anime_video_authors/video',

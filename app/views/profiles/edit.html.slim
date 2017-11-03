@@ -7,10 +7,10 @@
   .b-options-floated.mobile-phone
     - %w(account profile styles list notifications misc).each do |page|
       a[
-        class="#{:selected if @page == page || page == ProfilesController::PARENT_PAGES[params[:page]]}"
-        href="#{edit_profile_url @resource, page: page}"
+        class=(:selected if @page == page || page == ProfilesController::PARENT_PAGES[params[:page]])
+        href=edit_profile_url(@resource, page: page)
       ] = t ".pages.#{page}"
   h2.subheadline.m10 = t :settings
 
-  .block.edit-page class="#{@page}"
+  .block.edit-page class=@page
     = render "profiles/edit/#{@page}"

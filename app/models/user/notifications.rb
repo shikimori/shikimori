@@ -1,4 +1,4 @@
-# код об уведомлениях пользователя
+# TODO: refactor this
 module User::Notifications
   # notification settings
   ANONS_TV_NOTIFICATIONS         = 0x000001

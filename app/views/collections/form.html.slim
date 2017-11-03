@@ -8,9 +8,9 @@ header.head.misc
     == @resource.errors.full_messages.join('<br>')
 
 #collection_form[
-  data-collection="#{CollectionSerializer.new(@resource, scope: self).to_json}"
-  data-autocomplete_url="#{url_for(controller: @resource.kind.pluralize, action: :autocomplete, censored: false) if @resource.persisted?}"
-  data-max_links="#{Collection::Update::MAX_LINKS}"
+  data-collection=CollectionSerializer.new(@resource, scope: self).to_json
+  data-autocomplete_url=(url_for(controller: @resource.kind.pluralize, action: :autocomplete, censored: false) if @resource.persisted?)
+  data-max_links=Collection::Update::MAX_LINKS
 ]
   = simple_form_for @resource do |f|
     .subheadline = t :settings
@@ -31,7 +31,7 @@ header.head.misc
           - else
             = f.input :text, as: :hidden
             .buttons
-              a.cancel href="#{collections_url}" = t 'actions.cancel'
+              a.cancel href=collections_url = t 'actions.cancel'
               = f.button :magic_submit
 
       - if @resource.persisted?
@@ -49,10 +49,10 @@ header.head.misc
           = f.button :magic_submit
 
         a.remove[
-          href="#{collection_url @resource}"
-          title="#{t 'actions.delete'}"
+          href=collection_url(@resource)
+          title=t('actions.delete')
           data-method="delete"
-          data-confirm="#{t 'actions.confirm'}"
+          data-confirm=t('actions.confirm')
         ] = t 'actions.delete'
 
       #vue_collection_links
@@ -60,5 +60,5 @@ header.head.misc
         .b-nothing_here = t 'loading'
 
       .buttons
-        a.cancel href="#{collections_url}" = t 'actions.cancel'
+        a.cancel href=collections_url = t 'actions.cancel'
         = f.button :magic_submit

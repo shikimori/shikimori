@@ -2,17 +2,17 @@
   .subheadline.m10 = t '.export_anime'
   .block.cc
     a.b-link_button.dark.export[
-      href="#{animes_profile_list_export_url @user, format: :json}"
+      href=animes_profile_list_export_url(@user, format: :json)
     ] JSON
     a.b-link_button.dark.export[
-      href="#{animes_profile_list_export_url @user, format: :xml}"
+      href=animes_profile_list_export_url(@user, format: :xml)
     ] XML
 
   .subheadline.m10 = t '.export_manga'
   .block.cc
     a.b-link_button.dark.export[
-      href="#{mangas_profile_list_export_url @user, format: :json}"
+      href=mangas_profile_list_export_url(@user, format: :json)
     ] JSON
     a.b-link_button.dark.export[
-      href="#{mangas_profile_list_export_url @user, format: :xml}"
+      href=mangas_profile_list_export_url(@user, format: :xml)
     ] XML

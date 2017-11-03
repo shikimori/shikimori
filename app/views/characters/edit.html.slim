@@ -8,7 +8,7 @@
           .field = Character.human_attribute_name :name
           .value = @resource.name
           - if can? :significant_change, Version
-            a.b-js-action href="#{@resource.edit_field_url :name}"
+            a.b-js-action href=@resource.edit_field_url(:name)
               = t '.moderators_only'
           - else
             .b-js-action = t '.moderators_only'
@@ -16,13 +16,13 @@
         li
           .field = Character.human_attribute_name :russian
           .value = @resource.russian
-          a.b-js-action href="#{@resource.edit_field_url :russian}"
+          a.b-js-action href=@resource.edit_field_url(:russian)
             = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :japanese
           .value = @resource.japanese
-          a.b-js-action href="#{@resource.edit_field_url :japanese}"
+          a.b-js-action href=@resource.edit_field_url(:japanese)
             = t 'actions.edit'
 
     .c-column.m0
@@ -31,24 +31,24 @@
           .field = @resource.class.human_attribute_name :image
           - if @resource.image.exists?
             - if can? :significant_change, Version
-              a.b-js-action href="#{@resource.edit_field_url :image}"
+              a.b-js-action href=@resource.edit_field_url(:image)
                 = t '.moderators_only'
             - else
               .b-js-action = t '.moderators_only'
 
           - else
-            a.b-js-action href="#{@resource.edit_field_url :image}"
+            a.b-js-action href=@resource.edit_field_url(:image)
               = t 'actions.edit'
 
         - if ru_host?
           li
             .field = Character.human_attribute_name :description_ru
-            a.b-js-action href="#{@resource.edit_field_url :description_ru}"
+            a.b-js-action href=@resource.edit_field_url(:description_ru)
               = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :description_en
-          a.b-js-action href="#{@resource.edit_field_url :description_en}"
+          a.b-js-action href=@resource.edit_field_url(:description_en)
             = t 'actions.edit'
 
         li
@@ -59,7 +59,7 @@
         li
           .field = Character.human_attribute_name :tags
           .value = @resource.tags
-          a.b-js-action href="#{@resource.edit_field_url :tags}"
+          a.b-js-action href=@resource.edit_field_url(:tags)
             = t 'actions.edit'
 
   - if @resource.desynced.any?

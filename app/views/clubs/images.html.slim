@@ -1,15 +1,15 @@
 = render layout: 'page' do
   .subheadline.m5 = @page_title.last
   .b-gallery[
-    data-can_upload="#{can? :upload, @resource}"
-    data-can_destroy="#{can? :destroy, @resource.all_images.first}"
+    data-can_upload=can?(:upload, @resource)
+    data-can_destroy=can?(:destroy, @resource.all_images.first)
     data-rel="club_gallery"
   ]
     - cache [@resource, :v2] do
       = render 'blocks/upload_progress'
       .container[
-        data-upload_url="#{club_club_images_url @resource}"
-        data-destroy_url="#{club_club_image_url @resource, 'ID'}"
-        data-images="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.all_images).to_json}"
+        data-upload_url=club_club_images_url(@resource)
+        data-destroy_url=club_club_image_url(@resource, 'ID')
+        data-images=ActiveModel::Serializer::CollectionSerializer.new(@resource.all_images).to_json
       ]
         .grid_sizer

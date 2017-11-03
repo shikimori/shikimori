@@ -2,7 +2,7 @@
   .subheadline.m5 = @page_title.last
 
   .b-shiki_editor.unprocessed.new_broadcast[
-    data-next_url="#{club_url @resource}"
+    data-next_url=club_url(@resource)
   ]
     = simple_form_for [:api, @new_comment], remote: true, authenticity_token: true,
       html: { data: { type: :json } } do |f|

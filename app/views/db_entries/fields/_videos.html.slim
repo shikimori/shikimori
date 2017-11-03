@@ -7,7 +7,7 @@
         = f.input :name
 
       .buttons
-        a.cancel href="#{resource.url}" = t 'actions.cancel'
+        a.cancel href=resource.url = t 'actions.cancel'
         = f.button :magic_submit
 
 - if @resource.videos.any?# || @resource.versions[:videos].any?

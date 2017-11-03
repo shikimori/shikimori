@@ -5,7 +5,7 @@
       - maybe_topic = @resource.maybe_topic(locale_from_host)
       span.brackets = Topic::CommentsPolicy.new(maybe_topic).summaries_count
 
-    a href="#{@resource.main_topic_view.url}"
+    a href=@resource.main_topic_view.url
       = t 'db_entries.comments.all_comments'
       span.brackets = @resource.main_topic_view.comments_count
   .subheadline.m3 = @page_title.last

@@ -1,7 +1,7 @@
 = cache version.cache_key, expires_in: 2.weeks do
   .b-log_entry.unprocessed
     span
-      a href="#{moderations_version_url version}"
+      a href=moderations_version_url(version)
         span.id-label #
         = version.id
     span.date
@@ -36,39 +36,39 @@
           - if can? :manage, version
             - if version.can_accept?
               a.b-tooltipped.unprocessed[
-                href="#{accept_moderations_version_url version}"
-                title="#{t '.accept_changes'}"
+                href=accept_moderations_version_url(version)
+                title=t('.accept_changes')
                 data-direction="top"
                 data-method="POST"
               ] = t '.accept'
 
             - if version.can_reject?
               a.b-tooltipped.unprocessed.user_change-deny[
-                title="#{t '.reject_changes'}"
+                title=t('.reject_changes')
                 data-direction="top"
-                data-href="#{reject_moderations_version_url version}"
+                data-href=reject_moderations_version_url(version)
                 data-method="POST"
-                data-reason-prompt="#{t '.reject_reason'}"
+                data-reason-prompt=t('.reject_reason')
               ] = t '.reject'
 
             - if version.can_accept_taken?
                 a.b-tooltipped.unprocessed[
-                  href="#{accept_taken_moderations_version_url version}"
+                  href=accept_taken_moderations_version_url(version)
                   data-direction="top"
                   data-method="POST"
                 ] = t '.taken_to_accepted'
 
             - if version.can_take_accepted?
                 a.b-tooltipped.unprocessed[
-                  href="#{take_accepted_moderations_version_url version}"
+                  href=take_accepted_moderations_version_url(version)
                   data-direction="top"
                   data-method="POST"
                 ] = t '.accepted_to_taken'
 
           - if can?(:destroy, version) && version.can_to_deleted?
             a.b-tooltipped.unprocessed[
-              href="#{moderations_version_url version}"
-              title="#{t '.delete_changes'}"
+              href=moderations_version_url(version)
+              title=t('.delete_changes')
               data-confirm="#{t '.delete_changes'}?"
               data-direction="top"
               data-method="DELETE"
@@ -78,7 +78,7 @@
 
       .change-details
         - if version.reason.present?
-          .reason class="#{:m15 unless version.item_diff.keys.one?}"
+          .reason class=(:m15 unless version.item_diff.keys.one?)
             span #{Version.human_attribute_name :reason}:
             = version.reason
 

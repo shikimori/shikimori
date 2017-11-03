@@ -12,5 +12,5 @@ ul.b-list.cc-3
   - @collection.each do |anime|
     li.c-column.m0
       a.bubbled.b-link[
-        href="#{anime_url anime}"
+        href=anime_url(anime)
       ] = localized_name anime

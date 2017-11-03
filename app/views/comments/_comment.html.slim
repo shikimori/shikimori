@@ -1,10 +1,10 @@
 .b-comment.shiki-object.not-tracked.to-process[
   data-appear_type='comment'
   data-dynamic='comment'
-  data-track_comment="#{JsExports::CommentsExport.instance.placeholder comment}"
-  data-user_id="#{comment.user.try :id}"
-  data-user_nickname="#{comment.user.try :nickname}"
-  id="#{comment.id}"
+  data-track_comment=JsExports::CommentsExport.instance.placeholder(comment)
+  data-user_id=comment.user.try(:id)
+  data-user_nickname=comment.user.try(:nickname)
+  id=comment.id
   itemscope
   itemprop="comment"
   itemtype="http://schema.org/UserComments"
@@ -13,13 +13,13 @@
   / класс нужен из-за проверки высоты
   .inner class="#{:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5)}"
     - if comment.persisted?
-      span.item-mobile title="#{t 'actions.actions'}"
+      span.item-mobile title=t('actions.actions')
 
       aside.markers
         - if comment.try :allowed_summary?
           .b-summary_marker[
-            class="#{:active if user_signed_in?}"
-            style="#{'display: none;' unless comment.summary?}"
+            class=(:active if user_signed_in?)
+            style=('display: none;' unless comment.summary?)
             title=t('actions.markers.summary.remove')
             data-text=t('markers.summary')
             data-confirm=t('actions.markers.summary.confirm_remove')
@@ -29,8 +29,8 @@
             data-type="json"
           ]
         .b-offtopic_marker[
-          class="#{:active if user_signed_in?}"
-          style="#{'display: none;' unless comment.offtopic?}"
+          class=(:active if user_signed_in?)
+          style=('display: none;' unless comment.offtopic?)
           title=t('actions.markers.offtopic.remove')
           data-text=t('markers.offtopic')
           data-confirm=t('actions.markers.offtopic.confirm_remove')
@@ -40,10 +40,10 @@
           data-type="json"
         ]
         - if comment.respond_to?(:broadcast?) && comment.broadcast?
-          .b-broadcast_marker data-text="#{t '.broadcast'}"
+          .b-broadcast_marker data-text=t('.broadcast')
         .b-new_marker[
-          data-appear_url="#{api_appears_url}"
-          data-text="#{t 'markers.new'}"
+          data-appear_url=api_appears_url
+          data-text=t('markers.new')
         ]
 
       aside.moderation-ban
@@ -54,16 +54,16 @@
     - if comment.user
       header
         span.linkeable[
-          data-href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}"
+          data-href=(comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false))
         ]
           img[
-            src="#{comment.user.avatar_url 48}"
+            src=comment.user.avatar_url(48)
             srcset="#{comment.user.avatar_url 80} 2x"
-            alt="#{comment.user.nickname}"
+            alt=comment.user.nickname
           ]
         .name-date
           a.name[
-            href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}"
+            href=(comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false))
             itemprop="creator"
           ]
             /- if comment.respond_to?(:topic_url)
@@ -76,9 +76,9 @@
             span.time
               time[
                 itemprop="commentTime"
-                datetime="#{comment.created_at.iso8601}"
+                datetime=comment.created_at.iso8601
               ] = l comment.created_at, format: '%e %B %Y'
-              span.hash data-url="#{comment_url comment}" #
+              span.hash data-url=comment_url(comment) #
 
     .body itemprop="commentText"
       = comment.html_body

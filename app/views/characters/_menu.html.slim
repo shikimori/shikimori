@@ -1,9 +1,9 @@
 - if !@itemtype
   .b-menu_logo
-    center: a href="#{resource.url}" title="#{resource.name}"
+    center: a href=resource.url title=resource.name
       img[
-        src="#{cdn_image resource, :original}"
-        alt="#{resource.name}"
+        src=cdn_image(resource, :original)
+        alt=resource.name
       ]
 / - else
   = render 'spnsrs/ad', ad: Ad.new(:istari_x300)
@@ -17,7 +17,7 @@
     .block
       .subheadline.m10
         - if resource.linked_clubs.size == DbEntryDecorator::MAX_CLUBS
-          .linkeable data-href="#{clubs_character_url(resource)}"
+          .linkeable data-href=clubs_character_url(resource)
             = i18n_i 'Club', :other
             .count = resource.linked_clubs_scope.size
         - else

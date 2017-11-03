@@ -1,23 +1,23 @@
 .b-user.c-column[
-  id="#{user.id}"
-  class="#{content_by}"
+  id=user.id
+  class=content_by
 ]
   - if content_by == :detailed
     .info
       .image-name
         a.name[
-          href="#{profile_url user, subdomain: false}"
-          title="#{user.nickname}"
+          href=profile_url(user, subdomain: false)
+          title=user.nickname
         ] = user.nickname
 
         a[
-          href="#{profile_url user, subdomain: false}"
-          title="#{user.nickname}"
+          href=profile_url(user, subdomain: false)
+          title=user.nickname
         ]
           img.image[
-            src="#{user.avatar_url 73}"
+            src=user.avatar_url(73)
             srcset="#{user.avatar_url 148} 2x"
-            alt="#{user.nickname}"
+            alt=user.nickname
           ]
 
       p.last-online
@@ -28,38 +28,44 @@
         .line
           - if entry.special?
             time.date[
-              datetime="#{entry.iso_date}"
+              datetime=entry.iso_date
             ] = entry.localized_date
             span.event = entry.action_info
           - else
             a.bubbled[
-              href="#{entry.url}"
-              title="#{entry.name}"
+              href=entry.url
+              title=entry.name
             ]
               time.date[
-                datetime="#{entry.iso_date}"
+                datetime=entry.iso_date
               ] = entry.localized_date
               span.event = entry.localized_name
 
   - elsif content_by == :avatar || content_by == :avatar_fixed_margin
-    a.avatar href="#{profile_url user, subdomain: false}" title="#{user.nickname}"
+    a.avatar[
+      href=profile_url(user, subdomain: false)
+      title=user.nickname
+    ]
       img[
-        src="#{user.avatar_url 32}"
+        src=user.avatar_url(32)
         srcset="#{user.avatar_url 64} 2x"
-        alt="#{user.nickname}"
-        title="#{user.nickname}"
+        alt=user.nickname
       ]
 
   - elsif content_by == :named_avatar
-    a.avatar href="#{profile_url user, subdomain: false}" title="#{user.nickname}"
+    a.avatar[
+      href=profile_url(user, subdomain: false)
+      title=user.nickname
+    ]
       img[
-        src="#{user.avatar_url 80}"
+        src=user.avatar_url(80)
         srcset="#{user.avatar_url 160} 2x"
-        alt="#{user.nickname}"
-        title="#{user.nickname}"
+        alt=user.nickname
       ]
-    a.name href="#{profile_url user, subdomain: false}" title="#{user.nickname}"
-      = user.nickname
+    a.name[
+      href=profile_url(user, subdomain: false)
+      title=user.nickname
+    ] = user.nickname
 
   - else
     - raise ArgumentError, content_by

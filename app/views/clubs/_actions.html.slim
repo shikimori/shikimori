@@ -2,9 +2,9 @@
   - if can?(:join, club) && !club.member?(current_user)
     .block
       a.b-link_button.dark.join-club[
-        href="#{club_club_roles_path club, 'club_role[user_id]' => current_user.id, 'club_role[club_id]' => club.id}"
+        href=club_club_roles_path(club, club_role: { user_id: current_user.id, club_id: club.id })
         data-method='post'
-        data-text="#{t '.join_club'}"
+        data-text=t('.join_club')
       ] = t '.join_club'
 
   - else
@@ -14,26 +14,26 @@
     .club-actions
       - if can? :edit, club
         a.edit-club.b-tooltipped.unprocessed[
-          href="#{edit_club_url club, page: :main}"
-          title="#{t '.edit_club'}"
+          href=edit_club_url(club, page: :main)
+          title=t('.edit_club')
           data-direction="top"
-          data-text="#{t '.edit_club'}"
+          data-text=t('.edit_club')
         ]
 
       - if can? :broadcast, club
         a.broadcast.b-tooltipped.unprocessed[
-          href="#{broadcast_club_comments_url club}"
-          title="#{t '.broadcast'}"
+          href=broadcast_club_comments_url(club)
+          title=t('.broadcast')
           data-direction="top"
-          data-text="#{t '.broadcast'}"
+          data-text=t('.broadcast')
         ]
 
       - if can? :upload_image, club
         = form_tag club_club_images_url(club), method: :post, multipart: true do
           label.upload.b-tooltipped.unprocessed[
-            title="#{t 'actions.upload_image'}"
+            title=t('actions.upload_image')
             data-direction="top"
-            data-text="#{t 'actions.upload_image'}"
+            data-text=t('actions.upload_image')
           ]
             input type='file' name='images[]' multiple='true'
           // .upload не должен быть последним элементом - ему margin 0 присвоится
@@ -48,11 +48,11 @@
 
       - if can?(:leave, club) && club.member?(current_user)
         a.leave.b-tooltipped.unprocessed[
-          href="#{club_club_role_path club, club.member_role(current_user)}"
-          title="#{t '.leave_club'}"
+          href=club_club_role_path(club, club.member_role(current_user))
+          title=t('.leave_club')
           data-direction="top"
           data-method='delete'
-          data-text="#{t '.leave_club'}"
+          data-text=t('.leave_club')
         ]
 
     .invite
@@ -71,5 +71,5 @@
     - if can? :create_topic, club
       .block
         a.b-link_button.dark.create-topic[
-          href="#{club.new_topic_url}"
+          href=club.new_topic_url
         ] = t 'topics.menu_actions.create_topic'

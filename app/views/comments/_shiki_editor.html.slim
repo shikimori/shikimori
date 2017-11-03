@@ -9,40 +9,40 @@
     aside.markers
       - if comment.try :allowed_summary?
         .b-summary_marker.active[
-          class="#{:off unless comment.summary?}"
-          data-text="#{t 'markers.summary'}"
+          class=(:off unless comment.summary?)
+          data-text=t('markers.summary')
         ]
       - if comment.respond_to? :offtopic?
         .b-offtopic_marker.active[
-          class="#{:off unless comment.offtopic?}"
-          data-text="#{t 'markers.offtopic'}"
+          class=(:off unless comment.offtopic?)
+          data-text=t('markers.offtopic')
         ]
 
 aside.buttons
   .editor-controls
     span.editor-bold.b-tooltipped.unprocessed[
-      title="#{t '.bold'}"
+      title=t('.bold')
       data-direction="top"
     ]
     span.editor-italic.b-tooltipped.unprocessed[
-      title="#{t '.italic'}"
+      title=t('.italic')
       data-direction="top"
     ]
     span.editor-underline.b-tooltipped.unprocessed[
-      title="#{t '.underline'}"
+      title=t('.underline')
       data-direction="top"
     ]
     span.editor-strike.b-tooltipped.unprocessed[
-      title="#{t '.striked'}"
+      title=t('.striked')
       data-direction="top"
     ]
 
     span.editor-link.b-tooltipped.unprocessed[
-      title="#{t '.link'}"
+      title=t('.link')
       data-direction="top"
     ]
     span.editor-image.b-tooltipped.unprocessed[
-      title="#{t '.image_link'}"
+      title=t('.image_link')
       data-direction="top"
     ]
     span.editor-quote.b-tooltipped.unprocessed[
@@ -55,19 +55,19 @@ aside.buttons
     ]
 
     span.editor-file.b-tooltipped.unprocessed[
-        title="#{t '.upload_image'}"
+        title=t('.upload_image')
         data-direction="top"
       ]
       span
         input type="file"
     span.editor-upload
     span.editor-smiley.b-tooltipped.unprocessed[
-      title="#{t '.smiley'}"
+      title=t('.smiley')
       data-direction="top"
     ]
 
-.smileys.hidden-block data-href="#{smileys_comments_url subdomain: false}"
-  .ajax-loading title="#{t 'loading'}"
+.smileys.hidden-block data-href=smileys_comments_url(subdomain: false)
+  .ajax-loading title=t('loading')
 
 .links.hidden-block
   p
@@ -178,16 +178,16 @@ footer
   - if defined?(f)
     - if comment.persisted?
       = f.button :magic_submit
-      .b-button.preview data-preview_url="#{preview_url}" = t '.preview'
+      .b-button.preview data-preview_url=preview_url = t '.preview'
       .unpreview = t '.back_to_editing'
       .cancel = t 'actions.cancel'
 
     - else
       = f.button :magic_submit
       .unpreview = t '.back_to_editing'
-      .b-button.preview data-preview_url="#{preview_url}" = t '.preview'
+      .b-button.preview data-preview_url=preview_url = t '.preview'
       .hide = t '.hide'
 
   - else
-    .b-button.preview data-preview_url="#{preview_url}" = t '.preview'
+    .b-button.preview data-preview_url=preview_url = t '.preview'
     .unpreview = t '.back_to_editing'

@@ -7,19 +7,19 @@
     - if gallery.characters.any?
       = info_line t('.character', count: gallery.characters.size) do
         - gallery.characters.each do |character|
-          a.b-link.bubbled href="#{character_url character}"
+          a.b-link.bubbled href=character_url(character)
             = localized_name character
 
     - if gallery.animes.any?
       = info_line Anime.model_name.human do
         - gallery.animes.each do |anime|
-          a.b-link.bubbled href="#{anime_url anime}"
+          a.b-link.bubbled href=anime_url(anime)
             = localized_name anime
 
     - elsif gallery.mangas.any?
       = info_line Manga.model_name.human do
         - gallery.mangas.each do |manga|
-          a.b-link.bubbled href="#{manga_url manga}"
+          a.b-link.bubbled href=manga_url(manga)
             = localized_name manga
 
     - if cosplay_view.is_preview && gallery.images.size > Topics::CosplayView::IMAGES_IN_PREVIEW

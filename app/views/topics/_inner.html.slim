@@ -9,12 +9,12 @@
   / класс нужен из-за проверки высоты и для отображения кнопок по hover
   .inner
     - unless topic_view.minified?
-      span.item-mobile title="#{t 'actions.actions'}"
+      span.item-mobile title=t('actions.actions')
 
     aside.markers
       p.b-new_marker[
-        data-appear_url="#{api_appears_url}"
-        data-text="#{t 'markers.new'}"
+        data-appear_url=api_appears_url
+        data-text=t('markers.new')
       ]
 
     = render 'topics/buttons', topic_view: topic_view
@@ -36,7 +36,7 @@
 
         .body-truncated
           .body-truncated-inner[
-            itemprop="#{topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody}"
+            itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
           ]
           - if topic_view.need_trucation?
             = topic_view.html_body_truncated
@@ -51,10 +51,10 @@
       - if topic_view.read_more_link?
         .read_more-link
           a.b-link[
-            href="#{topic_view.urls.poster_url}"
+            href=topic_view.urls.poster_url
           ] = t '.read_more_link'
 
-    footer class="#{'with-read_more-link' if topic_view.read_more_link?}"
+    footer class=('with-read_more-link' if topic_view.read_more_link?)
       = topic_view.html_footer
 
       - if topic_view.footer_vote?

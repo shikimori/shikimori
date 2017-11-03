@@ -1,6 +1,6 @@
 .b-log_entry.b-abuse_request.to-process[
   data-dynamic='abuse_request'
-  data-url="#{moderations_abuse_request_url abuse_request}"
+  data-url=moderations_abuse_request_url(abuse_request)
 ]
   span
     span.id-label #
@@ -16,7 +16,7 @@
 
   .marker[
     class="b-#{abuse_request.kind}_marker"
-    data-text="#{t "markers.#{abuse_request.kind.sub 'review', 'summary'}"}"
+    data-text=t("markers.#{abuse_request.kind.sub 'review', 'summary'}")
   ]
 
   - if abuse_request.value
@@ -32,7 +32,7 @@
 
   span
     == Messages::MentionSource.call abuse_request.comment.commentable, abuse_request.comment.id
-  span: a.b-link.comment-hash href="#{comment_url abuse_request.comment}" #
+  span: a.b-link.comment-hash href=comment_url(abuse_request.comment) #
 
   - if abuse_request.pending?
     - if abuse_request.comment.created_at < 1.week.ago
@@ -55,37 +55,37 @@
         .moderation
           - if abuse_request.punishable?
             a.warn[
-              data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}"
+              data-action=new_comment_abuse_request_ban_path(abuse_request.comment, abuse_request)
               data-method='get'
               data-type='html'
               data-remote='true'
             ] = t '.warn'
             - unless abuse_request.spoiler?
               a.ban[
-                href="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}"
+                href=new_comment_abuse_request_ban_path(abuse_request.comment, abuse_request)
                 data-method='get'
                 data-type='html'
                 data-remote='true'
               ] = t '.ban'
             a.deny[
-              href="#{deny_moderations_abuse_request_path abuse_request}"
+              href=deny_moderations_abuse_request_path(abuse_request)
               data-method='post'
               data-remote='true'
             ] = t '.reject'
             .ban-form
           - else
             a.take[
-              href="#{take_moderations_abuse_request_path abuse_request}"
+              href=take_moderations_abuse_request_path(abuse_request)
               method='post'
               data-remote='true'
             ] = t '.accept'
             a.deny[
-              href="#{deny_moderations_abuse_request_path abuse_request}"
+              href=deny_moderations_abuse_request_path(abuse_request)
               method='post'
               data-remote='true'
             ] = t '.reject'
         .ban-form
   - else
-    span.resolution class="#{abuse_request.state}"
+    span.resolution class=abuse_request.state
       = abuse_request.human_state_name
     = render 'users/user_16', user: abuse_request.approver

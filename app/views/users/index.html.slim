@@ -9,20 +9,20 @@
     h1
       = @page_title.last
       a.misc[
-        href="#{similar_users_url klass: Anime.name.downcase}"
+        href=similar_users_url(klass: Anime.name.downcase)
       ] = t '.list_of_similar_users'
 
     p.notice
       = t '.notice'
 
   .b-collection_search[
-    data-search_url="#{users_url}"
+    data-search_url=users_url
   ]
     .field
       input[
         type="text"
-        placeholder="#{t '.search'}"
-        value="#{params[:search]}"
+        placeholder=t('.search')
+        value=params[:search]
       ]
       .clear
 

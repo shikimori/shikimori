@@ -1,5 +1,5 @@
 = simple_form_for @resource do |f|
-  input type="hidden" name="page" value="#{@page}"
+  input type="hidden" name="page" value=@page
 
   .cc-2a
     .c-column.block_m
@@ -7,28 +7,28 @@
         type='text'
         placeholder=t('anime_title')
         data-variant_name='club[anime_ids][]'
-        data-autocomplete="#{autocomplete_animes_url}"
+        data-autocomplete=autocomplete_animes_url
       ]
       .subheadline = i18n_i 'anime'
       .variants
         - @resource.all_animes.uniq(&:id).each do |anime|
           .variant
             = check_box_tag 'club[anime_ids][]', anime.id, checked: true
-            a.bubbled href="#{anime_url anime}" = anime.name
+            a.bubbled href=anime_url(anime) = anime.name
 
     .c-column.block_m
       input.character-suggest.subheadline-input[
         type='text'
         placeholder=t('character_name')
         data-variant_name='club[character_ids][]'
-        data-autocomplete="#{autocomplete_characters_url}"
+        data-autocomplete=autocomplete_characters_url
       ]
       .subheadline = i18n_i 'character', :other
       .variants
         - @resource.all_characters.uniq(&:id).each do |character|
           .variant
             = check_box_tag 'club[character_ids][]', character.id, checked: true
-            a.bubbled href="#{character_url character}" = character.name
+            a.bubbled href=character_url(character) = character.name
 
   .cc-2a
     .c-column.block_m
@@ -36,28 +36,28 @@
         type='text'
         placeholder=t('manga_title')
         data-variant_name='club[manga_ids][]'
-        data-autocomplete="#{autocomplete_mangas_url}"
+        data-autocomplete=autocomplete_mangas_url
       ]
       .subheadline = i18n_i 'manga'
       .variants
         - @resource.all_mangas.uniq(&:id).each do |manga|
           .variant
             = check_box_tag 'club[manga_ids][]', manga.id, checked: true
-            a.bubbled href="#{manga_url manga}" = manga.name
+            a.bubbled href=manga_url(manga) = manga.name
 
     .c-column.block_m
       input.ranobe-suggest.subheadline-input.downgrade_landscape[
         type='text'
         placeholder=t('ranobe_title')
         data-variant_name='club[ranobe_ids][]'
-        data-autocomplete="#{autocomplete_ranobe_index_url}"
+        data-autocomplete=autocomplete_ranobe_index_url
       ]
       .subheadline = i18n_i 'ranobe'
       .variants
         - @resource.all_ranobe.uniq(&:id).each do |ranobe|
           .variant
             = check_box_tag 'club[ranobe_ids][]', ranobe.id, checked: true
-            a.bubbled href="#{ranobe_url ranobe}" = ranobe.name
+            a.bubbled href=ranobe_url(ranobe) = ranobe.name
 
   .cc-2a
     .c-column.block_m
@@ -65,14 +65,14 @@
         type='text'
         placeholder=t('club_name')
         data-variant_name='club[club_ids][]'
-        data-autocomplete="#{autocomplete_clubs_url}"
+        data-autocomplete=autocomplete_clubs_url
       ]
       .subheadline = i18n_i 'club', :other
       .variants
         - @resource.all_clubs.uniq(&:id).each do |club|
           .variant
             = check_box_tag 'club[club_ids][]', club.id, checked: true
-            a href="#{club_url club}" = club.name
+            a href=club_url(club) = club.name
 
   /- if @resource && @resource.admins.include?(current_user)
     div style="display: none;"
@@ -82,14 +82,14 @@
           type='text'
           placeholder=t('username')
           data-variant_name='club[moderator_ids][]'
-          data-autocomplete="#{autocomplete_club_club_roles_url @resource}"
+          data-autocomplete=autocomplete_club_club_roles_url(@resource)
         ]
         .variants
           - @resource.moderators.each do |user|
             .variant
               = check_box_tag 'club[moderator_ids][]', moderator.id, checked: true
-              a href="#{profile_url user}" = user.nickname
+              a href=profile_url(user) = user.nickname
 
   .buttons
-    a.cancel href="#{club_url @resource}" = t 'actions.cancel'
+    a.cancel href=club_url(@resource) = t 'actions.cancel'
     = f.button :magic_submit

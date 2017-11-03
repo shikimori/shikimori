@@ -38,7 +38,7 @@
     .block
       .b-button.do-preview data-href="#{extract_url_video_online_index_url @anime}"
         | Проверить видео
-      a.cancel href="#{@back_url}" = t 'actions.cancel'
+      a.cancel href=@back_url = t 'actions.cancel'
 
     .block.video-preview data-player_html="#{'' + @video.decorate.player_html if @video.url.present?}"
 

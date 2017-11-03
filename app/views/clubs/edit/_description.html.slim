@@ -1,5 +1,5 @@
 = simple_form_for @resource do |f|
-  input type="hidden" name="page" value="#{@page}"
+  input type="hidden" name="page" value=@page
 
   .block
     .b-shiki_editor.unprocessed
@@ -8,5 +8,5 @@
         field_name: 'club[description]'
 
   .buttons
-    a.cancel href="#{club_url @resource}" = t 'actions.cancel'
+    a.cancel href=club_url(@resource) = t 'actions.cancel'
     = f.button :magic_submit

@@ -21,10 +21,10 @@
           = f.input :logo
           - if @resource.logo.exists?
             img[
-              src="#{cdn_image @resource, :main}"
-              alt="#{@resource.name}"
-              title="#{@resource.name}"
+              src=cdn_image(@resource, :main)
+              alt=@resource.name
+              title=@resource.name
             ]
 
     = f.button :magic_submit
-    a.cancel href="#{clubs_url}" = t 'actions.cancel'
+    a.cancel href=clubs_url = t 'actions.cancel'

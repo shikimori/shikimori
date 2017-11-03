@@ -2,7 +2,7 @@
 
 = render layout: 'page' do
   .contest[
-    class="#{@resource.state}"
+    class=@resource.state
   ]
     - if @resource.showing_results?
       = render 'results', contest: @resource

@@ -12,7 +12,7 @@
 
   - if entry.respond_to?(:episodes) && entry.duration && entry.duration > 0
     = info_line Anime.human_attribute_name(:duration) do
-      span itemprop="#{entry.kind_movie? ? 'duration' : ''}"
+      span itemprop=(:duration if entry.kind_movie?)
         = humanize_minutes entry.duration
 
   = render 'animes/aired_chapters',
@@ -29,17 +29,16 @@
   - unless entry.status.blank?
     = info_line Anime.human_attribute_name(:status) do
       span.b-anime_status_tag[
-        class="#{entry.status.downcase.gsub ' ', '_'}"
-        data-text="#{entry.status_text.downcase}"
+        class=entry.status.downcase.gsub(' ', '_')
+        data-text=entry.status_text.downcase
       ]
       | &nbsp;
 
       - if entry.release_date_tooltip
         span.b-tooltipped.mobile.unprocessed[
           data-direction='right'
-          title="#{entry.release_date_tooltip}"
-        ]
-          = entry.release_date_text
+          title=entry.release_date_tooltip
+        ] = entry.release_date_text
       - else
         = entry.release_date_text
 
@@ -50,13 +49,13 @@
   - if entry.rating.present? && !entry.rating_none?
     = info_line Anime.human_attribute_name(:rating) do
       span.b-tooltipped.mobile.unprocessed[
-        title="#{t "enumerize.anime.rating.hint.#{entry.rating}"}"
+        title=t("enumerize.anime.rating.hint.#{entry.rating}")
         data-direction='right'
       ] = entry.rating_text
 
   - if (entry.japanese && !entry.japanese.empty?) || (entry.english && !entry.english.empty?) || (entry.synonyms && !entry.synonyms.empty?)
     = info_line t('.other_names') do
-      span.other-names.click-loader data-href="#{entry.other_names_url}"
+      span.other-names.click-loader data-href=entry.other_names_url
         span ···
 
   - if entry.preview_topic_view.any_comments? || entry.preview_topic_view.any_summaries? || entry.reviews_count > 0
@@ -78,10 +77,10 @@
       - if entry.files? || (entry.tags.present? && entry.display_sensitive?) || entry.cosplay?
         .line-container
           - if entry.cosplay?
-            a href="#{entry.cosplay_url}" title="#{t '.cosplay'}" = t '.cosplay'
+            a href=entry.cosplay_url title=t('.cosplay') = t '.cosplay'
 
           - if entry.tags.present? && entry.display_sensitive?
-            span.linkeable data-href="#{entry.art_url}" = t '.art'
+            span.linkeable data-href=entry.art_url = t '.art'
 
           - if entry.files?
-            span.link.linkeable data-href="#{entry.files_url}" = t '.files'
+            span.link.linkeable data-href=entry.files_url = t '.files'

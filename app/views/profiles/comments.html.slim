@@ -8,7 +8,12 @@
       span.brackets = @resource.stats.comments_count
 
   = form_tag '', method: :get, class: 'comments-search' do
-    input.subheadline-input.search value="#{SearchHelper.unescape params[:search]}" type="text" placeholder="Поиск по комментариям..." data-search_url="#{comments_profile_url @resource}"
+    input.subheadline-input.search[
+      value=params[:search]
+      type="text"
+      placeholder=t('search')
+      data-search_url=comments_profile_url(@resource)
+    ]
   h2.subheadline.m10 = @page_title.last
   .b-comments
     - if @collection.any?

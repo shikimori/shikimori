@@ -1,6 +1,6 @@
 .block
   = simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
-    input type='hidden' name='page' value="#{@page}"
+    input type='hidden' name='page' value=@page
 
     = f.input :volumes_in_manga
     = f.button :magic_submit
@@ -10,10 +10,10 @@
     .profile-action
       .mischeadline = t '.list_import_export'
       div: a.b-link[
-        href="#{new_profile_list_import_url @resource, list_import: { user_id: @resource.id }}"
+        href=new_profile_list_import_url(@resource, list_import: { user_id: @resource.id })
       ] = t '.import_list'
       div: a.b-link[
-        href="#{profile_list_export_url @resource}"
+        href=profile_list_export_url(@resource)
       ] = t '.export_list'
 
     .profile-action
@@ -31,11 +31,11 @@
                 kind_subjective: i18n_i(:anime, 1, :subjective),
                 gender: 'neuter'
         a.b-button.control[
-          href="#{reset_api_user_rates_url :anime}"
+          href=reset_api_user_rates_url(:anime)
           data-method='delete'
           data-remote='true'
           data-type='json'
-          data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:anime, 1, :genitive)}"
+          data-confirm=t('.sure_to_reset_scores', kind: i18n_i(:anime, 1, :genitive))
         ] = t 'yes_i_confirm'
         span.b-js-link.cancel = t 'actions.cancel'
 
@@ -48,11 +48,11 @@
                 kind_subjective: i18n_i(:manga, 1, :subjective),
                 gender: 'female'
         a.b-button.control[
-          href="#{reset_api_user_rates_url :manga}"
+          href=reset_api_user_rates_url(:manga)
           data-method='delete'
           data-remote='true'
           data-type='json'
-          data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:manga, 1, :genitive)}"
+          data-confirm=t('.sure_to_reset_scores', kind: i18n_i(:manga, 1, :genitive))
         ] = t 'yes_i_confirm'
         span.b-js-link.cancel = t 'actions.cancel'
 
@@ -67,11 +67,11 @@
           span.warn = t 'this_action_cant_be_undone'
           span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
         a.b-button.control[
-          href="#{reset_profile_user_history_index_url @resource, :anime}"
+          href=reset_profile_user_history_index_url(@resource, :anime)
           data-method='delete'
           data-remote='true'
           data-type='json'
-          data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)}"
+          data-confirm=t('.sure_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive))
         ] = t 'yes_i_confirm'
         span.b-js-link.cancel = t 'actions.cancel'
 
@@ -80,11 +80,11 @@
           span.warn = t 'this_action_cant_be_undone'
           span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
         a.b-button.control[
-          href="#{reset_profile_user_history_index_url @resource, :manga}"
+          href=reset_profile_user_history_index_url(@resource, :manga)
           data-method='delete'
           data-remote='true'
           data-type='json'
-          data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)}"
+          data-confirm=t('.sure_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive))
         ] = t 'yes_i_confirm'
         span.b-js-link.cancel = t 'actions.cancel'
 
@@ -102,11 +102,11 @@
                 kind_genitive: i18n_i(:anime, 1, :genitive),
                 kind_dative: i18n_i(:anime, 1, :dative)
         a.b-button.control[
-          href="#{cleanup_api_user_rates_url :anime}"
+          href=cleanup_api_user_rates_url(:anime)
           data-method='delete'
           data-remote='true'
           data-type='json'
-          data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:anime, 1, :genitive)}"
+          data-confirm=t('.sure_to_clear_list_completely', kind: i18n_i(:anime, 1, :genitive))
         ] = t 'yes_i_confirm'
         span.b-js-link.cancel = t 'actions.cancel'
 
@@ -118,11 +118,11 @@
                 kind_genitive: i18n_i(:manga, 1, :genitive),
                 kind_dative: i18n_i(:manga, 1, :dative)
         a.b-button.control[
-          href="#{cleanup_api_user_rates_url :manga}"
+          href=cleanup_api_user_rates_url(:manga)
           data-method='delete'
           data-remote='true'
           data-type='json'
-          data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:manga, 1, :genitive)}"
+          data-confirm=t('.sure_to_clear_list_completely', kind: i18n_i(:manga, 1, :genitive))
         ] = t 'yes_i_confirm'
         span.b-js-link.cancel = t 'actions.cancel'
 

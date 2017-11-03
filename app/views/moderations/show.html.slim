@@ -9,22 +9,22 @@ header.head
     ul.b-list.block
       li
         a.b-link[
-          href="#{moderations_versions_url type: :content}"
-          title="#{t '.versions_journal'}"
+          href=moderations_versions_url(type: :content)
+          title=t('.versions_journal')
         ]
           = t '.versions_journal'
           span.size = @moderation_policy.content_count
       li
         a.b-link[
-          href="#{moderations_bans_url}"
-          title="#{t '.bans_journal'}"
+          href=moderations_bans_url
+          title=t('.bans_journal')
         ]
           = t '.bans_journal'
           span.size = AbuseRequest.abuses.size
       li
         a.b-link[
-          href="#{moderations_abuse_requests_url}"
-          title="#{t '.forum_journal'}"
+          href=moderations_abuse_requests_url
+          title=t('.forum_journal')
         ]
           = t '.forum_journal'
           span.size = AbuseRequest.pending.size
@@ -32,16 +32,16 @@ header.head
       - if ru_host?
         li
           a.b-link[
-            href="#{moderations_anime_video_reports_url}"
-            title="#{t '.uploaded_videos_journal'}"
+            href=moderations_anime_video_reports_url
+            title=t('.uploaded_videos_journal')
           ]
             = t '.uploaded_videos_journal'
             span.size = @moderation_policy.video_reports_count
 
         li
           a[
-            href="#{moderations_versions_url type: :anime_video}"
-            title="#{t '.edited_videos_journal'}"
+            href=moderations_versions_url(type: :anime_video)
+            title=t('.edited_videos_journal')
           ]
             = t '.edited_videos_journal'
             span.size = @moderation_policy.videos_count
@@ -49,8 +49,8 @@ header.head
       - if current_user&.review_moderator?
         li
           a.b-link[
-            href="#{moderations_reviews_url}"
-            title="#{t '.reviews_journal'}"
+            href=moderations_reviews_url
+            title=t('.reviews_journal')
           ]
             = t '.reviews_journal'
             span.size = @moderation_policy.reviews_count
@@ -58,8 +58,8 @@ header.head
       - if current_user&.collection_moderator?
         li
           a.b-link[
-            href="#{moderations_collections_url}"
-            title="#{t '.collections_journal'}"
+            href=moderations_collections_url
+            title=t('.collections_journal')
           ]
             = t '.collections_journal'
             span.size = @moderation_policy.collections_count
@@ -67,14 +67,14 @@ header.head
     ul.b-list
       li
         a.b-link[
-          href="#{moderations_users_path}"
-          title="#{t 'moderations/users_controller.page_title'}"
+          href=moderations_users_path
+          title=t('moderations/users_controller.page_title')
         ] = t 'moderations/users_controller.page_title'
       - if can? :edit, AnimeVideoAuthor
         li
           a.b-link[
-            href="#{moderations_anime_video_authors_url}"
-            title="#{t '.anime_video_authors'}"
+            href=moderations_anime_video_authors_url
+            title=t('.anime_video_authors')
           ] = t '.anime_video_authors'
 
   - if ru_host?
@@ -84,35 +84,35 @@ header.head
       ul.b-list
         li
           a.b-link[
-            href="#{anime_translations_url}"
-            title="#{'.missing_descriptions'}"
+            href=anime_translations_url
+            title=t('.missing_descriptions')
           ] = t '.missing_anime_descriptions'
         li
           a.b-link[
-            href="#{manga_translations_url}"
-            title="#{'.missing_descriptions'}"
+            href=manga_translations_url
+            title=t('.missing_descriptions')
           ] = t '.missing_manga_descriptions'
         li
           a.b-link[
-            href="#{missing_screenshots_moderations_url}"
-            title="#{'.missing_screenshots'}"
+            href=missing_screenshots_moderations_url
+            title=t('.missing_screenshots')
           ] = t '.missing_screenshots'
         li
           a.b-link[
-            href="#{missing_videos_moderations_url}"
-            title="#{'.missing_videos'}"
+            href=missing_videos_moderations_url
+            title=t('.missing_videos')
           ] = t '.missing_videos'
         - if can? :read, Genre
           li
             a.b-link[
-              href="#{genres_url}"
-              title="#{'.genres'}"
+              href=genres_url
+              title=t('.genres')
             ] = t '.genres'
         - if can? :manage, Forum
           li
             a.b-link[
-              href="#{forums_url}"
-              title="#{'.forums'}"
+              href=forums_url
+              title=t('.forums')
             ] = t '.forums'
 
 - if @abuse_requests

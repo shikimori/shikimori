@@ -10,10 +10,14 @@ header.head
     - @moderators.each do |moderator|
       .b-user16
         a[
-          href="#{profile_url(moderator, host: ShikimoriDomain::RU_HOSTS.first)}"
-          title="#{moderator.nickname}"
+          href=profile_url(moderator, host: ShikimoriDomain::RU_HOSTS.first)
+          title=moderator.nickname
         ]
-          img src="#{moderator.avatar_url 16}" srcset="#{moderator.avatar_url 32} 2x"
+          img[
+            src=moderator.avatar_url(16)
+            srcset="#{moderator.avatar_url 32} 2x"
+            alt=moderator.nickname
+          ]
           span = moderator.nickname
   ul.b-list
     li
@@ -55,8 +59,8 @@ header.head
   input.subheadline-input.date-filter[
     type="text"
     data-name="created_on"
-    placeholder="#{t 'date_field'}"
-    value="#{params[:created_on]}"
+    placeholder=t('date_field')
+    value=params[:created_on]
   ]
   .subheadline История
   .block

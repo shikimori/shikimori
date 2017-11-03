@@ -1,6 +1,6 @@
 .contest_round[
-  data-model="#{ContestRoundSerializer.new(contest.displayed_round).to_json}"
-  data-match_id="#{params[:match_id]}"
+  data-model=ContestRoundSerializer.new(contest.displayed_round).to_json
+  data-match_id=params[:match_id]
 ]
   /- if contest.description.present?
     /.comment-block.contest-description
@@ -10,10 +10,9 @@
   .b-options-floated
     - contest.nearby_rounds.each do |round|
       span.linkeable[
-        data-href="#{round_contest_url contest, round: round}"
-        title="#{round.title}"
-      ]
-        = round.title
+        data-href=round_contest_url(contest, round: round)
+        title=round.title
+      ] = round.title
 
   .subheadline.m30
     = contest.displayed_round.title
@@ -46,10 +45,9 @@
         .c-column
           .b-options-floated
             span.linkeable[
-              data-href="#{round_contest_url contest, round: contest.prior_round}"
-              title="#{contest.prior_round.title}"
-            ]
-              = contest.prior_round.title
+              data-href=round_contest_url(contest, round: contest.prior_round)
+              title=contest.prior_round.title
+            ] = contest.prior_round.title
           .subheadline = t '.in_previous_round'
           .block
             = render 'contest_matches/match_days',

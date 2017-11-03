@@ -2,7 +2,7 @@
 
 li
   a.b-link[
-    href="#{edit_club_club_page_path club, page}"
+    href=edit_club_club_page_path(club, page)
   ] = page.name
 
   .club_page-layout
@@ -12,18 +12,18 @@ li
     - if page.siblings.first != page
       a.b-js-link[
         data-method="post"
-        href="#{up_club_club_page_path club, page}"
+        href=up_club_club_page_path(club, page)
       ] = t '.up'
     - if page.siblings.last != page
       a.b-js-link[
         data-method="post"
-        href="#{down_club_club_page_path club, page}"
+        href=down_club_club_page_path(club, page)
       ] = t '.down'
     a.b-js-link[
       date-remote="true"
       data-method="delete"
-      data-confirm="#{t '.confirm'}"
-      href="#{club_club_page_path club, page}"
+      data-confirm=t('.confirm')
+      href=club_club_page_path(club, page)
     ] = t '.delete'
 
   - if children.any?

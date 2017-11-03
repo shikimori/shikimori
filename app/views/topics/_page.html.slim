@@ -7,15 +7,15 @@ header.head
   h1
     - if @back_url
       a.back[
-        href="#{@back_url}"
-        title="#{t 'back_to_page'}"
-        data-text="#{t 'back'}"
+        href=@back_url
+        title=t('back_to_page')
+        data-text=t('back')
       ]
 
     - if user_signed_in? && request.get? && %w[show index].include?(params[:action])
       a.reload[
-        href="#{request.url}"
-        title="#{t '.refresh'}"
+        href=request.url
+        title=t('.refresh')
       ] = @page_title.last
     - else
       = @page_title.last

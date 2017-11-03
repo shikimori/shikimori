@@ -9,21 +9,21 @@
     h1 = @page_title.last
 
     a.misc.to-process[
-      href="#{new_club_url 'club[owner_id]' => current_user&.id}"
-      title="#{ t '.new'}"
+      href=new_club_url(club: { owner_id: current_user&.id })
+      title=t('.new')
       data-dynamic="week_registered"
     ] = t('actions.create').downcase
 
     p.notice.clearfix = t '.notice'
 
   .b-collection_search[
-    data-search_url="#{clubs_url}"
+    data-search_url=clubs_url
   ]
     .field
       input[
         type="text"
-        placeholder="#{t 'search'}"
-        value="#{params[:search]}"
+        placeholder=t('search')
+        value=params[:search]
       ]
       .clear
 

@@ -2,47 +2,47 @@
   .entry
     - if losers_finalist
       - if match.right
-        p class="#{match.finished? ? (match.winner == match.right ? 'winner' : 'loser') : ''}"
+        p class=(match.winner == match.right ? 'winner' : 'loser' if match.finished?)
           - if match.finished?
             span.matches-num
               span.b-separator.zero ="("
               span.val = match.right_votes
               span.b-separator.zero =")"
-          a.bubbled href="#{url_for match.right}"
+          a.bubbled href=url_for(match.right)
             = localization_span match.right
       - else
         p.unknown ???
     - else
       - if match.left
-        p class="#{match.finished? ? (match.winner == match.left ? 'winner' : 'loser') : ''}"
+        p class=(match.winner == match.left ? 'winner' : 'loser' if match.finished?)
           - if match.finished?
             span.matches-num
               span.b-separator.zero ="("
               span.val = match.left_votes
               span.b-separator.zero =")"
 
-          a.bubbled href="#{url_for match.left}"
+          a.bubbled href=url_for(match.left)
             = localization_span match.left
       - else
         p.unknown ???
   .entry.grid
     - if match.right_type || !match.left_type
       - if match.right
-        p class="#{match.finished? ? (match.winner == match.right ? 'winner' : 'loser') : ''}"
+        p class=(match.winner == match.right ? 'winner' : 'loser' if match.finished?)
           - if match.finished?
             span.matches-num
               span.b-separator.zero ="("
               span.val = match.right_votes
               span.b-separator.zero =")"
 
-          a.bubbled href="#{url_for match.right}"
+          a.bubbled href=url_for(match.right)
             = localization_span match.right
       - else
         p.unknown ???
     - else
       p нет участника
     p.date
-      a href="#{round_match_contest_path contest.to_param, round.number, match.id}"
+      a href=round_match_contest_path(contest.to_param, round.number, match.id)
         = Russian::strftime(match.started_on, '%e %b').strip
         - if match.started_on.strftime('%d.%m') != match.finished_on.strftime('%d.%m')
           | &nbsp;&ndash;&nbsp;

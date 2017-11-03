@@ -1,10 +1,11 @@
+- options = ExternalLink.kind.options.select {|_, key| ::Types::ExternalLink::Kind[key] != ::Types::ExternalLink::Kind[:myanimelist] && ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }.to_json
 = simple_form_for resource.object do |f|
   #vue_external_links[
-    data-resource_type="#{@resource.object.class.name}"
-    data-entry_id="#{@resource.id}"
-    data-entry_type="#{@resource.object.class.base_class.name}"
-    data-external_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
-    data-kind_options="#{ExternalLink.kind.options.select {|_, key| ::Types::ExternalLink::Kind[key] != ::Types::ExternalLink::Kind[:myanimelist] && ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }.to_json}"
+    data-resource_type=@resource.object.class.name
+    data-entry_id=@resource.id
+    data-entry_type=@resource.object.class.base_class.name
+    data-external_links=ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json
+    data-kind_options=options
   ]
     .block_m.b-nothing_here = t 'loading'
   .cc-2
@@ -12,5 +13,5 @@
       = render 'versions/reason'
 
       .buttons
-        a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
+        a.cancel href=resource.edit_url = t 'actions.cancel'
         = f.button :magic_submit

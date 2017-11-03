@@ -1,10 +1,12 @@
 .block.to-process[
     data-dynamic="cutted_covers"
-    data-ratio_type="#{local_assigns[:ratio_type] || :entry}"
+    data-ratio_type=(local_assigns[:ratio_type] || :entry)
   ]
   .subheadline.m10
-    a href="#{local_assigns[:url]}" title="#{local_assigns[:name]}"
-      = local_assigns[:name]
+    a[
+      href=local_assigns[:url]
+      title=local_assigns[:name]
+    ] = local_assigns[:name]
   .cc-4a
     - type = collection.first.object.class.name.downcase
     = render partial: "#{type.pluralize}/#{type}",

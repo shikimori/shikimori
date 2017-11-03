@@ -5,14 +5,14 @@ header.head.misc
   h1
     - if params[:action] != 'show' || params[:round] || params[:vote]
       a.back[
-        href="#{contest_url @resource}"
+        href=contest_url(@resource)
         title=t('.back_to_contest_page')
-        data-text="#{t 'back'}"
+        data-text=t('back')
       ]
     = @resource.name
   - if can?(:edit, @resource) && @resource.persisted?
     a.edit[
-      href="#{edit_contest_url @resource}"
+      href=edit_contest_url(@resource)
       title=t('.edit_contest')
     ] = t('actions.edit').downcase
 
@@ -20,7 +20,7 @@ header.head.misc
 
 .menu-slide-outer.x199
   .menu-slide-inner
-    .l-content class="#{@resource.strategy_type}"
+    .l-content class=@resource.strategy_type
       = yield
 
     aside.l-menu

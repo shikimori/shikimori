@@ -11,7 +11,7 @@ header.head
 ul.b-list.block
   li
     a.b-link[
-      href="#{request.fullpath == url_for(url_params(is_verified: nil)) ? moderations_anime_video_authors_url : url_for(url_params(is_verified: nil))}"
+      href=(request.fullpath == url_for(url_params(is_verified: nil)) ? moderations_anime_video_authors_url : url_for(url_params(is_verified: nil)))
     ] Все авторы
 
   - if params[:limit].present?

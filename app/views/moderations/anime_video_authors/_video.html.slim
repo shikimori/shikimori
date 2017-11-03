@@ -1,11 +1,11 @@
 .anime_video_author
   .b-video_variant
     a[
-      href="#{play_video_online_index_url anime, video.episode, video.id, subdomain: 'play'}"
-      class="#{video.state}"
+      href=play_video_online_index_url(anime, video.episode, video.id, subdomain: 'play')
+      class=video.state
     ]
       span.episode-num ##{video.episode}
-      span.video-kind class="#{video.language}"
+      span.video-kind class=video.language
         = video.kind_text.capitalize
       span.episode-hostings = video.hosting
 

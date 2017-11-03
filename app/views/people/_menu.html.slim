@@ -1,9 +1,9 @@
 - if !@itemtype
   .b-menu_logo
-    center: a href="#{resource.url}" title="#{localized_name resource}"
+    center: a href=resource.url title="#{localized_name resource}"
       img[
-        src="#{cdn_image resource, :original}"
-        alt="#{localized_name resource}"
+        src=cdn_image(resource, :original)
+        alt=localized_name(resource)
       ]
 / - else
   = render 'spnsrs/ad', ad: Ad.new(:istari_x300)

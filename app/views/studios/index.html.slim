@@ -10,15 +10,15 @@ header.head
       .studio
         - if studio.image.exists?
           - if user_signed_in?
-            a href="#{animes_collection_url studio: studio}" title="#{studio.name}"
-              img.logo src="#{studio.image.url}" alt="#{studio.name}" title="#{studio.name}"
+            a href=animes_collection_url(studio: studio) title=studio.name
+              img.logo src=studio.image.url alt="#{studio.name}" title=studio.name
           - else
-            img.logo src="#{studio.image.url}" alt="#{studio.name}" title="#{studio.name}"
-        a.name href="#{animes_collection_url studio: studio}" title="#{studio.name}"
+            img.logo src=studio.image.url alt=studio.name title=studio.name
+        a.name href=animes_collection_url(studio: studio) title=studio.name
           = studio.name
         .animes
           | #{t '.anime_produced'}:&nbsp;
-          span.num #{studio.animes_count}
+          span.num = studio.animes_count
         .years
           | #{t '.over_the_period'}:&nbsp;
           span.num #{studio.min_year.year}-#{[DateTime.now.year, studio.max_year.year].min}

@@ -18,7 +18,7 @@
 
   - if ban.comment_id && ban.comment
     span == Messages::MentionSource.call ban.comment.commentable, ban.comment.id
-    span: a.b-link.comment-hash href="#{comment_url ban.comment}" #
+    span: a.b-link.comment-hash href=comment_url(ban.comment) #
 
   - elsif ban.comment_id
     span = t '.for_deleted_comment'
@@ -26,5 +26,5 @@
   .moderator
     = render 'users/user_16', user: ban.moderator
     - if ban.abuse_request
-      span: a.abuser href="#{profile_url ban.abuse_request.user}"
+      span: a.abuser href=profile_url(ban.abuse_request.user)
         = ban.abuse_request.user.nickname

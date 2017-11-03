@@ -5,10 +5,11 @@
       .comments-collapser = t 'collapse'
       .comments-expander = comments_view.show_comments_text
       .comments-loader.click-loader[
-        data-href-template="#{comments_view.fetch_url}"
-        data-skip="#{comments_view.comments_limit}" data-limit="#{comments_view.fold_limit}"
-        data-count="#{comments_view.folded_comments}"
-        data-only-summaries-shown="#{comments_view.only_summaries_shown?}"
+        data-href-template=comments_view.fetch_url
+        data-skip=comments_view.comments_limit
+        data-limit=comments_view.fold_limit
+        data-count=comments_view.folded_comments
+        data-only-summaries-shown=comments_view.only_summaries_shown?
       ]
         .text = comments_view.load_comments_text
 

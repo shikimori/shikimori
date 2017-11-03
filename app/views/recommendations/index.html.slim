@@ -2,12 +2,12 @@ header.head.misc
   h1 = @page_title.last
 
   - if @view.klass == Anime
-    a.misc href="#{recommendations_manga_url}" = Manga.model_name.human.downcase
+    a.misc href=recommendations_manga_url = Manga.model_name.human.downcase
   - else
-    a.misc href="#{recommendations_anime_url}" = Anime.model_name.human.downcase
+    a.misc href=recommendations_anime_url = Anime.model_name.human.downcase
 
   - if user_signed_in?
-    .b-header_filters style="#{'display: none;' if @view.collection.nil?}"
+    .b-header_filters style=('display: none;' if @view.collection.nil?)
       - if @view.klass == Anime
         .filter-line
           span.title = "#{t '.method'}:"
@@ -18,23 +18,23 @@ header.head.misc
           /] pearson
 
           a.b-link[
-            class="#{:current if @metric == 'pearson_z'}"
-            href="#{recommendations_url metric: 'pearson_z', threshold: @threshold, user: params[:user]}"
+            class=(:current if @metric == 'pearson_z')
+            href=recommendations_url(metric: 'pearson_z', threshold: @threshold, user: params[:user])
           ] pearson_z
 
           /a.b-link[
-            /class="#{:current if @metric == 'pearson_mean'}"
-            /href="#{recommendations_url metric: 'pearson_mean', threshold: @threshold, user: params[:user]}"
+            /class=(:current if @metric == 'pearson_mean')
+            /href=recommendations_url(metric: 'pearson_mean', threshold: @threshold, user: params[:user])
           /] pearson_mean
 
           /a.b-link[
-            /class="#{:current if @metric == 'euclid'}"
-            /href="#{recommendations_url metric: 'euclid', threshold: @threshold, user: params[:user]}"
+            /class=(:current if @metric == 'euclid')
+            /href=recommendations_url(metric: 'euclid', threshold: @threshold, user: params[:user])
           /] euclid
 
           a.b-link[
-            class="#{:current if @metric == 'svd'}"
-            href="#{recommendations_url metric: 'svd', threshold: @threshold, user: params[:user]}"
+            class=(:current if @metric == 'svd')
+            href=recommendations_url(metric: 'svd', threshold: @threshold, user: params[:user])
           ] svd
 
           /a[
@@ -48,29 +48,29 @@ header.head.misc
         span.title = "#{t '.filtering'}:"
 
         a.b-link[
-          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][0]}"
-          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][0], user: params[:user]}"
+          class=(:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][0])
+          href=recommendations_url(metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][0], user: params[:user])
         ] = t '.filtering_type.none'
 
         a.b-link[
-          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][1]}"
-          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][1], user: params[:user]}"
+          class=(:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][1])
+          href=recommendations_url(metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][1], user: params[:user])
         ] = t '.filtering_type.soft'
 
         a.b-link[
-          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][2]}"
-          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][2], user: params[:user]}"
+          class=(:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][2])
+          href=recommendations_url(metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][2], user: params[:user])
         ] = t '.filtering_type.moderate'
 
         a.b-link[
-          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][3]}"
-          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][3], user: params[:user]}"
+          class=(:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][3])
+          href=recommendations_url(metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][3], user: params[:user])
         ] = t '.filtering_type.hard'
 
         - if @view.klass == Anime
           a.b-link[
-            class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][4]}"
-            href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][4], user: params[:user]}"
+            class=(:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][4])
+            href=recommendations_url(metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][4], user: params[:user])
           ] = t '.filtering_type.full'
 
       .hint = t '.filtering_hint'
@@ -110,8 +110,8 @@ header.head.misc
         - if user_signed_in? || turbolinks_request?
             = render 'animes_collection/menu', menu: @menu
         - else
-            .postloaded data-href="#{@menu.url}"
-              .ajax-loading title="#{t 'loading'}"
+            .postloaded data-href=@menu.url
+              .ajax-loading title=t('loading')
 
   / - if user_signed_in? && !current_user.preferences.postload_in_catalog
   = render 'animes_collection/pagination'

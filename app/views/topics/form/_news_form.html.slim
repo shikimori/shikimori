@@ -3,7 +3,7 @@
 = f.simple_fields_for :video do |ff|
   .cc-2
     .c-column.topic_video[
-      data-video_id="#{decomposed_body.wall_video&.id}"
+      data-video_id=decomposed_body.wall_video&.id
       data-content="#{render('videos/video', video: decomposed_body.wall_video).to_str if decomposed_body.wall_video}"
     ]
       .title
@@ -33,14 +33,14 @@
 
         .m5
           .errors
-          .b-button.attach data-url="#{anime_videos_url anime_id: 'ANIME_ID'}"
+          .b-button.attach data-url=anime_videos_url(anime_id: 'ANIME_ID')
             = t '.attach'
 
 .topic_posters
   .title = t '.topic_posters'
 
   label: .b-dropzone[
-    data-upload_url="#{api_user_images_url linked_type: Topic.name}"
+    data-upload_url=api_user_images_url(linked_type: Topic.name)
     data-hint="Перетаскивайте сюда картинки, они будут отображены отдельным блоком в топике."
   ]
     = render 'blocks/upload_progress'

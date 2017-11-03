@@ -5,10 +5,9 @@
       .member
         .position = stats.position
         .progress[
-          class="#{stats.status}"
+          class=stats.status
         ] = stats.progress
         a.bubbled[
-          href="#{url_for stats.member}"
-          title="#{stats.member.name}"
-        ]
-          = localization_span stats.member
+          href=url_for(stats.member)
+          title=stats.member.name
+        ] = localization_span stats.member

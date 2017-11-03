@@ -1,7 +1,7 @@
 = render layout: 'clubs/page' do
   - if can? :edit, @club_page
     .subheadline-buttons
-      a.item-edit href="#{edit_club_club_page_path @club, @club_page}"
+      a.item-edit href=edit_club_club_page_path(@club, @club_page)
   .subheadline.m10
     = @club_page.name
 

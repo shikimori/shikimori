@@ -1,24 +1,23 @@
 .b-club.c-colum[
-  id="#{club.id}"
+  id=club.id
   class="#{content_by} #{:censored if club.censored?}"
 ]
   - if content_by == :detailed
     - comments_count = club.maybe_topic(locale_from_host).comments_count
     a.name-logo[
-      href="#{club_url club, subdomain: false}"
-      title="#{club.name}"
+      href=club_url(club, subdomain: false)
+      title=club.name
     ]
       img.logo[
-        src="#{cdn_image club, :x48}"
+        src=cdn_image(club, :x48)
         srcset="#{cdn_image club, :x96} 2x"
-        alt="#{club.name}"
-        title="#{club.name}"
+        alt=club.name
       ]
       .name
         = club.name
     .info
       span.grouped
-        span.number #{club.members_count}
+        span.number = club.members_count
         span.value = i18n_i 'member', club.members_count
       span.grouped
         span.number
@@ -30,22 +29,26 @@
             = i18n_i 'comment', :many
     .info.author
       .b-user16
-        a href="#{profile_url club.owner}" title="#{club.owner.nickname}"
+        a[
+          href=profile_url(club.owner)
+          title=club.owner.nickname
+        ]
           img[
-            src="#{club.owner.avatar_url 16}"
+            src=club.owner.avatar_url(16)
             srcset="#{club.owner.avatar_url 32} 2x"
-            alt="#{club.owner.nickname}"
-            title="#{club.owner.nickname}"
+            alt=club.owner.nickname
           ]
           span = club.owner.nickname
 
   - elsif content_by == :avatar
-    a href="#{club_url club, subdomain: false}" title="#{club.name}"
+    a[
+      href=club_url(club, subdomain: false)
+      title=club.name
+    ]
       img.logo[
-        src="#{cdn_image club, :x48}"
+        src=cdn_image(club, :x48)
         srcset="#{cdn_image club, :x96} 2x"
-        alt="#{club.name}"
-        title="#{club.name}"
+        alt=club.name
       ]
 
   - else

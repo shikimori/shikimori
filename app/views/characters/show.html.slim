@@ -4,33 +4,33 @@
       .c-image.cc
         .c-poster
           center: img[
-            src="#{cdn_image @resource, :original}"
-            title="#{@resource.name}"
-            alt="#{@resource.name}"
+            src=cdn_image(@resource, :original)
+            title=@resource.name
+            alt=@resource.name
           ]
 
         .c-actions
           a.new_comment.b-tooltipped.unprocessed.to-process[
-            title="#{t '.actions.comment'}"
+            title=t('.actions.comment')
             data-direction='top'
-            data-text="#{t '.actions.comment'}"
+            data-text=t('.actions.comment')
             data-dynamic='authorized'
           ]
           a.fav-add.b-tooltipped.unprocessed.to-process[
-            href="#{favourites_url @resource.object.class.name, @resource.id}"
+            href=favourites_url(@resource.object.class.name, @resource.id)
             data-remote='true'
             data-type='json'
             data-kind=''
             data-direction='top'
             data-dynamic='authorized'
-            data-add_text="#{t '.actions.add_to_favorites'}"
-            data-remove_text="#{t '.actions.remove_from_favorites'}"
+            data-add_text=t('.actions.add_to_favorites')
+            data-remove_text=t('.actions.remove_from_favorites')
           ]
           a.edit.b-tooltipped.unprocessed.to-process[
-            href="#{@resource.edit_url}"
-            title="#{t '.actions.edit'}"
+            href=@resource.edit_url
+            title=t('.actions.edit')
             data-direction='top'
-            data-text="#{t '.actions.edit'}"
+            data-text=t('.actions.edit')
             data-dynamic='authorized'
           ]
 
@@ -49,12 +49,12 @@
                     .line-container
                       - if @resource.cosplay?
                         span.linkeable[
-                          data-href="#{cosplay_character_url @resource}"
+                          data-href=cosplay_character_url(@resource)
                         ] = t 'cosplay'
 
                       - if @resource.tags.present?
                         span.linkeable[
-                          data-href="#{art_character_url @resource}"
+                          data-href=art_character_url(@resource)
                         ] = t 'imageboard_art'
 
               - if @resource.contest_winners.any?
@@ -64,7 +64,7 @@
           - if @resource.seyu.present?
             .c-info-right
               .subheadline.m10
-                .linkeable href="#{seyu_character_url @resource}" = t 'seyu'
+                .linkeable href=seyu_character_url(@resource) = t 'seyu'
                 /- if @resource.seyu.size > 3
                   | Сэйю <span>#{@resource.seyu.size}</span>
                 /- else
@@ -85,11 +85,10 @@
           ]
           = render 'blocks/description', resource: @resource
 
-
     - if @resource.animes(7).any?
       .subheadline.m10
         .linkeable[
-          data-href="#{animes_character_url @resource}"
+          data-href=animes_character_url(@resource)
         ] = i18n_i 'Anime', :other
       .cc.to-process data-dynamic='cutted_covers'
         = render @resource.animes(7)
@@ -97,7 +96,7 @@
     - if @resource.mangas(7).any?
       .subheadline.m10
         .linkeable[
-          data-href="#{mangas_character_url @resource}"
+          data-href=mangas_character_url(@resource)
         ] = i18n_i 'Manga', :other
       .cc.to-process data-dynamic='cutted_covers'
         = render @resource.mangas(7)
@@ -105,7 +104,7 @@
     - if @resource.ranobe(7).any?
       .subheadline.m10
         .linkeable[
-          data-href="#{ranobe_character_url @resource}"
+          data-href=ranobe_character_url(@resource)
         ] = i18n_i 'Ranobe', :other
       .cc.to-process data-dynamic='cutted_covers'
         = render @resource.ranobe(7)

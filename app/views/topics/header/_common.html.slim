@@ -1,53 +1,53 @@
 - if topic_view.author_in_header?
   span.linkeable data-href="#{topic_view.urls.poster_url}"
     img[
-      src="#{topic_view.poster false}"
+      src=topic_view.poster(false)
       srcset="#{topic_view.poster true} 2x"
-      alt="#{topic_view.poster_title}"
+      alt=topic_view.poster_title
     ]
 
 .name-date
   - if topic_view.action_tag
     .b-anime_status_tag[
-      class="#{topic_view.action_tag.type}"
-      data-text="#{topic_view.action_tag.text}"
+      class=topic_view.action_tag.type
+      data-text=topic_view.action_tag.text
     ]
   - if user_signed_in?
     .b-anime_status_tag.ignored.hidden[
-      data-text="#{t '.topic_ignored'}"
+      data-text=t('.topic_ignored')
     ]
 
   a.name[
-    href="#{topic_view.urls.poster_url}"
-    title="#{topic_view.poster_title}"
+    href=topic_view.urls.poster_url
+    title=topic_view.poster_title
   ] = topic_view.poster_title_html
 
   - if topic_view.topic_type_policy.any_club_topic? && !topic_view.topic_type_policy.club_topic?
     span.about
       span = t '.in'
       a.b-link[
-        href="#{topic_view.topic.club.decorate.url}"
-        title="#{topic_view.topic.club.name}"
+        href=topic_view.topic.club.decorate.url
+        title=topic_view.topic.club.name
       ] = topic_view.topic.club.name
 
   - elsif topic_view.topic.linked && (topic_view.topic_type_policy.forum_topic? || topic_view.topic_type_policy.not_generated_news_topic?)
     span.about
       span = t '.about'
       a.b-link.bubbled[
-        href="#{topic_view.topic.linked.decorate.url}"
-        title="#{localized_name topic_view.topic.linked}"
+        href=topic_view.topic.linked.decorate.url
+        title=localized_name(topic_view.topic.linked)
       ] = localization_span topic_view.topic.linked
 
   - elsif topic_view.topic_type_policy.review_topic?
     span.about
       span = t '.about'
       a.b-link.bubbled[
-        href="#{topic_view.topic.linked.target.decorate.url}"
-        title="#{localized_name topic_view.topic.linked.target}"
+        href=topic_view.topic.linked.target.decorate.url
+        title=localized_name(topic_view.topic.linked.target)
       ] = localization_span topic_view.topic.linked.target
 
   span.time
     time[
       itemprop="commentTime"
-      datetime="#{topic_view.created_at.iso8601}"
+      datetime=topic_view.created_at.iso8601
     ] = l topic_view.created_at, format: '%e %B %Y'

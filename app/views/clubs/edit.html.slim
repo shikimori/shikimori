@@ -9,8 +9,8 @@
   .b-options-floated.mobile-phone
     - %w(main description pages links members styles).each do |page|
       a[
-        class="#{:selected if @page == page}"
-        href="#{edit_club_url @club, page: page}"
+        class=(:selected if @page == page)
+        href=edit_club_url(@club, page: page)
       ] = t ".pages.#{page}"
   h2.subheadline.m10 = t :settings
 

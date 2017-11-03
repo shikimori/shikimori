@@ -15,7 +15,7 @@
           hint: local_assigns[:css_hint]
 
         .preview.ajax-loading.vk-like[
-          data-url="#{preview_api_styles_url}"
+          data-url=preview_api_styles_url
         ]
         .buttons
           / a.cancel href="#{cancel_url}" = t 'actions.cancel'
@@ -48,13 +48,13 @@
           = t '.page_border'
 
     .page_background_color[
-      data-css_template="#{Style::PAGE_BACKGROUND_COLOR_CSS}"
+      data-css_template=Style::PAGE_BACKGROUND_COLOR_CSS
     ]
       p = t '.page_background_color'
       .range-slider.noUiSlider
 
     .body_background[
-      data-css_template="#{Style::BODY_BACKGROUND_CSS}"
+      data-css_template=Style::BODY_BACKGROUND_CSS
     ]
       .block
         .b-input

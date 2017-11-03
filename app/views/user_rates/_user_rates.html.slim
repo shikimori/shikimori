@@ -1,9 +1,9 @@
 - library.each do |status, list|
   header class="status-#{UserRate.statuses[status]}"
-    a name="#{UserRate.statuses[status]}"
+    a name=UserRate.statuses[status]
     .b-options-floated.collapse id="collapse-#{UserRate.statuses[status]}"
       span.action #{t 'collapse'} (#{list.size})
-    .subheadline class="#{:m10 if library.list_view == 'posters'}"
+    .subheadline class=(:m10 if library.list_view == 'posters')
       = UserRate.status_name status, library.klass.name
     .collapsed.tiny ...
 
@@ -13,7 +13,7 @@
     = render 'user_rates/lines', library: library, list: list
 
   - if list.stats
-    .summary.list class="#{library.list_view}"
+    .summary.list class=library.list_view
       - list.stats.each do |stat, value|
         = t ".#{stat}"
         | :&nbsp;
@@ -21,7 +21,7 @@
 
 - if library.total_stats.any? && !library.add_postloader?
   - if library.list_page.size > 1 || library.page > 1
-    .summary.library class="#{library.list_view}"
+    .summary.library class=library.list_view
       - library.total_stats.each do |stat, value|
         = t ".#{stat}"
         | :&nbsp;

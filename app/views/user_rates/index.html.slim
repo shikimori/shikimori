@@ -1,14 +1,14 @@
 - content_for :head_misc do
   - if params[:list_type] == 'anime' && @user.stats.manga? && @user.preferences.manga_in_profile?
     a.misc[
-      href="#{profile_user_rates_url @user, list_type: 'manga'}"
+      href=profile_user_rates_url(@user, list_type: 'manga')
       title="#{t '.to_manga'}"
     ] = t '.to_manga'
 
   - if params[:list_type] == 'manga' && @user.stats.anime? && @user.preferences.anime_in_profile?
     a.misc[
-      href="#{profile_user_rates_url @user, list_type: 'anime'}"
-      title="#{t '.to_anime'}"
+      href=profile_user_rates_url(@user, list_type: 'anime')
+      title=t('.to_anime')
     ] = t '.to_anime'
 
 = render layout: 'page' do
@@ -22,9 +22,9 @@
           - @library.counts.each do |stat|
             - is_selected = params[:mylist].to_s.split(',').include?(stat[:grouped_id])
             a.b-link.always-active[
-              data-id="#{stat[:grouped_id]}"
-              class="#{:selected if is_selected}"
-              href="#{url_for safe_params.merge(mylist: is_selected ? nil : stat[:grouped_id])}"
+              data-id=stat[:grouped_id]
+              class=(:selected if is_selected)
+              href=url_for(safe_params.merge(mylist: is_selected ? nil : stat[:grouped_id]))
             ]
               = UserRate.status_name stat[:name], @library.klass.name
               | &nbsp;
@@ -39,7 +39,7 @@
 
         .b-collection_search
           .field
-            input placeholder="#{t 'search'}"
+            input placeholder=t('search')
 
         - if @library.any?
           .list-groups
@@ -55,10 +55,10 @@
       aside.l-menu
         .block.avatar
           center
-            a href="#{@resource.url}" title="#{@resource.nickname}"
+            a href=@resource.url title=@resource.nickname
               img[
-                src="#{@resource.avatar_url 160}"
-                alt="#{@resource.nickname}"
+                src=@resource.avatar_url(160)
+                alt=@resource.nickname
               ]
 
         = render 'user_rates/stats',

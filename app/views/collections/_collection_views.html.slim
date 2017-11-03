@@ -2,7 +2,7 @@
   .block
     b #{t '.my_unpublished_collections'}:&nbsp;
     - @unpublished_collections.each do |collection|
-      a href="#{edit_collection_url collection}" = collection.name
+      a href=edit_collection_url(collection) = collection.name
       - unless collection == @unpublished_collections.last
         | ,&nbsp;
 

@@ -6,10 +6,10 @@ p.review-votes_count[
   meta itemprop="bestRating" content="10"
   meta[
     itemprop="ratingValue"
-    content="#{(review.cached_votes_up * 10.0 / review.cached_votes_down).round 1}"
+    content=((review.cached_votes_up * 10.0 / review.cached_votes_down).round(1))
   ]
   meta[
     itemprop="ratingCount"
-    content="#{review.cached_votes_up + review.cached_votes_down}"
+    content=(review.cached_votes_up + review.cached_votes_down)
   ]
   = render 'reviews/votes', review: review

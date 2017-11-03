@@ -9,15 +9,15 @@ header.head
   - else
     h2
       a.back[
-        href="#{@back_url || @resource.url(false)}"
+        href=(@back_url || @resource.url(false))
         title="#{t 'back_to_page'} #{{@resource.name}}"
-        data-text="#{t 'back'}"
+        data-text=t('back')
       ]
       = @resource.headline
 
   /- if params[:page] != 'cosplay'
   /- else
-    h2.h1-like title="#{h1_text @resource}"
+    h2.h1-like title=h1_text(@resource)
       = h1_text @resource, true
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs

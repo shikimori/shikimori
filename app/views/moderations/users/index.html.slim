@@ -7,8 +7,8 @@ header.head
   input.subheadline-input.date-filter[
     type="text"
     data-name="created_on"
-    placeholder="#{t 'date_field'}"
-    value="#{params[:created_on]}"
+    placeholder=t('date_field')
+    value=params[:created_on]
   ]
   .subheadline = t '.users'
   .cc-4
@@ -21,18 +21,18 @@ header.head
             .info
               .image-name
                 a.name[
-                  href="#{profile_url user, subdomain: false}"
-                  title="#{user.nickname}"
+                  href=profile_url(user, subdomain: false)
+                  title=user.nickname
                 ] = user.nickname
 
                 a[
-                  href="#{profile_url user, subdomain: false}"
-                  title="#{user.nickname}"
+                  href=profile_url(user, subdomain: false)
+                  title=user.nickname
                 ]
                   img.image[
-                    src="#{user.avatar_url 73}"
+                    src=user.avatar_url(73)
                     srcset="#{user.avatar_url 148} 2x"
-                    alt="#{user.nickname}"
+                    alt=user.nickname
                   ]
               p.last-online
                 = I18n.l user.created_at, format: :full

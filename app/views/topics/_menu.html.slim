@@ -28,8 +28,8 @@
   .block2.reviews
     h2.midheadline.m13
       a[
-        href="#{forum_topics_url :reviews}"
-        title="#{t '.to_reviews'}"
+        href=forum_topics_url(:reviews)
+        title=t('.to_reviews')
       ] = t '.reviews'
     ul
       - menu.reviews.each do |review|
@@ -37,29 +37,28 @@
 
         li.entry
           a[
-            href="#{forum_topic_url forum: review_topic.forum, id: review_topic}"
-            title="#{review_topic.title}"
+            href=forum_topic_url(forum: review_topic.forum, id: review_topic)
+            title=review_topic.title
           ]
             .image-name
               img[
-                src="#{ImageUrlGenerator.instance.url review.target, :x48}"
-                srcset="#{ImageUrlGenerator.instance.url review.target, :x96} 2x"
-                alt="#{localized_name review.target}"
-                title="#{localized_name review.target}"
+                src=cdn_image(review.target, :x48)
+                srcset="#{cdn_image review.target, :x96} 2x"
+                alt=localized_name(review.target)
               ]
               span.title
                 == review.target.name
             span.misc
               = t '.user_review', author: review.user.nickname
             time.misc.date[
-              datetime="#{review.created_at.iso8601}"
+              datetime=review.created_at.iso8601
             ] = l review.created_at, format: '%e %B %Y'
 
 .block2.clubs
   h2.midheadline.m13
     a[
-      href="#{clubs_url}"
-      title="#{t '.to_clubs'}"
+      href=clubs_url
+      title=t('.to_clubs')
     ] = i18n_i 'Club', :other
   ul
     - cache menu.club_topics do
@@ -68,19 +67,18 @@
             - topic_url = club_topic.is_a?(Topics::EntryTopics::ClubPageTopic) ? club_club_page_url(club_topic.club, club_topic.linked) : (club_topic.is_a?(Topics::ClubUserTopic) ? club_club_topic_url(club_topic.club, club_topic) : club_url(club_topic.linked))
             li.entry
               a[
-                href="#{topic_url}"
-                title="#{club_topic.club.name}"
+                href=topic_url
+                title=club_topic.club.name
               ]
                 .image-name
                   img[
-                    src="#{club_topic.comments.first ? club_topic.comments.first.user.avatar_url(48) : club_topic.user.avatar_url(48)}"
-                    alt="#{club_topic.club.name}"
-                    title="#{club_topic.club.name}"
+                    src=(club_topic.comments.first ? club_topic.comments.first.user.avatar_url(48) : club_topic.user.avatar_url(48))
+                    alt=club_topic.club.name
                   ]
                   span.title
                     = club_topic.club.name
                 - if club_topic.comments.first
-                  span.misc title="#{truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '}"
+                  span.misc title=truncate(club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' ')
                     == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
                 - else
                   span.misc = t '.new_club'
@@ -90,7 +88,7 @@
     h2.midheadline.m8 = t '.sticky_topics'
     div
       - menu.sticky_topics.take(3).each do |topic|
-        a.topic href="#{topic.url}"
+        a.topic href=topic.url
           span.title = topic.title
           span.notice = topic.description
     - if menu.sticky_topics.size > 3
@@ -98,7 +96,7 @@
       .b-show_more-more
         span
         - menu.sticky_topics.slice(3, 99).each do |topic|
-          a.topic href="#{topic.url}"
+          a.topic href=topic.url
             span.title = topic.title
             span.notice = topic.description
         .hide-more #{{t '.hide'}}

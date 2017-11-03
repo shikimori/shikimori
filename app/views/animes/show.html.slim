@@ -4,59 +4,59 @@
     meta itemprop="headline" content="#{@resource.name}"
 
     - if @resource.russian
-      meta itemprop="alternativeHeadline" content="#{@resource.russian}"
+      meta itemprop="alternativeHeadline" content=@resource.russian
 
     - if @resource.anime? && @resource.kind_movie? && (@resource.aired_on || @resource.released_on)
       meta[
         itemprop="datePublished"
-        content="#{@resource.aired_on.to_s || @resource.released_on.to_s}"
+        content=(@resource.aired_on.to_s || @resource.released_on.to_s)
       ]
     - elsif @resource.anime?
       - if @resource.aired_on
-        meta itemprop="startDate" content="#{@resource.aired_on.to_s}"
+        meta itemprop="startDate" content=@resource.aired_on
       - if @resource.released_on
-        meta itemprop="endDate" content="#{@resource.released_on.to_s}"
+        meta itemprop="endDate" content=@resource.released_on
 
     .b-db_entry
       .c-image
         .cc.block
           .c-poster
             center: img[
-              src="#{cdn_image @resource, :original}"
-              title="#{@resource.name}"
-              alt="#{@resource.name}"
+              src=cdn_image(@resource, :original)
+              title=@resource.name
+              alt=@resource.name
             ]
 
           .c-actions
             a.new_comment.b-tooltipped.unprocessed.to-process[
-              title="#{t '.actions.comment'}"
+              title=t('.actions.comment')
               data-direction="top"
               data-dynamic="day_registered"
-              data-text="#{t '.actions.comment'}"
+              data-text=t('.actions.comment')
             ]
             a.new_review.b-tooltipped.unprocessed.to-process[
-              href="#{@resource.new_review_url}"
-              title="#{t '.actions.review'}"
+              href=@resource.new_review_url
+              title=t('.actions.review')
               data-direction="top"
               data-dynamic="week_registered"
-              data-text="#{t '.actions.review'}"
+              data-text=t('.actions.review')
             ]
             a.fav-add.b-tooltipped.unprocessed.to-process[
-              href="#{favourites_url @resource.object.class.name, @resource.id}"
+              href=favourites_url(@resource.object.class.name, @resource.id)
               data-remote="true"
               data-type="json"
               data-kind=""
               data-direction="top"
               data-dynamic="authorized"
-              data-add_text="#{t '.actions.add_to_favorites'}"
-              data-remove_text="#{t '.actions.remove_from_favorites'}"
+              data-add_text=t('.actions.add_to_favorites')
+              data-remove_text=t('.actions.remove_from_favorites')
             ]
             a.edit.b-tooltipped.unprocessed.to-process[
-              href="#{@resource.edit_url}"
-              title="#{t '.actions.edit'}"
+              href=@resource.edit_url
+              title=t('.actions.edit')
               data-direction="top"
               data-dynamic="authorized"
-              data-text="#{t '.actions.edit'}"
+              data-text=t('.actions.edit')
             ]
 
         = render partial: 'user_rates/placeholder',
@@ -79,11 +79,11 @@
                 .subheadline.m5 = Anime.human_attribute_name(:score)
                 .scores
                   meta itemprop="bestRating" content="10"
-                  meta itemprop="ratingValue" content="#{@resource.score}"
+                  meta itemprop="ratingValue" content=@resource.score
                   - if @resource.cached_rates_count > 0
                     meta[
                       itemprop="ratingCount"
-                      content="#{@resource.cached_rates_count}"
+                      content=@resource.cached_rates_count
                     ]
                   = render 'blocks/rate', score: @resource.score
 
@@ -107,8 +107,8 @@
 
             - if @resource.anime?
               .watch-online-placeholer[
-                data-total_episodes="#{@resource.episodes}"
-                data-episodes_aired="#{@resource.episodes_aired}"
+                data-total_episodes=@resource.episodes
+                data-episodes_aired=@resource.episodes_aired
               ]
 
       .c-description
@@ -120,5 +120,5 @@
       = render 'resources'
 
     - else
-      .resources-loader.postloaded data-href="#{@resource.resources_url}"
-        .ajax-loading.vk-like title="#{t 'loading'}"
+      .resources-loader.postloaded data-href=@resource.resources_url
+        .ajax-loading.vk-like title=t('loading')

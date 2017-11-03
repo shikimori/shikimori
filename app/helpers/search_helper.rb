@@ -1,3 +1,4 @@
+# TODO: get rid of this class
 module SearchHelper
   def self.unescape string
     (string || '').fix_encoding

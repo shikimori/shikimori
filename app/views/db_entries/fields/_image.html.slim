@@ -2,9 +2,9 @@
   .c-column
     = simple_form_for resource.object do |f|
       img.m5[
-        src="#{cdn_image resource, :original}"
-        title="#{localized_name resource}"
-        alt="#{localized_name resource}"
+        src=cdn_image(resource, :original)
+        title=localized_name(resource)
+        alt=localized_name(resource)
       ]
 
       = f.input :image, hint: '225x320'
@@ -21,5 +21,5 @@
       = render 'versions/reason'
 
       .buttons
-        a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
+        a.cancel href=resource.edit_url = t 'actions.cancel'
         = f.button :magic_submit

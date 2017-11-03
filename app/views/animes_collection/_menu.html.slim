@@ -9,17 +9,17 @@
 
     .b-list style="margin-left: 5px"
       li: a.b-link[
-        href="#{send :"recommendations_favourites_#{menu.klass.name.downcase}_url", subdomain: false}"
+        href=send(:"recommendations_favourites_#{menu.klass.name.downcase}_url", subdomain: false)
       ] = t "dashboards.#{menu.klass.table_name}.recommended.favourite"
 
       - if menu.anime?
         li: a.b-link[
-          href="#{RecommendationsController::TOPIC_URL}"
+          href=RecommendationsController::TOPIC_URL
         ] = t 'dashboards.animes.recommended.by_community'
 
       - unless menu.ranobe?
         li: a.b-link[
-          href="#{recommendations_url klass: menu.klass.name.downcase, subdomain: false}"
+          href=recommendations_url(klass: menu.klass.name.downcase, subdomain: false)
         ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
   - unless %w[user_rates userlist_comparer].include? params[:controller]
@@ -139,7 +139,7 @@
             input type="checkbox" autocomplete="off"
             = title
             span.b-question.b-tooltipped.mobile.unprocessed[
-              title="#{t "enumerize.anime.rating.hint.#{rating}"}"
+              title=t("enumerize.anime.rating.hint.#{rating}")
               data-direction="top"
             ]
 
@@ -154,9 +154,9 @@
             = localization_span genre
             - if genre.description.present?
               span.b-question.mobile.bubbled[
-                title="#{genre.description}"
+                title=genre.description
                 data-predelay="150"
-                data-href="#{tooltip_genre_url genre, subdomain: false}"
+                data-href=tooltip_genre_url(genre, subdomain: false)
               ]
 
   / - unless %w[user_rates userlist_comparer].include? params[:controller]

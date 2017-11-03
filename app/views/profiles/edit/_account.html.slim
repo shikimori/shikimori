@@ -1,7 +1,7 @@
 / важно заново выбрать юзера из базы, т.к. юзер может быть в процессе смены никнейма
 = simple_form_for @resource.object,
     url: profile_url(User.find(@resource.id)) do |f|
-  input type='hidden' name='page' value="#{@page}"
+  input type='hidden' name='page' value=@page
 
   .cc-2
     .c-column.block_m
@@ -15,7 +15,7 @@
         = f.input :email, input_html: { disabled: true }
 
         .change-password
-          a href="#{edit_profile_url @resource, page: 'password'}"
+          a href=edit_profile_url(@resource, page: 'password')
             = t '.change_email_and_password'
 
         = f.input :name
@@ -41,9 +41,9 @@
         .avatar-edit
           - if @resource.avatar.exists?
             img[
-              src="#{@resource.avatar_url}"
-              alt="#{@resource.nickname}"
-              title="#{@resource.nickname}"
+              src=@resource.avatar_url
+              alt=@resource.nickname
+              title=@resource.nickname
             ]
 
       - if @resource.user_tokens.any?
@@ -52,8 +52,8 @@
           .value.oauth.remove
             - @resource.user_tokens.each do |token|
               a.b-oauth_token[
-                class="#{token.provider}"
-                href="#{user_token_url token}"
+                class=token.provider
+                href=user_token_url(token)
                 title=t('.disable_authentication', provider: token.provider.to_s.titleize)
                 data-confirm="#{t('.disable_authentication', provider: token.provider.to_s.titleize)}?"
                 data-method='delete'
@@ -65,11 +65,11 @@
           .value.oauth.add
             - @resource.unconnected_providers.each do |provider|
               a.b-oauth_token[
-                class="#{provider}"
-                href="#{send :"user_#{provider}_omniauth_authorize_url"}"
+                class=provider
+                href=send(:"user_#{provider}_omniauth_authorize_url")
                 title=t('.enable_authentication', provider: provider.to_s.titleize)
               ]
 
   .buttons
-    a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
+    a.cancel href=profile_url(@resource) = t 'actions.cancel'
     = f.button :magic_submit

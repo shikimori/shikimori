@@ -10,9 +10,9 @@
         - if contest.can_propose?
           input.item-suggest.suggest.subheadline-input.common[
             type='text'
-            data-member_type="#{contest.member_type}"
-            data-autocomplete="#{contest.suggestion_url}"
-            placeholder="#{contest.anime? ? t('.anime_title') : t('.character_name')}"
+            data-member_type=contest.member_type
+            data-autocomplete=contest.suggestion_url
+            placeholder=(contest.anime? ? t('.anime_title') : t('.character_name'))
           ]
 
         .block

@@ -5,72 +5,72 @@
         .c-poster
           center
             img[
-              src="#{cdn_image @resource, :original}"
-              title="#{localized_name @resource}"
-              alt="#{localized_name @resource}"
+              src=cdn_image(@resource, :original)
+              title=localized_name(@resource)
+              alt=localized_name(@resource)
             ]
 
         .c-actions
           a.new_comment.b-tooltipped.unprocessed[
-            title="#{t '.actions.comment'}"
+            title=t('.actions.comment')
             data-direction='top'
-            data-text="#{t '.actions.comment'}"
+            data-text=t('.actions.comment')
             data-dynamic='authorized'
           ]
 
           a.fav-add.b-tooltipped.unprocessed.to-process[
-            href="#{favourites_producer_url @resource.object.class.name, @resource}"
-            style="display: none"
+            href=favourites_producer_url(@resource.object.class.name, @resource)
+            style='display: none'
             data-remote='true'
             data-type='json'
             data-kind='producer'
             data-direction='top'
             data-dynamic='authorized'
-            data-add_text="#{t '.actions.add_to_favorites'}"
-            data-remove_text="#{t '.actions.remove_from_favorites'}"
+            data-add_text=t('.actions.add_to_favorites')
+            data-remove_text=t('.actions.remove_from_favorites')
           ]
 
           a.fav-add.b-tooltipped.unprocessed.to-process[
-            href="#{favourites_mangaka_url @resource.object.class.name, @resource}"
-            style="display: none"
+            href=favourites_mangaka_url(@resource.object.class.name, @resource)
+            style='display: none'
             data-remote='true'
             data-type='json'
             data-kind='mangaka'
             data-direction='top'
             data-dynamic='authorized'
-            data-add_text="#{t '.actions.add_to_favorites'}"
-            data-remove_text="#{t '.actions.remove_from_favorites'}"
+            data-add_text=t('.actions.add_to_favorites')
+            data-remove_text=t('.actions.remove_from_favorites')
           ]
 
           a.fav-add.b-tooltipped.unprocessed.to-process[
-            href="#{favourites_seyu_url @resource.object.class.name, @resource}"
-            style="display: none"
+            href=favourites_seyu_url(@resource.object.class.name, @resource)
+            style='display: none'
             data-remote='true'
             data-type='json'
             data-kind='seyu'
             data-direction='top'
             data-dynamic='authorized'
-            data-add_text="#{t '.actions.add_to_favorites'}"
-            data-remove_text="#{t '.actions.remove_from_favorites'}"
+            data-add_text=t('.actions.add_to_favorites')
+            data-remove_text=t('.actions.remove_from_favorites')
           ]
 
           a.fav-add.b-tooltipped.unprocessed.to-process[
-            href="#{favourites_person_url @resource.object.class.name, @resource}"
-            style="display: none"
+            href=favourites_person_url(@resource.object.class.name, @resource)
+            style='display: none'
             data-remote='true'
             data-type='json'
             data-kind='person'
             data-direction='top'
             data-dynamic='authorized'
-            data-add_text="#{t '.actions.add_to_favorites'}"
-            data-remove_text="#{t '.actions.remove_from_favorites'}"
+            data-add_text=t('.actions.add_to_favorites')
+            data-remove_text=t('.actions.remove_from_favorites')
           ]
 
           a.edit.b-tooltipped.unprocessed.to-process[
-            href="#{@resource.edit_url}"
-            title="#{t '.actions.edit'}"
+            href=@resource.edit_url
+            title=t('.actions.edit')
             data-direction='top'
-            data-text="#{t '.actions.edit'}"
+            data-text=t('.actions.edit')
             data-dynamic='authorized'
           ]
 
@@ -97,6 +97,6 @@
       - if @resource.best_works.any?
         .c-description
           .subheadline.m10
-            .linkeable data-href="#{works_person_url @resource}" = t 'best_works'
+            .linkeable data-href=works_person_url(@resource) = t 'best_works'
           .c-works
             = render @resource.best_works, cover_notice: :role

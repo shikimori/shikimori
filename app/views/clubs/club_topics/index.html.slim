@@ -15,7 +15,7 @@
 
   .b-forum.to-process[
     data-dynamic='forum'
-    data-faye="#{@forums_view.faye_subscriptions.to_json}"
+    data-faye=@forums_view.faye_subscriptions.to_json
   ]
     - if @forums_view.topic_views.any?
       = render partial: 'topics/topic',

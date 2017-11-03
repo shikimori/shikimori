@@ -4,7 +4,7 @@
 
 article.c-column.b-catalog_entry.c-character[
   class="entry-#{character.id} #{:cc if content_by == :block}"
-  id="#{character.id}"
+  id=character.id
   itemscope itemtype="http://schema.org/Person"
 ]
   meta[
@@ -17,18 +17,18 @@ article.c-column.b-catalog_entry.c-character[
   ]
 
   a.cover[
-    class="#{'anime-tooltip' if content_by == :tooltip}"
-    href="#{character_url character}"
+    class=('anime-tooltip' if content_by == :tooltip)
+    href=character_url(character)
     data-delay="150"
-    data-predelay="#{tooltip_predelay if defined? tooltip_predelay}"
-    data-tooltip_url="#{tooltip_character_url character, subdomain: false}"
+    data-predelay=(tooltip_predelay if defined? tooltip_predelay)
+    data-tooltip_url=tooltip_character_url(character, subdomain: false)
   ]
     span.image-decor
       span.image-cutter
         img[
-          src="#{cdn_image character, :preview}"
+          src=cdn_image(character, :preview)
           srcset="#{cdn_image character, :original} 2x"
-          alt="#{character.name}"
+          alt=character.name
         ]
 
     - if cover_title != :none

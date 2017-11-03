@@ -1,9 +1,9 @@
 = render layout: 'page' do
   = cache [@resource, cookies['related_view'] || 'list', params[:action], :v2] do
     .b-options-floated.mobile-phone.before-buttons-2
-      a href="#{@resource.related_url}" = t '.linked_directly'
+      a href=@resource.related_url = t '.linked_directly'
       span.link.selected = t '.chronology'
-      a href="#{@resource.franchise_url}" = t '.franchise'
+      a href=@resource.franchise_url = t '.franchise'
 
     .subheadline-buttons
       = render 'blocks/list_switchers',

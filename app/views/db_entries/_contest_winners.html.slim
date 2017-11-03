@@ -5,6 +5,6 @@
       .winner
         = t '.top_in', position: contest_winner.position
         a.b-link[
-          href="#{contest_url contest_winner.contest}"
-          title="#{localized_name contest_winner.contest}"
+          href=contest_url(contest_winner.contest)
+          title=localized_name(contest_winner.contest)
         ] = localized_name contest_winner.contest

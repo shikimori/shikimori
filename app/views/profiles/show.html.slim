@@ -3,12 +3,14 @@
     profile_url(@resource, format: :rss),
     title: "История пользователя #{@resource.nickname}"
 
-.profile-head data-user-id="#{@resource.id}"
+.profile-head[
+  data-user-id=@resource.id
+]
   - if @resource.history.any?
     .c-history class="x#{@resource.formatted_history.size}"
       .subheadline.m13
         - if can? :access_list, @resource
-          a href="#{index_profile_user_history_index_url @resource}"
+          a href=index_profile_user_history_index_url(@resource)
             = i18n_io 'History', :one
         - else
           = i18n_io 'History', :one
@@ -16,58 +18,57 @@
       .b-block_list
         - @resource.formatted_history.each do |entry|
           .entry
-            a href="#{entry.url}" title="#{entry.name}"
+            a href=entry.url title=entry.name
               .image-name
                 img[
-                  src="#{entry.image}"
-                  srcset="#{"#{entry.image_2x} 2x" if entry.image_2x}"
-                  alt="#{entry.name}"
+                  src=entry.image
+                  srcset=("#{entry.image_2x} 2x" if entry.image_2x)
+                  alt=entry.name
                 ]
                 span.title
                   = entry.localized_name
-              span.misc title="#{entry.reversed_action}"
+              span.misc title=entry.reversed_action
                 = entry.reversed_action
               time.misc.date.unprocessed[
-                datetime="#{entry.iso_date}"
+                datetime=entry.iso_date
               ] = entry.localized_date
 
   .c-brief
     .avatar
       img[
-        src="#{@resource.avatar_url 160}"
-        alt="#{@resource.nickname}"
-        title="#{@resource.nickname}"
+        src=@resource.avatar_url(160)
+        alt=@resource.nickname
+        title=@resource.nickname
       ]
-      /img src="#{@resource.avatar_url 80}" srcset="#{@resource.avatar_url 160} 2x" alt="#{@resource.nickname}" title="#{@resource.nickname}"
 
       - if user_signed_in?
         .profile-actions
           - if @resource.own_profile?
             a.mail.b-tooltipped.unprocessed[
-              href="#{profile_dialogs_url @resource}"
+              href=profile_dialogs_url(@resource)
               title=t('.my_mail')
               data-direction="top"
             ]
             a.settings.b-tooltipped.unprocessed[
-              href="#{edit_profile_url @resource, page: :account}"
+              href=edit_profile_url(@resource, page: :account)
               title=t('.my_profile_settings')
               data-direction="top"
             ]
             a.ban.b-tooltipped.unprocessed[
-              href="#{ban_profile_url @resource}"
+              href=ban_profile_url(@resource)
               title=t('.my_bans')
               data-direction="top"
             ]
 
           - else
             a.talk.b-tooltipped.unprocessed[
-              href="#{profile_dialog_url current_user, @resource}"
+              href=profile_dialog_url(current_user, @resource)
               title=t('.send_message')
               data-direction="top"
             ]
             a.fav-add.friend-action.b-tooltipped.unprocessed[
-              href="#{api_friend_url @resource.id}"
-              style="#{'display: none;' if @resource.is_friended?}"
+              href=api_friend_url(@resource.id)
+              style=('display: none;' if @resource.is_friended?)
               title=t('.add_to_friends')
               data-remote="true"
               data-method="post"
@@ -75,8 +76,8 @@
               data-direction="top"
             ]
             a.fav-remove.friend-action.b-tooltipped.unprocessed[
-              href="#{api_friend_url @resource.id}"
-              style="#{'display: none;' unless @resource.is_friended?}"
+              href=api_friend_url(@resource.id)
+              style=('display: none;' unless @resource.is_friended?)
               title=t('.remove_from_friends')
               data-remote="true"
               data-method="delete"
@@ -84,8 +85,8 @@
               data-direction="top"
             ]
             a.ignore-add.ignore-action.b-tooltipped.unprocessed[
-              href="#{api_ignore_url @resource.id}"
-              style="#{'display: none;' if @resource.ignored?}"
+              href=api_ignore_url(@resource.id)
+              style=('display: none;' if @resource.ignored?)
               title=t('.add_to_ignored')
               data-remote="true"
               data-method="post"
@@ -93,8 +94,8 @@
               data-direction="top"
             ]
             a.ignore-remove.ignore-action.b-tooltipped.unprocessed[
-              href="#{api_ignore_url @resource.id}"
-              style="#{'display: none;' unless @resource.ignored?}"
+              href=api_ignore_url(@resource.id)
+              style=('display: none;' unless @resource.ignored?)
               title=t('.remove_from_ignored')
               data-remote="true"
               data-method="delete"
@@ -103,31 +104,31 @@
             ]
             - if can? :edit, @resource
               a.settings.b-tooltipped.unprocessed[
-                href="#{edit_profile_url @resource, page: :account}"
+                href=edit_profile_url(@resource, page: :account)
                 title=t('.user_profile_settings')
                 data-direction="top"
               ]
             - if current_user.forum_moderator?
               a.ban.b-tooltipped.unprocessed[
-                href="#{ban_profile_url @resource}"
+                href=ban_profile_url(@resource)
                 title=t('actions.moderation.ban')
                 data-direction='top'
               ]
             - else
               a.ban.b-tooltipped.unprocessed[
-                href="#{ban_profile_url @resource}"
+                href=ban_profile_url(@resource)
                 title=t('.ban_history')
                 data-direction="top"
               ]
 
     header.head.misc
       h1[
-        class="#{:aliases if @resource.nickname_changes?}"
-        title="#{@resource.nicknames_tooltip if @resource.nickname_changes?}"
+        class=(:aliases if @resource.nickname_changes?)
+        title=(@resource.nicknames_tooltip if @resource.nickname_changes?)
       ]
         - if params[:action] != 'show'
           a.back[
-            href="#{@resource.url}"
+            href=@resource.url
             title="#{t 'actions.back_to_page'} #{{@resource.name}}"
             data-text=t('actions.back')
           ]
@@ -142,47 +143,47 @@
   .c-mobile-actions
     - if user_signed_in?
       - if @resource.own_profile?
-        a href="#{profile_dialogs_url @resource}" = t('.my_mail')
-        a href="#{edit_profile_url @resource, page: :account}" = t('.my_profile_settings')
-        a href="#{ban_profile_url @resource}" = t('.my_bans')
+        a href=profile_dialogs_url(@resource) = t('.my_mail')
+        a href=edit_profile_url(@resource, page: :account) = t('.my_profile_settings')
+        a href=ban_profile_url(@resource) = t('.my_bans')
 
       - else
-        a href="#{profile_dialog_url current_user, @resource}" = t('.send_message')
+        a href=profile_dialog_url(current_user, @resource) = t('.send_message')
         span.friend-action[
-          style="#{'display: none;' if @resource.is_friended?}"
+          style=('display: none;' if @resource.is_friended?)
           data-remote="true"
-          data-action="#{api_friend_url @resource.id}"
+          data-action=api_friend_url(@resource.id)
           data-method="post"
           data-type="json"
         ] = t('.add_to_friends')
         span.friend-action[
-          style="#{'display: none;' unless @resource.is_friended?}"
+          style=('display: none;' unless @resource.is_friended?)
           data-remote="true"
-          data-action="#{api_friend_url @resource.id}"
+          data-action=api_friend_url(@resource.id)
           data-method="delete"
           data-type="json"
         ] = t('.remove_from_friends')
         span.ignore-action[
-          style="#{'display: none;' if @resource.ignored?}"
+          style=('display: none;' if @resource.ignored?)
           data-remote="true"
-          data-action="#{api_ignore_url @resource.id}"
+          data-action=api_ignore_url(@resource.id)
           data-method="post"
           data-type="json"
         ] = t('.add_to_ignored')
         span.ignore-action[
-          style="#{'display: none;' unless @resource.ignored?}"
+          style=('display: none;' unless @resource.ignored?)
           data-remote="true"
-          data-action="#{api_ignore_url @resource.id}"
+          data-action=api_ignore_url(@resource.id)
           data-method="delete"
           data-type="json"
         ] = t('.remove_from_ignored')
 
         - if current_user.forum_moderator?
-          a href="#{ban_profile_url @resource}" = t('actions.moderation.ban')
+          a href=ban_profile_url(@resource) = t('actions.moderation.ban')
         - else
-          a href="#{ban_profile_url @resource}" = t('.ban_history')
+          a href=ban_profile_url(@resource) = t('.ban_history')
         - if can? :edit, @resource
-          a href="#{edit_profile_url @resource, page: :account}"
+          a href=edit_profile_url(@resource, page: :account)
             = t('.user_profile_settings')
 
   .c-info
@@ -194,27 +195,27 @@
       .c-additionals
         b #{t '.activity'}:
         - if @resource.stats.reviews_count > 0
-          div: a href="#{reviews_profile_url @resource}"
+          div: a href=reviews_profile_url(@resource)
             = "#{@resource.stats.reviews_count} #{i18n_i 'review', @resource.stats.reviews_count}"
 
         - if @resource.stats.summaries_count > 0
-          div: a href="#{summaries_profile_url @resource}"
+          div: a href=summaries_profile_url(@resource)
             = "#{@resource.stats.summaries_count} #{i18n_i 'summary', @resource.stats.summaries_count}"
 
         - if @resource.stats.versions_count > 0
-          div: a href="#{versions_profile_url @resource}"
+          div: a href=versions_profile_url(@resource)
             = "#{@resource.stats.versions_count} #{i18n_i 'content_change', @resource.stats.versions_count}"
 
         - if ru_host? && @resource.stats.video_uploads_count > 0
-          div: a href="#{video_uploads_profile_url @resource}"
+          div: a href=video_uploads_profile_url(@resource)
             = "#{@resource.stats.video_uploads_count} #{i18n_i 'video_upload', @resource.stats.video_uploads_count}"
 
         - if ru_host? && @resource.stats.video_changes_count > 0
-          div: a href="#{video_versions_profile_url @resource}"
+          div: a href=video_versions_profile_url(@resource)
             = "#{@resource.stats.video_changes_count} #{i18n_i 'video_change', @resource.stats.video_changes_count}"
 
         - if @resource.stats.comments_count > 0
-          div: a href="#{comments_profile_url @resource}"
+          div: a href=comments_profile_url(@resource)
             = "#{@resource.stats.comments_count} #{i18n_i 'comment', @resource.stats.comments_count}"
 
 .profile-content
@@ -224,7 +225,7 @@
         .title
           - if @resource.stats.spent_time.days > 0
             .value.b-tooltipped.unprocessed[
-              title="#{@resource.stats.spent_time_in_days}"
+              title=@resource.stats.spent_time_in_days
               data-direction="top"
             ] = @resource.stats.spent_time_in_words
             .label == @resource.stats.spent_time_label
@@ -244,24 +245,24 @@
           /.third style="width: 58%"
           .third style="width: #{100 - @resource.stats.spent_time_percent}%"
         .times
-          .time class="#{:checked if @resource.stats.spent_time.weeks >= 1}" 1 #{i18n_i 'datetime.week'}
-          .time class="#{:checked if @resource.stats.spent_time.months >= 1}" 1 #{i18n_i 'datetime.month'}
-          .time class="#{:checked if @resource.stats.spent_time.months_3 >= 1}" 3 #{i18n_i 'datetime.month', 3}
-          .time class="#{:checked if @resource.stats.spent_time.months_6 >= 1}" 6 #{i18n_i 'datetime.month', 6}
-          .time class="#{:checked if @resource.stats.spent_time.years >= 1}" 1 #{i18n_i 'datetime.year'}
+          .time class=(:checked if @resource.stats.spent_time.weeks >= 1) 1 #{i18n_i 'datetime.week'}
+          .time class=(:checked if @resource.stats.spent_time.months >= 1) 1 #{i18n_i 'datetime.month'}
+          .time class=(:checked if @resource.stats.spent_time.months_3 >= 1) 3 #{i18n_i 'datetime.month', 3}
+          .time class=(:checked if @resource.stats.spent_time.months_6 >= 1) 6 #{i18n_i 'datetime.month', 6}
+          .time class=(:checked if @resource.stats.spent_time.years >= 1) 1 #{i18n_i 'datetime.year'}
 
       .activity
         .title = t('.activity_graph')
         - if @resource.stats.activity(26).any?
           .graph.x26[
-            data-stats="#{@resource.stats.activity(26).to_json}"
+            data-stats=@resource.stats.activity(26).to_json
             data-intervals_count="26"
             data-bar="vertical"
             data-flattened="true"
             data-no_stat_text=t('.no_stat_text')
           ]
           .graph.x34[
-            data-stats="#{@resource.stats.activity(34).to_json}"
+            data-stats=@resource.stats.activity(34).to_json
             data-intervals_count="34"
             data-bar="vertical"
             data-flattened="true"
@@ -275,7 +276,7 @@
         .c-column.m0
           .subheadline.m10
             - if @resource.friends.any? && @resource.friends.size > 12
-              a href="#{friends_profile_url @resource}" title=t('profiles_controller.friends')
+              a href=friends_profile_url(@resource) title=t('profiles_controller.friends')
                 = t('profiles_controller.friends')
             - else
               = t('profiles_controller.friends')
@@ -288,7 +289,7 @@
         .c-column.m0
           .subheadline.m10
             - if @resource.clubs_for_domain.any? && @resource.clubs_for_domain.size > 4
-              a href="#{clubs_profile_url @resource}" title="#{i18n_i 'Club', :other}"
+              a href=clubs_profile_url(@resource) title=i18n_i('Club', :other)
                 = i18n_i 'Club', :other
             - else
               = i18n_i 'Club', :other
@@ -301,7 +302,7 @@
       .block
         .subheadline.m10
           - if @resource.favourites.any?
-            a href="#{favourites_profile_url @resource}" title=t('profiles_controller.favorites')
+            a href=favourites_profile_url(@resource) title=t('profiles_controller.favorites')
               = t('profiles_controller.favorites')
           - else
             = t('profiles_controller.favorites')
@@ -315,7 +316,7 @@
     .about.block
       - if @resource.own_profile?
         .subheadline-buttons
-          a.item-edit href="#{edit_profile_url @resource, page: 'profile'}"
+          a.item-edit href=edit_profile_url(@resource, page: 'profile')
       .subheadline
         = t('.about')
       = @resource.about_html
@@ -324,14 +325,14 @@
     .block
       .subheadline.m3
         - if @resource.preview_comments_view.comments_count > 0
-          a href="#{feed_profile_url @resource}" title=t('profiles_controller.feed')
+          a href=feed_profile_url(@resource) title=t('profiles_controller.feed')
             = t('profiles_controller.feed')
         - else
           = t('profiles_controller.feed')
       div
         .b-topic.to-process[
           data-dynamic='topic'
-          data-faye="#{@resource.preview_comments_view.faye_channel}"
+          data-faye=@resource.preview_comments_view.faye_channel
         ]
           = render 'topics/comments',
             comments_view: @resource.preview_comments_view

@@ -9,9 +9,9 @@ header.head
   - else
     h2
       a.back[
-        href="#{@back_url || @resource.url}"
+        href=(@back_url || @resource.url)
         title="#{t 'back_to_page'} #{{@resource.name}}"
-        data-text="#{t 'back'}"
+        data-text=t('back')
       ]
       = @resource.headline
 

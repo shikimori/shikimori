@@ -7,7 +7,7 @@
     - kinds_with_colors.each do |data|
       - next unless @view.collection[data[:kind]]
 
-      .headline class="#{data[:color]}"
+      .headline class=data[:color]
         = t "titles/collection_title.kind.#{@view.klass.name.downcase}.long.#{data[:kind]}"
 
       - if @klass == Anime

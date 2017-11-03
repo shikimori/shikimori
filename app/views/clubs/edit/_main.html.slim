@@ -2,7 +2,7 @@
     as: :club,
     url: club_url(@resource),
     html: { multipart: true } do |f|
-  input type="hidden" name="page" value="#{@page}"
+  input type="hidden" name="page" value=@page
 
   .cc-2
     .c-column.block_m
@@ -25,13 +25,13 @@
       = f.input :logo
       - if @resource.logo.exists?
         img[
-          src="#{cdn_image @resource, :main}"
-          alt="#{@resource.name}"
-          title="#{@resource.name}"
+          src=cdn_image(@resource, :main)
+          alt=@resource.name
+          title=@resource.name
         ]
 
   .cc-2
     .c-column
       .buttons
-        a.cancel href="#{club_url @resource}" = t 'actions.cancel'
+        a.cancel href=club_url(@resource) = t 'actions.cancel'
         = f.button :magic_submit

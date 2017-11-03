@@ -2,18 +2,18 @@
   - if collection.pending?
     .moderation
       a.accept[
-        href="#{accept_moderations_collection_path collection}"
+        href=accept_moderations_collection_path(collection)
         data-method='post'
       ] = t '.accept'
       a.reject[
-        href="#{reject_moderations_collection_path collection}"
+        href=reject_moderations_collection_path(collection)
         data-method='post'
       ] = t '.move_to_offtopic'
 
   .info
     span
       a[
-        href="#{collection_url collection}"
+        href=collection_url(collection)
       ]
         span.id-label #
         = collection.id
@@ -22,14 +22,13 @@
 
     .b-user16
       a[
-        href="#{profile_url collection.user}"
-        title="#{collection.user.nickname}"
+        href=profile_url(collection.user)
+        title=collection.user.nickname
       ]
         img[
-          src="#{collection.user.avatar_url 16}"
+          src=collection.user.avatar_url(16)
           srcset="#{collection.user.avatar_url 32} 2x"
-          alt="#{collection.user.nickname}"
-          title="#{collection.user.nickname}"
+          alt=collection.user.nickname
         ]
         span = collection.user.nickname
 
@@ -38,7 +37,7 @@
 
     = render 'reviews/votes', review: collection
 
-    span.state class="#{collection.moderation_state}"
+    span.state class=collection.moderation_state
       = collection.human_moderation_state_name
 
     - if collection.approver.present?

@@ -1,7 +1,7 @@
 - cache contest_match do
   .b-contest_match[
-    data-model="#{ContestMatchSerializer.new(contest_match).to_json}"
-    data-page_url="#{round_match_contest_url contest_match.round.contest, round: contest_match.round, match_id: contest_match.id}"
+    data-model=ContestMatchSerializer.new(contest_match).to_json
+    data-page_url=round_match_contest_url(contest_match.round.contest, round: contest_match.round, match_id: contest_match.id)
   ]
     - if contest_match.started?
       p.warning
@@ -19,11 +19,11 @@
       - elsif contest_match.right && contest_match.left
         .match-members
           .match-member[
-            class="#{contest_match.winner_id == contest_match.left_id ? :winner : :loser if contest_match.finished?}"
+            class=(contest_match.winner_id == contest_match.left_id ? :winner : :loser if contest_match.finished?)
             data-variant='left'
             data-type='json'
             data-method='post'
-            data-action="#{votes_url votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'yes'}"
+            data-action=votes_url(votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'yes')
           ]
             - if contest_match.left.is_a? Anime
               = render partial: 'animes/anime',
@@ -46,7 +46,7 @@
                     data-type='json'
                     data-method='post'
                     data-remote='true'
-                    data-action="#{votes_url votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'abstain'}"
+                    data-action=votes_url(votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'abstain')
                   ] = t '.abstain_from_voting'
                 .action
                   span.to-next-not-voted = t '.to_the_next_pair'
@@ -59,11 +59,11 @@
               p.hint = t '.voting_has_not_begun_yet'
 
           .match-member[
-            class="#{contest_match.winner_id == contest_match.right_id ? :winner : :loser if contest_match.finished?}"
+            class=(contest_match.winner_id == contest_match.right_id ? :winner : :loser if contest_match.finished?)
             data-variant='right'
             data-type='json'
             data-method='post'
-            data-action="#{votes_url votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'no'}"
+            data-action=votes_url(votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'no')
           ]
             - if contest_match.right.is_a? Anime
               = render partial: 'animes/anime',
@@ -78,7 +78,7 @@
         - if contest_match.round.number > 1 && (contest_match.defeated_by(contest_match.left, contest_match.round) + contest_match.defeated_by(contest_match.right, contest_match.round)).any?
           .match-losers.cc.to-process[
             data-dynamic="cutted_covers"
-            data-ratio_type="#{:person if contest_match.round.contest.character?}"
+            data-ratio_type=(:person if contest_match.round.contest.character?)
           ]
             = render partial: 'contest_matches/losers',
               object: contest_match.defeated_by(contest_match.left, contest_match.round.prior_round),

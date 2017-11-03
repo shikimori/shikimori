@@ -2,12 +2,12 @@
   - if club.logo.exists?
     .b-menu_logo
       center: a[
-        href="#{club.url}"
-        title="#{club.name}"
+        href=club.url
+        title=club.name
       ]
         img[
-          src="#{cdn_image club, :main}"
-          alt="#{club.name}"
+          src=cdn_image(club, :main)
+          alt=club.name
         ]
 
   = render 'clubs/actions', club: club
@@ -41,7 +41,7 @@
 
     - if club.members_sample.any?
       .subheadline.m10
-        span.linkeable data-href="#{members_club_url club}"
+        span.linkeable data-href=members_club_url(club)
           = i18n_i 'member', :other
           .count = club.members.count
       .cc.members

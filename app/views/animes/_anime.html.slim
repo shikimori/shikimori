@@ -7,9 +7,9 @@
 
 article.c-column.b-catalog_entry.not-tracked[
   class="c-#{anime.anime? ? :anime : :manga} entry-#{anime.id} #{:cc if content_by == :block}"
-  id="#{anime.id}"
+  id=anime.id
   itemscope itemtype="#{{anime.itemtype}}"
-  data-track_user_rate="#{JsExports::UserRatesExport.instance.placeholder :catalog_entry, anime}"
+  data-track_user_rate=JsExports::UserRatesExport.instance.placeholder(:catalog_entry, anime)
 ]
   meta[
     itemprop="image"
@@ -22,12 +22,12 @@ article.c-column.b-catalog_entry.not-tracked[
 
   - if cover_by == :link || cover_by == :image_link
     a.cover[
-      class="#{'anime-tooltip' if content_by == :tooltip}"
-      href="#{anime.url}"
-      title="#{anime.name}"
+      class=('anime-tooltip' if content_by == :tooltip)
+      href=anime.url
+      title=anime.name
       data-delay="150"
-      data-predelay="#{tooltip_predelay if defined? tooltip_predelay}"
-      data-tooltip_url="#{anime.tooltip_url}"
+      data-predelay=(tooltip_predelay if defined? tooltip_predelay)
+      data-tooltip_url=anime.tooltip_url
     ]
       = render partial: 'animes/cover',
         object: anime,
@@ -40,11 +40,11 @@ article.c-column.b-catalog_entry.not-tracked[
 
   - elsif cover_by == :linkeable
     .cover.linkeable[
-      class="#{'anime-tooltip' if content_by == :tooltip}"
-      data-href="#{anime.url}"
-      data-title="#{anime.name}"
+      class=('anime-tooltip' if content_by == :tooltip)
+      data-href=anime.url
+      data-title=anime.name
       data-delay="150"
-      data-tooltip_url="#{anime.tooltip_url}"
+      data-tooltip_url=anime.tooltip_url
     ]
       = render partial: 'animes/cover',
         object: anime,

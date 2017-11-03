@@ -1,6 +1,6 @@
 .b-entry-info
   = info_line t('.name') do
-    a href="#{contest_url contest}"
+    a href=contest_url(contest)
       = localized_name contest
 
   = info_line t('contests.menu.contest_type'), contest.strategy_type.text
@@ -17,5 +17,5 @@
   - contest.decorate.winner_entries(16).each_with_index do |entry, index|
     div
       | #{index + 1}.&nbsp;
-      a.b-link.bubbled href="#{entry.url}"
+      a.b-link.bubbled href=entry.url
         = localized_name entry

@@ -7,7 +7,7 @@
 
         - club.menu_pages(club_page).each do |page|
           .menu-link
-            a.b-link href="#{club_club_page_path club, page}"
+            a.b-link href=club_club_page_path(club, page)
               = page.name
 
     - if club_page&.siblings&.many?
@@ -18,5 +18,5 @@
         - club_page.siblings.each do |page|
           - next if page == club_page
           .menu-link
-            a.b-link href="#{club_club_page_path club, page}"
+            a.b-link href=club_club_page_path(club, page)
               = page.name

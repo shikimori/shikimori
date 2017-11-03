@@ -1,23 +1,23 @@
 span.image-decor
   span.image-cutter
     img[
-      src="#{cdn_image anime, :preview}"
+      src=cdn_image(anime, :preview)
       srcset="#{cdn_image anime, :original} 2x"
-      alt="#{anime.name}"
+      alt=anime.name
     ]
 
 - if cover_title != :none
   - if cover_by == :link
     span.title[
-      class="#{cover_notice == :none ? :two_lined : :left_aligned}"
+      class=(cover_notice == :none ? :two_lined : :left_aligned)
       itemprop='name'
     ]
       = localization_span anime
   - elsif cover_by == :linkeable
     a.title[
-      class="#{cover_notice == :none ? :two_lined : :left_aligned}"
-      href="#{url_for anime}"
-      title="#{anime.name}"
+      class=(cover_notice == :none ? :two_lined : :left_aligned)
+      href=url_for(anime)
+      title=anime.name
       itemprop='url'
     ]
       = localization_span anime

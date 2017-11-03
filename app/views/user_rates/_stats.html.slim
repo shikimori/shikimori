@@ -2,14 +2,14 @@
   .scores.block
     .subheadline = i18n_i 'Score', :other
     #scores[
-      data-stats="#{stats.scores(params[:list_type]).to_json}"
+      data-stats=stats.scores(params[:list_type]).to_json
       data-bar="horizontal"
     ]
 
   .types.block
     .subheadline = i18n_i 'Kind', :other
     #types[
-      data-stats="#{stats.kinds(params[:list_type]).to_json}"
+      data-stats=stats.kinds(params[:list_type]).to_json
       data-bar="horizontal"
     ]
 
@@ -17,7 +17,7 @@
     .ratings.block
       .subheadline = i18n_i 'Rating', :other
       #ratings[
-        data-stats="#{stats.anime_ratings.to_json}"
+        data-stats=stats.anime_ratings.to_json
         data-bar="horizontal"
       ]
 
@@ -29,7 +29,7 @@
         - is_selected = params[:genre].to_s.split(',').include?(stat[:category].to_param)
         a.category[
           class="t#{stat[:scale]} #{:active if is_selected}"
-          href="#{url_for safe_params.merge(genre: is_selected ? nil : stat[:category].to_param)}"
+          href=url_for(safe_params.merge(genre: is_selected ? nil : stat[:category].to_param))
         ] = localized_name stat[:category]
   - else
     .b-nothing_here = t '.insufficient_data'
@@ -43,7 +43,7 @@
           - is_selected = params[:studio].to_s.split(',').include?(stat[:category].to_param)
           a.category[
             class="t#{stat[:scale]} #{:active if is_selected}"
-            href="#{url_for safe_params.merge(studio: is_selected ? nil : stat[:category].to_param)}"
+            href=url_for(safe_params.merge(studio: is_selected ? nil : stat[:category].to_param))
           ] = stat[:category].name
     - else
       .b-nothing_here = t '.insufficient_data'
@@ -57,7 +57,7 @@
           - is_selected = params[:publisher].to_s.split(',').include?(stat[:category].to_param)
           a.category[
             class="t#{stat[:scale]} #{:active if is_selected}"
-            href="#{url_for safe_params.merge(publisher: is_selected ? nil : stat[:category].to_param)}"
+            href=url_for(safe_params.merge(publisher: is_selected ? nil : stat[:category].to_param))
           ] = stat[:category].name
     - else
       .b-nothing_here = t '.insufficient_data'

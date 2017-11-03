@@ -29,7 +29,7 @@ header.head
   .block
     - if user_signed_in? && current_user.forum_moderator?
       .b-options-floated
-        a href="#{moderations_bans_url}" = t '.bans_plus_warnings'
+        a href=moderations_bans_url = t '.bans_plus_warnings'
     .subheadline = t '.history'
     .block
       = render partial: 'moderations/abuse_requests/abuse_request',
