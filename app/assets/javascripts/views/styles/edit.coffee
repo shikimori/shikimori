@@ -70,6 +70,9 @@ class Styles.Edit extends View
   _init_editor: (CodeMirror) ->
     @_loaded()
 
+    full_screen = (editor) ->
+      editor.setOption 'fullScreen', !editor.getOption('fullScreen')
+
     CodeMirror.fromTextArea @$('#style_css')[0],
       mode: 'css'
       theme: 'solarized light'
@@ -78,8 +81,9 @@ class Styles.Edit extends View
       matchBrackets: true
       lineWrapping: true
       extraKeys:
-        'F11': (editor) ->
-          editor.setOption 'fullScreen', !editor.getOption('fullScreen')
+        'F11': full_screen
+        'Ctrl-F11': full_screen
+        'Cmd-F11': full_screen
         'Esc': (editor) ->
           if editor.getOption 'fullScreen'
             editor.setOption 'fullScreen', false

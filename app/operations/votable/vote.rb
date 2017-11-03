@@ -1,5 +1,5 @@
 class Votable::Vote
-  method_object %i[votable vote voter]
+  method_object %i[votable! vote! voter!]
 
   VOTE_FLAG = {
     'yes' => true,
