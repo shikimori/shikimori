@@ -1,36 +1,70 @@
 [![CircleCI](https://circleci.com/gh/morr/shikimori.svg?style=svg&circle-token=5bd1a64ae9642ddb8d27a9585881756804ce9163)](https://circleci.com/gh/morr/shikimori)
 
-### PostgreSQL
-```
+## PostgreSQL
+### DB
+```shell
 ~ psql -d postgres
-```
-```
 postgres=# create user shikimori_production;
 postgres=# create user shikimori_test;
 postgres=# alter user shikimori_production createdb;
 postgres=# alter user shikimori_test createdb;
 ```
 
-# развёртка бекапа:
-```
-psql -U shikimori_production -d shikimori_production -f PostgreSQL.sql
-```
 
-# экстеншены для постгреса
-```
+### Extensions
+```shell
 ~ psql -d shikimori_test
-```
-```
 shikimori_test=# CREATE EXTENSION unaccent;
 ```
-```
+
+```shell
 ~ psql -d shikimori_production
-```
-```
 shikimori_production=# CREATE EXTENSION unaccent;
 ```
 
-# ban tor
+### Restore from backup
+```shell
+~ psql -U shikimori_production -d shikimori_production -f PostgreSQL.sql
+```
+
+## Start Service
+```shell
+~ brew install yarn
+~ yarn install
+~ cd ..
+~ git clone git@github.com:shikimori/neko-achievements.git
+~ git clone git@github.com:morr/camo.git
+~ cd shikimori
+~ brew install poncho # https://github.com/nickstenning/honcho
+~ honcho start
+```
+
+
+## Update neko rules
+```sh
+rails neko:update
+```
+
+
+## Webpack debugger
+https://nodejs.org/en/docs/inspector/
+Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj
+```shell
+RAILS_ENV=development NODE_ENV=development NODE_PATH=node_modules node --inspect node_modules/.bin/webpack-dev-server --progress --color --config config/webpack/development.js
+```
+
+
+## Webpack visualizer
+https://chrisbateman.github.io/webpack-visualizer/
+
+
+## Parse google spreadsheet achievements
+```ruby
+require 'smarter_csv'
+File.open('/tmp/achievements.yml', 'w') {|f| f.write SmarterCSV.process(open('/tmp/achievements.csv')).to_yaml }
+```
+
+## Ban tor
 ```bash
 sudo su
 ipset -N tor2 iphash
@@ -47,7 +81,7 @@ sudo iptables -A INPUT -m set --match-set tor src -j DROP
 ```
 
 
-# восстановление списка и истории пользователя
+## восстановление списка и истории пользователя
 ```ruby
 
 # on local backup
@@ -72,27 +106,3 @@ UserHistory.import user_histories.map {|v| UserHistory.new(v) }.each { |v| v.run
 User.find(user_id).touch; # for cache reset
 ```
 
-
-### Webpack debugger
-https://nodejs.org/en/docs/inspector/
-Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj
-```shell
-RAILS_ENV=development NODE_ENV=development NODE_PATH=node_modules node --inspect node_modules/.bin/webpack-dev-server --progress --color --config config/webpack/development.js
-```
-
-
-### Webpack visualizer
-https://chrisbateman.github.io/webpack-visualizer/
-
-
-### Parse google spreadsheet achievements
-```ruby
-require 'smarter_csv'
-File.open('/tmp/achievements.yml', 'w') {|f| f.write SmarterCSV.process(open('/tmp/achievements.csv')).to_yaml }
-```
-
-
-### Generate neko rules
-```sh
-rails neko:update
-```

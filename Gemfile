@@ -154,7 +154,7 @@ group :development do
 
   # gem 'rails-flog', require: 'flog'
   gem 'active_record_query_trace'
-  gem 'foreman'
+  # gem 'foreman'
 end
 
 gem 'awesome_print'
