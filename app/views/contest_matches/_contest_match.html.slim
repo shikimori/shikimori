@@ -14,7 +14,7 @@
     .current-match
       - if contest_match.right.nil? && contest_match.left.nil?
         .vs.empty
-          p.help = t '.candidates_not_selected'
+          p.not-selected = t '.candidates_not_selected'
 
       - elsif contest_match.right && contest_match.left
         .match-members
