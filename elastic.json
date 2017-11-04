@@ -1,3 +1,5 @@
+// elasticsearch reqeust samples
+
 curl -XDELETE 'http://localhost:9200/tests' | jq
 curl -XPUT 'http://localhost:9200/tests' -d'{
   "settings": {

@@ -1,4 +1,4 @@
-class RecentVideosQuery < SimpleQueryBase
+class AnimeOnline::RecentVideos < SimpleQueryBase
   pattr_initialize :is_adult
 
 private
