@@ -13,7 +13,7 @@ header.head.m15
         .b-options-floated.collapse.for-headline id="collapse-calendar_delayed"
           span.action = t 'collapse'
       .headline.m10[
-        class="#{color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11}"
+        class=(color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11)
       ] = index == -1 ? t('.currently_airing') : date_title_for_ongoing(index)
       .collapsed.tiny ...
       .cc-entries.to-process data-dynamic='cutted_covers'
@@ -27,6 +27,6 @@ header.head.m15
 div
   .b-topic.to-process[
     data-dynamic='topic'
-    data-faye="#{@topic_view.faye_channel}"
+    data-faye=@topic_view.faye_channel.to_json
   ]
     = render 'topics/comments', comments_view: @topic_view.comments_view

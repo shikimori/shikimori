@@ -82,22 +82,22 @@ header.head
         .clearfix
 
   .subheadline = t '.community'
-  .block.traffic-chart data-stats="#{@statistics.traffic.to_json}"
+  .block.traffic-chart data-stats=@statistics.traffic.to_json
 
   .cc.block
     .c-chart
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
-        a.b-link #{@statistics.users_count}
+        a.b-link = @statistics.users_count
       .subheadline = i18n_i 'User', :other
-      .block.users-chart data-stats="#{@statistics.users.to_json}"
+      .block.users-chart data-stats=@statistics.users.to_json
 
     .c-chart
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
-        a.b-link #{@statistics.comments_count}
+        a.b-link = @statistics.comments_count
       .subheadline = i18n_i 'Comment', :other
-      .block.comments-chart data-stats="#{@statistics.comments.to_json}"
+      .block.comments-chart data-stats=@statistics.comments.to_json
 
 = render 'spnsrs/ad', ad: Ad.new(:yd_horizontal)
 
@@ -105,6 +105,6 @@ header.head
 div
   .b-topic.to-process[
     data-dynamic='topic'
-    data-faye="#{@topic_view.faye_channel}"
+    data-faye=@topic_view.faye_channel.to_json
   ]
     = render 'topics/comments', comments_view: @topic_view.comments_view

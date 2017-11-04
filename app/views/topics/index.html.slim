@@ -27,7 +27,7 @@
 
   = render layout: 'topics/page' do |f|
     .b-collection_search[
-      data-search_url="#{@forums_view.page_url 1}"
+      data-search_url=@forums_view.page_url(1)
     ]
       .field
         input[

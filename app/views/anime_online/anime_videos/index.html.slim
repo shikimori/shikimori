@@ -36,7 +36,7 @@
               | Варианты видео
               - @player.videos_by_kind.each do |kind_text, videos|
                 .video-variant-switcher[
-                  data-kind="#{videos.first.kind}"
+                  data-kind=videos.first.kind
                 ] = kind_text
               - if @player.all_kind?
                 .video-variant-switcher data-kind="all" все
@@ -44,7 +44,7 @@
             - if @player.videos.any?
               - @player.videos_by_kind.each do |kind_text, videos|
                 .video-variant-group[
-                  data-kind="#{videos.first.kind}"
+                  data-kind=videos.first.kind
                 ]
                   = render partial: 'anime_online/anime_videos/video_variant',
                     collection: videos,
@@ -83,7 +83,7 @@
       div
         .b-topic.to-process[
           data-dynamic='topic'
-          data-faye="#{@player.episode_topic_view.faye_channel}"
+          data-faye=@player.episode_topic_view.faye_channel.to_json
         ]
           = render 'topics/comments',
             comments_view: @player.episode_topic_view.comments_view

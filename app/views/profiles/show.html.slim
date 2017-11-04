@@ -332,7 +332,7 @@
       div
         .b-topic.to-process[
           data-dynamic='topic'
-          data-faye=@resource.preview_comments_view.faye_channel
+          data-faye=@resource.preview_comments_view.faye_channel.to_json
         ]
           = render 'topics/comments',
             comments_view: @resource.preview_comments_view

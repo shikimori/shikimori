@@ -119,7 +119,7 @@ class Topics::View < ViewObjectBase
   end
 
   def faye_channel
-    ["topic-#{@topic.id}"].to_json
+    ["topic-#{@topic.id}"]
   end
 
   def author_in_header?

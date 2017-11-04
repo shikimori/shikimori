@@ -27,7 +27,7 @@ class DynamicElements.Parser
           when 'full_dialog' then new DynamicElements.FullDialog(node)
 
           when 'user_rate'
-            if node.attributes['data-extended']
+            if node.attributes['data-extended'].value == 'true'
               new DynamicElements.UserRates.Extended(node)
             else
               new DynamicElements.UserRates.Button(node)

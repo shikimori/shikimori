@@ -29,7 +29,7 @@ javascript:
     nav.sections
       - @rating_kinds.each do |kind|
         a[
-          data-kind="#{kind}"
+          data-kind=kind
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
 
@@ -43,7 +43,7 @@ javascript:
     nav.sections
       - @rating_kinds.each do |kind|
         a[
-          data-kind="#{kind}"
+          data-kind=kind
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
   p = t('.how_genre_preferences_changed')
@@ -56,7 +56,7 @@ javascript:
     nav.sections
       - ['tv'].each do |kind|
         a[
-          data-kind="#{kind}"
+          data-kind=kind
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
   p = t('.breakdown_by_studio')
@@ -79,6 +79,6 @@ javascript:
 div
   .b-topic.to-process[
     data-dynamic='topic'
-    data-faye="#{@topic_view.faye_channel}"
+    data-faye=@topic_view.faye_channel.to_json
   ]
     = render 'topics/comments', comments_view: @topic_view.comments_view
