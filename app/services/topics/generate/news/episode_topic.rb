@@ -3,9 +3,10 @@
 class Topics::Generate::News::EpisodeTopic < Topics::Generate::News::BaseTopic
   attr_reader :aired_at
 
-  def initialize model, user, locale, aired_at
+  def initialize model:, user:, locale:, aired_at:, episode:
     super model, user, locale
     @aired_at = aired_at
+    @episode = episode
   end
 
 private
@@ -15,7 +16,7 @@ private
   end
 
   def value
-    model.episodes_aired.to_s
+    @episode
   end
 
   def created_at

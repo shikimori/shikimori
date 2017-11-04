@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
+# TODO: refactoring & add specs
 class TorrentsParser
   PROXY_LOG = ENV['RAILS_ENV'] == 'development' ? true : false
   USE_PROXY = false#ENV['RAILS_ENV'] == 'development' ? false : true
 
-  # игнорируемые названия торрентов
   IGNORED_TORRENTS = Set.new [
     'Chuunibyou demo Koi ga Shitai! Lite - 04 (640x360 x264 AAC).mp4',
     '[WZF]Ore_no_Imouto_ga_Konna_ni_Kawaii_Wake_ga_Nai_-_Capitulo_13-15[BDRip][X264-AAC][1280x720][Sub_Esp]',
@@ -16,7 +16,7 @@ class TorrentsParser
     %w[Flying Witch Petit],
     %w[Tompel Fansub]
   ]
-  # аниме, для которых не будут искаться торренты
+
   IGNORED_ANIME_IDS = [
     13185, 19207, 5042, 17249, 11457, 21729, 22757, 32670, 31670, 31592, 10937,
     34454, 31499
@@ -113,17 +113,14 @@ class TorrentsParser
     []
   end
 
-  # выгрузка торрентов онгоигов
   def self.grab_ongoings test=false, anime_id=nil
     parse_feed get_rss, anime_id
   end
 
-  # выгрузка торрентов c конкретной страницы
   def self.grab_page url, anime_id=nil
     parse_feed get_page(url), anime_id
   end
 
-  # выгрузка rss ленты с тошокана
   def self.get_rss
     content = get(rss_url)
 
@@ -142,7 +139,6 @@ class TorrentsParser
     filter_bad_formats(feed)
   end
 
-  # парсинг фида тошока
   def self.parse_feed feed, anime_id
     print "fetched %d torrens\n" % feed.size
     return 0 if feed.empty?
@@ -171,7 +167,6 @@ class TorrentsParser
     end
   end
 
-  # выгрузка онгоингов из базы
   def self.get_ongoings
     ongoings = Anime.where(status: :ongoing).to_a
 
@@ -197,7 +192,6 @@ class TorrentsParser
     end
   end
 
-  # добавление эпизода к аниме
   def self.add_episodes anime, feed
     new_episodes = check_aired_episodes anime, feed
 
@@ -253,20 +247,33 @@ class TorrentsParser
         entry[:episodes].each do |episode|
           next if (anime.episodes > 0 && episode > anime.episodes) || episode_min >= episode
           episode_max = episode if episode_max < episode
-          anime.episodes_aired = episode
           new_episodes << entry
 
           aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
-          Shikimori::DOMAIN_LOCALES.each do |locale|
-            Topics::Generate::News::EpisodeTopic.call(
-              anime, anime.topic_user, locale, aired_at
-            )
-          end
+          # Shikimori::DOMAIN_LOCALES.each do |locale|
+          #   Topics::Generate::News::EpisodeTopic.call(
+          #     model: anime,
+          #     user: anime.topic_user,
+          #     locale: locale,
+          #     aired_at: aired_at,
+          #     episode: episode
+          #   )
+          # end
+
+          EpisodeNotification
+            .find_or_initialize_by(anime: anime, episode: episode) do |model|
+              model.created_at = aired_at
+            end
+            .update!(is_torrent: true)
+
+          # episodes_aired must be set becase
+          # anime object is used in next iterations
+          anime.episodes_aired = episode
         end
       end
 
-    anime.episodes_aired = episode_max
-    anime.save if anime.changed?
+    # anime.episodes_aired = episode_max
+    # anime.save if anime.changed?
 
     new_episodes.uniq
   end

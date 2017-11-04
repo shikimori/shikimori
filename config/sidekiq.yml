@@ -12,6 +12,7 @@ production:
   - [critical, 10]
   - [push_notifications, 2]
   - [default, 5]
+  - [episode_notifications, 5]
   - [cpu_intensive, 5]
   - [slow_parsers, 5]
   - [torrents_parsers, 5]
@@ -37,3 +38,4 @@ production:
   push_notifications: 5
   imports: 2
   achievement: 50
+  episode_notifications: 1

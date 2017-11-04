@@ -168,13 +168,14 @@ private
     self.state = 'copyrighted' if copyright_ban?
   end
 
-  # FIX: extract create_episode_notificaiton and remove_episode_notification to service.
+  # TODO: extract to service
   def create_episode_notificaiton
     EpisodeNotification
       .find_or_initialize_by(anime_id: anime_id, episode: episode)
       .update("is_#{kind}" => true)
   end
 
+  # TODO: extract to service
   def remove_episode_notification
     EpisodeNotification
       .where(anime_id: anime_id, episode: episode)

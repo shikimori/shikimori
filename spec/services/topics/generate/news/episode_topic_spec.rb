@@ -3,10 +3,18 @@
 describe Topics::Generate::News::EpisodeTopic do
   subject { service.call }
 
-  let(:service) { Topics::Generate::News::EpisodeTopic.new model, user, locale, aired_at }
+  let(:service) do
+    Topics::Generate::News::EpisodeTopic.new(
+      model: model,
+      user: user,
+      locale: locale,
+      aired_at: aired_at,
+      episode: episode
+    )
+  end
 
-  let(:model) { create :anime, episodes_aired: episodes_aired }
-  let(:episodes_aired) { 5 }
+  let(:model) { create :anime }
+  let(:episode) { 5 }
 
   let(:user) { BotsService.get_poster }
   let(:locale) { 'en' }
@@ -23,7 +31,7 @@ describe Topics::Generate::News::EpisodeTopic do
         locale: locale,
         processed: false,
         action: AnimeHistoryAction::Episode,
-        value: model.episodes_aired.to_s
+        value: episode.to_s
       )
       expect(subject.created_at.to_i).to eq aired_at.to_i
       expect(subject.updated_at).to be_nil
@@ -43,7 +51,7 @@ describe Topics::Generate::News::EpisodeTopic do
       let(:topic_locale) { locale }
 
       context 'for prior episode' do
-        let(:topic_episodes_aired) { episodes_aired - 1 }
+        let(:topic_episodes_aired) { episode - 1 }
         it 'generates topic' do
           is_expected.not_to eq topic
           is_expected.to be_persisted
@@ -51,7 +59,7 @@ describe Topics::Generate::News::EpisodeTopic do
       end
 
       context 'for current episode' do
-        let(:topic_episodes_aired) { episodes_aired }
+        let(:topic_episodes_aired) { episode }
         it 'does not generate topic' do
           expect { subject }.not_to change(Topic, :count)
           is_expected.to eq topic
@@ -60,7 +68,7 @@ describe Topics::Generate::News::EpisodeTopic do
     end
 
     context 'for different locale and current episode' do
-      let(:topic_episodes_aired) { episodes_aired }
+      let(:topic_episodes_aired) { episode }
       let(:topic_locale) { 'ru' }
 
       it 'generates topic for new locale' do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171104191721) do
+ActiveRecord::Schema.define(version: 20171104213528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -480,6 +480,7 @@ ActiveRecord::Schema.define(version: 20171104191721) do
     t.datetime "updated_at"
     t.boolean "is_unknown", default: false, null: false
     t.boolean "is_torrent", default: false, null: false
+    t.index ["anime_id", "episode"], name: "index_episode_notifications_on_anime_id_and_episode", unique: true
     t.index ["anime_id"], name: "index_episode_notifications_on_anime_id"
   end
 
