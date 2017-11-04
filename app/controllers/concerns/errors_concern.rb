@@ -8,20 +8,6 @@ module ErrorsConcern
     ActionController::UnknownFormat
   ]
 
-  # RUNTIME_ERRORS = [
-    # AbstractController::Error,
-    # ActionController::InvalidAuthenticityToken,
-    # ActionView::MissingTemplate,
-    # ActionView::Template::Error,
-    # Exception,
-    # PG::Error,
-    # Encoding::CompatibilityError,
-    # NoMethodError,
-    # StandardError,
-    # SyntaxError,
-    # CanCan::AccessDenied
-  # ] + NOT_FOUND_ERRORS
-
   included do |controller|
     unless Rails.env.test?
       rescue_from Exception, with: :runtime_error
@@ -32,7 +18,6 @@ module ErrorsConcern
 
   # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
   def runtime_error e
-    return render text: 'zxc'
     Honeybadger.notify(e) if defined? Honeybadger
     Raven.capture_exception(e) if defined? Raven
     Appsignal.set_error(e) if defined? Appsignal
