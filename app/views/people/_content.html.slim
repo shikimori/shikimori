@@ -4,24 +4,24 @@
       img.image[
         src=cdn_image(person, :preview)
         srcset="#{cdn_image person, :original} 2x"
-        alt=localized_name(person)
+        alt=person.name
       ]
 
-  .inner.p0 class="#{:offset if defined?(with_image) && with_image}"
+  .inner.p0 class=(:offset if defined?(with_image) && with_image)
     .line itemprop='name'
       .data.name
         - if !defined?(cover_by) || cover_by != :link
           a.data.name[
             href=person_url(person)
-            title=localized_name(person)
+            title=person.name
             itemprop='name'
-          ] = localized_name person
+          ] = localization_span person
 
         - else
           .linkeable.name[
             data-href=person_url(person)
-            data-title=localized_name(person)
-          ] = localized_name person
+            data-title=person.name
+          ] = localization_span person
 
         .job-title
           = person.job_title
@@ -37,10 +37,13 @@
       .line
         .key #{t 'best_roles'}:&nbsp;
       .cc-4a.best-works
+        /# Template Dependency: characters/character
         = render person.best_roles.take(4), cover_by: :image_link
 
     - else
       .line.works
         .key #{t 'best_works'}:&nbsp;
       .cc-4a.best-works
+        /# Template Dependency: animes/anime
+        /# Template Dependency: mangas/manga
         = render person.best_works.take(4), cover_by: :image_link
