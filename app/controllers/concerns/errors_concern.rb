@@ -8,7 +8,7 @@ module ErrorsConcern
     ActionController::UnknownFormat
   ]
 
-  included do |controller|
+  included do
     unless Rails.env.test?
       rescue_from Exception, with: :runtime_error
     else
