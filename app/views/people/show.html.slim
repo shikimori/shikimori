@@ -1,14 +1,13 @@
 = render layout: 'page' do
-  - cache [@resource, params[:action], :v2] do
+  - cache [@resource, params[:action], :v4] do
     .b-db_entry
       .c-image.cc
         .c-poster
-          center
-            img[
-              src=cdn_image(@resource, :original)
-              title=localized_name(@resource)
-              alt=localized_name(@resource)
-            ]
+          center: img[
+            src=cdn_image(@resource, :original)
+            title=localized_name(@resource)
+            alt=localized_name(@resource)
+          ]
 
         .c-actions
           a.new_comment.b-tooltipped.unprocessed[
@@ -94,9 +93,10 @@
                 - @resource.groupped_roles.each do |role,times|
                   = info_line role, times
 
-      - if @resource.best_works.any?
-        .c-description
-          .subheadline.m10
-            .linkeable data-href=works_person_url(@resource) = t 'best_works'
-          .c-works
-            = render @resource.best_works, cover_notice: :role
+      - if @resource.main_role? :seyu
+        = render 'people/best_roles', resource: @resource
+        = render 'people/best_works', resource: @resource
+
+      - else
+        = render 'people/best_works', resource: @resource
+        = render 'people/best_roles', resource: @resource

@@ -1,16 +1,11 @@
 class Api::V1::PeopleController < Api::V1Controller
-  before_action :fetch_resource, except: [:search]
+  before_action :fetch_resource, except: %i[search]
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/people/:id', 'Show a person'
   def show
-    person = @resource.decorate
-
-    if person.main_role? :seyu
-      respond_with SeyuDecorator.new(@resource), serializer: SeyuProfileSerializer
-    else
-      respond_with person, serializer: PersonProfileSerializer
-    end
+    respond_with PersonDecorator.new(@resource),
+      serializer: PersonProfileSerializer
   end
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING

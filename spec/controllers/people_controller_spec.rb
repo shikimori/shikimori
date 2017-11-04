@@ -30,6 +30,12 @@ describe PeopleController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#roles' do
+    let!(:character) { create :character, person_roles: [create(:person_role, person: person, role: 'Seyu')] }
+    before { get :roles, params: { id: person.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#favoured' do
     let!(:favoured) { create :favourite, linked: person }
     before { get :favoured, params: { id: person.to_param } }

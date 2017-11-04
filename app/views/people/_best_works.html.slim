@@ -1,0 +1,12 @@
+- if resource.best_works.any?
+  .c-description
+    .subheadline.m10
+      .linkeable[
+        data-href=works_person_url(resource)
+      ]
+        - if resource.best_works.size < PersonDecorator::BEST_ROLES_SIZE
+          = t 'people_controller.participation_in_projects'
+        - else
+          = t '.best_works'
+    .c-works
+      = render resource.best_works, cover_notice: :role

@@ -391,6 +391,7 @@ Rails.application.routes.draw do
     constraints other: /.*/  do
       get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
       get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
+      get 'seyu/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     end
     constraints forum: /a|m|c|p|s|f|o|g|reviews|cosplay|v|news|games|vn/, format: /html|json|rss/ do
       get ':forum(/s-:linked)/new' => redirect { |_, request| "/forum#{request.path}" }
@@ -718,24 +719,11 @@ Rails.application.routes.draw do
 
       member do
         get :works
+        get :roles
       end
     end
     get 'producers/search/:search(/page/:page)' => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }
     get 'mangakas/search/:search(/page/:page)' => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
-
-    resources :seyu, only: %i[show edit update] do
-      concerns :db_entry, fields: Regexp.new(%w{
-        name russian japanese image website birthday
-      }.join('|'))
-      concerns :searcheable
-
-      member do
-        get 'roles(order-by/:order_by)' => :roles, order_by: /date/, as: :roles
-      end
-    end
-    #get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }
-    #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu
-    #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
 
     # votes
     resources :votes, only: %i[create]

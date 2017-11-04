@@ -1,0 +1,6 @@
+.c-role
+  .c-characters class="s-#{role[:characters].size}"
+    = render role[:characters]
+
+  .c-animes class="s-#{role[:animes].size} c-#{role[:characters].size}"
+    = render role[:animes]

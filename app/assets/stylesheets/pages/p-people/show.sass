@@ -1,36 +1,32 @@
 @import mixins/column
 @import mixins/responsive
 
-.p-people-index
-  .b-postloader
-    clear: left
-    margin-bottom: 0
-
 .p-people-show
   +gte_ipad
     .b-db_entry .c-image
       margin-bottom: 0
 
-  .c-works
+  .c-works, .c-characters
     overflow: hidden
     position: relative
 
     +gte_ipad
-      .c-anime, .c-manga
+      .c-anime,
+      .c-manga,
+      .c-character
         +column(6)
 
     +iphone-landscape
-      .c-anime, .c-manga
+      .c-anime,
+      .c-manga,
+      .c-character
         +column(5)
 
         &:nth-child(6n)
           display: none
 
     +iphone-portrait
-      .c-anime, .c-manga
+      .c-anime,
+      .c-manga,
+      .c-character
         +column(3)
-
-.p-people-works
-  .b-catalog_entry
-    .role
-      text-align: left

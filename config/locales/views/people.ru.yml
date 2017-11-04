@@ -1,5 +1,12 @@
 ru:
   people:
+    content: &content
+      best_roles: Лучшие роли
+      best_works: Лучшие работы
+    best_roles:
+      <<: *content
+    best_works:
+      <<: *content
     page:
       actions:
         comment: Комментировать

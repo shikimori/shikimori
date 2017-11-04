@@ -4,7 +4,6 @@ class PeopleController < DbEntriesController
   respond_to :json, only: :autocomplete
 
   before_action :resource_redirect, if: :resource_id
-  before_action :role_redirect, if: -> { resource_id && !['tooltip','update'].include?(params[:action]) }
   before_action :set_breadcrumbs, if: -> { @resource }
   before_action :js_export, only: %i[show]
 
@@ -27,6 +26,11 @@ class PeopleController < DbEntriesController
   def works
     noindex
     page_title i18n_t('participation_in_projects')
+  end
+
+  def roles
+    noindex
+    page_title i18n_t('roles_in_anime')
   end
 
   def favoured
@@ -81,12 +85,6 @@ private
     else
       search_people_url(*args)
     end
-  end
-
-  def role_redirect
-    if @resource.main_role? :seyu
-      redirect_to request.url.sub(/\/people\//, '/seyu/'), status: 301
-    end 
   end
 
   def set_breadcrumbs

@@ -1,10 +1,14 @@
+# TODO: refactor into view object
+# :best_works, :best_roles - refactor to query objects
 class PersonDecorator < DbEntryDecorator
   decorates_finders
 
-  rails_cache :best_works
+  WORK_GROUP_SIZE = 5
+  BEST_ROLES_SIZE = 6
+
   instance_cache :website,
     :flatten_roles, :all_roles, :groupped_roles, :roles_names,
-    :works, :work_types,
+    :works, :work_types, :character_works, :best_works, :best_roles,
     :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?,
     :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
 
@@ -80,12 +84,12 @@ class PersonDecorator < DbEntryDecorator
     manga_ids = object.mangas.pluck(:id)
 
     sorted_works = FavouritesQuery.new
-      .top_favourite([Anime.name, Manga.name], 6)
+      .top_favourite([Anime.name, Manga.name], BEST_ROLES_SIZE)
       .where(FAVOURITES_SQL, anime_ids, manga_ids)
       .map {|v| [v.linked_id, v.linked_type] }
 
     drop_index = 0
-    while sorted_works.size < 6 && works.size > drop_index
+    while sorted_works.size < BEST_ROLES_SIZE && works.size > drop_index
       work = works.drop(drop_index).first
       mapped_work = [work.id, work.object.class.name]
       sorted_works.push mapped_work unless sorted_works.include?(mapped_work)
@@ -99,6 +103,85 @@ class PersonDecorator < DbEntryDecorator
         works.select {|v| v.kinda_manga? && selected_manga_ids.include?(v.id) }
     ).sort_by {|v| sorted_works.index [v.id, v.object.class.name] }
   end
+
+  def best_roles
+    all_character_ids = characters.pluck(:id)
+    character_ids = FavouritesQuery.new
+      .top_favourite(Character, BEST_ROLES_SIZE)
+      .where(linked_id: all_character_ids)
+      .pluck(:linked_id)
+
+    drop_index = 0
+    while character_ids.size < BEST_ROLES_SIZE && character_works.size > drop_index
+      character_id = character_works.drop(drop_index).first[:characters].first.id
+      character_ids.push character_id unless character_ids.include? character_id
+      drop_index += 1
+    end
+
+    Character
+      .where(id: character_ids)
+      .sort_by {|v| character_ids.index v.id }
+  end
+
+  def character_works
+    # группировка по персонажам и аниме
+    @characters = []
+    backindex = {}
+
+    characters.includes(:animes).to_a.uniq.each do |char|
+      entry = nil
+      char.animes.each do |anime|
+        if backindex.include?(anime.id)
+          entry = backindex[anime.id]
+          break
+        end
+      end
+
+      unless entry
+        entry = {
+          characters: [char.decorate],
+          animes: char.animes.each_with_object({}) {|v,memo| memo[v.id] = v.decorate }
+        }
+        char.animes.each do |anime|
+          backindex[anime.id] = entry unless backindex.include?(anime.id)
+        end
+        #ap entry[:animes]
+        @characters << entry
+      else
+        entry[:characters] << char
+        char.animes.each do |anime|
+          unless entry[:animes].include?(anime.id)
+            entry[:animes][anime.id] = anime.decorate
+            backindex[anime.id] = entry
+          end
+        end
+      end
+    end
+
+    # для каждой группы оставляем только BEST_ROLES_SIZE в сумме аниме+персонажей
+    @characters.each do |group|
+      group[:characters] = group[:characters].take(3) if group[:characters].size > 3
+      animes_limit = WORK_GROUP_SIZE - group[:characters].size
+      group[:animes] = group[:animes]
+        .map(&:second)
+        .sort_by { |anime| sort_criteria anime }.reverse
+        .take(animes_limit)
+        .sort_by { |anime| anime.aired_on || anime.released_on || 30.years.ago }
+    end
+
+    @characters = @characters
+      .sort_by do |character|
+        if character[:animes].any?
+          character[:animes].map { |anime| sort_criteria anime }.max
+        elsif sort_by_date?
+          30.years.ago
+        else
+          0
+        end
+      end
+      .reverse
+  end
+
 
   def job_title
     if main_role? :producer

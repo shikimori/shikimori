@@ -1,5 +1,12 @@
 en:
   people:
+    content: &content
+      best_roles: Best roles
+      best_works: Best works
+    best_roles:
+      <<: *content
+    best_works:
+      <<: *content
     page:
       actions:
         comment: Comment

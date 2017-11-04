@@ -273,9 +273,10 @@ en:
     <<: *animes_controller
     entry_edit: Edit person
     participation_in_projects: Participation in projects
-    search_producers: Search producers
+    roles_in_anime: Roles in anime
     search_mangakas: Search mangakas
     search_people: Search people
+    search_producers: Search producers
 
   seyu_controller:
     <<: *animes_controller
