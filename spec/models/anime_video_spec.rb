@@ -136,7 +136,7 @@ describe AnimeVideo do
 
     describe 'after_create' do
       describe '#create_episode_notificaiton' do
-        let(:anime) { build_stubbed :anime }
+        let(:anime) { create :anime }
         let(:url_1) { attributes_for(:anime_video)[:url] }
         let(:url_2) { attributes_for(:anime_video)[:url] + 'z' }
 
@@ -145,8 +145,8 @@ describe AnimeVideo do
           let!(:anime_video) { create :anime_video, :with_notification, anime: anime, kind: :raw }
 
           its(:is_raw) { is_expected.to eq true }
-          its(:is_subtitles) { is_expected.to be_nil }
-          its(:is_fandub) { is_expected.to be_nil }
+          its(:is_subtitles) { is_expected.to eq false }
+          its(:is_fandub) { is_expected.to eq false }
           it { expect(EpisodeNotification.all).to have(1).item }
         end
 
@@ -163,7 +163,7 @@ describe AnimeVideo do
 
           its(:is_raw) { is_expected.to eq true }
           its(:is_subtitles) { is_expected.to eq true }
-          its(:is_fandub) { is_expected.to be_nil }
+          its(:is_fandub) { is_expected.to eq false }
           it { expect(EpisodeNotification.all).to have(1).item }
         end
 
