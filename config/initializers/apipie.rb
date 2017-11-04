@@ -6,6 +6,7 @@ Apipie.configure do |config|
   config.default_version         = '2.0'
   config.api_routes              = Rails.application.routes
   config.markup                  = Apipie::Markup::Markdown.new
+  config.translate               = false
   config.generated_doc_disclaimer =
     '# AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING'
 

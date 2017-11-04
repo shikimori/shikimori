@@ -375,8 +375,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/33f0e7a6e6def2de5352096554498a818ceeb2be.jpg?1484049600",
-          "preview": "/system/screenshots/x332/33f0e7a6e6def2de5352096554498a818ceeb2be.jpg?1484049600"
+          "original": "/system/screenshots/original/bc82da502d30d6175332facc98399ff15f3b161e.jpg?1484049600",
+          "preview": "/system/screenshots/x332/bc82da502d30d6175332facc98399ff15f3b161e.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -462,8 +462,8 @@
         "favoured": false,
         "anons": null,
         "ongoing": null,
-        "thread_id": 103554,
-        "topic_id": 103554,
+        "thread_id": 103556,
+        "topic_id": 103556,
         "myanimelist_id": 3,
         "rates_scores_stats": [
 
@@ -560,7 +560,7 @@
       ],
       "query": null,
       "request_data": {
-        "ids": "comment-1,comment-2,topic-103555"
+        "ids": "comment-1,comment-2,topic-103557"
       },
       "response_data": null,
       "code": "200",
@@ -578,7 +578,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "Bv1lGMkIm5Mw/p+t/n9e+KbDv4xoev55nARcasmRJSmC1nx72Db+MZ1bXBYPeEAjAWQ8WABbdi7QWmdlBCBEZw=="
+        "authenticity_token": "HZAn9O6gYjtCRZoY91mtVs60Wq1ZqBopstB7nHG62VboLPxmvwFXLkrNlyfBPJ0a6txLd85KnJXwqC+yvqxfBg=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -724,7 +724,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2017-10-10T00:00:00.000+00:00",
+          "next_episode_at": "2017-10-22T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 19,
@@ -741,7 +741,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2017-10-10",
+            "aired_on": "2017-10-22",
             "released_on": null
           }
         }
@@ -805,8 +805,8 @@
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
         "description_source": null,
         "favoured": false,
-        "thread_id": 103556,
-        "topic_id": 103556,
+        "thread_id": 103558,
+        "topic_id": 103558,
         "updated_at": "2017-01-10T15:00:00.000+03:00",
         "seyu": [
 
@@ -1126,8 +1126,8 @@
             "url": "/characters/5-character-3"
           }
         ],
-        "thread_id": 103563,
-        "topic_id": 103563,
+        "thread_id": 103565,
+        "topic_id": 103565,
         "user_role": "member",
         "style_id": null,
         "members": [
@@ -1218,8 +1218,8 @@
         "characters": [
 
         ],
-        "thread_id": 103561,
-        "topic_id": 103561,
+        "thread_id": 103563,
+        "topic_id": 103563,
         "user_role": null,
         "style_id": null,
         "members": [
@@ -1270,7 +1270,7 @@
         "broadcast": "false",
         "comment": {
           "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          "commentable_id": "103566",
+          "commentable_id": "103568",
           "commentable_type": "Topic",
           "is_offtopic": "true",
           "is_summary": "true"
@@ -1280,7 +1280,7 @@
       "response_data": {
         "id": 7,
         "user_id": 23456799,
-        "commentable_id": 103566,
+        "commentable_id": 103568,
         "commentable_type": "Topic",
         "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "html_body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -1412,7 +1412,7 @@
       "response_data": {
         "id": 4,
         "user_id": 23456797,
-        "commentable_id": 103565,
+        "commentable_id": 103567,
         "commentable_type": "Topic",
         "body": "comment_body_4",
         "html_body": "comment_body_4",
@@ -1459,7 +1459,7 @@
       "response_data": {
         "id": 8,
         "user_id": 23456800,
-        "commentable_id": 103567,
+        "commentable_id": 103569,
         "commentable_type": "Topic",
         "body": "blablabla",
         "html_body": "blablabla",
@@ -2497,7 +2497,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 61188,
+          "id": 24215,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -2879,8 +2879,8 @@
         "favoured": false,
         "anons": null,
         "ongoing": null,
-        "thread_id": 103569,
-        "topic_id": 103569,
+        "thread_id": 103571,
+        "topic_id": 103571,
         "myanimelist_id": 6,
         "rates_scores_stats": [
 
@@ -3218,7 +3218,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-10-24T00:21:17.948+03:00"
+          "last_online_at": "2017-11-05T01:34:03.816+03:00"
         }
       },
       "code": "200",
@@ -3763,8 +3763,8 @@
         "favoured": false,
         "anons": null,
         "ongoing": null,
-        "thread_id": 103570,
-        "topic_id": 103570,
+        "thread_id": 103572,
+        "topic_id": 103572,
         "myanimelist_id": 18,
         "rates_scores_stats": [
 
@@ -4073,7 +4073,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 103571,
+          "id": 103573,
           "topic_title": "topic_6",
           "body": "test [spoiler=спойлер]test[/spoiler] test",
           "html_body": "test <div class=\"b-spoiler unprocessed\"><label>спойлер</label><div class=\"content\"><div class=\"before\"></div><div class=\"inner\">test</div><div class=\"after\"></div></div></div> test",
@@ -4099,7 +4099,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-10-24T00:21:17.948+03:00"
+            "last_online_at": "2017-11-05T01:34:03.816+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -4117,14 +4117,14 @@
   "topics#show": [
     {
       "verb": "GET",
-      "path": "/api/topics/103572",
+      "path": "/api/topics/103574",
       "versions": [
         "1.0"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 103572,
+        "id": 103574,
         "topic_title": "Обзор аниме &laquo;anime_32&raquo;",
         "body": "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
         "html_body": "<div class=\"b-prgrph\">ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>",
@@ -4150,7 +4150,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-10-24T00:21:17.948+03:00"
+          "last_online_at": "2017-11-05T01:34:03.816+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -4188,7 +4188,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-10-24T00:21:17.948+03:00"
+            "last_online_at": "2017-11-05T01:34:03.816+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -4264,7 +4264,7 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "watching",
+          "status": "completed",
           "target_id": "37",
           "target_type": "Anime",
           "text": "test",
@@ -4275,7 +4275,7 @@
       "response_data": {
         "id": 6,
         "score": 10,
-        "status": "watching",
+        "status": "completed",
         "text": "test",
         "episodes": 2,
         "chapters": null,
@@ -4375,7 +4375,7 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "completed",
+          "status": "watching",
           "target_id": "56",
           "target_type": "Anime",
           "text": "test",
@@ -4389,7 +4389,7 @@
         "target_id": 56,
         "target_type": "Anime",
         "score": 10,
-        "status": "completed",
+        "status": "watching",
         "rewatches": 5,
         "episodes": 2,
         "volumes": 3,
@@ -5082,7 +5082,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 30,
+          "id": 28,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Запланировано",
           "target": {
@@ -5105,7 +5105,7 @@
           }
         },
         {
-          "id": 29,
+          "id": 27,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Импортировано аниме - 522 записи",
           "target": null
@@ -5275,9 +5275,9 @@
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "linked": {
             "id": 46,
-            "topic_url": "//test.host/forum/animanga/103573-topic-8",
-            "thread_id": 103573,
-            "topic_id": 103573,
+            "topic_url": "//test.host/forum/animanga/103575-topic-8",
+            "thread_id": 103575,
+            "topic_id": 103575,
             "type": "Anime",
             "name": "anime_43",
             "russian": null,
