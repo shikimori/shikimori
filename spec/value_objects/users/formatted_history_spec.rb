@@ -30,11 +30,6 @@ describe Users::FormattedHistory do
     end
   end
 
-  describe '#iso_date' do
-    let(:params) { { created_at: Time.zone.parse('2001-01-01 01:01') } }
-    it { expect(entry.iso_date).to eq '2001-01-01T01:01:00+03:00' }
-  end
-
   describe '#localized_date' do
     let(:params) { { created_at: Time.zone.parse('2001-01-01 01:01') } }
     it { expect(entry.localized_date).to eq '1 января 2001' }

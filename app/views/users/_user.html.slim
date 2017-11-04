@@ -28,7 +28,7 @@
         .line
           - if entry.special?
             time.date[
-              datetime=entry.iso_date
+              datetime=entry.created_at.iso8601
             ] = entry.localized_date
             span.event = entry.action_info
           - else
@@ -37,7 +37,7 @@
               title=entry.name
             ]
               time.date[
-                datetime=entry.iso_date
+                datetime=entry.created_at.iso8601
               ] = entry.localized_date
               span.event = entry.localized_name
 

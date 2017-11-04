@@ -28,10 +28,6 @@ class Users::FormattedHistory < Dry::Struct
     action_info.present?
   end
 
-  def iso_date
-    created_at.iso8601
-  end
-
   def localized_date
     h.l(created_at, format: '%e %B %Y').strip
   end
