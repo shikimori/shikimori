@@ -4,10 +4,12 @@ class Api::V1::PeopleController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/people/:id', 'Show a person'
   def show
-    if @resource.seyu?
+    person = @resource.decorate
+
+    if person.main_role? :seyu
       respond_with SeyuDecorator.new(@resource), serializer: SeyuProfileSerializer
     else
-      respond_with PersonDecorator.new(@resource), serializer: PersonProfileSerializer
+      respond_with person, serializer: PersonProfileSerializer
     end
   end
 
