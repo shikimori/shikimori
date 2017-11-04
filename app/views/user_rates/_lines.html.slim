@@ -52,7 +52,7 @@ table.b-table.list-lines
     - list.user_rates.each_with_index do |user_rate, index|
       tr.user_rate.unprocessed.selectable[
         class=(:editable if library.user.own_profile?)
-        data-remote=(true if library.user.own_profile?)
+        data-remote=('true' if library.user.own_profile?)
         data-action=(edit_user_rate_path(user_rate) if library.user.own_profile?)
         data-type='html'
         data-rate_url=api_v2_user_rate_path(user_rate)
