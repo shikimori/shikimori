@@ -8,7 +8,7 @@
   text-align: right
 
   &.single
-    .locale-ru &:before
+    body[data-locale=ru] &:before
       content: attr(data-text-alt-ru)
-    .locale-en &:before
+    body[data-locale=en] &:before
       content: attr(data-text-alt-en)

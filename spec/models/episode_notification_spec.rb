@@ -1,3 +1,5 @@
 describe EpisodeNotification do
-  it { should belong_to :anime }
+  describe 'relations' do
+    it { is_expected.to belong_to :anime }
+  end
 end

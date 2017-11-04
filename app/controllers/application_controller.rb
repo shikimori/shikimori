@@ -67,16 +67,6 @@ class ApplicationController < ActionController::Base
     @decorated_current_user ||= super.try :decorate
   end
 
-  def base_controller_names
-    superclass_name = ('p-' + self.class.superclass.name.to_underscore)
-      .sub(/_controller$/, '')
-      .sub(/^p-application/, '')
-      .sub(/^p-shikimori/, '')
-    db_name = 'p-db_entries' if kind_of?(DbEntriesController)
-
-    [superclass_name, db_name].select(&:present?).flat_map {|v| [v, "#{v}-#{params[:action]}" ] }.join(' ')
-  end
-
   # Use this in place of params when generating links to Excel etc.
   # See https://github.com/rails/rails/issues/26289
   def safe_params

@@ -5,17 +5,17 @@
 $entry_padding_left: 10px
 
 +lte_ipad
-  .locale-en .l-top_menu
-    .calendar > a:before
-      content: 'Calendar'
-    .info > a:before
-      content: 'Info'
-
-  .locale-ru .l-top_menu
+  body[data-locale=ru] .l-top_menu
     .calendar > a:before
       content: 'Календарь'
     .info > a:before
       content: 'Инфо'
+
+  body[data-locale=en] .l-top_menu
+    .calendar > a:before
+      content: 'Calendar'
+    .info > a:before
+      content: 'Info'
 
   .l-top_menu
     +clearfix

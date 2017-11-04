@@ -1,24 +1,34 @@
-body
-  // names
-  &.localized_names-ru
-    .name-en
-      display: none
+// localized_names
+body[data-localized_names=ru]
+  .name-en
+    display: none
+  .name-ru:before
+    content: attr(data-text)
 
-    .name-ru:before
-      content: attr(data-text)
+body[data-localized_names=en]
+  .name-ru
+    display: none
 
-  &.localized_names-en
-    .name-ru
-      display: none
+// localized_genre
+body[data-localized_genres=ru]
+  .genre-en
+    display: none
+  .genre-ru:before
+    content: attr(data-text)
 
-  // genres
-  &.localized_genres-ru
-    .genre-en
-      display: none
+body[data-localized_genres=en]
+  .genre-ru
+    display: none
 
-    .genre-ru:before
-      content: attr(data-text)
+// locale
+body[data-locale=ru]
+  .translated-after:after
+    content: attr(data-text-ru)
+  .translated-before:before
+    content: attr(data-text-ru)
 
-  &.localized_genres-en
-    .genre-ru
-      display: none
+body[data-locale=en]
+  .translated-after:after
+    content: attr(data-text-en)
+  .translated-before:before
+    content: attr(data-text-en)

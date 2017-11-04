@@ -5,24 +5,30 @@ describe LayoutView do
   let(:view) { LayoutView.new }
 
   before do
-    allow(view.h.controller).to receive(:instance_variable_get)
-      .with('@blank_layout').and_return is_blank_layout
+    allow(view.h.controller)
+      .to receive(:instance_variable_get)
+      .with('@blank_layout')
+      .and_return is_blank_layout
     allow(view.h).to receive(:current_user).and_return current_user
   end
   let(:is_blank_layout) { false }
   let(:current_user) { user }
 
-  describe '#body_id' do
-    let(:controller_name) { 'foo' }
-    let(:action_name) { 'boo' }
+  describe '#body_id, #body_class' do
+    let(:controller_name) { 'animes' }
+    let(:action_name) { 'show' }
 
-    before { allow(view.h).to receive(:controller_name).and_return controller_name }
-    before { allow(view.h).to receive(:action_name).and_return action_name }
+    before do
+      allow(view.h).to receive(:controller_name).and_return controller_name
+      allow(view.h).to receive(:action_name).and_return action_name
+      allow(view.h.controller).to receive(:class).and_return AnimesController
+    end
 
-    it { expect(view.body_id).to eq 'foo_boo' }
+    it { expect(view.body_id).to eq 'animes_show' }
+    it { expect(view.body_class).to eq 'p-animes p-animes-show p-db_entries p-db_entries-show x1200' }
   end
 
-  describe '#localized_names_class & #localized_genres_class' do
+  describe '#localized_names & #localized_genres' do
     before do
       allow(I18n).to receive(:russian?).and_return is_i18n_russian
       allow(view.h).to receive(:ru_host?).and_return is_ru_host
@@ -39,37 +45,37 @@ describe LayoutView do
     let(:is_russian_names) { true }
     let(:is_russian_genres) { true }
 
-    it { expect(view.localized_names_class).to eq 'localized_names-ru' }
-    it { expect(view.localized_genres_class).to eq 'localized_genres-ru' }
+    it { expect(view.localized_names).to eq :ru }
+    it { expect(view.localized_genres).to eq :ru }
 
     context 'not russian locale' do
       let(:is_i18n_russian) { false }
-      it { expect(view.localized_names_class).to eq 'localized_names-en' }
-      it { expect(view.localized_genres_class).to eq 'localized_genres-en' }
+      it { expect(view.localized_names).to eq :en }
+      it { expect(view.localized_genres).to eq :en }
     end
 
     context 'not russian domain' do
       let(:is_ru_host) { false }
-      it { expect(view.localized_names_class).to eq 'localized_names-en' }
-      it { expect(view.localized_genres_class).to eq 'localized_genres-en' }
+      it { expect(view.localized_names).to eq :en }
+      it { expect(view.localized_genres).to eq :en }
     end
 
     context 'user not signed in' do
       let(:is_user_signed_in) { false }
-      it { expect(view.localized_names_class).to eq 'localized_names-ru' }
-      it { expect(view.localized_genres_class).to eq 'localized_genres-ru' }
+      it { expect(view.localized_names).to eq :ru }
+      it { expect(view.localized_genres).to eq :ru }
     end
 
     context 'disabled russian_names' do
       let(:is_russian_names) { false }
-      it { expect(view.localized_names_class).to eq 'localized_names-en' }
-      it { expect(view.localized_genres_class).to eq 'localized_genres-ru' }
+      it { expect(view.localized_names).to eq :en }
+      it { expect(view.localized_genres).to eq :ru }
     end
 
     context 'disabled russian_genres' do
       let(:is_russian_genres) { false }
-      it { expect(view.localized_names_class).to eq 'localized_names-ru' }
-      it { expect(view.localized_genres_class).to eq 'localized_genres-en' }
+      it { expect(view.localized_names).to eq :ru }
+      it { expect(view.localized_genres).to eq :en }
     end
   end
 

@@ -10,7 +10,7 @@ $feedback_top: 270px
 $feedback_color_from: #6a95ca
 $feedback_color_to: #4b80c0
 
-.locale-ru
+body[data-locale=ru]
   .b-feedback
     &>.hover-activator
       height: $feedback_ru_height
@@ -20,7 +20,7 @@ $feedback_color_to: #4b80c0
         margin-top: $feedback_ru_height
         min-width: $feedback_ru_height
 
-.locale-en
+body[data-locale=en]
   .b-feedback
     &>.hover-activator
       height: $feedback_en_height
