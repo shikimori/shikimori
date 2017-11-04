@@ -50,7 +50,7 @@ class MessagesController < ProfilesController
   def unsubscribe
     @user = User.find_by! nickname: User.param_to(params[:name])
     if self.class.unsubscribe_key(@user, params[:kind]) != params[:key]
-      raise ActiveRecord::RecordNotFound
+      raise CanCan::AccessDenied
     end
 
     if @user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0
@@ -62,7 +62,7 @@ class MessagesController < ProfilesController
   def feed
     @user = User.find_by! nickname: User.param_to(params[:name])
     if self.class.rss_key(@user) != params[:key]
-      raise ActiveRecord::RecordNotFound
+      raise CanCan::AccessDenied
     end
 
     raw_messages = Rails.cache.fetch "notifications_feed_#{@user.id}", expires_in: 60.minutes do
