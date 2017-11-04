@@ -29,7 +29,7 @@ module.exports = class Animes.Menu extends View
 
   _history: =>
     $history_block = @$('.history')
-    source_url = $history_block.attr('data-remote')
+    source_url = $history_block.attr('data-source_url')
     return unless source_url
 
     # подгрузка тултипов истории
