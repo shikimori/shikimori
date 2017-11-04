@@ -1,21 +1,25 @@
 describe AnimeOnline::RecentVideos do
   let(:query) { AnimeOnline::RecentVideos.new is_adult }
 
+  EXCLUDED_ANIMES = [
+    [:released, released_on: 6.weeks.ago],
+    [:ongoing, :with_video, rating: :g],
+    [:ongoing, :with_video, id: Anime::EXCLUDED_ONGOINGS.max]
+  ]
   let(:anime_ongoing) { create :anime, :ongoing }
   let(:anime_recent) { create :anime, :released, released_on: 2.weeks.ago }
-  let(:anime_old) { create :anime, :released, released_on: 6.weeks.ago }
   let(:anime_adult) { create :anime, :ongoing, :with_video, rating: Anime::ADULT_RATING }
-  let(:anime_g) { create :anime, :ongoing, :with_video, rating: :g }
+  let(:anime_excluded) { create :anime, *EXCLUDED_ANIMES.sample }
 
-  let!(:episode_notification_1) do
+  let!(:ongoing_notification_1) do
     create :episode_notification,
-        id: 1,
-        episode: 1,
-        anime: anime_ongoing,
-        updated_at: 10.minutes.ago,
-        is_fandub: true
+      id: 1,
+      episode: 1,
+      anime: anime_ongoing,
+      updated_at: 10.minutes.ago,
+      is_fandub: true
   end
-  let!(:episode_notification_2) do
+  let!(:ongoing_notification_2) do
     create :episode_notification,
       id: 2,
       episode: 2,
@@ -23,7 +27,7 @@ describe AnimeOnline::RecentVideos do
       updated_at: 9.minutes.ago,
       is_fandub: true
   end
-  let!(:episode_notification_3) do
+  let!(:adult_notification) do
     create :episode_notification,
       id: 3,
       episode: 1,
@@ -31,7 +35,7 @@ describe AnimeOnline::RecentVideos do
       updated_at: 8.minutes.ago,
       is_fandub: true
   end
-  let!(:episode_notification_4) do
+  let!(:recent_notification) do
     create :episode_notification,
       id: 4,
       episode: 1,
@@ -39,20 +43,12 @@ describe AnimeOnline::RecentVideos do
       updated_at: 7.minutes.ago,
       is_fandub: true
   end
-  let!(:episode_notification_5) do
+  let!(:excluded_notification) do
     create :episode_notification,
       id: 5,
       episode: 1,
-      anime: anime_old,
+      anime: anime_excluded,
       updated_at: 6.minutes.ago,
-      is_fandub: true
-  end
-  let!(:episode_notification_6) do
-    create :episode_notification,
-      id: 6,
-      episode: 1,
-      anime: anime_g,
-      updated_at: 5.minutes.ago,
       is_fandub: true
   end
 
@@ -61,12 +57,12 @@ describe AnimeOnline::RecentVideos do
 
     context 'not adult' do
       let(:is_adult) { false }
-      it { is_expected.to eq [episode_notification_4, episode_notification_2] }
+      it { is_expected.to eq [recent_notification, ongoing_notification_2] }
     end
 
     context 'adult' do
       let(:is_adult) { true }
-      it { is_expected.to eq [episode_notification_3] }
+      it { is_expected.to eq [adult_notification] }
     end
   end
 
@@ -74,6 +70,6 @@ describe AnimeOnline::RecentVideos do
     let(:is_adult) { false }
     subject { query.postload 1, 1 }
 
-    it { is_expected.to eq [[episode_notification_4], true] }
+    it { is_expected.to eq [[recent_notification], true] }
   end
 end
