@@ -1,6 +1,5 @@
 # TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
-  skip_before_action :role_redirect
   before_action :js_export, only: %i[show]
 
   #caches_action :index, CacheHelper.cache_settings
