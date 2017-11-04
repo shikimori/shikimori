@@ -224,10 +224,6 @@ class User < ApplicationRecord
     text.gsub(/\+/, ' ')
   end
 
-  def self.find_by_nickname nick
-    method_missing(:find_by_nickname, nick.gsub('+', ' '))
-  end
-
   # мужчина ли это
   def male?
     self.sex && self.sex == 'male' ? true : false
@@ -379,11 +375,6 @@ private
 
   rescue *Network::FaradayGet::NET_ERRORS
     update avatar: open('app/assets/images/globals/missing_avatar/x160.png')
-  end
-
-  def self.find_by_nickname nickname
-    where(nickname: nickname)
-      .find { |v| v.nickname == nickname }
   end
 
   # def check_ban

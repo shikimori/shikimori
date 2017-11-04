@@ -189,7 +189,7 @@ module CommentHelper
           is_profile = $2 == 'profile'
           begin
             user = if $3.nil?
-              User.find_by_nickname $4
+              User.find_by nickname: $4
             else
               User.find $3
             end

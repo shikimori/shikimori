@@ -122,23 +122,21 @@ describe Anidb::ImportDescriptionsJob do
   end
 
   context 'with invalid external link url' do
-    [NotFoundError, InvalidIdError].each do |error_klass|
-      context error_klass do
-        before do
-          allow(Anidb::ParseDescription)
-            .to receive(:call)
-            .with(anime_external_link.url)
-            .and_raise error_klass, anime_external_link.url
-        end
+    context InvalidIdError do
+      before do
+        allow(Anidb::ParseDescription)
+          .to receive(:call)
+          .with(anime_external_link.url)
+          .and_raise InvalidIdError, anime_external_link.url
+      end
 
-        subject! { job.perform }
+      subject! { job.perform }
 
-        it do
-          expect(anime.reload.description_en).to be_empty
-          expect(anime.reload.anidb_external_link).to be_nil
+      it do
+        expect(anime.reload.description_en).to be_empty
+        expect(anime.reload.anidb_external_link).to be_nil
 
-          expect { anime_external_link.reload }.to raise_error ActiveRecord::RecordNotFound
-        end
+        expect { anime_external_link.reload }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end

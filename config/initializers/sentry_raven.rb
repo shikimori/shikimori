@@ -9,7 +9,6 @@ Raven.configure do |config|
     ActiveRecord::RecordNotFound
     I18n::InvalidLocale
     Unicorn::ClientShutdown
-    NotFoundError
     Unauthorized
     Forbidden
     AgeRestricted

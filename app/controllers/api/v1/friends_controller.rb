@@ -38,8 +38,7 @@ private
 
   def fetch_user
     @user ||= User.find_by(id: params[:id]) ||
-      User.find_by(nickname: User.param_to(params[:id])) ||
-      raise(NotFoundError, params[:id])
+      User.find_by!(nickname: User.param_to(params[:id]))
   end
 
   def add_notice

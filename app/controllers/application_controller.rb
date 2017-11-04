@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Translation
+  include ErrorsConcern
 
   #include Mobylette::RespondToMobileRequests
   protect_from_forgery with: :exception
@@ -27,34 +28,6 @@ class ApplicationController < ActionController::Base
   helper_method :shikimori?, :anime_online?, :manga_online?
   helper_method :ru_host?, :locale_from_host
   helper_method :i18n_i, :i18n_io, :i18n_v
-
-  NOT_FOUND_ERRORS = [
-    ActionController::RoutingError,
-    ActiveRecord::RecordNotFound,
-    AbstractController::ActionNotFound,
-    ActionController::UnknownFormat,
-    NotFoundError
-  ]
-
-  RUNTIME_ERRORS = [
-    AbstractController::Error,
-    ActionController::InvalidAuthenticityToken,
-    ActionView::MissingTemplate,
-    ActionView::Template::Error,
-    Exception,
-    PG::Error,
-    Encoding::CompatibilityError,
-    NoMethodError,
-    StandardError,
-    SyntaxError,
-    CanCan::AccessDenied
-  ] + NOT_FOUND_ERRORS
-
-  unless Rails.env.test?
-    rescue_from *RUNTIME_ERRORS, with: :runtime_error
-  else
-    rescue_from StatusCodeError, with: :runtime_error
-  end
 
   I18n.exception_handler = -> (exception, locale, key, options) {
     # raise I18n::MissingTranslation, "#{locale} #{key}"
@@ -230,74 +203,5 @@ class ApplicationController < ActionController::Base
   # faye токен текущего пользователя
   def faye_token
     request.headers['X-Faye-Token'] || params[:faye]
-  end
-
-  def runtime_error e
-    Honeybadger.notify(e) if defined? Honeybadger
-    Raven.capture_exception(e) if defined? Raven
-    Appsignal.set_error(e) if defined? Appsignal
-
-    # NamedLogger
-      # .send("#{Rails.env}_errors")
-      # .error("#{e.message}\n#{e.backtrace.join("\n")}")
-    # Rails.logger.error("#{e.message}\n#{e.backtrace.join("\n")}")
-
-    raise e if local_addr? && (
-      !e.is_a?(AgeRestricted) &&
-      !e.is_a?(CopyrightedResource) &&
-      !e.is_a?(Forbidden)
-    )
-
-    with_json_response = json? ||
-      (self.kind_of?(Api::V1Controller) && !params[:frontend])
-
-    if NOT_FOUND_ERRORS.include? e.class
-      @sub_layout = nil
-
-      if with_json_response
-        render json: { message: t('page_not_found'), code: 404 }, status: 404
-      else
-        render 'pages/page404', layout: false, status: 404, formats: :html
-      end
-
-    elsif e.is_a?(AgeRestricted)
-      render 'pages/age_restricted', layout: false, formats: :html
-
-    elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
-      if with_json_response
-        render json: { message: e.message, code: 403 }, status: 403
-      else
-        render plain: e.message, status: 403
-      end
-
-    elsif e.is_a?(StatusCodeError)
-      render json: {}, status: e.status
-
-    elsif e.is_a?(CopyrightedResource)
-      resource = e.resource
-      @new_url = url_for safe_params.merge(resource_id_key => resource.to_param)
-
-      if params[:format] == 'rss'
-        redirect_to @new_url, status: 301
-      else
-        render 'pages/page_moved.html', layout: false, status: 404, formats: :html
-      end
-
-    else
-      if self.kind_of?(Api::V1Controller) || json?
-        render(
-          json: {
-            code: 503,
-            exception: e.class.name,
-            message: e.message,
-            backtrace: e.backtrace.first.sub(Rails.root.to_s, '')
-          },
-          status: 503
-        )
-      else
-        @page_title = t 'error'
-        render 'pages/page503.html', layout: false, status: 503, formats: :html
-      end
-    end
   end
 end

@@ -48,9 +48,10 @@ class MessagesController < ProfilesController
 
   # отписка от емайлов о сообщениях
   def unsubscribe
-    @user = User.find_by_nickname(User.param_to params[:name])
-    raise CanCan::AccessDenied, 'no user' if @user.nil?
-    raise CanCan::AccessDenied, 'bad key' if self.class.unsubscribe_key(@user, params[:kind]) != params[:key]
+    @user = User.find_by! nickname: User.param_to(params[:name])
+    if self.class.unsubscribe_key(@user, params[:kind]) != params[:key]
+      raise ActiveRecord::RecordNotFound
+    end
 
     if @user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0
       @user.update notifications: @user.notifications - User::PRIVATE_MESSAGES_TO_EMAIL
@@ -59,9 +60,10 @@ class MessagesController < ProfilesController
 
   # rss лента уведомлений
   def feed
-    @user = User.find_by_nickname(User.param_to params[:name])
-    raise NotFoundError.new('user not found') if @user.nil?
-    raise NotFoundError.new('wrong rss key') if self.class.rss_key(@user) != params[:key]
+    @user = User.find_by! nickname: User.param_to(params[:name])
+    if self.class.rss_key(@user) != params[:key]
+      raise ActiveRecord::RecordNotFound
+    end
 
     raw_messages = Rails.cache.fetch "notifications_feed_#{@user.id}", expires_in: 60.minutes do
       Message

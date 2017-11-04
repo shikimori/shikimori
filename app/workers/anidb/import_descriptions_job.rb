@@ -27,7 +27,7 @@ class Anidb::ImportDescriptionsJob
     update_description_en(db_entry)
     update_anidb_external_link(db_entry)
 
-  rescue NotFoundError, InvalidIdError => e
+  rescue InvalidIdError => e
     NamedLogger.import_descriptions.error(e.message)
     db_entry.anidb_external_link.destroy
   end
