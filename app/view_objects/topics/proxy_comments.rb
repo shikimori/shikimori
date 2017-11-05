@@ -12,7 +12,7 @@ class Topics::ProxyComments < Topics::CommentsView
   end
 
   def faye_channel
-    ["#{model.class.name.underscore}-#{model.id}"].to_json
+    ["#{model.class.name.underscore}-#{model.id}"]
   end
 
   def comments_limit
