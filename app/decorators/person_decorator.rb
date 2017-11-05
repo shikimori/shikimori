@@ -211,7 +211,9 @@ class PersonDecorator < DbEntryDecorator
     elsif has_manga?
       :manga
     else
-      raise ArgumentError, "Unknown occupation for #{self.class.name} #{to_param}"
+      :anime
+      # disabled becase seyu has no works
+      # raise ArgumentError, "Unknown occupation for #{self.class.name} #{to_param}"
     end
   end
 
