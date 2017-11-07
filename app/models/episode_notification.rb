@@ -9,6 +9,9 @@ class EpisodeNotification < ApplicationRecord
 
   after_create :track_episode, if: :not_tracked?
 
+  !@$%^&*()*&^%$#@!
+  todo rolblack episode when all = false 
+
 private
 
   def not_tracked?
