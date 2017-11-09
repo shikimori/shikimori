@@ -92,7 +92,7 @@ class AnimeVideo < ApplicationRecord
 
     after_transition [:working, :uploaded] => [:broken, :wrong, :banned],
       if: :single?,
-      do: :remove_episode_notification
+      do: :rollback_episode_notification
 
     after_transition [:working, :uploaded] => [:broken, :wrong, :banned],
       do: :process_reports
@@ -176,10 +176,10 @@ private
   end
 
   # TODO: extract to service
-  def remove_episode_notification
+  def rollback_episode_notification
     EpisodeNotification
       .where(anime_id: anime_id, episode: episode)
-      .update_all("is_#{kind}" => false)
+      .each { |episode_notification| episode_notification.rollback kind }
   end
 
   def process_reports

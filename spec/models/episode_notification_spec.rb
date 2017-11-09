@@ -68,4 +68,46 @@ describe EpisodeNotification do
       end
     end
   end
+
+  describe 'instance methods' do
+    describe '#rollback' do
+      let(:episode_notification) do
+        create :episode_notification,
+          anime: anime,
+          is_raw: is_raw,
+          is_torrent: is_torrent
+      end
+      let(:anime) { build_stubbed :anime }
+      subject! { episode_notification.rollback :raw }
+
+      context 'true => false' do
+        context 'last positive field' do
+          let(:is_raw) { true }
+          let(:is_torrent) { false }
+          it { expect { episode_notification.reload }.to raise_error ActiveRecord::RecordNotFound }
+        end
+
+        context 'not last positive field' do
+          let(:is_raw) { true }
+          let(:is_torrent) { true }
+          it do
+            expect(episode_notification).to_not be_changed
+            expect(episode_notification.raw?).to eq false
+            expect(episode_notification.torrent?).to eq true
+          end
+        end
+      end
+
+      context 'false => false' do
+        let(:is_raw) { false }
+        let(:is_torrent) { true }
+
+        it do
+          expect(episode_notification).to_not be_changed
+          expect(episode_notification.raw?).to eq false
+          expect(episode_notification.torrent?).to eq true
+        end
+      end
+    end
+  end
 end

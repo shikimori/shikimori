@@ -9,8 +9,15 @@ class EpisodeNotification < ApplicationRecord
 
   after_create :track_episode, if: :not_tracked?
 
-  !@$%^&*()*&^%$#@!
-  todo rolblack episode when all = false 
+  def rollback kind
+    send "is_#{kind}=", false
+
+    if subtitles? || fandub? || raw? || unknown? || torrent?
+      save!
+    else
+      destroy!
+    end
+  end
 
 private
 

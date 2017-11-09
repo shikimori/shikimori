@@ -31,12 +31,12 @@ describe AnimeVideo do
         end
 
         context 'good states' do
-          let(:states) { %w(working uploaded) }
+          let(:states) { %w[working uploaded] }
           it { is_expected.to have(states.size).items }
         end
 
         context 'bad states' do
-          let(:states) { %w(broken wrong banned copyrighted) }
+          let(:states) { %w[broken wrong banned copyrighted] }
           it { is_expected.to be_empty }
         end
       end
@@ -215,12 +215,13 @@ describe AnimeVideo do
       it { is_expected.to be_wrong }
     end
 
-    describe '#remove_episode_notification' do
-      [:fandub, :raw, :subtitles].each do |kind|
-        [:broken, :wrong, :ban].each do |action|
+    describe '#rollback_episode_notification' do
+      %i[fandub raw subtitles].each do |kind|
+        %i[broken wrong ban].each do |action|
           context "#{kind} #{action}" do
-            let(:video) { create :anime_video, kind: kind }
-            before do
+            let!(:video) { create :anime_video, kind: kind }
+            let!(:another_video) { nil }
+            let!(:episode_notification) do
               create(
                 :episode_notification,
                 anime_id: video.anime_id,
@@ -230,18 +231,25 @@ describe AnimeVideo do
                 is_subtitles: video.subtitles?
               )
             end
-
-            subject { EpisodeNotification.last }
+            subject! { video.send action }
 
             context 'single video' do
-              before { video.send(action) }
-              it { expect(subject.send("is_#{kind}")).to eq false }
+              it do
+                expect { episode_notification.reload }
+                  .to raise_error ActiveRecord::RecordNotFound
+              end
             end
 
             context 'not single video' do
-              before { create(:anime_video, anime: video.anime, episode: video.episode, kind: kind) }
-              before { video.send action }
-              it { expect(subject.send("is_#{kind}")).to eq true }
+              let!(:another_video) do
+                create :anime_video,
+                  anime: video.anime,
+                  episode: video.episode,
+                  kind: kind
+              end
+              it do
+                expect(episode_notification.reload.send("is_#{kind}")).to eq true
+              end
             end
           end
         end
@@ -249,7 +257,7 @@ describe AnimeVideo do
     end
 
     describe '#process_reports' do
-      [:broken, :wrong, :ban].each do |action|
+      %i[broken wrong ban].each do |action|
         context action do
           let(:video) { create :anime_video }
           let!(:pending_upload_report) { create :anime_video_report, :uploaded, :accepted, anime_video: video }
