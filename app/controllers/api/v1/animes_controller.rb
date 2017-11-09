@@ -120,7 +120,7 @@ class Api::V1::AnimesController < Api::V1Controller
       <p><strong>Examples:</strong></p>
       <p><code>summer_2017</code></p>
       <p><code>2016</code></p>
-      <p><code>2014-2016</code></p>
+      <p><code>2014_2016</code></p>
       <p><code>199x</code></p>
     DOC
   param :score, :number, required: false, desc: 'Minimal anime score'

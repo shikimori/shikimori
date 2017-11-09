@@ -93,7 +93,7 @@ class Api::V1::MangasController < Api::V1Controller
       <p><code>spring_2016,fall_2016</code></p>
       <p><code>2016,!winter_2016</code></p>
       <p><code>2016</code></p>
-      <p><code>2014-2016</code></p>
+      <p><code>2014_2016</code></p>
       <p><code>199x</code></p>
     DOC
   param :score, :number, required: false, desc: 'Minimal manga score'
