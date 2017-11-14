@@ -4,6 +4,7 @@ class Messages::CheckHacked
 
   SPAM_DOMAINS = %w[
     shikme.ru
+    hikanime.ru
   ]
 
   def call
