@@ -174,6 +174,13 @@ class AnimesController < DbEntriesController
     )
   end
 
+  def rollback_episode
+    authorize! :rollback_episode, @resource
+
+    Anime::RollbackEpisode.call @resource, @resource.episodes_aired
+    redirect_back fallback_location: @resource.edit_url
+  end
+
 private
 
   def update_params

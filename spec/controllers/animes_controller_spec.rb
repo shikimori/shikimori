@@ -163,4 +163,25 @@ describe AnimesController do
       expect(response).to have_http_status :success
     end
   end
+
+  describe '#rollback_episode', :focus do
+    let(:make_request) { post :rollback_episode, params: { id: anime.to_param } }
+    let(:anime) { create :anime, episodes_aired: 10 }
+
+    context 'admin' do
+      include_context :authenticated, :admin
+      before { make_request }
+      it do
+        expect(resource.episodes_aired).to eq 9
+        expect(response).to redirect_to edit_anime_url(anime)
+      end
+    end
+
+    context 'not admin' do
+      include_context :authenticated, :version_moderator
+      it do
+        expect { make_request }.to raise_error CanCan::AccessDenied
+      end
+    end
+  end
 end

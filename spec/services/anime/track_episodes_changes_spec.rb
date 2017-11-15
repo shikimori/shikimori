@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 describe Anime::TrackEpisodesChanges do
-  let!(:news_topic) {}
+  let!(:news_topics) {}
+
   before { anime.assign_attributes episodes_aired: new_episodes_aired }
+
   subject! { described_class.call anime }
 
   context 'episodes aired not changed' do
@@ -75,19 +77,33 @@ describe Anime::TrackEpisodesChanges do
   describe 'aired_episodes are decreased' do
     let(:anime) { create :anime, :ongoing, episodes_aired: old_episodes_aired }
 
-    let(:news_topic) do
+    let(:news_topic_5) do
       create :news_topic,
         linked: anime,
         action: AnimeHistoryAction::Episode,
-        value: topic_episode
+        value: 5
     end
+    let(:news_topic_6) do
+      create :news_topic,
+        linked: anime,
+        action: AnimeHistoryAction::Episode,
+        value: 6
+    end
+    let(:news_topic_7) do
+      create :news_topic,
+        linked: anime,
+        action: AnimeHistoryAction::Episode,
+        value: 7
+    end
+    let!(:news_topics) { [news_topic_5, news_topic_6, news_topic_7] }
 
     let(:old_episodes_aired) { 7 }
-    let(:new_episodes_aired) { (1..6).to_a.sample }
-    let(:topic_episode) { ((new_episodes_aired + 1)..old_episodes_aired).to_a.sample }
+    let(:new_episodes_aired) { 5 }
 
-    it 'removes episode topics about aired episodes' do
-      expect { news_topic.reload }.to raise_error ActiveRecord::RecordNotFound
+    it 'removes episode topics about reverted episodes' do
+      expect(news_topic_5.reload).to be_persisted
+      expect { news_topic_6.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect { news_topic_7.reload }.to raise_error ActiveRecord::RecordNotFound
     end
 
     context 'released anime' do
@@ -97,10 +113,13 @@ describe Anime::TrackEpisodesChanges do
           episodes_aired: old_episodes_aired,
           released_on: Time.zone.today
       end
+      let!(:news_topic) { create :news_topic, linked: anime, action: AnimeHistoryAction::Released }
+      let!(:news_topics) { [news_topic] }
 
       it 'changes anime status to ongoing' do
         expect(anime).to be_ongoing
         expect(anime.released_on).to be_nil
+        expect { news_topic.reload }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end

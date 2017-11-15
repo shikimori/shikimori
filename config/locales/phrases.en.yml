@@ -37,6 +37,7 @@ en:
     quote: Quote
     reject: Reject
     reply: Reply
+    rollback: Rollback
     save_apply: Save & Apply
     start: Start
     stop: Stop

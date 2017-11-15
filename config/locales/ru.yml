@@ -29,6 +29,7 @@ ru:
         description_ru_source: Источник описания
         duration: Длительность эпизода
         episodes: Эпизоды
+        episodes_aired: Эпизодов вышло
         external_links: Ссылки
         genres: Жанры
         genre_ids: Жанры # used for item_diff in versions

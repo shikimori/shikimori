@@ -57,6 +57,17 @@
             a.b-js-action href=@resource.edit_field_url(:episodes)
               = t 'actions.edit'
 
+          - if current_user&.admin?
+            li
+              .field = @resource.class.human_attribute_name(:episodes_aired)
+              .value = @resource.episodes_aired
+              - if @resource.episodes_aired.positive?
+                a.b-js-action[
+                  href=rollback_episode_anime_url(@resource)
+                  data-method="post"
+                  data-confirm=t('actions.confirm')
+                ] = t 'actions.rollback'
+
         - else
           li
             .field = @resource.class.human_attribute_name(:volumes)
@@ -155,41 +166,43 @@
       span  #{@resource.desynced.join(', ')}
 
   - if current_user&.admin? && @resource.anime?
-    .block
-      .subheadline = t '.new_torrent'
-      .subcontent
-        = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
-          .b-input
-            p Link
-            = text_field_tag 'torrent[link]',
-              params[:torrent] ? params[:torrent]['link'] : '',
-              size: 100
-          .b-input
-            p PubDate
-            = text_field_tag 'torrent[pubDate]',
-              params[:torrent] ? params[:torrent]['pubDate'] : '',
-              size: 40
-          .b-input
-            p Title
-            = text_field_tag 'torrent[title]',
-              params[:torrent] ? params[:torrent]['title'] : '',
-              size: 100
-          .m5
-            = submit_tag t('actions.add'), class: 'b-button'
+    = spoiler 'Torrents' do
+      .cc-2
+        .c-column
+          .subheadline = t '.new_torrent'
+          .subcontent
+            = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
+              .b-input
+                p Link
+                = text_field_tag 'torrent[link]',
+                  params[:torrent] ? params[:torrent]['link'] : '',
+                  size: 100
+              .b-input
+                p PubDate
+                = text_field_tag 'torrent[pubDate]',
+                  params[:torrent] ? params[:torrent]['pubDate'] : '',
+                  size: 40
+              .b-input
+                p Title
+                = text_field_tag 'torrent[title]',
+                  params[:torrent] ? params[:torrent]['title'] : '',
+                  size: 100
+              .m5
+                = submit_tag t('actions.add'), class: 'b-button'
 
-    .block
-      .subheadline-buttons
-        a.item-edit href=@resource.edit_field_url(:torrents_name)
-      .subheadline = t '.parse_page'
-      .subcontent
-        = form_tag torrent_anime_path(@resource.object), method: :post do |f|
-          .b-input
-            p URL
-            = text_field_tag 'torrent[url]',
-              params[:torrent] ? params[:torrent]['url'] : '',
-              size: 100
-          .m5
-            = submit_tag t('.parse'), class: 'b-button'
+        .c-column
+          .subheadline-buttons
+            a.item-edit href=@resource.edit_field_url(:torrents_name)
+          .subheadline = t '.parse_page'
+          .subcontent
+            = form_tag torrent_anime_path(@resource.object), method: :post do |f|
+              .b-input
+                p URL
+                = text_field_tag 'torrent[url]',
+                  params[:torrent] ? params[:torrent]['url'] : '',
+                  size: 100
+              .m5
+                = submit_tag t('.parse'), class: 'b-button'
 
   - if @resource.versions_page.first.any?
     .subheadline = t 'db_entries.versions.changes_history'

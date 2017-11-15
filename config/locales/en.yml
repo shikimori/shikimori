@@ -29,6 +29,7 @@ en:
         description_ru_source: Synopsis source (rus)
         duration: Episode duration
         episodes: Episodes
+        episodes_aired: Episodes aired
         external_links: Links
         genres: Genres
         genre_ids: Genres # used for item_diff in versions

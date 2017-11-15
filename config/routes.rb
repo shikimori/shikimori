@@ -657,6 +657,8 @@ Rails.application.routes.draw do
           get :episode_torrents
 
           get 'cosplay/:anything' => redirect { |params, request| "/#{kind}/#{params[:id]}/cosplay" }, anything: /.*/
+
+          post :rollback_episode if kind == 'animes'
         end
 
         # обзоры
