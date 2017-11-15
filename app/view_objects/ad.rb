@@ -21,13 +21,15 @@ class Ad < ViewObjectBase
       },
       placement: Types::Ad::Placement[:menu]
     },
-    # istari_x1170: {
-      # provider: Types::Ad::Provider[:istari],
-      # url: 'http://kimi.istaricomics.com',
-      # src: '/assets/globals/events/i1_2.jpg',
-      # src_2x: '/assets/globals/events/i1_2@2x.jpg',
-      # placement: Types::Ad::Placement[:content]
-    # },
+    istari_x1170: {
+      provider: Types::Ad::Provider[:istari],
+      url: 'http://kimi.istaricomics.com',
+      images: [{
+        src: '/assets/globals/events/i1_2.jpg',
+        src_2x: '/assets/globals/events/i1_2@2x.jpg',
+      }],
+      placement: Types::Ad::Placement[:content]
+    },
     advrtr_x728: {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 1_256,
@@ -110,12 +112,6 @@ class Ad < ViewObjectBase
   end
 
   def css_class
-    # if yandex_direct?
-      # "spnsrs_#{@banner_type}"
-    # else
-      # "spnsrs_#{@banner_type}_#{banner[:width]}x#{banner[:height]}"
-    # end
-
     "spnsrs_#{@banner_type}"
   end
 

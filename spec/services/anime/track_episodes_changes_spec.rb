@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
 describe Anime::TrackEpisodesChanges do
-  let!(:news_topic_wo_comments) {}
-  let!(:news_topic_with_comments) {}
-
-  before do
-    anime.assign_attributes episodes_aired: new_episodes_aired
-    Anime::TrackEpisodesChanges.call anime
-  end
+  let!(:news_topic) {}
+  before { anime.assign_attributes episodes_aired: new_episodes_aired }
+  subject! { described_class.call anime }
 
   context 'episodes aired not changed' do
     let(:anime) { create :anime, episodes_aired: old_episodes_aired }
@@ -20,12 +16,8 @@ describe Anime::TrackEpisodesChanges do
     end
   end
 
-  describe 'anons aired episodes changed' do
-    let(:anime) do
-      create :anime,
-        status: :anons,
-        episodes_aired: old_episodes_aired
-    end
+  describe 'anons aired_episodes changed' do
+    let(:anime) { create :anime, :anons, episodes_aired: old_episodes_aired }
 
     let(:old_episodes_aired) { 0 }
     let(:new_episodes_aired) { 1 }
@@ -35,7 +27,7 @@ describe Anime::TrackEpisodesChanges do
     end
   end
 
-  describe 'ongoing aired episodes changed' do
+  describe 'ongoing aired_episodes changed' do
     let(:anime) do
       create :anime,
         status: :ongoing,
@@ -80,45 +72,35 @@ describe Anime::TrackEpisodesChanges do
     end
   end
 
-  describe 'aired episodes are reset' do
-    let(:anime) do
-      create :anime,
-        status: :ongoing,
-        episodes_aired: old_episodes_aired
-    end
+  describe 'aired_episodes are decreased' do
+    let(:anime) { create :anime, :ongoing, episodes_aired: old_episodes_aired }
 
-    let(:news_topic_wo_comments) do
-      create :news_topic,
-        linked: anime,
-        action: AnimeHistoryAction::Episode
-    end
-    let(:news_topic_with_comments) do
+    let(:news_topic) do
       create :news_topic,
         linked: anime,
         action: AnimeHistoryAction::Episode,
-        comments_count: 1
+        value: topic_episode
     end
 
-    context 'aired episodes not reset' do
-      let(:old_episodes_aired) { 7 }
-      let(:new_episodes_aired) { 8 }
+    let(:old_episodes_aired) { 7 }
+    let(:new_episodes_aired) { (1..6).to_a.sample }
+    let(:topic_episode) { ((new_episodes_aired + 1)..old_episodes_aired).to_a.sample }
 
-      it 'does not remove news topics' do
-        expect(anime.news_topics).to eq [
-          news_topic_with_comments,
-          news_topic_wo_comments
-        ]
+    it 'removes episode topics about aired episodes' do
+      expect { news_topic.reload }.to raise_error ActiveRecord::RecordNotFound
+    end
+
+    context 'released anime' do
+      let(:anime) do
+        create :anime, :released,
+          episodes: 10,
+          episodes_aired: old_episodes_aired,
+          released_on: Time.zone.today
       end
-    end
 
-    context 'aired episodes reset' do
-      let(:old_episodes_aired) { 7 }
-      let(:new_episodes_aired) { 0 }
-
-      it 'removes news topics about aired episodes without comments' do
-        expect(anime.news_topics).to eq [
-          news_topic_with_comments
-        ]
+      it 'changes anime status to ongoing' do
+        expect(anime).to be_ongoing
+        expect(anime.released_on).to be_nil
       end
     end
   end

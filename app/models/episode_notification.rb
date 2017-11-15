@@ -15,7 +15,7 @@ class EpisodeNotification < ApplicationRecord
     if subtitles? || fandub? || raw? || unknown? || torrent?
       save!
     else
-      destroy!
+      Anime::RollbackEpisode.call anime, episode
     end
   end
 

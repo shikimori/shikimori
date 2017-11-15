@@ -134,24 +134,24 @@ class UserHistory < ApplicationRecord
           unless value == 0
             last_this_entry = prior_entries.last
             episode = value.to_i
-            new_episdodes = last_this_entry.send(counter).clone
+            new_episodes = last_this_entry.send(counter).clone
             last_this_entry.send(counter).reverse.each do |v|
               if v < episode
-                new_episdodes << episode
+                new_episodes << episode
                 # ситуация, когда посмотрели новые эпизоды, а отмечаем более старые
-                if new_episdodes.last == last_this_entry.prior_value.to_i
+                if new_episodes.last == last_this_entry.prior_value.to_i
                   last_this_entry.destroy
                   return
                 end
-                last_this_entry.send "#{counter}=", new_episdodes
+                last_this_entry.send "#{counter}=", new_episodes
                 last_this_entry.save
                 return
               elsif v == episode
-                last_this_entry.send "#{counter}=", new_episdodes
+                last_this_entry.send "#{counter}=", new_episodes
                 last_this_entry.save
                 return
               else
-                new_episdodes.pop
+                new_episodes.pop
               end
             end
           end

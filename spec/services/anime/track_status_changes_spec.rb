@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 describe Anime::TrackStatusChanges do
-  before do
-    anime.assign_attributes status: new_status
-    Anime::TrackStatusChanges.call anime
-  end
+  let!(:news_topic) {}
+  before { anime.assign_attributes status: new_status }
+  subject! { described_class.call anime }
 
   context 'status not changed' do
     let(:anime) { create :anime, status: old_status }
@@ -64,13 +63,17 @@ describe Anime::TrackStatusChanges do
         expect(anime.released_on).to eq released_on
       end
     end
+  end
 
-    context 'released_on not in the past' do
-      let(:released_on) { Time.zone.today }
-      it 'rollbacks released status' do
-        expect(anime).to be_ongoing
-        expect(anime.released_on).to eq nil
-      end
+  describe 'rollback released status' do
+    let(:anime) { create :anime, status: old_status }
+    let!(:news_topic) { create :news_topic, linked: anime, action: AnimeHistoryAction::Released }
+    let(:old_status) { :released }
+    let(:new_status) { :ongoing }
+
+    it 'deletes released news topic' do
+      expect(anime).to be_ongoing
+      expect { news_topic.reload }.to raise_error ActiveRecord::RecordNotFound
     end
   end
 end

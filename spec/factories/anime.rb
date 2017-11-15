@@ -25,6 +25,10 @@ FactoryGirl.define do
       stub_method model, :delete_elastic
     end
 
+    trait :with_track_changes do
+      after(:build) { |model| unstub_method model, :track_changes }
+    end
+
     trait :with_callbacks do
       after :build do |model|
         unstub_method model, :track_changes
