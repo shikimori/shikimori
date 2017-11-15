@@ -164,7 +164,7 @@ describe AnimesController do
     end
   end
 
-  describe '#rollback_episode', :focus do
+  describe '#rollback_episode' do
     let(:make_request) { post :rollback_episode, params: { id: anime.to_param } }
     let(:anime) { create :anime, episodes_aired: 10 }
 
