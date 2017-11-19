@@ -22,16 +22,9 @@ class DbEntriesController < ShikimoriController
     page_title i18n_t 'entry_edit'
     @field = params[:field]
 
-    authorize!(
-      :create,
-      Version.new(
-        user: current_user,
-        item: @resource.decorated? ? @resource.object : @resource,
-        item_diff: {}
-      )
-    )
+    authorize! :create, temp_verison
     if significant_fields.include? @field
-      authorize! :significant_change, Version
+      authorize! :significant_change, temp_verison
     end
 
     render template: 'db_entries/edit_field'
@@ -39,7 +32,7 @@ class DbEntriesController < ShikimoriController
 
   def update
     if (update_params.keys & significant_fields).any?
-      authorize! :significant_change, Version
+      authorize! :significant_change, temp_verison
     end
 
     Version.transaction do
@@ -121,5 +114,13 @@ private
 
     version.accept current_user if version.persisted? && can?(:accept, version)
     version
+  end
+
+  def authorization_verison
+    Version.new(
+      user: current_user,
+      item: @resource.decorated? ? @resource.object : @resource,
+      item_diff: {}
+    )
   end
 end
