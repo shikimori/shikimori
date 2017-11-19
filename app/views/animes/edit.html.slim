@@ -93,7 +93,7 @@
         li
           .field = @resource.class.human_attribute_name(:image)
           - if @resource.image.exists?
-            - if can? :significant_change, Version
+            - if can? :significant_change, Version.new(item: @resource.object)
               a.b-js-action href=@resource.edit_field_url(:image)
                 = t '.moderators_only'
             - else
