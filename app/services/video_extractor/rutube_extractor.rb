@@ -20,7 +20,7 @@ class VideoExtractor::RutubeExtractor < VideoExtractor::BaseExtractor
   URL_TEMPLATE = 'https://rutube.ru/play/embed/%s'
   TRACK_INFO_TEMPLATE = 'https://rutube.ru/api/play/trackinfo/%s?format=json'
 
-  def fetch_url
+  def video_data_url
     TRACK_INFO_TEMPLATE % url.match(URL_REGEX)[:hash]
   end
 

@@ -4,14 +4,14 @@ describe VideoExtractor do
   describe 'fetch' do
     context 'youtube' do
       let(:url) { 'http://www.youtube.com/watch?v=VdwKZ6JDENc' }
-      it { is_expected.to be_kind_of VideoData }
-      its(:hosting) { is_expected.to be :youtube }
+      it { is_expected.to be_kind_of AnimeOnline::VideoData }
+      its(:hosting) { is_expected.to eq 'youtube' }
     end
 
     context 'vk', vcr: { cassette_name: 'video_extractor' } do
       let(:url) { 'http://vk.com/video98023184_165811692' }
-      it { is_expected.to be_kind_of VideoData }
-      its(:hosting) { is_expected.to be :vk }
+      it { is_expected.to be_kind_of AnimeOnline::VideoData }
+      its(:hosting) { is_expected.to eq 'vk' }
     end
 
     context 'unmatched' do

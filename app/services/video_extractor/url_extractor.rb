@@ -72,7 +72,10 @@ private
   # rubocop:disable LineLenghth
   def parse_url
     if html =~ %r{(?<url>#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
-      cleanup_params $LAST_MATCH_INFO[:url], %w(oid id hash)
+      cleanup_params(
+        VideoExtractor::VkExtractor.normalize_url($LAST_MATCH_INFO[:url]),
+        %w[oid id hash]
+      )
     elsif html =~ %r{#{HTTP}myvi.(ru|tv)/(#{CONTENT}/)+(preloader.swf\?id=)?(?<hash>#{CONTENT})}
       "http://myvi.ru/player/embed/html/#{$LAST_MATCH_INFO[:hash]}"
     elsif html =~ %r{(?<url>#{HTTP}(api.video|videoapi.my).mail.ru/videos#{CONTENT})}
@@ -140,12 +143,6 @@ private
   # rubocop:enable AbcSize
 
   def cleanup_params url, allowed_params
-    url
-      .gsub('&amp;', '&')
-      .gsub(/[?&](?<param>[^=]+)$/, '')
-      .gsub(/(?<=[?&])(?<param>[^=]+)=[^&]*(?:&|$)/) do |match|
-        allowed_params.include?($LAST_MATCH_INFO[:param]) ? match : ''
-      end
-      .gsub(/&$/, '')
+    VideoExtractor::CleanupParams.call url, allowed_params
   end
 end

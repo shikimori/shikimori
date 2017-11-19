@@ -29,18 +29,21 @@ class VideoExtractor::BaseExtractor
     @parsed_url ||= URI.encode @url
   end
 
-  def fetch_url
+  def video_data_url
     url
   end
 
   def fetch
     Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
       if valid_url? && opengraph_page?
-        VideoData.new hosting, image_url, player_url
+        AnimeOnline::VideoData.new(
+          hosting: hosting,
+          image_url: image_url,
+          player_url: player_url
+        )
       end
     end
-
-  rescue *(Network::FaradayGet::NET_ERRORS + [EmptyContentError]) => e
+  rescue *(Network::FaradayGet::NET_ERRORS + [EmptyContentError])
     nil
   end
 
@@ -73,6 +76,6 @@ class VideoExtractor::BaseExtractor
   end
 
   def fetch_page
-    @fetched_page ||= open(fetch_url, OPEN_URI_OPTIONS).read
+    @fetched_page ||= open(video_data_url, OPEN_URI_OPTIONS).read
   end
 end

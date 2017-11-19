@@ -116,7 +116,7 @@ private
     version
   end
 
-  def authorization_verison
+  def temp_verison
     Version.new(
       user: current_user,
       item: @resource.decorated? ? @resource.object : @resource,

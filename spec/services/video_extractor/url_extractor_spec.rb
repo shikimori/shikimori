@@ -38,7 +38,7 @@ describe VideoExtractor::UrlExtractor do
 
       describe 'vk_2' do
         let(:html) { '<iframe src="http://vkontakte.ru/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc&hd=3" width="730" height="480" frameborder="0"></iframe>' }
-        it { is_expected.to eq '//vkontakte.ru/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc' }
+        it { is_expected.to eq '//vk.com/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc' }
       end
 
       describe 'vk_3' do
