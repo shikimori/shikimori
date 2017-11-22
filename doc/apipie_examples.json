@@ -375,8 +375,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/bc82da502d30d6175332facc98399ff15f3b161e.jpg?1484049600",
-          "preview": "/system/screenshots/x332/bc82da502d30d6175332facc98399ff15f3b161e.jpg?1484049600"
+          "original": "/system/screenshots/original/af38fcb1e5615ddf9cc37faae16ead2a3d1da645.jpg?1484049600",
+          "preview": "/system/screenshots/x332/af38fcb1e5615ddf9cc37faae16ead2a3d1da645.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -578,7 +578,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "HZAn9O6gYjtCRZoY91mtVs60Wq1ZqBopstB7nHG62VboLPxmvwFXLkrNlyfBPJ0a6txLd85KnJXwqC+yvqxfBg=="
+        "authenticity_token": "RPlZ+rztVVZttsGilXh3qMr+GNRmSmJHXzzJJ8INNycEr9leKK0ZwAGDOhmlaD/4MGqucwP4ev8nrm27IblCSQ=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -724,7 +724,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2017-10-22T00:00:00.000+00:00",
+          "next_episode_at": "2017-11-08T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 19,
@@ -741,7 +741,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2017-10-22",
+            "aired_on": "2017-11-08",
             "released_on": null
           }
         }
@@ -2497,7 +2497,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 24215,
+          "id": 96249,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3218,7 +3218,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-11-05T01:34:03.816+03:00"
+          "last_online_at": "2017-11-22T21:22:26.796+03:00"
         }
       },
       "code": "200",
@@ -3483,7 +3483,28 @@
 
         ],
         "works": [
-
+          {
+            "anime": {
+              "id": 30,
+              "name": "anime_27",
+              "russian": null,
+              "image": {
+                "original": "/assets/globals/missing_original.jpg",
+                "preview": "/assets/globals/missing_preview.jpg",
+                "x96": "/assets/globals/missing_x96.jpg",
+                "x48": "/assets/globals/missing_x48.jpg"
+              },
+              "url": "/animes/30-anime-27",
+              "kind": "tv",
+              "status": null,
+              "episodes": 0,
+              "episodes_aired": 0,
+              "aired_on": null,
+              "released_on": null
+            },
+            "manga": null,
+            "role": "Продюсер"
+          }
         ],
         "thread_id": null,
         "topic_id": null,
@@ -4099,7 +4120,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-11-05T01:34:03.816+03:00"
+            "last_online_at": "2017-11-22T21:22:26.796+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -4150,7 +4171,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-11-05T01:34:03.816+03:00"
+          "last_online_at": "2017-11-22T21:22:26.796+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -4188,7 +4209,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-11-05T01:34:03.816+03:00"
+            "last_online_at": "2017-11-22T21:22:26.796+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -4375,7 +4396,7 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "watching",
+          "status": "completed",
           "target_id": "56",
           "target_type": "Anime",
           "text": "test",
@@ -4389,7 +4410,7 @@
         "target_id": 56,
         "target_type": "Anime",
         "score": 10,
-        "status": "watching",
+        "status": "completed",
         "rewatches": 5,
         "episodes": 2,
         "volumes": 3,
@@ -5082,7 +5103,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 28,
+          "id": 29,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Запланировано",
           "target": {
@@ -5105,7 +5126,7 @@
           }
         },
         {
-          "id": 27,
+          "id": 28,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Импортировано аниме - 522 записи",
           "target": null

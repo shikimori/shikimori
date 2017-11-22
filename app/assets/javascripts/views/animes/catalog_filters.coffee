@@ -11,7 +11,7 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
     type = matches[1]
     value = matches[2]
     if type.match(/genre-\d+/) || type.match(/studio-\d+/) ||
-        type.match(/publisher-\d+/) || type.match(/type-\w+/) ||
+        type.match(/publisher-\d+/) || type.match(/kind-\w+/) ||
         type.match(/rating-\w+/) || type.match(/score-\d+/) ||
         type.match(/duration-\w+/)
       tmp = type.split("-")
@@ -57,7 +57,7 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
     $li
 
   default_data =
-    type: []
+    kind: []
     status: []
     season: []
     genre: []

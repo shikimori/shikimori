@@ -25,7 +25,7 @@ describe Api::V1::AnimesController, :show_in_doc do
         params: {
           page: 1,
           limit: 1,
-          type: 'tv',
+          kind: 'tv',
           status: 'released',
           season: '2014',
           genre: genre.id.to_s,

@@ -3,7 +3,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
 
-  ani_manga_format = "(/type/:type)(/status/:status)(/season/:season)\
+  ani_manga_format = "(/kind/:kind)(/status/:status)(/season/:season)\
 (/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\
 (/rating/:rating)(/score/:score)(/options/:options)(/mylist/:mylist)\
 (/search/:search)(/order-by/:order)(/page/:page)(.:format)"
@@ -392,6 +392,10 @@ Rails.application.routes.draw do
       get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
       get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
       get 'seyu/:other' => redirect { |params, request| "/people/#{params[:other]}" }
+      # TODO: remove type param after 2018-06-01
+      %i[animes mangas ranobe].each do |type|
+        get "#{type}/type/:other" => redirect { |params, request| "/#{type}/kind/#{params[:other]}" }
+      end
     end
     constraints forum: /a|m|c|p|s|f|o|g|reviews|cosplay|v|news|games|vn/, format: /html|json|rss/ do
       get ':forum(/s-:linked)/new' => redirect { |_, request| "/forum#{request.path}" }

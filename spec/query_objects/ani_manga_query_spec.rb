@@ -4,7 +4,7 @@ describe AniMangaQuery do
       AniMangaQuery.new(Anime, options, user).fetch.to_a
     end
 
-    context 'type' do
+    context 'kind' do
       let!(:anime_1) { create :anime, :tv, episodes: 13 }
       let!(:anime_2) { create :anime, :tv, episodes: 0, episodes_aired: 13 }
       let!(:anime_3) { create :anime, :tv, episodes: 6 }
@@ -20,47 +20,47 @@ describe AniMangaQuery do
 
       context 'tv' do
         it do
-          expect(fetch type: 'tv').to have(9).items
-          expect(fetch type: '!tv').to have(1).item
+          expect(fetch kind: 'tv').to have(9).items
+          expect(fetch kind: '!tv').to have(1).item
         end
       end
 
       context 'tv_13' do
         it do
-          expect(fetch type: 'tv_13').to have(4).items
-          expect(fetch type: '!tv_13').to have(6).items
+          expect(fetch kind: 'tv_13').to have(4).items
+          expect(fetch kind: '!tv_13').to have(6).items
         end
       end
 
       context 'tv_24' do
         it do
-          expect(fetch type: 'tv_24').to have(3).items
-          expect(fetch type: '!tv_24').to have(7).items
+          expect(fetch kind: 'tv_24').to have(3).items
+          expect(fetch kind: '!tv_24').to have(7).items
         end
       end
 
       context 'tv_48' do
         it do
-          expect(fetch type: 'tv_48').to have(2).items
-          expect(fetch type: '!tv_48').to have(8).items
+          expect(fetch kind: 'tv_48').to have(2).items
+          expect(fetch kind: '!tv_48').to have(8).items
         end
       end
 
       context 'multiple types' do
         it 'positive' do
-          expect(fetch type: 'tv_13,tv_24').to have(7).items
+          expect(fetch kind: 'tv_13,tv_24').to have(7).items
         end
 
         it 'negative' do
-          expect(fetch type: '!tv_13,!tv_24').to have(3).items
+          expect(fetch kind: '!tv_13,!tv_24').to have(3).items
         end
 
         it 'mixed' do
-          expect(fetch type: 'movie,tv_13,tv_24').to have(8).items
+          expect(fetch kind: 'movie,tv_13,tv_24').to have(8).items
         end
 
         it 'tv + tv_13' do
-          expect(fetch type: 'tv,tv_13').to have(4).items
+          expect(fetch kind: 'tv,tv_13').to have(4).items
         end
       end
     end

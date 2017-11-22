@@ -1,4 +1,5 @@
 # TODO: refactor to bunch of simplier query objects
+# TODO: remove type param after 2018-06-01
 class AniMangaQuery
   IDS_KEY = :ids
   EXCLUDE_IDS_KEY = :exclude_ids
@@ -24,7 +25,7 @@ class AniMangaQuery
     @klass = klass
     @query = @klass.all
 
-    @type = params[:type] || ''
+    @kind = params[:kind] || params[:type] || ''
 
     @genre = params[:genre]
     @studio = params[:studio]
@@ -58,7 +59,7 @@ class AniMangaQuery
 
   # выборка аниме или манги по заданным параметрам
   def fetch# page = nil, limit = nil
-    type!
+    kind!
     censored!
     disable_music!
 
@@ -110,30 +111,30 @@ private
   end
 
   # фильтр по типам
-  def type!
-    return if @type.blank?
+  def kind!
+    return if @kind.blank?
 
-    types = @type
+    kinds = @kind
       .split(',')
-      .each_with_object(complex: [], simple: []) do |type, memo|
-        memo[type =~ /tv_\d+/ ? :complex : :simple] << type
+      .each_with_object(complex: [], simple: []) do |kind, memo|
+        memo[kind =~ /tv_\d+/ ? :complex : :simple] << kind
       end
 
-    simple_types = bang_split types[:simple]
+    simple_kinds = bang_split kinds[:simple]
 
     simple_queries = {
-      include: simple_types[:include]
-        .delete_if { |v| v == 'tv' && types[:complex].any? { |q| q =~ /^tv_/ } }
+      include: simple_kinds[:include]
+        .delete_if { |v| v == 'tv' && kinds[:complex].any? { |q| q =~ /^tv_/ } }
         .map { |v| "#{table_name}.kind = #{ApplicationRecord.sanitize v}" },
-      exclude: simple_types[:exclude]
+      exclude: simple_kinds[:exclude]
         .map { |v| "#{table_name}.kind = #{ApplicationRecord.sanitize v}" }
     }
     complex_queries = { include: [], exclude: [] }
 
-    types[:complex].each do |type|
-      with_bang = type.starts_with? '!'
+    kinds[:complex].each do |kind|
+      with_bang = kind.starts_with? '!'
 
-      query = case type
+      query = case kind
         when 'tv_13', '!tv_13'
           "(#{table_name}.kind = 'tv' and episodes != 0 and episodes <= 16) or (#{table_name}.kind = 'tv' and episodes = 0 and episodes_aired <= 16)"
 
@@ -181,7 +182,7 @@ private
 
   # отключение выборки по музыке
   def disable_music!
-    unless @type =~ /music/ || mylist? || userlist?
+    unless @kind =~ /music/ || mylist? || userlist?
       @query = @query.where("#{table_name}.kind != ?", :music)
     end
   end

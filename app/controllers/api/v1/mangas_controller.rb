@@ -63,7 +63,8 @@ class Api::V1::MangasController < Api::V1Controller
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
   param :order, ORDERS, required: false, desc: ORDERS_DESC
-  param :type, :undef,
+  param :type, :undef, required: false, desc: 'Deprecated'
+  param :kind, :undef,
     required: false,
     desc: <<~DOC
       <p><strong>Validations:</strong></p>

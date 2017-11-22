@@ -37,15 +37,15 @@
   - if menu.kinds.any?
     .block
       .subheadline = menu.klass.human_attribute_name(:kind)
-      ul.b-block_list.types.anime-params
+      ul.b-block_list.kinds.anime-params
         - menu.kinds.each do |kind|
-          li class="type-#{kind.text}"
+          li class="kind-#{kind.text}"
             input type='checkbox' autocomplete='off'
             = kind.title
 
           - if kind.text == 'tv'
             - %w(13 24 48).each do |episodes_kind|
-              li.sub class="type-tv_#{episodes_kind}"
+              li.sub class="kind-tv_#{episodes_kind}"
                 input type='checkbox' autocomplete='off'
                   = t ".anime.kind.tv_#{episodes_kind}.name"
                   span.b-question.b-tooltipped.mobile.unprocessed[

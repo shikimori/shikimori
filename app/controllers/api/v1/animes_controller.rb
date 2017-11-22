@@ -1,4 +1,5 @@
 # rubocop:disable ClassLength
+# TODO: remove type param after 2018-06-01
 class Api::V1::AnimesController < Api::V1Controller
   before_action :fetch_resource, except: %i[index search neko]
 
@@ -92,7 +93,8 @@ class Api::V1::AnimesController < Api::V1Controller
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
   param :order, ORDERS, required: false, desc: ORDERS_DESC
-  param :type, :undef,
+  param :type, :undef, required: false, desc: 'Deprecated'
+  param :kind, :undef,
     required: false,
     desc: <<~DOC
       <p><strong>Validations:</strong></p>
