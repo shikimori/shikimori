@@ -9,7 +9,7 @@ describe VideoExtractor::SmotretAnimeExtractor do
     context 'full url' do
       let(:url) { 'https://smotret-anime.ru/catalog/anime-krasavica-voin-seylor-mun-kristall-apostoly-smerti-13889/12-seriya-122880/ozvuchka-939915' }
 
-      its(:hosting) { is_expected.to eq :smotret_anime }
+      its(:hosting) { is_expected.to eq 'smotret_anime' }
       its(:image_url) { is_expected.to eq image_url }
       its(:player_url) { is_expected.to eq embed_url }
     end
@@ -17,7 +17,7 @@ describe VideoExtractor::SmotretAnimeExtractor do
     context 'embed url' do
       let(:url) { embed_url }
 
-      its(:hosting) { is_expected.to eq :smotret_anime }
+      its(:hosting) { is_expected.to eq 'smotret_anime' }
       its(:image_url) { is_expected.to eq image_url }
       its(:player_url) { is_expected.to eq embed_url }
     end
