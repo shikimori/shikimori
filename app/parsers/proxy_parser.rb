@@ -82,24 +82,26 @@ private
 
   # источники проксей
   def sources
-    @sources ||= Sources + [webanetlabs] + rebro_weebly + proxy_24
+    @sources ||= Sources + webanetlabs + proxy_24
+    # + rebro_weebly
     #Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
   end
 
   def webanetlabs
-    'http://webanetlabs.net/freeproxylist/proxylist_at_'\
-      "#{Time.zone.today.strftime '%d.%m.%Y'}.txt"
+    Nokogiri::HTML(open('https://webanetlabs.net/publ/24').read)
+      .css('.uSpoilerText a.link')
+      .map { |v| 'https://webanetlabs.net' + v.attr(:href) }
   end
 
-  def rebro_weebly
-    # 20 proxies
-    Nokogiri::HTML(open('http://rebro.weebly.com/txt-lists.html').read)
-      .css('a')
-      .map { |v| v.attr :href }
-      .uniq
-      .select { |v| v =~ /\.txt$/ }
-      .map { |v| 'http://rebro.weebly.com' + v }
-  end
+  # def rebro_weebly
+  #   # 20 proxies
+  #   Nokogiri::HTML(open('http://rebro.weebly.com/txt-lists.html').read)
+  #     .css('a')
+  #     .map { |v| v.attr :href }
+  #     .uniq
+  #     .select { |v| v =~ /\.txt$/ }
+  #     .map { |v| 'http://rebro.weebly.com' + v }
+  # end
 
   def proxy_24
     Nokogiri::HTML(open('http://proxyserverlist-24.blogspot.ru/').read)

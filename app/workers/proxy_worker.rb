@@ -13,6 +13,7 @@ class ProxyWorker
   end
 
 private
+
   def api_import
     proxies = Set.new Proxy.all.map(&:to_s)
     open('http://hideme.ru/api/proxylist.php?out=plain&anon=4&type=h&code=253879821').read.split
