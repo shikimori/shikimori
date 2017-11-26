@@ -136,6 +136,7 @@ private
       ^(
         Anime|
         Manga|
+        Ranobe|
         Character|
         Person|
         Club|
