@@ -2,12 +2,12 @@ module User::TokenAuthenticatable
   extend ActiveSupport::Concern
 
   included do
-    before_save :ensure_api_access_token
+    before_save :reset_api_access_token, if: -> { api_access_token.blank? }
+    before_save :reset_api_access_token,
+      if: -> { encrypted_password_changed? }
 
-    def ensure_api_access_token
-      if api_access_token.blank?
-        self.api_access_token = generate_api_access_token
-      end
+    def reset_api_access_token
+      self.api_access_token = generate_api_access_token
     end
 
   private
