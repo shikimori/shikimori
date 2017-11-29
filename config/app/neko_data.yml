@@ -242,10 +242,12 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 14
-  :image: []
-  :border_color: []
+  :image:
+  - https://pa1.narvii.com/6439/888457b92449f6d630881c2ea00acf5ab0325b58_hq.gif
+  :border_color:
+  - "#FBE893"
   :title_ru: Ками-сама
-  :text_ru: 
+  :text_ru: Вы причислены к лику святых.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -1944,8 +1946,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - :neko_id: :mahou_shoujo
   :level: 3
-  :image: []
-  :border_color: []
+  :image:
+  - https://pa1.narvii.com/6578/3311238ad7ec1b88296a003d615d1f6ebf635717_hq.gif
+  :border_color:
+  - "#FFD6DB"
   :title_ru: Все враги побеждены
   :text_ru: Опасность миновала, жителям Волшебной страны остаётся только жить-поживать
     да добра наживать.
@@ -2746,8 +2750,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
 - :neko_id: :romance
   :level: 3
-  :image: []
-  :border_color: []
+  :image:
+  - http://24.media.tumblr.com/c1b3a3869b68001656b07a49c02a8324/tumblr_muleo6ItG01skzv6ro1_500.gif
+  :border_color:
+  - "#EBE5E5"
   :title_ru: Конфетно-букетный период
   :text_ru: Теперь ты можешь на равных поддерживать разговор с Салатом.
   :title_en: 
@@ -3671,8 +3677,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - :neko_id: :yandere
   :level: 3
-  :image: []
-  :border_color: []
+  :image:
+  - http://31.media.tumblr.com/tumblr_mdfamrgrfH1rshzuyo1_500.gif
+  :border_color:
+  - "#2F2E2D"
   :title_ru: Безумие
   :text_ru: Умри, пожалуйста!
   :title_en: Insanity
