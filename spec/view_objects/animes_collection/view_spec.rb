@@ -199,7 +199,7 @@ describe AnimesCollection::View do
     end
 
     it do
-      expect(view.url type: 'tv').to eq '//test.host/animes/type/tv/page/2'
+      expect(view.url kind: 'tv').to eq '//test.host/animes/kind/tv/page/2'
     end
   end
 
@@ -211,7 +211,7 @@ describe AnimesCollection::View do
         format: 'a',
         template: 'd',
         is_adult: 'e',
-        type: 'tv',
+        kind: 'tv',
         AniMangaQuery::IDS_KEY => ['c'],
         AniMangaQuery::EXCLUDE_IDS_KEY => ['b']
       }
@@ -232,7 +232,7 @@ describe AnimesCollection::View do
 
       context 'second page' do
         let(:page) { 2 }
-        it { is_expected.to eq '//test.host/animes/type/tv/page/1' }
+        it { is_expected.to eq '//test.host/animes/kind/tv/page/1' }
       end
     end
 
@@ -246,7 +246,7 @@ describe AnimesCollection::View do
 
       context 'first page' do
         let(:page) { 1 }
-        it { is_expected.to eq '//test.host/animes/type/tv/page/2' }
+        it { is_expected.to eq '//test.host/animes/kind/tv/page/2' }
       end
 
       context 'second page' do
@@ -263,7 +263,7 @@ describe AnimesCollection::View do
 
     describe '#filtered_params' do
       subject { view.filtered_params }
-      it { is_expected.to eq type: 'tv' }
+      it { is_expected.to eq kind: 'tv' }
     end
   end
 end
