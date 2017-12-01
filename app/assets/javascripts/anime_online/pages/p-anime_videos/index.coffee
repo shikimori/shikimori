@@ -132,13 +132,15 @@ init_video_player = ->
     hide_report()
 
 show_report = ->
-  $('.cc-player_controls .report').addClass 'selected'
-  $('.cc-options').hide()
+  # $('.cc-player_controls .report').addClass 'selected'
+  # $('.cc-options').hide()
+  $('.cc-player_controls').hide()
   $('.cc-anime_video_report-new').show()
 
 hide_report = ->
-  $('.cc-player_controls .report').removeClass 'selected'
-  $('.cc-options').show()
+  # $('.cc-player_controls .report').removeClass 'selected'
+  # $('.cc-options').show()
+  $('.cc-player_controls').show()
   $('.cc-anime_video_report-new').hide()
   toggle_options
 

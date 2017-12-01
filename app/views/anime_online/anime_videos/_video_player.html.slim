@@ -9,6 +9,10 @@
   .player-area
     = @video.player_html
 
+  .cc-anime_video_report-new
+    = render 'moderations/anime_video_reports/form',
+      anime_video_report: @player.new_report
+
   .cc-player_controls.cc-2a
     .c-column
       .cc-navigation
@@ -38,9 +42,10 @@
             a.c-control.upload href="#{@player.new_video_url}"
               .icon
               .label #{t 'actions.upload'}
-          a.c-control.edit href="#{edit_video_online_url @resource, @video}"
-            .icon
-            .label #{t 'actions.edit'}
+          - if can? :edit, @viewo
+            a.c-control.edit href="#{edit_video_online_url @resource, @video}"
+              .icon
+              .label #{t 'actions.edit'}
           - if can? :destroy, @video
             a.c-control.delete[
               href="#{video_online_url @resource, @video}"
@@ -51,10 +56,6 @@
               .label = t 'actions.delete'
 
     .c-column
-      .cc-anime_video_report-new
-        = render 'moderations/anime_video_reports/form',
-          anime_video_report: @player.new_report
-
       .cc-options
         .c-buttons.cc-3a
           - if user_signed_in?
