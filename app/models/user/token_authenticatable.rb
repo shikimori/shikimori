@@ -3,14 +3,15 @@ module User::TokenAuthenticatable
 
   included do
     before_save :reset_api_access_token, if: -> { api_access_token.blank? }
-    before_save :reset_api_access_token,
-      if: -> { encrypted_password_changed? }
+    # before_save :reset_api_access_token,
+      # if: -> { encrypted_password_changed? }
 
     def reset_api_access_token
       self.api_access_token = generate_api_access_token
     end
 
   private
+
     def generate_api_access_token
       loop do
         token = Devise.friendly_token
