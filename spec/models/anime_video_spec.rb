@@ -467,6 +467,7 @@ describe AnimeVideo do
 
     describe 'video_moderator' do
       let(:user) { build_stubbed :user, :video_moderator }
+
       it { is_expected.to be_able_to :new, uploaded_video }
       it { is_expected.to be_able_to :create, uploaded_video }
 

@@ -29,8 +29,8 @@ private
     EpisodeNotification::TrackEpisode.call self
 
   rescue MissingEpisodeError
-    # task is scheduled in order to get failed task in queue
-    # which admin could investigate later
+    # task is scheduled in order to put failed task into a queue
+    # so admin could investigate it later
     EpisodeNotifications::TrackEpisode.set(wait: 5.seconds).perform_async id
   end
 end
