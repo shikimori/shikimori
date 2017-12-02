@@ -1,5 +1,6 @@
 class Api::V1Controller < ShikimoriController
   LOGIN_HEADER = 'X-User-Nickname'
+  ID_HEADER = 'X-User-Id'
   TOKEN_HEADER = 'X-User-Api-Access-Token'
 
   responders :json # для рендеринга контента на patch и put запросы
@@ -33,10 +34,15 @@ private
 
   # rubocop:disable MethodLength
   def authenticate_user_from_token!
-    user_nickname = CGI.unescape request.headers[LOGIN_HEADER]
     user_token = request.headers[TOKEN_HEADER]
 
-    user = User.find_by(nickname: user_nickname)
+    if request.headers[LOGIN_HEADER]
+      user_nickname = CGI.unescape request.headers[LOGIN_HEADER]
+      user = User.find_by(nickname: user_nickname)
+    elsif request.headers[ID_HEADER]
+      user_id = request.headers[ID_HEADER]
+      user = User.find_by(id: user_id)
+    end
 
     # Notice how we use Devise.secure_compare to compare the token
     # in the database with the token given in the params, mitigating
@@ -58,6 +64,7 @@ private
   end
 
   def headers_auth?
-    request.headers[LOGIN_HEADER] && request.headers[TOKEN_HEADER]
+    (request.headers[LOGIN_HEADER] || request.headers[ID_HEADER]) &&
+      request.headers[TOKEN_HEADER]
   end
 end
