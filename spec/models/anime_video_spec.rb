@@ -135,48 +135,32 @@ describe AnimeVideo do
     end
 
     describe 'after_create' do
-      describe '#create_episode_notificaiton' do
-        let(:anime) { create :anime }
-        let(:url_1) { attributes_for(:anime_video)[:url] }
-        let(:url_2) { attributes_for(:anime_video)[:url] + 'z' }
+      describe '#create_episode_notification' do
+        let!(:another_video) { nil }
+        before { allow(EpisodeNotification::Create).to receive :call }
+        let!(:video) { create :anime_video, :with_notification, :fandub }
 
-        context 'new_video' do
-          subject { EpisodeNotification.first }
-          let!(:anime_video) { create :anime_video, :with_notification, anime: anime, kind: :raw }
-
-          its(:is_raw) { is_expected.to eq true }
-          its(:is_subtitles) { is_expected.to eq false }
-          its(:is_fandub) { is_expected.to eq false }
-          it { expect(EpisodeNotification.all).to have(1).item }
+        context 'single video' do
+          it do
+            expect(EpisodeNotification::Create)
+              .to have_received(:call)
+              .with(
+                anime_id: video.anime_id,
+                episode: video.episode,
+                kind: video.kind
+              )
+          end
         end
 
-        context 'new_episode' do
-          let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, episode: 1, url: url_1 }
-          let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, episode: 2, url: url_2 }
-          it { expect(EpisodeNotification.all).to have(2).items }
+        context 'not single video' do
+          let!(:another_video) do
+            create :anime_video,
+              anime: video.anime,
+              episode: video.episode,
+              kind: video.kind
+          end
+          it { expect(EpisodeNotification::Create).to_not have_received(:call) }
         end
-
-        context 'not_new_episode_but_other_kind' do
-          subject { EpisodeNotification.first }
-          let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, kind: :raw, url: url_1 }
-          let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, kind: :subtitles, url: url_2 }
-
-          its(:is_raw) { is_expected.to eq true }
-          its(:is_subtitles) { is_expected.to eq true }
-          its(:is_fandub) { is_expected.to eq false }
-          it { expect(EpisodeNotification.all).to have(1).item }
-        end
-
-        context 'not_new_episode' do
-          let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1 }
-          let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, url: url_2 }
-          it { expect(EpisodeNotification.all).to have(1).item }
-        end
-
-        # context 'not need notification if video kind is unknown' do
-          # let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1, kind: :unknown }
-          # it { expect(EpisodeNotification.all).to be_empty }
-        # end
       end
     end
   end
@@ -216,43 +200,32 @@ describe AnimeVideo do
     end
 
     describe '#rollback_episode_notification' do
-      %i[fandub raw subtitles].each do |kind|
-        %i[broken wrong ban].each do |action|
-          context "#{kind} #{action}" do
-            let!(:video) { create :anime_video, kind: kind }
-            let!(:another_video) { nil }
-            let!(:episode_notification) do
-              create(
-                :episode_notification,
-                anime_id: video.anime_id,
-                episode: video.episode,
-                is_raw: video.raw?,
-                is_fandub: video.fandub?,
-                is_subtitles: video.subtitles?
-              )
-            end
-            subject! { video.send action }
+      before { allow(EpisodeNotification::Rollback).to receive :call }
 
-            context 'single video' do
-              it do
-                expect { episode_notification.reload }
-                  .to raise_error ActiveRecord::RecordNotFound
-              end
-            end
+      let!(:video) { create :anime_video, :fandub }
+      let!(:another_video) { nil }
+      subject! { video.send 'broken' }
 
-            context 'not single video' do
-              let!(:another_video) do
-                create :anime_video,
-                  anime: video.anime,
-                  episode: video.episode,
-                  kind: kind
-              end
-              it do
-                expect(episode_notification.reload.send("is_#{kind}")).to eq true
-              end
-            end
-          end
+      context 'single video' do
+        it do
+          expect(EpisodeNotification::Rollback)
+            .to have_received(:call)
+            .with(
+              anime_id: video.anime_id,
+              episode: video.episode,
+              kind: video.kind
+            )
         end
+      end
+
+      context 'not single video' do
+        let!(:another_video) do
+          create :anime_video,
+            anime: video.anime,
+            episode: video.episode,
+            kind: video.kind
+        end
+        it { expect(EpisodeNotification::Rollback).to_not have_received(:call) }
       end
     end
 
@@ -339,13 +312,13 @@ describe AnimeVideo do
 
     describe '#allowed?' do
       context 'true' do
-        ['working', 'uploaded'].each do |state|
+        %w[working uploaded].each do |state|
           it { expect(build(:anime_video, state: state).allowed?).to eq true }
         end
       end
 
       context 'false' do
-        ['broken', 'wrong', 'banned'].each do |state|
+        %w[broken wrong banned].each do |state|
           it { expect(build(:anime_video, state: state).allowed?).to eq false }
         end
       end

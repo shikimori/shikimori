@@ -151,7 +151,7 @@ class AnimeVideo < ApplicationRecord
       .one?
   end
 
-  # Debug only
+  # for debugging purpose
   def page_url
     "#{AnimeOnlineDomain::HOST}/animes/#{anime_id}/video_online/#{episode}/#{id}"
   end
@@ -168,18 +168,20 @@ private
     self.state = 'copyrighted' if copyright_ban?
   end
 
-  # TODO: extract to service
   def create_episode_notificaiton
-    EpisodeNotification
-      .find_or_initialize_by(anime_id: anime_id, episode: episode)
-      .update("is_#{kind}" => true)
+    EpisodeNotification::Create.call(
+      anime_id: anime_id,
+      episode: episode,
+      kind: kind
+    )
   end
 
-  # TODO: extract to service
   def rollback_episode_notification
-    EpisodeNotification
-      .where(anime_id: anime_id, episode: episode)
-      .each { |episode_notification| episode_notification.rollback kind }
+    EpisodeNotification::Rollback.call(
+      anime_id: anime_id,
+      episode: episode,
+      kind: kind
+    )
   end
 
   def process_reports
