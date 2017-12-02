@@ -147,13 +147,13 @@ class AnimeVideo < ApplicationRecord
 
   def single?
     AnimeVideo
-      .where(anime_id: anime_id, episode: episode, kind: kind, language: language)
+      .where(
+        anime_id: anime_id,
+        episode: episode,
+        kind: kind,
+        language: language
+      )
       .one?
-  end
-
-  # for debugging purpose
-  def page_url
-    "#{AnimeOnlineDomain::HOST}/animes/#{anime_id}/video_online/#{episode}/#{id}"
   end
 
 private
