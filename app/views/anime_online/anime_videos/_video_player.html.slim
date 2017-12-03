@@ -42,7 +42,7 @@
             a.c-control.upload href="#{@player.new_video_url}"
               .icon
               .label #{t 'actions.upload'}
-          - if can? :edit, @viewo
+          - if can? :edit, @video
             a.c-control.edit href="#{edit_video_online_url @resource, @video}"
               .icon
               .label #{t 'actions.edit'}
