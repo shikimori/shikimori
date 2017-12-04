@@ -1,5 +1,5 @@
 class EpisodeNotification < ApplicationRecord
-  belongs_to :anime
+  belongs_to :anime, touch: true
 
   boolean_attribute :subtitles
   boolean_attribute :fandub

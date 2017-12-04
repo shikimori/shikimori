@@ -32,7 +32,7 @@ class AnimeVideo < ApplicationRecord
 
   before_save :check_banned_hostings
   before_save :check_copyrighted_animes
-  after_create :create_episode_notificaiton, if: :single?
+  after_create :create_episode_notificaiton, unless: :any_videos?
 
   R_OVA_EPISODES = 2
   ADULT_OVA_CONDITION = <<-SQL.squish
@@ -58,7 +58,7 @@ class AnimeVideo < ApplicationRecord
   scope :allowed_play, -> { available.joins(:anime).where(PLAY_CONDITION) }
   scope :allowed_xplay, -> { available.joins(:anime).where(XPLAY_CONDITION) }
 
-  scope :available, -> { where state: %w(working uploaded) }
+  scope :available, -> { where state: %w[working uploaded] }
 
   COPYRIGHT_BAN_ANIME_IDS = [-1] # 10793
 
@@ -72,36 +72,40 @@ class AnimeVideo < ApplicationRecord
     state :copyrighted
 
     event :broken do
-      transition [:working, :uploaded, :broken, :rejected] => :broken
+      transition %i[working uploaded broken rejected] => :broken
     end
     event :wrong do
-      transition [:working, :uploaded, :wrong, :rejected] => :wrong
+      transition %i[working uploaded wrong rejected] => :wrong
     end
     event :ban do
-      transition :working => :banned
+      transition working: :banned
     end
     event :reject do
-      transition [:uploaded, :wrong, :broken, :banned] => :rejected
+      transition %i[uploaded wrong broken banned] => :rejected
     end
     event :work do
-      transition [:uploaded, :broken, :wrong, :banned] => :working
+      transition %i[uploaded broken wrong banned] => :working
     end
     event :uploaded do
-      transition [:working, :uploaded] => :working
+      transition %i[working uploaded] => :working
     end
 
-    after_transition [:working, :uploaded] => [:broken, :wrong, :banned],
-      if: :single?,
+    after_transition(
+      %i[working uploaded] => %i[broken wrong banned],
+      unless: :any_videos?,
       do: :rollback_episode_notification
-
-    after_transition [:working, :uploaded] => [:broken, :wrong, :banned],
+    )
+    after_transition(
+      %i[working uploaded] => %i[broken wrong banned],
       do: :process_reports
+    )
   end
 
   def url= value
     video_url = Url.new(value).with_http.to_s if value.present?
-    extracted_url =
-      VideoExtractor::UrlExtractor.call video_url if video_url.present?
+    if video_url.present?
+      extracted_url = VideoExtractor::UrlExtractor.call video_url
+    end
 
     if extracted_url.present?
       super Url.new(extracted_url).with_http.to_s
@@ -145,15 +149,8 @@ class AnimeVideo < ApplicationRecord
     self.author = AnimeVideoAuthor.find_or_create_by name: name&.strip
   end
 
-  def single?
-    AnimeVideo
-      .where(
-        anime_id: anime_id,
-        episode: episode,
-        kind: kind,
-        language: language
-      )
-      .one?
+  def any_videos?
+    SameVideos.call(self).any?
   end
 
 private
@@ -186,11 +183,15 @@ private
 
   def process_reports
     reports.each do |report|
-      if (report.wrong? || report.broken? || report.other?) && report.pending?
-        report.accept_only! BotsService.get_poster
-      elsif report.uploaded? && report.can_post_reject?
-        report.post_reject!
-      end
+      process_report report
+    end
+  end
+
+  def process_report report
+    if (report.wrong? || report.broken? || report.other?) && report.pending?
+      report.accept_only! BotsService.get_poster
+    elsif report.uploaded? && report.can_post_reject?
+      report.post_reject!
     end
   end
 end
