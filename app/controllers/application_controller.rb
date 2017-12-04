@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
   end
 
   def force_canonical
-    if params[:page].present?
+    if params[:page].present? && params[:page].match?(/^\d+$/)
       @canonical = url_for(url_params(page: nil)).sub(/\?[\s\S]*/, '')
     elsif request.url.include? '?'
       @canonical = request.url.sub(/\?[\s\S]*/, '')
