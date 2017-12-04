@@ -138,7 +138,11 @@ class ApplicationController < ActionController::Base
   end
 
   def force_canonical
-    @canonical = request.url.sub(/\?[\s\S]*/, '') if request.url.include? '?'
+    if params[:page].present?
+      @canonical = url_for(url_params(page: nil)).sub(/\?[\s\S]*/, '')
+    elsif request.url.include? '?'
+      @canonical = request.url.sub(/\?[\s\S]*/, '')
+    end
   end
 
   # before фильтры с настройкой сайта
