@@ -6,7 +6,6 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails'
-gem 'bootsnap', require: false
 
 # database & cache
 gem 'dalli' # NOTE: в конфиге мемкеша должна быть опция -I 16M
