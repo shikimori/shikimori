@@ -1,7 +1,10 @@
 describe Api::V1::UserImagesController do
   describe '#create' do
     let(:image) do
-      fixture_file_upload "#{Rails.root}/spec/files/anime.jpg", 'image/jpeg'
+      Rack::Test::UploadedFile.new(
+        "#{Rails.root}/spec/files/anime.jpg",
+        'image/jpeg'
+      )
     end
 
     context 'guest' do

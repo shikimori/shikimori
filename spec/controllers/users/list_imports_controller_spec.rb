@@ -14,7 +14,10 @@ describe Users::ListImportsController do
 
   describe '#create' do
     let(:list) do
-      fixture_file_upload "#{Rails.root}/spec/files/list.xml", 'application/xml'
+      Rack::Test::UploadedFile.new(
+        "#{Rails.root}/spec/files/list.xml",
+        'application/xml'
+      )
     end
 
     subject! do

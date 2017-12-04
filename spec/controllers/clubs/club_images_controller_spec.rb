@@ -5,15 +5,25 @@ describe Clubs::ClubImagesController do
 
   describe '#create' do
     let(:image) do
-      fixture_file_upload "#{Rails.root}/spec/files/anime.jpg", 'image/jpeg'
+      Rack::Test::UploadedFile.new(
+        "#{Rails.root}/spec/files/anime.jpg",
+        'image/jpeg'
+      )
     end
 
     context 'not xhr' do
+      let(:image_2) do
+        Rack::Test::UploadedFile.new(
+          "#{Rails.root}/spec/files/anime.jpg",
+          'image/jpeg'
+        )
+      end
+
       before do
         post :create,
           params: {
             club_id: club.id,
-            images: [image, image]
+            images: [image, image_2]
           }
       end
 
