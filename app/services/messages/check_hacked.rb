@@ -44,7 +44,7 @@ private
 
   def follow urls
     urls.map do |url|
-      Rails.cache.fetch([url, :follow]) { Network::FinalUrl.call(url) }
+      Rails.cache.fetch([url, :follow]) { Network::FinalUrl.call(url) || url }
     end
   end
 
