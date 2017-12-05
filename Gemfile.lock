@@ -189,7 +189,7 @@ GEM
     capistrano-rbenv (2.1.3)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
-    capybara (2.15.4)
+    capybara (2.16.1)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (>= 1.3.3)
@@ -389,7 +389,7 @@ GEM
       mini_mime (>= 0.1.1)
     marco-polo (1.2.1)
     maruku (0.7.3)
-    meta-tags (2.6.0)
+    meta-tags (2.7.0)
       actionpack (>= 3.2.0, < 5.3)
     method_source (0.9.0)
     mime-types (3.1)
@@ -397,7 +397,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_magick (4.8.0)
-    mini_mime (0.1.4)
+    mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
     mize (0.3.2)
@@ -450,8 +450,8 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     parallel (1.12.0)
-    parser (2.4.0.0)
-      ast (~> 2.2)
+    parser (2.4.0.2)
+      ast (~> 2.3)
     pg (0.21.0)
     pg_query (1.0.0)
       json (>= 1.8, < 3)
@@ -557,7 +557,7 @@ GEM
     rspec-mocks (3.7.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.7.0)
-    rspec-rails (3.7.1)
+    rspec-rails (3.7.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -652,7 +652,7 @@ GEM
     truncate_html (0.9.3)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
-    uglifier (3.2.0)
+    uglifier (4.0.1)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -662,7 +662,7 @@ GEM
     unicorn (5.3.1)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    vcr (3.0.3)
+    vcr (4.0.0)
     warden (1.2.7)
       rack (>= 1.0)
     webmock (3.1.1)
@@ -681,7 +681,7 @@ GEM
     xpath (2.1.0)
       nokogiri (~> 1.3)
     xxhash (0.4.0)
-    zaru (0.1.0)
+    zaru (0.2.0)
 
 PLATFORMS
   ruby
