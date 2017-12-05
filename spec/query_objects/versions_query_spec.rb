@@ -1,6 +1,6 @@
 describe VersionsQuery do
-  let(:query) { VersionsQuery.new anime }
-  let(:anime) { build_stubbed :anime }
+  let(:query) { described_class.new anime }
+  let(:anime) { create :anime }
 
   describe '#all' do
     describe 'deleted' do
@@ -12,7 +12,7 @@ describe VersionsQuery do
 
     describe 'another entry' do
       let!(:version_1) { create :version, item: anime }
-      let!(:version_2) { create :version, item: build_stubbed(:anime) }
+      let!(:version_2) { create :version, item: create(:anime) }
 
       it { expect(query.all).to eq [version_1] }
     end
@@ -35,15 +35,18 @@ describe VersionsQuery do
 
     describe 'another entry' do
       let!(:version_1) { create :version, item: anime }
-      let!(:version_2) { create :version, item: build_stubbed(:anime) }
+      let!(:version_2) { create :version, item: create(:anime) }
 
       it { expect(query.by_field :russian).to eq [version_1] }
     end
 
     describe 'another field' do
       let!(:version_1) { create :version, item: anime }
-      let!(:version_2) { create :version, item: anime,
-        item_diff: { 'name' => ['a','b'] } }
+      let!(:version_2) do
+        create :version,
+          item: anime,
+          item_diff: { 'name' => ['a', 'b'] }
+      end
 
       it { expect(query.by_field :russian).to eq [version_1] }
     end
@@ -59,68 +62,134 @@ describe VersionsQuery do
   describe '#authors' do
     let(:author_1) { create :user }
     let(:author_2) { create :user }
-    let(:diff) {{ description_ru: ['a','b'] }}
+    let(:diff) { { description_ru: ['a', 'b'] } }
 
     describe 'accepted' do
       let!(:pending) { create :version, item_diff: diff, item: anime }
-      let!(:accepted) { create :version, :accepted, user: author_1,
-        item_diff: diff, item: anime }
-      let!(:taken) { create :version, state: 'taken', item_diff: diff,
-        item: anime }
-      let!(:deleted) { create :version, state: 'deleted', item_diff: diff,
-        item: anime }
+      let!(:accepted) do
+        create :version, :accepted,
+          user: author_1,
+          item_diff: diff,
+          item: anime
+      end
+      let!(:taken) do
+        create :version, :taken,
+          item_diff: diff,
+          item: anime
+      end
+      let!(:deleted) do
+        create :version, :deleted,
+          item_diff: diff,
+          item: anime
+      end
 
       it { expect(query.authors :description_ru).to eq [author_1] }
     end
 
     describe 'another entry' do
-      let!(:accepted_1) { create :version, :accepted, user: author_1,
-        item_diff: diff, item: anime }
-      let!(:accepted_2) { create :version, :accepted, user: author_2,
-        item_diff: diff, item: build_stubbed(:anime) }
+      let!(:accepted_1) do
+        create :version, :accepted,
+          user: author_1,
+          item_diff: diff,
+          item: anime
+      end
+      let!(:accepted_2) do
+        create :version, :accepted,
+          user: author_2,
+          item_diff: diff,
+          item: create(:anime)
+      end
 
       it { expect(query.authors :description_ru).to eq [author_1] }
     end
 
     describe 'another field' do
-      let!(:accepted_1) { create :version, :accepted, user: author_1,
-        item_diff: diff, item: anime }
-      let!(:accepted_2) { create :version, :accepted, user: author_2,
-        item_diff: { name: [1,2] }, item: anime }
+      let!(:accepted_1) do
+        create :version, :accepted,
+          user: author_1,
+          item_diff: diff,
+          item: anime
+      end
+      let!(:accepted_2) do
+        create :version, :accepted,
+          user: author_2,
+          item_diff: { name: [1, 2] },
+          item: anime
+      end
 
       it { expect(query.authors :description_ru).to eq [author_1] }
     end
 
     describe 'ordering' do
-      let!(:accepted_1) { create :version, :accepted, user: author_1,
-        item_diff: diff, item: anime, created_at: 2.days.ago }
-      let!(:accepted_2) { create :version, :accepted, user: author_2,
-        item_diff: diff, item: anime, created_at: 1.day.ago }
+      let!(:accepted_1) do
+        create :version, :accepted,
+          user: author_1,
+          item_diff: diff,
+          item: anime,
+          created_at: 2.days.ago
+      end
+      let!(:accepted_2) do
+        create :version, :accepted,
+          user: author_2,
+          item_diff: diff,
+          item: anime,
+          created_at: 1.day.ago
+      end
 
       it { expect(query.authors :description_ru).to eq [author_1, author_2] }
     end
 
     context 'screenshots' do
-      let!(:upload) { create :version, :accepted, user: author_1,
-        item_diff: { action: Versions::ScreenshotsVersion::ACTIONS[:upload],
-        screenshots: ['a','b'] }, item: anime }
-      let!(:delete) { create :version, :accepted, user: author_2,
-        item_diff: { action: Versions::ScreenshotsVersion::ACTIONS[:delete],
-        screenshots: ['a','b'] }, item: anime }
-      let!(:reposition) { create :version, :accepted, user: author_2,
-        item_diff: { action: Versions::ScreenshotsVersion::ACTIONS[:reposition],
-        screenshots: ['a','b'] }, item: anime }
+      let!(:upload) do
+        create :version, :accepted,
+          user: author_1,
+          item_diff: {
+            action: Versions::ScreenshotsVersion::ACTIONS[:upload],
+            screenshots: ['a', 'b']
+          },
+          item: anime
+      end
+      let!(:delete) do
+        create :version, :accepted,
+          user: author_2,
+          item_diff: {
+            action: Versions::ScreenshotsVersion::ACTIONS[:delete],
+            screenshots: ['a', 'b']
+          },
+          item: anime
+      end
+      let!(:reposition) do
+        create :version, :accepted,
+          user: author_2,
+          item_diff: {
+            action: Versions::ScreenshotsVersion::ACTIONS[:reposition],
+            screenshots: ['a', 'b']
+          },
+          item: anime
+      end
 
       it { expect(query.authors :screenshots).to eq [author_1] }
     end
 
     context 'videos' do
-      let!(:upload) { create :version, :accepted, user: author_1,
-        item_diff: { action: Versions::VideoVersion::ACTIONS[:upload],
-        videos: ['a','b'] }, item: anime }
-      let!(:delete) { create :version, :accepted, user: author_2,
-        item_diff: { action: Versions::VideoVersion::ACTIONS[:delete],
-        videos: ['a','b'] }, item: anime }
+      let!(:upload) do
+        create :version, :accepted,
+          user: author_1,
+          item_diff: {
+            action: Versions::VideoVersion::ACTIONS[:upload],
+            videos: ['a', 'b']
+          },
+          item: anime
+      end
+      let!(:delete) do
+        create :version, :accepted,
+          user: author_2,
+          item_diff: {
+            action: Versions::VideoVersion::ACTIONS[:delete],
+            videos: ['a', 'b']
+          },
+          item: anime
+      end
 
       it { expect(query.authors :videos).to eq [author_1] }
     end

@@ -2,9 +2,9 @@ describe Moderation::VersionsItemTypeQuery do
   let(:query) { Moderation::VersionsItemTypeQuery.new type }
 
   let(:user) { create :user }
-  let!(:version_1) { create :version, item: build_stubbed(:anime) }
-  let!(:version_2) { create :version, item: build_stubbed(:manga) }
-  let!(:version_3) { create :version, item: build_stubbed(:anime_video) }
+  let!(:version_1) { create :version, item: create(:anime) }
+  let!(:version_2) { create :version, item: create(:manga) }
+  let!(:version_3) { create :version, item: create(:anime_video) }
 
   describe '#result' do
     subject { query.result }

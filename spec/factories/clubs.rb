@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :club do
     sequence(:name) { |n| "club_#{n}" }
     owner { seed :user }
@@ -27,31 +27,31 @@ FactoryGirl.define do
 
     trait :linked_anime do
       after :build do |model|
-        FactoryGirl.create :club_link, :anime, club: model
+        FactoryBot.create :club_link, :anime, club: model
       end
     end
 
     trait :linked_manga do
       after :build do |model|
-        FactoryGirl.create :club_link, :manga, club: model
+        FactoryBot.create :club_link, :manga, club: model
       end
     end
 
     trait :linked_ranobe do
       after :build do |model|
-        FactoryGirl.create :club_link, :ranobe, club: model
+        FactoryBot.create :club_link, :ranobe, club: model
       end
     end
 
     trait :linked_character do
       after :build do |model|
-        FactoryGirl.create :club_link, :character, club: model
+        FactoryBot.create :club_link, :character, club: model
       end
     end
 
     trait :with_member do
       after :build do |model|
-        FactoryGirl.create :club_role, club: model
+        FactoryBot.create :club_role, club: model
       end
     end
 

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :manga do
     sequence(:name) { |n| "manga_#{n}" }
     sequence(:ranked)

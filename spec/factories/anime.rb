@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :anime do
     sequence(:name) { |n| "anime_#{n}" }
     sequence(:ranked)
@@ -49,11 +49,11 @@ FactoryGirl.define do
     end
 
     trait :with_character do
-      after(:build) { |model| FactoryGirl.create :person_role, :character_role, anime: model }
+      after(:build) { |model| FactoryBot.create :person_role, :character_role, anime: model }
     end
 
     trait :with_staff do
-      after(:build) { |model| FactoryGirl.create :person_role, :staff_role, anime: model }
+      after(:build) { |model| FactoryBot.create :person_role, :staff_role, anime: model }
     end
 
     trait :with_news do
@@ -61,7 +61,7 @@ FactoryGirl.define do
     end
 
     trait :with_video do
-      after(:create) { |model| FactoryGirl.create :anime_video, anime: model }
+      after(:create) { |model| FactoryBot.create :anime_video, anime: model }
     end
 
     Anime.kind.values.each do |kind_type|
@@ -100,7 +100,7 @@ FactoryGirl.define do
       episodes_aired 0
 
       #after :create do |anime|
-        #FactoryGirl.create(:anime_calendar, anime: anime)
+        #FactoryBot.create(:anime_calendar, anime: anime)
       #end
     end
 

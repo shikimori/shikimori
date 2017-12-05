@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user_rate do
     status :planned
-    target { FactoryGirl.create(:anime) }
+    target { FactoryBot.create(:anime) }
     user
     episodes 0
     volumes 0

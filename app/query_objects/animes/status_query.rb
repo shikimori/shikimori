@@ -1,4 +1,4 @@
-class AnimeStatusQuery
+class Animes::StatusQuery
   pattr_initialize :relation
 
   LATEST_INTERVAL = 3.month

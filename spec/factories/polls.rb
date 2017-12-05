@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :poll do
     user { seed :user }
     state :pending
@@ -11,8 +11,8 @@ FactoryGirl.define do
 
     trait :with_variants do
       after :build do |model|
-        FactoryGirl.create :poll_variant, poll: model
-        FactoryGirl.create :poll_variant, poll: model
+        FactoryBot.create :poll_variant, poll: model
+        FactoryBot.create :poll_variant, poll: model
       end
     end
   end

@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :vote, class: 'ActsAsVotable::Vote' do
-    votable { FactoryGirl.create(:anime) }
+    votable { FactoryBot.create(:anime) }
     voter { seed :user }
     vote_flag true
   end

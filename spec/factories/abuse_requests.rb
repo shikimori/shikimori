@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :abuse_request do
     user { seed :user }
     comment { seed :comment }

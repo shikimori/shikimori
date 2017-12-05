@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :club_role do
     club
     user { seed :user }

@@ -20,7 +20,7 @@ class MalParsers::RefreshEntries
 private
 
   def ids klass, status
-    AnimeStatusQuery
+    Animes::StatusQuery
       .new(klass.all)
       .by_status(status)
       .order(:id)

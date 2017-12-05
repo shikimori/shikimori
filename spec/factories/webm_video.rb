@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :webm_video do
     url 'http://html5demos.com/assets/dizzy.webm'
     state 'pending'

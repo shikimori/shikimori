@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :manga_page do
     url 'http://test.com/page1'
     number 1

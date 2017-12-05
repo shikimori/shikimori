@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :comment do
     user { seed :user }
     commentable { seed :offtopic_topic }

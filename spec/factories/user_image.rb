@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :user_image do
     image { open "#{Rails.root}/spec/files/anime.jpg" }
     user { seed :user }

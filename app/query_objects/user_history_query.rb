@@ -25,8 +25,7 @@ class UserHistoryQuery
     elsif 1.week.ago > updated_at then :week
     elsif 2.days.ago.end_of_day > updated_at then :during_week
     elsif Time.zone.today.beginning_of_day > updated_at then :yesterday
-    else
-      :today
+    else :today
     end
   end
 

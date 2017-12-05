@@ -30,7 +30,7 @@ class ImportListWorker
         )
 
       when :anons, :ongoing, :latest
-        AnimeStatusQuery.new(Anime.all).by_status(source).pluck(:id)
+        Animes::StatusQuery.new(Anime.all).by_status(source).pluck(:id)
 
       else
         raise "unknown source: #{source}"

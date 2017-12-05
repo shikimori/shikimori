@@ -78,7 +78,7 @@ describe Versioneers::ScreenshotsVersioneer do
       context 'another item version' do
         let(:version_params) do
           {
-            item: build_stubbed(:anime),
+            item: create(:anime),
             item_diff: {
               'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
@@ -109,7 +109,7 @@ describe Versioneers::ScreenshotsVersioneer do
       context 'another action version' do
         let(:version_params) do
           {
-            item: build_stubbed(:anime),
+            item: create(:anime),
             item_diff: {
               'action' => Versioneers::ScreenshotsVersioneer::REPOSITION,
               Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
@@ -203,7 +203,7 @@ describe Versioneers::ScreenshotsVersioneer do
       context 'another item version' do
         let(:version_params) do
           {
-            item: build_stubbed(:anime),
+            item: create(:anime),
             item_diff: {
               'action' => Versioneers::ScreenshotsVersioneer::DELETE,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
@@ -234,7 +234,7 @@ describe Versioneers::ScreenshotsVersioneer do
       context 'another action version' do
         let(:version_params) do
           {
-            item: build_stubbed(:anime),
+            item: create(:anime),
             item_diff: {
               'action' => Versioneers::ScreenshotsVersioneer::REPOSITION,
               Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]

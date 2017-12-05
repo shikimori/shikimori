@@ -1,6 +1,6 @@
 describe Contest::DoubleEliminationStrategy do
   let(:strategy) { contest.strategy }
-  let(:contest) { build_stubbed :contest, :double_elimination }
+  let(:contest) { create :contest, :double_elimination }
 
   describe '#total_rounds' do
     [

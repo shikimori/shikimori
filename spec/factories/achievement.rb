@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :achievement do
     neko_id Types::Achievement::NekoId[:test]
     level 1

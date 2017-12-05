@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :anime_video do
     sequence(:url) { |n| "http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16#{n}" }
     source 'http://source.com'

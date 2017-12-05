@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :contest_match do
     left factory: :anime
     right factory: :anime

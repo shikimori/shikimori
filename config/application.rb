@@ -110,7 +110,7 @@ module Shikimori
     #}
 
     config.generators do |generator|
-      generator.fixture_replacement :factory_girl, dir: 'spec/factories/'
+      generator.fixture_replacement :factory_bot, dir: 'spec/factories/'
       generator.template_engine :slim
       generator.stylesheets false
       generator.helper false

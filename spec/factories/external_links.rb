@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :external_link do
     entry nil
     kind 'anime_db'

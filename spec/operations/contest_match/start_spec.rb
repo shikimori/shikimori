@@ -24,10 +24,10 @@ describe ContestMatch::Start do
   let(:anime_2) { create :anime }
 
   let(:contest_round) do
-    build_stubbed :contest_round, number: number, contest: contest
+    create :contest_round, number: number, contest: contest
   end
   let(:number) { 1 }
-  let(:contest) { build_stubbed :contest, :started, user_vote_key: user_vote_key }
+  let(:contest) { create :contest, :started, user_vote_key: user_vote_key }
   let(:user_vote_key) { :can_vote_1 }
 
   let!(:users) { nil }

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :related_manga do
     source nil
     anime nil

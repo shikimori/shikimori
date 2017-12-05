@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :video do
     association :uploader, factory: :user
     state 'uploaded'

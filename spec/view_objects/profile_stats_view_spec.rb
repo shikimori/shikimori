@@ -198,7 +198,7 @@ describe ProfileStatsView do
   end
 
   describe '#content_changes_count' do
-    let(:anime) { build_stubbed :anime }
+    let(:anime) { create :anime }
     let!(:version_1) { create :version, user: user, item: anime, state: :taken }
     let!(:version_2) { create :version, user: user, item: anime, state: :accepted }
     let!(:version_3) { create :version, user: user, item: anime, state: :pending }
@@ -208,7 +208,7 @@ describe ProfileStatsView do
     let!(:version_7) do
       create :version,
         user: user,
-        item: build_stubbed(:anime_video),
+        item: create(:anime_video),
         state: :taken
     end
     subject { stats.versions_count }
@@ -231,8 +231,8 @@ describe ProfileStatsView do
   end
 
   describe '#video_changes_count' do
-    let(:anime_video) { build_stubbed :anime_video }
-    let(:anime) { build_stubbed :anime }
+    let(:anime_video) { create :anime_video }
+    let(:anime) { create :anime }
 
     let!(:report_1) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
     let!(:report_2) { create :anime_video_report, :broken, user: user, state: 'accepted' }
@@ -244,7 +244,6 @@ describe ProfileStatsView do
     let!(:version_1) { create :version, user: user, item: anime_video, state: :accepted }
     let!(:version_2) { create :version, user: user, item: anime_video, state: :accepted }
     let!(:version_3) { create :version, user: user, item: anime, state: :pending }
-
 
     subject { stats.video_changes_count }
 

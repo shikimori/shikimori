@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :topic do
     user { seed :user }
     forum { seed :offtopic_forum }

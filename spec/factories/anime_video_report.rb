@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :anime_video_report do
     kind AnimeVideoReport.kind.values.first
     state 'pending'
@@ -14,16 +14,16 @@ FactoryGirl.define do
     end
 
     after :build do |v|
-      v.anime_video = FactoryGirl.build_stubbed(:anime_video) unless v.anime_video_id
-      v.approver = FactoryGirl.build_stubbed(:user, :user) unless v.user_id && v.pending?
+      v.anime_video = FactoryBot.build_stubbed(:anime_video) unless v.anime_video_id
+      v.approver = FactoryBot.build_stubbed(:user, :user) unless v.user_id && v.pending?
     end
 
     trait :with_video do
-      anime_video { FactoryGirl.create :anime_video, :uploaded }
+      anime_video { FactoryBot.create :anime_video, :uploaded }
     end
 
     trait :with_user do
-      user { FactoryGirl.create :user, :user }
+      user { FactoryBot.create :user, :user }
     end
   end
 end

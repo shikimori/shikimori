@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :name_match do
     phrase 'MyString'
     group 0

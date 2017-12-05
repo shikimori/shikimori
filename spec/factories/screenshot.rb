@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :screenshot do
     image { File.new "#{Rails.root}/spec/files/anime.jpg" }
-    anime { build_stubbed :anime }
+    anime { create :anime }
     url { rand }
     position { rand * 1_000_000 }
 

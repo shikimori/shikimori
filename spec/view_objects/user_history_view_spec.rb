@@ -1,5 +1,5 @@
 describe UserHistoryView do
-  let(:user) { build_stubbed :user }
+  let(:user) { seed :user }
   let(:view) { UserHistoryView.new user }
 
   let(:anime) { create :anime }

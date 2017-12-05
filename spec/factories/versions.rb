@@ -1,28 +1,12 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :version do
-    item { build_stubbed :anime }
+    item { create :anime }
     user nil
     state :pending
     item_diff russian: ['a', 'b']
 
-    trait :pending do
-      state :pending
-    end
-
-    trait :accepted do
-      state :accepted
-    end
-
-    trait :taken do
-      state :taken
-    end
-
-    trait :rejected do
-      state :rejected
-    end
-
-    trait :deleted do
-      state :deleted
+    Version.state_machine.states.map(&:value).each do |version_state|
+      trait(version_state.to_sym) { state version_state }
     end
   end
 

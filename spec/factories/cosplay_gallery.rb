@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :cosplay_gallery do
     confirmed true
     deleted false
@@ -6,8 +6,8 @@ FactoryGirl.define do
 
     trait :anime do
       after :build do |cosplay_gallery|
-        anime = FactoryGirl.create :anime
-        FactoryGirl.create :cosplay_gallery_link, cosplay_gallery: cosplay_gallery, linked: anime
+        anime = FactoryBot.create :anime
+        FactoryBot.create :cosplay_gallery_link, cosplay_gallery: cosplay_gallery, linked: anime
       end
     end
   end

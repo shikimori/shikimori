@@ -77,7 +77,7 @@ describe EpisodeNotification do
           is_raw: is_raw,
           is_torrent: is_torrent
       end
-      let(:anime) { build_stubbed :anime }
+      let(:anime) { create :anime }
       subject! { episode_notification.rollback :raw }
 
       context 'true => false' do

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :character do
     sequence(:name) { |n| "character_#{n}" }
     sequence(:russian) { |n| "персонаж_#{n}" }
@@ -23,7 +23,7 @@ FactoryGirl.define do
 
     trait :anime do
       after :create do |character|
-        FactoryGirl.create :anime, characters: [character]
+        FactoryBot.create :anime, characters: [character]
       end
     end
 

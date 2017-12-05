@@ -7,7 +7,7 @@ class BotsService
   def self.get_poster
     if Rails.env.test?
       user = User.limit(1).first
-      return user || FactoryGirl.create(:user, nickname: 'bot_poster', email: 'bot_poster@gmail.com')
+      return user || FactoryBot.create(:user, nickname: 'bot_poster', email: 'bot_poster@gmail.com')
     end
 
     @@aka ||= User.find(16)

@@ -5,7 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'draper/test/rspec_integration'
-require 'factory_girl_rails'
+require 'factory_bot_rails'
 require 'factory_girl-seeds'
 require 'rails-controller-testing'
 require 'paperclip/matchers'
@@ -59,7 +59,7 @@ RSpec.configure do |config|
 
   # config.include self, type: :serializer, file_path: %r(spec/validators)
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include JsonResponse, type: :controller
   config.include ControllerResource, type: :controller

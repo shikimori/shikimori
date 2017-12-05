@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :contest do
     title_ru 'Турнир'
     title_en 'Contest'
@@ -39,7 +39,7 @@ FactoryGirl.define do
     [3, 5, 6, 8, 19].each do |members|
       trait "with_#{members}_members".to_sym do
         after(:create) do |contest|
-          members.times { contest.members << FactoryGirl.create(contest.member_type) }
+          members.times { contest.members << FactoryBot.create(contest.member_type) }
         end
       end
     end

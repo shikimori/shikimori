@@ -433,7 +433,7 @@ describe UserRate do
       subject(:user_rate) do
         build :user_rate,
           target: build_stubbed(:anime),
-          user: build_stubbed(:user),
+          user: seed(:user),
           status: status,
           score: score
       end
@@ -479,7 +479,7 @@ describe UserRate do
       let(:user_rate) do
         create :user_rate,
           target: build_stubbed(:anime),
-          user: build_stubbed(:user)
+          user: seed(:user)
       end
       before { allow(UserHistory).to receive :add }
       subject! { user_rate.destroy }

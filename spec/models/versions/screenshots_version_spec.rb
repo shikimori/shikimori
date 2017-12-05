@@ -8,14 +8,21 @@ describe Versions::ScreenshotsVersion do
     let(:screenshot) { create :screenshot }
 
     context 'upload or delete' do
-      let(:version) { build :screenshots_version,
-        item_diff: { screenshots: [screenshot.id] } }
+      let(:version) do
+        build :screenshots_version,
+          item_diff: { screenshots: [screenshot.id] }
+      end
       it { expect(version.screenshots).to eq [screenshot] }
     end
 
     context 'reposition' do
-      let(:version) { build :screenshots_version,
-        item_diff: { action: 'reposition', screenshots: [[0], [screenshot.id]] } }
+      let(:version) do
+        build :screenshots_version,
+          item_diff: {
+            action: 'reposition',
+            screenshots: [[0], [screenshot.id]]
+          }
+      end
       it { expect(version.screenshots).to eq [screenshot] }
     end
   end
@@ -24,14 +31,21 @@ describe Versions::ScreenshotsVersion do
     let(:screenshot) { create :screenshot }
 
     context 'upload or delete' do
-      let(:version) { build :screenshots_version,
-        item_diff: { screenshots: [screenshot.id] } }
-      it { expect{version.screenshots_prior}.to raise_error NotImplementedError }
+      let(:version) do
+        build :screenshots_version,
+          item_diff: { screenshots: [screenshot.id] }
+      end
+      it { expect { version.screenshots_prior }.to raise_error NotImplementedError }
     end
 
     context 'reposition' do
-      let(:version) { build :screenshots_version,
-        item_diff: { action: 'reposition', screenshots: [[screenshot.id], [0]] } }
+      let(:version) do
+        build :screenshots_version,
+          item_diff: {
+            action: 'reposition',
+            screenshots: [[screenshot.id], [0]]
+          }
+      end
       it { expect(version.screenshots_prior).to eq [screenshot] }
     end
   end
@@ -41,7 +55,7 @@ describe Versions::ScreenshotsVersion do
 
     context 'upload' do
       let(:screenshot) { create :screenshot, :uploaded }
-      let(:item_diff) {{ action: 'upload', screenshots: [screenshot.id] }}
+      let(:item_diff) { { action: 'upload', screenshots: [screenshot.id] } }
 
       before { version.apply_changes }
 
@@ -52,13 +66,15 @@ describe Versions::ScreenshotsVersion do
       let(:anime) { create :anime }
       let!(:screenshot_1) { create :screenshot, anime: anime, position: 9999 }
       let!(:screenshot_2) { create :screenshot, anime: anime, position: 9999 }
-      let(:item_diff) {{
-        action: 'reposition',
-        screenshots: [
-          [screenshot_1.id, screenshot_2.id],
-          [screenshot_2.id, screenshot_1.id]
-        ]
-      }}
+      let(:item_diff) do
+        {
+          action: 'reposition',
+          screenshots: [
+            [screenshot_1.id, screenshot_2.id],
+            [screenshot_2.id, screenshot_1.id]
+          ]
+        }
+      end
 
       before { version.apply_changes }
 
@@ -71,7 +87,7 @@ describe Versions::ScreenshotsVersion do
 
     context 'delete' do
       let(:screenshot) { create :screenshot, :uploaded }
-      let(:item_diff) {{ action: 'delete', screenshots: [screenshot.id] }}
+      let(:item_diff) { { action: 'delete', screenshots: [screenshot.id] } }
 
       before { version.apply_changes }
 
@@ -79,27 +95,32 @@ describe Versions::ScreenshotsVersion do
     end
 
     context 'unknown action' do
-      let(:item_diff) {{ action: 'zzz' }}
-      it { expect{version.apply_changes}.to raise_error ArgumentError }
+      let(:item_diff) { { action: 'zzz' } }
+      it { expect { version.apply_changes }.to raise_error ArgumentError }
     end
   end
 
   describe '#rollback_changes' do
     let(:version) { build :screenshots_version }
-    it { expect{version.rollback_changes}.to raise_error NotImplementedError }
+    it { expect { version.rollback_changes }.to raise_error NotImplementedError }
   end
 
   describe '#cleanup' do
     let(:screenshot) { create :screenshot }
-    let(:version) { build :screenshots_version,
-      item_diff: { action: action, screenshots: screenshots } }
+    let(:version) do
+      build :screenshots_version,
+        item_diff: {
+          action: action,
+          screenshots: screenshots
+        }
+    end
 
     before { version.cleanup }
 
     context 'upload' do
       let(:action) { 'upload' }
       let(:screenshots) { [screenshot.id] }
-      it { expect{screenshot.reload}.to raise_error ActiveRecord::RecordNotFound }
+      it { expect { screenshot.reload }.to raise_error ActiveRecord::RecordNotFound }
     end
 
     context 'reposition' do

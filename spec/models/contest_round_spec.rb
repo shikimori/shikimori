@@ -55,7 +55,7 @@ describe ContestRound do
 
   describe 'instance methods' do
     describe '#next_round, #prior_round, #first?, #last?' do
-      let!(:contest) { build_stubbed :contest }
+      let!(:contest) { create :contest }
       let!(:round_1) { create :contest_round, contest: contest }
       let!(:round_2) { create :contest_round, contest: contest }
       let!(:round_3) { create :contest_round, contest: contest }

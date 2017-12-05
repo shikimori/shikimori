@@ -84,7 +84,10 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::FriendRequest }
 
       context 'accepted' do
+        let(:user_from) { create :user }
+        let(:user_to) { create :user }
         let!(:friend_link) { create :friend_link, dst: user_from, src: user_to }
+
         it { is_expected.to eq 'Добавил вас в список друзей.' }
       end
 

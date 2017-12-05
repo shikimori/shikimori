@@ -1,4 +1,4 @@
-module FactoryGirl
+module FactoryBot
   module Syntax
     module Methods
       def stub_method model, name

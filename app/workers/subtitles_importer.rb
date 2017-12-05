@@ -22,7 +22,7 @@ class SubtitlesImporter
 
   def import_latest
     print "getting parallel subtitles for latests...\n"
-    animes = AnimeStatusQuery.new(Anime.all).by_status(:latest)
+    animes = Animes::StatusQuery.new(Anime.all).by_status(:latest)
     get_fansubs animes
   end
 

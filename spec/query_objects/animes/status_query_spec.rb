@@ -1,9 +1,9 @@
-describe AnimeStatusQuery do
-  let(:query) { AnimeStatusQuery.new Anime.order(:id) }
+describe Animes::StatusQuery do
+  let(:query) { Animes::StatusQuery.new Anime.order(:id) }
   let!(:anons) { create :anime, :anons }
   let!(:ongoing) { create :anime, :ongoing }
-  let!(:released_latest) { create :anime, :released, released_on: AnimeStatusQuery::LATEST_INTERVAL.ago + 1.day }
-  let!(:released_old) { create :anime, :released, released_on: AnimeStatusQuery::LATEST_INTERVAL.ago - 1.day }
+  let!(:released_latest) { create :anime, :released, released_on: Animes::StatusQuery::LATEST_INTERVAL.ago + 1.day }
+  let!(:released_old) { create :anime, :released, released_on: Animes::StatusQuery::LATEST_INTERVAL.ago - 1.day }
 
   describe '#by_status' do
     let(:result) { query.by_status status }

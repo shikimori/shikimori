@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :style do
     owner { seed :user }
     name ''

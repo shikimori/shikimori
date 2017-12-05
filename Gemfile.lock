@@ -7,6 +7,14 @@ GIT
       simple_form (>= 3.0.0.beta1)
 
 GIT
+  remote: https://github.com/PikachuEXE/factory_girl-seeds.git
+  revision: 36235fee5680357a3c185d505311f22feb1ea50e
+  branch: use-factory-bot
+  specs:
+    factory_girl-seeds (1.1.0)
+      factory_bot
+
+GIT
   remote: https://github.com/fauxparse/guard-i18n-js.git
   revision: 4c99c24e55eda1b2eb795bb4e8485732a17fbc0e
   specs:
@@ -271,12 +279,10 @@ GEM
     erubi (1.7.0)
     eventmachine (1.2.5)
     execjs (2.7.0)
-    factory_girl (4.7.0)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
-    factory_girl-seeds (1.1.0)
-      factory_girl
-    factory_girl_rails (4.7.0)
-      factory_girl (~> 4.7.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -717,8 +723,8 @@ DEPENDENCIES
   draper-cancancan
   dry-struct
   enumerize (= 2.0.1)
-  factory_girl-seeds
-  factory_girl_rails
+  factory_bot_rails
+  factory_girl-seeds!
   faraday
   faraday-cookie_jar
   faraday_middleware

@@ -17,7 +17,7 @@ module Viewable
     # (that is either Topic or Comment model)
     viewing_klass = "#{base_class.name}Viewing".constantize
 
-    # f**king gem breaks assigning associations in FactoryGirl
+    # f**king gem breaks assigning associations in FactoryBot
     if Rails.env.test?
       has_many :viewings,
         class_name: viewing_klass.name,

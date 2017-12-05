@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :forum do
     sequence(:name_ru) { |n| "форум_#{n}" }
     sequence(:name_en) { |n| "forum_#{n}" }

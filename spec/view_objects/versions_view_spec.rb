@@ -3,15 +3,32 @@ describe VersionsView do
 
   include_context :timecop, '2016-03-18 15:00:00'
 
-  let!(:version_1) { create :version, state: 'taken', created_at: 15.hours.ago, updated_at: 1.minute.ago }
-  let!(:version_2) { create :version, state: 'pending', created_at: 30.hours.ago, updated_at: 2.minutes.ago }
-  let!(:version_3) { create :version, state: 'accepted', created_at: 50.hours.ago, updated_at: 3.minutes.ago }
-  let!(:version_4) { create :version, state: 'deleted', created_at: 55.hours.ago, updated_at: 4.minutes.ago }
+  let!(:version_1) do
+    create :version, :taken,
+      created_at: 15.hours.ago,
+      updated_at: 1.minute.ago
+  end
+  let!(:version_2) do
+    create :version, :pending,
+      created_at: 30.hours.ago,
+      updated_at: 2.minutes.ago
+  end
+  let!(:version_3) do
+    create :version, :accepted,
+      created_at: 50.hours.ago,
+      updated_at: 3.minutes.ago
+  end
+  let!(:version_4) do
+    create :version, :deleted,
+      created_at: 55.hours.ago,
+      updated_at: 4.minutes.ago
+  end
 
   let!(:moderator) { create :user, :version_moderator }
 
   before do
-    allow(view.h).to receive(:params)
+    allow(view.h)
+      .to receive(:params)
       .and_return type: 'content', created_on: created_on
   end
 

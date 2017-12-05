@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :club_invite do
     status Types::ClubInvite::Status[:pending]
     club
