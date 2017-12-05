@@ -1,15 +1,15 @@
 class Animes::StatusQuery
-  pattr_initialize :relation
+  method_object :scope, :status
 
   LATEST_INTERVAL = 3.month
 
-  def by_status status
+  def call
     case Types::Anime::Status[status]
       when :anons, :ongoing, :released
-        relation.where(status: status.to_s)
+        @scope.where(status: status.to_s)
 
       when :latest
-        relation
+        @scope
           .where(status: :released)
           .where('released_on > ?', LATEST_INTERVAL.ago)
     end

@@ -285,15 +285,15 @@ private
     statuss = bang_split @status.split(',')
 
     query = statuss[:include].map do |status|
-      #Animes::StatusQuery.new(@klass.all).by_status(status).arel.ast.cores.first.wheres.first.to_sql
-      Animes::StatusQuery.new(@klass.all).by_status(status).to_sql.sub(/^.* WHERE /, '')
+      #Animes::StatusQuery.call(@klass.all, status).arel.ast.cores.first.wheres.first.to_sql
+      Animes::StatusQuery.call(@klass.all, status).to_sql.sub(/^.* WHERE /, '')
     end
     @query = @query.where query.join(' OR ') unless query.empty?
 
     query = statuss[:exclude].map do |status|
       'NOT (' +
-        Animes::StatusQuery.new(@klass.all).by_status(status).to_sql.sub(/^.* WHERE /, '') +
-        #Animes::StatusQuery.new(@klass.all).by_status(status).arel.ast.cores.first.wheres.first.to_sql +
+        Animes::StatusQuery.call(@klass.all, status).to_sql.sub(/^.* WHERE /, '') +
+        #Animes::StatusQuery.call(@klass.all, status).arel.ast.cores.first.wheres.first.to_sql +
         ')'
     end
     @query = @query.where query.join(' AND ') unless query.empty?

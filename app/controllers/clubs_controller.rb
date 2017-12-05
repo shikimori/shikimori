@@ -38,9 +38,7 @@ class ClubsController < ShikimoriController
 
     query = Clubs::Query.fetch(locale_from_host)
 
-    if @page == 1 && params[:search].blank?
-      @favourites = query.favourites
-    end
+    @favourites = query.favourites if @page == 1 && params[:search].blank?
 
     @collection = query
       .without_favourites
