@@ -191,7 +191,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl-seeds',
     require: false,
-    github: 'PikachuEXE/factory_girl-seeds',
+    github: 'morr/factory_girl-seeds',
     branch: 'use-factory-bot'
   gem 'factory_bot_rails', require: false
   gem 'rails-controller-testing' # it allows use `assigns` method in specs

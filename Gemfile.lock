@@ -7,14 +7,6 @@ GIT
       simple_form (>= 3.0.0.beta1)
 
 GIT
-  remote: https://github.com/PikachuEXE/factory_girl-seeds.git
-  revision: 36235fee5680357a3c185d505311f22feb1ea50e
-  branch: use-factory-bot
-  specs:
-    factory_girl-seeds (1.1.0)
-      factory_bot
-
-GIT
   remote: https://github.com/fauxparse/guard-i18n-js.git
   revision: 4c99c24e55eda1b2eb795bb4e8485732a17fbc0e
   specs:
@@ -50,6 +42,14 @@ GIT
   branch: master
   specs:
     cancancan (1.16.0)
+
+GIT
+  remote: https://github.com/morr/factory_girl-seeds.git
+  revision: 36235fee5680357a3c185d505311f22feb1ea50e
+  branch: use-factory-bot
+  specs:
+    factory_girl-seeds (1.1.0)
+      factory_bot
 
 GIT
   remote: https://github.com/morr/sidekiq-unique-jobs.git
