@@ -21,8 +21,7 @@ private
 
   def ids klass, status
     Animes::StatusQuery
-      .new(klass.all)
-      .by_status(status)
+      .call(klass.all, status)
       .order(:id)
       .pluck(:id)
   end
