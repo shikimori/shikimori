@@ -1,11 +1,14 @@
 class EmailNotifier
   include Singleton
 
+  DAILY_USER_EMAILS_LIMIT = 13
+
   ONLINE_USER_MESSAGE_DELAY = 10.minutes
-  OFFLINE_USER_MESSAGE_DELAY = 1.second
+  OFFLINE_USER_MESSAGE_DELAY = 5.seconds
 
   def private_message message
-    return if notifications_disabled?(message.to)
+    return if notifications_disabled? message.to
+    return if too_many_messages? message.from
 
     ShikiMailer
       .delay_for(delay_interval(message.to))
@@ -15,7 +18,15 @@ class EmailNotifier
 private
 
   def notifications_disabled? user
-    user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL == 0
+    (user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL).zero?
+  end
+
+  def too_many_messages? user
+    return false if user.admin?
+    return false if user.forum_moderator?
+    return false if user.version_moderator?
+
+    user_daily_private_messages(user).count >= DAILY_USER_EMAILS_LIMIT
   end
 
   def delay_interval user
@@ -24,5 +35,11 @@ private
 
   def offline? user
     Time.zone.now - User::LAST_ONLINE_CACHE_INTERVAL > (user[:last_online_at] || user.created_at)
+  end
+
+  def user_daily_private_messages user
+    user.messages
+      .where(kind: MessageType::Private)
+      .where('created_at > ?', 1.day.ago)
   end
 end

@@ -37,7 +37,7 @@ class Message < ApplicationRecord
       .order(id: :desc)
       .first
 
-    if prior_comment && Time.zone.now.to_i - prior_comment.created_at.to_i < 15
+    if prior_comment && prior_comment.created_at > 15.seconds.ago
       interval = 15 - (Time.zone.now.to_i - prior_comment.created_at.to_i)
       seconds = i18n_i('datetime.second', interval, :accusative)
 
