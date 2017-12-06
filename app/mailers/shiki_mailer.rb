@@ -36,7 +36,6 @@ class ShikiMailer < ActionMailer::Base
       site_link: Shikimori::DOMAIN,
       from_nickname: message.from.nickname,
       private_message_link: profile_dialogs_url(message.to, protocol: :https),
-      message: message.body,
       unsubscribe_link: unsubscribe_messages_url(
         name: message.to.to_param,
         key: unsubscribe_link_key(message),

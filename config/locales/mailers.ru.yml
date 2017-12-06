@@ -4,10 +4,7 @@ ru:
       subject: Личное сообщение
       body: |-
         %{nickname}, у вас 1 новое сообщение на %{site_link} от пользователя %{from_nickname}.
-        Прочитать полностью можно тут: %{private_message_link}
-
-        Текст сообщения:
-        %{message}
+        Прочитать можно тут: %{private_message_link}
 
         Отписаться от уведомлений можно по ссылке:
         %{unsubscribe_link}

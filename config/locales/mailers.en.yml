@@ -4,10 +4,7 @@ en:
       subject: Private message
       body: |-
         %{nickname}, you have 1 new message on %{site_link} from %{from_nickname}.
-        Read the full message: %{private_message_link}
-
-        Message:
-        %{message}
+        Read the message: %{private_message_link}
 
         To unsubscribe from notification emails click here:
         %{unsubscribe_link}
