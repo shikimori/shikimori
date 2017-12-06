@@ -106,9 +106,11 @@ class Abilities::User
       #(message.kind == MessageType::Private && (can?(:edit, message) || message.to_id == @user.id)) ||
         #(message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
-    can %i[create edit update], Message do |message|
-      !@user.forever_banned? && message.kind == MessageType::Private &&
-        message.from_id == @user.id
+    if @user.day_registered?
+      can %i[create edit update], Message do |message|
+        !@user.forever_banned? && message.kind == MessageType::Private &&
+          message.from_id == @user.id
+      end
     end
   end
 

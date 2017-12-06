@@ -137,7 +137,7 @@ describe Message do
         kind: kind,
         created_at: created_at
     end
-    let(:from_user) { build_stubbed :user, :user }
+    let(:from_user) { build_stubbed :user, :user, :day_registered }
     let(:to_user) { build_stubbed :user, :user }
     let(:created_at) { 1.minute.ago }
     let(:kind) { MessageType::Private }
@@ -165,7 +165,7 @@ describe Message do
     end
 
     context 'user' do
-      let(:user) { build_stubbed :user, :user }
+      let(:user) { build_stubbed :user, :user, :day_registered }
 
       it { is_expected.to be_able_to :mark_read, message }
       it { is_expected.to_not be_able_to :read, message }
@@ -183,18 +183,30 @@ describe Message do
           let(:kind) { MessageType::Private }
 
           context 'not banned forever' do
-            let(:from_user) { build_stubbed :user, :user, :banned }
+            let(:from_user) { build_stubbed :user, :user, :banned, :day_registered }
             it { is_expected.to be_able_to :create, message }
           end
 
           context 'banned forever' do
-            let(:from_user) { build_stubbed :user, :user, :forever_banned }
+            let(:from_user) { build_stubbed :user, :user, :forever_banned, :day_registered }
             it { is_expected.to_not be_able_to :create, message }
           end
 
-          it { is_expected.to be_able_to :edit, message }
-          it { is_expected.to be_able_to :update, message }
-          it { is_expected.to be_able_to :destroy, message }
+          context 'day registered' do
+            let(:from_user) { build_stubbed :user, :user, :day_registered }
+
+            it { is_expected.to be_able_to :edit, message }
+            it { is_expected.to be_able_to :update, message }
+            it { is_expected.to be_able_to :destroy, message }
+          end
+
+          context 'not day registered' do
+            let(:from_user) { build_stubbed :user, :user }
+
+            it { is_expected.to_not be_able_to :edit, message }
+            it { is_expected.to_not be_able_to :update, message }
+            it { is_expected.to be_able_to :destroy, message }
+          end
 
           # context 'new message' do
             # let(:created_at) { 1.minute.ago }
