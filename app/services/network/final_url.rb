@@ -9,8 +9,6 @@ class Network::FinalUrl
 private
 
   def faraday_get url
-    response = Network::FaradayGet.call url
-    return false unless response&.status == 200
-    response
+    Network::FaradayGet.call url
   end
 end

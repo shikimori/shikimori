@@ -16,5 +16,15 @@ describe Network::FinalUrl, :vcr do
       let(:url) { 'fdgdfg dfgfdg' }
       it { expect(final_url).to be_nil }
     end
+
+    context 'redirects with forbidden' do
+      let(:url) { 'https://goo.gl/qsbKPb' }
+      it { expect(final_url).to eq 'http://shikme.ru/' }
+    end
+
+    context 'forbidden' do
+      let(:url) { 'https://shikme.ru/' }
+      it { expect(final_url).to eq 'https://shikme.ru/' }
+    end
   end
 end

@@ -1,0 +1,50 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://shikme.ru/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Date:
+      - Wed, 06 Dec 2017 02:22:51 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - PHPSESSID=gh974m34s9kd9rrncglt8lcmn1; path=/
+      - __cfduid=d61f3c9216ea2b04598c2a207fd75234c1512526971; expires=Thu, 06-Dec-18
+        02:22:51 GMT; path=/; domain=.shikme.ru; HttpOnly; Secure
+      - bc_btk=1; expires=Thu, 06-Dec-2018 08:11:37 GMT; Max-Age=31556926; path=/
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Pragma:
+      - no-cache
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3c8bc7a43ac28f03-DME
+    http_version: 
+  recorded_at: Wed, 06 Dec 2017 02:22:52 GMT
+recorded_with: VCR 4.0.0
