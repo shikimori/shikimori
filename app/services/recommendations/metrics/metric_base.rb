@@ -29,6 +29,7 @@ class Recommendations::Metrics::MetricBase
   end
 
 private
+
   def ignore_similarity? similarity
     similarity.kind_of?(Complex) || similarity.try(:nan?)
   end
