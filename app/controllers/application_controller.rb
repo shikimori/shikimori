@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include Translation
   include ErrorsConcern
+  include UrlsConcern
+  include InvalidParameterErrorConcern
 
   #include Mobylette::RespondToMobileRequests
   protect_from_forgery with: :exception
@@ -16,7 +18,6 @@ class ApplicationController < ActionController::Base
   before_action :force_vary_accept
   before_action :force_canonical
 
-  helper_method :url_params
   helper_method :resource_class
   helper_method :remote_addr
   helper_method :json?
@@ -48,17 +49,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # хелпер для перевода params к виду, который можно засунуть в url хелперы
-  def url_params merged = nil
-    new_params = safe_params
-      .to_unsafe_h
-      .except(:action, :controller)
-      .symbolize_keys
-
-    merged ? new_params.merge(merged) : new_params
-  end
-
-  # запрос ли это через турболинки
   def turbolinks_request?
     request.headers['X-XHR-Referer'].present?
   end
@@ -66,13 +56,6 @@ class ApplicationController < ActionController::Base
   def current_user
     @decorated_current_user ||= super.try :decorate
   end
-
-  # Use this in place of params when generating links to Excel etc.
-  # See https://github.com/rails/rails/issues/26289
-  def safe_params
-    params.except(:host, :port, :protocol).permit!
-  end
-  helper_method :safe_params
 
   #-----------------------------------------------------------------------------
   # domain helpers
@@ -194,7 +177,6 @@ class ApplicationController < ActionController::Base
     )
   end
 
-  # faye токен текущего пользователя
   def faye_token
     request.headers['X-Faye-Token'] || params[:faye]
   end

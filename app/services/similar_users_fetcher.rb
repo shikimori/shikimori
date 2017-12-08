@@ -1,9 +1,5 @@
 class SimilarUsersFetcher < UserDataFetcherBase
-  def initialize user, klass, threshold
-    @user = user
-    @klass = klass
-    @threshold = threshold
-  end
+  method_object %i[user! klass! threshold!]
 
 private
 

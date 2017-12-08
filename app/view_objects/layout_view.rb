@@ -19,7 +19,7 @@ class LayoutView < ViewObjectBase
       (base_controller_name ? controller_classes(base_controller_name) : []) +
       (show_smileys? ? ['no-smileys'] : []) +
       [h.current_user&.preferences&.body_width || 'x1200']
-    ).join(' ')
+    ).uniq.join(' ')
   end
   # rubocop:enable AbcSize
 

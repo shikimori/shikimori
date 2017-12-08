@@ -1,5 +1,5 @@
 describe RecommendationsController do
-  ['anime', 'manga'].each do |type|
+  %w[anime manga].each do |type|
     describe type do
       describe '#index' do
         context 'with_params' do

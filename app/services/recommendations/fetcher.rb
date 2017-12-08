@@ -4,12 +4,7 @@
 #   nil - запущен подбор, пока ничего не готово
 #   массив id - массив с id рекомендованных элементов
 class Recommendations::Fetcher < UserDataFetcherBase
-  def initialize user, klass, metric, threshold
-    @user = user
-    @klass = klass
-    @metric = metric
-    @threshold = threshold
-  end
+  method_object %i[user! klass! metric! threshold!]
 
 private
 
@@ -34,11 +29,7 @@ private
 
   # удаление из рекомендаций заблокированных пользователем аниме
   def postprocess data
-    blocked = Set.new RecommendationIgnore.blocked @klass, @user
-    if data
-      data.delete_if {|id,rating| blocked.include? id }
-    else
-      data
-    end
+    exclude_ids = Recommendations::ExcludedIds.call @user, @klass
+    data&.delete_if { |id, _rating| exclude_ids.include? id }
   end
 end

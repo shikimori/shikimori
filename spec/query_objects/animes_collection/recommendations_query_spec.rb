@@ -2,22 +2,20 @@ describe AnimesCollection::RecommendationsQuery do
   let(:query) do
     AnimesCollection::RecommendationsQuery.new(
       klass: Anime,
-      params: params,
+      filters: filters,
       user: nil,
-      limit: 20
+      limit: 20,
+      ranked_ids: ranked_ids
     )
   end
-  let(:params) do
-    {
-      AniMangaQuery::IDS_KEY => [
-        anime_4.id,
-        anime_2.id,
-        anime_3.id
-      ],
-      AniMangaQuery::EXCLUDE_IDS_KEY => exclude_ids
-    }
+  let(:ranked_ids) do
+    [
+      anime_4.id,
+      anime_2.id,
+      anime_3.id
+    ]
   end
-  let(:exclude_ids) { [] }
+  let(:filters) { {} }
 
   describe '#fetch' do
     subject(:page) { query.call }
@@ -42,18 +40,6 @@ describe AnimesCollection::RecommendationsQuery do
           collection: [anime_4, anime_2],
           page: 1,
           pages_count: 2
-        )
-      end
-    end
-
-    context 'exclude_ids' do
-      let(:exclude_ids) { [anime_3.id] }
-
-      it do
-        is_expected.to have_attributes(
-          collection: [anime_4, anime_2],
-          page: 1,
-          pages_count: 1
         )
       end
     end

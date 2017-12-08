@@ -63,11 +63,14 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include JsonResponse, type: :controller
   config.include ControllerResource, type: :controller
+  config.include StateMachineRspec::Matchers, type: :model
   config.include ActionView::TestCase::Behavior, type: :decorator
   config.include Paperclip::Shoulda::Matchers
   config.include Shoulda::Matchers::ActiveModel, type: :validator
+
   config.include FeatureHelpers, type: :feature
-  config.include StateMachineRspec::Matchers, type: :model
+  # to use login_as(user) / logout(:user)
+  config.include Warden::Test::Helpers, type: :feature
 
   config.before :suite do
     DatabaseCleaner.strategy = :transaction

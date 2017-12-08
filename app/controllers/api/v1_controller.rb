@@ -3,7 +3,7 @@ class Api::V1Controller < ShikimoriController
   ID_HEADER = 'X-User-Id'
   TOKEN_HEADER = 'X-User-Api-Access-Token'
 
-  responders :json # для рендеринга контента на patch и put запросы
+  responders :json # for content rendering on patch & put requests
   respond_to :json
 
   before_action :authenticate_user_from_token!, if: :headers_auth?
@@ -17,11 +17,12 @@ class Api::V1Controller < ShikimoriController
   end
 
   API_ERRORS = [
+    InvalidParameterError,
     MissingApiParameter,
     Apipie::ParamMissing,
     Apipie::ParamInvalid
   ]
-  rescue_from *API_ERRORS, with: :api_error
+  rescue_from(*API_ERRORS, with: :api_error)
 
 private
 

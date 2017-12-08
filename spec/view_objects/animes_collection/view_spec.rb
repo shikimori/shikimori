@@ -6,10 +6,19 @@ describe AnimesCollection::View do
 
   let(:klass) { Anime }
   let(:user) { seed :user }
-  let(:params) { { controller: 'animes_collection' } }
+  let(:params) do
+    {
+      controller: 'animes_collection',
+      action: 'index'
+    }
+  end
   let(:strong_params) { ActionController::Parameters.new params }
 
-  before { allow(view.h).to receive(:params).and_return strong_params }
+  before do
+    allow(view.h).to receive(:params).and_return strong_params
+    allow(view.h).to receive(:safe_params).and_return params
+    allow(view.h).to receive(:url_params).and_return params.except(:action, :controller)
+  end
 
   describe '#collection' do
     let(:collection) { view.collection }
@@ -36,42 +45,78 @@ describe AnimesCollection::View do
 
     describe 'query method' do
       before do
-        allow(AnimesCollection::RecommendationsQuery)
-          .to receive(:call).with(
-            klass: klass,
-            params: strong_params,
+        allow(Recommendations::Fetcher)
+          .to receive(:call)
+          .with(
             user: user,
-            limit: AnimesCollection::View::PAGE_LIMIT
+            klass: klass,
+            metric: metric,
+            threshold: threshold.to_i
+          )
+          .and_return rankings
+        allow(AnimesCollection::RecommendationsQuery)
+          .to receive(:call)
+          .with(
+            klass: klass,
+            filters: view.compiled_filters,
+            user: user,
+            limit: AnimesCollection::View::PAGE_LIMIT,
+            ranked_ids: rankings&.keys
           ).and_return page
 
         allow(AnimesCollection::SeasonQuery)
-          .to receive(:call).with(
+          .to receive(:call)
+          .with(
             klass: klass,
-            params: strong_params,
+            filters: view.compiled_filters,
             user: user,
             limit: AnimesCollection::View::SEASON_LIMIT
           ).and_return page
 
         allow(AnimesCollection::PageQuery)
-          .to receive(:call).with(
+          .to receive(:call)
+          .with(
             klass: klass,
-            params: strong_params,
+            filters: view.compiled_filters,
             user: user,
             limit: AnimesCollection::View::PAGE_LIMIT
           ).and_return page
       end
+      let(:threshold) { '5000' }
+      let(:metric) { 'pearson_z' }
+      let(:rankings) { { 'zzz' => 'xxx' } }
 
       let(:page) { AnimesCollection::Page.new collection: [] }
 
       subject { view.collection }
 
       context 'recommendations' do
-        before { allow(view).to receive(:recommendations?).and_return true }
-        it do
-          is_expected.to be_empty
-          expect(AnimesCollection::RecommendationsQuery).to have_received :call
-          expect(AnimesCollection::SeasonQuery).to_not have_received :call
-          expect(AnimesCollection::PageQuery).to_not have_received :call
+        let(:params) do
+          {
+            controller: 'recommendations',
+            action: 'index',
+            threshold: threshold,
+            metric: metric
+          }
+        end
+
+        context 'has rankings' do
+          it do
+            is_expected.to be_empty
+            expect(AnimesCollection::RecommendationsQuery).to have_received :call
+            expect(AnimesCollection::SeasonQuery).to_not have_received :call
+            expect(AnimesCollection::PageQuery).to_not have_received :call
+          end
+        end
+
+        context 'no rankings' do
+          let(:rankings) { nil }
+          it do
+            is_expected.to be_nil
+            expect(AnimesCollection::RecommendationsQuery).to_not have_received :call
+            expect(AnimesCollection::SeasonQuery).to_not have_received :call
+            expect(AnimesCollection::PageQuery).to_not have_received :call
+          end
         end
       end
 
@@ -162,6 +207,7 @@ describe AnimesCollection::View do
         status: 'ongoing'
       }
     end
+
     it do
       is_expected.to eq(
         %W[Anime #{AnimesCollection::View::CACHE_VERSION} page:1 status:ongoing]
@@ -188,40 +234,30 @@ describe AnimesCollection::View do
     end
   end
 
-  describe '#url' do
+  describe 'pagination urls' do
     let(:params) do
       {
         controller: 'animes_collection',
         klass: 'anime',
-        format: 'a',
-        page: '2'
-      }
-    end
-
-    it do
-      expect(view.url kind: 'tv').to eq '//test.host/animes/kind/tv/page/2'
-    end
-  end
-
-  describe 'url params' do
-    let(:params) do
-      {
-        controller: 'animes_collection',
-        klass: 'anime',
-        format: 'a',
-        template: 'd',
-        is_adult: 'e',
+        # format: 'a',
+        # template: 'd',
+        # is_adult: 'e',
         kind: 'tv',
-        AniMangaQuery::IDS_KEY => ['c'],
-        AniMangaQuery::EXCLUDE_IDS_KEY => ['b']
+        # AniMangaQuery::IDS_KEY => ['c'],
+        # AniMangaQuery::EXCLUDE_IDS_KEY => ['b']
       }
     end
 
     describe '#prev_page_url' do
-      before { allow(view).to receive(:page).and_return page }
-      before { allow(view).to receive(:pages_count).and_return pages_count }
+      before do
+        allow(view).to receive(:page).and_return page
+        allow(view).to receive(:pages_count).and_return pages_count
+        allow(view.h).to receive(:current_url) do |v|
+          view.h.animes_collection_url params.merge(v)
+        end
+      end
 
-      let(:pages_count) { 2 }
+      let(:pages_count) { 3 }
 
       subject { view.prev_page_url }
 
@@ -232,13 +268,23 @@ describe AnimesCollection::View do
 
       context 'second page' do
         let(:page) { 2 }
-        it { is_expected.to eq '//test.host/animes/kind/tv/page/1' }
+        it { is_expected.to eq '//test.host/animes/kind/tv' }
+      end
+
+      context 'third page' do
+        let(:page) { 3 }
+        it { is_expected.to eq '//test.host/animes/kind/tv/page/2' }
       end
     end
 
     describe '#next_page_url' do
-      before { allow(view).to receive(:page).and_return page }
-      before { allow(view).to receive(:pages_count).and_return pages_count }
+      before do
+        allow(view).to receive(:page).and_return page
+        allow(view).to receive(:pages_count).and_return pages_count
+        allow(view.h).to receive(:current_url) do |v|
+          view.h.animes_collection_url params.merge(v)
+        end
+      end
 
       let(:pages_count) { 2 }
 
@@ -260,10 +306,9 @@ describe AnimesCollection::View do
         it { is_expected.to be_nil }
       end
     end
+  end
 
-    describe '#filtered_params' do
-      subject { view.filtered_params }
-      it { is_expected.to eq kind: 'tv' }
-    end
+  describe '#compiled_filters' do
+    pending
   end
 end

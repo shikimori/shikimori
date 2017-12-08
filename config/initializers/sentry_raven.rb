@@ -19,6 +19,7 @@ Raven.configure do |config|
     Interrupt
     Apipie::ParamMissing
     InvalidIdError
+    InvalidParameterError
     EmptyContentError
     MalParser::RecordNotFound
     BadImageError

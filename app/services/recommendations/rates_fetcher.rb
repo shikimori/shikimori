@@ -78,6 +78,7 @@ private
       .where(target_type: klass.name)
       .where(USER_RATES_CONDITION)
       .joins(format(DB_ENTRY_JOINS, table_name: klass.table_name))
+      .order(:id)
 
     scope.where! user_id: @user_ids if @user_ids.present?
     scope.where! target_id: @target_ids if @target_ids.present?

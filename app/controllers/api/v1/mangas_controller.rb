@@ -134,7 +134,7 @@ class Api::V1::MangasController < Api::V1Controller
     @collection = Rails.cache.fetch cache_key, expires_in: 2.days do
       AnimesCollection::PageQuery.call(
         klass: Manga,
-        params: params,
+        filters: params,
         user: current_user,
         limit: limit
       ).collection

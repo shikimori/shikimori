@@ -1,13 +1,23 @@
 class UserDataFetcherBase
-  KlassHistories = {
-    Anime => [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::AnimeHistoryClear],
-    Manga => [UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport, UserHistoryAction::MangaHistoryClear]
+  KLASS_HISTORIES = {
+    Anime => [
+      UserHistoryAction::MalAnimeImport,
+      UserHistoryAction::ApAnimeImport,
+      UserHistoryAction::AnimeHistoryClear
+    ],
+    Manga => [
+      UserHistoryAction::MalMangaImport,
+      UserHistoryAction::ApMangaImport,
+      UserHistoryAction::MangaHistoryClear
+    ]
   }
 
   # REALTIME_LOAD_IN_DEVELOPMENT = Rails.env.development?
   REALTIME_LOAD_IN_DEVELOPMENT = false
 
-  def fetch
+  method_object
+
+  def call
     return [] unless should_fetch?
     return postprocess(load_data) if load_data
 
@@ -19,11 +29,11 @@ class UserDataFetcherBase
     end
   end
 
+private
+
   def postprocess data
     data
   end
-
-private
 
   def list_cache_key
     [
@@ -50,7 +60,7 @@ private
 
   def latest_import
     @latest_import ||= UserHistory
-      .where(user_id: @user.id, action: KlassHistories[@klass])
+      .where(user_id: @user.id, action: KLASS_HISTORIES[@klass])
       .order('id desc')
       .first || {}
   end

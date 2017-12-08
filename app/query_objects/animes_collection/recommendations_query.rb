@@ -1,4 +1,6 @@
 class AnimesCollection::RecommendationsQuery < AnimesCollection::PageQuery
+  method_object %i[klass! filters! user limit! ranked_ids!]
+
 private
 
   def process query
@@ -9,14 +11,15 @@ private
   end
 
   def query
-    return [] if params[AniMangaQuery::IDS_KEY].blank?
-
-    @query ||= super.sort_by do |entry|
-      params[AniMangaQuery::IDS_KEY].index entry.id
-    end
+    binding.pry
+    return [] if @ranked_ids.blank?
+    @query ||= super.sort_by { |entry| @ranked_ids.index entry.id }
   end
 
-  def params
-    super.merge AniMangaQuery::EXCLUDE_AI_GENRES_KEY => true
+  def filters
+    super.merge(
+      AniMangaQuery::EXCLUDE_AI_GENRES_KEY => true,
+      AniMangaQuery::IDS_KEY => ranked_ids
+    )
   end
 end

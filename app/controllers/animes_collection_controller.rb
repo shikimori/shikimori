@@ -1,10 +1,9 @@
-# TODO: отрефакторить толстый контроллер
+# TODO: refactor to view objects
 class AnimesCollectionController < ShikimoriController
   CENSORED = /\b(?:sex|секс|porno?|порно)\b/mix
 
   before_action do
     klass = params[:klass].classify.constantize
-    params[:order] = Animes::SortField.new('ranked', view_context).field
 
     @view = AnimesCollection::View.new klass, current_user
     @menu = Menus::CollectionMenu.new @view.klass
@@ -13,10 +12,6 @@ class AnimesCollectionController < ShikimoriController
   # страница каталога аниме/манги
   def index
     forbidden_params_redirect_check
-    unless shikimori?
-      params[:is_adult] = AnimeOnlineDomain.adult_host?(request)
-      params[:censored] = !params[:is_adult]
-    end
     build_background # should be placed after is_adult check
 
     if params[:search]
@@ -48,9 +43,6 @@ class AnimesCollectionController < ShikimoriController
 
     raise AgeRestricted if @model[:genre] && @model[:genre].any?(&:censored?) && censored_forbidden?
     raise AgeRestricted if params[:rating] && params[:rating].split(',').include?(Anime::ADULT_RATING) && censored_forbidden?
-
-  rescue BadSeasonError
-    redirect_to @view.url(season: nil), status: 301
   end
 
 private
@@ -65,12 +57,12 @@ private
     @model = {}
 
     if params[:type] =~ /[A-Z -]/
-      raise ForceRedirect, @view.url(type: params[:type].downcase.sub(/ |-/, '_'))
+      raise ForceRedirect, current_url(type: params[:type].downcase.sub(/ |-/, '_'))
     end
     types = [@view.klass.kind.values + %w(tv_48 tv_24 tv_13)].join '|'
     if params[:type] && params[:type] !~ %r{\A (?: !? (?:#{types}) (?:,|\Z ) )+ \Z}mix
       fixed = params[:type].split(',').select {|v| v =~ %r{\A !? (?:#{types}) \Z }mix }
-      raise ForceRedirect, @view.url(type: fixed.join(','))
+      raise ForceRedirect, current_url(type: fixed.join(','))
     end
 
     [:genre, :studio, :publisher].each do |kind|
@@ -85,12 +77,12 @@ private
         all_param_ids.each do |id|
           if filter_klass::Merged.include? id
             fixed_kind = params[kind].gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s)
-            raise ForceRedirect, @view.url(kind.to_sym => fixed_kind)
+            raise ForceRedirect, current_url(kind.to_sym => fixed_kind)
           end
         end
 
         next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_model.first.to_param
-        raise ForceRedirect, @view.url(kind.to_sym => all_model.first.to_param)
+        raise ForceRedirect, current_url(kind.to_sym => all_model.first.to_param)
       end
     end
 
@@ -105,21 +97,27 @@ private
 
   def forbidden_params_redirect_check
     if params.include?(:mylist) && !user_signed_in?
-      raise ForceRedirect, @view.url(mylist: nil)
+      raise ForceRedirect, current_url(mylist: nil)
     end
 
     if params.include?(:duration) && @view.klass == Manga
-      raise ForceRedirect, @view.url(duration: nil)
+      raise ForceRedirect, current_url(duration: nil)
     end
 
     if params[:status]&.include? 'planned'
       raise(
         ForceRedirect,
-        @view.url(status: params['status'].gsub('planned', 'anons'))
+        current_url(status: params['status'].gsub('planned', 'anons'))
       )
     end
 
-    raise ForceRedirect, @view.url(page: nil) if params[:page] == '0'
+    if params[:page] == '0' || params[:page] == '1'
+      raise ForceRedirect, current_url(page: nil)
+    end
+
+    if params[:order] == AnimesCollection::View::DEFAULT_ORDER
+      raise ForceRedirect, current_url(order: nil)
+    end
   end
 
   # был ли запущен поиск, и найден ли при этом один элемент

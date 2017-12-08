@@ -34,9 +34,11 @@ class UsersController < ShikimoriController
     page_title i18n_t('similar_users')
     breadcrumb i18n_i('User', :other), users_url
 
-    @similar_ids = SimilarUsersFetcher
-      .new(current_user&.object, @klass, @threshold)
-      .fetch
+    @similar_ids = SimilarUsersFetcher.call(
+      user: current_user&.object,
+      klass: @klass,
+      threshold: @threshold
+    )
 
     if @similar_ids
       ids = @similar_ids

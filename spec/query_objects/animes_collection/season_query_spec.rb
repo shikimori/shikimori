@@ -2,7 +2,7 @@ describe AnimesCollection::SeasonQuery do
   let(:query) do
     AnimesCollection::SeasonQuery.new(
       klass: klass,
-      params: params,
+      filters: filters,
       user: nil,
       limit: 20
     )
@@ -18,7 +18,7 @@ describe AnimesCollection::SeasonQuery do
     let!(:anime_4) { create :anime, :ona, ranked: 3, aired_on: Date.parse('10-10-2016') }
     let!(:manga) { create :manga }
 
-    let(:params) { { season: 'fall_2016' } }
+    let(:filters) { { season: 'fall_2016' } }
 
     it do
       is_expected.to have_attributes(

@@ -24,7 +24,11 @@ module.exports = class Animes.PaginatedCatalog
     @$pagination.on 'click', '.link', @_link_click
     @$pagination.on 'click', '.no-hover', @_page_select
 
-    @filters = new Animes.CatalogFilters base_catalog_path, location.href, @_filter_page_change
+    @filters = new Animes.CatalogFilters(
+      base_catalog_path,
+      location.href,
+      @_filter_page_change
+    )
 
     #$(window).on 'popstate', =>
       #@filters.last_compiled = location.href

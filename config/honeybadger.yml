@@ -22,6 +22,7 @@ exceptions:
     - Interrupt
     - Apipie::ParamMissing
     - InvalidIdError
+    - InvalidParameterError
     - EmptyContentError
     - MalParser::RecordNotFound
     - BadImageError
