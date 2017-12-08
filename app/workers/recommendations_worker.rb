@@ -1,5 +1,6 @@
 class RecommendationsWorker
   include Sidekiq::Worker
+
   sidekiq_options(
     unique: :until_executed,
     unique_args: -> (args) { args.first },
@@ -24,39 +25,82 @@ private
 
     sampler = case metric.to_sym
       when :pearson
-        Recommendations::Sampler.new klass,
-          Recommendations::Metrics::Pearson.new, rates_fetcher, no_norm, user_list_cache_key
+        Recommendations::Sampler.new(
+          klass,
+          Recommendations::Metrics::Pearson.new,
+          rates_fetcher,
+          no_norm,
+          user_list_cache_key
+        )
 
-      #when :pearson_mean
-        #Recommendations::Sampler.new klass,
-          #Recommendations::Metrics::Pearson.new, rates_fetcher, mean_centering, user_list_cache_key
+      # when :pearson_mean
+        # Recommendations::Sampler.new(
+        #   klass,
+        #   Recommendations::Metrics::Pearson.new,
+        #   rates_fetcher,
+        #   mean_centering,
+        #   user_list_cache_key
+        # )
 
       when :pearson_z
-        Recommendations::Sampler.new klass,
-          Recommendations::Metrics::Pearson.new, rates_fetcher, z_score, user_list_cache_key
+        Recommendations::Sampler.new(
+          klass,
+          Recommendations::Metrics::Pearson.new,
+          rates_fetcher,
+          z_score,
+          user_list_cache_key
+        )
 
       when :euclid
-        Recommendations::Sampler.new klass,
-          Recommendations::Metrics::Euclid.new, rates_fetcher, no_norm, user_list_cache_key
+        Recommendations::Sampler.new(
+          klass,
+          Recommendations::Metrics::Euclid.new,
+          rates_fetcher,
+          no_norm,
+          user_list_cache_key
+        )
 
       when :euclid_z
-        Recommendations::Sampler.new klass,
-          Recommendations::Metrics::Euclid.new, rates_fetcher, z_score, user_list_cache_key
+        Recommendations::Sampler.new(
+          klass,
+          Recommendations::Metrics::Euclid.new,
+          rates_fetcher,
+          z_score,
+          user_list_cache_key
+        )
 
       when :svd
-        Recommendations::Sampler.new klass,
-          Recommendations::Metrics::SvdMetric.new(Svd.where(normalization: :none).last!),
-          rates_fetcher, no_norm, user_list_cache_key
+        Recommendations::Sampler.new(
+          klass,
+          Recommendations::Metrics::SvdMetric.new(
+            Svd.where(normalization: :none).last!
+          ),
+          rates_fetcher,
+          no_norm,
+          user_list_cache_key
+        )
 
       when :svd_mean
-        Recommendations::Sampler.new klass,
-          Recommendations::Metrics::SvdMetric.new(Svd.where(normalization: :mean_centering).last!),
-          rates_fetcher, mean_centering, user_list_cache_key
+        Recommendations::Sampler.new(
+          klass,
+          Recommendations::Metrics::SvdMetric.new(
+            Svd.where(normalization: :mean_centering).last!
+          ),
+          rates_fetcher,
+          mean_centering,
+          user_list_cache_key
+        )
 
       when :svd_z
-        Recommendations::Sampler.new klass,
-          Recommendations::Metrics::SvdMetric.new(Svd.where(normalization: :z_score).last!),
-          rates_fetcher, z_score, user_list_cache_key
+        Recommendations::Sampler.new(
+          klass,
+          Recommendations::Metrics::SvdMetric.new(
+            Svd.where(normalization: :z_score).last!
+          ),
+          rates_fetcher,
+          z_score,
+          user_list_cache_key
+        )
 
       else
         raise ArgumentError, "unknown metric: #{metric}"

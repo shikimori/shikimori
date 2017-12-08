@@ -12,7 +12,7 @@ describe RecommendationIgnore do
 
     after { BannedRelations.instance.clear_cache! }
 
-    describe 'block' do
+    describe '.block' do
       before do
         create :related_anime, source_id: anime2.id, anime_id: anime3.id
         create :related_anime, source_id: anime3.id, anime_id: anime2.id
@@ -41,18 +41,6 @@ describe RecommendationIgnore do
         it { should eq [anime4.id, anime3.id] }
         it { expect { subject }.to change(RecommendationIgnore, :count).by 1 }
       end
-    end
-
-    describe 'blocked' do
-      before do
-        create :recommendation_ignore, user: user, target: create(:manga)
-        create :recommendation_ignore, user: user, target: anime1
-        create :recommendation_ignore, user: user, target: anime2
-        create :recommendation_ignore, user: create(:user), target: anime3
-      end
-      subject { RecommendationIgnore.blocked Anime, user }
-
-      it { should eq [anime1.id, anime2.id] }
     end
   end
 end

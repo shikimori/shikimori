@@ -38,7 +38,7 @@ class AnimeSeasonQuery
             date_to = Date.new(year, 6) - 8.days
 
           else
-            raise BadSeasonError, "unknown season '#{season}'"
+            raise InvalidParameterError.new(:season, season)
         end
         "(aired_on >= '#{date_from}' and aired_on < '#{date_to}'#{additional})"
 
@@ -52,7 +52,7 @@ class AnimeSeasonQuery
         "(aired_on >= '#{Date.new($1.to_i * 10)}' and aired_on < '#{Date.new(($1.to_i + 1)*10)}')"
 
       else
-        raise BadSeasonError, "unknown season '#{season}'"
+        raise InvalidParameterError.new(:season, season)
     end
   end
 end

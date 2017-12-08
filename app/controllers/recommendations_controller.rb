@@ -27,43 +27,13 @@ class RecommendationsController < AnimesCollectionController
     # запоминание текущего типа рекомендаций в куку, чтобы в меню верхнем ссылка корректная была
     cookies[COOKIE_NAME] = request.url unless params[:page]
 
-    # параметры для аниме контроллера
-    params[:template] = 'index'
-
     # можно смотреть чужие рекоменадции
-    user = if params[:user].blank? || !user_signed_in? || (user_signed_in? && current_user.id != 1 && current_user.id != 1945) # 1945 - Silicium
+    user = if params[:user].blank? || !user_signed_in? ||
+        (user_signed_in? && current_user.id != 1 && current_user.id != 1945) # 1945 - Silicium
       user_signed_in? ? current_user.object : nil
     else
-      User.find_by(nickname: SearchHelper.unescape(params[:user])) || User.find_by(id: params[:user])
-    end
-
-    @rankings = Recommendations::Fetcher.new(user, @view.klass, @metric, @threshold).fetch
-
-    params[AniMangaQuery::IDS_KEY] = []
-    if @rankings.present?
-      if @rankings.any?
-        excluded_ids = user
-          .send("#{@view.klass.name.downcase}_rates")
-          .includes(@view.klass.name.downcase.to_sym).inject([]) do |result, v|
-            result << v.target_id unless v.planned?
-            result
-          end
-
-        params[AniMangaQuery::IDS_KEY] = @rankings.keys
-        params[AniMangaQuery::EXCLUDE_IDS_KEY] = excluded_ids
-      end
-
-      super
-
-    else
-      respond_to do |format|
-        format.html do
-          super
-        end
-        format.json do
-          render json: { pending: true }
-        end
-      end
+      User.find_by(nickname: SearchHelper.unescape(params[:user])) ||
+        User.find_by(id: params[:user])
     end
   end
 
@@ -96,10 +66,12 @@ class RecommendationsController < AnimesCollectionController
 
     users = [user_signed_in? ? current_user.object : nil].compact +
       User.where(id: [1]) + SiteStatistics.new.newsmakers + SiteStatistics.new.thanks_to + User.find(1).friends
+
     @users = users.compact.uniq# .select {|v| [2].include? v.id }
       .select {|v| v.anime_rates.where('score > 0').size > 50 }
       .sort_by {|v| user_signed_in? ? [v.id == current_user.id ? 1 : 2, v.id] : v.id }
       .take(@limit)
+
     user_ids = @users.map(&:id)
 
     @rates_fetcher = Recommendations::RatesFetcher.new Anime

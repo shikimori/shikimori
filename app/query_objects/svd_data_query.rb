@@ -15,15 +15,15 @@ private
 
     user_ids = UserRate
       .where(target_type: svd.klass.name, target_id: entry_ids)
-      .where(Recommendations::RatesFetcher.rate_query)
-      .joins(Recommendations::RatesFetcher.join_query svd.klass)
+      .where(Recommendations::RatesFetcher::USER_RATES_CONDITION)
+      .joins(db_entry_joins_sql(svd.klass))
       .pluck(:user_id)
       .uniq
 
     entry_ids = UserRate
       .where(target_type: svd.klass.name, user_id: user_ids, target_id: entry_ids)
-      .where(Recommendations::RatesFetcher.rate_query)
-      .joins(Recommendations::RatesFetcher.join_query svd.klass)
+      .where(Recommendations::RatesFetcher::USER_RATES_CONDITION)
+      .joins(db_entry_joins_sql(svd.klass))
       .pluck(:target_id)
       .uniq
 
@@ -45,8 +45,8 @@ private
 
     user_ids = UserRate# .where("user_id < 2000") # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       .where(target_type: svd.klass.name, target_id: entry_ids)
-      .where(Recommendations::RatesFetcher.rate_query)
-      .joins(Recommendations::RatesFetcher.join_query svd.klass)
+      .where(Recommendations::RatesFetcher::USER_RATES_CONDITION)
+      .joins(db_entry_joins_sql(svd.klass))
       .group(:user_id)
       .having("count(*) > 100 and count(*) < 1000")
       .pluck(:user_id)
@@ -54,20 +54,29 @@ private
 
     entry_ids = UserRate
       .where(target_type: svd.klass.name, user_id: user_ids, target_id: entry_ids)
-      .where(Recommendations::RatesFetcher.rate_query)
-      .joins(Recommendations::RatesFetcher.join_query svd.klass)
+      .where(Recommendations::RatesFetcher::USER_RATES_CONDITION)
+      .joins(db_entry_joins_sql(svd.klass))
       .pluck(:target_id)
       .uniq
 
     entry_ids = UserRate
       .where(target_type: svd.klass.name, user_id: user_ids, target_id: entry_ids)
-      .where(Recommendations::RatesFetcher.rate_query)
-      .joins(Recommendations::RatesFetcher.join_query(svd.klass))
+      .where(Recommendations::RatesFetcher::USER_RATES_CONDITION)
+      .joins(db_entry_joins_sql(svd.klass))
       .group(:target_id)
       .having('count(*) > 4')
       .pluck(:target_id)
       .uniq
 
     [user_ids, entry_ids]
+  end
+
+private
+
+  def db_entry_joins_sql klass
+    format(
+      Recommendations::RatesFetcher::DB_ENTRY_JOINS,
+      table_name: klass.table_name
+    )
   end
 end

@@ -1,26 +1,14 @@
 FactoryBot.define do
   factory :user_rate do
     status :planned
-    target { FactoryBot.create(:anime) }
-    user
+    target { create :anime }
+    user { seed :user }
     episodes 0
     volumes 0
     chapters 0
 
-    trait :planned do
-      status :planned
-    end
-    trait :watching do
-      status :watching
-    end
-    trait :completed do
-      status :completed
-    end
-    trait :on_hold do
-      status :on_hold
-    end
-    trait :dropped do
-      status :dropped
+    UserRate.statuses.each_key do |user_rate_status|
+      trait(user_rate_status.to_sym) { status user_rate_status }
     end
   end
 end

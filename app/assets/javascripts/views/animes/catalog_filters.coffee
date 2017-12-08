@@ -1,4 +1,19 @@
-DEFAULT_LIST_SORT = 'ranked'
+# TODO: refactor to normal classes
+DEFAULT_ORDER = 'ranked'
+DEFAULT_DATA =
+  kind: []
+  status: []
+  season: []
+  genre: []
+  studio: []
+  publisher: []
+  duration: []
+  rating: []
+  score: []
+  options: []
+  mylist: []
+  search: []
+  "order-by": []
 
 using 'Animes'
 module.exports = Animes.CatalogFilters = (base_path, current_url, change_callback) ->
@@ -6,7 +21,7 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
 
   # вытаскивание из класса элемента типа и значения
   extract_li_info = ($li) ->
-    matches = $li.attr("class").match(/([\w\-]+)-([\w.\-]+)/)
+    matches = $li.attr('class').match(/([\w\-]+)-([\w.\-]+)/)
     return null unless matches
     type = matches[1]
     value = matches[2]
@@ -56,23 +71,6 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
       $(".anime-params.#{key}s", $root).prepend($li).parent().removeClass "hidden"
     $li
 
-  default_data =
-    kind: []
-    status: []
-    season: []
-    genre: []
-    studio: []
-    publisher: []
-    duration: []
-    rating: []
-    score: []
-    options: []
-    mylist: []
-    search: []
-    "order-by": []
-
-  data = $.extend(true, {}, default_data)
-
   # клики по меню
   $('.anime-params', $root).on 'click', 'li', (e) ->
     return if in_new_tab(e) # игнор средней кнопки мыши
@@ -86,13 +84,13 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
 
     unless already_selected
       if 'type' of e.target && e.target.type == 'checkbox'
-        params.add li_info.type, li_info.value
+        filters.add li_info.type, li_info.value
       else
-        params.set li_info.type, li_info.value
+        filters.set li_info.type, li_info.value
     else
-      params.remove li_info.type, li_info.value
+      filters.remove li_info.type, li_info.value
 
-    change_callback params.compile()
+    change_callback filters.compile()
     false unless 'type' of e.target && e.target.type == 'checkbox'
 
   # клики по фильтру группы - плюсику или минусику
@@ -108,10 +106,10 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
     $params_block.find('li').map(->
       extract_li_info $(@)
     ).each (index, li_info) ->
-      data[li_info.type][index] = (if to_exclude then '!' + li_info.value else li_info.value)
+      filters.params[li_info.type][index] = (if to_exclude then '!' + li_info.value else li_info.value)
 
-    change_callback params.compile()
-    params.parse params.compile()
+    change_callback filters.compile()
+    filters.parse filters.compile()
 
   # клики по фильтру элемента - плюсику или минусику
   $('.anime-params li', $root).on 'click', '.filter', (e) ->
@@ -122,29 +120,28 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
       .addClass (if not to_exclude then "item-add" else "item-minus")
 
     li_info = extract_li_info $(@).parent()
-    value_key = data[li_info.type].indexOf(if to_exclude then li_info.value else "!" + li_info.value)
-    data[li_info.type][value_key] = (if to_exclude then '!' + li_info.value else li_info.value)
-    change_callback params.compile()
+    value_key = filters.params[li_info.type].indexOf(if to_exclude then li_info.value else "!" + li_info.value)
+    filters.params[li_info.type][value_key] = (if to_exclude then '!' + li_info.value else li_info.value)
+    change_callback filters.compile()
     false
 
-  params =
-    data: ->
-      data
+  filters =
+    params: null
 
     # установка значения параметра
     set: (key, value) ->
       self = this
-      data[key].forEach (value) ->
+      @params[key].forEach (value) ->
         self.remove key, value
 
       @add key, value
 
     # выбор элемента
     add: (key, value) ->
-      if key is Object.keys(data).last() and data[key].length > 0
+      if key is Object.keys(@params).last() && @params[key].length > 0
         @set key, value
       else
-        data[key].push value
+        @params[key].push value
 
       return if key == 'search'
 
@@ -163,7 +160,7 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
         $input.attr checked: true
 
         # добавляем или показываем плюсик
-        $filter = $li.children(".filter")
+        $filter = $li.children('.filter')
         if $filter.length
           $filter.removeClass("item-add").removeClass("item-minus").addClass((if value[0] is "!" then "item-minus" else "item-add")).show()
         else
@@ -173,7 +170,7 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
     remove: (key, value) ->
       # т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
       value = remove_bang(value)
-      data[key] = data[key].subtract([value, "!#{value}"])
+      @params[key] = @params[key].subtract([value, "!#{value}"])
       $li = $(".#{key}-#{value}", $root)
       $li.removeClass 'selected'
 
@@ -186,18 +183,17 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
     # формирование строки урла по выбранным элементам
     compile: ->
       filters_path = Object.reduce(
-        data,
-        (memo, values, key) -> #.replace('/order-by/ranked', '');
-          if Object.isArray(values)
-            if values.length
-              memo + "/#{key}/#{values.join ','}"
-            else
-              memo
+        @params,
+        (memo, values, key) ->
+          return memo unless values
+          return memo if key == 'order-by' && values[0] == DEFAULT_ORDER
+
+          if values.length
+            memo + "/#{key}/#{values.join ','}"
           else
-            memo + "/#{key}/#{values}"
+            memo
         , ''
       )
-
       @last_compiled = base_path + filters_path + location.search
 
     last_compiled: null
@@ -208,7 +204,7 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
       $('.anime-params input[type=checkbox]:checked', $root).attr checked: false
       $('.anime-params .filter', $root).hide()
 
-      data = $.extend(true, {}, default_data)
+      @params = JSON.parse(JSON.stringify(DEFAULT_DATA))
       parts = url
         .replace("#{location.protocol}//#{location.hostname}", '')
         .replace(":#{location.port}", '')
@@ -217,8 +213,8 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
         .match(/[\w\-]+\/[^\/]+/g)
 
       (parts || []).forEach (match) =>
-        key = match.split("/")[0]
-        return if key == 'page' || (key not of default_data)
+        key = match.split('/')[0]
+        return if key == 'page' || (key not of DEFAULT_DATA)
 
         match
           .split('/')[1]
@@ -226,7 +222,13 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
           .forEach (value) =>
             @add key, value
 
-  params.parse current_url
+      if Object.isEmpty(@params['order-by'])
+        @add 'order-by', DEFAULT_ORDER
+
+  filters.parse current_url
+
   # раскрываем жанры, если какой-то из них выбран
-  $root.find('.genres .b-spoiler').spoiler().trigger('spoiler:open') if data.genre.length
-  params
+  if filters.params.genre.length
+    $root.find('.genres .b-spoiler').spoiler().trigger('spoiler:open')
+
+  filters

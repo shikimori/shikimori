@@ -7,7 +7,7 @@ header.head.misc
     a.misc href=recommendations_anime_url = Anime.model_name.human.downcase
 
   - if user_signed_in?
-    .b-header_filters style=('display: none;' if @view.collection.nil?)
+    .b-header_filters
       - if @view.klass == Anime
         .filter-line
           span.title = "#{t '.method'}:"
@@ -76,13 +76,15 @@ header.head.misc
       .hint = t '.filtering_hint'
 
   .notice
-    p = t '.about',
-          action: (@view.klass == Anime ? i18n_i(:watching, 1, :dative) : i18n_i(:reading, 1, :dative)),
-          kind: (@view.klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
-    p = t '.how_it_works',
-          kind: (@view.klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
+    p
+      = t '.about',
+        action: (@view.klass == Anime ? i18n_i(:watching, 1, :dative) : i18n_i(:reading, 1, :dative)),
+        kind: (@view.klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
+    p
+      = t '.how_it_works',
+        kind: (@view.klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
 
-- if @rankings && @rankings.empty?
+- if @view.collection && @view.collection.empty?
   .no-rankings
     p.fail = t '.cant_generate_recommendations'
     p
@@ -91,7 +93,7 @@ header.head.misc
       - else
         = t '.manga_recommendations_generation_requirements'
 
-- elsif !@rankings
+- elsif !@view.collection
   p.pending = t '.generating_recommendations'
   .ajax-loading.vk-like.left title="#{t 'loading'}"
 

@@ -1,5 +1,5 @@
 class AnimesCollection::PageQuery
-  method_object %i[klass params user limit]
+  method_object %i[klass! filters! user limit!]
 
   def call
     AnimesCollection::Page.new(
@@ -12,7 +12,7 @@ class AnimesCollection::PageQuery
 private
 
   def page
-    @page ||= [@params[:page].to_i, 1].max
+    @page ||= [filters[:page].to_i, 1].max
   end
 
   def pages_count
@@ -29,7 +29,7 @@ private
   end
 
   def query
-    scope = AniMangaQuery.new(@klass, @params, @user).fetch
+    scope = AniMangaQuery.new(@klass, filters, @user).fetch
 
     if @klass == Manga
       scope.where.not(kind: Ranobe::KIND)

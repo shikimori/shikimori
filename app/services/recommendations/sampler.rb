@@ -79,11 +79,17 @@ class Recommendations::Sampler
   end
 
 private
+
   def rankings user_id, threshold, without_user_rates
     #return {} if user_rates(user_id, @normalization).nil?
     #raise 'invalid data or changed user list. try Rails.cache.clear' if user_rates(user_id, @normalization).first.second != @rates_fetcher.fetch(@normalization)[user_id].first.second
 
-    @metric.learn user_id, user_rates(user_id, @no_normalization), user_rates(user_id, @normalization), @rates_fetcher.fetch(@normalization)
+    @metric.learn(
+      user_id,
+      user_rates(user_id, @no_normalization),
+      user_rates(user_id, @normalization),
+      @rates_fetcher.fetch(@normalization)
+    )
     @metric.predict user_id, threshold, without_user_rates
   end
 end

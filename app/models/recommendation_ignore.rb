@@ -21,12 +21,4 @@ class RecommendationIgnore < ApplicationRecord
   rescue ActiveRecord::RecordNotUnique
     [entry.id]
   end
-
-  # список заблокированного для пользователя
-  def self.blocked klass, user
-    RecommendationIgnore
-      .where(user_id: user.id, target_type: klass.name)
-      .order(:id)
-      .pluck(:target_id)
-  end
 end

@@ -4,6 +4,23 @@ class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
   class << self
+    # for large batches sql must be ordered by id!!!
+    def fetch_raw_data sql, batch_size
+      offset = 0
+
+      begin
+        batch = ActiveRecord::Base.connection.select_all <<-SQL
+          #{sql}
+          LIMIT #{batch_size}
+          OFFSET #{offset}
+        SQL
+        batch.each do |row|
+          yield row
+        end
+        offset += batch_size
+      end until batch.empty?
+    end
+
     # fixes .where(id: 11111111111111111111111111) - bigint
     # https://github.com/rails/rails/issues/20428
     def where(*args)

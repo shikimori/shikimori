@@ -29,6 +29,9 @@ describe Animes::StatusQuery do
 
   context 'bad status' do
     let(:status) { :zzz }
-    it { expect { subject }.to raise_error Dry::Types::ConstraintError }
+    it do
+      expect { subject }
+        .to raise_error(InvalidParameterError, 'Invalid status value zzz')
+    end
   end
 end

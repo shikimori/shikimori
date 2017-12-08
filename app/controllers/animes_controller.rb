@@ -1,5 +1,4 @@
 class AnimesController < DbEntriesController
-  # временно отключаю, всё равно пока не тормозит
   #caches_action :page, :characters, :show, :related, :cosplay, :tooltip,
     #cache_path: proc {
       #id = params[:anime_id] || params[:manga_id] || params[:id]
