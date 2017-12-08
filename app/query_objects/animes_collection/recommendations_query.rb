@@ -11,7 +11,6 @@ private
   end
 
   def query
-    binding.pry
     return [] if @ranked_ids.blank?
     @query ||= super.sort_by { |entry| @ranked_ids.index entry.id }
   end
