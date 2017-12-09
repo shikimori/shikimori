@@ -142,7 +142,7 @@ private
 
   def recommend_ranked_ids
     Recommendations::Fetcher.call(
-      user: user.decorated? ? user.object : user,
+      user: user&.decorated? ? user.object : user,
       klass: klass,
       metric: h.params[:metric],
       threshold: h.params[:threshold].to_i
