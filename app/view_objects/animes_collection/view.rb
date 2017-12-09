@@ -146,6 +146,6 @@ private
       klass: klass,
       metric: h.params[:metric],
       threshold: h.params[:threshold].to_i
-    )&.keys
+    )
   end
 end

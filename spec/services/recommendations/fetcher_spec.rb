@@ -35,9 +35,15 @@ describe Recommendations::Fetcher do
     let(:anime_1) { create :anime }
     let(:anime_2) { create :anime }
     let(:rankings) { { anime_1.id => 2, anime_2.id => 4 } }
+
     before { allow(Rails.cache).to receive(:read).and_return rankings }
 
-    it { is_expected.to eq rankings }
+    it { is_expected.to eq rankings.keys }
+
+    context 'empty recommendations' do
+      let(:rankings) { [] }
+      it { is_expected.to eq [] }
+    end
 
     context 'ignored recommendation' do
       let!(:recommendation_ignore_1) do
@@ -51,7 +57,7 @@ describe Recommendations::Fetcher do
           user: create(:user)
       end
 
-      it { is_expected.to eq anime_2.id => 4 }
+      it { is_expected.to eq [anime_2.id] }
     end
 
     context 'in_list excluded' do
@@ -66,7 +72,7 @@ describe Recommendations::Fetcher do
           user: create(:user)
       end
 
-      it { is_expected.to eq anime_2.id => 4 }
+      it { is_expected.to eq [anime_2.id] }
     end
   end
 end

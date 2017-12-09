@@ -29,7 +29,10 @@ private
 
   # удаление из рекомендаций заблокированных пользователем аниме
   def postprocess data
+    return unless data
+    return data if data == []
+
     exclude_ids = Recommendations::ExcludedIds.call @user, @klass
-    data&.delete_if { |id, _rating| exclude_ids.include? id }
+    data.keys.delete_if { |id| exclude_ids.include? id }
   end
 end
