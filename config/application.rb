@@ -36,6 +36,7 @@ module Shikimori
     # -- all .rb files in that directory are automatically loaded.
 
     # Custom directories with classes and modules you want to be autoloadable.
+    config.autoload_paths += Dir["#{config.root}/app/models"]
     config.autoload_paths += Dir["#{config.root}/app/**/"]
     config.paths.add 'lib', eager_load: true
 
