@@ -53,7 +53,7 @@ describe AnimesCollection::View do
             metric: metric,
             threshold: threshold.to_i
           )
-          .and_return rankings
+          .and_return ranked_ids
         allow(AnimesCollection::RecommendationsQuery)
           .to receive(:call)
           .with(
@@ -61,7 +61,7 @@ describe AnimesCollection::View do
             filters: view.compiled_filters,
             user: user,
             limit: AnimesCollection::View::PAGE_LIMIT,
-            ranked_ids: rankings&.keys
+            ranked_ids: ranked_ids
           ).and_return page
 
         allow(AnimesCollection::SeasonQuery)
@@ -84,7 +84,7 @@ describe AnimesCollection::View do
       end
       let(:threshold) { '5000' }
       let(:metric) { 'pearson_z' }
-      let(:rankings) { { 'zzz' => 'xxx' } }
+      let(:ranked_ids) { ['zzz'] }
 
       let(:page) { AnimesCollection::Page.new collection: [] }
 
@@ -100,17 +100,27 @@ describe AnimesCollection::View do
           }
         end
 
-        context 'has rankings' do
+        context 'has ranked_ids' do
           it do
-            is_expected.to be_empty
+            is_expected.to eq []
             expect(AnimesCollection::RecommendationsQuery).to have_received :call
             expect(AnimesCollection::SeasonQuery).to_not have_received :call
             expect(AnimesCollection::PageQuery).to_not have_received :call
           end
         end
 
-        context 'no rankings' do
-          let(:rankings) { nil }
+        context 'empty ranked_ids' do
+          let(:ranked_ids) { [] }
+          it do
+            is_expected.to eq []
+            expect(AnimesCollection::RecommendationsQuery).to have_received :call
+            expect(AnimesCollection::SeasonQuery).to_not have_received :call
+            expect(AnimesCollection::PageQuery).to_not have_received :call
+          end
+        end
+
+        context 'no ranked_ids' do
+          let(:ranked_ids) { nil }
           it do
             is_expected.to be_nil
             expect(AnimesCollection::RecommendationsQuery).to_not have_received :call
