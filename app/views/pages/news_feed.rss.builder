@@ -10,7 +10,7 @@ xml.rss version: '2.0' do
         xml.title view.topic_title
         xml.pubDate Time.at(view.created_at.to_i).to_s(:rfc822)
         xml.description format_rss_urls(view.html_body)
-        xml.link view.urls.topic_url(protocol: Shikimori::ALLOWED_PROTOCOL)
+        xml.link view.urls.topic_url(protocol: Shikimori::PROTOCOL)
         xml.guid "entry-#{view.topic.id}"
       end
     end

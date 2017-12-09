@@ -34,7 +34,7 @@ private
       email: Shikimori::EMAIL,
       locale: message.from.locale,
       recovery_url: UrlGenerator.instance.new_user_password_url(
-        protocol: Shikimori::ALLOWED_PROTOCOL
+        protocol: Shikimori::PROTOCOL
       )
   end
 

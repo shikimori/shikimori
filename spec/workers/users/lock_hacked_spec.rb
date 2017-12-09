@@ -21,7 +21,7 @@ describe Users::LockHacked do
         email: Shikimori::EMAIL,
         locale: user.locale,
         recovery_url: UrlGenerator.instance.new_user_password_url(
-          protocol: Shikimori::ALLOWED_PROTOCOL
+          protocol: Shikimori::PROTOCOL
         )
       )
     )

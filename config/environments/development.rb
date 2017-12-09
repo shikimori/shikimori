@@ -31,6 +31,14 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  if Shikimori::PROTOCOL == 'https'
+    config.force_ssl = true
+    config.ssl_options = {
+      hsts: { preload: true, subdomains: true, expires: 3.years }
+    }
+  end
+
   Dalli.logger = Rails.logger
   #ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)
 

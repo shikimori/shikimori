@@ -27,8 +27,15 @@ module Shikimori
   ALLOWED_DOMAINS = ShikimoriDomain::RU_HOSTS + AnimeOnlineDomain::HOSTS +
     ShikimoriDomain::EN_HOSTS
 
-  LOCAL_RUN = ENV['LOGNAME'] == 'morr' && ENV['USER'] == 'morr'
-  ALLOWED_PROTOCOL = Rails.env.production? && !LOCAL_RUN ? 'https' : 'http'
+  PROTOCOLS = {
+    production: 'https',
+    development: 'https',
+    test: 'http'
+  }
+  PROTOCOL = PROTOCOLS[Rails.env.to_sym]
+
+  # LOCAL_RUN = ENV['LOGNAME'] == 'morr' && ENV['USER'] == 'morr'
+  # ALLOWED_PROTOCOL = Rails.env.production? && !LOCAL_RUN ? 'https' : 'http'
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -70,7 +77,7 @@ module Shikimori
       allow do
         origins do |source, env|
           ALLOWED_DOMAINS.include?(Url.new(source).domain.to_s) &&
-            Url.new(source).protocol.to_s == ALLOWED_PROTOCOL
+            Url.new(source).protocol.to_s == PROTOCOL
         end
         resource '*',
           headers: :any,

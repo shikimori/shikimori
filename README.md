@@ -8,6 +8,8 @@ postgres=# create user shikimori_production;
 postgres=# create user shikimori_test;
 postgres=# alter user shikimori_production createdb;
 postgres=# alter user shikimori_test createdb;
+postgres=# alter user shikimori_production with superuser;
+postgres=# alter user shikimori_test with superuser;
 ```
 
 
@@ -15,11 +17,15 @@ postgres=# alter user shikimori_test createdb;
 ```shell
 ~ psql -d shikimori_test
 shikimori_test=# CREATE EXTENSION unaccent;
+shikimori_test=# CREATE EXTENSION hstore;
+shikimori_test=# CREATE EXTENSION pg_stat_statements;
 ```
 
 ```shell
 ~ psql -d shikimori_production
 shikimori_production=# CREATE EXTENSION unaccent;
+shikimori_production=# CREATE EXTENSION hstore;
+shikimori_production=# CREATE EXTENSION pg_stat_statements;
 ```
 
 ### Restore from backup
