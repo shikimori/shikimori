@@ -34,7 +34,7 @@ module Shikimori
   }
   PROTOCOL = PROTOCOLS[Rails.env.to_sym]
 
-  # LOCAL_RUN = ENV['LOGNAME'] == 'morr' && ENV['USER'] == 'morr'
+  LOCAL_RUN = ENV['LOGNAME'] == 'morr' && ENV['USER'] == 'morr'
   # ALLOWED_PROTOCOL = Rails.env.production? && !LOCAL_RUN ? 'https' : 'http'
 
   class Application < Rails::Application
