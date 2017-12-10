@@ -52,7 +52,10 @@ link rel="yandex-tableau-widget" href="//#{Shikimori::DOMAIN}/yandex-tableau-wid
   title = Shikimori::NAME
 
 / иначе page_title обрезаться в первом слове, а не в последнем
-- @page_title.reverse! if @page_title.is_a? Array
+- if @page_title.is_a? Array
+  - @page_title.reverse!
+  - if Rails.env.development?
+    - @page_title[0] = '[DEV] ' + @page_title[0]
 = display_meta_tags separator: '/'
 / = display_meta_tags separator: '/', reverse: true
 
