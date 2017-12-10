@@ -9,9 +9,8 @@ describe Api::V1::AnimeVideosController do
     let(:video_token) {}
 
     context 'video_token' do
-      include_context :authenticated, :user
       subject! { make_request }
-      let(:video_token) { Api::V1::AnimeVideosController::RYUTER_TOKEN }
+      let(:video_token) { Rails.application.secrets[:api][:anime_videos][:token] }
 
       it do
         expect(collection).to have(1).item
