@@ -161,7 +161,6 @@ end
 gem 'awesome_print'
 gem 'byebug'
 gem 'colorize'
-gem 'marco-polo'
 gem 'pry-byebug'
 gem 'pry-rails'
 gem 'pry-stack_explorer'

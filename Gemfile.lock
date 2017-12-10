@@ -389,7 +389,6 @@ GEM
     mactag (0.7.2)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
-    marco-polo (1.2.1)
     maruku (0.7.3)
     meta-tags (2.7.0)
       actionpack (>= 3.2.0, < 5.3)
@@ -752,7 +751,6 @@ DEPENDENCIES
   lograge
   mactag
   mal_parser!
-  marco-polo
   maruku
   meta-tags
   mini_magick
