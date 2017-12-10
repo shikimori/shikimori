@@ -243,13 +243,13 @@ describe Message do
           end
 
           context 'new message' do
-            let(:created_at) { 1.month.ago + 1.day }
+            let(:created_at) { 1.week.ago + 1.day }
             it { is_expected.to be_able_to :edit, message }
             it { is_expected.to be_able_to :update, message }
           end
 
           context 'old message' do
-            let(:created_at) { 1.month.ago - 1.day }
+            let(:created_at) { 1.week.ago - 1.day }
             it { is_expected.to_not be_able_to :edit, message }
             it { is_expected.to_not be_able_to :update, message }
           end

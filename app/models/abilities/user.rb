@@ -113,7 +113,7 @@ class Abilities::User
       end
 
       can %i[edit update], Message do |message|
-        can?(:create, message) && message.created_at > 1.month.ago
+        can?(:create, message) && message.created_at > 1.week.ago
       end
     end
   end

@@ -22,7 +22,7 @@ module Shikimori
   STATIC_SUBDOMAINS = %w(nyaa kawai moe desu dere)
   EMAIL = 'mail@shikimori.org'
 
-  DOMAIN_LOCALES = %i(ru en)
+  DOMAIN_LOCALES = %i[ru en]
 
   ALLOWED_DOMAINS = ShikimoriDomain::RU_HOSTS + AnimeOnlineDomain::HOSTS +
     ShikimoriDomain::EN_HOSTS
@@ -55,7 +55,7 @@ module Shikimori
 
     config.i18n.default_locale = :ru
     config.i18n.locale = :ru
-    config.i18n.available_locales = [:ru, :en]
+    config.i18n.available_locales = %i[ru en]
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml')]
 
