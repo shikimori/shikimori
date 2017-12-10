@@ -107,9 +107,13 @@ class Abilities::User
         #(message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
     if @user.day_registered?
-      can %i[create edit update], Message do |message|
+      can %i[create], Message do |message|
         !@user.forever_banned? && message.kind == MessageType::Private &&
           message.from_id == @user.id
+      end
+
+      can %i[edit update], Message do |message|
+        can?(:create, message) && message.created_at > 1.month.ago
       end
     end
   end

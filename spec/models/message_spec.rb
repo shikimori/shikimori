@@ -129,6 +129,38 @@ describe Message do
     end
   end
 
+  describe 'instance methods' do
+    describe '#delete_by' do
+      let(:message) do
+        create :message,
+          to: build_stubbed(:user),
+          from: build_stubbed(:user)
+      end
+      before { message.delete_by user }
+
+      context 'private message' do
+        context 'by from' do
+          let(:user) { message.from }
+          it { expect(message).to be_destroyed }
+        end
+
+        context 'by to' do
+          let(:user) { message.to }
+
+          it { expect(message).to be_persisted }
+          it { expect(message.is_deleted_by_to).to eq true }
+          it { expect(message).to be_read }
+        end
+      end
+
+      context 'other messages' do
+        let(:message) { create :message, :notification }
+        let(:user) { nil }
+        it { expect(message).to be_destroyed }
+      end
+    end
+  end
+
   describe 'permissions' do
     let(:message) do
       build_stubbed :message,
@@ -195,6 +227,7 @@ describe Message do
           context 'day registered' do
             let(:from_user) { build_stubbed :user, :user, :day_registered }
 
+            it { is_expected.to be_able_to :create, message }
             it { is_expected.to be_able_to :edit, message }
             it { is_expected.to be_able_to :update, message }
             it { is_expected.to be_able_to :destroy, message }
@@ -203,20 +236,23 @@ describe Message do
           context 'not day registered' do
             let(:from_user) { build_stubbed :user, :user }
 
+            it { is_expected.to_not be_able_to :create, message }
             it { is_expected.to_not be_able_to :edit, message }
             it { is_expected.to_not be_able_to :update, message }
             it { is_expected.to be_able_to :destroy, message }
           end
 
-          # context 'new message' do
-            # let(:created_at) { 1.minute.ago }
-            # it { is_expected.to be_able_to :destroy, message }
-          # end
+          context 'new message' do
+            let(:created_at) { 1.month.ago + 1.day }
+            it { is_expected.to be_able_to :edit, message }
+            it { is_expected.to be_able_to :update, message }
+          end
 
-          # context 'old message' do
-            # let(:created_at) { 11.minute.ago }
-            # it { is_expected.to_not be_able_to :destroy, message }
-          # end
+          context 'old message' do
+            let(:created_at) { 1.month.ago - 1.day }
+            it { is_expected.to_not be_able_to :edit, message }
+            it { is_expected.to_not be_able_to :update, message }
+          end
         end
 
         context 'other type messages' do
@@ -254,38 +290,6 @@ describe Message do
           let(:kind) { MessageType::Notification }
           it { is_expected.to be_able_to :destroy, message }
         end
-      end
-    end
-  end
-
-  describe 'instance methods' do
-    describe '#delete_by' do
-      let(:message) do
-        create :message,
-          to: build_stubbed(:user),
-          from: build_stubbed(:user)
-      end
-      before { message.delete_by user }
-
-      context 'private message' do
-        context 'by from' do
-          let(:user) { message.from }
-          it { expect(message).to be_destroyed }
-        end
-
-        context 'by to' do
-          let(:user) { message.to }
-
-          it { expect(message).to be_persisted }
-          it { expect(message.is_deleted_by_to).to eq true }
-          it { expect(message).to be_read }
-        end
-      end
-
-      context 'other messages' do
-        let(:message) { create :message, :notification }
-        let(:user) { nil }
-        it { expect(message).to be_destroyed }
       end
     end
   end
