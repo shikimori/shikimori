@@ -1,10 +1,7 @@
 class Api::V1::AnimeVideosController < Api::V1Controller
   before_action :fetch_anime
 
-  before_action :authenticate_user!, only: [:index]
   load_and_authorize_resource only: [:create, :destroy]
-
-  RYUTER_TOKEN = 'b904f15dbd33a8d8ada48a2895c9de00ce91d6268651d798'
 
   def index
     raise CanCan::AccessDenied unless access_granted?
@@ -54,7 +51,8 @@ private
   end
 
   def access_granted?
-    current_user.trusted_video_uploader? ||
-      params[:video_token] == RYUTER_TOKEN
+    current_user&.trusted_video_uploader? ||
+      params[:video_token] ==
+        Rails.application.secrets[:api][:anime_videos][:token]
   end
 end
