@@ -12,10 +12,8 @@ describe Api::V1::UsersController, :show_in_doc do
         phrase: phrase,
         limit: Collections::Query::SEARCH_LIMIT
       ).and_return(
-        [
-          { '_id' => user_1.id },
-          { '_id' => user_2.id }
-        ]
+        user_1.id => 1.23,
+        user_2.id => 1.11
       )
     end
 

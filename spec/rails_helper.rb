@@ -75,6 +75,7 @@ RSpec.configure do |config|
 
   config.before :suite do
     Chewy.strategy :bypass
+    Chewy.request_strategy = :bypass
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end
