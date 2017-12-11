@@ -32,10 +32,8 @@ describe UsersController do
         phrase: phrase,
         limit: Collections::Query::SEARCH_LIMIT
       ).and_return(
-        [
-          { '_id' => user_1.id },
-          { '_id' => user_2.id }
-        ]
+        user_1.id => 123,
+        user_2.id => 111
       )
     end
     subject! { get :autocomplete, params: { search: phrase } }
