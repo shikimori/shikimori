@@ -43,6 +43,8 @@ gem 'slim-rails'
 # engines
 gem 'pg_query' # for suggested indexes in pghero
 gem 'pghero'
+
+# background jobs
 gem 'sidekiq'
 # remove fork when https://github.com/mhenrixon/sidekiq-unique-jobs/issues/212 is fixed
 gem 'sidekiq-limit_fetch'
