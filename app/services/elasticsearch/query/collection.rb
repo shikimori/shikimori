@@ -1,4 +1,4 @@
-class Elasticsearch::Query::Collection < Elasticsearch::Query::QueryBase
+class Elasticsearch::Query::Collection < Elasticsearch::Query::QueryBaseOld
   method_object %i[phrase locale limit]
 
 private

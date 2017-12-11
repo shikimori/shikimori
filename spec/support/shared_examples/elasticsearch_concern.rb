@@ -1,6 +1,6 @@
 shared_examples :elasticsearch_concern do |type|
   describe 'elasticsearch concern' do
-    let(:client) { Elasticsearch::Client.instance }
+    let(:client) { Elasticsearch::ClientOld.instance }
     let(:url) { "#{Elasticsearch::Config::INDEX}/#{type}/#{entry.id}" }
     let(:data_klass) { "Elasticsearch::Data::#{entry.class.name}".constantize }
     let(:data) { data_klass.call entry }

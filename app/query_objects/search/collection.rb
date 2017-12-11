@@ -1,4 +1,4 @@
-class Search::Collection < Search::SearchBase
+class Search::Collection < Search::SearchBaseOld
   method_object %i[scope phrase locale ids_limit]
 
   def elastic_results

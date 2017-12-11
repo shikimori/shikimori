@@ -5,7 +5,7 @@ describe ClubsController do
   let(:club) { create :club }
 
   describe '#index' do
-    let(:club) { create :club, :with_topics }
+    let!(:club) { create :club, :with_topics, id: 999_999 }
     let(:user) { create :user }
     let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 

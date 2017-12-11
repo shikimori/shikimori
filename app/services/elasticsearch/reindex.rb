@@ -3,7 +3,7 @@ class Elasticsearch::Reindex
 
   CACHE_KEY = 'elastic_reindex'
 
-  TYPES = %i[anime manga ranobe character person user club collection topic]
+  TYPES = %i[anime manga ranobe character person club collection topic]
 
   def call
     Array(@types).each do |type|
@@ -59,6 +59,6 @@ private
   end
 
   def client
-    Elasticsearch::Client.instance
+    Elasticsearch::ClientOld.instance
   end
 end

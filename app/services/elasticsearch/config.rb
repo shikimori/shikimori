@@ -1,3 +1,4 @@
+# NOTE: deprecated. remove after final migration to chewy
 # https://www.airpair.com/elasticsearch/posts/elasticsearch-robust-search-functionality#6-search-improvement
 # version with icu requires analysis-icu plugin
 #   bin/elasticsearch-plugin install analysis-icu

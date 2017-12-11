@@ -1,5 +1,11 @@
 describe Search::User do
-  subject(:query) do
+  before do
+    allow(Elasticsearch::Query::User)
+      .to receive(:call)
+      .with(phrase: phrase, limit: ids_limit)
+      .and_return results
+  end
+  subject do
     Search::User.call(
       scope: scope,
       phrase: phrase,
@@ -9,24 +15,13 @@ describe Search::User do
 
   describe '#call' do
     let(:scope) { User.all }
-    let(:phrase) { 'Kaichou' }
-    let(:ids_limit) { 10 }
+    let(:phrase) { 'zxct' }
+    let(:ids_limit) { 2 }
+    let(:results) { { user_1.id => 0.123123 } }
 
-    let!(:user_1) { create :user }
-    let!(:user_2) { create :user }
-    let!(:user_3) { create :user }
+    let!(:user_1) { create :user, nickname: 'test' }
+    let!(:user_2) { create :user, nickname: 'test zxct' }
 
-    before do
-      allow(Elasticsearch::Query::User).to receive(:call)
-        .with(phrase: phrase, limit: ids_limit)
-        .and_return [
-          { '_id' => user_3.id },
-          { '_id' => user_1.id }
-        ]
-    end
-
-    it do
-      is_expected.to eq [user_3, user_1]
-    end
+    it { is_expected.to eq [user_1] }
   end
 end

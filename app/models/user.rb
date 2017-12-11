@@ -29,6 +29,7 @@ class User < ApplicationRecord
   ])
 
   acts_as_voter
+  update_index('users#user') { self if saved_change_to_nickname? }
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences

@@ -1,4 +1,4 @@
-class Elasticsearch::Query::Club < Elasticsearch::Query::QueryBase
+class Elasticsearch::Query::Club < Elasticsearch::Query::QueryBaseOld
   method_object %i[phrase locale limit]
 
 private

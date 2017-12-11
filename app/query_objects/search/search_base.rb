@@ -2,10 +2,9 @@
 #   https://gist.github.com/cpjolicoeur/3590737#gistcomment-1606739
 class Search::SearchBase
   method_object %i[scope phrase ids_limit]
-  attr_implement :search_klass
 
   def call
-    search_ids = elastic_results.map { |v| v['_id'] }
+    search_ids = elastic_results.keys
 
     if search_ids.any?
       @scope

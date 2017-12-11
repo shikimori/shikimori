@@ -1,0 +1,30 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_users
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1413'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 11 Dec 2017 14:20:43 GMT
+recorded_with: VCR 4.0.0

@@ -12,6 +12,7 @@ require 'paperclip/matchers'
 require 'shoulda/matchers'
 require 'sidekiq/testing'
 require 'cancan/matchers'
+require 'chewy/rspec'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -73,6 +74,7 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers, type: :feature
 
   config.before :suite do
+    Chewy.strategy :bypass
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end

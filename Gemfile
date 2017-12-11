@@ -57,7 +57,7 @@ gem 'omniauth-vkontakte'
 
 # application
 gem 'mal_parser', github: 'shikimori/mal_parser'
-
+gem 'chewy'
 gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'rack-attack'
 gem 'rack-cors'
@@ -211,5 +211,4 @@ gem 'clockwork', require: false
 gem 'whenever', require: false
 
 gem 'faye'
-# gem 'faye-redis'
 gem 'thin'

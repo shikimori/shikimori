@@ -1,4 +1,4 @@
-class Elasticsearch::Query::Topic < Elasticsearch::Query::QueryBase
+class Elasticsearch::Query::Topic < Elasticsearch::Query::QueryBaseOld
   method_object %i[phrase locale forum_id limit]
 
 private

@@ -5,26 +5,17 @@
 class Elasticsearch::Query::QueryBase
   method_object %i[phrase limit]
 
-  INDEX = Elasticsearch::Config::INDEX
-  EXPIRES_IN = 1.hour
-
   def call
-    Rails.cache.fetch(cache_key, expires_in: EXPIRES_IN) { parse api_call }
+    index_klass
+      .query(query)
+      .limit(@limit)
+      .each_with_object({}) { |v, memo| memo[v.id.to_i] = v._data['_score'] }
   end
 
 private
 
-  def type
-    self.class.name.split('::').last.downcase
-  end
-
-  def api_call
-    Elasticsearch::Client.instance.get(
-      "#{INDEX}_#{type.pluralize}/#{type.pluralize}/_search",
-      from: 0,
-      size: @limit,
-      query: query
-    )
+  def index_klass
+    "#{self.class.name.split('::').last.pluralize}Index".constantize
   end
 
   def query
@@ -38,23 +29,15 @@ private
   end
 
   def name_fields_match
-    "Elasticsearch::Data::#{type.capitalize}::NAME_FIELDS".constantize
-      .flat_map { |field| field_query(field) }
+    index_klass::NAME_FIELDS.flat_map { |field| field_query(field) }
   end
 
   def field_query field
     [
-      { match: { "#{field}.original" => { query: keyword, boost: 6 } } },
-      { match: { field => { query: keyword, boost: 3 } } },
+      { match: { "#{field}.original" => { query: keyword, boost: 100 } } },
+      { match: { "#{field}.edge": { query: keyword, boost: 5 } } },
       { match: { "#{field}.ngram": { query: keyword } } }
     ]
-  end
-
-  def parse api_results
-    # api_results['hits']['hits'].select do |hit|
-      # hit['_score'] >= api_results['hits']['max_score'] / 6.0
-    # end
-    api_results['hits']['hits']
   end
 
   def keyword

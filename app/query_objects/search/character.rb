@@ -1,2 +1,2 @@
-class Search::Character < Search::SearchBase
+class Search::Character < Search::SearchBaseOld
 end

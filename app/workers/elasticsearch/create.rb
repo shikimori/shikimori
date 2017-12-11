@@ -10,7 +10,7 @@ class Elasticsearch::Create < Elasticsearch::Destroy
     klass = entry.is_a?(Topic) ? Topic : entry.class
     type = klass.name.pluralize.downcase
 
-    Elasticsearch::Client.instance.send(
+    Elasticsearch::ClientOld.instance.send(
       self.class::METHOD,
       "#{INDEX}_#{type}/#{type}/#{entry.id}",
       "Elasticsearch::Data::#{klass.name}".constantize.call(entry)

@@ -1,4 +1,5 @@
-class Elasticsearch::Client
+# NOTE: deprecated. remove after final migration to chewy
+class Elasticsearch::ClientOld
   include Singleton
 
   ELASTIC_URL = 'http://localhost:9200'

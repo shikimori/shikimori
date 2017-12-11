@@ -25,6 +25,7 @@ production:
   - [mailers, 5]
   - [imports, 4]
   - [achievements, 6]
+  - [chewy, 10]
 
 :limits:
   cpu_intensive: 2

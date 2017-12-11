@@ -9,6 +9,7 @@ class NamedLogger
   end
 
 private
+
   def self.build_logger name
     return Logger.new(nil) if Rails.env.test?
 
@@ -17,12 +18,17 @@ private
 
     #logger = NamedLoggerProxy.new ActiveResource::BufferedLogger.new(logfile)
     logger = NamedLoggerProxy.new ActiveSupport::Logger.new(logfile)
-    logger.formatter = CommonLogFormatter.new
+    # logger.formatter = CommonLogFormatter.new
     logger
   end
 end
 
 class NamedLoggerProxy < SimpleDelegator
+  def debug text, *args
+    puts text unless Rails.env.test?
+    super
+  end
+
   def info text, *args
     puts text unless Rails.env.test?
     super
