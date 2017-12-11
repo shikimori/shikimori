@@ -146,12 +146,14 @@ private
         i18n_t 'order.in_alphabetical_order'
       when 'popularity'
         i18n_t 'order.by_popularity'
-      when 'ranked'
-        i18n_t 'order.by_ranking'
       when 'released_on', 'aired_on'
         i18n_t 'order.by_released_date'
       when 'id'
         i18n_t 'order.by_add_date'
+      when 'ranked'
+        i18n_t 'order.by_ranking'
+      else
+        i18n_t 'order.by_ranking'
     end
   end
 
