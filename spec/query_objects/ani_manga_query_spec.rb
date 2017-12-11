@@ -85,10 +85,13 @@ describe AniMangaQuery do
       let!(:anime_3) { create :anime }
 
       describe 'no censored' do
-        it { expect(fetch).to have(1).item }
+        it { expect(fetch).to have(3).items }
       end
 
       describe 'with censored' do
+        it 'censored: true' do
+          expect(fetch censored: [true, 'true'].sample).to have(1).item
+        end
         it 'mylist' do
           allow_any_instance_of(AniMangaQuery).to receive :mylist!
           expect(fetch mylist: UserRate.statuses[:planned]).to have(3).items

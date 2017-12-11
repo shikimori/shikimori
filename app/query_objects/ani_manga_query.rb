@@ -169,14 +169,12 @@ private
     yaoi = genres && (genres[:include] & Genre::YAOI_IDS).any?
     yuri = genres && (genres[:include] & Genre::YURI_IDS).any?
 
-    # WTF. i don't understand this code. must refactor it
-    if @params[:censored] != false && @params[:censored] != 'false'
-      if @params[:censored] == true || @params[:censored] == 'true' || !(
-        rx || hentai || yaoi || yuri || mylist? || search? || userlist? ||
-        @publisher || @studio
-      )
-        @query = @query.where(censored: false)
-      end
+    return if [false, 'false'].include? @params[:censored]
+    return if rx || hentai || yaoi || yuri || mylist? || search? || userlist?
+    return if @publisher || @studio
+
+    if @params[:censored] == true || @params[:censored] == 'true'
+      @query = @query.where(censored: false)
     end
   end
 
