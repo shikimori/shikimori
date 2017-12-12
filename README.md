@@ -12,7 +12,6 @@ postgres=# alter user shikimori_production with superuser;
 postgres=# alter user shikimori_test with superuser;
 ```
 
-
 ### Extensions
 ```shell
 ~ psql -d shikimori_test
@@ -43,6 +42,13 @@ shikimori_production=# CREATE EXTENSION pg_stat_statements;
 ~ cd shikimori
 ~ brew install honcho # https://github.com/nickstenning/honcho
 ~ honcho start
+```
+
+## Elasticsearch
+```rails console
+pry(main)> ClubsIndex.reset!
+pry(main)> CollectionsIndex.reset!
+pry(main)> UsersIndex.reset!
 ```
 
 
