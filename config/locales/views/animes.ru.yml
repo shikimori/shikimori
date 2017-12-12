@@ -77,7 +77,7 @@ ru:
       one_user_has_it_in_his_list: В списке у одного человека
       show_all: + показать всех
       hide: спрятать
-      on_other_sites: на других сайтах
+      on_other_sites: На других сайтах
 
     resources:
       staff: Авторы
