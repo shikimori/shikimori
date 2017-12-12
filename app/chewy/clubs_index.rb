@@ -1,5 +1,5 @@
-class UsersIndex < ApplicationIndex
-  NAME_FIELDS = %i[nickname]
+class ClubsIndex < ApplicationIndex
+  NAME_FIELDS = %i[name]
 
   settings analysis: {
     analyzer: {
@@ -18,7 +18,7 @@ class UsersIndex < ApplicationIndex
     }
   }
 
-  define_type User do
+  define_type Club do
     NAME_FIELDS.each do |name_field|
       field name_field, type: :keyword, index: :not_analyzed do
         field :original, ORIGINAL_FIELD
@@ -26,5 +26,6 @@ class UsersIndex < ApplicationIndex
         field :ngram, NGRAM_FIELD
       end
     end
+    field :locale, type: :keyword
   end
 end

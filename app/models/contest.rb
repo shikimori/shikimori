@@ -7,14 +7,6 @@ class Contest < ApplicationRecord
   MINIMUM_MEMBERS = 5
   MAXIMUM_MEMBERS = 196
 
-  enumerize :member_type,
-    in: Types::Contest::MemberType.values,
-    predicates: true
-  enumerize :strategy_type,
-    in: Types::Contest::StrategyType.values,
-    predicates: true
-  enumerize :user_vote_key, in: Types::Contest::UserVoteKey.values
-
   belongs_to :user
 
   has_many :links,
@@ -38,6 +30,14 @@ class Contest < ApplicationRecord
     through: :winners,
     source: :item,
     source_type: Character.name
+
+  enumerize :member_type,
+    in: Types::Contest::MemberType.values,
+    predicates: true
+  enumerize :strategy_type,
+    in: Types::Contest::StrategyType.values,
+    predicates: true
+  enumerize :user_vote_key, in: Types::Contest::UserVoteKey.values
 
   validates :title_ru, :title_en, presence: true
   validates :user, :started_on, :user_vote_key, :strategy_type,

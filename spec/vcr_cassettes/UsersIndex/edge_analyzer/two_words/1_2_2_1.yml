@@ -28,13 +28,55 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Mon, 11 Dec 2017 14:03:06 GMT
+  recorded_at: Tue, 12 Dec 2017 18:17:37 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '242'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "EGskHAA",
+          "cluster_name" : "elasticsearch_morr",
+          "cluster_uuid" : "6pEyihhxRCaggNPc9LcVaA",
+          "version" : {
+            "number" : "5.6.5",
+            "build_hash" : "6a37571",
+            "build_date" : "2017-12-04T07:50:10.466Z",
+            "build_snapshot" : false,
+            "lucene_version" : "6.6.1"
+          },
+          "tagline" : "You Know, for Search"
+        }
+    http_version: 
+  recorded_at: Tue, 12 Dec 2017 18:17:37 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_users
     body:
       encoding: UTF-8
-      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":30}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":30,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":30},"distinct_words":{"type":"unique","only_on_same_position":true},"word_split":{"type":"word_delimiter","preserve_original":1}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words"]}}}},"mappings":{"user":{"properties":{"nickname":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge":{"index":"analyzed","analyzer":"edge_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"}}}}}'
+      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":30}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":30,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":30},"distinct_words_filter":{"type":"unique","only_on_same_position":true}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words_filter"]}}}},"mappings":{"user":{"properties":{"nickname":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge":{"index":"analyzed","analyzer":"edge_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"}}}}}'
     headers:
       Content-Type:
       - application/json
@@ -51,15 +93,13 @@ http_interactions:
     headers:
       Warning:
       - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Mon, 11 Dec 2017 14:03:06 GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for setting
-        [preserve_original] but got [1]" "Mon, 11 Dec 2017 14:03:06 GMT"
+        [index] but got [not_analyzed]" "Tue, 12 Dec 2017 18:17:37 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge]" "Mon, 11 Dec 2017 14:03:06 GMT"
+        use [text] or [keyword] instead on [edge]" "Tue, 12 Dec 2017 18:17:37 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [ngram]" "Mon, 11 Dec 2017 14:03:06 GMT"
+        use [text] or [keyword] instead on [ngram]" "Tue, 12 Dec 2017 18:17:37 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [original]" "Mon, 11 Dec 2017 14:03:06
+        use [text] or [keyword] instead on [original]" "Tue, 12 Dec 2017 18:17:37
         GMT"
       Content-Type:
       - application/json; charset=UTF-8
@@ -69,7 +109,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_users"}'
     http_version: 
-  recorded_at: Mon, 11 Dec 2017 14:03:06 GMT
+  recorded_at: Tue, 12 Dec 2017 18:17:37 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_users/_analyze?analyzer=edge_analyzer&text=te%20st
@@ -91,10 +131,10 @@ http_interactions:
       Warning:
       - 299 Elasticsearch-5.6.5-6a37571 "analyzer request parameter is deprecated
         and will be removed in the next major release. Please use the JSON in the
-        request body instead request param" "Mon, 11 Dec 2017 14:03:06 GMT"
+        request body instead request param" "Tue, 12 Dec 2017 18:17:37 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "text request parameter is deprecated and
         will be removed in the next major release. Please use the JSON in the request
-        body instead request param" "Mon, 11 Dec 2017 14:03:06 GMT"
+        body instead request param" "Tue, 12 Dec 2017 18:17:37 GMT"
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -103,5 +143,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"tokens":[{"token":"t","start_offset":0,"end_offset":2,"type":"<ALPHANUM>","position":0},{"token":"te","start_offset":0,"end_offset":2,"type":"<ALPHANUM>","position":0},{"token":"s","start_offset":3,"end_offset":5,"type":"<ALPHANUM>","position":1},{"token":"st","start_offset":3,"end_offset":5,"type":"<ALPHANUM>","position":1}]}'
     http_version: 
-  recorded_at: Mon, 11 Dec 2017 14:03:06 GMT
+  recorded_at: Tue, 12 Dec 2017 18:17:37 GMT
 recorded_with: VCR 4.0.0

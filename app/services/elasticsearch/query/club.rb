@@ -1,5 +1,5 @@
-class Elasticsearch::Query::Club < Elasticsearch::Query::QueryBaseOld
-  method_object %i[phrase locale limit]
+class Elasticsearch::Query::Club < Elasticsearch::Query::QueryBase
+  method_object %i[phrase! limit! locale!]
 
 private
 
@@ -15,7 +15,7 @@ private
     { term: { locale: @locale } }
   end
 
-  def cache_key
-    super + [@locale]
-  end
+  # def cache_key
+  #   super + [@locale]
+  # end
 end

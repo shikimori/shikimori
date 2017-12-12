@@ -3,7 +3,7 @@
 # Strategies and Techniques for Relevance
 #   https://www.compose.com/articles/elasticsearch-query-time-strategies-and-techniques-for-relevance-part-ii/
 class Elasticsearch::Query::QueryBase
-  method_object %i[phrase limit]
+  method_object %i[phrase! limit!]
 
   def call
     index_klass
@@ -44,12 +44,12 @@ private
     @phrase.downcase
   end
 
-  def cache_key
-    [
-      type,
-      @phrase,
-      @limit,
-      Elasticsearch::Reindex.time(type).to_i
-    ]
-  end
+  # def cache_key
+  #   [
+  #     type,
+  #     @phrase,
+  #     @limit,
+  #     Elasticsearch::Reindex.time(type).to_i
+  #   ]
+  # end
 end

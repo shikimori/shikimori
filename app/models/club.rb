@@ -3,7 +3,8 @@
 class Club < ApplicationRecord
   include TopicsConcern
   include StylesConcern
-  include ElasticsearchConcern
+
+  update_index('clubs#club') { self if saved_change_to_name? }
 
   has_many :member_roles,
     class_name: ClubRole.name,

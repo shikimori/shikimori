@@ -5,7 +5,6 @@ class User < ApplicationRecord
   include User::Notifications
   include User::TokenAuthenticatable
   include StylesConcern
-  include ElasticsearchConcern
 
   MAX_NICKNAME_LENGTH = 20
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes

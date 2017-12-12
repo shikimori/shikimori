@@ -21,18 +21,6 @@ FactoryBot.define do
       stub_method model, :assign_style
       stub_method model, :send_welcome_message
       stub_method model, :grab_avatar
-
-      stub_method model, :post_elastic
-      stub_method model, :put_elastic
-      stub_method model, :delete_elastic
-    end
-
-    trait :with_elasticserach do
-      after :build do |model|
-        unstub_method model, :post_elastic
-        unstub_method model, :put_elastic
-        unstub_method model, :delete_elastic
-      end
     end
 
     trait :with_assign_style do

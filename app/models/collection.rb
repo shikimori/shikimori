@@ -1,10 +1,10 @@
 class Collection < ApplicationRecord
   include Antispam
   include TopicsConcern
-  include ElasticsearchConcern
   include ModeratableConcern
 
   acts_as_votable
+  update_index('collections#collection') { self if saved_change_to_name? }
 
   belongs_to :user
   has_many :links, -> { order :id },

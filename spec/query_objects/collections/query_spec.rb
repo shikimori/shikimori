@@ -24,11 +24,9 @@ describe Collections::Query do
             locale: 'ru',
             limit: Collections::Query::SEARCH_LIMIT
           ).and_return(
-            [
-              { '_id' => collection_3.id },
-              { '_id' => collection_2.id },
-              { '_id' => collection_en_1.id }
-            ]
+            collection_3.id => 987,
+            collection_2.id => 654,
+            collection_en_1.id => 321
           )
         end
         let(:phrase) { 'test' }

@@ -193,10 +193,8 @@ describe ClubsController do
         phrase: phrase,
         limit: Collections::Query::SEARCH_LIMIT
       ).and_return(
-        [
-          { '_id' => club_1.id },
-          { '_id' => club_2.id }
-        ]
+        club_1.id => 987,
+        club_2.id => 654
       )
     end
     subject! { get :autocomplete, params: { search: phrase } }

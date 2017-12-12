@@ -1,32 +1,29 @@
 describe Search::Collection do
-  subject(:query) do
+  before do
+    allow(Elasticsearch::Query::Collection)
+      .to receive(:call)
+      .with(phrase: phrase, limit: ids_limit, locale: locale)
+      .and_return results
+  end
+  subject do
     Search::Collection.call(
       scope: scope,
       phrase: phrase,
-      locale: locale,
-      ids_limit: ids_limit
+      ids_limit: ids_limit,
+      locale: locale
     )
   end
 
   describe '#call' do
     let(:scope) { Collection.all }
-    let(:phrase) { 'Kaichou' }
+    let(:phrase) { 'zxct' }
+    let(:ids_limit) { 2 }
     let(:locale) { 'ru' }
-    let(:ids_limit) { 10 }
+    let(:results) { { collection_1.id => 0.123123 } }
 
-    let!(:collection_1) { create :collection }
-    let!(:collection_2) { create :collection }
-    let!(:collection_3) { create :collection }
+    let!(:collection_1) { create :collection, name: 'test' }
+    let!(:collection_2) { create :collection, name: 'test zxct' }
 
-    before do
-      allow(Elasticsearch::Query::Collection).to receive(:call)
-        .with(phrase: phrase, locale: locale, limit: ids_limit)
-        .and_return [
-          { '_id' => collection_3.id },
-          { '_id' => collection_1.id }
-        ]
-    end
-
-    it { is_expected.to eq [collection_3, collection_1] }
+    it { is_expected.to eq [collection_1] }
   end
 end

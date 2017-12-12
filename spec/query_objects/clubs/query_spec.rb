@@ -34,11 +34,9 @@ describe Clubs::Query do
             locale: 'ru',
             limit: Clubs::Query::SEARCH_LIMIT
           ).and_return(
-            [
-              { '_id' => club_3.id },
-              { '_id' => club_2.id },
-              { '_id' => club_en.id }
-            ]
+            club_3.id => 987,
+            club_2.id => 765,
+            club_en.id => 654
           )
         end
         let(:phrase) { 'test' }

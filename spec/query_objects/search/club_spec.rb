@@ -1,32 +1,30 @@
 describe Search::Club do
-  subject(:query) do
+  before do
+    allow(Elasticsearch::Query::Club)
+      .to receive(:call)
+      .with(phrase: phrase, limit: ids_limit, locale: locale)
+      .and_return results
+  end
+  subject do
     Search::Club.call(
       scope: scope,
       phrase: phrase,
-      locale: locale,
-      ids_limit: ids_limit
+      ids_limit: ids_limit,
+      locale: locale
     )
   end
 
   describe '#call' do
     let(:scope) { Club.all }
-    let(:phrase) { 'Kaichou' }
+    let(:phrase) { 'zxct' }
+    let(:ids_limit) { 2 }
     let(:locale) { 'ru' }
-    let(:ids_limit) { 10 }
+    let(:results) { { club_1.id => 0.123123 } }
 
-    let!(:club_1) { create :club }
-    let!(:club_2) { create :club }
-    let!(:club_3) { create :club }
+    let!(:club_1) { create :club, name: 'test' }
+    let!(:club_2) { create :club, name: 'test zxct' }
 
-    before do
-      allow(Elasticsearch::Query::Club).to receive(:call)
-        .with(phrase: phrase, locale: locale, limit: ids_limit)
-        .and_return [
-          { '_id' => club_3.id },
-          { '_id' => club_1.id }
-        ]
-    end
-
-    it { is_expected.to eq [club_3, club_1] }
+    it { is_expected.to eq [club_1] }
   end
 end
+
