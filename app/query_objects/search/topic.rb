@@ -1,5 +1,5 @@
-class Search::Topic < Search::SearchBaseOld
-  method_object %i[scope phrase forum_id locale ids_limit]
+class Search::Topic < Search::SearchBase
+  method_object %i[scope! phrase! forum_id! locale! ids_limit!]
 
   def elastic_results
     search_klass.call(

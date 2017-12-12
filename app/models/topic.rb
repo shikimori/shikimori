@@ -5,7 +5,10 @@ class Topic < ApplicationRecord
   include Commentable
   include Moderatable
   include Viewable
-  include ElasticsearchConcern
+
+  update_index('topics#topic') do
+    self if saved_change_to_title? || saved_change_to_forum_id?
+  end
 
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
 

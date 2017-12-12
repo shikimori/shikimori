@@ -33,11 +33,9 @@ describe Topics::SearchQuery do
           forum_id: forum_id,
           limit: Topics::SearchQuery::SEARCH_LIMIT
         ).and_return(
-          [
-            { '_id' => topic_3.id },
-            { '_id' => topic_1.id },
-            { '_id' => topic_2.id }
-          ]
+          topic_3.id => 9,
+          topic_1.id => 8,
+          topic_2.id => 7
         )
       end
       let(:phrase) { 'test' }

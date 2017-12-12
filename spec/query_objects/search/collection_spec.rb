@@ -19,10 +19,11 @@ describe Search::Collection do
     let(:phrase) { 'zxct' }
     let(:ids_limit) { 2 }
     let(:locale) { 'ru' }
+
     let(:results) { { collection_1.id => 0.123123 } }
 
-    let!(:collection_1) { create :collection, name: 'test' }
-    let!(:collection_2) { create :collection, name: 'test zxct' }
+    let!(:collection_1) { create :collection }
+    let!(:collection_2) { create :collection }
 
     it { is_expected.to eq [collection_1] }
   end

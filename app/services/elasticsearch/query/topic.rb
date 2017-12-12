@@ -1,5 +1,5 @@
-class Elasticsearch::Query::Topic < Elasticsearch::Query::QueryBaseOld
-  method_object %i[phrase locale forum_id limit]
+class Elasticsearch::Query::Topic < Elasticsearch::Query::QueryBase
+  method_object %i[phrase! locale! forum_id! limit!]
 
 private
 
@@ -27,7 +27,7 @@ private
     end
   end
 
-  def cache_key
-    super + [@locale, @forum_id]
-  end
+  # def cache_key
+  #   super + [@locale, @forum_id]
+  # end
 end

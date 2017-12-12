@@ -1,39 +1,32 @@
 describe Search::Topic do
-  subject(:query) do
+  before do
+    allow(Elasticsearch::Query::Topic)
+      .to receive(:call)
+      .with(phrase: phrase, limit: ids_limit, forum_id: forum_id, locale: locale)
+      .and_return results
+  end
+  subject do
     Search::Topic.call(
       scope: scope,
       phrase: phrase,
       forum_id: forum_id,
-      locale: locale,
-      ids_limit: ids_limit
+      ids_limit: ids_limit,
+      locale: locale
     )
   end
 
   describe '#call' do
     let(:scope) { Topic.all }
-    let(:phrase) { 'Kaichou' }
-    let(:forum_id) { 1 }
+    let(:phrase) { 'zxct' }
+    let(:ids_limit) { 2 }
     let(:locale) { 'ru' }
-    let(:ids_limit) { 10 }
+    let(:forum_id) { Topic::FORUM_IDS[Anime.name] }
+
+    let(:results) { { topic_1.id => 0.123123 } }
 
     let!(:topic_1) { create :topic }
     let!(:topic_2) { create :topic }
-    let!(:topic_3) { create :topic }
 
-    before do
-      allow(Elasticsearch::Query::Topic).to receive(:call)
-        .with(
-          phrase: phrase,
-          forum_id: forum_id,
-          locale: locale,
-          limit: ids_limit
-        )
-        .and_return [
-          { '_id' => topic_3.id },
-          { '_id' => topic_1.id }
-        ]
-    end
-
-    it { is_expected.to eq [topic_3, topic_1] }
+    it { is_expected.to eq [topic_1] }
   end
 end

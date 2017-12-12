@@ -19,10 +19,11 @@ describe Search::Club do
     let(:phrase) { 'zxct' }
     let(:ids_limit) { 2 }
     let(:locale) { 'ru' }
+
     let(:results) { { club_1.id => 0.123123 } }
 
-    let!(:club_1) { create :club, name: 'test' }
-    let!(:club_2) { create :club, name: 'test zxct' }
+    let!(:club_1) { create :club }
+    let!(:club_2) { create :club }
 
     it { is_expected.to eq [club_1] }
   end

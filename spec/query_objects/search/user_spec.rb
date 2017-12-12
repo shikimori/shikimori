@@ -17,10 +17,11 @@ describe Search::User do
     let(:scope) { User.all }
     let(:phrase) { 'zxct' }
     let(:ids_limit) { 2 }
+
     let(:results) { { user_1.id => 0.123123 } }
 
-    let!(:user_1) { create :user, nickname: 'test' }
-    let!(:user_2) { create :user, nickname: 'test zxct' }
+    let!(:user_1) { create :user }
+    let!(:user_2) { create :user }
 
     it { is_expected.to eq [user_1] }
   end
