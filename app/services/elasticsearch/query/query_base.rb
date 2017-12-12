@@ -34,14 +34,10 @@ private
 
   def field_query field
     [
-      { match: { "#{field}.original" => { query: keyword, boost: 100 } } },
-      { match: { "#{field}.edge": { query: keyword, boost: 5 } } },
-      { match: { "#{field}.ngram": { query: keyword } } }
+      { match: { "#{field}.original" => { query: @phrase, boost: 100 } } },
+      { match: { "#{field}.edge": { query: @phrase, boost: 5 } } },
+      { match: { "#{field}.ngram": { query: @phrase } } }
     ]
-  end
-
-  def keyword
-    @phrase.downcase
   end
 
   # def cache_key

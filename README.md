@@ -49,6 +49,7 @@ shikimori_production=# CREATE EXTENSION pg_stat_statements;
 pry(main)> ClubsIndex.reset!
 pry(main)> CollectionsIndex.reset!
 pry(main)> UsersIndex.reset!
+pry(main)> TopicsIndex.reset!
 ```
 
 
