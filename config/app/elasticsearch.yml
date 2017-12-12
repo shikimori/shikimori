@@ -154,21 +154,6 @@
         is_mangaka:
           type: boolean
           index: not_analyzed
-    :users:
-      <<: *default_type_mappings
-      properties:
-        nickname:
-          <<: *name_properties
-    :clubs:
-      <<: *default_type_mappings
-      properties:
-        name:
-          <<: *name_properties
-    :collections:
-      <<: *default_type_mappings
-      properties:
-        name:
-          <<: *name_properties
     :topics:
       <<: *default_type_mappings
       properties:
