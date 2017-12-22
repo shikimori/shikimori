@@ -4,7 +4,6 @@ class Manga < DbEntry
   include AniManga
   include TopicsConcern
   include CollectionsConcern
-  include ElasticsearchConcern
 
   EXCLUDED_ONGOINGS = [-1]
 
@@ -14,6 +13,10 @@ class Manga < DbEntry
   )
   CHAPTER_DURATION = 8
   VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day
+
+  update_index('mangas#manga') do
+    self # if saved_change_to_title? || saved_change_to_forum_id?
+  end
 
   attr_accessor :in_list
 

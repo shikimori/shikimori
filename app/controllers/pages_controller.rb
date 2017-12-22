@@ -100,11 +100,12 @@ class PagesController < ShikimoriController
   def admin_panel
     raise Forbidden unless user_signed_in? && current_user.admin?
 
-    @code = if Rails.env.production?
-      `cat REVISION`
-    else
-      `git rev-parse HEAD`
-    end
+    @code =
+      if Rails.env.production?
+        `cat REVISION`
+      else
+        `git rev-parse HEAD`
+      end
 
     df = %x{df | head -n 2 | tail -n 1}.strip.split(/\s+/)
     disk_total = df[1].to_f

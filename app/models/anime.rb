@@ -6,7 +6,6 @@ class Anime < DbEntry
   include AniManga
   include TopicsConcern
   include CollectionsConcern
-  include ElasticsearchConcern
 
   DESYNCABLE = %w[
     name synonyms kind episodes rating aired_on released_on status genres
@@ -26,6 +25,10 @@ class Anime < DbEntry
   SUB_ADULT_RATING = 'r_plus'
   # забанено роскомнадзором
   FORBIDDEN_ADULT_IDS = [5042, 7593, 8861, 6987]
+
+  update_index('animes#anime') do
+    self # if saved_change_to_title? || saved_change_to_forum_id?
+  end
 
   # relations
   has_many :person_roles, dependent: :destroy
