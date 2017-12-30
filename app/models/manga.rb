@@ -15,7 +15,12 @@ class Manga < DbEntry
   VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day
 
   update_index('mangas#manga') do
-    self # if saved_change_to_title? || saved_change_to_forum_id?
+    if saved_change_to_name? || saved_change_to_russian? ||
+        saved_change_to_english? || saved_change_to_japanese? ||
+        saved_change_to_synonyms? || saved_change_to_score? ||
+        saved_change_to_kind?
+      self
+    end
   end
 
   attr_accessor :in_list

@@ -7,7 +7,11 @@ class Person < DbEntry
   DESYNCABLE = %w[name japanese website birthday image]
 
   update_index('people#person') do
-    self # if saved_change_to_title? || saved_change_to_forum_id?
+    if saved_change_to_name? || saved_change_to_russian? ||
+        saved_change_to_japanese? || saved_change_to_seyu? ||
+        saved_change_to_producer? || saved_change_to_mangaka?
+      self
+    end
   end
 
   has_many :person_roles, dependent: :destroy

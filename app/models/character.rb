@@ -7,7 +7,10 @@ class Character < DbEntry
   DESYNCABLE = %w[name japanese description_en image]
 
   update_index('characters#character') do
-    self # if saved_change_to_title? || saved_change_to_forum_id?
+    if saved_change_to_name? || saved_change_to_russian? ||
+        saved_change_to_fullname? || saved_change_to_japanese?
+      self
+    end
   end
 
   has_many :person_roles, dependent: :destroy

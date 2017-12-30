@@ -69,4 +69,33 @@ class ApplicationIndex < Chewy::Index
     analyzer: :ngram_analyzer,
     search_analyzer: :search_analyzer
   }
+
+  ARRAY_INDEX_FIELD = {
+    value: lambda {
+      if name_field =~ /^(?<field_name>\w+)_(?<index>\d)$/
+        send($LAST_MATCH_INFO[:field_name])[$LAST_MATCH_INFO[:index]]
+      else
+        self
+      end
+    }
+  }
+
+  DEFAULT_SETTINGS = {
+    analysis: {
+      analyzer: {
+        original_analyzer: ORIGINAL_ANALYZER,
+        edge_analyzer: EDGE_ANALYZER,
+        ngram_analyzer: NGRAM_ANALYZER,
+        search_analyzer: SEARCH_ANALYZER
+      },
+      tokenizer: {
+        edge_ngram_tokenizer: EDGE_NGRAM_TOKENIZER
+      },
+      filter: {
+        edgeNGram_filter: EDGE_NGRAM_FILTER,
+        nGram_filter: NGRAM_FILTER,
+        distinct_words_filter: DISTINCT_WORDS_FILTER
+      }
+    }
+  }
 end
