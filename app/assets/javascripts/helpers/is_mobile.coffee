@@ -1,2 +1,2 @@
 module.exports = window.is_mobile = ->
-  !!window.mobile_detect.mobile() || screen.width <= 480
+  !!window.mobile_detect.mobile() || document.documentElement.clientWidth <= 480
