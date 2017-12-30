@@ -19,10 +19,6 @@ FactoryBot.define do
       stub_method model, :generate_name_matches
 
       stub_method model, :touch_related
-
-      stub_method model, :post_elastic
-      stub_method model, :put_elastic
-      stub_method model, :delete_elastic
     end
 
     trait :with_track_changes do
@@ -33,14 +29,6 @@ FactoryBot.define do
       after :build do |model|
         unstub_method model, :track_changes
         unstub_method model, :generate_news
-      end
-    end
-
-    trait :with_elasticserach do
-      after :build do |model|
-        unstub_method model, :post_elastic
-        unstub_method model, :put_elastic
-        unstub_method model, :delete_elastic
       end
     end
 
