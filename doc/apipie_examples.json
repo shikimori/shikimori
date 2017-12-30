@@ -375,8 +375,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/af38fcb1e5615ddf9cc37faae16ead2a3d1da645.jpg?1484049600",
-          "preview": "/system/screenshots/x332/af38fcb1e5615ddf9cc37faae16ead2a3d1da645.jpg?1484049600"
+          "original": "/system/screenshots/original/240072a7217941c8f479fb90191ffd66c6eb5628.jpg?1484049600",
+          "preview": "/system/screenshots/x332/240072a7217941c8f479fb90191ffd66c6eb5628.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -578,7 +578,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "RPlZ+rztVVZttsGilXh3qMr+GNRmSmJHXzzJJ8INNycEr9leKK0ZwAGDOhmlaD/4MGqucwP4ev8nrm27IblCSQ=="
+        "authenticity_token": "U8VG9vdkAYZ7Td9oMx4UT/op62hEOncFl+DKW5fhf792kcmyebpVXt8tK9ouxgOiLZhFuIrc5bd3mqXKWCoGhw=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -724,7 +724,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2017-11-08T00:00:00.000+00:00",
+          "next_episode_at": "2017-12-16T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 19,
@@ -741,7 +741,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2017-11-08",
+            "aired_on": "2017-12-16",
             "released_on": null
           }
         }
@@ -2455,11 +2455,11 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 10,
+          "id": 12,
           "position": 0,
-          "name": "Клубы",
-          "permalink": "clubs",
-          "url": "/forum/clubs"
+          "name": "Рецензии",
+          "permalink": "reviews",
+          "url": "/forum/reviews"
         },
         {
           "id": 1,
@@ -2476,11 +2476,11 @@
           "url": "/forum/contests"
         },
         {
-          "id": 12,
+          "id": 10,
           "position": 0,
-          "name": "Рецензии",
-          "permalink": "reviews",
-          "url": "/forum/reviews"
+          "name": "Клубы",
+          "permalink": "clubs",
+          "url": "/forum/clubs"
         },
         {
           "id": 15,
@@ -2497,7 +2497,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 96249,
+          "id": 76698,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3218,7 +3218,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-11-22T21:22:26.796+03:00"
+          "last_online_at": "2017-12-30T15:46:34.717+03:00"
         }
       },
       "code": "200",
@@ -4120,7 +4120,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-11-22T21:22:26.796+03:00"
+            "last_online_at": "2017-12-30T15:46:34.717+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -4171,7 +4171,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-11-22T21:22:26.796+03:00"
+          "last_online_at": "2017-12-30T15:46:34.717+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -4209,7 +4209,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-11-22T21:22:26.796+03:00"
+            "last_online_at": "2017-12-30T15:46:34.717+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -4285,7 +4285,7 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "completed",
+          "status": "watching",
           "target_id": "37",
           "target_type": "Anime",
           "text": "test",
@@ -4296,7 +4296,7 @@
       "response_data": {
         "id": 6,
         "score": 10,
-        "status": "completed",
+        "status": "watching",
         "text": "test",
         "episodes": 2,
         "chapters": null,
@@ -4396,7 +4396,7 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "completed",
+          "status": "watching",
           "target_id": "56",
           "target_type": "Anime",
           "text": "test",
@@ -4410,7 +4410,7 @@
         "target_id": 56,
         "target_type": "Anime",
         "score": 10,
-        "status": "completed",
+        "status": "watching",
         "rewatches": 5,
         "episodes": 2,
         "volumes": 3,
@@ -5209,7 +5209,8 @@
         "name": null,
         "sex": null,
         "website": null,
-        "birth_on": null
+        "birth_on": null,
+        "locale": "ru"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -5646,7 +5647,8 @@
         "name": null,
         "sex": null,
         "website": null,
-        "birth_on": null
+        "birth_on": null,
+        "locale": "ru"
       },
       "code": "200",
       "show_in_doc": 1,
