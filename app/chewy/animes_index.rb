@@ -16,21 +16,25 @@ class AnimesIndex < ApplicationIndex
 
   define_type Anime do
     NAME_FIELDS.each do |name_field|
-      field name_field, type: :keyword, index: :not_analyzed do
-        field :original, ORIGINAL_FIELD.merge(ARRAY_INDEX_FIELD)
-        field :edge, EDGE_FIELD.merge(ARRAY_INDEX_FIELD)
-        field :ngram, NGRAM_FIELD.merge(ARRAY_INDEX_FIELD)
+      field(name_field, {
+        type: :keyword,
+        index: :not_analyzed,
+        value: -> {}
+      }) do
+        field :original, array_index_field(name_field, ORIGINAL_FIELD)
+        field :edge, array_index_field(name_field, EDGE_FIELD)
+        field :ngram, array_index_field(name_field, NGRAM_FIELD)
       end
     end
-    field :score, type: :half_float, index: false
-    field :year, type: :half_float, index: false
-    field :kind_weight,
-      type: :half_float,
-      index: false,
-      value: -> { KIND_WEIGHT[kind&.to_sym] || 1 }
+    # field :score, type: :half_float, index: false
+    # field :year, type: :half_float, index: false
+    # field :kind_weight,
+    #   type: :half_float,
+    #   index: false,
+    #   value: -> { KIND_WEIGHT[kind&.to_sym] || 1 }
     field :weight,
       type: :half_float,
       index: false,
-      value: -> { ApplicationIndex.weight self }
+      value: -> (model, _) { EntryWeight.call model }
   end
 end

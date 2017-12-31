@@ -70,16 +70,6 @@ class ApplicationIndex < Chewy::Index
     search_analyzer: :search_analyzer
   }
 
-  ARRAY_INDEX_FIELD = {
-    value: lambda {
-      if name_field =~ /^(?<field_name>\w+)_(?<index>\d)$/
-        send($LAST_MATCH_INFO[:field_name])[$LAST_MATCH_INFO[:index]]
-      else
-        self
-      end
-    }
-  }
-
   DEFAULT_SETTINGS = {
     analysis: {
       analyzer: {
@@ -98,4 +88,16 @@ class ApplicationIndex < Chewy::Index
       }
     }
   }
+
+  def self.array_index_field name_field, params
+    params.merge(
+      value: lambda { |model|
+        if name_field =~ /^(?<field_name>\w+)_(?<index>\d)$/
+          model.send($LAST_MATCH_INFO[:field_name])[$LAST_MATCH_INFO[:index]]
+        else
+          self
+        end
+      }
+    )
+  end
 end
