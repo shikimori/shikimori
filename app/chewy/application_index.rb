@@ -88,16 +88,4 @@ class ApplicationIndex < Chewy::Index
       }
     }
   }
-
-  def self.array_index_field name_field, params
-    params.merge(
-      value: lambda { |model|
-        if name_field =~ /^(?<field_name>\w+)_(?<index>\d)$/
-          model.send($LAST_MATCH_INFO[:field_name])[$LAST_MATCH_INFO[:index]]
-        else
-          self
-        end
-      }
-    )
-  end
 end

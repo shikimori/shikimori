@@ -16,14 +16,21 @@ class AnimesIndex < ApplicationIndex
 
   define_type Anime do
     NAME_FIELDS.each do |name_field|
-      field(name_field, {
+      field(
+        name_field,
         type: :keyword,
         index: :not_analyzed,
-        value: -> {}
-      }) do
-        field :original, array_index_field(name_field, ORIGINAL_FIELD)
-        field :edge, array_index_field(name_field, EDGE_FIELD)
-        field :ngram, array_index_field(name_field, NGRAM_FIELD)
+        value: lambda do |model|
+          if name_field =~ /^(?<name>\w+)_(?<index>\d)$/
+            model.send($LAST_MATCH_INFO[:name])[$LAST_MATCH_INFO[:index].to_i]
+          else
+            model.send(name_field)
+          end
+        end
+      ) do
+        field :original, ORIGINAL_FIELD
+        field :edge, EDGE_FIELD
+        field :ngram, NGRAM_FIELD
       end
     end
     # field :score, type: :half_float, index: false

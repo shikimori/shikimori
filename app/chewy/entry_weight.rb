@@ -25,6 +25,7 @@ class EntryWeight
   DEFAULT_WEIGHT = 6
 
   def call
+    binding.pry
     (1 + Math.log10(score_value(@entry)) * Math.log10(kind_value(@entry))).round(3)
   end
 
