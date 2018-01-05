@@ -1,7 +1,7 @@
 describe Elasticsearch::Query::Person, :vcr do
   around { |example| Chewy.strategy(:urgent) { example.run } }
   before do
-    VCR.configure { |c| c.ignore_request { |_request| true } }
+    # VCR.configure { |c| c.ignore_request { |_request| true } }
     # Chewy.logger = ActiveSupport::Logger.new(STDOUT)
     # Chewy.transport_logger = ActiveSupport::Logger.new(STDOUT)
     ActiveRecord::Base.connection.reset_pk_sequence! :people
