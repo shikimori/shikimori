@@ -8,12 +8,7 @@ describe Elasticsearch::Query::Ranobe, :vcr do
     RanobeIndex.purge!
   end
 
-  subject do
-    described_class.call(
-      phrase: phrase,
-      limit: ids_limit
-    )
-  end
+  subject { described_class.call phrase: phrase, limit: ids_limit }
 
   let!(:ranobe_1) { create :ranobe, name: 'test' }
   let!(:ranobe_2) { create :ranobe, name: 'test zxct' }

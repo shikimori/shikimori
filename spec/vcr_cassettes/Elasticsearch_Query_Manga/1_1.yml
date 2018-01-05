@@ -380,4 +380,66 @@ http_interactions:
       string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"2","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
     http_version: 
   recorded_at: Fri, 05 Jan 2018 23:36:41 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_mangas/manga/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","russian":"манга_22","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '191'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"1","_version":4,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Fri, 05 Jan 2018 23:43:40 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_mangas/manga/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","russian":"манга_23","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '190'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"2","_version":4,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Fri, 05 Jan 2018 23:43:40 GMT
 recorded_with: VCR 4.0.0

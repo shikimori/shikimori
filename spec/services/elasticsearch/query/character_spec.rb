@@ -8,12 +8,7 @@ describe Elasticsearch::Query::Character, :vcr do
     CharactersIndex.purge!
   end
 
-  subject do
-    described_class.call(
-      phrase: phrase,
-      limit: ids_limit
-    )
-  end
+  subject { described_class.call phrase: phrase, limit: ids_limit }
 
   let!(:character_1) { create :character, name: 'test' }
   let!(:character_2) { create :character, name: 'test zxct' }

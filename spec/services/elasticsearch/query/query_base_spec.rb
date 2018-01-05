@@ -8,12 +8,7 @@ describe Elasticsearch::Query::QueryBase, :vcr do
     UsersIndex.purge!
   end
 
-  subject do
-    Elasticsearch::Query::User.call(
-      phrase: phrase,
-      limit: ids_limit
-    )
-  end
+  subject { Elasticsearch::Query::User.call phrase: phrase, limit: ids_limit }
 
   let!(:user_1) { create :user, nickname: 'test' }
   let!(:user_2) { create :user, nickname: 'test zxct' }

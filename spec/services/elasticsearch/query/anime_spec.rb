@@ -8,12 +8,7 @@ describe Elasticsearch::Query::Anime, :vcr do
     AnimesIndex.purge!
   end
 
-  subject do
-    described_class.call(
-      phrase: phrase,
-      limit: ids_limit
-    )
-  end
+  subject { described_class.call phrase: phrase, limit: ids_limit }
 
   let!(:anime_1) { create :anime, name: 'test' }
   let!(:anime_2) { create :anime, name: 'test zxct' }
