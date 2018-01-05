@@ -5,24 +5,17 @@ describe Search::User do
       .with(phrase: phrase, limit: ids_limit)
       .and_return results
   end
-  subject do
-    Search::User.call(
-      scope: scope,
-      phrase: phrase,
-      ids_limit: ids_limit
-    )
-  end
 
-  describe '#call' do
-    let(:scope) { User.all }
-    let(:phrase) { 'zxct' }
-    let(:ids_limit) { 2 }
+  subject { described_class.call scope: scope, phrase: phrase, ids_limit: ids_limit }
 
-    let(:results) { { user_1.id => 0.123123 } }
+  let(:scope) { User.all }
+  let(:phrase) { 'zxct' }
+  let(:ids_limit) { 2 }
 
-    let!(:user_1) { create :user }
-    let!(:user_2) { create :user }
+  let(:results) { { user_1.id => 0.123123 } }
 
-    it { is_expected.to eq [user_1] }
-  end
+  let!(:user_1) { create :user }
+  let!(:user_2) { create :user }
+
+  it { is_expected.to eq [user_1] }
 end
