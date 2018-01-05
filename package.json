@@ -36,7 +36,7 @@
     "vue-loader": "^12.2.2",
     "vue-template-compiler": "^2.4.2",
     "vuedraggable": "^2.14.1",
-    "vuex": "^2.4.0"
+    "vuex": "3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.4",
