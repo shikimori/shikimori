@@ -38,9 +38,13 @@ class AnimesCollection::View < ViewObjectBase
   def cache_key
     user_key = user if h.params[:mylist]
     if h.params[:search] || h.params[:q]
-      reindex = Elasticsearch::Reindex.time(klass.name.downcase)
+      last_created_at = klass
+        .select('max(created_at) as created_at')
+        .to_a
+        .first
+        .created_at
     end
-    initial_key = [klass.name, user_key, reindex, CACHE_VERSION]
+    initial_key = [klass.name, user_key, last_created_at, CACHE_VERSION]
 
     h.url_params
       .except(:format)
