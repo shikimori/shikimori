@@ -9,7 +9,7 @@ environment.loaders.get('babel').exclude =
   /node_modules\/(?!delay|p-defer|get-js)/
 
 environment.loaders.get('file').exclude =
-  /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug)?(\.erb)?$/
+  /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/
 
 environment.loaders.append('vue', vue)
 environment.loaders.append('coffee', coffee)

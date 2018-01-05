@@ -5,7 +5,7 @@ page_load 'collections_new', 'collections_edit', 'collections_create', 'collecti
     require.ensure [], ->
       init_app(
         require('vue/instance').Vue,
-        require('vue/components/collections/collection_links.vue'),
+        require('vue/components/collections/collection_links.vue').default,
         require('vue/stores').collection_links,
       )
 
