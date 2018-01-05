@@ -1,12 +1,25 @@
-describe Elasticsearch::Query::Character do
-  let(:service) { Elasticsearch::Query::Character.new phrase: phrase, limit: limit }
-
-  describe '#call', :vcr do
-    let(:phrase) { 'nana' }
-    let(:limit) { 10 }
-
-    subject { service.call }
-
-    it { is_expected.to have(limit).items }
+describe Elasticsearch::Query::Character, :vcr do
+  around { |example| Chewy.strategy(:urgent) { example.run } }
+  before do
+    # VCR.configure { |c| c.ignore_request { |_request| true } }
+    # Chewy.logger = ActiveSupport::Logger.new(STDOUT)
+    # Chewy.transport_logger = ActiveSupport::Logger.new(STDOUT)
+    ActiveRecord::Base.connection.reset_pk_sequence! :characters
+    CharactersIndex.purge!
   end
+
+  subject do
+    described_class.call(
+      phrase: phrase,
+      limit: ids_limit
+    )
+  end
+
+  let!(:character_1) { create :character, name: 'test' }
+  let!(:character_2) { create :character, name: 'test zxct' }
+
+  let(:ids_limit) { 10 }
+  let(:phrase) { 'test' }
+
+  it { is_expected.to have_keys [character_1.id, character_2.id] }
 end

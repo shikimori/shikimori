@@ -4,15 +4,15 @@ class MangasIndex < ApplicationIndex
     synonyms_0 synonyms_1 synonyms_2 synonyms_3 synonyms_4 synonyms_5
   ]
 
-  KIND_WEIGHT = {
-    manga: 1.2,
-    manhwa: 1.2,
-    manhua: 1.2,
-    novel: 1.2,
-    doujin: 1.1
-  }
-
   settings DEFAULT_SETTINGS
+
+  # KIND_WEIGHT = {
+  #   manga: 1.2,
+  #   manhwa: 1.2,
+  #   manhua: 1.2,
+  #   novel: 1.2,
+  #   doujin: 1.1
+  # }
 
   define_type Manga.where.not(type: Ranobe.name) do
     NAME_FIELDS.each do |name_field|

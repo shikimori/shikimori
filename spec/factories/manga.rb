@@ -22,7 +22,6 @@ FactoryBot.define do
 
     after :build do |model|
       stub_method model, :generate_name_matches
-
       stub_method model, :touch_related
     end
 

@@ -1,16 +1,16 @@
-class RanobesIndex < ApplicationIndex
+class RanobeIndex < ApplicationIndex
   NAME_FIELDS = %i[
     name russian english japanese
     synonyms_0 synonyms_1 synonyms_2 synonyms_3 synonyms_4 synonyms_5
   ]
 
-  KIND_WEIGHT = {
-    novel: 1.2
-  }
-
   settings DEFAULT_SETTINGS
 
-  define_type Manga.where(type: Ranobe.name) do
+  # KIND_WEIGHT = {
+  #   novel: 1.2
+  # }
+
+  define_type Ranobe do
     NAME_FIELDS.each do |name_field|
       field(
         name_field,
@@ -31,7 +31,11 @@ class RanobesIndex < ApplicationIndex
     end
     # field :score, type: :half_float, index: false
     # field :year, type: :half_float, index: false
-    field :kind_weight,
+    # field :kind_weight,
+    #   type: :half_float,
+    #   index: false,
+    #   value: -> { KIND_WEIGHT[kind&.to_sym] || 1 }
+    field :weight,
       type: :half_float,
       index: false,
       value: -> (model, _) { EntryWeight.call model }

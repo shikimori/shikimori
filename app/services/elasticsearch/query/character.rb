@@ -1,2 +1,2 @@
-class Elasticsearch::Query::Character < Elasticsearch::Query::QueryBaseOld
+class Elasticsearch::Query::Character < Elasticsearch::Query::QueryBase
 end
