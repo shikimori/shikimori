@@ -1,0 +1,34 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_people/person/_search
+    body:
+      encoding: UTF-8
+      string: '{"size":10,"query":{"bool":{"must":[{"bool":{"should":[{"match":{"name.original":{"query":"hay","boost":100}}},{"match":{"name.edge":{"query":"hay","boost":5}}},{"match":{"name.ngram":{"query":"hay"}}},{"match":{"japanese.original":{"query":"hay","boost":100}}},{"match":{"japanese.edge":{"query":"hay","boost":5}}},{"match":{"japanese.ngram":{"query":"hay"}}},{"match":{"russian.original":{"query":"hay","boost":100}}},{"match":{"russian.edge":{"query":"hay","boost":5}}},{"match":{"russian.ngram":{"query":"hay"}}}]}}]}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '167'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no
+        such index","resource.type":"index_or_alias","resource.id":"shikimori_test_people","index_uuid":"_na_","index":"shikimori_test_people"}],"type":"index_not_found_exception","reason":"no
+        such index","resource.type":"index_or_alias","resource.id":"shikimori_test_people","index_uuid":"_na_","index":"shikimori_test_people"},"status":404}'
+    http_version: 
+  recorded_at: Fri, 05 Jan 2018 16:37:03 GMT
+recorded_with: VCR 4.0.0

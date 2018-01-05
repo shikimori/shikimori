@@ -1,4 +1,4 @@
-class Elasticsearch::Query::Person < Elasticsearch::Query::QueryBaseOld
+class Elasticsearch::Query::Person < Elasticsearch::Query::QueryBase
   method_object %i[phrase limit is_mangaka is_seyu is_producer]
 
 private
