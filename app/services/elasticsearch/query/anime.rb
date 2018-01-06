@@ -11,7 +11,7 @@ private
       function_score: {
         query: {
           dis_max: {
-            queries: [name_fields_query]
+            queries: [super]
           }
         },
         field_value_factor: {

@@ -6,7 +6,7 @@ private
   def query
     {
       bool: {
-        must: [name_fields_query, locale_query, forum_id_query]
+        must: [super, locale_query, forum_id_query]
       }
     }
   end

@@ -1,4 +1,5 @@
 class AnimesIndex < ApplicationIndex
+  # NAME_FIELDS = %i[name]
   NAME_FIELDS = %i[
     name russian english japanese
     synonyms_0 synonyms_1 synonyms_2 synonyms_3 synonyms_4 synonyms_5
@@ -29,7 +30,8 @@ class AnimesIndex < ApplicationIndex
         end
       ) do
         field :original, ORIGINAL_FIELD
-        field :edge, EDGE_FIELD
+        field :edge_phrase, EDGE_PHRASE_FIELD
+        field :edge_word, EDGE_WORD_FIELD
         field :ngram, NGRAM_FIELD
       end
     end

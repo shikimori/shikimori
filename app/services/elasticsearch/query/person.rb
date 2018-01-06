@@ -7,7 +7,7 @@ private
     {
       bool: {
         must: [
-          name_fields_query,
+          super,
           mangaka_query,
           seyu_query,
           producer_query

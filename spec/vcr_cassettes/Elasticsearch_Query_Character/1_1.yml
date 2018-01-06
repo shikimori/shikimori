@@ -28,55 +28,13 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Fri, 05 Jan 2018 16:08:51 GMT
-- request:
-    method: get
-    uri: http://localhost:9200/
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '242'
-    body:
-      encoding: ASCII-8BIT
-      string: |
-        {
-          "name" : "EGskHAA",
-          "cluster_name" : "elasticsearch_morr",
-          "cluster_uuid" : "6pEyihhxRCaggNPc9LcVaA",
-          "version" : {
-            "number" : "5.6.5",
-            "build_hash" : "6a37571",
-            "build_date" : "2017-12-04T07:50:10.466Z",
-            "build_snapshot" : false,
-            "lucene_version" : "6.6.1"
-          },
-          "tagline" : "You Know, for Search"
-        }
-    http_version: 
-  recorded_at: Fri, 05 Jan 2018 16:08:51 GMT
+  recorded_at: Sat, 06 Jan 2018 02:36:42 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_characters
     body:
       encoding: UTF-8
-      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":30}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":30,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":30},"distinct_words_filter":{"type":"unique","only_on_same_position":true}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words_filter"]}}}},"mappings":{"character":{"properties":{"name":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge":{"index":"analyzed","analyzer":"edge_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"japanese":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge":{"index":"analyzed","analyzer":"edge_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"fullname":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge":{"index":"analyzed","analyzer":"edge_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"russian":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge":{"index":"analyzed","analyzer":"edge_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"}}}}}'
+      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words_filter"]}}}},"mappings":{"character":{"properties":{"name":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","type":"string"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"japanese":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","type":"string"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"fullname":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","type":"string"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"russian":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","type":"string"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"}}}}}'
     headers:
       Content-Type:
       - application/json
@@ -93,13 +51,17 @@ http_interactions:
     headers:
       Warning:
       - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Fri, 05 Jan 2018 16:08:51 GMT"
+        [index] but got [not_analyzed]" "Sat, 06 Jan 2018 02:36:42 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge]" "Fri, 05 Jan 2018 16:08:51 GMT"
+        use [text] or [keyword] instead on [edge_phrase]" "Sat, 06 Jan 2018 02:36:42
+        GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [ngram]" "Fri, 05 Jan 2018 16:08:51 GMT"
+        use [text] or [keyword] instead on [edge_word]" "Sat, 06 Jan 2018 02:36:42
+        GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [original]" "Fri, 05 Jan 2018 16:08:51
+        use [text] or [keyword] instead on [ngram]" "Sat, 06 Jan 2018 02:36:42 GMT"
+      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [original]" "Sat, 06 Jan 2018 02:36:42
         GMT"
       Content-Type:
       - application/json; charset=UTF-8
@@ -109,7 +71,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_characters"}'
     http_version: 
-  recorded_at: Fri, 05 Jan 2018 16:08:51 GMT
+  recorded_at: Sat, 06 Jan 2018 02:36:42 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_characters
@@ -131,12 +93,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '2200'
+      - '2696'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Fri, 05 Jan 2018 16:08:51 GMT
+  recorded_at: Sat, 06 Jan 2018 02:36:42 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
@@ -144,7 +106,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":1}}
-        {"name":"test","japanese":null,"fullname":null,"russian":"персонаж_1"}
+        {"name":"test","japanese":null,"fullname":null,"russian":"персонаж_131"}
     headers:
       Content-Type:
       - application/json
@@ -165,9 +127,9 @@ http_interactions:
       - '186'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Fri, 05 Jan 2018 16:08:51 GMT
+  recorded_at: Sat, 06 Jan 2018 02:36:42 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_characters
@@ -189,12 +151,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '2200'
+      - '2696'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Fri, 05 Jan 2018 16:08:51 GMT
+  recorded_at: Sat, 06 Jan 2018 02:36:42 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
@@ -202,7 +164,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"fullname":null,"russian":"персонаж_2"}
+        {"name":"test zxct","japanese":null,"fullname":null,"russian":"персонаж_132"}
     headers:
       Content-Type:
       - application/json
@@ -223,15 +185,15 @@ http_interactions:
       - '186'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Fri, 05 Jan 2018 16:08:51 GMT
+  recorded_at: Sat, 06 Jan 2018 02:36:42 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_characters/character/_search
     body:
       encoding: UTF-8
-      string: '{"size":10,"query":{"bool":{"should":[{"match":{"name.original":{"query":"test","boost":100}}},{"match":{"name.edge":{"query":"test","boost":5}}},{"match":{"name.ngram":{"query":"test"}}},{"match":{"japanese.original":{"query":"test","boost":100}}},{"match":{"japanese.edge":{"query":"test","boost":5}}},{"match":{"japanese.ngram":{"query":"test"}}},{"match":{"fullname.original":{"query":"test","boost":100}}},{"match":{"fullname.edge":{"query":"test","boost":5}}},{"match":{"fullname.ngram":{"query":"test"}}},{"match":{"russian.original":{"query":"test","boost":100}}},{"match":{"russian.edge":{"query":"test","boost":5}}},{"match":{"russian.ngram":{"query":"test"}}}]}}}'
+      string: '{"size":10,"query":{"dis_max":{"queries":[{"term":{"name.original":{"value":"test","boost":400}}},{"term":{"name.edge_phrase":{"value":"test","boost":50}}},{"term":{"name.edge_word":{"value":"test","boost":20}}},{"match":{"name.ngram":{"query":"test"}}},{"term":{"japanese.original":{"value":"test","boost":400}}},{"term":{"japanese.edge_phrase":{"value":"test","boost":50}}},{"term":{"japanese.edge_word":{"value":"test","boost":20}}},{"match":{"japanese.ngram":{"query":"test"}}},{"term":{"fullname.original":{"value":"test","boost":400}}},{"term":{"fullname.edge_phrase":{"value":"test","boost":50}}},{"term":{"fullname.edge_word":{"value":"test","boost":20}}},{"match":{"fullname.ngram":{"query":"test"}}},{"term":{"russian.original":{"value":"test","boost":400}}},{"term":{"russian.edge_phrase":{"value":"test","boost":50}}},{"term":{"russian.edge_word":{"value":"test","boost":20}}},{"match":{"russian.ngram":{"query":"test"}}}],"tie_breaker":0,"boost":1}}}'
     headers:
       Content-Type:
       - application/json
@@ -249,197 +211,11 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '268'
+      - '269'
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJ0b29rIjowLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjMxLjI5NTM2NCwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfY2hhcmFjdGVycyIsIl90eXBlIjoiY2hhcmFjdGVyIiwiX2lkIjoiMSIsIl9zY29yZSI6MzEuMjk1MzY0LCJfc291cmNlIjp7Im5hbWUiOiJ0ZXN0IiwiamFwYW5lc2UiOm51bGwsImZ1bGxuYW1lIjpudWxsLCJydXNzaWFuIjoi0L/QtdGA0YHQvtC90LDQtl8xIn19LHsiX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfY2hhcmFjdGVycyIsIl90eXBlIjoiY2hhcmFjdGVyIiwiX2lkIjoiMiIsIl9zY29yZSI6Mi40MzgwNjg0LCJfc291cmNlIjp7Im5hbWUiOiJ0ZXN0IHp4Y3QiLCJqYXBhbmVzZSI6bnVsbCwiZnVsbG5hbWUiOm51bGwsInJ1c3NpYW4iOiLQv9C10YDRgdC+0L3QsNC2XzIifX1dfX0=
+        eyJ0b29rIjowLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjExNS4wNzI4NCwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfY2hhcmFjdGVycyIsIl90eXBlIjoiY2hhcmFjdGVyIiwiX2lkIjoiMSIsIl9zY29yZSI6MTE1LjA3Mjg0LCJfc291cmNlIjp7Im5hbWUiOiJ0ZXN0IiwiamFwYW5lc2UiOm51bGwsImZ1bGxuYW1lIjpudWxsLCJydXNzaWFuIjoi0L/QtdGA0YHQvtC90LDQtl8xMzEifX0seyJfaW5kZXgiOiJzaGlraW1vcmlfdGVzdF9jaGFyYWN0ZXJzIiwiX3R5cGUiOiJjaGFyYWN0ZXIiLCJfaWQiOiIyIiwiX3Njb3JlIjoyMi42MDM1OTIsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QgenhjdCIsImphcGFuZXNlIjpudWxsLCJmdWxsbmFtZSI6bnVsbCwicnVzc2lhbiI6ItC/0LXRgNGB0L7QvdCw0LZfMTMyIn19XX19
     http_version: 
-  recorded_at: Fri, 05 Jan 2018 16:08:51 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":1}}
-        {"name":"test","japanese":null,"fullname":null,"russian":"персонаж_226"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '190'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Fri, 05 Jan 2018 22:41:51 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"fullname":null,"russian":"персонаж_227"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Fri, 05 Jan 2018 22:41:51 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":1}}
-        {"name":"test","japanese":null,"fullname":null,"russian":"персонаж_240"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '191'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Fri, 05 Jan 2018 23:39:05 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"fullname":null,"russian":"персонаж_241"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '192'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Fri, 05 Jan 2018 23:39:05 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":1}}
-        {"name":"test","japanese":null,"fullname":null,"russian":"персонаж_216"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '192'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":4,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Fri, 05 Jan 2018 23:45:53 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"fullname":null,"russian":"персонаж_217"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '192'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":4,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Fri, 05 Jan 2018 23:45:53 GMT
+  recorded_at: Sat, 06 Jan 2018 02:36:42 GMT
 recorded_with: VCR 4.0.0
