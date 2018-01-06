@@ -6,14 +6,6 @@ class MangasIndex < ApplicationIndex
 
   settings DEFAULT_SETTINGS
 
-  # KIND_WEIGHT = {
-  #   manga: 1.2,
-  #   manhwa: 1.2,
-  #   manhua: 1.2,
-  #   novel: 1.2,
-  #   doujin: 1.1
-  # }
-
   define_type Manga.where.not(type: Ranobe.name) do
     NAME_FIELDS.each do |name_field|
       field(
@@ -34,12 +26,6 @@ class MangasIndex < ApplicationIndex
         field :ngram, NGRAM_FIELD
       end
     end
-    # field :score, type: :half_float, index: false
-    # field :year, type: :half_float, index: false
-    # field :kind_weight,
-    #   type: :half_float,
-    #   index: false,
-    #   value: -> { KIND_WEIGHT[kind&.to_sym] || 1 }
     field :weight,
       type: :half_float,
       index: false,

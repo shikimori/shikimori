@@ -6,10 +6,6 @@ class RanobeIndex < ApplicationIndex
 
   settings DEFAULT_SETTINGS
 
-  # KIND_WEIGHT = {
-  #   novel: 1.2
-  # }
-
   define_type Ranobe do
     NAME_FIELDS.each do |name_field|
       field(
@@ -30,12 +26,6 @@ class RanobeIndex < ApplicationIndex
         field :ngram, NGRAM_FIELD
       end
     end
-    # field :score, type: :half_float, index: false
-    # field :year, type: :half_float, index: false
-    # field :kind_weight,
-    #   type: :half_float,
-    #   index: false,
-    #   value: -> { KIND_WEIGHT[kind&.to_sym] || 1 }
     field :weight,
       type: :half_float,
       index: false,

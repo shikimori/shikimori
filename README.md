@@ -46,6 +46,11 @@ shikimori_production=# CREATE EXTENSION pg_stat_statements;
 
 ## Elasticsearch
 ```rails console
+pry(main)> AnimesIndex.reset!
+pry(main)> MangasIndex.reset!
+pry(main)> RanobeIndex.reset!
+pry(main)> PeopleIndex.reset!
+pry(main)> CharactersIndex.reset!
 pry(main)> ClubsIndex.reset!
 pry(main)> CollectionsIndex.reset!
 pry(main)> UsersIndex.reset!
