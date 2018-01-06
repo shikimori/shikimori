@@ -55,14 +55,18 @@ module.exports = class CollectionSearch extends View
     else if @cache[phrase]
       @_show_results @cache[phrase]
     else
-      axios
-        .get(@_search_url(phrase), headers: { 'Accept': 'text/html' })
-        .then (response) =>
-          @cache[phrase] = response.data
-          @_show_results @cache[phrase] if phrase == @_search_phrase()
+      axios.get(@_search_url(phrase)).then (response) =>
+        @cache[phrase] = response.data
+        @_show_results @cache[phrase] if phrase == @_search_phrase()
 
   _show_results: (response) ->
-    @$collection.html(response).process()
+    html =
+      if response.content
+        response.content + (response.postloader || '')
+      else
+        JST['search/nothing_found']()
+
+    @$collection.html(html).process()
     @_hide_ajax()
 
   _search_phrase: ->

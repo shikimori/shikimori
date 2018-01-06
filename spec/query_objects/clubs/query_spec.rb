@@ -1,5 +1,5 @@
 describe Clubs::Query do
-  let(:query) { Clubs::Query.fetch(:ru) }
+  let(:query) { described_class.fetch(:ru) }
 
   include_context :timecop
 

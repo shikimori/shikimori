@@ -28,6 +28,7 @@ default: &default
     - .gif
     - .jpeg
     - .jpg
+    - .jade
 
 development:
   <<: *default

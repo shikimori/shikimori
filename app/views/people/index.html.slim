@@ -1,13 +1,23 @@
 header.head
-  h1
-    = @page_title.last
+  h1 = @page_title.last
+  p.notice = t ".notice.#{params[:controller]}"
 
-  p.notice = t '.search_results_for_query', query: params[:search]
+.b-collection_search[
+  data-search_url=search_url
+]
+  .field
+    input[
+      type="text"
+      placeholder=t('search')
+      value=params[:search]
+    ]
+    .clear
 
-- if @collection.empty?
-  p = t 'nothing_found'
+  .collection.cc-8
+    = render @collection
 
-.cc-8
-  = render @collection
-  - if @add_postloader
-    = render 'blocks/postloader', next_url: search_url(search: params[:search], page: @page+1)
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        next_url: search_url(page: @collection.next_page, search: params[:search]),
+        prev_url: (search_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
+      = render 'people/collection'

@@ -24,4 +24,5 @@ ru:
       works:
         all: Все
     index:
-      search_results_for_query: Результат поиска по запросу "%{query}"
+      notice:
+        characters: Все персонажи аниме и манги

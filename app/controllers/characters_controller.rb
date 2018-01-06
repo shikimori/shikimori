@@ -1,4 +1,3 @@
-# TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
   before_action :js_export, only: %i[show]
 
@@ -12,16 +11,14 @@ class CharactersController < PeopleController
     #expires_in: 2.days
 
   def index
-    noindex
-    page_title search_title
+    page_title i18n_i(:Character, :other)
 
-    @collection = postload_paginate(params[:page], 48) do
-      Search::Character.call(
-        scope: Character.all,
-        phrase: SearchHelper.unescape(params[:search] || params[:q]),
-        ids_limit: 480
-      )
-    end
+    @page = [params[:page].to_i, 1].max
+
+    @collection = Characters::Query
+      .fetch
+      .search(params[:search])
+      .paginate(@page, PER_PAGE)
   end
 
   def show
@@ -116,12 +113,8 @@ private
     {}
   end
 
-  def search_title
-    i18n_t('search_characters')
-  end
-
   def search_url *args
-    search_characters_url(*args)
+    characters_url(*args)
   end
 
   def js_export

@@ -1,4 +1,9 @@
+CollectionSearch = require 'views/application/collection_search'
 FavouriteStar = require 'views/application/favourite_star'
+
+page_load 'people_index', ->
+  new CollectionSearch '.b-collection_search'
+
 page_load 'people_show', ->
   $('.b-entry-info').check_height max_height: 101, without_shade: true
 

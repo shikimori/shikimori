@@ -703,7 +703,8 @@ Rails.application.routes.draw do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian japanese image description_ru description_en tags
       }.join('|'))
-      concerns :searcheable
+
+      get '(/page/:page)' => :index, as: '', on: :collection
 
       member do
         get :seyu

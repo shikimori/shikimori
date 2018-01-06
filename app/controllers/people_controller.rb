@@ -10,6 +10,8 @@ class PeopleController < DbEntriesController
   helper_method :search_url
   #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
+  PER_PAGE = 48
+
   def index
     noindex
     page_title search_title

@@ -24,4 +24,5 @@ en:
       works:
         all: All
     index:
-      search_results_for_query: Search results for query "%{query}"
+      notice:
+        characters: All anime and manga characters

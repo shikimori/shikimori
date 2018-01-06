@@ -43,9 +43,10 @@ $(document).on 'page:load', ->
 
     .on 'autocomplete:text', (e, text) ->
       type = $search.data('type')
-      document.location.href = searcheables[type].phrase.replace(
-         '[phrase]', if type == 'users' then text else search_escape(text)
-      )
+      search_url = searcheables[type].phrase
+        .replace('[uri_phrase]', encodeURIComponent(text))
+        .replace('[search_phrase]', search_escape(text))
+      document.location.href = search_url
 
   $search.on 'parse', ->
     $popup.addClass 'disabled'
@@ -97,54 +98,54 @@ $(document).on 'page:load', ->
 searcheables =
   animes:
     autocomplete: "/animes/autocomplete/"
-    phrase: "/animes/search/[phrase]"
+    phrase: "/animes/search/[search_phrase]"
     id: "/animes/[id]"
     regexp: /.*\/search\/(.*?)\/.*/
 
   mangas:
     autocomplete: "/mangas/autocomplete/"
-    phrase: "/mangas/search/[phrase]"
+    phrase: "/mangas/search/[search_phrase]"
     id: "/mangas/[id]"
     regexp: /.*\/search\/(.*?)\/.*/
 
   ranobe:
     autocomplete: "/ranobe/autocomplete/"
-    phrase: "/ranobe/search/[phrase]"
+    phrase: "/ranobe/search/[search_phrase]"
     id: "/ranobe/[id]"
     regexp: /^\/ranobe\/(.*?)/
 
   characters:
     autocomplete: "/characters/autocomplete/"
-    phrase: "/characters/search/[phrase]"
+    phrase: "/characters?search=[uri_phrase]"
     id: "/characters/[id]"
     regexp: /^\/characters\/(.*?)/
 
   seyu:
     autocomplete: "/people/autocomplete?kind=seyu"
-    phrase: "/seyu/search/[phrase]"
+    phrase: "/seyu/search/[search_phrase]"
     id: "/seyu/[id]"
     regexp: /^\/seyu\/(.*?)/
 
   producers:
     autocomplete: "/people/autocomplete?kind=producer"
-    phrase: "/producers/search/[phrase]"
+    phrase: "/producers/search/[search_phrase]"
     id: "/person/[id]"
     regexp: /^\/producer\/(.*?)/
 
   mangakas:
     autocomplete: "/people/autocomplete?kind=mangaka"
-    phrase: "/mangakas/search/[phrase]"
+    phrase: "/mangakas/search/[search_phrase]"
     id: "/person/[id]"
     regexp: /^\/mangaka\/(.*?)/
 
   people:
     autocomplete: "/people/autocomplete/"
-    phrase: "/people/search/[phrase]"
+    phrase: "/people/search/[search_phrase]"
     id: "/person/[id]"
     regexp: /^\/people\/(.*?)/
 
   users:
     autocomplete: "/users/autocomplete/"
-    phrase: "/users?search=[phrase]"
+    phrase: "/users?search=[uri_phrase]"
     id: "/[id]"
     regexp: /^\/users\/(.*?)/

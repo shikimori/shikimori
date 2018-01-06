@@ -267,7 +267,6 @@ en:
   characters_controller:
     <<: *animes_controller
     entry_edit: Edit character
-    search_characters: Search characters
 
   people_controller:
     <<: *animes_controller

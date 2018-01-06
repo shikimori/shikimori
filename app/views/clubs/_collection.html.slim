@@ -1,6 +1,6 @@
 - if @favourites&.any?
   .subheadline.m10 = t '.favourites'
-  .b-clubs.index
+  .b-clubs
     = render partial: 'clubs/club',
       collection: @favourites,
       locals: { content_by: :detailed },
@@ -8,7 +8,7 @@
 
   .subheadline.m10 = t '.all_clubs'
 
-.b-clubs.index
+.b-clubs
   = render partial: 'clubs/club',
     collection: @collection,
     locals: { content_by: :detailed },
