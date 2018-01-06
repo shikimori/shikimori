@@ -28,7 +28,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
 - request:
     method: get
     uri: http://localhost:9200/
@@ -70,13 +70,13 @@ http_interactions:
           "tagline" : "You Know, for Search"
         }
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_collections
     body:
       encoding: UTF-8
-      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":30}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":30,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":30},"distinct_words_filter":{"type":"unique","only_on_same_position":true}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words_filter"]}}}},"mappings":{"collection":{"properties":{"name":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge":{"index":"analyzed","analyzer":"edge_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"locale":{"type":"keyword"}}}}}'
+      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words_filter"]}}}},"mappings":{"collection":{"properties":{"name":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","type":"string"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"locale":{"type":"keyword"}}}}}'
     headers:
       Content-Type:
       - application/json
@@ -93,13 +93,17 @@ http_interactions:
     headers:
       Warning:
       - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Tue, 12 Dec 2017 18:41:08 GMT"
+        [index] but got [not_analyzed]" "Sat, 06 Jan 2018 02:35:01 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge]" "Tue, 12 Dec 2017 18:41:08 GMT"
+        use [text] or [keyword] instead on [edge_phrase]" "Sat, 06 Jan 2018 02:35:01
+        GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [ngram]" "Tue, 12 Dec 2017 18:41:08 GMT"
+        use [text] or [keyword] instead on [edge_word]" "Sat, 06 Jan 2018 02:35:01
+        GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [original]" "Tue, 12 Dec 2017 18:41:08
+        use [text] or [keyword] instead on [ngram]" "Sat, 06 Jan 2018 02:35:01 GMT"
+      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [original]" "Sat, 06 Jan 2018 02:35:01
         GMT"
       Content-Type:
       - application/json; charset=UTF-8
@@ -109,7 +113,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_collections"}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_collections
@@ -131,12 +135,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '1413'
+      - '1687'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_collections/collection/_bulk?refresh=true
@@ -167,7 +171,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_collections
@@ -189,12 +193,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '1413'
+      - '1687'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_collections/collection/_bulk?refresh=true
@@ -225,7 +229,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_collections
@@ -247,12 +251,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '1413'
+      - '1687'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_collections/collection/_bulk?refresh=true
@@ -283,13 +287,13 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_collections/collection/_search
     body:
       encoding: UTF-8
-      string: '{"size":10,"query":{"bool":{"must":[{"bool":{"should":[{"match":{"name.original":{"query":"test","boost":100}}},{"match":{"name.edge":{"query":"test","boost":5}}},{"match":{"name.ngram":{"query":"test"}}}]}},{"term":{"locale":"ru"}}]}}}'
+      string: '{"size":10,"query":{"bool":{"must":[{"dis_max":{"queries":[{"term":{"name.original":{"value":"test","boost":400}}},{"term":{"name.edge_phrase":{"value":"test","boost":50}}},{"term":{"name.edge_word":{"value":"test","boost":20}}},{"match":{"name.ngram":{"query":"test"}}}],"tie_breaker":0,"boost":1}},{"term":{"locale":"ru"}}]}}}'
     headers:
       Content-Type:
       - application/json
@@ -310,8 +314,66 @@ http_interactions:
       - '224'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":31.583046,"hits":[{"_index":"shikimori_test_collections","_type":"collection","_id":"1","_score":31.583046,"_source":{"name":"test","locale":"ru"}},{"_index":"shikimori_test_collections","_type":"collection","_id":"2","_score":2.7257504,"_source":{"name":"test
+      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":115.36052,"hits":[{"_index":"shikimori_test_collections","_type":"collection","_id":"1","_score":115.36052,"_source":{"name":"test","locale":"ru"}},{"_index":"shikimori_test_collections","_type":"collection","_id":"2","_score":22.891273,"_source":{"name":"test
         zxct","locale":"ru"}}]}}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 18:41:08 GMT
+  recorded_at: Sat, 06 Jan 2018 02:35:01 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_users
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1645'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 02:40:53 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":500283}}
+        {"nickname":"user_2791"}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '189'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"500283","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 02:40:53 GMT
 recorded_with: VCR 4.0.0

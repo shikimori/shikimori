@@ -8,13 +8,7 @@ describe Elasticsearch::Query::Collection, :vcr do
     CollectionsIndex.purge!
   end
 
-  subject do
-    described_class.call(
-      phrase: phrase,
-      limit: ids_limit,
-      locale: locale
-    )
-  end
+  subject { described_class.call phrase: phrase, limit: ids_limit, locale: locale }
 
   let!(:collection_1) { create :collection, name: 'test', locale: 'ru' }
   let!(:collection_2) { create :collection, name: 'test zxct', locale: 'ru' }

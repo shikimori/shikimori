@@ -127,7 +127,7 @@ $ =>
   if match = location.hash.match(/^#(comment-\d+)$/)
     $("a[name=#{match[1]}]").closest('.b-comment').yellow_fade()
 
-  # отдельный эвент для ресайзов и скрола
+  # отдельные эвенты для ресайзов и скрола
   $(window).on 'resize', debounce(500, -> $(document.body).trigger 'resize:debounced')
   $(window).on 'scroll', throttle(750, -> $(document.body).trigger 'scroll:throttled')
 

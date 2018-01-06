@@ -8,13 +8,7 @@ describe Elasticsearch::Query::Club, :vcr do
     ClubsIndex.purge!
   end
 
-  subject do
-    described_class.call(
-      phrase: phrase,
-      limit: ids_limit,
-      locale: locale
-    )
-  end
+  subject { described_class.call phrase: phrase, limit: ids_limit, locale: locale }
 
   let!(:club_1) { create :club, name: 'test', locale: 'ru' }
   let!(:club_2) { create :club, name: 'test zxct', locale: 'ru' }

@@ -28,13 +28,13 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 19:12:31 GMT
+  recorded_at: Sat, 06 Jan 2018 02:37:08 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_users
     body:
       encoding: UTF-8
-      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":30}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":30,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":30},"distinct_words_filter":{"type":"unique","only_on_same_position":true}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words_filter"]}}}},"mappings":{"user":{"properties":{"nickname":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge":{"index":"analyzed","analyzer":"edge_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"}}}}}'
+      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words_filter"]}}}},"mappings":{"user":{"properties":{"nickname":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","type":"string"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"}}}}}'
     headers:
       Content-Type:
       - application/json
@@ -51,13 +51,17 @@ http_interactions:
     headers:
       Warning:
       - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Tue, 12 Dec 2017 19:12:31 GMT"
+        [index] but got [not_analyzed]" "Sat, 06 Jan 2018 02:37:08 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge]" "Tue, 12 Dec 2017 19:12:31 GMT"
+        use [text] or [keyword] instead on [edge_phrase]" "Sat, 06 Jan 2018 02:37:08
+        GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [ngram]" "Tue, 12 Dec 2017 19:12:31 GMT"
+        use [text] or [keyword] instead on [edge_word]" "Sat, 06 Jan 2018 02:37:08
+        GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [original]" "Tue, 12 Dec 2017 19:12:31
+        use [text] or [keyword] instead on [ngram]" "Sat, 06 Jan 2018 02:37:08 GMT"
+      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [original]" "Sat, 06 Jan 2018 02:37:08
         GMT"
       Content-Type:
       - application/json; charset=UTF-8
@@ -67,7 +71,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_users"}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 19:12:31 GMT
+  recorded_at: Sat, 06 Jan 2018 02:37:08 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_users
@@ -89,12 +93,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '1371'
+      - '1645'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 19:12:31 GMT
+  recorded_at: Sat, 06 Jan 2018 02:37:08 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
@@ -123,9 +127,9 @@ http_interactions:
       - '187'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"500001","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"500001","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 19:12:31 GMT
+  recorded_at: Sat, 06 Jan 2018 02:37:08 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_users
@@ -147,12 +151,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '1371'
+      - '1645'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 19:12:31 GMT
+  recorded_at: Sat, 06 Jan 2018 02:37:08 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
@@ -183,13 +187,13 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"500002","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 19:12:31 GMT
+  recorded_at: Sat, 06 Jan 2018 02:37:08 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_users/user/_search
     body:
       encoding: UTF-8
-      string: '{"size":10,"query":{"bool":{"should":[{"match":{"nickname.original":{"query":"test","boost":100}}},{"match":{"nickname.edge":{"query":"test","boost":5}}},{"match":{"nickname.ngram":{"query":"test"}}}]}}}'
+      string: '{"size":10,"query":{"dis_max":{"queries":[{"term":{"nickname.original":{"value":"test","boost":400}}},{"term":{"nickname.edge_phrase":{"value":"test","boost":50}}},{"term":{"nickname.edge_word":{"value":"test","boost":20}}},{"match":{"nickname.ngram":{"query":"test"}}}],"tie_breaker":0,"boost":1}}}'
     headers:
       Content-Type:
       - application/json
@@ -210,8 +214,8 @@ http_interactions:
       - '216'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":31.295364,"hits":[{"_index":"shikimori_test_users","_type":"user","_id":"500001","_score":31.295364,"_source":{"nickname":"test"}},{"_index":"shikimori_test_users","_type":"user","_id":"500002","_score":2.4380684,"_source":{"nickname":"test
+      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":115.07284,"hits":[{"_index":"shikimori_test_users","_type":"user","_id":"500001","_score":115.07284,"_source":{"nickname":"test"}},{"_index":"shikimori_test_users","_type":"user","_id":"500002","_score":22.603592,"_source":{"nickname":"test
         zxct"}}]}}'
     http_version: 
-  recorded_at: Tue, 12 Dec 2017 19:12:31 GMT
+  recorded_at: Sat, 06 Jan 2018 02:37:08 GMT
 recorded_with: VCR 4.0.0

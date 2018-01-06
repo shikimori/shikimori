@@ -4,8 +4,8 @@ page_load '.polls', ->
   if $('#vue_poll_variants').exists()
     require.ensure [], ->
       init_app(
-        require('vue/instance').Vue
-        require('vue/components/poll.vue')
+        require('vue/instance').Vue,
+        require('vue/components/poll.vue').default,
         require('vue/stores').collection
       )
 

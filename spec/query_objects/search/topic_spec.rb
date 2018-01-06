@@ -5,8 +5,9 @@ describe Search::Topic do
       .with(phrase: phrase, limit: ids_limit, forum_id: forum_id, locale: locale)
       .and_return results
   end
+
   subject do
-    Search::Topic.call(
+    described_class.call(
       scope: scope,
       phrase: phrase,
       forum_id: forum_id,
@@ -15,18 +16,16 @@ describe Search::Topic do
     )
   end
 
-  describe '#call' do
-    let(:scope) { Topic.all }
-    let(:phrase) { 'zxct' }
-    let(:ids_limit) { 2 }
-    let(:locale) { 'ru' }
-    let(:forum_id) { Topic::FORUM_IDS[Anime.name] }
+  let(:scope) { Topic.all }
+  let(:phrase) { 'zxct' }
+  let(:ids_limit) { 2 }
+  let(:locale) { 'ru' }
+  let(:forum_id) { Topic::FORUM_IDS[Anime.name] }
 
-    let(:results) { { topic_1.id => 0.123123 } }
+  let(:results) { { topic_1.id => 0.123123 } }
 
-    let!(:topic_1) { create :topic }
-    let!(:topic_2) { create :topic }
+  let!(:topic_1) { create :topic }
+  let!(:topic_2) { create :topic }
 
-    it { is_expected.to eq [topic_1] }
-  end
+  it { is_expected.to eq [topic_1] }
 end

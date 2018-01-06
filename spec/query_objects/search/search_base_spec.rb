@@ -8,22 +8,14 @@ describe Search::SearchBase, :vcr do
     UsersIndex.purge!
   end
 
-  subject do
-    Search::User.call(
-      scope: scope,
-      phrase: phrase,
-      ids_limit: ids_limit
-    )
-  end
+  subject { Search::User.call scope: scope, phrase: phrase, ids_limit: ids_limit }
 
-  describe '#call' do
-    let(:scope) { User.all }
-    let(:phrase) { 'zxct' }
-    let(:ids_limit) { 2 }
+  let(:scope) { User.all }
+  let(:phrase) { 'zxct' }
+  let(:ids_limit) { 2 }
 
-    let!(:user_1) { create :user, nickname: 'test' }
-    let!(:user_2) { create :user, nickname: 'test zxct' }
+  let!(:user_1) { create :user, nickname: 'test' }
+  let!(:user_2) { create :user, nickname: 'test zxct' }
 
-    it { is_expected.to eq [user_2] }
-  end
+  it { is_expected.to eq [user_2] }
 end

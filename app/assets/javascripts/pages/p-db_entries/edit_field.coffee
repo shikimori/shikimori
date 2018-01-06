@@ -129,16 +129,16 @@ page_load '.db_entries-edit_field', ->
   if $('.edit-page.external_links').exists()
     require.ensure [], ->
       init_external_links_app(
-        require('vue/instance').Vue
-        require('vue/components/external_links/external_links.vue')
+        require('vue/instance').Vue,
+        require('vue/components/external_links/external_links.vue').default,
         require('vue/stores').collection
       )
 
   if $('.edit-page.synonyms').exists()
     require.ensure [], ->
       init_synonyms_app(
-        require('vue/instance').Vue
-        require('vue/components/synonyms.vue')
+        require('vue/instance').Vue,
+        require('vue/components/synonyms.vue').default,
         require('vue/stores').collection
       )
 

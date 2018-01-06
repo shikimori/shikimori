@@ -3,9 +3,16 @@
 class Person < DbEntry
   include TopicsConcern
   include CollectionsConcern
-  include ElasticsearchConcern
 
   DESYNCABLE = %w[name japanese website birthday image]
+
+  update_index('people#person') do
+    if saved_change_to_name? || saved_change_to_russian? ||
+        saved_change_to_japanese? || saved_change_to_seyu? ||
+        saved_change_to_producer? || saved_change_to_mangaka?
+      self
+    end
+  end
 
   has_many :person_roles, dependent: :destroy
   has_many :animes, -> { order :id }, through: :person_roles

@@ -8,13 +8,18 @@ shared_context :view_object_warden_stub do
     view_context = view.h
 
     view_context.request.env['warden'] ||= WardenStub.new
-    allow(view_context).to receive(:current_user).and_return(
-      user ? user.decorate : nil
-    )
-    def view_context.censored_forbidden?; true; end
-    # allow(view_context).to receive(:censored_forbidden?).and_return true
-    allow(view_context.controller).to receive(:default_url_options)
+    allow(view_context)
+      .to receive(:params)
+      .and_return ActionController::Parameters.new
+    allow(view_context)
+      .to receive(:current_user)
+      .and_return(user ? user.decorate : nil)
+    allow(view_context.controller)
+      .to receive(:default_url_options)
       .and_return ApplicationController.default_url_options
+
+    # allow(view_context).to receive(:censored_forbidden?).and_return true
+    def view_context.censored_forbidden?; true; end
   end
 
   after do

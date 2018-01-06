@@ -83,5 +83,4 @@ describe Manga do
   it_behaves_like :touch_related_in_db_entry, :manga
   it_behaves_like :topics_concern, :manga
   it_behaves_like :collections_concern, :manga
-  it_behaves_like :elasticsearch_concern, :manga
 end

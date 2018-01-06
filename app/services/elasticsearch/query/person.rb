@@ -1,4 +1,4 @@
-class Elasticsearch::Query::Person < Elasticsearch::Query::QueryBaseOld
+class Elasticsearch::Query::Person < Elasticsearch::Query::QueryBase
   method_object %i[phrase limit is_mangaka is_seyu is_producer]
 
 private
@@ -7,7 +7,7 @@ private
     {
       bool: {
         must: [
-          name_fields_query,
+          super,
           mangaka_query,
           seyu_query,
           producer_query

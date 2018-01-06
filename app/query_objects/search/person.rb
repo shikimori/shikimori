@@ -1,4 +1,4 @@
-class Search::Person < Search::SearchBaseOld
+class Search::Person < Search::SearchBase
   method_object %i[scope phrase ids_limit is_mangaka is_producer is_seyu]
 
 private

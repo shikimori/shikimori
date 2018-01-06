@@ -6,7 +6,7 @@ describe Search::Collection do
       .and_return results
   end
   subject do
-    Search::Collection.call(
+    described_class.call(
       scope: scope,
       phrase: phrase,
       ids_limit: ids_limit,
