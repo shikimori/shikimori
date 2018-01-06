@@ -280,4 +280,128 @@ http_interactions:
       string: '{"took":26,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
     http_version: 
   recorded_at: Sat, 06 Jan 2018 02:39:40 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","japanese":null,"fullname":null,"russian":"персонаж_127"}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '191'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":20,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 03:18:41 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","japanese":null,"fullname":null,"russian":"персонаж_128"}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '192'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 03:18:41 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","japanese":null,"fullname":null,"russian":"персонаж_101"}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '193'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":38,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":4,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 11:13:13 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","japanese":null,"fullname":null,"russian":"персонаж_102"}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '192'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":4,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 11:13:13 GMT
 recorded_with: VCR 4.0.0
