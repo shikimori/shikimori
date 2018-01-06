@@ -39,11 +39,17 @@ link rel="icon" href="/favicons/opera-icon-228x228.png" sizes="228x228"
 link rel="search" type="application/opensearchdescription+xml" title="#{Shikimori::DOMAIN}" href="/search.xml"
 link rel="yandex-tableau-widget" href="//#{Shikimori::DOMAIN}/yandex-tableau-widget-manifest.json"
 
-- if defined?(@next_page) && !@next_page.blank?
+- if !@next_page.blank?
   link rel="next" href="#{{@next_page}}"
 
-- if defined?(@prev_page) && !@prev_page.blank?
+- if !@prev_page.blank?
   link rel="prev" href="#{{@prev_page}}"
+
+- if defined?(@collection) && @collection.respond_to?(:next_page?)
+  - if @collection.next_page?
+    link rel="next" href="#{{url_for url_params(page: @collection.next_page)}}"
+  - if @collection.prev_page?
+    link rel="prev" href="#{{url_for url_params(page: @collection.prev_page == 1 ? nil : @collection.prev_page)}}"
 
 - if defined?(@canonical) && !@canonical.blank?
   link rel="canonical" href="#{{@canonical}}"
