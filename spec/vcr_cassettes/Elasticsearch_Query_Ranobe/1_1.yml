@@ -334,4 +334,128 @@ http_interactions:
         eyJ0b29rIjowLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjEzLjE0MTgwOSwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfcmFub2JlIiwiX3R5cGUiOiJyYW5vYmUiLCJfaWQiOiIxIiwiX3Njb3JlIjoxMy4xNDE4MDksIl9zb3VyY2UiOnsibmFtZSI6InRlc3QiLCJydXNzaWFuIjoi0YDQsNC90L7QsdGNXzQ4IiwiZW5nbGlzaCI6bnVsbCwiamFwYW5lc2UiOm51bGwsInN5bm9ueW1zXzAiOm51bGwsInN5bm9ueW1zXzEiOm51bGwsInN5bm9ueW1zXzIiOm51bGwsInN5bm9ueW1zXzMiOm51bGwsInN5bm9ueW1zXzQiOm51bGwsInN5bm9ueW1zXzUiOm51bGwsIndlaWdodCI6MS4zMDF9fSx7Il9pbmRleCI6InNoaWtpbW9yaV90ZXN0X3Jhbm9iZSIsIl90eXBlIjoicmFub2JlIiwiX2lkIjoiMiIsIl9zY29yZSI6Mi41ODE0MjY2LCJfc291cmNlIjp7Im5hbWUiOiJ0ZXN0IHp4Y3QiLCJydXNzaWFuIjoi0YDQsNC90L7QsdGNXzQ5IiwiZW5nbGlzaCI6bnVsbCwiamFwYW5lc2UiOm51bGwsInN5bm9ueW1zXzAiOm51bGwsInN5bm9ueW1zXzEiOm51bGwsInN5bm9ueW1zXzIiOm51bGwsInN5bm9ueW1zXzMiOm51bGwsInN5bm9ueW1zXzQiOm51bGwsInN5bm9ueW1zXzUiOm51bGwsIndlaWdodCI6MS4zMDF9fV19fQ==
     http_version: 
   recorded_at: Sat, 06 Jan 2018 02:36:40 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_ranobe/ranobe/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","russian":"ранобэ_71","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '188'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_ranobe","_type":"ranobe","_id":"1","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 11:33:47 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_ranobe/ranobe/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","russian":"ранобэ_72","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '188'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_ranobe","_type":"ranobe","_id":"2","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 11:33:47 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_ranobe/ranobe/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","russian":"ранобэ_30","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '190'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_ranobe","_type":"ranobe","_id":"1","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 11:37:56 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_ranobe/ranobe/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","russian":"ранобэ_31","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '189'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_ranobe","_type":"ranobe","_id":"2","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 11:37:56 GMT
 recorded_with: VCR 4.0.0
