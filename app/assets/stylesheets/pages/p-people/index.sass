@@ -1,4 +1,11 @@
+@import mixins/dash_separated
+
 .p-people-index
+  header.head
+    .notice
+      span, a
+        +dash_separated
+
   .b-postloader
     clear: left
     margin-bottom: 0

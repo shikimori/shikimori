@@ -1,5 +1,6 @@
+# rubocop:disable ClassLength
 class PeopleController < DbEntriesController
-  respond_to :html, only: [:show, :tooltip]
+  respond_to :html, only: %i[show tooltip]
   respond_to :html, :json, only: :index
   respond_to :json, only: :autocomplete
 
@@ -8,18 +9,27 @@ class PeopleController < DbEntriesController
   before_action :js_export, only: %i[show]
 
   helper_method :search_url
-  #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
+  # caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
   PER_PAGE = 48
 
+  # rubocop:disable AbcSize, MethodLength
   def index
-    noindex
     page_title search_title
 
-    @collection = postload_paginate(params[:page], 48) do
-      Search::Person.call search_params.merge(ids_limit: 480)
-    end
+    @page = [params[:page].to_i, 1].max
+
+    @collection = People::Query
+      .fetch(is_mangaka: mangaka?, is_producer: producer?, is_seyu: seyu?)
+      .search(
+        params[:search],
+        is_mangaka: mangaka?,
+        is_producer: producer?,
+        is_seyu: seyu?
+      )
+      .paginate(@page, PER_PAGE)
   end
+  # rubocop:enable AbcSize, MethodLength
 
   def show
     @itemtype = @resource.itemtype
@@ -62,29 +72,31 @@ private
     {
       scope: Person.all,
       phrase: SearchHelper.unescape(params[:search] || params[:q]),
-      is_seyu: params[:kind] == 'seyu',
-      is_mangaka: params[:kind] == 'mangaka',
-      is_producer: params[:kind] == 'producer'
+      is_seyu: seyu?,
+      is_mangaka: mangaka?,
+      is_producer: producer?
     }
   end
 
   def search_title
-    if params[:kind] == 'producer'
+    if producer?
       i18n_t 'search_producers'
-    elsif params[:kind] == 'mangaka'
+    elsif mangaka?
       i18n_t 'search_mangakas'
+    elsif seyu?
+      i18n_t 'search_seyu'
     else
       i18n_t 'search_people'
     end
   end
 
   def search_url *args
-    if params[:kind] == 'producer'
-      search_producers_url(*args)
-    elsif params[:kind] == 'mangaka'
-      search_mangakas_url(*args)
+    if producer?
+      producers_url(*args)
+    elsif mangaka?
+      mangakas_url(*args)
     else
-      search_people_url(*args)
+      people_url(*args)
     end
   end
 
@@ -95,13 +107,18 @@ private
     end
   end
 
+  # rubocop:disable MethodLength
   def js_export
     gon.push(
       person_role: {
         producer: @resource.main_role?(:producer),
         mangaka: @resource.main_role?(:mangaka),
         seyu: @resource.main_role?(:seyu),
-        person: !(@resource.main_role?(:seyu) || @resource.main_role?(:producer) || @resource.main_role?(:mangaka))
+        person: !(
+          @resource.main_role?(:seyu) ||
+          @resource.main_role?(:producer) ||
+          @resource.main_role?(:mangaka)
+        )
       },
       is_favoured: {
         producer: @resource.producer_favoured?,
@@ -111,4 +128,18 @@ private
       }
     )
   end
+  # rubocop:enable MethodLength
+
+  def mangaka?
+    params[:kind] == 'mangaka'
+  end
+
+  def producer?
+    params[:kind] == 'producer'
+  end
+
+  def seyu?
+    params[:kind] == 'seyu'
+  end
 end
+# rubocop:enable ClassLength

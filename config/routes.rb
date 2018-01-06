@@ -19,10 +19,6 @@ Rails.application.routes.draw do
   concern :autocompletable do
     get :autocomplete, on: :collection, format: :json
   end
-  concern :searcheable do
-    get 'search/:search(/page/:page)' => :index, as: :search, on: :collection,
-      constraints: { page: /\d+/ }
-  end
 
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
@@ -719,18 +715,23 @@ Rails.application.routes.draw do
     end
 
     resources :people, only: %i[show edit update] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+
       concerns :db_entry, fields: Regexp.new(%w{
         name russian japanese image website birthday
       }.join('|'))
-      concerns :searcheable
 
       member do
         get :works
         get :roles
       end
     end
-    get 'producers/search/:search(/page/:page)' => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }
-    get 'mangakas/search/:search(/page/:page)' => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
+    %w[producer mangaka seyu].each do |role|
+      get "#{role.pluralize}(/page/:page)" => 'people#index',
+        as: role.pluralize.to_sym,
+        kind: role,
+        constraints: { page: /\d+/ }
+    end
 
     # votes
     resources :votes, only: %i[create]

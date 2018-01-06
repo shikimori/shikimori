@@ -122,25 +122,25 @@ searcheables =
 
   seyu:
     autocomplete: "/people/autocomplete?kind=seyu"
-    phrase: "/seyu/search/[search_phrase]"
+    phrase: "/seyu?search=[uri_phrase]"
     id: "/seyu/[id]"
     regexp: /^\/seyu\/(.*?)/
 
   producers:
     autocomplete: "/people/autocomplete?kind=producer"
-    phrase: "/producers/search/[search_phrase]"
+    phrase: "/producers?search=[uri_phrase]"
     id: "/person/[id]"
     regexp: /^\/producer\/(.*?)/
 
   mangakas:
     autocomplete: "/people/autocomplete?kind=mangaka"
-    phrase: "/mangakas/search/[search_phrase]"
+    phrase: "/mangakas?search=[uri_phrase]"
     id: "/person/[id]"
     regexp: /^\/mangaka\/(.*?)/
 
   people:
     autocomplete: "/people/autocomplete/"
-    phrase: "/people/search/[search_phrase]"
+    phrase: "/people?search=[uri_phrase]"
     id: "/person/[id]"
     regexp: /^\/people\/(.*?)/
 

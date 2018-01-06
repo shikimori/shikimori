@@ -12,6 +12,7 @@
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.uncountable %w(ranobe)
+  inflect.uncountable %w(seyu)
 end
 
 # These inflection rules are supported but not enabled by default:

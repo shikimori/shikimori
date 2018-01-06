@@ -273,9 +273,10 @@ ru:
     entry_edit: Редактирование
     participation_in_projects: Участие в проектах
     roles_in_anime: Роли в аниме
-    search_mangakas: Поиск мангак
     search_people: Поиск людей
+    search_seyu: Поиск сэйю
     search_producers: Поиск режиссёров
+    search_mangakas: Поиск мангак
 
   seyu_controller:
     <<: *animes_controller
