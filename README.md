@@ -32,6 +32,9 @@ shikimori_production=# CREATE EXTENSION pg_stat_statements;
 ~ psql -U shikimori_production -d shikimori_production -f PostgreSQL.sql
 ```
 
+## SSL Certificate for Webpack Dev Server
+Add `config/webpack/ssl/server.pem` certificate to your system and set it to be always trusted.
+
 ## Start Service
 ```shell
 ~ brew install yarn
