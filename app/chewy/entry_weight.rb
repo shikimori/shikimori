@@ -25,7 +25,11 @@ class EntryWeight
   DEFAULT_WEIGHT = 6
 
   def call
-    (1 + Math.log10(score_value(@entry)) * Math.log10(kind_value(@entry))).round(3)
+    (
+      1 +
+        Math.log10(score_value(@entry)) * Math.log10(kind_value(@entry)) *
+        censored_value(@entry)
+    ).round(3)
   end
 
 private
@@ -42,5 +46,9 @@ private
 
   def kind_value entry
     KIND_WEIGHT[entry.kind&.to_sym] || DEFAULT_WEIGHT
+  end
+
+  def censored_value entry
+    entry.censored? ? 0.5 : 1
   end
 end

@@ -218,4 +218,66 @@ http_interactions:
         eyJ0b29rIjowLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjExNS4wNzI4NCwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfY2hhcmFjdGVycyIsIl90eXBlIjoiY2hhcmFjdGVyIiwiX2lkIjoiMSIsIl9zY29yZSI6MTE1LjA3Mjg0LCJfc291cmNlIjp7Im5hbWUiOiJ0ZXN0IiwiamFwYW5lc2UiOm51bGwsImZ1bGxuYW1lIjpudWxsLCJydXNzaWFuIjoi0L/QtdGA0YHQvtC90LDQtl8xMzEifX0seyJfaW5kZXgiOiJzaGlraW1vcmlfdGVzdF9jaGFyYWN0ZXJzIiwiX3R5cGUiOiJjaGFyYWN0ZXIiLCJfaWQiOiIyIiwiX3Njb3JlIjoyMi42MDM1OTIsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QgenhjdCIsImphcGFuZXNlIjpudWxsLCJmdWxsbmFtZSI6bnVsbCwicnVzc2lhbiI6ItC/0LXRgNGB0L7QvdCw0LZfMTMyIn19XX19
     http_version: 
   recorded_at: Sat, 06 Jan 2018 02:36:42 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","japanese":null,"fullname":null,"russian":"персонаж_111"}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '190'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 02:39:40 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","japanese":null,"fullname":null,"russian":"персонаж_112"}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '191'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":26,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sat, 06 Jan 2018 02:39:40 GMT
 recorded_with: VCR 4.0.0
