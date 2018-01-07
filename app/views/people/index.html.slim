@@ -12,17 +12,17 @@ header.head
       - if params[:kind] == 'seyu'
         span = t ".notice.seyu"
       - else
-        a href=seyu_url(search: params[:search]) = t ".notice.seyu"
+        a href=seyu_people_url(search: params[:search]) = t ".notice.seyu"
 
       - if params[:kind] == 'producer'
         span = t ".notice.producers"
       - else
-        a href=producers_url(search: params[:search]) = t ".notice.producers"
+        a href=producers_people_url(search: params[:search]) = t ".notice.producers"
 
       - if params[:kind] == 'mangaka'
         span = t ".notice.mangakas"
       - else
-        a href=mangakas_url(search: params[:search]) = t ".notice.mangakas"
+        a href=mangakas_people_url(search: params[:search]) = t ".notice.mangakas"
 
 .b-collection_search[
   data-search_url=search_url

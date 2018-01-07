@@ -270,6 +270,7 @@ en:
 
   people_controller:
     <<: *animes_controller
+    all_people: All people
     entry_edit: Edit person
     participation_in_projects: Participation in projects
     roles_in_anime: Roles in anime

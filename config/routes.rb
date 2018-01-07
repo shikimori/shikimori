@@ -717,6 +717,14 @@ Rails.application.routes.draw do
     resources :people, only: %i[show edit update] do
       get '(/page/:page)' => :index, as: '', on: :collection
 
+      %w[producer mangaka seyu].each do |role|
+        get "#{role.pluralize}(/page/:page)" => 'people#index',
+          as: role.pluralize.to_sym,
+          kind: role,
+          constraints: { page: /\d+/ },
+          on: :collection
+      end
+
       concerns :db_entry, fields: Regexp.new(%w{
         name russian japanese image website birthday
       }.join('|'))
@@ -725,12 +733,6 @@ Rails.application.routes.draw do
         get :works
         get :roles
       end
-    end
-    %w[producer mangaka seyu].each do |role|
-      get "#{role.pluralize}(/page/:page)" => 'people#index',
-        as: role.pluralize.to_sym,
-        kind: role,
-        constraints: { page: /\d+/ }
     end
 
     # votes

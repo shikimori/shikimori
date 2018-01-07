@@ -92,15 +92,27 @@ private
 
   def search_url *args
     if producer?
-      producers_url(*args)
+      producers_people_url(*args)
     elsif mangaka?
-      mangakas_url(*args)
+      mangakas_people_url(*args)
+    elsif seyu?
+      seyu_people_url(*args)
     else
       people_url(*args)
     end
   end
 
   def set_breadcrumbs
+    breadcrumb i18n_t('all_people'), people_url
+
+    if params[:action] != 'show'
+      breadcrumb(
+        UsersHelper.localized_name(@resource, current_user),
+        @resource.url
+      )
+      @back_url = @resource.edit_url
+    end
+
     if params[:action] == 'edit_field' && params[:field].present?
       @back_url = @resource.edit_url
       breadcrumb i18n_t('edit'), @resource.edit_url

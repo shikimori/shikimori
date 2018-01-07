@@ -343,6 +343,11 @@ ru:
           few: голоса
           many: голосов
       person:
+        subjective:
+          one: человек
+          few: человека
+          many: людей
+          other: люди
         genitive:
           one: человека
           few: человек
