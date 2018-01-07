@@ -3,7 +3,6 @@ ru:
     index:
       new: Создать новую коллекцию
       notice: Список всех коллекций сайта в порядке их рейтинга
-    collection_views:
       nothing_here: Нет коллекций
       my_unpublished_collections: Мои неопубликованные коллекции
     form:
