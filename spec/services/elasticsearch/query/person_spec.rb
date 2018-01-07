@@ -21,11 +21,12 @@ describe Elasticsearch::Query::Person, :vcr do
   let!(:person_1) do
     create :person,
       name: 'test',
+      russian: 'аа',
       mangaka: is_mangaka,
       seyu: is_seyu,
       producer: is_producer
   end
-  let!(:person_2) { create :person, name: 'test zxct' }
+  let!(:person_2) { create :person, name: 'test zxct', russian: 'аа' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }

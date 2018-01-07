@@ -10,8 +10,8 @@ describe Elasticsearch::Query::Character, :vcr do
 
   subject { described_class.call phrase: phrase, limit: ids_limit }
 
-  let!(:character_1) { create :character, name: 'test' }
-  let!(:character_2) { create :character, name: 'test zxct' }
+  let!(:character_1) { create :character, name: 'test', russian: 'аа' }
+  let!(:character_2) { create :character, name: 'test zxct', russian: 'аа' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }
