@@ -28,7 +28,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:55 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_people
@@ -50,18 +50,18 @@ http_interactions:
       message: OK
     headers:
       Warning:
-      - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Sat, 06 Jan 2018 02:32:47 GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_phrase]" "Sat, 06 Jan 2018 02:32:47
+      - 299 Elasticsearch-5.6.3-1a2f265 "Expected a boolean [true/false] for property
+        [index] but got [not_analyzed]" "Sun, 07 Jan 2018 01:06:55 GMT"
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [edge_phrase]" "Sun, 07 Jan 2018 01:06:55
         GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_word]" "Sat, 06 Jan 2018 02:32:47
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [edge_word]" "Sun, 07 Jan 2018 01:06:55
         GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [ngram]" "Sat, 06 Jan 2018 02:32:47 GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [original]" "Sat, 06 Jan 2018 02:32:47
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [ngram]" "Sun, 07 Jan 2018 01:06:55 GMT"
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [original]" "Sun, 07 Jan 2018 01:06:55
         GMT"
       Content-Type:
       - application/json; charset=UTF-8
@@ -71,7 +71,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_people"}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:55 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_people
@@ -98,7 +98,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:55 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
@@ -106,7 +106,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":1}}
-        {"name":"test","japanese":null,"russian":null,"is_seyu":true,"is_producer":false,"is_mangaka":false}
+        {"name":"test","japanese":null,"russian":"аа","is_seyu":true,"is_producer":false,"is_mangaka":false}
     headers:
       Content-Type:
       - application/json
@@ -124,12 +124,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '187'
+      - '186'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:55 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_people
@@ -156,7 +156,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:55 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
@@ -164,7 +164,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":1}}
-        {"name":"test","japanese":null,"russian":null,"is_seyu":true,"is_producer":false,"is_mangaka":false}
+        {"name":"test","japanese":null,"russian":"аа","is_seyu":true,"is_producer":false,"is_mangaka":false}
     headers:
       Content-Type:
       - application/json
@@ -185,9 +185,9 @@ http_interactions:
       - '189'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+      string: '{"took":16,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:55 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_animes
@@ -214,15 +214,15 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:55 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
     body:
       encoding: UTF-8
       string: |
-        {"index":{"_id":3}}
-        {"name":"anime_3","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+        {"index":{"_id":738}}
+        {"name":"anime_1926","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
     headers:
       Content-Type:
       - application/json
@@ -240,12 +240,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '190'
+      - '189'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"3","_version":4,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+      string: '{"took":13,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"738","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:55 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_people
@@ -272,7 +272,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:55 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
@@ -280,7 +280,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":1}}
-        {"name":"test","japanese":null,"russian":null,"is_seyu":true,"is_producer":false,"is_mangaka":false}
+        {"name":"test","japanese":null,"russian":"аа","is_seyu":true,"is_producer":false,"is_mangaka":false}
     headers:
       Content-Type:
       - application/json
@@ -301,9 +301,9 @@ http_interactions:
       - '190'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_people
@@ -330,7 +330,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
@@ -338,65 +338,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"russian":null,"is_seyu":false,"is_producer":false,"is_mangaka":false}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '187'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
-- request:
-    method: head
-    uri: http://localhost:9200/shikimori_test_people
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '2432'
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"russian":null,"is_seyu":false,"is_producer":false,"is_mangaka":false}
+        {"name":"test zxct","japanese":null,"russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
     headers:
       Content-Type:
       - application/json
@@ -417,67 +359,9 @@ http_interactions:
       - '188'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+      string: '{"took":13,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
-- request:
-    method: head
-    uri: http://localhost:9200/shikimori_test_animes
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '4822'
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":4}}
-        {"name":"anime_4","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '190'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"4","_version":4,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_people
@@ -504,7 +388,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
@@ -512,7 +396,123 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"russian":null,"is_seyu":false,"is_producer":false,"is_mangaka":false}
+        {"name":"test zxct","japanese":null,"russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '189'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":15,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_animes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '4822'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":739}}
+        {"name":"anime_1927","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '191'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":11,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"739","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_people
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '2432'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","japanese":null,"russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
     headers:
       Content-Type:
       - application/json
@@ -533,9 +533,9 @@ http_interactions:
       - '190'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
+      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_people/person/_search
@@ -559,384 +559,13 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '230'
+      - '240'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":1,"max_score":115.36052,"hits":[{"_index":"shikimori_test_people","_type":"person","_id":"1","_score":115.36052,"_source":{"name":"test","japanese":null,"russian":null,"is_seyu":true,"is_producer":false,"is_mangaka":false}}]}}'
+      string: !binary |-
+        eyJ0b29rIjoxLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoxLCJtYXhfc2NvcmUiOjExNS4zNjA1MiwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfcGVvcGxlIiwiX3R5cGUiOiJwZXJzb24iLCJfaWQiOiIxIiwiX3Njb3JlIjoxMTUuMzYwNTIsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QiLCJqYXBhbmVzZSI6bnVsbCwicnVzc2lhbiI6ItCw0LAiLCJpc19zZXl1Ijp0cnVlLCJpc19wcm9kdWNlciI6ZmFsc2UsImlzX21hbmdha2EiOmZhbHNlfX1dfX0=
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:32:47 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":377}}
-        {"name":"anime_2190","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '188'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"377","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:37:50 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":378}}
-        {"name":"anime_2191","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '191'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"378","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:37:50 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":372}}
-        {"name":"anime_2191","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '190'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"372","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:40:54 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":373}}
-        {"name":"anime_2192","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '188'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"373","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:40:54 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":367}}
-        {"name":"anime_2173","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '191'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"367","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 03:19:48 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":368}}
-        {"name":"anime_2174","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '188'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"368","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 03:19:48 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":407}}
-        {"name":"anime_2244","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"407","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 11:14:22 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":408}}
-        {"name":"anime_2245","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"408","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 11:14:22 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":140}}
-        {"name":"anime_154","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"140","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 11:31:48 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":141}}
-        {"name":"anime_155","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '188'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"141","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 11:31:48 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":139}}
-        {"name":"anime_1727","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '191'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":24,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"139","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 11:38:46 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":140}}
-        {"name":"anime_1728","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '190'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"140","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 11:38:46 GMT
+  recorded_at: Sun, 07 Jan 2018 01:06:56 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
@@ -944,7 +573,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":7}}
-        {"name":"anime_1951","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+        {"name":"anime_1953","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
     headers:
       Content-Type:
       - application/json
@@ -965,9 +594,9 @@ http_interactions:
       - '187'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"7","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":11,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"7","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:05:43 GMT
+  recorded_at: Sun, 07 Jan 2018 01:11:22 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
@@ -975,7 +604,7 @@ http_interactions:
       encoding: UTF-8
       string: |
         {"index":{"_id":8}}
-        {"name":"anime_1952","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+        {"name":"anime_1954","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
     headers:
       Content-Type:
       - application/json
@@ -996,317 +625,7 @@ http_interactions:
       - '187'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":11,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"8","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":13,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"8","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:05:43 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":600}}
-        {"name":"anime_1887","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '188'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"600","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:09:31 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":601}}
-        {"name":"anime_1888","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"601","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:09:31 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":1}}
-        {"name":"test","japanese":null,"russian":"аа","is_seyu":true,"is_producer":false,"is_mangaka":false}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '190'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":7,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:57:04 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":1}}
-        {"name":"test","japanese":null,"russian":"аа","is_seyu":true,"is_producer":false,"is_mangaka":false}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":8,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:57:04 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":5}}
-        {"name":"anime_5","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"5","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:57:04 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":1}}
-        {"name":"test","japanese":null,"russian":"аа","is_seyu":true,"is_producer":false,"is_mangaka":false}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":9,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:57:04 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":7,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:57:04 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":8,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:57:04 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":6}}
-        {"name":"anime_6","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":11,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"6","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:57:04 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":2}}
-        {"name":"test zxct","japanese":null,"russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":9,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
-    http_version: 
-  recorded_at: Sun, 07 Jan 2018 00:57:04 GMT
+  recorded_at: Sun, 07 Jan 2018 01:11:22 GMT
 recorded_with: VCR 4.0.0

@@ -28,7 +28,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_animes
@@ -50,18 +50,18 @@ http_interactions:
       message: OK
     headers:
       Warning:
-      - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Sat, 06 Jan 2018 02:31:55 GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_phrase]" "Sat, 06 Jan 2018 02:31:55
+      - 299 Elasticsearch-5.6.3-1a2f265 "Expected a boolean [true/false] for property
+        [index] but got [not_analyzed]" "Sun, 07 Jan 2018 01:05:25 GMT"
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [edge_phrase]" "Sun, 07 Jan 2018 01:05:25
         GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_word]" "Sat, 06 Jan 2018 02:31:55
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [edge_word]" "Sun, 07 Jan 2018 01:05:25
         GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [ngram]" "Sat, 06 Jan 2018 02:31:55 GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [original]" "Sat, 06 Jan 2018 02:31:55
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [ngram]" "Sun, 07 Jan 2018 01:05:25 GMT"
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [original]" "Sun, 07 Jan 2018 01:05:25
         GMT"
       Content-Type:
       - application/json; charset=UTF-8
@@ -71,7 +71,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_animes"}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_animes
@@ -98,7 +98,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
@@ -127,9 +127,9 @@ http_interactions:
       - '186'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":11,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_animes
@@ -156,7 +156,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
@@ -185,9 +185,9 @@ http_interactions:
       - '186'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":11,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_animes
@@ -214,7 +214,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
@@ -243,9 +243,9 @@ http_interactions:
       - '186'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_animes
@@ -272,7 +272,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
@@ -301,9 +301,9 @@ http_interactions:
       - '186'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":5,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"4","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"4","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_animes/anime/_search
@@ -330,7 +330,7 @@ http_interactions:
       - '127'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":0,"max_score":null,"hits":[]}}'
+      string: '{"took":2,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":0,"max_score":null,"hits":[]}}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:31:55 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:25 GMT
 recorded_with: VCR 4.0.0

@@ -10,8 +10,8 @@ describe Elasticsearch::Query::Manga, :vcr do
 
   subject { described_class.call phrase: phrase, limit: ids_limit }
 
-  let!(:manga_1) { create :manga, name: 'test' }
-  let!(:manga_2) { create :manga, name: 'test zxct' }
+  let!(:manga_1) { create :manga, name: 'test', russian: 'аа' }
+  let!(:manga_2) { create :manga, name: 'test zxct', russian: 'аа' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }

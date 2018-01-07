@@ -10,8 +10,8 @@ describe Elasticsearch::Query::Ranobe, :vcr do
 
   subject { described_class.call phrase: phrase, limit: ids_limit }
 
-  let!(:ranobe_1) { create :ranobe, name: 'test' }
-  let!(:ranobe_2) { create :ranobe, name: 'test zxct' }
+  let!(:ranobe_1) { create :ranobe, name: 'test', russian: 'аа' }
+  let!(:ranobe_2) { create :ranobe, name: 'test zxct', russian: 'аа' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'test' }

@@ -17,18 +17,20 @@ http_interactions:
       - "*/*"
   response:
     status:
-      code: 200
-      message: OK
+      code: 404
+      message: Not Found
     headers:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '47'
+      - '166'
     body:
       encoding: ASCII-8BIT
-      string: '{"acknowledged":true}'
+      string: '{"error":{"root_cause":[{"type":"index_not_found_exception","reason":"no
+        such index","resource.type":"index_or_alias","resource.id":"shikimori_test_topics","index_uuid":"_na_","index":"shikimori_test_topics"}],"type":"index_not_found_exception","reason":"no
+        such index","resource.type":"index_or_alias","resource.id":"shikimori_test_topics","index_uuid":"_na_","index":"shikimori_test_topics"},"status":404}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:44 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_topics
@@ -50,18 +52,18 @@ http_interactions:
       message: OK
     headers:
       Warning:
-      - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Sat, 06 Jan 2018 02:33:44 GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_phrase]" "Sat, 06 Jan 2018 02:33:44
+      - 299 Elasticsearch-5.6.3-1a2f265 "Expected a boolean [true/false] for property
+        [index] but got [not_analyzed]" "Sun, 07 Jan 2018 01:05:13 GMT"
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [edge_phrase]" "Sun, 07 Jan 2018 01:05:13
         GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_word]" "Sat, 06 Jan 2018 02:33:44
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [edge_word]" "Sun, 07 Jan 2018 01:05:13
         GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [ngram]" "Sat, 06 Jan 2018 02:33:44 GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [original]" "Sat, 06 Jan 2018 02:33:44
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [ngram]" "Sun, 07 Jan 2018 01:05:13 GMT"
+      - 299 Elasticsearch-5.6.3-1a2f265 "The [string] field is deprecated, please
+        use [text] or [keyword] instead on [original]" "Sun, 07 Jan 2018 01:05:13
         GMT"
       Content-Type:
       - application/json; charset=UTF-8
@@ -71,7 +73,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_topics"}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:44 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_topics
@@ -98,7 +100,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:44 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_topics/topic/_bulk?refresh=true
@@ -124,12 +126,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '192'
+      - '191'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_topics","_type":"topic","_id":"103554","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_topics","_type":"topic","_id":"103554","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:44 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_topics
@@ -156,7 +158,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:44 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_topics/topic/_bulk?refresh=true
@@ -182,12 +184,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '192'
+      - '191'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_topics","_type":"topic","_id":"103555","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":12,"errors":false,"items":[{"index":{"_index":"shikimori_test_topics","_type":"topic","_id":"103555","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:44 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_topics
@@ -214,7 +216,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:44 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_topics/topic/_bulk?refresh=true
@@ -243,9 +245,9 @@ http_interactions:
       - '192'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_topics","_type":"topic","_id":"103556","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_topics","_type":"topic","_id":"103556","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:45 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_topics
@@ -272,7 +274,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:45 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_topics/topic/_bulk?refresh=true
@@ -301,51 +303,9 @@ http_interactions:
       - '192'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_topics","_type":"topic","_id":"103557","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_topics","_type":"topic","_id":"103557","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:33:45 GMT
-- request:
-    method: get
-    uri: http://localhost:9200/
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '242'
-    body:
-      encoding: ASCII-8BIT
-      string: |
-        {
-          "name" : "EGskHAA",
-          "cluster_name" : "elasticsearch_morr",
-          "cluster_uuid" : "6pEyihhxRCaggNPc9LcVaA",
-          "version" : {
-            "number" : "5.6.5",
-            "build_hash" : "6a37571",
-            "build_date" : "2017-12-04T07:50:10.466Z",
-            "build_snapshot" : false,
-            "lucene_version" : "6.6.1"
-          },
-          "tagline" : "You Know, for Search"
-        }
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:34:52 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_topics/topic/_search
@@ -369,100 +329,11 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '231'
+      - '234'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":116.36052,"hits":[{"_index":"shikimori_test_topics","_type":"topic","_id":"103554","_score":116.36052,"_source":{"title":"test","locale":"ru","forum_id":1}},{"_index":"shikimori_test_topics","_type":"topic","_id":"103555","_score":23.891273,"_source":{"title":"test
+      string: '{"took":3,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":116.36052,"hits":[{"_index":"shikimori_test_topics","_type":"topic","_id":"103554","_score":116.36052,"_source":{"title":"test","locale":"ru","forum_id":1}},{"_index":"shikimori_test_topics","_type":"topic","_id":"103555","_score":23.891273,"_source":{"title":"test
         zxct","locale":"ru","forum_id":1}}]}}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:34:52 GMT
-- request:
-    method: put
-    uri: http://localhost:9200/shikimori_test_topics
-    body:
-      encoding: UTF-8
-      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":30}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":30,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":30},"distinct_words_filter":{"type":"unique","only_on_same_position":true}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words_filter"]}}}},"mappings":{"topic":{"properties":{"title":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge":{"index":"analyzed","analyzer":"edge_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"locale":{"type":"keyword"},"forum_id":{"type":"integer"}}}}}'
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 400
-      message: Bad Request
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '180'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"error":{"root_cause":[{"type":"index_already_exists_exception","reason":"index
-        [shikimori_test_topics/uNchacsjT0GeoFYwvSAGzw] already exists","index_uuid":"uNchacsjT0GeoFYwvSAGzw","index":"shikimori_test_topics"}],"type":"index_already_exists_exception","reason":"index
-        [shikimori_test_topics/uNchacsjT0GeoFYwvSAGzw] already exists","index_uuid":"uNchacsjT0GeoFYwvSAGzw","index":"shikimori_test_topics"},"status":400}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 11:18:27 GMT
-- request:
-    method: head
-    uri: http://localhost:9200/shikimori_test_users
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '1371'
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 11:33:51 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":500149}}
-        {"nickname":"user_1867"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '189'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"500149","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sat, 06 Jan 2018 11:33:51 GMT
+  recorded_at: Sun, 07 Jan 2018 01:05:13 GMT
 recorded_with: VCR 4.0.0
