@@ -1,5 +1,5 @@
 class FixName < ServiceObjectBase
-  pattr_initialize :name, :full_cleanup
+  method_object :name, :full_cleanup
 
   BAD_SYMBOLS = %r{[%&#/\\?+><\]\[:,@]+}
   SPACES = /[[:space:]]+|[⁤ ឵­]/
@@ -23,6 +23,7 @@ private
     return name unless @full_cleanup
     name
       .gsub(BAD_SYMBOLS, '')
+      .tr('⠀', ' ')
       .strip
       .gsub(/^\.$/, 'точка')
       .gsub(EXTENSIONS, '_\1')

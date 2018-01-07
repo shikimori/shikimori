@@ -1,7 +1,6 @@
 describe FixName do
-  let(:service) { FixName.new name, is_full_cleanup }
+  subject { described_class.call name, is_full_cleanup }
   let(:is_full_cleanup) { true }
-  subject! { service.call }
 
   context 'nil' do
     let(:name) { nil }
@@ -29,5 +28,10 @@ describe FixName do
   context 'extension' do
     let(:name) { 'test.png' }
     it { is_expected.to eq 'test_png' }
+  end
+
+  context 'special spaces' do
+    let(:name) { 't⠀t' }
+    it { is_expected.to eq 't t' }
   end
 end
