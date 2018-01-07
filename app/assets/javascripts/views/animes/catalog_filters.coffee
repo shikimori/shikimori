@@ -58,9 +58,9 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
     if target_year
       $placeholders = $("ul.seasons li", $root).filter((index) ->
         match = @className.match(/season-(\d+)/)
-        return false  unless match
+        return false unless match
         year = parseInt(match[1], 10)
-        year = year * 10  if year < 1000
+        year = year * 10 if year < 1000
         year < target_year
       )
       if $placeholders.length

@@ -3,7 +3,9 @@ module.exports = class CollectionSearch extends View
 
   initialize: ->
     @cache = {}
-    @$collection = @$root.children('.collection')
+    @$collection = @$root.find('.searchable-collection')
+    console.warn('not found .searchable-collection') unless @$collection.length
+
     @$input = @$('.field input')
     @$clear = @$('.field .clear')
 
@@ -15,7 +17,6 @@ module.exports = class CollectionSearch extends View
 
     @$input.on 'change blur keyup paste', @_filter_changed
     @$clear.on 'click', @_clear_phrase
-
 
   # handlers
   _filter_changed: (e) =>
@@ -68,6 +69,8 @@ module.exports = class CollectionSearch extends View
 
     @$collection.html(html).process()
     @_hide_ajax()
+
+    @trigger 'collection_search:results', [response, url]
 
   _search_phrase: ->
     @$input.val().trim()

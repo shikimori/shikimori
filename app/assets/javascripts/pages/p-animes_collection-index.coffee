@@ -1,5 +1,3 @@
-# require social/addthis_widget
-
 paginated_catalog = null
 
 page_restore 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
