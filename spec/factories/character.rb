@@ -11,7 +11,7 @@ FactoryBot.define do
 
     trait :anime do
       after :create do |character|
-        FactoryBot.create :anime, characters: [character]
+        create :anime, characters: [character]
       end
     end
 
