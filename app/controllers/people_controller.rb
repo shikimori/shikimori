@@ -105,6 +105,10 @@ private
   def set_breadcrumbs
     breadcrumb i18n_t('all_people'), people_url
 
+    breadcrumb i18n_t('producers'), producers_people_url if @resource.producer?
+    breadcrumb i18n_t('mangakas'), mangakas_people_url if @resource.mangaka?
+    breadcrumb i18n_t('seyu'), seyu_people_url if @resource.seyu?
+
     if params[:action] != 'show'
       breadcrumb(
         UsersHelper.localized_name(@resource, current_user),
