@@ -528,4 +528,66 @@ http_interactions:
       string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":6,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
     http_version: 
   recorded_at: Sat, 06 Jan 2018 11:37:06 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","japanese":null,"fullname":null,"russian":"персонаж_227"}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '187'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":120,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 00:05:42 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_characters/character/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","japanese":null,"fullname":null,"russian":"персонаж_228"}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '186'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_characters","_type":"character","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 00:05:42 GMT
 recorded_with: VCR 4.0.0

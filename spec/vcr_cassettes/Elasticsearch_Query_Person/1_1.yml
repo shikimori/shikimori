@@ -980,4 +980,66 @@ http_interactions:
       string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"138","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
     http_version: 
   recorded_at: Sat, 06 Jan 2018 11:38:45 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":3}}
+        {"name":"anime_1947","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '188'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":65,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 00:05:43 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_animes/anime/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":4}}
+        {"name":"anime_1948","russian":null,"english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '187'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":11,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"4","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 00:05:43 GMT
 recorded_with: VCR 4.0.0

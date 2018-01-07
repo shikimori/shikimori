@@ -458,4 +458,66 @@ http_interactions:
       string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_ranobe","_type":"ranobe","_id":"2","_version":3,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":false,"status":200}}]}'
     http_version: 
   recorded_at: Sat, 06 Jan 2018 11:37:56 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_ranobe/ranobe/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","russian":"ранобэ_75","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '187'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":74,"errors":false,"items":[{"index":{"_index":"shikimori_test_ranobe","_type":"ranobe","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 00:05:44 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_ranobe/ranobe/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","russian":"ранобэ_76","english":null,"japanese":null,"synonyms_0":null,"synonyms_1":null,"synonyms_2":null,"synonyms_3":null,"synonyms_4":null,"synonyms_5":null,"weight":1.301}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '186'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":30,"errors":false,"items":[{"index":{"_index":"shikimori_test_ranobe","_type":"ranobe","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 00:05:44 GMT
 recorded_with: VCR 4.0.0

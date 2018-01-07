@@ -106,4 +106,46 @@ http_interactions:
       string: '{"tokens":[{"token":"kai wa-sama","start_offset":0,"end_offset":11,"type":"word","position":0}]}'
     http_version: 
   recorded_at: Sat, 06 Jan 2018 02:27:01 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '246'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "pDVS9cO",
+          "cluster_name" : "elasticsearch_morr",
+          "cluster_uuid" : "P9mFNKl9RPuD_8bOQQJ_Tg",
+          "version" : {
+            "number" : "5.6.3",
+            "build_hash" : "1a2f265",
+            "build_date" : "2017-10-06T20:33:39.012Z",
+            "build_snapshot" : false,
+            "lucene_version" : "6.6.1"
+          },
+          "tagline" : "You Know, for Search"
+        }
+    http_version: 
+  recorded_at: Sun, 07 Jan 2018 00:01:45 GMT
 recorded_with: VCR 4.0.0
