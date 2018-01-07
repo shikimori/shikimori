@@ -266,6 +266,7 @@ ru:
 
   characters_controller:
     <<: *animes_controller
+    all_characters: Все персонажи
     entry_edit: Редактирование персонажа
 
   people_controller:
@@ -281,11 +282,6 @@ ru:
     search_seyu: Поиск сэйю
     search_producers: Поиск режиссёров
     search_mangakas: Поиск мангак
-
-  seyu_controller:
-    <<: *animes_controller
-    entry_edit: Редактирование сэйю
-    search_seyu: Поиск сэйю
 
   screenshots_controller: &screenshots_controller
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!

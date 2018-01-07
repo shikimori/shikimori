@@ -117,6 +117,23 @@ private
     characters_url(*args)
   end
 
+  def set_breadcrumbs
+    breadcrumb i18n_t('all_characters'), characters_url
+
+    if params[:action] != 'show'
+      breadcrumb(
+        UsersHelper.localized_name(@resource, current_user),
+        @resource.url
+      )
+      @back_url = @resource.edit_url
+    end
+
+    if params[:action] == 'edit_field' && params[:field].present?
+      @back_url = @resource.edit_url
+      breadcrumb i18n_t('edit'), @resource.edit_url
+    end
+  end
+
   def js_export
     gon.push is_favoured: @resource.favoured?
   end
