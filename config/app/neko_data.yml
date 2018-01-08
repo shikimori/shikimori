@@ -5632,6 +5632,9 @@
       - 8769
       - 8861
       - 9587
+      - 32901
+      - 35413
+      - 36001
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
 - :neko_id: :otaku
   :level: 1
