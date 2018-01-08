@@ -30,7 +30,7 @@ aside.buttons
         ]
 
     - elsif message.kind == MessageType::ClubRequest
-      - if message.linked.pending?
+      - if message.linked&.pending?
         span.item-request-confirm.translated-after[
           title=t('actions.accept')
           data-text-ru=t('actions.accept', locale: 'ru')

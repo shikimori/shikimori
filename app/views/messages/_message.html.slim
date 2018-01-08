@@ -8,7 +8,7 @@
 ]
   .inner
     - if message.persisted?
-      span.item-mobile title="#{i18n_i 'Action', :other}"
+      span.item-mobile title=i18n_i('Action', :other)
       aside.markers
         - if message.to == current_user
           - if !message.read || ![MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind)
@@ -26,7 +26,7 @@
 
     header
       - unless message.for_generated_news_topic?
-        span.linkeable data-href="#{message.url}"
+        span.linkeable data-href=message.url
           img[
             src=message.image
             srcset="#{message.image_2x} 2x"
@@ -66,8 +66,9 @@
         = message.generate_body
 
       - if message.kind == MessageType::SiteNews && message.linked
-        a.right.to-entry.b-link href=UrlGenerator.instance.topic_url(message.linked)
-          = t '.to_topic'
+        a.right.to-entry.b-link[
+          href=UrlGenerator.instance.topic_url(message.linked)
+        ] = t '.to_topic'
 
       - if !message.read && message.to == current_user
         .b-appear_marker.active[

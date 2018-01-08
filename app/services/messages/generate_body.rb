@@ -89,7 +89,7 @@ private
 
   def club_request
     BbCodes::Text.call(
-      i18n_t('club_request', club_id: message.linked.club_id)
+      i18n_t('club_request', club_id: message.linked&.club_id)
     )
   end
 
