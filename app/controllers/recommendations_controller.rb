@@ -28,13 +28,14 @@ class RecommendationsController < AnimesCollectionController
     cookies[COOKIE_NAME] = request.url unless params[:page]
 
     # можно смотреть чужие рекоменадции
-    user = if params[:user].blank? || !user_signed_in? ||
-        (user_signed_in? && current_user.id != 1 && current_user.id != 1945) # 1945 - Silicium
-      user_signed_in? ? current_user.object : nil
-    else
-      User.find_by(nickname: SearchHelper.unescape(params[:user])) ||
-        User.find_by(id: params[:user])
-    end
+    user =
+      if params[:user].blank? || !user_signed_in? ||
+          (user_signed_in? && current_user.id != 1 && current_user.id != 1945) # 1945 - Silicium
+        user_signed_in? ? current_user.object : nil
+      else
+        User.find_by(nickname: SearchHelper.unescape(params[:user])) ||
+          User.find_by(id: params[:user])
+      end
   end
 
   def favourites

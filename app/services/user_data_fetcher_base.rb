@@ -67,11 +67,11 @@ private
 
   def should_fetch?
     @user.present? &&
-      (
-        histories_count >= Recommendations::RatesFetcher::MINIMUM_SCORES ||
-        latest_import.present?
-      ) &&
       rates_count >= Recommendations::RatesFetcher::MINIMUM_SCORES
+      # (
+      #   histories_count >= Recommendations::RatesFetcher::MINIMUM_SCORES ||
+      #   latest_import.present?
+      # ) &&
   end
 
   def load_data
