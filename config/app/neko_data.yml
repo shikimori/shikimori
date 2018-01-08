@@ -2537,7 +2537,7 @@
 - :neko_id: :slice_of_life
   :level: 1
   :image:
-  - http://i.imgur.com/XPesMmd.png
+  - "/assets/achievements/anime/slice_of_life_1.png"
   :border_color:
   - "#1a5369"
   :title_ru: Обычный японский школьник
@@ -2555,7 +2555,7 @@
 - :neko_id: :slice_of_life
   :level: 2
   :image:
-  - http://i.imgur.com/kUfjaIt.png
+  - "/assets/achievements/anime/slice_of_life_2.png"
   :border_color:
   - "#cb4842"
   :title_ru: Чай с тортиком
@@ -2573,7 +2573,7 @@
 - :neko_id: :slice_of_life
   :level: 3
   :image:
-  - http://i.imgur.com/o1OQB4k.png
+  - "/assets/achievements/anime/slice_of_life_3.png"
   :border_color:
   - "#ddada5"
   :title_ru: Дзэн
@@ -2592,7 +2592,7 @@
 - :neko_id: :slice_of_life
   :level: 4
   :image:
-  - https://i.yapx.ru/JDDR.gif
+  - "/assets/achievements/anime/slice_of_life_4.gif"
   :border_color:
   - "#597fb9"
   :title_ru: Прима ундина
