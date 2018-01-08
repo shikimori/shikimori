@@ -6054,7 +6054,7 @@
 - :neko_id: :sports
   :level: 1
   :image:
-  - http://s5.postimg.org/p7elh9mjb/Run_1.jpg
+  - "/assets/achievements/anime/sports_1.png"
   :border_color:
   - "#975916"
   :title_ru: Первый раз на площадке
@@ -6072,7 +6072,7 @@
 - :neko_id: :sports
   :level: 2
   :image:
-  - http://s5.postimg.org/6rypxlxsn/basketball_5.jpg
+  - "/assets/achievements/anime/sports_2.png"
   :border_color:
   - "#cc1111"
   :title_ru: С головой ушел в игру
@@ -6090,7 +6090,7 @@
 - :neko_id: :sports
   :level: 3
   :image:
-  - http://s5.postimg.org/ljtse380n/image.jpg
+  - "/assets/achievements/anime/sports_3.png"
   :border_color:
   - "#82c54f"
   :title_ru: Добро пожаловать в Высшую лигу
@@ -6108,7 +6108,7 @@
 - :neko_id: :sports
   :level: 4
   :image:
-  - http://i.imgur.com/9oBtlqF.gif
+  - "/assets/achievements/anime/sports_4.gif"
   :border_color:
   - "#c45812"
   :title_ru: Олимпийский чемпион
