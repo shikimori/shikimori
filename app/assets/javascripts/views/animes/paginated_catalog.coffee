@@ -34,10 +34,7 @@ module.exports = class Animes.PaginatedCatalog
     $collection_search = $('.b-collection_search')
     if $collection_search.length
       @collection_search = new CollectionSearch $collection_search
-      @collection_search._show_results = (response) =>
-        console.log response
-        @_process_ajax_content response, location.href
-        @collection_search._hide_ajax()
+      @collection_search._process_response = @_process_ajax_content
 
   #bind_history: =>
     #$(window).off 'popstate', @_history_page_changed
