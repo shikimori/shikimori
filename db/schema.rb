@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180106111853) do
+ActiveRecord::Schema.define(version: 20180108215004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1037,7 +1037,7 @@ ActiveRecord::Schema.define(version: 20180106111853) do
     t.datetime "last_online_at"
     t.text "about"
     t.string "sex", limit: 255
-    t.string "website", limit: 255
+    t.string "website", limit: 1024
     t.string "avatar_file_name", limit: 255
     t.string "avatar_content_type", limit: 255
     t.integer "avatar_file_size"
