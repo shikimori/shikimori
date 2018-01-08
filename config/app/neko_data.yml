@@ -6074,7 +6074,7 @@
   :image:
   - http://s5.postimg.org/6rypxlxsn/basketball_5.jpg
   :border_color:
-  - "#ff0000"
+  - "#cc1111"
   :title_ru: С головой ушел в игру
   :text_ru: Борьба в самом разгаре, пора войти в Зону.
   :title_en: 
@@ -6092,7 +6092,7 @@
   :image:
   - http://s5.postimg.org/ljtse380n/image.jpg
   :border_color:
-  - "#dfe2e7"
+  - "#82c54f"
   :title_ru: Добро пожаловать в Высшую лигу
   :text_ru: Остался последний рывок до победы.
   :title_en: 
@@ -6110,7 +6110,7 @@
   :image:
   - http://i.imgur.com/9oBtlqF.gif
   :border_color:
-  - "#ff4500"
+  - "#c45812"
   :title_ru: Олимпийский чемпион
   :text_ru: Первый на пъедестале. Отличная работа!
   :title_en: 
@@ -6578,7 +6578,7 @@
 - :neko_id: :space
   :level: 1
   :image:
-  - http://i.imgur.com/TxxXm8H.png
+  - "/assets/achievements/anime/space_1.png"
   :border_color:
   - "#172d91"
   :title_ru: 3-2-1... Пуск!
@@ -6596,9 +6596,9 @@
 - :neko_id: :space
   :level: 2
   :image:
-  - http://i.imgur.com/HZL23tN.png
+  - "/assets/achievements/anime/space_2.png"
   :border_color:
-  - "#0000cd"
+  - "#58a6e8"
   :title_ru: Земля отсюда совсем крошечная
   :text_ru: До чего же прекрасна Земля, если глядеть на неё сверху! Однако, не слишком
     ли тесно? Вашему миру пора расширяться — от маленькой Земли до целой вселенной.
@@ -6614,8 +6614,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
 - :neko_id: :space
   :level: 3
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/space_3.png"
+  :border_color:
+  - "#bb7171"
   :title_ru: Межзвездный скиталец.
   :text_ru: Космос. Он так пуст, но в то же время полон жизни.
   :title_en: 
@@ -6631,9 +6633,9 @@
 - :neko_id: :space
   :level: 4
   :image:
-  - http://i.imgur.com/YcZihC4.gif
+  - "/assets/achievements/anime/space_4.gif"
   :border_color:
-  - "#ffd700"
+  - "#e4bd3d"
   :title_ru: Император галактики
   :text_ru: 
   :title_en: 
