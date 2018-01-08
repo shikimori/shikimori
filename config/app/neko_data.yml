@@ -5465,9 +5465,9 @@
 - :neko_id: :supernatural
   :level: 1
   :image:
-  - http://i.imgur.com/po7mAFJ.png
+  - "/assets/achievements/anime/supernatural_1.png"
   :border_color:
-  - "#091102"
+  - "#93bc3c"
   :title_ru: Первая встреча с духами
   :text_ru: Слабое сердце манит демонов. Хотите жить — никогда не расслабляйтесь.
   :title_en: 
@@ -5483,7 +5483,7 @@
 - :neko_id: :supernatural
   :level: 2
   :image:
-  - http://imgur.com/oJNnKMJ
+  - "/assets/achievements/anime/supernatural_2.png"
   :border_color:
   - "#070c0e"
   :title_ru: Обнаружили у себя странные силы?
@@ -5502,9 +5502,9 @@
 - :neko_id: :supernatural
   :level: 3
   :image:
-  - http://i.imgur.com/u0N3HG8.png
+  - "/assets/achievements/anime/supernatural_3.png"
   :border_color:
-  - "#62182b"
+  - "#b28ec0"
   :title_ru: В поисках Ёкаев
   :text_ru: Если услышите колокольный звон в горах и, пойдя на звук, увидите дичь,
     значит, это был рев бога гор.
@@ -5521,9 +5521,9 @@
 - :neko_id: :supernatural
   :level: 4
   :image:
-  - http://i7.5cm.ru/i/fLMV.gif
+  - "/assets/achievements/anime/supernatural_4.gif"
   :border_color:
-  - "#071a09"
+  - "#42a89a"
   :title_ru: Унесённые призраками
   :text_ru: Если забудешь своё имя, то не сможешь вернуться домой.
   :title_en: 
