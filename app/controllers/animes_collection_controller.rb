@@ -17,7 +17,6 @@ class AnimesCollectionController < ShikimoriController
     if params[:search]
       noindex && nofollow
       raise AgeRestricted if params[:search] =~ CENSORED && censored_forbidden?
-      page_title i18n_t('search', search: SearchHelper.unescape(params[:search]))
     end
 
     one_found_redirect_check

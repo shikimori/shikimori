@@ -51,6 +51,8 @@ module.exports = class Animes.PaginatedCatalog
     else
       location.href = url
 
+    @collection_search.$root.data search_url: url
+
   # урл страницы изменён через history api
   _history_page_changed: =>
     url = location.href

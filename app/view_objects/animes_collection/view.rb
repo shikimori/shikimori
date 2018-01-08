@@ -76,7 +76,7 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def compiled_filters
-    h.params.merge(
+    h.params.to_unsafe_h.symbolize_keys.merge(
       order: Animes::SortField.new(DEFAULT_ORDER, h).field,
       censored: true
     )
