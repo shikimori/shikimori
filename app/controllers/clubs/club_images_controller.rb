@@ -6,7 +6,10 @@ class Clubs::ClubImagesController < ShikimoriController
   def create
     if request.xhr?
       @resource = create_image params[:image]
-      render json: ClubImageSerializer.new(@resource).to_json
+
+      render(
+        json: ClubImageSerializer.new(@resource, scope: view_context).to_json
+      )
 
     elsif params[:images]
       params[:images].each { |image| create_image image }
