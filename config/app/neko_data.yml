@@ -1,76 +1,226 @@
 ---
-- :neko_id: :action
+- :neko_id: :yandere
   :level: 1
   :image:
-  - https://nyaa.shikimori.org/system/user_images/original/1/532910.jpg
+  - https://lh3.googleusercontent.com/5GlJJYYzodzjTuR5IiDN9Fj2KR_X-CYZtTEqPN6iUHAOHfKr3QvI_jElrRwEg7rNR-Jctcvq89-jliPlLA8sI7ZNHAOWZp3EEZhQcDmogawgqs9mIklOkHUxDQ89MbyN-nEYU9rGwtTa63p0og
   :border_color:
-  - "#4d4a57"
-  :title_ru: Курс молодого бойца
-  :text_ru: Вы обучены искусству уничтожения.
-  :title_en: 
-  :text_en: 
-  :topic_id: 222051
+  - "#821d60"
+  :title_ru: Бездна
+  :text_ru: Если долго всматриваться в бездну — бездна начнет всматриваться в тебя.
+  :title_en: Abyss
+  :text_en: When you look into the abyss, the abyss stares back at you.
+  :topic_id: 227431
   :rule:
     :algo: simple
-    :threshold: 40
+    :threshold: 30%
     :filters:
-      genre_ids:
-      - 1
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
-- :neko_id: :action
+      anime_ids:
+      - 10620
+      - 11285
+      - 11981
+      - 13663
+      - 15037
+      - 1519
+      - 1535
+      - 15583
+      - 16700
+      - 16762
+      - 1719
+      - 17729
+      - 18041
+      - 1836
+      - 1889
+      - 19163
+      - 22199
+      - 226
+      - 22961
+      - 23199
+      - 24655
+      - 2476
+      - 2476
+      - 2593
+      - 27831
+      - 27833
+      - 2899
+      - 29095
+      - 31634
+      - 356
+      - 376
+      - 3782
+      - 3783
+      - 4282
+      - 437
+      - 4725
+      - 4896
+      - 4901
+      - 4970
+      - 5177
+      - 5177
+      - 5356
+      - 64
+      - 65
+      - 6594
+      - 6746
+      - 6880
+      - 7059
+      - 7311
+      - 7311
+      - 7396
+      - 756
+      - 7724
+      - 79
+      - 8460
+      - 849
+      - 934
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
+- :neko_id: :yandere
   :level: 2
   :image:
-  - http://i.imgur.com/j6UzfjL.png
+  - http://i.imgur.com/5Dk8pth.png?1
   :border_color:
-  - "#4d4a57"
-  :title_ru: Первая миссия
-  :text_ru: Тихо... Медленно... Осторожно...
-  :title_en: 
+  - "#9a4cb7"
+  :title_ru: Ураган
+  :text_ru: Ураганы имеют одну интересную особенность — в их центре всегда спокойно.
+  :title_en: Hurricane
   :text_en: 
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 90
+    :threshold: 55%
     :filters:
-      genre_ids:
-      - 1
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
-- :neko_id: :action
+      anime_ids:
+      - 10620
+      - 11285
+      - 11981
+      - 13663
+      - 15037
+      - 1519
+      - 1535
+      - 15583
+      - 16700
+      - 16762
+      - 1719
+      - 17729
+      - 18041
+      - 1836
+      - 1889
+      - 19163
+      - 22199
+      - 226
+      - 22961
+      - 23199
+      - 24655
+      - 2476
+      - 2476
+      - 2593
+      - 27831
+      - 27833
+      - 2899
+      - 29095
+      - 31634
+      - 356
+      - 376
+      - 3782
+      - 3783
+      - 4282
+      - 437
+      - 4725
+      - 4896
+      - 4901
+      - 4970
+      - 5177
+      - 5177
+      - 5356
+      - 64
+      - 65
+      - 6594
+      - 6746
+      - 6880
+      - 7059
+      - 7311
+      - 7311
+      - 7396
+      - 756
+      - 7724
+      - 79
+      - 8460
+      - 849
+      - 934
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
+- :neko_id: :yandere
   :level: 3
   :image:
-  - https://desu.shikimori.org/system/user_images/original/40201/108423.jpg
+  - http://31.media.tumblr.com/tumblr_mdfamrgrfH1rshzuyo1_500.gif
   :border_color:
-  - "#142300"
-  :title_ru: BOOM! Headshot!
-  :text_ru: Один выстрел — один труп. Вы — множитель боевой силы.
-  :title_en: 
+  - "#2F2E2D"
+  :title_ru: Безумие
+  :text_ru: Умри, пожалуйста!
+  :title_en: Insanity
   :text_en: 
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 140
+    :threshold: 80%
     :filters:
-      genre_ids:
-      - 1
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
-- :neko_id: :action
-  :level: 4
-  :image:
-  - https://i.yapx.ru/JMqe.gif
-  :border_color:
-  - "#755d9a"
-  :title_ru: Элитный наемник
-  :text_ru: Армия из одного человека.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 200
-    :filters:
-      genre_ids:
-      - 1
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
+      anime_ids:
+      - 10620
+      - 11285
+      - 11981
+      - 13663
+      - 15037
+      - 1519
+      - 1535
+      - 15583
+      - 16700
+      - 16762
+      - 1719
+      - 17729
+      - 18041
+      - 1836
+      - 1889
+      - 19163
+      - 22199
+      - 226
+      - 22961
+      - 23199
+      - 24655
+      - 2476
+      - 2476
+      - 2593
+      - 27831
+      - 27833
+      - 2899
+      - 29095
+      - 31634
+      - 356
+      - 376
+      - 3782
+      - 3783
+      - 4282
+      - 437
+      - 4725
+      - 4896
+      - 4901
+      - 4970
+      - 5177
+      - 5177
+      - 5356
+      - 64
+      - 65
+      - 6594
+      - 6746
+      - 6880
+      - 7059
+      - 7311
+      - 7311
+      - 7396
+      - 756
+      - 7724
+      - 79
+      - 8460
+      - 849
+      - 934
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - :neko_id: :animelist
   :level: 1
   :image:
@@ -277,1872 +427,6 @@
     :algo: simple
     :threshold: 5000
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-- :neko_id: :comedy
-  :level: 1
-  :image:
-  - https://kawai.shikimori.org/system/user_images/original/50587/458876.jpg
-  :border_color:
-  - "#5dbdd9"
-  :title_ru: But then i lol'd
-  :text_ru: Неужели вам понравился японский юмор?
-  :title_en: 
-  :text_en: 
-  :topic_id: 222035
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 4
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
-- :neko_id: :comedy
-  :level: 2
-  :image: []
-  :border_color: []
-  :title_ru: Комедиант
-  :text_ru: Теперь вам известны основы комедии.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 90
-    :filters:
-      genre_ids:
-      - 4
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
-- :neko_id: :comedy
-  :level: 3
-  :image:
-  - https://s-media-cache-ak0.pinimg.com/originals/1f/9a/ff/1f9affe62feff2a1b3ecc16ea9268469.gif
-  :border_color:
-  - "#7f8f18"
-  :title_ru: Вечный смех
-  :text_ru: В психушке вам будут рады. Для вас открыты двери каждой психбольницы.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 140
-    :filters:
-      genre_ids:
-      - 4
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
-- :neko_id: :comedy
-  :level: 4
-  :image: []
-  :border_color: []
-  :title_ru: Why so serious?
-  :text_ru: Юмор пронизывает вашу сущность, не оставляя места ничему другому.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 200
-    :filters:
-      genre_ids:
-      - 4
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
-- :neko_id: :dementia_psychological
-  :level: 1
-  :image:
-  - http://s5.postimg.org/kzx4ud8bb/Psiho_3_2.jpg
-  :border_color:
-  - "#c71585"
-  :title_ru: Оно существует.
-  :text_ru: Вы открыли новый и странный мир. Продолжайте смотреть дальше.
-  :title_en: 
-  :text_en: 
-  :topic_id: 227417
-  :rule:
-    :algo: simple
-    :threshold: 25
-    :filters:
-      genre_ids:
-      - 5
-      - 40
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
-- :neko_id: :dementia_psychological
-  :level: 2
-  :image:
-  - http://s5.postimg.org/5i9mqo1uf/Psiho_7_00000.jpg
-  :border_color:
-  - "#000000"
-  :title_ru: Это вообще реально?
-  :text_ru: Стало трудно отличить реальность и вымысел. Ориентация в пространстве
-    нарушена.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 5
-      - 40
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
-- :neko_id: :dementia_psychological
-  :level: 3
-  :image:
-  - http://i.imgur.com/IRo6Vbl.png
-  :border_color:
-  - "#DC143C"
-  :title_ru: Вынос мозга.
-  :text_ru: "*fatal error."
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 60
-    :filters:
-      genre_ids:
-      - 5
-      - 40
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
-- :neko_id: :dementia_psychological
-  :level: 4
-  :image:
-  - http://i.imgur.com/iOrSsYl.gif
-  :border_color:
-  - "#20B2AA"
-  :title_ru: Вы видели слишком много.
-  :text_ru: Вы превзошли человечество и находитесь совсем на другом уровне.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 100
-    :filters:
-      genre_ids:
-      - 5
-      - 40
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
-- :neko_id: :drama
-  :level: 1
-  :image:
-  - https://desu.shikimori.org/system/user_images/original/50587/459398.jpg
-  :border_color:
-  - "#f46c2d"
-  :title_ru: Скупая слеза
-  :text_ru: Я не плачу, мне что-то в глаз попало!
-  :title_en: 
-  :text_en: 
-  :topic_id: 222044
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 8
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
-- :neko_id: :drama
-  :level: 2
-  :image:
-  - https://moe.shikimori.org/system/user_images/original/50587/459402.jpg
-  :border_color:
-  - "#031427"
-  :title_ru: Эмпатия среднего уровня
-  :text_ru: Ну давай, расскажи, как ты плакал над Хатико
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 90
-    :filters:
-      genre_ids:
-      - 8
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
-- :neko_id: :drama
-  :level: 3
-  :image:
-  - https://kawai.shikimori.org/system/user_images/original/50587/459426.jpg
-  :border_color:
-  - "#fefc9f"
-  :title_ru: Идеальная грусть
-  :text_ru: Вам стоит проявлять эмоции тогда, когда хотите. Незачем притворяться.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 140
-    :filters:
-      genre_ids:
-      - 8
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
-- :neko_id: :drama
-  :level: 4
-  :image:
-  - http://25.media.tumblr.com/18bb07caa91763ef6c93e1f8f91dfc55/tumblr_mg8r7yi1i51qh8z5mo1_500.gif
-  :border_color:
-  - "#606fde"
-  :title_ru: Максимальная эмоциональная отзывчивость
-  :text_ru: Шрамы на сердце других становятся твоими.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 200
-    :filters:
-      genre_ids:
-      - 8
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
-- :neko_id: :fantasy
-  :level: 1
-  :image:
-  - http://i.imgur.com/Go4cIYp.png
-  :border_color:
-  - "#de3c20"
-  :title_ru: Попаданец
-  :text_ru: Первый шаг в новом мире.
-  :title_en: 
-  :text_en: 
-  :topic_id: 222041
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 10
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
-- :neko_id: :fantasy
-  :level: 2
-  :image:
-  - http://i.imgur.com/2JKk27J.png
-  :border_color:
-  - "#472a18"
-  :title_ru: Искатель приключений
-  :text_ru: Диковинные вещицы, верные друзья и великие свершения ждут тебя!
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 90
-    :filters:
-      genre_ids:
-      - 10
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
-- :neko_id: :fantasy
-  :level: 3
-  :image:
-  - http://i.imgur.com/LIoCMIo.gif
-  :border_color: []
-  :title_ru: Герой
-  :text_ru: Ваши подвиги войдут в историю.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 140
-    :filters:
-      genre_ids:
-      - 10
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
-- :neko_id: :fantasy
-  :level: 4
-  :image:
-  - https://media.giphy.com/media/OHQD6K0hmSctW/giphy.gif
-  :border_color: []
-  :title_ru: Король королей
-  :text_ru: Вы видели, как зарождались легенды.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 200
-    :filters:
-      genre_ids:
-      - 10
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
-- :neko_id: :fujoshi
-  :level: 1
-  :image:
-  - http://i.imgur.com/R6PqIoT.png
-  :border_color:
-  - "#e82a8d"
-  :title_ru: Вуайерист-любитель
-  :text_ru: Поздравляем! В тебе проснулась внутренняя фудзёси!
-  :title_en: 
-  :text_en: 
-  :topic_id: 227418
-  :rule:
-    :algo: simple
-    :threshold: 30
-    :filters:
-      genre_ids:
-      - 28
-      - 33
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
-- :neko_id: :fujoshi
-  :level: 2
-  :image:
-  - http://i.imgur.com/TLvZb0E.png
-  :border_color:
-  - "#e82a8d"
-  :title_ru: Голубок
-  :text_ru: Поворачивать назад уже слишком поздно. Пора совершить каминг-аут и наконец-то
-    признать свою любовь к "не очень традиционным" историям.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 50
-    :filters:
-      genre_ids:
-      - 28
-      - 33
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
-- :neko_id: :fujoshi
-  :level: 3
-  :image:
-  - http://i.imgur.com/DKfMKBR.png
-  :border_color:
-  - "#e82a8d"
-  :title_ru: Шиппер
-  :text_ru: Мужская дружба? Не, не слышали.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 70
-    :filters:
-      genre_ids:
-      - 28
-      - 33
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
-- :neko_id: :fujoshi
-  :level: 4
-  :image:
-  - https://shikimori.org/assets/achievements/anime/fujoshi_3.jpg
-  :border_color:
-  - "#e82a8d"
-  :title_ru: Яойный бог
-  :text_ru: Яой - не жанр. Яой — это стиль жизни.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 90
-    :filters:
-      genre_ids:
-      - 28
-      - 33
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
-- :neko_id: :gar
-  :level: 1
-  :image:
-  - "/assets/achievements/anime/gar_1.jpg"
-  :border_color:
-  - "#333d2f"
-  :title_ru: 
-  :text_ru: Ваши первые шаги в жанре а борода уже не сбривается.
-  :title_en: 
-  :text_en: 
-  :topic_id: 227419
-  :rule:
-    :algo: simple
-    :threshold: 10%
-    :filters:
-      anime_ids:
-      - 1
-      - 1000
-      - 10017
-      - 10033
-      - 10055
-      - 10074
-      - 10087
-      - 10218
-      - 10271
-      - 10334
-      - 10483
-      - 10622
-      - 10625
-      - 1064
-      - 1067
-      - 10702
-      - 1081
-      - 1099
-      - 1107
-      - 11077
-      - 11359
-      - 114
-      - 11441
-      - 11483
-      - 1153
-      - 11741
-      - 1178
-      - 11787
-      - 11813
-      - 11837
-      - 12029
-      - 12031
-      - 12069
-      - 12113
-      - 12115
-      - 12231
-      - 1227
-      - 12279
-      - 12337
-      - 12413
-      - 12439
-      - 12441
-      - 12565
-      - 1269
-      - 1285
-      - 1286
-      - 12885
-      - 1292
-      - 13183
-      - 13331
-      - 1336
-      - 1341
-      - 1342
-      - 1343
-      - 1356
-      - 1357
-      - 1358
-      - 1362
-      - 13709
-      - 1373
-      - 1374
-      - 1382
-      - 1451
-      - 1455
-      - 14617
-      - 1468
-      - 1470
-      - 1471
-      - 14719
-      - 1472
-      - 1473
-      - 1474
-      - 1475
-      - 1476
-      - 1477
-      - 1478
-      - 1479
-      - 14837
-      - 1488
-      - 1519
-      - 1520
-      - 1521
-      - 1541
-      - 1544
-      - 1559
-      - 1560
-      - 15735
-      - 1603
-      - 1608
-      - 1645
-      - 166
-      - 16728
-      - 1676
-      - 1677
-      - 16774
-      - 170
-      - 1706
-      - 1707
-      - 1726
-      - 17269
-      - 17379
-      - 17389
-      - 1745
-      - 1759
-      - 1760
-      - 1761
-      - 1764
-      - 1765
-      - 17699
-      - 1773
-      - 1777
-      - 17843
-      - 1799
-      - 1800
-      - 18061
-      - 18063
-      - 1859
-      - 1861
-      - 18683
-      - 18771
-      - 1879
-      - 18795
-      - 1880
-      - 1913
-      - 19365
-      - 1941
-      - 1959
-      - 19647
-      - 1983
-      - 1985
-      - 19855
-      - 19973
-      - 2001
-      - 20057
-      - 2048
-      - 205
-      - 2050
-      - 20899
-      - 2161
-      - 2174
-      - 2178
-      - 21821
-      - 2202
-      - 2203
-      - 2213
-      - 2214
-      - 2216
-      - 22297
-      - 223
-      - 225
-      - 2251
-      - 2252
-      - 2253
-      - 2257
-      - 22687
-      - 22689
-      - 22695
-      - 22699
-      - 22777
-      - 22831
-      - 2293
-      - 2318
-      - 23201
-      - 23249
-      - 23327
-      - 2341
-      - 2342
-      - 2343
-      - 2344
-      - 2345
-      - 2346
-      - 2354
-      - 2355
-      - 2356
-      - 2359
-      - 2360
-      - 23605
-      - 23723
-      - 23753
-      - 23931
-      - 2402
-      - 24029
-      - 2418
-      - 2423
-      - 24439
-      - 245
-      - 2451
-      - 2452
-      - 2470
-      - 2498
-      - 2499
-      - 2500
-      - 25183
-      - 2520
-      - 25389
-      - 25635
-      - 2582
-      - 2583
-      - 2584
-      - 2585
-      - 2586
-      - 26055
-      - 263
-      - 264
-      - 265
-      - 267
-      - 2698
-      - 270
-      - 2734
-      - 2737
-      - 27821
-      - 27939
-      - 2797
-      - 284
-      - 287
-      - 28701
-      - 2881
-      - 2903
-      - 2920
-      - 2921
-      - 2922
-      - 2929
-      - 2952
-      - 2978
-      - 3002
-      - 3005
-      - 3009
-      - 3014
-      - 3015
-      - 3016
-      - 30246
-      - 3027
-      - 30276
-      - 3064
-      - 30694
-      - 30740
-      - 30915
-      - 31035
-      - 31050
-      - 31251
-      - 31339
-      - 31389
-      - 31430
-      - 31467
-      - 31561
-      - 317
-      - 31704
-      - 31772
-      - 31933
-      - 31973
-      - 32071
-      - 32379
-      - 3252
-      - 32534
-      - 3256
-      - 32574
-      - 3272
-      - 3273
-      - 3274
-      - 3275
-      - 3276
-      - 3277
-      - 3278
-      - 3279
-      - 3280
-      - 3281
-      - 32881
-      - 32998
-      - 33
-      - 33032
-      - 33051
-      - 33191
-      - 33221
-      - 33232
-      - 3325
-      - 3352
-      - 33566
-      - 3371
-      - 3389
-      - 33964
-      - 3398
-      - 33983
-      - 34055
-      - 34134
-      - 34391
-      - 3446
-      - 3448
-      - 3481
-      - 3509
-      - 3511
-      - 356
-      - 3579
-      - 3603
-      - 3625
-      - 3665
-      - 3676
-      - 3702
-      - 384
-      - 3864
-      - 3882
-      - 3898
-      - 3901
-      - 3907
-      - 395
-      - 400
-      - 4031
-      - 4037
-      - 4039
-      - 404
-      - 4071
-      - 4075
-      - 408
-      - 4094
-      - 4106
-      - 4107
-      - 411
-      - 4151
-      - 4312
-      - 434
-      - 4385
-      - 4386
-      - 4387
-      - 4388
-      - 44
-      - 4406
-      - 4416
-      - 4427
-      - 4486
-      - 45
-      - 4522
-      - 4549
-      - 4565
-      - 46
-      - 4646
-      - 4650
-      - 47
-      - 4705
-      - 4714
-      - 4808
-      - 4901
-      - 496
-      - 4970
-      - 499
-      - 5
-      - 502
-      - 5031
-      - 5032
-      - 504
-      - 5040
-      - 5041
-      - 5065
-      - 5152
-      - 5226
-      - 5258
-      - 5291
-      - 5292
-      - 5355
-      - 537
-      - 5386
-      - 543
-      - 5485
-      - 551
-      - 5593
-      - 5658
-      - 5742
-      - 5832
-      - 5947
-      - 5967
-      - 5968
-      - 6
-      - 6016
-      - 6030
-      - 6031
-      - 6033
-      - 6090
-      - 6114
-      - 6152
-      - 617
-      - 618
-      - 619
-      - 6246
-      - 6293
-      - 6310
-      - 6577
-      - 658
-      - 6581
-      - 6634
-      - 665
-      - 666
-      - 6675
-      - 67
-      - 6714
-      - 6721
-      - 678
-      - 679
-      - 6904
-      - 6918
-      - 6920
-      - 6922
-      - 6941
-      - 6946
-      - 732
-      - 7363
-      - 7536
-      - 7559
-      - 766
-      - 7661
-      - 7728
-      - 777
-      - 7836
-      - 8017
-      - 8026
-      - 813
-      - 820
-      - 8216
-      - 825
-      - 8250
-      - 8252
-      - 8278
-      - 8348
-      - 851
-      - 8666
-      - 876
-      - 884
-      - 889
-      - 890
-      - 891
-      - 892
-      - 893
-      - 8935
-      - 894
-      - 895
-      - 896
-      - 897
-      - 898
-      - 899
-      - 900
-      - 901
-      - 902
-      - 903
-      - 904
-      - 905
-      - 906
-      - 9120
-      - 917
-      - 9177
-      - 9241
-      - 938
-      - 950
-      - 9513
-      - 9544
-      - 96
-      - 967
-      - 9745
-      - 978
-      - 979
-      - 984
-      - 985
-      - 986
-      - 987
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
-- :neko_id: :gar
-  :level: 2
-  :image:
-  - "/assets/achievements/anime/gar_2.jpg"
-  :border_color:
-  - "#c79001"
-  :title_ru: 
-  :text_ru: Вы больше не помещаетесь в зеркалах.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 25%
-    :filters:
-      anime_ids:
-      - 1
-      - 1000
-      - 10017
-      - 10033
-      - 10055
-      - 10074
-      - 10087
-      - 10218
-      - 10271
-      - 10334
-      - 10483
-      - 10622
-      - 10625
-      - 1064
-      - 1067
-      - 10702
-      - 1081
-      - 1099
-      - 1107
-      - 11077
-      - 11359
-      - 114
-      - 11441
-      - 11483
-      - 1153
-      - 11741
-      - 1178
-      - 11787
-      - 11813
-      - 11837
-      - 12029
-      - 12031
-      - 12069
-      - 12113
-      - 12115
-      - 12231
-      - 1227
-      - 12279
-      - 12337
-      - 12413
-      - 12439
-      - 12441
-      - 12565
-      - 1269
-      - 1285
-      - 1286
-      - 12885
-      - 1292
-      - 13183
-      - 13331
-      - 1336
-      - 1341
-      - 1342
-      - 1343
-      - 1356
-      - 1357
-      - 1358
-      - 1362
-      - 13709
-      - 1373
-      - 1374
-      - 1382
-      - 1451
-      - 1455
-      - 14617
-      - 1468
-      - 1470
-      - 1471
-      - 14719
-      - 1472
-      - 1473
-      - 1474
-      - 1475
-      - 1476
-      - 1477
-      - 1478
-      - 1479
-      - 14837
-      - 1488
-      - 1519
-      - 1520
-      - 1521
-      - 1541
-      - 1544
-      - 1559
-      - 1560
-      - 15735
-      - 1603
-      - 1608
-      - 1645
-      - 166
-      - 16728
-      - 1676
-      - 1677
-      - 16774
-      - 170
-      - 1706
-      - 1707
-      - 1726
-      - 17269
-      - 17379
-      - 17389
-      - 1745
-      - 1759
-      - 1760
-      - 1761
-      - 1764
-      - 1765
-      - 17699
-      - 1773
-      - 1777
-      - 17843
-      - 1799
-      - 1800
-      - 18061
-      - 18063
-      - 1859
-      - 1861
-      - 18683
-      - 18771
-      - 1879
-      - 18795
-      - 1880
-      - 1913
-      - 19365
-      - 1941
-      - 1959
-      - 19647
-      - 1983
-      - 1985
-      - 19855
-      - 19973
-      - 2001
-      - 20057
-      - 2048
-      - 205
-      - 2050
-      - 20899
-      - 2161
-      - 2174
-      - 2178
-      - 21821
-      - 2202
-      - 2203
-      - 2213
-      - 2214
-      - 2216
-      - 22297
-      - 223
-      - 225
-      - 2251
-      - 2252
-      - 2253
-      - 2257
-      - 22687
-      - 22689
-      - 22695
-      - 22699
-      - 22777
-      - 22831
-      - 2293
-      - 2318
-      - 23201
-      - 23249
-      - 23327
-      - 2341
-      - 2342
-      - 2343
-      - 2344
-      - 2345
-      - 2346
-      - 2354
-      - 2355
-      - 2356
-      - 2359
-      - 2360
-      - 23605
-      - 23723
-      - 23753
-      - 23931
-      - 2402
-      - 24029
-      - 2418
-      - 2423
-      - 24439
-      - 245
-      - 2451
-      - 2452
-      - 2470
-      - 2498
-      - 2499
-      - 2500
-      - 25183
-      - 2520
-      - 25389
-      - 25635
-      - 2582
-      - 2583
-      - 2584
-      - 2585
-      - 2586
-      - 26055
-      - 263
-      - 264
-      - 265
-      - 267
-      - 2698
-      - 270
-      - 2734
-      - 2737
-      - 27821
-      - 27939
-      - 2797
-      - 284
-      - 287
-      - 28701
-      - 2881
-      - 2903
-      - 2920
-      - 2921
-      - 2922
-      - 2929
-      - 2952
-      - 2978
-      - 3002
-      - 3005
-      - 3009
-      - 3014
-      - 3015
-      - 3016
-      - 30246
-      - 3027
-      - 30276
-      - 3064
-      - 30694
-      - 30740
-      - 30915
-      - 31035
-      - 31050
-      - 31251
-      - 31339
-      - 31389
-      - 31430
-      - 31467
-      - 31561
-      - 317
-      - 31704
-      - 31772
-      - 31933
-      - 31973
-      - 32071
-      - 32379
-      - 3252
-      - 32534
-      - 3256
-      - 32574
-      - 3272
-      - 3273
-      - 3274
-      - 3275
-      - 3276
-      - 3277
-      - 3278
-      - 3279
-      - 3280
-      - 3281
-      - 32881
-      - 32998
-      - 33
-      - 33032
-      - 33051
-      - 33191
-      - 33221
-      - 33232
-      - 3325
-      - 3352
-      - 33566
-      - 3371
-      - 3389
-      - 33964
-      - 3398
-      - 33983
-      - 34055
-      - 34134
-      - 34391
-      - 3446
-      - 3448
-      - 3481
-      - 3509
-      - 3511
-      - 356
-      - 3579
-      - 3603
-      - 3625
-      - 3665
-      - 3676
-      - 3702
-      - 384
-      - 3864
-      - 3882
-      - 3898
-      - 3901
-      - 3907
-      - 395
-      - 400
-      - 4031
-      - 4037
-      - 4039
-      - 404
-      - 4071
-      - 4075
-      - 408
-      - 4094
-      - 4106
-      - 4107
-      - 411
-      - 4151
-      - 4312
-      - 434
-      - 4385
-      - 4386
-      - 4387
-      - 4388
-      - 44
-      - 4406
-      - 4416
-      - 4427
-      - 4486
-      - 45
-      - 4522
-      - 4549
-      - 4565
-      - 46
-      - 4646
-      - 4650
-      - 47
-      - 4705
-      - 4714
-      - 4808
-      - 4901
-      - 496
-      - 4970
-      - 499
-      - 5
-      - 502
-      - 5031
-      - 5032
-      - 504
-      - 5040
-      - 5041
-      - 5065
-      - 5152
-      - 5226
-      - 5258
-      - 5291
-      - 5292
-      - 5355
-      - 537
-      - 5386
-      - 543
-      - 5485
-      - 551
-      - 5593
-      - 5658
-      - 5742
-      - 5832
-      - 5947
-      - 5967
-      - 5968
-      - 6
-      - 6016
-      - 6030
-      - 6031
-      - 6033
-      - 6090
-      - 6114
-      - 6152
-      - 617
-      - 618
-      - 619
-      - 6246
-      - 6293
-      - 6310
-      - 6577
-      - 658
-      - 6581
-      - 6634
-      - 665
-      - 666
-      - 6675
-      - 67
-      - 6714
-      - 6721
-      - 678
-      - 679
-      - 6904
-      - 6918
-      - 6920
-      - 6922
-      - 6941
-      - 6946
-      - 732
-      - 7363
-      - 7536
-      - 7559
-      - 766
-      - 7661
-      - 7728
-      - 777
-      - 7836
-      - 8017
-      - 8026
-      - 813
-      - 820
-      - 8216
-      - 825
-      - 8250
-      - 8252
-      - 8278
-      - 8348
-      - 851
-      - 8666
-      - 876
-      - 884
-      - 889
-      - 890
-      - 891
-      - 892
-      - 893
-      - 8935
-      - 894
-      - 895
-      - 896
-      - 897
-      - 898
-      - 899
-      - 900
-      - 901
-      - 902
-      - 903
-      - 904
-      - 905
-      - 906
-      - 9120
-      - 917
-      - 9177
-      - 9241
-      - 938
-      - 950
-      - 9513
-      - 9544
-      - 96
-      - 967
-      - 9745
-      - 978
-      - 979
-      - 984
-      - 985
-      - 986
-      - 987
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
-- :neko_id: :gar
-  :level: 3
-  :image:
-  - "/assets/achievements/anime/gar_3.gif"
-  :border_color:
-  - "#c537a3"
-  :title_ru: 
-  :text_ru: Физика играет по вашим правилам.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40%
-    :filters:
-      anime_ids:
-      - 1
-      - 1000
-      - 10017
-      - 10033
-      - 10055
-      - 10074
-      - 10087
-      - 10218
-      - 10271
-      - 10334
-      - 10483
-      - 10622
-      - 10625
-      - 1064
-      - 1067
-      - 10702
-      - 1081
-      - 1099
-      - 1107
-      - 11077
-      - 11359
-      - 114
-      - 11441
-      - 11483
-      - 1153
-      - 11741
-      - 1178
-      - 11787
-      - 11813
-      - 11837
-      - 12029
-      - 12031
-      - 12069
-      - 12113
-      - 12115
-      - 12231
-      - 1227
-      - 12279
-      - 12337
-      - 12413
-      - 12439
-      - 12441
-      - 12565
-      - 1269
-      - 1285
-      - 1286
-      - 12885
-      - 1292
-      - 13183
-      - 13331
-      - 1336
-      - 1341
-      - 1342
-      - 1343
-      - 1356
-      - 1357
-      - 1358
-      - 1362
-      - 13709
-      - 1373
-      - 1374
-      - 1382
-      - 1451
-      - 1455
-      - 14617
-      - 1468
-      - 1470
-      - 1471
-      - 14719
-      - 1472
-      - 1473
-      - 1474
-      - 1475
-      - 1476
-      - 1477
-      - 1478
-      - 1479
-      - 14837
-      - 1488
-      - 1519
-      - 1520
-      - 1521
-      - 1541
-      - 1544
-      - 1559
-      - 1560
-      - 15735
-      - 1603
-      - 1608
-      - 1645
-      - 166
-      - 16728
-      - 1676
-      - 1677
-      - 16774
-      - 170
-      - 1706
-      - 1707
-      - 1726
-      - 17269
-      - 17379
-      - 17389
-      - 1745
-      - 1759
-      - 1760
-      - 1761
-      - 1764
-      - 1765
-      - 17699
-      - 1773
-      - 1777
-      - 17843
-      - 1799
-      - 1800
-      - 18061
-      - 18063
-      - 1859
-      - 1861
-      - 18683
-      - 18771
-      - 1879
-      - 18795
-      - 1880
-      - 1913
-      - 19365
-      - 1941
-      - 1959
-      - 19647
-      - 1983
-      - 1985
-      - 19855
-      - 19973
-      - 2001
-      - 20057
-      - 2048
-      - 205
-      - 2050
-      - 20899
-      - 2161
-      - 2174
-      - 2178
-      - 21821
-      - 2202
-      - 2203
-      - 2213
-      - 2214
-      - 2216
-      - 22297
-      - 223
-      - 225
-      - 2251
-      - 2252
-      - 2253
-      - 2257
-      - 22687
-      - 22689
-      - 22695
-      - 22699
-      - 22777
-      - 22831
-      - 2293
-      - 2318
-      - 23201
-      - 23249
-      - 23327
-      - 2341
-      - 2342
-      - 2343
-      - 2344
-      - 2345
-      - 2346
-      - 2354
-      - 2355
-      - 2356
-      - 2359
-      - 2360
-      - 23605
-      - 23723
-      - 23753
-      - 23931
-      - 2402
-      - 24029
-      - 2418
-      - 2423
-      - 24439
-      - 245
-      - 2451
-      - 2452
-      - 2470
-      - 2498
-      - 2499
-      - 2500
-      - 25183
-      - 2520
-      - 25389
-      - 25635
-      - 2582
-      - 2583
-      - 2584
-      - 2585
-      - 2586
-      - 26055
-      - 263
-      - 264
-      - 265
-      - 267
-      - 2698
-      - 270
-      - 2734
-      - 2737
-      - 27821
-      - 27939
-      - 2797
-      - 284
-      - 287
-      - 28701
-      - 2881
-      - 2903
-      - 2920
-      - 2921
-      - 2922
-      - 2929
-      - 2952
-      - 2978
-      - 3002
-      - 3005
-      - 3009
-      - 3014
-      - 3015
-      - 3016
-      - 30246
-      - 3027
-      - 30276
-      - 3064
-      - 30694
-      - 30740
-      - 30915
-      - 31035
-      - 31050
-      - 31251
-      - 31339
-      - 31389
-      - 31430
-      - 31467
-      - 31561
-      - 317
-      - 31704
-      - 31772
-      - 31933
-      - 31973
-      - 32071
-      - 32379
-      - 3252
-      - 32534
-      - 3256
-      - 32574
-      - 3272
-      - 3273
-      - 3274
-      - 3275
-      - 3276
-      - 3277
-      - 3278
-      - 3279
-      - 3280
-      - 3281
-      - 32881
-      - 32998
-      - 33
-      - 33032
-      - 33051
-      - 33191
-      - 33221
-      - 33232
-      - 3325
-      - 3352
-      - 33566
-      - 3371
-      - 3389
-      - 33964
-      - 3398
-      - 33983
-      - 34055
-      - 34134
-      - 34391
-      - 3446
-      - 3448
-      - 3481
-      - 3509
-      - 3511
-      - 356
-      - 3579
-      - 3603
-      - 3625
-      - 3665
-      - 3676
-      - 3702
-      - 384
-      - 3864
-      - 3882
-      - 3898
-      - 3901
-      - 3907
-      - 395
-      - 400
-      - 4031
-      - 4037
-      - 4039
-      - 404
-      - 4071
-      - 4075
-      - 408
-      - 4094
-      - 4106
-      - 4107
-      - 411
-      - 4151
-      - 4312
-      - 434
-      - 4385
-      - 4386
-      - 4387
-      - 4388
-      - 44
-      - 4406
-      - 4416
-      - 4427
-      - 4486
-      - 45
-      - 4522
-      - 4549
-      - 4565
-      - 46
-      - 4646
-      - 4650
-      - 47
-      - 4705
-      - 4714
-      - 4808
-      - 4901
-      - 496
-      - 4970
-      - 499
-      - 5
-      - 502
-      - 5031
-      - 5032
-      - 504
-      - 5040
-      - 5041
-      - 5065
-      - 5152
-      - 5226
-      - 5258
-      - 5291
-      - 5292
-      - 5355
-      - 537
-      - 5386
-      - 543
-      - 5485
-      - 551
-      - 5593
-      - 5658
-      - 5742
-      - 5832
-      - 5947
-      - 5967
-      - 5968
-      - 6
-      - 6016
-      - 6030
-      - 6031
-      - 6033
-      - 6090
-      - 6114
-      - 6152
-      - 617
-      - 618
-      - 619
-      - 6246
-      - 6293
-      - 6310
-      - 6577
-      - 658
-      - 6581
-      - 6634
-      - 665
-      - 666
-      - 6675
-      - 67
-      - 6714
-      - 6721
-      - 678
-      - 679
-      - 6904
-      - 6918
-      - 6920
-      - 6922
-      - 6941
-      - 6946
-      - 732
-      - 7363
-      - 7536
-      - 7559
-      - 766
-      - 7661
-      - 7728
-      - 777
-      - 7836
-      - 8017
-      - 8026
-      - 813
-      - 820
-      - 8216
-      - 825
-      - 8250
-      - 8252
-      - 8278
-      - 8348
-      - 851
-      - 8666
-      - 876
-      - 884
-      - 889
-      - 890
-      - 891
-      - 892
-      - 893
-      - 8935
-      - 894
-      - 895
-      - 896
-      - 897
-      - 898
-      - 899
-      - 900
-      - 901
-      - 902
-      - 903
-      - 904
-      - 905
-      - 906
-      - 9120
-      - 917
-      - 9177
-      - 9241
-      - 938
-      - 950
-      - 9513
-      - 9544
-      - 96
-      - 967
-      - 9745
-      - 978
-      - 979
-      - 984
-      - 985
-      - 986
-      - 987
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
-- :neko_id: :historical
-  :level: 1
-  :image:
-  - http://i.imgur.com/PxbRfzj.png
-  :border_color:
-  - "#3c3949"
-  :title_ru: Уроки истории
-  :text_ru: История может быть захватывающей... Вот только не стоит учить ее по аниме.
-  :title_en: 
-  :text_en: 
-  :topic_id: 222065
-  :rule:
-    :algo: simple
-    :threshold: 25
-    :filters:
-      genre_ids:
-      - 13
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
-- :neko_id: :historical
-  :level: 2
-  :image:
-  - http://i.imgur.com/B3b7MeQ.png
-  :border_color:
-  - "#4f3542"
-  :title_ru: Оглянувшись назад
-  :text_ru: Не знающий своего прошлого, не имеет будущего.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 13
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
-- :neko_id: :historical
-  :level: 3
-  :image:
-  - http://i.imgur.com/ZkXjMjT.jpg
-  :border_color:
-  - "#353a58"
-  :title_ru: Археолог
-  :text_ru: Разбитая посуда приносит счастье только археологам.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 60
-    :filters:
-      genre_ids:
-      - 13
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
-- :neko_id: :historical
-  :level: 4
-  :image: []
-  :border_color: []
-  :title_ru: Путешественник во времени
-  :text_ru: Машина времени есть у каждого. Для путешествия в прошлое есть воспоминания,
-    а для путешествия в будущее — мечты.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 100
-    :filters:
-      genre_ids:
-      - 13
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
 - :neko_id: :horror_thriller
   :level: 1
   :image:
@@ -2220,353 +504,6 @@
       - 14
       - 41
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
-- :neko_id: :josei
-  :level: 1
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 222645
-  :rule:
-    :algo: simple
-    :threshold: 25
-    :filters:
-      genre_ids:
-      - 43
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
-- :neko_id: :josei
-  :level: 2
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 43
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
-- :neko_id: :josei
-  :level: 3
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 60
-    :filters:
-      genre_ids:
-      - 43
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
-- :neko_id: :josei
-  :level: 4
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 100
-    :filters:
-      genre_ids:
-      - 43
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
-- :neko_id: :kuudere
-  :level: 1
-  :image:
-  - http://gifok.net/images/2015/06/23/KUDERE1LVL.jpg
-  :border_color:
-  - "#9ad1ee"
-  :title_ru: Тишина
-  :text_ru: Кудере молчит только потому, что того хочет.
-  :title_en: 
-  :text_en: 
-  :topic_id: 227421
-  :rule:
-    :algo: simple
-    :threshold: 30%
-    :filters:
-      anime_ids:
-      - 7088
-      - 1575
-      - 2904
-      - 308
-      - 782
-      - 1956
-      - 237
-      - 4246
-      - 35134
-      - 28025
-      - 5307
-      - 383
-      - 652
-      - 653
-      - 12225
-      - 655
-      - 12611
-      - 23233
-      - 29027
-      - 30363
-      - 10397
-      - 13757
-      - 20709
-      - 30544
-      - 31737
-      - 30
-      - 31
-      - 32
-      - 2759
-      - 3784
-      - 160
-      - 3166
-      - 33502
-      - 10109
-      - 13655
-      - 17643
-      - 6574
-      - 144
-      - 1530
-      - 23945
-      - 849
-      - 19841
-      - 1250
-      - 7590
-      - 6802
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
-- :neko_id: :kuudere
-  :level: 2
-  :image:
-  - http://gifok.net/images/2015/06/23/KUDERE2LVL.jpg
-  :border_color:
-  - "#4a4a40"
-  :title_ru: Мудрость
-  :text_ru: Умный менее всего одинок тогда, когда он находится в одиночестве.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 55%
-    :filters:
-      anime_ids:
-      - 7088
-      - 1575
-      - 2904
-      - 308
-      - 782
-      - 1956
-      - 237
-      - 4246
-      - 35134
-      - 28025
-      - 5307
-      - 383
-      - 652
-      - 653
-      - 12225
-      - 655
-      - 12611
-      - 23233
-      - 29027
-      - 30363
-      - 10397
-      - 13757
-      - 20709
-      - 30544
-      - 31737
-      - 30
-      - 31
-      - 32
-      - 2759
-      - 3784
-      - 160
-      - 3166
-      - 33502
-      - 10109
-      - 13655
-      - 17643
-      - 6574
-      - 144
-      - 1530
-      - 23945
-      - 849
-      - 19841
-      - 1250
-      - 7590
-      - 6802
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
-- :neko_id: :kuudere
-  :level: 3
-  :image:
-  - http://gifok.net/images/2015/06/23/KUDERE3LVL.jpg
-  :border_color:
-  - "#533e41"
-  :title_ru: Хладнокровие
-  :text_ru: |-
-    - Как вы можете оставаться таким холодным?
-    - Практика.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 80%
-    :filters:
-      anime_ids:
-      - 7088
-      - 1575
-      - 2904
-      - 308
-      - 782
-      - 1956
-      - 237
-      - 4246
-      - 35134
-      - 28025
-      - 5307
-      - 383
-      - 652
-      - 653
-      - 12225
-      - 655
-      - 12611
-      - 23233
-      - 29027
-      - 30363
-      - 10397
-      - 13757
-      - 20709
-      - 30544
-      - 31737
-      - 30
-      - 31
-      - 32
-      - 2759
-      - 3784
-      - 160
-      - 3166
-      - 33502
-      - 10109
-      - 13655
-      - 17643
-      - 6574
-      - 144
-      - 1530
-      - 23945
-      - 849
-      - 19841
-      - 1250
-      - 7590
-      - 6802
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
-- :neko_id: :longshounen
-  :level: 1
-  :image:
-  - http://i.imgur.com/ktKNeQO.png
-  :border_color:
-  - "#da7f51"
-  :title_ru: Хокаге
-  :text_ru: 100 эпизодов для вас не проблема.
-  :title_en: 
-  :text_en: 
-  :topic_id: 227422
-  :rule:
-    :algo: simple
-    :threshold: 30%
-    :filters:
-      anime_ids:
-      - 10033
-      - 11061
-      - 1254
-      - 12929
-      - 1425
-      - 15
-      - 1604
-      - 1735
-      - 20
-      - 2076
-      - 21
-      - 21639
-      - 22
-      - 22043
-      - 2222
-      - 223
-      - 235
-      - 249
-      - 250
-      - 269
-      - 2747
-      - 392
-      - 3972
-      - 481
-      - 482
-      - 516
-      - 6702
-      - 813
-      - 918
-      - 966
-      - 967
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
-- :neko_id: :longshounen
-  :level: 2
-  :image: []
-  :border_color: []
-  :title_ru: Король пиратов
-  :text_ru: Качество работы пропорционально количеству серий. Чем длиннее — тем выше
-    потенциал! В длинном аниме персонажи раскрыты лучше всего! Нужно больше длинносёненов!
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 55%
-    :filters:
-      anime_ids:
-      - 10033
-      - 11061
-      - 1254
-      - 12929
-      - 1425
-      - 15
-      - 1604
-      - 1735
-      - 20
-      - 2076
-      - 21
-      - 21639
-      - 22
-      - 22043
-      - 2222
-      - 223
-      - 235
-      - 249
-      - 250
-      - 269
-      - 2747
-      - 392
-      - 3972
-      - 481
-      - 482
-      - 516
-      - 6702
-      - 813
-      - 918
-      - 966
-      - 967
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
 - :neko_id: :mahou_shoujo
   :level: 1
   :image:
@@ -4597,33 +2534,32 @@
       - 997
       - 9979
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
-- :neko_id: :mecha
+- :neko_id: :slice_of_life
   :level: 1
   :image:
-  - http://68.media.tumblr.com/8cf1278fd22114a55608e9b09a5db1b4/tumblr_inline_nczxqyUFjI1rywm8k.png
+  - http://i.imgur.com/XPesMmd.png
   :border_color:
-  - "#1a153f"
-  :title_ru: Пилот Евы
-  :text_ru: ОЯШ, залезай в робота
+  - "#1a5369"
+  :title_ru: Обычный японский школьник
+  :text_ru: Довольно заурядно.
   :title_en: 
   :text_en: 
-  :topic_id: 222036
+  :topic_id: 222056
   :rule:
     :algo: simple
     :threshold: 40
     :filters:
       genre_ids:
-      - 18
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
-- :neko_id: :mecha
+      - 36
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
+- :neko_id: :slice_of_life
   :level: 2
   :image:
-  - http://i.imgur.com/djvEhwN.png
+  - http://i.imgur.com/kUfjaIt.png
   :border_color:
-  - "#5d634d"
-  :title_ru: Hassin!
-  :text_ru: Некогда непривычный костюм пилота теперь сидит как влитой. Вы — ас, впереди
-    — бесконечные сражения.
+  - "#cb4842"
+  :title_ru: Чай с тортиком
+  :text_ru: Полностью погрязли в повседневных делах и симпатичных вещах.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -4632,16 +2568,17 @@
     :threshold: 90
     :filters:
       genre_ids:
-      - 18
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
-- :neko_id: :mecha
+      - 36
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
+- :neko_id: :slice_of_life
   :level: 3
   :image:
-  - http://i.imgur.com/XrJCBwN.png
+  - http://i.imgur.com/o1OQB4k.png
   :border_color:
-  - "#66cdaa"
-  :title_ru: Ньютайп
-  :text_ru: Ore Wa Gundam / I am a mecha
+  - "#ddada5"
+  :title_ru: Дзэн
+  :text_ru: Предельная концентрация на будничной жизни. Когда вы перестали задумыватсья
+    о прошлом, будущем и начали жить этим моментом?
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -4650,18 +2587,17 @@
     :threshold: 140
     :filters:
       genre_ids:
-      - 18
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
-- :neko_id: :mecha
+      - 36
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
+- :neko_id: :slice_of_life
   :level: 4
   :image:
-  - http://i.imgur.com/YTDucCf.gif
+  - https://i.yapx.ru/JDDR.gif
   :border_color:
-  - "#da4968"
-  :title_ru: DO THE IMPOSSIBLE, SEE THE INVISIBLE!
-  :text_ru: |-
-    Мы снесем любую стену вставшую на пути! Если нет пути ,мы его проложим!
-    Магма течет в наших венах, раскаляя сердца!
+  - "#597fb9"
+  :title_ru: Прима ундина
+  :text_ru: Вы способны на чудо. Продлить незабываемые мгновения навечно для вас ничего
+    не стоит.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -4670,34 +2606,34 @@
     :threshold: 200
     :filters:
       genre_ids:
-      - 18
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
-- :neko_id: :military
+      - 36
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
+- :neko_id: :police
   :level: 1
   :image:
-  - http://i.imgur.com/MJI5DLT.png
+  - https://i.yapx.ru/JP01.jpg
   :border_color:
-  - "#635757"
-  :title_ru: Новобранец
-  :text_ru: Зачислены на военную службу в очередной призыв.
+  - "#2F353B"
+  :title_ru: Народный дружинник
+  :text_ru: Любой может оказаться предателем. Нельзя терять бдительности.
   :title_en: 
   :text_en: 
-  :topic_id: 222037
+  :topic_id: 222038
   :rule:
     :algo: simple
     :threshold: 25
     :filters:
       genre_ids:
-      - 38
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
-- :neko_id: :military
+      - 39
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
+- :neko_id: :police
   :level: 2
   :image:
-  - http://i.imgur.com/pJbZJxd.png
+  - https://i.yapx.ru/JP2j.jpg
   :border_color:
-  - "#5f665a"
-  :title_ru: Сержант
-  :text_ru: Толковый сержант необыкновенно полезен в армии, так ведь?
+  - "#c34d0a"
+  :title_ru: Гражданин, пройдёмте
+  :text_ru: У каждого полицейского есть дело, которое не даёт ему покоя.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -4706,16 +2642,16 @@
     :threshold: 40
     :filters:
       genre_ids:
-      - 38
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
-- :neko_id: :military
+      - 39
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
+- :neko_id: :police
   :level: 3
   :image:
-  - http://i.imgur.com/NgRm8Nd.png
+  - http://i.imgur.com/uTrpGUm.png
   :border_color:
-  - "#101011"
-  :title_ru: Майор
-  :text_ru: Забыли о человеческих чувствах ради долга.
+  - "#f4a900"
+  :title_ru: Отдел особого назначения
+  :text_ru: О скольких способах противостояния преступникам вы осведомлены?
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -4724,18 +2660,16 @@
     :threshold: 60
     :filters:
       genre_ids:
-      - 38
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
-- :neko_id: :military
+      - 39
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
+- :neko_id: :police
   :level: 4
   :image:
-  - https://shikimori.org/assets/achievements/anime/military_4.gif
+  - https://i.yapx.ru/JP03.jpg
   :border_color:
-  - "#2a456e"
-  :title_ru: Генерал
-  :text_ru: |-
-    Не стоит связываться с кадровым офицером, прошедшим горячие точки.
-    Жизни тысяч в руках одного.
+  - "#c7d0cc"
+  :title_ru: Вершина иерархии, высший начальствующий состав
+  :text_ru: Как вы себя чувствуете, забравшись так далеко?
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -4744,8 +2678,320 @@
     :threshold: 100
     :filters:
       genre_ids:
-      - 38
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
+      - 39
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
+- :neko_id: :otaku
+  :level: 1
+  :image:
+  - http://i.yapx.ru/JEvZ.jpg
+  :border_color:
+  - "#ff496c"
+  :title_ru: Эскапизм
+  :text_ru: Иллюзии захватывают ваш разум.
+  :title_en: 
+  :text_en: 
+  :topic_id: 227426
+  :rule:
+    :algo: simple
+    :threshold: 30
+    :filters:
+      genre_ids:
+      - 9
+      - 12
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
+- :neko_id: :otaku
+  :level: 2
+  :image:
+  - https://shikimori.org/assets/achievements/anime/otaku_4-381b895909dc0141f22bd836188fc43bd64f06f655c3c708d41a2ce56018fc13.jpg
+  :border_color:
+  - "#474a51"
+  :title_ru: Фетишизм
+  :text_ru: Как рыба в воде.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 50
+    :filters:
+      genre_ids:
+      - 9
+      - 12
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
+- :neko_id: :otaku
+  :level: 3
+  :image:
+  - https://yapcdn.net/se3/1/tSDzHDAI3i0.jpg
+  :border_color:
+  - "#2f4f4f"
+  :title_ru: NEET
+  :text_ru: Увлечение эротическим контентом начинает сказываться на вашей реальной
+    жизни.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 70
+    :filters:
+      genre_ids:
+      - 9
+      - 12
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
+- :neko_id: :otaku
+  :level: 4
+  :image:
+  - https://i.yapx.ru/JMeO.gif
+  :border_color:
+  - "#cd9575"
+  :title_ru: Хикикомори
+  :text_ru: Уровень вашего либидо достиг максимального. Окружающие трепещут.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 9
+      - 12
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
+- :neko_id: :romance
+  :level: 1
+  :image:
+  - http://s5.postimg.org/ykjbfqyqf/Rom_1_00000.jpg
+  :border_color:
+  - "#e2b801"
+  :title_ru: Сталкер
+  :text_ru: Сталкер 24/7. Почему ты меня не замечаешь?
+  :title_en: 
+  :text_en: 
+  :topic_id: 222064
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 22
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
+- :neko_id: :romance
+  :level: 2
+  :image:
+  - http://s5.postimg.org/fqxiir0if/Rom_5_00000.jpg
+  :border_color:
+  - "#9e9cb2"
+  :title_ru: Первое признание в любви.
+  :text_ru: Если ты не признаешься, он никогда не узнает о твоих чувствах.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 22
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
+- :neko_id: :romance
+  :level: 3
+  :image:
+  - http://24.media.tumblr.com/c1b3a3869b68001656b07a49c02a8324/tumblr_muleo6ItG01skzv6ro1_500.gif
+  :border_color:
+  - "#EBE5E5"
+  :title_ru: Конфетно-букетный период
+  :text_ru: Теперь ты можешь на равных поддерживать разговор с Салатом.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 140
+    :filters:
+      genre_ids:
+      - 22
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
+- :neko_id: :romance
+  :level: 4
+  :image:
+  - http://media.giphy.com/media/3oEdv7Z9NDQFcTzMha/giphy.gif
+  :border_color:
+  - "#001a6e"
+  :title_ru: Сердце, полное любви
+  :text_ru: Эксперт в отношениях.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 200
+    :filters:
+      genre_ids:
+      - 22
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
+- :neko_id: :longshounen
+  :level: 1
+  :image:
+  - http://i.imgur.com/ktKNeQO.png
+  :border_color:
+  - "#da7f51"
+  :title_ru: Хокаге
+  :text_ru: 100 эпизодов для вас не проблема.
+  :title_en: 
+  :text_en: 
+  :topic_id: 227422
+  :rule:
+    :algo: simple
+    :threshold: 30%
+    :filters:
+      anime_ids:
+      - 10033
+      - 11061
+      - 1254
+      - 12929
+      - 1425
+      - 15
+      - 1604
+      - 1735
+      - 20
+      - 2076
+      - 21
+      - 21639
+      - 22
+      - 22043
+      - 2222
+      - 223
+      - 235
+      - 249
+      - 250
+      - 269
+      - 2747
+      - 392
+      - 3972
+      - 481
+      - 482
+      - 516
+      - 6702
+      - 813
+      - 918
+      - 966
+      - 967
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
+- :neko_id: :longshounen
+  :level: 2
+  :image: []
+  :border_color: []
+  :title_ru: Король пиратов
+  :text_ru: Качество работы пропорционально количеству серий. Чем длиннее — тем выше
+    потенциал! В длинном аниме персонажи раскрыты лучше всего! Нужно больше длинносёненов!
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 55%
+    :filters:
+      anime_ids:
+      - 10033
+      - 11061
+      - 1254
+      - 12929
+      - 1425
+      - 15
+      - 1604
+      - 1735
+      - 20
+      - 2076
+      - 21
+      - 21639
+      - 22
+      - 22043
+      - 2222
+      - 223
+      - 235
+      - 249
+      - 250
+      - 269
+      - 2747
+      - 392
+      - 3972
+      - 481
+      - 482
+      - 516
+      - 6702
+      - 813
+      - 918
+      - 966
+      - 967
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
+- :neko_id: :oldfag
+  :level: 1
+  :image:
+  - http://i.imgur.com/I3DvFcX.png
+  :border_color:
+  - "#c5d0e6"
+  :title_ru: Ценитель классики
+  :text_ru: 'Раньше было лучше: деревья — выше, трава — зеленее, а аниме — интереснее.'
+  :title_en: 
+  :text_en: 
+  :topic_id: 227424
+  :rule:
+    :algo: simple
+    :threshold: 70
+    :filters:
+      year_lte: 2000
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
+- :neko_id: :oldfag
+  :level: 2
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/1/532888.jpg
+  :border_color:
+  - "#887468"
+  :title_ru: Золотая коллекция
+  :text_ru: Видеосалоны, запись на VHS... Вы помните все так, будто это было вчера.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 150
+    :filters:
+      year_lte: 2000
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
+- :neko_id: :oldfag
+  :level: 3
+  :image:
+  - https://i.yapx.ru/JK3F.jpg
+  :border_color:
+  - "#1c1c1c"
+  :title_ru: Ветер ностальгии
+  :text_ru: Серьезно, сколько вам лет?
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 300
+    :filters:
+      year_lte: 2000
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
+- :neko_id: :oldfag
+  :level: 4
+  :image:
+  - https://i.yapx.ru/JK3J.jpg
+  :border_color:
+  - "#a5a5a5"
+  :title_ru: Здоровался за руку с Осаму Тэдзукой
+  :text_ru: Вы — часть минувшей эпохи. Живая легенда.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 500
+    :filters:
+      year_lte: 2000
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
 - :neko_id: :moe
   :level: 1
   :image:
@@ -5331,699 +3577,1502 @@
       - 9888
       - 9989
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
-- :neko_id: :music
+- :neko_id: :gar
   :level: 1
   :image:
-  - http://i.imgur.com/juINaek.png
+  - "/assets/achievements/anime/gar_1.jpg"
   :border_color:
-  - "#8fa9dc"
-  :title_ru: Это не школьный клуб
-  :text_ru: Весьма посредственное отношение к музыке.
+  - "#333d2f"
+  :title_ru: 
+  :text_ru: Ваши первые шаги в жанре а борода уже не сбривается.
   :title_en: 
   :text_en: 
-  :topic_id: 222061
+  :topic_id: 227419
   :rule:
     :algo: simple
-    :threshold: 20
-    :filters:
-      genre_ids:
-      - 19
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
-- :neko_id: :music
-  :level: 2
-  :image:
-  - https://i.yapx.ru/JPn2.jpg
-  :border_color:
-  - "#4285b4"
-  :title_ru: Это не вокалоид
-  :text_ru: Звуки сложились в песню.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 19
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
-- :neko_id: :music
-  :level: 3
-  :image:
-  - https://pp.userapi.com/c836632/v836632323/4248b/mWRXNkQqv5g.jpg
-  :border_color:
-  - "#cd5c5c"
-  :title_ru: Это не айдол
-  :text_ru: Вы ведь знаете, неважно что они поют, но они должны вкладывать в это своё
-    сердце.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 60
-    :filters:
-      genre_ids:
-      - 19
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
-- :neko_id: :music
-  :level: 4
-  :image:
-  - https://i.yapx.ru/JPn6.gif
-  :border_color:
-  - "#4c514a"
-  :title_ru: Это не продюсер
-  :text_ru: Кажется, вы знаток музыкальной индустрии. Ну и что теперь?.. Откроете
-    своё агентство с инновациями и идолами?
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 100
-    :filters:
-      genre_ids:
-      - 19
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
-- :neko_id: :mystery
-  :level: 1
-  :image:
-  - https://pp.userapi.com/c638321/v638321323/3997e/EGJ6gOU1aSA.jpg
-  :border_color:
-  - "#4c514a"
-  :title_ru: Первое дело
-  :text_ru: Было не просто, но вы смогли поймать своего первого преступника. Поздравляем,
-    продолжайте в том же духе!
-  :title_en: 
-  :text_en: 
-  :topic_id: 222047
-  :rule:
-    :algo: simple
-    :threshold: 25
-    :filters:
-      genre_ids:
-      - 7
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
-- :neko_id: :mystery
-  :level: 2
-  :image:
-  - http://i.imgur.com/DFrq5pY.jpg
-  :border_color:
-  - "#3a59a8"
-  :title_ru: Убийца - дворецкий!
-  :text_ru: Вы не понаслышке знакомы с дедукцией. Вам нет равных среди юных детективов.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 7
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
-- :neko_id: :mystery
-  :level: 3
-  :image:
-  - https://i.yapx.ru/JK6g.jpg
-  :border_color:
-  - "#919192"
-  :title_ru: За семью печатями
-  :text_ru: Мэтры детективного дела обращаются к вам за советами.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 60
-    :filters:
-      genre_ids:
-      - 7
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
-- :neko_id: :mystery
-  :level: 4
-  :image:
-  - https://i.imgur.com/oPp3SWS.gif
-  :border_color:
-  - "#919192"
-  :title_ru: Великий детектив
-  :text_ru: Интересных дел катастрофически мало! На поприще детектива вы добились
-    всего.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 100
-    :filters:
-      genre_ids:
-      - 7
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
-- :neko_id: :oldfag
-  :level: 1
-  :image:
-  - http://i.imgur.com/I3DvFcX.png
-  :border_color:
-  - "#c5d0e6"
-  :title_ru: Ценитель классики
-  :text_ru: 'Раньше было лучше: деревья — выше, трава — зеленее, а аниме — интереснее.'
-  :title_en: 
-  :text_en: 
-  :topic_id: 227424
-  :rule:
-    :algo: simple
-    :threshold: 70
-    :filters:
-      year_lte: 2000
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
-- :neko_id: :oldfag
-  :level: 2
-  :image:
-  - https://desu.shikimori.org/system/user_images/original/1/532888.jpg
-  :border_color:
-  - "#887468"
-  :title_ru: Золотая коллекция
-  :text_ru: Видеосалоны, запись на VHS... Вы помните все так, будто это было вчера.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 150
-    :filters:
-      year_lte: 2000
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
-- :neko_id: :oldfag
-  :level: 3
-  :image:
-  - https://i.yapx.ru/JK3F.jpg
-  :border_color:
-  - "#1c1c1c"
-  :title_ru: Ветер ностальгии
-  :text_ru: Серьезно, сколько вам лет?
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 300
-    :filters:
-      year_lte: 2000
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
-- :neko_id: :oldfag
-  :level: 4
-  :image:
-  - https://i.yapx.ru/JK3J.jpg
-  :border_color:
-  - "#a5a5a5"
-  :title_ru: Здоровался за руку с Осаму Тэдзукой
-  :text_ru: Вы — часть минувшей эпохи. Живая легенда.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 500
-    :filters:
-      year_lte: 2000
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
-- :neko_id: :oniichan
-  :level: 1
-  :image:
-  - http://i.imgur.com/BQDF1Dq.png
-  :border_color:
-  - "#f0d698"
-  :title_ru: Братик
-  :text_ru: Вы знаете, как счастливо жить с сестрёнкой вечно.
-  :title_en: 
-  :text_en: 
-  :topic_id: 227425
-  :rule:
-    :algo: simple
-    :threshold: 80%
+    :threshold: 10%
     :filters:
       anime_ids:
-      - 10020
-      - 10219
-      - 11757
-      - 13659
-      - 14199
-      - 14515
-      - 15881
-      - 18857
-      - 19815
-      - 20785
-      - 24991
-      - 3456
-      - 5042
-      - 5116
-      - 535
-      - 634
-      - 6479
-      - 6987
-      - 7593
-      - 8577
-      - 8769
-      - 8861
-      - 9587
-      - 32901
-      - 35413
-      - 36001
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
-- :neko_id: :otaku
-  :level: 1
-  :image:
-  - http://i.yapx.ru/JEvZ.jpg
-  :border_color:
-  - "#ff496c"
-  :title_ru: Эскапизм
-  :text_ru: Иллюзии захватывают ваш разум.
-  :title_en: 
-  :text_en: 
-  :topic_id: 227426
-  :rule:
-    :algo: simple
-    :threshold: 30
-    :filters:
-      genre_ids:
-      - 9
-      - 12
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
-- :neko_id: :otaku
+      - 1
+      - 1000
+      - 10017
+      - 10033
+      - 10055
+      - 10074
+      - 10087
+      - 10218
+      - 10271
+      - 10334
+      - 10483
+      - 10622
+      - 10625
+      - 1064
+      - 1067
+      - 10702
+      - 1081
+      - 1099
+      - 1107
+      - 11077
+      - 11359
+      - 114
+      - 11441
+      - 11483
+      - 1153
+      - 11741
+      - 1178
+      - 11787
+      - 11813
+      - 11837
+      - 12029
+      - 12031
+      - 12069
+      - 12113
+      - 12115
+      - 12231
+      - 1227
+      - 12279
+      - 12337
+      - 12413
+      - 12439
+      - 12441
+      - 12565
+      - 1269
+      - 1285
+      - 1286
+      - 12885
+      - 1292
+      - 13183
+      - 13331
+      - 1336
+      - 1341
+      - 1342
+      - 1343
+      - 1356
+      - 1357
+      - 1358
+      - 1362
+      - 13709
+      - 1373
+      - 1374
+      - 1382
+      - 1451
+      - 1455
+      - 14617
+      - 1468
+      - 1470
+      - 1471
+      - 14719
+      - 1472
+      - 1473
+      - 1474
+      - 1475
+      - 1476
+      - 1477
+      - 1478
+      - 1479
+      - 14837
+      - 1488
+      - 1519
+      - 1520
+      - 1521
+      - 1541
+      - 1544
+      - 1559
+      - 1560
+      - 15735
+      - 1603
+      - 1608
+      - 1645
+      - 166
+      - 16728
+      - 1676
+      - 1677
+      - 16774
+      - 170
+      - 1706
+      - 1707
+      - 1726
+      - 17269
+      - 17379
+      - 17389
+      - 1745
+      - 1759
+      - 1760
+      - 1761
+      - 1764
+      - 1765
+      - 17699
+      - 1773
+      - 1777
+      - 17843
+      - 1799
+      - 1800
+      - 18061
+      - 18063
+      - 1859
+      - 1861
+      - 18683
+      - 18771
+      - 1879
+      - 18795
+      - 1880
+      - 1913
+      - 19365
+      - 1941
+      - 1959
+      - 19647
+      - 1983
+      - 1985
+      - 19855
+      - 19973
+      - 2001
+      - 20057
+      - 2048
+      - 205
+      - 2050
+      - 20899
+      - 2161
+      - 2174
+      - 2178
+      - 21821
+      - 2202
+      - 2203
+      - 2213
+      - 2214
+      - 2216
+      - 22297
+      - 223
+      - 225
+      - 2251
+      - 2252
+      - 2253
+      - 2257
+      - 22687
+      - 22689
+      - 22695
+      - 22699
+      - 22777
+      - 22831
+      - 2293
+      - 2318
+      - 23201
+      - 23249
+      - 23327
+      - 2341
+      - 2342
+      - 2343
+      - 2344
+      - 2345
+      - 2346
+      - 2354
+      - 2355
+      - 2356
+      - 2359
+      - 2360
+      - 23605
+      - 23723
+      - 23753
+      - 23931
+      - 2402
+      - 24029
+      - 2418
+      - 2423
+      - 24439
+      - 245
+      - 2451
+      - 2452
+      - 2470
+      - 2498
+      - 2499
+      - 2500
+      - 25183
+      - 2520
+      - 25389
+      - 25635
+      - 2582
+      - 2583
+      - 2584
+      - 2585
+      - 2586
+      - 26055
+      - 263
+      - 264
+      - 265
+      - 267
+      - 2698
+      - 270
+      - 2734
+      - 2737
+      - 27821
+      - 27939
+      - 2797
+      - 284
+      - 287
+      - 28701
+      - 2881
+      - 2903
+      - 2920
+      - 2921
+      - 2922
+      - 2929
+      - 2952
+      - 2978
+      - 3002
+      - 3005
+      - 3009
+      - 3014
+      - 3015
+      - 3016
+      - 30246
+      - 3027
+      - 30276
+      - 3064
+      - 30694
+      - 30740
+      - 30915
+      - 31035
+      - 31050
+      - 31251
+      - 31339
+      - 31389
+      - 31430
+      - 31467
+      - 31561
+      - 317
+      - 31704
+      - 31772
+      - 31933
+      - 31973
+      - 32071
+      - 32379
+      - 3252
+      - 32534
+      - 3256
+      - 32574
+      - 3272
+      - 3273
+      - 3274
+      - 3275
+      - 3276
+      - 3277
+      - 3278
+      - 3279
+      - 3280
+      - 3281
+      - 32881
+      - 32998
+      - 33
+      - 33032
+      - 33051
+      - 33191
+      - 33221
+      - 33232
+      - 3325
+      - 3352
+      - 33566
+      - 3371
+      - 3389
+      - 33964
+      - 3398
+      - 33983
+      - 34055
+      - 34134
+      - 34391
+      - 3446
+      - 3448
+      - 3481
+      - 3509
+      - 3511
+      - 356
+      - 3579
+      - 3603
+      - 3625
+      - 3665
+      - 3676
+      - 3702
+      - 384
+      - 3864
+      - 3882
+      - 3898
+      - 3901
+      - 3907
+      - 395
+      - 400
+      - 4031
+      - 4037
+      - 4039
+      - 404
+      - 4071
+      - 4075
+      - 408
+      - 4094
+      - 4106
+      - 4107
+      - 411
+      - 4151
+      - 4312
+      - 434
+      - 4385
+      - 4386
+      - 4387
+      - 4388
+      - 44
+      - 4406
+      - 4416
+      - 4427
+      - 4486
+      - 45
+      - 4522
+      - 4549
+      - 4565
+      - 46
+      - 4646
+      - 4650
+      - 47
+      - 4705
+      - 4714
+      - 4808
+      - 4901
+      - 496
+      - 4970
+      - 499
+      - 5
+      - 502
+      - 5031
+      - 5032
+      - 504
+      - 5040
+      - 5041
+      - 5065
+      - 5152
+      - 5226
+      - 5258
+      - 5291
+      - 5292
+      - 5355
+      - 537
+      - 5386
+      - 543
+      - 5485
+      - 551
+      - 5593
+      - 5658
+      - 5742
+      - 5832
+      - 5947
+      - 5967
+      - 5968
+      - 6
+      - 6016
+      - 6030
+      - 6031
+      - 6033
+      - 6090
+      - 6114
+      - 6152
+      - 617
+      - 618
+      - 619
+      - 6246
+      - 6293
+      - 6310
+      - 6577
+      - 658
+      - 6581
+      - 6634
+      - 665
+      - 666
+      - 6675
+      - 67
+      - 6714
+      - 6721
+      - 678
+      - 679
+      - 6904
+      - 6918
+      - 6920
+      - 6922
+      - 6941
+      - 6946
+      - 732
+      - 7363
+      - 7536
+      - 7559
+      - 766
+      - 7661
+      - 7728
+      - 777
+      - 7836
+      - 8017
+      - 8026
+      - 813
+      - 820
+      - 8216
+      - 825
+      - 8250
+      - 8252
+      - 8278
+      - 8348
+      - 851
+      - 8666
+      - 876
+      - 884
+      - 889
+      - 890
+      - 891
+      - 892
+      - 893
+      - 8935
+      - 894
+      - 895
+      - 896
+      - 897
+      - 898
+      - 899
+      - 900
+      - 901
+      - 902
+      - 903
+      - 904
+      - 905
+      - 906
+      - 9120
+      - 917
+      - 9177
+      - 9241
+      - 938
+      - 950
+      - 9513
+      - 9544
+      - 96
+      - 967
+      - 9745
+      - 978
+      - 979
+      - 984
+      - 985
+      - 986
+      - 987
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
+- :neko_id: :gar
   :level: 2
   :image:
-  - https://shikimori.org/assets/achievements/anime/otaku_4-381b895909dc0141f22bd836188fc43bd64f06f655c3c708d41a2ce56018fc13.jpg
+  - "/assets/achievements/anime/gar_2.jpg"
   :border_color:
-  - "#474a51"
-  :title_ru: Фетишизм
-  :text_ru: Как рыба в воде.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 50
-    :filters:
-      genre_ids:
-      - 9
-      - 12
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
-- :neko_id: :otaku
-  :level: 3
-  :image:
-  - https://yapcdn.net/se3/1/tSDzHDAI3i0.jpg
-  :border_color:
-  - "#2f4f4f"
-  :title_ru: NEET
-  :text_ru: Увлечение эротическим контентом начинает сказываться на вашей реальной
-    жизни.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 70
-    :filters:
-      genre_ids:
-      - 9
-      - 12
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
-- :neko_id: :otaku
-  :level: 4
-  :image:
-  - https://i.yapx.ru/JMeO.gif
-  :border_color:
-  - "#cd9575"
-  :title_ru: Хикикомори
-  :text_ru: Уровень вашего либидо достиг максимального. Окружающие трепещут.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 90
-    :filters:
-      genre_ids:
-      - 9
-      - 12
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
-- :neko_id: :police
-  :level: 1
-  :image:
-  - https://i.yapx.ru/JP01.jpg
-  :border_color:
-  - "#2F353B"
-  :title_ru: Народный дружинник
-  :text_ru: Любой может оказаться предателем. Нельзя терять бдительности.
-  :title_en: 
-  :text_en: 
-  :topic_id: 222038
-  :rule:
-    :algo: simple
-    :threshold: 25
-    :filters:
-      genre_ids:
-      - 39
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
-- :neko_id: :police
-  :level: 2
-  :image:
-  - https://i.yapx.ru/JP2j.jpg
-  :border_color:
-  - "#c34d0a"
-  :title_ru: Гражданин, пройдёмте
-  :text_ru: У каждого полицейского есть дело, которое не даёт ему покоя.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 39
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
-- :neko_id: :police
-  :level: 3
-  :image:
-  - http://i.imgur.com/uTrpGUm.png
-  :border_color:
-  - "#f4a900"
-  :title_ru: Отдел особого назначения
-  :text_ru: О скольких способах противостояния преступникам вы осведомлены?
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 60
-    :filters:
-      genre_ids:
-      - 39
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
-- :neko_id: :police
-  :level: 4
-  :image:
-  - https://i.yapx.ru/JP03.jpg
-  :border_color:
-  - "#c7d0cc"
-  :title_ru: Вершина иерархии, высший начальствующий состав
-  :text_ru: Как вы себя чувствуете, забравшись так далеко?
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 100
-    :filters:
-      genre_ids:
-      - 39
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
-- :neko_id: :romance
-  :level: 1
-  :image:
-  - http://s5.postimg.org/ykjbfqyqf/Rom_1_00000.jpg
-  :border_color:
-  - "#e2b801"
-  :title_ru: Сталкер
-  :text_ru: Сталкер 24/7. Почему ты меня не замечаешь?
-  :title_en: 
-  :text_en: 
-  :topic_id: 222064
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 22
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
-- :neko_id: :romance
-  :level: 2
-  :image:
-  - http://s5.postimg.org/fqxiir0if/Rom_5_00000.jpg
-  :border_color:
-  - "#9e9cb2"
-  :title_ru: Первое признание в любви.
-  :text_ru: Если ты не признаешься, он никогда не узнает о твоих чувствах.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 90
-    :filters:
-      genre_ids:
-      - 22
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
-- :neko_id: :romance
-  :level: 3
-  :image:
-  - http://24.media.tumblr.com/c1b3a3869b68001656b07a49c02a8324/tumblr_muleo6ItG01skzv6ro1_500.gif
-  :border_color:
-  - "#EBE5E5"
-  :title_ru: Конфетно-букетный период
-  :text_ru: Теперь ты можешь на равных поддерживать разговор с Салатом.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 140
-    :filters:
-      genre_ids:
-      - 22
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
-- :neko_id: :romance
-  :level: 4
-  :image:
-  - http://media.giphy.com/media/3oEdv7Z9NDQFcTzMha/giphy.gif
-  :border_color:
-  - "#001a6e"
-  :title_ru: Сердце, полное любви
-  :text_ru: Эксперт в отношениях.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 200
-    :filters:
-      genre_ids:
-      - 22
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
-- :neko_id: :scifi
-  :level: 1
-  :image:
-  - http://unrealitymag.com/wp-content/uploads/2014/04/dandy-title-500x250.jpg
-  :border_color:
-  - "#923a6c"
-  :title_ru: Давным-давно, в далекой-далекой галактике...
-  :text_ru: Как только ты сделаешь первый шаг по Тёмному Пути, ты уже не сможешь с
-    него свернуть.
-  :title_en: 
-  :text_en: 
-  :topic_id: 222059
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 24
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
-- :neko_id: :scifi
-  :level: 2
-  :image:
-  - http://i.imgur.com/uhI7k2t.png?1
-  :border_color:
-  - "#256d7b"
-  :title_ru: Изобретатель
-  :text_ru: Вероятно, вы способны сделать пригодным для использования даже то, что
-    является кучей мусора в глазах других.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 90
-    :filters:
-      genre_ids:
-      - 24
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
-- :neko_id: :scifi
-  :level: 3
-  :image:
-  - https://pp.userapi.com/c836632/v836632323/42c47/Dc6XXlnzWCA.jpg
-  :border_color:
-  - "#423c63"
-  :title_ru: Безумный ученый
-  :text_ru: В ваших руках рождается гармония между фантастикой, научными фактами и
-    мистикой.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 140
-    :filters:
-      genre_ids:
-      - 24
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
-- :neko_id: :scifi
-  :level: 4
-  :image:
-  - http://25.media.tumblr.com/tumblr_m880tlaKLy1qdfvslo1_500.gif
-  :border_color:
-  - "#2f353b"
-  :title_ru: Великий Разум
-  :text_ru: Фантастика — это реальность. Всё, о чём вы подумали, осуществляется.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 200
-    :filters:
-      genre_ids:
-      - 24
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
-- :neko_id: :seinen
-  :level: 1
-  :image:
-  - https://moe.shikimori.org/system/user_images/original/50587/459007.jpg
-  :border_color:
-  - "#9c521c"
+  - "#c79001"
   :title_ru: 
+  :text_ru: Вы больше не помещаетесь в зеркалах.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 25%
+    :filters:
+      anime_ids:
+      - 1
+      - 1000
+      - 10017
+      - 10033
+      - 10055
+      - 10074
+      - 10087
+      - 10218
+      - 10271
+      - 10334
+      - 10483
+      - 10622
+      - 10625
+      - 1064
+      - 1067
+      - 10702
+      - 1081
+      - 1099
+      - 1107
+      - 11077
+      - 11359
+      - 114
+      - 11441
+      - 11483
+      - 1153
+      - 11741
+      - 1178
+      - 11787
+      - 11813
+      - 11837
+      - 12029
+      - 12031
+      - 12069
+      - 12113
+      - 12115
+      - 12231
+      - 1227
+      - 12279
+      - 12337
+      - 12413
+      - 12439
+      - 12441
+      - 12565
+      - 1269
+      - 1285
+      - 1286
+      - 12885
+      - 1292
+      - 13183
+      - 13331
+      - 1336
+      - 1341
+      - 1342
+      - 1343
+      - 1356
+      - 1357
+      - 1358
+      - 1362
+      - 13709
+      - 1373
+      - 1374
+      - 1382
+      - 1451
+      - 1455
+      - 14617
+      - 1468
+      - 1470
+      - 1471
+      - 14719
+      - 1472
+      - 1473
+      - 1474
+      - 1475
+      - 1476
+      - 1477
+      - 1478
+      - 1479
+      - 14837
+      - 1488
+      - 1519
+      - 1520
+      - 1521
+      - 1541
+      - 1544
+      - 1559
+      - 1560
+      - 15735
+      - 1603
+      - 1608
+      - 1645
+      - 166
+      - 16728
+      - 1676
+      - 1677
+      - 16774
+      - 170
+      - 1706
+      - 1707
+      - 1726
+      - 17269
+      - 17379
+      - 17389
+      - 1745
+      - 1759
+      - 1760
+      - 1761
+      - 1764
+      - 1765
+      - 17699
+      - 1773
+      - 1777
+      - 17843
+      - 1799
+      - 1800
+      - 18061
+      - 18063
+      - 1859
+      - 1861
+      - 18683
+      - 18771
+      - 1879
+      - 18795
+      - 1880
+      - 1913
+      - 19365
+      - 1941
+      - 1959
+      - 19647
+      - 1983
+      - 1985
+      - 19855
+      - 19973
+      - 2001
+      - 20057
+      - 2048
+      - 205
+      - 2050
+      - 20899
+      - 2161
+      - 2174
+      - 2178
+      - 21821
+      - 2202
+      - 2203
+      - 2213
+      - 2214
+      - 2216
+      - 22297
+      - 223
+      - 225
+      - 2251
+      - 2252
+      - 2253
+      - 2257
+      - 22687
+      - 22689
+      - 22695
+      - 22699
+      - 22777
+      - 22831
+      - 2293
+      - 2318
+      - 23201
+      - 23249
+      - 23327
+      - 2341
+      - 2342
+      - 2343
+      - 2344
+      - 2345
+      - 2346
+      - 2354
+      - 2355
+      - 2356
+      - 2359
+      - 2360
+      - 23605
+      - 23723
+      - 23753
+      - 23931
+      - 2402
+      - 24029
+      - 2418
+      - 2423
+      - 24439
+      - 245
+      - 2451
+      - 2452
+      - 2470
+      - 2498
+      - 2499
+      - 2500
+      - 25183
+      - 2520
+      - 25389
+      - 25635
+      - 2582
+      - 2583
+      - 2584
+      - 2585
+      - 2586
+      - 26055
+      - 263
+      - 264
+      - 265
+      - 267
+      - 2698
+      - 270
+      - 2734
+      - 2737
+      - 27821
+      - 27939
+      - 2797
+      - 284
+      - 287
+      - 28701
+      - 2881
+      - 2903
+      - 2920
+      - 2921
+      - 2922
+      - 2929
+      - 2952
+      - 2978
+      - 3002
+      - 3005
+      - 3009
+      - 3014
+      - 3015
+      - 3016
+      - 30246
+      - 3027
+      - 30276
+      - 3064
+      - 30694
+      - 30740
+      - 30915
+      - 31035
+      - 31050
+      - 31251
+      - 31339
+      - 31389
+      - 31430
+      - 31467
+      - 31561
+      - 317
+      - 31704
+      - 31772
+      - 31933
+      - 31973
+      - 32071
+      - 32379
+      - 3252
+      - 32534
+      - 3256
+      - 32574
+      - 3272
+      - 3273
+      - 3274
+      - 3275
+      - 3276
+      - 3277
+      - 3278
+      - 3279
+      - 3280
+      - 3281
+      - 32881
+      - 32998
+      - 33
+      - 33032
+      - 33051
+      - 33191
+      - 33221
+      - 33232
+      - 3325
+      - 3352
+      - 33566
+      - 3371
+      - 3389
+      - 33964
+      - 3398
+      - 33983
+      - 34055
+      - 34134
+      - 34391
+      - 3446
+      - 3448
+      - 3481
+      - 3509
+      - 3511
+      - 356
+      - 3579
+      - 3603
+      - 3625
+      - 3665
+      - 3676
+      - 3702
+      - 384
+      - 3864
+      - 3882
+      - 3898
+      - 3901
+      - 3907
+      - 395
+      - 400
+      - 4031
+      - 4037
+      - 4039
+      - 404
+      - 4071
+      - 4075
+      - 408
+      - 4094
+      - 4106
+      - 4107
+      - 411
+      - 4151
+      - 4312
+      - 434
+      - 4385
+      - 4386
+      - 4387
+      - 4388
+      - 44
+      - 4406
+      - 4416
+      - 4427
+      - 4486
+      - 45
+      - 4522
+      - 4549
+      - 4565
+      - 46
+      - 4646
+      - 4650
+      - 47
+      - 4705
+      - 4714
+      - 4808
+      - 4901
+      - 496
+      - 4970
+      - 499
+      - 5
+      - 502
+      - 5031
+      - 5032
+      - 504
+      - 5040
+      - 5041
+      - 5065
+      - 5152
+      - 5226
+      - 5258
+      - 5291
+      - 5292
+      - 5355
+      - 537
+      - 5386
+      - 543
+      - 5485
+      - 551
+      - 5593
+      - 5658
+      - 5742
+      - 5832
+      - 5947
+      - 5967
+      - 5968
+      - 6
+      - 6016
+      - 6030
+      - 6031
+      - 6033
+      - 6090
+      - 6114
+      - 6152
+      - 617
+      - 618
+      - 619
+      - 6246
+      - 6293
+      - 6310
+      - 6577
+      - 658
+      - 6581
+      - 6634
+      - 665
+      - 666
+      - 6675
+      - 67
+      - 6714
+      - 6721
+      - 678
+      - 679
+      - 6904
+      - 6918
+      - 6920
+      - 6922
+      - 6941
+      - 6946
+      - 732
+      - 7363
+      - 7536
+      - 7559
+      - 766
+      - 7661
+      - 7728
+      - 777
+      - 7836
+      - 8017
+      - 8026
+      - 813
+      - 820
+      - 8216
+      - 825
+      - 8250
+      - 8252
+      - 8278
+      - 8348
+      - 851
+      - 8666
+      - 876
+      - 884
+      - 889
+      - 890
+      - 891
+      - 892
+      - 893
+      - 8935
+      - 894
+      - 895
+      - 896
+      - 897
+      - 898
+      - 899
+      - 900
+      - 901
+      - 902
+      - 903
+      - 904
+      - 905
+      - 906
+      - 9120
+      - 917
+      - 9177
+      - 9241
+      - 938
+      - 950
+      - 9513
+      - 9544
+      - 96
+      - 967
+      - 9745
+      - 978
+      - 979
+      - 984
+      - 985
+      - 986
+      - 987
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
+- :neko_id: :gar
+  :level: 3
+  :image:
+  - "/assets/achievements/anime/gar_3.gif"
+  :border_color:
+  - "#c537a3"
+  :title_ru: 
+  :text_ru: Физика играет по вашим правилам.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40%
+    :filters:
+      anime_ids:
+      - 1
+      - 1000
+      - 10017
+      - 10033
+      - 10055
+      - 10074
+      - 10087
+      - 10218
+      - 10271
+      - 10334
+      - 10483
+      - 10622
+      - 10625
+      - 1064
+      - 1067
+      - 10702
+      - 1081
+      - 1099
+      - 1107
+      - 11077
+      - 11359
+      - 114
+      - 11441
+      - 11483
+      - 1153
+      - 11741
+      - 1178
+      - 11787
+      - 11813
+      - 11837
+      - 12029
+      - 12031
+      - 12069
+      - 12113
+      - 12115
+      - 12231
+      - 1227
+      - 12279
+      - 12337
+      - 12413
+      - 12439
+      - 12441
+      - 12565
+      - 1269
+      - 1285
+      - 1286
+      - 12885
+      - 1292
+      - 13183
+      - 13331
+      - 1336
+      - 1341
+      - 1342
+      - 1343
+      - 1356
+      - 1357
+      - 1358
+      - 1362
+      - 13709
+      - 1373
+      - 1374
+      - 1382
+      - 1451
+      - 1455
+      - 14617
+      - 1468
+      - 1470
+      - 1471
+      - 14719
+      - 1472
+      - 1473
+      - 1474
+      - 1475
+      - 1476
+      - 1477
+      - 1478
+      - 1479
+      - 14837
+      - 1488
+      - 1519
+      - 1520
+      - 1521
+      - 1541
+      - 1544
+      - 1559
+      - 1560
+      - 15735
+      - 1603
+      - 1608
+      - 1645
+      - 166
+      - 16728
+      - 1676
+      - 1677
+      - 16774
+      - 170
+      - 1706
+      - 1707
+      - 1726
+      - 17269
+      - 17379
+      - 17389
+      - 1745
+      - 1759
+      - 1760
+      - 1761
+      - 1764
+      - 1765
+      - 17699
+      - 1773
+      - 1777
+      - 17843
+      - 1799
+      - 1800
+      - 18061
+      - 18063
+      - 1859
+      - 1861
+      - 18683
+      - 18771
+      - 1879
+      - 18795
+      - 1880
+      - 1913
+      - 19365
+      - 1941
+      - 1959
+      - 19647
+      - 1983
+      - 1985
+      - 19855
+      - 19973
+      - 2001
+      - 20057
+      - 2048
+      - 205
+      - 2050
+      - 20899
+      - 2161
+      - 2174
+      - 2178
+      - 21821
+      - 2202
+      - 2203
+      - 2213
+      - 2214
+      - 2216
+      - 22297
+      - 223
+      - 225
+      - 2251
+      - 2252
+      - 2253
+      - 2257
+      - 22687
+      - 22689
+      - 22695
+      - 22699
+      - 22777
+      - 22831
+      - 2293
+      - 2318
+      - 23201
+      - 23249
+      - 23327
+      - 2341
+      - 2342
+      - 2343
+      - 2344
+      - 2345
+      - 2346
+      - 2354
+      - 2355
+      - 2356
+      - 2359
+      - 2360
+      - 23605
+      - 23723
+      - 23753
+      - 23931
+      - 2402
+      - 24029
+      - 2418
+      - 2423
+      - 24439
+      - 245
+      - 2451
+      - 2452
+      - 2470
+      - 2498
+      - 2499
+      - 2500
+      - 25183
+      - 2520
+      - 25389
+      - 25635
+      - 2582
+      - 2583
+      - 2584
+      - 2585
+      - 2586
+      - 26055
+      - 263
+      - 264
+      - 265
+      - 267
+      - 2698
+      - 270
+      - 2734
+      - 2737
+      - 27821
+      - 27939
+      - 2797
+      - 284
+      - 287
+      - 28701
+      - 2881
+      - 2903
+      - 2920
+      - 2921
+      - 2922
+      - 2929
+      - 2952
+      - 2978
+      - 3002
+      - 3005
+      - 3009
+      - 3014
+      - 3015
+      - 3016
+      - 30246
+      - 3027
+      - 30276
+      - 3064
+      - 30694
+      - 30740
+      - 30915
+      - 31035
+      - 31050
+      - 31251
+      - 31339
+      - 31389
+      - 31430
+      - 31467
+      - 31561
+      - 317
+      - 31704
+      - 31772
+      - 31933
+      - 31973
+      - 32071
+      - 32379
+      - 3252
+      - 32534
+      - 3256
+      - 32574
+      - 3272
+      - 3273
+      - 3274
+      - 3275
+      - 3276
+      - 3277
+      - 3278
+      - 3279
+      - 3280
+      - 3281
+      - 32881
+      - 32998
+      - 33
+      - 33032
+      - 33051
+      - 33191
+      - 33221
+      - 33232
+      - 3325
+      - 3352
+      - 33566
+      - 3371
+      - 3389
+      - 33964
+      - 3398
+      - 33983
+      - 34055
+      - 34134
+      - 34391
+      - 3446
+      - 3448
+      - 3481
+      - 3509
+      - 3511
+      - 356
+      - 3579
+      - 3603
+      - 3625
+      - 3665
+      - 3676
+      - 3702
+      - 384
+      - 3864
+      - 3882
+      - 3898
+      - 3901
+      - 3907
+      - 395
+      - 400
+      - 4031
+      - 4037
+      - 4039
+      - 404
+      - 4071
+      - 4075
+      - 408
+      - 4094
+      - 4106
+      - 4107
+      - 411
+      - 4151
+      - 4312
+      - 434
+      - 4385
+      - 4386
+      - 4387
+      - 4388
+      - 44
+      - 4406
+      - 4416
+      - 4427
+      - 4486
+      - 45
+      - 4522
+      - 4549
+      - 4565
+      - 46
+      - 4646
+      - 4650
+      - 47
+      - 4705
+      - 4714
+      - 4808
+      - 4901
+      - 496
+      - 4970
+      - 499
+      - 5
+      - 502
+      - 5031
+      - 5032
+      - 504
+      - 5040
+      - 5041
+      - 5065
+      - 5152
+      - 5226
+      - 5258
+      - 5291
+      - 5292
+      - 5355
+      - 537
+      - 5386
+      - 543
+      - 5485
+      - 551
+      - 5593
+      - 5658
+      - 5742
+      - 5832
+      - 5947
+      - 5967
+      - 5968
+      - 6
+      - 6016
+      - 6030
+      - 6031
+      - 6033
+      - 6090
+      - 6114
+      - 6152
+      - 617
+      - 618
+      - 619
+      - 6246
+      - 6293
+      - 6310
+      - 6577
+      - 658
+      - 6581
+      - 6634
+      - 665
+      - 666
+      - 6675
+      - 67
+      - 6714
+      - 6721
+      - 678
+      - 679
+      - 6904
+      - 6918
+      - 6920
+      - 6922
+      - 6941
+      - 6946
+      - 732
+      - 7363
+      - 7536
+      - 7559
+      - 766
+      - 7661
+      - 7728
+      - 777
+      - 7836
+      - 8017
+      - 8026
+      - 813
+      - 820
+      - 8216
+      - 825
+      - 8250
+      - 8252
+      - 8278
+      - 8348
+      - 851
+      - 8666
+      - 876
+      - 884
+      - 889
+      - 890
+      - 891
+      - 892
+      - 893
+      - 8935
+      - 894
+      - 895
+      - 896
+      - 897
+      - 898
+      - 899
+      - 900
+      - 901
+      - 902
+      - 903
+      - 904
+      - 905
+      - 906
+      - 9120
+      - 917
+      - 9177
+      - 9241
+      - 938
+      - 950
+      - 9513
+      - 9544
+      - 96
+      - 967
+      - 9745
+      - 978
+      - 979
+      - 984
+      - 985
+      - 986
+      - 987
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
+- :neko_id: :mecha
+  :level: 1
+  :image:
+  - http://68.media.tumblr.com/8cf1278fd22114a55608e9b09a5db1b4/tumblr_inline_nczxqyUFjI1rywm8k.png
+  :border_color:
+  - "#1a153f"
+  :title_ru: Пилот Евы
+  :text_ru: ОЯШ, залезай в робота
+  :title_en: 
+  :text_en: 
+  :topic_id: 222036
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 18
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
+- :neko_id: :mecha
+  :level: 2
+  :image:
+  - http://i.imgur.com/djvEhwN.png
+  :border_color:
+  - "#5d634d"
+  :title_ru: Hassin!
+  :text_ru: Некогда непривычный костюм пилота теперь сидит как влитой. Вы — ас, впереди
+    — бесконечные сражения.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 18
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
+- :neko_id: :mecha
+  :level: 3
+  :image:
+  - http://i.imgur.com/XrJCBwN.png
+  :border_color:
+  - "#66cdaa"
+  :title_ru: Ньютайп
+  :text_ru: Ore Wa Gundam / I am a mecha
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 140
+    :filters:
+      genre_ids:
+      - 18
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
+- :neko_id: :mecha
+  :level: 4
+  :image:
+  - http://i.imgur.com/YTDucCf.gif
+  :border_color:
+  - "#da4968"
+  :title_ru: DO THE IMPOSSIBLE, SEE THE INVISIBLE!
   :text_ru: |-
-    — Ты похож на нормального.
-    — Наверное. Я ещё только учусь.
-  :title_en: 
-  :text_en: 
-  :topic_id: 222063
-  :rule:
-    :algo: simple
-    :threshold: 25
-    :filters:
-      genre_ids:
-      - 42
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
-- :neko_id: :seinen
-  :level: 2
-  :image:
-  - https://desu.shikimori.org/system/user_images/original/50587/459288.jpg
-  :border_color:
-  - "#595348"
-  :title_ru: 
-  :text_ru: Дождь не может смыть страх, злобу, печаль. Обычно в жизни всё получается
-    наоборот, становится только хуже...
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 42
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
-- :neko_id: :seinen
-  :level: 3
-  :image:
-  - https://i.yapx.ru/JZNL.png
-  :border_color:
-  - "#d76e00"
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 60
-    :filters:
-      genre_ids:
-      - 42
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
-- :neko_id: :seinen
-  :level: 4
-  :image: []
-  :border_color: []
-  :title_ru: Вы же пострадаете!
-  :text_ru: Если у вас нет ста пушек в руках и одной в сердце, то дальнейший просмотр
-    становиться рискованным.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 100
-    :filters:
-      genre_ids:
-      - 42
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
-- :neko_id: :slice_of_life
-  :level: 1
-  :image:
-  - http://i.imgur.com/XPesMmd.png
-  :border_color:
-  - "#1a5369"
-  :title_ru: Обычный японский школьник
-  :text_ru: Довольно заурядно.
-  :title_en: 
-  :text_en: 
-  :topic_id: 222056
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 36
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
-- :neko_id: :slice_of_life
-  :level: 2
-  :image:
-  - http://i.imgur.com/kUfjaIt.png
-  :border_color:
-  - "#cb4842"
-  :title_ru: Чай с тортиком
-  :text_ru: Полностью погрязли в повседневных делах и симпатичных вещах.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 90
-    :filters:
-      genre_ids:
-      - 36
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
-- :neko_id: :slice_of_life
-  :level: 3
-  :image:
-  - http://i.imgur.com/o1OQB4k.png
-  :border_color:
-  - "#ddada5"
-  :title_ru: Дзэн
-  :text_ru: Предельная концентрация на будничной жизни. Когда вы перестали задумыватсья
-    о прошлом, будущем и начали жить этим моментом?
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 140
-    :filters:
-      genre_ids:
-      - 36
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
-- :neko_id: :slice_of_life
-  :level: 4
-  :image:
-  - https://i.yapx.ru/JDDR.gif
-  :border_color:
-  - "#597fb9"
-  :title_ru: Прима ундина
-  :text_ru: Вы способны на чудо. Продлить незабываемые мгновения навечно для вас ничего
-    не стоит.
+    Мы снесем любую стену вставшую на пути! Если нет пути ,мы его проложим!
+    Магма течет в наших венах, раскаляя сердца!
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -6032,8 +5081,154 @@
     :threshold: 200
     :filters:
       genre_ids:
-      - 36
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
+      - 18
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
+- :neko_id: :military
+  :level: 1
+  :image:
+  - http://i.imgur.com/MJI5DLT.png
+  :border_color:
+  - "#635757"
+  :title_ru: Новобранец
+  :text_ru: Зачислены на военную службу в очередной призыв.
+  :title_en: 
+  :text_en: 
+  :topic_id: 222037
+  :rule:
+    :algo: simple
+    :threshold: 25
+    :filters:
+      genre_ids:
+      - 38
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
+- :neko_id: :military
+  :level: 2
+  :image:
+  - http://i.imgur.com/pJbZJxd.png
+  :border_color:
+  - "#5f665a"
+  :title_ru: Сержант
+  :text_ru: Толковый сержант необыкновенно полезен в армии, так ведь?
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 38
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
+- :neko_id: :military
+  :level: 3
+  :image:
+  - http://i.imgur.com/NgRm8Nd.png
+  :border_color:
+  - "#101011"
+  :title_ru: Майор
+  :text_ru: Забыли о человеческих чувствах ради долга.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 60
+    :filters:
+      genre_ids:
+      - 38
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
+- :neko_id: :military
+  :level: 4
+  :image:
+  - https://shikimori.org/assets/achievements/anime/military_4.gif
+  :border_color:
+  - "#2a456e"
+  :title_ru: Генерал
+  :text_ru: |-
+    Не стоит связываться с кадровым офицером, прошедшим горячие точки.
+    Жизни тысяч в руках одного.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 100
+    :filters:
+      genre_ids:
+      - 38
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
+- :neko_id: :drama
+  :level: 1
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/50587/459398.jpg
+  :border_color:
+  - "#f46c2d"
+  :title_ru: Скупая слеза
+  :text_ru: Я не плачу, мне что-то в глаз попало!
+  :title_en: 
+  :text_en: 
+  :topic_id: 222044
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 8
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
+- :neko_id: :drama
+  :level: 2
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/50587/459402.jpg
+  :border_color:
+  - "#031427"
+  :title_ru: Эмпатия среднего уровня
+  :text_ru: Ну давай, расскажи, как ты плакал над Хатико
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 8
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
+- :neko_id: :drama
+  :level: 3
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/50587/459426.jpg
+  :border_color:
+  - "#fefc9f"
+  :title_ru: Идеальная грусть
+  :text_ru: Вам стоит проявлять эмоции тогда, когда хотите. Незачем притворяться.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 140
+    :filters:
+      genre_ids:
+      - 8
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
+- :neko_id: :drama
+  :level: 4
+  :image:
+  - http://25.media.tumblr.com/18bb07caa91763ef6c93e1f8f91dfc55/tumblr_mg8r7yi1i51qh8z5mo1_500.gif
+  :border_color:
+  - "#606fde"
+  :title_ru: Максимальная эмоциональная отзывчивость
+  :text_ru: Шрамы на сердце других становятся твоими.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 200
+    :filters:
+      genre_ids:
+      - 8
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
 - :neko_id: :sovietanime
   :level: 1
   :image:
@@ -6267,149 +5462,6 @@
       - 9941
       - 9957
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
-- :neko_id: :space
-  :level: 1
-  :image:
-  - http://i.imgur.com/TxxXm8H.png
-  :border_color:
-  - "#172d91"
-  :title_ru: 3-2-1... Пуск!
-  :text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
-  :title_en: 
-  :text_en: 
-  :topic_id: 227428
-  :rule:
-    :algo: simple
-    :threshold: 25
-    :filters:
-      genre_ids:
-      - 29
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
-- :neko_id: :space
-  :level: 2
-  :image:
-  - http://i.imgur.com/HZL23tN.png
-  :border_color:
-  - "#0000cd"
-  :title_ru: Земля отсюда совсем крошечная
-  :text_ru: До чего же прекрасна Земля, если глядеть на неё сверху! Однако, не слишком
-    ли тесно? Вашему миру пора расширяться — от маленькой Земли до целой вселенной.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 29
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
-- :neko_id: :space
-  :level: 3
-  :image: []
-  :border_color: []
-  :title_ru: Межзвездный скиталец.
-  :text_ru: Космос. Он так пуст, но в то же время полон жизни.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 60
-    :filters:
-      genre_ids:
-      - 29
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
-- :neko_id: :space
-  :level: 4
-  :image:
-  - http://i.imgur.com/YcZihC4.gif
-  :border_color:
-  - "#ffd700"
-  :title_ru: Император галактики
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 100
-    :filters:
-      genre_ids:
-      - 29
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
-- :neko_id: :sports
-  :level: 1
-  :image:
-  - http://s5.postimg.org/p7elh9mjb/Run_1.jpg
-  :border_color:
-  - "#975916"
-  :title_ru: Первый раз на площадке
-  :text_ru: Стартовый свисток дан — пора в бой!
-  :title_en: 
-  :text_en: 
-  :topic_id: 227429
-  :rule:
-    :algo: simple
-    :threshold: 25
-    :filters:
-      genre_ids:
-      - 30
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
-- :neko_id: :sports
-  :level: 2
-  :image:
-  - http://s5.postimg.org/6rypxlxsn/basketball_5.jpg
-  :border_color:
-  - "#ff0000"
-  :title_ru: С головой ушел в игру
-  :text_ru: Борьба в самом разгаре, пора войти в Зону.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 40
-    :filters:
-      genre_ids:
-      - 30
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
-- :neko_id: :sports
-  :level: 3
-  :image:
-  - http://s5.postimg.org/ljtse380n/image.jpg
-  :border_color:
-  - "#dfe2e7"
-  :title_ru: Добро пожаловать в Высшую лигу
-  :text_ru: Остался последний рывок до победы.
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 60
-    :filters:
-      genre_ids:
-      - 30
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
-- :neko_id: :sports
-  :level: 4
-  :image:
-  - http://i.imgur.com/9oBtlqF.gif
-  :border_color:
-  - "#ff4500"
-  :title_ru: Олимпийский чемпион
-  :text_ru: Первый на пъедестале. Отличная работа!
-  :title_en: 
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 100
-    :filters:
-      genre_ids:
-      - 30
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
 - :neko_id: :supernatural
   :level: 1
   :image:
@@ -6484,6 +5536,1188 @@
       genre_ids:
       - 37
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
+- :neko_id: :yuuri
+  :level: 1
+  :image:
+  - http://i.imgur.com/MXx0Dzc.png
+  :border_color:
+  - "#d5a471"
+  :title_ru: Женская дружба
+  :text_ru: Лишь невинные заигрывания, только и всего.
+  :title_en: 
+  :text_en: 
+  :topic_id: 227432
+  :rule:
+    :algo: simple
+    :threshold: 30%
+    :filters:
+      genre_ids:
+      - 26
+      - 34
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
+- :neko_id: :yuuri
+  :level: 2
+  :image:
+  - http://i.imgur.com/75lnhMa.png
+  :border_color:
+  - "#d293a2"
+  :title_ru: Первые чувства
+  :text_ru: Быть может, это неправильно. Но кого это волнует?
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 55%
+    :filters:
+      genre_ids:
+      - 26
+      - 34
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
+- :neko_id: :yuuri
+  :level: 3
+  :image:
+  - http://i.imgur.com/c5My2Mg.png
+  :border_color:
+  - "#935c49"
+  :title_ru: Я поцеловала девушку...
+  :text_ru: "... и мне понравилось!"
+  :title_en: I kissed a girl...
+  :text_en: "...and I liked it!"
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 80%
+    :filters:
+      genre_ids:
+      - 26
+      - 34
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
+- :neko_id: :yuuri
+  :level: 4
+  :image:
+  - https://media.giphy.com/media/JynbO9pnGxPrO/giphy.gif
+  :border_color:
+  - "#e73a95"
+  :title_ru: Счастливая семейная жизнь
+  :text_ru: Лилии цветут в вашем доме.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 80%
+    :filters:
+      genre_ids:
+      - 26
+      - 34
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
+- :neko_id: :mystery
+  :level: 1
+  :image:
+  - https://pp.userapi.com/c638321/v638321323/3997e/EGJ6gOU1aSA.jpg
+  :border_color:
+  - "#4c514a"
+  :title_ru: Первое дело
+  :text_ru: Было не просто, но вы смогли поймать своего первого преступника. Поздравляем,
+    продолжайте в том же духе!
+  :title_en: 
+  :text_en: 
+  :topic_id: 222047
+  :rule:
+    :algo: simple
+    :threshold: 25
+    :filters:
+      genre_ids:
+      - 7
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
+- :neko_id: :mystery
+  :level: 2
+  :image:
+  - http://i.imgur.com/DFrq5pY.jpg
+  :border_color:
+  - "#3a59a8"
+  :title_ru: Убийца - дворецкий!
+  :text_ru: Вы не понаслышке знакомы с дедукцией. Вам нет равных среди юных детективов.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 7
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
+- :neko_id: :mystery
+  :level: 3
+  :image:
+  - https://i.yapx.ru/JK6g.jpg
+  :border_color:
+  - "#919192"
+  :title_ru: За семью печатями
+  :text_ru: Мэтры детективного дела обращаются к вам за советами.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 60
+    :filters:
+      genre_ids:
+      - 7
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
+- :neko_id: :mystery
+  :level: 4
+  :image:
+  - https://i.imgur.com/oPp3SWS.gif
+  :border_color:
+  - "#919192"
+  :title_ru: Великий детектив
+  :text_ru: Интересных дел катастрофически мало! На поприще детектива вы добились
+    всего.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 100
+    :filters:
+      genre_ids:
+      - 7
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
+- :neko_id: :historical
+  :level: 1
+  :image:
+  - http://i.imgur.com/PxbRfzj.png
+  :border_color:
+  - "#3c3949"
+  :title_ru: Уроки истории
+  :text_ru: История может быть захватывающей... Вот только не стоит учить ее по аниме.
+  :title_en: 
+  :text_en: 
+  :topic_id: 222065
+  :rule:
+    :algo: simple
+    :threshold: 25
+    :filters:
+      genre_ids:
+      - 13
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
+- :neko_id: :historical
+  :level: 2
+  :image:
+  - http://i.imgur.com/B3b7MeQ.png
+  :border_color:
+  - "#4f3542"
+  :title_ru: Оглянувшись назад
+  :text_ru: Не знающий своего прошлого, не имеет будущего.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 13
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
+- :neko_id: :historical
+  :level: 3
+  :image:
+  - http://i.imgur.com/ZkXjMjT.jpg
+  :border_color:
+  - "#353a58"
+  :title_ru: Археолог
+  :text_ru: Разбитая посуда приносит счастье только археологам.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 60
+    :filters:
+      genre_ids:
+      - 13
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
+- :neko_id: :historical
+  :level: 4
+  :image: []
+  :border_color: []
+  :title_ru: Путешественник во времени
+  :text_ru: Машина времени есть у каждого. Для путешествия в прошлое есть воспоминания,
+    а для путешествия в будущее — мечты.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 100
+    :filters:
+      genre_ids:
+      - 13
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
+- :neko_id: :dementia_psychological
+  :level: 1
+  :image:
+  - http://s5.postimg.org/kzx4ud8bb/Psiho_3_2.jpg
+  :border_color:
+  - "#c71585"
+  :title_ru: Оно существует.
+  :text_ru: Вы открыли новый и странный мир. Продолжайте смотреть дальше.
+  :title_en: 
+  :text_en: 
+  :topic_id: 227417
+  :rule:
+    :algo: simple
+    :threshold: 25
+    :filters:
+      genre_ids:
+      - 5
+      - 40
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
+- :neko_id: :dementia_psychological
+  :level: 2
+  :image:
+  - http://s5.postimg.org/5i9mqo1uf/Psiho_7_00000.jpg
+  :border_color:
+  - "#000000"
+  :title_ru: Это вообще реально?
+  :text_ru: Стало трудно отличить реальность и вымысел. Ориентация в пространстве
+    нарушена.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 5
+      - 40
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
+- :neko_id: :dementia_psychological
+  :level: 3
+  :image:
+  - http://i.imgur.com/IRo6Vbl.png
+  :border_color:
+  - "#DC143C"
+  :title_ru: Вынос мозга.
+  :text_ru: "*fatal error."
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 60
+    :filters:
+      genre_ids:
+      - 5
+      - 40
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
+- :neko_id: :dementia_psychological
+  :level: 4
+  :image:
+  - http://i.imgur.com/iOrSsYl.gif
+  :border_color:
+  - "#20B2AA"
+  :title_ru: Вы видели слишком много.
+  :text_ru: Вы превзошли человечество и находитесь совсем на другом уровне.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 100
+    :filters:
+      genre_ids:
+      - 5
+      - 40
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
+- :neko_id: :music
+  :level: 1
+  :image:
+  - http://i.imgur.com/juINaek.png
+  :border_color:
+  - "#8fa9dc"
+  :title_ru: Это не школьный клуб
+  :text_ru: Весьма посредственное отношение к музыке.
+  :title_en: 
+  :text_en: 
+  :topic_id: 222061
+  :rule:
+    :algo: simple
+    :threshold: 20
+    :filters:
+      genre_ids:
+      - 19
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
+- :neko_id: :music
+  :level: 2
+  :image:
+  - https://i.yapx.ru/JPn2.jpg
+  :border_color:
+  - "#4285b4"
+  :title_ru: Это не вокалоид
+  :text_ru: Звуки сложились в песню.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 19
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
+- :neko_id: :music
+  :level: 3
+  :image:
+  - https://pp.userapi.com/c836632/v836632323/4248b/mWRXNkQqv5g.jpg
+  :border_color:
+  - "#cd5c5c"
+  :title_ru: Это не айдол
+  :text_ru: Вы ведь знаете, неважно что они поют, но они должны вкладывать в это своё
+    сердце.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 60
+    :filters:
+      genre_ids:
+      - 19
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
+- :neko_id: :music
+  :level: 4
+  :image:
+  - https://i.yapx.ru/JPn6.gif
+  :border_color:
+  - "#4c514a"
+  :title_ru: Это не продюсер
+  :text_ru: Кажется, вы знаток музыкальной индустрии. Ну и что теперь?.. Откроете
+    своё агентство с инновациями и идолами?
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 100
+    :filters:
+      genre_ids:
+      - 19
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
+- :neko_id: :comedy
+  :level: 1
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/50587/458876.jpg
+  :border_color:
+  - "#5dbdd9"
+  :title_ru: But then i lol'd
+  :text_ru: Неужели вам понравился японский юмор?
+  :title_en: 
+  :text_en: 
+  :topic_id: 222035
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 4
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
+- :neko_id: :comedy
+  :level: 2
+  :image: []
+  :border_color: []
+  :title_ru: Комедиант
+  :text_ru: Теперь вам известны основы комедии.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 4
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
+- :neko_id: :comedy
+  :level: 3
+  :image:
+  - https://s-media-cache-ak0.pinimg.com/originals/1f/9a/ff/1f9affe62feff2a1b3ecc16ea9268469.gif
+  :border_color:
+  - "#7f8f18"
+  :title_ru: Вечный смех
+  :text_ru: В психушке вам будут рады. Для вас открыты двери каждой психбольницы.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 140
+    :filters:
+      genre_ids:
+      - 4
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
+- :neko_id: :comedy
+  :level: 4
+  :image: []
+  :border_color: []
+  :title_ru: Why so serious?
+  :text_ru: Юмор пронизывает вашу сущность, не оставляя места ничему другому.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 200
+    :filters:
+      genre_ids:
+      - 4
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
+- :neko_id: :scifi
+  :level: 1
+  :image:
+  - http://unrealitymag.com/wp-content/uploads/2014/04/dandy-title-500x250.jpg
+  :border_color:
+  - "#923a6c"
+  :title_ru: Давным-давно, в далекой-далекой галактике...
+  :text_ru: Как только ты сделаешь первый шаг по Тёмному Пути, ты уже не сможешь с
+    него свернуть.
+  :title_en: 
+  :text_en: 
+  :topic_id: 222059
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 24
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
+- :neko_id: :scifi
+  :level: 2
+  :image:
+  - http://i.imgur.com/uhI7k2t.png?1
+  :border_color:
+  - "#256d7b"
+  :title_ru: Изобретатель
+  :text_ru: Вероятно, вы способны сделать пригодным для использования даже то, что
+    является кучей мусора в глазах других.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 24
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
+- :neko_id: :scifi
+  :level: 3
+  :image:
+  - https://pp.userapi.com/c836632/v836632323/42c47/Dc6XXlnzWCA.jpg
+  :border_color:
+  - "#423c63"
+  :title_ru: Безумный ученый
+  :text_ru: В ваших руках рождается гармония между фантастикой, научными фактами и
+    мистикой.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 140
+    :filters:
+      genre_ids:
+      - 24
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
+- :neko_id: :scifi
+  :level: 4
+  :image:
+  - http://25.media.tumblr.com/tumblr_m880tlaKLy1qdfvslo1_500.gif
+  :border_color:
+  - "#2f353b"
+  :title_ru: Великий Разум
+  :text_ru: Фантастика — это реальность. Всё, о чём вы подумали, осуществляется.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 200
+    :filters:
+      genre_ids:
+      - 24
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
+- :neko_id: :sports
+  :level: 1
+  :image:
+  - http://s5.postimg.org/p7elh9mjb/Run_1.jpg
+  :border_color:
+  - "#975916"
+  :title_ru: Первый раз на площадке
+  :text_ru: Стартовый свисток дан — пора в бой!
+  :title_en: 
+  :text_en: 
+  :topic_id: 227429
+  :rule:
+    :algo: simple
+    :threshold: 25
+    :filters:
+      genre_ids:
+      - 30
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
+- :neko_id: :sports
+  :level: 2
+  :image:
+  - http://s5.postimg.org/6rypxlxsn/basketball_5.jpg
+  :border_color:
+  - "#ff0000"
+  :title_ru: С головой ушел в игру
+  :text_ru: Борьба в самом разгаре, пора войти в Зону.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 30
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
+- :neko_id: :sports
+  :level: 3
+  :image:
+  - http://s5.postimg.org/ljtse380n/image.jpg
+  :border_color:
+  - "#dfe2e7"
+  :title_ru: Добро пожаловать в Высшую лигу
+  :text_ru: Остался последний рывок до победы.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 60
+    :filters:
+      genre_ids:
+      - 30
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
+- :neko_id: :sports
+  :level: 4
+  :image:
+  - http://i.imgur.com/9oBtlqF.gif
+  :border_color:
+  - "#ff4500"
+  :title_ru: Олимпийский чемпион
+  :text_ru: Первый на пъедестале. Отличная работа!
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 100
+    :filters:
+      genre_ids:
+      - 30
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
+- :neko_id: :kuudere
+  :level: 1
+  :image:
+  - http://gifok.net/images/2015/06/23/KUDERE1LVL.jpg
+  :border_color:
+  - "#9ad1ee"
+  :title_ru: Тишина
+  :text_ru: Кудере молчит только потому, что того хочет.
+  :title_en: 
+  :text_en: 
+  :topic_id: 227421
+  :rule:
+    :algo: simple
+    :threshold: 30%
+    :filters:
+      anime_ids:
+      - 7088
+      - 1575
+      - 2904
+      - 308
+      - 782
+      - 1956
+      - 237
+      - 4246
+      - 35134
+      - 28025
+      - 5307
+      - 383
+      - 652
+      - 653
+      - 12225
+      - 655
+      - 12611
+      - 23233
+      - 29027
+      - 30363
+      - 10397
+      - 13757
+      - 20709
+      - 30544
+      - 31737
+      - 30
+      - 31
+      - 32
+      - 2759
+      - 3784
+      - 160
+      - 3166
+      - 33502
+      - 10109
+      - 13655
+      - 17643
+      - 6574
+      - 144
+      - 1530
+      - 23945
+      - 849
+      - 19841
+      - 1250
+      - 7590
+      - 6802
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
+- :neko_id: :kuudere
+  :level: 2
+  :image:
+  - http://gifok.net/images/2015/06/23/KUDERE2LVL.jpg
+  :border_color:
+  - "#4a4a40"
+  :title_ru: Мудрость
+  :text_ru: Умный менее всего одинок тогда, когда он находится в одиночестве.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 55%
+    :filters:
+      anime_ids:
+      - 7088
+      - 1575
+      - 2904
+      - 308
+      - 782
+      - 1956
+      - 237
+      - 4246
+      - 35134
+      - 28025
+      - 5307
+      - 383
+      - 652
+      - 653
+      - 12225
+      - 655
+      - 12611
+      - 23233
+      - 29027
+      - 30363
+      - 10397
+      - 13757
+      - 20709
+      - 30544
+      - 31737
+      - 30
+      - 31
+      - 32
+      - 2759
+      - 3784
+      - 160
+      - 3166
+      - 33502
+      - 10109
+      - 13655
+      - 17643
+      - 6574
+      - 144
+      - 1530
+      - 23945
+      - 849
+      - 19841
+      - 1250
+      - 7590
+      - 6802
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
+- :neko_id: :kuudere
+  :level: 3
+  :image:
+  - http://gifok.net/images/2015/06/23/KUDERE3LVL.jpg
+  :border_color:
+  - "#533e41"
+  :title_ru: Хладнокровие
+  :text_ru: |-
+    - Как вы можете оставаться таким холодным?
+    - Практика.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 80%
+    :filters:
+      anime_ids:
+      - 7088
+      - 1575
+      - 2904
+      - 308
+      - 782
+      - 1956
+      - 237
+      - 4246
+      - 35134
+      - 28025
+      - 5307
+      - 383
+      - 652
+      - 653
+      - 12225
+      - 655
+      - 12611
+      - 23233
+      - 29027
+      - 30363
+      - 10397
+      - 13757
+      - 20709
+      - 30544
+      - 31737
+      - 30
+      - 31
+      - 32
+      - 2759
+      - 3784
+      - 160
+      - 3166
+      - 33502
+      - 10109
+      - 13655
+      - 17643
+      - 6574
+      - 144
+      - 1530
+      - 23945
+      - 849
+      - 19841
+      - 1250
+      - 7590
+      - 6802
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
+- :neko_id: :oniichan
+  :level: 1
+  :image:
+  - http://i.imgur.com/BQDF1Dq.png
+  :border_color:
+  - "#f0d698"
+  :title_ru: Братик
+  :text_ru: Вы знаете, как счастливо жить с сестрёнкой вечно.
+  :title_en: 
+  :text_en: 
+  :topic_id: 227425
+  :rule:
+    :algo: simple
+    :threshold: 80%
+    :filters:
+      anime_ids:
+      - 10020
+      - 10219
+      - 11757
+      - 13659
+      - 14199
+      - 14515
+      - 15881
+      - 18857
+      - 19815
+      - 20785
+      - 24991
+      - 3456
+      - 5042
+      - 5116
+      - 535
+      - 634
+      - 6479
+      - 6987
+      - 7593
+      - 8577
+      - 8769
+      - 8861
+      - 9587
+      - 32901
+      - 35413
+      - 36001
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
+- :neko_id: :fantasy
+  :level: 1
+  :image:
+  - http://i.imgur.com/Go4cIYp.png
+  :border_color:
+  - "#de3c20"
+  :title_ru: Попаданец
+  :text_ru: Первый шаг в новом мире.
+  :title_en: 
+  :text_en: 
+  :topic_id: 222041
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 10
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
+- :neko_id: :fantasy
+  :level: 2
+  :image:
+  - http://i.imgur.com/2JKk27J.png
+  :border_color:
+  - "#472a18"
+  :title_ru: Искатель приключений
+  :text_ru: Диковинные вещицы, верные друзья и великие свершения ждут тебя!
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 10
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
+- :neko_id: :fantasy
+  :level: 3
+  :image:
+  - http://i.imgur.com/LIoCMIo.gif
+  :border_color: []
+  :title_ru: Герой
+  :text_ru: Ваши подвиги войдут в историю.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 140
+    :filters:
+      genre_ids:
+      - 10
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
+- :neko_id: :fantasy
+  :level: 4
+  :image:
+  - https://media.giphy.com/media/OHQD6K0hmSctW/giphy.gif
+  :border_color: []
+  :title_ru: Король королей
+  :text_ru: Вы видели, как зарождались легенды.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 200
+    :filters:
+      genre_ids:
+      - 10
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
+- :neko_id: :seinen
+  :level: 1
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/50587/459007.jpg
+  :border_color:
+  - "#9c521c"
+  :title_ru: 
+  :text_ru: |-
+    — Ты похож на нормального.
+    — Наверное. Я ещё только учусь.
+  :title_en: 
+  :text_en: 
+  :topic_id: 222063
+  :rule:
+    :algo: simple
+    :threshold: 25
+    :filters:
+      genre_ids:
+      - 42
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
+- :neko_id: :seinen
+  :level: 2
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/50587/459288.jpg
+  :border_color:
+  - "#595348"
+  :title_ru: 
+  :text_ru: Дождь не может смыть страх, злобу, печаль. Обычно в жизни всё получается
+    наоборот, становится только хуже...
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 42
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
+- :neko_id: :seinen
+  :level: 3
+  :image:
+  - https://i.yapx.ru/JZNL.png
+  :border_color:
+  - "#d76e00"
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 60
+    :filters:
+      genre_ids:
+      - 42
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
+- :neko_id: :seinen
+  :level: 4
+  :image: []
+  :border_color: []
+  :title_ru: Вы же пострадаете!
+  :text_ru: Если у вас нет ста пушек в руках и одной в сердце, то дальнейший просмотр
+    становиться рискованным.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 100
+    :filters:
+      genre_ids:
+      - 42
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
+- :neko_id: :fujoshi
+  :level: 1
+  :image:
+  - http://i.imgur.com/R6PqIoT.png
+  :border_color:
+  - "#e82a8d"
+  :title_ru: Вуайерист-любитель
+  :text_ru: Поздравляем! В тебе проснулась внутренняя фудзёси!
+  :title_en: 
+  :text_en: 
+  :topic_id: 227418
+  :rule:
+    :algo: simple
+    :threshold: 30
+    :filters:
+      genre_ids:
+      - 28
+      - 33
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
+- :neko_id: :fujoshi
+  :level: 2
+  :image:
+  - http://i.imgur.com/TLvZb0E.png
+  :border_color:
+  - "#e82a8d"
+  :title_ru: Голубок
+  :text_ru: Поворачивать назад уже слишком поздно. Пора совершить каминг-аут и наконец-то
+    признать свою любовь к "не очень традиционным" историям.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 50
+    :filters:
+      genre_ids:
+      - 28
+      - 33
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
+- :neko_id: :fujoshi
+  :level: 3
+  :image:
+  - http://i.imgur.com/DKfMKBR.png
+  :border_color:
+  - "#e82a8d"
+  :title_ru: Шиппер
+  :text_ru: Мужская дружба? Не, не слышали.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 70
+    :filters:
+      genre_ids:
+      - 28
+      - 33
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
+- :neko_id: :fujoshi
+  :level: 4
+  :image:
+  - https://shikimori.org/assets/achievements/anime/fujoshi_3.jpg
+  :border_color:
+  - "#e82a8d"
+  :title_ru: Яойный бог
+  :text_ru: Яой - не жанр. Яой — это стиль жизни.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 28
+      - 33
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
+- :neko_id: :space
+  :level: 1
+  :image:
+  - http://i.imgur.com/TxxXm8H.png
+  :border_color:
+  - "#172d91"
+  :title_ru: 3-2-1... Пуск!
+  :text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
+  :title_en: 
+  :text_en: 
+  :topic_id: 227428
+  :rule:
+    :algo: simple
+    :threshold: 25
+    :filters:
+      genre_ids:
+      - 29
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
+- :neko_id: :space
+  :level: 2
+  :image:
+  - http://i.imgur.com/HZL23tN.png
+  :border_color:
+  - "#0000cd"
+  :title_ru: Земля отсюда совсем крошечная
+  :text_ru: До чего же прекрасна Земля, если глядеть на неё сверху! Однако, не слишком
+    ли тесно? Вашему миру пора расширяться — от маленькой Земли до целой вселенной.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 29
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
+- :neko_id: :space
+  :level: 3
+  :image: []
+  :border_color: []
+  :title_ru: Межзвездный скиталец.
+  :text_ru: Космос. Он так пуст, но в то же время полон жизни.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 60
+    :filters:
+      genre_ids:
+      - 29
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
+- :neko_id: :space
+  :level: 4
+  :image:
+  - http://i.imgur.com/YcZihC4.gif
+  :border_color:
+  - "#ffd700"
+  :title_ru: Император галактики
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 100
+    :filters:
+      genre_ids:
+      - 29
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
+- :neko_id: :action
+  :level: 1
+  :image:
+  - https://nyaa.shikimori.org/system/user_images/original/1/532910.jpg
+  :border_color:
+  - "#4d4a57"
+  :title_ru: Курс молодого бойца
+  :text_ru: Вы обучены искусству уничтожения.
+  :title_en: 
+  :text_en: 
+  :topic_id: 222051
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 1
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
+- :neko_id: :action
+  :level: 2
+  :image:
+  - http://i.imgur.com/j6UzfjL.png
+  :border_color:
+  - "#4d4a57"
+  :title_ru: Первая миссия
+  :text_ru: Тихо... Медленно... Осторожно...
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 90
+    :filters:
+      genre_ids:
+      - 1
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
+- :neko_id: :action
+  :level: 3
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/40201/108423.jpg
+  :border_color:
+  - "#142300"
+  :title_ru: BOOM! Headshot!
+  :text_ru: Один выстрел — один труп. Вы — множитель боевой силы.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 140
+    :filters:
+      genre_ids:
+      - 1
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
+- :neko_id: :action
+  :level: 4
+  :image:
+  - https://i.yapx.ru/JMqe.gif
+  :border_color:
+  - "#755d9a"
+  :title_ru: Элитный наемник
+  :text_ru: Армия из одного человека.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 200
+    :filters:
+      genre_ids:
+      - 1
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
 - :neko_id: :tsundere
   :level: 1
   :image:
@@ -6898,301 +7132,67 @@
       - 9958
       - 9989
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
-- :neko_id: :yandere
+- :neko_id: :josei
   :level: 1
-  :image:
-  - https://lh3.googleusercontent.com/5GlJJYYzodzjTuR5IiDN9Fj2KR_X-CYZtTEqPN6iUHAOHfKr3QvI_jElrRwEg7rNR-Jctcvq89-jliPlLA8sI7ZNHAOWZp3EEZhQcDmogawgqs9mIklOkHUxDQ89MbyN-nEYU9rGwtTa63p0og
-  :border_color:
-  - "#821d60"
-  :title_ru: Бездна
-  :text_ru: Если долго всматриваться в бездну — бездна начнет всматриваться в тебя.
-  :title_en: Abyss
-  :text_en: When you look into the abyss, the abyss stares back at you.
-  :topic_id: 227431
-  :rule:
-    :algo: simple
-    :threshold: 30%
-    :filters:
-      anime_ids:
-      - 10620
-      - 11285
-      - 11981
-      - 13663
-      - 15037
-      - 1519
-      - 1535
-      - 15583
-      - 16700
-      - 16762
-      - 1719
-      - 17729
-      - 18041
-      - 1836
-      - 1889
-      - 19163
-      - 22199
-      - 226
-      - 22961
-      - 23199
-      - 24655
-      - 2476
-      - 2476
-      - 2593
-      - 27831
-      - 27833
-      - 2899
-      - 29095
-      - 31634
-      - 356
-      - 376
-      - 3782
-      - 3783
-      - 4282
-      - 437
-      - 4725
-      - 4896
-      - 4901
-      - 4970
-      - 5177
-      - 5177
-      - 5356
-      - 64
-      - 65
-      - 6594
-      - 6746
-      - 6880
-      - 7059
-      - 7311
-      - 7311
-      - 7396
-      - 756
-      - 7724
-      - 79
-      - 8460
-      - 849
-      - 934
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
-- :neko_id: :yandere
-  :level: 2
-  :image:
-  - http://i.imgur.com/5Dk8pth.png?1
-  :border_color:
-  - "#9a4cb7"
-  :title_ru: Ураган
-  :text_ru: Ураганы имеют одну интересную особенность — в их центре всегда спокойно.
-  :title_en: Hurricane
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 55%
-    :filters:
-      anime_ids:
-      - 10620
-      - 11285
-      - 11981
-      - 13663
-      - 15037
-      - 1519
-      - 1535
-      - 15583
-      - 16700
-      - 16762
-      - 1719
-      - 17729
-      - 18041
-      - 1836
-      - 1889
-      - 19163
-      - 22199
-      - 226
-      - 22961
-      - 23199
-      - 24655
-      - 2476
-      - 2476
-      - 2593
-      - 27831
-      - 27833
-      - 2899
-      - 29095
-      - 31634
-      - 356
-      - 376
-      - 3782
-      - 3783
-      - 4282
-      - 437
-      - 4725
-      - 4896
-      - 4901
-      - 4970
-      - 5177
-      - 5177
-      - 5356
-      - 64
-      - 65
-      - 6594
-      - 6746
-      - 6880
-      - 7059
-      - 7311
-      - 7311
-      - 7396
-      - 756
-      - 7724
-      - 79
-      - 8460
-      - 849
-      - 934
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
-- :neko_id: :yandere
-  :level: 3
-  :image:
-  - http://31.media.tumblr.com/tumblr_mdfamrgrfH1rshzuyo1_500.gif
-  :border_color:
-  - "#2F2E2D"
-  :title_ru: Безумие
-  :text_ru: Умри, пожалуйста!
-  :title_en: Insanity
-  :text_en: 
-  :topic_id: 
-  :rule:
-    :algo: simple
-    :threshold: 80%
-    :filters:
-      anime_ids:
-      - 10620
-      - 11285
-      - 11981
-      - 13663
-      - 15037
-      - 1519
-      - 1535
-      - 15583
-      - 16700
-      - 16762
-      - 1719
-      - 17729
-      - 18041
-      - 1836
-      - 1889
-      - 19163
-      - 22199
-      - 226
-      - 22961
-      - 23199
-      - 24655
-      - 2476
-      - 2476
-      - 2593
-      - 27831
-      - 27833
-      - 2899
-      - 29095
-      - 31634
-      - 356
-      - 376
-      - 3782
-      - 3783
-      - 4282
-      - 437
-      - 4725
-      - 4896
-      - 4901
-      - 4970
-      - 5177
-      - 5177
-      - 5356
-      - 64
-      - 65
-      - 6594
-      - 6746
-      - 6880
-      - 7059
-      - 7311
-      - 7311
-      - 7396
-      - 756
-      - 7724
-      - 79
-      - 8460
-      - 849
-      - 934
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
-- :neko_id: :yuuri
-  :level: 1
-  :image:
-  - http://i.imgur.com/MXx0Dzc.png
-  :border_color:
-  - "#d5a471"
-  :title_ru: Женская дружба
-  :text_ru: Лишь невинные заигрывания, только и всего.
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 227432
+  :topic_id: 222645
   :rule:
     :algo: simple
-    :threshold: 30%
+    :threshold: 25
     :filters:
       genre_ids:
-      - 26
-      - 34
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
-- :neko_id: :yuuri
+      - 43
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
+- :neko_id: :josei
   :level: 2
-  :image:
-  - http://i.imgur.com/75lnhMa.png
-  :border_color:
-  - "#d293a2"
-  :title_ru: Первые чувства
-  :text_ru: Быть может, это неправильно. Но кого это волнует?
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
   :title_en: 
   :text_en: 
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 55%
+    :threshold: 40
     :filters:
       genre_ids:
-      - 26
-      - 34
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
-- :neko_id: :yuuri
+      - 43
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
+- :neko_id: :josei
   :level: 3
-  :image:
-  - http://i.imgur.com/c5My2Mg.png
-  :border_color:
-  - "#935c49"
-  :title_ru: Я поцеловала девушку...
-  :text_ru: "... и мне понравилось!"
-  :title_en: I kissed a girl...
-  :text_en: "...and I liked it!"
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 80%
+    :threshold: 60
     :filters:
       genre_ids:
-      - 26
-      - 34
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
-- :neko_id: :yuuri
+      - 43
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
+- :neko_id: :josei
   :level: 4
-  :image:
-  - https://media.giphy.com/media/JynbO9pnGxPrO/giphy.gif
-  :border_color:
-  - "#e73a95"
-  :title_ru: Счастливая семейная жизнь
-  :text_ru: Лилии цветут в вашем доме.
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
   :title_en: 
   :text_en: 
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 80%
+    :threshold: 100
     :filters:
       genre_ids:
-      - 26
-      - 34
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
+      - 43
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
