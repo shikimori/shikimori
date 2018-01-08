@@ -22,7 +22,6 @@ class Images.PreloadedGallery extends ShikiGallery
     @can_load = true
 
     @can_upload = @$root.data 'can_upload'
-    @can_destroy = @$root.data 'can_destroy'
     @destroy_url = @$container.data 'destroy_url'
 
     @on 'upload:success', @_append_uploaded
@@ -80,9 +79,9 @@ class Images.PreloadedGallery extends ShikiGallery
 
   _image_to_html: (image) ->
     JST[TEMPLATE]
-      image: image,
+      image: image
       rel: @rel
-      destroy_url: (@destroy_url.replace('ID', image.id) if @can_destroy)
+      destroy_url: (@destroy_url.replace('ID', image.id) if image.can_destroy)
 
   _deploy_batch: (images) =>
     images.elements.forEach (image_node, index) =>

@@ -37,14 +37,13 @@
 
       .b-gallery[
         data-can_upload=can?(:upload, @club)
-        data-can_destroy=can?(:destroy, @club.images(1).first)
         data-rel="club_gallery"
       ]
         = render 'blocks/upload_progress'
         .container[
           data-upload_url=club_club_images_url(@club)
           data-destroy_url=club_club_image_url(@club, 'ID')
-          data-images=ActiveModel::Serializer::CollectionSerializer.new(@club.images(12)).to_json
+          data-images=(@club.images(12).map { |club_image| ClubImageSerializer.new(club_image, scope: self).to_h }.to_json)
         ]
           .grid_sizer
 
