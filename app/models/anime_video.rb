@@ -30,6 +30,8 @@ class AnimeVideo < ApplicationRecord
     if: -> { new_record? || changes['url'] }
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
+  before_save :check_copyrighted_authors,
+    if: :anime_video_author_id_changed?
   before_save :check_banned_hostings
   before_save :check_copyrighted_animes
   after_create :create_episode_notificaiton, unless: :any_videos?
@@ -154,6 +156,12 @@ class AnimeVideo < ApplicationRecord
   end
 
 private
+
+  def check_copyrighted_authors
+    return unless author_name&.match? /wakanim|crunchyroll/i
+    errors.add :base, 'Видео этого автора не могут быть загружены на сайт'
+    throw :abort
+  end
 
   def check_banned_hostings
     if hosting == 'kiwi.kz' || hosting == 'dailymotion.com'

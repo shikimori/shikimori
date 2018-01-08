@@ -104,15 +104,38 @@ describe AnimeVideo do
 
   describe 'callbacks' do
     describe 'before_save' do
+      describe '#check_copyrighted_authors' do
+        let(:anime_video) { build :anime_video, author_name: author_name }
+        subject! { anime_video.save }
+
+        context 'copyrighted' do
+          let(:author_name) { %w[wakanim crunchyroll].sample }
+          it do
+            is_expected.to eq false
+            expect(anime_video.errors[:base]).to eq [
+              'Видео этого автора не могут быть загружены на сайт'
+            ]
+          end
+        end
+
+        context 'not copyrighted' do
+          let(:author_name) { 'zzz' }
+          it do
+            is_expected.to eq true
+            expect(anime_video.errors).to be_empty
+          end
+        end
+      end
+
       describe '#check_banned_hostings' do
         subject(:anime_video) { create :anime_video, url: url }
 
-        context 'in_ban' do
+        context 'banned hosting' do
           let(:url) { 'http://v.kiwi.kz/v2/9l7tsj8n3has/' }
           it { is_expected.to be_banned }
         end
 
-        context 'no_ban' do
+        context 'not banned hosting' do
           let(:url) { attributes_for(:anime_video)[:url] }
           it { is_expected.to_not be_banned }
         end
