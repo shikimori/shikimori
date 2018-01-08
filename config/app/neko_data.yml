@@ -6667,8 +6667,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
 - :neko_id: :tsundere
   :level: 2
-  :image: []
-  :border_color: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/87660/504206.jpg
+  :border_color:
+  - "#89191C"
   :title_ru: Дурак!
   :text_ru: Заткнись! Заткнись! Заткнись!
   :title_en: 
