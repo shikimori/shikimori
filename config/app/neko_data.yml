@@ -643,8 +643,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
 - :neko_id: :gar
   :level: 1
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/gar_1.jpg"
+  :border_color:
+  - "#333d2f"
   :title_ru: 
   :text_ru: Ваши первые шаги в жанре а борода уже не сбривается.
   :title_en: 
@@ -1118,8 +1120,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - :neko_id: :gar
   :level: 2
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/gar_2.jpg"
+  :border_color:
+  - "#c79001"
   :title_ru: 
   :text_ru: Вы больше не помещаетесь в зеркалах.
   :title_en: 
@@ -1593,8 +1597,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - :neko_id: :gar
   :level: 3
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/gar_3.gif"
+  :border_color:
+  - "#c537a3"
   :title_ru: 
   :text_ru: Физика играет по вашим правилам.
   :title_en: 
