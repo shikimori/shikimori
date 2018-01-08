@@ -15,4 +15,4 @@ $(document).on 'click', '.click-loader', ->
   $[method]($this.data 'href').success (data, status, xhr) ->
     $this
       .data(locked: false)
-      .trigger('ajax:success', data)
+      .trigger('ajax:success', [data])
