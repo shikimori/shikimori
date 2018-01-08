@@ -6054,7 +6054,7 @@
 - :neko_id: :sports
   :level: 1
   :image:
-  - "/assets/achievements/anime/sports_1.png"
+  - "/assets/achievements/anime/sports_1.jpg"
   :border_color:
   - "#975916"
   :title_ru: Первый раз на площадке
@@ -6072,7 +6072,7 @@
 - :neko_id: :sports
   :level: 2
   :image:
-  - "/assets/achievements/anime/sports_2.png"
+  - "/assets/achievements/anime/sports_2.jpg"
   :border_color:
   - "#cc1111"
   :title_ru: С головой ушел в игру
@@ -6090,7 +6090,7 @@
 - :neko_id: :sports
   :level: 3
   :image:
-  - "/assets/achievements/anime/sports_3.png"
+  - "/assets/achievements/anime/sports_3.jpg"
   :border_color:
   - "#82c54f"
   :title_ru: Добро пожаловать в Высшую лигу

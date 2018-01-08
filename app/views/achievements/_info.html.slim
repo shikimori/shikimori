@@ -7,7 +7,7 @@
     .key #{t '.source'}:&nbsp;
     .value
       a.b-link[
-        href="#{achievements.first.rule[:source]}"
+        href=achievements.first.rule[:source]
       ] = achievements.first.rule[:source].gsub %r{\A.*/}, ''
       a.b-question href="#{how_to_edit_achievements_pages_url}"
 
