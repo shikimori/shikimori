@@ -66,13 +66,13 @@ class AnimesCollection::View < ViewObjectBase
   def prev_page_url
     if page == 2
       h.current_url(page: nil)
-    elsif page > 1
+    elsif page && page > 1
       h.current_url(page: page - 1)
     end
   end
 
   def next_page_url
-    h.current_url(page: page + 1) if page < pages_count
+    h.current_url(page: page + 1) if page && page < pages_count
   end
 
   def compiled_filters
