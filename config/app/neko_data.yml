@@ -5490,8 +5490,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
 - :neko_id: :oldfag
   :level: 2
-  :image: []
-  :border_color: []
+  :image:
+  - https://nyaa.shikimori.org/system/user_images/original/87660/504185.jpg
+  :border_color:
+  - "#cedac7"
   :title_ru: Золотая коллекция
   :text_ru: Видеосалоны, запись на VHS... Вы помните все так, будто это было вчера.
   :title_en: 
