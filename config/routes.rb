@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   ani_manga_format = "(/kind/:kind)(/status/:status)(/season/:season)\
 (/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\
 (/rating/:rating)(/score/:score)(/options/:options)(/mylist/:mylist)\
-(/search/:search)(/order-by/:order)(/page/:page)(.:format)"
+(/order-by/:order)(/page/:page)(.:format)"
 
   concern :db_entry do |options|
     member do

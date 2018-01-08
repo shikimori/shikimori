@@ -319,6 +319,11 @@ describe AnimesCollection::View do
   end
 
   describe '#compiled_filters' do
-    pending
+    it do
+      expect(view.compiled_filters).to eq params.merge(
+        censored: true,
+        order: 'ranked'
+      )
+    end
   end
 end

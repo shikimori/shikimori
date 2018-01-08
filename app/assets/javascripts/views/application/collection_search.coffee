@@ -3,7 +3,9 @@ module.exports = class CollectionSearch extends View
 
   initialize: ->
     @cache = {}
-    @$collection = @$root.children('.collection')
+    @$collection = @$root.find('.searchable-collection')
+    console.warn('not found .searchable-collection') unless @$collection.length
+
     @$input = @$('.field input')
     @$clear = @$('.field .clear')
 
@@ -15,7 +17,6 @@ module.exports = class CollectionSearch extends View
 
     @$input.on 'change blur keyup paste', @_filter_changed
     @$clear.on 'click', @_clear_phrase
-
 
   # handlers
   _filter_changed: (e) =>
@@ -53,13 +54,26 @@ module.exports = class CollectionSearch extends View
     if phrase.length == 1
       @_hide_ajax()
     else if @cache[phrase]
-      @_show_results @cache[phrase]
+      @_show_results @cache[phrase], @_search_url(phrase)
     else
       axios.get(@_search_url(phrase)).then (response) =>
         @cache[phrase] = response.data
-        @_show_results @cache[phrase] if phrase == @_search_phrase()
+        if phrase == @_search_phrase()
+          @_show_results @cache[phrase], @_search_url(phrase)
 
-  _show_results: (response) ->
+  _show_results: (response, search_url) ->
+    @_process_response(response, search_url)
+
+    @_hide_ajax()
+
+    if Modernizr.history
+      window.history.replaceState(
+        { turbolinks: true, url: search_url },
+        '',
+        search_url
+      )
+
+  _process_response: (response, search_url) ->
     html =
       if response.content
         response.content + (response.postloader || '')
@@ -67,13 +81,17 @@ module.exports = class CollectionSearch extends View
         JST['search/nothing_found']()
 
     @$collection.html(html).process()
-    @_hide_ajax()
 
   _search_phrase: ->
     @$input.val().trim()
 
   _search_url: (phrase) ->
-    URI(@$root.data('search_url')).query(search: phrase)
+    uri = URI @$root.data('search_url')
+
+    if phrase
+      uri.query(search: phrase)
+    else
+      uri.removeQuery('search')
 
   _show_ajax: ->
     @$collection.addClass 'b-ajax'

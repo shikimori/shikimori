@@ -1,4 +1,5 @@
 UserRatesTracker = require 'services/user_rates/tracker'
+CollectionSearch = require 'views/application/collection_search'
 
 using 'Animes'
 module.exports = class Animes.PaginatedCatalog
@@ -30,8 +31,10 @@ module.exports = class Animes.PaginatedCatalog
       @_filter_page_change
     )
 
-    #$(window).on 'popstate', =>
-      #@filters.last_compiled = location.href
+    $collection_search = $('.b-collection_search')
+    if $collection_search.length
+      @collection_search = new CollectionSearch $collection_search
+      @collection_search._process_response = @_process_ajax_content
 
   #bind_history: =>
     #$(window).off 'popstate', @_history_page_changed
@@ -47,6 +50,8 @@ module.exports = class Animes.PaginatedCatalog
       @_history_page_changed()
     else
       location.href = url
+
+    @collection_search.$root.data search_url: url
 
   # урл страницы изменён через history api
   _history_page_changed: =>
@@ -196,13 +201,11 @@ module.exports = class Animes.PaginatedCatalog
     #(if $postloader then process_ajax_postload(data, url, $postloader) else process_ajax_response(data, url))
 
   # обработка контента, полученного от аякс-запроса
-  _process_ajax_content: (data, url) ->
+  _process_ajax_content: (data, url) =>
     document.title = "#{data.title}"
-
     $content = $(data.content)
 
-    # используем Object.clone т.к. UserRatesTracker изменяет передаваемый в него
-    # массив
+    # используем Object.clone т.к. UserRatesTracker изменяет передаваемый в него массив
     UserRatesTracker.track Object.clone(data.JS_EXPORTS), $content
 
     # чтобы cutted_covers сработал
