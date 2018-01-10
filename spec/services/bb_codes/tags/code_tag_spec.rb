@@ -2,7 +2,6 @@ describe BbCodes::Tags::CodeTag do
   let(:tag) { BbCodes::Tags::CodeTag.new text }
   let(:other_tag) { BbCodes::Tags::BTag.instance }
 
-
   describe '#preprocess, #postprocess' do
     subject { tag.postprocess other_tag.format(tag.preprocess) }
 
