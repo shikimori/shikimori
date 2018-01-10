@@ -18,8 +18,8 @@ describe Topic::Cleanup do
     expect { image_2.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(image_3.reload).to be_persisted
 
-    expect(comment_1.reload.body).to eq '[img=deleted] [image=123456]'
+    expect(comment_1.reload.body).to eq '[image=deleted] [image=deleted]'
     expect(comment_2.reload.body).to eq '[poster=deleted]'
-    expect(comment_3.reload.body).to eq "[img=#{image_3.id}]"
+    expect(comment_3.reload.body).to eq "[image=#{image_3.id}]"
   end
 end
