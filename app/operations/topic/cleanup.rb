@@ -12,6 +12,7 @@ class Topic::Cleanup
     topic
       .comments
       .where('id < ?', offset_comment(@topic).id)
+      .except(:order)
       .find_each { |comment| cleanup comment }
   end
 
