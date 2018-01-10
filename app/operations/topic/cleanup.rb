@@ -28,11 +28,11 @@ private
   end
 
   def cleanup comment
-    comment.body = comment.body.gsub(IMAGES_REGEXP) do
+    new_body = comment.body.gsub(IMAGES_REGEXP) do
       UserImage.find_by(id: $LAST_MATCH_INFO[:user_image_id])&.destroy
       "[#{$LAST_MATCH_INFO[:type]}=#{DELETED_MARKER}"
     end
 
-    comment.save! if comment.changed?
+    comment.update_column :body, new_body if new_body != comment.body
   end
 end
