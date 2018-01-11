@@ -1,8 +1,8 @@
 const { join } = require('path')
+const { readFileSync } = require('fs')
 const webpacker_config = require('@rails/webpacker/package/config')
 const environment = require('./environment')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
-const { readFileSync } = require('fs')
 
 environment.plugins.set('FriendlyErrorsWebpackPlugin', new FriendlyErrorsWebpackPlugin())
 
