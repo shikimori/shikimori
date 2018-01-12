@@ -5760,7 +5760,7 @@
 - :neko_id: :dementia_psychological
   :level: 1
   :image:
-  - http://s5.postimg.org/kzx4ud8bb/Psiho_3_2.jpg
+  - "/assets/achievements/anime/dementia_psychological_1.jpg"
   :border_color:
   - "#c71585"
   :title_ru: Оно существует.
@@ -5779,7 +5779,7 @@
 - :neko_id: :dementia_psychological
   :level: 2
   :image:
-  - http://s5.postimg.org/5i9mqo1uf/Psiho_7_00000.jpg
+  - "/assets/achievements/anime/dementia_psychological_2.jpg"
   :border_color:
   - "#000000"
   :title_ru: Это вообще реально?
@@ -5799,7 +5799,7 @@
 - :neko_id: :dementia_psychological
   :level: 3
   :image:
-  - http://i.imgur.com/IRo6Vbl.png
+  - "/assets/achievements/anime/dementia_psychological_3.png"
   :border_color:
   - "#DC143C"
   :title_ru: Вынос мозга.
@@ -5818,7 +5818,7 @@
 - :neko_id: :dementia_psychological
   :level: 4
   :image:
-  - http://i.imgur.com/iOrSsYl.gif
+  - "/assets/achievements/anime/dementia_psychological_4.gif"
   :border_color:
   - "#20B2AA"
   :title_ru: Вы видели слишком много.
@@ -5945,7 +5945,7 @@
 - :neko_id: :comedy
   :level: 3
   :image:
-  - "/assets/achievements/anime/comedy_3.jpg"
+  - "/assets/achievements/anime/comedy_3.gif"
   :border_color:
   - "#7f8f18"
   :title_ru: Вечный смех
@@ -6669,7 +6669,7 @@
 - :neko_id: :action
   :level: 2
   :image:
-  - "/assets/achievements/anime/action_2.jpg"
+  - "/assets/achievements/anime/action_2.png"
   :border_color:
   - "#4d4a57"
   :title_ru: Первая миссия
