@@ -5160,7 +5160,7 @@
 - :neko_id: :drama
   :level: 1
   :image:
-  - https://desu.shikimori.org/system/user_images/original/50587/459398.jpg
+  - "/assets/achievements/anime/drama_1.jpg"
   :border_color:
   - "#f46c2d"
   :title_ru: Скупая слеза
@@ -5178,7 +5178,7 @@
 - :neko_id: :drama
   :level: 2
   :image:
-  - https://moe.shikimori.org/system/user_images/original/50587/459402.jpg
+  - "/assets/achievements/anime/drama_2.jpg"
   :border_color:
   - "#031427"
   :title_ru: Эмпатия среднего уровня
@@ -5196,7 +5196,7 @@
 - :neko_id: :drama
   :level: 3
   :image:
-  - https://kawai.shikimori.org/system/user_images/original/50587/459426.jpg
+  - "/assets/achievements/anime/drama_3.jpg"
   :border_color:
   - "#fefc9f"
   :title_ru: Идеальная грусть
@@ -5214,7 +5214,7 @@
 - :neko_id: :drama
   :level: 4
   :image:
-  - http://25.media.tumblr.com/18bb07caa91763ef6c93e1f8f91dfc55/tumblr_mg8r7yi1i51qh8z5mo1_500.gif
+  - "/assets/achievements/anime/drama_4.gif"
   :border_color:
   - "#606fde"
   :title_ru: Максимальная эмоциональная отзывчивость
