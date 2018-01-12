@@ -6357,7 +6357,7 @@
 - :neko_id: :fantasy
   :level: 1
   :image:
-  - http://i.imgur.com/Go4cIYp.png
+  - "/assets/achievements/anime/fantasy_1.png"
   :border_color:
   - "#de3c20"
   :title_ru: Попаданец
@@ -6375,7 +6375,7 @@
 - :neko_id: :fantasy
   :level: 2
   :image:
-  - http://i.imgur.com/2JKk27J.png
+  - "/assets/achievements/anime/fantasy_2.png"
   :border_color:
   - "#472a18"
   :title_ru: Искатель приключений
@@ -6393,7 +6393,7 @@
 - :neko_id: :fantasy
   :level: 3
   :image:
-  - http://i.imgur.com/LIoCMIo.gif
+  - "/assets/achievements/anime/fantasy_3.gif"
   :border_color: []
   :title_ru: Герой
   :text_ru: Ваши подвиги войдут в историю.
@@ -6410,7 +6410,7 @@
 - :neko_id: :fantasy
   :level: 4
   :image:
-  - https://media.giphy.com/media/OHQD6K0hmSctW/giphy.gif
+  - "/assets/achievements/anime/fantasy_4.gif"
   :border_color: []
   :title_ru: Король королей
   :text_ru: Вы видели, как зарождались легенды.
