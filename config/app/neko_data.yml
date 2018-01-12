@@ -6651,7 +6651,7 @@
 - :neko_id: :action
   :level: 1
   :image:
-  - https://nyaa.shikimori.org/system/user_images/original/1/532910.jpg
+  - "/assets/achievements/anime/action_1.jpg"
   :border_color:
   - "#4d4a57"
   :title_ru: Курс молодого бойца
@@ -6669,7 +6669,7 @@
 - :neko_id: :action
   :level: 2
   :image:
-  - http://i.imgur.com/j6UzfjL.png
+  - "/assets/achievements/anime/action_2.jpg"
   :border_color:
   - "#4d4a57"
   :title_ru: Первая миссия
@@ -6687,7 +6687,7 @@
 - :neko_id: :action
   :level: 3
   :image:
-  - https://desu.shikimori.org/system/user_images/original/40201/108423.jpg
+  - "/assets/achievements/anime/action_3.jpg"
   :border_color:
   - "#142300"
   :title_ru: BOOM! Headshot!
@@ -6705,7 +6705,7 @@
 - :neko_id: :action
   :level: 4
   :image:
-  - https://i.yapx.ru/JMqe.gif
+  - "/assets/achievements/anime/action_4.gif"
   :border_color:
   - "#755d9a"
   :title_ru: Элитный наемник
