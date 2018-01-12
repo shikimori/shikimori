@@ -2683,7 +2683,7 @@
 - :neko_id: :otaku
   :level: 1
   :image:
-  - http://i.yapx.ru/JEvZ.jpg
+  - "/assets/achievements/anime/otaku_1.jpg"
   :border_color:
   - "#ff496c"
   :title_ru: Эскапизм
@@ -2702,7 +2702,7 @@
 - :neko_id: :otaku
   :level: 2
   :image:
-  - https://shikimori.org/assets/achievements/anime/otaku_4-381b895909dc0141f22bd836188fc43bd64f06f655c3c708d41a2ce56018fc13.jpg
+  - "/assets/achievements/anime/otaku_2.jpg"
   :border_color:
   - "#474a51"
   :title_ru: Фетишизм
@@ -2721,7 +2721,7 @@
 - :neko_id: :otaku
   :level: 3
   :image:
-  - https://yapcdn.net/se3/1/tSDzHDAI3i0.jpg
+  - "/assets/achievements/anime/otaku_3.jpg"
   :border_color:
   - "#2f4f4f"
   :title_ru: NEET
@@ -2741,7 +2741,7 @@
 - :neko_id: :otaku
   :level: 4
   :image:
-  - https://i.yapx.ru/JMeO.gif
+  - "/assets/achievements/anime/otaku_4.gif"
   :border_color:
   - "#cd9575"
   :title_ru: Хикикомори
