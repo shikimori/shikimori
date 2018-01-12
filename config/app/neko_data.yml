@@ -6501,7 +6501,7 @@
 - :neko_id: :fujoshi
   :level: 1
   :image:
-  - http://i.imgur.com/R6PqIoT.png
+  - "/assets/achievements/anime/fujoshi_1.png"
   :border_color:
   - "#e82a8d"
   :title_ru: Вуайерист-любитель
@@ -6520,7 +6520,7 @@
 - :neko_id: :fujoshi
   :level: 2
   :image:
-  - http://i.imgur.com/TLvZb0E.png
+  - "/assets/achievements/anime/fujoshi_2.png"
   :border_color:
   - "#e82a8d"
   :title_ru: Голубок
@@ -6540,7 +6540,7 @@
 - :neko_id: :fujoshi
   :level: 3
   :image:
-  - http://i.imgur.com/DKfMKBR.png
+  - "/assets/achievements/anime/fujoshi_3.png"
   :border_color:
   - "#e82a8d"
   :title_ru: Шиппер
@@ -6559,7 +6559,7 @@
 - :neko_id: :fujoshi
   :level: 4
   :image:
-  - https://shikimori.org/assets/achievements/anime/fujoshi_3.jpg
+  - "/assets/achievements/anime/fujoshi_4.jpg"
   :border_color:
   - "#e82a8d"
   :title_ru: Яойный бог
