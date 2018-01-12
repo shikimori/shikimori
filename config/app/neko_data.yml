@@ -4600,7 +4600,7 @@
 - :neko_id: :mecha
   :level: 1
   :image:
-  - http://68.media.tumblr.com/8cf1278fd22114a55608e9b09a5db1b4/tumblr_inline_nczxqyUFjI1rywm8k.png
+  - "/assets/achievements/anime/mecha_1.png"
   :border_color:
   - "#1a153f"
   :title_ru: Пилот Евы
@@ -4618,7 +4618,7 @@
 - :neko_id: :mecha
   :level: 2
   :image:
-  - http://i.imgur.com/djvEhwN.png
+  - "/assets/achievements/anime/mecha_2.png"
   :border_color:
   - "#5d634d"
   :title_ru: Hassin!
@@ -4637,7 +4637,7 @@
 - :neko_id: :mecha
   :level: 3
   :image:
-  - http://i.imgur.com/XrJCBwN.png
+  - "/assets/achievements/anime/mecha_3.png"
   :border_color:
   - "#66cdaa"
   :title_ru: Ньютайп
@@ -4655,7 +4655,7 @@
 - :neko_id: :mecha
   :level: 4
   :image:
-  - http://i.imgur.com/YTDucCf.gif
+  - "/assets/achievements/anime/mecha_4.gif"
   :border_color:
   - "#da4968"
   :title_ru: DO THE IMPOSSIBLE, SEE THE INVISIBLE!
@@ -4675,7 +4675,7 @@
 - :neko_id: :military
   :level: 1
   :image:
-  - http://i.imgur.com/MJI5DLT.png
+  - "/assets/achievements/anime/military_1.png"
   :border_color:
   - "#635757"
   :title_ru: Новобранец
@@ -4693,7 +4693,7 @@
 - :neko_id: :military
   :level: 2
   :image:
-  - http://i.imgur.com/pJbZJxd.png
+  - "/assets/achievements/anime/military_2.png"
   :border_color:
   - "#5f665a"
   :title_ru: Сержант
@@ -4711,7 +4711,7 @@
 - :neko_id: :military
   :level: 3
   :image:
-  - http://i.imgur.com/NgRm8Nd.png
+  - "/assets/achievements/anime/military_3.png"
   :border_color:
   - "#101011"
   :title_ru: Майор
@@ -4729,7 +4729,7 @@
 - :neko_id: :military
   :level: 4
   :image:
-  - https://shikimori.org/assets/achievements/anime/military_4.gif
+  - "/assets/achievements/anime/military_4.gif"
   :border_color:
   - "#2a456e"
   :title_ru: Генерал
@@ -4749,7 +4749,7 @@
 - :neko_id: :moe
   :level: 1
   :image:
-  - http://i944.photobucket.com/albums/ad284/dzh2011/02/yuruyuri22.jpg
+  - "/assets/achievements/anime/moe_1.jpg"
   :border_color:
   - "#f0d698"
   :title_ru: Начинающий моэфаг
@@ -4944,7 +4944,7 @@
 - :neko_id: :moe
   :level: 2
   :image:
-  - https://31.media.tumblr.com/9f3d1511d5e0025416ca04e5b55ee3fd/tumblr_n6rv1333lw1swb4xxo4_500.gif
+  - "/assets/achievements/anime/moe_2.gif"
   :border_color:
   - "#fdbdba"
   :title_ru: Лучи кавая
@@ -5139,7 +5139,7 @@
 - :neko_id: :moe
   :level: 3
   :image:
-  - http://i.imgur.com/Arxun3R.gif
+  - "/assets/achievements/anime/moe_3.gif"
   :border_color:
   - "#ff0000"
   :title_ru: Первоклассная моэта
@@ -5352,7 +5352,7 @@
 - :neko_id: :music
   :level: 2
   :image:
-  - https://i.yapx.ru/JPn2.jpg
+  - "/assets/achievements/anime/music_2.jpg"
   :border_color:
   - "#4285b4"
   :title_ru: Это не вокалоид
@@ -5370,7 +5370,7 @@
 - :neko_id: :music
   :level: 3
   :image:
-  - https://pp.userapi.com/c836632/v836632323/4248b/mWRXNkQqv5g.jpg
+  - "/assets/achievements/anime/music_3.jpg"
   :border_color:
   - "#cd5c5c"
   :title_ru: Это не айдол
@@ -5389,7 +5389,7 @@
 - :neko_id: :music
   :level: 4
   :image:
-  - https://i.yapx.ru/JPn6.gif
+  - "/assets/achievements/anime/music_4.gif"
   :border_color:
   - "#4c514a"
   :title_ru: Это не продюсер
@@ -5408,7 +5408,7 @@
 - :neko_id: :mystery
   :level: 1
   :image:
-  - https://pp.userapi.com/c638321/v638321323/3997e/EGJ6gOU1aSA.jpg
+  - "/assets/achievements/anime/mystery_1.jpg"
   :border_color:
   - "#4c514a"
   :title_ru: Первое дело
@@ -5427,7 +5427,7 @@
 - :neko_id: :mystery
   :level: 2
   :image:
-  - http://i.imgur.com/DFrq5pY.jpg
+  - "/assets/achievements/anime/mystery_2.jpg"
   :border_color:
   - "#3a59a8"
   :title_ru: Убийца - дворецкий!
@@ -5445,7 +5445,7 @@
 - :neko_id: :mystery
   :level: 3
   :image:
-  - https://i.yapx.ru/JK6g.jpg
+  - "/assets/achievements/anime/mystery_3.jpg"
   :border_color:
   - "#919192"
   :title_ru: За семью печатями
@@ -5463,7 +5463,7 @@
 - :neko_id: :mystery
   :level: 4
   :image:
-  - https://i.imgur.com/oPp3SWS.gif
+  - "/assets/achievements/anime/mystery_4.gif"
   :border_color:
   - "#919192"
   :title_ru: Великий детектив
@@ -5482,7 +5482,7 @@
 - :neko_id: :oldfag
   :level: 1
   :image:
-  - http://i.imgur.com/I3DvFcX.png
+  - "/assets/achievements/anime/oldfag_1.png"
   :border_color:
   - "#c5d0e6"
   :title_ru: Ценитель классики
@@ -5499,7 +5499,7 @@
 - :neko_id: :oldfag
   :level: 2
   :image:
-  - https://desu.shikimori.org/system/user_images/original/1/532888.jpg
+  - "/assets/achievements/anime/oldfag_2.jpg"
   :border_color:
   - "#887468"
   :title_ru: Золотая коллекция
@@ -5516,7 +5516,7 @@
 - :neko_id: :oldfag
   :level: 3
   :image:
-  - https://i.yapx.ru/JK3F.jpg
+  - "/assets/achievements/anime/oldfag_3.jpg"
   :border_color:
   - "#1c1c1c"
   :title_ru: Ветер ностальгии
@@ -5533,7 +5533,7 @@
 - :neko_id: :oldfag
   :level: 4
   :image:
-  - https://i.yapx.ru/JK3J.jpg
+  - "/assets/achievements/anime/oldfag_4.jpg"
   :border_color:
   - "#a5a5a5"
   :title_ru: Здоровался за руку с Осаму Тэдзукой
@@ -5550,7 +5550,7 @@
 - :neko_id: :oniichan
   :level: 1
   :image:
-  - http://i.imgur.com/BQDF1Dq.png
+  - "/assets/achievements/anime/oniichan_1.png"
   :border_color:
   - "#f0d698"
   :title_ru: Братик
@@ -5670,9 +5670,8 @@
 - :neko_id: :police
   :level: 1
   :image:
-  - https://i.yapx.ru/JP01.jpg
-  :border_color:
-  - "#2F353B"
+  - "/assets/achievements/anime/police_1.jpg"
+  :border_color: []
   :title_ru: Народный дружинник
   :text_ru: Любой может оказаться предателем. Нельзя терять бдительности.
   :title_en: 
@@ -5688,7 +5687,7 @@
 - :neko_id: :police
   :level: 2
   :image:
-  - https://i.yapx.ru/JP2j.jpg
+  - "/assets/achievements/anime/police_2.jpg"
   :border_color:
   - "#c34d0a"
   :title_ru: Гражданин, пройдёмте
@@ -5706,7 +5705,7 @@
 - :neko_id: :police
   :level: 3
   :image:
-  - http://i.imgur.com/uTrpGUm.png
+  - "/assets/achievements/anime/police_3.png"
   :border_color:
   - "#f4a900"
   :title_ru: Отдел особого назначения
@@ -5724,7 +5723,7 @@
 - :neko_id: :police
   :level: 4
   :image:
-  - https://i.yapx.ru/JP03.jpg
+  - "/assets/achievements/anime/police_4.jpg"
   :border_color:
   - "#c7d0cc"
   :title_ru: Вершина иерархии, высший начальствующий состав
@@ -5742,7 +5741,7 @@
 - :neko_id: :romance
   :level: 1
   :image:
-  - http://s5.postimg.org/ykjbfqyqf/Rom_1_00000.jpg
+  - "/assets/achievements/anime/romance_1.jpg"
   :border_color:
   - "#e2b801"
   :title_ru: Сталкер
@@ -5760,7 +5759,7 @@
 - :neko_id: :romance
   :level: 2
   :image:
-  - http://s5.postimg.org/fqxiir0if/Rom_5_00000.jpg
+  - "/assets/achievements/anime/romance_2.jpg"
   :border_color:
   - "#9e9cb2"
   :title_ru: Первое признание в любви.
@@ -5778,7 +5777,7 @@
 - :neko_id: :romance
   :level: 3
   :image:
-  - http://24.media.tumblr.com/c1b3a3869b68001656b07a49c02a8324/tumblr_muleo6ItG01skzv6ro1_500.gif
+  - "/assets/achievements/anime/romance_3.gif"
   :border_color:
   - "#EBE5E5"
   :title_ru: Конфетно-букетный период
@@ -5796,7 +5795,7 @@
 - :neko_id: :romance
   :level: 4
   :image:
-  - http://media.giphy.com/media/3oEdv7Z9NDQFcTzMha/giphy.gif
+  - "/assets/achievements/anime/romance_4.gif"
   :border_color:
   - "#001a6e"
   :title_ru: Сердце, полное любви
@@ -5871,7 +5870,7 @@
 - :neko_id: :scifi
   :level: 4
   :image:
-  - http://25.media.tumblr.com/tumblr_m880tlaKLy1qdfvslo1_500.gif
+  - "/assets/achievements/anime/scifi_4.gif"
   :border_color:
   - "#2f353b"
   :title_ru: Великий Разум
@@ -5889,7 +5888,7 @@
 - :neko_id: :seinen
   :level: 1
   :image:
-  - https://moe.shikimori.org/system/user_images/original/50587/459007.jpg
+  - "/assets/achievements/anime/seinen_1.jpg"
   :border_color:
   - "#9c521c"
   :title_ru: 
@@ -5909,7 +5908,7 @@
 - :neko_id: :seinen
   :level: 2
   :image:
-  - https://desu.shikimori.org/system/user_images/original/50587/459288.jpg
+  - "/assets/achievements/anime/seinen_2.jpg"
   :border_color:
   - "#595348"
   :title_ru: 
@@ -5928,7 +5927,7 @@
 - :neko_id: :seinen
   :level: 3
   :image:
-  - https://i.yapx.ru/JZNL.png
+  - "/assets/achievements/anime/seinen_3.png"
   :border_color:
   - "#d76e00"
   :title_ru: 
@@ -6037,7 +6036,7 @@
 - :neko_id: :sovietanime
   :level: 1
   :image:
-  - http://i.imgur.com/Edt5PrL.png
+  - "/assets/achievements/anime/sovietanime_1.png"
   :border_color:
   - "#daa520"
   :title_ru: MIWKA, VODKA, BALALAIKA
@@ -6489,7 +6488,7 @@
 - :neko_id: :tsundere
   :level: 1
   :image:
-  - http://4.downloader.disk.yandex.ru/preview/5eac620f443f2af84a5c53a0be61e12eb674dab2f29021fd67d88c398a890ee8/inf/Ulc4l6Nw6Zl9PBaWaDlZYRPYq3rOstOLpJUfGvZu19XShMYPQViaEYZ0V3sfrDiY_Az5g_fyC-WAg7wGwBuGuw%3D%3D?uid=0&filename=0_10a1fd_b2db1e85_XL.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=XXL
+  - "/assets/achievements/anime/tsundere_1.png"
   :border_color:
   - "#c5d0e6"
   :title_ru: Это не то, о чем ты подумал
@@ -6627,7 +6626,7 @@
 - :neko_id: :tsundere
   :level: 2
   :image:
-  - https://kawai.shikimori.org/system/user_images/original/87660/504206.jpg
+  - "/assets/achievements/anime/tsundere_2.jpg"
   :border_color:
   - "#89191C"
   :title_ru: Дурак!
@@ -6765,7 +6764,7 @@
 - :neko_id: :tsundere
   :level: 3
   :image:
-  - http://i.imgur.com/Gy4zW05.gif
+  - "/assets/achievements/anime/tsundere_3.gif"
   :border_color:
   - "#cd7f32"
   :title_ru: Цундере мне вовсе не интересны!
@@ -6903,7 +6902,7 @@
 - :neko_id: :yandere
   :level: 1
   :image:
-  - https://lh3.googleusercontent.com/5GlJJYYzodzjTuR5IiDN9Fj2KR_X-CYZtTEqPN6iUHAOHfKr3QvI_jElrRwEg7rNR-Jctcvq89-jliPlLA8sI7ZNHAOWZp3EEZhQcDmogawgqs9mIklOkHUxDQ89MbyN-nEYU9rGwtTa63p0og
+  - "/assets/achievements/anime/yandere_1.jpg"
   :border_color:
   - "#821d60"
   :title_ru: Бездна
@@ -6977,7 +6976,7 @@
 - :neko_id: :yandere
   :level: 2
   :image:
-  - http://i.imgur.com/5Dk8pth.png?1
+  - "/assets/achievements/anime/yandere_2.png"
   :border_color:
   - "#9a4cb7"
   :title_ru: Ураган
@@ -7051,7 +7050,7 @@
 - :neko_id: :yandere
   :level: 3
   :image:
-  - http://31.media.tumblr.com/tumblr_mdfamrgrfH1rshzuyo1_500.gif
+  - "/assets/achievements/anime/yandere_3.gif"
   :border_color:
   - "#2F2E2D"
   :title_ru: Безумие
@@ -7125,7 +7124,7 @@
 - :neko_id: :yuuri
   :level: 1
   :image:
-  - http://i.imgur.com/MXx0Dzc.png
+  - "/assets/achievements/anime/yuuri_1.png"
   :border_color:
   - "#d5a471"
   :title_ru: Женская дружба
@@ -7144,7 +7143,7 @@
 - :neko_id: :yuuri
   :level: 2
   :image:
-  - http://i.imgur.com/75lnhMa.png
+  - "/assets/achievements/anime/yuuri_2.png"
   :border_color:
   - "#d293a2"
   :title_ru: Первые чувства
@@ -7163,7 +7162,7 @@
 - :neko_id: :yuuri
   :level: 3
   :image:
-  - http://i.imgur.com/c5My2Mg.png
+  - "/assets/achievements/anime/yuuri_3.png"
   :border_color:
   - "#935c49"
   :title_ru: Я поцеловала девушку...
@@ -7182,7 +7181,7 @@
 - :neko_id: :yuuri
   :level: 4
   :image:
-  - https://media.giphy.com/media/JynbO9pnGxPrO/giphy.gif
+  - "/assets/achievements/anime/yuuri_4.gif"
   :border_color:
   - "#e73a95"
   :title_ru: Счастливая семейная жизнь
