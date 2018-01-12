@@ -5689,7 +5689,7 @@
 - :neko_id: :historical
   :level: 1
   :image:
-  - http://i.imgur.com/PxbRfzj.png
+  - "/assets/achievements/anime/historical_1.png"
   :border_color:
   - "#3c3949"
   :title_ru: Уроки истории
@@ -5707,7 +5707,7 @@
 - :neko_id: :historical
   :level: 2
   :image:
-  - http://i.imgur.com/B3b7MeQ.png
+  - "/assets/achievements/anime/historical_2.jpg"
   :border_color:
   - "#4f3542"
   :title_ru: Оглянувшись назад
@@ -5725,7 +5725,7 @@
 - :neko_id: :historical
   :level: 3
   :image:
-  - http://i.imgur.com/ZkXjMjT.jpg
+  - "/assets/achievements/anime/historical_3.jpg"
   :border_color:
   - "#353a58"
   :title_ru: Археолог
