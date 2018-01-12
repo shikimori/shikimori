@@ -5911,7 +5911,7 @@
 - :neko_id: :comedy
   :level: 1
   :image:
-  - https://kawai.shikimori.org/system/user_images/original/50587/458876.jpg
+  - "/assets/achievements/anime/comedy_1.jpg"
   :border_color:
   - "#5dbdd9"
   :title_ru: But then i lol'd
@@ -5945,7 +5945,7 @@
 - :neko_id: :comedy
   :level: 3
   :image:
-  - https://s-media-cache-ak0.pinimg.com/originals/1f/9a/ff/1f9affe62feff2a1b3ecc16ea9268469.gif
+  - "/assets/achievements/anime/comedy_3.jpg"
   :border_color:
   - "#7f8f18"
   :title_ru: Вечный смех
