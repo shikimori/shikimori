@@ -2795,9 +2795,9 @@
 - :neko_id: :romance
   :level: 3
   :image:
-  - "/assets/achievements/anime/romance_3.gif"
+  - "/assets/achievements/anime/romance_3.jpg"
   :border_color:
-  - "#EBE5E5"
+  - "#f16251"
   :title_ru: Конфетно-букетный период
   :text_ru: Теперь ты можешь на равных поддерживать разговор с Салатом.
   :title_en: 
