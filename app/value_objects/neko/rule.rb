@@ -82,17 +82,19 @@ class Neko::Rule < Dry::Struct
 
   # rubocop:disable AbcSize
   def animes_count
-    return if rule[:filters].blank?
-    return rule[:filters]['anime_ids'].size if rule[:filters]['anime_ids']
+    @animes_count ||= begin
+      return if rule[:filters].blank?
+      return rule[:filters]['anime_ids'].size if rule[:filters]['anime_ids']
 
-    scope = Anime.all
+      scope = Anime.all
 
-    if rule[:filters]['genre_ids']
-      grenre_ids = rule[:filters]['genre_ids'].map(&:to_i).join(',')
-      scope.where! "genre_ids && '{#{grenre_ids}}' and kind != '#{:special}'"
+      if rule[:filters]['genre_ids']
+        grenre_ids = rule[:filters]['genre_ids'].map(&:to_i).join(',')
+        scope.where! "genre_ids && '{#{grenre_ids}}' and kind != 'Special'"
+      end
+
+      scope.size
     end
-
-    scope.size
   end
   # rubocop:enable AbcSize
 

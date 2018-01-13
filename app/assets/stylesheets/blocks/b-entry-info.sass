@@ -1,5 +1,6 @@
 @import globals/variables
 @import mixins/block
+@import mixins/comma_separated
 @import mixins/link
 @import mixins/responsive
 @import mixins/tag
@@ -23,6 +24,9 @@
 
       +iphone
         font-weight: bold
+
+      span
+        +comma_separated
 
     a
       +link

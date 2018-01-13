@@ -18,7 +18,17 @@
 
   .line
     .key #{t '.threshold'}:&nbsp;
-    .value = achievements.map { |v| v.rule[:threshold] }.join(', ')
+    .value
+      - if achievements.first.animes_count
+        - if achievements.first.rule[:threshold].is_a?(String) && achievements.first.rule[:threshold].match?(/^\d+%$/)
+          - achievements.each do |achievement|
+            span = "#{achievement.rule[:threshold]} (#{(achievements.first.animes_count / 100.0 * achievement.rule[:threshold].to_i).round})"
+        - else
+          - achievements.each do |achievement|
+            span = "#{(achievement.rule[:threshold] / achievements.first.animes_count * 100.0).round(2)}% (#{achievement.rule[:threshold]})"
+      - else
+        - achievements.each do |achievement|
+          span = achievement.rule[:threshold]
 
   .line.m10
     .key = t '.rules'
