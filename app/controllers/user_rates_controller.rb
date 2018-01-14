@@ -43,9 +43,12 @@ private
 
   def set_sort_order
     return if params[:order].present?
-    return if current_user.preferences.default_sort == AniMangaQuery::DEFAULT_ORDER # rubocop:disable LineLength
 
-    redirect_to current_url(order: current_user.preferences.default_sort)
+    if current_user.preferences.default_sort == AniMangaQuery::DEFAULT_ORDER # rubocop:disable LineLength
+      params[:order] = current_user.preferences.default_sort
+    else
+      redirect_to current_url(order: current_user.preferences.default_sort)
+    end
   end
 
   def save_sort_order
