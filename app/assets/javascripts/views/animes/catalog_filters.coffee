@@ -186,7 +186,9 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
         @params,
         (memo, values, key) ->
           return memo unless values
-          return memo if key == 'order-by' && values[0] == DEFAULT_ORDER
+          if key == 'order-by' && values[0] == DEFAULT_ORDER &&
+              !location.href.match(/\/list\/(anime|manga)/)
+            return memo
 
           if values.length
             memo + "/#{key}/#{values.join ','}"
