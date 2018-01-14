@@ -430,7 +430,7 @@
 - :neko_id: :horror_thriller
   :level: 1
   :image:
-  - http://i.imgur.com/NEaqM1P.png?1
+  - "/assets/achievements/anime/horror_thriller_1.png"
   :border_color:
   - "#ddc49c"
   :title_ru: Смерть дышит в спину
@@ -450,7 +450,7 @@
 - :neko_id: :horror_thriller
   :level: 2
   :image:
-  - http://i.imgur.com/GHJ7R6m.png?1
+  - "/assets/achievements/anime/horror_thriller_2.png"
   :border_color:
   - "#510a0b"
   :title_ru: Ночной кошмар
@@ -469,7 +469,7 @@
 - :neko_id: :horror_thriller
   :level: 3
   :image:
-  - http://i.imgur.com/hWxL0YZ.png?1
+  - "/assets/achievements/anime/horror_thriller_3.png"
   :border_color:
   - "#d7adb1"
   :title_ru: Все чудовища — это люди
@@ -488,7 +488,7 @@
 - :neko_id: :horror_thriller
   :level: 4
   :image:
-  - http://i.imgur.com/p5kn96D.gif?1
+  - "/assets/achievements/anime/horror_thriller_4.gif"
   :border_color:
   - "#2a2a2a"
   :title_ru: Hell
@@ -507,7 +507,7 @@
 - :neko_id: :mahou_shoujo
   :level: 1
   :image:
-  - https://i.yapx.ru/JECZ.png
+  - "/assets/achievements/anime/mahou_shoujo_1.jpg"
   :border_color:
   - "#1E1112"
   :title_ru: Контракт заключён
@@ -1014,7 +1014,7 @@
 - :neko_id: :mahou_shoujo
   :level: 2
   :image:
-  - https://blackgirlnerds.com/wp-content/uploads/2015/08/sailormoonteam.jpg
+  - "/assets/achievements/anime/mahou_shoujo_2.jpg"
   :border_color:
   - "#49678d"
   :title_ru: Магия - второе имя
@@ -1522,7 +1522,7 @@
 - :neko_id: :mahou_shoujo
   :level: 3
   :image:
-  - https://pa1.narvii.com/6578/3311238ad7ec1b88296a003d615d1f6ebf635717_hq.gif
+  - "/assets/achievements/anime/mahou_shoujo_3.gif"
   :border_color:
   - "#FFD6DB"
   :title_ru: Все враги побеждены
@@ -2030,7 +2030,7 @@
 - :neko_id: :mahou_shoujo
   :level: 4
   :image:
-  - https://i.yapx.ru/JEvE.gif
+  - "/assets/achievements/anime/mahou_shoujo_4.gif"
   :border_color:
   - "#FE28A2"
   :title_ru: Настоящее волшебство?
@@ -5836,7 +5836,7 @@
 - :neko_id: :music
   :level: 1
   :image:
-  - http://i.imgur.com/juINaek.png
+  - "/assets/achievements/anime/music_1.png"
   :border_color:
   - "#8fa9dc"
   :title_ru: Это не школьный клуб
@@ -5978,7 +5978,7 @@
 - :neko_id: :scifi
   :level: 1
   :image:
-  - http://unrealitymag.com/wp-content/uploads/2014/04/dandy-title-500x250.jpg
+  - "/assets/achievements/anime/scifi_1.jpg"
   :border_color:
   - "#923a6c"
   :title_ru: Давным-давно, в далекой-далекой галактике...
@@ -5997,7 +5997,7 @@
 - :neko_id: :scifi
   :level: 2
   :image:
-  - http://i.imgur.com/uhI7k2t.png?1
+  - "/assets/achievements/anime/scifi_2.png"
   :border_color:
   - "#256d7b"
   :title_ru: Изобретатель
@@ -6016,7 +6016,7 @@
 - :neko_id: :scifi
   :level: 3
   :image:
-  - https://pp.userapi.com/c836632/v836632323/42c47/Dc6XXlnzWCA.jpg
+  - "/assets/achievements/anime/scifi_3.jog"
   :border_color:
   - "#423c63"
   :title_ru: Безумный ученый
