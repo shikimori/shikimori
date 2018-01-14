@@ -9,7 +9,7 @@
       a.b-link[
         href=achievements.first.rule[:source]
       ] = achievements.first.rule[:source].gsub %r{\A.*/}, ''
-      a.b-question href="#{how_to_edit_achievements_pages_url}"
+      a.b-question href=how_to_edit_achievements_pages_url
 
   - unless local_assigns[:animes] && achievements.first.rule.dig(:filters, 'anime_ids')
     .line
