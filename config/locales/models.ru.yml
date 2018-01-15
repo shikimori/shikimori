@@ -104,7 +104,7 @@ ru:
       character: Топик обсуждения [character=%{id}]персонажа[/character].
       person: Топик обсуждения [person=%{id}]человека[/person].
       review: Топик обсуждения [review=%{id}]рецензии[/review].
-      contest: Топик обсуждения [contest=%{id}]опроса[/contest].
+      contest: Топик обсуждения [contest=%{id}]турнира[/contest].
       club: Топик обсуждения [club=%{id}]клуба[/club].
       club_page: Топик обсуждения [club_page=%{club_page_id}]страницы[/club_page] [club=%{club_id}]клуба[/club].
       cosplay_gallery: Топик обсуждения косплея.
@@ -120,7 +120,7 @@ ru:
         anime: Обсуждение рецензии аниме %{target_name} от %{author}
         manga: Обсуждение рецензии манги %{target_name} от %{author}
         ranobe: Обсуждение рецензии ранобэ %{target_name} от %{author}
-      contest: Обсуждение опроса [contest]%{id}[/contest]
+      contest: Обсуждение турнира [contest]%{id}[/contest]
       club: Обсуждение клуба [club]%{id}[/club]
       club_page: Страница [club_page]%{club_page_id}[/club_page] клуба [club]%{club_id}[/club]
       cosplay_gallery: Обсуждение косплея
@@ -134,8 +134,8 @@ ru:
 
   topics/news_topics/contest_status_topic:
     title:
-      started: Старт опроса
-      finished: Завершение опроса
+      started: Старт турнира
+      finished: Завершение турнира
 
   cosplay_gallery:
     title: Косплей %{cosplay} от %{cosplayer}
