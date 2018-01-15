@@ -4,7 +4,14 @@ describe UserRatesController do
   describe '#index' do
     let!(:user_rate) { create :user_rate, user: user, target: anime }
     let(:anime) { create :anime, :ongoing }
-    let(:make_request) { get :index, params: { profile_id: user.to_param, list_type: 'anime' } }
+    let(:make_request) do
+      get :index,
+        params: {
+          profile_id: user.to_param,
+          list_type: 'anime',
+          order: 'ranked'
+        }
+    end
 
     context 'has access to list' do
       before { make_request }
