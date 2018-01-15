@@ -1,10 +1,10 @@
 .b-video_player[
-  data-episode="#{@player.current_episode}"
-  data-kind="#{(!@player.current_video&.uploaded? && !@player.current_video&.working?) ? 'all' : @player.current_video&.kind}"
-  data-watch-delay="#{@video.watch_increment_delay}"
-  data-watch-url="#{track_view_video_online_url @anime, @video}"
-  data-video_id="#{@player.current_video&.id}"
-  data-video_ids="#{@player.same_videos&.map(&:id)}"
+  data-episode=@player.current_episode
+  data-kind=((!@player.current_video&.uploaded? && !@player.current_video&.working?) ? 'all' : @player.current_video&.kind)
+  data-watch-delay=@video.watch_increment_delay
+  data-watch-url=track_view_video_online_url(@anime, @video)
+  data-video_id=@player.current_video&.id
+  data-video_ids=@player.same_videos&.map(&:id)
 ]
   .player-area
     = @video.player_html
@@ -16,7 +16,7 @@
   .cc-player_controls.cc-2a
     .c-column
       .cc-navigation
-        a.c-control.prev href="#{@player.prev_url}"
+        a.c-control.prev href=@player.prev_url
           .icon
           .label Предыдущий
         .c-control.episode-num
@@ -31,24 +31,24 @@
             data-href="#{@player.episode_url 'EPISODE_NUMBER'}"
           ]
           .video-link
-            a href="#{@video.url}" target="_blank" прямая ссылка
-        a.c-control.next href="#{@player.next_url}"
+            a href=@video.url target="_blank" прямая ссылка
+        a.c-control.next href=@player.next_url
           .icon
           .label Следующий
 
       - if user_signed_in?
         .cc-optional_controls
           - unless @player.current_video.copyright_ban?
-            a.c-control.upload href="#{@player.new_video_url}"
+            a.c-control.upload href=@player.new_video_url
               .icon
-              .label #{t 'actions.upload'}
+              .label = t 'actions.upload'
           - if can? :edit, @video
-            a.c-control.edit href="#{edit_video_online_url @resource, @video}"
+            a.c-control.edit href=edit_video_online_url(@resource, @video)
               .icon
-              .label #{t 'actions.edit'}
+              .label = t 'actions.edit'
           - if can? :destroy, @video
             a.c-control.delete[
-              href="#{video_online_url @resource, @video}"
+              href=video_online_url(@resource, @video)
               data-method="delete"
               data-confirm="Вы уверены? Видео будет безвозвратно удалено"
             ]
@@ -61,21 +61,22 @@
           - if user_signed_in?
             - if @video.in_list?
               a.c-column.c-control.increment-user_rate[
-                class="#{:watched if @video.watched?}"
-                href="#{@video.viewed_url}"
+                class=(:watched if @video.watched?)
+                href=@video.viewed_url
                 data-method="post"
-                data-next_url="#{@player.next_watch_url}"
+                data-next_url=@player.next_watch_url
                 data-remote="true"
               ]
                 .icon
                 .label Просмотрено
             - else
               a.c-column.c-control.create-user_rate[
-                href="#{@video.add_to_list_url}"
+                href=@video.add_to_list_url
                 data-remote="true"
                 data-method="post"
                 data-type="json"
-                data-increment_url="#{@video.viewed_url}"
+                data-increment_url=@video.viewed_url
+                data-next_url=@player.next_watch_url
                 data-increment_text="Просмотрено"
               ]
                 .icon
@@ -88,16 +89,16 @@
 
           - else
             - unless @player.current_video.copyright_ban?
-              a.c-column.c-control.upload href="#{@player.new_video_url}"
+              a.c-column.c-control.upload href=@player.new_video_url
                 .icon
-                .label #{t 'actions.upload'}
+                .label = t 'actions.upload'
 
           .c-column.c-control.report
             .icon
             .label Пожаловаться
 
         - if @video.uploader || @video.views_count
-          .c-video_stats class="#{:single unless @video.views_count && @video.uploader}"
+          .c-video_stats class=(:single unless @video.views_count && @video.uploader)
             - if @video.views_count
               .views_count
                 = @video.views_count
@@ -109,10 +110,13 @@
                   /- else
                     /| Добавил
                 .b-user16
-                  a href="#{profile_url @video.uploader, subdomain: false}" title="#{@video.uploader.nickname}"
+                  a[
+                    href=profile_url(@video.uploader, subdomain: false)
+                    title=@video.uploader.nickname
+                  ]
                     img[
-                      src="#{@video.uploader.avatar_url 16}"
+                      src=@video.uploader.avatar_url(16)
                       srcset="#{@video.uploader.avatar_url 32} 2x"
-                      alt="#{@video.uploader.nickname}"
+                      alt=@video.uploader.nickname
                     ]
                     span = @video.uploader.nickname
