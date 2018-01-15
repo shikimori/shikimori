@@ -493,18 +493,23 @@ describe AnimeVideo do
 
       it { is_expected.to be_able_to :new, uploaded_video }
       it { is_expected.to be_able_to :create, uploaded_video }
+      it { is_expected.to_not be_able_to :destroy, uploaded_video }
 
       it { is_expected.to be_able_to :edit, uploaded_video }
       it { is_expected.to be_able_to :update, uploaded_video }
       it { is_expected.to be_able_to :edit, working_video }
       it { is_expected.to be_able_to :update, working_video }
+      it { is_expected.to_not be_able_to :destroy, working_video }
       it { is_expected.to be_able_to :edit, broken_video }
       it { is_expected.to be_able_to :update, broken_video }
+      it { is_expected.to_not be_able_to :destroy, broken_video }
 
       it { is_expected.to_not be_able_to :edit, banned_video }
       it { is_expected.to_not be_able_to :update, banned_video }
+      it { is_expected.to_not be_able_to :destroy, banned_video }
       it { is_expected.to_not be_able_to :edit, copyrighted_video }
       it { is_expected.to_not be_able_to :update, copyrighted_video }
+      it { is_expected.to_not be_able_to :destroy, copyrighted_video }
     end
   end
 end

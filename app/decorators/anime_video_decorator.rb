@@ -20,6 +20,8 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def player_html
+    return '<div class="player-placeholder"></div>'.html_safe if rejected?
+
     fixed_url = Url.new(url).without_protocol.to_s if url
 
     if (hosting == 'myvi.ru' && url.include?('flash')) ||
