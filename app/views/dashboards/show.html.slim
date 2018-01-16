@@ -29,16 +29,13 @@
 
       .slides
         .slide.animes
-          = render 'dashboards/animes',
-            dashboard_view: @dashboard_view
+          = render 'dashboards/animes', dashboard_view: @dashboard_view
 
         .slide.mangas.hidden
-          = render 'dashboards/mangas',
-            dashboard_view: @dashboard_view
+          = render 'dashboards/mangas', dashboard_view: @dashboard_view
 
         .slide.ranobe.hidden
-          = render 'dashboards/ranobe',
-            dashboard_view: @dashboard_view
+          = render 'dashboards/ranobe', dashboard_view: @dashboard_view
 
         / .slide.hidden
           / .midheadline: h2 = t '.other'
