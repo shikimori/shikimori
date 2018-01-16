@@ -23,15 +23,18 @@ $(document).on 'page:load', ->
 
   # mobile menu
   $('.mobile-menu-toggler').click ->
-    $(@).toggleClass('active')
-    $('.l-top_menu .menu-items').toggleClass('active')
-        .siblings()
-        .removeClass 'active'
+    @classList.toggle 'active'
+    $('.l-top_menu .menu-items')
+      .toggleClass('active')
+      .siblings()
+      .removeClass 'active'
 
   $('.mobile-search-toggler').click ->
-    $('.l-top_menu .menu-search').toggleClass('active')
-        .siblings()
-        .removeClass 'active'
+    @classList.toggle 'active'
+    $('.l-top_menu .menu-search')
+      .toggleClass('active')
+      .siblings()
+      .removeClass 'active'
     $('.b-main_search input').focus()
 
   #$('.mobile-sign-in-toggler').click ->
