@@ -326,7 +326,10 @@ insert_next_page = (e, $data) ->
     # # присоединяем к уже существующим сущностям новые
     $entries = $header.next().children()
 
-    $entries.detach().appendTo $present_header.next()
+    $entries
+      .detach()
+      .process() # very improtant. or else tooltips wont be displayed
+      .appendTo($present_header.next())
     apply_list_handlers $entries
 
     $header.next().remove()
