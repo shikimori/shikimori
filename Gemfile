@@ -102,7 +102,7 @@ gem 'faraday'
 gem 'faraday-cookie_jar'
 gem 'faraday_middleware'
 gem 'icalendar' # для аниме календраря
-gem 'ruby-svd', github: 'morr/Ruby-SVD' # для SVD рекомендаций. ruby 2.0
+gem 'ruby-esvidi', github: 'shikimori/ruby-esvidi'
 gem 'unicode' # для downcase русских слов
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 

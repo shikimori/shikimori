@@ -31,12 +31,6 @@ GIT
       rack (>= 1.4, < 3.0)
 
 GIT
-  remote: https://github.com/morr/Ruby-SVD.git
-  revision: 2775ee2f257fb3c95ef94e8d9cf56ea7686531e7
-  specs:
-    ruby-svd (0.5.4)
-
-GIT
   remote: https://github.com/morr/cancancan.git
   revision: ac270003130fed41392873ab08d9d3f50d2b12c7
   branch: master
@@ -89,6 +83,12 @@ GIT
     mal_parser (0.1.0)
       attr_extras
       nokogiri
+
+GIT
+  remote: https://github.com/shikimori/ruby-esvidi.git
+  revision: 7171659171ab3d752f04493417ed6a4667dce34e
+  specs:
+    ruby-esvidi (0.5.3)
 
 GEM
   remote: https://rubygems.org/
@@ -157,7 +157,7 @@ GEM
     arel (8.0.0)
     ast (2.3.0)
     attr_extras (5.2.0)
-    autoprefixer-rails (7.2.4)
+    autoprefixer-rails (7.2.5)
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.11)
@@ -165,7 +165,7 @@ GEM
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
-    binding_of_caller (0.7.3)
+    binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     bootsnap (1.1.8)
       msgpack (~> 1.0)
@@ -390,10 +390,10 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    lograge (0.7.1)
-      actionpack (>= 4, < 5.2)
-      activesupport (>= 4, < 5.2)
-      railties (>= 4, < 5.2)
+    lograge (0.9.0)
+      actionpack (>= 4)
+      activesupport (>= 4)
+      railties (>= 4)
       request_store (~> 1.0)
     loofah (2.1.1)
       crass (~> 1.0.2)
@@ -807,7 +807,7 @@ DEPENDENCIES
   rspec-its
   rspec-mocks
   rspec-rails
-  ruby-svd!
+  ruby-esvidi!
   sassc-rails
   sentry-raven
   shoulda-matchers
@@ -837,4 +837,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
