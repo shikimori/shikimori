@@ -20,6 +20,8 @@ class BbCodes::Tags::DivTag
     b-feedback
     b-to-top
     b-height_shortener
+    b-new_marker
+    b-appear_marker
     shade
     expand
     menu-slide-outer
