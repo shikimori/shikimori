@@ -43,6 +43,11 @@ describe Comments::NotifyQuoted do
           expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
         end
       end
+
+      context 'user mention' do
+        let(:new_body) { "@#{quoted_user.nickname}, test" }
+        it { expect { subject }.to change(Message, :count).by 1 }
+      end
     end
 
     context 'comment' do
