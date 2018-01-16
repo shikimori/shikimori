@@ -1,4 +1,3 @@
-# клик по блоку загрузки
 $(document).on 'click', '.click-loader', ->
   $this = $(@)
   return if $this.data 'locked'
