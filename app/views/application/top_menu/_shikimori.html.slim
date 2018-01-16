@@ -60,11 +60,11 @@
   a href=contests_url title=t('.contests') = t '.contests'
 
 .entry[
-  class=(:selected if params[:controller] == 'topics' || params[:controller] == 'users' || params[:controller] == 'clubs')
+  class=(:selected if %w[topics users clubs collections].include?(params[:controller]))
 ]
   .submenu-toggler
   a[
-    class=(:active if params[:controller] == 'topics')
+    class=(:active if params[:controller] == 'topics' && params[:forum] != 'reviews')
     href=forum_url
     title=t('.community')
   ] = t '.community'
