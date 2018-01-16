@@ -23,18 +23,27 @@ $(document).on 'page:load', ->
 
   # mobile menu
   $('.mobile-menu-toggler').click ->
+    if !@classList.contains('active') && $('.mobile-search-toggler').hasClass('active')
+      $('.mobile-search-toggler').click()
+
     @classList.toggle 'active'
+
     $('.l-top_menu .menu-items')
       .toggleClass('active')
       .siblings()
       .removeClass 'active'
 
   $('.mobile-search-toggler').click ->
+    if !@classList.contains('active') && $('.mobile-menu-toggler').hasClass('active')
+      $('.mobile-menu-toggler').click()
+
     @classList.toggle 'active'
+
     $('.l-top_menu .menu-search')
       .toggleClass('active')
       .siblings()
       .removeClass 'active'
+
     $('.b-main_search input').focus()
 
   #$('.mobile-sign-in-toggler').click ->
