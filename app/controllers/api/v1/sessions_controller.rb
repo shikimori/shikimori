@@ -4,6 +4,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   end
 
   respond_to :json
+  skip_before_action :verify_authenticity_token
 
   api :POST, '/sessions', 'Create a session'
   param :user, Hash do
