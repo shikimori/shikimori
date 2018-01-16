@@ -45,10 +45,18 @@
 .entry[
   class=(:selected if params[:controller] == 'ranobe' || (params[:controller] == 'animes_collection' && params[:klass] == 'ranobe'))
 ]
+  .submenu-toggler
   a[
     href=ranobe_collection_url
     title=Ranobe.model_name.human
   ] = Ranobe.model_name.human
+
+  .submenu
+    - menu.ranobe_seasons.each do |season|
+      a.entry[
+        href=ranobe_collection_url(season.url_params)
+        title=season.full_title
+      ] = season.short_title
 
 .entry
   - if user_signed_in? && current_user.show_contest_link?

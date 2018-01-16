@@ -1,6 +1,6 @@
 ru:
   titles/season_title:
-    anime: &anime_titles
+    anime: &anime_season_titles
       catalog:
         season:
           winter: Зима %{year}
@@ -24,8 +24,8 @@ ru:
           summer: Летний сезон %{year} года
           fall: Осенний сезон %{year} года
         year: Аниме %{year} года
-    manga: &manga_titles
-      <<: *anime_titles
+    manga: &manga_season_titles
+      <<: *anime_season_titles
       full:
         season:
           winter: Зимний сезон %{year} года
@@ -34,16 +34,17 @@ ru:
           fall: Осенний сезон %{year} года
         year: Манга %{year} года
     ranobe:
-      <<: *manga_titles
+      <<: *manga_season_titles
 
   titles/status_title:
-    anime:
+    anime: &anime_status_titles
       anons: Анонсы
       ongoing: Онгоинги
       released: Вышедшее
       latest: Недавно вышедшее
-    manga:
-      anons: Анонсы
+    manga: &manga_status_titles
+      <<: &anime_status_titles
       ongoing: Выходящее
-      released: Вышедшее
-      latest: Недавно вышедшее
+    ranobe:
+      <<: *manga_status_titles
+      ongoing: Онгоинги

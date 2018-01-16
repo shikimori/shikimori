@@ -52,14 +52,19 @@ class DashboardView < ViewObjectBase
     is_still_this_year = (month + 2.months + 1.month).year == month.year
 
     [
-      Titles::StatusTitle.new(:anons, klass),
-      (Titles::StatusTitle.new(:ongoing, klass) if klass <= Manga),
+      (Titles::StatusTitle.new(:anons, klass) unless klass.is_a?(Ranobe)),
+      (Titles::StatusTitle.new(:ongoing, klass) if klass.is_a?(Ranobe)),
       Titles::SeasonTitle.new(month + 2.months, :year, klass),
       Titles::SeasonTitle.new(
         is_still_this_year ? 1.year.ago : 2.months.ago, :year, klass
       ),
       Titles::SeasonTitle.new(
         is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass
+      ),
+      (
+        Titles::SeasonTitle.new(
+          is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass
+        ) if klass.is_a?(Ranobe)
       )
     ].compact
   end
