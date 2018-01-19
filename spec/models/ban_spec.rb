@@ -129,7 +129,14 @@ describe Ban do
     describe '#notify_user' do
       let(:moderator) { create :user }
       subject(:ban) { create :ban, params }
-      let(:messages) { Message.where from_id: moderator.id, to_id: user.id, linked_type: Ban.name, kind: MessageType::Banned }
+      let(:messages) do
+        Message.where(
+          from_id: moderator.id,
+          to_id: user.id,
+          linked_type: Ban.name,
+          kind: MessageType::Banned
+        )
+      end
       it { expect { ban }.to change(messages, :count).by 1 }
     end
 
@@ -183,6 +190,7 @@ describe Ban do
       let(:abuse_request) { create :abuse_request, user: user, comment: comment }
       let(:ban) { create :ban, params.merge(abuse_request: abuse_request) }
       subject { ban.abuse_request }
+
       it { is_expected.to be_accepted }
       its(:approver_id) { is_expected.to eq ban.moderator_id }
     end

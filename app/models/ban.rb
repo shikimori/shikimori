@@ -29,13 +29,14 @@ class Ban < ApplicationRecord
   def suggest_duration
     bans_count = Users::BansCount.call user_id
 
-    duration = if bans_count > 15
-      '1w 3d 12h'
-    elsif bans_count <= 5
-      30 + 30 * ((bans_count ** 3) / 2 - 1)
-    else
-      60 * bans_count ** 2
-    end
+    duration =
+      if bans_count > 15
+        '1w 3d 12h'
+      elsif bans_count <= 5
+        30 + 30 * ((bans_count ** 3) / 2 - 1)
+      else
+        60 * bans_count ** 2
+      end
 
     BanDuration.new(duration).to_s
   end
