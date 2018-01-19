@@ -156,11 +156,11 @@ class Comment < ApplicationRecord
   def html_body
     fixed_body = if offtopic_topic?
       body
-        .gsub('[poster=', '[image=')
-        .gsub('[poster]', '[img]')
-        .gsub('[/poster]', '[/img]')
-        .gsub(/\[img.*?\]/, '[img]')
-        .gsub(/\[image=(\d+) .+?\]/, '[image=\1]')
+        .gsub(/\[poster=/i, '[image=')
+        .gsub(/\[poster\]/i, '[img]')
+        .gsub(%r{\[/poster\]}i, '[/img]')
+        .gsub(/\[img.*?\]/i, '[img]')
+        .gsub(/\[image=(\d+) .+?\]/i, '[image=\1]')
     else
       body
     end
