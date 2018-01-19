@@ -73,6 +73,6 @@ private
   end
 
   def max_entries_to_schedule
-    (0.9 * (1.day / SCHEDULE_INTERVAL)).floor
+    (0.9 * (1.day / SCHEDULE_INTERVAL.to_f)).floor
   end
 end
