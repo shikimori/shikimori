@@ -34,7 +34,9 @@ class AnimeVideo < ApplicationRecord
     if: :anime_video_author_id_changed?
   before_save :check_banned_hostings
   before_save :check_copyrighted_animes
+
   after_create :create_episode_notificaiton, unless: :any_videos?
+  after_destroy :rollback_episode_notification, unless: :any_videos?
 
   R_OVA_EPISODES = 2
   ADULT_OVA_CONDITION = <<-SQL.squish
@@ -152,7 +154,7 @@ class AnimeVideo < ApplicationRecord
   end
 
   def any_videos?
-    SameVideos.call(self).any?
+    AnimeOnline::SameVideos.call(self).any?
   end
 
 private

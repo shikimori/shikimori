@@ -1,4 +1,4 @@
-describe SameVideos do
+describe AnimeOnline::SameVideos do
   subject { described_class.call anime_video_1 }
 
   let(:anime_1) { build_stubbed :anime }

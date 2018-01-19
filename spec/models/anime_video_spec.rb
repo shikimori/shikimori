@@ -186,6 +186,38 @@ describe AnimeVideo do
         end
       end
     end
+
+    describe 'after_destroy' do
+      describe '#rollback_episode_notification' do
+        let!(:another_video) { nil }
+        let!(:video) { create :anime_video, :with_notification, :fandub }
+        before { allow(EpisodeNotification::Rollback).to receive :call }
+
+        subject! { video.destroy }
+
+        context 'single video' do
+          it do
+            expect(EpisodeNotification::Rollback)
+              .to have_received(:call)
+              .with(
+                anime_id: video.anime_id,
+                episode: video.episode,
+                kind: video.kind
+              )
+          end
+        end
+
+        context 'not single video' do
+          let!(:another_video) do
+            create :anime_video,
+              anime: video.anime,
+              episode: video.episode,
+              kind: video.kind
+          end
+          it { expect(EpisodeNotification::Rollback).to_not have_received(:call) }
+        end
+      end
+    end
   end
 
   describe 'state_machine' do

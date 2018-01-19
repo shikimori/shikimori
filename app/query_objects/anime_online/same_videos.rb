@@ -1,4 +1,4 @@
-class SameVideos
+class AnimeOnline::SameVideos
   method_object :anime_video
 
   def call
