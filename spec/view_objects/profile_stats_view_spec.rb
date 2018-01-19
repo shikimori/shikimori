@@ -39,7 +39,7 @@ describe ProfileStatsView do
       it { is_expected.to eq 30 }
     end
 
-    context '2 months' do
+    context '2 months', :focus do
       let(:interval) { 2 * 30 }
       it { is_expected.to eq 40 }
     end

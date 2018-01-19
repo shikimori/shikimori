@@ -44,19 +44,19 @@ class ProfileStatsView
       #spent_time.hours * part / 2
 
     if spent_time.weeks > 0 && spent_time.weeks <= 1
-      spent_time.weeks * part / 2
+      spent_time.weeks * part / 2.0
 
     elsif spent_time.months > 0 && spent_time.months <= 1
-      10 + (spent_time.days - 7) / 23 * part
+      10 + (spent_time.days - 7) / 23.0 * part
 
     elsif spent_time.months_3 > 0 && spent_time.months_3 <= 1
-      30 + (spent_time.days - 30) / 60 * part
+      30 + (spent_time.days - 30) / 60.0 * part
 
     elsif spent_time.months_6 > 0 && spent_time.months_6 <= 1
-      50 + (spent_time.days - 90) / 90 * part
+      50 + (spent_time.days - 90) / 90.0 * part
 
     elsif spent_time.years > 0 && spent_time.years <= 1
-      70 + (spent_time.days - 180) / 185 * part
+      70 + (spent_time.days - 180) / 185.0 * part
 
     elsif spent_time.years > 1 && spent_time.years <= 1.5
       90 + (spent_time.days - 365) / 182.5 * (part / 2)
@@ -74,9 +74,24 @@ class ProfileStatsView
   end
 
   def spent_time_in_days
-    anime_days = anime_spent_time.days > 10 ? anime_spent_time.days.to_i : anime_spent_time.days.round(1)
-    manga_days = manga_spent_time.days > 10 ? manga_spent_time.days.to_i : manga_spent_time.days.round(1)
-    total_days = spent_time.days > 10 ? spent_time.days.to_i : spent_time.days.round(1)
+    anime_days =
+      if anime_spent_time.days > 10
+        anime_spent_time.days.to_i
+      else
+        anime_spent_time.days.round(1)
+      end
+    manga_days =
+      if manga_spent_time.days > 10
+        manga_spent_time.days.to_i
+      else
+        manga_spent_time.days.round(1)
+      end
+    total_days =
+      if spent_time.days > 10
+        spent_time.days.to_i
+      else
+        spent_time.days.round(1)
+      end
 
     if anime_spent_time.days >= 0.5 && manga_spent_time.days >= 0.5
       i18n_t(
