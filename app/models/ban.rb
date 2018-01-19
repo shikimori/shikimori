@@ -33,7 +33,7 @@ class Ban < ApplicationRecord
       if bans_count > 15
         '1w 3d 12h'
       elsif bans_count <= 5
-        30 + 30 * ((bans_count ** 3) / 2 - 1)
+        (30 + 30 * ((bans_count ** 3) / 2.0 - 1)).to_i
       else
         60 * bans_count ** 2
       end
