@@ -62,7 +62,20 @@ class AnimeVideo < ApplicationRecord
 
   scope :available, -> { where state: %w[working uploaded] }
 
-  COPYRIGHT_BAN_ANIME_IDS = [-1] # 10793
+  COPYRIGHT_BAN_ANIME_IDS = [
+    36144, # Garo: Vanishing Line - Wakanim (Russia + Eastern Europe) 2017-10-01 - 2024-10-01
+    35078, # Mitsuboshi Colors - Wakanim (Russia + Europe except Italy&Spanish) 2018-08-01 - 2022-07-01
+    33354, # Cardcaptor Sakura: Clear Card-hen - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
+    35320, # Cardcaptor Sakura: Clear Card-hen Prologue - Sakura and two Bears - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
+    35073, # Overlord II - Wakanim (Russia) 2018-01-01 - 2022-01-01
+    33478, # UQ Holder!: Mahou Sensei Negima! 2 - Wakanim (Russia) 2017-10-01 - 2024-10-01
+    36027, # King's Game - Wakanim (Russia + French) 2017-10-01 - 2024-10-01
+    35838, # Girls' Last Tour - Wakanim (Russia + French) 2017-10-01 - 2020-10-01
+    35712, # My Girlfriend is too much to handle - Wakanim (Russia + French) 2017-10-01 - 2020-10-01
+    36094, # Hakumei to Mikochi - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
+    1546, # Negima?! - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
+    157, # Mahou Sensei Negima! - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
+  ]
 
   state_machine :state, initial: :working do
     state :working
