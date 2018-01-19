@@ -2,7 +2,7 @@ class SpentTime
   vattr_initialize :days
 
   def years
-    days / 365
+    days / 365.0
   end
 
   def years_part
@@ -10,19 +10,19 @@ class SpentTime
   end
 
   def months_6
-    days / 180
+    days / 180.0
   end
 
   def months_3
-    days / 90
+    days / 90.0
   end
 
   def months
-    days / 30
+    days / 30.0
   end
 
   def months_part
-    ((days % 365) / 30).to_i
+    ((days % 365) / 30.0).to_i
   end
 
   def weeks
@@ -30,11 +30,11 @@ class SpentTime
   end
 
   def weeks_part
-    ((days % 365 % 30) / 7).to_i
+    ((days % 365 % 30) / 7.0).to_i
   end
 
   def days_part
-    (days % 365 % 30 % 7).to_i
+    (days % 365 % 30 % 7.0).to_i
   end
 
   def hours
@@ -53,7 +53,7 @@ class SpentTime
     (((days - days.to_i) * 24 * 60) % 60).round(3).to_i
   end
 
-  def equal? rhs
-    days == rhs.days
+  def equal? other
+    days == other.days
   end
 end
