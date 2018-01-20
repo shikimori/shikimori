@@ -10,10 +10,13 @@
   &.censored .name::before
     content: '[18+] '
 
-  .name-logo:hover
-    .name
-      color: $link-hover
-      text-decoration: underline
+  .name-logo
+    +ellipsis2
+
+    &:hover
+      .name
+        color: $link-hover
+        text-decoration: underline
 
   .logo
     float: left
