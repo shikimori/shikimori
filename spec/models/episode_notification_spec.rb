@@ -73,18 +73,40 @@ describe EpisodeNotification do
     describe '#rollback' do
       let(:episode_notification) do
         create :episode_notification,
+          episode: episode,
           anime: anime,
           is_raw: is_raw,
           is_torrent: is_torrent
       end
-      let(:anime) { create :anime }
+      let(:anime) { create :anime, episodes_aired: episodes_aired }
+      let(:episode) { 10 }
+      let(:episodes_aired) { 10 }
+
+      before { allow(Anime::RollbackEpisode).to receive(:call).and_call_original }
       subject! { episode_notification.rollback :raw }
 
       context 'true => false' do
         context 'last positive field' do
           let(:is_raw) { true }
           let(:is_torrent) { false }
-          it { expect { episode_notification.reload }.to raise_error ActiveRecord::RecordNotFound }
+
+          context 'episode >= anime.episodes_aired' do
+            let(:episodes_aired) { 10 }
+            it do
+              expect(Anime::RollbackEpisode).to have_received :call
+              expect { episode_notification.reload }.to raise_error ActiveRecord::RecordNotFound
+            end
+          end
+
+          context 'episode < anime.episodes_aired' do
+            let(:episodes_aired) { 11 }
+            it do
+              expect(Anime::RollbackEpisode).to_not have_received :call
+              expect(episode_notification).to_not be_changed
+              expect(episode_notification.reload.raw?).to eq false
+              expect(episode_notification.torrent?).to eq false
+            end
+          end
         end
 
         context 'not last positive field' do
@@ -92,7 +114,7 @@ describe EpisodeNotification do
           let(:is_torrent) { true }
           it do
             expect(episode_notification).to_not be_changed
-            expect(episode_notification.raw?).to eq false
+            expect(episode_notification.reload.raw?).to eq false
             expect(episode_notification.torrent?).to eq true
           end
         end

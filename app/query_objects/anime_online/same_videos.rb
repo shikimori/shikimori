@@ -1,14 +1,14 @@
 class AnimeOnline::SameVideos
-  method_object :anime_video
+  method_object %i[anime_video_id! anime_id! episode! kind!]
 
   def call
     AnimeVideo
       .where(
-        anime_id: @anime_video.anime_id,
-        episode: @anime_video.episode,
-        kind: @anime_video.kind
+        anime_id: @anime_id,
+        episode: @episode,
+        kind: @kind
       )
-      .where.not(id: @anime_video.id)
+      .where.not(id: @anime_video_id)
       .available
   end
 end

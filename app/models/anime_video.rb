@@ -37,6 +37,11 @@ class AnimeVideo < ApplicationRecord
 
   after_create :create_episode_notificaiton, unless: :any_videos?
   after_destroy :rollback_episode_notification, unless: :any_videos?
+  after_update :check_episode_notification, if: lambda {
+    saved_change_to_episode? ||
+      saved_change_to_kind? ||
+      saved_change_to_anime_id?
+  }
 
   R_OVA_EPISODES = 2
   ADULT_OVA_CONDITION = <<-SQL.squish
@@ -153,8 +158,17 @@ class AnimeVideo < ApplicationRecord
     self.author = AnimeVideoAuthor.find_or_create_by name: name&.strip
   end
 
-  def any_videos?
-    AnimeOnline::SameVideos.call(self).any?
+  def any_videos?(
+    anime_id: self.anime_id,
+    episode: self.episode,
+    kind: self.kind
+  )
+    AnimeOnline::SameVideos.call(
+      anime_id: anime_id,
+      anime_video_id: id,
+      episode: episode,
+      kind: kind
+    ).any?
   end
 
 private
@@ -189,6 +203,38 @@ private
       episode: episode,
       kind: kind
     )
+  end
+
+  def check_episode_notification
+    any_new_videos = any_videos?(
+      anime_id: saved_changes.dig('anime_id', 1) || anime_id,
+      episode: saved_changes.dig('episode', 1) || episode,
+      kind: saved_changes.dig('kind', 1) || kind
+    )
+
+    any_old_videos = any_videos?(
+      anime_id: saved_changes.dig('anime_id', 0) || anime_id,
+      episode: saved_changes.dig('episode', 0) || episode,
+      kind: saved_changes.dig('kind', 0) || kind
+    )
+
+    # must be before EpisodeNotification::Create because in
+    # Anime::RollbackEpisode notifications with episode >= @episode are deleted
+    unless any_old_videos
+      EpisodeNotification::Rollback.call(
+        anime_id: saved_changes.dig('anime_id', 0) || anime_id,
+        episode: saved_changes.dig('episode', 0) || episode,
+        kind: saved_changes.dig('kind', 0) || kind
+      )
+    end
+
+    unless any_new_videos
+      EpisodeNotification::Create.call(
+        anime_id: saved_changes.dig('anime_id', 1) || anime_id,
+        episode: saved_changes.dig('episode', 1) || episode,
+        kind: saved_changes.dig('kind', 1) || kind
+      )
+    end
   end
 
   def process_reports

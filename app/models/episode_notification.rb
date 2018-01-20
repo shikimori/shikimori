@@ -12,7 +12,8 @@ class EpisodeNotification < ApplicationRecord
   def rollback kind
     send "is_#{kind}=", false
 
-    if subtitles? || fandub? || raw? || unknown? || torrent?
+    if subtitles? || fandub? || raw? || unknown? || torrent? ||
+        anime.episodes_aired > episode
       save!
     else
       Anime::RollbackEpisode.call anime, episode

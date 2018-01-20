@@ -1,5 +1,12 @@
 describe AnimeOnline::SameVideos do
-  subject { described_class.call anime_video_1 }
+  subject do
+    described_class.call(
+      anime_video_id: anime_video_1.id,
+      anime_id: anime_video_1.anime_id,
+      episode: anime_video_1.episode,
+      kind: anime_video_1.kind
+    )
+  end
 
   let(:anime_1) { build_stubbed :anime }
   let(:anime_2) { build_stubbed :anime }

@@ -161,7 +161,7 @@ describe AnimeVideo do
       describe '#create_episode_notification' do
         let!(:another_video) { nil }
         before { allow(EpisodeNotification::Create).to receive :call }
-        let!(:video) { create :anime_video, :with_notification, :fandub }
+        let!(:video) { create :anime_video, :with_episode_notification, :fandub }
 
         context 'single video' do
           it do
@@ -187,10 +187,95 @@ describe AnimeVideo do
       end
     end
 
+    describe 'after_update' do
+      describe '#create_episode_notification & #rollback_episode_notification' do
+        let(:anime_1) { create :anime }
+        let(:anime_2) { create :anime }
+
+        let(:changes) do
+          [{
+            old: {
+              episode: 2,
+              kind: 'fandub',
+              anime_id: anime_1.id
+            },
+            new: {
+              episode: 3,
+              kind: 'fandub',
+              anime_id: anime_1.id
+            }
+          }, {
+            old: {
+              episode: 2,
+              kind: 'fandub',
+              anime_id: anime_1.id
+            },
+            new: {
+              episode: 2,
+              kind: 'subtitles',
+              anime_id: anime_1.id
+            }
+          }, {
+            old: {
+              episode: 2,
+              kind: 'fandub',
+              anime_id: anime_1.id
+            },
+            new: {
+              episode: 2,
+              kind: 'fandub',
+              anime_id: anime_2.id
+            }
+          }].sample
+        end
+
+        let!(:video) do
+          create :anime_video, :with_episode_notification, changes[:old]
+        end
+        let!(:another_video) { nil }
+
+        before { allow(EpisodeNotification::Create).to receive :call }
+        before { allow(EpisodeNotification::Rollback).to receive :call }
+
+        subject! { video.update! changes[:new] }
+
+        context 'single video' do
+          it do
+            expect(EpisodeNotification::Create)
+              .to have_received(:call)
+              .with(changes[:new])
+            expect(EpisodeNotification::Rollback)
+              .to have_received(:call)
+              .with(changes[:old])
+          end
+        end
+
+        context 'not single new_episode video' do
+          let!(:another_video) { create :anime_video, changes[:new] }
+          it do
+            expect(EpisodeNotification::Create).to_not have_received(:call)
+            expect(EpisodeNotification::Rollback)
+              .to have_received(:call)
+              .with(changes[:old])
+          end
+        end
+
+        context 'not single old_episode video' do
+          let!(:another_video) { create :anime_video, changes[:old] }
+          it do
+            expect(EpisodeNotification::Create)
+              .to have_received(:call)
+              .with(changes[:new])
+            expect(EpisodeNotification::Rollback).to_not have_received(:call)
+          end
+        end
+      end
+    end
+
     describe 'after_destroy' do
       describe '#rollback_episode_notification' do
         let!(:another_video) { nil }
-        let!(:video) { create :anime_video, :with_notification, :fandub }
+        let!(:video) { create :anime_video, :with_episode_notification, :fandub }
         before { allow(EpisodeNotification::Rollback).to receive :call }
 
         subject! { video.destroy }
@@ -257,7 +342,7 @@ describe AnimeVideo do
     describe '#rollback_episode_notification' do
       before { allow(EpisodeNotification::Rollback).to receive :call }
 
-      let!(:video) { create :anime_video, :fandub }
+      let!(:video) { create :anime_video, :with_episode_notification, :fandub }
       let!(:another_video) { nil }
       subject! { video.send 'broken' }
 
