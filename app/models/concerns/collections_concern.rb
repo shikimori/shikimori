@@ -2,7 +2,8 @@ module CollectionsConcern
   extend ActiveSupport::Concern
 
   included do |klass|
-    has_many :collection_links, -> { where linked_type: klass.name },
+    has_many :collection_links,
+      -> (entry) { where linked_type: entry.class.name },
       foreign_key: :linked_id,
       dependent: :destroy
 
