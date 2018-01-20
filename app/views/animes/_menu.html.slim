@@ -44,7 +44,7 @@
         .block
           .subheadline = t '.in_friends_lists'
           - resource.friend_rates.take(3).each do |rate|
-            .friend-rate
+            .b-menu-line.friend-rate
               .status
                 = rate.status_name
                 - if rate.score && rate.score != 0
@@ -141,8 +141,13 @@
   - if resource.all_external_links.any?
     .block
       .subheadline = t '.on_other_sites'
-      = render partial: 'external_links/external_link',
-        collection: resource.all_external_links
+      - resource.all_external_links.each do |external_link|
+        .b-menu-line.b-external_link[
+          class=external_link.kind
+        ]
+          .linkeable[
+            data-href=external_link.url
+          ] = external_link.label
 
   - if show_social?
     .block

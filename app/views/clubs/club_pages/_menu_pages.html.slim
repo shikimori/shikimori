@@ -1,12 +1,12 @@
 - if club.persisted?
-  .b-menu-links
+  .block
     - if club.menu_pages(club_page).any?
       .block
         .subheadline
           = i18n_i 'Page', :other
 
         - club.menu_pages(club_page).each do |page|
-          .menu-link
+          .b-menu-line
             a.b-link href=club_club_page_path(club, page)
               = page.name
 
@@ -17,6 +17,6 @@
 
         - club_page.siblings.each do |page|
           - next if page == club_page
-          .menu-link
+          .b-menu-line
             a.b-link href=club_club_page_path(club, page)
               = page.name

@@ -1,5 +1,5 @@
 - if defined?(with_tooltip) && with_tooltip && topic_view[:tooltip]
-  span.menu-link.entry.linkeable.b-link[
+  span.b-menu-line.entry.linkeable.b-link[
     class=('person-tooltip' if topic_view[:tooltip])
     data-local-tooltip='true'
     data-do-not-use-title='true'
@@ -18,7 +18,7 @@
       = render 'blocks/tooltip'
 
 - else
-  a.menu-link.entry.b-link[
+  a.b-menu-line.entry.b-link[
     href=topic_view[:url]
     itemprop='discussionUrl'
   ]
