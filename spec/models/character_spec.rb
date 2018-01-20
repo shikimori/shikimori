@@ -20,4 +20,5 @@ describe Character do
   it_behaves_like :touch_related_in_db_entry, :character
   it_behaves_like :topics_concern, :character
   it_behaves_like :collections_concern, :character
+  it_behaves_like :clubs_concern, :character
 end

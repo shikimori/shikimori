@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Character < DbEntry
-  include TopicsConcern
+  include ClubsConcern
   include CollectionsConcern
+  include TopicsConcern
 
   DESYNCABLE = %w[name japanese description_en image]
 

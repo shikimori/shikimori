@@ -6,6 +6,7 @@ class Anime < DbEntry
   include AniManga
   include TopicsConcern
   include CollectionsConcern
+  include ClubsConcern
 
   DESYNCABLE = %w[
     name synonyms kind episodes rating aired_on released_on status genres
