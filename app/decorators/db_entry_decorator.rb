@@ -115,6 +115,7 @@ class DbEntryDecorator < BaseDecorator
 
   def menu_collections
     collections_scope
+      .uniq
       .shuffle
       .take(MAX_COLLECTIONS)
       .sort_by(&:name)
