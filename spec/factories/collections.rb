@@ -14,9 +14,6 @@ FactoryBot.define do
       stub_method model, :check_antispam
     end
 
-    trait(:pending) { state :pending }
-    trait(:published) { state :published }
-
     trait :with_topics do
       after(:create) { |model| model.generate_topics model.locale }
     end

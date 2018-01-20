@@ -644,6 +644,7 @@ Rails.application.routes.draw do
           get :art
           get :images
           get :clubs
+          get :collections
 
           get :summaries
 
@@ -711,6 +712,7 @@ Rails.application.routes.draw do
         get :images
         get 'cosplay(/page/:page)' => :cosplay, as: :cosplay
         get :clubs
+        get :collections
       end
     end
 
@@ -732,6 +734,7 @@ Rails.application.routes.draw do
       member do
         get :works
         get :roles
+        get :collections
       end
     end
 

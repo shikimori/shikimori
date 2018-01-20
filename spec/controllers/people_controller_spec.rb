@@ -25,13 +25,15 @@ describe PeopleController do
   end
 
   describe '#works' do
-    let!(:manga) { create :manga, person_roles: [create(:person_role, person: person, role: 'Director')] }
+    let!(:manga) { create :manga }
+    let!(:person_role) { create :person_role, person: person, role: 'Director' }
     before { get :works, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#roles' do
-    let!(:character) { create :character, person_roles: [create(:person_role, person: person, role: 'Seyu')] }
+    let!(:character) { create :character }
+    let!(:person_role) { create :person_role, person: person, role: 'Seyu' }
     before { get :roles, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end
@@ -39,6 +41,15 @@ describe PeopleController do
   describe '#favoured' do
     let!(:favoured) { create :favourite, linked: person }
     before { get :favoured, params: { id: person.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#collections' do
+    let!(:collection) { create :collection, :published, :with_topics, :person }
+    let!(:collection_link) do
+      create :collection_link, collection: collection, linked: person
+    end
+    before { get :collections, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end
 

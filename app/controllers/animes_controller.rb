@@ -33,7 +33,8 @@ class AnimesController < DbEntriesController
   end
 
   def characters
-    if @resource.roles.main_characters.none? && @resource.roles.supporting_characters.none?
+    if @resource.roles.main_characters.none? &&
+        @resource.roles.supporting_characters.none?
       return redirect_to @resource.url, status: 301
     end
 
@@ -42,21 +43,27 @@ class AnimesController < DbEntriesController
   end
 
   def staff
-    return redirect_to @resource.url, status: 301 if @resource.roles.people.none?
+    if @resource.roles.people.none?
+      return redirect_to @resource.url, status: 301
+    end
 
     noindex
     page_title i18n_t("producers.#{@resource.object.class.name.downcase}")
   end
 
   def files
-    return redirect_to @resource.url, status: 301 unless @resource.files?
+    unless @resource.files?
+      return redirect_to @resource.url, status: 301
+    end
 
     noindex
     page_title i18n_t 'files'
   end
 
   def similar
-    return redirect_to @resource.url, status: 301 if @resource.related.similar.none?
+    if @resource.related.similar.none?
+      return redirect_to @resource.url, status: 301
+    end
 
     noindex
     page_title i18n_t("similar.#{@resource.object.class.name.downcase}")
@@ -81,21 +88,27 @@ class AnimesController < DbEntriesController
   end
 
   def related
-    return redirect_to @resource.url, status: 301 unless @resource.related.any?
+    unless @resource.related.any?
+      return redirect_to @resource.url, status: 301
+    end
 
     noindex
     page_title i18n_t("related.#{@resource.object.class.name.downcase}")
   end
 
   def chronology
-    return redirect_to @resource.url, status: 301 unless @resource.related.chronology?
+    unless @resource.related.chronology?
+      return redirect_to @resource.url, status: 301
+    end
 
     noindex
     page_title t('animes.page.chronology')
   end
 
   def franchise
-    return redirect_to @resource.url, status: 301 unless @resource.related.chronology?
+    unless @resource.related.chronology?
+      return redirect_to @resource.url, status: 301
+    end
 
     noindex
     page_title t('animes.page.franchise')
@@ -115,7 +128,9 @@ class AnimesController < DbEntriesController
   end
 
   def art
-    return redirect_to @resource.url, status: 301 unless @resource.display_sensitive?
+    unless @resource.display_sensitive?
+      return redirect_to @resource.url, status: 301
+    end
     noindex
     page_title t('imageboard_art')
   end
@@ -127,27 +142,31 @@ class AnimesController < DbEntriesController
   def cosplay
     @page = [params[:page].to_i, 1].max
     @limit = 2
-    @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
+    @collection, @add_postloader = CosplayGalleriesQuery
+      .new(@resource.object)
+      .postload(@page, @limit)
 
-    return redirect_to @resource.url, status: 301 if @collection.none?
-
+    if @collection.none?
+      return redirect_to @resource.url, status: 301
+    end
     page_title t('cosplay')
   end
 
   def favoured
-    return redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
+    if @resource.all_favoured.none?
+      return redirect_to @resource.url, status: 301
+    end
 
     noindex
     page_title t('in_favorites')
   end
 
   def clubs
-    if @resource.all_linked_clubs.none?
+    if @resource.all_clubs.none?
       return redirect_to @resource.url, status: 301
     end
-
     noindex
-    page_title i18n_i('Club', :other)
+    page_title t('in_clubs')
   end
 
   def resources

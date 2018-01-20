@@ -5,11 +5,32 @@ class DbEntriesController < ShikimoriController
   before_action :resource_klass_page_title, if: :resource_id
   before_action :fetch_resource, if: :resource_id
 
+  COLLETIONS_PER_PAGE = 4
+
   def tooltip
     noindex
   end
 
   def versions
+  end
+
+  def collections
+    if @resource.collections_scope.none?
+      return redirect_to @resource.url, status: 301
+    end
+    noindex
+    page_title t('in_collections')
+
+    page = [params[:page].to_i, 1].max
+
+    @collection = Collections::Query.fetch(locale_from_host)
+      .where(id: @resource.collections_scope)
+      .paginate(page, COLLETIONS_PER_PAGE)
+      .transform do |collection|
+        Topics::TopicViewFactory
+          .new(true, true)
+          .build(collection.maybe_topic(locale_from_host))
+      end
   end
 
   def edit

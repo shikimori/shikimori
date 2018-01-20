@@ -26,26 +26,34 @@ class CharactersController < PeopleController
   end
 
   def seyu
+    if @resource.seyu.none?
+      return redirect_to @resource.url, status: 301
+    end
     noindex
-    redirect_to @resource.url, status: 301 if @resource.seyu.none?
     page_title t(:seyu)
   end
 
   def animes
+    if @resource.animes.none?
+      redirect_to @resource.url, status: 301
+    end
     noindex
-    redirect_to @resource.url, status: 301 if @resource.animes.none?
     page_title i18n_i('Anime', :other)
   end
 
   def mangas
+    if @resource.mangas.none?
+      redirect_to @resource.url, status: 301
+    end
     noindex
-    redirect_to @resource.url, status: 301 if @resource.mangas.none?
     page_title i18n_i('Manga', :other)
   end
 
   def ranobe
+    if @resource.ranobe.none?
+      redirect_to @resource.url, status: 301
+    end
     noindex
-    redirect_to @resource.url, status: 301 if @resource.ranobe.none?
     page_title i18n_i('Ranobe', :other)
   end
 
@@ -54,7 +62,6 @@ class CharactersController < PeopleController
   end
 
   def images
-    noindex
     redirect_to art_character_url(@resource), status: 301
   end
 
@@ -63,21 +70,19 @@ class CharactersController < PeopleController
     @limit = 2
     @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
 
-    redirect_to @resource.url, status: 301 if @collection.none?
+    if @collection.none?
+      return redirect_to @resource.url, status: 301
+    end
 
     page_title t('cosplay')
   end
 
-  def favoured
-    noindex
-    redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
-    page_title t('in_favorites')
-  end
-
   def clubs
+    if @resource.all_clubs.none?
+      return redirect_to @resource.url, status: 301
+    end
     noindex
-    redirect_to @resource.url, status: 301 if @resource.all_linked_clubs.none?
-    page_title i18n_i('Club', :other)
+    page_title t('in_clubs')
   end
 
   def tooltip

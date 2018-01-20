@@ -20,6 +20,7 @@ class Collection < ApplicationRecord
 
   scope :unpublished, -> { where state: :unpublished }
   scope :published, -> { where state: :published }
+  scope :available, -> { published.where.not(moderation_state: :rejected) }
 
   def to_param
     "#{id}-#{name.permalinked}"

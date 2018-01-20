@@ -66,8 +66,10 @@ describe CharactersController do
 
   describe '#cosplay' do
     let(:cosplay_gallery) { create :cosplay_gallery }
-    let!(:cosplay_link) { create :cosplay_gallery_link,
-      cosplay_gallery: cosplay_gallery, linked: character }
+    let!(:cosplay_link) do
+      create :cosplay_gallery_link,
+        cosplay_gallery: cosplay_gallery, linked: character
+    end
     before { get :cosplay, params: { id: character.to_param } }
     it { expect(response).to have_http_status :success }
   end
@@ -85,6 +87,15 @@ describe CharactersController do
   describe '#favoured' do
     let!(:favoured) { create :favourite, linked: character }
     before { get :favoured, params: { id: character.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#collections' do
+    let!(:collection) { create :collection, :published, :with_topics, :character }
+    let!(:collection_link) do
+      create :collection_link, collection: collection, linked: character
+    end
+    before { get :collections, params: { id: character.to_param } }
     it { expect(response).to have_http_status :success }
   end
 

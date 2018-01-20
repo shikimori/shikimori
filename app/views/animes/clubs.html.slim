@@ -1,8 +1,8 @@
 = render layout: 'page' do
   = cache [@resource, params[:action], :v2] do
-    .b-options-floated.count = @resource.all_linked_clubs.size
+    .b-options-floated.count = @resource.all_clubs.size
     h2.subheadline.m10 = @page_title.last
     .b-clubs.index
       = render partial: 'clubs/club',
-        collection: @resource.all_linked_clubs,
+        collection: @resource.all_clubs,
         locals: { content_by: :detailed }

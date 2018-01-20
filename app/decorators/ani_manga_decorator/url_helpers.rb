@@ -64,6 +64,15 @@ module AniMangaDecorator::UrlHelpers
     h.send "clubs_#{klass_lower}_url", object, subdomain: false
   end
 
+  def collections_url page: nil
+    h.send(
+      "collections_#{klass_lower}_url",
+      object,
+      page: page,
+      subdomain: false
+    )
+  end
+
   def cosplay_url page=1
     if page > 1
       h.send "cosplay_#{klass_lower}_url", object, page: page

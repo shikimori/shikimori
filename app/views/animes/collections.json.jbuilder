@@ -1,8 +1,8 @@
 json.content JsExports::Supervisor.instance.sweep(render(
   partial: 'topics/topic',
   collection: @collection,
-  formats: :html,
   as: :topic_view,
+  formats: :html,
   cache: true
 ))
 
@@ -10,8 +10,8 @@ if @collection.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-collection-topic',
-    next_url: collections_url(page: @collection.next_page, search: params[:search]),
-    prev_url: (collections_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
+    next_url: @resource.collections_url(page: @collection.next_page),
+    prev_url: (@resource.collections_url(page: @collection.prev_page) if @collection.prev_page?)
   )
 end
 

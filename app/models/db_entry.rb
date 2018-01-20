@@ -8,13 +8,6 @@ class DbEntry < ApplicationRecord
 
   def self.inherited klass
     super
-
-    klass.has_many :club_links, -> { where linked_type: klass.name },
-      foreign_key: :linked_id,
-      dependent: :destroy
-
-    klass.has_many :clubs, through: :club_links
-
     klass.before_update :touch_related
   end
 

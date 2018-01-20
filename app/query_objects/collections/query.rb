@@ -3,10 +3,9 @@ class Collections::Query < QueryObjectBase
 
   def self.fetch locale
     new Collection
+      .available
       .includes(:topics)
       .where(locale: locale)
-      .where(state: :published)
-      .where.not(moderation_state: :rejected)
       .order(id: :desc)
   end
 

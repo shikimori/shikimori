@@ -1,11 +1,13 @@
 class DbEntryDecorator < BaseDecorator
   instance_cache :description_html,
-    :linked_clubs, :all_linked_clubs, :contest_winners,
+    :menu_clubs, :all_clubs, :menu_collections,
+    :contest_winners,
     :favoured, :favoured?, :all_favoured, :favoured_size,
     :main_topic_view, :preview_topic_view
 
   MAX_CLUBS = 4
-  MAX_FAVOURITES = 12
+  MAX_COLLECTIONS = 3
+  MAX_FAVOURITES= 12
 
   def headline
     headline_array
@@ -93,12 +95,16 @@ class DbEntryDecorator < BaseDecorator
     )
   end
 
-  def linked_clubs
-    linked_clubs_scope.shuffle.take(MAX_CLUBS).map(&:decorate)
+  def menu_clubs
+    clubs_scope.shuffle.take(MAX_CLUBS)
   end
 
-  def linked_clubs_scope
-    scope = clubs_for_domain
+  def all_clubs
+    Clubs::Query.fetch(h.locale_from_host).where(id: clubs_scope).decorate
+  end
+
+  def clubs_scope
+    scope = object.clubs.where(locale: h.locale_from_host)
 
     if !object.try(:censored?) && h.censored_forbidden?
       scope.where! is_censored: false
@@ -107,14 +113,16 @@ class DbEntryDecorator < BaseDecorator
     scope
   end
 
-  def all_linked_clubs
-    scope = Clubs::Query.fetch(h.locale_from_host).where(id: clubs_for_domain)
+  def menu_collections
+    collections_scope
+      .shuffle
+      .take(MAX_COLLECTIONS)
+      .sort_by(&:name)
+  end
 
-    if !object.try(:censored?) && h.censored_forbidden?
-      scope.where! is_censored: false
-    end
-
-    scope.decorate
+  def collections_scope
+    object.collections.available
+      .where(locale: h.locale_from_host)
   end
 
   def favoured?
@@ -173,10 +181,6 @@ private
 
   def show_description_ru?
     h.ru_host?
-  end
-
-  def clubs_for_domain
-    object.clubs.where(locale: h.locale_from_host)
   end
 
   def headline_array
