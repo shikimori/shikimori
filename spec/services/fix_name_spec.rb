@@ -8,7 +8,7 @@ describe FixName do
   end
 
   context 'forbidden symbols' do
-    let(:name) { 'test#[]%&?+@' }
+    let(:name) { "test#[]%&?+@" }
 
     context 'full cleanup' do
       it { is_expected.to eq 'test' }
@@ -16,7 +16,7 @@ describe FixName do
 
     context 'no cleanup' do
       let(:is_full_cleanup) { false }
-      it { is_expected.to eq 'test#[]%&?+@' }
+      it { is_expected.to eq name }
     end
   end
 
@@ -33,5 +33,10 @@ describe FixName do
   context 'special spaces' do
     let(:name) { 't⠀t' }
     it { is_expected.to eq 't t' }
+  end
+
+  context 'special symbols' do
+    let(:name) { ["007F".to_i(16)].pack("U*") }
+    it { is_expected.to eq '' }
   end
 end
