@@ -23,6 +23,7 @@ class GeoipAccess
     'RO', # Romania
     'TJ', # Tajikistan
   ])
+  HZ = 'hz'
 
   def allowed? ip
     _stub_test || ALLOWED_COUNTRIES.include?(country_code(ip))
@@ -49,7 +50,7 @@ private
 
   def ask_geoip ip
     %x{geoiplookup #{ip}}
-      .fix_encoding[/GeoIP Country Edition: (\w+)/, 1] || 'hz'
+      .fix_encoding[/GeoIP Country Edition: (\w+)/, 1] || HZ
   end
 
   # специальная заглушка, чтобы в тестах не выполнялось
