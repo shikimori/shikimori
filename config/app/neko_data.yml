@@ -284,8 +284,9 @@
   :level: 5
   :image: []
   :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :title_ru: Беззаботный зритель.
+  :text_ru: Просмотрено 200 аниме. Ничего серьёзного. Вы лишь успели привыкли к тому,
+    что глаза у персонажей больше, чем нос. Если у них вообще есть нос.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -310,8 +311,8 @@
   :level: 7
   :image: []
   :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :title_ru: Есть чем похвастаться.
+  :text_ru: Просмотрено 400 аниме. Это... много. Вы можете гордиться собой, определённо.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -322,8 +323,9 @@
   :level: 8
   :image: []
   :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :title_ru: Много свободного времени?
+  :text_ru: Просмотрели 500 аниме... А теперь сделайте паузу, займитесь дыхательной
+    гимнастикой и разомнетесь. Помните, что нельзя сидеть слишком близко к экрану.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -350,8 +352,8 @@
   :level: 10
   :image: []
   :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :title_ru: Это даже не финальная форма.
+  :text_ru: Ваш единственный путь — вверх. Пора учиться доброй снисходительности.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -507,7 +509,7 @@
 - :neko_id: :mahou_shoujo
   :level: 1
   :image:
-  - "/assets/achievements/anime/mahou_shoujo_1.jpg"
+  - "/assets/achievements/anime/mahou_shoujo_1.png"
   :border_color:
   - "#1E1112"
   :title_ru: Контракт заключён
@@ -1522,9 +1524,9 @@
 - :neko_id: :mahou_shoujo
   :level: 3
   :image:
-  - "/assets/achievements/anime/mahou_shoujo_3.gif"
+  - "/assets/achievements/anime/mahou_shoujo_3.jpg"
   :border_color:
-  - "#FFD6DB"
+  - "#D8B1BF"
   :title_ru: Все враги побеждены
   :text_ru: Опасность миновала, жителям Волшебной страны остаётся только жить-поживать
     да добра наживать.
@@ -5522,7 +5524,7 @@
   :image:
   - "/assets/achievements/anime/supernatural_4.gif"
   :border_color:
-  - "#42a89a"
+  - "#800000"
   :title_ru: Унесённые призраками
   :text_ru: Если забудешь своё имя, то не сможешь вернуться домой.
   :title_en: 
@@ -5944,11 +5946,13 @@
 - :neko_id: :comedy
   :level: 3
   :image:
-  - "/assets/achievements/anime/comedy_3.gif"
+  - "/assets/achievements/anime/comedy_3.jpg"
   :border_color:
-  - "#7f8f18"
+  - "#008080"
   :title_ru: Вечный смех
-  :text_ru: В психушке вам будут рады. Для вас открыты двери каждой психбольницы.
+  :text_ru: Сатира, пародия, каламбур, сарказм, ирония, гротеск — ни одна шутка не
+    проскользнет мимо вас. Вы - мастер юмора, улавливающий самые тонкие его нотки
+    и плавающий в самых темных его глубинах... но стоит ли продолжать смотреть в бездну?
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -5961,8 +5965,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
 - :neko_id: :comedy
   :level: 4
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/comedy_4.gif"
+  :border_color:
+  - "#7f8f18"
   :title_ru: Why so serious?
   :text_ru: Юмор пронизывает вашу сущность, не оставляя места ничему другому.
   :title_en: 
@@ -6636,7 +6642,8 @@
   :border_color:
   - "#e4bd3d"
   :title_ru: Император галактики
-  :text_ru: 
+  :text_ru: Вы правитель всей Вселенной. Неизменный и победоносный. Нет никого с большей
+    силой, чем у вас.
   :title_en: 
   :text_en: 
   :topic_id: 
