@@ -114,7 +114,8 @@
         .block
           - resource.menu_collections.each do |collection|
             .b-menu-line
-              a.b-link href=collection_url(collection) = collection.name
+              a.b-link href=collection_url(collection, subdomain: false)
+                = collection.name
 
     / - if resource.topic_views.any?
       .block.menu-topics-block
