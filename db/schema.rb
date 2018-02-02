@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108215004) do
+ActiveRecord::Schema.define(version: 20180202204400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -986,6 +986,7 @@ ActiveRecord::Schema.define(version: 20180108215004) do
     t.string "body_width", default: "x1200", null: false
     t.text "forums", default: [], null: false, array: true
     t.string "comment_policy", default: "users", null: false
+    t.boolean "apply_user_styles", default: true, null: false
     t.index ["user_id"], name: "index_profile_settings_on_user_id"
   end
 

@@ -158,22 +158,23 @@ en:
         overall: Overall
 
       user_preferences:
-        body_width: Maximum Site Width
-        anime_in_profile: Show Anime List in Profile
-        manga_in_profile: Show Manga List in Profile
-        comments_in_profile: Show Comments in Profile
         about_on_top: Show Above Stats
-        show_social_buttons: Show Social Media Icons
-        show_smileys: Show Smileys
-        menu_contest: Notify of Polls in Menu
-        show_hentai_images: Allow Nudity
+        anime_in_profile: Show Anime List in Profile
+        apply_user_styles: Apply user styles
+        body_width: Maximum Site Width
+        comment_policy: Can Comment My Profile
+        comments_in_profile: Show Comments in Profile
         is_comments_auto_collapsed: Collapse Long Comments
         is_comments_auto_loaded: Load New Comments Automatically
         list_privacy: Can See My Lists
-        comment_policy: Can Comment My Profile
-        #russian_genres: Anime Genres in Russian
-        #russian_names: Anime and Manga Titles in Russian
+        manga_in_profile: Show Manga List in Profile
+        menu_contest: Notify of Polls in Menu
         postload_in_catalog: Autoload Pages in Anime Catalog
+        # russian_genres: Anime Genres in Russian
+        # russian_names: Anime and Manga Titles in Russian
+        show_hentai_images: Allow Nudity
+        show_smileys: Show Smileys
+        show_social_buttons: Show Social Media Icons
         volumes_in_manga: Show Manga Volumes
       anime_video:
         url: Video Link

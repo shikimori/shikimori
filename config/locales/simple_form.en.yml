@@ -52,6 +52,12 @@ en:
         nickname: Case sensitive
         password: Case sensitive
         email: Case sensitive
+      user_preferences:
+        apply_user_styles: >-
+          Other site users can define their own styles
+          (change the appearance of the site) for the pages of their profile and
+          clubs. If you disable this setting, you will always see standard site
+          style.
       version:
         reason: &optional Optional
       anime: &anime_hints

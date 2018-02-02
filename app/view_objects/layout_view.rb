@@ -100,9 +100,13 @@ private
   end
 
   def custom_css
-    try_style(h.controller.instance_variable_get('@user')) ||
-      try_style(h.controller.instance_variable_get('@club')) ||
+    if h.user_signed_in? && !h.current_user.preferences.apply_user_styles
+      try_style(h.current_user)
+    else
+      try_style(h.controller.instance_variable_get('@user')) ||
+        try_style(h.controller.instance_variable_get('@club')) ||
         try_style(h.current_user)
+    end
   end
 
   def try_style target

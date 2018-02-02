@@ -158,22 +158,23 @@ ru:
         overall: Итоговая оценка
 
       user_preferences:
-        body_width: Максимальная ширина сайта
-        anime_in_profile: Отображать аниме в профиле
-        manga_in_profile: Отображать мангу в профиле
-        comments_in_profile: Отображать комментарии в профиле
         about_on_top: Отображать над статистикой
-        show_social_buttons: Отображать кнопки соц сетей
-        show_smileys: Отображать смайлики
-        menu_contest: Уведомление о голосованиях в меню
-        show_hentai_images: Картинки с имиджборд без цензуры
+        anime_in_profile: Отображать аниме в профиле
+        apply_user_styles: Применять пользовательские стили
+        body_width: Максимальная ширина сайта
+        comment_policy: Могут комментировать мой профиль
+        comments_in_profile: Отображать комментарии в профиле
         is_comments_auto_collapsed: Сворачивать длинные комментарии
         is_comments_auto_loaded: Автоподгрузка новых комментариев
         list_privacy: Могут видеть мой список
-        comment_policy: Могут комментировать мой профиль
+        manga_in_profile: Отображать мангу в профиле
+        menu_contest: Уведомление о голосованиях в меню
+        postload_in_catalog: Подгрузка следующих страниц по мере прокрутки текущей страницы в каталоге аниме
         russian_genres: Русские названия жанров
         russian_names: Русские названия аниме и манги
-        postload_in_catalog: Подгрузка следующих страниц по мере прокрутки текущей страницы в каталоге аниме
+        show_hentai_images: Картинки с имиджборд без цензуры
+        show_smileys: Отображать смайлики
+        show_social_buttons: Отображать кнопки соц сетей
         volumes_in_manga: Отображать тома у манги
       anime_video:
         url: Url

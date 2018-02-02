@@ -1,3 +1,5 @@
+# TODO: merge into ApplicationController
+# TODO: extract related methods into concerns
 class ShikimoriController < ApplicationController
   before_action { noindex && nofollow unless shikimori? }
   COOKIE_AGE_OVER_18 = :confirmed_age_over_18
