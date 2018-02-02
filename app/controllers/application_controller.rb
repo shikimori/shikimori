@@ -173,7 +173,7 @@ class ApplicationController < ActionController::Base
   def ignore_copyright?
     ru_host? && (
       current_user&.day_registered? ||
-      GeoipAccess.instance.allowed?(remote_addr)
+      GeoipAccess.instance.anime_online_allowed?(remote_addr)
     )
   end
 

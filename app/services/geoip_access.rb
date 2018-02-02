@@ -8,7 +8,7 @@ class GeoipAccess
   include Singleton
 
   # User.pluck(:last_sign_in_ip).uniq.map {|v| %x{geoiplookup #{v}}.fix_encoding[/GeoIP Country Edition: .*/] }.group_by {|v| v }.sort_by {|k,v| v.size }.each_with_object({}) {|(k,v),memo| memo[k] = v.size }
-  ALLOWED_COUNTRIES = Set.new([
+  ANIME_ONLINE_ALLOWED_COUNTRIES = Set.new [
     'RU', # Russian Federation
     'UA', # Ukraine
     'BY', # Belarus
@@ -22,11 +22,22 @@ class GeoipAccess
     'LT', # Lithuania
     'RO', # Romania
     'TJ', # Tajikistan
-  ])
+  ]
   HZ = 'hz'
 
-  def allowed? ip
-    _stub_test || ALLOWED_COUNTRIES.include?(country_code(ip))
+  WAKANIM_FORBIDDEN_COUNTRIES = Set.new [
+    HZ,
+    'RU',
+    'JP',
+    'FR'
+  ]
+
+  def anime_online_allowed? ip
+    ANIME_ONLINE_ALLOWED_COUNTRIES.include? country_code(ip)
+  end
+
+  def wakanim_allowed? ip
+    !WAKANIM_FORBIDDEN_COUNTRIES.include? country_code(ip)
   end
 
   def safe_ip ip
@@ -51,10 +62,5 @@ private
   def ask_geoip ip
     %x{geoiplookup #{ip}}
       .fix_encoding[/GeoIP Country Edition: (\w+)/, 1] || HZ
-  end
-
-  # специальная заглушка, чтобы в тестах не выполнялось
-  def _stub_test
-    true if Rails.env.test? || Rails.env.development?
   end
 end
