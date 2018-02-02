@@ -47,7 +47,7 @@ class AnimesCollection::View < ViewObjectBase
     initial_key = [klass.name, user_key, last_created_at, CACHE_VERSION]
 
     h.url_params
-      .except(:format)
+      .except(:action, :controller, :format)
       .sort_by(&:first)
       .inject(initial_key) { |memo, (k, v)| memo.push "#{k}:#{v}" }
       .compact

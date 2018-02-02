@@ -24,9 +24,7 @@ private
 
   def resource_redirect
     if @resource.ranobe?
-      redirect_url =
-        url_for(url_params.merge(action: params[:action], controller: 'ranobe'))
-      return redirect_to redirect_url, status: 301
+      return redirect_to current_url(controller: 'ranobe'), status: 301
     end
 
     super

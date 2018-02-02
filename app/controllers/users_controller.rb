@@ -27,8 +27,7 @@ class UsersController < ShikimoriController
     @klass = params[:klass] == Manga.name.downcase ? Manga : Anime
 
     unless THRESHOLDS.include?(@threshold)
-      redirect_to similar_users_path(url_params(threshold: THRESHOLDS[2]))
-      return
+      return redirect_to current_url(threshold: THRESHOLDS[2])
     end
 
     page_title i18n_t('similar_users')

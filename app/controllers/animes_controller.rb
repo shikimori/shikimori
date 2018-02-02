@@ -122,9 +122,6 @@ class AnimesController < DbEntriesController
     end
 
     page_title i18n_t("reviews.#{@resource.object.class.name.downcase}")
-    #@canonical = UrlGenerator.instance.topic_url(
-    #  @resource.maybe_topic(locale_from_host)
-    #)
   end
 
   def art

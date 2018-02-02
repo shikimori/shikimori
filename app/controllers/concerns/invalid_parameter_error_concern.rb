@@ -7,7 +7,7 @@ module InvalidParameterErrorConcern
 
   def invalid_parameter_error e
     unless is_a? Api::V1Controller
-      redirect_to url_for(url_params(e.field => nil))
+      redirect_to current_url(e.field => nil)
     end
   end
 end

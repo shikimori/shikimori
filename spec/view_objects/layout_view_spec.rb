@@ -2,7 +2,7 @@ describe LayoutView do
   include_context :seeds
   include_context :view_object_warden_stub
 
-  let(:view) { LayoutView.new }
+  let(:view) { described_class.new }
 
   before do
     allow(view.h.controller)

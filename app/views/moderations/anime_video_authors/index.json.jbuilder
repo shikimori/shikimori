@@ -7,6 +7,6 @@ json.content render(
 if @add_postloader
   json.postloader render(
     'blocks/postloader',
-    next_url: url_for(url_params(page: @page+1))
+    next_url: current_url(page: @page+1)
   )
 end

@@ -12,11 +12,11 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :set_user_locale_from_host
   before_action :set_layout_view
+  before_action :set_open_graph_view
   before_action :fix_googlebot
   before_action :touch_last_online
   before_action :mailer_set_url_options
   before_action :force_vary_accept
-  before_action :force_canonical
 
   helper_method :resource_class
   helper_method :remote_addr
@@ -120,12 +120,8 @@ class ApplicationController < ActionController::Base
     @layout = LayoutView.new
   end
 
-  def force_canonical
-    if params[:page].present? && params[:page].match?(/^\d+$/)
-      @canonical = url_for(url_params(page: nil)).sub(/\?[\s\S]*/, '')
-    elsif request.url.include? '?'
-      @canonical = request.url.sub(/\?[\s\S]*/, '')
-    end
+  def set_open_graph_view
+    @open_graph = OpenGraphView.new
   end
 
   # before фильтры с настройкой сайта

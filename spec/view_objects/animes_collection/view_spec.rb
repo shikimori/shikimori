@@ -17,7 +17,7 @@ describe AnimesCollection::View do
   before do
     allow(view.h).to receive(:params).and_return strong_params
     allow(view.h).to receive(:safe_params).and_return params
-    allow(view.h).to receive(:url_params).and_return params.except(:action, :controller)
+    allow(view.h).to receive(:url_params).and_return params
   end
 
   describe '#collection' do

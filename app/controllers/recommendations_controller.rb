@@ -16,10 +16,10 @@ class RecommendationsController < AnimesCollectionController
     @metric = params[:metric]
 
     if @metric.blank?
-      return redirect_to recommendations_url(url_params(metric: 'pearson_z')) 
+      return redirect_to current_url(metric: 'pearson_z')
     end
     unless THRESHOLDS[@view.klass].include? @threshold
-      return redirect_to recommendations_url(url_params(threshold: THRESHOLDS[@view.klass][-1]))
+      return redirect_to current_url(threshold: THRESHOLDS[@view.klass][-1])
     end
 
     page_title i18n_t 'personalized_recommendations'

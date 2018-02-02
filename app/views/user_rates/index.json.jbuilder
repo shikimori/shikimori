@@ -5,5 +5,8 @@ json.content render(
 )
 
 if @library.add_postloader?
-  json.postloader render('blocks/postloader', next_url: profile_user_rates_url(url_params(page: @page+1)))
+  json.postloader render(
+    'blocks/postloader',
+    next_url: current_url(page: @page+1)
+  )
 end
