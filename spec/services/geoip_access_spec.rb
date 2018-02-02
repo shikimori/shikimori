@@ -2,6 +2,7 @@ describe GeoipAccess do
   let(:service) { described_class.instance }
 
   before do
+    allow(service).to receive(:anime_online_allowed?).with(ip).and_call_original
     allow(service).to receive(:ask_geoip).with(ip).and_return country_code
   end
 

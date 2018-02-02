@@ -82,9 +82,14 @@ RSpec.configure do |config|
 
   config.before :each do
     if respond_to?(:controller) && controller
-      allow(controller).to receive(:default_url_options)
+      allow(controller)
+        .to receive(:default_url_options)
         .and_return ApplicationController.default_url_options
     end
+    allow(GeoipAccess.instance)
+      .to receive(:anime_online_allowed?)
+      .with('0.0.0.0')
+      .and_return true
 
     Forum.instance_variable_set '@cached', nil
 
