@@ -53,19 +53,34 @@ link rel="yandex-tableau-widget" href="#{Shikimori::PROTOCOL}://#{Shikimori::DOM
 - if og.canonical_url != request.url
   link rel="canonical" href==og.canonical_url
 
+- if og.type.present?
+  meta property="og:type" content=og.type
 meta property="og:title" content=og.headline(true)
 - if og.description.present?
   meta property="og:description" content=og.description
-- if og.meta_image
-  meta property="og:image" content=og.meta_image
+- if og.image
+  meta property="og:image" content=og.image
 meta property="og:url" content==og.canonical_url
 meta property="og:site_name" content=og.site_name
+
+- if og.video_duration
+  meta property="video:duration" content=og.video_duration
+- if og.video_release_date
+  meta property="video:release_date" content=og.video_release_date.iso8601
+- if og.video_tags&.any?
+  - og.video_tags.each do |tag|
+    meta property="video:tag" content=tag
+- if og.book_release_date
+  meta property="book:release_date" content=og.book_release_date.iso8601
+- if og.book_tags&.any?
+  - og.book_tags.each do |tag|
+    meta property="book:tag" content=tag
 
 meta name="twitter:title" content=og.headline(true)
 - if og.description.present?
   meta name="twitter:description" content=og.description
-- if og.meta_image
-  meta name="twitter:image" content=og.meta_image
+- if og.image
+  meta name="twitter:image" content=og.image
 meta name="twitter:site" content=og.site_name
 
 title = og.meta_title

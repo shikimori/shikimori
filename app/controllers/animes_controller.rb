@@ -23,9 +23,10 @@ class AnimesController < DbEntriesController
     synonyms: []
   ]
 
-  before_action :set_breadcrumbs, if: -> { @resource }
-  before_action :resource_redirect, if: -> { @resource }
+  before_action :set_breadcrumbs, if: :resource_id
+  before_action :resource_redirect, if: :resource_id
   before_action :js_export, only: %i[show]
+  before_action :og_meta, if: :resource_id
 
   # display anime or manga
   def show
@@ -197,6 +198,25 @@ class AnimesController < DbEntriesController
   end
 
 private
+
+  def og_meta
+    video_type =
+      if @resource.kind_tv? || @resource.kind_ona?
+        'video.tv_show'
+      elsif @resource.kind_movie?
+        'video.movie'
+      else
+        'video.other'
+      end
+    video_tags = @resource.genres.map do |genre|
+      UsersHelper.localized_name genre, current_user
+    end
+
+    og type: video_type
+    og video_duration: @resource.duration * 60 if @resource.duration.positive?
+    og video_release_date: @resource.released_on if @resource.released_on
+    og video_tags: video_tags
+  end
 
   def update_params
     params

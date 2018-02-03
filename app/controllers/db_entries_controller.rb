@@ -1,9 +1,10 @@
 class DbEntriesController < ShikimoriController
   before_action :authenticate_user!, only: %i[edit edit_field update]
 
-  # it always should be executed before :fetch_resource
-  before_action :resource_klass_page_title, if: :resource_id
+  # it must be always before :fetch_resource
+  before_action { og page_title: resource_klass.model_name.human }
   before_action :fetch_resource, if: :resource_id
+  before_action :og_db_entry_meta, if: :resource_id
 
   COLLETIONS_PER_PAGE = 4
 
@@ -80,8 +81,9 @@ class DbEntriesController < ShikimoriController
 
 private
 
-  def resource_klass_page_title
-    og page_title: resource_klass.model_name.human
+  def og_db_entry_meta
+    og description: @resource.description_meta
+    og image: ImageUrlGenerator.instance.url(@resource, :original)
   end
 
   def significant_fields

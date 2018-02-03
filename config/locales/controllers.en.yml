@@ -1,6 +1,6 @@
 en:
   dashboards_controller:
-    h1_header: Anime and manga encyclopedia
+    page_title: Anime and manga encyclopedia
 
   topics_controller: &topics_controller
     title: Shikimori Forum

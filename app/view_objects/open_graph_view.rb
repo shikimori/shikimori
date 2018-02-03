@@ -3,17 +3,12 @@ class OpenGraphView < ViewObjectBase
   # instance_cache :styles, :hot_topics, :moderation_policy
 
   attr_reader :page_title
-  attr_writer :description, :notice
-  attr_accessor :keywords, :noindex, :nofollow
-
-  def initialize
-    @page_title = []
-    @notice = nil
-    @noindex = nil
-    @nofollow = nil
-    @keywords = nil
-    @description = nil
-  end
+  attr_writer :description
+  attr_accessor :type, :image,
+    :video_duration, :video_release_date, :video_tags,
+    :book_release_date, :book_tags,
+    :notice,
+    :keywords, :noindex, :nofollow
 
   PAGE_TITLE_SEPARATOR = ' / '
 
@@ -33,17 +28,14 @@ class OpenGraphView < ViewObjectBase
   end
 
   def page_title= value
+    @page_title ||= []
     @page_title.push HTMLEntities.new.decode(value)
   end
 
   def headline allow_not_set = false
-    @page_title.last || (
+    @page_title&.last || (
       allow_not_set ? site_name : raise('open_graph.page_title is not set')
     )
-  end
-
-  def notice
-    @notice || @description
   end
 
   def description
@@ -51,11 +43,9 @@ class OpenGraphView < ViewObjectBase
   end
 
   def meta_title
-    titles = @page_title.any? ? @page_title : [site_name]
-
     <<~TITLE.strip.delete("\n")
       #{'[DEV] ' if Rails.env.development?}
-      #{titles.reverse.join PAGE_TITLE_SEPARATOR}
+      #{(@page_title || [site_name]).reverse.join PAGE_TITLE_SEPARATOR}
     TITLE
   end
 
@@ -68,17 +58,5 @@ class OpenGraphView < ViewObjectBase
     ].compact
 
     content.join ',' if content.any?
-  end
-
-  def meta_image
-    return unless resource.respond_to?(:image)
-
-    h.cdn_image resource, :original
-  end
-
-private
-
-  def resource
-    h.controller.instance_variable_get('@resource')
   end
 end

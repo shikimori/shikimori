@@ -101,7 +101,7 @@ describe OpenGraphView do
 
     context 'no notice' do
       let(:notice) { nil }
-      it { expect(view.notice).to eq description }
+      it { expect(view.notice).to be_nil }
       it { expect(view.description).to eq description }
     end
 
@@ -109,6 +109,14 @@ describe OpenGraphView do
       let(:description) { nil }
       it { expect(view.notice).to eq notice }
       it { expect(view.description).to eq notice }
+    end
+
+    context 'no notice, no description' do
+      let(:notice) { nil }
+      let(:description) { nil }
+
+      it { expect(view.notice).to be_nil }
+      it { expect(view.description).to be_nil }
     end
   end
 
