@@ -11,7 +11,7 @@ class CharactersController < PeopleController
     #expires_in: 2.days
 
   def index
-    page_title i18n_i(:Character, :other)
+    og page_title: i18n_i(:Character, :other)
 
     @page = [params[:page].to_i, 1].max
 
@@ -29,36 +29,36 @@ class CharactersController < PeopleController
     if @resource.seyu.none?
       return redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title t(:seyu)
+    og noindex: true
+    og page_title: t(:seyu)
   end
 
   def animes
     if @resource.animes.none?
       redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title i18n_i('Anime', :other)
+    og noindex: true
+    og page_title: i18n_i('Anime', :other)
   end
 
   def mangas
     if @resource.mangas.none?
       redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title i18n_i('Manga', :other)
+    og noindex: true
+    og page_title: i18n_i('Manga', :other)
   end
 
   def ranobe
     if @resource.ranobe.none?
       redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title i18n_i('Ranobe', :other)
+    og noindex: true
+    og page_title: i18n_i('Ranobe', :other)
   end
 
   def art
-    page_title t('imageboard_art')
+    og page_title: t('imageboard_art')
   end
 
   def images
@@ -74,23 +74,23 @@ class CharactersController < PeopleController
       return redirect_to @resource.url, status: 301
     end
 
-    page_title t('cosplay')
+    og page_title: t('cosplay')
   end
 
   def clubs
     if @resource.all_clubs.none?
       return redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title t('in_clubs')
+    og noindex: true
+    og page_title: t('in_clubs')
   end
 
   def tooltip
   end
 
   def edit
-    noindex
-    page_title i18n_t('entry_edit')
+    og noindex: true
+    og page_title: i18n_t('entry_edit')
 
     @page = params[:page]
   end

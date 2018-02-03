@@ -2,26 +2,26 @@
   .b-options-floated.mobile-phone
     a[
       class=(:selected unless params[:order_by])
-      href=url_for(url_params(order_by: nil))
+      href=current_url(order_by: nil)
     ] = t 'by.ranked'
     a[
       class=(:selected if params[:order_by] == 'date')
-      href=url_for(url_params(order_by: 'date'))
+      href=current_url(order_by: 'date')
     ] = t 'by.aired_on'
 
   - cache [@resource, params[:action], params[:order_by], params[:type]] do
     .subheadline.m10
-      = @page_title.last
+      = og.headline
       .misc-links
         - if @resource.work_types.many?
           a[
             class=(:selected unless params[:type])
-            href=url_for(url_params(type: nil))
+            href=current_url(type: nil)
           ] = t '.works.all'
           - @resource.work_types.each do |klass|
             a[
               class=(:selected if params[:type] == klass.name)
-              href=url_for(url_params(type: klass.name))
+              href=current_url(type: klass.name)
             ] = klass.model_name.human
     .cc-5.to-process data-dynamic="cutted_covers"
       = render @resource.works, cover_notice: :role

@@ -4,7 +4,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
   load_and_authorize_resource except: :index
 
   def index
-    @page_title = i18n_t 'page_title'
+    og page_title: i18n_t('page_title')
     @moderators = User
       .where("roles && '{#{Types::User::Roles[:video_moderator]}}'")
       .where.not(id: User::MORR_ID)

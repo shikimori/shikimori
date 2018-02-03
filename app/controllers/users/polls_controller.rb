@@ -3,7 +3,7 @@ class Users::PollsController < ProfilesController
 
   before_action do
     @back_url = profile_url @user
-    page_title i18n_i('Poll', :other)
+    og page_title: i18n_i('Poll', :other)
 
     if params[:action] != 'index'
       breadcrumb i18n_i('Poll', :other), profile_polls_url(@user)
@@ -21,11 +21,11 @@ class Users::PollsController < ProfilesController
 
   def show
     redirect_to edit_profile_poll_url(@user, @resource) if @resource.pending?
-    page_title @resource.name
+    og page_title: @resource.name
   end
 
   def new
-    page_title i18n_t('new')
+    og page_title: i18n_t('new')
     render :form
   end
 
@@ -35,7 +35,7 @@ class Users::PollsController < ProfilesController
   end
 
   def edit
-    page_title @resource.name
+    og page_title: @resource.name
     render :form
   end
 

@@ -1,6 +1,6 @@
 class SpnsrsController < ShikimoriController
   layout false
-  before_action { noindex && nofollow }
+  before_action { og noindex: true, nofollow: true }
 
   def show
   end

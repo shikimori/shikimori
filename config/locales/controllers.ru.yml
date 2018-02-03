@@ -1,6 +1,7 @@
 ru:
   dashboards_controller:
-    h1_header: Энциклопедия аниме и манги
+    page_title: Шикимори - энциклопедия аниме и манги
+    description: 
 
   topics_controller: &topics_controller
     title: Форум Шикимори
@@ -369,6 +370,9 @@ ru:
 
   shikimori_controller:
     you_are_banned: Вы забанены до %{datetime}
+
+  achievements_controller:
+    title: Достижения
 
   api/v1/comments_controller:
     comment:

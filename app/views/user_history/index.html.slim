@@ -5,7 +5,7 @@
         profile_url(@resource, format: :rss),
         title: t('.rss_title', nickname: @resource.nickname)
 
-  h2.subheadline.m10 = @page_title.last
+  h2.subheadline.m10 = og.headline
   - cache [:history, :v3, @resource, @view.page] do
     .block
       = render 'history', collection: @view.collection

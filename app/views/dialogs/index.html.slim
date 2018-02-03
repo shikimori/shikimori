@@ -2,7 +2,7 @@
   = render 'navigation'
 
   .subheadline
-    = @page_title.last
+    = og.headline
     - if params[:controller] == 'dialogs' && params[:action] == 'index'
       .misc-links
         a[

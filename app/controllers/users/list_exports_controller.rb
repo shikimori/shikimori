@@ -4,11 +4,11 @@ class Users::ListExportsController < ProfilesController
 
     @back_url = edit_profile_url @user, page: :list
     breadcrumb t(:settings), edit_profile_url(@user, page: :list)
-    page_title t(:settings)
+    og page_title: t(:settings)
   end
 
   def show
-    page_title i18n_t(:title)
+    og page_title: i18n_t(:title)
   end
 
   def animes

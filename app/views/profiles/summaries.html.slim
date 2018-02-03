@@ -8,7 +8,7 @@
       | Комментарии
       span.brackets = @resource.stats.comments_count
 
-  h2.subheadline.m10 = @page_title.last
+  h2.subheadline.m10 = og.headline
   .b-comments
     - if @collection.any?
       = render @collection

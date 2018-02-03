@@ -1,8 +1,8 @@
 # TODO: переделать авторизацию на cancancan
 class Moderations::UsersController < ModerationsController
   def index
-    noindex && nofollow
-    page_title i18n_t('page_title')
+    og noindex: true, nofollow: true
+    og page_title: i18n_t('page_title')
 
     params[:created_on] ||= Time.zone.today.to_s
 

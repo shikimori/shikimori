@@ -19,7 +19,7 @@ class GenresController < ModerationsController
   end
 
   def tooltip
-    noindex && nofollow
+    og noindex: true, nofollow: true
   end
 
 private
@@ -33,8 +33,8 @@ private
   end
 
   def set_breadcrumbs
-    page_title t('.genres')
-    page_title "#{@resource.name} / #{@resource.russian}" if @resource
+    og page_title: t('.genres')
+    og page_title: "#{@resource.name} / #{@resource.russian}" if @resource
 
     breadcrumb t('.genres'), genres_url if @resource
   end

@@ -4,11 +4,11 @@
   - if @resource.type.nil?
     = render 'topics/form/type',
       topic: @resource,
-      back_url: @breadcrumbs.first.second
+      back_url: page_breadcrumbs.first.second
   - else
     - if topic_type_policy.news_topic? && params[:rules_passed] != '1'
       = render 'topics/form/rules', topic: @resource, form: @forums_view.form
     - else
       = render 'topics/form/form',
         topic: @resource,
-        back_url: @breadcrumbs.first.second
+        back_url: page_breadcrumbs.first.second

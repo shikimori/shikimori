@@ -41,7 +41,7 @@ class TranslationsController < ShikimoriController
 
   def show
     @klass = params[:anime] ? Anime : Manga
-    @page_title = "#{@klass.model_name.human} без описаний"
+    og page_title: "#{@klass.model_name.human} без описаний"
 
     @changes = TranslationsController.pending @klass
     send :"fetch_#{@klass.name.downcase}_plans"

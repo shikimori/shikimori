@@ -24,8 +24,8 @@ private
   end
 
   def set_breadcrumbs
-    page_title t('.forums')
-    page_title @resource.name if @resource
+    og page_title: t('.forums')
+    og page_title: @resource.name if @resource
     breadcrumb t('.forums'), forums_url if @resource
   end
 end

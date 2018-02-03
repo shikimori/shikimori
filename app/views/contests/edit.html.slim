@@ -2,12 +2,12 @@ header.head
   h2
     - unless @resource.created?
       a.back[
-        href="#{contest_url @resource}"
+        href=contest_url(@resource)
         title=t('.back_to_contest_page')
-        data-text="#{t 'back'}"
+        data-text=t('back')
       ]
-    = @page_title.last
+    = og.headline
 
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 = render 'form', contest: @resource

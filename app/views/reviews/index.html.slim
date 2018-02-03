@@ -8,7 +8,7 @@
         href=@resource.new_review_url
         title=t('.create_review')
       ]
-  .subheadline = @page_title.last
+  .subheadline = og.headline
   - if @collection.any?
     .b-forum[
       data-faye='false'

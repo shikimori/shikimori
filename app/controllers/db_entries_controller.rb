@@ -1,14 +1,15 @@
 class DbEntriesController < ShikimoriController
   before_action :authenticate_user!, only: %i[edit edit_field update]
 
-  # it always should be executed before :fetch_resource
-  before_action :resource_klass_page_title, if: :resource_id
+  # it must be always before :fetch_resource
+  before_action { og page_title: resource_klass.model_name.human }
   before_action :fetch_resource, if: :resource_id
+  before_action :og_db_entry_meta, if: :resource_id
 
   COLLETIONS_PER_PAGE = 4
 
   def tooltip
-    noindex
+    og noindex: true
   end
 
   def versions
@@ -18,8 +19,7 @@ class DbEntriesController < ShikimoriController
     if @resource.collections_scope.none?
       return redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title t('in_collections')
+    og noindex: true, page_title: t('in_collections')
 
     page = [params[:page].to_i, 1].max
 
@@ -34,13 +34,11 @@ class DbEntriesController < ShikimoriController
   end
 
   def edit
-    noindex
-    page_title i18n_t 'entry_edit'
+    og noindex: true, page_title: i18n_t('entry_edit')
   end
 
   def edit_field
-    noindex
-    page_title i18n_t 'entry_edit'
+    og noindex: true, page_title: i18n_t('entry_edit')
     @field = params[:field]
 
     authorize! :create, temp_verison
@@ -83,8 +81,9 @@ class DbEntriesController < ShikimoriController
 
 private
 
-  def resource_klass_page_title
-    page_title resource_klass.model_name.human
+  def og_db_entry_meta
+    og description: @resource.description_meta
+    og image: ImageUrlGenerator.instance.url(@resource, :original)
   end
 
   def significant_fields

@@ -1,7 +1,7 @@
 # TODO: merge into ApplicationController
 # TODO: extract related methods into concerns
 class ShikimoriController < ApplicationController
-  before_action { noindex && nofollow unless shikimori? }
+  before_action { og noindex: true, nofollow: true unless shikimori? }
   COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
   helper_method :censored_forbidden?
@@ -20,9 +20,9 @@ class ShikimoriController < ApplicationController
     instance_variable_set "@#{resource_klass.name.downcase}", @resource
 
     if @resource.respond_to? :name
-      page_title @resource.name
+      og page_title: @resource.name
     elsif @resource.respond_to? :title
-      page_title @resource.title
+      og page_title: @resource.title
     end
 
     raise AgeRestricted if @resource.try(:censored?) && censored_forbidden?
@@ -55,8 +55,7 @@ class ShikimoriController < ApplicationController
     return if request.method != 'GET'
     return if params[:action] == 'new'
 
-    url_params = url_params(resource_id_key => @resource.to_param)
-    redirect_to url_for(url_params), status: 301
+    redirect_to current_url(resource_id_key => @resource.to_param), status: 301
 
     false
   end
@@ -77,38 +76,6 @@ class ShikimoriController < ApplicationController
       .sub(/.*:/, '')
       .singularize
       .constantize
-  end
-
-  # заполнение хлебных крошек
-  def breadcrumb title, url
-    @breadcrumbs ||= {}
-    @breadcrumbs[title] = url
-  end
-
-  def page_title title, replace = false
-    if replace
-      @page_title = []
-    else
-      @page_title ||= []
-    end
-
-    @page_title.push HTMLEntities.new.decode(title)
-  end
-
-  def noindex
-    set_meta_tags noindex: true
-  end
-
-  def nofollow
-    set_meta_tags nofollow: true
-  end
-
-  def description text
-    set_meta_tags description: text
-  end
-
-  def keywords text
-    set_meta_tags keywords: text
   end
 
   # TODO: выпилить

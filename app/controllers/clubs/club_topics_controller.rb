@@ -2,7 +2,7 @@ class Clubs::ClubTopicsController < ShikimoriController
   load_and_authorize_resource :club
   load_and_authorize_resource class: Topic.name
 
-  before_action { page_title i18n_i('Club', :other) }
+  before_action { og page_title: i18n_i('Club', :other) }
   before_action :prepare_club
   # before_action :prepare_form, except: [:show]
 
@@ -17,12 +17,12 @@ class Clubs::ClubTopicsController < ShikimoriController
     raise AgeRestricted if @club.censored? && censored_forbidden?
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
 
-    page_title @resource.title
+    og page_title: @resource.title
     @topic_view = Topics::TopicViewFactory.new(false, false).build @club_topic
   end
 
   def new
-    page_title i18n_t('new.title')
+    og page_title: i18n_t('new.title')
     render 'form'
   end
 
@@ -40,52 +40,14 @@ class Clubs::ClubTopicsController < ShikimoriController
     end
   end
 
-  # def edit
-    # page_title @resource.name
-    # render 'form'
-  # end
-
-  # def update
-    # if @resource.update update_params
-      # redirect_to(
-        # edit_club_club_page_path(@resource.club, @resource),
-        # notice: t('changes_saved')
-      # )
-    # else
-      # page_title @resource.name
-      # flash[:alert] = t('changes_not_saved')
-      # render 'form'
-    # end
-  # end
-
-  # def destroy
-    # @resource.destroy!
-    # redirect_to @back_url, notice: i18n_t('destroy.success')
-  # end
-
-  # def up
-    # @resource.move_higher
-    # redirect_back(
-      # fallback_location: edit_club_club_page_path(@resource.club, @resource)
-    # )
-  # end
-
-  # def down
-    # @resource.move_lower
-    # redirect_back(
-      # fallback_location: edit_club_club_page_path(@resource.club, @resource)
-    # )
-  # end
-
 private
 
-  # rubocop:disable AbcSize
-  def prepare_club
+  def prepare_club # rubocop:disable AbcSize
     @club = @club.decorate
 
     breadcrumb i18n_i('Club', :other), clubs_url
     breadcrumb @club.name, club_url(@club)
-    page_title @club.name
+    og page_title: @club.name
 
     unless params[:action] == 'index'
       @back_url = club_club_topics_url(@club)
@@ -94,9 +56,8 @@ private
 
     @back_url = @club.url if %w[index show].include? params[:action]
 
-    page_title i18n_i('Topic', :other)
+    og page_title: i18n_i('Topic', :other)
   end
-  # rubocop:enable AbcSize
 
   def create_params
     params.require(:topic).permit(*TopicsController::CREATE_PARAMS)

@@ -81,6 +81,15 @@ class DbEntryDecorator < BaseDecorator
     ).html_safe
   end
 
+  def description_meta
+    h.truncate(
+      description_html.gsub(%r{<br ?/?>}, "\n").gsub(/<.*?>/, ''),
+      length: 250,
+      separator: ' ',
+      word_boundary: /\S[\.\?\!<>]/
+    )
+  end
+
   #----------------------------------------------------------------------------
 
   def main_topic_view

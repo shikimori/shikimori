@@ -5,7 +5,7 @@ class Moderations::CollectionsController < ModerationsController
   PENDING_PER_PAGE = 15
 
   def index
-    @page_title = i18n_t 'page_title'
+    og page_title: i18n_t('page_title')
 
     @moderators = User
       .where("roles && '{#{Types::User::Roles[:collection_moderator]}}'")

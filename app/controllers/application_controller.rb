@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include Translation
   include ErrorsConcern
   include UrlsConcern
+  include OpenGraphConcern
+  include BreadcrumbsConcern
   include InvalidParameterErrorConcern
 
   #include Mobylette::RespondToMobileRequests
@@ -16,7 +18,6 @@ class ApplicationController < ActionController::Base
   before_action :touch_last_online
   before_action :mailer_set_url_options
   before_action :force_vary_accept
-  before_action :force_canonical
 
   helper_method :resource_class
   helper_method :remote_addr
@@ -36,16 +37,14 @@ class ApplicationController < ActionController::Base
   }
 
   def self.default_url_options
-    { protocol: false }
+    { protocol: Shikimori::PROTOCOL }
   end
 
   def default_url_options options = {}
-    protocol = %w(xml rss).include?(params[:format]) ? Shikimori::PROTOCOL : false
-
     if params[:locale]
-      options.merge protocol: protocol, locale: params[:locale]
+      options.merge protocol: Shikimori::PROTOCOL, locale: params[:locale]
     else
-      options.merge protocol: protocol
+      options.merge protocol: Shikimori::PROTOCOL
     end
   end
 
@@ -118,14 +117,6 @@ class ApplicationController < ActionController::Base
 
   def set_layout_view
     @layout = LayoutView.new
-  end
-
-  def force_canonical
-    if params[:page].present? && params[:page].match?(/^\d+$/)
-      @canonical = url_for(url_params(page: nil)).sub(/\?[\s\S]*/, '')
-    elsif request.url.include? '?'
-      @canonical = request.url.sub(/\?[\s\S]*/, '')
-    end
   end
 
   # before фильтры с настройкой сайта

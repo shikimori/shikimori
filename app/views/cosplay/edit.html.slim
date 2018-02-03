@@ -9,7 +9,7 @@ header.head.misc
     = @gallery.target || @gallery.cos_rain_id
     /= link_to 'нормальный режим', cosplayer_path(@cosplayer, @gallery), class: 'misc'
     = link_to 'создать', new_cosplay_url, class: 'misc'
-  = render partial: 'blocks/breadcrumbs', object: breadcrumbs
+  = render 'application/breadcrumbs'
 
 = form_for @gallery, url: cosplay_cosplay_gallery_url(@cosplayer, @gallery), namespace: 'cosplay_gallery' do |f|
   .cosplay-mod.edit

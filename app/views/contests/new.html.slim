@@ -1,6 +1,6 @@
 header.head
   h1
-    = @page_title.last
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+    = og.headline
+  = render 'application/breadcrumbs'
 
 = render 'form', contest: @resource

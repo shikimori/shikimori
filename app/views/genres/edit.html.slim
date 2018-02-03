@@ -1,7 +1,7 @@
 header.head
-  h1 = @page_title.last
+  h1 = og.headline
   .notice = t '.notice'
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 = simple_form_for @resource do |f|
   - if @resource.errors.any?

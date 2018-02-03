@@ -1,5 +1,5 @@
-json.title @page_title
-json.notice @title_notice
+json.title og.page_title
+json.notice og.notice
 
 json.content JsExports::Supervisor.instance.sweep(render(
   partial: 'animes_collection/cached_collection',

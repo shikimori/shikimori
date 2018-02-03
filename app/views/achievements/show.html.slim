@@ -1,7 +1,7 @@
 header.head.misc
   h1
-    = @page_title.last
-  = render 'blocks/breadcrumbs', breadcrumbs: @breadcrumbs
+    = og.headline
+  = render 'application/breadcrumbs'
 
 = render 'achievements/info',
   achievements: @collection,

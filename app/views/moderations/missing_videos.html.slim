@@ -1,10 +1,10 @@
 header.head
-  h1 = @page_title.last
+  h1 = og.headline
   - t('.notices').each do |notice|
     p.notice
       = I18n.interpolate notice,
         limit: Moderation::MissingVideosQuery::LIMIT
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 - if @collection
   .subheadline = t '.videos'

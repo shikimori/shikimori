@@ -1,6 +1,6 @@
 header.head
-  h1 = @page_title.last
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  h1 = og.headline
+  = render 'application/breadcrumbs'
 
 .subheadline.m10 Группы фансаба/фандаба, которые автоматически распознаёт сайт
 .block
@@ -11,38 +11,38 @@ header.head
 ul.b-list.block
   li
     a.b-link[
-      href=(request.fullpath == url_for(url_params(is_verified: nil)) ? moderations_anime_video_authors_url : url_for(url_params(is_verified: nil)))
+      href=(request.fullpath == current_url(is_verified: nil) ? moderations_anime_video_authors_url : current_url(is_verified: nil))
     ] Все авторы
 
   - if params[:limit].present?
     li
       a.b-link[
-        href=url_for(url_params(limit: nil))
+        href=current_url(limit: nil)
       ] убрать limit=5000
   - else
     li
       a.b-link[
-        href=url_for(url_params(limit: 5000))
+        href=current_url(limit: 5000)
       ] limit=5000
 
   - if params[:broken_videos] == 'false'
     li
       a.b-link[
-        href=url_for(url_params(broken_videos: nil))
+        href=current_url(broken_videos: nil)
       ] Показывать у кого все видео сломаны
   - else
     li
       a.b-link[
-        href=url_for(url_params(broken_videos: 'false'))
+        href=current_url(broken_videos: 'false')
       ] Не показывать у кого все видео сломаны
 
   li
     a.b-link[
-      href=url_for(url_params(is_verified: true))
+      href=current_url(is_verified: true)
     ] Только проверенные авторы
   li
     a.b-link[
-      href=url_for(url_params(is_verified: false))
+      href=current_url(is_verified: false)
     ] Только не проверенные авторы
   li
     a.b-link[
@@ -69,7 +69,7 @@ ul.b-list.block
       ]
       - if params[:search].present?
         a.clear[
-          href=url_for(url_params.except(:search))
+          href=current_url(search: nil)
         ]
 
   .block.searchable-collection
@@ -95,7 +95,7 @@ ul.b-list.block
         ' Авторы аниме
         a.b-link.bubbled href=anime_url(@anime)
           = localization_span @anime
-        a.misc-link href=url_for(url_params.except(:anime_id)) без аниме
+        a.misc-link href=current_url(anime_id: nil) без аниме
       - else
         | Все авторы
 
@@ -106,7 +106,6 @@ ul.b-list.block
           locals: { anime: @anime }
 
         - if @add_postloader
-          = render 'blocks/postloader',
-            next_url: url_for(url_params(page: @page+1))
+          = render 'blocks/postloader', next_url: current_url(page: @page+1)
       - else
         .b-nothing_here Нет авторов

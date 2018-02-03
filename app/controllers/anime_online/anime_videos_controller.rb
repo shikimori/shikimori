@@ -18,13 +18,13 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
     @player = AnimeOnline::VideoPlayer.new @anime
     @video = @player.current_video
-    page_title @player.episode_title
+    og page_title: @player.episode_title
 
     render partial: 'player_container' if request.xhr?
   end
 
   def new
-    page_title 'Новое видео'
+    og page_title: 'Новое видео'
 
     if AnimeVideo::COPYRIGHT_BAN_ANIME_IDS.include?(@anime.id) &&
         (!user_signed_in? || !current_user.admin?)
@@ -33,7 +33,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
   end
 
   def edit
-    page_title 'Изменение видео'
+    og page_title: 'Изменение видео'
     @video = @video.decorate
   end
 
@@ -73,7 +73,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
         notice: 'Видео изменено'
       )
     else
-      page_title 'Изменение видео'
+      og page_title: 'Изменение видео'
       render :edit
     end
   end

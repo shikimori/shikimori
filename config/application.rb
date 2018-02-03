@@ -18,7 +18,10 @@ Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
 
 module Shikimori
   DOMAIN = 'shikimori.org'
-  NAME = 'Шикимори'
+
+  NAME_RU = 'Шикимори'
+  NAME_EN = 'Shikimori'
+
   STATIC_SUBDOMAINS = %w(nyaa kawai moe desu dere)
   EMAIL = 'mail@shikimori.org'
 

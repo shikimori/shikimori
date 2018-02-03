@@ -1,9 +1,9 @@
 header.head
   h2
     a.back href=@back_url data-text=t('back')
-    = @page_title.last
+    = og.headline
   .notice У автора #{@resource.anime_videos.count} видео
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 = simple_form_for [:moderations, @resource] do |f|
   .cc-2
@@ -19,7 +19,7 @@ header.head
           a.b-link.bubbled href=anime_url(@anime)
             = localization_span @anime
           a.clear-anime[
-            href=url_for(url_params.except(:anime_id))
+            href=current_url(anime_id: nil)
           ] отменить
 
       - if params[:kind].present?
@@ -32,7 +32,7 @@ header.head
           label = AnimeVideo.human_attribute_name :kind
           = t "enumerize.anime_video.kind.#{params[:kind]}"
           a.clear-anime[
-            href=url_for(url_params.except(:kind))
+            href=current_url(kind: nil)
           ] отменить
 
       = f.input :name, hint: 'При задании пустого имени автор будет удалён'

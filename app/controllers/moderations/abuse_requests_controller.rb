@@ -21,7 +21,7 @@ class Moderations::AbuseRequestsController < ModerationsController
     end
 
     unless request.xhr?
-      page_title i18n_t('page_title')
+      og page_title: i18n_t('page_title')
       @pending = AbuseRequest
         .pending
         .includes(:user, :approver, comment: :commentable)

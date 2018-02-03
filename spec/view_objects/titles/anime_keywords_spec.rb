@@ -3,7 +3,7 @@ describe Titles::AnimeKeywords do
     Titles::AnimeKeywords.new(
       klass: klass,
       season: season,
-      type: type,
+      kind: kind,
       genres: genres,
       studios: studios,
       publishers: publishers
@@ -15,7 +15,7 @@ describe Titles::AnimeKeywords do
 
     let(:klass) { Anime }
     let(:season) { 'winter_2004' }
-    let(:type) { 'tv' }
+    let(:kind) { 'tv' }
     let(:genres) { build :genre, name: 'Magic', russian: 'Магия', kind: klass }
     let(:studios) { build :studio, name: 'Fofofo Studio' }
     let(:publishers) { build :publisher, name: 'Fofofo Publisher' }

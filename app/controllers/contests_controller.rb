@@ -1,7 +1,7 @@
 class ContestsController < ShikimoriController
   load_and_authorize_resource
 
-  before_action { page_title i18n_t :contests }
+  before_action { og page_title: i18n_t(:contests) }
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: -> { @resource }
@@ -37,22 +37,25 @@ class ContestsController < ShikimoriController
   end
 
   def index
-    keywords i18n_t('index_keywords')
-    description i18n_t('index_description')
+    og keywords: i18n_t('index_keywords')
+    og description: i18n_t('index_description')
 
     @page = [params[:page].to_i, 1].max
     @collection = Contests::Query.fetch.paginate(@page, LIMIT)
   end
 
   def show
-    noindex if params[:round] || params[:vote]
+    og noindex: true if params[:round] || params[:vote]
     return redirect_to edit_contest_url(@resource) if @resource.created?
     return redirect_to contest_url(@resource) if params[:round] && !@resource.displayed_round
 
-    keywords i18n_t :show_keywords, title: @resource.title
-    description i18n_t :show_description, title: Unicode::downcase(@resource.title)
+    og keywords: i18n_t(:show_keywords, title: @resource.title)
+    og description: i18n_t(
+      :show_description,
+      title: Unicode::downcase(@resource.title)
+   )
 
-    page_title @resource.displayed_round.title if params[:round]
+    og page_title: @resource.displayed_round.title if params[:round]
   end
 
   # турнирная сетка
@@ -61,20 +64,20 @@ class ContestsController < ShikimoriController
       return redirect_to contests_url if @resource.created?
       return redirect_to contest_url(@resource) if @resource.proposing?
     end
-    noindex
 
-    page_title @resource.title
-    page_title t 'tournament_bracket'
+    og noindex: true
+    og page_title: @resource.title
+    og page_title: t('tournament_bracket')
 
     @blank_layout = true
   end
 
   def edit
-    page_title i18n_t :edit_contest
+    og page_title: i18n_t(:edit_contest)
   end
 
   def new
-    page_title i18n_t :new_contest
+    og page_title: i18n_t(:new_contest)
 
     @resource ||= Contest.new.decorate
     @resource.started_on ||= Time.zone.today + 1.day

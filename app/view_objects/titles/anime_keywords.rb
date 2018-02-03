@@ -1,12 +1,12 @@
 class Titles::AnimeKeywords
   include Translation
 
-  attr_reader :klass, :season, :type, :genres, :studios, :publishers
+  attr_reader :klass, :season, :kind, :genres, :studios, :publishers
 
-  def initialize klass:, season:, type:, genres:, studios:, publishers:
+  def initialize klass:, season:, kind:, genres:, studios:, publishers:
     @klass = klass
     @season = season
-    @type = type
+    @kind = kind
     @genres = Array genres
     @studios = Array studios
     @publishers = Array publishers
@@ -16,7 +16,7 @@ class Titles::AnimeKeywords
     keywords = []
 
     keywords << season_keywords
-    keywords << type_keywords
+    keywords << kind_keywords
     keywords << genre_keywords
     keywords << studio_keywords
     keywords << publisher_keywords
@@ -32,11 +32,11 @@ private
     Titles::LocalizedSeasonText.new(self, season).title
   end
 
-  def type_keywords
-    case type
-      when 'tv' then i18n_t 'type.tv'
-      when 'movie' then i18n_t 'type.movie'
-      else i18n_t("type.#{klass.name.downcase}")
+  def kind_keywords
+    case kind
+      when 'tv' then i18n_t 'kind.tv'
+      when 'movie' then i18n_t 'kind.movie'
+      else i18n_t("kind.#{klass.name.downcase}")
     end
   end
 

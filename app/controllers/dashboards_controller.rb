@@ -1,6 +1,9 @@
 class DashboardsController < ShikimoriController
   def show
-    page_title i18n_t('h1_header')
+    og type: 'website'
+    og page_title: i18n_t('page_title')
+    og description: i18n_t('description')
+
     @dashboard_view = DashboardView.new
   end
 end

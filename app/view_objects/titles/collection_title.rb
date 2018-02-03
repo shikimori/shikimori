@@ -2,12 +2,12 @@ class Titles::CollectionTitle
   include Translation
   prepend ActiveCacher.instance
 
-  def initialize klass:, user:, season:, type:, status:, genres:, studios:, publishers:
+  def initialize klass:, user:, season:, kind:, status:, genres:, studios:, publishers:
     @klass = klass
     @user = user
 
     @statuses = parse_param status
-    @types = parse_param type
+    @kinds = parse_param kind
     @studios = Array studios
     @publishers = Array publishers
     @genres = Array genres
@@ -16,22 +16,22 @@ class Titles::CollectionTitle
 
   def title is_capitalized = true
     title = fancy? ? fancy_title : composite_title
-    is_capitalized ? title.first_upcase : title
+    is_capitalized ? title.first_upcase : title.downcase
   end
 
   # 'отображена'? (вместо 'отображены')
   def manga_conjugation_variant?
     if statuses_text.present?
       /#{Manga.model_name.human}/i === title
-    else # types_text
-      !types.many? && /#{Manga.model_name.human}/i === title
+    else # kinds_text
+      !kinds.many? && /#{Manga.model_name.human}/i === title
     end
   end
 
 private
 
   attr_reader :klass, :user
-  attr_reader :seasons, :types, :statuses, :genres, :studios, :publishers
+  attr_reader :seasons, :kinds, :statuses, :genres, :studios, :publishers
 
   def fancy_title
     if genres.present?
@@ -43,7 +43,7 @@ private
 
   def composite_title
     title = [
-      statuses_text || types_text,
+      statuses_text || kinds_text,
       studios_text,
       publishers_text,
       genres_text,
@@ -58,7 +58,7 @@ private
   end
 
   def fancy?
-    (seasons + types + statuses + genres + studios + publishers).one?
+    (seasons + kinds + statuses + genres + studios + publishers).one?
   end
 
   def statuses_text
@@ -71,24 +71,24 @@ private
 
   def status_text status
     i18n_t(
-      "status.#{klass.name.downcase}.#{type_count_key}.#{status}",
-        type: type_text(types.first)
+      "status.#{klass.name.downcase}.#{kind_count_key}.#{status}",
+        kind: kind_text(kinds.first)
     ).downcase
   end
 
-  def type_count_key
-    if types.one?
-      types.first == 'manga' ? :many_types : :one_type
+  def kind_count_key
+    if kinds.one?
+      kinds.first == 'manga' ? :many_kinds : :one_kind
     else
-      :many_types
+      :many_kinds
     end
   end
 
-  def types_text
-    return klass.model_name.human if types.none?
+  def kinds_text
+    return klass.model_name.human if kinds.none?
 
-    types
-      .map { |type| type_text type }
+    kinds
+      .map { |kind| kind_text kind }
       .to_sentence
   end
 
@@ -126,11 +126,11 @@ private
       .to_sentence
   end
 
-  def type_text type
-    form = types.many? ? 'short' : 'long'
+  def kind_text kind
+    form = kinds.many? ? 'short' : 'long'
 
-    text = if type.present?
-      i18n_t "kind.#{klass.name.downcase}.#{form}.#{type}"
+    text = if kind.present?
+      i18n_t "kind.#{klass.name.downcase}.#{form}.#{kind}"
     else
       klass.model_name.human
     end

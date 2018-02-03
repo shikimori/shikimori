@@ -1,6 +1,6 @@
 header.head
   h1
-    = @page_title.last
+    = og.headline
   p.notice.clearfix = t '.list_of_all_site_achievements'
 
 - cache NekoRepository.instance.cache_key do

@@ -13,11 +13,19 @@ class RanobeController < AnimesController
 
 private
 
+  def og_meta
+    book_tags = @resource.genres.map do |genre|
+      UsersHelper.localized_name genre, current_user
+    end
+
+    og type: 'book'
+    og book_release_date: @resource.released_on if @resource.released_on
+    og book_tags: book_tags
+  end
+
   def resource_redirect
     if @resource.manga?
-      redirect_url =
-        url_for(url_params.merge(action: params[:action], controller: 'mangas'))
-      return redirect_to redirect_url, status: 301
+      return redirect_to current_url(controller: 'mangas'), status: 301
     end
 
     super

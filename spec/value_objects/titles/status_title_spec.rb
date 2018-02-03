@@ -5,7 +5,7 @@ describe Titles::StatusTitle do
     let(:status) { :ongoing }
 
     it { expect(title.text).to eq 'ongoing' }
-    it { expect(title.url_params).to eq season: nil, status: 'ongoing', type: nil }
+    it { expect(title.url_params).to eq season: nil, status: 'ongoing', kind: nil }
     it { expect(title.catalog_title).to eq 'Сейчас выходит' }
     it { expect(title.short_title).to eq 'Онгоинги' }
     it { expect(title.full_title).to eq 'Онгоинги аниме' }

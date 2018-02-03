@@ -23,9 +23,10 @@ class AnimesController < DbEntriesController
     synonyms: []
   ]
 
-  before_action :set_breadcrumbs, if: -> { @resource }
-  before_action :resource_redirect, if: -> { @resource }
+  before_action :set_breadcrumbs, if: :resource_id
+  before_action :resource_redirect, if: :resource_id
   before_action :js_export, only: %i[show]
+  before_action :og_meta, if: :resource_id
 
   # display anime or manga
   def show
@@ -38,8 +39,8 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title i18n_t("characters.#{@resource.object.class.name.downcase}")
+    og noindex: true
+    og page_title: i18n_t("characters.#{@resource.object.class.name.downcase}")
   end
 
   def staff
@@ -47,8 +48,8 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title i18n_t("producers.#{@resource.object.class.name.downcase}")
+    og noindex: true
+    og page_title: i18n_t("producers.#{@resource.object.class.name.downcase}")
   end
 
   def files
@@ -56,8 +57,8 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title i18n_t 'files'
+    og noindex: true
+    og page_title: i18n_t('files')
   end
 
   def similar
@@ -65,8 +66,8 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title i18n_t("similar.#{@resource.object.class.name.downcase}")
+    og noindex: true
+    og page_title: i18n_t("similar.#{@resource.object.class.name.downcase}")
   end
 
   def screenshots
@@ -74,8 +75,8 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title i18n_i('screenshot', :other).capitalize
+    og noindex: true
+    og page_title: i18n_i('screenshot', :other).capitalize
   end
 
   def videos
@@ -83,8 +84,8 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title i18n_i('video').capitalize
+    og noindex: true
+    og page_title: i18n_i('video').capitalize
   end
 
   def related
@@ -92,8 +93,8 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title i18n_t("related.#{@resource.object.class.name.downcase}")
+    og noindex: true
+    og page_title: i18n_t("related.#{@resource.object.class.name.downcase}")
   end
 
   def chronology
@@ -101,8 +102,8 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title t('animes.page.chronology')
+    og noindex: true
+    og page_title: t('animes.page.chronology')
   end
 
   def franchise
@@ -110,8 +111,8 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title t('animes.page.franchise')
+    og noindex: true
+    og page_title: t('animes.page.franchise')
     @blank_layout = true
   end
 
@@ -121,18 +122,15 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    page_title i18n_t("reviews.#{@resource.object.class.name.downcase}")
-    #@canonical = UrlGenerator.instance.topic_url(
-    #  @resource.maybe_topic(locale_from_host)
-    #)
+    og page_title: i18n_t("reviews.#{@resource.object.class.name.downcase}")
   end
 
   def art
     unless @resource.display_sensitive?
       return redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title t('imageboard_art')
+    og noindex: true
+    og page_title: t('imageboard_art')
   end
 
   def images
@@ -149,7 +147,7 @@ class AnimesController < DbEntriesController
     if @collection.none?
       return redirect_to @resource.url, status: 301
     end
-    page_title t('cosplay')
+    og page_title: t('cosplay')
   end
 
   def favoured
@@ -157,16 +155,16 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    noindex
-    page_title t('in_favorites')
+    og noindex: true
+    og page_title: t('in_favorites')
   end
 
   def clubs
     if @resource.all_clubs.none?
       return redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title t('in_clubs')
+    og noindex: true
+    og page_title: t('in_clubs')
   end
 
   def resources
@@ -174,7 +172,7 @@ class AnimesController < DbEntriesController
   end
 
   def other_names
-    noindex
+    og noindex: true
   end
 
   # торренты к эпизодам аниме
@@ -200,6 +198,25 @@ class AnimesController < DbEntriesController
   end
 
 private
+
+  def og_meta
+    video_type =
+      if @resource.kind_tv? || @resource.kind_ona?
+        'video.tv_show'
+      elsif @resource.kind_movie?
+        'video.movie'
+      else
+        'video.other'
+      end
+    video_tags = @resource.genres.map do |genre|
+      UsersHelper.localized_name genre, current_user
+    end
+
+    og type: video_type
+    og video_duration: @resource.duration * 60 if @resource.duration.positive?
+    og video_release_date: @resource.released_on if @resource.released_on
+    og video_tags: video_tags
+  end
 
   def update_params
     params

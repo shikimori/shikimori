@@ -4,7 +4,7 @@ describe Titles::CollectionTitle do
       klass: klass,
       user: user,
       season: season,
-      type: type,
+      kind: kind,
       status: status,
       genres: genres,
       studios: studios,
@@ -14,14 +14,15 @@ describe Titles::CollectionTitle do
   let(:klass) { Anime }
   let(:user) { nil }
   let(:season) {}
-  let(:type) {}
+  let(:kind) {}
   let(:status) {}
   let(:genres) {}
   let(:studios) {}
   let(:publishers) {}
 
   describe '#title' do
-    subject(:title) { collection_title.title }
+    subject(:title) { collection_title.title is_capitalized }
+    let(:is_capitalized) { true }
 
     context 'no params' do
       context 'anime' do
@@ -31,7 +32,16 @@ describe Titles::CollectionTitle do
 
         context 'authenticated' do
           let(:user) { build :user }
-          it { is_expected.to eq 'Аниме' }
+
+          context 'capitalized' do
+            let(:is_capitalized) { true }
+            it { is_expected.to eq 'Аниме' }
+          end
+
+          context 'not capitalized' do
+            let(:is_capitalized) { false }
+            it { is_expected.to eq 'аниме' }
+          end
         end
       end
 
@@ -41,21 +51,21 @@ describe Titles::CollectionTitle do
       end
     end
 
-    describe 'type' do
-      context 'one type' do
+    describe 'kind' do
+      context 'one kind' do
         context 'tv' do
-          let(:type) { 'tv' }
+          let(:kind) { 'tv' }
           it { is_expected.to eq 'Аниме сериалы' }
         end
 
         context 'movie' do
-          let(:type) { 'movie' }
+          let(:kind) { 'movie' }
           it { is_expected.to eq 'Полнометражные аниме' }
         end
       end
 
-      context 'many types' do
-        let(:type) { 'tv,movie' }
+      context 'many kinds' do
+        let(:kind) { 'tv,movie' }
         it { is_expected.to eq 'Сериалы и фильмы' }
       end
     end
@@ -85,7 +95,7 @@ describe Titles::CollectionTitle do
 
         context 'novel' do
           let(:klass) { Manga }
-          let(:type) { 'novel' }
+          let(:kind) { 'novel' }
           it { is_expected.to eq 'Вышедшие ранобэ' }
         end
       end
@@ -142,8 +152,8 @@ describe Titles::CollectionTitle do
     context 'manga with status filter' do
       let(:klass) { Manga }
 
-      context 'many types' do
-        let(:type) { 'manga,manhua' }
+      context 'many kinds' do
+        let(:kind) { 'manga,manhua' }
 
         context 'status == released' do
           let(:status) { 'released' }
@@ -161,14 +171,14 @@ describe Titles::CollectionTitle do
         end
       end
 
-      context 'one type' do
-        context 'type == manga' do
-          let(:type) { 'manga' }
+      context 'one kind' do
+        context 'kind == manga' do
+          let(:kind) { 'manga' }
           it { is_expected.to eq true }
         end
 
-        context 'type != manga' do
-          let(:type) { 'manhua' }
+        context 'kind != manga' do
+          let(:kind) { 'manhua' }
           it { is_expected.to eq false }
         end
       end
@@ -178,25 +188,25 @@ describe Titles::CollectionTitle do
       let(:klass) { Manga }
       let(:status) { nil }
 
-      context 'many types' do
-        let(:type) { 'manga,manhua' }
+      context 'many kinds' do
+        let(:kind) { 'manga,manhua' }
         it { is_expected.to eq false }
       end
 
-      context 'one type' do
-        context 'type == manga' do
-          let(:type) { 'manga' }
+      context 'one kind' do
+        context 'kind == manga' do
+          let(:kind) { 'manga' }
           it { is_expected.to eq true }
         end
 
-        context 'type != manga' do
-          let(:type) { 'manhua' }
+        context 'kind != manga' do
+          let(:kind) { 'manhua' }
           it { is_expected.to eq false }
         end
       end
 
-      context 'no type' do
-        let(:type) { nil }
+      context 'no kind' do
+        let(:kind) { nil }
         it { is_expected.to eq true }
       end
     end

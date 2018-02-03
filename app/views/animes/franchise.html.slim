@@ -6,7 +6,7 @@ header.head.misc
       data-text=t('back')
     ]
     = @resource.headline
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 .sticky-tooltip
   .close

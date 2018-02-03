@@ -18,9 +18,10 @@ module ErrorsConcern
 
   # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
   def runtime_error e
-    Honeybadger.notify(e) if defined? Honeybadger
-    Raven.capture_exception(e) if defined? Raven
-    Appsignal.set_error(e) if defined? Appsignal
+    Airbrake.notify e if defined? Airbrake
+    Honeybadger.notify e if defined? Honeybadger
+    Raven.capture_exception e if defined? Raven
+    Appsignal.set_error e if defined? Appsignal
 
     # NamedLogger
       # .send("#{Rails.env}_errors")
@@ -107,7 +108,7 @@ private
   end
 
   def standard_error _e
-    @page_title = t 'error'
+    og page_title: t('error')
     render 'pages/page503.html', layout: false, status: 503, formats: :html
   end
 

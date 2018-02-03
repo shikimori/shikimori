@@ -43,28 +43,28 @@ ru:
   titles/collection_title:
     status:
       anime:
-        one_type: &anime_one_type
+        one_kind: &anime_one_kind
           anons: анонсы аниме
           ongoing: онгоинги аниме
           released: вышедшие аниме
           latest: недавно вышедшие аниме
-        many_types:
-          <<: *anime_one_type
+        many_kinds:
+          <<: *anime_one_kind
       manga:
-        one_type: &manga_one_type
-          anons: анонсы %{type}
-          ongoing: онгоинги %{type}
-          released: вышедшие %{type}
-          latest: недавно вышедшие %{type}
-        many_types:
+        one_kind: &manga_one_kind
+          anons: анонсы %{kind}
+          ongoing: онгоинги %{kind}
+          released: вышедшие %{kind}
+          latest: недавно вышедшие %{kind}
+        many_kinds:
           anons: анонсы манги
           ongoing: онгоинги манги
           released: вышедшая манга
           latest: недавно вышедшая манга
       ranobe:
-        one_type:
-          <<: *manga_one_type
-        many_types:
+        one_kind:
+          <<: *manga_one_kind
+        many_kinds:
           anons: анонсы ранобэ
           ongoing: онгоинги ранобэ
           released: вышедшиея ранобэ
@@ -130,7 +130,7 @@ ru:
       decade: '%{decade}0х годов'
 
   titles/anime_keywords:
-    type:
+    kind:
       tv: аниме сериалы
       movie: полнометражные аниме
       anime: аниме анимэ

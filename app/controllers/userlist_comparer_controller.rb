@@ -3,7 +3,7 @@ class UserlistComparerController < ShikimoriController
   before_action :authorize_lists_access
 
   def show
-    noindex && nofollow
+    og noindex: true, nofollow: true
     @klass = params[:list_type].downcase.capitalize.constantize
     params[:klass] = @klass
 
@@ -12,8 +12,11 @@ class UserlistComparerController < ShikimoriController
       ListCompareService.fetch(@user_1, @user_2, params)
     end
 
-    @page_title = i18n_t "page_title.#{@klass.name.downcase}",
-      user_1: @user_1.nickname, user_2: @user_2.nickname
+    og page_title: i18n_t(
+      "page_title.#{@klass.name.downcase}",
+      user_1: @user_1.nickname,
+      user_2: @user_2.nickname
+    )
 
     @menu = Menus::CollectionMenu.new @klass
   end

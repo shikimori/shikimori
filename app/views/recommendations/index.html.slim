@@ -1,5 +1,5 @@
 header.head.misc
-  h1 = @page_title.last
+  h1 = og.headline
 
   - if @view.klass == Anime
     a.misc href=recommendations_manga_url = Manga.model_name.human.downcase

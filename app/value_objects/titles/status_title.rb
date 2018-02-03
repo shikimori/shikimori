@@ -10,7 +10,7 @@ class Titles::StatusTitle
     # без nil из-за странного бага рельс когда находишься на странице
     # http://shikimori.dev/animes/status/anons status/anons попадает
     # в сгенерённый url
-    { season: nil, status: text, type: nil }
+    { season: nil, status: text, kind: nil }
   end
 
   def catalog_title
@@ -24,7 +24,7 @@ class Titles::StatusTitle
 
   def full_title
     I18n.t(
-      "titles/collection_title.status.#{klass_key}.many_types.#{status}"
+      "titles/collection_title.status.#{klass_key}.many_kinds.#{status}"
     ).first_upcase
   end
 

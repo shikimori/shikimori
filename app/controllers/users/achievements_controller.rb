@@ -1,6 +1,6 @@
 class Users::AchievementsController < ProfilesController
   before_action :additional_breadcrumbs, except: [:index]
-  before_action { page_title 'Достижения' }
+  before_action { og page_title: i18n_i('title') }
 
   def index
     unless current_user&.admin? || @user.nickname == 'test2'
@@ -9,13 +9,13 @@ class Users::AchievementsController < ProfilesController
   end
 
   def franchise
-    page_title 'Франшизы'
+    og page_title: 'Франшизы'
   end
 
 private
 
   def additional_breadcrumbs
     @back_url = profile_achievements_url(@resource)
-    breadcrumb 'Достижения', @back_url
+    breadcrumb i18n_i('title'), @back_url
   end
 end
