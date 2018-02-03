@@ -9,7 +9,7 @@ class UsersController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = LIMIT
 
-    page_title i18n_i('User', :other)
+    og page_title: i18n_i('User', :other)
 
     @collection = Users::Query.fetch
       .search(params[:search])
@@ -20,7 +20,7 @@ class UsersController < ShikimoriController
   # rubocop:disable MethodLength
   # rubocop:disable AbcSize
   def similar
-    noindex
+    og noindex: true
     @page = [params[:page].to_i, 1].max
     @limit = LIMIT
     @threshold = params[:threshold].to_i
@@ -30,7 +30,7 @@ class UsersController < ShikimoriController
       return redirect_to current_url(threshold: THRESHOLDS[2])
     end
 
-    page_title i18n_t('similar_users')
+    og page_title: i18n_t('similar_users')
     breadcrumb i18n_i('User', :other), users_url
 
     @similar_ids = SimilarUsersFetcher.call(

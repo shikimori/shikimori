@@ -3,15 +3,15 @@ module OpenGraphConcern
 
   included do
     helper_method :og
-    delegate :page_title, :noindex, :nofollow, :description, :keywords,
-      to: :og
   end
 
-  def og *args
+  def og options = nil
     @open_graph ||= OpenGraphView.new
 
-    args.each do |(key, value)|
-      @open_graph.send "#{key}=", value
+    if options&.any?
+      options.each do |(key, value)|
+        @open_graph.send "#{key}=", value
+      end
     end
 
     @open_graph

@@ -1,7 +1,7 @@
 header.head
   h2
     a.back href=@back_url data-text=t('back')
-    = @page_title.last
+    = og.headline
   .notice У автора #{@resource.anime_videos.count} видео
   = render partial: 'application/breadcrumbs', object: @breadcrumbs
 

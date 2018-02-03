@@ -5,7 +5,7 @@ header.head.misc
       title=t('.back_to_contest_page')
       data-text=t('back')
     ]
-    = @page_title.last
+    = og.headline
   = render partial: 'application/breadcrumbs', object: @breadcrumbs
 
 - cache @resource do

@@ -9,7 +9,7 @@ class Users::AchievementsController < ProfilesController
   end
 
   def franchise
-    page_title 'Франшизы'
+    og page_title: 'Франшизы'
   end
 
 private

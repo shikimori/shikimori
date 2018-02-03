@@ -31,12 +31,12 @@ class ReviewsController < AnimesController
   end
 
   def new
-    page_title i18n_t('new_review')
+    og page_title: i18n_t('new_review')
     @additional_text = additinal_text if ru_host? && I18n.russian?
   end
 
   def edit
-    page_title i18n_t('edit_review')
+    og page_title: i18n_t('edit_review')
   end
 
   def create
@@ -125,9 +125,9 @@ private
   end
 
   def add_title
-    page_title i18n_i('Review', :other)
+    og page_title: i18n_i('Review', :other)
     if params[:action] == 'show'
-      page_title i18n_t('review_by', nickname: @review.user.nickname)
+      og page_title: i18n_t('review_by', nickname: @review.user.nickname)
     end
   end
 

@@ -11,7 +11,7 @@ class ProfilesController < ShikimoriController
   }
 
   def show
-    noindex if @resource.created_at > 1.year.ago
+    og noindex: true if @resource.created_at > 1.year.ago
 
     if user_signed_in? && current_user.id == @resource.id
       MessagesService
@@ -21,32 +21,32 @@ class ProfilesController < ShikimoriController
   end
 
   def friends
-    noindex
+    og noindex: true
     redirect_to @resource.url if @resource.friends.none?
-    page_title i18n_t('friends')
+    og page_title: i18n_t('friends')
   end
 
   def clubs
-    noindex
+    og noindex: true
     redirect_to @resource.url if @resource.clubs.none?
-    page_title i18n_i('Club', :other)
+    og page_title: i18n_i('Club', :other)
   end
 
   def favourites
-    noindex
+    og noindex: true
     redirect_to @resource.url if @resource.favourites.none?
-    page_title i18n_t('favorites')
+    og page_title: i18n_t('favorites')
   end
 
   def feed
-    noindex
+    og noindex: true
 
     if !@resource.show_comments? ||
         @resource.main_comments_view.comments_count.zero?
       redirect_to @resource.url
     end
 
-    page_title i18n_t('feed')
+    og page_title: i18n_t('feed')
   end
 
   #def stats
@@ -54,7 +54,7 @@ class ProfilesController < ShikimoriController
   #end
 
   def reviews
-    noindex
+    og noindex: true
     collection = postload_paginate(params[:page], 5) do
       @resource.reviews.order(id: :desc)
     end
@@ -64,11 +64,11 @@ class ProfilesController < ShikimoriController
       Topics::ReviewView.new topic, true, true
     end
 
-    page_title i18n_t('reviews')
+    og page_title: i18n_t('reviews')
   end
 
   def comments
-    noindex
+    og noindex: true
     collection = postload_paginate(params[:page], 20) do
       Comment
         .where(user: @resource.object)
@@ -79,11 +79,11 @@ class ProfilesController < ShikimoriController
     end
     @collection = collection.map { |v| SolitaryCommentDecorator.new v }
 
-    page_title i18n_t('comments')
+    og page_title: i18n_t('comments')
   end
 
   def summaries
-    noindex
+    og noindex: true
     collection = postload_paginate(params[:page], 20) do
       Comment
         .where(user: @resource.object, is_summary: true)
@@ -91,31 +91,31 @@ class ProfilesController < ShikimoriController
     end
     @collection = collection.map { |v| SolitaryCommentDecorator.new v }
 
-    page_title i18n_t('summaries')
+    og page_title: i18n_t('summaries')
   end
 
   def versions
-    noindex
+    og noindex: true
     @collection = postload_paginate(params[:page], 30) do
       @resource.versions.where.not(item_type: AnimeVideo.name).order(id: :desc)
     end
     @collection = @collection.map(&:decorate)
 
-    page_title i18n_t('content_changes')
+    og page_title: i18n_t('content_changes')
   end
 
   def video_versions
-    noindex
+    og noindex: true
     @collection = postload_paginate(params[:page], 30) do
       @resource.versions.where(item_type: AnimeVideo.name).order(id: :desc)
     end
     @collection = @collection.map(&:decorate)
 
-    page_title i18n_t('video_changes')
+    og page_title: i18n_t('video_changes')
   end
 
   def video_uploads
-    noindex
+    og noindex: true
     @collection = postload_paginate(params[:page], 30) do
       AnimeVideoReport
         .where(user: @resource.object)
@@ -124,11 +124,11 @@ class ProfilesController < ShikimoriController
         .order(id: :desc)
     end
 
-    page_title i18n_t('video_uploads')
+    og page_title: i18n_t('video_uploads')
   end
 
   def video_reports
-    noindex
+    og noindex: true
     @collection = postload_paginate(params[:page], 30) do
       AnimeVideoReport
         .where(user: @resource.object)
@@ -137,32 +137,32 @@ class ProfilesController < ShikimoriController
         .order(id: :desc)
     end
 
-    page_title i18n_t('video_reports')
+    og page_title: i18n_t('video_reports')
   end
 
   def achievements
-    page_title i18n_t('achievements')
+    og page_title: i18n_t('achievements')
   end
 
   def ban
-    noindex
+    og noindex: true
     @ban = Ban.new user_id: @resource.id
-    page_title t('ban_history')
+    og page_title: t('ban_history')
   end
 
   def edit
     authorize! :edit, @resource
-    page_title t(:settings)
+    og page_title: t(:settings)
 
     if PARENT_PAGES[params[:page]]
-      page_title t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}")
+      og page_title: t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}")
       breadcrumb(
         # t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}"),
         t(:settings),
         edit_profile_url(@resource, page: PARENT_PAGES[params[:page]])
       )
     end
-    page_title t("profiles.page.pages.#{params[:page]}") rescue I18n::MissingTranslation
+    og page_title: t("profiles.page.pages.#{params[:page]}") rescue I18n::MissingTranslation
 
     @page = params[:page]
     @resource.email = '' if @resource.email =~ /^generated_/ && params[:action] == 'edit'
@@ -221,8 +221,8 @@ private
     breadcrumb i18n_i('User', :other), users_url
     breadcrumb @resource.nickname, @resource.url
 
-    page_title i18n_t 'profile'
-    page_title (@resource || @user).nickname
+    og page_title: i18n_t('profile')
+    og page_title: (@resource || @user).nickname
   end
 
   def update_params

@@ -1,7 +1,7 @@
 # TODO: merge into ApplicationController
 # TODO: extract related methods into concerns
 class ShikimoriController < ApplicationController
-  before_action { noindex && nofollow unless shikimori? }
+  before_action { og noindex: true, nofollow: true unless shikimori? }
   COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
   helper_method :censored_forbidden?
@@ -20,9 +20,9 @@ class ShikimoriController < ApplicationController
     instance_variable_set "@#{resource_klass.name.downcase}", @resource
 
     if @resource.respond_to? :name
-      page_title @resource.name
+      og page_title: @resource.name
     elsif @resource.respond_to? :title
-      page_title @resource.title
+      og page_title: @resource.title
     end
 
     raise AgeRestricted if @resource.try(:censored?) && censored_forbidden?

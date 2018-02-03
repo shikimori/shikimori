@@ -15,7 +15,7 @@ class TopicsController < ShikimoriController
   CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
 
   def index
-    noindex if params[:search].present?
+    og noindex: true if params[:search].present?
 
     if params[:linked_id]
       # редирект на топик, если топик в подфоруме единственный
@@ -39,12 +39,12 @@ class TopicsController < ShikimoriController
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
 
     # новости аниме без комментариев поисковым системам не скармливаем
-    noindex && nofollow if @resource.generated? && @resource.comments_count.zero?
+    og noindex: true, nofollow: true if @resource.generated? && @resource.comments_count.zero?
   end
 
   def new
     topic_type_policy = Topic::TypePolicy.new(@resource)
-    page_title i18n_t("new_#{topic_type_policy.news_topic? ? :news : :topic}")
+    og page_title: i18n_t("new_#{topic_type_policy.news_topic? ? :news : :topic}")
     @back_url = @breadcrumbs[@breadcrumbs.keys.last]
   end
 
@@ -143,12 +143,12 @@ private
   end
 
   def set_breadcrumbs
-    page_title t('page', page: @forums_view.page) if @forums_view.page > 1
-    page_title i18n_t('title')
+    og page_title: t('page', page: @forums_view.page) if @forums_view.page > 1
+    og page_title: i18n_t('title')
     breadcrumb t('forum'), forum_url
 
     if @resource&.forum
-      page_title @resource.forum.name
+      og page_title: @resource.forum.name
       breadcrumb @resource.forum.name, forum_topics_url(@resource.forum)
 
       if @forums_view.linked
@@ -160,7 +160,7 @@ private
         )
       end
 
-      page_title @topic_view ? @topic_view.topic_title : @resource.title
+      og page_title: @topic_view ? @topic_view.topic_title : @resource.title
       if %w[edit update].include? params[:action]
         breadcrumb(
           @topic_view ? @topic_view.topic_title : @resource.title,
@@ -169,13 +169,13 @@ private
       end
 
     elsif @forums_view.forum
-      page_title @forums_view.forum.name
+      og page_title: @forums_view.forum.name
       if params[:action] != 'index' || @forums_view.linked
         breadcrumb @forums_view.forum.name, forum_topics_url(@forums_view.forum)
       end
 
       if @forums_view.linked
-        page_title UsersHelper.localized_name(@forums_view.linked, current_user)
+        og page_title: UsersHelper.localized_name(@forums_view.linked, current_user)
       end
     end
   end

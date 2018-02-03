@@ -33,14 +33,14 @@ class CollectionsController < ShikimoriController
   def show
     raise ActiveRecord::RecordNotFound unless @resource.published?
 
-    page_title @resource.name
+    og page_title: @resource.name
     @topic_view = Topics::TopicViewFactory
       .new(false, false)
       .build(@resource.maybe_topic(locale_from_host))
   end
 
   def new
-    page_title i18n_t('new_collection')
+    og page_title: i18n_t('new_collection')
     render :form
   end
 
@@ -56,7 +56,7 @@ class CollectionsController < ShikimoriController
   end
 
   def edit
-    page_title @resource.name
+    og page_title: @resource.name
     @page = params[:page]
     render :form
   end

@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  .subheadline.m5 = @page_title.last
+  .subheadline.m5 = og.headline
   .b-gallery[
     data-can_upload=can?(:upload, @resource)
     data-rel="club_gallery"

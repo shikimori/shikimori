@@ -107,7 +107,7 @@ private
   end
 
   def standard_error _e
-    @page_title = t 'error'
+    og page_title: t('error')
     render 'pages/page503.html', layout: false, status: 503, formats: :html
   end
 

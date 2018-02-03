@@ -13,7 +13,7 @@ class SitemapController < ShikimoriController
         .limit(5)
     end
 
-    @page_title = 'Карта сайта'
+    og page_title: 'Карта сайта'
     @last_animepage_change = DateTime.parse('2011-06-05 15:12:43')
 
     @anime_forums = [

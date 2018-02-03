@@ -1,5 +1,5 @@
 header.head
-  h1 = @page_title
+  h1 = og.headline
   .notice
     p Список #{@klass == Anime ? 'аниме' : 'манги'} без описаний для тех, кто хочет помочь сайту. Подробности в <a href="#{@breadcrumbs['Переводы']}">клубе переводов</a>.
   = render partial: 'application/breadcrumbs', object: @breadcrumbs

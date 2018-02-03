@@ -7,9 +7,7 @@ class StudiosController < ShikimoriController
   SQL
 
   def index
-    @page_title = i18n_t 'page_title'
-    @description = i18n_t 'description'
-    set_meta_tags description: @description
+    og page_title: i18n_t('page_title'), description: i18n_t('description')
 
     @collection = Studio
       .joins('left join animes on studios.id = any(animes.studio_ids)')

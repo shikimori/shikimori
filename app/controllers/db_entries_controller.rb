@@ -8,7 +8,7 @@ class DbEntriesController < ShikimoriController
   COLLETIONS_PER_PAGE = 4
 
   def tooltip
-    noindex
+    og noindex: true
   end
 
   def versions
@@ -18,8 +18,7 @@ class DbEntriesController < ShikimoriController
     if @resource.collections_scope.none?
       return redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title t('in_collections')
+    og noindex: true, page_title: t('in_collections')
 
     page = [params[:page].to_i, 1].max
 
@@ -34,13 +33,11 @@ class DbEntriesController < ShikimoriController
   end
 
   def edit
-    noindex
-    page_title i18n_t 'entry_edit'
+    og noindex: true, page_title: i18n_t('entry_edit')
   end
 
   def edit_field
-    noindex
-    page_title i18n_t 'entry_edit'
+    og noindex: true, page_title: i18n_t('entry_edit')
     @field = params[:field]
 
     authorize! :create, temp_verison
@@ -84,7 +81,7 @@ class DbEntriesController < ShikimoriController
 private
 
   def resource_klass_page_title
-    page_title resource_klass.model_name.human
+    og page_title: resource_klass.model_name.human
   end
 
   def significant_fields

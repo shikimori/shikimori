@@ -2,7 +2,20 @@ class OpenGraphView < ViewObjectBase
   prepend ActiveCacher.instance
   # instance_cache :styles, :hot_topics, :moderation_policy
 
-  vattr_initialize %i[page_title noindex nofollow keywords description]
+  attr_reader :page_title
+  attr_writer :description, :notice
+  attr_accessor :keywords, :noindex, :nofollow
+
+  def initialize
+    @page_title = []
+    @notice = nil
+    @noindex = nil
+    @nofollow = nil
+    @keywords = nil
+    @description = nil
+  end
+
+  PAGE_TITLE_SEPARATOR = ' / '
 
   def site_name
     h.ru_host? ? Shikimori::NAME_RU : Shikimori::NAME_EN
@@ -16,31 +29,35 @@ class OpenGraphView < ViewObjectBase
         h.request.url
       end
 
-    url.gsub(/\?.*/, '')
+    url.gsub(/\?.*/, '').html_safe
   end
 
   def page_title= value
-    @page_title ||= []
-    @page_title.push HTMLEntities.new.decode(title)
+    @page_title.push HTMLEntities.new.decode(value)
   end
 
-  def h1
-    @page_title&.last || raise('page_title is not set')
+  def headline allow_not_set = false
+    @page_title.last || (
+      allow_not_set ? site_name : raise('open_graph.page_title is not set')
+    )
   end
 
-  # def noindex
-  #   @meta_noindex = true
-  # end
+  def meta_title
+    titles = @page_title.any? ? @page_title : [site_name]
 
-  # def nofollow
-  #   @meta_nofollow = true
-  # end
+    <<~HTML.strip.delete("\n").html_safe
+      <title>
+      #{'[DEV] ' if Rails.env.development?}
+      #{titles.reverse.join PAGE_TITLE_SEPARATOR}
+      </title>
+    HTML
+  end
 
-  # def description text
-  #   @meta_description = text
-  # end
+  def notice
+    @notice || @description
+  end
 
-  # def keywords text
-  #   @meta_keywords = text
-  # end
+  def description
+    @description || @notice
+  end
 end

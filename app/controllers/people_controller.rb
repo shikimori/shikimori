@@ -15,7 +15,7 @@ class PeopleController < DbEntriesController
 
   # rubocop:disable AbcSize, MethodLength
   def index
-    page_title search_title
+    og page_title: search_title
 
     @page = [params[:page].to_i, 1].max
 
@@ -36,21 +36,21 @@ class PeopleController < DbEntriesController
   end
 
   def works
-    noindex
-    page_title i18n_t('participation_in_projects')
+    og noindex: true
+    og page_title: i18n_t('participation_in_projects')
   end
 
   def roles
-    noindex
-    page_title i18n_t('roles_in_anime')
+    og noindex: true
+    og page_title: i18n_t('roles_in_anime')
   end
 
   def favoured
     if @resource.all_favoured.none?
       return redirect_to @resource.url, status: 301
     end
-    noindex
-    page_title t('in_favorites')
+    og noindex: true
+    og page_title: t('in_favorites')
   end
 
   def tooltip

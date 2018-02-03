@@ -3,12 +3,12 @@ class Moderations::VersionsController < ModerationsController
   before_action { page_title i18n_t('content_changes') }
 
   def show
-    noindex
-    page_title i18n_t('content_change', version_id: @resource.id)
+    og noindex: true
+    og page_title: i18n_t('content_change', version_id: @resource.id)
   end
 
   def tooltip
-    noindex
+    og noindex: true
   end
 
   def index

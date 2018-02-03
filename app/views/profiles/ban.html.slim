@@ -9,7 +9,7 @@
   - if current_user&.forum_moderator?
     .cc-2
       .c-column
-        .subheadline = @page_title.last
+        .subheadline = og.headline
         p = t '.ban_warning_for_moderator'
         = render template: 'moderations/bans/new', locals: { ban_in_profile: true }
 

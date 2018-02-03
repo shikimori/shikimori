@@ -1,6 +1,6 @@
 header.head
   h1
-    = @page_title
+    = og.headline
   p.notice На данной странице представлены основные разделы сайта
 
 .cc-2
@@ -9,35 +9,35 @@ header.head
     ul.block.b-list
       - @forums.each do |title, url|
         li
-          a.b-link href="#{url}" title="#{title}" = title
+          a.b-link href=url title=title = title
 
     h2.subheadline Аниме
     ul.block.b-list
       - @anime_forums.each do |title, url|
         li
-          a.b-link href="#{url}" title="#{title}" = title
+          a.b-link href=url title=title = title
 
 
     h2.subheadline Манга
     ul.block.b-list
       - @manga_forums.each do |title, url|
         li
-          a.b-link href="#{url}" title="#{title}" = title
+          a.b-link href=url title=title = title
 
     h2.subheadline Ранобэ
     ul.block.b-list
       - @ranobe_forums.each do |title, url|
         li
-          a.b-link href="#{url}" title="#{title}" = title
+          a.b-link href=url title=title = title
 
   .c-column
     .subheadline Жанры аниме
     ul.block.b-list
       - @anime_genres.each do |title, url|
         li
-          a.b-link href="#{url}" title="#{title}" = title
+          a.b-link href=url title=title = title
 
     ul.block.b-list
       - @anime_misc_genres.each do |title, url|
         li
-          a.b-link href="#{url}" title="#{title}" = title
+          a.b-link href=url title=title = title

@@ -1,7 +1,6 @@
 class ContestMatchesController < ShikimoriController
-  before_action { noindex }
-
   def show
+    og noindex: true
     @resource = ContestMatch.find(params[:id]).decorate
   end
 end

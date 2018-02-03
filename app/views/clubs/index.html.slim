@@ -6,7 +6,7 @@
 
 - else
   header.head.misc
-    h1 = @page_title.last
+    h1 = og.headline
 
     a.misc.to-process[
       href=new_club_url(club: { owner_id: current_user&.id })

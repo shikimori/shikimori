@@ -8,9 +8,9 @@
     - if @resource.persisted?
       a[
         href=club_club_page_path(@club, @resource)
-      ] = @page_title.last
+      ] = og.headline
     - else
-      = @page_title.last
+      = og.headline
 
   = simple_form_for [@club, @resource] do |f|
     = f.input :club_id, as: :hidden

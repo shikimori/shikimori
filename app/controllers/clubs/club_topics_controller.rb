@@ -17,12 +17,12 @@ class Clubs::ClubTopicsController < ShikimoriController
     raise AgeRestricted if @club.censored? && censored_forbidden?
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
 
-    page_title @resource.title
+    og page_title: @resource.title
     @topic_view = Topics::TopicViewFactory.new(false, false).build @club_topic
   end
 
   def new
-    page_title i18n_t('new.title')
+    og page_title: i18n_t('new.title')
     render 'form'
   end
 
@@ -85,7 +85,7 @@ private
 
     breadcrumb i18n_i('Club', :other), clubs_url
     breadcrumb @club.name, club_url(@club)
-    page_title @club.name
+    og page_title: @club.name
 
     unless params[:action] == 'index'
       @back_url = club_club_topics_url(@club)
@@ -94,7 +94,7 @@ private
 
     @back_url = @club.url if %w[index show].include? params[:action]
 
-    page_title i18n_i('Topic', :other)
+    og page_title: i18n_i('Topic', :other)
   end
   # rubocop:enable AbcSize
 

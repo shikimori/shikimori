@@ -1,12 +1,12 @@
 class UserHistoryController < ProfilesController
   def index
-    noindex
+    og noindex: true
     redirect_to @resource.url unless @resource.history.any?
     authorize! :access_list, @resource
 
     @view = UserHistoryView.new @resource
 
-    page_title i18n_t('page_title')
+    og page_title: i18n_t('page_title')
   end
 
   def reset

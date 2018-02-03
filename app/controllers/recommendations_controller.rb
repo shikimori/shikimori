@@ -22,7 +22,8 @@ class RecommendationsController < AnimesCollectionController
       return redirect_to current_url(threshold: THRESHOLDS[@view.klass][-1])
     end
 
-    page_title i18n_t 'personalized_recommendations'
+    og noindex: true, nofollow: true
+    og page_title: i18n_t('personalized_recommendations')
 
     # запоминание текущего типа рекомендаций в куку, чтобы в меню верхнем ссылка корректная была
     cookies[COOKIE_NAME] = request.url unless params[:page]
@@ -39,7 +40,7 @@ class RecommendationsController < AnimesCollectionController
   end
 
   def favourites
-    page_title i18n_t("page_title.#{@view.klass.name.downcase}")
+    og page_title: i18n_t("page_title.#{@view.klass.name.downcase}")
     cache_key = [:favourites_recommendations, @view.klass, current_user, current_user.try(:sex)]
 
     all_entries = Rails.cache.fetch cache_key, expires_in: 1.week do

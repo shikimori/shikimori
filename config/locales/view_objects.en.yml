@@ -43,28 +43,28 @@ en:
   titles/collection_title:
     status:
       anime:
-        one_type: &anime_one_type
+        one_kind: &anime_one_kind
           anons: upcoming anime
           ongoing: airing anime
           released: released anime
           latest: latest anime
-        many_types:
-          <<: *anime_one_type
+        many_kinds:
+          <<: *anime_one_kind
       manga:
-        one_type: &manga_one_type
-          anons: upcoming %{type}
-          ongoing: ongoing %{type}
-          released: released %{type}
-          latest: latest %{type}
-        many_types:
+        one_kind: &manga_one_kind
+          anons: upcoming %{kind}
+          ongoing: ongoing %{kind}
+          released: released %{kind}
+          latest: latest %{kind}
+        many_kinds:
           anons: upcoming manga
           ongoing: ongoing manga
           released: released manga
           latest: latest manga
       ranobe:
-        one_type:
-          <<: *manga_one_type
-        many_types:
+        one_kind:
+          <<: *manga_one_kind
+        many_kinds:
           anons: upcoming light novels
           ongoing: ongoing light novels
           released: released light novels
@@ -125,7 +125,7 @@ en:
       decade: '%{decade}s'
 
   titles/anime_keywords:
-    type:
+    kind:
       tv: anime TV series
       movie: anime movie
       anime: anime

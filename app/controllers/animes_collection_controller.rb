@@ -15,26 +15,26 @@ class AnimesCollectionController < ShikimoriController
     build_background # should be placed after is_adult check
 
     if params[:search]
-      noindex && nofollow
+      og noindex: true, nofollow: true
       raise AgeRestricted if params[:search] =~ CENSORED && censored_forbidden?
     end
 
     one_found_redirect_check
 
     if params[:rel] || request.url.include?('order') ||
-        @description.blank? || @view.collection.empty? ||
+        og.description.blank? || @view.collection.empty? ||
         params.to_unsafe_h.any? { |k,v| k != 'genre' && v.kind_of?(String) && v.include?(',') }
-      noindex and nofollow
+      og noindex: true, nofollow: true
     end
 
-    @description = '' if @view.page > 1 && !turbolinks_request?
-    @title_notice = '' if @view.page > 1 && !turbolinks_request?
+    if @view.page > 1 && !turbolinks_request?
+      og description: '', notice: ''
+    end
 
-    description @description
-    keywords Titles::AnimeKeywords.new(
+    og keywords: Titles::AnimeKeywords.new(
       klass: @view.klass,
       season: params[:season],
-      type: params[:type],
+      kind: params[:kind],
       genres: @model[:genre],
       studios: @model[:studio],
       publishers: @model[:publisher]
@@ -55,13 +55,13 @@ private
     }
     @model = {}
 
-    if params[:type] =~ /[A-Z -]/
-      raise ForceRedirect, current_url(type: params[:type].downcase.sub(/ |-/, '_'))
+    if params[:kind] =~ /[A-Z -]/
+      raise ForceRedirect, current_url(kind: params[:kind].downcase.sub(/ |-/, '_'))
     end
-    types = [@view.klass.kind.values + %w(tv_48 tv_24 tv_13)].join '|'
-    if params[:type] && params[:type] !~ %r{\A (?: !? (?:#{types}) (?:,|\Z ) )+ \Z}mix
-      fixed = params[:type].split(',').select {|v| v =~ %r{\A !? (?:#{types}) \Z }mix }
-      raise ForceRedirect, current_url(type: fixed.join(','))
+    kinds = [@view.klass.kind.values + %w(tv_48 tv_24 tv_13)].join '|'
+    if params[:kind] && params[:kind] !~ %r{\A (?: !? (?:#{kinds}) (?:,|\Z ) )+ \Z}mix
+      fixed = params[:kind].split(',').select {|v| v =~ %r{\A !? (?:#{kinds}) \Z }mix }
+      raise ForceRedirect, current_url(kind: fixed.join(','))
     end
 
     [:genre, :studio, :publisher].each do |kind|
@@ -86,11 +86,11 @@ private
     end
 
     unless @view.recommendations?
-      page_title t('page', page: @view.page) if @view.page > 1
-      page_title collection_title(@model).title
+      og page_title: t('page', page: @view.page) if @view.page > 1
+      og page_title: collection_title(@model).title
 
-      @title_notice = build_page_description @model
-      @description = @page_title.last
+      og notice: build_page_description(@model)
+      og description: og.page_title.last
     end
   end
 
@@ -132,10 +132,12 @@ private
 
     if collection_title(model).manga_conjugation_variant?
       i18n_t 'description.manga_variant',
-        title: title, order_name: order_name
+        title: title,
+        order_name: order_name
     else
       i18n_t 'description.non_manga_variant',
-        title: title, order_name: order_name
+        title: title,
+        order_name: order_name
     end
   end
 
@@ -161,7 +163,7 @@ private
       klass: @view.klass,
       user: current_user,
       season: params[:season],
-      type: params[:type],
+      kind: params[:kind],
       status: params[:status],
       genres: model[:genre],
       studios: model[:studio],

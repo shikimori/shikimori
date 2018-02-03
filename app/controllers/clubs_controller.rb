@@ -32,7 +32,7 @@ class ClubsController < ShikimoriController
   CREATE_PARAMS = %i[owner_id] + UPDATE_PARAMS
 
   def index
-    noindex
+    og noindex: true
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
@@ -49,11 +49,11 @@ class ClubsController < ShikimoriController
   end
 
   def show
-    noindex
+    og noindex: true
   end
 
   def new
-    page_title i18n_t('new_club')
+    og page_title: i18n_t('new_club')
     @resource = @resource.decorate
   end
 
@@ -70,8 +70,8 @@ class ClubsController < ShikimoriController
   end
 
   def edit
-    page_title t(:settings)
-    page_title t("clubs.page.pages.#{params[:page]}")
+    og page_title: t(:settings)
+    og page_title: t("clubs.page.pages.#{params[:page]}")
     @page = params[:page]
   end
 
@@ -89,8 +89,8 @@ class ClubsController < ShikimoriController
   end
 
   def members
-    noindex
-    page_title i18n_t('club_members')
+    og noindex: true
+    og page_title: i18n_t('club_members')
 
     roles = postload_paginate(params[:page], 48) do
       @resource.all_member_roles
@@ -99,32 +99,32 @@ class ClubsController < ShikimoriController
   end
 
   def animes
-    noindex
+    og noindex: true
     redirect_to club_url(@resource) if @resource.animes.none?
-    page_title i18n_t('club_anime')
+    og page_title: i18n_t('club_anime')
   end
 
   def mangas
-    noindex
+    og noindex: true
     redirect_to club_url(@resource) if @resource.mangas.none?
-    page_title i18n_t('club_manga')
+    og page_title: i18n_t('club_manga')
   end
 
   def ranobe
-    noindex
+    og noindex: true
     redirect_to club_url(@resource) if @resource.ranobe.none?
-    page_title i18n_t('club_ranobe')
+    og page_title: i18n_t('club_ranobe')
   end
 
   def characters
-    noindex
+    og noindex: true
     redirect_to club_url(@resource) if @resource.characters.none?
-    page_title i18n_t('club_characters')
+    og page_title: i18n_t('club_characters')
   end
 
   def images
-    noindex
-    page_title i18n_t('club_images')
+    og noindex: true
+    og page_title: i18n_t('club_images')
   end
 
   def autocomplete

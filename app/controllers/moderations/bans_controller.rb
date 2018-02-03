@@ -4,8 +4,8 @@ class Moderations::BansController < ModerationsController
   layout false, only: [:new]
 
   def index
-    noindex && nofollow
-    page_title i18n_t('page_title')
+    og noindex: true, nofollow: true
+    og page_title: i18n_t('page_title')
 
     @moderators = User
       .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")

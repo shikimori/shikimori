@@ -9,7 +9,7 @@ class UserRatesController < ProfilesController
     except: %i[index]
 
   def index
-    noindex
+    og noindex: true
 
     @page = (params[:page] || 1).to_i
     @limit = UserLibraryView::ENTRIES_PER_PAGE
@@ -17,7 +17,7 @@ class UserRatesController < ProfilesController
     @library = UserLibraryView.new @resource
     @menu = Menus::CollectionMenu.new @library.klass
 
-    page_title t("#{params[:list_type]}_list")
+    og page_title: t("#{params[:list_type]}_list")
   end
 
   def edit

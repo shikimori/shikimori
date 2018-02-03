@@ -14,7 +14,7 @@ class PagesController < ShikimoriController
 
   # график онгоингов
   def ongoings
-    @page_title = i18n_t 'calendar_of_ongoings'
+    og page_title: i18n_t('calendar_of_ongoings')
 
     @ongoings_query = CalendarsQuery.new
     @topic_view = Topics::TopicViewFactory.new(false, false).find ONGOINGS_TOPIC_ID
@@ -22,27 +22,27 @@ class PagesController < ShikimoriController
 
   # о сайте
   def about
-    page_title t('about_site')
+    og page_title: t('about_site')
 
     @statistics = SiteStatistics.new
     @topic_view = Topics::TopicViewFactory.new(false, false).find ABOUT_TOPIC_ID
   end
 
   def for_right_holders
-    page_title t('application.footer.for_right_holders')
+    og page_title: t('application.footer.for_right_holders')
   end
 
   def info
-    page_title i18n_t('.info')
+    og page_title: i18n_t('.info')
   end
 
   def development
-    page_title i18n_t('.application.top_menu.shikimori.development')
+    og page_title: i18n_t('.application.top_menu.shikimori.development')
     @blank_layout = true
   end
 
   def how_to_edit_achievements
-    page_title i18n_t('.how_to_edit_achievements')
+    og page_title: i18n_t('.how_to_edit_achievements')
   end
 
   # rss с новостями
@@ -55,24 +55,24 @@ class PagesController < ShikimoriController
 
   # пользовательское соглашение
   def terms
-    noindex
-    page_title i18n_t('terms_of_service')
+    og noindex: true
+    og page_title: i18n_t('terms_of_service')
   end
 
   def privacy
-    noindex
-    page_title i18n_t('privacy_policy')
+    og noindex: true
+    og page_title: i18n_t('privacy_policy')
   end
 
   # 404 страница
   def page404
-    @page_title = t 'page_not_found'
+    og page_title: t('page_not_found')
     render 'pages/page404', layout: false, status: 404, formats: :html
   end
 
   # страница с ошибкой
   def page503
-    @page_title = t 'error'
+    og page_title: t('error')
     render 'pages/page503', layout: false, status: 503, formats: :html
   end
 

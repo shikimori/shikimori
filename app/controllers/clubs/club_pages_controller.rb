@@ -10,7 +10,7 @@ class Clubs::ClubPagesController < ShikimoriController
   before_action :prepare_form, except: [:show]
 
   def show
-    page_title @resource.name
+    og page_title: @resource.name
     breadcrumb @club.name, @club.url
     @back_url = @club.url
 
@@ -23,7 +23,7 @@ class Clubs::ClubPagesController < ShikimoriController
   end
 
   def new
-    page_title i18n_t('new.title')
+    og page_title: i18n_t('new.title')
     render 'form'
   end
 
@@ -42,7 +42,7 @@ class Clubs::ClubPagesController < ShikimoriController
   end
 
   def edit
-    page_title @resource.name
+    og page_title: @resource.name
     render 'form'
   end
 
@@ -53,7 +53,7 @@ class Clubs::ClubPagesController < ShikimoriController
         notice: t('changes_saved')
       )
     else
-      page_title @resource.name
+      og page_title: @resource.name
       flash[:alert] = t('changes_not_saved')
       render 'form'
     end
@@ -84,11 +84,11 @@ private
   def prepare_club
     @club = @club.decorate
 
-    page_title @club.name
+    og page_title: @club.name
     if %w[new create update destroy].include? params[:page]
-      page_title t(:settings)
+      og page_title: t(:settings)
     end
-    page_title t('clubs.page.pages.pages')
+    og page_title: t('clubs.page.pages.pages')
 
     breadcrumb i18n_i('Club', :other), clubs_url
     breadcrumb @club.name, club_url(@club)

@@ -1,6 +1,6 @@
 header.head.misc
   h1
-    = @page_title.last
+    = og.headline
 
     - if @klass == Anime
       a.misc href="#{similar_users_url klass: Manga.name.downcase}" = t '.by.manga'

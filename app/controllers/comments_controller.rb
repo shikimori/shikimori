@@ -2,7 +2,7 @@ class CommentsController < ShikimoriController
   include CommentHelper
 
   def show
-    noindex
+    og noindex: true
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
     @view = Comments::View.new comment, false
 

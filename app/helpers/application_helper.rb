@@ -18,10 +18,6 @@ module ApplicationHelper
     false
   end
 
-  def title page_title
-    content_for :title, page_title
-  end
-
   def cdn_image entry, image_size
     ImageUrlGenerator.instance.url entry, image_size
   end

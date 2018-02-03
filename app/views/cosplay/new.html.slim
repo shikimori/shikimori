@@ -6,7 +6,7 @@
 
 header.head.misc
   h1
-    = @page_title
+    = og.headline
   = render partial: 'application/breadcrumbs', object: breadcrumbs
 
 = form_for @gallery, url: cosplay_index_url do |f|

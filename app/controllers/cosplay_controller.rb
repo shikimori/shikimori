@@ -8,7 +8,8 @@ class CosplayController < ShikimoriController
   # модерация косплея
   def mod
     set_meta_tags noindex: true, nofollow: true
-    @page_title = ['Косплей', 'Модерация']
+    og page_title: 'Косплей'
+    og page_title: 'Модерация'
 
     User
       .where("roles && '{#{Types::User::Roles[:cosplay_moderator]}}'")
@@ -25,7 +26,7 @@ class CosplayController < ShikimoriController
 
   # новый косплей
   def new
-    @page_title = 'Новая галерея'
+    og page_title: 'Новая галерея'
     @gallery = CosplayGallery.new
   end
 
@@ -38,7 +39,9 @@ class CosplayController < ShikimoriController
     @gallery = CosplayGallery.find(params[:id].to_i).becomes CosplayGallery
     @gallery.becomes CosplayGallery
 
-    @page_title = ['Косплей', 'Модерация', @gallery.to_param]
+    og page_title: 'Косплей'
+    og page_title: 'Модерация'
+    og page_title: @gallery.to_param
     #cosplayers_show
 
     @characters = @gallery.characters

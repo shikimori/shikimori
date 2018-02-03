@@ -1,8 +1,8 @@
 header.head
   h1
-    = @page_title
+    = og.headline
   p.notice
-    = @description
+    = og.description
 
 .block
   = cache [:studios, :v5], expires_in: 1.day do

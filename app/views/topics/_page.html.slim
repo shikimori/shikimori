@@ -16,9 +16,9 @@ header.head
       a.reload[
         href=request.url
         title=t('.refresh')
-      ] = @page_title.last
+      ] = og.headline
     - else
-      = @page_title.last
+      = og.headline
 
   - if @breadcrumbs
     = render partial: 'application/breadcrumbs', object: @breadcrumbs

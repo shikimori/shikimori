@@ -29,7 +29,7 @@ class DialogsController < ProfilesController
 
     @collection = @collection.map(&:decorate)
 
-    page_title "Диалог с #{@dialog.target_user.nickname}"
+    og page_title: "Диалог с #{@dialog.target_user.nickname}"
   end
 
   def destroy
@@ -45,7 +45,7 @@ private
   end
 
   def add_title
-    page_title t(:mail)
+    og page_title: t(:mail)
   end
 
   def add_breadcrumb

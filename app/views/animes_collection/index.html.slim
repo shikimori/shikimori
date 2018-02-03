@@ -1,8 +1,8 @@
 header.head
   h1
-    = @page_title.last
+    = og.headline
   .notice
-    == @title_notice
+    == og.notice
 
 .b-collection_search[
   data-search_url=current_url(search: nil)

@@ -31,7 +31,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
   end
 
   def none
-    page_title 'Видео без авторов'
+    og page_title: 'Видео без авторов'
     @back_url = moderations_anime_video_authors_url
     breadcrumb i18n_t('page_title'), @back_url
 
@@ -48,8 +48,8 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
   end
 
   def edit
-    page_title "Редактирование автора ##{@resource.id}"
-    page_title @resource.name
+    og page_title: "Редактирование автора ##{@resource.id}"
+    og page_title: @resource.name
     @back_url = moderations_anime_video_authors_url
     breadcrumb i18n_t('page_title'), @back_url
 

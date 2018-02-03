@@ -11,7 +11,7 @@
         values: %w(list posters)
 
     - if cookies['related_view'] == 'posters'
-      .subheadline.m10 = @page_title.last
+      .subheadline.m10 = og.headline
       .cc-5.to-process data-dynamic='cutted_covers'
         = render partial: 'animes/anime',
           collection: @resource.chronology,
@@ -19,7 +19,7 @@
           cache: ->(entry, _) { CacheHelper.keys entry, :year_kind }
 
     - else
-      .subheadline.m10 = @page_title.last
+      .subheadline.m10 = og.headline
       .block_m
         = render partial: 'animes/relation_note',
           collection: @resource.chronology
