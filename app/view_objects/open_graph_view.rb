@@ -29,7 +29,7 @@ class OpenGraphView < ViewObjectBase
         h.request.url
       end
 
-    url.gsub(/\?.*/, '').html_safe
+    url.gsub(/\?.*/, '')
   end
 
   def page_title= value
@@ -53,28 +53,10 @@ class OpenGraphView < ViewObjectBase
   def meta_title
     titles = @page_title.any? ? @page_title : [site_name]
 
-    <<~HTML.strip.delete("\n").html_safe
-      <title>
+    <<~TITLE.strip.delete("\n")
       #{'[DEV] ' if Rails.env.development?}
       #{titles.reverse.join PAGE_TITLE_SEPARATOR}
-      </title>
-    HTML
-  end
-
-  def meta_keywords
-    return if keywords.blank?
-
-    <<~HTML.strip.delete("\n").html_safe
-      <meta name="keywords" content="#{keywords}">
-    HTML
-  end
-
-  def meta_description
-    return if description.blank?
-
-    <<~HTML.strip.delete("\n").html_safe
-      <meta name="description" content="#{description}">
-    HTML
+    TITLE
   end
 
   def meta_robots
@@ -85,10 +67,18 @@ class OpenGraphView < ViewObjectBase
       ('nofollow' if nofollow)
     ].compact
 
-    if content.any?
-      <<~HTML.strip.delete("\n").html_safe
-        <meta name="robots" content="#{content.join(',')}">
-      HTML
-    end
+    content.join ',' if content.any?
+  end
+
+  def meta_image
+    return unless resource.respond_to?(:image)
+
+    h.cdn_image resource, :original
+  end
+
+private
+
+  def resource
+    h.controller.instance_variable_get('@resource')
   end
 end

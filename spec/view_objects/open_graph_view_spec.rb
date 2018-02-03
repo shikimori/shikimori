@@ -27,7 +27,6 @@ describe OpenGraphView do
       let(:url) { 'http://zzz.com?123#45' }
 
       it { is_expected.to eq 'http://zzz.com' }
-      it { is_expected.to be_html_safe }
     end
 
     context 'page param' do
@@ -46,7 +45,6 @@ describe OpenGraphView do
       end
 
       it { is_expected.to eq '/animes' }
-      it { is_expected.to be_html_safe }
     end
   end
 
@@ -57,8 +55,7 @@ describe OpenGraphView do
         view.page_title = '123'
       end
 
-      it { expect(view.meta_title).to eq '<title>123 / test</title>' }
-      it { expect(view.meta_title).to be_html_safe }
+      it { expect(view.meta_title).to eq '123 / test' }
       it { expect(view.headline).to eq '123' }
     end
 
@@ -67,12 +64,12 @@ describe OpenGraphView do
       let(:is_ru_host) { true }
 
       context 'ru_host' do
-        it { expect(view.meta_title).to eq '<title>Шикимори</title>' }
+        it { expect(view.meta_title).to eq 'Шикимори' }
       end
 
       context 'not ru_host' do
         let(:is_ru_host) { false }
-        it { expect(view.meta_title).to eq '<title>Shikimori</title>' }
+        it { expect(view.meta_title).to eq 'Shikimori' }
       end
 
       it { expect { view.headline }.to raise_error 'open_graph.page_title is not set' }
@@ -87,7 +84,7 @@ describe OpenGraphView do
         allow(Rails.env).to receive(:development?).and_return true
       end
 
-      it { expect(view.meta_title).to eq '<title>[DEV] 123 / test</title>' }
+      it { expect(view.meta_title).to eq '[DEV] 123 / test' }
     end
   end
 
@@ -115,38 +112,6 @@ describe OpenGraphView do
     end
   end
 
-  describe '#meta_keywords' do
-    before { view.keywords = keywords }
-    subject { view.meta_keywords }
-
-    context 'present keywords' do
-      let(:keywords) { '456' }
-      it { is_expected.to eq "<meta name=\"keywords\" content=\"#{keywords}\">" }
-      it { is_expected.to be_html_safe }
-    end
-
-    context 'no keywords' do
-      let(:keywords) { nil }
-      it { is_expected.to be_nil }
-    end
-  end
-
-  describe '#meta_description' do
-    before { view.send %i[description= notice=].sample, description }
-    subject { view.meta_description }
-
-    context 'present description' do
-      let(:description) { '456' }
-      it { is_expected.to eq "<meta name=\"description\" content=\"#{description}\">" }
-      it { is_expected.to be_html_safe }
-    end
-
-    context 'no description' do
-      let(:description) { nil }
-      it { is_expected.to be_nil }
-    end
-  end
-
   describe '#meta_robots' do
     before do
       view.noindex = noindex
@@ -165,24 +130,21 @@ describe OpenGraphView do
       let(:noindex) { true }
       let(:nofollow) { false }
 
-      it { is_expected.to eq '<meta name="robots" content="noindex">' }
-      it { is_expected.to be_html_safe }
+      it { is_expected.to eq 'noindex' }
     end
 
     context 'no noindex, has nofollow' do
       let(:noindex) { false }
       let(:nofollow) { true }
 
-      it { is_expected.to eq '<meta name="robots" content="nofollow">' }
-      it { is_expected.to be_html_safe }
+      it { is_expected.to eq 'nofollow' }
     end
 
     context 'has noindex, has nofollow' do
       let(:noindex) { true }
       let(:nofollow) { true }
 
-      it { is_expected.to eq '<meta name="robots" content="noindex,nofollow">' }
-      it { is_expected.to be_html_safe }
+      it { is_expected.to eq 'noindex,nofollow' }
 
       context 'has another canonical url' do
         before do
