@@ -42,6 +42,14 @@ class OpenGraphView < ViewObjectBase
     )
   end
 
+  def notice
+    @notice || @description
+  end
+
+  def description
+    @description || @notice
+  end
+
   def meta_title
     titles = @page_title.any? ? @page_title : [site_name]
 
@@ -53,11 +61,34 @@ class OpenGraphView < ViewObjectBase
     HTML
   end
 
-  def notice
-    @notice || @description
+  def meta_keywords
+    return if keywords.blank?
+
+    <<~HTML.strip.delete("\n").html_safe
+      <meta name="keywords" content="#{keywords}">
+    HTML
   end
 
-  def description
-    @description || @notice
+  def meta_description
+    return if description.blank?
+
+    <<~HTML.strip.delete("\n").html_safe
+      <meta name="description" content="#{description}">
+    HTML
+  end
+
+  def meta_robots
+    return if canonical_url != h.request.url
+
+    content = [
+      ('noindex' if noindex),
+      ('nofollow' if nofollow)
+    ].compact
+
+    if content.any?
+      <<~HTML.strip.delete("\n").html_safe
+        <meta name="robots" content="#{content.join(',')}">
+      HTML
+    end
   end
 end

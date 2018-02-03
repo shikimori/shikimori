@@ -6,25 +6,28 @@ describe OpenGraphView do
 
   describe '#site_name' do
     before { allow(view.h).to receive(:ru_host?).and_return is_ru_host }
+    subject { view.site_name }
 
     context 'ru_host' do
       let(:is_ru_host) { true }
-      it { expect(view.site_name).to eq 'Шикимори' }
+      it { is_expected.to eq 'Шикимори' }
     end
 
     context 'not ru_host' do
       let(:is_ru_host) { false }
-      it { expect(view.site_name).to eq 'Shikimori' }
+      it { is_expected.to eq 'Shikimori' }
     end
   end
 
   describe '#canonical_url' do
+    subject { view.canonical_url }
+
     context 'no page param' do
       before { allow(view.h.request).to receive(:url).and_return url }
       let(:url) { 'http://zzz.com?123#45' }
 
-      it { expect(view.canonical_url).to eq 'http://zzz.com' }
-      it { expect(view.canonical_url).to be_html_safe }
+      it { is_expected.to eq 'http://zzz.com' }
+      it { is_expected.to be_html_safe }
     end
 
     context 'page param' do
@@ -42,8 +45,8 @@ describe OpenGraphView do
         }
       end
 
-      it { expect(view.canonical_url).to eq '/animes' }
-      it { expect(view.canonical_url).to be_html_safe }
+      it { is_expected.to eq '/animes' }
+      it { is_expected.to be_html_safe }
     end
   end
 
@@ -109,6 +112,85 @@ describe OpenGraphView do
       let(:description) { nil }
       it { expect(view.notice).to eq notice }
       it { expect(view.description).to eq notice }
+    end
+  end
+
+  describe '#meta_keywords' do
+    before { view.keywords = keywords }
+    subject { view.meta_keywords }
+
+    context 'present keywords' do
+      let(:keywords) { '456' }
+      it { is_expected.to eq "<meta name=\"keywords\" content=\"#{keywords}\">" }
+      it { is_expected.to be_html_safe }
+    end
+
+    context 'no keywords' do
+      let(:keywords) { nil }
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#meta_description' do
+    before { view.send %i[description= notice=].sample, description }
+    subject { view.meta_description }
+
+    context 'present description' do
+      let(:description) { '456' }
+      it { is_expected.to eq "<meta name=\"description\" content=\"#{description}\">" }
+      it { is_expected.to be_html_safe }
+    end
+
+    context 'no description' do
+      let(:description) { nil }
+      it { is_expected.to be_nil }
+    end
+  end
+
+  describe '#meta_robots' do
+    before do
+      view.noindex = noindex
+      view.nofollow = nofollow
+    end
+    subject { view.meta_robots }
+
+    context 'no noindex, no nofollow' do
+      let(:noindex) { false }
+      let(:nofollow) { false }
+
+      it { is_expected.to be_nil }
+    end
+
+    context 'has noindex, no nofollow' do
+      let(:noindex) { true }
+      let(:nofollow) { false }
+
+      it { is_expected.to eq '<meta name="robots" content="noindex">' }
+      it { is_expected.to be_html_safe }
+    end
+
+    context 'no noindex, has nofollow' do
+      let(:noindex) { false }
+      let(:nofollow) { true }
+
+      it { is_expected.to eq '<meta name="robots" content="nofollow">' }
+      it { is_expected.to be_html_safe }
+    end
+
+    context 'has noindex, has nofollow' do
+      let(:noindex) { true }
+      let(:nofollow) { true }
+
+      it { is_expected.to eq '<meta name="robots" content="noindex,nofollow">' }
+      it { is_expected.to be_html_safe }
+
+      context 'has another canonical url' do
+        before do
+          allow(view).to receive(:canonical_url).and_return 'zzz'
+          allow(view.h.request).to receive(:url).and_return 'zxc'
+        end
+        it { is_expected.to be_nil }
+      end
     end
   end
 end
