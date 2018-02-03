@@ -42,32 +42,40 @@ link[
   title="#{Shikimori::DOMAIN}"
   href="/search.xml"
 ]
-link rel="yandex-tableau-widget" href="//#{Shikimori::DOMAIN}/yandex-tableau-widget-manifest.json"
+link rel="yandex-tableau-widget" href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/yandex-tableau-widget-manifest.json"
 
 - if defined?(@collection) && @collection.respond_to?(:next_page?)
   - if @collection.next_page?
-    link rel="next" href="#{{current_url(page: @collection.next_page)}}"
+    link rel="next" href==current_url(page: @collection.next_page)
   - if @collection.prev_page?
-    link rel="prev" href="#{{current_url(page: @collection.prev_page == 1 ? nil : @collection.prev_page)}}"
+    link rel="prev" href==current_url(page: @collection.prev_page == 1 ? nil : @collection.prev_page)
 
 - if og.canonical_url != request.url
-  link rel="canonical" href=og.canonical_url
+  link rel="canonical" href==og.canonical_url
 
 meta property="og:title" content=og.headline(true)
-/ meta property="og:description" content="DESCRIPTION OF PAGE CONTENT"
-/ meta property="og:image" content="LINK TO THE IMAGE FILE"
-meta property="og:url" content=og.canonical_url
+- if og.description.present?
+  meta property="og:description" content=og.description
+- if og.meta_image
+  meta property="og:image" content=og.meta_image
+meta property="og:url" content==og.canonical_url
 meta property="og:site_name" content=og.site_name
 
 meta name="twitter:title" content=og.headline(true)
-/ meta name="twitter:description" content="DESCRIPTION OF PAGE CONTENT"
-/ meta name="twitter:image" content="LINK TO IMAGE"
+- if og.description.present?
+  meta name="twitter:description" content=og.description
+- if og.meta_image
+  meta name="twitter:image" content=og.meta_image
 meta name="twitter:site" content=og.site_name
 
-= og.meta_title
-= og.meta_keyword
-= og.meta_description
-= og.meta_robots
+title = og.meta_title
+
+- if og.keywords.present?
+  meta name="keywords" content=og.keywords
+- if og.description.present?
+  meta name="description" content=og.description
+- if og.meta_robots
+  meta name="robots" content=og.meta_robots
 
 = csrf_meta_tag
 

@@ -2,12 +2,12 @@ module Routing
   extend ActiveSupport::Concern
   include Rails.application.routes.url_helpers
 
-  SHIKIMORI_DOMAIN = %r{
+  SHIKIMORI_DOMAIN = %r/
     \A
     (?: (?:play|#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )
     shikimori \. (?: org|dev )
     \Z
-  }mix
+  /mix
 
   included do
     def shiki_domain
@@ -83,17 +83,19 @@ module Routing
   end
 
   def camo_url image_url
-    return image_url if image_url.starts_with? '//'
-    return image_url if image_url.ends_with?(*%w(eot svg ttf woff woff2))
+    return image_url if image_url.starts_with? '//', 'https://'
+    return image_url if image_url.ends_with? 'eot', 'svg', 'ttf', 'woff', 'woff2'
 
     url = Url.new(image_url)
-    return url.without_protocol.to_s if url.domain.to_s =~ SHIKIMORI_DOMAIN
+    return url.without_protocol.to_s if url.domain.to_s.match? SHIKIMORI_DOMAIN
 
     @camo_urls ||= {}
-    @camo_urls[image_url] = begin
-      port = ':5566' if Rails.env.development?
-      "//#{shiki_domain}#{port}/camo/#{camo_digest image_url}?url=#{image_url}"
-    end
+
+    port = ':5566' if Rails.env.development?
+    protocol = Shikimori::PROTOCOL
+
+    @camo_urls[image_url] = "#{protocol}://shiki_domain}#{port}/" \
+      "camo/#{camo_digest image_url}?url=#{image_url}"
   end
 
 private

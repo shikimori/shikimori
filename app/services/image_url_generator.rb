@@ -20,11 +20,15 @@ class ImageUrlGenerator
     image_url_path = entry.send(image_method).url image_size, only_path
 
     if Rails.env.production?
-      "//#{Shikimori::STATIC_SUBDOMAINS[image_index]}.#{Shikimori::DOMAIN}#{image_url_path}"
+      "#{Shikimori::PROTOCOL}://" +
+        "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." +
+        "#{Shikimori::DOMAIN}#{image_url_path}"
     elsif Rails.env.test? || (image_file_path && File.exists?(image_file_path))
       image_url_path
     else
-      "//#{Shikimori::STATIC_SUBDOMAINS[image_index]}.#{Shikimori::DOMAIN}#{image_url_path}"
+      "#{Shikimori::PROTOCOL}://" +
+        "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." +
+        "#{Shikimori::DOMAIN}#{image_url_path}"
     end
   end
 end

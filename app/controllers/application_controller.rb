@@ -37,16 +37,14 @@ class ApplicationController < ActionController::Base
   }
 
   def self.default_url_options
-    { protocol: false }
+    { protocol: Shikimori::PROTOCOL }
   end
 
   def default_url_options options = {}
-    protocol = %w(xml rss).include?(params[:format]) ? Shikimori::PROTOCOL : false
-
     if params[:locale]
-      options.merge protocol: protocol, locale: params[:locale]
+      options.merge protocol: Shikimori::PROTOCOL, locale: params[:locale]
     else
-      options.merge protocol: protocol
+      options.merge protocol: Shikimori::PROTOCOL
     end
   end
 
