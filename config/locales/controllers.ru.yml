@@ -1,7 +1,9 @@
 ru:
   dashboards_controller:
     page_title: Шикимори - энциклопедия аниме и манги
-    description: 
+    description: >-
+      Аниме-сайт shikimori.org: онлайн энциклопедия аниме и манги,
+      смотреть аниме бесплатно
 
   topics_controller: &topics_controller
     title: Форум Шикимори

@@ -1,7 +1,4 @@
 class OpenGraphView < ViewObjectBase
-  prepend ActiveCacher.instance
-  # instance_cache :styles, :hot_topics, :moderation_policy
-
   attr_reader :page_title
   attr_writer :description
   attr_accessor :type, :image,
