@@ -122,7 +122,8 @@ gem 'chainable_methods'
 gem 'dry-struct'
 
 group :beta, :production do
-  gem 'sentry-raven'
+  gem 'airbrake'
+  # gem 'sentry-raven'
   # gem 'honeybadger'
   # gem 'appsignal'
   gem 'lograge'
