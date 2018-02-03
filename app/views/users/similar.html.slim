@@ -7,7 +7,7 @@ header.head.misc
     - else
       a.misc href="#{similar_users_url klass: Anime.name.downcase}" = t '.by.anime'
 
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render partial: 'application/breadcrumbs', object: @breadcrumbs
 
   p.notice
     = t '.notice'

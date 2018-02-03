@@ -5,7 +5,7 @@ header.head
     p.notice
       = I18n.interpolate notice,
         limit: Moderation::MissingScreenshotsQuery::LIMIT
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render partial: 'application/breadcrumbs', object: @breadcrumbs
 
 .subheadline = t '.animes'
 ul.b-list.cc-3

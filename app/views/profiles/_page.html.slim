@@ -13,7 +13,7 @@ header.head.misc
     = render 'profiles/status', user: @user
     = yield :head_misc
 
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render partial: 'application/breadcrumbs', object: @breadcrumbs
 
 .block.m0
   = yield

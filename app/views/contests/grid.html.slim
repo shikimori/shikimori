@@ -6,7 +6,7 @@ header.head.misc
       data-text=t('back')
     ]
     = @page_title.last
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render partial: 'application/breadcrumbs', object: @breadcrumbs
 
 - cache @resource do
   .contest-grid class=@resource.strategy_type

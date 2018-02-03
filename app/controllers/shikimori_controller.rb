@@ -78,38 +78,6 @@ class ShikimoriController < ApplicationController
       .constantize
   end
 
-  # заполнение хлебных крошек
-  def breadcrumb title, url
-    @breadcrumbs ||= {}
-    @breadcrumbs[title] = url
-  end
-
-  def page_title title, replace = false
-    if replace
-      @page_title = []
-    else
-      @page_title ||= []
-    end
-
-    @page_title.push HTMLEntities.new.decode(title)
-  end
-
-  def noindex
-    set_meta_tags noindex: true
-  end
-
-  def nofollow
-    set_meta_tags nofollow: true
-  end
-
-  def description text
-    set_meta_tags description: text
-  end
-
-  def keywords text
-    set_meta_tags keywords: text
-  end
-
   # TODO: выпилить
   # пагинация датасорса
   # задаёт переменные класса @page, @limit, @add_postloader

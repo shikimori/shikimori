@@ -16,7 +16,7 @@ header.head
         - else
           option value="#{online_manga_chapter_show_url chapter}" = chapter.name
 
-  = render partial: 'blocks/breadcrumbs', object: {'Манга' => '/', "#{@manga.name}" => "#{online_manga_show_url @chapter.manga.id}"}, formats: :html
+  = render partial: 'application/breadcrumbs', object: {'Манга' => '/', "#{@manga.name}" => "#{online_manga_show_url @chapter.manga.id}"}, formats: :html
 
 = render partial: 'animes_collection/pagination', locals: { with_cache: true }
 

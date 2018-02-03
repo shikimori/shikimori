@@ -21,7 +21,7 @@ header.head
       = @page_title.last
 
   - if @breadcrumbs
-    = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+    = render partial: 'application/breadcrumbs', object: @breadcrumbs
 
 .menu-slide-outer.ipad-expanded class="#{linked ? :x199 : :x240}"
   .menu-slide-inner

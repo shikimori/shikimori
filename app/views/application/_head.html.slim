@@ -7,18 +7,6 @@ meta content="width=device-width, initial-scale=1.0" name="viewport"
 /link type="text/plain" rel="author" href="/humans.txt"
 / https://github.com/audreyr/favicon-cheat-sheet
 
-/ meta property="og:type" content="article"
-/ meta property="og:title" content="TITLE OF YOUR POST OR PAGE"
-/ meta property="og:description" content="DESCRIPTION OF PAGE CONTENT"
-/ meta property="og:image" content="LINK TO THE IMAGE FILE"
-meta property="og:url" content=request.url.gsub(/\?.*/, '')
-meta property="og:site_name" content="Shikimori"
-
-/ meta name="twitter:title" content="TITLE OF POST OR PAGE"
-/ meta name="twitter:description" content="DESCRIPTION OF PAGE CONTENT"
-/ meta name="twitter:image" content="LINK TO IMAGE"
-meta name="twitter:site" content="Shikimori"
-
 / legacy
 link rel="icon" type="image/x-icon" href="/favicon.ico"
 / common
@@ -51,30 +39,40 @@ link rel="icon" href="/favicons/opera-icon-228x228.png" sizes="228x228"
 link rel="search" type="application/opensearchdescription+xml" title="#{Shikimori::DOMAIN}" href="/search.xml"
 link rel="yandex-tableau-widget" href="//#{Shikimori::DOMAIN}/yandex-tableau-widget-manifest.json"
 
-- if !@next_page.blank?
-  link rel="next" href="#{{@next_page}}"
-
-- if !@prev_page.blank?
-  link rel="prev" href="#{{@prev_page}}"
-
 - if defined?(@collection) && @collection.respond_to?(:next_page?)
   - if @collection.next_page?
-    link rel="next" href="#{{url_for url_params(page: @collection.next_page)}}"
+    link rel="next" href="#{{current_url(page: @collection.next_page)}}"
   - if @collection.prev_page?
-    link rel="prev" href="#{{url_for url_params(page: @collection.prev_page == 1 ? nil : @collection.prev_page)}}"
+    link rel="prev" href="#{{current_url(page: @collection.prev_page == 1 ? nil : @collection.prev_page)}}"
 
-- if defined?(@canonical) && !@canonical.blank?
-  link rel="canonical" href="#{{@canonical}}"
+- if og.canonical_url != request.url
+  link rel="canonical" href="#{{og.canonical_url}}"
 
 - if @page_title.blank?
-  title = Shikimori::NAME
+  title = og.site_name
+
+/ иначе page_title обрезаться в первом слове, а не в последнем
+/ - if @page_title.is_a? Array
+  - @page_title.reverse!
+  - if Rails.env.development?
+
+/ meta property="og:title" content=@page_title.
+/ meta property="og:description" content="DESCRIPTION OF PAGE CONTENT"
+/ meta property="og:image" content="LINK TO THE IMAGE FILE"
+meta property="og:url" content="#{{og.canonical_url}}"
+meta property="og:site_name" content=og.site_name
+
+/ meta name="twitter:title" content="TITLE OF POST OR PAGE"
+/ meta name="twitter:description" content="DESCRIPTION OF PAGE CONTENT"
+/ meta name="twitter:image" content="LINK TO IMAGE"
+meta name="twitter:site" content=og.site_name
 
 / иначе page_title обрезаться в первом слове, а не в последнем
 - if @page_title.is_a? Array
   - @page_title.reverse!
   - if Rails.env.development?
     - @page_title[0] = '[DEV] ' + @page_title[0]
-= display_meta_tags separator: '/'
+/ = display_meta_tags separator: '/'
 / = display_meta_tags separator: '/', reverse: true
 
 = csrf_meta_tag

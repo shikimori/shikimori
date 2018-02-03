@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include Translation
   include ErrorsConcern
   include UrlsConcern
+  include OpenGraphConcern
+  include BreadcrumbsConcern
   include InvalidParameterErrorConcern
 
   #include Mobylette::RespondToMobileRequests
@@ -12,7 +14,6 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :set_user_locale_from_host
   before_action :set_layout_view
-  before_action :set_open_graph_view
   before_action :fix_googlebot
   before_action :touch_last_online
   before_action :mailer_set_url_options
@@ -118,10 +119,6 @@ class ApplicationController < ActionController::Base
 
   def set_layout_view
     @layout = LayoutView.new
-  end
-
-  def set_open_graph_view
-    @open_graph = OpenGraphView.new
   end
 
   # before фильтры с настройкой сайта

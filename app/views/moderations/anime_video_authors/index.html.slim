@@ -1,6 +1,6 @@
 header.head
   h1 = @page_title.last
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render partial: 'application/breadcrumbs', object: @breadcrumbs
 
 .subheadline.m10 Группы фансаба/фандаба, которые автоматически распознаёт сайт
 .block
@@ -106,7 +106,6 @@ ul.b-list.block
           locals: { anime: @anime }
 
         - if @add_postloader
-          = render 'blocks/postloader',
-            next_url: current_url(page: @page+1)
+          = render 'blocks/postloader', next_url: current_url(page: @page+1)
       - else
         .b-nothing_here Нет авторов

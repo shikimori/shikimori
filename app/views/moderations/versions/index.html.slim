@@ -1,7 +1,7 @@
 header.head
   h1 = @page_title.last
   p.notice = t '.notice'
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render partial: 'application/breadcrumbs', object: @breadcrumbs
 
 - unless params[:type] == 'anime_video'
   .block

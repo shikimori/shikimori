@@ -403,8 +403,6 @@ GEM
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     maruku (0.7.3)
-    meta-tags (2.7.0)
-      actionpack (>= 3.2.0, < 5.3)
     method_source (0.9.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -766,7 +764,6 @@ DEPENDENCIES
   mactag
   mal_parser!
   maruku
-  meta-tags
   mini_magick
   newrelic_rpm
   nokogiri

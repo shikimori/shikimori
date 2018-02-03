@@ -1,7 +1,7 @@
 header.head
   h1 = @page_title.last
   .notice = t '.notice'
-  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  = render partial: 'application/breadcrumbs', object: @breadcrumbs
 
 table.b-table.b-editable_grid
   thead

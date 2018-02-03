@@ -94,7 +94,6 @@ gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 gem 'draper'
 gem 'draper-cancancan' # because https://github.com/CanCanCommunity/cancancan/issues/255
 gem 'enumerize', '2.0.1' # в 2.1.0 Sidekiq::Extensions::DelayedMailer падает с "NoMethodError: undefined method `include?' for nil:NilClass"
-gem 'meta-tags'
 
 gem 'activerecord-import' # для быстрого импорта тегов
 gem 'amatch', github: 'flori/amatch' # для поиска русских имён из википедии
