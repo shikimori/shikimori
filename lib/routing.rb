@@ -94,7 +94,7 @@ module Routing
     port = ':5566' if Rails.env.development?
     protocol = Shikimori::PROTOCOL
 
-    @camo_urls[image_url] = "#{protocol}://shiki_domain}#{port}/" \
+    @camo_urls[image_url] = "#{protocol}://#{shiki_domain}#{port}/" \
       "camo/#{camo_digest image_url}?url=#{image_url}"
   end
 

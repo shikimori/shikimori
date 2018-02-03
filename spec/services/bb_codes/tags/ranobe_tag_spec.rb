@@ -7,10 +7,10 @@ describe BbCodes::Tags::RanobeTag do
 
     let(:html) do
       <<-HTML.squish
-<a href="//test.host/ranobe/9876543-zxcvbn" title="zxcvbn"
-class="bubbled b-link"
-data-tooltip_url="//test.host/ranobe/9876543-zxcvbn/tooltip">zxcvbn</a>
-        HTML
+        <a href="#{Shikimori::PROTOCOL}://test.host/ranobe/9876543-zxcvbn" title="zxcvbn"
+        class="bubbled b-link"
+        data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/ranobe/9876543-zxcvbn/tooltip">zxcvbn</a>
+      HTML
     end
 
     let(:text) { "[ranobe=#{ranobe.id}]" }

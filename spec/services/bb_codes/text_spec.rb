@@ -114,7 +114,14 @@ describe BbCodes::Text do
 
     describe '[mention]' do
       let(:text) { '[mention=1]test[/mention]' }
-      it { is_expected.to eq '<a href="//shikimori.org/test" class="b-mention"><s>@</s><span>test</span></a>' }
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <a href="#{Shikimori::PROTOCOL}://shikimori.org/test"
+            class="b-mention"><s>@</s><span>test</span></a>
+          HTML
+        )
+      end
     end
 
     describe '[div]' do

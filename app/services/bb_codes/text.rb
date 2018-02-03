@@ -34,7 +34,7 @@ class BbCodes::Text
 
   MALWARE_DOMAINS = %r{(https?://)? (images.webpark.ru|shikme.ru) }mix
 
-  default_url_options[:protocol] = false
+  default_url_options[:protocol] = Shikimori::PROTOCOL
   default_url_options[:host] ||=
     if Rails.env.development?
       'shikimori.dev'

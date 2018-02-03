@@ -75,7 +75,7 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::ProfileCommented }
       it do
         is_expected.to eq(
-          "Написал что-то в вашем <a class='b-link' href='//test.host/to'>профиле</a>."
+          "Написал что-то в вашем <a class='b-link' href='#{Shikimori::PROTOCOL}://test.host/to'>профиле</a>."
         )
       end
     end
@@ -105,7 +105,12 @@ describe Messages::GenerateBody do
       let(:linked) { build_stubbed :topic, id: 1, title: 'test' }
       it do
         is_expected.to eq(
-          'Написал <a class="b-link" href="//test.host/comments/1-test">что-то</a> вам в топике <a href="//test.host/forum/offtopic/1-test">test</a>.'
+          <<~HTML.squish
+            Написал <a class="b-link"
+            href="#{Shikimori::PROTOCOL}://test.host/comments/1-test">что-то</a>
+            вам в топике
+            <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-test">test</a>.
+          HTML
         )
       end
     end
@@ -115,7 +120,10 @@ describe Messages::GenerateBody do
       let(:linked) { build_stubbed :topic, id: 1, title: 'test' }
       it do
         is_expected.to eq(
-          'Новые сообщения в топике <a href="//test.host/forum/offtopic/1-test">test</a>.'
+          <<~HTML.squish
+            Новые сообщения в топике
+            <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-test">test</a>.
+          HTML
         )
       end
     end
@@ -138,10 +146,12 @@ describe Messages::GenerateBody do
         let(:linked) { build_stubbed :ban, comment: comment }
         it do
           is_expected.to eq(
-            'Вам вынесено предупреждение за комментарий в топике '\
-            "<a href=\"//test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}\""\
-            ' class="bubbled b-link" '\
-            "data-href=\"//test.host/comments/#{comment.id}\">offtopic</a>."
+            <<~HTML.squish
+              Вам вынесено предупреждение за комментарий в топике
+              <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}"
+              class="bubbled b-link"
+              data-href="#{Shikimori::PROTOCOL}://test.host/comments/#{comment.id}">offtopic</a>.
+            HTML
           )
         end
       end
@@ -165,10 +175,12 @@ describe Messages::GenerateBody do
         let(:linked) { build_stubbed :ban, comment: comment }
         it do
           is_expected.to eq(
-            'Вы забанены на 3 часа за комментарий в топике '\
-            "<a href=\"//test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}\""\
-            ' class="bubbled b-link" '\
-            "data-href=\"//test.host/comments/#{comment.id}\">offtopic</a>."
+            <<~HTML.squish
+              Вы забанены на 3 часа за комментарий в топике
+              <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}"
+              class="bubbled b-link"
+              data-href="#{Shikimori::PROTOCOL}://test.host/comments/#{comment.id}\">offtopic</a>.
+            HTML
           )
         end
       end
@@ -180,7 +192,11 @@ describe Messages::GenerateBody do
       let(:linked) { build_stubbed :club_invite, club: club }
       it do
         is_expected.to eq(
-          'Приглашение на вступление в клуб <a href="//shikimori.org/clubs/1-test" title="" class="b-link">test</a>.'
+          <<~HTML.squish
+            Приглашение на вступление в клуб
+            <a href="#{Shikimori::PROTOCOL}://shikimori.org/clubs/1-test"
+            title="" class="b-link">test</a>.
+          HTML
         )
       end
     end
@@ -191,7 +207,14 @@ describe Messages::GenerateBody do
       let(:linked) { create :version, item: anime, id: 1 }
       it do
         is_expected.to eq(
-          'Ваша <a href="//shikimori.org/moderations/versions/1" title="правка" class="bubbled b-link" data-tooltip_url="//shikimori.org/moderations/versions/1/tooltip">правка</a> для <a href="//test.host/animes/1-test" title="test" class="bubbled b-link" data-tooltip_url="//test.host/animes/1-test/tooltip">test</a> принята.'
+          <<~HTML.squish
+            Ваша <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
+            title="правка" class="bubbled b-link"
+            data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1/tooltip">правка</a>
+            для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
+            title="test" class="bubbled b-link"
+            data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a> принята.
+          HTML
         )
       end
     end
@@ -205,7 +228,18 @@ describe Messages::GenerateBody do
         let(:body) { 'zxc' }
         it do
           is_expected.to eq(
-            'Ваша <a href="//shikimori.org/moderations/versions/1" title="правка" class="bubbled b-link" data-tooltip_url="//shikimori.org/moderations/versions/1/tooltip">правка</a> для <a href="//test.host/animes/1-test" title="test" class="bubbled b-link" data-tooltip_url="//test.host/animes/1-test/tooltip">test</a> отклонена по причине: <div class="b-quote"><div class="quoteable">from <span class="text-ru">написал:</span><span class="text-en" data-text="wrote:"></span></div>zxc</div>'
+            <<~HTML.squish
+              Ваша <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
+              title="правка" class="bubbled b-link"
+              data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1/tooltip">правка</a>
+              для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
+              title="test" class="bubbled b-link"
+              data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a>
+              отклонена по причине:
+              <div class="b-quote"><div class="quoteable">from
+              <span class="text-ru">написал:</span><span class="text-en"
+              data-text="wrote:"></span></div>zxc</div>
+            HTML
           )
         end
       end
@@ -213,7 +247,15 @@ describe Messages::GenerateBody do
       context 'without reason' do
         it do
           is_expected.to eq(
-            'Ваша <a href="//shikimori.org/moderations/versions/1" title="правка" class="bubbled b-link" data-tooltip_url="//shikimori.org/moderations/versions/1/tooltip">правка</a> для <a href="//test.host/animes/1-test" title="test" class="bubbled b-link" data-tooltip_url="//test.host/animes/1-test/tooltip">test</a> отклонена.'
+            <<~HTML.squish
+              Ваша <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
+              title="правка" class="bubbled b-link"
+              data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1/tooltip">правка</a>
+              для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
+              title="test" class="bubbled b-link"
+              data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a>
+              отклонена.
+            HTML
           )
         end
       end
@@ -224,16 +266,12 @@ describe Messages::GenerateBody do
       let(:linked) { create :contest, id: 1, title_ru: 'foo', title_en: 'bar' }
       it do
         is_expected.to eq(
-          '<span class="translated-after" '\
-            'data-text-ru="Турнир" '\
-            'data-text-en="Contest"></span> '\
-            '<a href="//test.host/contests/1-foo" '\
-            'class="b-link translated-after" '\
-            'data-text-ru="foo" '\
-            'data-text-en="bar"></a> '\
-            '<span class="translated-after" '\
-            'data-text-ru="завершён" '\
-            'data-text-en="has finished"></span>.'
+          <<~HTML.squish
+            <span class="translated-after" data-text-ru="Турнир" data-text-en="Contest"></span>
+            <a href="#{Shikimori::PROTOCOL}://test.host/contests/1-foo"
+            class="b-link translated-after" data-text-ru="foo" data-text-en="bar"></a>
+            <span class="translated-after" data-text-ru="завершён" data-text-en="has finished"></span>.
+          HTML
         )
       end
     end

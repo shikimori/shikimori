@@ -1,6 +1,6 @@
 describe Messages::MentionSource do
   let(:service) { Messages::MentionSource.new linked, comment_id }
-  let(:comment_id) { }
+  let(:comment_id) { nil }
 
   describe '#call' do
     subject { service.call }
@@ -14,12 +14,12 @@ describe Messages::MentionSource do
     context 'Topic' do
       let(:user) { build_stubbed :user, :user }
       let(:linked) { build_stubbed :topic, id: 1, title: 'xx&', user: user }
-      it { is_expected.to eq "в топике <a href=\"//test.host/forum/offtopic/1-xx\">xx&amp;</a>." }
+      it { is_expected.to eq "в топике <a href=\"#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-xx\">xx&amp;</a>." }
     end
 
     context 'User' do
       let(:linked) { build_stubbed :user, id: 1, nickname: 'zz' }
-      it { is_expected.to eq "в профиле пользователя <a href=\"//test.host/zz\">zz</a>." }
+      it { is_expected.to eq "в профиле пользователя <a href=\"#{Shikimori::PROTOCOL}://test.host/zz\">zz</a>." }
     end
 
     context 'other linked' do

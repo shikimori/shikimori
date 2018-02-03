@@ -7,10 +7,10 @@ describe BbCodes::Tags::PersonTag do
 
     let(:html) do
       <<-HTML.squish
-<a href="//test.host/people/9876543-zxcvbn" title="zxcvbn"
-class="bubbled b-link"
-data-tooltip_url="//test.host/people/9876543-zxcvbn/tooltip">zxcvbn</a>
-        HTML
+        <a href="#{Shikimori::PROTOCOL}://test.host/people/9876543-zxcvbn" title="zxcvbn"
+        class="bubbled b-link"
+        data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/people/9876543-zxcvbn/tooltip">zxcvbn</a>
+      HTML
     end
 
     let(:text) { "[person=#{person.id}]" }

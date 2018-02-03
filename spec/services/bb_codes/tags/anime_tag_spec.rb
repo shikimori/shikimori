@@ -7,8 +7,8 @@ describe BbCodes::Tags::AnimeTag do
 
     let(:html) do
       <<~HTML.squish
-        <a href="//test.host/animes/9876543-test" title="test" class="bubbled b-link"
-        data-tooltip_url="//test.host/animes/9876543-test/tooltip">#{name_html}</a>
+        <a href="#{Shikimori::PROTOCOL}://test.host/animes/9876543-test" title="test" class="bubbled b-link"
+        data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/9876543-test/tooltip">#{name_html}</a>
       HTML
     end
     let(:name_html) { anime.name }

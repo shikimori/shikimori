@@ -278,12 +278,12 @@ describe AnimesCollection::View do
 
       context 'second page' do
         let(:page) { 2 }
-        it { is_expected.to eq '//test.host/animes/kind/tv' }
+        it { is_expected.to eq "#{Shikimori::PROTOCOL}://test.host/animes/kind/tv" }
       end
 
       context 'third page' do
         let(:page) { 3 }
-        it { is_expected.to eq '//test.host/animes/kind/tv/page/2' }
+        it { is_expected.to eq "#{Shikimori::PROTOCOL}://test.host/animes/kind/tv/page/2" }
       end
     end
 
@@ -302,7 +302,7 @@ describe AnimesCollection::View do
 
       context 'first page' do
         let(:page) { 1 }
-        it { is_expected.to eq '//test.host/animes/kind/tv/page/2' }
+        it { is_expected.to eq "#{Shikimori::PROTOCOL}://test.host/animes/kind/tv/page/2" }
       end
 
       context 'second page' do
