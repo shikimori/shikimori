@@ -1,6 +1,7 @@
 ru:
   dashboards_controller:
-    page_title: Энциклопедия аниме и манги
+    page_title: Шикимори - энциклопедия аниме и манги
+    description: 
 
   topics_controller: &topics_controller
     title: Форум Шикимори
