@@ -7,7 +7,7 @@ class CosplayController < ShikimoriController
 
   # модерация косплея
   def mod
-    set_meta_tags noindex: true, nofollow: true
+    og noindex: true, nofollow: true
     og page_title: 'Косплей'
     og page_title: 'Модерация'
 

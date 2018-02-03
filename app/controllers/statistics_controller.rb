@@ -7,9 +7,7 @@ class StatisticsController < ShikimoriController
   def index
     og page_title: i18n_t('page_title')
     og description: i18n_t('page_description')
-
-    set_meta_tags description: @page_description
-    set_meta_tags keywords: i18n_t('keywords')
+    og keywords: i18n_t('keywords')
 
     @kinds = Anime.kind.values#.select {|v| v != 'music' }
     @rating_kinds = ['tv', 'movie', 'ova']

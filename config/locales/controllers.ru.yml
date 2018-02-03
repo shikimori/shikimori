@@ -35,7 +35,7 @@ ru:
     site_notifications: Уведомления сайта
   user_history_controller:
     <<: *profiles_controller
-    og page_title:: История
+    page_title: История
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:
@@ -102,7 +102,7 @@ ru:
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Персонализированные рекомендации
-    og page_title::
+    page_title:
       anime: Какие аниме посмотреть
       manga: Какую мангу почитать
       ranobe: Какие ранобэ почитать
@@ -172,27 +172,27 @@ ru:
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller
-    og page_title:: Журнал модерации форума
+    page_title: Журнал модерации форума
 
   moderations/anime_video_reports_controller:
     <<: *moderations_controller
-    og page_title:: Модерация видео
+    page_title: Модерация видео
 
   moderations/bans_controller:
     <<: *moderations_controller
-    og page_title:: Журнал банов
+    page_title: Журнал банов
 
   moderations/reviews_controller:
     <<: *moderations_controller
-    og page_title:: Модерация рецензий
+    page_title: Модерация рецензий
 
   moderations/collections_controller:
     <<: *moderations_controller
-    og page_title:: Модерация коллекций
+    page_title: Модерация коллекций
 
   moderations/users_controller:
     <<: *moderations_controller
-    og page_title:: Регистрация пользователей
+    page_title: Регистрация пользователей
 
   moderations/versions_controller:
     <<: *moderations_controller
@@ -209,7 +209,7 @@ ru:
 
   moderations/anime_video_authors_controller:
     <<: *moderations_controller
-    og page_title:: Модерация авторов видео
+    page_title: Модерация авторов видео
 
   genres_controller:
     <<: *moderations_controller
@@ -308,7 +308,7 @@ ru:
     how_to_edit_achievements: Как редактировать ачивки
 
   studios_controller:
-    og page_title:: Аниме студии
+    page_title: Аниме студии
     description:
       Список наиболее крупных студий, занимающихся созданием аниме;
       отсортировано по объёму работ.
@@ -336,7 +336,7 @@ ru:
       %{auth_methods}
 
   userlist_comparer_controller:
-    og page_title::
+    page_title:
       anime: Сравнение списка аниме %{user_1} и %{user_2}
       manga: Сравнение списка манги %{user_1} и %{user_2}
     fetch_users_alert:
@@ -353,7 +353,7 @@ ru:
     authentication_failed: Не удалось авторизоваться
 
   statistics_controller:
-    og page_title:: Индустрия аниме
+    page_title: Индустрия аниме
     page_description: >-
       Никогда не задумывались, сколько всего существует аниме,
       каких оно жанров и типов, и как оно менялось по прошествии лет?
