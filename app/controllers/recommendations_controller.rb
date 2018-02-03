@@ -1,7 +1,7 @@
 # TODO: отрефакторить толстый контроллер
 class RecommendationsController < AnimesCollectionController
   before_action :authenticate_user!, if: -> { json? }
-  before_action -> { page_title @view.klass.model_name.human }
+  before_action -> { og page_title: @view.klass.model_name.human }
   layout false, only: [:test]
 
   COOKIE_NAME = 'recommendations_url'

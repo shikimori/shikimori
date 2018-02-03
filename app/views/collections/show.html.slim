@@ -1,8 +1,7 @@
 header.head.misc
   h1
     = og.headline
-
-  = render partial: 'application/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 .block
   = render partial: 'topics/topic',

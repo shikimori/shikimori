@@ -1,7 +1,7 @@
 class ContestsController < ShikimoriController
   load_and_authorize_resource
 
-  before_action { page_title i18n_t :contests }
+  before_action { og page_title: i18n_t(:contests) }
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: -> { @resource }
@@ -49,8 +49,11 @@ class ContestsController < ShikimoriController
     return redirect_to edit_contest_url(@resource) if @resource.created?
     return redirect_to contest_url(@resource) if params[:round] && !@resource.displayed_round
 
-    keywords i18n_t :show_keywords, title: @resource.title
-    description i18n_t :show_description, title: Unicode::downcase(@resource.title)
+    og keywords: i18n_t(:show_keywords, title: @resource.title)
+    og description: i18n_t(
+      :show_description,
+      title: Unicode::downcase(@resource.title)
+   )
 
     og page_title: @resource.displayed_round.title if params[:round]
   end

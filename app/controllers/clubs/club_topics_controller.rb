@@ -2,7 +2,7 @@ class Clubs::ClubTopicsController < ShikimoriController
   load_and_authorize_resource :club
   load_and_authorize_resource class: Topic.name
 
-  before_action { page_title i18n_i('Club', :other) }
+  before_action { og page_title: i18n_i('Club', :other) }
   before_action :prepare_club
   # before_action :prepare_form, except: [:show]
 
@@ -40,47 +40,9 @@ class Clubs::ClubTopicsController < ShikimoriController
     end
   end
 
-  # def edit
-    # page_title @resource.name
-    # render 'form'
-  # end
-
-  # def update
-    # if @resource.update update_params
-      # redirect_to(
-        # edit_club_club_page_path(@resource.club, @resource),
-        # notice: t('changes_saved')
-      # )
-    # else
-      # page_title @resource.name
-      # flash[:alert] = t('changes_not_saved')
-      # render 'form'
-    # end
-  # end
-
-  # def destroy
-    # @resource.destroy!
-    # redirect_to @back_url, notice: i18n_t('destroy.success')
-  # end
-
-  # def up
-    # @resource.move_higher
-    # redirect_back(
-      # fallback_location: edit_club_club_page_path(@resource.club, @resource)
-    # )
-  # end
-
-  # def down
-    # @resource.move_lower
-    # redirect_back(
-      # fallback_location: edit_club_club_page_path(@resource.club, @resource)
-    # )
-  # end
-
 private
 
-  # rubocop:disable AbcSize
-  def prepare_club
+  def prepare_club # rubocop:disable AbcSize
     @club = @club.decorate
 
     breadcrumb i18n_i('Club', :other), clubs_url
@@ -96,7 +58,6 @@ private
 
     og page_title: i18n_i('Topic', :other)
   end
-  # rubocop:enable AbcSize
 
   def create_params
     params.require(:topic).permit(*TopicsController::CREATE_PARAMS)

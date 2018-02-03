@@ -5,7 +5,7 @@ class Clubs::ClubPagesController < ShikimoriController
   CREATE_PARAMS = %i[club_id parent_page_id name layout text]
   UPDATE_PARAMS = CREATE_PARAMS - [:club_id]
 
-  before_action { page_title i18n_i('Club', :other) }
+  before_action { og page_title: i18n_i('Club', :other) }
   before_action :prepare_club
   before_action :prepare_form, except: [:show]
 

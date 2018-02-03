@@ -1,7 +1,7 @@
 header.head
   h1 = og.headline
   p.notice = t '.notice'
-  = render partial: 'application/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 .subheadline.m10 = t '.instruction'
 .b-brief

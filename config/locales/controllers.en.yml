@@ -35,7 +35,7 @@ en:
     site_notifications: Site notifications
   user_history_controller:
     <<: *profiles_controller
-    og page_title:: History
+    page_title: History
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:
@@ -102,7 +102,7 @@ en:
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Personalized recommendations
-    og page_title::
+    page_title:
       anime: What anime I should watch next
       manga: What manga I should read next
       ranobe: What light novel I should read next
@@ -172,27 +172,27 @@ en:
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller
-    og page_title:: Forum moderation journal
+    page_title: Forum moderation journal
 
   moderations/anime_video_reports_controller:
     <<: *moderations_controller
-    og page_title:: Video moderation
+    page_title: Video moderation
 
   moderations/bans_controller:
     <<: *moderations_controller
-    og page_title:: Bans journal
+    page_title: Bans journal
 
   moderations/reviews_controller:
     <<: *moderations_controller
-    og page_title:: Reviews moderation
+    page_title: Reviews moderation
 
   moderations/collections_controller:
     <<: *moderations_controller
-    og page_title:: Collections moderation
+    page_title: Collections moderation
 
   moderations/users_controller:
     <<: *moderations_controller
-    og page_title:: Users registration
+    page_title: Users registration
 
   moderations/versions_controller:
     <<: *moderations_controller
@@ -209,7 +209,7 @@ en:
 
   moderations/anime_video_authors_controller:
     <<: *moderations_controller
-    og page_title:: Anime video authors moderation
+    page_title: Anime video authors moderation
 
   genres_controller:
     <<: *moderations_controller
@@ -308,7 +308,7 @@ en:
     how_to_edit_achievements: How to edit achievements
 
   studios_controller:
-    og page_title:: Anime studios
+    page_title: Anime studios
     description:
       List of major anime studios sorted by volume of media produced.
 
@@ -336,7 +336,7 @@ en:
       %{auth_methods}
 
   userlist_comparer_controller:
-    og page_title::
+    page_title:
       anime: Anime list comparison of users %{user_1} and %{user_2}
       manga: Manga list comparison of users %{user_1} and %{user_2}
     fetch_users_alert:
@@ -353,7 +353,7 @@ en:
     authentication_failed: Authentication failed
 
   statistics_controller:
-    og page_title:: Anime industry
+    page_title: Anime industry
     page_description: >-
       Have you ever thought about how many animes have been produced
       in the world until now, their types and genres and how they were
@@ -369,6 +369,9 @@ en:
 
   shikimori_controller:
     you_are_banned: You are banned till %{datetime}
+
+  achievements_controller:
+    title: Achievements
 
   api/v1/comments_controller:
     comment:

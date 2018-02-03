@@ -1,6 +1,6 @@
 class Moderations::VersionsController < ModerationsController
   load_and_authorize_resource except: [:index]
-  before_action { page_title i18n_t('content_changes') }
+  before_action { og page_title: i18n_t('content_changes') }
 
   def show
     og noindex: true

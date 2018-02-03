@@ -2,7 +2,7 @@
   .toggler
 
 header.head
-  h1 class="#{:censored if @club && @club.name.present? && @club.censored?}"
+  h1 class=(:censored if @club && @club.name.present? && @club.censored?)
     - if @back_url || (params[:action] != 'show' && @club && @club.persisted?)
       a.back[
         href=(@back_url || club_url(@club))
@@ -22,7 +22,7 @@ header.head
         / title=t('.edit_club')
       / ] = t('actions.edit').downcase
 
-  = render partial: 'application/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 .menu-slide-outer.x199
   .menu-slide-inner

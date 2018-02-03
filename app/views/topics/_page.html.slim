@@ -7,7 +7,7 @@ header.head
   h1
     - if @back_url
       a.back[
-        href=@back_url
+        href=page_breadcrumbs[page_breadcrumbs.keys.last]
         title=t('back_to_page')
         data-text=t('back')
       ]
@@ -20,8 +20,7 @@ header.head
     - else
       = og.headline
 
-  - if @breadcrumbs
-    = render partial: 'application/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 .menu-slide-outer.ipad-expanded class="#{linked ? :x199 : :x240}"
   .menu-slide-inner

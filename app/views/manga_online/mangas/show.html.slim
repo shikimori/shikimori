@@ -5,7 +5,7 @@ header.head
   meta itemprop="name" content="#{{@manga.name}}"
     h1 title="#{h1_text @manga}"
       = h1_text @manga, true
-  = render partial: 'application/breadcrumbs', object: {'Манга' => '/'}, formats: :html
+  = render 'application/breadcrumbs'
 
 .entry-content-slider.view-port.vertical-slider class=" #{@entry.class.name.downcase}-content-slider" data-width="770"
   .view-content

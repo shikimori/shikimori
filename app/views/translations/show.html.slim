@@ -1,8 +1,8 @@
 header.head
   h1 = og.headline
   .notice
-    p Список #{@klass == Anime ? 'аниме' : 'манги'} без описаний для тех, кто хочет помочь сайту. Подробности в <a href="#{@breadcrumbs['Переводы']}">клубе переводов</a>.
-  = render partial: 'application/breadcrumbs', object: @breadcrumbs
+    p Список #{@klass == Anime ? 'аниме' : 'манги'} без описаний для тех, кто хочет помочь сайту. Подробности в <a href="#{page_breadcrumbs['Переводы']}">клубе переводов</a>.
+  = render 'application/breadcrumbs'
 
 .translations
   - @filtered_groups.each do |(name, db_entries)|
@@ -15,8 +15,8 @@ header.head
           | #{index + 1}.
 
           a.bubbled[
-            class="#{db_entry.kind}"
-            href="#{url_for db_entry}"
+            class=db_entry.kind
+            href=url_for(db_entry)
             data-href="#{respond_to?("tooltip_#{db_entry.class.name.downcase}_url") ? send("tooltip_#{db_entry.class.name.downcase}_url", db_entry) : ''}"
           ] = localization_span db_entry
 

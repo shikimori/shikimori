@@ -7,7 +7,7 @@
 header.head.misc
   h1
     = og.headline
-  = render partial: 'application/breadcrumbs', object: breadcrumbs
+  = render 'application/breadcrumbs'
 
 = form_for @gallery, url: cosplay_index_url do |f|
   .cosplay-mod.edit.new

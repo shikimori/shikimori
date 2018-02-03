@@ -3,7 +3,7 @@
 class ClubsController < ShikimoriController
   load_and_authorize_resource :club, except: %i[index autocomplete]
 
-  before_action { page_title i18n_i('Club', :other) }
+  before_action { og page_title: i18n_i('Club', :other) }
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id

@@ -3,11 +3,11 @@ header.head.misc
     = og.headline
 
     - if @klass == Anime
-      a.misc href="#{similar_users_url klass: Manga.name.downcase}" = t '.by.manga'
+      a.misc href=current_url(klass: Manga.name.downcase) = t '.by.manga'
     - else
-      a.misc href="#{similar_users_url klass: Anime.name.downcase}" = t '.by.anime'
+      a.misc href=current_url(klass: Anime.name.downcase) = t '.by.anime'
 
-  = render partial: 'application/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
   p.notice
     = t '.notice'
@@ -17,8 +17,8 @@ header.head.misc
       span.title = @klass == Anime ? t('.list_of_watched_anime') : t('.list_of_read_manga')
       - UsersController::THRESHOLDS.each do |threshold|
         a.b-link[
-          class="#{:current if @threshold == threshold}"
-          href="#{similar_users_url threshold: threshold}"
+          class=(:current if @threshold == threshold)
+          href=current_url(threshold: threshold)
         ] #{threshold}+
 
 .ajax

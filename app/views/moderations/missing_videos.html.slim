@@ -4,7 +4,7 @@ header.head
     p.notice
       = I18n.interpolate notice,
         limit: Moderation::MissingVideosQuery::LIMIT
-  = render partial: 'application/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 - if @collection
   .subheadline = t '.videos'

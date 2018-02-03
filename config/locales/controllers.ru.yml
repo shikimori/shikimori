@@ -370,6 +370,9 @@ ru:
   shikimori_controller:
     you_are_banned: Вы забанены до %{datetime}
 
+  achievements_controller:
+    title: Достижения
+
   api/v1/comments_controller:
     comment:
       removed: Комментарий удален

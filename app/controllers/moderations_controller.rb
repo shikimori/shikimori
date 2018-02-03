@@ -1,8 +1,10 @@
 class ModerationsController < ShikimoriController
   before_action :authenticate_user!
 
-  before_action { breadcrumb i18n_t('title'), moderations_url }
-  before_action { page_title i18n_t('title') }
+  before_action do
+    breadcrumb i18n_t('title'), moderations_url
+    og page_title: i18n_t('title')
+  end
 
   def show
     @moderation_policy = ModerationPolicy.new(

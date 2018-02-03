@@ -45,7 +45,6 @@ class TopicsController < ShikimoriController
   def new
     topic_type_policy = Topic::TypePolicy.new(@resource)
     og page_title: i18n_t("new_#{topic_type_policy.news_topic? ? :news : :topic}")
-    @back_url = @breadcrumbs[@breadcrumbs.keys.last]
   end
 
   def edit

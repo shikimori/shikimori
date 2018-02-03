@@ -3,7 +3,7 @@ header.head
     a.back href=@back_url data-text=t('back')
     = og.headline
   .notice У автора #{@resource.anime_videos.count} видео
-  = render partial: 'application/breadcrumbs', object: @breadcrumbs
+  = render 'application/breadcrumbs'
 
 = simple_form_for [:moderations, @resource] do |f|
   .cc-2
