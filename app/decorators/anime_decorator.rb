@@ -80,6 +80,11 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def licensed?
+    if h.current_user&.video_moderator? ||
+        h.current_user&.trusted_video_uploader?
+      return false
+    end
+
     # Copyright::DAISUKI_COPYRIGHTED.include?(id) ||
     Copyright::IVI_RU_COPYRIGHTED.include?(id) ||
       Copyright::ISTARI_COPYRIGHTED.include?(id) || (
