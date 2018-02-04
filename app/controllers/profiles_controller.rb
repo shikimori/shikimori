@@ -140,10 +140,6 @@ class ProfilesController < ShikimoriController
     og page_title: i18n_t('video_reports')
   end
 
-  def achievements
-    og page_title: i18n_t('achievements')
-  end
-
   def ban
     og noindex: true
     @ban = Ban.new user_id: @resource.id

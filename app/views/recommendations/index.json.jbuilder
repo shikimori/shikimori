@@ -1,4 +1,4 @@
-json.title og.page_title
+json.title og.headline
 json.notice og.notice
 
 json.content JsExports::Supervisor.instance.sweep(render(

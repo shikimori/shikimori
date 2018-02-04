@@ -36,6 +36,8 @@ ru:
     site_news: Новости сайта
     private_messages: Непрочитанные личные сообщения
     site_notifications: Уведомления сайта
+  user_achievements_controller:
+    <<: *profiles_controller
   user_history_controller:
     <<: *profiles_controller
     page_title: История

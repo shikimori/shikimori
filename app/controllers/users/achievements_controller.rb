@@ -1,6 +1,6 @@
 class Users::AchievementsController < ProfilesController
   before_action :additional_breadcrumbs, except: [:index]
-  before_action { og page_title: i18n_i('title') }
+  before_action { og page_title: i18n_t('achievements') }
 
   def index
     unless current_user&.admin? || @user.nickname == 'test2'
