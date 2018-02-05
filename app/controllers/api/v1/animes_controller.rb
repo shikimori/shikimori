@@ -9,7 +9,7 @@ class Api::V1::AnimesController < Api::V1Controller
 
   LIMIT = 50
   ORDERS = %w[
-    id ranked type popularity name aired_on episodes status random
+    id ranked kind popularity name aired_on episodes status random
   ]
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
     memo +
@@ -18,7 +18,7 @@ class Api::V1::AnimesController < Api::V1Controller
       else
         <<~DOC
           <p><code>#{order}</code> &ndash;
-          #{I18n.t("by.#{order.gsub('type', 'kind')}", locale: :en).downcase}
+          #{I18n.t("by.#{order}", locale: :en).downcase}
           </p>
         DOC
       end
@@ -59,8 +59,8 @@ class Api::V1::AnimesController < Api::V1Controller
           or with season <code>2015 year</code>
         </li>
         <li>
-          <code>type=tv,movie</code> &ndash;
-          animes with type <code>TV</code> or with type <code>Movie</code>
+          <code>kind=tv,movie</code> &ndash;
+          animes with kind <code>TV</code> or with kind <code>Movie</code>
         </li>
       </ul>
     </p>
@@ -73,9 +73,9 @@ class Api::V1::AnimesController < Api::V1Controller
           and without season <code>2015 year</code>
         </li>
         <li>
-          <code>type=!tv,!movie</code> &ndash;
-          animes without type <code>TV</code>
-          and without type <code>Movie</code>
+          <code>kind=!tv,!movie</code> &ndash;
+          animes without kind <code>TV</code>
+          and without kind <code>Movie</code>
         </li>
       </ul>
     </p>

@@ -3,7 +3,7 @@ class Api::V1::MangasController < Api::V1Controller
 
   LIMIT = 50
   ORDERS = %w[
-    id ranked type popularity name aired_on volumes chapters status random
+    id ranked kind popularity name aired_on volumes chapters status random
   ]
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
     memo +
@@ -12,7 +12,7 @@ class Api::V1::MangasController < Api::V1Controller
       else
         <<~DOC
           <p><code>#{order}</code> &ndash;
-          #{I18n.t("by.#{order.gsub('type', 'kind')}", locale: :en).downcase}
+          #{I18n.t("by.#{order}", locale: :en).downcase}
           </p>
         DOC
       end
@@ -29,8 +29,8 @@ class Api::V1::MangasController < Api::V1Controller
           or with season <code>2015 year</code>
         </li>
         <li>
-          <code>type=manga,one_shot</code> &ndash;
-          mangas with type <code>Manga</code> or with type <code>One Shot</code>
+          <code>kind=manga,one_shot</code> &ndash;
+          mangas with kind <code>Manga</code> or with kind <code>One Shot</code>
         </li>
       </ul>
     </p>
@@ -43,9 +43,9 @@ class Api::V1::MangasController < Api::V1Controller
           and without season <code>2015 year</code>
         </li>
         <li>
-          <code>type=!manga,!one_shot</code> &ndash;
-          mangas without type <code>Manga</code>
-          and without type <code>One Shot</code>
+          <code>kind=!manga,!one_shot</code> &ndash;
+          mangas without kind <code>Manga</code>
+          and without kind <code>One Shot</code>
         </li>
       </ul>
     </p>
