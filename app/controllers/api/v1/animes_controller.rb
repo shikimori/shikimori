@@ -101,7 +101,7 @@ class Api::V1::AnimesController < Api::V1Controller
       <ul>
         <li>
           Must be one of:
-          <code>#{Anime.kind.values.join('</code>, <code>')}</code>
+          <code>#{(Anime.kind.values + %i[tv_13 tv_24 tv_48]).join('</code>, <code>')}</code>
         </li>
       </ul>
     DOC
