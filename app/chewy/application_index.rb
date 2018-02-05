@@ -9,24 +9,26 @@ class ApplicationIndex < Chewy::Index
   ORIGINAL_FIELD = {
     value: -> { self },
     index: :analyzed,
-    analyzer: :original_analyzer
+    analyzer: :original_analyzer,
+    search_analyzer: :search_phrase_analyzer
   }
   EDGE_PHRASE_FIELD = {
     value: -> { self },
     index: :analyzed,
     analyzer: :edge_phrase_analyzer,
+    search_analyzer: :search_phrase_analyzer
   }
   EDGE_WORD_FIELD = {
     value: -> { self },
     index: :analyzed,
     analyzer: :edge_word_analyzer,
-    search_analyzer: :search_analyzer
+    search_analyzer: :search_word_analyzer
   }
   NGRAM_FIELD = {
     value: -> { self },
     index: :analyzed,
     analyzer: :ngram_analyzer,
-    search_analyzer: :search_analyzer
+    search_analyzer: :search_word_analyzer
   }
 
   DEFAULT_SETTINGS = {
@@ -52,10 +54,15 @@ class ApplicationIndex < Chewy::Index
           tokenizer: 'standard',
           filter: %w[lowercase asciifolding nGram_filter distinct_words_filter]
         },
-        search_analyzer: {
+        search_phrase_analyzer: {
+          type: 'custom',
+          tokenizer: 'keyword',
+          filter: %w[lowercase asciifolding]
+        },
+        search_word_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
-          filter: %w[lowercase asciifolding distinct_words_filter]
+          filter: %w[lowercase asciifolding]
         }
       },
       tokenizer: {

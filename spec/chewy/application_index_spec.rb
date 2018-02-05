@@ -160,8 +160,33 @@ describe ApplicationIndex, :vcr do
     end
   end
 
-  context 'search_analyzer' do
-    let(:analyzer) { :search_analyzer }
+  context 'search_phrase_analyzer' do
+    let(:analyzer) { :search_phrase_analyzer }
+
+    it do
+      is_expected.to eq [
+        'kai wa-sama'
+      ]
+    end
+
+    context 'one word' do
+      let(:text) { 'test' }
+      it { is_expected.to eq ['test'] }
+    end
+
+    context 'two words' do
+      let(:text) { 'te st' }
+      it { is_expected.to eq ['te st'] }
+    end
+
+    context 'same words' do
+      let(:text) { 'tes tes' }
+      it { is_expected.to eq ['tes tes'] }
+    end
+  end
+
+  context 'search_word_analyzer' do
+    let(:analyzer) { :search_word_analyzer }
 
     it do
       is_expected.to eq [

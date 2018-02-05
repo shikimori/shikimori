@@ -52,8 +52,7 @@ private
     Nokogiri::HTML get_page(URL_TEMPLATE + page.to_s)
   end
 
-  # rubocop:disable AbcSize
-  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize, MethodLength
   def get_page url
     Rails.cache.fetch(url, expires_in: 1.week) do
       response = Faraday.get(url) do |req|
@@ -69,6 +68,5 @@ private
       end
     end
   end
-  # rubocop:enable MethodLength
-  # rubocop:enable AbcSize
+  # rubocop:enable AbcSize, MethodLength
 end

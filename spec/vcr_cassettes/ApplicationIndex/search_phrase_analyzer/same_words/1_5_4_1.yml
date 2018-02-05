@@ -28,7 +28,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Mon, 05 Feb 2018 18:01:04 GMT
+  recorded_at: Mon, 05 Feb 2018 18:01:05 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_clubs
@@ -51,17 +51,17 @@ http_interactions:
     headers:
       Warning:
       - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Mon, 05 Feb 2018 18:01:04 GMT"
+        [index] but got [not_analyzed]" "Mon, 05 Feb 2018 18:01:05 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_phrase]" "Mon, 05 Feb 2018 18:01:04
+        use [text] or [keyword] instead on [edge_phrase]" "Mon, 05 Feb 2018 18:01:05
         GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_word]" "Mon, 05 Feb 2018 18:01:04
+        use [text] or [keyword] instead on [edge_word]" "Mon, 05 Feb 2018 18:01:05
         GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [ngram]" "Mon, 05 Feb 2018 18:01:04 GMT"
+        use [text] or [keyword] instead on [ngram]" "Mon, 05 Feb 2018 18:01:05 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [original]" "Mon, 05 Feb 2018 18:01:04
+        use [text] or [keyword] instead on [original]" "Mon, 05 Feb 2018 18:01:05
         GMT"
       Content-Type:
       - application/json; charset=UTF-8
@@ -71,10 +71,10 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_clubs"}'
     http_version: 
-  recorded_at: Mon, 05 Feb 2018 18:01:04 GMT
+  recorded_at: Mon, 05 Feb 2018 18:01:05 GMT
 - request:
     method: get
-    uri: http://localhost:9200/shikimori_test_clubs/_analyze?analyzer=edge_phrase_analyzer&text=tes%20tes
+    uri: http://localhost:9200/shikimori_test_clubs/_analyze?analyzer=search_phrase_analyzer&text=tes%20tes
     body:
       encoding: US-ASCII
       string: ''
@@ -93,21 +93,17 @@ http_interactions:
       Warning:
       - 299 Elasticsearch-5.6.5-6a37571 "analyzer request parameter is deprecated
         and will be removed in the next major release. Please use the JSON in the
-        request body instead request param" "Mon, 05 Feb 2018 18:01:04 GMT"
+        request body instead request param" "Mon, 05 Feb 2018 18:01:05 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "text request parameter is deprecated and
         will be removed in the next major release. Please use the JSON in the request
-        body instead request param" "Mon, 05 Feb 2018 18:01:04 GMT"
+        body instead request param" "Mon, 05 Feb 2018 18:01:05 GMT"
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '139'
+      - '101'
     body:
       encoding: ASCII-8BIT
-      string: '{"tokens":[{"token":"t","start_offset":0,"end_offset":1,"type":"word","position":0},{"token":"te","start_offset":0,"end_offset":2,"type":"word","position":0},{"token":"tes","start_offset":0,"end_offset":3,"type":"word","position":0},{"token":"tes
-        ","start_offset":0,"end_offset":4,"type":"word","position":0},{"token":"tes
-        t","start_offset":0,"end_offset":5,"type":"word","position":0},{"token":"tes
-        te","start_offset":0,"end_offset":6,"type":"word","position":0},{"token":"tes
-        tes","start_offset":0,"end_offset":7,"type":"word","position":0}]}'
+      string: '{"tokens":[{"token":"tes tes","start_offset":0,"end_offset":7,"type":"word","position":0}]}'
     http_version: 
-  recorded_at: Mon, 05 Feb 2018 18:01:04 GMT
+  recorded_at: Mon, 05 Feb 2018 18:01:05 GMT
 recorded_with: VCR 4.0.0

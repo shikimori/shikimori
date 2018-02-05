@@ -6,6 +6,8 @@ class AnimesIndex < ApplicationIndex
 
   settings DEFAULT_SETTINGS
 
+  # define_type Anime.where(id: [20, 1735]) do
+  # define_type Anime.where("name ilike '%naruto%'") do
   define_type Anime do
     NAME_FIELDS.each do |name_field|
       field(
@@ -29,6 +31,6 @@ class AnimesIndex < ApplicationIndex
     field :weight,
       type: :half_float,
       index: false,
-      value: -> (model, _) { EntryWeight.call model }
+      value: -> (model, _) { 1.2 }#EntryWeight.call model }
   end
 end

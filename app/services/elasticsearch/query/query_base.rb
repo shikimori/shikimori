@@ -70,9 +70,9 @@ private
 
   def field_query field
     [
-      { term: { "#{field}.original" => { value: @phrase, boost: 400 } } },
-      { term: { "#{field}.edge_phrase": { value: @phrase, boost: 50 } } },
-      { term: { "#{field}.edge_word": { value: @phrase, boost: 20 } } },
+      { match: { "#{field}.original": { query: @phrase, boost: 400 } } },
+      { match: { "#{field}.edge_phrase": { query: @phrase, boost: 50 } } },
+      { match: { "#{field}.edge_word": { query: @phrase, boost: 20 } } },
       { match: { "#{field}.ngram": { query: @phrase } } }
     ]
   end

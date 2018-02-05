@@ -16,7 +16,7 @@ describe Elasticsearch::Query::QueryBase, :vcr do
   let!(:anime_4) { create :anime, name: 'qw' }
 
   let(:ids_limit) { 10 }
-  let(:phrase) { 'test' }
+  let(:phrase) { 'Test' }
 
   it { is_expected.to have_keys [anime_1.id, anime_2.id] }
 

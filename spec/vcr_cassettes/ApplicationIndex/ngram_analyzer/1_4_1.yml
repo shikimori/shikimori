@@ -28,13 +28,13 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:27:00 GMT
+  recorded_at: Mon, 05 Feb 2018 18:01:04 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_clubs
     body:
       encoding: UTF-8
-      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","distinct_words_filter"]}}}},"mappings":{"club":{"properties":{"name":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","type":"string"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","type":"string"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"locale":{"type":"keyword"}}}}}'
+      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding"]}}}},"mappings":{"club":{"properties":{"name":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","type":"string"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","type":"string"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","type":"string"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","type":"string"}},"type":"keyword","index":"not_analyzed"},"locale":{"type":"keyword"}}}}}'
     headers:
       Content-Type:
       - application/json
@@ -51,17 +51,17 @@ http_interactions:
     headers:
       Warning:
       - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Sat, 06 Jan 2018 02:27:00 GMT"
+        [index] but got [not_analyzed]" "Mon, 05 Feb 2018 18:01:04 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_phrase]" "Sat, 06 Jan 2018 02:27:00
+        use [text] or [keyword] instead on [edge_phrase]" "Mon, 05 Feb 2018 18:01:04
         GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [edge_word]" "Sat, 06 Jan 2018 02:27:00
+        use [text] or [keyword] instead on [edge_word]" "Mon, 05 Feb 2018 18:01:04
         GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [ngram]" "Sat, 06 Jan 2018 02:27:00 GMT"
+        use [text] or [keyword] instead on [ngram]" "Mon, 05 Feb 2018 18:01:04 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "The [string] field is deprecated, please
-        use [text] or [keyword] instead on [original]" "Sat, 06 Jan 2018 02:27:00
+        use [text] or [keyword] instead on [original]" "Mon, 05 Feb 2018 18:01:04
         GMT"
       Content-Type:
       - application/json; charset=UTF-8
@@ -71,7 +71,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_clubs"}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:27:00 GMT
+  recorded_at: Mon, 05 Feb 2018 18:01:04 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_clubs/_analyze?analyzer=ngram_analyzer&text=Kai%20wa-sama
@@ -93,10 +93,10 @@ http_interactions:
       Warning:
       - 299 Elasticsearch-5.6.5-6a37571 "analyzer request parameter is deprecated
         and will be removed in the next major release. Please use the JSON in the
-        request body instead request param" "Sat, 06 Jan 2018 02:27:00 GMT"
+        request body instead request param" "Mon, 05 Feb 2018 18:01:04 GMT"
       - 299 Elasticsearch-5.6.5-6a37571 "text request parameter is deprecated and
         will be removed in the next major release. Please use the JSON in the request
-        body instead request param" "Sat, 06 Jan 2018 02:27:00 GMT"
+        body instead request param" "Mon, 05 Feb 2018 18:01:04 GMT"
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -105,5 +105,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"tokens":[{"token":"k","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"ka","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"kai","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"a","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"ai","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"i","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"w","start_offset":4,"end_offset":6,"type":"<ALPHANUM>","position":1},{"token":"wa","start_offset":4,"end_offset":6,"type":"<ALPHANUM>","position":1},{"token":"a","start_offset":4,"end_offset":6,"type":"<ALPHANUM>","position":1},{"token":"s","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"sa","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"sam","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"sama","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"a","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"am","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"ama","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"m","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2},{"token":"ma","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2}]}'
     http_version: 
-  recorded_at: Sat, 06 Jan 2018 02:27:00 GMT
+  recorded_at: Mon, 05 Feb 2018 18:01:04 GMT
 recorded_with: VCR 4.0.0
