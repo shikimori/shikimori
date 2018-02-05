@@ -18,7 +18,12 @@ module ErrorsConcern
 
   # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
   def runtime_error e
-    Airbrake.notify e if defined? Airbrake
+    if defined? Airbrake
+      Airbrake.notify e,
+        url: request.url,
+        session: JSON.parse(session.to_json),
+        cookies: JSON.parse(cookies.to_json)
+    end
     Honeybadger.notify e if defined? Honeybadger
     Raven.capture_exception e if defined? Raven
     Appsignal.set_error e if defined? Appsignal
