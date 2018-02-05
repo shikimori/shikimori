@@ -107,7 +107,6 @@ FactoryBot.define do
       body 'offtopic'
       created_at { 1.day.ago }
       updated_at { 1.day.ago }
-      forum { seed :offtopic_forum }
     end
     trait :site_rules do
       id Topic::TOPIC_IDS[:site_rules][:ru]
@@ -115,7 +114,6 @@ FactoryBot.define do
       body 'site rules'
       created_at { 2.days.ago }
       updated_at { 2.days.ago }
-      forum { seed :offtopic_forum }
     end
     trait :description_of_genres do
       id Topic::TOPIC_IDS[:description_of_genres][:ru]
@@ -123,7 +121,6 @@ FactoryBot.define do
       body 'description of genres'
       created_at { 4.days.ago }
       updated_at { 4.days.ago }
-      forum { seed :offtopic_forum }
     end
     trait :ideas_and_suggestions do
       id Topic::TOPIC_IDS[:ideas_and_suggestions][:ru]
@@ -131,7 +128,6 @@ FactoryBot.define do
       body 'ideas and suggestions'
       created_at { 5.days.ago }
       updated_at { 5.days.ago }
-      forum { seed :offtopic_forum }
     end
     trait :site_problems do
       id Topic::TOPIC_IDS[:site_problems][:ru]
@@ -139,7 +135,13 @@ FactoryBot.define do
       body 'site problems'
       created_at { 6.days.ago }
       updated_at { 6.days.ago }
-      forum { seed :offtopic_forum }
+    end
+    trait :contests_proposals do
+      id Topic::TOPIC_IDS[:contests_proposals][:ru]
+      title 'contests_proposals'
+      body 'contests_proposals'
+      created_at { 7.days.ago }
+      updated_at { 7.days.ago }
     end
 
     factory :offtopic_topic, traits: [:offtopic]
@@ -147,5 +149,6 @@ FactoryBot.define do
     factory :description_of_genres_topic, traits: [:description_of_genres]
     factory :ideas_and_suggestions_topic, traits: [:ideas_and_suggestions]
     factory :site_problems_topic, traits: [:site_problems]
+    factory :contests_proposals_topic, traits: [:contests_proposals]
   end
 end

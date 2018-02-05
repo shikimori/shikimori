@@ -144,6 +144,7 @@ RSpec.configure do |config|
     FactoryGirl::SeedGenerator.create :description_of_genres_topic
     FactoryGirl::SeedGenerator.create :ideas_and_suggestions_topic
     FactoryGirl::SeedGenerator.create :site_problems_topic
+    FactoryGirl::SeedGenerator.create :contests_proposals_topic
 
     FactoryGirl::SeedGenerator.create :faq_club
 
