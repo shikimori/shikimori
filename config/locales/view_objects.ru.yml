@@ -188,6 +188,9 @@ ru:
     description_of_genres:
       title: Описания жанров
       description: Для желающих помочь сайту
+    contests_proposals:
+      title: Голосование по темам для турниров
+      description: Для участвующих в турнирах
     ideas_and_suggestions:
       title: Идеи и предложения
       description: Было бы неплохо реализовать это...

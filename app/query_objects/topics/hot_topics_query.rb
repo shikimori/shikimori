@@ -40,6 +40,6 @@ private
   end
 
   def offtopic_id
-    Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:offtopic][@locale.to_sym]
+    Topic::TOPIC_IDS[:offtopic][@locale.to_sym]
   end
 end

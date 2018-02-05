@@ -14,12 +14,11 @@ class StickyTopicView < Dry::Struct
     description_of_genres
     ideas_and_suggestions
     site_problems
+    contests_proposals
   )
-  OFFTOPIC_TOPIC_IDS = Topic::TOPIC_IDS[Forum::OFFTOPIC_ID]
-
   STICKY_TOPICS.each do |topic_name|
     define_singleton_method topic_name do |locale|
-      topic_id = OFFTOPIC_TOPIC_IDS[topic_name][locale.to_sym]
+      topic_id = Topic::TOPIC_IDS[topic_name][locale.to_sym]
       next unless topic_id.present?
 
       instance_variable_get(:"@#{topic_name}_#{locale}") ||

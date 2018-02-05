@@ -233,7 +233,6 @@ class Comment < ApplicationRecord
   def offtopic_topic?
     return false unless topic.present?
 
-    offtopic_topic_ids = Topic::TOPIC_IDS[Forum::OFFTOPIC_ID]
-    topic.id == offtopic_topic_ids[:offtopic][topic.locale.to_sym]
+    topic.id == Topic::TOPIC_IDS[:offtopic][topic.locale.to_sym]
   end
 end

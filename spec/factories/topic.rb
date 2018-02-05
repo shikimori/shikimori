@@ -102,7 +102,7 @@ FactoryBot.define do
     end
 
     trait :offtopic do
-      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:offtopic][:ru]
+      id Topic::TOPIC_IDS[:offtopic][:ru]
       title 'offtopic'
       body 'offtopic'
       created_at { 1.day.ago }
@@ -110,7 +110,7 @@ FactoryBot.define do
       forum { seed :offtopic_forum }
     end
     trait :site_rules do
-      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:site_rules][:ru]
+      id Topic::TOPIC_IDS[:site_rules][:ru]
       title 'site rules'
       body 'site rules'
       created_at { 2.days.ago }
@@ -118,7 +118,7 @@ FactoryBot.define do
       forum { seed :offtopic_forum }
     end
     trait :description_of_genres do
-      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:description_of_genres][:ru]
+      id Topic::TOPIC_IDS[:description_of_genres][:ru]
       title 'description of genres'
       body 'description of genres'
       created_at { 4.days.ago }
@@ -126,7 +126,7 @@ FactoryBot.define do
       forum { seed :offtopic_forum }
     end
     trait :ideas_and_suggestions do
-      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:ideas_and_suggestions][:ru]
+      id Topic::TOPIC_IDS[:ideas_and_suggestions][:ru]
       title 'ideas and suggestions'
       body 'ideas and suggestions'
       created_at { 5.days.ago }
@@ -134,7 +134,7 @@ FactoryBot.define do
       forum { seed :offtopic_forum }
     end
     trait :site_problems do
-      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:site_problems][:ru]
+      id Topic::TOPIC_IDS[:site_problems][:ru]
       title 'site problems'
       body 'site problems'
       created_at { 6.days.ago }
