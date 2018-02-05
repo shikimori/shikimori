@@ -6,6 +6,7 @@ class ReviewsController < AnimesController
   before_action :actualize_resource
   before_action :add_title
   before_action :add_breadcrumbs, except: [:index]
+  skip_before_action :og_meta
 
   REVIEWS_CLUB_ID = 293
   ADDITIONAL_TEXT = %r{
