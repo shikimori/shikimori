@@ -13,6 +13,8 @@ class ContestsController < ShikimoriController
   PARAMS = %i[
     title_ru
     title_en
+    description_ru
+    description_en
     started_on
     phases
     matches_per_round

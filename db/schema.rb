@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205172832) do
+ActiveRecord::Schema.define(version: 20180205182119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -401,6 +401,8 @@ ActiveRecord::Schema.define(version: 20180205172832) do
     t.string "member_type", limit: 255, default: "anime"
     t.string "title_en", limit: 255
     t.integer "cached_uniq_voters_count", default: 0, null: false
+    t.text "description_ru"
+    t.text "description_en"
     t.index ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on"
   end
 

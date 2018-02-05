@@ -1,4 +1,4 @@
-= simple_form_for contest, html: { class: "b-form block edit contest #{contest.strategy_type}" } do |f|
+= simple_form_for contest.object, html: { class: "b-form block edit contest #{contest.strategy_type}" } do |f|
   - if contest.errors.any?
     .b-errors
       .subheadline = i18n_i 'error', :other
@@ -7,8 +7,19 @@
 
   .subheadline = t '.common'
   .block
-    = f.input :title_ru
-    = f.input :title_en
+    .cc-2
+      .c-column
+        = f.input :title_ru
+      .c-column
+        = f.input :title_en
+
+    .cc-2
+      .c-column
+        = f.input :description_ru,
+          hint: 'Можно подробно описать, о чём опрос, как голосовать, и по каким критериям отбираются кандидаты'
+      .c-column
+        = f.input :description_en
+
     = f.input :member_type,
         as: :select,
         collection: Contest.member_type.options,
