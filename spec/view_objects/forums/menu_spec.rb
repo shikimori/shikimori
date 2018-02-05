@@ -29,7 +29,7 @@ describe Forums::Menu do
   end
 
   describe '#sticky_topics' do
-    it { expect(view.sticky_topics).to have(5).items }
+    it { expect(view.sticky_topics).to have(6).items }
   end
 
   describe '#new_topic_url' do
