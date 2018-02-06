@@ -1,4 +1,4 @@
-= simple_form_for contest.decorated? ? contest.object : contest, html: { class: "b-form block edit contest #{contest.strategy_type}" } do |f|
+= simple_form_for contest.object, html: { class: "b-form block edit contest #{contest.strategy_type}" } do |f|
   - if contest.errors.any?
     .b-errors
       .subheadline = i18n_i 'error', :other

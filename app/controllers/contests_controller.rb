@@ -81,7 +81,8 @@ class ContestsController < ShikimoriController
   def new
     og page_title: i18n_t(:new_contest)
 
-    @resource ||= Contest.new.decorate
+    @resource ||= Contest.new
+    @resource = @resource.decorate
     @resource.started_on ||= Time.zone.today + 1.day
     @resource.matches_per_round ||= 6
     @resource.match_duration ||= 2
