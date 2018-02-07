@@ -21,7 +21,7 @@ aside.buttons
       title=t('actions.delete')
       data-text=t('actions.delete')
     ]
-    - if comment.commentable_type == 'Topic'
+    - if comment.commentable_type == 'Topic' && comment.commentable.linked_type != Club.name
       span.item-moderation[
         title=t('actions.moderate')
         data-text=t('actions.moderate')
@@ -76,7 +76,7 @@ aside.buttons
       data-direction='top'
     ]
     span.item-offtopic.b-tooltipped.unprocessed[
-      class="#{:selected if comment.offtopic?}"
+      class=(:selected if comment.offtopic?)
       title=t('actions.moderation.offtopic')
       data-text=t('actions.moderation.offtopic')
       data-text-alt=t('actions.moderation.not_offtopic')
@@ -91,7 +91,7 @@ aside.buttons
 
     - if comment.try :allowed_summary?
       span.item-summary.b-tooltipped.unprocessed[
-        class="#{:selected if comment.summary?}"
+        class=(:selected if comment.summary?)
         title=t('actions.moderation.summary')
         data-text=t('actions.moderation.summary')
         data-text-alt=t('actions.moderation.not_summary')
@@ -104,7 +104,7 @@ aside.buttons
         data-direction='top'
       ]
 
-    - if comment.commentable_type == 'Topic'
+    - if comment.commentable_type == 'Topic' && comment.commentable.linked_type != Club.name
       span.item-moderation-cancel[
         title=t('actions.cancel')
         data-text=t('actions.cancel')
