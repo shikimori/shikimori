@@ -1,4 +1,5 @@
 @import mixins/block
+@import mixins/shikimori
 @import mixins/responsive
 
 .b-spnsrs-yd_rtb_x240,
@@ -31,16 +32,50 @@
     +gte_ipad
       max-width: 728px
 
+.b-spnsrs-vgtrk_x300,
+.b-spnsrs-vgtrk_x1170,
 .b-spnsrs-istari_x300,
 .b-spnsrs-istari_x1170
   +block2
+  overflow: hidden
 
   img
     max-width: 100%
 
+  &.b-spnsrs-vgtrk_x1170,
   &.b-spnsrs-istari_x1170
     +iphone
       +block
+
+.spnsrs_vgtrk_x300,
+.spnsrs_vgtrk_x1170,
+.spnsrs_istari_x300,
+.spnsrs_istari_x1170
+  position: relative
+
+  .close-ad
+    background: #fff
+    display: none
+    height: 25px
+    line-height: 25px
+    opacity: 0.5
+    position: absolute
+    right: 0
+    text-align: center
+    top: 0
+    transition: opacity 0.25s ease
+    width: 25px
+
+    &:hover
+      opacity: 1
+
+    &:before
+      +shikimori('\e828')
+      font-size: 17px
+      cursor: pointer
+
+  &:hover .close-ad
+    display: block
 
 // .b-spnsrs_block_3
   // +block2

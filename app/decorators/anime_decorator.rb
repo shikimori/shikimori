@@ -87,7 +87,7 @@ class AnimeDecorator < AniMangaDecorator
 
     # Copyright::DAISUKI_COPYRIGHTED.include?(id) ||
     Copyright::IVI_RU_COPYRIGHTED.include?(id) ||
-      Copyright::ISTARI_COPYRIGHTED.include?(id) || (
+      Copyright::OTHER_COPYRIGHTED.include?(id) || (
         Copyright::WAKANIM_COPYRIGHTED.include?(id) &&
         !GeoipAccess.instance.wakanim_allowed?(h.remote_addr)
       )

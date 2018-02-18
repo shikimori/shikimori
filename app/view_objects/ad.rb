@@ -32,16 +32,12 @@ class Ad < ViewObjectBase
     },
     vgtrk_x1170: {
       provider: Types::Ad::Provider[:vgtrk],
-      url: 'http://kimi.istaricomics.com',
       html: (
         <<~HTML
           <style>
-            .EDGE-2118661916-container { overflow: hidden; }
             .edgeLoad-EDGE-2118661916 { visibility: hidden; }
           </style>
-          <div class="block EDGE-2118661916-container">
-            <div id="Stage" class="EDGE-2118661916"></div>
-          </div>
+          <div id="Stage" class="EDGE-2118661916"></div>
           <script>
             jQuery.getScript("https://animate.adobe.com/runtime/6.0.0/edge.6.0.0.min.js", function() {
               AdobeEdge.loadComposition('https://cdn-st1.rtr-vesti.ru/mh_files/002/838/1170WFLOWER', 'EDGE-2118661916', {
@@ -57,6 +53,16 @@ class Ad < ViewObjectBase
         HTML
       ),
       placement: Types::Ad::Placement[:content]
+    },
+    vgtrk_x300: {
+      provider: Types::Ad::Provider[:vgtrk],
+      url: 'https://www.filmpro.ru/special/maryandflower',
+      images: (1..1).map do |i|
+        {
+          src: "/assets/globals/events/v1_#{i}.jpg"
+        }
+      end,
+      placement: Types::Ad::Placement[:menu]
     },
     advrtr_x728: {
       provider: Types::Ad::Provider[:advertur],
@@ -97,7 +103,8 @@ class Ad < ViewObjectBase
     yd_poster_x300_2x: :advrtr_x240,
     yd_poster_x240_2x: :advrtr_x240,
     yd_rtb_x240: :advrtr_x240,
-    yd_horizontal: :advrtr_x728
+    yd_horizontal: :advrtr_x728,
+    vgtrk_x300: :yd_rtb_x240
   }
 
   attr_reader :banner_type, :policy
@@ -196,13 +203,20 @@ private
     provider == Types::Ad::Provider[:advertur]
   end
 
-  def ad_html # rubocop:disable AbcSize, MethodLength
+  def ad_html # rubocop:disable AbcSize, MethodLength, PerceivedComplexity
     if yandex_direct?
       "<div id='#{@banner_type}'></div>"
     elsif banner?
       image = banner[:images].sample
-      "<a href='#{banner[:url]}'>"\
-        "<img src='#{image[:src]}' srcset='#{image[:src_2x]} 2x'></a>"
+
+      image_html =
+        if image[:src_2x]
+          "<img src='#{image[:src]}' srcset='#{image[:src_2x]} 2x'>"
+        else
+          "<img src='#{image[:src]}'>"
+        end
+
+      "<a href='#{banner[:url]}'>#{image_html}</a>"
     elsif html?
       banner[:html]
     elsif iframe?

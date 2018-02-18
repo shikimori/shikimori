@@ -2,22 +2,24 @@ remove_ad = (ad_class) ->
   console.log "remove ad #{ad_class}"
   $(".#{ad_class}").remove()
 
-advertur_state = null
+ad_state = null
 
 yandex_direct_state = null
 yandex_direct_pending_ads = []
 
-ADVERTUR_STATE = {
-  LODED: 'loaded'
-}
-
-YANDEX_DIRECT_STATE = {
-  LOADED: 'loaded'
-  LOADING: 'loading'
-}
-
 using 'DynamicElements'
 class DynamicElements.DesktopAd extends View
+  CLOSE_AD_HTML = "<div class='close-ad'></div>"
+
+  AD_STATE = {
+    LOADED: 'loaded'
+  }
+
+  YANDEX_DIRECT_STATE = {
+    LOADED: 'loaded'
+    LOADING: 'loading'
+  }
+
   initialize: ->
     return if is_mobile() && !mobile_detect.tablet()
 
@@ -29,7 +31,7 @@ class DynamicElements.DesktopAd extends View
     if @provider == 'yandex_direct'
       @_yandex_direct()
     else
-      @_advertur()
+      @_other_ad()
 
   _yandex_direct: ->
     if yandex_direct_state == YANDEX_DIRECT_STATE.LOADED
@@ -55,7 +57,9 @@ class DynamicElements.DesktopAd extends View
       s.type = "text/javascript";
       s.src = "//an.yandex.ru/system/context.js";
       s.async = true;
-      s.onerror = => window.remove_ad @css_class
+      s.onerror = =>
+        if 'remove_ad' of window
+          window.remove_ad @css_class
       t.parentNode.insertBefore(s, t);
     )(window, window.document, 'yandexContextAsyncCallbacks');
 
@@ -66,20 +70,32 @@ class DynamicElements.DesktopAd extends View
     @_replace_node()
     Ya.Context.AdvManager.render @ad_params
 
-  _advertur: ->
-    if advertur_state != ADVERTUR_STATE.LOADED
-      @_load_advertur_handler()
+  _other_ad: ->
+    if ad_state != AD_STATE.LOADED
+      @_load_ad_handler()
 
     @_replace_node()
 
-  _load_advertur_handler: ->
-    advertur_state = ADVERTUR_STATE.LOADED
+  _load_ad_handler: ->
+    ad_state = AD_STATE.LOADED
     $(window).on 'message', (e) ->
       if e.originalEvent.data?.type == 'remove_ad'
         remove_ad(e.originalEvent.data.ad_class)
 
   _replace_node: ->
-    @$node.replaceWith $(@html).addClass(@css_class)
+    $close = $(CLOSE_AD_HTML).on 'click', =>
+      $.cookie("#{@css_class}_disabled", '1', expires: 7)
+      remove_ad @css_class
+
+    if $.cookie("#{@css_class}_disabled")
+      @$node.remove()
+
+    $ad = $("<div>#{@html}</div>")
+      .addClass(@css_class)
+      .append($close)
+
+    @$node.replaceWith $ad
+
 
     # $new_content = $(@html).addClass(@css_class)
 

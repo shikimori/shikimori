@@ -25,12 +25,14 @@ module Copyright
     20973, # World Conquest Zvezda Plot
   ]
 
-  ISTARI_COPYRIGHTED = [
+  OTHER_COPYRIGHTED = [
     # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
     # [Notice_ID:*IdOAQy*] Nintendo Company Ltd - Нарушение прав правообладателей / Nintendo Company Ltd - Abuse
     19157,
     # просьба от истари убрать Kimi no Na wa на которое они купили права
-    32281
+    32281,
+    # vgtrk
+    34541
   ]
 
   WAKANIM_COPYRIGHTED = [

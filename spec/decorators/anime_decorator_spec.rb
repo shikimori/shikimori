@@ -25,7 +25,7 @@ describe AnimeDecorator do
     end
 
     context 'istari' do
-      let(:id) { Copyright::ISTARI_COPYRIGHTED.sample }
+      let(:id) { Copyright::OTHER_COPYRIGHTED.sample }
       it { is_expected.to be_licensed }
 
       context 'current user video_moderator or trusted_video_uploader' do
