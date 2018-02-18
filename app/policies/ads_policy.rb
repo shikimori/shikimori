@@ -4,10 +4,12 @@ class AdsPolicy
     ad_provider!
     is_ru_host!
     is_shikimori!
+    is_disabled!
   ]
 
   # rubocop:disable CyclomaticComplexity, PerceivedComplexity
   def allowed?
+    return false if @is_disabled
     return false unless @is_ru_host
     return false if yandex_direct?(@ad_provider) && Rails.env.development?
     return false if yandex_direct?(@ad_provider) && !@is_shikimori

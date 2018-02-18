@@ -4,7 +4,8 @@ describe AdsPolicy do
       is_ru_host: is_ru_host,
       is_shikimori: is_shikimori,
       ad_provider: ad_provider,
-      user: user
+      user: user,
+      is_disabled: is_disabled
     )
   end
 
@@ -12,8 +13,14 @@ describe AdsPolicy do
   let(:is_shikimori) { true }
   let(:ad_provider) { Types::Ad::Provider.values.sample }
   let(:user) { nil }
+  let(:is_disabled) { false }
 
   it { is_expected.to be_allowed }
+
+  context 'is_disabled' do
+    let(:is_disabled) { true }
+    it { is_expected.to_not be_allowed }
+  end
 
   context 'not ru_host' do
     let(:is_ru_host) { false }
