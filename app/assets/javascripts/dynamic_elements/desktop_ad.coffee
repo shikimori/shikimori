@@ -83,19 +83,23 @@ class DynamicElements.DesktopAd extends View
         remove_ad(e.originalEvent.data.ad_class)
 
   _replace_node: ->
-    $close = $(CLOSE_AD_HTML).on 'click', =>
-      $.cookie("#{@css_class}_disabled", '1', expires: 7)
-      remove_ad @css_class
+    $close = $(CLOSE_AD_HTML)
 
     if $.cookie("#{@css_class}_disabled")
       @$node.remove()
+    else
+      $ad = $("<div>#{@html}</div>")
+        .addClass(@css_class)
+        .append($close)
 
-    $ad = $("<div>#{@html}</div>")
-      .addClass(@css_class)
-      .append($close)
+      @$node.replaceWith $ad
 
-    @$node.replaceWith $ad
-
+      $close.on 'click', =>
+        $.cookie("#{@css_class}_disabled", '1', expires: 7)
+        $close.remove()
+        $ad.addClass 'removing'
+        delay(1000).then =>
+          remove_ad @css_class
 
     # $new_content = $(@html).addClass(@css_class)
 
