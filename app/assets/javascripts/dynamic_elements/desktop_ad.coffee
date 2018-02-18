@@ -96,7 +96,6 @@ class DynamicElements.DesktopAd extends View
 
       $close.on 'click', =>
         $.cookie("#{@css_class}_disabled", '1', expires: 7)
-        $close.remove()
         $ad.addClass 'removing'
         delay(1000).then =>
           remove_ad @css_class
