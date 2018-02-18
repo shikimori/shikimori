@@ -26,8 +26,36 @@ class Ad < ViewObjectBase
       url: 'http://kimi.istaricomics.com',
       images: [{
         src: '/assets/globals/events/i1_2.jpg',
-        src_2x: '/assets/globals/events/i1_2@2x.jpg',
+        src_2x: '/assets/globals/events/i1_2@2x.jpg'
       }],
+      placement: Types::Ad::Placement[:content]
+    },
+    vgtrk_x1170: {
+      provider: Types::Ad::Provider[:vgtrk],
+      url: 'http://kimi.istaricomics.com',
+      html: (
+        <<~HTML
+          <style>
+            .EDGE-2118661916-container { overflow: hidden; }
+            .edgeLoad-EDGE-2118661916 { visibility: hidden; }
+          </style>
+          <div class="block EDGE-2118661916-container">
+            <div id="Stage" class="EDGE-2118661916"></div>
+          </div>
+          <script>
+            jQuery.getScript("https://animate.adobe.com/runtime/6.0.0/edge.6.0.0.min.js", function() {
+              AdobeEdge.loadComposition('https://cdn-st1.rtr-vesti.ru/mh_files/002/838/1170WFLOWER', 'EDGE-2118661916', {
+                scaleToFit: "none",
+                centerStage: "none",
+                minW: "1170px",
+                maxW: "undefined",
+                width: "1170px",
+                height: "180px"
+              }, {"dom":{}}, {"dom":{}});
+            })
+          </script>
+        HTML
+      ),
       placement: Types::Ad::Placement[:content]
     },
     advrtr_x728: {
@@ -156,20 +184,32 @@ private
     provider == Types::Ad::Provider[:yandex_direct]
   end
 
-  def istari?
-    provider == Types::Ad::Provider[:istari]
+  def banner?
+    banner[:images].present?
   end
 
-  def ad_html
+  def html?
+    banner[:html].present?
+  end
+
+  def iframe?
+    provider == Types::Ad::Provider[:advertur]
+  end
+
+  def ad_html # rubocop:disable AbcSize, MethodLength
     if yandex_direct?
       "<div id='#{@banner_type}'></div>"
-    elsif istari?
+    elsif banner?
       image = banner[:images].sample
       "<a href='#{banner[:url]}'>"\
         "<img src='#{image[:src]}' srcset='#{image[:src_2x]} 2x'></a>"
-    else
+    elsif html?
+      banner[:html]
+    elsif iframe?
       "<iframe src='#{advertur_url}' width='#{banner[:width]}px' "\
         "height='#{banner[:height]}px'>"
+    else
+      raise ArgumentError
     end
   end
 

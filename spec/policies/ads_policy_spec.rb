@@ -54,6 +54,11 @@ describe AdsPolicy do
         let(:ad_provider) { Types::Ad::Provider[:istari] }
         it { is_expected.to be_allowed }
       end
+
+      context 'vgtrk1170' do
+        let(:ad_provider) { Types::Ad::Provider[:vgtrk] }
+        it { is_expected.to be_allowed }
+      end
     end
   end
 
