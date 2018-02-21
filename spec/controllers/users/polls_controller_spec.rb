@@ -108,6 +108,8 @@ describe Users::PollsController do
     context 'pending' do
       let(:poll_state) { :pending }
       it do
+        expect(resource).to be_persisted
+        expect(resource).to be_valid
         expect(resource).to have_attributes(
           name: 'test',
           text: 'zxc',
@@ -120,7 +122,6 @@ describe Users::PollsController do
 
         expect { poll_variant.reload }.to raise_error ActiveRecord::RecordNotFound
 
-        expect(resource).to be_valid
         expect(response).to redirect_to edit_profile_poll_url(user, resource)
       end
     end
@@ -129,6 +130,8 @@ describe Users::PollsController do
       let(:poll_state) { :started }
 
       it do
+        expect(resource).to be_persisted
+        expect(resource).to be_valid
         expect(resource).to have_attributes(
           name: 'test',
           text: 'zxc',
@@ -138,7 +141,6 @@ describe Users::PollsController do
         expect(resource.variants).to have(1).items
         expect(resource.variants[0]).to eq poll_variant.reload
 
-        expect(resource).to be_valid
         expect(response).to redirect_to profile_poll_url(user, resource)
       end
     end

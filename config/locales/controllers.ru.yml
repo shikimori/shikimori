@@ -91,6 +91,9 @@ ru:
   users/polls_controller:
     <<: *profiles_controller
     new: Новый опрос
+  users/oauth_applications_controller:
+    <<: *profiles_controller
+    new: Новое OAuth приложение
 
   animes_collection_controller: &animes_collection_controller
     search: Поиск “%{search}”

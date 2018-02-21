@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  use_doorkeeper
   user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
 
   ani_manga_format = "(/kind/:kind)(/status/:status)(/season/:season)\
@@ -925,6 +926,7 @@ Rails.application.routes.draw do
           get :animes, format: /xml|json/
           get :mangas, format: /xml|json/
         end
+        resources :oauth_applications
       end
     end
 

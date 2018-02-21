@@ -1,0 +1,7 @@
+ru:
+  oauth_applications:
+    index:
+      title: OAuth приложения
+      new: Создать новое OAuth приложение
+      notice: Список всех ваших OAuth приложений
+      no_oauth_applications: Нет OAuth приложений

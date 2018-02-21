@@ -1,0 +1,35 @@
+header.head.misc
+  h1 = og.headline
+  = render 'application/breadcrumbs'
+
+- if @resource.errors.any?
+  .b-errors
+    .subheadline = i18n_i 'error', :other
+    == @resource.errors.full_messages.join('<br>')
+
+= simple_form_for @resource,
+    url: @resource.persisted? ? profile_oauth_application_url(@user, @resource) : profile_oauth_applications_url(@user) do |f|
+  .cc-2
+    .c-column
+      = f.input :user_id, as: :hidden
+      = f.input :name, autofocus: @resource.name.blank?
+
+      = f.input :image, hint: '160x160'
+      - if @resource.image.exists?
+        img[
+          src=@resource.image_url(:x320)
+          alt=@resource.name
+          title=@resource.name
+        ]
+
+      .buttons
+        a.cancel href=profile_oauth_applications_url(@user) = t 'actions.cancel'
+        = f.button :magic_submit
+
+      - if @resource.persisted?
+        a.remove[
+          href=profile_oauth_application_url(@user, @resource)
+          title=t('actions.delete')
+          data-method="delete"
+          data-confirm=t('actions.confirm')
+        ] = t 'actions.delete'

@@ -1,0 +1,14 @@
+- content_for :head_misc
+  a.misc[
+    href=new_profile_oauth_application_url(@user, 'poll[user_id]' => @user.id)
+    title=t('oauth_applications.index.new')
+  ] = t('actions.create').downcase
+
+= render layout: 'page' do
+  = cache @collection do
+    - if @collection.any?
+      = render partial: 'users/oauth_applications/oauth_application',
+        collection: @collection,
+        locals: { user: @user }
+    - else
+      .b-nothing_here = t 'oauth_applications.index.no_oauth_applications'

@@ -91,6 +91,9 @@ en:
   users/polls_controller:
     <<: *profiles_controller
     new: New poll
+  users/oauth_applications_controller:
+    <<: *profiles_controller
+    new: New OAuth Application
 
   animes_collection_controller: &animes_collection_controller
     search: Search "%{search}"
