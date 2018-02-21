@@ -89,8 +89,8 @@ private
       og page_title: t('page', page: @view.page) if @view.page > 1
       og page_title: collection_title(@model).title
 
-      og notice: build_page_description(@model)
-      og description: og.page_title.last
+      og notice: build_page_notice(@model)
+      og description: i18n_t("description.#{@view.klass.name.downcase}")
     end
   end
 
@@ -127,15 +127,15 @@ private
     end
   end
 
-  def build_page_description model
+  def build_page_notice model
     title = collection_title(model).title false
 
     if collection_title(model).manga_conjugation_variant?
-      i18n_t 'description.manga_variant',
+      i18n_t 'notice.manga',
         title: title,
         order_name: order_name
     else
-      i18n_t 'description.non_manga_variant',
+      i18n_t 'notice.non_manga',
         title: title,
         order_name: order_name
     end

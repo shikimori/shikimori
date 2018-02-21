@@ -100,11 +100,22 @@ ru:
       by_ranking: по рейтингу
       by_released_date: по дате выхода
       by_add_date: по дате добавления
-    description:
-      manga_variant: |
+    notice:
+      manga: |
         На данной странице отображена %{title}, отсортированная %{order_name}
-      non_manga_variant: |
+      non_manga: |
         На данной странице отображены %{title}, отсортированные %{order_name}
+    description:
+      anime: |
+        Смотрите все сезоны аниме онлайн на русском и с субтитрами.
+        Самая полная коллекция аниме без цензуры!
+        Все серии аниме 2018 года бесплатно на shikimori.org
+      manga: |
+        Самый полный список манги на русском по дате обновления.
+        Список лучшей манги по популярности и по жанрам на сайте shikimori.org.
+      ranobe: |
+        Самый полный список ранобэ на русском по дате обновления.
+        Список лучших ранобэ по популярности и по жанрам на сайте shikimori.org.
 
   recommendations_controller:
     <<: *animes_collection_controller

@@ -38,6 +38,8 @@ en:
     site_news: Site news
     private_messages: Unread private messages
     site_notifications: Site notifications
+  user_achievements_controller:
+    <<: *profiles_controller
   user_history_controller:
     <<: *profiles_controller
     page_title: History
@@ -98,10 +100,21 @@ en:
       by_ranking: by ranking
       by_released_date: by release date
       by_add_date: by date when added on site
-    description:
-      manga_variant: &manga_variant |
+    notice:
+      manga: &manga_variant |
         This page contains search results for %{title} sorted %{order_name}
-      non_manga_variant: *manga_variant
+      non_manga: *manga_variant
+
+    description:
+      anime: |
+
+
+
+      manga: |
+
+
+      ranobe: |
+
 
 
   recommendations_controller:
