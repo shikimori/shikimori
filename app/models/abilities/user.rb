@@ -35,6 +35,7 @@ class Abilities::User
     style_abilities
     list_import_abilities
     poll_abilities
+    oauth_applications_abilities
   end
 
   def topic_abilities
@@ -313,6 +314,12 @@ class Abilities::User
 
     can %i[stop], Poll do |poll|
       can?(:read, poll) && poll.can_stop?
+    end
+  end
+
+  def oauth_applications_abilities
+    can %i[manage], OauthApplication do |poll|
+      poll.user_id == @user.id
     end
   end
 
