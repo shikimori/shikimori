@@ -13,7 +13,7 @@ class Users::OauthApplicationsController < ProfilesController
     end
   end
 
-  UPDATE_PARAMS = %i[name image]
+  UPDATE_PARAMS = %i[name image redirect_uri]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
 
   def index
@@ -22,6 +22,7 @@ class Users::OauthApplicationsController < ProfilesController
 
   def show
     og page_title: @resource.name
+    render :form
   end
 
   def new
@@ -44,7 +45,7 @@ class Users::OauthApplicationsController < ProfilesController
 
   def update
     if @resource.update update_params
-      redirect_to edit_profile_poll_url(@user, @resource)
+      redirect_to edit_profile_oauth_application_url(@user, @resource)
     else
       render :form
     end
@@ -52,7 +53,7 @@ class Users::OauthApplicationsController < ProfilesController
 
   def destroy
     @resource.destroy
-    redirect_to profile_polls_url(@user)
+    redirect_to profile_oauth_applications_url(@user)
   end
 
 private

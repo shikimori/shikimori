@@ -1,0 +1,14 @@
+.b-oauth_application.c-column[
+  id=oauth_application.id
+]
+  a.name-logo[
+    href=edit_profile_oauth_application_url(user, oauth_application)
+    title=oauth_application.name
+  ]
+    img.logo[
+      src=oauth_application.image.url(:x48)
+      srcset="#{oauth_application.image.url(:x96)} 2x"
+      alt=oauth_application.name
+    ]
+    .name
+      = oauth_application.name

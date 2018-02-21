@@ -14,13 +14,16 @@ header.head.misc
       = f.input :user_id, as: :hidden
       = f.input :name, autofocus: @resource.name.blank?
 
-      = f.input :image, hint: '160x160'
-      - if @resource.image.exists?
-        img[
-          src=@resource.image_url(:x320)
-          alt=@resource.name
-          title=@resource.name
-        ]
+      = f.input :image, hint: '320x320'
+      - if @resource.persisted?
+        .m15
+          img[
+            src=@resource.image.url(:x160)
+            srcset="#{@resource.image.url(:x320)} 2x"
+            alt=@resource.name
+            title=@resource.name
+          ]
+      = f.input :redirect_uri
 
       .buttons
         a.cancel href=profile_oauth_applications_url(@user) = t 'actions.cancel'

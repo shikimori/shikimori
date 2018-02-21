@@ -243,6 +243,7 @@ en:
       oauth_application:
         name: Name
         image: Image
+        redirect_uri: Redirect URI
 
     errors:
       messages:

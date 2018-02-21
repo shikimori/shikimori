@@ -47,18 +47,16 @@ describe Users::OauthApplicationsController do
           profile_id: user.to_param,
           oauth_application: oauth_application_params
         }
-    rescue => e
-      ap e.backtrace
-      raise
     end
     let(:image) { Rack::Test::UploadedFile.new 'spec/files/anime.jpg', 'image/jpg' }
 
-    context 'valid params', :focus do
+    context 'valid params' do
       let(:oauth_application_params) do
         {
           user_id: user.id,
           name: 'test',
-          image: image
+          image: image,
+          redirect_uri: 'https://test.com'
         }
       end
 
@@ -66,7 +64,7 @@ describe Users::OauthApplicationsController do
         expect(resource).to be_valid
         expect(resource).to be_persisted
         expect(resource).to have_attributes oauth_application_params.except(:image)
-        expect(resource.image).to be_persisted
+        expect(resource.image).to be_exists
         expect(response).to redirect_to edit_profile_oauth_application_url(user, resource)
       end
     end
@@ -83,108 +81,72 @@ describe Users::OauthApplicationsController do
     end
   end
 
-  # describe '#edit' do
-  #   let(:oauth_application) { create :oauth_application, :pending, user: user }
-  #   before { get :edit, params: { profile_id: user.to_param, id: oauth_application.id } }
+  describe '#edit' do
+    let(:oauth_application) { create :oauth_application, user: user }
+    before do
+      get :edit,
+        params: {
+          profile_id: user.to_param,
+          id: oauth_application.id
+        }
+    end
+    it { expect(response).to have_http_status :success }
+  end
 
-  #   it { expect(response).to have_http_status :success }
-  # end
+  describe '#update' do
+    let(:oauth_application) { create :oauth_application, user: user }
 
-  # describe '#update' do
-  #   let(:oauth_application) { create :oauth_application, oauth_application_state, user: user, name: 'qqq', text: 'cc' }
-  #   let!(:oauth_application_variant) { create :oauth_application_variant, oauth_application: oauth_application, label: 'zzz' }
+    before do
+      post :update,
+        params: {
+          profile_id: user.to_param,
+          id: oauth_application.id,
+          oauth_application: oauth_application_params
+        }
+    end
 
-  #   before do
-  #     post :update,
-  #       params: {
-  #         profile_id: user.to_param,
-  #         id: oauth_application.id,
-  #         oauth_application: {
-  #           name: 'test',
-  #           text: 'zxc',
-  #           variants_attributes: [{
-  #             label: 'test 1'
-  #           }, {
-  #             label: 'test 2'
-  #           }]
-  #         }
-  #       }
-  #   end
+    context 'valid params' do
+      let(:oauth_application_params) do
+        {
+          name: 'test',
+          redirect_uri: 'https://test.com'
+        }
+      end
 
-  #   context 'pending' do
-  #     let(:oauth_application_state) { :pending }
-  #     it do
-  #       expect(resource).to have_attributes(
-  #         name: 'test',
-  #         text: 'zxc',
-  #         state: 'pending',
-  #         user_id: user.id
-  #       )
-  #       expect(resource.variants).to have(2).items
-  #       expect(resource.variants[0]).to have_attributes(label: 'test 1')
-  #       expect(resource.variants[1]).to have_attributes(label: 'test 2')
+      it do
+        expect(resource).to be_valid
+        expect(resource).to_not be_changed
+        expect(resource).to have_attributes oauth_application_params
+        expect(response).to redirect_to edit_profile_oauth_application_url(user, resource)
+      end
+    end
 
-  #       expect { oauth_application_variant.reload }.to raise_error ActiveRecord::RecordNotFound
+    context 'invalid params' do
+      let(:oauth_application_params) { { name: '' } }
 
-  #       expect(resource).to be_valid
-  #       expect(response).to redirect_to edit_profile_oauth_application_url(user, resource)
-  #     end
-  #   end
+      it do
+        expect(resource).to_not be_valid
+        expect(resource).to be_changed
+        expect(response).to render_template :form
+        expect(response).to have_http_status :success
+      end
+    end
+  end
 
-  #   context 'started' do
-  #     let(:oauth_application_state) { :started }
+  describe '#destroy' do
+    let(:oauth_application) { create :oauth_application, user: user }
 
-  #     it do
-  #       expect(resource).to have_attributes(
-  #         name: 'test',
-  #         text: 'zxc',
-  #         state: 'started',
-  #         user_id: user.id
-  #       )
-  #       expect(resource.variants).to have(1).items
-  #       expect(resource.variants[0]).to eq oauth_application_variant.reload
+    before do
+      delete :destroy,
+        params: {
+          profile_id: user.to_param,
+          id: oauth_application.id
+        }
+    end
 
-  #       expect(resource).to be_valid
-  #       expect(response).to redirect_to profile_oauth_application_url(user, resource)
-  #     end
-  #   end
-  # end
-
-  # describe '#start' do
-  #   let(:oauth_application) { create :oauth_application, :pending, :with_variants, user: user }
-  #   before { post :start, params: { profile_id: user.to_param, id: oauth_application.id } }
-
-  #   it do
-  #     expect(resource.reload).to be_started
-  #     expect(response).to redirect_to profile_oauth_application_url(user, resource)
-  #   end
-  # end
-
-  # describe '#stop' do
-  #   let(:oauth_application) { create :oauth_application, :started, user: user }
-
-  #   before { post :stop, params: { profile_id: user.to_param, id: oauth_application.id } }
-
-  #   it do
-  #     expect(resource.reload).to be_stopped
-  #     expect(response).to redirect_to profile_oauth_application_url(user, resource)
-  #   end
-  # end
-
-  # describe '#destroy' do
-  #   let(:oauth_application) { create :oauth_application, user: user }
-
-  #   before do
-  #     delete :destroy,
-  #       params: {
-  #         profile_id: user.to_param,
-  #         id: oauth_application.id
-  #       }
-  #   end
-
-  #   it do
-  #     expect(resource).to be_destroyed
-  #     expect(response).to redirect_to profile_oauth_applications_url(user)
-  #   end
-  # end
+    it do
+      expect(resource).to be_destroyed
+      expect(response).to redirect_to profile_oauth_applications_url(user)
+    end
+  end
 end

@@ -243,6 +243,7 @@ ru:
       oauth_application:
         name: Название
         image: Картинка
+        redirect_uri: Redirect URI
 
     errors:
       messages:

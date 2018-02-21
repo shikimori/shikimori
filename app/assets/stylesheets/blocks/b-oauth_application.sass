@@ -1,0 +1,29 @@
+@import mixins/ellipsis2
+@import mixins/link
+
+.b-oauth_application
+  .name-logo
+    +ellipsis2
+
+    &:hover
+      .name
+        color: $link-hover
+        text-decoration: underline
+
+  .logo
+    float: left
+    line-height: 0
+    margin-right: 10px
+    max-width: 100%
+    width: 48px
+
+  .name, .info
+    +ellipsis2
+    display: block
+
+  .name
+    +link
+    font-weight: bold
+    line-height: 1
+    margin-bottom: 2px
+
