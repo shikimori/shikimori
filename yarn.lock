@@ -3322,6 +3322,10 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
+jquery.idle@^1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/jquery.idle/-/jquery.idle-1.2.6.tgz#dd77e7ff61a14c37f0d7de87af58d31383e401e6"
+
 jquery@2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
