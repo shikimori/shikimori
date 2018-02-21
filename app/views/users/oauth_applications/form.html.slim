@@ -25,6 +25,20 @@ header.head.misc
           ]
       = f.input :redirect_uri
 
+    - if @resource.persisted?
+      .c-column
+        .m10
+          b OAuth2 Credentials
+        .b-input
+          p = OauthApplication.human_attribute_name :uid
+          p = @resource.uid
+        .b-input
+          p = OauthApplication.human_attribute_name :secret
+          p = @resource.secret
+
+  .cc-2
+    .c-column
+
       .buttons
         a.cancel href=profile_oauth_applications_url(@user) = t 'actions.cancel'
         = f.button :magic_submit

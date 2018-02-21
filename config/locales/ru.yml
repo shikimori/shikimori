@@ -244,6 +244,8 @@ ru:
         name: Название
         image: Картинка
         redirect_uri: Redirect URI
+        uid: Client ID
+        secret: Client Secret
 
     errors:
       messages:

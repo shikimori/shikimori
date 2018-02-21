@@ -244,6 +244,8 @@ en:
         name: Name
         image: Image
         redirect_uri: Redirect URI
+        uid: Client ID
+        secret: Client Secret
 
     errors:
       messages:
