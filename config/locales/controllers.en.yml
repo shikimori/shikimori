@@ -3,6 +3,10 @@ en:
     page_title: Shikimori - anime and manga encyclopedia
     description: 
 
+
+
+
+
   topics_controller: &topics_controller
     title: Shikimori Forum
     new_topic: Add topic
