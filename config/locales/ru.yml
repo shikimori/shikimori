@@ -240,6 +240,9 @@ ru:
       style:
         name: Название
         css: CSS
+      oauth_application:
+        name: Название
+        image: Картинка
 
     errors:
       messages:
