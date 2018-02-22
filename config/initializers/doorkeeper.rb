@@ -111,3 +111,6 @@ Doorkeeper.configure do
   # WWW-Authenticate Realm (default "Doorkeeper").
   # realm "Doorkeeper"
 end
+
+Doorkeeper::AuthorizationsController.send :include, DomainsConcern
+Doorkeeper::AuthorizationsController.send :include, LocaleConcern

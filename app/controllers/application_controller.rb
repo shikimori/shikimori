@@ -5,14 +5,14 @@ class ApplicationController < ActionController::Base
   include OpenGraphConcern
   include BreadcrumbsConcern
   include InvalidParameterErrorConcern
+  include DomainsConcern
+  include LocaleConcern
 
   #include Mobylette::RespondToMobileRequests
   protect_from_forgery with: :exception
 
   layout :set_layout
 
-  before_action :set_locale
-  before_action :set_user_locale_from_host
   before_action :set_layout_view
   before_action :fix_googlebot
   before_action :touch_last_online
@@ -27,8 +27,6 @@ class ApplicationController < ActionController::Base
   helper_method :base_controller_names
   helper_method :ignore_copyright?
 
-  helper_method :shikimori?, :anime_online?, :manga_online?
-  helper_method :ru_host?, :locale_from_host
   helper_method :i18n_i, :i18n_io, :i18n_v
 
   I18n.exception_handler = -> (exception, locale, key, options) {
@@ -56,38 +54,6 @@ class ApplicationController < ActionController::Base
     @decorated_current_user ||= super.try :decorate
   end
 
-  #-----------------------------------------------------------------------------
-  # domain helpers
-  #-----------------------------------------------------------------------------
-
-  def shikimori?
-    ShikimoriDomain::HOSTS.include?(request.host)
-  end
-
-  def anime_online?
-    AnimeOnlineDomain::HOSTS.include?(request.host)
-  end
-
-  def manga_online?
-    MangaOnlineDomain::HOSTS.include?(request.host)
-  end
-
-  #-----------------------------------------------------------------------------
-  # host helpers
-  #-----------------------------------------------------------------------------
-
-  def ru_host?
-    return true if Rails.env.test?
-    return true if anime_online?
-    return true if manga_online?
-
-    ShikimoriDomain::RU_HOSTS.include?(request.host)
-  end
-
-  def locale_from_host
-    ru_host? ? Types::Locale[:ru] : Types::Locale[:en]
-  end
-
   private
 
   def set_layout
@@ -104,16 +70,6 @@ class ApplicationController < ActionController::Base
     'application'
   end
 
-  def set_locale
-    I18n.locale = params[:locale] || current_user&.locale || locale_from_host
-  end
-
-  def set_user_locale_from_host
-    return unless user_signed_in?
-    return if current_user.locale_from_host == locale_from_host.to_s
-
-    current_user.update_column :locale_from_host, locale_from_host
-  end
 
   def set_layout_view
     @layout = LayoutView.new
