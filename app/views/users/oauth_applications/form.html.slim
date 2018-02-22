@@ -25,7 +25,7 @@ header.head.misc
             alt=@resource.name
             title=@resource.name
           ]
-      = f.input :redirect_uri
+      = f.input :redirect_uri, hint: '<b>urn:ietf:wg:oauth:2.0:oob</b> for mobile application'.html_safe
 
     - if @resource.persisted?
       .c-column

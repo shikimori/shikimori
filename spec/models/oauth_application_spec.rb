@@ -1,4 +1,8 @@
 describe OauthApplication do
+  describe 'relations' do
+    it { is_expected.to belong_to :owner }
+  end
+
   describe 'permissions' do
     let(:oauth_application) do
       build_stubbed :oauth_application,

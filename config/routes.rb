@@ -1,8 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  use_doorkeeper
   user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
+
+  use_doorkeeper
 
   ani_manga_format = "(/kind/:kind)(/status/:status)(/season/:season)\
 (/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\
@@ -162,6 +163,7 @@ Rails.application.routes.draw do
   apipie
   # v2
   namespace :api, defaults: { format: 'json' } do
+
     namespace :v2 do
       resources :user_rates, only: %i[show index create update destroy] do
         post :increment, on: :member

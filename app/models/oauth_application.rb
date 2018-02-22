@@ -1,4 +1,6 @@
 class OauthApplication < Doorkeeper::Application
+  belongs_to :owner, polymorphic: true
+
   has_attached_file :image,
     styles: {
       x320: ['320x320#', :png],
