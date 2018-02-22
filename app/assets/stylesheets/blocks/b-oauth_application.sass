@@ -2,6 +2,14 @@
 @import mixins/link
 
 .b-oauth_application
+  display: block
+  margin: 0 auto
+  width: 160px
+
+  .name
+    font-size: 18px
+    text-align: center
+
   .name-logo
     +ellipsis2
 
@@ -10,20 +18,16 @@
         color: $link-hover
         text-decoration: underline
 
-  .logo
-    float: left
-    line-height: 0
-    margin-right: 10px
-    max-width: 100%
-    width: 48px
+    .name
+      +ellipsis2
+      +link
+      display: block
+      font-weight: bold
+      line-height: 1
+      margin-bottom: 2px
 
-  .name, .info
-    +ellipsis2
-    display: block
-
-  .name
-    +link
-    font-weight: bold
-    line-height: 1
-    margin-bottom: 2px
-
+    .logo
+      line-height: 0
+      margin-right: 10px
+      max-width: 100%
+      width: 160px

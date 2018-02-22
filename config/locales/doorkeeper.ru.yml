@@ -49,16 +49,16 @@ ru:
 
     authorizations:
       buttons:
-        authorize: 'Authorize'
-        deny: 'Deny'
+        authorize: 'Разрешить'
+        deny: 'Запретить'
       error:
-        title: 'An error has occurred'
+        title: 'Произошла ошибка'
       new:
-        title: 'Authorization required'
-        prompt: 'Authorize %{client_name} to use your account?'
+        title: 'Разрешите доступ'
+        prompt: 'К вашему аккаунту %{account} для приложения'
         able_to: 'This application will be able to'
       show:
-        title: 'Authorization code'
+        title: 'Код авторизации'
 
     authorized_applications:
       confirmations:

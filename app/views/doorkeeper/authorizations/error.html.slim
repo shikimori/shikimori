@@ -1,0 +1,8 @@
+header.head
+  h1 = t 'doorkeeper.authorizations.show.title'
+
+.b-errors
+  .subheadline
+    = t 'doorkeeper.authorizations.error.title'
+  .subcontent
+    = @pre_auth.error_response.body[:error_description]

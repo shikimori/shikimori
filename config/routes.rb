@@ -3,7 +3,11 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
 
-  use_doorkeeper
+  use_doorkeeper do
+    skip_controllers(
+      :tokens, :applications, :token_info, :authorized_applications
+    )
+  end
 
   ani_manga_format = "(/kind/:kind)(/status/:status)(/season/:season)\
 (/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\

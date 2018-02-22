@@ -10,7 +10,7 @@ header.head.misc
 = simple_form_for @resource,
     url: @resource.persisted? ? profile_oauth_application_url(@user, @resource) : profile_oauth_applications_url(@user) do |f|
   .cc-2
-    .c-column
+    .c-column.m0
       - if @resource.new_record?
         = f.input :owner_id, as: :hidden
         = f.input :owner_type, as: :hidden
@@ -25,10 +25,9 @@ header.head.misc
             alt=@resource.name
             title=@resource.name
           ]
-      = f.input :redirect_uri, hint: '<b>urn:ietf:wg:oauth:2.0:oob</b> for mobile application'.html_safe
 
     - if @resource.persisted?
-      .c-column
+      .c-column.m0
         .m10
           b OAuth2 Credentials
         .b-input
@@ -37,6 +36,8 @@ header.head.misc
         .b-input
           p = OauthApplication.human_attribute_name :secret
           p = @resource.secret
+
+  = f.input :redirect_uri, as: :string, hint: 'Set <span class="b-js-link sample">urn:ietf:wg:oauth:2.0:oob</span> for mobile application'.html_safe
 
   .cc-2
     .c-column
