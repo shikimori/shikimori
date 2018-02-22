@@ -11,7 +11,9 @@ header.head.misc
     url: @resource.persisted? ? profile_oauth_application_url(@user, @resource) : profile_oauth_applications_url(@user) do |f|
   .cc-2
     .c-column
-      = f.input :user_id, as: :hidden
+      - if @resource.new_record?
+        = f.input :owner_id, as: :hidden
+        = f.input :owner_type, as: :hidden
       = f.input :name, autofocus: @resource.name.blank?
 
       = f.input :image, hint: '320x320'

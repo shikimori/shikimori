@@ -1,6 +1,6 @@
 - content_for :head_misc
   a.misc[
-    href=new_profile_oauth_application_url(@user, 'oauth_application[user_id]' => @user.id)
+    href=new_profile_oauth_application_url(@user, oauth_application: { owner_id: @user.id, owner_type: User.name })
     title=t('oauth_applications.index.new')
   ] = t('actions.create').downcase
 

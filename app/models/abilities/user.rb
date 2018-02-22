@@ -318,8 +318,9 @@ class Abilities::User
   end
 
   def oauth_applications_abilities
-    can %i[manage], OauthApplication do |poll|
-      poll.user_id == @user.id
+    can %i[manage], OauthApplication do |oauth_application|
+      oauth_application.owner_id == @user.id &&
+        oauth_application.owner_type == User.name
     end
   end
 

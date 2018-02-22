@@ -2,9 +2,9 @@ describe Users::OauthApplicationsController do
   include_context :authenticated, :user
 
   describe '#index' do
-    let!(:oauth_application_1) { create :oauth_application, user: user }
-    let!(:oauth_application_2) { create :oauth_application, user: user }
-    let!(:oauth_application_3) { create :oauth_application, user: seed(:user) }
+    let!(:oauth_application_1) { create :oauth_application, owner: user }
+    let!(:oauth_application_2) { create :oauth_application, owner: user }
+    let!(:oauth_application_3) { create :oauth_application, owner: seed(:user) }
 
     # before { get :index, params: { profile_id: user.to_param } }
     before do
@@ -18,7 +18,7 @@ describe Users::OauthApplicationsController do
   end
 
   describe '#show' do
-    let(:oauth_application) { create :oauth_application, user: user }
+    let(:oauth_application) { create :oauth_application, owner: user }
     before do
       get :show,
         params: {
@@ -34,7 +34,7 @@ describe Users::OauthApplicationsController do
       get :new,
         params: {
           profile_id: user.to_param,
-          oauth_application: { user_id: user.id }
+          oauth_application: { owner_id: user.id, owner_type: User.name }
         }
     end
     it { expect(response).to have_http_status :success }
@@ -53,7 +53,8 @@ describe Users::OauthApplicationsController do
     context 'valid params' do
       let(:oauth_application_params) do
         {
-          user_id: user.id,
+          owner_id: user.id,
+          owner_type: User.name,
           name: 'test',
           image: image,
           redirect_uri: 'https://test.com'
@@ -70,7 +71,12 @@ describe Users::OauthApplicationsController do
     end
 
     context 'invalid params' do
-      let(:oauth_application_params) { { user_id: user.id } }
+      let(:oauth_application_params) do
+        {
+          owner_id: user.id,
+          owner_type: User.name
+        }
+      end
 
       it do
         expect(resource).to_not be_valid
@@ -82,7 +88,7 @@ describe Users::OauthApplicationsController do
   end
 
   describe '#edit' do
-    let(:oauth_application) { create :oauth_application, user: user }
+    let(:oauth_application) { create :oauth_application, owner: user }
     before do
       get :edit,
         params: {
@@ -94,7 +100,7 @@ describe Users::OauthApplicationsController do
   end
 
   describe '#update' do
-    let(:oauth_application) { create :oauth_application, user: user }
+    let(:oauth_application) { create :oauth_application, owner: user }
 
     before do
       post :update,
@@ -134,7 +140,7 @@ describe Users::OauthApplicationsController do
   end
 
   describe '#destroy' do
-    let(:oauth_application) { create :oauth_application, user: user }
+    let(:oauth_application) { create :oauth_application, owner: user }
 
     before do
       delete :destroy,

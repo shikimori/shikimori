@@ -1,6 +1,4 @@
 class OauthApplication < Doorkeeper::Application
-  belongs_to :user
-
   has_attached_file :image,
     styles: {
       x320: ['320x320#', :png],
@@ -12,6 +10,5 @@ class OauthApplication < Doorkeeper::Application
     path: ':rails_root/public/system/application/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style_:style.png'
 
-  validates :user, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 end

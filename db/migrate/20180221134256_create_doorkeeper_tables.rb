@@ -7,9 +7,7 @@ class CreateDoorkeeperTables < ActiveRecord::Migration[5.1]
       t.text    :redirect_uri, null: false
       t.string  :scopes,       null: false, default: ''
       t.timestamps             null: false
-      t.references :user, null: false, index: true
     end
-    add_attachment :oauth_applications, :image
 
     add_index :oauth_applications, :uid, unique: true
 

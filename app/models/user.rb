@@ -35,7 +35,10 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :preferences
 
   has_many :devices, dependent: :destroy
-  has_many :oauth_applications, -> { order id: :desc }, dependent: :destroy
+  has_many :oauth_applications,
+    -> { order id: :desc },
+    as: :owner,
+    dependent: :destroy
   has_many :access_grants,
     class_name: 'Doorkeeper::AccessGrant',
     foreign_key: :resource_owner_id,

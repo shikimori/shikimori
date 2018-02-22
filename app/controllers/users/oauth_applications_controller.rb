@@ -14,7 +14,7 @@ class Users::OauthApplicationsController < ProfilesController
   end
 
   UPDATE_PARAMS = %i[name image redirect_uri]
-  CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
+  CREATE_PARAMS = %i[owner_id owner_type] + UPDATE_PARAMS
 
   def index
     @collection = @user.oauth_applications
