@@ -57,7 +57,8 @@ Rails.application.routes.draw do
 
       get :bb_codes
       get :feedback
-      get :oauth2
+      get :oauth
+      get :oauth_request
       get 'apanel' => :admin_panel
     end
   end

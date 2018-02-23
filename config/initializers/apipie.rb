@@ -30,7 +30,7 @@ Apipie.configure do |config|
     #{documentation_placeholder}
 
     ### Authentication
-    OAuth2 is used for authentication. [OAuth2 guide](/oauth2).<br>
+    OAuth2 is used for authentication. [OAuth2 guide](/oauth).<br>
     All other auth methods are deprecated and will be removed after 2018-07-01.
     <br><br>
 
