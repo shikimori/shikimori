@@ -103,7 +103,7 @@ describe BbCodes::Text do
 
     describe 'db_entry_url_tag -> db_entry_tag' do
       let!(:anime) { create :anime, id: 9_876_543, name: 'z' }
-      let(:text) { 'http://shikimori.dev/animes/9876543-test' }
+      let(:text) { 'http://shikimori.test/animes/9876543-test' }
       it do
         is_expected.to include(
           "<a href=\"#{anime.decorate.url}\" title=\"#{anime.name}\" "\

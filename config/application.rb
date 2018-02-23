@@ -32,7 +32,7 @@ module Shikimori
 
   PROTOCOLS = {
     production: 'https',
-    development: 'https',
+    development: 'http',
     test: 'http'
   }
   PROTOCOL = PROTOCOLS[Rails.env.to_sym]
