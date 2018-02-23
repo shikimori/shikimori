@@ -54,7 +54,7 @@ en:
       error:
         title: 'An error has occurred'
       new:
-        title: 'Authorization required'
+        title: 'Authorization request'
         prompt: 'To your account %{account} for application'
         able_to: 'This application will be able to'
       show:

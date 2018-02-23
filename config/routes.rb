@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 
   use_doorkeeper do
     skip_controllers(
-      :tokens, :applications, :token_info, :authorized_applications
+      # :tokens
+      :applications, :token_info, :authorized_applications
     )
   end
 

@@ -1,3 +1,7 @@
+module Doorkeeper
+  NO_REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
+end
+
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use (needs plugins)
   orm :active_record
@@ -112,5 +116,5 @@ Doorkeeper.configure do
   # realm "Doorkeeper"
 end
 
-Doorkeeper::AuthorizationsController.send :include, DomainsConcern
-Doorkeeper::AuthorizationsController.send :include, LocaleConcern
+Doorkeeper::ApplicationController.send :include, DomainsConcern
+Doorkeeper::ApplicationController.send :include, LocaleConcern
