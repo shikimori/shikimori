@@ -28,6 +28,7 @@ private
   def create_report video, user
     video.reports.create!(
       user_id: user.try(:id) || User::GUEST_ID,
+      state: 'pending',
       kind: :uploaded
     )
   end
