@@ -5,13 +5,8 @@ header.head
   h2 == t '.prompt', account: link_to("@#{current_user.nickname}", profile_url(current_user))
 
 .block
-  .b-oauth_application
-    img.logo[
-      src=application.image.url(:x160)
-      srcset="#{application.image.url(:x320)} 2x"
-      alt=application.name
-    ]
-    .name = application.name
+  center
+    = render application
 
 / - if @pre_auth.scopes.count > 0
   #oauth-permissions

@@ -91,9 +91,6 @@ en:
   users/polls_controller:
     <<: *profiles_controller
     new: New poll
-  users/oauth_applications_controller:
-    <<: *profiles_controller
-    new: New OAuth Application
 
   animes_collection_controller: &animes_collection_controller
     search: Search "%{search}"
@@ -393,6 +390,12 @@ en:
 
   achievements_controller:
     title: Achievements
+
+  doorkeeper/oauth_applications_controller:
+    index:
+      title: OAuth Applications
+    new:
+      title: New OAuth Application
 
   api/v1/comments_controller:
     comment:

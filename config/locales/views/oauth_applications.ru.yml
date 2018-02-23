@@ -1,7 +1,12 @@
 ru:
-  oauth_applications:
-    index:
-      title: OAuth приложения
-      new: Создать новое OAuth приложение
-      notice: Список всех ваших OAuth приложений
-      no_oauth_applications: Нет OAuth приложений
+  doorkeeper:
+    oauth_applications:
+      index:
+        new: Создать новое OAuth приложение
+        switch_to:
+          all: Все приложения
+          my: Мои приложения
+        notice:
+          all: Список всех OAuth приложений
+          user: Список OAuth приложений %{user}
+        no_oauth_applications: Нет OAuth приложений

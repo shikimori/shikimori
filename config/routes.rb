@@ -57,6 +57,7 @@ Rails.application.routes.draw do
 
       get :bb_codes
       get :feedback
+      get :oauth2
       get 'apanel' => :admin_panel
     end
   end
@@ -933,9 +934,12 @@ Rails.application.routes.draw do
           get :animes, format: /xml|json/
           get :mangas, format: /xml|json/
         end
-        resources :oauth_applications
       end
     end
+
+    resources :oauth_applications,
+      path: '/oauth/applications',
+      module: :doorkeeper
 
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/

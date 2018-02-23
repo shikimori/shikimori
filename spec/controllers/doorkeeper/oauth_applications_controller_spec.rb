@@ -1,4 +1,4 @@
-describe Users::OauthApplicationsController do
+describe Doorkeeper::OauthApplicationsController do
   include_context :authenticated, :user
 
   describe '#index' do
@@ -6,14 +6,29 @@ describe Users::OauthApplicationsController do
     let!(:oauth_application_2) { create :oauth_application, owner: user }
     let!(:oauth_application_3) { create :oauth_application, owner: seed(:user) }
 
-    # before { get :index, params: { profile_id: user.to_param } }
-    before do
-      get :index, params: { profile_id: user.to_param }
+    context 'w/o user_id' do
+      before { get :index }
+
+      it do
+        expect(collection).to eq [
+          oauth_application_1,
+          oauth_application_2,
+          oauth_application_3
+        ]
+        expect(response).to have_http_status :success
+      end
     end
 
-    it do
-      expect(collection).to eq [oauth_application_2, oauth_application_1]
-      expect(response).to have_http_status :success
+    context 'user_id' do
+      before { get :index, params: { user_id: user.id } }
+
+      it do
+        expect(collection).to eq [
+          oauth_application_1,
+          oauth_application_2
+        ]
+        expect(response).to have_http_status :success
+      end
     end
   end
 
@@ -22,7 +37,6 @@ describe Users::OauthApplicationsController do
     before do
       get :show,
         params: {
-          profile_id: user.to_param,
           id: oauth_application.id
         }
     end
@@ -33,7 +47,6 @@ describe Users::OauthApplicationsController do
     before do
       get :new,
         params: {
-          profile_id: user.to_param,
           oauth_application: { owner_id: user.id, owner_type: User.name }
         }
     end
@@ -44,7 +57,6 @@ describe Users::OauthApplicationsController do
     before do
       post :create,
         params: {
-          profile_id: user.to_param,
           oauth_application: oauth_application_params
         }
     end
@@ -66,7 +78,7 @@ describe Users::OauthApplicationsController do
         expect(resource).to be_persisted
         expect(resource).to have_attributes oauth_application_params.except(:image)
         expect(resource.image).to be_exists
-        expect(response).to redirect_to edit_profile_oauth_application_url(user, resource)
+        expect(response).to redirect_to edit_oauth_application_url(resource)
       end
     end
 
@@ -92,7 +104,6 @@ describe Users::OauthApplicationsController do
     before do
       get :edit,
         params: {
-          profile_id: user.to_param,
           id: oauth_application.id
         }
     end
@@ -105,7 +116,6 @@ describe Users::OauthApplicationsController do
     before do
       post :update,
         params: {
-          profile_id: user.to_param,
           id: oauth_application.id,
           oauth_application: oauth_application_params
         }
@@ -123,7 +133,7 @@ describe Users::OauthApplicationsController do
         expect(resource).to be_valid
         expect(resource).to_not be_changed
         expect(resource).to have_attributes oauth_application_params
-        expect(response).to redirect_to edit_profile_oauth_application_url(user, resource)
+        expect(response).to redirect_to edit_oauth_application_url(resource)
       end
     end
 
@@ -152,7 +162,7 @@ describe Users::OauthApplicationsController do
 
     it do
       expect(resource).to be_destroyed
-      expect(response).to redirect_to profile_oauth_applications_url(user)
+      expect(response).to redirect_to oauth_applications_url
     end
   end
 end

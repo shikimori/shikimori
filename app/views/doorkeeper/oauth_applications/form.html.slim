@@ -1,5 +1,12 @@
 header.head.misc
-  h1 = og.headline
+  h1
+    - if @back_url
+      a.back[
+        href=@back_url
+        title=t('back_to_page')
+        data-text=t('back')
+      ]
+    = og.headline
   = render 'application/breadcrumbs'
 
 - if @resource.errors.any?
@@ -7,8 +14,7 @@ header.head.misc
     .subheadline = i18n_i 'error', :other
     == @resource.errors.full_messages.join('<br>')
 
-= simple_form_for @resource,
-    url: @resource.persisted? ? profile_oauth_application_url(@user, @resource) : profile_oauth_applications_url(@user) do |f|
+= simple_form_for @resource do |f|
   .cc-2
     .c-column.m0
       - if @resource.new_record?
@@ -16,15 +22,16 @@ header.head.misc
         = f.input :owner_type, as: :hidden
       = f.input :name, autofocus: @resource.name.blank?
 
-      = f.input :image, hint: '320x320'
-      - if @resource.persisted?
-        .m15
-          img[
-            src=@resource.image.url(:x160)
-            srcset="#{@resource.image.url(:x320)} 2x"
-            alt=@resource.name
-            title=@resource.name
-          ]
+      .m15
+        = f.input :image, hint: '320x320'
+        - if @resource.persisted?
+          div
+            img[
+              src=@resource.image.url(:x160)
+              srcset="#{@resource.image.url(:x320)} 2x"
+              alt=@resource.name
+              title=@resource.name
+            ]
 
     - if @resource.persisted?
       .c-column.m0
@@ -43,12 +50,12 @@ header.head.misc
     .c-column
 
       .buttons
-        a.cancel href=profile_oauth_applications_url(@user) = t 'actions.cancel'
+        a.cancel href=oauth_applications_url = t 'actions.cancel'
         = f.button :magic_submit
 
       - if @resource.persisted?
         a.remove[
-          href=profile_oauth_application_url(@user, @resource)
+          href=oauth_application_url(@resource)
           title=t('actions.delete')
           data-method="delete"
           data-confirm=t('actions.confirm')

@@ -5,9 +5,9 @@ header.head.misc
   ]
     - if params[:action] != 'show' || @back_url
       a.back[
-        href="#{@back_url || @user.url}"
+        href=(@back_url || @user.url)
         title="#{t 'back_to_page'} #{{@user.name}}"
-        data-text="#{t 'back'}"
+        data-text=t('back')
       ]
     = og.headline
     = render 'profiles/status', user: @user

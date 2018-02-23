@@ -1,7 +1,12 @@
 en:
-  oauth_applications:
-    index:
-      title: OAuth Applications
-      new: Create new OAuth Application
-      notice: List of all your OAuth Application
-      no_oauth_applications: No OAuth Applications yet
+  doorkeeper:
+    oauth_applications:
+      index:
+        new: Create new OAuth Application
+        switch_to:
+          all: All applications
+          my: My applications
+        notice:
+          all: List of all OAuth Applications
+          user: List of %{user} OAuth Applications
+        no_oauth_applications: No OAuth Applications yet

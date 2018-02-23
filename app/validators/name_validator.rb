@@ -16,6 +16,8 @@ class NameValidator < ActiveModel::EachValidator
     faye
     ignores
     polls
+    oauth
+    oauth2
   )
   FORBIDDEN_NAMES = %r(
     \A(

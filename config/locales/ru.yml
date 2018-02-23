@@ -241,11 +241,12 @@ ru:
         name: Название
         css: CSS
       oauth_application:
-        name: Название
         image: Картинка
+        name: Название
+        owner: Владелец
         redirect_uri: Redirect URI
-        uid: Client ID
         secret: Client Secret
+        uid: Client ID
 
     errors:
       messages:

@@ -24,6 +24,8 @@ class Abilities::User
       collection_abilities if @user.week_registered?
       other_abilities
       club_abilities
+      oauth_applications_abilities if @user.day_registered?
+      poll_abilities
     end
 
     topic_ignores_abilities
@@ -34,8 +36,6 @@ class Abilities::User
     version_abilities
     style_abilities
     list_import_abilities
-    poll_abilities
-    oauth_applications_abilities
   end
 
   def topic_abilities

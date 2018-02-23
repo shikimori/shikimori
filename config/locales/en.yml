@@ -243,6 +243,7 @@ en:
       oauth_application:
         name: Name
         image: Image
+        owner: Owner
         redirect_uri: Redirect URI
         uid: Client ID
         secret: Client Secret

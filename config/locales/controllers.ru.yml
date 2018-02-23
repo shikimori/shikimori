@@ -91,9 +91,6 @@ ru:
   users/polls_controller:
     <<: *profiles_controller
     new: Новый опрос
-  users/oauth_applications_controller:
-    <<: *profiles_controller
-    new: Новое OAuth приложение
 
   animes_collection_controller: &animes_collection_controller
     search: Поиск “%{search}”
@@ -393,6 +390,12 @@ ru:
 
   achievements_controller:
     title: Достижения
+
+  doorkeeper/oauth_applications_controller:
+    index:
+      title: OAuth приложения
+    new:
+      title: Новое OAuth приложение
 
   api/v1/comments_controller:
     comment:

@@ -1,0 +1,32 @@
+header.head.misc
+  h1
+    = og.headline
+    a.misc.to-process[
+      href=new_oauth_application_url(@user, oauth_application: { owner_id: current_user&.id, owner_type: User.name })
+      title=t('.new')
+      data-dynamic="day_registered"
+    ] = t('actions.create').downcase
+
+  p.notice.clearfix
+    - if params[:user_id]
+      == t '.notice.user',
+        user: link_to("@#{current_user.nickname}", profile_url(@user))
+    - else
+      = t '.notice.all'
+
+    - if user_signed_in?
+      | .&nbsp;
+      - if params[:user_id]
+        a.b-link[
+          href=current_url(user_id: nil)
+        ] = t '.switch_to.all'
+      - else
+        a.b-link[
+          href=current_url(user_id: current_user.id)
+        ] = t '.switch_to.my'
+
+- if @collection.any?
+  .cc-6
+    = render @collection
+- else
+  .b-nothing_here = t '.no_oauth_applications'
