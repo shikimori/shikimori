@@ -28,6 +28,7 @@ private
         self.class::KEY => []
       },
       user: author,
+      state: 'pending'
     )
   end
 end
