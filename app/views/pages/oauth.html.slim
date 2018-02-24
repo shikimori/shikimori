@@ -145,13 +145,13 @@ header.head
         ]
       input.b-button type="submit" value="Submit"
 
-  .block
-    p.m5 Access Token is expired in 1 day.
-    p.m5 When your Access Token is expired you will get 401 status code with the message
+.block
+  p.m5 Access Token is expired in 1 day.
+  p.m5 When your Access Token is expired you will get 401 status code with the message
 
-    .to-process data-dynamic="code_highlight"
-      code.b-code data-language="json"
-        | {"error":"invalid_token","error_description":"The access token is invalid","state":"unauthorized"}
+  .to-process data-dynamic="code_highlight"
+    code.b-code data-language="json"
+      | {"error":"invalid_token","error_description":"The access token is invalid","state":"unauthorized"}
 
 .block
   .midheadline 4. Request Shikimori protected resources with obtained Access Token
