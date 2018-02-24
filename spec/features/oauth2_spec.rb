@@ -49,7 +49,7 @@ feature 'Authentication', type: :request do
         scenario 'returns token' do
           expect(json['error']).to eq 'unsupported_grant_type'
           expect(Doorkeeper::AccessToken.count).to eq 0
-          expect(response.status).to eq 401
+          expect(response).to have_http_status 401
         end
       end
     end
@@ -74,7 +74,7 @@ feature 'Authentication', type: :request do
           expect(json['token_type']).to eq 'bearer'
           expect(json['expires_in']).to eq 1.day
           expect(json['created_at'].present?).to eq true
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :success
         end
       end
     end
@@ -99,7 +99,7 @@ feature 'Authentication', type: :request do
           expect(json['token_type']).to eq 'bearer'
           expect(json['expires_in']).to eq 1.day
           expect(json['created_at'].present?).to eq true
-          expect(response.status).to eq 200
+          expect(response).to have_http_status :success
         end
       end
     end
@@ -135,7 +135,7 @@ feature 'Authentication', type: :request do
         expect(json['token_type']).to eq 'bearer'
         expect(json['expires_in']).to eq 1.day
         expect(json['created_at'].present?).to eq true
-        expect(response.status).to eq 200
+        expect(response).to have_http_status :success
       end
     end
   end

@@ -375,8 +375,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/4da92c97dead475b2cf29a22308d78f5c9ea6dfa.jpg?1484049600",
-          "preview": "/system/screenshots/x332/4da92c97dead475b2cf29a22308d78f5c9ea6dfa.jpg?1484049600"
+          "original": "/system/screenshots/original/941615c95dbd4e255a048a88efa24d6b4a6d0589.jpg?1484049600",
+          "preview": "/system/screenshots/x332/941615c95dbd4e255a048a88efa24d6b4a6d0589.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -578,7 +578,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "j5Pobvp04r3qXHHJ5m34NMQt6dkRuxhW2aJqx3zaoS/rFW6DooTBos1EP0EFlmeRiCe7AfTchVmIKu54uCln4g=="
+        "authenticity_token": "4mnLKmtPrLAvoccSY9gPQby5dX9fm6kCsN7zuJVkhR/68cFrNZE3xjS0fOT/Ziu2ZbLnAi+SLbTjqbiHCNp1RQ=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -739,7 +739,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2018-02-09T00:00:00.000+00:00",
+          "next_episode_at": "2018-02-10T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 18,
@@ -756,7 +756,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2018-02-09",
+            "aired_on": "2018-02-10",
             "released_on": null
           }
         }
@@ -2508,7 +2508,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 22210,
+          "id": 86883,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3229,7 +3229,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-02-23T03:25:44.906+03:00"
+          "last_online_at": "2018-02-24T22:06:25.590+03:00"
         }
       },
       "code": "200",
@@ -3828,6 +3828,39 @@
       "recorded": true
     }
   ],
+  "signup#create": [
+    {
+      "verb": "POST",
+      "path": "/api/v2/users/signup",
+      "versions": [
+        "2.0"
+      ],
+      "query": null,
+      "request_data": {
+        "user": {
+          "email": "test@test-zxc.test",
+          "nickname": "zxcdsfgf",
+          "password": "123"
+        }
+      },
+      "response_data": {
+        "user": {
+          "id": 500040,
+          "nickname": "zxcdsfgf"
+        },
+        "oauth_token": {
+          "access_token": "1312632b719f80cb406c04130654684039c66694e694d5508a439c28c8227632",
+          "refresh_token": "28597bbd684729e523b4f5b212b87afda348a9968b93c0002b0850b7e9bc8c79",
+          "token_type": "bearer",
+          "expires_in": 86400,
+          "created_at": 1484049600
+        }
+      },
+      "code": "201",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "stats#active_users": [
     {
       "verb": "GET",
@@ -4083,7 +4116,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-02-23T03:25:44.906+03:00"
+            "last_online_at": "2018-02-24T22:06:25.590+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -4134,7 +4167,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-02-23T03:25:44.906+03:00"
+          "last_online_at": "2018-02-24T22:06:25.590+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -4172,7 +4205,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-02-23T03:25:44.906+03:00"
+            "last_online_at": "2018-02-24T22:06:25.590+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -4318,21 +4351,21 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "completed",
+          "status": "watching",
           "target_id": "47",
           "target_type": "Anime",
           "text": "test",
-          "user_id": "23456855",
+          "user_id": "23456854",
           "volumes": "3"
         }
       },
       "response_data": {
         "id": 17,
-        "user_id": 23456855,
+        "user_id": 23456854,
         "target_id": 47,
         "target_type": "Anime",
         "score": 10,
-        "status": "completed",
+        "status": "watching",
         "rewatches": 5,
         "episodes": 2,
         "volumes": 3,
@@ -4359,21 +4392,21 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "completed",
+          "status": "watching",
           "target_id": "48",
           "target_type": "Anime",
           "text": "test",
-          "user_id": "23456856",
+          "user_id": "23456855",
           "volumes": "3"
         }
       },
       "response_data": {
         "id": 18,
-        "user_id": 23456856,
+        "user_id": 23456855,
         "target_id": 48,
         "target_type": "Anime",
         "score": 10,
-        "status": "completed",
+        "status": "watching",
         "rewatches": 5,
         "episodes": 2,
         "volumes": 3,
@@ -4488,7 +4521,7 @@
       },
       "response_data": {
         "id": 20,
-        "user_id": 23456858,
+        "user_id": 23456857,
         "target_id": 50,
         "target_type": "Anime",
         "score": 0,
@@ -4519,7 +4552,7 @@
       "response_data": [
         {
           "id": 15,
-          "user_id": 23456854,
+          "user_id": 23456853,
           "target_id": 45,
           "target_type": "Anime",
           "score": 0,
@@ -4535,7 +4568,7 @@
         },
         {
           "id": 16,
-          "user_id": 23456854,
+          "user_id": 23456853,
           "target_id": 46,
           "target_type": "Anime",
           "score": 0,
@@ -4612,7 +4645,7 @@
       "request_data": null,
       "response_data": {
         "id": 14,
-        "user_id": 23456853,
+        "user_id": 23456852,
         "target_id": 44,
         "target_type": "Anime",
         "score": 0,
@@ -4719,7 +4752,7 @@
       },
       "response_data": {
         "id": 19,
-        "user_id": 23456857,
+        "user_id": 23456856,
         "target_id": 49,
         "target_type": "Anime",
         "score": 10,
@@ -5066,7 +5099,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 29,
+          "id": 30,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Запланировано",
           "target": {
@@ -5089,7 +5122,7 @@
           }
         },
         {
-          "id": 28,
+          "id": 29,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Импортировано аниме - 522 записи",
           "target": null

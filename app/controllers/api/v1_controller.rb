@@ -2,6 +2,7 @@ class Api::V1Controller < ShikimoriController
   LOGIN_HEADER = 'X-User-Nickname'
   ID_HEADER = 'X-User-Id'
   TOKEN_HEADER = 'X-User-Api-Access-Token'
+  OAUTH_HEADER = 'Authorization'
 
   responders :json # for content rendering on patch & put requests
   respond_to :json
@@ -9,6 +10,8 @@ class Api::V1Controller < ShikimoriController
   before_action :authenticate_user_from_token!, if: :headers_auth?
   before_action :touch_last_online
   skip_before_action :verify_authenticity_token, if: :headers_auth?
+  skip_before_action :verify_authenticity_token,
+    if: -> { doorkeeper_token.present? }
 
   serialization_scope :view_context
 

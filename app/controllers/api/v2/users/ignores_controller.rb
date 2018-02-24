@@ -14,7 +14,7 @@ class Api::V2::Users::IgnoresController < Api::V2Controller
 
   rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
   ensure
-    render json: { user_id: params[:user_id],is_ignored: true }
+    render json: { user_id: params[:user_id], is_ignored: true }
   end
 
   api :DELETE, '/v2/users/:user_id/ignore', 'Unignore a user'
