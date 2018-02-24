@@ -88,12 +88,12 @@ header.head
   a name="step_3"
   .midheadline 3. Get Access Token
   pre.to-process data-dynamic="code_highlight"
-    code.b-code.m5 data-language="bash" curl -X POST #{oauth_token_url} \
-        -F grant_type=authorization_code \
-        -F client_id=#{@oauth_application&.uid || 'CLIENT_ID'} \
-        -F client_secret=#{@oauth_application&.secret || 'CLIENT_SECRET'} \
-        -F code=#{@authorization_code || 'AUTORIZATION_CODE'} \
-        -F redirect_uri=#{@oauth_application&.redirect_uri || 'REDIRECT_URI'}
+    code.b-code.m5 data-language="bash" curl -X POST "#{oauth_token_url}" \
+        -F grant_type="authorization_code" \
+        -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \
+        -F client_secret="#{@oauth_application&.secret || 'CLIENT_SECRET'}" \
+        -F code="#{@authorization_code || 'AUTORIZATION_CODE'}" \
+        -F redirect_uri="#{@oauth_application&.redirect_uri || 'REDIRECT_URI'}"
 
   - if @oauth_application && @authorization_code
     .m10
@@ -140,29 +140,31 @@ header.head
         ]
       input.b-button type="submit" value="Submit"
 
+  .block
+    p.m5 Access Token is expired in 1 day.
+    p.m5 When your Access Token is expired you will get 401 status code with the message
+
+    .to-process data-dynamic="code_highlight"
+      code.b-code data-language="json"
+        | {"error":"invalid_token","error_description":"The access token is invalid","state":"unauthorized"}
 
 .block
-  .midheadline 4. Request Shikimori protected resources with provided Access Token
+  .midheadline 4. Request Shikimori protected resources with obtained Access Token
   pre.to-process data-dynamic="code_highlight"
     code.b-code.m5 data-language="bash" curl -X GET #{whoami_api_users_url} \
       -H "Authorization: Bearer #{params[:access_token].present? ? params[:access_token] : 'ACCESS_TOKEN'}"
 
-  p.m5 Access Token is expired in 1 day.
-  p.m5 When Access Token is expired you will get 401 status code
-
-  .to-process data-dynamic="code_highlight"
-    code.b-code data-language="json"
-      | {"error":"invalid_token","error_description":"The access token is invalid","state":"unauthorized"}
-
 .block
   .midheadline 5. Refresh Access Token
+
+  p.m5 Use your Refresh Token to obtain new Access Token and Refresh Token.
   pre.to-process data-dynamic="code_highlight"
-    code.b-code.m5 data-language="bash" curl -X POST #{oauth_token_url} \
-        -F grant_type=refresh_token \
-        -F client_id=#{@oauth_application&.uid || 'CLIENT_ID'} \
-        -F client_secret=#{@oauth_application&.secret || 'CLIENT_SECRET'} \
-        -F code=#{@authorization_code || 'AUTORIZATION_CODE'} \
-        -F refresh_token=#{params[:refresh_token].present? ? params[:refresh_token] : 'REFRESH_TOKEN'}
+    code.b-code.m5 data-language="bash" curl -X POST "#{oauth_token_url}" \
+        -F grant_type="refresh_token" \
+        -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \
+        -F client_secret="#{@oauth_application&.secret || 'CLIENT_SECRET'}" \
+        -F code="#{@authorization_code || 'AUTORIZATION_CODE'}" \
+        -F refresh_token="#{params[:refresh_token].present? ? params[:refresh_token] : 'REFRESH_TOKEN'}"
 
   - if @oauth_application && @authorization_code && params[:refresh_token].present?
     .m10

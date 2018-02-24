@@ -68,6 +68,7 @@ module Clockwork
     ImagesVerifier.perform_async
     AnimeOnline::FixAnimeVideoAuthors.perform_async
     AnimeOnline::CleanupAnimeVideos.perform_async
+    Users::CleanupDoorkeeperTokens.perform_async
   end
 
   every 1.day, 'daily.torrents-check', at: '03:00' do
