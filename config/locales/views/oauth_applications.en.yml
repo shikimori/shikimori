@@ -10,3 +10,8 @@ en:
           all: List of all OAuth Applications
           user: List of %{user} OAuth Applications
         no_oauth_applications: No OAuth Applications yet
+        granted_applications: Apps has access to my account
+        other_applications: Other Applications
+      show:
+        has_access: This app has access to your account
+        revoke_access: Revoke Access

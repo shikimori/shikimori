@@ -938,9 +938,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :oauth_applications,
+    resources(
+      :oauth_applications,
       path: '/oauth/applications',
       module: :doorkeeper
+    ) do
+      post :revoke, on: :member
+    end
 
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/

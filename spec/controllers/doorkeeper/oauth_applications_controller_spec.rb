@@ -155,7 +155,6 @@ describe Doorkeeper::OauthApplicationsController do
     before do
       delete :destroy,
         params: {
-          profile_id: user.to_param,
           id: oauth_application.id
         }
     end
@@ -163,6 +162,43 @@ describe Doorkeeper::OauthApplicationsController do
     it do
       expect(resource).to be_destroyed
       expect(response).to redirect_to oauth_applications_url
+    end
+  end
+
+  describe '#revoke' do
+    let(:user_2) { create :user }
+
+    let(:oauth_application_1) { create :oauth_application, owner: user_2 }
+    let(:oauth_application_2) { create :oauth_application, owner: user_2 }
+
+    let!(:token_1) do
+      create %i[oauth_token oauth_grant].sample,
+        resource_owner_id: user.id,
+        application_id: oauth_application_1.id
+    end
+    let!(:token_2) do
+      create %i[oauth_token oauth_grant].sample,
+        resource_owner_id: user.id,
+        application_id: oauth_application_2.id
+    end
+    let!(:token_3) do
+      create %i[oauth_token oauth_grant].sample,
+        resource_owner_id: user_2.id,
+        application_id: oauth_application_1.id
+    end
+
+    before do
+      post :revoke,
+        params: {
+          id: oauth_application_1.id
+        }
+    end
+
+    it do
+      expect { token_1.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect(token_2.reload).to be_persisted
+      expect(token_3.reload).to be_persisted
+      expect(response).to redirect_to oauth_application_url(oauth_application_1)
     end
   end
 end

@@ -14,7 +14,7 @@ header.head.misc
     - else
       = t '.notice.all'
 
-    - if user_signed_in?
+    - if user_signed_in? && current_user.oauth_applications.any?
       | .&nbsp;
       - if params[:user_id]
         a.b-link[
@@ -25,8 +25,20 @@ header.head.misc
           href=current_url(user_id: current_user.id)
         ] = t '.switch_to.my'
 
-- if @collection.any?
-  .cc-6
-    = render @collection
+- if @granted_applications&.any?
+  .block
+    .subheadline.m10 = t '.granted_applications'
+    .cc-6
+      = render @granted_applications
+
+  - if @collection.any?
+    .block
+      .subheadline.m10 = t '.other_applications'
+      .cc-6
+        = render @collection
 - else
-  .b-nothing_here = t '.no_oauth_applications'
+  - if @collection.any?
+    .cc-6
+      = render @collection
+  - else
+    .b-nothing_here = t '.no_oauth_applications'
