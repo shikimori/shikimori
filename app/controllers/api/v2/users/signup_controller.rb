@@ -1,6 +1,6 @@
 class Api::V2::Users::SignupController < Api::V2Controller
   before_action :doorkeeper_authorize!
-  before_action :check_token
+  before_action :check_application_oauth_token
 
   USER_TOKEN_ERROR_MESSAGE =
     'This token belongs to a user. Must be a token of application'
@@ -47,7 +47,7 @@ class Api::V2::Users::SignupController < Api::V2Controller
 
 private
 
-  def check_token
+  def check_application_oauth_token
     if doorkeeper_token.resource_owner_id.present?
       render json: { errors: [USER_TOKEN_ERROR_MESSAGE] }, status: 401
     end
