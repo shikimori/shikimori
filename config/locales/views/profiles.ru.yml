@@ -110,6 +110,7 @@ ru:
         change_email_and_password: Изменить email и пароль
         connected_accounts: Подключенные сервисы
         not_connected_accounts: Не подключенные сервисы
+        granted_oauth_apps: Приложения с доступом к вашему аккаунту
         ignored_users: Игнорируемые пользователи
         nickname: Логин (никнейм)
         username: Имя пользователя

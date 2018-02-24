@@ -47,6 +47,11 @@ header.head
               selected=(@oauth_application == oauth_application)
             ]= oauth_application.name
 
+      - if @oauth_application
+        = render partial: 'doorkeeper/oauth_applications/oauth_application',
+          object: @oauth_application,
+          locals: { content_by: 'mini' }
+
 .block
   a name="step_2"
   .midheadline 2. Get Authorization Code

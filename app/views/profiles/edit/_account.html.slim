@@ -70,6 +70,14 @@
                 title=t('.enable_authentication', provider: provider.to_s.titleize)
               ]
 
+      - if @resource.access_grants.any?
+        .block
+          .subheadline = t '.granted_oauth_apps'
+          .cc-6
+            = render partial: 'doorkeeper/oauth_applications/oauth_application',
+              collection: Users::GrantedApplications.call(@resource),
+              locals: { content_by: 'mini' }
+
   .buttons
     a.cancel href=profile_url(@resource) = t 'actions.cancel'
     = f.button :magic_submit

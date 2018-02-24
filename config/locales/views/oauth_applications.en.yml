@@ -13,5 +13,5 @@ en:
         granted_applications: Apps has access to my account
         other_applications: Other Applications
       show:
-        has_access: This app has access to your account
+        have_access: This app has access to your account
         revoke_access: Revoke Access
