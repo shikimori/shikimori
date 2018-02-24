@@ -23,12 +23,14 @@ module.exports = class FayeLoader
     # disconnect faye after 10 minutes of user inactivity
     idle(
       onIdle: =>
-        console.log "faye disconnect on idle"
-        @_disconnect()
+        if @client
+          console.log "faye disconnect on idle"
+          @_disconnect()
       onActive: =>
-        console.log "faye connect on active"
-        @_connect()
-        @_apply()
+        unless @client
+          console.log "faye connect on active"
+          @_connect()
+          @_apply()
       idle: INACTIVITY_INTERVAL
     ).start()
 
