@@ -72,7 +72,7 @@ feature 'Authentication', type: :request do
           expect(json['access_token'].size).to eq 64
           expect(json['refresh_token']).to eq nil
           expect(json['token_type']).to eq 'bearer'
-          expect(json['expires_in']).to eq 7200
+          expect(json['expires_in']).to eq 1.day
           expect(json['created_at'].present?).to eq true
           expect(response.status).to eq 200
         end
@@ -97,7 +97,7 @@ feature 'Authentication', type: :request do
           expect(json['access_token'].size).to eq 64
           expect(json['refresh_token']).to eq nil
           expect(json['token_type']).to eq 'bearer'
-          expect(json['expires_in']).to eq 7200
+          expect(json['expires_in']).to eq 1.day
           expect(json['created_at'].present?).to eq true
           expect(response.status).to eq 200
         end
@@ -133,7 +133,7 @@ feature 'Authentication', type: :request do
         expect(json['refresh_token'].size).to eq 64
         expect(json['refresh_token'].size).to_not eq refresh_token
         expect(json['token_type']).to eq 'bearer'
-        expect(json['expires_in']).to eq 7200
+        expect(json['expires_in']).to eq 1.day
         expect(json['created_at'].present?).to eq true
         expect(response.status).to eq 200
       end
