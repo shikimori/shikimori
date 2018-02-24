@@ -29,7 +29,7 @@ class Titles::SeasonTitle
 
   def url_params
     # без nil из-за странного бага рельс когда находишься на странице
-    # http://shikimori.dev/animes/status/anons status/anons попадает
+    # http://shikimori.test/animes/status/anons status/anons попадает
     # в сгенерённый url
     { season: text, status: nil, type: nil }
   end

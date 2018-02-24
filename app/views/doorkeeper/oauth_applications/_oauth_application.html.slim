@@ -1,0 +1,12 @@
+.b-oauth_application.c-column
+  a.name-logo[
+    href=oauth_application_url(oauth_application)
+    title=oauth_application.name
+  ]
+    img.logo[
+      src=oauth_application.image.url(:x160)
+      srcset="#{oauth_application.image.url(:x320)} 2x"
+      alt=oauth_application.name
+    ]
+    .name
+      = oauth_application.name

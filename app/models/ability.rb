@@ -1,3 +1,4 @@
+# https://github.com/rilian/devise-doorkeeper-cancan-api-example/blob/master/spec/abilities/admin_spec.rb
 class Ability
   include CanCan::Ability
   prepend Draper::CanCanCan
@@ -70,5 +71,6 @@ class Ability
     can :read, Review
     can :read, Topic
     can :read, Collection
+    can :read, OauthApplication
   end
 end

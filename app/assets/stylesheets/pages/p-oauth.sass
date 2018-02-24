@@ -1,0 +1,49 @@
+@import mixins/responsive
+
+.p-oauth
+  background-image: url(/assets/background/congruent_pentagon.png)
+
+  +gte_ipad
+    .l-page:before,
+    .l-page:after,
+    .l-footer:before,
+    .l-footer:after
+      display: block
+
+  .l-page
+    max-width: 480px
+
+    header
+      h1
+        margin-bottom: 5px
+
+      h2
+        font-size: 16px
+        line-height: 1.4
+        margin-bottom: 10px
+
+      &:last-child
+        margin-bottom: 0
+
+        h2
+          margin-bottom: 0
+
+    .actions
+      max-width: 320px
+      margin: 0 auto
+
+      form
+        &:first-child
+          float: left
+
+      form
+        &:last-child
+          float: right
+
+    code#authorization_code
+      // background-color: #f7f2f4
+      // color: #c36c79
+      line-height: 1.45
+      // padding: 5px
+      word-break: break-word
+      font-size: 11px

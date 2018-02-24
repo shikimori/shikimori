@@ -24,6 +24,8 @@ class Abilities::User
       collection_abilities if @user.week_registered?
       other_abilities
       club_abilities
+      oauth_applications_abilities if @user.day_registered?
+      poll_abilities
     end
 
     topic_ignores_abilities
@@ -34,7 +36,6 @@ class Abilities::User
     version_abilities
     style_abilities
     list_import_abilities
-    poll_abilities
   end
 
   def topic_abilities
@@ -313,6 +314,13 @@ class Abilities::User
 
     can %i[stop], Poll do |poll|
       can?(:read, poll) && poll.can_stop?
+    end
+  end
+
+  def oauth_applications_abilities
+    can %i[manage], OauthApplication do |oauth_application|
+      oauth_application.owner_id == @user.id &&
+        oauth_application.owner_type == User.name
     end
   end
 

@@ -79,6 +79,8 @@ en:
       contest:
         title_ru: Title (in russian)
         title_en: Title
+        description_ru: Description (rus)
+        description_en: Description
         description: Synopsis
         matches_per_round: Matches per round
         match_duration: Match duration
@@ -238,6 +240,13 @@ en:
       style:
         name: Name
         css: CSS
+      oauth_application:
+        name: Name
+        image: Image
+        owner: Owner
+        redirect_uri: Redirect URI
+        uid: Client ID
+        secret: Client Secret
 
     errors:
       messages:

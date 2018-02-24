@@ -37,7 +37,7 @@ class BbCodes::Text
   default_url_options[:protocol] = Shikimori::PROTOCOL
   default_url_options[:host] ||=
     if Rails.env.development?
-      'shikimori.dev'
+      'shikimori.test'
     elsif Rails.env.beta?
       "beta.#{Shikimori::DOMAIN}"
     else

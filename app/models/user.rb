@@ -25,6 +25,7 @@ class User < ApplicationRecord
     trackable
     validatable
     omniauthable
+    doorkeeper
   ])
 
   acts_as_voter
@@ -32,6 +33,21 @@ class User < ApplicationRecord
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences
+
+  has_many :devices, dependent: :destroy
+  has_many :oauth_applications,
+    -> { order id: :desc },
+    as: :owner,
+    dependent: :destroy
+  has_many :access_grants,
+    class_name: 'Doorkeeper::AccessGrant',
+    foreign_key: :resource_owner_id,
+    dependent: :destroy
+  has_many :access_tokens,
+    class_name: 'Doorkeeper::AccessToken',
+    foreign_key: :resource_owner_id,
+    dependent: :destroy
+  has_many :user_tokens, dependent: :destroy
 
   has_many :achievements, dependent: :destroy
   has_many :comments_all, class_name: Comment.name, dependent: :destroy
@@ -103,9 +119,6 @@ class User < ApplicationRecord
   has_many :bans, dependent: :destroy
   has_many :club_bans, dependent: :destroy
 
-  has_many :devices, dependent: :destroy
-
-  has_many :user_tokens, dependent: :destroy
   has_many :user_images, dependent: :destroy
 
   has_many :anime_video_reports
@@ -238,7 +251,7 @@ class User < ApplicationRecord
   def last_online_at
     return Time.zone.now if new_record?
 
-    cached = Rails.cache.read(last_online_cache_key)
+    cached = ::Rails.cache.read(last_online_cache_key)
     cached = Time.zone.parse(cached) if cached
     [cached, self[:last_online_at], current_sign_in_at, created_at].compact.max
   end
@@ -250,7 +263,7 @@ class User < ApplicationRecord
       update_column :last_online_at, now
     else
       # wtf? Rails is crushed when it loads Time.zone type from memcached
-      Rails.cache.write last_online_cache_key, now.to_s
+      ::Rails.cache.write last_online_cache_key, now.to_s
     end
   end
 

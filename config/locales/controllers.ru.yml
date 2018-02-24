@@ -391,6 +391,12 @@ ru:
   achievements_controller:
     title: Достижения
 
+  doorkeeper/oauth_applications_controller:
+    index:
+      title: OAuth приложения
+    new:
+      title: Новое OAuth приложение
+
   api/v1/comments_controller:
     comment:
       removed: Комментарий удален

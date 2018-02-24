@@ -1,0 +1,62 @@
+header.head.misc
+  h1
+    - if @back_url
+      a.back[
+        href=@back_url
+        title=t('back_to_page')
+        data-text=t('back')
+      ]
+    = og.headline
+  = render 'application/breadcrumbs'
+
+- if @resource.errors.any?
+  .b-errors
+    .subheadline = i18n_i 'error', :other
+    == @resource.errors.full_messages.join('<br>')
+
+= simple_form_for @resource do |f|
+  .cc-2
+    .c-column.m0
+      - if @resource.new_record?
+        = f.input :owner_id, as: :hidden
+        = f.input :owner_type, as: :hidden
+      = f.input :name, autofocus: @resource.name.blank?
+
+      .m15
+        = f.input :image, hint: '320x320'
+        - if @resource.persisted?
+          div
+            img[
+              src=@resource.image.url(:x160)
+              srcset="#{@resource.image.url(:x320)} 2x"
+              alt=@resource.name
+              title=@resource.name
+            ]
+
+    - if @resource.persisted?
+      .c-column.m0
+        .m10
+          b OAuth2 Credentials
+        .b-input
+          p = OauthApplication.human_attribute_name :uid
+          p = @resource.uid
+        .b-input
+          p = OauthApplication.human_attribute_name :secret
+          p = @resource.secret
+
+  = f.input :redirect_uri, as: :string, hint: "Set <span class='b-js-link sample'>#{Doorkeeper::NO_REDIRECT_URI}</span> for mobile application".html_safe
+
+  .cc-2
+    .c-column
+
+      .buttons
+        a.cancel href=oauth_applications_url = t 'actions.cancel'
+        = f.button :magic_submit
+
+      - if @resource.persisted?
+        a.remove[
+          href=oauth_application_url(@resource)
+          title=t('actions.delete')
+          data-method="delete"
+          data-confirm=t('actions.confirm')
+        ] = t 'actions.delete'

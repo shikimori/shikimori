@@ -98,7 +98,7 @@ class Club < ApplicationRecord
     },
     url: '/system/clubs/:style/:id.:extension',
     path: ':rails_root/public/system/clubs/:style/:id.:extension',
-    default_url: '/assets/globals/missing_:style_:style.jpg'
+    default_url: '/assets/globals/missing_:style_:style.png'
 
   validates :name, presence: true, name: true
   validates :owner, presence: true

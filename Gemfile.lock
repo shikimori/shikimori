@@ -239,9 +239,15 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
+    devise-doorkeeper (1.1.2)
+      devise
+      doorkeeper
+      rails
     diff-lcs (1.3)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    doorkeeper (4.2.6)
+      railties (>= 4.2)
     draper (3.0.1)
       actionpack (~> 5.0)
       activemodel (~> 5.0)
@@ -734,6 +740,8 @@ DEPENDENCIES
   dalli
   database_cleaner
   devise
+  devise-doorkeeper
+  doorkeeper
   draper
   draper-cancancan
   dry-struct

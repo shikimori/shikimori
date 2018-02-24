@@ -30,13 +30,8 @@ Apipie.configure do |config|
     #{documentation_placeholder}
 
     ### Authentication
-    Retrieve `<user_api_access_token>` via
-      [Access tokens API](https://shikimori.org/api/doc/1.0/access_tokens/create),
-      add `X-User-Nickname` and `X-User-Api-Access-Token` headers to every API request.
-
-    `X-User-Nickname=<user_nickname>`
-
-    `X-User-Api-Access-Token=<user_api_access_token>`
+    OAuth2 is used for authentication. [OAuth2 guide](/oauth).<br>
+    All other auth methods are deprecated and will be removed after 2018-07-01.
     <br><br>
 
     ### Restrictions
@@ -44,11 +39,11 @@ Apipie.configure do |config|
     <br><br>
 
     ### Requirements
-    Add your `application name` / `website url` and your `email` / `shikimori nickname` to `User-Agent` requests header.
+    Add your `application name` / `website url` and your `email` / `shikimori nickname` into `User-Agent` requests header.
 
     Don't mimic a browser.
 
-    Your IP address will be banned if you use API without properly set `User-Agent` header.
+    Your IP address may be banned if you use API without properly set `User-Agent` header.
     <br><br>
 
     #{pagination_placeholder}### Third party implementations

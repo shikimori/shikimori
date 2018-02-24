@@ -68,6 +68,7 @@ private
         field_key => []
       },
       user: author,
+      state: 'pending'
     )
   end
 

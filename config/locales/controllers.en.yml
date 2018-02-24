@@ -391,6 +391,12 @@ en:
   achievements_controller:
     title: Achievements
 
+  doorkeeper/oauth_applications_controller:
+    index:
+      title: OAuth Applications
+    new:
+      title: New OAuth Application
+
   api/v1/comments_controller:
     comment:
       removed: Comment removed

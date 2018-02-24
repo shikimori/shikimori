@@ -2,6 +2,13 @@ describe User do
   describe 'relations' do
     it { is_expected.to have_one(:preferences).dependent(:destroy) }
 
+    it { is_expected.to have_many :devices }
+    it { is_expected.to have_many :oauth_applications }
+    it { is_expected.to have_many :access_grants }
+    it { is_expected.to have_many :access_tokens }
+    it { is_expected.to have_many :user_tokens }
+
+
     it { is_expected.to have_many(:achievements).dependent(:destroy) }
     it { is_expected.to have_many(:anime_rates).dependent(:destroy) }
     it { is_expected.to have_many(:manga_rates).dependent(:destroy) }
@@ -50,9 +57,6 @@ describe User do
     it { is_expected.to have_many :bans }
     it { is_expected.to have_many :club_bans }
 
-    it { is_expected.to have_many :devices }
-
-    it { is_expected.to have_many :user_tokens }
     it { is_expected.to have_many :user_images }
 
     it { is_expected.to have_many :anime_video_reports }

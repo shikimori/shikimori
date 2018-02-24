@@ -240,6 +240,13 @@ ru:
       style:
         name: Название
         css: CSS
+      oauth_application:
+        image: Картинка
+        name: Название
+        owner: Владелец
+        redirect_uri: Redirect URI
+        secret: Client Secret
+        uid: Client ID
 
     errors:
       messages:

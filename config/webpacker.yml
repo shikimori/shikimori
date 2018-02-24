@@ -35,10 +35,10 @@ development:
   compile: false
 
   dev_server:
-    host: shikimori.dev
+    host: shikimori.test
     port: 3035
     hmr: false
-    https: true
+    https: false
 
 test:
   <<: *default

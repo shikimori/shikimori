@@ -189,6 +189,22 @@ class PagesController < ShikimoriController
   def bb_codes
   end
 
+  def oauth
+    if params[:oauth_application_id]
+      @oauth_application = current_user
+        &.oauth_applications
+        &.find_by id: params[:oauth_application_id]
+
+      if params[:authorization_code].present?
+        @authorization_code = params[:authorization_code]
+
+        if params[:format] == 'json'
+          render json: 'test'
+        end
+      end
+    end
+  end
+
   def timeout_120s
     sleep 120
     render json: 'ok'

@@ -99,7 +99,7 @@ describe Poll do
       end
     end
 
-    context 'not import owner' do
+    context 'not poll owner' do
       let(:poll_user) { build_stubbed :user }
 
       it { is_expected.to_not be_able_to :show, poll }

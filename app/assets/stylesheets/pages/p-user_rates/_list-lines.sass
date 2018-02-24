@@ -1,6 +1,7 @@
 @import globals
-@import mixins/icons
 @import mixins/ellipsis2
+@import mixins/green_form
+@import mixins/icons
 @import mixins/link
 @import mixins/responsive
 
@@ -17,9 +18,7 @@
 
     &.edit-form
       form
-        background: #e2f3e2
-        border-bottom: 1px solid #afc9af
-        border-top: 1px solid #afc9af
+        +green_form
         display: block
         margin: 5px 0
         overflow: hidden

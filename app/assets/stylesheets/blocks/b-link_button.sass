@@ -66,9 +66,41 @@
       background-color: #7b8590
       border-color: darken(#7b8590, 3%)
 
+  &.light-green
+    transition: background-color 0.25s ease, border-color 0.25s ease
+    background-color: $green
+    border-color: darken($green, 3%)
+    color: #fff
+
+    &:hover
+      background-color: $link-3
+      border-color: darken($link-3, 2%)
+      color: #fff
+
+    &:active
+      background-color: $link-2
+      border-color: darken($link-4, 2%)
+      color: #fff
+
+  &.light-red
+    transition: background-color 0.25s ease, border-color 0.25s ease
+    background-color: $red
+    border-color: darken($red, 3%)
+    color: #fff
+
+    &:hover
+      background-color: $link-3
+      border-color: darken($link-3, 2%)
+      color: #fff
+
+    &:active
+      background-color: $link-2
+      border-color: darken($link-4, 2%)
+      color: #fff
+
   &.maxi
     font-size: 20px
-    padding: 9px 0
+    padding: 9px 20px
 
   // dashboard show page
   &.favourite

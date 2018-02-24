@@ -44,18 +44,18 @@ openssl req \
     -keyout config/webpack/ssl/key.pem \
     -new \
     -out config/webpack/ssl/server.pem \
-    -subj "/C=RU/O=shikimori/CN=shikimori.dev" \
+    -subj "/C=RU/O=shikimori/CN=shikimori.test" \
     -reqexts SAN \
     -config <(cat /System/Library/OpenSSL/openssl.cnf \
-        <(printf '[SAN]\nsubjectAltName=DNS:localhost, DNS:shikimori.dev, DNS:*.shikimori.dev')) \
+        <(printf '[SAN]\nsubjectAltName=DNS:localhost, DNS:shikimori.test, DNS:*.shikimori.test')) \
     -sha256 \
     -days 3650
 */
 // open certificate in keychain and change trust options to "Always trust"
 
-config.devServer.https = {
-  key: readFileSync(join(__dirname, 'ssl/key.pem')),
-  cert: readFileSync(join(__dirname, 'ssl/server.pem'))
-}
+// config.devServer.https = {
+//   key: readFileSync(join(__dirname, 'ssl/key.pem')),
+//   cert: readFileSync(join(__dirname, 'ssl/server.pem'))
+// }
 
 module.exports = config

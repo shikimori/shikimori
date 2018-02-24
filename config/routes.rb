@@ -3,6 +3,13 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
 
+  use_doorkeeper do
+    skip_controllers(
+      # :tokens
+      :applications, :token_info, :authorized_applications
+    )
+  end
+
   ani_manga_format = "(/kind/:kind)(/status/:status)(/season/:season)\
 (/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\
 (/rating/:rating)(/score/:score)(/options/:options)(/mylist/:mylist)\
@@ -50,6 +57,8 @@ Rails.application.routes.draw do
 
       get :bb_codes
       get :feedback
+      get :oauth
+      get :oauth_request
       get 'apanel' => :admin_panel
     end
   end
@@ -161,6 +170,7 @@ Rails.application.routes.draw do
   apipie
   # v2
   namespace :api, defaults: { format: 'json' } do
+
     namespace :v2 do
       resources :user_rates, only: %i[show index create update destroy] do
         post :increment, on: :member
@@ -927,6 +937,10 @@ Rails.application.routes.draw do
         end
       end
     end
+
+    resources :oauth_applications,
+      path: '/oauth/applications',
+      module: :doorkeeper
 
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/
