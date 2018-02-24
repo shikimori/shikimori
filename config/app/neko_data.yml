@@ -224,7 +224,7 @@
 - :neko_id: :animelist
   :level: 1
   :image:
-  - http://i.imgur.com/v7x2w7p.png
+  - "/assets/achievements/anime/animelist_1.png"
   :border_color:
   - "#e52b50"
   :title_ru: Добро пожаловать!
@@ -239,10 +239,10 @@
 - :neko_id: :animelist
   :level: 2
   :image:
-  - https://shikimori.org/assets/achievements/anime/list_2-0d3f017394ff1743a05c4971ef759a3fe3c17c6520c3e0cb7a7d8e2eea23f576.jpg
+  - "/assets/achievements/anime/animelist_2.jpg"
   :border_color:
   - "#ff0000"
-  :title_ru: Это всего лишь начало.
+  :title_ru: Это всего лишь начало
   :text_ru: Слишком мало де гесо.
   :title_en: 
   :text_en: 
@@ -254,7 +254,7 @@
 - :neko_id: :animelist
   :level: 3
   :image:
-  - https://kawai.shikimori.org/system/user_images/original/50587/459471.jpg
+  - "/assets/achievements/anime/animelist_3.jpg"
   :border_color:
   - "#6a5acd"
   :title_ru: Мои силы растут!
@@ -284,7 +284,7 @@
   :level: 5
   :image: []
   :border_color: []
-  :title_ru: Беззаботный зритель.
+  :title_ru: Беззаботный зритель
   :text_ru: Просмотрено 200 аниме. Ничего серьёзного. Вы лишь успели привыкнуть к
     тому, что глаза у персонажей больше, чем нос. Если у них вообще есть нос.
   :title_en: 
@@ -312,7 +312,7 @@
   :level: 7
   :image: []
   :border_color: []
-  :title_ru: Есть чем похвастаться.
+  :title_ru: Есть чем похвастаться
   :text_ru: Просмотрено 400 аниме. Это... много. Вы можете гордиться собой, определённо.
   :title_en: 
   :text_en: 
@@ -338,7 +338,7 @@
 - :neko_id: :animelist
   :level: 9
   :image:
-  - http://i.imgur.com/8dY1YdU.jpg
+  - "/assets/achievements/anime/animelist_9.jpg"
   :border_color:
   - "#071746"
   :title_ru: Сатанинский предел?
@@ -354,7 +354,7 @@
   :level: 10
   :image: []
   :border_color: []
-  :title_ru: Это даже не финальная форма.
+  :title_ru: Это даже не финальная форма
   :text_ru: Просмотрено 750 аниме. Ваш единственный путь — вверх. Пора учиться доброй
     снисходительности.
   :title_en: 
@@ -379,9 +379,11 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 12
-  :image: []
-  :border_color: []
-  :title_ru: Последний рубеж.
+  :image:
+  - "/assets/achievements/anime/animelist_12.jpg"
+  :border_color:
+  - "#A2A2D0"
+  :title_ru: Последний рубеж
   :text_ru: Вы достигли четырёхзначного числа. Довольны?
   :title_en: 
   :text_en: 
@@ -392,9 +394,11 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 13
-  :image: []
-  :border_color: []
-  :title_ru: Маньяк.
+  :image:
+  - "/assets/achievements/anime/animelist_13.jpg"
+  :border_color:
+  - "#C5D0E6"
+  :title_ru: Маньяк
   :text_ru: Просмотрено 1500 аниме. Это так круто? Возможно вам следует обратиться
     к врачу.
   :title_en: 
@@ -408,7 +412,7 @@
   :level: 14
   :image: []
   :border_color: []
-  :title_ru: Легенда.
+  :title_ru: Легенда
   :text_ru: Просмотрено 2500 аниме. Вы один из избранных. Вам уже даже не нужно хвастаться,
     потому что все и так слышали о вас.
   :title_en: 
@@ -5056,7 +5060,7 @@
   :border_color:
   - "#66cdaa"
   :title_ru: Ньютайп
-  :text_ru: Ore Wa Gundam / I am a mecha
+  :text_ru: Ore Wa Gundam
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -5148,9 +5152,7 @@
   :border_color:
   - "#2a456e"
   :title_ru: Генерал
-  :text_ru: |-
-    Не стоит связываться с кадровым офицером, прошедшим горячие точки.
-    Жизни тысяч в руках одного.
+  :text_ru: Запах напалма по утру вам нравится больше чем аниме.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -6027,7 +6029,7 @@
 - :neko_id: :scifi
   :level: 3
   :image:
-  - "/assets/achievements/anime/scifi_3.jog"
+  - "/assets/achievements/anime/scifi_3.jpg"
   :border_color:
   - "#423c63"
   :title_ru: Безумный ученый
@@ -6440,7 +6442,7 @@
   - "/assets/achievements/anime/seinen_1.jpg"
   :border_color:
   - "#9c521c"
-  :title_ru: Юнец.
+  :title_ru: Юнец
   :text_ru: |-
     — Ты похож на нормального.
     — Наверное. Я ещё только учусь.
@@ -6460,7 +6462,7 @@
   - "/assets/achievements/anime/seinen_2.jpg"
   :border_color:
   - "#595348"
-  :title_ru: Жестокая жизнь.
+  :title_ru: Жестокая жизнь
   :text_ru: Дождь не может смыть страх, злобу, печаль. Обычно в жизни всё получается
     наоборот, становится только хуже...
   :title_en: 
@@ -6479,7 +6481,7 @@
   - "/assets/achievements/anime/seinen_3.png"
   :border_color:
   - "#d76e00"
-  :title_ru: Великая мечта.
+  :title_ru: Великая мечта
   :text_ru: Тот, кто смеётся с закрытыми глазами, точно знает, что выиграет.
   :title_en: 
   :text_en: 
@@ -6493,9 +6495,11 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
 - :neko_id: :seinen
   :level: 4
-  :image: []
-  :border_color: []
-  :title_ru: Быть человеком.
+  :image:
+  - "/assets/achievements/anime/seinen_4.gif"
+  :border_color:
+  - "#5F9EA0"
+  :title_ru: Быть человеком
   :text_ru: Если у вас нет ста пушек в руках и одной в сердце, то дальнейший просмотр
     становиться рискованным.
   :title_en: 
