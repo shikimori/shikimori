@@ -94,6 +94,7 @@ header.head
   .midheadline 3. Get Access Token
   pre.to-process data-dynamic="code_highlight"
     code.b-code.m5 data-language="bash" curl -X POST "#{oauth_token_url}" \
+        -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
         -F grant_type="authorization_code" \
         -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \
         -F client_secret="#{@oauth_application&.secret || 'CLIENT_SECRET'}" \
@@ -157,6 +158,7 @@ header.head
   .midheadline 4. Request Shikimori protected resources with obtained Access Token
   pre.to-process data-dynamic="code_highlight"
     code.b-code.m5 data-language="bash" curl -X GET #{whoami_api_users_url} \
+      -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
       -H "Authorization: Bearer #{params[:access_token].present? ? params[:access_token] : 'ACCESS_TOKEN'}"
 
 .block
@@ -165,6 +167,7 @@ header.head
   p.m5 Use your Refresh Token to obtain new Access Token and Refresh Token.
   pre.to-process data-dynamic="code_highlight"
     code.b-code.m5 data-language="bash" curl -X POST "#{oauth_token_url}" \
+        -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
         -F grant_type="refresh_token" \
         -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \
         -F client_secret="#{@oauth_application&.secret || 'CLIENT_SECRET'}" \

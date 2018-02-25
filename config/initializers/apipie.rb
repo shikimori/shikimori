@@ -39,7 +39,7 @@ Apipie.configure do |config|
     <br><br>
 
     ### Requirements
-    Add your `application name` / `website url` and your `email` / `shikimori nickname` into `User-Agent` requests header.
+    Add your Oauth2 Application name to `User-Agent` requests header.
 
     Don't mimic a browser.
 
