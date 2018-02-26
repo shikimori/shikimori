@@ -171,7 +171,6 @@ header.head
         -F grant_type="refresh_token" \
         -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \
         -F client_secret="#{@oauth_application&.secret || 'CLIENT_SECRET'}" \
-        -F code="#{@authorization_code || 'AUTORIZATION_CODE'}" \
         -F refresh_token="#{params[:refresh_token].present? ? params[:refresh_token] : 'REFRESH_TOKEN'}"
 
   - if @oauth_application && @authorization_code && params[:refresh_token].present?
