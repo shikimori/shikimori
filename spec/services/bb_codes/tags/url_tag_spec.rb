@@ -1,3 +1,4 @@
+# rubocop:disable Style/FormatStringToken
 describe BbCodes::Tags::UrlTag do
   subject { BbCodes::Tags::UrlTag.instance.format text }
 
@@ -43,6 +44,11 @@ describe BbCodes::Tags::UrlTag do
       context 'webm url' do
         let(:text) { 'http://html5demos.com/assets/dizzy.webm' }
         it { is_expected.to eq '[html5_video]http://html5demos.com/assets/dizzy.webm[/html5_video]' }
+      end
+
+      context 'xss' do
+        let(:text) { "[url]#{%w[< > " '].sample}[/url]" }
+        it { is_expected.to eq text }
       end
     end
 
@@ -127,3 +133,4 @@ describe BbCodes::Tags::UrlTag do
     end
   end
 end
+# rubocop:enable Style/FormatStringToken

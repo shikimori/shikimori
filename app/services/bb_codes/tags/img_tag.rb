@@ -2,7 +2,7 @@ class BbCodes::Tags::ImgTag
   include Singleton
 
   REGEXP = %r{
-      \[url=(?<link_url>[^\[\]]+)\]
+      \[url=(?<link_url>#{BbCodes::Tags::UrlTag::URL_SYMBOL_CLASS}+)\]
         \[img\]
           (?<image_url> [^\[\],. ] .*? )
         \[/img\]

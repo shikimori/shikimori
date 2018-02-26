@@ -8,9 +8,13 @@ describe BbCodes::Tags::WallImageTag do
     let(:user_image) { create :user_image, user: build_stubbed(:user) }
 
     it do
-      is_expected.to eq "<a href=\"#{user_image.image.url :original, false}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\"/>\
-</a>"
+      is_expected.to eq(
+        <<~HTML.squish
+          <a href="#{user_image.image.url :original, false}"
+          class="b-image unprocessed"><img
+          src="#{user_image.image.url :preview, false}"/></a>
+        HTML
+      )
     end
   end
 end

@@ -4,6 +4,7 @@ class BbCodes::Tags::RightTag
   def format text
     text.gsub(
       /\[right\] (.*?) \[\/right\]/mix,
-      '<div class="right-text">\1</div>')
+      '<div class="right-text">\1</div>'
+    )
   end
 end

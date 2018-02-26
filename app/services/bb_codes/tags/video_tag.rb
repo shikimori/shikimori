@@ -8,7 +8,7 @@ class BbCodes::Tags::VideoTag
 
   def format text
     text.gsub REGEXP do |matched|
-      video = Video.find_by id: $~[:id]
+      video = Video.find_by id: $LAST_MATCH_INFO[:id]
 
       if video
         html_for video
@@ -21,7 +21,9 @@ class BbCodes::Tags::VideoTag
 private
 
   def html_for video
-    @template = Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
+    @template = Slim::Template.new(
+      Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
+    )
     @template.render OpenStruct.new(video: video)
   end
 end

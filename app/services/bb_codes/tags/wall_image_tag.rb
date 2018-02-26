@@ -6,7 +6,7 @@ class BbCodes::Tags::WallImageTag
 
   def format text
     text.gsub REGEXP do |matched|
-      user_image = UserImage.find_by id: $~[:id]
+      user_image = UserImage.find_by id: $LAST_MATCH_INFO[:id]
       user_image ? html_for(user_image) : matched
     end
   end
@@ -14,8 +14,10 @@ class BbCodes::Tags::WallImageTag
 private
 
   def html_for user_image
-    "<a href=\"#{ImageUrlGenerator.instance.url user_image, :original}\" class=\"b-image unprocessed\">\
-<img src=\"#{ImageUrlGenerator.instance.url user_image, :preview}\"/>\
-</a>"
+    <<~HTML.squish
+      <a href="#{ImageUrlGenerator.instance.url user_image, :original}"
+      class="b-image unprocessed"><img
+      src="#{ImageUrlGenerator.instance.url user_image, :preview}"/></a>
+    HTML
   end
 end

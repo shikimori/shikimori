@@ -4,17 +4,18 @@ class BbCodes::Tags::SourceTag
 
   REGEXP = /
     \[source\]
-      (?<url> .*?)
+      (?<url> #{BbCodes::Tags::UrlTag::URL_SYMBOL_CLASS}*?)
     \[\/source\]
   /mix
 
   def format text
     text.gsub REGEXP do
-      url = match_url $~[:url]
+      url = match_url $LAST_MATCH_INFO[:url]
 
-      "<div class=\"b-source hidden\">\
-<span class=\"linkeable\" data-href=\"#{url}\">\
-#{Url.new(url).domain}</span></div>"
+      <<~HTML.squish
+        <div class="b-source hidden"><span class="linkeable"
+        data-href="#{url}">#{Url.new(url).domain}</span></div>
+      HTML
     end
   end
 

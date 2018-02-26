@@ -6,7 +6,7 @@ class BbCodes::Tags::PosterTag
 
   REGEXP = %r{
     \[poster\]
-      (?<url>[^\[\]].*?)
+      (?<url>#{BbCodes::Tags::UrlTag::URL_SYMBOL_CLASS}.*?)
     \[/poster\]
 
     |

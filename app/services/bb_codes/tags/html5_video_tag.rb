@@ -4,7 +4,7 @@ class BbCodes::Tags::Html5VideoTag
 
   REGEXP = %r{
     \[html5_video\]
-      (?<url> .*?)
+      (?<url> #{BbCodes::Tags::UrlTag::URL_SYMBOL_CLASS}*? )
     \[/html5_video\]
   }mix
 

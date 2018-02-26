@@ -25,5 +25,10 @@ describe BbCodes::Tags::Html5VideoTag do
         </div>
       HTML
     end
+
+    context 'xss' do
+      let(:text) { "[html5_video]#{%w[< > " '].sample}[/html5_video]" }
+      it { is_expected.to eq text }
+    end
   end
 end

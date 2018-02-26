@@ -3,6 +3,6 @@ describe BbCodes::Tags::SolidTag do
 
   describe '#format' do
     subject { tag.format '[solid]test[/solid]' }
-    it { should eq '<div class="solid">test</div>' }
+    it { is_expected.to eq '<div class="solid">test</div>' }
   end
 end

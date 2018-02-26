@@ -3,6 +3,7 @@ class BbCodes::Tags::UrlTag
   MAX_SHORT_URL_SIZE = 65
 
   BEFORE_URL = /(?<= \s|^|>|\()/
+  URL_SYMBOL_CLASS = /[^"'<>\[\]]/.source
   URL = %r{
     (?<url>
       (?: https?: )?
@@ -14,11 +15,11 @@ class BbCodes::Tags::UrlTag
 
   REGEXP = %r{
     \[ url (?:\ (?<class>[\w_\ -]+))? \]
-      (?<url> .*?)
+      (?<url> #{URL_SYMBOL_CLASS}*? )
     \[/url\]
       |
-    \[ url=(?<url>.*?) (?:\ (?<class>[\w_\ -]+))? \]
-      (?<text> .*?)
+    \[ url=(?<url>#{URL_SYMBOL_CLASS}*? ) (?:\ (?<class>[\w_\ -]+))? \]
+      (?<text> .*? )
     \[/url\]
       |
     #{BEFORE_URL.source} #{URL.source}
