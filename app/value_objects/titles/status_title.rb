@@ -8,7 +8,7 @@ class Titles::StatusTitle
 
   def url_params
     # без nil из-за странного бага рельс когда находишься на странице
-    # http://shikimori.test/animes/status/anons status/anons попадает
+    # http://shikimori.local/animes/status/anons status/anons попадает
     # в сгенерённый url
     { season: nil, status: text, kind: nil }
   end

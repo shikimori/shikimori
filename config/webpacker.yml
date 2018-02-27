@@ -35,7 +35,7 @@ development:
   compile: false
 
   dev_server:
-    host: shikimori.test
+    host: shikimori.local
     port: 3035
     hmr: false
     https: false

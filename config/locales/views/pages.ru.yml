@@ -187,7 +187,7 @@ ru:
         Определить id можно из адреса страницы аниме.
         <br>
         Например, для аниме
-        <a href="//shikimori.test/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
+        <a href="//shikimori.local/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
         с адресом
         <a href="http://%{domain}/animes/790-ergo-proxy">http://%{domain}/animes/<b>790</b>-ergo-proxy</a>
         идентификатор будет равен <b style="color: #000">790</b>.

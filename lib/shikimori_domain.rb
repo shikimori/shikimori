@@ -1,9 +1,9 @@
 module ShikimoriDomain
   RU_HOSTS = %w[shikimori.org] + (
-    Rails.env.development? ? %w[shikimori.test ru.shikimori.test localhost] : []
+    Rails.env.development? ? %w[shikimori.local ru.shikimori.local localhost] : []
   )
   EN_HOSTS = %w[shikimori.one] + (
-    Rails.env.development? ? %w[en.shikimori.test] : []
+    Rails.env.development? ? %w[en.shikimori.local] : []
   )
 
   HOSTS = RU_HOSTS + EN_HOSTS

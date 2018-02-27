@@ -44,10 +44,10 @@ openssl req \
     -keyout config/webpack/ssl/key.pem \
     -new \
     -out config/webpack/ssl/server.pem \
-    -subj "/C=RU/O=shikimori/CN=shikimori.test" \
+    -subj "/C=RU/O=shikimori/CN=shikimori.local" \
     -reqexts SAN \
     -config <(cat /System/Library/OpenSSL/openssl.cnf \
-        <(printf '[SAN]\nsubjectAltName=DNS:localhost, DNS:shikimori.test, DNS:*.shikimori.test')) \
+        <(printf '[SAN]\nsubjectAltName=DNS:localhost, DNS:shikimori.local, DNS:*.shikimori.local')) \
     -sha256 \
     -days 3650
 */

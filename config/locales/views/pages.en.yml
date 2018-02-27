@@ -167,7 +167,7 @@ en:
         You can find this id in corresponding page URL.
         <br>
         E.g., id of anime
-        <a href="//shikimori.test/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
+        <a href="//shikimori.local/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
         with URL
         <a href="http://%{domain}/animes/790-ergo-proxy">http://%{domain}/animes/<b>790</b>-ergo-proxy</a>
         is <b style="color: #000">790</b>.
