@@ -1,4 +1,5 @@
-- kind_options = ExternalLink.kind.options.select {|_, key| ::Types::ExternalLink::Kind[key] != ::Types::ExternalLink::Kind[:myanimelist] && ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }
+- kind_options = ExternalLink.kind.options.select {|_, key| ::Types::ExternalLink::Kind[key] != ::Types::ExternalLink::Kind[:myanimelist] && ::Types::ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }
+
 = simple_form_for resource.object do |f|
   #vue_external_links[
     data-resource_type=@resource.object.class.name

@@ -436,6 +436,7 @@ ru:
         world_art: World Art
         myanimelist: MyAnimeList
         readmanga: ReadManga
+        novelupdates: Novel Updates
     contest:
       strategy_type:
         double_elimination: Вылет после двух поражений

@@ -145,8 +145,8 @@ describe AniMangaDecorator do
       let(:mal_id) { 123 }
       it do
         expect(decorator.all_external_links).to eq [
-          external_link,
-          decorator.send(:mal_external_link)
+          decorator.send(:mal_external_link),
+          external_link
         ]
       end
     end
