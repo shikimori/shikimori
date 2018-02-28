@@ -29,13 +29,21 @@ $image-path: '/assets/blocks/b-video_variant'
       &:last-child
         padding-right: 0
 
-    &.broken:before, &.wrong:before, &.rejected:before
+    &.broken:before,
+    &.wrong:before,
+    &.rejected:before,
+    &.banned_hosting:before
       float: left
       font-weight: normal
 
     &.broken:before
       color: $red
       content: 'broken'
+      padding-right: 5px
+
+    &.banned_hosting:before
+      color: #ff8a3c
+      content: 'banned hosting'
       padding-right: 5px
 
     &.wrong:before
