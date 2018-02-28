@@ -48,7 +48,9 @@ header.head
       p Для просмотра удаленных вариантов видео на странице просмотра добавьте к адресу видео в конце /all;
 
 .block
-  .subheadline Очередь
+  .b-options-floated
+    a.expand-all.b-js-link = t '.expand_all'
+  .subheadline = t '.queue'
   .block
     - if @pending.any?
       = render partial: 'moderations/anime_video_reports/anime_video_report',
@@ -62,7 +64,7 @@ header.head
     placeholder=t('date_field')
     value=params[:created_on]
   ]
-  .subheadline История
+  .subheadline = t '.history'
   .block
     = render partial: 'moderations/anime_video_reports/anime_video_report',
       collection: @processed

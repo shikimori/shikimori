@@ -47,6 +47,10 @@ en:
           by mistake). Such episodes should be deleted.
 
     anime_video_reports:
+      index:
+        expand_all: :moderations.bans.index.expand_all
+        queue: :moderations.bans.index.queue
+        history: :moderations.bans.index.history
       anime_video_report:
         show: show
         show_changes: show details

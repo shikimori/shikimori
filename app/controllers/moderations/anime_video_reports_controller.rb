@@ -14,6 +14,11 @@ class Moderations::AnimeVideoReportsController < ModerationsController
     @pending = pending_reports unless json?
   end
 
+  def show
+    og noindex: true
+    og page_title: i18n_t('content_change', anime_video_report_id: @resource.id)
+  end
+
   def create
     @resource.save!
     head 200
@@ -21,7 +26,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
 
   def accept
     @resource.accept! current_user if @resource.can_accept?
-    redirect_back fallback_location: moderations_anime_video_reports_url
+    render :show
   end
 
   def accept_edit
@@ -39,8 +44,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
       @resource.accept! current_user
       @resource.anime_video.broken
     end
-
-    redirect_back fallback_location: moderations_anime_video_reports_url
+    render :show
   end
 
   def close_edit
@@ -55,17 +59,17 @@ class Moderations::AnimeVideoReportsController < ModerationsController
 
   def reject
     @resource.reject! current_user if @resource.can_reject?
-    redirect_back fallback_location: moderations_anime_video_reports_url
+    render :show
   end
 
   def work
     @resource.work! if @resource.can_work?
-    redirect_back fallback_location: moderations_anime_video_reports_url
+    render :show
   end
 
   def cancel
     @resource.cancel! current_user if @resource.can_cancel?
-    redirect_back fallback_location: moderations_anime_video_reports_url
+    render :show
   end
 
 private

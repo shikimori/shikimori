@@ -13,6 +13,18 @@ describe Moderations::VersionsController do
   let(:state) { 'pending' }
   let(:anime) { create :anime }
 
+  describe '#index' do
+    describe 'html' do
+      before { get :index, params: { type: 'content' } }
+      it { expect(response).to have_http_status :success }
+    end
+
+    describe 'json' do
+      before { get :index, params: { type: 'content', page: 2 }, format: :json }
+      it { expect(response).to have_http_status :success }
+    end
+  end
+
   describe '#show' do
     describe 'html' do
       before { get :show, params: { id: version.id } }
@@ -76,18 +88,6 @@ describe Moderations::VersionsController do
   describe '#tooltip' do
     before { get :tooltip, params: { id: version.id } }
     it { expect(response).to have_http_status :success }
-  end
-
-  describe '#index' do
-    describe 'html' do
-      before { get :index, params: { type: 'content' } }
-      it { expect(response).to have_http_status :success }
-    end
-
-    describe 'json' do
-      before { get :index, params: { type: 'content', page: 2 }, format: :json }
-      it { expect(response).to have_http_status :success }
-    end
   end
 
   describe '#accept' do

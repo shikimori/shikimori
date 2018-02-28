@@ -16,58 +16,19 @@ describe Moderations::AnimeVideoReportsController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#accept' do
-    before { post :accept, params: { id: anime_video_report.id } }
+  describe '#show' do
+    let(:anime_video_report) { create :anime_video_report, anime_video: anime_video }
+    let(:anime_video) { create :anime_video, anime: anime }
+    let(:anime) { create :anime }
 
-    context 'broken' do
-      it do
-        expect(anime_video.reload.state).to eq kind
-        expect(response).to redirect_to moderations_anime_video_reports_url
-      end
+    describe 'html' do
+      before { get :show, params: { id: anime_video_report.id } }
+      it { expect(response).to have_http_status :success }
     end
 
-    context 'wrong' do
-      let(:kind) { 'wrong' }
-      it do
-        expect(anime_video.reload.state).to eq kind
-        expect(response).to redirect_to moderations_anime_video_reports_url
-      end
-    end
-  end
-
-  describe '#accept_edit' do
-    before { post :accept_edit, params: { id: anime_video_report.id } }
-    it do
-      expect(anime_video_report.reload).to be_accepted
-      expect(anime_video.reload.state).to eq kind
-      expect(response).to redirect_to edit_video_online_url(
-        anime_video.anime,
-        anime_video,
-        host: AnimeOnlineDomain.host(anime_video.anime)
-      )
-    end
-  end
-
-  describe '#accept_broken' do
-    before { post :accept_broken, params: { id: anime_video_report.id } }
-    let(:kind) { 'other' }
-
-    it do
-      expect(anime_video.reload.state).to eq 'broken'
-      expect(response).to redirect_to moderations_anime_video_reports_url
-    end
-  end
-
-  describe '#close_edit' do
-    before { post :close_edit, params: { id: anime_video_report.id } }
-    it do
-      expect(anime_video_report.reload).to be_accepted
-      expect(anime_video.reload).to be_working
-      expect(response).to redirect_to edit_video_online_url(
-        anime_video.anime,
-        anime_video,
-        host: AnimeOnlineDomain.host(anime_video.anime)
-      )
+    describe 'json' do
+      before { get :show, params: { id: anime_video_report.id }, format: :json }
+      it { expect(response).to have_http_status :success }
     end
   end
 
@@ -90,6 +51,88 @@ describe Moderations::AnimeVideoReportsController do
     end
   end
 
+  describe '#accept' do
+    before do
+      post :accept,
+        params: {
+          id: anime_video_report.id
+        },
+        format: :json
+    end
+
+    context 'broken' do
+      it do
+        expect(anime_video.reload.state).to eq kind
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'wrong' do
+      let(:kind) { 'wrong' }
+      it do
+        expect(anime_video.reload.state).to eq kind
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
+      end
+    end
+  end
+
+  describe '#accept_edit' do
+    before do
+      post :accept_edit,
+        params: {
+          id: anime_video_report.id
+        }
+    end
+
+    it do
+      expect(anime_video_report.reload).to be_accepted
+      expect(anime_video.reload.state).to eq kind
+      expect(response).to redirect_to edit_video_online_url(
+        anime_video.anime,
+        anime_video,
+        host: AnimeOnlineDomain.host(anime_video.anime)
+      )
+    end
+  end
+
+  describe '#accept_broken' do
+    before do
+      post :accept_broken,
+        params: {
+          id: anime_video_report.id
+        },
+        format: :json
+    end
+    let(:kind) { 'other' }
+
+    it do
+      expect(anime_video.reload.state).to eq 'broken'
+      expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#close_edit' do
+    before do
+      post :close_edit,
+        params: {
+          id: anime_video_report.id
+        }
+    end
+
+    it do
+      expect(anime_video_report.reload).to be_accepted
+      expect(anime_video.reload).to be_working
+      expect(response).to redirect_to edit_video_online_url(
+        anime_video.anime,
+        anime_video,
+        host: AnimeOnlineDomain.host(anime_video.anime)
+      )
+    end
+  end
+
   describe '#cancel' do
     let(:anime_video) { create :anime_video, anime: create(:anime), state: state }
     let!(:anime_video_report) do
@@ -101,56 +144,79 @@ describe Moderations::AnimeVideoReportsController do
     end
     let(:state) { kind }
 
-    before { post :cancel, params: { id: anime_video_report.id } }
+    before do
+      post :cancel,
+        params: {
+          id: anime_video_report.id
+        },
+        format: :json
+    end
 
     context 'broken' do
       let(:kind) { 'broken' }
       it do
-        expect(response).to redirect_to moderations_anime_video_reports_url
         expect(anime_video.reload).to be_working
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
       end
     end
 
     context 'wrong' do
       let(:kind) { 'wrong' }
       it do
-        expect(response).to redirect_to moderations_anime_video_reports_url
         expect(anime_video.reload).to be_working
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
       end
     end
 
     context 'uploaded' do
       let(:kind) { 'uploaded' }
-      it { expect(response).to redirect_to moderations_anime_video_reports_url }
 
       context 'rejected' do
         let(:state) { 'rejected' }
-        it { expect(anime_video.reload).to be_uploaded }
+        it do
+          expect(anime_video.reload).to be_uploaded
+          expect(response.content_type).to eq 'application/json'
+          expect(response).to have_http_status :success
+        end
       end
 
       context 'rejected' do
         let(:state) { 'working' }
-        it { expect(anime_video.reload).to be_uploaded }
+        it do
+          expect(anime_video.reload).to be_uploaded
+          expect(response.content_type).to eq 'application/json'
+          expect(response).to have_http_status :success
+        end
       end
     end
   end
 
   describe '#reject' do
-    before { post :reject, params: { id: anime_video_report.id } }
+    before do
+      post :reject,
+        params: {
+          id: anime_video_report.id
+        },
+        format: :json
+    end
 
     context 'broken' do
       let(:kind) { 'broken' }
       it do
-        expect(response).to redirect_to moderations_anime_video_reports_url
         expect(anime_video.reload.state).to eq 'working'
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
       end
     end
 
     context 'wrong' do
       let(:kind) { 'wrong' }
       it do
-        expect(response).to redirect_to moderations_anime_video_reports_url
         expect(anime_video.reload.state).to eq 'working'
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
       end
     end
   end

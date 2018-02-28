@@ -3,7 +3,7 @@ class DynamicElements.LogEntry extends ShikiView
   initialize: ->
     @$moderation = @$ '.moderation'
 
-    @$('.reject', @$moderation).on 'click', @_reject_dialog
+    @$('.reject[data-reason-prompt]', @$moderation).on 'click', @_reject_dialog
 
     @$('.ajax-action', @$moderation)
       .on 'ajax:before', @_shade

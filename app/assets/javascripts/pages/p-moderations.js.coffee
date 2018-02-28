@@ -32,7 +32,7 @@ page_load 'versions_index', 'users_index', ->
   date_picker()
 
 # страницы модерации
-page_load 'bans_index', 'abuse_requests_index', 'versions_index', 'review_index', ->
+page_load 'bans_index', 'abuse_requests_index', 'versions_index', 'review_index', 'anime_video_reports_index', ->
   # сокращение высоты инструкции
   $('.b-brief').check_height max_height: 150
 

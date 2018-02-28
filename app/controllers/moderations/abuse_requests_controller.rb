@@ -1,6 +1,7 @@
 # TODO: переделать авторизацию на cancancan
 class Moderations::AbuseRequestsController < ModerationsController
-  before_action :authenticate_user!, only: [:index, :show, :take, :deny, :offtopic, :summary, :spoiler, :abuse]
+  before_action :authenticate_user!,
+    only: %i[index show take deny offtopic summary spoiler abuse]
 
   def index
     @processed = postload_paginate(params[:page], 25) do
@@ -8,7 +9,7 @@ class Moderations::AbuseRequestsController < ModerationsController
 
       unless current_user.forum_moderator?
         scope = scope
-          .where(kind: %i(summary offtopic))
+          .where(kind: %i[summary offtopic])
           .or(AbuseRequest.where(state: :accepted))
       end
 
@@ -35,6 +36,7 @@ class Moderations::AbuseRequestsController < ModerationsController
   end
 
   def show
+    og noindex: true
     @resource = AbuseRequest.find params[:id]
   end
 

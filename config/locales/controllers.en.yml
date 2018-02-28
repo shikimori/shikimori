@@ -195,6 +195,7 @@ en:
   moderations/anime_video_reports_controller:
     <<: *moderations_controller
     page_title: Video moderation
+    content_change: 'Content change #%{anime_video_report_id}'
 
   moderations/bans_controller:
     <<: *moderations_controller

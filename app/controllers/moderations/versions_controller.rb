@@ -2,6 +2,10 @@ class Moderations::VersionsController < ModerationsController
   load_and_authorize_resource except: [:index]
   before_action { og page_title: i18n_t('content_changes') }
 
+  def index
+    @versions = VersionsView.new
+  end
+
   def show
     og noindex: true
     og page_title: i18n_t('content_change', version_id: @resource.id)
@@ -24,10 +28,6 @@ class Moderations::VersionsController < ModerationsController
 
   def tooltip
     og noindex: true
-  end
-
-  def index
-    @versions = VersionsView.new
   end
 
   def accept

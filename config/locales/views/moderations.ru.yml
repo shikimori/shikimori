@@ -47,6 +47,10 @@ ru:
           того аниме с другого сайта). Подобные неправильные серии нужно удалить.
 
     anime_video_reports:
+      index:
+        expand_all: :moderations.bans.index.expand_all
+        queue: :moderations.bans.index.queue
+        history: :moderations.bans.index.history
       anime_video_report:
         show: показать
         show_changes: показать правку

@@ -195,6 +195,7 @@ ru:
   moderations/anime_video_reports_controller:
     <<: *moderations_controller
     page_title: Модерация видео
+    content_change: 'Правка #%{anime_video_report_id}'
 
   moderations/bans_controller:
     <<: *moderations_controller

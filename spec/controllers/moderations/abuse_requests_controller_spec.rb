@@ -8,9 +8,18 @@ describe Moderations::AbuseRequestsController do
 
   describe '#show' do
     let(:abuse_request) { create :abuse_request }
-    before { get :show, params: { id: abuse_request.id } }
-    it { expect(response).to have_http_status :success }
+
+    describe 'html' do
+      before { get :show, params: { id: abuse_request.id } }
+      it { expect(response).to have_http_status :success }
+    end
+
+    describe 'json' do
+      before { get :show, params: { id: abuse_request.id }, format: :json }
+      it { expect(response).to have_http_status :success }
+    end
   end
+
 
   [:summary, :offtopic, :abuse, :spoiler].each do |method|
     describe method.to_s do
