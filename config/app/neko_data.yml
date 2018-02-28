@@ -228,7 +228,7 @@
   :border_color:
   - "#e52b50"
   :title_ru: Добро пожаловать!
-  :text_ru: Даже путь в тысячу ли начинается с первого шага.
+  :text_ru: Легкой поступью ты вошёл в этот мир.
   :title_en: 
   :text_en: 
   :topic_id: 227416
@@ -239,11 +239,11 @@
 - :neko_id: :animelist
   :level: 2
   :image:
-  - "/assets/achievements/anime/animelist_2.jpg"
+  - "/assets/achievements/anime/animelist_2.png"
   :border_color:
-  - "#ff0000"
+  - "#A5260A"
   :title_ru: Это всего лишь начало
-  :text_ru: Слишком мало де гесо.
+  :text_ru: Ставки начинают расти. Кто-то уже сдался, но вы... Вы ещё в строю.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -285,8 +285,8 @@
   :image: []
   :border_color: []
   :title_ru: Беззаботный зритель
-  :text_ru: Просмотрено 200 аниме. Ничего серьёзного. Вы лишь успели привыкнуть к
-    тому, что глаза у персонажей больше, чем нос. Если у них вообще есть нос.
+  :text_ru: Ничего серьёзного. Вы лишь успели привыкнуть к тому, что глаза у персонажей
+    больше, чем нос. Если у них вообще есть нос.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -299,8 +299,8 @@
   :image: []
   :border_color: []
   :title_ru: Знаток
-  :text_ru: Просмотрено 300 аниме. Сидя в удобном кресле, задрав ноги, пьете вино
-    и смотрите скачанное на днях аниме. Это блаженство, так ведь?
+  :text_ru: Сидя в удобном кресле, задрав ноги, пьете вино и смотрите скачанное на
+    днях аниме. Это блаженство, так ведь?
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -340,9 +340,10 @@
   :image:
   - "/assets/achievements/anime/animelist_9.jpg"
   :border_color:
-  - "#071746"
+  - "#AB274F"
   :title_ru: Сатанинский предел?
-  :text_ru: Вами движет поистине дьявольское упорство.
+  :text_ru: Стремишься стать частью той силы, что вечно хочет зла и вечно совершает
+    благо? Что ж, только внимательно читай те условия контракта, что мелким шрифтом.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -352,11 +353,12 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 10
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/animelist_10.jpg"
+  :border_color:
+  - "#434B4D"
   :title_ru: Это даже не финальная форма
-  :text_ru: Просмотрено 750 аниме. Ваш единственный путь — вверх. Пора учиться доброй
-    снисходительности.
+  :text_ru: Ваш единственный путь — вверх. Пора учиться доброй снисходительности.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -366,10 +368,14 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 11
-  :image: []
-  :border_color: []
-  :title_ru: Коллекционер
-  :text_ru: Аниме много не бывает.
+  :image:
+  - "/assets/achievements/anime/animelist_11.jpg"
+  :border_color:
+  - "#002F55"
+  :title_ru: Бесконечное путешествие
+  :text_ru: У каждого человека свои звезды. Одним - тем, кто странствует, - они указывают
+    путь. Для других это просто маленькие огоньки. Дорога вперед бесконечна. Хотите
+    ли вы продолжать идти по ней?
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -383,7 +389,7 @@
   - "/assets/achievements/anime/animelist_12.jpg"
   :border_color:
   - "#A2A2D0"
-  :title_ru: Последний рубеж
+  :title_ru: Точка невозврата
   :text_ru: Вы достигли четырёхзначного числа. Довольны?
   :title_en: 
   :text_en: 
@@ -394,13 +400,25 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 13
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 1234
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
+- :neko_id: :animelist
+  :level: 14
   :image:
-  - "/assets/achievements/anime/animelist_13.jpg"
+  - "/assets/achievements/anime/animelist_14.jpg"
   :border_color:
   - "#C5D0E6"
   :title_ru: Маньяк
-  :text_ru: Просмотрено 1500 аниме. Это так круто? Возможно вам следует обратиться
-    к врачу.
+  :text_ru: Это так круто? Возможно вам следует обратиться к врачу.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -409,12 +427,27 @@
     :threshold: 1500
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
-  :level: 14
+  :level: 15
   :image: []
   :border_color: []
-  :title_ru: Легенда
-  :text_ru: Просмотрено 2500 аниме. Вы один из избранных. Вам уже даже не нужно хвастаться,
-    потому что все и так слышали о вас.
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 2000
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
+- :neko_id: :animelist
+  :level: 16
+  :image:
+  - "/assets/achievements/anime/animelist_16.jpg"
+  :border_color:
+  - "#FCE883"
+  :title_ru: Знать
+  :text_ru: Вы - вершина общества, сливки из сливок, объект зависти и восхищения.
+    И пусть чернь склонится перед Вашим Величеством!
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -423,18 +456,57 @@
     :threshold: 2500
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
-  :level: 15
+  :level: 17
   :image: []
   :border_color: []
-  :title_ru: Недосягаемый
-  :text_ru: Просмотрено 5000 аниме. Такое не под силу живому человеку. Вы уверены
-    в том, что посмотрели все это?
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 3500
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
+- :neko_id: :animelist
+  :level: 18
+  :image: []
+  :border_color: []
+  :title_ru: Герой
+  :text_ru: 
   :title_en: 
   :text_en: 
   :topic_id: 
   :rule:
     :algo: simple
     :threshold: 5000
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
+- :neko_id: :animelist
+  :level: 19
+  :image: []
+  :border_color: []
+  :title_ru: Легенда
+  :text_ru: Вы один из избранных. Вам уже даже не нужно хвастаться, потому что все
+    и так слышали о вас.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 7500
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
+- :neko_id: :animelist
+  :level: 20
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 10000
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :horror_thriller
   :level: 1
@@ -7151,10 +7223,12 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
 - :neko_id: :josei
   :level: 1
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :image:
+  - "/assets/achievements/anime/josei_1.jpg"
+  :border_color:
+  - "#F19CBB"
+  :title_ru: Цветущая юность
+  :text_ru: Уже не девочка, но еще не женщина. Да что со мной происходит-то?!
   :title_en: 
   :text_en: 
   :topic_id: 222645
@@ -7169,8 +7243,8 @@
   :level: 2
   :image: []
   :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :title_ru: Я делаю то, что мне нравится!
+  :text_ru: Мы не учимся быть артистами, художниками или писателями — мы учимся быть.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -7183,10 +7257,13 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
 - :neko_id: :josei
   :level: 3
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :image:
+  - "/assets/achievements/anime/josei_3.jpg"
+  :border_color:
+  - "#89AC76"
+  :title_ru: Мы — это наши поступки
+  :text_ru: Быть человеком — значит взять на себя какую-то ответственность, а не просто
+    заполнять собой пространство.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -7199,10 +7276,12 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
 - :neko_id: :josei
   :level: 4
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :image:
+  - "/assets/achievements/anime/josei_4.gif"
+  :border_color:
+  - "#464451"
+  :title_ru: Мемуары гейши
+  :text_ru: Сколько бы ни существовало историй, лучшая — та, что написана вместе.
   :title_en: 
   :text_en: 
   :topic_id: 
