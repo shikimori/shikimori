@@ -173,6 +173,7 @@ ru:
 
     versions:
       index:
+        expand_all: :moderations.bans.index.expand_all
         notice: Список правок контента сайта пользователями
         instruction: Инструкция
         instructions:

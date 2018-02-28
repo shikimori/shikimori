@@ -66,10 +66,7 @@ class Moderations::AbuseRequestsController < ModerationsController
   def take
     @request = AbuseRequest.find params[:id]
     raise Forbidden unless current_user.forum_moderator?
-    @request.take! current_user
-
-  rescue StateMachine::InvalidTransition
-  ensure
+    @request.take! current_user rescue StateMachine::InvalidTransition
     render json: {}
   end
 
@@ -77,10 +74,7 @@ class Moderations::AbuseRequestsController < ModerationsController
   def deny
     @request = AbuseRequest.find params[:id]
     raise Forbidden unless current_user.forum_moderator?
-    @request.reject! current_user
-
-  rescue StateMachine::InvalidTransition
-  ensure
+    @request.reject! current_user rescue StateMachine::InvalidTransition
     render json: {}
   end
 end

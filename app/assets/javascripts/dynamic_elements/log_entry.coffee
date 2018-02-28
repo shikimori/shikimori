@@ -3,12 +3,20 @@ class DynamicElements.LogEntry extends ShikiView
   initialize: ->
     @$moderation = @$ '.moderation'
 
-    @$('.take, .deny, .version-action', @$moderation)
+    @$('.reject', @$moderation).on 'click', @_reject_dialog
+
+    @$('.ajax-action', @$moderation)
       .on 'ajax:before', @_shade
       .on 'ajax:success', @_reload
 
+    @$('.delete', @$moderation)
+      .on 'ajax:before', @_shade
+      .on 'ajax:success', @_remove
+
     @$('.ban, .warn', @$moderation)
       .on 'ajax:before', @_prepare_form
+      .on 'ajax:before', @_shade
+      .on 'ajax:success', @_unshade
       .on 'ajax:success', @_show_form
 
   _prepare_form: =>
@@ -38,3 +46,19 @@ class DynamicElements.LogEntry extends ShikiView
     @$('.spoiler.collapse .action').show()
     @$('.ban-form').hide().empty()
     @$('.spoiler.collapse').click()
+
+  _remove: =>
+    @$root.hide()
+    delay(10000).then =>
+      # remove must be called later becase
+      # "b-tooltipped" tooltip wont disappear otherwise
+      @$root.remove()
+
+  _reject_dialog: (e) =>
+    href = $(e.target).data('href')
+    reason = prompt $(e.target).data('reason-prompt')
+
+    if reason == null
+      false
+    else
+      $(e.target).attr href: "#{href}?reason=#{encodeURIComponent reason}"

@@ -173,6 +173,7 @@ en:
 
     versions:
       index:
+        expand_all: :moderations.bans.index.expand_all
         notice: This is the history of content changes authored by members.
         instruction: Instructions
         instructions:

@@ -104,19 +104,6 @@ process_current_dom = (root = document.body, JS_EXPORTS = window.JS_EXPORTS) ->
     $posters.removeClass('unprocessed').find('img').imagesLoaded ->
       $posters.align_posters()
 
-  # блоки модерации
-  $with('.b-log_entry.unprocessed', $root)
-    .removeClass('unprocessed')
-    # вопрос о причине отказа для правки
-    .on 'click', '.user_change-deny', (e) ->
-      href = $(@).data('href')
-      reason = prompt $(@).data('reason-prompt')
-
-      if reason == null
-        false
-      else
-        $(@).attr href: "#{href}?reason=#{encodeURIComponent reason}"
-
   # с задержкой делаем потому, что collapsed блоки могут быть в контенте,
   # загруженном аяксом, а process для таких случаев вызывается ещё до вставки в
   # DOM

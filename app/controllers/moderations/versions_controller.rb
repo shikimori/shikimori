@@ -57,11 +57,13 @@ class Moderations::VersionsController < ModerationsController
 private
 
   def transition action, success_message
-    @resource.send action, current_user, params[:reason]
-    render json: {}
+    @resource.send(
+      action,
+      current_user,
+      params[:reason]
+    ) rescue StateMachine::InvalidTransition
 
-  rescue StateMachine::InvalidTransition
-    render json: {}
+    render json: { notice: i18n_t(success_message) }
   end
 
   def create_params
@@ -69,10 +71,14 @@ private
       .require(:version)
       .permit(:type, :item_id, :item_type, :user_id, :reason)
       .to_h
-      .merge(
-        item_diff: params[:version][:item_diff].is_a?(String) ?
-          JSON.parse(params[:version][:item_diff], symbolize_names: true) :
-          params[:version][:item_diff]
-      )
+      .merge(item_diff: build_item_diff)
+  end
+
+  def build_item_diff
+    if params[:version][:item_diff].is_a?(String)
+      JSON.parse(params[:version][:item_diff], symbolize_names: true)
+    else
+      params[:version][:item_diff]
+    end
   end
 end

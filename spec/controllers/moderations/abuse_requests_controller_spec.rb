@@ -26,8 +26,10 @@ describe Moderations::AbuseRequestsController do
             format: :json
         end
 
-        it { expect(response).to have_http_status :success }
-        it { expect(response.content_type).to eq 'application/json' }
+        it do
+          expect(response.content_type).to eq 'application/json'
+          expect(response).to have_http_status :success
+        end
       end
 
       describe 'result' do

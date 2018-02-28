@@ -38,53 +38,53 @@
         .moderation
           - if can? :manage, version
             - if version.can_accept?
-              a.b-tooltipped.unprocessed[
+              a.ajax-action.b-tooltipped.unprocessed[
                 href=accept_moderations_version_url(version)
                 title=t('.accept_changes')
                 data-direction="top"
                 data-method="POST"
                 data-remote='true'
-                data-type='html'
+                data-type='json'
               ] = t '.accept'
 
             - if version.can_reject?
-              a.b-tooltipped.unprocessed.user_change-deny[
+              a.ajax-action.reject.b-tooltipped.unprocessed[
                 title=t('.reject_changes')
                 data-direction="top"
                 data-href=reject_moderations_version_url(version)
                 data-method="POST"
                 data-reason-prompt=t('.reject_reason')
                 data-remote='true'
-                data-type='html'
+                data-type='json'
               ] = t '.reject'
 
             - if version.can_accept_taken?
-                a.b-tooltipped.unprocessed[
+                a.ajax-action.b-tooltipped.unprocessed[
                   href=accept_taken_moderations_version_url(version)
                   data-direction="top"
                   data-method="POST"
                   data-remote='true'
-                  data-type='html'
+                  data-type='json'
                 ] = t '.taken_to_accepted'
 
             - if version.can_take_accepted?
-                a.b-tooltipped.unprocessed[
+                a.ajax-action.b-tooltipped.unprocessed[
                   href=take_accepted_moderations_version_url(version)
                   data-direction="top"
                   data-method="POST"
                   data-remote='true'
-                  data-type='html'
+                  data-type='json'
                 ] = t '.accepted_to_taken'
 
           - if can?(:destroy, version) && version.can_to_deleted?
-            a.b-tooltipped.unprocessed[
+            a.delete.b-tooltipped.unprocessed[
               href=moderations_version_url(version)
               title=t('.delete_changes')
               data-confirm="#{t '.delete_changes'}?"
               data-direction="top"
               data-method="DELETE"
               data-remote='true'
-              data-type='html'
+              data-type='json'
             ] = t '.delete'
 
       .clearfix

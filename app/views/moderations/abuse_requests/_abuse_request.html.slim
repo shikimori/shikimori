@@ -67,22 +67,24 @@
                 data-type='html'
                 data-remote='true'
               ] = t '.ban'
-            a.deny[
+            a.ajax-action[
               href=deny_moderations_abuse_request_path(abuse_request)
               data-method='post'
               data-remote='true'
+              data-type='json'
             ] = t '.reject'
             .ban-form
           - else
-            a.take[
+            a.ajax-action[
               href=take_moderations_abuse_request_path(abuse_request)
               method='post'
               data-remote='true'
             ] = t '.accept'
-            a.deny[
+            a.ajax-action[
               href=deny_moderations_abuse_request_path(abuse_request)
               method='post'
               data-remote='true'
+              data-type='json'
             ] = t '.reject'
         .ban-form
   - else
