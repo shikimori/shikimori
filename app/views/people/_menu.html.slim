@@ -1,12 +1,13 @@
-- if !@itemtype
+- if @itemtype
+  = render 'spnsrs/ad', ad: Ad.new(:yd_rtb_x240)
+  / = render 'spnsrs/ad', ad: Ad.new(:vgtrk_x300)
+- else
   .b-menu_logo
     center: a href=resource.url title=localized_name(resource)
       img[
         src=cdn_image(resource, :original)
         alt=localized_name(resource)
       ]
-- else
-  = render 'spnsrs/ad', ad: Ad.new(:vgtrk_x300)
 
 = cache resource do
   = render 'blocks/favoured',
@@ -25,5 +26,5 @@
           .b-menu-line
             a.b-link href=collection_url(collection) = collection.name
 
-
-/ = render 'spnsrs/ad', ad: Ad.new(:yd_rtb_x240)
+- unless @itemtype
+  = render 'spnsrs/ad', ad: Ad.new(:yd_rtb_x240)
