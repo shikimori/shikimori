@@ -228,7 +228,7 @@
   :border_color:
   - "#e52b50"
   :title_ru: Добро пожаловать!
-  :text_ru: Легкой поступью ты вошёл в этот мир.
+  :text_ru: Легкой поступью вы вошли в этот мир.
   :title_en: 
   :text_en: 
   :topic_id: 227416
@@ -241,7 +241,7 @@
   :image:
   - "/assets/achievements/anime/animelist_2.png"
   :border_color:
-  - "#A5260A"
+  - "#a5260a"
   :title_ru: Это всего лишь начало
   :text_ru: Ставки начинают расти. Кто-то уже сдался, но вы... Вы ещё в строю.
   :title_en: 
@@ -340,7 +340,7 @@
   :image:
   - "/assets/achievements/anime/animelist_9.jpg"
   :border_color:
-  - "#AB274F"
+  - "#ab274f"
   :title_ru: Сатанинский предел?
   :text_ru: Стремишься стать частью той силы, что вечно хочет зла и вечно совершает
     благо? Что ж, только внимательно читай те условия контракта, что мелким шрифтом.
@@ -356,7 +356,7 @@
   :image:
   - "/assets/achievements/anime/animelist_10.jpg"
   :border_color:
-  - "#434B4D"
+  - "#434b4d"
   :title_ru: Это даже не финальная форма
   :text_ru: Ваш единственный путь — вверх. Пора учиться доброй снисходительности.
   :title_en: 
@@ -371,7 +371,7 @@
   :image:
   - "/assets/achievements/anime/animelist_11.jpg"
   :border_color:
-  - "#002F55"
+  - "#002f55"
   :title_ru: Бесконечное путешествие
   :text_ru: У каждого человека свои звезды. Одним - тем, кто странствует, - они указывают
     путь. Для других это просто маленькие огоньки. Дорога вперед бесконечна. Хотите
@@ -388,7 +388,7 @@
   :image:
   - "/assets/achievements/anime/animelist_12.jpg"
   :border_color:
-  - "#A2A2D0"
+  - "#a2a2d0"
   :title_ru: Точка невозврата
   :text_ru: Вы достигли четырёхзначного числа. Довольны?
   :title_en: 
@@ -416,7 +416,7 @@
   :image:
   - "/assets/achievements/anime/animelist_14.jpg"
   :border_color:
-  - "#C5D0E6"
+  - "#c5d0e6"
   :title_ru: Маньяк
   :text_ru: Это так круто? Возможно вам следует обратиться к врачу.
   :title_en: 
@@ -444,7 +444,7 @@
   :image:
   - "/assets/achievements/anime/animelist_16.jpg"
   :border_color:
-  - "#FCE883"
+  - "#fce883"
   :title_ru: Знать
   :text_ru: Вы - вершина общества, сливки из сливок, объект зависти и восхищения.
     И пусть чернь склонится перед Вашим Величеством!
@@ -470,8 +470,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 18
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/animelist_18.jpg"
+  :border_color:
+  - "#ff4d00"
   :title_ru: Герой
   :text_ru: 
   :title_en: 
@@ -7226,7 +7228,7 @@
   :image:
   - "/assets/achievements/anime/josei_1.jpg"
   :border_color:
-  - "#F19CBB"
+  - "#f19cbb"
   :title_ru: Цветущая юность
   :text_ru: Уже не девочка, но еще не женщина. Да что со мной происходит-то?!
   :title_en: 
@@ -7241,8 +7243,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
 - :neko_id: :josei
   :level: 2
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/josei_2.jpg"
+  :border_color:
+  - "#ffe4c4"
   :title_ru: Я делаю то, что мне нравится!
   :text_ru: Мы не учимся быть артистами, художниками или писателями — мы учимся быть.
   :title_en: 
@@ -7260,7 +7264,7 @@
   :image:
   - "/assets/achievements/anime/josei_3.jpg"
   :border_color:
-  - "#89AC76"
+  - "#89ac76"
   :title_ru: Мы — это наши поступки
   :text_ru: Быть человеком — значит взять на себя какую-то ответственность, а не просто
     заполнять собой пространство.
