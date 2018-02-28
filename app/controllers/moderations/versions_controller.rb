@@ -7,6 +7,21 @@ class Moderations::VersionsController < ModerationsController
     og page_title: i18n_t('content_change', version_id: @resource.id)
   end
 
+  def create
+    if @resource.save
+      @resource.accept current_user if can? :accept, @resource
+      redirect_back(
+        fallback_location: @resource.item.decorate.url,
+        notice: i18n_t("version_#{@resource.state}")
+      )
+    else
+      redirect_back(
+        fallback_location: @resource.item.decorate.url,
+        alert: @resource.errors.full_messages.join(', ')
+      )
+    end
+  end
+
   def tooltip
     og noindex: true
   end
@@ -39,35 +54,14 @@ class Moderations::VersionsController < ModerationsController
     transition :to_deleted, 'changes_deleted'
   end
 
-  def create
-    if @resource.save
-      @resource.accept current_user if can? :accept, @resource
-      redirect_back(
-        fallback_location: @resource.item.decorate.url,
-        notice: i18n_t("version_#{@resource.state}")
-      )
-    else
-      redirect_back(
-        fallback_location: @resource.item.decorate.url,
-        alert: @resource.errors.full_messages.join(', ')
-      )
-    end
-  end
-
 private
 
   def transition action, success_message
     @resource.send action, current_user, params[:reason]
-    redirect_back(
-      fallback_location: moderations_versions_url(type: 'content'),
-      notice: i18n_t(success_message)
-    )
+    render json: {}
 
   rescue StateMachine::InvalidTransition
-    redirect_back(
-      fallback_location: moderations_versions_url(type: 'content'),
-      alert: i18n_t('changes_failed')
-    )
+    render json: {}
   end
 
   def create_params

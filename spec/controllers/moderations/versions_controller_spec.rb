@@ -14,103 +14,14 @@ describe Moderations::VersionsController do
   let(:anime) { create :anime }
 
   describe '#show' do
-    before { get :show, params: { id: version.id } }
-    it { expect(response).to have_http_status :success }
-  end
-
-  describe '#tooltip' do
-    before { get :tooltip, params: { id: version.id } }
-    it { expect(response).to have_http_status :success }
-  end
-
-  describe '#index' do
     describe 'html' do
-      before { get :index, params: { type: 'content' } }
+      before { get :show, params: { id: version.id } }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'json' do
-      before { get :index, params: { type: 'content', page: 2 }, format: :json }
+      before { get :show, params: { id: version.id }, format: :json }
       it { expect(response).to have_http_status :success }
-    end
-  end
-
-  describe '#accept' do
-    before { post :accept, params: { id: version.id } }
-
-    it do
-      expect(resource).to be_accepted
-      expect(response).to redirect_to back_url
-    end
-  end
-
-  describe '#take' do
-    before { post :take, params: { id: version.id } }
-
-    it do
-      expect(resource).to be_taken
-      expect(response).to redirect_to back_url
-    end
-  end
-
-  describe '#reject' do
-    before { post :reject, params: { id: version.id, reason: 'test' } }
-
-    it do
-      expect(resource).to be_rejected
-      expect(response).to redirect_to back_url
-    end
-  end
-
-  describe '#accept_taken' do
-    let(:version) { create :description_version, :taken, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
-    before { post :accept_taken, params: { id: version.id } }
-
-    it do
-      expect(resource).to be_accepted
-      expect(response).to redirect_to back_url
-    end
-  end
-
-  describe '#take_accepted' do
-    let(:version) { create :description_version, :accepted, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
-    before { post :take_accepted, params: { id: version.id } }
-
-    it do
-      expect(resource).to be_taken
-      expect(response).to redirect_to back_url
-    end
-  end
-
-  describe '#destroy' do
-    let(:make_request) { delete :destroy, params: { id: version.id } }
-
-    context 'moderator' do
-      before { make_request }
-      it do
-        expect(resource).to be_deleted
-        expect(response).to redirect_to back_url
-      end
-    end
-
-    context 'author' do
-      include_context :authenticated, :user
-      before { make_request }
-
-      it do
-        expect(resource).to be_deleted
-        expect(response).to redirect_to back_url
-      end
-    end
-
-    context 'user' do
-      include_context :authenticated, :user
-      let(:author) { create :user, :user }
-
-      it do
-        expect { make_request }.to raise_error CanCan::AccessDenied
-        expect(resource).to be_pending
-      end
     end
   end
 
@@ -158,6 +69,109 @@ describe Moderations::VersionsController do
         expect(resource).to have_attributes params
         expect(resource).to be_accepted
         expect(response).to redirect_to back_url
+      end
+    end
+  end
+
+  describe '#tooltip' do
+    before { get :tooltip, params: { id: version.id } }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#index' do
+    describe 'html' do
+      before { get :index, params: { type: 'content' } }
+      it { expect(response).to have_http_status :success }
+    end
+
+    describe 'json' do
+      before { get :index, params: { type: 'content', page: 2 }, format: :json }
+      it { expect(response).to have_http_status :success }
+    end
+  end
+
+  describe '#accept' do
+    before { post :accept, params: { id: version.id } }
+
+    it do
+      expect(resource).to be_accepted
+      expect(json).to eq({})
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#take' do
+    before { post :take, params: { id: version.id } }
+
+    it do
+      expect(resource).to be_taken
+      expect(json).to eq({})
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#reject' do
+    before { post :reject, params: { id: version.id, reason: 'test' } }
+
+    it do
+      expect(resource).to be_rejected
+      expect(json).to eq({})
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#accept_taken' do
+    let(:version) { create :description_version, :taken, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
+    before { post :accept_taken, params: { id: version.id } }
+
+    it do
+      expect(resource).to be_accepted
+      expect(json).to eq({})
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#take_accepted' do
+    let(:version) { create :description_version, :accepted, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
+    before { post :take_accepted, params: { id: version.id } }
+
+    it do
+      expect(resource).to be_taken
+      expect(json).to eq({})
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#destroy' do
+    let(:make_request) { delete :destroy, params: { id: version.id } }
+
+    context 'moderator' do
+      before { make_request }
+      it do
+        expect(resource).to be_deleted
+        expect(json).to eq({})
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'author' do
+      include_context :authenticated, :user
+      before { make_request }
+
+      it do
+        expect(resource).to be_deleted
+        expect(json).to eq({})
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'user' do
+      include_context :authenticated, :user
+      let(:author) { create :user, :user }
+
+      it do
+        expect { make_request }.to raise_error CanCan::AccessDenied
+        expect(resource).to be_pending
       end
     end
   end

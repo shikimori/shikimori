@@ -14,7 +14,7 @@ class DynamicElements.Parser
           when 'day_registered' then new DynamicElements.DayRegisteredAction(node)
           when 'week_registered' then new DynamicElements.WeekRegisteredAction(node)
           when 'html5_video' then new DynamicElements.Html5Video(node)
-          when 'abuse_request' then new DynamicElements.AbuseRequest(node)
+          when 'log_entry' then new DynamicElements.LogEntry(node)
           when 'desktop_ad' then new DynamicElements.DesktopAd(node)
 
           when 'code_highlight' then new DynamicElements.CodeHighlight(node)

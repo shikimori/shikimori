@@ -17,7 +17,14 @@ describe Moderations::AbuseRequestsController do
       let(:comment) { create :comment }
 
       describe 'response' do
-        before { post method, params: { comment_id: comment.id, reason: 'zxcv' }, format: :json }
+        before do
+          post method,
+            params: {
+              comment_id: comment.id,
+              reason: 'zxcv'
+            },
+            format: :json
+        end
 
         it { expect(response).to have_http_status :success }
         it { expect(response.content_type).to eq 'application/json' }

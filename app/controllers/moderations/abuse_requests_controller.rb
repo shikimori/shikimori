@@ -31,8 +31,6 @@ class Moderations::AbuseRequestsController < ModerationsController
         .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
         .where.not(id: User::MORR_ID)
         .sort_by { |v| v.nickname.downcase }
-
-
     end
   end
 

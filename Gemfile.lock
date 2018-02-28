@@ -614,6 +614,7 @@ GEM
       sprockets (> 2.11)
       sprockets-rails
       tilt
+    scout_apm (2.4.8)
     sexp_processor (4.10.1)
     shellany (0.0.1)
     shoulda-matchers (3.1.2)
@@ -814,6 +815,7 @@ DEPENDENCIES
   rspec-rails
   ruby-esvidi!
   sassc-rails
+  scout_apm
   shoulda-matchers
   sidekiq
   sidekiq-limit_fetch

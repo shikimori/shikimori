@@ -1,5 +1,8 @@
 = cache version.cache_key, expires_in: 2.weeks do
-  .b-log_entry.unprocessed
+  .b-log_entry.to-process[
+    data-dynamic='log_entry'
+    data-url=moderations_version_url(version)
+  ]
     span
       a href=moderations_version_url(version)
         span.id-label #
@@ -40,6 +43,8 @@
                 title=t('.accept_changes')
                 data-direction="top"
                 data-method="POST"
+                data-remote='true'
+                data-type='html'
               ] = t '.accept'
 
             - if version.can_reject?
@@ -49,6 +54,8 @@
                 data-href=reject_moderations_version_url(version)
                 data-method="POST"
                 data-reason-prompt=t('.reject_reason')
+                data-remote='true'
+                data-type='html'
               ] = t '.reject'
 
             - if version.can_accept_taken?
@@ -56,6 +63,8 @@
                   href=accept_taken_moderations_version_url(version)
                   data-direction="top"
                   data-method="POST"
+                  data-remote='true'
+                  data-type='html'
                 ] = t '.taken_to_accepted'
 
             - if version.can_take_accepted?
@@ -63,6 +72,8 @@
                   href=take_accepted_moderations_version_url(version)
                   data-direction="top"
                   data-method="POST"
+                  data-remote='true'
+                  data-type='html'
                 ] = t '.accepted_to_taken'
 
           - if can?(:destroy, version) && version.can_to_deleted?
@@ -72,6 +83,8 @@
               data-confirm="#{t '.delete_changes'}?"
               data-direction="top"
               data-method="DELETE"
+              data-remote='true'
+              data-type='html'
             ] = t '.delete'
 
       .clearfix

@@ -1,9 +1,9 @@
 using 'DynamicElements'
-class DynamicElements.AbuseRequest extends ShikiView
+class DynamicElements.LogEntry extends ShikiView
   initialize: ->
     @$moderation = @$ '.moderation'
 
-    @$('.take, .deny', @$moderation)
+    @$('.take, .deny, .version-action', @$moderation)
       .on 'ajax:before', @_shade
       .on 'ajax:success', @_reload
 
