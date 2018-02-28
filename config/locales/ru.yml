@@ -437,6 +437,11 @@ ru:
         myanimelist: MyAnimeList
         readmanga: ReadManga
         novelupdates: Novel Updates
+        mangaupdates: Baka-Updates
+        mangafox: MangaFox
+        mangachan: Mangachan
+        mangahub: Mangahub
+
     contest:
       strategy_type:
         double_elimination: Вылет после двух поражений

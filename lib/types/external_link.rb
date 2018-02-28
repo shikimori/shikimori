@@ -10,7 +10,13 @@ module Types
 
     KINDS = {
       anime: COMMON_KINDS + %i[anime_db world_art kage_project],
-      manga: COMMON_KINDS + %i[readmanga],
+      manga: COMMON_KINDS + %i[
+        readmanga
+        mangaupdates
+        mangafox
+        mangachan
+        mangahub
+      ],
       ranobe: COMMON_KINDS + %i[ruranobe novelupdates]
     }
 
