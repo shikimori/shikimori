@@ -315,6 +315,7 @@ en:
           wrong: wrong anime
           banned: banned
           copyrighted: copyrighted
+          banned_hosting: banned hosting
       version:
         states:
           pending: awaiting moderation

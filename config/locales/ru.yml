@@ -315,6 +315,7 @@ ru:
           wrong: не к этому аниме
           banned: banned
           copyrighted: copyrighted
+          banned_hosting: хостинг забанен
       version:
         states:
           pending: ожидает модерации

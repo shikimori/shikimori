@@ -79,6 +79,7 @@ class AnimeVideo < ApplicationRecord
     state :wrong
     state :banned
     state :copyrighted
+    state :banned_hosting
 
     event :broken do
       transition %i[working uploaded broken rejected] => :broken
