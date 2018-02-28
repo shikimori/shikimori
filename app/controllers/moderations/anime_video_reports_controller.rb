@@ -20,6 +20,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
   end
 
   def create
+    @resource.state ||= :pending
     @resource.save!
     head 200
   end
