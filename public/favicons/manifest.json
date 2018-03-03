@@ -1,5 +1,7 @@
 {
  "name": "Shikimori",
+ "start_url": "/?utm_source=homescreen",
+ "display": "standalone",
  "icons": [
   {
    "src": "\/favicons\/android-icon-36x36.png",
