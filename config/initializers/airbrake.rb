@@ -51,37 +51,37 @@ if defined? Airbrake
     # Alternatively, you can integrate with Rails' filter_parameters.
     # Read more: https://goo.gl/gqQ1xS
     # c.blacklist_keys = Rails.application.config.filter_parameters
+  end
 
-    IGNORED_EXCEPTIONS = %w[
-      CanCan::AccessDenied
-      ActionController::InvalidAuthenticityToken
-      ActionController::UnknownFormat
-      ActionDispatch::RemoteIp::IpSpoofAttackError
-      ActiveRecord::RecordNotFound
-      I18n::InvalidLocale
-      Unicorn::ClientShutdown
-      Unauthorized
-      Forbidden
-      AgeRestricted
-      MismatchedEntries
-      CopyrightedResource
-      Net::SMTPServerBusy
-      Net::SMTPFatalError
-      Interrupt
-      Apipie::ParamMissing
-      InvalidIdError
-      InvalidParameterError
-      EmptyContentError
-      MalParser::RecordNotFound
-      BadImageError
-      Errors::NotIdentifiedByImageMagickError
-    ]
-    Airbrake.add_filter do |notice|
-      # The library supports nested exceptions, so one notice can carry several
-      # exceptions.
-      if notice[:errors].any? { |error| IGNORED_EXCEPTIONS.include? error[:type] }
-        notice.ignore!
-      end
+  IGNORED_EXCEPTIONS = %w[
+    CanCan::AccessDenied
+    ActionController::InvalidAuthenticityToken
+    ActionController::UnknownFormat
+    ActionDispatch::RemoteIp::IpSpoofAttackError
+    ActiveRecord::RecordNotFound
+    I18n::InvalidLocale
+    Unicorn::ClientShutdown
+    Unauthorized
+    Forbidden
+    AgeRestricted
+    MismatchedEntries
+    CopyrightedResource
+    Net::SMTPServerBusy
+    Net::SMTPFatalError
+    Interrupt
+    Apipie::ParamMissing
+    InvalidIdError
+    InvalidParameterError
+    EmptyContentError
+    MalParser::RecordNotFound
+    BadImageError
+    Errors::NotIdentifiedByImageMagickError
+  ]
+  Airbrake.add_filter do |notice|
+    # The library supports nested exceptions, so one notice can carry several
+    # exceptions.
+    if notice[:errors].any? { |error| IGNORED_EXCEPTIONS.include? error[:type] }
+      notice.ignore!
     end
   end
 
