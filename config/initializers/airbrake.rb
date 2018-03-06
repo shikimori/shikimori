@@ -13,8 +13,8 @@ if defined? Airbrake
     # project_key navigate to your project's General Settings and copy the values
     # from the right sidebar.
     # https://github.com/airbrake/airbrake-ruby#project_id--project_key
-    c.project_id = 172039
-    c.project_key = '2dcaf42e1dd2ee5a8a309a4e138adc04'
+    c.project_id = 174898
+    c.project_key = '5096a04cac71f456dd1f3470e6eea0e6'
 
     # Configures the root directory of your project. Expects a String or a
     # Pathname, which represents the path to your project. Providing this option
@@ -51,44 +51,44 @@ if defined? Airbrake
     # Alternatively, you can integrate with Rails' filter_parameters.
     # Read more: https://goo.gl/gqQ1xS
     # c.blacklist_keys = Rails.application.config.filter_parameters
+
+    IGNORED_EXCEPTIONS = %w[
+      CanCan::AccessDenied
+      ActionController::InvalidAuthenticityToken
+      ActionController::UnknownFormat
+      ActionDispatch::RemoteIp::IpSpoofAttackError
+      ActiveRecord::RecordNotFound
+      I18n::InvalidLocale
+      Unicorn::ClientShutdown
+      Unauthorized
+      Forbidden
+      AgeRestricted
+      MismatchedEntries
+      CopyrightedResource
+      Net::SMTPServerBusy
+      Net::SMTPFatalError
+      Interrupt
+      Apipie::ParamMissing
+      InvalidIdError
+      InvalidParameterError
+      EmptyContentError
+      MalParser::RecordNotFound
+      BadImageError
+      Errors::NotIdentifiedByImageMagickError
+    ]
+    Airbrake.add_filter do |notice|
+      # The library supports nested exceptions, so one notice can carry several
+      # exceptions.
+      if notice[:errors].any? { |error| IGNORED_EXCEPTIONS.include? error[:type] }
+        notice.ignore!
+      end
+    end
   end
 
   # A filter that collects request body information. Enable it if you are sure you
   # don't send sensitive information to Airbrake in your body (such as passwords).
   # https://github.com/airbrake/airbrake#requestbodyfilter
   # Airbrake.add_filter(Airbrake::Rack::RequestBodyFilter.new)
-
-  IGNORED_EXCEPTIONS = %w[
-    CanCan::AccessDenied
-    ActionController::InvalidAuthenticityToken
-    ActionController::UnknownFormat
-    ActionDispatch::RemoteIp::IpSpoofAttackError
-    ActiveRecord::RecordNotFound
-    I18n::InvalidLocale
-    Unicorn::ClientShutdown
-    Unauthorized
-    Forbidden
-    AgeRestricted
-    MismatchedEntries
-    CopyrightedResource
-    Net::SMTPServerBusy
-    Net::SMTPFatalError
-    Interrupt
-    Apipie::ParamMissing
-    InvalidIdError
-    InvalidParameterError
-    EmptyContentError
-    MalParser::RecordNotFound
-    BadImageError
-    Errors::NotIdentifiedByImageMagickError
-  ]
-  Airbrake.add_filter do |notice|
-    # The library supports nested exceptions, so one notice can carry several
-    # exceptions.
-    if notice[:errors].any? { |error| IGNORED_EXCEPTIONS.include? error[:type] }
-      notice.ignore!
-    end
-  end
 
   # If you want to convert your log messages to Airbrake errors, we offer an
   # integration with the Logger class from stdlib.
