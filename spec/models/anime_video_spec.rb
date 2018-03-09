@@ -36,7 +36,7 @@ describe AnimeVideo do
         end
 
         context 'bad states' do
-          let(:states) { %w[broken wrong banned copyrighted] }
+          let(:states) { %w[broken wrong banned_hosting copyrighted] }
           it { is_expected.to be_empty }
         end
       end
@@ -132,12 +132,12 @@ describe AnimeVideo do
 
         context 'banned hosting' do
           let(:url) { 'http://v.kiwi.kz/v2/9l7tsj8n3has/' }
-          it { is_expected.to be_banned }
+          it { is_expected.to be_banned_hosting }
         end
 
         context 'not banned hosting' do
           let(:url) { attributes_for(:anime_video)[:url] }
-          it { is_expected.to_not be_banned }
+          it { is_expected.to_not be_banned_hosting }
         end
       end
 
@@ -324,7 +324,7 @@ describe AnimeVideo do
 
     context 'ban' do
       before { video.ban }
-      it { is_expected.to be_banned }
+      it { is_expected.to be_banned_hosting }
     end
 
     context 'FIX : https://github.com/morr/shikimori/issues/428' do
@@ -458,7 +458,7 @@ describe AnimeVideo do
       end
 
       context 'false' do
-        %w[broken wrong banned].each do |state|
+        %w[broken wrong banned_hosting].each do |state|
           it { expect(build(:anime_video, state: state).allowed?).to eq false }
         end
       end
@@ -543,7 +543,7 @@ describe AnimeVideo do
     let(:uploaded_video) { build :anime_video, state: 'uploaded' }
     let(:working_video) { build :anime_video, state: 'working' }
     let(:broken_video) { build :anime_video, state: 'broken' }
-    let(:banned_video) { build :anime_video, state: 'banned' }
+    let(:banned_video) { build :anime_video, state: 'banned_hosting' }
     let(:copyrighted_video) { build :anime_video, state: 'copyrighted' }
 
     describe 'guest' do
@@ -579,6 +579,11 @@ describe AnimeVideo do
       it { is_expected.to be_able_to :update, uploaded_video }
       it { is_expected.to be_able_to :edit, working_video }
       it { is_expected.to be_able_to :update, working_video }
+
+      it { is_expected.to_not be_able_to :edit, banned_video }
+      it { is_expected.to_not be_able_to :update, banned_video }
+      it { is_expected.to_not be_able_to :edit, copyrighted_video }
+      it { is_expected.to_not be_able_to :update, copyrighted_video }
     end
 
     describe 'video uploader' do

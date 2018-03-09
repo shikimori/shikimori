@@ -219,11 +219,12 @@ class Abilities::User
         )
     end
     can %i[new create], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.not_trusted_version_changer? && anime_video.uploaded?
+      !@user.banned? && anime_video.uploaded?
     end
     can %i[edit update], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.not_trusted_version_changer? &&
-        (anime_video.uploaded? || anime_video.working?)
+      !@user.banned? &&
+        !anime_video.copyrighted? &&
+        !anime_video.banned_hosting?
     end
     can :destroy, AnimeVideo do |anime_video|
       !@user.banned? && !@user.not_trusted_version_changer? &&

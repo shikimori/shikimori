@@ -1,8 +1,31 @@
 # TODO : проверить необходимость метода allowed?
 # TODO : вынести методы относящиеся ко вью в декоратор.
 class AnimeVideo < ApplicationRecord
-  # для Versions
+  # for Versions
   SIGNIFICANT_FIELDS = []
+
+  R_OVA_EPISODES = 2
+  ADULT_OVA_CONDITION = <<-SQL.squish
+    (
+      animes.rating = '#{Anime::SUB_ADULT_RATING}' and
+      (
+        (animes.kind = 'ova' and animes.episodes <= #{R_OVA_EPISODES}) or
+        animes.kind = 'Special'
+      )
+    )
+  SQL
+  PLAY_CONDITION = <<-SQL.squish
+    animes.rating != '#{Anime::ADULT_RATING}' and
+    animes.censored = false and
+    not #{ADULT_OVA_CONDITION}
+  SQL
+  XPLAY_CONDITION = <<-SQL.squish
+    animes.rating = '#{Anime::ADULT_RATING}' or
+    animes.censored = true or
+    #{ADULT_OVA_CONDITION}
+  SQL
+
+  BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru myvi.tv]
 
   belongs_to :anime
   belongs_to :author,
@@ -43,27 +66,6 @@ class AnimeVideo < ApplicationRecord
       saved_change_to_anime_id?
   }
 
-  R_OVA_EPISODES = 2
-  ADULT_OVA_CONDITION = <<-SQL.squish
-    (
-      animes.rating = '#{Anime::SUB_ADULT_RATING}' and
-      (
-        (animes.kind = 'ova' and animes.episodes <= #{R_OVA_EPISODES}) or
-        animes.kind = 'Special'
-      )
-    )
-  SQL
-  PLAY_CONDITION = <<-SQL.squish
-    animes.rating != '#{Anime::ADULT_RATING}' and
-    animes.censored = false and
-    not #{ADULT_OVA_CONDITION}
-  SQL
-  XPLAY_CONDITION = <<-SQL.squish
-    animes.rating = '#{Anime::ADULT_RATING}' or
-    animes.censored = true or
-    #{ADULT_OVA_CONDITION}
-  SQL
-
   scope :allowed_play, -> { available.joins(:anime).where(PLAY_CONDITION) }
   scope :allowed_xplay, -> { available.joins(:anime).where(XPLAY_CONDITION) }
 
@@ -77,7 +79,6 @@ class AnimeVideo < ApplicationRecord
     state :rejected
     state :broken
     state :wrong
-    state :banned
     state :copyrighted
     state :banned_hosting
 
@@ -88,25 +89,25 @@ class AnimeVideo < ApplicationRecord
       transition %i[working uploaded wrong rejected] => :wrong
     end
     event :ban do
-      transition working: :banned
+      transition working: :banned_hosting
     end
     event :reject do
-      transition %i[uploaded wrong broken banned] => :rejected
+      transition %i[uploaded wrong broken banned_hosting] => :rejected
     end
     event :work do
-      transition %i[uploaded broken wrong banned] => :working
+      transition %i[uploaded broken wrong banned_hosting] => :working
     end
     event :uploaded do
       transition %i[working uploaded] => :working
     end
 
     after_transition(
-      %i[working uploaded] => %i[broken wrong banned],
+      %i[working uploaded] => %i[broken wrong banned_hosting],
       unless: :any_videos?,
       do: :rollback_episode_notification
     )
     after_transition(
-      %i[working uploaded] => %i[broken wrong banned],
+      %i[working uploaded] => %i[broken wrong banned_hosting],
       do: :process_reports
     )
   end
@@ -181,9 +182,7 @@ private
   end
 
   def check_banned_hostings
-    if hosting == 'kiwi.kz' || hosting == 'dailymotion.com'
-      self.state = 'banned'
-    end
+    self.state = 'banned_hosting' if BANNED_HOSTINGS.include? hosting
   end
 
   def check_copyrighted_animes
