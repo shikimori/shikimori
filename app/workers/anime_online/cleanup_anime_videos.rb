@@ -3,7 +3,7 @@ class AnimeOnline::CleanupAnimeVideos
 
   def perform
     AnimeVideo
-      .where(state: %i[rejected broken wrong banned copyrighted])
+      .where(state: %i[rejected broken wrong banned_hosting copyrighted])
       .where('updated_at < ?', CLEANUP_INTERVAL.ago)
       .find_each(&:destroy)
   end

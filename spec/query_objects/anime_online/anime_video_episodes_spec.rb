@@ -12,13 +12,13 @@ describe AnimeOnline::AnimeVideoEpisodes do
     let!(:anime_video_2) do
       create :anime_video, :fandub,
         episode: 1,
-        url: 'http://myvi.ru/player/embed/html/o2uWMvJRKqAyXG2EJUGGwUUKZwjleODmTYy0zGlks1-J5IO6Aexc_mKSgpudtZ7Zn0',
+        url: 'https://www.youtube.com/watch?v=69ValEBy1YY',
         anime: anime
     end
     let!(:anime_video_3) do
       create :anime_video, :fandub,
         episode: 2,
-        url: 'http://myvi.ru/player/embed/html/preloader.swf?id=ooS23CgoxYNdHcm9FqwDb664Lbqhd1v7gyl7jDKc3O1xQ3-g0VOYjzoru3F35w6Ia0',
+        url: 'https://www.youtube.com/watch?v=PSILIiORs6Q',
         anime: anime
     end
 
@@ -29,13 +29,13 @@ describe AnimeOnline::AnimeVideoEpisodes do
       expect(anime_video_episodes.first).to be_kind_of AnimeOnline::AnimeVideoEpisode
       expect(anime_video_episodes.first).to have_attributes(
         episode: 1,
-        kinds: %i(fandub subtitles),
-        hostings: %i(vk myvi)
+        kinds: %i[fandub subtitles],
+        hostings: %i[vk youtube]
       )
       expect(anime_video_episodes.last).to have_attributes(
         episode: 2,
-        kinds: %i(fandub),
-        hostings: %i(myvi)
+        kinds: %i[fandub],
+        hostings: %i[youtube]
       )
     end
   end

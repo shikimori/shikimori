@@ -9,7 +9,7 @@ describe AnimeOnline::CleanupAnimeVideos do
   let!(:rejected_video) { create :anime_video, :rejected, updated_at: old }
   let!(:broken_video) { create :anime_video, :broken, updated_at: old }
   let!(:wrong_video) { create :anime_video, :wrong, updated_at: old }
-  let!(:banned_video) { create :anime_video, :banned, updated_at: old }
+  let!(:banned_video) { create :anime_video, :banned_hosting, updated_at: old }
   let!(:copyrighted_video) { create :anime_video, :copyrighted, updated_at: old }
 
   let!(:broken_video_new) { create :anime_video, :broken, updated_at: new }
