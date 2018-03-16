@@ -5153,7 +5153,7 @@
   - "#da4968"
   :title_ru: DO THE IMPOSSIBLE, SEE THE INVISIBLE!
   :text_ru: |-
-    Мы снесем любую стену вставшую на пути! Если нет пути ,мы его проложим!
+    Мы снесем любую стену, вставшую на пути! Если нет пути, мы его проложим!
     Магма течет в наших венах, раскаляя сердца!
   :title_en: 
   :text_en: 
@@ -6010,8 +6010,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
 - :neko_id: :comedy
   :level: 2
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/comedy_2.jpg"
+  :border_color:
+  - "#CD9575"
   :title_ru: Комедиант
   :text_ru: Теперь вам известны основы комедии.
   :title_en: 
