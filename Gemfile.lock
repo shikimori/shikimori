@@ -71,7 +71,7 @@ GIT
 
 GIT
   remote: https://github.com/ryanto/acts_as_votable.git
-  revision: b4714198ea263154365e4d5c9e34631c43545ecc
+  revision: 62ce4e9f12995e1a5d5dd932788bc54c4e614d58
   branch: master
   specs:
     acts_as_votable (0.11.1)
