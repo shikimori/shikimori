@@ -26,6 +26,7 @@ class AnimeVideo < ApplicationRecord
   SQL
 
   BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru myvi.tv]
+  COPYRIGHTED_AUTHORS = /wakanim|crunchyroll|crunchy|FreakCrSuBuS/i
 
   belongs_to :anime
   belongs_to :author,
@@ -176,7 +177,7 @@ class AnimeVideo < ApplicationRecord
 private
 
   def check_copyrighted_authors
-    return unless author_name&.match? /wakanim|crunchyroll/i
+    return unless author_name&.match? COPYRIGHTED_AUTHORS
     errors.add :base, 'Видео этого автора не могут быть загружены на сайт'
     throw :abort
   end
