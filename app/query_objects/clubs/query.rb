@@ -1,5 +1,5 @@
 class Clubs::Query < QueryObjectBase
-  FAVOURED_IDS = [72, 19, 202, 113, 315, 903]
+  FAVOURED_IDS = [72, 19, 202, 1052, 315, 903]
   SEARCH_LIMIT = 999
 
   def self.fetch locale
