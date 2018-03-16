@@ -27,8 +27,8 @@ feature 'Authentication', type: :request do
           expect(current_path).to eq oauth_authorization_path
           find('form.authorize').submit
           expect(user.access_grants).to have(1).item
-          expect(current_path).to eq '/oauth/authorize/' +
-            user.access_grants.first.token
+          expect(current_path).to eq native_oauth_authorization_path
+          expect(page.body).to include user.access_grants.first.token
         end
       end
     end
