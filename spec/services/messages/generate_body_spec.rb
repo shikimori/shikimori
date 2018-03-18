@@ -69,6 +69,12 @@ describe Messages::GenerateBody do
       let(:linked) { build :news_topic, body: '[b]test[/b]' }
       let(:kind) { MessageType::SiteNews }
       it { is_expected.to eq '<strong>test</strong>' }
+
+      context 'w/o topic' do
+        let(:linked) { nil }
+        let(:body) { 'test' }
+        it { is_expected.to eq body }
+      end
     end
 
     context 'profile_commented' do

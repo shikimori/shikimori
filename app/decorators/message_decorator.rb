@@ -28,7 +28,7 @@ class MessageDecorator < BaseDecorator
       h.contest_url linked
     elsif club_broadcast?
       h.club_url(linked.commentable.linked) + "#comment-#{linked.id}"
-    elsif MessagesQuery::NEWS_KINDS.include?(kind)
+    elsif MessagesQuery::NEWS_KINDS.include?(kind) && linked
       UrlGenerator.instance.topic_url(linked)
     else
       h.profile_url from
@@ -46,6 +46,7 @@ class MessageDecorator < BaseDecorator
   end
 
   def for_generated_news_topic?
+    return false if linked_type.blank?
     return false unless linked.is_a?(Topic)
     Topic::TypePolicy.new(linked).generated_news_topic?
   end
