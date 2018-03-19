@@ -14,5 +14,5 @@ production:
 
 test:
   <<: *defaults
-  database: shikimori_test
-  username: shikimori_test
+  database: circle_test
+  username: root
