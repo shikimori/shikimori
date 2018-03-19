@@ -41,7 +41,6 @@ module Clockwork
 
   every 1.day, 'daily.stuff', at: '00:02' do
     ImportAnimeCalendars.perform_async
-    Contests::Progress.perform_async
   end
 
   every 1.day, 'daily.stuff', at: '00:30' do
@@ -73,6 +72,10 @@ module Clockwork
 
   every 1.day, 'daily.torrents-check', at: '03:00' do
     ImportToshokanTorrents.perform_async false
+  end
+
+  every 1.day, 'daily.contests', at: '03:38' do
+    Contests::Progress.perform_async
   end
 
   # every 1.day, 'daily.mangas', at: '04:00' do
