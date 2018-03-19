@@ -11,6 +11,7 @@ jobs:
         environment:
           RAILS_ENV: test
           PGHOST: 127.0.0.1
+          PGUSER: shikimori_test
           DATABASE_URL: postgres://shikimori_test@127.0.0.1/shikimori_test
 
       # Specify service dependencies here if necessary
