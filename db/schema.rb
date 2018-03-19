@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180319190551) do
+ActiveRecord::Schema.define(version: 20180319210930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -958,22 +958,6 @@ ActiveRecord::Schema.define(version: 20180319190551) do
     t.index ["type", "updated_at"], name: "index_topics_on_type_and_updated_at"
     t.index ["type", "user_id"], name: "i_entries_type_user_id"
     t.index ["updated_at"], name: "index_topics_on_updated_at"
-  end
-
-  create_table "user_changes", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "item_id"
-    t.string "model", limit: 255
-    t.string "column", limit: 255
-    t.text "value"
-    t.text "prior"
-    t.string "status", limit: 255, default: "Pending"
-    t.integer "approver_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "source", limit: 255
-    t.string "action", limit: 255
-    t.string "reason"
   end
 
   create_table "user_histories", id: :serial, force: :cascade do |t|
