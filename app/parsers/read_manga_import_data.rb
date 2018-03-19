@@ -199,7 +199,6 @@ module ReadMangaImportData
       rakuen__fujiwara_kaoru: 495,
       you_and_me__etc: 9643,
       reversal_of_love_talk: 14055,
-      masked_teacher: 6853,
       basilisk__the_koga_ninja_scrolls: 221,
       i_can_t_stand_only_the_kiss: 2678,
       adultness: 4324,
