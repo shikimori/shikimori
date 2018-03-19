@@ -88,6 +88,12 @@
             a.b-js-action href=@resource.edit_field_url(:rating)
               = t 'actions.edit'
 
+          li
+            .field = @resource.class.human_attribute_name(:duration)
+            .value = humanize_minutes @resource.duration
+            a.b-js-action href=@resource.edit_field_url(:duration)
+              = t 'actions.edit'
+
     .c-column.m0
       ul.b-list
         li
