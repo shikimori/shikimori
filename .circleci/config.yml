@@ -11,6 +11,8 @@ jobs:
         environment:
           RAILS_ENV: test
           PGHOST: 127.0.0.1
+          PGUSER: root
+          PGDATABASE: circle_test
           DATABASE_URL: postgres://root@127.0.0.1/circle_test
 
       # Specify service dependencies here if necessary

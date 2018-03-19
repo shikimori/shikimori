@@ -14,5 +14,6 @@ production:
 
 test:
   <<: *defaults
-  database: circle_test
-  username: root
+  host: <%= ENV['PGHOST'] || 'localhost' %>
+  database: <%= ENV['PGDATABASE'] || 'shikimori_test' %>
+  username: <%= ENV['PGUSER'] || 'shikimori_test' %>

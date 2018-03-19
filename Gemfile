@@ -205,6 +205,8 @@ group :test do
   gem 'rspec-its'
   gem 'rspec-mocks'
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
+
   gem 'shoulda-matchers'
   gem 'state_machine_rspec'
   gem 'timecop'
