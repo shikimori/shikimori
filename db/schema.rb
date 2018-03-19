@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180222134012) do
+ActiveRecord::Schema.define(version: 20180319190551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20180222134012) do
     t.datetime "updated_at", null: false
     t.string "message", limit: 1000
     t.index ["anime_video_id", "kind", "state"], name: "index_anime_video_reports_on_anime_video_id_and_kind_and_state"
+    t.index ["kind"], name: "index_anime_video_reports_on_kind"
     t.index ["state", "updated_at"], name: "index_anime_video_reports_on_state_and_updated_at"
     t.index ["user_id", "state"], name: "index_anime_video_reports_on_user_id_and_state"
   end
@@ -1065,6 +1066,7 @@ ActiveRecord::Schema.define(version: 20180222134012) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "nickname", limit: 255
+    t.index ["uid"], name: "index_user_tokens_on_uid"
     t.index ["user_id"], name: "index_user_tokens_on_user_id"
   end
 
