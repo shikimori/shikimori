@@ -32,9 +32,14 @@ shikimori_production=# CREATE EXTENSION hstore;
 shikimori_production=# CREATE EXTENSION pg_stat_statements;
 ```
 
-### Restore from backup
+### Restore from a backup
 ```shell
-~ psql -U shikimori_production -d shikimori_production -f SQL_DUMP.sql
+~ psql -U shikimori_production -d shikimori_production -f db/dump.sql
+```
+
+### Make a backup
+```shell
+~ pg_dump -c shikimori_production > db/dump.sql
 ```
 
 ## Start Service
