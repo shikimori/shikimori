@@ -1,6 +1,6 @@
 set :application, 'shikimori'
 set :repo_name, 'shikimori'
-set :repo_url, "git@github.com:morr/#{fetch :repo_name}.git"
+set :repo_url, "git@github.com:shikimori/#{fetch :repo_name}.git"
 set :rails_env, fetch(:stage)
 
 set :user, 'devops'
