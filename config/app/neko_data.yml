@@ -282,8 +282,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 5
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/animelist_5.jpg"
+  :border_color:
+  - "#D5D5D5"
   :title_ru: Беззаботный зритель
   :text_ru: Ничего серьёзного. Вы лишь успели привыкнуть к тому, что глаза у персонажей
     больше, чем нос. Если у них вообще есть нос.
@@ -485,8 +487,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 19
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/animelist_19.jpg"
+  :border_color:
+  - "#003153"
   :title_ru: Легенда
   :text_ru: Вы один из избранных. Вам уже даже не нужно хвастаться, потому что все
     и так слышали о вас.
@@ -6071,8 +6075,8 @@
   :border_color:
   - "#923a6c"
   :title_ru: Давным-давно, в далекой-далекой галактике...
-  :text_ru: Как только ты сделаешь первый шаг по Тёмному Пути, ты уже не сможешь с
-    него свернуть.
+  :text_ru: Как только первый шаг сделаете вы по Тёмному Пути, то свернуть уже не
+    сможете с него.
   :title_en: 
   :text_en: 
   :topic_id: 222059
