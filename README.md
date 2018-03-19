@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/morr/shikimori.svg?style=svg&circle-token=5bd1a64ae9642ddb8d27a9585881756804ce9163)](https://circleci.com/gh/morr/shikimori)
+[![CircleCI](https://circleci.com/gh/shikimori/shikimori.svg?style=svg&circle-token=5bd1a64ae9642ddb8d27a9585881756804ce9163)](https://circleci.com/gh/shikimori/shikimori)
 
 ## Contributing
 Feel free to open tickets or send pull requests with improvements. Thanks in advance for your help!
