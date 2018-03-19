@@ -2,6 +2,7 @@
 
 ## Contributing
 Feel free to open tickets or send pull requests with improvements. Thanks in advance for your help!
+
 Please follow the [contribution guidelines](https://github.com/shikimori/shikimori/blob/master/CONTRIBUTING.md).
 
 ## PostgreSQL
