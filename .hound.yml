@@ -1,0 +1,13 @@
+scss:
+  enabled: false
+
+ruby:
+  config_file: .rubocop.yml
+
+jshint:
+  ignore_file: .jshintignore
+  enabled: false
+
+coffeescript:
+  config_file: coffeelint.json
+  enabled: false
