@@ -113,6 +113,7 @@ class Studio < ApplicationRecord
     'Gathering',
     'Kamikaze Douga',
     'Studio Puyukai',
+    'Tokyo Movie Shinsha',
 
     # from wikipedia
     'a-1 pictures inc.',
