@@ -106,8 +106,10 @@ ru:
           <<: *manga_long
       ranobe:
         long:
+          <<: *manga_long
           novel: Ранобэ
         short:
+          <<: *manga_long
           novel: Ранобэ
     of_genres: '%{genres} %{list}'
 
