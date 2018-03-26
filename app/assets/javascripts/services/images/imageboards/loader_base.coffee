@@ -40,23 +40,25 @@ module.exports = class LoaderBase
 
   _build_images: (xhr_images) ->
     xhr_images = [xhr_images] if Object.isObject(xhr_images)
-    xhr_images.map (image) =>
-      extension = '.' + image.file_url.replace(/.*\./, '')
-      filename = [
-        @tags,
-        "#{image.width}x#{image.height}",
-        image.author,
-        image.id
-      ].join('_').replace(/^_/, '').replace(/ /g, '__').replace(/$/, extension)
-      image_url = @_image_url image.file_url, filename
-      preview_url = @_preview_url image.preview_url, filename
+    xhr_images
+      .exclude (image) => !image.file_url || !image.preview_url
+      .map (image) =>
+        extension = '.' + image.file_url.replace(/.*\./, '')
+        filename = [
+          @tags,
+          "#{image.width}x#{image.height}",
+          image.author,
+          image.id
+        ].join('_').replace(/^_/, '').replace(/ /g, '__').replace(/$/, extension)
+        image_url = @_image_url image.file_url, filename
+        preview_url = @_preview_url image.preview_url, filename
 
-      id: image.id
-      md5: image.md5
-      tags: image.tags
-      rating: image.rating
-      original_url: image_url
-      preview_url: preview_url
+        id: image.id
+        md5: image.md5
+        tags: image.tags
+        rating: image.rating
+        original_url: image_url
+        preview_url: preview_url
 
   _censor: (images) ->
     return images unless @forbidden_tags
