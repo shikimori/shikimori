@@ -25,7 +25,7 @@
             span = "#{achievement.rule[:threshold]} (#{(achievements.first.animes_count / 100.0 * achievement.rule[:threshold].to_i).round})"
         - else
           - achievements.each do |achievement|
-            span = "#{(achievement.rule[:threshold] / achievements.first.animes_count * 100.0).round(2)}% (#{achievement.rule[:threshold]})"
+            span = "#{(achievement.rule[:threshold] * 100.0 / achievements.first.animes_count).round(2)}% (#{achievement.rule[:threshold]})"
       - else
         - achievements.each do |achievement|
           span = achievement.rule[:threshold]
