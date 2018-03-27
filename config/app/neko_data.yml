@@ -5852,7 +5852,7 @@
   :text_ru: Аниме — это один из маленьких шансов вернуться в детство.
   :title_en: 
   :text_en: 
-  :topic_id: 222035
+  :topic_id: 245150
   :rule:
     :algo: simple
     :threshold: 40
@@ -6609,6 +6609,70 @@
       genre_ids:
       - 42
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
+- :neko_id: :shortie
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: Миг, и вы ее потеряли
+  :text_ru: Все закончилось не успев начаться, остались лишь приятные воспоминания.
+  :title_en: 
+  :text_en: 
+  :topic_id: 245151
+  :rule:
+    :algo: simple
+    :threshold: 20
+    :filters:
+      duration_lte: 14
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
+- :neko_id: :shortie
+  :level: 2
+  :image: []
+  :border_color: []
+  :title_ru: Зависимость
+  :text_ru: Сколько раз вы уже говорили «еще один» за последних девять часов?
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      duration_lte: 14
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
+- :neko_id: :shortie
+  :level: 3
+  :image:
+  - "/assets/achievements/anime/shortie_3.jpg"
+  :border_color:
+  - "#425e17"
+  :title_ru: Блок за блоком
+  :text_ru: Как и с тетрисом, строится что-то великолепное из маленьких кусочков.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 60
+    :filters:
+      duration_lte: 14
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
+- :neko_id: :shortie
+  :level: 4
+  :image:
+  - "/assets/achievements/anime/shortie_4.gif"
+  :border_color:
+  - "#474a51"
+  :title_ru: Короткий, но золотой
+  :text_ru: Вы узнали, что некоторые из лучших аниме выходят в коротком формате.
+  :title_en: 
+  :text_en: 
+  :topic_id: 
+  :rule:
+    :algo: simple
+    :threshold: 80
+    :filters:
+      duration_lte: 14
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
 - :neko_id: :fujoshi
   :level: 1
   :image:

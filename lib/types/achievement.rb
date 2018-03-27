@@ -26,6 +26,7 @@ module Types
       horror_thriller
       josei
       longshounen
+      shortie
       mecha
       military
       music
