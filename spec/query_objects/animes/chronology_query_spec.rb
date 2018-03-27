@@ -1,5 +1,5 @@
-describe ChronologyQuery do
-  let(:query) { ChronologyQuery }
+describe Animes::ChronologyQuery do
+  let(:query) { Animes::ChronologyQuery }
   after { BannedRelations.instance.clear_cache! }
 
   let(:anime_1) { create :anime, id: 1, aired_on: 1.years.ago }
@@ -29,9 +29,9 @@ describe ChronologyQuery do
       end
 
       it do
-        expect(query.new(anime_1).fetch.map(&:id)).to eq [anime_1.id]
-        expect(query.new(anime_2).fetch.map(&:id)).to eq [anime_2.id, anime_3.id]
-        expect(query.new(anime_3).fetch.map(&:id)).to eq [anime_2.id, anime_3.id]
+        expect(query.new(anime_1).fetch).to eq [anime_1]
+        expect(query.new(anime_2).fetch).to eq [anime_2, anime_3]
+        expect(query.new(anime_3).fetch).to eq [anime_2, anime_3]
       end
     end
 
@@ -42,9 +42,9 @@ describe ChronologyQuery do
       end
 
       it do
-        expect(query.new(anime_1).fetch.map(&:id)).to eq [anime_1.id, anime_2.id]
-        expect(query.new(anime_2).fetch.map(&:id)).to eq [anime_1.id, anime_2.id, anime_3.id]
-        expect(query.new(anime_3).fetch.map(&:id)).to eq [anime_2.id, anime_3.id]
+        expect(query.new(anime_1).fetch).to eq [anime_1, anime_2]
+        expect(query.new(anime_2).fetch).to eq [anime_1, anime_2, anime_3]
+        expect(query.new(anime_3).fetch).to eq [anime_2, anime_3]
       end
     end
   end

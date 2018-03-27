@@ -91,7 +91,7 @@ class AniMangaDecorator < DbEntryDecorator
 
   # полная хронология аниме
   def chronology
-    ChronologyQuery.new(object).fetch.map(&:decorate)
+    Animes::ChronologyQuery.new(object).fetch.map(&:decorate)
   end
 
   # показывать ли ссылки, если аниме или манга для взрослых?

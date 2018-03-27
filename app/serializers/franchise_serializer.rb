@@ -37,7 +37,7 @@ class FranchiseSerializer < ActiveModel::Serializer
 private
 
   def query
-    @query ||= ChronologyQuery.new object.decorated? ? object.object : object
+    @query ||= Animes::ChronologyQuery.new object.decorated? ? object.object : object
   end
 
   def all_entries

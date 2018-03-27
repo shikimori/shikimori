@@ -1,4 +1,4 @@
-class ChronologyQuery
+class Animes::ChronologyQuery
   pattr_initialize :entry
 
   IGNORED_IN_RELATIONS = {
