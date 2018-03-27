@@ -2930,38 +2930,7 @@
     :algo: simple
     :threshold: 10
     :filters:
-      anime_ids:
-      - 10033
-      - 11061
-      - 1254
-      - 12929
-      - 1425
-      - 15
-      - 1604
-      - 1735
-      - 20
-      - 2076
-      - 21
-      - 21639
-      - 22
-      - 22043
-      - 2222
-      - 223
-      - 235
-      - 249
-      - 250
-      - 269
-      - 2747
-      - 392
-      - 3972
-      - 481
-      - 482
-      - 516
-      - 6702
-      - 813
-      - 918
-      - 966
-      - 967
+      episodes_gte: 100
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
 - :neko_id: :longshounen
   :level: 2
@@ -2976,38 +2945,7 @@
     :algo: simple
     :threshold: 25
     :filters:
-      anime_ids:
-      - 10033
-      - 11061
-      - 1254
-      - 12929
-      - 1425
-      - 15
-      - 1604
-      - 1735
-      - 20
-      - 2076
-      - 21
-      - 21639
-      - 22
-      - 22043
-      - 2222
-      - 223
-      - 235
-      - 249
-      - 250
-      - 269
-      - 2747
-      - 392
-      - 3972
-      - 481
-      - 482
-      - 516
-      - 6702
-      - 813
-      - 918
-      - 966
-      - 967
+      episodes_gte: 100
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
 - :neko_id: :oldfag
   :level: 1
