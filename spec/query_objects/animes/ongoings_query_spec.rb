@@ -1,5 +1,5 @@
-describe OngoingsQuery do
-  let(:query) { OngoingsQuery.new is_adult }
+describe Animes::OngoingsQuery do
+  let(:query) { Animes::OngoingsQuery.new is_adult }
   let(:is_adult) { false }
   let(:limit) { 2 }
 

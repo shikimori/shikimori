@@ -139,7 +139,7 @@ private
   end
 
   def new_ongoings
-    OngoingsQuery.new(false)
+    Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
@@ -148,7 +148,7 @@ private
   end
 
   def old_ongoings
-    OngoingsQuery.new(false)
+    Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
       .where.not("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")

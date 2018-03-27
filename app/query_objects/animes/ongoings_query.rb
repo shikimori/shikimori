@@ -1,4 +1,4 @@
-class OngoingsQuery
+class Animes::OngoingsQuery
   pattr_initialize :is_adult
 
   def fetch limit

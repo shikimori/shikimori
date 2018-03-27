@@ -14,7 +14,7 @@ class AnimeOnline::DashboardController < ShikimoriController
     end
 
     unless json?
-      @ongoings = OngoingsQuery.new(is_adult).fetch(15).decorate
+      @ongoings = Animes::OngoingsQuery.new(is_adult).fetch(15).decorate
 
       @contributors = Rails.cache.fetch [:video_contributors, is_adult], expires_in: 2.days do
         AnimeOnline::Contributors.top(20, is_adult).map(&:decorate)
