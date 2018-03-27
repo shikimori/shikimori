@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Anime::TrackEpisodesChanges do
+describe Animes::TrackEpisodesChanges do
   let!(:news_topics) {}
 
   before { anime.assign_attributes episodes_aired: new_episodes_aired }

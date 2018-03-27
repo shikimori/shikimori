@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-describe Anime::GenerateNews do
-  let(:service) { Anime::GenerateNews.new anime, old_status, new_status }
+describe Animes::GenerateNews do
+  let(:service) { Animes::GenerateNews.new anime, old_status, new_status }
   let(:anime) { create :anime, status: new_status }
 
   context 'status not changed' do

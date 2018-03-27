@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Anime::TrackStatusChanges do
+describe Animes::TrackStatusChanges do
   let!(:news_topic) {}
   before { anime.assign_attributes status: new_status }
   subject! { described_class.call anime }

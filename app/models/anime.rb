@@ -287,11 +287,11 @@ class Anime < DbEntry
 private
 
   def track_changes
-    Anime::TrackStatusChanges.call self
-    Anime::TrackEpisodesChanges.call self
+    Animes::TrackStatusChanges.call self
+    Animes::TrackEpisodesChanges.call self
   end
 
   def generate_news
-    Anime::GenerateNews.call self, *saved_changes[:status]
+    Animes::GenerateNews.call self, *saved_changes[:status]
   end
 end

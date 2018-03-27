@@ -112,6 +112,7 @@ module Clockwork
 
   every 1.week, 'weekly.stuff.3', at: 'Monday 02:45' do
     Animes::UpdateCachedRatesCounts.perform_async
+    Animes::UpdateFranchises.perform_async
 
     AnimesVerifier.perform_async
     MangasVerifier.perform_async
