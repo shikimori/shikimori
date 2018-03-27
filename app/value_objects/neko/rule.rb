@@ -80,7 +80,7 @@ class Neko::Rule < Dry::Struct
     [Types::Achievement::NEKO_IDS.index(neko_id), level]
   end
 
-  # rubocop:disable AbcSize
+  # rubocop:disable AbcSize, MethodLength
   def animes_count
     @animes_count ||= begin
       return if rule[:filters].blank?
@@ -93,10 +93,20 @@ class Neko::Rule < Dry::Struct
         scope.where! "genre_ids && '{#{grenre_ids}}' and kind != 'Special'"
       end
 
+      if rule[:filters]['episodes_gte']
+        episodes_gte = rule[:filters]['episodes_gte'].to_i
+        scope.where! 'episodes >= ?', episodes_gte
+      end
+
+      if rule[:filters]['duration_lte']
+        duration_lte = rule[:filters]['duration_lte'].to_i
+        scope.where! 'duration <= ?', duration_lte
+      end
+
       scope.size
     end
   end
-  # rubocop:enable AbcSize
+  # rubocop:enable AbcSize, MethodLength
 
 private
 
