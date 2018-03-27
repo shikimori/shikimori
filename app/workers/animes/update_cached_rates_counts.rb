@@ -1,4 +1,4 @@
-class DbEntries::UpdateCachedRatesCounts
+class Animes::UpdateCachedRatesCounts
   include Sidekiq::Worker
 
   def perform

@@ -41,7 +41,7 @@ class DbEntry < ApplicationRecord
 
   def touch_related
     return unless changes[:name] || changes[:russian]
-    DbEntries::TouchRelated.perform_async id
+    Animes::TouchRelated.perform_async id
   end
 
   def mal_url

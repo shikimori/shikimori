@@ -1,5 +1,5 @@
 # touches all related db_entires in order to invalidate their caches
-class DbEntries::TouchRelated
+class Animes::TouchRelated
   include Sidekiq::Worker
   sidekiq_options unique: :until_executed, queue: :low_priority
 

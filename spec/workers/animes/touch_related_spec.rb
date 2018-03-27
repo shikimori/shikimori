@@ -1,7 +1,7 @@
-describe DbEntries::TouchRelated do
+describe Animes::TouchRelated do
   include_context :timecop
 
-  let(:worker) { DbEntries::TouchRelated.new }
+  let(:worker) { Animes::TouchRelated.new }
 
   describe '#perform' do
     let!(:anime) { create :anime }

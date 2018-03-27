@@ -1,4 +1,4 @@
-describe DbEntries::UpdateCachedRatesCounts do
+describe Animes::UpdateCachedRatesCounts do
   let!(:anime_1) { create :anime }
   let!(:anime_2) { create :anime }
   let!(:anime_3) { create :anime }
@@ -16,7 +16,7 @@ describe DbEntries::UpdateCachedRatesCounts do
   let!(:manga_rate_1_1) { create :user_rate, target: manga_1, user: user_1 }
   let!(:manga_rate_1_2) { create :user_rate, target: manga_1, user: user_2 }
 
-  subject! { DbEntries::UpdateCachedRatesCounts.new.perform }
+  subject! { Animes::UpdateCachedRatesCounts.new.perform }
 
   it do
     expect(anime_1.reload.cached_rates_count).to eq 2
