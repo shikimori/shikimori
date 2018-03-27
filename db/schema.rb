@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20180327174559) do
     t.integer "genre_ids", default: [], null: false, array: true
     t.integer "studio_ids", default: [], null: false, array: true
     t.string "season"
-    t.string "franchise", default: "", null: false
+    t.string "franchise"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["russian"], name: "index_animes_on_russian"
@@ -624,7 +624,7 @@ ActiveRecord::Schema.define(version: 20180327174559) do
     t.integer "cached_rates_count", default: 0, null: false
     t.integer "genre_ids", default: [], null: false, array: true
     t.integer "publisher_ids", default: [], null: false, array: true
-    t.string "franchise", default: "", null: false
+    t.string "franchise"
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
