@@ -1,7 +1,7 @@
 # слияния ишноров с шики и мал графа
 =begin
 loader = { 'A' => Anime, 'M' => Manga };
-shiki_data = YAML.load_file(BannedRelations::CONFIG_PATH);
+shiki_data = YAML.load_file(Animes::BannedRelations::CONFIG_PATH);
 mal_data = JSON.parse(open('https://raw.githubusercontent.com/anime-plus/graph/master/data/banned-franchise-coupling.json').read).map {|k,v| ([k] + v) };
 
 combined_data = (shiki_data + mal_data).map(&:sort).sort.uniq.map do |ids|
@@ -10,14 +10,14 @@ combined_data = (shiki_data + mal_data).map(&:sort).sort.uniq.map do |ids|
   end
 end;
 
-File.open(BannedRelations::CONFIG_PATH, 'w') do |v|
+File.open(Animes::BannedRelations::CONFIG_PATH, 'w') do |v|
   v.write(
     combined_data.to_yaml.gsub(/^- -/, "-\n  -").gsub('###', ' # ').gsub("'", '')
   )
 end;
 ap combined_data
 =end
-class BannedRelations
+class Animes::BannedRelations
   include Singleton
 
   CONFIG_PATH = "#{Rails.root}/config/app/banned_franchise_coupling.yml"

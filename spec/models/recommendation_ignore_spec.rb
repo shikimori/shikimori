@@ -10,7 +10,7 @@ describe RecommendationIgnore do
     let(:anime2) { create :anime }
     let(:anime3) { create :anime }
 
-    after { BannedRelations.instance.clear_cache! }
+    after { Animes::BannedRelations.instance.clear_cache! }
 
     describe '.block' do
       before do

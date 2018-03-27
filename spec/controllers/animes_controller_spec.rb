@@ -86,14 +86,14 @@ describe AnimesController do
   describe '#chronology' do
     let!(:related_anime) { create :related_anime, source: anime, anime: create(:anime) }
     before { get :chronology, params: { id: anime.to_param } }
-    after { BannedRelations.instance.clear_cache! }
+    after { Animes::BannedRelations.instance.clear_cache! }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#franchise' do
     let!(:related_anime) { create :related_anime, source: anime, anime: create(:anime) }
     before { get :franchise, params: { id: anime.to_param } }
-    after { BannedRelations.instance.clear_cache! }
+    after { Animes::BannedRelations.instance.clear_cache! }
     it { expect(response).to have_http_status :success }
   end
 

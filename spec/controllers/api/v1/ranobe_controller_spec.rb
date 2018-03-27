@@ -94,7 +94,7 @@ describe Api::V1::RanobeController, :show_in_doc do
     let(:ranobe) { create :ranobe }
     let!(:similar) { create :related_manga, source: ranobe, manga: create(:ranobe), relation: 'Adaptation' }
     before { get :franchise, params: { id: ranobe.id }, format: :json }
-    after { BannedRelations.instance.clear_cache! }
+    after { Animes::BannedRelations.instance.clear_cache! }
 
     it do
       expect(response).to have_http_status :success

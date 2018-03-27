@@ -88,6 +88,6 @@ private
   end
 
   def relations
-    BannedRelations.instance
+    Animes::BannedRelations.instance
   end
 end

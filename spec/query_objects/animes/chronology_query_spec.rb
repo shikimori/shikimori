@@ -1,6 +1,6 @@
 describe Animes::ChronologyQuery do
   let(:query) { Animes::ChronologyQuery }
-  after { BannedRelations.instance.clear_cache! }
+  after { Animes::BannedRelations.instance.clear_cache! }
 
   let(:anime_1) { create :anime, id: 1, aired_on: 1.years.ago }
   let(:anime_2) { create :anime, id: 2, aired_on: 2.years.ago }
@@ -14,7 +14,7 @@ describe Animes::ChronologyQuery do
 
   describe '#relations' do
     before do
-      allow(BannedRelations.instance).to receive(:cache)
+      allow(Animes::BannedRelations.instance).to receive(:cache)
         .and_return animes: [[anime_1.id, anime_3.id]]
     end
 
@@ -24,7 +24,7 @@ describe Animes::ChronologyQuery do
   describe '#fetch' do
     describe 'direct ban' do
       before do
-        allow(BannedRelations.instance).to receive(:cache)
+        allow(Animes::BannedRelations.instance).to receive(:cache)
           .and_return animes: [[anime_1.id, anime_2.id]]
       end
 
@@ -37,7 +37,7 @@ describe Animes::ChronologyQuery do
 
     describe 'indirect ban' do
       before do
-        allow(BannedRelations.instance).to receive(:cache)
+        allow(Animes::BannedRelations.instance).to receive(:cache)
           .and_return animes: [[anime_1.id, anime_3.id]]
       end
 
