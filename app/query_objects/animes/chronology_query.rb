@@ -3,40 +3,43 @@ class Animes::ChronologyQuery
 
   IGNORED_IN_RELATIONS = {
     anime: [],
-    manga: [81927],
+    manga: [81_927]
   }
 
   def fetch
-    future = DateTime.now + 10.years
+    future = 10.years.from_now
 
     @entry.class
-      .where(id: related_entries.keys +
-        related_entries.values.flatten.map(&:anime_id))
+      .where(id: chronology_ids)
       .sort_by { |v| [v.aired_on || future, v.id] }
       .reverse
   end
 
   def links
-    related_entries.flat_map { |source_id, related| related }
+    related_entries.flat_map { |_source_id, related| related }
   end
 
 private
+
+  def chronology_ids
+    related_entries.keys + related_entries.values.flatten.map(&:anime_id)
+  end
 
   def related_entries
     @related_entries ||= fetch_related [@entry.id], {}
   end
 
-  def fetch_related ids, relations
+  def fetch_related ids, relations # rubocop:disable AbcSize, MethodLength
     ids_to_fetch = ids - relations.keys
 
     fetched_ids = groupped_relation(ids_to_fetch).flat_map do |source_id, group|
       relations[source_id] = group.select do |relation|
-        #puts "#{source_id}\t#{relation.anime_id}\t#{banned?(source_id, relation)}\t#{relations.keys.join(',')}"
+        # puts "#{source_id}\t#{relation.anime_id}\t#{banned?(source_id, relation)}\t#{relations.keys.join(',')}"
         !banned?(source_id, relation) &&
-          relations.keys.none? {|v| banned? v, relation }
+          relations.keys.none? { |v| banned? v, relation }
       end
 
-      relations[source_id]# .select { |v| v.relation != 'Character' }
+      relations[source_id] # .select { |v| v.relation != 'Character' }
         .map { |v| v[related_field] }
     end
 
@@ -76,13 +79,16 @@ private
   end
 
   def banned? source_id, relation
-    return true if IGNORED_IN_RELATIONS[anime? ? :anime : :manga].include?(source_id)
-
-    item_relations = if anime?
-      relations.anime(source_id)
-    else
-      relations.manga(source_id)
+    if IGNORED_IN_RELATIONS[anime? ? :anime : :manga].include?(source_id)
+      return true
     end
+
+    item_relations =
+      if anime?
+        relations.anime(source_id)
+      else
+        relations.manga(source_id)
+      end
 
     item_relations.include?(anime? ? relation.anime_id : relation.manga_id)
   end
