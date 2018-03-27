@@ -160,7 +160,7 @@ GEM
     arel (8.0.0)
     ast (2.4.0)
     attr_extras (5.2.0)
-    autoprefixer-rails (8.1.0.1)
+    autoprefixer-rails (8.2.0)
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.11)
@@ -431,7 +431,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
-    newrelic_rpm (4.8.0.341)
+    newrelic_rpm (5.0.0.342)
     nio4r (2.2.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -502,7 +502,7 @@ GEM
       rack
     rack-proxy (0.6.4)
       rack
-    rack-test (0.8.3)
+    rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rack-utf8_sanitizer (1.5.0)
       rack (>= 1.0, < 3.0)
@@ -674,7 +674,7 @@ GEM
     truncate_html (0.9.3)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.6)
+    uglifier (4.1.8)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
