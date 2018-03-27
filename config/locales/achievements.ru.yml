@@ -1,41 +1,42 @@
 ru:
   achievements:
     neko_name:
+      action: Боевик
       animelist: Список аниме
-      test: Неизвестная ачивка
-      otaku: Отаку
+      comedy: Комедия
+      dementia_psychological: Безумие / Психологическое
+      drama: Драма
+      fantasy: Фэнтези
       fujoshi: Фудзёси
-      tsundere: Цундере
-      yandere: Яндере
-      kuudere: Кудере
-      moe: Моэ
-      longshounen: Длинносёнены
-      sovietanime: Наши в аниме
-      oniichan: Запретная любовь
-      oldfag: Олдфаг
       gar: ГАР
-      yuuri: Юри
+      historical: Историческое
       horror_thriller: Хоррор / Триллер
+      josei: Дзёсей
+      kids: Детское
+      kuudere: Кудере
+      longshounen: Длинносёнены
       mahou_shoujo: Махо-сёдзе
+      mecha: Меха
+      military: Военное
+      moe: Моэ
+      music: Музыка
+      mystery: Детектив
+      oldfag: Олдфаг
+      oniichan: Запретная любовь
+      otaku: Отаку
+      police: Полиция
+      romance: Романтика
+      scifi: Фантастика
+      seinen: Сейнен
+      slice_of_life: Повседневность
+      sovietanime: Наши в аниме
+      space: Космос
       sports: Спорт
       supernatural: Сверхъестественное
-      dementia_psychological: Безумие / Психологическое
-      romance: Романтика
-      slice_of_life: Повседневность
-      action: Боевик
-      space: Космос
-      scifi: Фантастика
-      military: Военное
-      mystery: Детектив
-      josei: Дзёсей
-      drama: Драма
-      historical: Историческое
-      comedy: Комедия
-      mecha: Меха
-      music: Музыка
-      police: Полиция
-      seinen: Сейнен
-      fantasy: Фэнтези
+      test: Неизвестная ачивка
+      tsundere: Цундере
+      yandere: Яндере
+      yuuri: Юри
 
     hint:
       default: '%{neko_name} %{level} уровня'

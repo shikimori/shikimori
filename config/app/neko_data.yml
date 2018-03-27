@@ -2928,7 +2928,7 @@
   :topic_id: 227422
   :rule:
     :algo: simple
-    :threshold: 30%
+    :threshold: 10
     :filters:
       anime_ids:
       - 10033
@@ -2967,15 +2967,14 @@
   :level: 2
   :image: []
   :border_color: []
-  :title_ru: Король пиратов
-  :text_ru: Качество работы пропорционально количеству серий. Чем длиннее — тем выше
-    потенциал! В длинном аниме персонажи раскрыты лучше всего! Нужно больше длинносёненов!
+  :title_ru: Марафонец
+  :text_ru: 10, 20, 30... 100 эпизодов! Я только разогреваюсь!
   :title_en: 
   :text_en: 
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 55%
+    :threshold: 25
     :filters:
       anime_ids:
       - 10033
@@ -5843,6 +5842,24 @@
       genre_ids:
       - 13
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
+- :neko_id: :kids
+  :level: 1
+  :image:
+  - "/assets/achievements/anime/kids_1.jpg"
+  :border_color:
+  - "#228b22"
+  :title_ru: Родом из детства
+  :text_ru: Аниме — это один из маленьких шансов вернуться в детство.
+  :title_en: 
+  :text_en: 
+  :topic_id: 222035
+  :rule:
+    :algo: simple
+    :threshold: 40
+    :filters:
+      genre_ids:
+      - 15
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kids.yml
 - :neko_id: :dementia_psychological
   :level: 1
   :image:

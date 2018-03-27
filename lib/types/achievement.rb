@@ -38,6 +38,7 @@ module Types
       space
       sports
       supernatural
+      kids
     ]
 
     NekoId = Types::Strict::Symbol
