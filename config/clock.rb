@@ -106,14 +106,9 @@ module Clockwork
 
     MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 100
     MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 100
-
-    PeopleJobsActualzier.perform_async
   end
 
   every 1.week, 'weekly.stuff.3', at: 'Monday 02:45' do
-    Animes::UpdateCachedRatesCounts.perform_async
-    Animes::UpdateFranchises.perform_async
-
     AnimesVerifier.perform_async
     MangasVerifier.perform_async
     CharactersVerifier.perform_async
@@ -124,11 +119,11 @@ module Clockwork
     # VacuumDb.perform_async
   # end
 
-  every 1.week, 'weekly.stuff.4', at: 'Monday 05:45' do
+  every 1.week, 'weekly.stuff.cpu_intensive', at: 'Monday 05:45' do
+    People::JobsWorker.perform_async
+    Animes::UpdateCachedRatesCounts.perform_async
+    Animes::FranchisesWorker.perform_async
     NameMatches::Refresh.perform_async Anime.name
-  end
-
-  every 1.week, 'weekly.stuff.5', at: 'Monday 06:15' do
     NameMatches::Refresh.perform_async Manga.name
   end
 
