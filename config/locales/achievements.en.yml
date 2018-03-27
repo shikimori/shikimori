@@ -2,12 +2,42 @@ en:
   achievements:
     neko_name:
       animelist: Anime List
-      longshounen: Long Shounen
-      horror_thriller: Horror / Thriller
-      mahou_shoujo: Mahou Shoujo
       dementia_psychological: Dementia / Psychological
-      slice_of_life: Slice of Life
+      horror_thriller: Horror / Thriller
+      longshounen: Long Title
+      mahou_shoujo: Mahou Shoujo
+      oldfag: Classic
       scifi: Sci-Fi
+      slice_of_life: Slice of Life
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     hint:
       default: '%{neko_name} level %{level}'
       animelist: '%{threshold} watched anime'

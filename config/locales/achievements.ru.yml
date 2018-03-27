@@ -14,21 +14,21 @@ ru:
       josei: Дзёсей
       kids: Детское
       kuudere: Кудере
-      longshounen: Длинносёнены
-      shortie: Короткометражки
+      longshounen: Длиннотайтлы
       mahou_shoujo: Махо-сёдзе
       mecha: Меха
       military: Военное
       moe: Моэ
       music: Музыка
       mystery: Детектив
-      oldfag: Олдфаг
+      oldfag: Классика
       oniichan: Запретная любовь
       otaku: Отаку
       police: Полиция
       romance: Романтика
       scifi: Фантастика
       seinen: Сейнен
+      shortie: Короткометражки
       slice_of_life: Повседневность
       sovietanime: Наши в аниме
       space: Космос
@@ -38,7 +38,6 @@ ru:
       tsundere: Цундере
       yandere: Яндере
       yuuri: Юри
-
     hint:
       default: '%{neko_name} %{level} уровня'
       animelist: '%{threshold} просмотренных аниме'
