@@ -59,6 +59,7 @@ if defined? Airbrake
     ActionController::UnknownFormat
     ActionDispatch::RemoteIp::IpSpoofAttackError
     ActiveRecord::RecordNotFound
+    ActionController::RoutingError
     I18n::InvalidLocale
     Unicorn::ClientShutdown
     Unauthorized
