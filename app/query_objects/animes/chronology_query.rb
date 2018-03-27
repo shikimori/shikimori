@@ -5,13 +5,12 @@ class Animes::ChronologyQuery
     anime: [],
     manga: [81_927]
   }
+  FUTURE_DATE = 50.years.from_now
 
   def fetch
-    future = 10.years.from_now
-
     @entry.class
       .where(id: chronology_ids)
-      .sort_by { |v| [v.aired_on || future, v.id] }
+      .sort_by { |v| [v.aired_on || FUTURE_DATE, v.id] }
       .reverse
   end
 
