@@ -7,8 +7,8 @@ class Animes::UpdateFranchises
   end
 
   def call
-    process Anime.order(:id)
-    process Manga.order(:id)
+    process Anime
+    process Manga
   end
 
 private
