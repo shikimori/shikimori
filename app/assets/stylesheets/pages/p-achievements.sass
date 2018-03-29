@@ -4,6 +4,11 @@
 @import mixins/comma_separated
 @import mixins/responsive
 
+.p-achievements
+  .b-entry-info
+    .value.thresholds span
+      +comma_separated
+
 .p-achievements-index
   .incomplete
     &:not(:empty):before

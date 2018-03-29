@@ -18,7 +18,7 @@
 
   .line
     .key #{t '.threshold'}:&nbsp;
-    .value
+    .value.thresholds
       - if achievements.first.animes_count&.positive?
         - if achievements.first.rule[:threshold].is_a?(String) && achievements.first.rule[:threshold].match?(/^\d+%$/)
           - achievements.each do |achievement|
