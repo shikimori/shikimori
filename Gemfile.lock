@@ -469,6 +469,7 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
+    paperclip-i18n (4.3.0)
     parallel (1.12.1)
     parser (2.5.0.5)
       ast (~> 2.4.0)
@@ -786,6 +787,7 @@ DEPENDENCIES
   omniauth-vkontakte
   open_uri_redirections
   paperclip
+  paperclip-i18n
   pg
   pg_query
   pghero
