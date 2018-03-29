@@ -237,7 +237,7 @@ class Api::V1::AnimesController < Api::V1Controller
 
   def neko
     animes = Anime
-      .where.not(kind: :special)
+      .where.not(kind: %i[special music])
       .select(:id, :aired_on, :genre_ids, :episodes, :duration)
 
     data = animes.map do |anime|
