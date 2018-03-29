@@ -60,8 +60,11 @@
           li
             .field = @resource.class.human_attribute_name(:duration)
             .value = humanize_minutes @resource.duration
-            a.b-js-action href=@resource.edit_field_url(:duration)
-              = t 'actions.edit'
+            - if can? :significant_change, Version
+              a.b-js-action href=@resource.edit_field_url(:duration)
+                = t '.moderators_only'
+            - else
+              .b-js-action = t '.moderators_only'
 
           - if current_user&.admin?
             li
@@ -93,6 +96,11 @@
             .value = @resource.rating_text
             a.b-js-action href=@resource.edit_field_url(:rating)
               = t 'actions.edit'
+
+        - if @resource.franchise.present?
+          li
+            .field = @resource.class.human_attribute_name(:franchise)
+            .value = @resource.franchise
 
     .c-column.m0
       ul.b-list

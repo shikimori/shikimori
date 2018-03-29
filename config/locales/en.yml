@@ -47,6 +47,7 @@ en:
         tags: Imageboards tag
         torrents_name: Torrents name
         videos: Videos
+        franchise: Franchise
       manga: &manga_attributes
         <<: *anime_attributes
         volumes: Volumes

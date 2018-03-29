@@ -47,6 +47,7 @@ ru:
         tags: Тег имиджборд
         torrents_name: Название на торрентах
         videos: Видео
+        franchise: Франшиза
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания
