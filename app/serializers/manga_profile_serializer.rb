@@ -1,7 +1,7 @@
 class MangaProfileSerializer < MangaSerializer
   attributes :english, :japanese, :synonyms, :kind, :aired_on, :released_on,
     :volumes, :chapters, :score,
-    :description, :description_html, :description_source,
+    :description, :description_html, :description_source, :franchise,
     :favoured, :anons, :ongoing, :thread_id, :topic_id,
     :myanimelist_id,
     :rates_scores_stats, :rates_statuses_stats
