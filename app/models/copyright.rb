@@ -29,10 +29,13 @@ module Copyright
     # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
     # [Notice_ID:*IdOAQy*] Nintendo Company Ltd - Нарушение прав правообладателей / Nintendo Company Ltd - Abuse
     19157,
-    # просьба от истари убрать Kimi no Na wa на которое они купили права
-    32281,
+    # istari
+    32281, # Kimi no Na wa
     # vgtrk
-    34541
+    34541, # Mary to Majo no Hana
+    # Capella Film
+    33970, # Girls und Panzer das Finale
+    35851 # Sayonara no Asa ni Yakusoku no Hana wo Kazarou
   ]
 
   WAKANIM_COPYRIGHTED = [
