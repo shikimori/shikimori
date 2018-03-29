@@ -314,7 +314,6 @@ en:
           rejected: rejected
           broken: broken
           wrong: wrong anime
-          banned: banned
           copyrighted: copyrighted
           banned_hosting: banned hosting
       version:
@@ -514,7 +513,7 @@ en:
         rejected: rejected
         broken: broken
         wrong: wrong anime
-        banned: banned
+        banned_hosting: banned hosting
         copyrighted: copyrighted
     anime_video_report:
       kind:

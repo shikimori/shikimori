@@ -314,7 +314,6 @@ ru:
           rejected: отказано
           broken: сломано
           wrong: не к этому аниме
-          banned: banned
           copyrighted: copyrighted
           banned_hosting: хостинг забанен
       version:
@@ -515,7 +514,7 @@ ru:
         rejected: отказано
         broken: сломано
         wrong: не к этому аниме
-        banned: banned
+        banned_hosting: хостинг забанен
         copyrighted: copyrighted
     anime_video_report:
       kind:
