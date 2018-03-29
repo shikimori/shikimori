@@ -7,13 +7,12 @@ class PushNotification
     device = Device.find_by id: device_id
 
     return unless message && device
-    # TODO: remove condition after 10-04-2016
-    return if message.read && (Rails.env.test? || Time.zone.now > Date.parse('11-04-2016'))
 
     gcm.send_notification(
       [device.token],
       data: { message: gcm_message(message) }
     )
+  rescue *Network::FaradayGet::NET_ERRORS
   end
 
 private
