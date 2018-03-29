@@ -16,14 +16,14 @@ module.exports = class DanbooruLoader extends LoaderBase
 
       image.file_url =
         if image.file_url.startsWith('http')
-          @base_url + image.file_url
-        else
           image.file_url
+        else
+          @base_url + image.file_url
 
       image.preview_url =
         if image.preview_url.startsWith('http')
-          @base_url + image.preview_url
-        else
           image.preview_url
+        else
+          @base_url + image.preview_url
 
     super xhr_images
