@@ -1,6 +1,6 @@
 class DbEntry < ApplicationRecord
   self.abstract_class = true
-  SIGNIFICANT_FIELDS = %w(name genres image)
+  SIGNIFICANT_FIELDS = %w[name genres image duration]
 
   def cache_key
     super + '/' + to_param
@@ -50,7 +50,7 @@ class DbEntry < ApplicationRecord
   end
 
   # TODO: uncomment when source field is removed from Anime and Manga
-  #def source
+  # def source
   #  raise 'use DbEntryDecorator#description.source instead!'
-  #end
+  # end
 end
