@@ -81,7 +81,7 @@ Style/EmptyCaseCondition:
   Enabled: false
 Style/MultilineTernaryOperator:
   Enabled: false
-Lint/EndAlignment:
+Layout/EndAlignment:
   Enabled: false
 Lint/HandleExceptions:
   Enabled: false
