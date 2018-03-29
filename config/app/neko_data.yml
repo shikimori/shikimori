@@ -269,10 +269,13 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 4
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :image:
+  - "/assets/achievements/anime/animelist_4.jpg"
+  :border_color:
+  - "#D5D5D5"
+  :title_ru: Беззаботный зритель
+  :text_ru: Ничего серьёзного. Вы лишь успели привыкнуть к тому, что глаза у персонажей
+    больше, чем нос. Если у них вообще есть нос.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -282,13 +285,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 5
-  :image:
-  - "/assets/achievements/anime/animelist_5.jpg"
-  :border_color:
-  - "#D5D5D5"
-  :title_ru: Беззаботный зритель
-  :text_ru: Ничего серьёзного. Вы лишь успели привыкнуть к тому, что глаза у персонажей
-    больше, чем нос. Если у них вообще есть нос.
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
   :title_en: 
   :text_en: 
   :topic_id: 
