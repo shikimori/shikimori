@@ -60,6 +60,7 @@ if defined? Airbrake
     ActionDispatch::RemoteIp::IpSpoofAttackError
     ActiveRecord::RecordNotFound
     ActionController::RoutingError
+    ActiveRecord::PreparedStatementCacheExpired
     I18n::InvalidLocale
     Unicorn::ClientShutdown
     Unauthorized
