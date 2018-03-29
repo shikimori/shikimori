@@ -7,6 +7,7 @@ FactoryBot.define do
     description_en ''
     score 1
     kind :manga
+    franchise nil
     type { Manga.name }
 
     factory :ranobe, class: 'Ranobe' do

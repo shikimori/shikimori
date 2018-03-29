@@ -342,6 +342,22 @@ describe AniMangaQuery do
       end
     end
 
+    describe 'franchise' do
+      let!(:anime_1) { create :anime, franchise: 'qwe' }
+      let!(:anime_2) { create :anime, franchise: 'zxc' }
+      let!(:anime_3) { create :anime, franchise: 'zxc' }
+      let!(:anime_4) { create :anime }
+
+      it 'inclusive' do
+        expect(fetch franchise: 'zxc').to eq [anime_2, anime_3]
+        expect(fetch franchise: 'zxc,qwe').to eq [anime_1, anime_2, anime_3]
+      end
+
+      it 'exclusive' do
+        expect(fetch franchise: '!zxc').to eq [anime_1, anime_4]
+      end
+    end
+
     describe 'mylist' do
       let(:user) { create :user }
       let(:anime_1) { create :anime, score: 9 }

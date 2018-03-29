@@ -134,6 +134,9 @@ class Api::V1::AnimesController < Api::V1Controller
   param :studio, :undef,
     required: false,
     desc: 'List of studio ids separated by comma'
+  param :franchise, :undef,
+    required: false,
+    desc: 'List of franchises separated by comma'
   param :censored, %w[true false],
     required: false,
     desc: 'Set to `false` to allow hentai, yaoi and yuri'

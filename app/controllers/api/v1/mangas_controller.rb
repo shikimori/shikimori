@@ -104,6 +104,9 @@ class Api::V1::MangasController < Api::V1Controller
   param :publisher, :undef,
     required: false,
     desc: 'List of publisher ids separated by comma'
+  param :franchise, :undef,
+    required: false,
+    desc: 'List of franchises separated by comma'
   param :censored, %w[true false],
     required: false,
     desc: 'Set to `false` to allow hentai, yaoi and yuri'

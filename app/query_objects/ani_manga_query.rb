@@ -36,6 +36,7 @@ class AniMangaQuery
     @duration = params[:duration]
     @season = params[:season]
     @status = params[:status]
+    @franchise = params[:franchise]
 
     @mylist = params[:mylist].to_s.gsub(/\b\d\b/) do |status_id|
       UserRate.statuses.find { |name, id| id == status_id.to_i }.first
@@ -71,6 +72,7 @@ class AniMangaQuery
     duration!
     season!
     status!
+    franchise!
 
     mylist!
 
@@ -295,6 +297,22 @@ private
         ')'
     end
     @query = @query.where query.join(' AND ') unless query.empty?
+  end
+
+  # filter by franchise
+  def franchise!
+    return if @franchise.blank?
+    franchises = bang_split @franchise.split(',')
+
+    if franchises[:include].any?
+      @query = @query.where(franchise: franchises[:include])
+    end
+    if franchises[:exclude].any?
+      @query = @query.where(
+        'franchise not in (?) or franchise is null',
+        franchises[:exclude]
+      )
+    end
   end
 
   # фильтрация по наличию в собственном списке

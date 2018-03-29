@@ -14,7 +14,8 @@ describe Api::V1::AnimesController, :show_in_doc do
         genre_ids: [genre.id],
         duration: 90,
         rating: :r,
-        score: 8
+        score: 8,
+        franchise: 'zxc'
     end
 
     before do
@@ -30,13 +31,14 @@ describe Api::V1::AnimesController, :show_in_doc do
           season: '2014',
           genre: genre.id.to_s,
           studio: studio.id.to_s,
+          franchise: 'zxc',
           duration: 'F',
           rating: 'r',
           search: 'Te',
           order: 'ranked',
           mylist: '1',
           score: '6',
-          censored: 'false'
+          censored: 'false',
         },
         format: :json
     end

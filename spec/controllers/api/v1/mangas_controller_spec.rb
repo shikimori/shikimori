@@ -11,7 +11,8 @@ describe Api::V1::MangasController, :show_in_doc do
         name: 'Test',
         aired_on: Date.parse('2014-01-01'),
         publisher_ids: [publisher.id],
-        genre_ids: [genre.id]
+        genre_ids: [genre.id],
+        franchise: 'zxc'
     end
 
     before do
@@ -27,6 +28,7 @@ describe Api::V1::MangasController, :show_in_doc do
           season: '2014',
           genre: genre.id.to_s,
           publisher: publisher.id.to_s,
+          franchise: 'zxc',
           search: 'Te',
           order: 'ranked',
           mylist: '1',
