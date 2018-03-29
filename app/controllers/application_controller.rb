@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   include LocaleConcern
 
   #include Mobylette::RespondToMobileRequests
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, prepend: true # https://stackoverflow.com/questions/43356105/actioncontrollerinvalidauthenticitytoken-rails-5-devise-audited-papertra
 
   layout :set_layout
 
