@@ -7,6 +7,7 @@ class PushNotification
     device = Device.find_by id: device_id
 
     return unless message && device
+    return if message.read
 
     gcm.send_notification(
       [device.token],
