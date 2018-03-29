@@ -7,28 +7,36 @@ class Animes::UpdateFranchises
   end
 
   def call
-    process Anime.order(:id), processed_ids
-    process Manga.order(:id), processed_ids
+    process Anime.order(:id)
+    process Manga.order(:id)
   end
 
 private
 
-  def process scope, processed_ids
+  def process scope
     scope.find_each do |entry|
-      next if processed_ids[entry.class].include? entry.id
-
+      next if @processed_ids[entry.class].include? entry.id
       chronology = Animes::ChronologyQuery.new(entry).fetch
 
       if chronology.many?
-
+        add_franchise chronology
       else
-        processed_ids[entry.class] << entry.id
-        entry.update franchise: nil
+        remove_franchise entry
       end
     end
   end
 
-  def animes_scope
-    Anime.order(:id)
+  def add_franchise entries
+    franchise = Animes::FranchiseName.call entries, @franchises
+
+    entries.each do |entry|
+      @processed_ids[entry.class] << entry.id
+      entry.update franchise: franchise
+    end
+  end
+
+  def remove_franchise entry
+    @processed_ids[entry.class] << entry.id
+    entry.update franchise: nil
   end
 end
