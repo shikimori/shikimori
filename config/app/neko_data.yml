@@ -2634,7 +2634,7 @@
   :topic_id: 222056
   :rule:
     :algo: simple
-    :threshold: 40
+    :threshold: 65
     :filters:
       genre_ids:
       - 36
@@ -2652,7 +2652,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 90
+    :threshold: 130
     :filters:
       genre_ids:
       - 36
@@ -2671,7 +2671,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 140
+    :threshold: 260
     :filters:
       genre_ids:
       - 36
@@ -2690,7 +2690,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 200
+    :threshold: 350
     :filters:
       genre_ids:
       - 36
@@ -2856,7 +2856,7 @@
   :topic_id: 222064
   :rule:
     :algo: simple
-    :threshold: 40
+    :threshold: 65
     :filters:
       genre_ids:
       - 22
@@ -2874,7 +2874,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 90
+    :threshold: 130
     :filters:
       genre_ids:
       - 22
@@ -2892,7 +2892,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 140
+    :threshold: 260
     :filters:
       genre_ids:
       - 22
@@ -2910,7 +2910,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 200
+    :threshold: 350
     :filters:
       genre_ids:
       - 22
@@ -3613,7 +3613,7 @@
   :topic_id: 227419
   :rule:
     :algo: simple
-    :threshold: 10%
+    :threshold: 5%
     :filters:
       anime_ids:
       - 1
@@ -4090,7 +4090,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 25%
+    :threshold: 15%
     :filters:
       anime_ids:
       - 1
@@ -4567,7 +4567,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 40%
+    :threshold: 25%
     :filters:
       anime_ids:
       - 1
@@ -5044,7 +5044,7 @@
   :topic_id: 222036
   :rule:
     :algo: simple
-    :threshold: 40
+    :threshold: 45
     :filters:
       genre_ids:
       - 18
@@ -5081,7 +5081,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 140
+    :threshold: 180
     :filters:
       genre_ids:
       - 18
@@ -5101,7 +5101,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 200
+    :threshold: 235
     :filters:
       genre_ids:
       - 18
@@ -5570,7 +5570,7 @@
   :topic_id: 227432
   :rule:
     :algo: simple
-    :threshold: 30%
+    :threshold: 25%
     :filters:
       genre_ids:
       - 26
@@ -5589,7 +5589,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 55%
+    :threshold: 45%
     :filters:
       genre_ids:
       - 26
@@ -5608,7 +5608,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 80%
+    :threshold: 65%
     :filters:
       genre_ids:
       - 26
@@ -5627,7 +5627,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 80%
+    :threshold: 85%
     :filters:
       genre_ids:
       - 26
@@ -5793,7 +5793,7 @@
   :topic_id: 245150
   :rule:
     :algo: simple
-    :threshold: 40
+    :threshold: 50
     :filters:
       genre_ids:
       - 15
@@ -6486,7 +6486,7 @@
   :topic_id: 222063
   :rule:
     :algo: simple
-    :threshold: 25
+    :threshold: 30
     :filters:
       genre_ids:
       - 42
@@ -6523,7 +6523,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 80
+    :threshold: 90
     :filters:
       genre_ids:
       - 42
@@ -6549,8 +6549,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
 - :neko_id: :shortie
   :level: 1
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/shortie_1.jpg"
+  :border_color:
+  - "#6E5160"
   :title_ru: Миг, и вы ее потеряли
   :text_ru: Все закончилось не успев начаться, остались лишь приятные воспоминания.
   :title_en: 
@@ -6558,14 +6560,16 @@
   :topic_id: 245151
   :rule:
     :algo: simple
-    :threshold: 20
+    :threshold: 65
     :filters:
       duration_lte: 14
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
 - :neko_id: :shortie
   :level: 2
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/shortie_2.jpg"
+  :border_color:
+  - "#FAE7B5"
   :title_ru: Зависимость
   :text_ru: Сколько раз вы уже говорили «еще один» за последних девять часов?
   :title_en: 
@@ -6573,7 +6577,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 40
+    :threshold: 150
     :filters:
       duration_lte: 14
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
@@ -6590,7 +6594,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 60
+    :threshold: 250
     :filters:
       duration_lte: 14
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
@@ -6607,7 +6611,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 80
+    :threshold: 400
     :filters:
       duration_lte: 14
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
@@ -7261,7 +7265,7 @@
   :topic_id: 222645
   :rule:
     :algo: simple
-    :threshold: 25
+    :threshold: 20%
     :filters:
       genre_ids:
       - 43
@@ -7279,7 +7283,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 40
+    :threshold: 40%
     :filters:
       genre_ids:
       - 43
@@ -7298,7 +7302,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 60
+    :threshold: 60%
     :filters:
       genre_ids:
       - 43
@@ -7316,7 +7320,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 100
+    :threshold: 90%
     :filters:
       genre_ids:
       - 43
