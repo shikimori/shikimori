@@ -16,7 +16,7 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
     end
   end
 
-  UPDATE_PARAMS = %i[name image redirect_uri]
+  UPDATE_PARAMS = %i[name image redirect_uri description_ru description_en]
   CREATE_PARAMS = %i[owner_id owner_type] + UPDATE_PARAMS
 
   def index # rubocop:disable AbcSize
@@ -33,6 +33,8 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   end
 
   def show
+    @resource = DbEntryDecorator.new @resource
+
     og page_title: @resource.name
     if user_signed_in?
       @has_access = Users::GrantedApplications

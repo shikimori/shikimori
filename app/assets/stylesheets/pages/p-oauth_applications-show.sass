@@ -1,0 +1,14 @@
+@import mixins/column
+
+.p-oauth_applications-show
+  +iphone
+    .cc-info .c-column
+      +block_m
+
+  +gte_ipad
+    .cc-info
+      +cc
+
+      & > .c-column:first-child
+        width: 225px
+        float: left

@@ -16,15 +16,24 @@ header.head.misc
 
   = render 'application/breadcrumbs'
 
-.block
-  = render @resource
+.cc-info
+  .c-column
+    .block
+      = render @resource
 
-.b-entry-info
-  = info_line OauthApplication.human_attribute_name :owner do
-    = render 'users/user_16', user: @resource.owner
+    .b-entry-info
+      = info_line OauthApplication.human_attribute_name :owner do
+        = render 'users/user_16', user: @resource.owner
 
-  = info_line i18n_i('User', :many) do
-    = @resource.access_grants.select('count(distinct(resource_owner_id)) as users')[0].users
+      = info_line i18n_i('User', :many) do
+        = @resource.access_grants.select('count(distinct(resource_owner_id)) as users')[0].users
+
+  .c-column
+    - if @resource.description.value.present?
+      .subheadline = OauthApplication.human_attribute_name :description
+
+      .block
+        = @resource.description_html
 
 - if @has_access
   .b-form.green-form

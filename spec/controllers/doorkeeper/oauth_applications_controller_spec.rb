@@ -69,7 +69,9 @@ describe Doorkeeper::OauthApplicationsController do
           owner_type: User.name,
           name: 'test',
           image: image,
-          redirect_uri: 'https://test.com'
+          redirect_uri: 'https://test.com',
+          description_ru: '',
+          description_en: ''
         }
       end
 

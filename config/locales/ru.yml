@@ -248,6 +248,9 @@ ru:
         redirect_uri: Redirect URI
         secret: Client Secret
         uid: Client ID
+        description: Описание
+        description_ru: Описание
+        description_en: Описание (на английском)
 
     errors:
       messages:

@@ -1,4 +1,4 @@
-class DbEntryDecorator < BaseDecorator
+class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   instance_cache :description_html,
     :menu_clubs, :all_clubs, :menu_collections,
     :contest_winners,
@@ -7,7 +7,7 @@ class DbEntryDecorator < BaseDecorator
 
   MAX_CLUBS = 4
   MAX_COLLECTIONS = 3
-  MAX_FAVOURITES= 12
+  MAX_FAVOURITES = 12
 
   def headline
     headline_array
@@ -29,11 +29,19 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def description_ru
-    DbEntries::Description.from_value(object.description_ru)
+    DbEntries::Description.from_value(
+      object.description_ru.present? ?
+        object.description_ru :
+        object.description_en
+    )
   end
 
   def description_en
-    DbEntries::Description.from_value(object.description_en)
+    DbEntries::Description.from_value(
+      object.description_en.present? ?
+        object.description_en :
+        object.description_ru
+    )
   end
 
   #----------------------------------------------------------------------------
@@ -190,7 +198,7 @@ class DbEntryDecorator < BaseDecorator
 private
 
   def show_description_ru?
-    h.ru_host?
+    I18n.russian?
   end
 
   def headline_array

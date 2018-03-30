@@ -3,5 +3,7 @@ FactoryBot.define do
     sequence(:name) { |n| "app-#{n}" }
     owner { seed :user }
     redirect_uri 'https://example.com'
+    description_ru ''
+    description_en ''
   end
 end

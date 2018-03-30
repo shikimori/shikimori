@@ -191,6 +191,11 @@ class AniMangaDecorator < DbEntryDecorator
 
 private
 
+  # redefined from defaults of DbEntryDecorator
+  def show_description_ru?
+    h.ru_host?
+  end
+
   def format_menu_topic topic_view, order
     {
       date: h.time_ago_in_words(

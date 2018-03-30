@@ -33,8 +33,8 @@ header.head.misc
               title=@resource.name
             ]
 
-    - if @resource.persisted?
-      .c-column.m0
+    .c-column.m0
+      - if @resource.persisted?
         .m10
           b OAuth2 Credentials
         .b-input
@@ -45,6 +45,27 @@ header.head.misc
           p = @resource.secret
 
   = f.input :redirect_uri, as: :string, hint: "Set <span class='b-js-link sample'>#{Doorkeeper::NO_REDIRECT_URI}</span> for mobile and standalone apps".html_safe
+
+  .cc-2
+    .c-column
+      .b-input.m5
+        label class="text optional control-label" for="oauth_application_description_ru"
+          b = OauthApplication.human_attribute_name :description_ru
+
+      .b-shiki_editor.unprocessed.block.no-preview-avatar
+        = render 'comments/shiki_editor',
+          text: f.object.description_ru,
+          field_name: 'oauth_application[description_ru]'
+
+    .c-column
+      .b-input.m5
+        label class="text optional control-label" for="oauth_application_description_en"
+          b = OauthApplication.human_attribute_name :description_en
+
+      .b-shiki_editor.unprocessed.block.no-preview-avatar
+        = render 'comments/shiki_editor',
+          text: f.object.description_en,
+          field_name: 'oauth_application[description_en]'
 
   .cc-2
     .c-column
