@@ -1,4 +1,9 @@
+ShikiEditor = require 'views/application/shiki_editor'
+
 page_load 'contests_edit', ->
+  $('.b-shiki_editor').each ->
+    new ShikiEditor @
+
   $suggest = $('.edit.contest .member-suggest')
 
   $('.edit .proposing .hidden').removeClass 'hidden'
