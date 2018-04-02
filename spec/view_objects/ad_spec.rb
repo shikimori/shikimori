@@ -28,7 +28,6 @@ describe Ad do
   let(:width) { 240 }
   let(:height) { 400 }
   let(:user) { nil }
-  let(:is_istari_shown) { false }
   let(:cookies) { {} }
 
   describe '#banner_type' do
@@ -144,8 +143,8 @@ describe Ad do
       it { expect(ad.ad_params).to be_nil }
     end
 
-    context 'istari' do
-      let(:banner_type) { :istari_x300 }
+    context 'special' do
+      let(:banner_type) { :special_x300 }
       it { expect(ad.ad_params).to be_nil }
     end
   end
@@ -205,28 +204,28 @@ describe Ad do
         # end
       # end
 
-      context 'with rules' do
-        let(:banner_type) { :istari_x300 }
+      # context 'with rules' do
+      #   let(:banner_type) { :istari_x300 }
 
-        context 'without show in cookies' do
-          it do
-            expect(h.cookies[cookie_key]).to eq(
-              value: [Time.zone.now].map(&:to_i).join(Ads::Rules::DELIMITER),
-              expires: 1.week.from_now
-            )
-          end
-        end
+      #   context 'without show in cookies' do
+      #     it do
+      #       expect(h.cookies[cookie_key]).to eq(
+      #         value: [Time.zone.now].map(&:to_i).join(Ads::Rules::DELIMITER),
+      #         expires: 1.week.from_now
+      #       )
+      #     end
+      #   end
 
-        context 'with show in cookies' do
-          let(:cookies) { { cookie_key => [1.day.ago].map(&:to_i).join(Ads::Rules::DELIMITER) } }
-          it do
-            expect(h.cookies[Ad::BANNERS[:istari_x300][:rules][:cookie]]).to eq(
-              value: [1.day.ago, Time.zone.now].map(&:to_i).join(Ads::Rules::DELIMITER),
-              expires: 1.week.from_now
-            )
-          end
-        end
-      end
+      #   context 'with show in cookies' do
+      #     let(:cookies) { { cookie_key => [1.day.ago].map(&:to_i).join(Ads::Rules::DELIMITER) } }
+      #     it do
+      #       expect(h.cookies[Ad::BANNERS[:istari_x300][:rules][:cookie]]).to eq(
+      #         value: [1.day.ago, Time.zone.now].map(&:to_i).join(Ads::Rules::DELIMITER),
+      #         expires: 1.week.from_now
+      #       )
+      #     end
+      #   end
+      # end
     end
 
     context 'yandex_direct' do

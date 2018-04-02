@@ -27,6 +27,7 @@ class DynamicElements.DesktopAd extends View
     @html = @$node.data 'ad_html'
     @css_class = @$node.data 'ad_css_class'
     @ad_params = @$node.data 'ad_params'
+    console.log @css_class
 
     if @provider == 'yandex_direct'
       @_yandex_direct()

@@ -6,62 +6,19 @@ class Ad < ViewObjectBase
   # block_3: [92_485, nil]
 
   BANNERS = {
-    istari_x300: {
-      provider: Types::Ad::Provider[:istari],
-      url: 'https://vk.com/istaricomics',
-      images: (1..5).map do |i|
-        {
-          src: "/assets/globals/events/i2_#{i}.jpg",
-          src_2x: "/assets/globals/events/i2_#{i}@2x.jpg"
-        }
-      end,
-      rules: {
-        cookie: 'i2',
-        shows_per_week: 30
-      },
-      placement: Types::Ad::Placement[:menu]
-    },
-    istari_x1170: {
-      provider: Types::Ad::Provider[:istari],
-      url: 'http://kimi.istaricomics.com',
-      images: [{
-        src: '/assets/globals/events/i1_2.jpg',
-        src_2x: '/assets/globals/events/i1_2@2x.jpg'
-      }],
-      placement: Types::Ad::Placement[:content]
-    },
-    vgtrk_x1170: {
-      provider: Types::Ad::Provider[:vgtrk],
-      html: (
-        <<~HTML
-          <style>
-            .edgeLoad-EDGE-2118661916 { visibility: hidden; }
-          </style>
-          <div id="Stage" class="EDGE-2118661916"></div>
-          <script>
-            jQuery.getScript("https://animate.adobe.com/runtime/6.0.0/edge.6.0.0.min.js", function() {
-              AdobeEdge.loadComposition('https://cdn-st1.rtr-vesti.ru/mh_files/002/838/1170WFLOWER', 'EDGE-2118661916', {
-                scaleToFit: "none",
-                centerStage: "none",
-                minW: "1170px",
-                maxW: "undefined",
-                width: "1170px",
-                height: "180px"
-              }, {"dom":{}}, {"dom":{}});
-            })
-          </script>
-        HTML
-      ),
-      placement: Types::Ad::Placement[:content]
-    },
-    vgtrk_x300: {
-      provider: Types::Ad::Provider[:vgtrk],
-      url: 'https://www.filmpro.ru/special/maryandflower',
+    special_x300: {
+      provider: Types::Ad::Provider[:special],
+      url: 'https://panzer.kg-portal.ru',
       images: (1..1).map do |i|
         {
-          src: "/assets/globals/events/v1_#{i}.jpg"
+          src: "/assets/globals/events/special_#{i}.jpg",
+          src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
         }
       end,
+      # rules: {
+      #   cookie: 'i2',
+      #   shows_per_week: 30
+      # },
       placement: Types::Ad::Placement[:menu]
     },
     advrtr_x728: {
@@ -104,7 +61,7 @@ class Ad < ViewObjectBase
     yd_poster_x240_2x: :advrtr_x240,
     yd_rtb_x240: :advrtr_x240,
     yd_horizontal: :advrtr_x728,
-    vgtrk_x300: :yd_rtb_x240
+    special_x300: :yd_rtb_x240
   }
 
   attr_reader :banner_type, :policy
