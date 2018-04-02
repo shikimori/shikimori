@@ -1,5 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
+require File.expand_path(File.dirname(__FILE__) + '/../config/environment')
 
 module Clockwork
   every(5.minutes, 'pghero.query_stats') { PgHero.capture_query_stats }
