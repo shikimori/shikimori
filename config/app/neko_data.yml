@@ -2939,8 +2939,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
 - :neko_id: :longshounen
   :level: 2
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/longshounen_2.jpg"
+  :border_color:
+  - "#F0D698"
   :title_ru: 
   :text_ru: 
   :title_en: 
