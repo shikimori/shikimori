@@ -24,7 +24,7 @@ class Anime < DbEntry
 
   ADULT_RATING = 'rx'
   SUB_ADULT_RATING = 'r_plus'
-  # забанено роскомнадзором
+  # banned by roskomnadzor
   FORBIDDEN_ADULT_IDS = [5042, 7593, 8861, 6987]
 
   update_index('animes#anime') do

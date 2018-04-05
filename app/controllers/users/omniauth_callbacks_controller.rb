@@ -37,14 +37,13 @@ private
       kind: omniauth_data.provider.titleize
 
     # @resource.remember_me = true
-    sign_in_and_redirect :user, @resource
+    sign_in_and_redirect :user, @resource, event: :authentication
 
     true
   end
 
   def omniauth_sign_up
-    @resource = User.new
-    OmniauthService.new(@resource, omniauth_data).populate
+    @resource = Users::PopulateOmniauth.call User.new, omniauth_data
 
     if omniauth_data.provider == 'yandex' || omniauth_data.provider == 'google_apps'
       return redirect_to disabled_registration_pages_url
@@ -71,7 +70,7 @@ private
       kind: omniauth_data.provider.titleize
 
     # @resource.remember_me = true
-    sign_in_and_redirect :user, @resource
+    sign_in_and_redirect :user, @resource, event: :authentication
   end
 
   def set_omniauth_data
