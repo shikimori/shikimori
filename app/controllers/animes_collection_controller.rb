@@ -60,19 +60,22 @@ private
     }
     @model = {}
 
-    if params[:kind]&.match? /[A-Z -]/
+    if params[:kind]&.match?(/[A-Z -]/)
       raise(
         ForceRedirect,
         current_url(kind: params[:kind].downcase.sub(/ |-/, '_'))
       )
     end
-    kinds = [@view.klass.kind.values + %w[tv_48 tv_24 tv_13]].join '|'
+    kinds = (
+      @view.klass.kind.values +
+        (@view.klass == Anime ? %w[tv_48 tv_24 tv_13] : [])
+    ).join '|'
     if params[:kind] &&
         params[:kind] !~ %r{\A (?: !? (?:#{kinds}) (?:,|\Z ) )+ \Z}mix
       fixed = params[:kind]
         .split(',')
-      .select { |v| v.match? %r{\A !? (?:#{kinds}) \Z }mix }
-      raise ForceRedirect, current_url(kind: fixed.join(','))
+        .select { |v| v.match? %r{\A !? (?:#{kinds}) \Z }mix }
+      raise ForceRedirect, current_url(kind: fixed.any? ? fixed.join(',') : nil)
     end
 
     %i[genre studio publisher].each do |kind|
