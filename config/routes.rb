@@ -63,7 +63,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_images, only: %i[create] # TODO: remove after 01.01.2016
   resources :messages, only: %i[create] do
     post :preview, on: :collection
   end
