@@ -23,13 +23,13 @@ class AnimesCollectionController < ShikimoriController
 
     if params[:rel] || request.url.include?('order') ||
         og.description.blank? || @view.collection.empty? ||
-        params.to_unsafe_h.any? { |k,v| k != 'genre' && v.kind_of?(String) && v.include?(',') }
+        params
+          .to_unsafe_h
+          .any? { |k, v| k != 'genre' && v.is_a?(String) && v.include?(',') }
       og noindex: true, nofollow: true
     end
 
-    if @view.page > 1 && !turbolinks_request?
-      og description: '', notice: ''
-    end
+    og description: '', notice: '' if @view.page > 1 && !turbolinks_request?
 
     og keywords: Titles::AnimeKeywords.new(
       klass: @view.klass,
@@ -40,8 +40,13 @@ class AnimesCollectionController < ShikimoriController
       publishers: @model[:publisher]
     ).keywords
 
-    raise AgeRestricted if @model[:genre] && @model[:genre].any?(&:censored?) && censored_forbidden?
-    raise AgeRestricted if params[:rating] && params[:rating].split(',').include?(Anime::ADULT_RATING) && censored_forbidden?
+    if @model[:genre]&.any?(&:censored?) && censored_forbidden?
+      raise AgeRestricted
+    end
+    if params[:rating]&.split(',')&.include?(Anime::ADULT_RATING) &&
+        censored_forbidden?
+      raise AgeRestricted
+    end
   end
 
 private
@@ -55,34 +60,48 @@ private
     }
     @model = {}
 
-    if params[:kind] =~ /[A-Z -]/
-      raise ForceRedirect, current_url(kind: params[:kind].downcase.sub(/ |-/, '_'))
+    if params[:kind]&.match? /[A-Z -]/
+      raise(
+        ForceRedirect,
+        current_url(kind: params[:kind].downcase.sub(/ |-/, '_'))
+      )
     end
-    kinds = [@view.klass.kind.values + %w(tv_48 tv_24 tv_13)].join '|'
-    if params[:kind] && params[:kind] !~ %r{\A (?: !? (?:#{kinds}) (?:,|\Z ) )+ \Z}mix
-      fixed = params[:kind].split(',').select {|v| v =~ %r{\A !? (?:#{kinds}) \Z }mix }
+    kinds = [@view.klass.kind.values + %w[tv_48 tv_24 tv_13]].join '|'
+    if params[:kind] &&
+        params[:kind] !~ %r{\A (?: !? (?:#{kinds}) (?:,|\Z ) )+ \Z}mix
+      fixed = params[:kind]
+        .split(',')
+      .select { |v| v.match? %r{\A !? (?:#{kinds}) \Z }mix }
       raise ForceRedirect, current_url(kind: fixed.join(','))
     end
 
-    [:genre, :studio, :publisher].each do |kind|
-      if params[kind]
-        all_param_ids = params[kind].split(',').map { |v| v.sub(/^!/, '').to_i }
-        included_param_ids = params[kind].split(',').map(&:to_i).select {|v| v > 0 }
+    %i[genre studio publisher].each do |kind|
+      next unless params[kind]
 
-        all_model = all_data[kind].select { |v| all_param_ids.include?(v.id) }
-        @model[kind] = all_data[kind].select { |v| included_param_ids.include?(v.id) }
+      all_param_ids = params[kind].split(',').map { |v| v.sub(/^!/, '').to_i }
+      included_param_ids = params[kind]
+        .split(',')
+        .map(&:to_i)
+        .select(&:positive?)
 
-        filter_klass = kind.to_s.capitalize.constantize
-        all_param_ids.each do |id|
-          if filter_klass::Merged.include? id
-            fixed_kind = params[kind].gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s)
-            raise ForceRedirect, current_url(kind.to_sym => fixed_kind)
-          end
-        end
+      all_model = all_data[kind].select { |v| all_param_ids.include?(v.id) }
+      @model[kind] = all_data[kind]
+        .select { |v| included_param_ids.include?(v.id) }
 
-        next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_model.first.to_param
-        raise ForceRedirect, current_url(kind.to_sym => all_model.first.to_param)
+      filter_klass = kind.to_s.capitalize.constantize
+      all_param_ids.each do |id|
+        next unless filter_klass::Merged.include? id
+
+        fixed_kind = params[kind]
+          .gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s)
+        raise ForceRedirect, current_url(kind.to_sym => fixed_kind)
       end
+
+      unless all_param_ids.size == 1 &&
+          params[kind].sub(/^!/, '') != all_model.first.to_param
+        next
+      end
+      raise ForceRedirect, current_url(kind.to_sym => all_model.first.to_param)
     end
 
     unless @view.recommendations?
