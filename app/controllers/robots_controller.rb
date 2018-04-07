@@ -1,16 +1,16 @@
 class RobotsController < ShikimoriController
   def anime_online
-    render plain: <<~EOS
+    render plain: <<~ROBOTS
       User-agent: *
       Disallow: /
-    EOS
+    ROBOTS
   end
 
   # def manga_online
-    # render plain: <<~EOS
+    # render plain: <<~ROBOTS
       # User-agent: *
       # Disallow: /
-    # EOS
+    # ROBOTS
   # end
 
   def shikimori

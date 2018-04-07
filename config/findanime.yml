@@ -103,9 +103,9 @@
   - gunparade_orchestra_ova_1
   - gunparade_orchestra_ova_2
   - gunparade_orchestra_ova_3
-  # http://shikimori.org/animes/type/Special/search/+Sailor+Moon
+  # http://shikimori.org/animes/type/Special?search=Sailor+Moon
   - sailor_moon_special_movies
-  # http://shikimori.org/animes/search/Runner+Kuromi
+  # http://shikimori.org/animes?search=Runner+Kuromi
   - animation_runner_kuromi_1_2
   # http://shikimori.org/animes/15489-Yu-Gi-Oh-Zexal-Second
   # тут сразу и второй сезон, и первый
