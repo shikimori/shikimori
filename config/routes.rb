@@ -75,7 +75,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :comments, except: %i[create update] do
+  resources :comments, except: %i[create update index] do
     # NOTE: must be before collection & member actions
     resources :bans, only: %i[new], controller: 'moderations/bans'
     resources :abuse_requests, controller: 'moderations/abuse_requests', only: [] do
