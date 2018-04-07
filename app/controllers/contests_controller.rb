@@ -49,18 +49,19 @@ class ContestsController < ShikimoriController
   def show
     og noindex: true if params[:round] || params[:vote]
     return redirect_to edit_contest_url(@resource) if @resource.created?
-    return redirect_to contest_url(@resource) if params[:round] && !@resource.displayed_round
+    if params[:round] && !@resource.displayed_round
+      return redirect_to contest_url(@resource)
+    end
 
     og keywords: i18n_t(:show_keywords, title: @resource.title)
     og description: i18n_t(
       :show_description,
-      title: Unicode::downcase(@resource.title)
-   )
+      title: Unicode.downcase(@resource.title)
+    )
 
     og page_title: @resource.displayed_round.title if params[:round]
   end
 
-  # турнирная сетка
   def grid
     if !user_signed_in? || !current_user.contest_moderator?
       return redirect_to contests_url if @resource.created?
@@ -102,11 +103,12 @@ class ContestsController < ShikimoriController
   end
 
   def update
-    if (@resource.created? || @resource.proposing?) && params[:contest][:member_ids]
+    if (@resource.created? || @resource.proposing?) &&
+        params[:contest][:member_ids]
       @resource.links = []
       params[:contest][:member_ids]
         .map(&:to_i)
-        .select { |member_id| member_id != 0 }
+        .reject(&:zero?)
         .each do |member_id|
           @resource.object.members << @resource.member_klass.find(member_id)
         end
@@ -126,31 +128,26 @@ class ContestsController < ShikimoriController
     end
   end
 
-  # запуск контеста
   def start
     Contest::Start.call @resource.object
     redirect_to edit_contest_url @resource
   end
 
-  # запуск приёма варинатов
   def propose
     @resource.propose!
     redirect_to edit_contest_url @resource
   end
 
-  # остановка приёма варинатов
   def stop_propose
     @resource.stop_propose!
     redirect_to edit_contest_url @resource
   end
 
-  # очистка вариантов от накруток
   def cleanup_suggestions
     Contest::CleanupSuggestions.call @resource.object
     redirect_to edit_contest_url @resource
   end
 
-  # создание голосований
   def build
     if @resource.created? || @resource.proposing?
       Contests::GenerateRounds.call @resource.object
@@ -161,17 +158,20 @@ class ContestsController < ShikimoriController
 
 private
 
-  # хлебные крошки
   def set_breadcrumbs
     breadcrumb i18n_t('contests'), contests_url
+
     if %w[edit grid].include?(params[:action]) && !@resource.created?
       breadcrumb @resource.title, contest_url(@resource)
     end
-    breadcrumb @resource.title, contest_url(@resource) if params[:round].present?
+
+    if params[:round].present?
+      breadcrumb @resource.title, contest_url(@resource)
+    end
   end
 
   def contest_params
-    params.require(:contest).permit(*PARAMS)
+    params.require(:contest).permit(*PARAMS) if params[:contest]
   end
 
   def js_export
