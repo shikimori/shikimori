@@ -5,7 +5,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   class << self
     # for large batches sql must be ordered by id!!!
-    def fetch_raw_data sql, batch_size
+    def fetch_raw_data sql, batch_size # rubocop:disable MethodLength
       offset = 0
 
       begin
@@ -19,6 +19,13 @@ class ApplicationRecord < ActiveRecord::Base
         end
         offset += batch_size
       end until batch.empty?
+    end
+
+    def fix_id id
+      return id if id.is_a?(String) && !id.match?(/\A\d+/)
+
+      int_id = id.is_a?(String) ? Integer(id) : id
+      (1..2_147_483_647).cover?(int_id) ? int_id : nil
     end
 
     # fixes .where(id: 11111111111111111111111111) - bigint
@@ -40,17 +47,10 @@ class ApplicationRecord < ActiveRecord::Base
 
     def _fix_ids ids
       if ids.is_a? Array
-        ids.map { |id| _fix_id(id) }.compact
+        ids.map { |id| fix_id(id) }.compact
       else
-        _fix_id ids
+        fix_id ids
       end
-    end
-
-    def _fix_id id
-      return id if id.is_a?(String) && !id.match?(/\A\d+/)
-
-      int_id = id.is_a?(String) ? Integer(id) : id
-      (1..2_147_483_647).cover?(int_id) ? int_id : nil
     end
 
     def boolean_attribute attribute_name
