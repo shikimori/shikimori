@@ -1,10 +1,6 @@
 class CommentsController < ShikimoriController
   include CommentHelper
 
-  COMMENT_PARAMS = %i[
-    body is_summary is_offtopic commentable_id commentable_type user_id
-  ]
-
   def show
     og noindex: true
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
@@ -42,6 +38,7 @@ class CommentsController < ShikimoriController
       # .postload(@page, @limit, true)
   # end
 
+  # все комментарии сущности до определённого коммента
   def fetch
     comment = Comment.find(params[:comment_id])
     topic = params[:topic_type].constantize.find(params[:topic_id])
@@ -65,6 +62,7 @@ class CommentsController < ShikimoriController
     render :collection, formats: :json
   end
 
+  # список комментариев по запросу
   def chosen
     comments = Comment
       .where(id: params[:ids].split(',').map(&:to_i))
@@ -77,16 +75,14 @@ class CommentsController < ShikimoriController
     render :collection, formats: :json
   end
 
-  def preview # rubocop:disable AbcSize
+  # предпросмотр текста
+  def preview
     @comment = Comment.new(preview_params).decorate
 
     # это может быть предпросмотр не просто текста, а описания к аниме или манге
     if params[:comment][:target_type] && params[:comment][:target_id]
-      @comment = DescriptionComment.new(
-        @comment,
-        params[:comment][:target_type],
-        params[:comment][:target_id]
-      )
+      @comment = DescriptionComment.new(@comment,
+        params[:comment][:target_type], params[:comment][:target_id])
     end
 
     render @comment
@@ -106,7 +102,7 @@ private
   def preview_params
     params
       .require(:comment)
-      .permit(*COMMENT_PARAMS)
+      .permit(:body, :is_summary, :is_offtopic, :commentable_id, :commentable_type, :user_id)
       .tap do |comment|
         comment[:user_id] ||= current_user.id
       end
