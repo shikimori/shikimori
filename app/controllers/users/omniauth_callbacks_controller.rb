@@ -21,7 +21,7 @@ private
     if @preexisting_token && @preexisting_token != current_user
       flash[:alert] = i18n_t 'already_linked', provider: provider
     else
-      OmniauthService.new(current_user, omniauth_data).populate
+      Users::PopulateOmniauth.call current_user, omniauth_data
       current_user.save
 
       flash[:notice] = i18n_t 'account_linked', provider: provider

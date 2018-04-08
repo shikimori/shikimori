@@ -44,6 +44,7 @@ class ProxyParser
   end
 
 private
+
   # парсинг проксей со страницы
   def parse url
     # задержка, чтобы не нас не банили
