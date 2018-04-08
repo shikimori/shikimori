@@ -1,4 +1,4 @@
-class Neko::Rule < Dry::Struct
+class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
   constructor_type :strict
 
   attribute :neko_id, Types::Achievement::NekoId
@@ -24,6 +24,16 @@ class Neko::Rule < Dry::Struct
     topic_id: nil,
     rule: {}
   )
+
+  def group
+    Types::Achievement::INVERTED_NEKO_IDS[
+      Types::Achievement::NekoId[neko_id]
+    ]
+  end
+
+  def group_name
+    I18n.t "achievements.group.#{group}"
+  end
 
   def title show_blank = false
     if show_blank
@@ -77,11 +87,10 @@ class Neko::Rule < Dry::Struct
   end
 
   def sort_criteria
-    [Types::Achievement::INVERTED_NEKO_IDS.key(neko_id), level]
+    [Types::Achievement::ORDERED_NEKO_IDS.index(neko_id), level]
   end
 
-  # rubocop:disable AbcSize, MethodLength
-  def animes_count
+  def animes_count # rubocop:disable AbcSize, MethodLength
     @animes_count ||= begin
       return if rule[:filters].blank?
       return rule[:filters]['anime_ids'].size if rule[:filters]['anime_ids']
@@ -106,7 +115,6 @@ class Neko::Rule < Dry::Struct
       scope.size
     end
   end
-  # rubocop:enable AbcSize, MethodLength
 
 private
 

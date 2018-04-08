@@ -614,7 +614,8 @@ Rails.application.routes.draw do
     end
 
     resources :achievements, only: [] do
-      get '(/:group)' => :index, as: '', on: :collection
+      get '' => :index, as: '', on: :collection
+      get '/:group' => :group, as: 'group', on: :collection
     end
     get 'achievements/:group/:id' => :show,
       as: 'achievement',

@@ -4,22 +4,35 @@ class AchievementsController < ShikimoriController
   end
 
   def index
+    @collection = NekoRepository.instance
   end
 
-  # rubocop:disable AbcSize
-  def show
+  def group # rubocop:disable AbcSize
+    @collection = NekoRepository.instance
+      .select { |v| v.group == params[:group].to_sym }
+
+    raise ActiveRecord::RecordNotFound if @collection.empty?
+    og page_title: @collection.first.group_name
+    breadcrumb i18n_i('Achievement', :other), achievements_url
+  end
+
+  def show # rubocop:disable AbcSize, MethodLength
     @collection = NekoRepository.instance
       .select { |v| v[:neko_id] == params[:id].to_sym }
-      .sort_by(&:sort_criteria)
 
     raise ActiveRecord::RecordNotFound if @collection.empty?
 
     @topic_resource = build_topic_resource @collection.first.topic_id
 
+    og page_title: @collection.first.group_name
     og page_title: @collection.first.neko_name
+
     breadcrumb i18n_i('Achievement', :other), achievements_url
+    breadcrumb(
+      @collection.first.group_name,
+      group_achievements_url(@collection.first.group)
+    )
   end
-  # rubocop:enable AbcSize
 
 private
 

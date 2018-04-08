@@ -19,6 +19,14 @@ describe Neko::Rule do
   let(:neko_id) { Types::Achievement::NekoId[:test] }
   let(:filters) { {} }
 
+  describe '#group' do
+    it { expect(rule.group).to eq Types::Achievement::NekoGroup[:common] }
+  end
+
+  describe '#group_name' do
+    it { expect(rule.group_name).to eq 'Аниме' }
+  end
+
   describe '#title' do
     it { expect(rule.title).to eq rule.title_ru }
   end
@@ -66,7 +74,7 @@ describe Neko::Rule do
   describe '#sort_criteria' do
     it do
       expect(rule.sort_criteria).to eq [
-        Types::Achievement::NEKO_IDS.index(rule.neko_id),
+        Types::Achievement::ORDERED_NEKO_IDS.index(rule.neko_id),
         rule.level
       ]
     end

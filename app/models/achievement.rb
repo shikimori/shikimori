@@ -7,19 +7,16 @@ class Achievement < ApplicationRecord
     in: Types::Achievement::NekoId.values,
     predicates: { prefix: true }
 
-  %i[image border_color title hint text sort_criteria].each do |field|
-    delegate field, to: :neko
-  end
-
-  def group
-    Types::Achievement::INVERTED_NEKO_IDS[
-      Types::Achievement::NekoId[neko_id]
-    ]
-  end
-
-  def group_text
-    I18n.t "achievements.neko_group.#{group}"
-  end
+  %i[
+    group
+    group_name
+    image
+    border_color
+    title
+    hint
+    text
+    sort_criteria
+  ].each { |field| delegate field, to: :neko }
 
 private
 

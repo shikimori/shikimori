@@ -2,6 +2,7 @@ ru:
   achievements:
     index:
       list_of_all_site_achievements: Список всех ачивок сайта
+    group:
       incomplete_achievement: Не завершено
       level: 'Уровень %{level}:'
       image: картинка

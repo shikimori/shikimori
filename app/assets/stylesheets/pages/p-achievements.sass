@@ -2,6 +2,7 @@
 @import mixins/clear_left
 @import mixins/column
 @import mixins/comma_separated
+@import mixins/dash_separated
 @import mixins/responsive
 
 .p-achievements
@@ -10,6 +11,12 @@
       +comma_separated
 
 .p-achievements-index
+  .level
+    color: $gray-3
+    display: inline-block
+    padding-left: 5px
+
+.p-achievements-group
   .incomplete
     &:not(:empty):before
       content: attr(data-label)
@@ -39,7 +46,7 @@
     .b-badge
       +column(7, 1/7, 1%)
 
-.p-achievements-index
+.p-achievements-group
   .cc-achievements
     +cc
 

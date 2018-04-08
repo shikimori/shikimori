@@ -52,9 +52,10 @@ module Types
     INVERTED_NEKO_IDS = NEKO_IDS.each_with_object({}) do |(group, ids), memo|
       ids.each { |id| memo[id] = NekoGroup[group] }
     end
+    ORDERED_NEKO_IDS = INVERTED_NEKO_IDS.keys
 
     NekoId = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(*INVERTED_NEKO_IDS.keys)
+      .enum(*ORDERED_NEKO_IDS)
   end
 end

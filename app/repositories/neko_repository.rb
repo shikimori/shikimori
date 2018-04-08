@@ -27,15 +27,13 @@ class NekoRepository
 
 private
 
-  # rubocop:disable Security/YAMLLoad
   def collection
-    @collection ||= YAML.load(raw_config)
+    @collection ||= YAML.load(raw_config) # rubocop:disable Security/YAMLLoad
       .map { |raw_rule| Neko::Rule.new raw_rule }
       .sort_by(&:sort_criteria)
   end
-  # rubocop:enable Security/YAMLLoad
 
   def raw_config
-    @raw_config ||= open(CONFIG_FILE).read
+    @raw_config ||= open(CONFIG_FILE).read # rubocop:disable Security/Open
   end
 end
