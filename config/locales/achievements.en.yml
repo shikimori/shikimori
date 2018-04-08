@@ -1,5 +1,9 @@
 en:
   achievements:
+    neko_group:
+      common: Anime
+      genre: Genres
+      franchise: Franchises
     neko_name:
       animelist: Anime List
       dementia_psychological: Dementia / Psychological

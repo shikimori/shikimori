@@ -15,9 +15,15 @@ namespace :neko do
     end
 
     neko_ids = %w[test] + rules.map { |v| v['neko_id'] }.uniq
-    shiki_ids = open(NEKO_IDS_FILE).read.match(
-      /(?<=NEKO_IDS\ =\ %i\[).*?(?=\])/mix,
-    )[0].strip.split("\n").map(&:strip).select(&:present?)
+    shiki_ids = open(NEKO_IDS_FILE).read
+      .match(
+        /(?<=NEKO_IDS\ =\ {).*?(?=})/mix
+      )[0]
+      .strip
+        .split("\n")
+        .map(&:strip)
+        .select(&:present?)
+        .select {|v| v =~ /^[A-Za-z_]+$/ }
 
     if (neko_ids & shiki_ids).size != neko_ids.size
       raise '[unmatched neko_ids] missing ids: ' +

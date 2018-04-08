@@ -11,6 +11,16 @@ class Achievement < ApplicationRecord
     delegate field, to: :neko
   end
 
+  def group
+    Types::Achievement::INVERTED_NEKO_IDS[
+      Types::Achievement::NekoId[neko_id]
+    ]
+  end
+
+  def group_text
+    I18n.t "achievements.neko_group.#{group}"
+  end
+
 private
 
   def neko

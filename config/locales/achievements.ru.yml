@@ -1,5 +1,9 @@
 ru:
   achievements:
+    neko_group:
+      common: Аниме
+      genre: Жанровые
+      franchise: Франшизы
     neko_name:
       action: Боевик
       animelist: Список аниме

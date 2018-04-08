@@ -613,7 +613,12 @@ Rails.application.routes.draw do
       get :tooltip, on: :member
     end
 
-    resources :achievements, only: %i[index show]
+    resources :achievements, only: [] do
+      get '(/:group)' => :index, as: '', on: :collection
+    end
+    get 'achievements/:group/:id' => :show,
+      as: 'achievement',
+      controller: :achievements
 
     # seo redirects
     constraints kind: /animes|mangas/, other: /.*/, other2: /.*/ do

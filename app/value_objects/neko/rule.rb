@@ -77,7 +77,7 @@ class Neko::Rule < Dry::Struct
   end
 
   def sort_criteria
-    [Types::Achievement::NEKO_IDS.index(neko_id), level]
+    [Types::Achievement::INVERTED_NEKO_IDS.key(neko_id), level]
   end
 
   # rubocop:disable AbcSize, MethodLength

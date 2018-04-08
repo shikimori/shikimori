@@ -19,6 +19,14 @@ describe Achievement do
   end
 
   describe 'instance methods' do
+    describe '#group, #group_text' do
+      let(:achievement) do
+        build :achievement, neko_id: Types::Achievement::NekoId[:test]
+      end
+      it { expect(achievement.group).to eq Types::Achievement::NekoGroup[:common] }
+      it { expect(achievement.group_text).to eq 'Аниме' }
+    end
+
     describe '#image, #border_color, #title, #text' do
       let(:neko) do
         NekoRepository.instance.find achievement.neko_id, achievement.level
