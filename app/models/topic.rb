@@ -10,7 +10,7 @@ class Topic < ApplicationRecord
     self if saved_change_to_title? || saved_change_to_forum_id?
   end
 
-  NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
+  NEWS_WALL = %r{[\r\n]*\[wall[\s\S]+\[/wall\]\Z}
 
   FORUM_IDS = {
     'Anime' => 1,
@@ -37,6 +37,22 @@ class Topic < ApplicationRecord
     contests_proposals: { ru: 212_657 }
   }
 
+  LINKED_TYPES = /
+    ^(
+      Anime|
+      Manga|
+      Ranobe|
+      Character|
+      Person|
+      Club|
+      ClubPage|
+      Review|
+      Contest|
+      CosplayGallery|
+      Collection
+    )$
+  /x
+
   belongs_to :forum
   belongs_to :linked, polymorphic: true
   belongs_to :user
@@ -56,7 +72,7 @@ class Topic < ApplicationRecord
     dependent: :destroy
 
   # топики без топиков о выходе эпизодов
-  scope :wo_episodes, -> {
+  scope :wo_episodes, lambda {
     where 'action IS NULL OR action != ?', AnimeHistoryAction::Episode
   }
 
@@ -82,25 +98,26 @@ class Topic < ApplicationRecord
   end
 
   # callback when comment is added
-  def comment_added comment
+  def comment_added _comment
     self.updated_at = Time.zone.now
 
-    if self.comments_count == 1 &&
+    if comments_count == 1 &&
         !Topic::TypePolicy.new(self).generated_news_topic?
       # automatically generated topics have no created_at
-      self.created_at ||= self.updated_at
+      self.created_at ||= updated_at
     end
 
     save
   end
 
   # callback when comment is deleted
-  def comment_deleted comment
-    updated_at = if self.comments.count > 0
-      comments.first.created_at
-    else
-      self.created_at
-    end
+  def comment_deleted _comment # rubocop:disable MethodLength
+    updated_at =
+      if comments.count.positive?
+        comments.first.created_at
+      else
+        self.created_at
+      end
 
     self.class.wo_timestamp do
       update(
@@ -132,21 +149,7 @@ private
   def validate_linked
     return if linked_type.blank?
 
-    match = linked_type =~ /
-      ^(
-        Anime|
-        Manga|
-        Ranobe|
-        Character|
-        Person|
-        Club|
-        ClubPage|
-        Review|
-        Contest|
-        CosplayGallery|
-        Collection
-      )$
-    /x
+    match = linked_type =~ LINKED_TYPES
     return if match.present?
 
     errors.add :linked_type, 'Forbidden Linked Type'
