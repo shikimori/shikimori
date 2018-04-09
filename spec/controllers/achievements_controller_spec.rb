@@ -7,8 +7,15 @@ describe AchievementsController do
   end
 
   describe '#group' do
-    before { get :group, params: { group: 'common' } }
-    it { expect(response).to have_http_status :success }
+    context 'group' do
+      before { get :group, params: { group: 'common' } }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'neko_id' do
+      before { get :group, params: { group: 'animelist' } }
+      it { expect(response).to redirect_to achievement_url('common', 'animelist') }
+    end
   end
 
   describe '#show' do

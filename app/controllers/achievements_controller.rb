@@ -7,18 +7,33 @@ class AchievementsController < ShikimoriController
     @collection = NekoRepository.instance
   end
 
-  def group # rubocop:disable AbcSize
+  def group # rubocop:disable AbcSize, MethodLength
     @collection = NekoRepository.instance
       .select { |v| v.group == params[:group].to_sym }
 
-    raise ActiveRecord::RecordNotFound if @collection.empty?
+    if @collection.empty?
+      id_collection = NekoRepository.instance
+        .select { |v| v.neko_id == params[:group].to_sym }
+
+      if id_collection.any?
+        return redirect_to achievement_url(
+          id_collection.first.group,
+          id_collection.first.neko_id
+        )
+      else
+        raise ActiveRecord::RecordNotFound
+      end
+    end
+
     og page_title: @collection.first.group_name
     breadcrumb i18n_i('Achievement', :other), achievements_url
   end
 
   def show # rubocop:disable AbcSize, MethodLength
-    @collection = NekoRepository.instance
-      .select { |v| v[:neko_id] == params[:id].to_sym }
+    @collection = NekoRepository.instance.select do |achievement|
+      achievement.neko_id == params[:id].to_sym &&
+        achievement.group == params[:group].to_sym
+    end
 
     raise ActiveRecord::RecordNotFound if @collection.empty?
 
