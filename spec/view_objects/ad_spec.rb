@@ -144,7 +144,7 @@ describe Ad do
     end
 
     context 'special' do
-      let(:banner_type) { :special_x300 }
+      let(:banner_type) { :admachina_x240 }
       it { expect(ad.ad_params).to be_nil }
     end
   end

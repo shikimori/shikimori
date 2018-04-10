@@ -21,6 +21,30 @@ class Ad < ViewObjectBase
       # },
       placement: Types::Ad::Placement[:menu]
     },
+    admachina_x240: {
+      provider: Types::Ad::Provider[:admachina],
+      placement: Types::Ad::Placement[:menu],
+      html: <<~HTML
+        <div style="height:400px;width:240px"><div id="aa66f5a7eae"></div></div>
+        <script>
+            (function (w, d, s, e, i, u) {
+                w[e] = w[e] || [];
+                w[e].push({'admbnr.start': new Date().getTime(), event: 'load.js'});
+                w[e].push({'admbnr.uid': i, event: 'load.js'});
+                var f = d.getElementsByTagName(s)[0], j = d.createElement(s);
+                j.async = true;
+                j.src = 'https://admachina.com/bv2/load.js?uid=' + i.join('|');
+                j.onerror = function () {
+                    js = d.createElement(s);
+                    js.async = true;
+                    js.src = '/' + u + '.php?uid=' + i.join('|');
+                    f.parentNode.insertBefore(js, f);
+                };
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'admbnr', ['aa66f5a7eae'], 'a699842fb529382e40c5e563eb');
+        </script>
+      HTML
+    },
     advrtr_x728: {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 1_256,
