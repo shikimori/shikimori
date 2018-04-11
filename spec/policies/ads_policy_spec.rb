@@ -70,25 +70,25 @@ describe AdsPolicy do
   end
 
   describe 'is_shikimori & ad proider' do
-    describe 'not shikimori & yandex_direct' do
+    describe 'not shikimori & yandex_direct/admachina' do
       let(:is_shikimori) { false }
-      let(:ad_provider) { Types::Ad::Provider[:yandex_direct] }
+      let(:ad_provider) { Types::Ad::Provider[%i[yandex_direct admachina].sample] }
       it { is_expected.to_not be_allowed }
     end
 
-    describe 'shikimori & yandex_direct' do
+    describe 'shikimori & yandex_direct/admachina' do
       let(:is_shikimori) { true }
-      let(:ad_provider) { Types::Ad::Provider[:yandex_direct] }
+      let(:ad_provider) { Types::Ad::Provider[%i[yandex_direct admachina].sample] }
       it { is_expected.to be_allowed }
     end
 
-    describe 'not shikimori & not yandex_direct' do
+    describe 'not shikimori & not yandex_direct/admachina' do
       let(:is_shikimori) { false }
       let(:ad_provider) { Types::Ad::Provider[:advertur] }
       it { is_expected.to be_allowed }
     end
 
-    describe 'shikimori & not yandex_direct' do
+    describe 'shikimori & not yandex_direct/admachina' do
       let(:is_shikimori) { true }
       let(:ad_provider) { Types::Ad::Provider[:advertur] }
       it { is_expected.to be_allowed }

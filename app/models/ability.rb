@@ -14,7 +14,7 @@ class Ability
       merge Abilities::ReviewModerator.new(user) if user.review_moderator?
       merge Abilities::VideoModerator.new(user) if user.video_moderator?
       if user.video_super_moderator?
-        merge Abilities::VideoSuperModerator.new(user) 
+        merge Abilities::VideoSuperModerator.new(user)
       end
       merge Abilities::VersionModerator.new(user) if user.version_moderator?
       merge Abilities::Admin.new(user) if user.admin?

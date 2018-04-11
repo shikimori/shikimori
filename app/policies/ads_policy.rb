@@ -11,8 +11,12 @@ class AdsPolicy
   def allowed?
     return false if @is_disabled
     return false unless @is_ru_host
+
     return false if yandex_direct?(@ad_provider) && Rails.env.development?
     return false if yandex_direct?(@ad_provider) && !@is_shikimori
+    return false if admachina?(@ad_provider) && Rails.env.development?
+    return false if admachina?(@ad_provider) && !@is_shikimori
+
     return true unless @user
     return true if istari?(@ad_provider) || special?(@ad_provider)
     return true if user&.admin?
@@ -33,6 +37,10 @@ private
 
   def special? ad_provider
     ad_provider == Types::Ad::Provider[:special]
+  end
+
+  def admachina? ad_provider
+    ad_provider == Types::Ad::Provider[:admachina]
   end
 
   def show_ad_to? user
