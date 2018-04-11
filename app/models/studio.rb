@@ -114,6 +114,9 @@ class Studio < ApplicationRecord
     'Kamikaze Douga',
     'Studio Puyukai',
     'Tokyo Movie Shinsha',
+    'Oriental Light and Magic',
+    'Nexus',
+    'production doA',
 
     # from wikipedia
     'a-1 pictures inc.',
@@ -332,5 +335,5 @@ class Studio < ApplicationRecord
     'zagreb school of animated films',
     'zexcs',
     'šaf'
-  ].map { |v| v.gsub(STUDIO_NAME_FILTER, '') }
+  ].map { |v| v.downcase.gsub(STUDIO_NAME_FILTER, '') }
 end
