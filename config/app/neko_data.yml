@@ -300,8 +300,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 6
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/animelist_6.jpg"
+  :border_color:
+  - "#F64A46"
   :title_ru: Эстет
   :text_ru: Удобно развалившись в кресле, вы наслаждаетесь просмотром аниме. Качественная
     графика, прекрасное музыкальное сопровождение, интересные сюжеты... эти японские
@@ -315,8 +317,10 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 7
-  :image: []
-  :border_color: []
+  :image:
+  - "/assets/achievements/anime/animelist_7.jpg"
+  :border_color:
+  - "#ACB78E"
   :title_ru: Есть чем похвастаться
   :text_ru: Просмотрено 400 аниме. Это... много. Вы можете гордиться собой, определённо.
   :title_en: 
@@ -435,10 +439,13 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 15
-  :image: []
-  :border_color: []
-  :title_ru: Мастер
-  :text_ru: Мастер познается в самоограничении.
+  :image:
+  - "/assets/achievements/anime/animelist_15.jpg"
+  :border_color:
+  - "#fce883"
+  :title_ru: Знать
+  :text_ru: Вы - вершина общества, сливки из сливок, объект зависти и восхищения.
+    И пусть чернь склонится перед Вашим Величеством!
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -451,10 +458,9 @@
   :image:
   - "/assets/achievements/anime/animelist_16.jpg"
   :border_color:
-  - "#fce883"
-  :title_ru: Знать
-  :text_ru: Вы - вершина общества, сливки из сливок, объект зависти и восхищения.
-    И пусть чернь склонится перед Вашим Величеством!
+  - "#ff4d00"
+  :title_ru: Герой
+  :text_ru: 
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -466,8 +472,8 @@
   :level: 17
   :image: []
   :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :title_ru: Просветленный
+  :text_ru: Мастер познается в самоограничении.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -477,11 +483,9 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 18
-  :image:
-  - "/assets/achievements/anime/animelist_18.jpg"
-  :border_color:
-  - "#ff4d00"
-  :title_ru: Герой
+  :image: []
+  :border_color: []
+  :title_ru: 
   :text_ru: 
   :title_en: 
   :text_en: 

@@ -41,7 +41,7 @@ class Ad < ViewObjectBase
                     f.parentNode.insertBefore(js, f);
                 };
                 f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'admbnr', ['aa66f5a7eae'], 'a699842fb529382e40c5e563eb');
+            })(window, document, 'script', 'admbnr', ['aa66f5a7eae'], 'ba699842fb529382e40c5e563eb');
         </script>
       HTML
     },
