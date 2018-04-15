@@ -51,12 +51,14 @@ header.head
 
         - elsif linked.kind_of?(CosplayGallery) || linked.kind_of?(Collection)
           / = render 'spnsrs/ad', ad: Ad.new(:yd_poster_x300_2x)
-          = render 'spnsrs/ad', ad: Ad.new(:admachina_x240)
+          = render 'spnsrs/ad', ad: Ad.new(:special_x300)
+          / = render 'spnsrs/ad', ad: Ad.new(:admachina_x240)
           = render 'menu', menu: @forums_view.menu
 
         - else raise "unknown linked: #{linked.class}"
 
       - else
         / = render 'spnsrs/ad', ad: Ad.new(:yd_poster_x300_2x)
-        = render 'spnsrs/ad', ad: Ad.new(:admachina_x240)
+        = render 'spnsrs/ad', ad: Ad.new(:special_x300)
+        / = render 'spnsrs/ad', ad: Ad.new(:admachina_x240)
         = render 'menu', menu: @forums_view.menu

@@ -8,8 +8,8 @@ class Ad < ViewObjectBase
   BANNERS = {
     special_x300: {
       provider: Types::Ad::Provider[:special],
-      url: 'https://panzer.kg-portal.ru',
-      images: (1..1).map do |i|
+      url: 'https://maquia.kg-portal.ru',
+      images: (2..2).map do |i|
         {
           src: "/assets/globals/events/special_#{i}.jpg",
           src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
