@@ -208,6 +208,7 @@ group :test do
   gem 'rspec-mocks'
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
+  gem 'fuubar'
 
   gem 'shoulda-matchers'
   gem 'state_machine_rspec'

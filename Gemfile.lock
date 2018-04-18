@@ -327,6 +327,9 @@ GEM
       websocket-driver (>= 0.5.1)
     ffi (1.9.23)
     formatador (0.2.5)
+    fuubar (2.3.1)
+      rspec-core (~> 3.0)
+      ruby-progressbar (~> 1.4)
     gcm (0.1.1)
       httparty
       json
@@ -760,6 +763,7 @@ DEPENDENCIES
   faraday-cookie_jar
   faraday_middleware
   faye
+  fuubar
   gcm
   gon
   guard
