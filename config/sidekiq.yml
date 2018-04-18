@@ -20,7 +20,7 @@ production:
   - [anime_online_parsers, 5]
   - [manga_online_parsers, 5]
   - [webm_thumbnails, 5]
-  - [similar_users, 5]
+  - [history_jobs, 5]
   - [low_priority, 1]
   - [mailers, 5]
   - [imports, 4]
@@ -34,7 +34,7 @@ production:
   anime_online_parsers: 1
   manga_online_parsers: 1
   webm_thumbnails: 1
-  similar_users: 1
+  history_jobs: 1
   mal_parsers: 50
   push_notifications: 5
   imports: 2
