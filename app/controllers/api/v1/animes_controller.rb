@@ -4,7 +4,7 @@ class Api::V1::AnimesController < Api::V1Controller
   before_action :fetch_resource, except: %i[index search neko]
 
   caches_action :neko, expires_in: 1.week, cache_path: lambda {
-    "#{params[:controller]}_#{params[:action]}_v4"
+    "#{params[:controller]}_#{params[:action]}_v5"
   }
 
   LIMIT = 50
@@ -241,7 +241,7 @@ class Api::V1::AnimesController < Api::V1Controller
   def neko
     animes = Anime
       .where.not(kind: %i[special music])
-      .select(:id, :aired_on, :genre_ids, :episodes, :duration)
+      .select(:id, :aired_on, :genre_ids, :episodes, :duration, :franchise)
 
     data = animes.map do |anime|
       {
@@ -249,7 +249,8 @@ class Api::V1::AnimesController < Api::V1Controller
         genre_ids: anime.genre_ids.map(&:to_i),
         episodes: anime.episodes,
         duration: anime.duration,
-        year: anime.year
+        year: anime.year,
+        franchise: anime.franchise
       }
     end
 
