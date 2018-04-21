@@ -20,10 +20,11 @@ namespace :neko do
         /(?<=NEKO_IDS\ =\ {).*?(?=})/mix
       )[0]
       .strip
-        .split("\n")
-        .map(&:strip)
-        .select(&:present?)
-        .select {|v| v =~ /^[A-Za-z_]+$/ }
+      .split("\n")
+      .map(&:strip)
+      .select(&:present?)
+      .select { |v| v =~ /^[A-Za-z_ ]+$/ }
+      .flat_map(&:split)
 
     if (neko_ids & shiki_ids).size != neko_ids.size
       raise '[unmatched neko_ids] missing ids: ' +
