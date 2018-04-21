@@ -101,16 +101,11 @@
   - A14349 # Little Witch Academia
   - A14353 # Death Billiards
 -
-  - A1412 # Lupin III
   - A18429 # Lupin III vs. Detective Conan: The Movie
   - A235 # Detective Conan
 -
   - A1412 # Lupin III
   - A235 # Detective Conan
-  - A6115 # Lupin III vs. Detective Conan
--
-  - A1412 # Lupin III
-  - A6115 # Lupin III vs. Detective Conan
 -
   - A143 # Kannazuki no Miko
   - A1810 # Kyoushirou to Towa no Sora
@@ -210,6 +205,14 @@
   - A2222 # Dr. Slump: Arale-chan
   - A223 # Dragon Ball
 -
+  - A2225 # Alps no Shoujo Heidi
+  - A2406 # Sazae-san
+  - A35770 # Hungry Days: Aoharu ka yo.
+  - A512 # Majo no Takkyuubin
+-
+  - A2225 # Alps no Shoujo Heidi
+  - A35770 # Hungry Days: Aoharu ka yo.
+-
   - A2252 # Devilman
   - A2692 # CB Chara Go Nagai World
   - A31050 # Cyborg 009 VS Devilman
@@ -250,8 +253,14 @@
   - A2356 # Amon: Devilman Mokushiroku
   - A31050 # Cyborg 009 VS Devilman
 -
+  - A2406 # Sazae-san
+  - A35770 # Hungry Days: Aoharu ka yo.
+-
   - A2722 # Crusher Joe
   - A424 # Dirty Pair
+-
+  - A27411 # Ghost in the Shell (2015)
+  - A30617 # Animegatari
 -
   - A27829 # Heavy Object
   - A4654 # Toaru Majutsu no Index
@@ -346,6 +355,9 @@
   - A35631 # Mahouka x Mameshiba
   - A7261 # Mameshiba
 -
+  - A35770 # Hungry Days: Aoharu ka yo.
+  - A512 # Majo no Takkyuubin
+-
   - A3579 # Getter Robo
   - A4385 # Great Mazinger tai Getter Robo
 -
@@ -370,9 +382,6 @@
 -
   - A9863 # SKET Dance
   - A9969 # Gintama
--
-  - A27411 # Ghost in the Shell (2015)
-  - A30617 # Animegatari
 -
   - M10 # xxxHOLiC
   - M16010 # K-Dash

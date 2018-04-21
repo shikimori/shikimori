@@ -1,8 +1,12 @@
-# слияния ишноров с шики и мал графа
+# compine shikimori & mal_graph banned couplings
 =begin
-loader = { 'A' => Anime, 'M' => Manga };
-shiki_data = YAML.load_file(Animes::BannedRelations::CONFIG_PATH);
-mal_data = JSON.parse(open('https://raw.githubusercontent.com/anime-plus/graph/master/data/banned-franchise-coupling.json').read).map {|k,v| ([k] + v) };
+ignored_mal_coupling = %w[A18429 A6115]
+loader = { 'A' => Anime, 'M' => Manga }
+shiki_data = YAML.load_file(Animes::BannedRelations::CONFIG_PATH)
+mal_data = JSON.
+  parse(open('https://raw.githubusercontent.com/anime-plus/graph/master/data/banned-franchise-coupling.json').read).
+  map { |k,v| ([k] + v) }.
+  reject { |group| (group & ignored_mal_coupling).any? };
 
 combined_data = (shiki_data + mal_data).map(&:sort).sort.uniq.map do |ids|
   ids.map do |id|
@@ -12,11 +16,16 @@ end;
 
 File.open(Animes::BannedRelations::CONFIG_PATH, 'w') do |v|
   v.write(
-    combined_data.to_yaml.gsub(/^- -/, "-\n  -").gsub('###', ' # ').gsub("'", '')
+    combined_data.
+      to_yaml.
+      gsub(/^- -/, "-\n  -").
+      gsub('###', ' # ').
+      gsub("'", '')
   )
 end;
 ap combined_data
 =end
+
 class Animes::BannedRelations
   include Singleton
 
@@ -49,7 +58,7 @@ private
     cache[key].each_with_object({}) do |ids, memo|
       ids.each do |id|
         memo[id] ||= []
-        memo[id].concat ids.select {|v| v != id }
+        memo[id].concat(ids.reject { |v| v == id })
       end
     end
   end
@@ -62,12 +71,12 @@ private
   end
 
   def banned_franchise_coupling
-    @banned ||= malgraph_data
-      .each_with_object({animes: [], mangas: []}) do |group, memo|
+    @banned_franchise_coupling ||= malgraph_data
+      .each_with_object(animes: [], mangas: []) do |group, memo|
         if group.first.starts_with? 'A'
-          memo[:animes] << group.map {|v| v.sub(/^A|-.*$/, '').to_i }
+          memo[:animes] << group.map { |v| v.sub(/^A|-.*$/, '').to_i }
         else
-          memo[:mangas] << group.map {|v| v.sub(/^M|-.*$/, '').to_i }
+          memo[:mangas] << group.map { |v| v.sub(/^M|-.*$/, '').to_i }
         end
       end
   end

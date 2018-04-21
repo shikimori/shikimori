@@ -87,6 +87,8 @@ Lint/HandleExceptions:
   Enabled: false
 Style/RescueModifier:
   Enabled: false
+Style/BlockComments:
+  Enabled: false
 
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.
