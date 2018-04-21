@@ -46,15 +46,6 @@ GIT
       factory_bot
 
 GIT
-  remote: https://github.com/morr/sidekiq-unique-jobs.git
-  revision: a99ac38049be65d33dd28d444c219c2a10e9ae2a
-  branch: master
-  specs:
-    sidekiq-unique-jobs (4.0.18)
-      sidekiq (>= 2.6)
-      thor
-
-GIT
   remote: https://github.com/morr/turbolinks.git
   revision: be44d5717f7657ac4f0f209a6e0c851ecf35e771
   branch: master
@@ -146,7 +137,7 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (5.0.0)
       activerecord (>= 4.2.8)
-    acts_as_list (0.9.10)
+    acts_as_list (0.9.11)
       activerecord (>= 3.0)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
@@ -160,7 +151,7 @@ GEM
     arel (8.0.0)
     ast (2.4.0)
     attr_extras (5.2.0)
-    autoprefixer-rails (8.2.0)
+    autoprefixer-rails (8.3.0)
       execjs
     awesome_print (1.8.0)
     bcrypt (3.1.11)
@@ -170,14 +161,14 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.2.1)
+    bootsnap (1.3.0)
       msgpack (~> 1.0)
     bourbon (4.3.4)
       sass (~> 3.4)
       thor (~> 0.19)
     browser (2.5.2)
     builder (3.2.3)
-    byebug (10.0.1)
+    byebug (10.0.2)
     capistrano (3.10.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -228,10 +219,10 @@ GEM
     cookiejar (0.3.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    crass (1.0.3)
+    crass (1.0.4)
     daemons (1.2.6)
     dalli (2.7.7)
-    database_cleaner (1.6.2)
+    database_cleaner (1.7.0)
     debug_inspector (0.0.3)
     devise (4.4.3)
       bcrypt (~> 3.0)
@@ -244,7 +235,7 @@ GEM
       doorkeeper
       rails
     diff-lcs (1.3)
-    domain_name (0.5.20170404)
+    domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     doorkeeper (4.2.6)
       railties (>= 4.2)
@@ -453,7 +444,7 @@ GEM
     omniauth (1.8.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
-    omniauth-facebook (4.0.0)
+    omniauth-facebook (5.0.0)
       omniauth-oauth2 (~> 1.2)
     omniauth-oauth (1.1.0)
       oauth
@@ -476,10 +467,10 @@ GEM
       terrapin (~> 0.6.0)
     paperclip-i18n (4.3.0)
     parallel (1.12.1)
-    parser (2.5.0.5)
+    parser (2.5.1.0)
       ast (~> 2.4.0)
     pg (1.0.0)
-    pg_query (1.0.1)
+    pg_query (1.0.2)
     pghero (2.1.0)
       activerecord
     powerpack (0.1.1)
@@ -497,9 +488,9 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (3.0.2)
-    puma (3.11.3)
+    puma (3.11.4)
     rack (2.0.4)
-    rack-attack (5.1.0)
+    rack-attack (5.2.0)
       rack
     rack-cors (1.0.2)
     rack-protection (2.0.1)
@@ -560,7 +551,7 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
-    retryable (3.0.0)
+    retryable (3.0.1)
     rs_russian (0.11.0)
       activesupport (>= 3.0.0, < 6.0.0)
       i18n (~> 0.9.0)
@@ -593,7 +584,7 @@ GEM
     rspec-support (3.7.1)
     rspec_junit_formatter (0.3.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (0.54.0)
+    rubocop (0.55.0)
       parallel (~> 1.10)
       parser (>= 2.5)
       powerpack (~> 0.1)
@@ -626,13 +617,16 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
-    sidekiq (5.1.1)
+    sidekiq (5.1.3)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
     sidekiq-limit_fetch (3.4.0)
       sidekiq (>= 4)
+    sidekiq-unique-jobs (5.0.10)
+      sidekiq (>= 4.0, <= 6.0)
+      thor (~> 0)
     simple_form (3.5.1)
       actionpack (> 4, < 5.2)
       activemodel (> 4, < 5.2)
@@ -684,9 +678,9 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.4)
+    unf_ext (0.0.7.5)
     unicode (0.4.4.4)
-    unicode-display_width (1.3.0)
+    unicode-display_width (1.3.2)
     unicorn (5.4.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -697,7 +691,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
-    webpacker (3.3.0)
+    webpacker (3.4.3)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
       railties (>= 4.2)
@@ -832,7 +826,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   sidekiq-limit_fetch
-  sidekiq-unique-jobs!
+  sidekiq-unique-jobs
   simple_form
   simple_form-magic_submit!
   slim-rails

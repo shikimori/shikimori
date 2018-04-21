@@ -46,9 +46,8 @@ gem 'pghero'
 
 # background jobs
 gem 'sidekiq'
-# remove fork when https://github.com/mhenrixon/sidekiq-unique-jobs/issues/212 is fixed
 gem 'sidekiq-limit_fetch'
-gem 'sidekiq-unique-jobs', github: 'morr/sidekiq-unique-jobs', branch: 'master'
+gem 'sidekiq-unique-jobs'
 
 # auth
 gem 'devise'
