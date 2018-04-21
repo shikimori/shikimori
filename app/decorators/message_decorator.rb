@@ -1,6 +1,10 @@
 class MessageDecorator < BaseDecorator
   instance_cache :action_tag, :generate_body
 
+  def broken?
+    linked_type.present? && linked_id.present? && !linked
+  end
+
   def image
     if anime_related?
       anime.image.url :x48

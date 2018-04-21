@@ -8,3 +8,6 @@ ru:
     message:
       to_topic: к новости→
       broadcast_by: от
+      broken:
+        header: Новость удалена
+        body: Не обращайте внимание на это сообщение.

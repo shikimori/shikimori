@@ -6,7 +6,9 @@
   data-user_id=message.from.id
   data-user_nickname=message.from.nickname
 ]
-  .inner
+  .inner[
+    class=(:broken if message.broken?)
+  ]
     - if message.persisted?
       span.item-mobile title=i18n_i('Action', :other)
       aside.markers
@@ -24,54 +26,64 @@
         message: message,
         reply_as_link: local_assigns[:reply_as_link]
 
-    header
-      - unless message.for_generated_news_topic?
-        span.linkeable data-href=message.url
-          img[
-            src=message.image
-            srcset="#{message.image_2x} 2x"
-            alt=message.title
-          ]
-      .name-date
-        - if message.action_tag
-          .b-anime_status_tag[
-            class=message.action_tag.type
-            data-text=message.action_tag.text
-          ]
-
-        a.name href=message.url title=message.title
-          = message.title
-
-        - if message.club_broadcast?
-          span.broadcast-by
-            = t '.broadcast_by'
-          = render 'users/user_16', user: message.linked.user
-
-        - if message.persisted?
-          span.time: time[
-            datetime=message.created_at.iso8601
-          ] = l message.created_at, format: '%e %B %Y'
-
-    .body
-      - if message.for_generated_news_topic?
-        .b-catalog-entry-embedded
-          = render message.linked.linked.decorate,
-            cover_title: :none,
-            cover_notice: :none,
-            content_by: :block,
-            content_title: :none,
-            content_text: :none
-
-      - else
-        = message.generate_body
-
-      - if message.kind == MessageType::SiteNews && message.linked
-        a.right.to-entry.b-link[
-          href=UrlGenerator.instance.topic_url(message.linked)
-        ] = t '.to_topic'
-
-      - if !message.read && message.to == current_user
+    - if message.broken?
+      header
+        .name-date
+          a.name = t '.broken.header'
+      .body
+        .b-nothing_here = t '.broken.body'
         .b-appear_marker.active[
           class="appear-message-#{message.id}"
         ]
-          / data-disabled="#{[MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind)}"
+    - else
+      header
+        - unless message.for_generated_news_topic?
+          span.linkeable data-href=message.url
+            img[
+              src=message.image
+              srcset="#{message.image_2x} 2x"
+              alt=message.title
+            ]
+        .name-date
+          - if message.action_tag
+            .b-anime_status_tag[
+              class=message.action_tag.type
+              data-text=message.action_tag.text
+            ]
+
+          a.name href=message.url title=message.title
+            = message.title
+
+          - if message.club_broadcast?
+            span.broadcast-by
+              = t '.broadcast_by'
+            = render 'users/user_16', user: message.linked.user
+
+          - if message.persisted?
+            span.time: time[
+              datetime=message.created_at.iso8601
+            ] = l message.created_at, format: '%e %B %Y'
+
+      .body
+        - if message.for_generated_news_topic?
+          .b-catalog-entry-embedded
+            = render message.linked.linked.decorate,
+              cover_title: :none,
+              cover_notice: :none,
+              content_by: :block,
+              content_title: :none,
+              content_text: :none
+
+        - else
+          = message.generate_body
+
+        - if message.kind == MessageType::SiteNews && message.linked
+          a.right.to-entry.b-link[
+            href=UrlGenerator.instance.topic_url(message.linked)
+          ] = t '.to_topic'
+
+        - if !message.read && message.to == current_user
+          .b-appear_marker.active[
+            class="appear-message-#{message.id}"
+          ]
+            / data-disabled="#{[MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind)}"
