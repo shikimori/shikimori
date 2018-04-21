@@ -68,5 +68,10 @@ describe Messages::CheckHacked do
       expect(message.errors[:base]).to be_empty
       expect(Users::LockHacked).to_not have_received :perform_async
     end
+
+    context 'link from NOT_SPAM_DOMAINS list' do
+      let(:text) { 'https://www.vk.com/test' }
+      it { is_expected.to eq true }
+    end
   end
 end

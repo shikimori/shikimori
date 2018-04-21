@@ -42,6 +42,10 @@ class Url
     chain @url.sub(%r{\A(?:https?:)?//}, '')
   end
 
+  def without_path
+    chain @url.gsub(%r{(?<!/)/(?!/).*|\?.*}, '')
+  end
+
   def domain
     chain without_http.without_port.to_s.gsub(%r{/.*|\?.*}, '')
   end

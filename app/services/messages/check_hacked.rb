@@ -7,6 +7,22 @@ class Messages::CheckHacked
     shikkme.ru
     hikanime.ru
   ]
+  NOT_SPAM_DOMAINS = %w[
+    animenewsnetwork.com
+    google.com
+    google.ru
+    mail.ru
+    myanimelist.net
+    myvi.ru
+    rutube.ru
+    sibnet.ru
+    smotret-anime.ru
+    vimeo.com
+    vk.com
+    yandex.ru
+    youtu.be
+    youtube.com
+  ]
 
   def call
     if spam? @message
@@ -24,6 +40,7 @@ private
 
   def spam? message
     return false unless message.kind == MessageType::Private
+
     (
       domains(follow(links(message.body))) & SPAM_DOMAINS
     ).any?
@@ -39,7 +56,10 @@ private
   end
 
   def links html
-    html.scan(BbCodes::Tags::UrlTag::URL).map(&:first)
+    html
+      .scan(BbCodes::Tags::UrlTag::URL)
+      .map(&:first)
+      .reject { |v| NOT_SPAM_DOMAINS.include? Url.new(v).domain.cut_www.to_s }
   end
 
   def follow urls
@@ -50,7 +70,7 @@ private
 
   def domains urls
     urls
-     .select(&:present?)
-     .map { |url| Url.new(url).domain.to_s }
+      .select(&:present?)
+      .map { |url| Url.new(url).domain.to_s }
   end
 end

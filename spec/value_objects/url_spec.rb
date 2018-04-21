@@ -73,6 +73,30 @@ describe Url do
     end
   end
 
+  describe '#without_path' do
+    subject { url.without_path.to_s }
+
+    context 'protocol' do
+      let(:string) { 'http://test.org/test' }
+      it { is_expected.to eq 'http://test.org' }
+    end
+
+    context 'no protocol' do
+      let(:string) { '//test.org/test' }
+      it { is_expected.to eq '//test.org' }
+    end
+
+    context '/' do
+      let(:string) { 'https://test.org/' }
+      it { is_expected.to eq 'https://test.org' }
+    end
+
+    context 'no http' do
+      let(:string) { 'test.org/test' }
+      it { is_expected.to eq 'test.org' }
+    end
+  end
+
   describe '#domain' do
     subject { url.domain.to_s }
 
