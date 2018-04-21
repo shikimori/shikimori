@@ -72,20 +72,28 @@ module.exports = class FranchiseGraph
     window.d3_force = @d3_force = d3.layout.force()
       .charge (d) ->
         if d.selected
-          -5000
-        else if d.weight > 7
-          -3000
+          if d.weight > 100
+            -9000
+          else
+            -5000
+        else if d.weight > 100
+          -7000
         else if d.weight > 20
           -4000
+        else if d.weight > 7
+          -3000
         else
           -2000
 
       .friction 0.9
       .linkDistance (d) =>
-        max_width = if @max_weight < 3
-          @_scale @size, from_min: 2, from_max: 6, to_min: 100, to_max: 300
-        else
-          @_scale @max_weight, from_min: 30, from_max: 80, to_min: 300, to_max: 1500
+        max_width =
+          if @max_weight < 3
+            @_scale @size, from_min: 2, from_max: 6, to_min: 100, to_max: 300
+          else if @max_weight > 100
+            @_scale @max_weight, from_min: 30, from_max: 80, to_min: 300, to_max: 1000
+          else
+            @_scale @max_weight, from_min: 30, from_max: 80, to_min: 300, to_max: 1500
 
         @_scale 300 * (d.weight / @max_weight),
           from_min: 0
