@@ -11,14 +11,16 @@ header.head
       ] = grouped_achievements.first.group_name
 
     .block
-      - grouped_achievements.group_by(&:neko_id).each do |neko_id, achievements|
-        ul.b-list
-          li
-            a[
-              href=achievement_url(group, neko_id)
-            ] = achievements.first.neko_name
-            .level
-              - if achievements.many?
-                | lvl #{achievements.first.level}-#{achievements.last.level}
-              - else
-                | lvl #{achievements.first.level}
+      .cc-3
+        - grouped_achievements.group_by(&:neko_id).each do |neko_id, achievements|
+          ul.b-list.c-column
+            li
+              a[
+                href=achievement_url(group, neko_id)
+              ] = achievements.first.neko_name
+              - unless achievements.first.franchise?
+                .level
+                  - if achievements.many?
+                    | lvl #{achievements.first.level}-#{achievements.last.level}
+                  - else
+                    | lvl #{achievements.first.level}

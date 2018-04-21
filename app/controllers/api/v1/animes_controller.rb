@@ -1,6 +1,5 @@
-# rubocop:disable ClassLength
 # TODO: remove type param after 2018-06-01
-class Api::V1::AnimesController < Api::V1Controller
+class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLength
   before_action :fetch_resource, except: %i[index search neko]
 
   caches_action :neko, expires_in: 1.week, cache_path: lambda {
@@ -238,9 +237,8 @@ class Api::V1::AnimesController < Api::V1Controller
     index
   end
 
-  def neko
-    animes = Anime
-      .where.not(kind: %i[special music])
+  def neko # rubocop:disable MethodLength
+    animes = Animes::NekoScope.call
       .select(:id, :aired_on, :genre_ids, :episodes, :duration, :franchise)
 
     data = animes.map do |anime|

@@ -16,6 +16,7 @@ class Achievement < ApplicationRecord
     hint
     text
     sort_criteria
+    franchise?
   ].each { |field| delegate field, to: :neko }
 
 private

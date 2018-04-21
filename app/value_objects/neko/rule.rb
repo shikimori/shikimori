@@ -31,6 +31,10 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
     ]
   end
 
+  def franchise?
+    group == Types::Achievement::NekoGroup[:franchise]
+  end
+
   def group_name
     I18n.t "achievements.group.#{group}"
   end
@@ -63,7 +67,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
 
   def neko_name
     I18n.t "achievements.neko_name.#{neko_id}",
-    default: neko_id.to_s.capitalize
+      default: franchise? ? neko_id.to_s : neko_id.to_s.capitalize
   end
 
   def progress
@@ -90,30 +94,38 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
     [Types::Achievement::ORDERED_NEKO_IDS.index(neko_id), level]
   end
 
-  def animes_count # rubocop:disable AbcSize, MethodLength
+  def animes_count
     @animes_count ||= begin
       return if rule[:filters].blank?
       return rule[:filters]['anime_ids'].size if rule[:filters]['anime_ids']
 
-      scope = Anime.all
-
-      if rule[:filters]['genre_ids']
-        grenre_ids = rule[:filters]['genre_ids'].map(&:to_i).join(',')
-        scope.where! "genre_ids && '{#{grenre_ids}}' and kind != 'Special'"
-      end
-
-      if rule[:filters]['episodes_gte']
-        episodes_gte = rule[:filters]['episodes_gte'].to_i
-        scope.where! 'episodes >= ?', episodes_gte
-      end
-
-      if rule[:filters]['duration_lte']
-        duration_lte = rule[:filters]['duration_lte'].to_i
-        scope.where! 'duration <= ?', duration_lte
-      end
-
-      scope.size
+      animes_scope.size
     end
+  end
+
+  def animes_scope # rubocop:disable MethodLength, AbcSize
+    scope = Animes::NekoScope.call
+
+    if rule[:filters]['genre_ids']
+      grenre_ids = rule[:filters]['genre_ids'].map(&:to_i).join(',')
+      scope.where! "genre_ids && '{#{grenre_ids}}' and kind != 'Special'"
+    end
+
+    if rule[:filters]['episodes_gte']
+      episodes_gte = rule[:filters]['episodes_gte'].to_i
+      scope.where! 'episodes >= ?', episodes_gte
+    end
+
+    if rule[:filters]['duration_lte']
+      duration_lte = rule[:filters]['duration_lte'].to_i
+      scope.where! 'duration <= ?', duration_lte
+    end
+
+    if rule[:filters]['franchise']
+      scope.where! franchise: rule[:filters]['franchise']
+    end
+
+    scope
   end
 
 private
