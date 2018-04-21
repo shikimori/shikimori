@@ -384,7 +384,7 @@
   :border_color:
   - "#002f55"
   :title_ru: Бесконечное путешествие
-  :text_ru: У каждого человека свои звезды. Одним - тем, кто странствует, - они указывают
+  :text_ru: У каждого человека свои звезды. Одним — тем, кто странствует, — они указывают
     путь. Для других это просто маленькие огоньки. Дорога вперед бесконечна. Хотите
     ли вы продолжать идти по ней?
   :title_en: 
@@ -427,9 +427,10 @@
   :image:
   - "/assets/achievements/anime/animelist_14.jpg"
   :border_color:
-  - "#ED3CCA"
-  :title_ru: Маньяк
-  :text_ru: Это так круто? Возможно вам следует обратиться к врачу.
+  - "#F34723"
+  :title_ru: Гурман
+  :text_ru: Ваша неразборчивость в потреблении аниме-блюд вызывает трепет, а способность
+    переваривать любой контент — восхищение.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -442,10 +443,9 @@
   :image:
   - "/assets/achievements/anime/animelist_15.jpg"
   :border_color:
-  - "#fce883"
-  :title_ru: Знать
-  :text_ru: Вы - вершина общества, сливки из сливок, объект зависти и восхищения.
-    И пусть чернь склонится перед Вашим Величеством!
+  - "#ED3CCA"
+  :title_ru: Маньяк
+  :text_ru: Это так круто? Возможно вам следует обратиться к врачу.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -458,9 +458,10 @@
   :image:
   - "/assets/achievements/anime/animelist_16.jpg"
   :border_color:
-  - "#ff4d00"
+  - "#FFDB58"
   :title_ru: Герой
-  :text_ru: 
+  :text_ru: Результат интенсивных тренировок на поприще аниме-просмотра – необычный
+    внешний вид, а побочный эффект – стильный костюмчик.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -470,10 +471,13 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 17
-  :image: []
-  :border_color: []
-  :title_ru: Просветленный
-  :text_ru: Мастер познается в самоограничении.
+  :image:
+  - "/assets/achievements/anime/animelist_17.jpg"
+  :border_color:
+  - "#fce883"
+  :title_ru: Голубая кровь
+  :text_ru: Вы находитесь так высоко! Кто-то восхищается вами, кто-то завидует, и
+    это — заслуженно. Но не стоит задирать нос, помните, что и вы начинали с малого.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -483,10 +487,12 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 18
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :image:
+  - "/assets/achievements/anime/animelist_18.jpg"
+  :border_color:
+  - "#FFBA00"
+  :title_ru: Просветленный
+  :text_ru: Мастер познается в самоограничении.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -512,10 +518,13 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - :neko_id: :animelist
   :level: 20
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
+  :image:
+  - "/assets/achievements/anime/animelist_20.gif"
+  :border_color:
+  - "#231A24"
+  :title_ru: No title
+  :text_ru: Честно, мы не думали, что кто-то сможет. Теперь тебе не нужно аниме чтобы
+    смотреть аниме.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -3031,7 +3040,7 @@
   :image:
   - "/assets/achievements/anime/moe_1.jpg"
   :border_color:
-  - "#f0d698"
+  - "#FBCEB1"
   :title_ru: Начинающий моэфаг
   :text_ru: Позволь проводить тебя в удивительный 2д-мир.
   :title_en: 
@@ -5493,6 +5502,7 @@
       - 9751
       - 9941
       - 9957
+      - 929
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - :neko_id: :supernatural
   :level: 1
