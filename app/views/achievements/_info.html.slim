@@ -1,22 +1,22 @@
 - is_show_animes = local_assigns[:animes] && (achievements.first.rule.dig(:filters, 'anime_ids') || achievements.first.rule.dig(:filters, 'franchise'))
 
 .b-entry-info
-  .line.level
-    .key #{t '.levels'}:&nbsp;
-    .value = achievements.size
+  - unless achievements.first.franchise?
+    .line.level
+      .key #{t '.levels'}:&nbsp;
+      .value = achievements.size
+
+    .line
+      .key #{t '.source'}:&nbsp;
+      .value
+        a.b-link[
+          href=achievements.first.rule[:source]
+        ] = achievements.first.rule[:source].gsub %r{\A.*/}, ''
+        a.b-question href=how_to_edit_achievements_pages_url
 
   .line
-    .key #{t '.source'}:&nbsp;
-    .value
-      a.b-link[
-        href=achievements.first.rule[:source]
-      ] = achievements.first.rule[:source].gsub %r{\A.*/}, ''
-      a.b-question href=how_to_edit_achievements_pages_url
-
-  - unless is_show_animes
-    .line
-      .key #{t '.animes'}:&nbsp;
-      .value == achievements.first.animes_count || '&ndash;'
+    .key #{t '.animes'}:&nbsp;
+    .value == achievements.first.animes_count || '&ndash;'
 
   .line
     .key #{t '.threshold'}:&nbsp;
@@ -38,10 +38,6 @@
       = BbCodes::Text.call "[code=json]#{JSON.pretty_generate(achievements.first.rule[:filters]).gsub(/\[.*\]/mix) {|match| match.gsub(/\n|\ /, '') }}[/code]"
 
   - if is_show_animes
-    .line
-      .key #{t '.animes'}:&nbsp;
-      .value == achievements.first.animes_count || '&ndash;'
-
     = spoiler t('.show_anime_list') do
       - cache achievements.first.animes_scope.cache_key do
         .hide-expanded = t '.hide'

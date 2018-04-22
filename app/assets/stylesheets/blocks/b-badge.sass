@@ -1,16 +1,24 @@
 .b-badge
   margin-bottom: 7px
 
-  img
+  img,
+  .no-image
     height: 90px
     width: 135px
+    line-height: 0
+
+    & + img
+      margin-left: 15px
+
+  .no-image
+    background: gray
 
   &.special
     img
       width: 250px
       height: 125px
 
-  &.unavailable
+  &.unavailable,
     filter: grayscale(100%)
     filter: gray // IE 6-9
 

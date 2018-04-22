@@ -1,24 +1,37 @@
-.b-achievement
-  .c-about
-    .title = achievement.title
-    .percent #{achievement.progress}%
-    .hint = achievement.hint
-    .progress: .bar style="width: #{achievement.progress}%"
-    .text == achievement.text.gsub("\n", "<br>")
-
-  - if local_assigns[:images] && achievement.images.any?
-    - achievement.images.each_with_index do |image, index|
-      - if index > 0
-        .c-about &nbsp;
-      .c-image: .inner
-        .border style="border-color: #{achievement.border_colors[index]}"
+- if achievement.franchise?
+  .b-badge
+    - if achievement.images.any?
+      - achievement.images.each do |image|
         = image_tag image
 
-  - else
-    .c-image: .inner
-      .border style="border-color: #{achievement.border_color}"
-
+    - else
       - if achievement.image.present?
         = image_tag achievement.image
       - else
         .no-image
+
+- else
+  .b-achievement
+    .c-about
+      .title = achievement.title
+      .percent #{achievement.progress}%
+      .hint = achievement.hint
+      .progress: .bar style="width: #{achievement.progress}%"
+      .text == achievement.text.gsub("\n", "<br>")
+
+    - if local_assigns[:images] && achievement.images.any?
+      - achievement.images.each_with_index do |image, index|
+        - if index > 0
+          .c-about &nbsp;
+        .c-image: .inner
+          .border style="border-color: #{achievement.border_colors[index]}"
+          = image_tag image
+
+    - else
+      .c-image: .inner
+        .border style="border-color: #{achievement.border_color}"
+
+        - if achievement.image.present?
+          = image_tag achievement.image
+        - else
+          .no-image
