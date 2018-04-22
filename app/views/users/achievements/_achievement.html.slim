@@ -1,14 +1,12 @@
 - if achievement.franchise?
   .b-badge
-    - if achievement.images.any?
+    - if local_assigns[:images] && achievement.images.any?
       - achievement.images.each do |image|
         = image_tag image
-
+    - elsif achievement.image.present?
+      = image_tag achievement.image
     - else
-      - if achievement.image.present?
-        = image_tag achievement.image
-      - else
-        .no-image
+      .no-image
 
 - else
   .b-achievement
