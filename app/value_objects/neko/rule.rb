@@ -106,6 +106,14 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
   def animes_scope # rubocop:disable MethodLength, AbcSize
     scope = Animes::NekoScope.call
 
+    if rule[:filters]['anime_ids']
+      scope.where! id: rule[:filters]['anime_ids']
+    end
+
+    if rule[:filters]['not_anime_ids']
+      scope = scope.where.not id: rule[:filters]['not_anime_ids']
+    end
+
     if rule[:filters]['genre_ids']
       grenre_ids = rule[:filters]['genre_ids'].map(&:to_i).join(',')
       scope.where! "genre_ids && '{#{grenre_ids}}' and kind != 'Special'"
