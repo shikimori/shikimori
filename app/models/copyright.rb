@@ -1,3 +1,4 @@
+# rubocop:disable all
 # модель для сбора id аниме и манги, заблокированных требованиями копирайта
 module Copyright
   # by Hetzner abuse team
@@ -39,18 +40,22 @@ module Copyright
   ]
 
   WAKANIM_COPYRIGHTED = [
-    36144, # Garo: Vanishing Line - Wakanim (Russia + Eastern Europe) 2017-10-01 - 2024-10-01
-    35078, # Mitsuboshi Colors - Wakanim (Russia + Europe except Italy&Spanish) 2018-08-01 - 2022-07-01
-    33354, # Cardcaptor Sakura: Clear Card-hen - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
-    35320, # Cardcaptor Sakura: Clear Card-hen Prologue - Sakura and two Bears - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
-    35073, # Overlord II - Wakanim (Russia) 2018-01-01 - 2022-01-01
-    33478, # UQ Holder!: Mahou Sensei Negima! 2 - Wakanim (Russia) 2017-10-01 - 2024-10-01
-    36027, # King's Game - Wakanim (Russia + French) 2017-10-01 - 2024-10-01
-    35838, # Girls' Last Tour - Wakanim (Russia + French) 2017-10-01 - 2020-10-01
-    35712, # My Girlfriend is too much to handle - Wakanim (Russia + French) 2017-10-01 - 2020-10-01
-    36094, # Hakumei to Mikochi - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
-    1546, # Negima?! - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
-    157, # Mahou Sensei Negima! - Wakanim (Russia + French) 2018-01-01 - 2022-01-01
+    36144, # Garo: Vanishing Line | Russia + Eastern Europe 2017-10-01 - 2024-10-01
+    35078, # Mitsuboshi Colors | Russia + Europe except Italy&Spanish 2018-08-01 - 2022-07-01
+    33354, # Cardcaptor Sakura: Clear Card-hen | Russia + French 2018-01-01 - 2025-12-31
+    35320, # Cardcaptor Sakura: Clear Card-hen Prologue - Sakura to Futatsu no Kuma | Russia + French 2018-01-01 - 2025-12-31
+    35073, # Overlord II | Russia 2018-01-01 - 2022-01-01
+    33478, # UQ Holder!: Mahou Sensei Negima! 2 | Russia 2017-10-01 - 2024-10-01
+    36027, # King's Game | Russia + French 2017-10-01 - 2024-10-01
+    35838, # Girls' Last Tour | Russia + French 2017-10-01 - 2020-10-01
+    35712, # My Girlfriend is too much to handle | Russia + French 2017-10-01 - 2020-10-01
+    36094, # Hakumei to Mikochi | Russia + French 2018-01-01 - 2022-01-01
+    1546, # Negima?! | Russia + French 2018-01-01 - 2022-01-01
+    157, # Mahou Sensei Negima! | Russia + French 2018-01-01 - 2022-01-01
+    34279, # Grancrest Senki | Russia + East Europe - 2018-01-01 - 2025-12-31
+    35997, # Marchen Madchen | Russia + Europe - 2018-01-11 - 2020-01-11
+    36511, # Tokyo Ghoul:re | Russia + East Europe - 2018-04-01 - 2023-04-01
+    30484, # Steins;Gate 0 | Russia + Germany - 2018-04-01 - 2025-04-01
   ]
 
   # http://antipiracy.ivi.ru/Starz_Media_prizrak_gorod_mechty.pdf
