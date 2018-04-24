@@ -131,6 +131,13 @@
           title=t('.faq')
         ] = t '.faq'
 
+      - if ignore_copyright?
+        a.entry[
+          href=copyrighted_pages_url
+          title=t('copyrighted_animes')
+        ] = t 'copyrighted_animes'
+
+      - if ru_host?
         a.entry[
           href="https://vk.com/shikimori"
           title=t('.vk_group')

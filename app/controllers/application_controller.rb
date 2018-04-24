@@ -70,7 +70,6 @@ class ApplicationController < ActionController::Base
     'application'
   end
 
-
   def set_layout_view
     @layout = LayoutView.new
   end
@@ -82,9 +81,7 @@ class ApplicationController < ActionController::Base
 
   # гугловский бот со странным format иногда ходит
   def fix_googlebot
-    if request.format.to_s =~ %r%\*\/\*%
-      request.format = :html
-    end
+    request.format = :html if request.format.to_s =~ %r%\*\/\*%
   end
 
   # хром некорректно обрабатывает Back кнопку,
@@ -92,7 +89,10 @@ class ApplicationController < ActionController::Base
   def force_vary_accept
     if json?
       response.headers['Vary'] = 'Accept'
-      response.headers['Pragma'] = 'no-cache' if request.env['HTTP_USER_AGENT'] =~ /Firefox/
+
+      if request.env['HTTP_USER_AGENT'].match?(/Firefox/)
+        response.headers['Pragma'] = 'no-cache'
+      end
     end
   end
 

@@ -9,39 +9,45 @@ header.head
       - faq = StickyClubView.faq(locale_from_host)
 
       li: a.entry[
-        href="#{about_pages_url}"
-        title="#{t 'about_site'}"
+        href=about_pages_url
+        title=t('about_site')
       ] = t 'about_site'
       li: a.entry[
         href=site_rules.url
-        title="#{t 'application.top_menu.shikimori.site_rules'}"
+        title=t('application.top_menu.shikimori.site_rules')
       ] = t 'application.top_menu.shikimori.site_rules'
       - if ru_host?
         li: a.entry[
           href=faq.url
-          title="#{t 'application.top_menu.shikimori.faq'}"
+          title=t('application.top_menu.shikimori.faq')
         ] = t 'application.top_menu.shikimori.faq'
+      - if ignore_copyright?
+        li: a.entry[
+          href=copyrighted_pages_url
+          title=t('copyrighted_animes')
+        ] = t 'copyrighted_animes'
+      - if ru_host?
         li: a.entry[
           href="https://vk.com/shikimori"
-          title="#{t 'application.top_menu.shikimori.vk_group'}"
+          title=t('application.top_menu.shikimori.vk_group')
         ] = t 'application.top_menu.shikimori.vk_group'
       li: a.entry[
-        href="#{moderations_url}"
-        title="#{t 'application.top_menu.shikimori.moderation'}"
+        href=moderations_url
+        title=t('application.top_menu.shikimori.moderation')
       ] = t 'application.top_menu.shikimori.moderation'
       li: a.entry[
-        href="#{development_pages_url}"
-        title="#{t 'application.top_menu.shikimori.development'}"
+        href=development_pages_url
+        title=t('application.top_menu.shikimori.development')
       ] = t 'application.top_menu.shikimori.development'
 
       li: a.entry[
-        href="#{apipie_apipie_url}"
+        href=apipie_apipie_url
         title='API'
       ] API
 
   .c-column.m0
     ul.b-list
       li: a.entry[
-        href="#{anime_statistics_url}"
-        title="#{t 'anime_industry'}"
+        href=anime_statistics_url
+        title=t('anime_industry')
       ] = t 'anime_industry'

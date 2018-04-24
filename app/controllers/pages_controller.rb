@@ -11,21 +11,46 @@ class PagesController < ShikimoriController
 
   ONGOINGS_TOPIC_ID = 94879
   ABOUT_TOPIC_ID = 84739
+  COPYRIGHTED_TOPIC_ID = 247567
 
-  # график онгоингов
   def ongoings
     og page_title: i18n_t('calendar_of_ongoings')
 
     @ongoings_query = CalendarsQuery.new
-    @topic_view = Topics::TopicViewFactory.new(false, false).find ONGOINGS_TOPIC_ID
+    @topic_view =
+      Topics::TopicViewFactory.new(false, false).find(ONGOINGS_TOPIC_ID)
   end
 
-  # о сайте
   def about
     og page_title: t('about_site')
 
     @statistics = SiteStatistics.new
-    @topic_view = Topics::TopicViewFactory.new(false, false).find ABOUT_TOPIC_ID
+    @topic_view =
+      Topics::TopicViewFactory.new(false, false).find(ABOUT_TOPIC_ID)
+  end
+
+  def copyrighted
+    og page_title: t('copyrighted_animes')
+    og notice: i18n_t('copyrighted_animes')
+
+    @wakanim = Anime
+      .where(id: Copyright::WAKANIM_COPYRIGHTED)
+      .order(AniMangaQuery.order_sql('released_on', Anime))
+
+    @istari = Anime
+      .where(id: Copyright::ISTARI_COPYRIGHTED)
+      .order(AniMangaQuery.order_sql('released_on', Anime))
+
+    @vgtrk = Anime
+      .where(id: Copyright::VGTRK_COPYRIGHTED)
+      .order(AniMangaQuery.order_sql('released_on', Anime))
+
+    @capella_film = Anime
+      .where(id: Copyright::CAPELLA_FILM_COPYRIGHTED)
+      .order(AniMangaQuery.order_sql('released_on', Anime))
+
+    @topic_view =
+      Topics::TopicViewFactory.new(false, false).find(COPYRIGHTED_TOPIC_ID)
   end
 
   def for_right_holders

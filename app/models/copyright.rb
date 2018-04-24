@@ -26,18 +26,23 @@ module Copyright
     20973, # World Conquest Zvezda Plot
   ]
 
-  OTHER_COPYRIGHTED = [
-    # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
-    # [Notice_ID:*IdOAQy*] Nintendo Company Ltd - Нарушение прав правообладателей / Nintendo Company Ltd - Abuse
-    19157,
+  ISTARI_COPYRIGHTED = [
     # istari
-    32281, # Kimi no Na wa
-    # vgtrk
-    34541, # Mary to Majo no Hana
+    32281 # Kimi no Na wa
+  ]
+  VGTRK_COPYRIGHTED = [
+    34541 # Mary to Majo no Hana
+  ]
+  CAPELLA_FILM_COPYRIGHTED = [
     # Capella Film
     33970, # Girls und Panzer das Finale
     35851 # Sayonara no Asa ni Yakusoku no Hana wo Kazarou
   ]
+  OTHER_COPYRIGHTED = [
+    # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
+    # [Notice_ID:*IdOAQy*] Nintendo Company Ltd - Нарушение прав правообладателей / Nintendo Company Ltd - Abuse
+    19157
+  ] + ISTARI_COPYRIGHTED + VGTRK_COPYRIGHTED + CAPELLA_FILM_COPYRIGHTED
 
   WAKANIM_COPYRIGHTED = [
     36144, # Garo: Vanishing Line | Russia + Eastern Europe 2017-10-01 - 2024-10-01
