@@ -34,14 +34,23 @@ describe Animes::FranchiseName do
 
   describe 'keep old franchise name' do
     context 'less than half of entries with set franchise' do
-      let(:anime_1) { build_stubbed :anime, name: 'Test', franchise: 'zxc' }
+      let(:anime_1) { build_stubbed :anime, name: 'Test', franchise: 'test_fo' }
       it { is_expected.to eq 'test' }
     end
 
     context 'more than half of entries with set franchise' do
+      let(:anime_1) { build_stubbed :anime, name: 'Test', franchise: 'test_fo' }
+      let(:anime_2) { build_stubbed :anime, name: 'Test fo', franchise: 'test_fo' }
+
+      it { is_expected.to eq 'test_fo' }
+    end
+
+    context 'name does not exists among possible names' do
       let(:anime_1) { build_stubbed :anime, name: 'Test', franchise: 'zxc' }
       let(:anime_2) { build_stubbed :anime, name: 'Test fo', franchise: 'zxc' }
-      it { is_expected.to eq 'zxc' }
+      let(:anime_3) { build_stubbed :anime, name: 'Test fo', franchise: 'zxc' }
+
+      it { is_expected.to eq 'test' }
     end
   end
 end
