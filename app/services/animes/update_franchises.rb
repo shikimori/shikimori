@@ -6,15 +6,18 @@ class Animes::UpdateFranchises
     @franchises = []
   end
 
-  def call
-    process Anime
-    process Manga
+  def call scopes = [Anime, Manga]
+    if scopes.first.respond_to? :find_each
+      scopes.each { |scope| process scope }
+    else
+      process scopes
+    end
   end
 
 private
 
   def process scope
-    scope.find_each do |entry|
+    scope.send(scope.respond_to?(:find_each) ? :find_each : :each) do |entry|
       next if @processed_ids[entry.class].include? entry.id
       chronology = Animes::ChronologyQuery.new(entry).fetch
 

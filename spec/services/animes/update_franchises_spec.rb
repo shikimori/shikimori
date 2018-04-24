@@ -10,7 +10,7 @@ describe Animes::UpdateFranchises do
   context 'has chronology' do
     let!(:anime_1) { create :anime, name: 'test: qweyt' }
     let!(:anime_2) { create :anime, name: 'testá fo' }
-    let!(:anime_3) { create :anime, name: 'fofofo' }
+    let!(:anime_3) { create :anime, name: 'fofofo', franchise: 'zxc' }
 
     let!(:relation_12) { create :related_anime, source: anime_1, anime: anime_2 }
     let!(:relation_21) { create :related_anime, source: anime_2, anime: anime_1 }
@@ -23,6 +23,18 @@ describe Animes::UpdateFranchises do
       expect(anime_1.reload.franchise).to eq 'test'
       expect(anime_2.reload.franchise).to eq 'test'
       expect(anime_3.reload.franchise).to eq 'test'
+    end
+
+    context 'scope passed to call method' do
+      subject(:call) { described_class.new.call [anime_1, anime_2] }
+      let!(:relation_23) { nil }
+      let!(:relation_32) { nil }
+
+      it do
+        expect(anime_1.reload.franchise).to eq 'test'
+        expect(anime_2.reload.franchise).to eq 'test'
+        expect(anime_3.reload.franchise).to eq 'zxc'
+      end
     end
   end
 end
