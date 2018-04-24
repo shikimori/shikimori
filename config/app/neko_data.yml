@@ -5590,7 +5590,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5608,7 +5608,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5624,7 +5624,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5640,7 +5640,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5656,7 +5656,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5674,7 +5674,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5695,7 +5695,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5711,7 +5711,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5728,14 +5728,14 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
       franchise: natsume_yuujinchou
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :nyoro_n_churuya_san
+- :neko_id: :suzumiya_haruhi_no_yuuutsu
   :level: 1
   :image:
   - http://i.imgur.com/vjWTN36.png
@@ -5744,11 +5744,11 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
-      franchise: nyoro_n_churuya_san
+      franchise: suzumiya_haruhi_no_yuuutsu
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :bakuman
@@ -5760,7 +5760,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5776,7 +5776,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5793,7 +5793,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5809,7 +5809,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5825,7 +5825,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5841,7 +5841,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5857,7 +5857,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5875,7 +5875,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5891,7 +5891,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5906,7 +5906,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5922,7 +5922,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5938,7 +5938,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5955,7 +5955,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5971,7 +5971,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -5987,14 +5987,14 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
       franchise: inuyasha
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :dr
+- :neko_id: :gundam
   :level: 1
   :image: []
   :border_color: []
@@ -6002,11 +6002,11 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
-      franchise: dr
+      franchise: gundam
       not_anime_ids:
       - 8839
       - 23943
@@ -6021,7 +6021,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6043,7 +6043,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6059,7 +6059,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6075,7 +6075,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6091,7 +6091,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6107,7 +6107,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6123,7 +6123,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6140,7 +6140,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6157,7 +6157,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6173,7 +6173,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6189,7 +6189,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6204,7 +6204,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6221,7 +6221,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6241,7 +6241,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6259,7 +6259,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6275,7 +6275,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6293,7 +6293,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6309,7 +6309,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6325,7 +6325,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6341,7 +6341,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6357,7 +6357,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6375,7 +6375,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6393,7 +6393,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6411,7 +6411,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6427,7 +6427,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6443,7 +6443,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6459,7 +6459,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6475,7 +6475,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6491,7 +6491,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6507,7 +6507,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6522,7 +6522,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6538,7 +6538,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6556,7 +6556,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6572,7 +6572,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6590,7 +6590,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6606,7 +6606,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6622,7 +6622,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6638,7 +6638,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6654,7 +6654,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6670,7 +6670,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6686,7 +6686,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6702,7 +6702,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6718,7 +6718,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6736,7 +6736,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6752,7 +6752,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6768,7 +6768,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6786,7 +6786,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6802,7 +6802,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6824,7 +6824,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6840,7 +6840,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6856,7 +6856,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6872,7 +6872,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6888,7 +6888,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6907,7 +6907,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6923,7 +6923,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6939,7 +6939,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6957,7 +6957,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6979,7 +6979,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -6999,7 +6999,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -7015,7 +7015,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -7031,7 +7031,7 @@
   :text_ru: 
   :title_en: 
   :text_en: 
-  :topic_id: 
+  :topic_id: 247360
   :rule:
     :algo: simple
     :filters:
@@ -7921,8 +7921,9 @@
 - :neko_id: :fantasy
   :level: 3
   :image:
-  - "/assets/achievements/anime/fantasy_3.gif"
-  :border_color: []
+  - "/assets/achievements/anime/fantasy_3.jpg"
+  :border_color:
+  - "#C5D0E6"
   :title_ru: Герой
   :text_ru: Ваши подвиги войдут в историю.
   :title_en: 
