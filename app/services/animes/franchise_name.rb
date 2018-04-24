@@ -29,7 +29,7 @@ private
   end
 
   def new_franchise do_filter
-    names = extract_names(do_filter ? filter(@entries) : @entries)
+    extract_names(do_filter ? filter(@entries) : @entries)
       .reject { |name| @taken_names.include? name }
       .min_by(&:length)
   end
