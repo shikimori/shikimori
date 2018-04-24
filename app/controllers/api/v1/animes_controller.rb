@@ -3,7 +3,12 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   before_action :fetch_resource, except: %i[index search neko]
 
   caches_action :neko, expires_in: 1.week, cache_path: lambda {
-    "#{params[:controller]}_#{params[:action]}_v5"
+    [
+      params[:controller],
+      params[:action],
+      Digest::SHA1.hexdigest(Animes::NekoScope::ALLOWED_IDS.join(','))
+      :v5
+    ]
   }
 
   LIMIT = 50
