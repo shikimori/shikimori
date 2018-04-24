@@ -31,6 +31,7 @@ private
   def new_franchise do_filter
     extract_names(do_filter ? filter(@entries) : @entries)
       .reject { |name| @taken_names.include? name }
+      .reject { |name| Animes::BannedFranchiseNames.instance.include? name }
       .min_by(&:length)
   end
 

@@ -71,7 +71,7 @@ private
   end
 
   def banned_franchise_coupling
-    @banned_franchise_coupling ||= malgraph_data
+    @banned_franchise_coupling ||= banned_couplings_data
       .each_with_object(animes: [], mangas: []) do |group, memo|
         if group.first.starts_with? 'A'
           memo[:animes] << group.map { |v| v.sub(/^A|-.*$/, '').to_i }
@@ -81,8 +81,7 @@ private
       end
   end
 
-  # TODO: migrate to https://github.com/anime-plus/graph/blob/master/data/banned_franchise_coupling.json
-  def malgraph_data
+  def banned_couplings_data
     YAML.load_file CONFIG_PATH
   end
 end

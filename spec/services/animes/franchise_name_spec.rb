@@ -32,6 +32,11 @@ describe Animes::FranchiseName do
     it { is_expected.to eq 'test_fo' }
   end
 
+  context 'banned name' do
+    let(:anime_1) { build_stubbed :anime, name: 'dr' }
+    it { is_expected.to eq 'test_fo' }
+  end
+
   describe 'keep old franchise name' do
     context 'less than half of entries with set franchise' do
       let(:anime_1) { build_stubbed :anime, name: 'Test', franchise: 'test_fo' }
