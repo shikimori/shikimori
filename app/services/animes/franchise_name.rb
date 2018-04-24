@@ -15,11 +15,14 @@ private
       .map { |name| cleanup name }
   end
 
-  def present_franchise
+  def present_franchise # rubocop:disable MethodLength
     current_name =
       @entries
         .group_by(&:franchise)
-        .reject { |_name, entries| entries.size < @entries.size / 2.0 }
+        .reject do |name, entries|
+          entries.size < @entries.size / 2.0 ||
+            Animes::BannedFranchiseNames.instance.include?(name)
+        end
         .first
         &.first
 
