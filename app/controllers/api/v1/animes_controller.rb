@@ -6,7 +6,6 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     [
       params[:controller],
       params[:action],
-      Digest::SHA1.hexdigest(Animes::NekoScope::ALLOWED_IDS.join(',')),
       :v5
     ].join('_')
   }

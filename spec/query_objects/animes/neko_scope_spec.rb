@@ -6,5 +6,5 @@ describe Animes::NekoScope do
   let!(:anime_3) { create :anime, kind: :special }
   let!(:anime_4) { create :anime, kind: :music }
 
-  it { is_expected.to eq [anime_1, anime_2] }
+  it { is_expected.to eq [anime_1, anime_2, anime_3, anime_4] }
 end
