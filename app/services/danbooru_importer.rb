@@ -11,12 +11,13 @@ class DanbooruImporter
   end
 
 private
+
   def import_page imageboard, page, limit
     content = get_page imageboard, page, limit
     found_tags = JSON.parse(content)
 
     existing_tags = Set.new DanbooruTag.pluck(:name)
-    new_tags = found_tags.select {|v| !existing_tags.include?(v['name']) }
+    new_tags = found_tags.reject { |v| existing_tags.include?(v['name']) }
 
     new_tags.each_slice(5000) do |tags|
       batch = tags.map do |tag|
@@ -29,13 +30,14 @@ private
 
   def get_page imageboard, page, limit
     url = case imageboard
-      when :konachan then "https://konachan.com/tag/index.json?order=created_at&limit=0"
-      when :danbooru then "http://danbooru.donmai.us/tag/index.json?&limit=#{limit}&order=created_at&page=#{page}"
+      when :konachan then 'https://konachan.com/tag/index.json?order=created_at&limit=0'
+      when :danbooru then "https://danbooru.donmai.us/tag/index.json?&limit=#{limit}&order=created_at&page=#{page}"
       else raise ArgumentError, "imageboard: #{imageboard}"
     end
+    ap url
 
-    #Proxy.get url, timeout: 90, required_text: '"type"', no_proxy: true
-    #open(url, read_timeout: 90).read
+    # Proxy.get url, timeout: 90, required_text: '"type"', no_proxy: true
+    # open(url, read_timeout: 90).read
 
     Faraday.get(url) do |req|
       req.options[:timeout] = 150

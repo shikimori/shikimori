@@ -6,7 +6,7 @@ class DanbooruTagsImporter
   def perform
     DanbooruImporter.new.do_import
 
-    tags = Set.new(DanbooruTag.where(kind: DanbooruTag::Copyright).pluck :name)
+    tags = Set.new(DanbooruTag.where(kind: DanbooruTag::Copyright).pluck(:name))
     [Anime, Manga].each do |klass|
       entries = klass.where(tags: nil).all
 
@@ -17,24 +17,38 @@ class DanbooruTagsImporter
       end
     end
 
-    tags = Set.new(DanbooruTag.where(kind: DanbooruTag::Character, ambiguous: false).pluck :name)
+    tags = Set.new(
+      DanbooruTag.where(kind: DanbooruTag::Character, ambiguous: false)
+        .pluck(:name)
+    )
+
     Character
       .where(tags: nil)
       .includes(:animes)
       .includes(:mangas)
       .find_each(batch_size: 5000) do |character|
-        names = ([character.name] + [character.name.split(' ').reverse.join(' ')]).uniq
+        names = (
+          [character.name] + [character.name.split(' ').reverse.join(' ')]
+        ).uniq
+
         if character.fullname =~ /.*"(.*)"/
-          names += $1.split(',').map(&:strip)
+          names += Regexp.last_match(1).split(',').map(&:strip)
         end
 
-        entries_tags = (character.animes + character.mangas).map {|v| v.tags }.compact
+        entries_tags = (character.animes + character.mangas).map(&:tags).compact
         tag = nil
         # сачала попытаемся подобрать имя тега, включающее имя аниме/манги
         unless entries_tags.empty?
-          tag = DanbooruTag.match(names.map {|name| entries_tags.map {|entry_tag| "#{name.gsub(' ', '_')}_(#{entry_tag})".downcase } }.flatten.uniq, tags, true)
+          tag = DanbooruTag.match(
+            names
+              .map { |name| entries_tags.map { |entry_tag| "#{name.tr(' ', '_')}_(#{entry_tag})".downcase } }
+              .flatten
+              .uniq,
+            tags,
+            true
+          )
         end
-        tag = DanbooruTag.match(names, tags, true) unless tag
+        tag ||= DanbooruTag.match(names, tags, true)
         character.update_attribute(:tags, tag) if tag
       end
   end
