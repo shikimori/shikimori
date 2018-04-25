@@ -12,8 +12,8 @@ module.exports = class FranchiseGraph
     @image_h = 75
 
     @links_data = data.links
-    @nodes_data = data.nodes.map (data) =>
-      new Node(data, @image_w, @image_h)
+    @nodes_data = data.nodes.map (node) =>
+      new Node(node, @image_w, @image_h, node.id == data.current_id)
 
     @_prepare_data()
     @_position_nodes()
@@ -22,22 +22,24 @@ module.exports = class FranchiseGraph
   _prepare_data: ->
     @max_weight = @links_data.map((v) -> v.weight).max() * 1.0
     @size = original_size = @nodes_data.length
-    console.log "nodes: #{@size}, max_weight: #{@max_weight}"
+    # console.log "nodes: #{@size}, max_weight: #{@max_weight}"
 
     # screen sizes
-    @w = if @size < 30
-      @_scale @size,
-        from_min: 0
-        from_max: 30
-        to_min: 480
-        to_max: 1300
-    else
-      @_scale @size,
-        from_min: 0
-        from_max: 100
-        to_min: 1300
-        to_max: 2000
-    @h = @w
+    @screen_width =
+      if @size < 30
+        @_scale @size,
+          from_min: 0
+          from_max: 30
+          to_min: 480
+          to_max: 1300
+      else
+        @_scale @size,
+          from_min: 0
+          from_max: 100
+          to_min: 1300
+          to_max: 2000
+
+    @screen_height = @screen_width
 
     # dates for positioning on Y axis
     min_date = @nodes_data.map((v) -> v.date).min()
@@ -46,6 +48,7 @@ module.exports = class FranchiseGraph
     # do not use min/max dates if they belong to multiple entries
     if @nodes_data.filter((v) -> v.date == min_date).length == 1
       @min_date = min_date * 1.0
+
     if @nodes_data.filter((v) -> v.date == max_date).length == 1
       @max_date = max_date * 1.0
 
@@ -54,7 +57,7 @@ module.exports = class FranchiseGraph
     # return unless @min_date && @max_date
     @nodes_data.forEach (d) =>
       d.y = @_y_by_date(d.date)
-      d.x = @w / 2.0 - d.rx
+      d.x = @screen_width / 2.0 - d.rx
 
       if d.date == @min_date
         d.fixed = true
@@ -101,7 +104,7 @@ module.exports = class FranchiseGraph
           to_min: 150
           to_max: max_width
 
-      .size([@w, @h])
+      .size([@screen_width, @screen_height])
       .nodes(@nodes_data)
       .links(@links_data)
 
@@ -114,13 +117,13 @@ module.exports = class FranchiseGraph
   # bound X coord to be within screen area
   _bound_x: (d, x = d.x) =>
     min = d.rx + 5
-    max = @w - d.rx - 5
+    max = @screen_width - d.rx - 5
     Math.max(min, Math.min(max, x))
 
   # bound Y coord to be within screen area
   _bound_y: (d, y = d.y) =>
     min = d.ry + 5
-    max = @w - d.ry - 5
+    max = @screen_width - d.ry - 5
     Math.max(min, Math.min(max, y))
 
   # determine Y coord by date (oldest to top, newest to bottom)
@@ -129,7 +132,7 @@ module.exports = class FranchiseGraph
       from_min: @min_date
       from_max: @max_date
       to_min: @image_h / 2.0
-      to_max: @h - @image_h / 2.0
+      to_max: @screen_height - @image_h / 2.0
 
   render_to: (target) ->
     @_append_svg target
@@ -158,7 +161,7 @@ module.exports = class FranchiseGraph
   _append_svg: (target) ->
     @d3_svg = d3.select(target)
       .append('svg')
-      .attr width: @w, height: @h
+      .attr width: @screen_width, height: @screen_height
 
   # lines between nodes
   _append_links: ->
@@ -196,14 +199,14 @@ module.exports = class FranchiseGraph
 
     @d3_image_container.append('svg:image')
       .attr
-        width: @image_w
-        height: @image_h
+        width: (d) -> d.width
+        height: (d) -> d.height
         'xlink:href': (d) -> d.image_url
 
     @d3_image_container.append('svg:path')
       .attr
         class: 'border_inner'
-        d: (d) -> "M 0,0 #{d.w},0 #{d.w},#{d.h} 0,#{d.h} 0,0"
+        d: (d) -> "M 0,0 #{d.width},0 #{d.width},#{d.height} 0,#{d.height} 0,0"
 
     # year
     @d3_image_container.append('svg:text')
@@ -305,11 +308,11 @@ module.exports = class FranchiseGraph
     quadtree = d3.geom.quadtree(@nodes_data)
 
     (d) =>
-      nx1 = d.x - d.w
-      nx2 = d.x + d.w
+      nx1 = d.x - d.width
+      nx2 = d.x + d.width
 
-      ny1 = d.y - d.h
-      ny2 = d.y + d.h
+      ny1 = d.y - d.height
+      ny2 = d.y + d.height
 
       quadtree.visit (quad, x1, y1, x2, y2) =>
         if quad.point && quad.point != d

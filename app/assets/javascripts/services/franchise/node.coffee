@@ -4,14 +4,18 @@ module.exports = class FranchiseNode
   SELECT_SCALE = 2
   BORDER_OFFSET = 3
 
-  constructor: (data, width, height) ->
-    $.extend(@, data)
+  constructor: (data, @width, @height, @is_current) ->
+    Object.assign(@, data)
 
     @selected = false
     @fixed = false
 
-    @init_w = @w = width
-    @init_h = @h = height
+    if @is_current
+      @width = (@width * 1.3).ceil()
+      @height = (@height * 1.3).ceil()
+
+    @initial_width = @width
+    @initial_height = @height
     @_calc_rs()
 
   deselect: (bound_x, bound_y, tick) ->
@@ -20,7 +24,7 @@ module.exports = class FranchiseNode
 
     #@_d3_kind().style display: 'none'
     @_hide_tooltip()
-    @_animate(@init_w, @init_h, bound_x, bound_y, tick)
+    @_animate(@initial_width, @initial_height, bound_x, bound_y, tick)
 
   select: (bound_x, bound_y, tick) ->
     @selected = true
@@ -29,28 +33,34 @@ module.exports = class FranchiseNode
 
     #@_d3_kind().style display: 'inline'
     @_load_tooltip()
-    @_animate(@init_w * SELECT_SCALE, @init_h * SELECT_SCALE, bound_x, bound_y, tick)
+    @_animate(
+      @initial_width * SELECT_SCALE,
+      @initial_height * SELECT_SCALE,
+      bound_x,
+      bound_y,
+      tick
+    )
 
-  year_x: (w = @w) ->
+  year_x: (w = @width) ->
     w - 2
 
-  year_y: (h = @h) ->
+  year_y: (h = @height) ->
     h - 2
 
   _calc_rs: ->
-    @rx = @w / 2.0
-    @ry = @h / 2.0
+    @rx = @width / 2.0
+    @ry = @height / 2.0
 
   _animate: (new_width, new_height, bound_x, bound_y, tick) ->
     if @selected
       io = d3.interpolate(0, BORDER_OFFSET)
-      iw = d3.interpolate(@w, new_width)
-      ih = d3.interpolate(@h, new_height)
+      iw = d3.interpolate(@width, new_width)
+      ih = d3.interpolate(@height, new_height)
       @_d3_node().attr class: 'node selected'
     else
       io = d3.interpolate(BORDER_OFFSET, 0)
-      iw = d3.interpolate(@w - BORDER_OFFSET*2, new_width)
-      ih = d3.interpolate(@h - BORDER_OFFSET*2, new_height)
+      iw = d3.interpolate(@width - BORDER_OFFSET*2, new_width)
+      ih = d3.interpolate(@height - BORDER_OFFSET*2, new_height)
       @_d3_node().attr class: 'node'
 
     @_d3_node()
@@ -64,16 +74,16 @@ module.exports = class FranchiseNode
           w = iw(t)
           h = ih(t)
 
-          width_increment = w + o2 - @w
-          height_increment = h + o2 - @h
+          width_increment = w + o2 - @width
+          height_increment = h + o2 - @height
 
           #@x -= width_increment / 2.0
           #@px -= width_increment / 2.0
           #@y -= height_increment / 2.0
           #@py -= height_increment / 2.0
 
-          @w += width_increment
-          @h += height_increment
+          @width += width_increment
+          @height += height_increment
 
           @_calc_rs()
 

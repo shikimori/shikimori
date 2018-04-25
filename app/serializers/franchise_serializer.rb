@@ -1,5 +1,5 @@
 class FranchiseSerializer < ActiveModel::Serializer
-  attributes :links, :nodes
+  attributes :links, :nodes, :current_id
 
   def default_url_options
     {
@@ -8,18 +8,24 @@ class FranchiseSerializer < ActiveModel::Serializer
     }
   end
 
-  def links
-    all_links.map do |link|
-      {
-        source: all_entries.index {|v| v.id == link.source_id },
-        target: all_entries.index {|v| v.id == (object.anime? ? link.anime_id : link.manga_id) },
-        weight: all_links.count {|v| v.source_id == link.source_id },
-        relation: link.relation.downcase.gsub(/[ -]/, '_')
-      }
-    end.select {|v| v[:source] && v[:target] }
+  def current_id
+    object.id
   end
 
-  def nodes
+  def links # rubocop:disable AbcSize
+    all_links.map do |link|
+      {
+        source: all_entries.index { |v| v.id == link.source_id },
+        target: all_entries.index do |v|
+          v.id == (object.anime? ? link.anime_id : link.manga_id)
+        end,
+        weight: all_links.count { |v| v.source_id == link.source_id },
+        relation: link.relation.downcase.gsub(/[ -]/, '_')
+      }
+    end.select { |v| v[:source] && v[:target] }
+  end
+
+  def nodes # rubocop:disable AbcSize, MethodLength
     all_entries.map do |entry|
       {
         id: entry.id,
@@ -29,7 +35,7 @@ class FranchiseSerializer < ActiveModel::Serializer
         url: view_context.url_for(entry),
         year: entry.aired_on.try(:year),
         kind: entry.kind_text,
-        weight: all_links.count {|v| v.source_id == entry.id },
+        weight: all_links.count { |v| v.source_id == entry.id }
       }
     end
   end
@@ -37,14 +43,18 @@ class FranchiseSerializer < ActiveModel::Serializer
 private
 
   def query
-    @query ||= Animes::ChronologyQuery.new object.decorated? ? object.object : object
+    @query ||= Animes::ChronologyQuery.new(
+      object.decorated? ? object.object : object
+    )
   end
 
   def all_entries
-    @entries ||= query.fetch#.select {|v| [5081,15689].include?(v.id) }
+    @all_entries ||= query.fetch
+    # .select {|v| [5081,15689].include?(v.id) }
   end
 
   def all_links
-    @links ||= query.links#.select {|v| [5081,15689].include?(v.source_id) && [5081,15689].include?(v.anime_id) }
+    @all_links ||= query.links
+    # .select {|v| [5081,15689].include?(v.source_id) && [5081,15689].include?(v.anime_id) }
   end
 end
