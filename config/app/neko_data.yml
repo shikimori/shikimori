@@ -2992,7 +2992,8 @@
   :border_color:
   - "#887468"
   :title_ru: Золотая коллекция
-  :text_ru: Видеосалоны, запись на VHS... Вы помните все так, будто это было вчера.
+  :text_ru: Запах целлулоида, полароиды, стереорадиолы… Вы помните всё так, как будто
+    это было вчера.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -3025,7 +3026,7 @@
   - "/assets/achievements/anime/oldfag_4.jpg"
   :border_color:
   - "#a5a5a5"
-  :title_ru: Здоровался за руку с Осаму Тэдзукой
+  :title_ru: Носишь шляпу кота Перро и здоровался с осаму Тедзукой.
   :text_ru: Вы — часть минувшей эпохи. Живая легенда.
   :title_en: 
   :text_en: 
@@ -5735,7 +5736,7 @@
       franchise: natsume_yuujinchou
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :nyoro_n_churuya_san
+- :neko_id: :suzumiya_haruhi_no_yuuutsu
   :level: 1
   :image:
   - http://i.imgur.com/vjWTN36.png
@@ -5748,7 +5749,7 @@
   :rule:
     :algo: simple
     :filters:
-      franchise: nyoro_n_churuya_san
+      franchise: suzumiya_haruhi_no_yuuutsu
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :bakuman
@@ -5800,22 +5801,6 @@
       franchise: jojo_no_kimyou_na_bouken
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :kara_no_kyoukai
-  :level: 1
-  :image:
-  - http://i.imgur.com/CMoiIVb.png
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: kara_no_kyoukai
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :aria_the_ova
   :level: 1
   :image:
@@ -5830,22 +5815,6 @@
     :algo: simple
     :filters:
       franchise: aria_the_ova
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :kuroshitsuji
-  :level: 1
-  :image:
-  - http://i.imgur.com/ba1tXwQ.png
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: kuroshitsuji
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :ghost_in_the_shell
@@ -5929,22 +5898,6 @@
       franchise: evangelion
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :purigorota
-  :level: 1
-  :image:
-  - "/assets/achievements/anime/franchise/nodame_cantabile.jpg"
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: purigorota
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :umineko_no_naku_koro_ni
   :level: 1
   :image:
@@ -5994,7 +5947,7 @@
       franchise: inuyasha
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :dr
+- :neko_id: :gundam
   :level: 1
   :image: []
   :border_color: []
@@ -6006,7 +5959,7 @@
   :rule:
     :algo: simple
     :filters:
-      franchise: dr
+      franchise: gundam
       not_anime_ids:
       - 8839
       - 23943
@@ -6114,39 +6067,6 @@
       franchise: junjou_romantica
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :magical_star_kanon
-  :level: 1
-  :image:
-  - http://i.imgur.com/g7iW45k.png
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: magical_star_kanon
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :darker_than_black
-  :level: 1
-  :image:
-  - http://i.imgur.com/iXohnp1.png
-  - http://kawai.shikimori.org/images/user_image/original/23002/110191.jpg
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: darker_than_black
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :lupin_iii
   :level: 1
   :image:
@@ -6198,7 +6118,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :fairy_tail
   :level: 1
-  :image: []
+  :image:
+  - https://dere.shikimori.org/system/user_images/original/84020/587404.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6348,7 +6269,7 @@
       franchise: macross
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :photon
+- :neko_id: :sasami
   :level: 1
   :image:
   - http://i.imgur.com/8ooQjuR.png
@@ -6361,7 +6282,7 @@
   :rule:
     :algo: simple
     :filters:
-      franchise: photon
+      franchise: sasami
       not_anime_ids:
       - 1503
     :threshold: 100%
@@ -6380,26 +6301,6 @@
     :algo: simple
     :filters:
       franchise: saiyuuki_gaiden
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :sayonara_zetsubou_sensei
-  :level: 1
-  :image:
-  - "/assets/achievements/anime/franchise/sayonara_zetsubou_sensei.jpg"
-  - http://i.imgur.com/SmHaUbJ.png
-  - http://i.imgur.com/pJMDVXj.png
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: sayonara_zetsubou_sensei
-      not_anime_ids:
-      - 13619
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :moon_pride
@@ -6448,22 +6349,6 @@
     :algo: simple
     :filters:
       franchise: hokuto_no_ken
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :maria_sama_ga_miteru
-  :level: 1
-  :image:
-  - http://i.imgur.com/v8KTwuW.png
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: maria_sama_ga_miteru
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :nen_joou
@@ -6516,7 +6401,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :bleach
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/84020/587406.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6527,24 +6413,6 @@
     :algo: simple
     :filters:
       franchise: bleach
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :white_album
-  :level: 1
-  :image:
-  - http://i.imgur.com/uMPzo7r.png
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: white_album
-      not_anime_ids:
-      - 28227
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :pokemon
@@ -6930,24 +6798,6 @@
       franchise: futari_wa_milky_holmes
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :dog_days
-  :level: 1
-  :image:
-  - https://2.downloader.disk.yandex.ru/preview/a3b458a7dd283bafacf9056a2f4ed9f4406eca15e6b0e620f0993d173f34a03b/inf/Ulc4l6Nw6Zl9PBaWaDlZYQCacsGXzYC3w5HP7FhW0Az4A8VXpnzNPD8nTzBT8hM1-oK7_BknTLPDmWZraKaGSA%3D%3D?uid=0&filename=dog-days0098.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: dog_days
-      not_anime_ids:
-      - 29413
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :dirty_pair
   :level: 1
   :image:
@@ -6964,26 +6814,6 @@
       franchise: dirty_pair
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :koihime_musou
-  :level: 1
-  :image:
-  - https://1.downloader.disk.yandex.ru/preview/45d91be221ae863ad0cea2133b1a6eadf019999b3fe79e3017e993c9bc6d4523/inf/Ulc4l6Nw6Zl9PBaWaDlZYQYUocpYV75Vbx29O9e-3eM_-_iELZjrcC_8HH-jTyAqQEZgo7HrBw_nrfVvSyniGA%3D%3D?uid=0&filename=shin_koihime_musou5.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: koihime_musou
-      not_anime_ids:
-      - 15095
-      - 15015
-      - 15093
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :ikkitousen
   :level: 1
   :image:
@@ -6998,22 +6828,6 @@
     :algo: simple
     :filters:
       franchise: ikkitousen
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :ring_ni_kakero
-  :level: 1
-  :image:
-  - http://i.imgur.com/juzhXwG.png
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: ring_ni_kakero
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :queen_s_blade
@@ -7044,7 +6858,7 @@
   :rule:
     :algo: simple
     :filters:
-      franchise: chiba_pedal
+      franchise: shokugeki_no_souma
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :diamond_no_ace
@@ -7139,7 +6953,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :berserk
   :level: 1
-  :image: []
+  :image:
+  - https://dere.shikimori.org/system/user_images/original/84020/587464.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7345,6 +7160,411 @@
     :algo: simple
     :filters:
       franchise: pro_golfer_saru
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :mahoujin_guruguru
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: mahoujin_guruguru
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :force_live
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: force_live
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :aa_megami_sama
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: aa_megami_sama
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :cardcaptor_sakura
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: cardcaptor_sakura
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :mai_hime
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: mai_hime
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :tsubasa
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: tsubasa
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :utawarerumono
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: utawarerumono
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :zettai_karen_children
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: zettai_karen_children
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :di_gi_charat
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: di_gi_charat
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :hybrid_deka
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: hybrid_deka
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :senki_zesshou_symphogear
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: senki_zesshou_symphogear
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :soukyuu_no_fafner
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: soukyuu_no_fafner
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :aquarion_evol
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: aquarion_evol
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :sword_art_online
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: sword_art_online
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :tegamibachi
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: tegamibachi
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :eureka_seven
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: eureka_seven
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :garo
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: garo
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :puchimas
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: puchimas
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :ldlive
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: ldlive
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :kindaichi_shounen_no_jikenbo
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: kindaichi_shounen_no_jikenbo
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :snow_halation
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: snow_halation
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :magi
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: magi
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :negima
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: negima
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :angelique
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: angelique
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :pripara
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: pripara
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :saber_marionette_j
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: saber_marionette_j
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :yes_precure
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: yes_precure
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :yuuri
