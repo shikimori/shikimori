@@ -12,13 +12,31 @@ describe Animes::ChronologyQuery do
   let!(:related_2_3) { create :related_anime, source_id: anime_2.id, anime_id: anime_3.id }
   let!(:related_3_2) { create :related_anime, source_id: anime_3.id, anime_id: anime_2.id }
 
-  describe '#relations' do
-    before do
-      allow(Animes::BannedRelations.instance).to receive(:cache)
-        .and_return animes: [[anime_1.id, anime_3.id]]
+  describe '#links' do
+    describe 'direct ban' do
+      before do
+        allow(Animes::BannedRelations.instance).to receive(:cache)
+          .and_return animes: [[anime_2.id, anime_3.id]]
+      end
+
+      it { expect(query.new(anime_1).links).to eq [related_1_2, related_2_1] }
     end
 
-    it { expect(query.new(anime_1).links).to eq [related_1_2, related_2_1] }
+    describe 'indirect ban does not work anymore' do
+      before do
+        allow(Animes::BannedRelations.instance).to receive(:cache)
+          .and_return animes: [[anime_1.id, anime_3.id]]
+      end
+
+      it do
+        expect(query.new(anime_1).links).to eq [
+          related_1_2,
+          related_2_3,
+          related_2_1,
+          related_3_2
+        ]
+      end
+    end
   end
 
   describe '#fetch' do
@@ -35,16 +53,16 @@ describe Animes::ChronologyQuery do
       end
     end
 
-    describe 'indirect ban' do
+    describe 'indirect ban does not work anymore' do
       before do
         allow(Animes::BannedRelations.instance).to receive(:cache)
           .and_return animes: [[anime_1.id, anime_3.id]]
       end
 
       it do
-        expect(query.new(anime_1).fetch).to eq [anime_1, anime_2]
+        expect(query.new(anime_1).fetch).to eq [anime_1, anime_2, anime_3]
         expect(query.new(anime_2).fetch).to eq [anime_1, anime_2, anime_3]
-        expect(query.new(anime_3).fetch).to eq [anime_2, anime_3]
+        expect(query.new(anime_3).fetch).to eq [anime_1, anime_2, anime_3]
       end
     end
   end

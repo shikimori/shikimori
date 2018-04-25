@@ -12,20 +12,24 @@ class FranchiseSerializer < ActiveModel::Serializer
     object.id
   end
 
-  def links # rubocop:disable AbcSize
-    all_links.map do |link|
-      {
-        source: all_entries.index { |v| v.id == link.source_id },
-        target: all_entries.index do |v|
-          v.id == (object.anime? ? link.anime_id : link.manga_id)
-        end,
-        weight: all_links.count { |v| v.source_id == link.source_id },
-        relation: link.relation.downcase.gsub(/[ -]/, '_')
-      }
-    end.select { |v| v[:source] && v[:target] }
+  # rubocop:disable AbcSize, MethodLength
+  def links
+    all_links
+      .map do |link|
+        {
+          source_id: link.source.id,
+          target_id: object.anime? ? link.anime_id : link.manga_id,
+          source: all_entries.index { |v| v.id == link.source_id },
+          target: all_entries.index do |v|
+            v.id == (object.anime? ? link.anime_id : link.manga_id)
+          end,
+          weight: all_links.count { |v| v.source_id == link.source_id },
+          relation: link.relation.downcase.gsub(/[ -]/, '_')
+        }
+      end
   end
 
-  def nodes # rubocop:disable AbcSize, MethodLength
+  def nodes
     all_entries.map do |entry|
       {
         id: entry.id,
@@ -39,6 +43,7 @@ class FranchiseSerializer < ActiveModel::Serializer
       }
     end
   end
+  # rubocop:enable AbcSize, MethodLength
 
 private
 

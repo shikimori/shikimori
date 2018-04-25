@@ -28,18 +28,15 @@ private
     @related_entries ||= fetch_related [@entry.id], {}
   end
 
-  def fetch_related ids, relations # rubocop:disable AbcSize, MethodLength
+  def fetch_related ids, relations # rubocop:disable MethodLength
     ids_to_fetch = ids - relations.keys
 
     fetched_ids = groupped_relation(ids_to_fetch).flat_map do |source_id, group|
-      relations[source_id] = group.select do |relation|
-        # puts "#{source_id}\t#{relation.anime_id}\t#{banned?(source_id, relation)}\t#{relations.keys.join(',')}"
-        !banned?(source_id, relation) &&
-          relations.keys.none? { |v| banned? v, relation }
+      relations[source_id] = group.reject do |relation|
+        banned?(source_id, relation)
       end
 
-      relations[source_id] # .select { |v| v.relation != 'Character' }
-        .map { |v| v[related_field] }
+      relations[source_id].map { |v| v[related_field] }
     end
 
     if fetched_ids.any?
@@ -84,15 +81,16 @@ private
 
     item_relations =
       if anime?
-        relations.anime(source_id)
+        banned_relations.anime(source_id)
       else
-        relations.manga(source_id)
+        banned_relations.manga(source_id)
       end
 
+    # binding.pry if item_relations.include?(anime? ? relation.anime_id : relation.manga_id)
     item_relations.include?(anime? ? relation.anime_id : relation.manga_id)
   end
 
-  def relations
+  def banned_relations
     Animes::BannedRelations.instance
   end
 end

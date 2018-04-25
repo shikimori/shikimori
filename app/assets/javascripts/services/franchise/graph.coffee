@@ -156,7 +156,6 @@ module.exports = class FranchiseGraph
     @selected_node = d
     @selected_node.select(@_bound_x, @_bound_y, @_tick)
 
-
   # svg tag
   _append_svg: (target) ->
     @d3_svg = d3.select(target)
@@ -169,7 +168,7 @@ module.exports = class FranchiseGraph
       .data(@links_data)
       .enter().append('svg:path')
         .attr
-          class: (d) -> 'link ' + d.relation
+          class: (d) -> "#{d.source_id}-#{d.target_id} link #{d.relation}"
           'marker-start': (d) -> 'url(#' + d.relation + ')' if START_MARKERS.find(d.relation)
           'marker-end': (d) -> 'url(#' + d.relation + ')' if END_MARKERS.find(d.relation)
           'marker-mid': (d) -> 'url(#' + d.relation + '_label)'
@@ -280,7 +279,8 @@ module.exports = class FranchiseGraph
 
   # math for obtaining coords for links between rectangular nodes
   _link_truncated: (d) =>
-    return unless d.source.id < d.target.id
+    unless location.href.endsWith('?test')
+      return unless d.source.id < d.target.id
 
     rx1 = d.source.rx
     ry1 = d.source.ry
