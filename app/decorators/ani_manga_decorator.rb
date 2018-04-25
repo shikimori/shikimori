@@ -37,7 +37,7 @@ class AniMangaDecorator < DbEntryDecorator
 
   # есть ли обзоры
   def reviews?
-    reviews_count > 0
+    reviews_count.positive?
   end
 
   # есть ли косплей

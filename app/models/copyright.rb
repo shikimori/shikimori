@@ -62,12 +62,4 @@ module Copyright
     36511, # Tokyo Ghoul:re | Russia + East Europe - 2018-04-01 - 2023-04-01
     30484, # Steins;Gate 0 | Russia + Germany - 2018-04-01 - 2025-04-01
   ]
-
-  # http://antipiracy.ivi.ru/Starz_Media_prizrak_gorod_mechty.pdf
-  IVI_RU_COPYRIGHTED = [
-    801 # Ghost in the Shell: Stand Alone Complex 2nd GIG
-  ]
-  IVI_RU_PLAYERS = {
-    801 => '//www.ivi.ru/external/seriesembed/?compilationId=7561'
-  }
 end
