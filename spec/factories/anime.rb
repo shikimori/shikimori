@@ -9,6 +9,7 @@ FactoryBot.define do
     score 1
     synonyms []
     kind :tv
+    status :released
     franchise nil
     rating :pg_13
     censored false
