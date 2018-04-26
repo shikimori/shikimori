@@ -4,11 +4,11 @@ class AnimeOnline::FixAnimeVideoAuthors
   include ActionView::Helpers::TextHelper
 
   TRASH = /[^\[\]() &,-]{0,4}/.source
-  STUDIOS = %w(
+  STUDIOS = %w[
     AniDUB AniStar AniLibria AnimeReactor AnimeVost AniPlay AniRecords
     AniUchi AniSound NekoProject AnimeJet FreeDub AniFame AniChaos RainDub
-    SovetRomantica AniMaunt
-  ) + [
+    SovetRomantica AniMaunt MedusaSub
+  ] + [
     'DeadLine Studio', 'Bastion Studio', 'Onibaku Group', 'SHIZA Project'
   ]
   QUALITIES = AnimeVideo.quality.values.reject { |v| v == 'unknown' }
