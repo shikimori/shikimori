@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
     if json?
       response.headers['Vary'] = 'Accept'
 
-      if request.env['HTTP_USER_AGENT'].match?(/Firefox/)
+      if request.env['HTTP_USER_AGENT']&.match?(/Firefox/)
         response.headers['Pragma'] = 'no-cache'
       end
     end
