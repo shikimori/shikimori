@@ -46,6 +46,14 @@ GIT
       factory_bot
 
 GIT
+  remote: https://github.com/morr/i18n-inflector.git
+  revision: f1779c742fad43c9046f93d6ae09bc61a1fd64dc
+  branch: master
+  specs:
+    i18n-inflector (2.6.7)
+      i18n (>= 0.4.1)
+
+GIT
   remote: https://github.com/morr/turbolinks.git
   revision: be44d5717f7657ac4f0f209a6e0c851ecf35e771
   branch: master
@@ -367,12 +375,6 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
-    i18n-inflector (2.6.7)
-      i18n (>= 0.4.1)
-    i18n-inflector-rails (1.0.7)
-      actionpack (>= 3.0.0)
-      i18n-inflector (~> 2.6)
-      railties (>= 3.0.0)
     i18n-js (3.0.5)
       i18n (>= 0.6.6, < 2)
     icalendar (2.4.1)
@@ -769,7 +771,7 @@ DEPENDENCIES
   guard-spring
   htmldiff-lcs!
   htmlentities
-  i18n-inflector-rails
+  i18n-inflector!
   i18n-js
   icalendar
   jbuilder

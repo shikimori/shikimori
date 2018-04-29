@@ -38,6 +38,8 @@ en:
     site_news: Site news
     private_messages: Unread private messages
     site_notifications: Site notifications
+    unsubscribe: Notification preferences
+
   user_achievements_controller:
     <<: *profiles_controller
   user_history_controller:

@@ -73,7 +73,7 @@ class Message < ApplicationRecord
 
   # идентификатор для рсс ленты
   def guid
-    "message-#{self.id}"
+    "message-#{id}"
   end
 
   def read?

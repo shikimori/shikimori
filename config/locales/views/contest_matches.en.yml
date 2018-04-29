@@ -19,4 +19,4 @@ en:
       voting_has_not_begun_yet: Voting has not begun yet
       for: for
       warning: Warning!
-      warning-text: If you have not watched at least one of the candidates please abstain from voting. It will help to increase the overall objectivity of the poll.
+      warning_text: If you have not watched at least one of the candidates please abstain from voting. It will help to increase the overall objectivity of the poll.

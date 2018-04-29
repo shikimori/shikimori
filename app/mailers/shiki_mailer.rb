@@ -52,7 +52,7 @@ class ShikiMailer < ActionMailer::Base
 
     subject = i18n_t(
       'reset_password_instructions.subject',
-      locale: user.locale
+      locale: user.locale.to_sym
     )
     body = i18n_t(
       'reset_password_instructions.body',
@@ -62,7 +62,7 @@ class ShikiMailer < ActionMailer::Base
         reset_password_token: token,
         protocol: :https
       ),
-      locale: user.locale
+      locale: user.locale.to_sym
     )
 
     mail(

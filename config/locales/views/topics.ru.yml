@@ -28,7 +28,7 @@ ru:
         new:
           title: Новый топик
       type:
-        pick_topic_type: Выберите тип топика
+        pick_topic_type: Выбери тип топика
         common_topic: Обычный топик
         news_topic: Новостной топик
       rules:

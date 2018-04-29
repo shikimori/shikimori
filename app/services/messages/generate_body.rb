@@ -47,19 +47,22 @@ private
 
   def profile_commented
     profile_url = UrlGenerator.instance.profile_url @message.to
-    i18n_t ".profile_comment.#{gender}", profile_url: profile_url
+    i18n_t '.profile_comment',
+      gender: gender,
+      profile_url: profile_url
   end
 
   def friend_request
     unless @message.to.friended? @message.from
-      response = i18n_t("friend_request.add.#{gender}")
+      response = i18n_t('friend_request.add', gender: gender)
     end
 
-    "#{i18n_t("friend_request.added.#{gender}")} #{response}".strip
+    "#{i18n_t('friend_request.added', gender: gender)} #{response}".strip
   end
 
   def quoted_by_user
-    i18n_t "quoted_by_user.#{gender}",
+    i18n_t 'quoted_by_user',
+      gender: gender,
       linked_name: linked_name,
       comment_url: UrlGenerator.instance.comment_url(linked)
   end
@@ -79,11 +82,17 @@ private
   def banned
     duration = @message.linked ? @message.linked.duration.humanize : '???'
 
-    if @message.linked && @message.linked.comment
-      i18n_t 'banned.comment', duration: duration, linked_name: linked_name
+    if @message.linked&.comment
+      i18n_t 'banned.comment',
+        gender: gender,
+        duration: duration,
+        linked_name: linked_name
     else
       reason = @message.linked ? @message.linked.reason : '???'
-      i18n_t 'banned.other', duration: duration, reason: reason
+      i18n_t 'banned.other',
+        gender: gender,
+        duration: duration,
+        reason: reason
     end
   end
 

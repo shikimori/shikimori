@@ -76,12 +76,7 @@ module User::Notifications
       update notifications: notifications - PRIVATE_MESSAGES_TO_EMAIL
     end
 
-    Message.create_wo_antispam!(
-      from_id: BotsService.get_poster.id,
-      to_id: id,
-      kind: MessageType::Notification,
-      body: "Наш почтовый сервис не смог доставить письмо на вашу почту #{email}.\nВы либо указали несуществующий почтовый ящик, либо когда-то пометили одно из наших писем как спам. Рекомендуем сменить e-mail в настройках профиля, иначе при утере пароля вы не сможете восстановить свой аккаунт."
-    )
+    Messages::CreateNotification.new(self).bad_email
   end
 
   # возвращает подписан ли пользователь на новость

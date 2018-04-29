@@ -7,8 +7,9 @@ en:
       planned: planned
       dropped: dropped
   messages/create_notification:
-    female_nickname_changed: Your friend %{old_nickname} changed nickname to %{new_nickname}.
-    male_nickname_changed: Your friend %{old_nickname} changed nickname to %{new_nickname}.
+    nickname_changed: >-
+      Your friend %{old_nickname} changed nickname to %{new_nickname}.
+
     user_registered_message: >-
       Welcome!
 
@@ -52,22 +53,15 @@ en:
     finished: has finished
 
   messages/generate_body:
-    profile_comment:
-      female: &female >-
-        Left a comment in your
-        <a class='b-link' href='%{profile_url}'>profile</a>.
-      male: *female
-
+    profile_comment: >-
+      Left a comment in your
+      <a class='b-link' href='%{profile_url}'>profile</a>.
     friend_request:
-      add:
-        female: Add her to your friend list as well?
-        male: Add him to your friend list as well?
-      added:
-        female: Has added you to her friend list.
-        male: Has added you to his friend list.
-    quoted_by_user:
-      female: &female You have been <a class="b-link" href="%{comment_url}">mentioned</a> %{linked_name}
-      male: *female
+      add: Add @{f:her|m:him} to your friend list as well?
+      added: Has added you to @{f:her|m:him} friend list.
+    quoted_by_user: >-
+      You have been <a class="b-link" href="%{comment_url}">mentioned</a>
+      %{linked_name}
     anons: '%{linked_name} anime announced'
     ongoing: '%{linked_name} anime airing'
     episode: '%{linked_name} episode %{episode} released'

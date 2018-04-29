@@ -38,6 +38,8 @@ ru:
     site_news: Новости сайта
     private_messages: Непрочитанные личные сообщения
     site_notifications: Уведомления сайта
+    unsubscribe: Настройка уведомлений
+
   user_achievements_controller:
     <<: *profiles_controller
   user_history_controller:
@@ -50,13 +52,13 @@ ru:
     messages:
       imported:
         anime:
-          one: 'В ваш список импортировано одно аниме:'
-          few: 'В ваш список импортированы %{count} аниме:'
-          many: 'В ваш список импортированы %{count} аниме:'
+          one: 'В твой список импортировано одно аниме:'
+          few: 'В твой список импортированы %{count} аниме:'
+          many: 'В твой список импортированы %{count} аниме:'
         manga:
-          one: 'В ваш список импортирована одна манга:'
-          few: 'В ваш список импортировано %{count} манги:'
-          many: 'В ваш список импортировано %{count} манг:'
+          one: 'В твой список импортирована одна манга:'
+          few: 'В твой список импортировано %{count} манги:'
+          many: 'В твой список импортировано %{count} манг:'
       updated:
         anime:
           one: 'В вашем списке обновлено одно аниме:'
@@ -127,8 +129,8 @@ ru:
 
   recommendation_ignores_controller:
     ignores_cleared:
-      anime: Выполнена очистка вашего списка заблокированных рекомендаций аниме
-      manga: Выполнена очистка вашего списка заблокированных рекомендаций манги
+      anime: Выполнена очистка твоего списка заблокированных рекомендаций аниме
+      manga: Выполнена очистка твоего списка заблокированных рекомендаций манги
 
   collections_controller:
     new_collection: Новая коллекция
@@ -162,8 +164,8 @@ ru:
       title: Новый топик
 
   club_roles_controller:
-    you_have_joined_club: Вы вступили в клуб "%{club_name}"
-    you_have_left_club: Вы покинули клуб "%{club_name}"
+    you_have_joined_club: Ты @{f:вступила|m:вступил} в клуб "%{club_name}"
+    you_have_left_club: Ты @{f:покинула|m:покинул} клуб "%{club_name}"
 
   club_invites_controller:
     invitation_sent: Приглашение отправлено
@@ -352,7 +354,7 @@ ru:
     password: пароль
     email_password: e-mail и пароль
     failure: >-
-      Вы не можете отключить единственный способ авторизации, пока не зададите
+      Ты не можешь отключить единственный способ авторизации, пока не задашь
       %{auth_methods}
 
   userlist_comparer_controller:
@@ -388,7 +390,7 @@ ru:
     other: Прочее
 
   shikimori_controller:
-    you_are_banned: Вы забанены до %{datetime}
+    you_are_banned: Ты @{f:забанена|m:забанен} до %{datetime}
 
   achievements_controller:
     title: Достижения
@@ -431,7 +433,7 @@ ru:
     not_ignored: Сообщения от %{nickname} больше не блокируются
 
   api/v1/nickname_changes_controller:
-    cleared: Ваша история имён очищена
+    cleared: Твоя история имён очищена
 
   api/v1/topic_ignores_controller:
     ignored: Топик добавлен в игнор
@@ -439,8 +441,8 @@ ru:
 
   api/v1/user_rates_controller:
     list_and_history_cleared:
-      anime: Выполнена очистка вашего списка аниме и вашей истории по аниме
-      manga: Выполнена очистка вашего списка манги и вашей истории по манге
+      anime: Выполнена очистка твоего списка аниме и вашей истории по аниме
+      manga: Выполнена очистка твоего списка манги и вашей истории по манге
     scores_reset:
       anime: Выполнен сброс оценок в вашем списке аниме
       manga: Выполнен сброс оценок в вашем списке манги

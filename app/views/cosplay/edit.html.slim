@@ -142,13 +142,13 @@ header.head.misc
         - unless f.object.deleted?
           p.m15
             | [
-            a href="#{cosplay_cosplay_gallery_delete_url(f.object.cosplayers.first, f.object)}" data-confirm="Подтвердите удаление этой галереи" удалить эту галерею
+            a href="#{cosplay_cosplay_gallery_delete_url(f.object.cosplayers.first, f.object)}" data-confirm="Подтверди удаление этой галереи" удалить эту галерею
             | ]
         - else
           h1 style="color: red;" Галерея удалена
           p.m15
             | [
-            a href="#{cosplay_cosplay_gallery_undelete_url(f.object.cosplayers.first, f.object)}" data-confirm="Подтвердите отмену удаления этой галереи" отменить удаление
+            a href="#{cosplay_cosplay_gallery_undelete_url(f.object.cosplayers.first, f.object)}" data-confirm="Подтверди отмену удаления этой галереи" отменить удаление
             | ]
 
       .block

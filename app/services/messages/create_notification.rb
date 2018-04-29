@@ -29,7 +29,7 @@ class Messages::CreateNotification
       topic_id: @target.topic(@target.locale).id,
       entry_name: I18n.t(
         "activerecord.models.#{@target.class.name.downcase}",
-        locale: @target.locale
+        locale: @target.locale.to_sym
       ).downcase,
       locale: locale
     )
@@ -57,15 +57,12 @@ class Messages::CreateNotification
   def nickname_changed friend, old_nickname, new_nickname
     return if (friend.notifications & User::NICKNAME_CHANGE_NOTIFICATIONS).zero?
 
-    nickname_changed_key = @target.female? ?
-      'female_nickname_changed' :
-      'male_nickname_changed'
-
     body = i18n_t(
-      nickname_changed_key,
+      'nickname_changed',
+      gender: friend.sex,
       old_nickname: "[profile=#{@target.id}]#{old_nickname}[/profile]",
       new_nickname: "[profile=#{@target.id}]#{new_nickname}[/profile]",
-      locale: friend.locale
+      locale: friend.locale.to_sym
     )
 
     Message.create_wo_antispam!(
@@ -119,8 +116,9 @@ class Messages::CreateNotification
   def bad_email
     body = i18n_t(
       'bad_email_message',
+      gender: @target.sex,
       email: @target.email,
-      locale: @target.locale
+      locale: @target.locale.to_sym
     )
 
     Message.create_wo_antispam!(

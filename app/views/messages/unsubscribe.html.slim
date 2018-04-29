@@ -1,5 +1,6 @@
 header.head
-  h1 Настройка уведомлений
-  p.notice Вы отписаны от уведомлений о личных сообщениях на почту.
+  h1 = og.page_title.last
+  p.notice = t '.notice'
 
-p Изменить прочие настройки умедомлений можно на <a class="link-color" href="#{edit_profile_url @user, page: :notifications}">странице настроек вашего профиля</a>.
+p = t '.text'
+p == t '.text_2', profile_url: edit_profile_url(@user, page: :notifications)

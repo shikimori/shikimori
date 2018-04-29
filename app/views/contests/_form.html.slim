@@ -112,7 +112,7 @@
                 div: a.b-js-link[
                   href=start_contest_url(contest)
                   data-method='post'
-                  data-confirm=t('.sure_to_start_contest')
+                  data-confirm=t('.sure_to_start_contest', gender: current_user.sex)
                 ] = t '.start_contest'
               span.action-misc = t '.actions_reload_page'
 

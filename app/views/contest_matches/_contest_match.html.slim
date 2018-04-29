@@ -7,7 +7,7 @@
       p.warning
         span.red-warning = t '.warning'
         | &nbsp;
-        = t '.warning-text'
+        = t '.warning_text', gender: current_user&.sex
 
     .prev-match
     .next-match
@@ -39,7 +39,7 @@
             - if contest_match.started?
               p.invitation = t '.click_candidate'
               p.vote-voted = t '.your_vote_counted'
-              p.vote-abstained = t '.you_have_abstained_from_voting'
+              p.vote-abstained = t '.you_have_abstained_from_voting', gender: current_user&.sex
               .actions
                 .action
                   span.abstain[

@@ -52,25 +52,25 @@ ru:
       conversation_with_user: Диалог с %{user}
       before_you_message_me: Перед тем, как мне написать
       admin_message: >-
-        <li>Обращайтесь на "ты".</li>
+        <li>Обращайся на "ты".</li>
         <li>
-          Не забудьте прочитать первый пост в
+          Не забудь прочитать первый пост в
           <a class='b-link' href='//shikimori.org/clubs/1093-faq-chasto-zadavaemye-voprosy'>
             клубе часто задаваемых вопросов</a>.
         </li>
         <li>
-          Если у вас вопрос по работе сайта, то попробуйте сначала спросить в
+          Если у тебя вопрос по работе сайта, то попробуй сначала спросить в
           <a class='b-link' href='//shikimori.org/clubs/1093-faq-chasto-zadavaemye-voprosy'>
             клубе часто задаваемых вопросов</a>.
-          Только если не получили ответа там, то пишите мне.
+          Только если не нашлось ответа там, то пиши мне.
         </li>
         <li>
-          Сообщения об ошибках, если они не блокируют работу с сайтом, пишите в
+          Сообщения об ошибках, если они не блокируют работу с сайтом, пиши в
           <a class='b-link' href='//shikimori.org/s/102-Tema-ob-oshibkah'>
             топик ошибок</a>.
         </li>
         <li>
-          Предложения по улучшению сайта пишите в
+          Предложения по улучшению сайта пиши в
           <a class='b-link' href='//shikimori.org/s/10586-Pozhelaniya-po-saytu'>
             топик идей</a>.
         </li>
@@ -89,7 +89,7 @@ ru:
       admin_message_postscriptum: >-
         Отвечать могу очень долго. Или вообще никогда.
 
-      your_message: Ваше сообщение
+      your_message: Твоё сообщение
       rss_title: История пользователя %{nickname}
       no_video_uploads: Нет загрузок видео
       no_content_changes: Нет правок контента
@@ -136,18 +136,18 @@ ru:
         export_list: Экспортировать список
         my_list_scores: Оценки в моём списке
         reset_scores: Сбросить все оценки %{kind}
-        confirm_to_reset_scores: 'Подтвердите намерение сбросить все выставленные оценки для %{kind_genitive} (@{n:само|f:сама} %{kind_subjective} из списка не удалится).'
-        sure_to_reset_scores: Вы действительно хотите сбросить все выставленные вами оценки для %{kind}?
+        confirm_to_reset_scores: 'Подтверди намерение сбросить все выставленные оценки для %{kind_genitive} (@{n:само|f:сама} %{kind_subjective} из списка не удалится).'
+        sure_to_reset_scores: Ты действительно хочешь сбросить все выставленные тобой оценки для %{kind}?
 
         my_list_history: История моего списка
         remove_history_of_list_changes: Удалить всю историю изменений списка %{kind}?
-        confirm_to_remove_history_of_list_changes: Подтвердите намерение удалить всю историю изменений своего списка %{kind}.
-        sure_to_remove_history_of_list_changes: Вы действительно хотите удалить всю историю своего списка %{kind}?
+        confirm_to_remove_history_of_list_changes: Подтверди намерение удалить всю историю изменений твоего списка %{kind}.
+        sure_to_remove_history_of_list_changes: Ты действительно хочешь удалить всю историю твоего списка %{kind}?
 
         my_list_contents: Содержимое моего списка
         clear_list_completely: Очистить полностью список %{kind}
-        confirm_to_clear_list_completely: Подтвердите намерение очистить свой список %{kind_genitive} и удалить всю историю по %{kind_dative}.
-        sure_to_clear_list_completely: Вы действительно хотите очистить свой список %{kind} и потерять всю историю?
+        confirm_to_clear_list_completely: Подтверди намерение очистить твой список %{kind_genitive} и удалить всю историю по %{kind_dative}.
+        sure_to_clear_list_completely: Ты действительно хочешь очистить твой список %{kind} и потерять всю историю?
 
       notifications:
         type_of_notification: Тип уведомления
@@ -170,12 +170,12 @@ ru:
         ssl_hint: Экспериментальное
         anime_manga_recommendations: Рекомендации аниме и манги
         restore_rejected_recommendations: Восстановить отклонённые вами рекомендации %{kind}
-        confirm_to_restore_recommendations: Подтвердите намерение восстановить все заблокированные вами рекомендации для %{kind}.
-        sure_to_restore_recommendations: Вы действительно хотите восстановить все заблокированные вами рекомендации для %{kind}?
+        confirm_to_restore_recommendations: Подтверди намерение восстановить все заблокированные тобой рекомендации для %{kind}.
+        sure_to_restore_recommendations: Ты действительно хочешь восстановить все заблокированные тобой рекомендации для %{kind}?
         history_of_nickname_changes: История изменения никнеймов
         clear_history: Очистить историю
-        confirm_to_clear_history_of_nickname_changes: Подтвердите намерение очистить историю изменения ваших никнеймов.
-        sure_to_clear_history_of_nickname_changes: Вы действительно хотите очистить историю изменения ваших никнеймов?
+        confirm_to_clear_history_of_nickname_changes: Подтверди намерение очистить историю изменения твоих никнеймов.
+        sure_to_clear_history_of_nickname_changes: Ты действительно хочешь очистить историю изменения твоих никнеймов?
         ignored_topics: Игнорируемые топики
         ignored_users: Игнорируемые пользователи
         show_list_of_ignored: Посмотреть список

@@ -30,8 +30,9 @@ private
   def ban_text user
     I18n.t(
       'messages/check_spam_abuse.ban_text',
+      gender: user.sex,
       email: Shikimori::EMAIL,
-      locale: user.locale
+      locale: user.locale.to_sym
     )
   end
 end

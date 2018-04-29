@@ -117,7 +117,7 @@ gem 'gcm'
 gem 'maruku'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 
-gem 'i18n-inflector-rails'
+gem 'i18n-inflector', github: 'morr/i18n-inflector', branch: :master # fork fixes regular expression for parsing @ inflections
 gem 'i18n-js'
 gem 'rails-i18n'
 

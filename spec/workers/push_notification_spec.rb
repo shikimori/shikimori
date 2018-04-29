@@ -10,7 +10,7 @@ describe PushNotification do
       {
         action: 'profile_commented',
         msgTitle: nil,
-        msgBody: 'Написал что-то в вашем профиле.',
+        msgBody: 'Написал что-то в твоём профиле.',
         params: {
           message_id: message.id,
           from: UserSerializer.new(message.from).attributes

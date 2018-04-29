@@ -81,7 +81,11 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::ProfileCommented }
       it do
         is_expected.to eq(
-          "Написал что-то в вашем <a class='b-link' href='#{Shikimori::PROTOCOL}://test.host/to'>профиле</a>."
+          <<~HTML.squish
+            Написал что-то в твоём
+            <a class='b-link'
+            href='#{Shikimori::PROTOCOL}://test.host/to'>профиле</a>.
+          HTML
         )
       end
     end
@@ -94,13 +98,13 @@ describe Messages::GenerateBody do
         let(:user_to) { create :user }
         let!(:friend_link) { create :friend_link, dst: user_from, src: user_to }
 
-        it { is_expected.to eq 'Добавил вас в список друзей.' }
+        it { is_expected.to eq 'Добавил тебя в список друзей.' }
       end
 
       context 'not accepted' do
         it do
           is_expected.to eq(
-            'Добавил вас в список друзей. Добавить его в свой список друзей в ответ?'
+            'Добавил тебя в список друзей. Добавить его в твой список друзей в ответ?'
           )
         end
       end
@@ -114,7 +118,7 @@ describe Messages::GenerateBody do
           <<~HTML.squish
             Написал <a class="b-link"
             href="#{Shikimori::PROTOCOL}://test.host/comments/1-test">что-то</a>
-            вам в топике
+            тебе в топике
             <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/1-test">test</a>.
           HTML
         )
@@ -141,7 +145,10 @@ describe Messages::GenerateBody do
         let(:linked) { build_stubbed :ban }
         it do
           is_expected.to eq(
-            'Вам вынесено предупреждение за удалённый комментарий. Причина: "moderator comment".'
+            <<~HTML.squish
+              Тебе вынесено предупреждение за удалённый комментарий.
+              Причина: "moderator comment".
+            HTML
           )
         end
       end
@@ -153,7 +160,7 @@ describe Messages::GenerateBody do
         it do
           is_expected.to eq(
             <<~HTML.squish
-              Вам вынесено предупреждение за комментарий в топике
+              Тебе вынесено предупреждение за комментарий в топике
               <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}"
               class="bubbled b-link"
               data-href="#{Shikimori::PROTOCOL}://test.host/comments/#{comment.id}">offtopic</a>.
@@ -170,7 +177,9 @@ describe Messages::GenerateBody do
         let(:linked) { build_stubbed :ban }
         it do
           is_expected.to eq(
-            'Вы забанены на 3 часа. Причина: "moderator comment".'
+            <<~HTML.squish
+              Ты забанен на 3 часа. Причина: "moderator comment".
+            HTML
           )
         end
       end
@@ -182,7 +191,7 @@ describe Messages::GenerateBody do
         it do
           is_expected.to eq(
             <<~HTML.squish
-              Вы забанены на 3 часа за комментарий в топике
+              Ты забанен на 3 часа за комментарий в топике
               <a href="#{Shikimori::PROTOCOL}://test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}"
               class="bubbled b-link"
               data-href="#{Shikimori::PROTOCOL}://test.host/comments/#{comment.id}\">offtopic</a>.
@@ -214,7 +223,7 @@ describe Messages::GenerateBody do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            Ваша <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
+            Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
             title="правка" class="bubbled b-link"
             data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1/tooltip">правка</a>
             для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
@@ -235,7 +244,7 @@ describe Messages::GenerateBody do
         it do
           is_expected.to eq(
             <<~HTML.squish
-              Ваша <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
+              Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
               title="правка" class="bubbled b-link"
               data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1/tooltip">правка</a>
               для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
@@ -254,7 +263,7 @@ describe Messages::GenerateBody do
         it do
           is_expected.to eq(
             <<~HTML.squish
-              Ваша <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
+              Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
               title="правка" class="bubbled b-link"
               data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1/tooltip">правка</a>
               для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"

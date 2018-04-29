@@ -7,7 +7,6 @@ module Translation
 
     klass = self.class == Class ? self : self.class
     I18n.t! "#{klass.name.underscore}.#{key}", options
-
   rescue I18n::MissingTranslationData
     I18n.t key, options
   end
@@ -32,7 +31,7 @@ module Translation
 
   # only for nouns with ordinal numbers
   def i18n_io key, count_key
-    raise ArgumentError unless [:one, :few].include? count_key
+    raise ArgumentError unless %i[one few].include? count_key
 
     translation =
       if I18n.russian?
@@ -47,13 +46,8 @@ module Translation
 
   # only for verbs
   def i18n_v key, count = 1, options = {}
-    translation =
-      if I18n.russian?
-        I18n.t "verbs.#{key.downcase}.#{count_key(count)}", options
-      else
-        options = options.merge(default: key.tr('_', ' '))
-        I18n.t "verbs.#{key.downcase}.#{count_key(count)}", options
-      end
+    options = options.merge(default: key.tr('_', ' ')) unless I18n.russian?
+    translation = I18n.t "verbs.#{key.downcase}.#{count_key(count)}", options
 
     key != key.downcase ? translation.capitalize : translation
   end

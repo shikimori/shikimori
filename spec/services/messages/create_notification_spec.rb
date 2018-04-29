@@ -31,7 +31,7 @@ describe Messages::CreateNotification do
           kind: MessageType::Notification,
           linked: target,
           body: <<-BODY.squish.strip
-            Ваша [entry=#{target.topic(:ru).id}]рецензия[/entry]
+            Твоя [entry=#{target.topic(:ru).id}]рецензия[/entry]
             перенесена в оффтоп по причине
             [quote=#{approver.nickname}]#{reason}[/quote]
           BODY
@@ -51,7 +51,7 @@ describe Messages::CreateNotification do
           kind: MessageType::Notification,
           linked: target,
           body: <<-BODY.squish.strip
-            Ваша [entry=#{target.topic(:ru).id}]рецензия[/entry]
+            Твоя [entry=#{target.topic(:ru).id}]рецензия[/entry]
             перенесена в оффтоп.
           BODY
         )
@@ -89,7 +89,7 @@ describe Messages::CreateNotification do
           to: friend,
           kind: MessageType::NicknameChanged,
           body: <<-BODY.squish.strip
-            Ваш друг [profile=#{target.id}]#{old_nickname}[/profile]
+            Твой друг [profile=#{target.id}]#{old_nickname}[/profile]
             изменил никнейм на [profile=#{target.id}]#{new_nickname}[/profile].
           BODY
         )

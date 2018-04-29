@@ -1,22 +1,30 @@
 class MessagesController < ProfilesController
-  load_and_authorize_resource except: [:index, :feed, :preview, :read_all, :delete_all, :chosen, :unsubscribe]
+  load_and_authorize_resource(
+    except: %i[index feed preview read_all delete_all chosen unsubscribe]
+  )
 
-  skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :read_all, :delete_all]
-  before_action :authorize_acess, only: [:index, :read_all, :delete_all]
+  skip_before_action :fetch_resource, :set_breadcrumbs,
+    except: %i[index read_all delete_all]
+  before_action :authorize_acess, only: %i[index read_all delete_all]
 
   MESSAGES_PER_PAGE = 15
 
-  DISABLED_NOTIFICATIONS = User::MY_EPISODE_MOVIE_NOTIFICATIONS + User::MY_EPISODE_OVA_NOTIFICATIONS +
-    User::NOTIFICATIONS_TO_EMAIL_SIMPLE + User::NOTIFICATIONS_TO_EMAIL_GROUP + User::NOTIFICATIONS_TO_EMAIL_NONE# +
-    #User::PRIVATE_MESSAGES_TO_EMAIL
+  DISABLED_NOTIFICATIONS = User::MY_EPISODE_MOVIE_NOTIFICATIONS +
+    User::MY_EPISODE_OVA_NOTIFICATIONS + User::NOTIFICATIONS_TO_EMAIL_SIMPLE +
+    User::NOTIFICATIONS_TO_EMAIL_GROUP + User::NOTIFICATIONS_TO_EMAIL_NONE # +
+    # User::PRIVATE_MESSAGES_TO_EMAIL
 
-  DISABLED_CHECKED_NOTIFICATIONS = User::NOTIFICATIONS_TO_EMAIL_GROUP# + User::PRIVATE_MESSAGES_TO_EMAIL
+  DISABLED_CHECKED_NOTIFICATIONS = User::NOTIFICATIONS_TO_EMAIL_GROUP # + User::PRIVATE_MESSAGES_TO_EMAIL
 
   def index
     @page = [params[:page].to_i, 1].max
-    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
+    @limit = [
+      [params[:limit].to_i, MESSAGES_PER_PAGE].max,
+      MESSAGES_PER_PAGE * 2
+    ].min
 
-    @collection, @add_postloader = MessagesQuery.new(@resource, @messages_type).postload @page, @limit
+    @collection, @add_postloader =
+      MessagesQuery.new(@resource, @messages_type).postload @page, @limit
     @collection = @collection.map(&:decorate)
 
     og page_title: localized_page_title
@@ -56,16 +64,20 @@ class MessagesController < ProfilesController
     if @user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0
       @user.update notifications: @user.notifications - User::PRIVATE_MESSAGES_TO_EMAIL
     end
+
+    og page_title: @user.nickname
+    og page_title: i18n_t('unsubscribe')
   end
 
   # rss лента уведомлений
   def feed
     @user = User.find_by! nickname: User.param_to(params[:name])
-    if self.class.rss_key(@user) != params[:key]
-      raise CanCan::AccessDenied
-    end
+    raise CanCan::AccessDenied if self.class.rss_key(@user) != params[:key]
 
-    raw_messages = Rails.cache.fetch "notifications_feed_#{@user.id}", expires_in: 60.minutes do
+    raw_messages = Rails.cache.fetch(
+      "notifications_feed_#{@user.id}",
+      expires_in: 60.minutes
+    ) do
       Message
         .where(to_id: @user.id)
         .where.not(kind: MessageType::Private)
@@ -76,11 +88,16 @@ class MessagesController < ProfilesController
     end
 
     @messages = raw_messages.map do |message|
-      linked = message.linked && message.linked.respond_to?(:linked) && message.linked.linked ? message.linked.linked : nil
+      if message.linked&.respond_to?(:linked) && message.linked&.linked
+        linked = message.linked.linked
+      end
+
       {
         entry: message.decorate,
         guid: "message-#{message.id}",
-        image_url: linked && linked.image.exists? ? '//shikimori.org' + linked.image.url(:preview, false) : nil,
+        image_url: linked&.image&.exists? ?
+          '//shikimori.org' + linked.image.url(:preview, false) :
+          nil,
         link: linked ? url_for(linked) : messages_url(type: :notifications),
         linked_name: linked ? linked.name : nil,
         pubDate: Time.at(message.created_at.to_i).to_s(:rfc822),

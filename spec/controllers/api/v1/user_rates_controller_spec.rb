@@ -183,7 +183,7 @@ describe Api::V1::UserRatesController do
             .to have_received(:perform_async)
             .with user.id, nil, Types::Neko::Action[:reset]
 
-          expect(json[:notice]).to eq 'Выполнена очистка вашего списка аниме и вашей истории по аниме'
+          expect(json[:notice]).to eq 'Выполнена очистка твоего списка аниме и вашей истории по аниме'
           expect(response).to have_http_status :success
         end
       end
@@ -198,7 +198,7 @@ describe Api::V1::UserRatesController do
 
           expect(Achievements::Track).to_not have_received :perform_async
 
-          expect(json[:notice]).to eq 'Выполнена очистка вашего списка манги и вашей истории по манге'
+          expect(json[:notice]).to eq 'Выполнена очистка твоего списка манги и вашей истории по манге'
           expect(response).to have_http_status :success
         end
       end
