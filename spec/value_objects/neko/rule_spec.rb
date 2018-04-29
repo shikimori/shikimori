@@ -23,14 +23,26 @@ describe Neko::Rule do
     it { expect(rule.group).to eq Types::Achievement::NekoGroup[:common] }
   end
 
-  describe '#franchise?' do
-    context 'franchise' do
-      let(:neko_id) { 'ghost_in_the_shell' }
-      it { expect(rule).to be_franchise }
+  describe '#common?, #genre?, #franchise?' do
+    context 'common' do
+      let(:neko_id) { 'animelist' }
+      it { expect(rule).to be_common }
+      it { expect(rule).to_not be_genre }
+      it { expect(rule).to_not be_franchise }
     end
 
-    context 'not franchise' do
+    context 'genre' do
+      let(:neko_id) { 'scifi' }
+      it { expect(rule).to_not be_common }
+      it { expect(rule).to be_genre }
       it { expect(rule).to_not be_franchise }
+    end
+
+    context 'franchise' do
+      let(:neko_id) { 'ghost_in_the_shell' }
+      it { expect(rule).to_not be_common }
+      it { expect(rule).to_not be_genre }
+      it { expect(rule).to be_franchise }
     end
   end
 

@@ -1,10 +1,31 @@
 = render layout: 'page' do
-  /h2.subheadline.m10 = og.headline
+  h2.subheadline.m10 = og.headline
 
   - if @user.nickname == 'test2'
     = render 'users/achievements/demo'
   - else
-    h2.headline.blue = Anime.model_name.human
-    .cc-achievements
-      = render partial: 'users/achievements/achievement',
-        collection: @user.achievements.sort_by(&:sort_criteria).group_by(&:neko_id).map(&:second).map(&:last)
+    - if @collections.values.flatten.none?
+      .block
+        p.b-nothing_here = t '.no_achievements'
+
+    - else
+      - if @collections[:common].any?
+        .block2
+          h2.headline.blue = @collections[:common].first.group_name
+          .cc-achievements
+            = render partial: 'users/achievements/achievement',
+              collection: @collections[:common]
+
+      - if @collections[:genre].any?
+        .block2
+          h2.headline.blue = @collections[:genre].first.group_name
+          .cc-achievements
+            = render partial: 'users/achievements/achievement',
+              collection: @collections[:genre]
+
+      / - if @collections[:common].any?
+      /   .block2
+      /     h2.headline.blue = @collections[:common].first.group_name
+      /     .cc-achievements
+      /       = render partial: 'users/achievements/achievement',
+      /         collection: @collections[:common]

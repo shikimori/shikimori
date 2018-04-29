@@ -6,6 +6,18 @@ class Users::AchievementsController < ProfilesController
     unless current_user&.admin? || @user.nickname == 'test2'
       raise ActiveRecord::RecordNotFound
     end
+
+    collection = @user.achievements
+      .sort_by(&:sort_criteria)
+      .group_by(&:neko_id)
+      .map(&:second)
+      .map(&:last)
+
+    @collections = {
+      common: collection.select(&:common?),
+      genre: collection.select(&:genre?),
+      franchise: collection.select(&:franchise?)
+    }
   end
 
   def franchise

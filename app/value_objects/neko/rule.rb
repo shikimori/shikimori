@@ -31,6 +31,14 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
     ]
   end
 
+  def common?
+    group == Types::Achievement::NekoGroup[:common]
+  end
+
+  def genre?
+    group == Types::Achievement::NekoGroup[:genre]
+  end
+
   def franchise?
     group == Types::Achievement::NekoGroup[:franchise]
   end

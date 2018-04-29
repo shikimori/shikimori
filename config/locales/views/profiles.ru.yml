@@ -104,6 +104,7 @@ ru:
         person: Прочие люди
       export_anime: Экспорт аниме
       export_manga: Экспорт манги и ранобэ
+      no_achievements: У тебя пока нет ачивок.
 
     edit:
       account:

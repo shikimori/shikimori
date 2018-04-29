@@ -104,6 +104,7 @@ en:
         person: Other people
       export_anime: Export anime
       export_manga: Export manga and light novels
+      no_achievements: You have no achievements yet.
 
     edit:
       account:
