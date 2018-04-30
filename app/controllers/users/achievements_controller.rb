@@ -1,13 +1,9 @@
 class Users::AchievementsController < ProfilesController
   before_action :additional_breadcrumbs, except: [:index]
   before_action { og page_title: i18n_t('achievements') }
+  before_action :check_access
 
   def index
-    unless current_user&.admin? || @user.nickname == 'test2' ||
-        Rails.env.development?
-      raise ActiveRecord::RecordNotFound
-    end
-
     collection = @user.achievements
       .sort_by(&:sort_criteria)
       .group_by(&:neko_id)
@@ -22,10 +18,17 @@ class Users::AchievementsController < ProfilesController
   end
 
   def franchise
-    og page_title: 'Франшизы'
+    og page_title: i18n_t('franchises')
   end
 
 private
+
+  def check_access
+    unless current_user&.admin? || @user.nickname == 'test2' ||
+        Rails.env.development?
+      raise ActiveRecord::RecordNotFound
+    end
+  end
 
   def additional_breadcrumbs
     @back_url = profile_achievements_url(@resource)

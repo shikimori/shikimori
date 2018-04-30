@@ -6543,7 +6543,7 @@
       - 25257
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :new_game
+- :neko_id: :hidamari_sketch
   :level: 1
   :image:
   - https://moe.shikimori.org/system/user_images/original/84020/588522.jpg
@@ -6556,7 +6556,7 @@
   :rule:
     :algo: simple
     :filters:
-      franchise: new_game
+      franchise: hidamari_sketch
       not_anime_ids:
       - 28911
       - 28913
@@ -7138,7 +7138,7 @@
       franchise: ranma
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :atom
+- :neko_id: :black_jack
   :level: 1
   :image:
   - http://oyster.ignimgs.com/wordpress/stg.ign.com/2014/02/24-black_jack.jpg
@@ -7151,7 +7151,7 @@
   :rule:
     :algo: simple
     :filters:
-      franchise: atom
+      franchise: black_jack
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :genshiken
@@ -7937,21 +7937,6 @@
       franchise: dirty_pair
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :mahou_no_yousei_persia
-  :level: 1
-  :image: []
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: mahou_no_yousei_persia
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :angelique
   :level: 1
   :image:
@@ -7966,6 +7951,21 @@
     :algo: simple
     :filters:
       franchise: angelique
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :mahou_no_princess_minky_momo
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: mahou_no_princess_minky_momo
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :ehon_yose
