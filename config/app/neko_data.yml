@@ -5847,6 +5847,8 @@
     :algo: simple
     :filters:
       franchise: fate_zero
+      not_anime_ids:
+      - 13183
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :jojo_no_kimyou_na_bouken
@@ -6207,8 +6209,12 @@
     :filters:
       franchise: gundam
       not_anime_ids:
+      - 2269
       - 8839
+      - 14007
+      - 20667
       - 23943
+      - 24371
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :dragon_ball
@@ -6241,6 +6247,8 @@
     :algo: simple
     :filters:
       franchise: initial_d
+      not_anime_ids:
+      - 12725
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :katekyo_hitman_reborn
@@ -6447,6 +6455,8 @@
     :algo: simple
     :filters:
       franchise: hikaru_no_go
+      not_anime_ids:
+      - 2336
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :boruto
@@ -6649,6 +6659,8 @@
     :algo: simple
     :filters:
       franchise: snow_halation
+      not_anime_ids:
+      - 21853
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :nurarihyon_no_mago
@@ -6872,6 +6884,8 @@
     :algo: simple
     :filters:
       franchise: digimon_savers
+      not_anime_ids:
+      - 4712
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :hokuto_no_ken
@@ -6920,6 +6934,8 @@
     :algo: simple
     :filters:
       franchise: nen_joou
+      not_anime_ids:
+      - 6733
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :votoms_finder
@@ -7598,8 +7614,8 @@
     :filters:
       franchise: yu_gi_oh
       not_anime_ids:
-      - 5458
       - 5298
+      - 5458
       - 16576
       - 21595
       - 32346
