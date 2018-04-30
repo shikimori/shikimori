@@ -3,7 +3,8 @@ class Users::AchievementsController < ProfilesController
   before_action { og page_title: i18n_t('achievements') }
 
   def index
-    unless current_user&.admin? || @user.nickname == 'test2'
+    unless current_user&.admin? || @user.nickname == 'test2' ||
+        Rails.env.development?
       raise ActiveRecord::RecordNotFound
     end
 

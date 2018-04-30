@@ -13,9 +13,17 @@ describe Api::V2::UserRatesController, :show_in_doc do
   end
 
   describe '#index' do
-    let!(:user_rate_1) { create :user_rate, user: user }
-    let!(:user_rate_2) { create :user_rate, user: user }
-    before { get :index, params: { user_id: user.id }, format: :json }
+    let!(:user_rate_1) { create :user_rate, :completed, user: user }
+    let!(:user_rate_2) { create :user_rate, :planned, user: user }
+    let!(:user_rate_3) { create :user_rate, :watching, user: user }
+    before do
+      get :index,
+        params: {
+          user_id: user.id,
+          status: 'completed,planned'
+        },
+        format: :json
+    end
 
     it do
       expect(json).to have(2).items

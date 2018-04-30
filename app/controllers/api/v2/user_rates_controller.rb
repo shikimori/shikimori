@@ -15,7 +15,19 @@ class Api::V2::UserRatesController < Api::V2Controller
   param :user_id, :number, required: false
   param :target_id, :number, required: false
   param :target_type, %w[Anime Manga], required: false
-  param :status, UserRate.statuses.keys, required: false
+  param :status, :undef,
+    required: false,
+    desc: I18n.t('activerecord.attributes.user_rate.statuses.anime', locale: :en)
+      .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{ERB::Util.h v}</p>" }
+      .join('') + <<~DOC
+        <p><strong>Validations:</strong></p>
+        <ul>
+          <li>
+            Must be one of:
+            <code>#{UserRate.statuses.keys.join '</code>, <code>'}</code>
+          </li>
+        </ul>
+      DOC
   param :page, :pagination,
     required: false,
     desc: 'This field is ignored when user_id is set'
@@ -39,8 +51,10 @@ class Api::V2::UserRatesController < Api::V2Controller
     end
 
     scope = %i[user_id status target_type target_id]
-      .each_with_object(UserRate.all) do |field, scope|
-        scope.where! field => params[field] if params[field].present?
+      .each_with_object(UserRate.all) do |field, local_scope|
+        if params[field].present?
+          local_scope.where! field => params[field].split(',').take(10)
+        end
       end
 
     # TODO: remove `unless params[:user_id]` after 01-09-2017
