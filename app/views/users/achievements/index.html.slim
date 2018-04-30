@@ -1,7 +1,6 @@
 = render layout: 'page' do
-  h2.subheadline.m10 = og.headline
-
   - if @user.nickname == 'test2'
+    h2.subheadline.m10 = og.headline
     = render 'users/achievements/demo'
   - else
     - if @collections.values.flatten.none?
@@ -16,9 +15,16 @@
             = render partial: 'users/achievements/achievement',
               collection: @collections[:common]
 
+      - if @collections[:franchise].any?
+        .block2
+          h2.headline.orange = @collections[:franchise].first.group_name
+          .cc-badges
+            = render partial: 'users/achievements/achievement',
+              collection: @collections[:franchise]
+
       - if @collections[:genre].any?
         .block2
-          h2.headline.blue = @collections[:genre].first.group_name
+          h2.headline.orange = @collections[:genre].first.group_name
           .cc-achievements
             = render partial: 'users/achievements/achievement',
               collection: @collections[:genre]
