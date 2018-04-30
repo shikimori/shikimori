@@ -492,7 +492,9 @@
   :border_color:
   - "#FFBA00"
   :title_ru: Просветленный
-  :text_ru: Мастер познается в самоограничении.
+  :text_ru: |-
+    Мастер познается в самоограничении.
+    И в долгой созерцательной практике.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -5511,6 +5513,14 @@
       - 35120
       - 12431
       - 80
+      - 202
+      - 1254
+      - 1023
+      - 876
+      - 979
+      - 15847
+      - 21013
+      - 433
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - :neko_id: :supernatural
   :level: 1
@@ -5600,8 +5610,6 @@
     :algo: simple
     :filters:
       franchise: fullmetal_alchemist
-      not_anime_ids:
-      - 10842
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :gintama
@@ -5666,13 +5674,12 @@
     :algo: simple
     :filters:
       franchise: hanamonogatari
-      not_anime_ids:
-      - 23831
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :haikyuu
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/84020/588521.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -5699,11 +5706,6 @@
     :algo: simple
     :filters:
       franchise: code_geass
-      not_anime_ids:
-      - 4596
-      - 6768
-      - 12685
-      - 17277
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :mushishi
@@ -5771,8 +5773,7 @@
 - :neko_id: :natsume_yuujinchou
   :level: 1
   :image:
-  - http://i.imgur.com/JVK8aJw.png
-  - http://i.imgur.com/TiswIVn.png
+  - https://dere.shikimori.org/system/user_images/original/34807/588844.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -5898,7 +5899,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :uchuu_kyoudai
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/84020/588566.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -5927,6 +5929,7 @@
       franchise: ghost_in_the_shell
       not_anime_ids:
       - 10870
+      - 31617
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :kuroko_no_basket
@@ -5963,7 +5966,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :slam_dunk
   :level: 1
-  :image: []
+  :image:
+  - https://dere.shikimori.org/system/user_images/original/84020/588994.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6037,6 +6041,21 @@
     :algo: simple
     :filters:
       franchise: evangelion
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :yamato
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: yamato
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :berserk
@@ -6274,7 +6293,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :cardcaptor_sakura
   :level: 1
-  :image: []
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/34807/588573.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6415,7 +6435,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :hikaru_no_go
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/84020/588982.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6514,7 +6535,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :new_game
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/84020/588522.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6545,6 +6567,21 @@
     :algo: simple
     :filters:
       franchise: slayers
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :perman
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: perman
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :toaru_majutsu_no_index
@@ -6616,7 +6653,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :nurarihyon_no_mago
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/84020/588986.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6647,7 +6685,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :school_rumble
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/84020/588567.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6790,7 +6829,7 @@
 - :neko_id: :saiyuuki_gaiden
   :level: 1
   :image:
-  - http://www.spookhouse.net/angelynx/otheranime/Saiyuki/saiyuki-page-header.jpg
+  - https://moe.shikimori.org/system/user_images/original/34807/588842.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6917,7 +6956,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :mazinkaiser
   :level: 1
-  :image: []
+  :image:
+  - https://dere.shikimori.org/system/user_images/original/84020/588529.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6928,11 +6968,12 @@
     :algo: simple
     :filters:
       franchise: mazinkaiser
-    :threshold: 100%
+    :threshold: 60%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :transformers
   :level: 1
-  :image: []
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/84020/588998.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6970,7 +7011,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :urusei_yatsura
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/84020/588516.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7146,7 +7188,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :aikatsu
   :level: 1
-  :image: []
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/84020/588973.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7258,7 +7301,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :dragon_quest
   :level: 1
-  :image: []
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/84020/588978.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7273,7 +7317,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :fushigi_yuugi
   :level: 1
-  :image: []
+  :image:
+  - https://nyaa.shikimori.org/system/user_images/original/34807/588655.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7288,7 +7333,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :pripara
   :level: 1
-  :image: []
+  :image:
+  - https://dere.shikimori.org/system/user_images/original/84020/588524.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7303,7 +7349,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :utawarerumono
   :level: 1
-  :image: []
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/84020/588523.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7349,7 +7396,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :puchimas
   :level: 1
-  :image: []
+  :image:
+  - https://dere.shikimori.org/system/user_images/original/84020/588509.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7378,9 +7426,25 @@
       franchise: zero_no_tsukaima
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :aa_megami_sama
+- :neko_id: :toriko
   :level: 1
   :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: toriko
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :aa_megami_sama
+  :level: 1
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/34807/588643.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7441,7 +7505,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :konjiki_no_gash_bell
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/34807/588672.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7618,7 +7683,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :tiger_mask
   :level: 1
-  :image: []
+  :image:
+  - https://nyaa.shikimori.org/system/user_images/original/84020/589000.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7677,22 +7743,6 @@
       franchise: galaxy_angel
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :phi_brain
-  :level: 1
-  :image:
-  - https://2.downloader.disk.yandex.ru/preview/dac9071d353eb08519147ce638f60d7b56bf2e55304d5248afe3fa97ec038dbd/inf/Ulc4l6Nw6Zl9PBaWaDlZYWfqd6NgflUnNVW84qjM7tWHGQMItPHGXEgUqHiBJeDXjhx9_rlEUaQimZhWz7SEqQ%3D%3D?uid=0&filename=screenshot-10_9_2013-11_53_56-pm.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
-  :border_color: []
-  :title_ru: 
-  :text_ru: 
-  :title_en: 
-  :text_en: 
-  :topic_id: 247360
-  :rule:
-    :algo: simple
-    :filters:
-      franchise: phi_brain
-    :threshold: 100%
-    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :mini_van
   :level: 1
   :image:
@@ -7712,7 +7762,7 @@
 - :neko_id: :cyborg
   :level: 1
   :image:
-  - https://desu.shikimori.org/system/user_images/original/84020/587868.jpg
+  - https://moe.shikimori.org/system/user_images/original/84020/588532.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7825,7 +7875,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :aquarion_evol
   :level: 1
-  :image: []
+  :image:
+  - https://nyaa.shikimori.org/system/user_images/original/34807/589085.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7840,7 +7891,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :di_gi_charat
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/84020/588977.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7886,7 +7938,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :angelique
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/34807/589046.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7916,7 +7969,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :to_heart
   :level: 1
-  :image: []
+  :image:
+  - https://dere.shikimori.org/system/user_images/original/34807/588864.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7931,7 +7985,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :sakura_taisen
   :level: 1
-  :image: []
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/84020/588988.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7946,7 +8001,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :ginga_senpuu_braiger
   :level: 1
-  :image: []
+  :image:
+  - https://dere.shikimori.org/system/user_images/original/84020/588514.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -8038,7 +8094,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :super_doll_licca_chan
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/34807/588646.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -8053,7 +8110,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :ultraman
   :level: 1
-  :image: []
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/84020/588518.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -8068,7 +8126,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :obake_no_q_tarou
   :level: 1
-  :image: []
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/84020/588513.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -8083,7 +8142,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :pro_golfer_saru
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/84020/588511.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
