@@ -25,7 +25,10 @@ class ShikimoriController < ApplicationController
       og page_title: @resource.title
     end
 
-    raise AgeRestricted if @resource.try(:censored?) && censored_forbidden?
+    if @resource.try(:censored?) && censored_forbidden? &&
+        params[:action] != 'tooltip'
+      raise AgeRestricted
+    end
   end
 
   def censored_forbidden?
