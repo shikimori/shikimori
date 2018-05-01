@@ -40,8 +40,6 @@ en:
     site_notifications: Site notifications
     unsubscribe: Notification preferences
 
-  user_achievements_controller:
-    <<: *profiles_controller
   user_history_controller:
     <<: *profiles_controller
     page_title: History
@@ -84,6 +82,7 @@ en:
     error_incorrect_file_format: Import error. Maybe incorrect file format.
   users/achievements_controller:
     <<: *profiles_controller
+    franchises: Franchises
   users/list_exports_controller:
     <<: *profiles_controller
     title: Export list

@@ -32,7 +32,7 @@ class ShikimoriController < ApplicationController
     cookies[COOKIE_AGE_OVER_18] != 'true' &&
       !%w[rss os json].include?(request.format) &&
       params[:action] != 'tooltip' && !(
-        current_user.birth_on && current_user.birth_on < 18.years.ago
+        current_user&.birth_on && current_user.birth_on < 18.years.ago
       )
   end
 

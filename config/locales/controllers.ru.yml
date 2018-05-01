@@ -40,8 +40,6 @@ ru:
     site_notifications: Уведомления сайта
     unsubscribe: Настройка уведомлений
 
-  user_achievements_controller:
-    <<: *profiles_controller
   user_history_controller:
     <<: *profiles_controller
     page_title: История
@@ -84,6 +82,7 @@ ru:
     error_incorrect_file_format: Произошла ошибка. Возможно, некорректный формат файла.
   users/achievements_controller:
     <<: *profiles_controller
+    franchises: Франшизы
   users/list_exports_controller:
     <<: *profiles_controller
     title: Экспорт списка
