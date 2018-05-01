@@ -25,15 +25,13 @@ class ShikimoriController < ApplicationController
       og page_title: @resource.title
     end
 
-    if @resource.try(:censored?) && censored_forbidden? &&
-        params[:action] != 'tooltip'
-      raise AgeRestricted
-    end
+    raise AgeRestricted if @resource.try(:censored?) && censored_forbidden?
   end
 
   def censored_forbidden?
     cookies[COOKIE_AGE_OVER_18] != 'true' &&
-      !%w[rss os json].include?(request.format)
+      !%w[rss os json].include?(request.format) &&
+      params[:action] != 'tooltip'
   end
 
   def ensure_redirect! expected_url
