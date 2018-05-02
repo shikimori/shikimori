@@ -52,7 +52,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       top_of_next_is_from_prev = group_len.odd?
       # indicates that first element of next group should actually belong to previous group
       # and was placed in next group only due to odd number of elements in previous group
-      
+
       if top_of_next_is_from_prev
         if ids_len - group_start == 1
           # if only one element left. Just in case. To prevent infinite loop,
