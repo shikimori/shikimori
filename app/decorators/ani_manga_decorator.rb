@@ -198,9 +198,8 @@ private
 
   def format_menu_topic topic_view, order
     {
-      date: h.time_ago_in_words(
-        topic_view.send(order) || topic_view.created_at || topic_view.updated_at,
-        i18n_t('time_ago_format')
+      time: (
+        topic_view.send(order) || topic_view.created_at || topic_view.updated_at
       ),
       id: topic_view.id,
       name: topic_view.topic_title,

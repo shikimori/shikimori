@@ -2,6 +2,10 @@ I18N_TIME_FORMATS =
   ru: 'D MMMM YYYY, H:mm:ss'
   en: 'MMMM Do YYYY, h:mm:ss a'
 
+I18N_DATE_FORMATS =
+  ru: 'll'
+  en: 'll'
+
 (($) ->
   initialized = false
   # refresh_interval = 60000
@@ -18,7 +22,7 @@ I18N_TIME_FORMATS =
 
         $(@).one 'mouseover', ->
           time = parse_time $(@)
-          format = I18N_TIME_FORMATS[I18n.locale] || I18N_TIME_FORMATS['en']
+          format = I18N_TIME_FORMATS[I18n.locale]
           $(@).attr title: time.format(format)
 
   update_times = ->
@@ -27,7 +31,14 @@ I18N_TIME_FORMATS =
   update_time = (node) ->
     $node = $(node)
     timeinfo = get_timeinfo($node)
-    new_value = timeinfo.moment.fromNow()
+    new_value =
+      if timeinfo.format == '1_day_absolute'
+        if timeinfo.moment.unix() > moment().subtract(1, 'day').unix()
+          timeinfo.moment.fromNow()
+        else
+          timeinfo.moment.format(I18N_DATE_FORMATS[I18n.locale])
+      else
+        timeinfo.moment.fromNow()
 
     if new_value != timeinfo.value
       $node.text new_value
@@ -50,6 +61,7 @@ I18N_TIME_FORMATS =
         node_time
 
     timeinfo.value = $node.text()
+    timeinfo.format = $node.data('format')
 
     $node.data timeinfo: timeinfo
 
