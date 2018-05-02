@@ -102,8 +102,8 @@ describe Contest::SwissStrategy do
           expect(contest.rounds[1].matches[0].left_id).to eq w1.id
           expect(contest.rounds[1].matches[0].right_id).to eq w2.id
           expect(contest.rounds[1].matches[1].left_id).to eq w3.id
-          expect(contest.rounds[1].matches[1].right_id).to eq l1.id
-          expect(contest.rounds[1].matches[2].left_id).to eq l2.id
+          expect(contest.rounds[1].matches[1].right_id).to eq l2.id
+          expect(contest.rounds[1].matches[2].left_id).to eq l1.id
           expect(contest.rounds[1].matches[2].right_id).to eq l3.id
         end
       end
@@ -115,8 +115,8 @@ describe Contest::SwissStrategy do
           expect(contest.rounds[2].matches[0].left_id).to eq w1.id
           expect(contest.rounds[2].matches[0].right_id).to eq w3.id
           expect(contest.rounds[2].matches[1].left_id).to eq w2.id
-          expect(contest.rounds[2].matches[1].right_id).to eq l1.id
-          expect(contest.rounds[2].matches[2].left_id).to eq l2.id
+          expect(contest.rounds[2].matches[1].right_id).to eq l2.id
+          expect(contest.rounds[2].matches[2].left_id).to eq l1.id
           expect(contest.rounds[2].matches[2].right_id).to eq l3.id
         end
       end
