@@ -8,7 +8,7 @@
 article.c-column.b-catalog_entry.not-tracked[
   class="c-#{anime.anime? ? :anime : :manga} entry-#{anime.id} #{:cc if content_by == :block}"
   id=anime.id
-  itemscope itemtype="#{{anime.itemtype}}"
+  itemscope itemtype="#{anime.itemtype}"
   data-track_user_rate=JsExports::UserRatesExport.instance.placeholder(:catalog_entry, anime)
 ]
   meta[

@@ -10,7 +10,7 @@
         - group.each do |entry|
           tr
             td.name
-              a.b-link href="#{{entry[:guid] || entry[:link]}}"
+              a.b-link href="#{entry[:guid] || entry[:link]}"
                 == entry[:title]
 
   .cc
