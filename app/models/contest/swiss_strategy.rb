@@ -170,7 +170,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
         if right_id
           rest_ids.delete right_id
         else
-          right_id = members_ids.shift
+          right_id = rest_ids.shift
         end
         rest_len -= 1
         paired_ids[paired_ids_indx] = right_id
