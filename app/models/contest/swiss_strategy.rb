@@ -48,8 +48,8 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       next_group = i
       next_group_score = members_scores[i]
       group_len = next_group - group_start
-                                                      # indicates that first element of next group should actually belong to previous group
-      top_of_next_is_from_prev = group_len.odd?       # and was placed in next group only due to odd number of elements in previous group
+                                                # indicates that first element of next group should actually belong to previous group
+      top_of_next_is_from_prev = group_len.odd? # and was placed in next group only due to odd number of elements in previous group
       if top_of_next_is_from_prev
         if ids_len - group_start == 1        # if only one element left. Just in case. To prevent infinite loop,
           next_group = group_start           # when there were odd number of elements in members_ids.
@@ -64,18 +64,18 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       half = group_len >> 1
       delta = 0
       opponents_of_id_in_question = @statistics.opponents_of(group_ids.first)
-      while group_len > 0   # will search from center, i. e. if length is 6: 3, 2, 4, 1, 5 and 0 stops
+      while group_len.positive?   # will search from center, i. e. if length is 6: 3, 2, 4, 1, 5 and 0 stops
         i = half + delta
         if opponents_of_id_in_question.include?(group_ids[i])
           delta += 1
           i = half - delta
-          if i == 0         # if can't find a pair in this group
+          if i.zero?         # if can't find a pair in this group
             k = next_group
             while k < ids_len
               break unless opponents_of_id_in_question.include?(members_ids[k])
               k += 1
             end
-            
+
             if k == ids_len                # no pair can be found in entire rest of ids
               j = 0                        # so we just put back unpaired ids into members_ids
               k = next_group - group_len
@@ -123,9 +123,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
             opponents_of_id_in_question = @statistics.opponents_of(group_ids.first)
             next
           end
-          if opponents_of_id_in_question.include?(group_ids[i])
-            next
-          end
+          next if opponents_of_id_in_question.include?(group_ids[i])
         end
 
         # pair is found
@@ -138,7 +136,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
         opponents_of_id_in_question = @statistics.opponents_of(group_ids.first)
       end
 
-      break if group_len > 0      # means we have exited because no pair can be found in entire rest of ids
+      break if group_len.positive?  # means we have exited because no pair can be found in entire rest of ids
     end
 
     if next_group < ids_len       # There are some unpaired elements left
@@ -146,7 +144,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       # but for now, simple algo from previous version of match maker
       rest_len = ids_len - next_group
       rest_ids = members_ids.slice(next_group, rest_len)
-      while rest_len > 0
+      while rest_len.positive?
         left_id = rest_ids.shift
         rest_len -= 1
         paired_ids[paired_ids_indx] = left_id
@@ -165,11 +163,11 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       end
     end
 
-    i=0
+    i = 0
     round.matches.each do |match|
       left_id  = paired_ids[i]
-      right_id = paired_ids[i+1]
-      i+=2
+      right_id = paired_ids[i + 1]
+      i += 2
 
       match.update!(
         left_id: left_id,
