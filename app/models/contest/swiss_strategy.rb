@@ -48,11 +48,16 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       next_group = i
       next_group_score = members_scores[i]
       group_len = next_group - group_start
-                                                # indicates that first element of next group should actually belong to previous group
-      top_of_next_is_from_prev = group_len.odd? # and was placed in next group only due to odd number of elements in previous group
+
+      top_of_next_is_from_prev = group_len.odd?
+      # indicates that first element of next group should actually belong to previous group
+      # and was placed in next group only due to odd number of elements in previous group
+      
       if top_of_next_is_from_prev
-        if ids_len - group_start == 1        # if only one element left. Just in case. To prevent infinite loop,
-          next_group = group_start           # when there were odd number of elements in members_ids.
+        if ids_len - group_start == 1
+          # if only one element left. Just in case. To prevent infinite loop,
+          # when there were odd number of elements in members_ids.
+          next_group = group_start
           break
         else
           group_len -= 1
@@ -64,20 +69,24 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       half = group_len >> 1
       delta = 0
       opponents_of_id_in_question = @statistics.opponents_of(group_ids.first)
-      while group_len.positive?   # will search from center, i. e. if length is 6: 3, 2, 4, 1, 5 and 0 stops
+      while group_len.positive?
+        # will search from center, i. e. if length is 6: 3, 2, 4, 1, 5 and 0 stops
         i = half + delta
         if opponents_of_id_in_question.include?(group_ids[i])
           delta += 1
           i = half - delta
-          if i.zero?         # if can't find a pair in this group
+          if i.zero?
+            # if can't find a pair in this group
             k = next_group
             while k < ids_len
               break unless opponents_of_id_in_question.include?(members_ids[k])
               k += 1
             end
 
-            if k == ids_len                # no pair can be found in entire rest of ids
-              j = 0                        # so we just put back unpaired ids into members_ids
+            if k == ids_len
+              # if no pair can be found in entire rest of ids
+              # so we just put back unpaired ids into members_ids
+              j = 0
               k = next_group - group_len
               while k < next_group
                 members_ids[k] = group_ids[j]
@@ -89,26 +98,29 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
             end
 
             if top_of_next_is_from_prev
-              if k == next_group              # pair with top of next group
-                paired_ids[paired_ids_indx]     = group_ids.shift
+              paired_ids[paired_ids_indx]     = group_ids.shift
+              if k == next_group
+                # if pair with top of next group
                 paired_ids[paired_ids_indx + 1] = members_ids[k]
                 paired_ids_indx += 2
-                members_ids[k] = group_ids.pop   # new top of next group from previous' bottom
+                members_ids[k] = group_ids.pop
+                               # new top of next group from previous' bottom
                 group_len -= 2
                 half -= 1
               else
-                paired_ids[paired_ids_indx]     = group_ids.shift
                 paired_ids[paired_ids_indx + 1] = members_ids.delete_at(k)
                 paired_ids_indx += 2
                                                members_scores.delete_at(k)
                 ids_len -= 1
-                group_ids.push(members_ids[next_group])   # put back an odd element to its native group
+                group_ids.push(members_ids[next_group])
+                         # put back an odd element to its native group
                 next_group += 1
                 top_of_next_is_from_prev = false
               end
             else     # odinary case
               next_group -= 1
-              members_ids[next_group] = group_ids.pop     # odd element drops out into next group
+              members_ids[next_group] = group_ids.pop
+                                      # odd element drops out into next group
               top_of_next_is_from_prev = true
               paired_ids[paired_ids_indx]     = group_ids.shift
               paired_ids[paired_ids_indx + 1] = members_ids.delete_at(k)
@@ -136,10 +148,13 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
         opponents_of_id_in_question = @statistics.opponents_of(group_ids.first)
       end
 
-      break if group_len.positive?  # means we have exited because no pair can be found in entire rest of ids
+      break if group_len.positive?
+          # if we have exited because no pair can be found in entire rest of ids
     end
 
-    if next_group < ids_len       # There are some unpaired elements left
+    if next_group < ids_len
+      # if there are some unpaired elements left
+
       # here should be algorithm for complete avoidance of repeated matches even in bottom of list
       # but for now, simple algo from previous version of match maker
       rest_len = ids_len - next_group
