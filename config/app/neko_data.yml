@@ -6511,7 +6511,7 @@
       franchise: slayers
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :perman
+- :neko_id: :doraemon
   :level: 1
   :image: []
   :border_color: []
@@ -6523,7 +6523,7 @@
   :rule:
     :algo: simple
     :filters:
-      franchise: perman
+      franchise: doraemon
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :toaru_majutsu_no_index

@@ -11,6 +11,11 @@ module Types
         test
 
         animelist
+
+        otaku
+        fujoshi
+        yuuri
+
         tsundere
         yandere
         kuudere
@@ -23,10 +28,6 @@ module Types
         sovietanime
       ],
       NekoGroup[:genre] => %i[
-        otaku
-        fujoshi
-        yuuri
-
         comedy
         romance
         fantasy
@@ -53,7 +54,7 @@ module Types
         music
       ],
       NekoGroup[:franchise] => %i[
-        fullmetal_alchemist gintama ginga_eiyuu_densetsu hunter_x_hunter hanamonogatari haikyuu code_geass mushishi hajime_no_ippo rurouni_kenshin boku_no_hero_academia natsume_yuujinchou suzumiya_haruhi_no_yuuutsu bakuman koro_sensei_q fate_zero jojo_no_kimyou_na_bouken aria_the_ova megalo_box uchuu_kyoudai ghost_in_the_shell kuroko_no_basket shokugeki_no_souma slam_dunk major detective_conan yuu_yuu_hakusho evangelion yamato berserk magi diamond_no_ace tsubasa umineko_no_naku_koro_ni one_piece inuyasha sket_dance gundam dragon_ball initial_d katekyo_hitman_reborn durarara working cardcaptor_sakura nanatsu_no_taizai saint_seiya maison_ikkoku junjou_romantica chiba_pedal glass_no_kamen lupin_iii dmatsu_san hikaru_no_go boruto eureka_seven full_metal_panic fairy_tail persona hidamari_sketch slayers perman toaru_majutsu_no_index city_hunter kindaichi_shounen_no_jikenbo snow_halation nurarihyon_no_mago prince_of_tennis school_rumble touch sword_art_online amon ushio_to_tora macross jigoku_shoujo tenchi_muyou muumin saiyuuki_gaiden moon_pride digimon_savers hokuto_no_ken mahoujin_guruguru nen_joou votoms_finder bleach mazinkaiser transformers pokemon urusei_yatsura yes_precure hetalia tegamibachi hayate_no_gotoku mobile_police_patlabor ranma black_jack genshiken to_love_ru space_cobra aikatsu negima getter_robo minami_ke garo blood kimagure_orange_road dragon_quest fushigi_yuugi pripara utawarerumono shakugan_no_shana soukyuu_no_fafner puchimas zero_no_tsukaima toriko aa_megami_sama locker_room senki_zesshou_symphogear zettai_karen_children konjiki_no_gash_bell saki casshern candy_candy taiho_shichau_zo yu_gi_oh mai_hime selector_spread_wixoss baki force_live captain_tsubasa tiger_mask saber_marionette_j el_hazard galaxy_angel mini_van cyborg rean_no_tsubasa ad_police d_c kinnikuman hack_gift futari_wa_milky_holmes aquarion_evol di_gi_charat dirty_pair angelique mahou_no_princess_minky_momo ehon_yose to_heart sakura_taisen ginga_senpuu_braiger ikkitousen juusenki_l_gaim choujuu_kishin_dancougar queen_s_blade haou_daikei_ryuu_knight super_doll_licca_chan ultraman obake_no_q_tarou pro_golfer_saru
+        fullmetal_alchemist gintama ginga_eiyuu_densetsu hunter_x_hunter hanamonogatari haikyuu code_geass mushishi hajime_no_ippo rurouni_kenshin boku_no_hero_academia natsume_yuujinchou suzumiya_haruhi_no_yuuutsu bakuman koro_sensei_q fate_zero jojo_no_kimyou_na_bouken aria_the_ova megalo_box uchuu_kyoudai ghost_in_the_shell kuroko_no_basket shokugeki_no_souma slam_dunk major detective_conan yuu_yuu_hakusho evangelion yamato berserk magi diamond_no_ace tsubasa umineko_no_naku_koro_ni one_piece inuyasha sket_dance gundam dragon_ball initial_d katekyo_hitman_reborn durarara working cardcaptor_sakura nanatsu_no_taizai saint_seiya maison_ikkoku junjou_romantica chiba_pedal glass_no_kamen lupin_iii dmatsu_san hikaru_no_go boruto eureka_seven full_metal_panic fairy_tail persona hidamari_sketch slayers doraemon toaru_majutsu_no_index city_hunter kindaichi_shounen_no_jikenbo snow_halation nurarihyon_no_mago prince_of_tennis school_rumble touch sword_art_online amon ushio_to_tora macross jigoku_shoujo tenchi_muyou muumin saiyuuki_gaiden moon_pride digimon_savers hokuto_no_ken mahoujin_guruguru nen_joou votoms_finder bleach mazinkaiser transformers pokemon urusei_yatsura yes_precure hetalia tegamibachi hayate_no_gotoku mobile_police_patlabor ranma black_jack genshiken to_love_ru space_cobra aikatsu negima getter_robo minami_ke garo blood kimagure_orange_road dragon_quest fushigi_yuugi pripara utawarerumono shakugan_no_shana soukyuu_no_fafner puchimas zero_no_tsukaima toriko aa_megami_sama locker_room senki_zesshou_symphogear zettai_karen_children konjiki_no_gash_bell saki casshern candy_candy taiho_shichau_zo yu_gi_oh mai_hime selector_spread_wixoss baki force_live captain_tsubasa tiger_mask saber_marionette_j el_hazard galaxy_angel mini_van cyborg rean_no_tsubasa ad_police d_c kinnikuman hack_gift futari_wa_milky_holmes aquarion_evol di_gi_charat dirty_pair angelique mahou_no_princess_minky_momo ehon_yose to_heart sakura_taisen ginga_senpuu_braiger ikkitousen juusenki_l_gaim choujuu_kishin_dancougar queen_s_blade haou_daikei_ryuu_knight super_doll_licca_chan ultraman obake_no_q_tarou pro_golfer_saru
       ]
     }
     # rubocop:enable LineLength
