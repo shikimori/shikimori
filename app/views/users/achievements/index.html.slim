@@ -8,26 +8,36 @@
         p.b-nothing_here = t '.no_achievements'
 
     - else
-      - if @collections[:common].any?
-        .block2
-          h2.headline.blue = @collections[:common].first.group_name
+      .block2
+        h2.headline.blue = @collections[:common].first.group_name
+        - if @collections[:common].any?
           .cc-achievements
             = render partial: 'users/achievements/achievement',
               collection: @collections[:common]
+        - else
+          p.b-nothing_here = t '.no_achievements'
 
-      - if @collections[:franchise].any?
-        .block2
-          h2.headline.orange = @collections[:franchise].first.group_name
-          .cc-badges
-            = render partial: 'users/achievements/achievement',
-              collection: @collections[:franchise]
+      .cc-franchises-genres
+        .c-genres
+          h2.subheadline.orange.m10 = @collections[:genre].first.group_name
+          - if @collections[:genre].any?
+            .cc-achievements
+              = render partial: 'users/achievements/achievement',
+                collection: @collections[:genre]
+          - else
+            p.b-nothing_here = t '.no_achievements'
 
-      - if @collections[:genre].any?
-        .block2
-          h2.headline.orange = @collections[:genre].first.group_name
-          .cc-achievements
-            = render partial: 'users/achievements/achievement',
-              collection: @collections[:genre]
+        .c-franchises
+          .block2
+            h2.subheadline.green.m10 = @collections[:franchise].first.group_name
+            .cc-badges
+              = render partial: 'users/achievements/achievement',
+                collection: @collections[:franchise]
+
+          .block2
+            h2.subheadline.magenta.m10 Создатели и студии
+            p.b-nothing_here = t '.no_achievements'
+
 
       / - if @collections[:common].any?
       /   .block2

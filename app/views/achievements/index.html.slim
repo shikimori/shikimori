@@ -11,7 +11,7 @@ header.head
       ] = grouped_achievements.first.group_name
 
     .block
-      .cc-3
+      .cc-group
         - grouped_achievements.group_by(&:neko_id).each do |neko_id, achievements|
           ul.b-list.c-column
             li

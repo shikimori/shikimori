@@ -16,10 +16,12 @@
     display: inline-block
     padding-left: 5px
 
-  .cc-3
+  .cc-group
+    +cc
     padding-left: 25px
 
     .c-column
+      +column(3, 1/3)
       margin-left: 0
       margin-bottom: 0
 
@@ -54,6 +56,19 @@
       +column(7, 1/7, 1%)
 
 .p-achievements
+  .cc-franchises-genres
+    +cc
+
+    .c-genres
+      +column(2, 1/2)
+
+      .b-achievement
+        +column(1, 1)
+
+    .c-franchises
+      +column(2, 1/2)
+
+
   .cc-achievements
     +cc
 
@@ -64,25 +79,12 @@
       +iphone
         +column(1)
 
-      //+gt_laptop
-        //+column(4)
-      //+gt_laptop
-        //+column(4)
-
-      //+ipad_laptop
-        //+column(3)
-
-      //+iphone_landscape
-        //+column(2)
-
-      //+iphone_portrait
-        //+column(1)
-
   .cc-badges
     +clear_left
 
     .b-badge
-      +column(4, 1/4, 1%)
+      float: left
+      margin: 0 5px 5px 0
 
   .cc-genres, .cc-creators
     +clear_left
@@ -90,12 +92,3 @@
 
     .b-achievement
       +column(1)
-
-
-  //.cc-special-badges
-    //+clear_left
-    //+block
-
-    //.b-badge
-      //+column(2)
-      //+gt_laptop
