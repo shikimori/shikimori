@@ -1,13 +1,13 @@
 class Contest::Statistics
   pattr_initialize :contest
 
-  # rubocop:disable LineLength
   def sorted_scores round = nil
-    Hash[
-      scores(round).sort_by { |k, v| [-v, -users_votes(round)[k], scores(round).keys.index(k)] }
-    ]
+    scores(round)
+      .sort_by do |k, v|
+        [-v, -users_votes(round)[k], scores(round).keys.index(k)]
+      end
+      .to_h
   end
-  # rubocop:enable LineLength
 
   def scores round = nil
     @scores ||= {}
