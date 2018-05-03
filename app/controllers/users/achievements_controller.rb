@@ -24,10 +24,11 @@ class Users::AchievementsController < ProfilesController
 private
 
   def check_access
-    unless current_user&.admin? || @user.nickname == 'test2' ||
-        Rails.env.development?
-      raise ActiveRecord::RecordNotFound
-    end
+    return if current_user&.admin?
+    return if current_user&.club_roles&.where(club_id: 315)&.any?
+    return if @user.nickname == 'test2'
+
+    raise ActiveRecord::RecordNotFound
   end
 
   def additional_breadcrumbs
