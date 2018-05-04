@@ -2730,7 +2730,7 @@
   :topic_id: 227426
   :rule:
     :algo: simple
-    :threshold: 30
+    :threshold: 50
     :filters:
       genre_ids:
       - 9
@@ -2749,7 +2749,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 50
+    :threshold: 100
     :filters:
       genre_ids:
       - 9
@@ -2769,7 +2769,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 70
+    :threshold: 150
     :filters:
       genre_ids:
       - 9
@@ -2788,7 +2788,7 @@
   :topic_id: 
   :rule:
     :algo: simple
-    :threshold: 90
+    :threshold: 300
     :filters:
       genre_ids:
       - 9
@@ -2977,7 +2977,7 @@
   :border_color:
   - "#FBCEB1"
   :title_ru: Начинающий моэфаг
-  :text_ru: Позволь проводить тебя в удивительный 2д-мир.
+  :text_ru: Позволь проводить тебя в очаровательный 2D-мир.
   :title_en: 
   :text_en: 
   :topic_id: 227423
@@ -3164,6 +3164,203 @@
       - 9734
       - 9888
       - 9989
+      - 34798
+      - 35839
+      - 14355
+      - 17341
+      - 21435
+      - 35673
+      - 27887
+      - 12021
+      - 20555
+      - 27441
+      - 32039
+      - 32038
+      - 31376
+      - 348
+      - 9289
+      - 14175
+      - 6802
+      - 8197
+      - 13333
+      - 27419
+      - 33206
+      - 35363
+      - 28999
+      - 31716
+      - 34126
+      - 1723
+      - 4059
+      - 4181
+      - 6351
+      - 36884
+      - 1530
+      - 144
+      - 704
+      - 656
+      - 713
+      - 101
+      - 31771
+      - 33818
+      - 36800
+      - 15911
+      - 33035
+      - 7627
+      - 9510
+      - 9396
+      - 6574
+      - 488
+      - 1888
+      - 4811
+      - 35078
+      - 1858
+      - 17082
+      - 30355
+      - 31498
+      - 34148
+      - 1207
+      - 952
+      - 33948
+      - 31564
+      - 35540
+      - 32924
+      - 35241
+      - 34525
+      - 33089
+      - 35313
+      - 36094
+      - 26165
+      - 16353
+      - 33988
+      - 18119
+      - 18495
+      - 17821
+      - 14131
+      - 11079
+      - 20039
+      - 11887
+      - 23273
+      - 35639
+      - 21511
+      - 31418
+      - 30455
+      - 37027
+      - 16199
+      - 15811
+      - 18343
+      - 18619
+      - 18617
+      - 32740
+      - 33970
+      - 34618
+      - 31500
+      - 34125
+      - 17919
+      - 5141
+      - 20709
+      - 26085
+      - 10671
+      - 2942
+      - 27927
+      - 31091
+      - 31621
+      - 26349
+      - 31848
+      - 35484
+      - 36108
+      - 33447
+      - 34012
+      - 35298
+      - 24629
+      - 29067
+      - 5671
+      - 7759
+      - 10884
+      - 15989
+      - 16123
+      - 35838
+      - 4903
+      - 837
+      - 6379
+      - 5678
+      - 21681
+      - 35222
+      - 32673
+      - 31804
+      - 12815
+      - 30652
+      - 30795
+      - 31883
+      - 31422
+      - 3962
+      - 5914
+      - 1214
+      - 12437
+      - 19023
+      - 25875
+      - 21189
+      - 33031
+      - 25939
+      - 33589
+      - 10572
+      - 15807
+      - 12119
+      - 32828
+      - 32979
+      - 10357
+      - 32681
+      - 9938
+      - 27989
+      - 31665
+      - 31989
+      - 35082
+      - 31988
+      - 35677
+      - 2963
+      - 3225
+      - 5162
+      - 14575
+      - 14511
+      - 20221
+      - 1862
+      - 3667
+      - 6381
+      - 9751
+      - 23725
+      - 32866
+      - 34644
+      - 16157
+      - 10155
+      - 11783
+      - 16385
+      - 29413
+      - 28221
+      - 490
+      - 5419
+      - 24855
+      - 489
+      - 9934
+      - 33731
+      - 975
+      - 16910
+      - 17855
+      - 21267
+      - 951
+      - 5670
+      - 9776
+      - 11339
+      - 35285
+      - 19919
+      - 24031
+      - 976
+      - 36001
+      - 36943
+      - 35249
+      - 37433
+      - 32175
+      - 35828
+      - 35997
+      - 30901
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - :neko_id: :moe
   :level: 2
@@ -3359,6 +3556,203 @@
       - 9734
       - 9888
       - 9989
+      - 34798
+      - 35839
+      - 14355
+      - 17341
+      - 21435
+      - 35673
+      - 27887
+      - 12021
+      - 20555
+      - 27441
+      - 32039
+      - 32038
+      - 31376
+      - 348
+      - 9289
+      - 14175
+      - 6802
+      - 8197
+      - 13333
+      - 27419
+      - 33206
+      - 35363
+      - 28999
+      - 31716
+      - 34126
+      - 1723
+      - 4059
+      - 4181
+      - 6351
+      - 36884
+      - 1530
+      - 144
+      - 704
+      - 656
+      - 713
+      - 101
+      - 31771
+      - 33818
+      - 36800
+      - 15911
+      - 33035
+      - 7627
+      - 9510
+      - 9396
+      - 6574
+      - 488
+      - 1888
+      - 4811
+      - 35078
+      - 1858
+      - 17082
+      - 30355
+      - 31498
+      - 34148
+      - 1207
+      - 952
+      - 33948
+      - 31564
+      - 35540
+      - 32924
+      - 35241
+      - 34525
+      - 33089
+      - 35313
+      - 36094
+      - 26165
+      - 16353
+      - 33988
+      - 18119
+      - 18495
+      - 17821
+      - 14131
+      - 11079
+      - 20039
+      - 11887
+      - 23273
+      - 35639
+      - 21511
+      - 31418
+      - 30455
+      - 37027
+      - 16199
+      - 15811
+      - 18343
+      - 18619
+      - 18617
+      - 32740
+      - 33970
+      - 34618
+      - 31500
+      - 34125
+      - 17919
+      - 5141
+      - 20709
+      - 26085
+      - 10671
+      - 2942
+      - 27927
+      - 31091
+      - 31621
+      - 26349
+      - 31848
+      - 35484
+      - 36108
+      - 33447
+      - 34012
+      - 35298
+      - 24629
+      - 29067
+      - 5671
+      - 7759
+      - 10884
+      - 15989
+      - 16123
+      - 35838
+      - 4903
+      - 837
+      - 6379
+      - 5678
+      - 21681
+      - 35222
+      - 32673
+      - 31804
+      - 12815
+      - 30652
+      - 30795
+      - 31883
+      - 31422
+      - 3962
+      - 5914
+      - 1214
+      - 12437
+      - 19023
+      - 25875
+      - 21189
+      - 33031
+      - 25939
+      - 33589
+      - 10572
+      - 15807
+      - 12119
+      - 32828
+      - 32979
+      - 10357
+      - 32681
+      - 9938
+      - 27989
+      - 31665
+      - 31989
+      - 35082
+      - 31988
+      - 35677
+      - 2963
+      - 3225
+      - 5162
+      - 14575
+      - 14511
+      - 20221
+      - 1862
+      - 3667
+      - 6381
+      - 9751
+      - 23725
+      - 32866
+      - 34644
+      - 16157
+      - 10155
+      - 11783
+      - 16385
+      - 29413
+      - 28221
+      - 490
+      - 5419
+      - 24855
+      - 489
+      - 9934
+      - 33731
+      - 975
+      - 16910
+      - 17855
+      - 21267
+      - 951
+      - 5670
+      - 9776
+      - 11339
+      - 35285
+      - 19919
+      - 24031
+      - 976
+      - 36001
+      - 36943
+      - 35249
+      - 37433
+      - 32175
+      - 35828
+      - 35997
+      - 30901
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - :neko_id: :moe
   :level: 3
@@ -3367,7 +3761,7 @@
   :border_color:
   - "#ff0000"
   :title_ru: Первоклассная моэта
-  :text_ru: Вы приняли слишком большую дозу тортиков и сами стали моэ.
+  :text_ru: Вы приняли слишком большую дозу тортиков и сами стали излучать моэ.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -3554,13 +3948,210 @@
       - 9734
       - 9888
       - 9989
+      - 34798
+      - 35839
+      - 14355
+      - 17341
+      - 21435
+      - 35673
+      - 27887
+      - 12021
+      - 20555
+      - 27441
+      - 32039
+      - 32038
+      - 31376
+      - 348
+      - 9289
+      - 14175
+      - 6802
+      - 8197
+      - 13333
+      - 27419
+      - 33206
+      - 35363
+      - 28999
+      - 31716
+      - 34126
+      - 1723
+      - 4059
+      - 4181
+      - 6351
+      - 36884
+      - 1530
+      - 144
+      - 704
+      - 656
+      - 713
+      - 101
+      - 31771
+      - 33818
+      - 36800
+      - 15911
+      - 33035
+      - 7627
+      - 9510
+      - 9396
+      - 6574
+      - 488
+      - 1888
+      - 4811
+      - 35078
+      - 1858
+      - 17082
+      - 30355
+      - 31498
+      - 34148
+      - 1207
+      - 952
+      - 33948
+      - 31564
+      - 35540
+      - 32924
+      - 35241
+      - 34525
+      - 33089
+      - 35313
+      - 36094
+      - 26165
+      - 16353
+      - 33988
+      - 18119
+      - 18495
+      - 17821
+      - 14131
+      - 11079
+      - 20039
+      - 11887
+      - 23273
+      - 35639
+      - 21511
+      - 31418
+      - 30455
+      - 37027
+      - 16199
+      - 15811
+      - 18343
+      - 18619
+      - 18617
+      - 32740
+      - 33970
+      - 34618
+      - 31500
+      - 34125
+      - 17919
+      - 5141
+      - 20709
+      - 26085
+      - 10671
+      - 2942
+      - 27927
+      - 31091
+      - 31621
+      - 26349
+      - 31848
+      - 35484
+      - 36108
+      - 33447
+      - 34012
+      - 35298
+      - 24629
+      - 29067
+      - 5671
+      - 7759
+      - 10884
+      - 15989
+      - 16123
+      - 35838
+      - 4903
+      - 837
+      - 6379
+      - 5678
+      - 21681
+      - 35222
+      - 32673
+      - 31804
+      - 12815
+      - 30652
+      - 30795
+      - 31883
+      - 31422
+      - 3962
+      - 5914
+      - 1214
+      - 12437
+      - 19023
+      - 25875
+      - 21189
+      - 33031
+      - 25939
+      - 33589
+      - 10572
+      - 15807
+      - 12119
+      - 32828
+      - 32979
+      - 10357
+      - 32681
+      - 9938
+      - 27989
+      - 31665
+      - 31989
+      - 35082
+      - 31988
+      - 35677
+      - 2963
+      - 3225
+      - 5162
+      - 14575
+      - 14511
+      - 20221
+      - 1862
+      - 3667
+      - 6381
+      - 9751
+      - 23725
+      - 32866
+      - 34644
+      - 16157
+      - 10155
+      - 11783
+      - 16385
+      - 29413
+      - 28221
+      - 490
+      - 5419
+      - 24855
+      - 489
+      - 9934
+      - 33731
+      - 975
+      - 16910
+      - 17855
+      - 21267
+      - 951
+      - 5670
+      - 9776
+      - 11339
+      - 35285
+      - 19919
+      - 24031
+      - 976
+      - 36001
+      - 36943
+      - 35249
+      - 37433
+      - 32175
+      - 35828
+      - 35997
+      - 30901
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - :neko_id: :gar
   :level: 1
   :image:
   - "/assets/achievements/anime/gar_1.jpg"
   :border_color:
-  - "#333d2f"
+  - "#755C48"
   :title_ru: Так мужественно, что не вздохнуть
   :text_ru: Ваши первые шаги в жанре а борода уже не сбривается.
   :title_en: 
@@ -5658,7 +6249,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :hajime_no_ippo
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/34807/590562.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -5689,7 +6281,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :boku_no_hero_academia
   :level: 1
-  :image: []
+  :image:
+  - https://nyaa.shikimori.org/system/user_images/original/84020/591715.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -5752,7 +6345,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :koro_sensei_q
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -5798,6 +6392,8 @@
     :algo: simple
     :filters:
       franchise: jojo_no_kimyou_na_bouken
+      not_anime_ids:
+      - 3603
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :aria_the_ova
@@ -5979,7 +6575,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :yamato
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/34807/590597.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6280,7 +6877,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :maison_ikkoku
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/84020/591722.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6513,7 +7111,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :doraemon
   :level: 1
-  :image: []
+  :image:
+  - https://desu.shikimori.org/system/user_images/original/34807/590513.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -6687,11 +7286,14 @@
     :algo: simple
     :filters:
       franchise: amon
+      not_anime_ids:
+      - 35952
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :ushio_to_tora
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/34807/590557.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7167,7 +7769,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :getter_robo
   :level: 1
-  :image: []
+  :image:
+  - https://dere.shikimori.org/system/user_images/original/34807/590469.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7435,6 +8038,21 @@
       franchise: senki_zesshou_symphogear
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :grendizer_giga
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: grendizer_giga
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :zettai_karen_children
   :level: 1
   :image:
@@ -7570,7 +8188,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :selector_spread_wixoss
   :level: 1
-  :image: []
+  :image:
+  - https://nyaa.shikimori.org/system/user_images/original/34807/590470.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7647,7 +8266,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :saber_marionette_j
   :level: 1
-  :image: []
+  :image:
+  - https://kawai.shikimori.org/system/user_images/original/34807/590456.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7662,7 +8282,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :el_hazard
   :level: 1
-  :image: []
+  :image:
+  - https://moe.shikimori.org/system/user_images/original/34807/590462.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7725,7 +8346,8 @@
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :rean_no_tsubasa
   :level: 1
-  :image: []
+  :image:
+  - https://nyaa.shikimori.org/system/user_images/original/34807/590450.jpg
   :border_color: []
   :title_ru: 
   :text_ru: 
@@ -7883,6 +8505,21 @@
     :algo: simple
     :filters:
       franchise: angelique
+    :threshold: 100%
+    :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- :neko_id: :cutey_honey
+  :level: 1
+  :image: []
+  :border_color: []
+  :title_ru: 
+  :text_ru: 
+  :title_en: 
+  :text_en: 
+  :topic_id: 247360
+  :rule:
+    :algo: simple
+    :filters:
+      franchise: cutey_honey
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :mahou_no_princess_minky_momo
@@ -8351,8 +8988,8 @@
   - "/assets/achievements/anime/dementia_psychological_1.jpg"
   :border_color:
   - "#c71585"
-  :title_ru: Оно существует.
-  :text_ru: Вы открыли новый и странный мир. Продолжайте смотреть дальше.
+  :title_ru: Оно существует
+  :text_ru: Вы открыли новый и странный мир. Продолжайте просмотр дальше.
   :title_en: 
   :text_en: 
   :topic_id: 227417
@@ -8371,8 +9008,8 @@
   :border_color:
   - "#000000"
   :title_ru: Это вообще реально?
-  :text_ru: Стало трудно отличить реальность и вымысел. Ориентация в пространстве
-    нарушена.
+  :text_ru: Ориентация в пространстве нарушена. Стало трудно отличить реальность и
+    вымысел.
   :title_en: 
   :text_en: 
   :topic_id: 
@@ -8390,7 +9027,7 @@
   - "/assets/achievements/anime/dementia_psychological_3.png"
   :border_color:
   - "#DC143C"
-  :title_ru: Вынос мозга.
+  :title_ru: Вынос мозга
   :text_ru: "*fatal error."
   :title_en: 
   :text_en: 
@@ -8409,8 +9046,8 @@
   - "/assets/achievements/anime/dementia_psychological_4.gif"
   :border_color:
   - "#20B2AA"
-  :title_ru: Вы видели слишком много.
-  :text_ru: Вы превзошли человечество и находитесь совсем на другом уровне.
+  :title_ru: Вы видели слишком много
+  :text_ru: Вы превзошли свою природу и теперь находитесь на совершенно другом уровне.
   :title_en: 
   :text_en: 
   :topic_id: 
