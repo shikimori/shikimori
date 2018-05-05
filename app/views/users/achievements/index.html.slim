@@ -15,13 +15,14 @@
 
     .cc-franchises-genres
       .c-genres
-        h2.subheadline.orange.m10 = t 'achievements.group.genre'
-        - if @genre_achievements.any?
-          .cc-achievements
-            = render partial: 'users/achievements/achievement',
-              collection: @genre_achievements
-        - else
-          p.b-nothing_here = t '.no_achievements'
+        .block2
+          h2.subheadline.orange.m10 = t 'achievements.group.genre'
+          - if @genre_achievements.any?
+            .cc-achievements
+              = render partial: 'users/achievements/achievement',
+                collection: @genre_achievements
+          - else
+            p.b-nothing_here = t '.no_achievements'
 
       .c-franchises
         .block2

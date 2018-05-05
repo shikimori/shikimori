@@ -6,6 +6,52 @@
 @import mixins/responsive
 
 .p-achievements
+  .cc-franchises-genres
+    +cc
+
+    .c-genres
+      .b-achievement
+        +column(1, 1)
+
+  &.x1200
+    .cc-franchises-genres
+      +cc
+
+      .c-genres
+        +column(2, 1/2)
+
+      .c-franchises
+        +column(2, 1/2)
+
+  &.x1000
+    .cc-franchises-genres
+      +cc
+
+      .c-genres
+        +column(2, 0.545)
+
+      .c-franchises
+        +column(2, 0.455)
+
+
+  .cc-achievements
+    +cc
+
+    .b-achievement
+      +gte_ipad
+        +column(2)
+
+      +iphone
+        +column(1)
+
+  .cc-genres, .cc-creators
+    +clear_left
+    +block
+
+    .b-achievement
+      +column(1)
+
+.p-achievements
   .b-entry-info
     .value.thresholds span
       +comma_separated
@@ -46,34 +92,3 @@
 .p-achievements-show
   .b-entry-info .level
     display: none
-
-.p-achievements
-  .cc-franchises-genres
-    +cc
-
-    .c-genres
-      +column(2, 1/2)
-
-      .b-achievement
-        +column(1, 1)
-
-    .c-franchises
-      +column(2, 1/2)
-
-
-  .cc-achievements
-    +cc
-
-    .b-achievement
-      +gte_ipad
-        +column(2)
-
-      +iphone
-        +column(1)
-
-  .cc-genres, .cc-creators
-    +clear_left
-    +block
-
-    .b-achievement
-      +column(1)
