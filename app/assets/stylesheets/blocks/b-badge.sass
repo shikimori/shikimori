@@ -1,20 +1,23 @@
+@import mixins/responsive
+
 .b-badge
   display: inline-block
   line-height: 0
-  margin: 0 5px 5px 0
+  margin-bottom: 5px
 
   img,
   .no-image
-    height: 90px
-    width: 135px
+    max-width: 100%
     line-height: 0
 
     & + img
       margin-left: 15px
 
   .no-image
-    background: gray
+    background: $gray-1
     display: inline-block
+    padding-top: 66.66%
+    width: 100%
 
   &.special
     img

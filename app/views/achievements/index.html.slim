@@ -3,24 +3,25 @@ header.head
     = og.headline
   p.notice.clearfix = t '.list_of_all_site_achievements'
 
-- @collection.group_by(&:group).each do |group, grouped_achievements|
-  .block
-    .midheadline.m10
-      a[
-        href=group_achievements_url(group)
-      ] = grouped_achievements.first.group_name
-
+.p-achievements-global
+  - @collection.group_by(&:group).each do |group, grouped_achievements|
     .block
-      .cc-group
-        - grouped_achievements.group_by(&:neko_id).each do |neko_id, achievements|
-          ul.b-list.c-column
-            li
-              a[
-                href=achievement_url(group, neko_id)
-              ] = achievements.first.neko_name
-              - unless achievements.first.franchise?
-                .level
-                  - if achievements.many?
-                    | lvl #{achievements.first.level}-#{achievements.last.level}
-                  - else
-                    | lvl #{achievements.first.level}
+      .midheadline.m10
+        a[
+          href=group_achievements_url(group)
+        ] = grouped_achievements.first.group_name
+
+      .block
+        .cc-group
+          - grouped_achievements.group_by(&:neko_id).each do |neko_id, achievements|
+            ul.b-list.c-column
+              li
+                a[
+                  href=achievement_url(group, neko_id)
+                ] = achievements.first.neko_name
+                - unless achievements.first.franchise?
+                  .level
+                    - if achievements.many?
+                      | lvl #{achievements.first.level}-#{achievements.last.level}
+                    - else
+                      | lvl #{achievements.first.level}
