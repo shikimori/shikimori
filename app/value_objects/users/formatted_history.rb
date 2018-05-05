@@ -2,13 +2,13 @@ class Users::FormattedHistory < Dry::Struct
   include Draper::ViewHelpers
 
   attribute :name, Types::Strict::String
-  attribute :russian, Types::Strict::String.optional
+  attribute :russian, Types::Strict::String.optional.meta(omittable: true)
   attribute :image, Types::Strict::String
-  attribute :image_2x, Types::Strict::String
+  attribute :image_2x, Types::Strict::String.meta(omittable: true)
   attribute :action, Types::Strict::String
   attribute :created_at, Types::DateTime
   attribute :url, Types::Strict::String
-  attribute :action_info, Types::Strict::String.optional
+  attribute :action_info, Types::Strict::String.optional.meta(omittable: true)
 
   def localized_name
     h.localization_span self

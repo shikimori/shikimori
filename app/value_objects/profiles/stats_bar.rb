@@ -3,7 +3,7 @@ class Profiles::StatsBar < Dry::Struct
   attribute :lists_stats, Types::Strict::Array.of(Profiles::ListStats)
 
   def any?
-    total > 0
+    total.positive?
   end
 
   def total
