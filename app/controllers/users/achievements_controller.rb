@@ -3,7 +3,7 @@ class Users::AchievementsController < ProfilesController
   before_action { og page_title: i18n_t('achievements') }
   before_action :check_access
 
-  STUDIOS_LINE_COUNT = 8
+  STUDIOS_LINE_COUNT = 4
   ACHIEVEMENTS_PER_ROW = 4
 
   ACHIEVEMENTS_CLUB_USER_IDS = [
