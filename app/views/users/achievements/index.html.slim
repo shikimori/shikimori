@@ -27,7 +27,9 @@
       .c-franchises
         .block2
           .b-options-floated
-            a href=franchise_profile_achievements_url(@resource) #{@franchise_achievements.size} / #{NekoRepository.instance.count(&:franchise?)}
+            a[
+              href=franchise_profile_achievements_url(@resource)
+            ] #{@franchise_achievements.size} / #{NekoRepository.instance.count(&:franchise?)}
           h2.subheadline.green.m10 = t 'achievements.group.franchise'
           .cc
             = render partial: 'users/achievements/achievement',
