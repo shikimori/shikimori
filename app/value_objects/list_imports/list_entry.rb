@@ -1,15 +1,13 @@
 class ListImports::ListEntry < Dry::Struct
-  constructor_type :schema
-
   attribute :target_title, Types::Strict::String.optional
-  attribute :target_id, Types::Coercible::Int
+  attribute :target_id, Types::Coercible::Integer
   attribute :target_type, Types::Strict::String.enum('Anime', 'Manga')
-  attribute :score, Types::Coercible::Int.default(0)
+  attribute :score, Types::Coercible::Integer.default(0)
   attribute :status, Types::UserRate::Status
-  attribute :rewatches, Types::Coercible::Int.default(0)
-  attribute :episodes, Types::Coercible::Int.default(0)
-  attribute :volumes, Types::Coercible::Int.default(0)
-  attribute :chapters, Types::Coercible::Int.default(0)
+  attribute :rewatches, Types::Coercible::Integer.default(0)
+  attribute :episodes, Types::Coercible::Integer.default(0)
+  attribute :volumes, Types::Coercible::Integer.default(0)
+  attribute :chapters, Types::Coercible::Integer.default(0)
   attribute :text, Types::String.default('')
 
   # rubocop:disable MethodLength

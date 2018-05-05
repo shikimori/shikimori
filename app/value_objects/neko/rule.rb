@@ -1,15 +1,13 @@
 class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
-  constructor_type :strict
-
   attribute :neko_id, Types::Achievement::NekoId
-  attribute :level, Types::Coercible::Int
+  attribute :level, Types::Coercible::Integer
   attribute :image, Types::String.optional
   attribute :border_color, Types::String.optional
   attribute :title_ru, Types::String.optional
   attribute :text_ru, Types::String.optional
   attribute :title_en, Types::String.optional
   attribute :text_en, Types::String.optional
-  attribute :topic_id, Types::Coercible::Int.optional
+  attribute :topic_id, Types::Coercible::Integer.optional
   attribute :rule, Types::Hash
 
   NO_RULE = new(

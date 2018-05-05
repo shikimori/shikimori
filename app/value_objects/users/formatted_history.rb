@@ -1,8 +1,6 @@
 class Users::FormattedHistory < Dry::Struct
   include Draper::ViewHelpers
 
-  constructor_type(:schema)
-
   attribute :name, Types::Strict::String
   attribute :russian, Types::Strict::String.optional
   attribute :image, Types::Strict::String
