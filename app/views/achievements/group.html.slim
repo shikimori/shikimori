@@ -27,7 +27,9 @@ header.head
 
         .cc-2
           .c-column
-            = render 'users/achievements/achievement', achievement: achievements.first
+            = render 'users/achievements/achievement',
+              achievement: achievements.first,
+              images: true
           .c-column
             = render 'achievements/info', achievements: achievements
 

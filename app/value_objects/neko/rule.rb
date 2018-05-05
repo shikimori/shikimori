@@ -82,19 +82,19 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
   end
 
   def image
-    @image.is_a?(Array) ? @image.first : @image
+    images.first
   end
 
   def border_color
-    @border_color.is_a?(Array) ? @border_color.first : @border_color
+    border_colors.first
   end
 
   def images
-    Array(@image)
+    Array(attributes[:image]&.split(',') || [])
   end
 
   def border_colors
-    Array(@border_color)
+    Array(attributes[:border_color]&.split(',') || [])
   end
 
   def sort_criteria
