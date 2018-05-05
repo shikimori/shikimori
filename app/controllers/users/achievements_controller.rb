@@ -35,7 +35,7 @@ private
 
   def check_access
     return if Rails.env.development?
-    return if кurrent_user&.admin?
+    return if current_user&.admin?
     return if ACHIEVEMENTS_CLUB_USER_IDS.include?(@user.id)
     return if @user.nickname == 'test2'
 
