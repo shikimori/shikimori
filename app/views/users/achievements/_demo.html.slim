@@ -1,4 +1,4 @@
-h2.headline.blue Аниме
+h2.headline.blue = t 'achievements.group.common'
 .cc-achievements
   /.b-achievement
     //= image_tag 'http://cs411716.vk.me/v411716809/383b/XjHy9GPtDfo.jpg'
@@ -89,7 +89,7 @@ h2.headline.blue Аниме
 
 .cc-2
   .c-column
-    h2.subheadline.orange.m10 Жанры
+    h2.subheadline.orange.m10 = t 'achievements.group.genre'
     .cc-genres
       .b-achievement
         .c-about
@@ -174,8 +174,10 @@ h2.headline.blue Аниме
   .c-column
     .block
       .b-options-floated
-        a href="#{franchise_profile_achievements_url @resource}" 30 из 99
-      h2.subheadline.green.m10 Франшизы
+        a[
+          href=franchise_profile_achievements_url(@resource) 30 из 99
+        ]
+      h2.subheadline.green.m10 t 'achievements.group.franchise'
       .cc-badges
         .b-badge
           = image_tag 'achievements/anime/franchise/ghost_in_the_shell.jpg'
@@ -246,7 +248,7 @@ h2.headline.blue Аниме
         .hide-more
           | &mdash; спрятать
 
-    h2.subheadline.green.m10 Создатели и студии
+    h2.subheadline.green.m10 t 'achievements.group.creator'
     .cc-creators
       .b-achievement
         .c-about

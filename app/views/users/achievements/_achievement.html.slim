@@ -1,5 +1,8 @@
 - if achievement.franchise?
-  .b-badge
+  .b-badge[
+    class=(:unavailable if local_assigns[:unavailable])
+    title=achievement.title
+  ]
     - if local_assigns[:images] && achievement.images.any?
       - achievement.images.each do |image|
         = image_tag image

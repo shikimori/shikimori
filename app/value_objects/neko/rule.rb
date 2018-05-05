@@ -53,6 +53,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
     else
       send("title_#{I18n.locale}") ||
         title_ru ||
+        (neko_id if franchise?) ||
         (NO_RULE.title if self != NO_RULE)
     end
   end
