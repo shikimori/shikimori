@@ -56,7 +56,7 @@ private
     genre_achievements,
     franchise_achievements
   )
-    [(genre_achievements.size * 6.66).round, 60].min -
-      franchise_achievements.size
+    minimal_count = (genre_achievements.size * 6.66).round
+    [minimal_count + minimal_count % 4, 60].min - franchise_achievements.size
   end
 end
