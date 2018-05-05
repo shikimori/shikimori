@@ -8312,7 +8312,7 @@
       franchise: galaxy_angel
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- :neko_id: :mini_van
+- :neko_id: :cardfight_vanguard
   :level: 1
   :image:
   - https://kawai.shikimori.org/system/user_images/original/84020/587956.jpg
@@ -8325,7 +8325,7 @@
   :rule:
     :algo: simple
     :filters:
-      franchise: mini_van
+      franchise: cardfight_vanguard
     :threshold: 100%
     :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - :neko_id: :cyborg
