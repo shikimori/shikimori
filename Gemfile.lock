@@ -211,8 +211,6 @@ GEM
     climate_control (0.2.0)
     clockwork (2.0.3)
       tzinfo
-    cocaine (0.6.0)
-      terrapin (= 0.6.0)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -740,7 +738,6 @@ DEPENDENCIES
   chainable_methods
   chewy
   clockwork
-  cocaine
   coffee-rails
   colorize
   dalli
