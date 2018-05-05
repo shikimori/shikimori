@@ -33,7 +33,7 @@ private
   def check_access
     return if Rails.env.development?
     return if current_user&.admin?
-    return if ACHIEVEMENTS_CLUB_USER_IDS.include(current_user&.id)
+    return if ACHIEVEMENTS_CLUB_USER_IDS.include(@user.id)
     return if @user.nickname == 'test2'
 
     raise ActiveRecord::RecordNotFound
