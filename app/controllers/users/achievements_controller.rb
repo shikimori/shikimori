@@ -9,7 +9,7 @@ class Users::AchievementsController < ProfilesController
 
   def index
     @common_achievements = user_achievements.select(&:common?)
-    @genre_achievements = user_achievements.select(&:genre?)
+    @genre_achievements = user_achievements.select(&:genre?)[0..4]
     @franchise_achievements = user_achievements.select(&:franchise?)
 
     @missing_franchise_achievements = NekoRepository.instance
@@ -56,7 +56,16 @@ private
     genre_achievements,
     franchise_achievements
   )
-    minimal_count = (genre_achievements.size * 6.66).round
-    [minimal_count + minimal_count % 4, 60].min - franchise_achievements.size
+    studios_line_count = 4
+    achievements_per_row = 4
+
+    count = [
+      (genre_achievements.size * 6.66).round -
+        studios_line_count -
+        franchise_achievements.size,
+      0
+    ].max
+
+    count + count % achievements_per_row
   end
 end
