@@ -13,7 +13,7 @@ class Api::V2::UserRatesController < Api::V2Controller
 
   api :GET, '/v2/user_rates', 'List user rates'
   param :user_id, :number, required: false
-  param :target_id, :number, required: false
+r param :target_id, :number, required: false
   param :target_type, %w[Anime Manga], required: false
   param :status, :undef,
     required: false,
@@ -37,10 +37,6 @@ class Api::V2::UserRatesController < Api::V2Controller
   def index
     limit = [[params[:limit].to_i, 1].max, MAX_LIMIT].min
     page = [params[:page].to_i, 1].max
-
-    if params[:target_type].present? && params[:target_id].blank?
-      raise MissingApiParameter, 'target_id'
-    end
 
     if params[:target_id].present? && params[:target_type].blank?
       raise MissingApiParameter, 'target_type'
