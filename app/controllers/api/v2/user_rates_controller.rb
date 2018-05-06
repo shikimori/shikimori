@@ -13,7 +13,7 @@ class Api::V2::UserRatesController < Api::V2Controller
 
   api :GET, '/v2/user_rates', 'List user rates'
   param :user_id, :number, required: false
-r param :target_id, :number, required: false
+  param :target_id, :number, required: false
   param :target_type, %w[Anime Manga], required: false
   param :status, :undef,
     required: false,
