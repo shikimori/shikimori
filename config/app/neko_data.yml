@@ -2655,7 +2655,7 @@
     :image: "/assets/achievements/anime/police_1.jpg"
     :border_color: 
     :title_ru: Народный дружинник
-    :text_ru: Любой может оказаться предателем. Нельзя терять бдительности.
+    :text_ru: На улицах неспокойно. Нельзя терять бдительности.
     :title_en: 
     :text_en: 
     :topic_id: 222038
@@ -2708,7 +2708,7 @@
     :level: 4
     :image: "/assets/achievements/anime/police_4.jpg"
     :border_color: "#c7d0cc"
-    :title_ru: Вершина иерархии, высший начальствующий состав
+    :title_ru: Вершина иерархии
     :text_ru: Как вы себя чувствуете, забравшись так далеко?
     :title_en: 
     :text_en: 
@@ -2725,7 +2725,7 @@
     :neko_id: :otaku
     :level: 1
     :image: "/assets/achievements/anime/otaku_1.jpg"
-    :border_color: "#ff496c"
+    :border_color: "#FFDC33"
     :title_ru: Эскапизм
     :text_ru: Иллюзии захватывают ваш разум.
     :title_en: 
@@ -2783,7 +2783,7 @@
     :neko_id: :otaku
     :level: 4
     :image: "/assets/achievements/anime/otaku_4.gif"
-    :border_color: "#cd9575"
+    :border_color: "#ff496c"
     :title_ru: Хикикомори
     :text_ru: Уровень вашего либидо достиг максимального. Окружающие трепещут.
     :title_en: 
@@ -4156,7 +4156,7 @@
     :image: "/assets/achievements/anime/gar_1.jpg"
     :border_color: "#755C48"
     :title_ru: Так мужественно, что не вздохнуть
-    :text_ru: Ваши первые шаги в жанре а борода уже не сбривается.
+    :text_ru: Ваши первые шаги в жанре, а борода уже не сбривается.
     :title_en: 
     :text_en: 
     :topic_id: 227419
@@ -6411,7 +6411,7 @@
   attributes:
     :neko_id: :jojo_no_kimyou_na_bouken
     :level: 1
-    :image: http://i.imgur.com/yIWrZdG.jpg,http://i.imgur.com/jGHhaah.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593472.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -6458,6 +6458,25 @@
       :algo: simple
       :filters:
         franchise: megalo_box
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kuroshitsuji
+    :level: 1
+    :image: ''
+    :border_color: 
+    :title_ru: 
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: simple
+      :filters:
+        franchise: kuroshitsuji
+        not_anime_ids:
+        - 6163
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6589,7 +6608,7 @@
   attributes:
     :neko_id: :yuu_yuu_hakusho
     :level: 1
-    :image: ''
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593491.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -6732,7 +6751,7 @@
   attributes:
     :neko_id: :inuyasha
     :level: 1
-    :image: http://i.imgur.com/fQtGwlc.png
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593479.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -6824,23 +6843,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :katekyo_hitman_reborn
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587890.jpg
-    :border_color: 
-    :title_ru: 
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: simple
-      :filters:
-        franchise: katekyo_hitman_reborn
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :durarara
     :level: 1
     :image: http://i.imgur.com/SY4hESq.png
@@ -6926,6 +6928,26 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :vivid_strike
+    :level: 1
+    :image: ''
+    :border_color: 
+    :title_ru: 
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: simple
+      :filters:
+        franchise: vivid_strike
+        not_anime_ids:
+        - 4849
+        - 176
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :maison_ikkoku
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/591782.jpg
@@ -6945,7 +6967,7 @@
   attributes:
     :neko_id: :junjou_romantica
     :level: 1
-    :image: http://i.imgur.com/Zg8pGoQ.png
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593482.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7289,7 +7311,7 @@
   attributes:
     :neko_id: :prince_of_tennis
     :level: 1
-    :image: http://i.imgur.com/MgD52aY.png
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593487.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7410,7 +7432,7 @@
   attributes:
     :neko_id: :jigoku_shoujo
     :level: 1
-    :image: http://i.imgur.com/VWXVr8D.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593462.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7497,7 +7519,7 @@
   attributes:
     :neko_id: :digimon_savers
     :level: 1
-    :image: http://i.imgur.com/AU5DKYO.png
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593469.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7569,7 +7591,7 @@
   attributes:
     :neko_id: :votoms_finder
     :level: 1
-    :image: http://i.imgur.com/f8W13RS.png
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593466.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8315,6 +8337,23 @@
         - 16576
         - 21595
         - 32346
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :seiren
+    :level: 1
+    :image: ''
+    :border_color: 
+    :title_ru: 
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: simple
+      :filters:
+        franchise: seiren
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
