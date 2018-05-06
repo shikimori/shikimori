@@ -6486,9 +6486,11 @@
       :filters:
         franchise: ghost_in_the_shell
         not_anime_ids:
+        - 2448
         - 10870
-        - 31617
+        - 10948
         - 22013
+        - 31617
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
