@@ -306,9 +306,8 @@
     :image: "/assets/achievements/anime/animelist_6.jpg"
     :border_color: "#F64A46"
     :title_ru: Эстет
-    :text_ru: Удобно развалившись в кресле, вы наслаждаетесь просмотром аниме. Качественная
-      графика, прекрасное музыкальное сопровождение, интересные сюжеты... эти японские
-      мультики весьма хороши.
+    :text_ru: Качественная графика, прекрасное музыкальное сопровождение, интересные
+      сюжеты... эти японские мультики весьма хороши.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -385,9 +384,9 @@
     :image: "/assets/achievements/anime/animelist_11.jpg"
     :border_color: "#002f55"
     :title_ru: Бесконечное путешествие
-    :text_ru: У каждого человека свои звезды. Одним — тем, кто странствует, — они
-      указывают путь. Для других это просто маленькие огоньки. Дорога вперед бесконечна.
-      Хотите ли вы продолжать идти по ней?
+    :text_ru: У каждого свои звезды. Одним они указывают путь, для других это просто
+      маленькие огоньки. Дорога вперед бесконечна. Хотите ли вы продолжать идти по
+      ней?
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -527,7 +526,7 @@
     :level: 20
     :image: "/assets/achievements/anime/animelist_20.gif"
     :border_color: "#231A24"
-    :title_ru: 'SlotAchivName_0020: NULL'
+    :title_ru: 'SlotAchievName_0020: NULL'
     :text_ru: 'Description: Теперь вам не нужно аниме, чтобы смотреть аниме.'
     :title_en: 
     :text_en: 
@@ -6048,6 +6047,7 @@
         - 15847
         - 21013
         - 433
+        - 35997
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - !ruby/object:Neko::Rule
   attributes:
