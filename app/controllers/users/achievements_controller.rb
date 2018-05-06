@@ -15,7 +15,6 @@ class Users::AchievementsController < ProfilesController
     og page_title: t('achievements.group.franchise')
 
     @view = AchievementsView.new(@user)
-
   end
 
 private
@@ -24,7 +23,6 @@ private
     return if Rails.env.development?
     return if current_user&.admin?
     return if ACHIEVEMENTS_CLUB_USER_IDS.include?(@user.id)
-    return if @user.nickname == 'test2'
 
     raise ActiveRecord::RecordNotFound
   end
