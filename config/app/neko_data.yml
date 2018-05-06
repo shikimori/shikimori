@@ -6048,6 +6048,13 @@
         - 21013
         - 433
         - 35997
+        - 1668
+        - 3737
+        - 30751
+        - 16347
+        - 10513
+        - 5397
+        - 3738
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6597,23 +6604,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :evangelion
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/58482/584958.jpg
-    :border_color: 
-    :title_ru: 
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: simple
-      :filters:
-        franchise: evangelion
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :yamato
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/590597.jpg
@@ -6650,7 +6640,7 @@
   attributes:
     :neko_id: :magi
     :level: 1
-    :image: ''
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593349.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -6759,7 +6749,7 @@
   attributes:
     :neko_id: :sket_dance
     :level: 1
-    :image: ''
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593367.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -6817,7 +6807,7 @@
   attributes:
     :neko_id: :initial_d
     :level: 1
-    :image: http://i.imgur.com/9i45dfD.png
+    :image: https://desu.shikimori.org/system/user_images/original/84020/593343.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -6921,7 +6911,7 @@
   attributes:
     :neko_id: :saint_seiya
     :level: 1
-    :image: http://i.imgur.com/t3r4zv2.png
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593364.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7025,7 +7015,7 @@
   attributes:
     :neko_id: :dmatsu_san
     :level: 1
-    :image: ''
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593354.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7171,7 +7161,7 @@
   attributes:
     :neko_id: :slayers
     :level: 1
-    :image: http://i.imgur.com/YsCeLuo.png
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593371.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7333,7 +7323,7 @@
   attributes:
     :neko_id: :touch
     :level: 1
-    :image: ''
+    :image: https://desu.shikimori.org/system/user_images/original/84020/593338.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7350,7 +7340,7 @@
   attributes:
     :neko_id: :sword_art_online
     :level: 1
-    :image: ''
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593360.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7437,7 +7427,7 @@
   attributes:
     :neko_id: :tenchi_muyou
     :level: 1
-    :image: http://i.imgur.com/8ooQjuR.png
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593376.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7573,26 +7563,6 @@
         franchise: nen_joou
         not_anime_ids:
         - 6733
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :seikai_no_senki
-    :level: 1
-    :image: https://2.downloader.disk.yandex.ru/preview/fc64c3e8823c0277ce62990e1bdb9432b71121264c79613f7a53009639a20ba6/inf/Ulc4l6Nw6Zl9PBaWaDlZYeM-uSpzbC9gm-hrwgc3EeXnCefvixcR5KOXGwrHkbyNG5bnHybTsRBX5DeCr0ZH0g%3D%3D?uid=0&filename=Seikai.No.Senki.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
-    :border_color: 
-    :title_ru: 
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: simple
-      :filters:
-        franchise: seikai_no_senki
-        not_anime_ids:
-        - 399
-        - 1381
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7761,7 +7731,7 @@
   attributes:
     :neko_id: :hayate_no_gotoku
     :level: 1
-    :image: http://i.imgur.com/yOamsj6.png
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593337.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7795,7 +7765,7 @@
   attributes:
     :neko_id: :ranma
     :level: 1
-    :image: http://i.imgur.com/HSxP6mu.png
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593359.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7897,7 +7867,7 @@
   attributes:
     :neko_id: :negima
     :level: 1
-    :image: ''
+    :image: https://desu.shikimori.org/system/user_images/original/84020/593353.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -7948,7 +7918,7 @@
   attributes:
     :neko_id: :garo
     :level: 1
-    :image: ''
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593342.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8088,7 +8058,7 @@
   attributes:
     :neko_id: :soukyuu_no_fafner
     :level: 1
-    :image: ''
+    :image: https://desu.shikimori.org/system/user_images/original/84020/593378.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8139,7 +8109,7 @@
   attributes:
     :neko_id: :toriko
     :level: 1
-    :image: ''
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593336.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8294,7 +8264,7 @@
   attributes:
     :neko_id: :candy_candy
     :level: 1
-    :image: ''
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593346.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8555,7 +8525,7 @@
   attributes:
     :neko_id: :ad_police
     :level: 1
-    :image: http://i.imgur.com/NjRfFrZ.png
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593344.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8603,6 +8573,23 @@
       :algo: simple
       :filters:
         franchise: kinnikuman
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :super_robot_taisen_og
+    :level: 1
+    :image: ''
+    :border_color: 
+    :title_ru: 
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: simple
+      :filters:
+        franchise: super_robot_taisen_og
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8677,7 +8664,7 @@
   attributes:
     :neko_id: :dirty_pair
     :level: 1
-    :image: http://i.imgur.com/vg1RzVZ.png
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593340.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8847,7 +8834,7 @@
   attributes:
     :neko_id: :sonic
     :level: 1
-    :image: ''
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593372.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 

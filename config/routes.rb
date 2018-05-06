@@ -379,8 +379,7 @@ Rails.application.routes.draw do
       with_video: '1',
       constraints: {
         page: /\d+/,
-        studio: /[^\/]+/,
-        achievement: NekoRepository.instance.map(&:neko_id).join('|')
+        studio: /[^\/]+/
       }
 
     scope '', module: 'anime_online' do
@@ -662,8 +661,7 @@ Rails.application.routes.draw do
         klass: kind.singularize,
         constraints: {
           page: /\d+/,
-          studio: /[^\/]+/,
-          achievement: NekoRepository.instance.map(&:neko_id).join('|')
+          studio: /[^\/]+/
         }
 
       get "#{kind}/menu(/rating/:rating)" => 'animes_collection#menu',
