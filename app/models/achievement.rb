@@ -19,6 +19,7 @@ class Achievement < ApplicationRecord
     common?
     genre?
     franchise?
+    animes_url
   ].each { |field| delegate field, to: :neko }
 
 private

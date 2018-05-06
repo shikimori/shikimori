@@ -1,5 +1,6 @@
 @import globals/variables
 @import mixins/block
+@import mixins/link
 @import mixins/brackets_surrounded
 @import mixins/column
 @import mixins/responsive
@@ -38,6 +39,7 @@
       width: 100%
 
       img, .no-image
+        display: inline-block
         height: 100%
         max-width: 100%
         width: 100%
@@ -65,7 +67,7 @@
 
   .c-about
     .title
-      color: #123
+      +link
       font-size: 15px
       font-weight: bold
       line-height: 1.3

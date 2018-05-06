@@ -16,7 +16,9 @@
 
   .line
     .key #{t '.animes'}:&nbsp;
-    .value == achievements.first.animes_count || '&ndash;'
+    .value
+      a href=animes_collection_url(achievement: achievements.first.neko_id)
+        == achievements.first.animes_count || '&ndash;'
 
   .line
     .key #{t '.threshold'}:&nbsp;
