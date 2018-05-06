@@ -1,4 +1,4 @@
-- is_show_animes = local_assigns[:animes] && (achievements.first.rule.dig(:filters, 'anime_ids') || achievements.first.rule.dig(:filters, 'franchise'))
+- is_show_animes = local_assigns[:animes] && ((achievements.first.animes_count && achievements.first.animes_count < 500) || achievements.first.rule.dig(:filters, 'anime_ids') || achievements.first.rule.dig(:filters, 'franchise') || params[:animes])
 
 .b-entry-info
   - unless achievements.first.franchise?
