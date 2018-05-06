@@ -164,7 +164,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
         rest_len -= 1
         paired_ids[paired_ids_indx] = left_id
         paired_ids_indx += 1
-        break if rest_len <= 0
+        break unless rest_len.positive?
         right_id = (rest_ids - @statistics.opponents_of(left_id)).first
 
         if right_id
