@@ -10,10 +10,24 @@ Rails.application.routes.draw do
     )
   end
 
-  ani_manga_format = "(/kind/:kind)(/status/:status)(/season/:season)\
-(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\
-(/rating/:rating)(/score/:score)(/options/:options)(/mylist/:mylist)\
-(/order-by/:order)(/page/:page)(.:format)"
+  ani_manga_format = <<-FORMAT.gsub(/[\n ]/, '')
+    (/kind/:kind)
+    (/status/:status)
+    (/season/:season)
+    (/franchise/:franchise)
+    (/achievement/:achievement)
+    (/genre/:genre)
+    (/studio/:studio)
+    (/publisher/:publisher)
+    (/duration/:duration)
+    (/rating/:rating)
+    (/score/:score)
+    (/options/:options)
+    (/mylist/:mylist)
+    (/order-by/:order)
+    (/page/:page)
+    (.:format)
+  FORMAT
 
   concern :db_entry do |options|
     member do
@@ -360,8 +374,14 @@ Rails.application.routes.draw do
     get 'advertur_test_2', to: 'anime_online/dashboard#advertur_test_2', as: :advertur_test_2
     get 'advertur_test_3', to: 'anime_online/dashboard#advertur_test_3', as: :advertur_test_3
 
-    get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime',
-      with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
+    get "animes#{ani_manga_format}" => "animes_collection#index",
+      klass: 'anime',
+      with_video: '1',
+      constraints: {
+        page: /\d+/,
+        studio: /[^\/]+/,
+        achievement: NekoRepository.instance.map(&:neko_id).join('|')
+      }
 
     scope '', module: 'anime_online' do
       resources :anime_video_authors, only: [], concerns: %i[autocompletable]
@@ -640,7 +660,11 @@ Rails.application.routes.draw do
       get "#{kind}#{ani_manga_format}" => 'animes_collection#index',
         as: "#{kind}_collection",
         klass: kind.singularize,
-        constraints: { page: /\d+/, studio: /[^\/]+/ }
+        constraints: {
+          page: /\d+/,
+          studio: /[^\/]+/,
+          achievement: NekoRepository.instance.map(&:neko_id).join('|')
+        }
 
       get "#{kind}/menu(/rating/:rating)" => 'animes_collection#menu',
         as: "menu_#{kind}", klass: kind.singularize

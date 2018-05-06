@@ -37,6 +37,7 @@ class AniMangaQuery
     @season = params[:season]
     @status = params[:status]
     @franchise = params[:franchise]
+    @achievement = params[:achievement]
 
     @mylist = params[:mylist].to_s.gsub(/\b\d\b/) do |status_id|
       UserRate.statuses.find { |name, id| id == status_id.to_i }.first
@@ -54,12 +55,12 @@ class AniMangaQuery
 
     @user = user
 
-    #TODO: remove all after ||
+    # TODO: remove all after ||
     @order = params[:order] || (@search_phrase.blank? ? DEFAULT_ORDER : nil)
   end
 
   # выборка аниме или манги по заданным параметрам
-  def fetch# page = nil, limit = nil
+  def fetch # page = nil, limit = nil
     kind!
     censored!
     disable_music!
@@ -73,6 +74,7 @@ class AniMangaQuery
     season!
     status!
     franchise!
+    achievement!
 
     mylist!
 
@@ -163,7 +165,9 @@ private
 
   # включение цензуры
   def censored!
-    genres = bang_split(@genre.split(','), true).each {|k,v| v.flatten! } if @genre
+    if @genre
+      genres = bang_split(@genre.split(','), true).each { |k,v| v.flatten! }
+    end
     ratings = bang_split @rating.split(',') if @rating
 
     rx = ratings && ratings[:include].include?(Anime::ADULT_RATING)
@@ -174,6 +178,7 @@ private
     return if [false, 'false'].include? @params[:censored]
     return if rx || hentai || yaoi || yuri || mylist? || search? || userlist?
     return if @publisher || @studio
+    return if @franchise || @achievement
 
     if @params[:censored] == true || @params[:censored] == 'true'
       @query = @query.where(censored: false)
@@ -313,6 +318,15 @@ private
         franchises[:exclude]
       )
     end
+  end
+
+  # filter by achievement
+  def achievement!
+    return if @achievement.blank?
+
+    @query = @query.merge(
+      NekoRepository.instance.find(@achievement, 1).animes_scope.except(:order)
+    )
   end
 
   # фильтрация по наличию в собственном списке

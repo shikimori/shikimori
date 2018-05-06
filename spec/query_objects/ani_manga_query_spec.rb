@@ -358,6 +358,16 @@ describe AniMangaQuery do
       end
     end
 
+    describe 'achievement' do
+      let(:hentai) { create :genre, id: Genre::HENTAI_IDS.first }
+
+      let!(:anime_1) { create :anime, genre_ids: [hentai.id] }
+      let!(:anime_2) { create :anime, genre_ids: [hentai.id] }
+      let!(:anime_3) { create :anime }
+
+      it { expect(fetch achievement: 'otaku').to eq [anime_1, anime_2] }
+    end
+
     describe 'mylist' do
       let(:user) { create :user }
       let(:anime_1) { create :anime, score: 9 }
