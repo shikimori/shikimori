@@ -1,5 +1,4 @@
 class LayoutView < ViewObjectBase
-  prepend ActiveCacher.instance
   instance_cache :styles, :hot_topics, :moderation_policy
 
   CUSTOM_CSS_ID = 'custom_css'
@@ -12,8 +11,7 @@ class LayoutView < ViewObjectBase
     "#{h.controller_name}_#{h.action_name}"
   end
 
-  # rubocop:disable AbcSize
-  def body_class
+  def body_class # rubocop:disable AbcSize
     (controller_classes(h.controller_name) +
       (db_entries_controller? ? controller_classes('db_entries') : []) +
       (base_controller_name ? controller_classes(base_controller_name) : []) +
@@ -21,7 +19,6 @@ class LayoutView < ViewObjectBase
       [h.current_user&.preferences&.body_width || 'x1200']
     ).uniq.join(' ')
   end
-  # rubocop:enable AbcSize
 
   def localized_names
     ru_option?(:russian_names) ? :ru : :en
@@ -39,8 +36,7 @@ class LayoutView < ViewObjectBase
     CSS
   end
 
-  # rubocop:disable MethodLength, AbcSize
-  def user_data
+  def user_data # rubocop:disable MethodLength, AbcSize
     user = h.current_user
 
     {
@@ -56,7 +52,6 @@ class LayoutView < ViewObjectBase
       is_comments_auto_loaded: !!user&.preferences&.comments_auto_loaded?
     }
   end
-  # rubocop:enable MethodLength, AbcSize
 
   def hot_topics?
     h.params[:controller] == 'dashboards' ||
@@ -75,7 +70,7 @@ class LayoutView < ViewObjectBase
 
 private
 
-  def base_controller_name
+  def base_controller_name # rubocop:disable AbcSize
     return if h.controller.class.superclass == ApplicationController
     return if h.controller.class.superclass == ShikimoriController
 
@@ -99,7 +94,7 @@ private
     h.controller.is_a? DbEntriesController
   end
 
-  def custom_css
+  def custom_css # rubocop:disable AbcSize
     if h.user_signed_in? && !h.current_user.preferences.apply_user_styles
       try_style(h.current_user)
     elsif h.controller.instance_variable_get('@user')
