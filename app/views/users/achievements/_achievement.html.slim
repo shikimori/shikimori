@@ -19,10 +19,7 @@
 - else
   .b-achievement
     .c-about
-      a.title[
-        href=animes_collection_url(achievement: achievement.neko_id)
-      ]
-        = achievement.title
+      .title = achievement.title
       .percent #{achievement.progress}%
       .hint = achievement.hint
       .progress: .bar style="width: #{achievement.progress}%"
