@@ -1,19 +1,25 @@
 class ListImports::ListEntry < Dry::Struct
-  constructor_type :schema
-
-  attribute :target_title, Types::Strict::String.optional
-  attribute :target_id, Types::Coercible::Int
+  attribute :target_title, Types::Strict::String.optional.meta(omittable: true)
+  attribute :target_id, Types::Coercible::Integer
   attribute :target_type, Types::Strict::String.enum('Anime', 'Manga')
-  attribute :score, Types::Coercible::Int.default(0)
-  attribute :status, Types::UserRate::Status
-  attribute :rewatches, Types::Coercible::Int.default(0)
-  attribute :episodes, Types::Coercible::Int.default(0)
-  attribute :volumes, Types::Coercible::Int.default(0)
-  attribute :chapters, Types::Coercible::Int.default(0)
-  attribute :text, Types::String.default('')
 
-  # rubocop:disable MethodLength
-  def self.build user_rate
+  attribute :score, Types::Coercible::Integer.default(0)
+
+  attribute :status, Types::UserRate::Status
+
+  attribute :rewatches,
+    Types::Coercible::Integer.default(0).meta(omittable: true)
+
+  attribute :episodes,
+    Types::Coercible::Integer.default(0).meta(omittable: true)
+  attribute :volumes,
+    Types::Coercible::Integer.default(0).meta(omittable: true)
+  attribute :chapters,
+    Types::Coercible::Integer.default(0).meta(omittable: true)
+
+  attribute :text, Types::String.default('').meta(omittable: true)
+
+  def self.build user_rate # rubocop:disable MethodLength
     new(
       target_title: user_rate.target&.name,
       target_id: user_rate.target_id,
@@ -27,7 +33,6 @@ class ListImports::ListEntry < Dry::Struct
       text: user_rate.text
     )
   end
-  # rubocop:enable MethodLength
 
   def export user_rate
     return unless user_rate.target
@@ -49,13 +54,13 @@ class ListImports::ListEntry < Dry::Struct
 private
 
   def export_fields user_rate
-    user_rate.status = @status
-    user_rate.score = @score
-    user_rate.rewatches = @rewatches
+    user_rate.status = status
+    user_rate.score = score
+    user_rate.rewatches = rewatches
   end
 
   def export_text user_rate
-    fixed_text = @text&.gsub(%r{<br ?/?>}, "\n")&.strip
+    fixed_text = text&.gsub(%r{<br ?/?>}, "\n")&.strip
     user_rate.text = fixed_text if fixed_text.present?
   end
 

@@ -86,7 +86,13 @@ describe AnimesCollection::View do
       let(:metric) { 'pearson_z' }
       let(:ranked_ids) { ['zzz'] }
 
-      let(:page) { AnimesCollection::Page.new collection: [] }
+      let(:page) do
+        AnimesCollection::Page.new(
+          collection: [],
+          page: 1,
+          pages_count: 0
+        )
+      end
 
       subject { view.collection }
 

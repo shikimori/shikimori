@@ -12,6 +12,9 @@ class BbCodes::Tags::RepliesTag
   /mx
   DISPLAY_LIMIT = 100
 
+  RU = Types::Locale[:ru]
+  EN = Types::Locale[:en]
+
   def format text
     text.gsub REGEXP do |_match|
       ids = comment_ids Regexp.last_match[:ids].split(',')
@@ -21,14 +24,11 @@ class BbCodes::Tags::RepliesTag
 
       single_class = ids.one? ? 'single' : nil
 
-      ru = Types::Locale[:ru]
-      en = Types::Locale[:en]
-
       "<div class='b-replies translated-before #{single_class}' "\
-        "data-text-ru='#{i18n_t('replies', locale: ru)}' "\
-        "data-text-en='#{i18n_t('replies', locale: en)}' "\
-        "data-text-alt-ru='#{i18n_t('reply', locale: ru)}' "\
-        "data-text-alt-en='#{i18n_t('reply', locale: en)}' "\
+        "data-text-ru='#{i18n_t('replies', locale: RU)}' "\
+        "data-text-en='#{i18n_t('replies', locale: EN)}' "\
+        "data-text-alt-ru='#{i18n_t('reply', locale: RU)}' "\
+        "data-text-alt-en='#{i18n_t('reply', locale: EN)}' "\
         ">#{replies}</div>"
     end
   end

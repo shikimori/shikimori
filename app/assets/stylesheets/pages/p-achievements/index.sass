@@ -1,0 +1,61 @@
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/responsive
+
+.p-achievements-index
+  .cc-franchises-genres
+    +cc
+
+    .c-genres
+      +iphone
+        +block2
+
+      +gte_ipad
+        +column(2, 1/2)
+
+      .b-achievement
+        +column(1, 1)
+
+    .c-franchises
+      +iphone
+        +block2
+
+      +gte_ipad
+        +column(2, 1/2)
+
+  .c-franchises
+    +iphone_portrait
+      .b-badge
+        +column(2)
+        margin-bottom: 15px
+
+    +iphone_landscape
+      .b-badge
+        +column(3)
+        margin-bottom: 15px
+
+    +ipad_laptop
+      .b-badge
+        +column(3, 1/3, 1%)
+
+    +gt_laptop
+      .b-badge
+        +column(4, 1/4, 1%)
+
+  .cc-achievements
+    +cc
+
+    .b-achievement
+      +gte_ipad
+        +column(2)
+
+      +iphone
+        +column(1)
+
+  .cc-genres, .cc-creators
+    +clear_left
+    +block
+
+    .b-achievement
+      +column(1)

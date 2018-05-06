@@ -71,7 +71,6 @@ gem 'attr_extras'
 gem 'nokogiri'
 gem 'paperclip'
 gem 'paperclip-i18n'
-gem 'cocaine' # paperclip dependency
 gem 'rs_russian'
 gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'IngateFuture/simple_form-magic_submit'

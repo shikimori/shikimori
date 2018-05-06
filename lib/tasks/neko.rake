@@ -44,8 +44,12 @@ namespace :neko do
       Neko::Rule.new(
         neko_id: raw_rule['neko_id'],
         level: raw_rule['level'],
-        image: raw_rule['metadata']['image'],
-        border_color: raw_rule['metadata']['border_color'],
+        image: raw_rule['metadata']['image'].is_a?(Array) ?
+          raw_rule['metadata']['image'].join(',') :
+          raw_rule['metadata']['image'],
+        border_color: raw_rule['metadata']['border_color'].is_a?(Array) ?
+          raw_rule['metadata']['border_color'].join(',') :
+          raw_rule['metadata']['border_color'],
         title_ru: raw_rule['metadata']['title_ru'],
         text_ru: raw_rule['metadata']['text_ru'],
         title_en: raw_rule['metadata']['title_en'],
@@ -55,11 +59,7 @@ namespace :neko do
       )
     end
     File.open(NekoRepository::CONFIG_FILE, 'w') do |file|
-      file.write(
-        neko_rules
-          .map { |rule| rule.to_hash.merge image: rule.images, border_color: rule.border_colors }
-          .to_yaml
-      )
+      file.write(neko_rules.to_yaml)
     end
 
     neko_rules.each do |neko_rule|

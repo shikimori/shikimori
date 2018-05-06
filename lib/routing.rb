@@ -95,7 +95,7 @@ module Routing
     protocol = Shikimori::PROTOCOL
 
     @camo_urls[image_url] = "#{protocol}://#{shiki_domain}#{port}/" \
-      "camo/#{camo_digest image_url}?url=#{image_url}"
+      "camo/#{camo_digest image_url}?url=#{CGI.escape image_url}"
   end
 
 private

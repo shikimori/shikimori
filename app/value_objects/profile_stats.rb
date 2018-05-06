@@ -1,6 +1,4 @@
 class ProfileStats < Dry::Struct
-  constructor_type(:schema)
-
   attribute :activity, Types::Strict::Hash
   attribute :anime_ratings, Types::Strict::Array
   attribute :anime_spent_time, Types::ShikiSpentTime.optional

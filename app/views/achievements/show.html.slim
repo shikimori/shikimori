@@ -3,33 +3,34 @@ header.head.misc
     = og.headline
   = render 'application/breadcrumbs'
 
-- if @collection.first.franchise?
-  - @collection.each do |achievement|
-    = render 'users/achievements/achievement',
-      achievement: achievement,
-      images: true
+.p-achievements-global
+  - if @collection.first.franchise?
+    - @collection.each do |achievement|
+      = render 'users/achievements/achievement',
+        achievement: achievement,
+        images: true
 
-= render 'achievements/info',
-  achievements: @collection,
-  animes: true
+  = render 'achievements/info',
+    achievements: @collection,
+    animes: true
 
-- unless @collection.first.franchise?
-  - @collection.each do |achievement|
-    .block
-      .subheadline.m10 = t '.level', level: achievement.level
+  - unless @collection.first.franchise?
+    - @collection.each do |achievement|
+      .block
+        .subheadline.m10 = t '.level', level: achievement.level
 
-      .cc-2
-        .c-column
-          = render 'users/achievements/achievement',
-            achievement: achievement,
-            images: true
+        .cc-2
+          .c-column
+            = render 'users/achievements/achievement',
+              achievement: achievement,
+              images: true
 
-        .c-column
-          .b-entry-info
-            .line
-              .key #{t '.threshold'}:&nbsp;
-              .value = achievement.rule[:threshold]
+          .c-column
+            .b-entry-info
+              .line
+                .key #{t '.threshold'}:&nbsp;
+                .value = achievement.rule[:threshold]
 
-.block
-  - if @topic_resource
-    = render 'db_entries/comments', resource: @topic_resource
+  .block
+    - if @topic_resource
+      = render 'db_entries/comments', resource: @topic_resource

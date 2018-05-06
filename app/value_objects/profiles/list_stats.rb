@@ -1,9 +1,7 @@
 class Profiles::ListStats < Dry::Struct
-  constructor_type(:schema)
-
-  attribute :id, Types::Coercible::Int
+  attribute :id, Types::Coercible::Integer
   attribute :name, Types::Strict::String
-  attribute :size, Types::Coercible::Int
+  attribute :size, Types::Coercible::Integer
   attribute :grouped_id, Types::Coercible::String
   attribute :type, Types::Strict::String
 
@@ -12,6 +10,6 @@ class Profiles::ListStats < Dry::Struct
   end
 
   def any?
-    size > 0
+    size.positive?
   end
 end

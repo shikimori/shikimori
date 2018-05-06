@@ -129,7 +129,7 @@
         - if params[:action] != 'show'
           a.back[
             href=@resource.url
-            title="#{t 'actions.back_to_page'} #{{@resource.name}}"
+            title="#{t 'actions.back_to_page'} #{@resource.name}"
             data-text=t('actions.back')
           ]
         = @resource.nickname

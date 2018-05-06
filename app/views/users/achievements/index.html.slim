@@ -2,36 +2,46 @@
   - if @user.nickname == 'test2'
     h2.subheadline.m10 = og.headline
     = render 'users/achievements/demo'
+
   - else
-    - if @collections.values.flatten.none?
-      .block
+    .block2
+      h2.headline.blue.m10 = t 'achievements.group.common'
+      - if @common_achievements.any?
+        .cc-achievements
+          = render partial: 'users/achievements/achievement',
+            collection: @common_achievements
+      - else
         p.b-nothing_here = t '.no_achievements'
 
-    - else
-      - if @collections[:common].any?
+    .cc-franchises-genres
+      .c-genres
         .block2
-          h2.headline.blue = @collections[:common].first.group_name
-          .cc-achievements
-            = render partial: 'users/achievements/achievement',
-              collection: @collections[:common]
+          h2.subheadline.orange.m10 = t 'achievements.group.genre'
+          - if @genre_achievements.any?
+            .cc-achievements
+              = render partial: 'users/achievements/achievement',
+                collection: @genre_achievements
+          - else
+            p.b-nothing_here = t '.no_achievements'
 
-      - if @collections[:franchise].any?
+      .c-franchises
         .block2
-          h2.headline.orange = @collections[:franchise].first.group_name
-          .cc-badges
+          .b-options-floated
+            a[
+              href=franchise_profile_achievements_url(@resource)
+            ] #{@franchise_achievements.size} / #{NekoRepository.instance.count(&:franchise?)}
+          h2.subheadline.green.m10 = t 'achievements.group.franchise'
+          .cc
             = render partial: 'users/achievements/achievement',
-              collection: @collections[:franchise]
+              collection: @franchise_achievements
 
-      - if @collections[:genre].any?
+            = render partial: 'users/achievements/achievement',
+              collection: @missing_franchise_achievements,
+              locals: { unavailable: true }
+
+            - if @franchise_achievements.none? && @missing_franchise_achievements.none?
+              p.b-nothing_here = t '.no_achievements'
+
         .block2
-          h2.headline.orange = @collections[:genre].first.group_name
-          .cc-achievements
-            = render partial: 'users/achievements/achievement',
-              collection: @collections[:genre]
-
-      / - if @collections[:common].any?
-      /   .block2
-      /     h2.headline.blue = @collections[:common].first.group_name
-      /     .cc-achievements
-      /       = render partial: 'users/achievements/achievement',
-      /         collection: @collections[:common]
+          h2.subheadline.magenta.m10 = t 'achievements.group.creator'
+          p.b-nothing_here = t '.no_achievements'

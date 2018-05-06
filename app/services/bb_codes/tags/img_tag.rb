@@ -43,7 +43,7 @@ private
 
   def html_for_image image_url, link_url, width, height, klass, text_hash
     camo_url = UrlGenerator.instance.camo_url(fix_url(image_url))
-    if link_url =~ %r{shikimori\.(\w+)/.*\.(?:jpg|png)}
+    if link_url&.match? %r{shikimori\.(\w+)/.*\.(?:jpg|png)}
       camo_link_url = UrlGenerator.instance.camo_url(fix_url(link_url))
     end
 
@@ -65,6 +65,6 @@ private
   end
 
   def fix_url url
-    url =~ %r{\A(https?:)?//} ? url : Url.new(url).with_http.to_s
+    url.match?(%r{\A(https?:)?//}) ? url : Url.new(url).with_http.to_s
   end
 end

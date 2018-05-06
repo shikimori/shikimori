@@ -57,8 +57,10 @@ private
   end
 
   def extract_author user, text, comment_id
-    ERB::Util.h(
-      (text if text.present?) || user&.nickname || comment_id
-    )
+    if text.present?
+      text
+    else
+      user&.nickname || comment_id
+    end
   end
 end

@@ -3,13 +3,31 @@ describe Profiles::StatsBar do
   let(:stats) { [completed_list, dropped_list, planned_list] }
 
   let(:completed_list) do
-    Profiles::ListStats.new id: 2, name: 'completed', size: 10
+    Profiles::ListStats.new(
+      id: 2,
+      name: 'completed',
+      grouped_id: 'completed',
+      type: 'Anime',
+      size: 10
+    )
   end
   let(:dropped_list) do
-    Profiles::ListStats.new id: 4, name: 'dropped', size: 5
+    Profiles::ListStats.new(
+      id: 4,
+      name: 'dropped',
+      grouped_id: 'dropped',
+      type: 'Anime',
+      size: 5
+    )
   end
   let(:planned_list) do
-    Profiles::ListStats.new id: 0, name: 'planned', size: 2
+    Profiles::ListStats.new(
+      id: 0,
+      name: 'planned',
+      grouped_id: 'completed',
+      type: 'Anime',
+      size: 2
+    )
   end
 
   it do

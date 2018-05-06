@@ -18,15 +18,15 @@ class User < ApplicationRecord
   BANHAMMER_ID = 6_942
   COSPLAYER_ID = 1_680
 
-  devise(*%i[
-    database_authenticatable
-    registerable
-    recoverable
-    trackable
-    validatable
-    omniauthable
-    doorkeeper
-  ])
+  devise(
+    :database_authenticatable,
+    :registerable,
+    :recoverable,
+    :trackable,
+    :validatable,
+    :omniauthable,
+    :doorkeeper
+  )
 
   acts_as_voter
   update_index('users#user') { self if saved_change_to_nickname? }
@@ -81,15 +81,42 @@ class User < ApplicationRecord
   has_many :favourite_persons, -> { where kind: Favourite::Person },
     class_name: Favourite.name
 
-  has_many :fav_animes, through: :favourites, source: :linked, source_type: Anime.name
-  has_many :fav_mangas, through: :favourites, source: :linked, source_type: Manga.name
-  has_many :fav_ranobe, through: :favourites, source: :linked, source_type: Ranobe.name
-  has_many :fav_characters, through: :favourites, source: :linked, source_type: Character.name
-  has_many :fav_persons, through: :favourite_persons, source: :linked, source_type: Person.name
-  has_many :fav_people, through: :favourites, source: :linked, source_type: Person.name
-  has_many :fav_seyu, through: :favourite_seyu, source: :linked, source_type: Person.name
-  has_many :fav_producers, through: :favourite_producers, source: :linked, source_type: Person.name
-  has_many :fav_mangakas, through: :favourite_mangakas, source: :linked, source_type: Person.name
+  has_many :fav_animes,
+    through: :favourites,
+    source: :linked,
+    source_type: Anime.name
+  has_many :fav_mangas,
+    through: :favourites,
+    source: :linked,
+    source_type: Manga.name
+  has_many :fav_ranobe,
+    through: :favourites,
+    source: :linked,
+    source_type: Ranobe.name
+  has_many :fav_characters,
+    through: :favourites,
+    source: :linked,
+    source_type: Character.name
+  has_many :fav_persons,
+    through: :favourite_persons,
+    source: :linked,
+    source_type: Person.name
+  has_many :fav_people,
+    through: :favourites,
+    source: :linked,
+    source_type: Person.name
+  has_many :fav_seyu,
+    through: :favourite_seyu,
+    source: :linked,
+    source_type: Person.name
+  has_many :fav_producers,
+    through: :favourite_producers,
+    source: :linked,
+    source_type: Person.name
+  has_many :fav_mangakas,
+    through: :favourite_mangakas,
+    source: :linked,
+    source_type: Person.name
 
   has_many :messages, foreign_key: :to_id, dependent: :destroy
 
@@ -134,7 +161,7 @@ class User < ApplicationRecord
 
   has_attached_file :avatar,
     styles: {
-      #original: ['300x300>', :png],
+      # original: ['300x300>', :png],
       x160: ['160x160#', :png],
       x148: ['148x148#', :png],
       x80: ['80x80#', :png],
@@ -221,14 +248,6 @@ class User < ApplicationRecord
       .includes(:anime, :manga)
   end
 
-  #TODO: remove
-  def anime_uniq_history
-    @anime_uniq_history ||= anime_history
-      .group(:target_id)
-      .order('max(updated_at) desc')
-      .select('*, max(updated_at) as updated_at')
-  end
-
   def to_param
     nickname.gsub(/ /, '+')
   end
@@ -239,12 +258,12 @@ class User < ApplicationRecord
 
   # мужчина ли это
   def male?
-    self.sex && self.sex == 'male' ? true : false
+    sex && sex == 'male' ? true : false
   end
 
   # женщина ли это
   def female?
-    self.sex && self.sex == 'female' ? true : false
+    sex && sex == 'female' ? true : false
   end
 
   # last online time from memcached/or from database
@@ -259,7 +278,8 @@ class User < ApplicationRecord
   # updates user's last online date
   def update_last_online
     now = Time.zone.now
-    if self[:last_online_at].nil? || now - User::LAST_ONLINE_CACHE_INTERVAL > self[:last_online_at]
+    if self[:last_online_at].nil? ||
+        now - User::LAST_ONLINE_CACHE_INTERVAL > self[:last_online_at]
       update_column :last_online_at, now
     else
       # wtf? Rails is crushed when it loads Time.zone type from memcached
@@ -268,7 +288,7 @@ class User < ApplicationRecord
   end
 
   def last_online_cache_key
-    'user_%d_last_online' % self.id
+    "user_#{id}_last_online"
   end
 
   def can_post?
@@ -292,14 +312,17 @@ class User < ApplicationRecord
     can_vote_3
   end
 
-  def favoured? entry, kind=nil
+  def favoured? entry, kind = nil
     @favs ||= favourites.to_a
-    @favs.any? { |v| v.linked_id == entry.id && v.linked_type == entry.class.name && (kind.nil? || v.kind == kind) }
+    @favs.any? do |v|
+      v.linked_id == entry.id && v.linked_type == entry.class.name &&
+        (kind.nil? || v.kind == kind)
+    end
   end
 
   # колбек, который вызовет comments_controller при добавлении комментария в профиле пользователя
   def comment_added comment
-    return if self.messages.where(kind: MessageType::ProfileCommented).where(read: false).any?
+    return if messages.where(kind: MessageType::ProfileCommented).where(read: false).any?
     return if comment.user_id == comment.commentable_id && comment.commentable_type == User.name
 
     Message.create(
@@ -385,7 +408,6 @@ private
       [Digest::MD5.hexdigest(email.downcase), 160]
 
     update avatar: open(gravatar_url)
-
   rescue *Network::FaradayGet::NET_ERRORS
     update avatar: open('app/assets/images/globals/missing_avatar/x160.png')
   end

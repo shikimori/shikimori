@@ -34,7 +34,7 @@ header.head.misc
           .entry.anime-entry
             span.item-minus
             input type="hidden" name="animes[]" value="#{v.id}"
-            a.title title="#{{v.name}}" href="#{anime_url v}"
+            a.title title="#{v.name}" href="#{anime_url v}"
               == v.name
 
       .completable-title
@@ -46,7 +46,7 @@ header.head.misc
           .entry.manga-entry
             span.item-minus
             input type="hidden" name="mangas[]" value="#{v.id}"
-            a.title title="#{{v.name}}" href="#{manga_url v}"
+            a.title title="#{v.name}" href="#{manga_url v}"
               == v.name
 
       .hidden
