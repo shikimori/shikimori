@@ -7938,6 +7938,23 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :ojamajo_doremi
+    :level: 1
+    :image: ''
+    :border_color: 
+    :title_ru: 
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: simple
+      :filters:
+        franchise: ojamajo_doremi
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :garo
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593342.jpg
@@ -8360,7 +8377,7 @@
   attributes:
     :neko_id: :mai_hime
     :level: 1
-    :image: ''
+    :image: https://desu.shikimori.org/system/user_images/original/34807/593793.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8754,7 +8771,7 @@
   attributes:
     :neko_id: :mahou_no_princess_minky_momo
     :level: 1
-    :image: ''
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/593800.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8856,7 +8873,7 @@
   attributes:
     :neko_id: :juusenki_l_gaim
     :level: 1
-    :image: ''
+    :image: https://moe.shikimori.org/system/user_images/original/34807/593807.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
@@ -8975,7 +8992,7 @@
   attributes:
     :neko_id: :iron_man
     :level: 1
-    :image: ''
+    :image: https://moe.shikimori.org/system/user_images/original/34807/593812.jpg
     :border_color: 
     :title_ru: 
     :text_ru: 
