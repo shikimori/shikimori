@@ -6055,6 +6055,7 @@
         - 10513
         - 5397
         - 3738
+        - 8584
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6136,7 +6137,7 @@
     :level: 1
     :image: http://i.imgur.com/M821rLg.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Стальной алхимик
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6153,7 +6154,7 @@
     :level: 1
     :image: http://i.imgur.com/b1iPCow.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Гинтама
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6170,7 +6171,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/586911.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Легенда о героях Галактики
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6187,7 +6188,7 @@
     :level: 1
     :image: http://i.imgur.com/u2Vw6JV.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Охотник х Охотник
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6204,7 +6205,7 @@
     :level: 1
     :image: http://i.imgur.com/lsLbehE.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Цикл историй
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6221,7 +6222,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/588521.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Волейбол!!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6238,7 +6239,7 @@
     :level: 1
     :image: http://i.imgur.com/yjd3pFc.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Код Гиас
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6255,7 +6256,7 @@
     :level: 1
     :image: http://i.imgur.com/j6vZg0U.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Мастер муси
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6272,7 +6273,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/590562.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Первый шаг
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6289,7 +6290,7 @@
     :level: 1
     :image: http://i.imgur.com/dqVaLdD.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Бродяга Кэнсин
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6306,7 +6307,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/591715.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Моя геройская академия
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6323,7 +6324,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/34807/588844.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Тетрадь дружбы Нацумэ
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6340,7 +6341,7 @@
     :level: 1
     :image: http://i.imgur.com/vjWTN36.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Меланхолия Харухи Судзумии
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6357,7 +6358,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/585005.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Бакуман
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6374,7 +6375,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Класс убийц
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6393,7 +6394,7 @@
     :level: 1
     :image: http://i.imgur.com/zxwOfe9.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Судьба
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6413,7 +6414,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593472.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Невероятное приключение ДжоДжо
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6432,7 +6433,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Ария
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6449,7 +6450,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/592671.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Завтрашний Джо
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6464,9 +6465,9 @@
   attributes:
     :neko_id: :kuroshitsuji
     :level: 1
-    :image: ''
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/594196.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Тёмный дворецкий
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6485,7 +6486,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/588566.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Космические братья
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6502,7 +6503,7 @@
     :level: 1
     :image: "/assets/achievements/anime/franchise/ghost_in_the_shell.jpg"
     :border_color: 
-    :title_ru: 
+    :title_ru: Призрак в доспехах
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6512,10 +6513,8 @@
       :filters:
         franchise: ghost_in_the_shell
         not_anime_ids:
-        - 2448
         - 10870
         - 10948
-        - 22013
         - 31617
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -6525,7 +6524,7 @@
     :level: 1
     :image: http://i.imgur.com/1w3Q4p6.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Баскетбол Куроко
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6542,7 +6541,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/587910.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Повар-боец Сома
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6559,7 +6558,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/588994.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Слэм-данк
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6576,7 +6575,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/586899.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Мэйджор
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6593,7 +6592,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/587873.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Детектив Конан
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6610,7 +6609,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/593491.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Отчет о буйстве духов
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6627,7 +6626,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/590597.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Космический линкор Ямато
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6644,7 +6643,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/587464.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Берсерк
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6661,7 +6660,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/593349.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Маги
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6678,7 +6677,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/587845.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Путь аса
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6695,7 +6694,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/587918.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Хроника крыльев
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6712,7 +6711,7 @@
     :level: 1
     :image: http://i.imgur.com/v7pjFJ7.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Когда плачут цикады
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6729,7 +6728,7 @@
     :level: 1
     :image: http://i.imgur.com/fYxck9q.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Ван-Пис
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6753,7 +6752,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/593479.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Инуяся
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6770,7 +6769,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593367.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Скет Данс
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6787,7 +6786,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/587962.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Мобильный воин Гандам
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6811,7 +6810,7 @@
     :level: 1
     :image: http://i.imgur.com/paJlwxU.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Драконий жемчуг
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6828,7 +6827,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/593343.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Инициал Ди
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6847,7 +6846,7 @@
     :level: 1
     :image: http://i.imgur.com/SY4hESq.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Дюрарара!!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6864,7 +6863,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/584987.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Работа!!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6881,7 +6880,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/34807/588573.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Сакура — собирательница карт
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6898,7 +6897,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/592707.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Семь смертных грехов
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6915,7 +6914,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/593364.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Рыцари Зодиака
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6930,9 +6929,9 @@
   attributes:
     :neko_id: :vivid_strike
     :level: 1
-    :image: ''
+    :image: https://moe.shikimori.org/system/user_images/original/34807/594202.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Лиричная волшебница Наноха
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6952,7 +6951,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/591782.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Доходный дом Иккоку
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6969,7 +6968,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593482.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Чистая романтика
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6986,7 +6985,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/587974.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Трусливый велосипедист
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7003,7 +7002,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/587850.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Стеклянная маска
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7020,7 +7019,7 @@
     :level: 1
     :image: http://i.imgur.com/YhU0jqQ.png,http://i.imgur.com/1rH2Mk1.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Люпен III
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7039,7 +7038,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/593354.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Осомацу
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7056,7 +7055,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/588982.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Хикару и Го
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7065,8 +7064,6 @@
       :algo: simple
       :filters:
         franchise: hikaru_no_go
-        not_anime_ids:
-        - 2336
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7075,7 +7072,7 @@
     :level: 1
     :image: http://i.imgur.com/701wXDx.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Наруто
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7092,7 +7089,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/587927.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Эврика 7
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7109,7 +7106,7 @@
     :level: 1
     :image: http://i.imgur.com/JGlSJBR.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Стальная тревога
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7126,7 +7123,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/587404.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Сказка о Хвосте феи
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7145,7 +7142,7 @@
     :level: 1
     :image: https://i.imgur.com/auU7oHC.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Персона
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7164,7 +7161,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/588522.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Наброски Хидамари
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7185,7 +7182,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/593371.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Рубаки
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7202,7 +7199,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/34807/590513.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Дораэмон
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7221,7 +7218,7 @@
     :level: 1
     :image: http://i.imgur.com/upFgMl5.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Индекс волшебства
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7241,7 +7238,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/591793.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Городской охотник
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7258,7 +7255,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/587869.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Дело ведет юный детектив Киндаити
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7275,7 +7272,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/587880.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Живая любовь!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7294,7 +7291,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/588986.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Внук Нурарихёна
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7313,7 +7310,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593487.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Принц тенниса
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7330,7 +7327,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/588567.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Школьный переполох
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7347,7 +7344,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/593338.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Касание
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7364,7 +7361,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/593360.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Мастера Меча Онлайн
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7381,7 +7378,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/587860.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Человек-дьявол
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7400,7 +7397,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/590557.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Усио и Тора
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7417,7 +7414,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/584882.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Макросс
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7434,7 +7431,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593462.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Адская девочка
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7451,7 +7448,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/593376.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Тэнти — лишний!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7470,7 +7467,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/587882.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Муми-тролль
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7487,7 +7484,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/588842.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Саюки
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7504,7 +7501,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/573821.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Красавица-воин Сейлор Мун
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7521,7 +7518,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/593469.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Приключения Дигимонов
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7540,7 +7537,7 @@
     :level: 1
     :image: http://i.imgur.com/5gIbsOg.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Кулак Северной звезды
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7557,7 +7554,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/587853.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Волшебный круг Гуру-Гуру
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7574,7 +7571,7 @@
     :level: 1
     :image: http://i.imgur.com/mrgcIAi.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Галактический экспресс 999
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7593,7 +7590,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/593466.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Бронированные воины Вотомы
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7610,7 +7607,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/587406.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Блич
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7627,7 +7624,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/588529.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Мазинкайзер
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7644,7 +7641,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/588998.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Трансформеры
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7661,7 +7658,7 @@
     :level: 1
     :image: http://i.imgur.com/Lbkoz20.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Покемон
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7685,7 +7682,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/588516.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Несносные пришельцы
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7702,7 +7699,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/587826.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Хорошенькое лекарство
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7721,7 +7718,7 @@
     :level: 1
     :image: http://i.imgur.com/Yp5iIYb.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Хеталия
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7738,7 +7735,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/592667.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Почтовая пчела
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7755,7 +7752,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593337.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Боевой дворецкий Хаятэ!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7772,7 +7769,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/573803.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Полиция будущего
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7789,7 +7786,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/593359.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Ранма 1/2
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7806,7 +7803,7 @@
     :level: 1
     :image: http://oyster.ignimgs.com/wordpress/stg.ign.com/2014/02/24-black_jack.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Черный Джек
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7823,7 +7820,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/584964.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Гэнсикэн
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7840,7 +7837,7 @@
     :level: 1
     :image: http://i.imgur.com/7RyGtjd.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Любовные неприятности
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7857,7 +7854,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/587937.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Космические приключения Кобры
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7874,7 +7871,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/588973.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Айкацу!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7891,7 +7888,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/593353.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Волшебный учитель Нэгима!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7908,7 +7905,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/34807/590469.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Робот Геттер
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7925,7 +7922,7 @@
     :level: 1
     :image: http://i.imgur.com/45AU6pC.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Сёстры Минами
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7940,9 +7937,9 @@
   attributes:
     :neko_id: :ojamajo_doremi
     :level: 1
-    :image: ''
+    :image: https://desu.shikimori.org/system/user_images/original/34807/594193.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Невезучая ведьма Дореми
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7959,7 +7956,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593342.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Гаро
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7976,7 +7973,7 @@
     :level: 1
     :image: http://i.imgur.com/bmPbOPr.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Кровь
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7995,7 +7992,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/587931.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Капризы Апельсиновой улицы
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8014,7 +8011,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/588978.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Драгон Квест
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8031,7 +8028,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/588655.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Таинственная игра
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8048,7 +8045,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/588524.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: При Пара
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8065,7 +8062,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/588523.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Прославленный
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8082,7 +8079,7 @@
     :level: 1
     :image: http://i.imgur.com/okj7B9r.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Пламенный взор Шаны
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8099,7 +8096,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/593378.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Небесный Фафнир
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8116,7 +8113,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/588509.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Идолмастер
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8133,7 +8130,7 @@
     :level: 1
     :image: http://i.imgur.com/TiWdKRI.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Подручный Луизы-Нулизы
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8150,7 +8147,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/593336.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Торико
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8167,7 +8164,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/34807/588643.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Моя богиня!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8184,7 +8181,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/592658.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Инадзума 11
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8201,7 +8198,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/592670.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Песня боевых принцесс
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8218,7 +8215,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/592653.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Грендайзер
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8235,7 +8232,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/587936.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Восхитительные дети
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8252,7 +8249,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/588672.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Златовласый Гаш Белл
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8269,7 +8266,7 @@
     :level: 1
     :image: https://www.cafereo.co.jp/wp/wp-content/uploads/top_4571327546398.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Саки
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8288,7 +8285,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Гатчамен
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8305,7 +8302,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/593346.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Кэнди-Кэнди
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8322,7 +8319,7 @@
     :level: 1
     :image: http://i.imgur.com/P66vOZK.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Вы арестованы!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8339,7 +8336,7 @@
     :level: 1
     :image: https://4.downloader.disk.yandex.ru/preview/8b7bd9e84982dc5cd2db64bef6b2a65a2d87d2180afc27adee49fe9c7c185ede/inf/Ulc4l6Nw6Zl9PBaWaDlZYZkwyk65ca9VS5z9VF37HozlL_Xoj-hRJkAEr8vyZxy0hRU2ZVbxITksKC5VeMOttA%3D%3D?uid=0&filename=PWGbj9O.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
     :border_color: 
-    :title_ru: 
+    :title_ru: Югио!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8362,7 +8359,7 @@
     :level: 1
     :image: ''
     :border_color: 
-    :title_ru: 
+    :title_ru: Нежный укус
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8379,7 +8376,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/34807/593793.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Май-Химэ
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8396,7 +8393,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/590470.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: WIXOSS
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8413,7 +8410,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/592710.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Боец Баки
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8430,7 +8427,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/590066.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Поющий принц
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8447,7 +8444,7 @@
     :level: 1
     :image: http://i.imgur.com/nGYuicE.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Капитан Цубаса
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8464,7 +8461,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/589000.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Тигровая маска
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8481,7 +8478,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/590456.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Воины-марионетки Джей
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8498,7 +8495,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/590462.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Эль-Хазард
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8515,7 +8512,7 @@
     :level: 1
     :image: http://i.imgur.com/P1kSzcE.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Галактический ангел
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8532,7 +8529,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/587956.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Карточные бои Авангарда
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8549,7 +8546,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/588532.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Киборг 009
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8566,7 +8563,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/590450.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Данбайн
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8583,7 +8580,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/593344.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Кризис каждый день
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8600,7 +8597,7 @@
     :level: 1
     :image: https://2.downloader.disk.yandex.ru/preview/69f29d45e660fec8f59171a268ebeef9b3be987821d1ecf74ce9c1a299b6d4c8/inf/Ulc4l6Nw6Zl9PBaWaDlZYbH6HhYsujK7PZz9isF_CzhjHyJWph6sbj8bsHUBYFIZSwQ_lmWczXB8jcT49jKoYg%3D%3D?uid=0&filename=da-capo-second-season-dc-da-capo-932345144.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
     :border_color: 
-    :title_ru: 
+    :title_ru: С начала
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8620,7 +8617,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/34807/587824.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Человек-мускул
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8637,7 +8634,7 @@
     :level: 1
     :image: ''
     :border_color: 
-    :title_ru: 
+    :title_ru: Войны супер-роботов
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8654,7 +8651,7 @@
     :level: 1
     :image: http://i.imgur.com/HHdxyde.png
     :border_color: 
-    :title_ru: 
+    :title_ru: ".хак//"
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8671,7 +8668,7 @@
     :level: 1
     :image: https://2.downloader.disk.yandex.ru/preview/f255dd6d3e0ba190d32b130ecd071d5eaa28f9e2da577b1e0110a43e835e3bd5/inf/Ulc4l6Nw6Zl9PBaWaDlZYefLsIFoOltZFV0zvVB7tdGBBsHO36izsJsnjnMu0B8L8Li-k66LBmBXLZsukw55lA%3D%3D?uid=0&filename=2332377690e929cc8cc545dee2e5c37033bf768c.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
     :border_color: 
-    :title_ru: 
+    :title_ru: Детективное агентство Милки Холмс
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8688,7 +8685,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/589085.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Акварион
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8705,7 +8702,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/588977.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Ди-Ги Карат
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8722,7 +8719,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/593340.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Грязная парочка
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8739,7 +8736,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/589046.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Анжелика
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8756,7 +8753,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/587430.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Милашка Хани
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8773,7 +8770,7 @@
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/593800.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Принцесса-волшебница Минки Момо
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8790,7 +8787,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/34807/588958.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Щелкунчик Китаро
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8807,7 +8804,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/34807/588864.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Для сердца
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8824,7 +8821,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/588988.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: 'Сакура: Война миров'
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8841,7 +8838,7 @@
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/588514.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Галактический Вихрь Брайгер
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8858,7 +8855,7 @@
     :level: 1
     :image: http://i.imgur.com/GdhjXa6.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Сила тысячи
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8875,7 +8872,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/593807.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Тяжёлый металл
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8892,7 +8889,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593372.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Соник
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8909,7 +8906,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/588931.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Данкугар
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8926,7 +8923,7 @@
     :level: 1
     :image: http://i.imgur.com/jClFvnl.png
     :border_color: 
-    :title_ru: 
+    :title_ru: Клинок королевы
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8943,7 +8940,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/34807/588868.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Властелин властелинов Рыцарь Рю
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8960,7 +8957,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/588646.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Суперкукла Ликка-тян
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8977,7 +8974,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/588518.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Ультрамен
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8994,7 +8991,7 @@
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/593812.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Марвел
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9011,7 +9008,7 @@
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/588513.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Привидение Кью-Таро
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9028,7 +9025,7 @@
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/588511.jpg
     :border_color: 
-    :title_ru: 
+    :title_ru: Профессиональный гольфист Сару
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9455,7 +9452,7 @@
     :neko_id: :comedy
     :level: 2
     :image: "/assets/achievements/anime/comedy_2.jpg"
-    :border_color: "#CD9575"
+    :border_color: "#8B0000"
     :title_ru: Комедиант
     :text_ru: Теперь вам известны основы комедии.
     :title_en: 
@@ -9474,11 +9471,9 @@
     :level: 3
     :image: "/assets/achievements/anime/comedy_3.jpg"
     :border_color: "#008080"
-    :title_ru: Вечный смех
+    :title_ru: Why so serious?
     :text_ru: Сатира, пародия, каламбур, сарказм, ирония, гротеск — ни одна шутка
-      не проскользнет мимо вас. Вы - мастер юмора, улавливающий самые тонкие его нотки
-      и плавающий в самых темных его глубинах... но стоит ли продолжать смотреть в
-      бездну?
+      не проскользнет мимо вас.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -9495,8 +9490,9 @@
     :level: 4
     :image: "/assets/achievements/anime/comedy_4.gif"
     :border_color: "#7f8f18"
-    :title_ru: Why so serious?
-    :text_ru: Юмор пронизывает вашу сущность, не оставляя места ничему другому.
+    :title_ru: Вечный смех
+    :text_ru: Вы - мастер юмора, улавливающий самые тонкие его нотки и плавающий в
+      самых темных его глубинах... но стоит ли продолжать смотреть в бездну?
     :title_en: 
     :text_en: 
     :topic_id: 
