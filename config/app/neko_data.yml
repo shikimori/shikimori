@@ -304,7 +304,7 @@
     :neko_id: :animelist
     :level: 6
     :image: "/assets/achievements/anime/animelist_6.jpg"
-    :border_color: "#F64A46"
+    :border_color: "#C5D0E6"
     :title_ru: Эстет
     :text_ru: Качественная графика, прекрасное музыкальное сопровождение, интересные
       сюжеты... эти японские мультики весьма хороши.
@@ -429,7 +429,7 @@
     :neko_id: :animelist
     :level: 14
     :image: "/assets/achievements/anime/animelist_14.jpg"
-    :border_color: "#F34723"
+    :border_color: "#F64A46"
     :title_ru: Гурман
     :text_ru: Ваша неразборчивость в потреблении аниме-блюд вызывает трепет, а способность
       переваривать любой контент — восхищение.
@@ -6392,7 +6392,7 @@
   attributes:
     :neko_id: :fate_zero
     :level: 1
-    :image: http://i.imgur.com/zxwOfe9.png
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
     :border_color: 
     :title_ru: Судьба
     :text_ru: 
@@ -6836,8 +6836,6 @@
       :algo: simple
       :filters:
         franchise: initial_d
-        not_anime_ids:
-        - 12725
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7070,7 +7068,7 @@
   attributes:
     :neko_id: :boruto
     :level: 1
-    :image: http://i.imgur.com/701wXDx.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/84020/594952.jpg
     :border_color: 
     :title_ru: Наруто
     :text_ru: 
@@ -7516,7 +7514,7 @@
   attributes:
     :neko_id: :digimon_savers
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593469.jpg
+    :image: https://desu.shikimori.org/system/user_images/original/34807/594733.jpg
     :border_color: 
     :title_ru: Приключения Дигимонов
     :text_ru: 
@@ -7569,7 +7567,7 @@
   attributes:
     :neko_id: :nen_joou
     :level: 1
-    :image: http://i.imgur.com/mrgcIAi.png
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594735.jpg
     :border_color: 
     :title_ru: Галактический экспресс 999
     :text_ru: 
@@ -7581,7 +7579,7 @@
       :filters:
         franchise: nen_joou
         not_anime_ids:
-        - 6733
+        - 9344
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7656,7 +7654,7 @@
   attributes:
     :neko_id: :pokemon
     :level: 1
-    :image: http://i.imgur.com/Lbkoz20.png
+    :image: https://moe.shikimori.org/system/user_images/original/34807/594737.jpg
     :border_color: 
     :title_ru: Покемон
     :text_ru: 
@@ -7716,7 +7714,7 @@
   attributes:
     :neko_id: :hetalia
     :level: 1
-    :image: http://i.imgur.com/Yp5iIYb.png
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594740.jpg
     :border_color: 
     :title_ru: Хеталия
     :text_ru: 
@@ -7920,7 +7918,7 @@
   attributes:
     :neko_id: :minami_ke
     :level: 1
-    :image: http://i.imgur.com/45AU6pC.png
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/594925.jpg
     :border_color: 
     :title_ru: Сёстры Минами
     :text_ru: 
@@ -8264,7 +8262,7 @@
   attributes:
     :neko_id: :saki
     :level: 1
-    :image: https://www.cafereo.co.jp/wp/wp-content/uploads/top_4571327546398.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/34807/594742.jpg
     :border_color: 
     :title_ru: Саки
     :text_ru: 
@@ -8317,7 +8315,7 @@
   attributes:
     :neko_id: :taiho_shichau_zo
     :level: 1
-    :image: http://i.imgur.com/P66vOZK.png
+    :image: https://desu.shikimori.org/system/user_images/original/34807/594753.jpg
     :border_color: 
     :title_ru: Вы арестованы!
     :text_ru: 
@@ -8357,7 +8355,7 @@
   attributes:
     :neko_id: :seiren
     :level: 1
-    :image: ''
+    :image: https://moe.shikimori.org/system/user_images/original/84020/594937.jpg
     :border_color: 
     :title_ru: Нежный укус
     :text_ru: 
@@ -8442,7 +8440,7 @@
   attributes:
     :neko_id: :captain_tsubasa
     :level: 1
-    :image: http://i.imgur.com/nGYuicE.png
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594760.jpg
     :border_color: 
     :title_ru: Капитан Цубаса
     :text_ru: 
@@ -8510,7 +8508,7 @@
   attributes:
     :neko_id: :galaxy_angel
     :level: 1
-    :image: http://i.imgur.com/P1kSzcE.png
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/594916.jpg
     :border_color: 
     :title_ru: Галактический ангел
     :text_ru: 
@@ -8607,7 +8605,6 @@
       :filters:
         franchise: d_c
         not_anime_ids:
-        - 17020
         - 4508
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -8649,7 +8646,7 @@
   attributes:
     :neko_id: :hack_gift
     :level: 1
-    :image: http://i.imgur.com/HHdxyde.png
+    :image: https://dere.shikimori.org/system/user_images/original/84020/594919.jpg
     :border_color: 
     :title_ru: ".хак//"
     :text_ru: 
@@ -8853,7 +8850,7 @@
   attributes:
     :neko_id: :ikkitousen
     :level: 1
-    :image: http://i.imgur.com/GdhjXa6.png
+    :image: https://moe.shikimori.org/system/user_images/original/84020/594917.jpg
     :border_color: 
     :title_ru: Сила тысячи
     :text_ru: 
@@ -8921,7 +8918,7 @@
   attributes:
     :neko_id: :queen_s_blade
     :level: 1
-    :image: http://i.imgur.com/jClFvnl.png
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/594921.jpg
     :border_color: 
     :title_ru: Клинок королевы
     :text_ru: 
@@ -9940,9 +9937,9 @@
     :neko_id: :fantasy
     :level: 4
     :image: "/assets/achievements/anime/fantasy_4.gif"
-    :border_color: 
-    :title_ru: Король королей
-    :text_ru: Вы видели, как зарождались легенды.
+    :border_color: "#003153"
+    :title_ru: Вершитель
+    :text_ru: Жизнь, смерть и судьбы народов вы держите в своих руках.
     :title_en: 
     :text_en: 
     :topic_id: 
