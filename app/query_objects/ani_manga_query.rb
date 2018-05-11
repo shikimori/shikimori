@@ -114,6 +114,14 @@ private
     @search_phrase.present?
   end
 
+  def franchise?
+    !!@franchise
+  end
+
+  def achievement?
+    !!@achievement
+  end
+
   # фильтр по типам
   def kind!
     return if @kind.blank?
@@ -178,7 +186,7 @@ private
     return if [false, 'false'].include? @params[:censored]
     return if rx || hentai || yaoi || yuri || mylist? || search? || userlist?
     return if @publisher || @studio
-    return if @franchise || @achievement
+    return if franchise? || achievement?
 
     if @params[:censored] == true || @params[:censored] == 'true'
       @query = @query.where(censored: false)
@@ -187,7 +195,8 @@ private
 
   # отключение выборки по музыке
   def disable_music!
-    unless @kind =~ /music/ || mylist? || userlist?
+    unless @kind.match?(/music/) ||
+        mylist? || userlist? || franchise? || achievement?
       @query = @query.where("#{table_name}.kind != ?", :music)
     end
   end
