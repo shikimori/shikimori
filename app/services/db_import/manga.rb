@@ -1,7 +1,7 @@
 class DbImport::Manga < DbImport::Anime
-  SPECIAL_FIELDS = DbImport::Anime::SPECIAL_FIELDS + %i(publishers) - %i(
+  SPECIAL_FIELDS = DbImport::Anime::SPECIAL_FIELDS + %i[publishers] - %i[
     studios
-  )
+  ]
 
 private
 

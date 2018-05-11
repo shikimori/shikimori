@@ -1,11 +1,14 @@
 class DbImport::ImportBase
   method_object :data
 
-  SPECIAL_FIELDS = %i()
-  IGNORED_FIELDS = %i()
+  SPECIAL_FIELDS = %i[]
+  IGNORED_FIELDS = %i[]
 
   def call
-    return if DbImport::BannedIds.instance.banned? @data[:id], klass.name.downcase
+    if DbImport::BannedIds.instance.banned? @data[:id], klass.name.downcase
+      return
+    end
+
     ApplicationRecord.transaction { import }
     entry
   end
@@ -32,9 +35,10 @@ private
 
   def assign_special_fields
     self.class::SPECIAL_FIELDS.each do |field|
-      unless field.in?(desynced_fields) || @data[field].blank?
-        send "assign_#{field}", @data[field]
-      end
+      next if field.in?(desynced_fields)
+      next if @data[field].blank? && field != :image
+
+      send "assign_#{field}", @data[field]
     end
   end
 

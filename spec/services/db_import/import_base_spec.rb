@@ -1,7 +1,7 @@
 describe DbImport::ImportBase do
   class DbImport::Test < DbImport::ImportBase
-    SPECIAL_FIELDS = %i(japanese)
-    IGNORED_FIELDS = %i(zzz)
+    SPECIAL_FIELDS = %i[japanese]
+    IGNORED_FIELDS = %i[zzz]
 
     def klass
       Anime
@@ -65,7 +65,7 @@ describe DbImport::ImportBase do
 
       describe 'blank special field' do
         let!(:anime) do
-          create :anime, id: data[:id], japanese: 'q', desynced: %w(name)
+          create :anime, id: data[:id], japanese: 'q', desynced: %w[name]
         end
         before { data[:japanese] = nil }
         it { expect(entry.japanese).to eq 'q' }
@@ -73,14 +73,14 @@ describe DbImport::ImportBase do
 
       describe 'desynced data field' do
         let!(:anime) do
-          create :anime, id: data[:id], name: 'q', desynced: %w(name)
+          create :anime, id: data[:id], name: 'q', desynced: %w[name]
         end
         it { expect(entry.name).to eq 'q' }
       end
 
       describe 'desynced special field' do
         let!(:anime) do
-          create :anime, id: data[:id], japanese: 'f', desynced: %w(japanese)
+          create :anime, id: data[:id], japanese: 'f', desynced: %w[japanese]
         end
         it { expect(entry.japanese).to eq 'f' }
       end
