@@ -1,35 +1,3 @@
-# compine shikimori & mal_graph banned couplings
-=begin
-def cleanup
-  ignored_mal_coupling = %w[A18429 A6115]
-  loader = { 'A' => Anime, 'M' => Manga }
-  shiki_data = YAML.load_file(Animes::BannedRelations::CONFIG_PATH)
-  mal_data = JSON.
-    parse(open('https://raw.githubusercontent.com/anime-plus/graph/master/data/banned-franchise-coupling.json').read).
-    map { |k,v| ([k] + v) }.
-    reject { |group| (group & ignored_mal_coupling).any? };
-
-  combined_data = (shiki_data + mal_data).map(&:sort).sort.uniq.map do |ids|
-    ids.map do |id|
-      "#{id[0]}#{id[/\d+/]}###" + loader[id[0]].find(id[/\d+/]).name[0..60]
-    end
-  end;
-
-  File.open(Animes::BannedRelations::CONFIG_PATH, 'w') do |v|
-    v.write(
-      combined_data.
-        to_yaml.
-        gsub(/^- -/, "-\n  -").
-        gsub('###', ' # ').
-        gsub("'", '')
-    )
-  end;
-  %x{touch tmp/restart.txt && bundle exec rails r 'Rails.cache.clear'}
-  ap combined_data
-end
-cleanup
-=end
-
 class Animes::BannedRelations
   include Singleton
 
