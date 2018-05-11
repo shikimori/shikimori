@@ -1,6 +1,6 @@
 describe Animes::GenerateBannedRelations, :vcr do
-  let(:service) { described_class.new }
-  subject { service.call additional_data }
+  let(:service) { described_class.new additional_data }
+  subject { service.call }
 
   let(:additional_data) { [%w[A1 A2], [%w[A1 A2]]].sample }
 

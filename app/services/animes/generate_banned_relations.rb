@@ -5,13 +5,15 @@ class Animes::GenerateBannedRelations < ServiceObjectBase
 
   MAL_BANNED_FRANCHISES_URL = 'https://raw.githubusercontent.com/anime-plus/graph/master/data/banned-franchise-coupling.json'
 
+  pattr_initialize :additional_data
+
   def self.call additional_data = []
     new(additional_data).call
   end
 
-  def call additional_data
+  def call
     cache = { 'A' => Anime, 'M' => Manga }
-    data = combine(merge(fetch_mal, fetch_shiki, additional_data), cache)
+    data = combine(merge(fetch_mal, fetch_shiki, @additional_data), cache)
 
     write_shiki data
 
