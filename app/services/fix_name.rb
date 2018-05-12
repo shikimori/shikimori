@@ -5,7 +5,7 @@ class FixName < ServiceObjectBase
   SPACES = /[[:space:]]+|[⁤ ឵­]/
   EXTENSIONS = /
     \.
-    (css|js|jpg|jpeg|png|gif|css|js|ttf|eot|otf|svg|woff|php|woff2|bmp)
+    (css|js|jpg|jpeg|png|gif|css|js|ttf|eot|otf|svg|woff|php|woff2|bmp|html)
     $
   /mix
 
