@@ -8,7 +8,7 @@ describe FixName do
   end
 
   context 'forbidden symbols' do
-    let(:name) { "test#[]%&?+@" }
+    let(:name) { "test#[]%&?+@\"'><" }
 
     context 'full cleanup' do
       it { is_expected.to eq 'test' }
@@ -36,7 +36,7 @@ describe FixName do
   end
 
   context 'special symbols' do
-    let(:name) { ["007F".to_i(16)].pack("U*") }
+    let(:name) { ['007F'.to_i(16)].pack('U*') }
     it { is_expected.to eq '' }
   end
 end

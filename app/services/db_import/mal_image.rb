@@ -9,7 +9,11 @@ class DbImport::MalImage
   }
 
   def call
-    @entry.image = download_image if image_policy.need_import?
+    if @image_url.present?
+      @entry.image = download_image if image_policy.need_import?
+    else
+      @entry.image = nil
+    end
   rescue *Network::FaradayGet::NET_ERRORS
   end
 
@@ -35,7 +39,6 @@ private
     else
       Proxy.get @image_url, PROXY_OPTIONS
     end
-
   rescue RuntimeError => e
     raise if e.message !~ /HTTP redirection loop/
     Proxy.get @image_url, PROXY_OPTIONS

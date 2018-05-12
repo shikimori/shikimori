@@ -1,0 +1,21 @@
+@import mixins/block
+@import mixins/clear_left
+@import mixins/column
+@import mixins/responsive
+
+.p-achievements-franchise
+  +iphone_portrait
+    .b-badge
+      +column(4, 1/4, 2%)
+
+  +iphone_landscape
+    .b-badge
+      +column(6, 1/6, 1%)
+
+  +ipad_laptop
+    .b-badge
+      +column(6, 1/6, 0.5%)
+
+  +gt_laptop
+    .b-badge
+      +column(8, 1/8, 0.5%)

@@ -1,15 +1,13 @@
 class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
-  constructor_type :strict
-
   attribute :neko_id, Types::Achievement::NekoId
-  attribute :level, Types::Coercible::Int
+  attribute :level, Types::Coercible::Integer
   attribute :image, Types::String.optional
   attribute :border_color, Types::String.optional
   attribute :title_ru, Types::String.optional
   attribute :text_ru, Types::String.optional
   attribute :title_en, Types::String.optional
   attribute :text_en, Types::String.optional
-  attribute :topic_id, Types::Coercible::Int.optional
+  attribute :topic_id, Types::Coercible::Integer.optional
   attribute :rule, Types::Hash
 
   NO_RULE = new(
@@ -53,6 +51,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
     else
       send("title_#{I18n.locale}") ||
         title_ru ||
+        (neko_id if franchise?) ||
         (NO_RULE.title if self != NO_RULE)
     end
   end
@@ -83,19 +82,19 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
   end
 
   def image
-    @image.is_a?(Array) ? @image.first : @image
+    images.first
   end
 
   def border_color
-    @border_color.is_a?(Array) ? @border_color.first : @border_color
+    border_colors.first
   end
 
   def images
-    Array(@image)
+    Array(attributes[:image]&.split(',') || [])
   end
 
   def border_colors
-    Array(@border_color)
+    Array(attributes[:border_color]&.split(',') || [])
   end
 
   def sort_criteria
@@ -113,6 +112,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
 
   def animes_scope # rubocop:disable all
     scope = Animes::NekoScope.call
+    return scope unless rule[:filters]
 
     scope.where! id: rule[:filters]['anime_ids'] if rule[:filters]['anime_ids']
 

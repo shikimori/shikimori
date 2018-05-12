@@ -4,6 +4,8 @@ DEFAULT_DATA =
   kind: []
   status: []
   season: []
+  franchise: []
+  achievement: []
   genre: []
   studio: []
   publisher: []

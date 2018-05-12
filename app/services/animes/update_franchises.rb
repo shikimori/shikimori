@@ -16,11 +16,11 @@ class Animes::UpdateFranchises
 
 private
 
-  def process scope
+  def process scope # rubocop:disable AbcSize
     scope.send(scope.respond_to?(:find_each) ? :find_each : :each) do |entry|
       next if @processed_ids[entry.class].include? entry.id
       chronology = Animes::ChronologyQuery.new(entry).fetch
-      # puts "#{entry.id} #{chronology.size}" if Rails.env.development?
+      puts "#{entry.id} #{chronology.size}" if Rails.env.development?
 
       if chronology.many?
         add_franchise chronology

@@ -5,48 +5,58 @@ describe ListImportView do
       ListImports::ImportList::ADDED => [{
         target_id: 1,
         target_title: 'z',
-        target_type: 'Anime'
+        target_type: 'Anime',
+        status: 'completed'
       }, {
         target_id: 2,
         target_title: 'a',
-        target_type: 'Anime'
+        target_type: 'Anime',
+        status: 'completed'
       }],
       ListImports::ImportList::UPDATED => [
         [{
           target_id: 3,
           target_title: 'z',
-          target_type: 'Anime'
+          target_type: 'Anime',
+          status: 'completed'
         }, {
           target_id: 4,
           target_title: 'x',
-          target_type: 'Anime'
+          target_type: 'Anime',
+          status: 'completed'
         }], [{
           target_id: 5,
           target_title: 'a',
-          target_type: 'Anime'
+          target_type: 'Anime',
+          status: 'completed'
         }, {
           target_id: 6,
           target_title: 'b',
-          target_type: 'Anime'
+          target_type: 'Anime',
+          status: 'completed'
         }]
       ],
       ListImports::ImportList::NOT_CHANGED => [{
         target_id: 7,
         target_title: 'z',
-        target_type: 'Anime'
+        target_type: 'Anime',
+        status: 'completed'
       }, {
         target_id: 8,
         target_title: 'a',
-        target_type: 'Anime'
+        target_type: 'Anime',
+        status: 'completed'
       }],
       ListImports::ImportList::NOT_IMPORTED => [{
         target_id: 9,
         target_title: 'z',
-        target_type: 'Anime'
+        target_type: 'Anime',
+        status: 'completed'
       }, {
         target_id: 10,
         target_title: 'a',
-        target_type: 'Anime'
+        target_type: 'Anime',
+        status: 'completed'
       }]
     }
   end

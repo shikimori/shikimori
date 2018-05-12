@@ -6,7 +6,20 @@ describe ProfileStatsView do
       spent_time: spent_time,
       anime_spent_time: anime_spent_time,
       manga_spent_time: manga_spent_time,
-      user: user
+      user: user,
+      activity: {},
+      anime_ratings: [],
+      full_statuses: {},
+      is_anime: true,
+      is_manga: false,
+      kinds: {},
+      list_counts: {},
+      scores: {},
+      stats_bars: [],
+      statuses: {},
+      genres: {},
+      studios: {},
+      publishers: {}
     )
   end
   let(:stats) { ProfileStatsView.new(profile_stats) }

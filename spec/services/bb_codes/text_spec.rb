@@ -169,7 +169,10 @@ describe BbCodes::Text do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[poster]#{url}[/poster]" }
       let(:camo_url) { UrlGenerator.instance.camo_url url }
-      it { is_expected.to eq "<img class=\"b-poster\" src=\"#{camo_url}\">" }
+      it do
+        expect(camo_url).to include '?url=http%3A%2F%2Fsite.com%2Fimage.jpg'
+        is_expected.to eq "<img class=\"b-poster\" src=\"#{camo_url}\">"
+      end
     end
 
     describe '[entries]' do

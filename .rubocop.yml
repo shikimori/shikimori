@@ -126,3 +126,6 @@ Style/CollectionMethods:
     find_all: select
     reduce: inject
     detect: find
+
+Style/Lambda:
+  EnforcedStyle: literal

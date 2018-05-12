@@ -6,7 +6,12 @@
 
 .b-achievement
   +cc
-  +block
+
+  +gte_ipad
+    +block
+
+  +iphone
+    +block2
 
   +gte_iphone-landscape
     .c-about
@@ -24,17 +29,6 @@
       +column(1)
       padding-top: 50%
 
-    // height: 125px
-    // position: relative
-    // width: 250px
-
-    // +gte_ipad
-      // float: right
-      // margin-left: $block_offset
-
-    // +iphone
-      // margin-bottom: $block_offset / 2
-
   .c-image
     .inner
       height: 100%
@@ -44,6 +38,7 @@
       width: 100%
 
       img, .no-image
+        display: inline-block
         height: 100%
         max-width: 100%
         width: 100%
@@ -74,8 +69,8 @@
       color: #123
       font-size: 15px
       font-weight: bold
-      line-height: $line-height
-      margin-bottom: 1px
+      line-height: 1.3
+      margin-bottom: 3px
       margin-top: -5px
 
       //.level

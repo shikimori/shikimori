@@ -62,8 +62,11 @@ class BbCodes::Text
 
     code_tag = BbCodes::Tags::CodeTag.new(text)
     text = code_tag.preprocess
-    text = text.gsub /\r\n|\r/, "\n"
-    text = BbCodes::Tags::CleanupNewLines.call text, BbCodes::Tags::CleanupNewLines::TAGS
+    text = text.gsub(/\r\n|\r/, "\n")
+    text = BbCodes::Tags::CleanupNewLines.call(
+      text,
+      BbCodes::Tags::CleanupNewLines::TAGS
+    )
 
     HASH_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text, text_hash
@@ -84,7 +87,7 @@ class BbCodes::Text
       text = tag_klass.instance.format text
     end
 
-    text = text.gsub /\r\n|\r|\n/, '<br>'
+    text = text.gsub(/\r\n|\r|\n/, '<br>')
     text = code_tag.postprocess text
     text
   end

@@ -27,7 +27,7 @@ class Comment < ApplicationRecord
   validates :user, :commentable, presence: true
   validates :commentable_type,
     inclusion: { in: Types::Comment::CommentableType.values }
-  validates :body, presence: true, length: { minimum: 2, maximum: 10000 }
+  validates :body, presence: true, length: { minimum: 2, maximum: 10_000 }
 
   # scopes
   scope :summaries, -> { where is_summary: true }
@@ -48,10 +48,6 @@ class Comment < ApplicationRecord
   after_destroy :destruction_callbacks
   after_destroy :touch_commentable
   after_destroy :remove_notifies
-
-  # NOTE: install the acts_as_votable plugin if you
-  # want user to vote on the quality of comments.
-  #acts_as_votable
 
   # TODO: remove when review param is removed from API (after 01.09.2016)
   def review= value
@@ -154,16 +150,17 @@ class Comment < ApplicationRecord
 
   # TODO: move to CommentDecorator
   def html_body
-    fixed_body = if offtopic_topic?
-      body
-        .gsub(/\[poster=/i, '[image=')
-        .gsub(/\[poster\]/i, '[img]')
-        .gsub(%r{\[/poster\]}i, '[/img]')
-        .gsub(/\[img.*?\]/i, '[img]')
-        .gsub(/\[image=(\d+) .+?\]/i, '[image=\1]')
-    else
-      body
-    end
+    fixed_body =
+      if offtopic_topic?
+        body
+          .gsub(/\[poster=/i, '[image=')
+          .gsub(/\[poster\]/i, '[img]')
+          .gsub(%r{\[/poster\]}i, '[/img]')
+          .gsub(/\[img.*?\]/i, '[img]')
+          .gsub(/\[image=(\d+) .+?\]/i, '[image=\1]')
+      else
+        body
+      end
 
     BbCodes::Text.call fixed_body
   end

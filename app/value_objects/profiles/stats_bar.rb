@@ -1,9 +1,9 @@
 class Profiles::StatsBar < Dry::Struct
   attribute :type, Types::Strict::String
-  attribute :lists_stats, Types::Strict::Array.member(Profiles::ListStats)
+  attribute :lists_stats, Types::Strict::Array.of(Profiles::ListStats)
 
   def any?
-    total > 0
+    total.positive?
   end
 
   def total

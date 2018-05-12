@@ -1,24 +1,30 @@
+@import mixins/responsive
+
 .b-badge
-  margin-bottom: 7px
+  display: inline-block
+  line-height: 0
+  margin-bottom: 5px
 
   img,
   .no-image
-    height: 90px
-    width: 135px
+    max-width: 100%
     line-height: 0
 
     & + img
       margin-left: 15px
 
   .no-image
-    background: gray
+    background: $gray-1
+    display: inline-block
+    padding-top: 66.66%
+    width: 100%
 
   &.special
     img
       width: 250px
       height: 125px
 
-  &.unavailable,
+  &.unavailable:not(:hover)
     filter: grayscale(100%)
     filter: gray // IE 6-9
 
