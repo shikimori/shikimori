@@ -37,7 +37,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       left_id = top_half.shift
       right_id = (
         low_half +
-        top_half.reversed! +
+        top_half.reverse! +
         rest_ids -
         @statistics.opponents_of(left_id)
       ).first
