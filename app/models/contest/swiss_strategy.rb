@@ -36,9 +36,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
 
       left_id = top_half.shift
       right_id = (
-        low_half +
-        top_half.reverse! +
-        rest_ids -
+        low_half + top_half.reverse! + rest_ids -
         @statistics.opponents_of(left_id)
       ).first
 
@@ -51,6 +49,8 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       end
 
       left_id, right_id = right_id, nil if left_id.nil?
+      # left_id should never be nil.
+      # Only right_id is expected to be nil, if there are odd number of contest members
       match.update!(
         left_id: left_id,
         left_type: @contest.member_klass.name,
