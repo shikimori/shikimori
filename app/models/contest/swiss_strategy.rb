@@ -31,8 +31,8 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
     round.matches.each do |match|
       group_half_len = top_group_length(ids_to_wins) >> 1
       rest_ids = ids_to_wins.keys
-      top_half = rest_ids.slice!(0, group_half_len)
-      low_half = rest_ids.slice!(0, group_half_len)
+      top_half = rest_ids.shift(group_half_len)
+      low_half = rest_ids.shift(group_half_len)
 
       left_id = top_half.shift
       right_id = (
