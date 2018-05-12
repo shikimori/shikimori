@@ -117,6 +117,9 @@ class Studio < ApplicationRecord
     'Oriental Light and Magic',
     'Nexus',
     'production doA',
+    'Platinum Vision',
+    'Pink Pineapple',
+    'Phoenix Entertainment',
 
     # from wikipedia
     'a-1 pictures inc.',

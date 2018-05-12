@@ -38,10 +38,6 @@ class Api::V2::UserRatesController < Api::V2Controller
     limit = [[params[:limit].to_i, 1].max, MAX_LIMIT].min
     page = [params[:page].to_i, 1].max
 
-    if params[:target_type].present? && params[:target_id].blank?
-      raise MissingApiParameter, 'target_id'
-    end
-
     if params[:target_id].present? && params[:target_type].blank?
       raise MissingApiParameter, 'target_type'
     end

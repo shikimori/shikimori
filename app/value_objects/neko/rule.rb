@@ -112,6 +112,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
 
   def animes_scope # rubocop:disable all
     scope = Animes::NekoScope.call
+    return scope unless rule[:filters]
 
     scope.where! id: rule[:filters]['anime_ids'] if rule[:filters]['anime_ids']
 

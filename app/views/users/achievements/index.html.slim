@@ -1,47 +1,42 @@
 = render layout: 'page' do
-  - if @user.nickname == 'test2'
-    h2.subheadline.m10 = og.headline
-    = render 'users/achievements/demo'
+  .block2
+    h2.headline.blue.m10 = t 'achievements.group.common'
+    - if @view.common_achievements.any?
+      .cc-achievements
+        = render partial: 'users/achievements/achievement',
+          collection: @view.common_achievements
+    - else
+      p.b-nothing_here = t '.no_achievements'
 
-  - else
-    .block2
-      h2.headline.blue.m10 = t 'achievements.group.common'
-      - if @common_achievements.any?
-        .cc-achievements
+  .cc-franchises-genres
+    .c-genres
+      .block2
+        h2.subheadline.orange.m10 = t 'achievements.group.genre'
+        - if @view.genre_achievements.any?
+          .cc-achievements
+            = render partial: 'users/achievements/achievement',
+              collection: @view.genre_achievements
+        - else
+          p.b-nothing_here = t '.no_achievements'
+
+    .c-franchises
+      .block2
+        .b-options-floated
+          a[
+            href=franchise_profile_achievements_url(@resource)
+          ] #{@view.franchise_achievements.size} / #{NekoRepository.instance.count(&:franchise?)}
+        h2.subheadline.green.m10 = t 'achievements.group.franchise'
+        .cc
           = render partial: 'users/achievements/achievement',
-            collection: @common_achievements
-      - else
-        p.b-nothing_here = t '.no_achievements'
+            collection: @view.franchise_achievements
 
-    .cc-franchises-genres
-      .c-genres
-        .block2
-          h2.subheadline.orange.m10 = t 'achievements.group.genre'
-          - if @genre_achievements.any?
-            .cc-achievements
-              = render partial: 'users/achievements/achievement',
-                collection: @genre_achievements
-          - else
+          = render partial: 'users/achievements/achievement',
+            collection: @view.missing_franchise_achievements,
+            locals: { unavailable: true }
+
+          - if @view.franchise_achievements.none? && @view.missing_franchise_achievements.none?
             p.b-nothing_here = t '.no_achievements'
 
-      .c-franchises
-        .block2
-          .b-options-floated
-            a[
-              href=franchise_profile_achievements_url(@resource)
-            ] #{@franchise_achievements.size} / #{NekoRepository.instance.count(&:franchise?)}
-          h2.subheadline.green.m10 = t 'achievements.group.franchise'
-          .cc
-            = render partial: 'users/achievements/achievement',
-              collection: @franchise_achievements
-
-            = render partial: 'users/achievements/achievement',
-              collection: @missing_franchise_achievements,
-              locals: { unavailable: true }
-
-            - if @franchise_achievements.none? && @missing_franchise_achievements.none?
-              p.b-nothing_here = t '.no_achievements'
-
-        .block2
-          h2.subheadline.magenta.m10 = t 'achievements.group.creator'
-          p.b-nothing_here = t '.no_achievements'
+      .block2
+        h2.subheadline.magenta.m10 = t 'achievements.group.creator'
+        p.b-nothing_here = t '.no_achievements'

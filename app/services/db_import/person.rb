@@ -1,3 +1,3 @@
 class DbImport::Person < DbImport::ImportBase
-  SPECIAL_FIELDS = %i(image)
+  SPECIAL_FIELDS = %i[image]
 end

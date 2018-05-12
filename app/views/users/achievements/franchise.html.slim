@@ -1,9 +1,9 @@
 = render layout: 'page' do
   .b-options-floated
-    | #{@user_franchise_achievements.size} / #{NekoRepository.instance.count(&:franchise?)}
+    | #{@view.franchise_achievements.size} / #{@view.all_franchise_achievements.size}
   h2.subheadline.m10 = og.headline
   .cc
-    - @all_franchise_achievements.each do |achievement|
+    - @view.all_franchise_achievements.each do |achievement|
       = render 'users/achievements/achievement',
         achievement: achievement,
-        unavailable: @user_franchise_achievements.none? { |v| v.neko_id == achievement.neko_id }
+        unavailable: @view.franchise_achievements.none? { |v| v.neko_id == achievement.neko_id }
