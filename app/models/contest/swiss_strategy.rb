@@ -46,7 +46,8 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       if right_id
         ids_to_wins.delete right_id
       else
-        right_id = ids_to_wins.shift.first # take key of first key=>value pair
+        # taking key of first key=>value pair
+        right_id = ids_to_wins.shift.try(:first)
       end
 
       match.update!(
