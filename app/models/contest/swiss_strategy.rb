@@ -50,6 +50,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
         right_id = ids_to_wins.shift.try(:first)
       end
 
+      left_id, right_id = right_id, nil if left_id.nil?
       match.update!(
         left_id: left_id,
         left_type: @contest.member_klass.name,
