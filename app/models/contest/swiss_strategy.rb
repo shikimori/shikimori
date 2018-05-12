@@ -26,16 +26,27 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
   end
 
   def advance_members round, prior_round
-    members_ids = @statistics.sorted_scores.keys
+    ids_to_wins = @statistics.sorted_scores
 
     round.matches.each do |match|
-      left_id = members_ids.shift
-      right_id = (members_ids - @statistics.opponents_of(left_id)).first
+      group_half_len = top_group_length(ids_to_wins) >> 1
+      rest_ids = ids_to_wins.keys
+      top_half = rest_ids.slice!(0, group_half_len)
+      low_half = rest_ids.slice!(0, group_half_len)
 
+      left_id = top_half.shift
+      right_id = (
+        low_half +
+        top_half.reversed! +
+        rest_ids -
+        @statistics.opponents_of(left_id)
+      ).first
+
+      ids_to_wins.delete left_id
       if right_id
-        members_ids.delete right_id
+        ids_to_wins.delete right_id
       else
-        right_id = members_ids.shift
+        right_id = ids_to_wins.shift.first # take key of first key=>value pair
       end
 
       match.update!(
@@ -63,7 +74,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
     end
     return group_len
   end
-  
+
   def advance_loser match
   end
 
