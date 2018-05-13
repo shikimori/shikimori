@@ -48,23 +48,31 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
         right_id = ids_to_wins.shift.try(:first)
       end
 
-      left_id, right_id = right_id, nil if left_id.nil?
+      match_check_and_update(match, left_id, right_id)
+    end
+  end
+
+  def match_check_and_update match, left_id, right_id
+    if left_id.nil?
+      left_id = right_id
+      right_id = nil
       # left_id should never be nil.
       # Only right_id is expected to be nil, if there are odd number of contest members
-      match.update!(
-        left_id: left_id,
-        left_type: @contest.member_klass.name,
-        right_id: right_id,
-        right_type: @contest.member_klass.name
-      )
     end
+    
+    match.update!(
+      left_id: left_id,
+      left_type: @contest.member_klass.name,
+      right_id: right_id,
+      right_type: @contest.member_klass.name
+    )
   end
 
   def top_group_length sorted_hash
     len = sorted_hash.length
     return len if len < 3
 
-    ids = sorted_hash.keys.slice(1, len-1)
+    ids = sorted_hash.keys.slice(1, len - 1)
     # we don't bother of first element's wins;
     # even with higher number of wins, it belongs to this group, not to previous
 
@@ -74,7 +82,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       break unless sorted_hash[id] == group_wins
       group_len += 1
     end
-    return group_len
+    group_len
   end
 
   def advance_loser match
