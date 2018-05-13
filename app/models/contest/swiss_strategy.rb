@@ -59,7 +59,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
       # left_id should never be nil.
       # Only right_id is expected to be nil, if there are odd number of contest members
     end
-    
+
     match.update!(
       left_id: left_id,
       left_type: @contest.member_klass.name,
