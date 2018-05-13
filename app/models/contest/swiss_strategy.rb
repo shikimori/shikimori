@@ -72,7 +72,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
     len = sorted_hash.length
     return len if len < 3
 
-    ids = sorted_hash.keys.slice(1, len - 1)
+    ids = sorted_hash.keys.drop(1)
     # we don't bother of first element's wins;
     # even with higher number of wins, it belongs to this group, not to previous
 
