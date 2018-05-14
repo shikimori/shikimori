@@ -1,4 +1,3 @@
-// https://chrisbateman.github.io/webpack-visualizer/
 const webpack = require('webpack')
 const { environment } = require('@rails/webpacker')
 
