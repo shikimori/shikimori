@@ -1,0 +1,84 @@
+# https://eslint.org/docs/rules/
+env:
+  browser: true
+  es6: true
+  node: true
+extends:
+  - 'eslint:recommended'
+  - 'plugin:flowtype/recommended'
+parser: 'babel-eslint'
+parserOptions:
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
+    jsx: true
+  sourceType: module
+globals:
+  $: true
+  page_load: true
+  page_unload: true
+plugins:
+  - react
+  - flowtype
+# [<is_recommended>], default: <default_options>
+#
+# rule format:
+#
+# `name: setting` or `name: [setting, config]` where
+# - `setting` is one of `off` (0), `warn` (1) or `error` (2)
+#   (prefer 1 instead of `warn` or `error` for `foo-uses-bar` rules)
+# - `config` is rule-specific
+rules:
+  no-console: 0
+  # [ ], default: "never"
+  comma-dangle:
+    - warn
+    - only-multiline
+  # [ ], default: 4
+  indent:
+    - error
+    - 2
+  # [ ], default: "before": true, "after": true
+  keyword-spacing:
+    - error
+    - after: true
+      before: true
+  # [ ], default: "unix"
+  linebreak-style:
+    - error
+    - unix
+  # [ ], default: ["error", 80]
+  #max-len:
+  #  - warn
+  #  - 80
+  # [ ], default: {"skipBlankLines": false, "ignoreComments": false}
+  no-trailing-spaces:
+    - error
+  # [x], default: none
+  no-unused-vars:
+    - error
+    - argsIgnorePattern: ^_
+      varsIgnorePattern: ^_
+  # [ ], default: "double"
+  quotes:
+    - error
+    - single
+  # [ ], default: "never"
+  object-curly-spacing:
+    - error
+    - always
+  react/jsx-handler-names:
+    - warn
+    - eventHandlerPrefix: _handle
+  react/jsx-max-props-per-line:
+    - warn
+    - when: multiline
+  react/jsx-uses-react: 1
+  react/jsx-uses-vars: 1
+  # [ ], default: "always"
+  semi:
+    - error
+    - always
+  # [ ], default: "always"
+  space-before-function-paren:
+    - error
+    - always
