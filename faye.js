@@ -9,7 +9,7 @@ const configPath = resolve('config')
 const config = safeLoad(readFileSync(join(configPath, 'faye.yml'), 'utf8'))
 
 const server = http.createServer()
-const bayeux = new faye.NodeAdapter({mount: config[':endpoint']})
+const bayeux = new faye.NodeAdapter({mount: config[':endpoint_path']})
 
 var serverAuth = {
   incoming: function(message, callback) {

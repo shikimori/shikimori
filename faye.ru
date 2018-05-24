@@ -36,7 +36,7 @@ class FayeLogger
 end
 
 faye_server = Faye::RackAdapter.new(
-  mount: CONFIG[:endpoint],
+  mount: CONFIG[:endpoint_path],
   timeout: 60,#ENV['RAILS_ENV'] == 'development' ? 1 : 25,
   engine: ENV['RAILS_ENV'] == 'development' ? nil : {
     type: Faye::Redis,
