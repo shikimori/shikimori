@@ -26,7 +26,7 @@ class AnimeVideo < ApplicationRecord
   SQL
 
   BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru myvi.tv]
-  COPYRIGHTED_AUTHORS = /wakanim|crunchyroll|crunchy|FreakCrSuBuS/i
+  COPYRIGHTED_AUTHORS = /wakanim/i # |crunchyroll|crunchy|FreakCrSuBuS
 
   belongs_to :anime
   belongs_to :author,
