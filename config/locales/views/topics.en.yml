@@ -44,7 +44,7 @@ en:
       create_topic: Create a Topic
       reload_forum: refresh forum
     page:
-      refresh: Refesh page
+      refresh: Refresh page
       no_topics: No topics
     menu:
       hide: '&mdash; hide'

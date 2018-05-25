@@ -402,7 +402,7 @@ ru:
 
   api/v1/comments_controller:
     comment:
-      removed: Комментарий удален
+      removed: Комментарий удалён
 
   api/v1/messages_controller:
     messages:
@@ -416,7 +416,7 @@ ru:
       removed: Сообщение удалено
 
   api/v1/dialogs_controller:
-    conversation_removed: Переписка удалёна
+    conversation_removed: Переписка удалена
     no_messages: Не найдено ни одного сообщения для удаления
 
   api/v1/friends_controller:
@@ -424,7 +424,7 @@ ru:
       male: '%{nickname} добавлен в друзья'
       female: '%{nickname} добавлена в друзья'
     removed_from_friends:
-      male: '%{nickname} удален из друзей'
+      male: '%{nickname} удалён из друзей'
       female: '%{nickname} удалена из друзей'
 
   api/v1/ignores_controller:

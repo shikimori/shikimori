@@ -27,7 +27,7 @@ ru:
   topics/comments_view: &comments
     show_comments: Показать %{comment_count} %{comment_word}
     hide_comments: Скрыть %{comment_count} %{comment_word}
-    load_comments: Загрузить еще %{comment_count} %{of_total_comments} %{comment_word}
+    load_comments: Загрузить ещё %{comment_count} %{of_total_comments} %{comment_word}
 
   topics/generated_news_view:
     titles:

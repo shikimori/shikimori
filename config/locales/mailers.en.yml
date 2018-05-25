@@ -16,7 +16,7 @@ en:
 
         We have received a request to reset your account password on %{site_link}.
 
-        Your acount login is %{nickname}.
+        Your account login is %{nickname}.
 
         To reset you password click this link: %{reset_password_link}
 

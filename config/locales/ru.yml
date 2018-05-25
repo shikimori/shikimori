@@ -148,7 +148,7 @@ ru:
           ranobe:
             <<: *manga_statuses
       list_import:
-        duplicate_policy: Уже находищееся в списке
+        duplicate_policy: Уже находящееся в списке
         list: Файл списка
         list_type: Тип списка
         state: Статус
@@ -274,7 +274,7 @@ ru:
             dst_id:
               taken: уже был приглашён в этот клуб
             dst:
-              empty: не зайдан
+              empty: не задан
               blank: не найден
         videos:
           attributes:
@@ -402,7 +402,7 @@ ru:
           pg: PG - Рекомендуется присутствие родителей
           pg_13: PG-13 - Детям до 13 лет просмотр не желателен
           r: R - Лицам до 17 лет обязательно присутствие взрослого
-          r_plus: R+ - Лицам до 17 лет просмотр запрещен
+          r_plus: R+ - Лицам до 17 лет просмотр запрещён
           rx: Rx - Хентай
     manga: &manga_enumerize
       status:

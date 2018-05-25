@@ -6,7 +6,7 @@ ru:
 
       # topic.coffee
       topic:
-        load_comments: Загрузить еще %{comment_count} %{of_total_comments} %{comment_word}
+        load_comments: Загрузить ещё %{comment_count} %{of_total_comments} %{comment_word}
         type_label: Топик
         of: из
         comment:

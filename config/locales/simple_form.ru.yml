@@ -117,7 +117,7 @@ ru:
 
       default:
         submit: Сохранить
-        retry: Попробовать еще раз
+        retry: Попробовать ещё раз
         disable_with: Сохранение&#133;
 
         new:

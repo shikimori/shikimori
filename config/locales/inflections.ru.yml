@@ -37,7 +37,7 @@ ru:
         subjective:
           one: рецензия
           few: рецензии
-          many: рецензиий
+          many: рецензий
           other: рецензии
       content_change:
         subjective:

@@ -7,7 +7,7 @@ ru:
       notice_1: >-
         На данной странице сравниваются списки пользователей
         %{user_1} и %{user_2}.
-        <span style="background: #f2fff2; padding: 0 2px;">Зёленый</span>
+        <span style="background: #f2fff2; padding: 0 2px;">Зелёный</span>
         цвет означает совпадение оценок, а
         <span style="background: #fff2f2; padding: 0 2px;">красный</span>
         - различие.
