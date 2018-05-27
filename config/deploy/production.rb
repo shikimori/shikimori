@@ -8,7 +8,7 @@ set :branch, -> do
   current_branch
 end
 
-set :site_domain, '136.243.135.217'
+set :site_domain, '88.198.7.123'
 
 # Simple Role Syntax
 # ==================
