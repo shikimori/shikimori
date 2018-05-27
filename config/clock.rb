@@ -22,8 +22,8 @@ module Clockwork
     MalParsers::ScheduleExpired.perform_async 'anime'
   end
 
-  every 30.minutes, 'half-hourly.import.another', at: ['**:00', '**:30'] do
-    PostgresFix.perform_async
+  every 15.minutes, 'kill-freezed-postgres-queries' do
+    KillFreezedPostgresQueries.perform_async
   end
 
   every 1.hour, 'hourly', at: '**:45' do
