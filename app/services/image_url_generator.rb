@@ -9,6 +9,7 @@ class ImageUrlGenerator
     UserImage => false
   }
 
+  # TODO: remove fix for new.shikimori.org
   def url entry, image_size
     entry_method = IMAGE_METHODS.find { |klass, _method| entry.is_a? klass }
     only_path = ONLY_PATH.include?(entry.class) ? ONLY_PATH[entry.class] : true
