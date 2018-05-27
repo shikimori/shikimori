@@ -216,7 +216,6 @@ group :test do
 end
 
 gem 'clockwork', require: false
-gem 'whenever', require: false
 
 gem 'faye'
 gem 'thin'
