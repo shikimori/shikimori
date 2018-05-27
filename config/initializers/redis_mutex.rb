@@ -1,1 +1,1 @@
-RedisClassy.redis = Sidekiq.redis { |redis| redis }
+RedisClassy.redis = $redis
