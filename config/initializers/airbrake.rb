@@ -53,36 +53,10 @@ if defined? Airbrake
     # c.blacklist_keys = Rails.application.config.filter_parameters
   end
 
-  IGNORED_EXCEPTIONS = %w[
-    CanCan::AccessDenied
-    ActionController::InvalidAuthenticityToken
-    ActionController::UnknownFormat
-    ActionDispatch::RemoteIp::IpSpoofAttackError
-    ActiveRecord::RecordNotFound
-    ActionController::RoutingError
-    ActiveRecord::PreparedStatementCacheExpired
-    I18n::InvalidLocale
-    Unicorn::ClientShutdown
-    Unauthorized
-    Forbidden
-    AgeRestricted
-    MismatchedEntries
-    CopyrightedResource
-    Net::SMTPServerBusy
-    Net::SMTPFatalError
-    Interrupt
-    Apipie::ParamMissing
-    InvalidIdError
-    InvalidParameterError
-    EmptyContentError
-    MalParser::RecordNotFound
-    BadImageError
-    Errors::NotIdentifiedByImageMagickError
-  ]
   Airbrake.add_filter do |notice|
     # The library supports nested exceptions, so one notice can carry several
     # exceptions.
-    if notice[:errors].any? { |error| IGNORED_EXCEPTIONS.include? error[:type] }
+    if notice[:errors].any? { |error| Shikimori::IGNORED_EXCEPTIONS.include? error[:type] }
       notice.ignore!
     end
   end

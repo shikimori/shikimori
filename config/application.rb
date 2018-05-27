@@ -44,6 +44,33 @@ module Shikimori
   LOCAL_RUN = ENV['LOGNAME'] == 'morr' && ENV['USER'] == 'morr'
   # ALLOWED_PROTOCOL = Rails.env.production? && !LOCAL_RUN ? 'https' : 'http'
 
+  IGNORED_EXCEPTIONS = %w[
+    CanCan::AccessDenied
+    ActionController::InvalidAuthenticityToken
+    ActionController::UnknownFormat
+    ActionDispatch::RemoteIp::IpSpoofAttackError
+    ActiveRecord::RecordNotFound
+    ActionController::RoutingError
+    ActiveRecord::PreparedStatementCacheExpired
+    I18n::InvalidLocale
+    Unicorn::ClientShutdown
+    Unauthorized
+    Forbidden
+    AgeRestricted
+    MismatchedEntries
+    CopyrightedResource
+    Net::SMTPServerBusy
+    Net::SMTPFatalError
+    Interrupt
+    Apipie::ParamMissing
+    InvalidIdError
+    InvalidParameterError
+    EmptyContentError
+    MalParser::RecordNotFound
+    BadImageError
+    Errors::NotIdentifiedByImageMagickError
+  ]
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
