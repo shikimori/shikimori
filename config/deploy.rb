@@ -17,7 +17,6 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :linked_files, %w[
   config/database.yml
   config/secrets.yml
-  config/faye.yml
 ]
 set :linked_dirs, %w[
   log

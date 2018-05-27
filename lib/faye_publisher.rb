@@ -119,7 +119,7 @@ private
 
   def publish_to channel, data
     faye_client.publish channel, data.merge(
-      token: config[:server_token],
+      token: Rails.application.secrets.faye[:token],
       publisher_faye_id: @publisher_faye_id
     )
   end
@@ -178,7 +178,7 @@ private
 
   def faye_client
     @faye_client ||= Faye::Client.new(
-      "http://127.0.0.1:9292#{config[:endpoint]}"
+      "http://127.0.0.1:9292#{Rails.application.secrets.faye[:endpoint_path]}"
     )
   end
 
