@@ -116,25 +116,25 @@ namespace :test do
   end
 end
 
-namespace :unicorn do
-  desc "Stop unicorn"
+namespace :puma do
+  desc "Stop puma"
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_unicorn_#{fetch :stage} stop"
+      execute "sudo /etc/init.d/#{fetch :application}_puma_#{fetch :stage} stop"
     end
   end
 
-  desc "Start unicorn"
+  desc "Start puma"
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_unicorn_#{fetch :stage} start"
+      execute "sudo /etc/init.d/#{fetch :application}_puma_#{fetch :stage} start"
     end
   end
 
-  desc "Restart unicorn"
+  desc "Restart puma"
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_unicorn_#{fetch :stage} upgrade"
+      execute "sudo /etc/init.d/#{fetch :application}_puma_#{fetch :stage} upgrade"
     end
   end
 end
@@ -192,15 +192,6 @@ namespace :clockwork do
   end
 end
 
-namespace :whenever do
-  desc 'Schedule whenever tasks'
-  task :schedule do
-    on roles(:app), in: :sequence, wait: 5 do
-      bundle_exec "whenever --update-crontab #{fetch :application}_#{fetch :stage}"
-    end
-  end
-end
-
 after 'deploy:starting', 'deploy:file:lock'
 after 'deploy:published', 'deploy:file:unlock'
 
@@ -215,9 +206,7 @@ if fetch(:stage) == :production
   after 'deploy:updated', 'clockwork:stop'
   after 'deploy:reverted', 'clockwork:stop'
   after 'deploy:published', 'clockwork:start'
-
-  after 'deploy:published', 'whenever:schedule'
 end
 
-after 'deploy:published', 'unicorn:restart'
+after 'deploy:published', 'puma:restart'
 after 'deploy:finishing', 'deploy:cleanup'
