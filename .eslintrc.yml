@@ -3,30 +3,15 @@ env:
   browser: true
   es6: true
   node: true
-extends:
-  - 'eslint:recommended'
-  - 'plugin:flowtype/recommended'
+  jquery: true
 parser: 'babel-eslint'
 parserOptions:
   ecmaFeatures:
     experimentalObjectRestSpread: true
-    jsx: true
   sourceType: module
 globals:
-  $: true
   page_load: true
   page_unload: true
-plugins:
-  - react
-  - flowtype
-# [<is_recommended>], default: <default_options>
-#
-# rule format:
-#
-# `name: setting` or `name: [setting, config]` where
-# - `setting` is one of `off` (0), `warn` (1) or `error` (2)
-#   (prefer 1 instead of `warn` or `error` for `foo-uses-bar` rules)
-# - `config` is rule-specific
 rules:
   no-console: 0
   # [ ], default: "never"
@@ -66,14 +51,6 @@ rules:
   object-curly-spacing:
     - error
     - always
-  react/jsx-handler-names:
-    - warn
-    - eventHandlerPrefix: _handle
-  react/jsx-max-props-per-line:
-    - warn
-    - when: multiline
-  react/jsx-uses-react: 1
-  react/jsx-uses-vars: 1
   # [ ], default: "always"
   semi:
     - error
