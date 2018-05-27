@@ -31,8 +31,8 @@ module ErrorsConcern
 
     # NamedLogger
       # .send("#{Rails.env}_errors")
-      # .error("#{error.message}\n#{e.backtrace.join("\n")}")
-    # Rails.logger.error("#{error.message}\n#{e.backtrace.join("\n")}")
+      # .error("#{error.message}\n#{error.backtrace.join("\n")}")
+    # Rails.logger.error("#{error.message}\n#{error.backtrace.join("\n")}")
 
     raise error if local_addr? && (
       !error.is_a?(AgeRestricted) &&
@@ -46,7 +46,7 @@ module ErrorsConcern
     elsif error.is_a?(AgeRestricted)
       age_restricted_error(error)
 
-    elsif error.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
+    elsif error.is_a?(Forbidden) || error.is_a?(CanCan::AccessDenied)
       forbidden_error(error)
 
     elsif error.is_a?(StatusCodeError)
