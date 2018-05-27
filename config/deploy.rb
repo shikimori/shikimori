@@ -124,7 +124,7 @@ namespace :puma do
   desc "Restart puma"
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo systemctl reload #{fetch :application}_puma_#{fetch :stage}"
+      execute "sudo systemctl reload #{fetch :application}_puma_#{fetch :stage} || sudo systemctl restart #{fetch :application}_puma_#{fetch :stage}"
     end
   end
 end
