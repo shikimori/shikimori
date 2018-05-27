@@ -125,10 +125,11 @@ gem 'chainable_methods'
 gem 'dry-struct'
 
 group :beta, :production do
-  gem 'airbrake'
+  # gem 'airbrake'
   # gem 'sentry-raven'
   # gem 'honeybadger'
   # gem 'appsignal'
+  gem 'bugsnag'
   gem 'lograge'
   gem 'newrelic_rpm'
 end
