@@ -257,7 +257,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
       {
         id: anime.id,
         genre_ids: anime.genre_ids.map(&:to_i),
-        episodes: anime.episodes,
+        episodes: [anime.episodes, anime.episodes_aired].max,
         duration: anime.duration,
         year: anime.year,
         franchise: anime.franchise
