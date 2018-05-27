@@ -27,12 +27,12 @@ describe BbCodes::Tags::UrlTag do
       end
 
       context 'shikimori url' do
-        let(:url) { '//shikimori.org/animes' }
+        let(:url) { '//shikimori.test/animes' }
         it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">/animes</a>" }
       end
 
       context 'encoded url' do
-        let(:url) { '//shikimori.org/%D0%92%D0%B8%D0%BD%D0%BD%D0%B8' }
+        let(:url) { '//shikimori.test/%D0%92%D0%B8%D0%BD%D0%BD%D0%B8' }
         it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">/Винни</a>" }
       end
 

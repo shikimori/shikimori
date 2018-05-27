@@ -117,7 +117,7 @@ describe BbCodes::Text do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            <a href="#{Shikimori::PROTOCOL}://shikimori.org/test"
+            <a href="#{Shikimori::PROTOCOL}://shikimori.test/test"
             class="b-mention"><s>@</s><span>test</span></a>
           HTML
         )

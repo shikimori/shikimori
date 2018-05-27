@@ -33,7 +33,7 @@ describe ShikiMailer do
       it do
         expect(mail.subject).to eq 'Личное сообщение'
         expect(mail.body.raw_source).to eq "
-          #{to_user.nickname}, у вас 1 новое сообщение на shikimori.org от пользователя #{from_user.nickname}.
+          #{to_user.nickname}, у вас 1 новое сообщение на shikimori.test от пользователя #{from_user.nickname}.
           Прочитать можно тут: https://test.host/#{to_user.nickname}/dialogs
 
           Отписаться от уведомлений можно по ссылке:
@@ -47,7 +47,7 @@ describe ShikiMailer do
       it do
         expect(mail.subject).to eq 'Private message'
         expect(mail.body.raw_source).to eq "
-          #{to_user.nickname}, you have 1 new message on shikimori.org from #{from_user.nickname}.
+          #{to_user.nickname}, you have 1 new message on shikimori.test from #{from_user.nickname}.
           Read the message: https://test.host/#{to_user.nickname}/dialogs
 
           To unsubscribe from notification emails click here:
@@ -88,7 +88,7 @@ describe ShikiMailer do
         expect(mail.body.raw_source).to eq "
           Привет!
 
-          Кто-то активировал процедуру сброса пароля для вашего аккаунта на shikimori.org.
+          Кто-то активировал процедуру сброса пароля для вашего аккаунта на shikimori.test.
 
           Ваш логин - #{user.nickname}.
 
@@ -111,7 +111,7 @@ describe ShikiMailer do
         expect(mail.body.raw_source).to eq "
           Hi!
 
-          We have received a request to reset your account password on shikimori.org.
+          We have received a request to reset your account password on shikimori.test.
 
           Your acount login is #{user.nickname}.
 
