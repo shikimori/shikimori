@@ -47,7 +47,7 @@ GIT
 
 GIT
   remote: https://github.com/morr/i18n-inflector.git
-  revision: f1779c742fad43c9046f93d6ae09bc61a1fd64dc
+  revision: fc09423ce687b0362b71a0a488b72b2d0982e8c6
   branch: master
   specs:
     i18n-inflector (2.6.7)
