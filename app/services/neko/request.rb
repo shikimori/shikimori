@@ -1,7 +1,11 @@
 class Neko::Request
   method_object :params
 
-  URL = 'http://localhost:4000/user_rate'
+  NEKO_HOST = {
+    'production' => '192.168.0.2'
+  }[Rails.env] || 'localhost'
+
+  URL = "http://#{NEKO_HOST}:4000/user_rate"
 
   def call
     response = post_request(@params)
