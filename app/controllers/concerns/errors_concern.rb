@@ -9,10 +9,10 @@ module ErrorsConcern
   ]
 
   included do
-    unless Rails.env.test?
-      rescue_from Exception, with: :runtime_error
-    else
+    if Rails.env.test?
       rescue_from StatusCodeError, with: :runtime_error
+    else
+      rescue_from Exception, with: :runtime_error
     end
   end
 
