@@ -6,7 +6,7 @@ if defined? Bugsnag
       .map { |v| v.constantize rescue NameError }
       .reject { |v| v == NameError }
       .each do |klass|
-        config.ignore_classes << ActiveRecord::StatementInvalid
+        config.ignore_classes << klass
       end
   end
 end
