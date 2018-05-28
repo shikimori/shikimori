@@ -67,7 +67,7 @@ module.exports = class FayeLoader
       else
         "faye.#{location.hostname}"
 
-    @client = new Faye.Client "#{location.protocol}//#{hostname}#{port}/",
+    @client = new Faye.Client $(document.body).data('faye_url'),
       timeout: 300
       retry: 5
       # endpoints:

@@ -2,6 +2,12 @@
 # FayePublisher.new(User.first, nil).publish({ data: { comment_id: 999999999, topic_id: 79981 } }, ['/topic-79981'])
 class FayePublisher # rubocop:disable ClassLength
   BROADCAST_FEED = 'myfeed'
+  FAYE_URL = Shikimori::PROTOCOL + '://' +
+    Rails.application.secrets.faye[:host] + (
+      Rails.application.secrets.faye[:port].present? ?
+      ":#{Rails.application.secrets.faye[:port]}" :
+      ''
+    ) + Rails.application.secrets.faye[:endpoint_path]
 
   def initialize actor, publisher_faye_id = nil
     @publisher_faye_id = publisher_faye_id
@@ -176,15 +182,7 @@ private
   end
 
   def faye_client
-    @faye_client ||= Faye::Client.new(
-      Shikimori::PROTOCOL + '://' + config[:host] +
-        (config[:port].present? ? ":#{config[:port]}" : '') +
-        config[:endpoint_path]
-    )
-  end
-
-  def config
-    Rails.application.secrets.faye
+    @faye_client ||= Faye::Client.new FAYE_URL
   end
 
   def run_event_machine
