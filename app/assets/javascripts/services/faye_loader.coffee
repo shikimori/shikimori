@@ -61,8 +61,11 @@ module.exports = class FayeLoader
   # подключение к Faye серверу
   _connect: ->
     port = if ENV == 'development' then ':9292' else ''
-    # hostname = (if ENV == 'development' then 'localhost' else location.hostname)
-    hostname = location.hostname
+    hostname =
+      if ENV == 'development'
+        location.hostname
+      else
+        "faye.#{location.hostname}"
 
     @client = new Faye.Client "#{location.protocol}//#{hostname}#{port}/",
       timeout: 300
