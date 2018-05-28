@@ -127,7 +127,7 @@ module Clockwork
     NameMatches::Refresh.perform_async Manga.name
   end
 
-  every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do
-    VacuumDb.perform_async
-  end
+  # every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do
+  #   VacuumDb.perform_async
+  # end
 end
