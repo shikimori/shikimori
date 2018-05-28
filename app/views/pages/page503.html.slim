@@ -12,16 +12,12 @@ html
     = stylesheet_link_tag 'page503'
 
   body
-    .dialog style="margin-top:40vh"
-      h1 Технические работы
-    p Мы переезжаем на новые сервера. Сайт временно недоступен.
+    .dialog
+      p.error-500 500
+      h1 = t 'page503.title'
+      == t 'page503.text', email: Shikimori::EMAIL
 
-    / .dialog
-    /   p.error-500 500
-    /   h1 = t 'page503.title'
-    /   == t 'page503.text', email: Shikimori::EMAIL
-
-    /   img.image[
-    /     src='/images/static/503.jpg'
-    /     srcset='/images/static/503@2x.jpg 2x'
-    /   ]
+      img.image[
+        src='/images/static/503.jpg'
+        srcset='/images/static/503@2x.jpg 2x'
+      ]
