@@ -7,7 +7,6 @@ end
 
 gem 'rails', '5.1.5'
 gem 'bootsnap', require: false
-gem 'puma'
 
 # database & cache
 gem 'dalli' # NOTE: в конфиге мемкеша должна быть опция -I 16M
@@ -129,6 +128,7 @@ group :beta, :production do
   # gem 'sentry-raven'
   # gem 'honeybadger'
   # gem 'appsignal'
+  gem 'unicorn'
   gem 'bugsnag'
   gem 'lograge'
   gem 'newrelic_rpm'
@@ -172,6 +172,7 @@ gem 'pry-rails'
 gem 'pry-stack_explorer'
 
 group :development, :test do
+  gem 'puma'
 
   gem 'rb-fchange', require: false
   gem 'rb-fsevent', require: false

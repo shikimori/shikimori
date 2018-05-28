@@ -106,25 +106,25 @@ namespace :test do
   end
 end
 
-namespace :puma do
-  desc "Stop puma"
+namespace :unicorn do
+  desc "Stop unicorn"
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo systemctl stop #{fetch :application}_puma_#{fetch :stage}"
+      execute "sudo systemctl stop #{fetch :application}_unicorn_#{fetch :stage}"
     end
   end
 
-  desc "Start puma"
+  desc "Start unicorn"
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo systemctl start #{fetch :application}_puma_#{fetch :stage}"
+      execute "sudo systemctl start #{fetch :application}_unicorn_#{fetch :stage}"
     end
   end
 
-  desc "Restart puma"
+  desc "Restart unicorn"
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo systemctl reload #{fetch :application}_puma_#{fetch :stage} || sudo systemctl restart #{fetch :application}_puma_#{fetch :stage}"
+      execute "sudo systemctl reload #{fetch :application}_unicorn_#{fetch :stage} || sudo systemctl restart #{fetch :application}_unicorn_#{fetch :stage}"
     end
   end
 end
@@ -198,5 +198,5 @@ if fetch(:stage) == :production
   after 'deploy:published', 'clockwork:start'
 end
 
-after 'deploy:published', 'puma:restart'
+after 'deploy:published', 'unicorn:restart'
 after 'deploy:finishing', 'deploy:cleanup'
