@@ -185,18 +185,18 @@ end
 after 'deploy:starting', 'deploy:file:lock'
 after 'deploy:published', 'deploy:file:unlock'
 
-# after 'deploy:starting', 'sidekiq:quiet'
-# after 'deploy:updated', 'sidekiq:stop'
-# after 'deploy:reverted', 'sidekiq:stop'
-# after 'deploy:published', 'sidekiq:start'
+after 'deploy:starting', 'sidekiq:quiet'
+after 'deploy:updated', 'sidekiq:stop'
+after 'deploy:reverted', 'sidekiq:stop'
+after 'deploy:published', 'sidekiq:start'
 
 before 'deploy:assets:precompile', 'deploy:i18n_js:export'
 
-# if fetch(:stage) == :production
-#   after 'deploy:updated', 'clockwork:stop'
-#   after 'deploy:reverted', 'clockwork:stop'
-#   after 'deploy:published', 'clockwork:start'
-# end
+if fetch(:stage) == :production
+  after 'deploy:updated', 'clockwork:stop'
+  after 'deploy:reverted', 'clockwork:stop'
+  after 'deploy:published', 'clockwork:start'
+end
 
 # after 'deploy:published', 'unicorn:restart'
 after 'deploy:finishing', 'deploy:cleanup'
