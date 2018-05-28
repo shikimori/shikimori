@@ -3,10 +3,12 @@ class FixName < ServiceObjectBase
 
   BAD_SYMBOLS = %r{[%&#/\\?+><\]\[:,@"'`]+|\p{C}} # \p{C} - http://ruby-doc.org/core-2.5.0/Regexp.html
   SPACES = /[[:space:]]+|[⁤ ឵­]/
+  ALL_EXTENSIONS = %w[
+    css js jpg jpeg png gif css js ttf eot otf svg woff php woff2 bmp html
+    rar zip gz tar
+  ]
   EXTENSIONS = /
-    \.
-    (css|js|jpg|jpeg|png|gif|css|js|ttf|eot|otf|svg|woff|php|woff2|bmp|html)
-    $
+    \.(#{ALL_EXTENSIONS.join('|')})$
   /mix
 
   def call

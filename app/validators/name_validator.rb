@@ -26,7 +26,7 @@ class NameValidator < ActiveModel::EachValidator
       #{BANNED_NICKNAMES.join '|'}
     )\Z | (?:
       \.
-      (?:css|js|jpg|jpeg|png|gif|css|js|ttf|eot|otf|svg|woff|php|rar|zip)
+      (?:#{FixName::ALL_EXTENSIONS.join('|')})
     \Z)
   /mix
 
