@@ -1,5 +1,5 @@
 module ErrorsConcern
-  extend ActiveSupport::Concern
+  extend Activejupport::Concern
 
   NOT_FOUND_ERRORS = [
     ActionController::RoutingError,
@@ -13,6 +13,12 @@ module ErrorsConcern
       rescue_from Exception, with: :runtime_error
     else
       rescue_from StatusCodeError, with: :runtime_error
+    end
+
+    before_action do
+      unless current_user&.admin?
+        render 'pages/page503.html', layout: false, status: 503, formats: :html
+      end
     end
   end
 
