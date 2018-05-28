@@ -14,6 +14,13 @@ module ErrorsConcern
     else
       rescue_from StatusCodeError, with: :runtime_error
     end
+
+    before_action {
+      unless current_user&.admin?
+        render 'pages/page503.html', layout: false, status: 503, formats: :html
+      end
+    }
+
   end
 
   # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
@@ -66,7 +73,7 @@ module ErrorsConcern
 
 private
 
-  def not_found_error _e
+  def not_found_error _error
     if error_json_response?
       render json: { message: t('page_not_found'), code: 404 }, status: 404
     else
@@ -74,7 +81,7 @@ private
     end
   end
 
-  def age_restricted_error _e
+  def age_restricted_error _error
     render 'pages/age_restricted', layout: false, formats: :html
   end
 
@@ -113,7 +120,7 @@ private
     )
   end
 
-  def standard_error _e
+  def standard_error _error
     og page_title: t('error')
     render 'pages/page503.html', layout: false, status: 503, formats: :html
   end
