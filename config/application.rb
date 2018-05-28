@@ -17,7 +17,11 @@ require_relative '../lib/named_logger'
 Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
 
 module Shikimori
-  DOMAIN = 'shikimori.org'
+  DOMAIN = {
+    'production' => 'shikimori.org',
+    'development' => 'shikimori.local',
+    'test' => 'shikimori.test'
+  }[Rails.env]
 
   NAME_RU = 'Шикимори'
   NAME_EN = 'Shikimori'
@@ -39,6 +43,33 @@ module Shikimori
 
   LOCAL_RUN = ENV['LOGNAME'] == 'morr' && ENV['USER'] == 'morr'
   # ALLOWED_PROTOCOL = Rails.env.production? && !LOCAL_RUN ? 'https' : 'http'
+
+  IGNORED_EXCEPTIONS = %w[
+    CanCan::AccessDenied
+    ActionController::InvalidAuthenticityToken
+    ActionController::UnknownFormat
+    ActionDispatch::RemoteIp::IpSpoofAttackError
+    ActiveRecord::RecordNotFound
+    ActionController::RoutingError
+    ActiveRecord::PreparedStatementCacheExpired
+    I18n::InvalidLocale
+    Unicorn::ClientShutdown
+    Unauthorized
+    Forbidden
+    AgeRestricted
+    MismatchedEntries
+    CopyrightedResource
+    Net::SMTPServerBusy
+    Net::SMTPFatalError
+    Interrupt
+    Apipie::ParamMissing
+    InvalidIdError
+    InvalidParameterError
+    EmptyContentError
+    MalParser::RecordNotFound
+    BadImageError
+    Errors::NotIdentifiedByImageMagickError
+  ]
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -95,6 +126,7 @@ module Shikimori
 
     ActiveRecord::Base.include_root_in_json = false
 
+    config.redis_host = Rails.env.production? ? '192.168.0.2' : 'localhost'
     config.redis_db = 2
 
     # достали эксепшены с ханибаджера

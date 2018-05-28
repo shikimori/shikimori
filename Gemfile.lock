@@ -47,7 +47,7 @@ GIT
 
 GIT
   remote: https://github.com/morr/i18n-inflector.git
-  revision: f1779c742fad43c9046f93d6ae09bc61a1fd64dc
+  revision: fc09423ce687b0362b71a0a488b72b2d0982e8c6
   branch: master
   specs:
     i18n-inflector (2.6.7)
@@ -149,9 +149,6 @@ GEM
       activerecord (>= 3.0)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    airbrake (7.3.3)
-      airbrake-ruby (~> 2.10)
-    airbrake-ruby (2.10.0)
     airbrussh (1.3.0)
       sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.5.8)
@@ -175,6 +172,8 @@ GEM
       sass (~> 3.4)
       thor (~> 0.19)
     browser (2.5.2)
+    bugsnag (6.7.3)
+      concurrent-ruby (~> 1.0)
     builder (3.2.3)
     byebug (10.0.2)
     capistrano (3.10.2)
@@ -207,7 +206,6 @@ GEM
       activesupport (>= 4.0)
       elasticsearch (>= 2.0.0)
       elasticsearch-dsl
-    chronic (0.10.2)
     climate_control (0.2.0)
     clockwork (2.0.3)
       tzinfo
@@ -383,7 +381,6 @@ GEM
     json (2.1.0)
     jsonapi-renderer (0.2.0)
     jwt (1.5.6)
-    kgio (2.11.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.6.0)
@@ -531,7 +528,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
-    raindrops (0.19.0)
     rake (12.3.1)
     rb-fchange (0.0.6)
       ffi
@@ -680,9 +676,6 @@ GEM
     unf_ext (0.0.7.5)
     unicode (0.4.4.4)
     unicode-display_width (1.3.2)
-    unicorn (5.4.0)
-      kgio (~> 2.6)
-      raindrops (~> 0.7)
     vcr (4.0.0)
     warden (1.2.7)
       rack (>= 1.0)
@@ -697,8 +690,6 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
-    whenever (0.10.0)
-      chronic (>= 0.6.3)
     xpath (3.0.0)
       nokogiri (~> 1.8)
     xxhash (0.4.0)
@@ -715,7 +706,6 @@ DEPENDENCIES
   acts-as-taggable-on
   acts_as_list
   acts_as_votable!
-  airbrake
   airbrussh
   amatch!
   apipie-rails
@@ -727,6 +717,7 @@ DEPENDENCIES
   bootsnap
   bourbon
   browser
+  bugsnag
   byebug
   cancancan!
   capistrano
@@ -839,13 +830,11 @@ DEPENDENCIES
   turbolinks!
   uglifier
   unicode
-  unicorn
   vcr
   webmock
   webpacker
-  whenever
   xxhash
   zaru
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

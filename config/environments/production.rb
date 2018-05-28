@@ -62,7 +62,7 @@ config.webpacker.check_yarn_integrity = false
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  config.cache_store = :dalli_store, 'localhost', {
+  config.cache_store = :dalli_store, '192.168.0.2', {
     namespace: 'shikimori_production_v5',
     compress: true,
     value_max_bytes: 1024 * 1024 * 32

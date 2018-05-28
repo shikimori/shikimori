@@ -17,7 +17,6 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :linked_files, %w[
   config/database.yml
   config/secrets.yml
-  config/faye.yml
 ]
 set :linked_dirs, %w[
   log
@@ -50,16 +49,6 @@ def bundle_exec command, witin_path = "#{self.deploy_to}/current"
 end
 
 namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} upgrade"
-    end
-    on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} upgrade"
-    end
-  end
-
   namespace :file do
     task :lock do
       on roles(:app) do
@@ -117,25 +106,25 @@ namespace :test do
   end
 end
 
-namespace :unicorn do
-  desc "Stop unicorn"
+namespace :puma do
+  desc "Stop puma"
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_unicorn_#{fetch :stage} stop"
+      execute "sudo systemctl stop #{fetch :application}_puma_#{fetch :stage}"
     end
   end
 
-  desc "Start unicorn"
+  desc "Start puma"
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_unicorn_#{fetch :stage} start"
+      execute "sudo systemctl start #{fetch :application}_puma_#{fetch :stage}"
     end
   end
 
-  desc "Restart unicorn"
+  desc "Restart puma"
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_unicorn_#{fetch :stage} upgrade"
+      execute "sudo systemctl reload #{fetch :application}_puma_#{fetch :stage} || sudo systemctl restart #{fetch :application}_puma_#{fetch :stage}"
     end
   end
 end
@@ -144,28 +133,28 @@ namespace :sidekiq do
   desc "Quiet sidekiq (stop accepting new work)"
   task :quiet do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} quiet"
+      execute "sudo systemctl reload #{fetch :application}_sidekiq_#{fetch :stage} || true"
     end
   end
 
   desc "Stop sidekiq"
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} stop"
+      execute "sudo systemctl stop #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end
 
   desc "Start sidekiq"
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} start"
+      execute "sudo systemctl start #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end
 
   desc "Restart sidekiq"
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_sidekiq_#{fetch :stage} restart"
+      execute "sudo systemctl restart #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end
 end
@@ -174,30 +163,21 @@ namespace :clockwork do
   desc "Stop clockwork"
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_clockwork_#{fetch :stage} stop"
+      execute "sudo systemctl stop #{fetch :application}_clockwork_#{fetch :stage}"
     end
   end
 
   desc "Start clockwork"
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_clockwork_#{fetch :stage} start"
+      execute "sudo systemctl start #{fetch :application}_clockwork_#{fetch :stage}"
     end
   end
 
   desc "Restart clockwork"
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_clockwork_#{fetch :stage} restart"
-    end
-  end
-end
-
-namespace :whenever do
-  desc 'Schedule whenever tasks'
-  task :schedule do
-    on roles(:app), in: :sequence, wait: 5 do
-      bundle_exec "whenever --update-crontab #{fetch :application}_#{fetch :stage}"
+      execute "sudo systemctl restart #{fetch :application}_clockwork_#{fetch :stage}"
     end
   end
 end
@@ -216,9 +196,7 @@ if fetch(:stage) == :production
   after 'deploy:updated', 'clockwork:stop'
   after 'deploy:reverted', 'clockwork:stop'
   after 'deploy:published', 'clockwork:start'
-
-  after 'deploy:published', 'whenever:schedule'
 end
 
-after 'deploy:published', 'unicorn:restart'
+after 'deploy:published', 'puma:restart'
 after 'deploy:finishing', 'deploy:cleanup'

@@ -66,7 +66,7 @@ describe BbCodes::Tags::AnimeTag do
 
       context 'broken tags' do
         let(:text) do
-          "[anime=#{anime.id} fallback=http://shikimori.org/animes/32866]#{suffix}"
+          "[anime=#{anime.id} fallback=http://shikimori.test/animes/32866]#{suffix}"
         end
         let(:suffix) { "\n[/anime][/quote]\n[/anime]" }
         it { is_expected.to eq html + suffix }

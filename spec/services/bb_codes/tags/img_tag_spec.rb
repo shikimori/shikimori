@@ -71,7 +71,7 @@ describe BbCodes::Tags::ImgTag do
       end
 
       context 'link to shiki image' do
-        let(:link) { 'http://shikimori.org/test.jpg' }
+        let(:link) { 'http://shikimori.test/test.jpg' }
         let(:camo_link_url) { UrlGenerator.instance.camo_url link }
 
         it do

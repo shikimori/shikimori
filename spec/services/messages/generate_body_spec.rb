@@ -209,7 +209,7 @@ describe Messages::GenerateBody do
         is_expected.to eq(
           <<~HTML.squish
             Приглашение на вступление в клуб
-            <a href="#{Shikimori::PROTOCOL}://shikimori.org/clubs/1-test"
+            <a href="#{Shikimori::PROTOCOL}://shikimori.test/clubs/1-test"
             title="" class="b-link">test</a>.
           HTML
         )
@@ -223,9 +223,9 @@ describe Messages::GenerateBody do
       it do
         is_expected.to eq(
           <<~HTML.squish
-            Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
+            Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1"
             title="правка" class="bubbled b-link"
-            data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1/tooltip">правка</a>
+            data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1/tooltip">правка</a>
             для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
             title="test" class="bubbled b-link"
             data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a> принята.
@@ -244,9 +244,9 @@ describe Messages::GenerateBody do
         it do
           is_expected.to eq(
             <<~HTML.squish
-              Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
+              Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1"
               title="правка" class="bubbled b-link"
-              data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1/tooltip">правка</a>
+              data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1/tooltip">правка</a>
               для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
               title="test" class="bubbled b-link"
               data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a>
@@ -263,9 +263,9 @@ describe Messages::GenerateBody do
         it do
           is_expected.to eq(
             <<~HTML.squish
-              Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1"
+              Твоя <a href="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1"
               title="правка" class="bubbled b-link"
-              data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.org/moderations/versions/1/tooltip">правка</a>
+              data-tooltip_url="#{Shikimori::PROTOCOL}://shikimori.test/moderations/versions/1/tooltip">правка</a>
               для <a href="#{Shikimori::PROTOCOL}://test.host/animes/1-test"
               title="test" class="bubbled b-link"
               data-tooltip_url="#{Shikimori::PROTOCOL}://test.host/animes/1-test/tooltip">test</a>

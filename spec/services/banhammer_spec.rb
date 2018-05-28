@@ -47,10 +47,10 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'her').to eq false }
     it { expect(banhammer.abusive? 'на!').to eq false }
 
-    it { expect(banhammer.abusive? '//shikimori.org/cosplay_galleries/publishing/хуй/test').to eq false }
-    it { expect(banhammer.abusive? 'http://shikimori.org/cosplay_galleries/publishing/хуй/test').to eq false }
-    it { expect(banhammer.abusive? '[img]//shikimori.org/cosplay_galleries/publishing/хуй/test.png[/img]').to eq false }
-    it { expect(banhammer.abusive? '[poster]//shikimori.org/cosplay_galleries/publishing/хуй/test.png[/poster]').to eq false }
+    it { expect(banhammer.abusive? '//shikimori.test/cosplay_galleries/publishing/хуй/test').to eq false }
+    it { expect(banhammer.abusive? 'http://shikimori.test/cosplay_galleries/publishing/хуй/test').to eq false }
+    it { expect(banhammer.abusive? '[img]//shikimori.test/cosplay_galleries/publishing/хуй/test.png[/img]').to eq false }
+    it { expect(banhammer.abusive? '[poster]//shikimori.test/cosplay_galleries/publishing/хуй/test.png[/poster]').to eq false }
     it { expect(banhammer.abusive? '###[/quote]').to eq false }
     it { expect(banhammer.abusive? '[character=17712]Yuzuki Eba[/character]').to eq false }
 

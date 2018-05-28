@@ -17,48 +17,49 @@ module ErrorsConcern
   end
 
   # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
-  def runtime_error e
+  def runtime_error error
     if defined? Airbrake
-      Airbrake.notify e,
+      Airbrake.notify error,
         url: request.url,
         session: JSON.parse(session.to_json),
         cookies: JSON.parse(cookies.to_json)
     end
-    Honeybadger.notify e if defined? Honeybadger
-    Raven.capture_exception e if defined? Raven
-    Appsignal.set_error e if defined? Appsignal
+    Honeybadger.notify error if defined? Honeybadger
+    Raven.capture_exception error if defined? Raven
+    Appsignal.set_error error if defined? Appsignal
+    Bugsnag.notify error if defined? Bugsnag
 
     # NamedLogger
       # .send("#{Rails.env}_errors")
-      # .error("#{e.message}\n#{e.backtrace.join("\n")}")
-    # Rails.logger.error("#{e.message}\n#{e.backtrace.join("\n")}")
+      # .error("#{error.message}\n#{error.backtrace.join("\n")}")
+    # Rails.logger.error("#{error.message}\n#{error.backtrace.join("\n")}")
 
-    raise e if local_addr? && (
-      !e.is_a?(AgeRestricted) &&
-      !e.is_a?(CopyrightedResource) &&
-      !e.is_a?(Forbidden)
+    raise error if local_addr? && (
+      !error.is_a?(AgeRestricted) &&
+      !error.is_a?(CopyrightedResource) &&
+      !error.is_a?(Forbidden)
     )
 
-    if NOT_FOUND_ERRORS.include? e.class
-      not_found_error(e)
+    if NOT_FOUND_ERRORS.include? error.class
+      not_found_error(error)
 
-    elsif e.is_a?(AgeRestricted)
-      age_restricted_error(e)
+    elsif error.is_a?(AgeRestricted)
+      age_restricted_error(error)
 
-    elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
-      forbidden_error(e)
+    elsif error.is_a?(Forbidden) || error.is_a?(CanCan::AccessDenied)
+      forbidden_error(error)
 
-    elsif e.is_a?(StatusCodeError)
-      status_code_error(e)
+    elsif error.is_a?(StatusCodeError)
+      status_code_error(error)
 
-    elsif e.is_a?(CopyrightedResource)
-      copyrighted_error(e)
+    elsif error.is_a?(CopyrightedResource)
+      copyrighted_error(error)
 
     elsif is_a?(Api::V1Controller) || json?
-      api_error(e)
+      api_error(error)
 
     else
-      standard_error(e)
+      standard_error(error)
     end
   end
   # rubocop:enable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
@@ -77,20 +78,20 @@ private
     render 'pages/age_restricted', layout: false, formats: :html
   end
 
-  def forbidden_error e
+  def forbidden_error error
     if error_json_response?
-      render json: { message: e.message, code: 403 }, status: 403
+      render json: { message: error.message, code: 403 }, status: 403
     else
-      render plain: e.message, status: 403
+      render plain: error.message, status: 403
     end
   end
 
-  def status_code_error e
-    render json: {}, status: e.status
+  def status_code_error error
+    render json: {}, status: error.status
   end
 
-  def copyrighted_error e
-    resource = e.resource
+  def copyrighted_error error
+    resource = error.resource
     @new_url = url_for safe_params.merge(resource_id_key => resource.to_param)
 
     if params[:format] == 'rss'
@@ -100,13 +101,13 @@ private
     end
   end
 
-  def api_error e
+  def api_error error
     render(
       json: {
         code: 503,
-        exception: e.class.name,
-        message: e.message,
-        backtrace: e.backtrace.first.sub(Rails.root.to_s, '')
+        exception: error.class.name,
+        message: error.message,
+        backtrace: error.backtrace.first.sub(Rails.root.to_s, '')
       },
       status: 503
     )
