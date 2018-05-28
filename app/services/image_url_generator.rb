@@ -9,7 +9,6 @@ class ImageUrlGenerator
     UserImage => false
   }
 
-  # TODO: remove fix for new.shikimori.org
   def url entry, image_size
     entry_method = IMAGE_METHODS.find { |klass, _method| entry.is_a? klass }
     only_path = ONLY_PATH.include?(entry.class) ? ONLY_PATH[entry.class] : true
@@ -23,13 +22,13 @@ class ImageUrlGenerator
     if Rails.env.production?
       "#{Shikimori::PROTOCOL}://" \
         "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." \
-        "#{Shikimori::DOMAIN}#{image_url_path}".gsub('new.shikimori', 'shikimori') # temporarily fix for new.shikimori.org
+        "#{Shikimori::DOMAIN}#{image_url_path}"
     elsif Rails.env.test? || (image_file_path && File.exist?(image_file_path))
       image_url_path
     else
       "#{Shikimori::PROTOCOL}://" \
         "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." \
-        "#{Shikimori::DOMAIN}#{image_url_path}".gsub('new.shikimori', 'shikimori') # temporarily fix for new.shikimori.org
+        "#{Shikimori::DOMAIN}#{image_url_path}"
     end
   end
 end
