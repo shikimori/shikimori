@@ -78,7 +78,7 @@ stdout_redirect(
 #
 # The default is "0, 16".
 #
-threads 0, 16
+threads 0, 4
 
 # Bind the server to "url". "tcp://", "unix://" and "ssl://" are the only
 # accepted protocols.
@@ -123,7 +123,7 @@ bind "unix://#{shared_path}/tmp/sockets/puma.socket"
 #
 # The default is "0".
 #
-workers 12
+workers 8
 
 # Code to run immediately before the master starts workers.
 #
