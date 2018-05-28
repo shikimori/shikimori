@@ -14,12 +14,6 @@ module ErrorsConcern
     else
       rescue_from StatusCodeError, with: :runtime_error
     end
-
-    before_action do
-      unless current_user&.admin?
-        render 'pages/page503.html', layout: false, status: 503, formats: :html
-      end
-    end
   end
 
   # rubocop:disable MethodLength, AbcSize, CyclomaticComplexity, PerceivedComplexity
