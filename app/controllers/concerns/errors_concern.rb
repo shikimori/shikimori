@@ -1,5 +1,5 @@
 module ErrorsConcern
-  extend Activejupport::Concern
+  extend ActiveSupport::Concern
 
   NOT_FOUND_ERRORS = [
     ActionController::RoutingError,
