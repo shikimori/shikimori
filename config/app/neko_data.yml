@@ -4,14 +4,14 @@
     :neko_id: :yandere
     :level: 1
     :image: "/assets/achievements/anime/yandere_1.jpg"
-    :border_color: "#821d60"
+    :border_color: "#CD9575"
     :title_ru: Бездна
     :text_ru: Если долго всматриваться в бездну — бездна начнет всматриваться в тебя.
     :title_en: Abyss
     :text_en: When you look into the abyss, the abyss stares back at you.
     :topic_id: 227431
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 30%
       :filters:
         anime_ids:
@@ -85,7 +85,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 55%
       :filters:
         anime_ids:
@@ -159,7 +159,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 80%
       :filters:
         anime_ids:
@@ -233,7 +233,7 @@
     :text_en: 
     :topic_id: 227416
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 15
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -248,7 +248,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 50
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -264,7 +264,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -280,7 +280,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 150
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -296,7 +296,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 200
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -312,7 +312,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 300
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -327,7 +327,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 400
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -343,7 +343,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -359,7 +359,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 666
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -374,7 +374,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 750
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -391,7 +391,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 888
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -406,22 +406,26 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 1000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
     :level: 13
-    :image: 
-    :border_color: 
-    :title_ru: 
-    :text_ru: 
+    :image: "/assets/achievements/anime/animelist_14.jpg"
+    :border_color: "#C7D0CC"
+    :title_ru: Раз, два, три, четыре
+    :text_ru: |-
+      Раз котенок – самый белый
+      Два котенок – самый смелый
+      Три котенок – самый умный
+      А четыре – самый шумный
     :title_en: 
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 1234
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -437,7 +441,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 1500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -452,7 +456,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -468,7 +472,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 2500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -484,7 +488,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 3500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -501,7 +505,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 5000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -517,7 +521,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 7500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -532,7 +536,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 10000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
 - !ruby/object:Neko::Rule
@@ -540,7 +544,7 @@
     :neko_id: :horror_thriller
     :level: 1
     :image: "/assets/achievements/anime/horror_thriller_1.png"
-    :border_color: "#ddc49c"
+    :border_color: "#821d60"
     :title_ru: Смерть дышит в спину
     :text_ru: Практически всё в этом мире умирает. В этом мире жизнь — всего лишь
       незначительная частичка, не более чем секундное явление. Смерть повсеместна.
@@ -548,7 +552,7 @@
     :text_en: 
     :topic_id: 227420
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25
       :filters:
         genre_ids:
@@ -567,7 +571,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -586,7 +590,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -605,7 +609,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -624,7 +628,7 @@
     :text_en: 
     :topic_id: 222067
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 20%
       :filters:
         anime_ids:
@@ -1115,7 +1119,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 35%
       :filters:
         anime_ids:
@@ -1606,7 +1610,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 55%
       :filters:
         anime_ids:
@@ -2096,7 +2100,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 80%
       :filters:
         anime_ids:
@@ -2586,7 +2590,7 @@
     :text_en: 
     :topic_id: 222056
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 65
       :filters:
         genre_ids:
@@ -2604,7 +2608,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 130
       :filters:
         genre_ids:
@@ -2623,7 +2627,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 260
       :filters:
         genre_ids:
@@ -2642,7 +2646,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 350
       :filters:
         genre_ids:
@@ -2660,7 +2664,7 @@
     :text_en: 
     :topic_id: 222038
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25
       :filters:
         genre_ids:
@@ -2678,7 +2682,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -2696,7 +2700,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -2714,7 +2718,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -2732,7 +2736,7 @@
     :text_en: 
     :topic_id: 227426
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 50
       :filters:
         genre_ids:
@@ -2751,7 +2755,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -2771,7 +2775,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 150
       :filters:
         genre_ids:
@@ -2790,7 +2794,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 300
       :filters:
         genre_ids:
@@ -2809,7 +2813,7 @@
     :text_en: 
     :topic_id: 222064
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 65
       :filters:
         genre_ids:
@@ -2827,7 +2831,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 130
       :filters:
         genre_ids:
@@ -2845,7 +2849,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 260
       :filters:
         genre_ids:
@@ -2863,7 +2867,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 350
       :filters:
         genre_ids:
@@ -2881,7 +2885,7 @@
     :text_en: 
     :topic_id: 227422
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 10
       :filters:
         episodes_gte: 100
@@ -2899,7 +2903,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25
       :filters:
         episodes_gte: 100
@@ -2916,7 +2920,7 @@
     :text_en: 
     :topic_id: 227424
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 70
       :filters:
         year_lte: 2000
@@ -2934,7 +2938,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 150
       :filters:
         year_lte: 2000
@@ -2951,7 +2955,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 300
       :filters:
         year_lte: 2000
@@ -2968,7 +2972,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 500
       :filters:
         year_lte: 2000
@@ -2985,7 +2989,7 @@
     :text_en: 
     :topic_id: 227423
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 30%
       :filters:
         anime_ids:
@@ -3411,7 +3415,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 35%
       :filters:
         anime_ids:
@@ -3837,7 +3841,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 65%
       :filters:
         anime_ids:
@@ -4263,7 +4267,7 @@
     :text_en: 
     :topic_id: 227419
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 10%
       :filters:
         anime_ids:
@@ -4740,7 +4744,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 20%
       :filters:
         anime_ids:
@@ -5217,7 +5221,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 30%
       :filters:
         anime_ids:
@@ -5686,15 +5690,15 @@
   attributes:
     :neko_id: :mecha
     :level: 1
-    :image: "/assets/achievements/anime/mecha_1.png"
-    :border_color: "#1a153f"
+    :image: "/assets/achievements/anime/mecha_1.jpg"
+    :border_color: "#5E2129"
     :title_ru: Пилот Evangelion Unit
     :text_ru: ОЯШ, полезай в робота
     :title_en: 
     :text_en: 
     :topic_id: 222036
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 45
       :filters:
         genre_ids:
@@ -5704,8 +5708,8 @@
   attributes:
     :neko_id: :mecha
     :level: 2
-    :image: "/assets/achievements/anime/mecha_2.png"
-    :border_color: "#5d634d"
+    :image: "/assets/achievements/anime/mecha_2.jpg"
+    :border_color: "#DCDCDC"
     :title_ru: Hassin!
     :text_ru: Некогда непривычный костюм пилота теперь сидит как влитой. Вы — ас,
       впереди — бесконечные сражения.
@@ -5713,7 +5717,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 90
       :filters:
         genre_ids:
@@ -5723,15 +5727,15 @@
   attributes:
     :neko_id: :mecha
     :level: 3
-    :image: "/assets/achievements/anime/mecha_3.png"
-    :border_color: "#66cdaa"
-    :title_ru: Ньютайп
-    :text_ru: Ore wa Gundam
+    :image: "/assets/achievements/anime/mecha_3.jpg"
+    :border_color: "#00693E"
+    :title_ru: 
+    :text_ru: 
     :title_en: 
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 180
       :filters:
         genre_ids:
@@ -5741,17 +5745,15 @@
   attributes:
     :neko_id: :mecha
     :level: 4
-    :image: "/assets/achievements/anime/mecha_4.gif"
+    :image: "/assets/achievements/anime/mecha_4.png"
     :border_color: "#da4968"
-    :title_ru: DO THE IMPOSSIBLE, SEE THE INVISIBLE!
-    :text_ru: |-
-      Мы снесем любую стену, вставшую на пути! Если нет пути, мы его проложим!
-      Магма течет в наших венах, раскаляя сердца!
+    :title_ru: Ньютайп
+    :text_ru: Ore wa Gundam Магма течет в наших венах, раскаляя сердца!
     :title_en: 
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 235
       :filters:
         genre_ids:
@@ -5769,7 +5771,7 @@
     :text_en: 
     :topic_id: 222037
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25
       :filters:
         genre_ids:
@@ -5787,7 +5789,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -5805,7 +5807,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -5823,7 +5825,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -5841,7 +5843,7 @@
     :text_en: 
     :topic_id: 222044
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -5859,7 +5861,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 90
       :filters:
         genre_ids:
@@ -5877,7 +5879,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 140
       :filters:
         genre_ids:
@@ -5895,7 +5897,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 200
       :filters:
         genre_ids:
@@ -5913,7 +5915,7 @@
     :text_en: From Russia with love <3
     :topic_id: 227427
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 30%
       :filters:
         anime_ids:
@@ -6175,7 +6177,7 @@
     :text_en: 
     :topic_id: 222068
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -6194,7 +6196,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 90
       :filters:
         genre_ids:
@@ -6213,7 +6215,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 140
       :filters:
         genre_ids:
@@ -6231,7 +6233,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 200
       :filters:
         genre_ids:
@@ -6249,10 +6251,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: fullmetal_alchemist
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6266,10 +6268,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: gintama
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6283,10 +6285,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ginga_eiyuu_densetsu
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6300,10 +6302,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: hunter_x_hunter
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6317,10 +6319,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: hanamonogatari
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6334,10 +6336,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: haikyuu
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6351,10 +6353,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: code_geass
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6368,10 +6370,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: mushishi
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6385,10 +6387,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: hajime_no_ippo
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6402,10 +6404,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: rurouni_kenshin
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6419,10 +6421,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: boku_no_hero_academia
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6436,10 +6438,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: natsume_yuujinchou
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6453,10 +6455,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: suzumiya_haruhi_no_yuuutsu
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6470,10 +6472,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: bakuman
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6487,12 +6489,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: koro_sensei_q
         not_anime_ids:
         - 33511
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6506,13 +6508,13 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: fate_zero
         not_anime_ids:
         - 13183
         - 19165
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6526,12 +6528,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: jojo_no_kimyou_na_bouken
         not_anime_ids:
         - 3603
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6545,10 +6547,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: aria_the_ova
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6562,10 +6564,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: megalo_box
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6579,12 +6581,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: kuroshitsuji
         not_anime_ids:
         - 6163
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6598,10 +6600,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: uchuu_kyoudai
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6615,14 +6617,14 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ghost_in_the_shell
         not_anime_ids:
         - 10870
         - 10948
         - 31617
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6636,10 +6638,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: kuroko_no_basket
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6653,10 +6655,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: shokugeki_no_souma
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6670,10 +6672,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: slam_dunk
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6687,10 +6689,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: major
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6704,7 +6706,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: detective_conan
       :threshold: 95%
@@ -6721,10 +6723,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: yuu_yuu_hakusho
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6738,10 +6740,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: yamato
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6755,10 +6757,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: berserk
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6772,10 +6774,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: magi
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6789,10 +6791,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: diamond_no_ace
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6806,10 +6808,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: tsubasa
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6823,10 +6825,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: umineko_no_naku_koro_ni
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6840,7 +6842,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: one_piece
         not_anime_ids:
@@ -6864,10 +6866,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: inuyasha
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6881,10 +6883,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: sket_dance
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6898,7 +6900,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: gundam
         not_anime_ids:
@@ -6908,7 +6910,7 @@
         - 20667
         - 23943
         - 24371
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6922,10 +6924,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: dragon_ball
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6939,10 +6941,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: initial_d
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6956,10 +6958,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: durarara
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6973,10 +6975,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: working
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6990,10 +6992,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: cardcaptor_sakura
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7007,10 +7009,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: nanatsu_no_taizai
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7024,10 +7026,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: saint_seiya
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7041,13 +7043,13 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: vivid_strike
         not_anime_ids:
         - 4849
         - 176
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7061,10 +7063,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: maison_ikkoku
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7078,10 +7080,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: junjou_romantica
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7095,10 +7097,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: chiba_pedal
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7112,10 +7114,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: glass_no_kamen
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7129,12 +7131,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: lupin_iii
         not_anime_ids:
         - 5343
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7148,7 +7150,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: dmatsu_san
       :threshold: 50%
@@ -7165,10 +7167,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: hikaru_no_go
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7182,7 +7184,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: boruto
       :threshold: 95%
@@ -7199,10 +7201,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: eureka_seven
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7216,10 +7218,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: full_metal_panic
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7233,12 +7235,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: fairy_tail
         not_anime_ids:
         - 246
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7252,12 +7254,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: persona
         not_anime_ids:
         - 25257
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7271,14 +7273,14 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: hidamari_sketch
         not_anime_ids:
         - 28911
         - 28913
         - 28915
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7292,10 +7294,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: slayers
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7309,12 +7311,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: doraemon
         not_anime_ids:
         - 501
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7328,13 +7330,13 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: toaru_majutsu_no_index
         not_anime_ids:
         - 27829
         - 32264
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7348,10 +7350,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: city_hunter
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7365,10 +7367,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: kindaichi_shounen_no_jikenbo
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7382,12 +7384,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: snow_halation
         not_anime_ids:
         - 21853
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7401,12 +7403,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: nurarihyon_no_mago
         not_anime_ids:
         - 9731
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7420,10 +7422,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: prince_of_tennis
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7437,10 +7439,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: school_rumble
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7454,10 +7456,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: touch
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7471,10 +7473,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: sword_art_online
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7488,12 +7490,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: amon
         not_anime_ids:
         - 35952
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7507,10 +7509,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ushio_to_tora
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7524,10 +7526,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: macross
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7541,10 +7543,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: jigoku_shoujo
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7558,12 +7560,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: tenchi_muyou
         not_anime_ids:
         - 1503
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7577,10 +7579,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: muumin
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7594,10 +7596,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: saiyuuki_gaiden
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7611,10 +7613,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: moon_pride
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7628,12 +7630,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: digimon_savers
         not_anime_ids:
         - 4712
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7647,10 +7649,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: hokuto_no_ken
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7664,10 +7666,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: mahoujin_guruguru
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7681,12 +7683,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: nen_joou
         not_anime_ids:
         - 9344
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7700,10 +7702,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: votoms_finder
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7717,10 +7719,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: bleach
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7734,7 +7736,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: mazinkaiser
       :threshold: 60%
@@ -7751,10 +7753,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: transformers
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7768,7 +7770,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: pokemon
         not_anime_ids:
@@ -7792,10 +7794,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: urusei_yatsura
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7809,12 +7811,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: yes_precure
         not_anime_ids:
         - 10736
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7828,10 +7830,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: hetalia
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7845,10 +7847,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: tegamibachi
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7862,10 +7864,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: hayate_no_gotoku
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7879,10 +7881,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: mobile_police_patlabor
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7896,10 +7898,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ranma
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7913,10 +7915,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: black_jack
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7930,10 +7932,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: genshiken
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7947,10 +7949,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: to_love_ru
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7964,10 +7966,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: space_cobra
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7981,10 +7983,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: aikatsu
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7998,10 +8000,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: negima
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8015,10 +8017,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: getter_robo
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8032,10 +8034,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: minami_ke
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8049,10 +8051,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ojamajo_doremi
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8066,10 +8068,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: garo
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8083,12 +8085,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: blood
         not_anime_ids:
         - 14077
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8102,12 +8104,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: kimagure_orange_road
         not_anime_ids:
         - 14059
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8121,10 +8123,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: dragon_quest
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8138,10 +8140,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: fushigi_yuugi
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8155,10 +8157,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: pripara
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8172,10 +8174,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: utawarerumono
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8189,10 +8191,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: shakugan_no_shana
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8206,10 +8208,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: soukyuu_no_fafner
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8223,10 +8225,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: puchimas
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8240,10 +8242,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: zero_no_tsukaima
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8257,10 +8259,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: toriko
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8274,10 +8276,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: aa_megami_sama
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8291,7 +8293,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: locker_room
       :threshold: 60%
@@ -8308,10 +8310,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: senki_zesshou_symphogear
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8325,10 +8327,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: grendizer_giga
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8342,10 +8344,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: zettai_karen_children
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8359,10 +8361,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: konjiki_no_gash_bell
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8376,12 +8378,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: saki
         not_anime_ids:
         - 30292
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8395,10 +8397,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: casshern
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8412,10 +8414,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: candy_candy
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8429,10 +8431,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: taiho_shichau_zo
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8446,7 +8448,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: yu_gi_oh
         not_anime_ids:
@@ -8455,7 +8457,7 @@
         - 16576
         - 21595
         - 32346
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8469,10 +8471,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: seiren
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8486,10 +8488,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: mai_hime
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8503,10 +8505,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: selector_spread_wixoss
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8520,10 +8522,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: baki
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8537,10 +8539,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: force_live
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8554,10 +8556,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: captain_tsubasa
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8571,10 +8573,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: tiger_mask
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8588,10 +8590,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: saber_marionette_j
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8605,10 +8607,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: el_hazard
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8622,10 +8624,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: galaxy_angel
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8639,10 +8641,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: cardfight_vanguard
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8656,10 +8658,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: cyborg
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8673,10 +8675,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: rean_no_tsubasa
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8690,10 +8692,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ad_police
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8707,12 +8709,12 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: d_c
         not_anime_ids:
         - 4508
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8726,10 +8728,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: kinnikuman
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8743,10 +8745,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: super_robot_taisen_og
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8760,10 +8762,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: hack_gift
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8777,10 +8779,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: futari_wa_milky_holmes
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8794,10 +8796,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: aquarion_evol
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8811,10 +8813,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: di_gi_charat
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8828,10 +8830,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: dirty_pair
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8845,10 +8847,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: angelique
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8862,10 +8864,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: cutey_honey
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8879,10 +8881,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: mahou_no_princess_minky_momo
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8896,7 +8898,7 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ehon_yose
       :threshold: 50%
@@ -8913,10 +8915,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: to_heart
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8930,10 +8932,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: sakura_taisen
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8947,10 +8949,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ginga_senpuu_braiger
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8964,10 +8966,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ikkitousen
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8981,10 +8983,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: juusenki_l_gaim
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8998,10 +9000,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: sonic
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9015,10 +9017,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: choujuu_kishin_dancougar
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9032,10 +9034,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: queen_s_blade
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9049,10 +9051,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: haou_daikei_ryuu_knight
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9066,10 +9068,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: super_doll_licca_chan
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9083,10 +9085,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: ultraman
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9100,10 +9102,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: iron_man
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9117,10 +9119,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: obake_no_q_tarou
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9134,10 +9136,10 @@
     :text_en: 
     :topic_id: 247360
     :rule:
-      :algo: simple
+      :algo: duration
       :filters:
         franchise: pro_golfer_saru
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9151,7 +9153,7 @@
     :text_en: 
     :topic_id: 227432
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25%
       :filters:
         genre_ids:
@@ -9170,7 +9172,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 45%
       :filters:
         genre_ids:
@@ -9189,7 +9191,7 @@
     :text_en: "...and I liked it!"
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 65%
       :filters:
         genre_ids:
@@ -9208,7 +9210,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 85%
       :filters:
         genre_ids:
@@ -9228,7 +9230,7 @@
     :text_en: 
     :topic_id: 222047
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25
       :filters:
         genre_ids:
@@ -9246,7 +9248,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -9264,7 +9266,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -9283,7 +9285,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -9302,7 +9304,7 @@
     :text_en: 
     :topic_id: 222065
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25
       :filters:
         genre_ids:
@@ -9320,7 +9322,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -9338,7 +9340,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -9357,7 +9359,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -9375,7 +9377,7 @@
     :text_en: 
     :topic_id: 245150
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 50
       :filters:
         genre_ids:
@@ -9393,7 +9395,7 @@
     :text_en: 
     :topic_id: 227417
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25
       :filters:
         genre_ids:
@@ -9413,7 +9415,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -9432,7 +9434,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -9451,7 +9453,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -9470,7 +9472,7 @@
     :text_en: 
     :topic_id: 222061
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 20
       :filters:
         genre_ids:
@@ -9488,7 +9490,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -9507,7 +9509,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -9526,7 +9528,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -9544,7 +9546,7 @@
     :text_en: 
     :topic_id: 222035
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 70
       :filters:
         genre_ids:
@@ -9562,7 +9564,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 150
       :filters:
         genre_ids:
@@ -9581,7 +9583,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 250
       :filters:
         genre_ids:
@@ -9600,7 +9602,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 400
       :filters:
         genre_ids:
@@ -9619,7 +9621,7 @@
     :text_en: 
     :topic_id: 222059
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -9638,7 +9640,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 90
       :filters:
         genre_ids:
@@ -9657,7 +9659,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 140
       :filters:
         genre_ids:
@@ -9675,7 +9677,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 200
       :filters:
         genre_ids:
@@ -9693,7 +9695,7 @@
     :text_en: 
     :topic_id: 227429
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25
       :filters:
         genre_ids:
@@ -9711,7 +9713,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -9729,7 +9731,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -9747,7 +9749,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -9765,7 +9767,7 @@
     :text_en: 
     :topic_id: 227421
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 30%
       :filters:
         anime_ids:
@@ -9827,7 +9829,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 55%
       :filters:
         anime_ids:
@@ -9891,7 +9893,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 80%
       :filters:
         anime_ids:
@@ -9953,7 +9955,7 @@
     :text_en: 
     :topic_id: 227425
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 80%
       :filters:
         anime_ids:
@@ -9996,7 +9998,7 @@
     :text_en: 
     :topic_id: 222041
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -10014,7 +10016,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 90
       :filters:
         genre_ids:
@@ -10032,7 +10034,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 140
       :filters:
         genre_ids:
@@ -10050,7 +10052,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 200
       :filters:
         genre_ids:
@@ -10070,7 +10072,7 @@
     :text_en: 
     :topic_id: 222063
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 30
       :filters:
         genre_ids:
@@ -10089,7 +10091,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -10107,7 +10109,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 90
       :filters:
         genre_ids:
@@ -10126,7 +10128,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 120
       :filters:
         genre_ids:
@@ -10144,7 +10146,7 @@
     :text_en: 
     :topic_id: 245151
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 65
       :filters:
         duration_lte: 14
@@ -10161,7 +10163,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 150
       :filters:
         duration_lte: 14
@@ -10178,7 +10180,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 250
       :filters:
         duration_lte: 14
@@ -10195,7 +10197,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 400
       :filters:
         duration_lte: 14
@@ -10212,7 +10214,7 @@
     :text_en: 
     :topic_id: 227418
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25%
       :filters:
         genre_ids:
@@ -10232,7 +10234,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 45%
       :filters:
         genre_ids:
@@ -10251,7 +10253,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 65%
       :filters:
         genre_ids:
@@ -10270,7 +10272,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 85%
       :filters:
         genre_ids:
@@ -10289,7 +10291,7 @@
     :text_en: 
     :topic_id: 227428
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 25
       :filters:
         genre_ids:
@@ -10308,7 +10310,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40
       :filters:
         genre_ids:
@@ -10326,7 +10328,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60
       :filters:
         genre_ids:
@@ -10345,7 +10347,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 100
       :filters:
         genre_ids:
@@ -10363,7 +10365,7 @@
     :text_en: 
     :topic_id: 222051
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 70
       :filters:
         genre_ids:
@@ -10381,7 +10383,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 150
       :filters:
         genre_ids:
@@ -10399,7 +10401,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 250
       :filters:
         genre_ids:
@@ -10417,7 +10419,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 400
       :filters:
         genre_ids:
@@ -10435,7 +10437,7 @@
     :text_en: 
     :topic_id: 227430
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 30%
       :filters:
         anime_ids:
@@ -10573,7 +10575,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 55%
       :filters:
         anime_ids:
@@ -10711,7 +10713,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 80%
       :filters:
         anime_ids:
@@ -10849,7 +10851,7 @@
     :text_en: 
     :topic_id: 222645
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 20%
       :filters:
         genre_ids:
@@ -10868,7 +10870,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 40%
       :filters:
         genre_ids:
@@ -10887,7 +10889,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 60%
       :filters:
         genre_ids:
@@ -10905,7 +10907,7 @@
     :text_en: 
     :topic_id: 
     :rule:
-      :algo: simple
+      :algo: count
       :threshold: 90%
       :filters:
         genre_ids:
