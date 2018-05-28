@@ -1,7 +1,6 @@
 # Публикация различных уведомлений через Faye
 # FayePublisher.new(User.first, nil).publish({ data: { comment_id: 999999999, topic_id: 79981 } }, ['/topic-79981'])
-# rubocop:disable ClassLength
-class FayePublisher
+class FayePublisher # rubocop:disable ClassLength
   BROADCAST_FEED = 'myfeed'
 
   def initialize actor, publisher_faye_id = nil
@@ -178,12 +177,14 @@ private
 
   def faye_client
     @faye_client ||= Faye::Client.new(
-      "http://127.0.0.1:9292#{Rails.application.secrets.faye[:endpoint_path]}"
+      Shikimori::PROTOCOL + '://' + config[:host] +
+        (config[:port].present? ? ":#{config[:port]}" : '') +
+        config[:endpoint_path]
     )
   end
 
   def config
-    @config ||= YAML.load_file "#{Rails.root}/config/faye.yml"
+    Rails.application.secrets.faye
   end
 
   def run_event_machine

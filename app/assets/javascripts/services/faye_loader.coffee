@@ -64,11 +64,11 @@ module.exports = class FayeLoader
     # hostname = (if ENV == 'development' then 'localhost' else location.hostname)
     hostname = location.hostname
 
-    @client = new Faye.Client "#{location.protocol}//#{hostname}#{port}/faye-server-v5",
+    @client = new Faye.Client "#{location.protocol}//#{hostname}#{port}/",
       timeout: 300
       retry: 5
       # endpoints:
-        # websocket: "#{location.protocol}//#{location.hostname}#{port}/faye-server-v5"
+        # websocket: "#{location.protocol}//#{location.hostname}#{port}/server-v1"
 
     #@client.disable 'eventsource'
     @client.disable('websocket') if $.cookie('faye-disable-websocket')

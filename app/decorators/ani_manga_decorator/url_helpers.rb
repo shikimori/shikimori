@@ -73,7 +73,7 @@ module AniMangaDecorator::UrlHelpers
     )
   end
 
-  def cosplay_url page=1
+  def cosplay_url page = 1
     if page > 1
       h.send "cosplay_#{klass_lower}_url", object, page: page
     else
@@ -93,13 +93,13 @@ module AniMangaDecorator::UrlHelpers
   end
 
   # адрес косплея персонажа
-  #def cosplay_url character, gallery = nil
-    #if gallery
-      #h.send "cosplay_#{klass_lower}_url", object, character, gallery
-    #else
-      #h.send "cosplay_#{klass_lower}_url", object, character
-    #end
-  #end
+  # def cosplay_url character, gallery = nil
+  #   if gallery
+  #     h.send "cosplay_#{klass_lower}_url", object, character, gallery
+  #   else
+  #     h.send "cosplay_#{klass_lower}_url", object, character
+  #   end
+  # end
 
   # адрес обзоров
   def reviews_url
@@ -139,7 +139,8 @@ module AniMangaDecorator::UrlHelpers
   end
 
   def upload_first_video_online_url
-    h.new_video_online_url(object,
+    h.new_video_online_url(
+      object,
       'anime_video[anime_id]' => id,
       'anime_video[source]' => Shikimori::DOMAIN,
       'anime_video[state]' => 'uploaded',

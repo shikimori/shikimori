@@ -2,7 +2,7 @@ module Routing
   extend ActiveSupport::Concern
   include Rails.application.routes.url_helpers
 
-  SHIKIMORI_DOMAIN = %r/
+  SHIKIMORI_DOMAIN = /
     \A
     (?: (?:play|#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )
     shikimori \. (?: org|dev )
@@ -37,9 +37,9 @@ module Routing
     elsif topic_type_policy.any_club_topic?
 
       club = if topic_type_policy.club_page_topic?
-        topic.linked.club
-      else
-        topic.linked
+               topic.linked.club
+             else
+               topic.linked
       end
 
       club_club_topic_url options.merge(
@@ -83,19 +83,26 @@ module Routing
   end
 
   def camo_url image_url
-    return image_url if image_url.starts_with? '//', 'https://'
-    return image_url if image_url.ends_with? 'eot', 'svg', 'ttf', 'woff', 'woff2'
+    if image_url.starts_with?('//', 'https://') ||
+        image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2')
+      return image_url
+    end
 
     url = Url.new(image_url)
     return url.without_protocol.to_s if url.domain.to_s.match? SHIKIMORI_DOMAIN
 
     @camo_urls ||= {}
 
-    port = ':5566' if Rails.env.development?
-    protocol = Shikimori::PROTOCOL
+    camo_host =
+      if Rails.env.development?
+        "#{shiki_domain}:5566"
+      else
+        "camo.#{shiki_domain}"
+      end
 
-    @camo_urls[image_url] = "#{protocol}://#{shiki_domain}#{port}/" \
-      "camo/#{camo_digest image_url}?url=#{CGI.escape image_url}"
+    @camo_urls[image_url] = Shikimori::PROTOCOL + '://' +
+      camo_host + Rails.application.secrets[:camo][:endpoint_path] +
+      "#{camo_digest image_url}?url=#{CGI.escape image_url}"
   end
 
 private

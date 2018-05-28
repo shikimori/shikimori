@@ -17,11 +17,12 @@ require_relative '../lib/named_logger'
 Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
 
 module Shikimori
-  DOMAIN = {
-    'production' => 'shikimori.org',
-    'development' => 'shikimori.local',
-    'test' => 'shikimori.test'
-  }[Rails.env]
+  DOMAINS = {
+    production: 'shikimori.org',
+    development: 'shikimori.local',
+    test: 'shikimori.test'
+  }
+  DOMAIN = DOMAINS[Rails.env.to_sym]
 
   NAME_RU = 'Шикимори'
   NAME_EN = 'Shikimori'
