@@ -27,53 +27,65 @@ en:
         anime:
           - you are registered on the site
           - you have at least 20-30 watched and scored entries in your anime list
+
         manga:
           - you are registered on the site
           - you have at least 20-30 read and scored entries in your manga list
+
     list_imports:
       show:
         empty_list: Uploaded list is empty.
         broken_file: The uploaded file can not be read. The file is either corrupted, or it is not a file with a list.
         mismatched_list_type: Invalid list type selected.
       pending:
-        please_wait: Please wait until the end of import.
+        please_wait: >-
+          Please wait until the end of import.
+          It may take some time.
       finished:
         added:
           anime:
             zero: 'No new animes added'
             one: '%{count} new anime added'
             other: '%{count} new animes added'
+
           manga:
             zero: 'No new mangas added'
             one: '%{count} new manga added'
             other: '%{count} new mangas added'
+
         updated:
           anime:
             zero: 'No animes updated'
             one: '%{count} anime updated'
             other: '%{count} animes updated'
+
           manga:
             zero: 'No mangas updated'
             one: '%{count} manga updated'
             other: '%{count} mangas updated'
+
         not_changed:
           anime:
             zero: 'No animes w/o changes'
             one: '%{count} anime w/o changes'
             other: '%{count} animes w/o changes'
+
           manga:
             zero: 'No mangas w/o changes'
             one: '%{count} manga w/o changes'
             other: '%{count} mangas w/o changes'
+
         not_imported:
           anime:
             zero: 'No not imported animes'
             one: '%{count} anime not imported'
             other: '%{count} animes not imported'
+
           manga:
             zero: 'No not imported mangas'
             one: '%{count} manga not imported'
             other: '%{count} mangas not imported'
+
       list_entry_details:
         episodes: '%{value} ep'
         volumes: '%{value} vol'
