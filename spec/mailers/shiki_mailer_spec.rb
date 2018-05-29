@@ -113,7 +113,7 @@ describe ShikiMailer do
 
           We have received a request to reset your account password on shikimori.test.
 
-          Your acount login is #{user.nickname}.
+          Your account login is #{user.nickname}.
 
           To reset you password click this link: https://test.host/users/password/edit?reset_password_token=#{token}
 

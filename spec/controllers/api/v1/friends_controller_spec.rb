@@ -38,7 +38,7 @@ describe Api::V1::FriendsController do
       it do
         expect(User.find(user.id).friends.include?(user2)).to eq false
 
-        expect(json[:notice]).to eq 'user_1234567 удален из друзей'
+        expect(json[:notice]).to eq 'user_1234567 удалён из друзей'
         expect(response).to have_http_status :success
       end
     end

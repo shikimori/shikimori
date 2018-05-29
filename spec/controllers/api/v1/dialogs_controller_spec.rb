@@ -33,7 +33,7 @@ describe Api::V1::DialogsController, :show_in_doc do
         expect(response.content_type).to eq 'application/json'
         expect { message.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(response).to have_http_status :success
-        expect(json[:notice]).to eq 'Переписка удалёна'
+        expect(json[:notice]).to eq 'Переписка удалена'
       end
     end
 
