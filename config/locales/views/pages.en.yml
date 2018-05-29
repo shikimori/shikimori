@@ -70,14 +70,14 @@ en:
       font_size_example: '[size=10]text[/size] and [size=16]text[/size]'
       font_size_notice: 13 &ndash; standard font size
 
-      div: Div with arbitrary css class
+      div: Div with arbitrary css class and data-attribute
       div_example_1: >-
-        [div=cc-2a]<br>
+        [div=cc-2a data-custom_data_attribute]<br>
         [div=c-column]column 1[/div]<br>
         [div=c-column]column 2[/div]<br>
         [/div]<br>
       div_example_2: >-
-        [div=cc-2a]
+        [div=cc-2a data-custom_data_attribute]
         [div=c-column]column 1[/div]
         [div=c-column]column 2[/div]
         [/div]

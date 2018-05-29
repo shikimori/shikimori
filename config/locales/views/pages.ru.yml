@@ -70,36 +70,16 @@ ru:
       font_size_example: '[size=10]текст[/size] и [size=16]текст[/size]'
       font_size_notice: 13 &ndash; стандартный размер
 
-      div: Div с произвольным css классом
+      div: Div с произвольным css классом и data-аттрибутом
       div_example_1: >-
-        [div=cc-2a]
-        <br>[div=c-column]
-          <br>column 1
-          <br>column 1
-          <br>column 1
-          <br>column 1
-        <br>[/div]
-        <br>[div=c-column]
-          <br>column 2
-          <br>column 2
-          <br>column 2
-          <br>column 2
-        <br>[/div]
-        <br>[/div]
+        [div=cc-2a data-custom_data_attribute]<br>
+        [div=c-column]column 1[/div]<br>
+        [div=c-column]column 2[/div]<br>
+        [/div]<br>
       div_example_2: >-
-        [div=cc-2a]
-        [div=c-column]
-          column 1
-          column 1
-          column 1
-          column 1
-        [/div]
-        [div=c-column]
-          column 2
-          column 2
-          column 2
-          column 2
-        [/div]
+        [div=cc-2a data-custom_data_attribute]
+        [div=c-column]column 1[/div]
+        [div=c-column]column 2[/div]
         [/div]
 
       code: Код
