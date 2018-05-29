@@ -21,20 +21,23 @@
 
 .cc-second
   .cc-inner
-    .c-content
+    .c-content.to-process data-dynamic='tabs'
       .options
-        .option.selected = i18n_i 'Anime', :other
-        .option = i18n_i 'Manga', :other
-        .option = i18n_i 'Ranobe', :other
+        .option.active data-tab-switch=true
+          = i18n_i 'Anime', :other
+        .option data-tab-switch=true
+          = i18n_i 'Manga', :other
+        .option data-tab-switch=true
+          = i18n_i 'Ranobe', :other
 
       .slides
-        .slide.animes
+        .slide.animes data-tab=true
           = render 'dashboards/animes', dashboard_view: @dashboard_view
 
-        .slide.mangas.hidden
+        .slide.mangas.hidden data-tab=true
           = render 'dashboards/mangas', dashboard_view: @dashboard_view
 
-        .slide.ranobe.hidden
+        .slide.ranobe.hidden data-tab=true
           = render 'dashboards/ranobe', dashboard_view: @dashboard_view
 
         / .slide.hidden

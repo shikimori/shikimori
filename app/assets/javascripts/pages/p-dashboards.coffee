@@ -8,18 +8,6 @@ page_load 'dashboards_show', ->
         .siblings('.list-type')
         .toggleClass('hidden')
 
-  $('.c-content .options .option').on 'click', ->
-    $(@)
-      .addClass('selected')
-        .siblings()
-        .removeClass('selected')
-
-    $('.c-content .slides .slide')
-      .eq($(@).index())
-      .removeClass('hidden')
-        .siblings()
-        .addClass('hidden')
-
   delay(500).then ->
     $('.cc-news').imagesLoaded ->
       $user_news = $('.c-news_topics')
