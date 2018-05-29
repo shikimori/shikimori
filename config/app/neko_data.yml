@@ -543,7 +543,7 @@
   attributes:
     :neko_id: :horror_thriller
     :level: 1
-    :image: "/assets/achievements/anime/horror_thriller_1.png"
+    :image: "/assets/achievements/anime/horror_thriller_1.jpg"
     :border_color: "#821d60"
     :title_ru: Смерть дышит в спину
     :text_ru: Практически всё в этом мире умирает. В этом мире жизнь — всего лишь
@@ -2808,7 +2808,7 @@
     :image: "/assets/achievements/anime/romance_1.jpg"
     :border_color: "#e2b801"
     :title_ru: Сталкер
-    :text_ru: Сталкер 24/7. Почему ты меня не замечаешь?
+    :text_ru: Почему ты меня не замечаешь?
     :title_en: 
     :text_en: 
     :topic_id: 222064
@@ -2824,9 +2824,9 @@
     :neko_id: :romance
     :level: 2
     :image: "/assets/achievements/anime/romance_2.jpg"
-    :border_color: "#9e9cb2"
+    :border_color: "#DC143C"
     :title_ru: Первое признание в любви.
-    :text_ru: Если ты не признаешься, он никогда не узнает о твоих чувствах.
+    :text_ru: Если ты не признаешься, она никогда не узнает о твоих чувствах.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -2844,7 +2844,7 @@
     :image: "/assets/achievements/anime/romance_3.jpg"
     :border_color: "#f16251"
     :title_ru: Конфетно-букетный период
-    :text_ru: Теперь ты можешь на равных поддерживать разговор с Салатом.
+    :text_ru: Любовь - это желание отдавать.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -2860,9 +2860,9 @@
     :neko_id: :romance
     :level: 4
     :image: "/assets/achievements/anime/romance_4.gif"
-    :border_color: "#001a6e"
-    :title_ru: Сердце, полное любви
-    :text_ru: Эксперт в отношениях.
+    :border_color: "#FAE7B5"
+    :title_ru: Эксперт в отношениях
+    :text_ru: Сердце, полное любви.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -5709,7 +5709,7 @@
     :neko_id: :mecha
     :level: 2
     :image: "/assets/achievements/anime/mecha_2.jpg"
-    :border_color: "#DCDCDC"
+    :border_color: "#00693E"
     :title_ru: Hassin!
     :text_ru: Некогда непривычный костюм пилота теперь сидит как влитой. Вы — ас,
       впереди — бесконечные сражения.
@@ -5728,7 +5728,7 @@
     :neko_id: :mecha
     :level: 3
     :image: "/assets/achievements/anime/mecha_3.jpg"
-    :border_color: "#00693E"
+    :border_color: "#C5D0E6"
     :title_ru: 
     :text_ru: Можете взять яйцо не раздавив, можете исполнить танцевальное па... но
       боевой доспех стал вашей второй кожей не для этого.
