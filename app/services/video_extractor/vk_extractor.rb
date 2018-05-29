@@ -3,6 +3,9 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
     https?://vk.com/video-?(\d+)_(\d+)(?:\?[\w=+%&]+)?
   }xi
 
+  IMAGE_SELECTOR = "meta[property='og:image']"
+  VIDEO_SELECTOR = "meta[property='og:video'],meta[property='og:video:url']"
+
   def url
     self.class.normalize_url super
   end
@@ -12,24 +15,31 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   end
 
   def player_url
-    "//vk.com/video_ext.php?oid=#{parsed_data[:oid]}&id=#{parsed_data[:vid]}&hash=#{parsed_data[:hash2]}"
+    '//vk.com/video_ext.php' \
+      "?oid=#{parsed_data[:oid]}" \
+      "&id=#{parsed_data[:vid]}" \
+      "&hash=#{parsed_data[:hash2]}"
   end
 
   def parse_data html
     doc = Nokogiri::HTML html
 
-    og_image = doc.css("meta[property='og:image']").first
-    og_video = doc.css("meta[property='og:video'],meta[property='og:video:url']").first
+    og_image = doc.css(IMAGE_SELECTOR).first
+    og_video = doc.css(VIDEO_SELECTOR).first
 
-    {
-      image: og_image[:content],
-      oid: og_video[:content][/oid=([-\w]+)/, 1],
-      vid: og_video[:content][/vid=([-\w]+)/, 1],
-      hash2: og_video[:content][/embed_hash=([-\w]+)/, 1],
-    } if og_image && og_video
+    vk_hash og_image, og_video if og_image && og_video
   end
 
   def self.normalize_url url
     url.gsub('http://', 'https://').gsub('//vkontakte.ru', '//vk.com')
+  end
+
+  def vk_hash og_image, og_video
+    {
+      image: og_image[:content],
+      oid: og_video[:content][/\boid=([-\w]+)/, 1],
+      vid: og_video[:content][/\b(?:vid|id)=([-\w]+)/, 1],
+      hash2: og_video[:content][/\b(?:embed_hash|hash)=([-\w]+)/, 1]
+    }
   end
 end

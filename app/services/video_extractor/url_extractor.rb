@@ -46,13 +46,13 @@ private
   def parsed_url
     parse_url
       &.gsub('&amp;', '&')
-      &.sub(%r{[\]\[=\\]+$}, '')
-      &.sub(%r{\|.*}, '')
+      &.sub(/[\]\[=\\]+$/, '')
+      &.sub(/\|.*/, '')
   end
 
   def extracted_url
     data = VideoExtractor.fetch url
-    data.player_url if data
+    data&.player_url
   end
 
   def url
@@ -60,16 +60,16 @@ private
   end
 
   def html
-    @hmtl ||= if url =~ %r{^https?://[^ <>"]+$}
-      "src=\"#{url}\""
-    else
-      url
-    end
+    @html ||=
+      if %r{^https?://[^ <>"]+$}.match?(url)
+        "src=\"#{url}\""
+      else
+        url
+      end
   end
 
   # rubocop:disable AbcSize
   # rubocop:disable MethodLength
-  # rubocop:disable LineLenghth
   def parse_url
     if html =~ %r{(?<url>#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
       cleanup_params(
@@ -83,13 +83,13 @@ private
     elsif html =~ %r{(?<url>#{HTTP}img.mail.ru/r/video2/player_v2.swf\?#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(#{HTTP}my.mail.ru/mail/(?<user>#{PARAM})/video/(?<ids>#{PARAM}/#{PARAM}).html)}
-      "https://videoapi.my.mail.ru/videos/embed/mail/#{$~[:user]}/#{$~[:ids]}.html"
+      "https://videoapi.my.mail.ru/videos/embed/mail/#{$LAST_MATCH_INFO[:user]}/#{$LAST_MATCH_INFO[:ids]}.html"
     elsif html =~ /movieSrc=(#{CONTENT})"/
-      "http://videoapi.my.mail.ru/videos/embed/#{$1.sub(/&autoplay=\d/, '')}.html"
+      "http://videoapi.my.mail.ru/videos/embed/#{Regexp.last_match(1).sub(/&autoplay=\d/, '')}.html"
     elsif html =~ %r{(?<url>#{HTTP}video.sibnet.ru/shell#{CONTENT})}
       cleanup_params(
         $LAST_MATCH_INFO[:url].sub(/shell\.swf\?/, 'shell.php?'),
-        %w(videoid)
+        %w[videoid]
       ).gsub(/(videoid=\d+)[\w\.]*/, '\1')
     elsif html =~ %r{#{HTTP}data\d+\.video.sibnet.ru/\d+/\d+(?:/\d+)?/(?<videoid>#{CONTENT}).(?:mp4|flv)}
       video_id = $LAST_MATCH_INFO[:videoid]
@@ -116,21 +116,21 @@ private
       "https://smotret-anime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ VideoExtractor::RutubeExtractor::URL_REGEX
       if $LAST_MATCH_INFO[:hash].size > 10
-        VideoExtractor::RutubeExtractor::URL_TEMPLATE % [
+        format(
+          VideoExtractor::RutubeExtractor::URL_TEMPLATE,
           $LAST_MATCH_INFO[:hash]
-        ]
-      else
-        nil # result will be given by VideoExtractor::RutubeExtractor
+        )
       end
+      # else - result will be given by VideoExtractor::RutubeExtractor
     elsif html =~ %r{#{HTTP}play.aniland.org/(?<hash>\w+)}
       "http://play.aniland.org/#{$LAST_MATCH_INFO[:hash]}?player=8"
     elsif html =~ SOVET_ROMANTICA_REGEXP
       'https://sovetromantica.com/embed/episode_'\
         "#{$LAST_MATCH_INFO[:anime_id]}_#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ ANIMEDIA_REGEXP
-      "#{$LAST_MATCH_INFO[:url]}"
+      ($LAST_MATCH_INFO[:url]).to_s
     elsif html =~ ANIMAUNT_REGEXP
-      "#{$LAST_MATCH_INFO[:url]}"
+      ($LAST_MATCH_INFO[:url]).to_s
     elsif html =~ %r{(?<url>#{HTTP}kadu.ru/embed#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     else
