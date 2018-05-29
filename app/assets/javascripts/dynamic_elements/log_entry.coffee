@@ -54,7 +54,7 @@ class DynamicElements.LogEntry extends ShikiView
       # "b-tooltipped" tooltip wont disappear otherwise
       @$root.remove()
 
-  _reject_dialog: (e) =>
+  _reject_dialog: (e) ->
     href = $(e.target).data('href')
     reason = prompt $(e.target).data('reason-prompt')
 

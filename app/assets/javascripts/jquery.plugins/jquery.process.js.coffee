@@ -39,8 +39,6 @@ process_current_dom = (root = document.body, JS_EXPORTS = window.JS_EXPORTS) ->
     .each ->
       new Wall.Gallery @
 
-  console.error 'found unprocessed topic!!!!!' if $with('.b-topic.unprocessed', $root).length
-
   # блоки, загружаемые аяксом
   $with('.postloaded[data-href]', $root).each ->
     $this = $(@)
