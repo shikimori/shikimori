@@ -14,4 +14,4 @@ ru:
         published: >-
           Отмена публикации невозможна
     preview:
-      more: еще +%{count}
+      more: ещё +%{count}

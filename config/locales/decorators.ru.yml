@@ -27,7 +27,7 @@ ru:
   person_decorator: &person_decorator
     <<: *db_entry_decorator
     job_title:
-      producer: Режиссер аниме
+      producer: Режиссёр аниме
       mangaka: Автор манги
       composer: Композитор
       vocalist: Вокалист
