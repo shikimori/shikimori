@@ -322,7 +322,7 @@
     :image: "/assets/achievements/anime/animelist_7.jpg"
     :border_color: "#ACB78E"
     :title_ru: Есть чем похвастаться
-    :text_ru: Просмотрено 400 аниме. Это... много. Вы можете гордиться собой, определённо.
+    :text_ru: Просмотрено 400 аниме. Это... солидно. Вы можете гордиться собой, определённо.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -413,7 +413,7 @@
   attributes:
     :neko_id: :animelist
     :level: 13
-    :image: "/assets/achievements/anime/animelist_14.jpg"
+    :image: "/assets/achievements/anime/animelist_13.jpg"
     :border_color: "#C7D0CC"
     :title_ru: Раз, два, три, четыре
     :text_ru: |-
@@ -5730,7 +5730,8 @@
     :image: "/assets/achievements/anime/mecha_3.jpg"
     :border_color: "#00693E"
     :title_ru: 
-    :text_ru: 
+    :text_ru: Можете взять яйцо не раздавив, можете исполнить танцевальное па... но
+      боевой доспех стал вашей второй кожей не для этого.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -5745,10 +5746,10 @@
   attributes:
     :neko_id: :mecha
     :level: 4
-    :image: "/assets/achievements/anime/mecha_4.png"
-    :border_color: "#da4968"
+    :image: "/assets/achievements/anime/mecha_4.gif"
+    :border_color: "#4682B4"
     :title_ru: Ньютайп
-    :text_ru: Ore wa Gundam Магма течет в наших венах, раскаляя сердца!
+    :text_ru: Ore wa Gundam
     :title_en: 
     :text_en: 
     :topic_id: 
