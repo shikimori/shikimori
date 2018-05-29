@@ -4,7 +4,8 @@ class BbCodes::Tags::DivTag
   TAG_START_REGEXP = /
     \[
       div
-      (?: =(?<css_class>[\w_\ \-]+) )?
+      (?: =(?<css_class>(?:[\w_\ \-](?!data-\w))+) )?
+      (?<data_attributes>(?:\ data-[\w_\-]+)+)?
     \]
   /mix
 
@@ -46,11 +47,10 @@ private
     result = text.gsub TAG_START_REGEXP do
       replacements += 1
 
-      if $LAST_MATCH_INFO[:css_class]
-        "<div class=\"#{cleanup $LAST_MATCH_INFO[:css_class]}\">"
-      else
-        '<div>'
-      end
+      '<div' +
+        class_html($LAST_MATCH_INFO[:css_class]) +
+        data_html($LAST_MATCH_INFO[:data_attributes]) +
+        '>'
     end
 
     [result, replacements, original_text]
@@ -66,6 +66,22 @@ private
       result
     else
       original_text
+    end
+  end
+
+  def class_html value
+    if value.present?
+      " class=\"#{cleanup value}\""
+    else
+      ''
+    end
+  end
+
+  def data_html value
+    if value.present?
+      value
+    else
+      ''
     end
   end
 
