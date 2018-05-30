@@ -22,6 +22,7 @@
     dailymotion_com: video_hosting('dailymotion.com', url)
     streamable_com: video_hosting('streamable.com', url)
     smotret_anime: video_hosting('smotret-anime.ru', url)
+    ok_ru: video_hosting('ok.ru', url)
 
     #youtube_example:
       #index: 'youtube.com' # String that detects type of video (in this case YouTube). Simply via url.indexOf(index).

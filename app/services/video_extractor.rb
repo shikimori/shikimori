@@ -4,6 +4,7 @@
 # 2. add empbed player url parsing in VideoExtractor::PlayerUrlExtractor
 # 3. add hosting into Video if you want video urls to be parsed on forums
 #   after that add test into BbCodes::Tags::VideoUrlTag spec
+# 4. add new video hosting into shiki_video.coffee
 module VideoExtractor
   EXTRACTORS = %i[
     vk ok youtube coub vimeo open_graph rutube
