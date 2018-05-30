@@ -109,7 +109,8 @@ describe AnimeVideo do
         subject! { anime_video.save }
 
         context 'copyrighted' do
-          let(:author_name) { %w[wakanim crunchyroll].sample }
+          # let(:author_name) { %w[wakanim crunchyroll].sample }
+          let(:author_name) { 'wakanim' }
           it do
             is_expected.to eq false
             expect(anime_video.errors[:base]).to eq [

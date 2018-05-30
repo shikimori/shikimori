@@ -7,6 +7,6 @@ describe BbCodes::Tags::VideoTag do
     let(:hash) { 'hGgCnkvHLJY' }
     let(:video) { create :video, url: "http://www.youtube.com/watch?v=#{hash}" }
     let(:text) { "[video=#{video.id}]" }
-    it { is_expected.to include "data-href=\"//youtube.com/embed/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
+    it { is_expected.to include "data-href=\"//youtube.com/embed/#{hash}\" href=\"https://youtube.com/watch?v=#{hash}\"" }
   end
 end

@@ -6,7 +6,7 @@ describe Versioneers::VideosVersioneer do
   describe '#upload' do
     let(:params) do
       {
-        url: 'http://youtube.com/watch?v=l1YX30AmYsA',
+        url: 'https://youtube.com/watch?v=l1YX30AmYsA',
         name: 'test',
         kind: 'pv',
         uploader_id: user.id

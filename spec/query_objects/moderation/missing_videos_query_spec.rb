@@ -40,16 +40,31 @@ describe Moderation::MissingVideosQuery do
 
     context 'vk' do
       let(:kind) { 'vk' }
-      let!(:anime_video) { create :anime_video, :subtitles, anime: anime, episode: 1, url: 'https://vk.com/video_ext.php?oid=-32521137&id=171302170&hash=7753ad66fc1ed9ba' }
+      let!(:anime_video) do
+        create :anime_video, :subtitles,
+          anime: anime,
+          episode: 1,
+          url: 'https://vk.com/video_ext.php?oid=-32521137&id=171302170&hash=7753ad66fc1ed9ba'
+      end
 
       context 'no missing videos' do
-        let!(:anime_video_2) { create :anime_video, :subtitles, anime: anime, episode: 2, url: 'https://vk.com/video_ext.php?oid=-32521121&id=171302170&hash=7753ad66fc1ed9ba' }
+        let!(:anime_video_2) do
+          create :anime_video, :subtitles,
+            anime: anime,
+            episode: 2,
+            url: 'https://vk.com/video_ext.php?oid=-32521121&id=171302170&hash=7753ad66fc1ed9ba'
+        end
         it { expect(query.animes).to be_empty }
         it { expect(query.episodes anime).to be_empty }
       end
 
       context 'missing video' do
-        let!(:anime_video_2) { create :anime_video, :subtitles, anime: anime, episode: 2, url: 'http://myvi.ru/player/flash/oTX5PPFTxjkZZsHqI8dGBLfPI8flx20tXnkGHG2l5OQJJckIe1sS3EE-x8qepSVI50' }
+        let!(:anime_video_2) do
+          create :anime_video, :subtitles,
+            anime: anime,
+            episode: 2,
+            url: 'https://ok.ru/video/815923404420'
+        end
         it { expect(query.animes).to have(1).item }
         it { expect(query.episodes anime).to eq [2] }
       end
