@@ -7,9 +7,9 @@ class Video < ApplicationRecord
 
   enumerize :hosting,
     in: %i[
-      youtube vk ok coub twitch rutube vimeo myvi sibnet yandex
+      youtube vk ok coub rutube vimeo sibnet yandex
       streamable smotret_anime
-    ], # dailymotion
+    ], # dailymotion twitch myvi
     predicates: true
   enumerize :kind, in: %i[pv op ed other], predicates: true
 

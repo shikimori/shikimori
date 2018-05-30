@@ -64,64 +64,68 @@ describe VideoExtractor::PlayerUrlExtractor do
       end
     end
 
-    describe 'myvi_1' do
-      let(:html) { '<object style="height: 390px; width: 640px"><param name="movie" value="http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="730" height="480"></object>' }
-      it { is_expected.to eq '//myvi.ru/player/embed/html/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0' }
-    end
+    # describe 'myvi' do
+    #   describe do
+    #     let(:html) { '<object style="height: 390px; width: 640px"><param name="movie" value="http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="730" height="480"></object>' }
+    #     it { is_expected.to eq '//myvi.ru/player/embed/html/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0' }
+    #   end
 
-    describe 'myvi_2' do
-      let(:html) { '<object style="width: 640px; height: 390px"><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always" /><param name="movie" value="http://myvi.ru/ru/flash/player/pre/oCJCcZPAwDviOuI-cOd-JrhfCmNXN_Z8j1E4-AfyYvpDRsgS_SwGRg2SBXhTpEZs30" /><param name="flashVars" value="kgzp=replace" /><embed src="http://myvi.ru/ru/flash/player/pre/oCJCcZPAwDviOuI-cOd-JrhfCmNXN_Z8j1E4-AfyYvpDRsgS_SwGRg2SBXhTpEZs30" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="730" height="480" flashVars="kgzp=replace"></object>' }
-      it { is_expected.to eq '//myvi.ru/player/embed/html/oCJCcZPAwDviOuI-cOd-JrhfCmNXN_Z8j1E4-AfyYvpDRsgS_SwGRg2SBXhTpEZs30' }
-    end
+    #   describe do
+    #     let(:html) { '<object style="width: 640px; height: 390px"><param name="allowFullScreen" value="true"/><param name="allowScriptAccess" value="always" /><param name="movie" value="http://myvi.ru/ru/flash/player/pre/oCJCcZPAwDviOuI-cOd-JrhfCmNXN_Z8j1E4-AfyYvpDRsgS_SwGRg2SBXhTpEZs30" /><param name="flashVars" value="kgzp=replace" /><embed src="http://myvi.ru/ru/flash/player/pre/oCJCcZPAwDviOuI-cOd-JrhfCmNXN_Z8j1E4-AfyYvpDRsgS_SwGRg2SBXhTpEZs30" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="730" height="480" flashVars="kgzp=replace"></object>' }
+    #     it { is_expected.to eq '//myvi.ru/player/embed/html/oCJCcZPAwDviOuI-cOd-JrhfCmNXN_Z8j1E4-AfyYvpDRsgS_SwGRg2SBXhTpEZs30' }
+    #   end
 
-    describe 'myvi_3' do
-      let(:html) { '<iframe width="640" height="450" src="//myvi.tv/embed/html/oeBRkeha50wjXJIEU75wbYvUhlv4siaYE0KFla8kRgTHedQxAysFOs2B_yAWy3Tu80" frameborder="0" allowfullscreen></iframe>' }
-      it { is_expected.to eq '//myvi.ru/player/embed/html/oeBRkeha50wjXJIEU75wbYvUhlv4siaYE0KFla8kRgTHedQxAysFOs2B_yAWy3Tu80' }
-    end
+    #   describe do
+    #     let(:html) { '<iframe width="640" height="450" src="//myvi.tv/embed/html/oeBRkeha50wjXJIEU75wbYvUhlv4siaYE0KFla8kRgTHedQxAysFOs2B_yAWy3Tu80" frameborder="0" allowfullscreen></iframe>' }
+    #     it { is_expected.to eq '//myvi.ru/player/embed/html/oeBRkeha50wjXJIEU75wbYvUhlv4siaYE0KFla8kRgTHedQxAysFOs2B_yAWy3Tu80' }
+    #   end
 
-    describe 'myvi_4' do
-      let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0hk]" frameborder="0" allowfullscreen></iframe>' }
-      it { is_expected.to eq '//myvi.ru/player/embed/html/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0hk' }
-    end
+    #   describe do
+    #     let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0hk]" frameborder="0" allowfullscreen></iframe>' }
+    #     it { is_expected.to eq '//myvi.ru/player/embed/html/o-yLxiEDfwHkdkERps0Ol8xsewC-jd-DQ-g5RR1EkMf2kwIfTBIScHSFJW4DvGJOu0hk' }
+    #   end
 
-    describe 'myvi_5' do
-      let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/oPwYcE0DkIR7BuZ4Hjy-K97LXKJIgvwcsQQV3JDcss3LCRw294HoJ4fgXpSby1Q5lS2QxY125VvU1|http://myvi.ru/player/flash/oiLWME7qo9O3ragh7JC_fq2nr-f51DLt98_60sos3gbiY1ufb4hPA30whqpGE8VVjlVMzhdCsZgM1" frameborder="0" allowfullscreen></iframe>' }
-      it { is_expected.to eq '//myvi.ru/player/embed/html/oiLWME7qo9O3ragh7JC_fq2nr-f51DLt98_60sos3gbiY1ufb4hPA30whqpGE8VVjlVMzhdCsZgM1' }
-    end
+    #   describe do
+    #     let(:html) { '<iframe width="640" height="450" src="http://myvi.ru/player/flash/oPwYcE0DkIR7BuZ4Hjy-K97LXKJIgvwcsQQV3JDcss3LCRw294HoJ4fgXpSby1Q5lS2QxY125VvU1|http://myvi.ru/player/flash/oiLWME7qo9O3ragh7JC_fq2nr-f51DLt98_60sos3gbiY1ufb4hPA30whqpGE8VVjlVMzhdCsZgM1" frameborder="0" allowfullscreen></iframe>' }
+    #     it { is_expected.to eq '//myvi.ru/player/embed/html/oiLWME7qo9O3ragh7JC_fq2nr-f51DLt98_60sos3gbiY1ufb4hPA30whqpGE8VVjlVMzhdCsZgM1' }
+    #   end
 
-    describe 'myvi_6' do
-      let(:html) { 'http://myvi.tv/embed/html/o2uWMvJRKqAyXG2EJUGGwUUKZwjleODmTYy0zGlks1-J5IO6Aexc_mKSgpudtZ7Zn0' }
-      it { is_expected.to eq '//myvi.ru/player/embed/html/o2uWMvJRKqAyXG2EJUGGwUUKZwjleODmTYy0zGlks1-J5IO6Aexc_mKSgpudtZ7Zn0' }
-    end
+    #   describe do
+    #     let(:html) { 'http://myvi.tv/embed/html/o2uWMvJRKqAyXG2EJUGGwUUKZwjleODmTYy0zGlks1-J5IO6Aexc_mKSgpudtZ7Zn0' }
+    #     it { is_expected.to eq '//myvi.ru/player/embed/html/o2uWMvJRKqAyXG2EJUGGwUUKZwjleODmTYy0zGlks1-J5IO6Aexc_mKSgpudtZ7Zn0' }
+    #   end
 
-    describe 'myvi_7' do
-      let(:html) { 'http://myvi.ru/player/embed/html/preloader.swf?id=ooS23CgoxYNdHcm9FqwDb664Lbqhd1v7gyl7jDKc3O1xQ3-g0VOYjzoru3F35w6Ia0' }
-      it { is_expected.to eq '//myvi.ru/player/embed/html/ooS23CgoxYNdHcm9FqwDb664Lbqhd1v7gyl7jDKc3O1xQ3-g0VOYjzoru3F35w6Ia0' }
-    end
+    #   describe do
+    #     let(:html) { 'http://myvi.ru/player/embed/html/preloader.swf?id=ooS23CgoxYNdHcm9FqwDb664Lbqhd1v7gyl7jDKc3O1xQ3-g0VOYjzoru3F35w6Ia0' }
+    #     it { is_expected.to eq '//myvi.ru/player/embed/html/ooS23CgoxYNdHcm9FqwDb664Lbqhd1v7gyl7jDKc3O1xQ3-g0VOYjzoru3F35w6Ia0' }
+    #   end
+    # end
 
-    describe 'mail_ru_1' do
-      let(:html) { '<iframe src="http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html" width="730" height="480" frameborder="0"></iframe>' }
-      it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html' }
-    end
+    describe 'mail_ru' do
+      describe do
+        let(:html) { '<iframe src="http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html" width="730" height="480" frameborder="0"></iframe>' }
+        it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html' }
+      end
 
-    describe 'mail_ru_2' do
-      let(:html) { '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="730" height="480" id="movie_name" align="middle"><param name="movie" value="http://my9.imgsmail.ru/r/video2/uvpv3.swf?3"/><param name="flashvars" value="movieSrc=mail/bel_comp1/14985/15939&autoplay=0" /><param name="allowFullScreen" value="true" /><param name="AllowScriptAccess" value="always" /><!--[if !IE]>--><object type="application/x-shockwave-flash" data="http://my9.imgsmail.ru/r/video2/uvpv3.swf?3" width="730" height="480"><param name="movie" value="http://my9.imgsmail.ru/r/video2/uvpv3.swf?3"/><param name="flashvars" value="movieSrc=mail/bel_comp1/14985/15939&autoplay=0" /><param name="allowFullScreen" value="true" /><param name="AllowScriptAccess" value="always" /><!--<![endif]--><a href="http://www.adobe.com/go/getflash"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/></a><!--[if !IE]>--></object><!--<![endif]--></object>' }
-      it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/bel_comp1/14985/15939.html' }
-    end
+      describe do
+        let(:html) { '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="730" height="480" id="movie_name" align="middle"><param name="movie" value="http://my9.imgsmail.ru/r/video2/uvpv3.swf?3"/><param name="flashvars" value="movieSrc=mail/bel_comp1/14985/15939&autoplay=0" /><param name="allowFullScreen" value="true" /><param name="AllowScriptAccess" value="always" /><!--[if !IE]>--><object type="application/x-shockwave-flash" data="http://my9.imgsmail.ru/r/video2/uvpv3.swf?3" width="730" height="480"><param name="movie" value="http://my9.imgsmail.ru/r/video2/uvpv3.swf?3"/><param name="flashvars" value="movieSrc=mail/bel_comp1/14985/15939&autoplay=0" /><param name="allowFullScreen" value="true" /><param name="AllowScriptAccess" value="always" /><!--<![endif]--><a href="http://www.adobe.com/go/getflash"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/></a><!--[if !IE]>--></object><!--<![endif]--></object>' }
+        it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/bel_comp1/14985/15939.html' }
+      end
 
-    describe 'mail_ru_3' do
-      let(:html) { '<embed src="http://img.mail.ru/r/video2/player_v2.swf?par=http://video.mail.ru/mail/ol4ik87.87/1123/$3816" flashvars="orig=2" width="730" height="480" allowfullscreen="true" wmode="opaque"/>' }
-      it { is_expected.to eq '//img.mail.ru/r/video2/player_v2.swf?par=http://video.mail.ru/mail/ol4ik87.87/1123/$3816' }
-    end
+      describe do
+        let(:html) { '<embed src="http://img.mail.ru/r/video2/player_v2.swf?par=http://video.mail.ru/mail/ol4ik87.87/1123/$3816" flashvars="orig=2" width="730" height="480" allowfullscreen="true" wmode="opaque"/>' }
+        it { is_expected.to eq '//img.mail.ru/r/video2/player_v2.swf?par=http://video.mail.ru/mail/ol4ik87.87/1123/$3816' }
+      end
 
-    describe 'mail_ru_4' do
-      let(:html) { '<iframe src="https://videoapi.my.mail.ru/videos/embed/mail/allenwolker91/11052/11071.html" width="626" height="367" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>' }
-      it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/allenwolker91/11052/11071.html' }
-    end
+      describe do
+        let(:html) { '<iframe src="https://videoapi.my.mail.ru/videos/embed/mail/allenwolker91/11052/11071.html" width="626" height="367" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>' }
+        it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/allenwolker91/11052/11071.html' }
+      end
 
-    describe 'mail_ru_5' do
-      let(:html) { 'http://my.mail.ru/mail/allenwolker91/video/11052/11071.html' }
-      it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/allenwolker91/11052/11071.html' }
+      describe do
+        let(:html) { 'http://my.mail.ru/mail/allenwolker91/video/11052/11071.html' }
+        it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/allenwolker91/11052/11071.html' }
+      end
     end
 
     describe 'rutube' do

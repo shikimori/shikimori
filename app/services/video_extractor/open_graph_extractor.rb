@@ -9,13 +9,17 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
     https?://(?:www\.)?(
       (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?:\w+\.)?(?<hosting>twitch).tv(/[\wА-я_-]+/[\wА-я_-]+|/videos)/
-        [\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS_REGEXP.source}
     )
   }mix
+
+  # myvi is banned in RF
+  # (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+
+  # twitch no long supports og video tags
+  # (?:\w+\.)?(?<hosting>twitch).tv(/[\wА-я_-]+/[\wА-я_-]+|/videos)/
+    # [\wА-я_-]+#{PARAMS_REGEXP.source} |
 
   IMAGE_PROPERTIES = %w[
     meta[property='og:image']
