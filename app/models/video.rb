@@ -1,6 +1,6 @@
 # TODO: refactor kind to enumerize
 class Video < ApplicationRecord
-  ALLOWED_HOSTINGS = %i(youtube vk rutube sibnet smotret_anime) # dailymotion
+  ALLOWED_HOSTINGS = %i[youtube vk rutube sibnet smotret_anime] # dailymotion
 
   belongs_to :anime
   belongs_to :uploader, class_name: User.name
@@ -38,13 +38,13 @@ class Video < ApplicationRecord
       transition uploaded: :confirmed
     end
     event :del do
-      transition [:uploaded, :confirmed] => :deleted
+      transition %i[uploaded confirmed] => :deleted
     end
   end
 
   def url= url
     return if url.nil?
-    self[:url] = url.sub(/^https/, 'http').sub(%r{^http://www\.}, 'http://')
+    self[:url] = "https:#{Url.new(super).cut_www.without_protocol}"
 
     data = VideoExtractor.fetch self[:url]
     if data
@@ -77,7 +77,6 @@ private
 
   def check_hosting
     return if ALLOWED_HOSTINGS.include? hosting.to_sym
-      true
     errors.add(
       :url,
       I18n.t('activerecord.errors.models.videos.attributes.hosting.incorrect')
