@@ -103,6 +103,11 @@ describe BbCodes::Tags::VideoUrlTag do
         it { is_expected.to include '<div class="c-video b-video unprocessed streamable' }
       end
     end
+
+    context 'ok', vcr: { cassette_name: 'video_tag' } do
+      let(:text) { 'https://ok.ru/videoembed/815923404420' }
+      it { is_expected.to include '<div class="c-video b-video unprocessed ok' }
+    end
   end
 
   describe '#preprocess' do

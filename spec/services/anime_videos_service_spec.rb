@@ -18,7 +18,7 @@ describe AnimeVideosService do
     let(:state) { 'working' }
 
     before do
-      allow(VideoExtractor::UrlExtractor).to receive(:call)
+      allow(VideoExtractor::PlayerUrlExtractor).to receive(:call)
         .with(video_params[:url])
         .and_return('https://vk.com/video_ext.php?oid=-16326869&id=166521208&hash=3baf626a9ce18691')
     end
@@ -35,7 +35,7 @@ describe AnimeVideosService do
 
         expect(video).to have_attributes video_params.except(:author_name, :url)
         expect(video.author_name).to eq video_params[:author_name]
-        expect(video.url).to eq VideoExtractor::UrlExtractor.call(video_params[:url])
+        expect(video.url).to eq VideoExtractor::PlayerUrlExtractor.call(video_params[:url])
       end
 
       describe 'video report' do

@@ -1,4 +1,4 @@
-class VideoExtractor::UrlExtractor < ServiceObjectBase
+class VideoExtractor::PlayerUrlExtractor < ServiceObjectBase
   HTTP = %r{(?:https?:)?//(?:www\.)?}.source
   CONTENT = /[^" ><\n]+/.source
   PARAM = %r{[^" ><&?\n\/]+}.source
@@ -133,6 +133,8 @@ private
       ($LAST_MATCH_INFO[:url]).to_s
     elsif html =~ %r{(?<url>#{HTTP}kadu.ru/embed#{CONTENT})}
       $LAST_MATCH_INFO[:url]
+    elsif html =~ VideoExtractor::OkExtractor::URL_REGEX
+      "https://ok.ru/videoembed/#{$LAST_MATCH_INFO[:key]}"
     else
       puts "can't extract video url: '#{html}'" unless Rails.env.test?
       nil

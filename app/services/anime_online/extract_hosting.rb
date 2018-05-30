@@ -9,7 +9,6 @@ class AnimeOnline::ExtractHosting < ServiceObjectBase
 
   def call
     REPLACEMENTS[domain] || domain
-
   rescue URI::InvalidURIError
   end
 

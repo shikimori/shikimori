@@ -1,5 +1,5 @@
 describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_video' } do
-  let(:service) { VideoExtractor::OpenGraphExtractor.new url }
+  let(:service) { described_class.new url }
 
   describe '#fetch' do
     subject { service.fetch }

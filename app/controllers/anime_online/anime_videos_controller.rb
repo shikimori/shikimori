@@ -108,7 +108,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
   def extract_url
     if params[:url].present?
-      url = VideoExtractor::UrlExtractor.call(
+      url = VideoExtractor::PlayerUrlExtractor.call(
         Url.new(params[:url]).with_http.to_s
       )
     end

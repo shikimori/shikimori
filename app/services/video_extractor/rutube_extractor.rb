@@ -1,6 +1,6 @@
 class VideoExtractor::RutubeExtractor < VideoExtractor::BaseExtractor
-  PARAM = VideoExtractor::UrlExtractor::PARAM
-  HTTP = VideoExtractor::UrlExtractor::HTTP
+  PARAM = VideoExtractor::PlayerUrlExtractor::PARAM
+  HTTP = VideoExtractor::PlayerUrlExtractor::HTTP
 
   URL_REGEX = %r{
     #{HTTP} (?: video\. )?rutube\.ru

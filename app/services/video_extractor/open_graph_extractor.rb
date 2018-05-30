@@ -1,20 +1,21 @@
+# no embed videos urls here. video page must contain html so extractor could
+# could extract video data from og meta tags
 class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   PARAMS_REGEXP = /(?:\?[\w=+%&-]+)?/
+
   # Video.hosting should include these hostings
   # shiki_video should include these hostings too
+
   URL_REGEX = %r{
     https?://(?:www\.)?(
       (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?:\w+\.)?(?<hosting>twitch).tv(/[\wА-я_-]+/[\wА-я_-]+|/videos)/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      (?:\w+\.)?(?<hosting>twitch).tv(/[\wА-я_-]+/[\wА-я_-]+|/videos)/
+        [\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS_REGEXP.source}
     )
-  }xi
-
-  # RUTUBE_SRC_REGEX = %r{
-    # //rutube.ru/play/embed/(?<hash>\d+)
-  # }xi
+  }mix
 
   IMAGE_PROPERTIES = %w[
     meta[property='og:image']

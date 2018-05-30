@@ -1,6 +1,12 @@
+# how to add new video hosting:
+# 1. add extractor of video data (image_url, player_url, hosting) similar to
+#   VideoExtractor::OpenGraphExtractor or VideoExtractor::VkExtractor
+# 2. add empbed player url parsing in VideoExtractor::PlayerUrlExtractor
+# 3. add hosting into Video if you want video urls to be parsed on forums
+#   after that add test into BbCodes::Tags::VideoUrlTag spec
 module VideoExtractor
   EXTRACTORS = %i[
-    vk youtube coub vimeo open_graph rutube
+    vk ok youtube coub vimeo open_graph rutube
     smotret_anime sovet_romantica
   ] # dailymotion
 

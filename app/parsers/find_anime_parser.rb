@@ -43,7 +43,7 @@
       # author ||= node.css('.video-info').to_html[/<span class="additional">.*?<\/span>(?:<\/span>)?([\s\S]*)<span/, 1].try :strip
 
       # embed_source = node.css('.embed_source').first
-      # video_url = VideoExtractor::UrlExtractor.call(embed_source.attr 'value') if embed_source
+      # video_url = VideoExtractor::PlayerUrlExtractor.call(embed_source.attr 'value') if embed_source
 
       # ParsedVideo.new(
         # episode: episode,

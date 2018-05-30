@@ -116,7 +116,7 @@ class AnimeVideo < ApplicationRecord
   def url= value
     video_url = Url.new(value).with_http.to_s if value.present?
     if video_url.present?
-      extracted_url = VideoExtractor::UrlExtractor.call video_url
+      extracted_url = VideoExtractor::PlayerUrlExtractor.call video_url
     end
 
     if extracted_url.present?

@@ -1,11 +1,11 @@
 class VideoExtractor::SovetRomanticaExtractor < VideoExtractor::BaseExtractor
-  URL_REGEX = VideoExtractor::UrlExtractor::SOVET_ROMANTICA_REGEXP
+  URL_REGEX = VideoExtractor::PlayerUrlExtractor::SOVET_ROMANTICA_REGEXP
 
   def initialize url
     super
     return unless valid_url?
 
-    @url = Url.new(VideoExtractor::UrlExtractor.call(@url)).with_protocol.to_s
+    @url = Url.new(VideoExtractor::PlayerUrlExtractor.call(@url)).with_protocol.to_s
   end
 
   def image_url
