@@ -198,5 +198,5 @@ if fetch(:stage) == :production
   after 'deploy:published', 'clockwork:start'
 end
 
-# after 'deploy:published', 'unicorn:restart'
+after 'deploy:published', 'unicorn:restart'
 after 'deploy:finishing', 'deploy:cleanup'
