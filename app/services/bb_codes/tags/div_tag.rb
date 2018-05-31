@@ -5,7 +5,7 @@ class BbCodes::Tags::DivTag
     \[
       div
       (?: =(?<css_class>(?:[\w_\ \-](?!data-\w))+) )?
-      (?<data_attributes>(?:\ data-[\w_\-]+)+)?
+      (?<data_attributes>(?:\ data-[\w_\-]+(?:=[\w_\-]+)?)+)?
     \]
   /mix
 

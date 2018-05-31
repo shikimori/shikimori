@@ -26,7 +26,7 @@ describe BbCodes::Tags::DivTag do
 
       context 'with value' do
         let(:text) { '[div data-test=zxc]test[/div]' }
-        it { is_expected.to eq '[div data-test=zxc]test[/div]' }
+        it { is_expected.to eq '<div data-test=zxc>test</div>' }
       end
     end
 
