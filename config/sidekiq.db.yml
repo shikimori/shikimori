@@ -1,0 +1,26 @@
+:concurrency: 5
+:pidfile: tmp/pids/sidekiq.pid
+
+staging:
+  :concurrency: 5
+
+production:
+  :concurrency: 60
+
+:queues:
+  - [achievements, 6]
+  - [chewy, 10]
+  - [cpu_intensive, 5]
+  - [critical, 10]
+  - [episode_notifications, 5]
+  - [history_jobs, 5]
+  - [push_notifications, 2]
+  - [torrents_parsers, 5]
+
+:limits:
+  achievement: 50
+  cpu_intensive: 2
+  episode_notifications: 1
+  history_jobs: 1
+  push_notifications: 5
+  torrents_parsers: 1

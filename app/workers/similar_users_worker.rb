@@ -3,7 +3,7 @@ class SimilarUsersWorker
 
   sidekiq_options(
     unique: :until_executed,
-    unique_args: -> (args) { args.first },
+    unique_args: ->(args) { args.first },
     queue: :cpu_intensive,
     retry: false
   )

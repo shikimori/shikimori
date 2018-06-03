@@ -2,7 +2,6 @@ class EpisodeNotifications::TrackEpisode
   include Sidekiq::Worker
   sidekiq_options queue: :episode_notifications
 
-
   def perform episode_notification_id
     episode_notification = find episode_notification_id
     return unless episode_notification

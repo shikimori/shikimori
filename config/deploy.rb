@@ -132,28 +132,28 @@ end
 namespace :sidekiq do
   desc "Quiet sidekiq (stop accepting new work)"
   task :quiet do
-    on roles(:web, :db), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence, wait: 5 do
       execute "sudo systemctl reload #{fetch :application}_sidekiq_#{fetch :stage} || true"
     end
   end
 
   desc "Stop sidekiq"
   task :stop do
-    on roles(:web, :db), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence, wait: 5 do
       execute "sudo systemctl stop #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end
 
   desc "Start sidekiq"
   task :start do
-    on roles(:web, :db), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence, wait: 5 do
       execute "sudo systemctl start #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end
 
   desc "Restart sidekiq"
   task :restart do
-    on roles(:web, :db), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence, wait: 5 do
       execute "sudo systemctl restart #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end

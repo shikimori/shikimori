@@ -1,0 +1,28 @@
+:concurrency: 5
+:pidfile: tmp/pids/sidekiq.pid
+
+staging:
+  :concurrency: 5
+
+production:
+  :concurrency: 60
+
+:queues:
+  - [anime_online_parsers, 5]
+  - [default, 5]
+  - [high_priority, 8]
+  - [imports, 4]
+  - [low_priority, 1]
+  - [mailers, 5]
+  # - [mal_parsers, 3]
+  - [manga_online_parsers, 5]
+  - [slow_parsers, 5]
+  - [webm_thumbnails, 5]
+
+:limits:
+  anime_online_parsers: 1
+  imports: 2
+  # mal_parsers: 50
+  manga_online_parsers: 1
+  slow_parsers: 2
+  webm_thumbnails: 1
