@@ -109,21 +109,21 @@ end
 namespace :unicorn do
   desc "Stop unicorn"
   task :stop do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:web), in: :sequence, wait: 5 do
       execute "sudo systemctl stop #{fetch :application}_unicorn_#{fetch :stage}"
     end
   end
 
   desc "Start unicorn"
   task :start do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:web), in: :sequence, wait: 5 do
       execute "sudo systemctl start #{fetch :application}_unicorn_#{fetch :stage}"
     end
   end
 
   desc "Restart unicorn"
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:web), in: :sequence, wait: 5 do
       execute "sudo systemctl reload #{fetch :application}_unicorn_#{fetch :stage} || sudo systemctl restart #{fetch :application}_unicorn_#{fetch :stage}"
     end
   end
@@ -132,28 +132,28 @@ end
 namespace :sidekiq do
   desc "Quiet sidekiq (stop accepting new work)"
   task :quiet do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:web, :db), in: :sequence, wait: 5 do
       execute "sudo systemctl reload #{fetch :application}_sidekiq_#{fetch :stage} || true"
     end
   end
 
   desc "Stop sidekiq"
   task :stop do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:web, :db), in: :sequence, wait: 5 do
       execute "sudo systemctl stop #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end
 
   desc "Start sidekiq"
   task :start do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:web, :db), in: :sequence, wait: 5 do
       execute "sudo systemctl start #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end
 
   desc "Restart sidekiq"
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:web, :db), in: :sequence, wait: 5 do
       execute "sudo systemctl restart #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end
@@ -162,21 +162,21 @@ end
 namespace :clockwork do
   desc "Stop clockwork"
   task :stop do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:db), in: :sequence, wait: 5 do
       execute "sudo systemctl stop #{fetch :application}_clockwork_#{fetch :stage}"
     end
   end
 
   desc "Start clockwork"
   task :start do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:db), in: :sequence, wait: 5 do
       execute "sudo systemctl start #{fetch :application}_clockwork_#{fetch :stage}"
     end
   end
 
   desc "Restart clockwork"
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:db), in: :sequence, wait: 5 do
       execute "sudo systemctl restart #{fetch :application}_clockwork_#{fetch :stage}"
     end
   end
