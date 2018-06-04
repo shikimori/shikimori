@@ -195,7 +195,7 @@ before 'deploy:assets:precompile', 'deploy:i18n_js:export'
 if fetch(:stage) == :production
   after 'deploy:updated', 'clockwork:stop'
   after 'deploy:reverted', 'clockwork:stop'
-  after 'deploy:published', 'clockwork:start'
+  after 'deploy:published', 'clockwork:restart'
 end
 
 after 'deploy:published', 'unicorn:restart'

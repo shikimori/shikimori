@@ -14,7 +14,7 @@ production:
   - [imports, 4]
   - [low_priority, 1]
   - [mailers, 5]
-  # - [mal_parsers, 3]
+  - [mal_parsers, 3]
   - [manga_online_parsers, 5]
   - [slow_parsers, 5]
   - [webm_thumbnails, 5]
@@ -22,7 +22,7 @@ production:
 :limits:
   anime_online_parsers: 1
   imports: 2
-  # mal_parsers: 50
+  mal_parsers: 50
   manga_online_parsers: 1
   slow_parsers: 2
   webm_thumbnails: 1
