@@ -124,12 +124,12 @@ gem 'chainable_methods'
 gem 'dry-struct'
 
 group :beta, :production do
+  gem 'unicorn'
   # gem 'airbrake'
   # gem 'sentry-raven'
   # gem 'honeybadger'
-  # gem 'appsignal'
-  gem 'unicorn'
-  gem 'bugsnag'
+  gem 'appsignal'
+  # gem 'bugsnag'
   gem 'lograge'
   gem 'newrelic_rpm'
 end
