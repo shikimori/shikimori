@@ -58,7 +58,7 @@ module Clockwork
 
     # AutobanFix.perform_async
 
-    MalParsers::ScheduleExpiredAuthorized.perform_async
+    # MalParsers::ScheduleExpiredAuthorized.perform_async
   end
 
   every 1.day, 'daily.long-stuff', at: '03:00' do
