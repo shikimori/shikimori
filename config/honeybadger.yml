@@ -10,7 +10,7 @@ exceptions:
     - ActionController::UnknownFormat
     - ActionDispatch::RemoteIp::IpSpoofAttackError
     - ActiveRecord::RecordNotFound
-      ActionController::RoutingError
+    - ActionController::RoutingError
     - ActiveRecord::PreparedStatementCacheExpired
     - I18n::InvalidLocale
     - Unicorn::ClientShutdown
