@@ -51,4 +51,4 @@ development:
 
 production:
   <<: *defaults
-  active: false
+  active: true
