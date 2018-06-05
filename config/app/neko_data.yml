@@ -5710,7 +5710,7 @@
     :level: 2
     :image: "/assets/achievements/anime/mecha_2.jpg"
     :border_color: "#00693E"
-    :title_ru: Hassin!
+    :title_ru: Hasshin!
     :text_ru: Некогда непривычный костюм пилота теперь сидит как влитой. Вы — ас,
       впереди — бесконечные сражения.
     :title_en: 
@@ -6094,7 +6094,7 @@
         - 573
         - 581
         - 6
-        - 6041
+        - 1999
         - 6116
         - 6166
         - 624
@@ -6165,6 +6165,31 @@
         - 31430
         - 1999
         - 608
+        - 9544
+        - 31430
+        - 608
+        - 19489
+        - 33489
+        - 3927
+        - 7270
+        - 6288
+        - 23587
+        - 30344
+        - 32174
+        - 30218
+        - 34257
+        - 8241
+        - 154
+        - 1490
+        - 33041
+        - 21511
+        - 31418
+        - 31418
+        - 24855
+        - 691
+        - 25303
+        - 32935
+        - 781
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - !ruby/object:Neko::Rule
   attributes:
