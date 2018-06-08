@@ -30,6 +30,10 @@ class MalParsers::FetchEntry
   TYPES = Types::Coercible::String.enum('anime', 'manga', 'character', 'person')
 
   def perform id, type
+    if TYPES[type] != TYPES['anime']
+      return self.class.perform_in(1.day, type, sorting, page, max_pages)
+    end
+
     IMPORTS[type.to_sym].call import_data(id, type)
 
   rescue InvalidIdError
