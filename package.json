@@ -25,6 +25,7 @@
     "moment": "^2.18.1",
     "nouislider": "11.1.0",
     "packery": "^2.1.1",
+    "paste.js": "^0.0.21",
     "pikaday": "1.7.0",
     "pug": "^2.0.0-rc.3",
     "pug-loader": "^2.3.0",

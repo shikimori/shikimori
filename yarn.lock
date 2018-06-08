@@ -5368,6 +5368,10 @@ pascalcase@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/pascalcase/-/pascalcase-0.1.1.tgz#b363e55e8006ca6fe21784d2db22bd15d7917f14"
 
+paste.js@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/paste.js/-/paste.js-0.0.21.tgz#ac4e354db2801a6dd70cc4949700ea4dd95e34b4"
+
 path-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/path-browserify/-/path-browserify-0.0.0.tgz#a0b870729aae214005b7d5032ec2cbbb0fb4451a"

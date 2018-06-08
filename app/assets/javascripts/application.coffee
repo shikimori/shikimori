@@ -11,6 +11,8 @@ require 'magnific-popup/dist/magnific-popup.css'
 require 'nouislider/distribute/nouislider.css'
 require 'pikaday/scss/pikaday.scss'
 
+require 'paste.js'
+
 # used in views/styles/edit.coffee
 require 'codemirror/lib/codemirror.css'
 require 'codemirror/theme/solarized.css'
