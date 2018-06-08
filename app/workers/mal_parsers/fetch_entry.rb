@@ -31,7 +31,7 @@ class MalParsers::FetchEntry
 
   def perform id, type
     if TYPES[type] != TYPES['anime']
-      return self.class.perform_in(1.day, type, sorting, page, max_pages)
+      return self.class.perform_in(1.day, id, type)
     end
 
     IMPORTS[type.to_sym].call import_data(id, type)
