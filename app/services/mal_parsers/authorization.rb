@@ -18,7 +18,7 @@ class MalParsers::Authorization
     'Referer' => 'https://myanimelist.net/login.php?from=%2F'
   }
   LOGIN = 'shiki1'
-  PASSWORD = 'SEq8BnQE7hU3'
+  PASSWORD = 'PUcnnh0hM4MK'
 
   def cookie
     RedisMutex.with_lock(self.class.name, block: 0) do
