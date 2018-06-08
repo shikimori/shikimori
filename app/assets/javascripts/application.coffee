@@ -1,9 +1,9 @@
-require('../vendor/sugar').extend()
+require('vendor/sugar').extend()
 require('es6-promise').polyfill()
 
 window.$ = window.jQuery = require 'jquery'
 
-require_vendor = require.context('../vendor', true)
+require_vendor = require.context('vendor', true)
 require_vendor.keys().forEach(require_vendor)
 
 require 'magnific-popup'
@@ -23,7 +23,7 @@ require 'imagesloaded'
 
 bowser = require 'bowser'
 
-require '../i18n/translations'
+require 'i18n/translations'
 csrf = require 'helpers/csrf'
 
 window.axios = require('axios').create
@@ -36,11 +36,11 @@ window.ShikiView = require 'views/application/shiki_view'
 window.ShikiEditable = require 'views/application/shiki_editable'
 window.ShikiUser = require 'models/shiki_user'
 
-require_helpers = require.context('../helpers', true)
+require_helpers = require.context('helpers', true)
 require_helpers.keys().forEach(require_helpers)
 
 
-require_templates = require.context('../templates', true)
+require_templates = require.context('templates', true)
 window.JST = require_templates.keys().reduce(
   (memo, module) ->
     memo[module.replace(/^\.\/|\.\w+$/g, '')] = require_templates module
@@ -48,30 +48,30 @@ window.JST = require_templates.keys().reduce(
   , {}
 )
 
-require_dynamic_elements = require.context('../dynamic_elements', true)
+require_dynamic_elements = require.context('dynamic_elements', true)
 require_dynamic_elements.keys().forEach(require_dynamic_elements)
 
-require_jquery_plugins = require.context('../jquery.plugins', true)
+require_jquery_plugins = require.context('jquery.plugins', true)
 require_jquery_plugins.keys().forEach(require_jquery_plugins)
 
-# require_views = require.context('../views', true, /^\.\/(?!collections)/)
-require_views = require.context('../views', true)
+# require_views = require.context('views', true, /^\.\/(?!collections)/)
+require_views = require.context('views', true)
 require_views.keys().forEach(require_views)
 
-require_pages = require.context('../pages', true)
+require_pages = require.context('pages', true)
 require_pages.keys().forEach(require_pages)
 
-require_pages = require.context('../anime_online/pages', true)
+require_pages = require.context('anime_online/pages', true)
 require_pages.keys().forEach(require_pages)
 
-require_blocks = require.context('../blocks', true)
+require_blocks = require.context('blocks', true)
 require_blocks.keys().forEach(require_blocks)
 
 MobileDetect = require 'mobile-detect'
 window.mobile_detect = new MobileDetect(window.navigator.userAgent)
 
-FayeLoader = require '../services/faye_loader'
-CommentsNotifier = require '../services/comments_notifier'
+FayeLoader = require 'services/faye_loader'
+CommentsNotifier = require 'services/comments_notifier'
 
 bindings = require 'helpers/bindings'
 
@@ -91,7 +91,7 @@ $(document).on Object.keys(bindings).join(' '), (e) ->
     else if group.conditions.some((v) -> document.body.id == v)
       group.callback()
 
-$ =>
+$ ->
   window.JS_EXPORTS ||= {}
 
   $body = $(document.body)
@@ -128,13 +128,19 @@ $ =>
     $("a[name=#{match[1]}]").closest('.b-comment').yellow_fade()
 
   # отдельные эвенты для ресайзов и скрола
-  $(window).on 'resize', debounce(500, -> $(document.body).trigger 'resize:debounced')
-  $(window).on 'scroll', throttle(750, -> $(document.body).trigger 'scroll:throttled')
+  $(window).on(
+    'resize',
+    debounce(500, -> $(document.body).trigger 'resize:debounced')
+  )
+  $(window).on(
+    'scroll',
+    throttle(750, -> $(document.body).trigger 'scroll:throttled')
+  )
 
 $(document).on 'page:restore', (e, is_dom_content_loaded) ->
   $(document.body).process()
 
-$(document).on 'page:load', (e, is_dom_content_loaded) =>
+$(document).on 'page:load', (e, is_dom_content_loaded) ->
   if is_mobile()
     Turbolinks.enableProgressBar false
     Turbolinks.enableProgressBar true,  '.turbolinks'

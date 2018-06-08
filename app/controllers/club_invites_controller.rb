@@ -23,7 +23,7 @@ class ClubInvitesController < ShikimoriController
 private
 
   def club_invite_params
-    params.require(:club_invite).permit([:club_id, :src_id, :dst_id])
+    params.require(:club_invite).permit(%i[club_id src_id dst_id])
   end
 
   def find_user
