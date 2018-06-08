@@ -1,14 +1,14 @@
 # https://eslint.org/docs/rules/
 env:
   browser: true
-  es6: true
-  node: true
+  es6: false
+  node: false
   jquery: true
-parser: 'babel-eslint'
-parserOptions:
-  ecmaFeatures:
-    experimentalObjectRestSpread: true
-  sourceType: module
+#parser: 'babel-eslint'
+#parserOptions:
+#  ecmaFeatures:
+#    experimentalObjectRestSpread: true
+#  sourceType: module
 globals:
   page_load: true
   page_unload: true

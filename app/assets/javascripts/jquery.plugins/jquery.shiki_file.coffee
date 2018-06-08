@@ -12,7 +12,6 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
   $.fn.extend
     shikiFile: (opts) ->
       @each ->
-
         options = $.extend {}, defaults, opts
         $node = $ @
 
@@ -31,15 +30,19 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
 
         csrf_tokens = csrf()
         $node.filedrop
-          #fallback_id: 'upload_button',    # an identifier of a standard file input element
-          url: $node.data('upload_url'),   # upload handler, handles each file separately
-          paramname: 'image',      # POST parameter name used on serverside to reference file
-          data: csrf_tokens.post,
-          headers: csrf_tokens.headers,
+          url: $node.data('upload_url')
+          paramname: 'image'
+          data: csrf_tokens.post
+          headers: csrf_tokens.headers
           error: (err, file) ->
             switch err
               when 'TooManyFiles'
-                $.flash alert: I18n.t("#{I18N_KEY}.too_many_files", count: options.maxfiles)
+                $.flash(
+                  alert: I18n.t(
+                    "#{I18N_KEY}.too_many_files",
+                    count: options.maxfiles
+                  )
+                )
 
               when 'FileTooLarge'
                 $.flash alert: I18n.t("#{I18N_KEY}.too_large_file")
@@ -53,8 +56,8 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
 
             global_lock = false
 
-          maxfiles: options.maxfiles,
-          maxfilesize: 4, # max file size in MBs
+          maxfiles: options.maxfiles
+          maxfilesize: 4 # max file size in MBs
           queuefiles: 1
           refresh: 50
 
@@ -84,7 +87,8 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
             delay(250).then -> $progress_bar.width '0%'
 
           docOver: (e) ->
-            return if $node.data('placeholder_displayed') || !$node.is(':visible')
+            if $node.data('placeholder_displayed') || !$node.is(':visible')
+              return
 
             $node.data placeholder_displayed: true
 
@@ -140,4 +144,13 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
               $progress_bar.width '100%'
             else
               $progress_bar.width progress+'%'
+
+
+        $node.pastableTextarea()
+        $node.on 'pasteImage', (e, data) ->
+          file = new File(
+            [data.blob],
+            "pasted_file.#{data.blob.type.split('/')[1]}"
+          )
+          $node.trigger 'drop', [[file]]
 )(jQuery)
