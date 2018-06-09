@@ -34,7 +34,14 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
           paramname: 'image'
           data: csrf_tokens.post
           headers: csrf_tokens.headers
+          allowedfiletypes: [
+            'image/jpg'
+            'image/jpeg'
+            'image/png'
+          ]
           error: (err, file) ->
+            @afterAll()
+
             switch err
               when 'TooManyFiles'
                 $.flash(
@@ -49,6 +56,9 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
 
               when 'Unprocessable Entity'
                 $.flash alert: I18n.t("#{I18N_KEY}.please_try_again_later")
+
+              when 'FileTypeNotAllowed'
+                $.flash alert: I18n.t("#{I18N_KEY}.file_type_not_allowed")
 
               #when 'BrowserNotSupported'
               else
@@ -150,7 +160,9 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
         $node.on 'pasteImage', (e, data) ->
           file = new File(
             [data.blob],
-            "pasted_file.#{data.blob.type.split('/')[1]}"
+            "pasted_file.#{data.blob.type.split('/')[1]}",
+            type: data.blob.type,
+            lastModified: Date.now()
           )
           $node.trigger 'drop', [[file]]
 )(jQuery)
