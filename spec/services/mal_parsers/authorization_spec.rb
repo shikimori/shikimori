@@ -3,10 +3,10 @@ describe MalParsers::Authorization, :vcr do
 
   describe '#cookie' do
     it do
-      expect(service.cookie).to eq %w(
+      expect(service.cookie).to eq %w[
         MALSESSIONID=3dtj55b5vrq5th68tdbkdtjrc2;
         is_logged_in=1;
-      )
+      ]
     end
 
     describe 'method calls' do

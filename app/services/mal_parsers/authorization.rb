@@ -2,7 +2,7 @@ class MalParsers::Authorization
   include Singleton
 
   CACHE_KEY = 'mal_authorization_cookie'
-  COOKIES = %w(MALSESSIONID is_logged_in=1)
+  COOKIES = %w[MALSESSIONID is_logged_in=1]
 
   LOGIN_PATH = '/login.php?from=%2F'
 
@@ -61,13 +61,13 @@ private
   end
 
   def login_params csrf_token
-    %W(
+    %W[
       user_name=#{LOGIN}
       password=#{PASSWORD}
       sublogin=Login
       submit=1
       csrf_token=#{csrf_token}
-    ).join('&')
+    ].join('&')
   end
 
   def valid? cookies

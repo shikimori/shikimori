@@ -50,7 +50,7 @@ http_interactions:
     uri: https://myanimelist.net/login.php?from=/
     body:
       encoding: UTF-8
-      string: user_name=shiki1&password=SEq8BnQE7hU3&sublogin=Login&submit=1&csrf_token=155fd72076635001dce500414b0bfae512e0a605
+      string: user_name=shiki1&password=PUcnnh0hM4MK&sublogin=Login&submit=1&csrf_token=155fd72076635001dce500414b0bfae512e0a605
     headers:
       User-Agent:
       - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML,
