@@ -70,7 +70,13 @@ module.exports = class LoaderBase
     "#{@base_url}/post/index.json?page=#{@page}&limit=#{@limit}&tags=#{@tags}"
 
   _camo_url: (image_url, filename) ->
-    "#{location.protocol}//shikimori.org/camo" +
+    camo_host =
+      if ENV == 'development'
+        "#{location.host}:5566"
+      else
+        "camo.#{location.host}"
+
+    "#{location.protocol}//#{camo_host}/" +
       "?filename=#{filename}&url=#{image_url}"
 
   _image_url: (image_url, filename) ->
