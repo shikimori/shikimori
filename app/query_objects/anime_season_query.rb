@@ -4,7 +4,7 @@ class AnimeSeasonQuery
   def to_sql
     case season
       when 'ancient'
-        "aired_on <= '%s 00:00:00'" % Date.new(1980)
+        "aired_on <= '#{Date.new(1980)}'"
 
       when /^([a-z]+)_(\d+)$/
         year = $2.to_i

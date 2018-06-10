@@ -135,6 +135,11 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
       scope.where! 'duration <= ?', duration_lte
     end
 
+    if rule[:filters]['year_lte']
+      year_lte = rule[:filters]['year_lte'].to_i
+      scope.where! 'aired_on <= ?', Date.new(year_lte)
+    end
+
     if rule[:filters]['franchise']
       scope.where! franchise: rule[:filters]['franchise']
     end
