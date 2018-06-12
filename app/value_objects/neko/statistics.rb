@@ -1,8 +1,13 @@
-class Neko::Statistics < Dry::Struct
-  attribute :interval_50, Types::Params::Decimal
-  attribute :interval_100, Types::Params::Decimal
-  attribute :interval_250, Types::Params::Decimal
-  attribute :interval_400, Types::Params::Decimal
-  attribute :interval_600, Types::Params::Decimal
-  attribute :interval_1000, Types::Params::Decimal
+class Neko::Statistics
+  include ShallowAttributes
+
+  attribute :interval_0, Float, default: 0
+  attribute :interval_1, Float, default: 0
+  attribute :interval_2, Float, default: 0
+  attribute :interval_3, Float, default: 0
+  attribute :interval_4, Float, default: 0
+  attribute :interval_5, Float, default: 0
+  attribute :interval_6, Float, default: 0
+
+  INTERVALS = [50, 100, 250, 400, 600, 1_000, 10_000]
 end

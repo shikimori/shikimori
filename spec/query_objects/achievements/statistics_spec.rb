@@ -15,12 +15,13 @@ describe Achievements::Statistics do
       {
         'test' => {
           '1' => {
-            'interval_50' => 1,
-            'interval_100' => 2,
-            'interval_250' => 3,
-            'interval_400' => 4,
-            'interval_600' => 5,
-            'interval_1000' => 6
+            'interval_0' => 1,
+            'interval_1' => 2,
+            'interval_2' => 3,
+            'interval_3' => 4,
+            'interval_4' => 5,
+            'interval_5' => 6,
+            'interval_6' => 7
           }
         }
       }.to_json

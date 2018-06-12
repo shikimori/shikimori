@@ -122,6 +122,7 @@ gem 'rails-i18n'
 
 gem 'chainable_methods'
 gem 'dry-struct'
+gem 'shallow_attributes'
 
 group :beta, :production do
   gem 'unicorn'
