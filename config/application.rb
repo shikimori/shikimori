@@ -73,6 +73,10 @@ module Shikimori
   ]
 
   class Application < Rails::Application
+    def redis
+      Rails.application.config.redis
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -162,5 +166,10 @@ module Shikimori
       generator.view_specs false
       generator.test_framework :rspec
     end
+
+    config.redis = Redis.new(
+      host: Rails.application.config.redis_host,
+      port: 6379
+    )
   end
 end

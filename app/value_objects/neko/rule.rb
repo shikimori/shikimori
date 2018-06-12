@@ -46,14 +46,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
   end
 
   def title show_blank = false
-    if show_blank
-      send("title_#{I18n.locale}")
-    else
-      send("title_#{I18n.locale}") ||
-        title_ru ||
-        (neko_id if franchise?) ||
-        (NO_RULE.title if self != NO_RULE)
-    end
+    show_blank ? maybe_title : mandatory_title
   end
 
   def text show_blank = false
@@ -148,6 +141,17 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
   end
 
 private
+
+  def mandatory_title
+    maybe_title ||
+      title_ru ||
+      (neko_id if franchise?) ||
+      (NO_RULE.title if self != NO_RULE)
+  end
+
+  def maybe_title
+    send("title_#{I18n.locale}")
+  end
 
   def default_hint
     I18n.t 'achievements.hint.default',

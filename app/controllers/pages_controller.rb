@@ -164,7 +164,7 @@ class PagesController < ShikimoriController
       ).round 2
     end
 
-    @redis_keys = ($redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1].to_i
+    @redis_keys = (Rails.application.redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1].to_i
     @pending_anidb = Anidb::ImportDescriptionsQuery.for_import(Anime).count
     @missing_anidb = %i[anons_anime_ids ongoing_anime_ids other_anime_ids].flat_map { |scope| MalParsers::ScheduleExpiredAuthorized.new.send(scope) }.uniq.size
 

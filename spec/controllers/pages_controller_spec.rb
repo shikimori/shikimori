@@ -96,7 +96,7 @@ describe PagesController do
       include_context :authenticated, :admin
 
       before { allow_any_instance_of(PagesController).to receive(:`).and_return '' }
-      before { allow($redis).to receive(:info).and_return('db0' => '=,') }
+      before { allow(Rails.application.redis).to receive(:info).and_return('db0' => '=,') }
       before { get :admin_panel }
 
       it { expect(response).to have_http_status :success }

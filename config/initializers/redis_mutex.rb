@@ -1,1 +1,1 @@
-RedisClassy.redis = $redis
+RedisClassy.redis = Rails.application.redis
