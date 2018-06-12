@@ -87,6 +87,10 @@ module Clockwork
     ViewingsCleaner.perform_async
   end
 
+  every 1.day, 'daily.statistics', at: '07:00' do
+    Achievements::UpdateStatistics.perform_async
+  end
+
   every 1.week, 'weekly.stuff.1', at: 'Monday 00:45' do
     Anidb::ImportDescriptionsJob.perform_async
     # FindAnimeWorker.perform_async :first_page

@@ -68,7 +68,7 @@ private
   def interval user
     Neko::Statistics::INTERVALS.reverse_each.with_index do |limit, index|
       if user.user_rates_count >= limit
-        return :"interval_#{Neko::Statistics::INTERVALS.size - index}"
+        return :"interval_#{Neko::Statistics::INTERVALS.size - index - 1}"
       end
     end
 
