@@ -121,4 +121,18 @@ describe Neko::Rule do
       it { expect(rule.animes_count).to eq 1 }
     end
   end
+
+  describe '#statistics' do
+    before do
+      allow(Achievements::Statistics).to receive(:call).and_return statistics
+    end
+    let(:statistics) { :zzz }
+
+    it do
+      expect(rule.statistics).to eq statistics
+      expect(Achievements::Statistics)
+        .to have_received(:call)
+        .with rule.neko_id, rule.level
+    end
+  end
 end

@@ -140,6 +140,10 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
     scope
   end
 
+  def statistics
+    Achievements::Statistics.call neko_id, level
+  end
+
 private
 
   def mandatory_title
