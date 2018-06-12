@@ -48,13 +48,9 @@ private
   end
 
   def process_achievement user, neko_id, level, statistics
-    interval = interval(user)
-
     statistics[neko_id] ||= {}
     statistics[neko_id][level] ||= Neko::Statistics.new
-    statistics[neko_id][level].send(
-      "#{interval}=", statistics[neko_id][level].send(interval) + 1
-    )
+    statistics[neko_id][level].increment! user.user_rates_count
   end
 
   def users_scope
@@ -63,15 +59,5 @@ private
       .joins(USER_RATES_SQL)
       .group('users.id')
       .select('users.id, count(*) as user_rates_count')
-  end
-
-  def interval user
-    Neko::Statistics::INTERVALS.reverse_each.with_index do |limit, index|
-      if user.user_rates_count >= limit
-        return :"interval_#{Neko::Statistics::INTERVALS.size - index - 1}"
-      end
-    end
-
-    :interval_0
   end
 end
