@@ -1,4 +1,11 @@
 describe Neko::Statistics do
+  describe '#interval' do
+    let(:statistics) { Neko::Statistics.new interval_0: 1, interval_2: 9 }
+    it { expect(statistics.interval(0)).to eq 1 }
+    it { expect(statistics.interval(1)).to eq 0 }
+    it { expect(statistics.interval(2)).to eq 9 }
+  end
+
   describe '#increment' do
     let(:statistics) { Neko::Statistics.new }
     subject! { statistics.increment! user_rates_count }
@@ -52,6 +59,21 @@ describe Neko::Statistics do
       let(:user_rates_count) { Neko::Statistics::INTERVALS[0] }
       it do
         expect(statistics).to have_attributes(
+          interval_0: 1,
+          interval_1: 0,
+          interval_2: 0,
+          interval_3: 0,
+          interval_4: 0,
+          interval_5: 0,
+          interval_6: 0
+        )
+      end
+    end
+
+    context do
+      let(:user_rates_count) { Neko::Statistics::INTERVALS[0] + 1 }
+      it do
+        expect(statistics).to have_attributes(
           interval_0: 0,
           interval_1: 1,
           interval_2: 0,
@@ -64,7 +86,7 @@ describe Neko::Statistics do
     end
 
     context do
-      let(:user_rates_count) { Neko::Statistics::INTERVALS[1] }
+      let(:user_rates_count) { Neko::Statistics::INTERVALS[1] + 1 }
       it do
         expect(statistics).to have_attributes(
           interval_0: 0,

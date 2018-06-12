@@ -31,6 +31,24 @@ header.head.misc
                 .key #{t '.threshold'}:&nbsp;
                 .value = achievement.rule[:threshold]
 
+            p.m0
+              b #{t '.statistics'}
+
+            table.statistics
+              tr
+                th = t '.list_size'
+                th = t '.percent'
+
+              - Neko::Statistics::INTERVALS.each_with_index do |interval, index|
+                tr
+                  td
+                    - if interval == Neko::Statistics::INTERVALS.last
+                      | #{Neko::Statistics::INTERVALS[index-1]}+
+                    - else
+                      ' #{index.zero? ? 0 :Neko::Statistics::INTERVALS[index-1]}-#{interval}
+                  td
+                    = achievement.statistics.interval(index)
+
   .block
     - if @topic_resource
       = render 'db_entries/comments', resource: @topic_resource

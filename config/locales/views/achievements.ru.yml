@@ -11,6 +11,9 @@ ru:
     show:
       level: Уровень %{level}
       threshold: Порог срабатывания
+      statistics: Статистика
+      list_size: Размер списка
+      percent: Процент пользователей
     info:
       levels: Уровней
       animes: Аниме

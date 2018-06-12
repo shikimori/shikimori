@@ -11,9 +11,13 @@ class Neko::Statistics
 
   INTERVALS = [50, 100, 250, 400, 600, 1_000, 999_999_999]
 
+  def interval index
+    send "interval_#{index}"
+  end
+
   def increment! user_rates_count
     INTERVALS.each_with_index do |value, index|
-      next unless user_rates_count < value
+      next unless user_rates_count <= value
 
       send "interval_#{index}=", send("interval_#{index}") + 1
       break

@@ -11,6 +11,9 @@ en:
     show:
       level: Level %{level}
       threshold: Threshold
+      statistics: Statistics
+      list_size: List Size
+      percent: Percent of Users
     info:
       levels: Levels
       animes: Animes

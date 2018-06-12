@@ -141,7 +141,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
   end
 
   def statistics
-    Achievements::Statistics.call neko_id, level
+    @statistics ||= Achievements::Statistics.call neko_id, level
   end
 
 private
