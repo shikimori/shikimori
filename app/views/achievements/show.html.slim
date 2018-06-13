@@ -37,17 +37,17 @@ header.head.misc
             table.statistics
               tr
                 th = t '.list_size'
-                th = t '.percent'
+                th = t '.users'
+                th %
 
-              - Neko::Statistics::INTERVALS.each_with_index do |interval, index|
+              - achievement.statistics.each do |stats|
                 tr
                   td
-                    - if interval == Neko::Statistics::INTERVALS.last
-                      | #{Neko::Statistics::INTERVALS[index-1]}+
-                    - else
-                      ' #{index.zero? ? 0 :Neko::Statistics::INTERVALS[index-1]}-#{interval}
+                    = stats[:label]
                   td
-                    = achievement.statistics.interval(index)
+                    = stats[:users]
+                  td
+                    | #{format '%.2f', stats[:percent] * 100.0}%
 
   .block
     - if @topic_resource

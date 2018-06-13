@@ -13,7 +13,7 @@ en:
       threshold: Threshold
       statistics: Statistics
       list_size: List Size
-      percent: Percent of Users
+      users: Users
     info:
       levels: Levels
       animes: Animes

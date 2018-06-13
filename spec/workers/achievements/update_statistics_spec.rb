@@ -29,8 +29,12 @@ describe Achievements::UpdateStatistics do
 
   let(:statistics) do
     {
+      Achievements::Statistics::TOTAL_KEY => {
+        Achievements::Statistics::TOTAL_LEVEL =>
+          Neko::Stats.new(interval_0: 2)
+      },
       neko_id.to_sym => {
-        level.to_s.to_sym => Neko::Statistics.new(interval_0: 2)
+        level.to_s.to_sym => Neko::Stats.new(interval_0: 2)
       }
     }
   end
@@ -39,6 +43,6 @@ describe Achievements::UpdateStatistics do
     is_expected.to eq statistics
     expect(Rails.application.redis)
       .to have_received(:set)
-      .with described_class::CACHE_KEY, statistics.to_json
+      .with Achievements::Statistics::CACHE_KEY, statistics.to_json
   end
 end

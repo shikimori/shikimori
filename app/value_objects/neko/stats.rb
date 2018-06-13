@@ -1,4 +1,4 @@
-class Neko::Statistics
+class Neko::Stats
   include ShallowAttributes
 
   attribute :interval_0, Integer, default: 0

@@ -13,7 +13,7 @@ ru:
       threshold: Порог срабатывания
       statistics: Статистика
       list_size: Размер списка
-      percent: Процент пользователей
+      users: Пользователей
     info:
       levels: Уровней
       animes: Аниме

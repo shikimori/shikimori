@@ -6,8 +6,6 @@ class Achievements::UpdateStatistics
     queue: :cpu_intensive
   )
 
-  CACHE_KEY = Achievements::Statistics::CACHE_KEY
-
   USER_RATES_SQL = <<~SQL.squish
     inner join user_rates on
       users.id = user_rates.user_id and
@@ -27,12 +25,19 @@ class Achievements::UpdateStatistics
 private
 
   def build_statistics # rubocop:disable MethodLength
-    statistics = {}
+    total = Neko::Stats.new
+    statistics = {
+      Achievements::Statistics::TOTAL_KEY => {
+        Achievements::Statistics::TOTAL_LEVEL => total
+      }
+    }
 
     users_scope.find_each do |user|
+      total.increment! user.user_rates_count
+
       user.achievements.each do |achievement|
         process_achievement(
-          user,
+          user.user_rates_count,
           achievement.neko_id.to_sym,
           achievement.level.to_s.to_sym,
           statistics
@@ -44,13 +49,16 @@ private
   end
 
   def write_cache statistics
-    Rails.application.redis.set CACHE_KEY, statistics.to_json
+    Rails.application.redis.set(
+      Achievements::Statistics::CACHE_KEY,
+      statistics.to_json
+    )
   end
 
-  def process_achievement user, neko_id, level, statistics
+  def process_achievement user_rates_count, neko_id, level, statistics
     statistics[neko_id] ||= {}
-    statistics[neko_id][level] ||= Neko::Statistics.new
-    statistics[neko_id][level].increment! user.user_rates_count
+    statistics[neko_id][level] ||= Neko::Stats.new
+    statistics[neko_id][level].increment! user_rates_count
   end
 
   def users_scope

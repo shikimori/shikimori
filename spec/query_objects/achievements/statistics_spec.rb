@@ -7,32 +7,76 @@ describe Achievements::Statistics do
     allow(Rails.application.redis)
       .to receive(:get)
       .with(Achievements::Statistics::CACHE_KEY)
-      .and_return cache
+      .and_return cache.to_json
   end
 
   context 'has cache' do
     let(:cache) do
       {
-        'test' => {
-          '1' => {
-            'interval_0' => 1,
-            'interval_1' => 2,
-            'interval_2' => 3,
-            'interval_3' => 4,
-            'interval_4' => 5,
-            'interval_5' => 6,
-            'interval_6' => 7
+        described_class::TOTAL_KEY => {
+          described_class::TOTAL_LEVEL => {
+            'interval_0' => 600,
+            'interval_1' => 500,
+            'interval_2' => 400,
+            'interval_3' => 300,
+            'interval_4' => 200,
+            'interval_5' => 100,
+            'interval_6' => 10
+          }
+        },
+        test: {
+          '1': {
+            'interval_0' => 0,
+            'interval_1' => 1,
+            'interval_2' => 2,
+            'interval_3' => 3,
+            'interval_4' => 4,
+            'interval_5' => 5,
+            'interval_6' => 6
           }
         }
-      }.to_json
+      }
     end
+
     it do
-      is_expected.to be_kind_of Neko::Statistics
+      is_expected.to eq(
+        [
+          {
+            label: '0-50',
+            users: 0,
+            percent: 0.0
+          }, {
+            label: '51-100',
+            users: 1,
+            percent: 0.002
+          }, {
+            label: '101-250',
+            users: 2,
+            percent: 0.005
+          }, {
+            label: '251-400',
+            users: 3,
+            percent: 0.01
+          }, {
+            label: '401-600',
+            users: 4,
+            percent: 0.02
+          }, {
+            label: '601-1000',
+            users: 5,
+            percent: 0.05
+          }, {
+            label: '1000+',
+            users: 6,
+            percent: 0.6
+          }
+        ]
+      )
     end
   end
 
   context 'no cache' do
-    let(:cache) { [{}.to_json, nil].sample }
+    let(:cache) { {} }
     it { is_expected.to be_nil }
   end
 end
