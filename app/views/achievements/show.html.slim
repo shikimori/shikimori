@@ -10,15 +10,18 @@ header.head.misc
         achievement: achievement,
         images: true
 
-  .cc-2_3
-    .c-column
-      = render 'achievements/info',
-        achievements: @collection,
-        animes: true
-    .c-column
-      = render 'achievements/statistics', achievement: @collection.first
+    .cc-2_3
+      .c-column
+        = render 'achievements/info',
+          achievements: @collection,
+          animes: true
+      .c-column
+        = render 'achievements/statistics', achievement: @collection.first
+  - else
+    = render 'achievements/info',
+      achievements: @collection,
+      animes: true
 
-  - unless @collection.first.franchise?
     - @collection.each do |achievement|
       .block
         .subheadline.m10 = t '.level', level: achievement.level

@@ -1,12 +1,12 @@
 .block_m
-  p.m0
+  p.m5
     b #{t '.statistics'}
 
   table.statistics
     tr
       th = t '.list_size'
-      th = t '.users'
-      th %
+      th == t '.users'
+      th == t '.percent'
 
     - achievement.statistics.each do |stats|
       tr

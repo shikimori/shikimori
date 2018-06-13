@@ -14,7 +14,8 @@ ru:
     statistics:
       statistics: Статистика
       list_size: Размер списка
-      users: Пользователей
+      users: Пользователи<br>с ачивкой
+      percent: Процент от<br>общего числа
     info:
       levels: Уровней
       animes: Аниме
