@@ -10,9 +10,13 @@ header.head.misc
         achievement: achievement,
         images: true
 
-  = render 'achievements/info',
-    achievements: @collection,
-    animes: true
+  .cc-2_3
+    .c-column
+      = render 'achievements/info',
+        achievements: @collection,
+        animes: true
+    .c-column
+      = render 'achievements/statistics', achievement: @collection.first
 
   - unless @collection.first.franchise?
     - @collection.each do |achievement|
@@ -31,23 +35,7 @@ header.head.misc
                 .key #{t '.threshold'}:&nbsp;
                 .value = achievement.rule[:threshold]
 
-            p.m0
-              b #{t '.statistics'}
-
-            table.statistics
-              tr
-                th = t '.list_size'
-                th = t '.users'
-                th %
-
-              - achievement.statistics.each do |stats|
-                tr
-                  td
-                    = stats[:label]
-                  td
-                    = stats[:users]
-                  td
-                    | #{format '%.2f', stats[:percent] * 100.0}%
+            = render 'achievements/statistics', achievement: achievement
 
   .block
     - if @topic_resource

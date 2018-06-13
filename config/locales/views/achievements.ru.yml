@@ -11,6 +11,7 @@ ru:
     show:
       level: Уровень %{level}
       threshold: Порог срабатывания
+    statistics:
       statistics: Статистика
       list_size: Размер списка
       users: Пользователей

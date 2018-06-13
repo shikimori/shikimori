@@ -23,6 +23,16 @@
   & > .c-column
     +column_b(2)
 
+.cc-2_3
+  +clear_left
+
+  +gte_ipad
+    & > .c-column
+      &:first-child
+        +column_bm(2, 2/3)
+      &:last-child
+        +column_bm(2, 1/3)
+
 .cc-3
   +clear_left
 

@@ -34,8 +34,10 @@ private
 
     users_scope.find_each do |user|
       total.increment! user.user_rates_count
+      # puts user.id
 
       user.achievements.each do |achievement|
+        # ap achievement
         process_achievement(
           user.user_rates_count,
           achievement.neko_id.to_sym,
@@ -67,5 +69,6 @@ private
       .joins(USER_RATES_SQL)
       .group('users.id')
       .select('users.id, count(*) as user_rates_count')
+      # .where('users.id >= 68601 and users.id <= 69601')
   end
 end
