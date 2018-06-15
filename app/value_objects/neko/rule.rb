@@ -130,7 +130,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
 
     if rule[:filters]['year_lte']
       year_lte = rule[:filters]['year_lte'].to_i
-      scope.where! 'aired_on <= ?', Date.new(year_lte)
+      scope.where! 'aired_on <= ?', Date.new(year_lte).end_of_year
     end
 
     if rule[:filters]['franchise']

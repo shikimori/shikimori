@@ -9,7 +9,7 @@ class AnimesCollection::View < ViewObjectBase
   SEASON_LIMIT = 1000
 
   DEFAULT_ORDER = 'ranked'
-  CACHE_VERSION = 'v13'
+  CACHE_VERSION = 14
 
   def collection
     if season_page?
@@ -44,7 +44,7 @@ class AnimesCollection::View < ViewObjectBase
         .first
         .created_at
     end
-    initial_key = [klass.name, user_key, last_created_at, CACHE_VERSION]
+    initial_key = [klass.name, user_key, last_created_at, CACHE_VERSION.to_s]
 
     h.url_params
       .except(:action, :controller, :format)
