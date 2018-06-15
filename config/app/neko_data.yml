@@ -2912,7 +2912,7 @@
   attributes:
     :neko_id: :oldfag
     :level: 1
-    :image: "/assets/achievements/anime/oldfag_1.png"
+    :image: "/assets/achievements/anime/oldfag_1.jpg"
     :border_color: "#c5d0e6"
     :title_ru: Ценитель классики
     :text_ru: 'Раньше было лучше: деревья — выше, трава — зеленее, а аниме — интереснее.'

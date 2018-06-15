@@ -5,8 +5,7 @@
 class Elasticsearch::Query::Anime < Elasticsearch::Query::QueryBase
 private
 
-  # rubocop:disable MethodLength
-  def query
+  def query # rubocop:disable MethodLength
     {
       function_score: {
         query: {
@@ -22,5 +21,4 @@ private
       }
     }
   end
-  # rubocop:enable MethodLength
 end
