@@ -154,33 +154,33 @@ private
       .limit(15)
 
     2.months.from_now.year.downto(2.months.from_now.year-4).each do |year|
-      @groups["Осень #{year}"] = translatable
-        .where(AnimeSeasonQuery.new("fall_#{year}", Anime).to_sql)
+      @groups["Осень #{year}"] = Animes::SeasonQuery
+        .call(translatable, "fall_#{year}")
         .where.not(id: added_ids)
         .where('score > 0 or ranked > 0')
         .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
-      @groups["Лето #{year}"] = translatable
-        .where(AnimeSeasonQuery.new("summer_#{year}", Anime).to_sql)
+      @groups["Лето #{year}"] = Animes::SeasonQuery
+        .call(translatable, "summer_#{year}")
         .where.not(id: added_ids)
         .where('score > 0 or ranked > 0')
         .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
-      @groups["Весна #{year}"] = translatable
-        .where(AnimeSeasonQuery.new("spring_#{year}", Anime).to_sql)
+      @groups["Весна #{year}"] = Animes::SeasonQuery
+        .call(translatable, "spring_#{year}")
         .where.not(id: added_ids)
         .where('score > 0 or ranked > 0')
         .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
-      @groups["Зима #{year}"] = translatable
-        .where(AnimeSeasonQuery.new("winter_#{year}", Anime).to_sql)
+      @groups["Зима #{year}"] = Animes::SeasonQuery
+        .call(translatable, "winter_#{year}")
         .where.not(id: added_ids)
         .where('score > 0 or ranked > 0')
         .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       end
 
-    @groups['Фильмы этого года'] = Anime
-      .where(AnimeSeasonQuery.new(DateTime.now.year.to_s, Anime).to_sql)
+    @groups['Фильмы этого года'] = Animes::SeasonQuery
+      .call(Anime.all, DateTime.now.year.to_s)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: added_ids)
       .where('score >= 7.5 or status = ?', :anons)

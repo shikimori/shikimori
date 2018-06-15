@@ -284,30 +284,34 @@ private
   # фильтрация по сезонам
   def season!
     return if @season.blank?
-    seasons = bang_split(@season.split(','))
+    seasons = bang_split @season.split(',')
 
-    query = seasons[:include].map {|v| AnimeSeasonQuery.new(v, @klass).to_sql }
-    @query = @query.where(query.join(" OR ")) unless query.empty?
+    query = seasons[:include].map do |season|
+      Animes::SeasonQuery.call(@klass.all, season).to_where_sql
+    end
+    @query = @query.where query.join(' OR ') unless query.empty?
 
-    query = seasons[:exclude].map {|v| "NOT (#{AnimeSeasonQuery.new(v, @klass).to_sql})" }
-    @query = @query.where(query.join(" AND ")) unless query.empty?
+    query = seasons[:exclude].map do |season|
+      'NOT (' +
+        Animes::SeasonQuery.call(@klass.all, season).to_where_sql +
+        ')'
+    end
+    @query = @query.where query.join(' AND ') unless query.empty?
   end
 
   # фильтрация по статусам
   def status!
     return if @status.blank?
-    statuss = bang_split @status.split(',')
+    statuses = bang_split @status.split(',')
 
-    query = statuss[:include].map do |status|
-      #Animes::StatusQuery.call(@klass.all, status).arel.ast.cores.first.wheres.first.to_sql
-      Animes::StatusQuery.call(@klass.all, status).to_sql.sub(/^.* WHERE /, '')
+    query = statuses[:include].map do |status|
+      Animes::StatusQuery.call(@klass.all, status).to_where_sql
     end
     @query = @query.where query.join(' OR ') unless query.empty?
 
-    query = statuss[:exclude].map do |status|
+    query = statuses[:exclude].map do |status|
       'NOT (' +
-        Animes::StatusQuery.call(@klass.all, status).to_sql.sub(/^.* WHERE /, '') +
-        #Animes::StatusQuery.call(@klass.all, status).arel.ast.cores.first.wheres.first.to_sql +
+        Animes::StatusQuery.call(@klass.all, status).to_where_sql +
         ')'
     end
     @query = @query.where query.join(' AND ') unless query.empty?

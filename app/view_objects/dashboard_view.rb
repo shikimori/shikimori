@@ -11,15 +11,19 @@ class DashboardView < ViewObjectBase
 
   SPECIAL_PAGES = 2
 
-  THIS_SEASON_SQL = AnimeSeasonQuery.new(
-    Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text,
-    Anime
-  ).to_sql
+  THIS_SEASON_SQL = Animes::SeasonQuery
+    .call(
+      Anime.all,
+      Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text
+    )
+    .to_where_sql
 
-  PRIOR_SEASON_SQL = AnimeSeasonQuery.new(
-    Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text,
-    Anime
-  ).to_sql
+  PRIOR_SEASON_SQL = Animes::SeasonQuery
+    .call(
+      Anime.all,
+      Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text
+    )
+    .to_where_sql
 
   IGNORE_ONGOING_IDS = [31_592, 32_585, 35_517, 32_977, 8_687, 36_231]
 

@@ -5,9 +5,7 @@ module InvalidParameterErrorConcern
     rescue_from InvalidParameterError, with: :invalid_parameter_error
   end
 
-  def invalid_parameter_error e
-    unless is_a? Api::V1Controller
-      redirect_to current_url(e.field => nil)
-    end
+  def invalid_parameter_error error
+    redirect_to current_url(error.field => nil) unless is_a? Api::V1Controller
   end
 end
