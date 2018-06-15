@@ -621,7 +621,7 @@
     :neko_id: :mahou_shoujo
     :level: 1
     :image: "/assets/achievements/anime/mahou_shoujo_1.png"
-    :border_color: "#1E1112"
+    :border_color: "#ff0000"
     :title_ru: Контракт заключён
     :text_ru: My master, положено начало вашего становления юной волшебницой.
     :title_en: 
@@ -1113,8 +1113,8 @@
     :image: "/assets/achievements/anime/mahou_shoujo_2.jpg"
     :border_color: "#49678d"
     :title_ru: Магия - второе имя
-    :text_ru: Не важно, каков ваш пол, вы можете превращаться в девушку с двумя хвостиками
-      и нести возмездие во имя луны.
+    :text_ru: Не важно, какой ваш пол и сколько вам лет, если ваше призвание - нести
+      любовь и справедливость.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -1604,8 +1604,7 @@
     :image: "/assets/achievements/anime/mahou_shoujo_3.jpg"
     :border_color: "#D8B1BF"
     :title_ru: Все враги побеждены
-    :text_ru: Опасность миновала, жителям Волшебной страны остаётся только жить-поживать
-      да добра наживать.
+    :text_ru: Опасность миновала! Можно возвращаться к семье и школьным друзьям.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -6184,12 +6183,12 @@
         - 33041
         - 21511
         - 31418
-        - 31418
         - 24855
         - 691
         - 25303
         - 32935
         - 781
+        - 31147
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - !ruby/object:Neko::Rule
   attributes:
