@@ -366,8 +366,8 @@
   attributes:
     :neko_id: :animelist
     :level: 10
-    :image: "/assets/achievements/anime/animelist_10.jpg"
-    :border_color: "#434b4d"
+    :image: "/assets/achievements/anime/animelist_10.gif"
+    :border_color: "#20B2AA"
     :title_ru: Это даже не финальная форма
     :text_ru: Ваш единственный путь — вверх. Пора учиться доброй снисходительности.
     :title_en: 
@@ -6649,7 +6649,7 @@
         - 10870
         - 10948
         - 31617
-      :threshold: 98%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
