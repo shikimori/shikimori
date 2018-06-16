@@ -3,7 +3,7 @@ class Achievements::UpdateStatistics
 
   sidekiq_options(
     unique: :until_executing,
-    queue: :cpu_intensive
+    queue: :achievements
   )
 
   USER_RATES_SQL = <<~SQL.squish
