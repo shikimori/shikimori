@@ -2608,7 +2608,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 130
+      :threshold: 105
       :filters:
         genre_ids:
         - 36
@@ -2627,7 +2627,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 260
+      :threshold: 175
       :filters:
         genre_ids:
         - 36
@@ -2646,7 +2646,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 350
+      :threshold: 250
       :filters:
         genre_ids:
         - 36
@@ -6203,7 +6203,7 @@
     :topic_id: 222068
     :rule:
       :algo: count
-      :threshold: 40
+      :threshold: 60
       :filters:
         genre_ids:
         - 37
@@ -6222,7 +6222,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 90
+      :threshold: 120
       :filters:
         genre_ids:
         - 37
@@ -6241,7 +6241,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 140
+      :threshold: 160
       :filters:
         genre_ids:
         - 37
@@ -6259,7 +6259,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 200
+      :threshold: 230
       :filters:
         genre_ids:
         - 37
@@ -9666,7 +9666,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 90
+      :threshold: 80
       :filters:
         genre_ids:
         - 24
@@ -9685,7 +9685,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 140
+      :threshold: 120
       :filters:
         genre_ids:
         - 24
@@ -9703,7 +9703,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 200
+      :threshold: 220
       :filters:
         genre_ids:
         - 24
@@ -10024,7 +10024,7 @@
     :topic_id: 222041
     :rule:
       :algo: count
-      :threshold: 40
+      :threshold: 50
       :filters:
         genre_ids:
         - 10
@@ -10042,7 +10042,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 90
+      :threshold: 100
       :filters:
         genre_ids:
         - 10
@@ -10060,7 +10060,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 140
+      :threshold: 150
       :filters:
         genre_ids:
         - 10
@@ -10078,7 +10078,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 200
+      :threshold: 250
       :filters:
         genre_ids:
         - 10
