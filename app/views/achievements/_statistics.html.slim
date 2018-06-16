@@ -8,7 +8,7 @@
       th == t '.users'
       th == t '.percent'
 
-    - achievement.statistics.each do |stats|
+    - achievement.statistics&.each do |stats|
       tr
         td
           = stats[:label]
