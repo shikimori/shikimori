@@ -629,7 +629,7 @@
     :topic_id: 222067
     :rule:
       :algo: count
-      :threshold: 17
+      :threshold: 4%
       :filters:
         anime_ids:
         - 100
@@ -1120,7 +1120,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 34
+      :threshold: 7%
       :filters:
         anime_ids:
         - 100
@@ -1610,7 +1610,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 68
+      :threshold: 14%
       :filters:
         anime_ids:
         - 100
@@ -2100,7 +2100,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 136
+      :threshold: 29%
       :filters:
         anime_ids:
         - 100
@@ -2590,7 +2590,7 @@
     :topic_id: 222056
     :rule:
       :algo: count
-      :threshold: 65
+      :threshold: 55
       :filters:
         genre_ids:
         - 36
@@ -2608,7 +2608,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 105
+      :threshold: 95
       :filters:
         genre_ids:
         - 36
@@ -2627,7 +2627,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 175
+      :threshold: 155
       :filters:
         genre_ids:
         - 36
@@ -2646,7 +2646,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 250
+      :threshold: 220
       :filters:
         genre_ids:
         - 36
@@ -5836,7 +5836,7 @@
     :neko_id: :drama
     :level: 1
     :image: "/assets/achievements/anime/drama_1.jpg"
-    :border_color: "#A2A2D0"
+    :border_color: "#4682B4"
     :title_ru: Скупая слеза
     :text_ru: Это всего лишь дождь.
     :title_en: 
@@ -5854,9 +5854,9 @@
     :neko_id: :drama
     :level: 2
     :image: "/assets/achievements/anime/drama_2.jpg"
-    :border_color: "#031427"
+    :border_color: "#8B4513"
     :title_ru: Эмпатия среднего уровня
-    :text_ru: Ну давай, расскажи, как ты плакал над Хатико
+    :text_ru: Ну давай, расскажи нам, как плакал над Хатико
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -5871,8 +5871,8 @@
   attributes:
     :neko_id: :drama
     :level: 3
-    :image: "/assets/achievements/anime/drama_3.jpg"
-    :border_color: "#fefc9f"
+    :image: "/assets/achievements/anime/drama_3.png"
+    :border_color: "#000000"
     :title_ru: Идеальная грусть
     :text_ru: Вам стоит проявлять эмоции тогда, когда хотите. Незачем притворяться.
     :title_en: 
@@ -7841,7 +7841,7 @@
         franchise: yes_precure
         not_anime_ids:
         - 10736
-      :threshold: 95%
+      :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9256,7 +9256,7 @@
     :topic_id: 222047
     :rule:
       :algo: count
-      :threshold: 25
+      :threshold: 40
       :filters:
         genre_ids:
         - 7
@@ -9274,7 +9274,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 40
+      :threshold: 60
       :filters:
         genre_ids:
         - 7
@@ -9292,7 +9292,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 60
+      :threshold: 90
       :filters:
         genre_ids:
         - 7
@@ -9311,7 +9311,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 100
+      :threshold: 120
       :filters:
         genre_ids:
         - 7
@@ -10010,6 +10010,9 @@
         - 32901
         - 35413
         - 36001
+        - 51
+        - 36792
+        - 36632
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
 - !ruby/object:Neko::Rule
   attributes:
