@@ -26,25 +26,63 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
   end
 
   def advance_members round, prior_round
-    members_ids = @statistics.sorted_scores.keys
+    ids_to_wins = @statistics.sorted_scores
 
     round.matches.each do |match|
-      left_id = members_ids.shift
-      right_id = (members_ids - @statistics.opponents_of(left_id)).first
+      group_half_len = top_group_length(ids_to_wins) >> 1
+      rest_ids = ids_to_wins.keys
+      top_half = rest_ids.shift(group_half_len)
+      low_half = rest_ids.shift(group_half_len)
 
+      left_id = top_half.shift
+      right_id = (
+        low_half + top_half.reverse! + rest_ids -
+        @statistics.opponents_of(left_id)
+      ).first
+
+      ids_to_wins.delete left_id
       if right_id
-        members_ids.delete right_id
+        ids_to_wins.delete right_id
       else
-        right_id = members_ids.shift
+        # taking key of first key=>value pair
+        right_id = ids_to_wins.shift.try(:first)
       end
 
-      match.update!(
-        left_id: left_id,
-        left_type: @contest.member_klass.name,
-        right_id: right_id,
-        right_type: @contest.member_klass.name
-      )
+      match_check_and_update(match, left_id, right_id)
     end
+  end
+
+  def match_check_and_update match, left_id, right_id
+    if left_id.nil?
+      left_id = right_id
+      right_id = nil
+      # left_id should never be nil.
+      # Only right_id is expected to be nil, if there are odd number of contest members
+    end
+
+    match.update!(
+      left_id: left_id,
+      left_type: @contest.member_klass.name,
+      right_id: right_id,
+      right_type: @contest.member_klass.name
+    )
+  end
+
+  def top_group_length sorted_hash
+    len = sorted_hash.length
+    return len if len < 3
+
+    ids = sorted_hash.keys.drop(1)
+    # we don't bother of first element's wins;
+    # even with higher number of wins, it belongs to this group, not to previous
+
+    group_wins = sorted_hash[ids.first]
+    group_len = 1
+    ids.each do |id|
+      break unless sorted_hash[id] == group_wins
+      group_len += 1
+    end
+    group_len
   end
 
   def advance_loser match
