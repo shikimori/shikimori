@@ -2,7 +2,8 @@
 # TODO : вынести методы относящиеся ко вью в декоратор.
 class AnimeVideo < ApplicationRecord
   # for Versions
-  SIGNIFICANT_FIELDS = []
+  SIGNIFICANT_MAJOR_FIELDS = []
+  SIGNIFICANT_MINOR_FIELDS = []
 
   R_OVA_EPISODES = 2
   ADULT_OVA_CONDITION = <<-SQL.squish

@@ -7,7 +7,7 @@
         li
           .field = Character.human_attribute_name :name
           .value = @resource.name
-          - if can? :significant_change, Version
+          - if can? :major_change, Version
             a.b-js-action href=@resource.edit_field_url(:name)
               = t '.moderators_only'
           - else
@@ -30,7 +30,7 @@
         li
           .field = @resource.class.human_attribute_name :image
           - if @resource.image.exists?
-            - if can? :significant_change, Version
+            - if can? :major_change, Version
               a.b-js-action href=@resource.edit_field_url(:image)
                 = t '.moderators_only'
             - else

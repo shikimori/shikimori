@@ -42,16 +42,19 @@ class DbEntriesController < ShikimoriController
     @field = params[:field]
 
     authorize! :create, temp_verison
-    if significant_fields.include? @field
-      authorize! :significant_change, temp_verison
-    end
+    authorize! :major_change, temp_verison if major_fields.include? @field
+    authorize! :minor_change, temp_verison if minor_fields.include? @field
 
     render template: 'db_entries/edit_field'
   end
 
   def update
-    if (update_params.keys & significant_fields).any?
-      authorize! :significant_change, temp_verison
+    if (update_params.keys & major_fields).any?
+      authorize! :major_change, temp_verison
+    end
+
+    if (update_params.keys & minor_fields).any?
+      authorize! :minor_change, temp_verison
     end
 
     Version.transaction do
@@ -88,8 +91,14 @@ private
     og image: ImageUrlGenerator.instance.url(@resource, :original)
   end
 
-  def significant_fields
-    @resource.object.class::SIGNIFICANT_FIELDS.select do |field|
+  def major_fields
+    @resource.object.class::SIGNIFICANT_MAJOR_FIELDS.select do |field|
+      field != 'image' || @resource.image.exists?
+    end
+  end
+
+  def minor_fields
+    @resource.object.class::SIGNIFICANT_MINOR_FIELDS.select do |field|
       field != 'image' || @resource.image.exists?
     end
   end
@@ -110,7 +119,7 @@ private
   def update_image
     versioneer = Versioneers::PostersVersioneer.new(@resource.object)
 
-    if can? :significant_change, @resource.object
+    if can? :major_change, @resource.object
       versioneer.postmoderate(
         update_params[:image],
         current_user,

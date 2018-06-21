@@ -52,10 +52,13 @@ class Ability
 
     can :create, Version do |version|
       version.user_id == User::GUEST_ID && (
-        version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
+        version.item_diff.keys & (
+          version.item_type.constantize::SIGNIFICANT_MAJOR_FIELDS +
+          version.item_type.constantize::SIGNIFICANT_MINOR_FIELDS
+        )
       ).none?
     end
-    cannot :significant_change, Version
+    cannot :major_change, Version
   end
 
   def guest_allowances

@@ -104,8 +104,8 @@ class Abilities::User
     end
     can :destroy, Message do |message|
       message.from_id == @user.id || message.to_id == @user.id
-      #(message.kind == MessageType::Private && (can?(:edit, message) || message.to_id == @user.id)) ||
-        #(message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
+      # (message.kind == MessageType::Private && (can?(:edit, message) || message.to_id == @user.id)) ||
+        # (message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
     if @user.day_registered?
       can %i[create], Message do |message|
@@ -236,18 +236,31 @@ class Abilities::User
 
   def version_abilities
     can %i[create destroy], Version do |version|
-      significant_field = (
+      major_field = (
         version.item_diff.keys &
-          "#{version.item_type}::SIGNIFICANT_FIELDS".constantize
+          "#{version.item_type}::SIGNIFICANT_MAJOR_FIELDS".constantize
+      ).first
+      minor_field = (
+        version.item_diff.keys &
+          "#{version.item_type}::SIGNIFICANT_MINOR_FIELDS".constantize
       ).first
 
       !@user.banned? && !@user.not_trusted_version_changer? &&
         version.user_id == @user.id && (
-          significant_field.nil? ||
-          version.item_diff.dig(significant_field, 0).nil? # changing from nil value
+          # must be new ability object here otherwise
+          # it will return false in runtime
+          # (i.e. during Version creation in DbEntriesController)
+          Ability.new(@user).can?(:major_change, version) ||
+          major_field.nil? ||
+          version.item_diff.dig(major_field, 0).nil?  # changing from nil value
+        ) && (
+          Ability.new(@user).can?(:minor_change, version) ||
+          minor_field.nil? ||
+          version.item_diff.dig(minor_field, 0).nil?  # changing from nil value
         )
     end
-    cannot :significant_change, Version
+    cannot :lesser_change, Version
+    cannot :major_change, Version
 
     can :accept, Version do |version|
       version.user_id == @user.id && (

@@ -10,5 +10,6 @@ class Abilities::VideoModerator
     can :manage, Version do |version|
       version.item_type == AnimeVideo.name
     end
+    can :minor_change, Version
   end
 end

@@ -1,6 +1,8 @@
 class DbEntry < ApplicationRecord
   self.abstract_class = true
-  SIGNIFICANT_FIELDS = %w[name genres image duration]
+
+  SIGNIFICANT_MAJOR_FIELDS = %w[name genres image]
+  SIGNIFICANT_MINOR_FIELDS = %w[duration]
 
   def cache_key
     super + '/' + to_param
