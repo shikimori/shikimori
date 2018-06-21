@@ -55,7 +55,6 @@
         - 4901
         - 4970
         - 5177
-        - 5177
         - 5356
         - 64
         - 65
@@ -72,6 +71,218 @@
         - 8460
         - 849
         - 934
+        - 6682
+        - 719
+        - 5784
+        - 32323
+        - 22199
+        - 22729
+        - 27655
+        - 8577
+        - 6987
+        - 15085
+        - 7647
+        - 9074
+        - 6347
+        - 9471
+        - 8516
+        - 5081
+        - 2986
+        - 1186
+        - 20787
+        - 357
+        - 2131
+        - 693
+        - 33475
+        - 35314
+        - 10578
+        - 5356
+        - 10012
+        - 30485
+        - 4975
+        - 35315
+        - 14277
+        - 2407
+        - 1575
+        - 2904
+        - 15109
+        - 20031
+        - 23383
+        - 2595
+        - 291
+        - 62
+        - 3627
+        - 14827
+        - 1482
+        - 233
+        - 933
+        - 12879
+        - 2025
+        - 35849
+        - 15583
+        - 17513
+        - 29974
+        - 27417
+        - 874
+        - 3032
+        - 3033
+        - 6702
+        - 9982
+        - 22043
+        - 34438
+        - 34439
+        - 34440
+        - 15039
+        - 12049
+        - 25537
+        - 33050
+        - 33049
+        - 6288
+        - 31280
+        - 36683
+        - 1581
+        - 7337
+        - 4872
+        - 3228
+        - 6377
+        - 7044
+        - 17895
+        - 10793
+        - 21855
+        - 32648
+        - 37517
+        - 14653
+        - 8479
+        - 5060
+        - 15195
+        - 28607
+        - 8630
+        - 28883
+        - 11617
+        - 12729
+        - 15451
+        - 30300
+        - 24703
+        - 32215
+        - 34281
+        - 10491
+        - 3652
+        - 16700
+        - 2169
+        - 17831
+        - 9750
+        - 10934
+        - 10357
+        - 31933
+        - 8525
+        - 10080
+        - 10805
+        - 17725
+        - 16706
+        - 21563
+        - 10372
+        - 3958
+        - 19685
+        - 24451
+        - 3503
+        - 6791
+        - 10191
+        - 516
+        - 2581
+        - 3927
+        - 7270
+        - 5351
+        - 18495
+        - 13367
+        - 8841
+        - 10790
+        - 32268
+        - 7148
+        - 37254
+        - 15045
+        - 34607
+        - 33197
+        - 24037
+        - 22273
+        - 1887
+        - 23133
+        - 10519
+        - 98
+        - 99
+        - 5030
+        - 9712
+        - 10110
+        - 17637
+        - 3342
+        - 17074
+        - 593
+        - 15689
+        - 19727
+        - 11597
+        - 3467
+        - 6512
+        - 7769
+        - 13659
+        - 8769
+        - 9922
+        - 10547
+        - 35968
+        - 8476
+        - 29803
+        - 35073
+        - 31181
+        - 490
+        - 33372
+        - 907
+        - 4719
+        - 6633
+        - 8456
+        - 10924
+        - 11859
+        - 32262
+        - 18039
+        - 2993
+        - 4214
+        - 35905
+        - 23277
+        - 13759
+        - 30806
+        - 15751
+        - 18523
+        - 2104
+        - 4163
+        - 29786
+        - 12783
+        - 5958
+        - 7858
+        - 8407
+        - 9790
+        - 1568
+        - 21881
+        - 12445
+        - 6505
+        - 8449
+        - 21353
+        - 22319
+        - 27899
+        - 2105
+        - 28025
+        - 4896
+        - 7463
+        - 6956
+        - 10521
+        - 25879
+        - 31715
+        - 497
+        - 16241
+        - 10216
+        - 18497
+        - 8457
+        - 10495
+        - 12403
+        - 23225
+        - 30902
+        - 30279
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -129,7 +340,6 @@
         - 4901
         - 4970
         - 5177
-        - 5177
         - 5356
         - 64
         - 65
@@ -146,6 +356,218 @@
         - 8460
         - 849
         - 934
+        - 6682
+        - 719
+        - 5784
+        - 32323
+        - 22199
+        - 22729
+        - 27655
+        - 8577
+        - 6987
+        - 15085
+        - 7647
+        - 9074
+        - 6347
+        - 9471
+        - 8516
+        - 5081
+        - 2986
+        - 1186
+        - 20787
+        - 357
+        - 2131
+        - 693
+        - 33475
+        - 35314
+        - 10578
+        - 5356
+        - 10012
+        - 30485
+        - 4975
+        - 35315
+        - 14277
+        - 2407
+        - 1575
+        - 2904
+        - 15109
+        - 20031
+        - 23383
+        - 2595
+        - 291
+        - 62
+        - 3627
+        - 14827
+        - 1482
+        - 233
+        - 933
+        - 12879
+        - 2025
+        - 35849
+        - 15583
+        - 17513
+        - 29974
+        - 27417
+        - 874
+        - 3032
+        - 3033
+        - 6702
+        - 9982
+        - 22043
+        - 34438
+        - 34439
+        - 34440
+        - 15039
+        - 12049
+        - 25537
+        - 33050
+        - 33049
+        - 6288
+        - 31280
+        - 36683
+        - 1581
+        - 7337
+        - 4872
+        - 3228
+        - 6377
+        - 7044
+        - 17895
+        - 10793
+        - 21855
+        - 32648
+        - 37517
+        - 14653
+        - 8479
+        - 5060
+        - 15195
+        - 28607
+        - 8630
+        - 28883
+        - 11617
+        - 12729
+        - 15451
+        - 30300
+        - 24703
+        - 32215
+        - 34281
+        - 10491
+        - 3652
+        - 16700
+        - 2169
+        - 17831
+        - 9750
+        - 10934
+        - 10357
+        - 31933
+        - 8525
+        - 10080
+        - 10805
+        - 17725
+        - 16706
+        - 21563
+        - 10372
+        - 3958
+        - 19685
+        - 24451
+        - 3503
+        - 6791
+        - 10191
+        - 516
+        - 2581
+        - 3927
+        - 7270
+        - 5351
+        - 18495
+        - 13367
+        - 8841
+        - 10790
+        - 32268
+        - 7148
+        - 37254
+        - 15045
+        - 34607
+        - 33197
+        - 24037
+        - 22273
+        - 1887
+        - 23133
+        - 10519
+        - 98
+        - 99
+        - 5030
+        - 9712
+        - 10110
+        - 17637
+        - 3342
+        - 17074
+        - 593
+        - 15689
+        - 19727
+        - 11597
+        - 3467
+        - 6512
+        - 7769
+        - 13659
+        - 8769
+        - 9922
+        - 10547
+        - 35968
+        - 8476
+        - 29803
+        - 35073
+        - 31181
+        - 490
+        - 33372
+        - 907
+        - 4719
+        - 6633
+        - 8456
+        - 10924
+        - 11859
+        - 32262
+        - 18039
+        - 2993
+        - 4214
+        - 35905
+        - 23277
+        - 13759
+        - 30806
+        - 15751
+        - 18523
+        - 2104
+        - 4163
+        - 29786
+        - 12783
+        - 5958
+        - 7858
+        - 8407
+        - 9790
+        - 1568
+        - 21881
+        - 12445
+        - 6505
+        - 8449
+        - 21353
+        - 22319
+        - 27899
+        - 2105
+        - 28025
+        - 4896
+        - 7463
+        - 6956
+        - 10521
+        - 25879
+        - 31715
+        - 497
+        - 16241
+        - 10216
+        - 18497
+        - 8457
+        - 10495
+        - 12403
+        - 23225
+        - 30902
+        - 30279
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -203,7 +625,6 @@
         - 4901
         - 4970
         - 5177
-        - 5177
         - 5356
         - 64
         - 65
@@ -220,6 +641,218 @@
         - 8460
         - 849
         - 934
+        - 6682
+        - 719
+        - 5784
+        - 32323
+        - 22199
+        - 22729
+        - 27655
+        - 8577
+        - 6987
+        - 15085
+        - 7647
+        - 9074
+        - 6347
+        - 9471
+        - 8516
+        - 5081
+        - 2986
+        - 1186
+        - 20787
+        - 357
+        - 2131
+        - 693
+        - 33475
+        - 35314
+        - 10578
+        - 5356
+        - 10012
+        - 30485
+        - 4975
+        - 35315
+        - 14277
+        - 2407
+        - 1575
+        - 2904
+        - 15109
+        - 20031
+        - 23383
+        - 2595
+        - 291
+        - 62
+        - 3627
+        - 14827
+        - 1482
+        - 233
+        - 933
+        - 12879
+        - 2025
+        - 35849
+        - 15583
+        - 17513
+        - 29974
+        - 27417
+        - 874
+        - 3032
+        - 3033
+        - 6702
+        - 9982
+        - 22043
+        - 34438
+        - 34439
+        - 34440
+        - 15039
+        - 12049
+        - 25537
+        - 33050
+        - 33049
+        - 6288
+        - 31280
+        - 36683
+        - 1581
+        - 7337
+        - 4872
+        - 3228
+        - 6377
+        - 7044
+        - 17895
+        - 10793
+        - 21855
+        - 32648
+        - 37517
+        - 14653
+        - 8479
+        - 5060
+        - 15195
+        - 28607
+        - 8630
+        - 28883
+        - 11617
+        - 12729
+        - 15451
+        - 30300
+        - 24703
+        - 32215
+        - 34281
+        - 10491
+        - 3652
+        - 16700
+        - 2169
+        - 17831
+        - 9750
+        - 10934
+        - 10357
+        - 31933
+        - 8525
+        - 10080
+        - 10805
+        - 17725
+        - 16706
+        - 21563
+        - 10372
+        - 3958
+        - 19685
+        - 24451
+        - 3503
+        - 6791
+        - 10191
+        - 516
+        - 2581
+        - 3927
+        - 7270
+        - 5351
+        - 18495
+        - 13367
+        - 8841
+        - 10790
+        - 32268
+        - 7148
+        - 37254
+        - 15045
+        - 34607
+        - 33197
+        - 24037
+        - 22273
+        - 1887
+        - 23133
+        - 10519
+        - 98
+        - 99
+        - 5030
+        - 9712
+        - 10110
+        - 17637
+        - 3342
+        - 17074
+        - 593
+        - 15689
+        - 19727
+        - 11597
+        - 3467
+        - 6512
+        - 7769
+        - 13659
+        - 8769
+        - 9922
+        - 10547
+        - 35968
+        - 8476
+        - 29803
+        - 35073
+        - 31181
+        - 490
+        - 33372
+        - 907
+        - 4719
+        - 6633
+        - 8456
+        - 10924
+        - 11859
+        - 32262
+        - 18039
+        - 2993
+        - 4214
+        - 35905
+        - 23277
+        - 13759
+        - 30806
+        - 15751
+        - 18523
+        - 2104
+        - 4163
+        - 29786
+        - 12783
+        - 5958
+        - 7858
+        - 8407
+        - 9790
+        - 1568
+        - 21881
+        - 12445
+        - 6505
+        - 8449
+        - 21353
+        - 22319
+        - 27899
+        - 2105
+        - 28025
+        - 4896
+        - 7463
+        - 6956
+        - 10521
+        - 25879
+        - 31715
+        - 497
+        - 16241
+        - 10216
+        - 18497
+        - 8457
+        - 10495
+        - 12403
+        - 23225
+        - 30902
+        - 30279
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6504,25 +7137,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :koro_sensei_q
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
-    :border_color: 
-    :title_ru: Класс убийц
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: koro_sensei_q
-        not_anime_ids:
-        - 33511
-      :threshold: 97%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :fate_zero
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
@@ -6540,6 +7154,25 @@
         - 13183
         - 19165
       :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :koro_sensei_q
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
+    :border_color: 
+    :title_ru: Класс убийц
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: koro_sensei_q
+        not_anime_ids:
+        - 33511
+      :threshold: 97%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6562,23 +7195,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :aria_the_ova
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
-    :border_color: 
-    :title_ru: Ария
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: aria_the_ova
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :megalo_box
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/592671.jpg
@@ -6596,11 +7212,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :kuroshitsuji
+    :neko_id: :aria_the_ova
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/594196.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
     :border_color: 
-    :title_ru: Тёмный дворецкий
+    :title_ru: Ария
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6608,9 +7224,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: kuroshitsuji
-        not_anime_ids:
-        - 6163
+        franchise: aria_the_ova
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6646,10 +7260,28 @@
       :filters:
         franchise: ghost_in_the_shell
         not_anime_ids:
+        - 2448
         - 10870
         - 10948
         - 31617
       :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :slam_dunk
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/588994.jpg
+    :border_color: 
+    :title_ru: Слэм-данк
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: slam_dunk
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6670,11 +7302,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :shokugeki_no_souma
+    :neko_id: :kuroshitsuji
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587910.jpg
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/594196.jpg
     :border_color: 
-    :title_ru: Повар-боец Сома
+    :title_ru: Тёмный дворецкий
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6682,24 +7314,9 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: shokugeki_no_souma
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :slam_dunk
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588994.jpg
-    :border_color: 
-    :title_ru: Слэм-данк
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: slam_dunk
+        franchise: kuroshitsuji
+        not_anime_ids:
+        - 6163
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6721,11 +7338,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :detective_conan
+    :neko_id: :shokugeki_no_souma
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/587873.jpg
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587910.jpg
     :border_color: 
-    :title_ru: Детектив Конан
+    :title_ru: Повар-боец Сома
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6733,8 +7350,8 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: detective_conan
-      :threshold: 95%
+        franchise: shokugeki_no_souma
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6755,6 +7372,30 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :gundam
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/587962.jpg
+    :border_color: 
+    :title_ru: Мобильный воин Гандам
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: gundam
+        not_anime_ids:
+        - 2269
+        - 8839
+        - 14007
+        - 20667
+        - 23943
+        - 24371
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :yamato
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/590597.jpg
@@ -6768,6 +7409,23 @@
       :algo: duration
       :filters:
         franchise: yamato
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :detective_conan
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/587873.jpg
+    :border_color: 
+    :title_ru: Детектив Конан
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: detective_conan
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6840,6 +7498,23 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :cardcaptor_sakura
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/588573.jpg
+    :border_color: 
+    :title_ru: Сакура — собирательница карт
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: cardcaptor_sakura
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :umineko_no_naku_koro_ni
     :level: 1
     :image: http://i.imgur.com/v7pjFJ7.png
@@ -6881,23 +7556,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :inuyasha
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593479.jpg
-    :border_color: 
-    :title_ru: Инуяся
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: inuyasha
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :sket_dance
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593367.jpg
@@ -6915,11 +7573,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :gundam
+    :neko_id: :inuyasha
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587962.jpg
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593479.jpg
     :border_color: 
-    :title_ru: Мобильный воин Гандам
+    :title_ru: Инуяся
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6927,14 +7585,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: gundam
-        not_anime_ids:
-        - 2269
-        - 8839
-        - 14007
-        - 20667
-        - 23943
-        - 24371
+        franchise: inuyasha
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6969,6 +7620,8 @@
       :algo: duration
       :filters:
         franchise: initial_d
+        not_anime_ids:
+        - 12725
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6990,40 +7643,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :working
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/584987.jpg
-    :border_color: 
-    :title_ru: Работа!!
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: working
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :cardcaptor_sakura
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588573.jpg
-    :border_color: 
-    :title_ru: Сакура — собирательница карт
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: cardcaptor_sakura
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :nanatsu_no_taizai
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/592707.jpg
@@ -7037,6 +7656,23 @@
       :algo: duration
       :filters:
         franchise: nanatsu_no_taizai
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :working
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/584987.jpg
+    :border_color: 
+    :title_ru: Работа!!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: working
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7095,23 +7731,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :junjou_romantica
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593482.jpg
-    :border_color: 
-    :title_ru: Чистая романтика
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: junjou_romantica
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :chiba_pedal
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/587974.jpg
@@ -7129,11 +7748,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :glass_no_kamen
+    :neko_id: :junjou_romantica
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587850.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593482.jpg
     :border_color: 
-    :title_ru: Стеклянная маска
+    :title_ru: Чистая романтика
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7141,7 +7760,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: glass_no_kamen
+        franchise: junjou_romantica
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7162,6 +7781,40 @@
         not_anime_ids:
         - 5343
       :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :glass_no_kamen
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587850.jpg
+    :border_color: 
+    :title_ru: Стеклянная маска
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: glass_no_kamen
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :boruto
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/594952.jpg
+    :border_color: 
+    :title_ru: Наруто
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: boruto
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7195,24 +7848,9 @@
       :algo: duration
       :filters:
         franchise: hikaru_no_go
+        not_anime_ids:
+        - 2336
       :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :boruto
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594952.jpg
-    :border_color: 
-    :title_ru: Наруто
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: boruto
-      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7250,25 +7888,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :fairy_tail
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587404.jpg
-    :border_color: 
-    :title_ru: Сказка о Хвосте феи
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: fairy_tail
-        not_anime_ids:
-        - 246
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :persona
     :level: 1
     :image: https://i.imgur.com/auU7oHC.png
@@ -7284,6 +7903,25 @@
         franchise: persona
         not_anime_ids:
         - 25257
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :fairy_tail
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/587404.jpg
+    :border_color: 
+    :title_ru: Сказка о Хвосте феи
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: fairy_tail
+        not_anime_ids:
+        - 246
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7305,23 +7943,6 @@
         - 28911
         - 28913
         - 28915
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :slayers
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593371.jpg
-    :border_color: 
-    :title_ru: Рубаки
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: slayers
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7365,23 +7986,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :city_hunter
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/591793.jpg
-    :border_color: 
-    :title_ru: Городской охотник
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: city_hunter
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :kindaichi_shounen_no_jikenbo
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/587869.jpg
@@ -7395,6 +7999,74 @@
       :algo: duration
       :filters:
         franchise: kindaichi_shounen_no_jikenbo
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :school_rumble
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/588567.jpg
+    :border_color: 
+    :title_ru: Школьный переполох
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: school_rumble
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :slayers
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593371.jpg
+    :border_color: 
+    :title_ru: Рубаки
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: slayers
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :tennis_no_ouji_sama
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593487.jpg
+    :border_color: 
+    :title_ru: Принц тенниса
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: tennis_no_ouji_sama
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :city_hunter
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/591793.jpg
+    :border_color: 
+    :title_ru: Городской охотник
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: city_hunter
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7437,40 +8109,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :tennis_no_ouji_sama
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593487.jpg
-    :border_color: 
-    :title_ru: Принц тенниса
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: tennis_no_ouji_sama
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :school_rumble
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588567.jpg
-    :border_color: 
-    :title_ru: Школьный переполох
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: school_rumble
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :touch
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/593338.jpg
@@ -7501,6 +8139,76 @@
       :algo: duration
       :filters:
         franchise: sword_art_online
+        not_anime_ids:
+        - 37831
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :muumin
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/587882.jpg
+    :border_color: 
+    :title_ru: Муми-тролль
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: muumin
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :ushio_to_tora
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/590557.jpg
+    :border_color: 
+    :title_ru: Усио и Тора
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: ushio_to_tora
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :jigoku_shoujo
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593462.jpg
+    :border_color: 
+    :title_ru: Адская девочка
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: jigoku_shoujo
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :macross
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/584882.jpg
+    :border_color: 
+    :title_ru: Макросс
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: macross
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7524,57 +8232,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :ushio_to_tora
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590557.jpg
-    :border_color: 
-    :title_ru: Усио и Тора
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: ushio_to_tora
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :macross
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/584882.jpg
-    :border_color: 
-    :title_ru: Макросс
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: macross
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :jigoku_shoujo
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593462.jpg
-    :border_color: 
-    :title_ru: Адская девочка
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: jigoku_shoujo
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :tenchi_muyou
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/593376.jpg
@@ -7590,23 +8247,6 @@
         franchise: tenchi_muyou
         not_anime_ids:
         - 1503
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :muumin
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587882.jpg
-    :border_color: 
-    :title_ru: Муми-тролль
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: muumin
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7645,11 +8285,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :digimon_savers
+    :neko_id: :nen_joou
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/594733.jpg
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594735.jpg
     :border_color: 
-    :title_ru: Приключения Дигимонов
+    :title_ru: Галактический экспресс 999
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7657,9 +8297,10 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: digimon_savers
+        franchise: nen_joou
         not_anime_ids:
-        - 4712
+        - 6733
+        - 9344
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7698,11 +8339,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :nen_joou
+    :neko_id: :digimon_savers
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594735.jpg
+    :image: https://desu.shikimori.org/system/user_images/original/34807/594733.jpg
     :border_color: 
-    :title_ru: Галактический экспресс 999
+    :title_ru: Приключения Дигимонов
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7710,9 +8351,9 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: nen_joou
+        franchise: digimon_savers
         not_anime_ids:
-        - 9344
+        - 4712
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7809,23 +8450,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :urusei_yatsura
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588516.jpg
-    :border_color: 
-    :title_ru: Несносные пришельцы
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: urusei_yatsura
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :yes_precure
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/595142.jpg
@@ -7842,6 +8466,23 @@
         not_anime_ids:
         - 10736
       :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :urusei_yatsura
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/588516.jpg
+    :border_color: 
+    :title_ru: Несносные пришельцы
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: urusei_yatsura
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7908,7 +8549,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: minipato
+        franchise: mobile_police_patlabor
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8015,23 +8656,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :negima
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593353.jpg
-    :border_color: 
-    :title_ru: Волшебный учитель Нэгима!
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: negima
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :getter_robo
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/34807/590469.jpg
@@ -8046,23 +8670,6 @@
       :filters:
         franchise: getter_robo
       :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :minami_ke
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/594925.jpg
-    :border_color: 
-    :title_ru: Сёстры Минами
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: minami_ke
-      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8097,6 +8704,40 @@
       :filters:
         franchise: garo
       :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :negima
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/593353.jpg
+    :border_color: 
+    :title_ru: Волшебный учитель Нэгима!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: negima
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :minami_ke
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/594925.jpg
+    :border_color: 
+    :title_ru: Сёстры Минами
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: minami_ke
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8138,23 +8779,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :dragon_quest
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588978.jpg
-    :border_color: 
-    :title_ru: Драгон Квест
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: dragon_quest
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :fushigi_yuugi
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/588655.jpg
@@ -8186,6 +8810,23 @@
       :filters:
         franchise: pripara
       :threshold: 85%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :dragon_quest
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/588978.jpg
+    :border_color: 
+    :title_ru: Драгон Квест
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: dragon_quest
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8236,6 +8877,23 @@
       :algo: duration
       :filters:
         franchise: soukyuu_no_fafner
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :tales_of_gekijou
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/34807/615494.jpg
+    :border_color: 
+    :title_ru: Сказания
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: tales_of_gekijou
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8291,23 +8949,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :aa_megami_sama
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588643.jpg
-    :border_color: 
-    :title_ru: Моя богиня!
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: aa_megami_sama
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :locker_room
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/592658.jpg
@@ -8322,6 +8963,23 @@
       :filters:
         franchise: locker_room
       :threshold: 60%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :aa_megami_sama
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/588643.jpg
+    :border_color: 
+    :title_ru: Моя богиня!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: aa_megami_sama
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8537,11 +9195,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :baki
+    :neko_id: :captain_tsubasa
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592710.jpg
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594760.jpg
     :border_color: 
-    :title_ru: Боец Баки
+    :title_ru: Капитан Цубаса
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8549,8 +9207,8 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: baki
-      :threshold: 100%
+        franchise: captain_tsubasa
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8571,11 +9229,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :captain_tsubasa
+    :neko_id: :baki
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594760.jpg
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592710.jpg
     :border_color: 
-    :title_ru: Капитан Цубаса
+    :title_ru: Боец Баки
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8583,8 +9241,8 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: captain_tsubasa
-      :threshold: 95%
+        franchise: baki
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9841,6 +10499,283 @@
         - 1250
         - 7590
         - 6802
+        - 11339
+        - 9776
+        - 305
+        - 11759
+        - 13939
+        - 31763
+        - 12291
+        - 16273
+        - 32323
+        - 36848
+        - 102
+        - 22199
+        - 6547
+        - 11111
+        - 11701
+        - 18893
+        - 24919
+        - 24921
+        - 9736
+        - 10582
+        - 4999
+        - 66
+        - 1593
+        - 659
+        - 2251
+        - 5081
+        - 36560
+        - 35712
+        - 21405
+        - 357
+        - 2131
+        - 10578
+        - 12293
+        - 5356
+        - 9706
+        - 232
+        - 35320
+        - 33354
+        - 28999
+        - 2768
+        - 2167
+        - 4181
+        - 8888
+        - 6768
+        - 4596
+        - 15583
+        - 19163
+        - 24655
+        - 17641
+        - 8086
+        - 14073
+        - 15
+        - 14829
+        - 18851
+        - 20509
+        - 27525
+        - 31706
+        - 31056
+        - 28907
+        - 31637
+        - 2067
+        - 34438
+        - 371
+        - 372
+        - 2424
+        - 1723
+        - 34100
+        - 36833
+        - 9756
+        - 11977
+        - 23775
+        - 33581
+        - 18465
+        - 19159
+        - 5292
+        - 14131
+        - 16199
+        - 18617
+        - 18619
+        - 21431
+        - 8425
+        - 17729
+        - 29093
+        - 29095
+        - 10793
+        - 13411
+        - 4705
+        - 11785
+        - 15699
+        - 26023
+        - 23619
+        - 18713
+        - 403
+        - 797
+        - 649
+        - 1193
+        - 15809
+        - 15225
+        - 11617
+        - 12729
+        - 15451
+        - 24703
+        - 32215
+        - 34281
+        - 30300
+        - 15377
+        - 34257
+        - 35883
+        - 257
+        - 4196
+        - 7580
+        - 11255
+        - 22123
+        - 3731
+        - 10934
+        - 2130
+        - 9159
+        - 10568
+        - 3503
+        - 6791
+        - 1604
+        - 218
+        - 219
+        - 668
+        - 11887
+        - 4186
+        - 35135
+        - 35136
+        - 12471
+        - 32268
+        - 8078
+        - 3358
+        - 10456
+        - 12487
+        - 18195
+        - 1887
+        - 4472
+        - 35984
+        - 17947
+        - 10153
+        - 157
+        - 7135
+        - 6050
+        - 4188
+        - 77
+        - 33589
+        - 1915
+        - 21863
+        - 8100
+        - 10624
+        - 12053
+        - 11981
+        - 11979
+        - 5030
+        - 9712
+        - 158
+        - 1729
+        - 3750
+        - 444
+        - 21603
+        - 20541
+        - 23227
+        - 8424
+        - 17074
+        - 9181
+        - 31442
+        - 1546
+        - 1619
+        - 1732
+        - 15689
+        - 28149
+        - 11597
+        - 18095
+        - 5957
+        - 31848
+        - 25099
+        - 19221
+        - 20939
+        - 853
+        - 31181
+        - 35247
+        - 36796
+        - 11179
+        - 12673
+        - 4130
+        - 1564
+        - 1565
+        - 28497
+        - 32951
+        - 23277
+        - 30727
+        - 36885
+        - 13759
+        - 419
+        - 21033
+        - 18119
+        - 4163
+        - 2104
+        - 938
+        - 16498
+        - 23775
+        - 25781
+        - 23777
+        - 25777
+        - 36106
+        - 36702
+        - 35760
+        - 7662
+        - 31867
+        - 31914
+        - 33668
+        - 855
+        - 18277
+        - 33286
+        - 37449
+        - 30321
+        - 7311
+        - 4382
+        - 5118
+        - 26351
+        - 30379
+        - 21881
+        - 2001
+        - 23587
+        - 30344
+        - 21409
+        - 25157
+        - 28285
+        - 343
+        - 33478
+        - 10321
+        - 12711
+        - 35645
+        - 31178
+        - 21439
+        - 1607
+        - 19151
+        - 16742
+        - 18245
+        - 21085
+        - 22117
+        - 20267
+        - 29017
+        - 33161
+        - 23847
+        - 14813
+        - 18753
+        - 6586
+        - 9441
+        - 9608
+        - 12437
+        - 10495
+        - 12403
+        - 23225
+        - 30902
+        - 30279
+        - 18677
+        - 20545
+        - 4038
+        - 1195
+        - 1840
+        - 3712
+        - 11319
+        - 12783
+        - 9790
+        - 8407
+        - 7858
+        - 5958
+        - 28979
+        - 31380
+        - 31711
+        - 13663
+        - 13851
+        - 5667
+        - 3455
+        - 36688
+        - 30365
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9903,6 +10838,283 @@
         - 1250
         - 7590
         - 6802
+        - 11339
+        - 9776
+        - 305
+        - 11759
+        - 13939
+        - 31763
+        - 12291
+        - 16273
+        - 32323
+        - 36848
+        - 102
+        - 22199
+        - 6547
+        - 11111
+        - 11701
+        - 18893
+        - 24919
+        - 24921
+        - 9736
+        - 10582
+        - 4999
+        - 66
+        - 1593
+        - 659
+        - 2251
+        - 5081
+        - 36560
+        - 35712
+        - 21405
+        - 357
+        - 2131
+        - 10578
+        - 12293
+        - 5356
+        - 9706
+        - 232
+        - 35320
+        - 33354
+        - 28999
+        - 2768
+        - 2167
+        - 4181
+        - 8888
+        - 6768
+        - 4596
+        - 15583
+        - 19163
+        - 24655
+        - 17641
+        - 8086
+        - 14073
+        - 15
+        - 14829
+        - 18851
+        - 20509
+        - 27525
+        - 31706
+        - 31056
+        - 28907
+        - 31637
+        - 2067
+        - 34438
+        - 371
+        - 372
+        - 2424
+        - 1723
+        - 34100
+        - 36833
+        - 9756
+        - 11977
+        - 23775
+        - 33581
+        - 18465
+        - 19159
+        - 5292
+        - 14131
+        - 16199
+        - 18617
+        - 18619
+        - 21431
+        - 8425
+        - 17729
+        - 29093
+        - 29095
+        - 10793
+        - 13411
+        - 4705
+        - 11785
+        - 15699
+        - 26023
+        - 23619
+        - 18713
+        - 403
+        - 797
+        - 649
+        - 1193
+        - 15809
+        - 15225
+        - 11617
+        - 12729
+        - 15451
+        - 24703
+        - 32215
+        - 34281
+        - 30300
+        - 15377
+        - 34257
+        - 35883
+        - 257
+        - 4196
+        - 7580
+        - 11255
+        - 22123
+        - 3731
+        - 10934
+        - 2130
+        - 9159
+        - 10568
+        - 3503
+        - 6791
+        - 1604
+        - 218
+        - 219
+        - 668
+        - 11887
+        - 4186
+        - 35135
+        - 35136
+        - 12471
+        - 32268
+        - 8078
+        - 3358
+        - 10456
+        - 12487
+        - 18195
+        - 1887
+        - 4472
+        - 35984
+        - 17947
+        - 10153
+        - 157
+        - 7135
+        - 6050
+        - 4188
+        - 77
+        - 33589
+        - 1915
+        - 21863
+        - 8100
+        - 10624
+        - 12053
+        - 11981
+        - 11979
+        - 5030
+        - 9712
+        - 158
+        - 1729
+        - 3750
+        - 444
+        - 21603
+        - 20541
+        - 23227
+        - 8424
+        - 17074
+        - 9181
+        - 31442
+        - 1546
+        - 1619
+        - 1732
+        - 15689
+        - 28149
+        - 11597
+        - 18095
+        - 5957
+        - 31848
+        - 25099
+        - 19221
+        - 20939
+        - 853
+        - 31181
+        - 35247
+        - 36796
+        - 11179
+        - 12673
+        - 4130
+        - 1564
+        - 1565
+        - 28497
+        - 32951
+        - 23277
+        - 30727
+        - 36885
+        - 13759
+        - 419
+        - 21033
+        - 18119
+        - 4163
+        - 2104
+        - 938
+        - 16498
+        - 23775
+        - 25781
+        - 23777
+        - 25777
+        - 36106
+        - 36702
+        - 35760
+        - 7662
+        - 31867
+        - 31914
+        - 33668
+        - 855
+        - 18277
+        - 33286
+        - 37449
+        - 30321
+        - 7311
+        - 4382
+        - 5118
+        - 26351
+        - 30379
+        - 21881
+        - 2001
+        - 23587
+        - 30344
+        - 21409
+        - 25157
+        - 28285
+        - 343
+        - 33478
+        - 10321
+        - 12711
+        - 35645
+        - 31178
+        - 21439
+        - 1607
+        - 19151
+        - 16742
+        - 18245
+        - 21085
+        - 22117
+        - 20267
+        - 29017
+        - 33161
+        - 23847
+        - 14813
+        - 18753
+        - 6586
+        - 9441
+        - 9608
+        - 12437
+        - 10495
+        - 12403
+        - 23225
+        - 30902
+        - 30279
+        - 18677
+        - 20545
+        - 4038
+        - 1195
+        - 1840
+        - 3712
+        - 11319
+        - 12783
+        - 9790
+        - 8407
+        - 7858
+        - 5958
+        - 28979
+        - 31380
+        - 31711
+        - 13663
+        - 13851
+        - 5667
+        - 3455
+        - 36688
+        - 30365
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9967,6 +11179,283 @@
         - 1250
         - 7590
         - 6802
+        - 11339
+        - 9776
+        - 305
+        - 11759
+        - 13939
+        - 31763
+        - 12291
+        - 16273
+        - 32323
+        - 36848
+        - 102
+        - 22199
+        - 6547
+        - 11111
+        - 11701
+        - 18893
+        - 24919
+        - 24921
+        - 9736
+        - 10582
+        - 4999
+        - 66
+        - 1593
+        - 659
+        - 2251
+        - 5081
+        - 36560
+        - 35712
+        - 21405
+        - 357
+        - 2131
+        - 10578
+        - 12293
+        - 5356
+        - 9706
+        - 232
+        - 35320
+        - 33354
+        - 28999
+        - 2768
+        - 2167
+        - 4181
+        - 8888
+        - 6768
+        - 4596
+        - 15583
+        - 19163
+        - 24655
+        - 17641
+        - 8086
+        - 14073
+        - 15
+        - 14829
+        - 18851
+        - 20509
+        - 27525
+        - 31706
+        - 31056
+        - 28907
+        - 31637
+        - 2067
+        - 34438
+        - 371
+        - 372
+        - 2424
+        - 1723
+        - 34100
+        - 36833
+        - 9756
+        - 11977
+        - 23775
+        - 33581
+        - 18465
+        - 19159
+        - 5292
+        - 14131
+        - 16199
+        - 18617
+        - 18619
+        - 21431
+        - 8425
+        - 17729
+        - 29093
+        - 29095
+        - 10793
+        - 13411
+        - 4705
+        - 11785
+        - 15699
+        - 26023
+        - 23619
+        - 18713
+        - 403
+        - 797
+        - 649
+        - 1193
+        - 15809
+        - 15225
+        - 11617
+        - 12729
+        - 15451
+        - 24703
+        - 32215
+        - 34281
+        - 30300
+        - 15377
+        - 34257
+        - 35883
+        - 257
+        - 4196
+        - 7580
+        - 11255
+        - 22123
+        - 3731
+        - 10934
+        - 2130
+        - 9159
+        - 10568
+        - 3503
+        - 6791
+        - 1604
+        - 218
+        - 219
+        - 668
+        - 11887
+        - 4186
+        - 35135
+        - 35136
+        - 12471
+        - 32268
+        - 8078
+        - 3358
+        - 10456
+        - 12487
+        - 18195
+        - 1887
+        - 4472
+        - 35984
+        - 17947
+        - 10153
+        - 157
+        - 7135
+        - 6050
+        - 4188
+        - 77
+        - 33589
+        - 1915
+        - 21863
+        - 8100
+        - 10624
+        - 12053
+        - 11981
+        - 11979
+        - 5030
+        - 9712
+        - 158
+        - 1729
+        - 3750
+        - 444
+        - 21603
+        - 20541
+        - 23227
+        - 8424
+        - 17074
+        - 9181
+        - 31442
+        - 1546
+        - 1619
+        - 1732
+        - 15689
+        - 28149
+        - 11597
+        - 18095
+        - 5957
+        - 31848
+        - 25099
+        - 19221
+        - 20939
+        - 853
+        - 31181
+        - 35247
+        - 36796
+        - 11179
+        - 12673
+        - 4130
+        - 1564
+        - 1565
+        - 28497
+        - 32951
+        - 23277
+        - 30727
+        - 36885
+        - 13759
+        - 419
+        - 21033
+        - 18119
+        - 4163
+        - 2104
+        - 938
+        - 16498
+        - 23775
+        - 25781
+        - 23777
+        - 25777
+        - 36106
+        - 36702
+        - 35760
+        - 7662
+        - 31867
+        - 31914
+        - 33668
+        - 855
+        - 18277
+        - 33286
+        - 37449
+        - 30321
+        - 7311
+        - 4382
+        - 5118
+        - 26351
+        - 30379
+        - 21881
+        - 2001
+        - 23587
+        - 30344
+        - 21409
+        - 25157
+        - 28285
+        - 343
+        - 33478
+        - 10321
+        - 12711
+        - 35645
+        - 31178
+        - 21439
+        - 1607
+        - 19151
+        - 16742
+        - 18245
+        - 21085
+        - 22117
+        - 20267
+        - 29017
+        - 33161
+        - 23847
+        - 14813
+        - 18753
+        - 6586
+        - 9441
+        - 9608
+        - 12437
+        - 10495
+        - 12403
+        - 23225
+        - 30902
+        - 30279
+        - 18677
+        - 20545
+        - 4038
+        - 1195
+        - 1840
+        - 3712
+        - 11319
+        - 12783
+        - 9790
+        - 8407
+        - 7858
+        - 5958
+        - 28979
+        - 31380
+        - 31711
+        - 13663
+        - 13851
+        - 5667
+        - 3455
+        - 36688
+        - 30365
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
