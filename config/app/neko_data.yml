@@ -10451,7 +10451,7 @@
     :topic_id: 227421
     :rule:
       :algo: count
-      :threshold: 30%
+      :threshold: 15%
       :filters:
         anime_ids:
         - 7088
@@ -10790,7 +10790,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 55%
+      :threshold: 25%
       :filters:
         anime_ids:
         - 7088
@@ -11131,7 +11131,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 80%
+      :threshold: 40%
       :filters:
         anime_ids:
         - 7088
