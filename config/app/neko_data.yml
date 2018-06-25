@@ -5363,6 +5363,12 @@
         - 985
         - 986
         - 987
+        - 121
+        - 430
+        - 5114
+        - 9135
+        - 36655
+        - 3864
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -5840,6 +5846,12 @@
         - 985
         - 986
         - 987
+        - 121
+        - 430
+        - 5114
+        - 9135
+        - 36655
+        - 3864
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6317,6 +6329,12 @@
         - 985
         - 986
         - 987
+        - 121
+        - 430
+        - 5114
+        - 9135
+        - 36655
+        - 3864
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -11955,7 +11973,7 @@
     :topic_id: 227430
     :rule:
       :algo: count
-      :threshold: 30%
+      :threshold: 10%
       :filters:
         anime_ids:
         - 1010
@@ -13052,7 +13070,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 55%
+      :threshold: 20%
       :filters:
         anime_ids:
         - 1010
@@ -14149,7 +14167,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 80%
+      :threshold: 35%
       :filters:
         anime_ids:
         - 1010
