@@ -3729,7 +3729,6 @@
         - 33094
         - 33456
         - 33746
-        - 34100
         - 34257
         - 34973
         - 3652
@@ -4156,7 +4155,6 @@
         - 33094
         - 33456
         - 33746
-        - 34100
         - 34257
         - 34973
         - 3652
@@ -4583,7 +4581,6 @@
         - 33094
         - 33456
         - 33746
-        - 34100
         - 34257
         - 34973
         - 3652
@@ -6390,7 +6387,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 180
+      :threshold: 150
       :filters:
         genre_ids:
         - 18
@@ -6408,7 +6405,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 235
+      :threshold: 230
       :filters:
         genre_ids:
         - 18
@@ -9990,7 +9987,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 120
+      :threshold: 150
       :filters:
         genre_ids:
         - 7
@@ -10243,7 +10240,7 @@
     :neko_id: :comedy
     :level: 1
     :image: "/assets/achievements/anime/comedy_1.jpg"
-    :border_color: "#CD5C5C"
+    :border_color: "#F08080"
     :title_ru: But then I lol'd
     :text_ru: Неужели вам понравился японский юмор?
     :title_en: 
@@ -15285,7 +15282,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 40%
+      :threshold: 35%
       :filters:
         genre_ids:
         - 43
@@ -15304,7 +15301,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 60%
+      :threshold: 55%
       :filters:
         genre_ids:
         - 43
@@ -15322,7 +15319,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 90%
+      :threshold: 75%
       :filters:
         genre_ids:
         - 43
