@@ -2,7 +2,7 @@ describe AnimeOnline::VideoPlayer do
   let(:player) { AnimeOnline::VideoPlayer.new anime }
   let(:anime) { build :anime }
 
-  describe 'videos' do
+  describe '#videos' do
     subject { player.videos }
     let(:anime) { create :anime }
     let(:episode) { 1 }
@@ -154,6 +154,37 @@ describe AnimeOnline::VideoPlayer do
             anime: anime
         end
         it { is_expected.to eq true }
+      end
+    end
+  end
+
+  describe '#current_episode' do
+    subject { player.current_episode }
+
+    context 'not set' do
+      it { is_expected.to eq 1 }
+    end
+
+    context 'set' do
+      before do
+        allow(player)
+          .to receive_message_chain(:h, :params)
+          .and_return episode: episode
+      end
+
+      context '0' do
+        let(:episode) { 0 }
+        it { is_expected.to eq 0 }
+      end
+
+      context '54' do
+        let(:episode) { 54 }
+        it { is_expected.to eq 54 }
+      end
+
+      context '9999999999999999' do
+        let(:episode) { 9999999999999999 }
+        it { is_expected.to eq 1 }
       end
     end
   end

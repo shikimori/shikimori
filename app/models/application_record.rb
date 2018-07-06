@@ -25,7 +25,7 @@ class ApplicationRecord < ActiveRecord::Base
       return id if id.is_a?(String) && !id.match?(/\A\d+/)
 
       int_id = id.is_a?(String) ? Integer(id) : id
-      (1..2_147_483_647).cover?(int_id) ? int_id : nil
+      (0..2_147_483_647).cover?(int_id) ? int_id : nil
     end
 
     # fixes .where(id: 11111111111111111111111111) - bigint

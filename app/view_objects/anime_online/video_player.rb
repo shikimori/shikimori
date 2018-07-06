@@ -69,7 +69,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def current_episode
-    if h.params[:episode] # to fix out of range error
+    if h.params[:episode]
       ApplicationRecord.fix_id(
         h.params[:episode].to_i
       ) || 1
