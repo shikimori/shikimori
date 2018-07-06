@@ -157,6 +157,17 @@ namespace :sidekiq do
       execute "sudo systemctl restart #{fetch :application}_sidekiq_#{fetch :stage}"
     end
   end
+
+  desc "Copy files to public folder so nginx could serve them as static files"
+  task :copy_assets do
+    on roles(:web), in: :sequence, wait: 5 do
+      sidekiq_path = capture(
+        "cd #{release_path} && #{fetch :rbenv_prefix} bundle show sidekiq"
+      )
+      sidekiq_asset_path = sidekiq_path.split("\n")[0] + "/web/assets/."
+      execute "cp -R #{sidekiq_asset_path} #{release_path}/public/sidekiq"
+    end
+  end
 end
 
 namespace :clockwork do
@@ -181,6 +192,8 @@ namespace :clockwork do
     end
   end
 end
+
+before 'deploy:published', 'sidekiq:copy_assets'
 
 after 'deploy:starting', 'deploy:file:lock'
 after 'deploy:published', 'deploy:file:unlock'
