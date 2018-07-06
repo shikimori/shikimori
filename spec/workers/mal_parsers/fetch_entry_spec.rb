@@ -28,8 +28,8 @@ describe MalParsers::FetchEntry do
     end
     let(:characters_data) do
       {
-        characters: [{ id: 143_628, role: 'Main' }],
-        staff: [{ id: 33_365, role: 'Director' }]
+        characters: [{ id: 143_628, roles: %w[Main] }],
+        staff: [{ id: 33_365, roles: %w[Director] }]
       }
     end
     let(:recommendations_data) do

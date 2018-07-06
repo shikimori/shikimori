@@ -4,7 +4,7 @@ class PersonRoleSerializer < ActiveModel::Serializer
   has_one :person
 
   def roles
-    object.role.split(/ *, */)
+    object.roles
   end
 
   def roles_russian

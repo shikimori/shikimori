@@ -26,14 +26,14 @@ describe PeopleController do
 
   describe '#works' do
     let!(:manga) { create :manga }
-    let!(:person_role) { create :person_role, person: person, role: 'Director' }
+    let!(:person_role) { create :person_role, person: person, roles: %w[Director] }
     before { get :works, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#roles' do
     let!(:character) { create :character }
-    let!(:person_role) { create :person_role, person: person, role: 'Seyu' }
+    let!(:person_role) { create :person_role, person: person, roles: %w[Seyu] }
     before { get :roles, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end

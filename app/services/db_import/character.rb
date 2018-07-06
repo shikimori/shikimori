@@ -1,5 +1,5 @@
 class DbImport::Character < DbImport::ImportBase
-  SPECIAL_FIELDS = %i(synopsis image seyu)
+  SPECIAL_FIELDS = %i[synopsis image seyu]
 
 private
 

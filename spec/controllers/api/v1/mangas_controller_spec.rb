@@ -70,8 +70,8 @@ describe Api::V1::MangasController, :show_in_doc do
     let(:manga) { create :manga }
     let(:character) { create :character }
     let(:person) { create :person }
-    let!(:role_1) { create :person_role, manga: manga, character: character, role: 'Main' }
-    let!(:role_2) { create :person_role, manga: manga, person: person, role: 'Director' }
+    let!(:role_1) { create :person_role, manga: manga, character: character, roles: %w[Main] }
+    let!(:role_2) { create :person_role, manga: manga, person: person, roles: %w[Director] }
     before { get :roles, params: { id: manga.id }, format: :json }
 
     it do

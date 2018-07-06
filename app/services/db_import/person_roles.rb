@@ -27,7 +27,7 @@ private
       PersonRole.new(
         entry_id_key => @target.id,
         target_id_key => person_role[:id],
-        role: person_role[:role]
+        roles: person_role[:roles]
       )
     end
   end

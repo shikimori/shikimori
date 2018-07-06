@@ -51,7 +51,7 @@ describe DbImport::Character do
   end
 
   describe '#assign_seyu' do
-    let(:seyu) { [{ id: 61, type: :person, role: 'Japanese' }] }
+    let(:seyu) { [{ id: 61, type: :person, roles: %w[Japanese] }] }
 
     describe 'import' do
       let(:person_roles) { entry.person_roles.order :id }
@@ -62,7 +62,7 @@ describe DbImport::Character do
           manga_id: nil,
           character_id: entry.id,
           person_id: 61,
-          role: 'Japanese'
+          roles: %w[Japanese]
         )
       end
     end
@@ -81,7 +81,7 @@ describe DbImport::Character do
         create :person_role,
           character_id: entry.id,
           person_id: 51,
-          role: 'Test'
+          roles: %w[Test]
       end
       let(:seyu) { [] }
       before { subject }

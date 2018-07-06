@@ -201,8 +201,8 @@ describe DbImport::Manga do
   end
 
   describe '#assign_characters' do
-    let(:characters) { [{ id: 143_628, role: 'Main' }] }
-    let(:staff) { [{ id: 33_365, role: 'Director' }] }
+    let(:characters) { [{ id: 143_628, roles: %w[Main] }] }
+    let(:staff) { [{ id: 33_365, roles: %w[Director] }] }
 
     describe 'import' do
       let(:person_roles) { entry.person_roles.order :id }
@@ -213,14 +213,14 @@ describe DbImport::Manga do
           manga_id: entry.id,
           character_id: 143_628,
           person_id: nil,
-          role: 'Main'
+          roles: %w[Main]
         )
         expect(person_roles.last).to have_attributes(
           anime_id: nil,
           manga_id: entry.id,
           character_id: nil,
           person_id: 33_365,
-          role: 'Director'
+          roles: %w[Director]
         )
       end
     end
@@ -239,7 +239,7 @@ describe DbImport::Manga do
         create :person_role,
           manga_id: id,
           character_id: 28_735,
-          role: 'Main'
+          roles: %w[Main]
       end
       let(:characters) { [] }
       let(:staff) { [] }

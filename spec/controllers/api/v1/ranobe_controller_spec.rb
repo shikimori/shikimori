@@ -69,8 +69,8 @@ describe Api::V1::RanobeController, :show_in_doc do
     let(:ranobe) { create :ranobe }
     let(:character) { create :character }
     let(:person) { create :person }
-    let!(:role_1) { create :person_role, manga: ranobe, character: character, role: 'Main' }
-    let!(:role_2) { create :person_role, manga: ranobe, person: person, role: 'Director' }
+    let!(:role_1) { create :person_role, manga: ranobe, character: character, roles: %w[Main] }
+    let!(:role_2) { create :person_role, manga: ranobe, person: person, roles: %w[Director] }
     before { get :roles, params: { id: ranobe.id }, format: :json }
 
     it do

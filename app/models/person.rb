@@ -40,12 +40,6 @@ class Person < DbEntry
   ]
   MANGAKA_ROLES = ['Original Creator', 'Story & Art', 'Story', 'Art']
 
-  # является ли человек режиссёром
-  #def producer? role
-    #role.include?('Director')
-  #end
-
   def source
-    nil
   end
 end

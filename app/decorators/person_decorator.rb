@@ -44,10 +44,7 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def flatten_roles
-    object.person_roles
-      .pluck(:role)
-      .map { |v| v.split(/, */) }
-      .flatten
+    object.person_roles.flat_map(&:roles).uniq
   end
 
   def groupped_roles
@@ -55,7 +52,7 @@ class PersonDecorator < DbEntryDecorator
       role_name = I18n.t("role.#{role}", default: role)
       memo[role_name] ||= 0
       memo[role_name] += 1
-    end.sort_by {|v| [-v.second, v.first] }
+    end.sort_by { |v| [-v.second, v.first] }
   end
 
   def favoured
@@ -66,7 +63,7 @@ class PersonDecorator < DbEntryDecorator
     all_roles
       .select(&:entry)
       .select { |role| h.params[:type] ? h.params[:type] == role.entry.class.name : true }
-      .map { |role| RoleEntry.new(role.entry.decorate, role.role) }
+      .map { |role| RoleEntry.new(role.entry.decorate, role.roles) }
       .sort_by { |anime| sort_criteria anime }
       .reverse
   end

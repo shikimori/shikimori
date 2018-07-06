@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180511175954) do
+ActiveRecord::Schema.define(version: 20180706212647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -729,19 +729,18 @@ ActiveRecord::Schema.define(version: 20180511175954) do
   end
 
   create_table "person_roles", id: :serial, force: :cascade do |t|
-    t.string "role", limit: 255
     t.integer "anime_id"
     t.integer "character_id"
     t.integer "person_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "manga_id"
+    t.text "roles", default: [], null: false, array: true
     t.index ["anime_id"], name: "index_person_roles_on_anime_id"
     t.index ["character_id"], name: "index_person_roles_on_character_id"
     t.index ["manga_id"], name: "index_person_roles_on_manga_id"
     t.index ["person_id"], name: "index_person_roles_on_person_id"
-    t.index ["role", "anime_id", "character_id"], name: "i_person_role_role_anime_id"
-    t.index ["role", "manga_id", "character_id"], name: "i_person_role_role_manga_id"
+    t.index ["roles"], name: "index_person_roles_on_roles", using: :gin
   end
 
   create_table "pghero_query_stats", force: :cascade do |t|

@@ -1,24 +1,24 @@
 class RoleEntry < SimpleDelegator
-  attr_reader :role
+  attr_reader :roles
 
-  def initialize entry, role
+  def initialize entry, roles
     super entry
-    @role = role
+    @roles = roles
   end
 
   def formatted_role
-    (@role.present? ? translated_role(false) : '&nbsp;').html_safe
+    (@roles.present? ? translated_roles(is_full: false) : '&nbsp;').html_safe
   end
 
   def formatted_roles
-    (@role.present? ? translated_role(true) : '&nbsp;').html_safe
+    (@roles.present? ? translated_roles(is_full: true) : '&nbsp;').html_safe
   end
 
 private
-  def translated_role is_full
-    @role
-      .split(/, */)
-      .map {|role| I18n.t "role.#{role}", default: role }
+
+  def translated_roles is_full:
+    @roles
+      .map { |role| I18n.t "role.#{role}", default: role }
       .sort
       .take(is_full ? 10 : 1)
       .join(', ')

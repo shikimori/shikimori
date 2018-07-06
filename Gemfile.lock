@@ -77,7 +77,7 @@ GIT
 
 GIT
   remote: https://github.com/shikimori/mal_parser.git
-  revision: dd0694cd192ed48c9ac6e5db892f8beeb3b1c4a8
+  revision: 19c1516b014bfac747b3d12dada44f17b73fb2f2
   specs:
     mal_parser (0.1.0)
       attr_extras
@@ -425,7 +425,7 @@ GEM
     net-ssh (5.0.2)
     newrelic_rpm (5.2.0.345)
     nio4r (2.3.1)
-    nokogiri (1.8.3)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)

@@ -31,7 +31,6 @@ class MalParsers::FetchEntry
 
   def perform id, type
     IMPORTS[type.to_sym].call import_data(id, type)
-
   rescue InvalidIdError
     entry = TYPES[type].classify.constantize.find_by id: id
 

@@ -9,27 +9,27 @@ FactoryBot.define do
       anime_role
       character
       person
-      role 'Japanese'
+      roles %w[Japanese]
     end
 
     trait :anime_role do
       anime
-      role 'Main'
+      roles %w[Main]
     end
 
     trait :manga_role do
       manga
-      role 'Main'
+      roles %w[Main]
     end
 
     trait :staff_role do
       person
-      role 'Main'
+      roles %w[Main]
     end
 
     trait :character_role do
       character
-      role 'Main'
+      roles %w[Main]
     end
   end
 end

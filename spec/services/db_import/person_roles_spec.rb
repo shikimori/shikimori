@@ -4,16 +4,16 @@ describe DbImport::PersonRoles do
   let(:characters) do
     [{
       id: 143_628,
-      role: 'Main'
+      roles: %w[Main]
     }, {
       id: 145_176,
-      role: 'Supporting'
+      roles: %w[Supporting]
     }]
   end
   let(:staff) do
     [{
       id: 33_365,
-      role: 'Director'
+      roles: %w[Director]
     }]
   end
   let!(:person_role) {}
@@ -27,21 +27,21 @@ describe DbImport::PersonRoles do
       manga_id: nil,
       character_id: 143_628,
       person_id: nil,
-      role: 'Main'
+      roles: %w[Main]
     )
     expect(person_roles[1]).to have_attributes(
       anime_id: target.id,
       manga_id: nil,
       character_id: 145_176,
       person_id: nil,
-      role: 'Supporting'
+      roles: %w[Supporting]
     )
     expect(person_roles[2]).to have_attributes(
       anime_id: target.id,
       manga_id: nil,
       character_id: nil,
       person_id: 33_365,
-      role: 'Director'
+      roles: %w[Director]
     )
   end
 

@@ -18,7 +18,7 @@ class Character < DbEntry
   has_many :animes, -> { order :id }, through: :person_roles
   has_many :mangas, -> { order :id }, through: :person_roles
   has_many :people, through: :person_roles
-  has_many :japanese_roles, -> { where role: 'Japanese' },
+  has_many :japanese_roles, -> { where roles: %w[Japanese] },
     class_name: PersonRole.name
   has_many :seyu, through: :japanese_roles, source: :person
 

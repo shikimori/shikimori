@@ -78,8 +78,8 @@ describe Api::V1::AnimesController, :show_in_doc do
     let(:anime) { create :anime }
     let(:character) { create :character }
     let(:person) { create :person }
-    let!(:role_1) { create :person_role, anime: anime, character: character, role: 'Main' }
-    let!(:role_2) { create :person_role, anime: anime, person: person, role: 'Director' }
+    let!(:role_1) { create :person_role, anime: anime, character: character, roles: %w[Main] }
+    let!(:role_2) { create :person_role, anime: anime, person: person, roles: %w[Director] }
     before { get :roles, params: { id: anime.id }, format: :json }
 
     it do
