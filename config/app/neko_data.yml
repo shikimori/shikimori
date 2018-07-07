@@ -1262,7 +1262,7 @@
     :topic_id: 222067
     :rule:
       :algo: count
-      :threshold: 4%
+      :threshold: 6%
       :filters:
         anime_ids:
         - 100
@@ -1682,7 +1682,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 7%
+      :threshold: 9%
       :filters:
         anime_ids:
         - 100
@@ -2101,7 +2101,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 14%
+      :threshold: 15%
       :filters:
         anime_ids:
         - 100
@@ -2520,7 +2520,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 29%
+      :threshold: 30%
       :filters:
         anime_ids:
         - 100
@@ -3338,7 +3338,7 @@
     :topic_id: 227423
     :rule:
       :algo: count
-      :threshold: 30%
+      :threshold: 10%
       :filters:
         anime_ids:
         - 10012
@@ -3749,7 +3749,27 @@
         - 25519
         - 34284
         - 34445
-        - 
+        - 36777
+        - 10849
+        - 21451
+        - 20033
+        - 30384
+        - 31560
+        - 31252
+        - 15453
+        - 12101
+        - 37206
+        - 36945
+        - 35672
+        - 37481
+        - 37704
+        - 36431
+        - 34392
+        - 36990
+        - 37722
+        - 37422
+        - 21409
+        - 31894
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3764,7 +3784,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 35%
+      :threshold: 15%
       :filters:
         anime_ids:
         - 10012
@@ -4175,7 +4195,27 @@
         - 25519
         - 34284
         - 34445
-        - 
+        - 36777
+        - 10849
+        - 21451
+        - 20033
+        - 30384
+        - 31560
+        - 31252
+        - 15453
+        - 12101
+        - 37206
+        - 36945
+        - 35672
+        - 37481
+        - 37704
+        - 36431
+        - 34392
+        - 36990
+        - 37722
+        - 37422
+        - 21409
+        - 31894
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -4190,7 +4230,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 65%
+      :threshold: 25%
       :filters:
         anime_ids:
         - 10012
@@ -4601,7 +4641,27 @@
         - 25519
         - 34284
         - 34445
-        - 
+        - 36777
+        - 10849
+        - 21451
+        - 20033
+        - 30384
+        - 31560
+        - 31252
+        - 15453
+        - 12101
+        - 37206
+        - 36945
+        - 35672
+        - 37481
+        - 37704
+        - 36431
+        - 34392
+        - 36990
+        - 37722
+        - 37422
+        - 21409
+        - 31894
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6663,6 +6723,9 @@
       :algo: duration
       :filters:
         franchise: gintama
+        not_anime_ids:
+        - 37864
+        - 19261
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6994,9 +7057,7 @@
       :filters:
         franchise: ghost_in_the_shell
         not_anime_ids:
-        - 2448
         - 10870
-        - 10948
         - 31617
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -7086,6 +7147,25 @@
       :filters:
         franchise: shokugeki_no_souma
       :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :shingeki_no_kyojin
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/621305.jpg
+    :border_color: 
+    :title_ru: Вторжение гигантов
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: shingeki_no_kyojin
+        not_anime_ids:
+        - 35267
+      :threshold: 97%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7582,8 +7662,6 @@
       :algo: duration
       :filters:
         franchise: hikaru_no_go
-        not_anime_ids:
-        - 2336
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8271,7 +8349,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :minipato
+    :neko_id: :mobile_police_patlabor
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/573803.jpg
     :border_color: 
@@ -8283,7 +8361,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: minipato
+        franchise: mobile_police_patlabor
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8960,6 +9038,23 @@
       :filters:
         franchise: force_live
       :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :zoids
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/621268.jpg
+    :border_color: 
+    :title_ru: Зойды
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: zoids
+      :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
