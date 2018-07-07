@@ -11,7 +11,7 @@ private
 
   def extract_names entries
     entries
-      .map(&:name)
+      .flat_map { |v| [v.name, v.english].compact.uniq }
       .map { |name| cleanup name }
   end
 
