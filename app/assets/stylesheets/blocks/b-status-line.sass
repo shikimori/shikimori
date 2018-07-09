@@ -1,4 +1,5 @@
 @import mixins/ellipsis2
+@import mixins/responsive
 @import mixins/shikimori
 
 =status_line_block
@@ -23,11 +24,19 @@
   font-size: 12px
   margin-bottom: 3px
 
+  +iphone
+    clear: both
+
   .section
+    +ellipsis2
     border-left: 1px solid #acb1b4
     display: inline-block
     margin-left: 15px
     padding-left: 14px
+
+    &.b-tooltipped
+      border-bottom: none
+      line-height: inherit
 
     &:first-child
       border-left: none

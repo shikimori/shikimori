@@ -23,7 +23,8 @@ I18N_DATE_FORMATS =
         $(@).one 'mouseover', ->
           time = parse_time $(@)
           format = I18N_TIME_FORMATS[I18n.locale]
-          $(@).attr title: time.format(format)
+          unless $(@).data('no-tooltip')
+            $(@).attr title: time.format(format)
 
   update_times = ->
     $('time').each -> update_time @

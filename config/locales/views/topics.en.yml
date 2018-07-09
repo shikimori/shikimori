@@ -76,3 +76,6 @@ en:
       finished:
         <<: *contest_started
         winners: Winners
+    status_line:
+      created_at: Created at %{date}
+      changed_at: Changed at %{date}

@@ -76,3 +76,6 @@ ru:
       finished:
         <<: *contest_started
         winners: Победители
+    status_line:
+      created_at: Создано %{date}
+      changed_at: Изменено %{date}
