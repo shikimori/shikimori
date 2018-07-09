@@ -6,8 +6,9 @@ page_load 'anime_videos_index', ->
   debounced_resize = debounce(250, resize_video_player)
   debounced_resize()
 
-  $(window).on('resize', debounced_resize)
-  $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
+  $(window).on 'resize', debounced_resize
+  $(window).one 'page:before-unload', ->
+    $(window).off 'resize', debounced_resize
 
   # переключение вариантов видео
   $('.video-variant-switcher').on 'click', switch_video_variant
@@ -128,7 +129,10 @@ init_video_player = ->
 
   # сабмит жалобы
   $('.cc-anime_video_report-new form').on 'ajax:success', ->
-    $.notice 'Жалоба успешно отправлена и вскоре будет рассмотрена модератором. Домо аригато'
+    $.notice(
+      'Жалоба успешно отправлена и вскоре будет рассмотрена модератором. ' +
+        'Домо аригато'
+    )
     hide_report()
 
 show_report = ->
