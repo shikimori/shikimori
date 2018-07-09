@@ -14,9 +14,8 @@
           title=localized_name(topic_view.topic.linked)
         ] = localized_name topic_view.topic.linked
 
-  .section.created_at.b-tooltipped.unprocessed[
+  .section.created_at[
     title=t('.created_at', date: topic_view.format_date(topic_view.created_at))
-    data-direction="bottom"
   ]
     time[
       datetime=topic_view.created_at.iso8601
@@ -24,9 +23,8 @@
     ] = topic_view.format_date topic_view.created_at
 
   - if topic_view.respond_to?(:changed_at) && topic_view.changed_at
-    .section.changed_at.b-tooltipped.unprocessed[
+    .section.changed_at[
       title=t('.changed_at', date: topic_view.format_date(topic_view.changed_at))
-      data-direction="bottom"
     ]
       time[
         datetime=topic_view.changed_at.iso8601
