@@ -1,5 +1,9 @@
 class AnimeWithRoleSerializer < AnimeSerializer
+  attribute :roles do
+    object.roles
+  end
+
   attribute :role do
-    object.role
+    object.roles.join(', ')
   end
 end

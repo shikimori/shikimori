@@ -40,14 +40,14 @@ class CharacterProfileSerializer < CharacterSerializer
     all_roles
       .select { |role| role.anime_id.present? }
       .sort_by(&:anime_id)
-      .map { |role| RoleEntry.new role.anime.decorate, role.role }
+      .map { |role| RoleEntry.new role.anime.decorate, role.roles }
   end
 
   def mangas
     all_roles
       .select { |role| role.manga_id.present? }
       .sort_by(&:manga_id)
-      .map { |role| RoleEntry.new role.manga.decorate, role.role }
+      .map { |role| RoleEntry.new role.manga.decorate, role.roles }
   end
 
 private

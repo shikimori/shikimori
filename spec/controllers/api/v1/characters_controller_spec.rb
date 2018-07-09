@@ -1,6 +1,9 @@
 describe Api::V1::CharactersController, :show_in_doc do
-  describe '#show' do
+  describe '#show', :focus do
     let(:character) { create :character, :with_topics }
+    let!(:person_role) { create :person_role, character: character, anime: anime }
+    let(:anime) { create :anime }
+
     before { get :show, params: { id: character.id }, format: :json }
 
     it do
