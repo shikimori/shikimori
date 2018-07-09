@@ -44,7 +44,7 @@ class Topics::ReviewView < Topics::UserContentView
   end
 
   def render_body
-    preview? ? html_body_truncated : (results_html + stars_html + html_body)
+    preview? ? html_body_truncated : (stars_html + html_body)
   end
 
   def vote_results?
@@ -53,6 +53,10 @@ class Topics::ReviewView < Topics::UserContentView
 
   def read_more_link?
     preview? || minified?
+  end
+
+  def status_line?
+    true
   end
 
   def html_body
@@ -81,10 +85,6 @@ private
     h.render 'reviews/stars',
       review: review,
       with_music: review.entry.is_a?(Anime)
-  end
-
-  def results_html
-    h.render 'topics/reviews/votes_count', review: review
   end
 
   def review

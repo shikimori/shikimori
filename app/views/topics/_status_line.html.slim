@@ -1,34 +1,35 @@
 - topic_type_policy = topic_view.topic_type_policy
 
-.status-line
-  span.from = t '.by'
-  span.author
-    = render 'users/user_16', user: topic_view.user
+.b-status-line
+  - if topic_view.minified?
+    .section.about
+      span = t '.by'
+      span.author
+        = render 'users/user_16', user: topic_view.user
 
-  - if topic_type_policy.news_topic? && topic_view.topic.linked
-    span.about = t '.about'
-    a.b-link.bubbled[
-      href=topic_view.topic.linked.decorate.url
-      title=localized_name(topic_view.topic.linked)
-    ] = localized_name topic_view.topic.linked
+      - if topic_type_policy.news_topic? && topic_view.topic.linked
+        span = t '.about'
+        a.b-link.bubbled[
+          href=topic_view.topic.linked.decorate.url
+          title=localized_name(topic_view.topic.linked)
+        ] = localized_name topic_view.topic.linked
 
-  span.time
+  .section.created_at
     time[
-      itemprop="commentTime"
       datetime=topic_view.created_at.iso8601
     ] = topic_view.format_date topic_view.created_at
 
   - if topic_view.respond_to?(:changed_at) && topic_view.changed_at
-    span.time.changed_at
+    .section.changed_at
       time[
         datetime=topic_view.changed_at.iso8601
       ] = topic_view.format_date topic_view.changed_at
 
-  span.additional
+  .section.additional
     - if topic_type_policy.collection_topic?
       span.collection-size = topic_view.collection.size
 
     span.comments = topic_view.comments_count
 
     - if topic_type_policy.review_topic? || topic_type_policy.cosplay_gallery_topic? || topic_type_policy.collection_topic?
-      = render 'reviews/votes', review: topic_view.topic.linked
+      = render 'topics/reviews/votes_count', review: topic_view.topic.linked

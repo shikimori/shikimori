@@ -168,6 +168,10 @@ class Topics::View < ViewObjectBase
     topic_ignore.present?
   end
 
+  def status_line?
+    minified?
+  end
+
   def topic_type_policy
     Topic::TypePolicy.new @topic
   end

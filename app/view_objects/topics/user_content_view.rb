@@ -7,13 +7,15 @@ class Topics::UserContentView < Topics::View
     false
   end
 
-  def changed_at
+  def changed_at # rubocop:disable AbcSize
     linked = @topic.linked
 
     return unless linked&.updated_at && linked&.created_at
     return if linked.updated_at - linked.created_at < 1.hour
     return if format_date(linked.updated_at) ==
       format_date(linked.created_at)
+    return if h.time_ago_in_words(linked.updated_at, nil, true) ==
+      h.time_ago_in_words(linked.created_at, nil, true)
 
     linked.updated_at
   end

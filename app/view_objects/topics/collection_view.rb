@@ -29,7 +29,7 @@ class Topics::CollectionView < Topics::UserContentView
     if preview?
       preview_html
     else
-      results_html + collection_html
+      collection_html
     end
   end
 
@@ -48,6 +48,10 @@ class Topics::CollectionView < Topics::UserContentView
     @topic.linked.decorate
   end
 
+  def status_line?
+    true
+  end
+
 private
 
   def preview_html
@@ -60,9 +64,5 @@ private
 
   def collection_html
     h.render collection
-  end
-
-  def results_html
-    h.render 'topics/reviews/votes_count', review: collection
   end
 end
