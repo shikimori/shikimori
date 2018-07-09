@@ -131,7 +131,7 @@ module Shikimori
 
     ActiveRecord::Base.include_root_in_json = false
 
-    config.redis_host = Rails.env.production? ? '192.168.0.2' : 'localhost'
+    config.redis_host = Rails.env.production? ? '192.168.0.3' : 'localhost'
     config.redis_db = 2
 
     # достали эксепшены с ханибаджера
