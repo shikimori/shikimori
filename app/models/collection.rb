@@ -3,7 +3,7 @@ class Collection < ApplicationRecord
   include TopicsConcern
   include ModeratableConcern
 
-  acts_as_votable
+  acts_as_votable cacheable_strategy: :update_columns
   update_index('collections#collection') { self if saved_change_to_name? }
 
   belongs_to :user

@@ -90,8 +90,7 @@ gem 'acts-as-taggable-on'
 gem 'acts_as_list'
 gem 'retryable'
 gem 'truncate_html'
-# gem 'acts_as_votable'
-gem 'acts_as_votable', github: 'ryanto/acts_as_votable', branch: :master
+gem 'acts_as_votable'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 gem 'draper'
 gem 'draper-cancancan' # because https://github.com/CanCanCommunity/cancancan/issues/255

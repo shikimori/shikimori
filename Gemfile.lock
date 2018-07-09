@@ -69,13 +69,6 @@ GIT
       diff-lcs
 
 GIT
-  remote: https://github.com/ryanto/acts_as_votable.git
-  revision: 62ce4e9f12995e1a5d5dd932788bc54c4e614d58
-  branch: master
-  specs:
-    acts_as_votable (0.11.1)
-
-GIT
   remote: https://github.com/shikimori/mal_parser.git
   revision: 19c1516b014bfac747b3d12dada44f17b73fb2f2
   specs:
@@ -147,6 +140,7 @@ GEM
       activerecord (>= 4.2.8)
     acts_as_list (0.9.15)
       activerecord (>= 3.0)
+    acts_as_votable (0.11.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     airbrussh (1.3.0)
@@ -713,7 +707,7 @@ DEPENDENCIES
   activerecord-import
   acts-as-taggable-on
   acts_as_list
-  acts_as_votable!
+  acts_as_votable
   airbrussh
   amatch!
   apipie-rails

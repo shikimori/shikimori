@@ -6,7 +6,7 @@ class Review < ApplicationRecord
   include TopicsConcern
   include ModeratableConcern
 
-  acts_as_votable
+  acts_as_votable cacheable_strategy: :update_columns
 
   MINIMUM_LENGTH = 3000
 
