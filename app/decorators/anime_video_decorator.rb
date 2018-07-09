@@ -105,7 +105,7 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def watch_increment_delay
-    (anime.duration || 24) * 60000 / 3 if anime.duration > 0
+    (anime.duration.positive? ? anime.duration : 24) * 60_000 / 3
   end
 
   def versions
