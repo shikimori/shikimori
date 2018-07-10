@@ -223,4 +223,33 @@ $max_width: 167px
       color: #fff
       content: $icon-dropped
       width: $foreground-size - 1px
-      // line-height: $foreground-size - 1px
+
+.user_rates-minified .b-catalog_entry
+  &.planned, &.watching, &.completed, &.rewatching, &.on_hold, &.dropped
+    .image-decor
+      &::before,
+      &::after
+        right: 3px
+        top: 3px
+
+      &::before
+        border-width: 1px
+        border-radius: 0
+        height: 16px
+        width: 16px
+        line-height: 16px
+
+      &::after
+        width: 19px
+        line-height: 19px
+        font-size: 13px
+        font-weight: bold
+
+  &.on_hold .image-decor
+    &:after
+      font-size: 12px
+      font-weight: normal
+
+  &.dropped .image-decor
+    &:after
+      width: 17px
