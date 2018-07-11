@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: refactor serialized fields to postgres arrays
 class Anime < DbEntry
   include AniManga
   include TopicsConcern
@@ -224,19 +223,6 @@ class Anime < DbEntry
 
   def broadcast_at
     BroadcastDate.parse broadcast, aired_on if broadcast && (ongoing? || anons?)
-  end
-
-  def subtitles
-    @subtitles ||= BigDataCache.read("anime_#{id}_subtitles") || {}
-  end
-
-  def torrents
-    @torrents ||= BigDataCache.read("anime_#{id}_torrents") || []
-  end
-
-  def torrents=(data)
-    BlobData.set("anime_#{id}_torrents", data)
-    @torrents = nil
   end
 
   # banned by roskomnadzor

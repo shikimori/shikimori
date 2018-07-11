@@ -16,15 +16,20 @@ class FansubsParser
   # импорт субтитров для аниме
   def import(anime)
     data = nil
+
     TorrentsMatcher.new(anime).name_variants.each do |query|
-      data = find_subtitles(query.gsub(/[^0-9A-Za-z А-Яа-я]/, ' ').gsub(/ +/, ' '), anime)
+      data = find_subtitles(
+        query.gsub(/[^0-9A-Za-z А-Яа-я]/, ' ').gsub(/ +/, ' '),
+        anime
+      )
 
       if data.present?
-        BlobData.set("anime_#{anime.id}_subtitles", data) unless data.empty?
-        return data
+        Animes::Subtitles::Set.call(anime, data)
+        break
       end
     end
-    nil
+
+    data
   end
 
   # поиск субтитров на fansubs.ru

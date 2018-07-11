@@ -1,6 +1,7 @@
 class MigrateBlobDataIntoBigDataCache < ActiveRecord::Migration[5.1]
   def up
     BlobData.where("key like '%torrents_%'").delete_all
+    BlobData.where("key like '%subtitles%'").delete_all
 
     BlobData.find_each do |blob_data|
       value = BlobData.get(blob_data.key)

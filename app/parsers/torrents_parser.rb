@@ -195,20 +195,25 @@ class TorrentsParser
   def self.add_episodes anime, feed
     new_episodes = check_aired_episodes anime, feed
 
+    torrents_before = Animes::Torrents::Get.call(anime)
+
     unless new_episodes.empty?
       print "%d new episodes(s) found for %s\n" % [new_episodes.size, anime.name]
-      anime.torrents = (anime.torrents + new_episodes).uniq {|v| v[:title] }
+      Animes::Torrents::Set.call(
+        anime,
+        (torrents_before + new_episodes).uniq { |v| v[:title] }
+      )
+
       new_episodes.size
     else
       new_torrents = feed.select {|v| v[:title].match(/x720|x768|720p|x400|400p|x480|480p|x1080|1080p/) }
       unless new_torrents.empty?
-        torrents_before = anime.torrents
         torrents_after = ((torrents_before.is_a?(String) ? [] : torrents_before) + new_torrents).
                            select {|v| v.kind_of?(Hash) && v[:title] }.
                            uniq {|v| v[:title] }
         if torrents_before.size != torrents_after.size
           print "%d new torrent(s) found for %s\n" % [torrents_after.size - torrents_before.size, anime.name]
-          anime.torrents = torrents_after
+          Animes::Torrents::Set.call(anime, torrents_after)
         end
       end
       0

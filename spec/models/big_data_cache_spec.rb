@@ -11,7 +11,7 @@ describe BigDataCache do
       subject { described_class.write key, value, expires_in: expires_at }
 
       let(:key) { 'key' }
-      let(:value) { [{ a: :b }] }
+      let(:value) { { a: :b } }
       let(:expires_at) { 1.hour }
 
       context 'no key' do
@@ -75,7 +75,7 @@ describe BigDataCache do
       subject { described_class.fetch(key, expires_in: expires_at) { value } }
 
       let(:key) { 'test' }
-      let(:value) { [{ a: :b }] }
+      let(:value) { { a: :b } }
       let(:expires_at) { 1.hour }
 
       context 'has key' do
@@ -99,7 +99,7 @@ describe BigDataCache do
         end
       end
 
-      context 'no key', :focus do
+      context 'no key' do
         let(:entry) { BigDataCache.find_by key: key }
 
         it do

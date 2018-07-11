@@ -34,9 +34,9 @@ class AniMangaDecorator::Files
   end
 
   def subtitles
-    @subtitles ||= entry.subtitles
-      .sort_by {|k,v| v[:link] == nil ? 2 : 1 }
-      .select {|k,subs| subs[:title] }
+    @subtitles ||= Animes::Subtitles::Get.call(entry)
+      .sort_by { |_k, value| value[:link] ? 2 : 1 }
+      .select { |_k, value| value[:title] }
   end
 
   def groupped_torrents
@@ -45,7 +45,7 @@ class AniMangaDecorator::Files
       sorted_torrents_720p = torrents_720p.sort_by {|v| v[:pubDate] && [DateTime, Time].include?(v[:pubDate].class) ? v[:pubDate] : DateTime.now - 40.years }.uniq {|v| v[:title] }.reverse
       sorted_torrents_1080p = torrents_1080p.sort_by {|v| v[:pubDate] && [DateTime, Time].include?(v[:pubDate].class) ? v[:pubDate] : DateTime.now - 40.years }.uniq {|v| v[:title] }.reverse
 
-      sorted_torrents = (entry.torrents - torrents_480p - torrents_720p - torrents_1080p).select {|v| v.kind_of?(Hash) }.sort_by do |v|
+      sorted_torrents = (torrents - torrents_480p - torrents_720p - torrents_1080p).select {|v| v.kind_of?(Hash) }.sort_by do |v|
         v[:pubDate] && [DateTime, Time].include?(v[:pubDate].class) ? v[:pubDate] : DateTime.now - 40.years
       end.uniq { |v| v[:title] }.reverse
       # if entry.released? && (entry.released_on || entry.aired_on) && DateTime.now.to_i - (entry.released_on || entry.aired_on).to_time.to_i > 60*60*24*364
@@ -92,9 +92,12 @@ private
       (groupped_torrents[:torrents_480p] || [])
   end
 
+  def torrents
+    @torrents ||= Animes::Torrents::Get.call(entry)
+  end
+
   def torrents_480p
-    @torrents_480p ||= entry
-      .torrents
+    @torrents_480p ||= torrents
       .select do |v|
         v.is_a?(Hash) && v[:title] && v[:title].match(/x480|480p/)
       end
@@ -102,8 +105,7 @@ private
   end
 
   def torrents_720p
-    @torrents_720p ||= entry
-      .torrents
+    @torrents_720p ||= torrents
       .select do |v|
         v.is_a?(Hash) && v[:title] && v[:title].match(/x720|x768|720p/)
       end
@@ -111,8 +113,7 @@ private
   end
 
   def torrents_1080p
-    @torrents_1080p ||= entry
-      .torrents
+    @torrents_1080p ||= torrents
       .select do |v|
         v.is_a?(Hash) && v[:title] && v[:title].match(/x1080|1080p/)
       end
