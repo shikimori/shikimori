@@ -123,7 +123,7 @@ private
 
   # rubocop:disable AbcSize
   def only_summaries_shown?
-    return false unless %w(animes mangas).include? h.params[:controller]
+    return false unless %w(animes mangas ranobe).include? h.params[:controller]
     return true if h.params[:action] == 'summaries'
 
     h.params[:action] == 'show' &&
