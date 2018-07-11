@@ -37,7 +37,7 @@ class Recommendations::RatesFetcher
     key = "#{cache_key}_#{normalization.class.name}"
 
     @data[key] ||=
-      Rails.cache.fetch key, expires_in: 2.weeks do
+      PgCache.fetch key, expires_in: 2.weeks do
         fetch_raw_scores.each_with_object({}) do |(user_id, data), memo|
           memo[user_id] = normalization.normalize data, user_id
         end
@@ -48,7 +48,7 @@ private
 
   def fetch_raw_scores
     @fetch_raw_scores ||=
-      Rails.cache.fetch cache_key, expires_in: 2.weeks do
+      PgCache.fetch cache_key, expires_in: 2.weeks do
         if @with_deletion
           fetch_rates(@klass).delete_if { |_k, v| v.size < MINIMUM_SCORES }
         else
