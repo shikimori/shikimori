@@ -1,0 +1,7 @@
+class Animes::Subtitles::Get
+  method_object :anime
+
+  def call
+    BigDataCache.read("anime_#{@anime.id}_subtitles") || {}
+  end
+end
