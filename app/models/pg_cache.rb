@@ -1,4 +1,4 @@
-class BigDataCache < ApplicationRecord
+class PgCache < ApplicationRecord
   serialize :value
 
   validates :key, presence: true, uniqueness: { case_sensitive: false }

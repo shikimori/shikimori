@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180711214145) do
+ActiveRecord::Schema.define(version: 20180711214708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,15 +161,6 @@ ActiveRecord::Schema.define(version: 20180711214145) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_bans_on_user_id"
-  end
-
-  create_table "big_data_caches", force: :cascade do |t|
-    t.string "key", null: false
-    t.text "value", null: false
-    t.datetime "expires_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["key"], name: "index_big_data_caches_on_key", unique: true
   end
 
   create_table "characters", id: :serial, force: :cascade do |t|
@@ -742,6 +733,15 @@ ActiveRecord::Schema.define(version: 20180711214145) do
     t.index ["manga_id"], name: "index_person_roles_on_manga_id"
     t.index ["person_id"], name: "index_person_roles_on_person_id"
     t.index ["roles"], name: "index_person_roles_on_roles", using: :gin
+  end
+
+  create_table "pg_caches", force: :cascade do |t|
+    t.string "key", null: false
+    t.text "value", null: false
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_pg_caches_on_key", unique: true
   end
 
   create_table "pghero_query_stats", force: :cascade do |t|

@@ -5,7 +5,7 @@ describe Animes::Subtitles::Get do
 
   context 'has torrents' do
     let!(:cache_entry) do
-      create :big_data_cache,
+      create :pg_cache,
         key: "anime_#{anime.id}_subtitles",
         value: 'zxc'
     end

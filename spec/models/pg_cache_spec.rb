@@ -1,4 +1,4 @@
-describe BigDataCache do
+describe PgCache do
   describe 'validations' do
     it { is_expected.to validate_presence_of :key }
     it { is_expected.to validate_presence_of :value }
@@ -15,10 +15,10 @@ describe BigDataCache do
       let(:expires_at) { 1.hour }
 
       context 'no key' do
-        let(:entry) { BigDataCache.find_by key: key }
+        let(:entry) { PgCache.find_by key: key }
 
         it do
-          expect { subject }.to change(BigDataCache, :count).by 1
+          expect { subject }.to change(PgCache, :count).by 1
           is_expected.to eq value
           expect(entry.value).to eq value
           expect(entry.expires_at).to be_within(0.1).of expires_at.from_now
@@ -28,7 +28,7 @@ describe BigDataCache do
           let(:expires_at) { nil }
 
           it do
-            expect { subject }.to change(BigDataCache, :count).by 1
+            expect { subject }.to change(PgCache, :count).by 1
             is_expected.to eq value
             expect(entry.value).to eq value
             expect(entry.expires_at).to be_nil
@@ -37,10 +37,10 @@ describe BigDataCache do
       end
 
       context 'has key' do
-        let!(:entry) { create :big_data_cache, key: key }
+        let!(:entry) { create :pg_cache, key: key }
 
         it do
-          expect { subject }.to_not change BigDataCache, :count
+          expect { subject }.to_not change PgCache, :count
           is_expected.to eq value
           expect(entry.reload.value).to eq value
           expect(entry.expires_at).to be_within(0.1).of expires_at.from_now
@@ -54,12 +54,12 @@ describe BigDataCache do
 
       context 'has key' do
         context 'not expred' do
-          let!(:entry) { create :big_data_cache, key: key, expires_at: 1.minute.from_now }
+          let!(:entry) { create :pg_cache, key: key, expires_at: 1.minute.from_now }
           it { is_expected.to eq entry.value }
         end
 
         context 'expired' do
-          let!(:entry) { create :big_data_cache, key: key, expires_at: 1.minute.ago }
+          let!(:entry) { create :pg_cache, key: key, expires_at: 1.minute.ago }
           it { is_expected.to be_nil }
         end
       end
@@ -80,18 +80,18 @@ describe BigDataCache do
 
       context 'has key' do
         context 'not expred' do
-          let!(:entry) { create :big_data_cache, key: key, expires_at: 1.minute.from_now }
+          let!(:entry) { create :pg_cache, key: key, expires_at: 1.minute.from_now }
           it do
-            expect { subject }.to_not change BigDataCache, :count
+            expect { subject }.to_not change PgCache, :count
             is_expected.to eq entry.value
             is_expected.to_not eq value
           end
         end
 
         context 'expired' do
-          let!(:entry) { create :big_data_cache, key: key, expires_at: 1.minute.ago }
+          let!(:entry) { create :pg_cache, key: key, expires_at: 1.minute.ago }
           it do
-            expect { subject }.to_not change BigDataCache, :count
+            expect { subject }.to_not change PgCache, :count
             is_expected.to eq value
             expect(entry.reload.value).to eq value
             expect(entry.expires_at).to be_within(0.1).of expires_at.from_now
@@ -100,10 +100,10 @@ describe BigDataCache do
       end
 
       context 'no key' do
-        let(:entry) { BigDataCache.find_by key: key }
+        let(:entry) { PgCache.find_by key: key }
 
         it do
-          expect { subject }.to change(BigDataCache, :count).by 1
+          expect { subject }.to change(PgCache, :count).by 1
           is_expected.to eq value
           expect(entry.value).to eq value
           expect(entry.expires_at).to be_within(0.1).of expires_at.from_now
@@ -116,15 +116,15 @@ describe BigDataCache do
       let(:key) { 'test' }
 
       context 'has key' do
-        let!(:entry) { create :big_data_cache, key: key }
+        let!(:entry) { create :pg_cache, key: key }
         it do
-          expect { subject }.to change(BigDataCache, :count).by(-1)
+          expect { subject }.to change(PgCache, :count).by(-1)
           expect { entry.reload }.to raise_error ActiveRecord::RecordNotFound
         end
       end
 
       context 'no key' do
-        it { expect { subject }.to_not change BigDataCache, :count }
+        it { expect { subject }.to_not change PgCache, :count }
       end
     end
   end

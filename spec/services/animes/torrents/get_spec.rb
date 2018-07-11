@@ -5,7 +5,7 @@ describe Animes::Torrents::Get do
 
   context 'has torrents' do
     let!(:cache_entry) do
-      create :big_data_cache,
+      create :pg_cache,
         key: "anime_#{anime.id}_torrents",
         value: 'zxc'
     end
