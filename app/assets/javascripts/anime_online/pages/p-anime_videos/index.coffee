@@ -155,7 +155,14 @@ toggle_options = ->
 
 resize_video_player = ->
   $player = $('iframe,object,embed,.player-placeholder', '.player-area')
-  $player.height($player.width() * 9 / 16)
+  max_height = parseInt($(window).height() * 0.95)
+  desired_height = parseInt($player.width() * 9 / 16)
+
+  if desired_height > max_height
+    $player.height(max_height)
+    $player.width(max_height / 9 * 16)
+  else
+    $player.height(desired_height)
 
 switch_video_variant = (e) ->
   kind = $(e.target).data('kind')
