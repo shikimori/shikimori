@@ -6,6 +6,7 @@
     a
       +ellipsis2
 
+
   .b-table
     margin-left: 0
 
@@ -41,3 +42,10 @@
       &.num
         text-align: left
         width: 50px
+
+      a
+        line-height: 1.35
+        // hack to make ellipsis work inside TD
+        display: inline-block
+        min-width: 100%
+        width: 0
