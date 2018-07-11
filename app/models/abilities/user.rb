@@ -207,7 +207,7 @@ class Abilities::User
 
     can %i[accept reject], ClubInvite, dst_id: @user.id
     can :create, ClubInvite do |club_invite|
-      club_invite.src_id == @user.id && club_invite.club.member?(@user)
+      club_invite.src_id == @user.id && club_invite.club&.member?(@user)
     end
   end
 
