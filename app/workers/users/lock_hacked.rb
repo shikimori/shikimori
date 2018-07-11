@@ -28,7 +28,7 @@ private
 
   def ban_text user
     I18n.t(
-      'messages/check_hacked.lock_text',
+      'users/check_hacked.lock_text',
       email: Shikimori::EMAIL,
       locale: user.locale.to_sym,
       recovery_url: UrlGenerator.instance.new_user_password_url(
