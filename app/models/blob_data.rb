@@ -1,3 +1,4 @@
+# TODO: delete this
 class BlobData < ApplicationRecord
   self.table_name = 'blob_datas'
   serialize :value

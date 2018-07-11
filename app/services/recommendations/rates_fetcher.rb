@@ -32,26 +32,29 @@ class Recommendations::RatesFetcher
     @with_deletion = true
   end
 
-  # кешируемые нормализованные оценки по всем или конкретным пользователям
+  # cached normalized scores of specific users (all by default)
   def fetch normalization
     key = "#{cache_key}_#{normalization.class.name}"
-    @data[key] ||= Rails.cache.fetch key, expires_in: 2.weeks do
-      fetch_raw_scores.each_with_object({}) do |(user_id, data), memo|
-        memo[user_id] = normalization.normalize data, user_id
+
+    @data[key] ||=
+      Rails.cache.fetch key, expires_in: 2.weeks do
+        fetch_raw_scores.each_with_object({}) do |(user_id, data), memo|
+          memo[user_id] = normalization.normalize data, user_id
+        end
       end
-    end
   end
 
 private
 
   def fetch_raw_scores
-    @raw_data ||= Rails.cache.fetch cache_key, expires_in: 2.weeks do
-      if @with_deletion
-        fetch_rates(@klass).delete_if { |_k, v| v.size < MINIMUM_SCORES }
-      else
-        fetch_rates(@klass)
+    @fetch_raw_scores ||=
+      Rails.cache.fetch cache_key, expires_in: 2.weeks do
+        if @with_deletion
+          fetch_rates(@klass).delete_if { |_k, v| v.size < MINIMUM_SCORES }
+        else
+          fetch_rates(@klass)
+        end
       end
-    end
   end
 
   # rubocop:disable MethodLength, AbcSize

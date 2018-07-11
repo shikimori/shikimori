@@ -6,8 +6,8 @@ class Svd < ApplicationRecord
   validates :lsa, presence: true
   validates :entry_ids, presence: true
   validates :user_ids, presence: true
-  #validates :scale, presence: true, inclusion: { in: [Full, Partial] }
-  #validates :kind, presence: true, inclusion: { in: [Anime.name, Manga.name] }
+  # validates :scale, presence: true, inclusion: { in: [Full, Partial] }
+  # validates :kind, presence: true, inclusion: { in: [Anime.name, Manga.name] }
 
   enumerize :scale, in: %i[full partial], predicates: true
   enumerize :kind, in: %i[anime], predicates: true
@@ -25,7 +25,7 @@ class Svd < ApplicationRecord
 
     lsa
       .classify_vector(scores_vector)
-      .each_with_object({}) do |(index,similarity),memo|
+      .each_with_object({}) do |(index, similarity), memo|
         memo[user_ids[index]] = similarity
       end
   end
@@ -39,11 +39,16 @@ class Svd < ApplicationRecord
   end
 
   def user_indexes
-    @user_indexes ||= user_ids.each_with_index.each_with_object({}) {|(id,index),memo| memo[id] = index }
+    @user_indexes ||= user_ids
+      .each_with_index.each_with_object({}) do |(id, index), memo|
+        memo[id] = index
+      end
   end
 
   def entry_indexes
-    @entry_indexes ||= entry_ids.each_with_index.each_with_object({}) {|(id,index),memo| memo[id] = index }
+    @entry_indexes ||= entry_ids
+      .each_with_index.each_with_object({}) do |(id, index), memo|
+        memo[id] = index
+      end
   end
-
 end
