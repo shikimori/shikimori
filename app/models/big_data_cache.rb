@@ -4,7 +4,14 @@ class BigDataCache < ApplicationRecord
   validates :key, presence: true, uniqueness: { case_sensitive: false }
   validates :value, presence: true
 
-  def self.write
+  # not really thread safe but I don't care
+  def self.write key, value, expires_in: nil
+    entry = find_or_initialize_by(key: key)
+
+    entry.update!(
+      expires_at: expires_in&.from_now,
+      value: value
+    )
   end
 
   def self.read key
