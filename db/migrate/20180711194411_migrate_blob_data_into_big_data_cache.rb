@@ -12,6 +12,7 @@ class MigrateBlobDataIntoBigDataCache < ActiveRecord::Migration[5.1]
   end
 
   def down
+    raise ActiveRecord::IrreversibleMigration # because BlobData model is deleted
   end
 
   def cleanup value
