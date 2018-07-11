@@ -6,6 +6,8 @@ class Club < ApplicationRecord
 
   update_index('clubs#club') { self if saved_change_to_name? }
 
+  TRANSLATORS_ID = 2
+
   has_many :member_roles,
     class_name: ClubRole.name,
     dependent: :destroy,
@@ -87,8 +89,6 @@ class Club < ApplicationRecord
 
   boolean_attribute :censored
 
-  after_create :join_owner
-
   has_attached_file :logo,
     styles: {
       main: '215x215>',
@@ -107,7 +107,8 @@ class Club < ApplicationRecord
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
-  TRANSLATORS_ID = 2
+  after_create :join_owner
+  before_save :check_spam_abuse, if: :will_save_change_to_description?
 
   def to_param
     "#{id}-#{name.permalinked}"
@@ -195,5 +196,11 @@ private
 
   def default_image_url
     "https://github.com/identicons/#{name}.png"
+  end
+
+  def check_spam_abuse
+    unless Users::CheckHacked.call(model: self, text: description, user: owner)
+      throw :abort
+    end
   end
 end

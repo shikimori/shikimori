@@ -75,6 +75,21 @@ describe Club do
         expect(club.styles).to have(1).item
       end
     end
+
+    describe '#check_spam_abuse' do
+      before { allow(Users::CheckHacked).to receive(:call).and_return true }
+      let!(:club) { create :club }
+
+      it do
+        expect(Users::CheckHacked)
+          .to have_received(:call)
+          .with(
+            model: club,
+            user: club.owner,
+            text: club.description
+          )
+      end
+    end
   end
 
   describe 'instance methods' do

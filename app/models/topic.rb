@@ -77,6 +77,7 @@ class Topic < ApplicationRecord
   }
 
   before_save :validate_linked
+  before_save :check_spam_abuse, if: :will_save_change_to_body?
 
   def title
     return self[:title]&.html_safe if user&.bot?
@@ -154,5 +155,11 @@ private
 
     errors.add :linked_type, 'Forbidden Linked Type'
     throw :abort
+  end
+
+  def check_spam_abuse
+    unless Users::CheckHacked.call(model: self, text: body, user: user)
+      throw :abort
+    end
   end
 end

@@ -17,13 +17,19 @@ describe Message do
     describe '#check_spam_abuse' do
       before do
         allow(Messages::CheckSpamAbuse).to receive(:call).and_return true
-        allow(Messages::CheckHacked).to receive(:call).and_return true
+        allow(Users::CheckHacked).to receive(:call).and_return true
       end
       let!(:message) { create :message, :private, :with_check_spam_abuse }
 
       it do
         expect(Messages::CheckSpamAbuse).to have_received(:call).with message
-        expect(Messages::CheckHacked).to have_received(:call).with message
+        expect(Users::CheckHacked)
+          .to have_received(:call)
+          .with(
+            model: message,
+            user: message.from,
+            text: message.body
+          )
       end
     end
 

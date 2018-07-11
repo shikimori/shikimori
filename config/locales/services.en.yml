@@ -102,7 +102,7 @@ en:
       You are banned for spam.
       Send a word to %{email} in case if you are innocent.
 
-  messages/check_hacked:
+  users/check_hacked:
     lock_text: >-
       This account was used to spam on the site. Account access has been blocked.
       To recover access, use the password recovery page. %{recovery_url}

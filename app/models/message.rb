@@ -84,7 +84,10 @@ private
 
   def check_spam_abuse
     throw :abort unless Messages::CheckSpamAbuse.call(self)
-    throw :abort unless Messages::CheckHacked.call(self)
+
+    unless Users::CheckHacked.call(model: self, text: body, user: from)
+      throw :abort
+    end
   end
 
   def send_email

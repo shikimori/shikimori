@@ -1,6 +1,6 @@
-class Messages::CheckHacked
+class Users::CheckHacked
   include Translation
-  method_object :message
+  method_object %i[model! text! user!]
 
   SPAM_DOMAINS = %w[
     shikme.ru
@@ -25,10 +25,10 @@ class Messages::CheckHacked
   ]
 
   def call
-    if spam? @message
-      @message.errors.add :base, ban_text(@message)
-      Users::LockHacked.perform_async @message.from_id
-      NamedLogger.hacked.info @message.attributes.to_yaml
+    if spam?
+      @model.errors.add :base, ban_text
+      Users::LockHacked.perform_async @user.id
+      NamedLogger.hacked.info @model.attributes.to_yaml
 
       false
     else
@@ -38,18 +38,16 @@ class Messages::CheckHacked
 
 private
 
-  def spam? message
-    return false unless message.kind == MessageType::Private
-
+  def spam?
     (
-      domains(follow(links(message.body))) & SPAM_DOMAINS
+      domains(follow(links(@text))) & SPAM_DOMAINS
     ).any?
   end
 
-  def ban_text message
+  def ban_text
     i18n_t :lock_text,
       email: Shikimori::EMAIL,
-      locale: message.from.locale,
+      locale: @user.locale,
       recovery_url: UrlGenerator.instance.new_user_password_url(
         protocol: Shikimori::PROTOCOL
       )

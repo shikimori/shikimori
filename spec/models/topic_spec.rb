@@ -19,6 +19,24 @@ describe Topic do
     it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
   end
 
+  describe 'callbacks' do
+    let(:user) { build_stubbed :user, :user }
+
+    describe '#check_spam_abuse' do
+      before { allow(Users::CheckHacked).to receive(:call).and_return true }
+      let!(:topic) { create :topic }
+
+      it do
+        expect(Users::CheckHacked)
+          .to have_received(:call)
+          .with(
+            model: topic,
+            user: topic.user,
+            text: topic.body
+          )
+      end
+    end
+  end
   describe 'instance methods' do
     describe '#comment_added' do
       let(:topic) { create :topic }
