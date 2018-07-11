@@ -235,41 +235,41 @@ class Anime < DbEntry
   # torrents
   # TODO: extract this shit to another class
   def torrents
-    @torrents ||= (BlobData.get("anime_%d_torrents" % id) || []).select {|v| v.respond_to?(:[]) }
+    @torrents ||= (BlobData.get("anime_#{id}_torrents") || []).select {|v| v.respond_to?(:[]) }
   end
 
   def torrents=(data)
-    BlobData.set("anime_%d_torrents" % id, data)# unless data.empty?
+    BlobData.set("anime_#{id}_torrents", data)# unless data.empty?
     @torrents = nil
   end
 
   def torrents_480p
     @torrents_480p ||= torrents.select {|v| v.kind_of?(Hash) && v[:title] && v[:title].match(/x480|480p/) }.reverse +
-      (BlobData.get("anime_%d_torrents_480p" % id) || []).select {|v| v.respond_to?(:[]) }
+      (BlobData.get("anime_#{id}_torrents_480p") || []).select {|v| v.respond_to?(:[]) }
   end
 
   def torrents_480p=(data)
-    BlobData.set("anime_%d_torrents_480p" % id, data) unless data.empty?
+    BlobData.set("anime_#{id}_torrents_480p", data) unless data.empty?
     @torrents_480p = nil
   end
 
   def torrents_720p
     @torrents_720p = torrents.select {|v| v.kind_of?(Hash) && v[:title] && v[:title].match(/x720|x768|720p/) }.reverse +
-      (BlobData.get("anime_%d_torrents_720p" % id) || []).select {|v| v.respond_to?(:[]) }
+      (BlobData.get("anime_#{id}_torrents_720p") || []).select {|v| v.respond_to?(:[]) }
   end
 
   def torrents_720p=(data)
-    BlobData.set("anime_%d_torrents_720p" % id, data) unless data.empty?
+    BlobData.set("anime_#{id}_torrents_720p", data) unless data.empty?
     @torrents_720p = nil
   end
 
   def torrents_1080p
     @torrents_1080p = torrents.select {|v| v.kind_of?(Hash) && v[:title] && v[:title].match(/x1080|1080p/) }.reverse +
-      (BlobData.get("anime_%d_torrents_1080p" % id) || []).select {|v| v.respond_to?(:[]) }
+      (BlobData.get("anime_#{id}_torrents_1080p") || []).select {|v| v.respond_to?(:[]) }
   end
 
   def torrents_1080p=(data)
-    BlobData.set("anime_%d_torrents_1080p" % id, data) unless data.empty?
+    BlobData.set("anime_#{id}_torrents_1080p", data) unless data.empty?
     @torrents_1080p = nil
   end
 
@@ -279,9 +279,8 @@ class Anime < DbEntry
   end
 
   def censored?
-    super ||
-      ADULT_RATING == rating# ||
-      # (kind_ova? && SUB_ADULT_RATING == rating)
+    super || ADULT_RATING == rating
+    # || (kind_ova? && SUB_ADULT_RATING == rating)
   end
 
 private
