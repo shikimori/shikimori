@@ -164,10 +164,12 @@ ActiveRecord::Schema.define(version: 20180711183823) do
   end
 
   create_table "big_data_caches", force: :cascade do |t|
+    t.string "key", null: false
     t.text "value", null: false
     t.datetime "expires_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_big_data_caches_on_key", unique: true
   end
 
   create_table "blob_datas", id: :serial, force: :cascade do |t|
