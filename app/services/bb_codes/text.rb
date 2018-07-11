@@ -32,7 +32,10 @@ class BbCodes::Text
 
   OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
 
-  MALWARE_DOMAINS = %r{(https?://)? (images.webpark.ru|shikme.ru) }mix
+  SPAM_DOMAINS = %r{
+    (https?://)?
+      (images.webpark.ru|#{Users::CheckHacked::SPAM_DOMAINS.join '|'})
+  }mix
 
   default_url_options[:protocol] = Shikimori::PROTOCOL
   default_url_options[:host] ||=
@@ -46,7 +49,7 @@ class BbCodes::Text
 
   def call
     text = (@text || '').fix_encoding.strip
-    text = strip_malware text
+    text = remove_spam text
     text = BbCodes::UserMention.call text
 
     text = String.new ERB::Util.h(text)
@@ -92,8 +95,7 @@ class BbCodes::Text
     text
   end
 
-  # удаление из текста вредоносных доменов
-  def strip_malware text
-    text.gsub MALWARE_DOMAINS, 'malware.domain'
+  def remove_spam text
+    text.gsub SPAM_DOMAINS, 'spam.domain'
   end
 end

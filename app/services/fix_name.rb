@@ -10,15 +10,20 @@ class FixName < ServiceObjectBase
   EXTENSIONS = /
     \.(#{ALL_EXTENSIONS.join('|')})$
   /mix
+  SPAM_WORDS = Users::CheckHacked::SPAM_DOMAINS
 
   def call
-    censor cleanup(fix(@name))
+    remove_spam censor(cleanup(fix(@name)))
   end
 
 private
 
   def censor name
     Banhammer.instance.censor name
+  end
+
+  def remove_spam name
+    name.gsub BbCodes::Text::SPAM_DOMAINS, 'spam.domain'
   end
 
   def cleanup name

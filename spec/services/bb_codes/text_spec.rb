@@ -196,9 +196,9 @@ describe BbCodes::Text do
       it { is_expected.to_not include '[spoiler' }
     end
 
-    describe 'malware domains' do
-      let(:text) { 'http://images.webpark.ru' }
-      it { is_expected.to eq 'malware.domain' }
+    describe 'spam domains' do
+      let(:text) { ['http://images.webpark.ru', 'http://shikme.ru'].sample }
+      it { is_expected.to eq 'spam.domain' }
     end
 
     describe '[b]' do

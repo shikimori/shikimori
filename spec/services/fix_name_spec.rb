@@ -39,4 +39,9 @@ describe FixName do
     let(:name) { ['007F'.to_i(16)].pack('U*') }
     it { is_expected.to eq '' }
   end
+
+  describe 'spam domains' do
+    let(:name) { %w[images.webpark.ru shikme.ru].sample }
+    it { is_expected.to eq 'spam.domain' }
+  end
 end
