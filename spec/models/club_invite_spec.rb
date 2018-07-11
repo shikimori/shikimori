@@ -73,15 +73,110 @@ describe ClubInvite do
     end
 
     describe '#cleanup_invites' do
-      let!(:club_invite_1) { create :club_invite, :closed, src: from, dst: to, club: club }
-      let!(:club_invite_2) { create :club_invite, :closed, src: from, dst: from, club: club }
-      let!(:club_invite_3) { create :club_invite, :pending, src: from, dst: to, club: club }
+      let!(:club_invite_1) do
+        create :club_invite, :closed, src: from, dst: to, club: club
+      end
+      let!(:club_invite_2) do
+        create :club_invite, :closed, src: from, dst: from, club: club
+      end
+      let!(:club_invite_3) do
+        create :club_invite, :pending, src: from, dst: to, club: club
+      end
 
       it do
         expect { club_invite_1.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(club_invite_2.reload).to be_persisted
         expect(club_invite_3.reload).to be_persisted
       end
+    end
+
+    describe '#check_user_invites' do
+      before { stub_const('ClubInvite::USER_INVITES_PER_DAY', 1) }
+
+      let!(:club_invite_1) do
+        create :club_invite, :closed,
+          src: club_invite_1_user,
+          dst: to,
+          club: club,
+          created_at: club_invite_1_date
+      end
+      let(:club_invite_2) do
+        build :club_invite, :closed, src: from, dst: from, club: club
+      end
+
+      let(:club_invite_1_user) { from }
+
+      before { club_invite_2.save }
+
+      context 'prior invites less than day ago' do
+        let(:club_invite_1_date) { ClubInvite::INVITES_LIMIT_EXPIRATION.ago + 1.minute }
+
+        context 'from the same user' do
+          it do
+            expect(club_invite_2.errors.messages[:base]).to eq [
+              I18n.t('activerecord.errors.models.club_invite.attributes.base.limited')
+            ]
+          end
+        end
+
+        context 'from another user' do
+          let(:club_invite_1_user) { build_stubbed :user }
+          it { expect(club_invite_2).to be_persisted }
+        end
+      end
+
+      context 'prior invites more than day ago' do
+        let(:club_invite_1_date) { ClubInvite::INVITES_LIMIT_EXPIRATION.ago - 1.minute }
+        it { expect(club_invite_2).to be_persisted }
+      end
+    end
+
+    describe '#check_club_invites' do
+      before { stub_const('ClubInvite::CLUB_INVITES_PER_DAY', 1) }
+
+      let!(:club_invite_1) do
+        create :club_invite, :closed,
+          src: club_invite_1_user,
+          dst: to,
+          club: club,
+          created_at: club_invite_1_date
+      end
+      let(:club_invite_2) do
+        build :club_invite, :closed, src: from, dst: from, club: club
+      end
+
+      let(:club_invite_1_user) { from }
+
+      before { club_invite_2.save }
+
+      context 'prior invites less than day ago' do
+        let(:club_invite_1_date) { ClubInvite::INVITES_LIMIT_EXPIRATION.ago + 1.minute }
+
+        context 'from the same user' do
+          it do
+            expect(club_invite_2.errors.messages[:base]).to eq [
+              I18n.t('activerecord.errors.models.club_invite.attributes.base.limited')
+            ]
+          end
+        end
+
+        context 'from another user' do
+          let(:club_invite_1_user) { build_stubbed :user }
+          it do
+            expect(club_invite_2.errors.messages[:base]).to eq [
+              I18n.t('activerecord.errors.models.club_invite.attributes.base.limited')
+            ]
+          end
+        end
+      end
+
+      context 'prior invites more than day ago' do
+        let(:club_invite_1_date) { ClubInvite::INVITES_LIMIT_EXPIRATION.ago - 1.minute }
+        it { expect(club_invite_2).to be_persisted }
+      end
+    end
+
+    describe 'check_club_invites' do
     end
   end
 

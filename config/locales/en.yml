@@ -270,7 +270,8 @@ en:
           attributes:
             base:
               banned: User is banned in this club. Invitation is forbidden
-              joined: User is a member of this club
+              joined: User is already a member of this club
+              limited: No more invites for this club today
             dst_id:
               taken: has already been invited to this club
             dst:

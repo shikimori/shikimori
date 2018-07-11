@@ -19,8 +19,15 @@ class ClubInvite < ApplicationRecord
   before_create :check_banned
   before_create :check_joined
 
+  before_create :check_user_invites_limit
+  before_create :check_club_invites_limit
+
   after_create :create_message
   before_create :cleanup_invites
+
+  USER_INVITES_PER_DAY = 30
+  CLUB_INVITES_PER_DAY = 200
+  INVITES_LIMIT_EXPIRATION = 1.day
 
   def accept
     close
@@ -61,6 +68,30 @@ private
   def check_joined
     return unless club.member? dst
     errors.add :base, :joined
+    throw :abort
+  end
+
+  def check_user_invites_limit
+    today_invites = ClubInvite
+      .where(club_id: club_id, src_id: src_id)
+      .where('created_at > ?', INVITES_LIMIT_EXPIRATION.ago)
+      .size
+
+    return if today_invites < USER_INVITES_PER_DAY
+
+    errors.add :base, :limited
+    throw :abort
+  end
+
+  def check_club_invites_limit
+    today_invites = ClubInvite
+      .where(club_id: club_id)
+      .where('created_at > ?', INVITES_LIMIT_EXPIRATION.ago)
+      .size
+
+    return if today_invites < CLUB_INVITES_PER_DAY
+
+    errors.add :base, :limited
     throw :abort
   end
 end
