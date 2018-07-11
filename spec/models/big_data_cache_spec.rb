@@ -11,7 +11,7 @@ describe BigDataCache do
       subject { described_class.write key, value, expires_in: expires_at }
 
       let(:key) { 'key' }
-      let(:value) { { a: :b } }
+      let(:value) { [{ a: :b }] }
       let(:expires_at) { 1.hour }
 
       context 'no key' do
@@ -75,7 +75,7 @@ describe BigDataCache do
       subject { described_class.fetch(key, expires_in: expires_at) { value } }
 
       let(:key) { 'test' }
-      let(:value) { { a: :b } }
+      let(:value) { [{ a: :b }] }
       let(:expires_at) { 1.hour }
 
       context 'has key' do
@@ -99,7 +99,7 @@ describe BigDataCache do
         end
       end
 
-      context 'no key' do
+      context 'no key', :focus do
         let(:entry) { BigDataCache.find_by key: key }
 
         it do
@@ -108,6 +108,23 @@ describe BigDataCache do
           expect(entry.value).to eq value
           expect(entry.expires_at).to be_within(0.1).of expires_at.from_now
         end
+      end
+    end
+
+    describe '.delete' do
+      subject { described_class.delete key }
+      let(:key) { 'test' }
+
+      context 'has key' do
+        let!(:entry) { create :big_data_cache, key: key }
+        it do
+          expect { subject }.to change(BigDataCache, :count).by(-1)
+          expect { entry.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'no key' do
+        it { expect { subject }.to_not change BigDataCache, :count }
       end
     end
   end

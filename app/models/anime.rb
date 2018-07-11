@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: extract torrents to value object
 # TODO: refactor serialized fields to postgres arrays
 class Anime < DbEntry
   include AniManga
@@ -223,57 +222,24 @@ class Anime < DbEntry
     self[:torrents_name].present? ? self[:torrents_name] : nil
   end
 
-  # subtitles
-  def subtitles
-    BlobData.get(format('anime_%d_subtitles', id)) || {}
-  end
-
   def broadcast_at
     BroadcastDate.parse broadcast, aired_on if broadcast && (ongoing? || anons?)
   end
 
-  # torrents
-  # TODO: extract this shit to another class
+  def subtitles
+    @subtitles ||= BigDataCache.read("anime_#{id}_subtitles") || {}
+  end
+
   def torrents
-    @torrents ||= (BlobData.get("anime_#{id}_torrents") || []).select {|v| v.respond_to?(:[]) }
+    @torrents ||= BigDataCache.read("anime_#{id}_torrents") || []
   end
 
   def torrents=(data)
-    BlobData.set("anime_#{id}_torrents", data)# unless data.empty?
+    BlobData.set("anime_#{id}_torrents", data)
     @torrents = nil
   end
 
-  def torrents_480p
-    @torrents_480p ||= torrents.select {|v| v.kind_of?(Hash) && v[:title] && v[:title].match(/x480|480p/) }.reverse +
-      (BlobData.get("anime_#{id}_torrents_480p") || []).select {|v| v.respond_to?(:[]) }
-  end
-
-  def torrents_480p=(data)
-    BlobData.set("anime_#{id}_torrents_480p", data) unless data.empty?
-    @torrents_480p = nil
-  end
-
-  def torrents_720p
-    @torrents_720p = torrents.select {|v| v.kind_of?(Hash) && v[:title] && v[:title].match(/x720|x768|720p/) }.reverse +
-      (BlobData.get("anime_#{id}_torrents_720p") || []).select {|v| v.respond_to?(:[]) }
-  end
-
-  def torrents_720p=(data)
-    BlobData.set("anime_#{id}_torrents_720p", data) unless data.empty?
-    @torrents_720p = nil
-  end
-
-  def torrents_1080p
-    @torrents_1080p = torrents.select {|v| v.kind_of?(Hash) && v[:title] && v[:title].match(/x1080|1080p/) }.reverse +
-      (BlobData.get("anime_#{id}_torrents_1080p") || []).select {|v| v.respond_to?(:[]) }
-  end
-
-  def torrents_1080p=(data)
-    BlobData.set("anime_#{id}_torrents_1080p", data) unless data.empty?
-    @torrents_1080p = nil
-  end
-
-  # забанено роскомнадзором
+  # banned by roskomnadzor
   def forbidden?
     FORBIDDEN_ADULT_IDS.include? id
   end

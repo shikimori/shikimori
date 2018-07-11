@@ -26,4 +26,8 @@ class BigDataCache < ApplicationRecord
   def self.fetch key, expires_in: nil
     read(key) || write(key, yield, expires_in: expires_in)
   end
+
+  def self.delete key
+    find_by(key: key)&.destroy!
+  end
 end
