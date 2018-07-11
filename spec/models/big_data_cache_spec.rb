@@ -19,6 +19,7 @@ describe BigDataCache do
 
         it do
           expect { subject }.to change(BigDataCache, :count).by 1
+          is_expected.to eq value
           expect(entry.value).to eq value
           expect(entry.expires_at).to be_within(0.1).of expires_at.from_now
         end
@@ -28,6 +29,7 @@ describe BigDataCache do
 
           it do
             expect { subject }.to change(BigDataCache, :count).by 1
+            is_expected.to eq value
             expect(entry.value).to eq value
             expect(entry.expires_at).to be_nil
           end
@@ -39,6 +41,7 @@ describe BigDataCache do
 
         it do
           expect { subject }.to_not change BigDataCache, :count
+          is_expected.to eq value
           expect(entry.reload.value).to eq value
           expect(entry.expires_at).to be_within(0.1).of expires_at.from_now
         end
@@ -63,6 +66,48 @@ describe BigDataCache do
 
       context 'no key' do
         it { is_expected.to be_nil }
+      end
+    end
+
+    describe '.fetch' do
+      include_context :timecop
+
+      subject { described_class.fetch(key, expires_in: expires_at) { value } }
+
+      let(:key) { 'test' }
+      let(:value) { { a: :b } }
+      let(:expires_at) { 1.hour }
+
+      context 'has key' do
+        context 'not expred' do
+          let!(:entry) { create :big_data_cache, key: key, expires_at: 1.minute.from_now }
+          it do
+            expect { subject }.to_not change BigDataCache, :count
+            is_expected.to eq entry.value
+            is_expected.to_not eq value
+          end
+        end
+
+        context 'expired' do
+          let!(:entry) { create :big_data_cache, key: key, expires_at: 1.minute.ago }
+          it do
+            expect { subject }.to_not change BigDataCache, :count
+            is_expected.to eq value
+            expect(entry.reload.value).to eq value
+            expect(entry.expires_at).to be_within(0.1).of expires_at.from_now
+          end
+        end
+      end
+
+      context 'no key' do
+        let(:entry) { BigDataCache.find_by key: key }
+
+        it do
+          expect { subject }.to change(BigDataCache, :count).by 1
+          is_expected.to eq value
+          expect(entry.value).to eq value
+          expect(entry.expires_at).to be_within(0.1).of expires_at.from_now
+        end
       end
     end
   end
