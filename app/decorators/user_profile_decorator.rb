@@ -19,10 +19,9 @@ class UserProfileDecorator < UserDecorator
   end
 
   def website
-    return '' if object.website.blank?
+    return '' if website_host.blank?
 
-    url_wo_http = h.h(object.website).sub(/^https?:\/\//, '')
-    h.link_to url_wo_http.sub(/\/.*/, ''), "http://#{url_wo_http}", class: 'website'
+    h.link_to h.h(website_host), h.h(website_url), class: 'website'
   end
 
   def about_html
@@ -219,6 +218,24 @@ private
 
     else
       h.l created_at, format: i18n_t('registration_formats.year')
+    end
+  end
+
+  def website_host
+    begin
+      URI.parse(website_url).host
+    rescue
+    end
+  end
+
+  def website_url
+    if object.website.blank?
+      nil
+    end
+    unless object.website.match /^https?:\/\//
+      "http://%s" % object.website
+    else
+      object.website
     end
   end
 end
