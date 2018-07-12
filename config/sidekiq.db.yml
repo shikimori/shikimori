@@ -18,7 +18,7 @@ production:
 
 :limits:
   achievement: 50
-  cpu_intensive: 1
+  cpu_intensive: 2
   episode_notifications: 1
   push_notifications: 5
   torrents_parsers: 1

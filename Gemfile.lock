@@ -770,6 +770,7 @@ DEPENDENCIES
   mal_parser!
   maruku
   mini_magick
+  msgpack
   newrelic_rpm
   nokogiri
   non-stupid-digest-assets

@@ -17,6 +17,7 @@ describe PgCache do
         is_expected.to eq value
 
         expect(find_entry.value).to eq YAML.dump(value)
+        expect(find_entry.blob).to be_nil
         expect(find_entry.expires_at).to be_within(0.1).of expires_at.from_now
       end
 
@@ -29,6 +30,7 @@ describe PgCache do
           is_expected.to eq value
 
           expect(find_entry.value).to eq YAML.dump(value)
+          expect(find_entry.blob).to be_nil
           expect(find_entry.expires_at).to be_nil
         end
       end
@@ -45,6 +47,7 @@ describe PgCache do
         expect { entry.reload }.to raise_error ActiveRecord::RecordNotFound
 
         expect(find_entry.value).to eq YAML.dump(value)
+        expect(find_entry.blob).to be_nil
         expect(find_entry.expires_at).to be_within(0.1).of expires_at.from_now
       end
     end
@@ -59,6 +62,28 @@ describe PgCache do
         is_expected.to eq value
 
         expect(find_entry.value).to eq YAML.dump(value)
+        expect(find_entry.blob).to be_nil
+        expect(find_entry.expires_at).to be_within(0.1).of expires_at.from_now
+      end
+    end
+
+    context 'MessagePack serializer' do
+      subject do
+        described_class.write key, value,
+          expires_in: expires_at,
+          serializer: MessagePack
+      end
+
+      let(:value) { [{ 'a' => 'b' }] }
+      let(:find_entry) { PgCacheData.find_by key: key }
+
+      it do
+        expect { subject }.to change(PgCacheData, :count).by 1
+
+        is_expected.to eq value
+
+        expect(find_entry.value).to be_nil
+        expect(find_entry.blob).to eq MessagePack.dump(value)
         expect(find_entry.expires_at).to be_within(0.1).of expires_at.from_now
       end
     end
@@ -69,18 +94,49 @@ describe PgCache do
 
     context 'has key' do
       context 'not expred' do
-        let!(:entry) { create :pg_cache_data, key: key, expires_at: 1.minute.from_now }
-        it { is_expected.to eq YAML.load(entry.value) } # rubocop:disable YAMLLoad
+        let!(:entry) do
+          create :pg_cache_data,
+            key: key,
+            expires_at: 1.minute.from_now,
+            value: YAML.dump(value)
+        end
+
+        it do
+          is_expected.to eq value
+          is_expected.to eq YAML.load(entry.value) # rubocop:disable YAMLLoad
+        end
       end
 
       context 'expired' do
-        let!(:entry) { create :pg_cache_data, key: key, expires_at: 1.minute.ago }
+        let!(:entry) do
+          create :pg_cache_data,
+            key: key,
+            expires_at: 1.minute.ago
+        end
         it { is_expected.to be_nil }
       end
     end
 
     context 'no key' do
       it { is_expected.to be_nil }
+    end
+
+    context 'MessagePack serializer' do
+      let!(:entry) do
+        create :pg_cache_data,
+          key: key,
+          expires_at: 1.minute.from_now,
+          blob: MessagePack.dump(value)
+      end
+      let(:value) { [{ 'a' => 'b' }] }
+      subject { described_class.read key, serializer: MessagePack }
+
+      let(:find_entry) { PgCacheData.find_by key: key }
+
+      it do
+        is_expected.to eq value
+        # is_expected.to eq MessagePack.load(entry.value)
+      end
     end
   end
 
@@ -108,6 +164,7 @@ describe PgCache do
           expect { entry.reload }.to raise_error ActiveRecord::RecordNotFound
 
           expect(find_entry.value).to eq YAML.dump(value)
+          expect(find_entry.blob).to be_nil
           expect(find_entry.expires_at).to be_within(0.1).of expires_at.from_now
         end
       end
@@ -122,6 +179,7 @@ describe PgCache do
         is_expected.to eq value
 
         expect(find_entry.value).to eq YAML.dump(value)
+        expect(find_entry.blob).to be_nil
         expect(find_entry.expires_at).to be_within(0.1).of expires_at.from_now
       end
     end

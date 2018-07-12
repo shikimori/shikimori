@@ -12,6 +12,8 @@ class UserDataFetcherBase
     ]
   }
 
+  MINIMUM_SCORES = 20
+
   # REALTIME_LOAD_IN_DEVELOPMENT = Rails.env.development?
   REALTIME_LOAD_IN_DEVELOPMENT = false
 
@@ -42,7 +44,7 @@ private
       @user.id,
       latest_import[:id],
       (histories_count / 10).to_i,
-      rates_count >= Recommendations::RatesFetcher::MINIMUM_SCORES
+      rates_count >= MINIMUM_SCORES
     ].join('_')
   end
 
@@ -66,8 +68,7 @@ private
   end
 
   def should_fetch?
-    @user.present? &&
-      rates_count >= Recommendations::RatesFetcher::MINIMUM_SCORES
+    @user.present? && rates_count >= MINIMUM_SCORES
       # (
       #   histories_count >= Recommendations::RatesFetcher::MINIMUM_SCORES ||
       #   latest_import.present?
@@ -75,13 +76,15 @@ private
   end
 
   def load_data
-    @loaded_data ||= begin
-      data = Rails.cache.read cache_key
-      if data.nil?
-        false
-      else
-        data
+    @load_data ||=
+      begin
+        data = Rails.cache.read cache_key
+
+        if data.nil?
+          false
+        else
+          data
+        end
       end
-    end
   end
 end

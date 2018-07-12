@@ -6,8 +6,13 @@ class RecommendationsController < AnimesCollectionController
 
   COOKIE_NAME = 'recommendations_url'
   THRESHOLDS = {
-    Anime => [150, 1250, 2000, 3000, 5000],
-    Manga => [30, 150, 300, 450]
+    Anime => {
+      'pearson_z' => [150, 2000, 5000, 7500, 10_000],
+      'svd' => [150, 1250, 2000, 3000, 5000]
+    },
+    Manga => {
+      'pearson_z' => [30, 150, 400, 750, 1250]
+    }
   }
   TOPIC_URL = '//shikimori.org/s/104346-spisok-otbornyh-i-vkusnyh-animeh'
 
@@ -18,8 +23,8 @@ class RecommendationsController < AnimesCollectionController
     if @metric.blank?
       return redirect_to current_url(metric: 'pearson_z')
     end
-    unless THRESHOLDS[@view.klass].include? @threshold
-      return redirect_to current_url(threshold: THRESHOLDS[@view.klass][-1])
+    unless THRESHOLDS[@view.klass][@metric].include? @threshold
+      return redirect_to current_url(threshold: THRESHOLDS[@view.klass][@metric][-1])
     end
 
     og noindex: true, nofollow: true

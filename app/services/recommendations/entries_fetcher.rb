@@ -4,11 +4,11 @@ class Recommendations::EntriesFetcher
   end
 
   def fetch
-    @data ||= Rails.cache.fetch "all_entries_#{@klass.name}_#{@klass.last.id}", expires_in: 2.weeks do
+    @fetch ||= Rails.cache.fetch(cache_key, expires_in: 2.weeks) do
       @klass
-        .where.not(kind: [:special, :music])
-        .select([:id, :score])
-        .each_with_object({}) do |v,memo|
+        .where.not(kind: %i[special music])
+        .select(%i[id score])
+        .each_with_object({}) do |v, memo|
           memo[v.id] = v
         end
     end
@@ -16,5 +16,9 @@ class Recommendations::EntriesFetcher
 
   def ids
     @ids ||= Set.new fetch.keys
+  end
+
+  def cache_key
+    "all_entries_#{@klass.name}_#{@klass.last.id}"
   end
 end

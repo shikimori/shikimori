@@ -14,6 +14,7 @@ gem 'pg'
 gem 'redis'
 gem 'redis-mutex'
 gem 'redis-namespace'
+gem 'msgpack'
 
 # frontend
 group :beta, :production do

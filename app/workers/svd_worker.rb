@@ -12,6 +12,7 @@ class SvdWorker
   end
 
 private
+
   # расчёт SVD
   def calculate! svd
     puts "fetching user_ids, entry_ids"

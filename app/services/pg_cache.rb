@@ -1,17 +1,22 @@
 class PgCache
+  FIELD = {
+    YAML => :value,
+    MessagePack => :blob
+  }
+
   class << self
-    def write key, value, expires_in: nil # rubocop:disable MethodLength
+    def write key, value, expires_in: nil, serializer: YAML # rubocop:disable MethodLength
       key = stringify_key key
+      Rails.logger.info "PgCache write: #{key} serializer: #{serializer}"
 
       PgCacheData.transaction do
         PgCache.delete key
 
         ActiveRecord::Base.logger.silence do
-          Rails.logger.info "PgCache write: #{key}"
           PgCacheData.create!(
             key: key,
             expires_at: expires_in&.from_now,
-            value: YAML.dump(value)
+            FIELD[serializer] => serializer.dump(value)
           )
         end
       end
@@ -19,28 +24,28 @@ class PgCache
       value
     end
 
-    def read key
+    def read key, serializer: YAML # rubocop:disable AbcSize
       key = stringify_key key
-      Rails.logger.info "PgCache read: #{key}"
+      Rails.logger.info "PgCache read: #{key} serializer: #{serializer}"
 
       PgCacheData.fetch_raw_data(
         PgCacheData.where(expires_at: nil)
           .or(PgCacheData.where('expires_at > ?', Time.zone.now))
           .where(key: key)
-          .select(:value)
+          .select(FIELD[serializer])
           .to_sql,
         1
-      ) { |entry| return YAML.load(entry['value']) } # rubocop:disable YAMLLoad
+      ) { |entry| return serializer.pg_load(entry[FIELD[serializer].to_s]) }
     end
 
-    def fetch key, expires_in: nil
+    def fetch key, expires_in: nil, serializer: YAML
       key = stringify_key key
-      data = read(key)
+      data = read key, serializer: serializer
 
       if data.nil?
-        Rails.logger.info "PgCache generate: #{key}"
+        Rails.logger.info "PgCache generate: #{key} serializer: #{serializer}"
         data = yield
-        write key, data, expires_in: expires_in
+        write key, data, expires_in: expires_in, serializer: serializer
       end
 
       data

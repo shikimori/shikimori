@@ -45,7 +45,7 @@ Rails.application.configure do
   # config.assets.compile = false
   # config.assets.precompile = []
 
-  config.logger = Logger.new(nil)
+  config.logger = ActiveSupport::Logger.new(nil)
   config.log_level = :fatal
 
   if defined?(Pry)

@@ -7,15 +7,28 @@ class Recommendations::RatesFetcher
   attr_writer :with_deletion
   attr_writer :user_cache_key
 
-  MINIMUM_SCORES = 20
+  MINIMUM_SCORES = 100
 
-  USER_RATES_CONDITION = <<~SQL
-    #{UserRate.table_name}.status != '#{UserRate.status_id :planned}'
-    and #{UserRate.table_name}.score > 0
+  USER_RATES_SQL = <<~SQL
+    user_rates.status != '#{UserRate.status_id :planned}'
+      and user_rates.score > 0
   SQL
-  DB_ENTRY_JOINS = <<~SQL
+
+  # greately reduce number of selected UserRates by filtering them by users list size
+  LIST_SIZE_SQL = <<-SQL
+    user_rates.user_id in (
+      select users.id
+        from users
+        inner join user_rates
+          on user_rates.user_id = users.id and #{USER_RATES_SQL}
+        group by users.id
+        having count(*) >= %<minimum_scores>i
+    )
+  SQL
+
+  DB_ENTRY_JOINS_SQL = <<~SQL
     inner join %<table_name>s a
-      on a.id = #{UserRate.table_name}.target_id
+      on a.id = user_rates.target_id
       and a.kind != 'special'
       and a.kind != 'music'
   SQL
@@ -34,7 +47,7 @@ class Recommendations::RatesFetcher
     key = "#{cache_key}_#{normalization.class.name}"
 
     @data[key] ||=
-      PgCache.fetch key, expires_in: 2.weeks do
+      PgCache.fetch key, expires_in: 2.weeks, serializer: MessagePack do
         fetch_raw_scores.each_with_object({}) do |(user_id, data), memo|
           memo[user_id] = normalization.normalize data, user_id
         end
@@ -45,17 +58,12 @@ private
 
   def fetch_raw_scores
     @fetch_raw_scores ||=
-      PgCache.fetch cache_key, expires_in: 2.weeks do
-        if @with_deletion
-          fetch_rates(@klass).delete_if { |_k, v| v.size < MINIMUM_SCORES }
-        else
-          fetch_rates(@klass)
-        end
+      PgCache.fetch cache_key, expires_in: 2.weeks, serializer: MessagePack do
+        fetch_rates @klass
       end
   end
 
-  # rubocop:disable MethodLength, AbcSize
-  def fetch_rates klass
+  def fetch_rates klass # rubocop:disable MethodLength, AbcSize
     data = {}
 
     UserRate.fetch_raw_data(scope(klass).to_sql, 500_000) do |rate|
@@ -70,14 +78,16 @@ private
 
     data
   end
-  # rubocop:enable MethodLength, AbcSize
 
-  def scope klass
+  def scope klass # rubocop:disable MethodLength
     scope = UserRate
       .select(:user_id, :target_id, :score)
       .where(target_type: klass.name)
-      .where(USER_RATES_CONDITION)
-      .joins(format(DB_ENTRY_JOINS, table_name: klass.table_name))
+      .where(USER_RATES_SQL)
+      .where((
+        format(LIST_SIZE_SQL, minimum_scores: MINIMUM_SCORES) if @with_deletion
+      ))
+      .joins(format(DB_ENTRY_JOINS_SQL, table_name: klass.table_name))
       .order(:id)
 
     scope.where! user_id: @user_ids if @user_ids.present?

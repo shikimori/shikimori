@@ -44,7 +44,7 @@ private
     User
       .joins(table_name)
       .where(user_rates: { status: UserRate.statuses[:completed] })
-      .where("user_rates.score is not null and user_rates.score > 0")
+      .where('user_rates.score > 0')
       .where.not(id: @user.id)
       .group('users.id')
       .having("count(*) > #{@threshold}")

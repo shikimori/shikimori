@@ -2,9 +2,8 @@ class UsersController < ShikimoriController
   respond_to :json, :html, only: :index
 
   LIMIT = 15
-  THRESHOLDS = [25, 50, 100, 175, 350]
+  THRESHOLDS = [100, 175, 350]
 
-  # список всех пользователей
   def index
     @page = [params[:page].to_i, 1].max
     @limit = LIMIT
@@ -17,16 +16,14 @@ class UsersController < ShikimoriController
       .transform(&:decorate)
   end
 
-  # rubocop:disable MethodLength
-  # rubocop:disable AbcSize
-  def similar
+  def similar # rubocop:disable MethodLength, AbcSize
     og noindex: true
     @page = [params[:page].to_i, 1].max
     @limit = LIMIT
     @threshold = params[:threshold].to_i
     @klass = params[:klass] == Manga.name.downcase ? Manga : Anime
 
-    unless THRESHOLDS.include?(@threshold)
+    unless THRESHOLDS[@view.klass][@metric]include?(@threshold)
       return redirect_to current_url(threshold: THRESHOLDS[2])
     end
 
@@ -50,14 +47,10 @@ class UsersController < ShikimoriController
         .map(&:decorate)
     end
 
-    @add_postloader =
-      @similar_ids && @similar_ids.any? &&
-        @page * @limit < SimilarUsersService::MAXIMUM_RESULTS
+    @add_postloader = @similar_ids&.any? &&
+      @page * @limit < SimilarUsersService::MAXIMUM_RESULTS
   end
-  # rubocop:enable AbcSize
-  # rubocop:enable MethodLength
 
-  # автодополнение
   def autocomplete
     @collection = Users::Query.fetch
       .search(params[:search])

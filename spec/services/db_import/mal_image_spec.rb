@@ -16,10 +16,10 @@ describe DbImport::MalImage do
     let(:need_import) { true }
     it { expect(entry.image).to be_present }
 
-    context 'delete image' do
+    context 'does not delete image' do
       let(:entry) { create :anime, :with_image }
       let(:image_url) { nil }
-      it { expect(entry.image).to_not be_present }
+      it { expect(entry.image).to be_present }
     end
   end
 
