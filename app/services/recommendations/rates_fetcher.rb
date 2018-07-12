@@ -11,10 +11,7 @@ class Recommendations::RatesFetcher
 
   USER_RATES_CONDITION = <<~SQL
     #{UserRate.table_name}.status != '#{UserRate.status_id :planned}'
-    and (
-      #{UserRate.table_name}.score is not null
-      and #{UserRate.table_name}.score > 0
-    )
+    and #{UserRate.table_name}.score > 0
   SQL
   DB_ENTRY_JOINS = <<~SQL
     inner join %<table_name>s a
