@@ -296,19 +296,16 @@ private
   def website_host
     begin
       URI.parse(website_url).host
-    rescue
+    rescue URI::Error
     end
   end
 
   def website_url
-    if object.website.present?
-      if object.website.match /^https?:\/\//
-        object.website    
-      else
-        "http://%s" % object.website
-      end
+    return nil if object.website.blank?
+    if object.website.match?(%r{^https?://})
+      object.website
     else
-      nil
+      "http://#{object.website}"
     end
   end
 
