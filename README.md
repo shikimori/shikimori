@@ -7,8 +7,8 @@ Please follow the [contribution guidelines](https://github.com/shikimori/shikimo
 
 ## PostgreSQL
 ### DB
-```shell
-~ psql -d postgres
+```sh
+psql -d postgres
 postgres=# create user shikimori_production;
 postgres=# create user shikimori_test;
 postgres=# alter user shikimori_production createdb;
@@ -18,44 +18,70 @@ postgres=# alter user shikimori_test with superuser;
 ```
 
 ### Extensions
-```shell
-~ psql -d shikimori_test
+```sh
+psql -d shikimori_test
 shikimori_test=# CREATE EXTENSION unaccent;
 shikimori_test=# CREATE EXTENSION hstore;
 shikimori_test=# CREATE EXTENSION pg_stat_statements;
 ```
 
-```shell
-~ psql -d shikimori_production
+```sh
+psql -d shikimori_production
 shikimori_production=# CREATE EXTENSION unaccent;
 shikimori_production=# CREATE EXTENSION hstore;
 shikimori_production=# CREATE EXTENSION pg_stat_statements;
 ```
 
 ### Restore from a backup
-```shell
-~ psql -U shikimori_production -d shikimori_production -f db/dump.sql
+```sh
+psql -U shikimori_production -d shikimori_production -f db/dump.sql
 ```
 
 ### Make a backup
-```shell
-~ pg_dump -c shikimori_production > db/dump.sql
+```sh
+pg_dump -c shikimori_production > db/dump.sql
 ```
 
-## Start Service
-```shell
-~ brew install yarn
-~ yarn install
-~ cd ..
-~ git clone git@github.com:shikimori/neko-achievements.git
-~ git clone git@github.com:morr/camo.git
-~ cd shikimori
-~ brew install honcho # https://github.com/nickstenning/honcho
-~ honcho start
+## Local Run
+### Requirements
+
+#### Checkout all projects
+```sh
+git clone git@github.com:shikimori/shikimori.git
+git clone git@github.com:shikimori/neko-achievements.git
+git clone git@github.com:shikimori/camo-server.git
+git clone git@github.com:shikimori/faye-server.git
+
+cd shikimori
+```
+
+#### Install `yarn` and `honcho`
+```sh
+brew install yarn
+brew install honcho # https://github.com/nickstenning/honcho
+```
+
+#### Install dependent gems and npm packages
+```sh
+yarn install
+bundle install
+```
+
+#### Start all services
+```sh
+honcho start
+```
+
+### Autorun rspec & rubocop
+```sh
+guard
 ```
 
 ## Elasticsearch
-```rails console
+
+In rails console:
+
+```
 pry(main)> AnimesIndex.reset!
 pry(main)> MangasIndex.reset!
 pry(main)> RanobeIndex.reset!
@@ -70,14 +96,14 @@ pry(main)> TopicsIndex.reset!
 
 ## Update neko rules
 ```sh
-~ rails neko:update
+rails neko:update
 ```
 
 
 ## Webpack debugger
 https://nodejs.org/en/docs/inspector/
 Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj
-```shell
+```sh
 ~ RAILS_ENV=development NODE_ENV=development NODE_PATH=node_modules node --inspect node_modules/.bin/webpack-dev-server --progress --color --config config/webpack/development.js
 ```
 
