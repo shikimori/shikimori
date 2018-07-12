@@ -23,7 +23,7 @@ class UsersController < ShikimoriController
     @threshold = params[:threshold].to_i
     @klass = params[:klass] == Manga.name.downcase ? Manga : Anime
 
-    unless THRESHOLDS[@view.klass][@metric]include?(@threshold)
+    unless THRESHOLDS.include?(@threshold)
       return redirect_to current_url(threshold: THRESHOLDS[2])
     end
 

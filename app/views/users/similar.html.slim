@@ -15,7 +15,7 @@ header.head.misc
   .b-header_filters
     .filter-line
       span.title = @klass == Anime ? t('.list_of_watched_anime') : t('.list_of_read_manga')
-      - UsersController::THRESHOLDS[@view.klass][@metric]each do |threshold|
+      - UsersController::THRESHOLDS.each do |threshold|
         a.b-link[
           class=(:current if @threshold == threshold)
           href=current_url(threshold: threshold)
