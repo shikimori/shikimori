@@ -489,6 +489,8 @@ GEM
       rack
     rack-proxy (0.6.4)
       rack
+    rack-slow-log (0.0.1)
+      rack
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rack-utf8_sanitizer (1.6.0)
@@ -791,6 +793,7 @@ DEPENDENCIES
   rack-attack
   rack-contrib!
   rack-cors
+  rack-slow-log
   rack-utf8_sanitizer
   rails (= 5.1.5)
   rails-controller-testing

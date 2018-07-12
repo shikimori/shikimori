@@ -66,6 +66,7 @@ gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'rack-attack'
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
+gem 'rack-slow-log'
 
 gem 'actionpack-action_caching'
 gem 'attr_extras'
