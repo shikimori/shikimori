@@ -232,10 +232,10 @@ private
     if object.website.blank?
       nil
     end
-    unless object.website.match /^https?:\/\//
-      "http://%s" % object.website
-    else
+    if object.website.match?(%r{^https?://})
       object.website
+    else
+      "http://#{object.website}"
     end
   end
 end
