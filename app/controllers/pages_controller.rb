@@ -133,7 +133,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
     if mem
       mem_total = mem[8].to_f
-      mem_free = mem[17].to_f
+      mem_free = mem[10].to_f
       @mem_space = (((mem_total - mem_free) / mem_total) * 100).round(2)
       @mem_space = 99 if @mem_space.nan?
 
