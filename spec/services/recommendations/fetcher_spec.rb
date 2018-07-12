@@ -4,7 +4,7 @@ describe Recommendations::Fetcher do
   let(:threshold) { 45 }
   let(:klass) { Anime }
 
-  before { stub_const 'Recommendations::RatesFetcher::MINIMUM_SCORES', minimum_scores }
+  before { stub_const 'UserDataFetcherBase::MINIMUM_SCORES', minimum_scores }
   let(:minimum_scores) { 0 }
 
   subject do
