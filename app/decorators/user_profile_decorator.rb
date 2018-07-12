@@ -228,7 +228,7 @@ private
   end
 
   def website_url
-    return nil if object.website.blank?
+    return if object.website.blank?
     if object.website.match?(%r{^https?://})
       object.website
     else
