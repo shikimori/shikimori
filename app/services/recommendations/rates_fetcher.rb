@@ -80,12 +80,14 @@ private
   end
 
   def scope klass # rubocop:disable MethodLength
+    list_size_sql = @with_deletion || @user_ids
+
     scope = UserRate
       .select(:user_id, :target_id, :score)
       .where(target_type: klass.name)
       .where(USER_RATES_SQL)
       .where((
-        format(LIST_SIZE_SQL, minimum_scores: MINIMUM_SCORES) if @with_deletion
+        format(LIST_SIZE_SQL, minimum_scores: MINIMUM_SCORES) if list_size_sql
       ))
       .joins(format(DB_ENTRY_JOINS_SQL, table_name: klass.table_name))
       .order(:id)
