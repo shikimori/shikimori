@@ -80,7 +80,7 @@ private
   end
 
   def scope klass # rubocop:disable MethodLength
-    list_size_sql = @with_deletion || @user_ids
+    list_size_sql = @with_deletion && @user_ids.blank?
 
     scope = UserRate
       .select(:user_id, :target_id, :score)
