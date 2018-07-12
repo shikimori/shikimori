@@ -110,8 +110,7 @@ module Shikimori
 
     config.middleware.use Rack::JSONP
     config.middleware.use Rack::Attack if Rails.env.production?
-    config.middleware.use Rack::SlowLog, { long_request_time: 50 }
-    # config.middleware.use LogBeforeTimeout
+    config.middleware.use LogBeforeTimeout
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
