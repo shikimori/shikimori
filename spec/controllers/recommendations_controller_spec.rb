@@ -7,8 +7,8 @@ describe RecommendationsController do
             get :index,
               params: {
                 klass: type,
-                metric: 'pearson',
-                threshold: RecommendationsController::THRESHOLDS[type.classify.constantize].first
+                metric: 'pearson_z',
+                threshold: RecommendationsController::THRESHOLDS[type.classify.constantize]['pearson_z'].first
               }
           end
           it { expect(response).to have_http_status :success }
