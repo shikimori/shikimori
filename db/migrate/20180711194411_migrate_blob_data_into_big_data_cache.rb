@@ -1,5 +1,8 @@
 class MigrateBlobDataIntoBigDataCache < ActiveRecord::Migration[5.1]
   def up
+    return unless defined? BlobData
+    return unless defined? BigDataCache
+
     BlobData.where("key like '%torrents_%'").delete_all
     BlobData.where("key like '%subtitles%'").delete_all
 
