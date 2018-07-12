@@ -11,8 +11,6 @@ class DbImport::MalImage
   def call
     if @image_url.present?
       @entry.image = download_image if image_policy.need_import?
-    else
-      @entry.image = nil
     end
   rescue *Network::FaradayGet::NET_ERRORS
   end
