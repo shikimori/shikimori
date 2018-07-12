@@ -38,8 +38,10 @@ ru:
         topic_posters: Картинки к новости
         attach: Прикрепить
     status_line:
-      by: от
       about: о
+      by: от
+      changed_at: Изменено %{date}
+      created_at: Создано %{date}
     menu_actions:
       create_topic: Создать топик
       reload_forum: обновить форум
@@ -76,6 +78,3 @@ ru:
       finished:
         <<: *contest_started
         winners: Победители
-    status_line:
-      created_at: Создано %{date}
-      changed_at: Изменено %{date}

@@ -38,8 +38,10 @@ en:
         topic_posters: News posters
         attach: Attach
     status_line:
-      by: by
       about: about
+      by: by
+      changed_at: Changed at %{date}
+      created_at: Created at %{date}
     menu_actions:
       create_topic: Create a Topic
       reload_forum: refresh forum
@@ -76,6 +78,3 @@ en:
       finished:
         <<: *contest_started
         winners: Winners
-    status_line:
-      created_at: Created at %{date}
-      changed_at: Changed at %{date}
