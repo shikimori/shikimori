@@ -72,13 +72,13 @@ describe AdsPolicy do
   describe 'is_shikimori & ad_proider' do
     describe 'not shikimori & mainstream' do
       let(:is_shikimori) { false }
-      let(:ad_provider) { Types::Ad::Provider[%i[yandex_direct admachina mytarget].sample] }
+      let(:ad_provider) { Types::Ad::Provider[%i[yandex_direct mytarget].sample] }
       it { is_expected.to_not be_allowed }
     end
 
     describe 'shikimori & mainstream' do
       let(:is_shikimori) { true }
-      let(:ad_provider) { Types::Ad::Provider[%i[yandex_direct admachina mytarget].sample] }
+      let(:ad_provider) { Types::Ad::Provider[%i[yandex_direct mytarget].sample] }
       it { is_expected.to be_allowed }
     end
 

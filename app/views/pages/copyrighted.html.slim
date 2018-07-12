@@ -35,7 +35,7 @@ header.head
         locals: { cover_notice: :studio },
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
-= render 'spnsrs/ad', ad: Ad.new(:yd_horizontal)
+= render 'spnsrs/ad', ad: Ad.new(:horizontal)
 
 .subheadline.m3 = i18n_i 'Comment', :other
 div

@@ -6,7 +6,7 @@ class Ad < ViewObjectBase
   # block_3: [92_485, nil]
 
   BANNERS = {
-    special_x300: {
+    Types::Ad::Type[:special_x300] => {
       provider: Types::Ad::Provider[:special],
       url: 'https://maquia.kg-portal.ru',
       images: (2..2).map do |i|
@@ -21,86 +21,92 @@ class Ad < ViewObjectBase
       # },
       placement: Types::Ad::Placement[:menu]
     },
-    admachina_x240: {
-      provider: Types::Ad::Provider[:admachina],
-      placement: Types::Ad::Placement[:menu],
-      html: <<~HTML
-        <div style="height:400px;width:240px"><div id="aa66f5a7eae"></div></div>
-        <script>
-            (function (w, d, s, e, i, u) {
-                w[e] = w[e] || [];
-                w[e].push({'admbnr.start': new Date().getTime(), event: 'load.js'});
-                w[e].push({'admbnr.uid': i, event: 'load.js'});
-                var f = d.getElementsByTagName(s)[0], j = d.createElement(s);
-                j.async = true;
-                j.src = 'https://admachina.com/bv2/load.js?uid=' + i.join('|');
-                j.onerror = function () {
-                    js = d.createElement(s);
-                    js.async = true;
-                    js.src = '/' + u + '.php?uid=' + i.join('|');
-                    f.parentNode.insertBefore(js, f);
-                };
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'admbnr', ['aa66f5a7eae'], 'ba699842fb529382e40c5e563eb');
-        </script>
-      HTML
-    },
-    advrtr_x728: {
+    Types::Ad::Type[:advrtr_x728] => {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 1_256,
       width: 728,
       height: 90,
       placement: Types::Ad::Placement[:content]
     },
-    advrtr_x240: {
+    Types::Ad::Type[:advrtr_240x400] => {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 2_731,
       width: 240,
       height: 400,
       placement: Types::Ad::Placement[:menu]
     },
-    yd_poster_x300_2x: {
+    Types::Ad::Type[:yd_300x600] => {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-4',
       placement: Types::Ad::Placement[:menu]
     },
-    yd_poster_x240_2x: {
+    Types::Ad::Type[:yd_240x500] => {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-5',
       placement: Types::Ad::Placement[:menu]
     },
-    yd_rtb_x240: {
+    Types::Ad::Type[:yd_240x400] => {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-2',
       placement: Types::Ad::Placement[:menu]
     },
-    mt_x240: {
+    Types::Ad::Type[:mt_300x250] => {
       provider: Types::Ad::Provider[:mytarget],
       mytarget_id: '239817',
       placement: Types::Ad::Placement[:menu]
     },
-    yd_horizontal: {
+    Types::Ad::Type[:mt_240x400] => {
+      provider: Types::Ad::Provider[:mytarget],
+      mytarget_id: '239815',
+      placement: Types::Ad::Placement[:menu]
+    },
+    Types::Ad::Type[:mt_300x600] => {
+      provider: Types::Ad::Provider[:mytarget],
+      mytarget_id: '239819',
+      placement: Types::Ad::Placement[:menu]
+    },
+    Types::Ad::Type[:yd_horizontal] => {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-7',
       placement: Types::Ad::Placement[:content]
     }
   }
-  FALLBACKS = {
-    yd_poster_x300_2x: :advrtr_x240,
-    yd_poster_x240_2x: :advrtr_x240,
-    yd_rtb_x240: :advrtr_x240,
-    yd_horizontal: :advrtr_x728,
-    special_x300: :yd_rtb_x240
+
+  META_TYPES = {
+    Types::Ad::Meta[:menu_300x250] => [
+      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:mt_300x250],
+      Types::Ad::Type[:yd_240x400],
+      Types::Ad::Type[:advrtr_240x400]
+    ],
+    Types::Ad::Meta[:menu_240x400] => [
+      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:mt_240x400],
+      Types::Ad::Type[:yd_240x500],
+      Types::Ad::Type[:advrtr_240x400]
+    ],
+    Types::Ad::Meta[:menu_300x600] => [
+      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:mt_300x600],
+      Types::Ad::Type[:yd_300x600],
+      Types::Ad::Type[:advrtr_240x400]
+    ],
+    Types::Ad::Meta[:horizontal] => [
+      Types::Ad::Type[:yd_horizontal],
+      Types::Ad::Type[:advrtr_x728]
+    ]
   }
 
   attr_reader :banner_type, :policy
 
-  def initialize banner_type
-    switch_banner banner_type
+  def initialize meta
+    meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
+    meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
 
-    switch_banner :yd_poster_x300_2x if yd_rtb_in_topics?
-    switch_banner :yd_poster_x240_2x if yd_x300_body_x1000?
-    switch_banner FALLBACKS[banner_type] if not_allowed_with_fallback?
+    META_TYPES[Types::Ad::Meta[meta]].each do |type|
+      switch_banner Types::Ad::Type[type]
+      break if policy.allowed?
+    end
   end
 
   def allowed?
@@ -179,7 +185,7 @@ private
   end
 
   def mytarget?
-    provider == Types::Ad::Provider[:yandex_direct]
+    provider == Types::Ad::Provider[:mytarget]
   end
 
   def banner?
@@ -195,8 +201,18 @@ private
   end
 
   def ad_html # rubocop:disable all
-    if yandex_direct? || mytarget?
+    if yandex_direct?
       "<div id='#{@banner_type}'></div>"
+
+    elsif mytarget?
+      <<-HTML.squish
+        <ins
+          class="mrg-tag"
+          style="display:inline-block;text-decoration: none;"
+          data-ad-client="ad-#{banner[:mytarget_id]}"
+          data-ad-slot="#{banner[:mytarget_id]}"></ins>
+      HTML
+
     elsif banner?
       image = banner[:images].sample
 
@@ -210,9 +226,11 @@ private
       "<a href='#{banner[:url]}'>#{image_html}</a>"
     elsif html?
       banner[:html]
+
     elsif iframe?
       "<iframe src='#{advertur_url}' width='#{banner[:width]}px' "\
         "height='#{banner[:height]}px'>"
+
     else
       raise ArgumentError
     end
@@ -228,17 +246,17 @@ private
     )
   end
 
-  def yd_rtb_in_topics?
-    @banner_type == :yd_rtb_x240 && h.params[:controller] == 'topics'
+  def switch_to_x240? meta
+    [
+      Types::Ad::Meta[:menu_300x600],
+      Types::Ad::Meta[:menu_300x250]
+    ].include?(meta) && h.current_user&.preferences&.body_width_x1000?
   end
 
-  def yd_x300_body_x1000?
-    @banner_type == :yd_poster_x300_2x &&
-      h.current_user&.preferences&.body_width_x1000?
-  end
-
-  def not_allowed_with_fallback?
-    !@policy.allowed? && FALLBACKS[@banner_type]
+  def switch_to_x300? meta
+    [
+      Types::Ad::Meta[:menu_240x400]
+    ].include?(meta) && h.params[:controller].in?(%w[topics])
   end
 
   def finalize

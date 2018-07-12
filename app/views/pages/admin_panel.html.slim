@@ -13,7 +13,7 @@ article
     b Disk:
     span #{@disk_space}%
 
-  .metric class="#{:alert if (!@mem_space.respond_to?(:nan?) || !@mem_space.nan?) && @mem_space.to_i > 80}"
+  .metric class="#{:alert if (!@mem_space.respond_to?(:nan?) || !@mem_space.nan?) && @mem_space.to_i > 90}"
     b Memory:
     span #{@mem_space}%
 

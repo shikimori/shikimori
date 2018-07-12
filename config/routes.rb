@@ -368,12 +368,6 @@ Rails.application.routes.draw do
     get '/', to: 'anime_online/dashboard#show'
     get '/page/:page', to: 'anime_online/dashboard#show', as: :anime_dashboard_page
 
-    get 'pingmedia_test_1', to: 'anime_online/dashboard#pingmedia_test_1', as: :pingmedia_test_1
-    get 'pingmedia_test_2', to: 'anime_online/dashboard#pingmedia_test_2', as: :pingmedia_test_2
-    get 'advertur_test', to: 'anime_online/dashboard#advertur_test', as: :advertur_test
-    get 'advertur_test_2', to: 'anime_online/dashboard#advertur_test_2', as: :advertur_test_2
-    get 'advertur_test_3', to: 'anime_online/dashboard#advertur_test_3', as: :advertur_test_3
-
     get "animes#{ani_manga_format}" => "animes_collection#index",
       klass: 'anime',
       with_video: '1',

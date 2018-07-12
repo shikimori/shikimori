@@ -26,8 +26,7 @@ private
   def mainstream? ad_provider
     [
       Types::Ad::Provider[:yandex_direct],
-      Types::Ad::Provider[:mytarget],
-      Types::Ad::Provider[:admachina]
+      Types::Ad::Provider[:mytarget]
     ].include? ad_provider
   end
 

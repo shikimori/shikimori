@@ -1,13 +1,12 @@
 describe Ad do
   include_context :timecop
 
-  subject(:ad) { Ad.new banner_type }
+  subject(:ad) { Ad.new meta }
 
-  let(:banner_type) { :yd_poster_x300_2x }
-  let(:banner) { Ad::BANNERS[banner_type] }
+  let(:meta) { :menu_300x600 }
+  let(:banner) { Ad::BANNERS[ad.banner_type] }
 
   before { allow_any_instance_of(Ad).to receive(:h).and_return h }
-
   let(:h) do
     double(
       params: params,
@@ -31,59 +30,36 @@ describe Ad do
   let(:cookies) { {} }
 
   describe '#banner_type' do
-    it { expect(ad.banner_type).to eq banner_type }
+    it { expect(ad.banner_type).to eq :mt_300x600 }
 
-    describe 'yd_poster_x300_2x -> yd_rtb_x240' do
+    describe 'meta changed by user preferences body_width_x1000' do
       let(:user) { build_stubbed :user, preferences: preferences }
       let(:preferences) { build_stubbed :user_preferences, body_width: body_width }
 
       context 'x1000 site width' do
+        let(:meta) { %i[menu_300x600 menu_300x250].sample }
         let(:body_width) { :x1000 }
-        it { expect(ad.banner_type).to eq :yd_poster_x240_2x }
+
+        it { expect(ad.banner_type).to eq :mt_240x400 }
       end
 
       context 'x1200 site width' do
         let(:body_width) { :x1200 }
-        it { expect(ad.banner_type).to eq banner_type }
+        it { expect(ad.banner_type).to eq :mt_300x600 }
       end
     end
 
-    describe 'yd_rtb_x240 -> yd_poster_x300_2x' do
-      let(:params) { { controller: 'topics' } }
-
-      context 'not yd_rtb_x240' do
-        let(:banner_type) { :advrtr_x240 }
-        it { expect(ad.banner_type).to eq banner_type }
-      end
-
-      context 'yd_rtb_x240' do
-        let(:banner_type) { :yd_rtb_x240 }
-        it { expect(ad.banner_type).to eq :yd_poster_x300_2x }
-      end
-    end
-
-    context 'not allowed banner type' do
-      let(:is_shikimori) { false }
-
-      context 'with fallback' do
-        it { expect(ad.banner_type).to eq :advrtr_x240 }
-      end
-
-      context 'without fallback' do
-        before do
-          Ad::BANNERS[banner_type] = {
-            provider: Types::Ad::Provider[:yandex_direct]
-          }
-        end
-        let(:banner_type) { :yd_wo_fallback }
-
-        it { expect(ad.banner_type).to eq :yd_wo_fallback }
+    describe 'meta changed by controller' do
+      context 'topics' do
+        let(:meta) { :menu_240x400 }
+        let(:params) { { controller: 'topics' } }
+        it { expect(ad.banner_type).to eq :mt_300x600 }
       end
     end
   end
 
   describe '#provider' do
-    it { expect(ad.provider).to eq Ad::BANNERS[banner_type][:provider] }
+    it { expect(ad.provider).to eq Ad::BANNERS[:mt_300x600][:provider] }
   end
 
   describe '#allowed?' do
@@ -129,6 +105,9 @@ describe Ad do
 
   describe '#ad_params' do
     context 'yandex direct' do
+      before { ad.instance_variable_set '@banner_type', banner_type }
+      let(:banner_type) { :yd_240x500 }
+
       it do
         expect(ad.ad_params).to eq(
           blockId: Ad::BANNERS[banner_type][:yandex_id],
@@ -138,43 +117,24 @@ describe Ad do
       end
     end
 
-    context 'advertur' do
-      let(:banner_type) { :advrtr_x240 }
-      it { expect(ad.ad_params).to be_nil }
-    end
-
-    context 'special' do
-      let(:banner_type) { :admachina_x240 }
+    context 'other' do
       it { expect(ad.ad_params).to be_nil }
     end
   end
 
   describe '#css_class' do
-    context 'yandex direct' do
-      it { expect(ad.css_class).to eq "spnsrs_#{banner_type}" }
-    end
-
-    context 'advertur' do
-      let(:banner_type) { :advrtr_x240 }
-      it { expect(ad.css_class).to eq "spnsrs_#{banner_type}" }
-    end
+    it { expect(ad.css_class).to eq "spnsrs_#{ad.banner_type}" }
   end
 
   describe '#to_html' do
-    subject! { ad.to_html }
-
-    it do
-      expect(h.controller)
-        .to have_received(:instance_variable_set)
-        .with(:"@is_#{banner[:placement]}_ad_shown", true)
-    end
+    before { ad.instance_variable_set '@banner_type', banner_type }
 
     context 'advertur' do
-      let(:banner_type) { :advrtr_x240 }
+      let(:banner_type) { :advrtr_240x400 }
       it do
-        is_expected.to eq(
+        expect(ad.to_html).to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spnsrs-advrtr_x240">
+            <div class="b-spnsrs-advrtr_240x400">
               <center>
                 <iframe src='zxc' width='240px' height='400px'>
               </center>
@@ -184,13 +144,13 @@ describe Ad do
       end
     end
 
-    context 'istari' do
-      let(:cookie_key) { Ad::BANNERS[:istari_x300][:rules][:cookie] }
+    # context 'istari' do
+      # let(:cookie_key) { Ad::BANNERS[:istari_x300][:rules][:cookie] }
 
       # context 'without rules' do
         # let(:banner_type) { :istari_x1170 }
         # it do
-          # is_expected.to eq(
+          # expect(ad.to_html).to eq(
             # <<-HTML.gsub(/\n|^\ +/, '')
               # <div class="b-spnsrs-istari_x1170">
                 # <center>
@@ -226,16 +186,16 @@ describe Ad do
       #     end
       #   end
       # end
-    end
+    # end
 
     context 'yandex_direct' do
-      let(:banner_type) { :yd_rtb_x240 }
+      let(:banner_type) { :yd_240x400 }
       it do
-        is_expected.to eq(
+        expect(ad.to_html).to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spnsrs-yd_rtb_x240">
+            <div class="b-spnsrs-yd_240x400">
               <center>
-                <div id='yd_rtb_x240'></div>
+                <div id='yd_240x400'></div>
               </center>
             </div>
           HTML

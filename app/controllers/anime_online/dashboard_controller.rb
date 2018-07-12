@@ -1,5 +1,4 @@
 class AnimeOnline::DashboardController < ShikimoriController
-  layout false, only: %i[advertur_test_3]
   def show
     redirect_to '/animes/genre/12-Hentai' if is_adult
 
@@ -22,21 +21,6 @@ class AnimeOnline::DashboardController < ShikimoriController
       @seasons = Menus::TopMenu.new.anime_seasons
       @seasons.delete_at(2)
     end
-  end
-
-  def pingmedia_test_1
-  end
-
-  def pingmedia_test_2
-  end
-
-  def advertur_test
-  end
-
-  def advertur_test_2
-  end
-
-  def advertur_test_3
   end
 
 private
