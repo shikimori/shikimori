@@ -295,14 +295,18 @@ private
 
   def website_host
     begin
-      URI.parse(website).host
+      URI.parse(website_url).host
     rescue
     end
   end
 
   def website_url
     if object.website.present?
-      'http://%s' % object.website.sub(/^(https?:\/\/)?/, '')
+      if object.website.match /^https?:\/\//
+        object.website    
+      else
+        "http://%s" % object.website
+      end
     else
       nil
     end
