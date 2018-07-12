@@ -74,6 +74,11 @@ class Ad < ViewObjectBase
       yandex_id: 'R-A-227837-2',
       placement: Types::Ad::Placement[:menu]
     },
+    mt_x240: {
+      provider: Types::Ad::Provider[:mytarget],
+      mytarget_id: '239817',
+      placement: Types::Ad::Placement[:menu]
+    },
     yd_horizontal: {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-7',
@@ -173,6 +178,10 @@ private
     provider == Types::Ad::Provider[:yandex_direct]
   end
 
+  def mytarget?
+    provider == Types::Ad::Provider[:yandex_direct]
+  end
+
   def banner?
     banner[:images].present?
   end
@@ -185,8 +194,8 @@ private
     provider == Types::Ad::Provider[:advertur]
   end
 
-  def ad_html # rubocop:disable AbcSize, MethodLength, PerceivedComplexity
-    if yandex_direct?
+  def ad_html # rubocop:disable all
+    if yandex_direct? || mytarget?
       "<div id='#{@banner_type}'></div>"
     elsif banner?
       image = banner[:images].sample

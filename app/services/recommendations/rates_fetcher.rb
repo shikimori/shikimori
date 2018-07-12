@@ -79,7 +79,8 @@ private
     data
   end
 
-  def scope klass # rubocop:disable MethodLength
+  def scope klass # rubocop:disable MethodLength, AbcSize
+    # no need in filtering by list size if @user_ids is provided
     list_size_sql = @with_deletion && @user_ids.blank?
 
     scope = UserRate

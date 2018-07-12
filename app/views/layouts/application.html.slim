@@ -39,12 +39,6 @@ html
         = yield
 
     - else
-      / ins.mrg-tag[
-        / style="width:100%;"
-        / data-ad-client="ad-100204"
-        / data-ad-slot="100204"
-      / ]
-
       header.l-top_menu
         - unless Rails.env.development? && params[:no_menu]
           = render 'application/top_menu'
