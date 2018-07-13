@@ -114,7 +114,7 @@ module AniMangaDecorator::UrlHelpers
   # адрес создания обзора
   def new_review_url
     h.send "new_#{klass_lower}_review_url", object,
-      'review[user_id]' => 'ID',
+      'review[user_id]' => h.current_user&.id,
       'review[target_id]' => id,
       'review[target_type]' => object.class.name
   end
