@@ -50,6 +50,11 @@ class Ad < ViewObjectBase
       yandex_id: 'R-A-227837-2',
       placement: Types::Ad::Placement[:menu]
     },
+    Types::Ad::Type[:yd_horizontal] => {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: 'R-A-227837-7',
+      placement: Types::Ad::Placement[:content]
+    },
     Types::Ad::Type[:mt_300x250] => {
       provider: Types::Ad::Provider[:mytarget],
       mytarget_id: '239817',
@@ -65,9 +70,9 @@ class Ad < ViewObjectBase
       mytarget_id: '239819',
       placement: Types::Ad::Placement[:menu]
     },
-    Types::Ad::Type[:yd_horizontal] => {
-      provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-227837-7',
+    Types::Ad::Type[:mt_728x90] => {
+      provider: Types::Ad::Provider[:mytarget],
+      mytarget_id: '239978',
       placement: Types::Ad::Placement[:content]
     }
   }
@@ -92,6 +97,7 @@ class Ad < ViewObjectBase
       Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:horizontal] => [
+      Types::Ad::Type[:mt_728x90],
       Types::Ad::Type[:yd_horizontal],
       Types::Ad::Type[:advrtr_x728]
     ]

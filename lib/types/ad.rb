@@ -21,10 +21,11 @@ module Types
         :yd_300x600,
         :yd_240x500,
         :yd_240x400,
+        :yd_horizontal,
         :mt_300x250,
         :mt_240x400,
         :mt_300x600,
-        :yd_horizontal
+        :mt_728x90
       )
   end
 end
