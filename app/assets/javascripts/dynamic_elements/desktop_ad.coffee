@@ -18,6 +18,6 @@ class DynamicElements.DesktopAd extends View
 
   _platform_matches: (platform) ->
     if platform == 'desktop'
-      !(is_mobile() && !mobile_detect.tablet())
+      is_tablet() || !is_mobile()
     else
       mobile_detect.phone() || mobile_detect.tablet()
