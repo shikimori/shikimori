@@ -78,7 +78,9 @@ private
   end
 
   def aired_at
-    anime.aired_on.to_datetime if anime.aired_on.to_datetime >= 1.day.ago
+    if anime.aired_on && anime.aired_on.to_datetime >= 1.day.ago
+      anime.aired_on.to_datetime
+    end
   end
 
   def broadcast_at
