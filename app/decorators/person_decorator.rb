@@ -38,9 +38,9 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def website_html
-    if website_host.present?
-      h.link_to website_host, website_url, rel: 'nofollow', class: 'b-link'
-    end
+    return if website_host.blank?
+
+    h.link_to website_host, website_url, rel: 'nofollow', class: 'b-link'
   end
 
   def flatten_roles
@@ -294,17 +294,17 @@ private
   end
 
   def website_host
-    begin
-      URI.parse(website).host
-    rescue
-    end
+    return if object.website.blank?
+    URI.parse(website_url).host
+  rescue URI::Error
   end
 
   def website_url
-    if object.website.present?
-      'http://%s' % object.website.sub(/^(https?:\/\/)?/, '')
+    return if object.website.blank?
+    if object.website.match?(%r{^https?://})
+      object.website
     else
-      nil
+      "http://#{object.website}"
     end
   end
 
