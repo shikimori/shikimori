@@ -19,61 +19,78 @@ class Ad < ViewObjectBase
       #   cookie: 'i2',
       #   shows_per_week: 30
       # },
-      placement: Types::Ad::Placement[:menu]
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:advrtr_x728] => {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 1_256,
       width: 728,
       height: 90,
-      placement: Types::Ad::Placement[:content]
+      placement: Types::Ad::Placement[:content],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:advrtr_240x400] => {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 2_731,
       width: 240,
       height: 400,
-      placement: Types::Ad::Placement[:menu]
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:yd_300x600] => {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-4',
-      placement: Types::Ad::Placement[:menu]
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:yd_240x500] => {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-5',
-      placement: Types::Ad::Placement[:menu]
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:yd_240x400] => {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-2',
-      placement: Types::Ad::Placement[:menu]
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:yd_horizontal] => {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-7',
-      placement: Types::Ad::Placement[:content]
+      placement: Types::Ad::Placement[:content],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:mt_300x250] => {
       provider: Types::Ad::Provider[:mytarget],
       mytarget_id: '239817',
-      placement: Types::Ad::Placement[:menu]
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:mt_240x400] => {
       provider: Types::Ad::Provider[:mytarget],
       mytarget_id: '239815',
-      placement: Types::Ad::Placement[:menu]
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:mt_300x600] => {
       provider: Types::Ad::Provider[:mytarget],
       mytarget_id: '239819',
-      placement: Types::Ad::Placement[:menu]
+      placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:mt_728x90] => {
       provider: Types::Ad::Provider[:mytarget],
       mytarget_id: '239978',
-      placement: Types::Ad::Placement[:content]
+      placement: Types::Ad::Placement[:content],
+      platform: Types::Ad::Platform[:desktop]
+    },
+    Types::Ad::Type[:mt_footer] => {
+      provider: Types::Ad::Provider[:mytarget],
+      mytarget_id: '99457',
+      placement: Types::Ad::Placement[:content],
+      platform: Types::Ad::Platform[:mobile]
     }
   }
 
@@ -100,6 +117,9 @@ class Ad < ViewObjectBase
       Types::Ad::Type[:mt_728x90],
       Types::Ad::Type[:yd_horizontal],
       Types::Ad::Type[:advrtr_x728]
+    ],
+    Types::Ad::Meta[:footer] => [
+      Types::Ad::Type[:mt_footer]
     ]
   }
 
@@ -132,6 +152,10 @@ class Ad < ViewObjectBase
 
   def provider
     banner[:provider]
+  end
+
+  def platform
+    banner[:platform]
   end
 
   def ad_params

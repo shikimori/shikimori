@@ -10,7 +10,7 @@ module Types
 
     Meta = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:menu_300x250, :menu_240x400, :menu_300x600, :horizontal)
+      .enum(:menu_300x250, :menu_240x400, :menu_300x600, :horizontal, :footer)
 
     Type = Types::Strict::Symbol
       .constructor(&:to_sym)
@@ -25,7 +25,12 @@ module Types
         :mt_300x250,
         :mt_240x400,
         :mt_300x600,
-        :mt_728x90
+        :mt_728x90,
+        :mt_footer
       )
+
+    Platform = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:desktop, :mobile)
   end
 end

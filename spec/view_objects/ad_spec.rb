@@ -58,6 +58,10 @@ describe Ad do
     end
   end
 
+  describe '#platform' do
+    it { expect(ad.platform).to eq Ad::BANNERS[:mt_300x600][:platform] }
+  end
+
   describe '#provider' do
     it { expect(ad.provider).to eq Ad::BANNERS[:mt_300x600][:provider] }
   end
