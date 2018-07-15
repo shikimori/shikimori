@@ -10,7 +10,7 @@ class DynamicElements.DesktopAd extends View
     return unless @_platform_matches(platform)
 
     if provider == 'yandex_direct'
-      new Ads.Yandex(@$node, css_class, ad_params)
+      new Ads.Yandex(@$node, html, css_class, ad_params)
     else if provider == 'mytarget'
       new Ads.Mytarget(@$node, html, css_class, ad_params)
     else
