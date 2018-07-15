@@ -6,7 +6,7 @@ module Types
 
     Placement = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:menu, :content)
+      .enum(:menu, :content, :footer)
 
     Meta = Types::Strict::Symbol
       .constructor(&:to_sym)

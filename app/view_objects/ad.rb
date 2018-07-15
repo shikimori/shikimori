@@ -89,7 +89,7 @@ class Ad < ViewObjectBase
     Types::Ad::Type[:mt_footer] => {
       provider: Types::Ad::Provider[:mytarget],
       mytarget_id: '99457',
-      placement: Types::Ad::Placement[:content],
+      placement: Types::Ad::Placement[:footer],
       platform: Types::Ad::Platform[:mobile]
     }
   }
