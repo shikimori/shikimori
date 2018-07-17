@@ -30,7 +30,7 @@ describe Ad do
   let(:cookies) { {} }
 
   describe '#banner_type' do
-    it { expect(ad.banner_type).to eq :mt_300x600 }
+    it { expect(ad.banner_type).to eq :yd_300x600 }
 
     describe 'meta changed by user preferences body_width_x1000' do
       let(:user) { build_stubbed :user, preferences: preferences }
@@ -40,12 +40,12 @@ describe Ad do
         let(:meta) { %i[menu_300x600 menu_300x250].sample }
         let(:body_width) { :x1000 }
 
-        it { expect(ad.banner_type).to eq :mt_240x400 }
+        it { expect(ad.banner_type).to eq :yd_240x500 }
       end
 
       context 'x1200 site width' do
         let(:body_width) { :x1200 }
-        it { expect(ad.banner_type).to eq :mt_300x600 }
+        it { expect(ad.banner_type).to eq :yd_300x600 }
       end
     end
 
@@ -53,17 +53,17 @@ describe Ad do
       context 'topics' do
         let(:meta) { :menu_240x400 }
         let(:params) { { controller: 'topics' } }
-        it { expect(ad.banner_type).to eq :mt_300x600 }
+        it { expect(ad.banner_type).to eq :yd_300x600 }
       end
     end
   end
 
   describe '#platform' do
-    it { expect(ad.platform).to eq Ad::BANNERS[:mt_300x600][:platform] }
+    it { expect(ad.platform).to eq Ad::BANNERS[:yd_300x600][:platform] }
   end
 
   describe '#provider' do
-    it { expect(ad.provider).to eq Ad::BANNERS[:mt_300x600][:provider] }
+    it { expect(ad.provider).to eq Ad::BANNERS[:yd_300x600][:provider] }
   end
 
   describe '#allowed?' do
@@ -121,9 +121,11 @@ describe Ad do
       end
     end
 
-    context 'other' do
-      it { expect(ad.ad_params).to be_nil }
-    end
+    # context 'other' do
+    #   before { ad.instance_variable_set '@banner_type', banner_type }
+    #   let(:banner_type) { :yd_240x500 }
+    #   it { expect(ad.ad_params).to be_nil }
+    # end
   end
 
   describe '#css_class' do
