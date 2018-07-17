@@ -2949,7 +2949,7 @@
     :neko_id: :slice_of_life
     :level: 2
     :image: "/assets/achievements/anime/slice_of_life_2.jpg"
-    :border_color: "#DAD871"
+    :border_color: "#884467"
     :title_ru: Житейские мелочи
     :text_ru: Полностью погрязли в повседневных делах и симпатичных вещах.
     :title_en: 
@@ -7237,12 +7237,8 @@
       :filters:
         franchise: gundam
         not_anime_ids:
-        - 2269
         - 8839
-        - 14007
-        - 20667
         - 23943
-        - 24371
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7353,7 +7349,7 @@
     :level: 1
     :image: http://i.imgur.com/v7pjFJ7.png
     :border_color: 
-    :title_ru: Когда плачут цикады
+    :title_ru: Когда плачут
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -7665,8 +7661,6 @@
       :algo: duration
       :filters:
         franchise: hikaru_no_go
-        not_anime_ids:
-        - 2336
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7992,7 +7986,7 @@
       :algo: duration
       :filters:
         franchise: muumin
-      :threshold: 95%
+      :threshold: 85%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
