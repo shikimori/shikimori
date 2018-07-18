@@ -22,30 +22,21 @@ private
 
   def producer_ids
     PersonRole
-      .where("
-        role ilike 'Chief Producer' or
-        role ilike 'Chief Producer,%' or
-        role ilike '%, Chief Producer' or
-        role ilike '%, Chief Producer,%' or
-        role ilike 'Director' or
-        role ilike 'Director,%' or
-        role ilike '%, Director' or
-        role ilike '%, Director,%'
-      ")
+      .where("roles && '{Chief Producer,Director}'")
       .pluck(:person_id)
       .uniq
   end
 
   def mangaka_ids
     PersonRole
-      .where(role: Person::MANGAKA_ROLES)
+      .where("roles && '{#{Person::MANGAKA_ROLES.join(',')}}'")
       .pluck(:person_id)
       .uniq
   end
 
   def seyu_ids
     PersonRole
-      .where(role: Person::SEYU_ROLES)
+      .where("roles && '{#{Person::SEYU_ROLES.join(',')}}'")
       .pluck(:person_id)
       .uniq
   end

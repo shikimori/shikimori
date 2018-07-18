@@ -5,8 +5,9 @@ class PersonRole < ApplicationRecord
   belongs_to :person, touch: true
 
   DIRECTOR_ROLES = [
-    'Director',
+    'Chief Producer',
     'Co-Director',
+    'Director',
     'Original Creator',
     'Story & Art',
     'Story, Art'
