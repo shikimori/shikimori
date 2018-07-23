@@ -206,6 +206,11 @@ describe AnimeOnline::FixAnimeVideoAuthors do
               it { expect(author_1.reload.name).to eq 'AniMaunt' }
             end
           end
+
+          context 'Amazing Dubbing' do
+            let(:name) { ['Amaizing Dubbing', 'Amazing Dubing'].sample }
+            it { expect(author_1.reload.name).to eq 'Amazing Dubbing' }
+          end
         end
 
         describe 'author already exists' do

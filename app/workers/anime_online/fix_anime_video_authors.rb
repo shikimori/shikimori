@@ -9,7 +9,8 @@ class AnimeOnline::FixAnimeVideoAuthors
     AniUchi AniSound NekoProject AnimeJet FreeDub AniFame AniChaos RainDub
     SovetRomantica AniMaunt MedusaSub
   ] + [
-    'DeadLine Studio', 'Bastion Studio', 'Onibaku Group', 'SHIZA Project'
+    'DeadLine Studio', 'Bastion Studio', 'Onibaku Group', 'SHIZA Project',
+    'Amazing Dubbing'
   ]
   QUALITIES = AnimeVideo.quality.values.reject { |v| v == 'unknown' }
 
@@ -54,7 +55,9 @@ class AnimeOnline::FixAnimeVideoAuthors
   STUDIOS_FIXES = {
     /romantica/i => 'Romantica',
     /SHIZA(?! Project)/i => 'SHIZA Project',
-    /Project-Project/i => 'Project'
+    /Project-Project/i => 'Project',
+    /Amaizing/ => 'Amazing',
+    /Dubing/ => 'Dubbing'
   }
 
   QUALITIES_REPLACEMENTS = QUALITIES.each_with_object({}) do |name, memo|
