@@ -9,6 +9,11 @@ header.head
 
 .subheadline.m10 Навигация
 ul.b-list.block
+  li.m15
+    a.b-link[
+      href=(request.fullpath == current_url(is_verified: nil) ? moderations_anime_video_authors_url : current_url(is_verified: nil))
+    ] Все авторы
+
   li
     a.b-js-link[
       class=(:active if params[:limit] == '5000')
@@ -26,7 +31,7 @@ ul.b-list.block
       class=(:active if params[:is_verified] == 'true')
       href=current_url(is_verified: ('true' if params[:is_verified] != 'true'))
     ] Только проверенные авторы
-  li
+  li.m15
     a.b-js-link[
       class=(:active if params[:is_verified] == 'false')
       href=current_url(is_verified: ('false' if params[:is_verified] != 'false'))
@@ -83,7 +88,8 @@ ul.b-list.block
         ' Авторы аниме
         a.b-link.bubbled href=anime_url(@anime)
           = localization_span @anime
-        a.misc-link href=current_url(anime_id: nil) без аниме
+        .misc-links
+          a href=current_url(anime_id: nil) без аниме
       - else
         | Все авторы
 
