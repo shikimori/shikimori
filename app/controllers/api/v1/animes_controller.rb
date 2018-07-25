@@ -6,7 +6,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     [
       params[:controller],
       params[:action],
-      :v7
+      :v8
     ].join('_')
   }
 
