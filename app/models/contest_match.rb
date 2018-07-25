@@ -24,12 +24,12 @@ class ContestMatch < ApplicationRecord
     state :finished
 
     event :start do
-      transition :created => :started, if: ->(match) {
+      transition :created => :started, if: lambda { |match|
         match.started_on && match.started_on <= Time.zone.today
       }
     end
     event :finish do
-      transition :started => :finished, if: ->(match) {
+      transition :started => :finished, if: lambda { |match|
         match.finished_on && match.finished_on < Time.zone.today
       }
     end
@@ -46,6 +46,7 @@ class ContestMatch < ApplicationRecord
     cached_votes_down
   end
 
+  # победитель
   def winner
     if winner_id == left_id
       left
@@ -54,6 +55,7 @@ class ContestMatch < ApplicationRecord
     end
   end
 
+  # проигравший
   def loser
     if winner_id == left_id
       right
