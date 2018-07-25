@@ -226,7 +226,6 @@
         - 8769
         - 9922
         - 10547
-        - 35968
         - 8476
         - 29803
         - 35073
@@ -511,7 +510,6 @@
         - 8769
         - 9922
         - 10547
-        - 35968
         - 8476
         - 29803
         - 35073
@@ -796,7 +794,6 @@
         - 8769
         - 9922
         - 10547
-        - 35968
         - 8476
         - 29803
         - 35073
@@ -8811,7 +8808,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :locker_room
+    :neko_id: :inazuma_eleven
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/84020/592658.jpg
     :border_color: 
@@ -8823,7 +8820,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: locker_room
+        franchise: inazuma_eleven
       :threshold: 60%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
