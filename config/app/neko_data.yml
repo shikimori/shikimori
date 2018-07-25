@@ -8929,7 +8929,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :casshern
+    :neko_id: :gatchaman
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
     :border_color: 
@@ -8941,7 +8941,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: casshern
+        franchise: gatchaman
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
