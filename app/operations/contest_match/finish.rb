@@ -7,6 +7,8 @@ class ContestMatch::Finish
       @contest_match.finish!
       @contest_match.update_column :winner_id, obtain_winner_id
     end
+
+    @contest_match
   end
 
 private
@@ -59,9 +61,7 @@ private
         @contest_match.unvote_by suspicious_vote.voter
       end
 
-    # спека и без этого не падает, но 30.10.2017 случился случай, когда
-    # победу получил участник, набравший меньшее число голосов
-    # возможно, это поможет
-    # @contest_match.reload
+    # need to fully reload model becase of cached_field from acts_as_votable
+    @contest_match = ContestMatch.find(@contest_match.id)
   end
 end

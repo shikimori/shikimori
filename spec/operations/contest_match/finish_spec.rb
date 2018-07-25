@@ -29,23 +29,21 @@ describe ContestMatch::Finish do
   let(:cached_votes_down) { 0 }
 
   describe 'vote' do
-    subject! { call }
-
-    it { expect(contest_match).to be_finished }
+    it { is_expected.to be_finished }
 
     context 'no right variant' do
       let(:right_id) { nil }
-      it { expect(contest_match.winner_id).to eq left_id }
+      it { expect(subject.winner_id).to eq left_id }
     end
 
     context 'left_votes > right_votes' do
       let(:cached_votes_up) { 1 }
-      it { expect(contest_match.winner_id).to eq left_id }
+      it { expect(subject.winner_id).to eq left_id }
     end
 
     context 'right_votes > left_votes' do
       let(:cached_votes_down) { 1 }
-      it { expect(contest_match.winner_id).to eq right_id }
+      it { expect(subject.winner_id).to eq right_id }
     end
 
     context 'left_votes == right_votes' do
@@ -56,21 +54,21 @@ describe ContestMatch::Finish do
         let(:anime_1) { create :anime, score: 9 }
         let(:anime_2) { create :anime, score: 5 }
 
-        it { expect(contest_match.winner_id).to eq left_id }
+        it { expect(subject.winner_id).to eq left_id }
       end
 
       context 'right.score < left.score' do
         let(:anime_1) { create :anime, score: 5 }
         let(:anime_2) { create :anime, score: 9 }
 
-        it { expect(contest_match.winner_id).to eq right_id }
+        it { expect(subject.winner_id).to eq right_id }
       end
 
       context 'left.score == right.score' do
         let(:anime_1) { create :anime, score: 5 }
         let(:anime_2) { create :anime, score: 5 }
 
-        it { expect(contest_match.winner_id).to eq left_id }
+        it { expect(subject.winner_id).to eq left_id }
       end
     end
   end
@@ -82,16 +80,16 @@ describe ContestMatch::Finish do
     context 'normal user' do
       let(:user) { create :user, :admin }
       it do
-        expect(contest_match).to be_finished
-        expect(contest_match.winner_id).to eq right_id
+        is_expected.to be_finished
+        expect(subject.winner_id).to eq right_id
       end
     end
 
     context 'suspicious user' do
       let(:user) { create :user, :suspicious }
       it do
-        expect(contest_match).to be_finished
-        expect(contest_match.winner_id).to eq left_id
+        is_expected.to be_finished
+        expect(subject.winner_id).to eq left_id
       end
     end
   end
