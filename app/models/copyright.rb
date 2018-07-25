@@ -36,7 +36,8 @@ module Copyright
   CAPELLA_FILM_COPYRIGHTED = [
     # Capella Film
     33970, # Girls und Panzer das Finale
-    35851 # Sayonara no Asa ni Yakusoku no Hana wo Kazarou
+    35851, # Sayonara no Asa ni Yakusoku no Hana wo Kazarou
+    10259 # Da hai
   ]
   OTHER_COPYRIGHTED = [
     # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
