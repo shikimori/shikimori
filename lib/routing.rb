@@ -8,6 +8,7 @@ module Routing
     shikimori \. (?: org|dev )
     \Z
   /mix
+  FORCE_CAMO_DOMAIN = /imgur.com/i
 
   included do
     def shiki_domain
@@ -82,9 +83,11 @@ module Routing
     end
   end
 
-  def camo_url image_url
-    if image_url.starts_with?('//', 'https://') ||
+  def camo_url image_url # rubocop:disable MethodLength, AbcSize
+    if (
+        image_url.starts_with?('//', 'https://') ||
         image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2')
+      ) && !image_url.match?(FORCE_CAMO_DOMAIN)
       return image_url
     end
 
