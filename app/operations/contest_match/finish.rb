@@ -59,9 +59,8 @@ private
         @contest_match.unvote_by suspicious_vote.voter
       end
 
-    # спека и без этого не падает, но 30.10.2017 случился случай, когда
-    # победу получил участник, набравший меньшее число голосов
-    # возможно, это поможет
-    # @contest_match.reload
+    # need to reload model becase of cached field from acts_as_votable
+    # without it cached_votes_left/right sometimes do not reload properly
+    @contest_match.reload
   end
 end

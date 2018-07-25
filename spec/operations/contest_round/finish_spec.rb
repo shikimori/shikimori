@@ -10,7 +10,7 @@ describe ContestRound::Finish do
   before do
     round.strategy.fill_round_with_matches round
     ContestRound::Start.call round
-    round.matches.each { |v| v.finished_on = Time.zone.yesterday }
+    round.matches.each { |v| v.update finished_on: Time.zone.yesterday }
   end
 
   before do
