@@ -61,6 +61,6 @@ private
 
     # need to reload model becase of cached field from acts_as_votable
     # without it cached_votes_left/right sometimes do not reload properly
-    @contest_match.reload
+    @contest_match.reload if Rails.env.production? || Rails.env.development?
   end
 end
