@@ -21,6 +21,7 @@ module Types
       bot
       censored_avatar
       censored_profile
+      retired_moderator
     ]
     Roles = Types::Strict::Symbol
       .constructor(&:to_sym)

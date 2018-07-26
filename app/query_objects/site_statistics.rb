@@ -65,13 +65,9 @@ class SiteStatistics
   end
 
   def retired_moderators
-    # 942 - Иштаран
-    # 2033 - zmej1987
-    # 1483 - Zula
-    # 94 - acid_emily
-    # 11 - BlackMetalFan
-    # 188 - Forever Autumn
-    User.where(id: [942, 2033, 1483, 94, 11, 188]).order(:id)
+    User
+      .where("roles && '{#{Types::User::Roles[:retired_moderator]}}'")
+      .order(:id)
   end
 
   def forum_moderators
