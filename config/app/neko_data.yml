@@ -6114,9 +6114,9 @@
     :neko_id: :mecha
     :level: 1
     :image: "/assets/achievements/anime/mecha_1.jpg"
-    :border_color: "#5E2129"
+    :border_color: "#708090"
     :title_ru: Пилот Evangelion Unit
-    :text_ru: ОЯШ, полезай в робота
+    :text_ru: ОЯШ, полезай в робота!
     :title_en: 
     :text_en: 
     :topic_id: 222036
@@ -6132,7 +6132,7 @@
     :neko_id: :mecha
     :level: 2
     :image: "/assets/achievements/anime/mecha_2.jpg"
-    :border_color: "#00693E"
+    :border_color: "#4682B4"
     :title_ru: Hasshin!
     :text_ru: Некогда непривычный костюм пилота теперь сидит как влитой. Вы — ас,
       впереди — бесконечные сражения.
@@ -6151,8 +6151,8 @@
     :neko_id: :mecha
     :level: 3
     :image: "/assets/achievements/anime/mecha_3.jpg"
-    :border_color: "#C5D0E6"
-    :title_ru: 
+    :border_color: "#B22222"
+    :title_ru: Man of Steel
     :text_ru: Можете взять яйцо не раздавив, можете исполнить танцевальное па... но
       боевой доспех стал вашей второй кожей не для этого.
     :title_en: 
@@ -6170,9 +6170,9 @@
     :neko_id: :mecha
     :level: 4
     :image: "/assets/achievements/anime/mecha_4.gif"
-    :border_color: "#4682B4"
+    :border_color: "#20B2AA"
     :title_ru: Ньютайп
-    :text_ru: Ore wa Gundam
+    :text_ru: ORE WA GUNDAM
     :title_en: 
     :text_en: 
     :topic_id: 
