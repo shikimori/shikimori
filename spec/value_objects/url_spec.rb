@@ -166,8 +166,35 @@ describe Url do
     end
   end
 
-  describe '#set_params' do
-    subject { url.set_params(hash) }
+  describe '#cut_subdomain' do
+    subject { url.cut_subdomain.to_s }
+
+    context 'with www' do
+      context 'with protocol', :focus do
+        let(:string) do
+          %w[
+            http://www.test.org/test
+            http://xxx.test.org/test
+            http://zxc-123-vxc_sd.test.org/test
+          ].sample
+        end
+        it { is_expected.to eq 'http://test.org/test' }
+      end
+
+      context 'without protocol' do
+        let(:string) { 'www.test.org/test' }
+        it { is_expected.to eq 'test.org/test' }
+      end
+    end
+
+    context 'without www' do
+      let(:string) { 'http://test.org/test' }
+      it { is_expected.to eq 'http://test.org/test' }
+    end
+  end
+
+  describe '#params' do
+    subject { url.params(hash) }
     let(:hash) do
       { 'p1' => 'p1', 'p2' => 'p2' }
     end

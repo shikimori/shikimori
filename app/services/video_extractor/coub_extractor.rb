@@ -9,11 +9,11 @@ class VideoExtractor::CoubExtractor < VideoExtractor::OpenGraphExtractor
   }xi
 
   def url
-    @fixed_url ||= "https:#{Url.new(super).without_protocol}"
+    @fixed_url ||= "https:#{Url.new(super).without_protocol}" # rubocop:disable MemoizedInstanceVariableName
   end
 
   def player_url
     url = super
-    Url.new(super).set_params(autostart: true, startWithHD: true).to_s if url
+    Url.new(super).params(autostart: true, startWithHD: true).to_s if url
   end
 end

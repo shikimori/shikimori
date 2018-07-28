@@ -17,7 +17,7 @@ module Routing
       elsif (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
         Shikimori::DOMAIN
       else
-        Draper::ViewContext.current.request.host
+        Url.new(Draper::ViewContext.current.request.host).cut_subdomain.to_s
       end
     end
 

@@ -58,7 +58,11 @@ class Url
     chain @url.sub(%r{\A(https?://)?www\.}, '\1')
   end
 
-  def set_params hash
+  def cut_subdomain
+    chain @url.sub(%r{\A(https?://)?[\w_-]+\.([\w_-]+\.[\w_-]+)}, '\1\2')
+  end
+
+  def params hash
     @url.split('?').first + '?' + query_string_updated(hash)
   end
 

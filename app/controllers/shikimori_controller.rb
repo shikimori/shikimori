@@ -43,7 +43,7 @@ class ShikimoriController < ApplicationController
       raise(
         ForceRedirect,
         params[:locale] ?
-          Url.new(expected_url).set_params(locale: params[:locale]).to_s :
+          Url.new(expected_url).params(locale: params[:locale]).to_s :
           expected_url
       )
     end

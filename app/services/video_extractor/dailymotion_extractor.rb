@@ -26,7 +26,7 @@ class VideoExtractor::DailymotionExtractor < VideoExtractor::OpenGraphExtractor
     Url
       .new(parsed_data.second)
       .without_protocol
-      .set_params(autoPlay: 0)
+      .params(autoPlay: 0)
       .to_s
   end
 end
