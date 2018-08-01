@@ -44,7 +44,7 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def flatten_roles
-    object.person_roles.flat_map(&:roles).uniq
+    object.person_roles.flat_map(&:roles)
   end
 
   def grouped_roles
@@ -83,7 +83,7 @@ class PersonDecorator < DbEntryDecorator
     sorted_works = FavouritesQuery.new
       .top_favourite([Anime.name, Manga.name], BEST_ROLES_SIZE)
       .where(FAVOURITES_SQL, anime_ids, manga_ids)
-      .map {|v| [v.linked_id, v.linked_type] }
+      .map { |v| [v.linked_id, v.linked_type] }
 
     drop_index = 0
     while sorted_works.size < BEST_ROLES_SIZE && works.size > drop_index
@@ -93,12 +93,12 @@ class PersonDecorator < DbEntryDecorator
       drop_index += 1
     end
 
-    selected_anime_ids = sorted_works.select {|v| v[1] == Anime.name }.map(&:first)
-    selected_manga_ids = sorted_works.select {|v| [Manga.name, Ranobe.name].include?(v[1]) }.map(&:first)
+    selected_anime_ids = sorted_works.select { |v| v[1] == Anime.name }.map(&:first)
+    selected_manga_ids = sorted_works.select { |v| [Manga.name, Ranobe.name].include?(v[1]) }.map(&:first)
     (
-      works.select {|v| v.anime? && selected_anime_ids.include?(v.id) } +
-        works.select {|v| v.kinda_manga? && selected_manga_ids.include?(v.id) }
-    ).sort_by {|v| sorted_works.index [v.id, v.object.class.name] }
+      works.select { |v| v.anime? && selected_anime_ids.include?(v.id) } +
+        works.select { |v| v.kinda_manga? && selected_manga_ids.include?(v.id) }
+    ).sort_by { |v| sorted_works.index [v.id, v.object.class.name] }
   end
 
   def best_roles
@@ -117,7 +117,7 @@ class PersonDecorator < DbEntryDecorator
 
     Character
       .where(id: character_ids)
-      .sort_by {|v| character_ids.index v.id }
+      .sort_by { |v| character_ids.index v.id }
   end
 
   def character_works
@@ -134,17 +134,7 @@ class PersonDecorator < DbEntryDecorator
         end
       end
 
-      unless entry
-        entry = {
-          characters: [char.decorate],
-          animes: char.animes.each_with_object({}) {|v,memo| memo[v.id] = v.decorate }
-        }
-        char.animes.each do |anime|
-          backindex[anime.id] = entry unless backindex.include?(anime.id)
-        end
-        #ap entry[:animes]
-        @characters << entry
-      else
+      if entry
         entry[:characters] << char
         char.animes.each do |anime|
           unless entry[:animes].include?(anime.id)
@@ -152,6 +142,16 @@ class PersonDecorator < DbEntryDecorator
             backindex[anime.id] = entry
           end
         end
+      else
+        entry = {
+          characters: [char.decorate],
+          animes: char.animes.each_with_object({}) { |v, memo| memo[v.id] = v.decorate }
+        }
+        char.animes.each do |anime|
+          backindex[anime.id] = entry unless backindex.include?(anime.id)
+        end
+        # ap entry[:animes]
+        @characters << entry
       end
     end
 
@@ -178,7 +178,6 @@ class PersonDecorator < DbEntryDecorator
       end
       .reverse
   end
-
 
   def job_title
     if main_role? :producer
@@ -222,10 +221,10 @@ class PersonDecorator < DbEntryDecorator
     return true if FIXED_CUSTOM_MAIN_ROLES.dig(object.id, role)
 
     other_roles = ROLES.keys
-      .select { |v| v != role }
+      .reject { |v| v == role }
       .map { |v| roles_counts v }
 
-     roles_counts(role) >= other_roles.max && !roles_counts(role).zero?
+    roles_counts(role) >= other_roles.max && !roles_counts(role).zero?
   end
 
   def seyu_favoured?
@@ -244,10 +243,6 @@ class PersonDecorator < DbEntryDecorator
     h.user_signed_in? && h.current_user.favoured?(object, Favourite::Person)
   end
 
-  def url
-    h.person_url object
-  end
-
   # тип элемента для schema.org
   def itemtype
     'http://schema.org/Person'
@@ -258,7 +253,7 @@ class PersonDecorator < DbEntryDecorator
     fav_character = FavouritesQuery.new
       .top_favourite([Character.name], 1)
       .where(
-        "linked_type=? and linked_id in (?)",
+        'linked_type=? and linked_id in (?)',
         Character.name,
         character_ids
       )
@@ -268,11 +263,11 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def has_anime?
-    all_roles.any? {|v| !v.anime_id.nil? }
+    all_roles.any? { |v| !v.anime_id.nil? }
   end
 
   def has_manga?
-    all_roles.any? {|v| !v.manga_id.nil? }
+    all_roles.any? { |v| !v.manga_id.nil? }
   end
 
   def formatted_birthday
@@ -286,11 +281,11 @@ private
   end
 
   def roles_names
-    grouped_roles.map {|k,v| k }
+    grouped_roles.map(&:second)
   end
 
   def roles_counts role
-    flatten_roles.count {|v| ROLES[role].include? v }
+    flatten_roles.count { |v| ROLES[role].include? v }
   end
 
   def website_host
