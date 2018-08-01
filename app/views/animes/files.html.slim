@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  - @resource.files.groupped_torrents.each do |key, group|
+  - @resource.files.grouped_torrents.each do |key, group|
     .block
       .b-options-floated.collapse
         span.action #{t 'collapse'} (#{group.size})

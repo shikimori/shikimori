@@ -86,11 +86,11 @@
                     = info_line Person.human_attribute_name(:birthday), @resource.formatted_birthday
                   = info_line Person.human_attribute_name(:website), @resource.website_html
 
-          - if @resource.groupped_roles.any?
+          - if @resource.grouped_roles.any?
             .c-info-right
               .subheadline = t ".positions_in_#{@resource.occupation}"
               .b-entry-info
-                - @resource.groupped_roles.each do |role,times|
+                - @resource.grouped_roles.each do |role,times|
                   = info_line role, times
 
       - if @resource.main_role? :seyu

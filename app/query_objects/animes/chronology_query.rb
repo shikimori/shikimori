@@ -31,7 +31,7 @@ private
   def fetch_related ids, relations # rubocop:disable MethodLength
     ids_to_fetch = ids - relations.keys
 
-    fetched_ids = groupped_relation(ids_to_fetch).flat_map do |source_id, group|
+    fetched_ids = grouped_relation(ids_to_fetch).flat_map do |source_id, group|
       relations[source_id] = group.reject do |relation|
         banned?(source_id, relation)
       end
@@ -46,7 +46,7 @@ private
     end
   end
 
-  def groupped_relation ids
+  def grouped_relation ids
     query = related_klass
       .where(source_id: ids)
       .where("#{related_field} is not null")

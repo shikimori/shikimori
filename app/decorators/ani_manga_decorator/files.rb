@@ -39,8 +39,8 @@ class AniMangaDecorator::Files
       .select { |_k, value| value[:title] }
   end
 
-  def groupped_torrents
-    @groupped_torrents ||= begin
+  def grouped_torrents
+    @grouped_torrents ||= begin
       sorted_torrents_480p = torrents_720p.empty? ? torrents_480p.sort_by {|v| v[:pubDate] && [DateTime, Time].include?(v[:pubDate].class) ? v[:pubDate] : DateTime.now - 40.years }.uniq {|v| v[:title] }.reverse : []
       sorted_torrents_720p = torrents_720p.sort_by {|v| v[:pubDate] && [DateTime, Time].include?(v[:pubDate].class) ? v[:pubDate] : DateTime.now - 40.years }.uniq {|v| v[:title] }.reverse
       sorted_torrents_1080p = torrents_1080p.sort_by {|v| v[:pubDate] && [DateTime, Time].include?(v[:pubDate].class) ? v[:pubDate] : DateTime.now - 40.years }.uniq {|v| v[:title] }.reverse
@@ -54,13 +54,13 @@ class AniMangaDecorator::Files
       #   torrents_1080p = []
       # end
 
-      groupped_torrents = {}
-      groupped_torrents[:torrents_480p] = sorted_torrents_480p if sorted_torrents_480p.any?
-      groupped_torrents[:torrents_720p] = sorted_torrents_720p if sorted_torrents_720p.any?
-      groupped_torrents[:torrents_1080p] = sorted_torrents_1080p if sorted_torrents_1080p.any?
-      groupped_torrents[:torrents] = sorted_torrents if sorted_torrents.any?
+      grouped_torrents = {}
+      grouped_torrents[:torrents_480p] = sorted_torrents_480p if sorted_torrents_480p.any?
+      grouped_torrents[:torrents_720p] = sorted_torrents_720p if sorted_torrents_720p.any?
+      grouped_torrents[:torrents_1080p] = sorted_torrents_1080p if sorted_torrents_1080p.any?
+      grouped_torrents[:torrents] = sorted_torrents if sorted_torrents.any?
 
-      groupped_torrents
+      grouped_torrents
     end
   end
 
@@ -87,9 +87,9 @@ class AniMangaDecorator::Files
 private
 
   def significant_torrents
-    (groupped_torrents[:torrents_1080p] || []) +
-      (groupped_torrents[:torrents_720p] || []) +
-      (groupped_torrents[:torrents_480p] || [])
+    (grouped_torrents[:torrents_1080p] || []) +
+      (grouped_torrents[:torrents_720p] || []) +
+      (grouped_torrents[:torrents_480p] || [])
   end
 
   def torrents

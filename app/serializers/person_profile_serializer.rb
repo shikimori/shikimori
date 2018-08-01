@@ -24,6 +24,10 @@ class PersonProfileSerializer < PersonSerializer
     end
   end
 
+  def groupped_roles
+    object.grouped_roles
+  end
+
   # TODO: deprecated
   def thread_id
     object.maybe_topic(scope.locale_from_host).id

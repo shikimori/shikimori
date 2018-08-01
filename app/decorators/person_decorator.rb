@@ -7,7 +7,7 @@ class PersonDecorator < DbEntryDecorator
   BEST_ROLES_SIZE = 6
 
   instance_cache :website,
-    :flatten_roles, :all_roles, :groupped_roles, :roles_names,
+    :flatten_roles, :all_roles, :grouped_roles, :roles_names,
     :works, :work_types, :character_works, :best_works, :best_roles,
     :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?,
     :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
@@ -47,7 +47,7 @@ class PersonDecorator < DbEntryDecorator
     object.person_roles.flat_map(&:roles).uniq
   end
 
-  def groupped_roles
+  def grouped_roles
     flatten_roles.each_with_object({}) do |role, memo|
       role_name = I18n.t("role.#{role}", default: role)
       memo[role_name] ||= 0
@@ -286,7 +286,7 @@ private
   end
 
   def roles_names
-    groupped_roles.map {|k,v| k }
+    grouped_roles.map {|k,v| k }
   end
 
   def roles_counts role
