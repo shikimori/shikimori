@@ -11,7 +11,6 @@ class RolesQuery < BaseDecorator
     entry.person_roles.any?
   end
 
-  # главные участники проекта
   def main_people
     entry
       .person_roles.directors
@@ -33,12 +32,10 @@ class RolesQuery < BaseDecorator
       end
   end
 
-  # главные персонажи аниме
   def main_characters
     characters :main
   end
 
-  # главные персонажи аниме
   def supporting_characters
     characters :supporting
   end

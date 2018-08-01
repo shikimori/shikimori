@@ -42,7 +42,7 @@ class AniMangaDecorator < DbEntryDecorator
 
   # есть ли косплей
   def cosplay?
-    CosplayGalleriesQuery.new(object).fetch(1,1).any?
+    CosplayGalleriesQuery.new(object).fetch(1, 1).any?
   end
 
   # аниме в списке пользователя
@@ -72,14 +72,14 @@ class AniMangaDecorator < DbEntryDecorator
 
   # статусы пользователей сайта
   def rates_statuses_stats
-    rates_query.statuses_stats.map do |k,v|
+    rates_query.statuses_stats.map do |k, v|
       { name: UserRate.status_name(k, object.class.name), value: v }
     end
   end
 
   # оценки пользователей сайта
   def rates_scores_stats
-    rates_query.scores_stats.map do |k,v|
+    rates_query.scores_stats.map do |k, v|
       { name: k, value: v }
     end
   end

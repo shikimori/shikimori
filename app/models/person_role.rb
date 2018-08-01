@@ -10,7 +10,8 @@ class PersonRole < ApplicationRecord
     'Director',
     'Original Creator',
     'Story & Art',
-    'Story, Art'
+    'Story',
+    'Art'
   ]
 
   scope :main, -> { where(roles: %w[Main]).where.not(character_id: 0) }
