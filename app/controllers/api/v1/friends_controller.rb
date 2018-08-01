@@ -14,13 +14,14 @@ class Api::V1::FriendsController < Api::V1Controller
         .where(kind: MessageType::FriendRequest)
         .delete_all
 
-      Message.create(
-        from_id: current_user.id,
-        to_id: @user.id,
-        kind: MessageType::FriendRequest
-      )
+      if @user.id != 1 # no friend requests for morr
+        Message.create(
+          from_id: current_user.id,
+          to_id: @user.id,
+          kind: MessageType::FriendRequest
+        )
+      end
     end
-
   rescue ActiveRecord::RecordNotUnique
   ensure
     render json: { notice: add_notice }
