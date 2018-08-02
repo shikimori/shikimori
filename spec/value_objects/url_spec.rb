@@ -170,7 +170,7 @@ describe Url do
     subject { url.cut_subdomain.to_s }
 
     context 'with www' do
-      context 'with protocol', :focus do
+      context 'with protocol' do
         let(:string) do
           %w[
             http://www.test.org/test
