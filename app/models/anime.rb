@@ -216,7 +216,6 @@ class Anime < DbEntry
     @studios ||= StudiosRepository.find studio_ids
   end
 
-  # название на торрентах. фикс на случай пустой строки
   def torrents_name
     self[:torrents_name].present? ? self[:torrents_name] : nil
   end

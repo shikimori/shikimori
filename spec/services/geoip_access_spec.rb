@@ -42,7 +42,8 @@ describe GeoipAccess do
     context 'US' do
       let(:ip) { '176.212.217.220' }
       let(:country_code) { 'US' }
-      it { is_expected.to be true }
+      # it { is_expected.to be true }
+      it { is_expected.to be false }
     end
 
     context 'FR' do
@@ -66,7 +67,8 @@ describe GeoipAccess do
     context 'UA' do
       let(:ip) { '176.212.217.224' }
       let(:country_code) { 'UA' }
-      it { is_expected.to be true }
+      # it { is_expected.to be true }
+      it { is_expected.to be false }
     end
   end
 end

@@ -36,8 +36,9 @@ class GeoipAccess
     ANIME_ONLINE_ALLOWED_COUNTRIES.include? country_code(ip)
   end
 
-  def wakanim_allowed? ip
-    !WAKANIM_FORBIDDEN_COUNTRIES.include? country_code(ip)
+  def wakanim_allowed? _ip
+    false
+    # !WAKANIM_FORBIDDEN_COUNTRIES.include? country_code(ip)
   end
 
   def safe_ip ip
