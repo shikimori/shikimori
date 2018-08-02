@@ -26,7 +26,7 @@ class CharactersController < PeopleController
   end
 
   def seyu
-    if @resource.seyu.none?
+    if @resource.all_seyu.none?
       return redirect_to @resource.url, status: 301
     end
     og noindex: true

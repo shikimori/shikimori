@@ -21,8 +21,8 @@ header.head
 = render partial: 'animes_collection/pagination', locals: { with_cache: true }
 
 .image
-  a href="#{online_manga_chapter_show_url @chapter, @page.number + 1}"
-    img src="#{@page.image.url}"
+  a href=online_manga_chapter_show_url(@chapter, @page.number + 1)
+    img src=@page.image.url
 
 br
 = render partial: 'animes_collection/pagination', locals: { with_cache: true }

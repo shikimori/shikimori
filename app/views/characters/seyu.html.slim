@@ -1,6 +1,6 @@
 = render layout: 'page' do
-  = cache [@resource, params[:action]] do
+  = cache [@resource, params[:action], :v2] do
     .block.m0
       h2.subheadline.m10 = og.headline
-      .cc-5.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-        = render partial: 'people/person', collection: @resource.seyu
+      .cc-6.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+        = render partial: 'people/person', collection: @resource.all_seyu

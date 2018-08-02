@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, user_signed_in?, :v2] do
+  = cache [@resource, user_signed_in?, :v3] do
     .b-db_entry
       .c-image.cc
         .c-poster
@@ -61,7 +61,7 @@
                 = render 'db_entries/contest_winners',
                   contest_winners: @resource.contest_winners
 
-          - if @resource.seyu.present?
+          - if @resource.top_seyu.present?
             .c-info-right
               .subheadline.m10
                 .linkeable href=seyu_character_url(@resource) = t 'seyu'
@@ -70,7 +70,7 @@
                 /- else
                   | Сэйю
               .cc.m0.to-process data-dynamic='cutted_covers' data-ratio_type='person'
-                = render @resource.seyu.take(3)
+                = render @resource.top_seyu.take(3)
 
       .c-description
         .subheadline.m5 = Character.human_attribute_name :description
