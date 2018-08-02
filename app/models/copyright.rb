@@ -69,6 +69,7 @@ module Copyright
     36023, # PERSONA5 the Animation
     36475, # SWORD ART ONLINE ALTERNATIVE «GUN GALE ONLINE»
     25537, # Fate/stay night: Heaven's Feel I. presage flower
-    37141 # Cells at Work
+    37141, # Cells at Work (TV)
+    35840 # Cells at Work
   ]
 end
