@@ -1,6 +1,6 @@
 class CharacterDecorator < PersonDecorator
-  instance_cache :seyu, :changes, :all_animes, :all_mangas, :cosplay?,
-    :limited_animes, :limited_mangas, :top_seyu
+  instance_cache :changes, :all_animes, :all_mangas, :cosplay?,
+    :limited_animes, :limited_mangas, :top_seyu, :all_seyu
 
   ROLES_PRIORITY = %w[Japanese English Other]
 
