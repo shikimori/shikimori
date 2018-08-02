@@ -20,7 +20,8 @@ describe AnimeDecorator do
 
       context 'current user video_moderator or trusted_video_uploader' do
         let(:user) { build_stubbed :user, %i[video_moderator trusted_video_uploader].sample }
-        it { is_expected.to_not be_licensed }
+        # it { is_expected.to_not be_licensed }
+        it { is_expected.to be_licensed }
       end
     end
   end
