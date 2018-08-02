@@ -1,12 +1,17 @@
 describe Api::V1::CharactersController, :show_in_doc do
   describe '#show' do
     let(:character) { create :character, :with_topics }
-    let!(:person_role) { create :person_role, character: character, anime: anime }
+
+    let!(:person_role_1) { create :person_role, character: character, anime: anime }
+    let!(:person_role_2) { create :person_role, character: character, person: person }
+
     let(:anime) { create :anime }
+    let(:person) { create :person }
 
     before { get :show, params: { id: character.id }, format: :json }
 
     it do
+      ap json
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
     end

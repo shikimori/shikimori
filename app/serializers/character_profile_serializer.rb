@@ -1,14 +1,17 @@
 class CharacterProfileSerializer < CharacterSerializer
   attributes :altname, :japanese, :description,
     :description, :description_html, :description_source,
-    :favoured, :thread_id, :topic_id, :updated_at
+    :favoured, :thread_id, :topic_id, :updated_at, :seyu
 
-  has_many :seyu
   has_many :animes, serializer: AnimeWithRoleSerializer
   has_many :mangas, serializer: MangaWithRoleSerializer
 
   def description
     object.description.text
+  end
+
+  def seyu
+    object.all_seyu.map { |v| PersonSerializer.new(v) }
   end
 
   # TODO: deprecated
