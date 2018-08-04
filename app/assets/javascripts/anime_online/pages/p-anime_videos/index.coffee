@@ -135,6 +135,12 @@ init_video_player = ->
     )
     hide_report()
 
+  $('.about-ads .close', $player).on 'click', (e) ->
+    $block = $('.about-ads', $player)
+    $.cookie($(e.currentTarget).data('cookie-name'), '1', expires: 60)
+    $block.addClass 'removing'
+    delay(1000).then -> $block.remove()
+
 show_report = ->
   # $('.cc-player_controls .report').addClass 'selected'
   # $('.cc-options').hide()

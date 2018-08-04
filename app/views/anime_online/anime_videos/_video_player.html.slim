@@ -120,3 +120,13 @@
                       alt=@video.uploader.nickname
                     ]
                     span = @video.uploader.nickname
+
+  - unless cookies[:video_ads_warning]
+    .about-ads.m15
+      .subheadline.purple
+        .close data-cookie-name='video_ads_warning'
+        p Про рекламу
+        p.text Шикимори не добавляет свою рекламу в видео. И не собирает деньги
+          за её отключение.
+        p.text.m3 Всё, что отображается внутри плеера, идёт от видео хостинга,
+          с которого проигрывается видео.
