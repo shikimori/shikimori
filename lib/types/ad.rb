@@ -10,12 +10,20 @@ module Types
 
     Meta = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:menu_300x250, :menu_240x400, :menu_300x600, :horizontal, :footer)
+      .enum(
+        :menu_300x250,
+        :menu_240x400,
+        :menu_300x600,
+        :horizontal,
+        :footer,
+        :special_x1170
+      )
 
     Type = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(
         :special_x300,
+        :special_x1170,
         :advrtr_x728,
         :advrtr_240x400,
         :yd_300x600,

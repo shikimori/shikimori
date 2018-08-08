@@ -91,6 +91,18 @@ class Ad < ViewObjectBase
       mytarget_id: '99457',
       placement: Types::Ad::Placement[:footer],
       platform: Types::Ad::Platform[:mobile]
+    },
+    Types::Ad::Type[:special_x1170] => {
+      provider: Types::Ad::Provider[:special],
+      url: 'http://roa.creagames.com/?utm_source=shikimori&utm_medium=banner',
+      images: (1..1).map do |i|
+        {
+          src: "/assets/globals/events/special_#{i}.jpg",
+          src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+        }
+      end,
+      placement: Types::Ad::Placement[:content],
+      platform: Types::Ad::Platform[:desktop]
     }
   }
 
@@ -120,6 +132,9 @@ class Ad < ViewObjectBase
     ],
     Types::Ad::Meta[:footer] => [
       Types::Ad::Type[:mt_footer]
+    ],
+    Types::Ad::Meta[:special_x1170] => [
+      Types::Ad::Type[:special_x1170]
     ]
   }
 
