@@ -16,9 +16,6 @@ ENV['REDIS_NAMESPACE_QUIET'] = 'true' # Disable deprecation warning
 # Add this line to your initializer to re-enable them and get the old behavior:
 Sidekiq::Extensions.enable_delay!
 
-SidekiqUniqueJobs.config.unique_args_enabled = true
-SidekiqUniqueJobs.config.default_expiration = 30.days
-
 REDIS_OPTIONS = {
   namespace: "shiki_#{Rails.env}",
   url: "redis://#{Rails.application.config.redis_host}:6379/#{Rails.application.config.redis_db}"

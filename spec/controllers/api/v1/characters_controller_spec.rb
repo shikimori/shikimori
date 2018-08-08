@@ -11,7 +11,6 @@ describe Api::V1::CharactersController, :show_in_doc do
     before { get :show, params: { id: character.id }, format: :json }
 
     it do
-      ap json
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
     end
