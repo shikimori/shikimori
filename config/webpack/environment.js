@@ -25,9 +25,7 @@ environment.plugins.append(
     I18n: 'i18n-js',
     URI: 'urijs',
     Turbolinks: 'turbolinks',
-    delay: 'delay',
-    throttle: 'throttle-debounce/throttle',
-    debounce: 'throttle-debounce/debounce',
+    delay: 'delay'
   })
 )
 

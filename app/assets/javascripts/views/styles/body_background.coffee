@@ -1,5 +1,4 @@
-using 'Styles'
-class Styles.BodyBackground extends View
+export default class BodyBackground extends View
   REGEXP = /\/\* AUTO=body_background.*?body { background: url\((.+?)\)(.*)}.*[\r\n]?/
 
   initialize: ->

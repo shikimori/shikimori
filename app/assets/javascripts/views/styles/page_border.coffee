@@ -1,5 +1,4 @@
-using 'Styles'
-class Styles.PageBorder extends View
+export default class PageBorder extends View
   REGEXP = /\/\* AUTO=page_border.*? { display: (\w+); }.*[\r\n]?/
 
   BORDER_STYLE = 'block'

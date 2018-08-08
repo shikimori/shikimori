@@ -1,3 +1,5 @@
+import EditStyles from 'views/styles/edit'
+
 page_load 'profiles_edit', ->
   # account page
   # if $('.edit-page.account').exists()
@@ -21,7 +23,7 @@ page_load 'profiles_edit', ->
     ignores_page()
 
 styles_page = ->
-  new Styles.Edit '.b-edit_styles'
+  new EditStyles '.b-edit_styles'
 
   $('#user_preferences_body_width').on 'change', ->
     $(document.body)

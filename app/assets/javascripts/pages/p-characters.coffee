@@ -1,5 +1,5 @@
-CollectionSearch = require 'views/application/collection_search'
-FavouriteStar = require 'views/application/favourite_star'
+import CollectionSearch from 'views/application/collection_search'
+import FavouriteStar from 'views/application/favourite_star'
 
 page_load 'characters_index', ->
   new CollectionSearch '.b-collection_search'

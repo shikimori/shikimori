@@ -1,5 +1,6 @@
-using 'Styles'
-class Styles.PageBackgroundColor extends View
+import { debounce } from 'throttle-debounce'
+
+export default class PageBackgroundColor extends View
   REGEXP = /\/\* AUTO=page_background_color.*?rgba\((\d+), (\d+), (\d+), (\d+).*[\r\n]?/
 
   ZERO_OPACITY = 255

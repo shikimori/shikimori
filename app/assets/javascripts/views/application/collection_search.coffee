@@ -1,4 +1,6 @@
-module.exports = class CollectionSearch extends View
+import { debounce } from 'throttle-debounce'
+
+export default class CollectionSearch extends View
   PENDING_REQUEST = 'pending_request'
 
   initialize: ->
