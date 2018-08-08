@@ -1,4 +1,4 @@
-CollectionSearch = require 'views/application/collection_search'
+import CollectionSearch from 'views/application/collection_search'
 
 page_load 'topics_index', 'topics_show', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   new Animes.Menu('.b-animes-menu') if $('.b-animes-menu').exists()

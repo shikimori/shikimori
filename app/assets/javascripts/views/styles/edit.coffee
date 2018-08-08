@@ -1,5 +1,10 @@
-using 'Styles'
-class Styles.Edit extends View
+import { debounce } from 'throttle-debounce'
+
+import PageBackgroundColor from './page_background_color'
+import PageBorder from './page_border'
+import BodyBackground from './body_background'
+
+export default class EditStyles extends View
   initialize: ->
     @$form = @$ '.edit_style'
     @$preview = @$ '.preview'
@@ -27,9 +32,9 @@ class Styles.Edit extends View
       @css_cache = {}
 
       @components = [
-        new Styles.PageBackgroundColor(@$('.page_background_color')),
-        new Styles.PageBorder(@$('.page_border'))
-        new Styles.BodyBackground(@$('.body_background'))
+        new PageBackgroundColor(@$('.page_background_color')),
+        new PageBorder(@$('.page_border'))
+        new BodyBackground(@$('.body_background'))
       ]
 
       @_debounced_preview = debounce(500, @preview)

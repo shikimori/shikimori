@@ -28,6 +28,8 @@ bowser = require 'bowser'
 require 'i18n/translations'
 csrf = require 'helpers/csrf'
 
+import { throttle, debounce } from 'throttle-debounce'
+
 window.axios = require('axios').create
   headers: Object.merge(csrf().headers, 'X-Requested-With': 'XMLHttpRequest')
 

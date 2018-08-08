@@ -1,4 +1,4 @@
-ShikiHtml5Video = require 'views/application/shiki_html5_video'
+import ShikiHtml5Video from 'views/application/shiki_html5_video'
 
 (($) ->
   NS = 'webm'

@@ -1,4 +1,5 @@
-ShikiHtml5Video = require 'views/application/shiki_html5_video'
+import { debounce } from 'throttle-debounce'
+import ShikiHtml5Video from 'views/application/shiki_html5_video'
 
 page_load 'anime_videos_index', ->
   init_video_player()

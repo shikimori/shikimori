@@ -1,3 +1,5 @@
+import EditStyles from 'views/styles/edit'
+
 page_load 'clubs_edit', ->
   # description page
   if $('.edit-page.description').exists()
@@ -25,4 +27,4 @@ page_load 'clubs_edit', ->
 
   # styles page
   if $('.edit-page.styles').exists()
-    new Styles.Edit '.b-edit_styles'
+    new EditStyles '.b-edit_styles'
