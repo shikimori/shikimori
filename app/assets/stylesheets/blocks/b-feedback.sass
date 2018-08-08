@@ -60,7 +60,8 @@ body[data-locale=en]
       display: block
 
     &>.marker-text
-      +linear-gradient(bottom, $feedback_color_from 0%, $feedback_color_to 100%, $fallback: #4b80c0)
+      background-color: #4b80c0
+      background-image: linear-gradient(to top, $feedback_color_from 0%, $feedback_color_to 100%)
       transform: rotate(-90deg)
       -moz-transform-origin: left top
       -webkit-transform-origin: left top
@@ -72,10 +73,12 @@ body[data-locale=en]
       white-space: nowrap
 
       &:hover
-        +linear-gradient(bottom, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%, $fallback: lighten($feedback_color_to, 3%))
+        background-color: lighten($feedback_color_to, 3%)
+        background-image: linear-gradient(to top, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%)
 
       &:active
-        +linear-gradient(bottom, lighten($feedback_color_from, 1%) 0%, lighten($feedback_color_to, 1%) 100%, $fallback: lighten($feedback_color_to, 1%))
+        background-color: lighten($feedback_color_to, 1%)
+        background-image: linear-gradient(to top, lighten($feedback_color_from, 1%) 0%, lighten($feedback_color_to, 1%) 100%)
 
       &:after
         content: attr(data-text)
