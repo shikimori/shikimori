@@ -61,7 +61,6 @@ body[data-locale=en]
 
     &>.marker-text
       +linear-gradient(bottom, $feedback_color_from 0%, $feedback_color_to 100%, $fallback: #4b80c0)
-      // +background-with-css2-fallback(linear-gradient(bottom, $feedback_color_from 0%, $feedback_color_to 100%), #4b80c0)
       transform: rotate(-90deg)
       -moz-transform-origin: left top
       -webkit-transform-origin: left top
@@ -74,11 +73,9 @@ body[data-locale=en]
 
       &:hover
         +linear-gradient(bottom, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%, $fallback: lighten($feedback_color_to, 3%))
-        // +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%), lighten($feedback_color_to, 3%))
 
       &:active
         +linear-gradient(bottom, lighten($feedback_color_from, 1%) 0%, lighten($feedback_color_to, 1%) 100%, $fallback: lighten($feedback_color_to, 1%))
-        // +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 1%) 0%, lighten($feedback_color_to, 1%) 100%), lighten($feedback_color_to, 1%))
 
       &:after
         content: attr(data-text)
