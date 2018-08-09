@@ -1,37 +1,30 @@
 # frozen_string_literal: true
 
 class Viewing::BulkCreate
-  prepend ActiveCacher.instance
-  instance_cache :viewing_klass, :new_viewed_ids
+  method_object :user, :viewed_klass, :viewed_ids
 
-  attr_reader :user, :viewed_klass, :viewed_ids
-
-  def call user, viewed_klass, viewed_ids
-    @user = user
-    @viewed_klass = viewed_klass
-    @viewed_ids = viewed_ids
-
+  def call
     bulk_create_viewings
-    read_quoted_comment_messages
+    read_notifiactions
   end
 
   private
 
   def viewing_klass
-    (viewed_klass.name + 'Viewing').constantize
+    @viewing_klass ||= (viewed_klass.name + 'Viewing').constantize
   end
 
   def bulk_create_viewings
     batch = new_viewed_ids.map do |id|
       viewing_klass.new(user_id: user.id, viewed_id: id)
     end
-    viewing_klass(viewed_klass).import batch
+    viewing_klass.import batch
   rescue ActiveRecord::RecordNotUnique
     # do nothing
   end
 
   def new_viewed_ids
-    all_viewed_ids - existing_viewed_ids
+    @new_viewed_ids ||= all_viewed_ids - existing_viewed_ids
   end
 
   def all_viewed_ids
@@ -44,7 +37,7 @@ class Viewing::BulkCreate
       .pluck(:viewed_id)
   end
 
-  def read_quoted_comment_messages
+  def read_notifiactions
     Message.where(
       read: false,
       to_id: user.id,

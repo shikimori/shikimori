@@ -6,13 +6,17 @@ FactoryBot.define do
     is_offtopic false
     is_summary false
 
-    after :build do |comment|
-      comment.stub :check_antispam
-      comment.stub :check_access
-      comment.stub :increment_comments
-      comment.stub :creation_callbacks
-      comment.stub :release_the_banhammer!
-      comment.stub :touch_commentable
+    after :build do |model|
+      stub_method model, :check_antispam
+      stub_method model, :check_access
+      stub_method model, :increment_comments
+      stub_method model, :creation_callbacks
+      stub_method model, :release_the_banhammer!
+      stub_method model, :touch_commentable
+    end
+
+    trait :with_create_viewing do
+      after(:build) { |model| unstub_method model, :create_viewing }
     end
 
     trait :summary do

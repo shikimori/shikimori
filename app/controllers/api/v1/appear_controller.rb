@@ -9,7 +9,12 @@ class Api::V1::AppearController < Api::V1Controller
 
     type_ids.each do |type, ids|
       klass = type.gsub('entry', 'topic').titleize.constantize
-      bulk_create_viewings.(current_user, klass, ids)
+
+      Viewing::BulkCreate.call(
+        user: current_user,
+        viewed_klass: klass,
+        viewed_ids: ids
+      )
     end
 
     head 200
@@ -24,9 +29,5 @@ class Api::V1::AppearController < Api::V1Controller
         data = v.split('-')
         (memo[data[0]] ||= []) << data[1].to_i
       end
-  end
-
-  def bulk_create_viewings
-    Viewing::BulkCreate.new
   end
 end
