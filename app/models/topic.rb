@@ -54,7 +54,7 @@ class Topic < ApplicationRecord
   /x
 
   belongs_to :forum
-  belongs_to :linked, polymorphic: true
+  belongs_to :linked, polymorphic: true, optional: true
   belongs_to :user
 
   validates :forum, :user, :locale, presence: true
@@ -72,7 +72,7 @@ class Topic < ApplicationRecord
     dependent: :destroy
 
   # топики без топиков о выходе эпизодов
-  scope :wo_episodes, lambda {
+  scope :wo_episodes, -> {
     where 'action IS NULL OR action != ?', AnimeHistoryAction::Episode
   }
 

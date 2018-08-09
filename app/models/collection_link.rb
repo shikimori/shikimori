@@ -3,7 +3,10 @@ class CollectionLink < ApplicationRecord
   belongs_to :linked, polymorphic: true
 
   Types::Collection::Kind.values.each do |kind|
-    belongs_to kind, foreign_key: :linked_id, class_name: kind.capitalize
+    belongs_to kind,
+      foreign_key: :linked_id,
+      class_name: kind.capitalize,
+      optional: true
   end
 
   validates :collection, :linked, presence: true

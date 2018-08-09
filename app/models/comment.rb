@@ -11,6 +11,7 @@ class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :commentable, polymorphic: true
   belongs_to :topic,
+    optional: true,
     class_name: Topic.name,
     foreign_key: :commentable_id
 

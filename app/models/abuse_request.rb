@@ -3,15 +3,18 @@ class AbuseRequest < ApplicationRecord
 
   belongs_to :comment
   belongs_to :user
-  belongs_to :approver, class_name: User.name, foreign_key: :approver_id
+  belongs_to :approver,
+    class_name: User.name,
+    foreign_key: :approver_id,
+    optional: true
 
-  enumerize :kind, in: [:offtopic, :summary, :spoiler, :abuse], predicates: true
+  enumerize :kind, in: %i[offtopic summary spoiler abuse], predicates: true
 
   validates :user, :comment, presence: true
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
-  scope :pending, -> { where state: 'pending', kind: ['offtopic', 'summary'] }
-  scope :abuses, -> { where state: 'pending', kind: ['spoiler', 'abuse'] }
+  scope :pending, -> { where state: 'pending', kind: %w[offtopic summary] }
+  scope :abuses, -> { where state: 'pending', kind: %w[spoiler abuse] }
 
   state_machine :state, initial: :pending do
     state :pending
@@ -53,7 +56,7 @@ class AbuseRequest < ApplicationRecord
     if !value || value.size <= MAXIMUM_REASON_SIZE
       super
     else
-      super value[0..MAXIMUM_REASON_SIZE-1]
+      super value[0..MAXIMUM_REASON_SIZE - 1]
     end
   end
 

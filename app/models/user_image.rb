@@ -1,6 +1,6 @@
 class UserImage < ApplicationRecord
   belongs_to :user
-  belongs_to :linked, polymorphic: true
+  belongs_to :linked, polymorphic: true, optional: true
 
   has_attached_file :image,
     styles: {
