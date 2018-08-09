@@ -36,7 +36,7 @@ describe Api::V1::CommentsController do
   end
 
   describe '#create' do
-    include_context :authenticated, :user
+    include_context :authenticated
     let(:params) do
       {
         commentable_id: topic.id,
@@ -72,7 +72,7 @@ describe Api::V1::CommentsController do
         let(:is_broadcast) { true }
 
         context 'can broadcast' do
-          let(:user) { create :user, :admin }
+          let(:user) { seed :user_admin }
           it { expect(Comment::Broadcast).to have_received(:call).with resource }
         end
 
@@ -103,7 +103,7 @@ describe Api::V1::CommentsController do
   end
 
   describe '#update' do
-    include_context :authenticated, :user
+    include_context :authenticated
     let(:params) { { body: body } }
 
     subject! do
@@ -146,7 +146,7 @@ describe Api::V1::CommentsController do
   end
 
   describe '#destroy' do
-    include_context :authenticated, :user
+    include_context :authenticated
     let(:make_request) { delete :destroy, params: { id: comment.id }, format: :json }
 
     context 'success', :show_in_doc do
