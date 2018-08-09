@@ -32,11 +32,13 @@ private
   def order_sql search_ids
     ids = search_ids.join(',')
 
-    <<-SQL.squish
-      position(
-        concat(#{@scope.model.table_name}.id::text, ',') in
-          #{ApplicationRecord.sanitize "#{ids},"}
-      )
-    SQL
+    Arel.sql(
+      <<-SQL.squish
+        position(
+          concat(#{@scope.model.table_name}.id::text, ',') in
+            #{ApplicationRecord.sanitize "#{ids},"}
+        )
+      SQL
+    )
   end
 end
