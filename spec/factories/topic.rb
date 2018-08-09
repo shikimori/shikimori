@@ -8,6 +8,15 @@ FactoryBot.define do
 
     locale 'ru'
 
+    after :build do |model|
+      stub_method model, :check_antispam
+      stub_method model, :create_viewing
+    end
+
+    trait :with_create_viewing do
+      after(:build) { |model| unstub_method model, :create_viewing }
+    end
+
     factory :forum_topic do
       type 'Topic'
     end
@@ -95,10 +104,6 @@ FactoryBot.define do
         action :anons
         generated true
       end
-    end
-
-    after :build do |model|
-      stub_method model, :check_antispam
     end
 
     trait :offtopic do

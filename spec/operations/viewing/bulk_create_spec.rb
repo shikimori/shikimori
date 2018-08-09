@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 describe Viewing::BulkCreate do
-  subject(:call) { operation.call user, viewed_klass, viewed_ids }
-  let(:operation) { Viewing::BulkCreate.new }
+  subject(:call) { Viewing::BulkCreate.call user, viewed_klass, viewed_ids }
 
   shared_examples_for :viewed do
     context '1 viewed id' do
@@ -33,6 +32,7 @@ describe Viewing::BulkCreate do
   end
 
   context 'Topic' do
+    # before { ap TopicViewing.all }
     it_behaves_like :viewed do
       let(:viewed_klass) { Topic }
       let(:viewing_klass) { TopicViewing }
