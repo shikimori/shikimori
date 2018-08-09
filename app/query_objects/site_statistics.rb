@@ -124,7 +124,7 @@ class SiteStatistics
   end
 
   def top_video_contributors
-    AnimeOnline::Contributors.top(USERS_LIMIT * 2)
+    AnimeOnline::Contributors.new.top_users(limit: USERS_LIMIT * 2)
   end
 
 private
