@@ -1,5 +1,8 @@
 class Doorkeeper::OauthApplicationsController < ShikimoriController
-  load_and_authorize_resource except: %i[index revoke]
+  load_and_authorize_resource(
+    except: %i[index revoke],
+    class: OauthApplication.name
+  )
   before_action :authenticate_user!, only: %i[revoke]
 
   before_action do
@@ -19,12 +22,12 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   UPDATE_PARAMS = %i[name image redirect_uri description_ru description_en]
   CREATE_PARAMS = %i[owner_id owner_type] + UPDATE_PARAMS
 
-  def index # rubocop:disable AbcSize
+  def index
     @collection = OauthApplication.order(:id)
 
     if params[:user_id]
       @user = User.find params[:user_id]
-      @collection = @collection.where owner_id: @user.id, owner_type: User.name
+      @collection.where! owner: @user
 
     elsif user_signed_in?
       @granted_applications = Users::GrantedApplications.call(current_user)
@@ -75,7 +78,7 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
     redirect_to oauth_applications_url
   end
 
-  def revoke
+  def revoke # rubocop:disable AbcSize
     current_user.access_grants.where(application_id: params[:id]).destroy_all
     current_user.access_tokens.where(application_id: params[:id]).destroy_all
 

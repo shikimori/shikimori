@@ -1,13 +1,13 @@
 describe Doorkeeper::OauthApplicationsController do
-  include_context :authenticated, :user
+  include_context :authenticated, :user, :day_registered
 
   describe '#index' do
     let!(:oauth_application_1) { create :oauth_application, owner: user }
     let!(:oauth_application_2) { create :oauth_application, owner: user }
-    let!(:oauth_application_3) { create :oauth_application, owner: seed(:user) }
+    let!(:oauth_application_3) { create :oauth_application, owner: user_1 }
 
     context 'w/o user_id' do
-      before { get :index }
+      subject! { get :index }
 
       it do
         expect(collection).to eq [
@@ -20,7 +20,7 @@ describe Doorkeeper::OauthApplicationsController do
     end
 
     context 'user_id' do
-      before { get :index, params: { user_id: user.id } }
+      subject! { get :index, params: { user_id: user.id } }
 
       it do
         expect(collection).to eq [
@@ -34,7 +34,7 @@ describe Doorkeeper::OauthApplicationsController do
 
   describe '#show' do
     let(:oauth_application) { create :oauth_application, owner: user }
-    before do
+    subject! do
       get :show,
         params: {
           id: oauth_application.id
@@ -44,7 +44,7 @@ describe Doorkeeper::OauthApplicationsController do
   end
 
   describe '#new' do
-    before do
+    subject! do
       get :new,
         params: {
           oauth_application: { owner_id: user.id, owner_type: User.name }
@@ -54,7 +54,7 @@ describe Doorkeeper::OauthApplicationsController do
   end
 
   describe '#create' do
-    before do
+    subject! do
       post :create,
         params: {
           oauth_application: oauth_application_params
@@ -102,20 +102,15 @@ describe Doorkeeper::OauthApplicationsController do
   end
 
   describe '#edit' do
+    subject! { get :edit, params: { id: oauth_application.id } }
     let(:oauth_application) { create :oauth_application, owner: user }
-    before do
-      get :edit,
-        params: {
-          id: oauth_application.id
-        }
-    end
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
     let(:oauth_application) { create :oauth_application, owner: user }
 
-    before do
+    subject! do
       post :update,
         params: {
           id: oauth_application.id,
@@ -152,14 +147,8 @@ describe Doorkeeper::OauthApplicationsController do
   end
 
   describe '#destroy' do
+    subject! { delete :destroy, params: { id: oauth_application.id } }
     let(:oauth_application) { create :oauth_application, owner: user }
-
-    before do
-      delete :destroy,
-        params: {
-          id: oauth_application.id
-        }
-    end
 
     it do
       expect(resource).to be_destroyed
@@ -189,12 +178,7 @@ describe Doorkeeper::OauthApplicationsController do
         application_id: oauth_application_1.id
     end
 
-    before do
-      post :revoke,
-        params: {
-          id: oauth_application_1.id
-        }
-    end
+    subject! { post :revoke, params: { id: oauth_application_1.id } }
 
     it do
       expect { token_1.reload }.to raise_error ActiveRecord::RecordNotFound
