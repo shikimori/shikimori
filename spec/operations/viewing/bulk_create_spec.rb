@@ -32,7 +32,6 @@ describe Viewing::BulkCreate do
   end
 
   context 'Topic' do
-    # before { ap TopicViewing.all }
     it_behaves_like :viewed do
       let(:viewed_klass) { Topic }
       let(:viewing_klass) { TopicViewing }
@@ -57,11 +56,7 @@ describe Viewing::BulkCreate do
 
     let(:topic) { create :topic }
     let!(:original_comment) do
-      create(
-        :comment,
-        commentable: topic,
-        user: user
-      )
+      create :comment, commentable: topic, user: user
     end
     let!(:reply_comment) do
       create(
