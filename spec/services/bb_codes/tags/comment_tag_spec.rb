@@ -4,7 +4,6 @@ describe BbCodes::Tags::CommentTag do
   describe '#format' do
     subject { tag.format text }
 
-    let(:user) { seed :user }
     let(:comment) { build_stubbed :comment }
     let(:comment_url) { UrlGenerator.instance.comment_url comment }
 

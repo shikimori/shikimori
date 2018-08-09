@@ -1,28 +1,31 @@
 class DialogsQuery < SimpleQueryBase
   pattr_initialize :user
 
+  WHREE_SQL = <<-SQL.squish
+    from_id = :user_id or (to_id = :user_id and is_deleted_by_to=false)
+  SQL
+
   def fetch page, limit
     Message
       .where(id: latest_message_ids(page, limit))
       .includes(:linked, :from, :to)
       .order(id: :desc)
-      .map {|v| Dialog.new(user, v) }
+      .map { |message| Dialog.new user, message }
   end
 
 private
 
-  def latest_message_ids page, limit
+  def latest_message_ids page, limit # rubocop:disable AbcSize, MethodLength
     Message
       .where(kind: MessageType::Private)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
-      .where(
-        "(from_id = :user_id) or
-         (to_id = :user_id and is_deleted_by_to=false)",
-        user_id: user.id)
-      .group("case when from_id = #{user.id} then to_id else from_id end")
-      .order('max(id) desc')
+      .where(Arel.sql(WHREE_SQL), user_id: user.id)
+      .group(
+        Arel.sql("case when from_id = #{user.id} then to_id else from_id end")
+      )
+        .order(Arel.sql('max(id) desc'))
       .select('max(id) as id')
-      .offset(limit * (page-1))
+      .offset(limit * (page - 1))
       .limit(limit + 1)
   end
 

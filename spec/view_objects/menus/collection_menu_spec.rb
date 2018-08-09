@@ -1,7 +1,6 @@
 describe Menus::CollectionMenu do
   include_context :view_object_warden_stub
 
-  let(:user) { seed :user }
   let(:klass) { Anime }
   let(:view) { Menus::CollectionMenu.new klass }
 

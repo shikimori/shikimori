@@ -1,6 +1,5 @@
 shared_examples :moderatable_concern do |type|
   describe 'moderatable concern' do
-    let(:user) { seed :user }
     let(:model) { create type, :with_topics, user: user }
 
     describe 'state_machine' do

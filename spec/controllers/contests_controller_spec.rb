@@ -9,8 +9,6 @@ describe ContestsController do
   end
 
   describe '#grid' do
-    let(:user) { create :user, :user }
-
     context 'created' do
       let(:contest) { create :contest, user: user }
       subject! { get :grid, params: { id: contest.to_param } }
@@ -35,7 +33,6 @@ describe ContestsController do
   end
 
   describe '#show' do
-    let(:user) { create :user, :user }
     let(:contest) { create :contest, :with_5_members, :with_topics, user: user }
 
     context 'started' do

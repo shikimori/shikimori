@@ -1,7 +1,6 @@
 describe Users::GrantedApplications do
   subject { described_class.call user }
 
-  let(:user) { seed :user }
   let(:oauth_application_1) { create :oauth_application }
   let(:oauth_application_2) { create :oauth_application }
   let(:oauth_application_3) { create :oauth_application }

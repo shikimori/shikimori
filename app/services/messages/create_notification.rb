@@ -15,7 +15,7 @@ class Messages::CreateNotification
     )
 
     Message.create_wo_antispam!(
-      from_id: User::COSPLAYER_ID,
+      from_id: User::MESSANGER_ID,
       to: @target,
       kind: MessageType::Notification,
       body: body

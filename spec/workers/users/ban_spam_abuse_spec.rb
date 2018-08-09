@@ -1,7 +1,6 @@
 describe Users::BanSpamAbuse do
   include_context :timecop
 
-  let(:user) { seed :user }
   let!(:banhammer) { create :user, id: User::BANHAMMER_ID }
 
   subject! { Users::BanSpamAbuse.new.perform user.id }
