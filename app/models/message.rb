@@ -3,20 +3,17 @@ class Message < ApplicationRecord
   include Translation
   include Antispam
 
-  # для совместимости с comment
-  #attr_accessor :topic_name, :topic_url
-
   belongs_to :from, class_name: User.name
   belongs_to :to, class_name: User.name
   belongs_to :linked, polymorphic: true, optional: true
 
   # отменяю проверку, т.к. могут быть уведомления по AnimeHistory
-  #validates_presence_of :body
+  # validates_presence_of :body
 
   validates :from, :to, presence: true
   validates :body,
     presence: true,
-    if: ->(message) { kind == MessageType::Private }
+    if: -> { kind == MessageType::Private }
 
   before_create :check_spam_abuse,
     if: -> { kind == MessageType::Private && !from.bot? }
@@ -26,7 +23,7 @@ class Message < ApplicationRecord
   # Защита от спама
   def check_antispam
     return unless with_antispam?
-    return if id != nil
+    return unless id.nil?
     return if from.bot? || from.admin?
     return if kind == MessageType::Notification
     return if kind == MessageType::ClubRequest
@@ -42,7 +39,7 @@ class Message < ApplicationRecord
       seconds = i18n_i('datetime.second', interval, :accusative)
 
       errors.add(
-        :created_at ,
+        :created_at,
         i18n_t('antispam', interval: interval, seconds: seconds)
       )
       throw :abort
@@ -50,11 +47,11 @@ class Message < ApplicationRecord
   end
 
   def new? params
-    [
-     'inbox',
-     'news',
-     'notifications'
-    ].include?(params[:type]) && !self.read
+    %w[
+      inbox
+      news
+      notifications
+    ].include?(params[:type]) && !read
   end
 
   def html_body
