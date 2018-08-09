@@ -27,11 +27,15 @@ FactoryBot.define do
       after(:build) { |model| unstub_method model, :assign_style }
     end
 
-    trait(:user) { sequence :id, 23_456_789 }
+    trait :user do
+      sequence :id, 23_456_789
+      sequence(:nickname) { |v| "user_user ##{v}" }
+    end
     trait(:guest) { id User::GUEST_ID }
 
     trait :admin do
       id User::MORR_ID
+      sequence(:nickname) { |v| "user_admin ##{v}" }
       roles %i[admin]
     end
     trait :banhammer do
@@ -61,8 +65,15 @@ FactoryBot.define do
 
     trait(:banned) { read_only_at { 1.year.from_now - 1.week } }
     trait(:forever_banned) { read_only_at { 1.year.from_now + 1.week } }
-    trait(:day_registered) { created_at { 25.hours.ago } }
-    trait(:week_registered) { created_at { 8.days.ago } }
+
+    trait(:day_registered) do
+      sequence(:nickname) { |v| "day registered ##{v}" }
+      created_at { 25.hours.ago }
+    end
+    trait(:week_registered) do
+      sequence(:nickname) { |v| "week registered ##{v}" }
+      created_at { 8.days.ago }
+    end
 
     trait :with_avatar do
       avatar { File.new "#{Rails.root}/spec/files/anime.jpg" }
@@ -70,5 +81,7 @@ FactoryBot.define do
 
     factory :user_admin, traits: %i[admin]
     factory :user_messanger, traits: %i[messanger]
+    factory :user_day_registered, traits: %i[day_registered]
+    factory :user_week_registered, traits: %i[week_registered]
   end
 end

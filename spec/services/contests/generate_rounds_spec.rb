@@ -1,5 +1,4 @@
 describe Contests::GenerateRounds do
-  let(:service) { Contests::GenerateRounds.new contest }
   let(:contest) do
     create :contest, :with_5_members,
       started_on: 1.day.ago,
@@ -8,7 +7,7 @@ describe Contests::GenerateRounds do
   let!(:some_round) { create :contest_round, contest: contest }
 
   before { allow(contest.strategy).to receive(:create_rounds).and_call_original }
-  subject! { service.call }
+  subject! { Contests::GenerateRounds.call contest }
 
   it do
     expect { some_round.reload }.to raise_error ActiveRecord::RecordNotFound

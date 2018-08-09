@@ -1,4 +1,4 @@
-class Api::V1::MessagesController < Api::V1Controller
+class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLength
   load_and_authorize_resource except: %i[read_all delete_all]
   before_action :prepare_group_action, only: %i[read_all delete_all]
   before_action :append_info, only: %i[create]
@@ -17,7 +17,7 @@ class Api::V1::MessagesController < Api::V1Controller
     param :to_id, :number, required: true
   end
   error code: 422
-  def create
+  def create # rubocop:disable MethodLength
     if faye.create @resource
       if frontent_request?
         render :message, locals: { notice: i18n_t('message.created') }
@@ -37,7 +37,7 @@ class Api::V1::MessagesController < Api::V1Controller
     param :body, String, required: true
   end
   error code: 422
-  def update
+  def update # rubocop:disable MethodLength
     if faye.update @resource, update_params
       if frontent_request?
         render :message, locals: { notice: i18n_t('message.updated') }
