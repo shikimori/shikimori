@@ -53,7 +53,7 @@ class Topics::Query < QueryObjectBase
     )
   SQL
 
-  def self.fetch user, locale
+  def self.fetch _user, locale
     query = new Topic
       .includes(:forum, :user)
       .order(updated_at: :desc)
