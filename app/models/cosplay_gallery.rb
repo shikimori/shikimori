@@ -6,7 +6,7 @@ class CosplayGallery < ApplicationRecord
 
   acts_as_votable
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
   has_many :image, -> { where(deleted: false).limit(1) },
     class_name: CosplayImage.name
