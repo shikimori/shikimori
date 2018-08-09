@@ -9,6 +9,6 @@ class Contests::Query < QueryObjectBase
   SQL
 
   def self.fetch
-    new Contest.order(ORDER_SQL)
+    new Contest.order(Arel.sql(ORDER_SQL))
   end
 end

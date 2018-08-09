@@ -1,23 +1,30 @@
 describe Api::V1::MessagesController, :show_in_doc do
-  include_context :authenticated, :user
+  include_context :authenticated, :user, :day_registered
 
   describe '#show' do
     let(:make_request) { get :show, params: { id: message.id }, format: :json }
 
     describe 'has access' do
-      before { make_request }
+      subject! { make_request }
       let(:message) { create :message, from: user }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'no access' do
-      let(:message) { create :message }
+      let(:message) { create :message, from: user_1, to: user_1 }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
   describe '#create' do
-    before { post :create, params: { frontend: is_frontend, message: params }, format: :json }
+    subject! do
+      post :create,
+      params: {
+        frontend: is_frontend,
+        message: params
+      },
+      format: :json
+    end
     let(:params) do
       {
         kind: MessageType::Private,
@@ -57,10 +64,16 @@ describe Api::V1::MessagesController, :show_in_doc do
   end
 
   describe '#update' do
+    subject! do
+      patch :update,
+        params: {
+          id: message.id,
+          frontend: is_frontend,
+          message: params
+        },
+        format: :json
+    end
     let(:message) { create :message, :private, from: user, to: user }
-
-    before { sign_in user }
-    before { patch :update, params: { id: message.id, frontend: is_frontend, message: params }, format: :json }
     let(:params) { { body: body } }
 
     context 'success' do
@@ -94,7 +107,7 @@ describe Api::V1::MessagesController, :show_in_doc do
 
   describe '#destroy' do
     let(:message) { create :message, :notification, from: user, to: user }
-    before { delete :destroy, params: { id: message.id }, format: :json }
+    subject! { delete :destroy, params: { id: message.id }, format: :json }
 
     it do
       expect(resource).to be_destroyed
@@ -105,7 +118,7 @@ describe Api::V1::MessagesController, :show_in_doc do
   describe '#mark_read' do
     let(:message_from) { create :message, from: user }
     let(:message_to) { create :message, to: user }
-    before do
+    subject! do
       post :mark_read, params: {
         is_read: '1',
         ids: [message_to.id, message_from.id, 987_654].join(',')
@@ -120,12 +133,22 @@ describe Api::V1::MessagesController, :show_in_doc do
   end
 
   describe '#read_all' do
-    let!(:message_1) { create :message, :news, to: user, from: user, created_at: 1.hour.ago }
-    let!(:message_2) { create :message, :profile_commented, to: create(:user), from: user, created_at: 30.minutes.ago }
+    let!(:message_1) do
+      create :message, :news,
+        to: user,
+        from: user,
+        created_at: 1.hour.ago
+    end
+    let!(:message_2) do
+      create :message, :profile_commented,
+        to: user_1,
+        from: user,
+        created_at: 30.minutes.ago
+    end
     let!(:message_3) { create :message, :private, to: user, from: user }
 
     include_context :back_redirect
-    before { post :read_all, params: { type: 'news', frontend: is_frontend } }
+    subject! { post :read_all, params: { type: 'news', frontend: is_frontend } }
 
     context 'api' do
       let(:is_frontend) { false }
@@ -150,12 +173,28 @@ describe Api::V1::MessagesController, :show_in_doc do
   end
 
   describe '#delete_all' do
-    let!(:message_1) { create :message, :profile_commented, to: user, from: user, created_at: 1.hour.ago }
-    let!(:message_2) { create :message, :profile_commented, to: create(:user), from: user, created_at: 30.minutes.ago }
+    let!(:message_1) do
+      create :message, :profile_commented,
+        to: user,
+        from: user,
+        created_at: 1.hour.ago
+    end
+    let!(:message_2) do
+      create :message, :profile_commented,
+        to: user_1,
+        from: user,
+        created_at: 30.minutes.ago
+    end
     let!(:message_3) { create :message, :private, to: user, from: user }
 
     include_context :back_redirect
-    before { post :delete_all, params: { type: 'notifications', frontend: is_frontend } }
+    subject! do
+      post :delete_all,
+        params: {
+          type: 'notifications',
+          frontend: is_frontend
+        }
+    end
 
     context 'api' do
       let(:is_frontend) { false }

@@ -25,10 +25,10 @@ class Anidb::ImportDescriptionsQuery
       db_entry_relation
         .includes(:anidb_external_link)
         .joins(:external_links)
-        .where(DESCRIPTION_SQL)
+        .where(Arel.sql(DESCRIPTION_SQL))
         .where(external_links: { imported_at: nil })
         .where(external_links: { kind: Types::ExternalLink::Kind[:anime_db] })
-        .order(ORDER_SQL)
+        .order(Arel.sql(ORDER_SQL))
     end
   end
 end

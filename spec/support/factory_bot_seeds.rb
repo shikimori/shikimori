@@ -2,7 +2,11 @@ require 'factory_girl-seeds'
 
 class FactoryBotSeeds
   PURE_FACTORIES = %i[
+  ]
+  FACTORIES = %i[
     user_admin
+    user_day_registered
+    user_week_registered
 
     reviews_forum
     animanga_forum
@@ -20,9 +24,9 @@ class FactoryBotSeeds
     contests_proposals_topic
   ]
   CUSTOM_FACTORIES = %i[
-    user
     club
   ]
+
   ADDITIONAL_MODELS_TO_RESET_PK = %i[forum topic]
 
   module SharedContext
@@ -32,9 +36,14 @@ class FactoryBotSeeds
     #   let(:"user_#{role}") { seed :"user_#{role}" }
     # end
 
-    (PURE_FACTORIES + CUSTOM_FACTORIES).each do |model|
+    (PURE_FACTORIES + FACTORIES + CUSTOM_FACTORIES).each do |model|
       let(model) { seed model }
     end
+
+    let(:user_1) { seed(:user) }
+    let(:user_2) { user_day_registered }
+    let(:user_3) { user_week_registered }
+
     let(:faq_club) { club }
   end
 
@@ -46,7 +55,7 @@ class FactoryBotSeeds
     #   create :"user_#{role}", id: 1000 + index
     # end
 
-    PURE_FACTORIES.each { |factory| create factory }
+    (PURE_FACTORIES + FACTORIES).each { |factory| create factory }
 
     reset_pk_sequence!
   end
@@ -63,6 +72,10 @@ class FactoryBotSeeds
 
   def self.create factory, params = {}
     FactoryGirl::SeedGenerator.create factory, params
+
+    if factory == :user_admin
+      ActiveRecord::Base.connection.reset_pk_sequence! :users
+    end
   end
 end
 
