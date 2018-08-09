@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 describe Topic::Update do
-  include_context :seeds
   include_context :timecop
 
   subject { Topic::Update.call topic, params, faye }

@@ -1,6 +1,4 @@
 describe CommentsController do
-  include_context :seeds
-
   let(:user) { create :user, :user }
   let(:comment) { create :comment, commentable: offtopic_topic, user: user }
   let(:comment2) { create :comment, commentable: offtopic_topic, user: user }

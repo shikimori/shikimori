@@ -62,7 +62,5 @@ FactoryBot.define do
     trait :with_avatar do
       avatar { File.new "#{Rails.root}/spec/files/anime.jpg" }
     end
-
-    factory :cosplay_user, traits: [:cosplayer]
   end
 end

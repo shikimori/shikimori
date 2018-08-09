@@ -1,5 +1,4 @@
 describe ContestsController do
-  include_context :seeds
   include_context :authenticated, :admin
 
   let(:contest) { create :contest, user: user }

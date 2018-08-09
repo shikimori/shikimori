@@ -1,5 +1,4 @@
 describe Topics::SearchQuery do
-  include_context :seeds
   let(:query) do
     Topics::SearchQuery.new(
       scope: scope,

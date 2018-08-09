@@ -1,6 +1,4 @@
 describe Clubs::ClubTopicsController do
-  include_context :seeds
-
   before { sign_in user }
 
   let(:user) { create :user, :user, :week_registered }

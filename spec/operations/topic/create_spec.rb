@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 describe Topic::Create do
-  include_context :seeds
-
   subject(:topic) { Topic::Create.call faye, params, locale }
 
   let(:user) { create :user }

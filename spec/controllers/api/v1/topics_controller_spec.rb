@@ -1,6 +1,4 @@
 describe Api::V1::TopicsController, :show_in_doc do
-  include_context :seeds
-
   describe '#index' do
     let!(:topic) do
       create :topic,

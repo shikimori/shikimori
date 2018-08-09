@@ -6,7 +6,6 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'draper/test/rspec_integration'
 require 'factory_bot_rails'
-require 'factory_girl-seeds'
 require 'rails-controller-testing'
 require 'paperclip/matchers'
 require 'shoulda/matchers'
@@ -78,6 +77,7 @@ RSpec.configure do |config|
     Chewy.request_strategy = :bypass
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
+    FactoryBotSeeds.generate!
   end
 
   config.before :each do
@@ -125,31 +125,5 @@ RSpec.configure do |config|
 
   config.after :suite do
     FileUtils.rm_rf Dir["#{Rails.root}/spec/test_files/"]
-  end
-
-  config.before :suite do
-    FactoryGirl::SeedGenerator.create :user, id: 500_000, email: 'seed_1@gmail.com'
-    FactoryGirl::SeedGenerator.create :cosplay_user, email: 'seed_2@gmail.com'
-
-    FactoryGirl::SeedGenerator.create :reviews_forum
-    FactoryGirl::SeedGenerator.create :animanga_forum
-    FactoryGirl::SeedGenerator.create :contests_forum
-    FactoryGirl::SeedGenerator.create :clubs_forum
-    FactoryGirl::SeedGenerator.create :cosplay_forum
-    FactoryGirl::SeedGenerator.create :collections_forum
-    FactoryGirl::SeedGenerator.create :offtopic_forum
-
-    FactoryGirl::SeedGenerator.create :offtopic_topic
-    FactoryGirl::SeedGenerator.create :site_rules_topic
-    FactoryGirl::SeedGenerator.create :description_of_genres_topic
-    FactoryGirl::SeedGenerator.create :ideas_and_suggestions_topic
-    FactoryGirl::SeedGenerator.create :site_problems_topic
-    FactoryGirl::SeedGenerator.create :contests_proposals_topic
-
-    FactoryGirl::SeedGenerator.create :faq_club
-
-    ActiveRecord::Base.connection.reset_pk_sequence! :users
-    ActiveRecord::Base.connection.reset_pk_sequence! :forums
-    ActiveRecord::Base.connection.reset_pk_sequence! :topics
   end
 end

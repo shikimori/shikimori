@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 describe StickyTopicView do
-  include_context :sticky_topics
-
   describe 'sample sticky topic' do
     let(:sticky_topic) { StickyTopicView.site_problems :ru }
     it do

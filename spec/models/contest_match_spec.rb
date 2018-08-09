@@ -67,8 +67,6 @@ describe ContestMatch do
   end
 
   describe 'instance_methods' do
-    include_context :seeds
-
     describe '#winner' do
       let(:match) { build_stubbed :contest_match, state: 'finished' }
       subject { match.winner }
