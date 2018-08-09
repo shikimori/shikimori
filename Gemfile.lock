@@ -82,6 +82,16 @@ GIT
   specs:
     ruby-esvidi (0.5.3)
 
+GIT
+  remote: https://github.com/toptal/chewy.git
+  revision: 732c7c0a01b19c91d8235bf0f2518601ffe676cc
+  branch: master
+  specs:
+    chewy (5.0.0)
+      activesupport (>= 4.0)
+      elasticsearch (>= 2.0.0)
+      elasticsearch-dsl
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -200,10 +210,6 @@ GEM
     case_transform (0.2)
       activesupport
     chainable_methods (0.2.1)
-    chewy (5.0.0)
-      activesupport (>= 4.0)
-      elasticsearch (>= 2.0.0)
-      elasticsearch-dsl
     climate_control (0.2.0)
     clockwork (2.0.3)
       tzinfo
@@ -736,7 +742,7 @@ DEPENDENCIES
   capistrano-rbenv
   capybara
   chainable_methods
-  chewy
+  chewy!
   clockwork
   coffee-rails
   colorize

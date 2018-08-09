@@ -1,12 +1,8 @@
 describe Elasticsearch::Query::Collection, :vcr do
-  around { |example| Chewy.strategy(:urgent) { example.run } }
-  before do
-    # VCR.configure { |c| c.ignore_request { |_request| true } }
-    # Chewy.logger = ActiveSupport::Logger.new(STDOUT)
-    # Chewy.transport_logger = ActiveSupport::Logger.new(STDOUT)
-    ActiveRecord::Base.connection.reset_pk_sequence! :collections
-    CollectionsIndex.purge!
-  end
+  # include_context :disable_vcr
+  include_context :chewy_urgent
+  include_context :chewy_indexes, %i[collections]
+  # include_context :chewy_logger
 
   subject { described_class.call phrase: phrase, limit: ids_limit, locale: locale }
 

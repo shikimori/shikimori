@@ -1,12 +1,8 @@
 describe Elasticsearch::Query::Person, :vcr do
-  around { |example| Chewy.strategy(:urgent) { example.run } }
-  before do
-    # VCR.configure { |c| c.ignore_request { |_request| true } }
-    # Chewy.logger = ActiveSupport::Logger.new(STDOUT)
-    # Chewy.transport_logger = ActiveSupport::Logger.new(STDOUT)
-    ActiveRecord::Base.connection.reset_pk_sequence! :people
-    PeopleIndex.purge!
-  end
+  # include_context :disable_vcr
+  include_context :chewy_urgent
+  include_context :chewy_indexes, %i[people]
+  # include_context :chewy_logger
 
   subject do
     described_class.call(

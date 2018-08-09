@@ -42,6 +42,9 @@ Style/WordArray:
 Style/NumericLiterals:
   Exclude:
     - spec/**/*
+Security/Open:
+  Exclude:
+    - spec/**/*
 
 Style/MultilineBlockChain:
   Enabled: false

@@ -1,6 +1,210 @@
 ---
 http_interactions:
 - request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_collections
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1912'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_collections/collection/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":1}}
+        {"name":"test","locale":"ru"}
+    headers:
+      Content-Type:
+      - application/x-ndjson
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":35,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"1","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":21,"status":200}}]}'
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_collections
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1912'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_collections/collection/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":2}}
+        {"name":"test zxct","locale":"ru"}
+    headers:
+      Content-Type:
+      - application/x-ndjson
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":18,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"2","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":21,"status":200}}]}'
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_collections
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '1912'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_collections/collection/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":3}}
+        {"name":"test 2","locale":"en"}
+    headers:
+      Content-Type:
+      - application/x-ndjson
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '202'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":22,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"3","_version":2,"result":"updated","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":21,"status":200}}]}'
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_test_collections/collection/_search
+    body:
+      encoding: UTF-8
+      string: '{"size":10,"query":{"bool":{"must":[{"dis_max":{"queries":[{"match":{"name.original":{"query":"test","boost":400}}},{"match":{"name.edge_phrase":{"query":"test","boost":50}}},{"match":{"name.edge_word":{"query":"test","boost":20}}},{"match":{"name.ngram":{"query":"test"}}}],"tie_breaker":0,"boost":1}},{"term":{"locale":"ru"}}]}}}'
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.12.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '225'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":50,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":115.36052,"hits":[{"_index":"shikimori_test_collections","_type":"collection","_id":"1","_score":115.36052,"_source":{"name":"test","locale":"ru"}},{"_index":"shikimori_test_collections","_type":"collection","_id":"2","_score":22.891273,"_source":{"name":"test
+        zxct","locale":"ru"}}]}}'
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
     method: delete
     uri: http://localhost:9200/shikimori_test_collections
     body:
@@ -28,13 +232,13 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_collections
     body:
       encoding: UTF-8
-      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding"]}}}},"mappings":{"collection":{"properties":{"name":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","type":"text"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","type":"text"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","type":"text"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","type":"text"}},"type":"keyword","index":"not_analyzed"},"locale":{"type":"keyword"}}}}}'
+      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding"]}}}},"mappings":{"collection":{"properties":{"name":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"locale":{"type":"keyword"}}}}}'
     headers:
       Content-Type:
       - application/json
@@ -50,10 +254,9 @@ http_interactions:
       message: OK
     headers:
       Warning:
-      - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [analyzed]" "Sun, 18 Feb 2018 21:37:31 GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Sun, 18 Feb 2018 21:37:31 GMT"
+      - '299 Elasticsearch-6.2.4-ccec39f "Deprecated big difference between max_gram
+        and min_gram in NGram Tokenizer,expected difference must be less than or equal
+        to: [1]" "Thu, 09 Aug 2018 01:15:22 GMT"'
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -62,209 +265,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_collections"}'
     http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
-- request:
-    method: head
-    uri: http://localhost:9200/shikimori_test_collections
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '1867'
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_collections/collection/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":1}}
-        {"name":"test","locale":"ru"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '186'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
-- request:
-    method: head
-    uri: http://localhost:9200/shikimori_test_collections
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '1867'
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_collections/collection/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":2}}
-        {"name":"test zxct","locale":"ru"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '186'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
-- request:
-    method: head
-    uri: http://localhost:9200/shikimori_test_collections
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '1867'
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_collections/collection/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":3}}
-        {"name":"test 2","locale":"en"}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '187'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_collections","_type":"collection","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
-    http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
-- request:
-    method: get
-    uri: http://localhost:9200/shikimori_test_collections/collection/_search
-    body:
-      encoding: UTF-8
-      string: '{"size":10,"query":{"bool":{"must":[{"dis_max":{"queries":[{"match":{"name.original":{"query":"test","boost":400}}},{"match":{"name.edge_phrase":{"query":"test","boost":50}}},{"match":{"name.edge_word":{"query":"test","boost":20}}},{"match":{"name.ngram":{"query":"test"}}}],"tie_breaker":0,"boost":1}},{"term":{"locale":"ru"}}]}}}'
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '225'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":1,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":115.36052,"hits":[{"_index":"shikimori_test_collections","_type":"collection","_id":"1","_score":115.36052,"_source":{"name":"test","locale":"ru"}},{"_index":"shikimori_test_collections","_type":"collection","_id":"2","_score":22.891273,"_source":{"name":"test
-        zxct","locale":"ru"}}]}}'
-    http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0
