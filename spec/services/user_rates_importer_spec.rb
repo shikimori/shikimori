@@ -1,10 +1,9 @@
 describe UserRatesImporter do
-  let(:anime_1) { create :anime, name: "Zombie-Loan", episodes: 22 }
-  let(:anime_2) { create :anime, name: "Zombie-Loan Specials" }
+  let(:anime_1) { create :anime, name: 'Zombie-Loan', episodes: 22 }
+  let(:anime_2) { create :anime, name: 'Zombie-Loan Specials' }
 
   let(:anime_1_id) { anime_1.id }
   let(:anime_1_status) { UserRate.statuses[:watching] }
-  let(:user) { create :user }
   let(:list) do
     [{
       status: anime_1_status,
@@ -37,7 +36,7 @@ describe UserRatesImporter do
     before { subject }
 
     context 'everything is matched' do
-      it 'properly imported'do
+      it do
         expect(added.size).to eq(2)
         expect(updated).to be_empty
         expect(not_imported).to be_empty
@@ -59,7 +58,7 @@ describe UserRatesImporter do
     context 'nil id is not matched' do
       let(:anime_1_id) { nil }
 
-      it 'properly imported'do
+      it do
         expect(added.size).to eq(1)
         expect(updated).to be_empty
         expect(not_imported.size).to eq(1)
@@ -71,7 +70,7 @@ describe UserRatesImporter do
     context 'nil status is not matched' do
       let(:anime_1_status) { nil }
 
-      it 'properly imported'do
+      it do
         expect(added.size).to eq(1)
         expect(updated).to be_empty
         expect(not_imported.size).to eq(1)
@@ -88,7 +87,7 @@ describe UserRatesImporter do
     describe 'replace' do
       let(:with_replace) { true }
 
-      it 'properly imported'do
+      it do
         expect(added.size).to eq(1)
         expect(updated.size).to eq(1)
         expect(not_imported).to be_empty
@@ -99,7 +98,7 @@ describe UserRatesImporter do
     describe 'w/o replace' do
       let(:with_replace) { false }
 
-      it 'properly imported'do
+      it do
         expect(added.size).to eq(1)
         expect(updated).to be_empty
         expect(not_imported).to be_empty

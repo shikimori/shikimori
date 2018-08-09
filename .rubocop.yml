@@ -93,7 +93,7 @@ Style/RescueModifier:
 Style/BlockComments:
   Enabled: false
 
-Style/VariableNumber:
+Naming/VariableNumber:
   EnforcedStyle: snake_case
 
 Style/StringLiterals:

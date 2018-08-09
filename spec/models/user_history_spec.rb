@@ -8,14 +8,13 @@ describe UserHistory do
 
   describe 'class methods' do
     describe '.add' do
-      let(:user) { create :user, id: 1 }
-      let(:user2) { build_stubbed :user, id: 2 }
+      let(:user_2) { create :user, id: 2 }
 
       let(:kind) { %i[anime manga ranobe].sample }
       let(:anime) { build_stubbed kind, id: 1 }
       let(:anime_2) { build_stubbed kind, id: 2 }
 
-      it 'added anime successfully', :focus do
+      it 'added anime successfully' do
         expect {
           UserHistory.add user, anime, UserHistoryAction::Add
         }.to change(UserHistory, :count).by 1
@@ -40,7 +39,7 @@ describe UserHistory do
 
         it 'another user added anime too' do
           expect {
-            UserHistory.add user2, anime, UserHistoryAction::Add
+            UserHistory.add user_2, anime, UserHistoryAction::Add
           }.to change(UserHistory, :count).by 1
         end
 

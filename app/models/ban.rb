@@ -3,7 +3,7 @@ class Ban < ApplicationRecord
 
   belongs_to :user
   belongs_to :moderator, class_name: User.name
-  belongs_to :comment, touch: true
+  belongs_to :comment, touch: true, optional: true
   belongs_to :abuse_request, touch: true, optional: true
 
   validates :user, :moderator, presence: true

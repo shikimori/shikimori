@@ -104,7 +104,6 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#manga_rates' do
-    let(:user) { create :user }
     let(:manga) { create :manga }
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
     subject! do

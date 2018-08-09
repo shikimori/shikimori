@@ -93,8 +93,6 @@ describe Club do
   end
 
   describe 'instance methods' do
-    let(:user) { create :user }
-
     describe '#to_param' do
       let(:club) { build :club, id: 1, name: 'тест' }
       it { expect(club.to_param).to eq '1-test' }

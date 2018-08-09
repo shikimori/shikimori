@@ -53,8 +53,7 @@ describe Dialog do
   end
 
   describe '#destroy' do
-    let(:user) { create :user }
-    let(:target_user) { create :user }
+    let(:target_user) { user }
     let!(:message_to) { create :message, from: target_user, to: user }
     let!(:message_from) { create :message, from: user, to: target_user }
 

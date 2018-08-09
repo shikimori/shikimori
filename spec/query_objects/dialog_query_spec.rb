@@ -1,5 +1,4 @@
 describe DialogQuery do
-  let(:user) { create :user }
   let(:target_user) { create :user }
   let(:user_3) { create :user }
   let(:query) { DialogQuery.new user, target_user }

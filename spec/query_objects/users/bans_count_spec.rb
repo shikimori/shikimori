@@ -1,7 +1,6 @@
 describe Users::BansCount do
   subject { Users::BansCount.call user.id }
 
-  let(:user) { create :user }
   let(:comment) { create :comment, user: user }
   let(:abuse_request) { create :abuse_request, comment: comment, user: user }
 

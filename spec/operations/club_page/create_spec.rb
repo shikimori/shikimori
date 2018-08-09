@@ -4,7 +4,6 @@ describe ClubPage::Create do
   subject(:club_page) { ClubPage::Create.call params, user }
 
   let(:club) { create :club, owner: user, locale: locale }
-  let(:user) { create :user }
   let(:locale) { :en }
 
   context 'valid params' do

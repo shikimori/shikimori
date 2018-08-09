@@ -3,7 +3,6 @@
 describe Review::Create do
   subject(:review) { Review::Create.call params, locale }
 
-  let(:user) { create :user }
   let(:anime) { create :anime }
   let(:locale) { :en }
 

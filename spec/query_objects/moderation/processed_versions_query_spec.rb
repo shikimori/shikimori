@@ -1,10 +1,9 @@
 describe Moderation::ProcessedVersionsQuery do
+  include_context :timecop, '2016-03-18 15:00:00'
+
   let(:query) { Moderation::ProcessedVersionsQuery.new 'content', created_on }
   let(:created_on) { nil }
 
-  include_context :timecop, '2016-03-18 15:00:00'
-
-  let(:user) { create :user }
   let!(:version_1) { create :version, state: 'taken', updated_at: 1.minute.ago, created_at: 28.hours.ago }
   let!(:version_2) { create :version, state: 'pending', updated_at: 2.minutes.ago, created_at: 2.hours.ago }
   let!(:version_3) { create :version, state: 'accepted', updated_at: 3.minutes.ago, created_at: 29.hours.ago }

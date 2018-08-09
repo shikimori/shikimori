@@ -3,7 +3,6 @@
 describe Collection::Create do
   subject(:collection) { Collection::Create.call params, locale }
 
-  let(:user) { create :user }
   let(:locale) { :en }
 
   context 'valid params' do

@@ -1,5 +1,4 @@
 describe ReviewsQuery do
-  let(:user) { create :user }
   let(:entry) { create :anime }
 
   before do

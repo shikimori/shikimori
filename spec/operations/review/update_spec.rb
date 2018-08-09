@@ -4,8 +4,6 @@ describe Review::Update do
   subject { Review::Update.call review, params }
 
   let(:review) { create :review }
-
-  let(:user) { create :user }
   let(:anime) { create :anime }
 
   before { subject }

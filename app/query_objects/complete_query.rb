@@ -3,7 +3,10 @@ module CompleteQuery
 
   # автодополнение
   def complete
-    query = @klass.where(search_queries.join(' or ')).limit(self.class::AUTOCOMPLETE_LIMIT)
+    query = @klass
+      .where(Arel.sql(search_queries.join(' or ')))
+      .limit(self.class::AUTOCOMPLETE_LIMIT)
+
     query = query.where(@kind => true) if @kind.present?
     search_order(query).reverse
   end
@@ -12,11 +15,14 @@ private
 
   # выборка с учётом порядка search_queries
   def search_order query
-    matched = search_queries.each_with_index.inject("<--!-->") do |memo, pair|
+    matched = search_queries.each_with_index.inject('<--!-->') do |memo, pair|
       condition = pair[0]
       index = pair[1]
 
-      memo.sub '<--!-->', "(case when #{condition} then #{index} else <--!--> end)"
+      memo.sub(
+        '<--!-->',
+        "(case when #{condition} then #{index} else <--!--> end)"
+      )
     end.sub('<--!-->', '999')
 
     query
@@ -26,19 +32,21 @@ private
 
   # варианты, которые будем перебирать при поиске
   def search_queries
-    search_fields(@search[0..90]).flat_map {|field| field_search_query field }.compact
+    search_fields(@search[0..90])
+      .flat_map { |field| field_search_query field }
+      .compact
   end
 
   def field_search_query field
     table_field = transalted_field field
     [
       "#{table_field} = #{sanitize @search}",
-      "#{table_field} = #{sanitize @search.gsub('_', ' ').strip}",
+      "#{table_field} = #{sanitize @search.tr('_', ' ').strip}",
       "#{table_field} ilike #{sanitize "#{@search}%"}",
       "#{table_field} ilike #{sanitize "% #{@search}%"}",
       "#{table_field} ilike #{sanitize "%#{@search}%"}",
-      (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
-      (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
+      (@search.include?(' ') ? "#{table_field} ilike #{sanitize @search.split(' ').reverse.join(' ').to_s}" : nil),
+      (@search.include?(' ') ? "#{table_field} ilike #{sanitize @search.split(' ').reverse.join('% ').to_s}" : nil)
     ].compact.map { |condition| "#{table_field} != '' and (#{condition})" }
   end
 

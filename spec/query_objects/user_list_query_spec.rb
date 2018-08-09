@@ -1,6 +1,5 @@
 describe UserListQuery do
   let(:query) { UserListQuery.new Anime, user, params }
-  let(:user) { create :user }
   let(:params) { { mylist: '1,2', order: 'name' } }
 
   let!(:user_rate_1) { create :user_rate, user: user, anime: create(:anime, name: 'b'), status: 1 }

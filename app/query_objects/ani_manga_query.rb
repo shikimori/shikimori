@@ -434,10 +434,13 @@ private
 
   # sql представление сортировки датасорса
   def self.order_sql field, klass
-    field = 'chapters' if klass == Manga && field == 'episodes'
-    field = 'episodes' if klass == Anime && (field == 'chapters' || field == 'volumes')
+    if klass == Manga && field == 'episodes'
+      field = 'chapters'
+    elsif klass == Anime && %w[chapters volumes].include?(field)
+      field = 'episodes'
+    end
 
-    case field
+    sql = case field
       when 'name'
         "#{klass.table_name}.name, #{klass.table_name}.id"
 
@@ -540,5 +543,7 @@ private
         # raise ArgumentError, "unknown order '#{field}'"
         order_sql DEFAULT_ORDER, klass
     end
+
+    Arel.sql(sql)
   end
 end

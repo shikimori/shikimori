@@ -157,7 +157,6 @@ describe AnimeVideoDecorator, type: :controller do
 
     context 'authenticated' do
       let(:user_signed_in) { true }
-      let(:user) { create :user }
 
       context 'with user rate' do
         let!(:user_rate) { create :user_rate, target: video.anime, user: user, episodes: episodes }

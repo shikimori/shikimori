@@ -5,7 +5,6 @@ describe ClubsController do
 
   describe '#index' do
     let!(:club) { create :club, :with_topics, id: 999_999 }
-    let(:user) { create :user }
     let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 
     describe 'no_pagination' do
