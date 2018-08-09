@@ -32,7 +32,7 @@ class AniMangaDecorator < DbEntryDecorator
 
   def files?
     anime? && display_sensitive? && !forbidden? && !licensed? &&
-      h.user_signed_in? && h.current_user.day_registered?
+      h.user_signed_in? # && h.current_user.day_registered?
   end
 
   # есть ли обзоры
@@ -111,25 +111,26 @@ class AniMangaDecorator < DbEntryDecorator
     parts = []
 
     if released?
-      if released_on && aired_on && released_on.year != aired_on.year
-        # в 2011-2012 гг.
-        parts << i18n_t(
-          'datetime.release_dates.in_years',
-          from_date: aired_on.year,
-          to_date: released_on.year
-        )
-      elsif released_on && aired_on
-        parts << i18n_t(
-          'datetime.release_dates.since_till_date',
-          from_date: h.formatted_date(aired_on, true),
-          to_date: h.formatted_date(released_on, true)
-        )
-      else
-        parts << i18n_t(
-          'datetime.release_dates.date',
-          date: h.formatted_date(released_on || aired_on, true)
-        )
-      end
+      parts <<
+        if released_on && aired_on && released_on.year != aired_on.year
+          # в 2011-2012 гг.
+          i18n_t(
+            'datetime.release_dates.in_years',
+            from_date: aired_on.year,
+            to_date: released_on.year
+          )
+        elsif released_on && aired_on
+          i18n_t(
+            'datetime.release_dates.since_till_date',
+            from_date: h.formatted_date(aired_on, true),
+            to_date: h.formatted_date(released_on, true)
+          )
+        else
+          i18n_t(
+            'datetime.release_dates.date',
+            date: h.formatted_date(released_on || aired_on, true)
+          )
+        end
 
     elsif anons?
       if aired_on
@@ -176,8 +177,7 @@ class AniMangaDecorator < DbEntryDecorator
 
     text = i18n_t('datetime.release_dates.since_till_date',
       from_date: h.formatted_date(aired_on, true, false),
-      to_date: h.formatted_date(released_on, true, false)
-    )
+      to_date: h.formatted_date(released_on, true, false))
     I18n.russian? ? text.capitalize : text
   end
 
