@@ -28,13 +28,13 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: put
     uri: http://localhost:9200/shikimori_test_people
     body:
       encoding: UTF-8
-      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding"]}}}},"mappings":{"person":{"properties":{"name":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","type":"text"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","type":"text"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","type":"text"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","type":"text"}},"type":"keyword","index":"not_analyzed"},"japanese":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","type":"text"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","type":"text"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","type":"text"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","type":"text"}},"type":"keyword","index":"not_analyzed"},"russian":{"fields":{"original":{"index":"analyzed","analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer","type":"text"},"edge_phrase":{"index":"analyzed","analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer","type":"text"},"edge_word":{"index":"analyzed","analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer","type":"text"},"ngram":{"index":"analyzed","analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer","type":"text"}},"type":"keyword","index":"not_analyzed"},"is_seyu":{"type":"boolean"},"is_producer":{"type":"boolean"},"is_mangaka":{"type":"boolean"}}}}}'
+      string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","nGram_filter","distinct_words_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding"]}}}},"mappings":{"person":{"properties":{"name":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"japanese":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"russian":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"is_seyu":{"type":"boolean"},"is_producer":{"type":"boolean"},"is_mangaka":{"type":"boolean"}}}}}'
     headers:
       Content-Type:
       - application/json
@@ -50,10 +50,9 @@ http_interactions:
       message: OK
     headers:
       Warning:
-      - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [analyzed]" "Sun, 18 Feb 2018 21:37:31 GMT"
-      - 299 Elasticsearch-5.6.5-6a37571 "Expected a boolean [true/false] for property
-        [index] but got [not_analyzed]" "Sun, 18 Feb 2018 21:37:31 GMT"
+      - '299 Elasticsearch-6.2.4-ccec39f "Deprecated big difference between max_gram
+        and min_gram in NGram Tokenizer,expected difference must be less than or equal
+        to: [1]" "Thu, 09 Aug 2018 01:18:31 GMT"'
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -62,7 +61,7 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_people"}'
     http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_people
@@ -84,12 +83,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '2804'
+      - '2846'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
@@ -100,7 +99,7 @@ http_interactions:
         {"name":"test","japanese":null,"russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
     headers:
       Content-Type:
-      - application/json
+      - application/x-ndjson
       User-Agent:
       - Faraday v0.12.2
       Accept-Encoding:
@@ -115,12 +114,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '187'
+      - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: head
     uri: http://localhost:9200/shikimori_test_people
@@ -142,12 +141,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '2804'
+      - '2846'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: post
     uri: http://localhost:9200/shikimori_test_people/person/_bulk?refresh=true
@@ -158,7 +157,7 @@ http_interactions:
         {"name":"test zxct","japanese":null,"russian":"аа","is_seyu":false,"is_producer":false,"is_mangaka":false}
     headers:
       Content-Type:
-      - application/json
+      - application/x-ndjson
       User-Agent:
       - Faraday v0.12.2
       Accept-Encoding:
@@ -173,12 +172,12 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '187'
+      - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"created":true,"status":201}}]}'
+      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
     method: get
     uri: http://localhost:9200/shikimori_test_people/person/_search
@@ -208,5 +207,5 @@ http_interactions:
       string: !binary |-
         eyJ0b29rIjowLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjExNS4wNzI4NCwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfcGVvcGxlIiwiX3R5cGUiOiJwZXJzb24iLCJfaWQiOiIxIiwiX3Njb3JlIjoxMTUuMDcyODQsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QiLCJqYXBhbmVzZSI6bnVsbCwicnVzc2lhbiI6ItCw0LAiLCJpc19zZXl1IjpmYWxzZSwiaXNfcHJvZHVjZXIiOmZhbHNlLCJpc19tYW5nYWthIjpmYWxzZX19LHsiX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfcGVvcGxlIiwiX3R5cGUiOiJwZXJzb24iLCJfaWQiOiIyIiwiX3Njb3JlIjoyMi42MDM1OTIsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QgenhjdCIsImphcGFuZXNlIjpudWxsLCJydXNzaWFuIjoi0LDQsCIsImlzX3NleXUiOmZhbHNlLCJpc19wcm9kdWNlciI6ZmFsc2UsImlzX21hbmdha2EiOmZhbHNlfX1dfX0=
     http_version: 
-  recorded_at: Sun, 18 Feb 2018 21:37:31 GMT
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0

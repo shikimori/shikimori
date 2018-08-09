@@ -11,7 +11,7 @@ class MangasIndex < ApplicationIndex
       field(
         name_field,
         type: :keyword,
-        index: :not_analyzed,
+        index: false,
         value: lambda do |model|
           if name_field =~ /^(?<name>\w+)_(?<index>\d)$/
             model.send($LAST_MATCH_INFO[:name])[$LAST_MATCH_INFO[:index].to_i]
