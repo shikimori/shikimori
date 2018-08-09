@@ -63,7 +63,7 @@ private
   def latest_import
     @latest_import ||= UserHistory
       .where(user_id: @user.id, action: KLASS_HISTORIES[@klass])
-      .order('id desc')
+      .order(id: :desc)
       .first || {}
   end
 

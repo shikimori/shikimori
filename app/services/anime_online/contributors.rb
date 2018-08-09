@@ -25,7 +25,7 @@ class AnimeOnline::Contributors
         .where(state: :accepted, kind: kinds)
         .where.not(user_id: User::GUEST_ID)
         .group(:user_id)
-        .order('score desc')
+        .order(score: :desc)
         .limit(limit)
 
       if is_adult == true
