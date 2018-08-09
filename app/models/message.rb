@@ -8,7 +8,7 @@ class Message < ApplicationRecord
 
   belongs_to :from, class_name: User.name
   belongs_to :to, class_name: User.name
-  belongs_to :linked, polymorphic: true
+  belongs_to :linked, polymorphic: true, optional: true
 
   # отменяю проверку, т.к. могут быть уведомления по AnimeHistory
   #validates_presence_of :body

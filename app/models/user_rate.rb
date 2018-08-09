@@ -16,8 +16,14 @@ class UserRate < ApplicationRecord
   }
 
   belongs_to :target, polymorphic: true
-  belongs_to :anime, class_name: Anime.name, foreign_key: :target_id
-  belongs_to :manga, class_name: Manga.name, foreign_key: :target_id
+  belongs_to :anime,
+    class_name: Anime.name,
+    foreign_key: :target_id,
+    optional: true
+  belongs_to :manga,
+    class_name: Manga.name,
+    foreign_key: :target_id,
+    optional: true
 
   belongs_to :user, touch: true
 
@@ -28,7 +34,7 @@ class UserRate < ApplicationRecord
   after_destroy :log_deleted
 
   validates :target, :user, presence: true
-  validates :user_id, uniqueness: { scope: [:target_id, :target_type] }
+  validates :user_id, uniqueness: { scope: %i[target_id target_type] }
   validates :text, length: { maximum: MAXIMUM_TEXT_SIZE }
 
   def self.create_or_find user_id, target_id, target_type
@@ -40,7 +46,7 @@ class UserRate < ApplicationRecord
     if !value || value.size <= MAXIMUM_TEXT_SIZE
       super
     else
-      super value[0..MAXIMUM_TEXT_SIZE-1]
+      super value[0..MAXIMUM_TEXT_SIZE - 1]
     end
   end
 
@@ -57,21 +63,22 @@ class UserRate < ApplicationRecord
   end
 
   def status= new_status
-    new_status.kind_of?(String) && new_status =~ /^\d$/ ? super(new_status.to_i) : super
+    new_status.is_a?(String) && new_status =~ /^\d$/ ? super(new_status.to_i) : super
   end
 
   def self.status_name status, target_type
-    status_name = if status.kind_of?(Integer)
-      (statuses.find {|k,v| v == status } || raise("unknown status #{status} #{target_type}")).first
-    else
-      status
-    end
+    status_name =
+      if status.kind_of?(Integer)
+        (statuses.find {|k,v| v == status } || raise("unknown status #{status} #{target_type}")).first
+      else
+        status
+      end
     I18n.t "activerecord.attributes.user_rate.statuses.#{target_type.downcase}.#{status_name}"
   end
 
   def self.status_id status
     status_string = status.to_s
-    statuses.find {|k,v| k == status_string }.second
+    statuses.find { |k, _v| k == status_string }.second
   end
 
   def status_name
@@ -126,9 +133,9 @@ private
     self[counter] = changes[counter].first if self[counter] > MAXIMUM_EPISODES
 
     # сбросили главы - сбрасываем и тома
-    self.chapters = 0 if counter == 'volumes' && self.volumes.zero?
+    self.chapters = 0 if counter == 'volumes' && volumes.zero?
     # и наоборот
-    self.volumes = 0 if counter == 'chapters' && self.chapters.zero?
+    self.volumes = 0 if counter == 'chapters' && chapters.zero?
 
     # указали число эпизодов равным числу эпиздов в аниме - помечаем просмотренным
     if self[counter] == target[counter] && self[counter] > 0 && changes['status'].nil?
@@ -150,9 +157,7 @@ private
 
       # перевели с какой-то цифры в ноль - помечаем, что перенесли в запланированное
       if self[counter].zero? && changes[counter] && !(changes[counter].first || 0).zero?
-        if changes['status'].nil? && !rewatching?
-          self.status = :planned
-        end
+        self.status = :planned if changes['status'].nil? && !rewatching?
       end
     end
   end
@@ -160,18 +165,24 @@ private
   # запись в историю о занесении в список
   def log_created
     UserHistory.add user, target, UserHistoryAction::Add
-    UserHistory.add(
-      user,
-      target,
-      UserHistoryAction::Status,
-      UserRate.statuses[status]
-    ) unless planned?
-    UserHistory.add(
-      user,
-      target,
-      UserHistoryAction::Rate,
-      score,
-    ) unless score.zero?
+
+    unless planned?
+      UserHistory.add(
+        user,
+        target,
+        UserHistoryAction::Status,
+        UserRate.statuses[status]
+      )
+    end
+
+    unless score.zero?
+      UserHistory.add(
+        user,
+        target,
+        UserHistoryAction::Rate,
+        score
+      )
+    end
   end
 
   # запись в историю об изменении стутса
@@ -190,15 +201,16 @@ private
         (anime? && changes['episodes']) ||
         (manga? && changes['volumes']) ||
         (manga? && changes['chapters'])
-      ) && (!changes['status'] || changes['status'] == ['planned', 'watching'])
+      ) && (!changes['status'] || changes['status'] == %w[planned watching])
 
-      counter = if anime?
-        'episodes'
-      elsif changes['volumes']
-        'volumes'
-      elsif changes['chapters']
-        'chapters'
-      end
+      counter =
+        if anime?
+          'episodes'
+        elsif changes['volumes']
+          'volumes'
+        elsif changes['chapters']
+          'chapters'
+        end
 
       UserHistory.add user, target, UserHistoryAction.const_get(counter.capitalize), self[counter], changes[counter].first
     end

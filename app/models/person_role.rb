@@ -1,8 +1,8 @@
 class PersonRole < ApplicationRecord
-  belongs_to :anime, touch: true
-  belongs_to :manga, touch: true
-  belongs_to :character, touch: true
-  belongs_to :person, touch: true
+  belongs_to :anime, touch: true, optional: true
+  belongs_to :manga, touch: true, optional: true
+  belongs_to :character, touch: true, optional: true
+  belongs_to :person, touch: true, optional: true
 
   DIRECTOR_ROLES = [
     'Chief Producer',
