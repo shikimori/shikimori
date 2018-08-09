@@ -1,5 +1,4 @@
 describe Profiles::ListStats do
-  let(:user) { seed :user }
   let(:list_stats) do
     Profiles::ListStats.new(
       id: 0,

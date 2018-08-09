@@ -2,7 +2,6 @@ describe JsExports::PollsExport do
   let(:tracker) { JsExports::PollsExport.instance }
 
   let(:poll) { build_stubbed :poll }
-  let(:user) { seed :user }
 
   before { tracker.send :cleanup }
   after { tracker.send :cleanup }

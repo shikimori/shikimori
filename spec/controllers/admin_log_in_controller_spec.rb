@@ -1,37 +1,42 @@
 describe AdminLogInController do
-  before { Rails.env.stub(:production?).and_return true }
-  before { @request.env["devise.mapping"] = Devise.mappings[:user] }
-  let(:admin) { create :user, :admin }
-  let(:user) { create :user, :user }
+  before do
+    Rails.env.stub(:production?).and_return true
+    @request.env['devise.mapping'] = Devise.mappings[:user]
+  end
+  let(:target_user) { seed :user }
 
   describe '#restore' do
-    before { sign_in user }
+    before { sign_in target_user }
 
     context 'no saved admin in session' do
-      before { get :restore }
-      it { should respond_with :not_found }
+      subject! { get :restore }
+      it { expect(response).to have_http_status 404 }
     end
 
     context 'saved admin in session' do
-      before { session[AdminLogInController.admin_id_to_restore_key] = admin.id }
-      before { get :restore }
+      before { session[AdminLogInController.admin_id_to_restore_key] = user_admin.id }
+      subject! { get :restore }
 
-      it { expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil }
-      it { expect(assigns(:user).id).to eq admin.id }
-      it { expect(response).to redirect_to root_path }
+      it do
+        expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil
+        expect(assigns(:user).id).to eq user_admin.id
+        expect(response).to redirect_to root_path
+      end
     end
   end
 
   describe '#log_in' do
     context 'admin' do
-      before { sign_in admin }
-      before { get :log_in, params: { nickname: nickname } }
-      let(:nickname) { user.nickname }
+      include_context :authenticated, :admin
+      subject! { get :log_in, params: { nickname: nickname } }
+      let(:nickname) { target_user.nickname }
 
       context 'known user' do
-        it { expect(assigns(:user).id).to eq user.id }
-        it { expect(session[AdminLogInController.admin_id_to_restore_key]).to eq admin.id }
-        it { expect(response).to redirect_to root_path }
+        it do
+          expect(assigns(:user).id).to eq target_user.id
+          expect(session[AdminLogInController.admin_id_to_restore_key]).to eq user_admin.id
+          expect(response).to redirect_to root_path
+        end
       end
 
       context 'unknown user' do
@@ -41,11 +46,13 @@ describe AdminLogInController do
     end
 
     context 'user' do
-      before { sign_in user }
-      before { get :log_in, params: { nickname: user.nickname } }
+      include_context :authenticated, :user
+      subject! { get :log_in, params: { nickname: target_user.nickname } }
 
-      it { should respond_with :not_found }
-      it { expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil }
+      it do
+        expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil
+        expect(response).to have_http_status 404
+      end
     end
   end
 end

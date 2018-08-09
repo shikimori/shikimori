@@ -4,7 +4,6 @@ describe Achievements::Track do
   before { allow(Neko::Update).to receive :call }
 
   subject! { worker.perform user.id, user_rate_id, action }
-  let(:user) { seed :user }
   let(:user_rate_id) { 123 }
   let(:action) { Types::Neko::Action[:put].to_s }
 

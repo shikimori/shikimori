@@ -1,6 +1,4 @@
 describe UserPreferencesController do
-  let(:user) { seed :user }
-
   describe '#update' do
     let(:make_request) do
       patch :update,

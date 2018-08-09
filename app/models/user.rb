@@ -16,7 +16,7 @@ class User < ApplicationRecord
   MORR_ID = 1
   GUEST_ID = 5
   BANHAMMER_ID = 6_942
-  COSPLAYER_ID = 1_680
+  MESSANGER_ID = Rails.env.test? ? MORR_ID : 1_680
 
   devise(
     :database_authenticatable,

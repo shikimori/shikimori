@@ -1,7 +1,5 @@
 feature 'forgot_password' do
   feature 'first step' do
-    let(:user) { seed :user }
-
     scenario 'when success' do
       expect(user.reload.reset_password_token).to be_nil
 

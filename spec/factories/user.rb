@@ -29,16 +29,21 @@ FactoryBot.define do
 
     trait(:user) { sequence :id, 23_456_789 }
     trait(:guest) { id User::GUEST_ID }
+
+    trait :admin do
+      id User::MORR_ID
+      roles %i[admin]
+    end
     trait :banhammer do
       id User::BANHAMMER_ID
       roles %i[bot]
     end
-    trait :cosplayer do
-      id User::COSPLAYER_ID
+    trait :messanger do
+      id User::MESSANGER_ID
       roles %i[bot]
     end
 
-    Types::User::ROLES.each do |role|
+    (Types::User::ROLES - %i[admin]).each do |role|
       trait(role) { roles [role] }
     end
 
@@ -62,5 +67,8 @@ FactoryBot.define do
     trait :with_avatar do
       avatar { File.new "#{Rails.root}/spec/files/anime.jpg" }
     end
+
+    factory :user_admin, traits: %i[admin]
+    factory :user_messanger, traits: %i[messanger]
   end
 end

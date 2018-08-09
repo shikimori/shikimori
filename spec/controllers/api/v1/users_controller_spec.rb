@@ -75,9 +75,9 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#friends' do
-    let(:user) { create :user, friends: [create(:user)] }
-
+    let!(:friend_link) { create :friend_link, src: user, dst: create(:user) }
     subject! { get :friends, params: { id: user.id }, format: :json }
+
     it { expect(response).to have_http_status :success }
   end
 
@@ -131,7 +131,6 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#favourites' do
-    let(:user) { seed :user }
     let(:anime) { create :anime }
     let(:manga) { create :manga }
     let(:character) { create :character }

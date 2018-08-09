@@ -1,7 +1,4 @@
 describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_controller' } do
-  let(:user) { create :user, :user }
-  let(:admin_user) { create :user, :admin }
-
   let(:anime) { create :anime }
 
   describe '#index' do

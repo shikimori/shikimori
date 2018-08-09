@@ -80,7 +80,6 @@ describe AnimeVideoReport do
         let(:kind) { :broken }
 
         context 'user' do
-          let(:user) { create :user, :user }
           it { is_expected.to be_pending }
         end
 
@@ -108,7 +107,6 @@ describe AnimeVideoReport do
       it { is_expected.to be_zero }
 
       context 'one_user_not_filter' do
-        let(:user) { create :user, :user }
         let(:report) { create :anime_video_report, anime_video: anime_video, user: user, state: state_1 }
         before { create :anime_video_report, anime_video: anime_video, user: user, state: state_1 }
 

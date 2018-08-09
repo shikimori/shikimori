@@ -98,7 +98,7 @@ class CosplayGallery < ApplicationRecord
   end
 
   def topic_user
-    User.find User::COSPLAYER_ID
+    User.find User::MESSANGER_ID
   end
 
 private

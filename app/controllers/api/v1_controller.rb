@@ -36,8 +36,7 @@ private
     )
   end
 
-  # rubocop:disable MethodLength
-  def authenticate_user_from_token!
+  def authenticate_user_from_token! # rubocop:disable MethodLength, AbcSize
     user_token = request.headers[TOKEN_HEADER]
 
     if request.headers[LOGIN_HEADER]
@@ -61,7 +60,6 @@ private
       )
     end
   end
-  # rubocop:enable MethodLength
 
   def frontent_request?
     params[:frontend] && params[:frontend] != 'false'

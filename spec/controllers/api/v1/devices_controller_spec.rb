@@ -1,6 +1,5 @@
 describe Api::V1::DevicesController, :show_in_doc do
   include_context :authenticated, :user
-  let(:user) { create :user, :user }
 
   describe '#index' do
     let!(:device_1) { create :device, user: user }

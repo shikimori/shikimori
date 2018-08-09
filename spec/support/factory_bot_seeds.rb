@@ -2,6 +2,8 @@ require 'factory_girl-seeds'
 
 class FactoryBotSeeds
   PURE_FACTORIES = %i[
+    user_admin
+
     reviews_forum
     animanga_forum
     contests_forum
@@ -37,7 +39,7 @@ class FactoryBotSeeds
   end
 
   def self.generate!
-    create :user, id: 500_000, email: 'seed_1@gmail.com'
+    create :user, :user
     create :club, :faq
 
     # User.roles.keys.each_with_index do |role, index|
@@ -50,7 +52,9 @@ class FactoryBotSeeds
   end
 
   def self.reset_pk_sequence!
-    (PURE_FACTORIES + ADDITIONAL_MODELS_TO_RESET_PK).each do |model|
+    (
+      PURE_FACTORIES + CUSTOM_FACTORIES + ADDITIONAL_MODELS_TO_RESET_PK
+    ).each do |model|
       ActiveRecord::Base.connection.reset_pk_sequence! model.to_s.pluralize
     end
   end
