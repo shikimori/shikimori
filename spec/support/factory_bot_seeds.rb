@@ -24,6 +24,7 @@ class FactoryBotSeeds
     contests_proposals_topic
   ]
   CUSTOM_FACTORIES = %i[
+    user
     club
   ]
 
