@@ -27,7 +27,7 @@ private
 
     query
       .select("#{@klass.table_name}.*, #{matched} as matched")
-      .order("#{matched}, #{@klass.table_name}.name")
+      .order(Arel.sql("#{matched}, #{@klass.table_name}.name"))
   end
 
   # варианты, которые будем перебирать при поиске
