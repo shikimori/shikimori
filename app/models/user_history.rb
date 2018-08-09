@@ -5,9 +5,9 @@ class UserHistory < ApplicationRecord
   belongs_to :anime, foreign_key: :target_id, optional: true
   belongs_to :manga, foreign_key: :target_id, optional: true
 
-  BackwardCheckInterval = 30.minutes
-  DeleteBackwardCheckInterval = 60.minutes
-  EpisodeBackwardCheckInterval = 6.hours
+  BACKWARD_CHECK_INTERVAL = 30.minutes
+  DELETE_BACKWARD_CHECK_INTERVAL = 60.minutes
+  EPISODE_BACKWARD_CHECK_INTERVAL = 6.hours
 
   # TODO: refactor >.<
   # look at spec for additional info
@@ -59,7 +59,7 @@ class UserHistory < ApplicationRecord
           .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target: item)
           .where(action: UserHistoryAction::Delete)
-          .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
+          .where("updated_at > ?", DateTime.now - DELETE_BACKWARD_CHECK_INTERVAL)
           .order(:id)
           .first
 
@@ -69,7 +69,7 @@ class UserHistory < ApplicationRecord
         prior_entries = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target: item)
-          .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
+          .where("updated_at > ?", DateTime.now - DELETE_BACKWARD_CHECK_INTERVAL)
           .order(:id)
           .to_a
 
@@ -124,7 +124,7 @@ class UserHistory < ApplicationRecord
           .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target: item)
           .where(action: action)
-          .where("updated_at > ?", DateTime.now - EpisodeBackwardCheckInterval)
+          .where("updated_at > ?", DateTime.now - EPISODE_BACKWARD_CHECK_INTERVAL)
           .order(:id)
           .to_a
 
@@ -170,7 +170,7 @@ class UserHistory < ApplicationRecord
 
     unless no_last_this_entry_search
       entry = UserHistory
-        .where("updated_at > ?", BackwardCheckInterval.ago)
+        .where("updated_at > ?", BACKWARD_CHECK_INTERVAL.ago)
         .where(user_id: user.is_a?(Integer) ? user : user.id)
         .where(target: item)
         .where(action: action)
