@@ -11,7 +11,7 @@ module FactoryBot
 
       def unstub_method model, name
         original_method = model.instance_variable_get(
-          :"@_#{name.to_s.gsub /!/, 'ZZZ'}}"
+          :"@_#{name.to_s.gsub /!/, 'ZZZ'}"
         )
         model.define_singleton_method(name) { original_method.call }
       end
