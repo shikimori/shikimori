@@ -19,7 +19,7 @@ class FavouritesQuery
     Favourite
       .where(linked_type: klass.is_a?(Array) ? klass : klass.name)
       .group(:linked_id, :linked_type)
-      .order('count(*) desc')
+      .order(Arel.sql('count(*) desc'))
       .select(:linked_id, :linked_type)
       .limit(limit)
   end

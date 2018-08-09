@@ -70,13 +70,13 @@ private
       .where(status: :ongoing)#.where(id: 31680)
       .where(kind: [:tv, :ona]) # 15133 - спешл Aoi Sekai no Chuushin de
       .where.not(id: Anime::EXCLUDED_ONGOINGS + [15547]) # 15547 - Cross Fight B-Daman eS
-      .where('anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1')
-      .where("kind != 'ona' or anime_calendars.episode is not null")
+      .where(Arel.sql('anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1'))
+      .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
       .where(
         'episodes_aired != 0 or (aired_on is not null and aired_on > ?)',
         Time.zone.now - 1.months
       )
-      .order('animes.id')
+      .order(Arel.sql('animes.id'))
   end
 
   # выборка анонсов
@@ -85,7 +85,7 @@ private
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
       .where(status: :anons)#.where(id: 31680)
-      .where(kind: [:tv, :ona])
+      .where(kind: %i[tv ona])
       .where(episodes_aired: 0)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where(
@@ -96,13 +96,15 @@ private
         to: Time.zone.today + 1.month,
         new_year: Time.zone.today.beginning_of_year
       )
-      .where("kind != 'ona' or anime_calendars.episode is not null")
+      .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
       .where.not(
-        "anime_calendars.episode is null
-        and date_part('day', aired_on) = 1
-        and date_part('month', aired_on) = 1"
+        Arel.sql(
+          "anime_calendars.episode is null
+          and date_part('day', aired_on) = 1
+          and date_part('month', aired_on) = 1"
+        )
       )
-      .order('animes.id')
+      .order(Arel.sql('animes.id'))
   end
 
   # выкидывание просроченных аниме

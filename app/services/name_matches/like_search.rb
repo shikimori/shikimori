@@ -4,7 +4,9 @@ class NameMatches::LikeSearch < ServiceObjectBase
   JOIN_ALIAS = 'name_matches'
 
   def call
-    @scope.joins(join_sql).order('name_matches.group, name_matches.phrase')
+    @scope
+      .joins(Arel.sql(join_sql))
+      .order(Arel.sql('name_matches.group, name_matches.phrase'))
   end
 
 private

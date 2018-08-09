@@ -7,7 +7,7 @@ class AnimeVideosQuery
     Anime
       .joins(:anime_videos)
       .where(is_adult ? AnimeVideo::XPLAY_CONDITION : AnimeVideo::PLAY_CONDITION)
-      .order('max(anime_videos.created_at) desc')
+      .order(Arel.sql('max(anime_videos.created_at) desc'))
       .group('animes.id')
   end
 end

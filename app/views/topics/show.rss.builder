@@ -1,5 +1,5 @@
 comments = Rails.cache.fetch [@resource, :rss, 100] do
-  @resource.comments.limit(100).order('id desc').reverse
+  @resource.comments.limit(100).order(id: :desc).reverse
 end
 
 xml.instruct! :xml, version: "1.0"

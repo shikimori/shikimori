@@ -7,8 +7,12 @@ class ContestSuggestion < ApplicationRecord
   validates :user, presence: true
   validates :item, presence: true
 
-  scope :by_user, -> (user) { where(user_id: user.id).order(:id) }
-  scope :by_votes, -> { select('max(id) as id, item_id, item_type, count(*) as votes').group(:item_id, :item_type).order('count(*) desc') }
+  scope :by_user, ->(user) { where(user_id: user.id).order(:id) }
+  scope :by_votes, -> {
+    select('max(id) as id, item_id, item_type, count(*) as votes')
+      .group(:item_id, :item_type)
+      .order(Arel.sql('count(*) desc'))
+  }
 
   def self.suggest contest, user, item
     contest.suggestions.create!(
@@ -30,10 +34,10 @@ class ContestSuggestion < ApplicationRecord
     # удаляем все дубли
     suggestions
       .take(contest.suggestions_per_user)
-      .group_by {|v| [v.user_id, v.item_id, v.item_type] }
-      .select {|k,v| v.size > 1 }
+      .group_by { |v| [v.user_id, v.item_id, v.item_type] }
+      .select { |_k, v| v.size > 1 }
       .values
-      .map {|v| v.drop(1) }
+      .map { |v| v.drop(1) }
       .flatten
       .each(&:destroy)
   end
