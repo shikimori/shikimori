@@ -13,6 +13,7 @@ FactoryBot.define do
       stub_method model, :creation_callbacks
       stub_method model, :release_the_banhammer!
       stub_method model, :touch_commentable
+      stub_method model, :create_viewing
     end
 
     trait :with_create_viewing do

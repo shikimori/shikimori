@@ -1,4 +1,4 @@
-# TODO: refactor kind = MessageType::... в enumerize kind или в enum kind
+# TODO: refactor kind = MessageType::... into enumerize kind or into enum kind
 class Message < ApplicationRecord
   include Translation
   include Antispam
@@ -20,7 +20,6 @@ class Message < ApplicationRecord
   after_create :send_email
   after_create :send_push_notifications
 
-  # Защита от спама
   def check_antispam
     return unless with_antispam?
     return unless id.nil?
@@ -68,7 +67,7 @@ class Message < ApplicationRecord
     self
   end
 
-  # идентификатор для рсс ленты
+  # for rss feed
   def guid
     "message-#{id}"
   end
