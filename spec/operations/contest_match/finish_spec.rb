@@ -1,5 +1,4 @@
 describe ContestMatch::Finish do
-  include_context :seeds
   include_context :timecop
 
   subject(:call) { ContestMatch::Finish.call contest_match }

@@ -1,6 +1,4 @@
 describe AchievementsView do
-  include_context :seeds
-
   let(:view) { described_class.new user }
 
   let!(:animelist_1) do

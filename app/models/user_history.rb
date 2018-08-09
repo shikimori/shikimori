@@ -15,8 +15,8 @@ class UserHistory < ApplicationRecord
     user,
     item,
     action,
-    value=nil,
-    prior_value=nil
+    value = nil,
+    prior_value = nil
   )
     # при изменении на тоже самое значение ничего не делаем
     return if value && value == prior_value
@@ -33,17 +33,16 @@ class UserHistory < ApplicationRecord
 
     # аниме просмотрено и сразу же поставлена оценка
     if last_entry && (
-          (
-            action == UserHistoryAction::Status &&
-            value == UserRate.statuses[:completed] &&
-            last_entry.action == UserHistoryAction::Rate
-          ) || (
-            action == UserHistoryAction::Rate &&
-            last_entry.action == UserHistoryAction::Status &&
-            last_entry.value.to_i == UserRate.statuses[:completed]
-          )
-        )
-
+      (
+        action == UserHistoryAction::Status &&
+        value == UserRate.statuses[:completed] &&
+        last_entry.action == UserHistoryAction::Rate
+      ) || (
+        action == UserHistoryAction::Rate &&
+        last_entry.action == UserHistoryAction::Status &&
+        last_entry.value.to_i == UserRate.statuses[:completed]
+      )
+    )
       return last_entry.update(
         action: UserHistoryAction::CompleteWithScore,
         value: action == UserHistoryAction::Status ? last_entry.value : value
@@ -59,7 +58,7 @@ class UserHistory < ApplicationRecord
           .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target: item)
           .where(action: UserHistoryAction::Delete)
-          .where("updated_at > ?", DateTime.now - DELETE_BACKWARD_CHECK_INTERVAL)
+          .where('updated_at > ?', DELETE_BACKWARD_CHECK_INTERVAL.ago)
           .order(:id)
           .first
 
@@ -69,7 +68,7 @@ class UserHistory < ApplicationRecord
         prior_entries = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target: item)
-          .where("updated_at > ?", DateTime.now - DELETE_BACKWARD_CHECK_INTERVAL)
+          .where('updated_at > ?', DELETE_BACKWARD_CHECK_INTERVAL.ago)
           .order(:id)
           .to_a
 
@@ -78,64 +77,72 @@ class UserHistory < ApplicationRecord
           return
         end
         if !prior_entries.empty? && prior_entries.first.action == UserHistoryAction::Add
-          prior_entries.each {|v| v.destroy }
+          prior_entries.each(&:destroy)
           return
         else
-          prior_entries.each {|v| v.destroy }
+          prior_entries.each(&:destroy)
         end
 
       when UserHistoryAction::Rate
         # если prior_value=nil, то считаем, что это ноль
         prior_value = 0 unless prior_value
-        raise RuntimeError.new("Got prior_value #{prior_value.class.name}, but expected Integer") unless prior_value.is_a?(Integer)
-        raise RuntimeError.new("Got value #{prior_value.class.name}, but expected Integer") unless value.is_a?(Integer)
+
+        unless prior_value.is_a? Integer
+          raise "Got prior_value #{prior_value.class.name}, but expected Int"
+        end
+        unless value.is_a? Integer
+          raise "Got value #{prior_value.class.name}, but expected Int"
+        end
 
         value = 10 if value > 10
-        value = 0 if value < 0
+        value = 0 if value.negative?
 
         # если сняли оценку(поставили 0), а недавно её поставили, то удаляем обе записи
-        if value == 0 && last_entry && last_entry.action == UserHistoryAction::Rate
+        if value.zero? && last_entry && last_entry.action == UserHistoryAction::Rate
           last_entry.destroy
           return
         end
         # если поставили поставили 0, и раньше был ноль, то ничего не делаем
-        if value == 0 && prior_value == 0
-          return
-        end
+        return if value.zero? && prior_value.zero?
 
       when UserHistoryAction::Episodes, UserHistoryAction::Volumes, UserHistoryAction::Chapters
-        counter = case action
-          when UserHistoryAction::Episodes
-            'episodes'
-          when UserHistoryAction::Volumes
-            'volumes'
-          when UserHistoryAction::Chapters
-            'chapters'
-        end
+        counter =
+          case action
+            when UserHistoryAction::Episodes
+              'episodes'
+            when UserHistoryAction::Volumes
+              'volumes'
+            when UserHistoryAction::Chapters
+              'chapters'
+          end
 
         no_last_this_entry_search = true
-        raise RuntimeError.new("Got value #{value.class.name}, but expected Integer") unless value.is_a?(Integer)
+        unless value.is_a? Integer
+          raise "Got value #{value.class.name}, but expected Int"
+        end
 
         # если prior_value=nil, то считаем, что это ноль
-        prior_value = 0 unless prior_value
-        raise RuntimeError.new("Got prior_value #{prior_value.class.name}, but expected Integer") unless prior_value.is_a?(Integer)
+        prior_value ||= 0
+        unless prior_value.is_a?(Integer)
+          raise "Got prior_value #{prior_value.class.name}, but expected Int"
+        end
 
         prior_entries = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target: item)
           .where(action: action)
-          .where("updated_at > ?", DateTime.now - EPISODE_BACKWARD_CHECK_INTERVAL)
+          .where('updated_at > ?', EPISODE_BACKWARD_CHECK_INTERVAL.ago)
           .order(:id)
           .to_a
 
         if prior_entries.any? && prior_entries.last.value.size < 250
           # если предыдущее событие было с эпизодом этого же аниме,
           # то откидываем более поздние эпизоды из списка и добавляем текущий эпизод в конец списка
-          unless value == 0
+          unless value.zero?
             last_this_entry = prior_entries.last
             episode = value.to_i
             new_episodes = last_this_entry.send(counter).clone
-            last_this_entry.send(counter).reverse.each do |v|
+            last_this_entry.send(counter).reverse_each do |v|
               if v < episode
                 new_episodes << episode
                 # ситуация, когда посмотрели новые эпизоды, а отмечаем более старые
@@ -157,20 +164,20 @@ class UserHistory < ApplicationRecord
           end
 
           # если поставили 0 эпизодов, а до этого были другие эпизоды, и начинали с нуля, то удаляем все записи
-          if value == 0 && prior_entries.first.prior_value == "0"
-            prior_entries.each {|v| v.destroy }
+          if value.zero? && prior_entries.first.prior_value == '0'
+            prior_entries.each(&:destroy)
             return
           end
           # если поставили 0 эпизодов, а до этого были другие эпизоды, но начинали не с нуля, то удаляем сколько сможем и пишем записть о добавлении 0 эпизодов
-          if value == 0 && prior_entries.first.prior_value != "0"
-            prior_entries.each {|v| v.destroy }
+          if value.zero? && prior_entries.first.prior_value != '0'
+            prior_entries.each(&:destroy)
           end
         end
     end
 
     unless no_last_this_entry_search
       entry = UserHistory
-        .where("updated_at > ?", BACKWARD_CHECK_INTERVAL.ago)
+        .where('updated_at > ?', BACKWARD_CHECK_INTERVAL.ago)
         .where(user_id: user.is_a?(Integer) ? user : user.id)
         .where(target: item)
         .where(action: action)
@@ -201,34 +208,49 @@ class UserHistory < ApplicationRecord
     entry
   end
 
-  ['episodes', 'volumes', 'chapters'].each do |counter|
+  %w[episodes volumes chapters].each do |counter| # rubocop:disable BlockLength
     define_method(counter) do
       return @parsed_episodes if @parsed_episodes
-      raise RuntimeError.new("Got action:#{self.action}, but expected action:#{UserHistoryAction.const_get(counter.capitalize)}") if self.action != UserHistoryAction.const_get(counter.capitalize)
+      if action != UserHistoryAction.const_get(counter.capitalize)
+        raise <<-TEXT.squish
+          Got action:#{action}, but
+          expected action:#{UserHistoryAction.const_get counter.capitalize}
+        TEXT
+      end
 
-      @parsed_episodes = self.value.split(',').map(&:to_i)
+      @parsed_episodes = value.split(',').map(&:to_i)
     end
 
     define_method("#{counter}=") do |value|
-      raise RuntimeError.new("Got action:#{self.action}, but expected action:#{UserHistoryAction.const_get(counter.capitalize)}") if self.action != UserHistoryAction.const_get(counter.capitalize)
+      if action != UserHistoryAction.const_get(counter.capitalize)
+        raise <<-TEXT.squish
+          Got action:#{action}, but
+          expected action:#{UserHistoryAction.const_get counter.capitalize}
+        TEXT
+      end
 
       @parsed_episodes = value
       self.value = @parsed_episodes.join(',')
     end
 
     # полный список всех эпизодов с учетом прошлых эпизодов в prior_value
-    define_method("watched_#{counter}") do
-      raise RuntimeError.new("Got action:#{self.action}, but expected action:#{UserHistoryAction.const_get(counter.capitalize)}") if self.action != UserHistoryAction.const_get(counter.capitalize)
+    define_method("watched_#{counter}") do # rubocop:disable MethodLength
+      if action != UserHistoryAction.const_get(counter.capitalize)
+        raise <<-TEXT.squish
+          Got action:#{action}, but
+          expected action:#{UserHistoryAction.const_get counter.capitalize}
+        TEXT
+      end
 
-      if self.send(counter).last && self.send(counter).last < prior_value.to_i
-        [self.send(counter).last]
+      if send(counter).last && send(counter).last < prior_value.to_i
+        [send(counter).last]
       else
-        e_start = self.prior_value ? self.prior_value.to_i + 1 : self.episodes.first
-        e_end = self.send(counter).last
+        e_start = prior_value ? prior_value.to_i + 1 : episodes.first
+        e_end = send(counter).last
         # бывает и такое. ушлые пользователи
-        e_end = self.send(counter)[-2] || 0 if e_end > UserRate::MAXIMUM_EPISODES
+        e_end = send(counter)[-2] || 0 if e_end > UserRate::MAXIMUM_EPISODES
 
-        e_start.upto(e_end).inject([]) {|all,v| all << v }
+        e_start.upto(e_end).inject([]) { |all, v| all << v }
       end
     end
   end

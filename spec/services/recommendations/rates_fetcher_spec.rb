@@ -1,6 +1,4 @@
 describe Recommendations::RatesFetcher do
-  include_context :seeds
-
   let(:service) { described_class.new klass, user_ids }
   let(:klass) { Anime }
   let(:user_ids) { nil }

@@ -56,7 +56,7 @@ describe Topics::Generate::Topic do
 
   context 'cosplay gallery' do
     let(:model) { create :cosplay_gallery }
-    let(:user) { seed :cosplay_user }
+    let(:user) { create :user }
     it_behaves_like :topic
   end
 

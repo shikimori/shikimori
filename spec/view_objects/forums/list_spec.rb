@@ -1,5 +1,4 @@
 describe Forums::List do
-  include_context :seeds
   include_context :view_object_warden_stub
 
   let(:user) { seed :user }

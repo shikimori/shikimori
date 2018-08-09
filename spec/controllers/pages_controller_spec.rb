@@ -1,5 +1,4 @@
 describe PagesController do
-  include_context :seeds
   let(:user) { create :user }
 
   describe '#ongoings' do

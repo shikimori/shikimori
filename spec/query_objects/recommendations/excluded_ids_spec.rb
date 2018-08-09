@@ -1,6 +1,4 @@
 describe Recommendations::ExcludedIds do
-  include_context :seeds
-
   let(:animes) { create_list :anime, 9 }
   let(:user_2) { create :user }
 

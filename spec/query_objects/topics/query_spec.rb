@@ -1,10 +1,19 @@
 describe Topics::Query do
-  include_context :seeds
-
   subject(:query) { Topics::Query.fetch user, locale }
 
   let(:locale) { :ru }
   let(:is_censored_forbidden) { false }
+
+  let(:all_sticky_topics) do
+    [
+      offtopic_topic,
+      site_rules_topic,
+      description_of_genres_topic,
+      ideas_and_suggestions_topic,
+      site_problems_topic,
+      contests_proposals_topic
+    ]
+  end
 
   describe '#result' do
     context 'domain matches topic locale' do

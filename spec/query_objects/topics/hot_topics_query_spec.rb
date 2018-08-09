@@ -1,6 +1,4 @@
 describe Topics::HotTopicsQuery do
-  include_context :seeds
-
   subject { Topics::HotTopicsQuery.call 'ru' }
 
   describe '#call' do
