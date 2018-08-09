@@ -1,12 +1,8 @@
 describe Search::SearchBase, :vcr do
-  around { |example| Chewy.strategy(:urgent) { example.run } }
-  before do
-    # VCR.configure { |c| c.ignore_request { |_request| true } }
-    # Chewy.logger = ActiveSupport::Logger.new(STDOUT)
-    # Chewy.transport_logger = ActiveSupport::Logger.new(STDOUT)
-    ActiveRecord::Base.connection.reset_pk_sequence! :users
-    UsersIndex.purge!
-  end
+  # include_context :disable_vcr
+  include_context :chewy_urgent
+  include_context :chewy_indexes, %i[users]
+  # include_context :chewy_logger
 
   subject { Search::User.call scope: scope, phrase: phrase, ids_limit: ids_limit }
 
