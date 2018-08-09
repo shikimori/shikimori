@@ -9,8 +9,6 @@ describe ClubRole do
     it { is_expected.to validate_presence_of :club }
     it { is_expected.to validate_presence_of :role }
 
-    let(:club) { create :club }
-
     it 'uniq index on user_id+club_id is_expected.to work' do
       expect {
         expect {
@@ -22,13 +20,14 @@ describe ClubRole do
   end
 
   context 'invites' do
+    let(:user_2) { create :user }
     let(:club) { create :club, owner: user_2 }
 
     let!(:invite) { create :club_invite, src: user_2, dst: user, club: club }
     let!(:club_role) { create :club_role, club_id: club.id, user_id: user.id }
 
     it { expect(invite.reload).to be_closed }
-    it { expect { club_role.destroy }.to change(ClubInvite, :count).by -1 }
+    it { expect { club_role.destroy }.to change(ClubInvite, :count).by(-1) }
   end
 
   describe 'permissions' do

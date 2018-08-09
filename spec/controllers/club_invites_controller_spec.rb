@@ -1,5 +1,4 @@
 describe ClubInvitesController do
-  let(:club) { create :club }
   include_context :authenticated, :user
 
   describe '#create' do

@@ -2,6 +2,7 @@ describe Clubs::CommentsController do
   before { sign_in user }
 
   let(:club) { create :club }
+  let(:user) { create :user }
   let!(:club_role) { create :club_role, role, user: user, club: club }
 
   describe '#broadcast' do

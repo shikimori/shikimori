@@ -2,7 +2,7 @@ class ClubInvite < ApplicationRecord
   belongs_to :club
   belongs_to :src, class_name: User.name, foreign_key: :src_id
   belongs_to :dst, class_name: User.name, foreign_key: :dst_id
-  # сообщение о приглашении
+  # invite messages
   belongs_to :message, dependent: :destroy, optional: true
 
   enumerize :status,

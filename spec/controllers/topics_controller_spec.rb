@@ -112,7 +112,6 @@ describe TopicsController do
       end
 
       context 'club linked' do
-        let(:club) { create :club }
         before do
           get :index,
             params: {
