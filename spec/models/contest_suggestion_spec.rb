@@ -11,7 +11,6 @@ describe ContestSuggestion do
     it { should validate_presence_of :item }
   end
 
-  let(:user) { create :user }
   let(:contest) { create :contest }
   let(:item) { create :anime }
 

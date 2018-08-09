@@ -5,7 +5,6 @@ describe RecommendationIgnore do
   end
 
   context 'class_methods' do
-    let(:user) { create :user }
     let(:anime1) { create :anime, kind: :special }
     let(:anime2) { create :anime }
     let(:anime3) { create :anime }

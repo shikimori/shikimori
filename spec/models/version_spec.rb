@@ -144,7 +144,6 @@ describe Version do
           user: user,
           moderator: moderator
       end
-      let(:user) { create :user }
 
       context 'user == moderator' do
         let(:moderator) { user }
@@ -165,7 +164,6 @@ describe Version do
           user: user,
           moderator: moderator
       end
-      let(:user) { create :user }
 
       context 'user == moderator' do
         let(:moderator) { user }

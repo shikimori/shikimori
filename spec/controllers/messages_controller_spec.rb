@@ -37,7 +37,6 @@ describe MessagesController do
   end
 
   describe '#preview' do
-    let(:user) { create :user }
     before { post :preview, params: { message: { body: 'test', from_id: user.id, to_id: user.id, kind: MessageType::Private } } }
 
     it { expect(response).to have_http_status :success }

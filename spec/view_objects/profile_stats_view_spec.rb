@@ -1,6 +1,4 @@
 describe ProfileStatsView do
-  let(:user) { create :user }
-
   let(:profile_stats) do
     ProfileStats.new(
       spent_time: spent_time,

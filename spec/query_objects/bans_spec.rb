@@ -1,8 +1,6 @@
 describe BansQuery do
   let(:query) { BansQuery.new }
 
-  let(:user) { create :user }
-
   let!(:ban_1) { create :ban, user: user, moderator: user, comment: create(:comment, user: user) }
   let!(:ban_2) { create :ban, user: user, moderator: user }
   let!(:ban_3) { create :ban, user: user, moderator: user }
@@ -38,4 +36,3 @@ describe BansQuery do
     end
   end
 end
-

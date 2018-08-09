@@ -43,7 +43,6 @@ describe AnimeVideosService do
         subject { video.reports.first }
 
         context 'with user' do
-          let(:user) { create :user }
           it { is_expected.to have_attributes user_id: user.id, kind: 'uploaded' }
         end
 

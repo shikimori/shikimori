@@ -16,13 +16,12 @@ class FactoryBotSeeds
     ideas_and_suggestions_topic
     site_problems_topic
     contests_proposals_topic
-
-    faq_club
   ]
-  PLUS_MODELS_TO_RESET = %i[forum topic]
-  FACTORIES = %i[
+  CUSTOM_FACTORIES = %i[
     user
-  ] + PURE_FACTORIES
+    club
+  ]
+  ADDITIONAL_MODELS_TO_RESET_PK = %i[forum topic]
 
   module SharedContext
     extend RSpec::Core::SharedContext
@@ -31,13 +30,15 @@ class FactoryBotSeeds
     #   let(:"user_#{role}") { seed :"user_#{role}" }
     # end
 
-    FACTORIES.each do |model|
+    (PURE_FACTORIES + CUSTOM_FACTORIES).each do |model|
       let(model) { seed model }
     end
+    let(:faq_club) { club }
   end
 
   def self.generate!
     create :user, id: 500_000, email: 'seed_1@gmail.com'
+    create :club, :faq
 
     # User.roles.keys.each_with_index do |role, index|
     #   create :"user_#{role}", id: 1000 + index
@@ -49,7 +50,7 @@ class FactoryBotSeeds
   end
 
   def self.reset_pk_sequence!
-    (PURE_FACTORIES + PLUS_MODELS_TO_RESET).each do |model|
+    (PURE_FACTORIES + ADDITIONAL_MODELS_TO_RESET_PK).each do |model|
       ActiveRecord::Base.connection.reset_pk_sequence! model.to_s.pluralize
     end
   end

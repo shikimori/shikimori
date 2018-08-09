@@ -1,6 +1,4 @@
 describe PagesController do
-  let(:user) { create :user }
-
   describe '#ongoings' do
     let!(:ongoing) { create :anime, :ongoing }
     let!(:anons) { create :anime, :anons }

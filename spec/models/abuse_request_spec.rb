@@ -21,7 +21,6 @@ describe AbuseRequest do
   end
 
   context 'scopes' do
-    let(:user) { create :user }
     let(:comment) { create :comment, user: user }
 
     describe 'pending' do
@@ -41,7 +40,6 @@ describe AbuseRequest do
   end
 
   describe 'state_machine' do
-    let(:user) { create :user }
     subject(:abuse_request) { create :abuse_request, user: user }
 
     describe '#take' do

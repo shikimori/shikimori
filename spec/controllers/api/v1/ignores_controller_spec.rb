@@ -1,5 +1,4 @@
 describe Api::V1::IgnoresController do
-  let(:user) { create :user }
   let(:user_2) { create :user, id: 1234567, nickname: 'user_1234567' }
 
   describe '#create' do

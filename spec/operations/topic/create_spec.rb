@@ -3,7 +3,6 @@
 describe Topic::Create do
   subject(:topic) { Topic::Create.call faye, params, locale }
 
-  let(:user) { create :user }
   let(:faye) { FayeService.new user, nil }
   let(:locale) { :en }
 

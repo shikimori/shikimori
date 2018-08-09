@@ -4,8 +4,6 @@ describe Viewing::BulkCreate do
   subject(:call) { operation.call user, viewed_klass, viewed_ids }
   let(:operation) { Viewing::BulkCreate.new }
 
-  let(:user) { create :user }
-
   shared_examples_for :viewed do
     context '1 viewed id' do
       let(:viewed_ids) { [viewed_1.id] }

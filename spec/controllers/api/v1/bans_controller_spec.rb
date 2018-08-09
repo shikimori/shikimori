@@ -1,7 +1,5 @@
 describe Api::V1::BansController, :show_in_doc do
   describe '#index' do
-    let(:user) { create :user }
-
     let!(:ban_1) { create :ban, user: user, moderator: user, comment: create(:comment, user: user) }
     let!(:ban_2) { create :ban, user: user, moderator: user }
 

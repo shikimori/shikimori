@@ -3,7 +3,6 @@
 describe Club::Create do
   subject(:club) { Club::Create.call params, locale }
 
-  let(:user) { create :user }
   let(:locale) { :en }
 
   context 'valid params' do

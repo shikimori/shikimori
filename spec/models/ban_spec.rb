@@ -12,13 +12,12 @@ describe Ban do
     it { is_expected.to validate_presence_of :duration }
     it { is_expected.to validate_presence_of :reason }
 
-    #it { is_expected.to validate_presence_of :comment }
-    #it { is_expected.to validate_presence_of :abuse_request }
+    # it { is_expected.to validate_presence_of :comment }
+    # it { is_expected.to validate_presence_of :abuse_request }
   end
 
   let(:duration) { 60 }
   let(:reason) { 'test' }
-  let(:user) { create :user }
   let(:moderator) { user }
   let(:comment) { create :comment, user: user }
   let(:params) do

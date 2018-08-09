@@ -2,8 +2,6 @@ describe Comments::ExtractQuoted do
   let(:service) { Comments::ExtractQuoted.new }
 
   describe '#extract' do
-    let(:user) { create :user }
-
     subject { service.call text }
 
     describe 'no text' do
