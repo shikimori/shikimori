@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 describe ClubsController do
-  let(:club) { create :club }
-
   describe '#index' do
     let!(:club) { create :club, :with_topics, id: 999_999 }
     let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
@@ -117,13 +115,11 @@ describe ClubsController do
   end
 
   describe '#members' do
-    let(:club) { create :club }
     before { get :members, params: { id: club.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#images' do
-    let(:club) { create :club }
     before { get :images, params: { id: club.to_param } }
     it { expect(response).to have_http_status :success }
   end

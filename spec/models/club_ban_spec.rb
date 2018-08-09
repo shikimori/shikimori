@@ -10,6 +10,7 @@ describe ClubBan do
   end
 
   describe 'callbacks' do
+    let(:user) { create :user }
     let(:club) { create :club }
 
     context 'member' do

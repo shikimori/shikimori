@@ -107,7 +107,6 @@ describe Club do
 
     describe '#ban' do
       let(:user) { create :user }
-      let(:club) { create :club }
       before { club.ban user }
 
       it { expect(club.banned? user).to be true }
@@ -115,7 +114,6 @@ describe Club do
 
     describe '#join' do
       let(:user) { create :user }
-      let(:club) { create :club }
       before { club.join user }
 
       it { expect(club.reload.club_roles_count).to eq 1 }

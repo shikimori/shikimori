@@ -1,6 +1,4 @@
 describe Api::V1::ClubsController, :show_in_doc do
-  let(:club) { create :club }
-
   describe '#index' do
     include_context :timecop
 

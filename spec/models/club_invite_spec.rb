@@ -17,8 +17,7 @@ describe ClubInvite do
 
     describe 'uniqueness validation' do
       let(:club_invite) { build :club_invite, dst: to, club: club }
-      let(:club) { create :club }
-      let(:to) { build_stubbed :user }
+      let(:to) { user }
       let!(:club_invite_2) { create :club_invite, dst: to, club: club }
 
       before { club_invite.save }
@@ -35,8 +34,7 @@ describe ClubInvite do
     let(:club_invite) do
       build :club_invite, src: from, dst: to, club: club, status: status
     end
-    let(:club) { create :club }
-    let(:from) { build_stubbed :user }
+    let(:from) { user }
     let(:to) { build_stubbed :user }
     let(:status) { Types::ClubInvite::Status[:pending] }
 
