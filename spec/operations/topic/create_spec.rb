@@ -32,8 +32,7 @@ describe Topic::Create do
     it do
       expect(topic).to be_new_record
       expect(topic).to have_attributes params.merge(locale: locale.to_s)
-      expect(topic.errors).to have(1).item
+      expect(topic.errors).to be_present
     end
   end
 end
-
