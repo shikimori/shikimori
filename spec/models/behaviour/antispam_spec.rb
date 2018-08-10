@@ -15,21 +15,21 @@ describe Antispam do
     it 'works' do
       create :comment, :with_antispam, user: user, commentable: topic
 
-      expect {
-        expect {
+      expect(-> {
+        expect(-> {
           create :comment, :with_antispam, user: user, commentable: topic
-        }.to raise_error ActiveRecord::RecordNotSaved
-      }.to_not change Comment, :count
+        }).to raise_error ActiveRecord::RecordNotSaved
+      }).to_not change Comment, :count
     end
 
     it 'can be disabled' do
       create :comment, :with_antispam, user: user, commentable: topic
 
-      expect {
+      expect(-> {
         Comment.wo_antispam do
           create :comment, :with_antispam, user: user, commentable: topic
         end
-      }.to change(Comment, :count).by 1
+      }).to change(Comment, :count).by 1
     end
   end
 end

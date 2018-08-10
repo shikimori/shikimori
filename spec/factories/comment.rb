@@ -31,23 +31,23 @@ FactoryBot.define do
     end
 
     trait :with_antispam do
-      after(:build) { |comment| comment.unstub :check_antispam }
+      after(:build) { |model| unstub_method model, :check_antispam }
     end
 
     trait :with_counter_cache do
-      after(:build) { |comment| comment.unstub :increment_comments }
+      after(:build) { |model| unstub_method model, :increment_comments }
     end
 
     trait :with_creation_callbacks do
-      after(:build) { |comment| comment.unstub :creation_callbacks }
+      after(:build) { |model| unstub_method model, :creation_callbacks }
     end
 
     trait :with_banhammer do
-      after(:build) { |comment| comment.unstub :release_the_banhammer! }
+      after(:build) { |model| unstub_method model, :release_the_banhammer! }
     end
 
     trait :with_touch_commentable do
-      after(:build) { |comment| comment.unstub :touch_commentable }
+      after(:build) { |model| unstub_method model, :touch_commentable }
     end
 
   end
