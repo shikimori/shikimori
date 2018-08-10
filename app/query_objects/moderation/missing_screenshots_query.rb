@@ -2,6 +2,10 @@ class Moderation::MissingScreenshotsQuery
   prepend ActiveCacher.instance
 
   LIMIT = 200
+  ORDER_SQL = <<~SQL.squish
+    (case when #{Anime.table_name}.status='ongoing' then 1 else 2 end),
+    #{Anime.table_name}.ranked
+  SQL
 
   def fetch
     Anime
@@ -11,8 +15,7 @@ class Moderation::MissingScreenshotsQuery
       .where(screenshots: { id: nil })
       .where(Moderation::MissingVideosQuery::ANIME_CONDITION)
       .having('count(*) = 1')
-      .order("(case when #{Anime.table_name}.status='ongoing' then 1 else 2 end),
-        #{Anime.table_name}.ranked")
+      .order(Arel.sql(ORDER_SQL))
       .limit(LIMIT)
       .to_a
   end
