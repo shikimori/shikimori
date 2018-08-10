@@ -1,22 +1,20 @@
 describe Dialog do
-  let(:user) { build_stubbed :user }
-  let(:target_user) { build_stubbed :user }
   let(:message) do
     build_stubbed :message,
-      from: user,
-      to: target_user,
+      from: user_1,
+      to: user_2,
       read: false
   end
-  subject(:dialog) { Dialog.new user, message }
+  subject(:dialog) { Dialog.new user_1, message }
 
   describe '#target_user' do
     context 'message from user' do
-      its(:target_user) { is_expected.to eq target_user }
+      its(:target_user) { is_expected.to eq user_2 }
     end
 
     context 'message to user' do
-      let(:message) { build_stubbed :message, to: user, from: target_user }
-      its(:target_user) { is_expected.to eq target_user }
+      let(:message) { build_stubbed :message, to: user_1, from: user_2 }
+      its(:target_user) { is_expected.to eq user_2 }
     end
   end
 
@@ -30,7 +28,7 @@ describe Dialog do
     end
 
     context 'message to user' do
-      let(:message) { build_stubbed :message, to: user, from: target_user, read: false }
+      let(:message) { build_stubbed :message, to: user_1, from: user_2, read: false }
       its(:read) { is_expected.to eq false }
     end
   end
@@ -41,21 +39,20 @@ describe Dialog do
     end
 
     context 'message to user' do
-      let(:message) { build_stubbed :message, to: user, from: target_user }
+      let(:message) { build_stubbed :message, to: user_1, from: user_2 }
       its(:my_message?) { is_expected.to eq false }
     end
   end
 
   describe '#messages' do
-    let!(:message_to) { create :message, from: target_user, to: user }
-    let!(:message_from) { create :message, from: user, to: target_user }
+    let!(:message_to) { create :message, from: user_2, to: user_1 }
+    let!(:message_from) { create :message, from: user_1, to: user_2 }
     its(:messages) { is_expected.to eq [message_to, message_from] }
   end
 
   describe '#destroy' do
-    let(:target_user) { user }
-    let!(:message_to) { create :message, from: target_user, to: user }
-    let!(:message_from) { create :message, from: user, to: target_user }
+    let!(:message_to) { create :message, from: user_2, to: user_1 }
+    let!(:message_from) { create :message, from: user_1, to: user_2 }
 
     before { dialog.destroy }
 
@@ -72,8 +69,8 @@ describe Dialog do
       is_expected.to be_kind_of Message
       is_expected.to have_attributes(
         body: '',
-        from_id: user.id,
-        to_id: target_user.id,
+        from_id: user_1.id,
+        to_id: user_2.id,
         kind: MessageType::Private
       )
       is_expected.to be_new_record
@@ -81,8 +78,8 @@ describe Dialog do
   end
 
   describe '#dialog' do
-    let(:user) { build_stubbed :user, id: 2 }
-    let(:target_user) { build_stubbed :user, id: 1 }
+    let(:user_1) { build_stubbed :user, id: 2 }
+    let(:user_2) { build_stubbed :user, id: 1 }
 
     its(:faye_channel) { is_expected.to eq ['dialog-1-2'] }
   end
