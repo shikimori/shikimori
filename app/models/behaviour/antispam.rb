@@ -42,8 +42,8 @@ module Antispam
     prior_entry = self.class.where(user_id: user_id).order(id: :desc).first
     return unless prior_entry
 
-    seconds_to_wait =
-      ANTISPAM_INTERVAL.from_now.to_i - prior_entry.created_at.to_i
+    seconds_to_wait = ANTISPAM_INTERVAL -
+      (Time.zone.now.to_i - prior_entry.created_at.to_i)
     return unless seconds_to_wait.positive?
 
     errors.add(
