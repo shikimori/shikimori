@@ -34,9 +34,7 @@ class Dialog
   end
 
   def destroy
-    messages.each do |message|
-      message.delete_by user
-    end
+    messages.each { |message| message.delete_by user }
   end
 
   def new_message replied_message = nil
