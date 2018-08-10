@@ -92,7 +92,8 @@ Style/RescueModifier:
   Enabled: false
 Style/BlockComments:
   Enabled: false
-
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 
