@@ -8,6 +8,8 @@ module Antispam
     @antispam = true
   end
 
+  ANTISPAM_INTERVAL = 3.seconds
+
   module ClassMethods
     attr_accessor :antispam
 
@@ -34,25 +36,31 @@ module Antispam
     self.class.with_antispam?
   end
 
-  def check_antispam
-    return if id # если id есть, значит это редактирование
-    return unless with_antispam?
-    return if user.admin? || user.bot?
+  def check_antispam # rubocop:disable MethodLength, AbcSize
+    return unless need_antispam_check?
 
-    prior = self
-      .class
-      .where(user_id: user_id)
-      .order(id: :desc)
-      .first
+    prior_entry = self.class.where(user_id: user_id).order(id: :desc).first
+    return unless prior_entry
 
-    if prior && DateTime.now.to_i - prior.created_at.to_i < 3
-      interval = 3 - (DateTime.now.to_i - prior.created_at.to_i)
-      seconds = i18n_i('datetime.second', interval, :accusative)
-      errors.add(
-        :base,
-        I18n.t('message.antispam', interval: interval, seconds: seconds)
+    seconds_to_wait =
+      ANTISPAM_INTERVAL.from_now.to_i - prior_entry.created_at.to_i
+    return unless seconds_to_wait.positive?
+
+    errors.add(
+      :base,
+      I18n.t(
+        'message.antispam',
+        interval: seconds_to_wait,
+        seconds: i18n_i('datetime.second', seconds_to_wait, :accusative)
       )
-      throw :abort
-    end
+    )
+    throw :abort
+  end
+
+  def need_antispam_check?
+    return false if id # it's editing if we have 'id'
+    return false unless with_antispam?
+
+    !user.admin? && !user.bot?
   end
 end
