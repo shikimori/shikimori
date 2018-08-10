@@ -233,14 +233,14 @@ class User < ApplicationRecord
     user_tokens.empty?
   end
 
-  #TODO: remove
+  # TODO: remove
   def all_history
     @all_history ||= history
       .includes(:anime, :manga)
       .order(updated_at: :desc, id: :desc)
   end
 
-  #TODO: remove
+  # TODO: remove
   def anime_history
     @anime_history ||= history
       .where(target_type: [Anime.name, Manga.name])
@@ -248,11 +248,11 @@ class User < ApplicationRecord
   end
 
   def to_param
-    nickname.gsub(/ /, '+')
+    nickname.tr(' ', '+')
   end
 
   def self.param_to text
-    text.gsub(/\+/, ' ')
+    text.tr('+', ' ')
   end
 
   # мужчина ли это
@@ -298,14 +298,17 @@ class User < ApplicationRecord
   def can_vote? contest
     contest.started? && self[contest.user_vote_key]
   end
+
   # может ли пользователь сейчас голосовать за первый турнир?
   def can_vote_1?
     can_vote_1
   end
+
   # может ли пользователь сейчас голосовать за второй турнир?
   def can_vote_2?
     can_vote_2
   end
+
   # может ли пользователь сейчас голосовать за третий турнир?
   def can_vote_3?
     can_vote_3
@@ -358,8 +361,11 @@ class User < ApplicationRecord
 
   def avatar_url size
     if censored_avatar?
-      "//www.gravatar.com/avatar/%s?s=%i&d=identicon" %
-        [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
+      format(
+        '//www.gravatar.com/avatar/%<email_hash>s?s=%<size>i&d=identicon',
+        email_hash: Digest::MD5.hexdigest('takandar+censored@gmail.com'),
+        size: size
+      )
     else
       ImageUrlGenerator.instance.url self, "x#{size}".to_sym
     end
@@ -403,10 +409,13 @@ private
 
   def grab_avatar
     return if avatar.exists?
-    gravatar_url = 'http://www.gravatar.com/avatar/%s?s=%i&d=identicon' %
-      [Digest::MD5.hexdigest(email.downcase), 160]
+    gravatar_url = format(
+      'http://www.gravatar.com/avatar/%<email_hash>s?s=%<size>i&d=identicon',
+      email_hash: Digest::MD5.hexdigest(email.downcase),
+      size: 160
+    )
 
-    update avatar: open(gravatar_url)
+    update avatar: OpenURI.open_uri(gravatar_url)
   rescue *Network::FaradayGet::NET_ERRORS
     update avatar: open('app/assets/images/globals/missing_avatar/x160.png')
   end
