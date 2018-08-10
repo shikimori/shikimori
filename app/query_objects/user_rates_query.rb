@@ -29,7 +29,7 @@ class UserRatesQuery
         .group(:status)
         .count
         .sort_by(&:first)
-        .select {|k,v| k != UserRate.statuses['rewatching'] }
+        .reject { |k, _v| k == UserRate.statuses['rewatching'] }
     ]
   end
 
@@ -41,7 +41,7 @@ class UserRatesQuery
         .count
         .sort_by(&:first)
         .reverse
-        .select {|k,v| k != 0 }
+        .reject { |k, _v| k.zero? }
     ]
   end
 end

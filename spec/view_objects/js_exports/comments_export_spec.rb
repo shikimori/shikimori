@@ -33,12 +33,14 @@ describe JsExports::CommentsExport do
     end
 
     let(:comment_1) { create :comment, user: user_1 }
-    let(:comment_2) { create :comment }
+    let(:comment_2) { create :comment, user: user_2 }
 
-    let(:user_1) { create :user, :day_registered }
-    let(:user_2) { create :user }
+    let(:user_1) { user_day_registered }
+    let(:user_2) { seed(:user) }
 
-    let!(:comment_viewing_2) { create :comment_viewing, viewed: comment_2, user: user_2 }
+    let!(:comment_viewing_2) do
+      create :comment_viewing, viewed: comment_2, user: user_1
+    end
 
     context 'user 1' do
       subject { tracker.export user_1 }
@@ -46,16 +48,16 @@ describe JsExports::CommentsExport do
       it do
         is_expected.to eq [{
           id: comment_1.id,
-          is_viewed: true,
+          is_viewed: false,
           user_id: comment_1.user_id,
           can_destroy: true,
-          can_edit: true,
+          can_edit: true
         }, {
           id: comment_2.id,
-          is_viewed: false,
+          is_viewed: true,
           user_id: comment_2.user_id,
           can_destroy: false,
-          can_edit: false,
+          can_edit: false
         }]
       end
     end
@@ -69,13 +71,13 @@ describe JsExports::CommentsExport do
           is_viewed: false,
           user_id: comment_1.user_id,
           can_destroy: false,
-          can_edit: false,
+          can_edit: false
         }, {
           id: comment_2.id,
-          is_viewed: true,
+          is_viewed: false,
           user_id: comment_2.user_id,
           can_destroy: false,
-          can_edit: false,
+          can_edit: false
         }]
       end
     end

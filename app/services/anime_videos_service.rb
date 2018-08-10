@@ -21,7 +21,6 @@ private
     Versioneers::FieldsVersioneer
       .new(video)
       .postmoderate(@params, current_user, reason)
-
   rescue StateMachine::InvalidTransition
   end
 
@@ -33,7 +32,7 @@ private
     )
   end
 
-  def no_changes? video
+  def no_changes? video # rubocop:disable AbcSize
     video.author_name == @params[:author_name] &&
       video.episode == @params[:episode] &&
       video[:kind] == @params[:kind] &&

@@ -28,7 +28,6 @@ FactoryBot.define do
     end
 
     trait :user do
-      sequence :id, 23_456_789
       sequence(:nickname) { |v| "user_user ##{v}" }
     end
     trait(:guest) { id User::GUEST_ID }

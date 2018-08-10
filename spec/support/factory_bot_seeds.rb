@@ -49,7 +49,7 @@ class FactoryBotSeeds
   end
 
   def self.generate!
-    create :user, :user
+    create :user, nickname: 'user_user', id: 23_456_789
     create :club, :faq
 
     # User.roles.keys.each_with_index do |role, index|

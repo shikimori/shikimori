@@ -1,8 +1,6 @@
 describe UserRatesQuery do
-  let(:user_2) { create :user }
-  let(:user_3) { create :user }
   let(:user_4) { create :user }
-  let(:entr_cy) { create :anime }
+  let(:entry) { create :anime }
 
   before do
     create :friend_link, src: user, dst: user_2

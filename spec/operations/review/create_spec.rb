@@ -44,7 +44,7 @@ describe Review::Create do
     end
     it do
       expect(review).to be_new_record
-      expect(review.errors).to have(1).item
+      expect(review.errors).to be_present
       expect(review.topics).to be_empty
     end
   end

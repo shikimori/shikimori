@@ -5,9 +5,9 @@ describe CosplayQuery do
   before do
     characters.each do |character|
       create :cosplay_gallery, links: [
-          create(:cosplay_gallery_link, linked: character),
-          create(:cosplay_gallery_link, linked: create(:cosplayer))
-        ]
+        build(:cosplay_gallery_link, linked: character),
+        build(:cosplay_gallery_link, linked: create(:cosplayer))
+      ]
     end
   end
 

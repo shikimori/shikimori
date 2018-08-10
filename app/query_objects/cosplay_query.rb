@@ -21,6 +21,7 @@ class CosplayQuery
   end
 
 private
+
   def gallery_ids_by_entry entry
     CosplayGalleryLink
       .where(linked_id: entry.id, linked_type: entry.class.name)
