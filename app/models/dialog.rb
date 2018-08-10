@@ -44,7 +44,10 @@ class Dialog
       from_id: user.id,
       to_id: target_user.id,
       kind: MessageType::Private,
-      body: replied_message ? "[message=#{replied_message.id}]#{replied_message.from.nickname}[/message], " : ''
+      body: replied_message ?
+        "[message=#{replied_message.id}]" + replied_message.from.nickname +
+        '[/message], ' :
+        ''
     )
   end
 
