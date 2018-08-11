@@ -36,16 +36,25 @@ class TopicsController < ShikimoriController
   end
 
   def show
-    raise AgeRestricted if @resource&.linked.try(:censored?) && censored_forbidden?
+    if @resource&.linked.try(:censored?) && censored_forbidden?
+      raise AgeRestricted
+    end
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
 
     # новости аниме без комментариев поисковым системам не скармливаем
-    og noindex: true, nofollow: true if @resource.generated? && @resource.comments_count.zero?
+    if @resource.generated? && @resource.comments_count.zero?
+      og noindex: true, nofollow: true
+    end
   end
 
   def new
     topic_type_policy = Topic::TypePolicy.new(@resource)
-    og page_title: i18n_t("new_#{topic_type_policy.news_topic? ? :news : :topic}")
+
+    og(
+      page_title: i18n_t(
+        "new_#{topic_type_policy.news_topic? ? :news : :topic}"
+      )
+    )
   end
 
   def edit
@@ -129,9 +138,9 @@ private
       end
     allowed_params += [:broadcast] if current_user&.admin?
 
-    params[:topic][:body] = Topics::ComposeBody.call(params[:topic])
-
-    params.require(:topic).permit(*allowed_params)
+    params.require(:topic).permit(*allowed_params).tap do |allowed_params|
+      allowed_params[:body] = Topics::ComposeBody.call(params[:topic])
+    end
   end
 
   def set_view
@@ -175,7 +184,12 @@ private
       end
 
       if @forums_view.linked
-        og page_title: UsersHelper.localized_name(@forums_view.linked, current_user)
+        og(
+          page_title: UsersHelper.localized_name(
+            @forums_view.linked,
+            current_user
+          )
+        )
       end
     end
   end

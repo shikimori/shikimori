@@ -11,12 +11,17 @@ page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
 
   initial_linked_type = $('#topic_linked_type').val() ||
     $('option', LINKED_TYPE_USER_SELECT).val()
+
   $(LINKED_TYPE_USER_SELECT)
     .on 'change', ->
       $linked_type.val @value
       $topic_linked
-        .data autocomplete: $topic_linked.data("#{@value.toLowerCase()}-autocomplete")
-        .attr placeholder: $topic_linked.data("#{@value.toLowerCase()}-placeholder")
+        .data autocomplete: (
+          $topic_linked.data("#{@value.toLowerCase()}-autocomplete")
+        )
+        .attr placeholder: (
+          $topic_linked.data("#{@value.toLowerCase()}-placeholder")
+        )
         .trigger('flushCache')
     .val(initial_linked_type)
     .trigger('change')
@@ -43,7 +48,10 @@ page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
       @value = ''
 
       $topic_link.find('a').remove()
-      $topic_link.prepend("<a href='/#{$linked_type.val().toLowerCase()}s/#{entry.id}' class='bubbled b-link'>#{entry.name}</a>")
+      $topic_link.prepend(
+        "<a href='/#{$linked_type.val().toLowerCase()}s/#{entry.id}' \
+        class='bubbled b-link'>#{entry.name}</a>"
+      )
       $topic_link.process()
 
       $topic_linked.hide()
