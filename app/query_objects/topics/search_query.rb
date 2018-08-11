@@ -21,7 +21,7 @@ private
     if @forum
       pick_forum_id
 
-    elsif user
+    elsif @user
       @user.preferences.forums.map(&:to_i) + [Forum::CLUBS_ID]
 
     else

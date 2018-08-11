@@ -20,6 +20,7 @@ describe ProfileStatsView do
       publishers: {}
     )
   end
+  let(:user) { user_2 }
   let(:stats) { ProfileStatsView.new(profile_stats) }
 
   let(:anime_spent_time) {}

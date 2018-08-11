@@ -48,6 +48,7 @@ describe Topics::SearchQuery do
         let(:forum) { nil }
 
         context 'user is set' do
+          let(:user) { seed :user }
           let(:forum_id) { user.preferences.forums.map(&:to_i) + [Forum::CLUBS_ID] }
 
           it do
