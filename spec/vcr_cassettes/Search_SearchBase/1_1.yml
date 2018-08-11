@@ -52,7 +52,7 @@ http_interactions:
       Warning:
       - '299 Elasticsearch-6.2.4-ccec39f "Deprecated big difference between max_gram
         and min_gram in NGram Tokenizer,expected difference must be less than or equal
-        to: [1]" "Thu, 09 Aug 2018 01:25:45 GMT"'
+        to: [1]" "Sat, 11 Aug 2018 11:52:07 GMT"'
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -95,7 +95,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"index":{"_id":500001}}
+        {"index":{"_id":23456792}}
         {"nickname":"test"}
     headers:
       Content-Type:
@@ -114,10 +114,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '201'
+      - '207'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"500001","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456792","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -153,7 +153,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"index":{"_id":500002}}
+        {"index":{"_id":23456793}}
         {"nickname":"test zxct"}
     headers:
       Content-Type:
@@ -172,10 +172,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '201'
+      - '206'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"500002","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -201,73 +201,11 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '193'
+      - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":1,"max_score":8.300335,"hits":[{"_index":"shikimori_test_users","_type":"user","_id":"500002","_score":8.300335,"_source":{"nickname":"test
+      string: '{"took":0,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":1,"max_score":19.061546,"hits":[{"_index":"shikimori_test_users","_type":"user","_id":"23456793","_score":19.061546,"_source":{"nickname":"test
         zxct"}}]}}'
-    http_version: 
-  recorded_at: Thu, 10 May 2018 16:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":23456790}}
-        {"nickname":"test"}
-    headers:
-      Content-Type:
-      - application/x-ndjson
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '207'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":295,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456790","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
-    http_version: 
-  recorded_at: Thu, 10 May 2018 16:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":23456791}}
-        {"nickname":"test zxct"}
-    headers:
-      Content-Type:
-      - application/x-ndjson
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '206'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":161,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456791","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0
