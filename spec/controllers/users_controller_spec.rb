@@ -1,12 +1,8 @@
 describe UsersController do
-  let!(:user_1) { create :user }
-  let!(:user_2) { create :user }
-  let!(:user_3) { create :user }
-
   describe '#index' do
     subject! { get :index }
     it do
-      expect(collection).to have(5).items # 3 from let + 2 from seeds
+      expect(collection).to have(4).items # 4 from seeds
       expect(response).to have_http_status :success
     end
   end

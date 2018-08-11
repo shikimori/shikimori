@@ -3,7 +3,7 @@ class AnimeOnline::Contributors
   BROKEN_SCORE = 1
   WRONG_SCORE = 1
 
-  method_object %i[limit! is_adult!]
+  method_object %i[limit! is_adult]
 
   def call
     scope = reports_scope %i[broken wrong uploaded]
