@@ -1,4 +1,4 @@
-class Api::V1::CommentsController < Api::V1Controller
+class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLength
   before_action :check_post_permission, only: %i[create update destroy]
   load_and_authorize_resource only: %i[create update destroy]
   before_action :authenticate_user!, only: %i[create update destroy]
