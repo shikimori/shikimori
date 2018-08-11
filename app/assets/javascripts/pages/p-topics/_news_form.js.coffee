@@ -12,12 +12,15 @@ page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
       progress: $upload.find('.b-upload_progress')
       input: $upload.find('input[type=file]')
     .on 'upload:success', (e, data) ->
-      $image = $("<a href='#{data.url}' rel='new-wall' class='b-image b-link' id='#{data.id}'>\
-<img src='#{data.preview}' class=''>
-<div class='mobile-edit'></div><div class='controls'>
-<div class='delete'></div>\
-<div class='confirm'></div>\
-<div class='cancel'></div></div></a>").appendTo($wall)
+      $image = $(
+        "<a href='#{data.url}' rel='new-wall' class='b-image b-link' \
+        id='#{data.id}'>\
+        <img src='#{data.preview}' class=''>
+        <div class='mobile-edit'></div><div class='controls'>
+        <div class='delete'></div>\
+        <div class='confirm'></div>\
+        <div class='cancel'></div></div></a>"
+      ).appendTo($wall)
 
       $('.confirm', $image).on 'click', ->
         remove_image $image, $wall
@@ -67,12 +70,17 @@ page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
     $('.b-dropzone a', $form)
       .map -> $(@).attr('id')
       .each (index, id) ->
-        $attachments.append "<input type=\"hidden\" name=\"topic[wall_ids][]\" value=\"#{id}\"/>"
+        $attachments.append(
+          "<input type=\"hidden\" name=\"topic[wall_ids][]\" value=\"#{id}\"/>"
+        )
 
     # видео
     video_id = $topic_video.data 'video_id'
     if video_id
-      $attachments.append "<input type=\"hidden\" name=\"topic[video_id]\" value=\"#{video_id}\"/>"
+      $attachments.append(
+        "<input type=\"hidden\" name=\"topic[video_id]\" \
+        value=\"#{video_id}\"/>"
+      )
 
 remove_image = ($image, $wall) ->
   $image.remove()
