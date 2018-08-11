@@ -2,8 +2,8 @@
 
 # TODO: refactoring & add specs
 class TorrentsParser
-  PROXY_LOG = ENV['RAILS_ENV'] == 'development' ? true : false
-  USE_PROXY = false#ENV['RAILS_ENV'] == 'development' ? false : true
+  PROXY_LOG = Rails.env.development?
+  USE_PROXY = false # ENV['RAILS_ENV'] == 'development' ? false : true
 
   IGNORED_TORRENTS = Set.new [
     'Chuunibyou demo Koi ga Shitai! Lite - 04 (640x360 x264 AAC).mp4',
@@ -18,19 +18,19 @@ class TorrentsParser
   ]
 
   IGNORED_ANIME_IDS = [
-    13185, 19207, 5042, 17249, 11457, 21729, 22757, 32670, 31670, 31592, 10937,
-    34454, 31499, 37277, 2406
+    13_185, 19_207, 5042, 17_249, 11_457, 21_729, 22_757, 32_670, 31_670,
+    31_592, 10_937, 34_454, 31_499, 37_277, 2406
   ]
 
-  ANIME_WITH_NAME_MATCH_ONLY = [10049, 10033, 6336, 11319]
+  ANIME_WITH_NAME_MATCH_ONLY = [10_049, 10_033, 6336, 11_319]
   ANIME_WITH_EXACT_NAME_MATCH = [
-    10161, 10490, 10379, 6336, 11319, 14645, 15085, 14967, 15611, 17705, 15699,
-    16241, 16049, 34984
+    10_161, 10_490, 10_379, 6336, 11_319, 14_645, 15_085, 14_967, 15_611,
+    17_705, 15_699, 16_241, 16_049, 34_984
   ]
-  ANIME_WITH_ALL_SUB_GROUPS = [9539, 12979, 13163, 6702, 15417]
+  ANIME_WITH_ALL_SUB_GROUPS = [9539, 12_979, 13_163, 6702, 15_417]
 
   END_OF_NAME = /[\w\)!~?\.+-‒]/
-  EPISODE_FOR_HISTORY_REGEXES = %r(
+  EPISODE_FOR_HISTORY_REGEXES = /
     #{END_OF_NAME} # завершающий кусочек названия
     (?: _- )?
     _
@@ -60,7 +60,7 @@ class TorrentsParser
     )?
     \. (?: mp4 | mp3 | mkv | avi )
     $
-  )mix
+  /mix
   EPISODES_FOR_HISTORY_REGEXES = [
     /Vol\.(\d+)-(\d+)_(?:\[|\()(?:BD|DVD)/i,
     /#{END_OF_NAME}_(\d+)-(\d+)(?:_RAW|_END)?_?(?:\(|\[)(?:\d{3}|[A-Z])/i,
@@ -75,23 +75,23 @@ class TorrentsParser
     return [] if IGNORED_TORRENTS.include? episode_name
     return [] if ignored_phrases? episode_name
 
-    num = parse_episodes_num(episode_name).select {|v| v < 1000 }
+    num = parse_episodes_num(episode_name).select { |v| v < 1000 }
 
     if episode_name =~ /cardfight!![ _]vanguard/i && episode_name =~ /link[ _]joker/i
       num.map { |v| v - 104 }
-    elsif episode_name =~ /THE iDOLM@STER Cinderella Girls/i
+    elsif /THE iDOLM@STER Cinderella Girls/i.match?(episode_name)
       num.map { |v| v - 13 }
-    elsif episode_name =~ /Yu-Gi-Oh![ _]Zexal[ _]II/i
+    elsif /Yu-Gi-Oh![ _]Zexal[ _]II/i.match?(episode_name)
       num.map { |v| v - 73 }
-    elsif episode_name =~ /stardust[ _]crusaders/i
+    elsif /stardust[ _]crusaders/i.match?(episode_name)
       num.map { |v| v > 24 ? v - 24 : v }
-    elsif episode_name =~ /kuroko[ _]no[ _](basuke|basket)/i
+    elsif /kuroko[ _]no[ _](basuke|basket)/i.match?(episode_name)
       num.map { |v| v > 25 ? v - 25 : v }
-    elsif episode_name =~ /fairy[ _]?tail/i
+    elsif /fairy[ _]?tail/i.match?(episode_name)
       num.map { |v| v > 175 ? v - 175 : v }
-    elsif episode_name =~ /kyousou[ _]?giga/i
+    elsif /kyousou[ _]?giga/i.match?(episode_name)
       num.map { |v| v + 1 }
-    elsif episode_name =~ /my[ _]hero[ _]academia|boku[ _]no[ _]hero[ _]academia/i
+    elsif /my[ _]hero[ _]academia|boku[ _]no[ _]hero[ _]academia/i.match?(episode_name)
       num.map { |v| v - 13 }
     else
       num
@@ -99,25 +99,31 @@ class TorrentsParser
   end
 
   def self.parse_episodes_num episode_name
-    fixed_name = episode_name.gsub ' ', '_'
+    fixed_name = episode_name.tr ' ', '_'
 
     Array(EPISODE_FOR_HISTORY_REGEXES).each do |regex|
-      return [$1.to_i] if fixed_name.match(regex)
+      return [Regexp.last_match(1).to_i] if fixed_name.match(regex)
     end
     EPISODES_FOR_HISTORY_REGEXES.each do |regex|
-      return (($1.to_i)..($2.to_i)).to_a if fixed_name.match(regex)
+      if fixed_name.match(regex)
+        return ((Regexp.last_match(1).to_i)..(Regexp.last_match(2).to_i)).to_a
+      end
     end
     EPISODES_WITH_COMMA_FOR_HISTORY_REGEXES.each do |regex|
-      return (($1.to_i)..($2.to_i)).to_a << $3.to_i if fixed_name.match(regex)
+      if fixed_name.match(regex)
+        return (
+          (Regexp.last_match(1).to_i)..(Regexp.last_match(2).to_i)
+        ).to_a << Regexp.last_match(3).to_i
+      end
     end
     []
   end
 
-  def self.grab_ongoings test=false, anime_id=nil
+  def self.grab_ongoings _test = false, anime_id = nil
     parse_feed get_rss, anime_id
   end
 
-  def self.grab_page url, anime_id=nil
+  def self.grab_page url, anime_id = nil
     parse_feed get_page(url), anime_id
   end
 
@@ -127,12 +133,15 @@ class TorrentsParser
     doc = Nokogiri::XML(content)
     feed = doc.xpath('//channel//item').map do |v|
       category = v.xpath('category')[0]
-      next if category && category.inner_html =~ /^(?:English-scanlated Books|Raw Books)$/
+      if category &&
+          category.inner_html =~ /^(?:English-scanlated Books|Raw Books)$/
+        next
+      end
       {
         title: v.xpath('title')[0].inner_html,
         link: v.xpath('link')[0].inner_html.gsub('&amp;', '&'),
         guid: v.xpath('guid')[0].inner_html.gsub('&amp;', '&'),
-        pubDate: DateTime.parse(v.xpath('pubDate')[0].inner_html),
+        pubDate: Time.zone.parse(v.xpath('pubDate')[0].inner_html)
       }
     end.compact
 
@@ -140,13 +149,13 @@ class TorrentsParser
   end
 
   def self.parse_feed feed, anime_id
-    print "fetched %d torrens\n" % feed.size
+    print format("fetched %<size>d torrens\n", size: feed.size)
     return 0 if feed.empty?
 
-    animes = if anime_id != nil
-      [Anime.find(anime_id)]
-    else
-      get_ongoings
+    animes = if !anime_id.nil?
+               [Anime.find(anime_id)]
+             else
+               get_ongoings
     end
 
     animes.sum do |anime|
@@ -172,7 +181,7 @@ class TorrentsParser
 
     anons = Anime
       .where(status: :anons)
-      .where(kind: [:tv, :ona])
+      .where(kind: %i[tv ona])
       .where(episodes_aired: 0)
       .includes(:anime_calendars)
       .references(:anime_calendars)
@@ -197,31 +206,45 @@ class TorrentsParser
 
     torrents_before = Animes::Torrents::Get.call(anime)
 
-    unless new_episodes.empty?
-      print "%d new episodes(s) found for %s\n" % [new_episodes.size, anime.name]
+    if new_episodes.empty?
+      new_torrents = feed.select do |v|
+        v[:title].match(/x720|x768|720p|x400|400p|x480|480p|x1080|1080p/)
+      end
+
+      unless new_torrents.empty?
+        torrents_after = (
+          (torrents_before.is_a?(String) ? [] : torrents_before) + new_torrents
+        )
+          .select { |v| v.is_a?(Hash) && v[:title] }
+          .uniq { |v| v[:title] }
+
+        if torrents_before.size != torrents_after.size
+          print format(
+            "%<size>d new torrent(s) found for %<name>s\n",
+            size: torrents_after.size - torrents_before.size,
+            name: anime.name
+          )
+          Animes::Torrents::Set.call(anime, torrents_after)
+        end
+      end
+      0
+    else
+      print format(
+        "%<size>d new episodes(s) found for %<name>s\n",
+        size: new_episodes.size,
+        name: anime.name
+      )
       Animes::Torrents::Set.call(
         anime,
         (torrents_before + new_episodes).uniq { |v| v[:title] }
       )
 
       new_episodes.size
-    else
-      new_torrents = feed.select {|v| v[:title].match(/x720|x768|720p|x400|400p|x480|480p|x1080|1080p/) }
-      unless new_torrents.empty?
-        torrents_after = ((torrents_before.is_a?(String) ? [] : torrents_before) + new_torrents).
-                           select {|v| v.kind_of?(Hash) && v[:title] }.
-                           uniq {|v| v[:title] }
-        if torrents_before.size != torrents_after.size
-          print "%d new torrent(s) found for %s\n" % [torrents_after.size - torrents_before.size, anime.name]
-          Animes::Torrents::Set.call(anime, torrents_after)
-        end
-      end
-      0
     end
   end
 
   def self.filter_bad_formats(feed)
-    feed.select {|v| v[:title].match(/(?:avi|mkv|mp4|\]|[^\.]{5})$/) }
+    feed.select { |v| v[:title].match(/(?:avi|mkv|mp4|\]|[^\.]{5})$/) }
   end
 
   # добавление новых эпизодов из rss фида
@@ -246,11 +269,14 @@ class TorrentsParser
         next if entry[:episodes].none?
         next if (anime.ongoing? || anime.anons?) &&
           episodes_diff > entry[:episodes].size &&
-          !(entry[:episodes].max > 1 && anime.episodes_aired == 0)
+          !(entry[:episodes].max > 1 && anime.episodes_aired.zero?)
         next if episodes_diff >= 10
 
         entry[:episodes].each do |episode|
-          next if (anime.episodes > 0 && episode > anime.episodes) || episode_min >= episode
+          if (anime.episodes.positive? && episode > anime.episodes) ||
+              episode_min >= episode
+            next
+          end
           episode_max = episode if episode_max < episode
           new_episodes << entry
 
@@ -283,7 +309,7 @@ class TorrentsParser
     new_episodes.uniq
   end
 
-private_class_method
+  private_class_method
 
   def self.get url
     Proxy.get(
