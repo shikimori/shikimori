@@ -26,12 +26,11 @@ describe Review::Update do
   context 'invalid params' do
     let(:params) do
       {
-        user_id: user.id,
         text: 'too short text'
       }
     end
     it do
-      expect(review.errors).to have(1).item
+      expect(review.errors).to be_present
       expect(review.reload).not_to have_attributes params
     end
   end
