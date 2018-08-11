@@ -1,4 +1,4 @@
-class ProfileStatsView
+class ProfileStatsView # rubocop:disable ClassLength
   pattr_initialize :profile_stats
 
   include Translation
@@ -7,11 +7,10 @@ class ProfileStatsView
   instance_cache :comments_count, :summaries_count, :reviews_count
   instance_cache :versions_count, :video_uploads_count, :video_changes_count
 
-  delegate *%i(
-    anime_ratings anime_spent_time full_statuses manga list_counts
-    manga_spent_time spent_time stats_bars statuses user
-    genres studios publishers
-  ), to: :profile_stats
+  delegate :anime_ratings, :anime_spent_time, :full_statuses, :manga,
+    :list_counts, :manga_spent_time, :spent_time, :stats_bars, :statuses,
+    :user, :genres, :studios, :publishers,
+    to: :profile_stats
 
   def anime?
     profile_stats.is_anime
@@ -37,25 +36,25 @@ class ProfileStatsView
     profile_stats.kinds[list_type.to_sym]
   end
 
-  def spent_time_percent
+  def spent_time_percent # rubocop:disable all
     part = 20
 
-    #if spent_time.hours > 0 && spent_time.hours <= 1
-      #spent_time.hours * part / 2
+    # if spent_time.hours > 0 && spent_time.hours <= 1
+      # spent_time.hours * part / 2
 
-    if spent_time.weeks > 0 && spent_time.weeks <= 1
+    if spent_time.weeks.positive? && spent_time.weeks <= 1
       spent_time.weeks * part / 2.0
 
-    elsif spent_time.months > 0 && spent_time.months <= 1
+    elsif spent_time.months.positive? && spent_time.months <= 1
       10 + (spent_time.days - 7) / 23.0 * part
 
-    elsif spent_time.months_3 > 0 && spent_time.months_3 <= 1
+    elsif spent_time.months_3.positive? && spent_time.months_3 <= 1
       30 + (spent_time.days - 30) / 60.0 * part
 
-    elsif spent_time.months_6 > 0 && spent_time.months_6 <= 1
+    elsif spent_time.months_6.positive? && spent_time.months_6 <= 1
       50 + (spent_time.days - 90) / 90.0 * part
 
-    elsif spent_time.years > 0 && spent_time.years <= 1
+    elsif spent_time.years.positive? && spent_time.years <= 1
       70 + (spent_time.days - 180) / 185.0 * part
 
     elsif spent_time.years > 1 && spent_time.years <= 1.5
@@ -73,7 +72,7 @@ class ProfileStatsView
     SpentTimeView.new(spent_time).text
   end
 
-  def spent_time_in_days
+  def spent_time_in_days # rubocop:disable all
     anime_days =
       if anime_spent_time.days > 10
         anime_spent_time.days.to_i
@@ -146,8 +145,9 @@ class ProfileStatsView
   end
 
   def social_activity?
-    comments_count > 0 || summaries_count > 0 || reviews_count > 0 ||
-      versions_count > 0 || video_uploads_count > 0 || video_changes_count > 0
+    comments_count.positive? || summaries_count.positive? ||
+      reviews_count.positive? || versions_count.positive? ||
+      video_uploads_count.positive? || video_changes_count.positive?
   end
 
   def comments_count
@@ -165,7 +165,7 @@ class ProfileStatsView
   def versions_count
     user
       .versions
-      .where(state: [:taken, :accepted, :auto_accepted])
+      .where(state: %i[taken accepted auto_accepted])
       .where.not(item_type: AnimeVideo.name)
       .count
   end
@@ -174,7 +174,7 @@ class ProfileStatsView
     AnimeVideoReport
       .where(user: user)
       .where(kind: :uploaded)
-      .where.not(state: %w(rejected post_rejected))
+      .where.not(state: %w[rejected post_rejected])
       .count
   end
 
@@ -188,14 +188,14 @@ private
     AnimeVideoReport
       .where(user: user)
       .where.not(kind: :uploaded)
-      .where.not(state: %w(rejected post_rejected))
+      .where.not(state: %w[rejected post_rejected])
       .count
   end
 
   def video_versions_count
     user
       .versions
-      .where(state: [:taken, :accepted, :auto_accepted])
+      .where(state: %i[taken accepted auto_accepted])
       .where(item_type: AnimeVideo.name)
       .count
   end
