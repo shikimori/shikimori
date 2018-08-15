@@ -2,6 +2,7 @@
 
 describe Animes::TrackEpisodesChanges do
   let!(:news_topics) {}
+  let!(:episode_notifications) {}
 
   before { anime.assign_attributes episodes_aired: new_episodes_aired }
 
@@ -76,34 +77,47 @@ describe Animes::TrackEpisodesChanges do
 
   describe 'aired_episodes are decreased' do
     let(:anime) { create :anime, :ongoing, episodes_aired: old_episodes_aired }
-
-    let(:news_topic_5) do
-      create :news_topic,
-        linked: anime,
-        action: AnimeHistoryAction::Episode,
-        value: 5
-    end
-    let(:news_topic_6) do
-      create :news_topic,
-        linked: anime,
-        action: AnimeHistoryAction::Episode,
-        value: 6
-    end
-    let(:news_topic_7) do
-      create :news_topic,
-        linked: anime,
-        action: AnimeHistoryAction::Episode,
-        value: 7
-    end
-    let!(:news_topics) { [news_topic_5, news_topic_6, news_topic_7] }
-
     let(:old_episodes_aired) { 7 }
     let(:new_episodes_aired) { 5 }
 
-    it 'removes episode topics about reverted episodes' do
-      expect(news_topic_5.reload).to be_persisted
-      expect { news_topic_6.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect { news_topic_7.reload }.to raise_error ActiveRecord::RecordNotFound
+    context 'ongoing' do
+      let(:news_topic_5) do
+        create :news_topic,
+          linked: anime,
+          action: AnimeHistoryAction::Episode,
+          value: 5
+      end
+      let(:news_topic_6) do
+        create :news_topic,
+          linked: anime,
+          action: AnimeHistoryAction::Episode,
+          value: 6
+      end
+      let(:news_topic_7) do
+        create :news_topic,
+          linked: anime,
+          action: AnimeHistoryAction::Episode,
+          value: 7
+      end
+
+      let(:episode_notification_5) { create :episode_notification, anime: anime, episode: 5 }
+      let(:episode_notification_6) { create :episode_notification, anime: anime, episode: 6 }
+      let(:episode_notification_7) { create :episode_notification, anime: anime, episode: 7 }
+
+      let!(:news_topics) { [news_topic_5, news_topic_6, news_topic_7] }
+      let!(:episode_notifications) do
+        [episode_notification_5, episode_notification_6, episode_notification_7]
+      end
+
+      it do
+        expect(news_topic_5.reload).to be_persisted
+        expect { news_topic_6.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { news_topic_7.reload }.to raise_error ActiveRecord::RecordNotFound
+
+        expect(episode_notification_5.reload).to be_persisted
+        expect { episode_notification_6.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { episode_notification_7.reload }.to raise_error ActiveRecord::RecordNotFound
+      end
     end
 
     context 'released anime' do
@@ -113,8 +127,9 @@ describe Animes::TrackEpisodesChanges do
           episodes_aired: old_episodes_aired,
           released_on: Time.zone.today
       end
-      let!(:news_topic) { create :news_topic, linked: anime, action: AnimeHistoryAction::Released }
-      let!(:news_topics) { [news_topic] }
+      let(:news_topic) { create :news_topic, linked: anime, action: AnimeHistoryAction::Released }
+
+      let(:news_topics) { [news_topic] }
 
       it 'changes anime status to ongoing' do
         expect(anime).to be_ongoing

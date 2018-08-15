@@ -12,8 +12,7 @@ class EpisodeNotification < ApplicationRecord
   def rollback kind
     send "is_#{kind}=", false
 
-    if subtitles? || fandub? || raw? || unknown? || torrent? ||
-        anime.episodes_aired > episode
+    if nothig_to_rollback?
       save!
     else
       Anime::RollbackEpisode.call anime, episode
@@ -28,10 +27,13 @@ private
 
   def track_episode
     EpisodeNotification::TrackEpisode.call self
-
   rescue MissingEpisodeError
     # task is scheduled in order to put failed task into a queue
     # so admin could investigate it later
     EpisodeNotifications::TrackEpisode.set(wait: 5.seconds).perform_async id
+  end
+
+  def nothig_to_rollback?
+    subtitles? || fandub? || raw? || unknown? || torrent? || anime.episodes_aired > episode
   end
 end
