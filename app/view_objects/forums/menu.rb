@@ -5,11 +5,13 @@ class Forums::Menu < ViewObjectBase
   def club_topics
     Topic
       .includes(:linked)
-      .where(type: [
-        Topics::EntryTopics::ClubTopic,
-        Topics::ClubUserTopic,
-        Topics::EntryTopics::ClubPageTopic,
-      ])
+      .where(
+        type: [
+          Topics::EntryTopics::ClubTopic.name,
+          Topics::ClubUserTopic.name,
+          Topics::EntryTopics::ClubPageTopic.name
+        ]
+      )
       .where(locale: h.locale_from_host)
       .order(updated_at: :desc)
       .limit(3)
@@ -35,24 +37,13 @@ class Forums::Menu < ViewObjectBase
 
   def sticky_topics
     if h.ru_host?
-      [
-        StickyTopicView.site_rules(h.locale_from_host),
-        StickyClubView.faq(h.locale_from_host),
-        StickyTopicView.contests_proposals(h.locale_from_host),
-        StickyTopicView.description_of_genres(h.locale_from_host),
-        StickyTopicView.ideas_and_suggestions(h.locale_from_host),
-        StickyTopicView.site_problems(h.locale_from_host)
-      ]
+      ru_sticky_topics
     else
-      [
-        StickyTopicView.site_rules(h.locale_from_host),
-        StickyTopicView.ideas_and_suggestions(h.locale_from_host),
-        StickyTopicView.site_problems(h.locale_from_host)
-      ]
+      en_sticky_topics
     end
   end
 
-  def new_topic_url
+  def new_topic_url # rubocop:disable AbcSize
     h.new_topic_url(
       forum: forum,
       linked_id: h.params[:linked_id],
@@ -62,5 +53,26 @@ class Forums::Menu < ViewObjectBase
       'topic[linked_id]' => linked ? linked.id : nil,
       'topic[linked_type]' => linked ? linked.class.name : nil
     )
+  end
+
+private
+
+  def ru_sticky_topics
+    [
+      StickyTopicView.site_rules(h.locale_from_host),
+      StickyClubView.faq(h.locale_from_host),
+      StickyTopicView.contests_proposals(h.locale_from_host),
+      StickyTopicView.description_of_genres(h.locale_from_host),
+      StickyTopicView.ideas_and_suggestions(h.locale_from_host),
+      StickyTopicView.site_problems(h.locale_from_host)
+    ]
+  end
+
+  def en_sticky_topics
+    [
+      StickyTopicView.site_rules(h.locale_from_host),
+      StickyTopicView.ideas_and_suggestions(h.locale_from_host),
+      StickyTopicView.site_problems(h.locale_from_host)
+    ]
   end
 end

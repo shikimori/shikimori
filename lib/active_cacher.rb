@@ -140,6 +140,10 @@ private
   end
 
   def prepare_for_cache object
-    object.kind_of?(ActiveRecord::Relation) ? object.to_a : object
+    if object.is_a? ActiveRecord::Relation
+      object.to_a
+    else
+      object
+    end
   end
 end

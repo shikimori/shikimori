@@ -59,7 +59,7 @@ class Topics::Query < QueryObjectBase
       .order(updated_at: :desc)
       .where(locale: locale)
 
-    query.except_hentai#.except_ignored(user)
+    query.except_hentai # .except_ignored(user)
   end
 
   def by_forum forum, user, is_censored_forbidden
@@ -69,10 +69,12 @@ class Topics::Query < QueryObjectBase
 
   def by_linked linked
     if linked.is_a? Club
-      chain @scope.where(BY_LINKED_CLUB_SQL,
-        club_id: linked.id,
-        club_page_ids: linked.pages.pluck(:id)
-      )
+      chain @scope
+        .where(
+          BY_LINKED_CLUB_SQL,
+          club_id: linked.id,
+          club_page_ids: linked.pages.pluck(:id)
+        )
     elsif linked
       chain @scope.where(linked: linked)
     else
@@ -115,7 +117,7 @@ class Topics::Query < QueryObjectBase
 private
 
   def except_episodes scope, forum
-    if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
+    if [Forum::NEWS_FORUM, Forum::UPDATES_FORUM].include? forum
       scope.wo_episodes
     else
       scope.where.not(updated_at: nil)
@@ -129,11 +131,13 @@ private
         if user
           user_forums scope, user
         else
-          scope.where('type not in (?) OR type IS NULL', [
-            Topics::EntryTopics::ClubTopic.name,
-            Topics::ClubUserTopic.name,
-            Topics::EntryTopics::ClubPageTopic.name
-          ])
+          scope.where(
+            'type not in (?) OR type IS NULL', [
+              Topics::EntryTopics::ClubTopic.name,
+              Topics::ClubUserTopic.name,
+              Topics::EntryTopics::ClubPageTopic.name
+            ]
+          )
         end
 
       when 'reviews'
@@ -150,7 +154,8 @@ private
         if is_censored_forbidden
           new_scope
             .joins(CLUBS_JOIN)
-            .where(CLUBS_WHERE,
+            .where(
+              CLUBS_WHERE,
               user_club_ids: user_club_ids(user),
               user_club_page_ids: user_club_page_ids(user)
             )
@@ -186,13 +191,16 @@ private
 
   def user_forums scope, user
     if user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink
-      scope.where("#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
-        user_forums: user.preferences.forums.map(&:to_i),
-        user_club_ids: user_club_ids(user),
-        user_club_page_ids: user_club_page_ids(user)
-      )
+      scope
+        .where(
+          "#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
+          user_forums: user.preferences.forums.map(&:to_i),
+          user_club_ids: user_club_ids(user),
+          user_club_page_ids: user_club_page_ids(user)
+        )
     else
-      scope.where(FORUMS_QUERY, user_forums: user.preferences.forums.map(&:to_i))
+      scope
+        .where(FORUMS_QUERY, user_forums: user.preferences.forums.map(&:to_i))
     end
   end
 
