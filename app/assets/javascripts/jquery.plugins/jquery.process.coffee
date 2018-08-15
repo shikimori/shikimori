@@ -1,9 +1,12 @@
-TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
+import {
+  ANIME_TOOLTIP_OPTIONS,
+  COMMON_TOOLTIP_OPTIONS
+} from 'helpers/tooltip_options'
 
-UserRatesTracker = require 'services/user_rates/tracker'
-TopicsTracker = require 'services/topics/tracker'
-CommentsTracker = require 'services/comments/tracker'
-PollsTracker = require 'services/polls/tracker'
+import UserRatesTracker from 'services/user_rates/tracker'
+import TopicsTracker from 'services/topics/tracker'
+import CommentsTracker from 'services/comments/tracker'
+import PollsTracker from 'services/polls/tracker'
 
 (($) ->
   $.fn.extend
@@ -72,14 +75,14 @@ process_current_dom = (root = document.body, JS_EXPORTS = window.JS_EXPORTS) ->
 
   # подгружаемые тултипы
   $with('.anime-tooltip', $root)
-    .tooltip(TOOLTIP_OPTIONS.ANIME_TOOLTIP)
+    .tooltip(ANIME_TOOLTIP_OPTIONS)
     .removeClass('anime-tooltip')
     .removeAttr('title')
 
   $with('.bubbled', $root)
     .addClass('bubbled-processed')
     .removeClass('bubbled')
-    .tooltip Object.add(TOOLTIP_OPTIONS.COMMON_TOOLTIP,
+    .tooltip Object.add(COMMON_TOOLTIP_OPTIONS,
       offset: [-48, 10, -10]
     )
 

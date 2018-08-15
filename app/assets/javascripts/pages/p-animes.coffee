@@ -1,2 +1,4 @@
+import AnimesMenu from 'views/animes/menu'
+
 page_load '.animes', '.mangas', '.ranobe', ->
-  new Animes.Menu('.b-animes-menu')
+  new AnimesMenu('.b-animes-menu')

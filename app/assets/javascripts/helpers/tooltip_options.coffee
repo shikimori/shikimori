@@ -29,7 +29,7 @@ TOOLTIP_TEMPLATE = "<div>
     #$(@).hide()
     #done.call()
 
-TOOLTIP_OPTIONS =
+export COMMON_TOOLTIP_OPTIONS =
   #effect: 'opacity'
   delay: 150
   predelay: 250
@@ -47,13 +47,15 @@ TOOLTIP_OPTIONS =
         .data(binded: true)
         .on 'click', => @hide()
 
-      url = ($trigger.data('href') || $trigger.attr('href') || '').replace /\/tooltip/, ''
+      url = ($trigger.data('href') || $trigger.attr('href') || '')
+        .replace /\/tooltip/, ''
+
       if url
         @getTip().find('.link').attr href: url
       if url.match(/\/genres\//)
         @getTip().find('.link').hide()
 
-ANIME_TOOLTIP_OPTIONS = Object.add TOOLTIP_OPTIONS,
+export ANIME_TOOLTIP_OPTIONS = Object.add COMMON_TOOLTIP_OPTIONS,
   offset: [-4, 10, -10]
   position: 'top right'
   predelay: 350
@@ -78,7 +80,3 @@ ANIME_TOOLTIP_OPTIONS = Object.add TOOLTIP_OPTIONS,
       # $trigger.data
         # 'insert-tooltip-after': false
         # relative: false
-
-module.exports =
-  COMMON_TOOLTIP: TOOLTIP_OPTIONS
-  ANIME_TOOLTIP: ANIME_TOOLTIP_OPTIONS

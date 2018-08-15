@@ -1,10 +1,10 @@
-TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
+import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options'
 
 page_load 'userlist_comparer_show', ->
   $('tr.unprocessed')
     .removeClass('unprocessed')
     .find('a.tooltipped')
-    .tooltip Object.add(TOOLTIP_OPTIONS.COMMON_TOOLTIP,
+    .tooltip Object.add(COMMON_TOOLTIP_OPTIONS,
       offset: [
         -95
         10

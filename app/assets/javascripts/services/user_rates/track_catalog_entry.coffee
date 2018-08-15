@@ -1,4 +1,4 @@
-module.exports = class TrackCatalogEntry
+export default class TrackCatalogEntry
   MARK = 'not-tracked'
 
   constructor: (user_rate, $root) ->

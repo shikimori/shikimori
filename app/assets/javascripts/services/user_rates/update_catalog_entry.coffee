@@ -1,6 +1,6 @@
-TrackCatalogEntry = require './track_catalog_entry'
+import TrackCatalogEntry from './track_catalog_entry'
 
-module.exports = class UpdateCatalogEntry extends TrackCatalogEntry
+export default class UpdateCatalogEntry extends TrackCatalogEntry
   constructor: (user_rate, $root) ->
     $(@_selector(user_rate)).each ->
       $node = $(@)

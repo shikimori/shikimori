@@ -1,5 +1,5 @@
-TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
-ShikiModal = require 'views/application/shiki_modal'
+import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options'
+import ShikiModal from 'views/application/shiki_modal'
 
 # TODO: этот гигантский файл нуждается в рефакторинге
 list_cache = []
@@ -26,7 +26,8 @@ page_load 'user_rates_index', ->
 
   # пишут в инпуте фильтра по тайтлу
   $('.b-collection_search input').on 'keyup', (e) ->
-    return if e.keyCode == 91 || e.keyCode == 18 || e.keyCode == 16 || e.keyCode == 17
+    if e.keyCode == 91 || e.keyCode == 18 || e.keyCode == 16 || e.keyCode == 17
+      return
 
     if filter_timer
       clearInterval filter_timer
@@ -197,7 +198,7 @@ apply_list_handlers = ($root) ->
   $('tr.unprocessed', $root)
     .removeClass('unprocessed')
     .find('a.tooltipped')
-    .tooltip Object.add(TOOLTIP_OPTIONS.COMMON_TOOLTIP,
+    .tooltip Object.add(COMMON_TOOLTIP_OPTIONS,
       offset: [
         -95
         10

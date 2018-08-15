@@ -1,7 +1,7 @@
-using 'Animes'
-module.exports = class Animes.Menu extends View
+import { ANIME_TOOLTIP_OPTIONS, } from 'helpers/tooltip_options'
+
+export default class AnimesMenu extends View
   NO_DATA_I18N_KEY = 'frontend.pages.p_animes.no_data'
-  TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
 
   initialize: ->
     @_scores_stats_bar()
@@ -48,7 +48,7 @@ module.exports = class Animes.Menu extends View
 
     # anime history tooltips
     $('.person-tooltip', $history_block)
-      .tooltip Object.add(TOOLTIP_OPTIONS.ANIME_TOOLTIP,
+      .tooltip Object.add(ANIME_TOOLTIP_OPTIONS,
         position: 'top right'
         offset: [-28, 59]
         relative: true
