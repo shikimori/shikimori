@@ -1,4 +1,4 @@
-UserRatesTracker = require 'services/user_rates/tracker'
+import UserRatesTracker from 'services/user_rates/tracker'
 
 using 'DynamicElements.UserRates'
 class DynamicElements.UserRates.Button extends View

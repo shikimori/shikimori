@@ -1,8 +1,7 @@
-UserRatesTracker = require 'services/user_rates/tracker'
-CollectionSearch = require 'views/application/collection_search'
+import CollectionSearch from 'views/application/collection_search'
+import UserRatesTracker from 'services/user_rates/tracker'
 
-using 'Animes'
-module.exports = class Animes.PaginatedCatalog
+export default class PaginatedCatalog
   constructor: (base_catalog_path) ->
     @ajax_cacher = require 'services/ajax_cacher'
 
@@ -61,7 +60,7 @@ module.exports = class Animes.PaginatedCatalog
     @_fetch_ajax_content(url, true)#.call this, url, null, true
 
   # клик по ссылке пагинации
-  _link_click: (e) =>
+  _link_click: (e) ->
     return if in_new_tab(e)
     $link = $(e.target)
 

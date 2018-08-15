@@ -1,4 +1,4 @@
-ShikiModal = require 'views/application/shiki_modal'
+import ShikiModal from 'views/application/shiki_modal'
 
 $(document).on 'page:load', ->
   $feedback = $('.b-feedback')
