@@ -85,14 +85,12 @@ class UserHistory < ApplicationRecord
 
       when UserHistoryAction::Rate
         # если prior_value=nil, то считаем, что это ноль
-        prior_value = 0 unless prior_value
+        prior_value ||= 0
 
         unless prior_value.is_a? Integer
           raise "Got prior_value #{prior_value.class.name}, but expected Int"
         end
-        unless value.is_a? Integer
-          raise "Got value #{prior_value.class.name}, but expected Int"
-        end
+        raise "Got value #{prior_value.class.name}, but expected Int" unless value.is_a? Integer
 
         value = 10 if value > 10
         value = 0 if value.negative?
@@ -117,9 +115,7 @@ class UserHistory < ApplicationRecord
           end
 
         no_last_this_entry_search = true
-        unless value.is_a? Integer
-          raise "Got value #{value.class.name}, but expected Int"
-        end
+        raise "Got value #{value.class.name}, but expected Int" unless value.is_a? Integer
 
         # если prior_value=nil, то считаем, что это ноль
         prior_value ||= 0
@@ -169,9 +165,7 @@ class UserHistory < ApplicationRecord
             return
           end
           # если поставили 0 эпизодов, а до этого были другие эпизоды, но начинали не с нуля, то удаляем сколько сможем и пишем записть о добавлении 0 эпизодов
-          if value.zero? && prior_entries.first.prior_value != '0'
-            prior_entries.each(&:destroy)
-          end
+          prior_entries.each(&:destroy) if value.zero? && prior_entries.first.prior_value != '0'
         end
     end
 
@@ -234,7 +228,7 @@ class UserHistory < ApplicationRecord
     end
 
     # полный список всех эпизодов с учетом прошлых эпизодов в prior_value
-    define_method("watched_#{counter}") do # rubocop:disable MethodLength
+    define_method("watched_#{counter}") do
       if action != UserHistoryAction.const_get(counter.capitalize)
         raise <<-TEXT.squish
           Got action:#{action}, but

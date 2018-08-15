@@ -45,8 +45,16 @@ private
       "#{table_field} ilike #{sanitize "#{@search}%"}",
       "#{table_field} ilike #{sanitize "% #{@search}%"}",
       "#{table_field} ilike #{sanitize "%#{@search}%"}",
-      (@search.include?(' ') ? "#{table_field} ilike #{sanitize @search.split(' ').reverse.join(' ').to_s}" : nil),
-      (@search.include?(' ') ? "#{table_field} ilike #{sanitize @search.split(' ').reverse.join('% ').to_s}" : nil)
+      (
+        @search.include?(' ') ?
+          "#{table_field} ilike #{sanitize @search.split(' ').reverse.join(' ').to_s}" :
+          nil
+      ),
+      (
+        @search.include?(' ') ?
+          "#{table_field} ilike #{sanitize @search.split(' ').reverse.join('% ').to_s}" :
+          nil
+      )
     ].compact.map { |condition| "#{table_field} != '' and (#{condition})" }
   end
 
