@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 describe Viewing::BulkCreate do
-  subject(:call) { Viewing::BulkCreate.call user, viewed_klass, viewed_ids }
+  subject(:call) do
+    Viewing::BulkCreate.call(
+      user: user,
+      viewed_klass: viewed_klass,
+      viewed_ids: viewed_ids
+    )
+  end
 
   shared_examples_for :viewed do
     context '1 viewed id' do

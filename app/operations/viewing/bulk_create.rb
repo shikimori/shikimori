@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Viewing::BulkCreate
-  method_object :user, :viewed_klass, :viewed_ids
+  method_object %i[user! viewed_klass! viewed_ids!]
 
   def call
     bulk_create_viewings
