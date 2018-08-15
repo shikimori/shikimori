@@ -24,10 +24,10 @@ GIT
 
 GIT
   remote: https://github.com/morr/cancancan.git
-  revision: ac270003130fed41392873ab08d9d3f50d2b12c7
+  revision: 70d1753aa82da86d37c5c23fe34fb8e446b9bcd2
   branch: master
   specs:
-    cancancan (1.16.0)
+    cancancan (2.2.0)
 
 GIT
   remote: https://github.com/morr/factory_girl-seeds.git
