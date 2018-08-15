@@ -76,7 +76,6 @@ gem 'rs_russian'
 gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
 gem 'state_machine'
-# gem 'simple_form-magic_submit', path: '/Users/morr/Develop/simple_form-magic_submit/'
 gem 'active_model_serializers'
 
 # gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
