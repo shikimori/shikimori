@@ -15,7 +15,7 @@ class DialogsQuery < SimpleQueryBase
 
 private
 
-  def latest_message_ids page, limit # rubocop:disable AbcSize, MethodLength
+  def latest_message_ids page, limit # rubocop:disable AbcSize
     Message
       .where(kind: MessageType::Private)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)

@@ -87,7 +87,7 @@ class SiteStatistics
     User.where(id: 4795) # Harizmath
   end
 
-  def translators # rubocop:disable AbcSize
+  def translators
     User
       .joins(:versions)
       .where.not("roles && '{#{Types::User::Roles[:bot]}}'")

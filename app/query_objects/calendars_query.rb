@@ -7,16 +7,16 @@ class CalendarsQuery
   # список онгоингов
   def fetch locale
     # Rails.cache.fetch cache_key do
-      entries = (fetch_ongoings + fetch_anonses).map do |anime|
-        AnimeDecorator.new CalendarEntry.new(anime, locale)
-      end
+    entries = (fetch_ongoings + fetch_anonses).map do |anime|
+      AnimeDecorator.new CalendarEntry.new(anime, locale)
+    end
 
-      exclude_overdue(
-        entries
-          .select(&:next_episode_start_at)
-          .sort_by(&:next_episode_start_at)
-      )
-      #fill_in_list entries, current_user if current_user.present?
+    exclude_overdue(
+      entries
+        .select(&:next_episode_start_at)
+        .sort_by(&:next_episode_start_at)
+    )
+      # fill_in_list entries, current_user if current_user.present?
     # end
   end
 
@@ -33,12 +33,12 @@ class CalendarsQuery
 private
 
   # определение в списке ли пользователя аниме
-  #def fill_in_list entries, current_user
-    #rates = Set.new current_user.anime_rates.select(:target_id).map(&:target_id)
-    #entries.each do |anime|
-      #anime.in_list = rates.include? anime.id
-    #end
-  #end
+  # def fill_in_list entries, current_user
+    # rates = Set.new current_user.anime_rates.select(:target_id).map(&:target_id)
+    # entries.each do |anime|
+      # anime.in_list = rates.include? anime.id
+    # end
+  # end
 
   # группировка выборки по датам
   def group entries
@@ -51,11 +51,16 @@ private
       # end
       key_date = anime.next_episode_start_at
 
-      if key_date.to_i - Time.zone.now.to_i < 0
+      if (key_date.to_i - Time.zone.now.to_i).negative?
         -1
       else
         (
-          (key_date.to_i - Time.zone.now.to_i + 60*60*Time.zone.now.hour + 60*Time.zone.now.min) * 1.0 / 60 / 60 / 24
+          (
+            key_date.to_i -
+              Time.zone.now.to_i +
+              60 * 60 * Time.zone.now.hour +
+              60 * Time.zone.now.min
+          ) * 1.0 / 60 / 60 / 24
         ).to_i
       end
     end
@@ -67,10 +72,12 @@ private
     Anime
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
-      .where(status: :ongoing)#.where(id: 31680)
-      .where(kind: [:tv, :ona]) # 15133 - спешл Aoi Sekai no Chuushin de
-      .where.not(id: Anime::EXCLUDED_ONGOINGS + [15547]) # 15547 - Cross Fight B-Daman eS
-      .where(Arel.sql('anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1'))
+      .where(status: :ongoing) # .where(id: 31680)
+      .where(kind: %i[tv ona]) # 15133 - спешл Aoi Sekai no Chuushin de
+      .where.not(id: Anime::EXCLUDED_ONGOINGS + [15_547]) # 15547 - Cross Fight B-Daman eS
+      .where(
+        Arel.sql('anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1')
+      )
       .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
       .where(
         'episodes_aired != 0 or (aired_on is not null and aired_on > ?)',
@@ -84,7 +91,7 @@ private
     Anime
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
-      .where(status: :anons)#.where(id: 31680)
+      .where(status: :anons) # .where(id: 31680)
       .where(kind: %i[tv ona])
       .where(episodes_aired: 0)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)

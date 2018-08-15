@@ -32,7 +32,7 @@ private
     )
   end
 
-  def no_changes? video # rubocop:disable AbcSize
+  def no_changes? video
     video.author_name == @params[:author_name] &&
       video.episode == @params[:episode] &&
       video[:kind] == @params[:kind] &&

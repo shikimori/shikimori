@@ -138,8 +138,8 @@ private
       end
     allowed_params += [:broadcast] if current_user&.admin?
 
-    params.require(:topic).permit(*allowed_params).tap do |allowed_params|
-      allowed_params[:body] = Topics::ComposeBody.call(params[:topic])
+    params.require(:topic).permit(*allowed_params).tap do |fixed_params|
+      fixed_params[:body] = Topics::ComposeBody.call(params[:topic])
     end
   end
 

@@ -78,7 +78,7 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
     redirect_to oauth_applications_url
   end
 
-  def revoke # rubocop:disable AbcSize
+  def revoke
     current_user.access_grants.where(application_id: params[:id]).destroy_all
     current_user.access_tokens.where(application_id: params[:id]).destroy_all
 
