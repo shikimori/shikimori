@@ -10,7 +10,6 @@ class Api::V1::TopicIgnoresController < Api::V1Controller
     @resource.save!
 
     render json: success_response(@resource)
-
   rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
     present_ignore = TopicIgnore.find_by(
       topic: @resource.topic,
@@ -23,10 +22,12 @@ class Api::V1::TopicIgnoresController < Api::V1Controller
   def destroy
     @resource.destroy
     render json: {
-      url: api_topic_ignores_url(topic_ignore: {
-        topic_id: @resource.topic_id,
-        user_id: @resource.user_id
-      }),
+      url: api_topic_ignores_url(
+        topic_ignore: {
+          topic_id: @resource.topic_id,
+          user_id: @resource.user_id
+        }
+      ),
       method: 'POST',
       # notice: i18n_t('not_ignored')
     }
@@ -35,7 +36,7 @@ class Api::V1::TopicIgnoresController < Api::V1Controller
 private
 
   def create_params
-    params.require(:topic_ignore).permit [:user_id, :topic_id]
+    params.require(:topic_ignore).permit %i[user_id topic_id]
   end
 
   def success_response topic_ignore

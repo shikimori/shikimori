@@ -45,6 +45,10 @@ Style/NumericLiterals:
 Security/Open:
   Exclude:
     - spec/**/*
+Metrics/AbcSize:
+  Max: 20
+Metrics/MethodLength:
+  Max: 15
 
 Style/MultilineBlockChain:
   Enabled: false
