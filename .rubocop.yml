@@ -23,6 +23,7 @@ AllCops:
   UseCache: false
 
 Metrics/LineLength:
+  Max: 100
   AllowURI: true
   IgnoreCopDirectives: true
   IgnoredPatterns: ['\A\ *#']

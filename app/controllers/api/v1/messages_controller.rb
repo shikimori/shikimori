@@ -17,7 +17,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
     param :to_id, :number, required: true
   end
   error code: 422
-  def create # rubocop:disable MethodLength
+  def create
     if faye.create @resource
       if frontent_request?
         render :message, locals: { notice: i18n_t('message.created') }
@@ -37,7 +37,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
     param :body, String, required: true
   end
   error code: 422
-  def update # rubocop:disable MethodLength
+  def update
     if faye.update @resource, update_params
       if frontent_request?
         render :message, locals: { notice: i18n_t('message.updated') }
