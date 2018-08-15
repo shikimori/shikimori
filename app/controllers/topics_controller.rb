@@ -29,22 +29,16 @@ class TopicsController < ShikimoriController
       ensure_redirect! UrlGenerator.instance
         .forum_url(@forums_view.forum, @forums_view.linked)
 
-      if @forums_view.linked.is_a?(Club)
-        raise ForceRedirect, @forums_view.current_page_url
-      end
+      raise ForceRedirect, @forums_view.current_page_url if @forums_view.linked.is_a?(Club)
     end
   end
 
   def show
-    if @resource&.linked.try(:censored?) && censored_forbidden?
-      raise AgeRestricted
-    end
+    raise AgeRestricted if @resource&.linked.try(:censored?) && censored_forbidden?
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
 
     # новости аниме без комментариев поисковым системам не скармливаем
-    if @resource.generated? && @resource.comments_count.zero?
-      og noindex: true, nofollow: true
-    end
+    og noindex: true, nofollow: true if @resource.generated? && @resource.comments_count.zero?
   end
 
   def new
