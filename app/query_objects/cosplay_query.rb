@@ -39,7 +39,12 @@ private
 
   def fetch_characters gallery_ids, linked_ids
     CosplayGalleryLink
-      .where('(cosplay_gallery_id in (?) or linked_id in (?)) and linked_type = ?', gallery_ids.empty? ? -1 : gallery_ids, linked_ids, Character.name)
+      .where(
+        '(cosplay_gallery_id in (?) or linked_id in (?)) and linked_type = ?',
+        gallery_ids.empty? ? -1 : gallery_ids,
+        linked_ids,
+        Character.name
+      )
       .joins(:cosplay_gallery)
       .where(Arel.sql('cosplay_galleries.deleted = false and cosplay_galleries.confirmed = true'))
       .includes(:character)

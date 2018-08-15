@@ -36,7 +36,7 @@ module Antispam
     self.class.with_antispam?
   end
 
-  def check_antispam # rubocop:disable MethodLength, AbcSize
+  def check_antispam
     return unless need_antispam_check?
 
     prior_entry = self.class.where(user_id: user_id).order(id: :desc).first
