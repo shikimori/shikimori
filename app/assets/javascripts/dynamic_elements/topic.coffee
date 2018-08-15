@@ -5,6 +5,13 @@ using 'DynamicElements'
 # TODO: move code related to comments to separate class
 class DynamicElements.Topic extends ShikiEditable
   I18N_KEY = 'frontend.dynamic_elements.topic'
+  FAYE_EVENTS = [
+    'faye:comment:updated'
+    'faye:message:updated'
+    'faye:comment:deleted'
+    'faye:message:deleted'
+    'faye:comment:set_replies'
+  ]
 
   _type: -> 'topic'
   _type_label: -> I18n.t("#{I18N_KEY}.type_label")
@@ -58,6 +65,8 @@ class DynamicElements.Topic extends ShikiEditable
 
     @_activate_appear_marker() if @model && !@model.is_viewed
     @_activate_vote_button() if @model
+    @_actualize_votes_count() if @model
+
     @$inner.one 'mouseover', @_deactivate_inaccessible_buttons
     $('.item-mobile', @$inner).one @_deactivate_inaccessible_buttons
 
@@ -166,7 +175,7 @@ class DynamicElements.Topic extends ShikiEditable
 
     # realtime обновления
     # изменение / удаление комментария
-    @on 'faye:comment:updated faye:message:updated faye:comment:deleted faye:message:deleted faye:comment:set_replies', (e, data) =>
+    @on FAYE_EVENTS.join(' '), (e, data) =>
       e.stopImmediatePropagation()
       trackable_type = e.type.match(/comment|message/)[0]
       trackable_id = data["#{trackable_type}_id"]
@@ -190,7 +199,7 @@ class DynamicElements.Topic extends ShikiEditable
           $placeholder.click()
 
     # изменение метки комментария
-    @on 'faye:comment:marked', (e, data) =>
+    @on 'faye:comment:marked', (e, data) ->
       e.stopImmediatePropagation()
       $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
 
@@ -209,9 +218,7 @@ class DynamicElements.Topic extends ShikiEditable
       .map (v) -> v.id
       .filter (v) -> v
 
-    exclude_selector = present_ids.map (id) ->
-        ".#{filter}##{id}"
-      .join(',')
+    exclude_selector = present_ids.map((id) -> ".#{filter}##{id}").join(',')
 
     $comments.children().filter(exclude_selector).remove()
 
@@ -262,7 +269,7 @@ class DynamicElements.Topic extends ShikiEditable
     $placeholder
 
   # handlers
-  _appear: (e, $appeared, by_click) =>
+  _appear: (e, $appeared, by_click) ->
     $filtered_appeared = $appeared.not ->
       $(@).data('disabled') || !(
         @classList.contains('b-appear_marker') &&
@@ -347,6 +354,10 @@ class DynamicElements.Topic extends ShikiEditable
     else if @model.voted_no
       @$inner.find('.footer-vote .vote.no, .user-vote .voted-against')
         .addClass('selected')
+
+  _actualize_votes_count: ->
+    @$inner.find('.votes-for').html("#{@model.votes_for}") if @model.votes_for
+    @$inner.find('.votes-against').html("#{@model.votes_against}") if @model.votes_against
 
   # скрытие действий, на которые у пользователя нет прав
   _deactivate_inaccessible_buttons: =>
