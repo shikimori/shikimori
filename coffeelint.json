@@ -1,5 +1,3 @@
-yarn run v1.7.0
-$ /Users/morr/develop/shikimori/node_modules/.bin/coffeelint --makeconfig
 {
   "arrow_spacing": {
     "level": "ignore"
@@ -84,7 +82,7 @@ $ /Users/morr/develop/shikimori/node_modules/.bin/coffeelint --makeconfig
     "level": "ignore"
   },
   "no_nested_string_interpolation": {
-    "level": "warn"
+    "level": "ignore"
   },
   "no_plusplus": {
     "level": "ignore"
@@ -133,6 +131,10 @@ $ /Users/morr/develop/shikimori/node_modules/.bin/coffeelint --makeconfig
   },
   "transform_messes_up_line_numbers": {
     "level": "warn"
+  },
+    "max_line_length": {
+    "value": 100,
+    "level": "error",
+    "limitComments": true
   }
 }
-Done in 0.26s.

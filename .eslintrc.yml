@@ -43,7 +43,7 @@ rules:
     - always
   max-len:
     - warn
-    - 80
+    - 100
     - ignoreComments: true
       ignoreUrls: true
       ignorePattern: "\\s*<"
