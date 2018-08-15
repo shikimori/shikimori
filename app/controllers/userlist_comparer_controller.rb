@@ -3,24 +3,30 @@ class UserlistComparerController < ShikimoriController
   before_action :authorize_lists_access
 
   def show
-    og noindex: true, nofollow: true
     @klass = params[:list_type].downcase.capitalize.constantize
-    params[:klass] = @klass
 
-    @entries = Rails.cache.fetch(@cache_key, expires_in: 10.minutes) do
-      ListCompareService.fetch(@user_1, @user_2, params)
-    end
-
+    og noindex: true, nofollow: true
     og page_title: i18n_t(
       "page_title.#{@klass.name.downcase}",
       user_1: @user_1.nickname,
       user_2: @user_2.nickname
     )
 
+    @entries = fetch_entries
     @menu = Menus::CollectionMenu.new @klass
   end
 
 private
+
+  def fetch_entries
+    Rails.cache.fetch(cache_key, expires_in: 10.minutes) do
+      ListCompareService.call(
+        user_1: @user_1,
+        user_2: @user_2,
+        params: params.merge(klass: @klass)
+      )
+    end
+  end
 
   def fetch_users
     @user_1 = User.find_by nickname: User.param_to(params[:user_1])
