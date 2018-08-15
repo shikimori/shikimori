@@ -7,8 +7,7 @@ class UserlistComparerController < ShikimoriController
     @klass = params[:list_type].downcase.capitalize.constantize
     params[:klass] = @klass
 
-    @cache_key = "#{@user_1.cache_key}_#{@user_2.cache_key}_list_comparer_#{Digest::MD5.hexdigest(params.to_yaml)}"
-    @entries = Rails.cache.fetch("#{@cache_key}_data", expires_in: 10.minutes) do
+    @entries = Rails.cache.fetch(@cache_key, expires_in: 10.minutes) do
       ListCompareService.fetch(@user_1, @user_2, params)
     end
 
@@ -29,7 +28,10 @@ private
 
     if @user_1.blank? || @user_2.blank?
       blank_user = @user_1.blank? ? params[:user_1] : params[:user_2]
-      alert = i18n_t 'fetch_users_alert', user: ERB::Util.html_escape(blank_user)
+      alert = i18n_t(
+        'fetch_users_alert',
+        user: ERB::Util.html_escape(blank_user)
+      )
 
       redirect_to :root, alert: alert
     end
@@ -38,5 +40,14 @@ private
   def authorize_lists_access
     authorize! :access_list, @user_1
     authorize! :access_list, @user_2
+  end
+
+  def cache_key
+    [
+      :list_comparer,
+      @user_1.cache_key,
+      @user_2.cache_key,
+      Digest::MD5.hexdigest(params.to_yaml)
+    ]
   end
 end
