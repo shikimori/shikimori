@@ -12,6 +12,10 @@ class DynamicElements.Topic extends ShikiEditable
     'faye:message:deleted'
     'faye:comment:set_replies'
   ]
+  SHOW_IGNORED_TOPICS_IN = [
+    'topics_show'
+    'collections_show'
+  ]
 
   _type: -> 'topic'
   _type_label: -> I18n.t("#{I18N_KEY}.type_label")
@@ -29,7 +33,7 @@ class DynamicElements.Topic extends ShikiEditable
     @model = @$root.data('model') || @_default_model()
 
     if SHIKI_USER.user_ignored(@model.user_id) || SHIKI_USER.topic_ignored(@model.id)
-      if document.body.id == 'topics_show'
+      if SHOW_IGNORED_TOPICS_IN.includes document.body.id
         @_toggle_ignored true
       else
         # node can be not inserted into DOM yet
