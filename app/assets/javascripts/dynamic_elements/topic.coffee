@@ -64,8 +64,7 @@ class DynamicElements.Topic extends ShikiEditable
     @is_review = @$root.hasClass('b-review-topic')
 
     @_activate_appear_marker() if @model && !@model.is_viewed
-    @_activate_vote_button() if @model
-    @_actualize_votes_count() if @model
+    @_actualize_voting() if @model
 
     @$inner.one 'mouseover', @_deactivate_inaccessible_buttons
     $('.item-mobile', @$inner).one @_deactivate_inaccessible_buttons
@@ -118,10 +117,17 @@ class DynamicElements.Topic extends ShikiEditable
       @$inner.find('.footer-vote').addClass 'b-ajax'
       is_yes = $(e.target).hasClass 'yes'
 
-      @$inner.find('.vote.yes, .user-vote .voted-for')
-        .toggleClass('selected', is_yes)
-      @$inner.find('.vote.no, .user-vote .voted-against')
-        .toggleClass('selected', !is_yes)
+      if is_yes && !@model.voted_yes
+        @model.votes_for += 1
+        @model.votes_against -= 1 if @model.voted_no
+      else if !is_yes && !@model.voted_no
+        @model.votes_for -= 1 if @model.voted_yes
+        @model.votes_against += 1
+
+      @model.voted_no = !is_yes
+      @model.voted_yes = is_yes
+
+      @_actualize_voting()
 
     @$('.footer-vote .vote').on 'ajax:complete', ->
       $(@).closest('.footer-vote').removeClass 'b-ajax'
@@ -346,18 +352,17 @@ class DynamicElements.Topic extends ShikiEditable
   _reload_url: =>
     "/#{@_type()}s/#{@$root.attr 'id'}/reload?is_preview=#{@is_preview}"
 
-  _activate_vote_button: ->
-    if @model.voted_yes
-      @$inner.find('.footer-vote .vote.yes, .user-vote .voted-for')
-        .addClass('selected')
+  _actualize_voting: ->
+    @$inner
+      .find('.footer-vote .vote.yes, .user-vote .voted-for')
+      .toggleClass('selected', @model.voted_yes)
 
-    else if @model.voted_no
-      @$inner.find('.footer-vote .vote.no, .user-vote .voted-against')
-        .addClass('selected')
+    @$inner
+      .find('.footer-vote .vote.no, .user-vote .voted-against')
+      .toggleClass('selected', @model.voted_no)
 
-  _actualize_votes_count: ->
-    @$inner.find('.votes-for').html("#{@model.votes_for}") if @model.votes_for
-    @$inner.find('.votes-against').html("#{@model.votes_against}") if @model.votes_against
+    @$inner.find('.votes-for').html("#{@model.votes_for}")
+    @$inner.find('.votes-against').html("#{@model.votes_against}")
 
   # скрытие действий, на которые у пользователя нет прав
   _deactivate_inaccessible_buttons: =>
