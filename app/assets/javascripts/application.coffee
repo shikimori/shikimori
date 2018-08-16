@@ -103,12 +103,15 @@ $ ->
   window.SHIKI_USER = new ShikiUser($body.data('user'))
   window.LOCALE = $body.data 'locale'
 
-  if 'atatus' of window
-    atatus
-      .config(
-        'e939107bae3f4735891fd79f9dee7e40',
-        { customData: { SHIKI_USER: SHIKI_USER.id } }
-      ).install?()
+  window.FAYE_URL = $body.data 'faye_url'
+  window.FAYE_CHANNEL = $body.data 'faye' if SHIKI_USER
+
+  # if 'atatus' of window
+  #   atatus
+  #     .config(
+  #       'e939107bae3f4735891fd79f9dee7e40',
+  #       { customData: { SHIKI_USER: SHIKI_USER.id } }
+  #     ).install?()
 
   I18n.locale = LOCALE
   moment.locale LOCALE

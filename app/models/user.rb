@@ -388,6 +388,8 @@ class User < ApplicationRecord
     ShikiMailer.delay_for(0.seconds).send(notification, self, *args)
   end
 
+  # NOTE: replace id with hashed value of secret token when
+  # any private data will be transmitted through the channel
   def faye_channel
     ["user-#{id}"]
   end
