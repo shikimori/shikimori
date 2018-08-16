@@ -1,10 +1,5 @@
 describe Dialog do
-  let(:message) do
-    build_stubbed :message,
-      from: user_1,
-      to: user_2,
-      read: false
-  end
+  let(:message) { build_stubbed :message, from: user_1, to: user_2, read: false }
   subject(:dialog) { Dialog.new user_1, message }
 
   describe '#target_user' do
@@ -77,7 +72,7 @@ describe Dialog do
     end
   end
 
-  describe '#dialog' do
+  describe '#faye_channel' do
     let(:user_1) { build_stubbed :user, id: 2 }
     let(:user_2) { build_stubbed :user, id: 1 }
 

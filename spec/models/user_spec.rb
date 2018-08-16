@@ -305,6 +305,10 @@ describe User do
         it { expect(user.week_registered?).to be true }
       end
     end
+
+    describe '#faye_channel' do
+      it { expect(user.faye_channel).to eq %W[user-#{user.id}] }
+    end
   end
 
   describe 'permissions' do

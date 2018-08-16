@@ -1,7 +1,8 @@
 # Публикация различных уведомлений через Faye
 # FayePublisher.new(User.first, nil).publish({ data: { comment_id: 999999999, topic_id: 79981 } }, ['/topic-79981'])
 class FayePublisher # rubocop:disable ClassLength
-  BROADCAST_FEED = 'myfeed'
+  BROADCAST_FEED = 'broadcast'
+
   FAYE_URL = Shikimori::PROTOCOL + '://' +
     Rails.application.secrets.faye[:host] + (
       Rails.application.secrets.faye[:port].present? ?

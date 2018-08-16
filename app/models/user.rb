@@ -372,15 +372,13 @@ class User < ApplicationRecord
   end
 
   def forever_banned?
-    (read_only_at || Time.zone.now) - 1.year > Time.zone.now
+    (read_only_at || Time.zone.now) > 1.year.from_now
   end
 
-  # регистрация более суток тому назад
   def day_registered?
     created_at + DAY_LIFE_INTERVAL <= Time.zone.now
   end
 
-  # регистрация более суток тому назад
   def week_registered?
     created_at + WEEK_LIFE_INTERVAL <= Time.zone.now
   end
@@ -390,19 +388,20 @@ class User < ApplicationRecord
     ShikiMailer.delay_for(0.seconds).send(notification, self, *args)
   end
 
+  def faye_channel
+    ["user-#{id}"]
+  end
+
 private
 
-  # создание первой записи в историю - о регистрации на сайте
   def create_history_entry
     history.create! action: UserHistoryAction::Registration
   end
 
-  # запоминаем предыдущие никнеймы пользователя
   def log_nickname_change
     Users::LogNicknameChange.call self, saved_changes[:nickname].first
   end
 
-  # создание послерегистрационного приветственного сообщения пользователю
   def send_welcome_message
     Messages::CreateNotification.new(self).user_registered
   end
