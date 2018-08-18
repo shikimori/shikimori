@@ -211,6 +211,12 @@ describe AnimeOnline::FixAnimeVideoAuthors do
             let(:name) { ['Amaizing Dubbing', 'Amazing Dubing'].sample }
             it { expect(author_1.reload.name).to eq 'Amazing Dubbing' }
           end
+
+          context 'SeM&Ko' do
+            let(:name) { %w[SEM&KO sem&ko Sem&Ko].sample }
+            it { expect(author_1.reload.name).to eq 'SeM&Ko' }
+
+          end
         end
 
         describe 'author already exists' do
