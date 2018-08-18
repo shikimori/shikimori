@@ -29,7 +29,5 @@
     = render 'comments/shiki_editor', text: review.text, field_name: 'review[text]'
 
   .buttons
-    a.cancel[
-      href=(review.persisted? ? review.url : resource.url)
-    ] = t 'actions.cancel'
+    a.cancel href=@back_url = t 'actions.cancel'
     = f.button :magic_submit
