@@ -4,9 +4,6 @@
 - has_music = defined?(with_music) && with_music && review.music.present? && !review.music.zero?
 - has_overall = review.overall.present? && !review.overall.zero?
 
-- if has_overall
-  meta itemprop="reviewRating" content="#{review.overall}"
-
 - if defined?(in_edit) || has_storyline || has_characters || has_animation || has_music || has_overall
   .review-stars
     - if defined?(in_edit) || has_storyline
@@ -43,3 +40,6 @@
         = render partial: 'blocks/rate', locals: { score: review.overall || 0, input_selector: ('#review_overall' if defined?(in_edit)) }
         - if defined? in_edit
           = hidden_field_tag 'review[overall]', review.overall
+
+- if has_overall
+  meta itemprop="reviewRating" content="#{review.overall}"
