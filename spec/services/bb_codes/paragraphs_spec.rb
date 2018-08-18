@@ -18,8 +18,13 @@ describe BbCodes::Paragraphs do
   end
 
   describe '[*]' do
-    let(:text) { "[list]\n [*]#{long_line}\r\n[/list]" }
-    it { is_expected.to eq "[list]\n [*]#{long_line}\r\n[/list]" }
+    let(:text) { "[list]\n [*]z\r\n[/list]" }
+    it { is_expected.to eq "[list]\n[*]z\r\n[/list]" }
+
+    context 'more [*]' do
+      let(:text) { "[list][*]z[*]x\n[*]c[/list]" }
+      it { is_expected.to eq "[list]\n[*]z\n[*]x\n[*]c[/list]" }
+    end
   end
 
   describe '[quote]' do
