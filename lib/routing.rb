@@ -37,11 +37,12 @@ module Routing
 
     elsif topic_type_policy.any_club_topic?
 
-      club = if topic_type_policy.club_page_topic?
-               topic.linked.club
-             else
-               topic.linked
-      end
+      club =
+        if topic_type_policy.club_page_topic?
+          topic.linked.club
+        else
+          topic.linked
+        end
 
       club_club_topic_url options.merge(
         club_id: club.to_param,
