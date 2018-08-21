@@ -1,3 +1,4 @@
+import URI from 'urijs'
 import { debounce } from 'throttle-debounce'
 
 export default class CollectionSearch extends View

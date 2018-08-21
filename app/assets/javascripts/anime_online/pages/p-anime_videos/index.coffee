@@ -1,3 +1,4 @@
+import Turbolinks from 'turbolinks'
 import { debounce } from 'throttle-debounce'
 import ShikiHtml5Video from 'views/application/shiki_html5_video'
 

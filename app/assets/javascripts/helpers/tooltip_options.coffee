@@ -1,3 +1,5 @@
+import URI from 'urijs'
+
 TOOLTIP_TEMPLATE = "<div>
   <div class='tooltip-inner'>
     <div class='tooltip-arrow'></div>

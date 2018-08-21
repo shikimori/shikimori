@@ -1,3 +1,5 @@
+import URI from 'urijs'
+
 $(document).on 'page:load', ->
   $main_search = $('.b-main_search')
   $search = $('.b-main_search input')

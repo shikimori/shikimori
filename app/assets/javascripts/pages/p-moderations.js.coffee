@@ -1,4 +1,6 @@
+import URI from 'urijs'
 import Turbolinks from 'turbolinks'
+
 import DatePicker from 'views/application/date_picker'
 
 # получение комментария

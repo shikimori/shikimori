@@ -22,7 +22,6 @@ environment.plugins.append(
   'Provide',
   new webpack.ProvidePlugin({
     I18n: 'i18n-js',
-    URI: 'urijs',
     delay: 'delay'
   })
 );

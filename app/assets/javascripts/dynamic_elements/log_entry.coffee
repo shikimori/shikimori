@@ -1,3 +1,5 @@
+import URI from 'urijs'
+
 using 'DynamicElements'
 class DynamicElements.LogEntry extends ShikiView
   initialize: ->
