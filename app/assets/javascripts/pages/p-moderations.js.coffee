@@ -1,5 +1,5 @@
 import Turbolinks from 'turbolinks'
-DatePicker = require 'views/application/date_picker'
+import DatePicker from 'views/application/date_picker'
 
 # получение комментария
 $comment = (node) ->
@@ -33,13 +33,20 @@ page_load 'versions_index', 'users_index', ->
   date_picker()
 
 # страницы модерации
-page_load 'bans_index', 'abuse_requests_index', 'versions_index', 'review_index', 'anime_video_reports_index', ->
-  # сокращение высоты инструкции
-  $('.b-brief').check_height max_height: 150
+page_load(
+  'bans_index',
+  'abuse_requests_index',
+  'versions_index',
+  'review_index',
+  'anime_video_reports_index',
+  ->
+    # сокращение высоты инструкции
+    $('.b-brief').check_height max_height: 150
 
-  $('.expand-all').on 'click', ->
-    $(@).parent().next().next().find('.collapsed.spoiler:visible').click()
-    $(@).remove()
+    $('.expand-all').on 'click', ->
+      $(@).parent().next().next().find('.collapsed.spoiler:visible').click()
+      $(@).remove()
+)
 
 # информация о пропущенных видео
 page_load 'moderations_missing_videos', ->

@@ -21,7 +21,6 @@ environment.loaders.append('jade', {
 environment.plugins.append(
   'Provide',
   new webpack.ProvidePlugin({
-    moment: 'moment',
     I18n: 'i18n-js',
     URI: 'urijs',
     delay: 'delay'

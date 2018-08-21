@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 I18N_TIME_FORMATS =
   ru: 'D MMMM YYYY, H:mm:ss'
   en: 'MMMM Do YYYY, h:mm:ss a'
