@@ -1,3 +1,5 @@
+import Turbolinks from 'turbolinks'
+
 page_load 'recommendations_index', 'recommendations_favourites', ->
   ajax_cacher = require 'services/ajax_cacher'
 

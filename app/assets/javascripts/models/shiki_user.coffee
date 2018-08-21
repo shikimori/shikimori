@@ -1,4 +1,4 @@
-module.exports = class ShikiUser
+export default class ShikiUser
   PUBLIC_FIELDS = [
     'is_moderator'
     'is_day_registered'

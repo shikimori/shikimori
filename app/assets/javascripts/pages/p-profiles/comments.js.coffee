@@ -1,3 +1,5 @@
+import Turbolinks from 'turbolinks'
+
 page_load 'profiles_comments', ->
   $('form.comments-search').on 'submit', ->
     $search = $(@).find('input.search')

@@ -1,3 +1,4 @@
+import Turbolinks from 'turbolinks'
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options'
 import ShikiModal from 'views/application/shiki_modal'
 

@@ -1,3 +1,4 @@
+import Turbolinks from 'turbolinks'
 DatePicker = require 'views/application/date_picker'
 
 # получение комментария

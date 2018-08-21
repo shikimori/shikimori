@@ -1,3 +1,5 @@
+import Turbolinks from 'turbolinks'
+
 page_load 'users_similar', ->
   # если страница ещё не готова, перегрузимся через 5 секунд
   if $('p.pending').exists()

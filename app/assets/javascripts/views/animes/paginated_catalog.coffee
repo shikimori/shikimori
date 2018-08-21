@@ -1,5 +1,6 @@
 import CollectionSearch from 'views/application/collection_search'
 import UserRatesTracker from 'services/user_rates/tracker'
+import Turbolinks from 'turbolinks'
 
 export default class PaginatedCatalog
   constructor: (base_catalog_path) ->
