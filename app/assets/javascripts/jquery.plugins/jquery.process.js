@@ -109,7 +109,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
     .removeClass('unprocessed')
     .magnificRelGallery();
 
-  $with('.b-showMore.unprocessed', $root)
+  $with('.b-show_more.unprocessed', $root)
     .removeClass('unprocessed')
     .showMore();
 

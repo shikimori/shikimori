@@ -1,2 +1,2 @@
 page_load 'achievements_index', ->
-  # $('.b-showMore').showMore()
+  # $('.b-show_more').showMore()
