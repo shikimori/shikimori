@@ -1,5 +1,5 @@
 page_load 'collections_new', 'collections_edit', 'collections_create', 'collections_update', ->
-  $('.b-shikiEditor').shikiEditor()
+  $('.b-shiki_ditor').shikiEditor()
 
   if $('#vue_collection_links').exists()
     require.ensure [], ->

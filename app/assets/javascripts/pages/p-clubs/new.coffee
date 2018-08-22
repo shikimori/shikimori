@@ -1,2 +1,2 @@
 page_load 'clubs_new', ->
-  $('.b-shikiEditor').shikiEditor()
+  $('.b-shiki_ditor').shikiEditor()

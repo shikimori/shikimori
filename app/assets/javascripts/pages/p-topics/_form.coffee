@@ -26,7 +26,7 @@ page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
     .val(initial_linked_type)
     .trigger('change')
 
-  $('.b-shikiEditor', $form).shikiEditor()
+  $('.b-shiki_ditor', $form).shikiEditor()
   $('#topic_forum_id', $form).trigger('change')
 
   # сброс привязанного к топику

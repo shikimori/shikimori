@@ -2,7 +2,7 @@ page_load '.db_entries-edit_field', ->
   $description = $('.edit-page.description_ru, .edit-page.description_en')
 
   if $description.exists()
-    $editor = $('.b-shikiEditor')
+    $editor = $('.b-shiki_ditor')
     $editor
       .shikiEditor()
       .on 'preview:params', ->
