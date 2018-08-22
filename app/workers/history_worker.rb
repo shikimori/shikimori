@@ -60,20 +60,22 @@ private
   end
 
   def users
-    users_with_anime = User
+    users_with_anime_scope = User
       .includes(:devices, anime_rates: [:anime])
-      .references(:user_rates)#.where(id: 1..1000)
-      .where('user_rates.id is null or (user_rates.target_type = ? and user_rates.target_id in (?))',
-              Anime.name, topics.map(&:linked_id))
-      .to_a
+      .references(:user_rates) # .where(id: 1..1000)
+      .where(
+        'user_rates.id is null or (user_rates.target_type = ? and user_rates.target_id in (?))',
+        Anime.name,
+        topics.map(&:linked_id)
+      )
 
     users_without_anime = User
       .includes(:devices)
-      .where.not(id: users_with_anime.map(&:id))#.where(id: 1..1000)
+      .where.not(id: users_with_anime_scope) # .where(id: 1..1000)
       .each { |v| v.association(:anime_rates).loaded! }
       .uniq(&:id)
 
-    users_with_anime + users_without_anime
+    users_with_anime_scope + users_without_anime
   end
 
   def message_type topic
