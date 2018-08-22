@@ -93,7 +93,7 @@
     #end
 
     #anime
-  #rescue Exception => e
+  #rescue StandardError => e
     #raise e if e.class == Interrupt
     #print "#{id} #{e.message}...\n"
 

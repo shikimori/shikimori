@@ -90,7 +90,7 @@ private
       }
     end
 
-  rescue Exception => e
+  rescue StandardError => e
     raise e if e.class == Interrupt
     print "#{e.message}\n#{e.backtrace.join("\n")}\n"
     nil
@@ -136,7 +136,7 @@ private
 
     feed
 
-  rescue Exception => e
+  rescue StandardError => e
     raise e if e.class == Interrupt
     print "#{e.message}\n#{e.backtrace.join("\n")}\n"
     nil

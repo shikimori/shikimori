@@ -72,7 +72,7 @@ class ThreadPool
         end
         sleep(1)
       end
-    rescue Exception => e
+    rescue StandardError => e
       @exception = e
     end
 
@@ -133,7 +133,7 @@ class ThreadPool
         #print "before yield %d, total workers: %d\n" % [worker_num, @threads.size] if @options[:debug_log]
         yield object
         #print "after yield %d, total workers: %d\n" % [worker_num, @threads.size] if @options[:debug_log]
-      rescue Exception => e
+      rescue StandardError => e
         print "unhandled exception %s in worker %d for object: %s\n" % [e.class, worker_num, object.to_yaml] if @options[:log]
         #print "%s\n%s\n" % [e.message, e.backtrace.join("\n")]
         @exception = e
@@ -194,7 +194,7 @@ class ThreadPool
         end
         print "saver thread finished\n" if @options[:log]
         @saver = nil
-      rescue Exception => e
+      rescue StandardError => e
         print "exception happened in saver: %s\n%s\n" % [e.message, e.backtrace.join("\n")]
         raise e
       end

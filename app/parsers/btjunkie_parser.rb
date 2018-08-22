@@ -31,7 +31,7 @@ class BtjunkieParser < TorrentsParser
         next if item.keys.size != 6
         next if item[:seed] == 0
         feed << item
-      rescue Exception => e
+      rescue StandardError => e
         raise Interrupt.new if e.class == Interrupt
         puts e.message
         puts e.backtrace.join("\n")
@@ -62,7 +62,7 @@ class BtjunkieParser < TorrentsParser
         }
         next if item[:seed] == 0
         feed << item
-      rescue Exception => e
+      rescue StandardError => e
         raise Interrupt.new if e.class == Interrupt
         puts e.message
         puts e.backtrace.join("\n")
@@ -103,7 +103,7 @@ private
         }
         next if item[:seed] == 0
         feed << item
-      rescue Exception => e
+      rescue StandardError => e
         raise Interrupt.new if e.class == Interrupt
         #puts e.message
         #puts e.backtrace.join("\n")

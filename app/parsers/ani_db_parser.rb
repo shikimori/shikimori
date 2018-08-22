@@ -62,7 +62,7 @@
         #fetch_score(anime)
         ##ap anime[:scores] if !anime.include?(:scores) || anime[:scores].empty? || anime[:scores].sum == 0
       #end
-    #rescue Exception => e
+    #rescue StandardError => e
       #print "%s\n%s\n" % [e.message, e.backtrace.join("\n")]
     #end
     #print "all animes fetched successfully...\n"
@@ -129,7 +129,7 @@
         #else
           #Date.parse(date)
         #end
-      #rescue Exception => e
+      #rescue StandardError => e
         #nil
       #end
     #end

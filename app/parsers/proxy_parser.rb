@@ -57,7 +57,7 @@ private
     print "#{url} - #{proxies.size} proxies\n"
 
     proxies
-  rescue Exception => e
+  rescue StandardError => e
     print "#{url}: #{e.message}\n"
     []
   end

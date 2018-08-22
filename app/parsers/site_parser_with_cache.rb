@@ -29,7 +29,7 @@ class SiteParserWithCache
     begin
       %x(cp #{cache_path} /tmp/.#{cache_name}.#{DateTime.now.to_s}) if File.exists?(cache_path)
       File.open(cache_path, "rb") { |f| cache = YAML.load(f.read) } if File.exists?(cache_path)
-    rescue Exception => e
+    rescue StandardError => e
       print "%s\n%s\n" % [e.message, e.backtrace.join("\n")]
     ensure
       cache = {} unless cache
@@ -45,7 +45,7 @@ class SiteParserWithCache
         File.open(@cache_tmp_path, "wb") { |f| f.write(data) }
         %x(cp #{@cache_tmp_path} #{@cache_path})
       end
-    rescue Exception => e
+    rescue StandardError => e
       print "%s\n%s\n" % [e.message, e.backtrace.join("\n")]
       @mutex.synchronize do
         data = YAML.dump(@cache)

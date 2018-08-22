@@ -152,7 +152,7 @@ class Proxy < ApplicationRecord
 
           attempts += 1
 
-        rescue Exception => e
+        rescue StandardError => e
           raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
           if e.message =~ /404 Not Found/
             @@proxies.push(proxy) unless options[:proxy]
@@ -195,7 +195,7 @@ class Proxy < ApplicationRecord
 
       options[:return_file] ? file : file.read
 
-    rescue Exception => e
+    rescue StandardError => e
       raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
 
       if e.message =~ SAFE_ERRORS
@@ -226,7 +226,7 @@ class Proxy < ApplicationRecord
       NamedLogger.proxy.info "POST #{url} #{data}"
       resp = http.post(path, data, headers)
       resp.body
-    rescue Exception => e
+    rescue StandardError => e
       raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
       if e.message =~ SAFE_ERRORS
         log "#{e.class.name} #{e.message}", options
