@@ -1,18 +1,21 @@
 describe ApplicationIndex, :vcr do
-  before do
-    # VCR.configure { |c| c.ignore_request { |_request| true } }
-    # Chewy.logger = ActiveSupport::Logger.new(STDOUT)
-    # Chewy.transport_logger = ActiveSupport::Logger.new(STDOUT)
-    ActiveRecord::Base.connection.reset_pk_sequence! :users
-    ClubsIndex.purge!
-  end
+  # include_context :disable_vcr
+  # include_context :chewy_indexes, %i[clubs]
+  # include_context :chewy_logger
 
-  let(:url) do
-    'http://localhost:9200/shikimori_test_clubs/_analyze'\
-      "?analyzer=#{analyzer}"\
-      "&text=#{CGI.escape text}"
+  let(:url) { 'http://localhost:9200/shikimori_test_clubs/_analyze' }
+  let(:response) do
+    Faraday
+      .get do |req|
+        req.url url
+        req.headers['Content-Type'] = 'application/json'
+        req.body = {
+          analyzer: analyzer,
+          text: text
+        }.to_json
+      end
+      .body
   end
-  let(:response) { open(url).read }
 
   let(:text) { 'Kai wa-sama' }
 

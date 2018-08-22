@@ -51,8 +51,7 @@ class FayeService
     ids
   end
 
-  # уведомление о том, что у комментария изменился блок с ответами
-  def set_replies comment
+  def set_replies comment # rubocop:disable AccessorMethodName
     replies_text =
       if comment.body =~ BbCodes::Tags::RepliesTag::REGEXP
         $LAST_MATCH_INFO[:tag]

@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :video do
     association :uploader, factory: :user
     state 'uploaded'
-    anime_id 1
+    anime { create :anime }
     url 'http://youtube.com/watch?v=VdwKZ6JDENc'
     kind :op
 

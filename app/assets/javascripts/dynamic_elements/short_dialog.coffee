@@ -13,7 +13,7 @@ class DynamicElements.ShortDialog extends DynamicElements.Topic
 
   # private functions
   _check_height: ->
-    @$inner.check_height
+    @$inner.checkHeight
       max_height: @MAX_PREVIEW_HEIGHT
       collapsed_height: @COLLAPSED_HEIGHT
 

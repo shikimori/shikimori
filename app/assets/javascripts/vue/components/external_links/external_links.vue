@@ -17,7 +17,7 @@
       ExternalLink(
         v-for="link in collection"
         @add_next="add"
-        @focus_last="focus_last"
+        @focusLast="focusLast"
         :key="link.id || link.key"
         :link="link"
         :kind_options="kind_options"
@@ -34,6 +34,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import ExternalLink from './external_link'
 import draggable from 'vuedraggable'
+import delay from 'delay';
 
 export default {
   components: { ExternalLink, draggable },
@@ -75,9 +76,10 @@ export default {
         entry_type: this.entry_type
       })
     },
-    focus_last() {
+    async focusLast() {
       // do not use this.$nextTick. it passes "backspace" event to focused input
-      delay().then(() => $('input', this.$el).last().focus())
+      await delay();
+      $('input', this.$el).last().focus();
     }
   }
 }

@@ -1,6 +1,5 @@
 describe EmailsController do
   describe '#bounce' do
-    let(:user) { create :user }
     let(:make_request) { post :bounce, params: { recipient: email } }
 
     context 'present user' do
@@ -39,7 +38,6 @@ describe EmailsController do
   end
 
   describe '#spam' do
-    let(:user) { create :user }
     before { post :spam, params: { recipient: user.email } }
 
     it do

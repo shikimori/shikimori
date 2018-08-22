@@ -1,11 +1,11 @@
-ShikiModal = require 'views/application/shiki_modal'
+import ShikiModal from 'views/application/shiki_modal'
 
 $(document).on 'page:load', ->
   $feedback = $('.b-feedback')
 
   $('.marker-positioner', $feedback).on 'ajax:success', (e, data) ->
     $form = $(data)
-    $form.find('.b-shiki_editor.unprocessed').shiki_editor()
+    $form.find('.b-shiki_editor.unprocessed').shikiEditor()
     modal = new ShikiModal $form
 
     $form.on 'ajax:success', ->

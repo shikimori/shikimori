@@ -1,61 +1,112 @@
-# https://eslint.org/docs/rules/
+---
 env:
   browser: true
-  es6: false
-  node: false
+  node: true
+  # jest: true
+  es6: true
   jquery: true
-#parser: 'babel-eslint'
-#parserOptions:
-#  ecmaFeatures:
-#    experimentalObjectRestSpread: true
-#  sourceType: module
+
+parser: babel-eslint
+
+extends:
+  - airbnb
+
+# plugins:
+#   - react
+#   - jsx-a11y
+#   - jsx-max-len
+
 globals:
+  I18n: true
   page_load: true
   page_unload: true
+
+parserOptions:
+  ecmaVersion: 6
+  sourceType: module
+  # ecmaFeatures:
+    # jsx: true
+
 rules:
-  no-console: 0
-  # [ ], default: "never"
-  comma-dangle:
-    - warn
-    - only-multiline
-  # [ ], default: 4
-  indent:
+  quotes:
     - error
+    - single
+  object-curly-spacing:
+    - error
+    - always
+  semi:
+    - error
+    - always
+  object-curly-newline: 0
+  arrow-body-style:
     - 2
-  # [ ], default: "before": true, "after": true
-  keyword-spacing:
-    - error
-    - after: true
-      before: true
-  # [ ], default: "unix"
-  linebreak-style:
-    - error
-    - unix
-  # [ ], default: ["error", 80]
-  #max-len:
-  #  - warn
-  #  - 80
-  # [ ], default: {"skipBlankLines": false, "ignoreComments": false}
+    - as-needed
+  arrow-parens:
+    - 2
+    - as-needed
+  no-console: 0
+  no-alert: 0
   no-trailing-spaces:
     - error
-  # [x], default: none
+  no-return-assign: 0
+  no-param-reassign:
+    - 2
+    - props: false
+  no-underscore-dangle: 0
   no-unused-vars:
     - error
     - argsIgnorePattern: ^_
       varsIgnorePattern: ^_
-  # [ ], default: "double"
-  quotes:
+  no-use-before-define: 0
+  no-mixed-operators: 0
+  no-new: 0
+  function-paren-newline: 0
+  comma-dangle:
+    - warn
+    - never
+  max-len:
+    - warn
+    - 100
+    - ignoreComments: true
+      ignoreUrls: true
+      ignorePattern: "\\s*<"
+  indent:
     - error
-    - single
-  # [ ], default: "never"
-  object-curly-spacing:
+    - 2
+    - ignoreComments: true
+  linebreak-style:
+    - error
+    - unix
+  func-names: 0
+  implicit-arrow-linebreak: 0
+  prefer-template: 0
+  class-methods-use-this: 0
+  radix: 0
+  operator-linebreak:
+    - 2
+    - after
+  keyword-spacing:
+    - error
+    - after: true
+      before: true
+  lines-between-class-members: 0
+  import/no-extraneous-dependencies: 0
+  import/no-unresolved: 2
+  import/no-webpack-loader-syntax: 0
+  import/prefer-default-export: 0
+  import/extensions:
     - error
     - always
-  # [ ], default: "always"
-  semi:
-    - error
-    - always
-  # [ ], default: "always"
-  space-before-function-paren:
-    - error
-    - always
+    - js: never
+    - coffee: never
+  import/first: 0
+  import/order: 0
+
+settings:
+  import/resolver:
+    webpack:
+      config: './config/webpack/development.js'
+    node:
+      extensions:
+        - '.js'
+        - '.coffee'

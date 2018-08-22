@@ -30,7 +30,9 @@ private
     if VOTEABLE_TYPES.include? topic.linked_type
       {
         voted_yes: user.liked?(topic.linked),
-        voted_no: user.disliked?(topic.linked)
+        voted_no: user.disliked?(topic.linked),
+        votes_for: topic.linked.cached_votes_up,
+        votes_against: topic.linked.cached_votes_down
       }
     else
       {}

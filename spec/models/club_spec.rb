@@ -93,8 +93,6 @@ describe Club do
   end
 
   describe 'instance methods' do
-    let(:user) { create :user }
-
     describe '#to_param' do
       let(:club) { build :club, id: 1, name: 'тест' }
       it { expect(club.to_param).to eq '1-test' }
@@ -109,7 +107,6 @@ describe Club do
 
     describe '#ban' do
       let(:user) { create :user }
-      let(:club) { create :club }
       before { club.ban user }
 
       it { expect(club.banned? user).to be true }
@@ -117,7 +114,6 @@ describe Club do
 
     describe '#join' do
       let(:user) { create :user }
-      let(:club) { create :club }
       before { club.join user }
 
       it { expect(club.reload.club_roles_count).to eq 1 }

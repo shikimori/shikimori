@@ -22,6 +22,7 @@ html
     data-localized_names=@layout.localized_names
     data-localized_genres=@layout.localized_genres
     data-faye_url=FayePublisher::FAYE_URL
+    data-faye=(current_user.faye_channel.to_json if user_signed_in?)
   ]
     .turbolinks
 

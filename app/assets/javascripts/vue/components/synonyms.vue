@@ -28,8 +28,8 @@
             :name="`${resource_type.toLowerCase()}[synonyms][]`"
             :placeholder="I18n.t('frontend.synonyms.name')"
             @keydown.enter="submit"
-            @keydown.8="remove_empty(synonym)"
-            @keydown.esc="remove_empty(synonym)"
+            @keydown.8="removeEmpty(synonym)"
+            @keydown.esc="removeEmpty(synonym)"
           )
 
     .b-button(
@@ -40,6 +40,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import draggable from 'vuedraggable'
+import delay from 'delay';
 
 export default {
   components: { draggable },
@@ -72,7 +73,7 @@ export default {
   methods: {
     add() {
       this.$store.dispatch('add', { name: '' })
-      this.focus_last()
+      this.focusLast()
     },
     submit(e) {
       if (!e.metaKey && !e.ctrlKey) {
@@ -80,15 +81,16 @@ export default {
         this.add()
       }
     },
-    remove_empty(synonym) {
+    removeEmpty(synonym) {
       if (Object.isEmpty(synonym.name) && this.$store.state.collection.length > 1) {
         this.remove(synonym)
-        this.focus_last()
+        this.focusLast()
       }
     },
-    focus_last() {
+    async focusLast() {
       // do not use this.$nextTick. it passes "backspace" event to focused input
-      delay().then(() => $('input', this.$el).last().focus())
+      await delay();
+      $('input', this.$el).last().focus();
     },
     ...mapActions([
       'remove'

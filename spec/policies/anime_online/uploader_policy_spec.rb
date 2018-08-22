@@ -1,6 +1,5 @@
 describe AnimeOnline::UploaderPolicy do
   subject(:policy) { described_class.new user }
-  let(:user) { seed :user }
 
   describe '#trusted?' do
     let(:user) { build_stubbed :user, role }

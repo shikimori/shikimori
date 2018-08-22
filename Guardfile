@@ -1,5 +1,5 @@
 ignore %r{
-  bin | public | node_modules
+  bin | public | node_modules | tmp | .git
 }x
 
 guard :bundler do
@@ -25,8 +25,8 @@ group :specs, halt_on_fail: true do
 
     # RSpec files
     rspec = dsl.rspec
-    watch(rspec.spec_helper) { rspec.spec_dir }
-    watch(rspec.spec_support) { rspec.spec_dir }
+    # watch(rspec.spec_helper) { rspec.spec_dir }
+    # watch(rspec.spec_support) { rspec.spec_dir }
     watch(rspec.spec_files)
 
     # Ruby files
@@ -47,7 +47,7 @@ group :specs, halt_on_fail: true do
     end
 
     # Rails config changes
-    watch(rails.spec_helper)     { rspec.spec_dir }
+    # watch(rails.spec_helper)     { rspec.spec_dir }
     watch(rails.routes)          { "#{rspec.spec_dir}/routing" }
     watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
 

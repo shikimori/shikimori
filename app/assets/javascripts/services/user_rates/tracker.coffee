@@ -1,9 +1,9 @@
-TrackCatalogEntry = require './track_catalog_entry'
-TrackUserRate = require './track_user_rate'
-UpdateCatalogEntry = require './update_catalog_entry'
-UpdateUserRate = require './update_user_rate'
+import TrackCatalogEntry from './track_catalog_entry'
+import TrackUserRate from './track_user_rate'
+import UpdateCatalogEntry from './update_catalog_entry'
+import UpdateUserRate from './update_user_rate'
 
-module.exports = class UserRatesTracker
+export default class UserRatesTracker
   @track: (JS_EXPORTS, $root) ->
     return if Object.isEmpty(JS_EXPORTS?.user_rates)
 

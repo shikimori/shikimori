@@ -1,7 +1,6 @@
 describe Versioneers::ScreenshotsVersioneer do
   let(:versioneer) { Versioneers::ScreenshotsVersioneer.new anime }
   let(:anime) { create :anime }
-  let(:user) { create :user }
 
   describe '#upload' do
     let(:image) { Rack::Test::UploadedFile.new 'spec/files/anime.jpg', 'image/jpg' }

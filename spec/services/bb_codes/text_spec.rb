@@ -297,7 +297,6 @@ describe BbCodes::Text do
 
       context 'comment quote' do
         let(:text) { "[quote=c#{comment.id};#{user.id};zz]test[/quote]" }
-        let(:user) { seed :user }
         let(:comment) { create :comment, user: user }
 
         it do

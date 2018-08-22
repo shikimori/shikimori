@@ -1,6 +1,6 @@
 describe Users::AchievementsController do
   include_context :authenticated, :user
-  let(:user) { create :user, :admin }
+  let(:user) { seed :user_admin }
 
   describe '#index' do
     before { get :index, params: { profile_id: user.to_param } }

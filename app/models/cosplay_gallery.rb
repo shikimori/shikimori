@@ -6,7 +6,7 @@ class CosplayGallery < ApplicationRecord
 
   acts_as_votable
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
   has_many :image, -> { where(deleted: false).limit(1) },
     class_name: CosplayImage.name
@@ -98,7 +98,7 @@ class CosplayGallery < ApplicationRecord
   end
 
   def topic_user
-    User.find User::COSPLAYER_ID
+    User.find User::MESSANGER_ID
   end
 
 private

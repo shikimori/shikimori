@@ -29,9 +29,7 @@ class TopicsController < ShikimoriController
       ensure_redirect! UrlGenerator.instance
         .forum_url(@forums_view.forum, @forums_view.linked)
 
-      if @forums_view.linked.is_a?(Club)
-        raise ForceRedirect, @forums_view.current_page_url
-      end
+      raise ForceRedirect, @forums_view.current_page_url if @forums_view.linked.is_a?(Club)
     end
   end
 
@@ -45,7 +43,12 @@ class TopicsController < ShikimoriController
 
   def new
     topic_type_policy = Topic::TypePolicy.new(@resource)
-    og page_title: i18n_t("new_#{topic_type_policy.news_topic? ? :news : :topic}")
+
+    og(
+      page_title: i18n_t(
+        "new_#{topic_type_policy.news_topic? ? :news : :topic}"
+      )
+    )
   end
 
   def edit
@@ -129,9 +132,9 @@ private
       end
     allowed_params += [:broadcast] if current_user&.admin?
 
-    params[:topic][:body] = Topics::ComposeBody.call(params[:topic])
-
-    params.require(:topic).permit(*allowed_params)
+    params.require(:topic).permit(*allowed_params).tap do |fixed_params|
+      fixed_params[:body] = Topics::ComposeBody.call(params[:topic])
+    end
   end
 
   def set_view
@@ -175,7 +178,12 @@ private
       end
 
       if @forums_view.linked
-        og page_title: UsersHelper.localized_name(@forums_view.linked, current_user)
+        og(
+          page_title: UsersHelper.localized_name(
+            @forums_view.linked,
+            current_user
+          )
+        )
       end
     end
   end

@@ -34,7 +34,6 @@ private
       when :danbooru then "https://danbooru.donmai.us/tag/index.json?&limit=#{limit}&order=created_at&page=#{page}"
       else raise ArgumentError, "imageboard: #{imageboard}"
     end
-    ap url
 
     # Proxy.get url, timeout: 90, required_text: '"type"', no_proxy: true
     # open(url, read_timeout: 90).read

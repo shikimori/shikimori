@@ -12,8 +12,8 @@ module.exports = class DynamicElements.Forum extends ShikiView
 
   initialize: ->
     @on FAYE_EVENTS.join(' '), (e, data) =>
-      return if SHIKI_USER.topic_ignored(data.topic_id)
-      return if SHIKI_USER.user_ignored(data.user_id)
+      return if window.SHIKI_USER.isTopicIgnored(data.topic_id)
+      return if window.SHIKI_USER.isUserIgnored(data.user_id)
 
       $topic = @$(".b-topic##{data.topic_id}")
 
@@ -26,7 +26,7 @@ module.exports = class DynamicElements.Forum extends ShikiView
         $(document.body).trigger 'faye:added'
 
     @on 'faye:topic:created', (e, data) =>
-      return if SHIKI_USER.user_ignored(data.user_id)
+      return if window.SHIKI_USER.isUserIgnored(data.user_id)
 
       $placeholder = @_faye_placeholder(data.topic_id)
       # уведомление о добавленном элементе через faye

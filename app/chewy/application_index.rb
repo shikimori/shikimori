@@ -8,25 +8,25 @@
 class ApplicationIndex < Chewy::Index
   ORIGINAL_FIELD = {
     value: -> { self },
-    index: :analyzed,
+    index: true,
     analyzer: :original_analyzer,
     search_analyzer: :search_phrase_analyzer
   }
   EDGE_PHRASE_FIELD = {
     value: -> { self },
-    index: :analyzed,
+    index: true,
     analyzer: :edge_phrase_analyzer,
     search_analyzer: :search_phrase_analyzer
   }
   EDGE_WORD_FIELD = {
     value: -> { self },
-    index: :analyzed,
+    index: true,
     analyzer: :edge_word_analyzer,
     search_analyzer: :search_word_analyzer
   }
   NGRAM_FIELD = {
     value: -> { self },
-    index: :analyzed,
+    index: true,
     analyzer: :ngram_analyzer,
     search_analyzer: :search_word_analyzer
   }

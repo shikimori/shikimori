@@ -1,4 +1,4 @@
-class Api::V1::MessagesController < Api::V1Controller
+class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLength
   load_and_authorize_resource except: %i[read_all delete_all]
   before_action :prepare_group_action, only: %i[read_all delete_all]
   before_action :append_info, only: %i[create]

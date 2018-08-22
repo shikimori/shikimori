@@ -55,7 +55,7 @@ module.exports = class Polls.View extends View
         @_render()
 
   _can_vote: ->
-    SHIKI_USER.is_signed_in &&
+    window.SHIKI_USER.isSignedIn &&
       @model.state == 'started' &&
       !@model.vote.is_abstained && !@model.vote.variant_id
 

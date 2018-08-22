@@ -8,7 +8,6 @@ describe User do
     it { is_expected.to have_many :access_tokens }
     it { is_expected.to have_many :user_tokens }
 
-
     it { is_expected.to have_many(:achievements).dependent(:destroy) }
     it { is_expected.to have_many(:anime_rates).dependent(:destroy) }
     it { is_expected.to have_many(:manga_rates).dependent(:destroy) }
@@ -73,8 +72,7 @@ describe User do
     it { is_expected.to enumerize(:roles).in(*Types::User::Roles.values) }
   end
 
-  let(:user) { create :user }
-  let(:user2) { create :user }
+  let(:user_2) { create :user }
   let(:topic) { create :topic }
 
   describe 'cllbacks' do
@@ -138,62 +136,62 @@ describe User do
 
     describe '#ignores?' do
       it do
-        user.ignored_users << user2
-        expect(user.ignores?(user2)).to eq true
+        user.ignored_users << user_2
+        expect(user.ignores?(user_2)).to eq true
       end
 
       it do
-        expect(user.ignores?(user2)).to eq false
+        expect(user.ignores?(user_2)).to eq false
       end
     end
 
     context 'when profile is commented' do
       it 'then new MessageType::ProfileCommented notification is created' do
-        user1 = create :user
-        user2 = create :user
+        user_1 = create :user
+        user_2 = create :user
         expect(proc do
-          create :comment, :with_creation_callbacks, user: user1, commentable: user2
+          create :comment, :with_creation_callbacks, user: user_1, commentable: user_2
         end).to change(Message, :count).by 1
         message = Message.last
         expect(message.kind).to eq(MessageType::ProfileCommented)
-        expect(message.from_id).to eq user1.id
-        expect(message.to_id).to eq user2.id
+        expect(message.from_id).to eq user_1.id
+        expect(message.to_id).to eq user_2.id
       end
 
       it 'two times, then only one MessageType::ProfileCommented notification is created' do
-        user1 = create :user
-        user2 = create :user
-        user3 = create :user
+        user_1 = create :user
+        user_2 = create :user
+        user_3 = create :user
         expect(proc do
-          create :comment, :with_creation_callbacks, user: user1, commentable: user2
-          create :comment, :with_creation_callbacks, user: user3, commentable: user2
+          create :comment, :with_creation_callbacks, user: user_1, commentable: user_2
+          create :comment, :with_creation_callbacks, user: user_3, commentable: user_2
         end).to change(Message, :count).by 1
         message = Message.last
         expect(message.kind).to eq(MessageType::ProfileCommented)
-        expect(message.from_id).to eq user1.id
-        expect(message.to_id).to eq user2.id
+        expect(message.from_id).to eq user_1.id
+        expect(message.to_id).to eq user_2.id
       end
 
       it 'by its owner, then no MessageType::ProfileCommented notification is created' do
-        user1 = create :user
+        user_1 = create :user
         expect(proc do
-          create :comment, :with_creation_callbacks, user: user1, commentable: user1
+          create :comment, :with_creation_callbacks, user: user_1, commentable: user_1
         end).to_not change Message, :count
       end
 
       it 'and user read it, and then commented again, then second MessageType::ProfileCommented notification is created' do
-        user1 = create :user
-        user2 = create :user
-        user3 = create :user
+        user_1 = create :user
+        user_2 = create :user
+        user_3 = create :user
         expect(proc do
-          create :comment, :with_creation_callbacks, user: user1, commentable: user2
+          create :comment, :with_creation_callbacks, user: user_1, commentable: user_2
           Message.last.update_attribute(:read, true)
-          create :comment, :with_creation_callbacks, user: user3, commentable: user2
+          create :comment, :with_creation_callbacks, user: user_3, commentable: user_2
         end).to change(Message, :count).by 2
         message = Message.last
         expect(message.kind).to eq MessageType::ProfileCommented
-        expect(message.from_id).to eq user3.id
-        expect(message.to_id).to eq user2.id
+        expect(message.from_id).to eq user_3.id
+        expect(message.to_id).to eq user_2.id
       end
     end
 
@@ -306,6 +304,10 @@ describe User do
         let(:created_at) { 8.days.ago }
         it { expect(user.week_registered?).to be true }
       end
+    end
+
+    describe '#faye_channel' do
+      it { expect(user.faye_channel).to eq %W[user-#{user.id}] }
     end
   end
 

@@ -9,7 +9,7 @@
     a.b-badge[
       class=(:unavailable if local_assigns[:unavailable])
       title=achievement.title
-      href=animes_collection_url(achievement: achievement.neko_id)
+      href=achievement_url(achievement.group, achievement.neko_id)
     ]
       - if achievement.image.present?
         = image_tag achievement.image
@@ -19,7 +19,8 @@
 - else
   .b-achievement
     .c-about
-      .title = achievement.title
+      a.title href=achievement_url(achievement.group, achievement.neko_id)
+        = achievement.title
       .percent #{achievement.progress}%
       .hint = achievement.hint
       .progress: .bar style="width: #{achievement.progress}%"

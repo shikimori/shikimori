@@ -1,5 +1,4 @@
 describe Recommendations::Fetcher do
-  let(:user) { create :user }
   let(:metric) { :pearson }
   let(:threshold) { 45 }
   let(:klass) { Anime }

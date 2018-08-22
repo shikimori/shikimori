@@ -2,7 +2,10 @@ module ModeratableConcern
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :approver, class_name: User.name, foreign_key: :approver_id
+    belongs_to :approver,
+      class_name: User.name,
+      foreign_key: :approver_id,
+      optional: true
 
     scope :pending, -> { where moderation_state: %w[pending] }
     scope :visible, -> { where moderation_state: %w[pending accepted] }

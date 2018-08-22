@@ -66,9 +66,9 @@ function highlight(selector) {
   let $node = $(selector)
 
   if (!$node.is(':appeared')) {
-    $.scrollTo($node, () => $node.yellow_fade())
+    $.scrollTo($node, () => $node.yellowFade())
   } else {
-    $node.yellow_fade()
+    $node.yellowFade()
   }
 }
 

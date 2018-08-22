@@ -1,12 +1,12 @@
 class AnimesController < DbEntriesController
-  #caches_action :page, :characters, :show, :related, :cosplay, :tooltip,
-    #cache_path: proc {
-      #id = params[:anime_id] || params[:manga_id] || params[:id]
-      #@resource ||= klass.find(id.to_i)
-      #"#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@resource.updated_at.to_i}|#{@resource.topic(locale_from_host).updated_at.to_i}|#{json?}|v3|#{request.xhr?}"
-    #},
-    #unless: proc { user_signed_in? },
-    #expires_in: 2.days
+  # caches_action :page, :characters, :show, :related, :cosplay, :tooltip,
+  #   cache_path: proc {
+  #     id = params[:anime_id] || params[:manga_id] || params[:id]
+  #     @resource ||= klass.find(id.to_i)
+  #     "#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@resource.updated_at.to_i}|#{@resource.topic(locale_from_host).updated_at.to_i}|#{json?}|v3|#{request.xhr?}"
+  #   },
+  #   unless: proc { user_signed_in? },
+  #   expires_in: 2.days
 
   EXTERNAL_LINK_PARAMS = %i[
     entry_id entry_type created_at updated_at imported_at source kind url

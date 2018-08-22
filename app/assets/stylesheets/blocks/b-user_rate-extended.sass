@@ -1,9 +1,41 @@
+@import mixins/responsive
+@import mixins/block
+
 .b-user_rate-extended
-  .b-catalog_entry
-    float: right
+  .rate-edit textarea
+    width: 100%
+
+  & > .cc
+    +iphone
+      & > .c-column:first-child
+        +block_m
+
+    +ipad
+      display: flex
+      flex-direction: column-reverse
+
+      & > .c-column:last-child
+        +block_m
+
+        .b-catalog_entry
+          margin: 0 auto
+
+    +gt_ipad
+      display: flex
+
+      .c-column:first-child
+        flex-grow: 1
+        margin-right: 45px
+
+      .c-column:last-child
+        margin-top: 5px
 
   .b-add_to_list
     display: none
 
-  .b-catalog_entry-tooltip .inner .rating
-    bottom: -35px
+  .b-catalog_entry
+    +iphone
+      padding-bottom: 25px
+
+    .b-catalog_entry-tooltip .inner .rating
+      bottom: -35px

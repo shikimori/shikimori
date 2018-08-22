@@ -157,10 +157,14 @@ describe AnimeVideoDecorator, type: :controller do
 
     context 'authenticated' do
       let(:user_signed_in) { true }
-      let(:user) { create :user }
 
       context 'with user rate' do
-        let!(:user_rate) { create :user_rate, target: video.anime, user: user, episodes: episodes }
+        let!(:user_rate) do
+          create :user_rate,
+            target: video.anime,
+            user: user,
+            episodes: episodes
+        end
         let(:episodes) { 99 }
 
         its(:user_rate) { is_expected.to eq user_rate }
@@ -184,7 +188,7 @@ describe AnimeVideoDecorator, type: :controller do
     end
 
     context 'not authenticated' do
-      let(:user) {}
+      let(:user) { nil }
       let(:user_signed_in) { false }
 
       its(:user_rate) { is_expected.to be_nil }

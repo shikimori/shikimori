@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 page_load 'profiles_show', ->
   # добавление/удаление из друзей
   $('.friend-action').on 'ajax:success', ->

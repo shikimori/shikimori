@@ -2,7 +2,6 @@ describe Forums::Menu do
   include_context :view_object_warden_stub
 
   let(:view) { Forums::Menu.new double(id: 1), nil }
-  let(:user) { seed :user }
 
   describe '#club_topics' do
     let!(:club_topic) { create :club_topic, linked: create(:club) }

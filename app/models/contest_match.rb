@@ -12,8 +12,8 @@ class ContestMatch < ApplicationRecord
   acts_as_votable cacheable_strategy: :update_columns
 
   belongs_to :round, class_name: ContestRound.name, touch: true
-  belongs_to :left, polymorphic: true
-  belongs_to :right, polymorphic: true
+  belongs_to :left, polymorphic: true, optional: true
+  belongs_to :right, polymorphic: true, optional: true
 
   delegate :contest, :strategy, to: :round
 
@@ -24,12 +24,12 @@ class ContestMatch < ApplicationRecord
     state :finished
 
     event :start do
-      transition :created => :started, if: lambda { |match|
+      transition :created => :started, if: ->(match) {
         match.started_on && match.started_on <= Time.zone.today
       }
     end
     event :finish do
-      transition :started => :finished, if: lambda { |match|
+      transition :started => :finished, if: ->(match) {
         match.finished_on && match.finished_on < Time.zone.today
       }
     end

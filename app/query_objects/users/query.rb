@@ -9,7 +9,7 @@ class Users::Query < QueryObjectBase
   SQL
 
   def self.fetch
-    new User.order(ORDER_SQL)
+    new User.order(Arel.sql(ORDER_SQL))
   end
 
   def search phrase

@@ -1,6 +1,4 @@
 describe TopicsController do
-  include_context :seeds
-
   let(:user) { create :user, :user, :week_registered }
   let(:anime) { create :anime }
 
@@ -114,7 +112,6 @@ describe TopicsController do
       end
 
       context 'club linked' do
-        let(:club) { create :club }
         before do
           get :index,
             params: {

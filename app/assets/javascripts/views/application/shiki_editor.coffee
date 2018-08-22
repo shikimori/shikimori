@@ -1,5 +1,6 @@
-ShikiView = require './shiki_view'
+delay = require 'delay'
 autosize = require 'autosize'
+ShikiView = require './shiki_view'
 
 # TODO: refactor constructor
 module.exports = class ShikiEditor extends ShikiView
@@ -102,9 +103,9 @@ module.exports = class ShikiEditor extends ShikiView
         $block = @$(".#{key}s")
 
         if $button.hasClass('selected')
-          $block.animated_collapse()
+          $block.animatedCollapse()
         else
-          $block.animated_expand()
+          $block.animatedExpand()
           $block.trigger('click:open')
 
         $button.toggleClass('selected')
@@ -263,7 +264,7 @@ module.exports = class ShikiEditor extends ShikiView
       item_data = if @is_inner_form
         @$form.serializeHash()[@_type()]
       else
-        @$root.trigger_with_return('preview:params') || {
+        @$root.triggerWithReturn('preview:params') || {
           body: @$textarea.val()
         }
       data[@_type()] = item_data
@@ -338,7 +339,7 @@ module.exports = class ShikiEditor extends ShikiView
     $('.body .preview', @$root)
       .html(preview_html)
       .process()
-      .shiki_editor()
+      .shikiEditor()
 
   _hide_preview: =>
     @$root.removeClass('previewed')

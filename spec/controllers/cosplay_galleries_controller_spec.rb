@@ -1,5 +1,4 @@
 describe CosplayGalleriesController do
-  include_context :seeds
   include_context :authenticated, :admin
 
   describe '#publishing' do

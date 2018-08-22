@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 describe Viewing::BulkCreate do
-  subject(:call) { operation.call user, viewed_klass, viewed_ids }
-  let(:operation) { Viewing::BulkCreate.new }
-
-  let(:user) { create :user }
+  subject(:call) do
+    Viewing::BulkCreate.call(
+      user: user,
+      viewed_klass: viewed_klass,
+      viewed_ids: viewed_ids
+    )
+  end
 
   shared_examples_for :viewed do
     context '1 viewed id' do
@@ -59,11 +62,7 @@ describe Viewing::BulkCreate do
 
     let(:topic) { create :topic }
     let!(:original_comment) do
-      create(
-        :comment,
-        commentable: topic,
-        user: user
-      )
+      create :comment, commentable: topic, user: user
     end
     let!(:reply_comment) do
       create(

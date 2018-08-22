@@ -34,9 +34,7 @@ class Dialog
   end
 
   def destroy
-    messages.each do |message|
-      message.delete_by user
-    end
+    messages.each { |message| message.delete_by user }
   end
 
   def new_message replied_message = nil
@@ -44,7 +42,10 @@ class Dialog
       from_id: user.id,
       to_id: target_user.id,
       kind: MessageType::Private,
-      body: replied_message ? "[message=#{replied_message.id}]#{replied_message.from.nickname}[/message], " : ''
+      body: replied_message ?
+        "[message=#{replied_message.id}]" + replied_message.from.nickname +
+        '[/message], ' :
+        ''
     )
   end
 

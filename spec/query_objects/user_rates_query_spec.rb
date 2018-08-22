@@ -1,16 +1,13 @@
 describe UserRatesQuery do
-  let(:user) { create :user }
-  let(:user2) { create :user }
-  let(:user3) { create :user }
-  let(:user4) { create :user }
+  let(:user_4) { create :user }
   let(:entry) { create :anime }
 
   before do
-    create :friend_link, src: user, dst: user2
-    create :friend_link, src: user, dst: user3
-    create :user_rate, user: user2, target: entry, score: 9, status: :watching
-    create :user_rate, user: user3, target: entry, score: 5
-    create :user_rate, user: user4, target: entry, score: 9
+    create :friend_link, src: user, dst: user_2
+    create :friend_link, src: user, dst: user_3
+    create :user_rate, user: user_2, target: entry, score: 9, status: :watching
+    create :user_rate, user: user_3, target: entry, score: 5
+    create :user_rate, user: user_4, target: entry, score: 9
   end
   let(:query) { UserRatesQuery.new(entry, user) }
 

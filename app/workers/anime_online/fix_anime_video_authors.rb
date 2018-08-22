@@ -7,7 +7,7 @@ class AnimeOnline::FixAnimeVideoAuthors
   STUDIOS = %w[
     AniDUB AniStar AniLibria AnimeReactor AnimeVost AniPlay AniRecords
     AniUchi AniSound NekoProject AnimeJet FreeDub AniFame AniChaos RainDub
-    SovetRomantica AniMaunt MedusaSub
+    SovetRomantica AniMaunt MedusaSub SeM&Ko
   ] + [
     'DeadLine Studio', 'Bastion Studio', 'Onibaku Group', 'SHIZA Project',
     'Amazing Dubbing'
@@ -121,7 +121,6 @@ private
     end
   end
 
-  # rubocop:disable MethodLength
   def fix_misc name
     name
       .gsub(/\[+/, '(')
@@ -153,7 +152,6 @@ private
         memo.gsub(regexp, replacement).strip
       end
   end
-  # rubocop:enable MethodLength
 
   def change_videos_quality author, quality
     log 'quality', author, quality

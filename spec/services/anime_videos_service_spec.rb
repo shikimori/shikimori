@@ -14,7 +14,6 @@ describe AnimeVideosService do
         anime_id: anime_id
       }
     end
-    let(:user) {}
     let(:state) { 'working' }
 
     before do
@@ -43,11 +42,11 @@ describe AnimeVideosService do
         subject { video.reports.first }
 
         context 'with user' do
-          let(:user) { create :user }
           it { is_expected.to have_attributes user_id: user.id, kind: 'uploaded' }
         end
 
         context 'without user' do
+          let(:user) { nil }
           let!(:guest) { create :user, :guest }
           it { is_expected.to have_attributes user_id: User::GUEST_ID, kind: 'uploaded' }
         end

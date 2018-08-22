@@ -13,7 +13,7 @@ class BadReviewsCleaner
 private
 
   def rejecter
-    @rejecter ||= User.find User::COSPLAYER_ID
+    @rejecter ||= User.find User::MESSANGER_ID
   end
 
   def bad_reviews

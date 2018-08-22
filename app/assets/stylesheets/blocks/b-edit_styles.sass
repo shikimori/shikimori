@@ -1,8 +1,21 @@
 @import addons/clearfix
 @import mixins/ellipsis2
+@import mixins/link
 @import globals/variables
 
 .b-edit_styles
+  &.expanded
+    & > .c-column
+      margin-right: 0
+      width: 100%
+      float: none
+
+      &:first-child
+        margin-bottom: 45px
+
+  & > .c-column
+    transition: width 0.25s ease, margin-right 0.25s ease
+
   .edit_style, .new_style
     .style_css
       textarea
@@ -25,6 +38,14 @@
       label
         float: left
         margin-top: 15px
+
+      .expand, .collapse
+        +js-link
+        display: none
+
+        &.active
+          display: inline-block
+          font-weight: normal
 
       .hint
         color: $red

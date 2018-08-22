@@ -4,7 +4,7 @@ page_load '.db_entries-edit_field', ->
   if $description.exists()
     $editor = $('.b-shiki_editor')
     $editor
-      .shiki_editor()
+      .shikiEditor()
       .on 'preview:params', ->
         body: $(@).view().$textarea.val()
         target_id: $editor.data('target_id')
@@ -32,7 +32,7 @@ page_load '.db_entries-edit_field', ->
       )
 
   if $('.edit-page.screenshots').exists()
-    $('.c-screenshot').shiki_image()
+    $('.c-screenshot').shikiImage()
 
     $screenshots_positioner = $('.screenshots-positioner')
     $('form', $screenshots_positioner).on 'submit', ->
@@ -52,10 +52,10 @@ page_load '.db_entries-edit_field', ->
       .on 'upload:success', (e, response) ->
         $(response.html)
           .appendTo($('.cc', $screenshots_uploader))
-          .shiki_image()
+          .shikiImage()
 
   if $('.edit-page.videos').exists()
-    $('.videos-deleter .b-video').image_editable()
+    $('.videos-deleter .b-video').imageEditable()
 
   if $('.edit-page.tags').exists()
     $gallery = $('.b-gallery')
@@ -81,7 +81,7 @@ page_load '.db_entries-edit_field', ->
 
       $all_genres.find('#' + $genre.attr('id'))
         .removeClass('included')
-        .yellow_fade()
+        .yellowFade()
 
     $current_genres.on 'click', '.up', ->
       $genre = $(@).closest('.genre')
@@ -90,7 +90,7 @@ page_load '.db_entries-edit_field', ->
       $genre
         .detach()
         .insertBefore($prior)
-        .yellow_fade()
+        .yellowFade()
 
     $current_genres.on 'click', '.down', ->
       $genre = $(@).closest('.genre')
@@ -99,7 +99,7 @@ page_load '.db_entries-edit_field', ->
       $genre
         .detach()
         .insertAfter($next)
-        .yellow_fade()
+        .yellowFade()
 
     $all_genres.on 'click', '.name', ->
       $genre = $(@).closest('.genre')
@@ -110,7 +110,7 @@ page_load '.db_entries-edit_field', ->
 
       $genre.clone()
         .appendTo($current_genres)
-        .yellow_fade()
+        .yellowFade()
 
       $genre.addClass('included')
 

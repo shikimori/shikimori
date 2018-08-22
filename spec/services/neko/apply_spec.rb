@@ -6,8 +6,6 @@ describe Neko::Apply do
       removed: removed
   end
 
-  let(:user) { seed :user }
-
   let!(:achievement) do
     create :achievement,
       user: user,

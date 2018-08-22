@@ -4,7 +4,6 @@ describe ClubPage::Create do
   subject(:club_page) { ClubPage::Create.call params, user }
 
   let(:club) { create :club, owner: user, locale: locale }
-  let(:user) { create :user }
   let(:locale) { :en }
 
   context 'valid params' do
@@ -21,7 +20,6 @@ describe ClubPage::Create do
     it do
       expect(club_page).to be_persisted
       expect(club_page).to have_attributes params
-
       expect(club_page.topic).to be_persisted
     end
   end
@@ -38,7 +36,7 @@ describe ClubPage::Create do
     end
     it do
       expect(club_page).to be_new_record
-      expect(club_page.errors).to have(1).item
+      expect(club_page.errors).to be_present
       expect(club_page.topic).to be_nil
     end
   end

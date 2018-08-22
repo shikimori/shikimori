@@ -1,11 +1,11 @@
-UserRatesTracker = require 'services/user_rates/tracker'
-CollectionSearch = require 'views/application/collection_search'
+import CollectionSearch from 'views/application/collection_search'
+import UserRatesTracker from 'services/user_rates/tracker'
+import Turbolinks from 'turbolinks'
 
-using 'Animes'
-module.exports = class Animes.PaginatedCatalog
+import ajaxCacher from 'services/ajax_cacher'
+
+export default class PaginatedCatalog
   constructor: (base_catalog_path) ->
-    @ajax_cacher = require 'services/ajax_cacher'
-
     @$content = $('.l-content')
     @$pagination = $('.pagination')
     @$link_current = @$pagination.find('.link-current')
@@ -45,11 +45,8 @@ module.exports = class Animes.PaginatedCatalog
 
   # выбраны какие-то фильтры, необходимо загрузить страницу
   _filter_page_change: (url) =>
-    if Turbolinks.supported
-      window.history.pushState { turbolinks: true, url: url }, '', url
-      @_history_page_changed()
-    else
-      location.href = url
+    window.history.pushState { turbolinks: true, url: url }, '', url
+    @_history_page_changed()
 
     @collection_search.$root.data search_url: url
 
@@ -61,7 +58,7 @@ module.exports = class Animes.PaginatedCatalog
     @_fetch_ajax_content(url, true)#.call this, url, null, true
 
   # клик по ссылке пагинации
-  _link_click: (e) =>
+  _link_click: (e) ->
     return if in_new_tab(e)
     $link = $(e.target)
 
@@ -157,7 +154,7 @@ module.exports = class Animes.PaginatedCatalog
         if @pending_request # $(@).hasClass("disabled")
           return xhr.abort()
 
-        cached_data = @ajax_cacher.get(url)
+        cached_data = ajaxCacher.get(url)
 
         if cached_data
           xhr.abort()
@@ -183,7 +180,7 @@ module.exports = class Animes.PaginatedCatalog
         #$.cursorMessage()
 
       success: (data, status, xhr) =>
-        @ajax_cacher.push url, data
+        ajaxCacher.push url, data
         return if 'aborted' of xhr && xhr.aborted
         @_process_ajax_content data, url
 

@@ -1,5 +1,4 @@
 describe Forums::View do
-  include_context :seeds
   include_context :view_object_warden_stub
 
   let(:view) { Forums::View.new forum, options }
@@ -23,6 +22,16 @@ describe Forums::View do
   end
 
   describe '#topic_views' do
+    let(:all_sticky_topics) do
+      [
+        offtopic_topic,
+        site_rules_topic,
+        description_of_genres_topic,
+        ideas_and_suggestions_topic,
+        site_problems_topic,
+        contests_proposals_topic
+      ]
+    end
     before { user.preferences.forums = [offtopic_forum.id] }
 
     it do

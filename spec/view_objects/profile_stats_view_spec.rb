@@ -1,6 +1,4 @@
 describe ProfileStatsView do
-  let(:user) { create :user }
-
   let(:profile_stats) do
     ProfileStats.new(
       spent_time: spent_time,
@@ -22,6 +20,7 @@ describe ProfileStatsView do
       publishers: {}
     )
   end
+  let(:user) { user_2 }
   let(:stats) { ProfileStatsView.new(profile_stats) }
 
   let(:anime_spent_time) {}

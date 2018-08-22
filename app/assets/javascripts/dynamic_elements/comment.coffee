@@ -1,3 +1,5 @@
+import delay from 'delay'
+
 ShikiEditor = require 'views/application/shiki_editor'
 I18N_KEY = 'frontend.dynamic_elements.comment'
 
@@ -19,7 +21,7 @@ class DynamicElements.Comment extends ShikiEditable
     # data attribute is set in Comments.Tracker
     @model = @$root.data('model') || @_default_model()
 
-    if SHIKI_USER.user_ignored(@model.user_id)
+    if window.SHIKI_USER.isUserIgnored(@model.user_id)
       # node can be not inserted into DOM yet
       if @$root.parent().length
         @$root.remove()
@@ -33,7 +35,7 @@ class DynamicElements.Comment extends ShikiEditable
     @$root.one 'mouseover', @_deactivate_inaccessible_buttons
     @$('.item-mobile').one @_deactivate_inaccessible_buttons
 
-    if @$inner.hasClass('check_height')
+    if @$inner.hasClass('checkHeight')
       $images = @$body.find('img')
       if $images.exists()
         # картинки могут быть уменьшены image_normalizer'ом,
@@ -117,7 +119,7 @@ class DynamicElements.Comment extends ShikiEditable
       $node = $(@)
       $node
         .attr(href: $node.data('url'))
-        .change_tag('a')
+        .changeTag('a')
 
   # пометка комментария маркером (оффтопик/отзыв)
   mark: (kind, value) ->
@@ -133,7 +135,7 @@ class DynamicElements.Comment extends ShikiEditable
     @$('.item-edit').addClass 'hidden' unless @model.can_edit
     @$('.item-delete').addClass 'hidden' unless @model.can_destroy
 
-    if SHIKI_USER.is_moderator
+    if window.SHIKI_USER.isModerator
       @$('.moderation-controls .item-abuse').addClass 'hidden'
       @$('.moderation-controls .item-spoiler').addClass 'hidden'
     else

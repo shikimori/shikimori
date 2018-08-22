@@ -23,6 +23,7 @@ AllCops:
   UseCache: false
 
 Metrics/LineLength:
+  Max: 100
   AllowURI: true
   IgnoreCopDirectives: true
   IgnoredPatterns: ['\A\ *#']
@@ -42,6 +43,13 @@ Style/WordArray:
 Style/NumericLiterals:
   Exclude:
     - spec/**/*
+Security/Open:
+  Exclude:
+    - spec/**/*
+Metrics/AbcSize:
+  Max: 20
+Metrics/MethodLength:
+  Max: 15
 
 Style/MultilineBlockChain:
   Enabled: false
@@ -89,8 +97,9 @@ Style/RescueModifier:
   Enabled: false
 Style/BlockComments:
   Enabled: false
-
-Style/VariableNumber:
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+Naming/VariableNumber:
   EnforcedStyle: snake_case
 
 Style/StringLiterals:

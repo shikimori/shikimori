@@ -1,10 +1,19 @@
 describe Topics::Query do
-  include_context :seeds
-
   subject(:query) { Topics::Query.fetch user, locale }
 
   let(:locale) { :ru }
   let(:is_censored_forbidden) { false }
+
+  let(:all_sticky_topics) do
+    [
+      offtopic_topic,
+      site_rules_topic,
+      description_of_genres_topic,
+      ideas_and_suggestions_topic,
+      site_problems_topic,
+      contests_proposals_topic
+    ]
+  end
 
   describe '#result' do
     context 'domain matches topic locale' do
@@ -121,7 +130,8 @@ describe Topics::Query do
       let!(:manga_news_topic) { create :news_topic, created_at: 2.days.ago }
       let!(:cosplay_news_topic) do
         create :cosplay_gallery_topic,
-          created_at: 3.days.ago, linked: cosplay_gallery
+          created_at: 3.days.ago,
+          linked: cosplay_gallery
       end
       let(:cosplay_gallery) { create :cosplay_gallery, :anime }
       let!(:contest_status_topic) do
@@ -275,7 +285,7 @@ describe Topics::Query do
         phrase: phrase,
         forum: forum,
         user: user,
-        locale: locale,
+        locale: locale
       ).and_return(topics)
     end
 

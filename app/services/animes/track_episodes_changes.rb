@@ -58,5 +58,10 @@ private
         value: ((episode_to + 1)..episode_from).to_a
       )
       .destroy_all
+
+    EpisodeNotification
+      .where(anime: @anime)
+      .where(episode: ((episode_to + 1)..episode_from).to_a)
+      .delete_all # it's important to delete, not destroy
   end
 end

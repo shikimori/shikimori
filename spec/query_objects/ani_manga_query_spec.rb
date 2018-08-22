@@ -369,7 +369,6 @@ describe AniMangaQuery do
     end
 
     describe 'mylist' do
-      let(:user) { create :user }
       let(:anime_1) { create :anime, score: 9 }
       let(:anime_2) { create :anime, score: 8 }
       let(:anime_3) { create :anime, score: 7 }

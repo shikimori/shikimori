@@ -1,5 +1,4 @@
 describe UserHistoryQuery do
-  let(:user) { seed :user }
   let(:query) { UserHistoryQuery.new user }
 
   let(:anime) { create :anime }

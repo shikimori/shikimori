@@ -1,6 +1,5 @@
 describe ListImports::Import do
   let(:service) { ListImports::Import.new list_import }
-  let(:user) { seed :user }
   let!(:anime) { nil }
 
   before { allow(Achievements::Track).to receive :perform_async }

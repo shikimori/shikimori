@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 describe StickyClubView do
-  include_context :sticky_clubs
-
   describe 'sample sticky topic' do
     let(:sticky_topic) { StickyClubView.faq :ru }
     it do

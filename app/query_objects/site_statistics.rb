@@ -7,7 +7,7 @@ class SiteStatistics
   TRANSALTION_SCORE_SQL = <<-SQL.squish
     sum(
       case
-        when versions.state='#{:accepted}' and
+        when versions.state='accepted' and
           (item_diff->>#{ApplicationRecord.sanitize :description}) is not null
         then 7
         else 1
@@ -50,11 +50,13 @@ class SiteStatistics
   end
 
   def android
-    User.where(id: [1897, 35934])
+    User.where(id: [1897, 35_934])
   end
 
   def thanks_to
-    User.where(id: [2,11,19,861,950,1945,864,6452,28133,23002,30214]).order(:id)
+    User
+      .where(id: [2, 11, 19, 861, 950, 1945, 864, 6452, 28_133, 23_002, 30_214])
+      .order(:id)
   end
 
   def version_moderators
@@ -90,11 +92,11 @@ class SiteStatistics
       .joins(:versions)
       .where.not("roles && '{#{Types::User::Roles[:bot]}}'")
       .where.not(id: [User::MORR_ID, User::GUEST_ID])
-      .where(versions: { state: [:accepted, :taken, :auto_accepted] })
+      .where(versions: { state: %i[accepted taken auto_accepted] })
       .where.not(versions: { item_type: AnimeVideo.name })
       .group('users.id')
       .having("#{TRANSALTION_SCORE_SQL} > 10")
-      .order("#{TRANSALTION_SCORE_SQL} desc")
+      .order(Arel.sql("#{TRANSALTION_SCORE_SQL} desc"))
       .limit(USERS_LIMIT * 4)
   end
 
@@ -103,7 +105,7 @@ class SiteStatistics
       .joins(:reviews)
       .where.not(reviews: { moderation_state: :rejected })
       .group('users.id')
-      .order('count(reviews.id) desc')
+      .order(Arel.sql('count(reviews.id) desc'))
       .limit(USERS_LIMIT)
   end
 
@@ -114,15 +116,15 @@ class SiteStatistics
       .count
 
     newsmarker_ids = newsmakers
-        .sort_by {|k,v| -v }
+        .sort_by { |_k, v| -v }
         .map(&:first)
         .take(USERS_LIMIT)
 
-    User.where(id: newsmarker_ids).sort_by {|v| newsmarker_ids.index(v.id) }
+    User.where(id: newsmarker_ids).sort_by { |v| newsmarker_ids.index(v.id) }
   end
 
   def top_video_contributors
-    AnimeOnline::Contributors.top(USERS_LIMIT * 2)
+    AnimeOnline::Contributors.call limit: USERS_LIMIT * 2
   end
 
 private
@@ -134,16 +136,18 @@ private
       .where('created_at > ?', start_date)
       .where('created_at < ?', Time.zone.today)
       .group('cast(created_at as date)')
-      .order('cast(created_at as date)')
+      .order(Arel.sql('cast(created_at as date)'))
       .select('cast(created_at as date) as date, count(*) as count')
-      .each_with_object({}) {|v,memo| memo[v.date.to_s] = v.count }
+      .each_with_object({}) { |v, memo| memo[v.date.to_s] = v.count }
 
     date = start_date
     statistics = {}
+
     while date < Time.zone.today
       statistics[date.to_s] = entries_by_date[date.to_s] || 0
       date += 1.day
     end
+
     statistics.map do |k, v|
       {
         date: k,

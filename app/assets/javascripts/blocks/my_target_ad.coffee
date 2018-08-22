@@ -1,4 +1,5 @@
-getjs = require('get-js')
+import getjs from 'get-js'
+import URI from 'urijs'
 
 $(document).on 'page:load', ->
   return if document.body.id == 'pages_my_target_ad'

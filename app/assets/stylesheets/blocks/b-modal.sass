@@ -4,12 +4,14 @@ $horizontal-offset: 10px
 
 .x1200 .b-modal
   max-width: 1200px
-  &>.inner
+
+  & > .inner
     max-width: 1200px - $horizontal-offset * 2
 
 .x1000 .b-modal
   max-width: 1000px
-  &>.inner
+
+  & > .inner
     max-width: 1000px - 20px
 
 .b-modal
@@ -31,10 +33,10 @@ $horizontal-offset: 10px
   +iphone-landscape
     margin-top: 34px
 
-  &>.inner
+  & > .inner
     background: #fff
     margin: 0 auto
-    padding: 10px
+    padding: 15px
     width: 100%
 
     +gt_ipad

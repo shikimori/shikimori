@@ -101,9 +101,17 @@ describe UserRate do
       end
 
       describe 'status change' do
-        let(:user_rate) { build :user_rate, :watching, target: build_stubbed(:anime) }
-        after { user_rate.save }
-        it { expect(user_rate).to receive :status_changed }
+        context 'anime' do
+          let(:user_rate) { build :user_rate, :watching, target: build_stubbed(:anime) }
+          after { user_rate.save }
+          it { expect(user_rate).to receive :anime_status_changed }
+        end
+
+        context 'manga' do
+          let(:user_rate) { build :user_rate, :watching, target: build_stubbed(:manga) }
+          after { user_rate.save }
+          it { expect(user_rate).to receive :manga_status_changed }
+        end
       end
 
       describe 'nil rewatches' do
@@ -113,7 +121,7 @@ describe UserRate do
       end
     end
 
-    describe '#status_changed, #counter_changed' do
+    describe '#anime_status_changed, #manga_status_changed, #counter_changed' do
       let(:target) { build_stubbed :anime, episodes: 20 }
       before { allow(UserHistory).to receive :add }
 

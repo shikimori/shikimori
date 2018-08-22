@@ -9,13 +9,13 @@ class StickyTopicView < Dry::Struct
   attribute :title, Types::Strict::String
   attribute :description, Types::Strict::String
 
-  STICKY_TOPICS = %i(
+  STICKY_TOPICS = %i[
     site_rules
     description_of_genres
     ideas_and_suggestions
     site_problems
     contests_proposals
-  )
+  ]
   STICKY_TOPICS.each do |topic_name|
     define_singleton_method topic_name do |locale|
       topic_id = Topic::TOPIC_IDS[topic_name][locale.to_sym]

@@ -2,7 +2,6 @@ describe Api::V1::RanobeController, :show_in_doc do
   describe '#index' do
     include_context :authenticated, :user
 
-    let(:user) { create :user }
     let(:genre) { create :genre }
     let(:publisher) { create :publisher }
     let!(:user_rate) { create :user_rate, target: ranobe, user: user, status: 1 }

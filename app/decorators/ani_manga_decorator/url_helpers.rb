@@ -101,17 +101,10 @@ module AniMangaDecorator::UrlHelpers
   #   end
   # end
 
-  # адрес обзоров
   def reviews_url
     h.send "#{klass_lower}_reviews_url", object
   end
 
-  # адрес обзора
-  def review_url review
-    h.send "#{klass_lower}_review_url", object, review
-  end
-
-  # адрес создания обзора
   def new_review_url
     h.send "new_#{klass_lower}_review_url", object,
       'review[user_id]' => h.current_user&.id,
@@ -119,7 +112,6 @@ module AniMangaDecorator::UrlHelpers
       'review[target_type]' => object.class.name
   end
 
-  # адрес ресурсов аниме
   def resources_url
     h.send "resources_#{klass_lower}_url"
   end
@@ -128,7 +120,6 @@ module AniMangaDecorator::UrlHelpers
     h.send "other_names_#{klass_lower}_url", object
   end
 
-  # урл страницы с отзывами
   def summaries_url
     h.send "summaries_#{klass_lower}_url", object
   end

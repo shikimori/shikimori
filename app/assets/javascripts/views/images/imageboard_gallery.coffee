@@ -1,4 +1,6 @@
-require './preloaded_gallery'
+import URI from 'urijs'
+
+import './preloaded_gallery'
 
 using 'Images'
 # динамическая загрузка картинок с борд danbooru, oreno.imouto, konachan, safebooru

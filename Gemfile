@@ -5,11 +5,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '5.1.5'
+gem 'rails'
 gem 'bootsnap', require: false
 
 # database & cache
-gem 'dalli' # NOTE: в конфиге мемкеша должна быть опция -I 16M
+gem 'dalli'
 gem 'pg'
 gem 'redis'
 gem 'redis-mutex'
@@ -61,7 +61,7 @@ gem 'devise-doorkeeper'
 
 # application
 gem 'mal_parser', github: 'shikimori/mal_parser'
-gem 'chewy'
+gem 'chewy', github: 'toptal/chewy', branch: 'master'
 gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'rack-attack'
 gem 'rack-cors'
@@ -74,9 +74,8 @@ gem 'paperclip'
 gem 'paperclip-i18n'
 gem 'rs_russian'
 gem 'simple_form'
-gem 'simple_form-magic_submit', github: 'IngateFuture/simple_form-magic_submit'
+gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
 gem 'state_machine'
-# gem 'simple_form-magic_submit', path: '/Users/morr/Develop/simple_form-magic_submit/'
 gem 'active_model_serializers'
 
 # gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации

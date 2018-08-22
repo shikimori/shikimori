@@ -1,10 +1,12 @@
+import EditStyles from 'views/styles/edit'
+
 page_load 'profiles_edit', ->
   # account page
   # if $('.edit-page.account').exists()
 
   # profile page
   if $('.edit-page.profile').exists()
-    $('.b-shiki_editor').shiki_editor()
+    $('.b-shiki_editor').shikiEditor()
 
   # styles page
   if $('.edit-page.styles').exists()
@@ -21,7 +23,7 @@ page_load 'profiles_edit', ->
     ignores_page()
 
 styles_page = ->
-  new Styles.Edit '.b-edit_styles'
+  new EditStyles '.b-edit_styles'
 
   $('#user_preferences_body_width').on 'change', ->
     $(document.body)
@@ -79,7 +81,7 @@ ignores_page = ->
     .on 'ajax:success', ->
       $(@).closest('tr').remove()
 
-  $('.user_ids').completable_variant()
+  $('.user_ids').completableVariant()
   $('.user_ids').focus() if $('.user_ids').is(':appeared')
   $('.user_ids').on 'keydown', (e) ->
     if e.keyCode is 10 || e.keyCode is 13

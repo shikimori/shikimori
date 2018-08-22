@@ -11,8 +11,6 @@
  */
 
 // плагин сильно пропатчен!
-;(function($) {
-
 $.fn.extend({
   autocomplete: function(urlOrData, options) {
     var isUrl = typeof urlOrData == "string";
@@ -819,5 +817,3 @@ $.fn.selection = function(start, end) {
     }
   }
 };
-
-})(jQuery);

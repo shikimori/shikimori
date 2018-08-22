@@ -1,12 +1,13 @@
 class AdminLogInController < ShikimoriController
-  # выход под любым пользователем для администратора
-  def log_in
+  def log_in # rubocop:disable all
     if !Rails.env.production? || (user_signed_in? && current_user.admin?)
-      @user = if params[:nickname] =~ /\A\d+\Z/
-        User.find params[:nickname].to_i
-      else
-        User.find_by(nickname: params[:nickname]) || User.find_by(email: params[:nickname])
-      end
+      @user =
+        if /\A\d+\Z/.match?(params[:nickname])
+          User.find params[:nickname].to_i
+        else
+          User.find_by(nickname: params[:nickname]) ||
+            User.find_by(email: params[:nickname])
+        end
 
       if @user
         id = user_signed_in? ? current_user.id : nil
@@ -26,7 +27,6 @@ class AdminLogInController < ShikimoriController
     end
   end
 
-  # восстановление авторизации администратора
   def restore
     if session[AdminLogInController.admin_id_to_restore_key].present?
       @user = User.find(session[AdminLogInController.admin_id_to_restore_key])
@@ -38,7 +38,6 @@ class AdminLogInController < ShikimoriController
     end
   end
 
-  # имя куки с авторизацией админа
   def self.admin_id_to_restore_key
     'devise.admin_id_to_restore'
   end

@@ -1,5 +1,6 @@
 .cc-2.block.b-edit_styles[
   data-custom_css_id="#{LayoutView::CUSTOM_CSS_ID}"
+  class=(:expanded if cookies['expanded-styles'] == '1')
 ]
   .c-column
     = simple_form_for [:api, style],
@@ -12,6 +13,7 @@
           / a.cancel href="#{cancel_url}" = t 'actions.cancel'
           = f.button :magic_submit
         = f.input :css,
+          label: "CSS <span class='expand'>#{t '.expand'}</span><span class='collapse'>#{t '.collapse'}</span>".html_safe,
           hint: local_assigns[:css_hint]
 
         .preview.ajax-loading.vk-like[

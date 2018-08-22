@@ -13,6 +13,7 @@
     = render 'user_rates/lines', library: library, list: list
 
   - if list.stats
+    .b-nothing_here.nothing-found = t '.nothing_found'
     .summary.list class=library.list_view
       - list.stats.each do |stat, value|
         = t ".#{stat}"

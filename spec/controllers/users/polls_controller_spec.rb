@@ -4,7 +4,7 @@ describe Users::PollsController do
   describe '#index' do
     let!(:poll_1) { create :poll, user: user }
     let!(:poll_2) { create :poll, user: user }
-    let!(:poll_3) { create :poll, user: seed(:user) }
+    let!(:poll_3) { create :poll, user: user_2 }
 
     before { get :index, params: { profile_id: user.to_param } }
 

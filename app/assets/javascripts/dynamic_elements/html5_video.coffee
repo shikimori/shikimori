@@ -1,4 +1,5 @@
-imagesLoaded = require 'imagesloaded'
+import delay from 'delay'
+import imagesLoaded from 'imagesloaded'
 
 using 'DynamicElements'
 class DynamicElements.Html5Video extends View

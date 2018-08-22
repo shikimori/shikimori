@@ -1,9 +1,8 @@
 describe Clubs::Query do
-  let(:query) { described_class.fetch(:ru) }
-
   include_context :timecop
 
-  let(:user) { create :user }
+  let(:query) { described_class.fetch(:ru) }
+
   let!(:club_1) { create :club, :with_topics, id: 1 }
   let!(:club_2) { create :club, :with_topics, id: 2 }
   let!(:club_3) { create :club, :with_topics, id: 3 }

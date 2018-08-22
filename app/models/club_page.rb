@@ -2,7 +2,7 @@ class ClubPage < ApplicationRecord
   acts_as_list scope: %i[club_id parent_page_id]
 
   belongs_to :club, touch: true
-  belongs_to :parent_page, class_name: ClubPage.name
+  belongs_to :parent_page, class_name: ClubPage.name, optional: true
   has_many :child_pages, -> { ordered },
     class_name: ClubPage.name,
     foreign_key: :parent_page_id,

@@ -36,7 +36,7 @@ private
       .joins(JOIN_SQL)
       .group(:commentable_id)
       .select(SELECT_SQL)
-      .order('comments_count desc')
+      .order(Arel.sql('comments_count desc'))
   end
 
   def offtopic_id

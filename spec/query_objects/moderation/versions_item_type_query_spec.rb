@@ -1,7 +1,6 @@
 describe Moderation::VersionsItemTypeQuery do
   let(:query) { Moderation::VersionsItemTypeQuery.new type }
 
-  let(:user) { create :user }
   let!(:version_1) { create :version, item: create(:anime) }
   let!(:version_2) { create :version, item: create(:manga) }
   let!(:version_3) { create :version, item: create(:anime_video) }

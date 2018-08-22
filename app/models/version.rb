@@ -1,20 +1,20 @@
 class Version < ApplicationRecord
   MAXIMUM_REASON_SIZE = 255
 
-  ABUSE_USER_IDS = [91184]
+  ABUSE_USER_IDS = [91_184]
 
   belongs_to :user
-  belongs_to :moderator, class_name: User.name
+  belongs_to :moderator, class_name: User.name, optional: true
   belongs_to :item, polymorphic: true, touch: true
 
   validates :item_diff, presence: true
   validates :item, presence: true, if: :new_record?
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
-  scope :pending_content, lambda {
+  scope :pending_content, -> {
     where(state: :pending).where.not(item_type: AnimeVideo.name)
   }
-  scope :pending_videos, lambda {
+  scope :pending_videos, -> {
     where(state: :pending).where(item_type: AnimeVideo.name)
   }
 
@@ -26,39 +26,57 @@ class Version < ApplicationRecord
     state :taken
     state :deleted
 
-    event(:accept) { transition :pending => :accepted }
-    event(:auto_accept) { transition :pending => :auto_accepted, if: :auto_acceptable? }
-    event(:take) { transition :pending => :taken }
-    event(:reject) { transition [:pending, :auto_accepted] => :rejected }
-    event(:to_deleted) { transition :pending => :deleted, if: :deleteable? }
+    event(:accept) { transition pending: :accepted }
+    event(:auto_accept) do
+      transition pending: :auto_accepted, if: :auto_acceptable?
+    end
+    event(:take) { transition pending: :taken }
+    event(:reject) { transition %i[pending auto_accepted] => :rejected }
+    event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
 
-    event(:accept_taken) { transition :taken => :accepted, if: :takeable? }
-    event(:take_accepted) { transition :accepted => :taken, if: :takeable? }
+    event(:accept_taken) { transition taken: :accepted, if: :takeable? }
+    event(:take_accepted) { transition accepted: :taken, if: :takeable? }
 
-    before_transition :pending => [:accepted, :auto_accepted, :taken] do |version, transition|
-      version.apply_changes ||
-        raise(StateMachine::InvalidTransition.new version, transition.machine, transition.event)
+    before_transition(
+      pending: %i[accepted auto_accepted taken]
+    ) do |version, transition|
+      version.apply_changes || raise(
+        StateMachine::InvalidTransition.new(
+          version,
+          transition.machine,
+          transition.event
+        )
+      )
     end
 
-    before_transition :auto_accepted => :rejected do |version, transition|
-      version.rollback_changes ||
-        raise(StateMachine::InvalidTransition.new version, transition.machine, transition.event)
+    before_transition auto_accepted: :rejected do |version, transition|
+      version.rollback_changes || raise(
+        StateMachine::InvalidTransition.new(
+          version,
+          transition.machine,
+          transition.event
+        )
+      )
     end
 
-    before_transition [:pending, :auto_accepted] => [:accepted, :taken, :rejected, :deleted] do |version, transition|
+    before_transition(
+      %i[pending auto_accepted] => %i[accepted taken rejected deleted]
+    ) do |version, transition|
       version.update moderator: transition.args.first if transition.args.first
     end
 
-    after_transition :pending => [:accepted, :taken] do |version, transition|
+    after_transition pending: %i[accepted taken] do |version, _transition|
       version.fix_state if version.respond_to? :fix_state
       version.notify_acceptance
     end
 
-    after_transition [:pending, :auto_accepted] => [:rejected] do |version, transition|
+    after_transition(
+      %i[pending auto_accepted] => [:rejected]
+    ) do |version, transition|
       version.notify_rejection transition.args.second
     end
 
-    after_transition :pending => :deleted do |version, transition|
+    after_transition pending: :deleted do |version, _transition|
       version.cleanup if version.respond_to? :cleanup
     end
   end
@@ -78,7 +96,7 @@ class Version < ApplicationRecord
   end
 
   def rollback_changes
-    attributes = item_diff.each_with_object({}) do |(field,changes), memo|
+    attributes = item_diff.each_with_object({}) do |(field, changes), memo|
       memo[field] = changes.first
     end
 
@@ -91,22 +109,26 @@ class Version < ApplicationRecord
   end
 
   def notify_acceptance
-    Message.create_wo_antispam!(
-      from_id: moderator_id,
-      to_id: user_id,
-      kind: MessageType::VersionAccepted,
-      linked: self
-    ) unless user_id == moderator_id
+    unless user_id == moderator_id
+      Message.create_wo_antispam!(
+        from_id: moderator_id,
+        to_id: user_id,
+        kind: MessageType::VersionAccepted,
+        linked: self
+      )
+    end
   end
 
   def notify_rejection reason
-    Message.create_wo_antispam!(
-      from_id: moderator_id,
-      to_id: user_id,
-      kind: MessageType::VersionRejected,
-      linked: self,
-      body: reason
-    ) unless user_id == moderator_id
+    unless user_id == moderator_id
+      Message.create_wo_antispam!(
+        from_id: moderator_id,
+        to_id: user_id,
+        kind: MessageType::VersionRejected,
+        linked: self,
+        body: reason
+      )
+    end
   end
 
   def takeable?

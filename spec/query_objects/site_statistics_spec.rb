@@ -15,7 +15,6 @@ describe SiteStatistics do
     end
 
     describe 'comments' do
-      let(:user) { create :user }
       let!(:comments) { create_list :comment, 1, user: user }
 
       its(:comments) { is_expected.to have_at_least(180).items }

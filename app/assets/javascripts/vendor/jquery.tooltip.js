@@ -9,6 +9,8 @@
  * Since: November 2008
  * Date:    Wed Sep 22 06:02:10 2010 +0000
  */
+import delay from 'delay'
+
 (function($) {
   // static constructs
   $.tools = $.tools || {version: '1.2.5'};
@@ -292,7 +294,7 @@
               e.type = "onBeforeFetch";
               fire.trigger(e, []);
 
-              tooltip_url = trigger.data('tooltip_url') ||
+              const tooltip_url = trigger.data('tooltip_url') ||
                 trigger.data('href') ||
                 trigger.attr('href').replace(/(\?|$)/, '/tooltip$1');
 

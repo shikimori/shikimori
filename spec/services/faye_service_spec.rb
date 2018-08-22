@@ -2,7 +2,6 @@ describe FayeService do
   let(:service) { FayeService.new user, faye }
 
   let(:faye) { 'test' }
-  let(:user) { create :user }
   let(:topic) { create :topic, user: user }
   let!(:publisher) { FayePublisher.new user, faye }
 

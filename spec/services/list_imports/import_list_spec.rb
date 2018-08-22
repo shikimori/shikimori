@@ -3,7 +3,6 @@ describe ListImports::ImportList do
 
   let(:list_import) { create :list_import, :anime, duplicate_policy, user: user }
   let(:duplicate_policy) { Types::ListImport::DuplicatePolicy[:replace] }
-  let(:user) { seed :user }
   let(:list) do
     [ListImports::ListEntry.new(
       target_title: 'Test name',

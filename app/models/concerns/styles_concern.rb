@@ -4,7 +4,7 @@ module StylesConcern
   included do
     owner_type = name
 
-    belongs_to :style
+    belongs_to :style, optional: true
     has_many :styles, -> { where owner_type: owner_type },
       foreign_key: :owner_id,
       dependent: :destroy

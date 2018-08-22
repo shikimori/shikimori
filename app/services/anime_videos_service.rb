@@ -21,7 +21,6 @@ private
     Versioneers::FieldsVersioneer
       .new(video)
       .postmoderate(@params, current_user, reason)
-
   rescue StateMachine::InvalidTransition
   end
 

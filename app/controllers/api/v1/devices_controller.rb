@@ -20,12 +20,16 @@ class Api::V1::DevicesController < Api::V1Controller
 
   def test
     gcm = GCM.new Rails.application.secrets.gcm[:token]
-    respond_with gcm.send_notification([@device.token], data: JSON.parse(params[:data]))
+
+    respond_with gcm.send_notification(
+      [@device.token],
+      data: JSON.parse(params[:data])
+    )
   end
 
   api :POST, '/devices', 'Create a device'
   param :device, Hash do
-    param :platform, %w(ios android), required: true
+    param :platform, %w[ios android], required: true
     param :token, String, desc: 'ID of mobile device', required: true
     param :user_id, :undef, required: true
     param :name, String, required: false

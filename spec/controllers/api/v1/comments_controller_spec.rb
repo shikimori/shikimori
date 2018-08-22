@@ -1,10 +1,13 @@
 describe Api::V1::CommentsController do
-  let(:user) { create :user, :user, :day_registered }
+  include_context :authenticated
+  let(:user) { seed :user_day_registered }
+
   let(:topic) { create :topic, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
 
   describe '#show', :show_in_doc do
-    before { get :show, params: { id: comment.id }, format: :json }
+    before { sign_out user }
+    subject! { get :show, params: { id: comment.id }, format: :json }
 
     it do
       expect(json).to have_key :user
@@ -14,10 +17,12 @@ describe Api::V1::CommentsController do
   end
 
   describe '#index', :show_in_doc do
-    let!(:comment_1) { create :comment, user: user, commentable: user }
-    let!(:comment_2) { create :comment, user: user, commentable: user }
+    before { sign_out user }
 
-    before do
+    let!(:comment_1) { create :comment, commentable: user }
+    let!(:comment_2) { create :comment, commentable: user }
+
+    subject! do
       get :index,
         params: {
           commentable_type: User.name,
@@ -36,7 +41,6 @@ describe Api::V1::CommentsController do
   end
 
   describe '#create' do
-    include_context :authenticated, :user
     let(:params) do
       {
         commentable_id: topic.id,
@@ -72,7 +76,7 @@ describe Api::V1::CommentsController do
         let(:is_broadcast) { true }
 
         context 'can broadcast' do
-          let(:user) { create :user, :admin }
+          let(:user) { seed :user_admin }
           it { expect(Comment::Broadcast).to have_received(:call).with resource }
         end
 
@@ -103,7 +107,6 @@ describe Api::V1::CommentsController do
   end
 
   describe '#update' do
-    include_context :authenticated, :user
     let(:params) { { body: body } }
 
     subject! do
@@ -146,11 +149,10 @@ describe Api::V1::CommentsController do
   end
 
   describe '#destroy' do
-    include_context :authenticated, :user
     let(:make_request) { delete :destroy, params: { id: comment.id }, format: :json }
 
     context 'success', :show_in_doc do
-      before { make_request }
+      subject! { make_request }
       it do
         expect(response).to have_http_status :success
         expect(response.content_type).to eq 'application/json'

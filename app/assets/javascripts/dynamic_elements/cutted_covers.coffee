@@ -1,3 +1,5 @@
+import delay from 'delay'
+
 recalc_styles = ->
   $('#injectCSSContainer').empty()
   $(".#{DynamicElements.CuttedCovers.CLASS_NAME}").each ->

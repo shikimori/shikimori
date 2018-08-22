@@ -1,4 +1,6 @@
-module.exports = class DatePicker extends View
+import moment from 'moment'
+
+export default class DatePicker extends View
   INPUT_FORMAT = 'YYYY-MM-DD'
 
   initialize: ->

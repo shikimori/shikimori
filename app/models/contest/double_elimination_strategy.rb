@@ -29,7 +29,7 @@ class Contest::DoubleEliminationStrategy
       additional = !additional unless i.zero? || !with_additional_rounds?
     end
 
-    @contest.rounds.each {|v| fill_round_with_matches v }
+    @contest.rounds.each { |v| fill_round_with_matches v }
   end
 
   def create_round number, additional
@@ -38,9 +38,22 @@ class Contest::DoubleEliminationStrategy
 
   def fill_round_with_matches round
     if round.first?
-      create_matches round, @contest.members, group: ContestRound::S, shuffle: true
+      create_matches(
+        round,
+        @contest.members,
+        group: ContestRound::S,
+        shuffle: true
+      )
+
     elsif round.last?
-      create_matches round, 2.times.map { ContestMatch::UNDEFINED }, group: ContestRound::F, date: round.prior_round.matches.last.finished_on + @contest.matches_interval.days
+      create_matches(
+        round,
+        2.times.map { ContestMatch::UNDEFINED },
+        group: ContestRound::F,
+        date: round.prior_round.matches.last.finished_on +
+          @contest.matches_interval.days
+      )
+
     else
       losers_count = [
         (round.number > 2 ?
@@ -50,21 +63,44 @@ class Contest::DoubleEliminationStrategy
         1
       ].max
 
-      winners_round = if round.prior_round.matches.any? { |v| v.group == ContestRound::W || v.group == ContestRound::S }
-        round.prior_round
-      else
-        round.prior_round.prior_round
-      end
-      winners_count = (winners_round.matches.select { |v| v.group == ContestRound::W || v.group == ContestRound::S }
-          .map { |v| v.right_type ? 2 : 1 }.sum / 2.0).ceil
+      winners_round =
+        if round.prior_round.matches.any? { |v| v.group == ContestRound::W || v.group == ContestRound::S }
+          round.prior_round
+        else
+          round.prior_round.prior_round
+        end
+
+      winners_count = (
+        winners_round
+          .matches
+          .select { |v| v.group == ContestRound::W || v.group == ContestRound::S }
+          .map { |v| v.right_type ? 2 : 1 }
+          .sum / 2.0
+      ).ceil
 
       if round.additional
-        create_matches round, losers_count.times.map { ContestMatch::UNDEFINED }, group: ContestRound::L, date: round.prior_round.matches.last.finished_on+@contest.matches_interval.days
+        create_matches(
+          round,
+          losers_count.times.map { ContestMatch::UNDEFINED },
+          group: ContestRound::L,
+          date: round.prior_round.matches.last.finished_on +
+            @contest.matches_interval.days
+        )
       else
-        create_matches round, winners_count.times.map { ContestMatch::UNDEFINED }, group: ContestRound::W, date: round.prior_round.matches.last.finished_on+@contest.matches_interval.days
+        create_matches(
+          round,
+          winners_count.times.map { ContestMatch::UNDEFINED },
+          group: ContestRound::W,
+          date: round.prior_round.matches.last.finished_on +
+            @contest.matches_interval.days
+        )
 
         if with_additional_rounds?
-          create_matches round, losers_count.times.map { ContestMatch::UNDEFINED }, group: ContestRound::L
+          create_matches(
+            round,
+            losers_count.times.map { ContestMatch::UNDEFINED },
+            group: ContestRound::L
+          )
         end
       end
     end
@@ -74,23 +110,24 @@ class Contest::DoubleEliminationStrategy
     matches = round.matches
 
     entrires = if options[:shuffle]
-      entrires_to_fill.shuffle
-    else
-      entrires_to_fill
+                 entrires_to_fill.shuffle
+               else
+                 entrires_to_fill
     end
 
     index = matches.count % @contest.matches_per_round
-    date = options[:date] || if matches.any?
-      if index == 0
-        matches.last.started_on + @contest.matches_interval.days
+    date = options[:date] ||
+      if matches.any?
+        if index == 0
+          matches.last.started_on + @contest.matches_interval.days
+        else
+          matches.last.started_on
+        end
       else
-        matches.last.started_on
+        @contest.started_on
       end
-    else
-      @contest.started_on
-    end
 
-    entrires.each_slice(2).each_with_index do |(left,right), pair_index|
+    entrires.each_slice(2).each_with_index do |(left, right), pair_index|
       matches.create(
         left_type: @contest.member_klass.name,
         left_id: left && left != ContestMatch::UNDEFINED ? left.id : nil,
@@ -102,15 +139,16 @@ class Contest::DoubleEliminationStrategy
       )
 
       index += 1
-      pred_last = (entrires.size/2.0).ceil - 2
-      if index >= @contest.matches_per_round && (pair_index != pred_last || @contest.matches_per_round < 3)
-        date = date + @contest.matches_interval.days
+      pred_last = (entrires.size / 2.0).ceil - 2
+      if index >= @contest.matches_per_round &&
+          (pair_index != pred_last || @contest.matches_per_round < 3)
+        date += @contest.matches_interval.days
         index = 0
       end
     end
   end
 
-  def advance_members round, prior_round
+  def advance_members _round, prior_round
     prior_round.matches.each do |match|
       advance_winner match
       advance_loser match if match.loser
@@ -120,23 +158,28 @@ class Contest::DoubleEliminationStrategy
   def advance_winner match
     return unless match.round.next_round
 
-    target_round = if match.group == ContestRound::W && !match.round.additional && match.round.number > 1 && match.strategy.with_additional_rounds?
-      match.round.next_round.next_round
-    else
-      match.round.next_round
-    end
-
-    target_vote = if match.round.number > 1 && !match.round.additional
-      target_round.matches
-    else
-      if match.round.next_round.last?
-        target_round.matches.select {|v| v.group == ContestRound::F }
-      elsif match.group == ContestRound::W || match.group == ContestRound::S
-        target_round.matches.select {|v| v.group == ContestRound::W }
+    target_round =
+      if match.group == ContestRound::W &&
+          !match.round.additional &&
+          match.round.number > 1 && match.strategy.with_additional_rounds?
+        match.round.next_round.next_round
       else
-        target_round.matches.select {|v| v.group == ContestRound::L }
+        match.round.next_round
       end
-    end.select { |v| v.left_id.nil? || v.right_id.nil? }.first
+
+    target_vote =
+      if match.round.number > 1 && !match.round.additional
+        target_round.matches
+      else
+        if match.round.next_round.last?
+          target_round.matches.select { |v| v.group == ContestRound::F }
+        elsif match.group == ContestRound::W || match.group == ContestRound::S
+          target_round.matches.select { |v| v.group == ContestRound::W }
+        else
+          target_round.matches.select { |v| v.group == ContestRound::L }
+        end
+      end
+      .select { |v| v.left_id.nil? || v.right_id.nil? }.first
 
     if target_vote.left_id.nil?
       target_vote.left = match.winner
@@ -151,21 +194,28 @@ class Contest::DoubleEliminationStrategy
     return unless match.round.next_round
     return if match.group == ContestRound::L
 
-    matches = match.round.next_round.matches.select {|v| v.group == ContestRound::L }
-    if match.round.next_round.additional && (match.round.next_round.number % 2) == 0
-      take_order = (match.round.next_round.number / 2) % 2 == 0 ? :first : :last
+    matches = match.round
+      .next_round
+      .matches
+      .select { |v| v.group == ContestRound::L }
 
-      target_vote = matches.select {|v| v.right_id.nil? && v.left_type.present? }.send take_order
-      target_vote = matches.select {|v| v.left_id.nil? }.send take_order unless target_vote
+    if match.round.next_round.additional && match.round.next_round.number.even?
+      take_order = (match.round.next_round.number / 2).even? ? :first : :last
+
+      target_vote = matches
+        .select { |v| v.right_id.nil? && v.left_type.present? }
+        .send take_order
+      target_vote ||= matches.select { |v| v.left_id.nil? }.send take_order
 
       if target_vote.right_id.nil?
         target_vote.right = match.loser
       else
         target_vote.left = match.loser
       end
+
     else
-      target_vote = matches.select {|v| v.left_id.nil? }.first
-      target_vote = matches.select {|v| v.right_id.nil? }.first unless target_vote
+      target_vote = matches.select { |v| v.left_id.nil? }.first
+      target_vote ||= matches.select { |v| v.right_id.nil? }.first
 
       if target_vote.left_id.nil?
         target_vote.left = match.loser
@@ -182,14 +232,15 @@ class Contest::DoubleEliminationStrategy
       .prior_rounds(round)
       .reverse
 
-    finalists = if round && round.additional?
-      Set.new intermediate_additional_results rounds.shift, rounds.shift
-    else
-      Set.new
-    end
+    finalists =
+      if round&.additional?
+        Set.new intermediate_additional_results rounds.shift, rounds.shift
+      else
+        Set.new
+      end
 
     rounds.each_with_object(finalists) do |round, memo|
-      round_results(round).each {|v| memo << v }
+      round_results(round).each { |v| memo << v }
     end.to_a
   end
 
@@ -202,7 +253,7 @@ class Contest::DoubleEliminationStrategy
       .matches_with_associations(round)
       .map(&:winner)
       .compact
-      .sort_by {|v| member_sorting v, round }
+      .sort_by { |v| member_sorting v, round }
   end
 
   def round_losers round
@@ -210,29 +261,30 @@ class Contest::DoubleEliminationStrategy
       .matches_with_associations(round)
       .map(&:loser)
       .compact
-      .sort_by {|v| member_sorting v, round }
+      .sort_by { |v| member_sorting v, round }
   end
 
   def intermediate_additional_results additional_round, prior_round
     prior_g_winners = @statistics.matches_with_associations(prior_round)
-      .select {|v| v.group == ContestRound::W }
-      .map {|match| match.winner }
+      .select { |v| v.group == ContestRound::W }
+      .map(&:winner)
 
     additional_winners = @statistics.matches_with_associations(additional_round)
-      .map {|match| match.winner }
+      .map(&:winner)
 
-    winners = (prior_g_winners + additional_winners).sort_by {|v| member_sorting v, prior_round }
+    winners = (prior_g_winners + additional_winners)
+      .sort_by { |v| member_sorting v, prior_round }
 
     prior_l_losers = @statistics.matches_with_associations(prior_round)
-      .select {|v| v.group == ContestRound::L }
-      .map {|match| match.loser }
+      .select { |v| v.group == ContestRound::L }
+      .map(&:loser)
       .compact
-      .sort_by {|v| member_sorting v, prior_round }
+      .sort_by { |v| member_sorting v, prior_round }
 
     additional_losers = @statistics.matches_with_associations(additional_round)
-      .map {|match| match.loser }
+      .map(&:loser)
       .compact
-      .sort_by {|v| member_sorting v, additional_round }
+      .sort_by { |v| member_sorting v, additional_round }
 
     winners + additional_losers + prior_l_losers
   end

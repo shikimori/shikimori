@@ -32,7 +32,8 @@ class AnimeVideo < ApplicationRecord
   belongs_to :anime
   belongs_to :author,
     class_name: AnimeVideoAuthor.name,
-    foreign_key: :anime_video_author_id
+    foreign_key: :anime_video_author_id,
+    optional: true
   has_many :reports, class_name: AnimeVideoReport.name, dependent: :destroy
 
   enumerize :kind,
@@ -62,7 +63,7 @@ class AnimeVideo < ApplicationRecord
 
   after_create :create_episode_notificaiton, unless: :any_videos?
   after_destroy :rollback_episode_notification, unless: :any_videos?
-  after_update :check_episode_notification, if: lambda {
+  after_update :check_episode_notification, if: -> {
     saved_change_to_episode? ||
       saved_change_to_kind? ||
       saved_change_to_anime_id?

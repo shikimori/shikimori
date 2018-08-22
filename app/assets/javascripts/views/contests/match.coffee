@@ -1,3 +1,5 @@
+delay = require 'delay'
+
 using 'Contests'
 module.exports = class Contests.Match extends View
   VOTE_LEFT = 'left'
@@ -49,11 +51,11 @@ module.exports = class Contests.Match extends View
     @round_view.switch_match @_next_match_id()
 
   _abstain: (e) =>
-    # $(e.target).yellow_fade()
+    # $(e.target).yellowFade()
     @_vote VOTE_ABSTAIN
 
   _vote_member: (e) =>
-    $(e.target).find('.b-catalog_entry').yellow_fade()
+    $(e.target).find('.b-catalog_entry').yellowFade()
     @_vote $(e.target).data('variant')
 
   _vote_click: (e) =>

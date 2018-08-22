@@ -1,6 +1,6 @@
-TrackUserRate = require './track_user_rate'
+import TrackUserRate from './track_user_rate'
 
-module.exports = class UpdateUserRate extends TrackUserRate
+export default class UpdateUserRate extends TrackUserRate
   constructor: (user_rate, $root) ->
     $(@_selector(user_rate)).each ->
       $(@).view().update user_rate

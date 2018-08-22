@@ -1,7 +1,6 @@
 describe Versioneers::VideosVersioneer do
   let(:versioneer) { Versioneers::VideosVersioneer.new anime }
   let(:anime) { create :anime }
-  let(:user) { create :user }
 
   describe '#upload' do
     let(:params) do

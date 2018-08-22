@@ -3,27 +3,21 @@ describe Api::V1::AppearController do
   let!(:comment) { create :comment, commentable: topic, user_id: user.id }
 
   describe '#create' do
-    let(:user) { create :user }
-    let(:submit) { post :create, params: {ids: "comment-#{comment.id}"} }
+    let(:submit) { post :create, params: { ids: "comment-#{comment.id}" } }
 
-    let(:bulk_create_viewings) { double call: nil }
-    before do
-      allow(controller)
-        .to receive(:bulk_create_viewings)
-        .and_return bulk_create_viewings
-    end
+    before { allow(Viewing::BulkCreate).to receive :call }
 
     context 'not authorized' do
-      before { submit }
+      subject! { submit }
       it do
-        expect(bulk_create_viewings).not_to have_received(:call)
+        expect(Viewing::BulkCreate).not_to have_received(:call)
         expect(response).to be_redirect
       end
     end
 
     describe 'user signed in' do
-      before { sign_in user }
-      before { submit }
+      include_context :authenticated
+      subject! { submit }
 
       context 'success' do
         it { expect(response).to have_http_status :success }
@@ -31,9 +25,13 @@ describe Api::V1::AppearController do
 
       context '1 viewed id' do
         it 'one view' do
-          expect(bulk_create_viewings)
+          expect(Viewing::BulkCreate)
             .to have_received(:call)
-            .with(user, Comment, [comment.id])
+            .with(
+              user: user,
+              viewed_klass: Comment,
+              viewed_ids: [comment.id]
+            )
         end
       end
 
@@ -41,33 +39,45 @@ describe Api::V1::AppearController do
         let(:comment_2) { create :comment, commentable: topic }
         let(:submit) do
           post :create, params: {
-ids: [
-            "comment-#{comment.id}",
-            "comment-#{comment_2.id}",
-            "topic-#{topic.id}"
-          ].join(',')
-}
+            ids: [
+              "comment-#{comment.id}",
+              "comment-#{comment_2.id}",
+              "topic-#{topic.id}"
+            ].join(',')
+          }
         end
 
         it 'multiple views', :show_in_doc do
-          expect(bulk_create_viewings)
+          expect(Viewing::BulkCreate)
             .to have_received(:call)
-            .with(user, Comment, [comment.id, comment_2.id])
-          expect(bulk_create_viewings)
+            .with(
+              user: user,
+              viewed_klass: Comment,
+              viewed_ids: [comment.id, comment_2.id]
+            )
+          expect(Viewing::BulkCreate)
             .to have_received(:call)
-            .with(user, Topic, [topic.id])
+            .with(
+              user: user,
+              viewed_klass: Topic,
+              viewed_ids: [topic.id]
+            )
         end
       end
 
       context '2 same viewed ids' do
         let(:submit) do
-          post :create, params: {ids: "comment-#{comment.id}"}
-          post :create, params: {ids: "comment-#{comment.id}"}
+          post :create, params: { ids: "comment-#{comment.id}" }
+          post :create, params: { ids: "comment-#{comment.id}" }
         end
         it do
-          expect(bulk_create_viewings)
+          expect(Viewing::BulkCreate)
           .to have_received(:call)
-          .with(user, Comment, [comment.id])
+          .with(
+            user: user,
+            viewed_klass: Comment,
+            viewed_ids: [comment.id]
+          )
           .twice
         end
       end
@@ -77,9 +87,13 @@ ids: [
           post :create, params: { ids: 'comment-999999' }
         end
         it 'no views for not existing' do
-          expect(bulk_create_viewings)
+          expect(Viewing::BulkCreate)
             .to have_received(:call)
-            .with(user, Comment, [999_999])
+            .with(
+              user: user,
+              viewed_klass: Comment,
+              viewed_ids: [999_999]
+            )
         end
       end
     end

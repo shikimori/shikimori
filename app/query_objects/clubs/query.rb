@@ -7,7 +7,7 @@ class Clubs::Query < QueryObjectBase
       .joins(:topics)
       .preload(:owner, :topics)
       .where(locale: locale)
-      .order('topics.updated_at desc, id')
+      .order(Arel.sql('topics.updated_at desc, id'))
   end
 
   def favourites

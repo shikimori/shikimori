@@ -14,7 +14,6 @@ describe Api::V1::UserImagesController do
 
     context 'authenticated' do
       include_context :authenticated, :user
-      let(:club) { create :club }
 
       describe 'upload test' do
         before do

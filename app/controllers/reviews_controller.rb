@@ -93,11 +93,6 @@ private
       )
   end
 
-  # url текущего обзора
-  #def review_url
-    #self.send("#{resource_klass.name.downcase}_review_url", @entry, @review)
-  #end
-
   # тип класса лежит в параметрах
   def resource_klass
     @resource_klass ||= params[:type].constantize
@@ -114,12 +109,12 @@ private
       send("#{resource_klass.name.downcase}_reviews_url", @resource)
     )
 
-    if @review && @review.persisted? && params[:action] != 'show'
+    if @review&.persisted? && params[:action] != 'show'
       breadcrumb(
         i18n_t('review_by', nickname: @review.user.nickname),
-        send("#{resource_klass.name.downcase}_reviews_url", @resource, @review)
+        @review.url
       )
-      @back_url = send("#{resource_klass.name.downcase}_reviews_url", @resource, @review)
+      @back_url = @review.url
     else
       @back_url = send("#{resource_klass.name.downcase}_reviews_url", @resource)
     end
@@ -127,14 +122,12 @@ private
 
   def add_title
     og page_title: i18n_i('Review', :other)
-    if params[:action] == 'show'
-      og page_title: i18n_t('review_by', nickname: @review.user.nickname)
-    end
+    og page_title: i18n_t('review_by', nickname: @review.user.nickname) if params[:action] == 'show'
   end
 
   def actualize_resource
     if @resource.is_a? Review
-      @review = @resource
+      @review = @resource.decorate
       @resource = @anime || @manga || @ranobe
     end
   end

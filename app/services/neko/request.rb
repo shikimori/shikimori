@@ -2,10 +2,10 @@ class Neko::Request
   method_object :params
 
   NEKO_HOST = {
-    'production' => '192.168.0.2'
-  }[Rails.env] || 'localhost'
+    'production' => '192.168.0.2:4000'
+  }[Rails.env] || 'localhost:4004'
 
-  URL = "http://#{NEKO_HOST}:4000/user_rate"
+  URL = "http://#{NEKO_HOST}/user_rate"
 
   def call
     response = post_request(@params)

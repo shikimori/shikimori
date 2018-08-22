@@ -1,7 +1,6 @@
 Faye = require 'faye'
 require 'jquery.idle/vanilla.idle'
 
-# уведомлялка Faye
 # назначение класса - слушать Faye и отправлять получившим обновление топикам и разделам события faye:success
 module.exports = class FayeLoader
   WORLD_CHANGED_EVENTS = [
@@ -24,11 +23,11 @@ module.exports = class FayeLoader
     idle(
       onIdle: =>
         if @client
-          console.log "faye disconnect on idle"
+          console.log 'faye disconnect on idle'
           @_disconnect()
       onActive: =>
         unless @client
-          console.log "faye connect on active"
+          console.log 'faye connect on active'
           @_connect()
           @_apply()
       idle: INACTIVITY_INTERVAL
@@ -41,10 +40,12 @@ module.exports = class FayeLoader
   _apply: =>
     $targets = $('.b-forum')
     $targets = $('.b-topic') unless $targets.length
-    @_connect() if !@client && $targets.length
+    @_connect() if !@client && ($targets.length || window.FAYE_CHANNEL)
 
     # список актуальных каналов из текущего dom дерева
     channels = {}
+    channels[window.FAYE_CHANNEL] = document.body if window.FAYE_CHANNEL
+
     $targets.each (index, node) ->
       faye_channels = $(node).data('faye')
       if faye_channels != false && Object.isEmpty(faye_channels)
@@ -67,7 +68,7 @@ module.exports = class FayeLoader
       else
         "faye.#{location.hostname}"
 
-    @client = new Faye.Client $(document.body).data('faye_url'),
+    @client = new Faye.Client window.FAYE_URL,
       timeout: 300
       retry: 5
       # endpoints:

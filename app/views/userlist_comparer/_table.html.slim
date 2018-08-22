@@ -1,36 +1,35 @@
-= cache @cache_key do
-  .comparer
-    - @entries.each do |type,title,collection|
-      - next if collection.empty?
-      .b-options-floated.collapse id="collapse-comparer-#{type}"
-        span.action #{t 'collapse'} <span class="b-separator zero">(</span>#{collection.size}<span class="b-separator zero inline">)</span>
-      .subheadline
-        = title
-      .collapsed ...
-      table.b-table
-        tr
-          th.name
-            = t "Name.#{params[:list_type].downcase.capitalize}"
-          - if type == :both || type == :user_1_only
-            th.num
-              = @user_1.nickname
-          - if type == :both || type == :user_2_only
-            th.num
-              = @user_2.nickname
-        tr.border
-          th colspan="4"
+.comparer
+  - @entries.each do |type,title,collection|
+    - next if collection.empty?
+    .b-options-floated.collapse id="collapse-comparer-#{type}"
+      span.action #{t 'collapse'} <span class="b-separator zero">(</span>#{collection.size}<span class="b-separator zero inline">)</span>
+    .subheadline
+      = title
+    .collapsed ...
+    table.b-table
+      tr
+        th.name
+          = t "Name.#{params[:list_type].downcase.capitalize}"
+        - if type == :both || type == :user_1_only
+          th.num
+            = @user_1.nickname
+        - if type == :both || type == :user_2_only
+          th.num
+            = @user_2.nickname
+      tr.border
+        th colspan="4"
 
-        - collection.each do |entry|
-          tr.unprocessed.selectable class="#{entry[:variety]}"
-            td.name
-              a.tooltipped[
-                href=entry[:url]
-                data-predelay="500"
-                title=entry[:name]
-              ] = entry[:name]
-            - if type == :both || type == :user_1_only
-              td.num
-                == entry[:rate_1_title]
-            - if type == :both || type == :user_2_only
-              td.num
-                == entry[:rate_2_title]
+      - collection.each do |entry|
+        tr.unprocessed.selectable class="#{entry[:variety]}"
+          td.name
+            a.tooltipped[
+              href=entry[:url]
+              data-predelay="500"
+              title=entry[:name]
+            ] = entry[:name]
+          - if type == :both || type == :user_1_only
+            td.num
+              == entry[:rate_1_title]
+          - if type == :both || type == :user_2_only
+            td.num
+              == entry[:rate_2_title]

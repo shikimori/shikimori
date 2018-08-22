@@ -1,3 +1,5 @@
+import Turbolinks from 'turbolinks'
+
 ShikiEditor = require 'views/application/shiki_editor'
 
 page_load '.clubs-broadcast', ->

@@ -3,7 +3,6 @@
 describe Collection::Update do
   subject { Collection::Update.call collection, params }
 
-  let(:user) { create :user }
   let(:collection) { create :collection, user: user }
 
   context 'valid params' do

@@ -1,5 +1,4 @@
 describe CharactersController do
-  include_context :seeds
   let!(:character) { create :character }
   include_examples :db_entry_controller, :character
 

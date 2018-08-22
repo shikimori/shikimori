@@ -21,8 +21,6 @@ describe Comment do
   end
 
   describe 'callbacks' do
-    let(:user) { build_stubbed :user }
-    let(:user2) { build_stubbed :user }
     let(:topic) { build_stubbed :topic, user: user }
     let(:comment) { create :comment, user: user, commentable: topic }
 
@@ -146,8 +144,6 @@ describe Comment do
   end
 
   describe 'instance methods' do
-    let(:user) { build_stubbed :user }
-    let(:user2) { build_stubbed :user }
     let(:topic) { build_stubbed :topic, user: user }
     let(:comment) { create :comment, user: user, commentable: topic }
 

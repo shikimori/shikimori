@@ -1,8 +1,9 @@
 describe MessagesController do
-  include_context :authenticated, :user
+  include_context :authenticated
+  let(:user) { user_3 }
 
   describe '#index' do
-    before { get :index, params: { profile_id: user.to_param, messages_type: 'notifications' } }
+    subject! { get :index, params: { profile_id: user.to_param, messages_type: 'notifications' } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -11,7 +12,7 @@ describe MessagesController do
     let(:make_request) { get :show, params: { id: message.id } }
 
     context 'has access' do
-      before { make_request }
+      subject! { make_request }
       it { expect(response).to have_http_status :success }
     end
 
@@ -26,7 +27,7 @@ describe MessagesController do
     let(:make_request) { get :edit, params: { id: message.id } }
 
     context 'has access' do
-      before { make_request }
+      subject! { make_request }
       it { expect(response).to have_http_status :success }
     end
 
@@ -37,19 +38,17 @@ describe MessagesController do
   end
 
   describe '#preview' do
-    let(:user) { create :user }
-    before { post :preview, params: { message: { body: 'test', from_id: user.id, to_id: user.id, kind: MessageType::Private } } }
+    subject! { post :preview, params: { message: { body: 'test', from_id: user.id, to_id: user.id, kind: MessageType::Private } } }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#chosen' do
-    let(:target_user) { create :user }
-    let!(:message_1) { create :message, to: user, from: target_user, created_at: 1.hour.ago }
-    let!(:message_2) { create :message, to: target_user, from: user, created_at: 30.minutes.ago }
-    let!(:message_3) { create :message, :private, to: target_user, from: build_stubbed(:user) }
+    let!(:message_1) { create :message, to: user, from: user_2, created_at: 1.hour.ago }
+    let!(:message_2) { create :message, to: user_2, from: user, created_at: 30.minutes.ago }
+    let!(:message_3) { create :message, :private, to: user_2, from: build_stubbed(:user) }
 
-    before { get :chosen, params: { ids: [message_1.id, message_2.id, message_3.id].join(',') } }
+    subject! { get :chosen, params: { ids: [message_1.id, message_2.id, message_3.id].join(',') } }
 
     it do
       expect(response).to have_http_status :success
@@ -64,7 +63,7 @@ describe MessagesController do
     before { sign_out user }
 
     context 'valid key' do
-      before { make_request }
+      subject! { make_request }
       let(:key) { MessagesController.unsubscribe_key(user, MessageType::Private) }
 
       it do

@@ -1,3 +1,4 @@
+delay = require 'delay'
 ShikiGallery = require 'views/application/shiki_gallery'
 
 using 'Images'

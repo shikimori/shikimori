@@ -1,5 +1,4 @@
 describe ContestMatch::Finish do
-  include_context :seeds
   include_context :timecop
 
   subject(:call) { ContestMatch::Finish.call contest_match }
@@ -80,7 +79,7 @@ describe ContestMatch::Finish do
     subject! { call }
 
     context 'normal user' do
-      let(:user) { create :user, :admin }
+      let(:user) { seed :user_admin }
       it do
         expect(contest_match).to be_finished
         expect(contest_match.winner_id).to eq right_id

@@ -21,11 +21,12 @@ class CosplayQuery
   end
 
 private
+
   def gallery_ids_by_entry entry
     CosplayGalleryLink
       .where(linked_id: entry.id, linked_type: entry.class.name)
       .joins(:cosplay_gallery)
-      .where("cosplay_galleries.deleted = false and cosplay_galleries.confirmed = true")
+      .where('cosplay_galleries.deleted = false and cosplay_galleries.confirmed = true')
       .pluck(:cosplay_gallery_id)
   end
 
@@ -38,17 +39,22 @@ private
 
   def fetch_characters gallery_ids, linked_ids
     CosplayGalleryLink
-      .where("(cosplay_gallery_id in (?) or linked_id in (?)) and linked_type = ?", gallery_ids.empty? ? -1 : gallery_ids, linked_ids, Character.name)
+      .where(
+        '(cosplay_gallery_id in (?) or linked_id in (?)) and linked_type = ?',
+        gallery_ids.empty? ? -1 : gallery_ids,
+        linked_ids,
+        Character.name
+      )
       .joins(:cosplay_gallery)
-      .where("cosplay_galleries.deleted = false and cosplay_galleries.confirmed = true")
+      .where(Arel.sql('cosplay_galleries.deleted = false and cosplay_galleries.confirmed = true'))
       .includes(:character)
   end
 
   def gallery_ids_by_links links
     links
       .includes(:cosplay_gallery)
-      .where("cosplay_galleries.deleted = false and cosplay_galleries.confirmed = true")
-      .order('cosplay_galleries.created_at desc')
+      .where(Arel.sql('cosplay_galleries.deleted = false and cosplay_galleries.confirmed = true'))
+      .order(Arel.sql('cosplay_galleries.created_at desc'))
       .select('cosplay_galleries.id')
       .map(&:cosplay_gallery_id)
       .compact

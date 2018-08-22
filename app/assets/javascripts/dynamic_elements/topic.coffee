@@ -1,3 +1,5 @@
+import delay from 'delay'
+
 ShikiEditor = require 'views/application/shiki_editor'
 ShikiGallery = require 'views/application/shiki_gallery'
 
@@ -5,6 +7,17 @@ using 'DynamicElements'
 # TODO: move code related to comments to separate class
 class DynamicElements.Topic extends ShikiEditable
   I18N_KEY = 'frontend.dynamic_elements.topic'
+  FAYE_EVENTS = [
+    'faye:comment:updated'
+    'faye:message:updated'
+    'faye:comment:deleted'
+    'faye:message:deleted'
+    'faye:comment:set_replies'
+  ]
+  SHOW_IGNORED_TOPICS_IN = [
+    'topics_show'
+    'collections_show'
+  ]
 
   _type: -> 'topic'
   _type_label: -> I18n.t("#{I18N_KEY}.type_label")
@@ -21,8 +34,8 @@ class DynamicElements.Topic extends ShikiEditable
     # data attribute is set in Topics.Tracker
     @model = @$root.data('model') || @_default_model()
 
-    if SHIKI_USER.user_ignored(@model.user_id) || SHIKI_USER.topic_ignored(@model.id)
-      if document.body.id == 'topics_show'
+    if window.SHIKI_USER.isUserIgnored(@model.user_id) || window.SHIKI_USER.isTopicIgnored(@model.id)
+      if SHOW_IGNORED_TOPICS_IN.includes document.body.id
         @_toggle_ignored true
       else
         # node can be not inserted into DOM yet
@@ -37,7 +50,7 @@ class DynamicElements.Topic extends ShikiEditable
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
 
-    if SHIKI_USER.is_signed_in && SHIKI_USER.is_day_registered && @$editor.length
+    if window.SHIKI_USER.isSignedIn && window.SHIKI_USER.isDayRegistered && @$editor.length
       @editor = new ShikiEditor(@$editor)
     else
       @$editor.replaceWith(
@@ -57,7 +70,8 @@ class DynamicElements.Topic extends ShikiEditable
     @is_review = @$root.hasClass('b-review-topic')
 
     @_activate_appear_marker() if @model && !@model.is_viewed
-    @_activate_vote_button() if @model
+    @_actualize_voting() if @model
+
     @$inner.one 'mouseover', @_deactivate_inaccessible_buttons
     $('.item-mobile', @$inner).one @_deactivate_inaccessible_buttons
 
@@ -87,7 +101,7 @@ class DynamicElements.Topic extends ShikiEditable
         else
           @$('.b-comments').prepend $new_comment
 
-        $new_comment.yellow_fade()
+        $new_comment.yellowFade()
 
         @editor.cleanup()
         @_hide_editor()
@@ -98,9 +112,9 @@ class DynamicElements.Topic extends ShikiEditable
 
       .on 'ajax:success', (e, result) =>
         if result.is_ignored
-          SHIKI_USER.ignore_topic result.topic_id
+          window.SHIKI_USER.ignoreTopic result.topic_id
         else
-          SHIKI_USER.unignore_topic result.topic_id
+          window.SHIKI_USER.unignoreTopic result.topic_id
 
         @_toggle_ignored result.is_ignored
 
@@ -109,10 +123,17 @@ class DynamicElements.Topic extends ShikiEditable
       @$inner.find('.footer-vote').addClass 'b-ajax'
       is_yes = $(e.target).hasClass 'yes'
 
-      @$inner.find('.vote.yes, .user-vote .voted-for')
-        .toggleClass('selected', is_yes)
-      @$inner.find('.vote.no, .user-vote .voted-against')
-        .toggleClass('selected', !is_yes)
+      if is_yes && !@model.voted_yes
+        @model.votes_for += 1
+        @model.votes_against -= 1 if @model.voted_no
+      else if !is_yes && !@model.voted_no
+        @model.votes_for -= 1 if @model.voted_yes
+        @model.votes_against += 1
+
+      @model.voted_no = !is_yes
+      @model.voted_yes = is_yes
+
+      @_actualize_voting()
 
     @$('.footer-vote .vote').on 'ajax:complete', ->
       $(@).closest('.footer-vote').removeClass 'b-ajax'
@@ -137,13 +158,13 @@ class DynamicElements.Topic extends ShikiEditable
     @on 'click', '.comments-loader', (e) =>
       unless @$comments_loader.is('.click-loader')
         @$comments_loader.hide()
-        @$('.comments-loaded').animated_expand()
+        @$('.comments-loaded').animatedExpand()
         @$comments_hider.show()
 
     # скрытие комментариев
     @$comments_hider.on 'click', =>
       @$comments_hider.hide()
-      @$('.comments-loaded').animated_collapse()
+      @$('.comments-loaded').animatedCollapse()
       @$comments_expander.show()
 
     # сворачивание комментариев
@@ -151,12 +172,12 @@ class DynamicElements.Topic extends ShikiEditable
       @$comments_collapser.hide()
       @$comments_loader.hide()
       @$comments_expander.show()
-      @$('.comments-loaded').animated_collapse()
+      @$('.comments-loaded').animatedCollapse()
 
     # разворачивание комментариев
     @$comments_expander.on 'click', (e) =>
       @$comments_expander.hide()
-      @$('.comments-loaded').animated_expand()
+      @$('.comments-loaded').animatedExpand()
 
       if @$comments_loader
         @$comments_loader.show()
@@ -166,7 +187,7 @@ class DynamicElements.Topic extends ShikiEditable
 
     # realtime обновления
     # изменение / удаление комментария
-    @on 'faye:comment:updated faye:message:updated faye:comment:deleted faye:message:deleted faye:comment:set_replies', (e, data) =>
+    @on FAYE_EVENTS.join(' '), (e, data) =>
       e.stopImmediatePropagation()
       trackable_type = e.type.match(/comment|message/)[0]
       trackable_id = data["#{trackable_type}_id"]
@@ -185,12 +206,12 @@ class DynamicElements.Topic extends ShikiEditable
 
       # уведомление о добавленном элементе через faye
       $(document.body).trigger 'faye:added'
-      if SHIKI_USER.is_comments_auto_loaded
+      if window.SHIKI_USER.isCommentsAutoLoaded
         if $placeholder.is(':appeared') && !$('textarea:focus').val()
           $placeholder.click()
 
     # изменение метки комментария
-    @on 'faye:comment:marked', (e, data) =>
+    @on 'faye:comment:marked', (e, data) ->
       e.stopImmediatePropagation()
       $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
 
@@ -209,21 +230,19 @@ class DynamicElements.Topic extends ShikiEditable
       .map (v) -> v.id
       .filter (v) -> v
 
-    exclude_selector = present_ids.map (id) ->
-        ".#{filter}##{id}"
-      .join(',')
+    exclude_selector = present_ids.map((id) -> ".#{filter}##{id}").join(',')
 
     $comments.children().filter(exclude_selector).remove()
 
   # отображение редактора, если это превью топика
   _show_editor: ->
     if @is_preview && !@$editor_container.is(':visible')
-      @$editor_container.show()#animated_expand()
+      @$editor_container.show()#animatedExpand()
 
   # скрытие редактора, если это превью топика
   _hide_editor: =>
     if @is_preview
-      @$editor_container.hide()#animated_collapse()
+      @$editor_container.hide()#animatedCollapse()
 
   # получение плейсхолдера для подгрузки новых комментариев
   _faye_placeholder: (trackable_id, trackable_type) ->
@@ -262,7 +281,7 @@ class DynamicElements.Topic extends ShikiEditable
     $placeholder
 
   # handlers
-  _appear: (e, $appeared, by_click) =>
+  _appear: (e, $appeared, by_click) ->
     $filtered_appeared = $appeared.not ->
       $(@).data('disabled') || !(
         @classList.contains('b-appear_marker') &&
@@ -313,7 +332,7 @@ class DynamicElements.Topic extends ShikiEditable
     $new_comments
       .process(data.JS_EXPORTS)
       .insertAfter(@$comments_loader)
-      .animated_expand()
+      .animatedExpand()
 
     @_update_comments_loader(data)
 
@@ -326,27 +345,30 @@ class DynamicElements.Topic extends ShikiEditable
       read_more_height = 13 + 5 # 5px - read_more offset
 
       if image_height > 0
-        @$('.body-truncated-inner').check_height
+        @$('.body-truncated-inner').checkHeight
           max_height: image_height - read_more_height
           collapsed_height: image_height - read_more_height
           expand_html: ''
 
     else
-      @$('.body-inner').check_height
+      @$('.body-inner').checkHeight
         max_height: @MAX_PREVIEW_HEIGHT
         collapsed_height: @COLLAPSED_HEIGHT
 
   _reload_url: =>
     "/#{@_type()}s/#{@$root.attr 'id'}/reload?is_preview=#{@is_preview}"
 
-  _activate_vote_button: ->
-    if @model.voted_yes
-      @$inner.find('.footer-vote .vote.yes, .user-vote .voted-for')
-        .addClass('selected')
+  _actualize_voting: ->
+    @$inner
+      .find('.footer-vote .vote.yes, .user-vote .voted-for')
+      .toggleClass('selected', @model.voted_yes)
 
-    else if @model.voted_no
-      @$inner.find('.footer-vote .vote.no, .user-vote .voted-against')
-        .addClass('selected')
+    @$inner
+      .find('.footer-vote .vote.no, .user-vote .voted-against')
+      .toggleClass('selected', @model.voted_no)
+
+    @$inner.find('.votes-for').html("#{@model.votes_for}")
+    @$inner.find('.votes-against').html("#{@model.votes_against}")
 
   # скрытие действий, на которые у пользователя нет прав
   _deactivate_inaccessible_buttons: =>

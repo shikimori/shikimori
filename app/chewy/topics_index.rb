@@ -7,7 +7,7 @@ class TopicsIndex < ApplicationIndex
     NAME_FIELDS.each do |name_field|
       field(name_field,
         type: :keyword,
-        index: :not_analyzed,
+        index: false,
         value: -> { Topics::TopicViewFactory.new(true, true).build(self).topic_title }
       ) do
         field :original, ORIGINAL_FIELD
