@@ -41,9 +41,9 @@ class DynamicElements.Comment extends ShikiEditable
         # картинки могут быть уменьшены image_normalizer'ом,
         # поэтому делаем с задержкой
         $images.imagesLoaded =>
-          delay(10).then => @_checkHeight()
+          delay(10).then => @_check_height()
       else
-        @_checkHeight()
+        @_check_height()
 
     # ответ на комментарий
     @$('.item-reply').on 'click', (e) =>

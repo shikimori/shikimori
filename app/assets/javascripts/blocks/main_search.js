@@ -11,7 +11,9 @@ $(document).on('page:load', () => {
 
   // из урла достаём текущий тип поиска
   let pageType = document.location.pathname.replace(/^\//, '').replace(/\/.*/, '');
-  if (!SEARCHEABLES[pageType]) { pageType = $search.data('type'); }
+  if (!SEARCHEABLES[pageType]) {
+    pageType = $search.data('type');
+  }
 
   // во всплывающей выборке типов устанавливаем текущий тип
   $(`.type[data-type=${pageType}], .type[data-type=${pageType}]`, $popup).addClass('active');
@@ -95,7 +97,6 @@ $(document).on('page:load', () => {
     250
   );
 });
-
 
 // конфигурация автодополнений
 const SEARCHEABLES = {

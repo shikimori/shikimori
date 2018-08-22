@@ -76,8 +76,8 @@ class DynamicElements.Topic extends ShikiEditable
     $('.item-mobile', @$inner).one @_deactivate_inaccessible_buttons
 
     if @is_preview || @is_club_page
-      @$body.imagesLoaded @_checkHeight
-      @_checkHeight()
+      @$body.imagesLoaded @_check_height
+      @_check_height()
 
     if @is_cosplay && !@is_preview
       new ShikiGallery @$('.b-cosplay_gallery .b-gallery')
@@ -339,7 +339,7 @@ class DynamicElements.Topic extends ShikiEditable
   # private functions
   # проверка высоты топика. урезание,
   # если текст слишком длинный (точно такой же код в shiki_comment)
-  _checkHeight: =>
+  _check_height: =>
     if @is_review
       image_height = @$('.review-entry_cover img').height()
       read_more_height = 13 + 5 # 5px - read_more offset

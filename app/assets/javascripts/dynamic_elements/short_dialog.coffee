@@ -3,7 +3,7 @@
 using 'DynamicElements'
 class DynamicElements.ShortDialog extends DynamicElements.Topic
   initialize: ->
-    @_checkHeight()
+    @_check_height()
     @on 'appear', @_appear
 
     # по клику на Ответить помечаем сущность прочитанной
@@ -12,7 +12,7 @@ class DynamicElements.ShortDialog extends DynamicElements.Topic
       true
 
   # private functions
-  _checkHeight: ->
+  _check_height: ->
     @$inner.checkHeight
       max_height: @MAX_PREVIEW_HEIGHT
       collapsed_height: @COLLAPSED_HEIGHT

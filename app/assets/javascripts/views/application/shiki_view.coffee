@@ -11,7 +11,7 @@ module.exports = class ShikiView extends View
 
     return unless @$inner.exists()
 
-  _checkHeight: =>
+  _check_height: =>
     if window.SHIKI_USER.isCommentsAutoCollapsed
       @$inner.checkHeight
         max_height: @MAX_PREVIEW_HEIGHT
