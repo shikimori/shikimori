@@ -186,6 +186,6 @@ $(document).on('page:load', (_e, is_dom_content_loaded) => {
   // переключатели видов отображения списка
   $('.b-list_switchers .switcher').on('click', function () {
     $.cookie($(this).data('name'), $(this).data('value'), { expires: 730, path: '/' });
-    Turbolinks.visit(location.href);
+    Turbolinks.visit(document.location.href);
   });
 });
