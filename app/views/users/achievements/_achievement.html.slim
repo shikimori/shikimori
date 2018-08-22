@@ -19,8 +19,11 @@
 - else
   .b-achievement
     .c-about
-      a.title href=achievement_url(achievement.group, achievement.neko_id)
-        = achievement.title
+      - if local_assigns[:images]
+        .title = achievement.title
+      - else
+        a.title href=achievement_url(achievement.group, achievement.neko_id)
+          = achievement.title
       .percent #{achievement.progress}%
       .hint = achievement.hint
       .progress: .bar style="width: #{achievement.progress}%"
@@ -37,7 +40,7 @@
 
     - else
       .c-image: .inner
-        a href=animes_collection_url(achievement: achievement.neko_id)
+        a href=achievement_url(achievement.group, achievement.neko_id)
           .border style="border-color: #{achievement.border_color}"
 
         - if achievement.image.present?
