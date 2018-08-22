@@ -56,7 +56,7 @@ export default class PageBackgroundColor extends View {
   _syncState() {
     const opacity = ZERO_OPACITY - parseFloat(this.slider.noUiSlider.get()).round();
     this.opacities = [opacity, opacity, opacity, this.opacities[3]];
-    return this.trigger('component:update', [REGEXP, this._compile()]);
+    this.trigger('component:update', [REGEXP, this._compile()]);
   }
 
   _compile() {
@@ -77,6 +77,6 @@ export default class PageBackgroundColor extends View {
   _silenced(lambda) {
     this.isSilenced = true;
     lambda();
-    return this.isSilenced = false;
+    this.isSilenced = false;
   }
 }
