@@ -15,21 +15,21 @@
       v-if="collection.length"
     )
       .b-collection_item(
-        v-for="poll_variant in collection"
+        v-for="pollVariant in collection"
       )
         .delete(
-          @click="remove(poll_variant)"
+          @click="remove(pollVariant)"
         )
         .drag-handle
         .b-input
           input(
             type="text"
             name="poll[variants_attributes][][label]"
-            v-model="poll_variant.label"
+            v-model="pollVariant.label"
             :placeholder="I18n.t('frontend.poll_variants.label')"
             @keydown.enter="submit"
-            @keydown.8="remove_empty(poll_variant)"
-            @keydown.esc="remove_empty(poll_variant)"
+            @keydown.8="removeEmpty(pollVariant)"
+            @keydown.esc="removeEmpty(pollVariant)"
           )
 
     .b-button(
@@ -73,7 +73,7 @@ export default {
   methods: {
     add() {
       this.$store.dispatch('add', { label: '' })
-      this.focus_last()
+      this.focusLast()
     },
     submit(e) {
       if (!e.metaKey && !e.ctrlKey) {
@@ -81,13 +81,13 @@ export default {
         this.add()
       }
     },
-    remove_empty(poll_variant) {
-      if (Object.isEmpty(poll_variant.label) && this.$store.state.collection.length > 1) {
-        this.remove(poll_variant)
-        this.focus_last()
+    removeEmpty(pollVariant) {
+      if (Object.isEmpty(pollVariant.label) && this.$store.state.collection.length > 1) {
+        this.remove(pollVariant)
+        this.focusLast()
       }
     },
-    async focus_last() {
+    async focusLast() {
       // do not use this.$nextTick. it passes "backspace" event to focused input
       await delay();
       $('input', this.$el).last().focus();

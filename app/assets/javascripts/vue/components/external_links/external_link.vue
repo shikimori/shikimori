@@ -7,37 +7,37 @@
     input(
       type="hidden"
       v-model="link.entry_id"
-      :name="field_name('entry_id')"
+      :name="fieldName('entry_id')"
     )
     input(
       type="hidden"
       v-model="link.entry_type"
-      :name="field_name('entry_type')"
+      :name="fieldName('entry_type')"
     )
     input(
       type="hidden"
       v-model="link.created_at"
-      :name="field_name('created_at')"
+      :name="fieldName('created_at')"
     )
     input(
       type="hidden"
       v-model="link.updated_at"
-      :name="field_name('updated_at')"
+      :name="fieldName('updated_at')"
     )
     input(
       type="hidden"
       v-model="link.imported_at"
-      :name="field_name('imported_at')"
+      :name="fieldName('imported_at')"
     )
     input(
       type="hidden"
       v-model="link.source"
-      :name="field_name('source')"
+      :name="fieldName('source')"
     )
     .b-input.select
       select(
         v-model="link.kind"
-        :name="field_name('kind')"
+        :name="fieldName('kind')"
       )
         option(
           v-for="kind_option in kind_options"
@@ -47,11 +47,11 @@
       input(
         type="text"
         v-model="link.url"
-        :name="field_name('url')"
+        :name="fieldName('url')"
         :placeholder="I18n.t('activerecord.attributes.external_link.url')"
         @keydown.enter="submit"
-        @keydown.8="remove_empty(link)"
-        @keydown.esc="remove_empty(link)"
+        @keydown.8="removeEmpty(link)"
+        @keydown.esc="removeEmpty(link)"
       )
 </template>
 
@@ -71,7 +71,7 @@ export default {
     ]),
   },
   methods: {
-    field_name(name) {
+    fieldName(name) {
       if (!Object.isEmpty(this.link.url)) {
         return `${this.resource_type.toLowerCase()}[external_links][][${name}]`
       } else {
@@ -84,10 +84,10 @@ export default {
         this.$emit('add_next')
       }
     },
-    remove_empty(link) {
+    removeEmpty(link) {
       if (Object.isEmpty(link.url) && this.$store.state.collection.length > 1) {
         this.remove(link)
-        this.$emit('focus_last')
+        this.$emit('focusLast')
       }
     },
     ...mapActions([
