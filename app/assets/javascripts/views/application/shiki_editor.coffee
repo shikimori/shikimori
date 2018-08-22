@@ -64,7 +64,7 @@ module.exports = class ShikiEditor extends ShikiView
         if @$textarea.val().replace(/\n| |\r|\t/g, '')
           @_shade()
         else
-          $.alert I18n.t('frontend.shikiEditor.text_cant_be_blank')
+          $.alert I18n.t('frontend.shiki_editor.text_cant_be_blank')
           false
 
       .on 'ajax:complete', @_unshade
@@ -93,7 +93,7 @@ module.exports = class ShikiEditor extends ShikiView
 
     @$('.editor-spoiler').on 'click', =>
       @$textarea.insertAtCaret(
-        "[spoiler=#{I18n.t 'frontend.shikiEditor.spoiler'}]", '[/spoiler]'
+        "[spoiler=#{I18n.t 'frontend.shiki_editor.spoiler'}]", '[/spoiler]'
       )
 
     # смайлики и ссылка
@@ -303,7 +303,7 @@ module.exports = class ShikiEditor extends ShikiView
       @$('.editor-file').hide()
 
     # ajax загрузка файлов
-    file_text_placeholder = "[#{I18n.t('frontend.shikiEditor.file')} #@]"
+    file_text_placeholder = "[#{I18n.t('frontend.shiki_editor.file')} #@]"
     @$textarea.shikiFile
       progress: $root.find('.b-upload_progress')
       input: $('.editor-file input', $root)

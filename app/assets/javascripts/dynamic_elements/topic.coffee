@@ -55,7 +55,7 @@ class DynamicElements.Topic extends ShikiEditable
     else
       @$editor.replaceWith(
         "<div class='b-nothing_here'>
-          #{I18n.t('frontend.shikiEditor.not_available')}
+          #{I18n.t('frontend.shiki_editor.not_available')}
         </div>"
       )
 
