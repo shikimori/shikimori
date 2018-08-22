@@ -1,9 +1,3 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS103: Rewrite code to no longer use __guard__
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 $.fn.extend({
   spoiler() {
     return this.each(function () {
@@ -37,7 +31,7 @@ $.fn.extend({
         // хак для корректной работы галерей аниме внутри спойлеров
         $content.find('.align-posters').trigger('spoiler:opened');
         $content.find(`.${DynamicElements.CuttedCovers.CLASS_NAME}`).each(function () {
-          const data = $(this).data(DynamicElements.CuttedCovers.CLASS_NAME)
+          const data = $(this).data(DynamicElements.CuttedCovers.CLASS_NAME);
           if (data) {
             data.inject_css();
           }
