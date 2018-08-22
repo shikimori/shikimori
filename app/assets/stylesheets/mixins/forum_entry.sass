@@ -13,7 +13,7 @@ $aside_width: 280px
   &:first-child
     padding-top: 0
 
-  &>.inner
+  & > .inner
     +clearfix
     transition: margin-left 0.25s ease
     width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
@@ -99,10 +99,10 @@ $aside_width: 280px
   // раскрытое меню в мобильной версии
   &.aside-expanded
     +lte_ipad
-      &>.item-mobile
+      & > .item-mobile
         display: none
 
-      &>.inner
+      & > .inner
         margin-left: -$aside_width
         overflow: visible
         position: relative

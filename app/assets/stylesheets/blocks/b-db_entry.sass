@@ -11,7 +11,7 @@
   +block_m
   +clear_left
 
-  &>.c-image
+  & > .c-image
     // дополнительные стили для gte_ipad определены ниже
     +gte_ipad
       +column(2)
@@ -20,7 +20,7 @@
     +iphone-landscape
       +column_b(2)
 
-  &>.c-about
+  & > .c-about
     // дополнительные стили для gte_ipad определены ниже
     +gte_ipad
       +column(2)
@@ -29,38 +29,38 @@
     +iphone-landscape
       +column(2)
 
-  .x1200 &>.c-image
+  .x1200 & > .c-image
     +gt_laptop
       width: 26%
     +ipad_laptop
       width: 30.5%
 
-  .x1200 &>.c-about
+  .x1200 & > .c-about
     +gt_laptop
       width: 70%
     +ipad_laptop
       width: 65.5%
 
-  .x1200 &>.c-description
+  .x1200 & > .c-description
     +gt_laptop
       margin-left: 30%
     +ipad_laptop
       margin-left: 34.6%
 
-  .x1000 &>.c-image
+  .x1000 & > .c-image
     +gte_ipad
       width: 28.5%
 
-  .x1000 &>.c-about
+  .x1000 & > .c-about
     +gte_ipad
       width: 67.5%
 
-  .x1000 &>.c-description
+  .x1000 & > .c-description
     +gte_ipad
       margin-left: 32.5%
 
 
-  &>.c-image
+  & > .c-image
     img
       max-width: 100%
 
@@ -71,7 +71,7 @@
       .c-actions
         +column(2, 0.43, 7%)
 
-  &>.c-about
+  & > .c-about
     z-index: 1 // без этого нижний блок с description перекрывает текущий
 
     .c-info-left, .c-info-right
@@ -125,7 +125,8 @@
       .line-container
         +clear_left
 
-        &>.link, &>a
+        & > .link,
+        & > a
           +comma_separated(0)
           +link
           float: left
@@ -134,7 +135,7 @@
           &:first-child
             margin-left: 0
 
-  &>.c-description
+  & > .c-description
     +block
     padding-top: 1px // из-за странной баги в фаерфоксе
 

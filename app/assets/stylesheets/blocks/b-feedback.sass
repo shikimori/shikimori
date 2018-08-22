@@ -12,26 +12,26 @@ $feedback_color_to: #4b80c0
 
 body[data-locale=ru]
   .b-feedback
-    &>.hover-activator
+    & > .hover-activator
       height: $feedback_ru_height
-    &>.marker-positioner
+    & > .marker-positioner
       height: $feedback_ru_height
-      &>.marker-text
+      & > .marker-text
         margin-top: $feedback_ru_height
         min-width: $feedback_ru_height
 
 body[data-locale=en]
   .b-feedback
-    &>.hover-activator
+    & > .hover-activator
       height: $feedback_en_height
-    &>.marker-positioner
+    & > .marker-positioner
       height: $feedback_en_height
-      &>.marker-text
+      & > .marker-text
         margin-top: $feedback_en_height
         min-width: $feedback_en_height
 
 .b-feedback
-  &>.hover-activator
+  & > .hover-activator
     background: #4b80c0
     display: none
     left: 0
@@ -46,7 +46,7 @@ body[data-locale=en]
     &:hover + .marker-positioner
       z-index: 1001
 
-  &>.marker-positioner
+  & > .marker-positioner
     cursor: pointer
     display: none
     left: 0
@@ -59,7 +59,7 @@ body[data-locale=en]
     +responsive(desktop)
       display: block
 
-    &>.marker-text
+    & > .marker-text
       background-color: #4b80c0
       background-image: linear-gradient(to top, $feedback_color_from 0%, $feedback_color_to 100%)
       transform: rotate(-90deg)

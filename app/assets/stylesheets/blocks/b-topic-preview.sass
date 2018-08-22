@@ -10,21 +10,21 @@ $body_phone_left_padding: 42px
   &:last-child
     margin-bottom: 0
 
-  &>.b-comments
+  & > .b-comments
     // в превью топика первый комментарий отобразим с дефолтным отступом и бордером
     .b-comment:first-child
       padding-top: 5px
       border-top-width: 1px
 
   // блок шики-эдитора
-  &>.editor-container
+  & > .editor-container
     display: none
 
     .hide
       display: inline-block
 
-  &>.inner
-    &>header
+  & > .inner
+    & > header
       .b-anime_status_tag
         margin-right: 10px
 
@@ -33,9 +33,9 @@ $body_phone_left_padding: 42px
       line-height: 1
       padding-top: 8px
 
-  &>.b-comments,
-  &>.inner>.body,
-  &>.inner>footer
+  & > .b-comments,
+  & > .inner > .body,
+  & > .inner > footer
     padding-left: $body_left_padding
 
     +iphone

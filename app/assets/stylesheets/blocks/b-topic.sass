@@ -21,7 +21,7 @@
   &.b-comment-info
     padding: 10px 0 10px 0 !important
 
-  &>.editor-container
+  & > .editor-container
     margin-top: $block_offset
 
     .body .preview
@@ -29,10 +29,10 @@
       border: none
       padding: 0
 
-  &>.inner
+  & > .inner
     min-height: 80px
 
-    &>header
+    & > header
       .b-anime_status_tag
         margin-right: 10px
 
@@ -40,7 +40,7 @@
         font-size: 15px
 
       .about
-        &> span
+        & >  span
           color: $gray-3
           padding: 0 5px
           font-size: 12px
@@ -59,7 +59,7 @@
       .b-height_shortener .expand
         margin-top: -6px
 
-    // &>footer
+    // & > footer
       // +ellipsis2
       // color: #555
       // font-size: 11px
@@ -121,7 +121,7 @@
         padding-right: 6px
 
     +iphone_portrait
-      &>span
+      & > span
         display: block
 
     .notice
@@ -173,7 +173,7 @@
             color: $red
             opacity: 1
 
-  &>.b-comments
+  & > .b-comments
     margin-top: 5px
     transition: margin-left 0.25s ease
     width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
@@ -183,7 +183,7 @@
       padding-top: 5px
 
   &.aside-expanded
-    &>.b-comments
+    & > .b-comments
       margin-left: -$aside_width
       overflow: visible
       position: relative
