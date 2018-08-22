@@ -2,10 +2,10 @@ import CollectionSearch from 'views/application/collection_search'
 import UserRatesTracker from 'services/user_rates/tracker'
 import Turbolinks from 'turbolinks'
 
+import ajaxCacher from 'services/ajax_cacher'
+
 export default class PaginatedCatalog
   constructor: (base_catalog_path) ->
-    @ajax_cacher = require 'services/ajax_cacher'
-
     @$content = $('.l-content')
     @$pagination = $('.pagination')
     @$link_current = @$pagination.find('.link-current')
@@ -157,7 +157,7 @@ export default class PaginatedCatalog
         if @pending_request # $(@).hasClass("disabled")
           return xhr.abort()
 
-        cached_data = @ajax_cacher.get(url)
+        cached_data = ajaxCacher.get(url)
 
         if cached_data
           xhr.abort()
@@ -183,7 +183,7 @@ export default class PaginatedCatalog
         #$.cursorMessage()
 
       success: (data, status, xhr) =>
-        @ajax_cacher.push url, data
+        ajaxCacher.push url, data
         return if 'aborted' of xhr && xhr.aborted
         @_process_ajax_content data, url
 
