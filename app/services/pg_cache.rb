@@ -5,7 +5,7 @@ class PgCache
   }
 
   class << self
-    def write key, value, expires_in: nil, serializer: YAML # rubocop:disable MethodLength
+    def write key, value, expires_in: nil, serializer: YAML
       key = stringify_key key
       Rails.logger.info "PgCache write: #{key} serializer: #{serializer}"
 
@@ -22,9 +22,11 @@ class PgCache
       end
 
       value
+    rescue ActiveRecord::RecordNotUnique
+      value
     end
 
-    def read key, serializer: YAML # rubocop:disable AbcSize
+    def read key, serializer: YAML
       key = stringify_key key
       Rails.logger.info "PgCache read: #{key} serializer: #{serializer}"
 
