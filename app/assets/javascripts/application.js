@@ -3,9 +3,12 @@ import 'babel-polyfill';
 require('vendor/sugar').extend();
 require('es6-promise').polyfill();
 
-window.$ = require('jquery');
-
+window.$ = require('jquery'); // eslint-disable-line import/newline-after-import
 window.jQuery = window.$;
+
+import Turbolinks from 'turbolinks';
+import moment from 'moment';
+import delay from 'delay';
 
 const requireVendor = require.context('vendor', true);
 requireVendor.keys().forEach(requireVendor);
@@ -78,13 +81,9 @@ const MobileDetect = require('mobile-detect');
 window.mobile_detect = new MobileDetect(window.navigator.userAgent);
 
 const FayeLoader = require('services/faye_loader');
-const CommentsNotifier = require('services/comments_notifier');
+import CommentsNotifier from 'services/comments_notifier';
 
 const bindings = require('helpers/bindings');
-
-import Turbolinks from 'turbolinks';
-import moment from 'moment';
-import delay from 'delay';
 
 $(document).on(Object.keys(bindings).join(' '), e => {
   bindings[e.type].forEach(group => {
