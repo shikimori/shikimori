@@ -35,7 +35,8 @@ jQuery($ => {
          */
     callRemote(originalTarget) {
       const $this = $(this);
-      const should_lock = is_form = $this.is('form');
+      const is_form = $this.is('form');
+      const should_lock = is_form;
       const el = this;
 
       const method = el.data('method') || el.attr('method') || 'GET';
