@@ -1,3 +1,5 @@
+import delay from 'delay'
+
 ShikiEditor = require 'views/application/shiki_editor'
 ShikiGallery = require 'views/application/shiki_gallery'
 
@@ -46,14 +48,14 @@ class DynamicElements.Topic extends ShikiEditable
     @$body = @$inner.children('.body')
 
     @$editor_container = @$('.editor-container')
-    @$editor = @$('.b-shiki_editor')
+    @$editor = @$('.b-shikiEditor')
 
-    if SHIKI_USER.is_signed_in && SHIKI_USER.is_day_registered && @$editor.length
+    if SHIKI_USER.isSignedIn && SHIKI_USER.is_day_registered && @$editor.length
       @editor = new ShikiEditor(@$editor)
     else
       @$editor.replaceWith(
         "<div class='b-nothing_here'>
-          #{I18n.t('frontend.shiki_editor.not_available')}
+          #{I18n.t('frontend.shikiEditor.not_available')}
         </div>"
       )
 
@@ -74,8 +76,8 @@ class DynamicElements.Topic extends ShikiEditable
     $('.item-mobile', @$inner).one @_deactivate_inaccessible_buttons
 
     if @is_preview || @is_club_page
-      @$body.imagesLoaded @_check_height
-      @_check_height()
+      @$body.imagesLoaded @_checkHeight
+      @_checkHeight()
 
     if @is_cosplay && !@is_preview
       new ShikiGallery @$('.b-cosplay_gallery .b-gallery')
@@ -99,7 +101,7 @@ class DynamicElements.Topic extends ShikiEditable
         else
           @$('.b-comments').prepend $new_comment
 
-        $new_comment.yellow_fade()
+        $new_comment.yellowFade()
 
         @editor.cleanup()
         @_hide_editor()
@@ -147,7 +149,7 @@ class DynamicElements.Topic extends ShikiEditable
         @editor.reply_comment text, is_offtopic
 
     # клик скрытию редактора
-    @$('.b-shiki_editor').on 'click', '.hide', @_hide_editor
+    @$('.b-shikiEditor').on 'click', '.hide', @_hide_editor
 
     # delegated handlers becase it is replaced on postload in
     # inherited classes (DynamicElements.FullDialog)
@@ -156,13 +158,13 @@ class DynamicElements.Topic extends ShikiEditable
     @on 'click', '.comments-loader', (e) =>
       unless @$comments_loader.is('.click-loader')
         @$comments_loader.hide()
-        @$('.comments-loaded').animated_expand()
+        @$('.comments-loaded').animatedExpand()
         @$comments_hider.show()
 
     # скрытие комментариев
     @$comments_hider.on 'click', =>
       @$comments_hider.hide()
-      @$('.comments-loaded').animated_collapse()
+      @$('.comments-loaded').animatedCollapse()
       @$comments_expander.show()
 
     # сворачивание комментариев
@@ -170,12 +172,12 @@ class DynamicElements.Topic extends ShikiEditable
       @$comments_collapser.hide()
       @$comments_loader.hide()
       @$comments_expander.show()
-      @$('.comments-loaded').animated_collapse()
+      @$('.comments-loaded').animatedCollapse()
 
     # разворачивание комментариев
     @$comments_expander.on 'click', (e) =>
       @$comments_expander.hide()
-      @$('.comments-loaded').animated_expand()
+      @$('.comments-loaded').animatedExpand()
 
       if @$comments_loader
         @$comments_loader.show()
@@ -235,12 +237,12 @@ class DynamicElements.Topic extends ShikiEditable
   # отображение редактора, если это превью топика
   _show_editor: ->
     if @is_preview && !@$editor_container.is(':visible')
-      @$editor_container.show()#animated_expand()
+      @$editor_container.show()#animatedExpand()
 
   # скрытие редактора, если это превью топика
   _hide_editor: =>
     if @is_preview
-      @$editor_container.hide()#animated_collapse()
+      @$editor_container.hide()#animatedCollapse()
 
   # получение плейсхолдера для подгрузки новых комментариев
   _faye_placeholder: (trackable_id, trackable_type) ->
@@ -330,26 +332,26 @@ class DynamicElements.Topic extends ShikiEditable
     $new_comments
       .process(data.JS_EXPORTS)
       .insertAfter(@$comments_loader)
-      .animated_expand()
+      .animatedExpand()
 
     @_update_comments_loader(data)
 
   # private functions
   # проверка высоты топика. урезание,
   # если текст слишком длинный (точно такой же код в shiki_comment)
-  _check_height: =>
+  _checkHeight: =>
     if @is_review
       image_height = @$('.review-entry_cover img').height()
       read_more_height = 13 + 5 # 5px - read_more offset
 
       if image_height > 0
-        @$('.body-truncated-inner').check_height
+        @$('.body-truncated-inner').checkHeight
           max_height: image_height - read_more_height
           collapsed_height: image_height - read_more_height
           expand_html: ''
 
     else
-      @$('.body-inner').check_height
+      @$('.body-inner').checkHeight
         max_height: @MAX_PREVIEW_HEIGHT
         collapsed_height: @COLLAPSED_HEIGHT
 

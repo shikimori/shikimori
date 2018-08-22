@@ -5,7 +5,7 @@ $(document).on 'page:load', ->
 
   $('.marker-positioner', $feedback).on 'ajax:success', (e, data) ->
     $form = $(data)
-    $form.find('.b-shiki_editor.unprocessed').shiki_editor()
+    $form.find('.b-shikiEditor.unprocessed').shikiEditor()
     modal = new ShikiModal $form
 
     $form.on 'ajax:success', ->

@@ -1,3 +1,4 @@
+import delay from 'delay'
 import { ANIME_TOOLTIP_OPTIONS, } from 'helpers/tooltip_options'
 
 export default class AnimesMenu extends View

@@ -1,17 +1,19 @@
-(function($){
-  $.extend({
-    scrollTo: function(marker, callback) {
-      if (typeof marker == "number") {
-        var top = marker;
+$.extend({
+  scrollTo(marker, callback) {
+    let top;
+
+    if (typeof marker === 'number') {
+      top = marker;
+    } else {
+      const $marker = $(marker);
+
+      if ($marker.length) {
+        top = $marker.offset().top - 10;
       } else {
-        var $marker = $(marker);
-        if ($marker.length) {
-          var top = $marker.offset().top - 10;
-        } else {
-          var top = 0;
-        }
+        top = 0;
       }
-      $('html, body').animate({scrollTop: top}, 250, callback); // easeInOutCirc // easeOutElastic
     }
-  });
-})(jQuery);
+
+    $('html, body').animate({ scrollTop: top }, 250, callback); // easeInOutCirc // easeOutElastic
+  }
+});

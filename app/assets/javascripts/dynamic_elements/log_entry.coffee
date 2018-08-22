@@ -1,4 +1,5 @@
 import URI from 'urijs'
+import delay from 'delay'
 
 using 'DynamicElements'
 class DynamicElements.LogEntry extends ShikiView

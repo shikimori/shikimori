@@ -1,3 +1,5 @@
+import delay from 'delay'
+
 remove_ad = (ad_class) ->
   console.log "remove ad #{ad_class}"
   $(".#{ad_class}").remove()

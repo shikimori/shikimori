@@ -10,7 +10,7 @@ $(document).on 'page:load', ->
       height: 0
       borderBottomWidth: 0
 
-    $trigger.hover_delayed ->
+    $trigger.hoverDelayed ->
       $menu.css
         height: height
         borderBottomWidth: borderBottomWidth

@@ -1,3 +1,5 @@
+import delay from 'delay'
+
 ShikiEditor = require 'views/application/shiki_editor'
 I18N_KEY = 'frontend.dynamic_elements.comment'
 
@@ -33,15 +35,15 @@ class DynamicElements.Comment extends ShikiEditable
     @$root.one 'mouseover', @_deactivate_inaccessible_buttons
     @$('.item-mobile').one @_deactivate_inaccessible_buttons
 
-    if @$inner.hasClass('check_height')
+    if @$inner.hasClass('checkHeight')
       $images = @$body.find('img')
       if $images.exists()
         # картинки могут быть уменьшены image_normalizer'ом,
         # поэтому делаем с задержкой
         $images.imagesLoaded =>
-          delay(10).then => @_check_height()
+          delay(10).then => @_checkHeight()
       else
-        @_check_height()
+        @_checkHeight()
 
     # ответ на комментарий
     @$('.item-reply').on 'click', (e) =>
@@ -117,7 +119,7 @@ class DynamicElements.Comment extends ShikiEditable
       $node = $(@)
       $node
         .attr(href: $node.data('url'))
-        .change_tag('a')
+        .changeTag('a')
 
   # пометка комментария маркером (оффтопик/отзыв)
   mark: (kind, value) ->

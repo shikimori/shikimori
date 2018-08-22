@@ -1,3 +1,5 @@
+import delay from 'delay'
+
 using 'Animes'
 class Animes.WathOnlineButton extends View
   TEMPLATE_PATH = 'animes/watch_online_button'

@@ -1,90 +1,76 @@
-module.exports = (function() {
-  var store = {};
-  var queue = [];
-  var queue_limit = 30;
-  var enabled = true;//false;
+let store = {};
+let queue = [];
 
-  // обновление очереди - переданный url будет помещен в конец, и будут удалены лишние элементы, если очередь разрослась
-  function update_queue(url, no_delete) {
-    if (queue.includes(url)) {
-      queue = queue.subtract(url);
-    }
-    queue.push(url);
-    while (!no_delete && queue.length > queue_limit) {
-      var entry = queue.shift();
-      //console.log('delete cache: '+entry);
-      delete store[entry];
-    }
+const queueLimit = 30;
+const enabled = true;// false;
+
+// обновление очереди - переданный url будет помещен в конец, и будут удалены лишние элементы, если очередь разрослась
+function updateQueue(url, noDelete) {
+  if (queue.includes(url)) {
+    queue = queue.subtract(url);
   }
-  // выделение из урла части после /
-  function get_uri_part(url) {
-    return url.replace(/https?:\/\/[^\/]+/, '');
+  queue.push(url);
+
+  while (!noDelete && queue.length > queueLimit) {
+    const entry = queue.shift();
+    // console.log('delete cache: '+entry);
+    delete store[entry];
   }
+}
+// выделение из урла части после /
+function getUriPart(url) {
+  return url.replace(/https?:\/\/[^/]+/, '');
+}
 
-  return {
-    //enable: function() {
-      //enabled = true;
-    //},
-    cache: function(url) {
-      var uri = get_uri_part(url);
-      if (!enabled || uri in store || uri == '') {
-        return;
-      }
-      //console.log('caching: '+url);
-
-      var self = this;
-      store[uri] = $.ajax({
-        url: location.protocol+"//"+location.host+uri,
-        data: null,
-        dataType: 'json',
-        //beforeSend : function(xhr) {
-          //xhr.setRequestHeader("Accept", "application/json");
-          //xhr.setRequestHeader("Content-Type", "application/json");
-        //},
-        success: function (data, status, xhr) {
-          //console.log('cached: '+url);
-          store[uri] = data;
-          update_queue(uri, true);
-        },
-      });
-    },
-    push: function(url, data) {
-      if (!enabled) {
-        return;
-      }
-      //console.log('push: '+url);
-      if ('next_page' in data && data.next_page) {
-        this.cache(data.next_page);
-      }
-      if ('prev_page' in data && data.prev_page) {
-        this.cache(data.prev_page);
-      }
-      store[url] = data;
-      update_queue(url);
-    },
-    get: function(url) {
-      if (enabled && url in store) {
-        //console.log('get cache: '+url);
-        update_queue(url);
-
-        if ('next_page' in store[url] && store[url].next_page) {
-          this.cache(store[url].next_page);
-        }
-        if ('prev_page' in store[url] && store[url].prev_page) {
-          this.cache(store[url].prev_page);
-        }
-
-        return store[url];
-      } else {
-        //console.log('get null: '+url);
-        return null;
-      }
-    },
-    clear: function(url) {
-      delete store[url];
-    },
-    reset: function() {
-      store = {};
+export default {
+  cache(url) {
+    const uri = getUriPart(url);
+    if (!enabled || uri in store || uri === '') {
+      return;
     }
-  };
-})();
+
+    store[uri] = $.ajax({
+      url: document.location.protocol + '//' + document.location.host + uri,
+      data: null,
+      dataType: 'json',
+      success(data, _status, _xhr) {
+        store[uri] = data;
+        updateQueue(uri, true);
+      }
+    });
+  },
+  push(url, data) {
+    if (!enabled) {
+      return;
+    }
+    if ('next_page' in data && data.next_page) {
+      this.cache(data.next_page);
+    }
+    if ('prev_page' in data && data.prev_page) {
+      this.cache(data.prev_page);
+    }
+    store[url] = data;
+    updateQueue(url);
+  },
+  get(url) {
+    if (enabled && url in store) {
+      updateQueue(url);
+
+      if ('next_page' in store[url] && store[url].next_page) {
+        this.cache(store[url].next_page); // eslint-disable-line react/no-this-in-sfc
+      }
+      if ('prev_page' in store[url] && store[url].prev_page) {
+        this.cache(store[url].prev_page); // eslint-disable-line react/no-this-in-sfc
+      }
+
+      return store[url];
+    }
+    return null;
+  },
+  clear(url) {
+    delete store[url];
+  },
+  reset() {
+    store = {};
+  }
+};

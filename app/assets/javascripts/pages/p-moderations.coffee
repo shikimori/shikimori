@@ -43,7 +43,7 @@ page_load(
   'anime_video_reports_index',
   ->
     # сокращение высоты инструкции
-    $('.b-brief').check_height max_height: 150
+    $('.b-brief').checkHeight max_height: 150
 
     $('.expand-all').on 'click', ->
       $(@).parent().next().next().find('.collapsed.spoiler:visible').click()

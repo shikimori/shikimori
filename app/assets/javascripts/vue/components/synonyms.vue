@@ -40,6 +40,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import draggable from 'vuedraggable'
+import delay from 'delay';
 
 export default {
   components: { draggable },
@@ -86,9 +87,10 @@ export default {
         this.focus_last()
       }
     },
-    focus_last() {
+    async focus_last() {
       // do not use this.$nextTick. it passes "backspace" event to focused input
-      delay().then(() => $('input', this.$el).last().focus())
+      await delay();
+      $('input', this.$el).last().focus();
     },
     ...mapActions([
       'remove'

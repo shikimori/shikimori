@@ -21,8 +21,7 @@ environment.loaders.append('jade', {
 environment.plugins.append(
   'Provide',
   new webpack.ProvidePlugin({
-    I18n: 'i18n-js',
-    delay: 'delay'
+    I18n: 'i18n-js'
   })
 );
 

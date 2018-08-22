@@ -1,4 +1,6 @@
+import delay from 'delay'
 import Turbolinks from 'turbolinks'
+
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options'
 import ShikiModal from 'views/application/shiki_modal'
 
@@ -142,7 +144,7 @@ apply_list_handlers = ($root) ->
     if $another_tr_edit.exists()
       $another_tr_edit.remove()
     else
-      $form.animated_expand()
+      $form.animatedExpand()
       # $form.css height: 0
       # delay().then -> $form.css height: original_height
 
@@ -309,7 +311,7 @@ apply_new_value_handlers = ($new_value) ->
     $input = $(@).prev()
     $input
       .val(parseInt($input.val(), 10) + 1)
-      .trigger_with_return('blur')
+      .triggerWithReturn('blur')
       .success(-> $input.closest('td').trigger 'mouseover')
 
     e.stopPropagation()

@@ -4,4 +4,4 @@ page_load 'oauth_applications_new', 'oauth_applications_create', 'oauth_applicat
   $('.oauth_application_redirect_uri .hint .sample').on 'click', ->
     $('.oauth_application_redirect_uri input').val @innerHTML
 
-  $('.b-shiki_editor').each -> new ShikiEditor @
+  $('.b-shikiEditor').each -> new ShikiEditor @

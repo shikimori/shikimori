@@ -5,7 +5,7 @@ page_load 'people_index', ->
   new CollectionSearch '.b-collection_search'
 
 page_load 'people_show', ->
-  $('.b-entry-info').check_height max_height: 101, without_shade: true
+  $('.b-entry-info').checkHeight max_height: 101, without_shade: true
 
   Object.keys(gon.is_favoured).forEach (role) ->
     if gon.person_role[role] || gon.is_favoured[role]

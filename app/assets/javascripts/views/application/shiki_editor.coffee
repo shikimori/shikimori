@@ -1,5 +1,6 @@
-ShikiView = require './shiki_view'
+delay = require 'delay'
 autosize = require 'autosize'
+ShikiView = require './shiki_view'
 
 # TODO: refactor constructor
 module.exports = class ShikiEditor extends ShikiView
@@ -63,7 +64,7 @@ module.exports = class ShikiEditor extends ShikiView
         if @$textarea.val().replace(/\n| |\r|\t/g, '')
           @_shade()
         else
-          $.alert I18n.t('frontend.shiki_editor.text_cant_be_blank')
+          $.alert I18n.t('frontend.shikiEditor.text_cant_be_blank')
           false
 
       .on 'ajax:complete', @_unshade
@@ -92,7 +93,7 @@ module.exports = class ShikiEditor extends ShikiView
 
     @$('.editor-spoiler').on 'click', =>
       @$textarea.insertAtCaret(
-        "[spoiler=#{I18n.t 'frontend.shiki_editor.spoiler'}]", '[/spoiler]'
+        "[spoiler=#{I18n.t 'frontend.shikiEditor.spoiler'}]", '[/spoiler]'
       )
 
     # смайлики и ссылка
@@ -102,9 +103,9 @@ module.exports = class ShikiEditor extends ShikiView
         $block = @$(".#{key}s")
 
         if $button.hasClass('selected')
-          $block.animated_collapse()
+          $block.animatedCollapse()
         else
-          $block.animated_expand()
+          $block.animatedExpand()
           $block.trigger('click:open')
 
         $button.toggleClass('selected')
@@ -263,7 +264,7 @@ module.exports = class ShikiEditor extends ShikiView
       item_data = if @is_inner_form
         @$form.serializeHash()[@_type()]
       else
-        @$root.trigger_with_return('preview:params') || {
+        @$root.triggerWithReturn('preview:params') || {
           body: @$textarea.val()
         }
       data[@_type()] = item_data
@@ -302,7 +303,7 @@ module.exports = class ShikiEditor extends ShikiView
       @$('.editor-file').hide()
 
     # ajax загрузка файлов
-    file_text_placeholder = "[#{I18n.t('frontend.shiki_editor.file')} #@]"
+    file_text_placeholder = "[#{I18n.t('frontend.shikiEditor.file')} #@]"
     @$textarea.shikiFile
       progress: $root.find('.b-upload_progress')
       input: $('.editor-file input', $root)
@@ -338,7 +339,7 @@ module.exports = class ShikiEditor extends ShikiView
     $('.body .preview', @$root)
       .html(preview_html)
       .process()
-      .shiki_editor()
+      .shikiEditor()
 
   _hide_preview: =>
     @$root.removeClass('previewed')

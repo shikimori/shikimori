@@ -1,3 +1,6 @@
+delay = require 'delay'
+getSelectionText = require 'helpers/get_selection_text'
+
 module.exports = class ShikiEditable extends ShikiView
   BUTTONS = [
     '.item-ignore'
@@ -26,7 +29,7 @@ module.exports = class ShikiEditable extends ShikiView
     # confirm deletion
     $('.item-delete-confirm', @$inner).on 'ajax:loading', (e, data, status, xhr) =>
       $.hideCursorMessage()
-      @$root.animated_collapse()
+      @$root.animatedCollapse()
       delay(500).then => @$root.remove()
 
     # cancel deletion
@@ -109,7 +112,7 @@ module.exports = class ShikiEditable extends ShikiView
     if @$body
       # выделение текста в комментарии
       @$body.on 'mouseup', =>
-        text = $.getSelectionText()
+        text = getSelectionText()
         return unless text
 
         # скрываем все кнопки цитаты
@@ -120,11 +123,11 @@ module.exports = class ShikiEditable extends ShikiView
 
         delay().then ->
           $(document).one 'click', ->
-            unless $.getSelectionText().length
+            unless getSelectionText().length
               $quote.hide()
             else
               delay(250).then ->
-                $quote.hide() unless $.getSelectionText().length
+                $quote.hide() unless getSelectionText().length
 
       # цитирование комментария
       $('.item-quote', @$inner).on 'click', (e) =>

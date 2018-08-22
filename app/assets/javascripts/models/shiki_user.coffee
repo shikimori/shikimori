@@ -10,7 +10,7 @@ export default class ShikiUser
 
   constructor: (@data) ->
     @id = @data.id
-    @is_signed_in = !!@id
+    @isSignedIn = !!@id
     PUBLIC_FIELDS.forEach (field) =>
       @[field] = @data[field]
 

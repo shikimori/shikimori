@@ -2,16 +2,16 @@ FavouriteStar = require 'views/application/favourite_star'
 
 page_load 'animes_show', 'mangas_show', 'ranobe_show', ->
   $('.b-notice').tipsy gravity: 's'
-  $('.c-screenshot').magnific_rel_gallery()
+  $('.c-screenshot').magnificRelGallery()
 
   # сокращение высоты описания
-  $('.text').check_height max_height: 200
+  $('.text').checkHeight max_height: 200
 
   new FavouriteStar $('.c-actions .fav-add'), gon.is_favoured
   new Animes.WathOnlineButton $('.watch-online-placeholer'), gon.watch_online
 
   $new_review = $('.new_review')
-  if SHIKI_USER.is_signed_in
+  if SHIKI_USER.isSignedIn
     new_review_url = $new_review
       .attr('href').replace(/%5Buser_id%5D=(\d+|ID)/, "%5Buser_id%5D=#{SHIKI_USER.id}")
     $new_review.attr href: new_review_url
@@ -20,7 +20,7 @@ page_load 'animes_show', 'mangas_show', 'ranobe_show', ->
 
   # автоподгрузка блока с расширенной инфой об аниме для гостей
   $('.l-content').on 'postloaded:success', '.resources-loader', ->
-    $('.c-screenshot').magnific_rel_gallery()
+    $('.c-screenshot').magnificRelGallery()
 
   # клик по загрузке других названий
   $('.other-names.click-loader').on 'ajax:success', (e, data) ->

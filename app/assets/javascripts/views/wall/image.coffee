@@ -28,7 +28,7 @@ class Wall.Image extends View
       top: @top
       left: @left
 
-    @$node.shiki_image()
+    @$node.shikiImage()
 
   normalize: (width, height) ->
     @scale_width width if @width > width

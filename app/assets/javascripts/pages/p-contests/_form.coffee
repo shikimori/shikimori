@@ -1,7 +1,7 @@
 ShikiEditor = require 'views/application/shiki_editor'
 
 page_load 'contests_edit', ->
-  $('.b-shiki_editor').each -> new ShikiEditor @
+  $('.b-shikiEditor').each -> new ShikiEditor @
 
   $suggest = $('.edit.contest .member-suggest')
 
@@ -17,7 +17,7 @@ page_load 'contests_edit', ->
     $('.member-suggest').trigger 'blur'
 
   $('.member-suggest')
-    .completable_variant()
+    .completableVariant()
     .on 'autocomplete:success', (e, entry) ->
       update_members_count()
 

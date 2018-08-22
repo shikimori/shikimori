@@ -1,3 +1,4 @@
+delay = require 'delay'
 Packery = require 'packery'
 
 module.exports = class ShikiGallery extends View
@@ -7,7 +8,7 @@ module.exports = class ShikiGallery extends View
     @$container = @$('.container')
     $images = $('.b-image', @$container)
 
-    $images.shiki_image()
+    $images.shikiImage()
 
     @$container.imagesLoaded =>
       @packery = new Packery @$container[0],
@@ -37,7 +38,7 @@ module.exports = class ShikiGallery extends View
 
   _deploy_image: (image_node, delay_interval, action) =>
     $image = $(image_node)
-      .shiki_image()
+      .shikiImage()
       .css(left: -9999)
       .prependTo(@$container)
 

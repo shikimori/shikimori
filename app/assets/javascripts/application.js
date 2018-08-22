@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 require('vendor/sugar').extend();
 require('es6-promise').polyfill();
 
@@ -82,6 +84,7 @@ const bindings = require('helpers/bindings');
 
 import Turbolinks from 'turbolinks';
 import moment from 'moment';
+import delay from 'delay';
 
 $(document).on(Object.keys(bindings).join(' '), e => {
   bindings[e.type].forEach(group => {
@@ -129,7 +132,7 @@ $(() => {
 
   $(document).trigger('page:load', true);
 
-  if (window.SHIKI_USER.is_signed_in && !window.SHIKI_FAYE_LOADER) {
+  if (window.SHIKI_USER.isSignedIn && !window.SHIKI_FAYE_LOADER) {
     window.SHIKI_COMMENTS_NOTIFIER = new CommentsNotifier();
     // delay to prevent page freeze
     delay(150).then(() => window.SHIKI_FAYE_LOADER = new FayeLoader());
@@ -137,14 +140,14 @@ $(() => {
 
   $('.b-appear_marker.active').appear();
 
-  $.form_navigate({
+  $.formNavigate({
     size: 250,
     message: I18n.t('frontend.application.sure_to_leave_page')
   });
 
   const match = location.hash.match(/^#(comment-\d+)$/);
   if (match) {
-    $(`a[name=${match[1]}]`).closest('.b-comment').yellow_fade();
+    $(`a[name=${match[1]}]`).closest('.b-comment').yellowFade();
   }
 
   // отдельные эвенты для ресайзов и скрола

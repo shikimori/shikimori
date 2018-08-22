@@ -1,3 +1,5 @@
+import delay from 'delay'
+
 import UserRatesTracker from 'services/user_rates/tracker'
 
 using 'DynamicElements.UserRates'
@@ -42,7 +44,7 @@ class DynamicElements.UserRates.Button extends View
     $form.submit()
 
   _ajax_before: =>
-    if SHIKI_USER.is_signed_in
+    if SHIKI_USER.isSignedIn
       @$root.addClass 'b-ajax'
     else
       $.info I18n.t("#{DynamicElements.AuthorizedAction.I18N_KEY}.register_to_complete_action")

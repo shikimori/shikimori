@@ -11,9 +11,9 @@ module.exports = class ShikiView extends View
 
     return unless @$inner.exists()
 
-  _check_height: =>
+  _checkHeight: =>
     if SHIKI_USER.is_comments_auto_collapsed
-      @$inner.check_height
+      @$inner.checkHeight
         max_height: @MAX_PREVIEW_HEIGHT
         collapsed_height: @COLLAPSED_HEIGHT
 
@@ -36,4 +36,4 @@ module.exports = class ShikiView extends View
     $replaced = $(html)
     @$node.replaceWith $replaced
 
-    $replaced.process(JS_EXPORTS).yellow_fade()
+    $replaced.process(JS_EXPORTS).yellowFade()
