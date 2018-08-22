@@ -84,8 +84,6 @@ export default class EditStyles extends View {
   _initEditor(CodeMirror) {
     this._loaded();
 
-    const fullScreen = editor => editor.setOption('fullScreen', !editor.getOption('fullScreen'));
-
     return CodeMirror.fromTextArea(this.$('#style_css')[0], {
       mode: 'css',
       theme: 'solarized light',
@@ -94,9 +92,9 @@ export default class EditStyles extends View {
       matchBrackets: true,
       lineWrapping: true,
       extraKeys: {
-        F11: fullScreen,
-        'Ctrl-F11': fullScreen,
-        'Cmd-F11': fullScreen,
+        F11: this._switchFullScreen,
+        'Ctrl-F11': this._switchFullScreen,
+        'Cmd-F11': this._switchFullScreen,
         Esc(editor) {
           if (editor.getOption('fullScreen')) {
             editor.setOption('fullScreen', false);
@@ -144,5 +142,12 @@ export default class EditStyles extends View {
   _replaceCustomCss(compiledCss) {
     const customCssId = this.$root.data('custom_css_id');
     $(`#${customCssId}`).html(compiledCss);
+  }
+
+  _switchFullScreen(editor) {
+    const isFullScreen = editor.getOption('fullScreen');
+
+    editor.setOption('fullScreen', !isFullScreen);
+    $('.l-top_menu').toggleClass('is-fullscreen-mode', !isFullScreen);
   }
 }
