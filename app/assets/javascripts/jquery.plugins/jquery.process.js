@@ -119,7 +119,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
     $posters
       .removeClass('unprocessed')
       .find('img')
-      .imagesLoaded(() => $posters.align_posters());
+      .imagesLoaded(() => $posters.alignPosters());
   }
 
   // с задержкой делаем потому, что collapsed блоки могут быть в контенте,
