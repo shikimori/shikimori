@@ -70,6 +70,14 @@ namespace :deploy do
       end
     end
   end
+
+  namespace :yarn do
+    task :install do
+      on roles(:web) do
+        execute "cd #{release_path} && yarn"
+      end
+    end
+  end
 end
 
 namespace :cache do
@@ -204,6 +212,7 @@ after 'deploy:updated', 'sidekiq:stop'
 after 'deploy:reverted', 'sidekiq:stop'
 after 'deploy:published', 'sidekiq:start'
 
+before 'deploy:assets:precompile', 'deploy:yarn:install'
 before 'deploy:assets:precompile', 'deploy:i18n_js:export'
 
 if fetch(:stage) == :production
