@@ -43,9 +43,7 @@ export default class CollectionSearch extends View {
       return;
     }
 
-    if (phrase === this.current_phrase) {
-      return;
-    }
+    if (phrase === this.current_phrase) { return; }
 
     if (phrase.length === 1) {
       this._hideAjax();
@@ -79,7 +77,7 @@ export default class CollectionSearch extends View {
       this.cache[phrase] = response.data;
 
       if (phrase === this._searchPhrase()) {
-        return this._showResults(this.cache[phrase], this._searchUrl(phrase));
+        this._showResults(this.cache[phrase], this._searchUrl(phrase));
       }
     }
   }
@@ -88,13 +86,11 @@ export default class CollectionSearch extends View {
     this._processResponse(response);
     this._hideAjax();
 
-    if (Modernizr.history) {
-      return window.history.replaceState(
-        { turbolinks: true, url: searchUrl },
-        '',
-        searchUrl
-      );
-    }
+    window.history.replaceState(
+      { turbolinks: true, url: searchUrl },
+      '',
+      searchUrl
+    );
   }
 
   _processResponse(response) {
@@ -106,7 +102,7 @@ export default class CollectionSearch extends View {
       html = JST['search/nothing_found']();
     }
 
-    return this.$collection.html(html).process();
+    this.$collection.html(html).process();
   }
 
   _searchPhrase() {
@@ -123,10 +119,10 @@ export default class CollectionSearch extends View {
   }
 
   _showAjax() {
-    return this.$collection.addClass('b-ajax');
+    this.$collection.addClass('b-ajax');
   }
 
   _hideAjax() {
-    return this.$collection.removeClass('b-ajax');
+    this.$collection.removeClass('b-ajax');
   }
 }

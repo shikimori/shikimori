@@ -67,7 +67,7 @@ module.exports = class Contests.Round extends View
     $.scrollTo $first_member unless $first_member.is(':appeared')
 
     page_url = $match.data('page_url')
-    if Modernizr.history && page_url
+    if page_url
       window.history.replaceState(
         { turbolinks: true, url: page_url },
         '',

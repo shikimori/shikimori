@@ -45,11 +45,8 @@ export default class PaginatedCatalog
 
   # выбраны какие-то фильтры, необходимо загрузить страницу
   _filter_page_change: (url) =>
-    if Turbolinks.supported
-      window.history.pushState { turbolinks: true, url: url }, '', url
-      @_history_page_changed()
-    else
-      location.href = url
+    window.history.pushState { turbolinks: true, url: url }, '', url
+    @_history_page_changed()
 
     @collection_search.$root.data search_url: url
 
