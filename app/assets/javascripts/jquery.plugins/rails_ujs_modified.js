@@ -1,3 +1,5 @@
+import flash from 'services/flash';
+
 /* eslint-disable */
 $(document).ajaxSend((e, xhr, options) => {
   const token = $('meta[name=\'csrf-token\']').attr('content');
@@ -65,7 +67,7 @@ jQuery($ => {
           success(data, status, xhr) {
             $this.data('ajax:locked', false);
             if (!Object.isString(data) && data && 'notice' in data && data.notice) {
-              $.flash({ notice: data.notice });
+              flash.notice(data.notice);
             }
             el.trigger('ajax:success', [data, status, xhr]);
           },
@@ -76,10 +78,7 @@ jQuery($ => {
           error(xhr, status, error) {
             $this.data('ajax:locked', false);
             if (xhr.responseText.match(/invalid/)) { // || xhr.responseText.match(/unauthenticated/)) {
-              $.flash({ alert: I18n.t('frontend.lib.rails_ujs_modified.invalid_login_or_password') });
-                        // } else if (xhr.status == 401) {
-                            // $.flash({alert: 'Вы не авторизованы'});
-                            // $('#sign_in').trigger('click');
+              flash.error(I18n.t('frontend.lib.rails_ujs_modified.invalid_login_or_password'));
             } else if (xhr.status == 403) {
               try {
                 var errors = JSON.parse(xhr.responseText);

@@ -1,4 +1,6 @@
 import delay from 'delay'
+
+import flash from 'services/flash'
 csrf = require 'helpers/csrf'
 
 I18N_KEY = 'frontend.lib.jquery_shiki_file'
@@ -45,25 +47,20 @@ $.fn.extend
 
           switch err
             when 'TooManyFiles'
-              $.flash(
-                alert: I18n.t(
-                  "#{I18N_KEY}.too_many_files",
-                  count: options.maxfiles
-                )
-              )
+              flash.error I18n.t("#{I18N_KEY}.too_many_files", count: options.maxfiles)
 
             when 'FileTooLarge'
-              $.flash alert: I18n.t("#{I18N_KEY}.too_large_file")
+              flash.error I18n.t("#{I18N_KEY}.too_large_file")
 
             when 'Unprocessable Entity'
-              $.flash alert: I18n.t("#{I18N_KEY}.please_try_again_later")
+              flash.error I18n.t("#{I18N_KEY}.please_try_again_later")
 
             when 'FileTypeNotAllowed'
-              $.flash alert: I18n.t("#{I18N_KEY}.file_type_not_allowed")
+              flash.error I18n.t("#{I18N_KEY}.file_type_not_allowed")
 
             #when 'BrowserNotSupported'
             else
-              $.flash alert: I18n.t("#{I18N_KEY}.browser_not_supported")
+              flash.error I18n.t("#{I18N_KEY}.browser_not_supported")
 
           global_lock = false
 
@@ -144,7 +141,8 @@ $.fn.extend
                 I18n.t("#{I18N_KEY}.please_try_again_later")
               else
                 response.error
-            $.flash alert: alert
+
+            flash.error alert
           else
             $node.trigger 'upload:success', [response, i]
           #$.hideCursorMessage()

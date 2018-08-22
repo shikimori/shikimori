@@ -45,6 +45,7 @@ window.ShikiView = require('views/application/shiki_view');
 window.ShikiEditable = require('views/application/shiki_editable');
 
 import ShikiUser from 'models/shiki_user';
+import flash from 'services/flash';
 
 const requireHelpers = require.context('helpers', true);
 requireHelpers.keys().forEach(requireHelpers);
@@ -171,12 +172,12 @@ $(document).on('page:load', (_e, is_dom_content_loaded) => {
 
   // отображение flash сообщений от рельс
   $('p.flash-notice').each((k, v) => {
-    if (v.innerHTML.length) { $.flash({ notice: v.innerHTML }); }
+    if (v.innerHTML.length) { flash.notice(v.innerHTML); }
   });
 
   $('p.flash-alert').each((k, v) => {
     if (v.innerHTML.length) {
-      $.flash({ alert: v.innerHTML });
+      flash.error(v.innerHTML);
     }
   });
 

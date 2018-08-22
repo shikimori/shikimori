@@ -3,6 +3,7 @@ import UserRatesTracker from 'services/user_rates/tracker'
 import Turbolinks from 'turbolinks'
 
 import ajaxCacher from 'services/ajax_cacher'
+import flash from 'services/flash'
 
 export default class PaginatedCatalog
   constructor: (base_catalog_path) ->
@@ -192,7 +193,7 @@ export default class PaginatedCatalog
         if xhr?.responseText?.includes('age-restricted-warning')
           Turbolinks.visit location.href
         else
-          $.flash alert: I18n.t('frontend.lib.paginated_catalog.please_try_again_later')
+          flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'))
 
   #process_ajax = (data, url, $postloader) ->
     #(if $postloader then process_ajax_postload(data, url, $postloader) else process_ajax_response(data, url))

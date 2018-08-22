@@ -1,10 +1,10 @@
-const toastr = require('toastr');
+import toastr from 'toastr';
 
 toastr.options.progressBar = true;
 toastr.options.closeDuration = 250;
 toastr.options.timeOut = 3000;
 
-$.extend({
+export default {
   flash(options) {
     if ('alert' in options) {
       toastr.error(options.alert);
@@ -14,7 +14,7 @@ $.extend({
     toastr.success(options.notice);
   },
 
-  alert(text) {
+  error(text) {
     if (text) {
       toastr.error(text);
     }
@@ -31,4 +31,4 @@ $.extend({
       toastr.success(text);
     }
   }
-});
+};

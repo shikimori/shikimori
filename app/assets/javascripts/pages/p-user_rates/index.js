@@ -3,6 +3,7 @@ import Turbolinks from 'turbolinks';
 
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
 import ShikiModal from 'views/application/shiki_modal';
+import flash from 'services/flash';
 
 // TODO: этот гигантский файл нуждается в рефакторинге
 let listCache = [];
@@ -197,7 +198,7 @@ function applyListHandlers($root) {
 
     // применение изменений в редактировании
     $form.on('ajax:success', (e, data) => {
-      $.flash({ notice: I18n.t('frontend.pages.p_user_rates.changes_saved') });
+      flash.notice(I18n.t('frontend.pages.p_user_rates.changes_saved'));
       $('.cancel', $trEdit).click();
 
       $('.current-value[data-field=score]', $tr).html(
@@ -344,7 +345,7 @@ function applyNewValueHandlers($newValue) {
         .patch($input.data('action'), { user_rate: { [$input.data('field')]: input.value } })
         .catch(() => {
           $value.html(priorValue);
-          $.flash({ alert: I18n.t('frontend.pages.p_user_rates.error_occurred') });
+          flash.error(I18n.t('frontend.pages.p_user_rates.error_occurred'));
         });
     })
     .on('mousewheel', e => {
