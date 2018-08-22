@@ -24,8 +24,8 @@ export default class EditStyles extends View {
       this._componentUpdated(regexp, replacement)
     );
 
-    this.$('.style_css .expand').on('click', () => this._toggleExpand(true));
-    this.$('.style_css .collapse').on('click', () => this._toggleExpand(false));
+    this.$('.style_css .editor-expand').on('click', () => this._toggleExpand(true));
+    this.$('.style_css .editor-collapse').on('click', () => this._toggleExpand(false));
 
     require.ensure([], require => {
       const CodeMirror = require('codemirror');
@@ -163,7 +163,7 @@ export default class EditStyles extends View {
     }
 
     this.$root.toggleClass('expanded', isExpanded);
-    this.$('.style_css .expand').toggleClass('active', !isExpanded);
-    this.$('.style_css .collapse').toggleClass('active', isExpanded);
+    this.$('.style_css .editor-expand').toggleClass('active', !isExpanded);
+    this.$('.style_css .editor-collapse').toggleClass('active', isExpanded);
   }
 }

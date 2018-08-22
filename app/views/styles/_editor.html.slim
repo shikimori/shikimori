@@ -13,7 +13,7 @@
           / a.cancel href="#{cancel_url}" = t 'actions.cancel'
           = f.button :magic_submit
         = f.input :css,
-          label: "CSS <span class='expand'>#{t '.expand'}</span><span class='collapse'>#{t '.collapse'}</span>".html_safe,
+          label: "CSS <span class='editor-expand'>#{t '.expand'}</span><span class='editor-collapse'>#{t '.collapse'}</span>".html_safe,
           hint: local_assigns[:css_hint]
 
         .preview.ajax-loading.vk-like[
