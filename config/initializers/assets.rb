@@ -20,3 +20,8 @@ Rails.application.config.assets.precompile += %w[
   page404.css
   age_restricted.css
 ]
+
+Rails.application.config.assets.precompile.delete_if do |condition|
+  next if condition.is_a? String
+  condition =~ 'application.js'
+end
