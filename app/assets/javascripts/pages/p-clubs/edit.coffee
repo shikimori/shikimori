@@ -3,7 +3,7 @@ import EditStyles from 'views/styles/edit'
 page_load 'clubs_edit', ->
   # description page
   if $('.edit-page.description').exists()
-    $('.b-shiki_ditor')
+    $('.b-shiki_editor')
       .shikiEditor()
       .on 'preview:params', ->
         body: $(@).view().$textarea.val()

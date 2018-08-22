@@ -1,6 +1,6 @@
 page_load 'reviews_new', 'reviews_edit', 'reviews_create', 'reviews_update', ->
   $('.b-rate').rateable()
-  $('.b-shiki_ditor.unprocessed')
+  $('.b-shiki_editor.unprocessed')
     .shikiEditor()
     .on 'preview:params', ->
       body: $(@).view().$textarea.val()

@@ -6,7 +6,7 @@ page_load 'profiles_edit', ->
 
   # profile page
   if $('.edit-page.profile').exists()
-    $('.b-shiki_ditor').shikiEditor()
+    $('.b-shiki_editor').shikiEditor()
 
   # styles page
   if $('.edit-page.styles').exists()

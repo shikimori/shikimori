@@ -48,7 +48,7 @@ class DynamicElements.Topic extends ShikiEditable
     @$body = @$inner.children('.body')
 
     @$editor_container = @$('.editor-container')
-    @$editor = @$('.b-shiki_ditor')
+    @$editor = @$('.b-shiki_editor')
 
     if window.SHIKI_USER.isSignedIn && window.SHIKI_USER.isDayRegistered && @$editor.length
       @editor = new ShikiEditor(@$editor)
@@ -149,7 +149,7 @@ class DynamicElements.Topic extends ShikiEditable
         @editor.reply_comment text, is_offtopic
 
     # клик скрытию редактора
-    @$('.b-shiki_ditor').on 'click', '.hide', @_hide_editor
+    @$('.b-shiki_editor').on 'click', '.hide', @_hide_editor
 
     # delegated handlers becase it is replaced on postload in
     # inherited classes (DynamicElements.FullDialog)
