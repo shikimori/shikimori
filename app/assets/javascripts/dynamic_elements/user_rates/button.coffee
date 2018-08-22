@@ -44,7 +44,7 @@ class DynamicElements.UserRates.Button extends View
     $form.submit()
 
   _ajax_before: =>
-    if SHIKI_USER.isSignedIn
+    if window.SHIKI_USER.isSignedIn
       @$root.addClass 'b-ajax'
     else
       $.info I18n.t("#{DynamicElements.AuthorizedAction.I18N_KEY}.register_to_complete_action")
@@ -74,7 +74,7 @@ class DynamicElements.UserRates.Button extends View
       '/api/v2/user_rates'
 
     model: @model
-    user_id: SHIKI_USER.id
+    user_id: window.SHIKI_USER.id
     statuses: I18n.t("#{I18N_KEY}.#{@model.target_type.toLowerCase()}")
     form_url: submit_url
     form_method: if @_is_persisted() then 'PATCH' else 'POST'

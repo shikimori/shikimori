@@ -4,7 +4,7 @@ class DynamicElements.AuthorizedAction extends View
 
   initialize: ->
     @$node.on 'click', (e) ->
-      if !SHIKI_USER.isSignedIn
+      if !window.SHIKI_USER.isSignedIn
         $.info I18n.t("#{DynamicElements.AuthorizedAction.I18N_KEY}.register_to_complete_action")
         e.stopImmediatePropagation()
         false

@@ -21,7 +21,7 @@ class DynamicElements.Comment extends ShikiEditable
     # data attribute is set in Comments.Tracker
     @model = @$root.data('model') || @_default_model()
 
-    if SHIKI_USER.user_ignored(@model.user_id)
+    if window.SHIKI_USER.isUserIgnored(@model.user_id)
       # node can be not inserted into DOM yet
       if @$root.parent().length
         @$root.remove()
@@ -135,7 +135,7 @@ class DynamicElements.Comment extends ShikiEditable
     @$('.item-edit').addClass 'hidden' unless @model.can_edit
     @$('.item-delete').addClass 'hidden' unless @model.can_destroy
 
-    if SHIKI_USER.is_moderator
+    if window.SHIKI_USER.isModerator
       @$('.moderation-controls .item-abuse').addClass 'hidden'
       @$('.moderation-controls .item-spoiler').addClass 'hidden'
     else

@@ -25,8 +25,8 @@ export default class AnimesMenu extends View
         $chart.html("<p class='b-nothing_here'>#{I18n.t NO_DATA_I18N_KEY}</p>")
 
   _is_history_allowed: ->
-    SHIKI_USER.is_signed_in && SHIKI_USER.is_day_registered &&
-      SHIKI_USER.is_ignore_copyright
+    window.SHIKI_USER.isSignedIn && window.SHIKI_USER.isDayRegistered &&
+      window.SHIKI_USER.isIgnoreCopyright
 
   _history: =>
     $history_block = @$('.history')

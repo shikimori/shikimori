@@ -11,9 +11,9 @@ page_load 'animes_show', 'mangas_show', 'ranobe_show', ->
   new Animes.WathOnlineButton $('.watch-online-placeholer'), gon.watch_online
 
   $new_review = $('.new_review')
-  if SHIKI_USER.isSignedIn
+  if window.SHIKI_USER.isSignedIn
     new_review_url = $new_review
-      .attr('href').replace(/%5Buser_id%5D=(\d+|ID)/, "%5Buser_id%5D=#{SHIKI_USER.id}")
+      .attr('href').replace(/%5Buser_id%5D=(\d+|ID)/, "%5Buser_id%5D=#{window.SHIKI_USER.id}")
     $new_review.attr href: new_review_url
   else
     $new_review.hide()

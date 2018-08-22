@@ -34,7 +34,7 @@ class DynamicElements.Topic extends ShikiEditable
     # data attribute is set in Topics.Tracker
     @model = @$root.data('model') || @_default_model()
 
-    if SHIKI_USER.user_ignored(@model.user_id) || SHIKI_USER.topic_ignored(@model.id)
+    if window.SHIKI_USER.isUserIgnored(@model.user_id) || window.SHIKI_USER.isTopicIgnored(@model.id)
       if SHOW_IGNORED_TOPICS_IN.includes document.body.id
         @_toggle_ignored true
       else
@@ -50,7 +50,7 @@ class DynamicElements.Topic extends ShikiEditable
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_ditor')
 
-    if SHIKI_USER.isSignedIn && SHIKI_USER.is_day_registered && @$editor.length
+    if window.SHIKI_USER.isSignedIn && window.SHIKI_USER.isDayRegistered && @$editor.length
       @editor = new ShikiEditor(@$editor)
     else
       @$editor.replaceWith(
@@ -112,9 +112,9 @@ class DynamicElements.Topic extends ShikiEditable
 
       .on 'ajax:success', (e, result) =>
         if result.is_ignored
-          SHIKI_USER.ignore_topic result.topic_id
+          window.SHIKI_USER.ignoreTopic result.topic_id
         else
-          SHIKI_USER.unignore_topic result.topic_id
+          window.SHIKI_USER.unignoreTopic result.topic_id
 
         @_toggle_ignored result.is_ignored
 
@@ -206,7 +206,7 @@ class DynamicElements.Topic extends ShikiEditable
 
       # уведомление о добавленном элементе через faye
       $(document.body).trigger 'faye:added'
-      if SHIKI_USER.is_comments_auto_loaded
+      if window.SHIKI_USER.isCommentsAutoLoaded
         if $placeholder.is(':appeared') && !$('textarea:focus').val()
           $placeholder.click()
 
