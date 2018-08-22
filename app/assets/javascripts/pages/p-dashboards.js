@@ -1,7 +1,7 @@
 import getjs from 'get-js';
 import delay from 'delay';
 
-page_load('dashboards_show', () => {
+page_load('dashboards_show', async () => {
   $('.user_list .switch').on('click', function () {
     return $(this)
       .closest('.list-type')
@@ -10,29 +10,26 @@ page_load('dashboards_show', () => {
       .toggleClass('hidden');
   });
 
-  delay(500).then(() =>
-    $('.cc-news').imagesLoaded(() => {
-      const $userNews = $('.c-news_topics');
-      const $generatedNews = $('.c-generated_news');
+  await delay(500);
+  $('.cc-news').imagesLoaded(() => {
+    const $userNews = $('.c-news_topics');
+    const $generatedNews = $('.c-generated_news');
 
-      alignBlocks($userNews, $generatedNews);
-    })
-  );
-
-  delay(1000).then(() => {
-    if ('VK' in window) {
-      vkWidget();
-    }
-    getjs('//vk.com/js/api/openapi.js?146').then(vkWidget);
+    alignBlocks($userNews, $generatedNews);
   });
 
-  delay(1500).then(() => {
-    const $node = $('.y-sponsored');
+  await delay(500);
+  if ('VK' in window) {
+    vkWidget();
+  }
+  getjs('//vk.com/js/api/openapi.js?146').then(vkWidget);
 
-    if ($node.children().length) {
-      $node.addClass('block');
-    }
-  });
+  await delay(500);
+  const $node = $('.y-sponsored');
+
+  if ($node.children().length) {
+    $node.addClass('block');
+  }
 });
 
 function alignBlocks($userNews, $generatedNews) {
