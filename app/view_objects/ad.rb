@@ -96,8 +96,8 @@ class Ad < ViewObjectBase
       provider: Types::Ad::Provider[:special],
       images: [{
         url: 'http://roa.creagames.com/?utm_source=shikimori&utm_medium=banner',
-        src: '/assets/globals/events/special_1.jpg',
-        src_2x: '/assets/globals/events/special_1@2x.jpg'
+        src: '/assets/globals/events/special_1.jpg?1',
+        src_2x: '/assets/globals/events/special_1@2x.jpg?1'
       }, {
         url: 'https://kor.creagames.com/?utm_source=shikimori&utm_medium=banner',
         src: '/assets/globals/events/special_2.jpg',
