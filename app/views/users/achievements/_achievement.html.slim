@@ -19,7 +19,7 @@
 - else
   .b-achievement
     .c-about
-      - if local_assigns[:images]
+      - if local_assigns[:images] && !local_assigns[:info_link]
         .title = achievement.title
       - else
         a.title href=achievement_url(achievement.group, achievement.neko_id)
@@ -34,7 +34,7 @@
         - if index > 0
           .c-about &nbsp;
         .c-image: .inner
-          a href=animes_collection_url(achievement: achievement.neko_id)
+          a href=(local_assigns[:info_link] ? achievement_url(achievement.group, achievement.neko_id) : animes_collection_url(achievement: achievement.neko_id))
             .border style="border-color: #{achievement.border_colors[index]}"
           = image_tag image
 
