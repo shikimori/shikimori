@@ -12,6 +12,20 @@ export default class EditStyles extends View {
     this.$preview = this.$('.preview');
 
     this._loading();
+    this._toggleExpand();
+
+    this._debouncedPreview = debounce(500, () => this.preview());
+    this._debouncedSync = debounce(500, () => this.sync());
+
+    this.$form.on('ajax:before', () => this._loading());
+    this.$form.on('ajax:complete', () => this._loaded());
+
+    this.$root.on('component:update', (e, regexp, replacement) =>
+      this._componentUpdated(regexp, replacement)
+    );
+
+    this.$('.style_css .expand').on('click', () => this._toggleExpand(true));
+    this.$('.style_css .collapse').on('click', () => this._toggleExpand(false));
 
     require.ensure([], require => {
       const CodeMirror = require('codemirror');
@@ -30,6 +44,9 @@ export default class EditStyles extends View {
       this.md5 = require('blueimp-md5');
 
       this.editor = this._initEditor(CodeMirror);
+      // @editor.on 'cut', @_debouncedSync
+      // @editor.on 'paste', @_debouncedSync
+      this.editor.on('change', this._debouncedSync);
 
       this.components = [
         new PageBackgroundColor(this.$('.page_background_color')),
@@ -37,21 +54,7 @@ export default class EditStyles extends View {
         new BodyBackground(this.$('.body_background'))
       ];
 
-      this._debouncedPreview = debounce(500, () => this.preview());
-      this._debouncedSync = debounce(500, () => this.sync());
-
       this._syncComponents();
-
-      this.$form.on('ajax:before', () => this._loading());
-      this.$form.on('ajax:complete', () => this._loaded());
-
-      // @editor.on 'cut', @_debouncedSync
-      // @editor.on 'paste', @_debouncedSync
-      this.editor.on('change', this._debouncedSync);
-
-      this.$root.on('component:update', (e, regexp, replacement) =>
-        this._componentUpdated(regexp, replacement)
-      );
     });
   }
 
@@ -149,5 +152,18 @@ export default class EditStyles extends View {
 
     editor.setOption('fullScreen', !isFullScreen);
     $('.l-top_menu').toggleClass('is-fullscreen-mode', !isFullScreen);
+  }
+
+  _toggleExpand(newValue) {
+    let isExpanded = $.cookie('expanded-styles') === '1';
+
+    if (newValue !== undefined) {
+      isExpanded = newValue;
+      $.cookie('expanded-styles', isExpanded ? '1' : '0', { expires: 730, path: '/' });
+    }
+
+    this.$root.toggleClass('expanded', isExpanded);
+    this.$('.style_css .expand').toggleClass('active', !isExpanded);
+    this.$('.style_css .collapse').toggleClass('active', isExpanded);
   }
 }
