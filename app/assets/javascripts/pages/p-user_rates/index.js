@@ -44,7 +44,7 @@ page_load('user_rates_index', () => {
       filterTimer = null;
     }
 
-    filterTimer = setInterval(filter, 350);
+    filterTimer = setInterval(filterList, 350);
   });
 
   // сортировка по клику на колонку
@@ -87,7 +87,7 @@ page_load('user_rates_index', () => {
 });
 
 // фильтрация списка пользователя
-function filter() {
+function filterList() {
   clearInterval(filterTimer);
   filterTimer = null;
 
@@ -116,6 +116,7 @@ function filter() {
 
     if (block.toggable) {
       block.$container.toggle(visible);
+      block.$nothingFound.toggle(!visible);
     }
   });
 
@@ -128,6 +129,7 @@ function updateListCache() {
     .toArray()
     .map(container => {
       const $container = $(container);
+      const $nothingFound = $container.next('.nothing-found');
       const entries = $container
         .find('.user_rate')
         .toArray()
@@ -145,6 +147,7 @@ function updateListCache() {
 
       return {
         $container,
+        $nothingFound,
         entries,
         toggable: !$container.next('.b-postloader').length
       };
@@ -433,7 +436,7 @@ function insertNextPage(e, $data) {
 function processNextPage() {
   updateListCache();
   if (!Object.isEmpty($('.b-collection_search input').val())) {
-    filter();
+    filterList();
   }
   $.force_appear();
 }
