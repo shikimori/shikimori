@@ -94,13 +94,15 @@ class Ad < ViewObjectBase
     },
     Types::Ad::Type[:special_x1170] => {
       provider: Types::Ad::Provider[:special],
-      url: 'http://roa.creagames.com/?utm_source=shikimori&utm_medium=banner',
-      images: (1..1).map do |i|
-        {
-          src: "/assets/globals/events/special_#{i}.jpg",
-          src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
-        }
-      end,
+      images: [{
+        url: 'http://roa.creagames.com/?utm_source=shikimori&utm_medium=banner',
+        src: '/assets/globals/events/special_1.jpg',
+        src_2x: '/assets/globals/events/special_1@2x.jpg'
+      }, {
+        url: 'https://kor.creagames.com/?utm_source=shikimori&utm_medium=banner',
+        src: '/assets/globals/events/special_2.jpg',
+        src_2x: '/assets/globals/events/special_2@2x.jpg'
+      }],
       placement: Types::Ad::Placement[:content],
       platform: Types::Ad::Platform[:desktop]
     }
@@ -268,7 +270,7 @@ private
           "<img src='#{image[:src]}'>"
         end
 
-      "<a href='#{banner[:url]}'>#{image_html}</a>"
+      "<a href='#{banner[:url] || image[:url]}'>#{image_html}</a>"
     elsif html?
       banner[:html]
 
