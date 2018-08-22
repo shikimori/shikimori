@@ -124,6 +124,7 @@ $(() => {
   //       { customData: { SHIKI_USER: SHIKI_USER.id } }
   //     ).install?()
 
+  window.I18n = I18n;
   I18n.locale = LOCALE;
   moment.locale(LOCALE);
 

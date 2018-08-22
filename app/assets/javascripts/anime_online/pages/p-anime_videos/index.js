@@ -53,7 +53,7 @@ function initVideoPlayer() {
 
   // html 5 video player
   if ($video.length) {
-    new ShikiHtml5Video($video); // eslint-disable-line no-new
+    new ShikiHtml5Video($video);
   }
 
   // some logic
@@ -182,7 +182,7 @@ function toggleOptions() {
 }
 
 function resizeVideoPlayer() {
-  const $player = $('iframe,object,embed,.player-placeholder', '.player-area');
+  const $player = $('iframe, object, embed, .player-placeholder', '.player-area');
   const maxHeight = parseInt($(window).height() * 0.95);
   const desiredHeight = parseInt(($player.width() * 9) / 16);
 

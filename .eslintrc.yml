@@ -59,6 +59,7 @@ rules:
       varsIgnorePattern: ^_
   no-use-before-define: 0
   no-mixed-operators: 0
+  no-new: 0
   function-paren-newline: 0
   comma-dangle:
     - warn
