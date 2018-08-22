@@ -9,7 +9,6 @@ module Clockwork
     HistoryWorker.perform_async
     ImportToshokanTorrents.perform_async true
     # ImportNyaaTorrents.perform_async
-    # ProxyWorker.perform_async(true)
     SidekiqHeartbeat.new.perform
   end
 
@@ -27,7 +26,7 @@ module Clockwork
   end
 
   every 1.hour, 'hourly', at: '**:45' do
-    ProxyWorker.perform_async(false)
+    ProxyWorker.perform_async
     # FindAnimeWorker.perform_async :last_3_entries
     # AnimeSpiritWorker.perform_async :last_3_entries
     BadReviewsCleaner.perform_async
