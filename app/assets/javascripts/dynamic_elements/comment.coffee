@@ -1,5 +1,6 @@
 import delay from 'delay'
 
+import flash from 'services/flash'
 ShikiEditor = require 'views/application/shiki_editor'
 I18N_KEY = 'frontend.dynamic_elements.comment'
 
@@ -84,9 +85,9 @@ class DynamicElements.Comment extends ShikiEditable
       if 'affected_ids' of data && data.affected_ids.length
         data.affected_ids.forEach (id) ->
           $(".b-comment##{id}").view()?.mark(data.kind, data.value)
-        $.notice marker_message(data)
+        flash.notice marker_message(data)
       else
-        $.notice I18n.t("#{I18N_KEY}.your_request_will_be_considered")
+        flash.notice I18n.t("#{I18N_KEY}.your_request_will_be_considered")
 
       @$('.item-moderation-cancel').trigger('click')
 
@@ -146,14 +147,14 @@ marker_message = (data) ->
   if data.value
     if data.kind == 'offtopic'
       if data.affected_ids.length > 1
-        $.notice I18n.t("#{I18N_KEY}.comments_marked_as_offtopic")
+        flash.notice I18n.t("#{I18N_KEY}.comments_marked_as_offtopic")
       else
-        $.notice I18n.t("#{I18N_KEY}.comment_marked_as_offtopic")
+        flash.notice I18n.t("#{I18N_KEY}.comment_marked_as_offtopic")
     else
-      $.notice I18n.t("#{I18N_KEY}.comment_marked_as_summary")
+      flash.notice I18n.t("#{I18N_KEY}.comment_marked_as_summary")
 
   else
     if data.kind == 'offtopic'
-      $.notice I18n.t("#{I18N_KEY}.comment_not_marked_as_offtopic")
+      flash.notice I18n.t("#{I18N_KEY}.comment_not_marked_as_offtopic")
     else
-      $.notice I18n.t("#{I18N_KEY}.comment_not_marked_as_summary")
+      flash.notice I18n.t("#{I18N_KEY}.comment_not_marked_as_summary")

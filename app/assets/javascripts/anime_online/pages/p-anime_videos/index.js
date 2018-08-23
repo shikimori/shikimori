@@ -3,6 +3,7 @@ import Turbolinks from 'turbolinks';
 import { debounce } from 'throttle-debounce';
 
 import axios from 'helpers/axios';
+import flash from 'services/flash'
 import ShikiHtml5Video from 'views/application/shiki_html5_video';
 
 page_load('anime_videos_index', () => {
@@ -95,7 +96,7 @@ function initVideoPlayer() {
     return delay().then(() => {
       const $link = $(this);
 
-      $.notice('Аниме добавлено в список');
+      flash.notice('Аниме добавлено в список');
       $link
         .removeClass('create-user_rate')
         .addClass('increment-user_rate')
@@ -115,7 +116,7 @@ function initVideoPlayer() {
 
   $('.cc-player_controls').on('ajax:complete', '.increment-user_rate', function () {
     if (!$('.increment-user_rate').hasClass('watched')) {
-      $.notice('Эпизод отмечен просмотренным');
+      flash.notice('Эпизод отмечен просмотренным');
     }
 
     return delay(500).then(() => {
@@ -150,7 +151,7 @@ function initVideoPlayer() {
 
   // сабмит жалобы
   $('.cc-anime_video_report-new form').on('ajax:success', () => {
-    $.notice(
+    flash.notice(
       'Жалоба успешно отправлена и вскоре будет рассмотрена модератором. ' +
         'Домо аригато'
     );

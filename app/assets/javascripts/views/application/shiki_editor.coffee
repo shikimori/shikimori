@@ -1,5 +1,7 @@
 delay = require 'delay'
 autosize = require 'autosize'
+
+flash = require('services/flash').default
 ShikiView = require './shiki_view'
 
 # TODO: refactor constructor
@@ -64,7 +66,7 @@ module.exports = class ShikiEditor extends ShikiView
         if @$textarea.val().replace(/\n| |\r|\t/g, '')
           @_shade()
         else
-          $.alert I18n.t('frontend.shiki_editor.text_cant_be_blank')
+          flash.error I18n.t('frontend.shiki_editor.text_cant_be_blank')
           false
 
       .on 'ajax:complete', @_unshade

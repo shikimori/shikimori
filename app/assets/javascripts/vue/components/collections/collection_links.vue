@@ -76,9 +76,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import CollectionLink from './collection_link'
 import draggable from 'vuedraggable'
 import autosize from 'autosize'
+
+import flash from 'services/flash'
+import CollectionLink from './collection_link'
 
 function list_index(node, index) {
   return parseInt(node.childNodes[index].getAttribute('data-list_index'))
@@ -139,7 +141,7 @@ export default {
       try {
         json = JSON.parse(target.value);
       } catch(e) {
-        $.alert(e.toString())
+        flash.error(e.toString())
       }
 
       if (json) {

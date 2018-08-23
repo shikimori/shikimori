@@ -1,4 +1,5 @@
 import ShikiModal from 'views/application/shiki_modal'
+import flash from 'services/flash'
 
 $(document).on 'page:load', ->
   $feedback = $('.b-feedback')
@@ -9,5 +10,5 @@ $(document).on 'page:load', ->
     modal = new ShikiModal $form
 
     $form.on 'ajax:success', ->
-      $.notice I18n.t('frontend.blocks.feedback.message_sent')
+      flash.notice I18n.t('frontend.blocks.feedback.message_sent')
       modal.close()

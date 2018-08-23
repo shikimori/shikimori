@@ -87,15 +87,15 @@ jQuery($ => {
                 var errors = {};
               }
               if (Object.isObject(errors) && errors.message) {
-                $.alert(errors.message);
+                flash.error(errors.message);
               } else {
-                $.alert(xhr.responseText != 'Forbidden' ?
+                flash.error(xhr.responseText != 'Forbidden' ?
                   xhr.responseText :
                   I18n.t('frontend.lib.rails_ujs_modified.you_are_not_authorized')
                 );
               }
             } else if (xhr.status == 500) {
-              $.alert(I18n.t('frontend.lib.rails_ujs_modified.please_try_again_later'));
+              flash.error(I18n.t('frontend.lib.rails_ujs_modified.please_try_again_later'));
             } else {
               try {
                 var errors = JSON.parse(xhr.responseText);
@@ -109,7 +109,7 @@ jQuery($ => {
               }
               if (Object.size(errors)) {
                 if (Object.isArray(errors)) {
-                  $.alert(errors.join('<br />'));
+                  flash.error(errors.join('<br />'));
                 } else {
                   const text = errors.map((v, k) => {
                     if (k == 'base') {
@@ -121,10 +121,10 @@ jQuery($ => {
                                           (Object.isArray(v) ? v.join(', ') : v);
                   }).join('<br />');
 
-                  $.alert(text);
+                  flash.error(text);
                 }
               } else {
-                $.alert(I18n.t('frontend.lib.rails_ujs_modified.please_try_again_later'));
+                flash.error(I18n.t('frontend.lib.rails_ujs_modified.please_try_again_later'));
               }
             }
             el.trigger('ajax:failure', [xhr, status, error]);
