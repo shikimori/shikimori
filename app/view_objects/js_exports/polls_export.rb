@@ -3,6 +3,7 @@ private
 
   def fetch_entries _user
     Poll
+      .includes(:variants)
       .where(id: tracked_ids)
       .order(:id)
   end
