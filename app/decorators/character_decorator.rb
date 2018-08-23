@@ -58,6 +58,7 @@ private
   def map_roles person_roles_scope
     person_roles_scope
       .includes(:person)
+      .select { |person_role| person_role.person.present? } # person may not imported yet or it may be forbidden for import (banned_mal_ids file) # rubocop:disable LineLength
       .sort_by do |person_role|
         [
           ROLES_PRIORITY.index(person_role.roles.first) ||
