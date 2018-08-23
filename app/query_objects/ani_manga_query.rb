@@ -544,6 +544,6 @@ private
         order_sql DEFAULT_ORDER, klass
     end
 
-    Arel.sql(sql)
+    Arel.sql(sql) if sql
   end
 end
