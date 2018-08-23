@@ -7,8 +7,6 @@ class DbImport::BannedIds
     config[type.to_sym].include? id.to_i
   end
 
-private
-
   def config
     @config ||= YAML.load_file CONFIG_FILE
   end

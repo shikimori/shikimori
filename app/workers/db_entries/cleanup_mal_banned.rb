@@ -3,6 +3,10 @@ class DbEntries::CleanupMalBanned
 
   def perform
     cleanup_banned_roles
+
+    [Anime, Manga, Ranobe, Character, Person].each do |klass|
+      cleanup_banned_entries klass
+    end
   end
 
 private
@@ -28,5 +32,9 @@ private
       raise ArgumentError, 'bad column name' unless PersonRole.column_names.include? key
       "#{key} = #{ApplicationRecord.sanitize value}"
     end
+  end
+
+  def cleanup_banned_entries klass
+    klass.where(id: DbImport::BannedIds.instance.config[klass.name.downcase.to_sym]).destroy_all
   end
 end
