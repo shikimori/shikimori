@@ -6,15 +6,13 @@ class UserProfileDecorator < UserDecorator
 
   # list of users with abusive content in profile
   # (reported by moderators or roskomnadzor)
-  BANNED_PROFILES = %w(
-    7683
-  )
+  BANNED_PROFILES = %w[7683]
 
   def banned_profile?
     BANNED_PROFILES.include? object.id.to_s
   end
 
-  def avatar_url size=160
+  def avatar_url size = 160
     super size, own_profile?
   end
 
@@ -41,26 +39,27 @@ class UserProfileDecorator < UserDecorator
       (h.user_signed_in? || comments.any?) && preferences.comments_in_profile?
   end
 
-  #def full_counts
-    #if h.params[:list_type] == 'anime'
-      #stats[:full_statuses][:anime].select {|v| v[:size] > 0 }
-    #else
-      #stats[:full_statuses][:manga].select {|v| v[:size] > 0 }
-    #end
-  #end
+  # def full_counts
+  #   if h.params[:list_type] == 'anime'
+  #     stats[:full_statuses][:anime].select {|v| v[:size] > 0 }
+  #   else
+  #     stats[:full_statuses][:manga].select {|v| v[:size] > 0 }
+  #   end
+  # end
 
   def nickname_changes?
     nickname_changes.any?
   end
 
   def nickname_changes
-    query = if h.user_signed_in? && h.current_user.forum_moderator?
-      UserNicknameChange.unscoped.where(user: object)
-    else
-      object.nickname_changes
-    end
+    query =
+      if h.user_signed_in? && h.current_user.forum_moderator?
+        UserNicknameChange.unscoped.where(user: object)
+      else
+        object.nickname_changes
+      end
 
-    query.select {|v| v.value != object.nickname }
+    query.reject { |v| v.value == object.nickname }
   end
 
   def nicknames_tooltip
@@ -83,7 +82,7 @@ class UserProfileDecorator < UserDecorator
     object
       .friends
       .decorate
-      .sort_by {|v| v.last_online_at } # сортировка должна быть тут, а не в базе, т.к. метод last_online_at переопределён в классе
+      .sort_by(&:last_online_at) # сортировка должна быть тут, а не в базе, т.к. метод last_online_at переопределён в классе # rubocop:disable LineLength
       .reverse
   end
 
@@ -108,10 +107,10 @@ class UserProfileDecorator < UserDecorator
       info << i18n_t('personal_data_hidden')
     end
 
-    info << ("#{i18n_t 'member_since'} " +
-      "<span class='b-tooltipped unprocessed mobile' data-direction='right' title='#{localized_registration false}'>" +
-      "#{localized_registration true}" +
-      "</span>").html_safe
+    info << "#{i18n_t 'member_since'} " \
+      "<span class='b-tooltipped unprocessed mobile' data-direction='right' title='#{localized_registration false}'>" \
+      "#{localized_registration true}" \
+      '</span>'.html_safe
 
     info
   end
@@ -173,7 +172,7 @@ class UserProfileDecorator < UserDecorator
   # добавленное пользователем в избранное
   def favourites
     (fav_animes + fav_mangas + fav_ranobe + fav_characters + fav_people)
-      .shuffle# .uniq {|fav| [fav.id, fav.class] }
+      .shuffle # .uniq {|fav| [fav.id, fav.class] }
       .take(8)
       .sort_by do |fav|
         [fav.class.name == Manga.name ? Anime.name : fav.class.name, fav.name]
@@ -190,8 +189,8 @@ class UserProfileDecorator < UserDecorator
   end
 
   def unconnected_providers
-    User.omniauth_providers.select {|v| v != :google_apps && v != :yandex } -
-      user_tokens.map {|v| v.provider.to_sym }
+    User.omniauth_providers.select { |v| v != :google_apps && v != :yandex } -
+      user_tokens.map { |v| v.provider.to_sym }
   end
 
   def ignored_topics

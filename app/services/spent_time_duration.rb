@@ -19,18 +19,18 @@ class SpentTimeDuration
     rewatched_hours = [rewatched_chapters_hours, rewatched_volumes_hours].max
 
     rewatched_hours + [
-      manga_chapters_hours(entry_chapters),
-      manga_volumes_hours(entry_chapters)
+      manga_read_chapters_hours,
+      manga_read_volumes_hours
     ].max
   end
 
 private
 
-  def manga_chapters_hours entry_chapters
+  def manga_read_chapters_hours
     @user_rate.chapters * chapter_duration
   end
 
-  def manga_volumes_hours entry_chapters
+  def manga_read_volumes_hours
     @user_rate.volumes * volume_duration
   end
 
@@ -47,6 +47,10 @@ private
   end
 
   def entry_klass
-    @user_rate.manga.is_a?(Ranobe) ? Ranobe : Manga
+    if @user_rate.is_a?(ExtendedUserRate)
+      @user_rate.type == Ranobe.name ? Ranobe : Manga
+    else
+      @user_rate.manga.is_a?(Ranobe) ? Ranobe : Manga
+    end
   end
 end

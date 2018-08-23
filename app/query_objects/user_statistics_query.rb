@@ -1,3 +1,4 @@
+# TODO: refactor
 class UserStatisticsQuery
   prepend ActiveCacher.instance
   instance_cache :activity_stats
@@ -34,7 +35,8 @@ class UserStatisticsQuery
     @manga_rates = @user
       .manga_rates
       .joins('join mangas on mangas.id = target_id')
-      .select("user_rates.*, mangas.rating, mangas.kind, #{Manga::CHAPTER_DURATION} as duration,
+      .select("user_rates.*, mangas.type, mangas.rating, mangas.kind,
+      #{Manga::CHAPTER_DURATION} as duration,
         mangas.chapters as entry_episodes, 0 as entry_episodes_aired,
         mangas.chapters as entry_chapters, mangas.volumes as entry_volumes")
       .map { |manga| ExtendedUserRate.new manga }

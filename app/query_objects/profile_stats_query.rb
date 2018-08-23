@@ -1,3 +1,4 @@
+# TODO: refactor
 class ProfileStatsQuery
   prepend ActiveCacher.instance
 
@@ -29,10 +30,10 @@ class ProfileStatsQuery
   def anime_spent_time
     time = stats.anime_rates
       .select(&:duration)
-      .sum do |v|
-        SpentTimeDuration.new(v).anime_hours(
-          v.entry_episodes, v.duration
-        )
+      .sum do |extended_user_rate|
+        SpentTimeDuration
+          .new(extended_user_rate)
+          .anime_hours(extended_user_rate.entry_episodes, extended_user_rate.duration)
       end
     SpentTime.new(time / 60.0 / 24)
   end
@@ -60,10 +61,10 @@ class ProfileStatsQuery
   end
 
   def manga_spent_time
-    time = stats.manga_rates.sum do |v|
-      SpentTimeDuration.new(v).manga_hours(
-        v.entry_chapters, v.entry_volumes
-      )
+    time = stats.manga_rates.sum do |extended_user_rate|
+      SpentTimeDuration
+        .new(extended_user_rate)
+        .manga_hours(extended_user_rate.entry_chapters, extended_user_rate.entry_volumes)
     end
     SpentTime.new(time / 60.0 / 24)
   end
@@ -176,7 +177,7 @@ class ProfileStatsQuery
   end
 
   def stats
-    Rails.cache.fetch [:user_statistics_query, :v3, user] do
+    Rails.cache.fetch [:user_statistics_query, :v4, user] do
       UserStatisticsQuery.new user
     end
   end
