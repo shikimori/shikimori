@@ -22,7 +22,7 @@ class PgCache
       end
 
       value
-    rescue ActiveRecord::RecordNotUnique
+    rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
       value
     end
 
