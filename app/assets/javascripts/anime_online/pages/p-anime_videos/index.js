@@ -1,6 +1,8 @@
 import delay from 'delay';
 import Turbolinks from 'turbolinks';
 import { debounce } from 'throttle-debounce';
+
+import axios from 'helpers/axios';
 import ShikiHtml5Video from 'views/application/shiki_html5_video';
 
 page_load('anime_videos_index', () => {

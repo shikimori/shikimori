@@ -34,11 +34,6 @@ import bowser from 'bowser';
 import { throttle, debounce } from 'throttle-debounce';
 
 require('i18n/translations');
-const csrf = require('helpers/csrf');
-
-window.axios = require('axios').create({
-  headers: Object.merge(csrf().headers, { 'X-Requested-With': 'XMLHttpRequest' })
-});
 
 window.View = require('views/application/view');
 window.ShikiView = require('views/application/shiki_view');

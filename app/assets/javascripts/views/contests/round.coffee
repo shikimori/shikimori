@@ -1,3 +1,5 @@
+axios = require('helpers/axios').default
+
 using 'Contests'
 module.exports = class Contests.Round extends View
   initialize: (votes) ->

@@ -2,6 +2,8 @@ import delay from 'delay';
 import Turbolinks from 'turbolinks';
 
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
+import axios from 'helpers/axios';
+
 import ShikiModal from 'views/application/shiki_modal';
 import flash from 'services/flash';
 

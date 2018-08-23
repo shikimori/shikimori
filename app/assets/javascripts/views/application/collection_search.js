@@ -1,10 +1,7 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import URI from 'urijs';
 import { debounce } from 'throttle-debounce';
+
+import axios from 'helpers/axios';
 
 const PENDING_REQUEST = 'pending_request';
 

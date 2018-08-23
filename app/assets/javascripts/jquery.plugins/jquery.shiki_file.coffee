@@ -1,7 +1,7 @@
 import delay from 'delay'
 
 import flash from 'services/flash'
-csrf = require 'helpers/csrf'
+import csrf from 'helpers/csrf'
 
 I18N_KEY = 'frontend.lib.jquery_shiki_file'
 

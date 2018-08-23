@@ -1,3 +1,5 @@
+axios = require('helpers/axios').default
+
 using 'Polls'
 module.exports = class Polls.View extends View
   TEMPLATE = 'polls/poll'
@@ -24,7 +26,7 @@ module.exports = class Polls.View extends View
 
   _vote_variant: =>
     variant_id = parseInt @_checked_radio().value
-    variant = @model.variants.find (v) => v.id == variant_id
+    variant = @model.variants.find (v) -> v.id == variant_id
 
     @model.vote = { is_abstained: false, variant_id: variant.id }
     variant.votes_total += 1

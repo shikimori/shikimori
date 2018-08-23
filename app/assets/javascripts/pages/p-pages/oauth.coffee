@@ -1,4 +1,4 @@
-axios = require('axios')
+import axios from 'axios'
 
 page_load 'pages_oauth', ->
   $('select#oauth_application_id').on 'change', ->
