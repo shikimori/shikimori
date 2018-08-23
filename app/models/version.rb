@@ -5,7 +5,8 @@ class Version < ApplicationRecord
 
   belongs_to :user
   belongs_to :moderator, class_name: User.name, optional: true
-  belongs_to :item, polymorphic: true, touch: true
+  # optional item becase it can be deleted later and we don't need this version to fail on validation
+  belongs_to :item, polymorphic: true, touch: true, optional: true
 
   validates :item_diff, presence: true
   validates :item, presence: true, if: :new_record?
