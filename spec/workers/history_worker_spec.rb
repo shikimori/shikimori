@@ -27,15 +27,14 @@ describe HistoryWorker do
       expect(PushNotification).to_not have_received :perform_async
     end
 
-    context 'user with device' do
-      let!(:user) { create :user, notifications: 0xFFFFFF }
-      let!(:device) { create :device, user: user }
-      let!(:anime) { create :anime, :with_callbacks, :anons }
-      before { subject }
+    # context 'user with device' do
+    #   let!(:user) { create :user, notifications: 0xFFFFFF }
+    #   let!(:device) { create :device, user: user }
+    #   let!(:anime) { create :anime, :with_callbacks, :anons }
+    #   before { subject }
 
-      it { expect(PushNotification).to_not have_received(:perform_async).once }
-      # it { expect(PushNotification).to have_received(:perform_async).once }
-    end
+    #   it { expect(PushNotification).to have_received(:perform_async).once }
+    # end
   end
 
   describe "doesn't create Message" do
