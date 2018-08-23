@@ -20,6 +20,7 @@ globals:
   I18n: true
   page_load: true
   page_unload: true
+  gon: true
 
 parserOptions:
   ecmaVersion: 6
