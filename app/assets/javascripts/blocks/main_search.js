@@ -1,4 +1,5 @@
 import delay from 'delay';
+import Turbolinks from 'turbolinks';
 
 $(document).on('page:load', () => {
   const $mainSearch = $('.b-main_search');
@@ -31,9 +32,10 @@ $(document).on('page:load', () => {
       const type = $search.data('type');
 
       if (type === 'users') {
-        document.location.href = `/${entry.name}`;
+        Turbolinks.visit(`/${entry.name}`, true);
+      } else {
+        Turbolinks.visit(SEARCHEABLES[type].id.replace('[id]', `aaaaaaa${entry.id}`), true);
       }
-      document.location.href = SEARCHEABLES[type].id.replace('[id]', `aaaaaaa${entry.id}`);
     })
     .on('autocomplete:text', (e, text) => {
       const type = $search.data('type');
@@ -72,9 +74,7 @@ $(document).on('page:load', () => {
 
   // включение и отключение выбора типов
   $popup.on('hover', () => $search.focus());
-
   $search.on('keypress', () => $popup.addClass('disabled'));
-
   $search.on('click', () => {
     if ($('.ac_results:visible').length) {
       $popup.addClass('disabled');
@@ -83,11 +83,15 @@ $(document).on('page:load', () => {
   });
 
   $search.on('hover', () => {
-    if ($('.ac_results:visible').length) { $popup.addClass('disabled'); }
+    if ($('.ac_results:visible').length) {
+      $popup.addClass('disabled');
+    }
   });
 
   $mainSearch.on('click', e => {
-    if ($(e.target).hasClass('b-main_search')) { $search.trigger('click').trigger('focus'); }
+    if ($(e.target).hasClass('b-main_search')) {
+      $search.trigger('click').trigger('focus');
+    }
   });
 
   $mainSearch.hoverDelayed(
