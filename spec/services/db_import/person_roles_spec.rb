@@ -1,18 +1,21 @@
 describe DbImport::PersonRoles do
   let(:service) { DbImport::PersonRoles.new target, characters, staff }
-  let(:target) { create :anime }
+  let(:target) { create :anime, id: 114 }
   let(:characters) do
     [{
-      id: 143_628,
+      id: 143628,
       roles: %w[Main]
     }, {
-      id: 145_176,
+      id: 145176,
+      roles: %w[Supporting]
+    }, {
+      id: 1009,
       roles: %w[Supporting]
     }]
   end
   let(:staff) do
     [{
-      id: 33_365,
+      id: 33365,
       roles: %w[Director]
     }]
   end

@@ -5,9 +5,7 @@ class DbImport::ImportBase
   IGNORED_FIELDS = %i[]
 
   def call
-    if DbImport::BannedIds.instance.banned? @data[:id], klass.name.downcase
-      return
-    end
+    return if DbImport::BannedIds.instance.banned? @data[:id], klass.name.downcase
 
     ApplicationRecord.transaction { import }
     entry
