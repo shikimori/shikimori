@@ -175,7 +175,6 @@ function showReport() {
 function hideReport() {
   $('.cc-player_controls').show();
   $('.cc-anime_video_report-new').hide();
-  toggleOptions();
 }
 
 function toggleOptions() {
