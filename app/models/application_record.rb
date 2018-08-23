@@ -5,7 +5,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   class << self
     # for large batches sql must be ordered by id!!!
-    def fetch_raw_data sql, batch_size # rubocop:disable MethodLength
+    def fetch_raw_data sql, batch_size
       offset = 0
 
       begin

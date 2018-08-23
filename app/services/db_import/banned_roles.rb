@@ -12,8 +12,6 @@ class DbImport::BannedRoles
     }.compact)
   end
 
-private
-
   def config
     @config ||= YAML.load_file CONFIG_FILE
   end
