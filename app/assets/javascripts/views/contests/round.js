@@ -53,7 +53,7 @@ export default class ContestRound extends View {
   }
 
   nextNotVotedMatchId(matchId) {
-    const nextNotVotedMatch = this.votes.find(v => (v.matchId !== matchId) && !v.vote);
+    const nextNotVotedMatch = this.votes.find(v => (v.match_id !== matchId) && !v.vote);
     return nextNotVotedMatch ? nextNotVotedMatch.matchId : null;
   }
 
@@ -61,7 +61,7 @@ export default class ContestRound extends View {
   _setVotes(votes) {
     Object.forEach(votes, vote => {
       if (vote.vote) {
-        this.setVote(vote.matchId, vote.vote);
+        this.setVote(vote.match_id, vote.vote);
       }
     });
   }
@@ -82,7 +82,7 @@ export default class ContestRound extends View {
   _matchLoaded(matchId, html) {
     const $html = $(html).process();
     const $match = $html.filter('.b-contest_match');
-    const vote = this.votes.find(v => v.matchId === matchId);
+    const vote = this.votes.find(v => v.match_id === matchId);
 
     this.$matchContainer
       .removeClass('b-ajax')

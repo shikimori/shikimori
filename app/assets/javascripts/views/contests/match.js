@@ -39,7 +39,7 @@ export default class ContestMatch extends View {
       this._setVote(this.vote.vote);
     }
 
-    return this.initialized = true;
+    this.initialized = true;
   }
 
   get isStarted() {
