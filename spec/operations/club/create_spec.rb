@@ -3,6 +3,7 @@
 describe Club::Create do
   subject(:club) { Club::Create.call params, locale }
 
+  before { allow_any_instance_of(Club).to receive :add_to_index }
   let(:locale) { :en }
 
   context 'valid params' do

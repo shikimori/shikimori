@@ -5,7 +5,10 @@ describe Users::OmniauthCallbacksController do
   let(:token_number) { '123456789iouhg' }
   let(:provider) { :vkontakte }
 
-  before { allow_any_instance_of(User).to receive :grab_avatar }
+  before do
+    allow_any_instance_of(User).to receive :grab_avatar
+    allow_any_instance_of(User).to receive :add_to_index
+  end
 
   before do
     request.env['devise.mapping'] = Devise.mappings[:user]
@@ -26,7 +29,7 @@ describe Users::OmniauthCallbacksController do
   describe '#sign_up' do
     let(:make_request) { get provider }
 
-    [:facebook, :twitter, :vkontakte].each do |provider|
+    %i[facebook twitter vkontakte].each do |provider|
       describe "##{provider}" do
         it do
           expect(proc do
@@ -39,7 +42,7 @@ describe Users::OmniauthCallbacksController do
 
     context 'present nickname' do
       let!(:user) { create :user, nickname: 'test' }
-      before { make_request }
+      subject! { make_request }
       it { expect(resource.nickname).to eq 'test2' }
     end
   end
@@ -51,9 +54,9 @@ describe Users::OmniauthCallbacksController do
     let(:make_request) { get provider }
 
     it do
-      expect(proc do
+      expect(-> {
         expect { make_request }.to_not change User, :count
-      end).to_not change UserToken, :count
+      }).to_not change UserToken, :count
       expect(response).to redirect_to root_path
     end
   end

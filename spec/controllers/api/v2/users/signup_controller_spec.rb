@@ -1,6 +1,9 @@
 describe Api::V2::Users::SignupController do
   describe '#create' do
-    before { allow_any_instance_of(User).to receive :grab_avatar }
+    before do
+      allow_any_instance_of(User).to receive :grab_avatar
+      allow_any_instance_of(User).to receive :add_to_index
+    end
 
     before do
       if access_token

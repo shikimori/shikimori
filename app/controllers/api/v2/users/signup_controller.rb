@@ -26,7 +26,7 @@ class Api::V2::Users::SignupController < Api::V2Controller
     param :nickname, String
     param :password, String
   end
-  def create # rubocop:disable MethodLength
+  def create
     @resource = User.new create_params
 
     if @resource.save

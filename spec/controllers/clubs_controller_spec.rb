@@ -6,7 +6,7 @@ describe ClubsController do
     let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 
     describe 'no_pagination' do
-      before { get :index }
+      subject! { get :index }
 
       it do
         expect(collection).to eq [club]
@@ -15,7 +15,7 @@ describe ClubsController do
     end
 
     describe 'pagination' do
-      before { get :index, params: { page: 1 } }
+      subject! { get :index, params: { page: 1 } }
       it { expect(response).to have_http_status :success }
     end
   end
@@ -25,7 +25,7 @@ describe ClubsController do
     let(:make_request) { get :show, params: { id: club.to_param } }
 
     context 'club locale == locale from domain' do
-      before { make_request }
+      subject! { make_request }
       it { expect(response).to have_http_status :success }
     end
 
@@ -37,14 +37,14 @@ describe ClubsController do
 
   describe '#new' do
     include_context :authenticated, :user, :week_registered
-    before { get :new, params: { club: { owner_id: user.id } } }
+    subject! { get :new, params: { club: { owner_id: user.id } } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#edit' do
     include_context :authenticated, :user, :week_registered
     let(:club) { create :club, owner: user }
-    before { get :edit, params: { id: club.to_param, page: 'main' } }
+    subject! { get :edit, params: { id: club.to_param, page: 'main' } }
 
     it { expect(response).to have_http_status :success }
   end
@@ -53,7 +53,8 @@ describe ClubsController do
     include_context :authenticated, :user, :week_registered
 
     context 'valid params' do
-      before { post :create, params: { club: params } }
+      before { allow_any_instance_of(Club).to receive :add_to_index }
+      subject! { post :create, params: { club: params } }
       let(:params) { { name: 'test', owner_id: user.id } }
 
       it do
@@ -63,7 +64,7 @@ describe ClubsController do
     end
 
     context 'invalid params' do
-      before { post :create, params: { club: params } }
+      subject! { post :create, params: { club: params } }
       let(:params) { { owner_id: user.id } }
 
       it do
@@ -78,7 +79,7 @@ describe ClubsController do
     let(:club) { create :club, :with_topics, owner: user }
 
     context 'valid params' do
-      before do
+      subject! do
         patch :update,
           params: {
             id: club.id,
@@ -97,7 +98,7 @@ describe ClubsController do
     end
 
     context 'invalid params' do
-      before do
+      subject! do
         patch 'update',
           params: {
             id: club.id,
@@ -115,63 +116,63 @@ describe ClubsController do
   end
 
   describe '#members' do
-    before { get :members, params: { id: club.to_param } }
+    subject! { get :members, params: { id: club.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#images' do
-    before { get :images, params: { id: club.to_param } }
+    subject! { get :images, params: { id: club.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#animes' do
     context 'without_animes' do
-      before { get :animes, params: { id: club.to_param } }
+      subject! { get :animes, params: { id: club.to_param } }
       it { expect(response).to redirect_to club_url(club) }
     end
 
     context 'with_animes' do
       let(:club) { create :club, :with_topics, :linked_anime }
-      before { get :animes, params: { id: club.to_param } }
+      subject! { get :animes, params: { id: club.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#mangas' do
     context 'without_mangas' do
-      before { get :mangas, params: { id: club.to_param } }
+      subject! { get :mangas, params: { id: club.to_param } }
       it { expect(response).to redirect_to club_url(club) }
     end
 
     context 'with_mangas' do
       let(:club) { create :club, :with_topics, :linked_manga }
-      before { get :mangas, params: { id: club.to_param } }
+      subject! { get :mangas, params: { id: club.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#ranobe' do
     context 'without_ranobe' do
-      before { get :ranobe, params: { id: club.to_param } }
+      subject! { get :ranobe, params: { id: club.to_param } }
       it { expect(response).to redirect_to club_url(club) }
     end
 
     context 'with_ranobe' do
       let(:club) { create :club, :with_topics, :linked_ranobe }
-      before { get :ranobe, params: { id: club.to_param } }
+      subject! { get :ranobe, params: { id: club.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#characters' do
     context 'without_characters' do
-      before { get :characters, params: { id: club.to_param } }
+      subject! { get :characters, params: { id: club.to_param } }
       it { expect(response).to redirect_to club_url(club) }
     end
 
     context 'with_characters' do
       let(:club) { create :club, :with_topics, :linked_character }
-      before { get :characters, params: { id: club.to_param } }
+      subject! { get :characters, params: { id: club.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
