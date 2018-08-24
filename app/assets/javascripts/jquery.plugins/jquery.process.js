@@ -4,6 +4,7 @@ import {
   ANIME_TOOLTIP_OPTIONS,
   COMMON_TOOLTIP_OPTIONS
 } from 'helpers/tooltip_options';
+import { isMobile, isTablet } from 'helpers/mobile_detect';
 
 import UserRatesTracker from 'services/user_rates/tracker';
 import TopicsTracker from 'services/topics/tracker';
@@ -67,7 +68,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   $with('.b-tooltipped.unprocessed', $root)
     .removeClass('unprocessed')
     .each(function () {
-      if ((is_mobile() || is_tablet()) && !this.classList.contains('mobile')) {
+      if ((isMobile() || isTablet()) && !this.classList.contains('mobile')) {
         return;
       }
 
@@ -135,4 +136,4 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
         .filter(':not(.triggered)')
         .trigger('click', true)
     );
-};
+}

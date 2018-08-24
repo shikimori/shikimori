@@ -1,3 +1,5 @@
+mobileDetect = require('helpers/mobile_detect')
+
 using 'DynamicElements'
 class DynamicElements.DesktopAd extends View
   initialize: ->
@@ -18,6 +20,6 @@ class DynamicElements.DesktopAd extends View
 
   _platform_matches: (platform) ->
     if platform == 'desktop'
-      is_tablet() || !is_mobile()
+      mobileDetect.isTablet() || !mobileDetect.isMobile()
     else
-      mobile_detect.phone() || mobile_detect.tablet()
+      mobileDetect.mobileDetect.phone() || mobileDetect.mobileDetect.tablet()

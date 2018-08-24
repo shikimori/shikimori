@@ -1,8 +1,8 @@
-Faye = require 'faye'
+import Faye from 'faye'
 require 'jquery.idle/vanilla.idle'
 
 # назначение класса - слушать Faye и отправлять получившим обновление топикам и разделам события faye:success
-module.exports = class FayeLoader
+export default class FayeLoader
   WORLD_CHANGED_EVENTS = [
     'page:load'
     'page:restore'

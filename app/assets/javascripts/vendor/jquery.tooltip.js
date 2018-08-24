@@ -10,6 +10,7 @@
  * Date:    Wed Sep 22 06:02:10 2010 +0000
  */
 import delay from 'delay'
+import { isMobile } from 'helpers/mobile_detect';
 
 (function($) {
   // static constructs
@@ -262,7 +263,7 @@ import delay from 'delay'
             ('ontouchstart' in window) ||
             (navigator.MaxTouchPoints > 0) ||
             (navigator.msMaxTouchPoints > 0) ||
-            is_mobile())) {
+            isMobile())) {
           return;
         }
         // tip not initialized yet

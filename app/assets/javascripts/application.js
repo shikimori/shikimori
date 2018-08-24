@@ -72,12 +72,9 @@ requireAnimeOnlinePages.keys().forEach(requireAnimeOnlinePages);
 const requireBlocks = require.context('blocks', true);
 requireBlocks.keys().forEach(requireBlocks);
 
-const MobileDetect = require('mobile-detect');
-
-window.mobile_detect = new MobileDetect(window.navigator.userAgent);
-
-const FayeLoader = require('services/faye_loader');
+import FayeLoader from 'services/faye_loader';
 import CommentsNotifier from 'services/comments_notifier';
+import { isMobile } from 'helpers/mobile_detect';
 
 const bindings = require('helpers/bindings');
 
@@ -121,8 +118,8 @@ $(() => {
   //     ).install?()
 
   window.I18n = I18n;
-  I18n.locale = LOCALE;
-  moment.locale(LOCALE);
+  I18n.locale = window.LOCALE;
+  moment.locale(window.LOCALE);
 
   window.MOMENT_DIFF = moment($body.data('server_time')).diff(new Date());
 
@@ -141,7 +138,7 @@ $(() => {
     message: I18n.t('frontend.application.sure_to_leave_page')
   });
 
-  const match = location.hash.match(/^#(comment-\d+)$/);
+  const match = window.location.hash.match(/^#(comment-\d+)$/);
   if (match) {
     $(`a[name=${match[1]}]`).closest('.b-comment').yellowFade();
   }
@@ -151,10 +148,12 @@ $(() => {
   $(window).on('scroll', throttle(750, () => $(document.body).trigger('scroll:throttled')));
 });
 
-$(document).on('page:restore', (_e, is_dom_content_loaded) => $(document.body).process());
+$(document).on('page:restore', (_e, _isDomContentLoaded) =>
+  $(document.body).process()
+);
 
-$(document).on('page:load', (_e, is_dom_content_loaded) => {
-  if (is_mobile()) {
+$(document).on('page:load', (_e, _isDomContentLoaded) => {
+  if (isMobile()) {
     Turbolinks.enableProgressBar(false);
     Turbolinks.enableProgressBar(true, '.turbolinks');
   } else {

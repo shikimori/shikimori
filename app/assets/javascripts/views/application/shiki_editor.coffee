@@ -2,7 +2,11 @@ delay = require 'delay'
 autosize = require 'autosize'
 
 flash = require('services/flash').default
+mobileDetect = require('helpers/mobile_detect')
 ShikiView = require './shiki_view'
+
+isMobile = mobileDetect.isMobile
+isTablet = mobileDetect.isTablet
 
 # TODO: refactor constructor
 module.exports = class ShikiEditor extends ShikiView
@@ -374,7 +378,7 @@ module.exports = class ShikiEditor extends ShikiView
       .setCursorPosition(@$textarea.val().length)
 
     setTimeout =>
-      if (is_mobile() || is_tablet()) && !@$textarea.is(':appeared')
+      if (isMobile() || isTablet()) && !@$textarea.is(':appeared')
         $.scrollTo @$form, null, =>
           @$textarea.focus()
 

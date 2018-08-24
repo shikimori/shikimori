@@ -2,6 +2,7 @@ import delay from 'delay';
 import Turbolinks from 'turbolinks';
 
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
+import { isMobile } from 'helpers/mobile_detect';
 import axios from 'helpers/axios';
 
 import ShikiModal from 'views/application/shiki_modal';
@@ -261,7 +262,7 @@ function applyListHandlers($root) {
     .off()
     .hover(
       ({ currentTarget }) => {
-        if (is_mobile()) { return; }
+        if (isMobile()) { return; }
 
         const $currentValue = $('.current-value', currentTarget);
         let $newValue = $('.new-value', currentTarget);
@@ -298,7 +299,7 @@ function applyListHandlers($root) {
         $('.misc-value', currentTarget).hide();
       },
       ({ currentTarget }) => {
-        if (is_mobile()) { return; }
+        if (isMobile()) { return; }
         if ($('.new-value input', currentTarget).is(':focus')) { return; }
 
         $('.new-value', currentTarget).hide();
@@ -307,7 +308,7 @@ function applyListHandlers($root) {
       }
     )
     .on('click', e => {
-      if (is_mobile()) { return; }
+      if (isMobile()) { return; }
       // клик на плюсик обрабатываем по дефолтному
       if (e.target && (e.target.className === 'item-add')) { return; }
 
