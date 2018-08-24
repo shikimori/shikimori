@@ -1,11 +1,12 @@
 import 'babel-polyfill';
 
-require('vendor/sugar').extend();
-require('es6-promise').polyfill();
-
+import sugar from 'vendor/sugar';
 import $ from 'jquery'; // eslint-disable-line import/newline-after-import
+
+
 window.$ = $;
 window.jQuery = window.$;
+sugar.extend();
 
 import Turbolinks from 'turbolinks';
 import moment from 'moment';
@@ -22,12 +23,12 @@ import 'pikaday/scss/pikaday.scss';
 require('paste.js');
 
 // used in views/styles/edit.coffee
-require('codemirror/lib/codemirror.css');
-require('codemirror/theme/solarized.css');
-require('codemirror/addon/hint/show-hint.css');
-require('codemirror/addon/dialog/dialog.css');
-require('codemirror/addon/display/fullscreen.css');
-require('codemirror/addon/search/matchesonscrollbar.css');
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/solarized.css';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/addon/dialog/dialog.css';
+import 'codemirror/addon/display/fullscreen.css';
+import 'codemirror/addon/search/matchesonscrollbar.css';
 
 require('imagesloaded');
 
