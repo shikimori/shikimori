@@ -5,6 +5,7 @@ class Club < ApplicationRecord
   include StylesConcern
 
   update_index('clubs#club') { self if saved_change_to_name? }
+  after_create :add_to_index # update_index does not wotrk because of second save in StylesConcern
 
   TRANSLATORS_ID = 2
 
@@ -199,8 +200,10 @@ private
   end
 
   def check_spam_abuse
-    unless Users::CheckHacked.call(model: self, text: description, user: owner)
-      throw :abort
-    end
+    throw :abort unless Users::CheckHacked.call(model: self, text: description, user: owner)
+  end
+
+  def add_to_index
+    ClubsIndex.import self
   end
 end

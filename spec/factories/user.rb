@@ -16,6 +16,7 @@ FactoryBot.define do
     locale_from_host 'ru'
 
     after :build do |model|
+      stub_method model, :add_to_index
       stub_method model, :create_history_entry
       stub_method model, :reset_api_access_token
       stub_method model, :assign_style

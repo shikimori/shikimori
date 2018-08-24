@@ -1,7 +1,7 @@
 class Style < ApplicationRecord
   OWNER_TYPES = [User.name, Club.name]
 
-  belongs_to :owner, polymorphic: true, inverse_of: :style
+  belongs_to :owner, polymorphic: true, inverse_of: :style, optional: true
 
   validates :owner, presence: true
   validates :owner_type, inclusion: { in: OWNER_TYPES }

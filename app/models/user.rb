@@ -30,6 +30,7 @@ class User < ApplicationRecord
 
   acts_as_voter
   update_index('users#user') { self if saved_change_to_nickname? }
+  after_create :add_to_index # update_index does no work because of second save in StylesConcern
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences
@@ -188,7 +189,7 @@ class User < ApplicationRecord
 
   after_update :log_nickname_change, if: -> { saved_change_to_nickname? }
 
-  # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
+  # из-за этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry
   after_create :create_preferences!, unless: :preferences
   # after_create :check_ban
@@ -424,4 +425,8 @@ private
   # def check_ban
     # ProlongateBan.perform_in 10.seconds, id
   # end
+
+  def add_to_index
+    UsersIndex.import self
+  end
 end

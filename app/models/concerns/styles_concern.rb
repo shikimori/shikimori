@@ -16,6 +16,6 @@ private
 
   def assign_style
     create_style! owner: self
-    save! # clubs don't have style_id without this line
+    save!
   end
 end

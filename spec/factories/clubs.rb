@@ -11,6 +11,7 @@ FactoryBot.define do
     locale :ru
 
     after :build do |model|
+      stub_method model, :add_to_index
       stub_method model, :join_owner
       stub_method model, :assign_style
     end
