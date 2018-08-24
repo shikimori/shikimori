@@ -3,7 +3,8 @@ import 'babel-polyfill';
 require('vendor/sugar').extend();
 require('es6-promise').polyfill();
 
-window.$ = require('jquery'); // eslint-disable-line import/newline-after-import
+import $ from 'jquery'; // eslint-disable-line import/newline-after-import
+window.$ = $;
 window.jQuery = window.$;
 
 import Turbolinks from 'turbolinks';
@@ -13,10 +14,10 @@ import delay from 'delay';
 const requireVendor = require.context('vendor', true);
 requireVendor.keys().forEach(requireVendor);
 
-require('magnific-popup');
-require('magnific-popup/dist/magnific-popup.css');
-require('nouislider/distribute/nouislider.css');
-require('pikaday/scss/pikaday.scss');
+import 'magnific-popup';
+import 'magnific-popup/dist/magnific-popup.css';
+import 'nouislider/distribute/nouislider.css';
+import 'pikaday/scss/pikaday.scss';
 
 require('paste.js');
 
