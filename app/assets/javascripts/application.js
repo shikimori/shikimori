@@ -38,10 +38,6 @@ import { throttle, debounce } from 'throttle-debounce';
 require('i18n/translations');
 
 window.View = require('views/application/view');
-window.ShikiView = require('views/application/shiki_view');
-
-import ShikiUser from 'models/shiki_user';
-import flash from 'services/flash';
 
 const requireHelpers = require.context('helpers', true);
 requireHelpers.keys().forEach(requireHelpers);
@@ -73,10 +69,13 @@ requireAnimeOnlinePages.keys().forEach(requireAnimeOnlinePages);
 const requireBlocks = require.context('blocks', true);
 requireBlocks.keys().forEach(requireBlocks);
 
+import ShikiUser from 'models/shiki_user';
+
+import flash from 'services/flash';
 import FayeLoader from 'services/faye_loader';
 import CommentsNotifier from 'services/comments_notifier';
-import { isMobile } from 'helpers/mobile_detect';
 
+import { isMobile } from 'helpers/mobile_detect';
 import bindings from 'helpers/bindings';
 
 $(document).on(Object.keys(bindings).join(' '), e => {

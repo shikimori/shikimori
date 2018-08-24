@@ -1,6 +1,8 @@
 import URI from 'urijs'
 import delay from 'delay'
 
+ShikiView = require('views/application/shiki_view').default
+
 using 'DynamicElements'
 class DynamicElements.LogEntry extends ShikiView
   initialize: ->

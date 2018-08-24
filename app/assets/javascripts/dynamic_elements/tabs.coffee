@@ -1,3 +1,5 @@
+ShikiView = require('views/application/shiki_view').default
+
 using 'DynamicElements'
 class DynamicElements.Tabs extends ShikiView
   initialize: ->

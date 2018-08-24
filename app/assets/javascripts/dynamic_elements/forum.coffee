@@ -1,3 +1,5 @@
+ShikiView = require('views/application/shiki_view').default
+
 using 'DynamicElements'
 module.exports = class DynamicElements.Forum extends ShikiView
   FAYE_EVENTS = [

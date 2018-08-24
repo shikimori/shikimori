@@ -1,5 +1,5 @@
 # общий класс для комментария, топика, редактора
-module.exports = class ShikiView extends View
+export default class ShikiView extends View
   MAX_PREVIEW_HEIGHT: 450
   COLLAPSED_HEIGHT: 150
 
