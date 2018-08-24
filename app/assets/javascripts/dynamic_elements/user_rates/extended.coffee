@@ -1,4 +1,5 @@
-require './button'
+import JST from 'helpers/jst'
+import Button from './button'
 
 using 'DynamicElements.UserRates'
 class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Button

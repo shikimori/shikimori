@@ -40,15 +40,6 @@ require('i18n/translations');
 const requireHelpers = require.context('helpers', true);
 requireHelpers.keys().forEach(requireHelpers);
 
-const requireTemplates = require.context('templates', true);
-window.JST = requireTemplates.keys().reduce(
-  (memo, module) => {
-    memo[module.replace(/^\.\/|\.\w+$/g, '')] = requireTemplates(module);
-    return memo;
-  },
-  {}
-);
-
 const requireDynamicElements = require.context('dynamic_elements', true);
 requireDynamicElements.keys().forEach(requireDynamicElements);
 

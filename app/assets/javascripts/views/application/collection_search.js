@@ -3,6 +3,7 @@ import { debounce } from 'throttle-debounce';
 
 import View from 'views/application/view';
 import axios from 'helpers/axios';
+import JST from 'helpers/jst';
 
 const PENDING_REQUEST = 'pending_request';
 

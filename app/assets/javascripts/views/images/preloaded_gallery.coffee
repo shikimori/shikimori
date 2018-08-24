@@ -1,5 +1,7 @@
-delay = require 'delay'
-ShikiGallery = require 'views/application/shiki_gallery'
+import delay from 'delay'
+
+import ShikiGallery from 'views/application/shiki_gallery'
+import JST from 'helpers/jst'
 
 using 'Images'
 class Images.PreloadedGallery extends ShikiGallery

@@ -1,5 +1,7 @@
 import delay from 'delay'
+
 import View from 'views/application/view'
+import JST from 'helpers/jst'
 
 using 'Animes'
 class Animes.WathOnlineButton extends View

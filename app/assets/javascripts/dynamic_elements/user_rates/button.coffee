@@ -2,6 +2,7 @@ import delay from 'delay'
 
 import UserRatesTracker from 'services/user_rates/tracker'
 import View from 'views/application/view'
+import JST from 'helpers/jst'
 
 using 'DynamicElements.UserRates'
 class DynamicElements.UserRates.Button extends View
