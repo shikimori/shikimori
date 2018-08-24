@@ -1,4 +1,4 @@
-module.exports = () => {
+export default () => {
   let selectionTxt;
 
   if (window.getSelection) {

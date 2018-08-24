@@ -1,7 +1,7 @@
-delay = require 'delay'
-Packery = require 'packery'
+import delay from 'delay'
+import Packery from 'packery'
 
-module.exports = class ShikiGallery extends View
+export default class ShikiGallery extends View
   DEPLOY_INTERVAL = 50
 
   initialize: (options = {}) ->

@@ -1,7 +1,7 @@
-delay = require 'delay'
-getSelectionText = require 'helpers/get_selection_text'
+import delay from 'delay'
+import getSelectionText from 'helpers/get_selection_text'
 
-module.exports = class ShikiEditable extends ShikiView
+export default class ShikiEditable extends ShikiView
   BUTTONS = [
     '.item-ignore'
     '.item-quote'

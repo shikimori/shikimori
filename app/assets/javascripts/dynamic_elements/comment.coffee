@@ -1,7 +1,10 @@
 import delay from 'delay'
 
 import flash from 'services/flash'
-ShikiEditor = require 'views/application/shiki_editor'
+
+ShikiEditor = require('views/application/shiki_editor').default
+ShikiEditable = require('views/application/shiki_editable').default
+
 I18N_KEY = 'frontend.dynamic_elements.comment'
 
 using 'DynamicElements'

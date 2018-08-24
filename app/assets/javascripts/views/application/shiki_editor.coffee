@@ -1,15 +1,14 @@
-delay = require 'delay'
-autosize = require 'autosize'
+import delay from 'delay'
+import autosize from 'autosize'
 
-flash = require('services/flash').default
 mobileDetect = require('helpers/mobile_detect')
-ShikiView = require './shiki_view'
+flash = require('services/flash').default
 
 isMobile = mobileDetect.isMobile
 isTablet = mobileDetect.isTablet
 
 # TODO: refactor constructor
-module.exports = class ShikiEditor extends ShikiView
+export default class ShikiEditor extends ShikiView
   initialize: ->
     $root = @$root
     @$form = @$('form')

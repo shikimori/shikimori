@@ -1,7 +1,8 @@
 import delay from 'delay'
 
-ShikiEditor = require 'views/application/shiki_editor'
-ShikiGallery = require 'views/application/shiki_gallery'
+ShikiEditable = require('views/application/shiki_editable').default
+ShikiEditor = require('views/application/shiki_editor').default
+ShikiGallery = require('views/application/shiki_gallery').default
 
 using 'DynamicElements'
 # TODO: move code related to comments to separate class

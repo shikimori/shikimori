@@ -37,7 +37,6 @@ require('i18n/translations');
 
 window.View = require('views/application/view');
 window.ShikiView = require('views/application/shiki_view');
-window.ShikiEditable = require('views/application/shiki_editable');
 
 import ShikiUser from 'models/shiki_user';
 import flash from 'services/flash';

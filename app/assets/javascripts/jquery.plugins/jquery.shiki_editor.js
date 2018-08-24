@@ -1,14 +1,13 @@
-const ShikiEditor = require('views/application/shiki_editor');
+import ShikiEditor from 'views/application/shiki_editor';
 
 $.fn.extend({
   shikiEditor() {
-    return this.each(function () {
-      const $root = $(this);
-      if (!$root.hasClass('unprocessed')) {
-        return null;
+    return this.each((_index, node) => {
+      if (!node.classList.contains('unprocessed')) {
+        return;
       }
 
-      return new ShikiEditor($root);
+      new ShikiEditor(node);
     });
   }
 });
