@@ -2,7 +2,7 @@ import CuttedCovers from './cutted_covers'
 import TextAnnotated from './text_annotated'
 import AuthorizedAction from './authorized_action'
 import DayRegisteredAction from './day_registered_action'
-import WeejRegisteredAction from './week_registered_action'
+import WeekRegisteredAction from './week_registered_action'
 import Html5Video from './html5_video'
 import LogEntry from './log_entry'
 import DesktopAd from './desktop_ad'
@@ -17,40 +17,69 @@ import FullDialog from './full_dialog'
 import UserRateExtended from './user_rates/extended'
 import UserRateButton from './user_rates/button'
 
-export default class DynamicParser
-  @PENDING_CLASS = 'to-process'
+PENDING_CLASS = 'to-process'
 
+export default class DynamicParser
   constructor: ($nodes) ->
-    $nodes.each (index, node) ->
+    $nodes.each (index, node) =>
       node.classList.remove DynamicParser.PENDING_CLASS
 
       for processor in node.attributes['data-dynamic'].value.split(',')
-        switch processor
-          when 'cutted_covers' then new CuttedCovers(node)
-          when 'text_annotated' then new DpplynamicElements.TextAnnotated(node)
-          when 'authorized' then new AuthorizedAction(node)
-          when 'day_registered' then new DayRegisteredAction(node)
-          when 'week_registered' then new WeekRegisteredAction(node)
-          when 'html5_video' then new Html5Video(node)
-          when 'log_entry' then new LogEntry(node)
-          when 'desktop_ad' then new DesktopAd(node)
+        if @[processor]
+          @[processor](node)
+        else
+          console.error "unexpected processor: #{processor}", node
 
-          when 'code_highlight' then new CodeHighlight(node)
-          when 'tabs' then new Tabs(node)
+  cutted_covers: (node) ->
+    new CuttedCovers(node)
 
-          when 'forum' then new Forum(node)
-          when 'topic' then new Topic(node)
-          when 'comment' then new Comment(node)
-          when 'message' then new Message(node)
-          when 'short_dialog' then new ShortDialog(node)
-          when 'full_dialog' then new FullDialog(node)
+  text_annotated: (node) ->
+    new TextAnnotated(node)
 
-          when 'user_rate'
-            if node.attributes['data-extended'].value == 'true'
-              new UserRateExtended(node)
-            else
-              new UserRateButton(node)
+  authorized: (node) ->
+    new AuthorizedAction(node)
 
-          else
-            console.error "unexpected processor: #{processor}", node
+  day_registered: (node) ->
+    new DayRegisteredAction(node)
 
+  week_registered: (node) ->
+    new WeekRegisteredAction(node)
+
+  html5_video: (node) ->
+    new Html5Video(node)
+
+  log_entry: (node) ->
+    new LogEntry(node)
+
+  desktop_ad: (node) ->
+    new DesktopAd(node)
+
+  code_highlight: (node) ->
+    new CodeHighlight(node)
+
+  tabs: (node) ->
+    new Tabs(node)
+
+  forum: (node) ->
+    new Forum(node)
+
+  topic: (node) ->
+    new Topic(node)
+
+  comment: (node) ->
+    new Comment(node)
+
+  message: (node) ->
+    new Message(node)
+
+  short_dialog: (node) ->
+    new ShortDialog(node)
+
+  full_dialog: (node) ->
+    new FullDialog(node)
+
+  user_rate: (node) ->
+    if node.attributes['data-extended'].value == 'true'
+      new UserRateExtended(node)
+    else
+      new UserRateButton(node)
