@@ -20,9 +20,12 @@ header.head.misc
     .clear
 
   .searchable-collection
-    = render partial: 'users/user',
-      collection: @collection,
-      locals: { content_by: :detailed }
+    - if @collection.any?
+      = render partial: 'users/user',
+        collection: @collection,
+        locals: { content_by: :detailed }
+    - else
+      .b-nothing_here = t 'nothing_found'
 
     - if @collection.next_page?
       = render 'blocks/postloader', filter: 'b-user',
