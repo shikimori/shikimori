@@ -3,7 +3,6 @@ import 'babel-polyfill';
 import sugar from 'vendor/sugar';
 import $ from 'jquery'; // eslint-disable-line import/newline-after-import
 
-
 window.$ = $;
 window.jQuery = window.$;
 sugar.extend();
@@ -31,14 +30,8 @@ import 'codemirror/addon/dialog/dialog.css';
 import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/search/matchesonscrollbar.css';
 
-
 import bowser from 'bowser';
 import { throttle, debounce } from 'throttle-debounce';
-
-require('i18n/translations');
-
-const requireHelpers = require.context('helpers', true);
-requireHelpers.keys().forEach(requireHelpers);
 
 const requireJqueryPlugins = require.context('jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
@@ -63,6 +56,12 @@ import CommentsNotifier from 'services/comments_notifier';
 
 import { isMobile } from 'helpers/mobile_detect';
 import bindings from 'helpers/bindings';
+
+import 'helpers/using'; // TODO: get rid of this helper
+import 'helpers/p';
+import 'helpers/events';
+
+import 'i18n/translations';
 
 $(document).on(Object.keys(bindings).join(' '), e => {
   bindings[e.type].forEach(group => {

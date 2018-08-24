@@ -5,6 +5,7 @@ import Turbolinks from 'turbolinks'
 import ajaxCacher from 'services/ajax_cacher'
 import flash from 'services/flash'
 import DynamicParser from 'dynamic_elements/_parser'
+import inNewTab from 'helpers/in_new_tab'
 
 export default class PaginatedCatalog
   constructor: (base_catalog_path) ->
@@ -61,7 +62,7 @@ export default class PaginatedCatalog
 
   # клик по ссылке пагинации
   _link_click: (e) ->
-    return if in_new_tab(e)
+    return if inNewTab(e)
     $link = $(e.target)
 
     if $link.hasClass 'disabled'

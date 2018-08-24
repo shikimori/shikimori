@@ -1,6 +1,7 @@
 import delay from 'delay';
 
 import View from 'views/application/view';
+import inNewTab from 'helpers/in_new_tab';
 
 const VOTE_LEFT = 'left';
 const VOTE_RIGHT = 'right';
@@ -71,7 +72,7 @@ export default class ContestMatch extends View {
   }
 
   _voteClick(e) {
-    if (in_new_tab(e)) { return; }
+    if (inNewTab(e)) { return; }
 
     e.preventDefault();
     e.stopImmediatePropagation();

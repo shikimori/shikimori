@@ -1,3 +1,4 @@
+import inNewTab from 'helpers/in_new_tab';
 import flash from 'services/flash';
 
 /* eslint-disable */
@@ -197,7 +198,7 @@ jQuery($ => {
   });
 
   $('a[data-remote],input[data-remote],span[data-remote],div[data-remote],li[data-remote],button[data-remote],tr[data-remote]').live('click', function (e) {
-    if ('in_new_tab' in window && in_new_tab(e)) {
+    if (inNewTab(e)) {
       return;
     }
     // когда кликаем на ссылку без data-remote внутри элемента с data-remote,

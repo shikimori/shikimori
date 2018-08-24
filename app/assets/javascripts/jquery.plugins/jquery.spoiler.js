@@ -1,4 +1,4 @@
-import CuttedCovers from 'dynamic_elements/cutted_covers'
+import CuttedCovers from 'dynamic_elements/cutted_covers';
 
 $.fn.extend({
   spoiler() {

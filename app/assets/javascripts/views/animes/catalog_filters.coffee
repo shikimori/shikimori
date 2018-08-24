@@ -1,4 +1,6 @@
 # TODO: refactor to normal classes
+inNewTab = require('helpers/in_new_tab').default
+
 DEFAULT_ORDER = 'ranked'
 DEFAULT_DATA =
   kind: []
@@ -75,7 +77,7 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
 
   # клики по меню
   $('.anime-params', $root).on 'click', 'li', (e) ->
-    return if in_new_tab(e) # игнор средней кнопки мыши
+    return if inNewTab(e) # игнор средней кнопки мыши
     return if e.target.classList.contains('b-question') # игнор при клике на инфо блок
     #return if $(e.target).hasClass('filter') # игнор при клике на фильтр
 

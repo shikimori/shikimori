@@ -2,6 +2,7 @@ import delay from 'delay';
 import Turbolinks from 'turbolinks';
 
 import ajaxCacher from 'services/ajax_cacher';
+import inNewTab from 'helpers/in_new_tab';
 
 page_load('recommendations_index', 'recommendations_favourites', async () => {
   // если страница ещё не готова, перегрузимся через 5 секунд
@@ -44,7 +45,7 @@ page_load('recommendations_index', 'recommendations_favourites', async () => {
   });
 
   $('body').on('click', '.entry-ignored', e => {
-    if (!in_new_tab(e)) {
+    if (!inNewTab(e)) {
       return false;
     }
   });
