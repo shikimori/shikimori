@@ -7325,23 +7325,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :nanatsu_no_taizai
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592707.jpg
-    :border_color: 
-    :title_ru: Семь смертных грехов
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: nanatsu_no_taizai
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :umineko_no_naku_koro_ni
     :level: 1
     :image: http://i.imgur.com/v7pjFJ7.png
@@ -7356,6 +7339,23 @@
       :filters:
         franchise: umineko_no_naku_koro_ni
       :threshold: 97%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :nanatsu_no_taizai
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/592707.jpg
+    :border_color: 
+    :title_ru: Семь смертных грехов
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: nanatsu_no_taizai
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8929,23 +8929,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :gatchaman
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
-    :border_color: 
-    :title_ru: Гатчамен
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: gatchaman
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :candy_candy
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/593346.jpg
@@ -9051,6 +9034,23 @@
       :filters:
         franchise: selector_spread_wixoss
       :threshold: 97%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :gatchaman
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
+    :border_color: 
+    :title_ru: Гатчамен
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: gatchaman
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9237,23 +9237,6 @@
       :algo: duration
       :filters:
         franchise: rean_no_tsubasa
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :gall_force
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593344.jpg
-    :border_color: 
-    :title_ru: Кризис каждый день
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: gall_force
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9647,6 +9630,23 @@
       :algo: duration
       :filters:
         franchise: super_doll_licca_chan
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :gall_force
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/648613.jpg
+    :border_color: 
+    :title_ru: Девичья сила
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: gall_force
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10110,6 +10110,51 @@
         genre_ids:
         - 19
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :world_masterpiece_theater
+    :level: 1
+    :image: "/assets/achievements/anime/world_masterpiece_theater_1.jpg"
+    :border_color: "#00776B"
+    :title_ru: Театр Мировых Шедевров
+    :text_ru: |-
+      Классика западной литературы глазами Востока.
+      Встретиться с любимой книгой дважды – в бумаге и на экране.
+    :title_en: 
+    :text_en: 
+    :topic_id: 248176
+    :rule:
+      :algo: count
+      :threshold: 70%
+      :filters:
+        anime_ids:
+        - 2553
+        - 1663
+        - 2576
+        - 2549
+        - 283
+        - 2577
+        - 2544
+        - 2573
+        - 2546
+        - 3162
+        - 2547
+        - 2554
+        - 2548
+        - 2555
+        - 1638
+        - 1375
+        - 2557
+        - 2913
+        - 2558
+        - 3199
+        - 2559
+        - 3425
+        - 2829
+        - 1695
+        - 3424
+        - 5494
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/world_masterpiece_theater.yml
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :comedy
