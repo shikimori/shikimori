@@ -56,7 +56,7 @@ export default class ContestRound extends View {
 
   nextNotVotedMatchId(matchId) {
     const nextNotVotedMatch = this.votes.find(v => (v.match_id !== matchId) && !v.vote);
-    return nextNotVotedMatch ? nextNotVotedMatch.matchId : null;
+    return nextNotVotedMatch ? nextNotVotedMatch.match_id : null;
   }
 
   // private functions
