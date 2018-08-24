@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 export default class ShikiModal extends View
   initialize: ->
     @$modal = $("<div class='b-modal'><div class='inner'></div></div>")

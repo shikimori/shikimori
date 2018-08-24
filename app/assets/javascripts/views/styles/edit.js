@@ -2,6 +2,7 @@ import { debounce } from 'throttle-debounce';
 
 import axios from 'helpers/axios';
 
+import View from 'views/application/view';
 import PageBackgroundColor from './page_background_color';
 import PageBorder from './page_border';
 import BodyBackground from './body_background';

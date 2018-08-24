@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 export default class ShikiHtml5Video extends View
   VOLUME_KEY = 'video_volume'
 

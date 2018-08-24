@@ -1,4 +1,5 @@
 import moment from 'moment'
+import View from 'views/application/view'
 
 export default class DatePicker extends View
   INPUT_FORMAT = 'YYYY-MM-DD'

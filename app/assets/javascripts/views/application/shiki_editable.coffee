@@ -1,7 +1,7 @@
 import delay from 'delay'
 import getSelectionText from 'helpers/get_selection_text'
 
-ShikiView = require('views/application/shiki_view').default
+import ShikiView from 'views/application/shiki_view'
 
 export default class ShikiEditable extends ShikiView
   BUTTONS = [

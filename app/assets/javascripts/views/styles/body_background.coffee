@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 export default class BodyBackground extends View
   REGEXP = /\/\* AUTO=body_background.*?body { background: url\((.+?)\)(.*)}.*[\r\n]?/
 

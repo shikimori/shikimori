@@ -1,3 +1,5 @@
+View = require('views/application/view').default
+
 module.exports = class FavouriteStar extends View
   ADD_CLASS = 'fav-add'
   REMOVE_CLASS = 'fav-remove'

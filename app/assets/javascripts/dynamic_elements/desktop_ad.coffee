@@ -1,4 +1,5 @@
 mobileDetect = require('helpers/mobile_detect')
+import View from 'views/application/view'
 
 using 'DynamicElements'
 class DynamicElements.DesktopAd extends View

@@ -1,10 +1,6 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * DS205: Consider reworking code to avoid use of IIFEs
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import delay from 'delay';
+
+import View from 'views/application/view';
 import { ANIME_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
 
 const NO_DATA_I18N_KEY = 'frontend.pages.p_animes.no_data';

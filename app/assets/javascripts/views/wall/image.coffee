@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 using 'Wall'
 class Wall.Image extends View
   initialize: ->

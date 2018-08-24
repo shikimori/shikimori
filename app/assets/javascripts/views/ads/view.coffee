@@ -1,4 +1,5 @@
 import delay from 'delay'
+import View from 'views/application/view'
 
 remove_ad = (ad_class) ->
   console.log "remove ad #{ad_class}"

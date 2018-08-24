@@ -1,5 +1,7 @@
 import { debounce } from 'throttle-debounce';
 
+import View from 'views/application/view';
+
 const REGEXP = /\/\* AUTO=page_background_color.*?rgba\((\d+), (\d+), (\d+), (\d+).*[\r\n]?/;
 const ZERO_OPACITY = 255;
 const DEFAULT_OPACITIES = [ZERO_OPACITY, ZERO_OPACITY, ZERO_OPACITY, 1];

@@ -1,4 +1,5 @@
 import delay from 'delay'
+import View from 'views/application/view'
 
 recalc_styles = ->
   $('#injectCSSContainer').empty()

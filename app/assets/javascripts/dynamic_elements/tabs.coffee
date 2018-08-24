@@ -1,4 +1,4 @@
-ShikiView = require('views/application/shiki_view').default
+import ShikiView from 'views/application/shiki_view'
 
 using 'DynamicElements'
 class DynamicElements.Tabs extends ShikiView

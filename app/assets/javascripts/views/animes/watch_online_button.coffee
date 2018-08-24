@@ -1,4 +1,5 @@
 import delay from 'delay'
+import View from 'views/application/view'
 
 using 'Animes'
 class Animes.WathOnlineButton extends View

@@ -1,4 +1,5 @@
 ShikiGallery = require 'views/application/shiki_gallery'
+View = require('views/application/view').default
 
 using 'Animes'
 module.exports = class Animes.Cosplay extends View

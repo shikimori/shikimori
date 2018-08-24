@@ -1,7 +1,7 @@
 import delay from 'delay'
 import autosize from 'autosize'
 
-ShikiView = require('views/application/shiki_view').default
+import ShikiView from 'views/application/shiki_view'
 mobileDetect = require('helpers/mobile_detect')
 flash = require('services/flash').default
 

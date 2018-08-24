@@ -1,5 +1,7 @@
 import delay from 'delay';
 
+import View from 'views/application/view';
+
 const VOTE_LEFT = 'left';
 const VOTE_RIGHT = 'right';
 const VOTE_ABSTAIN = 'abstain';

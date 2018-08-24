@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 using 'DynamicElements'
 class DynamicElements.TextAnnotated extends View
   initialize: ->

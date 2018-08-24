@@ -1,6 +1,8 @@
 import delay from 'delay'
 import Packery from 'packery'
 
+import View from 'views/application/view'
+
 export default class ShikiGallery extends View
   DEPLOY_INTERVAL = 50
 

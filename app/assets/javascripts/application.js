@@ -37,8 +37,6 @@ import { throttle, debounce } from 'throttle-debounce';
 
 require('i18n/translations');
 
-window.View = require('views/application/view');
-
 const requireHelpers = require.context('helpers', true);
 requireHelpers.keys().forEach(requireHelpers);
 

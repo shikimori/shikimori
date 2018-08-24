@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 # общий класс для комментария, топика, редактора
 export default class ShikiView extends View
   MAX_PREVIEW_HEIGHT: 450

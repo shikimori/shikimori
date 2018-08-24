@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 using 'DynamicElements'
 class DynamicElements.CodeHighlight extends View
   NO_HIGHLIGHT = 'nohighlight'

@@ -1,6 +1,8 @@
 import delay from 'delay'
 import imagesLoaded from 'imagesloaded'
 
+import View from 'views/application/view'
+
 using 'DynamicElements'
 class DynamicElements.Html5Video extends View
   initialize: ->

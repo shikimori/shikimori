@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 using 'DynamicElements'
 class DynamicElements.DayRegisteredAction extends View
   I18N_KEY = 'frontend.dynamic_elements.day_registered_action'

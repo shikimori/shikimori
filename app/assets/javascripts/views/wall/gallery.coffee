@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 using 'Wall'
 class Wall.Gallery extends View
   MIN_CLUSTER_WEIGHT = 2.5

@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 using 'DynamicElements'
 class DynamicElements.AuthorizedAction extends View
   @I18N_KEY = 'frontend.dynamic_elements.authorized_action'

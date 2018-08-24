@@ -1,3 +1,5 @@
+import View from 'views/application/view'
+
 export default class PageBorder extends View
   REGEXP = /\/\* AUTO=page_border.*? { display: (\w+); }.*[\r\n]?/
 

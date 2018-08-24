@@ -1,6 +1,7 @@
 import URI from 'urijs';
 import { debounce } from 'throttle-debounce';
 
+import View from 'views/application/view';
 import axios from 'helpers/axios';
 
 const PENDING_REQUEST = 'pending_request';

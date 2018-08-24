@@ -1,4 +1,5 @@
 axios = require('helpers/axios').default
+View = require('views/application/view').default
 
 using 'Polls'
 module.exports = class Polls.View extends View
