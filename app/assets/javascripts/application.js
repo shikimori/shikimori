@@ -76,7 +76,7 @@ import FayeLoader from 'services/faye_loader';
 import CommentsNotifier from 'services/comments_notifier';
 import { isMobile } from 'helpers/mobile_detect';
 
-const bindings = require('helpers/bindings');
+import bindings from 'helpers/bindings';
 
 $(document).on(Object.keys(bindings).join(' '), e => {
   bindings[e.type].forEach(group => {
