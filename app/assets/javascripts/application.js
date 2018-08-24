@@ -21,6 +21,7 @@ import 'nouislider/distribute/nouislider.css';
 import 'pikaday/scss/pikaday.scss';
 
 require('paste.js');
+require('imagesloaded');
 
 // used in views/styles/edit.coffee
 import 'codemirror/lib/codemirror.css';
@@ -30,7 +31,6 @@ import 'codemirror/addon/dialog/dialog.css';
 import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/search/matchesonscrollbar.css';
 
-require('imagesloaded');
 
 import bowser from 'bowser';
 import { throttle, debounce } from 'throttle-debounce';
