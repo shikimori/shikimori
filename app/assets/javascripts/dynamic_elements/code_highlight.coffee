@@ -1,11 +1,10 @@
 import View from 'views/application/view'
 
-using 'DynamicElements'
-class DynamicElements.CodeHighlight extends View
+export default class CodeHighlight extends View
   NO_HIGHLIGHT = 'nohighlight'
 
   initialize: ->
-    @klass = DynamicElements.CodeHighlight
+    @klass = CodeHighlight
     @klass.hljs_initialize()
 
     @highlight()

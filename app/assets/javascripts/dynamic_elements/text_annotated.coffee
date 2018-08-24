@@ -1,7 +1,6 @@
 import View from 'views/application/view'
 
-using 'DynamicElements'
-class DynamicElements.TextAnnotated extends View
+export default class TextAnnotated extends View
   initialize: ->
     texts = @$node.data('texts')
     return if Object.isEmpty(texts)

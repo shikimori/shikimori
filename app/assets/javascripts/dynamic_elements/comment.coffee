@@ -2,14 +2,12 @@ import delay from 'delay'
 
 import flash from 'services/flash'
 
-ShikiEditor = require('views/application/shiki_editor').default
-ShikiEditable = require('views/application/shiki_editable').default
+import ShikiEditor from 'views/application/shiki_editor'
+import ShikiEditable from 'views/application/shiki_editable'
 
 I18N_KEY = 'frontend.dynamic_elements.comment'
 
-using 'DynamicElements'
-class DynamicElements.Comment extends ShikiEditable
-
+export default class Comment extends ShikiEditable
   _type: -> 'comment'
   _type_label: -> I18n.t("#{I18N_KEY}.type_label")
 

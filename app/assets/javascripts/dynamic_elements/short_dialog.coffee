@@ -1,7 +1,6 @@
-#= require './topic'
+import Topic from './topic'
 
-using 'DynamicElements'
-class DynamicElements.ShortDialog extends DynamicElements.Topic
+export default class ShortDialog extends Topic
   initialize: ->
     @_check_height()
     @on 'appear', @_appear

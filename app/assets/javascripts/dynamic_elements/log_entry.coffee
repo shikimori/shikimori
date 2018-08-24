@@ -3,8 +3,7 @@ import delay from 'delay'
 
 import ShikiView from 'views/application/shiki_view'
 
-using 'DynamicElements'
-class DynamicElements.LogEntry extends ShikiView
+export default class LogEntry extends ShikiView
   initialize: ->
     @$moderation = @$ '.moderation'
 

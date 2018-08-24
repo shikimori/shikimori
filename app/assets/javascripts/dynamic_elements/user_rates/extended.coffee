@@ -1,8 +1,7 @@
 import JST from 'helpers/jst'
-import Button from './button'
+import UserRateButton from './button'
 
-using 'DynamicElements.UserRates'
-class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Button
+export default class UserRateExtended extends UserRateButton
   EXTENDED_TEMPLATE = 'user_rates/extended'
   SCORE_TEMPLATE = 'user_rates/score'
 

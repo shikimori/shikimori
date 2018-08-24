@@ -1,7 +1,6 @@
-require './topic'
+import Topic from './topic'
 
-using 'DynamicElements'
-class DynamicElements.FullDialog extends DynamicElements.Topic
+export default class FullDialog extends Topic
   # handlers
   _before_comments_clickload: ->
 

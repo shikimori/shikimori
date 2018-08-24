@@ -3,15 +3,14 @@ import View from 'views/application/view'
 
 recalc_styles = ->
   $('#injectCSSContainer').empty()
-  $(".#{DynamicElements.CuttedCovers.CLASS_NAME}").each ->
-    $(@).data(DynamicElements.CuttedCovers.CLASS_NAME).inject_css()
+  $(".#{CuttedCovers.CLASS_NAME}").each ->
+    $(@).data(CuttedCovers.CLASS_NAME).inject_css()
 
 set_hanler = ->
-  DynamicElements.CuttedCovers.GLOBAL_HANDLER = true
+  CuttedCovers.GLOBAL_HANDLER = true
   $(document).on 'resize:debounced orientationchange', recalc_styles
 
-using 'DynamicElements'
-class DynamicElements.CuttedCovers extends View
+export default class CuttedCovers extends View
   @PRIOR_ID = 0
   @RATIO =
     #entry: 229.0 / 156.0
@@ -32,14 +31,14 @@ class DynamicElements.CuttedCovers extends View
       @inject_css()
 
       @node.id = @collection_id
-      @node.classList.add(DynamicElements.CuttedCovers.CLASS_NAME)
-      @$node.data("#{DynamicElements.CuttedCovers.CLASS_NAME}": @)
+      @node.classList.add(CuttedCovers.CLASS_NAME)
+      @$node.data("#{CuttedCovers.CLASS_NAME}": @)
 
-      set_hanler() unless DynamicElements.CuttedCovers.GLOBAL_HANDLER
+      set_hanler() unless CuttedCovers.GLOBAL_HANDLER
 
   inject_css: =>
     @_fetch_poster() unless $.contains(document.documentElement, @$poster[0])
-    height = (@$poster.width() * DynamicElements.CuttedCovers.RATIO[@ratio_type]).round(2)
+    height = (@$poster.width() * CuttedCovers.RATIO[@ratio_type]).round(2)
     width = @$poster.width()
 
     if width > 0 && height > 0
@@ -50,7 +49,7 @@ class DynamicElements.CuttedCovers extends View
             'max-height': height
 
   _increment_id: ->
-    DynamicElements.CuttedCovers.PRIOR_ID = DynamicElements.CuttedCovers.PRIOR_ID + 1
+    CuttedCovers.PRIOR_ID = CuttedCovers.PRIOR_ID + 1
 
   _node_ratio: (node) ->
     @node.attributes['data-ratio_type']?.value || 'entry'

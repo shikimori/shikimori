@@ -3,8 +3,7 @@ import imagesLoaded from 'imagesloaded'
 
 import View from 'views/application/view'
 
-using 'DynamicElements'
-class DynamicElements.Html5Video extends View
+export default class Html5Video extends View
   initialize: ->
     @$node.magnificPopup
       preloader: false

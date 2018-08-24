@@ -1,7 +1,6 @@
-ShikiView = require('views/application/shiki_view').default
+import ShikiView from 'views/application/shiki_view'
 
-using 'DynamicElements'
-module.exports = class DynamicElements.Forum extends ShikiView
+export default class Forum extends ShikiView
   FAYE_EVENTS = [
     'faye:comment:marked'
     'faye:comment:created'

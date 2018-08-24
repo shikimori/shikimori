@@ -1,7 +1,6 @@
 import ShikiView from 'views/application/shiki_view'
 
-using 'DynamicElements'
-class DynamicElements.Tabs extends ShikiView
+export default class Tabs extends ShikiView
   initialize: ->
     @$tabs = @$('[data-tab]')
     @$tab_switches = @$('[data-tab-switch]')

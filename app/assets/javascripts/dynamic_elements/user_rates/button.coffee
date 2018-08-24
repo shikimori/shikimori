@@ -4,8 +4,9 @@ import UserRatesTracker from 'services/user_rates/tracker'
 import View from 'views/application/view'
 import JST from 'helpers/jst'
 
-using 'DynamicElements.UserRates'
-class DynamicElements.UserRates.Button extends View
+import AuthorizedAction from '../authorized_action'
+
+export default class UserRateButton extends View
   TEMPLATE = 'user_rates/button'
   I18N_KEY = 'activerecord.attributes.user_rate.statuses'
 
@@ -49,7 +50,7 @@ class DynamicElements.UserRates.Button extends View
     if window.SHIKI_USER.isSignedIn
       @$root.addClass 'b-ajax'
     else
-      $.info I18n.t("#{DynamicElements.AuthorizedAction.I18N_KEY}.register_to_complete_action")
+      $.info I18n.t("#{AuthorizedAction.I18N_KEY}.register_to_complete_action")
       false
 
   _ajax_complete: =>

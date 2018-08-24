@@ -1,12 +1,11 @@
 import delay from 'delay'
 
-ShikiEditable = require('views/application/shiki_editable').default
-ShikiEditor = require('views/application/shiki_editor').default
-ShikiGallery = require('views/application/shiki_gallery').default
+import ShikiEditable from 'views/application/shiki_editable'
+import ShikiEditor from 'views/application/shiki_editor'
+import ShikiGallery from 'views/application/shiki_gallery'
 
-using 'DynamicElements'
 # TODO: move code related to comments to separate class
-class DynamicElements.Topic extends ShikiEditable
+export default class Topic extends ShikiEditable
   I18N_KEY = 'frontend.dynamic_elements.topic'
   FAYE_EVENTS = [
     'faye:comment:updated'
@@ -153,7 +152,7 @@ class DynamicElements.Topic extends ShikiEditable
     @$('.b-shiki_editor').on 'click', '.hide', @_hide_editor
 
     # delegated handlers becase it is replaced on postload in
-    # inherited classes (DynamicElements.FullDialog)
+    # inherited classes (FullDialog)
     @on 'ajax:before', '.comments-loader', @_before_comments_clickload
     @on 'ajax:success', '.comments-loader', @_comments_clickloaded
     @on 'click', '.comments-loader', (e) =>
@@ -376,7 +375,7 @@ class DynamicElements.Topic extends ShikiEditable
     @$inner.find('.item-edit').addClass 'hidden' unless @model.can_edit
     @$inner.find('.item-delete').addClass 'hidden' unless @model.can_destroy
 
-  # data is used in inherited classes (DynamicElements.FullDialog)
+  # data is used in inherited classes (FullDialog)
   _update_comments_loader: (data) ->
     limit = @$comments_loader.data('limit')
     count = @$comments_loader.data('count') - limit

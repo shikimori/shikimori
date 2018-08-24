@@ -4,6 +4,7 @@ import UserRatesTracker from 'services/user_rates/tracker';
 import TopicsTracker from 'services/topics/tracker';
 import CommentsTracker from 'services/comments/tracker';
 import PollsTracker from 'services/polls/tracker';
+import DynamicParser from 'dynamic_elements/_parser';
 
 import {
   ANIME_TOOLTIP_OPTIONS,
@@ -30,7 +31,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   CommentsTracker.track(JS_EXPORTS, $root);
   PollsTracker.track(JS_EXPORTS, $root);
 
-  new DynamicElements.Parser($with('.to-process', $root));
+  new DynamicParser($with('.to-process', $root));
 
   $with('time', $root).livetime();
 

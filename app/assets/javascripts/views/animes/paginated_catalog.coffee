@@ -4,6 +4,7 @@ import Turbolinks from 'turbolinks'
 
 import ajaxCacher from 'services/ajax_cacher'
 import flash from 'services/flash'
+import DynamicParser from 'dynamic_elements/_parser'
 
 export default class PaginatedCatalog
   constructor: (base_catalog_path) ->
@@ -195,9 +196,6 @@ export default class PaginatedCatalog
         else
           flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'))
 
-  #process_ajax = (data, url, $postloader) ->
-    #(if $postloader then process_ajax_postload(data, url, $postloader) else process_ajax_response(data, url))
-
   # обработка контента, полученного от аякс-запроса
   _process_ajax_content: (data, url) =>
     document.title = "#{data.title}"
@@ -208,7 +206,7 @@ export default class PaginatedCatalog
 
     # чтобы cutted_covers сработал
     if @$content.data 'dynamic'
-      @$content.addClass(DynamicElements.Parser.PENDING_CLASS)
+      @$content.addClass(DynamicParser.PENDING_CLASS)
     @$content.html($content).process()
 
     $('.head h1').html data.title

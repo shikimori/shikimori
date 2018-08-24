@@ -40,9 +40,6 @@ require('i18n/translations');
 const requireHelpers = require.context('helpers', true);
 requireHelpers.keys().forEach(requireHelpers);
 
-const requireDynamicElements = require.context('dynamic_elements', true);
-requireDynamicElements.keys().forEach(requireDynamicElements);
-
 const requireJqueryPlugins = require.context('jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
 

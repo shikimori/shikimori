@@ -1,8 +1,7 @@
 mobileDetect = require('helpers/mobile_detect')
 import View from 'views/application/view'
 
-using 'DynamicElements'
-class DynamicElements.DesktopAd extends View
+export default class DesktopAd extends View
   initialize: ->
     provider = @$node.data 'ad_provider'
     html = @$node.data 'ad_html'
