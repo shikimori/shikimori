@@ -23,9 +23,7 @@ class UsersController < ShikimoriController
     @threshold = params[:threshold].to_i
     @klass = params[:klass] == Manga.name.downcase ? Manga : Anime
 
-    unless THRESHOLDS.include?(@threshold)
-      return redirect_to current_url(threshold: THRESHOLDS[2])
-    end
+    return redirect_to current_url(threshold: THRESHOLDS[2]) unless THRESHOLDS.include?(@threshold)
 
     og page_title: i18n_t('similar_users')
     breadcrumb i18n_i('User', :other), users_url
