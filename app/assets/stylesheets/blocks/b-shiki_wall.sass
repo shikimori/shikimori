@@ -5,12 +5,14 @@
   margin-bottom: 5px
   max-height: 320px
   position: relative
+  overflow: hidden
 
   &.unprocessed
     max-height: 160px
 
     .unprocessed img
       max-height: 160px
+      opacity: 0
 
   a
     overflow: hidden
@@ -19,6 +21,7 @@
   img
     cursor: zoom-in
     display: inline-block
+    transition: opacity 0.25s ease
 
   span.marker
     display: none
