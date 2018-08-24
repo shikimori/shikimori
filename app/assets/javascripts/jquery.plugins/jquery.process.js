@@ -1,15 +1,16 @@
 import delay from 'delay';
 
+import UserRatesTracker from 'services/user_rates/tracker';
+import TopicsTracker from 'services/topics/tracker';
+import CommentsTracker from 'services/comments/tracker';
+import PollsTracker from 'services/polls/tracker';
+
 import {
   ANIME_TOOLTIP_OPTIONS,
   COMMON_TOOLTIP_OPTIONS
 } from 'helpers/tooltip_options';
 import { isMobile, isTablet } from 'helpers/mobile_detect';
-
-import UserRatesTracker from 'services/user_rates/tracker';
-import TopicsTracker from 'services/topics/tracker';
-import CommentsTracker from 'services/comments/tracker';
-import PollsTracker from 'services/polls/tracker';
+import $with from 'helpers/with';
 
 $.fn.extend({
   process(JS_EXPORTS) {
@@ -43,9 +44,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   // стена картинок
   $with('.b-shiki_wall.unprocessed', $root)
     .removeClass('unprocessed')
-    .each(function () {
-      return new Wall.Gallery(this);
-    });
+    .each((_index, node) => new Wall.Gallery(node));
 
   // блоки, загружаемые аяксом
   $with('.postloaded[data-href]', $root).each(function () {
@@ -76,10 +75,10 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
 
       const gravity = (() => {
         switch ($tip.data('direction')) {
-          case 'top': return 's';
-          case 'bottom': return 'n';
-          case 'right': return 'w';
-          default: return 'e';
+        case 'top': return 's';
+        case 'bottom': return 'n';
+        case 'right': return 'w';
+        default: return 'e';
         }
       })();
 

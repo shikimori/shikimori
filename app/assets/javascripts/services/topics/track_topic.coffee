@@ -1,3 +1,5 @@
+$with = require('helpers/with').default
+
 module.exports = class TrackTopic
   MARK = 'not-tracked'
 

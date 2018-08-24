@@ -1,3 +1,5 @@
+$with = require('helpers/with').default
+
 module.exports = class TrackComment
   MARK = 'not-tracked'
 

@@ -1,3 +1,5 @@
+$with = require('helpers/with').default
+
 export default class TrackCatalogEntry
   MARK = 'not-tracked'
 
