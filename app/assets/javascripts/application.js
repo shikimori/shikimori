@@ -93,6 +93,7 @@ $(() => {
   window.LOCALE = $body.data('locale');
 
   window.FAYE_URL = $body.data('faye_url');
+  window.CAMO_URL = $body.data('camo_url');
   if (window.SHIKI_USER) { window.FAYE_CHANNEL = $body.data('faye'); }
 
   // if 'atatus' of window

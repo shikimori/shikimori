@@ -70,14 +70,7 @@ module.exports = class LoaderBase
     "#{@base_url}/post/index.json?page=#{@page}&limit=#{@limit}&tags=#{@tags}"
 
   _camo_url: (image_url, filename) ->
-    camo_host =
-      if ENV == 'development'
-        "#{location.host}:5566"
-      else
-        "camo.#{location.host}"
-
-    "#{location.protocol}//#{camo_host}/" +
-      "?filename=#{filename}&url=#{image_url}"
+    window.CAMO_URL + "?filename=#{filename}&url=#{image_url}"
 
   _image_url: (image_url, filename) ->
     image_url = "https:#{image_url}" if image_url.match /^\/\//
