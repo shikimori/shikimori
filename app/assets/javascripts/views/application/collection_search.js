@@ -101,7 +101,7 @@ export default class CollectionSearch extends View {
       html = JST['search/nothing_found']();
     }
 
-    this.$collection.html(html).process();
+    this.$collection.html(html).process(response.JS_EXPORTS);
   }
 
   _searchPhrase() {
