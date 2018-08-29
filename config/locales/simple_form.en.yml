@@ -59,8 +59,8 @@ en:
           clubs. If you disable this setting, you will always see standard site
           style.
         favorites_in_profile: >-
-          You may want to change it if you have custom styles in profile.
-          Default is 8.
+          Changing it will break your default profile layout.
+          <br>You may want to change it if you have custom styles in profile.
       version:
         reason: &optional Optional
       anime: &anime_hints
