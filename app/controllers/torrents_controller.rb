@@ -17,21 +17,18 @@ class TorrentsController < ShikimoriController
           TokyoToshokanParser
 
         else
-          redirect_to :back, alert: 'Неизвестный трекер'
-          return
+          return redirect_back fallback_location: anime.decorate.edit_url, alert: 'Неизвестный трекер'
       end
       added = parser.grab_page URI.decode(params[:torrent]['url']), anime.id
 
     else
       unless params[:torrent]['link'] =~ URI::regexp
-        redirect_to :back, alert: 'Link должен быть корректным URI'
-        return
+        return redirect_back fallback_location: anime.decorate.edit_url, alert: 'Link должен быть корректным URI'
       end
       begin
         params[:torrent]['pubDate'] = DateTime.parse(params[:torrent]['pubDate'])
       rescue
-        redirect_to :back, alert: 'PubDate должен быть корректной датой'
-        return
+        return redirect_back fallback_location: anime.decorate.edit_url, alert: 'PubDate должен быть корректной датой'
       end
 
       params[:torrent]['guid'] = params[:torrent]['link'].sub('page=download', 'page=torrentinfo')
@@ -42,7 +39,7 @@ class TorrentsController < ShikimoriController
       flash[:notice] = added == 1 ? "Новый торрент успешно добавлен" : "Новые торренты успешно добавлены"
       redirect_to anime.decorate.edit_url
     else
-      redirect_to :back, alert: params[:torrent]['url'] ? 'Не найдено ни одного нового эпизода' : 'Не удалось добавить новый торрент, проверьте корректность Title'
+      return redirect_back fallback_location: anime.decorate.edit_url, alert: params[:torrent]['url'] ? 'Не найдено ни одного нового эпизода' : 'Не удалось добавить новый торрент, проверьте корректность Title'
     end
   end
 end
