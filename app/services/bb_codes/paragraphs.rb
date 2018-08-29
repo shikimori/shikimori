@@ -2,7 +2,16 @@ class BbCodes::Paragraphs
   method_object :text
 
   LINE_SIZE = 110
-  PARAGRAPH_POST_TAGS = /
+
+  PARAGRAPH_PRE_BR_TAGS = /
+    (?: \r\n|\r|\n|<br> )?
+    (?<tag> \[\*\] )
+  /mix
+  PARAGRAPH_PRE_SPACE_TAGS = /
+    [ ]+
+    (?<tag> \[\*\] )
+  /mix
+  PARAGRAPH_POST_BR_TAGS = /
     (?<tag>
       \[
         (?:quote|list|spoiler)
@@ -11,10 +20,7 @@ class BbCodes::Paragraphs
       (?! \r\n|\r|\n|<br> )
     )
   /mix
-  PARAGRAPH_PRE_TAGS = /
-    (?: \r\n|\r|\n|<br>|\s )*
-    (?<tag> \[\*\] )
-  /mix
+
   PARAGRAPH_FULL_REGEXP = %r{(?<line>.+?)(?:\n|<br\s?/?>|&lt;br\s?/?&gt;|$)}x
   PARAGRAPH_MIN_REGEXP = %r{\r\n|\n|<br\s?/?>|&lt;br\s?/?&gt;}
 
@@ -27,8 +33,9 @@ private
   # препроцессинг контента, чтобы теги параграфов не разрывали содержимое тегов
   def paragraph_tags text
     text
-      .gsub(PARAGRAPH_PRE_TAGS) { "\n#{$LAST_MATCH_INFO[:tag]}" }
-      .gsub(PARAGRAPH_POST_TAGS) { "#{$LAST_MATCH_INFO[:tag]}\n" }
+      .gsub(PARAGRAPH_PRE_SPACE_TAGS) { $LAST_MATCH_INFO[:tag] }
+      .gsub(PARAGRAPH_PRE_BR_TAGS) { "\n#{$LAST_MATCH_INFO[:tag]}" }
+      .gsub(PARAGRAPH_POST_BR_TAGS) { "#{$LAST_MATCH_INFO[:tag]}\n" }
   end
 
   def replace_paragraphs text

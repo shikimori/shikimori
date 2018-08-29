@@ -25,6 +25,11 @@ describe BbCodes::Paragraphs do
       let(:text) { "[list][*]z[*]x\n[*]c[/list]" }
       it { is_expected.to eq "[list]\n[*]z\n[*]x\n[*]c[/list]" }
     end
+
+    context '\n before [*]' do
+      let(:text) { "test\n\n[*]z" }
+      it { is_expected.to eq "test\n\n[*]z" }
+    end
   end
 
   describe '[quote]' do
