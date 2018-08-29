@@ -171,9 +171,11 @@ class UserProfileDecorator < UserDecorator
 
   # добавленное пользователем в избранное
   def favourites
+    return if preferences.favorites_in_profile.zero?
+
     (fav_animes + fav_mangas + fav_ranobe + fav_characters + fav_people)
-      .shuffle # .uniq {|fav| [fav.id, fav.class] }
-      .take(8)
+      .shuffle
+      .take(preferences.favorites_in_profile)
       .sort_by do |fav|
         [fav.class.name == Manga.name ? Anime.name : fav.class.name, fav.name]
       end

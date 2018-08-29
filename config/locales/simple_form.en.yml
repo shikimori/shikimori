@@ -58,6 +58,9 @@ en:
           (change the appearance of the site) for the pages of their profile and
           clubs. If you disable this setting, you will always see standard site
           style.
+        favorites_in_profile: >-
+          You may want to change it if you have custom styles in profile.
+          Default is 8.
       version:
         reason: &optional Optional
       anime: &anime_hints

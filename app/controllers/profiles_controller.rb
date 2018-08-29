@@ -1,8 +1,6 @@
 class ProfilesController < ShikimoriController
   before_action :fetch_resource
-  before_action :set_breadcrumbs#, if: lambda {
-    # params[:action] != 'show' || params[:controller] != 'profile'
-  # }
+  before_action :set_breadcrumbs
 
   PARENT_PAGES = {
     'password' => 'account',
@@ -49,9 +47,9 @@ class ProfilesController < ShikimoriController
     og page_title: i18n_t('feed')
   end
 
-  #def stats
-    #page_title 'Статистика'
-  #end
+  # def stats
+    # page_title 'Статистика'
+  # end
 
   def reviews
     og noindex: true
@@ -170,7 +168,7 @@ class ProfilesController < ShikimoriController
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
     if params[:user][:notifications].present?
       params[:user][:notifications] =
-        params[:user][:notifications].to_unsafe_hash.sum {|k,v| v.to_i } +
+        params[:user][:notifications].to_unsafe_hash.sum { |_k, v| v.to_i } +
         MessagesController::DISABLED_CHECKED_NOTIFICATIONS
     end
 
@@ -226,7 +224,7 @@ private
       :avatar, :nickname, :name, :location, :website,
       :sex, :birth_on, :notifications, :about, :locale,
       ignored_user_ids: [],
-      preferences_attributes: [:id, :russian_names, :russian_genres],
+      preferences_attributes: %i[id russian_names russian_genres]
     )
   end
 
@@ -245,7 +243,6 @@ private
       params = update_params[:nickname].blank? ? update_params.merge(nickname: @resource.nickname) : update_params
       @resource.update params
     end
-
   rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
     @resource.errors.add :nickname, :taken
     false

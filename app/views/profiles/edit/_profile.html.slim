@@ -6,6 +6,7 @@
     = f.input :comment_policy, include_blank: false
     = f.input :anime_in_profile
     = f.input :manga_in_profile
+    = f.input :favorites_in_profile
     - unless @resource.banned_profile?
       = f.input :comments_in_profile
     = f.input :statistics_start_on,

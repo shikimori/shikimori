@@ -19,7 +19,7 @@ private
 
   def user_preferences_params
     params.require(:user_preferences).permit(
-      :anime_in_profile, :manga_in_profile,
+      :anime_in_profile, :manga_in_profile, :favorites_in_profile,
       :comments_in_profile, :statistics_start_on,
       :about_on_top, :about,
       :show_hentai_images, :show_social_buttons,

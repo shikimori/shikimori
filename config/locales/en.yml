@@ -165,6 +165,7 @@ en:
         anime_in_profile: Show Anime List in Profile
         apply_user_styles: Apply user styles
         body_width: Maximum Site Width
+        favorites_in_profile: Number of Favorites in Profile
         comment_policy: Can Comment My Profile
         comments_in_profile: Show Comments in Profile
         is_comments_auto_collapsed: Collapse Long Comments

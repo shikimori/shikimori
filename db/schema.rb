@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180726215749) do
+ActiveRecord::Schema.define(version: 2018_08_29_112051) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "pg_stat_statements"
+  enable_extension "plpgsql"
   enable_extension "unaccent"
 
   create_table "abuse_requests", id: :serial, force: :cascade do |t|
@@ -1026,6 +1026,7 @@ ActiveRecord::Schema.define(version: 20180726215749) do
     t.text "forums", default: [], null: false, array: true
     t.string "comment_policy", default: "users", null: false
     t.boolean "apply_user_styles", default: true, null: false
+    t.integer "favorites_in_profile", default: 8, null: false
     t.index ["user_id"], name: "index_profile_settings_on_user_id"
   end
 
