@@ -37,7 +37,7 @@ export default class Comment extends ShikiEditable
     @$root.one 'mouseover', @_deactivate_inaccessible_buttons
     @$('.item-mobile').one @_deactivate_inaccessible_buttons
 
-    if @$inner.hasClass('checkHeight')
+    if @$inner.hasClass('check_height')
       $images = @$body.find('img')
       if $images.exists()
         # картинки могут быть уменьшены image_normalizer'ом,
