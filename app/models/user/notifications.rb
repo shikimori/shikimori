@@ -102,7 +102,7 @@ module User::Notifications
       # Anons
       when AnimeHistoryAction::Anons
         case entry.linked.kind
-          when 'tv'
+          when 'tv', 'ona'
             self.notifications & ANONS_TV_NOTIFICATIONS != 0
 
           when 'movie'
