@@ -19,17 +19,17 @@ page_load('dashboards_show', async () => {
   });
 
   await delay(500);
-  if ('VK' in window) {
-    vkWidget();
-  }
-  getjs('//vk.com/js/api/openapi.js?146').then(vkWidget);
-
-  await delay(500);
   const $node = $('.y-sponsored');
 
   if ($node.children().length) {
     $node.addClass('block');
   }
+
+  await delay(1500);
+  if ('VK' in window) {
+    vkWidget();
+  }
+  getjs('//vk.com/js/api/openapi.js?146').then(vkWidget);
 });
 
 function alignBlocks($userNews, $generatedNews) {
