@@ -23,7 +23,16 @@ class CollectionDecorator < DbEntryDecorator
   end
 
   def size
-    links.size
+    if links.size.positive?
+      links.size
+    else
+      text.
+        scan(BbCodes::Tags::EntriesTag::REGEXP)
+        .map(&:second)
+        .flat_map { |v| v.split(',') }
+        .uniq
+        .size
+    end
   end
 
 private

@@ -112,7 +112,7 @@ class Topic < ApplicationRecord
   end
 
   # callback when comment is deleted
-  def comment_deleted _comment # rubocop:disable MethodLength
+  def comment_deleted _comment
     updated_at =
       if comments.count.positive?
         comments.first.created_at

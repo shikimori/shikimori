@@ -1,4 +1,4 @@
-#[posters animes=7054,20,50,49 colums=5]
+# [posters animes=7054,20,50,49 colums=5]
 class BbCodes::Tags::EntriesTag
   include Singleton
   include Draper::ViewHelpers
