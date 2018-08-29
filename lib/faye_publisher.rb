@@ -3,12 +3,13 @@
 class FayePublisher # rubocop:disable ClassLength
   BROADCAST_FEED = 'broadcast'
 
-  FAYE_URL = Shikimori::PROTOCOL + '://' +
-    Rails.application.secrets.faye[:host] + (
-      Rails.application.secrets.faye[:port].present? ?
-      ":#{Rails.application.secrets.faye[:port]}" :
-      ''
-    ) + Rails.application.secrets.faye[:endpoint_path]
+  def self.faye_url
+    shiki_domain = UrlGenerator.instance.shiki_domain
+    faye_host = Rails.application.secrets[:faye][:host].gsub('%DOMAIN%', shiki_domain)
+
+    Shikimori::PROTOCOL + '://' +
+      faye_host + Rails.application.secrets[:faye][:endpoint_path]
+  end
 
   def initialize actor, publisher_faye_id = nil
     @publisher_faye_id = publisher_faye_id
@@ -183,7 +184,7 @@ private
   end
 
   def faye_client
-    @faye_client ||= Faye::Client.new FAYE_URL
+    @faye_client ||= Faye::Client.new self.class.faye_url
   end
 
   def run_event_machine

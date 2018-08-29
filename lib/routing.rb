@@ -84,7 +84,7 @@ module Routing
     end
   end
 
-  def camo_url image_url # rubocop:disable MethodLength, AbcSize
+  def camo_url image_url # rubocop:disable AbcSize
     if (
         image_url.starts_with?('//', 'https://') ||
         image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2')
@@ -97,12 +97,7 @@ module Routing
 
     @camo_urls ||= {}
 
-    camo_host =
-      if Rails.env.development?
-        "#{shiki_domain}:5566"
-      else
-        "camo.#{shiki_domain}"
-      end
+    camo_host = Rails.application.secrets[:camo][:host].gsub('%DOMAIN%', shiki_domain)
 
     @camo_urls[image_url] = Shikimori::PROTOCOL + '://' +
       camo_host + Rails.application.secrets[:camo][:endpoint_path] +
