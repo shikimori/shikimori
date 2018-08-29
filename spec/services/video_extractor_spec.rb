@@ -8,7 +8,7 @@ describe VideoExtractor do
       its(:hosting) { is_expected.to eq 'youtube' }
     end
 
-    context 'vk', vcr: { cassette_name: 'video_extractor' } do
+    context 'vk', :vcr do
       let(:url) { 'http://vk.com/video98023184_165811692' }
       it { is_expected.to be_kind_of AnimeOnline::VideoData }
       its(:hosting) { is_expected.to eq 'vk' }
