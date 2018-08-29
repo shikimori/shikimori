@@ -26,7 +26,7 @@ header.head.misc
         = render 'users/user_16', user: @resource.owner
 
       = info_line i18n_i('User', :many) do
-        = @resource.access_grants.select('count(distinct(resource_owner_id)) as users')[0].users
+        = @resource.access_grants.select('count(distinct(resource_owner_id)) as users_count')[0].users_count
 
   .c-column
     - if @resource.description.value.present?

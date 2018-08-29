@@ -13,4 +13,10 @@ class OauthApplication < Doorkeeper::Application
     default_url: '/assets/globals/missing_:style_:style.png'
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
+
+  scope :with_access_grants, -> {
+    left_outer_joins(:access_grants)
+      .group(:id)
+      .select('oauth_applications.*, count(distinct(resource_owner_id)) as users_count')
+  }
 end

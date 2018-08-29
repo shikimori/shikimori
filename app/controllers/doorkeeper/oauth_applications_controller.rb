@@ -23,7 +23,9 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   CREATE_PARAMS = %i[owner_id owner_type] + UPDATE_PARAMS
 
   def index
-    @collection = OauthApplication.order(:id)
+    @collection = OauthApplication
+      .with_access_grants
+      .order('users_count desc, oauth_applications.id')
 
     if params[:user_id]
       @user = User.find params[:user_id]
