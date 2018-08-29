@@ -59,7 +59,11 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
 
     API_URL +
       "?videos=#{matches[1]}_#{matches[2]}" \
-      "&access_token=#{Rails.application.secrets.oauth[:vkontakte][:user_access_token]}" \
+      "&access_token=#{vk_access_token}" \
       "&v=#{API_VERSION}"
+  end
+
+  def vk_access_token
+    Rails.application.secrets.oauth[:vkontakte][:user_access_token]
   end
 end

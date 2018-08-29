@@ -135,6 +135,8 @@ group :beta, :production do
 end
 
 group :development do
+  gem 'dotenv-rails'
+
   gem 'spring'
   gem 'spring-watcher-listen'
 

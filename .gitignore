@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore dotenv config.
+/.env
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -36,3 +39,4 @@ spec/test_files/*
 yarn-debug.log*
 yarn-error.log
 .yarn-integrity
+
