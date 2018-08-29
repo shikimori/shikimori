@@ -34,7 +34,8 @@ export default class Topic extends ShikiEditable
     # data attribute is set in Topics.Tracker
     @model = @$root.data('model') || @_default_model()
 
-    if window.SHIKI_USER.isUserIgnored(@model.user_id) || window.SHIKI_USER.isTopicIgnored(@model.id)
+    if window.SHIKI_USER.isUserIgnored(@model.user_id) ||
+        window.SHIKI_USER.isTopicIgnored(@model.id)
       if SHOW_IGNORED_TOPICS_IN.includes document.body.id
         @_toggle_ignored true
       else
