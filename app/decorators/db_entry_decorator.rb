@@ -29,19 +29,23 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def description_ru
-    DbEntries::Description.from_value(
-      object.description_ru.present? ?
-        object.description_ru :
-        object.description_en
-    )
+    DbEntries::Description.from_value object.description_ru
+
+    # DbEntries::Description.from_value(
+    #   object.description_ru.present? ?
+    #     object.description_ru :
+    #     object.description_en
+    # )
   end
 
   def description_en
-    DbEntries::Description.from_value(
-      object.description_en.present? ?
-        object.description_en :
-        object.description_ru
-    )
+    DbEntries::Description.from_value object.description_en
+
+    # DbEntries::Description.from_value(
+    #   object.description_en.present? ?
+    #     object.description_en :
+    #     object.description_ru
+    # )
   end
 
   #----------------------------------------------------------------------------
