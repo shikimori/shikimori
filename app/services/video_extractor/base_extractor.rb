@@ -17,8 +17,11 @@ class VideoExtractor::BaseExtractor
       }
     end
 
+  USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 ' \
+    '(KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36'
+
   OPEN_URI_OPTIONS = {
-    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
+    'User-Agent' => USER_AGENT,
     ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
     allow_redirections: :all,
     read_timeout: 7
@@ -27,7 +30,7 @@ class VideoExtractor::BaseExtractor
   def url
     @parsed_url ||= @url if URI.parse @url
   rescue StandardError
-    @parsed_url ||= URI.encode @url
+    @parsed_url ||= URI.encode(@url) # rubocop:disable UriEscapeUnescape
   end
 
   def video_data_url
@@ -77,6 +80,6 @@ class VideoExtractor::BaseExtractor
   end
 
   def fetch_page
-    @fetched_page ||= open(video_data_url, OPEN_URI_OPTIONS).read
+    OpenURI.open_uri(video_data_url, OPEN_URI_OPTIONS).read
   end
 end

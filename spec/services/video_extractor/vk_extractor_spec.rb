@@ -1,4 +1,4 @@
-describe VideoExtractor::VkExtractor, vcr: { cassette_name: 'vk_extractor' } do
+describe VideoExtractor::VkExtractor, :vcr do
   let(:service) { described_class.new url }
 
   describe '#fetch' do
@@ -26,13 +26,13 @@ describe VideoExtractor::VkExtractor, vcr: { cassette_name: 'vk_extractor' } do
       end
 
       context 'params' do
-        let(:url) { 'https://vk.com/video-61933528_167061553?hash=w4ertfg' }
+        let(:url) { 'https://vk.com/video31645372_163523215?hash=w4ertfg' }
         its(:hosting) { is_expected.to eq 'vk' }
       end
     end
 
     context 'invalid_url' do
-      let(:url) { 'http://vk.com/video98023184_165811692zzz' }
+      let(:url) { 'https://vk.com/video-61933528_167061553' }
       it { is_expected.to be_nil }
     end
 

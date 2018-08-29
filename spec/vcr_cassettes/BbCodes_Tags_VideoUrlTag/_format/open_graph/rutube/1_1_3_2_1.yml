@@ -22,7 +22,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Wed, 30 May 2018 01:51:11 GMT
+      - Wed, 29 Aug 2018 16:38:44 GMT
       Content-Type:
       - application/json
       Transfer-Encoding:
@@ -32,26 +32,28 @@ http_interactions:
       Keep-Alive:
       - timeout=15
       Vary:
-      - Accept, Cookie
+      - Accept
       X-Request-Clock:
-      - '0.0390625'
+      - '0.0625'
       Allow:
       - GET, HEAD, OPTIONS
       X-Request-Time:
-      - '0.0766289234161'
+      - '0.0962841510773'
       Access-Control-Allow-Headers:
       - Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With,X-Ally,cache,X-CSRFToken
       Access-Control-Allow-Credentials:
       - 'true'
       Access-Control-Allow-Methods:
       - "*"
+      X-Frame-Options:
+      - DENY
       X-Variti-Ccr:
-      - '882516380:1'
+      - '1992588940:1'
       Set-Cookie:
-      - ipp_uid1=1527645070947; expires=Tue, 31 Dec 2030 23:59:59 GMT; path=/
-      - ipp_uid2=ja8kox6o5Y3xBpdY/OL8u4YmXI2S3R7IPB9FujA==; expires=Tue, 31 Dec 2030
+      - ipp_uid1=1535560724644; expires=Tue, 31 Dec 2030 23:59:59 GMT; path=/
+      - ipp_uid2=7ePKc26wYdkO2Gnj/oCnk8zCN53RJYPHReg77cw==; expires=Tue, 31 Dec 2030
         23:59:59 GMT; path=/
-      - rerf=AAAAAFsOA4+3UavxAwUlAg==; expires=Fri, 29-Jun-18 01:51:11 GMT; path=/
+      - rerf=AAAAAFuGzBQpM/sIAyIKAg==; expires=Fri, 28-Sep-18 16:38:44 GMT; path=/
       P3p:
       - policyref="/w3c/p3p.xml", CP="CUR ADM OUR NOR STA NID"
     body:
@@ -78,5 +80,5 @@ http_interactions:
         "is_adult": false, "is_hidden": false, "track_id": 6797624, "is_external":
         false, "pepper": null}'
     http_version: 
-  recorded_at: Wed, 30 May 2018 01:51:08 GMT
+  recorded_at: Wed, 29 Aug 2018 16:38:36 GMT
 recorded_with: VCR 4.0.0

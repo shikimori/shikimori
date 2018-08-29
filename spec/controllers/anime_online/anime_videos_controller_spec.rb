@@ -1,4 +1,4 @@
-describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_controller' } do
+describe AnimeOnline::AnimeVideosController, :vcr do
   let(:anime) { create :anime }
 
   describe '#index' do

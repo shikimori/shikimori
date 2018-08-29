@@ -1,0 +1,2 @@
+class RetryError < RuntimeError
+end

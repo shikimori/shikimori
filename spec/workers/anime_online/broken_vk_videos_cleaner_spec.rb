@@ -1,4 +1,4 @@
-describe AnimeOnline::BrokenVkVideosCleaner, vcr: { cassette_name: 'broken_vk_videos_cleaner' } do
+describe AnimeOnline::BrokenVkVideosCleaner, :vcr do
   let(:worker) { AnimeOnline::BrokenVkVideosCleaner.new }
   let(:anime) { create :anime }
   let!(:video) {}

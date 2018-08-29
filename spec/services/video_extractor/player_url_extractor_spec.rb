@@ -7,15 +7,15 @@ describe VideoExtractor::PlayerUrlExtractor do
       it { is_expected.to eq Url.new(html).without_protocol.to_s }
     end
 
-    context 'short', vcr: { cassette_name: 'url_extractor' } do
+    context 'short', :vcr do
       context 'with_dash' do
         let(:html) { 'http://vk.com/video-42313379_167267838' }
         it { is_expected.to eq '//vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded' }
       end
 
       context 'without_dash' do
-        let(:html) { 'https://vk.com/video135375095_163446262' }
-        it { is_expected.to eq '//vk.com/video_ext.php?oid=135375095&id=163446262&hash=8574b5f5752c28d4' }
+        let(:html) { 'http://vk.com/video98023184_165811692' }
+        it { is_expected.to eq '//vk.com/video_ext.php?oid=98023184&id=165811692&hash=6d9a4c5f93270892' }
       end
     end
 
@@ -164,7 +164,7 @@ describe VideoExtractor::PlayerUrlExtractor do
         it { is_expected.to eq '//rutube.ru/play/embed/3c6027aa9c4ed58a565675ce80b91412' }
       end
 
-      describe 'id converted to hash', vcr: { cassette_name: 'url_extractor' } do
+      describe 'id converted to hash', :vcr do
         let(:html) { 'http://rutube.ru/play/embed/10259595' }
         it { is_expected.to eq '//rutube.ru/play/embed/8d2ba036c95314a62ce8a0fed801c81d' }
       end

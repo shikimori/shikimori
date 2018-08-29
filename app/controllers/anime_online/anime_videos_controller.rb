@@ -38,7 +38,6 @@ class AnimeOnline::AnimeVideosController < AnimesController
   end
 
   # rubocop:disable MethodLength
-  # rubocop:disable AbcSize
   def create
     @video = AnimeVideosService.new(create_params).create(current_user)
 
@@ -77,7 +76,6 @@ class AnimeOnline::AnimeVideosController < AnimesController
       render :edit
     end
   end
-  # rubocop:enable AbcSize
   # rubocop:enable MethodLength
 
   def destroy
@@ -95,9 +93,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
     video = AnimeVideo.find params[:id]
     @user_rate = @anime.rates.find_or_initialize_by user: current_user
 
-    if @user_rate.episodes < video.episode
-      @user_rate.update! episodes: video.episode
-    end
+    @user_rate.update! episodes: video.episode if @user_rate.episodes < video.episode
     head 200
   end
 

@@ -1,3 +1,4 @@
+# worker remove from clockwork
 class AnimeOnline::BrokenVkVideosCleaner
   include Sidekiq::Worker
   sidekiq_options(
@@ -9,8 +10,9 @@ class AnimeOnline::BrokenVkVideosCleaner
     videos.find_each(batch_size: 500) do |video|
       raise 'not vk' unless video.vk?
 
-      puts "checking ##{video.id} ep #{video.episode} for "\
-        "#{video.anime.to_param}" unless Rails.env.test?
+      unless Rails.env.test?
+        puts "checking ##{video.id} ep #{video.episode} for #{video.anime.to_param}"
+      end
 
       process_broken(video) if checker.video_broken? video
       sleep 1.0 / 4

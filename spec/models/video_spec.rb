@@ -76,7 +76,7 @@ describe Video do
     end
   end
 
-  context 'vkontakte', vcr: { cassette_name: 'vk_video' } do
+  context 'vkontakte', :vcr do
     subject(:video) { build :video, url: 'http://vk.com/video98023184_165811692' }
     its(:hosting) { is_expected.to eq 'vk' }
 

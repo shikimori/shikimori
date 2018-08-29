@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.vk.com/method/video.get?access_token=USER_ACCESS_TOKEN_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&v=5.73&videos=31645372_163523215
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML,
+        like Gecko) Chrome/39.0.2171.71 Safari/537.36
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Internet Information Services
+      Date:
+      - Wed, 29 Aug 2018 16:25:05 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '588'
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - PHP/3.16479
+      Cache-Control:
+      - no-store
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJyZXNwb25zZSI6eyJjb3VudCI6MSwiaXRlbXMiOlt7ImlkIjoxNjM1MjMyMTUsIm93bmVyX2lkIjozMTY0NTM3MiwidGl0bGUiOiLQm9C10LTQuCDQlNC20L7RgNC00LbQuNGPIFwvIExhZHkgR2VvcmdpZSDRgdC10YDQuNGPIDQ1INC40LcgNDUgKCDRgNGD0YEu0YHRg9CxLikiLCJkdXJhdGlvbiI6MTQzMywiZGVzY3JpcHRpb24iOiI0NS4g0JzQvtGRINGB0LXRgNC00YbQtSDRgdC70L7QstC90L4g0LHRg9C80LXRgNCw0L3QsyFcbtCa0L7QvdC10YYuXG7QndCw0LQg0L/QtdGA0LXQstC+0LTQvtC8INC90LAg0YDRg9GB0YHQutC40LUg0YHRg9Cx0YLQuNGC0YDRiyDRgNCw0LHQvtGC0LDQu9CwINCz0YDRg9C/0L/QsDpcbmh0dHA6XC9cL3ZrLmNvbVwvbGVkaWVnZW9yZ2llXG7QodC/0LDRgdC40LHQviDQsdC+0LvRjNGI0L7QtSDQt9CwINCw0L3QuNC80LUuIiwiZGF0ZSI6MTM0OTEwOTg2NSwiY29tbWVudHMiOjE5LCJ2aWV3cyI6MjI1NiwicGhvdG9fMTMwIjoiaHR0cHM6XC9cL3BwLnVzZXJhcGkuY29tXC9jNTE4MzA3XC91NzY0NDkyOFwvdmlkZW9cL3NfZDIwNTk4MjEuanBnIiwicGhvdG9fMzIwIjoiaHR0cHM6XC9cL3BwLnVzZXJhcGkuY29tXC9jNTE4MzA3XC91NzY0NDkyOFwvdmlkZW9cL2xfMDMyMGQzMzYuanBnIiwiYWxidW1faWQiOjQ0NjMzMDk0LCJwbGF5ZXIiOiJodHRwczpcL1wvdmsuY29tXC92aWRlb19leHQucGhwP29pZD0zMTY0NTM3MiZpZD0xNjM1MjMyMTUmaGFzaD0zZmJhODQzYWFlYjJhOGFlJl9fcmVmPXZrLmFwaSZhcGlfaGFzaD0xNTM1NTU5OTA1ZWZlNjk1MTM5NGNjYzZhODAyX0dFWlRNT0JWR0laVFMiLCJjYW5fYWRkIjoxfV19fQ==
+    http_version: 
+  recorded_at: Wed, 29 Aug 2018 16:24:57 GMT
+recorded_with: VCR 4.0.0

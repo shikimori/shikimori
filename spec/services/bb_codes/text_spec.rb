@@ -63,7 +63,15 @@ describe BbCodes::Text do
 
       describe 'bad html' do
         let(:text) { '[quote][spoiler]test[/quote][/spoiler]' }
-        it { is_expected.to eq '<div class="b-quote"><div class="b-spoiler unprocessed"><label>спойлер</label><div class="content"><div class="before"></div><div class="inner">test</div></div><div class="after"></div></div></div>' }
+        it do
+          is_expected.to eq(
+            <<-HTML.squish
+              <div class="b-quote"><div class="b-spoiler unprocessed"><label>спойлер</label><div
+                class="content"><div class="before"></div><div class="inner">test</div></div><div
+                class="after"></div></div></div>
+            HTML
+          )
+        end
       end
     end
 
@@ -72,12 +80,12 @@ describe BbCodes::Text do
       it { is_expected.to eq '<div class="b-shiki_wall unprocessed"></div>' }
     end
 
-    describe '[vkontakte]', vcr: { cassette_name: 'bb_code_formatter' } do
+    describe '[vkontakte]', :vcr do
       let(:text) { 'http://vk.com/video98023184_165811692' }
       it { is_expected.to include '<div class="c-video b-video unprocessed vk' }
     end
 
-    describe '[youtube]', vcr: { cassette_name: 'bb_code_formatter' } do
+    describe '[youtube]', :vcr do
       context 'direct link' do
         let(:text) { 'https://www.youtube.com/watch?v=og2a5lngYeQ' }
         it { is_expected.to include '<div class="c-video b-video unprocessed youtube' }
