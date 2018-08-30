@@ -13,7 +13,7 @@ class Api::V1::TopicsController < Api::V1Controller
     @topics = Topics::Query.fetch(current_user, locale_from_host)
       .by_forum(@forum, current_user, censored_forbidden?)
       .includes(:forum, :user)
-      .offset(@limit * (@page-1))
+      .offset(@limit * (@page - 1))
       .limit(@limit + 1)
       .as_views(true, false)
 
