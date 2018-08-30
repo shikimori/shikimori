@@ -55,8 +55,9 @@ $.fn.extend
           patterns: video_hostings($link)
 
 
-      if $root.hasClass('youtube')
+      if $root.hasClass('youtube') || $root.hasClass('vk')
+
         $poster = $root.find('img')
         $poster.imagesLoaded (a,b,c) ->
           if ($poster.width() * 1.0 / $poster.height()).round(2) == 1.34
-            $root.addClass 'youtube-broken'
+            $root.addClass 'shortened'
