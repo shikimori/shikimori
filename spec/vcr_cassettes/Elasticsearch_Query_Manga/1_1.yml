@@ -52,7 +52,7 @@ http_interactions:
       Warning:
       - '299 Elasticsearch-6.2.4-ccec39f "Deprecated big difference between max_gram
         and min_gram in NGram Tokenizer,expected difference must be less than or equal
-        to: [1]" "Thu, 09 Aug 2018 01:18:24 GMT"'
+        to: [1]" "Thu, 30 Aug 2018 08:57:32 GMT"'
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -114,10 +114,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '198'
+      - '200'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -172,10 +172,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '200'
+      - '198'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_mangas","_type":"manga","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -201,11 +201,11 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '282'
+      - '281'
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJ0b29rIjoxLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjEzLjE0MTgwOSwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfbWFuZ2FzIiwiX3R5cGUiOiJtYW5nYSIsIl9pZCI6IjEiLCJfc2NvcmUiOjEzLjE0MTgwOSwiX3NvdXJjZSI6eyJuYW1lIjoidGVzdCIsInJ1c3NpYW4iOiLQsNCwIiwiZW5nbGlzaCI6bnVsbCwiamFwYW5lc2UiOm51bGwsInN5bm9ueW1zXzAiOm51bGwsInN5bm9ueW1zXzEiOm51bGwsInN5bm9ueW1zXzIiOm51bGwsInN5bm9ueW1zXzMiOm51bGwsInN5bm9ueW1zXzQiOm51bGwsInN5bm9ueW1zXzUiOm51bGwsIndlaWdodCI6MS4zMDF9fSx7Il9pbmRleCI6InNoaWtpbW9yaV90ZXN0X21hbmdhcyIsIl90eXBlIjoibWFuZ2EiLCJfaWQiOiIyIiwiX3Njb3JlIjoyLjU4MTQyNjYsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QgenhjdCIsInJ1c3NpYW4iOiLQsNCwIiwiZW5nbGlzaCI6bnVsbCwiamFwYW5lc2UiOm51bGwsInN5bm9ueW1zXzAiOm51bGwsInN5bm9ueW1zXzEiOm51bGwsInN5bm9ueW1zXzIiOm51bGwsInN5bm9ueW1zXzMiOm51bGwsInN5bm9ueW1zXzQiOm51bGwsInN5bm9ueW1zXzUiOm51bGwsIndlaWdodCI6MS4zMDF9fV19fQ==
+        eyJ0b29rIjowLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjEzLjE0MTgwOSwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfbWFuZ2FzIiwiX3R5cGUiOiJtYW5nYSIsIl9pZCI6IjEiLCJfc2NvcmUiOjEzLjE0MTgwOSwiX3NvdXJjZSI6eyJuYW1lIjoidGVzdCIsInJ1c3NpYW4iOiLQsNCwIiwiZW5nbGlzaCI6bnVsbCwiamFwYW5lc2UiOm51bGwsInN5bm9ueW1zXzAiOm51bGwsInN5bm9ueW1zXzEiOm51bGwsInN5bm9ueW1zXzIiOm51bGwsInN5bm9ueW1zXzMiOm51bGwsInN5bm9ueW1zXzQiOm51bGwsInN5bm9ueW1zXzUiOm51bGwsIndlaWdodCI6MS4zMDF9fSx7Il9pbmRleCI6InNoaWtpbW9yaV90ZXN0X21hbmdhcyIsIl90eXBlIjoibWFuZ2EiLCJfaWQiOiIyIiwiX3Njb3JlIjoyLjU4MTQyNjYsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QgenhjdCIsInJ1c3NpYW4iOiLQsNCwIiwiZW5nbGlzaCI6bnVsbCwiamFwYW5lc2UiOm51bGwsInN5bm9ueW1zXzAiOm51bGwsInN5bm9ueW1zXzEiOm51bGwsInN5bm9ueW1zXzIiOm51bGwsInN5bm9ueW1zXzMiOm51bGwsInN5bm9ueW1zXzQiOm51bGwsInN5bm9ueW1zXzUiOm51bGwsIndlaWdodCI6MS4zMDF9fV19fQ==
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0

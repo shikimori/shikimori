@@ -10,7 +10,7 @@ class ShikimoriController < ApplicationController
     redirect_to exception.url, status: 301
   end
 
-  def fetch_resource
+  def fetch_resource # rubocop:disable AbcSize
     @resource ||= resource_klass.find(
       CopyrightedIds
         .instance
@@ -47,7 +47,6 @@ class ShikimoriController < ApplicationController
           expected_url
       )
     end
-
   rescue URI::InvalidURIError
     raise ForceRedirect, expected_url
   end
@@ -75,28 +74,26 @@ class ShikimoriController < ApplicationController
   def resource_klass
     self.class
       .name
-      .sub(/Controller$/ ,'')
+      .sub(/Controller$/, '')
       .sub(/.*:/, '')
       .singularize
       .constantize
   end
 
-  # TODO: выпилить
-  # пагинация датасорса
-  # задаёт переменные класса @page, @limit, @add_postloader
+  # TODO: delete
   def postload_paginate page, limit
     @page = (page || 1).to_i
     @limit = limit.to_i
 
     ds = yield
 
-    entries = ds.offset(@limit * (@page-1)).limit(@limit + 1).to_a
+    entries = ds.offset(@limit * (@page - 1)).limit(@limit + 1).to_a
     @add_postloader = entries.size > @limit
 
     @add_postloader ? entries.take(limit) : entries
   end
 
-  # TODO: выпилить
+  # TODO: delete
   def check_post_permission
     return unless user_signed_in?
     unless current_user.can_post?

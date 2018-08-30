@@ -108,7 +108,6 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 private
 
   # TODO: remove 'offtopic' and 'review' after 01.09.2016
-  # rubocop:disable MethodLength
   def comment_params
     comment_params = params
       .require(:comment)
@@ -127,7 +126,6 @@ private
 
     comment_params.except(:review, :offtopic)
   end
-  # rubocop:enable MethodLength
 
   def create_params
     comment_params.merge(user: current_user)

@@ -52,7 +52,7 @@ http_interactions:
       Warning:
       - '299 Elasticsearch-6.2.4-ccec39f "Deprecated big difference between max_gram
         and min_gram in NGram Tokenizer,expected difference must be less than or equal
-        to: [1]" "Thu, 09 Aug 2018 01:19:31 GMT"'
+        to: [1]" "Thu, 30 Aug 2018 08:57:32 GMT"'
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -114,10 +114,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '199'
+      - '198'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -205,7 +205,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJ0b29rIjoxLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjkuMTE5NzQ0LCJoaXRzIjpbeyJfaW5kZXgiOiJzaGlraW1vcmlfdGVzdF9hbmltZXMiLCJfdHlwZSI6ImFuaW1lIiwiX2lkIjoiMiIsIl9zY29yZSI6OS4xMTk3NDQsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QiLCJydXNzaWFuIjoi0LDQsCIsImVuZ2xpc2giOm51bGwsImphcGFuZXNlIjpudWxsLCJzeW5vbnltc18wIjpudWxsLCJzeW5vbnltc18xIjpudWxsLCJzeW5vbnltc18yIjpudWxsLCJzeW5vbnltc18zIjpudWxsLCJzeW5vbnltc180IjpudWxsLCJzeW5vbnltc181IjpudWxsLCJ3ZWlnaHQiOjEuMn19LHsiX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfYW5pbWVzIiwiX3R5cGUiOiJhbmltZSIsIl9pZCI6IjEiLCJfc2NvcmUiOjkuMTE5NzQ0LCJfc291cmNlIjp7Im5hbWUiOiJ0ZXN0IiwicnVzc2lhbiI6ItCw0LAiLCJlbmdsaXNoIjpudWxsLCJqYXBhbmVzZSI6bnVsbCwic3lub255bXNfMCI6bnVsbCwic3lub255bXNfMSI6bnVsbCwic3lub255bXNfMiI6bnVsbCwic3lub255bXNfMyI6bnVsbCwic3lub255bXNfNCI6bnVsbCwic3lub255bXNfNSI6bnVsbCwid2VpZ2h0IjoxLjJ9fV19fQ==
+        eyJ0b29rIjo5LCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoyLCJtYXhfc2NvcmUiOjkuMTE5NzQ0LCJoaXRzIjpbeyJfaW5kZXgiOiJzaGlraW1vcmlfdGVzdF9hbmltZXMiLCJfdHlwZSI6ImFuaW1lIiwiX2lkIjoiMiIsIl9zY29yZSI6OS4xMTk3NDQsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QiLCJydXNzaWFuIjoi0LDQsCIsImVuZ2xpc2giOm51bGwsImphcGFuZXNlIjpudWxsLCJzeW5vbnltc18wIjpudWxsLCJzeW5vbnltc18xIjpudWxsLCJzeW5vbnltc18yIjpudWxsLCJzeW5vbnltc18zIjpudWxsLCJzeW5vbnltc180IjpudWxsLCJzeW5vbnltc181IjpudWxsLCJ3ZWlnaHQiOjEuMn19LHsiX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfYW5pbWVzIiwiX3R5cGUiOiJhbmltZSIsIl9pZCI6IjEiLCJfc2NvcmUiOjkuMTE5NzQ0LCJfc291cmNlIjp7Im5hbWUiOiJ0ZXN0IiwicnVzc2lhbiI6ItCw0LAiLCJlbmdsaXNoIjpudWxsLCJqYXBhbmVzZSI6bnVsbCwic3lub255bXNfMCI6bnVsbCwic3lub255bXNfMSI6bnVsbCwic3lub255bXNfMiI6bnVsbCwic3lub255bXNfMyI6bnVsbCwic3lub255bXNfNCI6bnVsbCwic3lub255bXNfNSI6bnVsbCwid2VpZ2h0IjoxLjJ9fV19fQ==
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0

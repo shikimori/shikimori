@@ -13,7 +13,7 @@ describe VideosController do
     let(:video_params) { { url: url, kind: kind, name: name } }
 
     describe 'post request' do
-      before { post :create, params: { anime_id: anime.id, video: video_params } }
+      subject! { post :create, params: { anime_id: anime.id, video: video_params } }
       it do
         expect(assigns :video).to be_uploaded
         expect(assigns :video).to have_attributes(
@@ -38,7 +38,7 @@ describe VideosController do
       let(:anime_id) { anime.id }
       let!(:video) {}
 
-      before do
+      subject! do
         post :create,
           params: { anime_id: anime_id, video: video_params },
           xhr: true
@@ -84,8 +84,8 @@ describe VideosController do
       end
 
       context 'already uploaded video' do
-        let!(:video) { create :video, video_params }
-        before do
+        let!(:video) { create :video, video_params.merge(anime: anime) }
+        subject! do
           post :create,
             params: { anime_id: anime.id, video: video_params },
             xhr: true
@@ -104,7 +104,7 @@ describe VideosController do
 
   describe '#destroy' do
     let(:video) { create :video, :confirmed }
-    before { post :destroy, params: { anime_id: anime.id, id: video.id } }
+    subject! { post :destroy, params: { anime_id: anime.id, id: video.id } }
 
     it do
       expect(assigns :version).to be_persisted

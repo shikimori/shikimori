@@ -21,13 +21,11 @@ class TopicsController < ShikimoriController
     if params[:linked_id]
       # редирект на топик, если топик в подфоруме единственный
       if @forums_view.topic_views.one?
-        ensure_redirect! UrlGenerator.instance
-          .topic_url(@forums_view.topic_views.first.topic)
+        ensure_redirect! UrlGenerator.instance.topic_url(@forums_view.topic_views.first.topic)
       end
 
       # редирект, исправляющий linked
-      ensure_redirect! UrlGenerator.instance
-        .forum_url(@forums_view.forum, @forums_view.linked)
+      ensure_redirect! UrlGenerator.instance.forum_url(@forums_view.forum, @forums_view.linked)
 
       raise ForceRedirect, @forums_view.current_page_url if @forums_view.linked.is_a?(Club)
     end

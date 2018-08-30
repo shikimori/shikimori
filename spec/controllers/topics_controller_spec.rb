@@ -1,19 +1,15 @@
 describe TopicsController do
-  let(:user) { create :user, :user, :week_registered }
   let(:anime) { create :anime }
-
   let!(:topic) { create :topic, forum: animanga_forum, user: user }
 
   before { Topic.antispam = false }
 
   describe '#index' do
-    let!(:anime_topic_1) do
-      create :topic, forum: animanga_forum, user: user, linked: anime
-    end
-    let!(:offtopic_topic_1) { create :topic, forum: offtopic_forum, user: user }
+    let!(:anime_topic_1) { create :topic, forum: animanga_forum, linked: anime }
+    let!(:offtopic_topic_1) { create :topic, forum: offtopic_forum }
 
     context 'no forum' do
-      before { get :index }
+      subject! { get :index }
 
       it do
         # F**K: in fact 10 items: 4 topics + 7 sticky topics but it's
@@ -24,7 +20,7 @@ describe TopicsController do
     end
 
     context 'offtopic' do
-      before { get :index, params: { forum: offtopic_forum.permalink } }
+      subject! { get :index, params: { forum: offtopic_forum.permalink } }
 
       # offtopic_topic_1 + 7 seeded offtopic topics
       # (offtopic topic itself + 6 offtopic sticky topics)
@@ -35,9 +31,9 @@ describe TopicsController do
     end
 
     context 'forum' do
-      before { get :index, params: { forum: animanga_forum.to_param } }
-
       context 'no linked' do
+        subject! { get :index, params: { forum: animanga_forum.to_param } }
+
         it do
           expect(assigns(:forums_view).topic_views).to have(2).items
           expect(response).to have_http_status :success
@@ -45,10 +41,8 @@ describe TopicsController do
       end
 
       context 'with linked' do
-        let!(:anime_topic_2) do
-          create :topic, forum: animanga_forum, user: user, linked: anime
-        end
-        before do
+        let!(:anime_topic_2) { create :topic, forum: animanga_forum, linked: anime }
+        subject! do
           get :index,
             params: {
               forum: animanga_forum.to_param,
@@ -78,7 +72,7 @@ describe TopicsController do
 
     context 'subforum' do
       context 'one topic' do
-        before do
+        subject! do
           get :index,
             params: {
               forum: animanga_forum.to_param,
@@ -94,10 +88,8 @@ describe TopicsController do
       end
 
       context 'multiple topic views' do
-        let!(:anime_topic_2) do
-          create :topic, forum: animanga_forum, user: user, linked: anime
-        end
-        before do
+        let!(:anime_topic_2) { create :topic, forum: animanga_forum, linked: anime }
+        subject! do
           get :index,
             params: {
               forum: animanga_forum.to_param,
@@ -112,7 +104,7 @@ describe TopicsController do
       end
 
       context 'club linked' do
-        before do
+        subject! do
           get :index,
             params: {
               forum: animanga_forum.to_param,
@@ -126,11 +118,9 @@ describe TopicsController do
   end
 
   describe '#show' do
-    let(:anime_topic) do
-      create :topic, forum: animanga_forum, user: user, linked: anime
-    end
+    let(:anime_topic) { create :topic, forum: animanga_forum, linked: anime }
     context 'no linked' do
-      before do
+      subject! do
         get :show,
           params: {
             id: topic.to_param,
@@ -141,7 +131,7 @@ describe TopicsController do
     end
 
     context 'wrong to_param' do
-      before do
+      subject! do
         get :show,
           params: {
             id: topic.to_param[0..-2],
@@ -154,7 +144,13 @@ describe TopicsController do
     end
 
     context 'missing linked' do
-      before { get :show, params: { id: anime_topic.to_param, forum: animanga_forum.to_param } }
+      subject! do
+        get :show,
+          params: {
+            id: anime_topic.to_param,
+            forum: animanga_forum.to_param
+          }
+      end
       it do
         expect(response)
           .to redirect_to UrlGenerator.instance.topic_url(anime_topic)
@@ -162,7 +158,7 @@ describe TopicsController do
     end
 
     context 'wrong linked' do
-      before do
+      subject! do
         get :show,
           params: {
             id: anime_topic.to_param,
@@ -178,7 +174,7 @@ describe TopicsController do
     end
 
     context 'with linked' do
-      before do
+      subject! do
         get :show,
           params: {
             id: anime_topic.to_param,
@@ -212,8 +208,8 @@ describe TopicsController do
     end
 
     context 'authenticated' do
-      before { sign_in user }
-      before { make_request }
+      include_context :authenticated, :user, :week_registered
+      subject! { make_request }
 
       it { expect(response).to have_http_status :success }
     end
@@ -227,8 +223,8 @@ describe TopicsController do
     end
 
     context 'authenticated' do
-      before { sign_in user }
-      before { get :edit, params: { id: topic.to_param } }
+      include_context :authenticated, :user, :week_registered
+      subject! { get :edit, params: { id: topic.to_param } }
 
       context 'allowed edit url' do
         it { expect(response).to have_http_status :success }
@@ -268,10 +264,10 @@ describe TopicsController do
     end
 
     context 'authenticated' do
-      before { sign_in user }
+      include_context :authenticated, :user, :week_registered
 
       context 'valid params' do
-        before do
+        subject! do
           post :create,
             params: {
               forum: animanga_forum.to_param,
@@ -295,7 +291,7 @@ describe TopicsController do
             title: ''
           }
         end
-        before do
+        subject! do
           post :create,
             params: {
               forum: animanga_forum.to_param,
@@ -337,7 +333,7 @@ describe TopicsController do
     end
 
     context 'authenticated' do
-      before { sign_in user }
+      include_context :authenticated, :user, :week_registered
 
       context 'valid params' do
         include_context :timecop
@@ -360,7 +356,7 @@ describe TopicsController do
 
       context 'invalid params' do
         let(:params) { { user_id: user.id, title: '' } }
-        before { post :update, params: { id: topic.id, topic: params } }
+        subject! { post :update, params: { id: topic.id, topic: params } }
 
         it do
           expect(resource).to_not be_valid
@@ -379,8 +375,8 @@ describe TopicsController do
     end
 
     context 'authenticated' do
-      before { sign_in user }
-      before { post :destroy, params: { id: topic.id } }
+      include_context :authenticated, :user, :week_registered
+      subject! { post :destroy, params: { id: topic.id } }
 
       it do
         expect(response.content_type).to eq 'application/json'
@@ -396,7 +392,7 @@ describe TopicsController do
 
   describe '#chosen' do
     let!(:offtopic_topic_1) { create :topic, forum: offtopic_forum, user: user }
-    before do
+    subject! do
       get :chosen,
         params: {
           ids: [topic.to_param, offtopic_topic_1.to_param].join(',')
@@ -407,7 +403,7 @@ describe TopicsController do
   end
 
   describe '#reload' do
-    before do
+    subject! do
       get :reload,
         params: { id: topic.to_param, is_preview: 'true' },
         format: :json

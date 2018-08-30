@@ -1,7 +1,6 @@
 describe Clubs::ClubTopicsController do
-  before { sign_in user }
+  include_context :authenticated, :user, :week_registered
 
-  let(:user) { create :user, :user, :week_registered }
   let(:club) { create :club, owner: user }
   let!(:club_role) { create :club_role, club: club, user: user }
   let(:topic) { create :club_user_topic, linked: club }

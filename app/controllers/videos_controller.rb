@@ -2,7 +2,7 @@ class VideosController < ShikimoriController
   before_action :authenticate_user!
   before_action :fetch_anime
 
-  def create
+  def create # rubocop:disable MethodLength
     @video, @version = versioneer.upload video_params, current_user
 
     if request.xhr?

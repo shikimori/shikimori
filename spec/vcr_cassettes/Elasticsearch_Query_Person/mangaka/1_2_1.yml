@@ -52,7 +52,7 @@ http_interactions:
       Warning:
       - '299 Elasticsearch-6.2.4-ccec39f "Deprecated big difference between max_gram
         and min_gram in NGram Tokenizer,expected difference must be less than or equal
-        to: [1]" "Thu, 09 Aug 2018 01:18:31 GMT"'
+        to: [1]" "Thu, 30 Aug 2018 08:57:33 GMT"'
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -114,10 +114,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '200'
+      - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":11,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -172,10 +172,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '199'
+      - '201'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":57,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -201,11 +201,11 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '239'
+      - '237'
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJ0b29rIjoyLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoxLCJtYXhfc2NvcmUiOjExNS4zNjA1MiwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfcGVvcGxlIiwiX3R5cGUiOiJwZXJzb24iLCJfaWQiOiIxIiwiX3Njb3JlIjoxMTUuMzYwNTIsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QiLCJqYXBhbmVzZSI6bnVsbCwicnVzc2lhbiI6ItCw0LAiLCJpc19zZXl1IjpmYWxzZSwiaXNfcHJvZHVjZXIiOmZhbHNlLCJpc19tYW5nYWthIjp0cnVlfX1dfX0=
+        eyJ0b29rIjowLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoxLCJtYXhfc2NvcmUiOjExNS4zNjA1MiwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfcGVvcGxlIiwiX3R5cGUiOiJwZXJzb24iLCJfaWQiOiIxIiwiX3Njb3JlIjoxMTUuMzYwNTIsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QiLCJqYXBhbmVzZSI6bnVsbCwicnVzc2lhbiI6ItCw0LAiLCJpc19zZXl1IjpmYWxzZSwiaXNfcHJvZHVjZXIiOmZhbHNlLCJpc19tYW5nYWthIjp0cnVlfX1dfX0=
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0

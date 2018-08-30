@@ -35,15 +35,17 @@ FactoryBot.define do
 
     trait :admin do
       id User::MORR_ID
-      sequence(:nickname) { |v| "user_admin ##{v}" }
+      nickname 'user_admin'
       roles %i[admin]
     end
     trait :banhammer do
       id User::BANHAMMER_ID
+      nickname 'banhammer'
       roles %i[bot]
     end
     trait :messanger do
       id User::MESSANGER_ID
+      nickname 'messanger'
       roles %i[bot]
     end
 
@@ -67,11 +69,11 @@ FactoryBot.define do
     trait(:forever_banned) { read_only_at { 1.year.from_now + 1.week } }
 
     trait(:day_registered) do
-      sequence(:nickname) { |v| "day registered ##{v}" }
+      nickname 'day_registered'
       created_at { 25.hours.ago }
     end
     trait(:week_registered) do
-      sequence(:nickname) { |v| "week registered ##{v}" }
+      nickname 'week_registered'
       created_at { 8.days.ago }
     end
 
