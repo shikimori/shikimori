@@ -4134,6 +4134,72 @@
       "recorded": true
     }
   ],
+  "topics#updates": [
+    {
+      "verb": "GET",
+      "path": "/api/topics/updates",
+      "versions": [
+        "1.0"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id":259699,
+          "linked":{
+            "id":37140,
+            "name":"Gegege no Kitarou (2018)",
+            "russian":"Щелкунчик Китаро (2018)",
+            "image":{
+              "original":"/system/animes/original/37140.jpg?1534803393",
+              "preview":"/system/animes/preview/37140.jpg?1534803393",
+              "x96":"/system/animes/x96/37140.jpg?1534803393",
+              "x48":"/system/animes/x48/37140.jpg?1534803393"
+            },
+            "url":"/animes/37140-gegege-no-kitarou-2018",
+            "kind":"tv",
+            "status":"ongoing",
+            "episodes":0,
+            "episodes_aired":22,
+            "aired_on":"2018-04-01",
+            "released_on":null
+          },
+          "event":"episode",
+          "episode":22,
+          "created_at":"2018-08-27T01:38:22.000+03:00",
+          "url":"http://shikimori.local/forum/animanga/anime-37140-gegege-no-kitarou-2018/259699-epizod-22"
+        },
+        {
+          "id":259691,
+          "linked":{
+            "id":37517,
+            "name":"Happy Sugar Life",
+            "russian":"Сладкая жизнь",
+            "image":{
+              "original":"/system/animes/original/37517.jpg?1534835786",
+              "preview":"/system/animes/preview/37517.jpg?1534835786",
+              "x96":"/system/animes/x96/37517.jpg?1534835786",
+              "x48":"/system/animes/x48/37517.jpg?1534835786"
+            },
+            "url":"/animes/37517-happy-sugar-life",
+            "kind":"tv",
+            "status":"ongoing",
+            "episodes":12,
+            "episodes_aired":7,
+            "aired_on":"2018-07-14",
+            "released_on":null
+          },
+          "event":"episode",
+          "episode":7,
+          "created_at":"2018-08-23T03:42:01.848+03:00",
+          "url":"http://shikimori.local/forum/animanga/anime-37517-happy-sugar-life/259691-epizod-7"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "topics#show": [
     {
       "verb": "GET",

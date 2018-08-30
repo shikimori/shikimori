@@ -25,4 +25,22 @@ describe Api::V1::TopicsController, :show_in_doc do
 
     it { expect(response).to have_http_status :success }
   end
+
+  describe '#updates' do
+    let(:anime) { create :anime }
+    let!(:topic) do
+      create :topic,
+        forum: animanga_forum,
+        generated: true,
+        linked: anime,
+        action: 'episode',
+        value: '5'
+    end
+    before { get :updates, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end
