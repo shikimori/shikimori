@@ -1,8 +1,9 @@
 # TODO: refactor to view object
 class UserProfileDecorator < UserDecorator
   instance_cache :all_compatibility, :friends, :ignored?, :stats,
-    :nickname_changes, :favourites,
-    :main_comments_view, :preview_comments_view, :ignored_topics
+    :nickname_changes, :favorites,
+    :main_comments_view, :preview_comments_view, :ignored_topics,
+    :random_clubs
 
   # list of users with abusive content in profile
   # (reported by moderators or roskomnadzor)
@@ -127,8 +128,16 @@ class UserProfileDecorator < UserDecorator
   def random_clubs
     clubs_for_domain
       .sort_by { rand }
-      .take(4)
+      .take(clubs_to_display)
       .sort_by(&:name)
+  end
+
+  def friends_to_display
+    favorites ? 12 : 30
+  end
+
+  def clubs_to_display
+    favorites ? 4 : 16
   end
 
   def compatibility klass
@@ -169,9 +178,8 @@ class UserProfileDecorator < UserDecorator
     end
   end
 
-  # добавленное пользователем в избранное
-  def favourites
-    return [] if preferences.favorites_in_profile.zero?
+  def favorites # rubocop:disable AbcSize
+    return if preferences.favorites_in_profile.zero?
 
     (fav_animes + fav_mangas + fav_ranobe + fav_characters + fav_people)
       .shuffle

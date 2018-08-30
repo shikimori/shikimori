@@ -16,7 +16,10 @@ class ProfileStatsQuery
   end
 
   def activity
-    { 26 => activity_by_size(26), 34 => activity_by_size(34) }
+    {
+      26 => activity_by_size(26),
+      34 => activity_by_size(34)
+    }
   end
 
   def anime_ratings

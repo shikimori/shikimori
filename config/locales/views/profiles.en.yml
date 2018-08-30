@@ -3,7 +3,6 @@ en:
     show:
       about: About me
       activity: Activity
-      activity_graph: Activity Graph
       add_to_friends: Add to Friends
       add_to_ignored: Add to Ignored
       ban_history: Ban History
@@ -14,12 +13,15 @@ en:
       no_favourite: No favorites
       no_friends: No friends
       no_spent_time: No spent time
-      no_stat_text: Not sufficient data to display statistics
-      no_stats: No stats
       remove_from_friends: Remove from Friends
       remove_from_ignored: Remove from Ignored
       send_message: Send Message
       user_profile_settings: User Profile Settings
+
+    activity:
+      activity_graph: Activity Graph
+      no_stat_text: Not sufficient data to display statistics
+      no_stats: No stats
 
     status:
       banned: banned

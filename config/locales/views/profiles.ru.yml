@@ -3,7 +3,6 @@ ru:
     show:
       about: Обо мне
       activity: Активность
-      activity_graph: Активность на сайте
       add_to_friends: Добавить в друзья
       add_to_ignored: Добавить в игнор
       ban_history: История банов
@@ -14,12 +13,15 @@ ru:
       no_favourite: Список избранного пуст
       no_friends: Нет друзей
       no_spent_time: Нет просмотров аниме
-      no_stat_text: Недостаточно данных для формирования статистики
-      no_stats: Нет статистики
       remove_from_friends: Удалить из друзей
       remove_from_ignored: Удалить из игнора
       send_message: Написать
       user_profile_settings: Настройки профиля
+
+    activity:
+      activity_graph: Активность на сайте
+      no_stat_text: Недостаточно данных для формирования статистики
+      no_stats: Нет статистики
 
     status:
       banned: '@{f:забанена|m:забанен}'
