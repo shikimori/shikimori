@@ -21,19 +21,10 @@ header.head.ajaxable
         '
         == t '.pick_anime_to_your_liking', url: RecommendationsController::TOPIC_URL
 
-    p
-      - if @view.klass == Anime
-        == t '.get_personalized_anime_recommendations',
-          user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
-          url: recommendations_url(klass: @view.klass.name.downcase)
-      - elsif @view.klass == Manga
-        == t '.get_personalized_manga_recommendations',
-          user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
-          url: recommendations_url(klass: @view.klass.name.downcase)
-      / no personalized recommendations fo ranobe yet
-      / - else
-        == t '.get_personalized_ranobe_recommendations',
-          user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
+    - if @view.klass == Anime || @view.klass == Manga
+      p
+        == t ".get_personalized_#{@view.klass.name.downcase}_recommendations",
+          register: (t('.register', kind: t('.kind.' + @view.klass.name.downcase)) unless user_signed_in?),
           url: recommendations_url(klass: @view.klass.name.downcase)
 
 .block
