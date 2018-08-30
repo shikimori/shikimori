@@ -149,7 +149,7 @@ header.head
       .title = t '.result_title'
       = BbCodes::Text.call t('.poll_example')
 
-  - cache [:demo, :entries_posters, :v3] do
+  - cache [:demo, :entries_posters, :v4] do
     .block
       .name = t '.posters_8_columns'
       .example
@@ -236,11 +236,11 @@ header.head
     .name = t '.image'
     .example
       .title = t '.example_title'
-      .textarea == t '.image_example_1'
+      .textarea == t '.image_example_1', domain: Shikimori::DOMAIN
     .result
       .title = t '.result_title'
       br
-      = BbCodes::Text.call t('.image_example_2')
+      = BbCodes::Text.call t('.image_example_2', domain: Shikimori::DOMAIN)
     .notice == t '.image_notice'
 
   .block

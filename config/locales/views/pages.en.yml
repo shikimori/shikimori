@@ -253,25 +253,25 @@ en:
       image: Image
       image_example_1: >-
         <span>this is a small image</span>
-        [img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         <br>
-        [img w=132<span>width</span>]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img]
+        [img w=132<span>width</span>]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
         <br>
-        [img h=132<span>height</span>]http://anime.kulichki.com/css/images/10.png[/img]
+        [img h=132<span>height</span>]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
         <br>
-        [img w=132 h=132<span>width and height</span>]http://wallpaperscraft.com/image/12205/256x256.jpg[/img]
+        [img w=132 h=132<span>width and height</span>]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
         <br>
-        [img 132x132<span>width and height</span>]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img]
+        [img 132x132<span>width and height</span>]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
         <br>
         <span>this is a large image</span>
-        [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]
+        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
       image_example_2: >-
-        [img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img]
-        [img w=132]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img]
-        [img h=132]http://anime.kulichki.com/css/images/10.png[/img]
-        [img w=132 h=132]http://wallpaperscraft.com/image/12205/256x256.jpg[/img]
-        [img 132x132]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img]
-        [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img w=132]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        [img h=132]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        [img w=132 h=132]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
+        [img 132x132]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
       image_notice: >-
         If image size is not specified clickable image preview
         with default width and height will be generated automatically.
@@ -298,12 +298,12 @@ en:
         Full width image (poster) without preview
       poster_example_1: >-
         <span>external or uploaded image</span>
-        [poster]http://www.pixelstalk.net/wp-content/uploads/2015/01/Anime-Girl-Cute-HD-Wallpaper-Download.jpg[/poster]
+        [poster]https://i.imgur.com/4W858xv.jpg[/poster]
         <br>
         <span>uploaded image</span>
         [poster=10656<span>image tag id</span>]
       poster_example_2: >-
-        [poster]http://www.pixelstalk.net/wp-content/uploads/2015/01/Anime-Girl-Cute-HD-Wallpaper-Download.jpg[/poster]
+        [poster]https://i.imgur.com/4W858xv.jpg[/poster]
         [poster=10656]
 
       horizontal_line: Horizontal line

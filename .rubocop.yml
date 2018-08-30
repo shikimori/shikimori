@@ -101,6 +101,8 @@ Naming/MemoizedInstanceVariableName:
   Enabled: false
 Naming/VariableNumber:
   EnforcedStyle: snake_case
+Lint/UriEscapeUnescape:
+  Enabled: false
 
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.

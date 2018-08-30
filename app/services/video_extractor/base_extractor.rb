@@ -30,7 +30,7 @@ class VideoExtractor::BaseExtractor
   def url
     @parsed_url ||= @url if URI.parse @url
   rescue StandardError
-    @parsed_url ||= URI.encode(@url) # rubocop:disable UriEscapeUnescape
+    @parsed_url ||= URI.encode(@url)
   end
 
   def video_data_url
