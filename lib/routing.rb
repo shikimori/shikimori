@@ -4,8 +4,8 @@ module Routing
 
   SHIKIMORI_DOMAIN = /
     \A
-    (?: (?:play|#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )
-    shikimori \. (?: org|dev )
+    (?: (?:play|#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )?
+    shikimori \. (?: org|dev|local|test )
     \Z
   /mix
   FORCE_CAMO_DOMAIN = /imgur.com/i
@@ -26,7 +26,7 @@ module Routing
     end
   end
 
-  def topic_url topic, format = nil, options = {}
+  def topic_url topic, format = nil, options = {} # rubocop:disable all
     topic_type_policy = Topic::TypePolicy.new topic
 
     if topic.instance_of? NoTopic
@@ -36,7 +36,6 @@ module Routing
       profile_url topic, options.merge(subdomain: false)
 
     elsif topic_type_policy.any_club_topic?
-
       club =
         if topic_type_policy.club_page_topic?
           topic.linked.club
