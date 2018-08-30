@@ -56,8 +56,7 @@ $.fn.extend
 
 
       if $root.hasClass('youtube') || $root.hasClass('vk')
-
         $poster = $root.find('img')
-        $poster.imagesLoaded (a,b,c) ->
-          if ($poster.width() * 1.0 / $poster.height()).round(2) == 1.34
+        $poster.imagesLoaded ->
+          if ($poster[0].naturalWidth * 1.0 / $poster[0].naturalHeight).round(1) == 1.3
             $root.addClass 'shrinked'
