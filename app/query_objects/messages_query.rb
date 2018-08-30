@@ -21,7 +21,7 @@ class MessagesQuery < SimpleQueryBase
     MessageType::Banned,
     MessageType::Warned,
     MessageType::VersionAccepted,
-    MessageType::VersionRejected,
+    MessageType::VersionRejected
   ]
 
   def query
@@ -52,7 +52,7 @@ private
 
   def order_by_type
     case @messages_type
-      when :private then 'read, (case when read=true then -id else id end)'
+      when :private then Arel.sql('read, (case when read=true then -id else id end)')
       else [:read, id: :desc]
     end
   end
