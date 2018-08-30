@@ -17,7 +17,6 @@ class BbCodes::Tags::ImageTag
     \]
   /xi
 
-  # rubocop:disable MethodLength
   def format text, text_hash
     text.gsub REGEXP do |matched|
       if $LAST_MATCH_INFO[:id] == DELETED_MARKER
@@ -37,7 +36,6 @@ class BbCodes::Tags::ImageTag
       end
     end
   end
-  # rubocop:enable MethodLength
 
 private
 
@@ -67,7 +65,6 @@ private
     end
   end
 
-  # rubocop:disable MethodLength
   def large_image_html user_image:, sizes_html:, css_class:, text_hash:
     original_url = ImageUrlGenerator.instance.url user_image, :original
     preview_url = ImageUrlGenerator.instance.url(
@@ -82,9 +79,7 @@ private
     "/>\<span class=\"marker\">#{user_image.width}x#{user_image.height}</span>"\
     '</a>'
   end
-  # rubocop:enable MethodLength
 
-  # rubocop:disable AbcSize
   def sizes_html user_image, width, height
     if width.positive? && height.positive?
       ratio = 1.0 * user_image.width / user_image.height
@@ -100,5 +95,4 @@ private
       " height=\"#{height.to_i}\""
     end
   end
-  # rubocop:enable AbcSize
 end
