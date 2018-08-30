@@ -22,7 +22,6 @@ class Topics::ReviewView < Topics::UserContentView
     I18n.t 'markers.offtopic' if review.rejected?
   end
 
-  # rubocop:disable AbcSize
   def topic_title
     if preview?
       review.target.name
@@ -33,7 +32,6 @@ class Topics::ReviewView < Topics::UserContentView
       ).html_safe
     end
   end
-   # rubocop:enable AbcSize
 
   def topic_title_html
     if preview?
@@ -60,22 +58,21 @@ class Topics::ReviewView < Topics::UserContentView
   end
 
   def html_body
+    text = review.text
+
     if preview? || minified?
-      format_body
-        .gsub(/<img.*?>/, '')
+      text = text
+        .gsub(%r{\[/?center]}mix, '')
+        .gsub(%r{\[(img|poster|image).*?].*\[/\1]}, '')
+        .gsub(/\[(poster|image)=.*?]/, '')
+        .gsub(%r{\[spoiler.*?]\s*\[/spoiler]}, '')
         .strip
-        .gsub(%r{\A<center> \s* </center>}, '')
-        .html_safe
-    else
-      format_body
     end
+
+    BbCodes::EntryText.call text, review
   end
 
 private
-
-  def format_body
-    BbCodes::EntryText.call review.text, review
-  end
 
   def body
     review.text
