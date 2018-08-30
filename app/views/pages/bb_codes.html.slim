@@ -228,7 +228,7 @@ header.head
     .result
       .title = t '.result_title'
       br
-      - cache [:demo, :videos, :v2] do
+      - cache [:demo, :videos, :v3] do
         = BbCodes::Text.call t('.video_link_example')
     .notice = t '.video_link_notice'
 

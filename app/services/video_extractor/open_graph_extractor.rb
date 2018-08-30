@@ -54,7 +54,10 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
       .find(&:present?)
 
     if og_image && og_video
-      [og_image[:content], og_video[:content] || og_video[:value]]
+      [
+        og_image[:content],
+        og_video[:content] || og_video[:value]
+      ]
     end
   end
 end

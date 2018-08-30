@@ -240,11 +240,11 @@ en:
         http://vk.com/video98023184_165811692
         http://www.youtube.com/watch?v=ZuLyxWtQQzE
         http://coub.com/view/47l5m
-        https://www.twitch.tv/videos/168874638
         http://vimeo.com/85212054
-        http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2
         http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi
         http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
+      # https://www.twitch.tv/videos/168874638
+      # http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2
       video_link_notice: >-
         Video links are automatically recognized in text and
         converted into video blocks. All supported video hostings
