@@ -14,7 +14,6 @@ video_hostings = ($link) ->
   vkontakte_ru: video_hosting('vkontakte.ru', url)
   coub_com: video_hosting('coub.com', url)
   twitch_rv: video_hosting('twitch.tv', url)
-  rutube_ru: video_hosting('rutube.ru', url)
   myvi_ru: video_hosting('myvi.ru', url)
   sibnet: video_hosting('sibnet.ru', url)
   yandex_ru: video_hosting('yandex.ru', url)
@@ -23,13 +22,13 @@ video_hostings = ($link) ->
   smotret_anime: video_hosting('smotret-anime.ru', url)
   ok_ru: video_hosting('ok.ru', url)
 
-  #youtube_example:
-    #index: 'youtube.com' # String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
-    #id: 'v=' # String that splits URL in a two parts, second part should be %id%
-    # Or null - full URL will be returned
-    # Or a function that should return %id%, for example:
-    # id: function(url) { return 'parsed id'; }
-    #src: '//www.youtube.com/embed/%id%?autoplay=1' # URL that will be set as a source for iframe.
+  # youtube_example:
+  #   index: 'youtube.com' # String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
+  #   id: 'v=' # String that splits URL in a two parts, second part should be %id%
+  #   Or null - full URL will be returned
+  #   Or a function that should return %id%, for example:
+  #   id: function(url) { return 'parsed id'; }
+  #   src: '//www.youtube.com/embed/%id%?autoplay=1' # URL that will be set as a source for iframe.
 
 $.fn.extend
   shikiVideo: ->
@@ -44,10 +43,20 @@ $.fn.extend
         preloader: false
         type: 'iframe'
         iframe:
+          # HTML markup of popup, `mfp-close` will be replaced by the close button
           markup: '<div class="mfp-iframe-scaler">'+
                     '<div class="mfp-close"></div>'+
                     '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
-                  '</div>', # HTML markup of popup, `mfp-close` will be replaced by the close button
+                  '</div>'
 
-          srcAction: 'iframe_src', # Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
+          # Templating object key. First part defines CSS selector, second attribute.
+          # "iframe_src" means: find "iframe" and set attribute "src".
+          srcAction: 'iframe_src'
           patterns: video_hostings($link)
+
+
+      if $root.hasClass('youtube')
+        $poster = $root.find('img')
+        $poster.imagesLoaded (a,b,c) ->
+          if ($poster.width() * 1.0 / $poster.height()).round(2) == 1.34
+            $root.addClass 'youtube-broken'
