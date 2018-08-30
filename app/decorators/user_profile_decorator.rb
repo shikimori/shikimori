@@ -171,7 +171,7 @@ class UserProfileDecorator < UserDecorator
 
   # добавленное пользователем в избранное
   def favourites
-    return if preferences.favorites_in_profile.zero?
+    return [] if preferences.favorites_in_profile.zero?
 
     (fav_animes + fav_mangas + fav_ranobe + fav_characters + fav_people)
       .shuffle
