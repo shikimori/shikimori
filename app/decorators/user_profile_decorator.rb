@@ -133,11 +133,11 @@ class UserProfileDecorator < UserDecorator
   end
 
   def friends_to_display
-    favorites ? 12 : 30
+    12
   end
 
   def clubs_to_display
-    favorites ? 4 : 16
+    4
   end
 
   def compatibility klass
