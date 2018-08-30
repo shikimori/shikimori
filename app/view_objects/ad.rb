@@ -99,7 +99,7 @@ class Ad < ViewObjectBase
         src: '/assets/globals/events/special_1.jpg?1',
         src_2x: '/assets/globals/events/special_1@2x.jpg?1'
       }, {
-        url: 'https://kor.creagames.com/?utm_source=shikimori&utm_medium=banner',
+        url: 'https://creagames.com/games/kr?utm_source=shikimori&utm_medium=banner',
         src: '/assets/globals/events/special_2.jpg',
         src_2x: '/assets/globals/events/special_2@2x.jpg'
       }],
