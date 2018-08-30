@@ -4,8 +4,7 @@ class MangaProfileSerializer < MangaSerializer
     :description, :description_html, :description_source, :franchise,
     :favoured, :anons, :ongoing, :thread_id, :topic_id,
     :myanimelist_id,
-    :rates_scores_stats, :rates_statuses_stats,
-    :franshise
+    :rates_scores_stats, :rates_statuses_stats
 
   has_many :genres
   has_many :publishers
