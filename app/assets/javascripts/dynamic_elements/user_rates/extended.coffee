@@ -1,4 +1,5 @@
 import JST from 'helpers/jst'
+import axios from 'helpers/axios'
 import UserRateButton from './button'
 
 export default class UserRateExtended extends UserRateButton
@@ -29,9 +30,11 @@ export default class UserRateExtended extends UserRateButton
 
   _fetch_form: ->
     @_ajax_before()
-    $.get("/user_rates/#{@model.id}/edit")
-      .complete(@_ajax_complete)
-      .success(@_show_form)
+    axios
+      .get("/user_rates/#{@model.id}/edit")
+      .then (response) =>
+        @_ajax_complete()
+        @_show_form(response.data)
 
   _show_form: (html) =>
     @form_html = html

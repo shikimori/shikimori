@@ -7,15 +7,13 @@ import axios from 'helpers/axios';
 function datePicker() {
   if (!$('.date-filter').exists()) { return; }
 
-  const picker = new DatePicker('.date-filter');
-
-  picker.on('date:picked', function () {
-    const newUrl = new URI(window.location.href).setQuery('created_on', this.value).href();
-    Turbolinks.visit(newUrl);
-  });
+  new DatePicker('.date-filter')
+    .on('date:picked', function () {
+      const newUrl = new URI(window.location.href).setQuery('created_on', this.value).href();
+      Turbolinks.visit(newUrl);
+    });
 }
 
-// раскрытие информации о загрузке видео
 page_load('anime_video_reports_index', 'profiles_videos', () => {
   datePicker();
 
@@ -29,11 +27,8 @@ page_load('anime_video_reports_index', 'profiles_videos', () => {
   });
 });
 
-
-// страница модерации правок
 page_load('versions_index', 'users_index', datePicker);
 
-// страницы модерации
 page_load(
   'bans_index',
   'abuse_requests_index',
@@ -41,7 +36,6 @@ page_load(
   'review_index',
   'anime_video_reports_index',
   () => {
-    // сокращение высоты инструкции
     $('.b-brief').checkHeight({ max_height: 150 });
 
     $('.expand-all').on('click', function () {
@@ -52,7 +46,6 @@ page_load(
     });
   });
 
-// информация о пропущенных видео
 page_load('moderations_missing_videos', () => {
   $('.missing-video .show-details').one('click', async e => {
     e.preventDefault();

@@ -3,7 +3,7 @@ export default () => {
   const token = $('meta[name=csrf-token]').attr('content');
   const post = { [param]: token };
 
-  const headers = {'X-CSRF-Token': token};
+  const headers = { 'X-CSRF-Token': token };
 
   return {
     post,
