@@ -3,6 +3,7 @@ import Turbolinks from 'turbolinks';
 
 import ajaxCacher from 'services/ajax_cacher';
 import inNewTab from 'helpers/in_new_tab';
+import axios from 'helpers/axios';
 
 page_load('recommendations_index', 'recommendations_favourites', async () => {
   // если страница ещё не готова, перегрузимся через 5 секунд
@@ -15,8 +16,8 @@ page_load('recommendations_index', 'recommendations_favourites', async () => {
     }
   }
 
-  $('body').on('mouseover', '.b-catalog_entry', function () {
-    const $node = $(this);
+  $('body').on('mouseover', '.b-catalog_entry', ({ currentTarget }) => {
+    const $node = $(currentTarget);
 
     if (!window.SHIKI_USER.isSignedIn) { return; }
     if ($node.hasClass('entry-ignored')) { return; }
@@ -39,34 +40,39 @@ page_load('recommendations_index', 'recommendations_favourites', async () => {
     });
   });
 
-  $('body').on('mouseout', '.b-catalog_entry', function () {
-    const $button = $(this).data('ignore_button');
-    if ($button) { return $button.hide(); }
+  $('body').on('mouseout', '.b-catalog_entry', ({ currentTarget }) => {
+    const $button = $(currentTarget).data('ignore_button');
+    if ($button) {
+      $button.hide();
+    }
   });
 
   $('body').on('click', '.entry-ignored', e => {
     if (!inNewTab(e)) {
-      return false;
+      e.preventDefault();
     }
   });
 
-  return $('body').on('click', '.b-catalog_entry .mark-ignored', function () {
-    const $node = $(this).closest('.b-catalog_entry');
+  $('body').on('click', '.b-catalog_entry .mark-ignored', async e => {
+    e.preventDefault();
+
+    const $node = $(e.currentTarget).closest('.b-catalog_entry');
     const $link = $node.find('a').first();
 
     if ($link.attr('href').match(/(anime|manga)s\//)) {
-      const target_type = RegExp.$1;
-      const target_id = $node.prop('id');
-
-      $.post('/recommendation_ignores', { target_type, target_id }, data => {
-        const selector = data.map(v => `.entry-${v}`).join(',');
-        $(selector).addClass('entry-ignored');
-      });
+      const targetType = RegExp.$1;
+      const targetId = $node.prop('id');
 
       $node.addClass('entry-ignored');
-      $(this).hide();
+      $(e.currentTarget).hide();
       ajaxCacher.reset();
+
+      const { data } = await axios.post(
+        '/recommendation_ignores',
+        { target_type: targetType, target_id: targetId }
+      );
+      const selector = data.map(v => `.entry-${v}`).join(',');
+      $(selector).addClass('entry-ignored');
     }
-    return false;
   });
 });

@@ -1,3 +1,5 @@
+import axios from 'helpers/axios';
+
 page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $ '.b-form.edit_topic, .b-form.new_topic'
   $linked_id = $ '#topic_linked_id', $form
@@ -49,18 +51,16 @@ page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
     anime_id = linked_anime_id($linked_type, $linked_id)
     url = $attach.data('url').replace('ANIME_ID', anime_id || 0)
     form =
-      'video[anime_id]': anime_id
-      'video[url]': $('#topic_video_url', $topic_video_form).val()
-      'video[kind]': $('#topic_video_kind', $topic_video_form).val()
-      'video[name]': $('#topic_video_name', $topic_video_form).val()
+      video:
+        anime_id: anime_id
+        url: $('#topic_video_url', $topic_video_form).val()
+        kind: $('#topic_video_kind', $topic_video_form).val()
+        name: $('#topic_video_name', $topic_video_form).val()
 
     $topic_video.addClass 'b-ajax'
 
-    $.post
-      url: url
-      data: form
-      dataType: 'json'
-    .success (video_data) -> attach_video video_data, $topic_video, $wall
+    axios.post(url, form).then (data) ->
+      attach_video data.data, $topic_video, $wall
 
   # создание/редактирование топика
   $form.on 'submit', ->
