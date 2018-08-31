@@ -1,6 +1,7 @@
 #= require jquery
 #= require sugar
 #= require d3
+axios = require('helpers/axios').default
 
 $ ->
   try
@@ -110,7 +111,7 @@ class @ChronologyNode
           @_calc_rs()
 
           border_path = if to_initial
-            ""
+            ''
           else
             "M 0,0 #{w + o2},0 #{w + o2},#{h + o2} 0,#{h + o2} 0,0"
 
@@ -119,9 +120,8 @@ class @ChronologyNode
 
   _load_tooltip: ->
     $('.sticky-tooltip').addClass('b-ajax')
-    $.get(@url + '/tooltip').success (html) ->
+    axios.get(@url + '/tooltip').then (html) ->
       $('.sticky-tooltip').removeClass('b-ajax').html html
-
 
 class @ChronologyImages
   START_MARKERS = ['prequel']
