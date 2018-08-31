@@ -1,4 +1,5 @@
 import View from 'views/application/view'
+import axios from 'helpers/axios'
 
 # общий класс для комментария, топика, редактора
 export default class ShikiView extends View
@@ -27,8 +28,8 @@ export default class ShikiView extends View
 
   _reload: =>
     @_shade()
-    $.getJSON @_reload_url(), (response) =>
-      @_replace response.content, response.JS_EXPORTS
+    axios.get(@_reload_url()).then (response) =>
+      @_replace response.data.content, response.data.JS_EXPORTS
 
   # урл для перезагрузки элемента
   _reload_url: ->

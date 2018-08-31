@@ -1,5 +1,6 @@
 Base64 = require('js-base64').Base64
 LoaderBase = require './loader_base'
+axios = require('helpers/axios').default
 
 module.exports = class YandereLoader extends LoaderBase
   _initialize: ->
@@ -10,7 +11,10 @@ module.exports = class YandereLoader extends LoaderBase
   # public methods
   fetch: (callback) ->
     @is_loading = true
-    $.getJSON(@_shiki_load_url()).success(@_fetch_success).fail(@_fetch_fail)
+    axios
+      .get(@_shiki_load_url())
+      .catch(@_fetch_fail)
+      .then (response) => @_fetch_success response.data
 
   # private methods
   _shiki_load_url: ->

@@ -2,6 +2,7 @@ import delay from 'delay';
 
 import View from 'views/application/view';
 import { ANIME_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
+import axios from 'helpers/axios';
 
 const NO_DATA_I18N_KEY = 'frontend.pages.p_animes.no_data';
 
@@ -53,7 +54,7 @@ export default class AnimesMenu extends View {
 
     // подгрузка тултипов истории
     this.$historyBlock.one('mouseover', async () => {
-      const data = await $.getJSON(sourceUrl);
+      const { data } = await axios.get(sourceUrl);
       this._tooltipContent(data);
     });
 

@@ -1,4 +1,5 @@
 d3 = require 'd3'
+axios = require('helpers/axios').default
 
 module.exports = class FranchiseNode
   SELECT_SCALE = 2
@@ -104,9 +105,9 @@ module.exports = class FranchiseNode
 
   _load_tooltip: ->
     $('.sticky-tooltip').show().addClass('b-ajax')
-    $.get(@url + '/tooltip').success (html) ->
+    axios.get(@url + '/tooltip').then (data) ->
       $('.sticky-tooltip').removeClass('b-ajax')
-      $('.sticky-tooltip > .inner').html(html).process()
+      $('.sticky-tooltip > .inner').html(data.html).process()
 
   _d3_node: ->
     @_node_elem ||= d3.select $(".node##{@id}")[0]

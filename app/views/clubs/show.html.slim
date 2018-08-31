@@ -35,7 +35,7 @@
           = i18n_i 'picture', :other
           .count = @club.all_images.count
 
-      .b-gallery[
+      .b-gallery.block[
         data-can_upload=can?(:upload, @club)
         data-rel="club_gallery"
       ]
