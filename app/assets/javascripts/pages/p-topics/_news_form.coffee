@@ -1,4 +1,4 @@
-import axios from 'helpers/axios';
+import axios from 'helpers/axios'
 
 page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $ '.b-form.edit_topic, .b-form.new_topic'
