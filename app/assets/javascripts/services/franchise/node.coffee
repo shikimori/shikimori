@@ -105,9 +105,9 @@ module.exports = class FranchiseNode
 
   _load_tooltip: ->
     $('.sticky-tooltip').show().addClass('b-ajax')
-    axios.get(@url + '/tooltip').then (data) ->
+    axios.get(@url + '/tooltip').then (response) ->
       $('.sticky-tooltip').removeClass('b-ajax')
-      $('.sticky-tooltip > .inner').html(data.html).process()
+      $('.sticky-tooltip > .inner').html(response.data).process()
 
   _d3_node: ->
     @_node_elem ||= d3.select $(".node##{@id}")[0]
