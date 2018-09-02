@@ -1,5 +1,5 @@
 class CollectionDecorator < DbEntryDecorator
-  instance_cache :cached_links, :entries_sample, :groups, :texts
+  instance_cache :cached_links, :entries_sample, :groups, :texts, :bbcode_links
 
   SAMPLE_LIMIT = 6
 
@@ -19,19 +19,18 @@ class CollectionDecorator < DbEntryDecorator
   end
 
   def entries_sample
-    loaded_links.limit(SAMPLE_LIMIT).map { |v| v.send(kind).decorate }
+    if links.size.positive?
+      loaded_links.limit(SAMPLE_LIMIT).map { |v| v.send(kind).decorate }
+    else
+      bbcode_entries_sample
+    end
   end
 
   def size
     if links.size.positive?
       links.size
     else
-      text
-        .scan(BbCodes::Tags::EntriesTag::REGEXP)
-        .map(&:second)
-        .flat_map { |v| v.split(',') }
-        .uniq
-        .size
+      bbcode_links.size
     end
   end
 
@@ -43,5 +42,20 @@ private
 
   def loaded_links
     links.includes(kind).order(:id)
+  end
+
+  def bbcode_links
+    text
+      .scan(BbCodes::Tags::EntriesTag::REGEXP)
+      .map(&:second)
+      .flat_map { |v| v.split(',') }
+      .uniq
+  end
+
+  def bbcode_entries_sample
+    kind.classify.constantize
+      .where(id: bbcode_links.take(SAMPLE_LIMIT))
+      .sort_by { |v| bbcode_links.index v.id }
+      .map(&:decorate)
   end
 end
