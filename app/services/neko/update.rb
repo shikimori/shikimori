@@ -15,10 +15,7 @@ private
 
     if user_rate_id
       params[:id] = user_rate_id
-
-      if action == Types::Neko::Action[:put]
-        params = params.merge(user_rate_params(user_rate_id))
-      end
+      params = params.merge(user_rate_params(user_rate_id)) if action == Types::Neko::Action[:put]
     end
 
     params
