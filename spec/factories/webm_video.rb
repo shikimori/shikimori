@@ -1,18 +1,18 @@
 FactoryBot.define do
   factory :webm_video do
-    url 'http://html5demos.com/assets/dizzy.webm'
-    state 'pending'
+    url { 'http://html5demos.com/assets/dizzy.webm' }
+    state { 'pending' }
 
     trait :pending do
-      state 'pending'
+      state { 'pending' }
     end
 
     trait :processed do
-      state 'processed'
+      state { 'processed' }
     end
 
     trait :failed do
-      state 'failed'
+      state { 'failed' }
     end
   end
 end

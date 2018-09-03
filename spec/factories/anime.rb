@@ -2,18 +2,18 @@ FactoryBot.define do
   factory :anime do
     sequence(:name) { |n| "anime_#{n}" }
     sequence(:ranked)
-    #sequence(:russian) { |n| "russian_anime_#{n}" }
-    description_ru ''
-    description_en ''
-    duration 0
-    score 1
-    synonyms []
-    kind :tv
-    status :released
-    franchise nil
-    rating :pg_13
-    censored false
-    next_episode_at nil
+    # sequence(:russian) { |n| "russian_anime_#{n}" }
+    description_ru { '' }
+    description_en { '' }
+    duration { 0 }
+    score { 1 }
+    synonyms { [] }
+    kind { :tv }
+    status { :released }
+    franchise { nil }
+    rating { :pg_13 }
+    censored { false }
+    next_episode_at { nil }
 
     after :build do |model|
       stub_method model, :track_changes
@@ -56,42 +56,42 @@ FactoryBot.define do
 
     Anime.kind.values.each do |kind_type|
       trait kind_type do
-        kind kind_type
+        kind { kind_type }
       end
     end
 
     trait :with_mal_id do
-      mal_id 1
+      mal_id { 1 }
     end
 
     trait :pg_13 do
-      rating :pg_13
-      censored false
+      rating { :pg_13 }
+      censored { false }
     end
 
     trait :rx_hentai do
-      rating :rx
-      censored true
+      rating { :rx }
+      censored { true }
     end
 
     trait :ongoing do
-      status :ongoing
-      aired_on DateTime.now - 2.weeks
-      duration 0
+      status { :ongoing }
+      aired_on { 2.weeks.ago }
+      duration { 0 }
     end
 
     trait :released do
-      status :released
+      status { :released }
     end
 
     trait :anons do
-      status :anons
-      aired_on 2.weeks.from_now
-      episodes_aired 0
+      status { :anons }
+      aired_on { 2.weeks.from_now }
+      episodes_aired { 0 }
 
-      #after :create do |anime|
-        #FactoryBot.create(:anime_calendar, anime: anime)
-      #end
+      # after :create do |anime|
+        # FactoryBot.create(:anime_calendar, anime: anime)
+      # end
     end
 
     trait :with_image do

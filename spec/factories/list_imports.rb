@@ -2,9 +2,9 @@ FactoryBot.define do
   factory :list_import do
     user { seed :user }
     list { File.new "#{Rails.root}/spec/files/list.xml" }
-    state :pending
-    duplicate_policy Types::ListImport::DuplicatePolicy[:replace]
-    list_type Types::ListImport::ListType[:anime]
+    state { :pending }
+    duplicate_policy { Types::ListImport::DuplicatePolicy[:replace] }
+    list_type { Types::ListImport::ListType[:anime] }
 
     after :build do |model|
       stub_method model, :schedule_worker
@@ -17,14 +17,14 @@ FactoryBot.define do
     end
 
     Types::ListImport::DuplicatePolicy.values.each do |value|
-      trait(value) { duplicate_policy value }
+      trait(value) { duplicate_policy { value } }
     end
     Types::ListImport::ListType.values.each do |value|
-      trait(value) { list_type value }
+      trait(value) { list_type { value } }
     end
 
     ListImport.state_machine.states.map(&:value).each do |contest_state|
-      trait(contest_state.to_sym) { state contest_state }
+      trait(contest_state.to_sym) { state { contest_state } }
     end
 
     trait :mal_xml do
@@ -52,19 +52,19 @@ FactoryBot.define do
 
     trait :error_exception do
       failed
-      output error: { type: ListImport::ERROR_EXCEPTION }
+      output { { error: { type: ListImport::ERROR_EXCEPTION } } }
     end
     trait :error_empty_list do
       failed
-      output error: { type: ListImport::ERROR_EMPTY_LIST }
+      output { { error: { type: ListImport::ERROR_EMPTY_LIST } } }
     end
     trait :error_broken_file do
       failed
-      output error: { type: ListImport::ERROR_BROKEN_FILE }
+      output { { error: { type: ListImport::ERROR_BROKEN_FILE } } }
     end
     trait :error_mismatched_list_type do
       failed
-      output error: { type: ListImport::ERROR_MISMATCHED_LIST_TYPE }
+      output { { error: { type: ListImport::ERROR_MISMATCHED_LIST_TYPE } } }
     end
   end
 end

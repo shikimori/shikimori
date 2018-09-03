@@ -1,17 +1,17 @@
 FactoryBot.define do
   factory :external_link do
-    entry nil
-    kind 'anime_db'
-    source 'myanimelist'
-    url 'http://test.com'
-    imported_at nil
+    entry { nil }
+    kind { 'anime_db' }
+    source { 'myanimelist' }
+    url { 'http://test.com' }
+    imported_at { nil }
 
     Types::ExternalLink::Source.values.each do |v|
-      trait(v.to_sym) { source v }
+      trait(v.to_sym) { source { v } }
     end
 
     Types::ExternalLink::Kind.values.each do |v|
-      trait(v.to_sym) { kind v }
+      trait(v.to_sym) { kind { v } }
     end
   end
 end

@@ -6,7 +6,7 @@ FactoryBot.define do
     position { rand * 1_000_000 }
 
     trait :uploaded do
-      status Screenshot::UPLOADED
+      status { Screenshot::UPLOADED }
     end
   end
 end

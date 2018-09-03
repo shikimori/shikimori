@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user_token do
     user
-    provider 'facebook'
+    provider { 'facebook' }
   end
 end

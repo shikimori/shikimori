@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :favourite do
-    linked nil
+    linked { nil }
     user { seed :user }
-    kind ''
+    kind { '' }
   end
 end

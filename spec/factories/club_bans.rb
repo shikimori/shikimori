@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :club_ban do
-    club nil
-    user nil
+    club { nil }
+    user { nil }
   end
 end

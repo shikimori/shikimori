@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :ban do
-    user nil
-    comment nil
-    moderator nil
-    abuse_request nil
-    duration 180
-    reason 'moderator comment'
+    user { nil }
+    comment { nil }
+    moderator { nil }
+    abuse_request { nil }
+    duration { 180 }
+    reason { 'moderator comment' }
 
     trait :no_callbacks do
       after(:build) do |o|

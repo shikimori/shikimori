@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :style do
     owner { seed :user }
-    name ''
-    css ''
+    name { '' }
+    css { '' }
   end
 end

@@ -2,13 +2,13 @@ FactoryBot.define do
   factory :club do
     sequence(:name) { |n| "club_#{n}" }
     owner { seed :user }
-    description ''
+    description { '' }
 
-    join_policy Types::Club::JoinPolicy[:free]
-    comment_policy Types::Club::CommentPolicy[:free]
-    image_upload_policy Types::Club::ImageUploadPolicy[:members]
+    join_policy { Types::Club::JoinPolicy[:free] }
+    comment_policy { Types::Club::CommentPolicy[:free] }
+    image_upload_policy { Types::Club::ImageUploadPolicy[:members] }
 
-    locale :ru
+    locale { :ru }
 
     after :build do |model|
       stub_method model, :add_to_index
@@ -61,8 +61,8 @@ FactoryBot.define do
     end
 
     trait :faq do
-      id StickyClubView::CLUB_IDS[:faq][:ru]
-      name 'faq'
+      id { StickyClubView::CLUB_IDS[:faq][:ru] }
+      name { 'faq' }
       created_at { 3.days.ago }
       updated_at { 3.days.ago }
     end

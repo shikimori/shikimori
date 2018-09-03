@@ -6,7 +6,7 @@ FactoryBot.define do
     sequence(:body) { |n| "topic_text_#{n}" }
     type { Topic.name }
 
-    locale 'ru'
+    locale { 'ru' }
 
     after :build do |model|
       stub_method model, :check_antispam
@@ -18,133 +18,133 @@ FactoryBot.define do
     end
 
     factory :forum_topic do
-      type 'Topic'
+      type { 'Topic' }
     end
 
     factory :anime_topic, class: 'Topics::EntryTopics::AnimeTopic' do
-      type 'Topics::EntryTopics::AnimeTopic'
+      type { 'Topics::EntryTopics::AnimeTopic' }
       forum { seed :animanga_forum }
-      generated true
+      generated { true }
     end
 
     factory :manga_topic, class: 'Topics::EntryTopics::MangaTopic' do
-      type 'Topics::EntryTopics::MangaTopic'
+      type { 'Topics::EntryTopics::MangaTopic' }
       forum { seed :animanga_forum }
-      generated true
+      generated { true }
     end
 
     factory :ranobe_topic, class: 'Topics::EntryTopics::RanobeTopic' do
-      type 'Topics::EntryTopics::RanobeTopic'
+      type { 'Topics::EntryTopics::RanobeTopic' }
       forum { seed :animanga_forum }
-      generated true
+      generated { true }
     end
 
     factory :character_topic, class: 'Topics::EntryTopics::CharacterTopic' do
-      type 'Topics::EntryTopics::CharacterTopic'
+      type { 'Topics::EntryTopics::CharacterTopic' }
       forum { seed :animanga_forum }
-      generated true
+      generated { true }
     end
 
     factory :person_topic, class: 'Topics::EntryTopics::PersonTopic' do
-      type 'Topics::EntryTopics::PersonTopic'
+      type { 'Topics::EntryTopics::PersonTopic' }
       forum { seed :animanga_forum }
-      generated true
+      generated { true }
     end
 
     factory :review_topic, class: 'Topics::EntryTopics::ReviewTopic' do
-      type 'Topics::EntryTopics::ReviewTopic'
+      type { 'Topics::EntryTopics::ReviewTopic' }
       forum { seed :reviews_forum }
-      generated true
+      generated { true }
     end
 
     factory :cosplay_gallery_topic, class: 'Topics::EntryTopics::CosplayGalleryTopic' do
-      type 'Topics::EntryTopics::CosplayGalleryTopic'
-      generated true
+      type { 'Topics::EntryTopics::CosplayGalleryTopic' }
+      generated { true }
     end
 
     factory :contest_topic, class: 'Topics::EntryTopics::ContestTopic' do
-      type 'Topics::EntryTopics::ContestTopic'
-      generated true
+      type { 'Topics::EntryTopics::ContestTopic' }
+      generated { true }
     end
 
     factory :contest_status_topic, class: 'Topics::NewsTopics::ContestStatusTopic' do
-      type 'Topics::NewsTopics::ContestStatusTopic'
-      generated true
+      type { 'Topics::NewsTopics::ContestStatusTopic' }
+      generated { true }
       Types::Topic::ContestStatusTopic::Action.values.each do |value|
-        trait(value) { state value }
+        trait(value) { state { value } }
       end
     end
 
     factory :club_topic, class: 'Topics::EntryTopics::ClubTopic' do
-      type 'Topics::EntryTopics::ClubTopic'
-      generated true
+      type { 'Topics::EntryTopics::ClubTopic' }
+      generated { true }
     end
 
     factory :club_user_topic, class: 'Topics::ClubUserTopic' do
-      type 'Topics::ClubUserTopic'
-      generated false
+      type { 'Topics::ClubUserTopic' }
+      generated { false }
     end
 
     factory :club_page_topic, class: 'Topics::EntryTopics::ClubPageTopic' do
-      type 'Topics::EntryTopics::ClubPageTopic'
-      generated true
+      type { 'Topics::EntryTopics::ClubPageTopic' }
+      generated { true }
     end
 
     factory :collection_topic, class: 'Topics::EntryTopics::CollectionTopic' do
-      type 'Topics::EntryTopics::CollectionTopic'
-      generated true
+      type { 'Topics::EntryTopics::CollectionTopic' }
+      generated { true }
     end
 
     factory :news_topic, class: 'Topics::NewsTopic' do
-      type 'Topics::NewsTopic'
+      type { 'Topics::NewsTopic' }
       forum { seed :animanga_forum }
 
       trait :anime_anons do
         linked { create :anime }
-        action :anons
-        generated true
+        action { :anons }
+        generated { true }
       end
     end
 
     trait :offtopic do
-      id Topic::TOPIC_IDS[:offtopic][:ru]
-      title 'offtopic'
-      body 'offtopic'
+      id { Topic::TOPIC_IDS[:offtopic][:ru] }
+      title { 'offtopic' }
+      body { 'offtopic' }
       created_at { 1.day.ago }
       updated_at { 1.day.ago }
     end
     trait :site_rules do
-      id Topic::TOPIC_IDS[:site_rules][:ru]
-      title 'site rules'
-      body 'site rules'
+      id { Topic::TOPIC_IDS[:site_rules][:ru] }
+      title { 'site rules' }
+      body { 'site rules' }
       created_at { 2.days.ago }
       updated_at { 2.days.ago }
     end
     trait :description_of_genres do
-      id Topic::TOPIC_IDS[:description_of_genres][:ru]
-      title 'description of genres'
-      body 'description of genres'
+      id { Topic::TOPIC_IDS[:description_of_genres][:ru] }
+      title { 'description of genres' }
+      body { 'description of genres' }
       created_at { 4.days.ago }
       updated_at { 4.days.ago }
     end
     trait :ideas_and_suggestions do
-      id Topic::TOPIC_IDS[:ideas_and_suggestions][:ru]
-      title 'ideas and suggestions'
-      body 'ideas and suggestions'
+      id { Topic::TOPIC_IDS[:ideas_and_suggestions][:ru] }
+      title { 'ideas and suggestions' }
+      body { 'ideas and suggestions' }
       created_at { 5.days.ago }
       updated_at { 5.days.ago }
     end
     trait :site_problems do
-      id Topic::TOPIC_IDS[:site_problems][:ru]
-      title 'site problems'
-      body 'site problems'
+      id { Topic::TOPIC_IDS[:site_problems][:ru] }
+      title { 'site problems' }
+      body { 'site problems' }
       created_at { 6.days.ago }
       updated_at { 6.days.ago }
     end
     trait :contests_proposals do
-      id Topic::TOPIC_IDS[:contests_proposals][:ru]
-      title 'contests_proposals'
-      body 'contests_proposals'
+      id { Topic::TOPIC_IDS[:contests_proposals][:ru] }
+      title { 'contests_proposals' }
+      body { 'contests_proposals' }
       created_at { 7.days.ago }
       updated_at { 7.days.ago }
     end

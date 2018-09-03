@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :contest_suggestion do
-    contest nil
+    contest { nil }
     user
     item factory: :anime
   end

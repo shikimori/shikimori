@@ -1,27 +1,27 @@
 FactoryBot.define do
   factory :contest do
-    title_ru 'Турнир'
-    title_en 'Contest'
+    title_ru { 'Турнир' }
+    title_en { 'Contest' }
     user { seed :user }
 
     member_type { Types::Contest::MemberType.values.sample }
-    strategy_type Types::Contest::StrategyType[:double_elimination]
-    user_vote_key Types::Contest::UserVoteKey[:can_vote_1]
+    strategy_type { Types::Contest::StrategyType[:double_elimination] }
+    user_vote_key { Types::Contest::UserVoteKey[:can_vote_1] }
 
-    started_on Time.zone.today
-    finished_on nil
+    started_on { Time.zone.today }
+    finished_on { nil }
 
-    matches_per_round 999
-    match_duration 1
-    matches_interval 1
-    suggestions_per_user 2
+    matches_per_round { 999 }
+    match_duration { 1 }
+    matches_interval { 1 }
+    suggestions_per_user { 2 }
 
-    Types::Contest::MemberType.values.each { |value| trait(value) { member_type value } }
-    Types::Contest::StrategyType.values.each { |value| trait(value) { strategy_type value } }
-    Types::Contest::UserVoteKey.values.each { |value| trait(value) { user_vote_key value } }
+    Types::Contest::MemberType.values.each { |value| trait(value) { member_type { value } } }
+    Types::Contest::StrategyType.values.each { |value| trait(value) { strategy_type { value } } }
+    Types::Contest::UserVoteKey.values.each { |value| trait(value) { user_vote_key { value } } }
 
     Contest.state_machine.states.map(&:value).each do |contest_state|
-      trait(contest_state.to_sym) { state contest_state }
+      trait(contest_state.to_sym) { state { contest_state } }
     end
 
     # trait(:created) { state :created }

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :club_link do
-    club nil
-    linked nil
+    club { nil }
+    linked { nil }
 
     trait :anime do
       linked { FactoryBot.create :anime }

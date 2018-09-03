@@ -3,30 +3,30 @@ FactoryBot.define do
     from { seed :user }
     to { seed :user }
 
-    read false
+    read { false }
 
     after :build do |message|
       message.stub :send_push_notifications
       message.stub :check_spam_abuse
     end
 
-    kind MessageType::Private
-    body 'test'
+    kind { MessageType::Private }
+    body { 'test' }
 
     trait :private do
-      kind MessageType::Private
+      kind { MessageType::Private }
     end
 
     trait :notification do
-      kind MessageType::Notification
+      kind { MessageType::Notification }
     end
 
     trait :profile_commented do
-      kind MessageType::ProfileCommented
+      kind { MessageType::ProfileCommented }
     end
 
     trait :news do
-      kind MessageType::SiteNews
+      kind { MessageType::SiteNews }
     end
 
     trait :with_push_notifications do

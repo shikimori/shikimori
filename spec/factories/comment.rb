@@ -3,8 +3,8 @@ FactoryBot.define do
     user { seed :user }
     commentable { seed :offtopic_topic }
     sequence(:body) { |n| "comment_body_#{n}" }
-    is_offtopic false
-    is_summary false
+    is_offtopic { false }
+    is_summary { false }
 
     after :build do |model|
       stub_method model, :check_antispam
@@ -21,13 +21,13 @@ FactoryBot.define do
     end
 
     trait :summary do
-      is_summary true
-      body 'x' * Comment::MIN_SUMMARY_SIZE
+      is_summary { true }
+      body { 'x' * Comment::MIN_SUMMARY_SIZE }
     end
 
     trait :offtopic do
-      is_offtopic true
-      body 'x' * Comment::MIN_SUMMARY_SIZE
+      is_offtopic { true }
+      body { 'x' * Comment::MIN_SUMMARY_SIZE }
     end
 
     trait :with_antispam do
@@ -49,6 +49,5 @@ FactoryBot.define do
     trait :with_touch_commentable do
       after(:build) { |model| unstub_method model, :touch_commentable }
     end
-
   end
 end

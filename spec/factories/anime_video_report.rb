@@ -1,16 +1,16 @@
 FactoryBot.define do
   factory :anime_video_report do
-    kind AnimeVideoReport.kind.values.first
-    state 'pending'
-    user_agent 'ipad'
+    kind { AnimeVideoReport.kind.values.first }
+    state { 'pending' }
+    user_agent { 'ipad' }
     user { seed :user }
 
     AnimeVideoReport.kind.values.each do |report_kind|
-      trait(report_kind.to_sym) { kind report_kind }
+      trait(report_kind.to_sym) { kind { report_kind } }
     end
 
     AnimeVideoReport.state_machine.states.map(&:value).each do |report_state|
-      trait(report_state.to_sym) { state report_state }
+      trait(report_state.to_sym) { state { report_state } }
     end
 
     after :build do |v|

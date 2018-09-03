@@ -6,7 +6,7 @@ FactoryBot.define do
       stub_method model, :touch_related
     end
 
-    trait :anime do |person|
+    trait :anime do |_person|
       after :create do |person|
         create :anime, person_roles: [
           create(:person_role, role: 'Producer', person: person)

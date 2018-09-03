@@ -2,50 +2,50 @@ FactoryBot.define do
   factory :forum do
     sequence(:name_ru) { |n| "форум_#{n}" }
     sequence(:name_en) { |n| "forum_#{n}" }
-    permalink :offtopic
-    position 0
+    permalink { :offtopic }
+    position { 0 }
 
     trait :offtopic do
-      id (Random.rand * 100_000).to_i
-      permalink 'offtopic'
-      is_visible true
+      id { (Random.rand * 100_000).to_i }
+      permalink { 'offtopic' }
+      is_visible { true }
     end
 
     trait :animanga do
       id { Topic::FORUM_IDS[Anime.name] }
-      permalink 'animanga'
-      name_ru 'Аниме и манга'
-      is_visible true
+      permalink { 'animanga' }
+      name_ru { 'Аниме и манга' }
+      is_visible { true }
     end
 
     trait :contest do
       id { Topic::FORUM_IDS[Contest.name] }
-      permalink 'contests'
-      name_ru 'Турниры'
+      permalink { 'contests' }
+      name_ru { 'Турниры' }
     end
 
     trait :club do
       id { Topic::FORUM_IDS[Club.name] }
-      permalink 'clubs'
-      name_ru 'Клубы'
+      permalink { 'clubs' }
+      name_ru { 'Клубы' }
     end
 
     trait :collection do
       id { Topic::FORUM_IDS[Collection.name] }
-      permalink 'collections'
-      name_ru 'Клубы'
+      permalink { 'collections' }
+      name_ru { 'Клубы' }
     end
 
     trait :cosplay do
       id { Topic::FORUM_IDS[CosplayGallery.name] }
-      permalink 'cosplay'
-      name_ru 'Косплей'
+      permalink { 'cosplay' }
+      name_ru { 'Косплей' }
     end
 
     trait :reviews do
       id { Topic::FORUM_IDS[Review.name] }
-      permalink 'reviews'
-      name_ru 'Рецензии'
+      permalink { 'reviews' }
+      name_ru { 'Рецензии' }
     end
 
     factory :animanga_forum, traits: [:animanga]
