@@ -392,7 +392,7 @@ class User < ApplicationRecord
   # NOTE: replace id with hashed value of secret token when
   # any private data will be transmitted through the channel
   def faye_channel
-    ["user-#{id}"]
+    ["/user-#{id}"]
   end
 
 private

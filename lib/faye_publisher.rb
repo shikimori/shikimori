@@ -49,9 +49,7 @@ class FayePublisher # rubocop:disable ClassLength
     publish_data data, comment_channels(comment, [])
   end
 
-  # отправка уведомлений о новом комментарии
   def publish_comment comment, event, channels
-    # уведомление в открытые топики
     data = {
       event: "comment:#{event}",
       actor: @actor.nickname,
@@ -64,7 +62,6 @@ class FayePublisher # rubocop:disable ClassLength
     publish_data data, comment_channels(comment, channels)
   end
 
-  # отправка уведомлений о новом топике
   def publish_topic topic, event, channels
     data = {
       event: "topic:#{event}",
@@ -78,7 +75,6 @@ class FayePublisher # rubocop:disable ClassLength
     publish_data data, topic_channels(topic, channels)
   end
 
-  # отправка уведомлений о новом сообщении
   def publish_message message, event, channels
     data = {
       event: "message:#{event}",
@@ -91,9 +87,7 @@ class FayePublisher # rubocop:disable ClassLength
     publish_data data, dialog_channels(message, channels)
   end
 
-  # rubocop:disable MethodLength
   def publish_mark comment, mark_kind, mark_value
-    # уведомление в открытые топики
     data = {
       event: 'comment:marked',
       actor: @actor.nickname,
@@ -107,7 +101,15 @@ class FayePublisher # rubocop:disable ClassLength
 
     publish_data data, comment_channels(comment, [])
   end
-  # rubocop:enable MethodLength
+
+  def publish_achievements achievements_data, action, channels
+    data = {
+      event: "achievements:#{action}",
+      achievements: achievements_data
+    }
+
+    publish_data data, channels
+  end
 
   def publish_data data, channels
     return if channels.empty?
@@ -131,8 +133,6 @@ private
     )
   end
 
-  # rubocop:disable MethodLength
-  # rubocop:disable AbcSize
   def comment_channels comment, channels
     topic = comment.commentable
     topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
@@ -150,8 +150,6 @@ private
 
     mixed_channels
   end
-  # rubocop:enable AbcSize
-  # rubocop:enable MethodLength
 
   def topic_channels topic, channels
     channels +
@@ -199,8 +197,6 @@ private
   end
 
   def log data, channels
-    if Rails.env.development?
-      NamedLogger.faye_publisher.info "#{data.to_json} #{channels}"
-    end
+    NamedLogger.faye_publisher.info "#{data.to_json} #{channels}" if Rails.env.development?
   end
 end

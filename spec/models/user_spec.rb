@@ -307,7 +307,7 @@ describe User do
     end
 
     describe '#faye_channel' do
-      it { expect(user.faye_channel).to eq %W[user-#{user.id}] }
+      it { expect(user.faye_channel).to eq %W[/user-#{user.id}] }
     end
   end
 

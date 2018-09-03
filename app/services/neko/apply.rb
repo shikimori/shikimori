@@ -10,6 +10,8 @@ class Neko::Apply
 
       @user.touch
     end
+
+    publish @user, @added, @removed
   end
 
 private
@@ -19,11 +21,13 @@ private
   end
 
   def import achievements
-    Achievement.import achievements.map { |achievement| build achievement },
+    Achievement.import(
+      achievements.map { |achievement| build achievement },
       on_duplicate_key_update: {
         conflict_target: %i[user_id neko_id level],
         columns: %i[progress]
       }
+    )
   end
 
   def build achievement
@@ -55,5 +59,12 @@ private
         and level=#{ApplicationRecord.sanitize achievement.level}
       )
     SQL
+  end
+
+  def publish user, added, removed
+    channels = user.faye_channel
+
+    FayePublisher.new(nil, nil).publish_achievements added, :added, channels if added.any?
+    FayePublisher.new(nil, nil).publish_achievements removed, :removed, channels if removed.any?
   end
 end

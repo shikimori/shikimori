@@ -114,7 +114,9 @@ $(() => {
   if (window.SHIKI_USER.isSignedIn && !window.SHIKI_FAYE_LOADER) {
     window.SHIKI_COMMENTS_NOTIFIER = new CommentsNotifier();
     // delay to prevent page freeze
-    delay(150).then(() => window.SHIKI_FAYE_LOADER = new FayeLoader());
+    delay(150).then(() =>
+      window.SHIKI_FAYE_LOADER = new FayeLoader()
+    );
   }
 
   $('.b-appear_marker.active').appear();

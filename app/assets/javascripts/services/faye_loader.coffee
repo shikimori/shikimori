@@ -1,7 +1,6 @@
 import Faye from 'faye'
 require 'jquery.idle/vanilla.idle'
 
-# назначение класса - слушать Faye и отправлять получившим обновление топикам и разделам события faye:success
 export default class FayeLoader
   WORLD_CHANGED_EVENTS = [
     'page:load'
@@ -44,7 +43,7 @@ export default class FayeLoader
 
     # список актуальных каналов из текущего dom дерева
     channels = {}
-    channels[window.FAYE_CHANNEL] = document.body if window.FAYE_CHANNEL
+    channels[window.FAYE_CHANNEL] = $(document.body) if window.FAYE_CHANNEL
 
     $targets.each (index, node) ->
       faye_channels = $(node).data('faye')
