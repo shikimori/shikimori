@@ -64,7 +64,11 @@ private
   def publish user, added, removed
     channels = user.faye_channel
 
-    FayePublisher.new(nil, nil).publish_achievements added, :added, channels if added.any?
-    FayePublisher.new(nil, nil).publish_achievements removed, :removed, channels if removed.any?
+    faye_publisher.publish_achievements added, :gained, channels if added.any?
+    faye_publisher.publish_achievements removed, :lost, channels if removed.any?
+  end
+
+  def faye_publisher
+    @faye_publisher ||= FayePublisher.new(nil, nil)
   end
 end

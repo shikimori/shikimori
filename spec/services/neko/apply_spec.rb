@@ -24,7 +24,11 @@ describe Neko::Apply do
   let(:updated) { [] }
   let(:removed) { [] }
 
-  before { allow(user).to receive :touch }
+  before do
+    allow(user).to receive :touch
+    allow(FayePublisher).to receive(:new).with(nil, nil).and_return faye_publisher
+  end
+  let(:faye_publisher) { double publish_achievements: nil }
 
   context 'no changes' do
     it do
@@ -32,6 +36,7 @@ describe Neko::Apply do
       expect(achievement.reload).to be_persisted
       expect(achievement_2.reload).to be_persisted
       expect(user).to_not have_received :touch
+      expect(faye_publisher).to_not have_received :publish_achievements
     end
   end
 
@@ -51,6 +56,11 @@ describe Neko::Apply do
       expect(user.achievements.last).to have_attributes added[0].to_h.except(:neko_id)
       expect(user.achievements.last.neko_id).to eq added[0].neko_id
       expect(user).to have_received :touch
+
+      expect(faye_publisher)
+        .to have_received(:publish_achievements)
+        .once
+        .with(added, :gained, user.faye_channel)
     end
   end
 
@@ -70,6 +80,7 @@ describe Neko::Apply do
       expect(achievement.reload).to have_attributes updated[0].to_h.except(:neko_id)
       expect(achievement.neko_id).to eq updated[0].neko_id
       expect(user).to have_received :touch
+      expect(faye_publisher).to_not have_received :publish_achievements
     end
   end
 
@@ -88,6 +99,10 @@ describe Neko::Apply do
       expect { subject }.to change(Achievement, :count).by(-1)
       expect { achievement.reload }.to raise_error ActiveRecord::RecordNotFound
       expect(user).to have_received :touch
+      expect(faye_publisher)
+        .to have_received(:publish_achievements)
+        .once
+        .with(removed, :lost, user.faye_channel)
     end
   end
 end

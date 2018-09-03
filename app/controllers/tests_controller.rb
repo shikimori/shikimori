@@ -29,12 +29,15 @@ class TestsController < ShikimoriController
 
   def animes
     @resource = Anime.find(9969).decorate
-    @collection1 = [@resource, Anime.find(31240).decorate, @resource]
-    @collection2 = [@resource] + Anime
-      .where("score > 8 and score < 9")
+    @collection_1 = [@resource, Anime.find(31_240).decorate, @resource]
+    @collection_2 = [@resource] + Anime
+      .where('score > 8 and score < 9')
       .order(id: :desc)
       .limit(5)
       .decorate
+  end
+
+  def achievements_notification
   end
 
   def momentjs
@@ -48,7 +51,7 @@ class TestsController < ShikimoriController
   end
 
   def vk_video
-    @video = AnimeVideo.find(846660).decorate
+    @video = AnimeVideo.find(846_660).decorate
     render :vk_video, layout: false
   end
 
@@ -61,11 +64,11 @@ class TestsController < ShikimoriController
   def colors
   end
 
-  #def d3_data
-    #query = Animes::ChronologyQuery.new(Anime.find params[:anime_id])
-    #@entries = query.fetch
-    #@links = query.links
-  #end
+  # def d3_data
+    # query = Animes::ChronologyQuery.new(Anime.find params[:anime_id])
+    # @entries = query.fetch
+    # @links = query.links
+  # end
 
   def iframe
   end

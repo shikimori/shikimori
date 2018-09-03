@@ -114,7 +114,7 @@
       /= render partial: 'animes/anime', collection: @resource.related.related, locals: { cover_notice: :relation }
 
 - if @resource.related.similar.any?
-  .block.m10
+  .block
     .subheadline.m10
       span.linkeable data-href=@resource.similar_url = t '.similar'
     .cc.cc-similar.to-process data-dynamic='cutted_covers'

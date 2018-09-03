@@ -1,13 +1,13 @@
 import delay from 'delay';
 
+const COMMENT_SELECTOR = 'div.b-appear_marker.active';
+const FAYE_LOADER_SELECTOR = '.faye-loader';
+
 // уведомлялка о новых комментариях
 // назначение класса - смотреть на странице новые комментаы и отображать информацию об этом
 export default class CommentsNotifier {
   $notifier = null
   currentCounter = 0
-
-  commentSelector = 'div.b-appear_marker.active'
-  fayeLoaderSelector = '.faye-loader'
 
   maxTop = 31
   blockTop = 0
@@ -53,7 +53,7 @@ export default class CommentsNotifier {
     this.$notifier = $(`<div class='b-comments-notifier' style='display: none;' alt='${alt}'></div>`)
       .appendTo(document.body)
       .on('click', () => {
-        const $firstUnread = $(`${this.commentSelector}, ${this.fayeLoaderSelector}`).first();
+        const $firstUnread = $(`${COMMENT_SELECTOR}, ${FAYE_LOADER_SELECTOR}`).first();
         $.scrollTo($firstUnread);
       });
 
@@ -62,8 +62,8 @@ export default class CommentsNotifier {
 
   async refresh() {
     await delay();
-    const $commentNew = $(this.commentSelector);
-    const $fayeLoader = $(this.fayeLoaderSelector);
+    const $commentNew = $(COMMENT_SELECTOR);
+    const $fayeLoader = $(FAYE_LOADER_SELECTOR);
 
     let count = $commentNew.length;
 
@@ -86,7 +86,7 @@ export default class CommentsNotifier {
 
   appear(e, $appeared, _byClick) {
     const $nodes = $appeared
-      .filter(`${this.commentSelector}, ${this.fayeLoaderSelector}`)
+      .filter(`${COMMENT_SELECTOR}, ${FAYE_LOADER_SELECTOR}`)
       .not(function () { return $(this).data('disabled'); });
 
     this.update(this.currentCounter - $nodes.length);

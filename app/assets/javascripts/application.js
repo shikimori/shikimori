@@ -53,6 +53,7 @@ import ShikiUser from 'models/shiki_user';
 import flash from 'services/flash';
 import FayeLoader from 'services/faye_loader';
 import CommentsNotifier from 'services/comments_notifier';
+import AchievementsNotifier from 'services/achievements_notifier';
 
 import { isMobile } from 'helpers/mobile_detect';
 import bindings from 'helpers/bindings';
@@ -113,6 +114,7 @@ $(() => {
 
   if (window.SHIKI_USER.isSignedIn && !window.SHIKI_FAYE_LOADER) {
     window.SHIKI_COMMENTS_NOTIFIER = new CommentsNotifier();
+    window.SHIKI_ACHIEVEMENTS_NOTIFIER = new AchievementsNotifier();
     // delay to prevent page freeze
     delay(150).then(() =>
       window.SHIKI_FAYE_LOADER = new FayeLoader()

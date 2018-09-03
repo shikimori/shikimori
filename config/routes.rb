@@ -591,6 +591,7 @@ Rails.application.routes.draw do
         ajax
         vk_video
         colors
+        achievements_notification
         vue
         iframe
         iframe_inner
