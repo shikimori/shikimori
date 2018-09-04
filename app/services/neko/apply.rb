@@ -73,9 +73,13 @@ private
 
   def publish_faye achievements_data, event, user
     achievements = achievements_data.map do |achivement_data|
+      neko = NekoRepository.instance.find achivement_data[:neko_id], achivement_data[:level]
+
       {
-        neko_id: achivement_data[:neko_id],
-        label: I18n.t("achievements.neko_name.#{achivement_data[:neko_id]}")
+        neko_id: neko.neko_id,
+        label: neko.title,
+        level: (neko.level unless neko.franchise?),
+        url: UrlGenerator.instance.profile_achievements_url(user)
       }
     end
 

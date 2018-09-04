@@ -2,14 +2,14 @@
   .subheadline.m10 Achievements Gained
   .b-input
     textarea#ex_1
-      = [{ user_id: 1, neko_id: 'comedy', level: 1, progress: 100 }, { user_id: 1, neko_id: 'comedy', level: 2, progress: 100 }].to_json
+      = [{ neko_id: 'comedy', label: 'Комедия', level: 1, url: 'http://shikimori.local/morr/achievements' }, { neko_id: 'comedy', label: 'Комедия', level: 2, url: 'http://shikimori.local/morr/achievements' }].to_json
 
-  .b-button data-method='notifyGained' Notify
+  .b-button data-type='gained' Notify
 
 .block
   .subheadline.m10 Achievement Lost
   .b-input
     textarea#ex_2
-      = [{ user_id: 1, neko_id: 'fullmetal_alchemist', level: 1, progress: 100 }].to_json
-  .b-button data-method='notifyLost' Notify
+      = [{ neko_id: 'fullmetal_alchemist', label: 'Fullmetal Alchemist', level: nil, url: 'http://shikimori.local/morr/achievements' }].to_json
+  .b-button data-type='lost' Notify
 

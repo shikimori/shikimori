@@ -1,0 +1,6 @@
+en:
+  frontend:
+    achievements:
+      title:
+        gained: Achievement Gained
+        lost: Achievement Lost

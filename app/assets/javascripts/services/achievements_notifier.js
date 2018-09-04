@@ -1,25 +1,36 @@
 import JST from 'helpers/jst';
+import delay from 'delay';
+
+const MAXIMUM_ACHIEVEMETNS = 7;
 
 export default class AchievementsNotifier {
   $container = null
 
   constructor() {
-    $(document).on('faye:achievements:gained', (_e, data) =>
-      this.notifyGained(data.achievements)
-    );
-    $(document).on('faye:achievements:lost', (_e, data) =>
-      this.notifyLost(data.achievements)
+    $(document).on('faye:achievements:gained faye:achievements:lost', (e, data) =>
+      this.notify(data.achievements, e.type.split(':').last())
     );
   }
 
-  notifyGained(achievements) {
-    this._$container().append(this._render(achievements));
-    console.log('gained', achievements);
-  }
+  notify(achievements, event) {
+    if (achievements.length > MAXIMUM_ACHIEVEMETNS) { return; }
 
-  notifyLost(achievements) {
-    this._$container().append(this._render(achievements));
-    console.log('lost', achievements);
+    achievements.forEach(async (achievement, index) => {
+      if (index > 0) {
+        await delay(550 * index);
+      }
+      const $achievement = $(this._render(achievement, event))
+        .addClass('appearing')
+        .appendTo(this._$container())
+        .on('click', '.b-close', async () => {
+          $achievement.addClass('removing');
+          await delay(1000);
+          $achievement.remove();
+        });
+
+      await delay();
+      $achievement.removeClass('appearing');
+    });
   }
 
   _$container() {
@@ -30,7 +41,7 @@ export default class AchievementsNotifier {
     return this.$container;
   }
 
-  _render(achievements) {
-    return JST['achievements/notifier']({ achievements });
+  _render(achievement, event) {
+    return JST['achievements/notifier']({ achievement, event });
   }
 }

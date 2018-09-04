@@ -158,7 +158,7 @@ function initVideoPlayer() {
     hideReport();
   });
 
-  $('.about-ads .close', $player).on('click', async e => {
+  $('.about-ads .b-close', $player).on('click', async e => {
     const $block = $('.about-ads', $player);
     $.cookie($(e.currentTarget).data('cookie-name'), '1', { expires: 60 });
     $block.addClass('removing');

@@ -47,8 +47,6 @@ export default class CommentsNotifier {
       }
     });
 
-    // this.insert();
-    // this._move();
     this._refresh();
   }
 

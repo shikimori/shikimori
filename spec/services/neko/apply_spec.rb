@@ -29,6 +29,7 @@ describe Neko::Apply do
     allow(FayePublisher).to receive(:new).with(nil, nil).and_return faye_publisher
   end
   let(:faye_publisher) { double publish_achievements: nil }
+  let(:achievements_url) { UrlGenerator.instance.profile_achievements_url(user) }
 
   context 'no changes' do
     it do
@@ -62,7 +63,7 @@ describe Neko::Apply do
         .once
         .with(
           [
-            { label: 'Неизвестная ачивка', neko_id: :test }
+            { label: 'Нет названия', neko_id: :test, level: 0, url: achievements_url }
           ],
           :gained,
           user.faye_channel
@@ -110,7 +111,7 @@ describe Neko::Apply do
         .once
         .with(
           [
-            { label: 'Список аниме', neko_id: :animelist }
+            { label: 'Добро пожаловать!', neko_id: :animelist, level: 1, url: achievements_url }
           ],
           :lost,
           user.faye_channel

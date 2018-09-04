@@ -1,0 +1,30 @@
+@import mixins/link
+@import mixins/shikimori
+
+.b-close
+  background: #fff
+  color: #123
+  cursor: pointer
+  height: 25px
+  line-height: 25px
+  opacity: 0.5
+  position: absolute
+  right: 5px
+  text-align: center
+  top: 5px
+  transition: opacity 0.25s ease, color 0.25s ease, background-color 0.25s ease
+  width: 25px
+
+  &:before
+    +shikimori('\e828')
+    font-size: 17px
+
+  &:hover
+    background-color: $link-hover
+    color: #fff
+    opacity: 1
+
+  &:active
+    background-color: $link-active
+    color: #fff
+    opacity: 1

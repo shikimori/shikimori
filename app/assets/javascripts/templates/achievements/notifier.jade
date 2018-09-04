@@ -1,1 +1,13 @@
-.block test
+.achievement(
+  class=event
+)
+  .b-close
+  .title
+    = I18n.t(`frontend.achievements.title.${event}`)
+  .name
+    .icon
+    a(
+      href=`/achievements/${achievement.neko_id}`
+    )= achievement.label
+    if achievement.level
+      span.level ур. #{achievement.level}

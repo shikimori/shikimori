@@ -1,0 +1,6 @@
+ru:
+  frontend:
+    achievements:
+      title:
+        gained: Получена ачивка
+        lost: Потеряна ачивка
