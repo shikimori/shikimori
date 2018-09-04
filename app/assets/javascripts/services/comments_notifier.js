@@ -6,7 +6,7 @@ const FAYE_LOADER_SELECTOR = '.faye-loader';
 // уведомлялка о новых комментариях
 // назначение класса - смотреть на странице новые комментаы и отображать информацию об этом
 export default class CommentsNotifier {
-  $notifier = null
+  $container = null
   currentCounter = 0
 
   maxTop = 31
@@ -14,53 +14,60 @@ export default class CommentsNotifier {
 
   constructor() {
     // при загрузке новой страницы вставляем в DOM счётчик
-    $(document).on('page:load', () => this.insert());
+    $(document).on('page:load', () => this.$container = null);
     // при прочтении комментов, декрементим счётчик
-    $(document).on('appear', (e, $appeared, byClick) => this.appear(e, $appeared, byClick));
+    $(document).on('appear', (e, $appeared, byClick) => this._appear(e, $appeared, byClick));
     // при добавление блока о новом комментарии/топике делаем инкремент
     $(document).on('faye:added', () => this.incrementCounter());
     // при загрузке контента аяксом, fayer-loader'ом, postloader'ом, при перезагрузке страницы
     $(document).on(
       'page:load page:restore faye:loaded ajax:success postloader:success',
-      () => this.refresh()
+      () => this._refresh()
     );
 
     // явное указание о скрытии
-    $(document).on('disappear', () => this.decrementCounter());
+    $(document).on('disappear', () => this._decrementCounter());
     // при добавление блока о новом комментарии/топике делаем инкремент
-    $(document).on('reappear', () => this.incrementCounter());
+    $(document).on('reappear', () => this._incrementCounter());
 
     // смещение вверх-вниз блока уведомлялки
     this.scroll = $(window).scrollTop();
 
     $(window).scroll(() => {
+      if (!this.$container) { return; }
+
       this.scroll = $(window).scrollTop();
 
       if ((this.scroll <= this.maxTop) ||
         ((this.scroll > this.maxTop) && (this.blockTop !== 0))
       ) {
-        this.move();
+        this._move();
       }
     });
 
-    this.insert();
-    this.move();
-    this.refresh();
+    // this.insert();
+    // this._move();
+    this._refresh();
   }
 
-  insert() {
-    const alt = I18n.t('frontend.lib.comments_notifier.number_of_unread_comments');
-    this.$notifier = $(`<div class='b-comments-notifier' style='display: none;' alt='${alt}'></div>`)
-      .appendTo(document.body)
-      .on('click', () => {
-        const $firstUnread = $(`${COMMENT_SELECTOR}, ${FAYE_LOADER_SELECTOR}`).first();
-        $.scrollTo($firstUnread);
-      });
+  _$container() {
+    if (!this.$container) {
+      const alt = I18n.t('frontend.lib.comments_notifier.number_of_unread_comments');
 
-    this.scroll = $(window).scrollTop();
+      this.$container = $(`<div class='b-comments-notifier' style='display: none;' alt='${alt}'></div>`)
+        .appendTo(document.body)
+        .on('click', () => {
+          const $firstUnread = $(`${COMMENT_SELECTOR}, ${FAYE_LOADER_SELECTOR}`).first();
+          $.scrollTo($firstUnread);
+        });
+
+      this.scroll = $(window).scrollTop();
+    }
+
+    return this.$container;
   }
 
-  async refresh() {
+  async _refresh() {
     await delay();
     const $commentNew = $(COMMENT_SELECTOR);
     const $fayeLoader = $(FAYE_LOADER_SELECTOR);
@@ -71,37 +78,37 @@ export default class CommentsNotifier {
       count += $(this).data('ids').length;
     });
 
-    this.update(count);
+    this._update(count);
   }
 
-  update(count) {
+  _update(count) {
     this.currentCounter = count;
 
     if (count > 0) {
-      this.$notifier.show().html(this.currentCounter);
-    } else {
-      this.$notifier.hide();
+      this._$container().show().html(this.currentCounter);
+    } else if (this.$container) {
+      this._$container().hide();
     }
   }
 
-  appear(e, $appeared, _byClick) {
+  _appear(e, $appeared, _byClick) {
     const $nodes = $appeared
       .filter(`${COMMENT_SELECTOR}, ${FAYE_LOADER_SELECTOR}`)
       .not(function () { return $(this).data('disabled'); });
 
-    this.update(this.currentCounter - $nodes.length);
+    this._update(this.currentCounter - $nodes.length);
   }
 
-  decrementCounter() {
-    this.update(this.currentCounter - 1);
+  _decrementCounter() {
+    this._update(this.currentCounter - 1);
   }
 
-  incrementCounter() {
-    this.update(this.currentCounter + 1);
+  _incrementCounter() {
+    this._update(this.currentCounter + 1);
   }
 
-  move() {
+  _move() {
     this.blockTop = [0, this.maxTop - this.scroll].max();
-    this.$notifier.css({ top: this.blockTop });
+    this._$container().css({ top: this.blockTop });
   }
 }
