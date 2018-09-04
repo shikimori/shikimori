@@ -102,9 +102,9 @@ class FayePublisher # rubocop:disable ClassLength
     publish_data data, comment_channels(comment, [])
   end
 
-  def publish_achievements achievements_data, action, channels
+  def publish_achievements achievements_data, channels
     data = {
-      event: "achievements:#{action}",
+      event: 'achievements',
       achievements: achievements_data
     }
 

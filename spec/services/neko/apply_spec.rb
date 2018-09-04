@@ -63,9 +63,8 @@ describe Neko::Apply do
         .once
         .with(
           [
-            { label: 'Нет названия', neko_id: :test, level: 0, url: achievements_url }
+            { label: 'Нет названия', neko_id: :test, level: 0, event: :gained }
           ],
-          :gained,
           user.faye_channel
         )
     end
@@ -111,9 +110,8 @@ describe Neko::Apply do
         .once
         .with(
           [
-            { label: 'Добро пожаловать!', neko_id: :animelist, level: 1, url: achievements_url }
+            { label: 'Добро пожаловать!', neko_id: :animelist, level: 1, event: :lost }
           ],
-          :lost,
           user.faye_channel
         )
     end

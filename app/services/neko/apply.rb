@@ -66,24 +66,25 @@ private
         Users::AchievementsController::ACHIEVEMENTS_CLUB_USER_IDS.include?(user.id)
       return
     end
+    return if added.none? && removed.none?
 
-    publish_faye added, :gained, user if added.any?
-    publish_faye removed, :lost, user if removed.any?
+    faye_publisher.publish_achievements(
+      faye_data(added, :gained) + faye_data(removed, :lost),
+      user.faye_channel
+    )
   end
 
-  def publish_faye achievements_data, event, user
-    achievements = achievements_data.map do |achivement_data|
+  def faye_data achievements_data, event
+    achievements_data.map do |achivement_data|
       neko = NekoRepository.instance.find achivement_data[:neko_id], achivement_data[:level]
 
       {
         neko_id: neko.neko_id,
         label: neko.title,
         level: (neko.level unless neko.franchise?),
-        url: UrlGenerator.instance.profile_achievements_url(user)
+        event: event
       }
     end
-
-    faye_publisher.publish_achievements achievements, event, user.faye_channel
   end
 
   def faye_publisher
