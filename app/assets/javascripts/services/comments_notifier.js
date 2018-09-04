@@ -1,5 +1,7 @@
 import delay from 'delay';
 
+import JST from 'helpers/jst';
+
 const COMMENT_SELECTOR = 'div.b-appear_marker.active';
 const FAYE_LOADER_SELECTOR = '.faye-loader';
 
@@ -52,9 +54,7 @@ export default class CommentsNotifier {
 
   _$container() {
     if (!this.$container) {
-      const alt = I18n.t('frontend.lib.comments_notifier.number_of_unread_comments');
-
-      this.$container = $(`<div class='b-comments-notifier' style='display: none;' alt='${alt}'></div>`)
+      this.$container = $(this._render())
         .appendTo(document.body)
         .on('click', () => {
           const $firstUnread = $(`${COMMENT_SELECTOR}, ${FAYE_LOADER_SELECTOR}`).first();
@@ -65,6 +65,10 @@ export default class CommentsNotifier {
     }
 
     return this.$container;
+  }
+
+  _render() {
+    return JST['comments/notifier']();
   }
 
   async _refresh() {

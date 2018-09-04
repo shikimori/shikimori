@@ -31,6 +31,6 @@ export default class AchievementsNotifier {
   }
 
   _render(achievements) {
-    return JST['achievements/notification']({ achievements });
+    return JST['achievements/notifier']({ achievements });
   }
 }
