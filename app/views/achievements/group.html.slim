@@ -13,7 +13,7 @@ header.head
               .subheadline.m10
                 a[
                   href=achievement_url(achievements.first.group, neko_id)
-                ] = achievements.first.neko_name
+                ] = achievements.first.title
 
               = render 'users/achievements/achievement', achievement: achievements.first
               = render 'achievements/info', achievements: achievements

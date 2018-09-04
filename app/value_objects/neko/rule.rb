@@ -67,7 +67,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
 
   def neko_name
     I18n.t "achievements.neko_name.#{neko_id}",
-      default: franchise? ? neko_id.to_s : neko_id.to_s.capitalize
+      default: franchise? ? neko_id.to_s.titleize : neko_id.to_s.capitalize
   end
 
   def progress

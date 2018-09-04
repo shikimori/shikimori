@@ -1,9 +1,10 @@
 @import globals/variables
 @import mixins/block
-@import mixins/link
 @import mixins/brackets_surrounded
 @import mixins/column
+@import mixins/link
 @import mixins/responsive
+@import mixins/shiki_check
 
 .b-achievement
   +cc
@@ -76,6 +77,12 @@
       margin-bottom: 3px
       margin-top: -5px
       display: block
+
+      .gained
+        +shiki_check($green-check)
+        font-size: 13px
+        font-weight: normal
+        margin-left: 7px
 
       //.level
         //+brackets_surrounded

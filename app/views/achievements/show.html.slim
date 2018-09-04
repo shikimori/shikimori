@@ -5,10 +5,12 @@ header.head.misc
 
 .p-achievements-global
   - if @collection.first.franchise?
-    - @collection.each do |achievement|
-      = render 'users/achievements/achievement',
-        achievement: achievement,
-        images: true
+    .block
+      - @collection.each do |achievement|
+        = render 'users/achievements/achievement',
+          achievement: achievement,
+          images: true,
+          status: true
 
     .cc-2_3
       .c-column
@@ -30,7 +32,8 @@ header.head.misc
           .c-column
             = render 'users/achievements/achievement',
               achievement: achievement,
-              images: true
+              images: true,
+              status: true
 
           .c-column
             .b-entry-info
