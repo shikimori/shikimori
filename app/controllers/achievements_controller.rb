@@ -29,7 +29,7 @@ class AchievementsController < ShikimoriController
     breadcrumb i18n_i('Achievement', :other), achievements_url
   end
 
-  def show # rubocop:disable AbcSize, MethodLength
+  def show # rubocop:disable AbcSize
     @collection = NekoRepository.instance.select do |achievement|
       achievement.neko_id == params[:id].to_sym &&
         achievement.group == params[:group].to_sym

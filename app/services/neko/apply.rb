@@ -62,10 +62,24 @@ private
   end
 
   def publish user, added, removed
-    channels = user.faye_channel
+    unless !Rails.env.production? ||
+        Users::AchievementsController::ACHIEVEMENTS_CLUB_USER_IDS.include?(user.id)
+      return
+    end
 
-    faye_publisher.publish_achievements added, :gained, channels if added.any?
-    faye_publisher.publish_achievements removed, :lost, channels if removed.any?
+    publish_faye added, :gained, user if added.any?
+    publish_faye removed, :lost, user if removed.any?
+  end
+
+  def publish_faye achievements_data, event, user
+    achievements = achievements_data.map do |achivement_data|
+      {
+        neko_id: achivement_data[:neko_id],
+        label: I18n.t("achievements.neko_name.#{achivement_data[:neko_id]}")
+      }
+    end
+
+    faye_publisher.publish_achievements achievements, event, user.faye_channel
   end
 
   def faye_publisher

@@ -1,4 +1,5 @@
 import delay from 'delay';
+
 page_load('tests_achievements_notification', async () => {
   $('.b-button').on('click', ({ currentTarget }) => {
     const $button = $(currentTarget);

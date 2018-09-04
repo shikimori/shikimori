@@ -60,7 +60,13 @@ describe Neko::Apply do
       expect(faye_publisher)
         .to have_received(:publish_achievements)
         .once
-        .with(added, :gained, user.faye_channel)
+        .with(
+          [
+            { label: 'Неизвестная ачивка', neko_id: :test }
+          ],
+          :gained,
+          user.faye_channel
+        )
     end
   end
 
@@ -102,7 +108,13 @@ describe Neko::Apply do
       expect(faye_publisher)
         .to have_received(:publish_achievements)
         .once
-        .with(removed, :lost, user.faye_channel)
+        .with(
+          [
+            { label: 'Список аниме', neko_id: :animelist }
+          ],
+          :lost,
+          user.faye_channel
+        )
     end
   end
 end
