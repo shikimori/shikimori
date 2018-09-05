@@ -1,6 +1,7 @@
 @import globals
 @import globals/variables
 @import mixins/shikimori
+@import mixins/responsive
 @import mixins/icons
 
 .b-achievements_notifier
@@ -10,6 +11,9 @@
   top: 39px
   min-width: 350px
   z-index: 11
+
+  +iphone_portrait
+    min-width: calc(100% - 16px)
 
   .achievement
     +clearfix
