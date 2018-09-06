@@ -85,6 +85,9 @@
     "eslint-plugin-react": "^7.11.1",
     "fsevents": "1.2.4"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --config config/webpack/development.js"
   }
