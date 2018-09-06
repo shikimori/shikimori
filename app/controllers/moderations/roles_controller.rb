@@ -5,6 +5,11 @@ class Moderations::RolesController < ModerationsController
   end
 
   def show
+    # if params[:id] =~ /\Anot_trusted_(?<role>[\w_]+)\Z/ &&
+    #     !current_user.send("#{$LAST_MATCH_INFO[:role].gsub 'changer', 'moderator'}?")
+    #   raise CanCan::AccessDenied
+    # end
+
     og noindex: true, nofollow: true
     og page_title: params[:id].titleize
 
