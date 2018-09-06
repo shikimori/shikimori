@@ -240,8 +240,11 @@ private
         @resource.update password_params.except('current_password')
       end
     else
-      params = update_params[:nickname].blank? ? update_params.merge(nickname: @resource.nickname) : update_params
-      @resource.update params
+      @resource.update(
+        update_params[:nickname].blank? ?
+          update_params.merge(nickname: @resource.nickname) :
+          update_params
+      )
     end
   rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
     @resource.errors.add :nickname, :taken
