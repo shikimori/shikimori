@@ -1,4 +1,3 @@
-# TODO: переделать авторизацию на cancancan
 class Moderations::UsersController < ModerationsController
   def index
     og noindex: true, nofollow: true
@@ -6,7 +5,13 @@ class Moderations::UsersController < ModerationsController
 
     params[:created_on] ||= Time.zone.today.to_s
 
-    @collection = User
+    @collection = users_scope
+  end
+
+private
+
+  def users_scope
+    User
       .where(
         'created_at >= ? and created_at <= ?',
         Time.zone.parse(params[:created_on]).beginning_of_day,

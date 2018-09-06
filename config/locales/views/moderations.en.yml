@@ -234,3 +234,9 @@ en:
       index:
         users: Users
         nothing_here: No users
+
+    users:
+      index:
+        roles: Roles
+        users: Users
+        nothing_here: No users

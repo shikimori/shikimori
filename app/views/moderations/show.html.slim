@@ -70,6 +70,13 @@ header.head
           href=moderations_users_path
           title=t('moderations/users_controller.page_title')
         ] = t 'moderations/users_controller.page_title'
+
+      li
+        a.b-link[
+          href=moderations_roles_path
+          title=t('moderations/roles_controller.page_title')
+        ] = t 'moderations/roles_controller.page_title'
+
       - if can? :edit, AnimeVideoAuthor
         li
           a.b-link[

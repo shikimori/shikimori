@@ -234,3 +234,9 @@ ru:
       index:
         users: Пользователи
         nothing_here: Нет пользователей
+
+    roles:
+      index:
+        roles: Роли
+        users: Пользователи
+        nothing_here: Нет пользователей
