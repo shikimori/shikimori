@@ -4,7 +4,7 @@ header.head
 
 .cc-2.block
   .c-column.m0
-    .subheadline = t '.moderation'
+    .subheadline.m10 = t '.moderation'
 
     ul.b-list.block
       li
@@ -86,7 +86,7 @@ header.head
 
   - if ru_host?
     .c-column.m0
-      .subheadline = t '.content'
+      .subheadline.m10 = t '.content'
 
       ul.b-list
         li
@@ -125,19 +125,19 @@ header.head
 - if @abuse_requests
   .cc-3a
     .c-column
-      .subheadline Abuse Requests
+      .subheadline.m10 Abuse Requests
       ul.b-list
         - @abuse_requests.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"
 
     .c-column
-      .subheadline Bans
+      .subheadline.m10 Bans
       ul.b-list
         - @bans.each do |stat|
             li = "#{stat.moderator.nickname}: #{stat.count}"
 
     .c-column
-      .subheadline Versions
+      .subheadline.m10 Versions
       ul.b-list
         - @versions.each do |stat|
             li = "#{stat.moderator.nickname}: #{stat.count}"

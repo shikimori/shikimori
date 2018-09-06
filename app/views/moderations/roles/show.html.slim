@@ -5,7 +5,7 @@ header.head
   = render 'application/breadcrumbs'
 
 .block
-  .subheadline = t '.users'
+  .subheadline.m10 = t '.users'
   .cc-4
     - cache [params[:role], @collection] do
       - if @collection.none?
