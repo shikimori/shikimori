@@ -238,5 +238,6 @@ ru:
     roles:
       index:
         roles: Роли
+      show:
         users: Пользователи
         nothing_here: Нет пользователей

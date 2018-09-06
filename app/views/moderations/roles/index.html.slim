@@ -4,45 +4,13 @@ header.head
     = og.headline
   = render 'application/breadcrumbs'
 
-- if @collection
-  .block
-    .subheadline = t '.users'
-    .cc-4
-      - cache [params[:created_on], @collection] do
-        - if @collection.none?
-          .b-nothing_here = t '.nothing_here'
-        - else
-          - @collection.each do |user|
-            .b-user.c-column.detailed
-              .info
-                .image-name
-                  a.name[
-                    href=profile_url(user, subdomain: false)
-                    title=user.nickname
-                  ] = user.nickname
+.subheadline.m10 = t '.roles'
+ul.b-list.block
+  - User.roles.values.each do |role|
+    li
+      a.b-js-link[
+        href=moderations_role_url(id: role)
+      ] = role.titleize
 
-                  a[
-                    href=profile_url(user, subdomain: false)
-                    title=user.nickname
-                  ]
-                    img.image[
-                      src=user.avatar_url(73)
-                      srcset="#{user.avatar_url 148} 2x"
-                      alt=user.nickname
-                    ]
-                p.last-online
-                  = user.last_online
-
-
-- else
-  .subheadline.m10 = t '.roles'
-  ul.b-list.block
-    - User.roles.values.each do |role|
-      li
-        a.b-js-link[
-          class=(:active if params[:role] == role)
-          href=current_url(role: (role if params[:role] != '5000'))
-        ] = role.titleize
-
-      - if %w[retired_moderator trusted_ranobe_external_links_changer cosplay_moderator contest_moderator trusted_video_changer censored_profile].include? role
-        .m15
+    - if %w[retired_moderator trusted_ranobe_external_links_changer cosplay_moderator contest_moderator trusted_video_changer censored_profile].include? role
+      .m15
