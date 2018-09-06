@@ -20,7 +20,7 @@ export default class CommentsNotifier {
     // при прочтении комментов, декрементим счётчик
     $(document).on('appear', (e, $appeared, byClick) => this._appear(e, $appeared, byClick));
     // при добавление блока о новом комментарии/топике делаем инкремент
-    $(document).on('faye:added', () => this.incrementCounter());
+    $(document).on('faye:added', () => this._incrementCounter());
     // при загрузке контента аяксом, fayer-loader'ом, postloader'ом, при перезагрузке страницы
     $(document).on(
       'page:load page:restore faye:loaded ajax:success postloader:success',
