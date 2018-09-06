@@ -17,7 +17,6 @@ module Types
       trusted_version_changer
       not_trusted_version_changer
       trusted_ranobe_external_links_changer
-      translator
       bot
       censored_avatar
       censored_profile
