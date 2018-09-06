@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "^9.11.1",
+    "node": ">=8",
     "yarn": "^1.0.0"
   },
   "name": "shikimori",
@@ -82,7 +82,8 @@
     "eslint-import-resolver-webpack": "^0.10.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.1"
+    "eslint-plugin-react": "^7.11.1",
+    "fsevents": "1.2.4"
   },
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --config config/webpack/development.js"
