@@ -31,15 +31,15 @@ page_load(
       init_catalog()
 
     $(document).trigger('page:restore')
-
-  init_catalog = ->
-    type = if $('.anime-params-controls').exists() then 'anime' else 'manga'
-    base_catalog_path = $('.b-collection-filters').data('base_path')
-
-    if location.pathname.match(/\/recommendations\//)
-      base_catalog_path = location.pathname.split("/").first(5).join("/")
-    else if location.pathname.match(/\/comparer\//)
-      base_catalog_path = location.pathname.split("/").first(6).join("/")
-
-    paginated_catalog = new PaginatedCatalog(base_catalog_path)
 )
+
+init_catalog = ->
+  type = if $('.anime-params-controls').exists() then 'anime' else 'manga'
+  base_catalog_path = $('.b-collection-filters').data('base_path')
+
+  if location.pathname.match(/\/recommendations\//)
+    base_catalog_path = location.pathname.split('/').first(5).join('/')
+  else if location.pathname.match(/\/comparer\//)
+    base_catalog_path = location.pathname.split('/').first(6).join('/')
+
+  paginated_catalog = new PaginatedCatalog(base_catalog_path)
