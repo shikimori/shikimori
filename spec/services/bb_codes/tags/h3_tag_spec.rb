@@ -3,6 +3,6 @@ describe BbCodes::Tags::H3Tag do
 
   describe '#format' do
     subject { tag.format '[h3]test[/h3]' + ["\r\n", "\r", "\n", '<br>'].sample }
-    it { should eq '<h3>test</h3>' }
+    it { is_expected.to eq '<h3>test</h3>' }
   end
 end

@@ -2,7 +2,10 @@ class BbCodes::Tags::H3Tag
   include Singleton
 
   REGEXP = %r{
-    \[h3\] (.*?) \[/h3\] (?: \r\n|\r|\n|<br> )?
+    \[h3\]
+      (.*?)
+    \[/h3\]
+    (?: \r\n|\r|\n|<br> )?
   }mix
 
   def format text

@@ -3,6 +3,6 @@ describe BbCodes::Tags::HrTag do
 
   describe '#format' do
     subject { tag.format '[hr][hr]' + ["\r\n", "\r", "\n", '<br>'].sample }
-    it { should eq '<hr><hr>' }
+    it { is_expected.to eq '<hr><hr>' }
   end
 end

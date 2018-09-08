@@ -2,7 +2,8 @@ class BbCodes::Tags::HrTag
   include Singleton
 
   REGEXP = /
-    \[hr\] (?: \r\n|\r|\n|<br> )?
+    \[hr\]
+    (?: \r\n|\r|\n|<br> )?
   /mix
 
   def format text

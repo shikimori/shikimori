@@ -5,6 +5,7 @@ class BbCodes::Tags::ListTag
     \[list\] (?: \n )?
       (?<ul> .*?)
     \[/list\]
+    (?: \r\n|\r|\n|<br> )?
   }mix
 
   LIST_ITEM_REGEXP = %r{
