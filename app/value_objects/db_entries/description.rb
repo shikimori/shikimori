@@ -6,7 +6,7 @@ class DbEntries::Description < Dry::Struct
     if source.present?
       "#{text}[source]#{source}[/source]"
     else
-      "#{text}"
+      text.to_s
     end
   end
 
@@ -14,13 +14,15 @@ class DbEntries::Description < Dry::Struct
     def from_value value
       text = parse_text(value)
       source = parse_source(value)
-      self.new text: text, source: source
+
+      new text: text, source: source
     end
 
     def from_text_source text, source
       text = text.presence
       source = source.presence
-      self.new text: text, source: source
+
+      new text: text, source: source
     end
 
     private

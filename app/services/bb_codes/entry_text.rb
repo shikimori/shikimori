@@ -2,9 +2,10 @@ class BbCodes::EntryText
   method_object :text, :entry
 
   def call
-    BbCodes::Text.call(
-      paragraphs(remove_wiki_codes(character_names(fix(@text), @entry)))
-    )
+    text = character_names @text || '', @entry
+    text = paragraphs(remove_wiki_codes(text)) unless @entry.is_a? Club
+
+    BbCodes::Text.call text
   end
 
 private
@@ -19,10 +20,6 @@ private
 
   def paragraphs text
     BbCodes::Paragraphs.call text
-  end
-
-  def fix text
-    text || ''
   end
 
   # must be called after character_names
