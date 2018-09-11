@@ -17,7 +17,7 @@
         locals: { cover_notice: :studio },
         cache: ->(entry, _) { CacheHelper.keys entry, :studio }
 
-= render 'spnsrs/ad', ad: Ad.new(:special_x1170)
+/ = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
 
 .cc-second
   .cc-inner
@@ -118,7 +118,7 @@
             next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
 
   .c-generated_news
-    - if ru_host?
+    / - if ru_host?
       center.block
         a href="https://vk.com/wall-9273458_109424"
           img[
@@ -152,7 +152,7 @@
                   / t.parentNode.insertBefore(s, t);
               / })(this, this.document, "yandexContextAsyncCallbacks");
 
-    / = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
+    = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
 
     / .midheadline.gray.m15 = t 'sponsors'
     / .container
