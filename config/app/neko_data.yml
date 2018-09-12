@@ -9634,11 +9634,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :gall_force
+    :neko_id: :ad_police
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/648613.jpg
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593344.jpg
     :border_color: 
-    :title_ru: Девичья сила
+    :title_ru: Кризис каждый день
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9646,7 +9646,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: gall_force
+        franchise: ad_police
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10125,7 +10125,7 @@
     :topic_id: 248176
     :rule:
       :algo: count
-      :threshold: 70%
+      :threshold: 13
       :filters:
         anime_ids:
         - 2553
