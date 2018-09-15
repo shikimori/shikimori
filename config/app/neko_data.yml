@@ -8213,7 +8213,7 @@
       :algo: duration
       :filters:
         franchise: bleach
-      :threshold: 95%
+      :threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -10308,9 +10308,9 @@
     :neko_id: :sports
     :level: 1
     :image: "/assets/achievements/anime/sports_1.jpg"
-    :border_color: "#975916"
-    :title_ru: Первый раз на площадке
-    :text_ru: Стартовый свисток дан — пора в бой!
+    :border_color: "#FFFF00"
+    :title_ru: Первый заезд
+    :text_ru: Стартовый свисток дан — вперед!
     :title_en: 
     :text_en: 
     :topic_id: 227429
@@ -10364,7 +10364,7 @@
     :image: "/assets/achievements/anime/sports_4.gif"
     :border_color: "#c45812"
     :title_ru: Олимпийский чемпион
-    :text_ru: Первый на пьедестале. Отличная работа!
+    :text_ru: На вершине пьедестала. Отличная работа!
     :title_en: 
     :text_en: 
     :topic_id: 
