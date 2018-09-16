@@ -116,7 +116,7 @@ module User::Notifications
       when AnimeHistoryAction::Ongoing
         result = false
         case entry.linked.kind
-          when 'tv'
+          when 'tv', 'ona'
             result = self.notifications & ONGOING_TV_NOTIFICATIONS != 0
 
           when 'movie'
@@ -129,7 +129,7 @@ module User::Notifications
         self.anime_rates.any? do |rate|
           if rate.target_id == entry.linked_id
             case entry.linked.kind
-              when 'tv'
+              when 'tv', 'ona'
                 self.notifications & MY_ONGOING_TV_NOTIFICATIONS != 0
 
               when 'movie'
@@ -146,7 +146,7 @@ module User::Notifications
       # Released
       when AnimeHistoryAction::Released
         result = case entry.linked.kind
-          when 'tv'
+          when 'tv', 'ona'
             self.notifications & RELEASE_TV_NOTIFICATIONS != 0
 
           when 'movie'
@@ -160,7 +160,7 @@ module User::Notifications
         self.anime_rates.any? do |rate|
           if rate.target_id == entry.linked_id
             case entry.linked.kind
-              when 'tv'
+              when 'tv', 'ona'
                 self.notifications & MY_RELEASE_TV_NOTIFICATIONS != 0
 
               when 'movie'
@@ -179,7 +179,7 @@ module User::Notifications
         self.anime_rates.any? do |rate|
           if rate.target_id == entry.linked_id
             case entry.linked.kind
-              when 'tv'
+              when 'tv', 'ona'
                 self.notifications & MY_EPISODE_TV_NOTIFICATIONS != 0
 
               when 'movie'
