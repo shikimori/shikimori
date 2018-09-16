@@ -10308,7 +10308,7 @@
     :neko_id: :sports
     :level: 1
     :image: "/assets/achievements/anime/sports_1.jpg"
-    :border_color: "#FFFF00"
+    :border_color: "#FFDC33"
     :title_ru: Первый заезд
     :text_ru: Стартовый свисток дан — вперед!
     :title_en: 
