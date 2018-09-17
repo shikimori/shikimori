@@ -32,16 +32,16 @@ describe Versioneers::VideosVersioneer do
       expect(version).to have_attributes(
         item: anime,
         item_diff: {
-          'action' => Versioneers::VideosVersioneer::UPLOAD,
+          'action' => Versioneers::VideosVersioneer::UPLOAD.to_s,
           Versioneers::VideosVersioneer::KEY => [video.id]
         },
-        user: user,
+        user: user
       )
     end
   end
 
   describe '#reposition' do
-    it { expect{versioneer.reposition nil, nil}.to raise_error NotImplementedError }
+    it { expect { versioneer.reposition nil, nil }.to raise_error NotImplementedError }
   end
 
   describe '#delete' do
@@ -53,10 +53,10 @@ describe Versioneers::VideosVersioneer do
       expect(version).to have_attributes(
         item: anime,
         item_diff: {
-          'action' => Versioneers::VideosVersioneer::DELETE,
+          'action' => Versioneers::VideosVersioneer::DELETE.to_s,
           Versioneers::VideosVersioneer::KEY => [video.id]
         },
-        user: user,
+        user: user
       )
     end
   end
