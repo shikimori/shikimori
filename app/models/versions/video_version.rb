@@ -1,11 +1,11 @@
 class Versions::VideoVersion < Version
   KEY = 'videos'
-  Action = Types::Strict::Symbol
+  Actions = Types::Strict::Symbol
     .constructor(&:to_sym)
     .enum(:upload, :delete)
 
   def action
-    Action[item_diff['action']]
+    Actions[item_diff['action']]
   end
 
   def video
@@ -14,8 +14,8 @@ class Versions::VideoVersion < Version
 
   def apply_changes
     case action
-      when Action[:upload] then upload_video
-      when Action[:delete] then delete_video
+      when Actions[:upload] then upload_video
+      when Actions[:delete] then delete_video
     end
   end
 
@@ -24,7 +24,7 @@ class Versions::VideoVersion < Version
   end
 
   def cleanup
-    video.destroy if Action[action] == Action[:upload]
+    video.destroy if Actions[action] == Actions[:upload]
   end
 
 private

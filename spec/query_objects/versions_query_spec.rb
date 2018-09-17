@@ -144,7 +144,7 @@ describe VersionsQuery do
         create :version, :accepted,
           user: author_1,
           item_diff: {
-            action: Versions::ScreenshotsVersion::Action[:upload],
+            action: Versions::ScreenshotsVersion::Actions[:upload],
             screenshots: ['a', 'b']
           },
           item: anime
@@ -153,7 +153,7 @@ describe VersionsQuery do
         create :version, :accepted,
           user: author_2,
           item_diff: {
-            action: Versions::ScreenshotsVersion::Action[:delete],
+            action: Versions::ScreenshotsVersion::Actions[:delete],
             screenshots: ['a', 'b']
           },
           item: anime
@@ -162,7 +162,7 @@ describe VersionsQuery do
         create :version, :accepted,
           user: author_2,
           item_diff: {
-            action: Versions::ScreenshotsVersion::Action[:reposition],
+            action: Versions::ScreenshotsVersion::Actions[:reposition],
             screenshots: ['a', 'b']
           },
           item: anime
@@ -176,7 +176,7 @@ describe VersionsQuery do
         create :version, :accepted,
           user: author_1,
           item_diff: {
-            action: Versions::VideoVersion::Action[:upload],
+            action: Versions::VideoVersion::Actions[:upload],
             videos: ['a', 'b']
           },
           item: anime
@@ -185,7 +185,7 @@ describe VersionsQuery do
         create :version, :accepted,
           user: author_2,
           item_diff: {
-            action: Versions::VideoVersion::Action[:delete],
+            action: Versions::VideoVersion::Actions[:delete],
             videos: ['a', 'b']
           },
           item: anime

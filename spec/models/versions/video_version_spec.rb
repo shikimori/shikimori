@@ -1,7 +1,12 @@
 describe Versions::VideoVersion do
   describe '#action' do
-    let(:version) { build :video_version, item_diff: { action: 'upload' } }
-    it { expect(version.action).to eq Versions::VideoVersion::Action[:upload] }
+    let(:version) do
+      build :video_version,
+        item_diff: {
+          action: Versions::VideoVersion::Actions[:upload]
+        }
+    end
+    it { expect(version.action).to eq Versions::VideoVersion::Actions[:upload] }
   end
 
   describe '#video' do
@@ -16,7 +21,7 @@ describe Versions::VideoVersion do
 
     context 'upload' do
       let(:video) { create :video, :uploaded }
-      let(:action) { 'upload' }
+      let(:action) { Versions::VideoVersion::Actions[:upload] }
       subject! { version.apply_changes }
 
       it { expect(video.reload).to be_confirmed }
@@ -24,7 +29,7 @@ describe Versions::VideoVersion do
 
     context 'delete' do
       let(:video) { create :video, :confirmed }
-      let(:action) { 'delete' }
+      let(:action) { Versions::VideoVersion::Actions[:delete] }
       subject! { version.apply_changes }
 
       it { expect(video.reload).to be_deleted }
@@ -55,12 +60,12 @@ describe Versions::VideoVersion do
     subject! { version.cleanup }
 
     context 'upload' do
-      let(:action) { 'upload' }
+      let(:action) { Versions::VideoVersion::Actions[:upload] }
       it { expect { video.reload }.to raise_error ActiveRecord::RecordNotFound }
     end
 
     context 'delete' do
-      let(:action) { 'delete' }
+      let(:action) { Versions::VideoVersion::Actions[:delete] }
       it { expect(video.reload).to be_persisted }
     end
   end

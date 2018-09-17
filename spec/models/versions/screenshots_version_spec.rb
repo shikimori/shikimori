@@ -1,7 +1,7 @@
 describe Versions::ScreenshotsVersion do
   describe '#action' do
     let(:version) { build :screenshots_version, item_diff: { action: 'upload' } }
-    it { expect(version.action).to eq Versions::ScreenshotsVersion::Action[:upload] }
+    it { expect(version.action).to eq Versions::ScreenshotsVersion::Actions[:upload] }
   end
 
   describe '#screenshots' do
@@ -22,7 +22,7 @@ describe Versions::ScreenshotsVersion do
       let(:version) do
         build :screenshots_version,
           item_diff: {
-            action: 'reposition',
+            action: Versions::ScreenshotsVersion::Actions[:reposition],
             screenshots: [[0], [screenshot.id]]
           }
       end
@@ -48,7 +48,7 @@ describe Versions::ScreenshotsVersion do
       let(:version) do
         build :screenshots_version,
           item_diff: {
-            action: 'reposition',
+            action: Versions::ScreenshotsVersion::Actions[:reposition],
             screenshots: [[screenshot.id], [0]]
           }
       end
@@ -61,9 +61,13 @@ describe Versions::ScreenshotsVersion do
 
     context 'upload' do
       let(:screenshot) { create :screenshot, :uploaded }
-      let(:item_diff) { { action: 'upload', screenshots: [screenshot.id] } }
-
-      before { version.apply_changes }
+      let(:item_diff) do
+        {
+          action: Versions::ScreenshotsVersion::Actions[:upload],
+          screenshots: [screenshot.id]
+        }
+      end
+      subject! { version.apply_changes }
 
       it { expect(screenshot.reload.status).to be_nil }
     end
@@ -74,15 +78,14 @@ describe Versions::ScreenshotsVersion do
       let!(:screenshot_2) { create :screenshot, anime: anime, position: 9999 }
       let(:item_diff) do
         {
-          action: 'reposition',
+          action: Versions::ScreenshotsVersion::Actions[:reposition],
           screenshots: [
             [screenshot_1.id, screenshot_2.id],
             [screenshot_2.id, screenshot_1.id]
           ]
         }
       end
-
-      before { version.apply_changes }
+      subject! { version.apply_changes }
 
       it do
         expect(anime.screenshots).to eq [screenshot_2, screenshot_1]
@@ -93,9 +96,13 @@ describe Versions::ScreenshotsVersion do
 
     context 'delete' do
       let(:screenshot) { create :screenshot, :uploaded }
-      let(:item_diff) { { action: 'delete', screenshots: [screenshot.id] } }
-
-      before { version.apply_changes }
+      let(:item_diff) do
+        {
+          action: Versions::ScreenshotsVersion::Actions[:delete],
+          screenshots: [screenshot.id]
+        }
+      end
+      subject! { version.apply_changes }
 
       it { expect(screenshot.reload.status).to eq Screenshot::DELETED }
     end
@@ -124,19 +131,19 @@ describe Versions::ScreenshotsVersion do
     before { version.cleanup }
 
     context 'upload' do
-      let(:action) { 'upload' }
+      let(:action) { Versions::ScreenshotsVersion::Actions[:upload] }
       let(:screenshots) { [screenshot.id] }
       it { expect { screenshot.reload }.to raise_error ActiveRecord::RecordNotFound }
     end
 
     context 'reposition' do
-      let(:action) { 'reposition' }
+      let(:action) { Versions::ScreenshotsVersion::Actions[:reposition] }
       let(:screenshots) { [[screenshot.id], [screenshot.id]] }
       it { expect(screenshot.reload).to be_persisted }
     end
 
     context 'delete' do
-      let(:action) { 'delete' }
+      let(:action) { Versions::ScreenshotsVersion::Actions[:delete] }
       let(:screenshots) { [screenshot.id] }
       it { expect(screenshot.reload).to be_persisted }
     end

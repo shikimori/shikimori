@@ -10,7 +10,7 @@ describe ScreenshotsController do
       expect(assigns :screenshot).to be_persisted
       expect(assigns :version).to be_persisted
       expect(assigns(:version).item_diff['action']).to eq(
-        Versions::ScreenshotsVersion::Action[:upload].to_s
+        Versions::ScreenshotsVersion::Actions[:upload].to_s
       )
       expect(response).to have_http_status :success
     end
@@ -37,7 +37,7 @@ describe ScreenshotsController do
         expect(assigns :screenshot).to be_persisted
         expect(assigns :version).to be_persisted
         expect(assigns(:version).item_diff['action']).to eq(
-          Versions::ScreenshotsVersion::Action[:delete].to_s
+          Versions::ScreenshotsVersion::Actions[:delete].to_s
         )
         expect(response).to have_http_status :success
       end
@@ -59,7 +59,7 @@ describe ScreenshotsController do
     it do
       expect(assigns :version).to be_persisted
       expect(assigns(:version).item_diff['action']).to eq(
-        Versions::ScreenshotsVersion::Action[:reposition].to_s
+        Versions::ScreenshotsVersion::Actions[:reposition].to_s
       )
       expect(assigns(:version).item_diff['screenshots']).to eq(
         [[screenshot_1.id, screenshot_2.id], [screenshot_2.id, screenshot_1.id]]

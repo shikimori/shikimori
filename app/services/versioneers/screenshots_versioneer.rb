@@ -4,9 +4,9 @@ class Versioneers::ScreenshotsVersioneer
   KEY = Versions::ScreenshotsVersion::KEY
   DEFAULT_POSITION = 99_999
 
-  UPLOAD = Versions::ScreenshotsVersion::Action[:upload]
-  REPOSITION = Versions::ScreenshotsVersion::Action[:reposition]
-  DELETE = Versions::ScreenshotsVersion::Action[:delete]
+  UPLOAD = Versions::ScreenshotsVersion::Actions[:upload]
+  REPOSITION = Versions::ScreenshotsVersion::Actions[:reposition]
+  DELETE = Versions::ScreenshotsVersion::Actions[:delete]
 
   def upload image, author
     art = build_art image

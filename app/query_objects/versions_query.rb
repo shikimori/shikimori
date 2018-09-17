@@ -42,11 +42,11 @@ private
     return unless field.to_sym == :screenshots || field.to_sym == :videos
 
     screenshots_sql = ApplicationRecord.sanitize(
-      Versions::ScreenshotsVersion::Action[:upload]
+      Versions::ScreenshotsVersion::Actions[:upload]
     )
 
     videos_sql = ApplicationRecord.sanitize(
-      Versions::VideoVersion::Action[:upload]
+      Versions::VideoVersion::Actions[:upload]
     )
 
     "(item_diff->>'action') in (#{screenshots_sql}, #{videos_sql})"

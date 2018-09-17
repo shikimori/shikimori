@@ -8,28 +8,17 @@ FactoryBot.define do
     Version.state_machine.states.map(&:value).each do |version_state|
       trait(version_state.to_sym) { state { version_state } }
     end
-  end
 
-  factory :description_version, parent: :version, class: 'Versions::DescriptionVersion' do
-  end
-
-  factory :screenshots_version, parent: :version, class: 'Versions::ScreenshotsVersion' do
-  end
-
-  factory :video_version, parent: :version, class: 'Versions::VideoVersion' do
-  end
-
-  factory :genres_version, parent: :version, class: 'Versions::GenresVersion' do
-  end
-
-  factory :poster_version, parent: :version, class: 'Versions::PosterVersion' do
-  end
-
-  factory :collection_version, parent: :version, class: 'Versions::CollectionVersion' do
-  end
-
-  factory :version_anime_video, parent: :version do
-    item_type { AnimeVideo.name }
-    state { :auto_accepted }
+    factory :description_version, class: 'Versions::DescriptionVersion'
+    factory :screenshots_version, class: 'Versions::ScreenshotsVersion'
+    factory :video_version, class: 'Versions::VideoVersion'
+    factory :genres_version, class: 'Versions::GenresVersion'
+    factory :poster_version, class: 'Versions::PosterVersion'
+    factory :collection_version, class: 'Versions::CollectionVersion'
+    factory :version_anime_video do
+      item_type { AnimeVideo.name }
+      state { :auto_accepted }
+    end
+    factory :role_version, class: 'Versions::RoleVersion'
   end
 end

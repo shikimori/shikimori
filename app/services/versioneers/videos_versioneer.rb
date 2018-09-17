@@ -1,7 +1,7 @@
 class Versioneers::VideosVersioneer < Versioneers::ScreenshotsVersioneer
   KEY = Versions::VideoVersion::KEY
 
-  def reposition ordered_ids, author
+  def reposition _ordered_ids, _author
     raise NotImplementedError
   end
 

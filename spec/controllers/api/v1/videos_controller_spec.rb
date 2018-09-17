@@ -73,7 +73,7 @@ describe Api::V1::VideosController do
     it do
       expect(assigns :version).to be_persisted
       expect(assigns(:version).item_diff['action']).to eq(
-        Versions::VideoVersion::Action[:delete].to_s
+        Versions::VideoVersion::Actions[:delete].to_s
       )
       expect(response).to have_http_status :success
     end
