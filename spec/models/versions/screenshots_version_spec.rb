@@ -106,11 +106,6 @@ describe Versions::ScreenshotsVersion do
 
       it { expect(screenshot.reload.status).to eq Screenshot::DELETED }
     end
-
-    context 'unknown action' do
-      let(:item_diff) { { action: 'zzz' } }
-      it { expect { version.apply_changes }.to raise_error Dry::Types::ConstraintError }
-    end
   end
 
   describe '#rollback_changes' do

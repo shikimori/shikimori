@@ -34,12 +34,6 @@ describe Versions::VideoVersion do
 
       it { expect(video.reload).to be_deleted }
     end
-
-    context 'unknown action' do
-      let(:video) { build_stubbed :video }
-      let(:action) { 'zzz' }
-      it { expect { version.apply_changes }.to raise_error Dry::Types::ConstraintError }
-    end
   end
 
   describe '#rollback_changes' do
