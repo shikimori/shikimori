@@ -4,7 +4,7 @@ class Moderations::RolesController < ModerationsController
     og page_title: i18n_t('page_title')
   end
 
-  def show
+  def show # rubocop:disable AbcSize
     # if params[:id] =~ /\Anot_trusted_(?<role>[\w_]+)\Z/ &&
     #     !current_user.send("#{$LAST_MATCH_INFO[:role].gsub 'changer', 'moderator'}?")
     #   raise CanCan::AccessDenied
@@ -17,6 +17,13 @@ class Moderations::RolesController < ModerationsController
     @back_url = moderations_roles_url
 
     @collection = users_scope
+
+    if params[:search]
+      @searched_collection = Users::Query.fetch
+        .search(params[:search])
+        .paginate([params[:page].to_i, 1].max, 45)
+        .transform(&:decorate)
+    end
   end
 
 private

@@ -11,23 +11,34 @@ header.head
       - if @collection.none?
         .b-nothing_here = t '.nothing_here'
       - else
-        - @collection.each do |user|
-          .b-user.c-column.detailed
-            .info
-              .image-name
-                a.name[
-                  href=profile_url(user, subdomain: false)
-                  title=user.nickname
-                ] = user.nickname
+        = render partial: 'moderations/roles/user',
+          collection: @collection,
+          locals: { with_action: true }
 
-                a[
-                  href=profile_url(user, subdomain: false)
-                  title=user.nickname
-                ]
-                  img.image[
-                    src=user.avatar_url(73)
-                    srcset="#{user.avatar_url 148} 2x"
-                    alt=user.nickname
-                  ]
-              p.last-online
-                = user.last_online
+.block
+  .subheadline.m10 = t '.add_user'
+  .b-collection_search[
+    data-search_url=current_url(search: nil)
+  ]
+    .field
+      input[
+        type="text"
+        placeholder=t('.search')
+        value=params[:search]
+      ]
+      .clear
+
+    .searchable-collection.cc-4
+      - if @searched_collection&.any?
+        = render partial: 'moderations/roles/user',
+          collection: @searched_collection,
+          locals: { with_action: true }
+      - else
+        .b-nothing_here = t 'nothing_found'
+
+      - if @searched_collection&.next_page?
+        = render 'blocks/postloader',
+          filter: 'b-user',
+          next_url: current_url(page: @searched_collection.next_page),
+          prev_url: (current_url(page: @searched_collection.prev_page) if @searched_collection.prev_page?)
+

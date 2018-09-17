@@ -241,3 +241,8 @@ ru:
       show:
         users: Пользователи
         nothing_here: Нет пользователей
+        add_user: Добавить пользователя
+        search: Поиск по имени...
+      user:
+        add: Добавить
+        remove: Удалить

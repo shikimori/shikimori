@@ -28,6 +28,7 @@ header.head.misc
       .b-nothing_here = t 'nothing_found'
 
     - if @collection.next_page?
-      = render 'blocks/postloader', filter: 'b-user',
+      = render 'blocks/postloader',
+        filter: 'b-user',
         next_url: users_url(page: @collection.next_page, search: params[:search]),
         prev_url: (users_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)

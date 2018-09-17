@@ -1,6 +1,7 @@
 import URI from 'urijs';
 import Turbolinks from 'turbolinks';
 
+import CollectionSearch from 'views/application/collection_search';
 import DatePicker from 'views/application/date_picker';
 import axios from 'helpers/axios';
 
@@ -61,4 +62,8 @@ page_load('moderations_missing_videos', () => {
       .find('.details')
       .toggleClass('hidden');
   });
+});
+
+page_load('roles_show', () => {
+  new CollectionSearch('.b-collection_search');
 });

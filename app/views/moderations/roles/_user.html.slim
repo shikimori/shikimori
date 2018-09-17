@@ -1,0 +1,24 @@
+.b-user.c-column.detailed[
+  class=('with-action' if local_assigns[:with_action])
+]
+  .info
+    .image-name
+      a.name[
+        href=profile_url(user, subdomain: false)
+        title=user.nickname
+      ] = user.nickname
+
+      a[
+        href=profile_url(user, subdomain: false)
+        title=user.nickname
+      ]
+        img.image[
+          src=user.avatar_url(73)
+          srcset="#{user.avatar_url 148} 2x"
+          alt=user.nickname
+        ]
+    p.last-online
+      = user.last_online
+
+    - if local_assigns[:with_action]
+      .b-button = t ".#{user.roles.include?(params[:id].to_sym) ? :remove : :add}"

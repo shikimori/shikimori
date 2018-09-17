@@ -10,6 +10,8 @@ if @collection.next_page?
     'blocks/postloader',
     filter: 'b-user',
     next_url: users_url(page: @collection.next_page, search: params[:search]),
-    prev_url: (users_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
+    prev_url: (
+      users_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?
+    )
   )
 end

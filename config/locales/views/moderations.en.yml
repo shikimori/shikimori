@@ -241,3 +241,8 @@ en:
       show:
         users: Users
         nothing_here: No users
+        add_user: Add User
+        search: Search by name...
+      user:
+        add: Add
+        remove: Remove
