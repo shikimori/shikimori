@@ -27,7 +27,7 @@ describe VideosController do
 
         expect(assigns :version).to be_persisted
         expect(assigns(:version).item_diff['action']).to eq(
-          Versions::VideoVersion::ACTIONS[:upload]
+          Versions::VideoVersion::Action[:upload].to_s
         )
 
         expect(response).to redirect_to back_url
@@ -109,7 +109,7 @@ describe VideosController do
     it do
       expect(assigns :version).to be_persisted
       expect(assigns(:version).item_diff['action']).to eq(
-        Versions::VideoVersion::ACTIONS[:delete]
+        Versions::VideoVersion::Action[:delete].to_s
       )
 
       expect(response).to have_http_status :success

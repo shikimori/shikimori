@@ -4,20 +4,21 @@ describe ScreenshotsController do
 
   describe '#create' do
     let(:image) { Rack::Test::UploadedFile.new 'spec/files/anime.jpg', 'image/jpg' }
-    before { post :create, params: { anime_id: anime.id, id: anime.id, image: image } }
+    subject! { post :create, params: { anime_id: anime.id, id: anime.id, image: image } }
 
     it do
       expect(assigns :screenshot).to be_persisted
       expect(assigns :version).to be_persisted
       expect(assigns(:version).item_diff['action']).to eq(
-        Versions::ScreenshotsVersion::ACTIONS[:upload])
+        Versions::ScreenshotsVersion::Action[:upload].to_s
+      )
       expect(response).to have_http_status :success
     end
   end
 
   describe '#destroy' do
     let(:screenshot) { create :screenshot, status: status, anime: anime }
-    before { delete :destroy, params: { anime_id: anime.id, id: screenshot.id } }
+    subject! { delete :destroy, params: { anime_id: anime.id, id: screenshot.id } }
 
     context 'uploaded screenshot' do
       let(:status) { Screenshot::UPLOADED }
@@ -30,13 +31,14 @@ describe ScreenshotsController do
     end
 
     context 'accepted screenshot' do
-      let(:status) { }
+      let(:status) {}
 
       it do
         expect(assigns :screenshot).to be_persisted
         expect(assigns :version).to be_persisted
         expect(assigns(:version).item_diff['action']).to eq(
-          Versions::ScreenshotsVersion::ACTIONS[:delete])
+          Versions::ScreenshotsVersion::Action[:delete].to_s
+        )
         expect(response).to have_http_status :success
       end
     end
@@ -46,14 +48,22 @@ describe ScreenshotsController do
     include_context :back_redirect
     let!(:screenshot_1) { create :screenshot, anime: anime, position: 5 }
     let!(:screenshot_2) { create :screenshot, anime: anime, position: 9 }
-    before { post :reposition, params: {anime_id: anime.id, ids: "#{screenshot_2.id},#{screenshot_1.id}"} }
+    subject! do
+      post :reposition,
+        params: {
+          anime_id: anime.id,
+          ids: "#{screenshot_2.id},#{screenshot_1.id}"
+        }
+    end
 
     it do
       expect(assigns :version).to be_persisted
       expect(assigns(:version).item_diff['action']).to eq(
-        Versions::ScreenshotsVersion::ACTIONS[:reposition])
+        Versions::ScreenshotsVersion::Action[:reposition].to_s
+      )
       expect(assigns(:version).item_diff['screenshots']).to eq(
-        [[screenshot_1.id, screenshot_2.id], [screenshot_2.id, screenshot_1.id]])
+        [[screenshot_1.id, screenshot_2.id], [screenshot_2.id, screenshot_1.id]]
+      )
 
       expect(response).to redirect_to back_url
     end

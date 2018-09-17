@@ -5,7 +5,7 @@ describe Versioneers::ScreenshotsVersioneer do
   describe '#upload' do
     let(:image) { Rack::Test::UploadedFile.new 'spec/files/anime.jpg', 'image/jpg' }
 
-    let!(:present_version) { }
+    let!(:present_version) {}
     subject!(:result) { versioneer.upload image, user }
 
     let(:screenshot) { result.first }
@@ -21,7 +21,7 @@ describe Versioneers::ScreenshotsVersioneer do
         expect(version).to have_attributes(
           item: anime,
           item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+            'action' => Versioneers::ScreenshotsVersioneer::UPLOAD.to_s,
             Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
           },
           user: user
@@ -37,7 +37,7 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: anime,
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD.to_s,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
             },
             user: user
@@ -53,7 +53,7 @@ describe Versioneers::ScreenshotsVersioneer do
           expect(version).to eq present_version
           expect(version).to have_attributes version_params.except(:item_diff)
           expect(version.item_diff).to eq(
-            'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+            'action' => Versioneers::ScreenshotsVersioneer::UPLOAD.to_s,
             Versioneers::ScreenshotsVersioneer::KEY => [123456, screenshot.id]
           )
         end
@@ -64,10 +64,10 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: anime,
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD.to_s,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
             },
-            user: build_stubbed(:user),
+            user: build_stubbed(:user)
           }
         end
 
@@ -79,7 +79,7 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: create(:anime),
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD.to_s,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
             },
             user: user
@@ -95,7 +95,7 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: anime,
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD.to_s,
               Versioneers::VideosVersioneer::KEY => [123456]
             },
             user: user
@@ -125,7 +125,7 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: anime,
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD.to_s,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
             },
             user: user,
@@ -139,7 +139,7 @@ describe Versioneers::ScreenshotsVersioneer do
   end
 
   describe '#delete' do
-    let!(:present_version) { }
+    let!(:present_version) {}
     let(:screenshot) { build_stubbed :screenshot }
 
     subject!(:version) { versioneer.delete screenshot.id, user }
@@ -150,7 +150,7 @@ describe Versioneers::ScreenshotsVersioneer do
         expect(version).to have_attributes(
           item: anime,
           item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+            'action' => Versioneers::ScreenshotsVersioneer::DELETE.to_s,
             Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
           },
           user: user
@@ -166,7 +166,7 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: anime,
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+              'action' => Versioneers::ScreenshotsVersioneer::DELETE.to_s,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
             },
             user: user
@@ -178,7 +178,7 @@ describe Versioneers::ScreenshotsVersioneer do
           expect(version).to eq present_version
           expect(version).to have_attributes version_params.except(:item_diff)
           expect(version.item_diff).to eq(
-            'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+            'action' => Versioneers::ScreenshotsVersioneer::DELETE.to_s,
             Versioneers::ScreenshotsVersioneer::KEY => [123456, screenshot.id]
           )
         end
@@ -189,10 +189,10 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: anime,
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+              'action' => Versioneers::ScreenshotsVersioneer::DELETE.to_s,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
             },
-            user: build_stubbed(:user),
+            user: build_stubbed(:user)
           }
         end
 
@@ -204,7 +204,7 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: create(:anime),
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+              'action' => Versioneers::ScreenshotsVersioneer::DELETE.to_s,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
             },
             user: user
@@ -220,7 +220,7 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: anime,
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+              'action' => Versioneers::ScreenshotsVersioneer::DELETE.to_s,
               Versioneers::VideosVersioneer::KEY => [123456]
             },
             user: user
@@ -235,7 +235,7 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: create(:anime),
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::REPOSITION,
+              'action' => Versioneers::ScreenshotsVersioneer::REPOSITION.to_s,
               Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
             },
             user: user
@@ -250,7 +250,7 @@ describe Versioneers::ScreenshotsVersioneer do
           {
             item: anime,
             item_diff: {
-              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD.to_s,
               Versioneers::ScreenshotsVersioneer::KEY => [123456]
             },
             user: user,
@@ -274,7 +274,7 @@ describe Versioneers::ScreenshotsVersioneer do
       expect(version).to have_attributes(
         item: anime,
         item_diff: {
-          'action' => Versioneers::ScreenshotsVersioneer::REPOSITION,
+          'action' => Versioneers::ScreenshotsVersioneer::REPOSITION.to_s,
           Versioneers::ScreenshotsVersioneer::KEY => [
             [screenshot_1.id, screenshot_2.id],
             [screenshot_2.id, screenshot_1.id]

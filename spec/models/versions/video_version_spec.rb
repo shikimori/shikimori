@@ -1,7 +1,7 @@
 describe Versions::VideoVersion do
   describe '#action' do
     let(:version) { build :video_version, item_diff: { action: 'upload' } }
-    it { expect(version.action).to eq 'upload' }
+    it { expect(version.action).to eq Versions::VideoVersion::Action[:upload] }
   end
 
   describe '#video' do
@@ -12,13 +12,12 @@ describe Versions::VideoVersion do
   end
 
   describe '#apply_changes' do
-    let(:version) { build :video_version,
-      item_diff: { action: action, videos: [video.id] } }
+    let(:version) { build :video_version, item_diff: { action: action, videos: [video.id] } }
 
     context 'upload' do
       let(:video) { create :video, :uploaded }
       let(:action) { 'upload' }
-      before { version.apply_changes }
+      subject! { version.apply_changes }
 
       it { expect(video.reload).to be_confirmed }
     end
@@ -26,7 +25,7 @@ describe Versions::VideoVersion do
     context 'delete' do
       let(:video) { create :video, :confirmed }
       let(:action) { 'delete' }
-      before { version.apply_changes }
+      subject! { version.apply_changes }
 
       it { expect(video.reload).to be_deleted }
     end
@@ -34,25 +33,30 @@ describe Versions::VideoVersion do
     context 'unknown action' do
       let(:video) { build_stubbed :video }
       let(:action) { 'zzz' }
-      it { expect{version.apply_changes}.to raise_error ArgumentError }
+      it { expect { version.apply_changes }.to raise_error Dry::Types::ConstraintError }
     end
   end
 
   describe '#rollback_changes' do
     let(:version) { build :video_version }
-    it { expect{version.rollback_changes}.to raise_error NotImplementedError }
+    it { expect { version.rollback_changes }.to raise_error NotImplementedError }
   end
 
   describe '#cleanup' do
     let(:video) { create :video }
-    let(:version) { build :video_version,
-      item_diff: { action: action, videos: [video.id] } }
+    let(:version) do
+      build :video_version,
+        item_diff: {
+          action: action,
+          videos: [video.id]
+        }
+    end
 
-    before { version.cleanup }
+    subject! { version.cleanup }
 
     context 'upload' do
       let(:action) { 'upload' }
-      it { expect{video.reload}.to raise_error ActiveRecord::RecordNotFound }
+      it { expect { video.reload }.to raise_error ActiveRecord::RecordNotFound }
     end
 
     context 'delete' do

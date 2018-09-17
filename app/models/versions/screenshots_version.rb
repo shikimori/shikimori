@@ -1,39 +1,30 @@
 class Versions::ScreenshotsVersion < Version
-  ACTIONS = {
-    upload: 'upload',
-    reposition: 'reposition',
-    delete: 'delete'
-  }
   KEY = 'screenshots'
+  Action = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(:upload, :reposition, :delete)
 
   def action
-    item_diff['action']
+    Action[item_diff['action']]
   end
 
   def screenshots
     @screenshots ||= fetch_screenshots(
-      action == ACTIONS[:reposition] ? item_diff[KEY][1] : item_diff[KEY]
+      action == Action[:reposition] ? item_diff[KEY][1] : item_diff[KEY]
     )
   end
 
   def screenshots_prior
     @screenshots_prior ||= fetch_screenshots(
-      action == ACTIONS[:reposition] ? item_diff[KEY][0] : raise(NotImplementedError)
+      action == Action[:reposition] ? item_diff[KEY][0] : raise(NotImplementedError)
     )
   end
 
   def apply_changes
     case action
-      when ACTIONS[:upload]
-        upload_screenshots
-
-      when ACTIONS[:reposition]
-        reposition_screenshots
-
-      when ACTIONS[:delete]
-        delete_screenshots
-
-      else raise ArgumentError, "unknown action: #{action}"
+      when Action[:upload] then upload_screenshots
+      when Action[:reposition] then reposition_screenshots
+      when Action[:delete] then delete_screenshots
     end
   end
 
@@ -42,7 +33,7 @@ class Versions::ScreenshotsVersion < Version
   end
 
   def cleanup
-    screenshots.each(&:destroy) if action == ACTIONS[:upload]
+    screenshots.each(&:destroy) if action == Action[:upload]
   end
 
 private

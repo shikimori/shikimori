@@ -8,14 +8,14 @@ class VersionsQuery < SimpleQueryBase
 
   def by_field field
     query
-      .where("(item_diff->>:field) is not null", field: field)
+      .where('(item_diff->>:field) is not null', field: field)
       .decorate
   end
 
   def authors field
     query
-      .where("(item_diff->>:field) is not null", field: field)
-      .where(state_condition field)
+      .where('(item_diff->>:field) is not null', field: field)
+      .where(state_condition(field))
       .where(state: :accepted)
       .except(:order)
       .order(created_at: :asc)
@@ -41,10 +41,13 @@ private
   def state_condition field
     return unless field.to_sym == :screenshots || field.to_sym == :videos
 
-    screenshots_sql =
-      ApplicationRecord.sanitize Versions::ScreenshotsVersion::ACTIONS[:upload]
-    videos_sql =
-        ApplicationRecord.sanitize Versions::VideoVersion::ACTIONS[:upload]
+    screenshots_sql = ApplicationRecord.sanitize(
+      Versions::ScreenshotsVersion::Action[:upload]
+    )
+
+    videos_sql = ApplicationRecord.sanitize(
+      Versions::VideoVersion::Action[:upload]
+    )
 
     "(item_diff->>'action') in (#{screenshots_sql}, #{videos_sql})"
   end

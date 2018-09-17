@@ -1,7 +1,7 @@
 describe Versions::ScreenshotsVersion do
   describe '#action' do
     let(:version) { build :screenshots_version, item_diff: { action: 'upload' } }
-    it { expect(version.action).to eq 'upload' }
+    it { expect(version.action).to eq Versions::ScreenshotsVersion::Action[:upload] }
   end
 
   describe '#screenshots' do
@@ -10,7 +10,10 @@ describe Versions::ScreenshotsVersion do
     context 'upload or delete' do
       let(:version) do
         build :screenshots_version,
-          item_diff: { screenshots: [screenshot.id] }
+          item_diff: {
+            action: %i[upload delete].sample,
+            screenshots: [screenshot.id]
+          }
       end
       it { expect(version.screenshots).to eq [screenshot] }
     end
@@ -33,7 +36,10 @@ describe Versions::ScreenshotsVersion do
     context 'upload or delete' do
       let(:version) do
         build :screenshots_version,
-          item_diff: { screenshots: [screenshot.id] }
+          item_diff: {
+            action: %i[upload delete].sample,
+            screenshots: [screenshot.id]
+          }
       end
       it { expect { version.screenshots_prior }.to raise_error NotImplementedError }
     end
@@ -96,7 +102,7 @@ describe Versions::ScreenshotsVersion do
 
     context 'unknown action' do
       let(:item_diff) { { action: 'zzz' } }
-      it { expect { version.apply_changes }.to raise_error ArgumentError }
+      it { expect { version.apply_changes }.to raise_error Dry::Types::ConstraintError }
     end
   end
 

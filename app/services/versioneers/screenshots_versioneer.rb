@@ -2,11 +2,11 @@ class Versioneers::ScreenshotsVersioneer
   pattr_initialize :item
 
   KEY = Versions::ScreenshotsVersion::KEY
-  DEFAULT_POSITION = 99999
+  DEFAULT_POSITION = 99_999
 
-  UPLOAD = Versions::ScreenshotsVersion::ACTIONS[:upload]
-  REPOSITION = Versions::ScreenshotsVersion::ACTIONS[:reposition]
-  DELETE = Versions::ScreenshotsVersion::ACTIONS[:delete]
+  UPLOAD = Versions::ScreenshotsVersion::Action[:upload]
+  REPOSITION = Versions::ScreenshotsVersion::Action[:reposition]
+  DELETE = Versions::ScreenshotsVersion::Action[:delete]
 
   def upload image, author
     art = build_art image
@@ -55,8 +55,8 @@ private
   def find_version author, action
     Version
       .where(user: author, item: item, state: :pending)
-      .where("(item_diff->>:field) = :action", field: :action, action: action)
-      .where("item_diff ? :field", field: field_key)
+      .where('(item_diff->>:field) = :action', field: :action, action: action)
+      .where('item_diff ? :field', field: field_key)
       .first
   end
 
