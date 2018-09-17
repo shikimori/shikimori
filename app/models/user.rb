@@ -184,7 +184,9 @@ class User < ApplicationRecord
     if: -> { new_record? || will_save_change_to_nickname? }
   validates :email,
     presence: true,
-    if: -> { persisted? && will_save_change_to_email? }
+    if: -> {
+      persisted? && will_save_change_to_email?
+    }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
   after_update :log_nickname_change, if: -> { saved_change_to_nickname? }
@@ -231,7 +233,7 @@ class User < ApplicationRecord
 
   # allow account creation from twitter
   def email_required?
-    user_tokens.empty?
+    new_record? && user_tokens.empty?
   end
 
   # TODO: remove
