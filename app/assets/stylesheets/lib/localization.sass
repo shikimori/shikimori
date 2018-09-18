@@ -19,16 +19,3 @@ body[data-localized_genres=ru]
 body[data-localized_genres=en]
   .genre-ru
     display: none
-
-// locale
-body[data-locale=ru]
-  .translated-after:after
-    content: attr(data-text-ru)
-  .translated-before:before
-    content: attr(data-text-ru)
-
-body[data-locale=en]
-  .translated-after:after
-    content: attr(data-text-en)
-  .translated-before:before
-    content: attr(data-text-en)
