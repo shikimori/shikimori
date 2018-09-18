@@ -164,11 +164,6 @@ private
   end
 
   def auto_acceptable?
-    !user.not_trusted_version_changer? &&
-      (
-        item_type != AnimeVideo.name ||
-        user.video_moderator? ||
-        user.trusted_video_changer?
-      )
+    item_type != AnimeVideo.name || user.video_moderator? || user.trusted_video_changer?
   end
 end

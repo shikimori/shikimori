@@ -4,10 +4,15 @@ class VersionDecorator < BaseDecorator
   end
 
   def changed_fields
-    if kind_of? Versions::VideoVersion
+    if is_a? Versions::VideoVersion
       [i18n_t("field_name.video_#{action}")]
-    elsif kind_of? Versions::ScreenshotsVersion
+
+    elsif is_a? Versions::ScreenshotsVersion
       [i18n_t("field_name.screenshots_#{action}")]
+
+    elsif is_a? Versions::RoleVersion
+      [i18n_t("field_name.role_#{action}")]
+
     else
       item_diff.keys.map { |attribute| item_type.constantize.human_attribute_name attribute }
     end
@@ -22,11 +27,12 @@ class VersionDecorator < BaseDecorator
   end
 
   def old_value field
-    value = if pending? || rejected?
-      object.current_value(field)
-    else
-      item_diff[field.to_s].first
-    end
+    value =
+      if pending? || rejected?
+        object.current_value(field)
+      else
+        item_diff[field.to_s].first
+      end
 
     field_value field, value
   end

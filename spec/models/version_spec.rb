@@ -189,8 +189,8 @@ describe Version do
     let(:version) { build_stubbed :version }
     subject { Ability.new user }
 
-    context 'user_chagnes_moderator' do
-      subject { Ability.new build_stubbed(:user, :version_moderator) }
+    context 'version_moderator' do
+      let(:user) { build_stubbed :user, :version_moderator }
       it { is_expected.to be_able_to :manage, version }
     end
 
@@ -279,9 +279,20 @@ describe Version do
         it { is_expected.to be_able_to :tooltip, version }
         it { is_expected.to be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }
+
+        context 'role version' do
+          let(:version) { build_stubbed :role_version, user: user }
+
+          it { is_expected.to_not be_able_to :create, version }
+          it { is_expected.to_not be_able_to :destroy, version }
+          it { is_expected.to be_able_to :show, version }
+          it { is_expected.to be_able_to :tooltip, version }
+          it { is_expected.to_not be_able_to :destroy, version }
+          it { is_expected.to_not be_able_to :manage, version }
+        end
       end
 
-      describe 'user version' do
+      describe "another user's version" do
         it { is_expected.to be_able_to :show, version }
         it { is_expected.to be_able_to :tooltip, version }
         it { is_expected.to_not be_able_to :create, version }

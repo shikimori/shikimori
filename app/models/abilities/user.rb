@@ -1,3 +1,4 @@
+# rubocop:disable AbcSize, CyclomaticComplexity, PerceivedComplexity, MethodLength, MissingCopEnableDirective, ClassLength
 class Abilities::User
   include CanCan::Ability
   prepend Draper::CanCanCan
@@ -236,28 +237,32 @@ class Abilities::User
 
   def version_abilities
     can %i[create destroy], Version do |version|
-      major_field = (
-        version.item_diff.keys &
-          "#{version.item_type}::SIGNIFICANT_MAJOR_FIELDS".constantize
-      ).first
-      minor_field = (
-        version.item_diff.keys &
-          "#{version.item_type}::SIGNIFICANT_MINOR_FIELDS".constantize
-      ).first
+      if version.is_a? Versions::RoleVersion
+        false
+      else
+        major_field = (
+          version.item_diff.keys &
+            "#{version.item_type}::SIGNIFICANT_MAJOR_FIELDS".constantize
+        ).first
+        minor_field = (
+          version.item_diff.keys &
+            "#{version.item_type}::SIGNIFICANT_MINOR_FIELDS".constantize
+        ).first
 
-      !@user.banned? && !@user.not_trusted_version_changer? &&
-        version.user_id == @user.id && (
-          # must be new ability object here otherwise
-          # it will return false in runtime
-          # (i.e. during Version creation in DbEntriesController)
-          Ability.new(@user).can?(:major_change, version) ||
-          major_field.nil? ||
-          version.item_diff.dig(major_field, 0).nil?  # changing from nil value
-        ) && (
-          Ability.new(@user).can?(:minor_change, version) ||
-          minor_field.nil? ||
-          version.item_diff.dig(minor_field, 0).nil?  # changing from nil value
-        )
+        !@user.banned? && !@user.not_trusted_version_changer? &&
+          version.user_id == @user.id && (
+            # must be new ability object here otherwise
+            # it will return false in runtime
+            # (i.e. during Version creation in DbEntriesController)
+            Ability.new(@user).can?(:major_change, version) ||
+            major_field.nil? ||
+            version.item_diff.dig(major_field, 0).nil?  # changing from nil value
+          ) && (
+            Ability.new(@user).can?(:minor_change, version) ||
+            minor_field.nil? ||
+            version.item_diff.dig(minor_field, 0).nil?  # changing from nil value
+          )
+      end
     end
     cannot :lesser_change, Version
     cannot :major_change, Version

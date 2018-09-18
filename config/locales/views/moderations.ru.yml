@@ -243,6 +243,7 @@ ru:
         nothing_here: Нет пользователей
         add_user: Добавить пользователя
         search: Поиск по имени...
+        history: :moderations.bans.index.history
       user:
         add: Добавить
         remove: Удалить

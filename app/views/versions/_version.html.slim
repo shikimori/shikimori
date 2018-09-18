@@ -10,7 +10,8 @@
     span.date
       = version.created_at.strftime('%d.%m.%Y')
 
-    = render 'users/user_16', user: version.user
+    span
+      = render 'users/user_16', user: version.user
 
     span.column
       = version.changed_fields.join ', '
@@ -19,16 +20,21 @@
       - if version.item
         - if version.item_type == AnimeVideo.name
           = render 'versions/anime_video', version: version
+        - if version.is_a? Versions::RoleVersion
+          = render 'users/user_16', user: version.item
         - else
           = render 'versions/db_entry', version: version
       - else
         = t("deleted.#{version.item_type.underscore}").downcase
 
-    span.state class="#{version.state.downcase}"
+    span.state[
+      class=version.state.downcase
+    ]
       = version.human_state_name
 
     - if version.moderator.present?
-      = render 'users/user_16', user: version.moderator
+      span
+        = render 'users/user_16', user: version.moderator
 
     .spoiler.collapse: span.action.half-hidden style="display: none;" = t '.show'
     .collapsed.spoiler: span = t '.show_changes'
@@ -95,23 +101,26 @@
             span #{Version.human_attribute_name :reason}:
             = version.reason
 
-        - if version.kind_of? Versions::VideoVersion
+        - if version.is_a? Versions::VideoVersion
           = render 'versions/changes/video', version: version
 
-        - elsif version.kind_of? Versions::ScreenshotsVersion
+        - elsif version.is_a? Versions::ScreenshotsVersion
           /# Template Dependency: versions/changes/screenshots_reposition
           /# Template Dependency: versions/changes/screenshots_delete
           /# Template Dependency: versions/changes/screenshots_upload
           = render "versions/changes/screenshots_#{version.action}", version: version
 
-        - elsif version.kind_of? Versions::PosterVersion
+        - elsif version.is_a? Versions::PosterVersion
           = render 'versions/changes/poster', version: version
 
-        - elsif version.kind_of? Versions::CollectionVersion
+        - elsif version.is_a? Versions::CollectionVersion
           - if version.item_diff['external_links'].present?
             = render 'versions/changes/external_links', version: version
           - else
             - raise 'unknown collection'
+
+        - elsif version.is_a? Versions::RoleVersion
+          = render 'versions/changes/role', version: version
 
         - else
           - version.item_diff.each do |field, (old_value, new_value)|

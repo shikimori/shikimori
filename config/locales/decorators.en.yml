@@ -98,3 +98,5 @@ en:
       screenshots_reposition: Screenshots order
       video_upload: Video upload
       video_delete: Video delete
+      role_add: Role add
+      role_remove: Role remove

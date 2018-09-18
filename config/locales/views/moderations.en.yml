@@ -243,6 +243,7 @@ en:
         nothing_here: No users
         add_user: Add User
         search: Search by name...
+        history: :moderations.bans.index.history
       user:
         add: Add
         remove: Remove

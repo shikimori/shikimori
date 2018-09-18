@@ -31,3 +31,5 @@ ru:
         <<: *text_diff
       video:
         deleted: Видео удалено
+      role:
+        role: Роль

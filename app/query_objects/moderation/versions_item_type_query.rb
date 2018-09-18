@@ -1,15 +1,25 @@
 class Moderation::VersionsItemTypeQuery
-  pattr_initialize :type
+  method_object :type
 
-  def result
-    case type.try :to_sym
-      when :anime_video
-        Version.where(item_type: AnimeVideo.name)
+  Types = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(:content, :anime_video, :role)
 
-      when :content
-        Version.where.not(item_type: AnimeVideo.name)
+  def call
+    case Types[type]
+      when Types[:content]
+        Version
+          .where('type is null or type != ?', Versions::RoleVersion.name)
+          .where.not(item_type: AnimeVideo.name)
 
-      else raise ArgumentError, "unknown type: #{type}"
+      when Types[:anime_video]
+        Version
+          .where('type is null or type != ?', Versions::RoleVersion.name)
+          .where(item_type: AnimeVideo.name)
+
+      when Types[:role]
+        Version
+          .where(type: Versions::RoleVersion.name)
     end
   end
 end

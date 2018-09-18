@@ -31,3 +31,5 @@ en:
         <<: *text_diff
       video:
         deleted: Video deleted
+      role:
+        role: Role

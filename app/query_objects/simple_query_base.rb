@@ -6,7 +6,7 @@ class SimpleQueryBase
 
   def fetch page, limit
     query
-      .offset(limit * (page-1))
+      .offset(limit * (page - 1))
       .limit(limit + 1)
   end
 
@@ -15,6 +15,6 @@ class SimpleQueryBase
       fetch(page, limit).decorate.to_a :
       fetch(page, limit).to_a
 
-    [collection.take(limit), collection.size == limit+1]
+    [collection.take(limit), collection.size == limit + 1]
   end
 end

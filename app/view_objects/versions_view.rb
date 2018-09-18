@@ -11,7 +11,7 @@ class VersionsView < ViewObjectBase
   end
 
   def pending
-    Moderation::VersionsItemTypeQuery.new(h.params[:type]).result
+    Moderation::VersionsItemTypeQuery.call(h.params[:type])
       .includes(:user, :moderator)
       .where(state: :pending)
       .order(:created_at)
@@ -21,7 +21,7 @@ class VersionsView < ViewObjectBase
 
   def next_page_url
     h.moderations_versions_url(
-      page: page+1,
+      page: page + 1,
       type: h.params[:type],
       created_on: h.params[:created_on]
     )

@@ -22,6 +22,7 @@ class Moderations::RolesController < ModerationsController
 
     @collection = role_users_scope
     @searched_collection = search_users_scope if params[:search]
+    @versions = versions_scope
   end
 
   def update
@@ -34,7 +35,7 @@ class Moderations::RolesController < ModerationsController
         role: @role
       }
     )
-    @resource.auto_accept
+    @resource.auto_accept!
   end
 
   def destroy
@@ -78,5 +79,13 @@ private
       .search(params[:search])
       .paginate([params[:page].to_i, 1].max, 45)
       .transform(&:decorate)
+  end
+
+  def versions_scope
+    Moderation::ProcessedVersionsQuery
+      .new(Moderation::VersionsItemTypeQuery::Types[:role], nil)
+      .query
+      .where("item_diff->>'role' = ?", @role)
+      .decorate
   end
 end
