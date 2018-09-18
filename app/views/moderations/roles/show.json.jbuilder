@@ -1,7 +1,7 @@
 json.content render(
   partial: 'moderations/roles/user',
   collection: @searched_collection,
-  locals: { with_action: can?(:"manage_#{params[:id]}_role", User) },
+  locals: { with_action: can?(:"manage_#{@role}_role", User), role: @role },
   formats: :html
 )
 

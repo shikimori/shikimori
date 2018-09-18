@@ -1,4 +1,5 @@
 .b-user.c-column.detailed[
+  id=user.id
   class=('with-action' if local_assigns[:with_action])
 ]
   .info
@@ -22,6 +23,6 @@
 
     - if local_assigns[:with_action]
       .b-js-action[
-        class=(user.roles.include?(params[:id].to_sym) ? :remove : :add)
+        class=(user.roles.include?(role.to_sym) ? :remove : :add)
       ]
-        = t ".#{user.roles.include?(params[:id].to_sym) ? :remove : :add}"
+        = t ".#{user.roles.include?(role.to_sym) ? :remove : :add}"

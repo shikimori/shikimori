@@ -13,9 +13,9 @@ header.head
       - else
         = render partial: 'moderations/roles/user',
           collection: @collection,
-          locals: { with_action: can?(:"manage_#{params[:id]}_role", User) }
+          locals: { with_action: can?(:"manage_#{@role}_role", User), role: @role }
 
-- if can? :"manage_#{params[:id]}_role", User
+- if can? :"manage_#{@role}_role", User
   .block
     .subheadline.m10 = t '.add_user'
     .b-collection_search[
@@ -33,7 +33,7 @@ header.head
         - if @searched_collection&.any?
           = render partial: 'moderations/roles/user',
             collection: @searched_collection,
-            locals: { with_action: true }
+            locals: { with_action: true, role: @role }
         - else
           .b-nothing_here = t 'nothing_found'
 

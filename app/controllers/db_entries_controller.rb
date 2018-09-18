@@ -58,13 +58,14 @@ class DbEntriesController < ShikimoriController
     end
 
     Version.transaction do
-      @version = if update_params[:image]
-        update_image
-      elsif update_params[:external_links]
-        update_external_links
-      else
-        update_version
-      end
+      @version =
+        if update_params[:image]
+          update_image
+        elsif update_params[:external_links]
+          update_external_links
+        else
+          update_version
+        end
 
       authorize! :create, @version
     end
