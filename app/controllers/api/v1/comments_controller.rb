@@ -131,7 +131,9 @@ private
   end
 
   def update_params
-    comment_params.except(:is_summary, :is_offtopic)
+    params
+      .require(:comment)
+      .permit(:body)
   end
 
   def faye
