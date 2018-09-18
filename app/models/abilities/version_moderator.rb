@@ -3,6 +3,8 @@ class Abilities::VersionModerator
   prepend Draper::CanCanCan
 
   def initialize user
-    can :manage, Version
+    can :manage, Version do |version|
+      !version.is_a?(Versions::RoleVersion)
+    end
   end
 end

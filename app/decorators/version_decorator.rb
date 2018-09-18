@@ -51,7 +51,7 @@ class VersionDecorator < BaseDecorator
     [
       object,
       h.can?(:manage, object),
-      (h.current_user.id == object.user_id if h.user_signed_in?),
+      h.current_user&.id == object.user_id,
       I18n.locale
     ]
   end

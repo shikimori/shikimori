@@ -192,6 +192,11 @@ describe Version do
     context 'version_moderator' do
       let(:user) { build_stubbed :user, :version_moderator }
       it { is_expected.to be_able_to :manage, version }
+
+      context 'role version' do
+        let(:version) { build_stubbed :role_version, user: user }
+        it { is_expected.to_not be_able_to :manage, version }
+      end
     end
 
     context 'guest' do

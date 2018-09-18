@@ -10,5 +10,6 @@ class Abilities::Admin
       manage_contest_moderator_role
       manage_api_video_uploader_role
     ], User
+    can :manage, Version
   end
 end
