@@ -247,3 +247,12 @@ ru:
       user:
         add: Добавить
         remove: Удалить
+    forums:
+      index: &index
+        forums: Форумы
+        notice: Список всех форумов сайта
+      edit: &edit
+        <<: *index
+        notice: Редактирование форума
+      update:
+        <<: *edit

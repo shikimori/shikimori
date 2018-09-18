@@ -235,10 +235,10 @@ ru:
     <<: *moderations_controller
     page_title: Модерация авторов видео
 
-  genres_controller:
+  moderations/forums_controller:
     <<: *moderations_controller
 
-  forums_controller:
+  genres_controller:
     <<: *moderations_controller
 
   animes_controller: &animes_controller

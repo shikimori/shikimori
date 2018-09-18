@@ -3,7 +3,7 @@ header.head
   .notice = t '.notice'
   = render 'application/breadcrumbs'
 
-= simple_form_for @resource, url: update_forum_url(@resource.id) do |f|
+= simple_form_for @resource, url: update_moderations_forum_url(@resource.id) do |f|
   - if @resource.errors.any?
     .errors
       .subheadline.red Errors
@@ -20,4 +20,4 @@ header.head
     = f.input :is_visible
 
   = f.button :magic_submit
-  = link_to t('actions.cancel'), forums_path, class: 'cancel'
+  = link_to t('actions.cancel'), moderations_forums_path, class: 'cancel'

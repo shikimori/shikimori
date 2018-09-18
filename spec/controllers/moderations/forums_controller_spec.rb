@@ -1,4 +1,4 @@
-describe ForumsController do
+describe Moderations::ForumsController do
   include_context :authenticated, :admin
   let(:forum) { seed :offtopic_forum }
 
@@ -16,11 +16,11 @@ describe ForumsController do
   end
 
   describe '#update' do
-    let(:params) {{ position: 5 }}
+    let(:params) { { position: 5 } }
     before { patch :update, params: { id: forum.id, forum: params } }
 
     it do
-      expect(response).to redirect_to forums_url
+      expect(response).to redirect_to moderations_forums_url
       expect(resource).to have_attributes params
     end
   end

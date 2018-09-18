@@ -235,10 +235,10 @@ en:
     <<: *moderations_controller
     page_title: Anime video authors moderation
 
-  genres_controller:
+  moderations/forums_controller:
     <<: *moderations_controller
 
-  forums_controller:
+  genres_controller:
     <<: *moderations_controller
 
   animes_controller: &animes_controller

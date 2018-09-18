@@ -11,5 +11,6 @@ class Abilities::Admin
       manage_api_video_uploader_role
     ], User
     can :manage, Version
+    can :manage, Forum
   end
 end

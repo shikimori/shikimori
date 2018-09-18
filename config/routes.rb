@@ -179,6 +179,10 @@ Rails.application.routes.draw do
     resources :anime_video_authors, only: %i[index edit update] do
       get :none, on: :collection
     end
+
+    resources :forums, only: %i[index edit] do
+      patch :update, on: :member, as: :update
+    end
   end
 
   # api
@@ -624,9 +628,6 @@ Rails.application.routes.draw do
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
-    resources :forums, only: %i[index edit] do
-      patch :update, on: :member, as: :update
-    end
     resources :genres, only: %i[index edit update] do
       get :tooltip, on: :member
     end
