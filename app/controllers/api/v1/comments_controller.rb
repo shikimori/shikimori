@@ -22,8 +22,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
   param :desc, %w[1 0], required: false
-  # rubocop:disable AbcSize
-  def index
+  def index # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
     @page = [params[:page].to_i, 1].max
     @desc = params[:desc].nil? || params[:desc] == '1'
@@ -38,7 +37,6 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 
     respond_with @collection
   end
-  # rubocop:enable AbcSize
 
   api :POST, '/comments', 'Create a comment'
   param :comment, Hash do
@@ -89,6 +87,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     param :body, String, required: true
   end
   param :frontend, :bool
+  description 'Use `/api/v2/abuse_requests` to change `is_offtopic` and `is_summary` fields.'
   def update
     if faye.update(@resource, update_params) && frontent_request?
       render :comment

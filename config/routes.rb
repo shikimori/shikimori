@@ -94,13 +94,6 @@ Rails.application.routes.draw do
     resources :bans, only: %i[new], controller: 'moderations/bans'
     resources :abuse_requests, controller: 'moderations/abuse_requests', only: [] do
       resources :bans, only: %i[new], controller: 'moderations/bans'
-
-      collection do
-        post :abuse
-        post :spoiler
-        post :offtopic
-        post :summary
-      end
     end
 
     collection do
@@ -207,6 +200,15 @@ Rails.application.routes.draw do
 
         scope ':user_id'  do
           resource :ignore, only: %i[create destroy]
+        end
+      end
+
+      resources :abuse_requests, only: [] do
+        collection do
+          post :abuse
+          post :spoiler
+          post :offtopic
+          post :summary
         end
       end
     end

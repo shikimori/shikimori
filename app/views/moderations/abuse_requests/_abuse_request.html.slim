@@ -8,7 +8,8 @@
   span.date
     = abuse_request.created_at.strftime('%d.%m.%Y')
 
-  = render 'users/user_16', user: abuse_request.user
+  span
+    = render 'users/user_16', user: abuse_request.user
 
   - unless abuse_request.value
     span.remove
@@ -24,7 +25,8 @@
   - else
     span = t '.from'
 
-  = render 'users/user_16', user: abuse_request.comment.user
+  span
+    = render 'users/user_16', user: abuse_request.comment.user
 
   - if abuse_request.reason.present?
     span = t '.for_reason'

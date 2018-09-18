@@ -40,31 +40,6 @@ class Moderations::AbuseRequestsController < ModerationsController
     @resource = AbuseRequest.find params[:id]
   end
 
-  def offtopic
-    @comment = Comment.find params[:comment_id]
-    @ids = AbuseRequestsService.new(@comment, current_user).offtopic(faye_token)
-    render :create
-  end
-
-  def summary
-    @comment = Comment.find params[:comment_id]
-    @ids = AbuseRequestsService.new(@comment, current_user).summary(faye_token)
-    render :create
-  end
-
-  def abuse
-    @comment = Comment.find params[:comment_id]
-    @ids = AbuseRequestsService.new(@comment, current_user).abuse params[:reason]
-    render :create
-  end
-
-  def spoiler
-    @comment = Comment.find params[:comment_id]
-    @ids = AbuseRequestsService.new(@comment, current_user).spoiler params[:reason]
-    render :create
-  end
-
-  # принятие запроса
   def take
     @request = AbuseRequest.find params[:id]
     raise Forbidden unless current_user.forum_moderator?
@@ -72,7 +47,6 @@ class Moderations::AbuseRequestsController < ModerationsController
     render json: {}
   end
 
-  # отказ запроса
   def deny
     @request = AbuseRequest.find params[:id]
     raise Forbidden unless current_user.forum_moderator?

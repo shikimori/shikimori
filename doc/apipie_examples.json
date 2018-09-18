@@ -75,6 +75,100 @@
       "recorded": true
     }
   ],
+  "abuse_requests#abuse": [
+    {
+      "verb": "POST",
+      "path": "/api/v2/abuse_requests/abuse",
+      "versions": [
+        "2.0"
+      ],
+      "query": null,
+      "request_data": {
+        "comment_id": "13",
+        "reason": "zxcv"
+      },
+      "response_data": {
+        "kind": "abuse",
+        "value": false,
+        "affected_ids": [
+          13
+        ]
+      },
+      "code": "201",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "abuse_requests#offtopic": [
+    {
+      "verb": "POST",
+      "path": "/api/v2/abuse_requests/offtopic",
+      "versions": [
+        "2.0"
+      ],
+      "query": null,
+      "request_data": {
+        "comment_id": "11"
+      },
+      "response_data": {
+        "kind": "offtopic",
+        "value": false,
+        "affected_ids": [
+          11
+        ]
+      },
+      "code": "201",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "abuse_requests#spoiler": [
+    {
+      "verb": "POST",
+      "path": "/api/v2/abuse_requests/spoiler",
+      "versions": [
+        "2.0"
+      ],
+      "query": null,
+      "request_data": {
+        "comment_id": "14",
+        "reason": "zxcv"
+      },
+      "response_data": {
+        "kind": "spoiler",
+        "value": false,
+        "affected_ids": [
+          14
+        ]
+      },
+      "code": "201",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "abuse_requests#summary": [
+    {
+      "verb": "POST",
+      "path": "/api/v2/abuse_requests/summary",
+      "versions": [
+        "2.0"
+      ],
+      "query": null,
+      "request_data": {
+        "comment_id": "12"
+      },
+      "response_data": {
+        "kind": "summary",
+        "value": false,
+        "affected_ids": [
+          12
+        ]
+      },
+      "code": "201",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "access_tokens#create": [
     {
       "verb": "POST",
@@ -378,8 +472,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/46a1550d356b5dfa5a532c8e439183ad023bb4f8.jpg?1484049600",
-          "preview": "/system/screenshots/x332/46a1550d356b5dfa5a532c8e439183ad023bb4f8.jpg?1484049600"
+          "original": "/system/screenshots/original/0adfc38bc7b90bddcfac8f7f12a521514b6e8a60.jpg?1484049600",
+          "preview": "/system/screenshots/x332/0adfc38bc7b90bddcfac8f7f12a521514b6e8a60.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -582,7 +676,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "lM1iuZKYHsA2g3x98WGPqZjk8fJ/4GKg8P3cBmy5DyNxv+nAsdwTxqhQBTK0iRy+N1EvBCReAa95h0uVhUINTw=="
+        "authenticity_token": "XCgEeHmVNt3jE7vaAyn/yxKxYamSUzjbEWOrLTdQNRDs2MgFdDeY9sFcqdL6qNLPGcmFoZkqAZ0EQeAG781xWQ=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -635,7 +729,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           },
           "moderator": {
             "id": 23456789,
@@ -650,7 +744,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           }
         },
         {
@@ -684,7 +778,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           },
           "moderator": {
             "id": 23456789,
@@ -699,7 +793,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           }
         }
       ],
@@ -1216,7 +1310,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           }
         ],
         "animes": [
@@ -1433,7 +1527,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           }
         },
         {
@@ -1461,7 +1555,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           }
         }
       ],
@@ -2466,7 +2560,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           }
         },
         {
@@ -2490,7 +2584,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           },
           "to": {
             "id": 23456802,
@@ -2567,7 +2661,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 91858,
+          "id": 59800,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3190,7 +3284,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-09-18T23:36:15.378+03:00"
+          "last_online_at": "2018-09-19T00:08:22.241+03:00"
         }
       },
       "code": "200",
@@ -3753,8 +3847,8 @@
           "nickname": "zxcdsfgf"
         },
         "oauth_token": {
-          "access_token": "75607d2f7d0aa62b4bd36beed392221c71631e14d093c90c5c8efac491c4f101",
-          "refresh_token": "c88ca8a416271596cf58f48fd8e12cfdf91521e631d6337c07828a244d1147a8",
+          "access_token": "05a1ae928fb4719567db9cf3ccc59e0ed76bd69e0d5d12d87c39f4c490e59677",
+          "refresh_token": "642ce4cfd24690f8b12943d82d3033b13f4059e4a7301fa5dc154a5c14d308d7",
           "token_type": "bearer",
           "expires_in": 86400,
           "created_at": 1484049600
@@ -4021,7 +4115,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -4073,7 +4167,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-09-18T23:36:15.378+03:00"
+          "last_online_at": "2018-09-19T00:08:22.241+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -4111,7 +4205,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-18T23:36:15.378+03:00"
+            "last_online_at": "2018-09-19T00:08:22.241+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -4228,7 +4322,7 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "watching",
+          "status": "completed",
           "target_id": "32",
           "target_type": "Anime",
           "text": "test",
@@ -4239,7 +4333,7 @@
       "response_data": {
         "id": 6,
         "score": 10,
-        "status": "watching",
+        "status": "completed",
         "text": "test",
         "episodes": 2,
         "chapters": null,
@@ -4259,7 +4353,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-09-18T23:36:15.378+03:00"
+          "last_online_at": "2018-09-19T00:08:22.241+03:00"
         },
         "anime": {
           "id": 32,
@@ -4431,7 +4525,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-09-18T23:36:15.378+03:00"
+          "last_online_at": "2018-09-19T00:08:22.241+03:00"
         },
         "anime": {
           "id": 34,
@@ -4653,7 +4747,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-09-18T23:36:15.378+03:00"
+          "last_online_at": "2018-09-19T00:08:22.241+03:00"
         },
         "anime": {
           "id": 33,

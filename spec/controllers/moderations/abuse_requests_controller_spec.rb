@@ -19,32 +19,4 @@ describe Moderations::AbuseRequestsController do
       it { expect(response).to have_http_status :success }
     end
   end
-
-
-  [:summary, :offtopic, :abuse, :spoiler].each do |method|
-    describe method.to_s do
-      let(:comment) { create :comment }
-
-      describe 'response' do
-        before do
-          post method,
-            params: {
-              comment_id: comment.id,
-              reason: 'zxcv'
-            },
-            format: :json
-        end
-
-        it do
-          expect(response.content_type).to eq 'application/json'
-          expect(response).to have_http_status :success
-        end
-      end
-
-      describe 'result' do
-        after { post method, params: { comment_id: comment.id }, format: :json }
-        it { expect_any_instance_of(AbuseRequestsService).to receive method }
-      end
-    end
-  end
 end

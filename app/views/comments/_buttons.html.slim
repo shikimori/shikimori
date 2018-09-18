@@ -58,7 +58,7 @@ aside.buttons
     span.item-abuse.b-tooltipped.unprocessed[
       title=t('actions.moderation.abuse')
       data-text=t('actions.moderation.abuse')
-      data-action=abuse_comment_abuse_requests_url(comment)
+      data-action=abuse_api_v2_abuse_requests_url(comment_id: comment.id)
       data-method='post'
       data-type='json'
       data-remote='true'
@@ -68,7 +68,7 @@ aside.buttons
     span.item-spoiler.b-tooltipped.unprocessed[
       title=t('actions.moderation.spoiler')
       data-text=t('actions.moderation.spoiler')
-      data-action=spoiler_comment_abuse_requests_url(comment)
+      data-action=spoiler_api_v2_abuse_requests_url(comment_id: comment.id)
       data-method='post'
       data-type='json'
       data-remote='true'
@@ -82,7 +82,7 @@ aside.buttons
       data-text-alt=t('actions.moderation.not_offtopic')
       data-confirm-add=t('actions.markers.offtopic.confirm_add')
       data-confirm-remove=t('actions.markers.offtopic.confirm_remove')
-      data-action=offtopic_comment_abuse_requests_url(comment)
+      data-action=offtopic_api_v2_abuse_requests_url(comment_id: comment.id)
       data-method='post'
       data-type='json'
       data-remote='true'
@@ -97,7 +97,7 @@ aside.buttons
         data-text-alt=t('actions.moderation.not_summary')
         data-confirm-add=t('actions.markers.summary.confirm_add')
         data-confirm-remove=t('actions.markers.summary.confirm_remove')
-        data-action=summary_comment_abuse_requests_url(comment)
+        data-action=summary_api_v2_abuse_requests_url(comment_id: comment.id)
         data-method='post'
         data-type='json'
         data-remote='true'
