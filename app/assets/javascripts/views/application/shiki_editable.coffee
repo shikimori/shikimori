@@ -146,7 +146,8 @@ export default class ShikiEditable extends ShikiView
 
   # закрытие кнопок в мобильной версии
   _close_aside: ->
-    $('.item-mobile', @$inner).click() if $('.item-mobile', @$inner).is('.selected')
+    # ">" need because in dialogs we may have nested inner element
+    $('> .item-mobile', @$inner).click() if $('.item-mobile', @$inner).is('.selected')
 
     $('.main-controls', @$inner).show()
     $('.delete-controls', @$inner).hide()
