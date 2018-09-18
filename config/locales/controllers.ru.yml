@@ -238,7 +238,7 @@ ru:
   moderations/forums_controller:
     <<: *moderations_controller
 
-  genres_controller:
+  moderations/genres_controller:
     <<: *moderations_controller
 
   animes_controller: &animes_controller

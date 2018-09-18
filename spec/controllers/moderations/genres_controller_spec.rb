@@ -1,4 +1,4 @@
-describe GenresController do
+describe Moderations::GenresController do
   include_context :authenticated, :admin
   let!(:genre) { create :genre }
 
@@ -16,11 +16,11 @@ describe GenresController do
   end
 
   describe '#update' do
-    let(:params) {{ description: 'new description' }}
+    let(:params) { { description: 'new description' } }
     before { patch :update, params: { id: genre.id, genre: params } }
 
     it do
-      expect(response).to redirect_to genres_url
+      expect(response).to redirect_to moderations_genres_url
       expect(resource).to have_attributes params
     end
   end

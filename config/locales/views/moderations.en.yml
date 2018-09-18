@@ -256,3 +256,12 @@ en:
         notice: Edit forum
       update:
         <<: *edit
+    genres:
+      index: &index
+        genres: Жанры
+        notice: Список всех жанров сайта
+      edit: &edit
+        <<: *index
+        notice: Редактирование жанра
+      update:
+        <<: *edit

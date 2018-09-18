@@ -1,4 +1,4 @@
-class GenresController < ModerationsController
+class Moderations::GenresController < ModerationsController
   skip_before_action :authenticate_user!, only: %i[tooltip]
   load_and_authorize_resource
   before_action :set_breadcrumbs, except: %i[tooltip]
@@ -12,7 +12,7 @@ class GenresController < ModerationsController
 
   def update
     if @resource.update genre_params
-      redirect_to genres_url
+      redirect_to moderations_genres_url
     else
       render action: 'edit'
     end
@@ -36,6 +36,6 @@ private
     og page_title: t('.genres')
     og page_title: "#{@resource.name} / #{@resource.russian}" if @resource
 
-    breadcrumb t('.genres'), genres_url if @resource
+    breadcrumb t('.genres'), moderations_genres_url if @resource
   end
 end

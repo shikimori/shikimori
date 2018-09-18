@@ -183,6 +183,9 @@ Rails.application.routes.draw do
     resources :forums, only: %i[index edit] do
       patch :update, on: :member, as: :update
     end
+    resources :genres, only: %i[index edit update] do
+      get :tooltip, on: :member
+    end
   end
 
   # api
@@ -627,10 +630,6 @@ Rails.application.routes.draw do
     get 'cosplay/:gallery/comments' => 'cosplayers#comments', as: :cosplay_comments
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
-
-    resources :genres, only: %i[index edit update] do
-      get :tooltip, on: :member
-    end
 
     resources :achievements, only: [] do
       get '' => :index, as: '', on: :collection
