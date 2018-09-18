@@ -21,4 +21,7 @@
       = user.last_online
 
     - if local_assigns[:with_action]
-      .b-button = t ".#{user.roles.include?(params[:id].to_sym) ? :remove : :add}"
+      .b-js-action[
+        class=(user.roles.include?(params[:id].to_sym) ? :remove : :add)
+      ]
+        = t ".#{user.roles.include?(params[:id].to_sym) ? :remove : :add}"

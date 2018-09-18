@@ -7,38 +7,38 @@ header.head
 .block
   .subheadline.m10 = t '.users'
   .cc-4
-    - cache [params[:role], @collection] do
+    - cache [params[:role], @collection, :v2] do
       - if @collection.none?
         .b-nothing_here = t '.nothing_here'
       - else
         = render partial: 'moderations/roles/user',
           collection: @collection,
-          locals: { with_action: true }
+          locals: { with_action: can?(:"manage_#{params[:id]}_role", User) }
 
-.block
-  .subheadline.m10 = t '.add_user'
-  .b-collection_search[
-    data-search_url=current_url(search: nil)
-  ]
-    .field
-      input[
-        type="text"
-        placeholder=t('.search')
-        value=params[:search]
-      ]
-      .clear
+- if can? :"manage_#{params[:id]}_role", User
+  .block
+    .subheadline.m10 = t '.add_user'
+    .b-collection_search[
+      data-search_url=current_url(search: nil)
+    ]
+      .field
+        input[
+          type="text"
+          placeholder=t('.search')
+          value=params[:search]
+        ]
+        .clear
 
-    .searchable-collection.cc-4
-      - if @searched_collection&.any?
-        = render partial: 'moderations/roles/user',
-          collection: @searched_collection,
-          locals: { with_action: true }
-      - else
-        .b-nothing_here = t 'nothing_found'
+      .searchable-collection.cc-4
+        - if @searched_collection&.any?
+          = render partial: 'moderations/roles/user',
+            collection: @searched_collection,
+            locals: { with_action: true }
+        - else
+          .b-nothing_here = t 'nothing_found'
 
-      - if @searched_collection&.next_page?
-        = render 'blocks/postloader',
-          filter: 'b-user',
-          next_url: current_url(page: @searched_collection.next_page),
-          prev_url: (current_url(page: @searched_collection.prev_page) if @searched_collection.prev_page?)
-
+        - if @searched_collection&.next_page?
+          = render 'blocks/postloader',
+            filter: 'b-user',
+            next_url: current_url(page: @searched_collection.next_page),
+            prev_url: (current_url(page: @searched_collection.prev_page) if @searched_collection.prev_page?)
