@@ -42,7 +42,17 @@ describe Moderations::RolesController do
 
       it do
         expect(resource).to be_persisted
-        expect(resource).to be_auto_accepted
+        expect(resource).to_not be_changed
+        expect(resource).to have_attributes(
+          state: 'auto_accepted',
+          user_id: user.id,
+          item_id: target_user.id,
+          item_type: User.name,
+          item_diff: {
+            'action' => 'add',
+            'role' => role.to_s
+          }
+        )
         expect(User.find(target_user.id)).to be_censored_avatar
 
         expect(json).to have_key :content
@@ -78,7 +88,18 @@ describe Moderations::RolesController do
 
       it do
         expect(resource).to be_persisted
-        expect(resource).to be_auto_accepted
+        expect(resource).to_not be_changed
+        expect(resource).to have_attributes(
+          state: 'auto_accepted',
+          user_id: user.id,
+          item_id: target_user.id,
+          item_type: User.name,
+          item_diff: {
+            'action' => 'remove',
+            'role' => role.to_s
+          }
+        )
+
         expect(User.find(target_user.id)).to_not be_censored_avatar
 
         expect(json).to have_key :content

@@ -24,5 +24,9 @@
     - if local_assigns[:with_action]
       .b-js-action[
         class=(user.roles.include?(role.to_sym) ? :remove : :add)
+        data-remote=true
+        data-action=moderations_role_url(role, user_id: user.id)
+        data-method=(user.roles.include?(role.to_sym) ? 'DELETE' : 'PUT')
+        data-type='json'
       ]
         = t ".#{user.roles.include?(role.to_sym) ? :remove : :add}"

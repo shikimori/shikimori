@@ -26,6 +26,7 @@ class Moderations::RolesController < ModerationsController
 
   def update
     @resource = ::Versions::RoleVersion.create!(
+      state: :pending,
       user: current_user,
       item: @target_user,
       item_diff: {
@@ -38,6 +39,7 @@ class Moderations::RolesController < ModerationsController
 
   def destroy
     @resource = ::Versions::RoleVersion.create!(
+      state: :pending,
       user: current_user,
       item: @target_user,
       item_diff: {

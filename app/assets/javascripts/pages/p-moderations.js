@@ -66,4 +66,12 @@ page_load('moderations_missing_videos', () => {
 
 page_load('roles_show', () => {
   new CollectionSearch('.b-collection_search');
+
+  $('.l-page')
+    .on('ajax:before', '.b-user', ({ currentTarget }) => {
+      $(`.b-user[id=${currentTarget.id}]`).addClass('b-ajax');
+    })
+    .on('ajax:success', '.b-user', ({ currentTarget }, { content }) => {
+      $(`.b-user[id=${currentTarget.id}]`).replaceWith(content);
+    });
 });
