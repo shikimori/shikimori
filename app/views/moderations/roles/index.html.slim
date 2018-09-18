@@ -10,7 +10,11 @@ ul.b-list.block
     li
       a.b-js-link[
         href=moderations_role_url(id: role)
-      ] = role.titleize
+      ]
+        = role.titleize
+      / - if can? :"manage_#{role}_role", User
+      - if current_user&.send("#{role}?")
+        .have-role ✓
 
     - if %w[retired_moderator trusted_ranobe_external_links_changer cosplay_moderator contest_moderator trusted_video_changer censored_profile].include? role
       .m15

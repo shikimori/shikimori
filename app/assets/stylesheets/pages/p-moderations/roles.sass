@@ -1,3 +1,10 @@
+@import mixins/shiki_check
+
+.p-moderations-index.p-roles-index
+  .have-role
+    +shiki_check($green-check)
+    margin-left: 10px
+
 .p-moderations-show.p-roles-show
   .b-user.with-action
     .image-name .image

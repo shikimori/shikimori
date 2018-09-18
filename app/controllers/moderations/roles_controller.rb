@@ -31,7 +31,6 @@ private
   def users_scope
     User
       .where("roles && '{#{Types::User::Roles[params[:id]]}}'")
-      .where(("id != #{User::MORR_ID}" if params[:id] != 'admin'))
       .order(:nickname)
       .decorate
   rescue Dry::Types::ConstraintError
