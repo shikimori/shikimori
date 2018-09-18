@@ -4,20 +4,34 @@ class Api::V1::TopicsController < Api::V1Controller
   api :GET, '/topics', 'List topics'
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
-  param :forum, %w[all] + Forum::VARIANTS, required: true
-  def index
+  param :forum, %w[all] + Forum::VARIANTS, required: false
+  param :linked_id, :number, required: false, desc: 'Used together with `linked_type`'
+  param :linked_type, Topic::LINKED_TYPES.to_s.scan(/[A-Z]\w+/),
+    required: false,
+    desc: 'Used together with `linked_id`'
+  def index # rubocop:disable AbcSize, MethodLength
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
     @page = [params[:page].to_i, 1].max
 
-    @forum = Forum.find_by_permalink params[:forum]
-    @topics = Topics::Query.fetch(current_user, locale_from_host)
-      .by_forum(@forum, current_user, censored_forbidden?)
+    topics_scope = Topics::Query.fetch(current_user, locale_from_host)
+
+    if params[:forum]
+      forum = Forum.find_by_permalink params[:forum]
+      topics_scope = topics_scope.by_forum forum, current_user, censored_forbidden?
+    end
+
+    if params[:linked_id] && params[:linked_type]
+      linked = params[:linked_type].constantize.find_by(id: params[:linked_id])
+      topics_scope = topics_scope.by_linked linked
+    end
+
+    @collection = topics_scope
       .includes(:forum, :user)
       .offset(@limit * (@page - 1))
       .limit(@limit + 1)
       .as_views(true, false)
 
-    respond_with @topics, each_serializer: TopicSerializer
+    respond_with @collection, each_serializer: TopicSerializer
   end
 
   api :GET, '/topics/updates', 'NewsTopics about database updates'
@@ -45,7 +59,7 @@ private
         id: topic.id,
         linked: linked(topic),
         event: topic.action,
-        episode: (topic.value.to_i if topic.present?),
+        episode: (topic.value.to_i if topic.value.present?),
         created_at: topic.created_at,
         url: UrlGenerator.instance.topic_url(topic)
       }

@@ -1,7 +1,7 @@
 class TopicSerializer < ActiveModel::Serializer
   attributes :id, :topic_title, :body, :html_body, :html_footer, :created_at,
     :comments_count, :forum, :user, :type, :linked_id, :linked_type, :linked,
-    :viewed, :last_comment_viewed
+    :viewed, :last_comment_viewed, :event, :episode
 
   def forum
     ForumSerializer.new object.topic.forum
@@ -23,7 +23,7 @@ class TopicSerializer < ActiveModel::Serializer
     UserSerializer.new object.user
   end
 
-  def linked
+  def linked # rubocop:disable CyclomaticComplexity, AbcSize
     return unless object.topic.linked
 
     case linked_type
@@ -41,5 +41,13 @@ class TopicSerializer < ActiveModel::Serializer
 
   def viewed
     object.viewed?
+  end
+
+  def event
+    object.topic.action
+  end
+
+  def episode
+    object.topic.value.to_i if object.topic.value.present?
   end
 end

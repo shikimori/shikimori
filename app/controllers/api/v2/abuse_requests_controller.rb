@@ -24,7 +24,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
 
   api :POST, '/v2/abuse_requests/abuse', 'Create abuse about violation of site rules'
   param :comment_id, :number, required: true
-  param :reason, String
+  param :reason, String, required: false
   description 'Request will be sent to moderators.'
   def abuse
     comment = Comment.find params[:comment_id]
@@ -35,7 +35,7 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
 
   api :POST, '/v2/abuse_requests/spoiler', 'Create abuse spoiler content in comment'
   param :comment_id, :number, required: true
-  param :reason, String
+  param :reason, String, required: false
   description 'Request will be sent to moderators.'
   def spoiler
     comment = Comment.find params[:comment_id]

@@ -225,6 +225,7 @@ Rails.application.routes.draw do
           get :franchise
           get :videos
           get :external_links
+          get :topics
         end
         collection do
           get :neko
@@ -243,6 +244,7 @@ Rails.application.routes.draw do
             get :related
             get :franchise
             get :external_links
+            get :topics
           end
           get :search, on: :collection
         end

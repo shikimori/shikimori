@@ -472,8 +472,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/0adfc38bc7b90bddcfac8f7f12a521514b6e8a60.jpg?1484049600",
-          "preview": "/system/screenshots/x332/0adfc38bc7b90bddcfac8f7f12a521514b6e8a60.jpg?1484049600"
+          "original": "/system/screenshots/original/6bc3064ee971ed49dcde740dcd0a9b123c7953de.jpg?1484049600",
+          "preview": "/system/screenshots/x332/6bc3064ee971ed49dcde740dcd0a9b123c7953de.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -676,7 +676,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "XCgEeHmVNt3jE7vaAyn/yxKxYamSUzjbEWOrLTdQNRDs2MgFdDeY9sFcqdL6qNLPGcmFoZkqAZ0EQeAG781xWQ=="
+        "authenticity_token": "V12ex9h0lTrrzPHurGr7zHne9j7chh4sIg5wdthxH5vtD9nchtTgPjRFlHoWULFUN8TIWtwA62P5E3MVGfRhew=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -729,7 +729,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-19T00:08:22.241+03:00"
+            "last_online_at": "2018-09-19T00:41:27.716+03:00"
           },
           "moderator": {
             "id": 23456789,
@@ -744,7 +744,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-19T00:08:22.241+03:00"
+            "last_online_at": "2018-09-19T00:41:27.716+03:00"
           }
         },
         {
@@ -778,7 +778,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-19T00:08:22.241+03:00"
+            "last_online_at": "2018-09-19T00:41:27.716+03:00"
           },
           "moderator": {
             "id": 23456789,
@@ -793,7 +793,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-19T00:08:22.241+03:00"
+            "last_online_at": "2018-09-19T00:41:27.716+03:00"
           }
         }
       ],
@@ -1310,7 +1310,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-19T00:08:22.241+03:00"
+            "last_online_at": "2018-09-19T00:41:27.716+03:00"
           }
         ],
         "animes": [
@@ -1527,7 +1527,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-19T00:08:22.241+03:00"
+            "last_online_at": "2018-09-19T00:41:27.716+03:00"
           }
         },
         {
@@ -1555,7 +1555,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-19T00:08:22.241+03:00"
+            "last_online_at": "2018-09-19T00:41:27.716+03:00"
           }
         }
       ],
@@ -2560,7 +2560,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-19T00:08:22.241+03:00"
+            "last_online_at": "2018-09-19T00:41:27.716+03:00"
           }
         },
         {
@@ -2584,7 +2584,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2018-09-19T00:08:22.241+03:00"
+            "last_online_at": "2018-09-19T00:41:27.716+03:00"
           },
           "to": {
             "id": 23456802,
@@ -2661,7 +2661,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 59800,
+          "id": 56834,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3284,7 +3284,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-09-19T00:08:22.241+03:00"
+          "last_online_at": "2018-09-19T00:41:27.716+03:00"
         }
       },
       "code": "200",
@@ -3847,8 +3847,8 @@
           "nickname": "zxcdsfgf"
         },
         "oauth_token": {
-          "access_token": "05a1ae928fb4719567db9cf3ccc59e0ed76bd69e0d5d12d87c39f4c490e59677",
-          "refresh_token": "642ce4cfd24690f8b12943d82d3033b13f4059e4a7301fa5dc154a5c14d308d7",
+          "access_token": "29cdcc18e1ddf624edd2ceaeba2e37a652af78401515c5ae7b3651815df92661",
+          "refresh_token": "e414389dfc9b2bdd0b39750125137301da7ecf0bc9af1990402a864c5fddd0f4",
           "token_type": "bearer",
           "expires_in": 86400,
           "created_at": 1484049600
@@ -4239,8 +4239,8 @@
         {
           "id": 212679,
           "linked": {
-            "id": 30,
-            "name": "anime_27",
+            "id": 31,
+            "name": "anime_28",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -4248,7 +4248,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/30-anime-27",
+            "url": "/animes/31-anime-28",
             "kind": "tv",
             "status": "released",
             "episodes": 0,
@@ -4259,7 +4259,7 @@
           "event": "episode",
           "episode": 5,
           "created_at": "2017-01-10T15:00:00.000+03:00",
-          "url": "http://test.host/forum/animanga/anime-30-anime-27/212679-topic-8"
+          "url": "http://test.host/forum/animanga/anime-31-anime-28/212679-topic-8"
         }
       ],
       "code": "200",
@@ -4323,7 +4323,7 @@
           "rewatches": "5",
           "score": "10",
           "status": "completed",
-          "target_id": "32",
+          "target_id": "33",
           "target_type": "Anime",
           "text": "test",
           "user_id": "23456789",
@@ -4353,11 +4353,11 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-09-19T00:08:22.241+03:00"
+          "last_online_at": "2018-09-19T00:41:27.716+03:00"
         },
         "anime": {
-          "id": 32,
-          "name": "anime_29",
+          "id": 33,
+          "name": "anime_30",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -4365,7 +4365,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/32-anime-29",
+          "url": "/animes/33-anime-30",
           "kind": "tv",
           "status": "released",
           "episodes": 0,
@@ -4393,7 +4393,7 @@
           "rewatches": "5",
           "score": "10",
           "status": "watching",
-          "target_id": "51",
+          "target_id": "52",
           "target_type": "Anime",
           "text": "test",
           "user_id": "23456789",
@@ -4403,7 +4403,7 @@
       "response_data": {
         "id": 18,
         "user_id": 23456789,
-        "target_id": 51,
+        "target_id": 52,
         "target_type": "Anime",
         "score": 10,
         "status": "watching",
@@ -4433,8 +4433,8 @@
           "episodes": "2",
           "rewatches": "5",
           "score": "10",
-          "status": "completed",
-          "target_id": "52",
+          "status": "watching",
+          "target_id": "53",
           "target_type": "Anime",
           "text": "test",
           "user_id": "23456789",
@@ -4444,10 +4444,10 @@
       "response_data": {
         "id": 19,
         "user_id": 23456789,
-        "target_id": 52,
+        "target_id": 53,
         "target_type": "Anime",
         "score": 10,
-        "status": "completed",
+        "status": "watching",
         "rewatches": 5,
         "episodes": 2,
         "volumes": 3,
@@ -4525,11 +4525,11 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-09-19T00:08:22.241+03:00"
+          "last_online_at": "2018-09-19T00:41:27.716+03:00"
         },
         "anime": {
-          "id": 34,
-          "name": "anime_31",
+          "id": 35,
+          "name": "anime_32",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -4537,7 +4537,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/34-anime-31",
+          "url": "/animes/35-anime-32",
           "kind": "tv",
           "status": "released",
           "episodes": 0,
@@ -4563,7 +4563,7 @@
       "response_data": {
         "id": 21,
         "user_id": 23456789,
-        "target_id": 54,
+        "target_id": 55,
         "target_type": "Anime",
         "score": 0,
         "status": "planned",
@@ -4594,7 +4594,7 @@
         {
           "id": 15,
           "user_id": 23456789,
-          "target_id": 48,
+          "target_id": 49,
           "target_type": "Anime",
           "score": 0,
           "status": "completed",
@@ -4610,7 +4610,7 @@
         {
           "id": 16,
           "user_id": 23456789,
-          "target_id": 49,
+          "target_id": 50,
           "target_type": "Anime",
           "score": 0,
           "status": "planned",
@@ -4659,7 +4659,7 @@
       "response_data": {
         "id": 5,
         "user_id": 23456789,
-        "target_id": 31,
+        "target_id": 32,
         "target_type": "Anime",
         "score": 0,
         "status": "planned",
@@ -4687,7 +4687,7 @@
       "response_data": {
         "id": 14,
         "user_id": 23456789,
-        "target_id": 47,
+        "target_id": 48,
         "target_type": "Anime",
         "score": 0,
         "status": "planned",
@@ -4747,11 +4747,11 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2018-09-19T00:08:22.241+03:00"
+          "last_online_at": "2018-09-19T00:41:27.716+03:00"
         },
         "anime": {
-          "id": 33,
-          "name": "anime_30",
+          "id": 34,
+          "name": "anime_31",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -4759,7 +4759,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/33-anime-30",
+          "url": "/animes/34-anime-31",
           "kind": "tv",
           "status": "released",
           "episodes": 0,
@@ -4794,7 +4794,7 @@
       "response_data": {
         "id": 20,
         "user_id": 23456789,
-        "target_id": 53,
+        "target_id": 54,
         "target_type": "Anime",
         "score": 10,
         "status": "watching",
@@ -4848,8 +4848,8 @@
             "last_online_at": "2017-01-10T15:00:00.000+03:00"
           },
           "anime": {
-            "id": 38,
-            "name": "anime_35",
+            "id": 39,
+            "name": "anime_36",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -4857,7 +4857,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/38-anime-35",
+            "url": "/animes/39-anime-36",
             "kind": "tv",
             "status": "released",
             "episodes": 0,
@@ -4891,7 +4891,7 @@
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "anime_video": {
             "id": 3,
-            "anime_id": 42,
+            "anime_id": 43,
             "url": "http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd162",
             "source": "http://source.com",
             "episode": 1,
@@ -5098,12 +5098,12 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 29,
+          "id": 28,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Запланировано",
           "target": {
-            "id": 41,
-            "name": "anime_38",
+            "id": 42,
+            "name": "anime_39",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -5111,7 +5111,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/41-anime-38",
+            "url": "/animes/42-anime-39",
             "kind": "tv",
             "status": "released",
             "episodes": 0,
@@ -5121,7 +5121,7 @@
           }
         },
         {
-          "id": 28,
+          "id": 27,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Импортировано аниме - 522 записи",
           "target": null
@@ -5288,15 +5288,15 @@
           "kind": "anons",
           "read": false,
           "body": "anime [b]anons[/b]",
-          "html_body": "Анонсировано аниме anime_37",
+          "html_body": "Анонсировано аниме anime_38",
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "linked": {
-            "id": 40,
+            "id": 41,
             "topic_url": "http://test.host/forum/animanga/212680-topic-9",
             "thread_id": 212680,
             "topic_id": 212680,
             "type": "Anime",
-            "name": "anime_37",
+            "name": "anime_38",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -5304,7 +5304,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/40-anime-37",
+            "url": "/animes/41-anime-38",
             "kind": "tv",
             "status": "released",
             "episodes": 0,
@@ -5653,7 +5653,7 @@
   "videos#create": [
     {
       "verb": "POST",
-      "path": "/api/animes/44/videos",
+      "path": "/api/animes/45/videos",
       "versions": [
         "1.0"
       ],
@@ -5682,7 +5682,7 @@
   "videos#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/animes/45/videos/4",
+      "path": "/api/animes/46/videos/4",
       "versions": [
         "1.0"
       ],
@@ -5698,7 +5698,7 @@
   "videos#index": [
     {
       "verb": "GET",
-      "path": "/api/animes/43/videos",
+      "path": "/api/animes/44/videos",
       "versions": [
         "1.0"
       ],

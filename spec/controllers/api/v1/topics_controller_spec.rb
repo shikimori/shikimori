@@ -3,9 +3,19 @@ describe Api::V1::TopicsController, :show_in_doc do
     let!(:topic) do
       create :topic,
         forum: animanga_forum,
-        body: 'test [spoiler=спойлер]test[/spoiler] test'
+        body: 'test [spoiler=спойлер]test[/spoiler] test',
+        linked: anime
     end
-    before { get :index, params: { forum: animanga_forum.permalink }, format: :json }
+    let(:anime) { create :anime }
+    subject! do
+      get :index,
+        params: {
+          forum: animanga_forum.permalink,
+          linked_id: anime.id,
+          linked_type: Anime.name
+        },
+        format: :json
+    end
 
     it do
       expect(response).to have_http_status :success
@@ -21,7 +31,7 @@ describe Api::V1::TopicsController, :show_in_doc do
         body: 'test [spoiler=спойлер]test[/spoiler] test'
     end
 
-    before { get :show, params: { id: topic.id }, format: :json }
+    subject! { get :show, params: { id: topic.id }, format: :json }
 
     it { expect(response).to have_http_status :success }
   end
@@ -36,7 +46,7 @@ describe Api::V1::TopicsController, :show_in_doc do
         action: 'episode',
         value: '5'
     end
-    before { get :updates, format: :json }
+    subject! { get :updates, format: :json }
 
     it do
       expect(response).to have_http_status :success
