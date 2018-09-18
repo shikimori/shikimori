@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_29_112051) do
+ActiveRecord::Schema.define(version: 2018_09_18_125531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -488,7 +488,7 @@ ActiveRecord::Schema.define(version: 2018_08_29_112051) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "imported_at"
-    t.string "source"
+    t.string "source", null: false
     t.index ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id"
   end
 
