@@ -1,8 +1,6 @@
 class Version < ApplicationRecord
   MAXIMUM_REASON_SIZE = 255
 
-  ABUSE_USER_IDS = [91_184]
-
   belongs_to :user
   belongs_to :moderator, class_name: User.name, optional: true
   # optional item becase it can be deleted later and we don't need this version to fail on validation
@@ -166,7 +164,7 @@ private
   end
 
   def auto_acceptable?
-    !ABUSE_USER_IDS.include?(user_id) &&
+    !user.not_trusted_version_changer? &&
       (
         item_type != AnimeVideo.name ||
         user.video_moderator? ||
