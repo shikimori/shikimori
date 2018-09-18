@@ -21,7 +21,7 @@ describe Api::V1::AnimesController, :show_in_doc do
     before do
       allow(Search::Anime).to receive(:call) { |params| params[:scope] }
     end
-    before do
+    subject! do
       get :index,
         params: {
           page: 1,
@@ -38,7 +38,7 @@ describe Api::V1::AnimesController, :show_in_doc do
           order: 'ranked',
           mylist: '1',
           score: '6',
-          censored: 'false',
+          censored: 'false'
         },
         format: :json
     end
@@ -52,7 +52,7 @@ describe Api::V1::AnimesController, :show_in_doc do
 
   describe '#show' do
     let(:anime) { create :anime, :with_topics }
-    before { get :show, params: { id: anime.id }, format: :json }
+    subject! { get :show, params: { id: anime.id }, format: :json }
 
     it do
       expect(json).to have_key :description_html
@@ -65,7 +65,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#similar' do
     let(:anime) { create :anime }
     let!(:similar) { create :similar_anime, src: anime }
-    before { get :similar, params: { id: anime.id }, format: :json }
+    subject! { get :similar, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -80,7 +80,7 @@ describe Api::V1::AnimesController, :show_in_doc do
     let(:person) { create :person }
     let!(:role_1) { create :person_role, anime: anime, character: character, roles: %w[Main] }
     let!(:role_2) { create :person_role, anime: anime, person: person, roles: %w[Director] }
-    before { get :roles, params: { id: anime.id }, format: :json }
+    subject! { get :roles, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(2).items
@@ -91,8 +91,13 @@ describe Api::V1::AnimesController, :show_in_doc do
 
   describe '#related' do
     let(:anime) { create :anime }
-    let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
-    before { get :related, params: { id: anime.id }, format: :json }
+    let!(:similar) do
+      create :related_anime,
+        source: anime,
+        anime: create(:anime),
+        relation: 'Adaptation'
+    end
+    subject! { get :related, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -104,7 +109,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#screenshots' do
     let(:anime) { create :anime }
     let!(:screenshot) { create :screenshot, anime: anime }
-    before { get :screenshots, params: { id: anime.id }, format: :json }
+    subject! { get :screenshots, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -116,7 +121,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#videos' do
     let(:anime) { create :anime }
     let!(:video) { create :video, :confirmed, anime: anime }
-    before { get :videos, params: { id: anime.id }, format: :json }
+    subject! { get :videos, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -128,7 +133,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#franchise' do
     let(:anime) { create :anime }
     let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
-    before { get :franchise, params: { id: anime.id }, format: :json }
+    subject! { get :franchise, params: { id: anime.id }, format: :json }
     after { Animes::BannedRelations.instance.clear_cache! }
 
     it do
@@ -145,7 +150,7 @@ describe Api::V1::AnimesController, :show_in_doc do
         kind: :wikipedia,
         url: 'en.wikipedia.org'
     end
-    before { get :external_links, params: { id: anime.id }, format: :json }
+    subject! { get :external_links, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(2).items
@@ -162,7 +167,7 @@ describe Api::V1::AnimesController, :show_in_doc do
         params[:scope].where(id: anime_1)
       end
     end
-    before { get :search, params: { q: 'asd', censored: true }, format: :json }
+    subject! { get :search, params: { q: 'asd', censored: true }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -176,7 +181,7 @@ describe Api::V1::AnimesController, :show_in_doc do
     let!(:anime_2) { create :anime, name: 'zxcv' }
     let(:genre) { create :genre }
 
-    before { get :neko }
+    subject! { get :neko }
 
     it do
       expect(json).to have(2).items

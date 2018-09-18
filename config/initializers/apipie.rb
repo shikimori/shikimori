@@ -1,3 +1,6 @@
+# to make docs recording work again revert this commit in apipie
+# https://github.com/Apipie/apipie-rails/commit/e3eab0a33eaff8e8311eee3f478feabde7d906ae
+# https://github.com/Apipie/apipie-rails/issues/622
 Apipie.configure do |config|
   config.app_name                = 'Shikimori API'
   config.api_base_url            = '/api'

@@ -1,6 +1,6 @@
 describe Api::V1::CommentsController do
   include_context :authenticated
-  let(:user) { seed :user_day_registered }
+  let(:user) { create :user, :day_registered, nickname: 'zxc' } # do not remove. for apipie specs there is additional Timecop.freeze
 
   let(:topic) { create :topic, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }

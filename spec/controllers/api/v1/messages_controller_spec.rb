@@ -1,10 +1,11 @@
-describe Api::V1::MessagesController, :show_in_doc do
-  include_context :authenticated, :user, :day_registered
+describe Api::V1::MessagesController do
+  include_context :authenticated
+  let(:user) { create :user, :day_registered, nickname: 'zxc' } # do not remove. for apipie specs there is additional Timecop.freeze
 
   describe '#show' do
     let(:make_request) { get :show, params: { id: message.id }, format: :json }
 
-    describe 'has access' do
+    describe 'has access', :show_in_doc do
       subject! { make_request }
       let(:message) { create :message, from: user }
       it { expect(response).to have_http_status :success }
@@ -105,7 +106,7 @@ describe Api::V1::MessagesController, :show_in_doc do
     end
   end
 
-  describe '#destroy' do
+  describe '#destroy', :show_in_doc do
     let(:message) { create :message, :notification, from: user, to: user }
     subject! { delete :destroy, params: { id: message.id }, format: :json }
 
@@ -115,7 +116,7 @@ describe Api::V1::MessagesController, :show_in_doc do
     end
   end
 
-  describe '#mark_read' do
+  describe '#mark_read', :show_in_doc do
     let(:message_from) { create :message, from: user }
     let(:message_to) { create :message, to: user }
     subject! do
@@ -150,7 +151,7 @@ describe Api::V1::MessagesController, :show_in_doc do
     include_context :back_redirect
     subject! { post :read_all, params: { type: 'news', frontend: is_frontend } }
 
-    context 'api' do
+    context 'api', :show_in_doc do
       let(:is_frontend) { false }
       it do
         expect(message_1.reload).to be_read
@@ -196,7 +197,7 @@ describe Api::V1::MessagesController, :show_in_doc do
         }
     end
 
-    context 'api' do
+    context 'api', :show_in_doc do
       let(:is_frontend) { false }
       it do
         expect { message_1.reload }.to raise_error ActiveRecord::RecordNotFound
