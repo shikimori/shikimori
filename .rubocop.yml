@@ -97,6 +97,8 @@ Style/RescueModifier:
   Enabled: false
 Style/BlockComments:
   Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 Naming/VariableNumber:

@@ -47,6 +47,7 @@ class Moderations::CollectionsController < ModerationsController
   end
 
 private
+
   def check_permissions
     raise Forbidden unless current_user.collection_moderator?
   end

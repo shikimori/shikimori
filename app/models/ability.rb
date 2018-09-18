@@ -1,4 +1,4 @@
-# https://github.com/rilian/devise-doorkeeper-cancan-api-example/blob/master/spec/abilities/admin_spec.rb
+# rubocop:disable AbcSize, CyclomaticComplexity, PerceivedComplexity, MethodLength, MissingCopEnableDirective
 class Ability
   include CanCan::Ability
   prepend Draper::CanCanCan
@@ -9,14 +9,35 @@ class Ability
 
     if user
       merge Abilities::User.new(user)
-      merge Abilities::ForumModerator.new(user) if user.forum_moderator?
-      merge Abilities::ContestModerator.new(user) if user.contest_moderator?
-      merge Abilities::ReviewModerator.new(user) if user.review_moderator?
-      merge Abilities::VideoModerator.new(user) if user.video_moderator?
-      if user.video_super_moderator?
+
+      if user.super_moderator? || user.admin?
+        merge Abilities::SuperModerator.new(user)
+      end
+
+      if user.forum_moderator? || user.super_moderator? || user.admin?
+        merge Abilities::ForumModerator.new(user)
+      end
+
+      if user.contest_moderator? || user.admin?
+        merge Abilities::ContestModerator.new(user)
+      end
+
+      if user.review_moderator? || user.admin?
+        merge Abilities::ReviewModerator.new(user)
+      end
+
+      if user.video_super_moderator? || user.admin?
         merge Abilities::VideoSuperModerator.new(user)
       end
-      merge Abilities::VersionModerator.new(user) if user.version_moderator?
+
+      if user.video_moderator? || user.video_super_moderator? || user.admin?
+        merge Abilities::VideoModerator.new(user)
+      end
+
+      if user.version_moderator? || user.super_moderator? || user.admin?
+        merge Abilities::VersionModerator.new(user)
+      end
+
       merge Abilities::Admin.new(user) if user.admin?
     end
 

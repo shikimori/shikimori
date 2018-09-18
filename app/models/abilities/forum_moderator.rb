@@ -3,12 +3,17 @@ class Abilities::ForumModerator
   prepend Draper::CanCanCan
 
   def initialize _user
-    can :manage, [Comment]
-    can :manage, [Topic] do |topic|
+    can :manage, Comment
+    can :manage, Topic do |topic|
       !topic.generated? ||
         Abilities::User::GENERATED_USER_TOPICS.include?(topic.type)
     end
-    can :manage, [Review]
-    can %i[edit update], [Genre]
+    can :manage, Review
+    can %i[edit update], Genre
+
+    can %i[
+      manage_censored_avatar_role
+      manage_censored_profile_role
+    ], User
   end
 end
