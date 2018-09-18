@@ -5,7 +5,7 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
   before_action :authenticate_user!, only: %i[viewed]
   before_action :add_breadcrumb, except: %i[index destroy]
 
-  skip_before_action :verify_authenticity_token, :track_view
+  skip_before_action :verify_authenticity_token, only: %i[track_view]
 
   before_action { @anime_online_ad = true }
   after_action :save_preferences, only: :index

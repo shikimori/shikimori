@@ -1,7 +1,7 @@
 class Api::V1::AnimeVideosController < Api::V1Controller
   before_action :fetch_anime
 
-  load_and_authorize_resource only: [:create, :destroy]
+  load_and_authorize_resource only: %i[create destroy]
 
   def index
     raise CanCan::AccessDenied unless access_granted?
@@ -15,9 +15,9 @@ class Api::V1::AnimeVideosController < Api::V1Controller
     param :anime_id, :number, required: true
     param :author_name, :undef
     param :episode, :number, required: true
-    param :kind, %w(raw subtitles fandub unknown), required: true
-    param :language, %w(russian english original unknown), required: true
-    param :quality, %w(bd web tv dvd unknown), required: true
+    param :kind, %w[raw subtitles fandub unknown], required: true
+    param :language, %w[russian english original unknown], required: true
+    param :quality, %w[bd web tv dvd unknown], required: true
     param :url, String, required: true, desc: 'Link to the video'
     param :source, String,
       required: true,
