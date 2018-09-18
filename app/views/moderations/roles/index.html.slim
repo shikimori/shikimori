@@ -12,7 +12,10 @@ ul.b-list.block
         href=moderations_role_url(id: role)
       ]
         = role.titleize
-      / - if can? :"manage_#{role}_role", User
+
+      - if can? :"manage_#{role}_role", User
+        .can-manage
+
       - if current_user&.send("#{role}?")
         .have-role ✓
 
