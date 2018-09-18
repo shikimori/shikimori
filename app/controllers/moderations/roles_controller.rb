@@ -41,11 +41,11 @@ class Moderations::RolesController < ModerationsController
       user: current_user,
       item: @target_user,
       item_diff: {
-        action: ::Versions::RoleVersion::Actions[:add],
+        action: ::Versions::RoleVersion::Actions[:remove],
         role: @role
       }
     )
-    @resource.auto_accept
+    @resource.auto_accept!
   end
 
 private
