@@ -1,5 +1,4 @@
-# rubocop:disable ClassLength
-class AnimeOnline::AnimeVideosController < AnimesController
+class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable ClassLength
   load_and_authorize_resource only: %i[new create edit update destroy]
 
   before_action :actualize_resource, only: %i[new create edit update]
@@ -191,4 +190,3 @@ private
     @resource = @anime
   end
 end
-# rubocop:enable ClassLength

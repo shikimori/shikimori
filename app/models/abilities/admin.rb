@@ -13,5 +13,6 @@ class Abilities::Admin
     ], User
     can :manage, Version
     can :manage, Forum
+    can :destroy, AnimeVideo
   end
 end
