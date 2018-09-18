@@ -65,7 +65,6 @@ $icon_mobile_size: 30px
     +iphone
       margin-right: 7px
 
-
 =icon_button($content)
   +icon($content, 13px)
   +link_color(#444444)
@@ -109,7 +108,8 @@ $icon_mobile_size: 30px
   &.selected
     +link_color($link)
 
-  &:before, &:after
+  &:before,
+  &:after
     display: inline-block
     font-size: 18px
     line-height: $icon_mobile_size
