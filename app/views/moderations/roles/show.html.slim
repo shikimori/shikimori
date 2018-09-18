@@ -43,7 +43,8 @@ header.head
             next_url: current_url(page: @searched_collection.next_page),
             prev_url: (current_url(page: @searched_collection.prev_page) if @searched_collection.prev_page?)
 
-.block
-  .subheadline = t '.history'
+- if @versions.any?
   .block
-    = render partial: 'versions/version', collection: @versions
+    .subheadline = t '.history'
+    .block
+      = render partial: 'versions/version', collection: @versions
