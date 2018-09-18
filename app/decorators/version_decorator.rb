@@ -50,9 +50,7 @@ class VersionDecorator < BaseDecorator
   def cache_key
     [
       object,
-      (h.current_user.version_moderator? if h.user_signed_in?),
-      (h.current_user.video_moderator? if h.user_signed_in?),
-      (h.current_user.admin? if h.user_signed_in?),
+      h.can?(:manage, object),
       (h.current_user.id == object.user_id if h.user_signed_in?),
       I18n.locale
     ]
