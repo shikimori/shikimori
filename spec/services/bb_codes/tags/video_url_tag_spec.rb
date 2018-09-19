@@ -69,12 +69,6 @@ describe BbCodes::Tags::VideoUrlTag, :vcr do
         it { is_expected.to include '<div class="c-video b-video unprocessed vimeo' }
       end
 
-      # context 'myvi' do
-      # let(:text) { 'http://asia.mf expand("%") == ""|browse confirm w|else|confirm w|endif
-      # hyvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2' }
-        # it { is_expected.to include '<div class="c-video b-video unprocessed myvi' }
-      # end
-
       context 'sibnet' do
         let(:text) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
         it { is_expected.to include '<div class="c-video b-video unprocessed sibnet' }
@@ -102,6 +96,11 @@ describe BbCodes::Tags::VideoUrlTag, :vcr do
       context 'streamable' do
         let(:text) { 'https://streamable.com/efgm' }
         it { is_expected.to include '<div class="c-video b-video unprocessed streamable' }
+      end
+
+      context 'myvi' do
+        let(:text) { 'https://www.myvi.top/idaofy?v=kcptso3b1mpr8n8fc3xyof5tyh' }
+        it { is_expected.to include '<div class="c-video b-video unprocessed myvi' }
       end
     end
 

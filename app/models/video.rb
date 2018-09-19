@@ -1,4 +1,3 @@
-# TODO: refactor kind to enumerize
 class Video < ApplicationRecord
   ALLOWED_HOSTINGS = %i[youtube vk rutube sibnet smotret_anime] # dailymotion
 
@@ -8,8 +7,8 @@ class Video < ApplicationRecord
   enumerize :hosting,
     in: %i[
       youtube vk ok coub rutube vimeo sibnet yandex
-      streamable smotret_anime
-    ], # dailymotion twitch myvi
+      streamable smotret_anime myvi
+    ], # dailymotion twitch
     predicates: true
   enumerize :kind, in: %i[pv op ed other], predicates: true
 
@@ -44,7 +43,13 @@ class Video < ApplicationRecord
 
   def url= url
     return if url.nil?
-    self[:url] = "https:#{Url.new(super).cut_www.without_protocol}"
+
+    self[:url] =
+      if url.match?(/myvi.top/)
+        "https:#{Url.new(super).without_protocol}"
+      else
+        "https:#{Url.new(super).cut_www.without_protocol}"
+      end
 
     data = VideoExtractor.fetch self[:url]
     if data
