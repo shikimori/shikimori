@@ -244,6 +244,21 @@ ru:
         add_user: Добавить пользователя
         search: Поиск по имени...
         history: :moderations.bans.index.history
+        notice:
+          super_moderator: Может назначать модераторов
+          retired_moderator: Модератор в отставке
+          version_moderator: Модератор пользовательских правок базы сайта
+          trusted_version_changer: Может менять контент без модерации изменений
+          not_trusted_version_changer: Не может менять контент сайта
+          trusted_ranobe_external_links_changer: Может менять ссылки для ранобэ без модерации
+          video_super_moderator: Может назначать модераторов видео
+          api_video_uploader: Имеет доступ к видео api
+          trusted_video_uploader: Может загружать видео без модерации
+          not_trusted_video_uploader: Не может загружать видео
+          trusted_video_changer: Может редактировать загруженные видео без модерации
+          censored_avatar: Аватарка со взрослым контентом
+          censored_profile: Профиль со взрослым контентом
+
       user:
         add: Добавить
         remove: Удалить

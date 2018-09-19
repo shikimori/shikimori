@@ -244,6 +244,19 @@ en:
         add_user: Add User
         search: Search by name...
         history: :moderations.bans.index.history
+        notice:
+          super_moderator: Can assign moderators
+          version_moderator: Moderator of database content changes
+          trusted_version_changer: Can change database content without moderation
+          not_trusted_version_changer: Cannot change database content
+          trusted_ranobe_external_links_changer: Can change Light Novel external links without moderation
+          video_super_moderator: Can assign video moderators
+          api_video_uploader: Have access to videos api
+          trusted_video_uploader: Can upload videos wihtout moderation
+          not_trusted_video_uploader: Cannot upload videos
+          trusted_video_changer: Can edit uploaded videos without moderation
+          censored_avatar: Have avatar with adult content
+          censored_profile: Have profile with adult content
       user:
         add: Add
         remove: Remove
