@@ -46,9 +46,9 @@ module Shikimori
   LOCAL_RUN = ENV['LOGNAME'] == 'morr' && ENV['USER'] == 'morr'
   # ALLOWED_PROTOCOL = Rails.env.production? && !LOCAL_RUN ? 'https' : 'http'
 
+    # ActionController::InvalidAuthenticityToken
   IGNORED_EXCEPTIONS = %w[
     CanCan::AccessDenied
-    ActionController::InvalidAuthenticityToken
     ActionController::UnknownFormat
     ActionDispatch::RemoteIp::IpSpoofAttackError
     ActiveRecord::RecordNotFound
