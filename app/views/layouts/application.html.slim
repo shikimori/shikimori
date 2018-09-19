@@ -83,14 +83,15 @@ html
         .slide
         .arrow
 
-    .b-feedback
-      .hover-activator
-      span.marker-positioner[
-        data-remote='true'
-        data-action=feedback_pages_url
-        data-type='html'
-      ]
-        .marker-text data-text=t('application.aside.report_bug')
+    - if shikimori?
+      .b-feedback
+        .hover-activator
+        span.marker-positioner[
+          data-remote='true'
+          data-action=feedback_pages_url
+          data-type='html'
+        ]
+          .marker-text data-text=t('application.aside.report_bug')
     - if user_signed_in?
       javascript:
         JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};

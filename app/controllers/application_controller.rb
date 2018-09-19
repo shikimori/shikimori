@@ -81,7 +81,7 @@ class ApplicationController < ActionController::Base
 
   # гугловский бот со странным format иногда ходит
   def fix_googlebot
-    request.format = :html if request.format.to_s =~ %r%\*\/\*%
+    request.format = :html if request.format.to_s =~ %r{\*/\*}
   end
 
   # хром некорректно обрабатывает Back кнопку,

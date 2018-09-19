@@ -25,6 +25,4 @@ module DomainsConcern
 
     ShikimoriDomain::RU_HOSTS.include?(request.host)
   end
-
 end
-
