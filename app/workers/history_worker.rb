@@ -11,10 +11,7 @@ class HistoryWorker
   instance_cache :users, :topics
 
   def perform
-    RedisMutex.with_lock('history_worker', block: 0, expire: 1.hour) do
-      topics.each { |topic| process_topic topic }
-    end
-  rescue RedisMutex::LockError
+    topics.each { |topic| process_topic topic }
   end
 
 private
