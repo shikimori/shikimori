@@ -2,7 +2,7 @@ header.head
   h1
     a.back href=@back_url data-text=t('back')
     = og.headline
-  - if t ".notice.#{@role}", default: nil
+  - if t(".notice.#{@role}", default: '').present?
     .notice = t ".notice.#{@role}"
   = render 'application/breadcrumbs'
 
