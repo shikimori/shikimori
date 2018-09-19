@@ -44,12 +44,7 @@ class Video < ApplicationRecord
   def url= url
     return if url.nil?
 
-    self[:url] =
-      if url.match?(/myvi.top/)
-        "https:#{Url.new(super).without_protocol}"
-      else
-        "https:#{Url.new(super).cut_www.without_protocol}"
-      end
+    self[:url] = "https:#{Url.new(super).cut_www.without_protocol}"
 
     data = VideoExtractor.fetch self[:url]
     if data

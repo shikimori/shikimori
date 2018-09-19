@@ -30,14 +30,6 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
     #   its(:player_url) { is_expected.to eq '//myvi.ru/player/flash/oI_SgyRHWdMLI6UU2pmRESiY4Y-Ie0wAnu3jBetGxgY9wJFPgg4yJA4JzsT1kQ7a35LOr3hG3K7g1' }
     # end
 
-    context 'myvi' do
-      let(:url) { 'https://www.myvi.top/idaofy?v=kcptso3b1mpr8n8fc3xyof5tyh' }
-
-      its(:hosting) { is_expected.to eq 'myvi' }
-      its(:image_url) { is_expected.to eq '//www.myvi.top/stream/preview/UxsbQyGS2kOI5WZeCBdxBw2/tm1.jpg' }
-      its(:player_url) { is_expected.to eq '//www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
-    end
-
     context 'sibnet' do
       let(:url) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
 
@@ -63,7 +55,11 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
       let(:url) { 'https://streamable.com/efgm' }
 
       its(:hosting) { is_expected.to eq 'streamable' }
-      its(:image_url) { is_expected.to eq '//cdn-b-west.streamable.com/image/efgm.jpg?token=BPAHmsV3zBJM8qKAO0vNbA&expires=1537376663' }
+      its(:image_url) do
+        is_expected.to eq(
+          '//cdn-b-west.streamable.com/image/efgm.jpg?token=QCb8UD4UEV-VNMDaD7gGhA&expires=1527731420'
+        )
+      end
       its(:player_url) { is_expected.to eq '//streamable.com/t/efgm' }
     end
 

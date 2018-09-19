@@ -1,5 +1,5 @@
 describe VideoExtractor::CoubExtractor, :vcr do
-  let(:service) { VideoExtractor::CoubExtractor.new url }
+  let(:service) { described_class.new url }
 
   describe 'fetch' do
     subject { service.fetch }

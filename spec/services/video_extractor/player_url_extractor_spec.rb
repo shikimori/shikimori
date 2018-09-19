@@ -101,6 +101,11 @@ describe VideoExtractor::PlayerUrlExtractor do
     #   end
     # end
 
+    describe 'myvi', :vcr do
+      let(:html) { 'https://www.myvi.top/idaofy?v=kcptso3b1mpr8n8fc3xyof5tyh' }
+      it { is_expected.to eq '//www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+    end
+
     describe 'mail_ru' do
       describe do
         let(:html) { '<iframe src="http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html" width="730" height="480" frameborder="0"></iframe>' }

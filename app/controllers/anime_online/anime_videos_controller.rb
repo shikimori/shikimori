@@ -105,9 +105,7 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
 
   def extract_url
     if params[:url].present?
-      url = VideoExtractor::PlayerUrlExtractor.call(
-        Url.new(params[:url]).with_http.to_s
-      )
+      url = VideoExtractor::PlayerUrlExtractor.call(Url.new(params[:url].strip).with_http.to_s)
     end
 
     render json: {

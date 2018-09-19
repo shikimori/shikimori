@@ -68,9 +68,7 @@ private
       end
   end
 
-  # rubocop:disable AbcSize
-  # rubocop:disable MethodLength
-  def parse_url
+  def parse_url # rubocop:disable all
     if html =~ %r{(?<url>#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
       cleanup_params(
         VideoExtractor::VkExtractor.normalize_url($LAST_MATCH_INFO[:url]),
@@ -140,9 +138,6 @@ private
       nil
     end
   end
-  # rubocop:enable LineLenghth
-  # rubocop:enable MethodLength
-  # rubocop:enable AbcSize
 
   def cleanup_params url, allowed_params
     VideoExtractor::CleanupParams.call url, allowed_params

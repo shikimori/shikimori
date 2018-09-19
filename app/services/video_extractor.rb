@@ -8,7 +8,7 @@
 module VideoExtractor
   EXTRACTORS = %i[
     vk ok youtube coub vimeo open_graph rutube
-    smotret_anime sovet_romantica
+    smotret_anime sovet_romantica myvi
   ] # dailymotion
 
   class << self

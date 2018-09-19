@@ -145,6 +145,27 @@ describe Url do
     end
   end
 
+  describe '#add_www' do
+    subject { url.add_www.to_s }
+
+    context 'with www' do
+      context 'with protocol' do
+        let(:string) { 'http://www.test.org/test' }
+        it { is_expected.to eq 'http://www.test.org/test' }
+      end
+
+      context 'without protocol' do
+        let(:string) { 'www.test.org/test' }
+        it { is_expected.to eq 'www.test.org/test' }
+      end
+    end
+
+    context 'without www' do
+      let(:string) { 'http://test.org/test' }
+      it { is_expected.to eq 'http://www.test.org/test' }
+    end
+  end
+
   describe '#cut_www' do
     subject { url.cut_www.to_s }
 

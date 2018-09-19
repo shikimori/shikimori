@@ -54,6 +54,10 @@ class Url
     chain @url.gsub(%r{\A(https?)://.* | \A .*}mix, '\1')
   end
 
+  def add_www
+    chain @url.sub(%r{\A(https?://)?(?:www\.)?}, '\1www.')
+  end
+
   def cut_www
     chain @url.sub(%r{\A(https?://)?www\.}, '\1')
   end
