@@ -23,7 +23,7 @@
             title=t('actions.markers.summary.remove')
             data-text=t('markers.summary')
             data-confirm=t('actions.markers.summary.confirm_remove')
-            data-action=summary_api_v2_abuse_requests_url(comment)
+            data-action=summary_api_v2_abuse_requests_url(comment_id: comment.id)
             data-method="post"
             data-remote="true"
             data-type="json"
@@ -34,7 +34,7 @@
           title=t('actions.markers.offtopic.remove')
           data-text=t('markers.offtopic')
           data-confirm=t('actions.markers.offtopic.confirm_remove')
-          data-action=offtopic_api_v2_abuse_requests_url(comment)
+          data-action=offtopic_api_v2_abuse_requests_url(comment_id: comment.id)
           data-method="post"
           data-remote="true"
           data-type="json"
