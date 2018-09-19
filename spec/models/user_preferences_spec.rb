@@ -5,6 +5,7 @@ describe UserPreferences do
 
   describe 'validations' do
     it { is_expected.to validate_length_of(:default_sort).is_at_most(255) }
+    it { is_expected.to validate_numericality_of(:favorites_in_profile).is_greater_than_or_equal_to(0) }
   end
 
   describe 'enumerize' do

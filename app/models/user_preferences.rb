@@ -21,6 +21,8 @@ class UserPreferences < ApplicationRecord
     length: { maximum: 255 },
     allow_blank: true
 
+  validates :favorites_in_profile, numericality: { greater_than_or_equal_to: 0 }
+
   before_create :set_forums unless Rails.env.test?
 
   def default_sort
