@@ -101,9 +101,16 @@ describe VideoExtractor::PlayerUrlExtractor do
     #   end
     # end
 
-    describe 'myvi', :vcr do
-      let(:html) { 'https://www.myvi.top/idaofy?v=kcptso3b1mpr8n8fc3xyof5tyh' }
-      it { is_expected.to eq '//www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+    describe 'myvi' do
+      context 'full url', :vcr do
+        let(:html) { 'https://www.myvi.top/idaofy?v=kcptso3b1mpr8n8fc3xyof5tyh' }
+        it { is_expected.to eq '//www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+      end
+
+      context 'embed url' do
+        let(:html) { 'http://www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+        it { is_expected.to eq '//www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+      end
     end
 
     describe 'mail_ru' do

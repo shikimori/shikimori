@@ -76,6 +76,8 @@ private
       )
     # elsif html =~ %r{#{HTTP}myvi.(ru|tv)/(#{CONTENT}/)+(preloader.swf\?id=)?(?<hash>#{CONTENT})}
       # "http://myvi.ru/player/embed/html/#{$LAST_MATCH_INFO[:hash]}"
+    elsif html =~ %r{#{HTTP}(?:www.)?myvi.top/embed/(?<hash>#{CONTENT})}
+      "https://www.myvi.top/embed/#{$LAST_MATCH_INFO[:hash]}"
     elsif html =~ %r{(?<url>#{HTTP}(api.video|videoapi.my).mail.ru/videos#{CONTENT})}
       $LAST_MATCH_INFO[:url].gsub('api.video', 'videoapi.my')
     elsif html =~ %r{(?<url>#{HTTP}img.mail.ru/r/video2/player_v2.swf\?#{CONTENT})}
