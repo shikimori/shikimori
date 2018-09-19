@@ -15,6 +15,7 @@ video_hostings = ($link) ->
   coub_com: video_hosting('coub.com', url)
   twitch_rv: video_hosting('twitch.tv', url)
   myvi_ru: video_hosting('myvi.ru', url)
+  myvi_top: video_hosting('myvi.top', url)
   sibnet: video_hosting('sibnet.ru', url)
   yandex_ru: video_hosting('yandex.ru', url)
   dailymotion_com: video_hosting('dailymotion.com', url)

@@ -13,7 +13,7 @@ class OpenGraphView < ViewObjectBase
     h.ru_host? ? Shikimori::NAME_RU : Shikimori::NAME_EN
   end
 
-  def canonical_url # rubocop:disable AbcSize
+  def canonical_url
     url =
       if h.params[:page].present? && h.params[:page].to_s.match?(/^\d+$/)
         h.current_url(page: nil)
