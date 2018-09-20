@@ -1,5 +1,4 @@
 class VideoExtractor::CoubExtractor < VideoExtractor::OpenGraphExtractor
-  PARAMS_REGEXP = /(?:\?[\w=+%&]+)?/
   # Video.hosting should include these hostings
   # shiki_video should include these hostings too
   URL_REGEX = %r{

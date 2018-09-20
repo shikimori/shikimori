@@ -1,8 +1,6 @@
 # no embed videos urls here. video page must contain html so extractor could
 # could extract video data from og meta tags
 class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
-  PARAMS_REGEXP = /(?:\?[\w=+%&-]+)?/
-
   # Video.hosting should include these hostings
   # shiki_video should include these hostings too
 

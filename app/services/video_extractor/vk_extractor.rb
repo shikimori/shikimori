@@ -1,6 +1,6 @@
 class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
-    https?://vk.com/video(-?\d+)_(\d+)(?:\?[\w=+%&]+)?
+    https?://vk.com/video(-?\d+)_(\d+)#{PARAMS_REGEXP.source}
   }xi
 
   API_URL = 'https://api.vk.com/method/video.get'
