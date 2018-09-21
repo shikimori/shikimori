@@ -73,12 +73,12 @@ class UserDecorator < BaseDecorator
   def avatar_url size, ignore_censored = false
     if !ignore_censored && censored_avatar?
       format(
-        'http://www.gravatar.com/avatar/%s?s=%i&d=identicon',
+        'https://www.gravatar.com/avatar/%s?s=%i&d=identicon',
         Digest::MD5.hexdigest('takandar+censored@gmail.com'),
         size
       )
     else
-      # "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest(email.downcase), size]
+      # "https://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest(email.downcase), size]
       ImageUrlGenerator.instance.url object, "x#{size}".to_sym
     end
   end
