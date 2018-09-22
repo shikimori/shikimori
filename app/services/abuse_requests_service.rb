@@ -1,9 +1,4 @@
 class AbuseRequestsService
-  ABUSIVE_USERS = [
-    -1
-    # 5779 # Lumennes
-  ]
-
   SUMMARY_TIMEOUT = 5.minutes
   OFFTOPIC_TIMEOUT = 5.minutes
 
@@ -35,7 +30,6 @@ class AbuseRequestsService
 
 private
 
-  # rubocop:disable MethodLength
   def create_abuse_request kind, value, reason
     AbuseRequest.create!(
       comment_id: @comment.id,
@@ -44,21 +38,21 @@ private
       value: value,
       state: 'pending',
       reason: reason
-    ) unless ABUSIVE_USERS.include?(reporter.id)
+    )
+
     []
   rescue ActiveRecord::RecordNotUnique
     []
   end
-  # rubocop:enable MethodLength
 
   def allowed_summary_change?
-    reporter.forum_moderator? ||
+    reporter.forum_moderator? || reporter.admin? ||
       (@comment.user_id == reporter.id &&
       @comment.created_at > SUMMARY_TIMEOUT.ago)
   end
 
   def allowed_offtopic_change?
-    reporter.forum_moderator? ||
+    reporter.forum_moderator? || reporter.admin? ||
       (@comment.user_id == reporter.id &&
       @comment.created_at > OFFTOPIC_TIMEOUT.ago)
   end

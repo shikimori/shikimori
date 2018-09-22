@@ -95,14 +95,6 @@ describe AbuseRequestsService do
         it { expect(subject).to have_attributes kind: method.to_s, value: true, comment_id: comment.id, reason: reason }
       end
 
-      context 'abusive user' do
-        let(:user) { create :user, id: AbuseRequestsService::ABUSIVE_USERS.first }
-        before { act }
-        subject { user.abuse_requests.last }
-
-        it { is_expected.to be_nil }
-      end
-
       context 'already acted' do
         before { act }
         it { expect { act }.to change(AbuseRequest, :count).by 0 }
