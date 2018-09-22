@@ -90,7 +90,7 @@
   <div class="head">
     <h1 title="<%=raw @title %>">
       <%=raw @title %>
-      <% if user_signed_in? && current_user.forum_moderator? %>
+      <% if user_signed_in? && (current_user.forum_moderator? || current_user.admin?) %>
         <div class="buttons" style="">
           <span><%=link_to 'редактировать', cosplayer_moderation_path(@cosplayer, @gallery) %></span>
         </div>

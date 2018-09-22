@@ -11,6 +11,7 @@ class Abilities::ForumModerator
     can :manage, Review
     can %i[edit update], Genre
 
+    can :manage, Ban
     can %i[
       manage_censored_avatar_role
       manage_censored_profile_role

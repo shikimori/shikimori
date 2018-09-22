@@ -22,9 +22,7 @@ private
   end
 
   def too_many_messages? user
-    return false if user.admin?
-    return false if user.forum_moderator?
-    return false if user.version_moderator?
+    return false if user.version_moderator? || user.forum_moderator? || user.admin?
 
     user_daily_private_messages(user).count >= DAILY_USER_EMAILS_LIMIT
   end

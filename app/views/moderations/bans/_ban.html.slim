@@ -12,7 +12,7 @@
   - else
     span.duration-ban = t '.ban'
     span = t '.banned_on'
-    span.duration #{ban.duration.humanize}
+    span.duration = ban.duration.humanize
 
   span = t '.for'
   span.reason = BbCodes::Text.call(ban.reason)

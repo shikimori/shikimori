@@ -1,28 +1,28 @@
 # TODO: refactor this code
 module PermissionsPolicy
   def self.included(base)
-    base.send :include, PermissionsPolicy.const_get(base.name+'Permissions')
+    base.send :include, PermissionsPolicy.const_get(base.name + 'Permissions')
   end
 
   module Defaults
     # 2043 - laitqwerty
     # 85018 - топик фака
-    def can_be_edited_by?(user)
+    def can_be_edited_by? user
       user && (
         (
-          user.id == self.user_id && (
-            (self.respond_to?(:moderated?) && self.moderated?) ||
-            self.kind_of?(Topic) ||
-            (self.created_at + 1.day > Time.zone.now)
+          user.id == user_id && (
+            (respond_to?(:moderated?) && moderated?) ||
+            is_a?(Topic) ||
+            (created_at + 1.day > Time.zone.now)
           )
-        ) || user.forum_moderator?
+        ) || user.forum_moderator? || user.admin?
       )
     end
 
     def can_be_deleted_by?(user)
       user && (
-        (user.id == self.user_id && self.created_at + 1.day > Time.zone.now) ||
-          user.forum_moderator?
+        (user.id == user_id && created_at + 1.day > Time.zone.now) ||
+          user.forum_moderator? || user.admin?
       )
     end
   end
@@ -40,7 +40,7 @@ module PermissionsPolicy
     # end
 
     # def can_cancel_offtopic?(user)
-      # can_be_deleted_by?(user) || user.forum_moderator?
+      # can_be_deleted_by?(user) || user.forum_moderator? || user.admin?
     # end
   # end
 
@@ -49,33 +49,33 @@ module PermissionsPolicy
     include Defaults
 
     def can_be_edited_by?(user)
-      !self.generated? && super
+      !generated? && super
     end
 
     def can_be_deleted_by?(user)
-      !self.generated? && super
+      !generated? && super
     end
   end
 
   # права на действия с Пользователями
   module UserPermissions
     def can_be_edited_by?(user)
-      user && user.id == self.id
+      user && user.id == id
     end
 
     # может профиль пользователя быть прокомментирован комментарием
     def can_be_commented_by?(comment)
       return true if comment.user_id == id
 
-      if self.ignores.any? {|v| v.target_id == comment.user_id }
+      if ignores.any? { |v| v.target_id == comment.user_id }
         comment.errors[:base].push(
           I18n.t('activerecord.errors.models.messages.ignored')
         )
         false
-      elsif self.preferences.comment_policy_users?
+      elsif preferences.comment_policy_users?
         true
-      elsif self.preferences.comment_policy_friends?
-        if self.friended? comment.user
+      elsif preferences.comment_policy_friends?
+        if friended? comment.user
           true
         else
           comment.errors[:base].push(
@@ -83,7 +83,7 @@ module PermissionsPolicy
           )
           false
         end
-      elsif self.preferences.comment_policy_owner?
+      elsif preferences.comment_policy_owner?
         comment.errors[:base].push(
           I18n.t('activerecord.errors.models.comments.not_a_owner')
         )

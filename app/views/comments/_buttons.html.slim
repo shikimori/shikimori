@@ -49,7 +49,7 @@ aside.buttons
     span.item-ban.b-tooltipped.unprocessed[
       title=t('actions.moderation.ban')
       data-text=t('actions.moderation.ban')
-      data-action=new_comment_ban_path(comment)
+      data-action=new_moderations_ban_url(ban: { comment_id: comment.id, user_id: comment.user_id })
       data-method='get'
       data-type='html'
       data-remote='true'

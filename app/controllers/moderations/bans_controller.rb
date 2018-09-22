@@ -1,7 +1,8 @@
 # TODO: переделать авторизацию на cancancan
 class Moderations::BansController < ModerationsController
-  before_action :authenticate_user!, except: [:index]
-  layout false, only: [:new]
+  load_and_authorize_resource except: %i[index]
+  before_action :authenticate_user!, except: %i[index]
+  layout false, only: %i[new]
 
   def index
     og noindex: true, nofollow: true
@@ -32,22 +33,14 @@ class Moderations::BansController < ModerationsController
   end
 
   def new
-    @comment = Comment.find params[:comment_id]
-    @abuse_request = AbuseRequest.find params[:abuse_request_id] if params[:abuse_request_id]
-    @ban = Ban.new comment_id: @comment.id, user_id: @comment.user_id, abuse_request_id: params[:abuse_request_id]
-    @ban.duration = @ban.suggest_duration
   end
 
   def create
-    raise Forbidden unless current_user.forum_moderator?
-    @resource = Ban.new ban_params
-
     if @resource.save
       render :create, formats: :json
     else
       render json: @resource.errors.full_messages, status: :unprocessable_entity
     end
-
   rescue StateMachine::InvalidTransition
   end
 

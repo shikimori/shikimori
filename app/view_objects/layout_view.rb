@@ -11,7 +11,7 @@ class LayoutView < ViewObjectBase
     "#{h.controller_name}_#{h.action_name}"
   end
 
-  def body_class # rubocop:disable AbcSize
+  def body_class
     (controller_classes(h.controller_name) +
       (db_entries_controller? ? controller_classes('db_entries') : []) +
       (base_controller_name ? controller_classes(base_controller_name) : []) +
@@ -36,12 +36,12 @@ class LayoutView < ViewObjectBase
     CSS
   end
 
-  def user_data # rubocop:disable MethodLength, AbcSize
+  def user_data # rubocop:disable AbcSize
     user = h.current_user
 
     {
       id: user&.id,
-      is_moderator: !!user&.forum_moderator?,
+      is_moderator: !!(user&.forum_moderator? || user&.admin?),
       ignored_topics: user&.topic_ignores&.pluck(:topic_id) || [],
       ignored_users: user&.ignores&.pluck(:target_id) || [],
       is_day_registered: !!user&.day_registered?,

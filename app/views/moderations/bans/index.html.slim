@@ -25,7 +25,7 @@ header.head
     - if @club
       = @club.description_html
 
-- if user_signed_in? && current_user.forum_moderator?
+- if can? :manage, Ban
   - if @pending && @pending.any?
     .block
       .b-options-floated

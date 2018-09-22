@@ -91,12 +91,6 @@ Rails.application.routes.draw do
   end
 
   resources :comments, except: %i[create update index] do
-    # NOTE: must be before collection & member actions
-    resources :bans, only: %i[new], controller: 'moderations/bans'
-    resources :abuse_requests, controller: 'moderations/abuse_requests', only: [] do
-      resources :bans, only: %i[new], controller: 'moderations/bans'
-    end
-
     collection do
       get :smileys
       post :preview
@@ -131,7 +125,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :bans, only: %i[create] do
+    resources :bans, only: %i[new create] do
       get '(/page/:page)' => :index, as: '', on: :collection
     end
     resources :abuse_requests, only: %i[show] do

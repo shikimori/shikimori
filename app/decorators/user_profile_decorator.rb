@@ -54,7 +54,7 @@ class UserProfileDecorator < UserDecorator
 
   def nickname_changes
     query =
-      if h.user_signed_in? && h.current_user.forum_moderator?
+      if h.user_signed_in? && (h.current_user.forum_moderator? || h.current_user.admin?)
         UserNicknameChange.unscoped.where(user: object)
       else
         object.nickname_changes

@@ -6,12 +6,13 @@
         formatted_date: l(@resource.read_only_at, format: :full),
         iso_date: @resource.read_only_at.iso8601
 
-  - if current_user&.forum_moderator?
+  - if can? :manage, Ban
     .cc-2
       .c-column
-        .subheadline = og.headline
-        p = t '.ban_warning_for_moderator'
-        = render template: 'moderations/bans/new', locals: { ban_in_profile: true }
+        .subheadline = t 'actions.moderation.ban'
+        p.m10 = t '.ban_warning_for_moderator'
+        = render template: 'moderations/bans/new',
+          locals: { ban_in_profile: true, ban: @ban }
 
       .c-column.block_m
         .subheadline = User.model_name.human

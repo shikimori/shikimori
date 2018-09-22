@@ -108,7 +108,7 @@
                 title=t('.user_profile_settings')
                 data-direction="top"
               ]
-            - if current_user.forum_moderator?
+            - if can? :manage, Ban
               a.ban.b-tooltipped.unprocessed[
                 href=ban_profile_url(@resource)
                 title=t('actions.moderation.ban')
@@ -118,7 +118,7 @@
               a.ban.b-tooltipped.unprocessed[
                 href=ban_profile_url(@resource)
                 title=t('.ban_history')
-                data-direction="top"
+                data-direction='top'
               ]
 
     header.head.misc
@@ -178,7 +178,7 @@
           data-type="json"
         ] = t('.remove_from_ignored')
 
-        - if current_user.forum_moderator?
+        - if current_user.forum_moderator? || current_user.admin?
           a href=ban_profile_url(@resource) = t('actions.moderation.ban')
         - else
           a href=ban_profile_url(@resource) = t('.ban_history')
