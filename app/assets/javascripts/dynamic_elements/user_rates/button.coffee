@@ -1,5 +1,6 @@
 import delay from 'delay'
 
+import flash from 'services/flash'
 import UserRatesTracker from 'services/user_rates/tracker'
 import View from 'views/application/view'
 import JST from 'helpers/jst'
@@ -50,7 +51,7 @@ export default class UserRateButton extends View
     if window.SHIKI_USER.isSignedIn
       @$root.addClass 'b-ajax'
     else
-      $.info I18n.t("#{AuthorizedAction.I18N_KEY}.register_to_complete_action")
+      flash.info I18n.t("#{AuthorizedAction.I18N_KEY}.register_to_complete_action")
       false
 
   _ajax_complete: =>

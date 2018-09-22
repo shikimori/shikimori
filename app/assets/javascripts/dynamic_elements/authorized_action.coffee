@@ -1,3 +1,4 @@
+import flash from 'services/flash'
 import View from 'views/application/view'
 
 export default class AuthorizedAction extends View
@@ -6,6 +7,6 @@ export default class AuthorizedAction extends View
   initialize: ->
     @$node.on 'click', (e) ->
       if !window.SHIKI_USER.isSignedIn
-        $.info I18n.t("#{AuthorizedAction.I18N_KEY}.register_to_complete_action")
+        flash.info I18n.t("#{AuthorizedAction.I18N_KEY}.register_to_complete_action")
         e.stopImmediatePropagation()
         false

@@ -1,3 +1,5 @@
+import flash from 'services/flash'
+
 import View from 'views/application/view'
 import AuthorizedAction from './authorized_action'
 
@@ -7,11 +9,11 @@ export default class DayRegisteredAction extends View
   initialize: ->
     @$node.on 'click', (e) ->
       if !window.SHIKI_USER.isSignedIn
-        $.info I18n.t("#{AuthorizedAction.I18N_KEY}.register_to_complete_action")
+        flash.info I18n.t("#{AuthorizedAction.I18N_KEY}.register_to_complete_action")
         e.stopImmediatePropagation()
         false
 
       else if !window.SHIKI_USER.isDayRegistered
-        $.info I18n.t("#{I18N_KEY}.action_will_be_available")
+        flash.info I18n.t("#{I18N_KEY}.action_will_be_available")
         e.stopImmediatePropagation()
         false
