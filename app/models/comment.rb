@@ -196,7 +196,9 @@ class Comment < ApplicationRecord
 
     comments.each do |comment|
       search_ids.clone.each do |id|
-        if comment.body.include?("[comment=#{id}]") || comment.body.include?("[quote=#{id};") || comment.body.include?("[quote=c#{id};")
+        if comment.body.include?("[comment=#{id}]") ||
+            comment.body.include?("[quote=#{id};") ||
+            comment.body.include?("[quote=c#{id};")
           search_ids << comment.id
         end
       end
