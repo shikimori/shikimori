@@ -57,20 +57,20 @@
         .moderation
           - if abuse_request.punishable?
             a.warn[
-              data-action=new_comment_abuse_request_ban_path(abuse_request.comment, abuse_request)
+              data-action=new_moderations_ban_url(ban: { comment_id: abuse_request.comment_id, abuse_request_id: abuse_request.id })
               data-method='get'
               data-type='html'
               data-remote='true'
             ] = t '.warn'
             - unless abuse_request.spoiler?
               a.ban[
-                href=new_comment_abuse_request_ban_path(abuse_request.comment, abuse_request)
+                href=new_moderations_ban_url(ban: { comment_id: abuse_request.comment_id, abuse_request_id: abuse_request.id })
                 data-method='get'
                 data-type='html'
                 data-remote='true'
               ] = t '.ban'
             a.ajax-action[
-              href=deny_moderations_abuse_request_path(abuse_request)
+              href=deny_moderations_abuse_request_url(abuse_request)
               data-method='post'
               data-remote='true'
               data-type='json'
@@ -78,12 +78,12 @@
             .ban-form
           - else
             a.ajax-action[
-              href=take_moderations_abuse_request_path(abuse_request)
+              href=take_moderations_abuse_request_url(abuse_request)
               method='post'
               data-remote='true'
             ] = t '.accept'
             a.ajax-action[
-              href=deny_moderations_abuse_request_path(abuse_request)
+              href=deny_moderations_abuse_request_url(abuse_request)
               method='post'
               data-remote='true'
               data-type='json'
