@@ -1096,10 +1096,11 @@ ActiveRecord::Schema.define(version: 2018_09_23_234655) do
     t.string "locale_from_host", default: "ru", null: false
     t.integer "style_id"
     t.string "roles", limit: 4096, default: [], null: false, array: true
-    t.jsonb "notification_settings", default: {}, null: false
+    t.text "notification_settings", default: [], null: false, array: true
     t.index ["api_access_token"], name: "index_users_on_api_access_token", unique: true
     t.index ["email"], name: "index_users_on_email"
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
+    t.index ["notification_settings"], name: "index_users_on_notification_settings"
     t.index ["remember_token"], name: "index_users_on_remember_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["roles"], name: "index_users_on_roles", using: :gin
