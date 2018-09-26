@@ -256,5 +256,43 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_trusted_video_changer_role, user }
       end
     end
+
+    context 'user' do
+      let(:user) { seed :user }
+
+      describe 'admin roles' do
+        it { is_expected.to_not be_able_to :manage_super_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_video_super_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_cosplay_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_contest_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_api_video_uploader_role, user }
+      end
+
+      describe 'super_moderator roles' do
+        it { is_expected.to_not be_able_to :manage_forum_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_review_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_collection_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_ranobe_external_links_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
+      end
+
+      describe 'forum_moderator roles' do
+        it { is_expected.to_not be_able_to :manage_censored_avatar_role, user }
+        it { is_expected.to_not be_able_to :manage_censored_profile_role, user }
+      end
+
+      describe 'video_super_moderator roles' do
+        it { is_expected.to_not be_able_to :manage_video_moderator_role, user }
+      end
+
+      describe 'video_moderator roles' do
+        it { is_expected.to_not be_able_to :manage_trusted_video_uploader_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_video_uploader_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_video_changer_role, user }
+      end
+    end
   end
 end
