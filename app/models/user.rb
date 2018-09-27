@@ -160,6 +160,11 @@ class User < ApplicationRecord
     predicates: true,
     multiple: true
 
+  enumerize :notification_settings,
+    in: Types::User::NotificationSettings.values,
+    predicates: true,
+    multiple: true
+
   has_attached_file :avatar,
     styles: {
       # original: ['300x300>', :png],

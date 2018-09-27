@@ -26,5 +26,21 @@ module Types
     Roles = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(*ROLES)
+
+    NOTIFICATION_SETTINGS = %i[
+      any_anons
+      any_ongoing
+      any_released
+
+      my_ongoing
+      my_released
+      my_episode
+
+      private_message_email
+      friend_nickname_change
+    ]
+    NotificationSettings = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(*NOTIFICATION_SETTINGS)
   end
 end
