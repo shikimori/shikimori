@@ -42,7 +42,9 @@ module Copyright
   OTHER_COPYRIGHTED = [
     # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
     # [Notice_ID:*IdOAQy*] Nintendo Company Ltd - Нарушение прав правообладателей / Nintendo Company Ltd - Abuse
-    19157
+    19157,
+    # письмо от chelnakova@group-ib.ru на mail+copyright@shikimori.org
+    28805 # Bakemono no ko
   ] + ISTARI_COPYRIGHTED + VGTRK_COPYRIGHTED + CAPELLA_FILM_COPYRIGHTED
 
   WAKANIM_COPYRIGHTED = [
