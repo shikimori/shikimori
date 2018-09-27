@@ -162,7 +162,7 @@ class User < ApplicationRecord
 
   enumerize :notification_settings,
     in: Types::User::NotificationSettings.values,
-    predicates: true,
+    predicates: { prefix: true },
     multiple: true
 
   has_attached_file :avatar,
@@ -194,7 +194,8 @@ class User < ApplicationRecord
     }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
-  after_initialize :fill_notification_settings, if: -> { notification_settings.none? }
+  after_initialize :fill_notification_settings,
+    if: -> { new_record? && notification_settings.none? }
   after_update :log_nickname_change, if: -> { saved_change_to_nickname? }
 
   # из-за этого хука падают спеки user_history_rate. хз почему. надо копаться.
