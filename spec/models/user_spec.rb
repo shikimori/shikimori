@@ -70,12 +70,18 @@ describe User do
     it { is_expected.to enumerize(:locale).in(:ru, :en).with_default(:ru) }
     it { is_expected.to enumerize(:locale_from_host).in(:ru, :en).with_default(:ru) }
     it { is_expected.to enumerize(:roles).in(*Types::User::Roles.values) }
+    it { is_expected.to enumerize(:notification_settings).in(*Types::User::NotificationSettings.values) }
   end
 
   let(:user_2) { create :user }
   let(:topic) { create :topic }
 
   describe 'cllbacks' do
+    describe '#fill_notification_settings' do
+      let(:user) { User.new }
+      it { expect(user.notification_settings).to eq Types::User::NotificationSettings.values }
+    end
+
     describe '#create_preferences!' do
       it { expect(user.preferences).to be_persisted }
     end
