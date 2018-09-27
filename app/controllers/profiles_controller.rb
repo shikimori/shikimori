@@ -166,11 +166,6 @@ class ProfilesController < ShikimoriController
     authorize! :update, @resource
 
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
-    if params[:user][:notifications].present?
-      params[:user][:notifications] =
-        params[:user][:notifications].to_unsafe_hash.sum { |_k, v| v.to_i } +
-        MessagesController::DISABLED_CHECKED_NOTIFICATIONS
-    end
 
     if update_profile
       bypass_sign_in @resource if params[:user][:password].present?
@@ -222,8 +217,9 @@ private
   def update_params
     params.require(:user).permit(
       :avatar, :nickname, :name, :location, :website,
-      :sex, :birth_on, :notifications, :about, :locale,
+      :sex, :birth_on, :about, :locale,
       ignored_user_ids: [],
+      notification_settings: [],
       preferences_attributes: %i[id russian_names russian_genres]
     )
   end

@@ -151,23 +151,6 @@ en:
         confirm_to_clear_list_completely: Confirm that you want to clear your %{kind_genitive} list completely and remove all of its history.
         sure_to_clear_list_completely: Are you sure you want to clear your %{kind} list and lose all of its history?
 
-      notifications:
-        type_of_notification: Type of notification
-        new_anons: New announcement, new announced anime on site
-        new_ongoing_any: New ongoing (first episode of any ongoing)
-        new_ongoing_my: New ongoing (first episode of added to my list ongoing)
-        new_release_any: New release (last episode of any ongoing)
-        new_release_my: New release (last episode of added to my list ongoing)
-        new_episode: New episode of added to my list ongoing
-        email_notifications: E-mail notifications
-        one_email_per_notification: Send one e-mail per notification
-        group_notifications_and_send_daily_email: Group notifications and send daily e-mail
-        dont_send_notifications: "Don't send notifications to my e-mail"
-        private_messages: Private messages
-        send_pm_to_email: Send private messages to e-mail
-        misc: Miscellaneous
-        notifications_about_friend_nickname_change: "Notifications about friends' nickname change"
-
       misc:
         ssl_hint: Experimental
         anime_manga_recommendations: Anime and manga recommendations

@@ -30,12 +30,14 @@
         width: 200px !important
 
   .notifications
-    .b-table
-      margin: 0 0 $block_offset 0
-      width: 100%
+    .b-input
+      & > label
+        font-weight: bold
 
-      .num
-        width: 50px
+      #user_notification_settings_any_released,
+      #user_notification_settings_my_episode,
+      #user_notification_settings_private_message_email
+        margin-bottom: 18px
 
   .misc, .list
     .profile-action, .nickname-changes

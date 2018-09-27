@@ -109,6 +109,7 @@ ru:
         sex: Пол
         website: Сайт
         locale: Язык интерфейса
+        notification_settings: Настройки уведомлений
       user_rate:
         status: Статус
         episodes: Эпизоды
@@ -358,6 +359,15 @@ ru:
       locale:
         ru: Русский
         en: English
+      notification_settings:
+        any_anons: Новый анонс, появление нового анонсированного аниме на сайте
+        any_ongoing: Новый онгоинг, выход первой серии любого онгоинга
+        any_released: Новый релиз, выход последней серии любого онгоинга
+        my_ongoing: Мой онгоинг, выход первой серии добавленного в мой список онгоинга
+        my_released: Мой релиз, выход последней серии добавленного в мой список онгоинга
+        my_episode: Мой эпизод, добавленного в мой список онгоинга
+        private_message_email: Отсылать личные сообщения мне на e-mail
+        friend_nickname_change: Уведомления о смене ников друзей
     user_preferences:
       body_width:
         x1200: 1200 пикселей

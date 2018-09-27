@@ -109,6 +109,7 @@ en:
         sex: Gender
         website: Website
         locale: Language
+        notification_settings: Notification Settings
       user_rate:
         status: Status
         episodes: Episodes
@@ -358,6 +359,15 @@ en:
       locale:
         ru: Russian
         en: English
+      notification_settings:
+        any_anons: New announcement, new announced anime on site
+        any_ongoing: New ongoing, first episode of any ongoing
+        any_released: New release, last episode of any ongoing
+        my_ongoing: My ongoing, first episode of added to my list ongoing
+        my_released: My release, last episode of added to my list ongoing
+        my_episode: My episode, new episode of added to my list ongoing
+        private_message_email: Send private messages to e-mail
+        friend_nickname_change: "Notifications about friends' nickname change"
     user_preferences:
       body_width:
         x1200: 1200 pixels
