@@ -1,10 +1,14 @@
 describe EmailNotifier do
   include_context :timecop
 
-  let(:notifier) { EmailNotifier.instance }
+  let(:service) { described_class.instance }
   let(:message) { build_stubbed :message, to: target_user, from: from_user }
   let(:from_user) { seed :user }
-  let(:target_user) { build_stubbed :user, notifications: notifications, last_online_at: last_online_at }
+  let(:target_user) do
+    build_stubbed :user,
+      notification_settings: notification_settings,
+      last_online_at: last_online_at
+  end
   let(:last_online_at) { Time.zone.now }
 
   describe '#private_message' do
@@ -15,10 +19,11 @@ describe EmailNotifier do
       stub_const 'EmailNotifier::DAILY_USER_EMAILS_LIMIT', 1
     end
     let!(:present_message) {}
-    subject! { notifier.private_message message }
+
+    subject! { service.private_message message }
 
     context 'target user allowed private emails' do
-      let(:notifications) { User::PRIVATE_MESSAGES_TO_EMAIL }
+      let(:notification_settings) { [:private_message_email] }
 
       it { expect(mailer_double).to have_received(:private_message_email).with(message.id) }
 
@@ -49,7 +54,7 @@ describe EmailNotifier do
     end
 
     context 'target user did not allow private emails' do
-      let(:notifications) { 0 }
+      let(:notification_settings) { [:my_ongoing] }
       it { expect(ShikiMailer).to_not have_received(:delay_for) }
     end
   end

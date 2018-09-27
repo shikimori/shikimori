@@ -18,7 +18,7 @@ class EmailNotifier
 private
 
   def notifications_disabled? user
-    (user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL).zero?
+    !user.notification_settings_private_message_email?
   end
 
   def too_many_messages? user
