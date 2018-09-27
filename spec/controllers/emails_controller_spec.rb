@@ -1,4 +1,6 @@
 describe EmailsController do
+  let(:reloaded_user) { User.find user.id }
+
   describe '#bounce' do
     let(:make_request) { post :bounce, params: { recipient: email } }
 
@@ -6,9 +8,9 @@ describe EmailsController do
       let(:email) { user.email }
       it do
         expect { make_request }.to change(Message, :count).by 1
-        expect(user.reload.messages).to have(1).item
-        expect(user.email).to eq ''
-        expect(user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL).to eq 0
+        expect(reloaded_user.messages).to have(1).item
+        expect(reloaded_user.email).to eq ''
+        expect(reloaded_user).to_not be_notification_settings_private_message_email
 
         expect(response).to have_http_status :success
       end
@@ -19,8 +21,8 @@ describe EmailsController do
       it do
         expect { make_request }.to_not change Message, :count
 
-        expect(user.reload.email).to_not eq ''
-        expect(user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL).to_not eq 0
+        expect(reloaded_user.email).to_not eq ''
+        expect(reloaded_user).to be_notification_settings_private_message_email
         expect(response).to have_http_status :success
       end
     end
@@ -30,20 +32,20 @@ describe EmailsController do
       it do
         expect { make_request }.to_not change Message, :count
 
-        expect(user.reload.email).to_not eq ''
-        expect(user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL).to_not eq 0
+        expect(reloaded_user.email).to_not eq ''
+        expect(reloaded_user).to be_notification_settings_private_message_email
         expect(response).to have_http_status :success
       end
     end
   end
 
   describe '#spam' do
-    before { post :spam, params: { recipient: user.email } }
+    subject! { post :spam, params: { recipient: user.email } }
 
     it do
-      expect(user.reload.messages).to be_empty
-      expect(user.email).to eq ''
-      expect(user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL).to eq 0
+      expect(reloaded_user.messages).to be_empty
+      expect(reloaded_user.email).to eq ''
+      expect(reloaded_user).to_not be_notification_settings_private_message_email
       expect(response).to have_http_status :success
     end
   end

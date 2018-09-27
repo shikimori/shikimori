@@ -33,7 +33,8 @@ private
   def shush! user
     user.update_columns(
       email: '',
-      notifications: user.notifications - User::PRIVATE_MESSAGES_TO_EMAIL
+      notification_settings: user.notification_settings.values -
+        [Types::User::NotificationSettings[:private_message_email].to_s]
     )
   end
 end

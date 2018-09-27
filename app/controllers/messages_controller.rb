@@ -47,15 +47,17 @@ class MessagesController < ProfilesController
     render :index, formats: :json
   end
 
-  # отписка от емайлов о сообщениях
-  def unsubscribe
+  def unsubscribe # rubocop:disable AbcSize
     @user = User.find_by! nickname: User.param_to(params[:name])
     if self.class.unsubscribe_key(@user, params[:kind]) != params[:key]
       raise CanCan::AccessDenied
     end
 
-    if @user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL != 0
-      @user.update notifications: @user.notifications - User::PRIVATE_MESSAGES_TO_EMAIL
+    if @user.notification_settings_private_message_email?
+      @user.update!(
+        notification_settings: @user.notification_settings.values -
+          [Types::User::NotificationSettings[:private_message_email].to_s]
+      )
     end
 
     og page_title: @user.nickname

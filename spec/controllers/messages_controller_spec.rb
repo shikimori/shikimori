@@ -57,18 +57,28 @@ describe MessagesController do
   end
 
   describe '#unsubscribe' do
-    let(:user) { create :user, notifications: User::PRIVATE_MESSAGES_TO_EMAIL }
-    let(:make_request) { get :unsubscribe, params: { name: user.nickname, kind: MessageType::Private, key: key } }
+    let(:user) do
+      create :user,
+        notification_settings: [Types::User::NotificationSettings[:private_message_email]]
+    end
+    let(:make_request) do
+      get :unsubscribe,
+        params: {
+          name: user.nickname,
+          kind: MessageType::Private,
+          key: key
+        }
+    end
 
     before { sign_out user }
 
     context 'valid key' do
       subject! { make_request }
-      let(:key) { MessagesController.unsubscribe_key(user, MessageType::Private) }
+      let(:key) { MessagesController.unsubscribe_key user, MessageType::Private }
 
       it do
         expect(response).to have_http_status :success
-        expect(user.reload.notifications).to be_zero
+        expect(User.find(user.id).notification_settings).to be_empty
       end
     end
 
@@ -76,7 +86,7 @@ describe MessagesController do
       let(:key) { 'asd' }
       it do
         expect { make_request }.to raise_error CanCan::AccessDenied
-        expect(user.reload.notifications).to eq User::PRIVATE_MESSAGES_TO_EMAIL
+        expect(User.find(user.id).notification_settings).to_not be_empty
       end
     end
   end
