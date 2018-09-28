@@ -68,6 +68,7 @@ class Api::V1::UserRatesController < Api::V1Controller
     deprecated: true
   def increment
     @resource.update increment_params
+    log @resource
 
     if @resource.anime?
       Achievements::Track.perform_async(
@@ -82,6 +83,7 @@ class Api::V1::UserRatesController < Api::V1Controller
   api :DELETE, '/user_rates/:id', 'Destroy an user rate', deprecated: true
   def destroy
     @resource.destroy!
+    log @resource
 
     if @resource.anime? && @resource.completed?
       Achievements::Track.perform_async(
@@ -156,6 +158,8 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.save
 
+    log @resource
+
     if @resource.anime? && @resource.completed?
       Achievements::Track.perform_async(
         @resource.user_id,
@@ -170,6 +174,8 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.update update_params
 
+    log @resource
+
     if @resource.anime?
       Achievements::Track.perform_async(
         @resource.user_id,
@@ -178,5 +184,14 @@ private
       )
     end
   rescue *ALLOWED_EXCEPTIONS
+  end
+
+  def log user_rate
+    UserRates::Log.call(
+      user_rate: user_rate,
+      ip: remote_addr,
+      user_agent: request.user_agent,
+      oauth_application_id: doorkeeper_token&.application_id
+    )
   end
 end

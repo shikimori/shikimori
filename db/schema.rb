@@ -1051,9 +1051,7 @@ ActiveRecord::Schema.define(version: 2018_09_28_145707) do
     t.bigint "user_id", null: false
     t.string "target_type"
     t.bigint "target_id"
-    t.string "action"
-    t.string "value"
-    t.string "prior_value"
+    t.jsonb "diff"
     t.bigint "oauth_application_id"
     t.string "user_agent", null: false
     t.inet "ip", null: false

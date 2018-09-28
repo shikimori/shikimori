@@ -1,5 +1,8 @@
 describe Api::V1::UserRatesController do
-  before { allow(Achievements::Track).to receive :perform_async }
+  before do
+    allow(Achievements::Track).to receive :perform_async
+    allow(UserRates::Log).to receive :call
+  end
 
   context 'token authentication' do
     let!(:user) { create :user, api_access_token: 'zzzxxxccc' }
@@ -29,6 +32,15 @@ describe Api::V1::UserRatesController do
       it do
         expect(resource).to be_persisted
         expect(resource).to have_attributes create_params
+
+        expect(UserRates::Log)
+          .to have_received(:call)
+          .with(
+            user_rate: resource,
+            ip: controller.send(:remote_addr),
+            user_agent: request.user_agent,
+            oauth_application_id: controller.send(:doorkeeper_token)&.application_id
+          )
 
         if resource.completed?
           expect(Achievements::Track)
@@ -78,6 +90,15 @@ describe Api::V1::UserRatesController do
           expect(resource).to be_persisted
           expect(resource).to have_attributes create_params
 
+          expect(UserRates::Log)
+            .to have_received(:call)
+            .with(
+              user_rate: resource,
+              ip: controller.send(:remote_addr),
+              user_agent: request.user_agent,
+              oauth_application_id: controller.send(:doorkeeper_token)&.application_id
+            )
+
           if resource.completed?
             expect(Achievements::Track)
               .to have_received(:perform_async)
@@ -125,6 +146,15 @@ describe Api::V1::UserRatesController do
       it do
         expect(resource).to have_attributes update_params
 
+        expect(UserRates::Log)
+          .to have_received(:call)
+          .with(
+            user_rate: resource,
+            ip: controller.send(:remote_addr),
+            user_agent: request.user_agent,
+            oauth_application_id: controller.send(:doorkeeper_token)&.application_id
+          )
+
         expect(Achievements::Track)
           .to have_received(:perform_async)
           .with resource.user_id, resource.id, Types::Neko::Action[:put]
@@ -140,6 +170,15 @@ describe Api::V1::UserRatesController do
       it do
         expect(resource.episodes).to eq user_rate.episodes + 1
 
+        expect(UserRates::Log)
+          .to have_received(:call)
+          .with(
+            user_rate: resource,
+            ip: controller.send(:remote_addr),
+            user_agent: request.user_agent,
+            oauth_application_id: controller.send(:doorkeeper_token)&.application_id
+          )
+
         expect(Achievements::Track)
           .to have_received(:perform_async)
           .with resource.user_id, resource.id, Types::Neko::Action[:put]
@@ -154,6 +193,15 @@ describe Api::V1::UserRatesController do
 
       it do
         expect(resource).to be_destroyed
+
+        expect(UserRates::Log)
+          .to have_received(:call)
+          .with(
+            user_rate: resource,
+            ip: controller.send(:remote_addr),
+            user_agent: request.user_agent,
+            oauth_application_id: controller.send(:doorkeeper_token)&.application_id
+          )
 
         if resource.completed?
           expect(Achievements::Track)

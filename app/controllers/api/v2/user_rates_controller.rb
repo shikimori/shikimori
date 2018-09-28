@@ -1,5 +1,6 @@
 # TODO: remove `unless params[:user_id]` after 01-09-2017
 class Api::V2::UserRatesController < Api::V2Controller
+  skip_before_action :verify_authenticity_token
   load_and_authorize_resource
 
   MAX_LIMIT = 1000
@@ -113,6 +114,7 @@ class Api::V2::UserRatesController < Api::V2Controller
   api :POST, '/v2/user_rates/:id/increment', 'Increment episodes/chapters by 1'
   def increment
     @resource.update increment_params
+    log @resource
 
     if @resource.anime?
       Achievements::Track.perform_async(
@@ -128,6 +130,7 @@ class Api::V2::UserRatesController < Api::V2Controller
   api :DELETE, '/v2/user_rates/:id', 'Destroy an user rate'
   def destroy
     @resource.destroy!
+    log @resource
 
     if @resource.anime? && @resource.completed?
       Achievements::Track.perform_async(
@@ -166,6 +169,8 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.save
 
+    log @resource
+
     if @resource.anime? && @resource.completed?
       Achievements::Track.perform_async(
         @resource.user_id,
@@ -181,6 +186,8 @@ private
     @resource = user_rate
     raise NotSaved unless @resource.update update_params
 
+    log @resource
+
     if @resource.anime?
       Achievements::Track.perform_async(
         @resource.user_id,
@@ -190,5 +197,14 @@ private
     end
   rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
     nil
+  end
+
+  def log user_rate
+    UserRates::Log.call(
+      user_rate: user_rate,
+      ip: remote_addr,
+      user_agent: request.user_agent,
+      oauth_application_id: doorkeeper_token&.application_id
+    )
   end
 end
