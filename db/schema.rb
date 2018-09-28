@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_28_145707) do
+ActiveRecord::Schema.define(version: 2018_09_28_173307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1054,7 +1054,7 @@ ActiveRecord::Schema.define(version: 2018_09_28_145707) do
     t.jsonb "diff"
     t.bigint "oauth_application_id"
     t.string "user_agent", null: false
-    t.inet "ip", null: false
+    t.inet "ip"
     t.datetime "created_at"
     t.index ["oauth_application_id"], name: "index_user_rates_logs_on_oauth_application_id"
     t.index ["target_type", "target_id"], name: "index_user_rates_logs_on_target_type_and_target_id"
