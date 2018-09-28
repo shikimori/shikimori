@@ -11,6 +11,7 @@ describe User do
     it { is_expected.to have_many(:achievements).dependent(:destroy) }
     it { is_expected.to have_many(:anime_rates).dependent(:destroy) }
     it { is_expected.to have_many(:manga_rates).dependent(:destroy) }
+    it { is_expected.to have_many(:user_rates_logs).dependent(:destroy) }
 
     it { is_expected.to have_many(:topic_viewings).dependent(:delete_all) }
     it { is_expected.to have_many(:comment_viewings).dependent(:delete_all) }

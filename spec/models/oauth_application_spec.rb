@@ -1,6 +1,7 @@
 describe OauthApplication do
   describe 'relations' do
     it { is_expected.to belong_to :owner }
+    it { is_expected.to have_many(:user_rates_logs).dependent(:destroy) }
   end
 
   describe 'permissions' do
