@@ -2,14 +2,14 @@ class QueryObjectBase
   prepend ActiveCacher.instance
   extend DslAttribute
 
-  QUERY_METHODS = %i(joins includes select where order limit offset)
+  QUERY_METHODS = %i[joins includes select where order limit offset]
 
   pattr_initialize :scope
   delegate :==, :eql?, :equal?, to: :scope
 
   def paginate page, limit
     new_scope = @scope
-      .offset(limit * (page-1))
+      .offset(limit * (page - 1))
       .limit(limit)
 
     chain PaginatedCollection.new(new_scope, page, limit)
@@ -17,7 +17,7 @@ class QueryObjectBase
 
   def paginate_n1 page, limit
     new_scope = @scope
-      .offset(limit * (page-1))
+      .offset(limit * (page - 1))
       .limit(limit + 1)
 
     chain PaginatedCollection.new(new_scope, page, limit)
@@ -41,7 +41,7 @@ class QueryObjectBase
     super(*args) || @scope.send(:respond_to_missing?, *args)
   end
 
-  def method_missing method, *args, &block
+  def method_missing method, *args, &block # rubocop:disable MethodMissingSuper
     @scope.send method, *args, &block
   end
 
