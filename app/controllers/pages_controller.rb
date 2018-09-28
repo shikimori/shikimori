@@ -29,7 +29,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       Topics::TopicViewFactory.new(false, false).find(ABOUT_TOPIC_ID)
   end
 
-  def copyrighted # rubocop:disable MethodLength, AbcSize
+  def copyrighted # rubocop:disable MethodLength
     og page_title: t('copyrighted_animes')
     og notice: i18n_t('copyrighted_animes')
 
