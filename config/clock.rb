@@ -85,7 +85,8 @@ module Clockwork
     # AdultMangaWorker.perform_async
   # end
 
-  every 1.day, 'daily.viewings_cleaner', at: '05:00' do
+  every 1.day, 'daily.cleanups', at: '05:00' do
+    UserRates::LogsCleaner.perform_async
     ViewingsCleaner.perform_async
   end
 

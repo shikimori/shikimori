@@ -2,9 +2,7 @@ FactoryBot.define do
   factory :user_rates_log do
     user { seed :user }
     target { nil } 
-    action { nil }
-    value { nil }
-    prior_value { nil }
+    diff { {} }
 
     oauth_application { nil }
     user_agent { 'chrome' }
