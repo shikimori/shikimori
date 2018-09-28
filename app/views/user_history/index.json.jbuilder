@@ -8,8 +8,8 @@ json.cache! [:history, :v3, @resource, @view.page, I18n.locale, request.format] 
   if @view.add_postloader?
     json.postloader render(
       'blocks/postloader',
-      next_url: index_profile_user_history_index_url(@resource, page: @view.page+1),
-      prev_url: @view.page > 1 ? index_profile_user_history_index_url(@resource, page: @view.page-1) : nil
+      next_url: current_url(page: @view.page + 1),
+      prev_url: @view.page > 1 ? current_url(page: @view.page - 1) : nil
     )
   end
 end

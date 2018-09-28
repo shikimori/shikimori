@@ -42,7 +42,9 @@ en:
 
   user_history_controller:
     <<: *profiles_controller
-    page_title: History
+    page_title:
+      history: History
+      logs: History logs
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:

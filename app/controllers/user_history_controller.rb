@@ -1,12 +1,26 @@
 class UserHistoryController < ProfilesController
+  before_action :check_access, only: %i[index logs]
+
   def index
-    og noindex: true
     redirect_to @resource.url unless @resource.history.any?
-    authorize! :access_list, @resource
+    og noindex: true
+    og page_title: i18n_t('page_title.history')
 
     @view = UserHistoryView.new @resource
+  end
 
-    og page_title: i18n_t('page_title')
+  def logs
+    og noindex: true
+    og page_title: i18n_t('page_title.logs')
+    breadcrumb i18n_t('page_title.history'), profile_list_history_url(@resource)
+    @back_url = profile_list_history_url(@resource)
+
+    @page = (params[:page] || 1).to_i
+    @limit = 30
+
+    @collection = QueryObjectBase
+      .new(@resource.user_rates_logs.order(id: :desc).includes(:target, :oauth_application))
+      .paginate(@page, @limit)
   end
 
   def reset
@@ -14,15 +28,20 @@ class UserHistoryController < ProfilesController
 
     @resource.object.history.where(target_type: params[:type].capitalize).delete_all
     @resource.object.history
-      .where(action: [
-        "mal_#{params[:type]}_import",
-        "ap_#{params[:type]}_import",
-        clear_action
-      ]).delete_all
+      .where(
+        action: [
+          "mal_#{params[:type]}_import",
+          "ap_#{params[:type]}_import",
+          clear_action
+        ]
+      )
+      .delete_all
     @resource.object.history.create! action: clear_action
     @resource.touch
 
-    render json: { notice: "Выполнена очистка вашей истории по #{anime? ? 'аниме' : 'манге'}" }
+    render json: {
+      notice: "Выполнена очистка вашей истории по #{anime? ? 'аниме' : 'манге'}"
+    }
   end
 
 private
@@ -37,5 +56,9 @@ private
     else
       UserHistoryAction::MangaHistoryClear
     end
+  end
+
+  def check_access
+    authorize! :access_list, @resource
   end
 end

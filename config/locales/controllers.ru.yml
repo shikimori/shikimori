@@ -42,7 +42,9 @@ ru:
 
   user_history_controller:
     <<: *profiles_controller
-    page_title: История
+    page_title:
+      history: История
+      logs: Логи истории
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:

@@ -1,15 +1,15 @@
 = render layout: 'profiles/page' do
-  - if @view.page == 1
-    - content_for :head do
-      = auto_discovery_link_tag :rss,
-        profile_url(@resource, format: :rss),
-        title: t('.rss_title', nickname: @resource.nickname)
+  - content_for :head do
+    = auto_discovery_link_tag :rss,
+      profile_url(@resource, format: :rss),
+      title: t('.rss_title', nickname: @resource.nickname)
 
+  .b-options-floated
+    a href=logs_profile_user_history_index_url(@resource) = t '.logs'
   h2.subheadline.m10 = og.headline
   - cache [:history, :v3, @resource, @view.page] do
     .block
       = render 'history', collection: @view.collection
 
     - if @view.add_postloader?
-      = render 'blocks/postloader',
-        next_url: index_profile_user_history_index_url(@resource, page: @view.page+1)
+      = render 'blocks/postloader', next_url: current_url(page: @view.page+1)

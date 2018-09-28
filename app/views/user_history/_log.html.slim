@@ -1,0 +1,32 @@
+.b-user_rates_log.
+  span
+    span.id-label #
+    = log.id
+
+  - if log.target
+    span
+      a.bubbled[
+        href=url_for(log.target)
+      ] = localized_name log.target
+
+  time.date datetime=log.created_at.iso8601
+    = l log.created_at, format: '%e %B %Y'
+
+  - if log.oauth_application
+    span.oauth_application
+      = render partial: 'doorkeeper/oauth_applications/oauth_application',
+        object: log.oauth_application,
+        locals: { content_by: :inline }
+
+  .diff
+    = BbCodes::Text.call "[code=json]#{log.diff.to_json}[/code]"
+
+  - if current_user&.admin? || @resource.own_profile?
+    .info
+      .field
+        .label IP:
+        = log.ip
+
+      .field
+        .label User-Agent:
+        = log.user_agent

@@ -6,10 +6,10 @@ header.head.misc
     - if params[:action] != 'show' || @back_url
       a.back[
         href=(@back_url || @user.url)
-        title="#{t 'back_to_page'} #{@user.name}"
+        title=t('back')
         data-text=t('back')
       ]
-    = og.headline
+    = @user.nickname
     = render 'profiles/status', user: @user
     = yield :head_misc
 

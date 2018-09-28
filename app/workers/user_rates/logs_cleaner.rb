@@ -5,7 +5,7 @@ class UserRates::LogsCleaner
     queue: :cpu_intensive
   )
 
-  LOGS_LIVE_INTERVAL = 1.month
+  LOGS_LIVE_INTERVAL = 2.weeks
 
   def perform
     UserRatesLog.where('created_at < ?', LOGS_LIVE_INTERVAL.ago).delete_all

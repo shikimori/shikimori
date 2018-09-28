@@ -2,25 +2,34 @@ describe UserHistoryController do
   let!(:user) { create :user }
 
   describe '#index' do
-    context 'without history' do
-      before { get :index, params: { profile_id: user.to_param } }
-      it { expect(response).to redirect_to profile_url(user) }
+    let!(:history) { create :user_history, user: user, target: create(:anime) }
+    let(:make_request) { get :index, params: { profile_id: user.to_param } }
+
+    context 'has access to list' do
+      subject! { make_request }
+      it { expect(response).to have_http_status :success }
     end
 
-    context 'with history' do
-      let!(:history) { create :user_history, user: user, target: create(:anime) }
-      let(:make_request) { get :index, params: { profile_id: user.to_param } }
+    context 'has no access to list' do
+      let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
+      before { sign_out user }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
+    end
+  end
 
-      context 'has access to list' do
-        before { make_request }
-        it { expect(response).to have_http_status :success }
-      end
+  describe '#logs' do
+    let!(:user_rates_log) { create :user_rates_log, user: user }
+    let(:make_request) { get :logs, params: { profile_id: user.to_param } }
 
-      context 'has no access to list' do
-        let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
-        before { sign_out user }
-        it { expect { make_request }.to raise_error CanCan::AccessDenied }
-      end
+    context 'has access to list' do
+      subject! { make_request }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'has no access to list' do
+      let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
+      before { sign_out user }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
@@ -39,7 +48,7 @@ describe UserHistoryController do
 
       context 'anime' do
         let(:entry) { create :anime }
-        before { make_request }
+        subject! { make_request }
 
         it do
           expect(user.history).to have(1).item
@@ -50,7 +59,7 @@ describe UserHistoryController do
 
       context 'manga' do
         let(:entry) { create :manga }
-        before { make_request }
+        subject! { make_request }
 
         it do
           expect(user.history).to have(1).item

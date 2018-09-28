@@ -33,9 +33,9 @@ class Ban < ApplicationRecord
       if bans_count > 15
         '1w 3d 12h'
       elsif bans_count <= 5
-        (30 + 30 * ((bans_count ** 3) / 2.0 - 1)).to_i
+        (30 + 30 * ((bans_count**3) / 2.0 - 1)).to_i
       else
-        60 * bans_count ** 2
+        60 * bans_count**2
       end
 
     BanDuration.new(duration).to_s
@@ -54,8 +54,7 @@ class Ban < ApplicationRecord
 
     i18n_t(i18n_key,
       duration: duration.humanize,
-      reason: BbCodes::Text.call(reason)
-    ).sub /\.+\Z/, '.'
+      reason: BbCodes::Text.call(reason)).sub(/\.+\Z/, '.')
   end
 
   # callbacks

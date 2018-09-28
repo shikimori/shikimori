@@ -93,6 +93,7 @@ ru:
 
       your_message: Твоё сообщение
       rss_title: История пользователя %{nickname}
+      logs: Логи
       no_video_uploads: Нет загрузок видео
       no_content_changes: Нет правок контента
       favourite:

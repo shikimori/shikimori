@@ -4,10 +4,6 @@ class UserHistoryView < ViewObjectBase
 
   LIMIT = 90
 
-  def page
-    (h.params[:page] || 1).to_i
-  end
-
   def collection
     query[0]
   end
