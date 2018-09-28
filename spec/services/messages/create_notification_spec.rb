@@ -1,5 +1,5 @@
 describe Messages::CreateNotification do
-  let(:service) { Messages::CreateNotification.new target }
+  let(:service) { described_class.new target }
 
   before { allow(BotsService).to receive(:get_poster).and_return bot }
   let(:bot) { seed :user }
@@ -61,15 +61,15 @@ describe Messages::CreateNotification do
 
   describe '#nickname_changed' do
     let(:target) { seed :user }
-    let(:friend) { create :user, notifications: notifications }
+    let(:friend) { create :user, notification_settings: notification_settings }
     let(:old_nickname) { 'old_nick' }
     let(:new_nickname) { 'new_nick' }
 
     subject(:message) { service.nickname_changed friend, old_nickname, new_nickname }
 
     context 'disabled_notifications' do
-      let(:notifications) do
-        User::DEFAULT_NOTIFICATIONS - User::NICKNAME_CHANGE_NOTIFICATIONS
+      let(:notification_settings) do
+        Types::User::NotificationSettings.values - %i[friend_nickname_change]
       end
 
       it do
@@ -79,7 +79,7 @@ describe Messages::CreateNotification do
     end
 
     context 'allowed_notifications' do
-      let(:notifications) { User::DEFAULT_NOTIFICATIONS }
+      let(:notification_settings) { Types::User::NotificationSettings.values }
 
       it do
         expect { subject }.to change(Message, :count).by 1

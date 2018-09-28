@@ -1,5 +1,4 @@
-# TODO: move each method to separate class
-class Messages::CreateNotification
+class Messages::CreateNotification # rubocop:disable ClassLength
   include Translation
 
   pattr_initialize :target
@@ -22,7 +21,7 @@ class Messages::CreateNotification
     )
   end
 
-  def moderatable_banned reason
+  def moderatable_banned reason # rubocop:disable MethodLength, AbcSize
     locale = @target.locale
     body = i18n_t(
       'moderatable_banned.without_reason',
@@ -55,7 +54,7 @@ class Messages::CreateNotification
   end
 
   def nickname_changed friend, old_nickname, new_nickname
-    return if (friend.notifications & User::NICKNAME_CHANGE_NOTIFICATIONS).zero?
+    return unless friend.notification_settings_friend_nickname_change?
 
     body = i18n_t(
       'nickname_changed',
