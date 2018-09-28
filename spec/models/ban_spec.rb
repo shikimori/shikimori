@@ -194,4 +194,20 @@ describe Ban do
       its(:approver_id) { is_expected.to eq ban.moderator_id }
     end
   end
+
+  describe 'permissions' do
+    subject { Ability.new user }
+    let(:ban) { build :ban }
+    let(:user) { build_stubbed :user, roles: [role] }
+
+    context 'forum_moderator' do
+      let(:role) { :forum_moderator }
+      it { is_expected.to be_able_to :manage, ban }
+    end
+
+    context 'not forum_moderator' do
+      let(:role) { (Types::User::Roles.values - %i[forum_moderator]).sample }
+      it { is_expected.to_not be_able_to :manage, ban }
+    end
+  end
 end
