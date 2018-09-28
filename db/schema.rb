@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_26_161115) do
+ActiveRecord::Schema.define(version: 2018_09_28_145707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1045,6 +1045,22 @@ ActiveRecord::Schema.define(version: 2018_09_26_161115) do
     t.integer "rewatches", default: 0, null: false
     t.index ["target_id", "target_type"], name: "i_target"
     t.index ["user_id", "target_id", "target_type"], name: "index_user_rates_on_user_id_and_target_id_and_target_type", unique: true
+  end
+
+  create_table "user_rates_logs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "target_type"
+    t.bigint "target_id"
+    t.string "action"
+    t.string "value"
+    t.string "prior_value"
+    t.bigint "oauth_application_id"
+    t.string "user_agent", null: false
+    t.inet "ip", null: false
+    t.datetime "created_at"
+    t.index ["oauth_application_id"], name: "index_user_rates_logs_on_oauth_application_id"
+    t.index ["target_type", "target_id"], name: "index_user_rates_logs_on_target_type_and_target_id"
+    t.index ["user_id"], name: "index_user_rates_logs_on_user_id"
   end
 
   create_table "user_tokens", id: :serial, force: :cascade do |t|
