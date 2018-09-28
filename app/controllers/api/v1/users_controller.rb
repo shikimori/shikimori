@@ -27,8 +27,8 @@ class Api::V1::UsersController < Api::V1Controller
     respond_with @collection
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/users/:id', 'Show an user'
+  param :is_nickname, %w[1], desc: '`1` if you want to get user by its nickname'
   def show
     respond_with UserProfileDecorator.new(user), serializer: UserProfileSerializer
   end
@@ -183,8 +183,13 @@ class Api::V1::UsersController < Api::V1Controller
 private
 
   def user
-    @user ||= User.find_by(id: params[:id]) ||
-      User.find_by!(nickname: User.param_to(params[:id]))
+    @user ||=
+      if params[:is_nickname] == '1'
+        User.find_by!(nickname: User.param_to(params[:id]))
+      else
+        User.find_by(id: params[:id]) ||
+          User.find_by!(nickname: User.param_to(params[:id]))
+      end
   end
 
   def decorator
