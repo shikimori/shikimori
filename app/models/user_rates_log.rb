@@ -7,4 +7,14 @@ class UserRatesLog < ApplicationRecord
   belongs_to :manga, foreign_key: :target_id, optional: true
 
   validates :ip, :user_agent, presence: true
+
+  def action
+    if diff&.dig('id', 0).nil? && !diff&.dig('id', 1).nil?
+      :create
+    elsif !diff&.dig('id', 0).nil? && diff&.dig('id', 1).nil?
+      :destroy
+    else
+      :update
+    end
+  end
 end

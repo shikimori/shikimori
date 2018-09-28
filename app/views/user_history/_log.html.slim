@@ -1,4 +1,4 @@
-.b-user_rates_log.
+.b-user_rates_log
   span
     span.id-label #
     = log.id
@@ -8,6 +8,10 @@
       a.bubbled[
         href=url_for(log.target)
       ] = localized_name log.target
+
+  span.action[
+    class=log.action
+  ] = t ".action.#{log.action}"
 
   time.date datetime=log.created_at.iso8601
     = l log.created_at, format: '%e %B %Y'

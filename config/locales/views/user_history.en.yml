@@ -1,0 +1,10 @@
+en:
+  user_history:
+    logs:
+      notice: >-
+        Logs are stored for 2 weeks. Import lists and clear lists are not logged.
+    log:
+      action:
+        create: added
+        update: changed
+        destroy: deleted

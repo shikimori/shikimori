@@ -1,3 +1,6 @@
+= content_for :head_notice do
+  .notice = t '.notice'
+
 = render layout: 'profiles/page' do
   .b-options-floated
     a href=profile_list_history_url(@resource) = i18n_io 'History', :one

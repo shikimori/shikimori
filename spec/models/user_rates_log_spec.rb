@@ -11,4 +11,26 @@ describe UserRatesLog do
     it { is_expected.to validate_presence_of :ip }
     it { is_expected.to validate_presence_of :user_agent }
   end
+
+  describe 'instance methods' do
+    describe '#action' do
+      let(:user_rates_log) { build :user_rates_log, diff: diff }
+      subject { user_rates_log.action }
+
+      context 'create' do
+        let(:diff) { { 'id': [nil, 48181226] } }
+        it { is_expected.to eq :create }
+      end
+
+      context 'update' do
+        let(:diff) { { 'score': [1, 2] } }
+        it { is_expected.to eq :update }
+      end
+
+      context 'destroy' do
+        let(:diff) { { 'id': [48181226, nil] } }
+        it { is_expected.to eq :destroy }
+      end
+    end
+  end
 end
