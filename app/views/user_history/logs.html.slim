@@ -5,7 +5,7 @@
   .b-options-floated
     a href=profile_list_history_url(@resource) = i18n_io 'History', :one
 
-  h2.subheadline = og.headline
+  h2.subheadline.m7 = og.headline
   .block
     = render partial: 'log', collection: @collection
 
