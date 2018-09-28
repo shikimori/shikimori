@@ -9,7 +9,7 @@ class Moderations::AbuseRequestsController < ModerationsController
     @processed = postload_paginate(params[:page], 25) do
       scope = AbuseRequest.where.not(state: :pending)
 
-      unless current_user.forum_moderator?
+      unless can? :manage, AbuseRequest
         scope = scope
           .where(kind: %i[summary offtopic])
           .or(AbuseRequest.where(state: :accepted))

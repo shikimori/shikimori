@@ -178,7 +178,7 @@
           data-type="json"
         ] = t('.remove_from_ignored')
 
-        - if current_user.forum_moderator? || current_user.admin?
+        - if can? :manage, Ban
           a href=ban_profile_url(@resource) = t('actions.moderation.ban')
         - else
           a href=ban_profile_url(@resource) = t('.ban_history')

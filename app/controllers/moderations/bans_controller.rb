@@ -20,7 +20,7 @@ class Moderations::BansController < ModerationsController
     @site_rules = StickyTopicView.site_rules(locale_from_host)
     @club = Club.find_by(id: 917)&.decorate if ru_host?
 
-    if user_signed_in? && current_user.forum_moderator?
+    if can? :manage, AbuseRequest
       @declined = AbuseRequest
         .where(state: 'rejected', kind: %i[spoiler abuse])
         .order(id: :desc)
