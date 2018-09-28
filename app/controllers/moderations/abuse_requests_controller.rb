@@ -3,6 +3,8 @@ class Moderations::AbuseRequestsController < ModerationsController
   before_action :authenticate_user!,
     only: %i[index show take deny offtopic summary spoiler abuse]
 
+  before_action :check_access, only: %i[take deny]
+
   def index
     @processed = postload_paginate(params[:page], 25) do
       scope = AbuseRequest.where.not(state: :pending)
@@ -42,15 +44,19 @@ class Moderations::AbuseRequestsController < ModerationsController
 
   def take
     @request = AbuseRequest.find params[:id]
-    raise Forbidden unless current_user.forum_moderator?
     @request.take! current_user rescue StateMachine::InvalidTransition
     render json: {}
   end
 
   def deny
     @request = AbuseRequest.find params[:id]
-    raise Forbidden unless current_user.forum_moderator?
     @request.reject! current_user rescue StateMachine::InvalidTransition
     render json: {}
+  end
+
+private
+
+  def check_access
+    raise CanCan::AccessDenied unless can? :manage, AbuseRequest
   end
 end

@@ -98,4 +98,20 @@ describe AbuseRequest do
       end
     end
   end
+
+  describe 'permissions' do
+    subject { Ability.new user }
+    let(:abuse_request) { build :abuse_request }
+    let(:user) { build_stubbed :user, roles: [role] }
+
+    context 'forum_moderator' do
+      let(:role) { :forum_moderator }
+      it { is_expected.to be_able_to :manage, abuse_request }
+    end
+
+    context 'not forum_moderator' do
+      let(:role) { (Types::User::Roles.values - %i[forum_moderator]).sample }
+      it { is_expected.to_not be_able_to :manage, abuse_request }
+    end
+  end
 end
