@@ -20,7 +20,7 @@ export default class LogEntry extends ShikiView
     @$('.ban, .warn', @$moderation)
       .on 'ajax:before', @_prepare_form
       .on 'ajax:before', @_shade
-      .on 'ajax:success', @_unshade
+      .on 'ajax:complete', @_unshade
       .on 'ajax:success', @_show_form
 
   _prepare_form: =>
@@ -43,6 +43,7 @@ export default class LogEntry extends ShikiView
     # сабмит формы бана пользователю
     $form
       .on 'ajax:before', @_shade
+      .on 'ajax:complete', @_unshade
       .on 'ajax:success', @_reload
 
   _hide_form: =>
