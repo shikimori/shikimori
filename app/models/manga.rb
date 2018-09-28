@@ -35,7 +35,7 @@ class Manga < DbEntry
     class_name: UserRate.name,
     foreign_key: :target_id,
     dependent: :destroy
-  has_many :user_rates_logs, -> { where target_type: Manga.name },
+  has_many :user_rate_logs, -> { where target_type: Manga.name },
     foreign_key: :target_id,
     dependent: :destroy
 

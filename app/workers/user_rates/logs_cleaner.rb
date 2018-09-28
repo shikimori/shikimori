@@ -8,6 +8,6 @@ class UserRates::LogsCleaner
   LOGS_LIVE_INTERVAL = 2.weeks
 
   def perform
-    UserRatesLog.where('created_at < ?', LOGS_LIVE_INTERVAL.ago).delete_all
+    UserRateLog.where('created_at < ?', LOGS_LIVE_INTERVAL.ago).delete_all
   end
 end

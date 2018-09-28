@@ -1,6 +1,6 @@
 class OauthApplication < Doorkeeper::Application
   belongs_to :owner, polymorphic: true
-  has_many :user_rates_logs, dependent: :destroy
+  has_many :user_rate_logs, dependent: :destroy
 
   has_attached_file :image,
     styles: {

@@ -64,7 +64,7 @@ class User < ApplicationRecord
     source: :target_id,
     dependent: :destroy
 
-  has_many :user_rates_logs, dependent: :destroy
+  has_many :user_rate_logs, dependent: :destroy
 
   has_many :topic_viewings, dependent: :delete_all
   has_many :comment_viewings, dependent: :delete_all

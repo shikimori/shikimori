@@ -44,7 +44,7 @@ class Anime < DbEntry
    class_name: UserRate.name,
    foreign_key: :target_id,
    dependent: :destroy
-  has_many :user_rates_logs, -> { where target_type: Anime.name },
+  has_many :user_rate_logs, -> { where target_type: Anime.name },
     foreign_key: :target_id,
     dependent: :destroy
 

@@ -1,4 +1,4 @@
-class UserRatesLog < ApplicationRecord
+class UserRateLog < ApplicationRecord
   belongs_to :user
   belongs_to :target, polymorphic: true, optional: true
   belongs_to :oauth_application, optional: true

@@ -19,7 +19,7 @@ class UserHistoryController < ProfilesController
     @limit = 30
 
     @collection = QueryObjectBase
-      .new(@resource.user_rates_logs.order(id: :desc).includes(:target, :oauth_application))
+      .new(@resource.user_rate_logs.order(id: :desc).includes(:target, :oauth_application))
       .paginate(@page, @limit)
   end
 

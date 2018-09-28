@@ -16,7 +16,7 @@ describe UserRates::Log do
   let(:oauth_application) { build_stubbed :oauth_application }
 
   it do
-    expect { subject }.to change(UserRatesLog, :count).by 1
+    expect { subject }.to change(UserRateLog, :count).by 1
     expect(subject.ip.to_s).to eq ip
     is_expected.to have_attributes(
       user: user_rate.user,

@@ -18,7 +18,7 @@ describe UserHistoryController do
   end
 
   describe '#logs' do
-    let!(:user_rates_log) { create :user_rates_log, user: user }
+    let!(:user_rate_log) { create :user_rate_log, user: user }
     let(:make_request) { get :logs, params: { profile_id: user.to_param } }
 
     context 'has access to list' do

@@ -2,7 +2,7 @@ class UserRates::Log
   method_object %i[user_rate! ip! user_agent! oauth_application_id!]
 
   def call
-    UserRatesLog.create!(
+    UserRateLog.create!(
       user: @user_rate.user,
       target: @user_rate.target,
       diff: diff_params,

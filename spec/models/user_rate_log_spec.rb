@@ -1,4 +1,4 @@
-describe UserRatesLog do
+describe UserRateLog do
   describe 'relations' do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :target }
@@ -14,8 +14,8 @@ describe UserRatesLog do
 
   describe 'instance methods' do
     describe '#action' do
-      let(:user_rates_log) { build :user_rates_log, diff: diff }
-      subject { user_rates_log.action }
+      let(:user_rate_log) { build :user_rate_log, diff: diff }
+      subject { user_rate_log.action }
 
       context 'create' do
         let(:diff) { { 'id': [nil, 48181226] } }

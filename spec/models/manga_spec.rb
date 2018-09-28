@@ -7,7 +7,7 @@ describe Manga do
     it { is_expected.to have_many :people }
 
     it { is_expected.to have_many :rates }
-    it { is_expected.to have_many(:user_rates_logs).dependent(:destroy) }
+    it { is_expected.to have_many(:user_rate_logs).dependent(:destroy) }
 
     it { is_expected.to have_many :related }
     it { is_expected.to have_many :related_mangas }

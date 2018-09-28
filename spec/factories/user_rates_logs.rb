@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :user_rates_log do
+  factory :user_rate_log do
     user { seed :user }
     target { nil } 
     diff { {} }
