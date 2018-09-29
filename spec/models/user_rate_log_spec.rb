@@ -33,4 +33,12 @@ describe UserRateLog do
       end
     end
   end
+
+  describe 'permissions' do
+    subject { Ability.new user }
+    let(:user) { build_stubbed :user, roles: [role] }
+    let(:role) { Types::User::Roles.values }
+    let(:user_rate_log) { build :user_rate_log }
+    it { is_expected.to be_able_to :read, user_rate_log }
+  end
 end

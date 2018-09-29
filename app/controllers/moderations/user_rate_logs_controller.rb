@@ -1,7 +1,7 @@
 class Moderations::UserRateLogsController < ModerationsController
-  def show
-    @resource = UserRateLog.find params[:id]
+  load_and_authorize_resource except: %i[index]
 
+  def show
     og noindex: true
     og page_title: i18n_t('page_title.show', id: @resource.id)
   end

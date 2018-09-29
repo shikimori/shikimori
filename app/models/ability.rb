@@ -94,5 +94,9 @@ class Ability
     can :read, Topic
     can :read, Collection
     can :read, OauthApplication
+    can :read, Ban
+    can :read, AbuseRequest
+    can :read, UserRateLog
+    can :read, Version
   end
 end

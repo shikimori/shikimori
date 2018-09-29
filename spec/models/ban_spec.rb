@@ -208,6 +208,7 @@ describe Ban do
     context 'not forum_moderator' do
       let(:role) { (Types::User::Roles.values - %i[forum_moderator]).sample }
       it { is_expected.to_not be_able_to :manage, ban }
+      it { is_expected.to be_able_to :read, ban }
     end
   end
 end
