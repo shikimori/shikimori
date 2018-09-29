@@ -202,7 +202,9 @@ ru:
 
   moderations/bans_controller:
     <<: *moderations_controller
-    page_title: Журнал банов
+    page_title:
+      index: Журнал банов
+      show: 'Бан #%{id}'
 
   moderations/reviews_controller:
     <<: *moderations_controller

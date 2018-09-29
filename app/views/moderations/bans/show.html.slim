@@ -1,0 +1,6 @@
+header.head
+  h1
+    = og.headline
+  = render 'application/breadcrumbs'
+
+= render 'moderations/bans/ban', ban: @resource

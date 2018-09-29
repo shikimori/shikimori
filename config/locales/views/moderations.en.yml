@@ -1,7 +1,6 @@
 en:
   moderations:
     show:
-      bans_journal: Bans journal
       content: Site content
       forum_journal: Forum moderation journal
       genres: Genres

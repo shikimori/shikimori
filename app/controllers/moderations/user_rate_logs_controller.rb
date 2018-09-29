@@ -4,6 +4,7 @@ class Moderations::UserRateLogsController < ModerationsController
   def show
     og noindex: true
     og page_title: i18n_t('page_title.show', id: @resource.id)
+    breadcrumb i18n_t('page_title.index'), moderations_user_rate_logs_url
   end
 
   def index

@@ -1,9 +1,7 @@
 ru:
   moderations:
     show:
-      bans_journal: Журнал банов
       content: Контент
-      edited_videos_journal: Журнал изменений видео
       forum_journal: Журнал модерации форума
       genres: Жанры
       header_notice: Журналы модерации и информация о контенте сайта

@@ -1,7 +1,8 @@
 .b-ban.b-log_entry
   span
-    span.id-label #
-    = ban.id
+    a href=moderations_ban_url(ban)
+      span.id-label #
+      = ban.id
   span.date = ban.created_at.strftime('%d.%m.%Y')
 
   span

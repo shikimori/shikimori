@@ -30,8 +30,8 @@ page_load('anime_video_reports_index', 'profiles_videos', () => {
 
 page_load('versions_index', 'users_index', datePicker);
 
-page_load('versions_show', 'user_rate_logs_show', () => {
-  $('.b-log_entry .collapsed.spoiler').click();
+page_load('versions_show', 'abuse_requests_show', 'user_rate_logs_show', () => {
+  $('.collapsed.spoiler', '.b-log_entry, .b-user_rate_log').click();
 });
 
 page_load(

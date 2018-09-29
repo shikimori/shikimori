@@ -202,7 +202,9 @@ en:
 
   moderations/bans_controller:
     <<: *moderations_controller
-    page_title: Bans journal
+    page_title:
+      index: Bans journal
+      show: 'Ban #%{id}'
 
   moderations/reviews_controller:
     <<: *moderations_controller
