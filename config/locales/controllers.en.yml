@@ -44,7 +44,7 @@ en:
     <<: *profiles_controller
     page_title:
       history: History
-      logs: History logs
+      logs: History journal
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:
@@ -223,7 +223,7 @@ en:
   moderations/user_rate_logs_controller:
     <<: *moderations_controller
     page_title:
-      index: History logs
+      index: History journal
       show: 'History log #%{id}'
 
   moderations/versions_controller:

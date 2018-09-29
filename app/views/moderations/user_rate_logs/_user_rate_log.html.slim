@@ -34,11 +34,11 @@
   .collapsed.spoiler: span = t '.details'
 
   .spoiler.target style="display: none;"
-    .diff
-      = BbCodes::Text.call "[code=json]#{user_rate_log.diff.to_json}[/code]"
+    .info
+      .diff
+        = BbCodes::Text.call "[code=json]#{user_rate_log.diff.to_json}[/code]"
 
-    - if current_user&.admin? || current_user&.id == user_rate_log.user_id
-      .info
+      - if current_user&.admin? || current_user&.id == user_rate_log.user_id
         .field
           .label IP:
           = user_rate_log.ip

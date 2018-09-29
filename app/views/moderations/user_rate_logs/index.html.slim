@@ -5,7 +5,7 @@ header.head
   = render 'application/breadcrumbs'
   .notice = t '.notice'
 
-h2.subheadline.m7 = og.headline
+h2.subheadline.m7 = i18n_io 'History', :one
 .block
   = render partial: 'user_rate_log', collection: @collection
 

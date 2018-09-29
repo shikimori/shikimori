@@ -44,7 +44,7 @@ ru:
     <<: *profiles_controller
     page_title:
       history: История
-      logs: Логи истории
+      logs: Журнал истории
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:
@@ -223,7 +223,7 @@ ru:
   moderations/user_rate_logs_controller:
     <<: *moderations_controller
     page_title:
-      index: Логи истории
+      index: Журнал истории
       show: 'Лог истории #%{id}'
 
   moderations/versions_controller:
