@@ -246,6 +246,7 @@ en:
         history: :moderations.bans.index.history
         notice:
           super_moderator: Can assign moderators
+          retired_moderator: Retired moderator
           version_moderator: Moderator of database content changes
           trusted_version_changer: Can change database content without moderation
           not_trusted_version_changer: Cannot change database content
@@ -269,6 +270,8 @@ en:
           create: added
           update: changed
           destroy: deleted
+        details: details
+        show: show
     forums:
       index: &index
         forums: Forums

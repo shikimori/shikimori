@@ -258,7 +258,6 @@ ru:
           trusted_video_changer: Может редактировать загруженные видео без модерации
           censored_avatar: Аватарка со взрослым контентом
           censored_profile: Профиль со взрослым контентом
-
       user:
         add: Добавить
         remove: Удалить
@@ -271,6 +270,8 @@ ru:
           create: добавлено
           update: изменено
           destroy: удалено
+        details: подробности
+        show: показать
     forums:
       index: &index
         forums: Форумы
