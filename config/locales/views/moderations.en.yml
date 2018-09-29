@@ -260,6 +260,15 @@ en:
       user:
         add: Add
         remove: Remove
+    user_rate_logs:
+      index:
+        notice: >-
+          Logs are stored for 2 weeks. Import lists and clear lists are not logged.
+      user_rate_log:
+        action:
+          create: added
+          update: changed
+          destroy: deleted
     forums:
       index: &index
         forums: Forums
@@ -271,10 +280,10 @@ en:
         <<: *edit
     genres:
       index: &index
-        genres: Жанры
-        notice: Список всех жанров сайта
+        genres: Genres
+        notice: List of all site genres
       edit: &edit
         <<: *index
-        notice: Редактирование жанра
+        notice: Edit genre
       update:
         <<: *edit

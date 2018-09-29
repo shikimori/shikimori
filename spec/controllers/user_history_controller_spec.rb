@@ -8,6 +8,18 @@ describe UserHistoryController do
     context 'has access to list' do
       subject! { make_request }
       it { expect(response).to have_http_status :success }
+
+      context 'pagination' do
+        subject! do
+          get :index,
+            params: {
+              profile_id: user.to_param,
+              page: 2
+            },
+            format: :json
+        end
+        it { expect(response).to have_http_status :success }
+      end
     end
 
     context 'has no access to list' do
@@ -24,6 +36,18 @@ describe UserHistoryController do
     context 'has access to list' do
       subject! { make_request }
       it { expect(response).to have_http_status :success }
+
+      context 'pagination' do
+        subject! do
+          get :logs,
+            params: {
+              profile_id: user.to_param,
+              page: 2
+            },
+            format: :json
+        end
+        it { expect(response).to have_http_status :success }
+      end
     end
 
     context 'has no access to list' do

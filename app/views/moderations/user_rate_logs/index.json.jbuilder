@@ -1,7 +1,6 @@
 json.content render(
-  partial: 'moderations/user_rate_logs/user_rate_log',
+  partial: 'user_rate_log',
   collection: @collection,
-  locals: { hide_user: true },
   formats: :html
 )
 

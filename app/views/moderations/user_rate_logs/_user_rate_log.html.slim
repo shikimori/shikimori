@@ -1,0 +1,40 @@
+.b-user_rate_log
+  span
+    span.id-label #
+    = user_rate_log.id
+
+  time.date datetime=user_rate_log.created_at.iso8601
+    = l user_rate_log.created_at, format: '%e %B %Y'
+
+  - unless local_assigns[:hide_user]
+    span
+      = render 'users/user_16', user: user_rate_log.user
+
+  span.action[
+    class=user_rate_log.action
+  ] = t ".action.#{user_rate_log.action}"
+
+  - if user_rate_log.target
+    span
+      a.bubbled[
+        href=url_for(user_rate_log.target)
+      ] = localized_name user_rate_log.target
+
+  - if user_rate_log.oauth_application
+    span.oauth_application
+      = render partial: 'doorkeeper/oauth_applications/oauth_application',
+        object: user_rate_log.oauth_application,
+        locals: { content_by: :inline }
+
+  .diff
+    = BbCodes::Text.call "[code=json]#{user_rate_log.diff.to_json}[/code]"
+
+  - if current_user&.admin? || @resource.own_profile?
+    .info
+      .field
+        .label IP:
+        = user_rate_log.ip
+
+      .field
+        .label User-Agent:
+        = user_rate_log.user_agent

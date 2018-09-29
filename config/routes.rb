@@ -110,6 +110,12 @@ Rails.application.routes.draw do
   namespace :moderations do
     resources :users, only: %i[index]
     resources :roles, only: %i[index show update destroy]
+    resources :user_rate_logs, only: %i[index] do
+      get '(/page/:page)' => :index,
+        as: '',
+        on: :collection
+    end
+
     resources :versions, only: %i[show create destroy] do
       get '(/:type)(/page/:page)' => :index,
         as: '',

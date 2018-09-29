@@ -569,6 +569,9 @@ ru:
       genre:
         one: жанр
         few: жанры
+      user:
+        one: пользователь
+        few: пользователи
 
   i18n:
     inflections:

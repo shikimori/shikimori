@@ -2,8 +2,8 @@ header.head
   h1 = og.headline
   p.notice  = t '.header_notice'
 
-.cc-2.block
-  .c-column.m0
+.cc-3.block
+  .c-column
     .subheadline.m10 = t '.moderation'
 
     ul.b-list.block
@@ -64,63 +64,83 @@ header.head
             = t '.collections_journal'
             span.size = @moderation_policy.collections_count
 
-    ul.b-list
-      li
-        a.b-link[
-          href=moderations_users_path
-          title=t('moderations/users_controller.page_title')
-        ] = t 'moderations/users_controller.page_title'
+  .c-column
+    .subheadline.m10 = t '.content'
 
-      li
-        a.b-link[
-          href=moderations_roles_path
-          title=t('moderations/roles_controller.page_title')
-        ] = t 'moderations/roles_controller.page_title'
+    - if ru_host?
+      .block
+        ul.b-list
+          li
+            a.b-link[
+              href=anime_translations_url
+              title=t('.missing_anime_descriptions')
+            ] = t '.missing_anime_descriptions'
+          li
+            a.b-link[
+              href=manga_translations_url
+              title=t('.missing_manga_descriptions')
+            ] = t '.missing_manga_descriptions'
+          li
+            a.b-link[
+              href=missing_screenshots_moderations_url
+              title=t('.missing_screenshots')
+            ] = t '.missing_screenshots'
+          li
+            a.b-link[
+              href=missing_videos_moderations_url
+              title=t('.missing_videos')
+            ] = t '.missing_videos'
 
       - if can? :edit, AnimeVideoAuthor
-        li
-          a.b-link[
-            href=moderations_anime_video_authors_url
-            title=t('.anime_video_authors')
-          ] = t '.anime_video_authors'
+        .block
+          ul.b-list
+            li
+              a.b-link[
+                href=moderations_anime_video_authors_url
+                title=t('.anime_video_authors')
+              ] = t '.anime_video_authors'
 
-  - if ru_host?
-    .c-column.m0
-      .subheadline.m10 = t '.content'
+      .block
+        ul.b-list
+          li
+            - if can? :read, Genre
+              a.b-link[
+                href=moderations_genres_url
+                title=t('.genres')
+              ] = t '.genres'
+            - else
+              span = t '.genres'
 
+            li
+              - if can? :manage, Forum
+                a.b-link[
+                  href=moderations_forums_url
+                  title=t('.forums')
+                ] = t '.forums'
+              - else
+                span = t '.forums'
+
+  .c-column
+    .subheadline.m10 = i18n_io 'user', :few
+    .block
       ul.b-list
         li
           a.b-link[
-            href=anime_translations_url
-            title=t('.missing_anime_descriptions')
-          ] = t '.missing_anime_descriptions'
+            href=moderations_users_url
+            title=t('moderations/users_controller.page_title')
+          ] = t 'moderations/users_controller.page_title'
+
         li
           a.b-link[
-            href=manga_translations_url
-            title=t('.missing_manga_descriptions')
-          ] = t '.missing_manga_descriptions'
+            href=moderations_roles_url
+            title=t('moderations/roles_controller.page_title')
+          ] = t 'moderations/roles_controller.page_title'
+
         li
           a.b-link[
-            href=missing_screenshots_moderations_url
-            title=t('.missing_screenshots')
-          ] = t '.missing_screenshots'
-        li
-          a.b-link[
-            href=missing_videos_moderations_url
-            title=t('.missing_videos')
-          ] = t '.missing_videos'
-        - if can? :read, Genre
-          li
-            a.b-link[
-              href=moderations_genres_url
-              title=t('.genres')
-            ] = t '.genres'
-        - if can? :manage, Forum
-          li
-            a.b-link[
-              href=moderations_forums_url
-              title=t('.forums')
-            ] = t '.forums'
+            href=moderations_user_rate_logs_url
+            title=t('moderations/user_rate_logs_controller.page_title')
+          ] = t 'moderations/user_rate_logs_controller.page_title'
 
 - if @abuse_requests
   .cc-3a

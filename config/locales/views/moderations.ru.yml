@@ -262,6 +262,15 @@ ru:
       user:
         add: Добавить
         remove: Удалить
+    user_rate_logs:
+      index:
+        notice: >-
+          Логи хранятся 2 недели. Импорт списков и очистка списков не логируются.
+      user_rate_log:
+        action:
+          create: добавлено
+          update: изменено
+          destroy: удалено
     forums:
       index: &index
         forums: Форумы
@@ -273,10 +282,10 @@ ru:
         <<: *edit
     genres:
       index: &index
-        genres: Genres
-        notice: List of all site genres
+        genres: Жанры
+        notice: Список всех жанров сайта
       edit: &edit
         <<: *index
-        notice: Edit genre
+        notice: Редактирование жанра
       update:
         <<: *edit

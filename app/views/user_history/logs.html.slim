@@ -1,5 +1,5 @@
 = content_for :head_notice do
-  .notice = t '.notice'
+  .notice = t 'moderations.user_rate_logs.index.notice'
 
 = render layout: 'profiles/page' do
   .b-options-floated
@@ -7,7 +7,9 @@
 
   h2.subheadline.m7 = og.headline
   .block
-    = render partial: 'log', collection: @collection
+    = render partial: 'moderations/user_rate_logs/user_rate_log',
+      collection: @collection,
+      locals: { hide_user: true }
 
     - if @collection.size == @limit
       = render 'blocks/postloader', next_url: current_url(page: @page + 1)

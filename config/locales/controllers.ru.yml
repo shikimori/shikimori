@@ -220,6 +220,10 @@ ru:
     <<: *moderations_controller
     page_title: Роли пользователей
 
+  moderations/user_rate_logs_controller:
+    <<: *moderations_controller
+    page_title: Логи истории
+
   moderations/versions_controller:
     <<: *moderations_controller
     content_change: 'Правка #%{version_id}'
