@@ -37,7 +37,7 @@
     .diff
       = BbCodes::Text.call "[code=json]#{user_rate_log.diff.to_json}[/code]"
 
-    - if current_user&.admin? || @resource.own_profile?
+    - if current_user&.admin? || current_user&.id == user_rate_log.user_id
       .info
         .field
           .label IP:
