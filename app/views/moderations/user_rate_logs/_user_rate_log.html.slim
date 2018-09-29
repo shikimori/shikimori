@@ -1,7 +1,8 @@
 .b-user_rate_log
   span
-    span.id-label #
-    = user_rate_log.id
+    a href=moderations_user_rate_log_url(user_rate_log)
+      span.id-label #
+      = user_rate_log.id
 
   time.date datetime=user_rate_log.created_at.iso8601
     = l user_rate_log.created_at, format: '%e %B %Y'
