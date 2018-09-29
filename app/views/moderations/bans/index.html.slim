@@ -33,8 +33,7 @@ header.head
       .subheadline = t '.queue'
       div
         - if @pending.any?
-          = render partial: 'moderations/abuse_requests/abuse_request',
-            collection: @pending
+          = render @pending
         - else
           .b-nothing_here = t '.queue_empty'
 
@@ -42,15 +41,14 @@ header.head
     .subheadline = t '.declined'
     .block
       = spoiler '...' do
-        = render partial: 'moderations/abuse_requests/abuse_request',
-          collection: @declined
+        = render @declined
 
 .block
   .b-options-floated
     a href=moderations_abuse_requests_url = t '.offtopic_plus_summaries'
   .subheadline = t '.history'
   .block
-    = render partial: 'ban', collection: @bans
+    = render @bans
     - if @add_postloader
       = render partial: 'blocks/postloader',
         locals: { next_url: moderations_bans_url(page: @page+1) }

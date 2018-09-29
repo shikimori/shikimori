@@ -7,7 +7,7 @@ header.head
 
 h2.subheadline.m7 = i18n_io 'History', :one
 .block
-  = render partial: 'user_rate_log', collection: @collection
+  = render @collection
 
   - if @collection.size == @limit
     = render 'blocks/postloader', next_url: current_url(page: @page + 1)

@@ -9,6 +9,19 @@ describe Moderations::BansController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#show' do
+    let(:ban) do
+      create :ban,
+        reason: 'test',
+        duration: '1h',
+        comment: comment,
+        abuse_request: abuse_request,
+        moderator: user
+    end
+    subject! { get :show, params: { id: ban.id } }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#new' do
     subject! do
       get :new,

@@ -53,8 +53,7 @@ header.head
   .subheadline = t '.queue'
   .block
     - if @pending.any?
-      = render partial: 'moderations/anime_video_reports/anime_video_report',
-        collection: @pending
+      = render @pending
     - else
       .b-nothing_here Очередь пуста
 
@@ -66,7 +65,5 @@ header.head
   ]
   .subheadline = t '.history'
   .block
-    = render partial: 'moderations/anime_video_reports/anime_video_report',
-      collection: @processed
-    = render 'blocks/postloader',
-      next_url: moderations_anime_video_reports_url(page: @page+1, created_on: params[:created_on])
+    = render @processed
+    = render 'blocks/postloader', next_url: current_url(page: @page + 1)

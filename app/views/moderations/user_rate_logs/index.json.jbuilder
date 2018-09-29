@@ -1,8 +1,4 @@
-json.content render(
-  partial: 'user_rate_log',
-  collection: @collection,
-  formats: :html
-)
+json.content render(@collection, formats: :html)
 
 if @collection.size == @limit
   json.postloader render(

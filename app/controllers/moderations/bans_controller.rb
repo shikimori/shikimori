@@ -4,12 +4,6 @@ class Moderations::BansController < ModerationsController
   before_action :authenticate_user!, except: %i[index]
   layout false, only: %i[new]
 
-  def show
-    og noindex: true
-    og page_title: i18n_t('page_title.show', id: @resource.id)
-    breadcrumb i18n_t('page_title.index'), moderations_bans_url
-  end
-
   def index # rubocop:disable MethodLength, AbcSize
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title.index')
@@ -36,6 +30,12 @@ class Moderations::BansController < ModerationsController
         .includes(:user, :approver, comment: :commentable)
         .order(:created_at)
     end
+  end
+
+  def show
+    og noindex: true
+    og page_title: i18n_t('page_title.show', id: @resource.id)
+    breadcrumb i18n_t('page_title.index'), moderations_bans_url
   end
 
   def new
