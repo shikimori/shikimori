@@ -9,10 +9,10 @@ header.head
     ul.b-list.block
       li
         a.b-link[
-          href=moderations_versions_url(type: :content)
-          title=t('.versions_journal')
+          href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[:content])
+          title=t('moderations/versions_controller.content_changes')
         ]
-          = t '.versions_journal'
+          = t 'moderations/versions_controller.content_changes'
           span.size = @moderation_policy.content_count
       li
         a.b-link[
@@ -40,7 +40,7 @@ header.head
 
         li
           a[
-            href=moderations_versions_url(type: :anime_video)
+            href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[:anime_video])
             title=t('.edited_videos_journal')
           ]
             = t '.edited_videos_journal'

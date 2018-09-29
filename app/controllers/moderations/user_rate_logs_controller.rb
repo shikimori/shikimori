@@ -11,7 +11,7 @@ class Moderations::UserRateLogsController < ModerationsController
     og page_title: i18n_t('page_title.index')
 
     @page = (params[:page] || 1).to_i
-    @limit = 30
+    @limit = 45
 
     @collection = QueryObjectBase
       .new(UserRateLog.order(id: :desc).includes(:user, :target, :oauth_application))

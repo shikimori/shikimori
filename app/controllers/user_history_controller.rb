@@ -16,7 +16,7 @@ class UserHistoryController < ProfilesController
     @back_url = profile_list_history_url(@resource)
 
     @page = (params[:page] || 1).to_i
-    @limit = 30
+    @limit = 45
 
     @collection = QueryObjectBase
       .new(@resource.user_rate_logs.order(id: :desc).includes(:target, :oauth_application))
