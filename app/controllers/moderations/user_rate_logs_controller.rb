@@ -1,5 +1,5 @@
 class Moderations::UserRateLogsController < ModerationsController
-  load_and_authorize_resource except: %i[index]
+  load_and_authorize_resource only: %i[show]
 
   def show
     og noindex: true

@@ -193,7 +193,9 @@ en:
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller
-    page_title: Forum moderation journal
+    page_title:
+      index: Forum moderation journal
+      show: 'Complaint #%{id}'
 
   moderations/anime_video_reports_controller:
     <<: *moderations_controller

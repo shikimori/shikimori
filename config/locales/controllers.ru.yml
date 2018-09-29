@@ -193,7 +193,9 @@ ru:
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller
-    page_title: Журнал модерации форума
+    page_title:
+      index: Журнал модерации форума
+      show: 'Жалоба #%{id}'
 
   moderations/anime_video_reports_controller:
     <<: *moderations_controller

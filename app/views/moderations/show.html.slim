@@ -24,9 +24,9 @@ header.head
       li
         a.b-link[
           href=moderations_abuse_requests_url
-          title=t('.forum_journal')
+          title=t('moderations/abuse_requests_controller.page_title.index')
         ]
-          = t '.forum_journal'
+          = t 'moderations/abuse_requests_controller.page_title.index'
           span.size = AbuseRequest.pending.size
 
       - if ru_host?

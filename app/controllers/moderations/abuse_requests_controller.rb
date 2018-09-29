@@ -1,5 +1,7 @@
 # TODO: переделать авторизацию на cancancan
 class Moderations::AbuseRequestsController < ModerationsController
+  load_and_authorize_resource only: %i[show]
+
   before_action :authenticate_user!,
     only: %i[index show take deny offtopic summary spoiler abuse]
 
@@ -24,7 +26,7 @@ class Moderations::AbuseRequestsController < ModerationsController
     end
 
     unless request.xhr?
-      og page_title: i18n_t('page_title')
+      og page_title: i18n_t('page_title.index')
       @pending = AbuseRequest
         .pending
         .includes(:user, :approver, comment: :commentable)
@@ -39,7 +41,8 @@ class Moderations::AbuseRequestsController < ModerationsController
 
   def show
     og noindex: true
-    @resource = AbuseRequest.find params[:id]
+    og page_title: i18n_t('page_title.show', id: @resource.id)
+    breadcrumb i18n_t('page_title.index'), moderations_abuse_requests_url
   end
 
   def take

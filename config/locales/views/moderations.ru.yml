@@ -2,7 +2,6 @@ ru:
   moderations:
     show:
       content: Контент
-      forum_journal: Журнал модерации форума
       genres: Жанры
       header_notice: Журналы модерации и информация о контенте сайта
       missing_anime_descriptions: Аниме без описаний

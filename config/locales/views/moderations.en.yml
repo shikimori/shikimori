@@ -2,7 +2,6 @@ en:
   moderations:
     show:
       content: Site content
-      forum_journal: Forum moderation journal
       genres: Genres
       header_notice: Moderation journals
       missing_anime_descriptions: Animes w/o description

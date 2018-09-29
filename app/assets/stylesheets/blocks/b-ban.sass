@@ -1,8 +1,11 @@
 @import mixins/bracket_details
 @import mixins/date
 @import mixins/link
+@import mixins/log_entry
 
 .b-ban
+  +log_entry
+
   .duration-ban
     color: $red
 
@@ -17,9 +20,12 @@
 
   .moderator
     float: right
+    padding-left: 5px
     position: relative
     z-index: 1
-    padding-left: 5px
+
+    span
+      padding-left: 5px
 
   .abuser
     +bracket_details
