@@ -5,8 +5,7 @@
     - unless current_user.admin? && layout.moderation_policy.reviews_count < 100
       .topic.moderation
         a.b-link.b-tooltipped.unprocessed[
-          href="#{moderations_reviews_url}"
-          title="#{t 'moderations.show.reviews_journal'}"
+          href=moderations_reviews_url
           data-direction='bottom'
         ]
           = "#{i18n_i 'Review'}: #{layout.moderation_policy.reviews_count}"
@@ -15,8 +14,7 @@
     - unless current_user.admin? && layout.moderation_policy.abuses_count < 100
       .topic.moderation
         a.b-link.b-tooltipped.unprocessed[
-          href="#{moderations_bans_url}"
-          title="#{t 'moderations.show.forum_journal'}"
+          href=moderations_bans_url
           data-direction='bottom'
         ]
           = "#{i18n_i 'Forum'}: #{layout.moderation_policy.abuses_count}"
@@ -25,8 +23,7 @@
     - unless current_user.admin? && layout.moderation_policy.content_count < 100
       .topic.moderation
         a.b-link.b-tooltipped.unprocessed[
-          href="#{moderations_versions_url type: :content}"
-          title="#{t 'moderations.show.versions_journal'}"
+          href=moderations_versions_url(type: :content)
           data-direction='bottom'
         ]
           = "#{t '.content'}: #{layout.moderation_policy.content_count}"
@@ -35,8 +32,7 @@
     - unless current_user.admin? && layout.moderation_policy.videos_count < 100
       .topic.moderation
         a.b-link.b-tooltipped.unprocessed[
-          href="#{moderations_versions_url type: :anime_video}"
-          title="#{t 'moderations.show.versions_journal'}"
+          href=moderations_versions_url(type: :anime_video)
           data-direction='bottom'
         ]
           = "#{t '.video'}: #{layout.moderation_policy.videos_count}"
@@ -45,8 +41,7 @@
     - unless current_user.admin? && layout.moderation_policy.video_reports_count < 100
       .topic.moderation
         a.b-link.b-tooltipped.unprocessed[
-          href="#{moderations_anime_video_reports_url}"
-          title="#{t 'moderations.show.uploaded_videos_journal'}"
+          href=moderations_anime_video_reports_url
           data-direction='bottom'
         ]
           = "#{t '.video'}: #{layout.moderation_policy.video_reports_count}"
@@ -55,8 +50,8 @@
     - layout.hot_topics.each do |topic_view|
       .topic
         a.b-link[
-          href="#{topic_view.urls.topic_url}"
-          title="#{topic_view.topic_title}"
+          href=topic_view.urls.topic_url
+          title=topic_view.topic_title
         ]
           span.poster[
             style="background-image: url(#{topic_view.poster false})"
