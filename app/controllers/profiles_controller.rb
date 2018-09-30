@@ -62,7 +62,7 @@ class ProfilesController < ShikimoriController
       Topics::ReviewView.new topic, true, true
     end
 
-    og page_title: i18n_t('reviews')
+    og page_title: i18n_io('Review', :few)
   end
 
   def comments
@@ -77,7 +77,7 @@ class ProfilesController < ShikimoriController
     end
     @collection = collection.map { |v| SolitaryCommentDecorator.new v }
 
-    og page_title: i18n_t('comments')
+    og page_title: i18n_io('Comment', :few)
   end
 
   def summaries
@@ -89,7 +89,7 @@ class ProfilesController < ShikimoriController
     end
     @collection = collection.map { |v| SolitaryCommentDecorator.new v }
 
-    og page_title: i18n_t('summaries')
+    og page_title: i18n_io('Summary', :few)
   end
 
   def versions
@@ -99,7 +99,7 @@ class ProfilesController < ShikimoriController
     end
     @collection = @collection.map(&:decorate)
 
-    og page_title: i18n_t('content_changes')
+    og page_title: i18n_io('Content_change', :few)
   end
 
   def video_versions
@@ -109,7 +109,7 @@ class ProfilesController < ShikimoriController
     end
     @collection = @collection.map(&:decorate)
 
-    og page_title: i18n_t('video_changes')
+    og page_title: i18n_io('Video_change', :few)
   end
 
   def video_uploads
@@ -122,7 +122,7 @@ class ProfilesController < ShikimoriController
         .order(id: :desc)
     end
 
-    og page_title: i18n_t('video_uploads')
+    og page_title: i18n_io('Video_upload', :few)
   end
 
   def video_reports
