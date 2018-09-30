@@ -58,6 +58,7 @@ class ProfilesController < ShikimoriController
     og page_title: i18n_io('Topic', :few)
 
     scope = @resource.topics.order(created_at: :desc)
+
     @collection = QueryObjectBase
       .new(scope)
       .paginate(@page, TOPICS_LIMIT)
@@ -68,14 +69,14 @@ class ProfilesController < ShikimoriController
     og noindex: true
     og page_title: i18n_io('Review', :few)
 
-    collection = postload_paginate(params[:page], 5) do
-      @resource.reviews.order(id: :desc)
-    end
+    scope = @resource.topics
+      .where(type: Topics::EntryTopics::ReviewTopic.name)
+      .order(created_at: :desc)
 
-    @collection = collection.map do |review|
-      topic = review.maybe_topic locale_from_host
-      Topics::ReviewView.new topic, true, true
-    end
+    @collection = QueryObjectBase
+      .new(scope)
+      .paginate(@page, TOPICS_LIMIT)
+      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
   def comments
