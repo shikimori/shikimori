@@ -60,7 +60,7 @@ class ProfilesController < ShikimoriController
     scope = @resource.topics.order(created_at: :desc)
     @collection = QueryObjectBase
       .new(scope)
-      .paginate(@page, COMMENTS_LIMIT)
+      .paginate(@page, TOPICS_LIMIT)
       .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
@@ -91,7 +91,7 @@ class ProfilesController < ShikimoriController
 
     @collection = QueryObjectBase
       .new(scope)
-      .paginate(@page, TOPICS_LIMIT)
+      .paginate(@page, COMMENTS_LIMIT)
       .transform { |comment| SolitaryCommentDecorator.new comment }
   end
 
