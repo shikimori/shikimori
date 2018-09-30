@@ -70,7 +70,7 @@ class ProfilesController < ShikimoriController
     og page_title: i18n_io('Topic', :few)
 
     collection = postload_paginate(params[:page], TOPICS_LIMIT) do
-      @resource.topics.order(id: :desc)
+      @resource.topics.order(created_at: :desc)
     end
 
     @collection = collection.map { |v| Topics::TopicViewFactory.new(true, true).build v }

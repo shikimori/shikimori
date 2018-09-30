@@ -1,10 +1,12 @@
-json.content JsExports::Supervisor.instance.sweep(render(
-  partial: 'topics/topic',
-  collection: @forums_view.topic_views,
-  as: :topic_view,
-  formats: :html,
-  cache: true
-))
+json.content JsExports::Supervisor.instance.sweep(
+  render(
+    partial: 'topics/topic',
+    collection: @forums_view.topic_views,
+    as: :topic_view,
+    formats: :html,
+    cache: true
+  )
+)
 
 if @forums_view.next_page_url
   json.postloader render 'blocks/postloader',

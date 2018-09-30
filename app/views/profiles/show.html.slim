@@ -189,36 +189,36 @@
     - if @resource.stats.social_activity?
       .c-additionals
         b #{t '.activity'}:
-        - if @resource.stats.reviews_count > 0
+        - if @resource.stats.reviews_count.positive?
           div: a href=reviews_profile_url(@resource)
             = "#{@resource.stats.reviews_count} #{i18n_i 'review', @resource.stats.reviews_count}"
 
-        - if @resource.stats.summaries_count > 0
+        - if @resource.stats.summaries_count.positive?
           div: a href=summaries_profile_url(@resource)
             = "#{@resource.stats.summaries_count} #{i18n_i 'summary', @resource.stats.summaries_count}"
 
-        - if @resource.stats.versions_count > 0
+        - if @resource.stats.versions_count.positive?
           div: a href=versions_profile_url(@resource)
             = "#{@resource.stats.versions_count} #{i18n_i 'content_change', @resource.stats.versions_count}"
 
-        - if ru_host? && @resource.stats.video_uploads_count > 0
+        - if ru_host? && @resource.stats.video_uploads_count.positive?
           div: a href=video_uploads_profile_url(@resource)
             = "#{@resource.stats.video_uploads_count} #{i18n_i 'video_upload', @resource.stats.video_uploads_count}"
 
-        - if ru_host? && @resource.stats.video_changes_count > 0
+        - if ru_host? && @resource.stats.video_changes_count.positive?
           div: a href=video_versions_profile_url(@resource)
             = "#{@resource.stats.video_changes_count} #{i18n_i 'video_change', @resource.stats.video_changes_count}"
 
-        - if @resource.stats.comments_count > 0
+        - if @resource.stats.comments_count.positive?
           div: a href=comments_profile_url(@resource)
             = "#{@resource.stats.comments_count} #{i18n_i 'comment', @resource.stats.comments_count}"
 
 .profile-content
   .cc-2.block
     .c-column.c-left
-      .lifetime.b-stats_bar
+      .lifetime.b-stats_ba
         .title
-          - if @resource.stats.spent_time.days > 0
+          - if @resource.stats.spent_time.days.positive?
             .value.b-tooltipped.unprocessed[
               title=@resource.stats.spent_time_in_days
               data-direction="top"
@@ -306,7 +306,7 @@
   - if @resource.show_comments?
     .block
       .subheadline.m3
-        - if @resource.preview_comments_view.comments_count > 0
+        - if @resource.preview_comments_view.comments_count.positive?
           a href=feed_profile_url(@resource) title=t('profiles_controller.feed')
             = t('profiles_controller.feed')
         - else
