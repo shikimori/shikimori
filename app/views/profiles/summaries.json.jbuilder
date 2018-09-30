@@ -1,13 +1,18 @@
-json.content JsExports::Supervisor.instance.sweep(render(
-  partial: 'comments/comment',
-  collection: @collection,
-  formats: :html
-))
+json.content JsExports::Supervisor.instance.sweep(
+  render(
+    partial: 'comments/comment',
+    collection: @collection,
+    formats: :html
+  )
+)
 
-json.postloader render(
-  'blocks/postloader',
-  filter: 'b-comment',
-  next_url: summaries_profile_url(page: @page+1)
-) if @add_postloader
+if @collection.size == controller.class::COMMENTS_LIMIT
+  json.postloader render(
+    'blocks/postloader',
+    filter: 'b-comment',
+    next_url: current_url(page: @page + 1),
+    prev_url: @page > 1 ? current_url(page: @page - 1) : nil
+  )
+end
 
 json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

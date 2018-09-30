@@ -1,20 +1,21 @@
 = render layout: 'page' do
   .b-options-floated.mobile-phone_portrait
     span.link.selected
-      | Отзывы
+      = i18n_io('Summary', :few)
       span.brackets = @resource.stats.summaries_count
 
     a href=comments_profile_url(@resource)
-      | Комментарии
+      = i18n_io('Comment', :few)
       span.brackets = @resource.stats.comments_count
 
   h2.subheadline.m10 = og.headline
   .b-comments
     - if @collection.any?
       = render @collection
-      - if @add_postloader
-        = render 'blocks/postloader',
-          filter: 'b-comment',
-          next_url: summaries_profile_url(page: @page+1)
     - else
       p.b-nothing_here Нет отзывов
+
+    - if @add_postloader
+      = render 'blocks/postloader',
+        filter: 'b-comment',
+        next_url: current_url(page: @page + 1)

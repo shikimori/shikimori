@@ -100,12 +100,14 @@ class ProfilesController < ShikimoriController
     og noindex: true
     og page_title: i18n_io('Summary', :few)
 
-    collection = postload_paginate(params[:page], 20) do
-      Comment
-        .where(user: @resource.object, is_summary: true)
-        .order(id: :desc)
-    end
-    @collection = collection.map { |v| SolitaryCommentDecorator.new v }
+    scope = Comment
+      .where(user: @resource.object, is_summary: true)
+      .order(id: :desc)
+
+    @collection = QueryObjectBase
+      .new(scope)
+      .paginate(@page, COMMENTS_LIMIT)
+      .transform { |comment| SolitaryCommentDecorator.new comment }
   end
 
   def versions
