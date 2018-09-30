@@ -17,7 +17,7 @@
       .c-column.block_m
         .subheadline = User.model_name.human
         .b-entry-info
-          - %i[current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
+          - %i[email created_at current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
             - unless %i[current_sign_in_ip last_sign_in_ip].include?(field) && @resource.admin?
               = info_line field do
                 - if @resource.send(field).respond_to? :strftime
@@ -25,17 +25,17 @@
                 - else
                   = @resource.send(field)
 
-    .block
-      .subheadline = i18n_io 'Comment', :few
-      .b-entry-info
-        = info_line t('.moderation.amount') do
-          = @resource.stats.comments_count
+  .block
+    .subheadline = i18n_io 'Comment', :few
+    .b-entry-info
+      = info_line t('.moderation.amount') do
+        = @resource.stats.comments_count
 
-    .block
-      .subheadline = i18n_io 'Topic', :few
-      .b-entry-info
-        = info_line t('.moderation.amount') do
-          = @resource.stats.topics_count
+  .block
+    .subheadline = i18n_io 'Topic', :few
+    .b-entry-info
+      = info_line t('.moderation.amount') do
+        = @resource.stats.topics_count
 
   .block
     .subheadline = t 'profiles.show.ban_history'
