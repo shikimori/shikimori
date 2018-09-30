@@ -25,17 +25,62 @@
                 - else
                   = @resource.send(field)
 
-  .block
-    .subheadline = i18n_io 'Comment', :few
-    .b-entry-info
-      = info_line t('.moderation.amount') do
-        = @resource.stats.comments_count
+  .cc-3.block
+    - if @resource.stats.topics_count.positive?
+      .c-column
+        .subheadline
+          a href=topics_profile_url(@resource)
+            = i18n_io 'Topic', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.stats.topics_count
 
-  .block
-    .subheadline = i18n_io 'Topic', :few
-    .b-entry-info
-      = info_line t('.moderation.amount') do
-        = @resource.stats.topics_count
+    - if @resource.stats.reviews_count.positive?
+      .c-column
+        .subheadline
+          a href=reviews_profile_url(@resource)
+            = i18n_io 'Review', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.stats.reviews_count
+
+    - if @resource.stats.comments_count.positive?
+      .c-column
+        .subheadline
+          a href=comments_profile_url(@resource)
+            = i18n_io 'Comment', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.stats.comments_count
+
+    - if @resource.stats.summaries_count.positive?
+      .c-column
+        .subheadline
+          a href=summaries_profile_url(@resource)
+            = i18n_io 'Summary', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.stats.summaries_count
+
+    - if @resource.stats.versions_count.positive?
+      .c-column
+        .subheadline
+          a href=versions_profile_url(@resource)
+            = i18n_io 'Content_change', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.stats.versions_count
+
+    - if ru_host? && @resource.stats.video_uploads_count.positive?
+      .c-column
+        .subheadline
+          a href=video_uploads_profile_url(@resource)
+            = i18n_io 'Video_upload', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.stats.video_uploads_count
+
+    - if ru_host? && @resource.stats.video_changes_count.positive?
+      .c-column
+        .subheadline
+          a href=video_versions_profile_url(@resource)
+            = i18n_io 'Video_change', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.stats.video_changes_count
 
   .block
     .subheadline = t 'profiles.show.ban_history'

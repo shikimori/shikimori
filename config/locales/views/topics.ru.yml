@@ -47,7 +47,6 @@ ru:
       reload_forum: обновить форум
     page:
       refresh: Обновить страницу
-      no_topics: Нет топиков
     menu:
       hide: '&mdash; спрятать'
       new_club: Создан новый клуб

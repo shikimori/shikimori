@@ -566,6 +566,9 @@ ru:
       summary:
         one: отзыв
         few: отзывы
+      review:
+        one: рецензия
+        few: рецензии
       genre:
         one: жанр
         few: жанры
@@ -575,6 +578,15 @@ ru:
       topic:
         one: топик
         few: топики
+      video_upload:
+        one: Загрузка видео
+        few: Загрузки видео
+      content_change:
+        one: Правка контента
+        few: Правки контента
+      video_change:
+        one: Правка видео
+        few: Правки видео
 
   i18n:
     inflections:
