@@ -7,7 +7,9 @@ class ProfilesController < ShikimoriController
     'ignored_topics' => 'misc',
     'ignored_users' => 'misc'
   }
-  TOPICS_LIMIT = 10
+
+  COMMENTS_LIMIT = 20
+  TOPICS_LIMIT = 8
 
   def show
     og noindex: true if @resource.created_at > 1.year.ago
@@ -51,6 +53,17 @@ class ProfilesController < ShikimoriController
     # page_title 'Статистика'
   # end
 
+  def topics
+    og noindex: true
+    og page_title: i18n_io('Topic', :few)
+
+    scope = @resource.topics.order(created_at: :desc)
+    @collection = QueryObjectBase
+      .new(scope)
+      .paginate(@page, COMMENTS_LIMIT)
+      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
+  end
+
   def reviews
     og noindex: true
     og page_title: i18n_io('Review', :few)
@@ -63,17 +76,6 @@ class ProfilesController < ShikimoriController
       topic = review.maybe_topic locale_from_host
       Topics::ReviewView.new topic, true, true
     end
-  end
-
-  def topics
-    og noindex: true
-    og page_title: i18n_io('Topic', :few)
-
-    scope = @resource.topics.order(created_at: :desc)
-    @collection = QueryObjectBase
-      .new(scope)
-      .paginate(@page, TOPICS_LIMIT)
-      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
   def comments

@@ -18,9 +18,10 @@
   .b-comments
     - if @collection.any?
       = render @collection
-      - if @add_postloader
-        = render 'blocks/postloader',
-          filter: 'b-comment',
-          next_url: comments_profile_url(page: @page+1, search: params[:search])
     - else
       p.b-nothing_here = t 'no_comments'
+
+    - if @collection.size == controller.class::COMMENTS_LIMIT
+      = render 'blocks/postloader',
+        filter: 'b-comment',
+        next_url: current_url(page: @page + 1)

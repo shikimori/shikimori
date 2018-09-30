@@ -6,11 +6,12 @@ json.content JsExports::Supervisor.instance.sweep(
   )
 )
 
-if @add_postloader
+if @collection.size == controller.class::COMMENTS_LIMIT
   json.postloader render(
     'blocks/postloader',
     filter: 'b-comment',
-    next_url: comments_profile_url(page: @page + 1, search: params[:search])
+    next_url: current_url(page: @page + 1),
+    prev_url: @page > 1 ? current_url(page: @page - 1) : nil
   )
 end
 
