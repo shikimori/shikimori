@@ -69,11 +69,12 @@ class ProfilesController < ShikimoriController
     og noindex: true
     og page_title: i18n_io('Topic', :few)
 
-    collection = postload_paginate(params[:page], TOPICS_LIMIT) do
-      @resource.topics.order(created_at: :desc)
-    end
+    @page = (params[:page] || 1).to_i
 
-    @collection = collection.map { |v| Topics::TopicViewFactory.new(true, true).build v }
+    @collection = QueryObjectBase
+      .new(@resource.topics.order(created_at: :desc))
+      .paginate(@page, TOPICS_LIMIT)
+      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
   def comments
