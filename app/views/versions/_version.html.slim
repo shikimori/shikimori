@@ -1,8 +1,8 @@
 = cache version.cache_key, expires_in: 2.weeks do
   .b-log_entry.to-process[
+    id=version.id
     data-dynamic='log_entry'
     data-url=moderations_version_url(version)
-    id=version.id
   ]
     span
       a href=moderations_version_url(version)

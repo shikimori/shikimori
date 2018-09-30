@@ -60,8 +60,7 @@ class ProfilesController < ShikimoriController
 
     scope = @resource.topics.order(created_at: :desc)
 
-    @collection = QueryObjectBase
-      .new(scope)
+    @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
       .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
@@ -74,8 +73,7 @@ class ProfilesController < ShikimoriController
       .where(type: Topics::EntryTopics::ReviewTopic.name)
       .order(created_at: :desc)
 
-    @collection = QueryObjectBase
-      .new(scope)
+    @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
       .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
@@ -91,8 +89,7 @@ class ProfilesController < ShikimoriController
         nil)
       .order(id: :desc)
 
-    @collection = QueryObjectBase
-      .new(scope)
+    @collection = QueryObjectBase.new(scope)
       .paginate(@page, COMMENTS_LIMIT)
       .transform { |comment| SolitaryCommentDecorator.new comment }
   end
@@ -105,8 +102,7 @@ class ProfilesController < ShikimoriController
       .where(user: @resource.object, is_summary: true)
       .order(id: :desc)
 
-    @collection = QueryObjectBase
-      .new(scope)
+    @collection = QueryObjectBase.new(scope)
       .paginate(@page, COMMENTS_LIMIT)
       .transform { |comment| SolitaryCommentDecorator.new comment }
   end
@@ -119,8 +115,7 @@ class ProfilesController < ShikimoriController
       .where.not(item_type: AnimeVideo.name)
       .order(id: :desc)
 
-    @collection = QueryObjectBase
-      .new(scope)
+    @collection = QueryObjectBase.new(scope)
       .paginate(@page, VERSIONS_LIMIT)
       .transform(&:decorate)
   end
@@ -133,8 +128,7 @@ class ProfilesController < ShikimoriController
       .where(item_type: AnimeVideo.name)
       .order(id: :desc)
 
-    @collection = QueryObjectBase
-      .new(scope)
+    @collection = QueryObjectBase.new(scope)
       .paginate(@page, VERSIONS_LIMIT)
       .transform(&:decorate)
 
@@ -145,13 +139,14 @@ class ProfilesController < ShikimoriController
     og noindex: true
     og page_title: i18n_io('Video_upload', :few)
 
-    @collection = postload_paginate(params[:page], 30) do
-      AnimeVideoReport
-        .where(user: @resource.object)
-        .where(kind: :uploaded)
-        .includes(:user, anime_video: :author)
-        .order(id: :desc)
-    end
+    scope = AnimeVideoReport
+      .where(user: @resource.object)
+      .where(kind: :uploaded)
+      .includes(:user, anime_video: :author)
+      .order(id: :desc)
+
+    @collection = QueryObjectBase.new(scope)
+      .paginate(@page, VERSIONS_LIMIT)
   end
 
   def video_reports

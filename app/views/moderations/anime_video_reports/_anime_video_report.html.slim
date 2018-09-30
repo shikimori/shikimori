@@ -1,5 +1,6 @@
 = cache [anime_video_report, user_signed_in? && current_user.video_moderator?, :v2] do
   .b-log_entry.video.to-process[
+    id=anime_video_report.id
     data-dynamic='log_entry'
     data-url=moderations_anime_video_report_url(anime_video_report)
   ]
