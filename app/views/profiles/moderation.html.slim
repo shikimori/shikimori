@@ -7,7 +7,7 @@
         iso_date: @resource.read_only_at.iso8601
 
   - if can? :manage, Ban
-    .cc-2
+    .cc-2.block
       .c-column
         .subheadline = t 'actions.moderation.ban'
         p.m10 = t '.ban_warning_for_moderator'
@@ -25,8 +25,8 @@
                 - else
                   = @resource.send(field)
 
-  .block
-    .subheadline = t 'ban_history'
+  .blockfield
+    .subheadline = t 'profiles.show.ban_history'
     .bans
       - if @resource.bans.any?
         = render partial: 'moderations/bans/ban', collection: @resource.bans.reverse

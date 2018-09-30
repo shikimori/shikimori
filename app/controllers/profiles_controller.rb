@@ -138,10 +138,15 @@ class ProfilesController < ShikimoriController
     og page_title: i18n_t('video_reports')
   end
 
-  def ban
+  def moderation
     og noindex: true
+    if can? :manage, Ban
+      og page_title: t('profiles.show.moderation')
+    else
+      og page_title: t('profiles.show.ban_history')
+    end
+
     @ban = Ban.new user_id: @resource.id
-    og page_title: t('ban_history')
   end
 
   def edit

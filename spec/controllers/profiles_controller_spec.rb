@@ -134,15 +134,10 @@ describe ProfilesController do
     end
   end
 
-  describe '#ban' do
-    before { get :ban, params: { id: user.to_param } }
+  describe '#moderation' do
+    before { get :moderation, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
-
-  #describe '#stats' do
-    #before { get :stats, id: user.to_param }
-    #it { expect(response).to have_http_status :success }
-  #end
 
   describe '#edit' do
     let(:make_request) { get :edit, params: { id: user.to_param, page: page } }

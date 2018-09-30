@@ -572,6 +572,9 @@ ru:
       user:
         one: пользователь
         few: пользователи
+      topic:
+        one: топик
+        few: топики
 
   i18n:
     inflections:

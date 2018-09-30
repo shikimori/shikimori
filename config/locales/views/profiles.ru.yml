@@ -5,6 +5,7 @@ ru:
       activity: Активность
       add_to_friends: Добавить в друзья
       add_to_ignored: Добавить в игнор
+      moderation: Модерация
       ban_history: История банов
       my_bans: Мои баны
       my_mail: Почта
@@ -108,6 +109,8 @@ ru:
       export_anime: Экспорт аниме
       export_manga: Экспорт манги и ранобэ
       no_achievements: Нет ачивок.
+      moderation:
+        amount: Количество
 
     edit:
       account:

@@ -5,6 +5,7 @@ en:
       activity: Activity
       add_to_friends: Add to Friends
       add_to_ignored: Add to Ignored
+      moderation: Moderation
       ban_history: Ban History
       my_bans: Bans
       my_mail: Mail
@@ -108,6 +109,8 @@ en:
       export_anime: Export anime
       export_manga: Export manga and light novels
       no_achievements: No achievements yet.
+      moderation:
+        amount: Amount
 
     edit:
       account:

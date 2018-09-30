@@ -901,7 +901,7 @@ Rails.application.routes.draw do
         get :friends
         get :favourites
         get :clubs
-        get :ban
+        get :moderation
         get :feed
         #get :stats
         get 'edit/:page' => :edit,
