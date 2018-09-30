@@ -25,7 +25,19 @@
                 - else
                   = @resource.send(field)
 
-  .blockfield
+    .block
+      .subheadline = i18n_io 'Comment', :few
+      .b-entry-info
+        = info_line t('.moderation.amount') do
+          = @resource.stats.comments_count
+
+    .block
+      .subheadline = i18n_io 'Topic', :few
+      .b-entry-info
+        = info_line t('.moderation.amount') do
+          = @resource.stats.topics_count
+
+  .block
     .subheadline = t 'profiles.show.ban_history'
     .bans
       - if @resource.bans.any?
