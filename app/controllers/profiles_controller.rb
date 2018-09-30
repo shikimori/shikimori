@@ -69,10 +69,9 @@ class ProfilesController < ShikimoriController
     og noindex: true
     og page_title: i18n_io('Topic', :few)
 
-    @page = (params[:page] || 1).to_i
-
+    scope = @resource.topics.order(created_at: :desc)
     @collection = QueryObjectBase
-      .new(@resource.topics.order(created_at: :desc))
+      .new(scope)
       .paginate(@page, TOPICS_LIMIT)
       .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
@@ -81,15 +80,17 @@ class ProfilesController < ShikimoriController
     og noindex: true
     og page_title: i18n_io('Comment', :few)
 
-    collection = postload_paginate(params[:page], 20) do
-      Comment
-        .where(user: @resource.object)
-        .where(params[:search].present? ?
-          "body ilike #{ApplicationRecord.sanitize "%#{params[:search]}%"}" :
-          nil)
-        .order(id: :desc)
-    end
-    @collection = collection.map { |v| SolitaryCommentDecorator.new v }
+    scope = Comment
+      .where(user: @resource.object)
+      .where(params[:search].present? ?
+        "body ilike #{ApplicationRecord.sanitize "%#{params[:search]}%"}" :
+        nil)
+      .order(id: :desc)
+
+    @collection = QueryObjectBase
+      .new(scope)
+      .paginate(@page, TOPICS_LIMIT)
+      .transform { |comment| SolitaryCommentDecorator.new comment }
   end
 
   def summaries

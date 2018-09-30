@@ -11,9 +11,6 @@ class UserRatesController < ProfilesController
   def index
     og noindex: true
 
-    @page = (params[:page] || 1).to_i
-    @limit = UserLibraryView::ENTRIES_PER_PAGE
-
     @library = UserLibraryView.new @resource
     @menu = Menus::CollectionMenu.new @library.klass
 
@@ -44,7 +41,7 @@ private
   def set_sort_order
     return if params[:order].present?
 
-    if current_user.preferences.default_sort == AniMangaQuery::DEFAULT_ORDER # rubocop:disable LineLength
+    if current_user.preferences.default_sort == AniMangaQuery::DEFAULT_ORDER
       params[:order] = current_user.preferences.default_sort
     else
       redirect_to current_url(order: current_user.preferences.default_sort)

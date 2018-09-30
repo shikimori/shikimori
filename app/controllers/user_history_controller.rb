@@ -1,6 +1,8 @@
 class UserHistoryController < ProfilesController
   before_action :check_access, only: %i[index logs]
 
+  LOGS_LIMIT = 45
+
   def index
     redirect_to @resource.url unless @resource.history.any?
     og noindex: true
@@ -15,12 +17,9 @@ class UserHistoryController < ProfilesController
     breadcrumb i18n_t('page_title.history'), profile_list_history_url(@resource)
     @back_url = profile_list_history_url(@resource)
 
-    @page = (params[:page] || 1).to_i
-    @limit = 45
-
     @collection = QueryObjectBase
       .new(@resource.user_rate_logs.order(id: :desc).includes(:target, :oauth_application))
-      .paginate(@page, @limit)
+      .paginate(@page, LOGS_LIMIT)
   end
 
   def reset

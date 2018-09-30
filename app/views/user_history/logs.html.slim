@@ -11,5 +11,5 @@
       collection: @collection,
       locals: { hide_user: true }
 
-    - if @collection.size == @limit
+    - if @collection.size == controller.class::LOGS_LIMIT
       = render 'blocks/postloader', next_url: current_url(page: @page + 1)

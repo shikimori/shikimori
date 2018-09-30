@@ -5,7 +5,7 @@ json.content render(
   formats: :html
 )
 
-if @collection.size == @limit
+if @collection.size == controller.class::LOGS_LIMIT
   json.postloader render(
     'blocks/postloader',
     next_url: current_url(page: @page + 1),
