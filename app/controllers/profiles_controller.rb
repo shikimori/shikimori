@@ -7,6 +7,7 @@ class ProfilesController < ShikimoriController
     'ignored_topics' => 'misc',
     'ignored_users' => 'misc'
   }
+  TOPICS_LIMIT = 10
 
   def show
     og noindex: true if @resource.created_at > 1.year.ago
@@ -20,31 +21,30 @@ class ProfilesController < ShikimoriController
 
   def friends
     og noindex: true
-    redirect_to @resource.url if @resource.friends.none?
     og page_title: i18n_t('friends')
+    redirect_to @resource.url if @resource.friends.none?
   end
 
   def clubs
     og noindex: true
-    redirect_to @resource.url if @resource.clubs.none?
     og page_title: i18n_i('Club', :other)
+    redirect_to @resource.url if @resource.clubs.none?
   end
 
   def favourites
     og noindex: true
-    redirect_to @resource.url if @resource.favourites.none?
     og page_title: i18n_t('favorites')
+    redirect_to @resource.url if @resource.favourites.none?
   end
 
   def feed
     og noindex: true
+    og page_title: i18n_t('feed')
 
     if !@resource.show_comments? ||
         @resource.main_comments_view.comments_count.zero?
       redirect_to @resource.url
     end
-
-    og page_title: i18n_t('feed')
   end
 
   # def stats
@@ -53,6 +53,8 @@ class ProfilesController < ShikimoriController
 
   def reviews
     og noindex: true
+    og page_title: i18n_io('Review', :few)
+
     collection = postload_paginate(params[:page], 5) do
       @resource.reviews.order(id: :desc)
     end
@@ -61,12 +63,23 @@ class ProfilesController < ShikimoriController
       topic = review.maybe_topic locale_from_host
       Topics::ReviewView.new topic, true, true
     end
+  end
 
-    og page_title: i18n_io('Review', :few)
+  def topics
+    og noindex: true
+    og page_title: i18n_io('Topic', :few)
+
+    collection = postload_paginate(params[:page], TOPICS_LIMIT) do
+      @resource.topics.order(id: :desc)
+    end
+
+    @collection = collection.map { |v| Topics::TopicViewFactory.new(true, true).build v }
   end
 
   def comments
     og noindex: true
+    og page_title: i18n_io('Comment', :few)
+
     collection = postload_paginate(params[:page], 20) do
       Comment
         .where(user: @resource.object)
@@ -76,44 +89,44 @@ class ProfilesController < ShikimoriController
         .order(id: :desc)
     end
     @collection = collection.map { |v| SolitaryCommentDecorator.new v }
-
-    og page_title: i18n_io('Comment', :few)
   end
 
   def summaries
     og noindex: true
+    og page_title: i18n_io('Summary', :few)
+
     collection = postload_paginate(params[:page], 20) do
       Comment
         .where(user: @resource.object, is_summary: true)
         .order(id: :desc)
     end
     @collection = collection.map { |v| SolitaryCommentDecorator.new v }
-
-    og page_title: i18n_io('Summary', :few)
   end
 
   def versions
     og noindex: true
+    og page_title: i18n_io('Content_change', :few)
+
     @collection = postload_paginate(params[:page], 30) do
       @resource.versions.where.not(item_type: AnimeVideo.name).order(id: :desc)
     end
     @collection = @collection.map(&:decorate)
-
-    og page_title: i18n_io('Content_change', :few)
   end
 
   def video_versions
     og noindex: true
+    og page_title: i18n_io('Video_change', :few)
+
     @collection = postload_paginate(params[:page], 30) do
       @resource.versions.where(item_type: AnimeVideo.name).order(id: :desc)
     end
     @collection = @collection.map(&:decorate)
-
-    og page_title: i18n_io('Video_change', :few)
   end
 
   def video_uploads
     og noindex: true
+    og page_title: i18n_io('Video_upload', :few)
+
     @collection = postload_paginate(params[:page], 30) do
       AnimeVideoReport
         .where(user: @resource.object)
@@ -121,12 +134,12 @@ class ProfilesController < ShikimoriController
         .includes(:user, anime_video: :author)
         .order(id: :desc)
     end
-
-    og page_title: i18n_io('Video_upload', :few)
   end
 
   def video_reports
     og noindex: true
+    og page_title: i18n_t('video_reports')
+
     @collection = postload_paginate(params[:page], 30) do
       AnimeVideoReport
         .where(user: @resource.object)
@@ -134,8 +147,6 @@ class ProfilesController < ShikimoriController
         .includes(:user, anime_video: :author)
         .order(id: :desc)
     end
-
-    og page_title: i18n_t('video_reports')
   end
 
   def moderation

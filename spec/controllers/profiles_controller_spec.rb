@@ -2,71 +2,78 @@ describe ProfilesController do
   let!(:user) { create :user }
 
   describe '#show' do
-    before { get :show, params: { id: user.to_param } }
+    subject! { get :show, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#friends' do
     context 'without friends' do
-      before { get :friends, params: { id: user.to_param } }
+      subject! { get :friends, params: { id: user.to_param } }
       it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with friends' do
       let!(:friend_link) { create :friend_link, src: user, dst: create(:user) }
-      before { get :friends, params: { id: user.to_param } }
+      subject! { get :friends, params: { id: user.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#clubs' do
     context 'without clubs' do
-      before { get :clubs, params: { id: user.to_param } }
+      subject! { get :clubs, params: { id: user.to_param } }
       it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with clubs' do
       let(:club) { create :club, :with_topics }
       let!(:club_role) { create :club_role, user: user, club: club }
-      before { get :clubs, params: { id: user.to_param } }
+      subject! { get :clubs, params: { id: user.to_param } }
+
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#favourites' do
     context 'without favourites' do
-      before { get :favourites, params: { id: user.to_param } }
+      subject! { get :favourites, params: { id: user.to_param } }
       it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with favourites' do
       let!(:favourite) { create :favourite, user: user, linked: create(:anime) }
-      before { get :favourites, params: { id: user.to_param } }
+      subject! { get :favourites, params: { id: user.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#reviews' do
     let!(:review) { create :review, :with_topics, user: user }
-    before { get :reviews, params: { id: user.to_param } }
+    subject! { get :reviews, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#feed' do
     let!(:comment) { create :comment, user: user, commentable: user }
-    before { get :feed, params: { id: user.to_param } }
+    subject! { get :feed, params: { id: user.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#topics' do
+    let!(:topic) { create :topic, user: user }
+    subject! { get :topics, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#comments' do
     let!(:comment) { create :comment, user: user, commentable: user }
-    before { get :comments, params: { id: user.to_param } }
+    subject! { get :comments, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#summaries' do
     let!(:comment) { create :comment, :summary, user: user, commentable: user }
-    before { get :summaries, params: { id: user.to_param } }
+    subject! { get :summaries, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -79,7 +86,7 @@ describe ProfilesController do
         item_diff: { name: ['test', 'test2'] },
         state: :accepted
     end
-    before { get :versions, params: { id: user.to_param } }
+    subject! { get :versions, params: { id: user.to_param } }
 
     it do
       expect(collection).to have(1).item
@@ -96,7 +103,7 @@ describe ProfilesController do
         item_diff: { episode: ['1', '2'] },
         state: :accepted
     end
-    before { get :video_versions, params: { id: user.to_param } }
+    subject! { get :video_versions, params: { id: user.to_param } }
 
     it do
       expect(collection).to have(1).item
@@ -112,7 +119,8 @@ describe ProfilesController do
         user: user,
         anime_video: anime_video
     end
-    before { get :video_uploads, params: { id: user.to_param } }
+    subject! { get :video_uploads, params: { id: user.to_param } }
+
     it do
       expect(collection).to have(1).item
       expect(response).to have_http_status :success
@@ -127,7 +135,8 @@ describe ProfilesController do
         user: user,
         anime_video: anime_video
     end
-    before { get :video_reports, params: { id: user.to_param } }
+    subject! { get :video_reports, params: { id: user.to_param } }
+
     it do
       expect(collection).to have(1).item
       expect(response).to have_http_status :success
@@ -135,7 +144,7 @@ describe ProfilesController do
   end
 
   describe '#moderation' do
-    before { get :moderation, params: { id: user.to_param } }
+    subject! { get :moderation, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -144,7 +153,7 @@ describe ProfilesController do
 
     context 'when valid access' do
       before { sign_in user }
-      before { make_request }
+      subject! { make_request }
 
       describe 'account' do
         let(:page) { 'account' }
@@ -196,7 +205,7 @@ describe ProfilesController do
       before { sign_in user }
 
       context 'when success' do
-        before { make_request }
+        subject! { make_request }
 
         context 'common change' do
           let(:update_params) { { nickname: 'morr' } }
@@ -244,7 +253,7 @@ describe ProfilesController do
       context 'when validation errors' do
         let!(:user_2) { create :user }
         let(:update_params) { { nickname: user_2.nickname } }
-        before { make_request }
+        subject! { make_request }
 
         it do
           expect(resource.errors).to_not be_empty
