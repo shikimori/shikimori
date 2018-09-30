@@ -129,10 +129,16 @@ class ProfilesController < ShikimoriController
     og noindex: true
     og page_title: i18n_io('Video_change', :few)
 
-    @collection = postload_paginate(params[:page], 30) do
-      @resource.versions.where(item_type: AnimeVideo.name).order(id: :desc)
-    end
-    @collection = @collection.map(&:decorate)
+    scope = @resource.versions
+      .where(item_type: AnimeVideo.name)
+      .order(id: :desc)
+
+    @collection = QueryObjectBase
+      .new(scope)
+      .paginate(@page, VERSIONS_LIMIT)
+      .transform(&:decorate)
+
+    render :versions
   end
 
   def video_uploads
