@@ -4,9 +4,11 @@ json.content render(
   formats: :html
 )
 
-if @add_postloader
+if @collection.size == controller.class::VERSIONS_LIMIT
   json.postloader render(
     'blocks/postloader',
-    next_url: versions_profile_url(page: @page+1)
+    filter: 'b-log_entry',
+    next_url: current_url(page: @page + 1),
+    prev_url: @page > 1 ? current_url(page: @page - 1) : nil
   )
 end
