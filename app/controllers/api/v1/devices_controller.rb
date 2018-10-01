@@ -15,7 +15,8 @@ class Api::V1::DevicesController < Api::V1Controller
     @page = [params[:page].to_i, 1].max
 
     @collection = QueryObjectBase.new(@devices).paginate(@page, @limit)
-    respond_with @collection
+
+    respond_with @collection.to_a
   end
 
   def test

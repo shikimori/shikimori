@@ -177,7 +177,7 @@ class Api::V1::UsersController < Api::V1Controller
 
     @collection = QueryObjectBase.new(scope).paginate(@page, @limit)
 
-    respond_with @collection
+    respond_with @collection.to_a
   end
 
 private
