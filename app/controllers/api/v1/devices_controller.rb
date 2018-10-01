@@ -14,7 +14,7 @@ class Api::V1::DevicesController < Api::V1Controller
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
     @page = [params[:page].to_i, 1].max
 
-    @collection = postload_paginate(@page, @limit) { @devices }
+    @collection = QueryObjectBase.new(@devices).paginate(@page, @limit)
     respond_with @collection
   end
 
