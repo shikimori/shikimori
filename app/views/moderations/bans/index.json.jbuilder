@@ -1,6 +1,6 @@
-json.content render(@bans, formats: :html)
+json.content render(@collection, formats: :html)
 
-if @add_postloader
+if @collection.size == controller.class::LIMIT
   json.postloader render(
     'blocks/postloader',
     next_url: current_url(page: @page + 1),

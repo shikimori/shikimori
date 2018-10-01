@@ -4,31 +4,23 @@ class Moderations::BansController < ModerationsController
   before_action :authenticate_user!, except: %i[index]
   layout false, only: %i[new]
 
-  def index # rubocop:disable MethodLength, AbcSize
+  LIMIT = 25
+
+  def index
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title.index')
 
-    @moderators = User
-      .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
-      .where.not(id: User::MORR_ID)
-      .sort_by { |v| v.nickname.downcase }
+    @moderators = moderators_scope
 
-    @bans = postload_paginate(params[:page], 25) do
-      Ban.includes(:comment).order(created_at: :desc)
-    end
+    scope = Ban.includes(:comment).order(created_at: :desc)
+    @collection = QueryObjectBase.new(scope).paginate(@page, LIMIT)
 
     @site_rules = StickyTopicView.site_rules(locale_from_host)
     @club = Club.find_by(id: 917)&.decorate if ru_host?
 
     if can? :manage, AbuseRequest
-      @declined = AbuseRequest
-        .where(state: 'rejected', kind: %i[spoiler abuse])
-        .order(id: :desc)
-        .limit(15)
-      @pending = AbuseRequest
-        .where(state: 'pending')
-        .includes(:user, :approver, comment: :commentable)
-        .order(:created_at)
+      @declined = declined_scope
+      @pending = pending_scope
     end
   end
 
@@ -57,5 +49,26 @@ private
       .require(:ban)
       .permit(:reason, :duration, :comment_id, :abuse_request_id, :user_id)
       .merge(moderator_id: current_user.id)
+  end
+
+  def moderators_scope
+    User
+      .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
+  end
+
+  def declined_scope
+    AbuseRequest
+      .where(state: 'rejected', kind: %i[spoiler abuse])
+      .order(id: :desc)
+      .limit(15)
+  end
+
+  def pending_scope
+    AbuseRequest
+      .where(state: 'pending')
+      .includes(:user, :approver, comment: :commentable)
+      .order(:created_at)
   end
 end

@@ -12,4 +12,3 @@ if @processed.size == controller.class::PROCESSED_PER_PAGE
     prev_url: @page > 1 ? current_url(page: @page - 1) : nil
   )
 end
-
