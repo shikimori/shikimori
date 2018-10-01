@@ -4,7 +4,12 @@ json.content render(
   locals: { content_by: :named_avatar },
   formats: :html
 )
-json.postloader render(
-  'blocks/postloader',
-  next_url: members_club_url(@resource, page: @page+1)
-) if @add_postloader
+
+if @collection.size == controller.class::MEMBERS_LIMIT
+  json.postloader render(
+    'blocks/postloader',
+    filter: 'b-user',
+    next_url: current_url(page: @page + 1),
+    prev_url: @page > 1 ? current_url(page: @page - 1) : nil
+  )
+end

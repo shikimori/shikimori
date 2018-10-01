@@ -1,7 +1,11 @@
 = render layout: 'page' do
   h2.subheadline.m10 = og.headline
   .cc-8
-    = render @collection, content_by: :named_avatar
-    - if @add_postloader
-      = render partial: 'blocks/postloader',
-        locals: { next_url: members_club_url(@resource, page: @page+1) }
+    = render partial: 'users/user',
+      collection: @collection,
+      locals: { content_by: :named_avatar }
+
+    - if @collection.size == controller.class::MEMBERS_LIMIT
+      = render 'blocks/postloader',
+        filter: 'b-user',
+        next_url: current_url(page: @page + 1)

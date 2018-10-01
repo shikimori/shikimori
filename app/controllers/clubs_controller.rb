@@ -31,6 +31,8 @@ class ClubsController < ShikimoriController
   ]
   CREATE_PARAMS = %i[owner_id] + UPDATE_PARAMS
 
+  MEMBERS_LIMIT = 48
+
   def index
     og noindex: true
     @page = [params[:page].to_i, 1].max
@@ -92,10 +94,11 @@ class ClubsController < ShikimoriController
     og noindex: true
     og page_title: i18n_t('club_members')
 
-    roles = postload_paginate(params[:page], 48) do
-      @resource.all_member_roles
-    end
-    @collection = roles.map(&:user)
+    scope = @resource.all_member_roles
+
+    @collection = QueryObjectBase.new(scope)
+      .paginate(@page, MEMBERS_LIMIT)
+      .transform(&:user)
   end
 
   def animes
