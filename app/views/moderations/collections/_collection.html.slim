@@ -1,4 +1,6 @@
-.b-log_entry
+.b-log_entry[
+  id=collection.id
+]
   - if collection.pending?
     .moderation
       a.accept[
@@ -10,16 +12,17 @@
         data-method='post'
       ] = t '.move_to_offtopic'
 
-  .info
-    span
-      a[
-        href=collection_url(collection)
-      ]
-        span.id-label #
-        = collection.id
-    span.date
-      = collection.created_at.strftime '%d.%m.%Y'
+  span
+    a[
+      href=collection_url(collection)
+    ]
+      span.id-label #
+      = collection.id
 
+  span.date
+    = collection.created_at.strftime '%d.%m.%Y'
+
+  span
     .b-user16
       a[
         href=profile_url(collection.user)
@@ -32,13 +35,14 @@
         ]
         span = collection.user.nickname
 
-    span.column
-      = collection.name
+  span.column
+    = collection.name
 
+  span
     = render 'reviews/votes', review: collection
 
-    span.state class=collection.moderation_state
-      = collection.human_moderation_state_name
+  span.state class=collection.moderation_state
+    = collection.human_moderation_state_name
 
-    - if collection.approver.present?
-      span = collection.approver.nickname
+  - if collection.approver.present?
+    span = collection.approver.nickname
