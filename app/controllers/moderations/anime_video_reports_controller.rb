@@ -3,15 +3,17 @@ class Moderations::AnimeVideoReportsController < ModerationsController
   before_action :authenticate_user!, except: [:create]
   load_and_authorize_resource except: :index
 
+  LIMIT = 20
+
   def index
     og page_title: i18n_t('page_title')
-    @moderators = User
-      .where("roles && '{#{Types::User::Roles[:video_moderator]}}'")
-      .where.not(id: User::MORR_ID)
-      .sort_by { |v| v.nickname.downcase }
 
-    @processed = processed_reports
-    @pending = pending_reports unless json?
+    @processed = QueryObjectBase.new(processed_scope).paginate(@page, LIMIT)
+
+    unless request.xhr?
+      @moderators = moderators_scope
+      @pending = pending_scope
+    end
   end
 
   def show
@@ -82,25 +84,30 @@ private
       .merge(user_agent: request.user_agent)
   end
 
-  def processed_reports
-    postload_paginate(params[:page], 20) do
-      scope = AnimeVideoReport
-        .includes(:user, anime_video: :author)
-        .processed
+  def processed_scope
+    scope = AnimeVideoReport
+      .includes(:user, anime_video: :author)
+      .processed
 
-      if params[:created_on]
-        scope = scope.where(
-          "created_at between ? and ?",
-          Time.zone.parse(params[:created_on]).beginning_of_day,
-          Time.zone.parse(params[:created_on]).end_of_day,
-        )
-      end
-
-      scope
+    if params[:created_on]
+      scope = scope.where(
+        'created_at between ? and ?',
+        Time.zone.parse(params[:created_on]).beginning_of_day,
+        Time.zone.parse(params[:created_on]).end_of_day
+      )
     end
+
+    scope
   end
 
-  def pending_reports
+  def moderators_scope
+    User
+      .where("roles && '{#{Types::User::Roles[:video_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
+  end
+
+  def pending_scope
     AnimeVideoReport
       .includes(:user, anime_video: :author)
       .pending

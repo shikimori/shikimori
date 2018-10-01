@@ -66,4 +66,8 @@ header.head
   .subheadline = t '.history'
   .block
     = render @processed
-    = render 'blocks/postloader', next_url: current_url(page: @page + 1)
+
+    - if @processed.size == controller.class::LIMIT
+      = render 'blocks/postloader',
+        filter: 'b-log_entry',
+        next_url: current_url(page: @page + 1)

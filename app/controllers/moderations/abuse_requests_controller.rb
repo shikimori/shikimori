@@ -10,12 +10,13 @@ class Moderations::AbuseRequestsController < ModerationsController
   LIMIT = 25
 
   def index
-    @processed = QueryObjectBase.new(collection_scope).paginate(@page, LIMIT)
+    og page_title: i18n_t('page_title.index')
+
+    @processed = QueryObjectBase.new(processed_scope).paginate(@page, LIMIT)
 
     unless request.xhr?
-      og page_title: i18n_t('page_title.index')
-      @pending = pending_scope
       @moderators = moderators_scope
+      @pending = pending_scope
     end
   end
 
@@ -43,7 +44,7 @@ private
     raise CanCan::AccessDenied unless can? :manage, AbuseRequest
   end
 
-  def collection_scope
+  def processed_scope
     scope = AbuseRequest.where.not(state: :pending)
 
     unless can? :manage, AbuseRequest
