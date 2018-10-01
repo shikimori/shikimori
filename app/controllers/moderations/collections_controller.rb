@@ -2,7 +2,9 @@
 class Moderations::CollectionsController < ModerationsController
   before_action :authenticate_user!
   before_action :check_permissions
+
   PENDING_PER_PAGE = 15
+  PROCESSED_PER_PAGE = 25
 
   def index
     og page_title: i18n_t('page_title')
@@ -12,14 +14,14 @@ class Moderations::CollectionsController < ModerationsController
       .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
 
-    @processed = postload_paginate(params[:page], 25) do
-      Collection
-        .where(moderation_state: %i[accepted rejected])
-        .where(state: :published)
-        .where(locale: locale_from_host)
-        .includes(:user, :approver, :topics)
-        .order(created_at: :desc)
-    end
+    processed_scope = Collection
+      .where(moderation_state: %i[accepted rejected])
+      .where(state: :published)
+      .where(locale: locale_from_host)
+      .includes(:user, :approver, :topics)
+      .order(created_at: :desc)
+
+    @processed = QueryObjectBase.new(processed_scope).paginate(@page, PROCESSED_PER_PAGE)
 
     # if user_signed_in? && current_user.collection_moderator?
     @pending = Collection
@@ -49,6 +51,6 @@ class Moderations::CollectionsController < ModerationsController
 private
 
   def check_permissions
-    raise Forbidden unless current_user.collection_moderator?
+    raise Forbidden unless current_user.collection_moderator? || current_user&.admin?
   end
 end
