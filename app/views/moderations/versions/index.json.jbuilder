@@ -7,6 +7,7 @@ json.content render(
 if @versions.postloader?
   json.postloader render(
     'blocks/postloader',
+    filter: 'b-log_entry',
     next_url: @versions.next_page_url
   )
 end

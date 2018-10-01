@@ -5,7 +5,7 @@ json.content render(
   formats: :html
 )
 
-if @add_postloader
+if @collection.size == @limit
   json.postloader render(
     'blocks/postloader',
     next_url: current_url(page: @page + 1)

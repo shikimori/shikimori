@@ -1,36 +1,14 @@
-# rubocop:disable AbcSize
-# rubocop:disable MethodLength
-# rubocop:disable ClassLength
-class Moderations::AnimeVideoAuthorsController < ModerationsController
+class Moderations::AnimeVideoAuthorsController < ModerationsController # rubocop:disable ClassLength
   load_and_authorize_resource
 
   def index
     @anime = Anime.find params[:anime_id] if params[:anime_id].present?
     @limit = (params[:limit] || 100).to_i
 
-    @collection = postload_paginate(params[:page], @limit) do
-      scope =
-        if @anime
-          AnimeVideoAuthor.where(id: filter_authors(@anime))
-        else
-          AnimeVideoAuthor.where(
-            id: videos_scope.select('distinct(anime_video_author_id)')
-          )
-        end
-
-      if params[:is_verified]
-        scope.where! is_verified: params[:is_verified] == 'true'
-      end
-
-      if params[:search].present?
-        scope.where! 'name ilike ?', '%' + params[:search] + '%'
-      end
-
-      scope.order(:name, :id)
-    end
+    @collection = QueryObjectBase.new(authors_scope).paginate(@page, @limit)
   end
 
-  def none
+  def none # rubocop:disable AbcSize
     og page_title: 'Видео без авторов'
     @back_url = moderations_anime_video_authors_url
     breadcrumb i18n_t('page_title'), @back_url
@@ -47,7 +25,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
     end
   end
 
-  def edit
+  def edit # rubocop:disable AbcSize
     og page_title: "Редактирование автора ##{@resource.id}"
     og page_title: @resource.name
     @back_url = moderations_anime_video_authors_url
@@ -85,7 +63,28 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
 
 private
 
-  def rename_author
+  def authors_scope # rubocop:disable AbcSize
+    scope =
+      if @anime
+        AnimeVideoAuthor.where(id: filter_authors(@anime))
+      else
+        AnimeVideoAuthor.where(
+          id: videos_scope.select('distinct(anime_video_author_id)')
+        )
+      end
+
+    if params[:is_verified]
+      scope.where! is_verified: params[:is_verified] == 'true'
+    end
+
+    if params[:search].present?
+      scope.where! 'name ilike ?', '%' + params[:search] + '%'
+    end
+
+    scope.order(:name, :id)
+  end
+
+  def rename_author # rubocop:disable AbcSize
     if params[:anime_id].present? || params[:kind].present?
       AnimeVideoAuthor::SplitRename.call(
         model: @resource,

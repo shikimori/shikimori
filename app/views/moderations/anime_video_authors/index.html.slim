@@ -99,7 +99,10 @@ ul.b-list.block
           collection: @collection,
           locals: { anime: @anime }
 
-        - if @add_postloader
-          = render 'blocks/postloader', next_url: current_url(page: @page+1)
       - else
         .b-nothing_here Нет авторов
+
+      - if @collection.size == @limit
+        = render 'blocks/postloader',
+          filter: 'b-log_entry',
+          next_url: current_url(page: @page + 1)
