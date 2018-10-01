@@ -170,12 +170,12 @@ class Api::V1::UsersController < Api::V1Controller
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 1].max, ANIME_VIDEO_REPORTS_LIMIT].min
 
-    @collection = postload_paginate(@page, @limit) do
-      AnimeVideoReport
-        .where(user: user)
-        .includes(:user, :approver, anime_video: :author)
-        .order(id: :desc)
-    end
+    scope = AnimeVideoReport
+      .where(user: user)
+      .includes(:user, :approver, anime_video: :author)
+      .order(id: :desc)
+
+    @collection = QueryObjectBase.new(scope).paginate(@page, @limit)
 
     respond_with @collection
   end
