@@ -14,24 +14,8 @@ class Moderations::CollectionsController < ModerationsController
       .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
 
-    processed_scope = Collection
-      .where(moderation_state: %i[accepted rejected])
-      .where(state: :published)
-      .where(locale: locale_from_host)
-      .includes(:user, :approver, :topics)
-      .order(created_at: :desc)
-
     @processed = QueryObjectBase.new(processed_scope).paginate(@page, PROCESSED_PER_PAGE)
-
-    # if user_signed_in? && current_user.collection_moderator?
-    @pending = Collection
-      .where(moderation_state: :pending)
-      .where(state: :published)
-      .where(locale: locale_from_host)
-      .includes(:user, :approver, :topics)
-      .order(created_at: :desc)
-      .limit(PENDING_PER_PAGE)
-    # end
+    @pending = pending_scope
   end
 
   def accept
@@ -51,6 +35,25 @@ class Moderations::CollectionsController < ModerationsController
 private
 
   def check_permissions
-    raise Forbidden unless current_user.collection_moderator? || current_user&.admin?
+    raise Forbidden unless current_user.collection_moderator? || current_user.admin?
+  end
+
+  def processed_scope
+    Collection
+      .where(moderation_state: %i[accepted rejected])
+      .where(state: :published)
+      .where(locale: locale_from_host)
+      .includes(:user, :approver, :topics)
+      .order(created_at: :desc)
+  end
+
+  def pending_scope
+    Collection
+      .where(moderation_state: :pending)
+      .where(state: :published)
+      .where(locale: locale_from_host)
+      .includes(:user, :approver, :topics)
+      .order(created_at: :desc)
+      .limit(PENDING_PER_PAGE)
   end
 end

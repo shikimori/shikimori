@@ -2,7 +2,9 @@
 class Moderations::ReviewsController < ModerationsController
   before_action :authenticate_user!
   before_action :check_permissions
+
   PENDING_PER_PAGE = 15
+  PROCESSED_PER_PAGE = 25
 
   def index
     og page_title: i18n_t('page_title')
@@ -12,22 +14,8 @@ class Moderations::ReviewsController < ModerationsController
       .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
 
-    @processed = postload_paginate(params[:page], 25) do
-      Review
-        .where(moderation_state: %i[accepted rejected])
-        .where(locale: locale_from_host)
-        .includes(:user, :approver, :target, :topics)
-        .order(created_at: :desc)
-    end
-
-    # if user_signed_in? && current_user.review_moderator?
-    @pending = Review
-      .where(moderation_state: :pending)
-      .where(locale: locale_from_host)
-      .includes(:user, :approver, :target, :topics)
-      .order(created_at: :desc)
-      .limit(PENDING_PER_PAGE)
-    # end
+    @processed = QueryObjectBase.new(processed_scope).paginate(@page, PROCESSED_PER_PAGE)
+    @pending = pending_scope
   end
 
   def accept
@@ -47,8 +35,25 @@ class Moderations::ReviewsController < ModerationsController
 private
 
   def check_permissions
-    unless current_user.review_moderator? || current_user&.admin?
+    unless current_user.review_moderator? || current_user.admin?
       raise Forbidden
     end
+  end
+
+  def processed_scope
+    Review
+      .where(moderation_state: %i[accepted rejected])
+      .where(locale: locale_from_host)
+      .includes(:user, :approver, :target, :topics)
+      .order(created_at: :desc)
+  end
+
+  def pending_scope
+    Review
+      .where(moderation_state: :pending)
+      .where(locale: locale_from_host)
+      .includes(:user, :approver, :target, :topics)
+      .order(created_at: :desc)
+      .limit(PENDING_PER_PAGE)
   end
 end

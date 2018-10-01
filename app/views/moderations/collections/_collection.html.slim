@@ -22,18 +22,7 @@
   span.date
     = collection.created_at.strftime '%d.%m.%Y'
 
-  span
-    .b-user16
-      a[
-        href=profile_url(collection.user)
-        title=collection.user.nickname
-      ]
-        img[
-          src=collection.user.avatar_url(16)
-          srcset="#{collection.user.avatar_url 32} 2x"
-          alt=collection.user.nickname
-        ]
-        span = collection.user.nickname
+  = render 'users/user_16', user: collection.user
 
   span.column
     = collection.name

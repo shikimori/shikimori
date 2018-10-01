@@ -10,42 +10,33 @@
         data-method='post'
       ] = t '.move_to_offtopic'
 
-  .info
-    span
-      a[
-        href=UrlGenerator.instance.topic_url(review.maybe_topic(locale_from_host))
-      ]
-        span.id-label #
-        = review.id
-    span.date
-      = review.created_at.strftime '%d.%m.%Y'
+  span
+    a[
+      href=UrlGenerator.instance.topic_url(review.maybe_topic(locale_from_host))
+    ]
+      span.id-label #
+      = review.id
+  span.date
+    = review.created_at.strftime '%d.%m.%Y'
 
-    .b-user16
-      a[
-        href=profile_url(review.user)
-        title=review.user.nickname
-      ]
-        img[
-          src=review.user.avatar_url(16)
-          srcset="#{review.user.avatar_url 32} 2x"
-          alt=review.user.nickname
-        ]
-        span = review.user.nickname
+  span
+    = render 'users/user_16', user: review.user
 
-    span.column
-      = review.target_type
-    span.id
-      - if review.target
-        a.bubbled[
-          href=url_for(review.target)
-        ] = review.target.name
-      - else
-        = t "deleted.#{review.model}"
+  span.column
+    = review.target_type
 
-    = render 'reviews/votes', review: review
+  span.id
+    - if review.target
+      a.bubbled[
+        href=url_for(review.target)
+      ] = review.target.name
+    - else
+      = t "deleted.#{review.model}"
 
-    span.state class=review.moderation_state
-      = review.human_moderation_state_name
+  = render 'reviews/votes', review: review
 
-    - if review.approver.present?
-      span = review.approver.nickname
+  span.state class=review.moderation_state
+    = review.human_moderation_state_name
+
+  - if review.approver.present?
+    span = review.approver.nickname
