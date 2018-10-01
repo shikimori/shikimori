@@ -82,19 +82,6 @@ class ShikimoriController < ApplicationController
   end
 
   # TODO: delete
-  def postload_paginate page, limit
-    @page = (page || 1).to_i
-    @limit = limit.to_i
-
-    ds = yield
-
-    entries = ds.offset(@limit * (@page - 1)).limit(@limit + 1).to_a
-    @add_postloader = entries.size > @limit
-
-    @add_postloader ? entries.take(limit) : entries
-  end
-
-  # TODO: delete
   def check_post_permission
     return unless user_signed_in?
     unless current_user.can_post?
