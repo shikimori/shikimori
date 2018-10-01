@@ -15,4 +15,6 @@
       p.b-nothing_here = t '.no_video_reports'
 
     - if @collection.size == controller.class::VERSIONS_LIMIT
-      = render 'blocks/postloader', next_url: video_reports_profile_url(page: @page+1)
+      = render 'blocks/postloader',
+        filter: 'b-log_entry',
+        next_url: current_url(page: @page + 1)

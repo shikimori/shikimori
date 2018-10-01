@@ -23,7 +23,7 @@ header.head
       a.expand-all.b-js-link = t '.expand_all'
     .subheadline = t '.queue'
     div
-      = render partial: 'moderations/abuse_requests/abuse_request', collection: @pending
+      = render @pending
 
 - if @processed.any?
   .block
@@ -32,7 +32,9 @@ header.head
         a href=moderations_bans_url = t '.bans_plus_warnings'
     .subheadline = t '.history'
     .block
-      = render partial: 'moderations/abuse_requests/abuse_request',
-        collection: @processed
-      = render partial: 'blocks/postloader',
-        locals: { next_url: moderations_abuse_requests_url(page: @page+1) }
+      = render @processed
+
+      - if @processed.size == controller.class::LIMIT
+        = render 'blocks/postloader',
+          filter: 'b-log_entry',
+          next_url: current_url(page: @page + 1)

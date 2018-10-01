@@ -7,35 +7,15 @@ class Moderations::AbuseRequestsController < ModerationsController
 
   before_action :check_access, only: %i[take deny]
 
+  LIMIT = 25
+
   def index
-    @processed = postload_paginate(params[:page], 25) do
-      scope = AbuseRequest.where.not(state: :pending)
-
-      unless can? :manage, AbuseRequest
-        scope = scope
-          .where(kind: %i[summary offtopic])
-          .or(AbuseRequest.where(state: :accepted))
-      end
-
-      scope
-        .includes(:user, :approver, comment: :commentable)
-        .order(updated_at: :desc)
-        .joins(comment: :topic)
-        # .where(kind: :abuse) # for test purposes
-        # .where(topics: { linked_type: Club.name })
-    end
+    @processed = QueryObjectBase.new(collection_scope).paginate(@page, LIMIT)
 
     unless request.xhr?
       og page_title: i18n_t('page_title.index')
-      @pending = AbuseRequest
-        .pending
-        .includes(:user, :approver, comment: :commentable)
-        .order(:created_at)
-
-      @moderators = User
-        .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
-        .where.not(id: User::MORR_ID)
-        .sort_by { |v| v.nickname.downcase }
+      @pending = pending_scope
+      @moderators = moderators_scope
     end
   end
 
@@ -61,5 +41,36 @@ private
 
   def check_access
     raise CanCan::AccessDenied unless can? :manage, AbuseRequest
+  end
+
+  def collection_scope
+    scope = AbuseRequest.where.not(state: :pending)
+
+    unless can? :manage, AbuseRequest
+      scope = scope
+        .where(kind: %i[summary offtopic])
+        .or(AbuseRequest.where(state: :accepted))
+    end
+
+    scope
+      .includes(:user, :approver, comment: :commentable)
+      .order(updated_at: :desc)
+      .joins(comment: :topic)
+      # .where(kind: :abuse) # for test purposes
+      # .where(topics: { linked_type: Club.name })
+  end
+
+  def pending_scope
+    AbuseRequest
+      .pending
+      .includes(:user, :approver, comment: :commentable)
+      .order(:created_at)
+  end
+
+  def moderators_scope
+    User
+      .where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
+      .where.not(id: User::MORR_ID)
+      .sort_by { |v| v.nickname.downcase }
   end
 end
