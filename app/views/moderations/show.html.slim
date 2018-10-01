@@ -46,7 +46,7 @@ header.head
             = t 'moderations/versions_controller.video_changes'
             span.size = @moderation_policy.videos_count
 
-      - if current_user&.review_moderator?
+      - if current_user&.review_moderator? || current_user&.admin?
         li
           a.b-link[
             href=moderations_reviews_url
@@ -55,7 +55,7 @@ header.head
             = t '.reviews_journal'
             span.size = @moderation_policy.reviews_count
 
-      - if current_user&.collection_moderator?
+      - if current_user&.collection_moderator? || current_user&.admin?
         li
           a.b-link[
             href=moderations_collections_url
