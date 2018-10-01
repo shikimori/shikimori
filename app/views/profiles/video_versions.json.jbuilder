@@ -1,5 +1,5 @@
 json.content render(
-  partial: 'moderations/anime_video_reports/anime_video_report',
+  partial: 'versions/version',
   collection: @collection,
   formats: :html
 )

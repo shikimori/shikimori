@@ -5,7 +5,7 @@ class ProfileStatsView # rubocop:disable ClassLength
   prepend ActiveCacher.instance
 
   instance_cache :comments_count, :topics_count, :summaries_count, :reviews_count,
-    :versions_count, :video_uploads_count, :video_changes_count
+    :versions_count, :video_uploads_count, :video_reports_count, :video_versions_count
 
   delegate :anime_ratings, :anime_spent_time, :full_statuses, :manga,
     :list_counts, :manga_spent_time, :spent_time, :stats_bars, :statuses,
@@ -185,8 +185,6 @@ class ProfileStatsView # rubocop:disable ClassLength
   def video_changes_count
     video_reports_count + video_versions_count
   end
-
-private
 
   def video_reports_count
     AnimeVideoReport

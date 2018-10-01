@@ -13,9 +13,9 @@
     - if @collection.any?
       = render @collection
     - else
-      p.b-nothing_here Нет отзывов
+      p.b-nothing_here = t 'no_summaries'
 
-    - if @add_postloader
+    - if @collection.size == controller.class::COMMENTS_LIMIT
       = render 'blocks/postloader',
         filter: 'b-comment',
         next_url: current_url(page: @page + 1)

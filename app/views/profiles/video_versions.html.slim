@@ -1,18 +1,21 @@
 = render layout: 'page' do
   .b-options-floated
-    span.link.selected
+    a href=video_reports_profile_url
       = i18n_io 'video_report', :few
 
-    a href=video_versions_profile_url
+    span.link.selected
       = i18n_io 'video_change', :few
 
   h2.subheadline = og.headline
   .block
     - if @collection.any?
-      = render partial: 'moderations/anime_video_reports/anime_video_report',
+      = render partial: 'versions/version',
         collection: @collection
     - else
-      p.b-nothing_here = t '.no_video_reports'
+      p.b-nothing_here = t '.no_content_changes'
 
     - if @collection.size == controller.class::VERSIONS_LIMIT
-      = render 'blocks/postloader', next_url: video_reports_profile_url(page: @page+1)
+      = render 'blocks/postloader',
+        filter: 'b-log_entry',
+        next_url: current_url(page: @page + 1)
+

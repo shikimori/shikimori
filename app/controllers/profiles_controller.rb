@@ -131,8 +131,6 @@ class ProfilesController < ShikimoriController
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, VERSIONS_LIMIT)
       .transform(&:decorate)
-
-    render :versions
   end
 
   def video_uploads
@@ -145,21 +143,20 @@ class ProfilesController < ShikimoriController
       .includes(:user, anime_video: :author)
       .order(id: :desc)
 
-    @collection = QueryObjectBase.new(scope)
-      .paginate(@page, VERSIONS_LIMIT)
+    @collection = QueryObjectBase.new(scope).paginate(@page, VERSIONS_LIMIT)
   end
 
   def video_reports
     og noindex: true
-    og page_title: i18n_t('video_reports')
+    og page_title: i18n_io('Video_report', :few)
 
-    @collection = postload_paginate(params[:page], 30) do
-      AnimeVideoReport
-        .where(user: @resource.object)
-        .where.not(kind: :uploaded)
-        .includes(:user, anime_video: :author)
-        .order(id: :desc)
-    end
+    scope = AnimeVideoReport
+      .where(user: @resource.object)
+      .where.not(kind: :uploaded)
+      .includes(:user, anime_video: :author)
+      .order(id: :desc)
+
+    @collection = QueryObjectBase.new(scope).paginate(@page, VERSIONS_LIMIT)
   end
 
   def moderation
