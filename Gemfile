@@ -136,6 +136,7 @@ end
 
 group :development do
   gem 'dotenv-rails'
+  gem 'meta_request'
 
   gem 'spring'
   gem 'spring-watcher-listen'

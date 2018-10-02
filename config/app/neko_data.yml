@@ -282,6 +282,7 @@
         - 23225
         - 30902
         - 30279
+        - 4484
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -566,6 +567,7 @@
         - 23225
         - 30902
         - 30279
+        - 4484
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -850,6 +852,7 @@
         - 23225
         - 30902
         - 30279
+        - 4484
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -1047,10 +1050,10 @@
     :border_color: "#C7D0CC"
     :title_ru: Раз, два, три, четыре
     :text_ru: |-
-      Раз котенок – самый белый
-      Два котенок – самый смелый
-      Три котенок – самый умный
-      А четыре – самый шумный
+      Раз котенок — самый белый
+      Два котенок — самый смелый
+      Три котенок — самый умный
+      А четыре — самый шумный
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -1096,8 +1099,8 @@
     :image: "/assets/achievements/anime/animelist_16.jpg"
     :border_color: "#FFDB58"
     :title_ru: Герой
-    :text_ru: Результат интенсивных тренировок на поприще аниме-просмотра – необычный
-      внешний вид, а побочный эффект – стильный костюмчик.
+    :text_ru: Результат интенсивных тренировок на поприще аниме-просмотра — необычный
+      внешний вид, а побочный эффект — стильный костюмчик.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -1671,8 +1674,8 @@
     :level: 2
     :image: "/assets/achievements/anime/mahou_shoujo_2.jpg"
     :border_color: "#49678d"
-    :title_ru: Магия - второе имя
-    :text_ru: Не важно, какой ваш пол и сколько вам лет, если ваше призвание - нести
+    :title_ru: Магия — второе имя
+    :text_ru: Не важно, какой ваш пол и сколько вам лет, если ваше призвание — нести
       любовь и справедливость.
     :title_en: 
     :text_en: 
@@ -3189,7 +3192,7 @@
     :image: "/assets/achievements/anime/romance_3.jpg"
     :border_color: "#f16251"
     :title_ru: Конфетно-букетный период
-    :text_ru: Любовь - это желание отдавать.
+    :text_ru: Любовь — это желание отдавать.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -9832,7 +9835,7 @@
     :level: 2
     :image: "/assets/achievements/anime/mystery_2.jpg"
     :border_color: "#3a59a8"
-    :title_ru: Убийца - дворецкий!
+    :title_ru: Убийца — дворецкий!
     :text_ru: Вы не понаслышке знакомы с дедукцией. Вам нет равных среди юных детективов.
     :title_en: 
     :text_en: 
@@ -10133,7 +10136,7 @@
     :title_ru: Театр Мировых Шедевров
     :text_ru: |-
       Классика западной литературы глазами Востока.
-      Встретиться с любимой книгой дважды – в бумаге и на экране.
+      Встретиться с любимой книгой дважды — в бумаге и на экране.
     :title_en: 
     :text_en: 
     :topic_id: 248176
@@ -11735,7 +11738,7 @@
     :image: "/assets/achievements/anime/fujoshi_4.jpg"
     :border_color: "#e82a8d"
     :title_ru: Яойный бог
-    :text_ru: Яой - не жанр. Яой — это стиль жизни.
+    :text_ru: Яой — не жанр. Яой — это стиль жизни.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -11753,7 +11756,7 @@
     :level: 1
     :image: "/assets/achievements/anime/space_1.png"
     :border_color: "#172d91"
-    :title_ru: 3-2-1... Пуск!
+    :title_ru: 3–2–1... Пуск!
     :text_ru: Маленький шаг для одного человека, но гигантский скачок для всего человечества.
     :title_en: 
     :text_en: 
