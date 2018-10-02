@@ -5,7 +5,7 @@ describe Messages::CheckSpamAbuse do
 
   subject! { Messages::CheckSpamAbuse.call message }
 
-  let(:message) { build :message, kind, body: text }
+  let(:message) { build :message, kind, from: user, body: text }
   let(:kind) { :private }
   let(:text) { 'cos30.ru/M=5j-N9' }
 
@@ -23,6 +23,16 @@ describe Messages::CheckSpamAbuse do
     context 'phrase' do
       let(:text) { 'Хорош качать уже) А то всё качаем,качаем..' }
       it { is_expected.to eq false }
+    end
+
+    describe 'spam from guest' do
+      let(:user) { create :user, :guest }
+
+      it do
+        is_expected.to eq false
+        expect(message.errors[:base]).to eq ['spam']
+        expect(Users::BanSpamAbuse).to_not have_received :perform_async
+      end
     end
   end
 
