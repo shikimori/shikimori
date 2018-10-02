@@ -72,7 +72,7 @@ private
 
   def get url
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
-      open(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read.fix_encoding
+      OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read.fix_encoding
     end
   end
 end
