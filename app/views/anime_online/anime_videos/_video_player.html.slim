@@ -93,9 +93,10 @@
                 .icon
                 .label = t 'actions.upload'
 
-          .c-column.c-control.report
-            .icon
-            .label Пожаловаться
+          - unless current_user.not_trusted_video_uploader?
+            .c-column.c-control.report
+              .icon
+              .label Пожаловаться
 
         - if @video.uploader || @video.views_count
           .c-video_stats class=(:single unless @video.views_count && @video.uploader)
