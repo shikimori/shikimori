@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 describe Topic::Create do
-  subject(:topic) { Topic::Create.call faye, params, locale }
+  subject! do
+    described_class.call(
+      faye: faye,
+      params: params,
+      locale: locale
+    )
+  end
 
   let(:faye) { FayeService.new user, nil }
   let(:locale) { :en }
@@ -16,8 +22,8 @@ describe Topic::Create do
       }
     end
     it do
-      expect(topic).to be_persisted
-      expect(topic).to have_attributes params.merge(locale: locale.to_s)
+      is_expected.to be_persisted
+      is_expected.to have_attributes params.merge(locale: locale.to_s)
     end
   end
 
@@ -29,10 +35,11 @@ describe Topic::Create do
         body: 'text'
       }
     end
+
     it do
-      expect(topic).to be_new_record
-      expect(topic).to have_attributes params.merge(locale: locale.to_s)
-      expect(topic.errors).to be_present
+      is_expected.to be_new_record
+      is_expected.to have_attributes params.merge(locale: locale.to_s)
+      expect(subject.errors).to be_present
     end
   end
 end

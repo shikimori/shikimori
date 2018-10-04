@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Topic::Create < ServiceObjectBase
-  pattr_initialize :faye, :params, :locale
+class Topic::Create
+  method_object %i[faye! params! locale!]
 
   def call
     topic = Topic.new @params.merge(locale: @locale)

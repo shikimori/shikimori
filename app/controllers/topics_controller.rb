@@ -54,7 +54,11 @@ class TopicsController < ShikimoriController
   end
 
   def create
-    @resource = Topic::Create.call faye, topic_params, locale_from_host
+    @resource = Topic::Create.call(
+      faye: faye,
+      params: topic_params,
+      locale: locale_from_host
+    )
 
     if @resource.persisted?
       redirect_to(
