@@ -8,7 +8,6 @@ describe UserRateLog do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :ip }
     it { is_expected.to validate_presence_of :user_agent }
   end
 

@@ -6,7 +6,7 @@ class UserRateLog < ApplicationRecord
   belongs_to :anime, foreign_key: :target_id, optional: true
   belongs_to :manga, foreign_key: :target_id, optional: true
 
-  validates :ip, :user_agent, presence: true
+  validates :user_agent, presence: true
 
   def action
     if diff&.dig('id', 0).nil? && !diff&.dig('id', 1).nil?
