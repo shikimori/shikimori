@@ -214,21 +214,22 @@ class Abilities::User
 
   def anime_video_abilities
     can :create, AnimeVideoReport do |report|
-      !@user.banned? && !@user.not_trusted_version_changer? &&
+      !@user.banned? && !@user.not_trusted_video_uploader? &&
         report.user_id == @user.id && (
           report.broken? || report.wrong? || report.other?
         )
     end
     can %i[new create], AnimeVideo do |anime_video|
-      !@user.banned? && anime_video.uploaded?
+      !@user.banned? && !@user.not_trusted_video_uploader? &&
+        anime_video.uploaded?
     end
     can %i[edit update], AnimeVideo do |anime_video|
-      !@user.banned? &&
+      !@user.banned? && !@user.not_trusted_video_uploader? &&
         !anime_video.copyrighted? &&
         !anime_video.banned_hosting?
     end
     can :destroy, AnimeVideo do |anime_video|
-      !@user.banned? && !@user.not_trusted_version_changer? &&
+      !@user.banned? && !@user.not_trusted_video_uploader? &&
         (anime_video.uploader == @user && (
           @user.api_video_uploader? || anime_video.created_at > 1.week.ago)
         )

@@ -587,6 +587,17 @@ describe AnimeVideo do
       it { is_expected.to_not be_able_to :update, copyrighted_video }
     end
 
+    describe 'not_trusted_video_uploader' do
+      let(:user) { build_stubbed :user, :not_trusted_video_uploader }
+
+      it { is_expected.to_not be_able_to :new, uploaded_video }
+      it { is_expected.to_not be_able_to :create, uploaded_video }
+      it { is_expected.to_not be_able_to :edit, uploaded_video }
+      it { is_expected.to_not be_able_to :update, uploaded_video }
+      it { is_expected.to_not be_able_to :edit, working_video }
+      it { is_expected.to_not be_able_to :update, working_video }
+    end
+
     describe 'video uploader' do
       let(:video) { build_stubbed :anime_video, created_at: created_at, state: 'uploaded' }
       let!(:upload_report) { create :anime_video_report, anime_video: video, user: user, kind: 'uploaded' }
