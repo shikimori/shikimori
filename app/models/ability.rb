@@ -67,7 +67,6 @@ class Ability
     can :create, AnimeVideoReport do |report|
       report.user_id == User::GUEST_ID && (report.broken? || report.wrong?)
     end
-    can %i[new create], AnimeVideo, &:uploaded?
 
     can :create, Version do |version|
       version.user_id == User::GUEST_ID && (
