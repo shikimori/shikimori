@@ -12,7 +12,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
       let(:is_xhr) { false }
 
       before { allow(AnimeOnlineDomain).to receive(:valid_host?).and_return(true) }
-      before { make_request }
+      subject! { make_request }
 
       context 'with video' do
         it { expect(response).to have_http_status :success }
@@ -43,13 +43,20 @@ describe AnimeOnline::AnimeVideosController, :vcr do
   end
 
   describe '#new' do
-    let(:params) { { anime_id: @resource, state: 'uploaded' } }
-    before { get :new, params: { anime_id: anime.to_param, anime_video: params } }
+    include_context :authenticated, :user
+    let(:video_params) { { anime_id: @resource, state: 'uploaded' } }
+    subject! do
+      get :new,
+        params: {
+          anime_id: anime.to_param,
+          anime_video: video_params
+        }
+    end
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
-    let!(:guest) { create :user, :guest }
+    include_context :authenticated, :user
     let(:video_params) do
       {
         state: 'uploaded',
@@ -65,7 +72,14 @@ describe AnimeOnline::AnimeVideosController, :vcr do
     end
     let(:continue) { '' }
 
-    before { post :create, params: { anime_id: anime.to_param, anime_video: video_params, continue: continue } }
+    subject! do
+      post :create,
+        params: {
+          anime_id: anime.to_param,
+          anime_video: video_params,
+          continue: continue
+        }
+    end
     let(:created_video) { assigns :video }
 
     context 'valid params' do
@@ -116,7 +130,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
   describe '#edit' do
     include_context :authenticated, :user
     let(:video) { create :anime_video, anime: anime, state: 'uploaded' }
-    before { get :edit, params: { anime_id: anime.to_param, id: video.id } }
+    subject! { get :edit, params: { anime_id: anime.to_param, id: video.id } }
 
     it { expect(response).to have_http_status :success }
   end
@@ -142,7 +156,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
       let(:kind) { 'subtitles' }
 
       include_context :authenticated, :user
-      before { make_request }
+      subject! { make_request }
 
       it do
         expect(video_versions).to have(1).item
@@ -155,7 +169,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
 
     describe 'postmoderate' do
       include_context :authenticated, :video_moderator
-      before { make_request }
+      subject! { make_request }
 
       context 'valid params' do
         let(:kind) { 'fandub' }
@@ -182,7 +196,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
 
   describe 'extract_url' do
     let(:url) { 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' }
-    before { post :extract_url, params: { anime_id: anime.id, url: url } }
+    subject! { post :extract_url, params: { anime_id: anime.id, url: url } }
 
     it do
       expect(response.content_type).to eq 'application/json'
@@ -191,24 +205,24 @@ describe AnimeOnline::AnimeVideosController, :vcr do
   end
 
   describe '#help' do
-    before { get :help, params: { anime_id: anime.to_param } }
+    subject! { get :help, params: { anime_id: anime.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#track_view' do
+    include_context :authenticated
     let(:video) { create :anime_video, watch_view_count: view_count, anime: anime }
 
-    before { post :track_view, params: { anime_id: anime.to_param, id: video.id } }
-    subject { video.reload.watch_view_count }
+    subject! { post :track_view, params: { anime_id: anime.to_param, id: video.id } }
 
     context 'first_time' do
       let(:view_count) { nil }
-      it { is_expected.to eq 1 }
+      it { expect(video.reload.watch_view_count).to eq 1 }
     end
 
     context 'not_first_time' do
       let(:view_count) { 103 }
-      it { is_expected.to eq view_count + 1 }
+      it { expect(video.reload.watch_view_count).to eq view_count + 1 }
     end
   end
 
@@ -217,7 +231,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
     let(:video) { create :anime_video, episode: 10, anime: anime }
     let!(:user_rate) {}
 
-    before { post :viewed, params: { anime_id: anime.to_param, id: video.id } }
+    subject! { post :viewed, params: { anime_id: anime.to_param, id: video.id } }
 
     context 'with user_rate' do
       let!(:user_rate) { create :user_rate, target: anime, user: user, episodes: 1 }
@@ -238,7 +252,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
   describe '#destroy' do
     include_context :authenticated, :admin
     let(:video) { create :anime_video, episode: 10, anime: anime }
-    before { delete :destroy, params: { anime_id: anime.to_param, id: video.id } }
+    subject! { delete :destroy, params: { anime_id: anime.to_param, id: video.id } }
 
     it do
       expect(resource).to be_destroyed
