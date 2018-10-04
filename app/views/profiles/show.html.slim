@@ -190,28 +190,46 @@
       .c-additionals
         b #{t '.activity'}:
         - if @resource.stats.reviews_count.positive?
-          div: a href=reviews_profile_url(@resource)
-            = "#{@resource.stats.reviews_count} #{i18n_i 'review', @resource.stats.reviews_count}"
+          div[
+            data-type='reviews'
+          ]
+            a href=reviews_profile_url(@resource)
+              = "#{@resource.stats.reviews_count} #{i18n_i 'review', @resource.stats.reviews_count}"
 
         - if @resource.stats.summaries_count.positive?
-          div: a href=summaries_profile_url(@resource)
-            = "#{@resource.stats.summaries_count} #{i18n_i 'summary', @resource.stats.summaries_count}"
+          div[
+            data-type='summaries'
+          ]
+            a href=summaries_profile_url(@resource)
+              = "#{@resource.stats.summaries_count} #{i18n_i 'summary', @resource.stats.summaries_count}"
 
         - if @resource.stats.versions_count.positive?
-          div: a href=versions_profile_url(@resource)
-            = "#{@resource.stats.versions_count} #{i18n_i 'content_change', @resource.stats.versions_count}"
+          div[
+            data-type='versions'
+          ]
+            a href=versions_profile_url(@resource)
+              = "#{@resource.stats.versions_count} #{i18n_i 'content_change', @resource.stats.versions_count}"
 
         - if ru_host? && @resource.stats.video_uploads_count.positive?
-          div: a href=video_uploads_profile_url(@resource)
-            = "#{@resource.stats.video_uploads_count} #{i18n_i 'video_upload', @resource.stats.video_uploads_count}"
+          div[
+            data-type='video_uploads'
+          ]
+            a href=video_uploads_profile_url(@resource)
+              = "#{@resource.stats.video_uploads_count} #{i18n_i 'video_upload', @resource.stats.video_uploads_count}"
 
         - if ru_host? && @resource.stats.video_changes_count.positive?
-          div: a href=video_versions_profile_url(@resource)
-            = "#{@resource.stats.video_changes_count} #{i18n_i 'video_change', @resource.stats.video_changes_count}"
+          div[
+            data-type='video_changes'
+          ]
+            a href=video_versions_profile_url(@resource)
+              = "#{@resource.stats.video_changes_count} #{i18n_i 'video_change', @resource.stats.video_changes_count}"
 
         - if @resource.stats.comments_count.positive?
-          div: a href=comments_profile_url(@resource)
-            = "#{@resource.stats.comments_count} #{i18n_i 'comment', @resource.stats.comments_count}"
+          div[
+            data-type='comments'
+          ]
+            a href=comments_profile_url(@resource)
+              = "#{@resource.stats.comments_count} #{i18n_i 'comment', @resource.stats.comments_count}"
 
 .profile-content
   .cc-2.block
