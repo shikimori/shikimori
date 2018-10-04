@@ -3,9 +3,6 @@
 describe Topic::Update do
   include_context :timecop
 
-  let(:faye) { FayeService.new user, nil }
-  let(:topic) { create :topic }
-
   before { allow(Notifications::BroadcastTopic).to receive :perform_async }
   subject! do
     described_class.call(
@@ -14,6 +11,9 @@ describe Topic::Update do
       faye: faye
     )
   end
+
+  let(:faye) { FayeService.new user, nil }
+  let(:topic) { create :topic }
 
   context 'valid params' do
     let(:params) { { title: 'title', body: 'text' } }

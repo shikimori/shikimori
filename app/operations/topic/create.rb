@@ -5,12 +5,22 @@ class Topic::Create
 
   def call
     topic = Topic.new @params.merge(locale: @locale)
-    broadcast topic if @faye.create topic
+
+    if @faye.create topic
+      broadcast topic if broadcast? topic
+    end
+
     topic
   end
 
 private
 
+  def broadcast? topic
+    topic.broadcast? ||
+      (topic.is_a?(Topics::NewsTopic) && topic.generated?)
+  end
+
   def broadcast topic
+    Notifications::BroadcastTopic.perform_async topic
   end
 end
