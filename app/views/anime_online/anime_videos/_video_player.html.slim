@@ -38,7 +38,7 @@
 
       - if user_signed_in?
         .cc-optional_controls
-          - unless @player.current_video.copyright_ban?
+          - unless current_user&.not_trusted_video_uploader?
             a.c-control.upload href=@player.new_video_url
               .icon
               .label = t 'actions.upload'
@@ -82,18 +82,18 @@
                 .icon
                 .label В мой список
 
-          - if user_signed_in?
+          - if user_signed_in? && (!current_user.not_trusted_video_uploader? || can?(:edit, @video) || can?(:destroy, @video))
             .c-column.c-control.show-options
               .icon
               .label Опции
 
           - else
-            - unless @player.current_video.copyright_ban?
+            - unless current_user&.not_trusted_video_uploader?
               a.c-column.c-control.upload href=@player.new_video_url
                 .icon
                 .label = t 'actions.upload'
 
-          - unless current_user.not_trusted_video_uploader?
+          - unless current_user&.not_trusted_video_uploader?
             .c-column.c-control.report
               .icon
               .label Пожаловаться
