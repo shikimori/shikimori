@@ -10,7 +10,8 @@ class Messages::CheckSpamAbuse
     goo.gl/KGRAi4 |
     goo.gl/u4rPbG |
     wexonexx.com |
-    alychidesigns.com
+    alychidesigns.com |
+    bit.ly/seowriters
   }mix
 
   SPAM_PHRASES = [
