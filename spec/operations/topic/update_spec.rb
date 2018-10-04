@@ -2,6 +2,11 @@
 
 describe Topic::Update do
   include_context :timecop
+
+  let(:faye) { FayeService.new user, nil }
+  let(:topic) { create :topic }
+
+  before { allow(Notifications::BroadcastTopic).to receive :perform_async }
   subject! do
     described_class.call(
       topic: topic,
@@ -10,17 +15,43 @@ describe Topic::Update do
     )
   end
 
-  let(:faye) { FayeService.new user, nil }
-  let(:topic) { create :topic }
-
-  before { subject }
-
   context 'valid params' do
     let(:params) { { title: 'title', body: 'text' } }
     it do
-      expect(topic.errors).to be_empty
+      expect(topic).to be_valid
+      expect(topic).to_not be_changed
+
       expect(topic.reload).to have_attributes params
       expect(topic.commented_at).to be_within(0.1).of(Time.zone.now)
+      expect(Notifications::BroadcastTopic).to_not have_received :perform_async
+    end
+
+    describe 'broadcast' do
+      let(:params) { { broadcast: true } }
+
+      it do
+        expect(topic.reload).to have_attributes params
+        expect(Notifications::BroadcastTopic).to have_received(:perform_async).with topic
+      end
+
+      context 'not broadcast change' do
+        let(:topic) { create :topic, broadcast: true }
+        let(:params) { { broadcast: false } }
+
+        it do
+          expect(topic.reload).to have_attributes params
+          expect(Notifications::BroadcastTopic).to_not have_received :perform_async
+        end
+      end
+
+      context 'already processed topic' do
+        let(:topic) { create :topic, processed: true }
+
+        it do
+          expect(topic.reload).to have_attributes params
+          expect(Notifications::BroadcastTopic).to_not have_received :perform_async
+        end
+      end
     end
   end
 
@@ -28,9 +59,12 @@ describe Topic::Update do
     let(:params) { { title: 'title', body: nil } }
 
     it do
-      expect(topic.errors).to have(1).item
+      expect(topic).to_not be_valid
+      expect(topic).to be_changed
+
       expect(topic.reload).not_to have_attributes params
       expect(topic.commented_at).to be_nil
+      expect(Notifications::BroadcastTopic).to_not have_received :perform_async
     end
   end
 end

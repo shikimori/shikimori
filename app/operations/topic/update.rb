@@ -9,9 +9,20 @@ class Topic::Update
     end
 
     if is_updated
+      broadcast @topic if broadcast? @topic
       @topic.update commented_at: Time.zone.now
     end
 
     is_updated
+  end
+
+private
+
+  def broadcast? topic
+    topic.saved_change_to_broadcast? && topic.broadcast && !topic.processed?
+  end
+
+  def broadcast topic
+    Notifications::BroadcastTopic.perform_async topic
   end
 end

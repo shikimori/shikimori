@@ -5,7 +5,12 @@ class Topic::Create
 
   def call
     topic = Topic.new @params.merge(locale: @locale)
-    @faye.create topic
+    broadcast topic if @faye.create topic
     topic
+  end
+
+private
+
+  def broadcast topic
   end
 end
