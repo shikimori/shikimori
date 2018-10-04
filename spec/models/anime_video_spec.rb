@@ -549,8 +549,8 @@ describe AnimeVideo do
 
     describe 'guest' do
       let(:user) {}
-      it { is_expected.to be_able_to :new, uploaded_video }
-      it { is_expected.to be_able_to :create, uploaded_video }
+      it { is_expected.to_not be_able_to :new, uploaded_video }
+      it { is_expected.to_not be_able_to :create, uploaded_video }
 
       it { is_expected.to_not be_able_to :new, working_video }
       it { is_expected.to_not be_able_to :create, working_video }

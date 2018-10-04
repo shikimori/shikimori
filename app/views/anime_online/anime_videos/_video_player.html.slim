@@ -87,7 +87,7 @@
               .icon
               .label Опции
 
-          - else
+          / - else
             - unless current_user&.not_trusted_video_uploader?
               a.c-column.c-control.upload href=@player.new_video_url
                 .icon

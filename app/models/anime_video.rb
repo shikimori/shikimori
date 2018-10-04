@@ -1,5 +1,5 @@
 # TODO : проверить необходимость метода allowed?
-# TODO : вынести методы относящиеся ко вью в декоратор.
+# TODO : вынести методы относящиеся ко вью
 class AnimeVideo < ApplicationRecord
   # for Versions
   SIGNIFICANT_MAJOR_FIELDS = []
