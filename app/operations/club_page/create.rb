@@ -14,9 +14,9 @@ private
 
   def generate_topic club_page
     Topics::Generate::Topic.call(
-      club_page,
-      @user,
-      club_page.club.locale
+      model: club_page,
+      user: @user,
+      locale: club_page.club.locale
     )
   end
 end

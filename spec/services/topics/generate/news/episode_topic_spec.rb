@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 describe Topics::Generate::News::EpisodeTopic do
-  subject { service.call }
-
-  let(:service) do
-    Topics::Generate::News::EpisodeTopic.new(
+  subject do
+    described_class.call(
       model: model,
       user: user,
       locale: locale,

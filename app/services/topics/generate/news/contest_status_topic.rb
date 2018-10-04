@@ -1,5 +1,5 @@
 class Topics::Generate::News::ContestStatusTopic < Topics::Generate::News::BaseTopic
-  pattr_initialize :model, :user, :action, :locale
+  method_object %i[model! user! action! locale!]
 
   def topic_klass
     Topics::NewsTopics::ContestStatusTopic

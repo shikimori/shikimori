@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Topics::Generate::Topic < ServiceObjectBase
-  pattr_initialize :model, :user, :locale
+class Topics::Generate::Topic
+  method_object %i[model! user! locale!]
 
   def call
     topic = build_topic

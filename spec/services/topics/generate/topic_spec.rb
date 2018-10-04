@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
 describe Topics::Generate::Topic do
-  subject { service.call }
+  subject do
+    described_class.call(
+      model: model,
+      user: user,
+      locale: locale
+    )
+  end
 
   let(:locale) { 'ru' }
-  let(:service) { Topics::Generate::Topic.new model, user, locale }
 
   shared_examples_for :topic do
     context 'without existing topic' do

@@ -85,10 +85,10 @@ class Messages::CreateNotification # rubocop:disable ClassLength
   def contest_started
     Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::ContestStatusTopic.call(
-        @target,
-        @target.user,
-        Types::Topic::ContestStatusTopic::Action[:started],
-        locale
+        model: @target,
+        user: @target.user,
+        action: Types::Topic::ContestStatusTopic::Action[:started],
+        locale: locale
       )
     end
   end
@@ -104,10 +104,10 @@ class Messages::CreateNotification # rubocop:disable ClassLength
 
     Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::ContestStatusTopic.call(
-        @target,
-        @target.user,
-        Types::Topic::ContestStatusTopic::Action[:finished],
-        locale
+        model: @target,
+        user: @target.user,
+        action: Types::Topic::ContestStatusTopic::Action[:finished],
+        locale: locale
       )
     end
   end

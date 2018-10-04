@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 describe Topics::Generate::News::ReleasedTopic do
-  subject { service.call }
-
   include_context :timecop
+  subject do
+    described_class.call(
+      model: model,
+      user: user,
+      locale: locale
+    )
+  end
 
-  let(:service) { Topics::Generate::News::ReleasedTopic.new model, user, locale }
   let(:model) { create :anime }
   let(:user) { BotsService.get_poster }
   let(:locale) { 'en' }

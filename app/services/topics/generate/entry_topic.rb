@@ -3,7 +3,7 @@
 class Topics::Generate::EntryTopic < Topics::Generate::Topic
 private
 
-  # nil - чтобы не отображалось на форуме
+  # nil - to prevent display on forum
   def updated_at
     nil
   end

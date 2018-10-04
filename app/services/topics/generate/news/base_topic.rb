@@ -26,7 +26,7 @@ private
     super.merge topic_attributes.slice(:action, :value)
   end
 
-  # nil - чтобы не отображалось на форуме
+  # nil - to prevent display on forum
   def updated_at
     nil
   end

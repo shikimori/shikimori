@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 describe Topics::Generate::News::ContestStatusTopic do
-  subject { service.call }
-
   include_context :timecop
-
-  let(:service) do
-    Topics::Generate::News::ContestStatusTopic.new(
-      model,
-      user,
-      action,
-      locale
+  subject do
+    described_class.call(
+      model: model,
+      user: user,
+      action: action,
+      locale: locale
     )
   end
+
   let(:model) { create :contest }
   let(:action) { Types::Topic::ContestStatusTopic::Action[:finished] }
   let(:user) { BotsService.get_poster }

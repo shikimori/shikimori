@@ -26,7 +26,9 @@ private
 
     Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::AnonsTopic.call(
-        anime, anime.topic_user, locale
+        model: anime,
+        user: anime.topic_user,
+        locale: locale
       )
     end
   end
@@ -37,7 +39,9 @@ private
 
     Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::OngoingTopic.call(
-        anime, anime.topic_user, locale
+        model: anime,
+        user: anime.topic_user,
+        locale: locale
       )
     end
   end
@@ -48,7 +52,9 @@ private
 
     Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::ReleasedTopic.call(
-        anime, anime.topic_user, locale
+        model: anime,
+        user: anime.topic_user,
+        locale: locale
       )
     end
   end

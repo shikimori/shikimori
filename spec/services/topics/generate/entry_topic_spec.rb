@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
 describe Topics::Generate::EntryTopic do
-  subject { service.call }
+  subject do
+    described_class.call(
+      model: model,
+      user: user,
+      locale: locale
+    )
+  end
 
   let(:locale) { 'ru' }
-  let(:service) { Topics::Generate::EntryTopic.new model, user, locale }
   let(:user) { BotsService.get_poster }
 
   shared_examples_for :topic do

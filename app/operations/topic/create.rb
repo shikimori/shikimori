@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Topic::Create
-  method_object %i[faye! params! locale!]
+  method_object %i[params! faye! locale!]
 
   def call
     topic = Topic.new @params.merge(locale: @locale)

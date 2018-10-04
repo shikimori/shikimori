@@ -43,13 +43,21 @@ module TopicsConcern
 
   def generate_entry_topics locales
     Array(locales).map do |locale|
-      Topics::Generate::EntryTopic.call self, topic_user, locale
+      Topics::Generate::EntryTopic.call(
+        model: self,
+        user: topic_user,
+        locale: locale
+      )
     end
   end
 
   def generate_user_topics locales
     Array(locales).map do |locale|
-      Topics::Generate::Topic.call self, topic_user, locale
+      Topics::Generate::Topic.call(
+        model: self,
+        user: topic_user,
+        locale: locale
+      )
     end
   end
 end
