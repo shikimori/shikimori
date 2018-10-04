@@ -120,6 +120,8 @@ class Studio < ApplicationRecord
     'Platinum Vision',
     'Pink Pineapple',
     'Phoenix Entertainment',
+    'NHK',
+    'Oh! Production',
 
     # from wikipedia
     'a-1 pictures inc.',
