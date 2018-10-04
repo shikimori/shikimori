@@ -6,7 +6,6 @@ module Clockwork
   every(1.day, 'pghero.space_stats', at: '00:45') { PgHero.capture_space_stats }
 
   every 10.minutes, 'history.toshokan' do
-    HistoryWorker.perform_async
     ImportToshokanTorrents.perform_async true
     # ImportNyaaTorrents.perform_async
     SidekiqHeartbeat.new.perform
