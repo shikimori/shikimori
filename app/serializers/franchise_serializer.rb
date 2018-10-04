@@ -16,17 +16,23 @@ class FranchiseSerializer < ActiveModel::Serializer
   def links
     all_links
       .map do |link|
+        source_index = all_entries.index { |v| v.id == link.source_id }
+        target_index = all_entries.index do |v|
+          v.id == (object.anime? ? link.anime_id : link.manga_id)
+        end
+        next unless source_index && target_index
+
         {
+          id: link.id,
           source_id: link.source.id,
           target_id: object.anime? ? link.anime_id : link.manga_id,
-          source: all_entries.index { |v| v.id == link.source_id },
-          target: all_entries.index do |v|
-            v.id == (object.anime? ? link.anime_id : link.manga_id)
-          end,
+          source: source_index,
+          target: target_index,
           weight: all_links.count { |v| v.source_id == link.source_id },
           relation: link.relation.downcase.gsub(/[ -]/, '_')
         }
       end
+    .compact
   end
 
   def nodes
@@ -43,7 +49,7 @@ class FranchiseSerializer < ActiveModel::Serializer
       }
     end
   end
-  # rubocop:enable AbcSize, MethodLength
+  # rubocop:enable AbcSize
 
 private
 

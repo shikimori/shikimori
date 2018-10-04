@@ -28,7 +28,7 @@ private
     @related_entries ||= fetch_related [@entry.id], {}
   end
 
-  def fetch_related ids, relations # rubocop:disable MethodLength
+  def fetch_related ids, relations
     ids_to_fetch = ids - relations.keys
 
     fetched_ids = grouped_relation(ids_to_fetch).flat_map do |source_id, group|

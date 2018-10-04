@@ -1,5 +1,5 @@
-page_load 'animes_franchise', 'mangas_franchise', 'ranobe_franchise', =>
-  require.ensure [], (require) =>
+page_load 'animes_franchise', 'mangas_franchise', 'ranobe_franchise', ->
+  require.ensure [], (require) ->
     ShikiMath = require 'services/shiki_math'
     FranchiseGraph = require 'services/franchise/graph'
     d3 = require 'd3'
