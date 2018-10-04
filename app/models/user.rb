@@ -2,7 +2,7 @@
 class User < ApplicationRecord
   include PermissionsPolicy
   include Commentable
-  include User::Notifications
+  include User::NotificationsConcern
   include User::TokenAuthenticatable
   include StylesConcern
 

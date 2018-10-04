@@ -1,5 +1,5 @@
 # TODO: refactor this
-module User::Notifications
+module User::NotificationsConcern
   # notification settings
   ANONS_TV_NOTIFICATIONS         = 0x000001
   ANONS_MOVIE_NOTIFICATIONS      = 0x000002
