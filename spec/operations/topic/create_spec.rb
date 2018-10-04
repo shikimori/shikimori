@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Topic::Create do
-  subject! do
+  subject!(:topic) do
     described_class.call(
       faye: faye,
       params: params,
@@ -39,7 +39,7 @@ describe Topic::Create do
     it do
       is_expected.to be_new_record
       is_expected.to have_attributes params.merge(locale: locale.to_s)
-      expect(subject.errors).to be_present
+      expect(topic.errors).to be_present
     end
   end
 end

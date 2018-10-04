@@ -2,8 +2,13 @@
 
 describe Topic::Update do
   include_context :timecop
-
-  subject { Topic::Update.call topic, params, faye }
+  subject! do
+    described_class.call(
+      topic: topic,
+      params: params,
+      faye: faye
+    )
+  end
 
   let(:faye) { FayeService.new user, nil }
   let(:topic) { create :topic }
