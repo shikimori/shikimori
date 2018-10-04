@@ -4,9 +4,9 @@ class ClubPage::Create < ServiceObjectBase
   pattr_initialize :params, :user
 
   def call
-    club_page = ClubPage.new @params
+    club_page = ClubPage.create @params
 
-    generate_topic club_page if club_page.save
+    generate_topic club_page if club_page.persisted?
     club_page
   end
 
