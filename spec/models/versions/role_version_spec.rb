@@ -96,11 +96,11 @@ describe Versions::RoleVersion do
 
       describe 'video_super_moderator roles' do
         it { is_expected.to be_able_to :manage_video_moderator_role, user }
+        it { is_expected.to be_able_to :manage_not_trusted_video_uploader_role, user }
       end
 
       describe 'video_moderator roles' do
         it { is_expected.to be_able_to :manage_trusted_video_uploader_role, user }
-        it { is_expected.to be_able_to :manage_not_trusted_video_uploader_role, user }
         it { is_expected.to be_able_to :manage_trusted_video_changer_role, user }
       end
     end
@@ -134,11 +134,11 @@ describe Versions::RoleVersion do
 
       describe 'video_super_moderator roles' do
         it { is_expected.to_not be_able_to :manage_video_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_video_uploader_role, user }
       end
 
       describe 'video_moderator roles' do
         it { is_expected.to_not be_able_to :manage_trusted_video_uploader_role, user }
-        it { is_expected.to_not be_able_to :manage_not_trusted_video_uploader_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_video_changer_role, user }
       end
     end
@@ -172,11 +172,11 @@ describe Versions::RoleVersion do
 
       describe 'video_super_moderator roles' do
         it { is_expected.to_not be_able_to :manage_video_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_video_uploader_role, user }
       end
 
       describe 'video_moderator roles' do
         it { is_expected.to_not be_able_to :manage_trusted_video_uploader_role, user }
-        it { is_expected.to_not be_able_to :manage_not_trusted_video_uploader_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_video_changer_role, user }
       end
     end
@@ -210,11 +210,11 @@ describe Versions::RoleVersion do
 
       describe 'video_super_moderator roles' do
         it { is_expected.to be_able_to :manage_video_moderator_role, user }
+        it { is_expected.to be_able_to :manage_not_trusted_video_uploader_role, user }
       end
 
       describe 'video_moderator roles' do
         it { is_expected.to be_able_to :manage_trusted_video_uploader_role, user }
-        it { is_expected.to be_able_to :manage_not_trusted_video_uploader_role, user }
         it { is_expected.to be_able_to :manage_trusted_video_changer_role, user }
       end
     end
@@ -248,12 +248,12 @@ describe Versions::RoleVersion do
 
       describe 'video_super_moderator roles' do
         it { is_expected.to_not be_able_to :manage_video_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_not_trusted_video_uploader_role, user }
       end
 
       describe 'video_moderator roles' do
-        it { is_expected.to_not be_able_to :manage_trusted_video_uploader_role, user }
-        it { is_expected.to_not be_able_to :manage_not_trusted_video_uploader_role, user }
-        it { is_expected.to_not be_able_to :manage_trusted_video_changer_role, user }
+        it { is_expected.to be_able_to :manage_trusted_video_uploader_role, user }
+        it { is_expected.to be_able_to :manage_trusted_video_changer_role, user }
       end
     end
 
