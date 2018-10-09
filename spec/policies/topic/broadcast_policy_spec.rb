@@ -39,6 +39,11 @@ describe Topic::BroadcastPolicy do
 
       it { is_expected.to be_required }
 
+      context 'not generated change' do
+        before { topic.update body: 'zxc' }
+        it { is_expected.to_not be_required }
+      end
+
       context 'already processed topic' do
         let(:processed) { true }
         it { is_expected.to_not be_required }
