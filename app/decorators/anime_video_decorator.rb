@@ -20,7 +20,9 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def player_html
-    return '<div class="player-placeholder"></div>'.html_safe if rejected?
+    if rejected? && !h.can?(:edit, object)
+      return '<div class="player-placeholder"></div>'.html_safe
+    end
 
     fixed_url = Url.new(url).without_protocol.to_s if url
 
@@ -50,7 +52,13 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def video_url
-    h.play_video_online_index_url anime, episode, id, domain: AnimeOnlineDomain.host(anime), subdomain: false
+    h.play_video_online_index_url(
+      anime,
+      episode,
+      id,
+      domain: AnimeOnlineDomain.host(anime),
+      subdomain: false
+    )
   end
 
   def in_list?
