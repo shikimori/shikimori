@@ -15,11 +15,11 @@ class Topic::CommentsPolicy
   end
 
   def any_comments?
-    topic.comments_count > 0
+    topic.comments_count.positive?
   end
 
   def any_summaries?
-    summaries_count > 0
+    summaries_count.positive?
   end
 
   def all_summaries?

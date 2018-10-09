@@ -2,15 +2,7 @@
 
 describe Topic::Update do
   include_context :timecop
-
-  before do
-    allow(Notifications::BroadcastTopic).to receive :perform_async
-    allow_any_instance_of(Topic::BroadcastPolicy)
-      .to receive(:required?)
-      .and_return is_broadcast_required
-  end
-
-  subject! do
+  subject do
     described_class.call(
       topic: topic,
       params: params,
@@ -21,6 +13,13 @@ describe Topic::Update do
   let(:faye) { FayeService.new user, nil }
   let(:topic) { create :topic }
   let(:is_broadcast_required) { false }
+
+  before do
+    allow(Notifications::BroadcastTopic).to receive :perform_async
+    allow_any_instance_of(Topic::BroadcastPolicy)
+      .to receive(:required?)
+      .and_return is_broadcast_required
+  end
 
   context 'valid params' do
     let(:params) { { title: 'title', body: 'text' } }

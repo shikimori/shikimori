@@ -1,14 +1,7 @@
 # frozen_string_literal: true
 
 describe Topic::Create do
-  before do
-    allow(Notifications::BroadcastTopic).to receive :perform_async
-    allow_any_instance_of(Topic::BroadcastPolicy)
-      .to receive(:required?)
-      .and_return is_broadcast_required
-  end
-
-  subject!(:topic) do
+  subject(:topic) do
     described_class.call(
       faye: faye,
       params: params,
@@ -19,6 +12,13 @@ describe Topic::Create do
   let(:faye) { FayeService.new user, nil }
   let(:locale) { :en }
   let(:is_broadcast_required) { false }
+
+  before do
+    allow(Notifications::BroadcastTopic).to receive :perform_async
+    allow_any_instance_of(Topic::BroadcastPolicy)
+      .to receive(:required?)
+      .and_return is_broadcast_required
+  end
 
   context 'valid params' do
     let(:params) do

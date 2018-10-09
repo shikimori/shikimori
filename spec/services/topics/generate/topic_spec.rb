@@ -8,11 +8,18 @@ describe Topics::Generate::Topic do
       locale: locale
     )
   end
-
   let(:locale) { 'ru' }
 
   shared_examples_for :topic do
     context 'without existing topic' do
+      before do
+        allow(Notifications::BroadcastTopic).to receive :perform_async
+        allow_any_instance_of(Topic::BroadcastPolicy)
+          .to receive(:required?)
+          .and_return is_broadcast_required
+      end
+      let(:is_broadcast_required) { [true, false].sample }
+
       it do
         expect { subject }.to change(Topic, :count).by 1
         is_expected.to have_attributes(
@@ -22,6 +29,14 @@ describe Topics::Generate::Topic do
           user: user,
           locale: locale
         )
+
+        if is_broadcast_required
+          expect(Notifications::BroadcastTopic)
+            .to have_received(:perform_async)
+            .with subject
+        else
+          expect(Notifications::BroadcastTopic).to_not have_received :perform_async
+        end
 
         expect(subject.created_at.to_i).to eq model.created_at.to_i
         expect(subject.updated_at.to_i).to eq model.updated_at.to_i

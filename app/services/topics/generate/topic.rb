@@ -5,12 +5,15 @@ class Topics::Generate::Topic
 
   def call
     topic = build_topic
+    return topic if topic.persisted?
 
     if updated_at
       faye_service.create! topic
     else
       Topic.wo_timestamp { topic.save! }
     end
+
+    broadcast topic if broadcast? topic
 
     topic
   end
@@ -46,8 +49,17 @@ private
     topic_attributes.slice(:type, :locale)
   end
 
+  def broadcast? topic
+    Topic::BroadcastPolicy.new(topic).required?
+  end
+
+  def broadcast topic
+    Notifications::BroadcastTopic.perform_async topic
+  end
+
   def forum_id
-    Topic::FORUM_IDS[model.class.name] || raise(ArgumentError, model.class.name)
+    Topic::FORUM_IDS[model.class.name] ||
+      raise(ArgumentError, model.class.name)
   end
 
   def created_at
