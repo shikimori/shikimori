@@ -75,6 +75,7 @@ rules:
     - error
     - 2
     - ignoreComments: true
+      SwitchCase: 1
   linebreak-style:
     - error
     - unix
