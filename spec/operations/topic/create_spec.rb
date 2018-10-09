@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
 describe Topic::Create do
-  before { allow(Notifications::BroadcastTopic).to receive :perform_async }
+  before do
+    allow(Notifications::BroadcastTopic).to receive :perform_async
+    allow_any_instance_of(Topic::BroadcastPolicy)
+      .to receive(:required?)
+      .and_return is_broadcast_required
+  end
+
   subject!(:topic) do
     described_class.call(
       faye: faye,
@@ -12,6 +18,7 @@ describe Topic::Create do
 
   let(:faye) { FayeService.new user, nil }
   let(:locale) { :en }
+  let(:is_broadcast_required) { false }
 
   context 'valid params' do
     let(:params) do
@@ -35,42 +42,14 @@ describe Topic::Create do
       expect(Notifications::BroadcastTopic).to_not have_received :perform_async
     end
 
-    describe 'broadcast' do
-      context 'broadcast' do
-        let(:broadcast) { true }
+    describe 'broadcast required' do
+      let(:is_broadcast_required) { true }
 
-        it do
-          is_expected.to be_persisted
-          expect(Notifications::BroadcastTopic).to have_received(:perform_async).with topic
-        end
-      end
-
-      context 'generated news topic' do
-        let(:type) { Topics::NewsTopic.name }
-        let(:generated) { true }
-
-        it do
-          is_expected.to be_persisted
-          expect(Notifications::BroadcastTopic).to have_received(:perform_async).with topic
-        end
-      end
-
-      context 'news topic' do
-        let(:type) { Topics::NewsTopic.name }
-
-        it do
-          is_expected.to be_persisted
-          expect(Notifications::BroadcastTopic).to_not have_received :perform_async
-        end
-      end
-
-      context 'generated' do
-        let(:generated) { true }
-
-        it do
-          is_expected.to be_persisted
-          expect(Notifications::BroadcastTopic).to_not have_received :perform_async
-        end
+      it do
+        is_expected.to be_persisted
+        expect(Notifications::BroadcastTopic)
+          .to have_received(:perform_async)
+          .with topic
       end
     end
   end

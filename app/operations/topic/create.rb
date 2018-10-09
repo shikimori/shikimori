@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Topic::Create
-  method_object %i[params! faye! locale!]
+  method_object %i[faye! params! locale!]
 
   def call
-    topic = Topic.new @params.merge(locale: @locale)
+    topic = create_topic
 
     if @faye.create topic
       broadcast topic if broadcast? topic
@@ -15,9 +15,12 @@ class Topic::Create
 
 private
 
+  def create_topic
+    Topic.new @params.merge(locale: @locale)
+  end
+
   def broadcast? topic
-    topic.broadcast? ||
-      (topic.is_a?(Topics::NewsTopic) && topic.generated?)
+    Topic::BroadcastPolicy.new(topic).required?
   end
 
   def broadcast topic
