@@ -11,10 +11,5 @@ class Abilities::VideoModerator
       version.item_type == AnimeVideo.name
     end
     can :minor_change, Version
-
-    can %i[
-      manage_trusted_video_uploader_role
-      manage_trusted_video_changer_role
-    ], User
   end
 end
