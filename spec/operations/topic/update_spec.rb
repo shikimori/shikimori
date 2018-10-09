@@ -3,7 +3,13 @@
 describe Topic::Update do
   include_context :timecop
 
-  before { allow(Notifications::BroadcastTopic).to receive :perform_async }
+  before do
+    allow(Notifications::BroadcastTopic).to receive :perform_async
+    allow_any_instance_of(Topic::BroadcastPolicy)
+      .to receive(:required?)
+      .and_return is_broadcast_required
+  end
+
   subject! do
     described_class.call(
       topic: topic,
@@ -14,43 +20,29 @@ describe Topic::Update do
 
   let(:faye) { FayeService.new user, nil }
   let(:topic) { create :topic }
+  let(:is_broadcast_required) { false }
 
   context 'valid params' do
     let(:params) { { title: 'title', body: 'text' } }
+
     it do
+      is_expected.to eq true
       expect(topic).to be_valid
       expect(topic).to_not be_changed
 
       expect(topic.reload).to have_attributes params
-      expect(topic.commented_at).to be_within(0.1).of(Time.zone.now)
       expect(Notifications::BroadcastTopic).to_not have_received :perform_async
     end
 
-    describe 'broadcast' do
-      let(:params) { { broadcast: true } }
+    describe 'broadcast required' do
+      let(:is_broadcast_required) { true }
 
       it do
-        expect(topic.reload).to have_attributes params
-        expect(Notifications::BroadcastTopic).to have_received(:perform_async).with topic
-      end
-
-      context 'not broadcast change' do
-        let(:topic) { create :topic, broadcast: true }
-        let(:params) { { broadcast: false } }
-
-        it do
-          expect(topic.reload).to have_attributes params
-          expect(Notifications::BroadcastTopic).to_not have_received :perform_async
-        end
-      end
-
-      context 'already processed topic' do
-        let(:topic) { create :topic, processed: true }
-
-        it do
-          expect(topic.reload).to have_attributes params
-          expect(Notifications::BroadcastTopic).to_not have_received :perform_async
-        end
+        is_expected.to eq true
+        expect(topic).to be_valid
+        expect(Notifications::BroadcastTopic)
+          .to have_received(:perform_async)
+          .with topic
       end
     end
   end
@@ -59,11 +51,11 @@ describe Topic::Update do
     let(:params) { { title: 'title', body: nil } }
 
     it do
+      is_expected.to eq false
       expect(topic).to_not be_valid
       expect(topic).to be_changed
 
       expect(topic.reload).not_to have_attributes params
-      expect(topic.commented_at).to be_nil
       expect(Notifications::BroadcastTopic).to_not have_received :perform_async
     end
   end

@@ -4,13 +4,10 @@ class Topic::Update
   method_object %i[topic! params! faye!]
 
   def call
-    is_updated = @topic.class.wo_timestamp do
-      @faye.update @topic, @params
-    end
+    is_updated = update_topic
 
     if is_updated
       broadcast @topic if broadcast? @topic
-      @topic.update commented_at: Time.zone.now
     end
 
     is_updated
@@ -18,8 +15,14 @@ class Topic::Update
 
 private
 
+  def update_topic
+    @topic.class.wo_timestamp do
+      @faye.update @topic, @params
+    end
+  end
+
   def broadcast? topic
-    topic.saved_change_to_broadcast? && topic.broadcast && !topic.processed?
+    Topic::BroadcastPolicy.new(topic).required?
   end
 
   def broadcast topic
