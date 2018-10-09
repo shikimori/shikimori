@@ -5,10 +5,9 @@ module Clockwork
   every(5.minutes, 'pghero.query_stats') { PgHero.capture_query_stats }
   every(1.day, 'pghero.space_stats', at: '00:45') { PgHero.capture_space_stats }
 
-  every 10.minutes, 'history.toshokan' do
+  every 10.minutes, 'toshokan' do
     ImportToshokanTorrents.perform_async true
     # ImportNyaaTorrents.perform_async
-    SidekiqHeartbeat.new.perform
   end
 
   every 30.minutes, 'half-hourly.import', at: ['**:15', '**:45'] do
