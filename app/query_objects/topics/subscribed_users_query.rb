@@ -6,6 +6,8 @@ class Topics::SubscribedUsersQuery
       #{UserRate.table_name}.target_id = :target_id
   SQL
 
+  ACTIVITY_INTERVAL = 4.months
+
   def call # rubocop:disable MethodLength
     if @topic.broadcast?
       all_scope
@@ -60,7 +62,9 @@ private
   end
 
   def users_scope
-    User.where(locale_from_host: @topic.locale)
+    User
+      .where(locale_from_host: @topic.locale)
+      .where('last_online_at > ?', ACTIVITY_INTERVAL.ago)
   end
 
   def subscribed_users_scope any_key, my_key

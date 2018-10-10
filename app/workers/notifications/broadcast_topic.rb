@@ -21,7 +21,6 @@ class Notifications::BroadcastTopic
     messages = build_messages topic
 
     ApplicationRecord.transaction do
-      binding.pry
       topic.update_column :processed, true
       messages.each_slice(5000) { |slice| Message.import slice, validate: false }
     end

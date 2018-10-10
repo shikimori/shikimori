@@ -7,9 +7,27 @@ describe Topics::SubscribedUsersQuery do
     it { is_expected.to eq [] }
   end
 
+  context 'filtered by last_online_at' do
+    let(:topic) { build :topic, broadcast: true }
+
+    before { User.update_all last_online_at: last_online_at }
+    let(:last_online_at) { Topics::SubscribedUsersQuery::ACTIVITY_INTERVAL.ago - 1.minute }
+    let!(:user) { create :user }
+
+    it { is_expected.to eq [user] }
+  end
+
   context 'broadcast' do
     let(:topic) { build :topic, broadcast: true }
-    it { is_expected.to eq User.where(locale_from_host: topic.locale).order(:id) }
+    it do
+      expect(subject.to_a).to eq(
+        User
+          .where(locale_from_host: topic.locale)
+          .where('last_online_at > ?', Topics::SubscribedUsersQuery::ACTIVITY_INTERVAL.ago)
+          .order(:id)
+          .to_a
+      )
+    end
   end
 
   context 'news topic' do
