@@ -151,7 +151,7 @@ class ProfileStatsView # rubocop:disable ClassLength
   end
 
   def comments_count
-    Comment.where(user_id: user.id).count
+    Comment.where(is_summary: false, user_id: user.id).count
   end
 
   def topics_count
@@ -159,7 +159,7 @@ class ProfileStatsView # rubocop:disable ClassLength
   end
 
   def summaries_count
-    Comment.summaries.where(user_id: user.id).count
+    Comment.where(is_summary: true, user_id: user.id).count
   end
 
   def reviews_count
