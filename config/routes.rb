@@ -973,6 +973,7 @@ Rails.application.routes.draw do
         end
         resource :moderation, only: %i[] do
           delete :comments
+          delete :summaries
           delete :topics
           delete :reviews
         end

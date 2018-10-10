@@ -3,27 +3,40 @@ class Users::ModerationsController < ProfilesController
 
   def comments
     authorize! :delete_all_comments, @resource
-    Comment.where(user_id: @resource.id).each do |comment|
-      faye.destroy comment
-    end
+
+    Comment
+      .where(is_summary: false, user_id: @resource.id)
+      .each { |comment| faye.destroy comment }
+
+    redirect_to moderation_profile_url @resource
+  end
+
+  def summaries
+    authorize! :delete_all_summaries, @resource
+
+    Comment
+      .where(is_summary: true, user_id: @resource.id)
+      .each { |comment| faye.destroy comment }
 
     redirect_to moderation_profile_url @resource
   end
 
   def topics
     authorize! :delete_all_topics, @resource
-    Topic.where(user_id: @resource.id).each do |topic|
-      faye.destroy topic
-    end
+
+    Topic
+      .where(user_id: @resource.id)
+      .each { |topic| faye.destroy topic }
 
     redirect_to moderation_profile_url @resource
   end
 
   def reviews
     authorize! :delete_all_reviews, @resource
-    Review.where(user_id: @resource.id).each do |review|
-      faye.destroy review
-    end
+
+    Review
+      .where(user_id: @resource.id)
+      .each { |review| faye.destroy review }
 
     redirect_to moderation_profile_url @resource
   end
