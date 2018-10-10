@@ -10,7 +10,6 @@ class Notifications::BroadcastTopic
   NEWS_EXPIRE_IN = 1.week
 
   def perform topic
-    return
     return topic.update_column :processed, true if ignored?(topic) || expired?(topic)
 
     messages = build_messages topic
@@ -29,7 +28,7 @@ private
   end
 
   def expired? topic
-    (topic.created_at || Time.zone.now) + NEWS_EXPIRE_IN < Time.zone.now
+    (topic.created_at || Time.zone.now) < NEWS_EXPIRE_IN.ago
   end
 
   def build_messages topic
