@@ -323,6 +323,7 @@ describe User do
     let(:profile) { build_stubbed :user, :user, preferences: preferences }
     let(:user) { build_stubbed :user, :user }
     let(:friend_link) { build_stubbed :friend_link, dst: user }
+
     subject { Ability.new user }
 
     describe 'access_list' do

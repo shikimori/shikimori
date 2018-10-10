@@ -41,6 +41,12 @@
             = i18n_io 'Topic', :few
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.stats.topics_count
+          - if can? :delete_all_topics, @resource
+            a.b-button[
+              href=comments_profile_moderation_url(@resource)
+              data-method='delete'
+              data-confirm=t('actions.confirm')
+            ] = t 'actions.delete_all'
 
     - if @resource.stats.reviews_count.positive?
       .c-column
@@ -49,6 +55,12 @@
             = i18n_io 'Review', :few
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.stats.reviews_count
+          - if can? :delete_all_reviews, @resource
+            a.b-button[
+              href=reviews_profile_moderation_url(@resource)
+              data-method='delete'
+              data-confirm=t('actions.confirm')
+            ] = t 'actions.delete_all'
 
     - if @resource.stats.comments_count.positive?
       .c-column
@@ -57,6 +69,12 @@
             = i18n_io 'Comment', :few
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.stats.comments_count
+          - if can? :delete_all_comments, @resource
+            a.b-button[
+              href=comments_profile_moderation_url(@resource)
+              data-method='delete'
+              data-confirm=t('actions.confirm')
+            ] = t 'actions.delete_all'
 
     - if @resource.stats.summaries_count.positive?
       .c-column

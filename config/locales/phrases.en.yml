@@ -9,6 +9,7 @@ en:
     confirm: This action is irreversible. Are you sure?
     create: Create
     delete: Delete
+    delete_all: Delete All
     edit: Edit
     ignore: Ignore
     markers:

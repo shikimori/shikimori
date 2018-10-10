@@ -19,32 +19,32 @@ class ModerationsController < ShikimoriController
         .where('user_id != approver_id')
         .group(:approver_id)
         .select('approver_id, count(*) as count')
-        .where(approver_id:
-          User.where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
+        .where(
+          approver_id: User.where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
         )
         .where.not(approver_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
 
       @bans = Ban
-        .where("created_at > ?", 3.month.ago)
+        .where('created_at > ?', 3.month.ago)
         .where('user_id != moderator_id')
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
-        .where(moderator_id:
-          User.where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
+        .where(
+          moderator_id: User.where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
         )
         .where.not(moderator_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
 
       @versions = Version
-        .where("created_at > ?", 6.month.ago)
+        .where('created_at > ?', 6.month.ago)
         .where('user_id != moderator_id')
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
-        .where(moderator_id:
-          User.where("roles && '{#{Types::User::Roles[:version_moderator]}}'")
+        .where(
+          moderator_id: User.where("roles && '{#{Types::User::Roles[:version_moderator]}}'")
         )
         .where.not(moderator_id: User::MORR_ID)
         .sort_by(&:count)
@@ -66,6 +66,7 @@ class ModerationsController < ShikimoriController
     if params[:kind]
       breadcrumb i18n_t('missing_videos_title'), missing_videos_moderations_url
       og page_title: i18n_t("missing_videos.#{params[:kind]}")
+
       @collection = Rails.cache.fetch [:missing_videos, params[:kind], :v2], expires_in: 1.hour do
         Moderation::MissingVideosQuery.new(params[:kind]).animes
       end

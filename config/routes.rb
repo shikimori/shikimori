@@ -971,6 +971,11 @@ Rails.application.routes.draw do
           get :animes, format: /xml|json/
           get :mangas, format: /xml|json/
         end
+        resource :moderation, only: %i[] do
+          delete :comments
+          delete :topics
+          delete :reviews
+        end
       end
     end
 

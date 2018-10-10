@@ -9,6 +9,7 @@ class Ability
 
     if user
       merge Abilities::User.new(user)
+      merge Abilities::Admin.new(user) if user.admin?
 
       if user.super_moderator? || user.admin?
         merge Abilities::SuperModerator.new(user)
@@ -37,8 +38,6 @@ class Ability
       if user.version_moderator? || user.super_moderator? || user.admin?
         merge Abilities::VersionModerator.new(user)
       end
-
-      merge Abilities::Admin.new(user) if user.admin?
     end
 
     guest_allowances
