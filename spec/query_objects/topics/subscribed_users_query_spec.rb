@@ -9,7 +9,7 @@ describe Topics::SubscribedUsersQuery do
 
   context 'broadcast' do
     let(:topic) { build :topic, broadcast: true }
-    it { is_expected.to eq User.all }
+    it { is_expected.to eq User.where(locale_from_host: topic.locale).order(:id) }
   end
 
   context 'news topic' do

@@ -11,19 +11,19 @@ class Topics::SubscribedUsersQuery
       all_scope
 
     elsif anons?
-      users_scope Types::User::NotificationSettings[:any_anons], nil
+      subscribed_users_scope Types::User::NotificationSettings[:any_anons], nil
 
     elsif ongoing?
-      users_scope(
+      subscribed_users_scope(
         Types::User::NotificationSettings[:any_ongoing],
         Types::User::NotificationSettings[:my_ongoing]
       )
 
     elsif episode?
-      users_scope nil, Types::User::NotificationSettings[:my_episode]
+      subscribed_users_scope nil, Types::User::NotificationSettings[:my_episode]
 
     elsif released?
-      users_scope(
+      subscribed_users_scope(
         Types::User::NotificationSettings[:any_released],
         Types::User::NotificationSettings[:my_released]
       )
@@ -36,11 +36,11 @@ class Topics::SubscribedUsersQuery
 private
 
   def all_scope
-    User.all
+    users_scope.order(:id)
   end
 
   def none_scope
-    User.none
+    users_scope.none
   end
 
   def anons?
@@ -59,7 +59,11 @@ private
     @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Released]
   end
 
-  def users_scope any_key, my_key
+  def users_scope
+    User.where(locale_from_host: @topic.locale)
+  end
+
+  def subscribed_users_scope any_key, my_key
     if any_key && my_key
       any_scope(any_key).or(my_scope(my_key))
 
@@ -72,11 +76,11 @@ private
   end
 
   def any_scope key
-    User.where("notification_settings && '{#{key}}'").order(:id)
+    users_scope.where("notification_settings && '{#{key}}'").order(:id)
   end
 
   def my_scope key
-    scope = User
+    scope = users_scope
       .where("notification_settings && '{#{key}}'")
       .joins(:anime_rates)
       .where(
