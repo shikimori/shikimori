@@ -53,7 +53,9 @@ $menu_link_color: #e1e7f2
         float: left
         transition: backround-color 0.3s ease
 
-        &.calendar, &.info
+        &.calendar,
+        &.info,
+        &.moderation
           & > a
             margin-left: 0 !important
             line-height: 28px
@@ -70,6 +72,9 @@ $menu_link_color: #e1e7f2
 
         &.info > a
           +icon('i')
+
+        &.moderation > a
+          +icon('\e80a')
 
         & > a
           color: inherit

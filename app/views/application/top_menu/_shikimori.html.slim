@@ -169,6 +169,15 @@
           title='API'
         ] API
 
+  - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
+    .entry.moderation[
+      class=(:selected if params[:controller].match?(/^moderations/))
+    ]
+      a[
+        title=t('.moderation')
+        href=moderations_url
+      ]
+
 - else
   .entry.info
     a title=t('.info') href=info_pages_url
