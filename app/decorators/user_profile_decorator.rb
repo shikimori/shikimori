@@ -80,11 +80,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def friends
-    object
-      .friends
-      .decorate
-      .sort_by(&:last_online_at) # сортировка должна быть тут, а не в базе, т.к. метод last_online_at переопределён в классе # rubocop:disable LineLength
-      .reverse
+    object.friends.order(last_online_at: :desc)
   end
 
   def common_info
