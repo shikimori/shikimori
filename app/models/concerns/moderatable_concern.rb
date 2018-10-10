@@ -1,7 +1,7 @@
 module ModeratableConcern
   extend ActiveSupport::Concern
 
-  included do
+  included do # rubocop:disable BlockLength
     belongs_to :approver,
       class_name: User.name,
       foreign_key: :approver_id,
@@ -21,6 +21,7 @@ module ModeratableConcern
 
       event(:accept) { transition pending: :accepted }
       event(:reject) { transition pending: :rejected }
+      event(:cancel) { transition accepted: :pending }
 
       before_transition pending: :accepted do |review, transition|
         review.approver = transition.args.first
