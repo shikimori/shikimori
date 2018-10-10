@@ -16,38 +16,110 @@ describe Topics::SubscribedUsersQuery do
     let(:topic) { build :news_topic, action: action, linked: anime }
     let(:anime) { create :anime }
 
-    let(:user_1) { create :user, notification_settings: notification_settings }
-    let(:user_rate_1) { create :user_rate, user: user_1, target: anime }
+    let(:user) { create :user, notification_settings: notification_settings }
 
     context 'anons' do
       let(:action) { Types::Topic::NewsTopic::Action[AnimeHistoryAction::Anons] }
-      let(:notification_settings) { %i[any_anons] }
 
-      it { is_expected.to eq [user_1] }
+      context 'any_anons' do
+        let(:notification_settings) { %i[any_anons] }
+        it { is_expected.to eq [user] }
+      end
 
-      context 'no notification_settings' do
-        let(:notification_settings) { Types::User::NotificationSettings.values - %i[any_anons] }
+      context 'other notification_settings' do
+        let(:notification_settings) do
+          Types::User::NotificationSettings.values - %i[any_anons]
+        end
         it { is_expected.to eq [] }
       end
     end
 
     context 'ongoing' do
       let(:action) { Types::Topic::NewsTopic::Action[AnimeHistoryAction::Ongoing] }
-      # let(:notification_settings) { %i[any_anons] }
 
-      # context 'no user_rate' do
-      #   let(:user_rate_1) { nil }
-      #   it { is_expected.to eq [] }
-      # end
+      context 'any_ongoing' do
+        let(:notification_settings) { %i[any_ongoing] }
+        it { is_expected.to eq [user] }
+      end
 
+      context 'my_ongoing' do
+        let(:notification_settings) { %i[my_ongoing] }
+
+        context 'has user_rate' do
+          let!(:user_rate) { create :user_rate, user: user, target: anime }
+          it { is_expected.to eq [user] }
+        end
+
+        context 'no user_rate' do
+          let!(:user_rate_1) { create :user_rate, user: user, target: create(:anime) }
+          let!(:user_rate_2) { create :user_rate, user: seed(:user_day_registered), target: anime }
+          it { is_expected.to eq [] }
+        end
+      end
+
+      context 'other notification_settings' do
+        let(:notification_settings) do
+          Types::User::NotificationSettings.values - %i[any_ongoing my_ongoing]
+        end
+        it { is_expected.to eq [] }
+      end
     end
 
     context 'episode' do
       let(:action) { Types::Topic::NewsTopic::Action[AnimeHistoryAction::Episode] }
+
+      context 'my_episode' do
+        let(:notification_settings) { %i[my_episode] }
+
+        context 'has user_rate' do
+          let!(:user_rate) { create :user_rate, user: user, target: anime }
+          it { is_expected.to eq [user] }
+        end
+
+        context 'no user_rate' do
+          let!(:user_rate_1) { create :user_rate, user: user, target: create(:anime) }
+          let!(:user_rate_2) { create :user_rate, user: seed(:user_day_registered), target: anime }
+          it { is_expected.to eq [] }
+        end
+      end
+
+      context 'other notification_settings' do
+        let(:notification_settings) do
+          Types::User::NotificationSettings.values - %i[my_episode]
+        end
+        it { is_expected.to eq [] }
+      end
     end
 
     context 'released' do
       let(:action) { Types::Topic::NewsTopic::Action[AnimeHistoryAction::Released] }
+
+      context 'any_released' do
+        let(:notification_settings) { %i[any_released] }
+        it { is_expected.to eq [user] }
+      end
+
+      context 'my_released' do
+        let(:notification_settings) { %i[my_released] }
+
+        context 'has user_rate' do
+          let!(:user_rate) { create :user_rate, user: user, target: anime }
+          it { is_expected.to eq [user] }
+        end
+
+        context 'no user_rate' do
+          let!(:user_rate_1) { create :user_rate, user: user, target: create(:anime) }
+          let!(:user_rate_2) { create :user_rate, user: seed(:user_day_registered), target: anime }
+          it { is_expected.to eq [] }
+        end
+      end
+
+      context 'other notification_settings' do
+        let(:notification_settings) do
+          Types::User::NotificationSettings.values - %i[any_released my_released]
+        end
+        it { is_expected.to eq [] }
+      end
     end
   end
 end

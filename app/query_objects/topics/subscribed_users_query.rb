@@ -6,41 +6,87 @@ class Topics::SubscribedUsersQuery
       #{UserRate.table_name}.target_id = :target_id
   SQL
 
-  def call
+  def call # rubocop:disable MethodLength
     if @topic.broadcast?
-      User.all
+      all_scope
 
-    elsif @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Anons]
+    elsif anons?
       users_scope Types::User::NotificationSettings[:any_anons], nil
 
-    elsif @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Ongoing]
+    elsif ongoing?
       users_scope(
         Types::User::NotificationSettings[:any_ongoing],
         Types::User::NotificationSettings[:my_ongoing]
       )
 
-    elsif @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Episode]
+    elsif episode?
       users_scope nil, Types::User::NotificationSettings[:my_episode]
 
-    elsif @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Released]
+    elsif released?
       users_scope(
         Types::User::NotificationSettings[:any_released],
         Types::User::NotificationSettings[:my_released]
       )
 
     else
-      User.none
+      none_scope
     end
   end
 
 private
 
-  def users_scope any_key, my_key
-    User.where("notification_settings && '{#{any_key}}'")
+  def all_scope
+    User.all
+  end
 
-      # .joins(:user_rates)
-      # .wher(
-      #   USER_RATES_SQL,
-      #   target_type: @topic.target_type,
+  def none_scope
+    User.none
+  end
+
+  def anons?
+    @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Anons]
+  end
+
+  def ongoing?
+    @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Ongoing]
+  end
+
+  def episode?
+    @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Episode]
+  end
+
+  def released?
+    @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Released]
+  end
+
+  def users_scope any_key, my_key
+    if any_key && my_key
+      any_scope(any_key).or(my_scope(my_key))
+
+    elsif any_key
+      any_scope any_key
+
+    elsif my_key
+      my_scope my_key
+    end
+  end
+
+  def any_scope key
+    User.where("notification_settings && '{#{key}}'")
+  end
+
+  def my_scope key
+    scope = User
+      .where("notification_settings && '{#{key}}'")
+      .joins(:anime_rates)
+      .where(
+        USER_RATES_SQL,
+        target_type: @topic.linked_type,
+        target_id: @topic.linked_id
+      )
+      .group(:user_id)
+      .select(:user_id)
+
+    User.where(id: scope)
   end
 end
