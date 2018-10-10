@@ -54,7 +54,7 @@ private
   end
 
   def broadcast topic
-    Notifications::BroadcastTopic.perform_async topic
+    Notifications::BroadcastTopic.perform_async topic.id
   end
 
   def forum_id

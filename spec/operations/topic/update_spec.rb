@@ -41,7 +41,7 @@ describe Topic::Update do
         expect(topic).to be_valid
         expect(Notifications::BroadcastTopic)
           .to have_received(:perform_async)
-          .with topic
+          .with topic.id
       end
     end
   end

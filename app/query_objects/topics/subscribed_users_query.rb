@@ -72,7 +72,7 @@ private
   end
 
   def any_scope key
-    User.where("notification_settings && '{#{key}}'")
+    User.where("notification_settings && '{#{key}}'").order(:id)
   end
 
   def my_scope key
@@ -87,6 +87,6 @@ private
       .group(:user_id)
       .select(:user_id)
 
-    User.where(id: scope)
+    User.where(id: scope).order(:id)
   end
 end

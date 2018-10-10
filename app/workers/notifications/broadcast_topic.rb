@@ -9,22 +9,37 @@ class Notifications::BroadcastTopic
 
   NEWS_EXPIRE_IN = 1.week
 
-  def perform topic
-    return topic.update_column :processed, true if ignored?(topic) || expired?(topic)
+  def perform topic_id
+    topic = Topic.find_by id: topic_id
+    return [] if !topic || topic.processed?
+
+    if skip? topic
+      topic.update_column :processed, true
+      return []
+    end
 
     messages = build_messages topic
 
     ApplicationRecord.transaction do
+      binding.pry
       topic.update_column :processed, true
       messages.each_slice(5000) { |slice| Message.import slice, validate: false }
     end
+
+    messages
   end
 
 private
 
-  def ignored? topic
-    topic.is_a?(Topics::NewsTopic) &&
-      (!topic.linked || topic.linked.censored? || topic.linked.kind_music?)
+  def skip? topic
+    return true if expired? topic
+
+    !(
+      topic.broadcast? || (
+        topic.is_a?(Topics::NewsTopic) &&
+          topic.linked && !topic.linked.censored? && !topic.linked.kind_music?
+      )
+    )
   end
 
   def expired? topic
@@ -53,10 +68,10 @@ private
   end
 
   def message_type topic
-    if topic.class == Topics::NewsTopic && topic.broadcast
+    if topic.broadcast?
       MessageType::SiteNews
     else
-      topic.action || raise("unknown message_type for topic #{topic.id}")
+      topic.action || raise(ArgumentError, topic.action || topic.action.to_json)
     end
   end
 end

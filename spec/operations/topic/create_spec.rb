@@ -49,7 +49,7 @@ describe Topic::Create do
         is_expected.to be_persisted
         expect(Notifications::BroadcastTopic)
           .to have_received(:perform_async)
-          .with topic
+          .with topic.id
       end
     end
   end
