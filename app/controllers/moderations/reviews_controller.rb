@@ -1,7 +1,5 @@
-# TODO: migrate to cancancan
 class Moderations::ReviewsController < ModerationsController
-  before_action :authenticate_user!
-  before_action :check_permissions
+  load_and_authorize_resource
 
   PENDING_PER_PAGE = 15
   PROCESSED_PER_PAGE = 25
@@ -19,26 +17,21 @@ class Moderations::ReviewsController < ModerationsController
   end
 
   def accept
-    @review = Review.find params[:id].to_i
-    @review.accept! current_user if @review.can_accept?
-
+    @resource.accept current_user
     redirect_back fallback_location: moderations_reviews_url
   end
 
   def reject
-    @review = Review.find params[:id].to_i
-    @review.reject! current_user if @review.can_reject?
+    @resource.reject current_user
+    redirect_back fallback_location: moderations_reviews_url
+  end
 
+  def cancel
+    @resource.cancel current_user
     redirect_back fallback_location: moderations_reviews_url
   end
 
 private
-
-  def check_permissions
-    unless current_user.review_moderator? || current_user.admin?
-      raise Forbidden
-    end
-  end
 
   def processed_scope
     Review

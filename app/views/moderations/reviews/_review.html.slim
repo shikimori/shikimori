@@ -1,14 +1,21 @@
 .b-log_entry
-  - if review.pending?
+  - if can? :manage, Review
     .moderation
-      a.accept[
-        href=accept_moderations_review_path(review)
-        data-method='post'
-      ] = t '.accept'
-      a.reject[
-        href=reject_moderations_review_path(review)
-        data-method='post'
-      ] = t '.move_to_offtopic'
+      - if review.can_accept?
+        a.accept[
+          href=accept_moderations_review_path(review)
+          data-method='post'
+        ] = t '.accept'
+      - if review.can_reject?
+        a.reject[
+          href=reject_moderations_review_path(review)
+          data-method='post'
+        ] = t '.move_to_offtopic'
+      - if review.can_cancel?
+        a.cancel[
+          href=cancel_moderations_review_path(review)
+          data-method='post'
+        ] = t('actions.cancel').downcase
 
   span
     a[
