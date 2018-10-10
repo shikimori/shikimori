@@ -10,13 +10,26 @@ shared_examples :moderatable_concern do |type|
       # it { is_expected.to reject_events :accept, :reject, when: :rejected }
 
       describe '#accept' do
-        subject! { model.accept user }
-        it { expect(model.approver).to eq user }
+        subject! { model.accept! user }
+        it do
+          expect(model).to be_accepted
+          expect(model.approver).to eq user
+        end
       end
 
       describe '#reject' do
-        subject! { model.reject user }
-        it { expect(model.approver).to eq user }
+        subject! { model.reject! user }
+        it do
+          expect(model).to be_rejected
+          expect(model.approver).to eq user
+        end
+      end
+
+      describe '#cancel' do
+        before { model.accept! user }
+        subject! { model.cancel! }
+
+        it { expect(model).to be_pending }
       end
     end
 
