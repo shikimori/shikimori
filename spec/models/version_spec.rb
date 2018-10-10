@@ -206,9 +206,10 @@ describe Version do
         let(:version) do
           build_stubbed :version,
             user_id: User::GUEST_ID,
-            item_diff: item_diff
+            item_diff: {
+              russian: ['a', 'b']
+            }
         end
-        let(:item_diff) { { russian: ['a', 'b'] } }
 
         it { is_expected.to be_able_to :show, version }
         it { is_expected.to be_able_to :tooltip, version }
@@ -227,7 +228,7 @@ describe Version do
     end
 
     context 'user' do
-      let(:user) { build_stubbed :user, :user }
+      let(:user) { build_stubbed :user, :week_registered }
 
       describe 'own version' do
         let(:version) { build_stubbed :version, user: user, item_diff: item_diff }
@@ -246,6 +247,12 @@ describe Version do
 
           context 'not_trusted_version_changer user' do
             let(:user) { build_stubbed :user, :not_trusted_version_changer }
+            it { is_expected.to_not be_able_to :create, version }
+            it { is_expected.to_not be_able_to :destroy, version }
+          end
+
+          context 'not week_registered user' do
+            let(:user) { build_stubbed :user }
             it { is_expected.to_not be_able_to :create, version }
             it { is_expected.to_not be_able_to :destroy, version }
           end
@@ -299,7 +306,7 @@ describe Version do
     end
 
     context 'trusted_version_changer' do
-      let(:user) { build_stubbed :user, :trusted_version_changer }
+      let(:user) { build_stubbed :user, :trusted_version_changer, :week_registered }
 
       describe 'own version' do
         let(:version) do
@@ -317,7 +324,7 @@ describe Version do
     end
 
     context 'trusted_ranobe_external_links_changer' do
-      let(:user) { build_stubbed :user, :trusted_ranobe_external_links_changer }
+      let(:user) { build_stubbed :user, :trusted_ranobe_external_links_changer, :week_registered }
       let(:version) do
         build_stubbed :collection_version,
           item: item,

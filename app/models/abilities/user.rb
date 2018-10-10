@@ -34,7 +34,7 @@ class Abilities::User
     user_abilities
     user_rate_abilities
     anime_video_abilities
-    version_abilities
+    version_abilities if @user.week_registered?
     style_abilities
     list_import_abilities
   end
