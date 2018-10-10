@@ -33,6 +33,11 @@ class FayeService
   def destroy trackable
     if trackable.is_a? Message
       trackable.delete_by @actor
+
+    elsif trackable.is_a? Review
+      publisher.publish trackable.topic, :deleted
+      trackable.destroy
+
     else
       publisher.publish trackable, :deleted
       trackable.destroy
