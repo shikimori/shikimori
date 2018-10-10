@@ -1,5 +1,5 @@
 class JsExports::TopicsExport < JsExports::ExportBase
-  VOTEABLE_TYPES = [
+  SPECIAL_TYPES = [
     Review.name,
     CosplayGallery.name,
     Collection.name
@@ -17,9 +17,10 @@ private
 
   def serialize topic, user
     ability = Ability.new user
+
     {
-      can_destroy: ability.can?(:destroy, topic),
-      can_edit: ability.can?(:edit, topic),
+      can_destroy: can_destroy?(ability, topic),
+      can_edit: can_edit?(ability, topic),
       id: topic.id,
       is_viewed: topic.viewed?,
       user_id: topic.user_id
@@ -27,7 +28,7 @@ private
   end
 
   def vote_status topic, user
-    if VOTEABLE_TYPES.include? topic.linked_type
+    if special? topic
       {
         voted_yes: user.liked?(topic.linked),
         voted_no: user.disliked?(topic.linked),
@@ -37,5 +38,25 @@ private
     else
       {}
     end
+  end
+
+  def can_edit? ability, topic
+    if special? topic
+      ability.can? :edit, topic.linked
+    else
+      ability.can? :edit, topic
+    end
+  end
+
+  def can_destroy? ability, topic
+    if special? topic
+      ability.can? :destroy, topic.linked
+    else
+      ability.can? :destroy, topic
+    end
+  end
+
+  def special? topic
+    SPECIAL_TYPES.include? topic.linked_type
   end
 end

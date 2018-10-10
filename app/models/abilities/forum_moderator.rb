@@ -10,7 +10,6 @@ class Abilities::ForumModerator
       !topic.generated? ||
         Abilities::User::GENERATED_USER_TOPICS.include?(topic.type)
     end
-    can :manage, Review
     can %i[edit update], Genre
 
     can :manage, Ban

@@ -107,11 +107,6 @@ describe Review do
       it { is_expected.to be_able_to :manage, review }
     end
 
-    context 'forum_moderator' do
-      let(:user) { build_stubbed :user, :forum_moderator }
-      it { is_expected.to be_able_to :manage, review }
-    end
-
     context 'user' do
       it { is_expected.to be_able_to :read, review }
       it { is_expected.to_not be_able_to :new, review }
