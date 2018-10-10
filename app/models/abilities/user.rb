@@ -146,7 +146,7 @@ class Abilities::User
   end
 
   def review_abilities
-    can :manage, Review do |review|
+    can %i[new create edit update destroy], Review do |review|
       review.user_id == @user.id
     end
   end
