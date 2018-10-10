@@ -17,34 +17,79 @@ describe Collection do
   end
 
   describe 'permissions' do
-    let(:collection) { build_stubbed :collection, user: user }
+    let(:collection) { build_stubbed :collection }
+    let(:user) { build_stubbed :user, :user, :week_registered }
     subject { Ability.new user }
-    let(:registration_trait) { :week_registered }
 
-    context 'owner' do
-      context 'week_registered' do
-        let(:user) { build_stubbed :user, :user, :week_registered }
-        it { is_expected.to be_able_to :manage, collection }
+    context 'collection owner' do
+      let(:collection) { build_stubbed :collection, user: user }
+
+      context 'not banned' do
+        it { is_expected.to be_able_to :read, collection }
+        it { is_expected.to be_able_to :new, collection }
+        it { is_expected.to be_able_to :create, collection }
+        it { is_expected.to be_able_to :edit, collection }
+        it { is_expected.to be_able_to :update, collection }
+        it { is_expected.to be_able_to :destroy, collection }
+        it { is_expected.to_not be_able_to :manage, collection }
       end
 
-      context 'day_registered' do
+      context 'newly registered' do
+        let(:user) { build_stubbed :user, :user }
+
+        it { is_expected.to be_able_to :read, collection }
+        it { is_expected.to_not be_able_to :new, collection }
+        it { is_expected.to_not be_able_to :create, collection }
+        it { is_expected.to_not be_able_to :edit, collection }
+        it { is_expected.to_not be_able_to :update, collection }
+        it { is_expected.to_not be_able_to :destroy, collection }
+        it { is_expected.to_not be_able_to :manage, collection }
+      end
+
+      context 'day registered' do
         let(:user) { build_stubbed :user, :user, :day_registered }
+
+        it { is_expected.to be_able_to :read, collection }
+        it { is_expected.to_not be_able_to :new, collection }
+        it { is_expected.to_not be_able_to :create, collection }
+        it { is_expected.to_not be_able_to :edit, collection }
+        it { is_expected.to_not be_able_to :update, collection }
+        it { is_expected.to_not be_able_to :destroy, collection }
+        it { is_expected.to_not be_able_to :manage, collection }
+      end
+
+      context 'banned' do
+        let(:user) { build_stubbed :user, :banned }
+
+        it { is_expected.to be_able_to :read, collection }
+        it { is_expected.to_not be_able_to :new, collection }
+        it { is_expected.to_not be_able_to :create, collection }
+        it { is_expected.to_not be_able_to :edit, collection }
+        it { is_expected.to_not be_able_to :update, collection }
+        it { is_expected.to_not be_able_to :destroy, collection }
         it { is_expected.to_not be_able_to :manage, collection }
       end
     end
 
-    context 'guest' do
-      let(:user) { nil }
-      it { is_expected.to_not be_able_to :manage, collection }
-      it { is_expected.to be_able_to :read, collection }
+    context 'collection_moderator' do
+      let(:user) { build_stubbed :user, :collection_moderator }
+      it { is_expected.to be_able_to :manage, collection }
     end
 
     context 'user' do
-      let(:user) { build_stubbed :user, :week_registered }
-      let(:user_2) { build_stubbed :user, :week_registered }
-      let(:collection) { build_stubbed :collection, user: user_2 }
-      it { is_expected.to_not be_able_to :manage, collection }
       it { is_expected.to be_able_to :read, collection }
+      it { is_expected.to_not be_able_to :new, collection }
+      it { is_expected.to_not be_able_to :edit, collection }
+      it { is_expected.to_not be_able_to :destroy, collection }
+    end
+
+    context 'guest' do
+      let(:user) { nil }
+
+      it { is_expected.to be_able_to :read, collection }
+      it { is_expected.to_not be_able_to :new, collection }
+      it { is_expected.to_not be_able_to :edit, collection }
+      it { is_expected.to_not be_able_to :destroy, collection }
     end
   end
 
