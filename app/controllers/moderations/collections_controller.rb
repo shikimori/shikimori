@@ -1,7 +1,5 @@
-# TODO: migrate to cancancan
 class Moderations::CollectionsController < ModerationsController
-  before_action :authenticate_user!
-  before_action :check_permissions
+  load_and_authorize_resource
 
   PENDING_PER_PAGE = 15
   PROCESSED_PER_PAGE = 25
@@ -19,24 +17,21 @@ class Moderations::CollectionsController < ModerationsController
   end
 
   def accept
-    @collection = Collection.find params[:id].to_i
-    @collection.accept! current_user if @collection.can_accept?
-
+    @resource.accept current_user
     redirect_back fallback_location: moderations_collections_url
   end
 
   def reject
-    @collection = Collection.find params[:id].to_i
-    @collection.reject! current_user if @collection.can_reject?
+    @resource.reject current_user
+    redirect_back fallback_location: moderations_collections_url
+  end
 
+  def cancel
+    @resource.cancel
     redirect_back fallback_location: moderations_collections_url
   end
 
 private
-
-  def check_permissions
-    raise Forbidden unless current_user.collection_moderator? || current_user.admin?
-  end
 
   def processed_scope
     Collection

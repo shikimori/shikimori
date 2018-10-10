@@ -1,16 +1,23 @@
 .b-log_entry[
   id=collection.id
 ]
-  - if collection.pending?
+  - if can? :manage, Collection
     .moderation
-      a.accept[
-        href=accept_moderations_collection_path(collection)
-        data-method='post'
-      ] = t '.accept'
-      a.reject[
-        href=reject_moderations_collection_path(collection)
-        data-method='post'
-      ] = t '.move_to_offtopic'
+      - if collection.can_accept?
+        a.accept[
+          href=accept_moderations_collection_path(collection)
+          data-method='post'
+        ] = t '.accept'
+      - if collection.can_reject?
+        a.reject[
+          href=reject_moderations_collection_path(collection)
+          data-method='post'
+        ] = t '.move_to_offtopic'
+      - if collection.can_cancel?
+        a.cancel[
+          href=cancel_moderations_collection_path(collection)
+          data-method='post'
+        ] = t('actions.cancel').downcase
 
   span
     a[
@@ -22,9 +29,10 @@
   span.date
     = collection.created_at.strftime '%d.%m.%Y'
 
-  = render 'users/user_16', user: collection.user
+  span
+    = render 'users/user_16', user: collection.user
 
-  span.column
+  span
     = collection.name
 
   span

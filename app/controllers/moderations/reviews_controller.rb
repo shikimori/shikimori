@@ -27,7 +27,7 @@ class Moderations::ReviewsController < ModerationsController
   end
 
   def cancel
-    @resource.cancel current_user
+    @resource.cancel
     redirect_back fallback_location: moderations_reviews_url
   end
 

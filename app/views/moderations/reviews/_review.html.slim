@@ -23,16 +23,17 @@
     ]
       span.id-label #
       = review.id
+
   span.date
     = review.created_at.strftime '%d.%m.%Y'
 
   span
     = render 'users/user_16', user: review.user
 
-  span.column
+  span
     = review.target_type
 
-  span.id
+  span
     - if review.target
       a.bubbled[
         href=url_for(review.target)

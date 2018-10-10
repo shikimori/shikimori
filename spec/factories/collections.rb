@@ -14,6 +14,10 @@ FactoryBot.define do
       stub_method model, :check_antispam
     end
 
+    trait(:pending) { moderation_state { :pending } }
+    trait(:accepted) { moderation_state { :accepted } }
+    trait(:rejected) { moderation_state { :rejected } }
+
     trait :with_topics do
       after(:create) { |model| model.generate_topics model.locale }
     end
