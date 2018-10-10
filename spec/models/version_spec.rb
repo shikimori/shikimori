@@ -210,17 +210,9 @@ describe Version do
         end
         let(:item_diff) { { russian: ['a', 'b'] } }
 
-        describe 'common change' do
-          it { is_expected.to be_able_to :create, version }
-        end
-
-        describe 'significant change' do
-          let(:item_diff) { { name: ['a', 'b'] } }
-          it { is_expected.to_not be_able_to :create, version }
-        end
-
         it { is_expected.to be_able_to :show, version }
         it { is_expected.to be_able_to :tooltip, version }
+        it { is_expected.to_not be_able_to :create, version }
         it { is_expected.to_not be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }
       end
