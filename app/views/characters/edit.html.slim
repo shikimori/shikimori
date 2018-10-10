@@ -8,22 +8,28 @@
           .field = Character.human_attribute_name :name
           .value = @resource.name
           - if can? :major_change, Version
-            a.b-js-action href=@resource.edit_field_url(:name)
-              = t '.moderators_only'
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:name)
+              data-dynamic="week_registered"
+            ] = t '.moderators_only'
           - else
             .b-js-action = t '.moderators_only'
 
         li
           .field = Character.human_attribute_name :russian
           .value = @resource.russian
-          a.b-js-action href=@resource.edit_field_url(:russian)
-            = t 'actions.edit'
+          a.b-js-action.to-process[
+            href=@resource.edit_field_url(:russian)
+            data-dynamic="week_registered"
+          ] = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :japanese
           .value = @resource.japanese
-          a.b-js-action href=@resource.edit_field_url(:japanese)
-            = t 'actions.edit'
+          a.b-js-action.to-process[
+            href=@resource.edit_field_url(:japanese)
+            data-dynamic="week_registered"
+          ] = t 'actions.edit'
 
     .c-column.m0
       ul.b-list
@@ -31,36 +37,46 @@
           .field = @resource.class.human_attribute_name :image
           - if @resource.image.exists?
             - if can? :major_change, Version
-              a.b-js-action href=@resource.edit_field_url(:image)
-                = t '.moderators_only'
+              a.b-js-action.to-process[
+                href=@resource.edit_field_url(:image)
+                data-dynamic="week_registered"
+              ] = t '.moderators_only'
             - else
               .b-js-action = t '.moderators_only'
 
           - else
-            a.b-js-action href=@resource.edit_field_url(:image)
-              = t 'actions.edit'
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:image)
+              data-dynamic="week_registered"
+            ] = t 'actions.edit'
 
         - if ru_host?
           li
             .field = Character.human_attribute_name :description_ru
-            a.b-js-action href=@resource.edit_field_url(:description_ru)
-              = t 'actions.edit'
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:description_ru)
+              data-dynamic="week_registered"
+            ] = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :description_en
-          a.b-js-action href=@resource.edit_field_url(:description_en)
-            = t 'actions.edit'
+          a.b-js-action.to-process[
+            href=@resource.edit_field_url(:description_en)
+            data-dynamic="week_registered"
+          ] = t 'actions.edit'
 
-        li
-          .field = Character.human_attribute_name :cosplay
-          .value.under_development = t('under_development').downcase
+        / li
+          / .field = Character.human_attribute_name :cosplay
+          / .value.under_development = t('under_development').downcase
           /a.b-js-action href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :tags
           .value = @resource.tags
-          a.b-js-action href=@resource.edit_field_url(:tags)
-            = t 'actions.edit'
+          a.b-js-action.to-process[
+            href=@resource.edit_field_url(:tags)
+            data-dynamic="week_registered"
+          ] = t 'actions.edit'
 
   - if @resource.desynced.any?
     .block
