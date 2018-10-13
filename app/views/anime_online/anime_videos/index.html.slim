@@ -26,6 +26,7 @@
                 .video-variant-switcher[
                   data-kind=videos.first.kind
                 ] = kind_text
+
               - if @player.all_kind?
                 .video-variant-switcher data-kind="all" все
 
@@ -39,7 +40,7 @@
                     as: :video,
                     locals: { is_special: false }
 
-              - if @player.videos.any?
+              - if @player.all_kind?
                 .video-variant-group data-kind="all"
                   = render partial: 'anime_online/anime_videos/video_variant',
                     collection: @player.videos.uniq(&:uniq_criteria).sort_by(&:sort_criteria),

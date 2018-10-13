@@ -5,14 +5,14 @@ class AnimeOnline::VideoPlayer
   vattr_initialize :anime
   instance_cache :nav, :current_episode, :current_video, :videos,
     :anime_video_episodes, :episode_topic_view, :same_videos,
-    :cache_key, :episode_videos_cache_key, :episode_cache_key
+    :cache_key, :episode_videos_cache_key, :episode_cache_key, :all_kind?
 
   PREFERENCES_KIND = 'anime_video_kind'
   PREFERENCES_LANGUAGE = 'anime_video_language'
   PREFERENCES_HOSTING = 'anime_video_hosting'
   PREFERENCES_AUTHOR = 'anime_video_author'
 
-  CACHE_VERSION = :v3
+  CACHE_VERSION = :v4
 
   def nav
     AnimeOnline::VideoPlayerNavigation.new self
@@ -55,13 +55,17 @@ class AnimeOnline::VideoPlayer
       .select(&:allowed?)
       .uniq(&:uniq_criteria)
       .sort_by(&:sort_criteria)
-      .group_by { |anime_video| anime_video.kind_text }
+      .group_by(&:kind_text)
   end
 
   def all_kind?
-    videos_by_kind.many? ||
-      videos.group_by { |anime_video| anime_video.kind_text }.many? ||
+    (
+      h.current_user&.trusted_video_uploader? || h.can?(:edit, current_video)
+    ) && (
+      videos_by_kind.many? ||
+      videos.group_by(&:kind_text).many? ||
       videos.any? { |anime_video| !anime_video.allowed? }
+    )
   end
 
   def anime_video_episodes
@@ -78,7 +82,7 @@ class AnimeOnline::VideoPlayer
     end
   end
 
-  def episode_url episode = self.current_episode
+  def episode_url episode = current_episode
     h.play_video_online_index_url @anime, episode
   end
 
@@ -115,7 +119,7 @@ class AnimeOnline::VideoPlayer
 
   def episode_title
     if current_episode.zero?
-      "Прочее"
+      'Прочее'
     else
       "Эпизод #{current_episode}"
     end
@@ -125,7 +129,6 @@ class AnimeOnline::VideoPlayer
     return [] unless current_video
     filtered_videos = videos
       .group_by(&:uniq_criteria)[current_video.uniq_criteria] || []
-
 
     if current_video.allowed?
       filtered_videos.select(&:allowed?)
@@ -175,7 +178,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def remember_video_preferences
-    if current_video && current_video.persisted? && current_video.valid?
+    if current_video&.persisted? && current_video&.valid?
       h.cookies[PREFERENCES_KIND] = current_video.kind
       h.cookies[PREFERENCES_LANGUAGE] = current_video.language
       h.cookies[PREFERENCES_HOSTING] = current_video.hosting
@@ -211,7 +214,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def videos_cache_key
-    cache_key + [current_episode, :videos]
+    cache_key + [current_episode, :videos, all_kind?]
   end
 
   def episode_videos_cache_key
@@ -222,7 +225,8 @@ class AnimeOnline::VideoPlayer
       @anime.anime_videos.where(episode: current_episode).cache_key,
       :episode_videos,
       current_episode,
-      CACHE_VERSION
+      CACHE_VERSION,
+      all_kind?
     ]
   end
 
