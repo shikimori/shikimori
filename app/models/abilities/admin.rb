@@ -20,6 +20,5 @@ class Abilities::Admin
     can :manage, Style
     can :manage, Version
     can :manage, Forum
-    can :destroy, AnimeVideo
   end
 end

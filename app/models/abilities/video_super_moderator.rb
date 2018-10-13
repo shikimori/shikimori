@@ -11,5 +11,7 @@ class Abilities::VideoSuperModerator
       manage_not_trusted_video_uploader_role
       manage_trusted_video_changer_role
     ], User
+
+    can :destroy, AnimeVideo
   end
 end
