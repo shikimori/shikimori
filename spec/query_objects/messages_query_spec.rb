@@ -1,5 +1,4 @@
 describe MessagesQuery do
-  before { Message.antispam = false }
   let(:query) { MessagesQuery.new user, messages_type }
 
   let(:user) { build_stubbed :user }
