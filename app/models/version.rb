@@ -1,13 +1,13 @@
 class Version < ApplicationRecord
   include AntispamConcern
 
-  MAXIMUM_REASON_SIZE = 255
-
   antispam(
-    per_day: 10,
-    disable_if: -> { user.version_moderator? || user.trusted_version_changer },
+    per_day: 50,
+    disable_if: -> { user.version_moderator? || user.trusted_version_changer? },
     user_id_key: :user_id
   )
+
+  MAXIMUM_REASON_SIZE = 255
 
   belongs_to :user
   belongs_to :moderator, class_name: User.name, optional: true
