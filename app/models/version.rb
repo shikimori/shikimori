@@ -5,6 +5,7 @@ class Version < ApplicationRecord
 
   antispam(
     per_day: 50,
+    disable_if: -> { user.version_moderator? || user.trusted_version_changer },
     user_id_key: :user_id
   )
 
