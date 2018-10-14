@@ -106,5 +106,6 @@ describe Collection do
   end
 
   it_behaves_like :topics_concern, :collection
-  it_behaves_like :moderatable_concern, :review
+  it_behaves_like :moderatable_concern, :collection
+  it_behaves_like :antispam_concern, :collection
 end

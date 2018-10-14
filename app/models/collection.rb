@@ -3,6 +3,11 @@ class Collection < ApplicationRecord
   include TopicsConcern
   include ModeratableConcern
 
+  antispam(
+    interval: 15.minutes,
+    user_id_key: :user_id
+  )
+
   acts_as_votable cacheable_strategy: :update_columns
   update_index('collections#collection') { self if saved_change_to_name? }
 
