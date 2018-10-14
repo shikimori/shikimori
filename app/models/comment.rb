@@ -7,7 +7,7 @@ class Comment < ApplicationRecord
 
   antispam(
     interval: 3.seconds,
-    disable_if: -> { user.admin? && user.bot? },
+    disable_if: -> { (user.admin? && Rails.env.development?) || user.bot? },
     user_id_key: :user_id
   )
 
