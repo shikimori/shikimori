@@ -1,8 +1,6 @@
 describe TopicsController do
   let(:anime) { create :anime }
-  let!(:topic) { create :topic, forum: animanga_forum, user: user }
-
-  before { Topic.antispam = false }
+  let!(:topic) { create :topic, forum: animanga_forum, user: user, created_at: 1.hour.ago }
 
   describe '#index' do
     let!(:anime_topic_1) { create :topic, forum: animanga_forum, linked: anime }
