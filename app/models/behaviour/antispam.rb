@@ -4,6 +4,10 @@ module Antispam
 
   included do
     @antispam_options = []
+
+    def self.inherited subclass
+      subclass.instance_variable_set '@antispam_options', @antispam_options.clone
+    end
   end
 
   module ClassMethods
