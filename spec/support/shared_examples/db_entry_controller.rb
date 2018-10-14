@@ -41,7 +41,7 @@ shared_examples :db_entry_controller do |entry_name|
     end
 
     context 'user' do
-      include_context :authenticated, :user
+      include_context :authenticated, :user, :week_registered
 
       describe 'russian' do
         let(:field) { 'russian' }
@@ -82,7 +82,7 @@ shared_examples :db_entry_controller do |entry_name|
     let(:role) { :user }
 
     describe 'common user' do
-      include_context :authenticated, :user
+      include_context :authenticated, :user, :week_registered
 
       context 'common change' do
         before { make_request }
