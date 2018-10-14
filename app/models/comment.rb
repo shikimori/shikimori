@@ -1,9 +1,15 @@
 # комментарии должны создаваться, обновляться и удаляться через CommentsService
 # TODO: refactor fat model
 class Comment < ApplicationRecord
+  include AntispamConcern
   include Moderatable
-  include Antispam
   include Viewable
+
+  antispam(
+    interval: 3.seconds,
+    disable_if: -> { (user.admin? && Rails.env.development?) || user.bot? },
+    user_id_key: :user_id
+  )
 
   MIN_SUMMARY_SIZE = 230
 
@@ -196,11 +202,10 @@ class Comment < ApplicationRecord
 
     comments.each do |comment|
       search_ids.clone.each do |id|
-        if comment.body.include?("[comment=#{id}]") ||
+        next unless comment.body.include?("[comment=#{id}]") ||
             comment.body.include?("[quote=#{id};") ||
             comment.body.include?("[quote=c#{id};")
-          search_ids << comment.id
-        end
+        search_ids << comment.id
       end
     end
 

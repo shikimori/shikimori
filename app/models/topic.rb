@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
 class Topic < ApplicationRecord
-  include Antispam
+  include AntispamConcern
   include Commentable
   include Moderatable
   include Viewable
+
+  antispam(
+    interval: 1.minute,
+    disable_if: -> { user.admin? && Rails.env.development? },
+    user_id_key: :user_id
+  )
 
   update_index('topics#topic') do
     self if saved_change_to_title? || saved_change_to_forum_id?

@@ -439,4 +439,6 @@ describe Comment do
       end
     end
   end
+
+  it_behaves_like :antispam_concern, :comment
 end

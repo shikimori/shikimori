@@ -13,7 +13,7 @@ FactoryBot.define do
     locale { :ru }
 
     after :build do |model|
-      stub_method model, :check_antispam
+      stub_method model, :antispam_checks
     end
 
     trait(:pending) { moderation_state { :pending } }
@@ -24,6 +24,9 @@ FactoryBot.define do
       # trait(review_state.to_sym) { moderation_state review_state }
     # end
 
+    trait :with_antispam do
+      after(:build) { |model| unstub_method model, :antispam_checks }
+    end
     trait :with_topics do
       after(:create) { |review| review.generate_topics review.locale }
     end

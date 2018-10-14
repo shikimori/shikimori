@@ -9,10 +9,13 @@ FactoryBot.define do
     locale { 'ru' }
 
     after :build do |model|
-      stub_method model, :check_antispam
+      stub_method model, :antispam_checks
       stub_method model, :create_viewing
     end
 
+    trait :with_antispam do
+      after(:build) { |model| unstub_method model, :antispam_checks }
+    end
     trait :with_create_viewing do
       after(:build) { |model| unstub_method model, :create_viewing }
     end

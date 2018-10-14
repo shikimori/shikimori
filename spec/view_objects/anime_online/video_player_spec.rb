@@ -89,6 +89,11 @@ describe AnimeOnline::VideoPlayer do
   end
 
   describe '#all_kind?' do
+    before do
+      allow(player.h).to receive(:current_user).and_return user
+      allow(player.h).to receive(:can?).and_return true
+    end
+
     subject { player.all_kind? }
 
     context 'no videos' do

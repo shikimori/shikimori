@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
 class Review < ApplicationRecord
-  include Antispam
+  include AntispamConcern
   include Moderatable
   include TopicsConcern
   include ModeratableConcern
+
+  antispam(
+    interval: 15.minutes,
+    per_day: 3,
+    user_id_key: :user_id
+  )
 
   acts_as_votable cacheable_strategy: :update_columns
 

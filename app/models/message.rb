@@ -1,11 +1,17 @@
 # TODO: refactor kind = MessageType::... into enumerize kind or into enum kind
 class Message < ApplicationRecord
+  include AntispamConcern
   include Translation
-  include Antispam
 
   belongs_to :from, class_name: User.name
   belongs_to :to, class_name: User.name
   belongs_to :linked, polymorphic: true, optional: true
+
+  antispam(
+    interval: 3.seconds,
+    disable_if: -> { kind != MessageType::Private || from.bot? },
+    user_id_key: :from_id
+  )
 
   # отменяю проверку, т.к. могут быть уведомления по AnimeHistory
   # validates_presence_of :body
@@ -19,31 +25,6 @@ class Message < ApplicationRecord
     if: -> { kind == MessageType::Private && !from.bot? }
   after_create :send_email
   after_create :send_push_notifications
-
-  def check_antispam
-    return unless with_antispam?
-    return unless id.nil?
-    return if from.bot? || from.admin?
-    return if kind == MessageType::Notification
-    return if kind == MessageType::ClubRequest
-
-    prior_comment = Message
-      .includes(:from, :to)
-      .where(from_id: from_id)
-      .order(id: :desc)
-      .first
-
-    if prior_comment && prior_comment.created_at > 15.seconds.ago
-      interval = 15 - (Time.zone.now.to_i - prior_comment.created_at.to_i)
-      seconds = i18n_i('datetime.second', interval, :accusative)
-
-      errors.add(
-        :created_at,
-        i18n_t('antispam', interval: interval, seconds: seconds)
-      )
-      throw :abort
-    end
-  end
 
   def new? params
     %w[

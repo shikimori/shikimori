@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
 class Club < ApplicationRecord
+  include AntispamConcern
   include TopicsConcern
   include StylesConcern
+
+  antispam(
+    interval: 15.minutes,
+    per_day: 2,
+    user_id_key: :owner_id
+  )
 
   update_index('clubs#club') { self if saved_change_to_name? }
   after_create :add_to_index # update_index does not wotrk because of second save in StylesConcern
