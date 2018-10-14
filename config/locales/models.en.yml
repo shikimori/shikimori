@@ -143,9 +143,9 @@ en:
   message:
     antispam:
       interval: >-
-        Anti-spam protection. Try again in %{interval} %{seconds}
+        Anti-spam protection. Try again in %{interval} %{seconds}.
       per_day:
-        Anti-spam protection. Try again tomorrow
+        Anti-spam protection. Try again tomorrow.
 
   list_import:
     name: 'List Import #%{id}'
