@@ -3,46 +3,58 @@ module Antispam
   extend ActiveSupport::Concern
 
   included do
-    before_create :antispam
-    @antispam = true
+    @antispam_options = []
   end
 
-  ANTISPAM_INTERVAL = 3.seconds
-
   module ClassMethods
-    attr_accessor :antispam
+    # antispam(
+    #   interval: 1.second,
+    #   disable_if: -> { user.bot? },
+    #   user_id_key: :user_id
+    # )
+    def antispam options
+      @antispam_enabled = true
+      @antispam_options << options
+
+      if @antispam_options.one?
+        before_create :antispam_checks
+      end
+    end
 
     def wo_antispam
-      @antispam = false
+      @antispam_enabled = false
       val = yield
-      @antispam = true
+      @antispam_enabled = true
       val
     end
 
     def create_wo_antispam! options
-      @antispam = false
-      val = create!(options)
-      @antispam = true
-      val
+      @antispam_enabled = false
+      result = create! options
+      @antispam_enabled = true
+      result
     end
 
-    def with_antispam?
-      @antispam
+    def antispam_enabled?
+      @antispam_enabled
+    end
+
+    def antispam_options
+      @antispam_options
     end
   end
 
-  def with_antispam?
-    self.class.with_antispam?
+  def antispam_checks
+    self.class.antispam_options.each do |options|
+      antispam_check options
+    end
   end
 
-  def antispam
-    return unless need_antispam_check?
+  def antispam_check interval:, user_id_key:, disable_if: nil
+    return unless need_antispam_check? disable_if
+    entry = prior_entry(user_id_key) || return
 
-    prior_entry = self.class.where(user_id: user_id).order(id: :desc).first
-    return unless prior_entry
-
-    seconds_to_wait = ANTISPAM_INTERVAL -
-      (Time.zone.now.to_i - prior_entry.created_at.to_i)
+    seconds_to_wait = interval - (Time.zone.now.to_i - entry.created_at.to_i)
     return unless seconds_to_wait.positive?
 
     errors.add(
@@ -56,10 +68,16 @@ module Antispam
     throw :abort
   end
 
-  def need_antispam_check?
-    return false if id
-    return false unless with_antispam?
+  def prior_entry user_id_key
+    self.class
+      .order(id: :desc)
+      .find_by(user_id_key => send(user_id_key))
+  end
 
-    !user.admin? && !user.bot?
+  def need_antispam_check? disable_if
+    self.class.antispam_enabled? &&
+      errors.none? &&
+        new_record? &&
+          (!disable_if || !instance_exec(&disable_if))
   end
 end

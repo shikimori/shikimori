@@ -1,35 +1,37 @@
-class NoAntispam < ApplicationRecord; include Antispam; end
-NoAntispam.antispam = false
-class WithAntispam < ApplicationRecord; include Antispam; end
-
 describe Antispam do
-  it 'antispam?' do
-    expect(WithAntispam).to be_with_antispam
-    expect(NoAntispam).to_not be_with_antispam
-  end
+  include_context :timecop
+  let(:user) { seed :user }
 
-  describe Comment do
-    let(:user) { build_stubbed :user, :user }
-    let(:topic) { build_stubbed :topic }
+  context 'by interval' do
+    let!(:comment) { create :comment, created_at: created_at, user: user }
+    let(:comment_2) { build :comment, :with_antispam, user: user }
 
-    it 'works' do
-      create :comment, :with_antispam, user: user, commentable: topic
+    let(:save) { comment_2.save }
 
-      expect(-> {
-        expect(-> {
-          create :comment, :with_antispam, user: user, commentable: topic
-        }).to raise_error ActiveRecord::RecordNotSaved
-      }).to_not change Comment, :count
+    context 'created before interval' do
+      let(:created_at) { (Comment.antispam_options.first[:interval] - 1.second).ago }
+
+      it do
+        expect { save }.to_not change Comment, :count
+        expect(comment_2.errors[:base]).to eq [
+          'Защита от спама. Попробуйте снова через 1 секунду'
+        ]
+      end
+
+      context '#wo_antispam' do
+        let(:save) { Comment.wo_antispam { comment_2.save } }
+        it { expect { save }.to change(Comment, :count).by 1 }
+      end
+
+      context '#create_wo_antispam!' do
+        let(:comment_3) { Comment.create_wo_antispam! comment_2.attributes }
+        it { expect(comment_3).to be_persisted }
+      end
     end
 
-    it 'can be disabled' do
-      create :comment, :with_antispam, user: user, commentable: topic
-
-      expect(-> {
-        Comment.wo_antispam do
-          create :comment, :with_antispam, user: user, commentable: topic
-        end
-      }).to change(Comment, :count).by 1
+    context 'created after interval' do
+      let(:created_at) { (Comment.antispam_options.first[:interval] + 1.second).ago }
+      it { expect { save }.to change(Comment, :count).by 1 }
     end
   end
 end
