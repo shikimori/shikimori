@@ -61,8 +61,8 @@ module AntispamConcern
   def antispam_check interval: nil, per_day: nil, user_id_key:, disable_if: nil
     return unless need_antispam_check? disable_if
 
-    interval_check interval, user_id_key if interval
     per_day_check per_day, user_id_key if per_day
+    interval_check interval, user_id_key if interval
   end
 
   def interval_check interval, user_id_key
