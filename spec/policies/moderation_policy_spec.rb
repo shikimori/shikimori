@@ -1,5 +1,6 @@
 describe ModerationPolicy do
-  let(:policy) { ModerationPolicy.new user, :ru }
+  let(:policy) { ModerationPolicy.new user, :ru, moderation_filter }
+  let(:moderation_filter) { true }
 
   describe '#reviews_count' do
     before do
@@ -11,6 +12,30 @@ describe ModerationPolicy do
     let(:user) { build :user, :review_moderator }
 
     it { expect(policy.reviews_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.reviews_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.reviews_count).to eq 0 }
+    end
+
+    context 'no moderation filter' do
+      let(:moderation_filter) { false }
+
+      context 'not moderator' do
+        let(:user) { build :user, :user }
+        it { expect(policy.reviews_count).to eq 1 }
+      end
+
+      context 'no user' do
+        let(:user) { nil }
+        it { expect(policy.reviews_count).to eq 1 }
+      end
+    end
   end
 
   describe '#collections_count' do
@@ -23,6 +48,30 @@ describe ModerationPolicy do
     let(:user) { build :user, :collection_moderator }
 
     it { expect(policy.collections_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.collections_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.collections_count).to eq 0 }
+    end
+
+    context 'no moderation filter' do
+      let(:moderation_filter) { false }
+
+      context 'not moderator' do
+        let(:user) { build :user, :user }
+        it { expect(policy.collections_count).to eq 1 }
+      end
+
+      context 'no user' do
+        let(:user) { nil }
+        it { expect(policy.collections_count).to eq 1 }
+      end
+    end
   end
 
   describe '#abuses_count' do
@@ -40,6 +89,16 @@ describe ModerationPolicy do
     let(:user) { build :user, :forum_moderator }
 
     it { expect(policy.abuses_count).to eq 3 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.abuses_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.abuses_count).to eq 0 }
+    end
   end
 
   describe '#content_count' do
@@ -52,6 +111,16 @@ describe ModerationPolicy do
     let(:user) { build :user, :version_moderator }
 
     it { expect(policy.content_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.content_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.content_count).to eq 0 }
+    end
   end
 
   describe '#videos_count' do
@@ -64,6 +133,16 @@ describe ModerationPolicy do
     let(:user) { build :user, :video_moderator }
 
     it { expect(policy.videos_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.videos_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.videos_count).to eq 0 }
+    end
   end
 
   describe '#video_reports_count' do
@@ -76,5 +155,15 @@ describe ModerationPolicy do
     let(:user) { build :user, :video_moderator }
 
     it { expect(policy.video_reports_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.video_reports_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.video_reports_count).to eq 0 }
+    end
   end
 end

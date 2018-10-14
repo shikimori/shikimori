@@ -7,7 +7,11 @@ class ModerationsController < ShikimoriController
   end
 
   def show
-    @moderation_policy = ModerationPolicy.new current_user, locale_from_host
+    @moderation_policy = ModerationPolicy.new(
+      current_user,
+      locale_from_host,
+      false
+    )
 
     if current_user.admin?
       @abuse_requests = AbuseRequest
