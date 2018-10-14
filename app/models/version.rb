@@ -1,5 +1,12 @@
 class Version < ApplicationRecord
+  include AntispamConcern
+
   MAXIMUM_REASON_SIZE = 255
+
+  antispam(
+    per_day: 50,
+    user_id_key: :user_id
+  )
 
   belongs_to :user
   belongs_to :moderator, class_name: User.name, optional: true
