@@ -8,6 +8,7 @@ class Review < ApplicationRecord
 
   antispam(
     interval: 15.minutes,
+    per_day: 3,
     user_id_key: :user_id
   )
 

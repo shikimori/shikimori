@@ -5,6 +5,7 @@ class Collection < ApplicationRecord
 
   antispam(
     interval: 15.minutes,
+    per_day: 5,
     user_id_key: :user_id
   )
 
