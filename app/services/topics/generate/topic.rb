@@ -7,6 +7,8 @@ class Topics::Generate::Topic
     topic = build_topic
     return topic if topic.persisted?
 
+    topic.disable_antispam!
+
     if updated_at
       faye_service.create! topic
     else
