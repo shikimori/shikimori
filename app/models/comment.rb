@@ -2,8 +2,13 @@
 # TODO: refactor fat model
 class Comment < ApplicationRecord
   include Moderatable
-  include Antispam
   include Viewable
+  include AntispamV2
+
+  antispam(
+    interval: 3.seconds,
+    disable_if: -> { user.admin? && user.bot? }
+  )
 
   MIN_SUMMARY_SIZE = 230
 

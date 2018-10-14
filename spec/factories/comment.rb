@@ -7,7 +7,7 @@ FactoryBot.define do
     is_summary { false }
 
     after :build do |model|
-      stub_method model, :check_antispam
+      stub_method model, :antispam_checks
       stub_method model, :check_access
       stub_method model, :increment_comments
       stub_method model, :creation_callbacks
@@ -31,7 +31,7 @@ FactoryBot.define do
     end
 
     trait :with_antispam do
-      after(:build) { |model| unstub_method model, :check_antispam }
+      after(:build) { |model| unstub_method model, :antispam_checks }
     end
 
     trait :with_counter_cache do

@@ -1,42 +1,46 @@
-module Antispam
-  include Translation
+module AntispamV2
   extend ActiveSupport::Concern
 
   included do
-    before_create :antispam
-    @antispam = true
+    @antispam_options = []
   end
 
-  ANTISPAM_INTERVAL = 3.seconds
-
   module ClassMethods
-    attr_accessor :antispam
+    def antispam options
+      @antispam_options << options
+
+      if @antispam_options.one?
+        before_create :antispam_checks
+      end
+    end
 
     def wo_antispam
-      @antispam = false
+      @antispam_enabled = false
       val = yield
-      @antispam = true
+      @antispam_enabled = true
       val
     end
 
     def create_wo_antispam! options
-      @antispam = false
+      @antispam_enabled = false
       val = create!(options)
-      @antispam = true
+      @antispam_enabled = true
       val
     end
 
     def with_antispam?
-      @antispam
+      @antispam_enabled
     end
   end
 
-  def with_antispam?
-    self.class.with_antispam?
+  def antispam_checks
+    @antispam_options.each do |options|
+      antispam_check options
+    end
   end
 
-  def antispam
-    return unless need_antispam_check?
+  def antispam_check options
+    return unless need_antispam_check? options
 
     prior_entry = self.class.where(user_id: user_id).order(id: :desc).first
     return unless prior_entry
@@ -56,10 +60,10 @@ module Antispam
     throw :abort
   end
 
-  def need_antispam_check?
-    return false if id
-    return false unless with_antispam?
-
-    !user.admin? && !user.bot?
+  def need_antispam_check? options
+    self.class.with_antispam? &&
+      errors.none? &&
+        new_record? &&
+          (!options[:disable_if] || !options[:disable_if].call())
   end
 end

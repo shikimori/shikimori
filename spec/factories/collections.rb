@@ -11,7 +11,7 @@ FactoryBot.define do
     Types::Collection::Kind.values.each { |value| trait(value) { kind { value } } }
 
     after :build do |model|
-      stub_method model, :check_antispam
+      stub_method model, :antispam_checks
     end
 
     trait(:pending) { moderation_state { :pending } }

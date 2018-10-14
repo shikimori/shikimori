@@ -33,7 +33,7 @@ describe Message do
       end
     end
 
-    describe '#check_antispam' do
+    describe '#antispam_checks' do
       before { Message.antispam = true }
       after { Message.antispam = false }
 

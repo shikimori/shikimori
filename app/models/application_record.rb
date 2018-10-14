@@ -18,7 +18,7 @@ class ApplicationRecord < ActiveRecord::Base
           yield row
         end
         offset += batch_size
-      end until batch.empty?
+      end until batch.empty? # rubocop:disable Loop
     end
 
     def fix_id id

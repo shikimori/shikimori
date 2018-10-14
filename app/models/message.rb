@@ -20,7 +20,7 @@ class Message < ApplicationRecord
   after_create :send_email
   after_create :send_push_notifications
 
-  def check_antispam
+  def antispam_checks
     return unless with_antispam?
     return unless id.nil?
     return if from.bot? || from.admin?

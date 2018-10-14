@@ -13,7 +13,7 @@ FactoryBot.define do
     locale { :ru }
 
     after :build do |model|
-      stub_method model, :check_antispam
+      stub_method model, :antispam_checks
     end
 
     trait(:pending) { moderation_state { :pending } }
