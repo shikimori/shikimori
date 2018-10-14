@@ -64,14 +64,14 @@ module Copyright
     35997, # Marchen Madchen | Russia + Europe - 2018-01-11 - 2020-01-11
     36511, # Tokyo Ghoul:re | Russia + East Europe - 2018-04-01 - 2023-04-01
     30484, # Steins;Gate 0 | Russia + Germany - 2018-04-01 - 2025-04-01
-    35760, # Attack on Titan 3
-    37675, # Overlord III
-    37140, # GeGeGe no Kitaro
-    36726, # Yuuna and the Haunted Hot Springs
-    36023, # PERSONA5 the Animation
-    36475, # SWORD ART ONLINE ALTERNATIVE «GUN GALE ONLINE»
-    25537, # Fate/stay night: Heaven's Feel I. presage flower
-    37141, # Cells at Work (TV)
-    35840 # Cells at Work
+    # 35760, # Attack on Titan 3
+    # 37675, # Overlord III
+    # 37140, # GeGeGe no Kitaro
+    # 36726, # Yuuna and the Haunted Hot Springs
+    # 36023, # PERSONA5 the Animation
+    # 36475, # SWORD ART ONLINE ALTERNATIVE «GUN GALE ONLINE»
+    # 25537, # Fate/stay night: Heaven's Feel I. presage flower
+    # 37141, # Cells at Work (TV)
+    # 35840 # Cells at Work
   ]
 end
