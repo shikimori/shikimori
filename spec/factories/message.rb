@@ -5,9 +5,10 @@ FactoryBot.define do
 
     read { false }
 
-    after :build do |message|
-      message.stub :send_push_notifications
-      message.stub :check_spam_abuse
+    after :build do |model|
+      stub_method model, :antispam_checks
+      stub_method model, :send_push_notifications
+      stub_method model, :check_spam_abuse
     end
 
     kind { MessageType::Private }
@@ -29,11 +30,14 @@ FactoryBot.define do
       kind { MessageType::SiteNews }
     end
 
+    trait :with_antispam do
+      after(:build) { |model| unstub_method model, :antispam_checks }
+    end
     trait :with_push_notifications do
-      after(:build) { |message| message.unstub :send_push_notifications }
+      after(:build) { |model| unstub_method model, :send_push_notifications }
     end
     trait :with_check_spam_abuse do
-      after(:build) { |message| message.unstub :check_spam_abuse }
+      after(:build) { |model| unstub_method model, :check_spam_abuse }
     end
   end
 end

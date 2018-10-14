@@ -8,9 +8,6 @@ describe Message do
     it { is_expected.to validate_presence_of :to }
   end
 
-  before(:all) { Message.antispam = false }
-  after(:all) { Message.antispam = true }
-
   describe 'callbacks' do
     let(:user) { build_stubbed :user, :user }
 
@@ -30,44 +27,6 @@ describe Message do
             user: message.from,
             text: message.body
           )
-      end
-    end
-
-    describe '#antispam_checks' do
-      before { Message.antispam = true }
-      after { Message.antispam = false }
-
-      it 'works' do
-        create :message, to: user, from: user
-
-        expect(proc do
-          expect { create :message, to: user, from: user }
-            .to raise_error ActiveRecord::RecordNotSaved
-        end).to_not change Message, :count
-      end
-
-      it 'can be disabled' do
-        create :message, to: user, from: user
-
-        expect(proc do
-          Message.wo_antispam { create :message, to: user, from: user }
-        end).to change(Message, :count).by 1
-      end
-
-      it 'disabled for MessageType::Notification' do
-        create :message, to: user, from: user, kind: MessageType::Notification
-
-        expect(proc do
-          create :message, to: user, from: user, kind: MessageType::Notification
-        end).to change(Message, :count).by 1
-      end
-
-      it 'disabled for MessageType::GroupRequest' do
-        create :message, to: user, from: user, kind: MessageType::ClubRequest
-
-        expect(proc do
-          create :message, to: user, from: user, kind: MessageType::Notification
-        end).to change(Message, :count).by 1
       end
     end
 
@@ -299,4 +258,6 @@ describe Message do
       end
     end
   end
+
+  it_behaves_like :antispam_concern, :message
 end
