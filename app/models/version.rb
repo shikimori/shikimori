@@ -4,7 +4,7 @@ class Version < ApplicationRecord
   MAXIMUM_REASON_SIZE = 255
 
   antispam(
-    per_day: 50,
+    per_day: 10,
     disable_if: -> { user.version_moderator? || user.trusted_version_changer },
     user_id_key: :user_id
   )

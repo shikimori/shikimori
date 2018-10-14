@@ -6,7 +6,6 @@ class Club < ApplicationRecord
   include StylesConcern
 
   antispam(
-    interval: 15.minutes,
     per_day: 2,
     user_id_key: :owner_id
   )
