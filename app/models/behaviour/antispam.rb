@@ -74,8 +74,16 @@ module Antispam
       .find_by(user_id_key => send(user_id_key))
   end
 
+  def disable_antispam!
+    @instance_antispam_disabled = true
+  end
+
+  def antispam_enabled?
+    self.class.antispam_enabled? && !@instance_antispam_disabled
+  end
+
   def need_antispam_check? disable_if
-    self.class.antispam_enabled? &&
+    antispam_enabled? &&
       errors.none? &&
         new_record? &&
           (!disable_if || !instance_exec(&disable_if))

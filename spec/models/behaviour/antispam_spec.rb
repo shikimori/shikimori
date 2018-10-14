@@ -27,6 +27,11 @@ describe Antispam do
         let(:comment_3) { Comment.create_wo_antispam! comment_2.attributes }
         it { expect(comment_3).to be_persisted }
       end
+
+      context '#disable_antispam!' do
+        before { comment_2.disable_antispam! }
+        it { expect { save }.to change(Comment, :count).by 1 }
+      end
     end
 
     context 'created after interval' do
