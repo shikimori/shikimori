@@ -1,4 +1,4 @@
-module Antispam
+module AntispamConcern
   include Translation
   extend ActiveSupport::Concern
 
@@ -55,8 +55,14 @@ module Antispam
     end
   end
 
-  def antispam_check interval:, user_id_key:, disable_if: nil
+  def antispam_check interval: nil, per_day: nil, user_id_key:, disable_if: nil
     return unless need_antispam_check? disable_if
+
+    interval_check interval, user_id_key if interval
+    per_day_check per_day, user_id_key if interval
+  end
+
+  def interval_check interval, user_id_key
     entry = prior_entry(user_id_key) || return
 
     seconds_to_wait = interval - (Time.zone.now.to_i - entry.created_at.to_i)
@@ -71,6 +77,9 @@ module Antispam
       )
     )
     throw :abort
+  end
+
+  def per_day_check per_day, user_id_key
   end
 
   def prior_entry user_id_key

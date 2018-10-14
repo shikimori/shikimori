@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Topic < ApplicationRecord
-  include Antispam
+  include AntispamConcern
   include Commentable
   include Moderatable
   include Viewable

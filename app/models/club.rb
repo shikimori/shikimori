@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class Club < ApplicationRecord
-  include Antispam
+  include AntispamConcern
   include TopicsConcern
   include StylesConcern
 
   antispam(
     interval: 15.minutes,
+    per_day: 2,
     user_id_key: :owner_id
   )
 

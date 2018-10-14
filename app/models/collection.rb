@@ -1,5 +1,5 @@
 class Collection < ApplicationRecord
-  include Antispam
+  include AntispamConcern
   include TopicsConcern
   include ModeratableConcern
 

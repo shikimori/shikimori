@@ -1,6 +1,6 @@
 # TODO: refactor kind = MessageType::... into enumerize kind or into enum kind
 class Message < ApplicationRecord
-  include Antispam
+  include AntispamConcern
   include Translation
 
   belongs_to :from, class_name: User.name

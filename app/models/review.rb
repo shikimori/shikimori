@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Review < ApplicationRecord
-  include Antispam
+  include AntispamConcern
   include Moderatable
   include TopicsConcern
   include ModeratableConcern
