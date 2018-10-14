@@ -28,5 +28,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"tokens":[{"token":"kai","start_offset":0,"end_offset":3,"type":"<ALPHANUM>","position":0},{"token":"wa","start_offset":4,"end_offset":6,"type":"<ALPHANUM>","position":1},{"token":"sama","start_offset":7,"end_offset":11,"type":"<ALPHANUM>","position":2}]}'
     http_version: 
-  recorded_at: Thu, 09 Aug 2018 01:08:01 GMT
+  recorded_at: Sun, 14 Oct 2018 18:17:07 GMT
 recorded_with: VCR 4.0.0

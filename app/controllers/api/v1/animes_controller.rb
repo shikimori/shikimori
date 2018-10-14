@@ -273,7 +273,8 @@ private
     Digest::MD5.hexdigest([
       request.path,
       params.to_json,
-      params[:mylist].present? ? current_user.try(:cache_key) : nil
+      params[:mylist].present? ? current_user.try(:cache_key) : nil,
+      :v2
     ].join('|'))
   end
 

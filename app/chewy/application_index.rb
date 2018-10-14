@@ -1,10 +1,21 @@
 # https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-analyze.html
-# see how analyzer split phrase to tokens
-# curl -XGET 'http://localhost:9200/shikimori_development_clubs/_analyze?analyzer=ngram_analyzer' -d'kaichou wa' | jq
-# curl -XGET 'http://localhost:9200/shikimori_development_clubs/_analyze?analyzer=search_analyzer' -d'kaichou wa' | jq
+# see how analyzer split phrase into tokens
+=begin
+curl -XPOST 'http://localhost:9200/shikimori_test_clubs/_analyze' \
+  -H 'Content-Type: application/json' \
+  -d'{ "analyzer": "ngram_analyzer", "text": "kaichou wa" }' | jq
 
-# see how field value is splitted to tokens
-# curl -XGET 'http://localhost:9200/shikimori_development_clubs/_analyze?field=name.synonym' -d 'kaichou wa' | jq
+curl -XPOST 'http://localhost:9200/shikimori_test_clubs/_analyze' \
+  -H 'Content-Type: application/json' \
+  -d'{ "analyzer": "original_analyzer", "text": "kaichou wa" }' | jq
+=end
+
+# see how field value is splitted into tokens
+=begin
+curl -XPOST 'http://localhost:9200/shikimori_test_clubs/_analyze' \
+  -H 'Content-Type: application/json' \
+  -d'{ "field": "name.synonym", "text": "kaichou wa" }' | jq
+=end
 class ApplicationIndex < Chewy::Index
   ORIGINAL_FIELD = {
     value: -> { self },
@@ -37,32 +48,32 @@ class ApplicationIndex < Chewy::Index
         original_analyzer: {
           type: 'custom',
           tokenizer: 'keyword',
-          filter: %w[lowercase asciifolding]
+          filter: %w[lowercase asciifolding synonyms_filter]
         },
         edge_phrase_analyzer: {
           type: 'custom',
           tokenizer: 'edge_ngram_tokenizer',
-          filter: %w[lowercase asciifolding edgeNGram_filter unique_words_filter]
+          filter: %w[lowercase asciifolding synonyms_filter edgeNGram_filter unique_words_filter]
         },
         edge_word_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
-          filter: %w[lowercase asciifolding edgeNGram_filter]
+          filter: %w[lowercase asciifolding synonyms_filter edgeNGram_filter]
         },
         ngram_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
-          filter: %w[lowercase asciifolding nGram_filter distinct_words_filter]
+          filter: %w[lowercase asciifolding synonyms_filter nGram_filter distinct_words_filter]
         },
         search_phrase_analyzer: {
           type: 'custom',
           tokenizer: 'keyword',
-          filter: %w[lowercase asciifolding]
+          filter: %w[lowercase asciifolding synonyms_filter]
         },
         search_word_analyzer: {
           type: 'custom',
           tokenizer: 'standard',
-          filter: %w[lowercase asciifolding]
+          filter: %w[lowercase asciifolding synonyms_filter]
         }
       },
       tokenizer: {
@@ -90,6 +101,21 @@ class ApplicationIndex < Chewy::Index
         },
         unique_words_filter: {
           type: 'unique'
+        },
+        synonyms_filter: {
+          type: 'synonym',
+          synonyms: [
+            'i, s1, 1',
+            'ii, s2, 2',
+            'iii, s3, 3',
+            'iv, s4, 4',
+            'v, s5, 5',
+            'vi, s6, 6',
+            'vii, s7, 7',
+            'viii, s8, 8',
+            'ix, s9, 9',
+            'x, s10, 10'
+          ]
         }
       }
     }
