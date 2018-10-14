@@ -6,10 +6,18 @@ class Abilities::ForumModerator
 
   def initialize _user
     can :manage, Comment
-    can :manage, Topic do |topic|
+
+    can :edit, Topic do |topic|
       !topic.generated? ||
         Abilities::User::GENERATED_USER_TOPICS.include?(topic.type)
     end
+    can :manage, Topic do |topic|
+      topic.comments_count < 2_000 && (
+        !topic.generated? ||
+          Abilities::User::GENERATED_USER_TOPICS.include?(topic.type)
+      )
+    end
+
     can %i[edit update], Genre
 
     can :manage, Ban

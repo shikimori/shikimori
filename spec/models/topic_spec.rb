@@ -256,12 +256,26 @@ describe Topic do
       end
     end
 
-    context 'forum moderator' do
+    context 'forum_moderator' do
       let(:user) { build_stubbed :user, :forum_moderator }
-      let(:topic) { build_stubbed :topic, user: build_stubbed(:user) }
+      let(:topic) do
+        build_stubbed :topic,
+          user: build_stubbed(:user),
+          comments_count: comments_count
+      end
+      let(:comments_count) { 1999 }
 
       context 'common topic' do
-        it { is_expected.to be_able_to :manage, topic }
+        context 'comments_count < 2000' do
+          it { is_expected.to be_able_to :edit, topic }
+          it { is_expected.to be_able_to :manage, topic }
+        end
+
+        context 'comments_count >= 2000' do
+          let(:comments_count) { 2000 }
+          it { is_expected.to be_able_to :edit, topic }
+          it { is_expected.to_not be_able_to :manage, topic }
+        end
       end
 
       context 'generated topic' do
