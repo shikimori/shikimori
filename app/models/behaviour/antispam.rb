@@ -6,7 +6,8 @@ module Antispam
     @antispam_options = []
 
     def self.inherited subclass
-      subclass.instance_variable_set '@antispam_options', @antispam_options.clone
+      super
+      subclass.instance_variable_set '@antispam_options', @antispam_options.dup
     end
   end
 
