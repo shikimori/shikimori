@@ -6,6 +6,11 @@ class Review < ApplicationRecord
   include TopicsConcern
   include ModeratableConcern
 
+  antispam(
+    interval: 15.minutes,
+    user_id_key: :user_id
+  )
+
   acts_as_votable cacheable_strategy: :update_columns
 
   MINIMUM_LENGTH = 3000
