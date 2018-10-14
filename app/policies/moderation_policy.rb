@@ -32,7 +32,7 @@ class ModerationPolicy
   end
 
   def video_reports_count
-    return 0 unless @user&.video_moderator?
+    return 0 unless !@moderation_filter || @user&.video_moderator?
     AnimeVideoReport.pending.size
   end
 end
