@@ -1,4 +1,4 @@
-= cache [anime_video_report, user_signed_in? && current_user.video_moderator?, :v2] do
+= cache [anime_video_report, can?(:manage, anime_video_report)] do
   .b-log_entry.video.to-process[
     id=anime_video_report.id
     data-dynamic='log_entry'
@@ -34,7 +34,7 @@
     .collapsed.spoiler: span = t '.show_changes'
 
     .spoiler.target style="display: none;"
-      - if user_signed_in? && current_user.video_moderator?
+      - if can? :manage, anime_video_report
         .moderation
           - if anime_video_report.pending?
             - unless anime_video_report.other?
@@ -74,7 +74,7 @@
             ] отклонить
           - else
             a.ajax-action[
-              href="#{cancel_moderations_anime_video_report_url anime_video_report.id}"
+              href=cancel_moderations_anime_video_report_url(anime_video_report.id)
               data-method="POST"
               data-remote='true'
               data-type='json'
