@@ -78,7 +78,7 @@ class DbEntriesController < ShikimoriController
     else
       redirect_back(
         fallback_location: @resource.edit_url,
-        alert: i18n_t('no_changes')
+        alert: @version.errors[:base]&.dig(0) || i18n_t('no_changes')
       )
     end
   end
