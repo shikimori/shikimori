@@ -51,7 +51,7 @@ describe Moderations::VersionsController do
     let(:role) { :user }
 
     describe 'common user' do
-      include_context :authenticated, :user
+      include_context :authenticated, :user, :week_registered
 
       context 'common change' do
         before { make_request }
@@ -137,7 +137,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_taken
-        expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :success
     end
   end
@@ -155,7 +155,7 @@ describe Moderations::VersionsController do
     end
 
     context 'author' do
-      include_context :authenticated, :user
+      include_context :authenticated, :user, :week_registered
       before { make_request }
 
       it do
