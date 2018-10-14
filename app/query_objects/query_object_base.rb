@@ -3,9 +3,17 @@ class QueryObjectBase
   extend DslAttribute
 
   QUERY_METHODS = %i[joins includes select where order limit offset]
+  DELEGATE_METHODS = %i[== === eql? equal?]
 
   pattr_initialize :scope
-  delegate :==, :eql?, :equal?, to: :scope
+
+  def to_a
+    @scope.to_a
+  end
+
+  def to_ary
+    @scope.to_a
+  end
 
   def paginate page, limit
     new_scope = @scope
@@ -26,6 +34,12 @@ class QueryObjectBase
   QUERY_METHODS.each do |method_name|
     define_method method_name do |*args|
       chain @scope.public_send(method_name, *args)
+    end
+  end
+
+  DELEGATE_METHODS.each do |method_name|
+    define_method method_name do |*args|
+      @scope.send(method_name, *args)
     end
   end
 

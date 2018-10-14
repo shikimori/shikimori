@@ -1,8 +1,7 @@
 class PaginatedCollection < SimpleDelegator
   WINDOW = 4
 
-  attr_reader :page
-  attr_reader :limit
+  attr_reader :page, :limit
 
   def initialize collection, page, limit
     super collection
