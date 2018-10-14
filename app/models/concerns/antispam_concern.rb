@@ -2,6 +2,8 @@ module AntispamConcern
   include Translation
   extend ActiveSupport::Concern
 
+  DAY_DURATION = 16.hours
+
   included do
     @antispam_options = []
 
@@ -14,6 +16,7 @@ module AntispamConcern
   module ClassMethods
     # antispam(
     #   interval: 1.second,
+    #   per_day: 2,
     #   disable_if: -> { user.bot? },
     #   user_id_key: :user_id
     # )
@@ -59,11 +62,12 @@ module AntispamConcern
     return unless need_antispam_check? disable_if
 
     interval_check interval, user_id_key if interval
-    per_day_check per_day, user_id_key if interval
+    per_day_check per_day, user_id_key if per_day
   end
 
   def interval_check interval, user_id_key
-    entry = prior_entry(user_id_key) || return
+    entry = prior_entry user_id_key
+    return if entry.nil?
 
     seconds_to_wait = interval - (Time.zone.now.to_i - entry.created_at.to_i)
     return unless seconds_to_wait.positive?
@@ -71,7 +75,7 @@ module AntispamConcern
     errors.add(
       :base,
       I18n.t(
-        'message.antispam',
+        'message.antispam.interval',
         interval: seconds_to_wait,
         seconds: i18n_i('datetime.second', seconds_to_wait, :accusative)
       )
@@ -80,12 +84,24 @@ module AntispamConcern
   end
 
   def per_day_check per_day, user_id_key
+    entries_count = daily_entries_count user_id_key
+    return if entries_count < per_day
+
+    errors.add :base, I18n.t('message.antispam.per_day')
+    throw :abort
   end
 
   def prior_entry user_id_key
     self.class
       .order(id: :desc)
       .find_by(user_id_key => send(user_id_key))
+  end
+
+  def daily_entries_count user_id_key
+    self.class
+      .where(user_id_key => send(user_id_key))
+      .where('created_at >= ?', DAY_DURATION.ago)
+      .count
   end
 
   def disable_antispam!

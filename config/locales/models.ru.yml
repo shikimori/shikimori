@@ -141,8 +141,11 @@ ru:
     title: Косплей %{cosplay} от %{cosplayer}
 
   message:
-    antispam: >-
-      Защита от спама. Попробуйте снова через %{interval} %{seconds}
+    antispam:
+      interval: >-
+        Защита от спама. Попробуйте снова через %{interval} %{seconds}
+      per_day: >-
+        Защита от спама. Попробуйте снова завтра
 
   list_import:
     name: 'Импорт списка #%{id}'

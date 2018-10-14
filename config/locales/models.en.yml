@@ -141,8 +141,11 @@ en:
     title: Cosplay of %{cosplay} by %{cosplayer}
 
   message:
-    antispam: >-
-      Anti-spam protection. Try again in %{interval} %{seconds}
+    antispam:
+      interval: >-
+        Anti-spam protection. Try again in %{interval} %{seconds}
+      per_day:
+        Anti-spam protection. Try again tomorrow
 
   list_import:
     name: 'List Import #%{id}'
