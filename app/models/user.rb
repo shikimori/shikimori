@@ -267,12 +267,10 @@ class User < ApplicationRecord
     text.tr('+', ' ')
   end
 
-  # мужчина ли это
   def male?
-    sex && sex == 'male' ? true : false
+    !female?
   end
 
-  # женщина ли это
   def female?
     sex && sex == 'female' ? true : false
   end
