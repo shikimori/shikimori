@@ -2,6 +2,7 @@ import URI from 'urijs'
 import delay from 'delay'
 
 import ShikiView from 'views/application/shiki_view'
+import BanForm from 'views/comments/ban_form'
 
 export default class LogEntry extends ShikiView
   initialize: ->
@@ -30,6 +31,8 @@ export default class LogEntry extends ShikiView
   _show_form: (e, html) =>
     $form = @$('.ban-form')
     $form.html(html).show()
+
+    new BanForm($form)
 
     if $(e.target).hasClass 'warn'
       $form.find('#ban_duration').val '0m'

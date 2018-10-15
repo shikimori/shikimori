@@ -4,6 +4,7 @@ import flash from 'services/flash'
 
 import ShikiEditor from 'views/application/shiki_editor'
 import ShikiEditable from 'views/application/shiki_editable'
+import BanForm from 'views/comments/ban_form'
 
 I18N_KEY = 'frontend.dynamic_elements.comment'
 
@@ -100,7 +101,9 @@ export default class Comment extends ShikiEditable
 
     # кнопка бана или предупреждения
     @$('.item-ban').on 'ajax:success', (e, html) =>
-      @$('.moderation-ban').html(html).show()
+      form = new BanForm(html)
+
+      @$('.moderation-ban').html(form.$root).show()
       @_close_aside()
 
     # закрытие формы бана
