@@ -107,6 +107,7 @@ class ApplicationController < ActionController::Base
   # трогаем lastonline у текущего пользователя
   def touch_last_online
     return unless user_signed_in? && current_user.class != Symbol
+    current_user.update_last_online
   end
 
   def remote_addr
