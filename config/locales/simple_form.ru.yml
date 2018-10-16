@@ -95,6 +95,11 @@ ru:
             submit: Войти
             disable_with: Вход&#133;
 
+      users:
+        sessions:
+          new:
+            <<: *sign_in
+
       dashboards:
         show:
           <<: *sign_in
