@@ -1,4 +1,5 @@
 .b-comment.shiki-object.not-tracked.to-process[
+  class=(:tooltipped if params[:action] == 'tooltip')
   data-appear_type='comment'
   data-dynamic='comment'
   data-track_comment=JsExports::CommentsExport.instance.placeholder(comment)

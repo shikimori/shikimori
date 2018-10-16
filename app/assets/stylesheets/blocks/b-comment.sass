@@ -3,6 +3,22 @@
 .b-comment
   +shiki_comment
 
+  &.tooltipped
+    & > .inner header
+      .hash
+        display: inline-block
+        margin-top: 5px
+
+      .name-date
+        .time
+          display: block
+          padding-left: 0
+          padding-top: 3px
+
+        time
+          line-height: $line_height
+          padding-left: 0
+
   header
     .hash
       +link($gray-2)
