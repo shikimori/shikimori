@@ -88,6 +88,7 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) do
           Types::User::NotificationSettings.values - %i[any_ongoing my_ongoing]
         end
+        let!(:user_rate) { create :user_rate, user: user, target: anime }
         it { is_expected.to eq [] }
       end
     end
@@ -114,6 +115,7 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) do
           Types::User::NotificationSettings.values - %i[my_episode]
         end
+        let!(:user_rate) { create :user_rate, user: user, target: anime }
         it { is_expected.to eq [] }
       end
     end
@@ -145,6 +147,7 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) do
           Types::User::NotificationSettings.values - %i[any_released my_released]
         end
+        let!(:user_rate) { create :user_rate, user: user, target: anime }
         it { is_expected.to eq [] }
       end
     end
