@@ -31,7 +31,7 @@ private
         :is_comments_auto_collapsed, :is_comments_auto_loaded, :body_width,
         forums: []
       ).tap do |fixed_params|
-        if fixed_params[:favorites_in_profile].blank?
+        if fixed_params[:favorites_in_profile] == ''
           fixed_params[:favorites_in_profile] = 0 # can be '' if user deleted input value
         end
       end
