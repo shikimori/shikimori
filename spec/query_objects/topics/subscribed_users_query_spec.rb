@@ -64,8 +64,17 @@ describe Topics::SubscribedUsersQuery do
         let(:notification_settings) { %i[my_ongoing] }
 
         context 'has user_rate' do
-          let!(:user_rate) { create :user_rate, user: user, target: anime }
-          it { is_expected.to eq [user] }
+          let!(:user_rate) { create :user_rate, status, user: user, target: anime }
+
+          context 'not dropped' do
+            let(:status) { (UserRate.statuses.keys - %w[dropped]).sample.to_sym }
+            it { is_expected.to eq [user] }
+          end
+
+          context 'dropped' do
+            let(:status) { :dropped }
+            it { is_expected.to eq [] }
+          end
         end
 
         context 'no user_rate' do

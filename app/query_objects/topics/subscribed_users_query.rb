@@ -3,7 +3,8 @@ class Topics::SubscribedUsersQuery
 
   USER_RATES_SQL = <<~SQL.squish
     #{UserRate.table_name}.target_type = :target_type and
-      #{UserRate.table_name}.target_id = :target_id
+      #{UserRate.table_name}.target_id = :target_id and
+      status != #{UserRate.statuses[:dropped]}
   SQL
 
   ACTIVITY_INTERVAL = 4.months
