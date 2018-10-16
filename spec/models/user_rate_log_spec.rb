@@ -7,10 +7,6 @@ describe UserRateLog do
     it { is_expected.to belong_to :manga }
   end
 
-  describe 'validations' do
-    it { is_expected.to validate_presence_of :user_agent }
-  end
-
   describe 'instance methods' do
     describe '#action' do
       let(:user_rate_log) { build :user_rate_log, diff: diff }

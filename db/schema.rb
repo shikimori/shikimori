@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_28_232649) do
+ActiveRecord::Schema.define(version: 2018_10_16_121922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -309,8 +309,8 @@ ActiveRecord::Schema.define(version: 2018_09_28_232649) do
     t.integer "user_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "is_summary", default: false
-    t.boolean "is_offtopic", default: false
+    t.boolean "is_summary", default: false, null: false
+    t.boolean "is_offtopic", default: false, null: false
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["created_at"], name: "index_comments_on_created_at"
     t.index ["user_id", "id"], name: "index_comments_on_user_id_and_id"
