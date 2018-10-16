@@ -106,7 +106,6 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 
 private
 
-  # TODO: remove 'offtopic' and 'review' after 01.09.2016
   def comment_params
     comment_params = params
       .require(:comment)
@@ -114,9 +113,6 @@ private
         :body, :review, :offtopic, :is_summary, :is_offtopic,
         :commentable_id, :commentable_type, :user_id
       )
-
-    comment_params[:is_summary] ||= comment_params[:review]
-    comment_params[:is_offtopic] ||= comment_params[:offtopic]
 
     if comment_params[:commentable_type].present?
       comment_params[:commentable_type] =

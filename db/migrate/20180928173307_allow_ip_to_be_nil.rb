@@ -1,5 +1,9 @@
 class AllowIpToBeNil < ActiveRecord::Migration[5.2]
-  def change
+  def up
     change_column :user_rate_logs, :ip, :inet, null: true
+  end
+
+  def down
+    change_column :user_rate_logs, :ip, :inet, null: false
   end
 end
