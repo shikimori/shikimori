@@ -7,7 +7,7 @@
       data-content="#{render('videos/video', video: decomposed_body.wall_video).to_str if decomposed_body.wall_video}"
     ]
       .title
-        = t '.topic_video'
+        span = t '.topic_video'
         .b-js-action.remove.hidden = t('actions.delete').downcase
 
       .form
