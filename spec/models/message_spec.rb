@@ -205,6 +205,20 @@ describe Message do
             it { is_expected.to_not be_able_to :edit, message }
             it { is_expected.to_not be_able_to :update, message }
             it { is_expected.to be_able_to :destroy, message }
+
+            context 'message to admin' do
+              let(:message) do
+                build_stubbed :message,
+                  from: user,
+                  to_id: User::MORR_ID,
+                  kind: MessageType::Private
+              end
+
+              it { is_expected.to be_able_to :create, message }
+              it { is_expected.to be_able_to :edit, message }
+              it { is_expected.to be_able_to :update, message }
+              it { is_expected.to be_able_to :destroy, message }
+            end
           end
 
           context 'new message' do

@@ -31,4 +31,5 @@
 
       .editor-container
         .subheadline.m10 = t '.your_message'
-        = render partial: 'comments/form', locals: { comment: @dialog.new_message(@replied_message) }
+        = render 'comments/form',
+          comment: @dialog.new_message(@replied_message)

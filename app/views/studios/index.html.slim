@@ -5,7 +5,7 @@ header.head
     = og.description
 
 .block
-  = cache [:studios, :v8], expires_in: 1.day do
+  = cache Studio.all.cache_key, expires_in: 1.day do
     - @collection.select(&:real?).each do |studio|
       .studio
         - if studio.image.exists?

@@ -108,15 +108,18 @@ class Abilities::User
       # (message.kind == MessageType::Private && (can?(:edit, message) || message.to_id == @user.id)) ||
         # (message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
-    if @user.day_registered?
-      can %i[create], Message do |message|
-        !@user.forever_banned? && message.kind == MessageType::Private &&
-          message.from_id == @user.id
-      end
 
-      can %i[edit update], Message do |message|
-        can?(:create, message) && message.created_at > 1.week.ago
-      end
+    can %i[create], Message do |message|
+      !@user.forever_banned? && message.kind == MessageType::Private &&
+        message.from_id == @user.id &&
+        (
+          @user.day_registered? ||
+          message.to_id == User::MORR_ID
+        )
+    end
+
+    can %i[edit update], Message do |message|
+      can?(:create, message) && message.created_at > 1.week.ago
     end
   end
 
