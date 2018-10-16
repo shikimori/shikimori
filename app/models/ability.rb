@@ -5,7 +5,7 @@ class Ability
 
   def initialize user
     define_abilities
-    guest_restrictions
+    guest_restrictions unless user
 
     if user
       merge Abilities::User.new(user)
@@ -57,10 +57,6 @@ class Ability
   end
 
   def guest_restrictions
-    can :access_list, User do |user|
-      user.preferences.list_privacy_public?
-    end
-
     can :create, Message do |message|
       message.kind == MessageType::Private &&
         message.from_id == User::GUEST_ID &&
@@ -70,9 +66,15 @@ class Ability
     can :create, AnimeVideoReport do |report|
       report.user_id == User::GUEST_ID && (report.broken? || report.wrong?)
     end
+
+    can %i[new create], AnimeVideo, &:uploaded?
   end
 
   def guest_allowances
+    can :access_list, User do |user|
+      user.preferences.list_privacy_public?
+    end
+
     can %i[read tooltip], Version
     can :tooltip, Genre
     can :see_contest, Contest
@@ -90,7 +92,5 @@ class Ability
     can :read, AbuseRequest
     can :read, UserRateLog
     can :read, Version
-
-    can %i[new create], AnimeVideo, &:uploaded?
   end
 end
