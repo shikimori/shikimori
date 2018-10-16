@@ -8,7 +8,7 @@
         = render 'users/user_16', user: topic_view.user
 
       - if topic_type_policy.news_topic? && topic_view.topic.linked
-        span = t '.about'
+        span.about = t '.about'
         a.b-link.bubbled[
           href=topic_view.topic.linked.decorate.url
           title=localized_name(topic_view.topic.linked)
