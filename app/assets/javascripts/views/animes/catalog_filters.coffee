@@ -175,14 +175,15 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
       # т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
       value = remove_bang(value)
       @params[key] = @params[key].subtract([value, "!#{value}"])
-      $li = $(".#{key}-#{value}", $root)
-      $li.removeClass 'selected'
+      try # becase there can bad order, and it will break jQuery selector
+        $li = $(".#{key}-#{value}", $root)
+        $li.removeClass 'selected'
 
-      # снятие галочки с чекбокса
-      $li.children('input').attr checked: false
+        # снятие галочки с чекбокса
+        $li.children('input').attr checked: false
 
-      # скрытие плюсика/минусика
-      $li.children('.filter').hide()
+        # скрытие плюсика/минусика
+        $li.children('.filter').hide()
 
     # формирование строки урла по выбранным элементам
     compile: ->
@@ -226,7 +227,11 @@ module.exports = Animes.CatalogFilters = (base_path, current_url, change_callbac
           .split('/')[1]
           .split(',')
           .forEach (value) =>
-            @add key, value
+            try
+              @add key, value
+            catch # becase there can bad order, and it will break jQuery selector
+              if key == 'order-by'
+                @add 'order-by', DEFAULT_ORDER
 
       if Object.isEmpty(@params['order-by'])
         @add 'order-by', DEFAULT_ORDER
