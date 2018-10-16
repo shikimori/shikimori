@@ -90,5 +90,7 @@ class Ability
     can :read, AbuseRequest
     can :read, UserRateLog
     can :read, Version
+
+    can %i[new create], AnimeVideo, &:uploaded?
   end
 end

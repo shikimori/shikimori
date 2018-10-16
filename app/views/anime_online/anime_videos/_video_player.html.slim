@@ -27,8 +27,8 @@
           b  #
           input[
             type="text"
-            value="#{@player.current_episode}"
-            data-href="#{@player.episode_url 'EPISODE_NUMBER'}"
+            value=@player.current_episode
+            data-href=@player.episode_url('EPISODE_NUMBER')
           ]
           .video-link
             a href=@video.url target="_blank" прямая ссылка
@@ -87,11 +87,10 @@
               .icon
               .label Опции
 
-          / - else
-            - unless current_user&.not_trusted_video_uploader?
-              a.c-column.c-control.upload href=@player.new_video_url
-                .icon
-                .label = t 'actions.upload'
+          - elsif can? :create, AnimeVideo.new(state: 'uploaded')
+            a.c-column.c-control.upload href=@player.new_video_url
+              .icon
+              .label = t 'actions.upload'
 
           - unless current_user&.not_trusted_video_uploader?
             .c-column.c-control.report
