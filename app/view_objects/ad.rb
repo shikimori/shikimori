@@ -7,7 +7,7 @@ class Ad < ViewObjectBase
   BANNERS = {
     Types::Ad::Type[:special_x300] => {
       provider: Types::Ad::Provider[:special],
-      url: 'https://www.filmpro.ru/special/bsd',
+      url: 'https://www.filmpro.ru/special/bsd?utm_source=shikimori&utm_medium=banner',
       images: (2..2).map do |i|
         {
           src: "/assets/globals/events/special_#{i}.jpg",
@@ -23,7 +23,7 @@ class Ad < ViewObjectBase
     },
     Types::Ad::Type[:special_x1170] => {
       provider: Types::Ad::Provider[:special],
-      url: 'https://www.filmpro.ru/special/bsd',
+      url: 'https://www.filmpro.ru/special/bsd?utm_source=shikimori&utm_medium=banner',
       images: (1..1).map do |i|
         {
           src: "/assets/globals/events/special_#{i}.jpg",
