@@ -1,4 +1,3 @@
-# rubocop:disable ClassLength
 class Ad < ViewObjectBase
   # present advertur blocks
   # block_1: [92_129, 2_731],
@@ -8,7 +7,7 @@ class Ad < ViewObjectBase
   BANNERS = {
     Types::Ad::Type[:special_x300] => {
       provider: Types::Ad::Provider[:special],
-      url: 'https://maquia.kg-portal.ru',
+      url: 'https://www.filmpro.ru/special/bsd',
       images: (2..2).map do |i|
         {
           src: "/assets/globals/events/special_#{i}.jpg",
@@ -20,6 +19,27 @@ class Ad < ViewObjectBase
       #   shows_per_week: 30
       # },
       placement: Types::Ad::Placement[:menu],
+      platform: Types::Ad::Platform[:desktop]
+    },
+    Types::Ad::Type[:special_x1170] => {
+      provider: Types::Ad::Provider[:special],
+      url: 'https://www.filmpro.ru/special/bsd',
+      images: (1..1).map do |i|
+        {
+          src: "/assets/globals/events/special_#{i}.jpg",
+          src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+        }
+      end,
+      # images: [{
+      #   url: 'https://creagames.com/ref/575?utm_source=shikimori&utm_medium=banner',
+      #   src: '/assets/globals/events/special_1.jpg?1',
+      #   src_2x: '/assets/globals/events/special_1@2x.jpg?1'
+      # }, {
+      #   url: 'https://creagames.com/games/kr?utm_source=shikimori&utm_medium=banner',
+      #   src: '/assets/globals/events/special_2.jpg',
+      #   src_2x: '/assets/globals/events/special_2@2x.jpg'
+      # }],
+      placement: Types::Ad::Placement[:content],
       platform: Types::Ad::Platform[:desktop]
     },
     Types::Ad::Type[:advrtr_x728] => {
@@ -91,20 +111,6 @@ class Ad < ViewObjectBase
       mytarget_id: '99457',
       placement: Types::Ad::Placement[:footer],
       platform: Types::Ad::Platform[:mobile]
-    },
-    Types::Ad::Type[:special_x1170] => {
-      provider: Types::Ad::Provider[:special],
-      images: [{
-        url: 'https://creagames.com/ref/575?utm_source=shikimori&utm_medium=banner',
-        src: '/assets/globals/events/special_1.jpg?1',
-        src_2x: '/assets/globals/events/special_1@2x.jpg?1'
-      }, {
-        url: 'https://creagames.com/games/kr?utm_source=shikimori&utm_medium=banner',
-        src: '/assets/globals/events/special_2.jpg',
-        src_2x: '/assets/globals/events/special_2@2x.jpg'
-      }],
-      placement: Types::Ad::Placement[:content],
-      platform: Types::Ad::Platform[:desktop]
     }
   }
 
@@ -116,13 +122,13 @@ class Ad < ViewObjectBase
       Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:special_x300],
       # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x500],
       Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:special_x300],
       # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600],
       Types::Ad::Type[:advrtr_240x400]
@@ -321,4 +327,3 @@ private
     :"@is_#{placement}_ad_shown"
   end
 end
-# rubocop:enable ClassLength
