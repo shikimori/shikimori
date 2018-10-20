@@ -31,7 +31,8 @@ module Copyright
     32281 # Kimi no Na wa
   ]
   VGTRK_COPYRIGHTED = [
-    34541 # Mary to Majo no Hana
+    34541, # Mary to Majo no Hana
+    34944 # Bungou Stray Dogs: Dead Apple
   ]
   CAPELLA_FILM_COPYRIGHTED = [
     # Capella Film
