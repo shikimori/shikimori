@@ -160,7 +160,12 @@ class AnimeVideo < ApplicationRecord
   end
 
   def author_name= name
-    self.author = AnimeVideoAuthor.find_or_create_by name: name&.strip
+    fixed_name = name&.strip
+
+    self.author =
+      if fixed_name.present?
+        AnimeVideoAuthor.find_or_create_by name: fixed_name
+      end
   end
 
   def any_videos?(
