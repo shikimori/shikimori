@@ -179,7 +179,7 @@ class ProfilesController < ShikimoriController
       breadcrumb(
         # t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}"),
         t(:settings),
-        edit_profile_url(@resource, page: PARENT_PAGES[params[:page]])
+        @resource.edit_url(page: PARENT_PAGES[params[:page]])
       )
     end
     og page_title: t("profiles.page.pages.#{params[:page]}") rescue I18n::MissingTranslation
@@ -197,7 +197,7 @@ class ProfilesController < ShikimoriController
       bypass_sign_in @resource if params[:user][:password].present?
 
       params[:page] = 'account' if params[:page] == 'password'
-      redirect_to edit_profile_url(@resource, page: params[:page]),
+      redirect_to @resource.edit_url(page: params[:page]),
         notice: t('changes_saved')
     else
       flash[:alert] = t('changes_not_saved')

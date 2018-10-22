@@ -9,7 +9,7 @@
 
     .block
       = f.button :magic_submit
-      a.cancel href=profile_url(@resource) = t 'actions.cancel'
+      a.cancel href=@resource.url = t 'actions.cancel'
 
 .cc-2
   .c-column
@@ -68,10 +68,10 @@
   .c-column
     .block
       .mischeadline = t '.ignored_topics'
-      div: a.b-link href=edit_profile_url(@resource, page: 'ignored_topics')
+      div: a.b-link href=@resource.edit_url(page: 'ignored_topics')
         = t '.show_list_of_ignored'
 
     .block
       .mischeadline = t '.ignored_users'
-      div: a.b-link href=edit_profile_url(@resource, page: 'ignored_users')
+      div: a.b-link href=@resource.edit_url(page: 'ignored_users')
         = t '.show_list_of_ignored'

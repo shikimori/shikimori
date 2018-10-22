@@ -15,7 +15,17 @@ class UserDecorator < BaseDecorator
   end
 
   def url
-    h.profile_url self, subdomain: nil
+    h.profile_url(
+      will_save_change_to_nickname? ? to_param(changes['nickname'][0]) : self,
+      subdomain: nil
+    )
+  end
+
+  def edit_url page:
+    h.edit_profile_url(
+      will_save_change_to_nickname? ? to_param(changes['nickname'][0]) : self,
+      page: page
+    )
   end
 
   def show_contest_link?

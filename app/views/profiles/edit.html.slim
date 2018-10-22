@@ -8,7 +8,7 @@
     - %w(account profile styles list notifications misc).each do |page|
       a[
         class=(:selected if @page == page || page == ProfilesController::PARENT_PAGES[params[:page]])
-        href=edit_profile_url(@resource, page: page)
+        href=@resource.edit_url(page: page)
       ] = t ".pages.#{page}"
   h2.subheadline.m10 = t :settings
 

@@ -1,6 +1,4 @@
-/ важно заново выбрать юзера из базы, т.к. юзер может быть в процессе смены никнейма
-= simple_form_for @resource.object,
-    url: profile_url(User.find(@resource.id)) do |f|
+= simple_form_for @resource.object, url: @resource.url do |f|
   input type='hidden' name='page' value=@page
 
   .cc-2
@@ -15,7 +13,7 @@
         = f.input :email, input_html: { disabled: true }
 
         .change-password
-          a href=edit_profile_url(@resource, page: 'password')
+          a href=@resource.edit_url(page: 'password')
             = t '.change_email_and_password'
 
         = f.input :name
@@ -79,5 +77,5 @@
               locals: { content_by: 'mini' }
 
   .buttons
-    a.cancel href=profile_url(@resource) = t 'actions.cancel'
+    a.cancel href=@resource.url = t 'actions.cancel'
     = f.button :magic_submit

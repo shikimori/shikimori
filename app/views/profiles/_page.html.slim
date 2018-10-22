@@ -9,7 +9,10 @@ header.head.misc
         title=t('back')
         data-text=t('back')
       ]
-    = @user.nickname
+    - if @user.will_save_change_to_nickname?
+      = @user.changes['nickname'][0]
+    - else
+      = @user.nickname
     = render 'profiles/status', user: @user
     = yield :head_misc
 

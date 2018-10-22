@@ -1,4 +1,4 @@
-= simple_form_for @resource.object, url: profile_url(@resource) do |f|
+= simple_form_for @resource.object, url: @resource.url do |f|
   input type='hidden' name='page' value=@page
 
   = f.input :notification_settings,
@@ -7,4 +7,4 @@
 
   .block
     = f.button :magic_submit
-    a.cancel href=profile_url(@resource) = t 'actions.cancel'
+    a.cancel href=@resource.url = t 'actions.cancel'

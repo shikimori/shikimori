@@ -23,7 +23,7 @@ describe UserPreferencesController do
         before { make_request }
         it do
           expect(resource.preferences.anime_in_profile).to eq preferences_params[:anime_in_profile]
-          expect(response).to redirect_to edit_profile_url(user, page: :profile)
+          expect(response).to redirect_to user.decorate.edit_url(page: :profile)
         end
       end
 

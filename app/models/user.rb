@@ -259,7 +259,7 @@ class User < ApplicationRecord
       .includes(:anime, :manga)
   end
 
-  def to_param
+  def to_param nickname = self.nickname
     nickname.tr(' ', '+')
   end
 

@@ -15,7 +15,7 @@
 
     .block
       = f.button :magic_submit
-      a.cancel href=profile_url(@resource) = t 'actions.cancel'
+      a.cancel href=@resource.url = t 'actions.cancel'
     / .buttons
       a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
       = f.button :magic_submit
@@ -24,4 +24,4 @@
 = render 'styles/editor',
   style: @resource.style,
   default_backgrounds: true,
-  cancel_url: profile_url(@resource)
+  cancel_url: @resource.url
