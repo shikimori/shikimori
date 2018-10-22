@@ -76,6 +76,9 @@ class ApplicationRecord < ActiveRecord::Base
     end
 
     def sanitize data
+      # http://shikimori.local/animes/page/30?type=1%00%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD%252527%252522
+      data = data.delete("\u0000") if data.is_a? String
+
       connection.quote data
     end
   end
