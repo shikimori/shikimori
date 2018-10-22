@@ -33,12 +33,12 @@ class Ad < ViewObjectBase
               margin: 0 auto;
               overflow: hidden;
             }
-            .spnsrs_special_x1170 {
+            .spns_special_x1170 {
               max-width: 1150px;
               margin: 0 auto;
               overflow: hidden;
             }
-            .b-spnsrs-special_x1170 {
+            .b-spns-special_x1170 {
               margin: 0 auto 45px;
               overflow: hidden;
             }
@@ -215,7 +215,7 @@ class Ad < ViewObjectBase
   end
 
   def css_class
-    "spnsrs_#{@banner_type}"
+    "spns_#{@banner_type}"
   end
 
   def to_html
