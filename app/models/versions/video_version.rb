@@ -14,13 +14,16 @@ class Versions::VideoVersion < Version
 
   def apply_changes
     case action
-      when Actions[:upload] then upload_video
+      when Actions[:upload] then confirm_video
       when Actions[:delete] then delete_video
     end
   end
 
   def rollback_changes
-    raise NotImplementedError
+    case action
+      when Actions[:upload] then delete_video
+      when Actions[:delete] then confirm_video
+    end
   end
 
   def cleanup
@@ -29,11 +32,11 @@ class Versions::VideoVersion < Version
 
 private
 
-  def upload_video
-    video.confirm
+  def confirm_video
+    video.confirm!
   end
 
   def delete_video
-    video.del
+    video.del!
   end
 end

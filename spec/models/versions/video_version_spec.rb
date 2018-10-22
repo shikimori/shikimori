@@ -18,11 +18,11 @@ describe Versions::VideoVersion do
 
   describe '#apply_changes' do
     let(:version) { build :video_version, item_diff: { action: action, videos: [video.id] } }
+    subject! { version.apply_changes }
 
     context 'upload' do
       let(:video) { create :video, :uploaded }
       let(:action) { Versions::VideoVersion::Actions[:upload] }
-      subject! { version.apply_changes }
 
       it { expect(video.reload).to be_confirmed }
     end
@@ -30,15 +30,31 @@ describe Versions::VideoVersion do
     context 'delete' do
       let(:video) { create :video, :confirmed }
       let(:action) { Versions::VideoVersion::Actions[:delete] }
-      subject! { version.apply_changes }
 
       it { expect(video.reload).to be_deleted }
     end
   end
 
   describe '#rollback_changes' do
-    let(:version) { build :video_version }
-    it { expect { version.rollback_changes }.to raise_error NotImplementedError }
+    let(:version) do
+      build :video_version, :accepted,
+        item_diff: { action: action, videos: [video.id] }
+    end
+    subject! { version.rollback_changes }
+
+    context 'upload' do
+      let(:video) { create :video, :confirmed }
+      let(:action) { Versions::VideoVersion::Actions[:upload] }
+
+      it { expect(video.reload).to be_deleted }
+    end
+
+    context 'delete' do
+      let(:video) { create :video, :deleted }
+      let(:action) { Versions::VideoVersion::Actions[:delete] }
+
+      it { expect(video.reload).to be_confirmed }
+    end
   end
 
   describe '#cleanup' do

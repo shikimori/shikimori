@@ -34,7 +34,7 @@ class Video < ApplicationRecord
     state :deleted
 
     event :confirm do
-      transition uploaded: :confirmed
+      transition %i[uploaded deleted] => :confirmed
     end
     event :del do
       transition %i[uploaded confirmed] => :deleted
