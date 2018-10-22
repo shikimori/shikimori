@@ -222,7 +222,7 @@ class Ad < ViewObjectBase
     finalize
 
     <<-HTML.gsub(/\n|^\ +/, '')
-      <div class="b-spnsrs-#{@banner_type}">
+      <div class="b-spns-#{@banner_type}">
         <center>
           #{ad_html}
         </center>

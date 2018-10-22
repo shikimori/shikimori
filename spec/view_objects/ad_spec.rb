@@ -129,7 +129,7 @@ describe Ad do
   end
 
   describe '#css_class' do
-    it { expect(ad.css_class).to eq "spnsrs_#{ad.banner_type}" }
+    it { expect(ad.css_class).to eq "spns_#{ad.banner_type}" }
   end
 
   describe '#to_html' do
@@ -140,7 +140,7 @@ describe Ad do
       it do
         expect(ad.to_html).to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spnsrs-advrtr_240x400">
+            <div class="b-spns-advrtr_240x400">
               <center>
                 <iframe src='zxc' width='240px' height='400px'>
               </center>
@@ -158,7 +158,7 @@ describe Ad do
         # it do
           # expect(ad.to_html).to eq(
             # <<-HTML.gsub(/\n|^\ +/, '')
-              # <div class="b-spnsrs-istari_x1170">
+              # <div class="b-spns-istari_x1170">
                 # <center>
                   # <a href='http://kimi.istaricomics.com'>
                     # <img src='/assets/globals/events/i1_2.jpg' srcset='/assets/globals/events/i1_2@2x.jpg 2x'>
@@ -199,7 +199,7 @@ describe Ad do
       it do
         expect(ad.to_html).to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spnsrs-yd_240x400">
+            <div class="b-spns-yd_240x400">
               <center>
                 <div id='yd_240x400'></div>
               </center>
