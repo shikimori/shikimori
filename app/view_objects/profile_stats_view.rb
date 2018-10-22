@@ -4,7 +4,8 @@ class ProfileStatsView # rubocop:disable ClassLength
   include Translation
   prepend ActiveCacher.instance
 
-  instance_cache :comments_count, :topics_count, :summaries_count, :reviews_count,
+  instance_cache :comments_count, :topics_count, :summaries_count,
+    :reviews_count, :collections_count,
     :versions_count, :video_uploads_count, :video_reports_count, :video_versions_count
 
   delegate :anime_ratings, :anime_spent_time, :full_statuses, :manga,
@@ -164,6 +165,10 @@ class ProfileStatsView # rubocop:disable ClassLength
 
   def reviews_count
     user.reviews.count
+  end
+
+  def collections_count
+    user.collections.available.count
   end
 
   def versions_count

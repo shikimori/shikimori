@@ -78,6 +78,19 @@ class ProfilesController < ShikimoriController
       .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
+  def collections
+    og noindex: true
+    og page_title: i18n_io('Collection', :few)
+
+    scope = @resource.topics
+      .where(type: Topics::EntryTopics::CollectionTopic.name)
+      .order(created_at: :desc)
+
+    @collection = QueryObjectBase.new(scope)
+      .paginate(@page, TOPICS_LIMIT)
+      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
+  end
+
   def comments
     og noindex: true
     og page_title: i18n_io('Comment', :few)

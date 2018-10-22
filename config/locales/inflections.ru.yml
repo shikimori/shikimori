@@ -39,6 +39,12 @@ ru:
           few: рецензии
           many: рецензий
           other: рецензии
+      collection:
+        subjective:
+          one: коллекция
+          few: коллекции
+          many: коллекций
+          other: коллекции
       content_change:
         subjective:
           one: правка контента
@@ -569,6 +575,9 @@ ru:
       review:
         one: рецензия
         few: рецензии
+      collection:
+        one: коллекция
+        few: коллекци
       genre:
         one: жанр
         few: жанры

@@ -78,7 +78,7 @@ class Version < ApplicationRecord
     end
 
     after_transition(
-      %i[pending auto_accepted] => [:rejected]
+      %i[pending auto_accepted] => %i[rejected]
     ) do |version, transition|
       version.notify_rejection transition.args.second
     end

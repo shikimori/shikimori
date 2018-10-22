@@ -911,6 +911,7 @@ Rails.application.routes.draw do
           page: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
         get 'reviews(/page/:page)' => :reviews, as: :reviews
+        get 'collections(/page/:page)' => :collections, as: :collections
         get 'topics(/page/:page)' => :topics, as: :topics
         get 'comments(/page/:page)' => :comments, as: :comments
         scope 'comments' do

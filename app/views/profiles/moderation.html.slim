@@ -62,6 +62,15 @@
               data-confirm=t('actions.confirm')
             ] = t 'actions.delete_all'
 
+
+    - if @resource.stats.collections_count.positive?
+      .c-column
+        .subheadline
+          a href=collections_profile_url(@resource)
+            = i18n_io 'Collection', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.stats.collections_count
+
     - if @resource.stats.comments_count.positive?
       .c-column
         .subheadline
