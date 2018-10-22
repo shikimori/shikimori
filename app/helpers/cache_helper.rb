@@ -26,15 +26,15 @@ module CacheHelper
       ]
     end
 
-    def cache_settings
+    def cache_settings # rubocop:disable AbcSize
       {
-        cache_path: lambda {
+        cache_path: -> {
           "#{params[:controller]}_#{params[:action]}_#{I18n.locale}" +
           Digest::MD5.hexdigest("#{request.path}|#{params.to_json}|"\
             "#{cookies[ShikimoriController::COOKIE_AGE_OVER_18].to_json}") +
           "_#{json?}_#{request.xhr?}_#{turbolinks_request?}_#{request.host}"
         },
-        unless: proc { user_signed_in? },
+        unless: -> { user_signed_in? },
         expires_in: 2.days
       }
     end
