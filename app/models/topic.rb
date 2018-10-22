@@ -81,6 +81,9 @@ class Topic < ApplicationRecord
   scope :wo_episodes, -> {
     where 'action IS NULL OR action != ?', AnimeHistoryAction::Episode
   }
+  scope :user_topics, -> {
+    where type: [nil, Topic.name, Topics::NewsTopic.name]
+  }
 
   before_save :validate_linked
   before_save :check_spam_abuse, if: :will_save_change_to_body?

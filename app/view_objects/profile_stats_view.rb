@@ -156,7 +156,10 @@ class ProfileStatsView # rubocop:disable ClassLength
   end
 
   def topics_count
-    Topic.where(user_id: user.id).count
+    Topic
+      .where(user_id: user.id)
+      .user_topics
+      .count
   end
 
   def summaries_count

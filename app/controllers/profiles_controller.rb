@@ -58,7 +58,7 @@ class ProfilesController < ShikimoriController
     og noindex: true
     og page_title: i18n_io('Topic', :few)
 
-    scope = @resource.topics.order(created_at: :desc)
+    scope = @resource.topics.user_topics.order(created_at: :desc)
 
     @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
