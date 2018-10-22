@@ -25,7 +25,12 @@ class VideosController < ShikimoriController
 
   def destroy
     @version = versioneer.delete params[:id], current_user
-    render json: { notice: i18n_t('pending_version') }
+
+    if @version.persisted?
+      render json: { notice: i18n_t('pending_version') }
+    else
+      render json: @version.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
 private

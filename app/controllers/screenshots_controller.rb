@@ -10,10 +10,8 @@ class ScreenshotsController < ShikimoriController
         html: render_to_string(@screenshot, locals: { edition: true })
       }
     else
-      render json: @screenshot.errors, status: :unprocessable_entity
+      render json: @screenshot.errors.full_messages, status: :unprocessable_entity
     end
-  #rescue
-    #render json: { error: 'Произошла ошибка при загрузке файла. Пожалуйста, повторите попытку, либо свяжитесь с администрацией сайта.' }
   end
 
   def destroy
@@ -24,7 +22,12 @@ class ScreenshotsController < ShikimoriController
       render json: { notice: i18n_t('screenshot_deleted') }
     else
       @version = versioneer.delete @screenshot.id, current_user
-      render json: { notice: i18n_t('pending_version') }
+
+      if @version.persisted?
+        render json: { notice: i18n_t('pending_version') }
+      else
+        render json: @version.errors.full_messages, status: :unprocessable_entity
+      end
     end
   end
 
