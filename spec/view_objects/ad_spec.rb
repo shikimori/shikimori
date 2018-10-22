@@ -30,7 +30,7 @@ describe Ad do
   let(:cookies) { {} }
 
   describe '#banner_type' do
-    it { expect(ad.banner_type).to eq :yd_300x600 }
+    it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
 
     describe 'meta changed by user preferences body_width_x1000' do
       let(:user) { build_stubbed :user, preferences: preferences }
@@ -40,12 +40,12 @@ describe Ad do
         let(:meta) { %i[menu_300x600 menu_300x250].sample }
         let(:body_width) { :x1000 }
 
-        it { expect(ad.banner_type).to eq :yd_240x500 }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_240x400].first }
       end
 
       context 'x1200 site width' do
         let(:body_width) { :x1200 }
-        it { expect(ad.banner_type).to eq :yd_300x600 }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_240x400].first }
       end
     end
 
@@ -53,7 +53,7 @@ describe Ad do
       context 'topics' do
         let(:meta) { :menu_240x400 }
         let(:params) { { controller: 'topics' } }
-        it { expect(ad.banner_type).to eq :yd_300x600 }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
       end
     end
   end
@@ -63,7 +63,7 @@ describe Ad do
   end
 
   describe '#provider' do
-    it { expect(ad.provider).to eq Ad::BANNERS[:yd_300x600][:provider] }
+    it { expect(ad.provider).to eq Ad::BANNERS[Ad::META_TYPES[:menu_300x600].first][:provider] }
   end
 
   describe '#allowed?' do

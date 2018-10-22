@@ -31,13 +31,16 @@ class Ad < ViewObjectBase
               width: 100%;
               height: 180px;
               margin: 0 auto;
+              overflow: hidden;
             }
             .spnsrs_special_x1170 {
               max-width: 1150px;
               margin: 0 auto;
+              overflow: hidden;
             }
             .b-spnsrs-special_x1170 {
               margin: 0 auto 45px;
+              overflow: hidden;
             }
           </style>
           <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
