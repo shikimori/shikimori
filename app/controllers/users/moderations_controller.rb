@@ -26,6 +26,7 @@ class Users::ModerationsController < ProfilesController
 
     Topic
       .where(user_id: @resource.id)
+      .where(type: [nil, Topic.name, Topics::NewsTopic.name])
       .each { |topic| faye.destroy topic }
 
     redirect_to moderation_profile_url @resource

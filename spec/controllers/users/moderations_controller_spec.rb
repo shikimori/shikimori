@@ -56,8 +56,13 @@ describe Users::ModerationsController do
   end
 
   context '#topics' do
-    let!(:topic_1) { create :topic, user: target_user }
-    let!(:topic_2) { create :topic, user: user }
+    let!(:topic_1) { create :topic, type: nil, user: target_user }
+    let!(:topic_2) { create :topic, user: target_user }
+    let!(:topic_3) { create :news_topic, user: target_user }
+
+    let!(:topic_4) { create :topic, user: user }
+    let!(:review) { create :review, :with_topics, user: target_user }
+    let!(:collection) { create :review, :with_topics, user: target_user }
 
     let(:make_request) { delete :topics, params: { profile_id: target_user.to_param } }
 
@@ -66,7 +71,13 @@ describe Users::ModerationsController do
 
       it do
         expect { topic_1.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect(topic_2.reload).to be_persisted
+        expect { topic_2.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { topic_3.reload }.to raise_error ActiveRecord::RecordNotFound
+
+        expect(topic_4.reload).to be_persisted
+        expect(review.all_topics).to be_one
+        expect(collection.all_topics).to be_one
+
         is_expected.to redirect_to moderation_profile_url(target_user)
       end
     end
