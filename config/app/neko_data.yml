@@ -271,6 +271,8 @@
         - 5205
         - 36027
         - 6707
+        - 36266
+        - 35994
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -544,6 +546,8 @@
         - 5205
         - 36027
         - 6707
+        - 36266
+        - 35994
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -817,6 +821,8 @@
         - 5205
         - 36027
         - 6707
+        - 36266
+        - 35994
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
