@@ -15,6 +15,10 @@ class QueryObjectBase
     @scope.to_a
   end
 
+  def [] index
+    @scope.to_a[index]
+  end
+
   def paginate page, limit
     new_scope = @scope
       .offset(limit * (page - 1))
