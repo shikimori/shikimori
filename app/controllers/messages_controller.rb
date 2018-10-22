@@ -79,6 +79,8 @@ class MessagesController < ProfilesController
         .order(:read, created_at: :desc)
         .includes(:linked)
         .limit(25)
+        .decorate
+        .reject(&:broken?)
         .to_a
     end
 
