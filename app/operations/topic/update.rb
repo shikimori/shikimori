@@ -16,9 +16,11 @@ class Topic::Update
 private
 
   def update_topic
-    @topic.class.wo_timestamp do
-      @faye.update @topic, @params
-    end
+    @faye.update @topic, @params
+
+    # @topic.class.wo_timestamp do
+    #   @faye.update @topic, @params
+    # end
   end
 
   def broadcast? topic

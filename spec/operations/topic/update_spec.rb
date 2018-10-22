@@ -11,7 +11,7 @@ describe Topic::Update do
   end
 
   let(:faye) { FayeService.new user, nil }
-  let(:topic) { create :topic }
+  let(:topic) { create :topic, updated_at: 1.hour.ago }
   let(:is_broadcast_required) { false }
 
   before do
@@ -28,6 +28,7 @@ describe Topic::Update do
       is_expected.to eq true
       expect(topic).to be_valid
       expect(topic).to_not be_changed
+      expect(topic.updated_at).to be_within(0.1).of Time.zone.now
 
       expect(topic.reload).to have_attributes params
       expect(Notifications::BroadcastTopic).to_not have_received :perform_async
