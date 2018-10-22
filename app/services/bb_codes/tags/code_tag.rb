@@ -9,6 +9,9 @@ class BbCodes::Tags::CodeTag
 
   CODE_PLACEHOLDER = '<<-CODE-PLACEHODLER->>'
 
+  class BrokenTagError < RuntimeError
+  end
+
   def initialize text
     @text = text
     @cache = []
@@ -28,8 +31,10 @@ class BbCodes::Tags::CodeTag
   end
 
   def postprocess text
-    text.gsub CODE_PLACEHOLDER do
+    fixed_text = text.gsub CODE_PLACEHOLDER do
       code = @cache.shift
+
+      raise BrokenTagError if code.nil?
 
       if code.language
         code_highlight code.text, code.language
@@ -39,6 +44,10 @@ class BbCodes::Tags::CodeTag
         code_inline code.text
       end
     end
+
+    raise BrokenTagError if @cache.any?
+
+    fixed_text
   end
 
   def restore text

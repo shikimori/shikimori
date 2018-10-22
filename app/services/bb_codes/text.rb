@@ -61,10 +61,22 @@ class BbCodes::Text
   # обработка ббкодов текста
   # TODO: перенести весь код ббкодов сюда или в связанные классы
   def bb_codes text
+    code_tag = BbCodes::Tags::CodeTag.new(text)
+
+    code_tag.postprocess parse(code_tag.preprocess)
+  rescue BbCodes::Tags::CodeTag::BrokenTagError
+    parse(text)
+  end
+
+  def remove_spam text
+    text.gsub SPAM_DOMAINS, 'spam.domain'
+  end
+
+private
+
+  def parse text # rubocop:disable MethodLength
     text_hash = XXhash.xxh32 text, 0
 
-    code_tag = BbCodes::Tags::CodeTag.new(text)
-    text = code_tag.preprocess
     text = text.gsub(/\r\n|\r/, "\n")
     text = BbCodes::Tags::CleanupNewLines.call(
       text,
@@ -90,12 +102,6 @@ class BbCodes::Text
       text = tag_klass.instance.format text
     end
 
-    text = text.gsub(/\r\n|\r|\n/, '<br>')
-    text = code_tag.postprocess text
-    text
-  end
-
-  def remove_spam text
-    text.gsub SPAM_DOMAINS, 'spam.domain'
+    text.gsub(/\r\n|\r|\n/, '<br>')
   end
 end
