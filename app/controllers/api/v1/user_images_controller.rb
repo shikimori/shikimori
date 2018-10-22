@@ -20,7 +20,7 @@ class Api::V1::UserImagesController < Api::V1Controller
         bbcode: "[image=#{@resource.id}]"
       }
     else
-      render json: @resource.errors.messages, status: :unprocessable_entity
+      render json: @resource.full_errors.messages, status: :unprocessable_entity
     end
   end
 

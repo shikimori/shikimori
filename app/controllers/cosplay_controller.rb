@@ -230,7 +230,7 @@ class CosplayController < ShikimoriController
     if gallery.save && gallery.update_attributes!(cosplay_gallery_params)
       redirect_to edit_cosplay_cosplay_gallery_url params[:cosplay_id], gallery.to_param
     else
-      render gallery.errors, status: :unprocessable_entity
+      render gallery.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -241,7 +241,7 @@ class CosplayController < ShikimoriController
     if gallery.update_attribute(:deleted, true)
       redirect_to edit_cosplay_cosplay_gallery_url(params[:cosplay_id], gallery.to_param)
     else
-      render gallery.errors, status: :unprocessable_entity
+      render gallery.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -252,7 +252,7 @@ class CosplayController < ShikimoriController
     if gallery.update_attribute(:deleted, false)
       redirect_to edit_cosplay_cosplay_gallery_url(params[:cosplay_id], gallery.to_param)
     else
-      render gallery.errors, status: :unprocessable_entity
+      render gallery.errors.full_messages, status: :unprocessable_entity
     end
   end
 
