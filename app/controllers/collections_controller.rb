@@ -17,7 +17,6 @@ class CollectionsController < ShikimoriController
 
     @collection = Collections::Query.fetch(locale_from_host)
       .search(params[:search], locale_from_host)
-      .where(id: [899, 895, 893, 877])
       .paginate(@page, @limit)
       .transform do |collection|
         Topics::TopicViewFactory
