@@ -9,6 +9,7 @@ module AntispamConcern
 
     def self.inherited subclass
       super
+      subclass.instance_variable_set '@antispam_enabled', @antispam_enabled
       subclass.instance_variable_set '@antispam_options', @antispam_options.dup
     end
   end
@@ -92,13 +93,13 @@ module AntispamConcern
   end
 
   def prior_entry user_id_key
-    self.class
+    self.class.base_class
       .order(id: :desc)
       .find_by(user_id_key => send(user_id_key))
   end
 
   def daily_entries_count user_id_key
-    self.class
+    self.class.base_class
       .where(user_id_key => send(user_id_key))
       .where('created_at >= ?', DAY_DURATION.ago)
       .count
