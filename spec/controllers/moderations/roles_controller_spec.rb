@@ -9,17 +9,20 @@ describe Moderations::RolesController do
     include_context :authenticated, :user
     subject! { get :show, params: { id: role } }
 
+    let(:role) { 'admin' }
+    it do
+      expect(collection).to eq [user_admin]
+      expect(response).to have_http_status :success
+    end
+
     context 'invalid role' do
       let(:role) { 'zxc' }
       it { expect(response).to redirect_to moderations_roles_url }
     end
 
-    context 'valid role' do
-      let(:role) { 'admin' }
-      it do
-        expect(collection).to eq [user_admin]
-        expect(response).to have_http_status :success
-      end
+    context 'no access' do
+      let(:role) { 'cheat_bot' }
+      it { expect(response).to redirect_to moderations_roles_url }
     end
   end
 

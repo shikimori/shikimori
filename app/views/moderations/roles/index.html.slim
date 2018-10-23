@@ -8,9 +8,12 @@ header.head
 ul.b-list.block
   - User.roles.values.each do |role|
     li
-      a.b-js-link[
-        href=moderations_role_url(id: role)
-      ]
+      - if access?(role)
+        a.b-js-link[
+          href=moderations_role_url(id: role)
+        ]
+          = role.titleize
+      - else
         = role.titleize
 
       - if can? :"manage_#{role}_role", User
