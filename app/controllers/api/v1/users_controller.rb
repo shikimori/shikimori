@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1Controller
   before_action :authenticate_user!, only: %i[messages unread_messages]
-  before_action :authorize_lists_access, only: %i[anime_rates manga_rates]
+  before_action :authorize_lists_access, only: %i[anime_rates manga_rates history]
 
   caches_action :anime_rates, :manga_rates,
     cache_path: proc {
