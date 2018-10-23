@@ -1,4 +1,12 @@
 class AbuseRequest < ApplicationRecord
+  include AntispamConcern
+
+  antispam(
+    per_day: 25,
+    disable_if: -> { user.forum_moderator? },
+    user_id_key: :user_id
+  )
+
   MAXIMUM_REASON_SIZE = 255
 
   belongs_to :comment

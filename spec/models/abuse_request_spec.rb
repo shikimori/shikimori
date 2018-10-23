@@ -120,4 +120,6 @@ describe AbuseRequest do
       it { is_expected.to be_able_to :read, abuse_request }
     end
   end
+
+  it_behaves_like :antispam_concern, :abuse_request
 end
