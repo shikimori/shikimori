@@ -1,22 +1,22 @@
 describe AbuseRequest do
   describe 'relations' do
-    it { should belong_to :comment }
-    it { should belong_to :user }
-    it { should belong_to :approver }
+    it { is_expected.to belong_to :comment }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :approver }
   end
 
   describe 'validations' do
-    it { should validate_presence_of :user }
-    it { should validate_presence_of :comment }
+    it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :comment }
 
     context 'accepted' do
       subject { build :abuse_request, state: 'accepted' }
-      it { should validate_presence_of :approver }
+      it { is_expected.to validate_presence_of :approver }
     end
 
     context 'rejected' do
       subject { build :abuse_request, state: 'rejected' }
-      it { should validate_presence_of :approver }
+      it { is_expected.to validate_presence_of :approver }
     end
   end
 
@@ -44,21 +44,21 @@ describe AbuseRequest do
 
     describe '#take' do
       before { abuse_request.take user }
-      its(:approver) { should eq user }
+      its(:approver) { is_expected.to eq user }
 
       context 'comment' do
         subject { abuse_request.comment }
-        its(:is_offtopic) { should eq true }
+        its(:is_offtopic) { is_expected.to eq true }
       end
     end
 
     describe '#reject' do
       before { abuse_request.reject user }
-      its(:approver) { should eq user }
+      its(:approver) { is_expected.to eq user }
 
       context 'comment' do
         subject { abuse_request.comment }
-        its(:is_offtopic) { should eq false }
+        its(:is_offtopic) { is_expected.to eq false }
       end
     end
   end
@@ -76,24 +76,24 @@ describe AbuseRequest do
       describe true do
         context 'abuse' do
           let(:kind) { 'abuse' }
-          it { should eq true }
+          it { is_expected.to eq true }
         end
 
         context 'spoiler' do
           let(:kind) { 'spoiler' }
-          it { should eq true }
+          it { is_expected.to eq true }
         end
       end
 
       describe false do
         context 'offtopic' do
           let(:kind) { 'offtopic' }
-          it { should eq false }
+          it { is_expected.to eq false }
         end
 
         context 'summary' do
           let(:kind) { 'summary' }
-          it { should eq false }
+          it { is_expected.to eq false }
         end
       end
     end
