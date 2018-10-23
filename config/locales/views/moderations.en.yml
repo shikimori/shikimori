@@ -252,6 +252,7 @@ en:
           trusted_video_uploader: Can upload videos wihtout moderation
           not_trusted_video_uploader: Cannot upload videos
           trusted_video_changer: Can edit uploaded videos without moderation
+          not_trusted_abuse_reporter: Restricted in filing complaints on the forum (maximum 3 complaints per day)
           censored_avatar: Have avatar with adult content
           censored_profile: Have profile with adult content
       user:

@@ -10,6 +10,8 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     ids = AbuseRequestsService.new(comment, current_user).offtopic(faye_token)
 
     respond_with result(comment, ids)
+  rescue ActiveRecord::RecordNotSaved => e
+    render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
 
   api :POST, '/v2/abuse_requests/summary', 'Mark comment as summary'
@@ -20,6 +22,8 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     ids = AbuseRequestsService.new(comment, current_user).summary(faye_token)
 
     respond_with result(comment, ids)
+  rescue ActiveRecord::RecordNotSaved => e
+    render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
 
   api :POST, '/v2/abuse_requests/abuse', 'Create abuse about violation of site rules'
@@ -31,6 +35,8 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     ids = AbuseRequestsService.new(comment, current_user).abuse params[:reason]
 
     respond_with result(comment, ids)
+  rescue ActiveRecord::RecordNotSaved => e
+    render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
 
   api :POST, '/v2/abuse_requests/spoiler', 'Create abuse spoiler content in comment'
@@ -42,6 +48,8 @@ class Api::V2::AbuseRequestsController < Api::V2Controller
     ids = AbuseRequestsService.new(comment, current_user).spoiler params[:reason]
 
     respond_with result(comment, ids)
+  rescue ActiveRecord::RecordNotSaved => e
+    render json: e.record.errors.full_messages, status: :unprocessable_entity
   end
 
 private

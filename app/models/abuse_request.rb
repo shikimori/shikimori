@@ -6,6 +6,11 @@ class AbuseRequest < ApplicationRecord
     disable_if: -> { user.forum_moderator? },
     user_id_key: :user_id
   )
+  antispam(
+    per_day: 3,
+    disable_if: -> { !user.not_trusted_abuse_reporter? },
+    user_id_key: :user_id
+  )
 
   MAXIMUM_REASON_SIZE = 255
 

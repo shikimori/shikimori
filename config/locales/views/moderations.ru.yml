@@ -252,6 +252,7 @@ ru:
           trusted_video_uploader: Может загружать видео без модерации
           not_trusted_video_uploader: Не может загружать видео
           trusted_video_changer: Может редактировать загруженные видео без модерации
+          not_trusted_abuse_reporter: Ограничен в подаче жалоб на форуме (максимум 3 жалобы в день)
           censored_avatar: Аватарка со взрослым контентом
           censored_profile: Профиль со взрослым контентом
       user:

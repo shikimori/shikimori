@@ -18,6 +18,7 @@ module Types
       trusted_video_uploader
       not_trusted_video_uploader
       trusted_video_changer
+      not_trusted_abuse_reporter
       censored_avatar
       censored_profile
       bot
