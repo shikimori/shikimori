@@ -29,7 +29,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       Topics::TopicViewFactory.new(false, false).find(ABOUT_TOPIC_ID)
   end
 
-  def copyrighted # rubocop:disable MethodLength
+  def copyrighted # rubocop:disable MethodLength, AbcSize
     og page_title: t('copyrighted_animes')
     og notice: i18n_t('copyrighted_animes')
 
@@ -47,6 +47,14 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
     @capella_film = Anime
       .where(id: Copyright::CAPELLA_FILM_COPYRIGHTED)
+      .order(AniMangaQuery.order_sql('released_on', Anime))
+
+    @other = Anime
+      .where(
+        id: Copyright::OTHER_COPYRIGHTED -
+          Copyright::WAKANIM_COPYRIGHTED - Copyright::ISTARI_COPYRIGHTED -
+          Copyright::VGTRK_COPYRIGHTED - Copyright::CAPELLA_FILM_COPYRIGHTED
+      )
       .order(AniMangaQuery.order_sql('released_on', Anime))
 
     @topic_view =

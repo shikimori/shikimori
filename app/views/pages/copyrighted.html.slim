@@ -35,6 +35,14 @@ header.head
         locals: { cover_notice: :studio },
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
+  .block2
+    .midheadline.m10 Other
+    .cc-7.to-process data-dynamic='cutted_covers'
+      = render partial: 'animes/anime',
+        collection: @other.decorate,
+        locals: { cover_notice: :studio },
+        cache: ->(entry, _) { CacheHelper.keys entry, :relation }
+
 = render 'spnsrs/ad', ad: Ad.new(:horizontal)
 
 .subheadline.m3 = i18n_i 'Comment', :other
