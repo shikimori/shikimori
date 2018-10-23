@@ -67,7 +67,8 @@ module Copyright
     35997, # Marchen Madchen | Russia + Europe - 2018-01-11 - 2020-01-11
     36511, # Tokyo Ghoul:re | Russia + East Europe - 2018-04-01 - 2023-04-01
     30484, # Steins;Gate 0 | Russia + Germany - 2018-04-01 - 2025-04-01
-    # 35760, # Attack on Titan 3
+    35760, # Attack on Titan 3 | Russia - 2018-07-22 - 2022-07-21
+    35760, # Attack on Titan 3 | Russia - 2018-07-22 - 2022-07-21
     # 37675, # Overlord III
     # 37140, # GeGeGe no Kitaro
     # 36726, # Yuuna and the Haunted Hot Springs
