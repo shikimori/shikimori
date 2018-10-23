@@ -13,6 +13,8 @@ class Abilities::Admin
     ], User
 
     can :manage, User
+    can :manage, Club
+
     cannot :delete_all_comments, User
     cannot :delete_all_topics, User
     cannot :delete_all_reviews, User
