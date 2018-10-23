@@ -6,17 +6,6 @@ header.head
     .notice = t ".notice.#{@role}"
   = render 'application/breadcrumbs'
 
-.block
-  .subheadline.m10 = t '.users'
-  .cc-4
-    - cache [params[:role], @collection, can?(:"manage_#{@role}_role", User)] do
-      - if @collection.none?
-        .b-nothing_here = t '.nothing_here'
-      - else
-        = render partial: 'moderations/roles/user',
-          collection: @collection,
-          locals: { with_action: can?(:"manage_#{@role}_role", User), role: @role }
-
 - if can? :"manage_#{@role}_role", User
   .block
     .subheadline.m10 = t '.add_user'
@@ -44,6 +33,17 @@ header.head
             filter: 'b-user',
             next_url: current_url(page: @searched_collection.next_page),
             prev_url: (current_url(page: @searched_collection.prev_page) if @searched_collection.prev_page?)
+
+.block
+  .subheadline.m10 = t '.users'
+  .cc-4
+    - cache [params[:role], @collection, can?(:"manage_#{@role}_role", User)] do
+      - if @collection.none?
+        .b-nothing_here = t '.nothing_here'
+      - else
+        = render partial: 'moderations/roles/user',
+          collection: @collection,
+          locals: { with_action: can?(:"manage_#{@role}_role", User), role: @role }
 
 - if @versions.any?
   .block
