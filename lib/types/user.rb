@@ -21,6 +21,7 @@ module Types
       not_trusted_abuse_reporter
       censored_avatar
       censored_profile
+      cheat_bot
       bot
       admin
     ]

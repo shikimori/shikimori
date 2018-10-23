@@ -120,7 +120,8 @@ class Api::V1::UsersController < Api::V1Controller
     respond_with messages
   end
 
-  api :GET, '/users/:id/unread_messages', "Show current user's unread messages counts. Authorization required."
+  api :GET, '/users/:id/unread_messages',
+    "Show current user's unread messages counts. Authorization required."
   def unread_messages
     respond_with(
       messages: current_user.unread_messages,
