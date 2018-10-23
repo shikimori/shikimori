@@ -3,7 +3,15 @@ class Version < ApplicationRecord
 
   antispam(
     per_day: 50,
-    disable_if: -> { user.version_moderator? || user.trusted_version_changer? },
+    disable_if: -> {
+      user.version_moderator? || user.trusted_version_changer? || (
+        item_type == AnimeVideo.name && (
+          user.video_moderator? ||
+          user.trusted_video_uploader? ||
+          user.trusted_video_changer?
+        )
+      )
+    },
     user_id_key: :user_id
   )
 
