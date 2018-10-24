@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_23_212943) do
+ActiveRecord::Schema.define(version: 2018_10_24_204106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1089,7 +1089,6 @@ ActiveRecord::Schema.define(version: 2018_10_23_212943) do
     t.datetime "updated_at"
     t.string "nickname", limit: 255
     t.string "location", limit: 255
-    t.integer "notifications", default: 1601776
     t.datetime "last_online_at"
     t.text "about"
     t.string "sex", limit: 255
