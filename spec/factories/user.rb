@@ -10,8 +10,6 @@ FactoryBot.define do
     can_vote_2 { false }
     can_vote_3 { false }
 
-    notifications { User::DEFAULT_NOTIFICATIONS }
-
     locale { 'ru' }
     locale_from_host { 'ru' }
 
