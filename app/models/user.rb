@@ -212,10 +212,11 @@ class User < ApplicationRecord
       sign_in_count < 7 and
         users.id not in (select distinct(user_id) from comments) and
         users.id not in (select distinct(user_id) from user_rates)
-    ) or roles && '{#{Types::User::Roles[:cheat_bot]}}'
+    )
   SQL
 
-  scope :suspicious, -> { where SUSPISIOUS_USERS_SQL }
+  scope :suspicious, -> { where(SUSPISIOUS_USERS_SQL).or(cheat_bot) } # very slow
+  scope :cheat_bot, -> { where "roles && '{#{Types::User::Roles[:cheat_bot]}}'" }
 
   enumerize :locale,
     in: Types::Locale.values,
