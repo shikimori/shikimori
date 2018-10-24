@@ -1,18 +1,18 @@
-describe UserRatesQuery do
-  let(:user_4) { create :user }
+describe Animes::UserRatesStatisticsQuery do
+  let(:user_4) { seed :user_admin }
   let(:entry) { create :anime }
 
-  before do
-    create :friend_link, src: user, dst: user_2
-    create :friend_link, src: user, dst: user_3
-    create :user_rate, user: user_2, target: entry, score: 9, status: :watching
-    create :user_rate, user: user_3, target: entry, score: 5
-    create :user_rate, user: user_4, target: entry, score: 9
-  end
-  let(:query) { UserRatesQuery.new(entry, user) }
+  let!(:user_rate_1) { create :user_rate, user: user_2, target: entry, score: 9, status: :watching }
+  let!(:user_rate_2) { create :user_rate, user: user_3, target: entry, score: 5 }
+  let!(:user_rate_3) { create :user_rate, user: user_4, target: entry, score: 9 }
+
+  let(:query) { Animes::UserRatesStatisticsQuery.new(entry, user) }
 
   describe '#friend_rates' do
+    let!(:friend_link_1) { create :friend_link, src: user, dst: user_2 }
+    let!(:friend_link_2) { create :friend_link, src: user, dst: user_3 }
     subject { query.friend_rates }
+
     it { is_expected.to have(2).items }
   end
 

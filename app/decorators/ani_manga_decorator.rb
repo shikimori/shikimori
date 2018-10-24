@@ -210,7 +210,7 @@ private
   end
 
   def rates_query
-    UserRatesQuery.new(object, h.current_user)
+    Animes::UserRatesStatisticsQuery.new(object, h.current_user)
   end
 
   def mal_external_link

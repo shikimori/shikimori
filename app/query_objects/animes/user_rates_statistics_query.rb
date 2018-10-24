@@ -1,8 +1,5 @@
-class UserRatesQuery
-  def initialize entry, user
-    @entry = entry
-    @user = user
-  end
+class Animes::UserRatesStatisticsQuery
+  pattr_initialize :entry, :user
 
   # оценки друзей пользователя
   def friend_rates
