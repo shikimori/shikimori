@@ -18,7 +18,7 @@ class Animes::UserRatesStatisticsQuery
   # end
 
   def statuses_stats
-    @entry.rates
+    anticheat_scope
       .group(:status)
       .count
       .sort_by(&:first)
@@ -31,12 +31,18 @@ class Animes::UserRatesStatisticsQuery
 
   def scores_stats
     Hash[
-      @entry.rates
+      anticheat_scope
         .group(:score)
         .count
         .sort_by(&:first)
         .reverse
         .reject { |k, _v| k.zero? }
     ]
+  end
+
+private
+
+  def anticheat_scope
+    @entry.rates.where.not(user_id: User.cheat_bot)
   end
 end
