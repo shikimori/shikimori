@@ -2,9 +2,11 @@ describe Animes::UserRatesStatisticsQuery do
   let(:user_4) { seed :user_admin }
   let(:entry) { create :anime }
 
-  let!(:user_rate_1) { create :user_rate, user: user_2, target: entry, score: 9, status: :watching }
-  let!(:user_rate_2) { create :user_rate, user: user_3, target: entry, score: 5 }
-  let!(:user_rate_3) { create :user_rate, user: user_4, target: entry, score: 9 }
+  let!(:user_rate_1) { create :user_rate, :watching, user: user_2, target: entry, score: 9 }
+  let!(:user_rate_2) { create :user_rate, :planned, user: user_3, target: entry, score: 5 }
+  let!(:user_rate_3) { create :user_rate, :planned, user: user_4, target: entry, score: 9 }
+  let!(:user_rate_4) { create :user_rate, :completed, user: create(:user), target: entry }
+  let!(:user_rate_5) { create :user_rate, :rewatching, user: create(:user), target: entry }
 
   let(:query) { Animes::UserRatesStatisticsQuery.new(entry, user) }
 
@@ -23,7 +25,7 @@ describe Animes::UserRatesStatisticsQuery do
 
   describe '#statuses_stats' do
     subject { query.statuses_stats }
-    it { is_expected.to eq 'planned' => 2, 'watching' => 1 }
+    it { is_expected.to eq 'completed' => 2, 'planned' => 2, 'watching' => 1 }
   end
 
   describe '#scores_stats' do

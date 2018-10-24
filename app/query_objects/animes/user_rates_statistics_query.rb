@@ -1,7 +1,6 @@
 class Animes::UserRatesStatisticsQuery
   pattr_initialize :entry, :user
 
-  # оценки друзей пользователя
   def friend_rates
     @entry.rates
       .where(user_id: @user.friend_links.pluck(:dst_id))
@@ -10,7 +9,6 @@ class Animes::UserRatesStatisticsQuery
       .reverse
   end
 
-  # последние изменения от всех пользователей
   # def recent_rates limit
     # @entry.rates
       # .includes(:user)
@@ -19,18 +17,18 @@ class Animes::UserRatesStatisticsQuery
       # .to_a
   # end
 
-  # статусы пользователей сайта
   def statuses_stats
-    Hash[
-      @entry.rates
-        .group(:status)
-        .count
-        .sort_by(&:first)
-        .reject { |k, _v| k == UserRate.statuses['rewatching'] }
-    ]
+    @entry.rates
+      .group(:status)
+      .count
+      .sort_by(&:first)
+      .each_with_object({}) do |(status, count), memo|
+        fixed_status = status == 'rewatching' ? 'completed' : status
+        memo[fixed_status] ||= 0
+        memo[fixed_status] += count
+      end
   end
 
-  # оценки пользователей сайта
   def scores_stats
     Hash[
       @entry.rates
