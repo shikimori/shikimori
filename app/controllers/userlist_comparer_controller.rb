@@ -53,7 +53,8 @@ private
       :list_comparer,
       @user_1.cache_key,
       @user_2.cache_key,
-      Digest::MD5.hexdigest(params.to_yaml)
+      Digest::MD5.hexdigest(params.to_yaml),
+      :v2
     ]
   end
 end

@@ -148,7 +148,8 @@ private
         ).round(2) :
         nil,
 
-      url: "/#{klass.name.downcase.pluralize}/#{id}"
+      url: "/#{klass.name.downcase.pluralize}/" +
+        CopyrightedIds.instance.change(id, klass.name.downcase)
     }
 
     entry[:diff] =
