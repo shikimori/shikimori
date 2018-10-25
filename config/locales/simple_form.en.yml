@@ -78,6 +78,12 @@ en:
         list: Import supports Shikimori JSON and MyAnimeList XML lists
 
     magic_submit:
+      devise:
+        sessions:
+          new: &sign_in
+            submit: Sign in
+            disable_with: Signing in&#133;
+
       users:
         registrations:
           new:
@@ -89,11 +95,9 @@ en:
             submit: Send instructions
             disable_with: Sending instructions&#133;
 
-      devise:
         sessions:
-          new: &sign_in
-            submit: Sign in
-            disable_with: Signing in&#133;
+          new:
+            <<: *sign_in
 
       dashboards:
         show:

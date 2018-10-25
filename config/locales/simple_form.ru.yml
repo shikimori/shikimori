@@ -78,6 +78,12 @@ ru:
         list: Поддерживает Shikimori JSON и MyAnimeList XML списки
 
     magic_submit:
+      devise:
+        sessions:
+          new: &sign_in
+            submit: Войти
+            disable_with: Вход&#133;
+
       users:
         registrations:
           new:
@@ -89,13 +95,6 @@ ru:
             submit: Отправить инструкцию
             disable_with: Отправляем инструкцию&#133;
 
-      devise:
-        sessions:
-          new: &sign_in
-            submit: Войти
-            disable_with: Вход&#133;
-
-      users:
         sessions:
           new:
             <<: *sign_in
