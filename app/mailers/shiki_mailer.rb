@@ -73,11 +73,11 @@ class ShikiMailer < ActionMailer::Base
     )
   end
 
-  #def mail options, *args
-    #super
-  #rescue Postmark::InvalidMessageError => e
-    #User.find_by_email(options[:to]).notify_bounced_email
-  #end
+  # def mail options, *args
+  #   super
+  # rescue Postmark::InvalidMessageError => e
+  #   User.find_by_email(options[:to]).notify_bounced_email
+  # end
 
 private
 

@@ -34,12 +34,4 @@ module User::NotificationsConcern
       .where.not(from_id: ignored_ids, to_id: ignored_ids)
       .count
   end
-
-  def notify_bounced_email
-    if notifications & PRIVATE_MESSAGES_TO_EMAIL == PRIVATE_MESSAGES_TO_EMAIL
-      update notifications: notifications - PRIVATE_MESSAGES_TO_EMAIL
-    end
-
-    Messages::CreateNotification.new(self).bad_email
-  end
 end
