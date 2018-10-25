@@ -14,7 +14,7 @@ header.head.misc
       url: @resource.persisted? ? profile_poll_url(@user, @resource) : profile_polls_url(@user),
       html: { class: 'b-form bold-labels' } do |f|
 
-    .cc-2.block
+    .cc-2_3.block
       .c-column.m0
         = f.input :user_id, as: :hidden
         = f.input :name, autofocus: @resource.name.blank?
