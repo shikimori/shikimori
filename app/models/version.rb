@@ -4,9 +4,8 @@ class Version < ApplicationRecord
   antispam(
     per_day: 50,
     disable_if: -> {
-      user.version_moderator? || user.trusted_version_changer? || (
+      user.version_moderator? || user.trusted_version_changer? || user.video_moderator? || (
         item_type == AnimeVideo.name && (
-          user.video_moderator? ||
           user.trusted_video_uploader? ||
           user.trusted_video_changer?
         )
