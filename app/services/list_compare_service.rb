@@ -193,8 +193,6 @@ private
     entry
   end
 
-private
-
   def klass
     @params[:klass]
   end

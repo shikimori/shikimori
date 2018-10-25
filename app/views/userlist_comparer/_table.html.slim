@@ -1,5 +1,5 @@
 .comparer
-  - @entries.each do |type,title,collection|
+  - @entries.each do |type, title, collection|
     - next if collection.empty?
     .b-options-floated.collapse id="collapse-comparer-#{type}"
       span.action #{t 'collapse'} <span class="b-separator zero">(</span>#{collection.size}<span class="b-separator zero inline">)</span>
@@ -20,7 +20,7 @@
         th colspan="4"
 
       - collection.each do |entry|
-        tr.unprocessed.selectable class="#{entry[:variety]}"
+        tr.unprocessed.selectable class=entry[:variety]
           td.name
             a.tooltipped[
               href=entry[:url]
