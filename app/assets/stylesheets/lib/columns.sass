@@ -30,8 +30,18 @@
     & > .c-column
       &:first-child
         +column_bm(2, 2/3)
-      &:last-child
+      &:last-child:not(:first-child)
         +column_bm(2, 1/3)
+
+.cc-3_2
+  +clear_left
+
+  +gte_ipad
+    & > .c-column
+      &:first-child
+        +column_bm(2, 1/3)
+      &:last-child:not(:first-child)
+        +column_bm(2, 2/3)
 
 .cc-3
   +clear_left
