@@ -186,7 +186,7 @@ class Topics::View < ViewObjectBase
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
       @is_mini,
-      :v11
+      :v12
     )
   end
 

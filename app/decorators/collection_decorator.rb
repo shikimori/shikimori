@@ -13,8 +13,12 @@ class CollectionDecorator < DbEntryDecorator
   def texts
     cached_links
       .select { |link| link.text.present? }
-      .each_with_object({}) do |link, memo|
-        memo[link.linked_id] = BbCodes::Text.call link.text
+      .map do |link|
+        {
+          group_index: groups.keys.index(link.group),
+          linked_id: link.linked_id,
+          text: BbCodes::Text.call(link.text)
+        }
       end
   end
 

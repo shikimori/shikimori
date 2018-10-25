@@ -5,13 +5,15 @@ describe CollectionDecorator do
     create :collection_link,
       collection: collection,
       linked: anime_1,
-      group: 'a'
+      group: 'a',
+      text: 'a'
   end
   let!(:link_2) do
     create :collection_link,
       collection: collection,
       linked: anime_2,
-      group: 'a'
+      group: 'a',
+      text: 'b'
   end
   let!(:link_3) do
     create :collection_link,
@@ -34,7 +36,15 @@ describe CollectionDecorator do
   end
 
   describe '#texts' do
-    it { expect(decorator.texts).to eq anime_3.id => '<strong>z</strong>' }
+    it do
+      expect(decorator.texts).to eq(
+        [
+          { group_index: 0, linked_id: anime_1.id, text: 'a' },
+          { group_index: 0, linked_id: anime_2.id, text: 'b' },
+          { group_index: 1, linked_id: anime_3.id, text: '<strong>z</strong>' }
+        ]
+      )
+    end
   end
 
   describe '#entries_sample' do

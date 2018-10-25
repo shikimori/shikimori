@@ -7,12 +7,13 @@
   data-dynamic=(:text_annotated if collection.texts.any?)
   data-texts=collection.texts.to_json
 ]
-  - collection.groups.each do |group, entries|
+  - collection.groups.each_with_index do |(group, entries), index|
     - if group.present?
       .midheadline = group
       / .subheadline.m10 = group
     .cc-collection-groups.to-process[
       data-dynamic="cutted_covers"
+      data-index=index
     ]
       /# Template Dependency: animes/anime
       /# Template Dependency: mangas/manga
