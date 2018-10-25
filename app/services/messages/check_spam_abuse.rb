@@ -11,7 +11,9 @@ class Messages::CheckSpamAbuse
     goo.gl/u4rPbG |
     wexonexx.com |
     alychidesigns.com |
-    bit.ly/seowriters
+    bit.ly/seowriters |
+    toptargetseo.com |
+    glamourescorts69.com
   }mix
 
   SPAM_PHRASES = [

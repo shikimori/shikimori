@@ -69,6 +69,7 @@ private
 
   def send_email
     return unless kind == MessageType::Private
+
     EmailNotifier.instance.private_message self
   end
 
