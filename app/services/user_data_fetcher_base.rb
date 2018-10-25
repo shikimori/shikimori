@@ -57,7 +57,11 @@ private
   end
 
   def rates_count
-    @rates_count ||= @user.send("#{@klass.name.downcase}_rates").count
+    @rates_count ||= @user
+      .send("#{@klass.name.downcase}_rates")
+      .where(status: :completed)
+      .where('score > 0')
+      .count
   end
 
   def latest_import
