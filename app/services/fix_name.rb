@@ -2,7 +2,7 @@ class FixName < ServiceObjectBase
   method_object :name, :full_cleanup
 
   BAD_SYMBOLS = %r{[%&#/\\?+><\]\[:,@"'`]+|\p{C}} # \p{C} - http://ruby-doc.org/core-2.5.0/Regexp.html
-  SPACES = /[[:space:]]+|[⁤ ឵⠀ᅠ­]/
+  SPACES = /(?:[[:space:]]|[⁤ ឵⠀ᅠ­])+/
   ALL_EXTENSIONS = %w[
     css js jpg jpeg png gif css js ttf eot otf svg woff php woff2 bmp html
     rar zip gz tar
