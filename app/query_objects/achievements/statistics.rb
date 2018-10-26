@@ -9,8 +9,8 @@ class Achievements::Statistics
   def call
     return unless cache.dig(neko_id, level)
 
-    achievement_stats = Neko::Stats.new(cache[neko_id][level])
-    total_stats = Neko::Stats.new(cache[TOTAL_KEY][TOTAL_LEVEL])
+    achievement_stats = cache[neko_id][level]
+    total_stats = cache[TOTAL_KEY][TOTAL_LEVEL]
 
     Neko::Stats::INTERVALS.each_with_index.map do |interval, index|
       statistics achievement_stats, total_stats, interval, index

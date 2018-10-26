@@ -13,7 +13,7 @@ describe Achievements::Statistics do
     let(:cache) do
       {
         described_class::TOTAL_KEY => {
-          described_class::TOTAL_LEVEL => {
+          described_class::TOTAL_LEVEL => Neko::Stats.new(
             'interval_0' => 600,
             'interval_1' => 500,
             'interval_2' => 400,
@@ -21,10 +21,10 @@ describe Achievements::Statistics do
             'interval_4' => 200,
             'interval_5' => 100,
             'interval_6' => 10
-          }
+          )
         },
         test: {
-          '1': {
+          '1': Neko::Stats.new(
             'interval_0' => 0,
             'interval_1' => 1,
             'interval_2' => 2,
@@ -32,7 +32,7 @@ describe Achievements::Statistics do
             'interval_4' => 4,
             'interval_5' => 5,
             'interval_6' => 6
-          }
+          )
         }
       }
     end
