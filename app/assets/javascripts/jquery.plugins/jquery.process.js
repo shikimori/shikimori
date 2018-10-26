@@ -76,15 +76,18 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
 
       const gravity = (() => {
         switch ($tip.data('direction')) {
-        case 'top': return 's';
-        case 'bottom': return 'n';
-        case 'right': return 'w';
-        default: return 'e';
+          case 'top': return 's';
+          case 'bottom': return 'n';
+          case 'right': return 'w';
+          default: return 'e';
         }
       })();
+      const size = $tip.data('tipsy-size');
+      const className = size ? `tipsy-${size}` : null;
 
       $tip.tipsy({
         gravity,
+        className,
         html: true,
         prependTo: document.body
       });
