@@ -1,4 +1,6 @@
 const PUBLIC_FIELDS = [
+  'id',
+  'url',
   'is_moderator',
   'is_day_registered',
   'is_week_registered',
@@ -10,8 +12,7 @@ const PUBLIC_FIELDS = [
 export default class ShikiUser {
   constructor(data) {
     this.data = data;
-    this.id = this.data.id;
-    this.isSignedIn = !!this.id;
+    this.isSignedIn = !!this.data.id;
 
     PUBLIC_FIELDS.forEach(field => this[field.camelize(false)] = this.data[field]);
   }

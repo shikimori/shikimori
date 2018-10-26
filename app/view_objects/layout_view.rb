@@ -41,6 +41,7 @@ class LayoutView < ViewObjectBase
 
     {
       id: user&.id,
+      url: user&.url,
       is_moderator: !!(user&.forum_moderator? || user&.admin?),
       ignored_topics: user&.topic_ignores&.pluck(:topic_id) || [],
       ignored_users: user&.ignores&.pluck(:target_id) || [],

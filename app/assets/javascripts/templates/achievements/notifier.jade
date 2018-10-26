@@ -5,7 +5,10 @@
     src=achievement.image
   )
   .title
-    = I18n.t('frontend.achievements.title.' + achievement.event)
+    a(
+      href=window.SHIKI_USER.url + '/achievements'
+    )
+      = I18n.t('frontend.achievements.title.' + achievement.event)
 
   .name
     .icon
