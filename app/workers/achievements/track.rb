@@ -6,20 +6,12 @@ class Achievements::Track
     queue: :achievements,
     dead: false
   )
-  # sidekiq_retry_in { 60 * 60 * 24 }
-
-  RETRYABLE_OPTIONS = {
-    tries: 5,
-    on: Network::FaradayGet::NET_ERRORS + [Neko::RequestError],
-    sleep: 3
-  }
 
   def perform user_id, user_rate_id, action
     user = User.find user_id
-
-    Retryable.retryable RETRYABLE_OPTIONS do
-      neko_update user, user_rate_id, action
-    end
+    neko_update user, user_rate_id, action
+  rescue *(Network::FaradayGet::NET_ERRORS + [Neko::RequestError])
+    self.class.perform_in 5.minutes, user_id, user_rate_id, action
   end
 
 private
