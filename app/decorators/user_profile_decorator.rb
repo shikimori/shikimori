@@ -90,8 +90,10 @@ class UserProfileDecorator < UserDecorator
 
     if h.can? :access_list, self
       info << h.h(name)
-      info << i18n_t('male') if male?
-      info << i18n_t('female') if female?
+      unless object.sex.blank?
+        info << i18n_t('male') if male?
+        info << i18n_t('female') if female?
+      end
       unless object.birth_on.blank?
         info << "#{full_years} #{i18n_i 'years_old', full_years}" if full_years > 12
       end
