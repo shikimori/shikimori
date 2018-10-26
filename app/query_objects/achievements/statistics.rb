@@ -45,9 +45,6 @@ private
   end
 
   def cache
-    @cache ||= JSON.parse(
-      Rails.application.redis.get(CACHE_KEY) || '{}',
-      symbolize_names: true
-    )
+    @cache ||= PgCache.read(CACHE_KEY, serializer: MessagePack)&.deep_symbolize_keys || {}
   end
 end

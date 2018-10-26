@@ -51,10 +51,7 @@ private
   end
 
   def write_cache statistics
-    Rails.application.redis.set(
-      Achievements::Statistics::CACHE_KEY,
-      statistics.to_json
-    )
+    PgCache.write Achievements::Statistics::CACHE_KEY, statistics, serializer: MessagePack
   end
 
   def process_achievement user_rates_count, neko_id, level, statistics
