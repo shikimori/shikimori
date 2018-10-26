@@ -8,7 +8,7 @@ class Network::FaradayGet
     Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError,
     URI::InvalidURIError, OpenURI::HTTPError,
     SocketError, Net::OpenTimeout, Errno::ECONNRESET, Errno::ETIMEDOUT,
-    Faraday::ConnectionFailed,
+    Faraday::ConnectionFailed, Faraday::TimeoutError,
     (Addressable::URI::InvalidURIError if defined? Addressable)
   ].compact
 
