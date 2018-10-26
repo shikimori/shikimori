@@ -18,30 +18,20 @@
   .achievement
     +clearfix
     background: #fff
-    border: 1px solid $gray-2
     border-left-width: 5px
+    border: 1px solid $gray-2
+    cursor: pointer
+    line-height: 1.9
     margin-bottom: 10px
     min-height: 38px
     padding: 5px 10px
     position: relative
     transition: opacity 1s ease, margin-top 0.5s ease
-    line-height: 1.9
 
     .image
       float: right
       max-height: 54px
       margin-right: -4px
-
-    &:hover
-      .b-close
-        opacity: 0.8
-        display: block
-        position: absolute
-        top: 5px
-        right: 5px
-
-        &:hover
-          opacity: 1
 
     &.appearing
       margin-top: calc(100vh + 100px)
@@ -72,12 +62,7 @@
 
     &.removing
       opacity: 0
-
-      .b-close
-        display: none
-
-    .b-close
-      display: none
+      cursor: default
 
     .icon
       position: absolute

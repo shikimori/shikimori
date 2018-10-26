@@ -23,7 +23,10 @@ export default class AchievementsNotifier {
       const $achievement = $(this._render(achievement))
         .addClass('appearing')
         .appendTo(this._$container())
-        .one('click', '.b-close', async () => {
+        .on('click', async ({ target }) => {
+          if (target.tagName === 'A') { return; }
+          if ($achievement.hasClass('removing')) { return; }
+
           $achievement.addClass('removing');
           await delay(1000);
           $achievement.remove();
@@ -33,7 +36,7 @@ export default class AchievementsNotifier {
       $achievement.removeClass('appearing');
 
       await delay(30000);
-      $achievement.find('.b-close').click();
+      $achievement.click();
     });
   }
 
