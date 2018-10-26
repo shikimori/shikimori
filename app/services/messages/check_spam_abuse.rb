@@ -13,7 +13,8 @@ class Messages::CheckSpamAbuse
     alychidesigns.com |
     bit.ly/seowriters |
     toptargetseo.com |
-    glamourescorts69.com
+    glamourescorts69.com |
+    ormworks.com
   }mix
 
   SPAM_PHRASES = [
