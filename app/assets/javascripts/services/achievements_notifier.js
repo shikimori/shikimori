@@ -20,6 +20,7 @@ export default class AchievementsNotifier {
       if (index > 0) {
         await delay(750 * index);
       }
+      let closeTimeout = null;
       const $achievement = $(this._render(achievement))
         .addClass('appearing')
         .appendTo(this._$container())
@@ -29,14 +30,25 @@ export default class AchievementsNotifier {
 
           $achievement.addClass('removing');
           await delay(1000);
-          $achievement.remove();
+          if (closeTimeout) {
+            $achievement.remove();
+          }
+        })
+        .on('mouseover', () => {
+          if (closeTimeout) {
+            clearTimeout(closeTimeout);
+            $achievement.removeClass('removing');
+            closeTimeout = null;
+          }
+        })
+        .on('mouseleave', () => {
+          closeTimeout = setTimeout(() => ($achievement.click()), 30000);
         });
 
       await delay();
       $achievement.removeClass('appearing');
 
-      await delay(30000);
-      $achievement.click();
+      closeTimeout = setTimeout(() => ($achievement.click()), 30000);
     });
   }
 
