@@ -9,16 +9,13 @@
               .gained ✓
 
         - achievement.images.each do |image|
-          a.b-badge.b-tooltipped.unprocessed[
+          a.b-badge[
             href=animes_collection_url(achievement: achievement.neko_id)
-            title=achievement.title
-            data-direction='top'
-            data-tipsy-size='large'
           ]
             = image_tag image
   - else
-    a.b-badge.b-tooltipped.unprocessed[
-      class=(:unavailable if local_assigns[:unavailable])
+    a.b-badge[
+      class="#{:unavailable if local_assigns[:unavailable]} #{'b-tooltipped unprocessed' unless local_assigns[:no_badge]}"
       title=achievement.title
       href=achievement_url(achievement.group, achievement.neko_id)
       data-direction='top'
