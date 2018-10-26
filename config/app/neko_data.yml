@@ -6709,7 +6709,9 @@
       :algo: duration
       :filters:
         franchise: fullmetal_alchemist
-      :threshold: 97%
+        not_anime_ids:
+        - 10842
+      :threshold: 95.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6780,7 +6782,7 @@
       :algo: duration
       :filters:
         franchise: clannad
-      :threshold: 100%
+      :threshold: 96.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6865,7 +6867,7 @@
       :algo: duration
       :filters:
         franchise: hajime_no_ippo
-      :threshold: 97%
+      :threshold: 96.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6899,7 +6901,7 @@
       :algo: duration
       :filters:
         franchise: boku_no_hero_academia
-      :threshold: 100%
+      :threshold: 98.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6950,7 +6952,7 @@
       :algo: duration
       :filters:
         franchise: bakuman
-      :threshold: 100%
+      :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7056,7 +7058,7 @@
       :algo: duration
       :filters:
         franchise: aria_the_ova
-      :threshold: 100%
+      :threshold: 94.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7129,7 +7131,7 @@
       :algo: duration
       :filters:
         franchise: kuroko_no_basket
-      :threshold: 97%
+      :threshold: 96.0%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7273,7 +7275,7 @@
       :algo: duration
       :filters:
         franchise: yamato
-      :threshold: 95%
+      :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7290,7 +7292,7 @@
       :algo: duration
       :filters:
         franchise: berserk
-      :threshold: 97%
+      :threshold: 96.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7358,7 +7360,7 @@
       :algo: duration
       :filters:
         franchise: umineko_no_naku_koro_ni
-      :threshold: 97%
+      :threshold: 96.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7416,7 +7418,7 @@
       :algo: duration
       :filters:
         franchise: sket_dance
-      :threshold: 100%
+      :threshold: 98.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7503,7 +7505,7 @@
       :algo: duration
       :filters:
         franchise: durarara
-      :threshold: 100%
+      :threshold: 96.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7520,7 +7522,7 @@
       :algo: duration
       :filters:
         franchise: working
-      :threshold: 100%
+      :threshold: 96.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7678,7 +7680,7 @@
       :algo: duration
       :filters:
         franchise: hikaru_no_go
-      :threshold: 100%
+      :threshold: 94.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7729,7 +7731,7 @@
       :algo: duration
       :filters:
         franchise: full_metal_panic
-      :threshold: 100%
+      :threshold: 94.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7827,7 +7829,7 @@
         not_anime_ids:
         - 27829
         - 32264
-      :threshold: 100%
+      :threshold: 98.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7912,7 +7914,7 @@
       :algo: duration
       :filters:
         franchise: city_hunter
-      :threshold: 95%
+      :threshold: 94.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7931,7 +7933,7 @@
         franchise: snow_halation
         not_anime_ids:
         - 21853
-      :threshold: 97%
+      :threshold: 96.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7967,7 +7969,7 @@
       :algo: duration
       :filters:
         franchise: touch
-      :threshold: 97%
+      :threshold: 93.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8480,7 +8482,7 @@
       :algo: duration
       :filters:
         franchise: to_love_ru
-      :threshold: 100%
+      :threshold: 97.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8531,7 +8533,7 @@
       :algo: duration
       :filters:
         franchise: high_school_dxd
-      :threshold: 97%
+      :threshold: 94.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8635,7 +8637,7 @@
         franchise: blood
         not_anime_ids:
         - 14077
-      :threshold: 100%
+      :threshold: 97.0%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8652,7 +8654,7 @@
       :algo: duration
       :filters:
         franchise: fushigi_yuugi
-      :threshold: 100%
+      :threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8722,7 +8724,7 @@
       :algo: duration
       :filters:
         franchise: utawarerumono
-      :threshold: 97%
+      :threshold: 94.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8739,7 +8741,7 @@
       :algo: duration
       :filters:
         franchise: shakugan_no_shana
-      :threshold: 97%
+      :threshold: 91.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8773,7 +8775,7 @@
       :algo: duration
       :filters:
         franchise: soukyuu_no_fafner
-      :threshold: 95%
+      :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8807,7 +8809,7 @@
       :algo: duration
       :filters:
         franchise: zero_no_tsukaima
-      :threshold: 100%
+      :threshold: 96.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8824,7 +8826,7 @@
       :algo: duration
       :filters:
         franchise: toriko
-      :threshold: 100%
+      :threshold: 98.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8909,7 +8911,7 @@
       :algo: duration
       :filters:
         franchise: zettai_karen_children
-      :threshold: 100%
+      :threshold: 98.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9019,7 +9021,7 @@
       :algo: duration
       :filters:
         franchise: seiren
-      :threshold: 100%
+      :threshold: 95.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9104,7 +9106,7 @@
       :algo: duration
       :filters:
         franchise: force_live
-      :threshold: 100%
+      :threshold: 98.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9310,7 +9312,7 @@
       :algo: duration
       :filters:
         franchise: super_robot_taisen_og
-      :threshold: 100%
+      :threshold: 98.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9361,7 +9363,7 @@
       :algo: duration
       :filters:
         franchise: futari_wa_milky_holmes
-      :threshold: 95%
+      :threshold: 94.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9378,7 +9380,7 @@
       :algo: duration
       :filters:
         franchise: di_gi_charat
-      :threshold: 95%
+      :threshold: 94.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9480,7 +9482,7 @@
       :algo: duration
       :filters:
         franchise: to_heart
-      :threshold: 95%
+      :threshold: 94.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9565,7 +9567,7 @@
       :algo: duration
       :filters:
         franchise: sonic
-      :threshold: 100%
+      :threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9582,7 +9584,7 @@
       :algo: duration
       :filters:
         franchise: believe
-      :threshold: 100%
+      :threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
