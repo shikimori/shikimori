@@ -2,5 +2,5 @@ ru:
   frontend:
     achievements:
       title:
-        gained: Получена ачивка
-        lost: Потеряна ачивка
+        gained: Новое достижение
+        lost: Потеря достижения
