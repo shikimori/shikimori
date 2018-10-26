@@ -122,6 +122,7 @@ class Studio < ApplicationRecord
     'Phoenix Entertainment',
     'NHK',
     'Oh! Production',
+    'Ashi Productions Co. Inc.',
 
     # from wikipedia
     'a-1 pictures inc.',
