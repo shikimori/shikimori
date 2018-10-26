@@ -42,7 +42,7 @@ export default class AchievementsNotifier {
           }
         })
         .on('mouseleave', () => {
-          closeTimeout = setTimeout(() => ($achievement.click()), 30000);
+          closeTimeout = setTimeout(() => ($achievement.click()), 5000);
         });
 
       await delay();
