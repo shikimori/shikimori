@@ -32,8 +32,8 @@ export default class AchievementsNotifier {
       await delay();
       $achievement.removeClass('appearing');
 
-      await delay(30000);
-      $achievement.find('.b-close').click();
+      // await delay(30000);
+      // $achievement.find('.b-close').click();
     });
   }
 

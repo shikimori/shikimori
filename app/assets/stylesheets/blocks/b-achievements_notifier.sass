@@ -27,6 +27,22 @@
     transition: opacity 1s ease, margin-top 0.5s ease
     line-height: 1.9
 
+    .image
+      float: right
+      max-height: 54px
+      margin-right: -4px
+
+    &:hover
+      .b-close
+        opacity: 0.8
+        display: block
+        position: absolute
+        top: 5px
+        right: 5px
+
+        &:hover
+          opacity: 1
+
     &.appearing
       margin-top: calc(100vh + 100px)
 
@@ -44,7 +60,7 @@
 
     &.lost
       background: #fce3e9
-      border-color: #fb7272
+      border-color: #fb5353
       color: #f27490
 
       .name a
@@ -60,6 +76,9 @@
       .b-close
         display: none
 
+    .b-close
+      display: none
+
     .icon
       position: absolute
       font-size: 18px
@@ -68,11 +87,6 @@
 
       &:before
         font-size: inherit !important
-
-    .b-close
-      float: right
-      position: static
-      margin-right: -5px
 
     .title
       font-weight: bold
