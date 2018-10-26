@@ -5,9 +5,11 @@ class Network::FaradayGet
   MAX_DEEP = 5
 
   NET_ERRORS = [
-    Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError,
+    Timeout::Error, Net::ReadTimeout, Net::OpenTimeout,
+    OpenSSL::SSL::SSLError,
     URI::InvalidURIError, OpenURI::HTTPError,
-    SocketError, Net::OpenTimeout, Errno::ECONNRESET, Errno::ETIMEDOUT,
+    SocketError,
+    Errno::ECONNRESET, Errno::ETIMEDOUT, Errno::EMFILE,
     Faraday::ConnectionFailed, Faraday::TimeoutError,
     (Addressable::URI::InvalidURIError if defined? Addressable)
   ].compact
