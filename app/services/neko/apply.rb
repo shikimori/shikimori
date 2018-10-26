@@ -82,6 +82,7 @@ private
         neko_id: neko.neko_id,
         label: neko.title,
         level: (neko.level unless neko.franchise?),
+        image: neko.image,
         event: event
       }
     end

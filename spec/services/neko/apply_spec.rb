@@ -62,9 +62,13 @@ describe Neko::Apply do
         .to have_received(:publish_achievements)
         .once
         .with(
-          [
-            { label: 'Нет названия', neko_id: :test, level: 0, event: :gained }
-          ],
+          [{
+            label: 'Нет названия',
+            neko_id: :test,
+            level: 0,
+            image: nil,
+            event: :gained
+          }],
           user.faye_channel
         )
     end
@@ -109,9 +113,13 @@ describe Neko::Apply do
         .to have_received(:publish_achievements)
         .once
         .with(
-          [
-            { label: 'Добро пожаловать!', neko_id: :animelist, level: 1, event: :lost }
-          ],
+          [{
+            label: 'Добро пожаловать!',
+            neko_id: :animelist,
+            level: 1,
+            image: '/assets/achievements/anime/animelist_1.png',
+            event: :lost
+          }],
           user.faye_channel
         )
     end

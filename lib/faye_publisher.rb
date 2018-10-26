@@ -159,6 +159,7 @@ private
 
   def linked_channels topic
     return [] unless topic.respond_to?(:linked_type) && topic.linked_type
+
     ["/#{topic.linked_type.downcase}-#{topic.linked_id}"]
   end
 
