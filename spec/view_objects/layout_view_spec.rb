@@ -11,7 +11,7 @@ describe LayoutView do
     allow(view.h).to receive(:current_user).and_return current_user
   end
   let(:is_blank_layout) { false }
-  let(:current_user) { user }
+  let(:current_user) { user.decorate }
 
   describe '#body_id, #body_class' do
     let(:controller_name) { 'animes' }
@@ -122,6 +122,7 @@ describe LayoutView do
       it do
         expect(view.user_data).to eq(
           id: current_user.id,
+          url: current_user.url,
           is_moderator: current_user.forum_moderator?,
           ignored_topics: [offtopic_topic.id],
           ignored_users: [ignored_user.id],
@@ -140,6 +141,7 @@ describe LayoutView do
       it do
         expect(view.user_data).to eq(
           id: nil,
+          url: nil,
           is_moderator: false,
           ignored_topics: [],
           ignored_users: [],
