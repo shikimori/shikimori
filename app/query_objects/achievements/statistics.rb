@@ -45,6 +45,6 @@ private
   end
 
   def cache
-    @cache ||= PgCache.read(CACHE_KEY, serializer: MessagePack)&.deep_symbolize_keys || {}
+    @cache ||= PgCache.read(CACHE_KEY) || {}
   end
 end

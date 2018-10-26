@@ -51,7 +51,10 @@ private
   end
 
   def write_cache statistics
-    PgCache.write Achievements::Statistics::CACHE_KEY, statistics, serializer: MessagePack
+    PgCache.write(
+      Achievements::Statistics::CACHE_KEY,
+      statistics
+    )
   end
 
   def process_achievement user_rates_count, neko_id, level, statistics

@@ -1,10 +1,6 @@
 describe Achievements::UpdateStatistics do
   subject { described_class.new.perform }
 
-  before do
-    allow(Rails.application.redis).to receive :set
-  end
-
   let(:neko_id) { Types::Achievement::NekoId[:test] }
   let(:level) { 1 }
 
@@ -41,8 +37,7 @@ describe Achievements::UpdateStatistics do
 
   it do
     is_expected.to eq statistics
-    expect(Rails.application.redis)
-      .to have_received(:set)
-      .with Achievements::Statistics::CACHE_KEY, statistics.to_json
+    expect(PgCache.read(Achievements::Statistics::CACHE_KEY).deep_symbolize_keys)
+      .to eq JSON.parse(statistics.to_json, symbolize_names: true)
   end
 end

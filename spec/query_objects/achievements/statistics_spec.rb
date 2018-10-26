@@ -1,13 +1,12 @@
 describe Achievements::Statistics do
-  subject { Achievements::Statistics.call neko_id, level }
+  subject { described_class.call neko_id, level }
   let(:neko_id) { Types::Achievement::NekoId[:test] }
   let(:level) { 1 }
 
-  before do
-    allow(Rails.application.redis)
-      .to receive(:get)
-      .with(Achievements::Statistics::CACHE_KEY)
-      .and_return cache.to_json
+  let!(:pg_cache_data) do
+    create :pg_cache_data,
+      key: described_class::CACHE_KEY,
+      value: YAML.dump(cache)
   end
 
   context 'has cache' do
