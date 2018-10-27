@@ -254,10 +254,17 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
       )
 
     data = animes.map do |anime|
+      episodes =
+        if anime.anons?
+          0
+        else
+          anime.episodes.zero? ? anime.episodes_aired : anime.episodes
+        end
+
       {
         id: anime.id,
         genre_ids: anime.genre_ids.map(&:to_i),
-        episodes: anime.anons? ? 0 : anime.episodes.zero? ? anime.episodes_aired : anime.episodes,
+        episodes: episodes,
         duration: anime.duration,
         year: anime.year,
         franchise: anime.franchise
