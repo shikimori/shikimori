@@ -7279,13 +7279,9 @@
       :filters:
         franchise: gundam
         not_anime_ids:
-        - 2269
         - 8839
-        - 14007
-        - 20667
         - 22435
         - 23943
-        - 24371
         - 32898
       :threshold: 60%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -7717,9 +7713,7 @@
       :algo: duration
       :filters:
         franchise: hikaru_no_go
-        not_anime_ids:
-        - 2336
-      :threshold: 95.7%
+      :threshold: 94.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
