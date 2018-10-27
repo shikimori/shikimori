@@ -1,4 +1,4 @@
-class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
+class Neko::Rule < Dry::Struct
   attribute :neko_id, Types::Achievement::NekoId
   attribute :level, Types::Coercible::Integer
   attribute :image, Types::String.optional
@@ -22,6 +22,15 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
     topic_id: nil,
     rule: {}
   )
+
+  EPISODES_GTE_SQL = <<~SQL.squish
+    (status = 'released' and episodes >= :episodes) or (
+      status != 'released' and (
+        (episodes_aired != 0 and episodes_aired >= :episodes) or
+        (episodes_aired = 0 and episodes >= :episodes)
+      )
+    )
+  SQL
 
   def group
     Types::Achievement::INVERTED_NEKO_IDS[
@@ -103,7 +112,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
     end
   end
 
-  def animes_scope # rubocop:disable all
+  def animes_scope
     scope = Animes::NekoScope.call
     return scope unless rule[:filters]
 
@@ -119,8 +128,7 @@ class Neko::Rule < Dry::Struct # rubocop:disable ClassLength
     end
 
     if rule[:filters]['episodes_gte']
-      episodes_gte = rule[:filters]['episodes_gte'].to_i
-      scope.where! 'episodes >= ?', episodes_gte
+      scope.where! EPISODES_GTE_SQL, episodes: rule[:filters]['episodes_gte'].to_i
     end
 
     if rule[:filters]['duration_lte']
