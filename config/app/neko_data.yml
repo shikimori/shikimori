@@ -7730,7 +7730,7 @@
       :algo: duration
       :filters:
         franchise: dmatsu_san
-      :threshold: 90%
+      :threshold: 50%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8310,7 +8310,7 @@
       :algo: duration
       :filters:
         franchise: mazinkaiser
-      :threshold: 80%
+      :threshold: 60%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8456,7 +8456,7 @@
       :algo: duration
       :filters:
         franchise: hetalia
-      :threshold: 11.2%
+      :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
