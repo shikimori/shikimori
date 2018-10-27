@@ -7118,7 +7118,7 @@
         - 10870
         - 10948
         - 31617
-      :threshold: 88.4%
+      :threshold: 86.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7169,7 +7169,7 @@
       :algo: duration
       :filters:
         franchise: kuroko_no_basket
-      :threshold: 95.5%
+      :threshold: 93.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7876,7 +7876,7 @@
         franchise: tennis_no_ouji_sama
         not_anime_ids:
         - 29697
-      :threshold: 95%
+      :threshold: 94.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8077,7 +8077,7 @@
         not_anime_ids:
         - 27891
         - 37831
-      :threshold: 88.0%
+      :threshold: 87.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8788,7 +8788,7 @@
       :algo: duration
       :filters:
         franchise: tales_of_gekijou
-      :threshold: 95%
+      :threshold: 93.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8805,7 +8805,13 @@
       :algo: duration
       :filters:
         franchise: shakugan_no_shana
-      :threshold: 95.6%
+        not_anime_ids:
+        - 6330
+        - 28603
+        - 17551
+        - 14957
+        - 1815
+      :threshold: 97.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9689,7 +9695,7 @@
       :algo: duration
       :filters:
         franchise: queen_s_blade
-      :threshold: 95%
+      :threshold: 90.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
