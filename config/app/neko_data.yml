@@ -10807,6 +10807,10 @@
         - 34966
         - 33003
         - 31500
+        - 2993
+        - 37254
+        - 31080
+        - 4214
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -11158,6 +11162,10 @@
         - 34966
         - 33003
         - 31500
+        - 2993
+        - 37254
+        - 31080
+        - 4214
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -11511,6 +11519,10 @@
         - 34966
         - 33003
         - 31500
+        - 2993
+        - 37254
+        - 31080
+        - 4214
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -11894,7 +11906,7 @@
     :level: 3
     :image: "/assets/achievements/anime/space_3.png"
     :border_color: "#bb7171"
-    :title_ru: Межзвездный скиталец.
+    :title_ru: Межзвездный скиталец
     :text_ru: Космос. Он так пуст, но в то же время полон жизни.
     :title_en: 
     :text_en: 
