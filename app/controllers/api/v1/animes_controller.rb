@@ -6,7 +6,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     [
       params[:controller],
       params[:action],
-      :v10
+      :v11
     ].join('_')
   }
 
@@ -257,8 +257,10 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
       episodes =
         if anime.anons?
           0
+        elsif anime.released?
+          anime.episodes
         else
-          anime.episodes.zero? ? anime.episodes_aired : anime.episodes
+          anime.episodes_aired.zero? ? anime.episodes : anime.episodes_aired
         end
 
       {
