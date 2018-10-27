@@ -247,6 +247,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
         :id,
         :aired_on,
         :genre_ids,
+        :status,
         :episodes,
         :episodes_aired,
         :duration,
