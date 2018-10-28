@@ -1,5 +1,4 @@
-# rubocop:disable ClassLength
-class Topics::View < ViewObjectBase
+class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   vattr_initialize :topic, :is_preview, :is_mini
 
   delegate :id, :persisted?, :user, :created_at,
@@ -92,17 +91,17 @@ class Topics::View < ViewObjectBase
     html_body
   end
 
-  # картинка топика (аватарка автора)
   def poster is_2x
-    # последнее условие для пользовательских топиков об аниме
+    # last condition is for user topics about anime
     if linked_in_avatar?
-      linked = if topic_type_policy.review_topic?
-        @topic.linked.target
-      elsif topic_type_policy.club_page_topic?
-        @topic.linked.club
-      else
-        @topic.linked
-      end
+      linked =
+        if topic_type_policy.review_topic?
+          @topic.linked.target
+        elsif topic_type_policy.club_page_topic?
+          @topic.linked.club
+        else
+          @topic.linked
+        end
 
       ImageUrlGenerator.instance.url linked, is_2x ? :x96 : :x48
     else
@@ -217,4 +216,3 @@ private
     html_body_truncated.include? '...'
   end
 end
-# rubocop:enable ClassLength
