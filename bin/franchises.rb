@@ -34,22 +34,39 @@ data.each do |rule|
   end
 end
 
+def duration anime
+  episodes =
+    if anime.anons?
+      0
+    elsif anime.released?
+      anime.episodes
+    else
+      anime.episodes_aired.zero? ? anime.episodes : anime.episodes_aired
+    end
+
+  episodes * anime.duration
+end
+
 puts 'generating thresholds...'
 data.each do |rule|
   franchise = Anime.where(franchise: rule['filters']['franchise'])
   if rule['filters']['not_anime_ids'].present?
     franchise = franchise.where.not(id: rule['filters']['not_anime_ids'])
   end
+  franchise = franchise.reject(&:anons?)
+
   ova = franchise.select(&:kind_ova?)
   long_specials = franchise.select(&:kind_special?).select { |v| v.duration >= 22 }
   short_specials = franchise.select(&:kind_special?).select { |v| v.duration < 22 && v.duration > 5 }
   mini_specials = (franchise.select(&:kind_special?) + franchise.select(&:kind_ona?)).select { |v| v.duration <= 5 }
 
-  total_duration = franchise.sum { |v| v.duration * v.episodes }
-  ova_duration = ova.sum { |v| v.duration * v.episodes }
-  long_specials_duration = long_specials.sum { |v| v.duration * v.episodes }
-  short_specials_duration = short_specials.sum { |v| v.duration * v.episodes }
-  mini_specials_duration = mini_specials.sum { |v| v.duration * v.episodes }
+  important_titles = franchise - short_specials - mini_specials
+
+  total_duration = franchise.sum { |v| duration v }
+  ova_duration = ova.sum { |v| duration v }
+  long_specials_duration = long_specials.sum { |v| duration v }
+  short_specials_duration = short_specials.sum { |v| duration v }
+  mini_specials_duration = mini_specials.sum { |v| duration v }
 
   ova_duration_subtract = 
     if ova_duration * 1.0 / total_duration <= 0.1 && franchise.size > 5 && ova.size > 2
