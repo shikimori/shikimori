@@ -1,8 +1,8 @@
 class FixName < ServiceObjectBase
   method_object :name, :full_cleanup
 
-  BAD_SYMBOLS = %r{[%&#/\\?+><\]\[:,@"'`]+|\p{C}} # \p{C} - http://ruby-doc.org/core-2.5.0/Regexp.html
-  SPACES = /(?:[[:space:]]|[⁤ ឵⠀ᅠ­])+/
+  BAD_SYMBOLS = %r{[%&#/\\?+><\]\[:,@"'`]+} # \p{C} - http://ruby-doc.org/core-2.5.0/Regexp.html
+  SPACES = /(?:[[:space:]]|[⁤ ឵⠀ᅠ­]|\p{C})+/
   ALL_EXTENSIONS = %w[
     css js jpg jpeg png gif css js ttf eot otf svg woff php woff2 bmp html
     rar zip gz tar
@@ -37,6 +37,10 @@ private
   end
 
   def fix name
-    (name.is_a?(String) ? name : name.to_s).fix_encoding.gsub(SPACES, ' ').strip
+    (name.is_a?(String) ? name : name.to_s)
+      .fix_encoding
+      .gsub(SPACES, ' ')
+      .gsub(/./) { |v| v.ord.between?(917_760, 917_999) ? ' ' : v }
+      .strip
   end
 end

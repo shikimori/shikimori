@@ -1,47 +1,91 @@
 describe FixName do
   subject { described_class.call name, is_full_cleanup }
-  let(:is_full_cleanup) { true }
 
-  context 'nil' do
-    let(:name) { nil }
-    it { is_expected.to eq '' }
-  end
+  context 'full cleanup' do
+    let(:is_full_cleanup) { true }
 
-  context 'forbidden symbols' do
-    let(:name) { "test#[]%&?+@\"'><" }
+    context 'nil' do
+      let(:name) { nil }
+      it { is_expected.to eq '' }
+    end
 
-    context 'full cleanup' do
+    context 'forbidden symbols' do
+      let(:name) { "test#[]%&?+@\"'><" }
       it { is_expected.to eq 'test' }
     end
 
-    context 'no cleanup' do
-      let(:is_full_cleanup) { false }
-      it { is_expected.to eq name }
+    context 'special spaces' do
+      let(:name) { 't⠀t' }
+      it { is_expected.to eq 't t' }
+    end
+
+    context 'empty special unicode' do
+      let(:name) { 't' + 917780.chr + 't' }
+      it { is_expected.to eq 't t' }
+    end
+
+    context 'special symbols' do
+      let(:name) { ['007F'.to_i(16)].pack('U*') }
+      it { is_expected.to eq '' }
+    end
+
+    context 'abusive words' do
+      let(:name) { 'test [хуй]' }
+      it { is_expected.to eq 'test xxx' }
+    end
+
+    describe 'spam domains' do
+      let(:name) { %w[images.webpark.ru shikme.ru].sample }
+      it { is_expected.to eq 'spam.domain' }
+    end
+
+    context 'extension' do
+      let(:name) { 'test.png' }
+      it { is_expected.to eq 'test_png' }
     end
   end
 
-  context 'abusive words' do
-    let(:name) { 'test [хуй]' }
-    it { is_expected.to eq 'test xxx' }
-  end
+  context 'not full cleanup' do
+    let(:is_full_cleanup) { false }
 
-  context 'extension' do
-    let(:name) { 'test.png' }
-    it { is_expected.to eq 'test_png' }
-  end
+    context 'nil' do
+      let(:name) { nil }
+      it { is_expected.to eq '' }
+    end
 
-  context 'special spaces' do
-    let(:name) { 't⠀t' }
-    it { is_expected.to eq 't t' }
-  end
+    context 'forbidden symbols' do
+      let(:name) { "test#[]%&?+@\"'><" }
+      it { is_expected.to eq name }
+    end
 
-  context 'special symbols' do
-    let(:name) { ['007F'.to_i(16)].pack('U*') }
-    it { is_expected.to eq '' }
-  end
+    context 'special spaces' do
+      let(:name) { 't⠀t' }
+      it { is_expected.to eq 't t' }
+    end
 
-  describe 'spam domains' do
-    let(:name) { %w[images.webpark.ru shikme.ru].sample }
-    it { is_expected.to eq 'spam.domain' }
+    context 'special symbols' do
+      let(:name) { ['007F'.to_i(16)].pack('U*') }
+      it { is_expected.to eq '' }
+    end
+
+    context 'empty special unicode' do
+      let(:name) { 't' + 917780.chr + 't' }
+      it { is_expected.to eq 't t' }
+    end
+
+    context 'abusive words' do
+      let(:name) { 'test [хуй]' }
+      it { is_expected.to eq 'test [xxx]' }
+    end
+
+    describe 'spam domains' do
+      let(:name) { %w[images.webpark.ru shikme.ru].sample }
+      it { is_expected.to eq 'spam.domain' }
+    end
+
+    context 'extension' do
+      let(:name) { 'test.png' }
+      it { is_expected.to eq name }
+    end
   end
 end
