@@ -20,7 +20,6 @@ class Contest::Statistics
       end
   end
 
-  # rubocop:disable AbcSize
   def users_votes round = nil
     @users_votes ||= {}
     @users_votes[round] ||= committed_matches(round)
@@ -32,7 +31,6 @@ class Contest::Statistics
         memo[match.right_id] += match.right_votes if match.right
       end
   end
-  # rubocop:enable AbcSize
 
   def average_votes round = nil
     @average_votes ||= {}
@@ -48,7 +46,7 @@ class Contest::Statistics
 
   def member_matches member_id, round = nil
     committed_matches(round).select do |match|
-      match.left_id == member_id || match.right_id == member_id
+      [match.left_id, match.right_id].include? member_id
     end
   end
 

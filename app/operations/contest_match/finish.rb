@@ -11,7 +11,6 @@ class ContestMatch::Finish
 
 private
 
-  # rubocop:disable MethodLength
   def obtain_winner_id
     if @contest_match.right_id.nil?
       @contest_match.left_id
@@ -29,7 +28,6 @@ private
       @contest_match.left_id
     end
   end
-  # rubocop:enable MethodLength
 
   def left_votes?
     @contest_match.left_votes > @contest_match.right_votes

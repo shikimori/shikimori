@@ -25,7 +25,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
     end
   end
 
-  def advance_members round, prior_round
+  def advance_members round, _prior_round
     ids_to_wins = @statistics.sorted_scores
 
     round.matches.each do |match|
@@ -80,6 +80,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
     group_len = 1
     ids.each do |id|
       break unless sorted_hash[id] == group_wins
+
       group_len += 1
     end
     group_len
@@ -92,7 +93,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
   end
 
   def results round = nil
-    @statistics.sorted_scores(round).map do |id, scores|
+    @statistics.sorted_scores(round).map do |id, _scores|
       @statistics.members[id]
     end
   end
