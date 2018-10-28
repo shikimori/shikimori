@@ -15,6 +15,33 @@ class SiteStatistics
     )
   SQL
 
+  ACHIEVEMENT_USER_IDS = [
+    3824,
+    210,
+    16398,
+    34807,
+    29386,
+    84020,
+    72620,
+    50587,
+    100600,
+    77362,
+    249685,
+    59888,
+    7642,
+    204,
+    37763,
+    100971,
+    31022,
+    111580,
+    12671,
+    169737,
+    131808,
+    2727,
+    29326,
+    883
+  ]
+
   def traffic
     YandexMetrika.call METRIKA_MONTHS
   end
@@ -49,8 +76,8 @@ class SiteStatistics
     User.where(id: User::MORR_ID)
   end
 
-  def android
-    User.where(id: [1897, 35_934])
+  def achievements
+    User.where(id: ACHIEVEMENT_USER_IDS).sort_by { |v| ACHIEVEMENT_USER_IDS.index v.id }
   end
 
   def thanks_to
@@ -116,9 +143,9 @@ class SiteStatistics
       .count
 
     newsmarker_ids = newsmakers
-        .sort_by { |_k, v| -v }
-        .map(&:first)
-        .take(USERS_LIMIT)
+      .sort_by { |_k, v| -v }
+      .map(&:first)
+      .take(USERS_LIMIT)
 
     User.where(id: newsmarker_ids).sort_by { |v| newsmarker_ids.index(v.id) }
   end
@@ -156,3 +183,5 @@ private
     end
   end
 end
+
+nicknames = "@4-1-|2 g-e-a-r, @Dragn, @Aniki, @World_Houp, @HN71, @Matsukaze, @Kyasubaru, @Котанавари, @Или нет, @Left behind, @Ази-Дахака, @nemunga , @Дзюбэй Пробли, @๖ۣۜSimon, @Tri Olom, @the Sufferer, @ESH, @赤い葉, @SmokyWerewolf, @tdok57, @Chudy, @Атонубис, @grin3671, @Leviathan, @Caxann".split(', ').map {|v| v.gsub(/^@/, '') }
