@@ -35,15 +35,15 @@
           = render 'topics/reviews/entry_cover', view: topic_view,
             entry: topic_view.topic.linked.target.decorate
 
-        .body-truncated
-          .body-truncated-inner[
-            itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
-          ]
-          - if topic_view.need_trucation?
-            = topic_view.html_body_truncated
+        - if topic_view.need_trucation?
+          .body-truncated
+            .body-truncated-inner[
+              itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
+            ]
+              = topic_view.html_body_truncated
 
-          - else
-            = topic_view.html_body
+        - else
+          = topic_view.html_body
 
       - else
         .body-inner itemprop="articleBody"

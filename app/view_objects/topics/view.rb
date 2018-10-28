@@ -135,7 +135,8 @@ class Topics::View < ViewObjectBase
   end
 
   def html_body_truncated
-    h.truncate_html(cleaned_preview_body,
+    h.truncate_html(
+      cleaned_preview_body,
       length: BODY_TRUCATE_SIZE,
       separator: ' ',
       word_boundary: /\S[\.\?\!<>]/
