@@ -9,7 +9,12 @@ HARDCODED_THRESHOLD = {
   ehon_yose: 50,
   dmatsu_san: 50,
   mazinkaiser: 60,
-  hetalia: 90
+  hetalia: 90,
+  pokemon: 80,
+  gundam: 60,
+  dragon_ball: 80,
+  yes_precure: 80,
+  doraemon: 50,
 }
 ALLOWED_SPECIAL_IDS = [15711, 2269, 14007, 20667, 24371, 2336]
 
@@ -50,6 +55,7 @@ def duration anime
 end
 
 # data = data.select { |v| v['filters']['franchise'] == 'naruto' }
+# data = data.select { |v| v['filters']['franchise'] == 'zero_no_tsukaima' }
 
 puts 'generating thresholds...'
 data.each do |rule|
@@ -64,7 +70,7 @@ data.each do |rule|
   short_specials = franchise.select(&:kind_special?).select { |v| v.duration < 22 && v.duration > 5 }
   mini_specials = (franchise.select(&:kind_special?) + franchise.select(&:kind_ona?)).select { |v| v.duration <= 5 }
 
-  important_titles = franchise - short_specials - mini_specials
+  important_titles = franchise.reject(&:kind_special?)
 
   total_duration = franchise.sum { |v| duration v }
   ova_duration = ova.sum { |v| duration v }
@@ -118,11 +124,12 @@ data.each do |rule|
     threshold -= 5
   end
 
-  important_duration = important_titles
+  important_durations = important_titles
     .map { |v| duration v }
     .sort
-    .reverse[0..(important_titles.size * 0.4).round]
-    .sum
+    .reverse
+
+  important_duration = important_durations[0..[(important_titles.size * 0.4).round, 3].max].sum
   important_threshold = important_duration * 100.0 / total_duration
 
   threshold = [important_threshold, threshold].max
