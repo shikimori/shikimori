@@ -94,7 +94,7 @@ data.each do |rule|
 
   short_specials_duration_subtract = short_specials.size <= 3 ? short_specials_duration : short_specials_duration / 2.0
 
-  threshold = (
+  formula_threshold = (
     total_duration -
     ova_duration_subtract -
     long_specials_duration_subtract -
@@ -103,25 +103,25 @@ data.each do |rule|
   ) * 100.0 / total_duration
 
   if total_duration > 20_000
-    threshold = [60, threshold].min
+    formula_threshold = [60, threshold].min
   elsif total_duration > 10_000
-    threshold = [80, threshold].min
+    formula_threshold = [80, formula_threshold].min
   elsif total_duration > 5_000
-    threshold = [90, threshold].min
+    formula_threshold = [90, formula_threshold].min
   end
 
   if franchise.size >= 7 || total_duration > 2_000
-    threshold = [95, threshold].min
+    formula_threshold = [95, formula_threshold].min
   end
 
   animes_with_year = franchise.reject(&:kind_special?).select(&:year)
   average_year = animes_with_year.sum(&:year) * 1.0 / animes_with_year.size
   if average_year < 1987
-    threshold -= 15
+    formula_threshold -= 15
   elsif average_year < 1991
-    threshold -= 10
+    formula_threshold -= 10
   elsif average_year < 1996
-    threshold -= 5
+    formula_threshold -= 5
   end
 
   important_durations = important_titles
@@ -132,7 +132,7 @@ data.each do |rule|
   important_duration = important_durations[0..[(important_titles.size * 0.4).round, 3].max].sum
   important_threshold = important_duration * 100.0 / total_duration
 
-  threshold = [important_threshold, threshold].max
+  threshold = [important_threshold, formula_threshold].max
 
   current_threshold = rule['threshold'].gsub('%', '').to_f
   new_threshold = HARDCODED_THRESHOLD[rule['filters']['franchise'].to_sym] || threshold.floor(1)
