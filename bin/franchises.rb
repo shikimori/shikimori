@@ -14,7 +14,9 @@ HARDCODED_THRESHOLD = {
 ALLOWED_SPECIAL_IDS = [15711, 2269, 14007, 20667, 24371, 2336]
 
 puts 'loading franchises...'
-data = YAML.load_file(franchise_yml)
+raw_data = YAML.load_file(franchise_yml)
+
+data = raw_data.dup
 
 puts 'excluding recaps...'
 data.each do |rule|
@@ -46,6 +48,8 @@ def duration anime
 
   episodes * anime.duration
 end
+
+# data = data.select { |v| v['filters']['franchise'] == 'naruto' }
 
 puts 'generating thresholds...'
 data.each do |rule|
@@ -94,13 +98,9 @@ data.each do |rule|
 
   if total_duration > 20_000
     threshold = [60, threshold].min
-  end
-
-  if total_duration > 10_000
+  elsif total_duration > 10_000
     threshold = [80, threshold].min
-  end
-
-  if total_duration > 5_000
+  elsif total_duration > 5_000
     threshold = [90, threshold].min
   end
 
@@ -118,6 +118,15 @@ data.each do |rule|
     threshold -= 5
   end
 
+  important_duration = important_titles
+    .map { |v| duration v }
+    .sort
+    .reverse[0..(important_titles.size * 0.4).round]
+    .sum
+  important_threshold = important_duration * 100.0 / total_duration
+
+  threshold = [important_threshold, threshold].max
+
   current_threshold = rule['threshold'].gsub('%', '').to_f
   new_threshold = HARDCODED_THRESHOLD[rule['filters']['franchise'].to_sym] || threshold.floor(1)
 
@@ -130,21 +139,24 @@ data.each do |rule|
   end
 end
 
-if data.any?
+if data.any? && data.size == raw_data.size
   File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
   puts "\n" + data.map { |v| v['filters']['franchise'] }.join(' ')
 end
 
-puts "\nsorting by popularity...\n"
-data = data
-  .sort_by do |v|
-      Anime
-      .where(franchise: v['filters']['franchise'], status: 'released')
-      .sum { |v| v.rates.where(status: %i[completed rewatching]).size }
-  end
-  .reverse
+begin
+  puts "\nsorting by popularity...\n"
+  data = data
+    .sort_by do |v|
+        Anime
+        .where(franchise: v['filters']['franchise'], status: 'released')
+        .sum { |v| v.rates.where(status: %i[completed rewatching]).size }
+    end
+    .reverse
 
-if data.any?
-  File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
-  puts data.map { |v| v['filters']['franchise'] }.join(' ')
+  if data.any? && data.size == raw_data.size
+    File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
+    puts data.map { |v| v['filters']['franchise'] }.join(' ')
+  end
+rescue Interrupt
 end
