@@ -6696,11 +6696,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :fullmetal_alchemist
+    :neko_id: :boruto
     :level: 1
-    :image: http://i.imgur.com/M821rLg.png
+    :image: https://moe.shikimori.org/system/user_images/original/84020/594952.jpg
     :border_color: 
-    :title_ru: Стальной алхимик
+    :title_ru: Наруто
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6708,16 +6708,16 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: fullmetal_alchemist
-      :threshold: 94.8%
+        franchise: boruto
+      :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :gintama
+    :neko_id: :fate_zero
     :level: 1
-    :image: http://i.imgur.com/b1iPCow.png
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
     :border_color: 
-    :title_ru: Гинтама
+    :title_ru: Судьба
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6725,19 +6725,33 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: gintama
+        franchise: fate_zero
         not_anime_ids:
-        - 37864
-        - 19261
+        - 169
+        - 2593
+        - 3782
+        - 3783
+        - 4280
+        - 4282
+        - 5204
+        - 5205
+        - 6624
+        - 6954
+        - 13183
+        - 14807
+        - 19165
+        - 22763
+        - 22847
+        - 23697
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :hunter_x_hunter
+    :neko_id: :shingeki_no_kyojin
     :level: 1
-    :image: http://i.imgur.com/u2Vw6JV.png
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/621305.jpg
     :border_color: 
-    :title_ru: Охотник х Охотник
+    :title_ru: Вторжение гигантов
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6745,33 +6759,20 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: hunter_x_hunter
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ginga_eiyuu_densetsu
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/586911.jpg
-    :border_color: 
-    :title_ru: Легенда о героях Галактики
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: ginga_eiyuu_densetsu
+        franchise: shingeki_no_kyojin
+        not_anime_ids:
+        - 19285
+        - 19391
+        - 35267
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :clannad
+    :neko_id: :sword_art_online
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/624151.jpg
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593360.jpg
     :border_color: 
-    :title_ru: Кланнад
+    :title_ru: Мастера Меча Онлайн
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6779,8 +6780,11 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: clannad
-      :threshold: 96.1%
+        franchise: sword_art_online
+        not_anime_ids:
+        - 27891
+        - 37831
+      :threshold: 87.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6804,11 +6808,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :haikyuu
+    :neko_id: :kuroko_no_basket
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588521.jpg
+    :image: http://i.imgur.com/1w3Q4p6.png
     :border_color: 
-    :title_ru: Волейбол!!
+    :title_ru: Баскетбол Куроко
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6816,8 +6820,8 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: haikyuu
-      :threshold: 95%
+        franchise: kuroko_no_basket
+      :threshold: 93.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6850,6 +6854,558 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :high_school_dxd
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/624132.jpg
+    :border_color: 
+    :title_ru: Старшая школа DxD
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: high_school_dxd
+      :threshold: 91.3%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kuroshitsuji
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/594196.jpg
+    :border_color: 
+    :title_ru: Тёмный дворецкий
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: kuroshitsuji
+        not_anime_ids:
+        - 6163
+        - 8068
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :boku_no_hero_academia
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/591715.jpg
+    :border_color: 
+    :title_ru: Моя геройская академия
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: boku_no_hero_academia
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :fullmetal_alchemist
+    :level: 1
+    :image: http://i.imgur.com/M821rLg.png
+    :border_color: 
+    :title_ru: Стальной алхимик
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: fullmetal_alchemist
+      :threshold: 94.8%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :fairy_tail
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/587404.jpg
+    :border_color: 
+    :title_ru: Сказка о Хвосте феи
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: fairy_tail
+        not_anime_ids:
+        - 246
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :shokugeki_no_souma
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587910.jpg
+    :border_color: 
+    :title_ru: Повар-боец Сома
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: shokugeki_no_souma
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :durarara
+    :level: 1
+    :image: http://i.imgur.com/SY4hESq.png
+    :border_color: 
+    :title_ru: Дюрарара!!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: durarara
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :haikyuu
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/588521.jpg
+    :border_color: 
+    :title_ru: Волейбол!!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: haikyuu
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :nanatsu_no_taizai
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/592707.jpg
+    :border_color: 
+    :title_ru: Семь смертных грехов
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: nanatsu_no_taizai
+      :threshold: 90.9%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :gintama
+    :level: 1
+    :image: http://i.imgur.com/b1iPCow.png
+    :border_color: 
+    :title_ru: Гинтама
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: gintama
+        not_anime_ids:
+        - 37864
+        - 19261
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :one_piece
+    :level: 1
+    :image: http://i.imgur.com/fYxck9q.png
+    :border_color: 
+    :title_ru: Ван-Пис
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: one_piece
+        not_anime_ids:
+        - 34165
+        - 32437
+        - 36239
+        - 36240
+        - 36241
+        - 36242
+      :threshold: 93.9%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :koro_sensei_q
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
+    :border_color: 
+    :title_ru: Класс убийц
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: koro_sensei_q
+        not_anime_ids:
+        - 33511
+      :threshold: 94.1%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :zero_no_tsukaima
+    :level: 1
+    :image: http://i.imgur.com/TiWdKRI.png
+    :border_color: 
+    :title_ru: Подручный Луизы-Нулизы
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: zero_no_tsukaima
+        not_anime_ids:
+        - 6489
+      :threshold: 98%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :ghost_in_the_shell
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/ghost_in_the_shell.jpg"
+    :border_color: 
+    :title_ru: Призрак в доспехах
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: ghost_in_the_shell
+        not_anime_ids:
+        - 2448
+        - 10870
+        - 10948
+        - 31617
+      :threshold: 86.7%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :suzumiya_haruhi_no_yuuutsu
+    :level: 1
+    :image: http://i.imgur.com/vjWTN36.png
+    :border_color: 
+    :title_ru: Меланхолия Харухи Судзумии
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: suzumiya_haruhi_no_yuuutsu
+      :threshold: 89%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :jojo_no_kimyou_na_bouken
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593472.jpg
+    :border_color: 
+    :title_ru: Невероятное приключение ДжоДжо
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: jojo_no_kimyou_na_bouken
+        not_anime_ids:
+        - 3603
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :to_love_ru
+    :level: 1
+    :image: http://i.imgur.com/7RyGtjd.png
+    :border_color: 
+    :title_ru: Любовные неприятности
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: to_love_ru
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :bleach
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/587406.jpg
+    :border_color: 
+    :title_ru: Блич
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: bleach
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :natsume_yuujinchou
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/34807/588844.jpg
+    :border_color: 
+    :title_ru: Тетрадь дружбы Нацумэ
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: natsume_yuujinchou
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :berserk
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/587464.jpg
+    :border_color: 
+    :title_ru: Берсерк
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: berserk
+        not_anime_ids:
+        - 35009
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :toaru_majutsu_no_index
+    :level: 1
+    :image: http://i.imgur.com/upFgMl5.png
+    :border_color: 
+    :title_ru: Индекс волшебства
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: toaru_majutsu_no_index
+        not_anime_ids:
+        - 27829
+        - 32264
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :umineko_no_naku_koro_ni
+    :level: 1
+    :image: http://i.imgur.com/v7pjFJ7.png
+    :border_color: 
+    :title_ru: Когда плачут
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: umineko_no_naku_koro_ni
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :junjou_romantica
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593482.jpg
+    :border_color: 
+    :title_ru: Чистая романтика
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: junjou_romantica
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :bakuman
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/585005.jpg
+    :border_color: 
+    :title_ru: Бакуман
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: bakuman
+      :threshold: 96.7%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :pokemon
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/594737.jpg
+    :border_color: 
+    :title_ru: Покемон
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: pokemon
+        not_anime_ids:
+        - 11009
+        - 11019
+        - 11073
+        - 23849
+        - 31373
+        - 32699
+        - 36835
+      :threshold: 60%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :magi
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593349.jpg
+    :border_color: 
+    :title_ru: Маги
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: magi
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :clannad
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/624151.jpg
+    :border_color: 
+    :title_ru: Кланнад
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: clannad
+      :threshold: 96.1%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :hunter_x_hunter
+    :level: 1
+    :image: http://i.imgur.com/u2Vw6JV.png
+    :border_color: 
+    :title_ru: Охотник х Охотник
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: hunter_x_hunter
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :snow_halation
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587880.jpg
+    :border_color: 
+    :title_ru: Живая любовь!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: snow_halation
+        not_anime_ids:
+        - 21853
+        - 36473
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :moon_pride
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/573821.jpg
+    :border_color: 
+    :title_ru: Красавица-воин Сейлор Мун
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: moon_pride
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :mushishi
     :level: 1
     :image: http://i.imgur.com/j6vZg0U.png
@@ -6864,6 +7420,172 @@
       :filters:
         franchise: mushishi
       :threshold: 92.6%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :full_metal_panic
+    :level: 1
+    :image: http://i.imgur.com/JGlSJBR.png
+    :border_color: 
+    :title_ru: Стальная тревога
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: full_metal_panic
+      :threshold: 94.6%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :initial_d
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/593343.jpg
+    :border_color: 
+    :title_ru: Инициал Ди
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: initial_d
+        not_anime_ids:
+        - 12725
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :gundam
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/587962.jpg
+    :border_color: 
+    :title_ru: Мобильный воин Гандам
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: gundam
+        not_anime_ids:
+        - 8839
+        - 22435
+        - 23943
+        - 32898
+      :threshold: 60%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :shakugan_no_shana
+    :level: 1
+    :image: http://i.imgur.com/okj7B9r.png
+    :border_color: 
+    :title_ru: Пламенный взор Шаны
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: shakugan_no_shana
+        not_anime_ids:
+        - 6330
+        - 28603
+        - 17551
+        - 14957
+        - 1815
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :working
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/584987.jpg
+    :border_color: 
+    :title_ru: Работа!!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: working
+      :threshold: 95.8%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :tales_of_gekijou
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/34807/615494.jpg
+    :border_color: 
+    :title_ru: Сказания
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: tales_of_gekijou
+      :threshold: 92.3%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :force_live
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/590066.jpg
+    :border_color: 
+    :title_ru: Поющий принц
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: force_live
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :detective_conan
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/587873.jpg
+    :border_color: 
+    :title_ru: Детектив Конан
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: detective_conan
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :dragon_ball
+    :level: 1
+    :image: http://i.imgur.com/paJlwxU.png
+    :border_color: 
+    :title_ru: Драконий жемчуг
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: dragon_ball
+      :threshold: 60%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6903,11 +7625,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :boku_no_hero_academia
+    :neko_id: :hetalia
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/591715.jpg
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594740.jpg
     :border_color: 
-    :title_ru: Моя геройская академия
+    :title_ru: Хеталия
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -6915,1057 +7637,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: boku_no_hero_academia
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :natsume_yuujinchou
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/34807/588844.jpg
-    :border_color: 
-    :title_ru: Тетрадь дружбы Нацумэ
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: natsume_yuujinchou
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :suzumiya_haruhi_no_yuuutsu
-    :level: 1
-    :image: http://i.imgur.com/vjWTN36.png
-    :border_color: 
-    :title_ru: Меланхолия Харухи Судзумии
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: suzumiya_haruhi_no_yuuutsu
-      :threshold: 89%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :bakuman
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/585005.jpg
-    :border_color: 
-    :title_ru: Бакуман
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: bakuman
-      :threshold: 96.7%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :koro_sensei_q
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
-    :border_color: 
-    :title_ru: Класс убийц
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: koro_sensei_q
-        not_anime_ids:
-        - 33511
-      :threshold: 94.1%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :fate_zero
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
-    :border_color: 
-    :title_ru: Судьба
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: fate_zero
-        not_anime_ids:
-        - 169
-        - 2593
-        - 3782
-        - 3783
-        - 4280
-        - 4282
-        - 5204
-        - 5205
-        - 6624
-        - 6954
-        - 13183
-        - 14807
-        - 19165
-        - 22763
-        - 22847
-        - 23697
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :jojo_no_kimyou_na_bouken
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593472.jpg
-    :border_color: 
-    :title_ru: Невероятное приключение ДжоДжо
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: jojo_no_kimyou_na_bouken
-        not_anime_ids:
-        - 3603
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :megalo_box
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/592671.jpg
-    :border_color: 
-    :title_ru: Завтрашний Джо
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: megalo_box
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :aria_the_ova
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
-    :border_color: 
-    :title_ru: Ария
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: aria_the_ova
-        not_anime_ids:
-        - 5196
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :shingeki_no_kyojin
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/621305.jpg
-    :border_color: 
-    :title_ru: Вторжение гигантов
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: shingeki_no_kyojin
-        not_anime_ids:
-        - 19285
-        - 19391
-        - 35267
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ghost_in_the_shell
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/ghost_in_the_shell.jpg"
-    :border_color: 
-    :title_ru: Призрак в доспехах
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: ghost_in_the_shell
-        not_anime_ids:
-        - 2448
-        - 10870
-        - 10948
-        - 31617
-      :threshold: 86.7%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :uchuu_kyoudai
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588566.jpg
-    :border_color: 
-    :title_ru: Космические братья
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: uchuu_kyoudai
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :slam_dunk
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588994.jpg
-    :border_color: 
-    :title_ru: Слэм-данк
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: slam_dunk
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :kuroko_no_basket
-    :level: 1
-    :image: http://i.imgur.com/1w3Q4p6.png
-    :border_color: 
-    :title_ru: Баскетбол Куроко
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: kuroko_no_basket
-      :threshold: 93.5%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :shokugeki_no_souma
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587910.jpg
-    :border_color: 
-    :title_ru: Повар-боец Сома
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: shokugeki_no_souma
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :major
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/586899.jpg
-    :border_color: 
-    :title_ru: Мэйджор
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: major
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :kuroshitsuji
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/594196.jpg
-    :border_color: 
-    :title_ru: Тёмный дворецкий
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: kuroshitsuji
-        not_anime_ids:
-        - 6163
-        - 8068
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :yuu_yuu_hakusho
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593491.jpg
-    :border_color: 
-    :title_ru: Отчет о буйстве духов
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: yuu_yuu_hakusho
-        not_anime_ids:
-        - 6964
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :berserk
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587464.jpg
-    :border_color: 
-    :title_ru: Берсерк
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: berserk
-        not_anime_ids:
-        - 35009
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :gundam
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587962.jpg
-    :border_color: 
-    :title_ru: Мобильный воин Гандам
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: gundam
-        not_anime_ids:
-        - 8839
-        - 22435
-        - 23943
-        - 32898
-      :threshold: 60%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :yamato
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590597.jpg
-    :border_color: 
-    :title_ru: Космический линкор Ямато
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: yamato
-      :threshold: 89.1%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :magi
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593349.jpg
-    :border_color: 
-    :title_ru: Маги
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: magi
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :detective_conan
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/587873.jpg
-    :border_color: 
-    :title_ru: Детектив Конан
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: detective_conan
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :diamond_no_ace
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587845.jpg
-    :border_color: 
-    :title_ru: Путь аса
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: diamond_no_ace
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :tsubasa
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/587918.jpg
-    :border_color: 
-    :title_ru: Хроника крыльев
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: tsubasa
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :umineko_no_naku_koro_ni
-    :level: 1
-    :image: http://i.imgur.com/v7pjFJ7.png
-    :border_color: 
-    :title_ru: Когда плачут
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: umineko_no_naku_koro_ni
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :inuyasha
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593479.jpg
-    :border_color: 
-    :title_ru: Инуяся
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: inuyasha
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :one_piece
-    :level: 1
-    :image: http://i.imgur.com/fYxck9q.png
-    :border_color: 
-    :title_ru: Ван-Пис
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: one_piece
-        not_anime_ids:
-        - 34165
-        - 32437
-        - 36239
-        - 36240
-        - 36241
-        - 36242
-      :threshold: 93.9%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :sket_dance
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593367.jpg
-    :border_color: 
-    :title_ru: Скет Данс
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: sket_dance
-      :threshold: 97.9%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :nanatsu_no_taizai
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592707.jpg
-    :border_color: 
-    :title_ru: Семь смертных грехов
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: nanatsu_no_taizai
-      :threshold: 90.9%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :initial_d
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593343.jpg
-    :border_color: 
-    :title_ru: Инициал Ди
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: initial_d
-        not_anime_ids:
-        - 12725
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :dragon_ball
-    :level: 1
-    :image: http://i.imgur.com/paJlwxU.png
-    :border_color: 
-    :title_ru: Драконий жемчуг
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: dragon_ball
-      :threshold: 60%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :cardcaptor_sakura
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588573.jpg
-    :border_color: 
-    :title_ru: Сакура — собирательница карт
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: cardcaptor_sakura
-        not_anime_ids:
-        - 37595
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :durarara
-    :level: 1
-    :image: http://i.imgur.com/SY4hESq.png
-    :border_color: 
-    :title_ru: Дюрарара!!
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: durarara
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :working
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/584987.jpg
-    :border_color: 
-    :title_ru: Работа!!
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: working
-      :threshold: 95.8%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :vivid_strike
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/594202.jpg
-    :border_color: 
-    :title_ru: Лиричная волшебница Наноха
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: vivid_strike
-        not_anime_ids:
-        - 176
-        - 4849
-        - 32316
-        - 35501
-        - 37933
-        - 37934
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :saint_seiya
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593364.jpg
-    :border_color: 
-    :title_ru: Рыцари Зодиака
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: saint_seiya
-        not_anime_ids:
-        - 6153
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :maison_ikkoku
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/591782.jpg
-    :border_color: 
-    :title_ru: Доходный дом Иккоку
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: maison_ikkoku
-      :threshold: 85%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :chiba_pedal
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587974.jpg
-    :border_color: 
-    :title_ru: Трусливый велосипедист
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: chiba_pedal
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :junjou_romantica
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593482.jpg
-    :border_color: 
-    :title_ru: Чистая романтика
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: junjou_romantica
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :boruto
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594952.jpg
-    :border_color: 
-    :title_ru: Наруто
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: boruto
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :lupin_iii
-    :level: 1
-    :image: http://i.imgur.com/YhU0jqQ.png
-    :border_color: 
-    :title_ru: Люпен III
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: lupin_iii
-        not_anime_ids:
-        - 5343
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :glass_no_kamen
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587850.jpg
-    :border_color: 
-    :title_ru: Стеклянная маска
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: glass_no_kamen
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :hikaru_no_go
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588982.jpg
-    :border_color: 
-    :title_ru: Хикару и Го
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: hikaru_no_go
-      :threshold: 94.5%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :dmatsu_san
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593354.jpg
-    :border_color: 
-    :title_ru: Осомацу
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: dmatsu_san
-      :threshold: 50%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :eureka_seven
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587927.jpg
-    :border_color: 
-    :title_ru: Эврика 7
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: eureka_seven
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :full_metal_panic
-    :level: 1
-    :image: http://i.imgur.com/JGlSJBR.png
-    :border_color: 
-    :title_ru: Стальная тревога
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: full_metal_panic
-      :threshold: 94.6%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :hidamari_sketch
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588522.jpg
-    :border_color: 
-    :title_ru: Наброски Хидамари
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: hidamari_sketch
-        not_anime_ids:
-        - 28911
-        - 28913
-        - 28915
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :doraemon
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/590513.jpg
-    :border_color: 
-    :title_ru: Дораэмон
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: doraemon
-        not_anime_ids:
-        - 501
-      :threshold: 60%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :persona
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/3824/618127.jpg
-    :border_color: 
-    :title_ru: Персона
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: persona
-        not_anime_ids:
-        - 25257
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :school_rumble
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588567.jpg
-    :border_color: 
-    :title_ru: Школьный переполох
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: school_rumble
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :slayers
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593371.jpg
-    :border_color: 
-    :title_ru: Рубаки
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: slayers
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :tennis_no_ouji_sama
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593487.jpg
-    :border_color: 
-    :title_ru: Принц тенниса
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: tennis_no_ouji_sama
-        not_anime_ids:
-        - 29697
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :toaru_majutsu_no_index
-    :level: 1
-    :image: http://i.imgur.com/upFgMl5.png
-    :border_color: 
-    :title_ru: Индекс волшебства
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: toaru_majutsu_no_index
-        not_anime_ids:
-        - 27829
-        - 32264
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :touch
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593338.jpg
-    :border_color: 
-    :title_ru: Касание
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: touch
-      :threshold: 88.9%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :city_hunter
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/591793.jpg
-    :border_color: 
-    :title_ru: Городской охотник
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: city_hunter
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :fairy_tail
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587404.jpg
-    :border_color: 
-    :title_ru: Сказка о Хвосте феи
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: fairy_tail
-        not_anime_ids:
-        - 246
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :kindaichi_shounen_no_jikenbo
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587869.jpg
-    :border_color: 
-    :title_ru: Дело ведет юный детектив Киндаити
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: kindaichi_shounen_no_jikenbo
+        franchise: hetalia
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7990,11 +7662,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :snow_halation
+    :neko_id: :blood
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587880.jpg
+    :image: http://i.imgur.com/bmPbOPr.png
     :border_color: 
-    :title_ru: Живая любовь!
+    :title_ru: Кровь
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8002,19 +7674,35 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: snow_halation
+        franchise: blood
         not_anime_ids:
-        - 21853
-        - 36473
+        - 14077
+      :threshold: 97%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :major
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/586899.jpg
+    :border_color: 
+    :title_ru: Мэйджор
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: major
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :muumin
+    :neko_id: :slayers
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587882.jpg
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593371.jpg
     :border_color: 
-    :title_ru: Муми-тролль
+    :title_ru: Рубаки
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8022,8 +7710,80 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: muumin
-      :threshold: 75%
+        franchise: slayers
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :seiren
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/594937.jpg
+    :border_color: 
+    :title_ru: Нежный укус
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: seiren
+        not_anime_ids:
+        - 15951
+      :threshold: 96.6%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :persona
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/3824/618127.jpg
+    :border_color: 
+    :title_ru: Персона
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: persona
+        not_anime_ids:
+        - 25257
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :chiba_pedal
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/587974.jpg
+    :border_color: 
+    :title_ru: Трусливый велосипедист
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: chiba_pedal
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :jigoku_shoujo
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593462.jpg
+    :border_color: 
+    :title_ru: Адская девочка
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: jigoku_shoujo
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8061,11 +7821,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :sword_art_online
+    :neko_id: :lupin_iii
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593360.jpg
+    :image: http://i.imgur.com/YhU0jqQ.png
     :border_color: 
-    :title_ru: Мастера Меча Онлайн
+    :title_ru: Люпен III
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8073,67 +7833,10 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: sword_art_online
+        franchise: lupin_iii
         not_anime_ids:
-        - 27891
-        - 37831
-      :threshold: 87.7%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :jigoku_shoujo
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593462.jpg
-    :border_color: 
-    :title_ru: Адская девочка
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: jigoku_shoujo
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :tenchi_muyou
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593376.jpg
-    :border_color: 
-    :title_ru: Тэнти — лишний!
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: tenchi_muyou
-        not_anime_ids:
-        - 1503
-        - 10351
-        - 28531
-        - 37789
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :moon_pride
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/573821.jpg
-    :border_color: 
-    :title_ru: Красавица-воин Сейлор Мун
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: moon_pride
-      :threshold: 90%
+        - 5343
+      :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8156,11 +7859,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :saiyuuki_gaiden
+    :neko_id: :inuyasha
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/588842.jpg
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593479.jpg
     :border_color: 
-    :title_ru: Саюки
+    :title_ru: Инуяся
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8168,16 +7871,16 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: saiyuuki_gaiden
-      :threshold: 95%
+        franchise: inuyasha
+      :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :nen_joou
+    :neko_id: :tenchi_muyou
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594735.jpg
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593376.jpg
     :border_color: 
-    :title_ru: Галактический экспресс 999
+    :title_ru: Тэнти — лишний!
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8185,452 +7888,13 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: nen_joou
+        franchise: tenchi_muyou
         not_anime_ids:
-        - 6733
-        - 9344
+        - 1503
+        - 10351
+        - 28531
+        - 37789
       :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :hokuto_no_ken
-    :level: 1
-    :image: http://i.imgur.com/5gIbsOg.png
-    :border_color: 
-    :title_ru: Кулак Северной звезды
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: hokuto_no_ken
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :mahoujin_guruguru
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/587853.jpg
-    :border_color: 
-    :title_ru: Волшебный круг Гуру-Гуру
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: mahoujin_guruguru
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :digimon_savers
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/594733.jpg
-    :border_color: 
-    :title_ru: Приключения Дигимонов
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: digimon_savers
-        not_anime_ids:
-        - 4712
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :votoms_finder
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593466.jpg
-    :border_color: 
-    :title_ru: Бронированные воины Вотомы
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: votoms_finder
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :transformers
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588998.jpg
-    :border_color: 
-    :title_ru: Трансформеры
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: transformers
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :bleach
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587406.jpg
-    :border_color: 
-    :title_ru: Блич
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: bleach
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :mazinkaiser
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588529.jpg
-    :border_color: 
-    :title_ru: Мазинкайзер
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: mazinkaiser
-      :threshold: 60%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :pokemon
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/594737.jpg
-    :border_color: 
-    :title_ru: Покемон
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: pokemon
-        not_anime_ids:
-        - 11009
-        - 11019
-        - 11073
-        - 23849
-        - 31373
-        - 32699
-        - 36835
-      :threshold: 60%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :yes_precure
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/595142.jpg
-    :border_color: 
-    :title_ru: Хорошенькое лекарство
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: yes_precure
-        not_anime_ids:
-        - 10736
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :mobile_police_patlabor
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/573803.jpg
-    :border_color: 
-    :title_ru: Полиция будущего
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: mobile_police_patlabor
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :urusei_yatsura
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588516.jpg
-    :border_color: 
-    :title_ru: Несносные пришельцы
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: urusei_yatsura
-      :threshold: 75%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :koneko_no_chii
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/625320.jpg
-    :border_color: 
-    :title_ru: Милый дом Чи
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: koneko_no_chii
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :hayate_no_gotoku
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593337.jpg
-    :border_color: 
-    :title_ru: Боевой дворецкий Хаятэ!
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: hayate_no_gotoku
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :tegamibachi
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592667.jpg
-    :border_color: 
-    :title_ru: Почтовая пчела
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: tegamibachi
-      :threshold: 84.9%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :hetalia
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594740.jpg
-    :border_color: 
-    :title_ru: Хеталия
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: hetalia
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ranma
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593359.jpg
-    :border_color: 
-    :title_ru: Ранма 1/2
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: ranma
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :black_jack
-    :level: 1
-    :image: http://oyster.ignimgs.com/wordpress/stg.ign.com/2014/02/24-black_jack.jpg
-    :border_color: 
-    :title_ru: Черный Джек
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: black_jack
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :genshiken
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/584964.jpg
-    :border_color: 
-    :title_ru: Гэнсикэн
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: genshiken
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :to_love_ru
-    :level: 1
-    :image: http://i.imgur.com/7RyGtjd.png
-    :border_color: 
-    :title_ru: Любовные неприятности
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: to_love_ru
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :space_cobra
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/587937.jpg
-    :border_color: 
-    :title_ru: Космические приключения Кобры
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: space_cobra
-      :threshold: 98.3%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ojamajo_doremi
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/594193.jpg
-    :border_color: 
-    :title_ru: Невезучая ведьма Дореми
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: ojamajo_doremi
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :getter_robo
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/34807/590469.jpg
-    :border_color: 
-    :title_ru: Робот Геттер
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: getter_robo
-      :threshold: 85%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :high_school_dxd
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/624132.jpg
-    :border_color: 
-    :title_ru: Старшая школа DxD
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: high_school_dxd
-      :threshold: 91.3%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :blood
-    :level: 1
-    :image: http://i.imgur.com/bmPbOPr.png
-    :border_color: 
-    :title_ru: Кровь
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: blood
-        not_anime_ids:
-        - 14077
-      :threshold: 97%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :garo
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593342.jpg
-    :border_color: 
-    :title_ru: Гаро
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: garo
-        not_anime_ids:
-        - 37032
-      :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8668,11 +7932,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :aikatsu
+    :neko_id: :ikkitousen
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588973.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/84020/594917.jpg
     :border_color: 
-    :title_ru: Айкацу!
+    :title_ru: Сила тысячи
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8680,16 +7944,16 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: aikatsu
-      :threshold: 90%
+        franchise: ikkitousen
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :fushigi_yuugi
+    :neko_id: :tennis_no_ouji_sama
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/588655.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593487.jpg
     :border_color: 
-    :title_ru: Таинственная игра
+    :title_ru: Принц тенниса
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8697,27 +7961,44 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: fushigi_yuugi
-      :threshold: 99.7%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :kimagure_orange_road
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587931.jpg
-    :border_color: 
-    :title_ru: Капризы Апельсиновой улицы
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: kimagure_orange_road
+        franchise: tennis_no_ouji_sama
         not_anime_ids:
-        - 14059
+        - 29697
       :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :tsubasa
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/587918.jpg
+    :border_color: 
+    :title_ru: Хроника крыльев
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: tsubasa
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :aa_megami_sama
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/588643.jpg
+    :border_color: 
+    :title_ru: Моя богиня!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: aa_megami_sama
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8741,11 +8022,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :dragon_quest
+    :neko_id: :garo
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588978.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593342.jpg
     :border_color: 
-    :title_ru: Драгон Квест
+    :title_ru: Гаро
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8753,73 +8034,35 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: dragon_quest
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :pripara
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588524.jpg
-    :border_color: 
-    :title_ru: При Пара
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: pripara
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :tales_of_gekijou
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/34807/615494.jpg
-    :border_color: 
-    :title_ru: Сказания
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: tales_of_gekijou
-      :threshold: 92.3%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :shakugan_no_shana
-    :level: 1
-    :image: http://i.imgur.com/okj7B9r.png
-    :border_color: 
-    :title_ru: Пламенный взор Шаны
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: shakugan_no_shana
+        franchise: garo
         not_anime_ids:
-        - 6330
-        - 28603
-        - 17551
-        - 14957
-        - 1815
+        - 37032
+      :threshold: 94.1%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :selector_spread_wixoss
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/590470.jpg
+    :border_color: 
+    :title_ru: WIXOSS
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: selector_spread_wixoss
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :soukyuu_no_fafner
+    :neko_id: :genshiken
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593378.jpg
+    :image: https://dere.shikimori.org/system/user_images/original/84020/584964.jpg
     :border_color: 
-    :title_ru: Небесный Фафнир
+    :title_ru: Гэнсикэн
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8827,8 +8070,79 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: soukyuu_no_fafner
-      :threshold: 94.1%
+        franchise: genshiken
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :eureka_seven
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/587927.jpg
+    :border_color: 
+    :title_ru: Эврика 7
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: eureka_seven
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :megalo_box
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/592671.jpg
+    :border_color: 
+    :title_ru: Завтрашний Джо
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: megalo_box
+      :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :hayate_no_gotoku
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593337.jpg
+    :border_color: 
+    :title_ru: Боевой дворецкий Хаятэ!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: hayate_no_gotoku
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :nen_joou
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594735.jpg
+    :border_color: 
+    :title_ru: Галактический экспресс 999
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: nen_joou
+        not_anime_ids:
+        - 6733
+        - 9344
+      :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8846,110 +8160,6 @@
       :filters:
         franchise: puchimas
       :threshold: 82.8%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :zero_no_tsukaima
-    :level: 1
-    :image: http://i.imgur.com/TiWdKRI.png
-    :border_color: 
-    :title_ru: Подручный Луизы-Нулизы
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: zero_no_tsukaima
-        not_anime_ids:
-        - 6489
-      :threshold: 98%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :toriko
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593336.jpg
-    :border_color: 
-    :title_ru: Торико
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: toriko
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :aa_megami_sama
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588643.jpg
-    :border_color: 
-    :title_ru: Моя богиня!
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: aa_megami_sama
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :inazuma_eleven
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/592658.jpg
-    :border_color: 
-    :title_ru: Инадзума 11
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: inazuma_eleven
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :senki_zesshou_symphogear
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592670.jpg
-    :border_color: 
-    :title_ru: Песня боевых принцесс
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: senki_zesshou_symphogear
-      :threshold: 93.3%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :grendizer_giga
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/592653.jpg
-    :border_color: 
-    :title_ru: Грендайзер
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: grendizer_giga
-      :threshold: 84.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8972,11 +8182,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :konjiki_no_gash_bell
+    :neko_id: :dmatsu_san
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/588672.jpg
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593354.jpg
     :border_color: 
-    :title_ru: Златовласый Гаш Белл
+    :title_ru: Осомацу
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -8984,16 +8194,35 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: konjiki_no_gash_bell
+        franchise: dmatsu_san
+      :threshold: 50%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :cardcaptor_sakura
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/588573.jpg
+    :border_color: 
+    :title_ru: Сакура — собирательница карт
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: cardcaptor_sakura
+        not_anime_ids:
+        - 37595
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :saki
+    :neko_id: :baki
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/594742.jpg
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592710.jpg
     :border_color: 
-    :title_ru: Саки
+    :title_ru: Боец Баки
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9001,19 +8230,16 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: saki
-        not_anime_ids:
-        - 7759
-        - 30292
-      :threshold: 91%
+        franchise: baki
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :candy_candy
+    :neko_id: :hack_gift
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593346.jpg
+    :image: https://dere.shikimori.org/system/user_images/original/84020/594919.jpg
     :border_color: 
-    :title_ru: Кэнди-Кэнди
+    :title_ru: ".хак//"
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9021,16 +8247,190 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: candy_candy
+        franchise: hack_gift
+      :threshold: 94.7%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :tegamibachi
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/592667.jpg
+    :border_color: 
+    :title_ru: Почтовая пчела
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: tegamibachi
+      :threshold: 84.9%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :school_rumble
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/588567.jpg
+    :border_color: 
+    :title_ru: Школьный переполох
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: school_rumble
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :sket_dance
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593367.jpg
+    :border_color: 
+    :title_ru: Скет Данс
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: sket_dance
+      :threshold: 97.9%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :aquarion_evol
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/589085.jpg
+    :border_color: 
+    :title_ru: Акварион
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: aquarion_evol
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :gatchaman
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
+    :border_color: 
+    :title_ru: Гатчамен
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: gatchaman
+      :threshold: 85%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :diamond_no_ace
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587845.jpg
+    :border_color: 
+    :title_ru: Путь аса
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: diamond_no_ace
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :aria_the_ova
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
+    :border_color: 
+    :title_ru: Ария
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: aria_the_ova
+        not_anime_ids:
+        - 5196
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :hikaru_no_go
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/588982.jpg
+    :border_color: 
+    :title_ru: Хикару и Го
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: hikaru_no_go
+      :threshold: 94.5%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :black_jack
+    :level: 1
+    :image: http://oyster.ignimgs.com/wordpress/stg.ign.com/2014/02/24-black_jack.jpg
+    :border_color: 
+    :title_ru: Черный Джек
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: black_jack
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :yes_precure
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/595142.jpg
+    :border_color: 
+    :title_ru: Хорошенькое лекарство
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: yes_precure
+        not_anime_ids:
+        - 10736
       :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :taiho_shichau_zo
+    :neko_id: :queen_s_blade
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/594753.jpg
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/594921.jpg
     :border_color: 
-    :title_ru: Вы арестованы!
+    :title_ru: Клинок королевы
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9038,8 +8438,136 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: taiho_shichau_zo
+        franchise: queen_s_blade
+      :threshold: 90.8%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :koneko_no_chii
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/625320.jpg
+    :border_color: 
+    :title_ru: Милый дом Чи
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: koneko_no_chii
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :vivid_strike
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/594202.jpg
+    :border_color: 
+    :title_ru: Лиричная волшебница Наноха
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: vivid_strike
+        not_anime_ids:
+        - 176
+        - 4849
+        - 32316
+        - 35501
+        - 37933
+        - 37934
       :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :ginga_eiyuu_densetsu
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/586911.jpg
+    :border_color: 
+    :title_ru: Легенда о героях Галактики
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: ginga_eiyuu_densetsu
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :saint_seiya
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593364.jpg
+    :border_color: 
+    :title_ru: Рыцари Зодиака
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: saint_seiya
+        not_anime_ids:
+        - 6153
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :cardfight_vanguard
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/587956.jpg
+    :border_color: 
+    :title_ru: Карточные бои Авангарда
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: cardfight_vanguard
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :sonic
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593372.jpg
+    :border_color: 
+    :title_ru: Соник
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: sonic
+      :threshold: 99.6%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :inazuma_eleven
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/592658.jpg
+    :border_color: 
+    :title_ru: Инадзума 11
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: inazuma_eleven
+      :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9066,11 +8594,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :seiren
+    :neko_id: :yamato
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594937.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/34807/590597.jpg
     :border_color: 
-    :title_ru: Нежный укус
+    :title_ru: Космический линкор Ямато
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9078,10 +8606,152 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: seiren
+        franchise: yamato
+      :threshold: 89.1%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :digimon_savers
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/594733.jpg
+    :border_color: 
+    :title_ru: Приключения Дигимонов
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: digimon_savers
         not_anime_ids:
-        - 15951
-      :threshold: 96.6%
+        - 4712
+      :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :hokuto_no_ken
+    :level: 1
+    :image: http://i.imgur.com/5gIbsOg.png
+    :border_color: 
+    :title_ru: Кулак Северной звезды
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: hokuto_no_ken
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :slam_dunk
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/588994.jpg
+    :border_color: 
+    :title_ru: Слэм-данк
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: slam_dunk
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :angelique
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/589046.jpg
+    :border_color: 
+    :title_ru: Анжелика
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: angelique
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :senki_zesshou_symphogear
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592670.jpg
+    :border_color: 
+    :title_ru: Песня боевых принцесс
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: senki_zesshou_symphogear
+      :threshold: 93.3%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :d_c
+    :level: 1
+    :image: https://2.downloader.disk.yandex.ru/preview/69f29d45e660fec8f59171a268ebeef9b3be987821d1ecf74ce9c1a299b6d4c8/inf/Ulc4l6Nw6Zl9PBaWaDlZYbH6HhYsujK7PZz9isF_CzhjHyJWph6sbj8bsHUBYFIZSwQ_lmWczXB8jcT49jKoYg%3D%3D?uid=0&filename=da-capo-second-season-dc-da-capo-932345144.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+    :border_color: 
+    :title_ru: С начала
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: d_c
+        not_anime_ids:
+        - 4508
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :saiyuuki_gaiden
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/588842.jpg
+    :border_color: 
+    :title_ru: Саюки
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: saiyuuki_gaiden
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :hidamari_sketch
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/588522.jpg
+    :border_color: 
+    :title_ru: Наброски Хидамари
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: hidamari_sketch
+        not_anime_ids:
+        - 28911
+        - 28913
+        - 28915
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9102,11 +8772,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :selector_spread_wixoss
+    :neko_id: :fushigi_yuugi
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/590470.jpg
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/588655.jpg
     :border_color: 
-    :title_ru: WIXOSS
+    :title_ru: Таинственная игра
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9114,16 +8784,16 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: selector_spread_wixoss
-      :threshold: 95%
+        franchise: fushigi_yuugi
+      :threshold: 99.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :baki
+    :neko_id: :ranma
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592710.jpg
+    :image: https://dere.shikimori.org/system/user_images/original/84020/593359.jpg
     :border_color: 
-    :title_ru: Боец Баки
+    :title_ru: Ранма 1/2
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9131,169 +8801,16 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: baki
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :captain_tsubasa
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594760.jpg
-    :border_color: 
-    :title_ru: Капитан Цубаса
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: captain_tsubasa
-      :threshold: 85%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :gatchaman
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
-    :border_color: 
-    :title_ru: Гатчамен
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: gatchaman
-      :threshold: 85%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :zoids
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/621268.jpg
-    :border_color: 
-    :title_ru: Зойды
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: zoids
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :force_live
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/590066.jpg
-    :border_color: 
-    :title_ru: Поющий принц
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: force_live
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :saber_marionette_j
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/590456.jpg
-    :border_color: 
-    :title_ru: Воины-марионетки Джей
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: saber_marionette_j
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :tiger_mask
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/589000.jpg
-    :border_color: 
-    :title_ru: Тигровая маска
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: tiger_mask
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :el_hazard
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590462.jpg
-    :border_color: 
-    :title_ru: Эль-Хазард
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: el_hazard
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :galaxy_angel
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/594916.jpg
-    :border_color: 
-    :title_ru: Галактический ангел
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: galaxy_angel
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :cardfight_vanguard
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587956.jpg
-    :border_color: 
-    :title_ru: Карточные бои Авангарда
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: cardfight_vanguard
+        franchise: ranma
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :cyborg
+    :neko_id: :iron_man
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588532.jpg
+    :image: https://moe.shikimori.org/system/user_images/original/34807/593812.jpg
     :border_color: 
-    :title_ru: Киборг 009
+    :title_ru: Марвел
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9301,8 +8818,287 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: cyborg
+        franchise: iron_man
       :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :saki
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/594742.jpg
+    :border_color: 
+    :title_ru: Саки
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: saki
+        not_anime_ids:
+        - 7759
+        - 30292
+      :threshold: 91%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :soukyuu_no_fafner
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/593378.jpg
+    :border_color: 
+    :title_ru: Небесный Фафнир
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: soukyuu_no_fafner
+      :threshold: 94.1%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :mobile_police_patlabor
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/573803.jpg
+    :border_color: 
+    :title_ru: Полиция будущего
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: mobile_police_patlabor
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :transformers
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/588998.jpg
+    :border_color: 
+    :title_ru: Трансформеры
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: transformers
+      :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :doraemon
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/590513.jpg
+    :border_color: 
+    :title_ru: Дораэмон
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: doraemon
+        not_anime_ids:
+        - 501
+      :threshold: 60%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :toriko
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593336.jpg
+    :border_color: 
+    :title_ru: Торико
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: toriko
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :yuu_yuu_hakusho
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593491.jpg
+    :border_color: 
+    :title_ru: Отчет о буйстве духов
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: yuu_yuu_hakusho
+        not_anime_ids:
+        - 6964
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :uchuu_kyoudai
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/588566.jpg
+    :border_color: 
+    :title_ru: Космические братья
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: uchuu_kyoudai
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :glass_no_kamen
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587850.jpg
+    :border_color: 
+    :title_ru: Стеклянная маска
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: glass_no_kamen
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :city_hunter
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/591793.jpg
+    :border_color: 
+    :title_ru: Городской охотник
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: city_hunter
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :taiho_shichau_zo
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/594753.jpg
+    :border_color: 
+    :title_ru: Вы арестованы!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: taiho_shichau_zo
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :pripara
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/588524.jpg
+    :border_color: 
+    :title_ru: При Пара
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: pripara
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :futari_wa_milky_holmes
+    :level: 1
+    :image: https://2.downloader.disk.yandex.ru/preview/f255dd6d3e0ba190d32b130ecd071d5eaa28f9e2da577b1e0110a43e835e3bd5/inf/Ulc4l6Nw6Zl9PBaWaDlZYefLsIFoOltZFV0zvVB7tdGBBsHO36izsJsnjnMu0B8L8Li-k66LBmBXLZsukw55lA%3D%3D?uid=0&filename=2332377690e929cc8cc545dee2e5c37033bf768c.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+    :border_color: 
+    :title_ru: Детективное агентство Милки Холмс
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: futari_wa_milky_holmes
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :votoms_finder
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593466.jpg
+    :border_color: 
+    :title_ru: Бронированные воины Вотомы
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: votoms_finder
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :aikatsu
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/588973.jpg
+    :border_color: 
+    :title_ru: Айкацу!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: aikatsu
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :urusei_yatsura
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/588516.jpg
+    :border_color: 
+    :title_ru: Несносные пришельцы
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: urusei_yatsura
+      :threshold: 75%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9323,11 +9119,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :rean_no_tsubasa
+    :neko_id: :to_heart
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/590450.jpg
+    :image: https://dere.shikimori.org/system/user_images/original/34807/588864.jpg
     :border_color: 
-    :title_ru: Данбайн
+    :title_ru: Для сердца
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9335,16 +9131,52 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: rean_no_tsubasa
+        franchise: to_heart
+      :threshold: 94.4%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kimagure_orange_road
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/587931.jpg
+    :border_color: 
+    :title_ru: Капризы Апельсиновой улицы
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: kimagure_orange_road
+        not_anime_ids:
+        - 14059
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :maison_ikkoku
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/591782.jpg
+    :border_color: 
+    :title_ru: Доходный дом Иккоку
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: maison_ikkoku
       :threshold: 85%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :d_c
+    :neko_id: :candy_candy
     :level: 1
-    :image: https://2.downloader.disk.yandex.ru/preview/69f29d45e660fec8f59171a268ebeef9b3be987821d1ecf74ce9c1a299b6d4c8/inf/Ulc4l6Nw6Zl9PBaWaDlZYbH6HhYsujK7PZz9isF_CzhjHyJWph6sbj8bsHUBYFIZSwQ_lmWczXB8jcT49jKoYg%3D%3D?uid=0&filename=da-capo-second-season-dc-da-capo-932345144.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593346.jpg
     :border_color: 
-    :title_ru: С начала
+    :title_ru: Кэнди-Кэнди
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9352,10 +9184,382 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: d_c
-        not_anime_ids:
-        - 4508
+        franchise: candy_candy
+      :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :muumin
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/587882.jpg
+    :border_color: 
+    :title_ru: Муми-тролль
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: muumin
+      :threshold: 75%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :sakura_taisen
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/588988.jpg
+    :border_color: 
+    :title_ru: 'Сакура: Война миров'
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: sakura_taisen
       :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :cyborg
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/588532.jpg
+    :border_color: 
+    :title_ru: Киборг 009
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: cyborg
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :ehon_yose
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/588958.jpg
+    :border_color: 
+    :title_ru: Щелкунчик Китаро
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: ehon_yose
+      :threshold: 50%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kindaichi_shounen_no_jikenbo
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/587869.jpg
+    :border_color: 
+    :title_ru: Дело ведет юный детектив Киндаити
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: kindaichi_shounen_no_jikenbo
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :mazinkaiser
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/588529.jpg
+    :border_color: 
+    :title_ru: Мазинкайзер
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: mazinkaiser
+      :threshold: 60%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :believe
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/624160.jpg
+    :border_color: 
+    :title_ru: Приключения во времени
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: believe
+      :threshold: 75%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :galaxy_angel
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/594916.jpg
+    :border_color: 
+    :title_ru: Галактический ангел
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: galaxy_angel
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :space_cobra
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/587937.jpg
+    :border_color: 
+    :title_ru: Космические приключения Кобры
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: space_cobra
+      :threshold: 98.3%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :di_gi_charat
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/588977.jpg
+    :border_color: 
+    :title_ru: Ди-Ги Карат
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: di_gi_charat
+      :threshold: 92.6%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :cutey_honey
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587430.jpg
+    :border_color: 
+    :title_ru: Милашка Хани
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: cutey_honey
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :dirty_pair
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593340.jpg
+    :border_color: 
+    :title_ru: Грязная парочка
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: dirty_pair
+      :threshold: 85%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :el_hazard
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/590462.jpg
+    :border_color: 
+    :title_ru: Эль-Хазард
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: el_hazard
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :saber_marionette_j
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/590456.jpg
+    :border_color: 
+    :title_ru: Воины-марионетки Джей
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: saber_marionette_j
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :touch
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/593338.jpg
+    :border_color: 
+    :title_ru: Касание
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: touch
+      :threshold: 88.9%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :konjiki_no_gash_bell
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/588672.jpg
+    :border_color: 
+    :title_ru: Златовласый Гаш Белл
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: konjiki_no_gash_bell
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :grendizer_giga
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/592653.jpg
+    :border_color: 
+    :title_ru: Грендайзер
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: grendizer_giga
+      :threshold: 84.9%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :mahoujin_guruguru
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/587853.jpg
+    :border_color: 
+    :title_ru: Волшебный круг Гуру-Гуру
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: mahoujin_guruguru
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :tiger_mask
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/589000.jpg
+    :border_color: 
+    :title_ru: Тигровая маска
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: tiger_mask
+      :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :captain_tsubasa
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594760.jpg
+    :border_color: 
+    :title_ru: Капитан Цубаса
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: captain_tsubasa
+      :threshold: 85%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :ojamajo_doremi
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/594193.jpg
+    :border_color: 
+    :title_ru: Невезучая ведьма Дореми
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: ojamajo_doremi
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :getter_robo
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/34807/590469.jpg
+    :border_color: 
+    :title_ru: Робот Геттер
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: getter_robo
+      :threshold: 85%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9393,11 +9597,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :hack_gift
+    :neko_id: :rean_no_tsubasa
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/594919.jpg
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/590450.jpg
     :border_color: 
-    :title_ru: ".хак//"
+    :title_ru: Данбайн
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9405,67 +9609,16 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: hack_gift
-      :threshold: 94.7%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :futari_wa_milky_holmes
-    :level: 1
-    :image: https://2.downloader.disk.yandex.ru/preview/f255dd6d3e0ba190d32b130ecd071d5eaa28f9e2da577b1e0110a43e835e3bd5/inf/Ulc4l6Nw6Zl9PBaWaDlZYefLsIFoOltZFV0zvVB7tdGBBsHO36izsJsnjnMu0B8L8Li-k66LBmBXLZsukw55lA%3D%3D?uid=0&filename=2332377690e929cc8cc545dee2e5c37033bf768c.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
-    :border_color: 
-    :title_ru: Детективное агентство Милки Холмс
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: futari_wa_milky_holmes
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :aquarion_evol
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/589085.jpg
-    :border_color: 
-    :title_ru: Акварион
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: aquarion_evol
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :dirty_pair
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593340.jpg
-    :border_color: 
-    :title_ru: Грязная парочка
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: dirty_pair
+        franchise: rean_no_tsubasa
       :threshold: 85%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :di_gi_charat
+    :neko_id: :zoids
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588977.jpg
+    :image: https://desu.shikimori.org/system/user_images/original/34807/621268.jpg
     :border_color: 
-    :title_ru: Ди-Ги Карат
+    :title_ru: Зойды
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9473,262 +9626,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: di_gi_charat
-      :threshold: 92.6%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :angelique
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/589046.jpg
-    :border_color: 
-    :title_ru: Анжелика
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: angelique
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :cutey_honey
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587430.jpg
-    :border_color: 
-    :title_ru: Милашка Хани
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: cutey_honey
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :mahou_no_princess_minky_momo
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/593800.jpg
-    :border_color: 
-    :title_ru: Принцесса-волшебница Минки Момо
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: mahou_no_princess_minky_momo
-      :threshold: 85%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ehon_yose
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588958.jpg
-    :border_color: 
-    :title_ru: Щелкунчик Китаро
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: ehon_yose
-      :threshold: 50%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :to_heart
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/34807/588864.jpg
-    :border_color: 
-    :title_ru: Для сердца
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: to_heart
-      :threshold: 94.4%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :sakura_taisen
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588988.jpg
-    :border_color: 
-    :title_ru: 'Сакура: Война миров'
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: sakura_taisen
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ikkitousen
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594917.jpg
-    :border_color: 
-    :title_ru: Сила тысячи
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: ikkitousen
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :juusenki_l_gaim
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/593807.jpg
-    :border_color: 
-    :title_ru: Тяжёлый металл
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: juusenki_l_gaim
-      :threshold: 85%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :ginga_senpuu_braiger
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588514.jpg
-    :border_color: 
-    :title_ru: Галактический Вихрь Брайгер
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: ginga_senpuu_braiger
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :sonic
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593372.jpg
-    :border_color: 
-    :title_ru: Соник
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: sonic
-      :threshold: 99.6%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :believe
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/624160.jpg
-    :border_color: 
-    :title_ru: Приключения во времени
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: believe
-      :threshold: 75%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :choujuu_kishin_dancougar
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/588931.jpg
-    :border_color: 
-    :title_ru: Данкугар
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: choujuu_kishin_dancougar
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :queen_s_blade
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/594921.jpg
-    :border_color: 
-    :title_ru: Клинок королевы
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: queen_s_blade
-      :threshold: 90.8%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :haou_daikei_ryuu_knight
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588868.jpg
-    :border_color: 
-    :title_ru: Властелин властелинов Рыцарь Рю
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: haou_daikei_ryuu_knight
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :super_doll_licca_chan
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/588646.jpg
-    :border_color: 
-    :title_ru: Суперкукла Ликка-тян
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: super_doll_licca_chan
+        franchise: zoids
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9750,11 +9648,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :iron_man
+    :neko_id: :choujuu_kishin_dancougar
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/593812.jpg
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/588931.jpg
     :border_color: 
-    :title_ru: Марвел
+    :title_ru: Данкугар
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9762,7 +9660,92 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: iron_man
+        franchise: choujuu_kishin_dancougar
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :dragon_quest
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/588978.jpg
+    :border_color: 
+    :title_ru: Драгон Квест
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: dragon_quest
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :mahou_no_princess_minky_momo
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/593800.jpg
+    :border_color: 
+    :title_ru: Принцесса-волшебница Минки Момо
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: mahou_no_princess_minky_momo
+      :threshold: 85%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :juusenki_l_gaim
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/593807.jpg
+    :border_color: 
+    :title_ru: Тяжёлый металл
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: juusenki_l_gaim
+      :threshold: 85%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :super_doll_licca_chan
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/588646.jpg
+    :border_color: 
+    :title_ru: Суперкукла Ликка-тян
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: super_doll_licca_chan
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :haou_daikei_ryuu_knight
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/588868.jpg
+    :border_color: 
+    :title_ru: Властелин властелинов Рыцарь Рю
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: haou_daikei_ryuu_knight
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9797,6 +9780,23 @@
       :algo: duration
       :filters:
         franchise: pro_golfer_saru
+      :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :ginga_senpuu_braiger
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/588514.jpg
+    :border_color: 
+    :title_ru: Галактический Вихрь Брайгер
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: ginga_senpuu_braiger
       :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule

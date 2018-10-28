@@ -12,10 +12,9 @@ HARDCODED_THRESHOLD = {
 }
 ALLOWED_SPECIAL_IDS = [15711, 2269, 14007, 20667, 24371, 2336]
 
-
 data = YAML.load_file(franchise_yml)
 
-data
+data = data
   .each do |rule|
     recap_ids = Anime
       .where(franchise: rule['filters']['franchise'])
@@ -26,20 +25,11 @@ data
           v.description_en&.match?(/\brecaps?\b|compilation movie|picture drama/i) ||
           v.description_ru&.match?(/\bрекап\b|\bобобщение\b|\bчиби\b|краткое содержание/i)
       end
-        .map(&:id)
+      .map(&:id)
 
     if recap_ids.any?
       rule['filters']['not_anime_ids'] = ((rule['filters']['not_anime_ids'] || []) + recap_ids).uniq.sort
     end
-  end
-  .sort_by do |v|
-    rating = Anime
-      .where(franchise: v['filters']['franchise'], status: 'released')
-      .where.not(ranked: 0)
-      .map(&:ranked)
-      .min
-    raise "#{v['filters']['franchise']} rating is nil" if rating.nil?
-    rating
   end
   .each do |rule|
     franchise = Anime.where(franchise: rule['filters']['franchise'])
@@ -117,6 +107,11 @@ data
       )
       rule['threshold'] = "#{new_threshold}%".gsub(/\.0%$/, '%')
     end
+  end
+  .sort_by do |v|
+    Anime
+      .where(franchise: v['filters']['franchise'], status: 'released')
+      .sum { |v| v.rates.where(status: %i[completed rewatching]).size }
   end
 
 if data.any?
