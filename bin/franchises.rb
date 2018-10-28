@@ -6,15 +6,6 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 franchise_yml = "#{ENV['HOME']}/develop/neko-achievements/priv/rules/_franchises.yml"
 
 HARDCODED_THRESHOLD = {
-  ehon_yose: 50,
-  dmatsu_san: 50,
-  mazinkaiser: 60,
-  hetalia: 90,
-  pokemon: 80,
-  gundam: 60,
-  dragon_ball: 80,
-  yes_precure: 80,
-  doraemon: 50,
 }
 ALLOWED_SPECIAL_IDS = [15711, 2269, 14007, 20667, 24371, 2336]
 
@@ -102,8 +93,10 @@ data.each do |rule|
     mini_specials_duration
   ) * 100.0 / total_duration
 
-  if total_duration > 20_000
-    formula_threshold = [60, threshold].min
+  if total_duration > 30_000
+    formula_threshold = [60, formula_threshold].min
+  elsif total_duration > 20_000
+    formula_threshold = [70, formula_threshold].min
   elsif total_duration > 10_000
     formula_threshold = [80, formula_threshold].min
   elsif total_duration > 5_000
@@ -114,15 +107,15 @@ data.each do |rule|
     formula_threshold = [95, formula_threshold].min
   end
 
-  animes_with_year = franchise.reject(&:kind_special?).select(&:year)
-  average_year = animes_with_year.sum(&:year) * 1.0 / animes_with_year.size
-  if average_year < 1987
-    formula_threshold -= 15
-  elsif average_year < 1991
-    formula_threshold -= 10
-  elsif average_year < 1996
-    formula_threshold -= 5
-  end
+  # animes_with_year = franchise.reject(&:kind_special?).select(&:year)
+  # average_year = animes_with_year.sum(&:year) * 1.0 / animes_with_year.size
+  # if average_year < 1987
+  #   formula_threshold -= 15
+  # elsif average_year < 1991
+  #   formula_threshold -= 10
+  # elsif average_year < 1996
+  #   formula_threshold -= 5
+  # end
 
   important_durations = important_titles
     .map { |v| duration v }
@@ -140,7 +133,7 @@ data.each do |rule|
   if current_threshold != new_threshold
     ap(
       franchise: rule['filters']['franchise'],
-      new_threshold: new_threshold
+      threshold: "#{current_threshold} -> #{new_threshold}"
     )
     rule['threshold'] = "#{new_threshold}%".gsub(/\.0%$/, '%')
   end
