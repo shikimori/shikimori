@@ -108,11 +108,12 @@ data = data
       rule['threshold'] = "#{new_threshold}%".gsub(/\.0%$/, '%')
     end
   end
-  .sort_by do |v|
-    Anime
-      .where(franchise: v['filters']['franchise'], status: 'released')
-      .sum { |v| v.rates.where(status: %i[completed rewatching]).size }
-  end
+  # .sort_by do |v|
+  #   Anime
+  #     .where(franchise: v['filters']['franchise'], status: 'released')
+  #     .sum { |v| v.rates.where(status: %i[completed rewatching]).size }
+  # end
+  # .reverse
 
 if data.any?
   File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }

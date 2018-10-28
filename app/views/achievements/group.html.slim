@@ -15,9 +15,16 @@ header.head
                   href=achievement_url(achievements.first.group, neko_id)
                 ] = achievements.first.title
 
-              = render 'users/achievements/achievement',
-                achievement: achievements.first,
-                no_badge: true
+              .cc-2a
+                .c-column
+                  = render 'users/achievements/achievement',
+                    achievement: achievements.first,
+                    no_badge: true
+                .c-column
+                  = render 'achievements/statistics',
+                    achievement: achievements.first,
+                    hide_title: true
+
               = render 'achievements/info', achievements: achievements
 
     - else

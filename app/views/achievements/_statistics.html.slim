@@ -1,6 +1,7 @@
-.block_m
-  p.m5
-    b #{t '.statistics'}
+.block
+  - unless local_assigns[:hide_title]
+    p.m5
+      b #{t '.statistics'}
 
   table.statistics
     tr
