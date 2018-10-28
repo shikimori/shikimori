@@ -9,7 +9,7 @@ class AnimesCollection::View < ViewObjectBase
   SEASON_LIMIT = 1000
 
   DEFAULT_ORDER = 'ranked'
-  CACHE_VERSION = 14
+  CACHE_VERSION = 15
 
   def collection
     if season_page?
@@ -37,6 +37,7 @@ class AnimesCollection::View < ViewObjectBase
 
   def cache_key
     user_key = user if h.params[:mylist]
+
     if h.params[:search] || h.params[:q]
       last_created_at = klass
         .select('max(created_at) as created_at')

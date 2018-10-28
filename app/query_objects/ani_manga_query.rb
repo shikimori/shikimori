@@ -122,6 +122,10 @@ private
     !!@achievement
   end
 
+  def studio?
+    @studio.present?
+  end
+
   # фильтр по типам
   def kind!
     return if @kind.blank?
@@ -196,7 +200,7 @@ private
   # отключение выборки по музыке
   def disable_music!
     unless @kind.match?(/music/) ||
-        mylist? || userlist? || franchise? || achievement?
+        mylist? || userlist? || franchise? || achievement? || studio?
       @query = @query.where("#{table_name}.kind != ?", :music)
     end
   end
