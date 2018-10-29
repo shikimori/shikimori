@@ -13,7 +13,7 @@ describe Topics::Generate::Topic do
   shared_examples_for :topic do
     context 'without existing topic' do
       before do
-        allow(Notifications::BroadcastTopic).to receive :perform_async
+        allow(Notifications::BroadcastTopic).to receive :perform_in
         allow_any_instance_of(Topic::BroadcastPolicy)
           .to receive(:required?)
           .and_return is_broadcast_required
@@ -32,10 +32,10 @@ describe Topics::Generate::Topic do
 
         if is_broadcast_required
           expect(Notifications::BroadcastTopic)
-            .to have_received(:perform_async)
-            .with subject.id
+            .to have_received(:perform_in)
+            .with 10.seconds, subject.id
         else
-          expect(Notifications::BroadcastTopic).to_not have_received :perform_async
+          expect(Notifications::BroadcastTopic).to_not have_received :perform_in
         end
 
         expect(subject.created_at.to_i).to eq model.created_at.to_i

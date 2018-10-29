@@ -4,7 +4,7 @@ class Topic::Create
   method_object %i[params! locale! faye!]
 
   def call
-    topic = create_topic
+    topic = build_topic
 
     if @faye.create topic
       broadcast topic if broadcast? topic
@@ -15,7 +15,7 @@ class Topic::Create
 
 private
 
-  def create_topic
+  def build_topic
     Topic.new @params.merge(locale: @locale)
   end
 
@@ -24,6 +24,6 @@ private
   end
 
   def broadcast topic
-    Notifications::BroadcastTopic.perform_async topic.id
+    Notifications::BroadcastTopic.perform_in 10.seconds, topic.id
   end
 end

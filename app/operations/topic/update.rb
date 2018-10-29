@@ -28,6 +28,6 @@ private
   end
 
   def broadcast topic
-    Notifications::BroadcastTopic.perform_async topic.id
+    Notifications::BroadcastTopic.perform_in 10.seconds, topic.id
   end
 end

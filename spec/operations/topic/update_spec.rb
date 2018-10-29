@@ -15,7 +15,7 @@ describe Topic::Update do
   let(:is_broadcast_required) { false }
 
   before do
-    allow(Notifications::BroadcastTopic).to receive :perform_async
+    allow(Notifications::BroadcastTopic).to receive :perform_in
     allow_any_instance_of(Topic::BroadcastPolicy)
       .to receive(:required?)
       .and_return is_broadcast_required
@@ -31,7 +31,7 @@ describe Topic::Update do
       expect(topic.updated_at).to be_within(0.1).of Time.zone.now
 
       expect(topic.reload).to have_attributes params
-      expect(Notifications::BroadcastTopic).to_not have_received :perform_async
+      expect(Notifications::BroadcastTopic).to_not have_received :perform_in
     end
 
     describe 'broadcast required' do
@@ -41,8 +41,8 @@ describe Topic::Update do
         is_expected.to eq true
         expect(topic).to be_valid
         expect(Notifications::BroadcastTopic)
-          .to have_received(:perform_async)
-          .with topic.id
+          .to have_received(:perform_in)
+          .with 10.seconds, topic.id
       end
     end
   end
@@ -56,7 +56,7 @@ describe Topic::Update do
       expect(topic).to be_changed
 
       expect(topic.reload).not_to have_attributes params
-      expect(Notifications::BroadcastTopic).to_not have_received :perform_async
+      expect(Notifications::BroadcastTopic).to_not have_received :perform_in
     end
   end
 end
