@@ -47,7 +47,8 @@ module Copyright
     # письмо от chelnakova@group-ib.ru на mail+copyright@shikimori.org
     28805, # Bakemono no ko
     # https://www.mos-gorsud.ru/mgs/defend/statementForm/d059c855-42f4-40a3-a6ec-930b5af44187
-    23273 # Shigatsu wa Kimi no Uso
+    23273, # Shigatsu wa Kimi no Uso
+    28069
   ] + ISTARI_COPYRIGHTED + VGTRK_COPYRIGHTED + CAPELLA_FILM_COPYRIGHTED
 
   WAKANIM_COPYRIGHTED = [
