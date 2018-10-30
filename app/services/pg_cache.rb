@@ -9,16 +9,15 @@ class PgCache
       key = stringify_key key
       Rails.logger.info "PgCache write: #{key} serializer: #{serializer}"
 
-      PgCacheData.transaction do
-        PgCache.delete key
-
-        ActiveRecord::Base.logger.silence do
-          PgCacheData.create!(
-            key: key,
-            expires_at: expires_in&.from_now,
-            FIELD[serializer] => serializer.dump(value)
-          )
-        end
+      ActiveRecord::Base.logger.silence do
+        pg_cache_data = PgCacheData.new(
+          key: key,
+          expires_at: expires_in&.from_now,
+          FIELD[serializer] => serializer.dump(value)
+        )
+        PgCacheData.import [pg_cache_data], on_duplicate_key_update: {
+          conflict_target: [:key], columns: [:expires_at, FIELD[serializer]]
+        }
       end
 
       value

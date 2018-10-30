@@ -44,7 +44,7 @@ describe PgCache do
 
         is_expected.to eq value
 
-        expect { entry.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(entry.reload).to eq find_entry
 
         expect(find_entry.value).to eq YAML.dump(value)
         expect(find_entry.blob).to be_nil
@@ -161,7 +161,7 @@ describe PgCache do
 
           is_expected.to eq value
 
-          expect { entry.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect(entry.reload).to eq find_entry
 
           expect(find_entry.value).to eq YAML.dump(value)
           expect(find_entry.blob).to be_nil
