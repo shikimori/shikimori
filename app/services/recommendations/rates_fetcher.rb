@@ -63,7 +63,7 @@ private
       end
   end
 
-  def fetch_rates klass # rubocop:disable MethodLength, AbcSize
+  def fetch_rates klass
     data = {}
 
     UserRate.fetch_raw_data(scope(klass).to_sql, 500_000) do |rate|
@@ -79,7 +79,7 @@ private
     data
   end
 
-  def scope klass # rubocop:disable MethodLength, AbcSize
+  def scope klass
     # no need in filtering by list size if @user_ids is provided
     list_size_sql = @with_deletion && @user_ids.blank?
 

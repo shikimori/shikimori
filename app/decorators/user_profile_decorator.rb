@@ -107,8 +107,8 @@ class UserProfileDecorator < UserDecorator
     end
 
     info << "#{i18n_t 'member_since'} " \
-      "<span class='b-tooltipped unprocessed mobile' data-direction='right' title='#{localized_registration false}'>" \
-      "#{localized_registration true}" \
+      "<span class='b-tooltipped unprocessed mobile' data-direction='right' "\
+      "title='#{localized_registration false}'>#{localized_registration true}" \
       '</span>'.html_safe
 
     info
@@ -230,12 +230,14 @@ private
 
   def website_host
     return if object.website.blank?
+
     URI.parse(website_url).host
   rescue URI::Error
   end
 
   def website_url
     return if object.website.blank?
+
     if object.website.match?(%r{^https?://})
       object.website
     else

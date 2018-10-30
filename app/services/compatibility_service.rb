@@ -17,7 +17,7 @@ class CompatibilityService
     end
   end
 
-  def initialize user_1, user_2, klass # rubocop:disable MethodLength
+  def initialize user_1, user_2, klass
     @user_1 = user_1
     @user_2 = user_2
     @klass = klass
@@ -25,13 +25,6 @@ class CompatibilityService
     # @normalization = Recommendations::Normalizations::None.new
     # @normalization = Recommendations::Normalizations::ConstCut.new
     @normalization = NORMALIZATION.new
-
-    @rates_fetcher = Recommendations::RatesFetcher.new @klass
-    @rates_fetcher.user_cache_key = [
-      @user_1.cache_key,
-      @user_2.cache_key
-    ].sort.join(',')
-    @rates_fetcher.user_ids = [@user_1.id, @user_2.id]
 
     @metric = METRIC.new
     @metric.klass = @klass
@@ -59,6 +52,10 @@ class CompatibilityService
   end
 
   def user_rates user
-    @rates_fetcher.fetch(@normalization)[user.id] || {}
+    rates_fetcher = Recommendations::RatesFetcher.new(@klass)
+    rates_fetcher.user_ids = [user.id]
+    rates_fetcher.user_cache_key = user.cache_key
+
+    rates_fetcher.fetch(@normalization)[user.id] || {}
   end
 end
