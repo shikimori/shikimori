@@ -67,13 +67,21 @@ describe Contest::SwissStrategy do
 
   context 'contest_with_6_members' do
     let(:contest) { create :contest, :with_6_members, :swiss }
+
     before do
       Contest::Start.call contest
-      contest.rounds.flat_map(&:matches).each do |match|
-        match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+      contest.rounds.flat_map(&:matches).each_with_index do |match, index|
+        match.update(
+          started_on: Time.zone.yesterday,
+          finished_on: Time.zone.yesterday,
+          cached_votes_up: 1,
+          cached_votes_down: 0
+        )
       end
+
       ContestRound::Finish.call contest.current_round
     end
+
     let(:w1) { strategy.statistics.members.values.at 0 }
     let(:w2) { strategy.statistics.members.values.at 2 }
     let(:w3) { strategy.statistics.members.values.at 4 }
@@ -83,7 +91,16 @@ describe Contest::SwissStrategy do
 
     describe '#sorted_scores' do
       subject { strategy.statistics.sorted_scores }
-      it { is_expected.to eq(w1.id => 1, w2.id => 1, w3.id => 1, l1.id => 0, l2.id => 0, l3.id => 0) }
+      it do
+        is_expected.to eq(
+          w1.id => 1,
+          w2.id => 1,
+          w3.id => 1,
+          l1.id => 0,
+          l2.id => 0,
+          l3.id => 0
+        )
+      end
     end
 
     describe '#opponents_of' do

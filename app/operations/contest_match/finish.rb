@@ -21,11 +21,8 @@ private
     elsif right_votes?
       @contest_match.right_id
 
-    elsif scores?
-      max_scored
-
-    else
-      @contest_match.left_id
+    elsif !@contest_match.round.contest.swiss?
+      scores? ? max_scored : @contest_match.left_id
     end
   end
 
@@ -59,6 +56,6 @@ private
 
     # need to reload model becase of cached field from acts_as_votable
     # without it cached_votes_left/right sometimes do not reload properly
-    @contest_match.reload if Rails.env.production? || Rails.env.development?
+    @contest_match.reload unless Rails.env.test?
   end
 end

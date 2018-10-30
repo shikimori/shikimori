@@ -28,6 +28,9 @@ describe ContestMatch::Finish do
   let(:cached_votes_down) { 0 }
 
   describe 'vote' do
+    before { allow(contest_match.round.contest).to receive(:swiss?).and_return is_swiss }
+    let(:is_swiss) { false }
+
     subject! { call }
 
     it { expect(contest_match).to be_finished }
@@ -51,25 +54,34 @@ describe ContestMatch::Finish do
       let(:cached_votes_up) { 1 }
       let(:cached_votes_down) { 1 }
 
-      context 'left.score > right.score' do
-        let(:anime_1) { create :anime, score: 9 }
-        let(:anime_2) { create :anime, score: 5 }
-
-        it { expect(contest_match.winner_id).to eq left_id }
+      context 'swiss strategy' do
+        let(:is_swiss) { true }
+        it { expect(contest_match.winner_id).to be_nil }
       end
 
-      context 'right.score < left.score' do
-        let(:anime_1) { create :anime, score: 5 }
-        let(:anime_2) { create :anime, score: 9 }
+      context 'not swiss strategy' do
+        let(:is_swiss) { false }
 
-        it { expect(contest_match.winner_id).to eq right_id }
-      end
+        context 'left.score > right.score' do
+          let(:anime_1) { create :anime, score: 9 }
+          let(:anime_2) { create :anime, score: 5 }
 
-      context 'left.score == right.score' do
-        let(:anime_1) { create :anime, score: 5 }
-        let(:anime_2) { create :anime, score: 5 }
+          it { expect(contest_match.winner_id).to eq left_id }
+        end
 
-        it { expect(contest_match.winner_id).to eq left_id }
+        context 'right.score < left.score' do
+          let(:anime_1) { create :anime, score: 5 }
+          let(:anime_2) { create :anime, score: 9 }
+
+          it { expect(contest_match.winner_id).to eq right_id }
+        end
+
+        context 'left.score == right.score' do
+          let(:anime_1) { create :anime, score: 5 }
+          let(:anime_2) { create :anime, score: 5 }
+
+          it { expect(contest_match.winner_id).to eq left_id }
+        end
       end
     end
   end

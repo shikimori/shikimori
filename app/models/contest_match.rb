@@ -17,24 +17,22 @@ class ContestMatch < ApplicationRecord
 
   delegate :contest, :strategy, to: :round
 
-  # rubocop:disable Style/HashSyntax
   state_machine :state, initial: :created do
     state :created
     state :started
     state :finished
 
     event :start do
-      transition :created => :started, if: ->(match) {
+      transition created: :started, if: ->(match) {
         match.started_on && match.started_on <= Time.zone.today
       }
     end
     event :finish do
-      transition :started => :finished, if: ->(match) {
+      transition started: :finished, if: ->(match) {
         match.finished_on && match.finished_on < Time.zone.today
       }
     end
   end
-  # rubocop:enable Style/HashSyntax
 
   alias can_vote? started?
 
@@ -46,20 +44,18 @@ class ContestMatch < ApplicationRecord
     cached_votes_down
   end
 
-  # победитель
   def winner
     if winner_id == left_id
       left
-    else
+    elsif winner_id == right_id
       right
     end
   end
 
-  # проигравший
   def loser
     if winner_id == left_id
       right
-    else
+    elsif winner_id == right_id
       left
     end
   end

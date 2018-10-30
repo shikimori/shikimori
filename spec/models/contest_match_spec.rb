@@ -80,6 +80,11 @@ describe ContestMatch do
         before { match.winner_id = match.right_id }
         its(:id) { is_expected.to eq match.right.id }
       end
+
+      describe 'no winner' do
+        before { match.winner_id = nil }
+        it { is_expected.to be_nil }
+      end
     end
 
     describe '#loser' do
@@ -101,7 +106,7 @@ describe ContestMatch do
           match.winner_id = match.left_id
           match.right = nil
         end
-        it { expect(match.loser).to be_nil }
+        it { is_expected.to be_nil }
       end
     end
   end

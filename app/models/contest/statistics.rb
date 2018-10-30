@@ -16,7 +16,12 @@ class Contest::Statistics
         memo[match.left_id] ||= 0
         memo[match.right_id] ||= 0 if match.right_id
 
-        memo[match.winner_id] += 1
+        if match.winner_id.nil?
+          memo[match.left_id] += 0.5
+          memo[match.right_id] += 0.5
+        else
+          memo[match.winner_id] += 1
+        end
       end
   end
 
