@@ -6619,6 +6619,7 @@
         - 32935
         - 781
         - 31147
+        - 37722
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7332,6 +7333,23 @@
       :filters:
         franchise: magi
       :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :free
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/34807/669387.jpg
+    :border_color: 
+    :title_ru: Вольный стиль!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: free
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8163,6 +8181,23 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :sengoku_basara
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/34807/669388.jpg
+    :border_color: 
+    :title_ru: Эпоха смут
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: sengoku_basara
+      :threshold: 89.1%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :zettai_karen_children
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/587936.jpg
@@ -8443,7 +8478,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :koneko_no_chii
+    :neko_id: :koneko_no_chi
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/625320.jpg
     :border_color: 
@@ -8455,7 +8490,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: koneko_no_chii
+        franchise: koneko_no_chi
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
