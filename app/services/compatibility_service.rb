@@ -31,14 +31,14 @@ class CompatibilityService
     @metric.normalization = @normalization
   end
 
-  def fetch user_2 = nil
+  def fetch user_2 = nil, rates_fetcher = nil
     user_2 ||= @user_2
 
     normalize @metric.compare(
       @user_1.id,
-      user_rates(@user_1),
+      user_rates(@user_1, rates_fetcher),
       user_2.id,
-      user_rates(user_2)
+      user_rates(user_2, rates_fetcher)
     )
   end
 
@@ -51,10 +51,12 @@ class CompatibilityService
     end
   end
 
-  def user_rates user
-    rates_fetcher = Recommendations::RatesFetcher.new(@klass)
-    rates_fetcher.user_ids = [user.id]
-    rates_fetcher.user_cache_key = user.cache_key
+  def user_rates user, rates_fetcher
+    unless rates_fetcher
+      rates_fetcher = Recommendations::RatesFetcher.new(@klass)
+      rates_fetcher.user_ids = [user.id]
+      rates_fetcher.user_cache_key = user.cache_key
+    end
 
     rates_fetcher.fetch(@normalization)[user.id] || {}
   end

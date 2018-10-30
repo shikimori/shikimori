@@ -3,7 +3,7 @@ class SimilarUsersService
 
   MAXIMUM_RESULTS = 510
 
-  instance_cache :users, :compatibility_service, :similarities
+  instance_cache :users, :compatibility_service, :rates_fetcher, :similarities
 
   def initialize user, klass, threshold
     @user = user
@@ -23,19 +23,16 @@ private
 
   def similarities
     users.each_with_object({}) do |user, memo|
-      memo[user.id] = compatibility_service.fetch user
+      memo[user.id] = compatibility_service.fetch user, rates_fetcher
     end
   end
 
+  def rates_fetcher
+    Recommendations::RatesFetcher.new(@klass)
+  end
+
   def compatibility_service
-    service = CompatibilityService.new @user, @user, @klass
-    # чтобы выбиралась полная база пользовательских оценок
-    # та же база, что используется в рекомендациях
-    # она гораздо больше, но её всего может быть одна разновидность,
-    # она всегда будет лежать в кеше
-    service.rates_fetcher.user_cache_key = nil
-    service.rates_fetcher.user_ids = nil
-    service
+    CompatibilityService.new @user, @user, @klass
   end
 
   def users
