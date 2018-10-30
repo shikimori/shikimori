@@ -14,7 +14,9 @@
           data-type="html"
           data-id=match.id
         ]
-          .column class=(match.finished? && match.winner_id == match.left_id ? :winner : :loser)
+          .column[
+            class=match.status(match.left_id)
+          ]
             - if match.left
               span.matches-num
                 = match.left_votes
@@ -24,7 +26,9 @@
               | &hellip;
 
           - if match.right_type || !match.left_type
-            .column class=(match.finished? && match.winner_id == match.right_id ? :winner : :loser)
+            .column[
+              class=match.status(match.right_id)
+            ]
               - if match.right
                 span.matches-num
                   = match.right_votes

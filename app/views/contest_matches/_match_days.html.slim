@@ -14,7 +14,9 @@
         data-id=match.id
         data-match_url=contest_contest_match_url(contest, match, js_export: :skip)
       ]
-        .c-column class=match.status(match.left_id)
+        .c-column[
+          class=match.status(match.left_id)
+        ]
           - if match.left
             - if match.finished?
               span.matches-num = "#{match.left_percent}% "

@@ -44,7 +44,9 @@ class ContestMatchDecorator < BaseDecorator
   # end
 
   def status member_id
-    if created?
+    if draw?
+      :draw
+    elsif created?
       :created
     elsif started?
       :started

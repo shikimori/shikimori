@@ -20,7 +20,7 @@
   .match-container.block.b-ajax
     .b-contest_match
 
-  - cache contest.displayed_round do
+  - cache [contest.displayed_round, :v3] do
     .cc-round_stats
       - if contest.displayed_round.finished?
         .c-column
@@ -38,7 +38,7 @@
             matches: contest.grouped_matches(contest.displayed_round)
 
   - if contest.displayed_round.number > 1 && contest.prior_round.finished?
-    - cache contest.prior_round do
+    - cache [contest.prior_round, :v3] do
       .cc-round_stats
         .c-column
           = render 'rating', contest: contest, round: contest.prior_round

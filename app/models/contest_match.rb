@@ -59,4 +59,8 @@ class ContestMatch < ApplicationRecord
       left
     end
   end
+
+  def draw?
+    finished? && !winner_id
+  end
 end

@@ -19,7 +19,7 @@
       - elsif contest_match.right && contest_match.left
         .match-members
           .match-member[
-            class=(contest_match.winner_id == contest_match.left_id ? :winner : :loser if contest_match.finished?)
+            class=contest_match.status(contest_match.left_id)
             data-variant='left'
             data-type='json'
             data-method='post'
@@ -59,7 +59,7 @@
               p.hint = t '.voting_has_not_begun_yet'
 
           .match-member[
-            class=(contest_match.winner_id == contest_match.right_id ? :winner : :loser if contest_match.finished?)
+            class=contest_match.status(contest_match.right_id)
             data-variant='right'
             data-type='json'
             data-method='post'
