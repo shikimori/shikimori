@@ -11,7 +11,7 @@ class ListCompareService
       .to_a
       .sort_by { |_k, v| -1 * (v.score || 0) }
       .map { |k, _v| k }
-    user_1_norm_rates = compatibility.user_rates @user_1
+    user_1_norm_rates = compatibility.user_rates @user_1, nil
 
     # список второго пользователя
     user_2_rates = user_rates @user_2
@@ -19,7 +19,7 @@ class ListCompareService
       .to_a
       .sort_by { |_k, v| -1 * (v.score || 0) }
       .map { |k, _v| k }
-    user_2_norm_rates = compatibility.user_rates @user_2
+    user_2_norm_rates = compatibility.user_rates @user_2, nil
 
     # все аниме/манга, участвующие в сравнении
     data = fetch_entries((user_1_ids_unsorted + user_2_ids_unsorted).uniq)
