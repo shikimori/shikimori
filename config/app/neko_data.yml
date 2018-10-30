@@ -7349,7 +7349,7 @@
       :algo: duration
       :filters:
         franchise: free
-      :threshold: 95%
+      :threshold: 92.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
