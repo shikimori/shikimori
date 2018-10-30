@@ -185,6 +185,7 @@ private
 
   def check_copyrighted_authors
     return unless author_name&.match? COPYRIGHTED_AUTHORS
+
     errors.add :base, 'Видео этого автора не могут быть загружены на сайт'
     throw :abort
   end
