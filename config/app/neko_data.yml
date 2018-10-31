@@ -6778,7 +6778,7 @@
       :algo: duration
       :filters:
         franchise: sword_art_online
-      :threshold: 86.1%
+      :threshold: 86.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6829,7 +6829,7 @@
       :algo: duration
       :filters:
         franchise: code_geass
-      :threshold: 89.6%
+      :threshold: 90.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6850,23 +6850,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :kuroshitsuji
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/594196.jpg
-    :border_color: 
-    :title_ru: Тёмный дворецкий
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: kuroshitsuji
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :boku_no_hero_academia
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/591715.jpg
@@ -6881,6 +6864,23 @@
       :filters:
         franchise: boku_no_hero_academia
       :threshold: 95.5%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kuroshitsuji
+    :level: 1
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/594196.jpg
+    :border_color: 
+    :title_ru: Тёмный дворецкий
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: kuroshitsuji
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6914,7 +6914,7 @@
       :algo: duration
       :filters:
         franchise: fairy_tail
-      :threshold: 96.6%
+      :threshold: 96.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6982,7 +6982,7 @@
       :algo: duration
       :filters:
         franchise: nanatsu_no_taizai
-      :threshold: 90.9%
+      :threshold: 91.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7294,7 +7294,7 @@
       :algo: duration
       :filters:
         franchise: free
-      :threshold: 92.1%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7957,7 +7957,7 @@
       :algo: duration
       :filters:
         franchise: garo
-      :threshold: 92.9%
+      :threshold: 93.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8008,7 +8008,7 @@
       :algo: duration
       :filters:
         franchise: eureka_seven
-      :threshold: 96.3%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8029,23 +8029,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :hayate_no_gotoku
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593337.jpg
-    :border_color: 
-    :title_ru: Боевой дворецкий Хаятэ!
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: hayate_no_gotoku
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :nen_joou
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/594735.jpg
@@ -8063,6 +8046,23 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :hayate_no_gotoku
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/593337.jpg
+    :border_color: 
+    :title_ru: Боевой дворецкий Хаятэ!
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: hayate_no_gotoku
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :puchimas
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/588509.jpg
@@ -8076,7 +8076,7 @@
       :algo: duration
       :filters:
         franchise: puchimas
-      :threshold: 87.3%
+      :threshold: 87.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8093,7 +8093,7 @@
       :algo: duration
       :filters:
         franchise: sengoku_basara
-      :threshold: 89.1%
+      :threshold: 89.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8182,23 +8182,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :tegamibachi
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592667.jpg
-    :border_color: 
-    :title_ru: Почтовая пчела
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: tegamibachi
-      :threshold: 84.9%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :school_rumble
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/588567.jpg
@@ -8213,6 +8196,23 @@
       :filters:
         franchise: school_rumble
       :threshold: 96.2%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :tegamibachi
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/592667.jpg
+    :border_color: 
+    :title_ru: Почтовая пчела
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: tegamibachi
+      :threshold: 84.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8250,23 +8250,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :gatchaman
-    :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
-    :border_color: 
-    :title_ru: Гатчамен
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: gatchaman
-      :threshold: 91.1%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :diamond_no_ace
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/587845.jpg
@@ -8281,6 +8264,23 @@
       :filters:
         franchise: diamond_no_ace
       :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :gatchaman
+    :level: 1
+    :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
+    :border_color: 
+    :title_ru: Гатчамен
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: gatchaman
+      :threshold: 91.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8454,6 +8454,23 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :inazuma_eleven
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/592658.jpg
+    :border_color: 
+    :title_ru: Инадзума 11
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: inazuma_eleven
+      :threshold: 94.2%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :sonic
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/593372.jpg
@@ -8468,23 +8485,6 @@
       :filters:
         franchise: sonic
       :threshold: 99.6%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :inazuma_eleven
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/592658.jpg
-    :border_color: 
-    :title_ru: Инадзума 11
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: inazuma_eleven
-      :threshold: 94.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8777,23 +8777,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :transformers
-    :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588998.jpg
-    :border_color: 
-    :title_ru: Трансформеры
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: transformers
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :doraemon
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/34807/590513.jpg
@@ -8808,6 +8791,23 @@
       :filters:
         franchise: doraemon
       :threshold: 94%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :transformers
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/588998.jpg
+    :border_color: 
+    :title_ru: Трансформеры
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: transformers
+      :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8926,7 +8926,7 @@
       :algo: duration
       :filters:
         franchise: pripara
-      :threshold: 94.4%
+      :threshold: 93.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9032,25 +9032,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :kimagure_orange_road
-    :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587931.jpg
-    :border_color: 
-    :title_ru: Капризы Апельсиновой улицы
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: kimagure_orange_road
-        not_anime_ids:
-        - 14059
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :maison_ikkoku
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/591782.jpg
@@ -9068,11 +9049,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :candy_candy
+    :neko_id: :kimagure_orange_road
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593346.jpg
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/587931.jpg
     :border_color: 
-    :title_ru: Кэнди-Кэнди
+    :title_ru: Капризы Апельсиновой улицы
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9080,7 +9061,9 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: candy_candy
+        franchise: kimagure_orange_road
+        not_anime_ids:
+        - 14059
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9102,11 +9085,11 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :sakura_taisen
+    :neko_id: :candy_candy
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588988.jpg
+    :image: https://kawai.shikimori.org/system/user_images/original/84020/593346.jpg
     :border_color: 
-    :title_ru: 'Сакура: Война миров'
+    :title_ru: Кэнди-Кэнди
     :text_ru: 
     :title_en: 
     :text_en: 
@@ -9114,8 +9097,8 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: sakura_taisen
-      :threshold: 95%
+        franchise: candy_candy
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9132,6 +9115,23 @@
       :algo: duration
       :filters:
         franchise: cyborg
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :sakura_taisen
+    :level: 1
+    :image: https://desu.shikimori.org/system/user_images/original/84020/588988.jpg
+    :border_color: 
+    :title_ru: 'Сакура: Война миров'
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: sakura_taisen
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9421,7 +9421,7 @@
       :algo: duration
       :filters:
         franchise: captain_tsubasa
-      :threshold: 96.4%
+      :threshold: 96.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
