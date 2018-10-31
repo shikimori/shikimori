@@ -23,22 +23,27 @@
         = @matched_collection.size
       .subheadline.m10 Matched
       ul.b-list
-        - @matched_collection.each do |franchise|
+        - @matched_collection.each do |franchise, infos|
           li
             a href=animes_collection_url(franchise: franchise)
               = franchise.titleize
             - if NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE
               .matched ✓
+            .infos
+              - infos.each do |info|
+                .info = info
 
     .c-column
       .b-options-floated
         = @not_matched_collection.size
       .subheadline.m10 Not Matched
       ul.b-list
-        - @not_matched_collection.each do |franchise, reasons|
+        - @not_matched_collection.each do |franchise, infos|
           li
             a href=animes_collection_url(franchise: franchise)
               = franchise.titleize
             - if NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE
               .not-matched ✕
-            .reason = reasons.join(', ')
+            .infos
+              - infos.each do |info|
+                .info = info

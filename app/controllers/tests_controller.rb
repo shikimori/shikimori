@@ -53,7 +53,7 @@ class TestsController < ShikimoriController
     @minimum_titles = (params[:minimum_titles] || DEFAULT_MINIMUM_TITLES).to_i
     @minimum_titles = [10, [1, @minimum_titles].max].min
 
-    cache_key = [@minimum_duration, @minimum_titles, :v2]
+    cache_key = [@minimum_duration, @minimum_titles, :v4]
 
     @matched_collection =
       Rails.cache.fetch %i[matched_franchises] + cache_key, expires_in: 1.week do
@@ -66,7 +66,15 @@ class TestsController < ShikimoriController
             animes.size >= @minimum_titles &&
               animes.sum { |anime| Neko::Duration.call(anime) } >= @minimum_duration
           end
-          .map(&:first)
+          .each_with_object({}) do |(franchise, animes), memo|
+            size = animes.size
+            duration = animes.sum { |anime| Neko::Duration.call(anime) }
+
+            memo[franchise] = [
+              view_context.pluralize(size, 'title', 'titles'),
+              "#{duration} duration"
+            ]
+          end
       end
 
     @not_matched_collection =
@@ -77,18 +85,14 @@ class TestsController < ShikimoriController
         .map(&:to_s)
         .reject { |franchise| @matched_collection.include? franchise }
         .each_with_object({}) do |franchise, memo|
-          memo[franchise] ||= []
-
           animes = Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
           size = animes.size
           duration = animes.sum { |anime| Neko::Duration.call(anime) }
 
-          if size < @minimum_titles
-            memo[franchise] << view_context.pluralize(size, 'title', 'titles')
-          end
-          if duration < @minimum_duration
-            memo[franchise] << "#{duration} duration"
-          end
+          memo[franchise] = [
+            view_context.pluralize(size, 'title', 'titles'),
+            "#{duration} duration"
+          ]
         end
       end
   end
