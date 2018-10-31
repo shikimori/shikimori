@@ -53,7 +53,7 @@ class TestsController < ShikimoriController
     @minimum_titles = (params[:minimum_titles] || DEFAULT_MINIMUM_TITLES).to_i
     @minimum_titles = [10, [1, @minimum_titles].max].min
 
-    cache_key = [@minimum_duration, @minimum_titles, :v4]
+    cache_key = [@minimum_duration, @minimum_titles, :v5]
 
     @matched_collection =
       Rails.cache.fetch %i[matched_franchises] + cache_key, expires_in: 1.week do
@@ -67,13 +67,7 @@ class TestsController < ShikimoriController
               animes.sum { |anime| Neko::Duration.call(anime) } >= @minimum_duration
           end
           .each_with_object({}) do |(franchise, animes), memo|
-            size = animes.size
-            duration = animes.sum { |anime| Neko::Duration.call(anime) }
-
-            memo[franchise] = [
-              view_context.pluralize(size, 'title', 'titles'),
-              "#{duration} duration"
-            ]
+            memo[franchise] = franchise_info animes
           end
       end
 
@@ -85,14 +79,9 @@ class TestsController < ShikimoriController
         .map(&:to_s)
         .reject { |franchise| @matched_collection.include? franchise }
         .each_with_object({}) do |franchise, memo|
-          animes = Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
-          size = animes.size
-          duration = animes.sum { |anime| Neko::Duration.call(anime) }
-
-          memo[franchise] = [
-            view_context.pluralize(size, 'title', 'titles'),
-            "#{duration} duration"
-          ]
+          memo[franchise] = franchise_info(
+            Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
+          )
         end
       end
   end
@@ -132,5 +121,20 @@ class TestsController < ShikimoriController
 
   def iframe_inner
     render :iframe_inner, layout: false
+  end
+
+private
+
+  def franchise_info animes
+    size = animes.size
+    duration = animes.sum { |anime| Neko::Duration.call(anime) }
+
+    [{
+      text: size,
+      tooltip: "Titles: #{size}"
+    }, {
+      text: duration,
+      tooltip: "Duration: #{duration}"
+    }]
   end
 end

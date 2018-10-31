@@ -31,7 +31,11 @@
               .matched ✓
             .infos
               - infos.each do |info|
-                .info = info
+                .info
+                  span.b-tooltipped.unprocessed[
+                    data-direction='top'
+                    title=info[:tooltip]
+                  ] = info[:text]
 
     .c-column
       .b-options-floated
@@ -46,4 +50,8 @@
               .not-matched ✕
             .infos
               - infos.each do |info|
-                .info = info
+                .info
+                  span.b-tooltipped.unprocessed[
+                    data-direction='top'
+                    title=info[:tooltip]
+                  ] = info[:text]
