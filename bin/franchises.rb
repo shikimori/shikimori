@@ -15,14 +15,7 @@ data.each do |rule|
   recap_ids = Anime
     .where(franchise: rule['filters']['franchise'])
     .select(&:kind_special?)
-    .select do |anime|
-      next if rule.dig('generator', 'not_ignored_ids')&.include? anime.id
-      next unless anime.kind_special? || anime.kind_ova?
-
-      anime.name.match?(/\brecaps?\b|compilation movie|picture drama|\bvr\b|\bрекап\b/i) ||
-        anime.description_en&.match?(/\brecaps?\b|compilation movie|picture drama/i) ||
-        anime.description_ru&.match?(/\bрекап\b|\bобобщение\b|\bчиби\b|краткое содержание/i)
-    end
+    .reject { |anime| Neko::IsValid.call anime }
     .map(&:id)
 
   if recap_ids.any?
