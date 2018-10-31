@@ -19,6 +19,8 @@
 .block
   .cc-2
     .c-column
+      .b-options-floated
+        = @matched_collection.size
       .subheadline.m10 Matched
       ul.b-list
         - @matched_collection.each do |franchise|
@@ -29,6 +31,8 @@
               .matched ✓
 
     .c-column
+      .b-options-floated
+        = @not_matched_collection.size
       .subheadline.m10 Not Matched
       ul.b-list
         - @not_matched_collection.each do |franchise, reasons|
