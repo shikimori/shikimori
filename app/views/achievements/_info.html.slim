@@ -26,7 +26,8 @@
       - if achievements.first.animes_count&.positive?
         - if achievements.first.franchise?
           span
-            | #{achievements.first.rule[:threshold]} #{t '.of_duration'}
+            ' #{achievements.first.rule[:threshold]} #{t '.of_duration'}
+
         - else
           - if achievements.first.rule[:threshold].is_a?(String) && achievements.first.rule[:threshold].match?(/^\d+%$/)
             - achievements.each do |achievement|

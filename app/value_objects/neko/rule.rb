@@ -152,6 +152,26 @@ class Neko::Rule < Dry::Struct
     @statistics ||= Achievements::Statistics.call neko_id, level
   end
 
+  def spent_time user # rubocop:disable AbcSize
+    animes = animes_scope.to_a
+
+    user_time = user
+      .anime_rates
+      .where(target_id: animes.map(&:id))
+      .where(status: %i[completed rewatching])
+      .sum do |user_rate|
+        anime = animes.find { |v| v.id == user_rate.target_id }
+
+        user_rate.rewatching? ?
+          Neko::Duration.call(anime) :
+          anime.duration * user_rate.episodes
+      end
+
+    franchise_time = animes_scope.sum { |anime| Neko::Duration.call anime }
+
+    "#{(user_time * 100.0 / franchise_time).floor(2)}%".gsub(/\0%/, '%')
+  end
+
 private
 
   def mandatory_title

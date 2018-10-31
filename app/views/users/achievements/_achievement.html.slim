@@ -4,9 +4,11 @@
       .c-about
         .title
           = achievement.title
-          - if local_assigns[:status]
-            - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
-              .gained ✓
+          - if local_assigns[:status] && user_signed_in?
+            .status
+              = achievement.spent_time(current_user)
+              - if current_user.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
+                .gained ✓
 
         - achievement.images.each do |image|
           a.b-badge[
