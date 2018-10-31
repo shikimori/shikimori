@@ -1,0 +1,14 @@
+@import mixins/shiki_check
+
+.p-tests-franchises
+  .b-list
+    .matched,
+    .not-matched
+      display: inline-block
+      margin-left: 7px
+
+      &.matched
+        +shiki_check($green-check)
+
+      &.not-matched
+        +shiki_check($red-check)

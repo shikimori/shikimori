@@ -610,6 +610,7 @@ Rails.application.routes.draw do
         vue
         iframe
         iframe_inner
+        franchises
       ].each do |page|
         get page
       end

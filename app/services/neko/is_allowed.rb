@@ -1,4 +1,4 @@
-class Neko::IsValid
+class Neko::IsAllowed
   method_object :anime
 
   EN_RECAP = [

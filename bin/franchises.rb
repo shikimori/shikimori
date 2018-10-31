@@ -15,7 +15,7 @@ data.each do |rule|
   recap_ids = Anime
     .where(franchise: rule['filters']['franchise'])
     .select(&:kind_special?)
-    .reject { |anime| Neko::IsValid.call anime }
+    .reject { |anime| Neko::IsAllowed.call anime }
     .map(&:id)
 
   if recap_ids.any?

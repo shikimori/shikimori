@@ -139,6 +139,30 @@ header.head
         &:active:before
           color: $link-active
 
+  .misc-links
+    +gte_ipad
+      padding-left: 10px
+      display: inline
+
+    +iphone
+      display: block
+
+    & > a
+      +link
+      +dash_separated
+      display: inline
+      font-size: 12px
+      font-weight: normal
+      padding-right: 0
+      text-transform: none
+
+
+      &.selected
+        color: $link-hover
+
+        &:hover
+          color: $link-active
+
 .midheadline
   @extend .headline
   font-size: 16px
@@ -176,30 +200,6 @@ header.head
   .count
     +brackets_surrounded($gray-3)
     margin-left: 5px
-
-  .misc-links
-    +gte_ipad
-      padding-left: 10px
-      display: inline
-
-    +iphone
-      display: block
-
-    & > a
-      +link
-      +dash_separated
-      display: inline
-      font-size: 12px
-      font-weight: normal
-      padding-right: 0
-      text-transform: none
-
-
-      &.selected
-        color: $link-hover
-
-        &:hover
-          color: $link-active
 
 .mischeadline
   font-size: 13px

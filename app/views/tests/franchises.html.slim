@@ -1,0 +1,39 @@
+.block
+  .midheadline.m10
+    | Franchises
+    - if @minimum_duration != controller.class::DEFAULT_MINIMUM_DURATION || @minimum_titles != controller.class::DEFAULT_MINIMUM_TITLES
+      .misc-links
+        a.b-link href=current_url(minimum_duration: nil, minimum_titles: nil) reset
+
+  form.b-form method="get"
+    .b-input
+      label Minimum Titles
+      input name="minimum_titles" value=@minimum_titles
+
+    .b-input
+      label Minimum Duration
+      input name="minimum_duration" value=@minimum_duration
+
+    button.b-button type="submit" Submit
+
+.block
+  .cc-2
+    .c-column
+      .subheadline.m10 Matched
+      ul.b-list
+        - @matched_collection.each do |franchise|
+          li
+            a href=animes_collection_url(franchise: franchise)
+              = franchise.titleize
+            - if NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE
+              .matched ✓
+
+    .c-column
+      .subheadline.m10 Not Matched
+      ul.b-list
+        - @not_matched_collection.each do |franchise|
+          li
+            a href=animes_collection_url(franchise: franchise)
+              = franchise.titleize
+            - if NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE
+              .not-matched ✕

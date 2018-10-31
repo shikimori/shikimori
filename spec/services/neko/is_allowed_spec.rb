@@ -1,4 +1,4 @@
-describe Neko::IsValid do
+describe Neko::IsAllowed do
   subject { described_class.call anime }
   let(:anime) do
     build :anime, status, kind,

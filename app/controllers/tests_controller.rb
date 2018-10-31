@@ -5,6 +5,9 @@ require_dependency 'site_statistics'
 class TestsController < ShikimoriController
   skip_before_action :verify_authenticity_token, only: [:echo]
 
+  DEFAULT_MINIMUM_DURATION = 1150
+  DEFAULT_MINIMUM_TITLES = 5
+
   def show
     @traffic = Rails.cache.fetch("traffic_#{Time.zone.today}") do
       YandexMetrika.call 18
@@ -38,6 +41,38 @@ class TestsController < ShikimoriController
   end
 
   def achievements_notification
+  end
+
+  def franchises
+    @minimum_duration = (params[:minimum_duration] || DEFAULT_MINIMUM_DURATION).to_i
+    @minimum_duration = [5000, [50, @minimum_duration].max].min
+    unless (@minimum_duration % 50).zero?
+      @minimum_duration += 50 - @minimum_duration % 50
+    end
+
+    @minimum_titles = (params[:minimum_titles] || DEFAULT_MINIMUM_TITLES).to_i
+    @minimum_titles = [10, [1, @minimum_titles].max].min
+
+    cache_key = [:matched_franchises, @minimum_duration, @minimum_titles]
+
+    @matched_collection =
+      Rails.cache.fetch cache_key, expires_in: 1.week do
+        Anime
+          .where.not(franchise: nil)
+          .select { |anime| Neko::IsAllowed.call anime }
+          .sort_by(&:popularity)
+          .group_by(&:franchise)
+          .select do |_franchise, animes|
+            animes.size > @minimum_titles &&
+              animes.sum { |anime| Neko::Duration.call(anime) } > @minimum_duration
+          end
+          .map(&:first)
+      end
+
+    @not_matched_collection = NekoRepository.instance
+      .select { |v| v.group == Types::Achievement::NekoGroup[:franchise] }
+      .map(&:neko_id)
+      .map(&:to_s) - @matched_collection
   end
 
   def momentjs
