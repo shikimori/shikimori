@@ -47,9 +47,10 @@ data.each do |rule|
   end
   franchise = franchise.reject(&:anons?)
   ignored_titles = franchise.select do |anime|
-    next if rule['metadata']['allowed_recap_ids']&.include? anime.id
+    next if rule.dig('generator', 'not_ignored_ids')&.include? anime.id
     next unless anime.kind_special? || anime.kind_ova?
 
+    rule.dig('generator', 'ignored_ids')&.include?(anime.id) ||
     anime.name.match?(/\brecaps?\b|compilation movie|picture drama|\bvr\b|\bрекап\b/i) ||
       anime.description_en&.match?(/\brecaps?\b|compilation movie|picture drama/i) ||
       anime.description_ru&.match?(/\bрекап\b|\bобобщение\b|\bчиби\b|краткое содержание/i)
@@ -74,7 +75,7 @@ data.each do |rule|
   short_specials_duration = short_specials.sum { |v| duration v }
   mini_specials_duration = mini_specials.sum { |v| duration v }
 
-  ova_duration_subtract = 
+  ova_duration_subtract =
     if ova_duration * 1.0 / total_duration <= 0.1 && franchise.size > 5 && ova.size > 2
       ova_duration / 2
     else

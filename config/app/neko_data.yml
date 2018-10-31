@@ -7244,6 +7244,9 @@
       :filters:
         franchise: bakuman
       :threshold: 96.7%
+      :generator:
+        not_ignored_ids:
+        - 15711
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7431,6 +7434,12 @@
       :filters:
         franchise: gundam
       :threshold: 85.9%
+      :generator:
+        not_ignored_ids:
+        - 2269
+        - 14007
+        - 20667
+        - 24371
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7447,7 +7456,13 @@
       :algo: duration
       :filters:
         franchise: shakugan_no_shana
-      :threshold: 93.6%
+      :threshold: 93.2%
+      :generator:
+        ignored_ids:
+        - 14957
+        - 17551
+        - 28603
+        - 6330
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8315,6 +8330,9 @@
       :filters:
         franchise: hikaru_no_go
       :threshold: 94.5%
+      :generator:
+        not_ignored_ids:
+        - 2336
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
