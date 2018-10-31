@@ -32,19 +32,6 @@ data.each do |rule|
   end
 end
 
-def duration anime
-  episodes =
-    if anime.anons?
-      0
-    elsif anime.released?
-      anime.episodes
-    else
-      anime.episodes_aired.zero? ? anime.episodes : anime.episodes_aired
-    end
-
-  episodes * anime.duration
-end
-
 # data = data.select { |v| v['filters']['franchise'] == 'shakugan_no_shana' }
 
 puts 'generating thresholds...'
@@ -67,11 +54,11 @@ data.each do |rule|
 
   important_titles = franchise.reject(&:kind_special?)
 
-  total_duration = franchise.sum { |v| duration v }
-  ova_duration = ova.sum { |v| duration v }
-  long_specials_duration = long_specials.sum { |v| duration v }
-  short_specials_duration = short_specials.sum { |v| duration v }
-  mini_specials_duration = mini_specials.sum { |v| duration v }
+  total_duration = franchise.sum { |v| Neko::Duration.call v }
+  ova_duration = ova.sum { |v| Neko::Duration.call v }
+  long_specials_duration = long_specials.sum { |v| Neko::Duration.call v }
+  short_specials_duration = short_specials.sum { |v| Neko::Duration.call v }
+  mini_specials_duration = mini_specials.sum { |v| Neko::Duration.call v }
 
   ova_duration_subtract =
     if ova_duration * 1.0 / total_duration <= 0.1 && franchise.size > 5 && ova.size > 2
