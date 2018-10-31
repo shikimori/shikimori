@@ -158,13 +158,13 @@ class Neko::Rule < Dry::Struct
     user_time = user
       .anime_rates
       .where(target_id: animes.map(&:id))
-      .where(status: %i[completed rewatching])
+      .where(status: %i[completed rewatching watching])
       .sum do |user_rate|
         anime = animes.find { |v| v.id == user_rate.target_id }
 
-        user_rate.rewatching? ?
-          Neko::Duration.call(anime) :
-          anime.duration * user_rate.episodes
+        user_rate.watching? ?
+          anime.duration * user_rate.episodes :
+          Neko::Duration.call(anime)
       end
 
     franchise_time = animes_scope.sum { |anime| Neko::Duration.call anime }
