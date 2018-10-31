@@ -31,9 +31,10 @@
     .c-column
       .subheadline.m10 Not Matched
       ul.b-list
-        - @not_matched_collection.each do |franchise|
+        - @not_matched_collection.each do |franchise, reasons|
           li
             a href=animes_collection_url(franchise: franchise)
               = franchise.titleize
             - if NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE
               .not-matched ✕
+            .reason = reasons.join(', ')

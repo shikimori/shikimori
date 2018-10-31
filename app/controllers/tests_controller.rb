@@ -53,26 +53,44 @@ class TestsController < ShikimoriController
     @minimum_titles = (params[:minimum_titles] || DEFAULT_MINIMUM_TITLES).to_i
     @minimum_titles = [10, [1, @minimum_titles].max].min
 
-    cache_key = [:matched_franchises, @minimum_duration, @minimum_titles]
+    cache_key = [@minimum_duration, @minimum_titles, :v2]
 
     @matched_collection =
-      Rails.cache.fetch cache_key, expires_in: 1.week do
+      Rails.cache.fetch %i[matched_franchises] + cache_key, expires_in: 1.week do
         Anime
           .where.not(franchise: nil)
           .select { |anime| Neko::IsAllowed.call anime }
           .sort_by(&:popularity)
           .group_by(&:franchise)
           .select do |_franchise, animes|
-            animes.size > @minimum_titles &&
-              animes.sum { |anime| Neko::Duration.call(anime) } > @minimum_duration
+            animes.size >= @minimum_titles &&
+              animes.sum { |anime| Neko::Duration.call(anime) } >= @minimum_duration
           end
           .map(&:first)
       end
 
-    @not_matched_collection = NekoRepository.instance
-      .select { |v| v.group == Types::Achievement::NekoGroup[:franchise] }
-      .map(&:neko_id)
-      .map(&:to_s) - @matched_collection
+    @not_matched_collection =
+      Rails.cache.fetch %i[not_matched_franchises] + cache_key, expires_in: 1.week do
+        NekoRepository.instance
+        .select { |v| v.group == Types::Achievement::NekoGroup[:franchise] }
+        .map(&:neko_id)
+        .map(&:to_s)
+        .reject { |franchise| @matched_collection.include? franchise }
+        .each_with_object({}) do |franchise, memo|
+          memo[franchise] ||= []
+
+          animes = Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
+          size = animes.size
+          duration = animes.sum { |anime| Neko::Duration.call(anime) }
+
+          if size < @minimum_titles
+            memo[franchise] << view_context.pluralize(size, 'title', 'titles')
+          end
+          if duration < @minimum_duration
+            memo[franchise] << "#{duration} duration"
+          end
+        end
+      end
   end
 
   def momentjs
