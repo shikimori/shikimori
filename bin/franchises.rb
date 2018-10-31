@@ -5,10 +5,6 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
 franchise_yml = "#{ENV['HOME']}/develop/neko-achievements/priv/rules/_franchises.yml"
 
-HARDCODED_THRESHOLD = {
-}
-ALLOWED_SPECIAL_IDS = [15711, 2269, 14007, 20667, 24371, 2336]
-
 puts 'loading franchises...'
 raw_data = YAML.load_file(franchise_yml)
 
@@ -51,7 +47,7 @@ data.each do |rule|
   end
   franchise = franchise.reject(&:anons?)
   ignored_titles = franchise.select do |anime|
-    next if ALLOWED_SPECIAL_IDS.include?(anime.id)
+    next if rule['metadata']['allowed_recap_ids']&.include? anime.id
     next unless anime.kind_special? || anime.kind_ova?
 
     anime.name.match?(/\brecaps?\b|compilation movie|picture drama|\bvr\b|\bрекап\b/i) ||
@@ -138,7 +134,7 @@ data.each do |rule|
   threshold = [important_threshold, formula_threshold].max
 
   current_threshold = rule['threshold'].gsub('%', '').to_f
-  new_threshold = HARDCODED_THRESHOLD[rule['filters']['franchise'].to_sym] || threshold.floor(1)
+  new_threshold = threshold.floor(1)
 
   if current_threshold != new_threshold
     ap(
