@@ -10,19 +10,27 @@ raw_data = YAML.load_file(franchise_yml)
 
 data = raw_data.dup
 
-# puts 'excluding recaps...'
-# data.each do |rule|
-#   recap_ids = Anime
-#     .where(franchise: rule['filters']['franchise'])
-#     .select(&:kind_special?)
-#     .select do |v|
-#     end
-#     .map(&:id)
+puts 'excluding recaps...'
+data.each do |rule|
+  recap_ids = Anime
+    .where(franchise: rule['filters']['franchise'])
+    .select(&:kind_special?)
+    .select do |anime|
+      next if rule.dig('generator', 'not_ignored_ids')&.include? anime.id
+      next unless anime.kind_special? || anime.kind_ova?
 
-#   if recap_ids.any?
-#     rule['filters']['not_anime_ids'] = ((rule['filters']['not_anime_ids'] || []) + recap_ids).uniq.sort
-#   end
-# end
+      anime.name.match?(/\brecaps?\b|compilation movie|picture drama|\bvr\b|\bрекап\b/i) ||
+        anime.description_en&.match?(/\brecaps?\b|compilation movie|picture drama/i) ||
+        anime.description_ru&.match?(/\bрекап\b|\bобобщение\b|\bчиби\b|краткое содержание/i)
+    end
+    .map(&:id)
+
+  if recap_ids.any?
+    rule['filters']['not_anime_ids'] = (
+      (rule['filters']['not_anime_ids'] || []) + recap_ids
+    ).uniq.sort - (rule.dig('generator', 'not_ignored_ids') || [])
+  end
+end
 
 def duration anime
   episodes =
@@ -37,7 +45,7 @@ def duration anime
   episodes * anime.duration
 end
 
-# data = data.select { |v| v['filters']['franchise'] == 'touch' }
+# data = data.select { |v| v['filters']['franchise'] == 'shakugan_no_shana' }
 
 puts 'generating thresholds...'
 data.each do |rule|
@@ -46,30 +54,20 @@ data.each do |rule|
     franchise = franchise.where.not(id: rule['filters']['not_anime_ids'])
   end
   franchise = franchise.reject(&:anons?)
-  ignored_titles = franchise.select do |anime|
-    next if rule.dig('generator', 'not_ignored_ids')&.include? anime.id
-    next unless anime.kind_special? || anime.kind_ova?
 
-    rule.dig('generator', 'ignored_ids')&.include?(anime.id) ||
-    anime.name.match?(/\brecaps?\b|compilation movie|picture drama|\bvr\b|\bрекап\b/i) ||
-      anime.description_en&.match?(/\brecaps?\b|compilation movie|picture drama/i) ||
-      anime.description_ru&.match?(/\bрекап\b|\bобобщение\b|\bчиби\b|краткое содержание/i)
-  end
-
-  ova = (franchise - ignored_titles).select(&:kind_ova?)
-  long_specials = (franchise - ignored_titles)
+  ova = franchise.select(&:kind_ova?)
+  long_specials = franchise
     .select(&:kind_special?)
     .select { |v| v.duration >= 22 }
-  short_specials = (franchise - ignored_titles)
+  short_specials = franchise
     .select(&:kind_special?)
     .select { |v| v.duration < 22 && v.duration > 5 }
-  mini_specials = (franchise.select(&:kind_special?) + franchise.select(&:kind_ona?) - ignored_titles)
+  mini_specials = (franchise.select(&:kind_special?) + franchise.select(&:kind_ona?))
     .select { |v| v.duration <= 5 }
 
-  important_titles = franchise.reject(&:kind_special?) - ignored_titles
+  important_titles = franchise.reject(&:kind_special?)
 
   total_duration = franchise.sum { |v| duration v }
-  ignored_duration = ignored_titles.sum { |v| duration v }
   ova_duration = ova.sum { |v| duration v }
   long_specials_duration = long_specials.sum { |v| duration v }
   short_specials_duration = short_specials.sum { |v| duration v }
@@ -93,7 +91,6 @@ data.each do |rule|
 
   formula_threshold = (
     total_duration -
-    ignored_duration -
     ova_duration_subtract -
     long_specials_duration_subtract -
     short_specials_duration_subtract -
