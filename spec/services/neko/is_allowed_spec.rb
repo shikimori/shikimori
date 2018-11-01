@@ -2,15 +2,19 @@ describe Neko::IsAllowed do
   subject { described_class.call anime }
   let(:anime) do
     build :anime, status, kind,
+      id: id,
+      franchise: franchise,
       name: name,
       english: english,
       russian: russian,
       description_en: description_en,
       description_ru: description_ru
   end
+  let(:id) { nil }
   let(:status) { :released }
   let(:kind) { :tv }
   let(:name) { 'zrecap' }
+  let(:franchise) { nil }
   let(:english) { nil }
   let(:russian) { nil }
   let(:description_en) { nil }
@@ -21,6 +25,14 @@ describe Neko::IsAllowed do
   context 'anons' do
     let(:status) { :anons }
     it { is_expected.to eq false }
+  end
+
+  context 'allowed in NekoRule' do
+    let(:status) { :anons }
+    let(:franchise) { 'gundam' }
+    let(:id) { 2269 }
+
+    it { is_expected.to eq true }
   end
 
   context 'special or ova' do

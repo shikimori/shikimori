@@ -22,13 +22,21 @@ class Neko::IsAllowed
   ALL_RECAP_REGEXP = /\b(?:#{(EN_RECAP + RU_RECAP).join('|')})\b/i
 
   def call
-    !(
+    allowed_in_neko? || !(
       @anime.anons? ||
       (special? && recap_name?)
     )
   end
 
 private
+
+  def allowed_in_neko?
+    neko_rule.rule.dig(:generator, 'not_ignored_ids')&.include? anime.id
+  end
+
+  def neko_rule
+    NekoRepository.instance.find @anime.franchise, 1
+  end
 
   def special?
     @anime.kind_special? || @anime.kind_ova?
