@@ -6789,7 +6789,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :hanamonogatari
+    :neko_id: :bakemonogatari
     :level: 1
     :image: http://i.imgur.com/lsLbehE.png
     :border_color: 
@@ -6801,7 +6801,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: hanamonogatari
+        franchise: bakemonogatari
         not_anime_ids:
         - 6948
         - 36796
