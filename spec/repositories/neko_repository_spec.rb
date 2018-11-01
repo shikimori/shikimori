@@ -9,10 +9,26 @@ describe NekoRepository do
   end
 
   describe '#find' do
-    it do
-      expect(service.find [:animelist, 'animelist'].sample, ['1', 1].sample)
-        .to be_kind_of Neko::Rule
-      expect(service.find %i[test zxc].sample, 1).to eq Neko::Rule::NO_RULE
+    subject { service.find neko_id, level }
+    let(:level) { ['1', 1].sample }
+
+    context 'matched neko_id' do
+      let(:neko_id) { [:animelist, 'animelist'].sample }
+
+      it { is_expected.to be_kind_of Neko::Rule }
+      it { is_expected.to_not eq Neko::Rule::NO_RULE }
+    end
+
+    context 'not matched neko_id' do
+      let(:neko_id) { %i[test zxc].sample }
+
+      it { is_expected.to be_kind_of Neko::Rule }
+      it { is_expected.to eq Neko::Rule::NO_RULE }
+    end
+
+    context 'no neko_id' do
+      let(:neko_id) { ['', nil].sample }
+      it { is_expected.to be_nil }
     end
   end
 end
