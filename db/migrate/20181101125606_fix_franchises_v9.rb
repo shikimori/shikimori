@@ -14,5 +14,13 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
 
     Anime.where(franchise: 'nen_joou').update_all franchise: 'ginga_tetsudou'
     Achievement.where(neko_id: 'nen_joou').update_all neko_id: 'ginga_tetsudou'
+
+    Anime.where(franchise: 'magical_star_kanon').update_all franchise: 'kami_nomi_zo_shiru_sekai'
+
+    Anime.where(franchise: 'tales_of_gekijou').update_all franchise: 'tales_of'
+    Achievement.where(neko_id: 'tales_of_gekijou').update_all neko_id: 'tales_of'
+
+    Anime.where(franchise: 'moon_pride').update_all franchise: 'sailor_moon'
+    Achievement.where(neko_id: 'tales_of_gekijou').update_all neko_id: 'tales_of'
   end
 end

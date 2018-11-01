@@ -10,6 +10,11 @@ class Animes::FranchiseName
     ys
   ]
 
+  FIXED_NAMES = {
+    'Initial D First Stage' => 'initial_d',
+    'Tales of the Abyss' => 'tales_of'
+  }
+
   def call
     # ap extract_names(entries)
 
@@ -22,16 +27,20 @@ private
 
   def extract_names entries
     entries
+      .reject(&:kind_special?)
+      .reject(&:kind_music?)
       .flat_map { |v| [v.name, v.english].compact.uniq }
       .flat_map do |name|
         [
+          FIXED_NAMES[name],
           cleanup(name, //),
           cleanup(name, /:.*$/),
           cleanup(name, /!.*$/),
-          cleanup(name, /_\d+$/),
+          cleanup(name, /(_\d+)+$/),
           cleanup(name, /_i+$/)
         ]
       end
+      .compact
       .select { |name| name.size > 2 || ALLOWED_SHORT_NAMES.include?(name) }
       .uniq
   end
@@ -64,7 +73,8 @@ private
       .downcase
       .tr(' ', '_')
       .gsub(special_regexp, '')
-      .gsub(/[^A-z1-9]/, '_')
+      .gsub(/[^A-z0-9]/, '_')
+      .gsub(special_regexp, '')
       .gsub(/_ova\b/, '')
       .gsub(/__+/, '_')
       .gsub(/^_|_$/, '')

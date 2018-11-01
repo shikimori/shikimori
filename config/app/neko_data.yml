@@ -7408,7 +7408,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :moon_pride
+    :neko_id: :sailor_moon
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/34807/573821.jpg
     :border_color: 
@@ -7420,7 +7420,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: moon_pride
+        franchise: sailor_moon
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7547,7 +7547,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :tales_of_gekijou
+    :neko_id: :tales_of
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/34807/615494.jpg
     :border_color: 
@@ -7559,7 +7559,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: tales_of_gekijou
+        franchise: tales_of
       :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
