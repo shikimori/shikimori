@@ -14,6 +14,7 @@ private
       .flat_map { |v| [v.name, v.english].compact.uniq }
       .flat_map { |name| [cleanup(name, //), cleanup(name, /:.*$/), cleanup(name, /!.*$/)] }
       .reject { |name| name.size <= 2 }
+      .uniq
   end
 
   def present_franchise
@@ -41,12 +42,13 @@ private
 
   def cleanup name, special_regexp
     name
+      .downcase
       .tr(' ', '_')
       .gsub(special_regexp, '')
       .gsub(/[^A-z]/, '_')
+      .gsub(/_ova\b/, '')
       .gsub(/__+/, '_')
       .gsub(/^_|_$/, '')
-      .downcase
   end
 
   def filter entries

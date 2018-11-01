@@ -32,10 +32,7 @@ private
     ids_to_fetch = ids - relations.keys
 
     fetched_ids = grouped_relation(ids_to_fetch).flat_map do |source_id, group|
-      relations[source_id] = group.reject do |relation|
-        banned?(source_id, relation)
-      end
-
+      relations[source_id] = group.reject { |relation| banned? source_id, relation }
       relations[source_id].map { |v| v[related_field] }
     end
 
