@@ -27,8 +27,7 @@ private
 
   def extract_names entries
     entries
-      .reject(&:kind_special?)
-      .reject(&:kind_music?)
+      .reject { |v| v.anime? && (v.kind_special? || v.kind_music?) }
       .flat_map { |v| [v.name, v.english].compact.uniq }
       .flat_map do |name|
         [
