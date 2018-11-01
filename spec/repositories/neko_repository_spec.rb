@@ -28,7 +28,9 @@ describe NekoRepository do
 
     context 'no neko_id' do
       let(:neko_id) { ['', nil].sample }
-      it { is_expected.to be_nil }
+
+      it { is_expected.to be_kind_of Neko::Rule }
+      it { is_expected.to eq Neko::Rule::NO_RULE }
     end
   end
 end

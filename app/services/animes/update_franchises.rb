@@ -19,8 +19,9 @@ private
   def process scope
     scope.send(scope.respond_to?(:find_each) ? :find_each : :each) do |entry|
       next if @processed_ids[entry.class].include? entry.id
+
       chronology = Animes::ChronologyQuery.new(entry).fetch
-      puts "#{entry.id} #{chronology.size}" if Rails.env.development?
+      # puts "anime_id: #{entry.id} chronology_size: #{chronology.size}" if Rails.env.development?
 
       if chronology.many?
         add_franchise chronology
@@ -35,6 +36,13 @@ private
 
     entries.each do |entry|
       @processed_ids[entry.class] << entry.id
+      next if entry.franchise == franchise
+
+      if NekoRepository.instance.find(entry.franchise, 1) != Neko::Rule::NO_RULE
+        raise "cant't rename `#{entry.franchise}` -> `#{franchise}` becase found in NekoRepository"
+      end
+
+      puts "rename franchise: `#{entry.franchise}` -> `#{franchise}`" if Rails.env.development?
       entry.update franchise: franchise
     end
   end

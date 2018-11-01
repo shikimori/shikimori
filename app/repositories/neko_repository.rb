@@ -9,7 +9,7 @@ class NekoRepository
   end
 
   def find neko_id, level
-    return nil if neko_id.blank?
+    return Neko::Rule::NO_RULE if neko_id.blank?
 
     neko_id = neko_id.to_sym
     level = level.to_i
