@@ -1,26 +1,20 @@
 class FixFranchisesV9 < ActiveRecord::Migration[5.2]
   def change
-    Anime.where(franchise: 'hanamonogatari').update_all franchise: 'bakemonogatari'
-    Achievement.where(neko_id: 'hanamonogatari').update_all neko_id: 'bakemonogatari'
-
-    Anime.where(franchise: 'aria_the_ova').update_all franchise: 'aria_the_origination'
-    Achievement.where(neko_id: 'aria_the_ova').update_all neko_id: 'aria_the_origination'
-
-    Anime.where(franchise: 'yes_precure').update_all franchise: 'pretty_cure'
-    Achievement.where(neko_id: 'yes_precure').update_all neko_id: 'pretty_cure'
-
-    Anime.where(franchise: 'yamato').update_all franchise: 'uchuu_senkan_yamato'
-    Achievement.where(neko_id: 'yamato').update_all neko_id: 'uchuu_senkan_yamato'
-
-    Anime.where(franchise: 'nen_joou').update_all franchise: 'ginga_tetsudou'
-    Achievement.where(neko_id: 'nen_joou').update_all neko_id: 'ginga_tetsudou'
-
-    Anime.where(franchise: 'magical_star_kanon').update_all franchise: 'kami_nomi_zo_shiru_sekai'
-
-    Anime.where(franchise: 'tales_of_gekijou').update_all franchise: 'tales_of'
-    Achievement.where(neko_id: 'tales_of_gekijou').update_all neko_id: 'tales_of'
-
-    Anime.where(franchise: 'moon_pride').update_all franchise: 'sailor_moon'
-    Achievement.where(neko_id: 'tales_of_gekijou').update_all neko_id: 'tales_of'
+    {
+      'hanamonogatari' => 'bakemonogatari',
+      'aria_the_ova' => 'aria_the_origination',
+      'yes_precure' => 'pretty_cure',
+      'yamato' => 'uchuu_senkan_yamato',
+      'nen_joou' => 'ginga_tetsudou',
+      'magical_star_kanon' => 'kami_nomi_zo_shiru_sekai',
+      'tales_of_gekijou' => 'tales_of',
+      'moon_pride' => 'sailor_moon',
+      'believe' => 'time_bokan',
+      'snow_halation' => 'love_live',
+      'force_live' => 'uta_no_prince_sama',
+    }.each do |old_name, new_name|
+      Anime.where(franchise: old_name).update_all franchise: new_name
+      Achievement.where(neko_id: old_name).update_all neko_id: new_name
+    end
   end
 end
