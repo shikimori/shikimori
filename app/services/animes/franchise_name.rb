@@ -23,7 +23,15 @@ private
   def extract_names entries
     entries
       .flat_map { |v| [v.name, v.english].compact.uniq }
-      .flat_map { |name| [cleanup(name, //), cleanup(name, /:.*$/), cleanup(name, /!.*$/)] }
+      .flat_map do |name|
+        [
+          cleanup(name, //),
+          cleanup(name, /:.*$/),
+          cleanup(name, /!.*$/),
+          cleanup(name, /_\d+$/),
+          cleanup(name, /_i+$/)
+        ]
+      end
       .select { |name| name.size > 2 || ALLOWED_SHORT_NAMES.include?(name) }
       .uniq
   end

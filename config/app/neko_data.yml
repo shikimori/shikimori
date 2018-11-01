@@ -8135,7 +8135,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :nen_joou
+    :neko_id: :ginga_tetsudou
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/594735.jpg
     :border_color: 
@@ -8147,7 +8147,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: nen_joou
+        franchise: ginga_tetsudou
         not_anime_ids:
         - 6733
         - 9344
@@ -8643,7 +8643,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :yamato
+    :neko_id: :uchuu_senkan_yamato
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/590597.jpg
     :border_color: 
@@ -8655,7 +8655,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: yamato
+        franchise: uchuu_senkan_yamato
       :threshold: 94.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
