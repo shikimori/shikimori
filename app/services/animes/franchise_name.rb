@@ -12,10 +12,11 @@ private
   def extract_names entries
     entries
       .flat_map { |v| [v.name, v.english].compact.uniq }
-      .map { |name| cleanup name }
+      .flat_map { |name| [cleanup(name, //), cleanup(name, /:.*$/), cleanup(name, /!.*$/)] }
+      .reject { |name| name.size <= 2 }
   end
 
-  def present_franchise # rubocop:disable MethodLength
+  def present_franchise
     current_name =
       @entries
         .group_by(&:franchise)
@@ -38,10 +39,10 @@ private
       .min_by(&:length)
   end
 
-  def cleanup name
+  def cleanup name, special_regexp
     name
       .tr(' ', '_')
-      .gsub(/:.*$/, '')
+      .gsub(special_regexp, '')
       .gsub(/[^A-z]/, '_')
       .gsub(/__+/, '_')
       .gsub(/^_|_$/, '')
