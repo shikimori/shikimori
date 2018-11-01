@@ -13,7 +13,8 @@ describe Neko::Rule do
       rule: {
         threshold: 15,
         filters: filters
-      }
+      },
+      generator: {}
     )
   end
   let(:neko_id) { Types::Achievement::NekoId[:test] }

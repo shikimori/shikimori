@@ -55,7 +55,8 @@ namespace :neko do
         title_en: raw_rule['metadata']['title_en'],
         text_en: raw_rule['metadata']['text_en'],
         topic_id: raw_rule['metadata']['topic_id'],
-        rule: raw_rule.except('neko_id', 'level', 'metadata').symbolize_keys
+        rule: raw_rule.except('neko_id', 'level', 'metadata').symbolize_keys,
+        generator: raw_rule['generator']&.symbolize_keys || {}
       )
     end
     File.open(NekoRepository::CONFIG_FILE, 'w') do |file|
