@@ -9,7 +9,6 @@ class Neko::Rule < Dry::Struct
   attribute :text_en, Types::String.optional
   attribute :topic_id, Types::Coercible::Integer.optional
   attribute :rule, Types::Hash
-  attribute :generator, Types::Hash
 
   NO_RULE = new(
     neko_id: Types::Achievement::NekoId[:test],
@@ -21,8 +20,7 @@ class Neko::Rule < Dry::Struct
     title_en: 'No title',
     text_en: 'No text',
     topic_id: nil,
-    rule: {},
-    generator: {}
+    rule: {}
   )
 
   EPISODES_GTE_SQL = <<~SQL.squish

@@ -274,7 +274,6 @@
         - 36266
         - 35994
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yandere
@@ -550,7 +549,6 @@
         - 36266
         - 35994
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yandere
@@ -826,7 +824,6 @@
         - 36266
         - 35994
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -842,7 +839,6 @@
       :algo: count
       :threshold: 15
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -858,7 +854,6 @@
       :algo: count
       :threshold: 50
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -875,7 +870,6 @@
       :algo: count
       :threshold: 100
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -892,7 +886,6 @@
       :algo: count
       :threshold: 150
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -909,7 +902,6 @@
       :algo: count
       :threshold: 200
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -926,7 +918,6 @@
       :algo: count
       :threshold: 300
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -942,7 +933,6 @@
       :algo: count
       :threshold: 400
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -959,7 +949,6 @@
       :algo: count
       :threshold: 500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -976,7 +965,6 @@
       :algo: count
       :threshold: 666
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -992,7 +980,6 @@
       :algo: count
       :threshold: 750
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1010,7 +997,6 @@
       :algo: count
       :threshold: 888
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1026,7 +1012,6 @@
       :algo: count
       :threshold: 1000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1046,7 +1031,6 @@
       :algo: count
       :threshold: 1234
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1063,7 +1047,6 @@
       :algo: count
       :threshold: 1500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1079,7 +1062,6 @@
       :algo: count
       :threshold: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1096,7 +1078,6 @@
       :algo: count
       :threshold: 2500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1113,7 +1094,6 @@
       :algo: count
       :threshold: 3500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1131,7 +1111,6 @@
       :algo: count
       :threshold: 5000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1148,7 +1127,6 @@
       :algo: count
       :threshold: 7500
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :animelist
@@ -1164,7 +1142,6 @@
       :algo: count
       :threshold: 10000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/animelist.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :horror_thriller
@@ -1185,7 +1162,6 @@
         - 14
         - 41
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :horror_thriller
@@ -1205,7 +1181,6 @@
         - 14
         - 41
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :horror_thriller
@@ -1225,7 +1200,6 @@
         - 14
         - 41
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :horror_thriller
@@ -1245,7 +1219,6 @@
         - 14
         - 41
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/horror_thriller.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mahou_shoujo
@@ -1665,7 +1638,6 @@
         - 36692
         - 32843
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mahou_shoujo
@@ -2086,7 +2058,6 @@
         - 36692
         - 32843
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mahou_shoujo
@@ -2506,7 +2477,6 @@
         - 36692
         - 32843
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mahou_shoujo
@@ -2926,7 +2896,6 @@
         - 36692
         - 32843
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :slice_of_life
@@ -2945,7 +2914,6 @@
         genre_ids:
         - 36
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :slice_of_life
@@ -2964,7 +2932,6 @@
         genre_ids:
         - 36
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :slice_of_life
@@ -2984,7 +2951,6 @@
         genre_ids:
         - 36
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :slice_of_life
@@ -3004,7 +2970,6 @@
         genre_ids:
         - 36
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/slice_of_life.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :police
@@ -3023,7 +2988,6 @@
         genre_ids:
         - 39
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :police
@@ -3042,7 +3006,6 @@
         genre_ids:
         - 39
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :police
@@ -3061,7 +3024,6 @@
         genre_ids:
         - 39
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :police
@@ -3080,7 +3042,6 @@
         genre_ids:
         - 39
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :otaku
@@ -3100,7 +3061,6 @@
         - 9
         - 12
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :otaku
@@ -3120,7 +3080,6 @@
         - 9
         - 12
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :otaku
@@ -3141,7 +3100,6 @@
         - 9
         - 12
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :otaku
@@ -3161,7 +3119,6 @@
         - 9
         - 12
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/otaku.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :romance
@@ -3180,7 +3137,6 @@
         genre_ids:
         - 22
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :romance
@@ -3199,7 +3155,6 @@
         genre_ids:
         - 22
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :romance
@@ -3218,7 +3173,6 @@
         genre_ids:
         - 22
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :romance
@@ -3237,7 +3191,6 @@
         genre_ids:
         - 22
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/romance.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :longshounen
@@ -3255,7 +3208,6 @@
       :filters:
         episodes_gte: 100
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :longshounen
@@ -3274,7 +3226,6 @@
       :filters:
         episodes_gte: 100
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/longshounen.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :oldfag
@@ -3292,7 +3243,6 @@
       :filters:
         year_lte: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :oldfag
@@ -3311,7 +3261,6 @@
       :filters:
         year_lte: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :oldfag
@@ -3329,7 +3278,6 @@
       :filters:
         year_lte: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :oldfag
@@ -3347,7 +3295,6 @@
       :filters:
         year_lte: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :moe
@@ -3794,7 +3741,6 @@
         - 21409
         - 31894
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :moe
@@ -4241,7 +4187,6 @@
         - 21409
         - 31894
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :moe
@@ -4688,7 +4633,6 @@
         - 21409
         - 31894
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :gar
@@ -5183,7 +5127,6 @@
         - 28215
         - 36040
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :gar
@@ -5678,7 +5621,6 @@
         - 28215
         - 36040
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :gar
@@ -6173,7 +6115,6 @@
         - 28215
         - 36040
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mecha
@@ -6192,7 +6133,6 @@
         genre_ids:
         - 18
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mecha
@@ -6212,7 +6152,6 @@
         genre_ids:
         - 18
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mecha
@@ -6232,7 +6171,6 @@
         genre_ids:
         - 18
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mecha
@@ -6251,7 +6189,6 @@
         genre_ids:
         - 18
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mecha.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :military
@@ -6270,7 +6207,6 @@
         genre_ids:
         - 38
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :military
@@ -6289,7 +6225,6 @@
         genre_ids:
         - 38
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :military
@@ -6308,7 +6243,6 @@
         genre_ids:
         - 38
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :military
@@ -6327,7 +6261,6 @@
         genre_ids:
         - 38
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/military.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :drama
@@ -6346,7 +6279,6 @@
         genre_ids:
         - 8
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :drama
@@ -6365,7 +6297,6 @@
         genre_ids:
         - 8
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :drama
@@ -6384,7 +6315,6 @@
         genre_ids:
         - 8
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :drama
@@ -6403,7 +6333,6 @@
         genre_ids:
         - 8
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/drama.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sovietanime
@@ -6692,7 +6621,6 @@
         - 31147
         - 37722
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :supernatural
@@ -6711,7 +6639,6 @@
         genre_ids:
         - 37
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :supernatural
@@ -6731,7 +6658,6 @@
         genre_ids:
         - 37
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :supernatural
@@ -6751,7 +6677,6 @@
         genre_ids:
         - 37
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :supernatural
@@ -6770,7 +6695,6 @@
         genre_ids:
         - 37
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/supernatural.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :naruto
@@ -6788,7 +6712,6 @@
         franchise: naruto
       :threshold: 96.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fate_zero
@@ -6823,7 +6746,6 @@
         - 23697
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :shingeki_no_kyojin
@@ -6845,7 +6767,6 @@
         - 35267
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sword_art_online
@@ -6866,7 +6787,6 @@
         - 37831
       :threshold: 88.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :bakemonogatari
@@ -6887,7 +6807,6 @@
         - 36796
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :kuroko_no_basket
@@ -6905,7 +6824,6 @@
         franchise: kuroko_no_basket
       :threshold: 93.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :code_geass
@@ -6935,7 +6853,6 @@
         - 33360
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :high_school_dxd
@@ -6953,7 +6870,6 @@
         franchise: high_school_dxd
       :threshold: 91.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :boku_no_hero_academia
@@ -6971,7 +6887,6 @@
         franchise: boku_no_hero_academia
       :threshold: 95.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :kuroshitsuji
@@ -6992,7 +6907,6 @@
         - 8068
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fullmetal_alchemist
@@ -7010,7 +6924,6 @@
         franchise: fullmetal_alchemist
       :threshold: 94.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fairy_tail
@@ -7028,7 +6941,6 @@
         franchise: fairy_tail
       :threshold: 96.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :shokugeki_no_souma
@@ -7046,7 +6958,6 @@
         franchise: shokugeki_no_souma
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :durarara
@@ -7064,7 +6975,6 @@
         franchise: durarara
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :haikyuu
@@ -7082,7 +6992,6 @@
         franchise: haikyuu
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :nanatsu_no_taizai
@@ -7100,7 +7009,6 @@
         franchise: nanatsu_no_taizai
       :threshold: 91.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :gintama
@@ -7121,7 +7029,6 @@
         - 19261
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :one_piece
@@ -7146,7 +7053,6 @@
         - 36242
       :threshold: 92.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :koro_sensei_q
@@ -7166,7 +7072,6 @@
         - 33511
       :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :zero_no_tsukaima
@@ -7186,7 +7091,6 @@
         - 6489
       :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ghost_in_the_shell
@@ -7209,7 +7113,6 @@
         - 31617
       :threshold: 86.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :suzumiya_haruhi_no_yuuutsu
@@ -7227,7 +7130,6 @@
         franchise: suzumiya_haruhi_no_yuuutsu
       :threshold: 89%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :jojo_no_kimyou_na_bouken
@@ -7247,7 +7149,6 @@
         - 3603
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :to_love_ru
@@ -7265,7 +7166,6 @@
         franchise: to_love_ru
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :bleach
@@ -7283,7 +7183,6 @@
         franchise: bleach
       :threshold: 98.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :natsume_yuujinchou
@@ -7301,7 +7200,6 @@
         franchise: natsume_yuujinchou
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :berserk
@@ -7321,7 +7219,6 @@
         - 35009
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :toaru_majutsu_no_index
@@ -7342,7 +7239,6 @@
         - 32264
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :umineko_no_naku_koro_ni
@@ -7360,7 +7256,6 @@
         franchise: umineko_no_naku_koro_ni
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :junjou_romantica
@@ -7378,7 +7273,6 @@
         franchise: junjou_romantica
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :bakuman
@@ -7396,11 +7290,9 @@
         franchise: bakuman
       :threshold: 96.7%
       :generator:
-        not_ignored_ids: &1
+        not_ignored_ids:
         - 15711
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator:
-      :not_ignored_ids: *1
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :pokemon
@@ -7426,7 +7318,6 @@
         - 36835
       :threshold: 92.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :magi
@@ -7444,7 +7335,6 @@
         franchise: magi
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :free
@@ -7462,7 +7352,6 @@
         franchise: free
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :clannad
@@ -7480,7 +7369,6 @@
         franchise: clannad
       :threshold: 96.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :hunter_x_hunter
@@ -7498,7 +7386,6 @@
         franchise: hunter_x_hunter
       :threshold: 93.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :snow_halation
@@ -7519,7 +7406,6 @@
         - 36473
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :moon_pride
@@ -7537,7 +7423,6 @@
         franchise: moon_pride
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mushishi
@@ -7555,7 +7440,6 @@
         franchise: mushishi
       :threshold: 92.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :full_metal_panic
@@ -7573,7 +7457,6 @@
         franchise: full_metal_panic
       :threshold: 94.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :initial_d
@@ -7593,7 +7476,6 @@
         - 12725
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :gundam
@@ -7616,14 +7498,12 @@
         - 32898
       :threshold: 86%
       :generator:
-        not_ignored_ids: &2
+        not_ignored_ids:
         - 2269
         - 14007
         - 20667
         - 24371
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator:
-      :not_ignored_ids: *2
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :shakugan_no_shana
@@ -7648,7 +7528,6 @@
       :threshold: 93.6%
       :generator: 
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :working
@@ -7666,7 +7545,6 @@
         franchise: working
       :threshold: 95.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :tales_of_gekijou
@@ -7684,7 +7562,6 @@
         franchise: tales_of_gekijou
       :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :force_live
@@ -7702,7 +7579,6 @@
         franchise: force_live
       :threshold: 97.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :detective_conan
@@ -7720,7 +7596,6 @@
         franchise: detective_conan
       :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :dragon_ball
@@ -7738,7 +7613,6 @@
         franchise: dragon_ball
       :threshold: 94.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :hajime_no_ippo
@@ -7756,7 +7630,6 @@
         franchise: hajime_no_ippo
       :threshold: 96.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :rurouni_kenshin
@@ -7776,7 +7649,6 @@
         - 10334
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :hetalia
@@ -7794,7 +7666,6 @@
         franchise: hetalia
       :threshold: 81.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :nurarihyon_no_mago
@@ -7815,7 +7686,6 @@
         - 11083
       :threshold: 98.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :blood
@@ -7835,7 +7705,6 @@
         - 14077
       :threshold: 97%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :major
@@ -7853,7 +7722,6 @@
         franchise: major
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :slayers
@@ -7871,7 +7739,6 @@
         franchise: slayers
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :seiren
@@ -7891,7 +7758,6 @@
         - 15951
       :threshold: 96.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :persona
@@ -7911,7 +7777,6 @@
         - 25257
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :chiba_pedal
@@ -7929,7 +7794,6 @@
         franchise: chiba_pedal
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :jigoku_shoujo
@@ -7947,7 +7811,6 @@
         franchise: jigoku_shoujo
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ushio_to_tora
@@ -7965,7 +7828,6 @@
         franchise: ushio_to_tora
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :macross
@@ -7983,7 +7845,6 @@
         franchise: macross
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :lupin_iii
@@ -8003,7 +7864,6 @@
         - 5343
       :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :amon
@@ -8023,7 +7883,6 @@
         - 35952
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :inuyasha
@@ -8041,7 +7900,6 @@
         franchise: inuyasha
       :threshold: 95.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :tenchi_muyou
@@ -8064,7 +7922,6 @@
         - 37789
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :negima
@@ -8082,7 +7939,6 @@
         franchise: negima
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :minami_ke
@@ -8100,7 +7956,6 @@
         franchise: minami_ke
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ikkitousen
@@ -8118,7 +7973,6 @@
         franchise: ikkitousen
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :tennis_no_ouji_sama
@@ -8138,7 +7992,6 @@
         - 29697
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :tsubasa
@@ -8156,7 +8009,6 @@
         franchise: tsubasa
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :aa_megami_sama
@@ -8174,7 +8026,6 @@
         franchise: aa_megami_sama
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :utawarerumono
@@ -8195,7 +8046,6 @@
         - 6743
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :garo
@@ -8215,7 +8065,6 @@
         - 37032
       :threshold: 94.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :selector_spread_wixoss
@@ -8233,7 +8082,6 @@
         franchise: selector_spread_wixoss
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :genshiken
@@ -8251,7 +8099,6 @@
         franchise: genshiken
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :eureka_seven
@@ -8269,7 +8116,6 @@
         franchise: eureka_seven
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :megalo_box
@@ -8287,7 +8133,6 @@
         franchise: megalo_box
       :threshold: 96.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :nen_joou
@@ -8308,7 +8153,6 @@
         - 9344
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :hayate_no_gotoku
@@ -8326,7 +8170,6 @@
         franchise: hayate_no_gotoku
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :puchimas
@@ -8344,7 +8187,6 @@
         franchise: puchimas
       :threshold: 87.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sengoku_basara
@@ -8362,7 +8204,6 @@
         franchise: sengoku_basara
       :threshold: 89.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :zettai_karen_children
@@ -8382,7 +8223,6 @@
         - 5849
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :dmatsu_san
@@ -8400,7 +8240,6 @@
         franchise: dmatsu_san
       :threshold: 95.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :cardcaptor_sakura
@@ -8420,7 +8259,6 @@
         - 37595
       :threshold: 97.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :baki
@@ -8438,7 +8276,6 @@
         franchise: baki
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :hack_gift
@@ -8456,7 +8293,6 @@
         franchise: hack_gift
       :threshold: 94.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :school_rumble
@@ -8473,12 +8309,7 @@
       :filters:
         franchise: school_rumble
       :threshold: 100%
-      :generator:
-        not_ignored_ids: &3
-        - 4015
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator:
-      :not_ignored_ids: *3
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :tegamibachi
@@ -8496,7 +8327,6 @@
         franchise: tegamibachi
       :threshold: 84.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sket_dance
@@ -8514,7 +8344,6 @@
         franchise: sket_dance
       :threshold: 98.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :aquarion_evol
@@ -8532,7 +8361,6 @@
         franchise: aquarion_evol
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :diamond_no_ace
@@ -8550,7 +8378,6 @@
         franchise: diamond_no_ace
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :gatchaman
@@ -8568,7 +8395,6 @@
         franchise: gatchaman
       :threshold: 91.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :aria_the_ova
@@ -8588,7 +8414,6 @@
         - 5196
       :threshold: 95.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :hikaru_no_go
@@ -8606,11 +8431,9 @@
         franchise: hikaru_no_go
       :threshold: 94.5%
       :generator:
-        not_ignored_ids: &4
+        not_ignored_ids:
         - 2336
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator:
-      :not_ignored_ids: *4
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :black_jack
@@ -8628,7 +8451,6 @@
         franchise: black_jack
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yes_precure
@@ -8648,7 +8470,6 @@
         - 10736
       :threshold: 92.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :queen_s_blade
@@ -8666,7 +8487,6 @@
         franchise: queen_s_blade
       :threshold: 90.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :koneko_no_chi
@@ -8684,7 +8504,6 @@
         franchise: koneko_no_chi
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :vivid_strike
@@ -8709,7 +8528,6 @@
         - 37934
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ginga_eiyuu_densetsu
@@ -8727,7 +8545,6 @@
         franchise: ginga_eiyuu_densetsu
       :threshold: 95.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :saint_seiya
@@ -8747,7 +8564,6 @@
         - 6153
       :threshold: 90.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :cardfight_vanguard
@@ -8765,7 +8581,6 @@
         franchise: cardfight_vanguard
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :inazuma_eleven
@@ -8783,7 +8598,6 @@
         franchise: inazuma_eleven
       :threshold: 94.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sonic
@@ -8801,7 +8615,6 @@
         franchise: sonic
       :threshold: 99.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yu_gi_oh
@@ -8825,7 +8638,6 @@
         - 32346
       :threshold: 88.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yamato
@@ -8843,7 +8655,6 @@
         franchise: yamato
       :threshold: 94.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :digimon_savers
@@ -8863,7 +8674,6 @@
         - 4712
       :threshold: 93.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :hokuto_no_ken
@@ -8881,7 +8691,6 @@
         franchise: hokuto_no_ken
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :slam_dunk
@@ -8899,7 +8708,6 @@
         franchise: slam_dunk
       :threshold: 98.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :angelique
@@ -8917,7 +8725,6 @@
         franchise: angelique
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :senki_zesshou_symphogear
@@ -8935,7 +8742,6 @@
         franchise: senki_zesshou_symphogear
       :threshold: 93.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :d_c
@@ -8955,7 +8761,6 @@
         - 4508
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :saiyuuki_gaiden
@@ -8973,7 +8778,6 @@
         franchise: saiyuuki_gaiden
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :hidamari_sketch
@@ -8995,7 +8799,6 @@
         - 28915
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mai_hime
@@ -9013,7 +8816,6 @@
         franchise: mai_hime
       :threshold: 95.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fushigi_yuugi
@@ -9031,7 +8833,6 @@
         franchise: fushigi_yuugi
       :threshold: 99.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ranma
@@ -9049,7 +8850,6 @@
         franchise: ranma
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :iron_man
@@ -9067,7 +8867,6 @@
         franchise: iron_man
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :saki
@@ -9088,7 +8887,6 @@
         - 30292
       :threshold: 91%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :soukyuu_no_fafner
@@ -9106,7 +8904,6 @@
         franchise: soukyuu_no_fafner
       :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mobile_police_patlabor
@@ -9124,7 +8921,6 @@
         franchise: mobile_police_patlabor
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :doraemon
@@ -9144,7 +8940,6 @@
         - 501
       :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :transformers
@@ -9162,7 +8957,6 @@
         franchise: transformers
       :threshold: 82.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :toriko
@@ -9180,7 +8974,6 @@
         franchise: toriko
       :threshold: 98.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yuu_yuu_hakusho
@@ -9200,7 +8993,6 @@
         - 6964
       :threshold: 98.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :uchuu_kyoudai
@@ -9218,7 +9010,6 @@
         franchise: uchuu_kyoudai
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :glass_no_kamen
@@ -9236,7 +9027,6 @@
         franchise: glass_no_kamen
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :city_hunter
@@ -9254,7 +9044,6 @@
         franchise: city_hunter
       :threshold: 90.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :taiho_shichau_zo
@@ -9272,7 +9061,6 @@
         franchise: taiho_shichau_zo
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :pripara
@@ -9290,7 +9078,6 @@
         franchise: pripara
       :threshold: 93.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :futari_wa_milky_holmes
@@ -9308,7 +9095,6 @@
         franchise: futari_wa_milky_holmes
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :votoms_finder
@@ -9326,7 +9112,6 @@
         franchise: votoms_finder
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :aikatsu
@@ -9344,7 +9129,6 @@
         franchise: aikatsu
       :threshold: 97.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :urusei_yatsura
@@ -9362,7 +9146,6 @@
         franchise: urusei_yatsura
       :threshold: 92.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ad_police
@@ -9380,7 +9163,6 @@
         franchise: ad_police
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :to_heart
@@ -9398,7 +9180,6 @@
         franchise: to_heart
       :threshold: 94.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :maison_ikkoku
@@ -9416,7 +9197,6 @@
         franchise: maison_ikkoku
       :threshold: 98.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :kimagure_orange_road
@@ -9436,7 +9216,6 @@
         - 14059
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :muumin
@@ -9454,7 +9233,6 @@
         franchise: muumin
       :threshold: 98.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :candy_candy
@@ -9472,7 +9250,6 @@
         franchise: candy_candy
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :cyborg
@@ -9490,7 +9267,6 @@
         franchise: cyborg
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sakura_taisen
@@ -9508,7 +9284,6 @@
         franchise: sakura_taisen
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ehon_yose
@@ -9526,7 +9301,6 @@
         franchise: ehon_yose
       :threshold: 97.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :kindaichi_shounen_no_jikenbo
@@ -9544,7 +9318,6 @@
         franchise: kindaichi_shounen_no_jikenbo
       :threshold: 93.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mazinkaiser
@@ -9562,7 +9335,6 @@
         franchise: mazinkaiser
       :threshold: 93.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :believe
@@ -9580,7 +9352,6 @@
         franchise: believe
       :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :galaxy_angel
@@ -9598,7 +9369,6 @@
         franchise: galaxy_angel
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :space_cobra
@@ -9616,7 +9386,6 @@
         franchise: space_cobra
       :threshold: 98.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :di_gi_charat
@@ -9634,7 +9403,6 @@
         franchise: di_gi_charat
       :threshold: 92.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :cutey_honey
@@ -9652,7 +9420,6 @@
         franchise: cutey_honey
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :dirty_pair
@@ -9670,7 +9437,6 @@
         franchise: dirty_pair
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :el_hazard
@@ -9688,7 +9454,6 @@
         franchise: el_hazard
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :saber_marionette_j
@@ -9706,7 +9471,6 @@
         franchise: saber_marionette_j
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :touch
@@ -9724,7 +9488,6 @@
         franchise: touch
       :threshold: 93.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :konjiki_no_gash_bell
@@ -9742,7 +9505,6 @@
         franchise: konjiki_no_gash_bell
       :threshold: 99.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :grendizer_giga
@@ -9760,7 +9522,6 @@
         franchise: grendizer_giga
       :threshold: 99.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mahoujin_guruguru
@@ -9778,7 +9539,6 @@
         franchise: mahoujin_guruguru
       :threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :tiger_mask
@@ -9796,7 +9556,6 @@
         franchise: tiger_mask
       :threshold: 98.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :captain_tsubasa
@@ -9814,7 +9573,6 @@
         franchise: captain_tsubasa
       :threshold: 96.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ojamajo_doremi
@@ -9832,7 +9590,6 @@
         franchise: ojamajo_doremi
       :threshold: 92%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :getter_robo
@@ -9850,7 +9607,6 @@
         franchise: getter_robo
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :kinnikuman
@@ -9868,7 +9624,6 @@
         franchise: kinnikuman
       :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :super_robot_taisen_og
@@ -9886,7 +9641,6 @@
         franchise: super_robot_taisen_og
       :threshold: 98.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :rean_no_tsubasa
@@ -9904,7 +9658,6 @@
         franchise: rean_no_tsubasa
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :zoids
@@ -9922,7 +9675,6 @@
         franchise: zoids
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ultraman
@@ -9940,7 +9692,6 @@
         franchise: ultraman
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :choujuu_kishin_dancougar
@@ -9958,7 +9709,6 @@
         franchise: choujuu_kishin_dancougar
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :dragon_quest
@@ -9976,7 +9726,6 @@
         franchise: dragon_quest
       :threshold: 96.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mahou_no_princess_minky_momo
@@ -9994,7 +9743,6 @@
         franchise: mahou_no_princess_minky_momo
       :threshold: 96.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :juusenki_l_gaim
@@ -10012,7 +9760,6 @@
         franchise: juusenki_l_gaim
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :super_doll_licca_chan
@@ -10030,7 +9777,6 @@
         franchise: super_doll_licca_chan
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :haou_daikei_ryuu_knight
@@ -10048,7 +9794,6 @@
         franchise: haou_daikei_ryuu_knight
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :obake_no_q_tarou
@@ -10066,7 +9811,6 @@
         franchise: obake_no_q_tarou
       :threshold: 99.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :pro_golfer_saru
@@ -10084,7 +9828,6 @@
         franchise: pro_golfer_saru
       :threshold: 97.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :ginga_senpuu_braiger
@@ -10102,7 +9845,6 @@
         franchise: ginga_senpuu_braiger
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yuuri
@@ -10122,7 +9864,6 @@
         - 26
         - 34
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yuuri
@@ -10142,7 +9883,6 @@
         - 26
         - 34
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yuuri
@@ -10162,7 +9902,6 @@
         - 26
         - 34
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yuuri
@@ -10182,7 +9921,6 @@
         - 26
         - 34
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mystery
@@ -10202,7 +9940,6 @@
         genre_ids:
         - 7
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mystery
@@ -10221,7 +9958,6 @@
         genre_ids:
         - 7
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mystery
@@ -10240,7 +9976,6 @@
         genre_ids:
         - 7
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :mystery
@@ -10260,7 +9995,6 @@
         genre_ids:
         - 7
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mystery.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :historical
@@ -10280,7 +10014,6 @@
         genre_ids:
         - 13
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :historical
@@ -10299,7 +10032,6 @@
         genre_ids:
         - 13
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :historical
@@ -10318,7 +10050,6 @@
         genre_ids:
         - 13
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :historical
@@ -10338,7 +10069,6 @@
         genre_ids:
         - 13
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/historical.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :kids
@@ -10357,7 +10087,6 @@
         genre_ids:
         - 15
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kids.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :dementia_psychological
@@ -10377,7 +10106,6 @@
         - 5
         - 40
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :dementia_psychological
@@ -10398,7 +10126,6 @@
         - 5
         - 40
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :dementia_psychological
@@ -10418,7 +10145,6 @@
         - 5
         - 40
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :dementia_psychological
@@ -10438,7 +10164,6 @@
         - 5
         - 40
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/dementia_psychological.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :music
@@ -10457,7 +10182,6 @@
         genre_ids:
         - 19
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :music
@@ -10476,7 +10200,6 @@
         genre_ids:
         - 19
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :music
@@ -10496,7 +10219,6 @@
         genre_ids:
         - 19
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :music
@@ -10516,7 +10238,6 @@
         genre_ids:
         - 19
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/music.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :world_masterpiece_theater
@@ -10562,7 +10283,6 @@
         - 3424
         - 5494
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/world_masterpiece_theater.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :comedy
@@ -10581,7 +10301,6 @@
         genre_ids:
         - 4
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :comedy
@@ -10600,7 +10319,6 @@
         genre_ids:
         - 4
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :comedy
@@ -10620,7 +10338,6 @@
         genre_ids:
         - 4
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :comedy
@@ -10639,7 +10356,6 @@
         genre_ids:
         - 4
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/comedy.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :scifi
@@ -10659,7 +10375,6 @@
         genre_ids:
         - 24
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :scifi
@@ -10679,7 +10394,6 @@
         genre_ids:
         - 24
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :scifi
@@ -10699,7 +10413,6 @@
         genre_ids:
         - 24
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :scifi
@@ -10718,7 +10431,6 @@
         genre_ids:
         - 24
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/scifi.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sports
@@ -10737,7 +10449,6 @@
         genre_ids:
         - 30
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sports
@@ -10756,7 +10467,6 @@
         genre_ids:
         - 30
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sports
@@ -10775,7 +10485,6 @@
         genre_ids:
         - 30
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sports
@@ -10794,7 +10503,6 @@
         genre_ids:
         - 30
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sports.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :kuudere
@@ -11150,7 +10858,6 @@
         - 31080
         - 4214
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :kuudere
@@ -11506,7 +11213,6 @@
         - 31080
         - 4214
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :kuudere
@@ -11864,7 +11570,6 @@
         - 31080
         - 4214
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :oniichan
@@ -11911,7 +11616,6 @@
         - 36792
         - 36632
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fantasy
@@ -11930,7 +11634,6 @@
         genre_ids:
         - 10
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fantasy
@@ -11949,7 +11652,6 @@
         genre_ids:
         - 10
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fantasy
@@ -11968,7 +11670,6 @@
         genre_ids:
         - 10
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fantasy
@@ -11987,7 +11688,6 @@
         genre_ids:
         - 10
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fantasy.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :seinen
@@ -12008,7 +11708,6 @@
         genre_ids:
         - 42
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :seinen
@@ -12028,7 +11727,6 @@
         genre_ids:
         - 42
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :seinen
@@ -12047,7 +11745,6 @@
         genre_ids:
         - 42
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :seinen
@@ -12067,7 +11764,6 @@
         genre_ids:
         - 42
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/seinen.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :shortie
@@ -12085,7 +11781,6 @@
       :filters:
         duration_lte: 14
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :shortie
@@ -12103,7 +11798,6 @@
       :filters:
         duration_lte: 14
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :shortie
@@ -12121,7 +11815,6 @@
       :filters:
         duration_lte: 14
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :shortie
@@ -12139,7 +11832,6 @@
       :filters:
         duration_lte: 14
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/shortie.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fujoshi
@@ -12159,7 +11851,6 @@
         - 28
         - 33
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fujoshi
@@ -12180,7 +11871,6 @@
         - 28
         - 33
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fujoshi
@@ -12200,7 +11890,6 @@
         - 28
         - 33
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :fujoshi
@@ -12220,7 +11909,6 @@
         - 28
         - 33
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/fujoshi.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :space
@@ -12239,7 +11927,6 @@
         genre_ids:
         - 29
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :space
@@ -12259,7 +11946,6 @@
         genre_ids:
         - 29
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :space
@@ -12278,7 +11964,6 @@
         genre_ids:
         - 29
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :space
@@ -12298,7 +11983,6 @@
         genre_ids:
         - 29
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/space.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :action
@@ -12317,7 +12001,6 @@
         genre_ids:
         - 1
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :action
@@ -12336,7 +12019,6 @@
         genre_ids:
         - 1
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :action
@@ -12355,7 +12037,6 @@
         genre_ids:
         - 1
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :action
@@ -12374,7 +12055,6 @@
         genre_ids:
         - 1
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/action.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :tsundere
@@ -13470,7 +13150,6 @@
         - 4038
         - 7745
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :tsundere
@@ -14566,7 +14245,6 @@
         - 4038
         - 7745
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :tsundere
@@ -15662,7 +15340,6 @@
         - 4038
         - 7745
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :josei
@@ -15681,7 +15358,6 @@
         genre_ids:
         - 43
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :josei
@@ -15701,7 +15377,6 @@
         genre_ids:
         - 43
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :josei
@@ -15721,7 +15396,6 @@
         genre_ids:
         - 43
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
-    :generator: {}
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :josei
@@ -15740,4 +15414,3 @@
         genre_ids:
         - 43
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/josei.yml
-    :generator: {}
