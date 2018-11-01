@@ -1,7 +1,18 @@
 class Animes::FranchiseName
   method_object :entries, :taken_names
 
+  ALLOWED_SHORT_NAMES = %w[
+    ef
+    ga
+    k
+    mm
+    x
+    ys
+  ]
+
   def call
+    # ap extract_names(entries)
+
     present_franchise ||
       new_franchise(true) ||
       new_franchise(false)
@@ -13,7 +24,7 @@ private
     entries
       .flat_map { |v| [v.name, v.english].compact.uniq }
       .flat_map { |name| [cleanup(name, //), cleanup(name, /:.*$/), cleanup(name, /!.*$/)] }
-      .reject { |name| name.size <= 2 }
+      .select { |name| name.size > 2 || ALLOWED_SHORT_NAMES.include?(name) }
       .uniq
   end
 
@@ -45,7 +56,7 @@ private
       .downcase
       .tr(' ', '_')
       .gsub(special_regexp, '')
-      .gsub(/[^A-z]/, '_')
+      .gsub(/[^A-z1-9]/, '_')
       .gsub(/_ova\b/, '')
       .gsub(/__+/, '_')
       .gsub(/^_|_$/, '')

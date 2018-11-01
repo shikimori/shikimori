@@ -8456,7 +8456,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :yes_precure
+    :neko_id: :pretty_cure
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/595142.jpg
     :border_color: 
@@ -8468,7 +8468,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: yes_precure
+        franchise: pretty_cure
         not_anime_ids:
         - 10736
       :threshold: 92.5%
