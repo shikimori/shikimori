@@ -8309,6 +8309,9 @@
       :filters:
         franchise: school_rumble
       :threshold: 100%
+      :generator:
+        not_ignored_ids:
+        - 4015
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
