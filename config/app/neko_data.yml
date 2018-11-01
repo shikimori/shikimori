@@ -8400,7 +8400,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :aria_the_ova
+    :neko_id: :aria_the_origination
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
     :border_color: 
@@ -8412,7 +8412,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: aria_the_ova
+        franchise: aria_the_origination
         not_anime_ids:
         - 5196
       :threshold: 95.6%
