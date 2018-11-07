@@ -108,7 +108,7 @@ module Shikimori
     config.middleware.insert 0, ProxyTest if defined?(ProxyTest) # для clockwork он not defined
 
     config.middleware.use Rack::JSONP
-    config.middleware.use Rack::Attack if Rails.env.production?
+    config.middleware.use Rack::Attack# if Rails.env.production?
     # config.middleware.use LogBeforeTimeout
 
     config.middleware.insert_before 0, Rack::Cors do

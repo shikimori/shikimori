@@ -34,3 +34,9 @@ Rack::Attack.throttle('req/ip', limit: 270, period: 60.second) do |req|
     req.ip
   end
 end
+
+Rack::Attack.throttle('req/ip', limit: 3000, period: 1.day) do |req|
+  if req.url =~ %r{/video_online/}
+    req.ip
+  end
+end
