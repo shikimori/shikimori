@@ -36,7 +36,8 @@ private
     !(
       topic.broadcast? || (
         topic.is_a?(Topics::NewsTopic) &&
-          topic.linked && !topic.linked.censored? && !topic.linked.kind_music?
+        topic.linked&.respond_to?(&:anime?) &&
+        !topic.linked.censored? && !topic.linked.kind_music?
       )
     )
   end
