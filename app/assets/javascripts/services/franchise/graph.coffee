@@ -115,7 +115,7 @@ module.exports = class FranchiseGraph
         entry_2.source_id == entry_1.target_id && entry_2.target_id == entry_1.source_id
 
       if !symmetrical_link
-        console.warn 'found non symmetical link', entry_1
+        console.warn 'non symmetical link', entry_1
 
   # scale X which expected to be in [from_min..from_max] to new value in [to_min...to_max]
   _scale: (x, opt) ->
