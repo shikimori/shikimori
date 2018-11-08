@@ -19,7 +19,7 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
       Achievement.where(neko_id: old_name).update_all neko_id: new_name
     end
     Animes::UpdateFranchises.new.call(
-      Anime.where(franchise: %w[umineko_no_naku_koro_ni casshan])
+      Anime.where(franchise: %w[umineko_no_naku_koro_ni casshan pokemon])
     )
   end
 end

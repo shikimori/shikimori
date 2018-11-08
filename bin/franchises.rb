@@ -8,6 +8,10 @@ franchise_yml = "#{ENV['HOME']}/develop/neko-achievements/priv/rules/_franchises
 puts 'loading franchises...'
 raw_data = YAML.load_file(franchise_yml)
 
+# https://shikimori.org/comments/4307156
+# https://monosnap.com/file/JewdpGZ9bf63WFU2hnf6C85ah1HdIZ
+# https://monosnap.com/file/GpmxHTnn5MonPI5vVdvpudSH1Ct54l
+
 data = raw_data.dup
 
 puts 'excluding recaps...'
