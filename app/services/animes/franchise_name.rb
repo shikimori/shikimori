@@ -18,6 +18,7 @@ class Animes::FranchiseName
   }
 
   def call
+    # ap entries.map(&:id)
     # ap extract_names(entries)
 
     present_franchise ||
@@ -31,16 +32,7 @@ private
     entries
       .reject { |v| v.anime? && (v.kind_special? || v.kind_music?) }
       .flat_map { |v| [v.name, v.english].compact.uniq }
-      .flat_map do |name|
-        [
-          FIXED_NAMES[name],
-          cleanup(name, //),
-          cleanup(name, /:.*$/),
-          cleanup(name, /!.*$/),
-          cleanup(name, /(_\d+)+$/),
-          cleanup(name, /_i+$/)
-        ]
-      end
+      .flat_map { |name| multiply_names name }
       .compact
       .select { |name| name.size > 2 || ALLOWED_SHORT_NAMES.include?(name) }
       .uniq
@@ -87,5 +79,16 @@ private
     else
       entries.reject { |v| v.kind_one_shot? || v.kind_doujin? }
     end
+  end
+
+  def multiply_names name
+    [
+      FIXED_NAMES[name],
+      cleanup(name, //),
+      cleanup(name, /:.*$/),
+      cleanup(name, /!.*$/),
+      cleanup(name, /(_\d+)+$/),
+      cleanup(name, /_i+$/)
+    ]
   end
 end
