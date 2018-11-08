@@ -7241,7 +7241,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :umineko_no_naku_koro_ni
+    :neko_id: :when_they_cry
     :level: 1
     :image: http://i.imgur.com/v7pjFJ7.png
     :border_color: 
@@ -7253,7 +7253,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: umineko_no_naku_koro_ni
+        franchise: when_they_cry
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule

@@ -13,7 +13,9 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
       'snow_halation' => 'love_live',
       'force_live' => 'uta_no_prince_sama',
       'chaos_head' => 'science_adventure',
-      'fate_zero' => 'nasuverse'
+      'fate_zero' => 'nasuverse',
+      'vivid_strike' => 'mahou_shoujo_lyrical_nanoha',
+      'umineko_no_naku_koro_ni' => 'when_they_cry'
     }.each do |old_name, new_name|
       Anime.where(franchise: old_name).update_all franchise: new_name
       Achievement.where(neko_id: old_name).update_all neko_id: new_name
@@ -21,7 +23,6 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
     Animes::UpdateFranchises.new.call(
       Anime.where(
         franchise: %w[
-          umineko_no_naku_koro_ni
           casshan
           pokemon
           tenchi_muyou
