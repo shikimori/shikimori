@@ -12,7 +12,8 @@ class Animes::FranchiseName
 
   FIXED_NAMES = {
     'Initial D First Stage' => 'initial_d',
-    'Tales of the Abyss' => 'tales_of'
+    'Tales of the Abyss' => 'tales_of',
+    'ChaoS;HEAd' => 'science_adventure'
   }
 
   def call
