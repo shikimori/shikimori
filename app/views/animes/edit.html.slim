@@ -122,7 +122,10 @@
         - if @resource.franchise.present?
           li
             .field = @resource.class.human_attribute_name(:franchise)
-            .value = @resource.franchise
+            .value
+              a.b-link[
+                href=@resource.collection_url(franchise: @resource.franchise)
+              ] = @resource.franchise
 
     .c-column.m0
       ul.b-list
