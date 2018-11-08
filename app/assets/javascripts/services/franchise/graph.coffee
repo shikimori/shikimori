@@ -193,7 +193,7 @@ module.exports = class FranchiseGraph
         #.on 'mouseleave', (d) ->
           #$(@).children('text').hide()
 
-    @d3_node.append('svg:path').attr(class: 'border_outer', d: "")
+    @d3_node.append('svg:path').attr(class: 'border_outer', d: '')
     @d3_image_container = @d3_node.append('svg:g').attr(class: 'image-container')
 
     @d3_image_container.append('svg:image')
@@ -240,13 +240,15 @@ module.exports = class FranchiseGraph
         id: 'sequel', orient: 'auto'
         refX: aw, refY: aw/2, markerWidth: aw, markerHeight: aw
         stroke: '#123', fill: '#333'
-      .append('svg:polyline').attr(points: "0,0 #{aw},#{aw/2} 0,#{aw} #{aw/4},#{aw/2} 0,0")
+      .append('svg:polyline')
+      .attr(points: "0,0 #{aw},#{aw/2} 0,#{aw} #{aw/4},#{aw/2} 0,0")
     @d3_defs.append('svg:marker')
       .attr
         id: 'prequel', orient: 'auto'
         refX: 0, refY: aw/2, markerWidth: aw, markerHeight: aw
         stroke: '#123', fill: '#333'
-      .append('svg:polyline').attr(points: "#{aw},#{aw} 0,#{aw/2} #{aw},0 #{aw*3/4},#{aw/2} #{aw},#{aw}")
+      .append('svg:polyline')
+      .attr(points: "#{aw},#{aw} 0,#{aw/2} #{aw},0 #{aw*3/4},#{aw/2} #{aw},#{aw}")
 
     #@d3_svg.append('svg:defs').selectAll('marker')
         #.data(['sequel', 'prequel'])
