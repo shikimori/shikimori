@@ -12,8 +12,7 @@ class FranchiseSerializer < ActiveModel::Serializer
     object.id
   end
 
-  # rubocop:disable AbcSize, MethodLength
-  def links
+  def links # rubocop:disable AbcSize, MethodLength
     all_links
       .map do |link|
         source_index = all_entries.index { |v| v.id == link.source_id }
@@ -35,7 +34,7 @@ class FranchiseSerializer < ActiveModel::Serializer
     .compact
   end
 
-  def nodes
+  def nodes # rubocop:disable AbcSize
     all_entries.map do |entry|
       {
         id: entry.id,
@@ -49,7 +48,6 @@ class FranchiseSerializer < ActiveModel::Serializer
       }
     end
   end
-  # rubocop:enable AbcSize
 
 private
 

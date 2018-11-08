@@ -16,5 +16,6 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
       Anime.where(franchise: old_name).update_all franchise: new_name
       Achievement.where(neko_id: old_name).update_all neko_id: new_name
     end
+    Animes::UpdateFranchises.new.call Anime.where(franchise: 'casshan')
   end
 end
