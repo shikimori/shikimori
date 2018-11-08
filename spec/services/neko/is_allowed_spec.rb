@@ -27,9 +27,15 @@ describe Neko::IsAllowed do
     it { is_expected.to eq false }
   end
 
+  context 'music' do
+    let(:kind) { :music }
+    it { is_expected.to eq false }
+  end
+
   context 'allowed in NekoRule' do
     let(:status) { :anons }
     let(:franchise) { 'gundam' }
+    let(:kind) { %i[tv movie special ova].sample }
     let(:id) { 2269 }
 
     it { is_expected.to eq true }

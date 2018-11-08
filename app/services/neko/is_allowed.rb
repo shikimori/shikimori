@@ -1,5 +1,5 @@
 class Neko::IsAllowed
-  method_object :anime
+  method_object :entry
 
   EN_RECAP = [
     'recap',
@@ -23,7 +23,7 @@ class Neko::IsAllowed
 
   def call
     allowed_in_neko? || !(
-      @anime.anons? ||
+      @entry.anons? || @entry.kind_music? ||
       (special? && recap_name?)
     )
   end
@@ -31,22 +31,22 @@ class Neko::IsAllowed
 private
 
   def allowed_in_neko?
-    neko_rule.rule.dig(:generator, 'not_ignored_ids')&.include? anime.id
+    neko_rule.rule.dig(:generator, 'not_ignored_ids')&.include? entry.id
   end
 
   def neko_rule
-    NekoRepository.instance.find @anime.franchise, 1
+    NekoRepository.instance.find @entry.franchise, 1
   end
 
   def special?
-    @anime.kind_special? || @anime.kind_ova?
+    @entry.kind_special? || @entry.kind_ova?
   end
 
   def recap_name?
-    @anime.name.match?(ALL_RECAP_REGEXP) ||
-      @anime.english&.match?(EN_RECAP_REGEXP) ||
-      @anime.russian&.match?(RU_RECAP_REGEXP) ||
-      @anime.description_en&.match?(EN_RECAP_REGEXP) ||
-      @anime.description_ru&.match?(RU_RECAP_REGEXP)
+    @entry.name.match?(ALL_RECAP_REGEXP) ||
+      @entry.english&.match?(EN_RECAP_REGEXP) ||
+      @entry.russian&.match?(RU_RECAP_REGEXP) ||
+      @entry.description_en&.match?(EN_RECAP_REGEXP) ||
+      @entry.description_ru&.match?(RU_RECAP_REGEXP)
   end
 end

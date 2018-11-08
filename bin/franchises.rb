@@ -102,7 +102,7 @@ data.each do |rule|
   # end
 
   important_durations = important_titles
-    .map { |v| duration v }
+    .map { |v| Neko::Duration.call v }
     .sort
     .reverse
 
