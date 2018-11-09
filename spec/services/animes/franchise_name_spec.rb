@@ -18,7 +18,7 @@ describe Animes::FranchiseName do
 
     context 'special symbols' do
       let(:anime_1) { build_stubbed :anime, name: 'Test_123/' }
-      it { is_expected.to eq 'test' }
+      it { is_expected.to eq 'test_fo' }
     end
 
     context 'unicode symbols' do
