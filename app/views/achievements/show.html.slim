@@ -4,45 +4,46 @@ header.head.misc
   = render 'application/breadcrumbs'
 
 .p-achievements-global
-  - if @collection.first.franchise?
+  / - if @collection.first.franchise?
+  /   .block
+  /     - @collection.each do |achievement|
+  /       = render 'users/achievements/achievement',
+  /         achievement: achievement,
+  /         images: true,
+  /         status: true
+
+  /   .cc-2_3
+  /     .c-column
+  /       = render 'achievements/info',
+  /         achievements: @collection,
+  /         animes: true
+  /     .c-column
+  /       = render 'achievements/statistics', achievement: @collection.first
+  / - else
+
+  = render 'achievements/info',
+    achievements: @collection,
+    animes: true
+
+  - @collection.each do |achievement|
     .block
-      - @collection.each do |achievement|
-        = render 'users/achievements/achievement',
-          achievement: achievement,
-          images: true,
-          status: true
+      .subheadline.m10 = t '.level', level: achievement.level
 
-    .cc-2_3
-      .c-column
-        = render 'achievements/info',
-          achievements: @collection,
-          animes: true
-      .c-column
-        = render 'achievements/statistics', achievement: @collection.first
-  - else
-    = render 'achievements/info',
-      achievements: @collection,
-      animes: true
+      .cc-2
+        .c-column
+          = render 'users/achievements/achievement',
+            achievement: achievement,
+            images: true,
+            status: true
 
-    - @collection.each do |achievement|
-      .block
-        .subheadline.m10 = t '.level', level: achievement.level
+        .c-column
+          .b-entry-info
+            .line
+              .key #{t '.threshold'}:&nbsp;
+              .value = achievement.rule[:threshold]
 
-        .cc-2
-          .c-column
-            = render 'users/achievements/achievement',
-              achievement: achievement,
-              images: true,
-              status: true
-
-          .c-column
-            .b-entry-info
-              .line
-                .key #{t '.threshold'}:&nbsp;
-                .value = achievement.rule[:threshold]
-
-            .block_m
-              = render 'achievements/statistics', achievement: achievement
+          .block_m
+            = render 'achievements/statistics', achievement: achievement
 
   .block
     - if @topic_resource

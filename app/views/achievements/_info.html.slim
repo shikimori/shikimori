@@ -23,18 +23,18 @@
   .line
     .key #{t '.threshold'}:&nbsp;
     .value.thresholds
-      - if achievements.first.animes_count&.positive?
-        - if achievements.first.franchise?
-          span
+      - if achievements.first.animes_count&.positive? && !achievements.first.franchise?
+        / - if achievements.first.franchise?
+          / span
             ' #{achievements.first.rule[:threshold]} #{t '.of_duration'}
 
+        / - else
+        - if achievements.first.rule[:threshold].is_a?(String) && achievements.first.rule[:threshold].match?(/^\d+%$/)
+          - achievements.each do |achievement|
+            span = "#{achievement.rule[:threshold]} (#{(achievements.first.animes_count / 100.0 * achievement.rule[:threshold].to_i).ceil})"
         - else
-          - if achievements.first.rule[:threshold].is_a?(String) && achievements.first.rule[:threshold].match?(/^\d+%$/)
-            - achievements.each do |achievement|
-              span = "#{achievement.rule[:threshold]} (#{(achievements.first.animes_count / 100.0 * achievement.rule[:threshold].to_i).ceil})"
-          - else
-            - achievements.each do |achievement|
-              span = "#{(achievement.rule[:threshold] * 100.0 / achievements.first.animes_count).ceil(2)}% (#{achievement.rule[:threshold]})"
+          - achievements.each do |achievement|
+            span = "#{(achievement.rule[:threshold] * 100.0 / achievements.first.animes_count).ceil(2)}% (#{achievement.rule[:threshold]})"
       - else
         - achievements.each do |achievement|
           span = achievement.rule[:threshold]
