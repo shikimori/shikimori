@@ -47,15 +47,21 @@ describe Neko::Apply do
         Neko::AchievementData.new(
           user_id: user.id,
           neko_id: Types::Achievement::NekoId[:test],
+          level: 0,
+          progress: 0
+        ),
+        Neko::AchievementData.new(
+          user_id: user.id,
+          neko_id: Types::Achievement::NekoId[:test],
           level: 1,
           progress: 0
         )
       ]
     end
     it do
-      expect { subject }.to change(Achievement, :count).by 1
-      expect(user.achievements.last).to have_attributes added[0].to_h.except(:neko_id)
-      expect(user.achievements.last.neko_id).to eq added[0].neko_id
+      expect { subject }.to change(Achievement, :count).by 2
+      expect(user.achievements.last).to have_attributes added[1].to_h.except(:neko_id)
+      expect(user.achievements.last.neko_id).to eq added[1].neko_id
       expect(user).to have_received :touch
 
       expect(faye_publisher)

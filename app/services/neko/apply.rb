@@ -75,17 +75,19 @@ private
   end
 
   def faye_data achievements_data, event
-    achievements_data.map do |achivement_data|
-      neko = NekoRepository.instance.find achivement_data[:neko_id], achivement_data[:level]
+    achievements_data
+      .reject { |achivement_data| achivement_data[:level].zero? }
+      .map do |achivement_data|
+        neko = NekoRepository.instance.find achivement_data[:neko_id], achivement_data[:level]
 
-      {
-        neko_id: neko.neko_id,
-        label: neko.title,
-        level: (neko.level unless neko.franchise?),
-        image: neko.image,
-        event: event
-      }
-    end
+        {
+          neko_id: neko.neko_id,
+          label: neko.title,
+          level: (neko.level unless neko.franchise?),
+          image: neko.image,
+          event: event
+        }
+      end
   end
 
   def faye_publisher
