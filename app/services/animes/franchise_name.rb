@@ -14,7 +14,8 @@ class Animes::FranchiseName
     'Initial D First Stage' => 'initial_d',
     'Tales of the Abyss' => 'tales_of',
     'ChaoS;HEAd' => 'science_adventure',
-    'Fate/Zero' => 'nasuverse'
+    'Fate/Zero' => 'nasuverse',
+    'The iDOLM@STER' => 'idolmaster'
   }
 
   def call

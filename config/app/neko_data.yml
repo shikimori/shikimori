@@ -9677,7 +9677,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :puchimas
+    :neko_id: :idolmaster
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/588509.jpg
     :border_color: 
@@ -9689,12 +9689,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: puchimas
+        franchise: idolmaster
       :threshold: 87.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :puchimas
+    :neko_id: :idolmaster
     :level: 0
     :image: https://dere.shikimori.org/system/user_images/original/84020/588509.jpg
     :border_color: 
@@ -9706,7 +9706,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: puchimas
+        franchise: idolmaster
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
