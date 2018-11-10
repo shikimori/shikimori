@@ -116,7 +116,9 @@ class Neko::Rule < Dry::Struct
     scope = Animes::NekoScope.call
     return scope unless rule[:filters]
 
-    scope.where! id: rule[:filters]['anime_ids'] if rule[:filters]['anime_ids']
+    if rule[:filters]['anime_ids']
+      scope.where! id: rule[:filters]['anime_ids']
+    end
 
     if rule[:filters]['not_anime_ids']
       scope = scope.where.not id: rule[:filters]['not_anime_ids']
@@ -152,24 +154,12 @@ class Neko::Rule < Dry::Struct
     @statistics ||= Achievements::Statistics.call neko_id, level
   end
 
-  def spent_time user # rubocop:disable AbcSize
-    animes = animes_scope.to_a
-
-    user_time = user
-      .anime_rates
-      .where(target_id: animes.map(&:id))
-      .where(status: %i[completed rewatching watching])
-      .sum do |user_rate|
-        anime = animes.find { |v| v.id == user_rate.target_id }
-
-        user_rate.watching? ?
-          anime.duration * user_rate.episodes :
-          Neko::Duration.call(anime)
-      end
-
-    franchise_time = animes_scope.sum { |anime| Neko::Duration.call anime }
-
-    "#{(user_time * 100.0 / franchise_time).floor(2)}%".gsub(/\0%/, '%')
+  def completed_percent user
+    if rule[:filters]
+      "#{franchise? ? franchise_percent(user) : common_percent(user)}%".gsub(/\0%/, '%')
+    else
+      common_amount user
+    end
   end
 
 private
@@ -189,5 +179,44 @@ private
     I18n.t 'achievements.hint.default',
       neko_name: neko_name,
       level: level
+  end
+
+  def franchise_percent user
+    animes = animes_scope.to_a
+
+    user_time = anime_rates(user, true)
+      .where(target_id: animes.map(&:id))
+      .sum do |user_rate|
+        anime = animes.find { |v| v.id == user_rate.target_id }
+
+        user_rate.watching? ?
+          anime.duration * user_rate.episodes :
+          Neko::Duration.call(anime)
+      end
+
+    franchise_time = animes_scope.sum { |anime| Neko::Duration.call anime }
+
+    (user_time * 100.0 / franchise_time).floor(2)
+  end
+
+  def common_percent user
+    scope = anime_rates(user, false).where(target_id: animes_scope)
+
+    (scope.count * 100.0 / animes_count).floor(2)
+  end
+
+  def common_amount user
+    anime_rates(user, false).count
+  end
+
+  def anime_rates user, is_add_watching
+    statuses =
+      if is_add_watching
+        %i[completed rewatching watching]
+      else
+        %i[completed rewatching]
+      end
+
+    user.anime_rates.where(status: statuses)
   end
 end
