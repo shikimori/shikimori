@@ -128,24 +128,47 @@ data.each do |rule|
   end
 end
 
-if data.any? && data.size == raw_data.size
+puts 'generating 0 levels...'
+data = data.reject { |rule| rule['level'] == 0 }
+
+franchises_index = data
+  .select { |rule| rule['level'] == 1 }
+  .map { |rule| rule['filters']['franchise'] }
+
+data
+  .select { |rule| rule['filters']['franchise'].present? }
+  .select { |rule| rule['level'] == 1 }
+  .each do |rule|
+    data.push rule.dup.merge('level' => 0, 'threshold' => 0.01)
+  end
+
+data = data.sort_by do |rule|
+  [franchises_index.index(rule['filters']['franchise']), -rule['level']]
+end
+
+if data.any? && data.size >= raw_data.size
   File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
-  puts "\n" + data.map { |v| v['filters']['franchise'] }.join(' ')
+  puts "\n" + data.map { |v| v['filters']['franchise'] }.uniq.join(' ')
+else
+  raise 'invalid data'
 end
 
 begin
   puts "\nsorting by popularity...\n"
   data = data
-    .sort_by do |v|
-        Anime
-        .where(franchise: v['filters']['franchise'], status: 'released')
-        .sum { |v| v.rates.where(status: %i[completed rewatching]).size }
-    end
-    .reverse
+    .sort_by do |rule|
+      popularity = Anime
+        .where(franchise: rule['filters']['franchise'], status: 'released')
+        .sum { |anime| anime.rates.where(status: %i[completed rewatching]).size }
 
-  if data.any? && data.size == raw_data.size
+      [-popularity, -rule['level']]
+    end
+
+  if data.any? && data.size >= raw_data.size
     File.open(franchise_yml, 'w') { |f| f.write data.to_yaml }
-    puts data.map { |v| v['filters']['franchise'] }.join(' ')
+    puts data.map { |v| v['filters']['franchise'] }.uniq.join(' ')
+  else
+    raise 'invalid data'
   end
 rescue Interrupt
 end

@@ -30,7 +30,7 @@ describe Neko::Episodes do
     end
   end
 
-  context 'released', :focus do
+  context 'released' do
     let(:episodes_aired) { 999 }
     it { is_expected.to eq 10 }
   end
