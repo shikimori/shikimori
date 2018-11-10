@@ -48,7 +48,8 @@
     = spoiler t('.show_anime_list') do
       - cache achievements.first.animes_scope.cache_key do
         .hide-expanded = t '.hide'
-        .cc-8.user_rates-minified
+        / .cc-8.user_rates-minified
+        .cc-8
           = render partial: 'animes/anime',
             collection: achievements.first.animes_scope.decorate,
             locals: { cover_notice: :year_kind },
