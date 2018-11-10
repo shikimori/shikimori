@@ -6,7 +6,7 @@
           = achievement.title
           - if local_assigns[:status] && user_signed_in?
             .status
-              = achievement.spent_time(current_user)
+              span = achievement.spent_time(current_user)
               - if current_user.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
                 .gained ✓
 
@@ -36,7 +36,8 @@
           = achievement.title
           - if local_assigns[:status]
             - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
-              .gained ✓
+              .status
+                .gained ✓
 
       - else
         a.title href=achievement_url(achievement.group, achievement.neko_id)
