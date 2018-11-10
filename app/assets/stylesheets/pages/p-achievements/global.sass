@@ -1,13 +1,23 @@
+@import mixins/brackets_surrounded
 @import mixins/column
 @import mixins/comma_separated
+@import mixins/shikimori
 
 .p-achievements .p-achievements-global
   .b-badge
     max-width: 135px
 
   .b-entry-info
-    .value.thresholds span
-      +comma_separated
+    .value.thresholds
+      & > span
+        +comma_separated
+
+        .gained
+          +brackets_surrounded
+          +shikimori
+          color: $green-check
+          display: inline-block
+          margin-left: 5px
 
 .p-achievements-index .p-achievements-global
   .level

@@ -26,13 +26,23 @@
       - if achievements.first.animes_count&.positive? && !achievements.first.franchise?
         - if achievements.first.rule[:threshold].is_a?(String) && achievements.first.rule[:threshold].match?(/^\d+%$/)
           - achievements.each do |achievement|
-            span = "#{achievement.rule[:threshold]} (#{(achievements.first.animes_count / 100.0 * achievement.rule[:threshold].to_i).ceil})"
+            span
+              = "#{achievement.rule[:threshold]} (#{(achievements.first.animes_count / 100.0 * achievement.rule[:threshold].to_i).ceil})"
+              - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
+                .gained ✓
+
         - else
           - achievements.each do |achievement|
-            span = "#{(achievement.rule[:threshold] * 100.0 / achievements.first.animes_count).ceil(2)}% (#{achievement.rule[:threshold]})"
+            span
+              = "#{(achievement.rule[:threshold] * 100.0 / achievements.first.animes_count).ceil(2)}% (#{achievement.rule[:threshold]})"
+              - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
+                .gained ✓
       - else
         - achievements.each do |achievement|
-          span = achievement.rule[:threshold]
+          span
+            = achievement.rule[:threshold]
+            - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
+              .gained ✓
 
       - if achievements.first.franchise?
         |  #{t '.of_duration'}

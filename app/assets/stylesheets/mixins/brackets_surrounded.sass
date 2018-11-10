@@ -1,6 +1,6 @@
 @import globals/variables
 
-=brackets_surrounded($color: $gray-1)
+=brackets_surrounded($color: $gray-1, $padding: 1px)
   display: inline-block
   white-space: normal
 
@@ -11,10 +11,10 @@
 
   &:before
     content: '('
-    padding-right: 1px
+    padding-right: $padding
     float: left
 
   &:after
     content: ')'
-    padding-left: 1px
+    padding-left: $padding
     float: right

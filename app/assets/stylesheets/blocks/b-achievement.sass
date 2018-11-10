@@ -79,21 +79,13 @@
       display: block
 
       .gained
-        +brackets_surrounded
+        +brackets_surrounded($gray, 2px)
         +shikimori
-        color: #123
         color: $green-check
-        display: inline-block
         display: inline-block
         font-size: 13px
         font-weight: normal
         margin-left: 7px
-
-        &:before
-          padding-right: 2px
-
-        &:after
-          padding-left: 2px
 
       //.level
         //+brackets_surrounded
