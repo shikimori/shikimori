@@ -78,28 +78,22 @@
       margin-top: -5px
       display: block
 
-      .status
+      .gained
         +brackets_surrounded
+        +shikimori
         color: #123
+        color: $green-check
+        display: inline-block
+        display: inline-block
         font-size: 13px
         font-weight: normal
         margin-left: 7px
-        display: inline-block
 
         &:before
           padding-right: 2px
 
         &:after
           padding-left: 2px
-
-        .gained
-          +shikimori
-          color: $green-check
-          display: inline-block
-          padding-left: 5px
-
-          &:first-child:last-child
-            padding-left: 0
 
       //.level
         //+brackets_surrounded

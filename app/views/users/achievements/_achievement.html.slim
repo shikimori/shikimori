@@ -5,10 +5,8 @@
         .title
           = achievement.title
           - if local_assigns[:status] && user_signed_in?
-            .status
-              span = achievement.spent_time(current_user)
-              - if current_user.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
-                .gained ✓
+            - if current_user.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
+              .gained ✓
 
         - achievement.images.each do |image|
           a.b-badge[
@@ -36,8 +34,7 @@
           = achievement.title
           - if local_assigns[:status]
             - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
-              .status
-                .gained ✓
+              .gained ✓
 
       - else
         a.title href=achievement_url(achievement.group, achievement.neko_id)

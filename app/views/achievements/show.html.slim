@@ -1,6 +1,7 @@
 header.head.misc
   h1
     = og.headline
+    |  (#{@collection.first.spent_time(current_user)})
   = render 'application/breadcrumbs'
 
 .p-achievements-global
