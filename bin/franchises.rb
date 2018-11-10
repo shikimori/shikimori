@@ -30,103 +30,105 @@ data.each do |rule|
   end
 end
 
-# data = data.select { |v| v['filters']['franchise'] == 'shakugan_no_shana' }
+  # data = data.select { |v| v['filters']['franchise'] == 'shakugan_no_shana' }
 
 puts 'generating thresholds...'
-data.each do |rule|
-  franchise = Anime.where(franchise: rule['filters']['franchise'])
-  if rule['filters']['not_anime_ids'].present?
-    franchise = franchise.where.not(id: rule['filters']['not_anime_ids'])
-  end
-  franchise = franchise.reject(&:anons?)
+data
+  .select { |rule| rule['level'] == 1 }
+  .each do |rule|
+    franchise = Anime.where(franchise: rule['filters']['franchise'])
+    if rule['filters']['not_anime_ids'].present?
+      franchise = franchise.where.not(id: rule['filters']['not_anime_ids'])
+    end
+    franchise = franchise.reject(&:anons?)
 
-  ova = franchise.select(&:kind_ova?)
-  long_specials = franchise
-    .select(&:kind_special?)
-    .select { |v| v.duration >= 22 }
-  short_specials = franchise
-    .select(&:kind_special?)
-    .select { |v| v.duration < 22 && v.duration > 5 }
-  mini_specials = (franchise.select(&:kind_special?) + franchise.select(&:kind_ona?))
-    .select { |v| v.duration <= 5 }
+    ova = franchise.select(&:kind_ova?)
+    long_specials = franchise
+      .select(&:kind_special?)
+      .select { |v| v.duration >= 22 }
+    short_specials = franchise
+      .select(&:kind_special?)
+      .select { |v| v.duration < 22 && v.duration > 5 }
+    mini_specials = (franchise.select(&:kind_special?) + franchise.select(&:kind_ona?))
+      .select { |v| v.duration <= 5 }
 
-  important_titles = franchise.reject(&:kind_special?)
+    important_titles = franchise.reject(&:kind_special?)
 
-  total_duration = franchise.sum { |v| Neko::Duration.call v }
-  ova_duration = ova.sum { |v| Neko::Duration.call v }
-  long_specials_duration = long_specials.sum { |v| Neko::Duration.call v }
-  short_specials_duration = short_specials.sum { |v| Neko::Duration.call v }
-  mini_specials_duration = mini_specials.sum { |v| Neko::Duration.call v }
+    total_duration = franchise.sum { |v| Neko::Duration.call v }
+    ova_duration = ova.sum { |v| Neko::Duration.call v }
+    long_specials_duration = long_specials.sum { |v| Neko::Duration.call v }
+    short_specials_duration = short_specials.sum { |v| Neko::Duration.call v }
+    mini_specials_duration = mini_specials.sum { |v| Neko::Duration.call v }
 
-  ova_duration_subtract =
-    if ova_duration * 1.0 / total_duration <= 0.1 && franchise.size > 5 && ova.size > 2
-      ova_duration / 2
-    else
-      0
+    ova_duration_subtract =
+      if ova_duration * 1.0 / total_duration <= 0.1 && franchise.size > 5 && ova.size > 2
+        ova_duration / 2
+      else
+        0
+      end
+
+    long_specials_duration_subtract =
+      if long_specials_duration * 1.0 / total_duration <= 0.1
+        (long_specials.size > 2 ? long_specials_duration / 2.0 : long_specials_duration)
+      else
+        0
+      end
+
+    short_specials_duration_subtract = short_specials.size <= 3 ? short_specials_duration : short_specials_duration / 2.0
+
+    formula_threshold = (
+      total_duration -
+      ova_duration_subtract -
+      long_specials_duration_subtract -
+      short_specials_duration_subtract -
+      mini_specials_duration
+    ) * 100.0 / total_duration
+
+    if total_duration > 30_000
+      formula_threshold = [60, formula_threshold].min
+    elsif total_duration > 20_000
+      formula_threshold = [70, formula_threshold].min
+    elsif total_duration > 10_000
+      formula_threshold = [80, formula_threshold].min
+    elsif total_duration > 5_000
+      formula_threshold = [90, formula_threshold].min
     end
 
-  long_specials_duration_subtract =
-    if long_specials_duration * 1.0 / total_duration <= 0.1
-      (long_specials.size > 2 ? long_specials_duration / 2.0 : long_specials_duration)
-    else
-      0
+    if franchise.size >= 7 || total_duration > 2_000
+      formula_threshold = [95, formula_threshold].min
     end
 
-  short_specials_duration_subtract = short_specials.size <= 3 ? short_specials_duration : short_specials_duration / 2.0
+    # animes_with_year = franchise.reject(&:kind_special?).select(&:year)
+    # average_year = animes_with_year.sum(&:year) * 1.0 / animes_with_year.size
+    # if average_year < 1987
+    #   formula_threshold -= 15
+    # elsif average_year < 1991
+    #   formula_threshold -= 10
+    # elsif average_year < 1996
+    #   formula_threshold -= 5
+    # end
 
-  formula_threshold = (
-    total_duration -
-    ova_duration_subtract -
-    long_specials_duration_subtract -
-    short_specials_duration_subtract -
-    mini_specials_duration
-  ) * 100.0 / total_duration
+    important_durations = important_titles
+      .map { |v| Neko::Duration.call v }
+      .sort
+      .reverse
 
-  if total_duration > 30_000
-    formula_threshold = [60, formula_threshold].min
-  elsif total_duration > 20_000
-    formula_threshold = [70, formula_threshold].min
-  elsif total_duration > 10_000
-    formula_threshold = [80, formula_threshold].min
-  elsif total_duration > 5_000
-    formula_threshold = [90, formula_threshold].min
+    important_duration = important_durations[0..[(important_titles.size * 0.4).round, 3].max].sum
+    important_threshold = important_duration * 100.0 / total_duration
+
+    threshold = [important_threshold, formula_threshold].max
+
+    current_threshold = rule['threshold'].to_s.gsub('%', '').to_f
+    new_threshold = threshold.floor(1)
+
+    if current_threshold != new_threshold
+      ap(
+        franchise: rule['filters']['franchise'],
+        threshold: "#{current_threshold} -> #{new_threshold}"
+      )
+      rule['threshold'] = "#{new_threshold}%".gsub(/\.0%$/, '%')
+    end
   end
-
-  if franchise.size >= 7 || total_duration > 2_000
-    formula_threshold = [95, formula_threshold].min
-  end
-
-  # animes_with_year = franchise.reject(&:kind_special?).select(&:year)
-  # average_year = animes_with_year.sum(&:year) * 1.0 / animes_with_year.size
-  # if average_year < 1987
-  #   formula_threshold -= 15
-  # elsif average_year < 1991
-  #   formula_threshold -= 10
-  # elsif average_year < 1996
-  #   formula_threshold -= 5
-  # end
-
-  important_durations = important_titles
-    .map { |v| Neko::Duration.call v }
-    .sort
-    .reverse
-
-  important_duration = important_durations[0..[(important_titles.size * 0.4).round, 3].max].sum
-  important_threshold = important_duration * 100.0 / total_duration
-
-  threshold = [important_threshold, formula_threshold].max
-
-  current_threshold = rule['threshold'].gsub('%', '').to_f
-  new_threshold = threshold.floor(1)
-
-  if current_threshold != new_threshold
-    ap(
-      franchise: rule['filters']['franchise'],
-      threshold: "#{current_threshold} -> #{new_threshold}"
-    )
-    rule['threshold'] = "#{new_threshold}%".gsub(/\.0%$/, '%')
-  end
-end
 
 puts 'generating 0 levels...'
 data = data.reject { |rule| rule['level'] == 0 }
@@ -139,7 +141,7 @@ data
   .select { |rule| rule['filters']['franchise'].present? }
   .select { |rule| rule['level'] == 1 }
   .each do |rule|
-    data.push rule.dup.merge('level' => 0, 'threshold' => 0.01)
+    data.push rule.dup.merge('level' => 0, 'threshold' => '0.01%')
   end
 
 data = data.sort_by do |rule|
