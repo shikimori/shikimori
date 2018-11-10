@@ -22,7 +22,7 @@ header.head
                     no_badge: true
                 .c-column
                   = render 'achievements/statistics',
-                    achievement: achievements.first,
+                    achievement: achievements.find { |v| v.level == 1 },
                     hide_title: true
 
               = render 'achievements/info', achievements: achievements
