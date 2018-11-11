@@ -142,6 +142,8 @@ $(document).on('page:restore', (_e, _isDomContentLoaded) => {
   $(document.body).process();
   // need to reset style of HTML because it can be set to 'overflow: hidden' by magnificPopup
   $('html').attr('style', null);
+  // need to remove old tooltips
+  $('.tipsy').remove();
 });
 
 $(document).on('page:load', (_e, _isDomContentLoaded) => {
