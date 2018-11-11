@@ -1,9 +1,9 @@
 = render layout: 'page' do
   .b-options-floated
-    | #{@view.franchise_achievements.size} / #{@view.all_franchise_achievements.size}
+    | #{@view.franchise_achievements_count.size} / #{@view.all_franchise_achievements.size}
   h2.subheadline.m10 = og.headline
   .cc
     - @view.all_franchise_achievements.each do |achievement|
       = render 'users/achievements/achievement',
-        achievement: achievement,
+        achievement: @view.franchise_achievements.find { |v| v.neko_id == achievement.neko_id } || achievement,
         unavailable: @view.franchise_achievements.none? { |v| v.neko_id == achievement.neko_id }

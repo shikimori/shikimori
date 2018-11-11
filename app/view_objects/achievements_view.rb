@@ -27,7 +27,7 @@ class AchievementsView < ViewObjectBase
   end
 
   def all_franchise_achievements
-    NekoRepository.instance.select(&:franchise?)
+    NekoRepository.instance.select(&:franchise?).select { |v| v.level.zero? }
   end
 
   def missing_franchise_achievements
