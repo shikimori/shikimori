@@ -1,33 +1,31 @@
 class String
-  RussianRange = ("А".ord)..("я".ord)
+  RussianRange = ('А'.ord)..('я'.ord)
 
   def keywords
-    self
-      .downcase
-      .gsub(/ (?: 's | : ) ( \b | $ | [ ] ) /xi, ' ')
-      .gsub('&dagger;', '') #.gsub(/\.[A-zА-я0-9]+$/, '') # не знаю, для чего эта строка #.gsub(/^(\w+)\.(\w+)$/, '\1 \2')
-      .gsub('!', 'EXCM')
-      .gsub('?', 'QUEM')
-      .gsub('QUEM', '?')
-      .gsub('EXCM', '!')
-      .gsub(/\d+x\d+|\d+/, '')
-      .gsub(/~/, ' ')
-      .gsub(/ +/, ' ')
-      .gsub(/\b(?:the|for|in|by|to|[A-zА-я0-9])\b/, '')
-      .strip
-      .split(' ')
-      .uniq
-      .select {|v| v.length > 1 }
+    downcase
+    .gsub(/ (?: 's | : ) ( \b | $ | [ ] ) /xi, ' ')
+    .gsub('&dagger;', '') # .gsub(/\.[A-zА-я0-9]+$/, '') # не знаю, для чего эта строка #.gsub(/^(\w+)\.(\w+)$/, '\1 \2')
+    .gsub('!', 'EXCM')
+    .gsub('?', 'QUEM')
+    .gsub('QUEM', '?')
+    .gsub('EXCM', '!')
+    .gsub(/\d+x\d+|\d+/, '')
+    .tr('~', ' ')
+    .gsub(/ +/, ' ')
+    .gsub(/\b(?:the|for|in|by|to|[A-zА-я0-9])\b/, '')
+    .strip
+    .split(' ')
+    .uniq
+    .select { |v| v.length > 1 }
   end
 
   def specials
-    self
-      .downcase
-      .gsub(/\b(ova|specials|ona|prologue|epilogue|picture)\b|(?!\bova\b|\bspecials\b|\bona\b|\bprologue\b|\bepilogue\b|\bpicture\b)./, '\1 ')
-      .gsub(/^ +| +$/, '')
-      .gsub(/ +/, ' ')
-      .split(' ')
-      .uniq
+    downcase
+    .gsub(/\b(ova|specials|ona|prologue|epilogue|picture)\b|(?!\bova\b|\bspecials\b|\bona\b|\bprologue\b|\bepilogue\b|\bpicture\b)./, '\1 ')
+    .gsub(/^ +| +$/, '')
+    .gsub(/ +/, ' ')
+    .split(' ')
+    .uniq
   end
 
   # no need in ruby 2.4
@@ -54,41 +52,41 @@ class String
   # end
 
   def first_upcase
-    Unicode.upcase(self.slice 0,1) + self.slice(1..-1)
+    Unicode.upcase(slice(0, 1)) + slice(1..-1)
   end
 
   def first_downcase
-    Unicode.downcase(self.slice 0,1) + self.slice(1..-1)
+    Unicode.downcase(slice(0, 1)) + slice(1..-1)
   end
 
   def to_underscore
-    self.gsub(/(.)([A-Z])/, '\1_\2').downcase
+    gsub(/(.)([A-Z])/, '\1_\2').downcase
   end
 
   # нормализация японского названия
   def cleanup_japanese
-    self.gsub('=', '＝').gsub(/･|·/, '・').gsub(/「|」/, '').gsub(/　/, ' ')
+    tr('=', '＝').gsub(/･|·/, '・').gsub(/「|」/, '').gsub(/　/, ' ')
   end
 
   # восстанвление кривой раскладки
   def broken_translit
     result = []
-    self.each_char {|v|
-       result << (BrokenTranslit.include?(v.downcase) ? BrokenTranslit[v.downcase] : v)
-    }
+    each_char do |v|
+      result << (BROKEN_TRANSLIT.include?(v.downcase) ? BROKEN_TRANSLIT[v.downcase] : v)
+    end
     result.join('')
   end
 
   # привод кривой строки в валидное состояние
-  def fix_encoding encoding=nil, dont_unpack=false
+  def fix_encoding encoding = nil, dont_unpack = false
     result = frozen? ? String.new(self) : self
     encoding ||= 'utf-8'
 
-    if result.encoding.name == "ASCII-8BIT"
+    if result.encoding.name == 'ASCII-8BIT'
       result = result.force_encoding encoding
     end
 
-    unless result.encoding.name == "UTF-8"
+    unless result.encoding.name == 'UTF-8'
       result = result.encode encoding
     end
 
@@ -109,7 +107,7 @@ class String
   # японский ли текст?
   def contains_cjkv?
     each_char do |ch|
-      return true if CJKV_RANGES.any? {|range| range.cover? ch.unpack('H*').first.hex }
+      return true if CJKV_RANGES.any? { |range| range.cover? ch.unpack1('H*').hex }
     end
     false
   end
@@ -121,7 +119,6 @@ class String
       matched += 1 if RussianRange.cover?(char.ord) || char == ' '
     end
     matched >= size / 2
-
   rescue ArgumentError
     false
   end
@@ -132,17 +129,17 @@ class String
       .gsub(/&#\d{4};/, '-')
       .gsub(/[^A-zА-я0-9]/, '-')
       .gsub(/[\]\[_-]+/, '-')
-      .gsub('Ä', 'A')
+      .tr('Ä', 'A')
       .gsub(/^-|-$|[`'"]|\[|\]/, '')
       .downcase
       .parameterize
   end
 
   def pretext?
-    self =~ Pretext
+    self =~ PRETEXT_REGEXP
   end
 
-  BrokenTranslit = {
+  BROKEN_TRANSLIT = {
     'q' => 'й',
     'w' => 'ц',
     'e' => 'у',
@@ -178,24 +175,24 @@ class String
   }.invert
 
   CJKV_RANGES = [
-      (0xe2ba80..0xe2bbbf),
-      (0xe2bfb0..0xe2bfbf),
-      (0xe38080..0xe380bf),
-      (0xe38180..0xe383bf),
-      (0xe38480..0xe386bf),
-      (0xe38780..0xe387bf),
-      (0xe38880..0xe38bbf),
-      (0xe38c80..0xe38fbf),
-      (0xe39080..0xe4b6bf),
-      (0xe4b780..0xe4b7bf),
-      (0xe4b880..0xe9bfbf),
-      (0xea8080..0xea98bf),
-      (0xeaa080..0xeaaebf),
-      (0xeaaf80..0xefbfbf),
+    (0xe2ba80..0xe2bbbf),
+    (0xe2bfb0..0xe2bfbf),
+    (0xe38080..0xe380bf),
+    (0xe38180..0xe383bf),
+    (0xe38480..0xe386bf),
+    (0xe38780..0xe387bf),
+    (0xe38880..0xe38bbf),
+    (0xe38c80..0xe38fbf),
+    (0xe39080..0xe4b6bf),
+    (0xe4b780..0xe4b7bf),
+    (0xe4b880..0xe9bfbf),
+    (0xea8080..0xea98bf),
+    (0xeaa080..0xeaaebf),
+    (0xeaaf80..0xefbfbf)
   ]
 
   # регексп для определения предлог ли слово?
-  Pretext = /
+  PRETEXT_REGEXP = /
     ^
       (?:
         [Бб]ез |
