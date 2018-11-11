@@ -12,6 +12,7 @@
           a.b-badge[
             class="level-#{achievement.level}"
             href=animes_collection_url(achievement: achievement.neko_id)
+            data-progress=achievement.progress
           ]
             = image_tag image
   - else
@@ -21,6 +22,7 @@
       href=achievement_url(achievement.group, achievement.neko_id)
       data-direction='top'
       data-tipsy-size='large'
+      data-progress=achievement.progress
     ]
       - if achievement.image.present?
         = image_tag achievement.image
@@ -28,7 +30,9 @@
         .no-image
 
 - else
-  .b-achievement
+  .b-achievement[
+    data-progress=achievement.progress
+  ]
     .c-about
       - if local_assigns[:images] && !local_assigns[:info_link]
         .title
