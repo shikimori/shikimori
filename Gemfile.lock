@@ -84,7 +84,7 @@ GIT
 
 GIT
   remote: https://github.com/toptal/chewy.git
-  revision: 56af09ff38a9aaecf3adce0de030b28f26a5452f
+  revision: cb1bb3efb1bd8a31e7e31add6072189cb1f4f01b
   branch: master
   specs:
     chewy (5.0.0)
@@ -230,7 +230,7 @@ GEM
       safe_yaml (~> 1.0.0)
     crass (1.0.4)
     daemons (1.2.6)
-    dalli (2.7.8)
+    dalli (2.7.9)
     database_cleaner (1.7.0)
     debug_inspector (0.0.3)
     devise (4.5.0)
@@ -387,7 +387,7 @@ GEM
     ice_cube (0.16.3)
     ice_nine (0.11.2)
     jaro_winkler (1.5.1)
-    jbuilder (2.7.0)
+    jbuilder (2.8.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     json (2.1.0)
@@ -440,7 +440,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (5.0.2)
-    newrelic_rpm (5.4.0.347)
+    newrelic_rpm (5.5.0.348)
     nio4r (2.3.1)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
@@ -613,19 +613,18 @@ GEM
     ruby_parser (3.11.0)
       sexp_processor (~> 4.9)
     safe_yaml (1.0.4)
-    sass (3.6.0)
+    sass (3.7.2)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sassc (1.12.1)
+    sassc (2.0.0)
       ffi (~> 1.9.6)
-      sass (>= 3.3.0)
-    sassc-rails (1.3.0)
+      rake
+    sassc-rails (2.0.0)
       railties (>= 4.0.0)
-      sass
-      sassc (~> 1.9)
-      sprockets (> 2.11)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
       sprockets-rails
       tilt
     scout_apm (2.4.20)
@@ -683,7 +682,7 @@ GEM
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
       rack (>= 1, < 3)
-    thor (0.20.0)
+    thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
