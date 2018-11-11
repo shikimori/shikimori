@@ -1,9 +1,11 @@
 .block
   .midheadline.m10
     | Franchises
-    - if @minimum_duration != controller.class::DEFAULT_MINIMUM_DURATION || @minimum_titles != controller.class::DEFAULT_MINIMUM_TITLES
+    - if @minimum_duration != controller.class::DEFAULT_MINIMUM_DURATION || @minimum_titles != controller.class::DEFAULT_MINIMUM_TITLES || @minimum_user_rates != controller.class::DEFAULT_MINIMUM_USER_RATES
       .misc-links
-        a.b-link href=current_url(minimum_duration: nil, minimum_titles: nil) reset
+        a.b-link[
+          href=current_url(minimum_duration: nil, minimum_titles: nil, minimum_user_rates: nil)
+        ] reset
 
   form.b-form method="get"
     .b-input
@@ -13,6 +15,10 @@
     .b-input
       label Minimum Duration
       input name="minimum_duration" value=@minimum_duration
+
+    .b-input
+      label Minimum User Rates
+      input name="minimum_user_rates" value=@minimum_user_rates
 
     input type="submit" value="Submit"
 
@@ -28,9 +34,10 @@
             a href=animes_collection_url(franchise: franchise)
               = franchise.titleize
             - if NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE
-              .matched ✓
+              .matched
+                a href=fr ✓
             .infos
-              - infos.each do |info|
+              - infos.each do |_key, info|
                 .info
                   span.b-tooltipped.unprocessed[
                     data-direction='top'
@@ -49,7 +56,7 @@
             - if NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE
               .not-matched ✕
             .infos
-              - infos.each do |info|
+              - infos.each do |_key, info|
                 .info
                   span.b-tooltipped.unprocessed[
                     data-direction='top'
