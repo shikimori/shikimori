@@ -9440,6 +9440,8 @@
         franchise: garo
         not_anime_ids:
         - 37032
+        - 33846
+        - 34613
       :threshold: 94.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9459,6 +9461,8 @@
         franchise: garo
         not_anime_ids:
         - 37032
+        - 33846
+        - 34613
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
