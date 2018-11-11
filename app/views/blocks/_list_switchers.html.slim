@@ -2,8 +2,8 @@
   - values.each do |value|
     span.switcher.b-tooltipped.unprocessed[
       class="#{value} #{:selected if cookies[name] == value || (!cookies[name] && value == values.first)}"
-      title="#{t ".#{value}"}"
-      data-name="#{name}"
-      data-value="#{value}"
+      title=t(".#{value}")
+      data-name=name
+      data-value=value
       data-direction="top"
     ]

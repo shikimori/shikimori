@@ -19,21 +19,25 @@ class AchievementsView < ViewObjectBase
   def franchise_achievements
     user_achievements
       .select(&:franchise?)
-      .sort_by { |v| [v.level.zero? ? 1 : 0] + v.sort_criteria }
+      .sort_by { |rule| [rule.level.zero? ? 1 : 0] + franchise_sort_criteria(rule) }
   end
 
   def franchise_achievements_count
-    franchise_achievements.select { |v| v.level == 1 }.size
+    franchise_achievements.select { |rule| rule.level == 1 }.size
   end
 
   def all_franchise_achievements
-    NekoRepository.instance.select(&:franchise?).select { |v| v.level.zero? }
+    NekoRepository
+      .instance
+      .select(&:franchise?)
+      .select { |rule| rule.level.zero? }
+      .sort_by { |rule| franchise_sort_criteria rule }
   end
 
   def missing_franchise_achievements
     all_franchise_achievements
-      .reject { |v| franchise_achievements.map(&:neko_id).include? v.neko_id }
-      .select { |v| v.level.zero? }
+      .reject { |rule| franchise_achievements.map(&:neko_id).include? rule.neko_id }
+      .select { |rule| rule.level.zero? }
       .take(
         missing_franchise_achievements_count(
           genre_achievements.size, franchise_achievements.size
@@ -66,5 +70,13 @@ private
       (franchise_achievements_count + count) % ACHIEVEMENTS_PER_ROW
 
     count + (missing_row_count == ACHIEVEMENTS_PER_ROW ? 0 : missing_row_count)
+  end
+
+  def franchise_sort_criteria rule
+    if h.cookies[:franchises_order] == 'alphabet'
+      [rule.title.downcase.gsub(/[^[:alnum:]]+/, ''), rule.level]
+    else
+      rule.sort_criteria
+    end
   end
 end

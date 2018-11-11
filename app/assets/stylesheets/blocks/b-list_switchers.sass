@@ -5,16 +5,22 @@
     border-bottom: none
 
     &.lines
-      +icon_button("\e80e")
+      +icon_button('\e80e')
 
     &.list
-      +icon_button("\e81e")
+      +icon_button('\e81e')
 
     &.posters
-      +icon_button("\e809")
+      +icon_button('\e809')
 
     +lte_ipad
       margin-left: 20px !important
 
       &:before
         font-size: 20px !important
+
+    &.popularity
+      +icon_button('\f162')
+
+    &.alphabet
+      +icon_button('\f15d')

@@ -6,6 +6,8 @@ en:
       lines: Display as list
       list: Display as list
       posters: Display as posters
+      popularity: Order by popularity
+      alphabet: Order by alphabet
     ignored:
       topic:
         ignored_user: Topic of ignored user

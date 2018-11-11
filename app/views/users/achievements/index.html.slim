@@ -21,10 +21,14 @@
 
     .c-franchises
       .block2
-        .b-options-floated
+        .b-options-floated.before-buttons-2
           a[
             href=franchise_profile_achievements_url(@resource)
           ] #{@view.franchise_achievements_count} / #{@view.all_franchise_achievements.size}
+        .subheadline-buttons
+          = render 'blocks/list_switchers',
+            name: 'franchises_order',
+            values: %w(popularity alphabet)
         h2.subheadline.green.m10 = t 'achievements.group.franchise'
         .cc
           = render partial: 'users/achievements/achievement',
