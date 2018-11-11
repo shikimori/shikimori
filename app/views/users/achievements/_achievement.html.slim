@@ -10,12 +10,13 @@
 
         - achievement.images.each do |image|
           a.b-badge[
+            class="level-#{achievement.level}"
             href=animes_collection_url(achievement: achievement.neko_id)
           ]
             = image_tag image
   - else
     a.b-badge[
-      class="#{:unavailable if local_assigns[:unavailable]} #{'b-tooltipped unprocessed' unless local_assigns[:no_badge]}"
+      class="#{:unavailable if local_assigns[:unavailable]} #{'b-tooltipped unprocessed' unless local_assigns[:no_badge]} #{"level-#{achievement.level}"}"
       title=achievement.title
       href=achievement_url(achievement.group, achievement.neko_id)
       data-direction='top'
