@@ -9,7 +9,7 @@ gem 'rails'
 gem 'bootsnap', require: false
 
 # database & cache
-gem 'dalli'
+gem 'dalli', '2.7.8' # with v2.7.9 fails on the main page with "can't modify frozen String"
 gem 'pg'
 gem 'redis'
 gem 'redis-mutex'
