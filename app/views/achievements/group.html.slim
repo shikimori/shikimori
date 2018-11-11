@@ -8,21 +8,22 @@ header.head
     - if params[:group].to_sym == ::Types::Achievement::NekoGroup[:franchise]
       .cc-2
         - @collection.group_by(&:neko_id).each do |neko_id, achievements|
+          - achievement = achievements.find { |v| v.level == 1 }
           .c-column
             .block_m
               .subheadline.m10
                 a[
-                  href=achievement_url(achievements.first.group, neko_id)
-                ] = achievements.first.title(current_user, ru_host?)
+                  href=achievement_url(achievement.group, neko_id)
+                ] = achievement.title(current_user, ru_host?)
 
               .cc-2a
                 .c-column
                   = render 'users/achievements/achievement',
-                    achievement: achievements.first,
+                    achievement: achievement,
                     no_badge: true
                 .c-column
                   = render 'achievements/statistics',
-                    achievement: achievements.find { |v| v.level == 1 },
+                    achievement: achievement,
                     hide_title: true
 
               = render 'achievements/info', achievements: achievements
