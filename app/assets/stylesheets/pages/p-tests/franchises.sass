@@ -1,5 +1,6 @@
-@import mixins/shiki_check
 @import mixins/dash_separated
+@import mixins/link
+@import mixins/shiki_check
 
 .p-tests-franchises
   .matched,
@@ -11,8 +12,14 @@
   .matched
     +shiki_check($green-check)
 
+    a
+      +link($green-check)
+
   .not-matched
     +shiki_check($red-check)
+
+    a
+      +link($red-check)
 
   .infos
     margin-left: 12px

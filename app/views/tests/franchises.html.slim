@@ -35,7 +35,7 @@
               = franchise.titleize
             - if NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE
               .matched
-                a href=fr ✓
+                a href=achievement_url(:franchise, franchise) ✓
             .infos
               - infos.each do |_key, info|
                 .info
@@ -54,7 +54,8 @@
             a href=animes_collection_url(franchise: franchise)
               = franchise.titleize
             - if NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE
-              .not-matched ✕
+              .not-matched
+                a href=achievement_url(:franchise, franchise) ✕
             .infos
               - infos.each do |_key, info|
                 .info
