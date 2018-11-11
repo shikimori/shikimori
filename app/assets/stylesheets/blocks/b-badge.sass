@@ -27,12 +27,15 @@
 
   &.level-0:not(:hover),
   &.unavailable:not(:hover)
-    filter: grayscale(100%)
+    filter: grayscale(90%)
     filter: gray // IE 6-9
 
     img
       opacity: 0.5
 
   &.level-0.unavailable:not(:hover)
+    filter: grayscale(100%)
+    filter: gray // IE 6-9
+
     img
       opacity: 0.2
