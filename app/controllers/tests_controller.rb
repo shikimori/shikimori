@@ -6,9 +6,9 @@ require_dependency 'site_statistics'
 class TestsController < ShikimoriController
   skip_before_action :verify_authenticity_token, only: [:echo]
 
-  DEFAULT_MINIMUM_TITLES = 5
-  DEFAULT_MINIMUM_DURATION = 1150
-  DEFAULT_MINIMUM_USER_RATES = 750
+  DEFAULT_MINIMUM_TITLES = 4
+  DEFAULT_MINIMUM_DURATION = 850
+  DEFAULT_MINIMUM_USER_RATES = 600
 
   def show
     @traffic = Rails.cache.fetch("traffic_#{Time.zone.today}") do
@@ -40,59 +40,6 @@ class TestsController < ShikimoriController
       .order(id: :desc)
       .limit(5)
       .decorate
-  end
-
-  def achievements_notification
-  end
-
-  def franchises
-    @minimum_titles = (params[:minimum_titles] || DEFAULT_MINIMUM_TITLES).to_i
-    @minimum_titles = [10, [1, @minimum_titles].max].min
-
-    @minimum_duration = (params[:minimum_duration] || DEFAULT_MINIMUM_DURATION).to_i
-    @minimum_duration = [5000, [50, @minimum_duration].max].min
-    unless (@minimum_duration % 50).zero?
-      @minimum_duration += 50 - @minimum_duration % 50
-    end
-
-    @minimum_user_rates = (params[:minimum_user_rates] || DEFAULT_MINIMUM_USER_RATES).to_i
-    @minimum_user_rates = [2500, [50, @minimum_user_rates].max].min
-    unless (@minimum_user_rates % 50).zero?
-      @minimum_user_rates += 50 - @minimum_user_rates % 50
-    end
-
-    cache_key = [@minimum_duration, @minimum_titles, @minimum_user_rates, :v5]
-
-    @matched_collection =
-      Rails.cache.fetch %i[matched_franchises] + cache_key, expires_in: 1.week do
-        Anime
-          .where.not(franchise: nil)
-          .select { |anime| Neko::IsAllowed.call anime }
-          .sort_by(&:popularity)
-          .group_by(&:franchise)
-          .select do |_franchise, animes|
-            animes.size >= @minimum_titles &&
-              animes.sum { |anime| Neko::Duration.call(anime) } >= @minimum_duration
-          end
-          .each_with_object({}) do |(franchise, animes), memo|
-            memo[franchise] = franchise_info animes
-          end
-          .delete_if { |_franchise, info| info[:user_rates][:text] < @minimum_user_rates }
-      end
-
-    @not_matched_collection =
-      Rails.cache.fetch %i[not_matched_franchises] + cache_key, expires_in: 1.week do
-        NekoRepository.instance
-          .select { |v| v.group == Types::Achievement::NekoGroup[:franchise] }
-          .map(&:neko_id)
-          .map(&:to_s)
-          .reject { |franchise| @matched_collection.include? franchise }
-          .each_with_object({}) do |franchise, memo|
-            memo[franchise] = franchise_info(
-              Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
-            )
-          end
-      end
   end
 
   def momentjs
@@ -130,6 +77,98 @@ class TestsController < ShikimoriController
 
   def iframe_inner
     render :iframe_inner, layout: false
+  end
+
+  def achievements_notification
+  end
+
+  def franchises
+    @minimum_titles = (params[:minimum_titles] || DEFAULT_MINIMUM_TITLES).to_i
+    @minimum_titles = [10, [3, @minimum_titles].max].min
+
+    if params[:maximum_titles].present?
+      @maximum_titles = params[:maximum_titles].to_i
+      @maximum_titles = [10, [@minimum_titles, @maximum_titles].max].min
+    end
+
+    @minimum_duration = (params[:minimum_duration] || DEFAULT_MINIMUM_DURATION).to_i
+    @minimum_duration = [5000, [500, @minimum_duration].max].min
+    unless (@minimum_duration % 50).zero?
+      @minimum_duration += 50 - @minimum_duration % 50
+    end
+
+    if params[:maximum_duration].present?
+      @maximum_duration = params[:maximum_duration].to_i
+      @maximum_duration = [5000, [@minimum_duration, @maximum_duration].max].min
+
+      unless (@maximum_duration % 50).zero?
+        @maximum_duration += 50 - @maximum_duration % 50
+      end
+    end
+
+    @minimum_user_rates = (params[:minimum_user_rates] || DEFAULT_MINIMUM_USER_RATES).to_i
+    @minimum_user_rates = [2500, [50, @minimum_user_rates].max].min
+    unless (@minimum_user_rates % 50).zero?
+      @minimum_user_rates += 50 - @minimum_user_rates % 50
+    end
+
+    if params[:maximum_user_rates].present?
+      @maximum_user_rates = params[:maximum_user_rates].to_i
+      @maximum_user_rates = [2500, [@minimum_user_rates, @maximum_user_rates].max].min
+
+      unless (@maximum_user_rates % 50).zero?
+        @maximum_user_rates += 50 - @maximum_user_rates % 50
+      end
+    end
+
+    cache_key = [
+      @minimum_duration,
+      @maximum_duration,
+      @minimum_titles,
+      @maximum_titles,
+      @minimum_user_rates,
+      @maximum_user_rates,
+      :v2
+    ]
+
+    @matched_collection =
+      Rails.cache.fetch %i[matched_franchises] + cache_key, expires_in: 1.week do
+        Anime
+          .where.not(franchise: nil)
+          .select { |anime| Neko::IsAllowed.call anime }
+          .sort_by(&:popularity)
+          .group_by(&:franchise)
+          .select do |_franchise, animes|
+            duration = animes.sum { |anime| Neko::Duration.call(anime) }
+
+            animes.size >= @minimum_titles &&
+              (!@maximum_titles || animes.size <= @maximum_titles) &&
+              duration >= @minimum_duration &&
+              (!@maximum_duration || duration <= @maximum_duration)
+          end
+          .each_with_object({}) do |(franchise, animes), memo|
+            memo[franchise] = franchise_info animes
+          end
+          .delete_if do |_franchise, info|
+            info[:user_rates][:text] < @minimum_user_rates || (
+              @maximum_user_rates && info[:user_rates][:text] > @maximum_user_rates
+            )
+          end
+      end
+
+    @not_matched_collection =
+      Rails.cache.fetch %i[not_matched_franchises] + cache_key, expires_in: 1.month do
+        NekoRepository.instance
+          .select { |v| v.group == Types::Achievement::NekoGroup[:franchise] }
+          .map(&:neko_id)
+          .map(&:to_s)
+          .reject { |franchise| @matched_collection.include? franchise }
+          .each_with_object({}) do |franchise, memo|
+            memo[franchise] = franchise_info(
+              Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
+            )
+          end
+      end
   end
 
 private

@@ -1,24 +1,45 @@
 .block
   .midheadline.m10
     | Franchises
-    - if @minimum_duration != controller.class::DEFAULT_MINIMUM_DURATION || @minimum_titles != controller.class::DEFAULT_MINIMUM_TITLES || @minimum_user_rates != controller.class::DEFAULT_MINIMUM_USER_RATES
+    - if @minimum_titles != controller.class::DEFAULT_MINIMUM_TITLES || @maximum_titles.present? || @minimum_duration != controller.class::DEFAULT_MINIMUM_DURATION || @maximum_duration.present? || @minimum_user_rates != controller.class::DEFAULT_MINIMUM_USER_RATES || @maximum_user_rates.present?
       .misc-links
         a.b-link[
-          href=current_url(minimum_duration: nil, minimum_titles: nil, minimum_user_rates: nil)
+          href=current_url(minimum_titles: nil, maximum_titles: nil, minimum_duration: nil, maximum_duration: nil, minimum_user_rates: nil, maximum_user_rates: nil)
         ] reset
 
   form.b-form method="get"
-    .b-input
-      label Minimum Titles
-      input name="minimum_titles" value=@minimum_titles
+    .cc-2.m15
+      .c-column.m0
+        .b-input
+          label Minimum Titles
+          input name="minimum_titles" value=@minimum_titles
 
-    .b-input
-      label Minimum Duration
-      input name="minimum_duration" value=@minimum_duration
+      .c-column.m0
+        .b-input
+          label Maximum Titles
+          input name="maximum_titles" value=@maximum_titles
 
-    .b-input
-      label Minimum User Rates
-      input name="minimum_user_rates" value=@minimum_user_rates
+    .cc-2.m15
+      .c-column.m0
+        .b-input
+          label Minimum Duration
+          input name="minimum_duration" value=@minimum_duration
+
+      .c-column.m0
+        .b-input
+          label Maximum Duration
+          input name="maximum_duration" value=@maximum_duration
+
+    .cc-2.m15
+      .c-column.m0
+        .b-input
+          label Minimum User Rates
+          input name="minimum_user_rates" value=@minimum_user_rates
+
+      .c-column.m0
+        .b-input
+          label Maximum User Rates
+          input name="maximum_user_rates" value=@maximum_user_rates
 
     input type="submit" value="Submit"
 
