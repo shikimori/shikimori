@@ -9897,7 +9897,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :hack_gift
+    :neko_id: :hack
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/594919.jpg
     :border_color: 
@@ -9909,12 +9909,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: hack_gift
+        franchise: hack
       :threshold: 94.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :hack_gift
+    :neko_id: :hack
     :level: 0
     :image: https://dere.shikimori.org/system/user_images/original/84020/594919.jpg
     :border_color: 
@@ -9926,7 +9926,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: hack_gift
+        franchise: hack
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule

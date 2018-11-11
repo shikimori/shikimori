@@ -23,7 +23,8 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
       'tabidachi' => 'cream_lemon',
       'puchimas' => 'idolmaster',
       'chiba_pedal' => 'yowamushi_pedal',
-      'seiren' => 'amagami_ss'
+      'seiren' => 'amagami_ss',
+      'hack_gift' => 'hack'
     }.each do |old_name, new_name|
       Anime.where(franchise: old_name).update_all franchise: new_name
       Achievement.where(neko_id: old_name).update_all neko_id: new_name

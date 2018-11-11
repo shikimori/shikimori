@@ -15,7 +15,8 @@ class Animes::FranchiseName
     'Tales of the Abyss' => 'tales_of',
     'ChaoS;HEAd' => 'science_adventure',
     'Fate/Zero' => 'nasuverse',
-    'The iDOLM@STER' => 'idolmaster'
+    'The iDOLM@STER' => 'idolmaster',
+    '.hack//Sign' => 'hack'
   }
 
   def call
