@@ -74,8 +74,12 @@ private
 
   def franchise_sort_criteria rule
     if h.cookies[:franchises_order] == 'alphabet'
+      rule_name = rule.title(h.current_user, h.ru_host?).downcase.gsub(/[^[:alnum:]]+/, '')
+
       [
-        rule.title(h.current_user, h.ru_host?).downcase.gsub(/[^[:alnum:]]+/, ''),
+        Localization::RussianNamesPolicy.call(h.current_user) ?
+          Translit.convert(rule_name, :russian) :
+          rule_name,
         rule.level
       ]
     else

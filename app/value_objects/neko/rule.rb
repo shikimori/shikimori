@@ -66,7 +66,7 @@ class Neko::Rule < Dry::Struct
     send("text_#{I18n.locale}") ||
       (text_ru if is_ru_host) ||
       (text_en unless is_ru_host) ||
-      NO_RULE.text
+      NO_RULE.text(is_ru_host)
   end
 
   def hint
@@ -211,7 +211,7 @@ private
   end
 
   def locale_key user
-    if I18n.russian? && (!user || user.preferences.russian_names?)
+    if Localization::RussianNamesPolicy.call(user)
       :ru
     else
       :en

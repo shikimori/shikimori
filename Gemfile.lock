@@ -687,6 +687,7 @@ GEM
     tilt (2.0.8)
     timecop (0.9.1)
     tins (1.16.3)
+    translit (0.1.5)
     truncate_html (0.9.3)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
@@ -854,6 +855,7 @@ DEPENDENCIES
   state_machine_rspec
   thin
   timecop
+  translit
   truncate_html
   turbolinks!
   uglifier

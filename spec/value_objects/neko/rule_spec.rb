@@ -51,11 +51,39 @@ describe Neko::Rule do
   end
 
   describe '#title' do
-    it { expect(rule.title).to eq rule.title_ru }
+    subject { rule.title user, is_ru_host }
+    before { allow(I18n).to receive(:locale).and_return locale }
+    let(:user) { nil }
+
+    context 'ru_host' do
+      let(:is_ru_host) { true }
+      let(:locale) { :ru }
+      it { is_expected.to eq rule.title_ru }
+    end
+
+    context 'not ru_host' do
+      let(:is_ru_host) { false }
+      let(:locale) { :en }
+      it { is_expected.to eq Neko::Rule::NO_RULE.title(user, is_ru_host) }
+    end
   end
 
   describe '#text' do
-    it { expect(rule.text).to eq rule.text_ru }
+    subject { rule.text is_ru_host }
+    before { allow(I18n).to receive(:locale).and_return locale }
+    let(:user) { nil }
+
+    context 'ru_host' do
+      let(:is_ru_host) { true }
+      let(:locale) { :ru }
+      it { is_expected.to eq rule.text_ru }
+    end
+
+    context 'not ru_host' do
+      let(:is_ru_host) { false }
+      let(:locale) { :en }
+      it { is_expected.to eq Neko::Rule::NO_RULE.text(is_ru_host) }
+    end
   end
 
   describe '#neko_name' do
