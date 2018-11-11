@@ -121,6 +121,8 @@ class TestsController < ShikimoriController
       end
     end
 
+    @without_achievement = params[:without_achievement].present?
+
     cache_key = [
       @minimum_duration,
       @maximum_duration,
@@ -128,6 +130,7 @@ class TestsController < ShikimoriController
       @maximum_titles,
       @minimum_user_rates,
       @maximum_user_rates,
+      @without_achievement,
       :v2
     ]
 
@@ -140,11 +143,13 @@ class TestsController < ShikimoriController
           .group_by(&:franchise)
           .select do |_franchise, animes|
             duration = animes.sum { |anime| Neko::Duration.call(anime) }
+            franchise = animes.first.franchise
 
             animes.size >= @minimum_titles &&
               (!@maximum_titles || animes.size <= @maximum_titles) &&
               duration >= @minimum_duration &&
-              (!@maximum_duration || duration <= @maximum_duration)
+              (!@maximum_duration || duration <= @maximum_duration) &&
+              (!@without_achievement || NekoRepository.instance.find(franchise, 1) == Neko::Rule::NO_RULE)
           end
           .each_with_object({}) do |(franchise, animes), memo|
             memo[franchise] = franchise_info animes

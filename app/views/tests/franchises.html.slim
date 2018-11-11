@@ -1,10 +1,10 @@
 .block
   .midheadline.m10
     | Franchises
-    - if @minimum_titles != controller.class::DEFAULT_MINIMUM_TITLES || @maximum_titles.present? || @minimum_duration != controller.class::DEFAULT_MINIMUM_DURATION || @maximum_duration.present? || @minimum_user_rates != controller.class::DEFAULT_MINIMUM_USER_RATES || @maximum_user_rates.present?
+    - if @minimum_titles != controller.class::DEFAULT_MINIMUM_TITLES || @maximum_titles.present? || @minimum_duration != controller.class::DEFAULT_MINIMUM_DURATION || @maximum_duration.present? || @minimum_user_rates != controller.class::DEFAULT_MINIMUM_USER_RATES || @maximum_user_rates.present? || @without_achievement.present?
       .misc-links
         a.b-link[
-          href=current_url(minimum_titles: nil, maximum_titles: nil, minimum_duration: nil, maximum_duration: nil, minimum_user_rates: nil, maximum_user_rates: nil)
+          href=current_url(minimum_titles: nil, maximum_titles: nil, minimum_duration: nil, maximum_duration: nil, minimum_user_rates: nil, maximum_user_rates: nil, without_achievement: nil)
         ] reset
 
   form.b-form method="get"
@@ -40,6 +40,15 @@
         .b-input
           label Maximum User Rates
           input name="maximum_user_rates" value=@maximum_user_rates
+
+    .b-input
+      label
+        input[
+          name="without_achievement"
+          type="checkbox"
+          checked=@without_achievement.present?
+        ]
+        | Without Achievement
 
     input type="submit" value="Submit"
 
