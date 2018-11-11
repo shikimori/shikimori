@@ -161,7 +161,7 @@ begin
     .sort_by do |rule|
       popularity = Anime
         .where(franchise: rule['filters']['franchise'], status: 'released')
-        .sum { |anime| anime.rates.where(status: %i[completed rewatching]).size }
+        .sum { |anime| anime.rates.where(status: %i[completed rewatching watching]).size }
 
       [-popularity, -rule['level']]
     end
