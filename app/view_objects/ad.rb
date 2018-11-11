@@ -169,6 +169,8 @@ class Ad < ViewObjectBase
     ]
   }
 
+  # CACHE_KEY = Digest::MD5.hexdigest(META_TYPES.to_json)
+
   attr_reader :banner_type, :policy
 
   def initialize meta
