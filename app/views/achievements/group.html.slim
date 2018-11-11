@@ -13,7 +13,7 @@ header.head
               .subheadline.m10
                 a[
                   href=achievement_url(achievements.first.group, neko_id)
-                ] = achievements.first.title
+                ] = achievements.first.title(current_user, ru_host?)
 
               .cc-2a
                 .c-column
@@ -48,13 +48,13 @@ header.head
             data-label=t('.incomplete_achievement')
           ]
             - achievements.each do |achievement|
-              - if achievement.image.blank? || achievement.title(true).blank? || achievement.text(true).blank?
+              - if achievement.image.blank? || achievement.title(current_user, ru_host?).blank? || achievement.text(ru_host?).blank?
                 .incomplete-achievement
                   .label = t '.level', level: achievement.level
 
                   - if achievement.image.blank?
                     .field = t '.image'
-                  - if achievement.title(true).blank?
+                  - if achievement.title(current_user, ru_host?).blank?
                     .field = t '.title'
-                  - if achievement.text(true).blank?
+                  - if achievement.text(ru_host?).blank?
                     .field = t '.text'

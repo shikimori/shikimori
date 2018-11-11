@@ -74,7 +74,10 @@ private
 
   def franchise_sort_criteria rule
     if h.cookies[:franchises_order] == 'alphabet'
-      [rule.title.downcase.gsub(/[^[:alnum:]]+/, ''), rule.level]
+      [
+        rule.title(h.current_user, h.ru_host?).downcase.gsub(/[^[:alnum:]]+/, ''),
+        rule.level
+      ]
     else
       rule.sort_criteria
     end

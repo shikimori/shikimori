@@ -3,7 +3,7 @@
     .b-achievement
       .c-about
         .title
-          = achievement.title
+          = achievement.title(current_user, ru_host?)
           - if local_assigns[:status] && user_signed_in?
             - if current_user.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
               .gained ✓
@@ -18,7 +18,7 @@
   - else
     a.b-badge[
       class="#{:unavailable if local_assigns[:unavailable]} #{'b-tooltipped unprocessed' unless local_assigns[:no_badge]} #{"level-#{achievement.level}"}"
-      title=achievement.title
+      title=achievement.title(current_user, ru_host?)
       href=achievement_url(achievement.group, achievement.neko_id)
       data-direction='top'
       data-tipsy-size='large'
@@ -36,18 +36,18 @@
     .c-about
       - if local_assigns[:images] && !local_assigns[:info_link]
         .title
-          = achievement.title
+          = achievement.title(current_user, ru_host?)
           - if local_assigns[:status]
             - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
               .gained ✓
 
       - else
         a.title href=achievement_url(achievement.group, achievement.neko_id)
-          = achievement.title
+          = achievement.title(current_user, ru_host?)
       .percent #{achievement.progress}%
       .hint = achievement.hint
       .progress: .bar style="width: #{achievement.progress}%"
-      .text == achievement.text.gsub("\n", "<br>")
+      .text == achievement.text(ru_host?).gsub("\n", "<br>")
 
     - if local_assigns[:images] && achievement.images.any?
       - achievement.images.each_with_index do |image, index|

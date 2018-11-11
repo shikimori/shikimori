@@ -54,18 +54,19 @@ class Neko::Rule < Dry::Struct
     I18n.t "achievements.group.#{group}"
   end
 
-  def title show_blank = false
-    show_blank ? maybe_title : mandatory_title
+  def title user, is_ru_host
+    send("title_#{franchise? ? locale_key(user) : I18n.locale}") ||
+      (neko_id.to_s.titleize if franchise?) ||
+      (title_ru if is_ru_host) ||
+      (title_en unless is_ru_host) ||
+      NO_RULE.title(user, is_ru_host)
   end
 
-  def text show_blank = false
-    if show_blank
-      send("text_#{I18n.locale}")
-    else
-      send("text_#{I18n.locale}") ||
-        text_ru ||
-        (NO_RULE.text if self != NO_RULE)
-    end
+  def text is_ru_host
+    send("text_#{I18n.locale}") ||
+      (text_ru if is_ru_host) ||
+      (text_en unless is_ru_host) ||
+      NO_RULE.text
   end
 
   def hint
@@ -164,17 +165,6 @@ class Neko::Rule < Dry::Struct
 
 private
 
-  def mandatory_title
-    maybe_title ||
-      title_ru ||
-      (neko_id if franchise?) ||
-      (NO_RULE.title if self != NO_RULE)
-  end
-
-  def maybe_title
-    send("title_#{I18n.locale}")
-  end
-
   def default_hint
     I18n.t 'achievements.hint.default',
       neko_name: neko_name,
@@ -218,5 +208,13 @@ private
       end
 
     user.anime_rates.where(status: statuses)
+  end
+
+  def locale_key user
+    if I18n.russian? && (!user || user.preferences.russian_names?)
+      :ru
+    else
+      :en
+    end
   end
 end
