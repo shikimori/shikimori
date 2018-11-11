@@ -8879,7 +8879,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :chiba_pedal
+    :neko_id: :yowamushi_pedal
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/587974.jpg
     :border_color: 
@@ -8891,12 +8891,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: chiba_pedal
+        franchise: yowamushi_pedal
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :chiba_pedal
+    :neko_id: :yowamushi_pedal
     :level: 0
     :image: https://dere.shikimori.org/system/user_images/original/84020/587974.jpg
     :border_color: 
@@ -8908,7 +8908,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: chiba_pedal
+        franchise: yowamushi_pedal
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
