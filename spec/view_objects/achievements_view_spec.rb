@@ -14,12 +14,16 @@ describe AchievementsView do
     create :achievement, user: user, neko_id: :historical, level: 1
   end
   let!(:ghost_in_the_shell) do
+    create :achievement, user: user, neko_id: :ghost_in_the_shell, level: 0
+  end
+  let!(:ghost_in_the_shell) do
     create :achievement, user: user, neko_id: :ghost_in_the_shell, level: 1
   end
 
   it { expect(view.common_achievements).to eq [animelist_2, otaku] }
   it { expect(view.genre_achievements).to eq [historical] }
   it { expect(view.franchise_achievements).to eq [ghost_in_the_shell] }
+  it { expect(view.franchise_achievements_count).to eq 1 }
   it { expect(view.all_franchise_achievements).to have_at_least(160).items }
   it { expect(view.missing_franchise_achievements).to have(3).items }
 end

@@ -17,7 +17,13 @@ class AchievementsView < ViewObjectBase
   end
 
   def franchise_achievements
-    user_achievements.select(&:franchise?)
+    user_achievements
+      .select(&:franchise?)
+      .sort_by { |v| [v.level.zero? ? 1 : 0] + v.sort_criteria }
+  end
+
+  def franchise_achievements_count
+    franchise_achievements.select { |v| v.level == 1 }.size
   end
 
   def all_franchise_achievements
@@ -27,6 +33,7 @@ class AchievementsView < ViewObjectBase
   def missing_franchise_achievements
     all_franchise_achievements
       .reject { |v| franchise_achievements.map(&:neko_id).include? v.neko_id }
+      .select { |v| v.level.zero? }
       .take(
         missing_franchise_achievements_count(
           genre_achievements.size, franchise_achievements.size
