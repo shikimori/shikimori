@@ -64,12 +64,12 @@ FRANCHISES_TO_ADD = %w[
   terra_formars
   appleseed
   yozakura_quartet
+  kara_no_kyoukai
 ]
   .reject { |franchise| data.find { |rule| rule['filters']['franchise'] == franchise } }
 
-puts "adding #{FRANCHISES_TO_ADD.size} new franchises..."
 FRANCHISES_TO_ADD.each do |franchise|
-  puts "added `#{franchise}`"
+  puts "added `#{franchise}` franchise"
   data.push(
     'neko_id' => franchise,
     'level' => 1,

@@ -22,10 +22,13 @@ class Neko::IsAllowed
 
   ALL_RECAP_REGEXP = /\b(?:#{(EN_RECAP + RU_RECAP).join('|')})\b/i
 
+  # SHORT_DURATION = 5
+
   def call
     allowed_in_neko? || !(
       @entry.anons? || @entry.kind_music? ||
-      (special? && recap_name?)
+      (special? && recap_name?) # ||
+      # extra_short?
     )
   end
 
@@ -50,4 +53,8 @@ private
       @entry.description_en&.match?(EN_RECAP_REGEXP) ||
       @entry.description_ru&.match?(RU_RECAP_REGEXP)
   end
+
+  # def extra_short?
+  #   @entry.duration <= SHORT_DURATION
+  # end
 end

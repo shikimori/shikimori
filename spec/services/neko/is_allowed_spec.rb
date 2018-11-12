@@ -9,6 +9,7 @@ describe Neko::IsAllowed do
       russian: russian,
       description_en: description_en,
       description_ru: description_ru
+      # duration: duration
   end
   let(:id) { nil }
   let(:status) { :released }
@@ -19,6 +20,7 @@ describe Neko::IsAllowed do
   let(:russian) { nil }
   let(:description_en) { nil }
   let(:description_ru) { nil }
+  # let(:duration) { Neko::IsAllowed::SHORT_DURATION + 1 }
 
   it { is_expected.to eq true }
 
@@ -31,6 +33,11 @@ describe Neko::IsAllowed do
     let(:kind) { :music }
     it { is_expected.to eq false }
   end
+
+  # context 'extra short' do
+  #   let(:duration) { Neko::IsAllowed::SHORT_DURATION }
+  #   it { is_expected.to eq false }
+  # end
 
   context 'allowed in NekoRule' do
     let(:status) { :anons }

@@ -131,7 +131,7 @@ class TestsController < ShikimoriController
       @minimum_user_rates,
       @maximum_user_rates,
       @without_achievement,
-      :v4
+      :v5
     ]
 
     @matched_collection =

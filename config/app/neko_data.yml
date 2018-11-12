@@ -6731,78 +6731,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :nasuverse
-    :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
-    :border_color: 
-    :title_ru: Судьба
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: nasuverse
-        not_anime_ids:
-        - 169
-        - 2593
-        - 3782
-        - 3783
-        - 4280
-        - 4282
-        - 5204
-        - 5205
-        - 6624
-        - 6954
-        - 13183
-        - 14807
-        - 19165
-        - 22763
-        - 22847
-        - 23697
-        - 36327
-        - 36729
-      :threshold: 90%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :nasuverse
-    :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
-    :border_color: 
-    :title_ru: Судьба
-    :text_ru: 
-    :title_en: 
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: nasuverse
-        not_anime_ids:
-        - 169
-        - 2593
-        - 3782
-        - 3783
-        - 4280
-        - 4282
-        - 5204
-        - 5205
-        - 6624
-        - 6954
-        - 13183
-        - 14807
-        - 19165
-        - 22763
-        - 22847
-        - 23697
-        - 36327
-        - 36729
-      :threshold: 0.01%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :shingeki_no_kyojin
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/621305.jpg
@@ -6921,6 +6849,78 @@
         not_anime_ids:
         - 27891
         - 37831
+      :threshold: 0.01%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :nasuverse
+    :level: 1
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
+    :border_color: 
+    :title_ru: Судьба
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: nasuverse
+        not_anime_ids:
+        - 169
+        - 2593
+        - 3782
+        - 3783
+        - 4280
+        - 4282
+        - 5204
+        - 5205
+        - 6624
+        - 6954
+        - 13183
+        - 14807
+        - 19165
+        - 22763
+        - 22847
+        - 23697
+        - 36327
+        - 36729
+      :threshold: 90%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :nasuverse
+    :level: 0
+    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
+    :border_color: 
+    :title_ru: Судьба
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: nasuverse
+        not_anime_ids:
+        - 169
+        - 2593
+        - 3782
+        - 3783
+        - 4280
+        - 4282
+        - 5204
+        - 5205
+        - 6624
+        - 6954
+        - 13183
+        - 14807
+        - 19165
+        - 22763
+        - 22847
+        - 23697
+        - 36327
+        - 36729
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7993,6 +7993,40 @@
       :algo: duration
       :filters:
         franchise: bleach
+      :threshold: 0.01%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kara_no_kyoukai
+    :level: 1
+    :image: 
+    :border_color: 
+    :title_ru: 
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: kara_no_kyoukai
+      :threshold: 91.1%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kara_no_kyoukai
+    :level: 0
+    :image: 
+    :border_color: 
+    :title_ru: 
+    :text_ru: 
+    :title_en: 
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: kara_no_kyoukai
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9580,7 +9614,7 @@
         franchise: nodame_cantabile
         not_anime_ids:
         - 5656
-      :threshold: 94.1%
+      :threshold: 95.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:

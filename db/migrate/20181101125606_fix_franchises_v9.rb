@@ -4,6 +4,10 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
       .where(id: [7568, 4896, 36836, 31373, 36835, 32699, 19479, 5343])
       .update_all franchise: nil
 
+    Anime
+      .where(id: [22847, 22763, 14807, 6954, 5205, 6624, 5204, 4282, 4280, 3783, 3782, 23697, 2593])
+      .update_all franchise: 'kara_no_kyoukai'
+
     {
       'hanamonogatari' => 'bakemonogatari',
       'aria_the_ova' => 'aria_the_origination',
