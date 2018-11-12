@@ -16,7 +16,10 @@ class Animes::FranchiseName
     'ChaoS;HEAd' => 'science_adventure',
     'Fate/Zero' => 'nasuverse',
     'The iDOLM@STER' => 'idolmaster',
-    '.hack//Sign' => 'hack'
+    '.hack//Sign' => 'hack',
+    'Ore no Imouto ga Konnani Kawaii Wake ga Nai' => 'ore_no_imouto',
+    'Maria-sama ga Miteru' => 'maria_sama',
+    'Kyoushoku Soukou Guyver' => 'guyver'
   }
 
   def call

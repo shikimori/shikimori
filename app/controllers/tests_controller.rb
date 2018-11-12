@@ -107,14 +107,14 @@ class TestsController < ShikimoriController
     end
 
     @minimum_user_rates = (params[:minimum_user_rates] || DEFAULT_MINIMUM_USER_RATES).to_i
-    @minimum_user_rates = [2500, [50, @minimum_user_rates].max].min
+    @minimum_user_rates = [10000, [50, @minimum_user_rates].max].min
     unless (@minimum_user_rates % 50).zero?
       @minimum_user_rates += 50 - @minimum_user_rates % 50
     end
 
     if params[:maximum_user_rates].present?
       @maximum_user_rates = params[:maximum_user_rates].to_i
-      @maximum_user_rates = [2500, [@minimum_user_rates, @maximum_user_rates].max].min
+      @maximum_user_rates = [10000, [@minimum_user_rates, @maximum_user_rates].max].min
 
       unless (@maximum_user_rates % 50).zero?
         @maximum_user_rates += 50 - @maximum_user_rates % 50
@@ -131,15 +131,16 @@ class TestsController < ShikimoriController
       @minimum_user_rates,
       @maximum_user_rates,
       @without_achievement,
-      :v2
+      :v4
     ]
 
     @matched_collection =
       Rails.cache.fetch %i[matched_franchises] + cache_key, expires_in: 1.week do
         Anime
           .where.not(franchise: nil)
+          .where.not(kind: %i[music])
+          .reject { |anime| anime.kind_special? && anime.duration <= 5 }
           .select { |anime| Neko::IsAllowed.call anime }
-          .sort_by(&:popularity)
           .group_by(&:franchise)
           .select do |_franchise, animes|
             duration = animes.sum { |anime| Neko::Duration.call(anime) }
@@ -159,6 +160,7 @@ class TestsController < ShikimoriController
               @maximum_user_rates && info[:user_rates][:text] > @maximum_user_rates
             )
           end
+          .sort_by { |_franchise, info| -info[:user_rates][:text] }
       end
 
     @not_matched_collection =
@@ -173,6 +175,7 @@ class TestsController < ShikimoriController
               Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
             )
           end
+          .sort_by { |_franchise, info| -info[:user_rates][:text] }
       end
   end
 
