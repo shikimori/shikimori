@@ -4,7 +4,7 @@ header.head
   = render 'application/breadcrumbs'
 
 .p-achievements-global
-  - cache NekoRepository.instance.cache_key + [params[:group], :v6] + PgCacheData.where(key: Achievements::Statistics::CACHE_KEY).pluck(:updated_at) do
+  - cache NekoRepository.instance.statistics_cache_key(params[:group], :v6)  do
     - if params[:group].to_sym == ::Types::Achievement::NekoGroup[:franchise]
       .cc-2
         - @collection.group_by(&:neko_id).each do |neko_id, achievements|

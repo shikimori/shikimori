@@ -23,8 +23,19 @@ class NekoRepository
     true
   end
 
-  def cache_key
-    [Digest::MD5.hexdigest(raw_config), Time.zone.today, :v4]
+  def cache_key *args
+    [
+      Digest::MD5.hexdigest(raw_config),
+      Time.zone.today,
+      :v4
+    ] + args
+  end
+
+  def statistics_cache_key *args
+    cache_key +
+      %i[statistics] +
+      PgCacheData.where(key: Achievements::Statistics::CACHE_KEY).pluck(:updated_at) +
+      args
   end
 
 private
