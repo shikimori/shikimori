@@ -5,6 +5,9 @@ Feel free to open tickets or send pull requests with improvements. Thanks in adv
 
 Please follow the [contribution guidelines](https://github.com/shikimori/shikimori/blob/master/CONTRIBUTING.md).
 
+## Agile Season Board
+https://agileseason.com/shared/boards/a98d1565b276f3781070f0e74a7ffcf1
+
 ## PostgreSQL
 ### DB
 ```sh
