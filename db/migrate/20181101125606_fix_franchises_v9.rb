@@ -31,7 +31,7 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
       'liz_to_aoi_tori' => 'hibike_euphonium',
       'kud_wafter' => 'little_busters',
       'maria_sama_ga_miteru' => 'maria_sama',
-      'kyoushoku_soukou_guyver'> => 'guyver'
+      'kyoushoku_soukou_guyver' => 'guyver'
     }.each do |old_name, new_name|
       Anime.where(franchise: old_name).update_all franchise: new_name
       Achievement.where(neko_id: old_name).update_all neko_id: new_name

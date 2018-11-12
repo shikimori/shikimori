@@ -74,6 +74,10 @@
                     title=info[:tooltip]
                   ] = info[:text]
 
+      / ul.b-list
+        - @matched_collection.each do |franchise, infos|
+          li = franchise
+
     .c-column
       .b-options-floated
         = @not_matched_collection.size

@@ -15,6 +15,75 @@ raw_data = YAML.load_file(franchise_yml)
 
 data = raw_data.dup
 
+FRANCHISES_TO_ADD = %w[
+  tokyo_ghoul
+  science_adventure
+  ao_no_exorcist
+  overlord
+  evangelion
+  chuunibyou_demo_koi_ga_shitai
+  darker_than_black
+  k_on
+  tengen_toppa_gurren_lagann
+  danganronpa
+  ore_no_imouto
+  hellsing
+  kami_nomi_zo_shiru_sekai
+  ajin
+  seitokai_yakuindomo
+  hakuouki
+  xxxholic
+  rozen_maiden
+  nodame_cantabile
+  sayonara_zetsubou_sensei
+  girls_panzer
+  yuru_yuri
+  arslan_senki
+  hoozuki_no_reitetsu
+  hibike_euphonium
+  baku_tech_bakugan
+  little_busters
+  brave_witches
+  dog_days
+  kiniro_no_corda
+  tiger_bunny
+  touken_ranbu
+  ookiku_furikabutte
+  binan_koukou_chikyuu_boueibu_love
+  seikai_no_senki
+  guyver
+  maria_sama
+  tamayura
+  beyblade
+  kamisama_hajimemashita
+  k
+  nisekoi
+  sora_no_otoshimono
+  mahouka_x_mameshiba
+  infinite_stratos
+  terra_formars
+  appleseed
+  yozakura_quartet
+]
+  .reject { |franchise| data.find { |rule| rule['filters']['franchise'] == franchise } }
+
+puts "adding #{FRANCHISES_TO_ADD.size} new franchises..."
+FRANCHISES_TO_ADD.each do |franchise|
+  puts "added `#{franchise}`"
+  data.push(
+    'neko_id' => franchise,
+    'level' => 1,
+    'algo' => 'duration',
+    'filters' => {
+      'franchise' => franchise
+    },
+    'threshold' => '100%',
+    'metadata' => {
+      'topic_id' => 247360
+    }
+  )
+end
+
 puts 'excluding recaps...'
 data.each do |rule|
   recap_ids = Anime
