@@ -105,16 +105,14 @@ class Neko::Rule < Dry::Struct
   end
 
   def animes_count
-    @animes_count ||= begin
-      return if rule[:filters].blank?
-      return rule[:filters]['anime_ids'].size if rule[:filters]['anime_ids']
+    return if rule[:filters].blank?
+    return rule[:filters]['anime_ids'].size if rule[:filters]['anime_ids']
 
-      animes_scope.size
-    end
+    animes_scope.size
   end
 
   def users_count
-    @users_count ||= Achievement.where(neko_id: neko_id, level: level).count
+    Achievement.where(neko_id: neko_id, level: level).count
   end
 
   def users_scope

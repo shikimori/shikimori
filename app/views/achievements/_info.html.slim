@@ -1,4 +1,5 @@
-- is_show_animes = local_assigns[:animes] && ((achievements.first.animes_count && achievements.first.animes_count < 500) || achievements.first.rule.dig(:filters, 'anime_ids') || achievements.first.rule.dig(:filters, 'franchise') || params[:animes])
+- animes_count = achievements.first.animes_count
+- is_show_animes = local_assigns[:animes] && ((animes_count && animes_count < 500) || achievements.first.rule.dig(:filters, 'anime_ids') || achievements.first.rule.dig(:filters, 'franchise') || params[:animes])
 
 .b-entry-info
   - unless achievements.first.franchise?
@@ -18,23 +19,23 @@
     .key #{t '.animes'}:&nbsp;
     .value
       a href=animes_collection_url(achievement: achievements.first.neko_id)
-        == achievements.first.animes_count || '&ndash;'
+        == animes_count || '&ndash;'
 
   .line
     .key #{t '.threshold'}:&nbsp;
     .value.thresholds
-      - if achievements.first.animes_count&.positive? && !achievements.first.franchise?
+      - if animes_count&.positive? && !achievements.first.franchise?
         - if achievements.first.rule[:threshold].is_a?(String) && achievements.first.rule[:threshold].match?(/^\d+%$/)
           - achievements.each do |achievement|
             span
-              = "#{achievement.rule[:threshold]} (#{(achievements.first.animes_count / 100.0 * achievement.rule[:threshold].to_i).ceil})"
+              = "#{achievement.rule[:threshold]} (#{(animes_count / 100.0 * achievement.rule[:threshold].to_i).ceil})"
               - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
                 .gained ✓
 
         - else
           - achievements.each do |achievement|
             span
-              = "#{(achievement.rule[:threshold] * 100.0 / achievements.first.animes_count).ceil(2)}% (#{achievement.rule[:threshold]})"
+              = "#{(achievement.rule[:threshold] * 100.0 / animes_count).ceil(2)}% (#{achievement.rule[:threshold]})"
               - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
                 .gained ✓
       - else
