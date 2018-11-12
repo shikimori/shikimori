@@ -117,6 +117,12 @@ class Neko::Rule < Dry::Struct
     @users_count ||= Achievement.where(neko_id: neko_id, level: level).count
   end
 
+  def users_scope
+    User
+      .where(id: Achievement.where(neko_id: neko_id, level: level).select(:user_id))
+      .order(:id)
+  end
+
   def animes_scope
     scope = Animes::NekoScope.call
     return scope unless rule[:filters]
