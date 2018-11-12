@@ -45,7 +45,7 @@ describe Ad do
 
       context 'x1200 site width' do
         let(:body_width) { :x1200 }
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_240x400].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
       end
     end
 
