@@ -2,13 +2,12 @@ class Api::V1::DialogsController < Api::V1Controller
   MESSAGES_PER_PAGE = 10
 
   before_action :authorize_messages_access
-  before_action :fetch_target_user, only: [:show, :destroy]
+  before_action :fetch_target_user, only: %i[show destroy]
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/dialogs', 'List dialogs'
   def index
-    @page = [params[:page].to_i, 1].max
-    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
+    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE * 2].min
 
     @collection = DialogsQuery.new(current_user).fetch(@page, @limit)
 
@@ -18,8 +17,7 @@ class Api::V1::DialogsController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/dialogs/:id', 'Show a dialog'
   def show
-    @page = [params[:page].to_i, 1].max
-    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
+    @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE * 2].min
 
     @collection = DialogQuery
       .new(current_user, @target_user)
@@ -40,8 +38,7 @@ class Api::V1::DialogsController < Api::V1Controller
       Dialog.new(current_user, message).destroy
       render json: { notice: i18n_t('conversation_removed') }
     else
-      render json: [i18n_t('no_messages')],
-        status: :unprocessable_entity
+      render json: [i18n_t('no_messages')], status: :unprocessable_entity
     end
   end
 

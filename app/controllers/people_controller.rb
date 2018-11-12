@@ -13,11 +13,8 @@ class PeopleController < DbEntriesController
 
   PER_PAGE = 48
 
-  # rubocop:disable AbcSize, MethodLength
   def index
     og page_title: search_title
-
-    @page = [params[:page].to_i, 1].max
 
     @collection = People::Query
       .fetch(is_mangaka: mangaka?, is_producer: producer?, is_seyu: seyu?)
@@ -29,7 +26,6 @@ class PeopleController < DbEntriesController
       )
       .paginate(@page, PER_PAGE)
   end
-  # rubocop:enable AbcSize, MethodLength
 
   def show
     @itemtype = @resource.itemtype

@@ -12,7 +12,6 @@ class Api::V1::DevicesController < Api::V1Controller
   param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
   def index
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
-    @page = [params[:page].to_i, 1].max
 
     @collection = QueryObjectBase.new(@devices).paginate(@page, @limit)
 

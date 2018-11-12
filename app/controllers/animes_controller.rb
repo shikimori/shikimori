@@ -138,7 +138,6 @@ class AnimesController < DbEntriesController
   end
 
   def cosplay
-    @page = [params[:page].to_i, 1].max
     @limit = 2
     @collection, @add_postloader = CosplayGalleriesQuery
       .new(@resource.object)

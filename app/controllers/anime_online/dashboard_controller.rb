@@ -2,7 +2,6 @@ class AnimeOnline::DashboardController < ShikimoriController
   def show # rubocop:disable all
     # redirect_to '/animes/genre/12-Hentai' if adult?
 
-    @page = [params[:page].to_i, 1].max
     @limit = 8
 
     @recent_videos, @add_postloader =

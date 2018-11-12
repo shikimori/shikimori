@@ -17,7 +17,6 @@ class Api::V1::UsersController < Api::V1Controller
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{USERS_LIMIT} maximum"
   def index
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 1].max, USERS_LIMIT].min
 
     @collection = Users::Query.fetch
@@ -59,7 +58,6 @@ class Api::V1::UsersController < Api::V1Controller
     required: false,
     desc: "#{USER_RATES_LIMIT} maximum"
   def anime_rates
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 1].max, USER_RATES_LIMIT].min
 
     @rates = Rails.cache.fetch [user, :anime_rates, params[:status]] do
@@ -78,7 +76,6 @@ class Api::V1::UsersController < Api::V1Controller
     required: false,
     desc: "#{USER_RATES_LIMIT} maximum"
   def manga_rates
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 1].max, USER_RATES_LIMIT].min
 
     @rates = Rails.cache.fetch [user, :manga_rates, params[:status]] do
@@ -109,7 +106,6 @@ class Api::V1::UsersController < Api::V1Controller
   param :limit, :pagination, required: false, desc: "#{MESSAGES_LIMIT} maximum"
   param :type, %w[inbox private sent news notifications], required: true
   def messages
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 1].max, MESSAGES_LIMIT].min
 
     messages = MessagesQuery
@@ -134,7 +130,6 @@ class Api::V1::UsersController < Api::V1Controller
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{HISTORY_LIMIT} maximum"
   def history
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 1].max, HISTORY_LIMIT].min
 
     @collection = user
@@ -168,7 +163,6 @@ class Api::V1::UsersController < Api::V1Controller
     required: false,
     desc: "#{ANIME_VIDEO_REPORTS_LIMIT} maximum"
   def anime_video_reports
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 1].max, ANIME_VIDEO_REPORTS_LIMIT].min
 
     scope = AnimeVideoReport

@@ -1,19 +1,17 @@
 class CharactersController < PeopleController
   before_action :js_export, only: %i[show]
 
-  #caches_action :index, CacheHelper.cache_settings
-  #caches_action :page, :show, :tooltip,
-    #cache_path: proc {
-      #entry = Character.find(params[:id].to_i)
-      #"#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.maybe_topic(locale_from_host).updated_at.to_i}|#{json?}"
-    #},
-    #unless: proc { user_signed_in? },
-    #expires_in: 2.days
+  # caches_action :index, CacheHelper.cache_settings
+  # caches_action :page, :show, :tooltip,
+  #   cache_path: proc {
+  #     entry = Character.find(params[:id].to_i)
+  #     "#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.maybe_topic(locale_from_host).updated_at.to_i}|#{json?}"
+  #   },
+  #   unless: proc { user_signed_in? },
+  #   expires_in: 2.days
 
   def index
     og page_title: i18n_i(:Character, :other)
-
-    @page = [params[:page].to_i, 1].max
 
     @collection = Characters::Query
       .fetch
@@ -66,7 +64,6 @@ class CharactersController < PeopleController
   end
 
   def cosplay
-    @page = [params[:page].to_i, 1].max
     @limit = 2
     @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
 

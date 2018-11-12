@@ -5,7 +5,6 @@ class UsersController < ShikimoriController
   THRESHOLDS = [100, 175, 350]
 
   def index
-    @page = [params[:page].to_i, 1].max
     @limit = LIMIT
 
     og page_title: i18n_i('User', :other)
@@ -18,7 +17,6 @@ class UsersController < ShikimoriController
 
   def similar # rubocop:disable MethodLength, AbcSize
     og noindex: true
-    @page = [params[:page].to_i, 1].max
     @limit = LIMIT
     @threshold = params[:threshold].to_i
     @klass = params[:klass] == Manga.name.downcase ? Manga : Anime

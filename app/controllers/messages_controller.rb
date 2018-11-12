@@ -10,7 +10,6 @@ class MessagesController < ProfilesController
   MESSAGES_PER_PAGE = 15
 
   def index
-    @page = [params[:page].to_i, 1].max
     @limit = [
       [params[:limit].to_i, MESSAGES_PER_PAGE].max,
       MESSAGES_PER_PAGE * 2

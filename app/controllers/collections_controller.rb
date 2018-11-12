@@ -12,7 +12,6 @@ class CollectionsController < ShikimoriController
 
   # rubocop:disable AbcSize
   def index
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 4].max, 8].min
 
     @collection = Collections::Query.fetch(locale_from_host)

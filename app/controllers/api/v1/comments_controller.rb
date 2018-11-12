@@ -24,7 +24,6 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   param :desc, %w[1 0], required: false
   def index # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
-    @page = [params[:page].to_i, 1].max
     @desc = params[:desc].nil? || params[:desc] == '1'
 
     commentable_type = params[:commentable_type].gsub('Entry', Topic.name)

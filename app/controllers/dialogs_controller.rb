@@ -6,14 +6,12 @@ class DialogsController < ProfilesController
   MESSAGES_PER_PAGE = 10
 
   def index
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
 
     @collection, @add_postloader = DialogsQuery.new(@resource).postload @page, @limit
   end
 
   def show
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE*2].min
 
     target_user = User.find_by!(nickname: User.param_to(params[:id]))

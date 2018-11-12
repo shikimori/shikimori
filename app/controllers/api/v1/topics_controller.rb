@@ -11,7 +11,6 @@ class Api::V1::TopicsController < Api::V1Controller
     desc: 'Used together with `linked_id`'
   def index # rubocop:disable AbcSize, MethodLength
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
-    @page = [params[:page].to_i, 1].max
 
     topics_scope = Topics::Query.fetch(current_user, locale_from_host)
 
@@ -39,7 +38,6 @@ class Api::V1::TopicsController < Api::V1Controller
   param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
   def updates
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
-    @page = [params[:page].to_i, 1].max
 
     respond_with map_updates(updates_scope)
   end

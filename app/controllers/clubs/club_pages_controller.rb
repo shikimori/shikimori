@@ -80,7 +80,6 @@ class Clubs::ClubPagesController < ShikimoriController
 
 private
 
-  # rubocop:disable MethodLength
   def prepare_club
     @club = @club.decorate
 
@@ -93,7 +92,6 @@ private
     breadcrumb i18n_i('Club', :other), clubs_url
     breadcrumb @club.name, club_url(@club)
   end
-  # rubocop:enable MethodLength
 
   def prepare_form
     @page = 'pages'
