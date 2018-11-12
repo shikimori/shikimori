@@ -2,7 +2,12 @@
 # TODO: extract related methods into concerns
 class ShikimoriController < ApplicationController
   before_action { og noindex: true, nofollow: true unless shikimori? }
-  before_action { @page = (params[:page] || 1).to_i }
+  before_action do
+    @page = [
+      [params[:page].to_i, 1].max,
+      defined?(self.class::MAX_PAGE) ? self.class::MAX_PAGE : 5000
+    ].min
+  end
   COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
   helper_method :censored_forbidden?
