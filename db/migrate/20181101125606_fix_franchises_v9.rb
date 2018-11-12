@@ -1,5 +1,5 @@
 class FixFranchisesV9 < ActiveRecord::Migration[5.2]
-  def change
+  def up
     Anime
       .where(id: [7568, 4896, 36836, 31373, 36835, 32699, 19479, 5343])
       .update_all franchise: nil
@@ -24,11 +24,21 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
       'puchimas' => 'idolmaster',
       'chiba_pedal' => 'yowamushi_pedal',
       'seiren' => 'amagami_ss',
-      'hack_gift' => 'hack'
+      'hack_gift' => 'hack',
+      'purigorota' => 'nodame_cantabile',
+      'takanashi_rikka_kai' => 'chuunibyou_demo_koi_ga_shitai',
+      'oreimo' => 'ore_no_imouto',
+      'liz_to_aoi_tori' => 'hibike_euphonium',
+      'kud_wafter' => 'little_busters',
+      'maria_sama_ga_miteru' => 'maria_sama',
+      'kyoushoku_soukou_guyver'> => 'guyver'
     }.each do |old_name, new_name|
       Anime.where(franchise: old_name).update_all franchise: new_name
       Achievement.where(neko_id: old_name).update_all neko_id: new_name
     end
     Animes::UpdateFranchises.new.call [Anime]
+  end
+
+  def down
   end
 end
