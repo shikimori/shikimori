@@ -59,7 +59,7 @@ FRANCHISES_TO_ADD = %w[
   k
   nisekoi
   sora_no_otoshimono
-  mahouka_x_mameshiba
+  mahouka_koukou_no_rettousei
   infinite_stratos
   terra_formars
   appleseed

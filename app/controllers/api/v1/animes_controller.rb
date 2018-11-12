@@ -6,7 +6,8 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     [
       params[:controller],
       params[:action],
-      :v16
+      :v1,
+      NekoRepository.instance.cache_key
     ].join('_')
   }
 

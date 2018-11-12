@@ -1,5 +1,5 @@
 class FixFranchisesV9 < ActiveRecord::Migration[5.2]
-  def up
+  def change
     Anime
       .where(id: [7568, 4896, 36836, 31373, 36835, 32699, 19479, 5343])
       .update_all franchise: nil
@@ -41,8 +41,5 @@ class FixFranchisesV9 < ActiveRecord::Migration[5.2]
       Achievement.where(neko_id: old_name).update_all neko_id: new_name
     end
     Animes::UpdateFranchises.new.call [Anime]
-  end
-
-  def down
   end
 end

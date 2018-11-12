@@ -14,7 +14,7 @@ class Animes::FranchiseName
     'Initial D First Stage' => 'initial_d',
     'Tales of the Abyss' => 'tales_of',
     'ChaoS;HEAd' => 'science_adventure',
-    'Fate/Zero' => 'nasuverse',
+    'Fate/Zero' => 'fate',
     'The iDOLM@STER' => 'idolmaster',
     '.hack//Sign' => 'hack',
     'Ore no Imouto ga Konnani Kawaii Wake ga Nai' => 'ore_no_imouto',

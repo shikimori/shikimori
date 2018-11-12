@@ -6853,7 +6853,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :nasuverse
+    :neko_id: :fate
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
     :border_color: 
@@ -6865,7 +6865,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: nasuverse
+        franchise: fate
         not_anime_ids:
         - 169
         - 2593
@@ -6889,7 +6889,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :nasuverse
+    :neko_id: :fate
     :level: 0
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
     :border_color: 
@@ -6901,7 +6901,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: nasuverse
+        franchise: fate
         not_anime_ids:
         - 169
         - 2593
@@ -7621,7 +7621,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :koro_sensei_q
+    :neko_id: :ansatsu_kyoushitsu
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
     :border_color: 
@@ -7633,14 +7633,14 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: koro_sensei_q
+        franchise: ansatsu_kyoushitsu
         not_anime_ids:
         - 33511
       :threshold: 94.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :koro_sensei_q
+    :neko_id: :ansatsu_kyoushitsu
     :level: 0
     :image: https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
     :border_color: 
@@ -7652,7 +7652,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: koro_sensei_q
+        franchise: ansatsu_kyoushitsu
         not_anime_ids:
         - 33511
       :threshold: 0.01%
@@ -8857,7 +8857,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :mahouka_x_mameshiba
+    :neko_id: :mahouka_koukou_no_rettousei
     :level: 1
     :image: 
     :border_color: 
@@ -8869,12 +8869,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: mahouka_x_mameshiba
+        franchise: mahouka_koukou_no_rettousei
       :threshold: 99.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :mahouka_x_mameshiba
+    :neko_id: :mahouka_koukou_no_rettousei
     :level: 0
     :image: 
     :border_color: 
@@ -8886,7 +8886,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: mahouka_x_mameshiba
+        franchise: mahouka_koukou_no_rettousei
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10133,7 +10133,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :amon
+    :neko_id: :devilman
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/587860.jpg
     :border_color: 
@@ -10145,14 +10145,14 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: amon
+        franchise: devilman
         not_anime_ids:
         - 35952
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :amon
+    :neko_id: :devilman
     :level: 0
     :image: https://nyaa.shikimori.org/system/user_images/original/84020/587860.jpg
     :border_color: 
@@ -10164,7 +10164,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: amon
+        franchise: devilman
         not_anime_ids:
         - 35952
       :threshold: 0.01%
@@ -10579,7 +10579,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :megalo_box
+    :neko_id: :ashita_no_joe
     :level: 1
     :image: https://kawai.shikimori.org/system/user_images/original/84020/592671.jpg
     :border_color: 
@@ -10591,12 +10591,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: megalo_box
+        franchise: ashita_no_joe
       :threshold: 96.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :megalo_box
+    :neko_id: :ashita_no_joe
     :level: 0
     :image: https://kawai.shikimori.org/system/user_images/original/84020/592671.jpg
     :border_color: 
@@ -10608,7 +10608,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: megalo_box
+        franchise: ashita_no_joe
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10929,7 +10929,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :dmatsu_san
+    :neko_id: :osomatsu_san
     :level: 1
     :image: https://dere.shikimori.org/system/user_images/original/84020/593354.jpg
     :border_color: 
@@ -10941,12 +10941,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: dmatsu_san
+        franchise: osomatsu_san
       :threshold: 95.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :dmatsu_san
+    :neko_id: :osomatsu_san
     :level: 0
     :image: https://dere.shikimori.org/system/user_images/original/84020/593354.jpg
     :border_color: 
@@ -10958,7 +10958,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: dmatsu_san
+        franchise: osomatsu_san
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -11429,7 +11429,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :aquarion_evol
+    :neko_id: :aquarion
     :level: 1
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/589085.jpg
     :border_color: 
@@ -11441,12 +11441,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: aquarion_evol
+        franchise: aquarion
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :aquarion_evol
+    :neko_id: :aquarion
     :level: 0
     :image: https://nyaa.shikimori.org/system/user_images/original/34807/589085.jpg
     :border_color: 
@@ -11458,7 +11458,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: aquarion_evol
+        franchise: aquarion
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -11565,7 +11565,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :aria_the_origination
+    :neko_id: :aria
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
     :border_color: 
@@ -11577,14 +11577,14 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: aria_the_origination
+        franchise: aria
         not_anime_ids:
         - 5196
       :threshold: 95.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :aria_the_origination
+    :neko_id: :aria
     :level: 0
     :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
     :border_color: 
@@ -11596,7 +11596,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: aria_the_origination
+        franchise: aria
         not_anime_ids:
         - 5196
       :threshold: 0.01%
@@ -12157,7 +12157,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :digimon_savers
+    :neko_id: :digimon
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/34807/594733.jpg
     :border_color: 
@@ -12169,14 +12169,14 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: digimon_savers
+        franchise: digimon
         not_anime_ids:
         - 4712
       :threshold: 93.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :digimon_savers
+    :neko_id: :digimon
     :level: 0
     :image: https://desu.shikimori.org/system/user_images/original/34807/594733.jpg
     :border_color: 
@@ -12188,7 +12188,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: digimon_savers
+        franchise: digimon
         not_anime_ids:
         - 4712
       :threshold: 0.01%
@@ -12263,7 +12263,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :saiyuuki_gaiden
+    :neko_id: :saiyuuki
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/588842.jpg
     :border_color: 
@@ -12275,12 +12275,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: saiyuuki_gaiden
+        franchise: saiyuuki
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :saiyuuki_gaiden
+    :neko_id: :saiyuuki
     :level: 0
     :image: https://moe.shikimori.org/system/user_images/original/34807/588842.jpg
     :border_color: 
@@ -12292,7 +12292,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: saiyuuki_gaiden
+        franchise: saiyuuki
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -12661,7 +12661,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :iron_man
+    :neko_id: :marvel
     :level: 1
     :image: https://moe.shikimori.org/system/user_images/original/34807/593812.jpg
     :border_color: 
@@ -12673,12 +12673,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: iron_man
+        franchise: marvel
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :iron_man
+    :neko_id: :marvel
     :level: 0
     :image: https://moe.shikimori.org/system/user_images/original/34807/593812.jpg
     :border_color: 
@@ -12690,7 +12690,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: iron_man
+        franchise: marvel
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13673,7 +13673,7 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :ehon_yose
+    :neko_id: :gegege_no_kitarou
     :level: 1
     :image: https://desu.shikimori.org/system/user_images/original/34807/588958.jpg
     :border_color: 
@@ -13685,12 +13685,12 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: ehon_yose
+        franchise: gegege_no_kitarou
       :threshold: 97.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :ehon_yose
+    :neko_id: :gegege_no_kitarou
     :level: 0
     :image: https://desu.shikimori.org/system/user_images/original/34807/588958.jpg
     :border_color: 
@@ -13702,7 +13702,7 @@
     :rule:
       :algo: duration
       :filters:
-        franchise: ehon_yose
+        franchise: gegege_no_kitarou
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
