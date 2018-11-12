@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_12_214445) do
+ActiveRecord::Schema.define(version: 2018_11_12_200735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 2018_11_12_214445) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["neko_id", "level"], name: "index_achievements_on_neko_id_and_level"
     t.index ["user_id", "neko_id", "level"], name: "index_achievements_on_user_id_and_neko_id_and_level", unique: true
     t.index ["user_id"], name: "index_achievements_on_user_id"
   end
