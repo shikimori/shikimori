@@ -22,4 +22,9 @@ describe AchievementsController do
     before { get :show, params: { group: 'common', id: 'animelist' } }
     it { expect(response).to have_http_status :success }
   end
+
+  describe '#users' do
+    before { get :users, params: { group: 'common', id: 'animelist', level: 1 } }
+    it { expect(response).to have_http_status :success }
+  end
 end

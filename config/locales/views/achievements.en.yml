@@ -26,3 +26,5 @@ en:
       show_anime_list: Show anime list
       of_duration: of duration
       hide: Hide
+    users:
+      nothing_here: No users

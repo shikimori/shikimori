@@ -26,3 +26,5 @@ ru:
       show_anime_list: Показать список аниме
       of_duration: от длительности
       hide: Скрыть
+    users:
+      nothing_here: Нет пользователей

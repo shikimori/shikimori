@@ -46,7 +46,10 @@ header.head.misc
               .value = achievement.rule[:threshold]
             .line
               .key #{t '.users'}:&nbsp;
-              .value = achievement.users_count
+              .value
+                a[
+                  href=achievement_users_url(achievement.group, achievement.neko_id, achievement.level)
+                ] = achievement.users_count
 
           .block_m
             = render 'achievements/statistics', achievement: achievement

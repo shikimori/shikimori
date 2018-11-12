@@ -646,6 +646,9 @@ Rails.application.routes.draw do
     get 'achievements/:group/:id' => :show,
       as: 'achievement',
       controller: :achievements
+    get 'achievements/:group/:id/level/:level/users' => :users,
+      as: 'achievement_users',
+      controller: :achievements
 
     # seo redirects
     constraints kind: /animes|mangas/, other: /.*/, other2: /.*/ do

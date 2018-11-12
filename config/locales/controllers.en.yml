@@ -403,6 +403,7 @@ en:
 
   achievements_controller:
     title: Achievements
+    level: Level %{level}
 
   doorkeeper/oauth_applications_controller:
     index:

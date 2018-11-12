@@ -2,41 +2,22 @@ class AchievementsController < ShikimoriController
   before_action do
     og page_title: i18n_i('Achievement', :other)
   end
+  before_action :find_collection, only: %i[group]
+  before_action :set_collection, only: %i[show users]
+
+  USERS_PER_PAGE = 48
+  MAX_PAGE = 50
 
   def index
     @collection = NekoRepository.instance
   end
 
-  def group # rubocop:disable AbcSize, MethodLength
-    @collection = NekoRepository.instance
-      .select { |v| v.group == params[:group].to_sym }
-
-    if @collection.empty?
-      id_collection = NekoRepository.instance
-        .select { |v| v.neko_id == params[:group].to_sym }
-
-      if id_collection.any?
-        return redirect_to achievement_url(
-          id_collection.first.group,
-          id_collection.first.neko_id
-        )
-      else
-        raise ActiveRecord::RecordNotFound
-      end
-    end
-
+  def group
     og page_title: @collection.first.group_name
     breadcrumb i18n_i('Achievement', :other), achievements_url
   end
 
-  def show # rubocop:disable AbcSize
-    @collection = NekoRepository.instance.select do |achievement|
-      achievement.neko_id == params[:id].to_sym &&
-        achievement.group == params[:group].to_sym
-    end
-
-    raise ActiveRecord::RecordNotFound if @collection.empty?
-
+  def show
     @topic_resource = build_topic_resource @collection.first.topic_id
 
     og page_title: @collection.first.group_name
@@ -49,7 +30,54 @@ class AchievementsController < ShikimoriController
     )
   end
 
+  def users
+    show
+    @resource = @collection.find { |achievement| achievement.level == params[:level].to_i }
+
+    og page_title: i18n_t('level', level: @resource.level)
+    breadcrumb(
+      @resource.title(current_user, ru_host?),
+      achievement_url(@resource.group, @resource.neko_id)
+    )
+
+    ensure_redirect! achievement_users_url(
+      @resource.group,
+      @resource.neko_id,
+      @resource.level
+    )
+
+    @collection = QueryObjectBase.new(@resource.users_scope)
+      .paginate(@page, USERS_PER_PAGE)
+  end
+
 private
+
+  def find_collection # rubocop:disable AbcSize
+    @collection = NekoRepository.instance.select do |achievement|
+      achievement.group == params[:group].to_sym
+    end
+
+    if @collection.empty?
+      id_collection = NekoRepository.instance.select do |achievement|
+        achievement.neko_id == params[:group].to_sym
+      end
+      raise ActiveRecord::RecordNotFound if id_collection.none?
+
+      ensure_redirect! achievement_url(
+        id_collection.first.group,
+        id_collection.first.neko_id
+      )
+    end
+  end
+
+  def set_collection
+    @collection = NekoRepository.instance.select do |achievement|
+      achievement.neko_id == params[:id].to_sym &&
+        achievement.group == params[:group].to_sym
+    end
+
+    raise ActiveRecord::RecordNotFound if @collection.none?
+  end
 
   def build_topic_resource topic_id
     return unless ru_host?
