@@ -171,9 +171,10 @@ class TestsController < ShikimoriController
           .map(&:to_s)
           .reject { |franchise| @matched_collection.include? franchise }
           .each_with_object({}) do |franchise, memo|
-            memo[franchise] = franchise_info(
-              Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
-            )
+            animes = Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
+            next if animes.none?
+
+            memo[franchise] = franchise_info animes
           end
           .sort_by { |_franchise, info| -info[:user_rates][:text] }
       end
