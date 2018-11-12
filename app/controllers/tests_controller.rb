@@ -131,7 +131,7 @@ class TestsController < ShikimoriController
       @minimum_user_rates,
       @maximum_user_rates,
       @without_achievement,
-      :v5
+      :v8
     ]
 
     @matched_collection =
@@ -162,6 +162,7 @@ class TestsController < ShikimoriController
           end
           .sort_by { |_franchise, info| -info[:user_rates][:text] }
       end
+    @matched_collection = Hash[@matched_collection]
 
     @not_matched_collection =
       Rails.cache.fetch %i[not_matched_franchises] + cache_key, expires_in: 1.month do
@@ -172,7 +173,6 @@ class TestsController < ShikimoriController
           .reject { |franchise| @matched_collection.include? franchise }
           .each_with_object({}) do |franchise, memo|
             animes = Anime.where(franchise: franchise).select { |anime| Neko::IsAllowed.call anime }
-            next if animes.none?
 
             memo[franchise] = franchise_info animes
           end
@@ -195,6 +195,8 @@ private
   end
 
   def franchise_user_rates animes
+    return 0 if animes.none?
+
     @franchise_user_rates ||= {}
     franchise = animes.first.franchise
     cache_key = [franchise, :user_rates_count, :v1]
