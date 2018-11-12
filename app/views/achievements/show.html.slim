@@ -44,6 +44,9 @@ header.head.misc
             .line
               .key #{t '.threshold'}:&nbsp;
               .value = achievement.rule[:threshold]
+            .line
+              .key #{t '.users'}:&nbsp;
+              .value = achievement.users_count
 
           .block_m
             = render 'achievements/statistics', achievement: achievement

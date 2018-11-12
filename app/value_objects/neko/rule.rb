@@ -54,7 +54,7 @@ class Neko::Rule < Dry::Struct
     I18n.t "achievements.group.#{group}"
   end
 
-  def title user, is_ru_host
+  def title user, is_ru_host # rubocop:disable PerceivedComplexity, CyclomaticComplexity
     send("title_#{franchise? ? locale_key(user) : I18n.locale}") ||
       (neko_id.to_s.titleize if franchise?) ||
       (title_ru if is_ru_host) ||
@@ -111,6 +111,10 @@ class Neko::Rule < Dry::Struct
 
       animes_scope.size
     end
+  end
+
+  def users_count
+    @users_count ||= Achievement.where(neko_id: neko_id, level: level).count
   end
 
   def animes_scope

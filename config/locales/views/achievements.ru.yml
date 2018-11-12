@@ -11,10 +11,11 @@ ru:
     show:
       level: Уровень %{level}
       threshold: Порог срабатывания
+      users: Пользователей с ачивкой
     statistics:
       statistics: Статистика
       list_size: Размер списка
-      users: Пользователи<br>с ачивкой
+      users: Пользователей<br>с ачивкой
       percent: Процент от<br>общего числа
     info:
       levels: Уровней
