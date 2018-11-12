@@ -11,7 +11,7 @@ class Achievements::Track
     user = User.find user_id
     neko_update user, user_rate_id, action
   rescue *(Network::FaradayGet::NET_ERRORS + [Neko::RequestError])
-    self.class.perform_in 5.minutes, user_id, user_rate_id, action
+    self.class.perform_in 1.minute, user_id, user_rate_id, action
   end
 
 private
