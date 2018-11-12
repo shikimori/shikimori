@@ -35,7 +35,6 @@ class ClubsController < ShikimoriController
 
   def index
     og noindex: true
-    @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
     query = Clubs::Query.fetch(locale_from_host)
