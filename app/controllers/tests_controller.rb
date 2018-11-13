@@ -107,7 +107,7 @@ class TestsController < ShikimoriController
     end
 
     @minimum_user_rates = (params[:minimum_user_rates] || DEFAULT_MINIMUM_USER_RATES).to_i
-    @minimum_user_rates = [10000, [50, @minimum_user_rates].max].min
+    @minimum_user_rates = [10000, [0, @minimum_user_rates].max].min
     unless (@minimum_user_rates % 50).zero?
       @minimum_user_rates += 50 - @minimum_user_rates % 50
     end
