@@ -1,6 +1,5 @@
 class UserImagesCleaner
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
 
   def perform
     UserImage

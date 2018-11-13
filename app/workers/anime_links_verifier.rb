@@ -1,7 +1,6 @@
 class AnimeLinksVerifier
   include Sidekiq::Worker
   sidekiq_options(
-    unique: :until_executed,
     dead: false,
     unique_job_expiration: 60 * 60 * 24 * 30
   )

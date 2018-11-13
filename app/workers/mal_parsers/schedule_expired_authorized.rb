@@ -1,9 +1,6 @@
 class MalParsers::ScheduleExpiredAuthorized
   include Sidekiq::Worker
-  sidekiq_options(
-    unique: :until_executing,
-    queue: :mal_parsers
-  )
+  sidekiq_options queue: :mal_parsers
 
   SCHEDULE_INTERVAL = 10.minutes
 

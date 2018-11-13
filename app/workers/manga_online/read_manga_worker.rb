@@ -1,7 +1,6 @@
 class MangaOnline::ReadMangaWorker
   include Sidekiq::Worker
   sidekiq_options(
-    unique: :until_executed,
     queue: :manga_online_parsers,
     retry: false
   )
@@ -15,7 +14,7 @@ class MangaOnline::ReadMangaWorker
 private
 
   def mangas_for_import
-    #NOTE: Лимит оставил, чтобы проверить сначала все ли правильно загрузилось на продакшене.
+    # NOTE: Лимит оставил, чтобы проверить сначала все ли правильно загрузилось на продакшене.
     Manga
       .where('read_manga_id is not null')
       .where(parsed_at: nil)

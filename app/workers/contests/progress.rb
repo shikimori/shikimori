@@ -2,7 +2,6 @@ class Contests::Progress
   include Sidekiq::Worker
 
   sidekiq_options(
-    unique: :until_executed,
     retry: true,
     dead: false,
     queue: :high_priority

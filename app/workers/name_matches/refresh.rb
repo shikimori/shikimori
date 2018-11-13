@@ -1,6 +1,6 @@
 class NameMatches::Refresh
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed, queue: :cpu_intensive
+  sidekiq_options queue: :cpu_intensive
 
   def perform type, ids = nil
     query(type, ids).find_in_batches(batch_size: 1000) do |entries|

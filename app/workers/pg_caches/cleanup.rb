@@ -1,6 +1,5 @@
 class PgCaches::Cleanup
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed
 
   def perform
     PgCacheData

@@ -1,10 +1,7 @@
 # worker remove from clockwork
 class AnimeOnline::BrokenVkVideosCleaner
   include Sidekiq::Worker
-  sidekiq_options(
-    unique: :until_executed,
-    retry: false
-  )
+  sidekiq_options retry: false
 
   def perform
     videos.find_each(batch_size: 500) do |video|

@@ -1,10 +1,7 @@
 class Achievements::UpdateStatistics
   include Sidekiq::Worker
 
-  sidekiq_options(
-    unique: :until_executing,
-    queue: :achievements
-  )
+  sidekiq_options queue: :achievements
 
   USER_RATES_SQL = <<~SQL.squish
     inner join user_rates on

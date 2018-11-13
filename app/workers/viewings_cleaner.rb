@@ -1,9 +1,6 @@
 class ViewingsCleaner
   include Sidekiq::Worker
-  sidekiq_options(
-    unique: :until_executed,
-    queue: :cpu_intensive
-  )
+  sidekiq_options queue: :cpu_intensive
 
   def perform
     CommentViewing.where('viewed_id < ?', last_id(Comment)).delete_all

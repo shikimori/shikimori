@@ -1,6 +1,6 @@
 class People::JobsWorker
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed, queue: :cpu_intensive
+  sidekiq_options queue: :cpu_intensive
 
   PEOPLE_WITH_CUSTOMIZED_ROLES_IDS = [6024]
 

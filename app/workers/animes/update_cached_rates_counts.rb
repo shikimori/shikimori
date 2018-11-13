@@ -1,6 +1,6 @@
 class Animes::UpdateCachedRatesCounts
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed, queue: :cpu_intensive
+  sidekiq_options queue: :cpu_intensive
 
   def perform
     ApplicationRecord.connection.execute sql_query(Anime)

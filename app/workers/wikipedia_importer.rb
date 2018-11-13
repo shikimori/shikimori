@@ -1,8 +1,6 @@
 class WikipediaImporter
   include Sidekiq::Worker
   sidekiq_options(
-    unique: :until_executed,
-    unique_args: -> (args) { args },
     queue: :slow_parsers,
     dead: false
   )

@@ -2,7 +2,6 @@ class Achievements::Track
   include Sidekiq::Worker
 
   sidekiq_options(
-    unique: :until_executing,
     queue: :achievements,
     dead: false
   )

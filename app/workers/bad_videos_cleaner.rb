@@ -1,10 +1,6 @@
 class BadVideosCleaner
   include Sidekiq::Worker
-  sidekiq_options(
-    unique: :until_executed,
-    unique_args: -> (args) { args },
-    dead: false
-  )
+  sidekiq_options dead: false
   sidekiq_retry_in { 60 * 60 * 24 }
 
   def perform

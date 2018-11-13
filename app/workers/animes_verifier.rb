@@ -2,11 +2,7 @@ class AnimesVerifier
   include Sidekiq::Worker
   extend DslAttribute
 
-  sidekiq_options(
-    unique: :until_executed,
-    dead: false,
-    unique_job_expiration: 60 * 60 * 24 * 30
-  )
+  sidekiq_options dead: false
   sidekiq_retry_in { 60 * 60 * 24 }
 
   dsl_attribute :klass, Anime

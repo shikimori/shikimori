@@ -1,9 +1,6 @@
 class UserRates::LogsCleaner
   include Sidekiq::Worker
-  sidekiq_options(
-    unique: :until_executed,
-    queue: :cpu_intensive
-  )
+  sidekiq_options queue: :cpu_intensive
 
   LOGS_LIVE_INTERVAL = 2.weeks
 

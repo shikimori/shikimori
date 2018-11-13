@@ -1,9 +1,6 @@
 class MalParsers::ScheduleMissingPersonRoles
   include Sidekiq::Worker
-  sidekiq_options(
-    unique: :until_executed,
-    queue: :mal_parsers
-  )
+  sidekiq_options queue: :mal_parsers
 
   TYPES = Types::Coercible::String.enum('character', 'person')
 

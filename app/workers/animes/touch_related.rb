@@ -1,7 +1,7 @@
 # touches all related db_entires in order to invalidate their caches
 class Animes::TouchRelated
   include Sidekiq::Worker
-  sidekiq_options unique: :until_executed, queue: :low_priority
+  sidekiq_options queue: :low_priority
 
   def perform db_entry
     touch db_entry.animes if db_entry.respond_to? :animes

@@ -1,7 +1,7 @@
 class Comments::BroadcastNotifications
   include Sidekiq::Worker
 
-  sidekiq_options unique: :until_executed, dead: false
+  sidekiq_options dead: false
 
   def perform comment_id
     comment = Comment.find_by id: comment_id

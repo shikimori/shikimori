@@ -1,11 +1,7 @@
 class MalParsers::FetchEntryAuthorized
   include Sidekiq::Worker
 
-  sidekiq_options(
-    unique: :while_executing,
-    unique_args: ->(_args) { 'only_one_task' },
-    queue: :mal_parsers
-  )
+  sidekiq_options queue: :mal_parsers
 
   def perform entry_id, entry_type
     "DbImport::#{entry_type}".constantize.call parsed_data(entry_id, entry_type)

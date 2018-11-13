@@ -1,9 +1,7 @@
 class FindAnimeWorker
   include Sidekiq::Worker
   sidekiq_options(
-    unique: :until_executed,
     queue: :anime_online_parsers,
-    unique_args: -> (args) { args },
     retry: false
   )
 

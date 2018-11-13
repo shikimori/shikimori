@@ -46,8 +46,7 @@ class AchievementsController < ShikimoriController
       @resource.level
     )
 
-    @collection = QueryObjectBase.new(@resource.users_scope)
-      .paginate(@page, USERS_PER_PAGE)
+    @collection = QueryObjectBase.new(@resource.users_scope).paginate(@page, USERS_PER_PAGE)
   end
 
 private
