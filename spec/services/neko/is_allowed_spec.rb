@@ -48,8 +48,8 @@ describe Neko::IsAllowed do
     it { is_expected.to eq true }
   end
 
-  context 'special or ova' do
-    let(:kind) { %i[special ova].sample }
+  context 'special/ova/movie' do
+    let(:kind) { %i[special ova movie].sample }
 
     context 'name' do
       context 'recap' do

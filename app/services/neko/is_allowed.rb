@@ -27,7 +27,7 @@ class Neko::IsAllowed
   def call
     allowed_in_neko? || !(
       @entry.anons? || @entry.kind_music? ||
-      (special? && recap_name?) # ||
+      (recap_kind? && recap_name?) # ||
       # extra_short?
     )
   end
@@ -42,8 +42,8 @@ private
     NekoRepository.instance.find @entry.franchise, 1
   end
 
-  def special?
-    @entry.kind_special? || @entry.kind_ova?
+  def recap_kind?
+    @entry.kind_special? || @entry.kind_ova? || @entry.kind.movie?
   end
 
   def recap_name?
