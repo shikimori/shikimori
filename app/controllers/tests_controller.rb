@@ -131,6 +131,7 @@ class TestsController < ShikimoriController
       @minimum_user_rates,
       @maximum_user_rates,
       @without_achievement,
+      NekoRepository.instance.cache_key,
       :v9
     ]
 
