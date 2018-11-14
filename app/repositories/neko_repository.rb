@@ -25,7 +25,7 @@ class NekoRepository
 
   def cache_key *args
     [
-      Digest::MD5.hexdigest(raw_config),
+      Digest::MD5.hexdigest(raw_config.to_json),
       Time.zone.today,
       :v4
     ] + args
