@@ -13,7 +13,7 @@ raw_data = YAML.load_file(franchise_yml)
 # https://monosnap.com/file/GpmxHTnn5MonPI5vVdvpudSH1Ct54l
 # https://monosnap.com/file/7R0gdzL099NoDCPknAp6GYAmnX9TjA
 
-FRANCHISES_TO_DELETE = %w[sonic tiger_mask getter_robo ojamajo_doremi kinnikuman super_robot_taisen_og zoids rean_no_tsubasa choujuu_kishin_dancougar ultraman dragon_quest super_doll_licca_chan mahou_no_princess_minky_momo juusenki_l_gaim obake_no_q_tarou ginga_senpuu_braiger]
+FRANCHISES_TO_DELETE = %w[]
 
 raw_data = raw_data.reject { |rule| FRANCHISES_TO_DELETE.include? rule['filters']['franchise'] }
 data = raw_data.dup
