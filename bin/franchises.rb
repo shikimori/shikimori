@@ -13,59 +13,12 @@ raw_data = YAML.load_file(franchise_yml)
 # https://monosnap.com/file/GpmxHTnn5MonPI5vVdvpudSH1Ct54l
 # https://monosnap.com/file/7R0gdzL099NoDCPknAp6GYAmnX9TjA
 
+FRANCHISES_TO_DELETE = %w[sonic tiger_mask getter_robo ojamajo_doremi kinnikuman super_robot_taisen_og zoids rean_no_tsubasa choujuu_kishin_dancougar ultraman dragon_quest super_doll_licca_chan mahou_no_princess_minky_momo juusenki_l_gaim obake_no_q_tarou ginga_senpuu_braiger]
+
+raw_data = raw_data.reject { |rule| FRANCHISES_TO_DELETE.include? rule['filters']['franchise'] }
 data = raw_data.dup
 
-FRANCHISES_TO_ADD = %w[
-  tokyo_ghoul
-  science_adventure
-  ao_no_exorcist
-  overlord
-  evangelion
-  chuunibyou_demo_koi_ga_shitai
-  darker_than_black
-  k_on
-  tengen_toppa_gurren_lagann
-  danganronpa
-  ore_no_imouto
-  hellsing
-  kami_nomi_zo_shiru_sekai
-  ajin
-  seitokai_yakuindomo
-  hakuouki
-  xxxholic
-  rozen_maiden
-  nodame_cantabile
-  sayonara_zetsubou_sensei
-  girls_panzer
-  yuru_yuri
-  arslan_senki
-  hoozuki_no_reitetsu
-  hibike_euphonium
-  baku_tech_bakugan
-  little_busters
-  brave_witches
-  dog_days
-  kiniro_no_corda
-  tiger_bunny
-  touken_ranbu
-  ookiku_furikabutte
-  binan_koukou_chikyuu_boueibu_love
-  seikai_no_senki
-  guyver
-  maria_sama
-  tamayura
-  beyblade
-  kamisama_hajimemashita
-  k
-  nisekoi
-  sora_no_otoshimono
-  mahouka_koukou_no_rettousei
-  infinite_stratos
-  terra_formars
-  appleseed
-  yozakura_quartet
-  kara_no_kyoukai
-]
+FRANCHISES_TO_ADD = %w[]
   .reject { |franchise| data.find { |rule| rule['filters']['franchise'] == franchise } }
 
 FRANCHISES_TO_ADD.each do |franchise|
