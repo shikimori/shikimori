@@ -132,7 +132,7 @@ class TestsController < ShikimoriController
       @maximum_user_rates,
       @without_achievement,
       NekoRepository.instance.cache_key,
-      :v10
+      :v11
     ]
 
     @matched_collection =

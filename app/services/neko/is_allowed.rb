@@ -25,17 +25,23 @@ class Neko::IsAllowed
   # SHORT_DURATION = 5
 
   def call
-    allowed_in_neko? || !(
-      @entry.anons? || @entry.kind_music? ||
-      (recap_kind? && recap_name?) # ||
-      # extra_short?
+    !banned_in_neko? && (
+      allowed_in_neko? || !(
+        @entry.anons? || @entry.kind_music? ||
+        (recap_kind? && recap_name?) # ||
+        # extra_short?
+      )
     )
   end
 
 private
 
   def allowed_in_neko?
-    neko_rule.rule.dig(:generator, 'not_ignored_ids')&.include? entry.id
+    neko_rule.rule.dig(:generator, 'not_ignored_ids')&.include?(entry.id)
+  end
+
+  def banned_in_neko?
+    neko_rule.rule.dig(:filters, 'not_anime_ids')&.include?(entry.id)
   end
 
   def neko_rule

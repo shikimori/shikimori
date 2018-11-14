@@ -39,6 +39,15 @@ describe Neko::IsAllowed do
   #   it { is_expected.to eq false }
   # end
 
+  context 'banned in NekoRule' do
+    let(:status) { :anons }
+    let(:franchise) { 'gundam' }
+    let(:kind) { :tv }
+    let(:id) { 3963 }
+
+    it { is_expected.to eq false }
+  end
+
   context 'allowed in NekoRule' do
     let(:status) { :anons }
     let(:franchise) { 'gundam' }
