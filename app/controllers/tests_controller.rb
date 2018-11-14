@@ -132,7 +132,7 @@ class TestsController < ShikimoriController
       @maximum_user_rates,
       @without_achievement,
       NekoRepository.instance.cache_key,
-      :v9
+      :v10
     ]
 
     @matched_collection =
@@ -200,7 +200,7 @@ private
 
     @franchise_user_rates ||= {}
     franchise = animes.first.franchise
-    cache_key = [franchise, :user_rates_count, :v1]
+    cache_key = [franchise, :user_rates_count, :v2]
 
     @franchise_user_rates[franchise] ||= Rails.cache.fetch cache_key, expires_in: 1.week do
       UserRate
