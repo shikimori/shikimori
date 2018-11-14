@@ -8,7 +8,7 @@ class TestsController < ShikimoriController
 
   DEFAULT_MINIMUM_TITLES = 4
   DEFAULT_MINIMUM_DURATION = 850
-  DEFAULT_MINIMUM_USER_RATES = 600
+  DEFAULT_MINIMUM_USER_RATES = 1000
 
   def show
     @traffic = Rails.cache.fetch("traffic_#{Time.zone.today}") do
