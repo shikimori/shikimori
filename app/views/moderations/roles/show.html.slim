@@ -34,10 +34,12 @@ header.head
             next_url: current_url(page: @searched_collection.next_page),
             prev_url: (current_url(page: @searched_collection.prev_page) if @searched_collection.prev_page?)
 
-.block
-  .subheadline.m10 = t '.users'
-  .cc-4
-    - cache [params[:role], @collection, can?(:"manage_#{@role}_role", User)] do
+- cache [params[:role], @collection, can?(:"manage_#{@role}_role", User)] do
+  .block
+    .b-options-floated
+      = @collection.size
+    .subheadline.m10 = t '.users'
+    .cc-4
       - if @collection.none?
         .b-nothing_here = t '.nothing_here'
       - else
