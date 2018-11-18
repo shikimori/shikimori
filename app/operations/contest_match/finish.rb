@@ -50,7 +50,7 @@ private
   def unvote_suspicious
     @contest_match.votes_for
       .where(voter_id: User.suspicious, voter_type: User.name)
-      .each do |suspicious_vote|
+      .find_each do |suspicious_vote|
         @contest_match.unvote_by suspicious_vote.voter
       end
 
