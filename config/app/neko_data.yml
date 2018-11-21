@@ -6703,7 +6703,7 @@
   attributes:
     :neko_id: :naruto
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594952.jpg
+    :image: "/assets/achievements/anime/franchise/naruto.jpg"
     :border_color: 
     :title_ru: Наруто
     :text_ru: 
@@ -6720,7 +6720,7 @@
   attributes:
     :neko_id: :naruto
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594952.jpg
+    :image: "/assets/achievements/anime/franchise/naruto.jpg"
     :border_color: 
     :title_ru: Наруто
     :text_ru: 
@@ -6737,7 +6737,7 @@
   attributes:
     :neko_id: :shingeki_no_kyojin
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/621305.jpg
+    :image: "/assets/achievements/anime/franchise/shingeki_no_kyojin.jpg"
     :border_color: 
     :title_ru: Вторжение гигантов
     :text_ru: 
@@ -6761,7 +6761,7 @@
   attributes:
     :neko_id: :shingeki_no_kyojin
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/621305.jpg
+    :image: "/assets/achievements/anime/franchise/shingeki_no_kyojin.jpg"
     :border_color: 
     :title_ru: Вторжение гигантов
     :text_ru: 
@@ -6785,7 +6785,7 @@
   attributes:
     :neko_id: :bakemonogatari
     :level: 1
-    :image: http://i.imgur.com/lsLbehE.png
+    :image: "/assets/achievements/anime/franchise/bakemonogatari.png"
     :border_color: 
     :title_ru: Цикл историй
     :text_ru: 
@@ -6809,7 +6809,7 @@
   attributes:
     :neko_id: :bakemonogatari
     :level: 0
-    :image: http://i.imgur.com/lsLbehE.png
+    :image: "/assets/achievements/anime/franchise/bakemonogatari.png"
     :border_color: 
     :title_ru: Цикл историй
     :text_ru: 
@@ -6833,7 +6833,7 @@
   attributes:
     :neko_id: :sword_art_online
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593360.jpg
+    :image: "/assets/achievements/anime/franchise/sword_art_online.jpg"
     :border_color: 
     :title_ru: Мастера Меча Онлайн
     :text_ru: 
@@ -6853,7 +6853,7 @@
   attributes:
     :neko_id: :sword_art_online
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593360.jpg
+    :image: "/assets/achievements/anime/franchise/sword_art_online.jpg"
     :border_color: 
     :title_ru: Мастера Меча Онлайн
     :text_ru: 
@@ -6873,7 +6873,7 @@
   attributes:
     :neko_id: :fate
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
+    :image: "/assets/achievements/anime/franchise/fate.jpg"
     :border_color: 
     :title_ru: Судьба
     :text_ru: 
@@ -6914,7 +6914,7 @@
   attributes:
     :neko_id: :fate
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594725.jpg
+    :image: "/assets/achievements/anime/franchise/fate.jpg"
     :border_color: 
     :title_ru: Судьба
     :text_ru: 
@@ -6989,7 +6989,7 @@
   attributes:
     :neko_id: :kuroko_no_basket
     :level: 1
-    :image: http://i.imgur.com/1w3Q4p6.png
+    :image: "/assets/achievements/anime/franchise/kuroko_no_basket.png"
     :border_color: 
     :title_ru: Баскетбол Куроко
     :text_ru: 
@@ -7010,7 +7010,7 @@
   attributes:
     :neko_id: :kuroko_no_basket
     :level: 0
-    :image: http://i.imgur.com/1w3Q4p6.png
+    :image: "/assets/achievements/anime/franchise/kuroko_no_basket.png"
     :border_color: 
     :title_ru: Баскетбол Куроко
     :text_ru: 
@@ -7069,7 +7069,7 @@
   attributes:
     :neko_id: :code_geass
     :level: 1
-    :image: http://i.imgur.com/yjd3pFc.png
+    :image: "/assets/achievements/anime/franchise/code_geass.png"
     :border_color: 
     :title_ru: Код Гиас
     :text_ru: 
@@ -7100,7 +7100,7 @@
   attributes:
     :neko_id: :code_geass
     :level: 0
-    :image: http://i.imgur.com/yjd3pFc.png
+    :image: "/assets/achievements/anime/franchise/code_geass.png"
     :border_color: 
     :title_ru: Код Гиас
     :text_ru: 
@@ -7131,7 +7131,7 @@
   attributes:
     :neko_id: :boku_no_hero_academia
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/591715.jpg
+    :image: "/assets/achievements/anime/franchise/boku_no_hero_academia.jpg"
     :border_color: 
     :title_ru: Моя геройская академия
     :text_ru: 
@@ -7150,7 +7150,7 @@
   attributes:
     :neko_id: :boku_no_hero_academia
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/591715.jpg
+    :image: "/assets/achievements/anime/franchise/boku_no_hero_academia.jpg"
     :border_color: 
     :title_ru: Моя геройская академия
     :text_ru: 
@@ -7169,7 +7169,7 @@
   attributes:
     :neko_id: :high_school_dxd
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/624132.jpg
+    :image: "/assets/achievements/anime/franchise/high_school_dxd.jpg"
     :border_color: 
     :title_ru: Старшая школа DxD
     :text_ru: 
@@ -7186,7 +7186,7 @@
   attributes:
     :neko_id: :high_school_dxd
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/624132.jpg
+    :image: "/assets/achievements/anime/franchise/high_school_dxd.jpg"
     :border_color: 
     :title_ru: Старшая школа DxD
     :text_ru: 
@@ -7203,7 +7203,7 @@
   attributes:
     :neko_id: :kuroshitsuji
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/594196.jpg
+    :image: "/assets/achievements/anime/franchise/kuroshitsuji.jpg"
     :border_color: 
     :title_ru: Тёмный дворецкий
     :text_ru: 
@@ -7223,7 +7223,7 @@
   attributes:
     :neko_id: :kuroshitsuji
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/594196.jpg
+    :image: "/assets/achievements/anime/franchise/kuroshitsuji.jpg"
     :border_color: 
     :title_ru: Тёмный дворецкий
     :text_ru: 
@@ -7243,7 +7243,7 @@
   attributes:
     :neko_id: :fairy_tail
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587404.jpg
+    :image: "/assets/achievements/anime/franchise/fairy_tail.jpg"
     :border_color: 
     :title_ru: Сказка о Хвосте феи
     :text_ru: 
@@ -7263,7 +7263,7 @@
   attributes:
     :neko_id: :fairy_tail
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587404.jpg
+    :image: "/assets/achievements/anime/franchise/fairy_tail.jpg"
     :border_color: 
     :title_ru: Сказка о Хвосте феи
     :text_ru: 
@@ -7283,7 +7283,7 @@
   attributes:
     :neko_id: :fullmetal_alchemist
     :level: 1
-    :image: http://i.imgur.com/M821rLg.png
+    :image: "/assets/achievements/anime/franchise/fullmetal_alchemist.png"
     :border_color: 
     :title_ru: Стальной алхимик
     :text_ru: 
@@ -7303,7 +7303,7 @@
   attributes:
     :neko_id: :fullmetal_alchemist
     :level: 0
-    :image: http://i.imgur.com/M821rLg.png
+    :image: "/assets/achievements/anime/franchise/fullmetal_alchemist.png"
     :border_color: 
     :title_ru: Стальной алхимик
     :text_ru: 
@@ -7391,7 +7391,7 @@
   attributes:
     :neko_id: :shokugeki_no_souma
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587910.jpg
+    :image: "/assets/achievements/anime/franchise/shokugeki_no_souma.jpg"
     :border_color: 
     :title_ru: Повар-боец Сома
     :text_ru: 
@@ -7408,7 +7408,7 @@
   attributes:
     :neko_id: :shokugeki_no_souma
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587910.jpg
+    :image: "/assets/achievements/anime/franchise/shokugeki_no_souma.jpg"
     :border_color: 
     :title_ru: Повар-боец Сома
     :text_ru: 
@@ -7425,7 +7425,7 @@
   attributes:
     :neko_id: :evangelion
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/12671/685036.jpg
+    :image: "/assets/achievements/anime/franchise/evangelion.jpg"
     :border_color: 
     :title_ru: Евангелион
     :text_ru: 
@@ -7451,7 +7451,7 @@
   attributes:
     :neko_id: :evangelion
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/12671/685036.jpg
+    :image: "/assets/achievements/anime/franchise/evangelion.jpg"
     :border_color: 
     :title_ru: Евангелион
     :text_ru: 
@@ -7477,7 +7477,7 @@
   attributes:
     :neko_id: :gintama
     :level: 1
-    :image: http://i.imgur.com/b1iPCow.png
+    :image: "/assets/achievements/anime/franchise/gintama.png"
     :border_color: 
     :title_ru: Гинтама
     :text_ru: 
@@ -7498,7 +7498,7 @@
   attributes:
     :neko_id: :gintama
     :level: 0
-    :image: http://i.imgur.com/b1iPCow.png
+    :image: "/assets/achievements/anime/franchise/gintama.png"
     :border_color: 
     :title_ru: Гинтама
     :text_ru: 
@@ -7519,7 +7519,7 @@
   attributes:
     :neko_id: :nanatsu_no_taizai
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592707.jpg
+    :image: "/assets/achievements/anime/franchise/nanatsu_no_taizai.jpg"
     :border_color: 
     :title_ru: Семь смертных грехов
     :text_ru: 
@@ -7538,7 +7538,7 @@
   attributes:
     :neko_id: :nanatsu_no_taizai
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592707.jpg
+    :image: "/assets/achievements/anime/franchise/nanatsu_no_taizai.jpg"
     :border_color: 
     :title_ru: Семь смертных грехов
     :text_ru: 
@@ -7557,7 +7557,7 @@
   attributes:
     :neko_id: :chuunibyou_demo_koi_ga_shitai
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/111580/685134.jpg
+    :image: "/assets/achievements/anime/franchise/chuunibyou_demo_koi_ga_shitai.jpg"
     :border_color: 
     :title_ru: Чудачества любви не помеха!
     :text_ru: 
@@ -7574,7 +7574,7 @@
   attributes:
     :neko_id: :chuunibyou_demo_koi_ga_shitai
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/111580/685134.jpg
+    :image: "/assets/achievements/anime/franchise/chuunibyou_demo_koi_ga_shitai.jpg"
     :border_color: 
     :title_ru: Чудачества любви не помеха!
     :text_ru: 
@@ -7591,7 +7591,7 @@
   attributes:
     :neko_id: :durarara
     :level: 1
-    :image: http://i.imgur.com/SY4hESq.png
+    :image: "/assets/achievements/anime/franchise/durarara.png"
     :border_color: 
     :title_ru: Дюрарара!!
     :text_ru: 
@@ -7608,7 +7608,7 @@
   attributes:
     :neko_id: :durarara
     :level: 0
-    :image: http://i.imgur.com/SY4hESq.png
+    :image: "/assets/achievements/anime/franchise/durarara.png"
     :border_color: 
     :title_ru: Дюрарара!!
     :text_ru: 
@@ -7625,7 +7625,7 @@
   attributes:
     :neko_id: :haikyuu
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588521.jpg
+    :image: "/assets/achievements/anime/franchise/haikyuu.jpg"
     :border_color: 
     :title_ru: Волейбол!!
     :text_ru: 
@@ -7649,7 +7649,7 @@
   attributes:
     :neko_id: :haikyuu
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588521.jpg
+    :image: "/assets/achievements/anime/franchise/haikyuu.jpg"
     :border_color: 
     :title_ru: Волейбол!!
     :text_ru: 
@@ -7673,7 +7673,7 @@
   attributes:
     :neko_id: :kamisama_hajimemashita
     :level: 1
-    :image: https://i.imgur.com/YgQvxkR.png
+    :image: "/assets/achievements/anime/franchise/kamisama_hajimemashita.jpg"
     :border_color: 
     :title_ru: Приятно познакомиться, Бог
     :text_ru: 
@@ -7690,7 +7690,7 @@
   attributes:
     :neko_id: :kamisama_hajimemashita
     :level: 0
-    :image: https://i.imgur.com/YgQvxkR.png
+    :image: "/assets/achievements/anime/franchise/kamisama_hajimemashita.jpg"
     :border_color: 
     :title_ru: Приятно познакомиться, Бог
     :text_ru: 
@@ -7707,7 +7707,7 @@
   attributes:
     :neko_id: :ansatsu_kyoushitsu
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
+    :image: "/assets/achievements/anime/franchise/ansatsu_kyoushitsu.jpg"
     :border_color: 
     :title_ru: Класс убийц
     :text_ru: 
@@ -7726,7 +7726,7 @@
   attributes:
     :neko_id: :ansatsu_kyoushitsu
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/591716.jpg
+    :image: "/assets/achievements/anime/franchise/ansatsu_kyoushitsu.jpg"
     :border_color: 
     :title_ru: Класс убийц
     :text_ru: 
@@ -7745,7 +7745,7 @@
   attributes:
     :neko_id: :one_piece
     :level: 1
-    :image: http://i.imgur.com/fYxck9q.png
+    :image: "/assets/achievements/anime/franchise/one_piece.png"
     :border_color: 
     :title_ru: Ван-Пис
     :text_ru: 
@@ -7770,7 +7770,7 @@
   attributes:
     :neko_id: :one_piece
     :level: 0
-    :image: http://i.imgur.com/fYxck9q.png
+    :image: "/assets/achievements/anime/franchise/one_piece.png"
     :border_color: 
     :title_ru: Ван-Пис
     :text_ru: 
@@ -7795,7 +7795,7 @@
   attributes:
     :neko_id: :zero_no_tsukaima
     :level: 1
-    :image: http://i.imgur.com/TiWdKRI.png
+    :image: "/assets/achievements/anime/franchise/zero_no_tsukaima.png"
     :border_color: 
     :title_ru: Подручный Луизы-Нулизы
     :text_ru: 
@@ -7814,7 +7814,7 @@
   attributes:
     :neko_id: :zero_no_tsukaima
     :level: 0
-    :image: http://i.imgur.com/TiWdKRI.png
+    :image: "/assets/achievements/anime/franchise/zero_no_tsukaima.png"
     :border_color: 
     :title_ru: Подручный Луизы-Нулизы
     :text_ru: 
@@ -7833,7 +7833,7 @@
   attributes:
     :neko_id: :jojo_no_kimyou_na_bouken
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593472.jpg
+    :image: "/assets/achievements/anime/franchise/jojo_no_kimyou_na_bouken.jpg"
     :border_color: 
     :title_ru: Невероятное приключение ДжоДжо
     :text_ru: 
@@ -7852,7 +7852,7 @@
   attributes:
     :neko_id: :jojo_no_kimyou_na_bouken
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593472.jpg
+    :image: "/assets/achievements/anime/franchise/jojo_no_kimyou_na_bouken.jpg"
     :border_color: 
     :title_ru: Невероятное приключение ДжоДжо
     :text_ru: 
@@ -7871,7 +7871,7 @@
   attributes:
     :neko_id: :k_on
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/111580/685133.jpg
+    :image: "/assets/achievements/anime/franchise/k_on.jpg"
     :border_color: 
     :title_ru: Кэйон!
     :text_ru: 
@@ -7888,7 +7888,7 @@
   attributes:
     :neko_id: :k_on
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/111580/685133.jpg
+    :image: "/assets/achievements/anime/franchise/k_on.jpg"
     :border_color: 
     :title_ru: Кэйон!
     :text_ru: 
@@ -7985,7 +7985,7 @@
   attributes:
     :neko_id: :suzumiya_haruhi_no_yuuutsu
     :level: 1
-    :image: http://i.imgur.com/vjWTN36.png
+    :image: "/assets/achievements/anime/franchise/suzumiya_haruhi_no_yuuutsu.png"
     :border_color: 
     :title_ru: Меланхолия Харухи Судзумии
     :text_ru: 
@@ -8002,7 +8002,7 @@
   attributes:
     :neko_id: :suzumiya_haruhi_no_yuuutsu
     :level: 0
-    :image: http://i.imgur.com/vjWTN36.png
+    :image: "/assets/achievements/anime/franchise/suzumiya_haruhi_no_yuuutsu.png"
     :border_color: 
     :title_ru: Меланхолия Харухи Судзумии
     :text_ru: 
@@ -8019,7 +8019,7 @@
   attributes:
     :neko_id: :bleach
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587406.jpg
+    :image: "/assets/achievements/anime/franchise/bleach.jpg"
     :border_color: 
     :title_ru: Блич
     :text_ru: 
@@ -8036,7 +8036,7 @@
   attributes:
     :neko_id: :bleach
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587406.jpg
+    :image: "/assets/achievements/anime/franchise/bleach.jpg"
     :border_color: 
     :title_ru: Блич
     :text_ru: 
@@ -8091,7 +8091,7 @@
   attributes:
     :neko_id: :natsume_yuujinchou
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/34807/588844.jpg
+    :image: "/assets/achievements/anime/franchise/natsume_yuujinchou.jpg"
     :border_color: 
     :title_ru: Тетрадь дружбы Нацумэ
     :text_ru: 
@@ -8108,7 +8108,7 @@
   attributes:
     :neko_id: :natsume_yuujinchou
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/34807/588844.jpg
+    :image: "/assets/achievements/anime/franchise/natsume_yuujinchou.jpg"
     :border_color: 
     :title_ru: Тетрадь дружбы Нацумэ
     :text_ru: 
@@ -8125,7 +8125,7 @@
   attributes:
     :neko_id: :to_love_ru
     :level: 1
-    :image: http://i.imgur.com/7RyGtjd.png
+    :image: "/assets/achievements/anime/franchise/to_love_ru.png"
     :border_color: 
     :title_ru: Любовные неприятности
     :text_ru: 
@@ -8142,7 +8142,7 @@
   attributes:
     :neko_id: :to_love_ru
     :level: 0
-    :image: http://i.imgur.com/7RyGtjd.png
+    :image: "/assets/achievements/anime/franchise/to_love_ru.png"
     :border_color: 
     :title_ru: Любовные неприятности
     :text_ru: 
@@ -8159,7 +8159,7 @@
   attributes:
     :neko_id: :berserk
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587464.jpg
+    :image: "/assets/achievements/anime/franchise/berserk.jpg"
     :border_color: 
     :title_ru: Берсерк
     :text_ru: 
@@ -8179,7 +8179,7 @@
   attributes:
     :neko_id: :berserk
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587464.jpg
+    :image: "/assets/achievements/anime/franchise/berserk.jpg"
     :border_color: 
     :title_ru: Берсерк
     :text_ru: 
@@ -8199,7 +8199,7 @@
   attributes:
     :neko_id: :toaru_majutsu_no_index
     :level: 1
-    :image: http://i.imgur.com/upFgMl5.png
+    :image: "/assets/achievements/anime/franchise/toaru_majutsu_no_index.png"
     :border_color: 
     :title_ru: Индекс волшебства
     :text_ru: 
@@ -8219,7 +8219,7 @@
   attributes:
     :neko_id: :toaru_majutsu_no_index
     :level: 0
-    :image: http://i.imgur.com/upFgMl5.png
+    :image: "/assets/achievements/anime/franchise/toaru_majutsu_no_index.png"
     :border_color: 
     :title_ru: Индекс волшебства
     :text_ru: 
@@ -8239,7 +8239,7 @@
   attributes:
     :neko_id: :junjou_romantica
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593482.jpg
+    :image: "/assets/achievements/anime/franchise/junjou_romantica.jpg"
     :border_color: 
     :title_ru: Чистая романтика
     :text_ru: 
@@ -8256,7 +8256,7 @@
   attributes:
     :neko_id: :junjou_romantica
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593482.jpg
+    :image: "/assets/achievements/anime/franchise/junjou_romantica.jpg"
     :border_color: 
     :title_ru: Чистая романтика
     :text_ru: 
@@ -8273,7 +8273,7 @@
   attributes:
     :neko_id: :danganronpa
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/12671/685038.jpg
+    :image: "/assets/achievements/anime/franchise/danganronpa.jpg"
     :border_color: 
     :title_ru: Данганронпа
     :text_ru: 
@@ -8290,7 +8290,7 @@
   attributes:
     :neko_id: :danganronpa
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/12671/685038.jpg
+    :image: "/assets/achievements/anime/franchise/danganronpa.jpg"
     :border_color: 
     :title_ru: Данганронпа
     :text_ru: 
@@ -8307,7 +8307,7 @@
   attributes:
     :neko_id: :bakuman
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/585005.jpg
+    :image: "/assets/achievements/anime/franchise/bakuman.jpg"
     :border_color: 
     :title_ru: Бакуман
     :text_ru: 
@@ -8327,7 +8327,7 @@
   attributes:
     :neko_id: :bakuman
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/585005.jpg
+    :image: "/assets/achievements/anime/franchise/bakuman.jpg"
     :border_color: 
     :title_ru: Бакуман
     :text_ru: 
@@ -8347,7 +8347,7 @@
   attributes:
     :neko_id: :ore_no_imouto
     :level: 1
-    :image: https://i.imgur.com/78ep3KX.png
+    :image: "/assets/achievements/anime/franchise/ore_no_imouto.jpg"
     :border_color: 
     :title_ru: Ну не может моя сестрёнка быть такой милой
     :text_ru: 
@@ -8368,7 +8368,7 @@
   attributes:
     :neko_id: :ore_no_imouto
     :level: 0
-    :image: https://i.imgur.com/78ep3KX.png
+    :image: "/assets/achievements/anime/franchise/ore_no_imouto.jpg"
     :border_color: 
     :title_ru: Ну не может моя сестрёнка быть такой милой
     :text_ru: 
@@ -8389,7 +8389,7 @@
   attributes:
     :neko_id: :hellsing
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/12671/685042.jpg
+    :image: "/assets/achievements/anime/franchise/hellsing.jpg"
     :border_color: 
     :title_ru: Хеллсинг
     :text_ru: 
@@ -8406,7 +8406,7 @@
   attributes:
     :neko_id: :hellsing
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/12671/685042.jpg
+    :image: "/assets/achievements/anime/franchise/hellsing.jpg"
     :border_color: 
     :title_ru: Хеллсинг
     :text_ru: 
@@ -8423,7 +8423,7 @@
   attributes:
     :neko_id: :when_they_cry
     :level: 1
-    :image: http://i.imgur.com/v7pjFJ7.png
+    :image: "/assets/achievements/anime/franchise/when_they_cry.png"
     :border_color: 
     :title_ru: Когда плачут
     :text_ru: 
@@ -8440,7 +8440,7 @@
   attributes:
     :neko_id: :when_they_cry
     :level: 0
-    :image: http://i.imgur.com/v7pjFJ7.png
+    :image: "/assets/achievements/anime/franchise/when_they_cry.png"
     :border_color: 
     :title_ru: Когда плачут
     :text_ru: 
@@ -8457,7 +8457,7 @@
   attributes:
     :neko_id: :magi
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593349.jpg
+    :image: "/assets/achievements/anime/franchise/magi.jpg"
     :border_color: 
     :title_ru: Маги
     :text_ru: 
@@ -8474,7 +8474,7 @@
   attributes:
     :neko_id: :magi
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593349.jpg
+    :image: "/assets/achievements/anime/franchise/magi.jpg"
     :border_color: 
     :title_ru: Маги
     :text_ru: 
@@ -8491,7 +8491,7 @@
   attributes:
     :neko_id: :pokemon
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/594737.jpg
+    :image: "/assets/achievements/anime/franchise/pokemon.jpg"
     :border_color: 
     :title_ru: Покемон
     :text_ru: 
@@ -8519,7 +8519,7 @@
   attributes:
     :neko_id: :pokemon
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/594737.jpg
+    :image: "/assets/achievements/anime/franchise/pokemon.jpg"
     :border_color: 
     :title_ru: Покемон
     :text_ru: 
@@ -8547,7 +8547,7 @@
   attributes:
     :neko_id: :free
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/669387.jpg
+    :image: "/assets/achievements/anime/franchise/free.jpg"
     :border_color: 
     :title_ru: Вольный стиль!
     :text_ru: 
@@ -8564,7 +8564,7 @@
   attributes:
     :neko_id: :free
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/669387.jpg
+    :image: "/assets/achievements/anime/franchise/free.jpg"
     :border_color: 
     :title_ru: Вольный стиль!
     :text_ru: 
@@ -8581,7 +8581,7 @@
   attributes:
     :neko_id: :nisekoi
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/188354/685174.jpg
+    :image: "/assets/achievements/anime/franchise/nisekoi.jpg"
     :border_color: 
     :title_ru: Притворная любовь
     :text_ru: 
@@ -8600,7 +8600,7 @@
   attributes:
     :neko_id: :nisekoi
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/188354/685174.jpg
+    :image: "/assets/achievements/anime/franchise/nisekoi.jpg"
     :border_color: 
     :title_ru: Притворная любовь
     :text_ru: 
@@ -8653,7 +8653,7 @@
   attributes:
     :neko_id: :clannad
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/624151.jpg
+    :image: "/assets/achievements/anime/franchise/clannad.jpg"
     :border_color: 
     :title_ru: Кланнад
     :text_ru: 
@@ -8670,7 +8670,7 @@
   attributes:
     :neko_id: :clannad
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/624151.jpg
+    :image: "/assets/achievements/anime/franchise/clannad.jpg"
     :border_color: 
     :title_ru: Кланнад
     :text_ru: 
@@ -8687,7 +8687,7 @@
   attributes:
     :neko_id: :kami_nomi_zo_shiru_sekai
     :level: 1
-    :image: https://i.imgur.com/H4r0zgE.png
+    :image: "/assets/achievements/anime/franchise/kami_nomi_zo_shiru_sekai.jpg"
     :border_color: 
     :title_ru: Одному лишь Богу ведомый мир
     :text_ru: 
@@ -8707,7 +8707,7 @@
   attributes:
     :neko_id: :kami_nomi_zo_shiru_sekai
     :level: 0
-    :image: https://i.imgur.com/H4r0zgE.png
+    :image: "/assets/achievements/anime/franchise/kami_nomi_zo_shiru_sekai.jpg"
     :border_color: 
     :title_ru: Одному лишь Богу ведомый мир
     :text_ru: 
@@ -8727,7 +8727,7 @@
   attributes:
     :neko_id: :hunter_x_hunter
     :level: 1
-    :image: http://i.imgur.com/u2Vw6JV.png
+    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.png"
     :border_color: 
     :title_ru: Охотник х Охотник
     :text_ru: 
@@ -8744,7 +8744,7 @@
   attributes:
     :neko_id: :hunter_x_hunter
     :level: 0
-    :image: http://i.imgur.com/u2Vw6JV.png
+    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.png"
     :border_color: 
     :title_ru: Охотник х Охотник
     :text_ru: 
@@ -8761,7 +8761,7 @@
   attributes:
     :neko_id: :love_live
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587880.jpg
+    :image: "/assets/achievements/anime/franchise/love_live.jpg"
     :border_color: 
     :title_ru: Живая любовь!
     :text_ru: 
@@ -8791,7 +8791,7 @@
   attributes:
     :neko_id: :love_live
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587880.jpg
+    :image: "/assets/achievements/anime/franchise/love_live.jpg"
     :border_color: 
     :title_ru: Живая любовь!
     :text_ru: 
@@ -8821,7 +8821,7 @@
   attributes:
     :neko_id: :mushishi
     :level: 1
-    :image: http://i.imgur.com/j6vZg0U.png
+    :image: "/assets/achievements/anime/franchise/mushishi.png"
     :border_color: 
     :title_ru: Мастер муси
     :text_ru: 
@@ -8838,7 +8838,7 @@
   attributes:
     :neko_id: :mushishi
     :level: 0
-    :image: http://i.imgur.com/j6vZg0U.png
+    :image: "/assets/achievements/anime/franchise/mushishi.png"
     :border_color: 
     :title_ru: Мастер муси
     :text_ru: 
@@ -8855,7 +8855,7 @@
   attributes:
     :neko_id: :sailor_moon
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/573821.jpg
+    :image: "/assets/achievements/anime/franchise/sailor_moon.jpg"
     :border_color: 
     :title_ru: Красавица-воин Сейлор Мун
     :text_ru: 
@@ -8867,17 +8867,19 @@
       :filters:
         franchise: sailor_moon
         not_anime_ids:
-        - 1240
         - 8756
         - 13931
         - 25375
       :threshold: 90%
+      :generator:
+        not_ignored_ids:
+        - 1240
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :sailor_moon
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/573821.jpg
+    :image: "/assets/achievements/anime/franchise/sailor_moon.jpg"
     :border_color: 
     :title_ru: Красавица-воин Сейлор Мун
     :text_ru: 
@@ -8889,17 +8891,19 @@
       :filters:
         franchise: sailor_moon
         not_anime_ids:
-        - 1240
         - 8756
         - 13931
         - 25375
       :threshold: 0.01%
+      :generator:
+        not_ignored_ids:
+        - 1240
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :full_metal_panic
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/223136/685328.jpg
+    :image: "/assets/achievements/anime/franchise/full_metal_panic.jpg"
     :border_color: 
     :title_ru: Стальная тревога
     :text_ru: 
@@ -8916,7 +8920,7 @@
   attributes:
     :neko_id: :full_metal_panic
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/223136/685328.jpg
+    :image: "/assets/achievements/anime/franchise/full_metal_panic.jpg"
     :border_color: 
     :title_ru: Стальная тревога
     :text_ru: 
@@ -9001,7 +9005,7 @@
   attributes:
     :neko_id: :gundam
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587962.jpg
+    :image: "/assets/achievements/anime/franchise/gundam.jpg"
     :border_color: 
     :title_ru: Мобильный воин Гандам
     :text_ru: 
@@ -9034,7 +9038,7 @@
   attributes:
     :neko_id: :gundam
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587962.jpg
+    :image: "/assets/achievements/anime/franchise/gundam.jpg"
     :border_color: 
     :title_ru: Мобильный воин Гандам
     :text_ru: 
@@ -9067,7 +9071,7 @@
   attributes:
     :neko_id: :initial_d
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593343.jpg
+    :image: "/assets/achievements/anime/franchise/initial_d.jpg"
     :border_color: 
     :title_ru: Инициал Ди
     :text_ru: 
@@ -9086,7 +9090,7 @@
   attributes:
     :neko_id: :initial_d
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593343.jpg
+    :image: "/assets/achievements/anime/franchise/initial_d.jpg"
     :border_color: 
     :title_ru: Инициал Ди
     :text_ru: 
@@ -9139,7 +9143,7 @@
   attributes:
     :neko_id: :tales_of
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/34807/615494.jpg
+    :image: "/assets/achievements/anime/franchise/tales_of.jpg"
     :border_color: 
     :title_ru: Сказания
     :text_ru: 
@@ -9156,7 +9160,7 @@
   attributes:
     :neko_id: :tales_of
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/34807/615494.jpg
+    :image: "/assets/achievements/anime/franchise/tales_of.jpg"
     :border_color: 
     :title_ru: Сказания
     :text_ru: 
@@ -9173,7 +9177,7 @@
   attributes:
     :neko_id: :shakugan_no_shana
     :level: 1
-    :image: http://i.imgur.com/okj7B9r.png
+    :image: "/assets/achievements/anime/franchise/shakugan_no_shana.png"
     :border_color: 
     :title_ru: Пламенный взор Шаны
     :text_ru: 
@@ -9196,7 +9200,7 @@
   attributes:
     :neko_id: :shakugan_no_shana
     :level: 0
-    :image: http://i.imgur.com/okj7B9r.png
+    :image: "/assets/achievements/anime/franchise/shakugan_no_shana.png"
     :border_color: 
     :title_ru: Пламенный взор Шаны
     :text_ru: 
@@ -9219,7 +9223,7 @@
   attributes:
     :neko_id: :working
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/584987.jpg
+    :image: "/assets/achievements/anime/franchise/working.jpg"
     :border_color: 
     :title_ru: Работа!!
     :text_ru: 
@@ -9236,7 +9240,7 @@
   attributes:
     :neko_id: :working
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/584987.jpg
+    :image: "/assets/achievements/anime/franchise/working.jpg"
     :border_color: 
     :title_ru: Работа!!
     :text_ru: 
@@ -9291,7 +9295,7 @@
   attributes:
     :neko_id: :uta_no_prince_sama
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/590066.jpg
+    :image: "/assets/achievements/anime/franchise/uta_no_prince_sama.jpg"
     :border_color: 
     :title_ru: Поющий принц
     :text_ru: 
@@ -9311,7 +9315,7 @@
   attributes:
     :neko_id: :uta_no_prince_sama
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/590066.jpg
+    :image: "/assets/achievements/anime/franchise/uta_no_prince_sama.jpg"
     :border_color: 
     :title_ru: Поющий принц
     :text_ru: 
@@ -9331,7 +9335,7 @@
   attributes:
     :neko_id: :seitokai_yakuindomo
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/223136/685150.jpg
+    :image: "/assets/achievements/anime/franchise/seitokai_yakuindomo.jpg"
     :border_color: 
     :title_ru: Члены школьного совета
     :text_ru: 
@@ -9348,7 +9352,7 @@
   attributes:
     :neko_id: :seitokai_yakuindomo
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/223136/685150.jpg
+    :image: "/assets/achievements/anime/franchise/seitokai_yakuindomo.jpg"
     :border_color: 
     :title_ru: Члены школьного совета
     :text_ru: 
@@ -9365,7 +9369,7 @@
   attributes:
     :neko_id: :detective_conan
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/587873.jpg
+    :image: "/assets/achievements/anime/franchise/detective_conan.jpg"
     :border_color: 
     :title_ru: Детектив Конан
     :text_ru: 
@@ -9382,7 +9386,7 @@
   attributes:
     :neko_id: :detective_conan
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/587873.jpg
+    :image: "/assets/achievements/anime/franchise/detective_conan.jpg"
     :border_color: 
     :title_ru: Детектив Конан
     :text_ru: 
@@ -9399,7 +9403,7 @@
   attributes:
     :neko_id: :dragon_ball
     :level: 1
-    :image: http://i.imgur.com/paJlwxU.png
+    :image: "/assets/achievements/anime/franchise/dragon_ball.png"
     :border_color: 
     :title_ru: Драконий жемчуг
     :text_ru: 
@@ -9419,7 +9423,7 @@
   attributes:
     :neko_id: :dragon_ball
     :level: 0
-    :image: http://i.imgur.com/paJlwxU.png
+    :image: "/assets/achievements/anime/franchise/dragon_ball.png"
     :border_color: 
     :title_ru: Драконий жемчуг
     :text_ru: 
@@ -9439,7 +9443,7 @@
   attributes:
     :neko_id: :rurouni_kenshin
     :level: 1
-    :image: http://i.imgur.com/dqVaLdD.png
+    :image: "/assets/achievements/anime/franchise/rurouni_kenshin.png"
     :border_color: 
     :title_ru: Бродяга Кэнсин
     :text_ru: 
@@ -9459,7 +9463,7 @@
   attributes:
     :neko_id: :rurouni_kenshin
     :level: 0
-    :image: http://i.imgur.com/dqVaLdD.png
+    :image: "/assets/achievements/anime/franchise/rurouni_kenshin.png"
     :border_color: 
     :title_ru: Бродяга Кэнсин
     :text_ru: 
@@ -9479,7 +9483,7 @@
   attributes:
     :neko_id: :hajime_no_ippo
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590562.jpg
+    :image: "/assets/achievements/anime/franchise/hajime_no_ippo.jpg"
     :border_color: 
     :title_ru: Первый шаг
     :text_ru: 
@@ -9496,7 +9500,7 @@
   attributes:
     :neko_id: :hajime_no_ippo
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590562.jpg
+    :image: "/assets/achievements/anime/franchise/hajime_no_ippo.jpg"
     :border_color: 
     :title_ru: Первый шаг
     :text_ru: 
@@ -9513,7 +9517,7 @@
   attributes:
     :neko_id: :hetalia
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594740.jpg
+    :image: "/assets/achievements/anime/franchise/hetalia.jpg"
     :border_color: 
     :title_ru: Хеталия
     :text_ru: 
@@ -9530,7 +9534,7 @@
   attributes:
     :neko_id: :hetalia
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594740.jpg
+    :image: "/assets/achievements/anime/franchise/hetalia.jpg"
     :border_color: 
     :title_ru: Хеталия
     :text_ru: 
@@ -9547,7 +9551,7 @@
   attributes:
     :neko_id: :persona
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/3824/618127.jpg
+    :image: "/assets/achievements/anime/franchise/persona.jpg"
     :border_color: 
     :title_ru: Персона
     :text_ru: 
@@ -9567,7 +9571,7 @@
   attributes:
     :neko_id: :persona
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/3824/618127.jpg
+    :image: "/assets/achievements/anime/franchise/persona.jpg"
     :border_color: 
     :title_ru: Персона
     :text_ru: 
@@ -9587,7 +9591,7 @@
   attributes:
     :neko_id: :xxxholic
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/223136/685306.jpg
+    :image: "/assets/achievements/anime/franchise/xxxholic.jpg"
     :border_color: 
     :title_ru: Триплексоголик
     :text_ru: 
@@ -9604,7 +9608,7 @@
   attributes:
     :neko_id: :xxxholic
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/223136/685306.jpg
+    :image: "/assets/achievements/anime/franchise/xxxholic.jpg"
     :border_color: 
     :title_ru: Триплексоголик
     :text_ru: 
@@ -9621,7 +9625,7 @@
   attributes:
     :neko_id: :rozen_maiden
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/223136/685309.jpg
+    :image: "/assets/achievements/anime/franchise/rozen_maiden.jpg"
     :border_color: 
     :title_ru: Девы Розена
     :text_ru: 
@@ -9638,7 +9642,7 @@
   attributes:
     :neko_id: :rozen_maiden
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/223136/685309.jpg
+    :image: "/assets/achievements/anime/franchise/rozen_maiden.jpg"
     :border_color: 
     :title_ru: Девы Розена
     :text_ru: 
@@ -9655,7 +9659,7 @@
   attributes:
     :neko_id: :nurarihyon_no_mago
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588986.jpg
+    :image: "/assets/achievements/anime/franchise/nurarihyon_no_mago.jpg"
     :border_color: 
     :title_ru: Внук Нурарихёна
     :text_ru: 
@@ -9675,7 +9679,7 @@
   attributes:
     :neko_id: :nurarihyon_no_mago
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588986.jpg
+    :image: "/assets/achievements/anime/franchise/nurarihyon_no_mago.jpg"
     :border_color: 
     :title_ru: Внук Нурарихёна
     :text_ru: 
@@ -9733,7 +9737,7 @@
   attributes:
     :neko_id: :blood
     :level: 1
-    :image: http://i.imgur.com/bmPbOPr.png
+    :image: "/assets/achievements/anime/franchise/blood.png"
     :border_color: 
     :title_ru: Кровь
     :text_ru: 
@@ -9752,7 +9756,7 @@
   attributes:
     :neko_id: :blood
     :level: 0
-    :image: http://i.imgur.com/bmPbOPr.png
+    :image: "/assets/achievements/anime/franchise/blood.png"
     :border_color: 
     :title_ru: Кровь
     :text_ru: 
@@ -9771,7 +9775,7 @@
   attributes:
     :neko_id: :sayonara_zetsubou_sensei
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/188354/685160.jpg
+    :image: "/assets/achievements/anime/franchise/sayonara_zetsubou_sensei.jpg"
     :border_color: 
     :title_ru: Прощай, унылый учитель
     :text_ru: 
@@ -9788,7 +9792,7 @@
   attributes:
     :neko_id: :sayonara_zetsubou_sensei
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/188354/685160.jpg
+    :image: "/assets/achievements/anime/franchise/sayonara_zetsubou_sensei.jpg"
     :border_color: 
     :title_ru: Прощай, унылый учитель
     :text_ru: 
@@ -9845,7 +9849,7 @@
   attributes:
     :neko_id: :yuru_yuri
     :level: 1
-    :image: https://i.imgur.com/HRQeGHz.png
+    :image: "/assets/achievements/anime/franchise/yuru_yuri.jpg"
     :border_color: 
     :title_ru: Лилии на ветру
     :text_ru: 
@@ -9862,7 +9866,7 @@
   attributes:
     :neko_id: :yuru_yuri
     :level: 0
-    :image: https://i.imgur.com/HRQeGHz.png
+    :image: "/assets/achievements/anime/franchise/yuru_yuri.jpg"
     :border_color: 
     :title_ru: Лилии на ветру
     :text_ru: 
@@ -9879,7 +9883,7 @@
   attributes:
     :neko_id: :arslan_senki
     :level: 1
-    :image: https://i.imgur.com/nn5DZiv.png
+    :image: "/assets/achievements/anime/franchise/arslan_senki.png"
     :border_color: 
     :title_ru: Сказание об Арслане
     :text_ru: 
@@ -9898,7 +9902,7 @@
   attributes:
     :neko_id: :arslan_senki
     :level: 0
-    :image: https://i.imgur.com/nn5DZiv.png
+    :image: "/assets/achievements/anime/franchise/arslan_senki.png"
     :border_color: 
     :title_ru: Сказание об Арслане
     :text_ru: 
@@ -9917,7 +9921,7 @@
   attributes:
     :neko_id: :amagami_ss
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594937.jpg
+    :image: "/assets/achievements/anime/franchise/amagami_ss.jpg"
     :border_color: 
     :title_ru: Нежный укус
     :text_ru: 
@@ -9936,7 +9940,7 @@
   attributes:
     :neko_id: :amagami_ss
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594937.jpg
+    :image: "/assets/achievements/anime/franchise/amagami_ss.jpg"
     :border_color: 
     :title_ru: Нежный укус
     :text_ru: 
@@ -9955,7 +9959,7 @@
   attributes:
     :neko_id: :major
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/586899.jpg
+    :image: "/assets/achievements/anime/franchise/major.jpg"
     :border_color: 
     :title_ru: Мэйджор
     :text_ru: 
@@ -9972,7 +9976,7 @@
   attributes:
     :neko_id: :major
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/586899.jpg
+    :image: "/assets/achievements/anime/franchise/major.jpg"
     :border_color: 
     :title_ru: Мэйджор
     :text_ru: 
@@ -9989,7 +9993,7 @@
   attributes:
     :neko_id: :slayers
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593371.jpg
+    :image: "/assets/achievements/anime/franchise/slayers.jpg"
     :border_color: 
     :title_ru: Рубаки
     :text_ru: 
@@ -10006,7 +10010,7 @@
   attributes:
     :neko_id: :slayers
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593371.jpg
+    :image: "/assets/achievements/anime/franchise/slayers.jpg"
     :border_color: 
     :title_ru: Рубаки
     :text_ru: 
@@ -10023,7 +10027,7 @@
   attributes:
     :neko_id: :yowamushi_pedal
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587974.jpg
+    :image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
     :border_color: 
     :title_ru: Трусливый велосипедист
     :text_ru: 
@@ -10044,7 +10048,7 @@
   attributes:
     :neko_id: :yowamushi_pedal
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587974.jpg
+    :image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
     :border_color: 
     :title_ru: Трусливый велосипедист
     :text_ru: 
@@ -10065,7 +10069,7 @@
   attributes:
     :neko_id: :jigoku_shoujo
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593462.jpg
+    :image: "/assets/achievements/anime/franchise/jigoku_shoujo.jpg"
     :border_color: 
     :title_ru: Адская девочка
     :text_ru: 
@@ -10082,7 +10086,7 @@
   attributes:
     :neko_id: :jigoku_shoujo
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593462.jpg
+    :image: "/assets/achievements/anime/franchise/jigoku_shoujo.jpg"
     :border_color: 
     :title_ru: Адская девочка
     :text_ru: 
@@ -10099,7 +10103,7 @@
   attributes:
     :neko_id: :ushio_to_tora
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590557.jpg
+    :image: "/assets/achievements/anime/franchise/ushio_to_tora.jpg"
     :border_color: 
     :title_ru: Усио и Тора
     :text_ru: 
@@ -10116,7 +10120,7 @@
   attributes:
     :neko_id: :ushio_to_tora
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590557.jpg
+    :image: "/assets/achievements/anime/franchise/ushio_to_tora.jpg"
     :border_color: 
     :title_ru: Усио и Тора
     :text_ru: 
@@ -10167,7 +10171,7 @@
   attributes:
     :neko_id: :hibike_euphonium
     :level: 1
-    :image: https://i.imgur.com/YQSr7sx.png
+    :image: "/assets/achievements/anime/franchise/hibike_euphonium.png"
     :border_color: 
     :title_ru: Звучи, эуфониум!
     :text_ru: 
@@ -10184,7 +10188,7 @@
   attributes:
     :neko_id: :hibike_euphonium
     :level: 0
-    :image: https://i.imgur.com/YQSr7sx.png
+    :image: "/assets/achievements/anime/franchise/hibike_euphonium.png"
     :border_color: 
     :title_ru: Звучи, эуфониум!
     :text_ru: 
@@ -10201,7 +10205,7 @@
   attributes:
     :neko_id: :macross
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/584882.jpg
+    :image: "/assets/achievements/anime/franchise/macross.jpg"
     :border_color: 
     :title_ru: Макросс
     :text_ru: 
@@ -10222,7 +10226,7 @@
   attributes:
     :neko_id: :macross
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/584882.jpg
+    :image: "/assets/achievements/anime/franchise/macross.jpg"
     :border_color: 
     :title_ru: Макросс
     :text_ru: 
@@ -10243,7 +10247,7 @@
   attributes:
     :neko_id: :devilman
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587860.jpg
+    :image: "/assets/achievements/anime/franchise/devilman.jpg"
     :border_color: 
     :title_ru: Человек-дьявол
     :text_ru: 
@@ -10262,7 +10266,7 @@
   attributes:
     :neko_id: :devilman
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587860.jpg
+    :image: "/assets/achievements/anime/franchise/devilman.jpg"
     :border_color: 
     :title_ru: Человек-дьявол
     :text_ru: 
@@ -10281,7 +10285,7 @@
   attributes:
     :neko_id: :lupin_iii
     :level: 1
-    :image: http://i.imgur.com/YhU0jqQ.png
+    :image: "/assets/achievements/anime/franchise/lupin_iii.png"
     :border_color: 
     :title_ru: Люпен III
     :text_ru: 
@@ -10301,7 +10305,7 @@
   attributes:
     :neko_id: :lupin_iii
     :level: 0
-    :image: http://i.imgur.com/YhU0jqQ.png
+    :image: "/assets/achievements/anime/franchise/lupin_iii.png"
     :border_color: 
     :title_ru: Люпен III
     :text_ru: 
@@ -10321,7 +10325,7 @@
   attributes:
     :neko_id: :inuyasha
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593479.jpg
+    :image: "/assets/achievements/anime/franchise/inuyasha.jpg"
     :border_color: 
     :title_ru: Инуяся
     :text_ru: 
@@ -10338,7 +10342,7 @@
   attributes:
     :neko_id: :inuyasha
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593479.jpg
+    :image: "/assets/achievements/anime/franchise/inuyasha.jpg"
     :border_color: 
     :title_ru: Инуяся
     :text_ru: 
@@ -10355,7 +10359,7 @@
   attributes:
     :neko_id: :negima
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593353.jpg
+    :image: "/assets/achievements/anime/franchise/negima.jpg"
     :border_color: 
     :title_ru: Волшебный учитель Нэгима!
     :text_ru: 
@@ -10374,7 +10378,7 @@
   attributes:
     :neko_id: :negima
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593353.jpg
+    :image: "/assets/achievements/anime/franchise/negima.jpg"
     :border_color: 
     :title_ru: Волшебный учитель Нэгима!
     :text_ru: 
@@ -10393,7 +10397,7 @@
   attributes:
     :neko_id: :tenchi_muyou
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593376.jpg
+    :image: "/assets/achievements/anime/franchise/tenchi_muyou.jpg"
     :border_color: 
     :title_ru: Тэнти — лишний!
     :text_ru: 
@@ -10415,7 +10419,7 @@
   attributes:
     :neko_id: :tenchi_muyou
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593376.jpg
+    :image: "/assets/achievements/anime/franchise/tenchi_muyou.jpg"
     :border_color: 
     :title_ru: Тэнти — лишний!
     :text_ru: 
@@ -10437,7 +10441,7 @@
   attributes:
     :neko_id: :ikkitousen
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594917.jpg
+    :image: "/assets/achievements/anime/franchise/ikkitousen.jpg"
     :border_color: 
     :title_ru: Сила тысячи
     :text_ru: 
@@ -10456,7 +10460,7 @@
   attributes:
     :neko_id: :ikkitousen
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/594917.jpg
+    :image: "/assets/achievements/anime/franchise/ikkitousen.jpg"
     :border_color: 
     :title_ru: Сила тысячи
     :text_ru: 
@@ -10475,7 +10479,7 @@
   attributes:
     :neko_id: :minami_ke
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/594925.jpg
+    :image: "/assets/achievements/anime/franchise/minami_ke.jpg"
     :border_color: 
     :title_ru: Сёстры Минами
     :text_ru: 
@@ -10492,7 +10496,7 @@
   attributes:
     :neko_id: :minami_ke
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/594925.jpg
+    :image: "/assets/achievements/anime/franchise/minami_ke.jpg"
     :border_color: 
     :title_ru: Сёстры Минами
     :text_ru: 
@@ -10543,7 +10547,7 @@
   attributes:
     :neko_id: :tennis_no_ouji_sama
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593487.jpg
+    :image: "/assets/achievements/anime/franchise/tennis_no_ouji_sama.jpg"
     :border_color: 
     :title_ru: Принц тенниса
     :text_ru: 
@@ -10563,7 +10567,7 @@
   attributes:
     :neko_id: :tennis_no_ouji_sama
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593487.jpg
+    :image: "/assets/achievements/anime/franchise/tennis_no_ouji_sama.jpg"
     :border_color: 
     :title_ru: Принц тенниса
     :text_ru: 
@@ -10583,7 +10587,7 @@
   attributes:
     :neko_id: :garo
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593342.jpg
+    :image: "/assets/achievements/anime/franchise/garo.jpg"
     :border_color: 
     :title_ru: Гаро
     :text_ru: 
@@ -10604,7 +10608,7 @@
   attributes:
     :neko_id: :garo
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593342.jpg
+    :image: "/assets/achievements/anime/franchise/garo.jpg"
     :border_color: 
     :title_ru: Гаро
     :text_ru: 
@@ -10697,7 +10701,7 @@
   attributes:
     :neko_id: :ashita_no_joe
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/592671.jpg
+    :image: "/assets/achievements/anime/franchise/ashita_no_joe.jpg"
     :border_color: 
     :title_ru: Завтрашний Джо
     :text_ru: 
@@ -10714,7 +10718,7 @@
   attributes:
     :neko_id: :ashita_no_joe
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/592671.jpg
+    :image: "/assets/achievements/anime/franchise/ashita_no_joe.jpg"
     :border_color: 
     :title_ru: Завтрашний Джо
     :text_ru: 
@@ -10731,7 +10735,7 @@
   attributes:
     :neko_id: :tsubasa
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/587918.jpg
+    :image: "/assets/achievements/anime/franchise/tsubasa.jpg"
     :border_color: 
     :title_ru: Хроника крыльев
     :text_ru: 
@@ -10748,7 +10752,7 @@
   attributes:
     :neko_id: :tsubasa
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/587918.jpg
+    :image: "/assets/achievements/anime/franchise/tsubasa.jpg"
     :border_color: 
     :title_ru: Хроника крыльев
     :text_ru: 
@@ -10765,7 +10769,7 @@
   attributes:
     :neko_id: :aa_megami_sama
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588643.jpg
+    :image: "/assets/achievements/anime/franchise/aa_megami_sama.jpg"
     :border_color: 
     :title_ru: Моя богиня!
     :text_ru: 
@@ -10782,7 +10786,7 @@
   attributes:
     :neko_id: :aa_megami_sama
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588643.jpg
+    :image: "/assets/achievements/anime/franchise/aa_megami_sama.jpg"
     :border_color: 
     :title_ru: Моя богиня!
     :text_ru: 
@@ -10799,7 +10803,7 @@
   attributes:
     :neko_id: :eureka_seven
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587927.jpg
+    :image: "/assets/achievements/anime/franchise/eureka_seven.jpg"
     :border_color: 
     :title_ru: Эврика 7
     :text_ru: 
@@ -10819,7 +10823,7 @@
   attributes:
     :neko_id: :eureka_seven
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587927.jpg
+    :image: "/assets/achievements/anime/franchise/eureka_seven.jpg"
     :border_color: 
     :title_ru: Эврика 7
     :text_ru: 
@@ -10839,7 +10843,7 @@
   attributes:
     :neko_id: :utawarerumono
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588523.jpg
+    :image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
     :border_color: 
     :title_ru: Прославленный
     :text_ru: 
@@ -10859,7 +10863,7 @@
   attributes:
     :neko_id: :utawarerumono
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588523.jpg
+    :image: "/assets/achievements/anime/franchise/utawarerumono.jpg"
     :border_color: 
     :title_ru: Прославленный
     :text_ru: 
@@ -10947,7 +10951,7 @@
   attributes:
     :neko_id: :selector_spread_wixoss
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/590470.jpg
+    :image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
     :border_color: 
     :title_ru: WIXOSS
     :text_ru: 
@@ -10966,7 +10970,7 @@
   attributes:
     :neko_id: :selector_spread_wixoss
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/590470.jpg
+    :image: "/assets/achievements/anime/franchise/selector_spread_wixoss.jpg"
     :border_color: 
     :title_ru: WIXOSS
     :text_ru: 
@@ -10985,7 +10989,7 @@
   attributes:
     :neko_id: :genshiken
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/584964.jpg
+    :image: "/assets/achievements/anime/franchise/genshiken.jpg"
     :border_color: 
     :title_ru: Гэнсикэн
     :text_ru: 
@@ -11002,7 +11006,7 @@
   attributes:
     :neko_id: :genshiken
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/584964.jpg
+    :image: "/assets/achievements/anime/franchise/genshiken.jpg"
     :border_color: 
     :title_ru: Гэнсикэн
     :text_ru: 
@@ -11019,7 +11023,7 @@
   attributes:
     :neko_id: :idolmaster
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588509.jpg
+    :image: "/assets/achievements/anime/franchise/idolmaster.jpg"
     :border_color: 
     :title_ru: Идолмастер
     :text_ru: 
@@ -11039,7 +11043,7 @@
   attributes:
     :neko_id: :idolmaster
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588509.jpg
+    :image: "/assets/achievements/anime/franchise/idolmaster.jpg"
     :border_color: 
     :title_ru: Идолмастер
     :text_ru: 
@@ -11059,7 +11063,7 @@
   attributes:
     :neko_id: :osomatsu_san
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593354.jpg
+    :image: "/assets/achievements/anime/franchise/osomatsu_san.jpg"
     :border_color: 
     :title_ru: Осомацу
     :text_ru: 
@@ -11078,7 +11082,7 @@
   attributes:
     :neko_id: :osomatsu_san
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593354.jpg
+    :image: "/assets/achievements/anime/franchise/osomatsu_san.jpg"
     :border_color: 
     :title_ru: Осомацу
     :text_ru: 
@@ -11097,7 +11101,7 @@
   attributes:
     :neko_id: :hayate_no_gotoku
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593337.jpg
+    :image: "/assets/achievements/anime/franchise/hayate_no_gotoku.jpg"
     :border_color: 
     :title_ru: Боевой дворецкий Хаятэ!
     :text_ru: 
@@ -11114,7 +11118,7 @@
   attributes:
     :neko_id: :hayate_no_gotoku
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/593337.jpg
+    :image: "/assets/achievements/anime/franchise/hayate_no_gotoku.jpg"
     :border_color: 
     :title_ru: Боевой дворецкий Хаятэ!
     :text_ru: 
@@ -11131,7 +11135,7 @@
   attributes:
     :neko_id: :ginga_tetsudou
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594735.jpg
+    :image: "/assets/achievements/anime/franchise/ginga_tetsudou.jpg"
     :border_color: 
     :title_ru: Галактический экспресс 999
     :text_ru: 
@@ -11151,7 +11155,7 @@
   attributes:
     :neko_id: :ginga_tetsudou
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594735.jpg
+    :image: "/assets/achievements/anime/franchise/ginga_tetsudou.jpg"
     :border_color: 
     :title_ru: Галактический экспресс 999
     :text_ru: 
@@ -11171,7 +11175,7 @@
   attributes:
     :neko_id: :sengoku_basara
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/669388.jpg
+    :image: "/assets/achievements/anime/franchise/sengoku_basara.jpg"
     :border_color: 
     :title_ru: Эпоха смут
     :text_ru: 
@@ -11190,7 +11194,7 @@
   attributes:
     :neko_id: :sengoku_basara
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/34807/669388.jpg
+    :image: "/assets/achievements/anime/franchise/sengoku_basara.jpg"
     :border_color: 
     :title_ru: Эпоха смут
     :text_ru: 
@@ -11209,7 +11213,7 @@
   attributes:
     :neko_id: :cardcaptor_sakura
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588573.jpg
+    :image: "/assets/achievements/anime/franchise/cardcaptor_sakura.jpg"
     :border_color: 
     :title_ru: Сакура — собирательница карт
     :text_ru: 
@@ -11228,7 +11232,7 @@
   attributes:
     :neko_id: :cardcaptor_sakura
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588573.jpg
+    :image: "/assets/achievements/anime/franchise/cardcaptor_sakura.jpg"
     :border_color: 
     :title_ru: Сакура — собирательница карт
     :text_ru: 
@@ -11247,7 +11251,7 @@
   attributes:
     :neko_id: :baki
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592710.jpg
+    :image: "/assets/achievements/anime/franchise/baki.jpg"
     :border_color: 
     :title_ru: Боец Баки
     :text_ru: 
@@ -11264,7 +11268,7 @@
   attributes:
     :neko_id: :baki
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592710.jpg
+    :image: "/assets/achievements/anime/franchise/baki.jpg"
     :border_color: 
     :title_ru: Боец Баки
     :text_ru: 
@@ -11281,7 +11285,7 @@
   attributes:
     :neko_id: :hack
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/594919.jpg
+    :image: "/assets/achievements/anime/franchise/hack.jpg"
     :border_color: 
     :title_ru: ".хак//"
     :text_ru: 
@@ -11298,7 +11302,7 @@
   attributes:
     :neko_id: :hack
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/594919.jpg
+    :image: "/assets/achievements/anime/franchise/hack.jpg"
     :border_color: 
     :title_ru: ".хак//"
     :text_ru: 
@@ -11315,7 +11319,7 @@
   attributes:
     :neko_id: :school_rumble
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588567.jpg
+    :image: "/assets/achievements/anime/franchise/school_rumble.jpg"
     :border_color: 
     :title_ru: Школьный переполох
     :text_ru: 
@@ -11335,7 +11339,7 @@
   attributes:
     :neko_id: :school_rumble
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588567.jpg
+    :image: "/assets/achievements/anime/franchise/school_rumble.jpg"
     :border_color: 
     :title_ru: Школьный переполох
     :text_ru: 
@@ -11355,7 +11359,7 @@
   attributes:
     :neko_id: :tegamibachi
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592667.jpg
+    :image: "/assets/achievements/anime/franchise/tegamibachi.jpg"
     :border_color: 
     :title_ru: Почтовая пчела
     :text_ru: 
@@ -11372,7 +11376,7 @@
   attributes:
     :neko_id: :tegamibachi
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592667.jpg
+    :image: "/assets/achievements/anime/franchise/tegamibachi.jpg"
     :border_color: 
     :title_ru: Почтовая пчела
     :text_ru: 
@@ -11389,7 +11393,7 @@
   attributes:
     :neko_id: :diamond_no_ace
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587845.jpg
+    :image: "/assets/achievements/anime/franchise/diamond_no_ace.jpg"
     :border_color: 
     :title_ru: Путь аса
     :text_ru: 
@@ -11406,7 +11410,7 @@
   attributes:
     :neko_id: :diamond_no_ace
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587845.jpg
+    :image: "/assets/achievements/anime/franchise/diamond_no_ace.jpg"
     :border_color: 
     :title_ru: Путь аса
     :text_ru: 
@@ -11423,7 +11427,7 @@
   attributes:
     :neko_id: :yozakura_quartet
     :level: 1
-    :image: https://i.imgur.com/Rm6G34O.png
+    :image: "/assets/achievements/anime/franchise/yozakura_quartet.png"
     :border_color: 
     :title_ru: Вишнёвый квартет
     :text_ru: 
@@ -11440,7 +11444,7 @@
   attributes:
     :neko_id: :yozakura_quartet
     :level: 0
-    :image: https://i.imgur.com/Rm6G34O.png
+    :image: "/assets/achievements/anime/franchise/yozakura_quartet.png"
     :border_color: 
     :title_ru: Вишнёвый квартет
     :text_ru: 
@@ -11457,7 +11461,7 @@
   attributes:
     :neko_id: :aquarion
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/589085.jpg
+    :image: "/assets/achievements/anime/franchise/aquarion.jpg"
     :border_color: 
     :title_ru: Акварион
     :text_ru: 
@@ -11474,7 +11478,7 @@
   attributes:
     :neko_id: :aquarion
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/589085.jpg
+    :image: "/assets/achievements/anime/franchise/aquarion.jpg"
     :border_color: 
     :title_ru: Акварион
     :text_ru: 
@@ -11491,7 +11495,7 @@
   attributes:
     :neko_id: :gatchaman
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
+    :image: "/assets/achievements/anime/franchise/gatchaman.jpg"
     :border_color: 
     :title_ru: Гатчамен
     :text_ru: 
@@ -11508,7 +11512,7 @@
   attributes:
     :neko_id: :gatchaman
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/592712.jpg
+    :image: "/assets/achievements/anime/franchise/gatchaman.jpg"
     :border_color: 
     :title_ru: Гатчамен
     :text_ru: 
@@ -11559,7 +11563,7 @@
   attributes:
     :neko_id: :ginga_eiyuu_densetsu
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/586911.jpg
+    :image: "/assets/achievements/anime/franchise/ginga_eiyuu_densetsu.jpg"
     :border_color: 
     :title_ru: Легенда о героях Галактики
     :text_ru: 
@@ -11576,7 +11580,7 @@
   attributes:
     :neko_id: :ginga_eiyuu_densetsu
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/586911.jpg
+    :image: "/assets/achievements/anime/franchise/ginga_eiyuu_densetsu.jpg"
     :border_color: 
     :title_ru: Легенда о героях Галактики
     :text_ru: 
@@ -11593,7 +11597,7 @@
   attributes:
     :neko_id: :aria
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
+    :image: "/assets/achievements/anime/franchise/aria.jpg"
     :border_color: 
     :title_ru: Ария
     :text_ru: 
@@ -11612,7 +11616,7 @@
   attributes:
     :neko_id: :aria
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/573807.jpg
+    :image: "/assets/achievements/anime/franchise/aria.jpg"
     :border_color: 
     :title_ru: Ария
     :text_ru: 
@@ -11669,7 +11673,7 @@
   attributes:
     :neko_id: :black_jack
     :level: 1
-    :image: http://oyster.ignimgs.com/wordpress/stg.ign.com/2014/02/24-black_jack.jpg
+    :image: "/assets/achievements/anime/franchise/black_jack.jpg"
     :border_color: 
     :title_ru: Черный Джек
     :text_ru: 
@@ -11686,7 +11690,7 @@
   attributes:
     :neko_id: :black_jack
     :level: 0
-    :image: http://oyster.ignimgs.com/wordpress/stg.ign.com/2014/02/24-black_jack.jpg
+    :image: "/assets/achievements/anime/franchise/black_jack.jpg"
     :border_color: 
     :title_ru: Черный Джек
     :text_ru: 
@@ -11703,7 +11707,7 @@
   attributes:
     :neko_id: :koneko_no_chi
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/625320.jpg
+    :image: "/assets/achievements/anime/franchise/koneko_no_chi.jpg"
     :border_color: 
     :title_ru: Милый дом Чи
     :text_ru: 
@@ -11720,7 +11724,7 @@
   attributes:
     :neko_id: :koneko_no_chi
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/625320.jpg
+    :image: "/assets/achievements/anime/franchise/koneko_no_chi.jpg"
     :border_color: 
     :title_ru: Милый дом Чи
     :text_ru: 
@@ -11737,7 +11741,7 @@
   attributes:
     :neko_id: :pretty_cure
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/595142.jpg
+    :image: "/assets/achievements/anime/franchise/pretty_cure.jpg"
     :border_color: 
     :title_ru: Хорошенькое лекарство
     :text_ru: 
@@ -11757,7 +11761,7 @@
   attributes:
     :neko_id: :pretty_cure
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/595142.jpg
+    :image: "/assets/achievements/anime/franchise/pretty_cure.jpg"
     :border_color: 
     :title_ru: Хорошенькое лекарство
     :text_ru: 
@@ -11777,7 +11781,7 @@
   attributes:
     :neko_id: :mahou_shoujo_lyrical_nanoha
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/594202.jpg
+    :image: "/assets/achievements/anime/franchise/mahou_shoujo_lyrical_nanoha.jpg"
     :border_color: 
     :title_ru: Лиричная волшебница Наноха
     :text_ru: 
@@ -11802,7 +11806,7 @@
   attributes:
     :neko_id: :mahou_shoujo_lyrical_nanoha
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/594202.jpg
+    :image: "/assets/achievements/anime/franchise/mahou_shoujo_lyrical_nanoha.jpg"
     :border_color: 
     :title_ru: Лиричная волшебница Наноха
     :text_ru: 
@@ -11827,7 +11831,7 @@
   attributes:
     :neko_id: :queen_s_blade
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/594921.jpg
+    :image: "/assets/achievements/anime/franchise/queen_s_blade.jpg"
     :border_color: 
     :title_ru: Клинок королевы
     :text_ru: 
@@ -11844,7 +11848,7 @@
   attributes:
     :neko_id: :queen_s_blade
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/594921.jpg
+    :image: "/assets/achievements/anime/franchise/queen_s_blade.jpg"
     :border_color: 
     :title_ru: Клинок королевы
     :text_ru: 
@@ -11861,7 +11865,7 @@
   attributes:
     :neko_id: :saint_seiya
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593364.jpg
+    :image: "/assets/achievements/anime/franchise/saint_seiya.jpg"
     :border_color: 
     :title_ru: Рыцари Зодиака
     :text_ru: 
@@ -11880,7 +11884,7 @@
   attributes:
     :neko_id: :saint_seiya
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593364.jpg
+    :image: "/assets/achievements/anime/franchise/saint_seiya.jpg"
     :border_color: 
     :title_ru: Рыцари Зодиака
     :text_ru: 
@@ -11899,7 +11903,7 @@
   attributes:
     :neko_id: :cardfight_vanguard
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587956.jpg
+    :image: "/assets/achievements/anime/franchise/cardfight_vanguard.jpg"
     :border_color: 
     :title_ru: Карточные бои Авангарда
     :text_ru: 
@@ -11916,7 +11920,7 @@
   attributes:
     :neko_id: :cardfight_vanguard
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587956.jpg
+    :image: "/assets/achievements/anime/franchise/cardfight_vanguard.jpg"
     :border_color: 
     :title_ru: Карточные бои Авангарда
     :text_ru: 
@@ -11933,7 +11937,7 @@
   attributes:
     :neko_id: :inazuma_eleven
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/592658.jpg
+    :image: "/assets/achievements/anime/franchise/inazuma_eleven.jpg"
     :border_color: 
     :title_ru: Инадзума 11
     :text_ru: 
@@ -11952,7 +11956,7 @@
   attributes:
     :neko_id: :inazuma_eleven
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/592658.jpg
+    :image: "/assets/achievements/anime/franchise/inazuma_eleven.jpg"
     :border_color: 
     :title_ru: Инадзума 11
     :text_ru: 
@@ -11971,7 +11975,7 @@
   attributes:
     :neko_id: :yu_gi_oh
     :level: 1
-    :image: https://4.downloader.disk.yandex.ru/preview/8b7bd9e84982dc5cd2db64bef6b2a65a2d87d2180afc27adee49fe9c7c185ede/inf/Ulc4l6Nw6Zl9PBaWaDlZYZkwyk65ca9VS5z9VF37HozlL_Xoj-hRJkAEr8vyZxy0hRU2ZVbxITksKC5VeMOttA%3D%3D?uid=0&filename=PWGbj9O.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+    :image: "/assets/achievements/anime/franchise/yu_gi_oh.png"
     :border_color: 
     :title_ru: Югио!
     :text_ru: 
@@ -11994,7 +11998,7 @@
   attributes:
     :neko_id: :yu_gi_oh
     :level: 0
-    :image: https://4.downloader.disk.yandex.ru/preview/8b7bd9e84982dc5cd2db64bef6b2a65a2d87d2180afc27adee49fe9c7c185ede/inf/Ulc4l6Nw6Zl9PBaWaDlZYZkwyk65ca9VS5z9VF37HozlL_Xoj-hRJkAEr8vyZxy0hRU2ZVbxITksKC5VeMOttA%3D%3D?uid=0&filename=PWGbj9O.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+    :image: "/assets/achievements/anime/franchise/yu_gi_oh.png"
     :border_color: 
     :title_ru: Югио!
     :text_ru: 
@@ -12017,7 +12021,7 @@
   attributes:
     :neko_id: :hokuto_no_ken
     :level: 1
-    :image: http://i.imgur.com/5gIbsOg.png
+    :image: "/assets/achievements/anime/franchise/hokuto_no_ken.png"
     :border_color: 
     :title_ru: Кулак Северной звезды
     :text_ru: 
@@ -12034,7 +12038,7 @@
   attributes:
     :neko_id: :hokuto_no_ken
     :level: 0
-    :image: http://i.imgur.com/5gIbsOg.png
+    :image: "/assets/achievements/anime/franchise/hokuto_no_ken.png"
     :border_color: 
     :title_ru: Кулак Северной звезды
     :text_ru: 
@@ -12051,7 +12055,7 @@
   attributes:
     :neko_id: :uchuu_senkan_yamato
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590597.jpg
+    :image: "/assets/achievements/anime/franchise/uchuu_senkan_yamato.jpg"
     :border_color: 
     :title_ru: Космический линкор Ямато
     :text_ru: 
@@ -12068,7 +12072,7 @@
   attributes:
     :neko_id: :uchuu_senkan_yamato
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590597.jpg
+    :image: "/assets/achievements/anime/franchise/uchuu_senkan_yamato.jpg"
     :border_color: 
     :title_ru: Космический линкор Ямато
     :text_ru: 
@@ -12085,7 +12089,7 @@
   attributes:
     :neko_id: :digimon
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/594733.jpg
+    :image: "/assets/achievements/anime/franchise/digimon.jpg"
     :border_color: 
     :title_ru: Приключения Дигимонов
     :text_ru: 
@@ -12104,7 +12108,7 @@
   attributes:
     :neko_id: :digimon
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/34807/594733.jpg
+    :image: "/assets/achievements/anime/franchise/digimon.jpg"
     :border_color: 
     :title_ru: Приключения Дигимонов
     :text_ru: 
@@ -12123,7 +12127,7 @@
   attributes:
     :neko_id: :slam_dunk
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588994.jpg
+    :image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
     :border_color: 
     :title_ru: Слэм-данк
     :text_ru: 
@@ -12140,7 +12144,7 @@
   attributes:
     :neko_id: :slam_dunk
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588994.jpg
+    :image: "/assets/achievements/anime/franchise/slam_dunk.jpg"
     :border_color: 
     :title_ru: Слэм-данк
     :text_ru: 
@@ -12191,7 +12195,7 @@
   attributes:
     :neko_id: :saiyuki
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/588842.jpg
+    :image: "/assets/achievements/anime/franchise/saiyuki.jpg"
     :border_color: 
     :title_ru: Саюки
     :text_ru: 
@@ -12208,7 +12212,7 @@
   attributes:
     :neko_id: :saiyuki
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/588842.jpg
+    :image: "/assets/achievements/anime/franchise/saiyuki.jpg"
     :border_color: 
     :title_ru: Саюки
     :text_ru: 
@@ -12225,7 +12229,7 @@
   attributes:
     :neko_id: :angelique
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/589046.jpg
+    :image: "/assets/achievements/anime/franchise/angelique.jpg"
     :border_color: 
     :title_ru: Анжелика
     :text_ru: 
@@ -12245,7 +12249,7 @@
   attributes:
     :neko_id: :angelique
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/589046.jpg
+    :image: "/assets/achievements/anime/franchise/angelique.jpg"
     :border_color: 
     :title_ru: Анжелика
     :text_ru: 
@@ -12265,7 +12269,7 @@
   attributes:
     :neko_id: :senki_zesshou_symphogear
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592670.jpg
+    :image: "/assets/achievements/anime/franchise/senki_zesshou_symphogear.jpg"
     :border_color: 
     :title_ru: Песня боевых принцесс
     :text_ru: 
@@ -12282,7 +12286,7 @@
   attributes:
     :neko_id: :senki_zesshou_symphogear
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/592670.jpg
+    :image: "/assets/achievements/anime/franchise/senki_zesshou_symphogear.jpg"
     :border_color: 
     :title_ru: Песня боевых принцесс
     :text_ru: 
@@ -12299,7 +12303,7 @@
   attributes:
     :neko_id: :d_c
     :level: 1
-    :image: https://2.downloader.disk.yandex.ru/preview/69f29d45e660fec8f59171a268ebeef9b3be987821d1ecf74ce9c1a299b6d4c8/inf/Ulc4l6Nw6Zl9PBaWaDlZYbH6HhYsujK7PZz9isF_CzhjHyJWph6sbj8bsHUBYFIZSwQ_lmWczXB8jcT49jKoYg%3D%3D?uid=0&filename=da-capo-second-season-dc-da-capo-932345144.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+    :image: "/assets/achievements/anime/franchise/d_c.png"
     :border_color: 
     :title_ru: С начала
     :text_ru: 
@@ -12318,7 +12322,7 @@
   attributes:
     :neko_id: :d_c
     :level: 0
-    :image: https://2.downloader.disk.yandex.ru/preview/69f29d45e660fec8f59171a268ebeef9b3be987821d1ecf74ce9c1a299b6d4c8/inf/Ulc4l6Nw6Zl9PBaWaDlZYbH6HhYsujK7PZz9isF_CzhjHyJWph6sbj8bsHUBYFIZSwQ_lmWczXB8jcT49jKoYg%3D%3D?uid=0&filename=da-capo-second-season-dc-da-capo-932345144.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+    :image: "/assets/achievements/anime/franchise/d_c.png"
     :border_color: 
     :title_ru: С начала
     :text_ru: 
@@ -12337,7 +12341,7 @@
   attributes:
     :neko_id: :seikai_no_senki
     :level: 1
-    :image: https://i.imgur.com/1tifaMY.png
+    :image: "/assets/achievements/anime/franchise/seikai_no_senki.png"
     :border_color: 
     :title_ru: Звёздный герб
     :text_ru: 
@@ -12357,7 +12361,7 @@
   attributes:
     :neko_id: :seikai_no_senki
     :level: 0
-    :image: https://i.imgur.com/1tifaMY.png
+    :image: "/assets/achievements/anime/franchise/seikai_no_senki.png"
     :border_color: 
     :title_ru: Звёздный герб
     :text_ru: 
@@ -12411,7 +12415,7 @@
   attributes:
     :neko_id: :ranma
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593359.jpg
+    :image: "/assets/achievements/anime/franchise/ranma.jpg"
     :border_color: 
     :title_ru: Ранма 1/2
     :text_ru: 
@@ -12428,7 +12432,7 @@
   attributes:
     :neko_id: :ranma
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593359.jpg
+    :image: "/assets/achievements/anime/franchise/ranma.jpg"
     :border_color: 
     :title_ru: Ранма 1/2
     :text_ru: 
@@ -12445,7 +12449,7 @@
   attributes:
     :neko_id: :fushigi_yuugi
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/588655.jpg
+    :image: "/assets/achievements/anime/franchise/fushigi_yuugi.jpg"
     :border_color: 
     :title_ru: Таинственная игра
     :text_ru: 
@@ -12462,7 +12466,7 @@
   attributes:
     :neko_id: :fushigi_yuugi
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/588655.jpg
+    :image: "/assets/achievements/anime/franchise/fushigi_yuugi.jpg"
     :border_color: 
     :title_ru: Таинственная игра
     :text_ru: 
@@ -12479,7 +12483,7 @@
   attributes:
     :neko_id: :hidamari_sketch
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588522.jpg
+    :image: "/assets/achievements/anime/franchise/hidamari_sketch.jpg"
     :border_color: 
     :title_ru: Наброски Хидамари
     :text_ru: 
@@ -12500,7 +12504,7 @@
   attributes:
     :neko_id: :hidamari_sketch
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588522.jpg
+    :image: "/assets/achievements/anime/franchise/hidamari_sketch.jpg"
     :border_color: 
     :title_ru: Наброски Хидамари
     :text_ru: 
@@ -12521,7 +12525,7 @@
   attributes:
     :neko_id: :mai_hime
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/593793.jpg
+    :image: "/assets/achievements/anime/franchise/mai_hime.jpg"
     :border_color: 
     :title_ru: Май-Химэ
     :text_ru: 
@@ -12538,7 +12542,7 @@
   attributes:
     :neko_id: :mai_hime
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/34807/593793.jpg
+    :image: "/assets/achievements/anime/franchise/mai_hime.jpg"
     :border_color: 
     :title_ru: Май-Химэ
     :text_ru: 
@@ -12589,7 +12593,7 @@
   attributes:
     :neko_id: :marvel
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/593812.jpg
+    :image: "/assets/achievements/anime/franchise/marvel.jpg"
     :border_color: 
     :title_ru: Марвел
     :text_ru: 
@@ -12606,7 +12610,7 @@
   attributes:
     :neko_id: :marvel
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/593812.jpg
+    :image: "/assets/achievements/anime/franchise/marvel.jpg"
     :border_color: 
     :title_ru: Марвел
     :text_ru: 
@@ -12623,7 +12627,7 @@
   attributes:
     :neko_id: :yuu_yuu_hakusho
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593491.jpg
+    :image: "/assets/achievements/anime/franchise/yuu_yuu_hakusho.jpg"
     :border_color: 
     :title_ru: Отчет о буйстве духов
     :text_ru: 
@@ -12642,7 +12646,7 @@
   attributes:
     :neko_id: :yuu_yuu_hakusho
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593491.jpg
+    :image: "/assets/achievements/anime/franchise/yuu_yuu_hakusho.jpg"
     :border_color: 
     :title_ru: Отчет о буйстве духов
     :text_ru: 
@@ -12661,7 +12665,7 @@
   attributes:
     :neko_id: :saki
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/594742.jpg
+    :image: "/assets/achievements/anime/franchise/saki.jpg"
     :border_color: 
     :title_ru: Саки
     :text_ru: 
@@ -12681,7 +12685,7 @@
   attributes:
     :neko_id: :saki
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/594742.jpg
+    :image: "/assets/achievements/anime/franchise/saki.jpg"
     :border_color: 
     :title_ru: Саки
     :text_ru: 
@@ -12701,7 +12705,7 @@
   attributes:
     :neko_id: :soukyuu_no_fafner
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593378.jpg
+    :image: "/assets/achievements/anime/franchise/soukyuu_no_fafner.jpg"
     :border_color: 
     :title_ru: Небесный Фафнир
     :text_ru: 
@@ -12718,7 +12722,7 @@
   attributes:
     :neko_id: :soukyuu_no_fafner
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/593378.jpg
+    :image: "/assets/achievements/anime/franchise/soukyuu_no_fafner.jpg"
     :border_color: 
     :title_ru: Небесный Фафнир
     :text_ru: 
@@ -12735,7 +12739,7 @@
   attributes:
     :neko_id: :mobile_police_patlabor
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/573803.jpg
+    :image: "/assets/achievements/anime/franchise/mobile_police_patlabor.jpg"
     :border_color: 
     :title_ru: Полиция будущего
     :text_ru: 
@@ -12752,7 +12756,7 @@
   attributes:
     :neko_id: :mobile_police_patlabor
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/573803.jpg
+    :image: "/assets/achievements/anime/franchise/mobile_police_patlabor.jpg"
     :border_color: 
     :title_ru: Полиция будущего
     :text_ru: 
@@ -12769,7 +12773,7 @@
   attributes:
     :neko_id: :toriko
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593336.jpg
+    :image: "/assets/achievements/anime/franchise/toriko.jpg"
     :border_color: 
     :title_ru: Торико
     :text_ru: 
@@ -12786,7 +12790,7 @@
   attributes:
     :neko_id: :toriko
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593336.jpg
+    :image: "/assets/achievements/anime/franchise/toriko.jpg"
     :border_color: 
     :title_ru: Торико
     :text_ru: 
@@ -12803,7 +12807,7 @@
   attributes:
     :neko_id: :uchuu_kyoudai
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588566.jpg
+    :image: "/assets/achievements/anime/franchise/uchuu_kyoudai.jpg"
     :border_color: 
     :title_ru: Космические братья
     :text_ru: 
@@ -12820,7 +12824,7 @@
   attributes:
     :neko_id: :uchuu_kyoudai
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588566.jpg
+    :image: "/assets/achievements/anime/franchise/uchuu_kyoudai.jpg"
     :border_color: 
     :title_ru: Космические братья
     :text_ru: 
@@ -12871,7 +12875,7 @@
   attributes:
     :neko_id: :doraemon
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/590513.jpg
+    :image: "/assets/achievements/anime/franchise/doraemon.jpg"
     :border_color: 
     :title_ru: Дораэмон
     :text_ru: 
@@ -12890,7 +12894,7 @@
   attributes:
     :neko_id: :doraemon
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/34807/590513.jpg
+    :image: "/assets/achievements/anime/franchise/doraemon.jpg"
     :border_color: 
     :title_ru: Дораэмон
     :text_ru: 
@@ -12909,7 +12913,7 @@
   attributes:
     :neko_id: :transformers
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588998.jpg
+    :image: "/assets/achievements/anime/franchise/transformers.jpg"
     :border_color: 
     :title_ru: Трансформеры
     :text_ru: 
@@ -12928,7 +12932,7 @@
   attributes:
     :neko_id: :transformers
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588998.jpg
+    :image: "/assets/achievements/anime/franchise/transformers.jpg"
     :border_color: 
     :title_ru: Трансформеры
     :text_ru: 
@@ -12947,7 +12951,7 @@
   attributes:
     :neko_id: :city_hunter
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/591793.jpg
+    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
     :border_color: 
     :title_ru: Городской охотник
     :text_ru: 
@@ -12964,7 +12968,7 @@
   attributes:
     :neko_id: :city_hunter
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/591793.jpg
+    :image: "/assets/achievements/anime/franchise/city_hunter.jpg"
     :border_color: 
     :title_ru: Городской охотник
     :text_ru: 
@@ -13019,7 +13023,7 @@
   attributes:
     :neko_id: :glass_no_kamen
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587850.jpg
+    :image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
     :border_color: 
     :title_ru: Стеклянная маска
     :text_ru: 
@@ -13036,7 +13040,7 @@
   attributes:
     :neko_id: :glass_no_kamen
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587850.jpg
+    :image: "/assets/achievements/anime/franchise/glass_no_kamen.jpg"
     :border_color: 
     :title_ru: Стеклянная маска
     :text_ru: 
@@ -13053,7 +13057,7 @@
   attributes:
     :neko_id: :taiho_shichau_zo
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/594753.jpg
+    :image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
     :border_color: 
     :title_ru: Вы арестованы!
     :text_ru: 
@@ -13070,7 +13074,7 @@
   attributes:
     :neko_id: :taiho_shichau_zo
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/34807/594753.jpg
+    :image: "/assets/achievements/anime/franchise/taiho_shichau_zo.jpg"
     :border_color: 
     :title_ru: Вы арестованы!
     :text_ru: 
@@ -13087,7 +13091,7 @@
   attributes:
     :neko_id: :pripara
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588524.jpg
+    :image: "/assets/achievements/anime/franchise/pripara.jpg"
     :border_color: 
     :title_ru: При Пара
     :text_ru: 
@@ -13104,7 +13108,7 @@
   attributes:
     :neko_id: :pripara
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588524.jpg
+    :image: "/assets/achievements/anime/franchise/pripara.jpg"
     :border_color: 
     :title_ru: При Пара
     :text_ru: 
@@ -13155,7 +13159,7 @@
   attributes:
     :neko_id: :aikatsu
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588973.jpg
+    :image: "/assets/achievements/anime/franchise/aikatsu.jpg"
     :border_color: 
     :title_ru: Айкацу!
     :text_ru: 
@@ -13174,7 +13178,7 @@
   attributes:
     :neko_id: :aikatsu
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588973.jpg
+    :image: "/assets/achievements/anime/franchise/aikatsu.jpg"
     :border_color: 
     :title_ru: Айкацу!
     :text_ru: 
@@ -13193,7 +13197,7 @@
   attributes:
     :neko_id: :urusei_yatsura
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588516.jpg
+    :image: "/assets/achievements/anime/franchise/urusei_yatsura.jpg"
     :border_color: 
     :title_ru: Несносные пришельцы
     :text_ru: 
@@ -13210,7 +13214,7 @@
   attributes:
     :neko_id: :urusei_yatsura
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/588516.jpg
+    :image: "/assets/achievements/anime/franchise/urusei_yatsura.jpg"
     :border_color: 
     :title_ru: Несносные пришельцы
     :text_ru: 
@@ -13227,7 +13231,7 @@
   attributes:
     :neko_id: :futari_wa_milky_holmes
     :level: 1
-    :image: https://2.downloader.disk.yandex.ru/preview/f255dd6d3e0ba190d32b130ecd071d5eaa28f9e2da577b1e0110a43e835e3bd5/inf/Ulc4l6Nw6Zl9PBaWaDlZYefLsIFoOltZFV0zvVB7tdGBBsHO36izsJsnjnMu0B8L8Li-k66LBmBXLZsukw55lA%3D%3D?uid=0&filename=2332377690e929cc8cc545dee2e5c37033bf768c.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+    :image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
     :border_color: 
     :title_ru: Детективное агентство Милки Холмс
     :text_ru: 
@@ -13244,7 +13248,7 @@
   attributes:
     :neko_id: :futari_wa_milky_holmes
     :level: 0
-    :image: https://2.downloader.disk.yandex.ru/preview/f255dd6d3e0ba190d32b130ecd071d5eaa28f9e2da577b1e0110a43e835e3bd5/inf/Ulc4l6Nw6Zl9PBaWaDlZYefLsIFoOltZFV0zvVB7tdGBBsHO36izsJsnjnMu0B8L8Li-k66LBmBXLZsukw55lA%3D%3D?uid=0&filename=2332377690e929cc8cc545dee2e5c37033bf768c.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1249x510
+    :image: "/assets/achievements/anime/franchise/futari_wa_milky_holmes.png"
     :border_color: 
     :title_ru: Детективное агентство Милки Холмс
     :text_ru: 
@@ -13261,7 +13265,7 @@
   attributes:
     :neko_id: :votoms_finder
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593466.jpg
+    :image: "/assets/achievements/anime/franchise/votoms_finder.jpg"
     :border_color: 
     :title_ru: Бронированные воины Вотомы
     :text_ru: 
@@ -13280,7 +13284,7 @@
   attributes:
     :neko_id: :votoms_finder
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/593466.jpg
+    :image: "/assets/achievements/anime/franchise/votoms_finder.jpg"
     :border_color: 
     :title_ru: Бронированные воины Вотомы
     :text_ru: 
@@ -13299,7 +13303,7 @@
   attributes:
     :neko_id: :ad_police
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593344.jpg
+    :image: "/assets/achievements/anime/franchise/ad_police.jpg"
     :border_color: 
     :title_ru: Кризис каждый день
     :text_ru: 
@@ -13316,7 +13320,7 @@
   attributes:
     :neko_id: :ad_police
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/593344.jpg
+    :image: "/assets/achievements/anime/franchise/ad_police.jpg"
     :border_color: 
     :title_ru: Кризис каждый день
     :text_ru: 
@@ -13333,7 +13337,7 @@
   attributes:
     :neko_id: :maison_ikkoku
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/591782.jpg
+    :image: "/assets/achievements/anime/franchise/maison_ikkoku.jpg"
     :border_color: 
     :title_ru: Доходный дом Иккоку
     :text_ru: 
@@ -13352,7 +13356,7 @@
   attributes:
     :neko_id: :maison_ikkoku
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/591782.jpg
+    :image: "/assets/achievements/anime/franchise/maison_ikkoku.jpg"
     :border_color: 
     :title_ru: Доходный дом Иккоку
     :text_ru: 
@@ -13371,7 +13375,7 @@
   attributes:
     :neko_id: :kimagure_orange_road
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587931.jpg
+    :image: "/assets/achievements/anime/franchise/kimagure_orange_road.jpg"
     :border_color: 
     :title_ru: Капризы Апельсиновой улицы
     :text_ru: 
@@ -13390,7 +13394,7 @@
   attributes:
     :neko_id: :kimagure_orange_road
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/587931.jpg
+    :image: "/assets/achievements/anime/franchise/kimagure_orange_road.jpg"
     :border_color: 
     :title_ru: Капризы Апельсиновой улицы
     :text_ru: 
@@ -13409,7 +13413,7 @@
   attributes:
     :neko_id: :muumin
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587882.jpg
+    :image: "/assets/achievements/anime/franchise/muumin.jpg"
     :border_color: 
     :title_ru: Муми-тролль
     :text_ru: 
@@ -13426,7 +13430,7 @@
   attributes:
     :neko_id: :muumin
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/587882.jpg
+    :image: "/assets/achievements/anime/franchise/muumin.jpg"
     :border_color: 
     :title_ru: Муми-тролль
     :text_ru: 
@@ -13443,7 +13447,7 @@
   attributes:
     :neko_id: :to_heart
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/34807/588864.jpg
+    :image: "/assets/achievements/anime/franchise/to_heart.jpg"
     :border_color: 
     :title_ru: Для сердца
     :text_ru: 
@@ -13460,7 +13464,7 @@
   attributes:
     :neko_id: :to_heart
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/34807/588864.jpg
+    :image: "/assets/achievements/anime/franchise/to_heart.jpg"
     :border_color: 
     :title_ru: Для сердца
     :text_ru: 
@@ -13477,7 +13481,7 @@
   attributes:
     :neko_id: :cyborg
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588532.jpg
+    :image: "/assets/achievements/anime/franchise/cyborg.jpg"
     :border_color: 
     :title_ru: Киборг 009
     :text_ru: 
@@ -13494,7 +13498,7 @@
   attributes:
     :neko_id: :cyborg
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588532.jpg
+    :image: "/assets/achievements/anime/franchise/cyborg.jpg"
     :border_color: 
     :title_ru: Киборг 009
     :text_ru: 
@@ -13511,7 +13515,7 @@
   attributes:
     :neko_id: :kindaichi_shounen_no_jikenbo
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587869.jpg
+    :image: "/assets/achievements/anime/franchise/kindaichi_shounen_no_jikenbo.jpg"
     :border_color: 
     :title_ru: Дело ведет юный детектив Киндаити
     :text_ru: 
@@ -13528,7 +13532,7 @@
   attributes:
     :neko_id: :kindaichi_shounen_no_jikenbo
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/587869.jpg
+    :image: "/assets/achievements/anime/franchise/kindaichi_shounen_no_jikenbo.jpg"
     :border_color: 
     :title_ru: Дело ведет юный детектив Киндаити
     :text_ru: 
@@ -13545,7 +13549,7 @@
   attributes:
     :neko_id: :sakura_taisen
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588988.jpg
+    :image: "/assets/achievements/anime/franchise/sakura_taisen.jpg"
     :border_color: 
     :title_ru: 'Сакура: Война миров'
     :text_ru: 
@@ -13564,7 +13568,7 @@
   attributes:
     :neko_id: :sakura_taisen
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/84020/588988.jpg
+    :image: "/assets/achievements/anime/franchise/sakura_taisen.jpg"
     :border_color: 
     :title_ru: 'Сакура: Война миров'
     :text_ru: 
@@ -13583,7 +13587,7 @@
   attributes:
     :neko_id: :gegege_no_kitarou
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588958.jpg
+    :image: "/assets/achievements/anime/franchise/gegege_no_kitarou.jpg"
     :border_color: 
     :title_ru: Щелкунчик Китаро
     :text_ru: 
@@ -13602,7 +13606,7 @@
   attributes:
     :neko_id: :gegege_no_kitarou
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588958.jpg
+    :image: "/assets/achievements/anime/franchise/gegege_no_kitarou.jpg"
     :border_color: 
     :title_ru: Щелкунчик Китаро
     :text_ru: 
@@ -13621,7 +13625,7 @@
   attributes:
     :neko_id: :time_bokan
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/624160.jpg
+    :image: "/assets/achievements/anime/franchise/time_bokan.jpg"
     :border_color: 
     :title_ru: Приключения во времени
     :text_ru: 
@@ -13640,7 +13644,7 @@
   attributes:
     :neko_id: :time_bokan
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/624160.jpg
+    :image: "/assets/achievements/anime/franchise/time_bokan.jpg"
     :border_color: 
     :title_ru: Приключения во времени
     :text_ru: 
@@ -13659,7 +13663,7 @@
   attributes:
     :neko_id: :cutey_honey
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587430.jpg
+    :image: "/assets/achievements/anime/franchise/cutey_honey.jpg"
     :border_color: 
     :title_ru: Милашка Хани
     :text_ru: 
@@ -13676,7 +13680,7 @@
   attributes:
     :neko_id: :cutey_honey
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/587430.jpg
+    :image: "/assets/achievements/anime/franchise/cutey_honey.jpg"
     :border_color: 
     :title_ru: Милашка Хани
     :text_ru: 
@@ -13693,7 +13697,7 @@
   attributes:
     :neko_id: :mazinkaiser
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588529.jpg
+    :image: "/assets/achievements/anime/franchise/mazinkaiser.jpg"
     :border_color: 
     :title_ru: Мазинкайзер
     :text_ru: 
@@ -13710,7 +13714,7 @@
   attributes:
     :neko_id: :mazinkaiser
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/84020/588529.jpg
+    :image: "/assets/achievements/anime/franchise/mazinkaiser.jpg"
     :border_color: 
     :title_ru: Мазинкайзер
     :text_ru: 
@@ -13727,7 +13731,7 @@
   attributes:
     :neko_id: :galaxy_angel
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/594916.jpg
+    :image: "/assets/achievements/anime/franchise/galaxy_angel.jpg"
     :border_color: 
     :title_ru: Галактический ангел
     :text_ru: 
@@ -13744,7 +13748,7 @@
   attributes:
     :neko_id: :galaxy_angel
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/84020/594916.jpg
+    :image: "/assets/achievements/anime/franchise/galaxy_angel.jpg"
     :border_color: 
     :title_ru: Галактический ангел
     :text_ru: 
@@ -13761,7 +13765,7 @@
   attributes:
     :neko_id: :space_cobra
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/587937.jpg
+    :image: "/assets/achievements/anime/franchise/space_cobra.jpg"
     :border_color: 
     :title_ru: Космические приключения Кобры
     :text_ru: 
@@ -13778,7 +13782,7 @@
   attributes:
     :neko_id: :space_cobra
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/587937.jpg
+    :image: "/assets/achievements/anime/franchise/space_cobra.jpg"
     :border_color: 
     :title_ru: Космические приключения Кобры
     :text_ru: 
@@ -13795,7 +13799,7 @@
   attributes:
     :neko_id: :dirty_pair
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593340.jpg
+    :image: "/assets/achievements/anime/franchise/dirty_pair.jpg"
     :border_color: 
     :title_ru: Грязная парочка
     :text_ru: 
@@ -13812,7 +13816,7 @@
   attributes:
     :neko_id: :dirty_pair
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/84020/593340.jpg
+    :image: "/assets/achievements/anime/franchise/dirty_pair.jpg"
     :border_color: 
     :title_ru: Грязная парочка
     :text_ru: 
@@ -13829,7 +13833,7 @@
   attributes:
     :neko_id: :di_gi_charat
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588977.jpg
+    :image: "/assets/achievements/anime/franchise/di_gi_charat.jpg"
     :border_color: 
     :title_ru: Ди-Ги Карат
     :text_ru: 
@@ -13846,7 +13850,7 @@
   attributes:
     :neko_id: :di_gi_charat
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/84020/588977.jpg
+    :image: "/assets/achievements/anime/franchise/di_gi_charat.jpg"
     :border_color: 
     :title_ru: Ди-Ги Карат
     :text_ru: 
@@ -13863,7 +13867,7 @@
   attributes:
     :neko_id: :el_hazard
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590462.jpg
+    :image: "/assets/achievements/anime/franchise/el_hazard.jpg"
     :border_color: 
     :title_ru: Эль-Хазард
     :text_ru: 
@@ -13880,7 +13884,7 @@
   attributes:
     :neko_id: :el_hazard
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/590462.jpg
+    :image: "/assets/achievements/anime/franchise/el_hazard.jpg"
     :border_color: 
     :title_ru: Эль-Хазард
     :text_ru: 
@@ -13897,7 +13901,7 @@
   attributes:
     :neko_id: :saber_marionette_j
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/590456.jpg
+    :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
     :border_color: 
     :title_ru: Воины-марионетки Джей
     :text_ru: 
@@ -13914,7 +13918,7 @@
   attributes:
     :neko_id: :saber_marionette_j
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/590456.jpg
+    :image: "/assets/achievements/anime/franchise/saber_marionette_j.jpg"
     :border_color: 
     :title_ru: Воины-марионетки Джей
     :text_ru: 
@@ -13931,7 +13935,7 @@
   attributes:
     :neko_id: :konjiki_no_gash_bell
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/34807/588672.jpg
+    :image: "/assets/achievements/anime/franchise/konjiki_no_gash_bell.jpg"
     :border_color: 
     :title_ru: Златовласый Гаш Белл
     :text_ru: 
@@ -13948,7 +13952,7 @@
   attributes:
     :neko_id: :konjiki_no_gash_bell
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/34807/588672.jpg
+    :image: "/assets/achievements/anime/franchise/konjiki_no_gash_bell.jpg"
     :border_color: 
     :title_ru: Златовласый Гаш Белл
     :text_ru: 
@@ -13965,7 +13969,7 @@
   attributes:
     :neko_id: :captain_tsubasa
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594760.jpg
+    :image: "/assets/achievements/anime/franchise/captain_tsubasa.jpg"
     :border_color: 
     :title_ru: Капитан Цубаса
     :text_ru: 
@@ -13982,7 +13986,7 @@
   attributes:
     :neko_id: :captain_tsubasa
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/34807/594760.jpg
+    :image: "/assets/achievements/anime/franchise/captain_tsubasa.jpg"
     :border_color: 
     :title_ru: Капитан Цубаса
     :text_ru: 
@@ -13999,7 +14003,7 @@
   attributes:
     :neko_id: :haou_daikei_ryuu_knight
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588868.jpg
+    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
     :border_color: 
     :title_ru: Властелин властелинов Рыцарь Рю
     :text_ru: 
@@ -14016,7 +14020,7 @@
   attributes:
     :neko_id: :haou_daikei_ryuu_knight
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/34807/588868.jpg
+    :image: "/assets/achievements/anime/franchise/haou_daikei_ryuu_knight.jpg"
     :border_color: 
     :title_ru: Властелин властелинов Рыцарь Рю
     :text_ru: 
