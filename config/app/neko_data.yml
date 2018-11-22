@@ -6955,7 +6955,7 @@
   attributes:
     :neko_id: :tokyo_ghoul
     :level: 1
-    :image: 
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/624136.jpg
     :border_color: 
     :title_ru: Токийский гуль
     :text_ru: 
@@ -6972,7 +6972,7 @@
   attributes:
     :neko_id: :tokyo_ghoul
     :level: 0
-    :image: 
+    :image: https://kawai.shikimori.org/system/user_images/original/34807/624136.jpg
     :border_color: 
     :title_ru: Токийский гуль
     :text_ru: 
@@ -7257,6 +7257,7 @@
         not_anime_ids:
         - 11511
         - 12121
+        - 246
       :threshold: 96.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7277,6 +7278,7 @@
         not_anime_ids:
         - 11511
         - 12121
+        - 246
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8635,7 +8637,7 @@
   attributes:
     :neko_id: :k
     :level: 1
-    :image: 
+    :image: https://nyaa.shikimori.org/system/user_images/original/29386/688555.jpg
     :border_color: 
     :title_ru: Проект Кей
     :text_ru: 
@@ -8652,7 +8654,7 @@
   attributes:
     :neko_id: :k
     :level: 0
-    :image: 
+    :image: https://nyaa.shikimori.org/system/user_images/original/29386/688555.jpg
     :border_color: 
     :title_ru: Проект Кей
     :text_ru: 
@@ -10055,9 +10057,9 @@
     :level: 1
     :image: "/assets/achievements/anime/franchise/hoozuki_no_reitetsu.jpg"
     :border_color: 
-    :title_ru: Hoozuki no Reitetsu
+    :title_ru: Хладнокровный Хозуки
     :text_ru: 
-    :title_en: Хладнокровный Хозуки
+    :title_en: Hoozuki no Reitetsu
     :text_en: 
     :topic_id: 247360
     :rule:
@@ -10072,9 +10074,9 @@
     :level: 0
     :image: "/assets/achievements/anime/franchise/hoozuki_no_reitetsu.jpg"
     :border_color: 
-    :title_ru: Hoozuki no Reitetsu
+    :title_ru: Хладнокровный Хозуки
     :text_ru: 
-    :title_en: Хладнокровный Хозуки
+    :title_en: Hoozuki no Reitetsu
     :text_en: 
     :topic_id: 247360
     :rule:
@@ -10098,6 +10100,9 @@
       :algo: duration
       :filters:
         franchise: hibike_euphonium
+        not_anime_ids:
+        - 31989
+        - 35082
       :threshold: 94.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10115,6 +10120,9 @@
       :algo: duration
       :filters:
         franchise: hibike_euphonium
+        not_anime_ids:
+        - 31989
+        - 35082
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10553,7 +10561,7 @@
   attributes:
     :neko_id: :dog_days
     :level: 1
-    :image: 
+    :image: https://moe.shikimori.org/system/user_images/original/3824/688642.jpg
     :border_color: 
     :title_ru: Собачьи дни
     :text_ru: 
@@ -10572,7 +10580,7 @@
   attributes:
     :neko_id: :dog_days
     :level: 0
-    :image: 
+    :image: https://moe.shikimori.org/system/user_images/original/3824/688642.jpg
     :border_color: 
     :title_ru: Собачьи дни
     :text_ru: 
@@ -11544,6 +11552,7 @@
         franchise: tiger_bunny
         not_anime_ids:
         - 30178
+        - 12015
       :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -11563,6 +11572,7 @@
         franchise: tiger_bunny
         not_anime_ids:
         - 30178
+        - 12015
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -12317,9 +12327,9 @@
     :level: 1
     :image: "/assets/achievements/anime/franchise/ranma.jpg"
     :border_color: 
-    :title_ru: Ранма 1/2
+    :title_ru: Ранма ½
     :text_ru: 
-    :title_en: Ranma 1/2
+    :title_en: Ranma ½
     :text_en: 
     :topic_id: 247360
     :rule:
@@ -12334,9 +12344,9 @@
     :level: 0
     :image: "/assets/achievements/anime/franchise/ranma.jpg"
     :border_color: 
-    :title_ru: Ранма 1/2
+    :title_ru: Ранма ½
     :text_ru: 
-    :title_en: Ranma 1/2
+    :title_en: Ranma ½
     :text_en: 
     :topic_id: 247360
     :rule:
