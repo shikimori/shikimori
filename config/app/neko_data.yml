@@ -6955,7 +6955,7 @@
   attributes:
     :neko_id: :tokyo_ghoul
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/624136.jpg
+    :image: "/assets/achievements/anime/franchise/tokyo_ghoul.jpg"
     :border_color: 
     :title_ru: Токийский гуль
     :text_ru: 
@@ -6972,7 +6972,7 @@
   attributes:
     :neko_id: :tokyo_ghoul
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/34807/624136.jpg
+    :image: "/assets/achievements/anime/franchise/tokyo_ghoul.jpg"
     :border_color: 
     :title_ru: Токийский гуль
     :text_ru: 
@@ -7255,10 +7255,10 @@
       :filters:
         franchise: fairy_tail
         not_anime_ids:
+        - 246
         - 11511
         - 12121
-        - 246
-      :threshold: 96.5%
+      :threshold: 95.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7276,9 +7276,9 @@
       :filters:
         franchise: fairy_tail
         not_anime_ids:
+        - 246
         - 11511
         - 12121
-        - 246
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8637,7 +8637,7 @@
   attributes:
     :neko_id: :k
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/29386/688555.jpg
+    :image: "/assets/achievements/anime/franchise/k.jpg"
     :border_color: 
     :title_ru: Проект Кей
     :text_ru: 
@@ -8654,7 +8654,7 @@
   attributes:
     :neko_id: :k
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/29386/688555.jpg
+    :image: "/assets/achievements/anime/franchise/k.jpg"
     :border_color: 
     :title_ru: Проект Кей
     :text_ru: 
@@ -8959,7 +8959,7 @@
   attributes:
     :neko_id: :sora_no_otoshimono
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/sora_no_otoshimono.jpg"
     :border_color: 
     :title_ru: Утраченное небесами
     :text_ru: 
@@ -8976,7 +8976,7 @@
   attributes:
     :neko_id: :sora_no_otoshimono
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/sora_no_otoshimono.jpg"
     :border_color: 
     :title_ru: Утраченное небесами
     :text_ru: 
@@ -9211,7 +9211,7 @@
   attributes:
     :neko_id: :hakuouki
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/hakuouki.jpg"
     :border_color: 
     :title_ru: Сказание о демонах сакуры
     :text_ru: 
@@ -9230,7 +9230,7 @@
   attributes:
     :neko_id: :hakuouki
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/hakuouki.jpg"
     :border_color: 
     :title_ru: Сказание о демонах сакуры
     :text_ru: 
@@ -10103,7 +10103,7 @@
         not_anime_ids:
         - 31989
         - 35082
-      :threshold: 94.7%
+      :threshold: 93.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -10561,7 +10561,7 @@
   attributes:
     :neko_id: :dog_days
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/3824/688642.jpg
+    :image: "/assets/achievements/anime/franchise/dog_days.jpg"
     :border_color: 
     :title_ru: Собачьи дни
     :text_ru: 
@@ -10580,7 +10580,7 @@
   attributes:
     :neko_id: :dog_days
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/3824/688642.jpg
+    :image: "/assets/achievements/anime/franchise/dog_days.jpg"
     :border_color: 
     :title_ru: Собачьи дни
     :text_ru: 
@@ -10787,7 +10787,7 @@
   attributes:
     :neko_id: :little_busters
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/little_busters.jpg"
     :border_color: 
     :title_ru: Маленькие проказники!
     :text_ru: 
@@ -10804,7 +10804,7 @@
   attributes:
     :neko_id: :little_busters
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/little_busters.jpg"
     :border_color: 
     :title_ru: Маленькие проказники!
     :text_ru: 
@@ -11433,7 +11433,7 @@
   attributes:
     :neko_id: :kiniro_no_corda
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/kiniro_no_corda.jpg"
     :border_color: 
     :title_ru: Золотая струна
     :text_ru: 
@@ -11450,7 +11450,7 @@
   attributes:
     :neko_id: :kiniro_no_corda
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/kiniro_no_corda.jpg"
     :border_color: 
     :title_ru: Золотая струна
     :text_ru: 
@@ -11551,9 +11551,9 @@
       :filters:
         franchise: tiger_bunny
         not_anime_ids:
-        - 30178
         - 12015
-      :threshold: 98%
+        - 30178
+      :threshold: 97.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -11571,8 +11571,8 @@
       :filters:
         franchise: tiger_bunny
         not_anime_ids:
-        - 30178
         - 12015
+        - 30178
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -12291,7 +12291,7 @@
   attributes:
     :neko_id: :binan_koukou_chikyuu_boueibu_love
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
     :border_color: 
     :title_ru: Красавцы из клуба защитников Земли
     :text_ru: 
@@ -12308,7 +12308,7 @@
   attributes:
     :neko_id: :binan_koukou_chikyuu_boueibu_love
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/binan_koukou_chikyuu_boueibu_love.jpg"
     :border_color: 
     :title_ru: Красавцы из клуба защитников Земли
     :text_ru: 
@@ -12861,7 +12861,7 @@
   attributes:
     :neko_id: :tamayura
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/tamayura.jpg"
     :border_color: 
     :title_ru: Тамаюра
     :text_ru: 
@@ -12880,7 +12880,7 @@
   attributes:
     :neko_id: :tamayura
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/tamayura.jpg"
     :border_color: 
     :title_ru: Тамаюра
     :text_ru: 
