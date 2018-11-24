@@ -19,7 +19,8 @@ ru:
         info: Инфо
         moderation: Модерация и контент
         site_rules: Правила сайта
-        vk_group: Наша группа в vk.com
+        vk: Группа в vk.com
+        discord: Канал в discord
       anime_online:
         <<: *shikimori
 

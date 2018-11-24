@@ -139,9 +139,14 @@
 
       - if ru_host?
         a.entry[
-          href="https://vk.com/shikimori"
-          title=t('.vk_group')
-        ] = t '.vk_group'
+          href=Shikimori::VK_CLUB_URL
+          title=t('.vk')
+        ] = t '.vk'
+
+        a.entry[
+          href=Shikimori::DISCORD_CHANNEL_URL
+          title=t('.discord')
+        ] = t '.discord'
 
       a.entry[
         href=anime_statistics_url

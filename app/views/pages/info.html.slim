@@ -28,9 +28,13 @@ header.head
         ] = t 'copyrighted_animes'
       - if ru_host?
         li: a.entry[
-          href="https://vk.com/shikimori"
-          title=t('application.top_menu.shikimori.vk_group')
-        ] = t 'application.top_menu.shikimori.vk_group'
+          href=Shikimori::VK_CLUB_URL
+          title=t('application.top_menu.shikimori.vk')
+        ] = t 'application.top_menu.shikimori.vk'
+        li: a.entry[
+          href=Shikimori::DISCORD_CHANNEL_URL
+          title=t('application.top_menu.shikimori.discord')
+        ] = t 'application.top_menu.shikimori.discord'
       li: a.entry[
         href=moderations_url
         title=t('application.top_menu.shikimori.moderation')
