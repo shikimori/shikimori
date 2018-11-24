@@ -61,6 +61,7 @@
           ] = t :settings
           a.entry[
             href=destroy_user_session_url(subdomain: nil)
+            data-method='delete'
           ] = t '.sign_out'
 
     - else
