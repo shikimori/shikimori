@@ -11,7 +11,8 @@ en:
       moderation_contests: Contests
       moderation_cosplay: Cosplay
       moderation_forum: Forum
-      vk_admins: Club in vk
+      vk: <a class="b-link" href="%{url}">vk</a> group
+      discord: <a class="b-link" href="%{url}">Discord</a> channel
       retired_moderators: Retired
       special_thanks: Special thanks to
       total: Total

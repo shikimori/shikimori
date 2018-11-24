@@ -89,6 +89,10 @@ class SiteStatistics
     User.where(id: 4795) # Harizmath
   end
 
+  def discord_admins
+    User.where(id: 8014) # Happy Man
+  end
+
   def translators
     User
       .joins(:versions)

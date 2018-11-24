@@ -11,7 +11,8 @@ ru:
       moderation_contests: Турниры
       moderation_cosplay: Косплей
       moderation_forum: Форум
-      vk_admins: Группа в vk
+      vk: Группа в <a class="b-link" href="%{url}">vk</a>
+      discord: Канал в <a class="b-link" href="%{url}">discord</a>
       retired_moderators: В отставке
       special_thanks: Отдельная помощь и идеи
       total: Всего
