@@ -3136,7 +3136,7 @@
     :topic_id: 222064
     :rule:
       :algo: count
-      :threshold: 65
+      :threshold: 50
       :filters:
         genre_ids:
         - 22
@@ -3154,7 +3154,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 130
+      :threshold: 110
       :filters:
         genre_ids:
         - 22
@@ -3172,7 +3172,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 260
+      :threshold: 200
       :filters:
         genre_ids:
         - 22
@@ -3190,7 +3190,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 350
+      :threshold: 320
       :filters:
         genre_ids:
         - 22
@@ -7031,7 +7031,7 @@
   attributes:
     :neko_id: :science_adventure
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/science_adventure.jpg"
     :border_color: 
     :title_ru: Врата Штейна
     :text_ru: 
@@ -7043,14 +7043,19 @@
       :filters:
         franchise: science_adventure
         not_anime_ids:
+        - 4975
+        - 13599
+        - 30485
+        - 32962
         - 34753
-      :threshold: 95%
+        - 35315
+      :threshold: 96.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :science_adventure
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/science_adventure.jpg"
     :border_color: 
     :title_ru: Врата Штейна
     :text_ru: 
@@ -7062,7 +7067,12 @@
       :filters:
         franchise: science_adventure
         not_anime_ids:
+        - 4975
+        - 13599
+        - 30485
+        - 32962
         - 34753
+        - 35315
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7329,7 +7339,7 @@
   attributes:
     :neko_id: :overlord
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/overlord.jpg"
     :border_color: 
     :title_ru: Повелитель
     :text_ru: 
@@ -7349,7 +7359,7 @@
   attributes:
     :neko_id: :overlord
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/overlord.jpg"
     :border_color: 
     :title_ru: Повелитель
     :text_ru: 
@@ -7369,7 +7379,7 @@
   attributes:
     :neko_id: :ao_no_exorcist
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/ao_no_exorcist.jpg"
     :border_color: 
     :title_ru: Синий экзорцист
     :text_ru: 
@@ -7386,7 +7396,7 @@
   attributes:
     :neko_id: :ao_no_exorcist
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/ao_no_exorcist.jpg"
     :border_color: 
     :title_ru: Синий экзорцист
     :text_ru: 
@@ -10437,7 +10447,7 @@
   attributes:
     :neko_id: :baku_tech_bakugan
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/baku_tech_bakugan.jpg"
     :border_color: 
     :title_ru: Бакуган
     :text_ru: 
@@ -10458,7 +10468,7 @@
   attributes:
     :neko_id: :baku_tech_bakugan
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/baku_tech_bakugan.jpg"
     :border_color: 
     :title_ru: Бакуган
     :text_ru: 
