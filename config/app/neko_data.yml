@@ -8445,11 +8445,11 @@
   attributes:
     :neko_id: :when_they_cry
     :level: 1
-    :image: "/assets/achievements/anime/franchise/when_they_cry.png"
+    :image: "/assets/achievements/anime/franchise/when_they_cry.jpg"
     :border_color: 
-    :title_ru: Когда плачут
+    :title_ru: Когда плачут цикады
     :text_ru: 
-    :title_en: When They Cry
+    :title_en: Higurashi no Naku Koro ni
     :text_en: 
     :topic_id: 247360
     :rule:
@@ -8462,11 +8462,11 @@
   attributes:
     :neko_id: :when_they_cry
     :level: 0
-    :image: "/assets/achievements/anime/franchise/when_they_cry.png"
+    :image: "/assets/achievements/anime/franchise/when_they_cry.jpg"
     :border_color: 
-    :title_ru: Когда плачут
+    :title_ru: Когда плачут цикады
     :text_ru: 
-    :title_en: When They Cry
+    :title_en: Higurashi no Naku Koro ni
     :text_en: 
     :topic_id: 247360
     :rule:
@@ -12077,7 +12077,7 @@
   attributes:
     :neko_id: :ookiku_furikabutte
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/ookiku_furikabutte.jpg"
     :border_color: 
     :title_ru: Замахнись сильнее
     :text_ru: 
@@ -12096,7 +12096,7 @@
   attributes:
     :neko_id: :ookiku_furikabutte
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/ookiku_furikabutte.jpg"
     :border_color: 
     :title_ru: Замахнись сильнее
     :text_ru: 
@@ -12704,6 +12704,8 @@
       :algo: duration
       :filters:
         franchise: toriko
+        not_anime_ids:
+        - 1178
       :threshold: 98.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -12721,6 +12723,8 @@
       :algo: duration
       :filters:
         franchise: toriko
+        not_anime_ids:
+        - 1178
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13011,7 +13015,7 @@
   attributes:
     :neko_id: :beyblade
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/beyblade.jpg"
     :border_color: 
     :title_ru: Бейблэйд
     :text_ru: 
@@ -13028,7 +13032,7 @@
   attributes:
     :neko_id: :beyblade
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/beyblade.jpg"
     :border_color: 
     :title_ru: Бейблэйд
     :text_ru: 
@@ -15699,6 +15703,33 @@
         - 51
         - 36792
         - 36632
+        - 819
+        - 31680
+        - 30902
+        - 23225
+        - 12403
+        - 30279
+        - 19315
+        - 2129
+        - 6234
+        - 29093
+        - 29095
+        - 17729
+        - 32262
+        - 3229
+        - 32370
+        - 1482
+        - 15225
+        - 49305
+        - 33255
+        - 34612
+        - 20541
+        - 23227
+        - 13367
+        - 15609
+        - 7817
+        - 13759
+        - 29589
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
 - !ruby/object:Neko::Rule
   attributes:
