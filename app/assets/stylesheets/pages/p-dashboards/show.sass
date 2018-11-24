@@ -151,6 +151,40 @@
       +iphone
         display: none
 
+      .discord-channel
+        .no-cssmask &
+          +block
+          background-repeat: no-repeat
+          display: block
+          padding-top: 34%
+          width: 100%
+
+          background-image: url('/assets/pages/dashboards/discord.svg')
+
+          &:hover
+            background-image: url('/assets/pages/dashboards/discord-hover.svg')
+
+          &:active
+            background-image: url('/assets/pages/dashboards/discord-active.svg')
+
+
+        .cssmask &
+          +block
+          display: block
+          padding-top: 34%
+          width: 100%
+
+          background: #456
+          -webkit-mask-image: url('/assets/pages/dashboards/discord-mask.svg')
+          mask-image: url('/assets/pages/dashboards/discord-mask.svg')
+          transition: background 0.2s ease
+
+          &:hover
+            background: $link-3
+
+          &:active
+            background: $link-2
+
       & > .container
         width: 100%
         min-height: 400px
