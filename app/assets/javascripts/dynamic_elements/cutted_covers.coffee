@@ -15,7 +15,8 @@ export default class CuttedCovers extends View
   @RATIO =
     #entry: 229.0 / 156.0
     entry: 318.0 / 225.0
-    person: 194.0 / 125.0
+    person: 350.0 / 225.0
+    character: 350.0 / 225.0
 
   @CLASS_NAME = 'd-cutted_covers'
   @GLOBAL_HANDLER = false
