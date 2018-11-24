@@ -27,7 +27,7 @@ export default class CuttedCovers extends View
     delay().then =>
       @_fetch_poster()
       @collection_id = "cutted_covers_#{@_increment_id()}"
-      @ratio_type = @_node_ratio @node
+      @ratio_value = CuttedCovers.RATIO[@_node_ratio(@node)] || CuttedCovers.RATIO.entry
 
       @inject_css()
 
@@ -39,7 +39,7 @@ export default class CuttedCovers extends View
 
   inject_css: =>
     @_fetch_poster() unless $.contains(document.documentElement, @$poster[0])
-    height = (@$poster.width() * CuttedCovers.RATIO[@ratio_type]).round(2)
+    height = (@$poster.width() * @ratio_value).round(2)
     width = @$poster.width()
 
     if width > 0 && height > 0
@@ -53,7 +53,7 @@ export default class CuttedCovers extends View
     CuttedCovers.PRIOR_ID = CuttedCovers.PRIOR_ID + 1
 
   _node_ratio: (node) ->
-    @node.attributes['data-ratio_type']?.value || 'entry'
+    @node.attributes['data-ratio_type']?.value
 
   _fetch_poster: ->
     @$poster = @$ '.b-catalog_entry:first-child .image-decor'
