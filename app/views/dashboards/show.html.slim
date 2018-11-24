@@ -181,6 +181,13 @@
     - if ru_host?
       #vk_groups
 
+      .block.discord_channel
+        a href=Shikimori::DISCORD_CHANNEL_URL
+          img[
+            src="/assets/globals/discord.png"
+            srcset="/assets/globals/discord@2x.png 2x"
+          ]
+
     - cache @dashboard_view.cache_keys[:updates] do
       .block
         .midheadline.yellow.linkheadline
