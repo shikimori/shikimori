@@ -8075,7 +8075,7 @@
   attributes:
     :neko_id: :kara_no_kyoukai
     :level: 1
-    :image: "/assets/achievements/anime/franchise/kara_no_kyoukai.jpg"
+    :image: "/assets/achievements/anime/franchise/kara_no_kyoukai.png"
     :border_color: 
     :title_ru: Граница пустоты
     :text_ru: 
@@ -8094,7 +8094,7 @@
   attributes:
     :neko_id: :kara_no_kyoukai
     :level: 0
-    :image: "/assets/achievements/anime/franchise/kara_no_kyoukai.jpg"
+    :image: "/assets/achievements/anime/franchise/kara_no_kyoukai.png"
     :border_color: 
     :title_ru: Граница пустоты
     :text_ru: 
@@ -9807,7 +9807,7 @@
   attributes:
     :neko_id: :arslan_senki
     :level: 1
-    :image: "/assets/achievements/anime/franchise/arslan_senki.png"
+    :image: "/assets/achievements/anime/franchise/arslan_senki.jpg"
     :border_color: 
     :title_ru: Сказание об Арслане
     :text_ru: 
@@ -9828,7 +9828,7 @@
   attributes:
     :neko_id: :arslan_senki
     :level: 0
-    :image: "/assets/achievements/anime/franchise/arslan_senki.png"
+    :image: "/assets/achievements/anime/franchise/arslan_senki.jpg"
     :border_color: 
     :title_ru: Сказание об Арслане
     :text_ru: 
@@ -10831,7 +10831,7 @@
   attributes:
     :neko_id: :brave_witches
     :level: 1
-    :image: 
+    :image: "/assets/achievements/anime/franchise/brave_witches.jpg"
     :border_color: 
     :title_ru: Храбрые ведьмы
     :text_ru: 
@@ -10848,7 +10848,7 @@
   attributes:
     :neko_id: :brave_witches
     :level: 0
-    :image: 
+    :image: "/assets/achievements/anime/franchise/brave_witches.jpg"
     :border_color: 
     :title_ru: Храбрые ведьмы
     :text_ru: 
@@ -15730,6 +15730,35 @@
         - 7817
         - 13759
         - 29589
+        - 10495
+        - 10721
+        - 15699
+        - 34177
+        - 10793
+        - 32900
+        - 13851
+        - 15583
+        - 19163
+        - 24655
+        - 8424
+        - 14811
+        - 21635
+        - 8424
+        - 20931
+        - 23427
+        - 23233
+        - 36688
+        - 29027
+        - 30363
+        - 30365
+        - 366
+        - 15605
+        - 25437
+        - 16023
+        - 11597
+        - 28025
+        - 29067
+        - 26349
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
 - !ruby/object:Neko::Rule
   attributes:
