@@ -8147,7 +8147,7 @@
   attributes:
     :neko_id: :to_love_ru
     :level: 1
-    :image: "/assets/achievements/anime/franchise/to_love_ru.png"
+    :image: "/assets/achievements/anime/franchise/to_love_ru.jpg"
     :border_color: 
     :title_ru: Любовные неприятности
     :text_ru: 
@@ -8164,7 +8164,7 @@
   attributes:
     :neko_id: :to_love_ru
     :level: 0
-    :image: "/assets/achievements/anime/franchise/to_love_ru.png"
+    :image: "/assets/achievements/anime/franchise/to_love_ru.jpg"
     :border_color: 
     :title_ru: Любовные неприятности
     :text_ru: 
@@ -15720,7 +15720,6 @@
         - 32370
         - 1482
         - 15225
-        - 49305
         - 33255
         - 34612
         - 20541
@@ -15740,7 +15739,7 @@
         - 15583
         - 19163
         - 24655
-        - 8424
+        - 9581
         - 14811
         - 21635
         - 8424
