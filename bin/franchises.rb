@@ -66,13 +66,15 @@ data
   .select { |rule| rule['metadata']['image'].present? }
   .reject { |rule| Array(rule['metadata']['image']).first.match? %r{^/assets/achievements/anime/franchise} }
   .each do |rule|
-    image_url = Array(rule['metadata']['image']).first
+    image_url = CGI.unescape(Array(rule['metadata']['image']).first)
     puts "downloading #{image_url}"
 
     image_io = open_image(image_url)
 
     franchise = rule['filters']['franchise']
     extension = image_io.original_filename.split('.').last
+    extension = image_url.split('.').last if extension.size > 3
+
     download_path = "app/assets/images/achievements/anime/franchise/#{franchise}.#{extension}"
     File.open(Rails.root.join(download_path), 'wb') { |f| f.write image_io.read }
 
