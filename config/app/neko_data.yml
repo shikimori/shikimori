@@ -6845,9 +6845,13 @@
       :filters:
         franchise: sword_art_online
         not_anime_ids:
+        - 21879
         - 27891
+        - 36855
+        - 37278
+        - 37362
         - 37831
-      :threshold: 88.3%
+      :threshold: 83%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6865,7 +6869,11 @@
       :filters:
         franchise: sword_art_online
         not_anime_ids:
+        - 21879
         - 27891
+        - 36855
+        - 37278
+        - 37362
         - 37831
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
