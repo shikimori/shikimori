@@ -172,6 +172,10 @@ class Neko::Rule < Dry::Struct
     end
   end
 
+  def cache_key
+    [Digest::MD5.hexdigest(to_json), users_scope.cache_key]
+  end
+
 private
 
   def default_hint

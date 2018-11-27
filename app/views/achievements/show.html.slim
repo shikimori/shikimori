@@ -46,7 +46,7 @@ header.head.misc
               .value = achievement.rule[:threshold]
             .line
               .key #{t '.users'}:&nbsp;
-              - cache achievement.users_scope.cache_key do
+              - cache achievement.cache_key do
                 / it takes 50ms to calculate achievement.users_count
                 .value
                   a[

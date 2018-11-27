@@ -3,16 +3,19 @@ header.head.misc
     = og.headline
   = render 'application/breadcrumbs'
 
-.subheadline.m10 = i18n_i 'User', :other
-- if @collection.any?
-  .cc-8
-    = render partial: 'users/user',
-      collection: @collection,
-      locals: { content_by: :named_avatar }
+= cache @resource.cache_key do
+  .block
+    .b-options-floated = @resource.users_scope.size
+    .subheadline.m10 = i18n_i 'User', :other
+    - if @collection.any?
+      .cc-8
+        = render partial: 'users/user',
+          collection: @collection,
+          locals: { content_by: :named_avatar }
 
-    - if @collection.size == controller.class::USERS_PER_PAGE
-      = render 'blocks/postloader',
-        filter: 'b-user',
-        next_url: current_url(page: @page + 1)
-- else
-  .b-nothing_here = t '.nothing_here'
+        - if @collection.size == controller.class::USERS_PER_PAGE
+          = render 'blocks/postloader',
+            filter: 'b-user',
+            next_url: current_url(page: @page + 1)
+    - else
+      .b-nothing_here = t '.nothing_here'
