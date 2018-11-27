@@ -1,4 +1,5 @@
 = render layout: 'page' do
+  .b-options-floated = @resource.all_images.size
   .subheadline.m5 = og.headline
   .b-gallery.block[
     data-can_upload=can?(:upload, @resource)
