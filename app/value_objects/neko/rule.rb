@@ -112,7 +112,7 @@ class Neko::Rule < Dry::Struct
   end
 
   def users_count
-    Achievement.where(neko_id: neko_id, level: level).count
+    @users_count ||= users_scope.except(:order).size
   end
 
   def users_scope
