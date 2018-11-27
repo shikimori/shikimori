@@ -99,4 +99,5 @@
     - if user_signed_in?
       a.entry.sign_out[
         href=destroy_user_session_url
+        data-method='delete'
       ] = t '.sign_out'
