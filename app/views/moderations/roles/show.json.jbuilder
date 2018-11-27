@@ -1,17 +1,17 @@
 json.content render(
   partial: 'moderations/roles/user',
-  collection: @searched_collection,
+  collection: @collection,
   locals: { with_action: can?(:"manage_#{@role}_role", User), role: @role },
   formats: :html
 )
 
-if @searched_collection&.next_page?
+if @collection&.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-user',
-    next_url: current_url(page: @searched_collection.next_page),
+    next_url: current_url(page: @collection.next_page),
     prev_url: (
-      current_url(page: @searched_collection.prev_page) if @searched_collection.prev_page?
+      current_url(page: @collection.prev_page) if @collection.prev_page?
     )
   )
 end

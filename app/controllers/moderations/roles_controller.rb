@@ -79,10 +79,10 @@ private
   end
 
   def role_users_scope
-    User
-      .where("roles && '{#{Types::User::Roles[@role]}}'")
-      .order(:nickname)
-      .decorate
+    QueryObjectBase
+      .new(User.where("roles && '{#{Types::User::Roles[@role]}}'").order(:nickname))
+      .paginate([params[:page].to_i, 1].max, 44)
+      .transform(&:decorate)
   rescue Dry::Types::ConstraintError
     redirect_to moderations_roles_url
   end
@@ -90,7 +90,7 @@ private
   def search_users_scope
     Users::Query.fetch
       .search(params[:search])
-      .paginate([params[:page].to_i, 1].max, 45)
+      .paginate(1, 40)
       .transform(&:decorate)
   end
 
