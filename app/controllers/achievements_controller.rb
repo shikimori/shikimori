@@ -30,7 +30,7 @@ class AchievementsController < ShikimoriController
     )
   end
 
-  def users
+  def users # rubocop:disable AbcSize
     show
     @resource = @collection.find { |achievement| achievement.level == params[:level].to_i }
 

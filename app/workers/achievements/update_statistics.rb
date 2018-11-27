@@ -63,7 +63,7 @@ private
   def users_scope
     User
       .includes(:achievements)
-      .where.not("roles && '{#{Types::User::Roles[:cheat_bot]}}")
+      .where.not("roles && '{#{Types::User::Roles[:cheat_bot]}}'")
       .joins(USER_RATES_SQL)
       .group('users.id')
       .select('users.id, count(*) as user_rates_count')

@@ -118,6 +118,7 @@ class Neko::Rule < Dry::Struct
   def users_scope
     User
       .where(id: Achievement.where(neko_id: neko_id, level: level).select(:user_id))
+      .where.not("roles && '{#{Types::User::Roles[:cheat_bot]}}'")
       .order(:id)
   end
 
