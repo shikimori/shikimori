@@ -10111,6 +10111,40 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :chihayafuru
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
+    :border_color: 
+    :title_ru: Яркая Чихая
+    :text_ru: 
+    :title_en: Chihayafuru
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: chihayafuru
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :chihayafuru
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
+    :border_color: 
+    :title_ru: Яркая Чихая
+    :text_ru: 
+    :title_en: Chihayafuru
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: chihayafuru
+      :threshold: 0.01%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :hibike_euphonium
     :level: 1
     :image: "/assets/achievements/anime/franchise/hibike_euphonium.png"
@@ -13939,40 +13973,6 @@
       :algo: duration
       :filters:
         franchise: haou_daikei_ryuu_knight
-      :threshold: 0.01%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :chihayafuru
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
-    :border_color: 
-    :title_ru: Яркая Чихая
-    :text_ru: 
-    :title_en: Chihayafuru
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: chihayafuru
-      :threshold: 100%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :chihayafuru
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
-    :border_color: 
-    :title_ru: Яркая Чихая
-    :text_ru: 
-    :title_en: Chihayafuru
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: chihayafuru
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
