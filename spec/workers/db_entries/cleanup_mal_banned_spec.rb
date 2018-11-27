@@ -9,7 +9,7 @@ describe DbEntries::CleanupMalBanned do
   let!(:banned_anime) { create :anime, id: 33209 }
   let!(:anime) { create :anime }
 
-  let!(:banned_manga) { create :manga, id: 99999999 }
+  let!(:banned_manga) { create :manga, id: 59267 }
   let!(:manga) { create :manga }
 
   let!(:banned_ranobe) { create :ranobe, id: 88888888 }

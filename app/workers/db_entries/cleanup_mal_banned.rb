@@ -30,6 +30,7 @@ private
   def role_conditions role
     role.map do |key, value|
       raise ArgumentError, 'bad column name' unless PersonRole.column_names.include? key
+
       "#{key} = #{ApplicationRecord.sanitize value}"
     end
   end
