@@ -1644,7 +1644,7 @@
     :neko_id: :mahou_shoujo
     :level: 2
     :image: "/assets/achievements/anime/mahou_shoujo_2.jpg"
-    :border_color: "#49678d"
+    :border_color: "#DAA571"
     :title_ru: Магия — второе имя
     :text_ru: Не важно, какой ваш пол и сколько вам лет, если ваше призвание — нести
       любовь и справедливость.
@@ -2065,7 +2065,7 @@
     :neko_id: :mahou_shoujo
     :level: 3
     :image: "/assets/achievements/anime/mahou_shoujo_3.jpg"
-    :border_color: "#D8B1BF"
+    :border_color: "#4169E1"
     :title_ru: Все враги побеждены
     :text_ru: Опасность миновала! Можно возвращаться к семье и школьным друзьям.
     :title_en: 
@@ -8763,7 +8763,7 @@
   attributes:
     :neko_id: :hunter_x_hunter
     :level: 1
-    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.png"
+    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.jpg"
     :border_color: 
     :title_ru: Охотник х Охотник
     :text_ru: 
@@ -8780,7 +8780,7 @@
   attributes:
     :neko_id: :hunter_x_hunter
     :level: 0
-    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.png"
+    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.jpg"
     :border_color: 
     :title_ru: Охотник х Охотник
     :text_ru: 
@@ -9758,6 +9758,9 @@
       :algo: duration
       :filters:
         franchise: sayonara_zetsubou_sensei
+        not_anime_ids:
+        - 3674
+        - 8317
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9775,6 +9778,9 @@
       :algo: duration
       :filters:
         franchise: sayonara_zetsubou_sensei
+        not_anime_ids:
+        - 3674
+        - 8317
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13933,6 +13939,40 @@
       :algo: duration
       :filters:
         franchise: haou_daikei_ryuu_knight
+      :threshold: 0.01%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :chihayafuru
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
+    :border_color: 
+    :title_ru: Яркая Чихая
+    :text_ru: 
+    :title_en: Chihayafuru
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: chihayafuru
+      :threshold: 100%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :chihayafuru
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
+    :border_color: 
+    :title_ru: Яркая Чихая
+    :text_ru: 
+    :title_en: Chihayafuru
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: chihayafuru
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
