@@ -5,7 +5,7 @@ header.head.misc
 
 = cache @resource.cache_key do
   .block
-    .b-options-floated = @resource.users_scope.size
+    .b-options-floated = @resource.users_count
     .subheadline.m10 = i18n_i 'User', :other
     - if @collection.any?
       .cc-8
