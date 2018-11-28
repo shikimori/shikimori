@@ -9023,16 +9023,21 @@
       :filters:
         franchise: gundam
         not_anime_ids:
+        - 3626
         - 3963
         - 3964
         - 5351
         - 6215
         - 7953
         - 8839
+        - 17655
         - 22435
         - 23943
         - 32898
-      :threshold: 85.9%
+        - 33221
+        - 35949
+        - 36436
+      :threshold: 86.3%
       :generator:
         not_ignored_ids:
         - 2269
@@ -9056,15 +9061,20 @@
       :filters:
         franchise: gundam
         not_anime_ids:
+        - 3626
         - 3963
         - 3964
         - 5351
         - 6215
         - 7953
         - 8839
+        - 17655
         - 22435
         - 23943
         - 32898
+        - 33221
+        - 35949
+        - 36436
       :threshold: 0.01%
       :generator:
         not_ignored_ids:
