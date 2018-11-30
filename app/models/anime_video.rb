@@ -61,7 +61,9 @@ class AnimeVideo < ApplicationRecord
   before_save :check_banned_hostings
   before_save :check_copyrighted_animes
 
-  after_create :create_episode_notificaiton, unless: :any_videos?
+  after_create :create_episode_notificaiton, unless: -> {
+    anime.anons? || any_videos?
+  }
   after_destroy :rollback_episode_notification, unless: :any_videos?
   after_update :check_episode_notification, if: -> {
     saved_change_to_episode? ||

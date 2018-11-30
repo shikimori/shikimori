@@ -162,17 +162,28 @@ describe AnimeVideo do
       describe '#create_episode_notification' do
         let!(:another_video) { nil }
         before { allow(EpisodeNotification::Create).to receive :call }
-        let!(:video) { create :anime_video, :with_episode_notification, :fandub }
+        let!(:video) do
+          create :anime_video, :with_episode_notification, :fandub,
+            anime: anime
+        end
+        let(:anime) { build_stubbed :anime }
 
         context 'single video' do
-          it do
-            expect(EpisodeNotification::Create)
-              .to have_received(:call)
-              .with(
-                anime_id: video.anime_id,
-                episode: video.episode,
-                kind: video.kind
-              )
+          context 'not anons' do
+            it do
+              expect(EpisodeNotification::Create)
+                .to have_received(:call)
+                .with(
+                  anime_id: video.anime_id,
+                  episode: video.episode,
+                  kind: video.kind
+                )
+            end
+          end
+
+          context 'anons' do
+            let(:anime) { build_stubbed :anime, :anons }
+            it { expect(EpisodeNotification::Create).to_not have_received :call }
           end
         end
 
