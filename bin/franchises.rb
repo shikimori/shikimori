@@ -205,15 +205,26 @@ else
   raise 'invalid data'
 end
 
+popularity = {}
+
 begin
   puts "\nsorting by popularity...\n"
   data = data
     .sort_by do |rule|
-      popularity = Anime
-        .where(franchise: rule['filters']['franchise'], status: 'released')
-        .sum { |anime| anime.rates.where(status: %i[completed rewatching watching]).size }
+      franchise = rule['filters']['franchise']
+      popularity[franchise] ||= Rails.cache.fetch [:franchise, :popularity, franchise] do
+        UserRate
+          .where(target_type: Anime.name)
+          .where(
+            target_id: Anime.where(franchise: franchise, status: %i[released ongoing]).select('id')
+          )
+          .select('count(distinct(user_id))')
+          .to_a
+          .first
+          .count
+      end
 
-      [-popularity, -rule['level']]
+      [-popularity[franchise], -rule['level']]
     end
 
   if data.any? && data.size >= raw_data.size
