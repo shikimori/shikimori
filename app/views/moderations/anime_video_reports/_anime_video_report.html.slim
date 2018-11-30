@@ -37,19 +37,6 @@
       - if can? :manage, anime_video_report
         .moderation
           - if anime_video_report.pending?
-            - unless anime_video_report.other?
-              a.b-tooltipped.unprocessed[
-                href=accept_edit_moderations_anime_video_report_url(anime_video_report.id)
-                title="Правка будет принята. Видео изменит статус."
-                data-direction="top"
-                data-method="POST"
-              ] подтвердить и редактировать
-            a.b-tooltipped.unprocessed[
-              href=close_edit_moderations_anime_video_report_url(anime_video_report.id)
-              title="Правка будет принята. Видео не изменит статус."
-              data-method="POST"
-              data-direction="top"
-            ] закрыть и редактировать
             - if anime_video_report.other?
               a.ajax-action.b-tooltipped.unprocessed[
                 href=accept_broken_moderations_anime_video_report_url(anime_video_report.id)
@@ -66,6 +53,19 @@
                 data-remote='true'
                 data-type='json'
               ] подтвердить
+            - unless anime_video_report.other?
+              a.b-tooltipped.unprocessed[
+                href=accept_edit_moderations_anime_video_report_url(anime_video_report.id)
+                title="Правка будет принята. Видео изменит статус."
+                data-direction="top"
+                data-method="POST"
+              ] подтвердить и редактировать
+            a.b-tooltipped.unprocessed[
+              href=close_edit_moderations_anime_video_report_url(anime_video_report.id)
+              title="Правка будет принята. Видео не изменит статус."
+              data-method="POST"
+              data-direction="top"
+            ] закрыть и редактировать
             a.ajax-action[
               href=reject_moderations_anime_video_report_url(anime_video_report.id)
               data-method="POST"
