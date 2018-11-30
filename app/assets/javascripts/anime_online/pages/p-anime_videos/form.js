@@ -30,7 +30,6 @@ page_load(
       $videoUrl.focus();
     }
 
-    // клик по "Проверить видео"
     $('.do-preview').on('click', async ({ currentTarget }) => {
       const videoUrl = $('#anime_video_url').val();
 
@@ -52,7 +51,6 @@ page_load(
       previewVideo(data ? data.player_html : null);
     });
 
-    // клик по "Работает и загрузить ещё"
     $('.continue').on('click', () =>
       $('#continue').val('true')
     );

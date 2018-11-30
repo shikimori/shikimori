@@ -15,8 +15,10 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
 
   def perform id
     report = AnimeVideoReport.find id
+
     return report unless report.pending?
     return report if report.message.present?
+    return report if report.anime_video.anime.anons?
 
     if report.broken?
       process_broken report
