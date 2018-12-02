@@ -1,4 +1,6 @@
 describe Notifications::BroadcastTopic do
+  include_context :timecop
+
   subject(:messages) { described_class.new.perform topic.id }
   before do
     allow(Topics::SubscribedUsersQuery)
@@ -35,6 +37,26 @@ describe Notifications::BroadcastTopic do
         body: nil,
         kind: MessageType::SiteNews,
         linked: topic
+      )
+      expect(messages.first.created_at).to be_within(0.1).of topic.created_at
+      expect(messages.map(&:to).sort_by(&:id)).to eq users.sort_by(&:id)
+      expect(topic.reload).to be_processed
+    end
+  end
+
+  context 'contest topic' do
+    let(:topic_type) { :news_topic }
+    let(:linked) { create :contest }
+    let(:is_broadcast) { false }
+
+    it do
+      expect { subject }.to change(Message, :count).by users.count
+      is_expected.to have(3).items
+      expect(messages.first).to have_attributes(
+        from: topic.user,
+        body: nil,
+        kind: MessageType::ContestFinished,
+        linked: linked
       )
       expect(messages.first.created_at).to be_within(0.1).of topic.created_at
       expect(messages.map(&:to).sort_by(&:id)).to eq users.sort_by(&:id)

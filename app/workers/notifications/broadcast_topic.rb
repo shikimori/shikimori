@@ -51,6 +51,10 @@ private
     (topic.created_at || Time.zone.now) < NEWS_EXPIRE_IN.ago
   end
 
+  def contest? topic
+    topic.linked_type == Contest.name
+  end
+
   def build_messages topic
     subscribed_users(topic).map do |user|
       build_message topic, user
@@ -67,7 +71,7 @@ private
       to: user,
       body: nil,
       kind: message_type(topic),
-      linked: topic,
+      linked: linked(topic),
       created_at: topic.created_at
     )
   end
@@ -75,9 +79,18 @@ private
   def message_type topic
     if topic.broadcast?
       MessageType::SiteNews
+    elsif contest? topic
+      MessageType::ContestFinished
     else
       topic.action || raise(ArgumentError, topic.action || topic.action.to_json)
     end
   end
-end
 
+  def linked topic
+    if contest? topic
+      topic.linked
+    else
+      topic
+    end
+  end
+end
