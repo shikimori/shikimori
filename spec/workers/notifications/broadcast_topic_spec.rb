@@ -88,7 +88,9 @@ describe Notifications::BroadcastTopic do
   end
 
   context 'expired topic' do
+    let(:topic_type) { :news_topic }
     let(:created_at) { described_class::NEWS_EXPIRE_IN.ago - 1.minute }
+    let(:is_broadcast) { false }
 
     it do
       expect { subject }.to_not change Message, :count

@@ -31,15 +31,20 @@ class Notifications::BroadcastTopic
 private
 
   def skip? topic
-    return true if expired? topic
+    return false if topic.broadcast?
 
-    !(
-      topic.broadcast? || (
-        topic.is_a?(Topics::NewsTopic) &&
-        topic.linked&.respond_to?(:anime?) &&
-        !topic.linked.censored? && !topic.linked.kind_music?
-      )
-    )
+    !topic.is_a?(Topics::NewsTopic) ||
+      expired?(topic) ||
+      music?(topic) ||
+      censored?(topic)
+  end
+
+  def music? topic
+    topic.linked&.respond_to?(:kind_music?) && topic.linked&.kind_music?
+  end
+
+  def censored? topic
+    topic.linked&.respond_to?(:censored?) && topic.linked&.censored?
   end
 
   def expired? topic

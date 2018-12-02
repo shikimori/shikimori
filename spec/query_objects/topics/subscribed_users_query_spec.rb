@@ -30,6 +30,20 @@ describe Topics::SubscribedUsersQuery do
     end
   end
 
+  context 'contest news topic' do
+    let(:topic) { build :topic, linked: contest }
+    let(:contest) { build :contest }
+    it do
+      expect(subject.to_a).to eq(
+        User
+          .where(locale_from_host: topic.locale)
+          .where('last_online_at > ?', Topics::SubscribedUsersQuery::ACTIVITY_INTERVAL.ago)
+          .order(:id)
+          .to_a
+      )
+    end
+  end
+
   context 'news topic' do
     let(:topic) { build :news_topic, action: action, linked: anime }
     let(:anime) { create :anime }

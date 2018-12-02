@@ -9,8 +9,8 @@ class Topics::SubscribedUsersQuery
 
   ACTIVITY_INTERVAL = 4.months
 
-  def call # rubocop:disable MethodLength
-    if @topic.broadcast?
+  def call # rubocop:disable MethodLength, PerceivedComplexity, CyclomaticComplexity
+    if @topic.broadcast? || contest?
       all_scope
 
     elsif anons?
@@ -60,6 +60,10 @@ private
 
   def released?
     @topic.action == Types::Topic::NewsTopic::Action[AnimeHistoryAction::Released]
+  end
+
+  def contest?
+    @topic.linked_type == Contest.name
   end
 
   def users_scope
