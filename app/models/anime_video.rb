@@ -115,6 +115,11 @@ class AnimeVideo < ApplicationRecord
       %i[working uploaded] => %i[broken wrong banned_hosting],
       do: :process_reports
     )
+    after_transition(
+      uploaded: :working,
+      do: :create_episode_notificaiton,
+      if: -> (anime_video) { anime_video.anime.anons? && !anime_video.any_videos? }
+    )
   end
 
   def url= value
