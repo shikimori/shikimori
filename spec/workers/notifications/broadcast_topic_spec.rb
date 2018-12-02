@@ -105,7 +105,6 @@ describe Notifications::BroadcastTopic do
     let(:is_broadcast) { false }
     let(:linked) do
       [
-        nil,
         create(:anime, censored: true),
         create(:anime, kind: :music)
       ].sample
