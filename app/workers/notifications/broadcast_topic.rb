@@ -52,7 +52,7 @@ private
   end
 
   def contest? topic
-    topic.linked_type == Contest.name
+    topic.is_a? Topics::NewsTopics::ContestStatusTopic
   end
 
   def build_messages topic
@@ -80,8 +80,7 @@ private
     if topic.broadcast?
       MessageType::SITE_NEWS
     elsif contest? topic
-      topic.action&.camelize ||
-        raise(ArgumentError, topic.action || topic.action.to_json)
+      'Contest' + topic.action.camelize
     else
       topic.action ||
         raise(ArgumentError, topic.action || topic.action.to_json)
