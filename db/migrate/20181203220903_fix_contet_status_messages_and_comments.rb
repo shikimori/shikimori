@@ -16,7 +16,7 @@ class FixContetStatusMessagesAndComments < ActiveRecord::Migration[5.2]
       .each do |v|
         v.body = v.body
           .gsub(/\[(contest_status=\d+) (?:started|finished)\]/, '[\1]')
-          .gsub(/\[(contest_roundustatus=\d+) (?:started|finished)\]/, '[\1]')
+          .gsub(/\[(contest_round_status=\d+) (?:started|finished)\]/, '[\1]')
         v.save if v.changed?
       end
   end
