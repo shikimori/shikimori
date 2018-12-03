@@ -113,9 +113,7 @@ private
     )
   end
 
-  # rubocop:disable AbcSize
-  # rubocop:disable MethodLength
-  def version_rejected
+  def version_rejected # rubocop:disable AbcSize, MethodLength
     if @message.body.present?
       BbCodes::Text.call i18n_t(
         'version_rejected_with_reason',
@@ -134,12 +132,16 @@ private
       )
     end
   end
-  # rubocop:enable MethodLength
-  # rubocop:enable AbcSize
+
+  def contest_started
+    BbCodes::Text.call(
+      "[contest_status=#{@message.linked_id} started]"
+    )
+  end
 
   def contest_finished
     BbCodes::Text.call(
-      "[contest_status=#{@message.linked_id}]"
+      "[contest_status=#{@message.linked_id} finished]"
     )
   end
 
@@ -147,8 +149,6 @@ private
     BbCodes::Text.call @message.linked.body
   end
 
-  # rubocop:disable AbcSize
-  # rubocop:disable MethodLength
   def linked_name
     if linked.is_a? Comment
       Messages::MentionSource.call(
@@ -166,6 +166,4 @@ private
       Messages::MentionSource.call @message.linked, nil
     end
   end
-  # rubocop:enable MethodLength
-  # rubocop:enable AbcSize
 end

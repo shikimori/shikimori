@@ -276,6 +276,21 @@ describe Messages::GenerateBody do
       end
     end
 
+    context 'contest_started' do
+      let(:kind) { MessageType::CONTEST_STARTED }
+      let(:linked) { create :contest, id: 1, title_ru: 'foo', title_en: 'bar' }
+      it do
+        is_expected.to eq(
+          <<~HTML.squish
+            <span class="translated-after" data-text-ru="Турнир" data-text-en="Contest"></span>
+            <a href="#{Shikimori::PROTOCOL}://test.host/contests/1-foo"
+            class="b-link translated-after" data-text-ru="foo" data-text-en="bar"></a>
+            <span class="translated-after" data-text-ru="запущен" data-text-en="started"></span>.
+          HTML
+        )
+      end
+    end
+
     context 'contest_finished' do
       let(:kind) { MessageType::CONTEST_FINISHED }
       let(:linked) { create :contest, id: 1, title_ru: 'foo', title_en: 'bar' }
@@ -285,7 +300,7 @@ describe Messages::GenerateBody do
             <span class="translated-after" data-text-ru="Турнир" data-text-en="Contest"></span>
             <a href="#{Shikimori::PROTOCOL}://test.host/contests/1-foo"
             class="b-link translated-after" data-text-ru="foo" data-text-en="bar"></a>
-            <span class="translated-after" data-text-ru="завершён" data-text-en="has finished"></span>.
+            <span class="translated-after" data-text-ru="завершён" data-text-en="finished"></span>.
           HTML
         )
       end
