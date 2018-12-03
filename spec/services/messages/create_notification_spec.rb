@@ -123,6 +123,9 @@ describe Messages::CreateNotification do
     subject! { service.contest_started }
 
     it do
+      target.topics.each do |topic|
+        expect(topic.comments).to have(1).item
+      end
       target.news_topics.each do |topic|
         expect(topic).to have_attributes(
           linked: target,

@@ -77,12 +77,20 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       create_comment(
         @target.contest.user,
         topic,
-        "[contest_round_status=#{@target.id}]"
+        "[contest_round_status=#{@target.id} finished]"
       )
     end
   end
 
   def contest_started
+    @target.topics.each do |topic|
+      create_comment(
+        @target.user,
+        topic,
+        "[contest_status=#{@target.id} started]"
+      )
+    end
+
     Shikimori::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::ContestStatusTopic.call(
         model: @target,
@@ -98,7 +106,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
       create_comment(
         @target.user,
         topic,
-        "[contest_status=#{@target.id}]"
+        "[contest_status=#{@target.id} finished]"
       )
     end
 
