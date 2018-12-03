@@ -5,38 +5,40 @@ class BbCodes::Tags::ContestRoundStatusTag
   REGEXP = /
     \[
       contest_round_status=(?<id>\d+)
+      \s
+      (?<status>started|finished)
     \]
-  /xi
+  /mix
 
   def format text
     text.gsub REGEXP do |match|
-      round = ContestRound.find_by(id: Regexp.last_match[:id])
+      round = ContestRound.find_by id: Regexp.last_match[:id]
 
       if round
-        url = url_generator.round_contest_url(round.contest, round)
-
-        ru = Types::Locale[:ru]
-        en = Types::Locale[:en]
-
-        link_text = "<a href='#{url}' class='b-link translated-after' "\
-          "data-text-ru='#{round.title_ru}' "\
-          "data-text-en='#{round.title_en}' "\
-          "></a>"
-        finished_text = "<span class='translated-after' "\
-          "data-text-ru='#{i18n_t('finished', locale: ru)}' "\
-          "data-text-en='#{i18n_t('finished', locale: en)}' "\
-          "></span>"
-
-        "#{link_text} #{finished_text}."
+        "#{link_text round} #{finished_text Regexp.last_match[:status]}."
       else
         match
       end
     end
   end
 
-  private
+private
 
-  def url_generator
-    UrlGenerator.instance
+  def link_text round
+    "<a href='#{url round}' class='b-link translated-after' "\
+      "data-text-ru='#{round.title_ru}' "\
+      "data-text-en='#{round.title_en}' "\
+      '></a>'
+  end
+
+  def finished_text status
+    "<span class='translated-after' "\
+      "data-text-ru='#{i18n_t(status, locale: Types::Locale[:ru])}' "\
+      "data-text-en='#{i18n_t(status, locale: Types::Locale[:en])}' "\
+      '></span>'
+  end
+
+  def url round
+    UrlGenerator.instance.round_contest_url round.contest, round
   end
 end

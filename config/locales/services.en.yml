@@ -47,9 +47,11 @@ en:
     reply: 'Reply: '
     replies: 'Replies: '
   bb_codes/tags/contest_status_tag:
-    finished: has finished
+    started: started
+    finished: finished
   bb_codes/tags/contest_round_status_tag:
-    finished: has finished
+    started: started
+    finished:  finished
 
   messages/generate_body:
     profile_comment: >-
