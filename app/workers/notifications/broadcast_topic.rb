@@ -79,8 +79,12 @@ private
   def message_type topic
     if topic.broadcast?
       MessageType::SITE_NEWS
+    elsif contest? topic
+      topic.action&.camelize ||
+        raise(ArgumentError, topic.action || topic.action.to_json)
     else
-      topic.action || raise(ArgumentError, topic.action || topic.action.to_json)
+      topic.action ||
+        raise(ArgumentError, topic.action || topic.action.to_json)
     end
   end
 

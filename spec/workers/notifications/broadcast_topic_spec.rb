@@ -48,6 +48,7 @@ describe Notifications::BroadcastTopic do
     let(:topic_type) { :news_topic }
     let(:linked) { create :contest }
     let(:is_broadcast) { false }
+    let(:action) { 'contest_finished' }
 
     it do
       expect { subject }.to change(Message, :count).by users.count
