@@ -28,7 +28,7 @@ describe Messages::CreateNotification do
         is_expected.to have_attributes(
           from: approver,
           to: author,
-          kind: MessageType::Notification,
+          kind: MessageType::NOTIFICATION,
           linked: target,
           body: <<-BODY.squish.strip
             Твоя [entry=#{target.topic(:ru).id}]рецензия[/entry]
@@ -48,7 +48,7 @@ describe Messages::CreateNotification do
         is_expected.to have_attributes(
           from: approver,
           to: author,
-          kind: MessageType::Notification,
+          kind: MessageType::NOTIFICATION,
           linked: target,
           body: <<-BODY.squish.strip
             Твоя [entry=#{target.topic(:ru).id}]рецензия[/entry]
@@ -87,7 +87,7 @@ describe Messages::CreateNotification do
         is_expected.to have_attributes(
           from: bot,
           to: friend,
-          kind: MessageType::NicknameChanged,
+          kind: MessageType::NICKNAME_CHANGED,
           body: <<-BODY.squish.strip
             Твой друг [profile=#{target.id}]#{old_nickname}[/profile]
             изменил никнейм на [profile=#{target.id}]#{new_nickname}[/profile].
@@ -166,7 +166,7 @@ describe Messages::CreateNotification do
       is_expected.to have_attributes(
         from: bot,
         to: target,
-        kind: MessageType::Notification
+        kind: MessageType::NOTIFICATION
       )
     end
   end

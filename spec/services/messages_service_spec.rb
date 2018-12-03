@@ -8,7 +8,7 @@ describe MessagesService do
 
   describe '#read_messages' do
     context 'kind' do
-      before { service.read_messages kind: MessageType::ProfileCommented }
+      before { service.read_messages kind: MessageType::PROFILE_COMMENTED }
 
       it { expect(message_1.reload).to be_read }
       it { expect(message_2.reload).to_not be_read }
@@ -26,7 +26,7 @@ describe MessagesService do
 
   describe '#delete_messages' do
     context 'kind' do
-      before { service.delete_messages kind: MessageType::ProfileCommented }
+      before { service.delete_messages kind: MessageType::PROFILE_COMMENTED }
 
       it { expect{message_1.reload}.to raise_error ActiveRecord::RecordNotFound }
       it { expect(message_2.reload).to be_persisted }

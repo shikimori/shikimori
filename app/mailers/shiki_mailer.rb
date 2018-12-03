@@ -82,7 +82,7 @@ class ShikiMailer < ActionMailer::Base
 private
 
   def unsubscribe_link_key message
-    MessagesController.unsubscribe_key message.to, MessageType::Private
+    MessagesController.unsubscribe_key message.to, MessageType::PRIVATE
   end
 
   def generated? email

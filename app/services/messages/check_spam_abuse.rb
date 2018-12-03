@@ -43,7 +43,7 @@ class Messages::CheckSpamAbuse
 private
 
   def spam? message
-    return false unless message.kind == MessageType::Private
+    return false unless message.kind == MessageType::PRIVATE
 
     (
       message.body =~ SPAM_LINKS ||

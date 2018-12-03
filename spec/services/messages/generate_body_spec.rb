@@ -19,20 +19,20 @@ describe Messages::GenerateBody do
 
   describe '#call' do
     context 'private' do
-      let(:kind) { MessageType::Private }
+      let(:kind) { MessageType::PRIVATE }
       let(:body) { '[b]test[/b]' }
       it { is_expected.to eq '<strong>test</strong>' }
       it { is_expected.to be_html_safe }
     end
 
     context 'notification' do
-      let(:kind) { MessageType::Notification }
+      let(:kind) { MessageType::NOTIFICATION }
       let(:body) { '[b]test[/b]' }
       it { is_expected.to eq '<strong>test</strong>' }
     end
 
     context 'nickname_changed' do
-      let(:kind) { MessageType::NicknameChanged }
+      let(:kind) { MessageType::NICKNAME_CHANGED }
       let(:body) { '[b]test[/b]' }
       it { is_expected.to eq '<strong>test</strong>' }
     end
@@ -40,34 +40,34 @@ describe Messages::GenerateBody do
     context 'anons' do
       let(:linked) { build :news_topic, action: 'anons', linked: anime }
       let(:anime) { build_stubbed :anime, name: 'test' }
-      let(:kind) { MessageType::Anons }
+      let(:kind) { MessageType::ANONS }
       it { is_expected.to eq "Анонсировано аниме #{anime.name}" }
     end
 
     context 'ongoing' do
       let(:linked) { build :news_topic, action: 'ongoing', linked: anime }
       let(:anime) { build_stubbed :anime, name: 'test' }
-      let(:kind) { MessageType::Ongoing }
+      let(:kind) { MessageType::ONGOING }
       it { is_expected.to eq "Начат показ аниме #{anime.name}" }
     end
 
     context 'episode' do
       let(:linked) { build :news_topic, action: 'episode', value: 5, linked: anime }
       let(:anime) { build_stubbed :anime, name: 'test' }
-      let(:kind) { MessageType::Episode }
+      let(:kind) { MessageType::EPISODE }
       it { is_expected.to eq "Вышел 5 эпизод аниме #{anime.name}" }
     end
 
     context 'released' do
       let(:linked) { build :news_topic, action: 'released', linked: anime }
       let(:anime) { build_stubbed :anime, name: 'test' }
-      let(:kind) { MessageType::Released }
+      let(:kind) { MessageType::RELEASED }
       it { is_expected.to eq "Завершён показ аниме #{anime.name}" }
     end
 
     context 'site_news' do
       let(:linked) { build :news_topic, body: '[b]test[/b]' }
-      let(:kind) { MessageType::SiteNews }
+      let(:kind) { MessageType::SITE_NEWS }
       it { is_expected.to eq '<strong>test</strong>' }
 
       context 'w/o topic' do
@@ -78,7 +78,7 @@ describe Messages::GenerateBody do
     end
 
     context 'profile_commented' do
-      let(:kind) { MessageType::ProfileCommented }
+      let(:kind) { MessageType::PROFILE_COMMENTED }
       it do
         is_expected.to eq(
           <<~HTML.squish
@@ -91,7 +91,7 @@ describe Messages::GenerateBody do
     end
 
     context 'friend_request' do
-      let(:kind) { MessageType::FriendRequest }
+      let(:kind) { MessageType::FRIEND_REQUEST }
 
       context 'accepted' do
         let(:user_from) { create :user }
@@ -111,7 +111,7 @@ describe Messages::GenerateBody do
     end
 
     context 'quoted_by_user' do
-      let(:kind) { MessageType::QuotedByUser }
+      let(:kind) { MessageType::QUOTED_BY_USER }
       let(:linked) { build_stubbed :topic, id: 1, title: 'test' }
       it do
         is_expected.to eq(
@@ -126,7 +126,7 @@ describe Messages::GenerateBody do
     end
 
     context 'subscription_commented' do
-      let(:kind) { MessageType::SubscriptionCommented }
+      let(:kind) { MessageType::SUBSCRIPTION_COMMENTED }
       let(:linked) { build_stubbed :topic, id: 1, title: 'test' }
       it do
         is_expected.to eq(
@@ -139,7 +139,7 @@ describe Messages::GenerateBody do
     end
 
     context 'warned' do
-      let(:kind) { MessageType::Warned }
+      let(:kind) { MessageType::WARNED }
 
       context 'no comment' do
         let(:linked) { build_stubbed :ban }
@@ -171,7 +171,7 @@ describe Messages::GenerateBody do
     end
 
     context 'banned' do
-      let(:kind) { MessageType::Banned }
+      let(:kind) { MessageType::BANNED }
 
       context 'no comment' do
         let(:linked) { build_stubbed :ban }
@@ -202,7 +202,7 @@ describe Messages::GenerateBody do
     end
 
     context 'club_request' do
-      let(:kind) { MessageType::ClubRequest }
+      let(:kind) { MessageType::CLUB_REQUEST }
       let(:club) { create :club, id: 1, name: 'test' }
       let(:linked) { build_stubbed :club_invite, club: club }
       it do
@@ -217,7 +217,7 @@ describe Messages::GenerateBody do
     end
 
     context 'version_accepted' do
-      let(:kind) { MessageType::VersionAccepted }
+      let(:kind) { MessageType::VERSION_ACCEPTED }
       let(:anime) { create :anime, id: 1, name: 'test' }
       let(:linked) { create :version, item: anime, id: 1 }
       it do
@@ -235,7 +235,7 @@ describe Messages::GenerateBody do
     end
 
     context 'version_rejected' do
-      let(:kind) { MessageType::VersionRejected }
+      let(:kind) { MessageType::VERSION_REJECTED }
       let(:anime) { create :anime, id: 1, name: 'test' }
       let(:linked) { create :version, item: anime, id: 1, moderator: user_from }
 
@@ -277,7 +277,7 @@ describe Messages::GenerateBody do
     end
 
     context 'contest_finished' do
-      let(:kind) { MessageType::ContestFinished }
+      let(:kind) { MessageType::CONTEST_FINISHED }
       let(:linked) { create :contest, id: 1, title_ru: 'foo', title_en: 'bar' }
       it do
         is_expected.to eq(
@@ -292,7 +292,7 @@ describe Messages::GenerateBody do
     end
 
     context 'club_broadcast' do
-      let(:kind) { MessageType::ClubBroadcast }
+      let(:kind) { MessageType::CLUB_BROADCAST }
       let(:linked) { create :comment, commentable: club.topics.first, body: '[b]z[/b]' }
       let(:club) { create :club, :with_topics }
 

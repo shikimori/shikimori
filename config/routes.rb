@@ -896,7 +896,7 @@ Rails.application.routes.draw do
           as: :feed
         get ':name/:key/Private/unsubscribe' => 'messages#unsubscribe',
           name: /[^\/]+?/,
-          kind: MessageType::Private,
+          kind: MessageType::PRIVATE,
           as: :unsubscribe
       end
     end

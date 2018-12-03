@@ -28,7 +28,7 @@ private
       Message.new(
         to: user,
         from: @user,
-        kind: MessageType::QuotedByUser,
+        kind: MessageType::QUOTED_BY_USER,
         linked: @comment
       )
     end
@@ -61,7 +61,7 @@ private
     Message.where(
       to_id: users.map(&:id),
       from: @user,
-      kind: MessageType::QuotedByUser,
+      kind: MessageType::QUOTED_BY_USER,
       linked: @comment
     )
   end

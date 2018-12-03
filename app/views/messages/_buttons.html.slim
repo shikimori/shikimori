@@ -1,6 +1,6 @@
 aside.buttons
   .main-controls
-    - if message.kind == MessageType::FriendRequest
+    - if message.kind == MessageType::FRIEND_REQUEST
       - if message.to.friended? message.from
         span.item-delete[
           title=t('actions.delete')
@@ -25,7 +25,7 @@ aside.buttons
           style=('display: none' unless message.read)
         ]
 
-    - elsif message.kind == MessageType::ClubRequest
+    - elsif message.kind == MessageType::CLUB_REQUEST
       - if message.linked&.pending?
         span.item-request-confirm[
           title=t('actions.accept')
@@ -55,7 +55,7 @@ aside.buttons
         ]
 
     - else
-      - if message.kind == MessageType::Private
+      - if message.kind == MessageType::PRIVATE
         span.item-quote[
           title=t('actions.quote')
           data-text=t('actions.quote')
@@ -82,7 +82,7 @@ aside.buttons
             data-remote='true'
           ]
 
-      - elsif message.kind == MessageType::QuotedByUser
+      - elsif message.kind == MessageType::QUOTED_BY_USER
         a.item-reply[
           href=reply_comment_url(message.linked)
           title=t('actions.reply')

@@ -14,7 +14,7 @@ describe Users::LockHacked do
     expect(user.messages.first).to have_attributes(
       from: banhammer,
       to: user,
-      kind: MessageType::Private,
+      kind: MessageType::PRIVATE,
       body: I18n.t(
         'users/check_hacked.lock_text',
         email: Shikimori::EMAIL,

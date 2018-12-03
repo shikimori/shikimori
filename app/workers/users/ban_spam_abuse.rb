@@ -22,7 +22,7 @@ private
     Message.create_wo_antispam!(
       from_id: User::BANHAMMER_ID,
       to: user,
-      kind: MessageType::Private,
+      kind: MessageType::PRIVATE,
       body: ban_text(user)
     )
   end

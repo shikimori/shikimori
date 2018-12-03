@@ -26,9 +26,9 @@ class MessageDecorator < BaseDecorator
   end
 
   def url
-    if kind == MessageType::Episode
+    if kind == MessageType::EPISODE
       linked.linked.decorate.url
-    elsif kind == MessageType::ContestFinished
+    elsif kind == MessageType::CONTEST_FINISHED
       h.contest_url linked
     elsif club_broadcast?
       h.club_url(linked.commentable.linked) + "#comment-#{linked.id}"
@@ -56,7 +56,7 @@ class MessageDecorator < BaseDecorator
   end
 
   def club_broadcast?
-    kind == MessageType::ClubBroadcast
+    kind == MessageType::CLUB_BROADCAST
   end
 
   def action_tag

@@ -68,7 +68,7 @@ class Ban < ApplicationRecord
     Message.create_wo_antispam!(
       from_id: moderator.id,
       to_id: user.id,
-      kind: warning? ? MessageType::Warned : MessageType::Banned,
+      kind: warning? ? MessageType::WARNED : MessageType::BANNED,
       linked: self
     )
   end

@@ -66,7 +66,7 @@ describe Dialog do
         body: '',
         from_id: user_1.id,
         to_id: user_2.id,
-        kind: MessageType::Private
+        kind: MessageType::PRIVATE
       )
       is_expected.to be_new_record
     end

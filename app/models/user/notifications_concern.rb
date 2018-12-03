@@ -9,7 +9,7 @@ module User::NotificationsConcern
     ignored_ids = ignores.map(&:target_id) << 0
 
     @unread_messages ||= Message.where(to_id: id)
-      .where(kind: MessageType::Private)
+      .where(kind: MessageType::PRIVATE)
       .where(read: false)
       .where.not(from_id: ignored_ids, to_id: ignored_ids)
       .count

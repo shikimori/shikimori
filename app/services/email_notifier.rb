@@ -37,7 +37,7 @@ private
 
   def user_daily_private_messages user
     user.messages
-      .where(kind: MessageType::Private)
+      .where(kind: MessageType::PRIVATE)
       .where('created_at > ?', 1.day.ago)
   end
 end

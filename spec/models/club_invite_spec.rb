@@ -66,7 +66,7 @@ describe ClubInvite do
         expect(message.from).to eq from
         expect(message.to).to eq to
         expect(message.linked).to eq club_invite
-        expect(message.kind).to eq MessageType::ClubRequest
+        expect(message.kind).to eq MessageType::CLUB_REQUEST
       end
     end
 

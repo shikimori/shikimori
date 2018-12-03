@@ -153,19 +153,19 @@ describe User do
     end
 
     context 'when profile is commented' do
-      it 'then new MessageType::ProfileCommented notification is created' do
+      it 'then new MessageType::PROFILE_COMMENTED notification is created' do
         user_1 = create :user
         user_2 = create :user
         expect(proc do
           create :comment, :with_creation_callbacks, user: user_1, commentable: user_2
         end).to change(Message, :count).by 1
         message = Message.last
-        expect(message.kind).to eq(MessageType::ProfileCommented)
+        expect(message.kind).to eq(MessageType::PROFILE_COMMENTED)
         expect(message.from_id).to eq user_1.id
         expect(message.to_id).to eq user_2.id
       end
 
-      it 'two times, then only one MessageType::ProfileCommented notification is created' do
+      it 'two times, then only one MessageType::PROFILE_COMMENTED notification is created' do
         user_1 = create :user
         user_2 = create :user
         user_3 = create :user
@@ -174,19 +174,19 @@ describe User do
           create :comment, :with_creation_callbacks, user: user_3, commentable: user_2
         end).to change(Message, :count).by 1
         message = Message.last
-        expect(message.kind).to eq(MessageType::ProfileCommented)
+        expect(message.kind).to eq(MessageType::PROFILE_COMMENTED)
         expect(message.from_id).to eq user_1.id
         expect(message.to_id).to eq user_2.id
       end
 
-      it 'by its owner, then no MessageType::ProfileCommented notification is created' do
+      it 'by its owner, then no MessageType::PROFILE_COMMENTED notification is created' do
         user_1 = create :user
         expect(proc do
           create :comment, :with_creation_callbacks, user: user_1, commentable: user_1
         end).to_not change Message, :count
       end
 
-      it 'and user read it, and then commented again, then second MessageType::ProfileCommented notification is created' do
+      it 'and user read it, and then commented again, then second MessageType::PROFILE_COMMENTED notification is created' do
         user_1 = create :user
         user_2 = create :user
         user_3 = create :user
@@ -196,7 +196,7 @@ describe User do
           create :comment, :with_creation_callbacks, user: user_3, commentable: user_2
         end).to change(Message, :count).by 2
         message = Message.last
-        expect(message.kind).to eq MessageType::ProfileCommented
+        expect(message.kind).to eq MessageType::PROFILE_COMMENTED
         expect(message.from_id).to eq user_3.id
         expect(message.to_id).to eq user_2.id
       end

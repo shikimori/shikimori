@@ -28,7 +28,7 @@ describe Api::V1::MessagesController do
     end
     let(:params) do
       {
-        kind: MessageType::Private,
+        kind: MessageType::PRIVATE,
         from_id: user.id,
         to_id: user.id,
         body: body

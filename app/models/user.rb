@@ -333,13 +333,13 @@ class User < ApplicationRecord
 
   # колбек, который вызовет comments_controller при добавлении комментария в профиле пользователя
   def comment_added comment
-    return if messages.where(kind: MessageType::ProfileCommented).where(read: false).any?
+    return if messages.where(kind: MessageType::PROFILE_COMMENTED).where(read: false).any?
     return if comment.user_id == comment.commentable_id && comment.commentable_type == User.name
 
     Message.create(
       to_id: id,
       from_id: comment.user_id,
-      kind: MessageType::ProfileCommented
+      kind: MessageType::PROFILE_COMMENTED
     )
   end
 

@@ -35,7 +35,7 @@ describe Notifications::BroadcastTopic do
       expect(messages.first).to have_attributes(
         from: topic.user,
         body: nil,
-        kind: MessageType::SiteNews,
+        kind: MessageType::SITE_NEWS,
         linked: topic
       )
       expect(messages.first.created_at).to be_within(0.1).of topic.created_at
@@ -55,7 +55,7 @@ describe Notifications::BroadcastTopic do
       expect(messages.first).to have_attributes(
         from: topic.user,
         body: nil,
-        kind: MessageType::ContestFinished,
+        kind: MessageType::CONTEST_FINISHED,
         linked: linked
       )
       expect(messages.first.created_at).to be_within(0.1).of topic.created_at

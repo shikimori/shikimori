@@ -109,7 +109,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     @feedback_message = FeedbackMessage.new(
       from_id: (current_user.try(:id) || User::GUEST_ID),
       to_id: User::MORR_ID,
-      kind: MessageType::Private
+      kind: MessageType::PRIVATE
     )
     @feedback_message.location = request.env['HTTP_REFERER'] || request.url
   end

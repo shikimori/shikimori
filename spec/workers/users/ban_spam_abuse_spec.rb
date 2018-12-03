@@ -13,7 +13,7 @@ describe Users::BanSpamAbuse do
     expect(user.messages.first).to have_attributes(
       from: banhammer,
       to: user,
-      kind: MessageType::Private,
+      kind: MessageType::PRIVATE,
       body: I18n.t('messages/check_spam_abuse.ban_text', email: Shikimori::EMAIL)
     )
   end

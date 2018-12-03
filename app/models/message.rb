@@ -9,7 +9,7 @@ class Message < ApplicationRecord
 
   antispam(
     interval: 3.seconds,
-    disable_if: -> { kind != MessageType::Private || from.bot? },
+    disable_if: -> { kind != MessageType::PRIVATE || from.bot? },
     user_id_key: :from_id
   )
 
@@ -19,10 +19,10 @@ class Message < ApplicationRecord
   validates :from, :to, presence: true
   validates :body,
     presence: true,
-    if: -> { kind == MessageType::Private }
+    if: -> { kind == MessageType::PRIVATE }
 
   before_create :check_spam_abuse,
-    if: -> { kind == MessageType::Private && !from.bot? }
+    if: -> { kind == MessageType::PRIVATE && !from.bot? }
   after_create :send_email
   after_create :send_push_notifications
 
@@ -39,7 +39,7 @@ class Message < ApplicationRecord
   end
 
   def delete_by user
-    if kind == MessageType::Private && to == user
+    if kind == MessageType::PRIVATE && to == user
       update! is_deleted_by_to: true, read: true
     else
       destroy!
@@ -68,7 +68,7 @@ private
   end
 
   def send_email
-    return unless kind == MessageType::Private
+    return unless kind == MessageType::PRIVATE
 
     EmailNotifier.instance.private_message self
   end

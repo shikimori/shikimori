@@ -5,25 +5,25 @@ describe MessagesQuery do
   let(:user_2) { build_stubbed :user }
   let!(:private) do
     create :message,
-      kind: MessageType::Private,
+      kind: MessageType::PRIVATE,
       to: user,
       from: user_2
   end
   let!(:sent) do
     create :message,
-      kind: MessageType::Private,
+      kind: MessageType::PRIVATE,
       to: user_2,
       from: user
   end
   let!(:news) do
     create :message,
-      kind: MessageType::Anons,
+      kind: MessageType::ANONS,
       to: user,
       from: user_2
   end
   let!(:notification) do
     create :message,
-      kind: MessageType::FriendRequest,
+      kind: MessageType::FRIEND_REQUEST,
       to: user,
       from: user_2,
       read: true
@@ -35,7 +35,7 @@ describe MessagesQuery do
     context 'inbox' do
       let!(:private_2) do
         create :message,
-          kind: MessageType::Private,
+          kind: MessageType::PRIVATE,
           to: user,
           from: user_2,
           is_deleted_by_to: true,
@@ -43,7 +43,7 @@ describe MessagesQuery do
       end
       let!(:private_3) do
         create :message,
-          kind: MessageType::Private,
+          kind: MessageType::PRIVATE,
           to: user,
           from: user_2,
           read: true
@@ -57,7 +57,7 @@ describe MessagesQuery do
     context 'private' do
       let!(:private_2) do
         create :message,
-          kind: MessageType::Private,
+          kind: MessageType::PRIVATE,
           to: user,
           from: user_2,
           is_deleted_by_to: true,
@@ -65,7 +65,7 @@ describe MessagesQuery do
       end
       let!(:private_3) do
         create :message,
-          kind: MessageType::Private,
+          kind: MessageType::PRIVATE,
           to: user,
           from: user_2,
           read: true
@@ -79,7 +79,7 @@ describe MessagesQuery do
     context 'sent' do
       let!(:sent_2) do
         create :message,
-          kind: MessageType::Private,
+          kind: MessageType::PRIVATE,
           to: user_2,
           from: user
       end
@@ -97,14 +97,14 @@ describe MessagesQuery do
     context 'notifications' do
       let!(:notification_2) do
         create :message,
-          kind: MessageType::ClubRequest,
+          kind: MessageType::CLUB_REQUEST,
           to: user,
           from: user_2,
           id: notification.id * 10
       end
       let!(:notification_3) do
         create :message,
-          kind: MessageType::ClubRequest,
+          kind: MessageType::CLUB_REQUEST,
           to: user,
           from: user_2,
           id: notification.id * 100
@@ -119,14 +119,14 @@ describe MessagesQuery do
   describe '#postload' do
     let!(:notification_2) do
       create :message,
-        kind: MessageType::ClubRequest,
+        kind: MessageType::CLUB_REQUEST,
         to: user,
         from: user_2,
         id: notification.id * 10
     end
     let!(:notification_3) do
       create :message,
-        kind: MessageType::ClubRequest,
+        kind: MessageType::CLUB_REQUEST,
         to: user,
         from: user_2,
         id: notification.id * 100

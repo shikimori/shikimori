@@ -31,8 +31,8 @@ class Api::V1::DialogsController < Api::V1Controller
   api :DELETE, '/dialogs/:id', 'Destroy a dialog'
   error code: 422
   def destroy
-    message = Message.find_by(from: current_user, to: @target_user, kind: MessageType::Private) ||
-      Message.find_by(to: current_user, from: @target_user, kind: MessageType::Private)
+    message = Message.find_by(from: current_user, to: @target_user, kind: MessageType::PRIVATE) ||
+      Message.find_by(to: current_user, from: @target_user, kind: MessageType::PRIVATE)
 
     if message
       Dialog.new(current_user, message).destroy

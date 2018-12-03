@@ -105,12 +105,12 @@ class Abilities::User
     end
     can :destroy, Message do |message|
       message.from_id == @user.id || message.to_id == @user.id
-      # (message.kind == MessageType::Private && (can?(:edit, message) || message.to_id == @user.id)) ||
-        # (message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
+      # (message.kind == MessageType::PRIVATE && (can?(:edit, message) || message.to_id == @user.id)) ||
+        # (message.kind != MessageType::PRIVATE && (message.from_id == @user.id || message.to_id == @user.id))
     end
 
     can %i[create], Message do |message|
-      !@user.forever_banned? && message.kind == MessageType::Private &&
+      !@user.forever_banned? && message.kind == MessageType::PRIVATE &&
         message.from_id == @user.id &&
         (
           @user.day_registered? ||

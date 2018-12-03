@@ -13,7 +13,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   param :message, Hash do
     param :body, String, required: true
     param :from_id, :number, required: true
-    param :kind, [MessageType::Private], required: true
+    param :kind, [MessageType::PRIVATE], required: true
     param :to_id, :number, required: true
   end
   error code: 422

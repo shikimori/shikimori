@@ -41,7 +41,7 @@ class Viewing::BulkCreate
     Message.where(
       read: false,
       to_id: user.id,
-      kind: MessageType::QuotedByUser,
+      kind: MessageType::QUOTED_BY_USER,
       linked_id: new_viewed_ids,
       linked_type: viewed_klass.name
     ).update_all(read: true)

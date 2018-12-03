@@ -133,7 +133,7 @@ describe Ban do
           from_id: moderator.id,
           to_id: user.id,
           linked_type: Ban.name,
-          kind: MessageType::Banned
+          kind: MessageType::BANNED
         )
       end
       it { expect { ban }.to change(messages, :count).by 1 }

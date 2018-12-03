@@ -38,7 +38,7 @@ describe MessagesController do
   end
 
   describe '#preview' do
-    subject! { post :preview, params: { message: { body: 'test', from_id: user.id, to_id: user.id, kind: MessageType::Private } } }
+    subject! { post :preview, params: { message: { body: 'test', from_id: user.id, to_id: user.id, kind: MessageType::PRIVATE } } }
 
     it { expect(response).to have_http_status :success }
   end
@@ -65,7 +65,7 @@ describe MessagesController do
       get :unsubscribe,
         params: {
           name: user.nickname,
-          kind: MessageType::Private,
+          kind: MessageType::PRIVATE,
           key: key
         }
     end
@@ -74,7 +74,7 @@ describe MessagesController do
 
     context 'valid key' do
       subject! { make_request }
-      let(:key) { MessagesController.unsubscribe_key user, MessageType::Private }
+      let(:key) { MessagesController.unsubscribe_key user, MessageType::PRIVATE }
 
       it do
         expect(response).to have_http_status :success

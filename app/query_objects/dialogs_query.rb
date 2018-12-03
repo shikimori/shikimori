@@ -17,7 +17,7 @@ private
 
   def latest_message_ids page, limit # rubocop:disable AbcSize
     Message
-      .where(kind: MessageType::Private)
+      .where(kind: MessageType::PRIVATE)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
       .where(Arel.sql(WHREE_SQL), user_id: user.id)
       .group(

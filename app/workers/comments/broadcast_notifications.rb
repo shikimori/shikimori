@@ -27,7 +27,7 @@ private
     Message.new(
       from: comment.user,
       to: user,
-      kind: MessageType::ClubBroadcast,
+      kind: MessageType::CLUB_BROADCAST,
       linked: comment
     )
   end

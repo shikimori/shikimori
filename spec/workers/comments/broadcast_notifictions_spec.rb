@@ -24,7 +24,7 @@ describe Comments::BroadcastNotifications do
       expect(Message.find(subject.ids.first)).to have_attributes(
         from: user_1,
         to: user_2,
-        kind: MessageType::ClubBroadcast,
+        kind: MessageType::CLUB_BROADCAST,
         linked: comment,
         body: nil
       )

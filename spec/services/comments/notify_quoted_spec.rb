@@ -101,7 +101,7 @@ describe Comments::NotifyQuoted do
       expect { subject }.to change(Message, :count).by 1
       expect(quoted_user.messages.first).to have_attributes(
         from_id: comment_owner.id,
-        kind: MessageType::QuotedByUser,
+        kind: MessageType::QUOTED_BY_USER,
         linked: comment
       )
       expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
@@ -124,12 +124,12 @@ describe Comments::NotifyQuoted do
       expect { subject }.to change(Message, :count).by 2
       expect(quoted_user_1.messages.first).to have_attributes(
         from_id: comment_owner.id,
-        kind: MessageType::QuotedByUser,
+        kind: MessageType::QUOTED_BY_USER,
         linked: comment
       )
       expect(quoted_user_2.messages.first).to have_attributes(
         from_id: comment_owner.id,
-        kind: MessageType::QuotedByUser,
+        kind: MessageType::QUOTED_BY_USER,
         linked: comment
       )
       expect(quoted_comment_1.reload.body).to eq "xxx\n\n[replies=#{comment.id}]"
@@ -165,7 +165,7 @@ describe Comments::NotifyQuoted do
       create :message,
         to: quoted_user,
         from: comment_owner,
-        kind: MessageType::QuotedByUser,
+        kind: MessageType::QUOTED_BY_USER,
         linked: comment
     end
     it { expect { subject }.to_not change Message, :count }
@@ -183,7 +183,7 @@ describe Comments::NotifyQuoted do
         create :message,
           to: quoted_user,
           from: comment_owner,
-          kind: MessageType::QuotedByUser,
+          kind: MessageType::QUOTED_BY_USER,
           linked: comment
       end
 
@@ -212,7 +212,7 @@ describe Comments::NotifyQuoted do
         create :message,
           to: quoted_user,
           from: comment_owner,
-          kind: MessageType::QuotedByUser,
+          kind: MessageType::QUOTED_BY_USER,
           linked: comment
       end
 
@@ -221,7 +221,7 @@ describe Comments::NotifyQuoted do
         expect { message.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(another_user.messages.first).to have_attributes(
           from_id: comment_owner.id,
-          kind: MessageType::QuotedByUser,
+          kind: MessageType::QUOTED_BY_USER,
           linked: comment
         )
         expect(quoted_comment_1.reload.body).to eq 'zzz'

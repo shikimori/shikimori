@@ -1,41 +1,42 @@
 # TODO: refactor to Message.enumerize
 class MessageType
   # личное сообщение
-  Private = 'Private'
+  PRIVATE = 'Private'
   # уведомление
-  Notification = 'Notification'
+  NOTIFICATION = 'Notification'
   # уведомление об анонсе
-  Anons = AnimeHistoryAction::Anons
+  ANONS = AnimeHistoryAction::Anons
   # уведомление об онгоинге
-  Ongoing = AnimeHistoryAction::Ongoing
+  ONGOING = AnimeHistoryAction::Ongoing
   # уведомление о релизе
-  Released = AnimeHistoryAction::Released
+  RELEASED = AnimeHistoryAction::Released
   # уведомление о эпизоде
-  Episode = AnimeHistoryAction::Episode
+  EPISODE = AnimeHistoryAction::Episode
   # запрос на добавление в друзья
-  FriendRequest = 'FriendRequest'
+  FRIEND_REQUEST = 'FriendRequest'
   # пришлашение в клуб
-  ClubRequest = 'ClubRequest'
+  CLUB_REQUEST = 'ClubRequest'
   # новость сайта
-  SiteNews = 'SiteNews'
+  SITE_NEWS = 'SiteNews'
   # прокомментирован профиль
-  ProfileCommented = 'ProfileCommented'
+  PROFILE_COMMENTED = 'ProfileCommented'
   # пользователь процитирован кем-то где-то
-  QuotedByUser = 'QuotedByUser'
+  QUOTED_BY_USER = 'QuotedByUser'
   # комментарий в подписанной сущности
-  SubscriptionCommented = 'SubscriptionCommented'
+  SUBSCRIPTION_COMMENTED = 'SubscriptionCommented'
   # уведомление о смене ника
-  NicknameChanged = 'NicknameChanged'
+  NICKNAME_CHANGED = 'NicknameChanged'
   # уведомление о бане
-  Banned = 'Banned'
+  BANNED = 'Banned'
   # уведомление о предупреждении
-  Warned = 'Warned'
+  WARNED = 'Warned'
   # уведомление о принятии/отказе правки
-  VersionAccepted = 'VersionAccepted'
-  VersionRejected = 'VersionRejected'
+  VERSION_ACCEPTED = 'VersionAccepted'
+  VERSION_REJECTED = 'VersionRejected'
   # уведомление о завершении опроса
-  ContestFinished = 'ContestFinished'
-  ClubBroadcast = 'ClubBroadcast'
+  CONTEST_STARTED = 'ContestStarted'
+  CONTEST_FINISHED = 'ContestFinished'
+  CLUB_BROADCAST = 'ClubBroadcast'
 
-  ANIME_RELATED = [Anons, Ongoing, Released, Episode]
+  ANIME_RELATED = [ANONS, ONGOING, RELEASED, EPISODE]
 end

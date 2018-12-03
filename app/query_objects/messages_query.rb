@@ -2,26 +2,26 @@ class MessagesQuery < SimpleQueryBase
   pattr_initialize :user, :messages_type
 
   NEWS_KINDS = [
-    MessageType::Anons,
-    MessageType::Ongoing,
-    MessageType::Episode,
-    MessageType::Released,
-    MessageType::SiteNews,
-    MessageType::ContestFinished,
-    MessageType::ClubBroadcast
+    MessageType::ANONS,
+    MessageType::ONGOING,
+    MessageType::EPISODE,
+    MessageType::RELEASED,
+    MessageType::SITE_NEWS,
+    MessageType::CONTEST_FINISHED,
+    MessageType::CLUB_BROADCAST
   ]
   NOTIFICATION_KINDS = [
-    MessageType::FriendRequest,
-    MessageType::ClubRequest,
-    MessageType::Notification,
-    MessageType::ProfileCommented,
-    MessageType::QuotedByUser,
-    MessageType::SubscriptionCommented,
-    MessageType::NicknameChanged,
-    MessageType::Banned,
-    MessageType::Warned,
-    MessageType::VersionAccepted,
-    MessageType::VersionRejected
+    MessageType::FRIEND_REQUEST,
+    MessageType::CLUB_REQUEST,
+    MessageType::NOTIFICATION,
+    MessageType::PROFILE_COMMENTED,
+    MessageType::QUOTED_BY_USER,
+    MessageType::SUBSCRIPTION_COMMENTED,
+    MessageType::NICKNAME_CHANGED,
+    MessageType::BANNED,
+    MessageType::WARNED,
+    MessageType::VERSION_ACCEPTED,
+    MessageType::VERSION_REJECTED
   ]
 
   def query
@@ -35,9 +35,9 @@ class MessagesQuery < SimpleQueryBase
 
   def where_by_type
     case @messages_type
-      when :inbox then { kind: [MessageType::Private] }
-      when :private then { kind: [MessageType::Private], read: false }
-      when :sent then { kind: [MessageType::Private] }
+      when :inbox then { kind: [MessageType::PRIVATE] }
+      when :private then { kind: [MessageType::PRIVATE], read: false }
+      when :sent then { kind: [MessageType::PRIVATE] }
       when :news then { kind: NEWS_KINDS }
       when :notifications then { kind: NOTIFICATION_KINDS }
       else raise ArgumentError, "unknown type: #{@messages_type}"

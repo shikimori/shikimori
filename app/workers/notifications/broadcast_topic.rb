@@ -78,9 +78,7 @@ private
 
   def message_type topic
     if topic.broadcast?
-      MessageType::SiteNews
-    elsif contest? topic
-      MessageType::ContestFinished
+      MessageType::SITE_NEWS
     else
       topic.action || raise(ArgumentError, topic.action || topic.action.to_json)
     end

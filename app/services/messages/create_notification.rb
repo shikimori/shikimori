@@ -16,7 +16,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
     Message.create_wo_antispam!(
       from_id: User::MESSANGER_ID,
       to: @target,
-      kind: MessageType::Notification,
+      kind: MessageType::NOTIFICATION,
       body: body
     )
   end
@@ -47,7 +47,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
     Message.create_wo_antispam!(
       from_id: @target.approver_id,
       to_id: @target.user_id,
-      kind: MessageType::Notification,
+      kind: MessageType::NOTIFICATION,
       linked: @target,
       body: body
     )
@@ -67,7 +67,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
     Message.create_wo_antispam!(
       from_id: BotsService.get_poster.id,
       to_id: friend.id,
-      kind: MessageType::NicknameChanged,
+      kind: MessageType::NICKNAME_CHANGED,
       body: body
     )
   end
@@ -123,7 +123,7 @@ class Messages::CreateNotification # rubocop:disable ClassLength
     Message.create_wo_antispam!(
       from_id: BotsService.get_poster.id,
       to_id: @target.id,
-      kind: MessageType::Notification,
+      kind: MessageType::NOTIFICATION,
       body: body
     )
   end

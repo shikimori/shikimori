@@ -11,14 +11,14 @@ class Api::V1::FriendsController < Api::V1Controller
     unless @user.friends.include? current_user
       Message
         .where(from_id: current_user.id, to_id: @user.id)
-        .where(kind: MessageType::FriendRequest)
+        .where(kind: MessageType::FRIEND_REQUEST)
         .delete_all
 
       if @user.id != 1 # no friend requests for morr
         Message.create(
           from_id: current_user.id,
           to_id: @user.id,
-          kind: MessageType::FriendRequest
+          kind: MessageType::FRIEND_REQUEST
         )
       end
     end

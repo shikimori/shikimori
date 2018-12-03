@@ -127,7 +127,7 @@ class Version < ApplicationRecord
       Message.create_wo_antispam!(
         from_id: moderator_id,
         to_id: user_id,
-        kind: MessageType::VersionAccepted,
+        kind: MessageType::VERSION_ACCEPTED,
         linked: self
       )
     end
@@ -138,7 +138,7 @@ class Version < ApplicationRecord
       Message.create_wo_antispam!(
         from_id: moderator_id,
         to_id: user_id,
-        kind: MessageType::VersionRejected,
+        kind: MessageType::VERSION_REJECTED,
         linked: self,
         body: reason
       )

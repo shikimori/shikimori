@@ -58,7 +58,7 @@ class Ability
 
   def guest_restrictions
     can :create, Message do |message|
-      message.kind == MessageType::Private &&
+      message.kind == MessageType::PRIVATE &&
         message.from_id == User::GUEST_ID &&
         message.to_id == User::MORR_ID
     end

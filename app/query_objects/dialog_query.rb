@@ -30,7 +30,7 @@ private
 
   def fetch_messages page, dynamic_offset, dynamic_limit
     Message
-      .where(kind: MessageType::Private)
+      .where(kind: MessageType::PRIVATE)
       .where(
         "(from_id = :user_id and to_id = :target_user_id) or
          (from_id = :target_user_id and to_id = :user_id and is_deleted_by_to=false)",

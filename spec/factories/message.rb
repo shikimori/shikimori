@@ -11,23 +11,23 @@ FactoryBot.define do
       stub_method model, :check_spam_abuse
     end
 
-    kind { MessageType::Private }
+    kind { MessageType::PRIVATE }
     body { 'test' }
 
     trait :private do
-      kind { MessageType::Private }
+      kind { MessageType::PRIVATE }
     end
 
     trait :notification do
-      kind { MessageType::Notification }
+      kind { MessageType::NOTIFICATION }
     end
 
     trait :profile_commented do
-      kind { MessageType::ProfileCommented }
+      kind { MessageType::PROFILE_COMMENTED }
     end
 
     trait :news do
-      kind { MessageType::SiteNews }
+      kind { MessageType::SITE_NEWS }
     end
 
     trait :with_antispam do

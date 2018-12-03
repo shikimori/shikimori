@@ -43,7 +43,7 @@ private
 
   def create_message
     message = Message.create!(
-      kind: MessageType::ClubRequest,
+      kind: MessageType::CLUB_REQUEST,
       from: src,
       to: dst,
       linked: self

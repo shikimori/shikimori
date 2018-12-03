@@ -38,7 +38,7 @@ describe Message do
         before { message.save! }
 
         context 'private message' do
-          let(:kind) { MessageType::Private }
+          let(:kind) { MessageType::PRIVATE }
           it do
             expect(EmailNotifier.instance)
             .to have_received(:private_message).with message
@@ -46,7 +46,7 @@ describe Message do
         end
 
         context 'common message' do
-          let(:kind) { MessageType::Notification }
+          let(:kind) { MessageType::NOTIFICATION }
           it do
             expect(EmailNotifier.instance)
             .to_not have_received(:private_message)
@@ -137,7 +137,7 @@ describe Message do
     let(:from_user) { build_stubbed :user, :user, :day_registered }
     let(:to_user) { build_stubbed :user, :user }
     let(:created_at) { 1.minute.ago }
-    let(:kind) { MessageType::Private }
+    let(:kind) { MessageType::PRIVATE }
 
     subject { Ability.new user }
 
@@ -155,7 +155,7 @@ describe Message do
           build_stubbed :message,
             from_id: User::GUEST_ID,
             to_id: User::MORR_ID,
-            kind: MessageType::Private
+            kind: MessageType::PRIVATE
         end
         it { is_expected.to be_able_to :create, message }
       end
@@ -177,7 +177,7 @@ describe Message do
         it { is_expected.to be_able_to :read, message }
 
         context 'private message' do
-          let(:kind) { MessageType::Private }
+          let(:kind) { MessageType::PRIVATE }
 
           context 'not banned forever' do
             let(:from_user) { build_stubbed :user, :user, :banned, :day_registered }
@@ -211,7 +211,7 @@ describe Message do
                 build_stubbed :message,
                   from: user,
                   to_id: User::MORR_ID,
-                  kind: MessageType::Private
+                  kind: MessageType::PRIVATE
               end
 
               it { is_expected.to be_able_to :create, message }
@@ -235,7 +235,7 @@ describe Message do
         end
 
         context 'other type messages' do
-          let(:kind) { MessageType::Notification }
+          let(:kind) { MessageType::NOTIFICATION }
           it { is_expected.to_not be_able_to :create, message }
           it { is_expected.to_not be_able_to :edit, message }
           it { is_expected.to_not be_able_to :update, message }
@@ -252,7 +252,7 @@ describe Message do
         it { is_expected.to_not be_able_to :update, message }
 
         context 'private message' do
-          let(:kind) { MessageType::Private }
+          let(:kind) { MessageType::PRIVATE }
 
           context 'new message' do
             let(:created_at) { 1.minute.ago }
@@ -266,7 +266,7 @@ describe Message do
         end
 
         context 'other type message' do
-          let(:kind) { MessageType::Notification }
+          let(:kind) { MessageType::NOTIFICATION }
           it { is_expected.to be_able_to :destroy, message }
         end
       end

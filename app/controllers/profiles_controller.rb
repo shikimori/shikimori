@@ -18,7 +18,7 @@ class ProfilesController < ShikimoriController
     if user_signed_in? && current_user.id == @resource.id
       MessagesService
         .new(@resource.object)
-        .read_messages(kind: MessageType::ProfileCommented)
+        .read_messages(kind: MessageType::PROFILE_COMMENTED)
     end
   end
 
