@@ -9,7 +9,7 @@ header.head.misc
         title=t('.back_to_contest_page')
         data-text=t('back')
       ]
-    = @resource.name
+    = @resource.title
     - if can?(:edit, @resource) && @resource.persisted?
       a.edit[
         href=edit_contest_url(@resource)
