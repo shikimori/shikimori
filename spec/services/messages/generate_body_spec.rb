@@ -285,7 +285,7 @@ describe Messages::GenerateBody do
             <span class="translated-after" data-text-ru="Турнир" data-text-en="Contest"></span>
             <a href="#{Shikimori::PROTOCOL}://test.host/contests/1-foo"
             class="b-link translated-after" data-text-ru="foo" data-text-en="bar"></a>
-            <span class="translated-after" data-text-ru="запущен" data-text-en="started"></span>.
+            <span class="translated-after" data-text-ru="начат" data-text-en="started"></span>.
           HTML
         )
       end

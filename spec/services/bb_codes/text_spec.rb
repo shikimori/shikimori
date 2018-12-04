@@ -279,13 +279,13 @@ describe BbCodes::Text do
     end
 
     describe '[contest_round]' do
-      let(:text) { "[contest_round_status=#{round.id}]" }
+      let(:text) { "[contest_round_status=#{round.id} finished]" }
       let!(:round) { create :contest_round, number: 1, additional: false }
       it { is_expected.to include round.title }
     end
 
     describe '[contest]' do
-      let(:text) { "[contest_status=#{contest.id}]" }
+      let(:text) { "[contest_status=#{contest.id} finished]" }
       let!(:contest) { create :contest }
       it { is_expected.to include contest.name }
     end

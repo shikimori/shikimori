@@ -37,7 +37,7 @@ describe BbCodes::Tags::ContestStatusTag do
           "data-text-ru='#{contest.title_ru}' "\
           "data-text-en='#{contest.title_en}' ></a> "\
           "<span class='translated-after' "\
-          "data-text-ru='запущен' "\
+          "data-text-ru='начат' "\
           "data-text-en='started' ></span>."
       )
     end

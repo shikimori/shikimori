@@ -29,7 +29,7 @@ describe BbCodes::Tags::ContestRoundStatusTag do
           "data-text-ru='#{round.title_ru}' "\
           "data-text-en='#{round.title_en}' ></a> "\
           "<span class='translated-after' "\
-          "data-text-ru='запущен' "\
+          "data-text-ru='начат' "\
           "data-text-en='started' ></span>."
       )
     end
