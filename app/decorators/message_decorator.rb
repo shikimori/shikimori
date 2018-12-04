@@ -28,7 +28,7 @@ class MessageDecorator < BaseDecorator
   def url
     if kind == MessageType::EPISODE
       linked.linked.decorate.url
-    elsif kind == MessageType::CONTEST_FINISHED
+    elsif [MessageType::CONTEST_STARTED, MessageType::CONTEST_FINISHED].include? kind
       h.contest_url linked
     elsif club_broadcast?
       h.club_url(linked.commentable.linked) + "#comment-#{linked.id}"
