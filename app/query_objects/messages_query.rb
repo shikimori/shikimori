@@ -7,6 +7,7 @@ class MessagesQuery < SimpleQueryBase
     MessageType::EPISODE,
     MessageType::RELEASED,
     MessageType::SITE_NEWS,
+    MessageType::CONTEST_STARTED,
     MessageType::CONTEST_FINISHED,
     MessageType::CLUB_BROADCAST
   ]
