@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+import 'babel-polyfill'; // async won't work w/o it
 
 import sugar from 'vendor/sugar';
 import $ from 'jquery'; // eslint-disable-line import/newline-after-import
