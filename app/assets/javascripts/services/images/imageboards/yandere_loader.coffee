@@ -22,6 +22,3 @@ module.exports = class YandereLoader extends LoaderBase
 
   _parse: (xhr_data) ->
     xhr_data
-
-  _preview_url: (preview_url, filename) ->
-    preview_url
