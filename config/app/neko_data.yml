@@ -14250,7 +14250,7 @@
     :topic_id: 245150
     :rule:
       :algo: count
-      :threshold: 50
+      :threshold: 40
       :filters:
         genre_ids:
         - 15
