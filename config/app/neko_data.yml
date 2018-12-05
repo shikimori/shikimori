@@ -3147,7 +3147,7 @@
     :level: 2
     :image: "/assets/achievements/anime/romance_2.jpg"
     :border_color: "#DC143C"
-    :title_ru: Первое признание в любви.
+    :title_ru: Первое признание в любви
     :text_ru: Если ты не признаешься, она никогда не узнает о твоих чувствах.
     :title_en: 
     :text_en: 
@@ -6970,6 +6970,8 @@
       :algo: duration
       :filters:
         franchise: ao_no_exorcist
+        not_anime_ids:
+        - 13677
       :threshold: 96.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6987,6 +6989,8 @@
       :algo: duration
       :filters:
         franchise: ao_no_exorcist
+        not_anime_ids:
+        - 13677
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7500,6 +7504,8 @@
       :algo: duration
       :filters:
         franchise: chuunibyou_demo_koi_ga_shitai
+        not_anime_ids:
+        - 36855
       :threshold: 87.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7517,6 +7523,8 @@
       :algo: duration
       :filters:
         franchise: chuunibyou_demo_koi_ga_shitai
+        not_anime_ids:
+        - 36855
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7608,6 +7616,8 @@
         - 32311
         - 34085
         - 38055
+        - 32739
+        - 31115
       :threshold: 93.2%
       :generator:
         not_ignored_ids:
@@ -7634,6 +7644,8 @@
         - 32311
         - 34085
         - 38055
+        - 32739
+        - 31115
       :threshold: 0.01%
       :generator:
         not_ignored_ids:
@@ -7832,6 +7844,8 @@
       :algo: duration
       :filters:
         franchise: hellsing
+        not_anime_ids:
+        - 6904
       :threshold: 96.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7849,6 +7863,8 @@
       :algo: duration
       :filters:
         franchise: hellsing
+        not_anime_ids:
+        - 6904
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8769,7 +8785,7 @@
   attributes:
     :neko_id: :kami_nomi_zo_shiru_sekai
     :level: 1
-    :image: "/assets/achievements/anime/franchise/kami_nomi_zo_shiru_sekai.jpg"
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/692990.jpg
     :border_color: 
     :title_ru: Одному лишь Богу ведомый мир
     :text_ru: 
@@ -8789,7 +8805,7 @@
   attributes:
     :neko_id: :kami_nomi_zo_shiru_sekai
     :level: 0
-    :image: "/assets/achievements/anime/franchise/kami_nomi_zo_shiru_sekai.jpg"
+    :image: https://nyaa.shikimori.org/system/user_images/original/84020/692990.jpg
     :border_color: 
     :title_ru: Одному лишь Богу ведомый мир
     :text_ru: 
@@ -9990,6 +10006,10 @@
         - 36684
         - 36685
       :threshold: 98.3%
+      :generator:
+        not_ignored_ids:
+        - 36684
+        - 36685
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -10063,6 +10083,9 @@
         not_anime_ids:
         - 5656
       :threshold: 95.2%
+      :generator:
+        not_ignored_ids:
+        - 5656
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -10865,6 +10888,13 @@
         not_anime_ids:
         - 6733
         - 9344
+        - 28733
+        - 30483
+        - 7285
+        - 12163
+        - 30481
+        - 29716
+        - 10118
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10885,6 +10915,13 @@
         not_anime_ids:
         - 6733
         - 9344
+        - 28733
+        - 30483
+        - 7285
+        - 12163
+        - 30481
+        - 29716
+        - 10118
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13365,40 +13402,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :muumin
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/muumin.jpg"
-    :border_color: 
-    :title_ru: Муми-тролль
-    :text_ru: 
-    :title_en: Muumin
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: muumin
-      :threshold: 98.6%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :muumin
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/muumin.jpg"
-    :border_color: 
-    :title_ru: Муми-тролль
-    :text_ru: 
-    :title_en: Muumin
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: muumin
-      :threshold: 0.01%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :mazinkaiser
     :level: 1
     :image: "/assets/achievements/anime/franchise/mazinkaiser.jpg"
@@ -13520,6 +13523,9 @@
         franchise: votoms_finder
         not_anime_ids:
         - 12337
+        - 12439
+        - 12441
+        - 7536
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13539,6 +13545,9 @@
         franchise: votoms_finder
         not_anime_ids:
         - 12337
+        - 12439
+        - 12441
+        - 7536
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13666,6 +13675,8 @@
       :algo: duration
       :filters:
         franchise: to_heart
+        not_anime_ids:
+        - 1624
       :threshold: 94.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13683,6 +13694,8 @@
       :algo: duration
       :filters:
         franchise: to_heart
+        not_anime_ids:
+        - 1624
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13702,6 +13715,10 @@
         franchise: transformers
         not_anime_ids:
         - 6800
+        - 6511
+        - 28401
+        - 30851
+        - 7862
       :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13721,6 +13738,10 @@
         franchise: transformers
         not_anime_ids:
         - 6800
+        - 6511
+        - 28401
+        - 30851
+        - 7862
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
