@@ -1,7 +1,7 @@
 class AnimeOnline::ResponsibleUploaders
   method_object
 
-  UPLOADS_TO_TRUST = 25
+  UPLOADS_TO_TRUST = 50
   TRUST_THRESHOLD = 0.95
 
   def call
