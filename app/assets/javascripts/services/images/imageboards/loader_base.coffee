@@ -10,6 +10,11 @@ module.exports = class LoaderBase
     @limit = 100
     @is_finished = false
     @is_loading = false
+    @camo_base_url =
+      if window.ENV == 'development'
+        'https://camo-v2.shikimori.org'
+      else
+        window.CAMO_URL
 
     @_initialize()
 
@@ -70,7 +75,7 @@ module.exports = class LoaderBase
     "#{@base_url}/post/index.json?page=#{@page}&limit=#{@limit}&tags=#{@tags}"
 
   _camo_url: (image_url, filename) ->
-    window.CAMO_URL + "?filename=#{filename}&url=#{image_url}"
+    @camo_base_url + "?filename=#{filename}&url=#{image_url}"
 
   _image_url: (image_url, filename) ->
     image_url = "https:#{image_url}" if image_url.match /^\/\//
