@@ -12155,6 +12155,40 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :teekyuu
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/teekyuu.jpg"
+    :border_color: 
+    :title_ru: Теннис
+    :text_ru: 
+    :title_en: Teekyuu
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: teekyuu
+      :threshold: 87.6%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :teekyuu
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/teekyuu.jpg"
+    :border_color: 
+    :title_ru: Теннис
+    :text_ru: 
+    :title_en: Teekyuu
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: teekyuu
+      :threshold: 0.01%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :yu_gi_oh
     :level: 1
     :image: "/assets/achievements/anime/franchise/yu_gi_oh.png"
@@ -13183,44 +13217,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :time_bokan
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/time_bokan.jpg"
-    :border_color: 
-    :title_ru: Приключения во времени
-    :text_ru: 
-    :title_en: Time Bokan
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: time_bokan
-        not_anime_ids:
-        - 8921
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :time_bokan
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/time_bokan.jpg"
-    :border_color: 
-    :title_ru: Приключения во времени
-    :text_ru: 
-    :title_en: Time Bokan
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: time_bokan
-        not_anime_ids:
-        - 8921
-      :threshold: 0.01%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :kimagure_orange_road
     :level: 1
     :image: "/assets/achievements/anime/franchise/kimagure_orange_road.jpg"
@@ -13240,6 +13236,25 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :time_bokan
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/time_bokan.jpg"
+    :border_color: 
+    :title_ru: Приключения во времени
+    :text_ru: 
+    :title_en: Time Bokan
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: time_bokan
+        not_anime_ids:
+        - 8921
+      :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :kimagure_orange_road
     :level: 0
     :image: "/assets/achievements/anime/franchise/kimagure_orange_road.jpg"
@@ -13255,6 +13270,25 @@
         franchise: kimagure_orange_road
         not_anime_ids:
         - 14059
+      :threshold: 0.01%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :time_bokan
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/time_bokan.jpg"
+    :border_color: 
+    :title_ru: Приключения во времени
+    :text_ru: 
+    :title_en: Time Bokan
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: time_bokan
+        not_anime_ids:
+        - 8921
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -13974,23 +14008,6 @@
       :filters:
         franchise: haou_daikei_ryuu_knight
       :threshold: 0.01%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :haou_daikei_ryuu_knight
-    :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/84020/694549.jpg
-    :border_color: 
-    :title_ru: Теннис
-    :text_ru: 
-    :title_en: Teekyuu
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: teekyuu
-      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
