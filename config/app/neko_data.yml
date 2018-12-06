@@ -12999,44 +12999,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :maison_ikkoku
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/maison_ikkoku.jpg"
-    :border_color: 
-    :title_ru: Доходный дом Иккоку
-    :text_ru: 
-    :title_en: Maison Ikkoku
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: maison_ikkoku
-        not_anime_ids:
-        - 3483
-      :threshold: 98.9%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :maison_ikkoku
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/maison_ikkoku.jpg"
-    :border_color: 
-    :title_ru: Доходный дом Иккоку
-    :text_ru: 
-    :title_en: Maison Ikkoku
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: maison_ikkoku
-        not_anime_ids:
-        - 3483
-      :threshold: 0.01%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :ranma
     :level: 1
     :image: "/assets/achievements/anime/franchise/ranma.jpg"
@@ -14012,6 +13974,23 @@
       :filters:
         franchise: haou_daikei_ryuu_knight
       :threshold: 0.01%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :haou_daikei_ryuu_knight
+    :level: 1
+    :image: https://dere.shikimori.org/system/user_images/original/84020/694549.jpg
+    :border_color: 
+    :title_ru: Теннис
+    :text_ru: 
+    :title_en: Teekyuu
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: teekyuu
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
