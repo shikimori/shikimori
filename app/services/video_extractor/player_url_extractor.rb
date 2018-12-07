@@ -85,7 +85,7 @@ private
     elsif html =~ %r{(#{HTTP}my.mail.ru/mail/(?<user>#{PARAM})/video/(?<ids>#{PARAM}/#{PARAM}).html)}
       "https://videoapi.my.mail.ru/videos/embed/mail/#{$LAST_MATCH_INFO[:user]}/#{$LAST_MATCH_INFO[:ids]}.html"
     elsif html =~ /movieSrc=(#{CONTENT})"/
-      "http://videoapi.my.mail.ru/videos/embed/#{Regexp.last_match(1).sub(/&autoplay=\d/, '')}.html"
+      "https://videoapi.my.mail.ru/videos/embed/#{Regexp.last_match(1).sub(/&autoplay=\d/, '')}.html"
     elsif html =~ %r{(?<url>#{HTTP}video.sibnet.ru/shell#{CONTENT})}
       cleanup_params(
         $LAST_MATCH_INFO[:url].sub(/shell\.swf\?/, 'shell.php?'),
@@ -95,7 +95,7 @@ private
       video_id = $LAST_MATCH_INFO[:videoid]
         .sub(/\.(flv|mp4)\?.*/, '')
         .gsub(/(videoid=\d+)[\w\.]*/, '\1')
-      "http://video.sibnet.ru/shell.php?videoid=#{video_id}"
+      "https://video.sibnet.ru/shell.php?videoid=#{video_id}"
     elsif html =~ %r{(?<url>#{HTTP}v.kiwi.\w+/(?:v|v2)/#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}p.kiwi.\w+/static/player2/player.swf\?config=#{CONTENT})}
@@ -123,7 +123,7 @@ private
       end
       # else - result will be given by VideoExtractor::RutubeExtractor
     elsif html =~ %r{#{HTTP}play.aniland.org/(?<hash>\w+)}
-      "http://play.aniland.org/#{$LAST_MATCH_INFO[:hash]}?player=8"
+      "https://play.aniland.org/#{$LAST_MATCH_INFO[:hash]}?player=8"
     elsif html =~ SOVET_ROMANTICA_REGEXP
       'https://sovetromantica.com/embed/episode_'\
         "#{$LAST_MATCH_INFO[:anime_id]}_#{$LAST_MATCH_INFO[:id]}"
