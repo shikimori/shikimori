@@ -127,6 +127,8 @@ private
     elsif html =~ SOVET_ROMANTICA_REGEXP
       'https://sovetromantica.com/embed/episode_'\
         "#{$LAST_MATCH_INFO[:anime_id]}_#{$LAST_MATCH_INFO[:id]}"
+          .gsub(/-d.*/, '-dubbed')
+          .gsub(/-s.*/, '-subtitles')
     elsif html =~ ANIMEDIA_REGEXP
       ($LAST_MATCH_INFO[:url]).to_s.gsub(/-.*/, '')
     elsif html =~ ANIMAUNT_REGEXP

@@ -297,13 +297,13 @@ describe VideoExtractor::PlayerUrlExtractor do
 
     describe 'sovet romantica' do
       describe 'embed url' do
-        let(:html) { 'https://sovetromantica.com/embed/episode_116_12-subtitles' }
+        let(:html) { 'https://sovetromantica.com/embed/episode_116_12-su' }
         it { is_expected.to eq '//sovetromantica.com/embed/episode_116_12-subtitles' }
       end
 
       describe 'full url' do
-        let(:html) { 'https://sovetromantica.com/anime/116-watashi-ga-motete-dousunda/episode_12-subtitles' }
-        it { is_expected.to eq '//sovetromantica.com/embed/episode_116_12-subtitles' }
+        let(:html) { 'https://sovetromantica.com/anime/116-watashi-ga-motete-dousunda/episode_12-dub' }
+        it { is_expected.to eq '//sovetromantica.com/embed/episode_116_12-dubbed' }
       end
     end
 
