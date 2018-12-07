@@ -128,7 +128,7 @@ private
       'https://sovetromantica.com/embed/episode_'\
         "#{$LAST_MATCH_INFO[:anime_id]}_#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ ANIMEDIA_REGEXP
-      ($LAST_MATCH_INFO[:url]).to_s
+      ($LAST_MATCH_INFO[:url]).to_s.gsub(/-.*/, '')
     elsif html =~ ANIMAUNT_REGEXP
       ($LAST_MATCH_INFO[:url]).to_s
     elsif html =~ %r{(?<url>#{HTTP}kadu.ru/embed#{CONTENT})}

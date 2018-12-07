@@ -308,7 +308,7 @@ describe VideoExtractor::PlayerUrlExtractor do
     end
 
     describe 'animedia' do
-      let(:html) { 'http://online.animedia.tv/embed/14678/1/8' }
+      let(:html) { 'http://online.animedia.tv/embed/14678/1/8-zc' }
       it { is_expected.to eq '//online.animedia.tv/embed/14678/1/8' }
     end
 
