@@ -75,6 +75,12 @@ class Moderations::AnimeVideoReportsController < ModerationsController
     render :show
   end
 
+  def destroy
+    @resource.anime_video.destroy! if @resource.uploaded?
+    @resource.destroy!
+    head 200
+  end
+
 private
 
   def anime_video_report_params

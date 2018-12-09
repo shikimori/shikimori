@@ -222,6 +222,10 @@ class Abilities::User
           report.broken? || report.wrong? || report.other?
         )
     end
+    can :destroy, AnimeVideoReport do |report|
+      !@user.banned? && !@user.not_trusted_video_uploader? &&
+        report.user_id == @user.id && report.pending?
+    end
     can %i[new create], AnimeVideo do |anime_video|
       !@user.banned? && !@user.not_trusted_video_uploader? &&
         anime_video.uploaded?

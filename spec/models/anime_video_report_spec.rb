@@ -384,9 +384,15 @@ describe AnimeVideoReport do
   end
 
   describe 'permissions' do
-    let(:report) { build_stubbed :anime_video_report, user_id: user_id, kind: kind }
+    let(:report) do
+      build_stubbed :anime_video_report, state,
+        user_id: user_id,
+        kind: kind
+    end
+    let(:state) { :pending }
     let(:user_id) { user.id }
     let(:kind) { :broken }
+
     subject { Ability.new user }
 
     context 'moderator' do
@@ -397,6 +403,15 @@ describe AnimeVideoReport do
     context 'user' do
       let(:user) { build_stubbed :user, :user }
       it { is_expected.to_not be_able_to :manage, report }
+
+      context 'pending' do
+        it { is_expected.to be_able_to :destroy, report }
+      end
+
+      context 'not pending' do
+        let(:state) { %i[accepted rejected].sample }
+        it { is_expected.to_not be_able_to :destroy, report }
+      end
 
       context 'uploaded' do
         let(:kind) { :uploaded }

@@ -2,7 +2,7 @@ describe Moderations::AnimeVideoReportsController do
   include_context :authenticated, :video_moderator
 
   let(:user_2) { create :user }
-  let(:anime_video) { create :anime_video, anime: create(:anime) }
+  let(:anime_video) { create :anime_video, :working, anime: create(:anime) }
   let!(:anime_video_report) do
     create :anime_video_report,
       user: user_2,
@@ -215,6 +215,37 @@ describe Moderations::AnimeVideoReportsController do
       let(:kind) { 'wrong' }
       it do
         expect(anime_video.reload.state).to eq 'working'
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
+      end
+    end
+  end
+
+  describe '#destroy' do
+    before do
+      delete :destroy,
+        params: {
+          id: anime_video_report.id
+        },
+        format: :json
+    end
+
+    context 'uploaded' do
+      let(:kind) { 'uploaded' }
+      it do
+        expect { anime_video.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { anime_video_report.reload }.to raise_error ActiveRecord::RecordNotFound
+
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'not uploaded' do
+      let(:kind) { %i[broken wrong other].sample }
+      it do
+        expect(anime_video.reload).to be_working
+        expect { anime_video_report.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(response.content_type).to eq 'application/json'
         expect(response).to have_http_status :success
       end

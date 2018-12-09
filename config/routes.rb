@@ -161,7 +161,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :anime_video_reports, only: %i[create show] do
+    resources :anime_video_reports, only: %i[create show destroy] do
       get '(/page/:page)' => :index, as: '', on: :collection
 
       member do
