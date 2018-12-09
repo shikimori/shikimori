@@ -17,8 +17,7 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
     report = AnimeVideoReport.find id
 
     return report unless report.pending?
-    return report if report.message.present?
-    return report if report.anime_video.anime.anons?
+    return report if skip? report
 
     if report.broken?
       process_broken report
@@ -43,7 +42,7 @@ private
     if video_broken? report.anime_video
       report.accept! approver
 
-    elsif AnimeOnline::Activists.can_trust?(report.user_id, report.anime_video.hosting)
+    elsif AnimeOnline::Activists.can_trust? report.user_id, report.anime_video.hosting
       report.accept! approver
 
     elsif report.user_id == User::GUEST_ID && (
@@ -78,5 +77,11 @@ private
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       OpenURI.open_uri(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read.fix_encoding
     end
+  end
+
+  def skip? report
+    return false if Ability.new(report.user).can? :manage, report
+
+    report.message.present? || (report.uploaded? && report.anime_video.anime.anons?)
   end
 end

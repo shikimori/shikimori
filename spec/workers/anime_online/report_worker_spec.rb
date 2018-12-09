@@ -162,13 +162,29 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
 
         context 'announced anime' do
           let(:anime) { create :anime, :anons }
-          it { is_expected.to be_pending }
+
+          context 'cannot manage report' do
+            it { is_expected.to be_pending }
+          end
+
+          context 'can manage report' do
+            let(:user) { create :user, :video_moderator }
+            it { is_expected.to be_accepted }
+          end
         end
       end
 
       context 'not trusted' do
         let(:is_trusted) { false }
-        it { is_expected.to be_pending }
+
+        context 'cannot manage report' do
+          it { is_expected.to be_pending }
+        end
+
+        context 'can manage report' do
+          let(:user) { create :user, :video_moderator }
+          it { is_expected.to be_accepted }
+        end
       end
     end
 
