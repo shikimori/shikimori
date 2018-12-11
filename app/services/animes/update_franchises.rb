@@ -33,13 +33,14 @@ private
   end
 
   def add_franchise entries
+    is_anime = entries.first.anime?
     franchise = Animes::FranchiseName.call entries, @franchises
 
     entries.each do |entry|
       @processed_ids[entry.class] << entry.id
       next if entry.franchise == franchise
 
-      if NekoRepository.instance.find(entry.franchise, 1) != Neko::Rule::NO_RULE
+      if is_anime && NekoRepository.instance.find(entry.franchise, 1) != Neko::Rule::NO_RULE
         raise "cant't rename `#{entry.franchise}` -> `#{franchise}` becase found in NekoRepository"
       end
 

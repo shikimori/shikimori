@@ -20,7 +20,8 @@ class Animes::FranchiseName
     'Ore no Imouto ga Konnani Kawaii Wake ga Nai' => 'ore_no_imouto',
     'Maria-sama ga Miteru' => 'maria_sama',
     'Kyoushoku Soukou Guyver' => 'guyver',
-    'Aria The Natural' => 'aria'
+    'Aria The Natural' => 'aria',
+    'Marvel Future Avengers' => 'marvel'
   }
 
   def call
