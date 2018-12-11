@@ -4,7 +4,7 @@ class Abilities::ForumModerator
 
   MAXIMUM_COMMENTS_TO_DELETE = 1_000
 
-  def initialize _user
+  def initialize _user # rubocop:disable MethodLength, AbcSize
     can :manage, Comment
 
     can :edit, Topic do |topic|

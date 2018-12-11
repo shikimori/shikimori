@@ -4,6 +4,8 @@ class Abilities::VideoModerator
 
   def initialize _user
     can :manage, AnimeVideoReport
+    cannot :destroy, AnimeVideoReport
+
     can %i[new create edit update], AnimeVideo do |anime_video|
       !anime_video.banned_hosting? && !anime_video.copyrighted?
     end
