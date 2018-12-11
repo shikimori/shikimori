@@ -19,7 +19,8 @@ class Animes::FranchiseName
     '.hack//Sign' => 'hack',
     'Ore no Imouto ga Konnani Kawaii Wake ga Nai' => 'ore_no_imouto',
     'Maria-sama ga Miteru' => 'maria_sama',
-    'Kyoushoku Soukou Guyver' => 'guyver'
+    'Kyoushoku Soukou Guyver' => 'guyver',
+    'Aria The Natural' => 'aria'
   }
 
   def call
