@@ -11,7 +11,9 @@ class AnimeVideosService
   def update video, current_user, reason
     return if no_changes? video
 
-    create_version video, current_user, reason
+    version = create_version video, current_user, reason
+    video.errors[:base] << version.errors.full_messages.first if version.errors.any?
+
     video
   end
 
