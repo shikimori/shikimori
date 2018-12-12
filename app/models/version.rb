@@ -2,14 +2,18 @@ class Version < ApplicationRecord
   include AntispamConcern
 
   antispam(
-    per_day: 50,
+    per_day: 1,
+    scope: -> { where.not item_type: AnimeVideo.name },
+    enable_if: -> { item_type != AnimeVideo.name },
+    disable_if: -> { user.version_moderator? || user.trusted_version_changer? },
+    user_id_key: :user_id
+  )
+  antispam(
+    per_day: 2,
+    scope: -> { where item_type: AnimeVideo.name },
+    enable_if: -> { item_type == AnimeVideo.name },
     disable_if: -> {
-      user.version_moderator? || user.trusted_version_changer? || user.video_moderator? || (
-        item_type == AnimeVideo.name && (
-          user.trusted_video_uploader? ||
-          user.trusted_video_changer?
-        )
-      )
+      user.video_moderator? || user.trusted_video_uploader? || user.trusted_video_changer?
     },
     user_id_key: :user_id
   )

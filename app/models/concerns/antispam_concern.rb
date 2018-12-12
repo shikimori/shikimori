@@ -59,15 +59,22 @@ module AntispamConcern
     end
   end
 
-  def antispam_check interval: nil, per_day: nil, user_id_key:, disable_if: nil
-    return unless need_antispam_check? disable_if
+  def antispam_check(
+    interval: nil,
+    per_day: nil,
+    user_id_key:,
+    disable_if: nil,
+    enable_if: nil,
+    scope: nil
+  )
+    return unless need_antispam_check? disable_if, enable_if
 
-    per_day_check per_day, user_id_key if per_day
-    interval_check interval, user_id_key if interval
+    per_day_check per_day, user_id_key, scope if per_day
+    interval_check interval, user_id_key, scope if interval
   end
 
-  def interval_check interval, user_id_key
-    entry = prior_entry user_id_key
+  def interval_check interval, user_id_key, apply_scope
+    entry = prior_entry user_id_key, apply_scope
     return if entry.nil?
 
     seconds_to_wait = interval - (Time.zone.now.to_i - entry.created_at.to_i)
@@ -84,25 +91,26 @@ module AntispamConcern
     throw :abort
   end
 
-  def per_day_check per_day, user_id_key
-    entries_count = daily_entries_count user_id_key
+  def per_day_check per_day, user_id_key, apply_scope
+    entries_count = daily_entries_count user_id_key, apply_scope
     return if entries_count < per_day
 
     errors.add :base, I18n.t('message.antispam.per_day')
     throw :abort
   end
 
-  def prior_entry user_id_key
-    self.class.base_class
-      .order(id: :desc)
-      .find_by(user_id_key => send(user_id_key))
+  def prior_entry user_id_key, apply_scope
+    scope = self.class.base_class.order id: :desc
+    scope = scope.instance_exec(&apply_scope) if apply_scope
+    scope.find_by user_id_key => send(user_id_key)
   end
 
-  def daily_entries_count user_id_key
-    self.class.base_class
+  def daily_entries_count user_id_key, apply_scope
+    scope = self.class.base_class
       .where(user_id_key => send(user_id_key))
       .where('created_at >= ?', DAY_DURATION.ago)
-      .count
+    scope = scope.instance_exec(&apply_scope) if apply_scope
+    scope.count
   end
 
   def disable_antispam!
@@ -113,10 +121,11 @@ module AntispamConcern
     self.class.antispam_enabled? && !@instance_antispam_disabled
   end
 
-  def need_antispam_check? disable_if
+  def need_antispam_check? disable_if, enable_if # rubocop:disable CyclomaticComplexity
     antispam_enabled? &&
       errors.none? &&
-        new_record? &&
-          (!disable_if || !instance_exec(&disable_if))
+      new_record? &&
+      (!disable_if || !instance_exec(&disable_if)) &&
+      (!enable_if || instance_exec(&enable_if))
   end
 end
