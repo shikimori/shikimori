@@ -70,13 +70,13 @@ export default class CollectionSearch extends View {
     if (phrase.length === 1) {
       this._hideAjax();
     } else if (this.cache[phrase]) {
-      this._showResults(this.cache[phrase], this._searchUrl(phrase));
+      this._showResults(this.cache[phrase], this._displayUrl(phrase));
     } else {
       const response = await axios.get(this._searchUrl(phrase));
       this.cache[phrase] = response.data;
 
       if (phrase === this._searchPhrase()) {
-        this._showResults(this.cache[phrase], this._searchUrl(phrase));
+        this._showResults(this.cache[phrase], this._displayUrl(phrase));
       }
     }
   }
@@ -109,7 +109,18 @@ export default class CollectionSearch extends View {
   }
 
   _searchUrl(phrase) {
-    const uri = URI(this.$root.data('search_url'));
+    return this._url(phrase, 'search');
+  }
+
+  _displayUrl(phrase) {
+    return this._url(phrase, 'display') || this._url(phrase, 'search');
+  }
+
+  _url(phrase, key) {
+    const url = this.$root.data(`${key}_url`);
+    if (!url) { return null; }
+
+    const uri = URI(url);
 
     if (phrase) {
       return uri.query({ search: phrase });

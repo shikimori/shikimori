@@ -29,8 +29,13 @@ class Moderations::RolesController < ModerationsController
     @back_url = moderations_roles_url
 
     @collection = role_users_scope
-    @searched_collection = search_users_scope if params[:search]
+    @searched_collection = search_users_scope
     @versions = versions_scope
+  end
+
+  def search
+    @collection = search_users_scope
+    render :show, formats: :json
   end
 
   def update
@@ -88,10 +93,9 @@ private
   end
 
   def search_users_scope
-    Users::Query.fetch
-      .search(params[:search])
-      .paginate(1, 40)
-      .transform(&:decorate)
+    scope = Users::Query.fetch
+    scope = params[:search].present? ? scope.search(params[:search]) : scope.none
+    scope.paginate(1, 40).transform(&:decorate)
   end
 
   def versions_scope

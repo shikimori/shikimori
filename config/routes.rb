@@ -109,7 +109,9 @@ Rails.application.routes.draw do
 
   namespace :moderations do
     resources :users, only: %i[index]
-    resources :roles, only: %i[index show update destroy]
+    resources :roles, only: %i[index show update destroy] do
+      get :search, on: :member
+    end
     resources :user_rate_logs, only: %i[index show] do
       get '(/page/:page)' => :index,
         as: '',

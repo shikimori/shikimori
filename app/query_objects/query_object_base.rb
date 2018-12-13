@@ -2,7 +2,7 @@ class QueryObjectBase
   prepend ActiveCacher.instance
   extend DslAttribute
 
-  QUERY_METHODS = %i[joins includes select where order limit offset]
+  QUERY_METHODS = %i[joins includes select where order limit offset none]
   DELEGATE_METHODS = %i[== === eql? equal?]
 
   pattr_initialize :scope

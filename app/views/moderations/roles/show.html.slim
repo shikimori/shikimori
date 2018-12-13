@@ -10,7 +10,8 @@ header.head
   .block
     .subheadline.m10 = t '.add_user'
     .b-collection_search[
-      data-search_url=current_url(search: nil)
+      data-display_url=current_url(search: nil)
+      data-search_url=search_moderations_role_url(@role)
     ]
       .field
         input[
