@@ -4,7 +4,7 @@ describe Moderations::AnimeVideoReportsController do
   let(:user_2) { create :user }
   let(:anime_video) { create :anime_video, :working, anime: create(:anime) }
   let!(:anime_video_report) do
-    create :anime_video_report,
+    create :anime_video_report, :pending,
       user: user_2,
       kind: kind,
       anime_video: anime_video
@@ -222,6 +222,8 @@ describe Moderations::AnimeVideoReportsController do
   end
 
   describe '#destroy' do
+    include_context :authenticated
+    let(:user) { user_2 }
     before do
       delete :destroy,
         params: {
