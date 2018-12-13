@@ -10,14 +10,12 @@ class Api::V1::VideosController < Api::V1Controller
   end
 
   api :POST, '/animes/:anime_id/videos', 'Create a video'
-  description "Supported hostings: " +
-    Video.hosting.values
-      .map { |v| "<code>#{v}</code>" }
-      .join(',')
   param :video, Hash do
     param :kind, Video.kind.values, required: true
     param :name, String, required: true
-    param :url, String, required: true
+    param :url, String,
+      required: true,
+      desc: 'Supported hostings: ' + Video.hosting.values.map { |v| "<code>#{v}</code>" }.join(',')
   end
   def create
     @resource, @version = versioneer.upload video_params, current_user
