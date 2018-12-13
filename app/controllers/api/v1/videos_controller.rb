@@ -10,6 +10,10 @@ class Api::V1::VideosController < Api::V1Controller
   end
 
   api :POST, '/animes/:anime_id/videos', 'Create a video'
+  description "Supported hostings: " +
+    Video.hosting.values
+      .map { |v| "<code>#{v}</code>" }
+      .join(',')
   param :video, Hash do
     param :kind, Video.kind.values, required: true
     param :name, String, required: true
