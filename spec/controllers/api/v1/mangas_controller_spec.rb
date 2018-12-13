@@ -137,4 +137,17 @@ describe Api::V1::MangasController, :show_in_doc do
       expect(response.content_type).to eq 'application/json'
     end
   end
+
+  describe '#topics' do
+    let!(:topic) { create :topic, linked: manga, locale: 'ru' }
+    let(:manga) { create :manga }
+
+    subject! { get :topics, params: { id: manga.id }, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(collection).to have(1).item
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end

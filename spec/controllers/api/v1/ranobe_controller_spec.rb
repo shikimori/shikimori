@@ -119,4 +119,17 @@ describe Api::V1::RanobeController, :show_in_doc do
       expect(response.content_type).to eq 'application/json'
     end
   end
+
+  describe '#topics' do
+    let!(:topic) { create :topic, linked: ranobe, locale: 'ru' }
+    let(:ranobe) { create :ranobe }
+
+    subject! { get :topics, params: { id: ranobe.id }, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(collection).to have(1).item
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end

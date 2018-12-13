@@ -189,4 +189,17 @@ describe Api::V1::AnimesController, :show_in_doc do
       expect(response.content_type).to eq 'application/json'
     end
   end
+
+  describe '#topics' do
+    let!(:topic) { create :topic, linked: anime, locale: 'ru' }
+    let(:anime) { create :anime }
+
+    subject! { get :topics, params: { id: anime.id }, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(collection).to have(1).item
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end

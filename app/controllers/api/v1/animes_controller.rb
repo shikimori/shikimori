@@ -241,6 +241,22 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
     index
   end
 
+  api :GET, '/animes/:id/topics'
+  param :page, :pagination, required: false
+  param :limit, :pagination, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
+  def topics
+    @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
+
+    @collection = Topics::Query.new(@resource.all_topics)
+      .where(locale: locale_from_host)
+      .includes(:forum, :user)
+      .offset(@limit * (@page - 1))
+      .limit(@limit + 1)
+      .as_views(true, false)
+
+    respond_with @collection, each_serializer: TopicSerializer
+  end
+
   def neko # rubocop:disable MethodLength
     animes = Animes::NekoScope.call
       .select(
