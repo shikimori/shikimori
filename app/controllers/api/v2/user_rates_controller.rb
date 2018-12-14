@@ -132,7 +132,7 @@ class Api::V2::UserRatesController < Api::V2Controller
     @resource.destroy!
     log @resource
 
-    if @resource.anime? && @resource.completed?
+    if @resource.anime?
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
