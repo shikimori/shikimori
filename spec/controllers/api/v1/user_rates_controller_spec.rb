@@ -42,13 +42,9 @@ describe Api::V1::UserRatesController do
             oauth_application_id: controller.send(:doorkeeper_token)&.application_id
           )
 
-        if resource.completed?
-          expect(Achievements::Track)
-            .to have_received(:perform_async)
-            .with resource.user_id, resource.id, Types::Neko::Action[:put]
-        else
-          expect(Achievements::Track).to_not have_received :perform_async
-        end
+        expect(Achievements::Track)
+          .to have_received(:perform_async)
+          .with resource.user_id, resource.id, Types::Neko::Action[:put]
 
         expect(response).to have_http_status :success
       end
@@ -99,13 +95,9 @@ describe Api::V1::UserRatesController do
               oauth_application_id: controller.send(:doorkeeper_token)&.application_id
             )
 
-          if resource.completed?
-            expect(Achievements::Track)
-              .to have_received(:perform_async)
-              .with resource.user_id, resource.id, Types::Neko::Action[:put]
-          else
-            expect(Achievements::Track).to_not have_received :perform_async
-          end
+          expect(Achievements::Track)
+            .to have_received(:perform_async)
+            .with resource.user_id, resource.id, Types::Neko::Action[:put]
 
           expect(response).to have_http_status :success
         end
@@ -203,13 +195,9 @@ describe Api::V1::UserRatesController do
             oauth_application_id: controller.send(:doorkeeper_token)&.application_id
           )
 
-        if resource.completed?
-          expect(Achievements::Track)
-            .to have_received(:perform_async)
-            .with resource.user_id, resource.id, Types::Neko::Action[:delete]
-        else
-          expect(Achievements::Track).to_not have_received :perform_async
-        end
+        expect(Achievements::Track)
+          .to have_received(:perform_async)
+          .with resource.user_id, resource.id, Types::Neko::Action[:delete]
 
         expect(response).to have_http_status :no_content
       end
