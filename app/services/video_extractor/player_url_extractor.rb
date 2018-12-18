@@ -122,8 +122,8 @@ private
         )
       end
       # else - result will be given by VideoExtractor::RutubeExtractor
-    elsif html =~ %r{#{HTTP}play.aniland.org/(?<hash>\w+)}
-      "https://play.aniland.org/#{$LAST_MATCH_INFO[:hash]}?player=8"
+    # elsif html =~ %r{#{HTTP}play.aniland.org/(?<hash>\w+)}
+      # "https://play.aniland.org/#{$LAST_MATCH_INFO[:hash]}?player=8"
     elsif html =~ SOVET_ROMANTICA_REGEXP
       'https://sovetromantica.com/embed/episode_'\
         "#{$LAST_MATCH_INFO[:anime_id]}_#{$LAST_MATCH_INFO[:id]}"

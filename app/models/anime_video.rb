@@ -26,7 +26,7 @@ class AnimeVideo < ApplicationRecord
     #{ADULT_OVA_CONDITION}
   SQL
 
-  BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru myvi.tv]
+  BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru myvi.tv play.aniland.org]
   COPYRIGHTED_AUTHORS = /wakanim/i # |crunchyroll|crunchy|FreakCrSuBuS
 
   belongs_to :anime
