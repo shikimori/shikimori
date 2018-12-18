@@ -171,7 +171,7 @@ private
 
     log @resource
 
-    if @resource.anime? && @resource.completed?
+    if @resource.anime?
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,

@@ -85,7 +85,7 @@ class Api::V1::UserRatesController < Api::V1Controller
     @resource.destroy!
     log @resource
 
-    if @resource.anime? && @resource.completed?
+    if @resource.anime?
       Achievements::Track.perform_async(
         @resource.user_id,
         @resource.id,
@@ -95,7 +95,6 @@ class Api::V1::UserRatesController < Api::V1Controller
     head 204
   end
 
-  # очистка списка и истории
   api :DELETE, '/user_rates/:type/cleanup', 'Delete entire user rates and history'
   def cleanup
     user = current_user.object
