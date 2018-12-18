@@ -1,4 +1,4 @@
-= cache [anime_video_report, can?(:manage, anime_video_report)] do
+= cache [anime_video_report, can?(:manage, anime_video_report), can?(:destroy, anime_video_report)] do
   .b-log_entry.video.to-process[
     id=anime_video_report.id
     data-dynamic='log_entry'
