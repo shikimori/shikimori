@@ -7,9 +7,10 @@ class AnimeOnline::ResponsibleUploaders
   def call
     active_users
       .select do |user_id, uploads_count|
-        errors_count = (rejected_uploads[user_id] || 0) + (complaints_on_user[user_id] || 0)
+        rejects_count = rejected_uploads[user_id] || 0
+        errors_count = rejects_count + (complaints_on_user[user_id] || 0)
 
-        1 - errors_count * 1.0 / uploads_count >= TRUST_THRESHOLD
+        1 - errors_count * 1.0 / (uploads_count + rejects_count) >= TRUST_THRESHOLD
       end
       .map(&:first)
   end
@@ -18,6 +19,7 @@ private
 
   def active_users
     @active_users ||= user_uploads_scope
+      .where(state: :accepted)
       .select(:user_id, 'count(*) as videos')
       .group(:user_id)
       .having('count(*) >= ?', UPLOADS_TO_TRUST)
