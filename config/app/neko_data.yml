@@ -7062,9 +7062,11 @@
         - 33156
         - 33360
         - 34438
+      :threshold: 95%
+      :generator:
+        not_ignored_ids:
         - 34439
         - 34440
-      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7097,9 +7099,11 @@
         - 33156
         - 33360
         - 34438
+      :threshold: 0.01%
+      :generator:
+        not_ignored_ids:
         - 34439
         - 34440
-      :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
