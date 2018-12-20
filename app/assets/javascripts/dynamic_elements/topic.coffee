@@ -368,8 +368,11 @@ export default class Topic extends ShikiEditable
       .find('.footer-vote .vote.no, .user-vote .voted-against')
       .toggleClass('selected', @model.voted_no)
 
-    @$inner.find('.votes-for').html("#{@model.votes_for}")
-    @$inner.find('.votes-against').html("#{@model.votes_against}")
+    if @model.votes_for
+      @$inner.find('.votes-for').html("#{@model.votes_for}")
+
+    if @model.votes_against
+      @$inner.find('.votes-against').html("#{@model.votes_against}")
 
   # скрытие действий, на которые у пользователя нет прав
   _deactivate_inaccessible_buttons: =>

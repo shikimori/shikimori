@@ -1,16 +1,20 @@
 if @favourites&.any?
-  json.content JsExports::Supervisor.instance.sweep(render(
-    'clubs/collection',
-    formats: :html
-  ))
+  json.content JsExports::Supervisor.instance.sweep(
+    render(
+      'clubs/collection',
+      formats: :html
+    )
+  )
 else
-  json.content JsExports::Supervisor.instance.sweep(render(
-    partial: 'clubs/club',
-    collection: @collection,
-    locals: { content_by: :detailed },
-    cache: ->(entry, _) { CacheHelper.keys entry, :detailed },
-    formats: :html
-  ))
+  json.content JsExports::Supervisor.instance.sweep(
+    render(
+      partial: 'clubs/club',
+      collection: @collection,
+      locals: { content_by: :detailed },
+      cache: ->(entry, _) { CacheHelper.keys entry, :detailed },
+      formats: :html
+    )
+  )
 
   if @collection.next_page?
     json.postloader render(
