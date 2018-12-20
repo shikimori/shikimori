@@ -1,5 +1,5 @@
 class AnimeProfileSerializer < AnimeSerializer
-  attributes :rating, :english, :japanese, :synonyms, :kind, :aired_on,
+  attributes :rating, :english, :japanese, :synonyms, :license_name_ru, :kind, :aired_on,
     :released_on, :episodes, :episodes_aired, :duration, :score, :description,
     :description_html, :description_source, :franchise,
     :favoured, :anons, :ongoing, :thread_id, :topic_id,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_07_210249) do
+ActiveRecord::Schema.define(version: 2018_12_20_131533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 2018_12_07_210249) do
     t.integer "studio_ids", default: [], null: false, array: true
     t.string "season"
     t.string "franchise"
+    t.string "license_name_ru"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["russian"], name: "index_animes_on_russian"
@@ -618,6 +619,7 @@ ActiveRecord::Schema.define(version: 2018_12_07_210249) do
     t.integer "genre_ids", default: [], null: false, array: true
     t.integer "publisher_ids", default: [], null: false, array: true
     t.string "franchise"
+    t.string "license_name_ru"
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
