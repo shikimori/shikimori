@@ -1,6 +1,7 @@
 class MangasController < AnimesController
   UPDATE_PARAMS = %i[
     russian
+    license_name_ru
     tags
     description_ru
     description_en

@@ -22,6 +22,14 @@
           ] = t 'actions.edit'
 
         li
+          .field = @resource.class.human_attribute_name(:license_name_ru)
+          .value = @resource.license_name_ru
+          a.b-js-action.to-process[
+            href=@resource.edit_field_url(:license_name_ru)
+            data-dynamic="week_registered"
+          ] = t 'actions.edit'
+
+        li
           .field = @resource.class.human_attribute_name(:synonyms)
           .value = @resource.synonyms.join(', ')
           a.b-js-action.to-process[

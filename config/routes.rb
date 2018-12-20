@@ -1,5 +1,6 @@
 require 'sidekiq/web'
 
+
 Rails.application.routes.draw do
   user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
 
@@ -722,7 +723,7 @@ Rails.application.routes.draw do
 
     resources :animes, only: %i[edit update] do
       concerns :db_entry, fields: Regexp.new(%w{
-        name russian synonyms description_ru description_en image
+        name russian synonyms license_name_ru description_ru description_en image
         kind episodes rating duration
         screenshots videos torrents_name tags aired_on released_on genre_ids
         external_links
@@ -739,7 +740,7 @@ Rails.application.routes.draw do
     %i[mangas ranobe].each do |type|
       resources type, only: %i[edit update] do
         concerns :db_entry, fields: Regexp.new(%w{
-          name russian synonyms description_ru description_en image
+          name russian synonyms license_name_ru description_ru description_en image
           kind rating volumes chapters
           tags aired_on released_on status genre_ids
           external_links

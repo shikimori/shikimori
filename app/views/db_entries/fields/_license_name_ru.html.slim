@@ -1,10 +1,7 @@
 = simple_form_for resource.object do |f|
   .m15
-    = f.input :russian
+    = f.input :license_name_ru
     = render 'versions/reason'
-
-  .block
-    = BbCodes::Text.call Topic.find(269461).body + "[p][right][topic=269461][/topic][/right][/p]"
 
   .buttons
     a.cancel href=resource.edit_url = t 'actions.cancel'

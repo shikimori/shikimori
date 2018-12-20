@@ -27,6 +27,7 @@ ru:
         description_en_source: Источник описания (англ)
         description_ru: Описание
         description_ru_source: Источник описания
+        license_name_ru: Лицензировано в РФ под названием
         duration: Длительность эпизода
         episodes: Эпизоды
         episodes_aired: Эпизодов вышло

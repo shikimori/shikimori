@@ -13,6 +13,7 @@ class AnimesController < DbEntriesController
   ]
   UPDATE_PARAMS = %i[
     russian
+    license_name_ru
     torrents_name
     tags
     description_ru

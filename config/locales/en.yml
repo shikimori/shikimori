@@ -27,6 +27,7 @@ en:
         description_en_source: Synopsis source
         description_ru: Synopsis (rus)
         description_ru_source: Synopsis source (rus)
+        license_name_ru: Licensed in Russia name
         duration: Episode duration
         episodes: Episodes
         episodes_aired: Episodes aired
