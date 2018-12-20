@@ -133,6 +133,8 @@ module Shikimori
 
     ActiveRecord::Base.include_root_in_json = false
 
+    config.active_record.cache_versioning = true
+
     config.redis_host = Rails.env.production? ? '192.168.0.3' : 'localhost'
     config.redis_db = 2
 

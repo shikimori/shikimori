@@ -351,11 +351,6 @@ class User < ApplicationRecord
     friend_links.any? { |v| v.dst_id == user.id }
   end
 
-  # ключ для кеша по дате изменения пользователя
-  def cache_key
-    "#{id}_#{updated_at.to_i}"
-  end
-
   def banned?
     !!(read_only_at && read_only_at > Time.zone.now)
   end

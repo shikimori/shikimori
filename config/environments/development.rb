@@ -18,7 +18,7 @@ Rails.application.configure do
     config.action_controller.perform_caching = true
 
     # config.cache_store = :memory_store
-    config.cache_store = :dalli_store, 'localhost', {
+    config.cache_store = :mem_cache_store, 'localhost', {
       namespace: 'shikimori_development',
       compress: true,
       value_max_bytes: 1024 * 1024 * 128
