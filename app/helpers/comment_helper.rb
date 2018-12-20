@@ -147,22 +147,29 @@ module CommentHelper
     define_method("#{klass.name.to_underscore}_to_html") do |text|
       while text =~ matcher
         if klass == Topic || klass == Message
-          url = if klass == Message
-            message_url id: $~[:id], format: :html
-          else
-            topic_tooltip_url id: $~[:id], format: :html
-          end
+          tooltip_url =
+            if klass == Message
+              message_url id: $~[:id], format: :html
+            else
+              topic_tooltip_url id: $~[:id], format: :html
+            end
 
           begin
-            comment = klass.find $~[:id]
-            user = comment.respond_to?(:user) ? comment.user : comment.from
+            entry = klass.find $~[:id]
+            user = entry.respond_to?(:user) ? entry.user : entry.from
             name = $~[:text].present? ? $~[:text] : user.nickname
+            quote_url =
+              if klass == Message
+                profile_url user
+              else
+                UrlGenerator.instance.topic_url entry
+              end
 
             if $~[:quote].present?
               text.gsub!(
                 $~[:match],
                 <<~HTML.tr("\n", '')
-                <a href="#{profile_url user}" title="#{ERB::Util.h user.nickname}" class="bubbled b-user16" data-href="#{url}">
+                <a href="#{quote_url}" title="#{ERB::Util.h user.nickname}" class="bubbled b-user16" data-href="#{tooltip_url}">
                 <img src="#{user.avatar_url 16}" srcset="#{user.avatar_url 32} 2x" alt="#{ERB::Util.h user.nickname}" />
                 <span>#{ERB::Util.h user.nickname}</span>
                 </a>
@@ -170,11 +177,11 @@ module CommentHelper
                 HTML
               )
             else
-              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{name}</span></a>"
+              text.gsub! $~[:match], "<a href=\"#{quote_url}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{tooltip_url}\"><s>@</s><span>#{name}</span></a>"
             end
 
           rescue
-            text.gsub! $~[:match], "<span class=\"bubbled b-link\" data-href=\"#{url}\">@#{$~[:text]}</span>" if $~
+            text.gsub! $~[:match], "<span class=\"bubbled b-link\" data-href=\"#{tooltip_url}\">@#{$~[:text]}</span>" if $~
           end
 
         elsif klass == Review

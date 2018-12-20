@@ -38,7 +38,6 @@ class BbCodes::Tags::QuoteTag
     \[/quote\]
   }mix
 
-  # rubocop:disable MethodLength
   def format text
     return text unless text.include?('[/quote]')
 
@@ -53,7 +52,6 @@ class BbCodes::Tags::QuoteTag
         text
       ))))))
   end
-  # rubocop:enable MethodLength
 
 private
 
