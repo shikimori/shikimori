@@ -1,5 +1,5 @@
 class UserDecorator < BaseDecorator
-  instance_cache :clubs_for_domain
+  instance_cache :clubs_for_domain, :exact_last_online_at
   instance_cache :is_friended?, :mutual_friended?, :history
 
   def self.model_name
@@ -56,17 +56,25 @@ class UserDecorator < BaseDecorator
     end
   end
 
+  def exact_last_online_at
+    return Time.zone.now if new_record?
+
+    cached = ::Rails.cache.read(last_online_cache_key)
+    cached = Time.zone.parse(cached) if cached
+    [cached, last_online_at, current_sign_in_at, created_at].compact.max
+  end
+
   def last_online
     if object.admin?
       i18n_t 'always_online'
     elsif object.bot?
       i18n_t 'always_online_bot'
-    elsif Time.zone.now - 5.minutes <= last_online_at || object.id == User::GUEST_ID
+    elsif Time.zone.now - 5.minutes <= exact_last_online_at || object.id == User::GUEST_ID
       i18n_t 'online'
     else
       i18n_t 'offline',
-        time_ago: h.time_ago_in_words(last_online_at),
-        ago: (" #{i18n_t 'ago'}" if last_online_at > 1.day.ago)
+        time_ago: h.time_ago_in_words(exact_last_online_at),
+        ago: (" #{i18n_t 'ago'}" if exact_last_online_at > 1.day.ago)
     end
   end
 

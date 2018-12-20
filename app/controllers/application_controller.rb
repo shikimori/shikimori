@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :i18n_i, :i18n_io, :i18n_v
 
-  I18n.exception_handler = -> (exception, locale, key, options) {
+  I18n.exception_handler = ->(_exception, locale, key, _options) {
     # raise I18n::MissingTranslation, "#{locale} #{key}"
     raise I18n::NoTranslation, "#{locale} #{key}"
   }
@@ -104,9 +104,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # трогаем lastonline у текущего пользователя
   def touch_last_online
     return unless user_signed_in? && current_user.class != Symbol
+
     current_user.update_last_online
   end
 

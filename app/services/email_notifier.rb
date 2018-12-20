@@ -32,7 +32,7 @@ private
   end
 
   def offline? user
-    Time.zone.now - User::LAST_ONLINE_CACHE_INTERVAL > (user[:last_online_at] || user.created_at)
+    Time.zone.now - User::LAST_ONLINE_CACHE_INTERVAL > (user.last_online_at || user.created_at)
   end
 
   def user_daily_private_messages user

@@ -5,6 +5,10 @@ class UserProfileSerializer < UserSerializer
     :common_info, :last_online, :show_comments, :in_friends, :is_ignored,
     :stats, :style_id
 
+  def last_online_at
+    object.exact_last_online_at
+  end
+
   def website
     (object.object.website || '').sub(/^https?:\/\//, '')
   end

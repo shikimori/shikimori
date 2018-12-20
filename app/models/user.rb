@@ -274,20 +274,11 @@ class User < ApplicationRecord
     sex && sex == 'female' ? true : false
   end
 
-  # last online time from memcached/or from database
-  def last_online_at
-    return Time.zone.now if new_record?
-
-    cached = ::Rails.cache.read(last_online_cache_key)
-    cached = Time.zone.parse(cached) if cached
-    [cached, self[:last_online_at], current_sign_in_at, created_at].compact.max
-  end
-
   # updates user's last online date
   def update_last_online
     now = Time.zone.now
-    if self[:last_online_at].nil? ||
-        now - User::LAST_ONLINE_CACHE_INTERVAL > self[:last_online_at]
+
+    if last_online_at || now - User::LAST_ONLINE_CACHE_INTERVAL > last_online_at
       update_column :last_online_at, now
     else
       # wtf? Rails is crushed when it loads Time.zone type from memcached
