@@ -53,7 +53,7 @@
         data-direction='right'
       ] = entry.rating_text
 
-  - if (entry.japanese && !entry.japanese.empty?) || (entry.english && !entry.english.empty?) || (entry.synonyms && !entry.synonyms.empty?)
+  - if entry.japanese.present? || entry.english.present? || entry.synonyms.present? || entry.license_name_ru.present?
     = info_line t('.other_names') do
       span.other-names.click-loader data-href=entry.other_names_url
         span ···
