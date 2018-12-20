@@ -278,7 +278,7 @@ class User < ApplicationRecord
   def update_last_online
     now = Time.zone.now
 
-    if last_online_at || now - User::LAST_ONLINE_CACHE_INTERVAL > last_online_at
+    if last_online_at.nil? || now - User::LAST_ONLINE_CACHE_INTERVAL > last_online_at
       update_column :last_online_at, now
     else
       # wtf? Rails is crushed when it loads Time.zone type from memcached
