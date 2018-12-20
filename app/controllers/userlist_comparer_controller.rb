@@ -19,7 +19,7 @@ class UserlistComparerController < ShikimoriController
 private
 
   def fetch_entries
-    Rails.cache.fetch(cache_key, expires_in: 10.minutes) do
+    Rails.cache.fetch cache_key, expires_in: 10.minutes do
       ListCompareService.call(
         user_1: @user_1,
         user_2: @user_2,
@@ -51,8 +51,8 @@ private
   def cache_key
     [
       :list_comparer,
-      @user_1.cache_key,
-      @user_2.cache_key,
+      @user_1,
+      @user_2,
       Digest::MD5.hexdigest(params.to_yaml),
       :v2
     ]

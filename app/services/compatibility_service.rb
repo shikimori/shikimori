@@ -5,11 +5,9 @@ class CompatibilityService
   attr_accessor :rates_fetcher, :user_2
 
   def self.fetch user_1, user_2
-    cache_key = [
-      :compatibility, user_1.cache_key, user_2.cache_key, METRIC, NORMALIZATION
-    ]
+    cache_key = [:compatibility, user_1, user_2, METRIC, NORMALIZATION]
 
-    Rails.cache.fetch(cache_key) do
+    Rails.cache.fetch cache_key do
       {
         anime: new(user_1, user_2, Anime).fetch,
         manga: new(user_1, user_2, Manga).fetch
@@ -55,7 +53,7 @@ class CompatibilityService
     unless rates_fetcher
       rates_fetcher = Recommendations::RatesFetcher.new(@klass)
       rates_fetcher.user_ids = [user.id]
-      rates_fetcher.user_cache_key = user.cache_key
+      rates_fetcher.user_cache_key = user.cache_key_with_version
     end
 
     rates_fetcher.fetch(@normalization)[user.id] || {}

@@ -178,9 +178,9 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def cache_key
     CacheHelper.keys(
-      @topic.cache_key,
+      @topic,
       @topic.respond_to?(:commented_at) ? @topic.commented_at : nil,
-      @topic.linked&.cache_key,
+      @topic.linked,
       comments_view.comments_limit,
       # не заменять на preview? и minified?,
       # т.к. эти методы могут быть переопределены в наследниках

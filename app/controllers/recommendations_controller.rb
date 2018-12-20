@@ -46,7 +46,11 @@ class RecommendationsController < AnimesCollectionController
 
   def favourites
     og page_title: i18n_t("page_title.#{@view.klass.name.downcase}")
-    cache_key = [:favourites_recommendations, @view.klass, current_user, current_user.try(:sex)]
+    cache_key = [
+      :favourites_recommendations,
+      @view.klass.name,
+      current_user # user.sex used from here
+    ]
 
     all_entries = Rails.cache.fetch cache_key, expires_in: 1.week do
       limit = @view.klass == Anime ? 750 : 1250

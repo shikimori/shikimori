@@ -8,10 +8,10 @@ class Manga < DbEntry
 
   EXCLUDED_ONGOINGS = [-1]
 
-  DESYNCABLE = %w(
+  DESYNCABLE = %w[
     name synonyms kind volumes chapters aired_on released_on status genres
     description_en image external_links
-  )
+  ]
   CHAPTER_DURATION = 8
   VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day
 
@@ -145,9 +145,9 @@ class Manga < DbEntry
     value.blank? ? super(0) : super(value)
   end
 
-  def duration
-    Manga::DURATION
-  end
+  # def duration
+  #   Manga::DURATION
+  # end
 
   def forbidden?
     false

@@ -40,7 +40,7 @@ Rails.application.configure do
     }
   end
 
-  Dalli.logger = Rails.logger
+  # Dalli.logger = Rails.logger
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
