@@ -24,10 +24,12 @@
         li
           .field = @resource.class.human_attribute_name(:license_name_ru)
           .value = @resource.license_name_ru
-          a.b-js-action.to-process[
-            href=@resource.edit_field_url(:license_name_ru)
-            data-dynamic="week_registered"
-          ] = t 'actions.edit'
+          - if can? :major_change, Version
+            a.b-js-action href=@resource.edit_field_url(:license_name_ru)
+              = t '.moderators_only'
+          - else
+            .b-js-action = t '.moderators_only'
+
 
         li
           .field = @resource.class.human_attribute_name(:synonyms)

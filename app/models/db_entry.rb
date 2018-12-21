@@ -43,11 +43,13 @@ class DbEntry < ApplicationRecord
 
   def touch_related
     return unless changes[:name] || changes[:russian]
+
     Animes::TouchRelated.perform_async id
   end
 
   def mal_url
     return unless mal_id
+
     "http://myanimelist.net/#{self.class.base_class.name.downcase}/#{mal_id}"
   end
 
