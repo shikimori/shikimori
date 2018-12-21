@@ -99,7 +99,7 @@ describe User do
 
     # it 'creates registration history entry' do
       # user.history.is_expected.to have(1).item
-      # user.history.first.action.is_expected.to eq UserHistoryAction::Registration
+      # user.history.first.action.is_expected.to eq UserHistoryAction::REGISTRATION
     # end
 
     describe '#log_nickname_change' do

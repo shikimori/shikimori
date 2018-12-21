@@ -396,7 +396,7 @@ private
   end
 
   def create_history_entry
-    history.create! action: UserHistoryAction::Registration
+    history.create! action: UserHistoryAction::REGISTRATION
   end
 
   def log_nickname_change

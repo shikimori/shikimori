@@ -2,17 +2,17 @@ class Profiles::HistoryView < ViewObjectBase
   vattr_initialize :user
 
   SHIKIMORI_ACTIONS = [
-    UserHistoryAction::Registration,
-    UserHistoryAction::AnimeImport,
-    UserHistoryAction::MangaImport
+    UserHistoryAction::REGISTRATION,
+    UserHistoryAction::ANIME_IMPORT,
+    UserHistoryAction::MANGA_IMPORT
   ]
   MAL_IMPORT_ACTIONS = [
-    UserHistoryAction::MalAnimeImport,
-    UserHistoryAction::MalMangaImport
+    UserHistoryAction::MAL_ANIME_IMPORT,
+    UserHistoryAction::MAL_MANGA_IMPORT
   ]
   AP_IMPORT_ACTIONS = [
-    UserHistoryAction::ApAnimeImport,
-    UserHistoryAction::ApMangaImport
+    UserHistoryAction::AP_ANIME_IMPORT,
+    UserHistoryAction::AP_MANGA_IMPORT
   ]
 
   LIMIT = 4

@@ -27,10 +27,10 @@ class UserStatisticsQuery
       .history
       .where(target_type: Anime.name)
       .where("action in (?) or (action = ? and value in (?))",
-              [UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore, UserHistoryAction::Add],
-              UserHistoryAction::Status,
+              [UserHistoryAction::EPISODES, UserHistoryAction::COMPLETE_WITH_SCORE, UserHistoryAction::ADD],
+              UserHistoryAction::STATUS,
               [UserRate.statuses[:completed].to_s, UserRate.statuses[:rewatching].to_s])
-    #@imports = @user.history.where(action: [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport])
+    #@imports = @user.history.where(action: [UserHistoryAction::MAL_ANIME_IMPORT, UserHistoryAction::AP_ANIME_IMPORT, UserHistoryAction::MAL_MANGA_IMPORT, UserHistoryAction::AP_MANGA_IMPORT])
 
     @manga_rates = @user
       .manga_rates
@@ -46,8 +46,8 @@ class UserStatisticsQuery
       .history
       .where(target_type: Manga.name)
       .where("action in (?) or (action = ? and value in (?))",
-              [UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore, UserHistoryAction::Add],
-              UserHistoryAction::Status,
+              [UserHistoryAction::CHAPTERS, UserHistoryAction::COMPLETE_WITH_SCORE, UserHistoryAction::ADD],
+              UserHistoryAction::STATUS,
               [UserRate.statuses[:completed].to_s, UserRate.statuses[:rewatching].to_s])
   end
 
@@ -76,11 +76,11 @@ class UserStatisticsQuery
 
     # добавленные аниме
     added = histories
-      .select { |v| v.action == UserHistoryAction::Add }
+      .select { |v| v.action == UserHistoryAction::ADD }
       .uniq { |v| [v.target_id, v.target_type] }
 
     # удаляем все добавленыне
-    histories.delete_if { |v| v.action == UserHistoryAction::Add }
+    histories.delete_if { |v| v.action == UserHistoryAction::ADD }
 
     # кеш для быстрой проверки наличия в истории
     present_histories = histories.each_with_object({}) do |v, rez|
@@ -105,7 +105,7 @@ class UserStatisticsQuery
     histories = histories + added
 
     imported = Set.new histories
-      .select { |v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore }
+      .select { |v| v.action == UserHistoryAction::STATUS || v.action == UserHistoryAction::COMPLETE_WITH_SCORE }
       .group_by { |v| v.updated_at.strftime DATE_FORMAT }
       .select { |k, v| v.size > 15 }
       .values.flatten
@@ -168,16 +168,16 @@ class UserStatisticsQuery
         cached = rates_cache["#{entry.target_id}#{entry.target_type}"]
 
         # запись о начале пересмотра - сбрасывем счётчик
-        if entry.action == UserHistoryAction::Status && entry.value.to_i == UserRate.status_id(:rewatching)
+        if entry.action == UserHistoryAction::STATUS && entry.value.to_i == UserRate.status_id(:rewatching)
           cached[:completed]
           next
         end
 
-        entry_time = cached[:duration]/60.0 * if entry.action == UserHistoryAction::CompleteWithScore || entry.action == UserHistoryAction::Status
+        entry_time = cached[:duration]/60.0 * if entry.action == UserHistoryAction::COMPLETE_WITH_SCORE || entry.action == UserHistoryAction::STATUS
           completed = cached[:completed]
 
           # запись о завершении просмотра - ставим счётчик просмотренного на общее число эпизодов
-          if entry.action == UserHistoryAction::Status && entry.value.to_i == UserRate.status_id(:completed)
+          if entry.action == UserHistoryAction::STATUS && entry.value.to_i == UserRate.status_id(:completed)
             cached[:completed] = cached[:episodes]
           end
 

@@ -1,14 +1,14 @@
 class UserDataFetcherBase
   KLASS_HISTORIES = {
     Anime => [
-      UserHistoryAction::MalAnimeImport,
-      UserHistoryAction::ApAnimeImport,
-      UserHistoryAction::AnimeHistoryClear
+      UserHistoryAction::MAL_ANIME_IMPORT,
+      UserHistoryAction::AP_ANIME_IMPORT,
+      UserHistoryAction::ANIME_HISTORY_CLEAR
     ],
     Manga => [
-      UserHistoryAction::MalMangaImport,
-      UserHistoryAction::ApMangaImport,
-      UserHistoryAction::MangaHistoryClear
+      UserHistoryAction::MAL_MANGA_IMPORT,
+      UserHistoryAction::AP_MANGA_IMPORT,
+      UserHistoryAction::MANGA_HISTORY_CLEAR
     ]
   }
 

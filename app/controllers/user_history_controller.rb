@@ -51,9 +51,9 @@ private
 
   def clear_action
     if anime?
-      UserHistoryAction::AnimeHistoryClear
+      UserHistoryAction::ANIME_HISTORY_CLEAR
     else
-      UserHistoryAction::MangaHistoryClear
+      UserHistoryAction::MANGA_HISTORY_CLEAR
     end
   end
 

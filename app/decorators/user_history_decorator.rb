@@ -1,14 +1,14 @@
 class UserHistoryDecorator < BaseDecorator
   WATCHED = {
-    UserHistoryAction::Episodes => 'watched_episodes',
-    UserHistoryAction::Volumes => 'read_volumes',
-    UserHistoryAction::Chapters => 'read_chapters'
+    UserHistoryAction::EPISODES => 'watched_episodes',
+    UserHistoryAction::VOLUMES => 'read_volumes',
+    UserHistoryAction::CHAPTERS => 'read_chapters'
   }
 
   EPISODES = {
-    UserHistoryAction::Episodes => 'episode',
-    UserHistoryAction::Volumes => 'volume',
-    UserHistoryAction::Chapters => 'chapter'
+    UserHistoryAction::EPISODES => 'episode',
+    UserHistoryAction::VOLUMES => 'volume',
+    UserHistoryAction::CHAPTERS => 'chapter'
   }
 
   def time_ago interval
@@ -29,30 +29,30 @@ class UserHistoryDecorator < BaseDecorator
 
   def format
     case action
-      when UserHistoryAction::MalAnimeImport,
-          UserHistoryAction::MalMangaImport,
-          UserHistoryAction::ApAnimeImport,
-          UserHistoryAction::ApMangaImport,
-          UserHistoryAction::AnimeImport,
-          UserHistoryAction::MangaImport
+      when UserHistoryAction::MAL_ANIME_IMPORT,
+          UserHistoryAction::MAL_MANGA_IMPORT,
+          UserHistoryAction::AP_ANIME_IMPORT,
+          UserHistoryAction::AP_MANGA_IMPORT,
+          UserHistoryAction::ANIME_IMPORT,
+          UserHistoryAction::MANGA_IMPORT
         kind = action =~ /anime/i ? :anime : :manga
         records = "#{value} #{i18n_i 'record', value.to_i}"
 
         i18n_t "actions.import.#{kind}", value: records
 
-      when UserHistoryAction::Registration,
-          UserHistoryAction::Add,
-          UserHistoryAction::Delete,
-          UserHistoryAction::AnimeHistoryClear,
-          UserHistoryAction::MangaHistoryClear
+      when UserHistoryAction::REGISTRATION,
+          UserHistoryAction::ADD,
+          UserHistoryAction::DELETE,
+          UserHistoryAction::ANIME_HISTORY_CLEAR,
+          UserHistoryAction::MANGA_HISTORY_CLEAR
         i18n_t "actions.#{action}"
 
-      when UserHistoryAction::Status
+      when UserHistoryAction::STATUS
         status_name = UserRate.statuses.find { |k,v| v == value.to_i }.first
         I18n.t "user_history_decorator.actions.status.#{status_name}",
           default: UserRate.status_name(value.to_i, target.class.name)
 
-      when UserHistoryAction::Episodes, UserHistoryAction::Volumes, UserHistoryAction::Chapters
+      when UserHistoryAction::EPISODES, UserHistoryAction::VOLUMES, UserHistoryAction::CHAPTERS
         history_episodes = send action
         target_episodes = target.send action
 
@@ -73,7 +73,7 @@ class UserHistoryDecorator < BaseDecorator
           episodes_text send("watched_#{action}"), prior_value.to_i, action
         end
 
-      when UserHistoryAction::Rate
+      when UserHistoryAction::RATE
         rate_action = if value == '0'
           :cancelled
         elsif prior_value && prior_value != '0'
@@ -84,7 +84,7 @@ class UserHistoryDecorator < BaseDecorator
 
         i18n_t "actions.rate.#{rate_action}", prior_score: prior_value, score: value
 
-      when UserHistoryAction::CompleteWithScore
+      when UserHistoryAction::COMPLETE_WITH_SCORE
         i18n_t 'actions.complete_with_score',
           status_name: UserRate.status_name(:completed, target.class.name),
           score: value

@@ -181,13 +181,13 @@ private
 
   # запись в историю о занесении в список
   def log_created
-    UserHistory.add user, target, UserHistoryAction::Add
+    UserHistory.add user, target, UserHistoryAction::ADD
 
     unless planned?
       UserHistory.add(
         user,
         target,
-        UserHistoryAction::Status,
+        UserHistoryAction::STATUS,
         UserRate.statuses[status]
       )
     end
@@ -196,7 +196,7 @@ private
       UserHistory.add(
         user,
         target,
-        UserHistoryAction::Rate,
+        UserHistoryAction::RATE,
         score
       )
     end
@@ -208,7 +208,7 @@ private
       UserHistory.add(
         user,
         target,
-        UserHistoryAction::Status,
+        UserHistoryAction::STATUS,
         UserRate.statuses[changes['status'].second],
         UserRate.statuses[changes['status'].first]
       )
@@ -242,7 +242,7 @@ private
       UserHistory.add(
         user,
         target,
-        UserHistoryAction::Rate,
+        UserHistoryAction::RATE,
         score,
         changes['score'].first
       )
@@ -251,6 +251,6 @@ private
 
   # запись в историю об удалении из списка
   def log_deleted
-    UserHistory.add user, target, UserHistoryAction::Delete
+    UserHistory.add user, target, UserHistoryAction::DELETE
   end
 end

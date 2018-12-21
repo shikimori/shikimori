@@ -34,37 +34,37 @@ class UserHistory < ApplicationRecord
     # аниме просмотрено и сразу же поставлена оценка
     if last_entry && (
       (
-        action == UserHistoryAction::Status &&
+        action == UserHistoryAction::STATUS &&
         value == UserRate.statuses[:completed] &&
-        last_entry.action == UserHistoryAction::Rate
+        last_entry.action == UserHistoryAction::RATE
       ) || (
-        action == UserHistoryAction::Rate &&
-        last_entry.action == UserHistoryAction::Status &&
+        action == UserHistoryAction::RATE &&
+        last_entry.action == UserHistoryAction::STATUS &&
         last_entry.value.to_i == UserRate.statuses[:completed]
       )
     )
       return last_entry.update(
-        action: UserHistoryAction::CompleteWithScore,
-        value: action == UserHistoryAction::Status ? last_entry.value : value
+        action: UserHistoryAction::COMPLETE_WITH_SCORE,
+        value: action == UserHistoryAction::STATUS ? last_entry.value : value
       )
     end
 
     no_last_this_entry_search = false
     case action
-      when UserHistoryAction::Status
+      when UserHistoryAction::STATUS
 
-      when UserHistoryAction::Add
+      when UserHistoryAction::ADD
         last_delete = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target: item)
-          .where(action: UserHistoryAction::Delete)
+          .where(action: UserHistoryAction::DELETE)
           .where('updated_at > ?', DELETE_BACKWARD_CHECK_INTERVAL.ago)
           .order(:id)
           .first
 
         return last_delete.destroy if last_delete
 
-      when UserHistoryAction::Delete
+      when UserHistoryAction::DELETE
         prior_entries = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target: item)
@@ -72,18 +72,18 @@ class UserHistory < ApplicationRecord
           .order(:id)
           .to_a
 
-        if last_entry && last_entry.action == UserHistoryAction::Add
+        if last_entry && last_entry.action == UserHistoryAction::ADD
           last_entry.destroy
           return
         end
-        if !prior_entries.empty? && prior_entries.first.action == UserHistoryAction::Add
+        if !prior_entries.empty? && prior_entries.first.action == UserHistoryAction::ADD
           prior_entries.each(&:destroy)
           return
         else
           prior_entries.each(&:destroy)
         end
 
-      when UserHistoryAction::Rate
+      when UserHistoryAction::RATE
         # если prior_value=nil, то считаем, что это ноль
         prior_value ||= 0
 
@@ -96,21 +96,21 @@ class UserHistory < ApplicationRecord
         value = 0 if value.negative?
 
         # если сняли оценку(поставили 0), а недавно её поставили, то удаляем обе записи
-        if value.zero? && last_entry && last_entry.action == UserHistoryAction::Rate
+        if value.zero? && last_entry && last_entry.action == UserHistoryAction::RATE
           last_entry.destroy
           return
         end
         # если поставили поставили 0, и раньше был ноль, то ничего не делаем
         return if value.zero? && prior_value.zero?
 
-      when UserHistoryAction::Episodes, UserHistoryAction::Volumes, UserHistoryAction::Chapters
+      when UserHistoryAction::EPISODES, UserHistoryAction::VOLUMES, UserHistoryAction::CHAPTERS
         counter =
           case action
-            when UserHistoryAction::Episodes
+            when UserHistoryAction::EPISODES
               'episodes'
-            when UserHistoryAction::Volumes
+            when UserHistoryAction::VOLUMES
               'volumes'
-            when UserHistoryAction::Chapters
+            when UserHistoryAction::CHAPTERS
               'chapters'
           end
 
@@ -177,7 +177,7 @@ class UserHistory < ApplicationRecord
         .where(action: action)
         .first
 
-      if entry && action == UserHistoryAction::Rate
+      if entry && action == UserHistoryAction::RATE
         # для оценок изначальную оценку не меняем
         prior_value = entry.prior_value
 

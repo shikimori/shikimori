@@ -76,7 +76,7 @@ describe UserHistoryController do
 
         it do
           expect(user.history).to have(1).item
-          expect(user.history.first.action).to eq UserHistoryAction::AnimeHistoryClear
+          expect(user.history.first.action).to eq UserHistoryAction::ANIME_HISTORY_CLEAR
           expect(response).to have_http_status :success
         end
       end
@@ -87,7 +87,7 @@ describe UserHistoryController do
 
         it do
           expect(user.history).to have(1).item
-          expect(user.history.first.action).to eq UserHistoryAction::MangaHistoryClear
+          expect(user.history.first.action).to eq UserHistoryAction::MANGA_HISTORY_CLEAR
           expect(response).to have_http_status :success
         end
       end

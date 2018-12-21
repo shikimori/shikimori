@@ -141,14 +141,14 @@ describe UserRate do
           expect(UserHistory).to have_received(:add).with(
             user_rate.user,
             user_rate.target,
-            UserHistoryAction::Status,
+            UserHistoryAction::STATUS,
             UserRate.statuses[new_status],
             UserRate.statuses[old_status]
           ).ordered
           expect(UserHistory).to have_received(:add).with(
             user_rate.user,
             user_rate.target,
-            UserHistoryAction::Episodes,
+            UserHistoryAction::EPISODES,
             new_episodes,
             0
           ).ordered
@@ -169,7 +169,7 @@ describe UserRate do
         expect(UserHistory).to receive(:add).with(
           user_rate.user,
           user_rate.target,
-          UserHistoryAction::Status,
+          UserHistoryAction::STATUS,
           UserRate.statuses[new_status],
           UserRate.statuses[old_status]
         )
@@ -281,7 +281,7 @@ describe UserRate do
       context 'regular change' do
         let(:new_value) { 8 }
 
-        before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Rate, new_value, old_value }
+        before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::RATE, new_value, old_value }
         before { user_rate.update score: new_value }
 
         its(:score) { is_expected.to eq new_value }
@@ -325,7 +325,7 @@ describe UserRate do
         before { user_rate.update episodes: new_value }
 
         context 'regular_change' do
-          before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Episodes, newest_value, new_value }
+          before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::EPISODES, newest_value, new_value }
           before { user_rate.update episodes: 7 }
 
           let(:old_value) { 3 }
@@ -454,7 +454,7 @@ describe UserRate do
         it do
           expect(UserHistory)
             .to have_received(:add)
-            .with user_rate.user, user_rate.target, UserHistoryAction::Add
+            .with user_rate.user, user_rate.target, UserHistoryAction::ADD
         end
       end
 
@@ -464,20 +464,20 @@ describe UserRate do
         it do
           expect(UserHistory)
             .to have_received(:add)
-            .with(user_rate.user, user_rate.target, UserHistoryAction::Add)
+            .with(user_rate.user, user_rate.target, UserHistoryAction::ADD)
             .ordered
           expect(UserHistory)
             .to have_received(:add)
             .with(
               user_rate.user,
               user_rate.target,
-              UserHistoryAction::Status,
+              UserHistoryAction::STATUS,
               UserRate.statuses['completed']
             )
             .ordered
           expect(UserHistory)
             .to have_received(:add)
-            .with(user_rate.user, user_rate.target, UserHistoryAction::Rate, 5)
+            .with(user_rate.user, user_rate.target, UserHistoryAction::RATE, 5)
             .ordered
         end
       end
@@ -494,7 +494,7 @@ describe UserRate do
       it do
         expect(UserHistory)
           .to have_received(:add)
-          .with(user_rate.user, user_rate.target, UserHistoryAction::Delete)
+          .with(user_rate.user, user_rate.target, UserHistoryAction::DELETE)
       end
     end
 
