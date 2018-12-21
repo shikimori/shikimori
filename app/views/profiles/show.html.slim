@@ -1,3 +1,5 @@
+/ = UserProfileSerializer.new(@resource).to_json
+
 - content_for :head do
   = auto_discovery_link_tag :rss,
     profile_url(@resource, format: :rss),
@@ -318,16 +320,16 @@
   - if @view.achievements_preview_view.available?
     = render 'profiles/achievements', view: @view.achievements_preview_view
 
-  - if @resource.about_html.present?
+  - if @view.about_html.present?
     .about.block
       - if @view.own_profile?
         .subheadline-buttons
           a.item-edit href=@resource.edit_url(page: 'profile')
       .subheadline
         = t('.about')
-      = @resource.about_html
+      = @view.about_html
 
-  - if @resource.show_comments?
+  - if @view.show_comments?
     .block
       .subheadline.m3
         - if @resource.preview_comments_view.comments_count.positive?

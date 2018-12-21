@@ -10,7 +10,7 @@ class UserProfileSerializer < UserSerializer
   end
 
   def website
-    (object.object.website || '').sub(/^https?:\/\//, '')
+    (object.object.website || '').sub(%r{^https?://}, '')
   end
 
   def stats
@@ -19,21 +19,21 @@ class UserProfileSerializer < UserSerializer
       full_statuses: object.stats.full_statuses,
       scores: {
         anime: object.stats.scores(:anime),
-        manga: object.stats.scores(:manga),
+        manga: object.stats.scores(:manga)
       },
       types: {
         anime: object.stats.kinds(:anime),
-        manga: object.stats.kinds(:manga),
+        manga: object.stats.kinds(:manga)
       },
       ratings: {
-        anime: object.stats.anime_ratings,
+        anime: object.stats.anime_ratings
       },
       has_anime?: object.stats.anime?,
       has_manga?: object.stats.manga?,
-      genres: [],#object.stats.genres,
-      studios: [],#object.stats.studios,
-      publishers: [],#object.stats.publishers,
-      activity: object.stats.activity(26),
+      genres: [], # object.stats.genres,
+      studios: [], # object.stats.studios,
+      publishers: [], # object.stats.publishers,
+      activity: object.stats.activity(26)
     }
   end
 
@@ -46,7 +46,7 @@ class UserProfileSerializer < UserSerializer
   end
 
   def about_html
-    object.about_html&.gsub(%r{(?<!:)//(?=\w)}, 'http://') || ''
+    view.about_html&.gsub(%r{(?<!:)//(?=\w)}, 'http://') || ''
   end
 
   def banned
@@ -54,6 +54,12 @@ class UserProfileSerializer < UserSerializer
   end
 
   def show_comments
-    object.show_comments?
+    view.show_comments?
+  end
+
+private
+
+  def view
+    @view ||= Profiles::View.new object
   end
 end

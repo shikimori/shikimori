@@ -1,4 +1,4 @@
-# TODO: refactor to view object
+# TODO: move methods into Profiles::View and other classes
 class UserProfileDecorator < UserDecorator
   instance_cache :all_compatibility, :friends, :ignored?, :stats,
     :nickname_changes, :favorites,
@@ -9,27 +9,10 @@ class UserProfileDecorator < UserDecorator
   # (reported by moderators or roskomnadzor)
   BANNED_PROFILES = %w[7683]
 
-  def banned_profile?
-    BANNED_PROFILES.include? object.id.to_s
-  end
-
   def website
     return '' if website_host.blank?
 
     h.link_to h.h(website_host), h.h(website_url), class: 'website'
-  end
-
-  def about_html
-    return if banned_profile?
-
-    Rails.cache.fetch [:about, object] do
-      BbCodes::Text.call about || ''
-    end
-  end
-
-  def show_comments?
-    !banned_profile? &&
-      (h.user_signed_in? || comments.any?) && preferences.comments_in_profile?
   end
 
   # def full_counts

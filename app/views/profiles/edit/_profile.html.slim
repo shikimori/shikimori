@@ -7,21 +7,19 @@
     = f.input :anime_in_profile
     = f.input :manga_in_profile
     = f.input :favorites_in_profile
-    - unless @resource.banned_profile?
-      = f.input :comments_in_profile
+    = f.input :comments_in_profile
     = f.input :statistics_start_on,
         label: t('.display_activity_graph_since'),
         start_year: @resource.created_at.year,
         end_year: Time.zone.today.year,
         default: @resource.created_at
 
-  - unless @resource.banned_profile?
-    .b-options-floated.about-options
-      = f.input :about_on_top
-    .block
-      .subheadline.m10 = t '.about_me'
-      .b-shiki_editor.unprocessed
-        = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
+  .b-options-floated.about-options
+    = f.input :about_on_top
+  .block
+    .subheadline.m10 = t '.about_me'
+    .b-shiki_editor.unprocessed
+      = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
 
   .buttons
     a.cancel href=@resource.url = t 'actions.cancel'
