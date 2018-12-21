@@ -205,10 +205,10 @@ class UserHistory < ApplicationRecord
   %w[episodes volumes chapters].each do |counter| # rubocop:disable BlockLength
     define_method(counter) do
       return @parsed_episodes if @parsed_episodes
-      if action != UserHistoryAction.const_get(counter.capitalize)
+      if action != UserHistoryAction.const_get(counter.upcase)
         raise <<-TEXT.squish
           Got action:#{action}, but
-          expected action:#{UserHistoryAction.const_get counter.capitalize}
+          expected action:#{UserHistoryAction.const_get counter.upcase}
         TEXT
       end
 
@@ -216,10 +216,10 @@ class UserHistory < ApplicationRecord
     end
 
     define_method("#{counter}=") do |value|
-      if action != UserHistoryAction.const_get(counter.capitalize)
+      if action != UserHistoryAction.const_get(counter.upcase)
         raise <<-TEXT.squish
           Got action:#{action}, but
-          expected action:#{UserHistoryAction.const_get counter.capitalize}
+          expected action:#{UserHistoryAction.const_get counter.upcase}
         TEXT
       end
 
@@ -229,10 +229,10 @@ class UserHistory < ApplicationRecord
 
     # полный список всех эпизодов с учетом прошлых эпизодов в prior_value
     define_method("watched_#{counter}") do
-      if action != UserHistoryAction.const_get(counter.capitalize)
+      if action != UserHistoryAction.const_get(counter.upcase)
         raise <<-TEXT.squish
           Got action:#{action}, but
-          expected action:#{UserHistoryAction.const_get counter.capitalize}
+          expected action:#{UserHistoryAction.const_get counter.upcase}
         TEXT
       end
 

@@ -62,7 +62,7 @@ private
     elsif AP_IMPORT_ACTIONS.include? action
       format_ap_import entries
 
-    elsif entry.target.nil?
+    elsif entries.first.target.nil?
       nil
 
     else

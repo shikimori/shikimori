@@ -232,7 +232,7 @@ private
       UserHistory.add(
         user,
         target,
-        UserHistoryAction.const_get(counter.capitalize),
+        UserHistoryAction.const_get(counter.upcase),
         self[counter],
         changes[counter].first
       )
