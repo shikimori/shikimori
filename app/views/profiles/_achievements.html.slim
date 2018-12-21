@@ -1,6 +1,6 @@
 .block.achievements
   .subheadline
-    a href=profile_achievements_url(user) = t '.achievements'
+    a href=profile_achievements_url(view.user) = t '.achievements'
   .cc-3
     .c-column
       .header
@@ -8,7 +8,7 @@
       - if view.common_achievements.any?
         .cc-achievements
           = render partial: 'users/achievements/badge',
-            collection: view.common_achievements.shuffle.take(4).sort_by(&:sort_criteria),
+            collection: view.common_achievements,
             as: :achievement
       - else
         p.b-nothing_here = t '.no_achievements'
@@ -18,7 +18,7 @@
       - if view.genre_achievements.any?
         .cc-achievements
           = render partial: 'users/achievements/badge',
-            collection: view.genre_achievements.shuffle.take(4).sort_by(&:sort_criteria),
+            collection: view.genre_achievements,
             as: :achievement
       - else
         p.b-nothing_here = t '.no_achievements'
@@ -26,12 +26,12 @@
       .header
         .title = t 'achievements.group.franchise'
         a.size[
-          href=franchise_profile_achievements_url(@resource)
-        ] #{view.franchise_achievements_count} / #{view.all_franchise_achievements.size}
-      .cc-franchises
-        = render partial: 'users/achievements/badge',
-          collection: view.franchise_achievements.take(12),
-          as: :achievement
-
-      - if view.franchise_achievements.none? && view.missing_franchise_achievements.none?
+          href=franchise_profile_achievements_url(view.user)
+        ] #{view.franchise_achievements_size} / #{view.all_franchise_achievements.size}
+      - if view.franchise_achievements.any?
+        .cc-franchises
+          = render partial: 'users/achievements/badge',
+            collection: view.franchise_achievements,
+            as: :achievement
+      - else
         p.b-nothing_here = t '.no_achievements'

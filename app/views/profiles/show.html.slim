@@ -315,8 +315,8 @@
             - else
               .b-nothing_here = t('.no_favourite')
 
-  - if Users::AchievementsController::ACHIEVEMENTS_CLUB_USER_IDS.include?(@resource.id) || current_user.admin?
-    = render 'profiles/achievements', view: @achievements_view, user: @resource
+  - if @view.achievements_preview_view.available?
+    = render 'profiles/achievements', view: @view.achievements_preview_view
 
   - if @resource.about_html.present?
     .about.block

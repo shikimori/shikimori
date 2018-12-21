@@ -24,7 +24,7 @@
         .b-options-floated.mobile-phone.before-buttons-2
           a[
             href=franchise_profile_achievements_url(@resource)
-          ] #{@view.franchise_achievements_count} / #{@view.all_franchise_achievements.size}
+          ] #{@view.franchise_achievements_size} / #{@view.all_franchise_achievements.size}
         .subheadline-buttons
           = render 'blocks/list_switchers',
             name: 'franchises_order',

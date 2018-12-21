@@ -21,7 +21,7 @@ class ProfilesController < ShikimoriController
         .read_messages(kind: MessageType::PROFILE_COMMENTED)
     end
 
-    @achievements_view = AchievementsView.new @resource
+    @view = ProfileView.new @resource
   end
 
   def friends
@@ -185,7 +185,7 @@ class ProfilesController < ShikimoriController
     @ban = Ban.new user_id: @resource.id
   end
 
-  def edit
+  def edit # rubocop:disable AbcSize
     authorize! :edit, @resource
     og page_title: t(:settings)
 
@@ -203,7 +203,7 @@ class ProfilesController < ShikimoriController
     @resource.email = '' if @resource.email =~ /^generated_/ && params[:action] == 'edit'
   end
 
-  def update
+  def update # rubocop:disable AbcSize
     authorize! :update, @resource
 
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'

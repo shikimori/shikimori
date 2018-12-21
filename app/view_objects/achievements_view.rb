@@ -22,7 +22,7 @@ class AchievementsView < ViewObjectBase
       .sort_by { |rule| [rule.level.zero? ? 1 : 0] + franchise_sort_criteria(rule) }
   end
 
-  def franchise_achievements_count
+  def franchise_achievements_size
     franchise_achievements.select { |rule| rule.level == 1 }.size
   end
 
@@ -39,7 +39,7 @@ class AchievementsView < ViewObjectBase
       .reject { |rule| franchise_achievements.map(&:neko_id).include? rule.neko_id }
       .select { |rule| rule.level.zero? }
       .take(
-        missing_franchise_achievements_count(
+        missing_franchise_achievements_size(
           genre_achievements.size, franchise_achievements.size
         )
       )
@@ -55,19 +55,19 @@ private
       .map(&:last)
   end
 
-  def missing_franchise_achievements_count(
+  def missing_franchise_achievements_size(
     genre_achievements_count,
-    franchise_achievements_count
+    franchise_achievements_size
   )
     count = [
       (genre_achievements_count * 6.66).round -
         STUDIOS_LINE_COUNT -
-        franchise_achievements_count,
+        franchise_achievements_size,
       0
     ].max
 
     missing_row_count = ACHIEVEMENTS_PER_ROW -
-      (franchise_achievements_count + count) % ACHIEVEMENTS_PER_ROW
+      (franchise_achievements_size + count) % ACHIEVEMENTS_PER_ROW
 
     count + (missing_row_count == ACHIEVEMENTS_PER_ROW ? 0 : missing_row_count)
   end
