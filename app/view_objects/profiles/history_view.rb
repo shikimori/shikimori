@@ -71,13 +71,17 @@ private
   end
 
   def format_shikimori_action entries
+    entry = entries.first
+
     Users::FormattedHistory.new(
       image: '/assets/blocks/history/shikimori.x43.png',
       name: Shikimori::DOMAIN,
       action: entries.reverse.map(&:format).join(', ').html_safe,
-      action_info: I18n.t("enumerize.user_history_action.action.#{entries.first.action}"),
-      created_at: entries.first.created_at,
-      url: "http://#{Shikimori::DOMAIN}"
+      action_info: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
+      created_at: entry.created_at,
+      url: entry.target_type == ListImport.name ?
+        h.profile_list_import_url(entry.user, entry.target_id) :
+        "http://#{Shikimori::DOMAIN}"
     )
   end
 

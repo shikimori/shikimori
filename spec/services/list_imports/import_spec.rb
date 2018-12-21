@@ -40,7 +40,8 @@ describe ListImports::Import do
       expect(user.history).to have(1).item
       expect(user.history.first).to have_attributes(
         action: UserHistoryAction::ANIME_IMPORT,
-        value: 1
+        value: '1',
+        target: list_import
       )
 
       expect(Achievements::Track)
