@@ -54,23 +54,29 @@ module Copyright
   WAKANIM_COPYRIGHTED = [
     36144, # Garo: Vanishing Line | Russia + Eastern Europe 2017-10-01 - 2024-10-01
     35078, # Mitsuboshi Colors | Russia + Europe except Italy&Spanish 2018-08-01 - 2022-07-01
-    33354, # Cardcaptor Sakura: Clear Card-hen | Russia + French 2018-01-01 - 2025-12-31
-    35320, # Cardcaptor Sakura: Clear Card-hen Prologue - Sakura to Futatsu no Kuma | Russia + French 2018-01-01 - 2025-12-31
+    33354, # Cardcaptor Sakura: Clear Card (Cardcaptor Sakura: Clear Card-hen) | Russia + French 2018-01-01 - 2025-12-31
+    35320, # Cardcaptor Sakura: Clear Card Prologue (Cardcaptor Sakura: Clear Card-hen Prologue - Sakura to Futatsu no Kuma) | Russia + French 2018-01-01 - 2025-12-31
     35073, # Overlord II | Russia 2018-01-01 - 2022-01-01
     33478, # UQ Holder!: Mahou Sensei Negima! 2 | Russia 2017-10-01 - 2024-10-01
     36027, # King's Game | Russia + French 2017-10-01 - 2024-10-01
     35838, # Girls' Last Tour | Russia + French 2017-10-01 - 2020-10-01
     35712, # My Girlfriend is too much to handle | Russia + French 2017-10-01 - 2020-10-01
-    36094, # Hakumei to Mikochi | Russia + French 2018-01-01 - 2022-01-01
+    36094, # Hakumei and Mikochi (Hakumei to Mikochi) | Russia + French 2018-01-01 - 2022-01-01
     1546, # Negima?! | Russia + French 2018-01-01 - 2022-01-01
-    157, # Mahou Sensei Negima! | Russia + French 2018-01-01 - 2022-01-01
-    34279, # Grancrest Senki | Russia + East Europe - 2018-01-01 - 2025-12-31
+    157, # Negima! (Mahou Sensei Negima!) | Russia + French 2018-01-01 - 2022-01-01
+    34279, # Record of Grancrest War (Grancrest Senki) | Russia + East Europe - 2018-01-01 - 2025-12-31
     35997, # Marchen Madchen | Russia + Europe - 2018-01-11 - 2020-01-11
     36511, # Tokyo Ghoul:re | Russia + East Europe - 2018-04-01 - 2023-04-01
     30484, # Steins;Gate 0 | Russia + Germany - 2018-04-01 - 2025-04-01
     16498, # Attack on Titan 1 | Russia - 2018-07-22 - 2022-07-21
     25777, # Attack on Titan 2 | Russia - 2018-07-22 - 2022-07-21
     35760, # Attack on Titan 3 | Russia - 2018-07-22 - 2022-07-21
+    37597, # Dakaretai Otoko 1-i ni Odosarete Imasu | Russia + Europe - 2018-10-01 - 2023-10-01
+    37450, # Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai | Russia + Erope - 2018-10-01 - 2023-10-01
+    36474, # Sword Art Online: Alicization | Russia + Erope - 2018-10-01 - 2025-10-01
+    35540, # Slow Start | Russia + Europe - 2018-01-01 - 2025-01-01
+    37349, # Goblin Slayer | Russia - 2018-10-01 - 2022-09-30
+    31646, # March comes in like a lion | Russia + Europe - 2017-07-01 - 2024-07-01
     # 37675, # Overlord III
     # 37140, # GeGeGe no Kitaro
     # 36726, # Yuuna and the Haunted Hot Springs
