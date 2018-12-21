@@ -2,8 +2,8 @@ ru:
   achievements:
     group:
       common: Общие
-      genre: По жанрам
-      franchise: По франшизам
+      genre: Жанровые
+      franchise: Франшизы
       creator: Режиссёры и студии
     neko_name:
       action: Боевик

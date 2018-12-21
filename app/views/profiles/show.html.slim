@@ -36,14 +36,14 @@
   .c-brief
     .avatar
       img[
-        src=@resource.avatar_url(160)
+        src=@view.avatar_url(160)
         alt=@resource.nickname
         title=@resource.nickname
       ]
 
       - if user_signed_in?
         .profile-actions
-          - if @resource.own_profile?
+          - if @view.own_profile?
             a.mail.b-tooltipped.unprocessed[
               href=profile_dialogs_url(@resource)
               title=t('.my_mail')
@@ -127,7 +127,7 @@
           ]
         = @resource.nickname
 
-      = render 'profiles/status', user: @resource
+      = render 'profiles/status', view: @view
 
       .notice
         - @resource.common_info.each do |entry|
@@ -135,7 +135,7 @@
 
   .c-mobile-actions
     - if user_signed_in?
-      - if @resource.own_profile?
+      - if @view.own_profile?
         a href=profile_dialogs_url(@resource)
           = t('.my_mail')
         a href=@resource.edit_url(page: :account)
@@ -184,7 +184,7 @@
   .c-info
     .c-lists-info
       - @resource.stats.stats_bars.each do |stats_bar|
-        = render 'stats_bar', stats_bar: stats_bar, user: @resource
+        = render 'stats_bar', stats_bar: stats_bar, view: @view, user: @view.user
 
     - if @resource.stats.social_activity?
       .c-additionals
@@ -320,7 +320,7 @@
 
   - if @resource.about_html.present?
     .about.block
-      - if @resource.own_profile?
+      - if @view.own_profile?
         .subheadline-buttons
           a.item-edit href=@resource.edit_url(page: 'profile')
       .subheadline

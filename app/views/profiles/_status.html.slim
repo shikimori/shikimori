@@ -1,7 +1,7 @@
-- if params[:controller] == 'profiles' && (!user.own_profile? || user.banned?)
+- if params[:controller] == 'profiles' && (!view.own_profile? || view.user.banned?)
   .misc
-    - if !user.own_profile?
-      span = user.last_online
+    - if !view.own_profile?
+      span = view.user.last_online
 
-    - if user.banned?
-      span.banned = t '.banned', gender: user.sex
+    - if view.user.banned?
+      span.banned = t '.banned', gender: view.user.sex

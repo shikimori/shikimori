@@ -13,10 +13,6 @@ class UserProfileDecorator < UserDecorator
     BANNED_PROFILES.include? object.id.to_s
   end
 
-  def avatar_url size = 160
-    super size, own_profile?
-  end
-
   def website
     return '' if website_host.blank?
 
@@ -29,10 +25,6 @@ class UserProfileDecorator < UserDecorator
     Rails.cache.fetch [:about, object] do
       BbCodes::Text.call about || ''
     end
-  end
-
-  def own_profile?
-    h.user_signed_in? && h.current_user.id == object.id
   end
 
   def show_comments?

@@ -43,7 +43,7 @@
 
         - if @library.any?
           .list-groups
-            = render 'user_rates', library: @library
+            = render 'user_rates', library: @library, profile_view: @view
 
             - if @library.add_postloader?
               = render 'blocks/postloader', next_url: current_url(page: @page+1)

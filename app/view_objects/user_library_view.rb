@@ -141,7 +141,7 @@ private
       end
     end.to_f / 60 / 24).round(2)
 
-    reduce ? stats.select { |_, v| v > 0 }.to_hash : stats
+    reduce ? stats.select { |_, v| v.positive? }.to_hash : stats
   end
 
   def cache_key

@@ -8,9 +8,15 @@
     .collapsed.tiny ...
 
   - if library.list_view == 'posters'
-    = render 'user_rates/posters', library: library, list: list
+    = render 'user_rates/posters',
+      profile_view: profile_view,
+      library: library,
+      list: list
   - else
-    = render 'user_rates/lines', library: library, list: list
+    = render 'user_rates/lines',
+      profile_view: profile_view,
+      library: library,
+      list: list
 
   - if list.stats
     .b-nothing_here.nothing-found = t 'nothing_found'

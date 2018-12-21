@@ -20,8 +20,6 @@ class ProfilesController < ShikimoriController
         .new(@resource.object)
         .read_messages(kind: MessageType::PROFILE_COMMENTED)
     end
-
-    @view = ProfileView.new @resource
   end
 
   def friends
@@ -240,9 +238,10 @@ private
 
     @resource = UserProfileDecorator.new user
     @user = @resource
+    @view = Profiles::View.new @resource
 
     if @resource.censored_profile? && censored_forbidden? &&
-        !@resource.own_profile?
+        !@view.own_profile?
       raise AgeRestricted
     end
   end
