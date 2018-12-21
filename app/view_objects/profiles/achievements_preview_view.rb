@@ -36,6 +36,6 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
 private
 
   def achievements_view
-    AchievementsView.new @user
+    Profiles::AchievementsView.new @user
   end
 end

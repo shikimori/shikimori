@@ -8,13 +8,13 @@ class Users::AchievementsController < ProfilesController
   ]
 
   def index
-    @view = AchievementsView.new(@user)
+    @view = Profiles::AchievementsView.new(@user)
   end
 
   def franchise
     og page_title: t('achievements.group.franchise')
 
-    @view = AchievementsView.new(@user)
+    @view = Profiles::AchievementsView.new(@user)
   end
 
 private

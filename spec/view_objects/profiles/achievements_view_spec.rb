@@ -1,4 +1,4 @@
-describe AchievementsView do
+describe Profiles::AchievementsView do
   let(:view) { described_class.new user }
 
   let!(:animelist_1) do

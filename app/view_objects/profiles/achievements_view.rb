@@ -1,4 +1,4 @@
-class AchievementsView < ViewObjectBase
+class Profiles::AchievementsView < ViewObjectBase
   pattr_initialize :user
 
   STUDIOS_LINE_COUNT = 4
