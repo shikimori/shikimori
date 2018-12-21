@@ -20,6 +20,8 @@ class ProfilesController < ShikimoriController
         .new(@resource.object)
         .read_messages(kind: MessageType::PROFILE_COMMENTED)
     end
+
+    @achievements_view = AchievementsView.new @resource
   end
 
   def friends

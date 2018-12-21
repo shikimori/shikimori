@@ -18,6 +18,9 @@ ru:
       remove_from_ignored: Удалить из игнора
       send_message: Написать
       user_profile_settings: Настройки профиля
+    achievements:
+      achievements: :profiles_controller.achievements
+      no_achievements: :profiles.page.no_achievements
 
     activity:
       activity_graph: Активность на сайте
@@ -108,7 +111,7 @@ ru:
         person: Прочие люди
       export_anime: Экспорт аниме
       export_manga: Экспорт манги и ранобэ
-      no_achievements: Нет ачивок.
+      no_achievements: Нет достижений.
       moderation:
         amount: Количество
 

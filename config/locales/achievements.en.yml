@@ -1,10 +1,10 @@
 en:
   achievements:
     group:
-      common: Anime
-      genre: Genres
-      franchise: Franchises
-      creator: Producers and Studios
+      common: Common
+      genre: By Genres
+      franchise: By Franchises
+      creator: By producers and studios
     neko_name:
       animelist: Anime List
       dementia_psychological: Dementia / Psychological

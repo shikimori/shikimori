@@ -1,4 +1,5 @@
 @import mixins/clear_left
+
 @import mixins/column
 @import mixins/ellipsis2
 @import mixins/icons
@@ -159,3 +160,33 @@
 
     a
       +link
+
+  .achievements
+    .b-nothing_here
+      margin-left: 0
+
+    .header
+      align-items: center
+      display: flex
+      margin-bottom: 5px
+      justify-content: space-between
+
+      .title
+        color: #456
+        font-weight: bold
+
+      .size
+        float: right
+        font-size: 11px
+
+    .cc-achievements
+      +clear_left
+
+      .b-badge
+        +column(2, 1/2, 3%)
+
+    .cc-franchises
+      +clear_left
+
+      .b-badge
+        +column(4, 1/4, 1%)
