@@ -1224,7 +1224,7 @@
     :neko_id: :mahou_shoujo
     :level: 1
     :image: "/assets/achievements/anime/mahou_shoujo_1.png"
-    :border_color: "#ff0000"
+    :border_color: "#DC143C"
     :title_ru: Контракт заключён
     :text_ru: My master, положено начало вашего становления юной волшебницей.
     :title_en: 
@@ -1644,7 +1644,7 @@
     :neko_id: :mahou_shoujo
     :level: 2
     :image: "/assets/achievements/anime/mahou_shoujo_2.jpg"
-    :border_color: "#DAA571"
+    :border_color: "#DB7093"
     :title_ru: Магия — второе имя
     :text_ru: Не важно, какой ваш пол и сколько вам лет, если ваше призвание — нести
       любовь и справедливость.
