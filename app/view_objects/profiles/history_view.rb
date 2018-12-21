@@ -1,9 +1,19 @@
 class Profiles::HistoryView < ViewObjectBase
   vattr_initialize :user
 
-  REGISTRATION_ACTION = UserHistoryAction::Registration
-  MAL_IMPORT_ACTIONS = [UserHistoryAction::MalAnimeImport, UserHistoryAction::MalMangaImport]
-  AP_IMPORT_ACTIONS = [UserHistoryAction::ApAnimeImport, UserHistoryAction::ApMangaImport]
+  SHIKIMORI_ACTIONS = [
+    UserHistoryAction::Registration,
+    UserHistoryAction::AnimeImport,
+    UserHistoryAction::MangaImport
+  ]
+  MAL_IMPORT_ACTIONS = [
+    UserHistoryAction::MalAnimeImport,
+    UserHistoryAction::MalMangaImport
+  ]
+  AP_IMPORT_ACTIONS = [
+    UserHistoryAction::ApAnimeImport,
+    UserHistoryAction::ApMangaImport
+  ]
 
   LIMIT = 4
 
@@ -43,11 +53,11 @@ private
   def format entries
     action = entries.first.action
 
-    if REGISTRATION_ACTION == action
-      format_registration entries
+    if SHIKIMORI_ACTIONS.include? action
+      format_shikimori_action entries
 
     elsif MAL_IMPORT_ACTIONS.include? action
-      format_mal_import entires
+      format_mal_import entries
 
     elsif AP_IMPORT_ACTIONS.include? action
       format_ap_import entries
@@ -60,7 +70,7 @@ private
     end
   end
 
-  def format_registration entries
+  def format_shikimori_action entries
     Users::FormattedHistory.new(
       image: '/assets/blocks/history/shikimori.x43.png',
       name: Shikimori::DOMAIN,

@@ -11,6 +11,8 @@ class UserHistoryAction
   MalMangaImport = 'mal_manga_import'
   ApAnimeImport = 'ap_anime_import'
   ApMangaImport = 'ap_manga_import'
+  AnimeImport = 'anime_import'
+  MangaImport = 'manga_import'
   Registration = 'registration'
   AnimeHistoryClear = 'anime_history_clear'
   MangaHistoryClear = 'manga_history_clear'

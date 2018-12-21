@@ -37,6 +37,12 @@ describe ListImports::Import do
       )
       expect(user.manga_rates).to be_empty
 
+      expect(user.history).to have(1).item
+      expect(user.history.first).to have_attributes(
+        action: UserHistoryAction::AnimeImport,
+        value: 1
+      )
+
       expect(Achievements::Track)
         .to have_received(:perform_async)
         .with list_import.user_id, nil, Types::Neko::Action[:reset]
@@ -57,6 +63,8 @@ describe ListImports::Import do
       expect(user.anime_rates).to be_empty
       expect(user.manga_rates).to be_empty
 
+      expect(user.history).to be_empty
+
       expect(Achievements::Track).to_not have_received :perform_async
     end
   end
@@ -75,6 +83,8 @@ describe ListImports::Import do
       expect(user.anime_rates).to be_empty
       expect(user.manga_rates).to be_empty
 
+      expect(user.history).to be_empty
+
       expect(Achievements::Track).to_not have_received :perform_async
     end
   end
@@ -92,6 +102,8 @@ describe ListImports::Import do
 
       expect(user.anime_rates).to be_empty
       expect(user.manga_rates).to be_empty
+
+      expect(user.history).to be_empty
 
       expect(Achievements::Track).to_not have_received :perform_async
     end
@@ -116,6 +128,8 @@ describe ListImports::Import do
 
       expect(user.anime_rates).to be_empty
       expect(user.manga_rates).to be_empty
+
+      expect(user.history).to be_empty
 
       expect(Achievements::Track).to_not have_received :perform_async
     end

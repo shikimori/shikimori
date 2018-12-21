@@ -539,10 +539,12 @@ en:
         other: other
     user_history_action:
       action:
-        ap_anime_import: Imported from Anime-Planet
-        ap_manga_import: Imported from Anime-Planet
-        mal_anime_import: Imported from MyAnimeList
-        mal_manga_import: Imported from MyAnimeList
+        anime_import: Imported animes
+        manga_import: Imported mangas
+        ap_anime_import: Imported animes from Anime-Planet
+        ap_manga_import: Imported mangas from Anime-Planet
+        mal_anime_import: Imported animes from MyAnimeList
+        mal_manga_import: Imported mangas from MyAnimeList
         registration: Registration
     video:
       kind:

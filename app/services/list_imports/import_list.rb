@@ -35,7 +35,7 @@ private
     )
   end
 
-  def import_mismatched # rubocop:disable MethodLength
+  def import_mismatched
     user_rates = []
 
     mismatched_list_entries.each do |list_entry|

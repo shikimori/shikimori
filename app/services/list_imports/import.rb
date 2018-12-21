@@ -20,6 +20,7 @@ private
       specific_error ListImport::ERROR_MISMATCHED_LIST_TYPE
     else
       import list
+      create_history_entry
       track_achievements
     end
   end
@@ -39,12 +40,22 @@ private
     )
   end
 
+  def create_history_entry
+    UserHistory.create!(
+      user_id: @list_import.user_id,
+      action: @list_import.anime? ?
+        UserHistoryAction::AnimeImport :
+        UserHistoryAction::MangaImport,
+      value: @list_import.output[ListImports::ImportList::ADDED].size +
+        @list_import.output[ListImports::ImportList::UPDATED].size
+    )
+  end
+
   def specific_error error_type
     @list_import.to_failed!
     @list_import.update! output: { error: { type: error_type } }
   end
 
-  # rubocop:disable MethodLength
   def exception_error exception
     @list_import.to_failed!
     @list_import.update!(
@@ -58,7 +69,6 @@ private
       }
     )
   end
-  # rubocop:enable MethodLength
 
   def wrong_list_type? list
     list.any? do |list_entry|

@@ -32,11 +32,13 @@ class UserHistoryDecorator < BaseDecorator
       when UserHistoryAction::MalAnimeImport,
           UserHistoryAction::MalMangaImport,
           UserHistoryAction::ApAnimeImport,
-          UserHistoryAction::ApMangaImport
+          UserHistoryAction::ApMangaImport,
+          UserHistoryAction::AnimeImport,
+          UserHistoryAction::MangaImport
         kind = action =~ /anime/i ? :anime : :manga
         records = "#{value} #{i18n_i 'record', value.to_i}"
 
-        i18n_t "actions.import.#{kind}", records: records
+        i18n_t "actions.import.#{kind}", value: records
 
       when UserHistoryAction::Registration,
           UserHistoryAction::Add,

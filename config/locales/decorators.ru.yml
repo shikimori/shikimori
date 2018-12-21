@@ -66,8 +66,8 @@ ru:
         changed: Изменена оценка c <b>%{prior_score}</b> на <b>%{score}</b>
         rated: Оценено на <b>%{score}</b>
       import:
-        anime: Импортировано аниме - %{records}
-        manga: Импортирована манга - %{records}
+        anime: Импортировано аниме - %{value}
+        manga: Импортирована манга - %{value}
       registration: Регистрация на сайте
       anime_history_clear: Очистка истории аниме
       manga_history_clear: Очистка истории манги

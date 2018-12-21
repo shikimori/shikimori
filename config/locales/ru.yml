@@ -540,6 +540,8 @@ ru:
         other: прочее
     user_history_action:
       action:
+        anime_import: Импорт аниме
+        manga_import: Импорт манги
         ap_anime_import: Импорт с Anime-Planet
         ap_manga_import: Импорт с Anime-Planet
         mal_anime_import: Импорт с MyAnimeList
