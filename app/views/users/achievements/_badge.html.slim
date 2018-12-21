@@ -17,7 +17,7 @@
 - else
   a.b-badge[
     class="#{:unavailable if local_assigns[:unavailable]} #{'b-tooltipped unprocessed' unless local_assigns[:no_badge]} #{"level-#{achievement.level}"}"
-    title=achievement.title(current_user, ru_host?)
+    title=(achievement.franchise? ? achievement.title(current_user, ru_host?) : achievement.hint)
     href=achievement_url(achievement.group, achievement.neko_id)
     data-direction='top'
     data-tipsy-size='large'
