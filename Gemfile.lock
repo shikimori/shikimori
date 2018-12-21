@@ -560,7 +560,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    redis (4.0.3)
+    redis (4.1.0)
     redis-classy (2.4.1)
       redis-namespace (~> 1.0)
     redis-mutex (4.0.1)
