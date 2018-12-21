@@ -1,13 +1,12 @@
 # TODO: move methods into Profiles::View and other classes
 class UserProfileDecorator < UserDecorator
-  instance_cache :all_compatibility, :friends, :ignored?, :stats,
+  instance_cache :all_compatibility, :friends, :ignored?,
     :nickname_changes, :favorites,
     :main_comments_view, :preview_comments_view, :ignored_topics,
     :random_clubs
 
   # list of users with abusive content in profile
   # (reported by moderators or roskomnadzor)
-  BANNED_PROFILES = %w[7683]
 
   def website
     return '' if website_host.blank?
@@ -87,15 +86,6 @@ class UserProfileDecorator < UserDecorator
       '</span>'.html_safe
 
     info
-  end
-
-  def formatted_history
-    history.formatted.take(anime_with_manga? ? 3 : 2)
-  end
-
-  def anime_with_manga?
-    stats.anime? && stats.manga? &&
-      preferences.anime_in_profile? && preferences.manga_in_profile?
   end
 
   def random_clubs

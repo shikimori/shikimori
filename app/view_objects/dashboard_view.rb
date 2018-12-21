@@ -78,7 +78,7 @@ class DashboardView < ViewObjectBase
       .shuffle
       .select { |view| !view.topic.linked.target.censored? }
       .sort_by { |view| -view.topic.id }
-      .select.with_index { |review, index| index == cache_keys[:reviews_index] }
+      .select.with_index { |_review, index| index == cache_keys[:reviews_index] }
   end
 
   def news_topic_views
@@ -111,7 +111,7 @@ class DashboardView < ViewObjectBase
   end
 
   def history
-    h.current_user.history.formatted.take DISPLAYED_HISTORY
+    Profiles::HistoryView.new(h.current_user).preview.take DISPLAYED_HISTORY
   end
 
   def forums

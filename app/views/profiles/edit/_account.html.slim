@@ -39,7 +39,7 @@
         .avatar-edit
           - if @resource.avatar.exists?
             img[
-              src=@resource.avatar_url
+              src=@view.avatar_url
               alt=@resource.nickname
               title=@resource.nickname
             ]

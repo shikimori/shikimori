@@ -8,7 +8,7 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
   def available?
     unless Users::AchievementsController::ACHIEVEMENTS_CLUB_USER_IDS.include?(@user.id) ||
         h.current_user.admin?
-      retrn false
+      return false
     end
 
     achievements_view.franchise_achievements_size.positive? ||

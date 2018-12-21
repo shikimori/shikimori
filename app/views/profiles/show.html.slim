@@ -8,32 +8,8 @@
 .profile-head[
   data-user-id=@resource.id
 ]
-  - if @resource.history.any?
-    .c-history class="x#{@resource.formatted_history.size}"
-      .subheadline.m13
-        - if can? :access_list, @resource
-          a href=index_profile_user_history_index_url(@resource)
-            = i18n_io 'History', :one
-        - else
-          = i18n_io 'History', :one
-
-      .b-block_list
-        - @resource.formatted_history.each do |entry|
-          .entry
-            a href=entry.url title=entry.name
-              .image-name
-                img[
-                  src=entry.image
-                  srcset=("#{entry.image_2x} 2x" if entry.image_2x)
-                  alt=entry.name
-                ]
-                span.title
-                  = entry.localized_name
-              span.misc title=entry.reversed_action
-                = entry.reversed_action
-              time.misc.date.unprocessed[
-                datetime=entry.created_at.iso8601
-              ] = entry.localized_date
+  - if @view.history_view.display?
+    = render 'profiles/history', view: @view.history_view
 
   .c-brief
     .avatar

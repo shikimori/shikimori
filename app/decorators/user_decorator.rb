@@ -1,6 +1,6 @@
 class UserDecorator < BaseDecorator
-  instance_cache :clubs_for_domain, :exact_last_online_at
-  instance_cache :is_friended?, :mutual_friended?, :history
+  instance_cache :clubs_for_domain, :exact_last_online_at,
+    :is_friended?, :mutual_friended?, :stats
 
   def self.model_name
     User.model_name
@@ -43,10 +43,6 @@ class UserDecorator < BaseDecorator
 
   def mutual_friended?
     is_friended? && friended?(h.current_user)
-  end
-
-  def history
-    UserProfileHistoryDecorator.new object
   end
 
   def stats

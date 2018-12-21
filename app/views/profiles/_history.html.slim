@@ -1,0 +1,30 @@
+.c-history[
+  class="x#{view.preview.size}"
+]
+  .subheadline.m13
+    - if can? :access_list, view.user
+      a href=index_profile_user_history_index_url(view.user)
+        = i18n_io 'History', :one
+    - else
+      = i18n_io 'History', :one
+
+  .b-block_list
+    - view.preview.each do |entry|
+      .entry
+        a[
+          href=entry.url
+          title=entry.name
+        ]
+          .image-name
+            img[
+              src=entry.image
+              srcset=("#{entry.image_2x} 2x" if entry.image_2x)
+              alt=entry.name
+            ]
+            span.title
+              = entry.localized_name
+          span.misc title=entry.reversed_action
+            = entry.reversed_action
+          time.misc.date.unprocessed[
+            datetime=entry.created_at.iso8601
+          ] = entry.localized_date

@@ -1,7 +1,7 @@
 header.head.misc
   h1[
-    class="#{@user.nickname_changes? ? 'aliases' : '' if params[:controller] == 'profiles' && params[:action] == 'show'}"
-    title="#{@user.nickname_changes? ? @user.nicknames_tooltip : '' if params[:controller] == 'profiles' && params[:action] == 'show'}"
+    class=(@user.nickname_changes? ? 'aliases' : '' if params[:controller] == 'profiles' && params[:action] == 'show')
+    title=(@user.nickname_changes? ? @user.nicknames_tooltip : '' if params[:controller] == 'profiles' && params[:action] == 'show')
   ]
     - if params[:action] != 'show' || @back_url
       a.back[
@@ -13,7 +13,7 @@ header.head.misc
       = @user.changes['nickname'][0]
     - else
       = @user.nickname
-    = render 'profiles/status', user: @user
+    = render 'profiles/status', view: @view
     = yield :head_misc
 
   = render 'application/breadcrumbs'
