@@ -6,7 +6,7 @@ class ListImport < ApplicationRecord
   ERROR_EMPTY_LIST = 'empty_list'
   ERROR_MISMATCHED_LIST_TYPE = 'mismatched_list_type'
 
-  belongs_to :user
+  belongs_to :user, touch: true
 
   enumerize :list_type,
     in: Types::ListImport::ListType.values,
