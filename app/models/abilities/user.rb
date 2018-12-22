@@ -244,7 +244,7 @@ class Abilities::User
   end
 
   def version_abilities
-    can %i[create destroy], Version do |version|
+    can %i[create], Version do |version|
       if version.is_a? Versions::RoleVersion
         false
       else
@@ -271,6 +271,9 @@ class Abilities::User
             version.item_diff.dig(minor_field, 0).nil?  # changing from nil value
           )
       end
+    end
+    can %i[destroy], Version do |version|
+      version.user_id == @user.id && version.pending?
     end
     cannot :lesser_change, Version
     cannot :major_change, Version

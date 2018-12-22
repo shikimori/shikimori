@@ -288,10 +288,9 @@ describe Version do
           let(:version) { build_stubbed :role_version, user: user }
 
           it { is_expected.to_not be_able_to :create, version }
-          it { is_expected.to_not be_able_to :destroy, version }
           it { is_expected.to be_able_to :show, version }
           it { is_expected.to be_able_to :tooltip, version }
-          it { is_expected.to_not be_able_to :destroy, version }
+          it { is_expected.to be_able_to :destroy, version }
           it { is_expected.to_not be_able_to :manage, version }
         end
       end
