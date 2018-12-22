@@ -10,7 +10,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -41,7 +41,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -52,9 +52,13 @@ http_interactions:
       message: OK
     headers:
       Warning:
-      - '299 Elasticsearch-6.2.4-ccec39f "Deprecated big difference between max_gram
+      - '299 Elasticsearch-6.4.1-e36acdb "Deprecated big difference between max_gram
         and min_gram in NGram Tokenizer,expected difference must be less than or equal
-        to: [1]" "Sun, 14 Oct 2018 18:19:08 GMT"'
+        to: [1]" "Sat, 22 Dec 2018 15:37:26 GMT"'
+      - 299 Elasticsearch-6.4.1-e36acdb "the default number of shards will change
+        from [5] to [1] in 7.0.0; if you wish to continue using the default of [5]
+        shards, you must manage this on the create index request or with an index
+        template" "Sat, 22 Dec 2018 15:37:26 GMT"
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -62,64 +66,6 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: '{"acknowledged":true,"shards_acknowledged":true,"index":"shikimori_test_clubs"}'
-    http_version: 
-  recorded_at: Thu, 10 May 2018 16:00:00 GMT
-- request:
-    method: head
-    uri: http://localhost:9200/shikimori_test_users
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - Faraday v0.12.2
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '2120'
-    body:
-      encoding: UTF-8
-      string: ''
-    http_version: 
-  recorded_at: Thu, 10 May 2018 16:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":23457053}}
-        {"nickname":"user_1478"}
-    headers:
-      Content-Type:
-      - application/x-ndjson
-      User-Agent:
-      - Faraday v0.12.2
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '206'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23457053","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -132,7 +78,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept:
       - "*/*"
   response:
@@ -161,7 +107,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -174,10 +120,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '201'
+      - '200'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_clubs","_type":"club","_id":"1094","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":13,"errors":false,"items":[{"index":{"_index":"shikimori_test_clubs","_type":"club","_id":"1094","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -190,7 +136,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept:
       - "*/*"
   response:
@@ -219,7 +165,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -235,7 +181,7 @@ http_interactions:
       - '201'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_clubs","_type":"club","_id":"1095","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_clubs","_type":"club","_id":"1095","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -248,7 +194,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept:
       - "*/*"
   response:
@@ -277,7 +223,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -290,10 +236,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '201'
+      - '202'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_clubs","_type":"club","_id":"1096","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":50,"errors":false,"items":[{"index":{"_index":"shikimori_test_clubs","_type":"club","_id":"1096","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -306,7 +252,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -322,39 +268,8 @@ http_interactions:
       - '223'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":2,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":115.36052,"hits":[{"_index":"shikimori_test_clubs","_type":"club","_id":"1094","_score":115.36052,"_source":{"name":"test","locale":"ru"}},{"_index":"shikimori_test_clubs","_type":"club","_id":"1095","_score":22.891273,"_source":{"name":"test
+      string: '{"took":6,"timed_out":false,"_shards":{"total":5,"successful":5,"skipped":0,"failed":0},"hits":{"total":2,"max_score":115.36052,"hits":[{"_index":"shikimori_test_clubs","_type":"club","_id":"1094","_score":115.36052,"_source":{"name":"test","locale":"ru"}},{"_index":"shikimori_test_clubs","_type":"club","_id":"1095","_score":22.891273,"_source":{"name":"test
         zxct","locale":"ru"}}]}}'
-    http_version: 
-  recorded_at: Thu, 10 May 2018 16:00:00 GMT
-- request:
-    method: post
-    uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
-    body:
-      encoding: UTF-8
-      string: |
-        {"index":{"_id":23456855}}
-        {"nickname":"user_990"}
-    headers:
-      Content-Type:
-      - application/x-ndjson
-      User-Agent:
-      - Faraday v0.15.3
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Content-Type:
-      - application/json; charset=UTF-8
-      Content-Length:
-      - '209'
-    body:
-      encoding: ASCII-8BIT
-      string: '{"took":1661,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456855","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":4,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0

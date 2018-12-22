@@ -10,7 +10,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -41,7 +41,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -52,9 +52,13 @@ http_interactions:
       message: OK
     headers:
       Warning:
-      - '299 Elasticsearch-6.2.4-ccec39f "Deprecated big difference between max_gram
+      - '299 Elasticsearch-6.4.1-e36acdb "Deprecated big difference between max_gram
         and min_gram in NGram Tokenizer,expected difference must be less than or equal
-        to: [1]" "Sun, 14 Oct 2018 18:19:08 GMT"'
+        to: [1]" "Sat, 22 Dec 2018 15:37:27 GMT"'
+      - 299 Elasticsearch-6.4.1-e36acdb "the default number of shards will change
+        from [5] to [1] in 7.0.0; if you wish to continue using the default of [5]
+        shards, you must manage this on the create index request or with an index
+        template" "Sat, 22 Dec 2018 15:37:27 GMT"
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -74,7 +78,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept:
       - "*/*"
   response:
@@ -103,7 +107,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -116,10 +120,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '200'
+      - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -132,7 +136,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept:
       - "*/*"
   response:
@@ -161,7 +165,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -177,7 +181,7 @@ http_interactions:
       - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -190,7 +194,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -207,7 +211,7 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        eyJ0b29rIjoyLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJza2lwcGVkIjowLCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoxLCJtYXhfc2NvcmUiOjExNS4zNjA1MiwiaGl0cyI6W3siX2luZGV4Ijoic2hpa2ltb3JpX3Rlc3RfcGVvcGxlIiwiX3R5cGUiOiJwZXJzb24iLCJfaWQiOiIxIiwiX3Njb3JlIjoxMTUuMzYwNTIsIl9zb3VyY2UiOnsibmFtZSI6InRlc3QiLCJqYXBhbmVzZSI6bnVsbCwicnVzc2lhbiI6ItCw0LAiLCJpc19zZXl1IjpmYWxzZSwiaXNfcHJvZHVjZXIiOmZhbHNlLCJpc19tYW5nYWthIjp0cnVlfX1dfX0=
+        eyJ0b29rIjoxOSwidGltZWRfb3V0IjpmYWxzZSwiX3NoYXJkcyI6eyJ0b3RhbCI6NSwic3VjY2Vzc2Z1bCI6NSwic2tpcHBlZCI6MCwiZmFpbGVkIjowfSwiaGl0cyI6eyJ0b3RhbCI6MSwibWF4X3Njb3JlIjoxMTUuMzYwNTIsImhpdHMiOlt7Il9pbmRleCI6InNoaWtpbW9yaV90ZXN0X3Blb3BsZSIsIl90eXBlIjoicGVyc29uIiwiX2lkIjoiMSIsIl9zY29yZSI6MTE1LjM2MDUyLCJfc291cmNlIjp7Im5hbWUiOiJ0ZXN0IiwiamFwYW5lc2UiOm51bGwsInJ1c3NpYW4iOiLQsNCwIiwiaXNfc2V5dSI6ZmFsc2UsImlzX3Byb2R1Y2VyIjpmYWxzZSwiaXNfbWFuZ2FrYSI6dHJ1ZX19XX19
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0

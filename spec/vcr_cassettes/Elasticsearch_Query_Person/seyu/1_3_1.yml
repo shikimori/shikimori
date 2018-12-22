@@ -10,7 +10,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -41,7 +41,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -52,9 +52,13 @@ http_interactions:
       message: OK
     headers:
       Warning:
-      - '299 Elasticsearch-6.2.4-ccec39f "Deprecated big difference between max_gram
+      - '299 Elasticsearch-6.4.1-e36acdb "Deprecated big difference between max_gram
         and min_gram in NGram Tokenizer,expected difference must be less than or equal
-        to: [1]" "Sun, 14 Oct 2018 18:19:09 GMT"'
+        to: [1]" "Sat, 22 Dec 2018 15:37:28 GMT"'
+      - 299 Elasticsearch-6.4.1-e36acdb "the default number of shards will change
+        from [5] to [1] in 7.0.0; if you wish to continue using the default of [5]
+        shards, you must manage this on the create index request or with an index
+        template" "Sat, 22 Dec 2018 15:37:28 GMT"
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -74,7 +78,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept:
       - "*/*"
   response:
@@ -103,7 +107,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -132,7 +136,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept:
       - "*/*"
   response:
@@ -161,7 +165,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -174,10 +178,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '200'
+      - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_people","_type":"person","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -190,7 +194,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.12.2
+      - Faraday v0.15.3
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
