@@ -7,21 +7,17 @@ class Achievement < ApplicationRecord
     in: Types::Achievement::NekoId.values,
     predicates: { prefix: true }
 
-  %i[
-    group
-    group_name
-    image
-    border_color
-    title
-    hint
-    text
-    sort_criteria
-    common?
-    genre?
-    franchise?
-    animes_url
-    statistics
-  ].each { |field| delegate field, to: :neko }
+  def respond_to? *args
+    super || neko.respond_to?(*args)
+  end
+
+  def respond_to_missing? *args
+    super(*args) || neko.send(:respond_to_missing?, *args)
+  end
+
+  def method_missing method, *args, &block # rubocop:disable MethodMissingSuper
+    neko.send method, *args, &block
+  end
 
 private
 

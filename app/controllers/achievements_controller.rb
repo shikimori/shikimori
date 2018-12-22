@@ -1,4 +1,5 @@
 class AchievementsController < ShikimoriController
+
   before_action do
     og page_title: i18n_i('Achievement', :other)
   end
@@ -69,11 +70,13 @@ private
     end
   end
 
-  def set_collection
-    @collection = NekoRepository.instance.select do |achievement|
-      achievement.neko_id == params[:id].to_sym &&
-        achievement.group == params[:group].to_sym
-    end
+  def set_collection # rubocop:disable AbcSize
+    @collection = NekoRepository
+      .instance
+      .select { |v| v.neko_id == params[:id].to_sym && v.group == params[:group].to_sym }
+      .map do |v|
+        current_user&.achievements&.find { |a| a.neko_id == v.neko_id && a.level == v.level } || v
+      end
 
     raise ActiveRecord::RecordNotFound if @collection.none?
   end
