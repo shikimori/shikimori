@@ -6,6 +6,7 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
   delegate :all_franchise_achievements, to: :achievements_view
 
   def available?
+    return false unless @user.preferences.achievements_in_profile?
     unless Users::AchievementsController::ACHIEVEMENTS_CLUB_USER_IDS.include?(@user.id) ||
         h.current_user&.admin?
       return false

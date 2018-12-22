@@ -29,51 +29,26 @@ class UserPreferences < ApplicationRecord
     super || (russian_names? ? 'russian' : 'name')
   end
 
-  def anime_in_profile?
+  %i[
     anime_in_profile
-  end
-
-  def manga_in_profile?
     manga_in_profile
-  end
-
-  def comments_in_profile?
     comments_in_profile
-  end
-
-  def russian_names?
+    achievements_in_profile
     russian_names
-  end
-
-  def russian_genres?
     russian_genres
-  end
-
-  def about_on_top?
     about_on_top
-  end
-
-  def menu_contest?
     menu_contest
-  end
-
-  def show_smileys?
     show_smileys
-  end
-
-  def show_social_buttons?
     show_social_buttons
-  end
-
-  def show_hentai_images?
     show_hentai_images
-  end
-
-  def volumes_in_manga?
     volumes_in_manga
+  ].each do |name|
+    define_method :"#{name}?" do
+      send name
+    end
   end
 
-  # TODO: выпилить это поле из базы и из кода
+  # TODO: remove it
   def postload_in_catalog?
     postload_in_catalog
   end

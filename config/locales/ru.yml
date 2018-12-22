@@ -170,6 +170,7 @@ ru:
         favorites_in_profile: Количество избранного в профиле
         comment_policy: Могут комментировать мой профиль
         comments_in_profile: Отображать комментарии в профиле
+        achievements_in_profile: Отображать ачивки в профиле
         is_comments_auto_collapsed: Сворачивать длинные комментарии
         is_comments_auto_loaded: Автоподгрузка новых комментариев
         list_privacy: Могут видеть мой список

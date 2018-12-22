@@ -8,6 +8,8 @@
     = f.input :manga_in_profile
     = f.input :favorites_in_profile
     = f.input :comments_in_profile
+    - if Users::AchievementsController::ACHIEVEMENTS_CLUB_USER_IDS.include?(@resource.id)
+      = f.input :achievements_in_profile
     = f.input :statistics_start_on,
         label: t('.display_activity_graph_since'),
         start_year: @resource.created_at.year,
