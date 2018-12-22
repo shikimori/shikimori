@@ -95,15 +95,15 @@ class Profiles::View < ViewObjectBase
     end
   end
 
-private
-
-  def years
-    DateTime.now.year - @user.birth_on.year if @user.birth_on
-  end
-
   def full_years
     if @user.birth_on
       Date.parse(DateTime.now.to_s) - years.years + 1.day > @user.birth_on ? years : years - 1
     end
+  end
+
+private
+
+  def years
+    DateTime.now.year - @user.birth_on.year if @user.birth_on
   end
 end
