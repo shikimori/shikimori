@@ -2,6 +2,7 @@ class AnimesIndex < ApplicationIndex
   NAME_FIELDS = %i[
     name russian english japanese
     synonyms_0 synonyms_1 synonyms_2 synonyms_3 synonyms_4 synonyms_5
+    license_name_ru
   ]
 
   settings DEFAULT_SETTINGS
