@@ -79,18 +79,7 @@ ru:
     watched_first_episodes: '%{watched} %{number}%{suffix} %{division}'
   user_profile_decorator:
     <<: *user_decorator
-    male: муж
-    female: жен
-    no_personal_data: Нет личных данных
-    personal_data_hidden: Личные данные скрыты
     aka: Также %{known} как
-    compatibility:
-      zero: нет совместимости
-      low: слабая совместимость
-      moderate: средняя совместимость
-      high: высокая совместимость
-      full: полная совместимость
-    member_since: на сайте с
   version_decorator:
     field_name:
       screenshots_upload: Загрузка кадров

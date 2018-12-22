@@ -1,4 +1,18 @@
 en:
+  profiles/view:
+    male: male
+    female: female
+    no_personal_data: No personal data
+    personal_data_hidden: Personal data hidden
+    member_since: member since
+    registration_formats: :user_decorator.registration_formats
+  profiles/compatibility_view:
+    text:
+      zero: no compatibility
+      low: low compatibility
+      moderate: medium compatibility
+      high: high compatibility
+      full: full compatibility
   profile_stats_view:
     time_spent:
       anime: Time spent on anime

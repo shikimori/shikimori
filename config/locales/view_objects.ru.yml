@@ -1,4 +1,18 @@
 ru:
+  profiles/view:
+    male: муж
+    female: жен
+    no_personal_data: Нет личных данных
+    personal_data_hidden: Личные данные скрыты
+    member_since: на сайте с
+    registration_formats: :user_decorator.registration_formats
+  profiles/compatibility_view:
+    text:
+      zero: нет совместимости
+      low: слабая совместимость
+      moderate: средняя совместимость
+      high: высокая совместимость
+      full: полная совместимость
   profile_stats_view:
     time_spent:
       anime: Время за аниме

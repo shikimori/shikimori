@@ -5,6 +5,8 @@ class UserProfileSerializer < UserSerializer
     :common_info, :last_online, :show_comments, :in_friends, :is_ignored,
     :stats, :style_id
 
+  delegate :common_info, to: :view
+
   def last_online_at
     object.exact_last_online_at
   end
@@ -41,8 +43,8 @@ class UserProfileSerializer < UserSerializer
     object.is_friended?
   end
 
-  def is_ignored
-    object.ignored?
+  def is_ignored # rubocop:disable PredicateName
+    view.ignored?
   end
 
   def about_html

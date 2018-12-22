@@ -79,18 +79,7 @@ en:
     watched_first_episodes: '%{watched} %{number} %{division}'
   user_profile_decorator:
     <<: *user_decorator
-    male: male
-    female: female
-    no_personal_data: No personal data
-    personal_data_hidden: Personal data hidden
     aka: Also known as
-    compatibility:
-      zero: no compatibility
-      low: low compatibility
-      moderate: medium compatibility
-      high: high compatibility
-      full: full compatibility
-    member_since: member since
   version_decorator:
     field_name:
       screenshots_upload: Screenshots upload

@@ -44,48 +44,8 @@ class UserProfileDecorator < UserDecorator
         .join("<span color='#555'>,</span> ")
   end
 
-  # заигнорен ли пользователь текущим пользователем?
-  def ignored?
-    if h.user_signed_in?
-      h.current_user.ignores.any? { |v| v.target_id == object.id }
-    else
-      false
-    end
-  end
-
   def friends
     object.friends.order(last_online_at: :desc)
-  end
-
-  def common_info
-    info = []
-
-    info << "id: #{id}" if h.user_signed_in? && h.current_user.admin?
-
-    if h.can? :access_list, self
-      info << h.h(name)
-      unless object.sex.blank?
-        info << i18n_t('male') if male?
-        info << i18n_t('female') if female?
-      end
-      unless object.birth_on.blank?
-        info << "#{full_years} #{i18n_i 'years_old', full_years}" if full_years > 12
-      end
-      info << location
-      info << website
-
-      info.select!(&:present?)
-      info << i18n_t('no_personal_data') if info.empty?
-    else
-      info << i18n_t('personal_data_hidden')
-    end
-
-    info << "#{i18n_t 'member_since'} " \
-      "<span class='b-tooltipped unprocessed mobile' data-direction='right' "\
-      "title='#{localized_registration false}'>#{localized_registration true}" \
-      '</span>'.html_safe
-
-    info
   end
 
   def random_clubs
@@ -101,44 +61,6 @@ class UserProfileDecorator < UserDecorator
 
   def clubs_to_display
     4
-  end
-
-  def compatibility klass
-    all_compatibility[klass.downcase.to_sym] if all_compatibility
-  end
-
-  # текст о совместимости
-  def compatibility_text klass
-    number = compatibility(klass)
-
-    if number < 5
-      i18n_t 'compatibility.zero'
-    elsif number < 25
-      i18n_t 'compatibility.low'
-    elsif number < 40
-      i18n_t 'compatibility.moderate'
-    elsif number < 60
-      i18n_t 'compatibility.high'
-    else
-      i18n_t 'compatibility.full'
-    end
-  end
-
-  # класс для контейнера текста совместимости
-  def compatibility_class klass
-    number = compatibility(klass)
-
-    if number < 5
-      'zero'
-    elsif number < 25
-      'weak'
-    elsif number < 40
-      'moderate'
-    elsif number < 60
-      'high'
-    else
-      'full'
-    end
   end
 
   def favorites # rubocop:disable AbcSize
@@ -173,25 +95,6 @@ class UserProfileDecorator < UserDecorator
   end
 
 private
-
-  def all_compatibility
-    CompatibilityService.fetch self, h.current_user if h.user_signed_in?
-  end
-
-  def localized_registration shortened
-    if created_at > 2.months.ago || !shortened
-      h.l created_at, format: i18n_t('registration_formats.full')
-
-    elsif created_at > 2.years.ago
-      h.l(
-        created_at, format: i18n_t('registration_formats.month_year')
-      ).sub(/^\d+ /, '') # замена делается т.к. в русском варианте
-      # если брать перевод даты без %d, то месяц будет в неправильном падеже
-
-    else
-      h.l created_at, format: i18n_t('registration_formats.year')
-    end
-  end
 
   def website_host
     return if object.website.blank?

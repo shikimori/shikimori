@@ -64,7 +64,7 @@
             ]
             a.ignore-add.ignore-action.b-tooltipped.unprocessed[
               href=api_ignore_url(@resource.id)
-              style=('display: none;' if @resource.ignored?)
+              style=('display: none;' if @view.ignored?)
               title=t('.add_to_ignored')
               data-remote="true"
               data-method="post"
@@ -73,7 +73,7 @@
             ]
             a.ignore-remove.ignore-action.b-tooltipped.unprocessed[
               href=api_ignore_url(@resource.id)
-              style=('display: none;' unless @resource.ignored?)
+              style=('display: none;' unless @view.ignored?)
               title=t('.remove_from_ignored')
               data-remote="true"
               data-method="delete"
@@ -108,7 +108,7 @@
       = render 'profiles/status', view: @view
 
       .notice
-        - @resource.common_info.each do |entry|
+        - @view.common_info.each do |entry|
           span = entry
 
   .c-mobile-actions
@@ -138,14 +138,14 @@
           data-type="json"
         ] = t('.remove_from_friends')
         span.ignore-action[
-          style=('display: none;' if @resource.ignored?)
+          style=('display: none;' if @view.ignored?)
           data-remote="true"
           data-action=api_ignore_url(@resource.id)
           data-method="post"
           data-type="json"
         ] = t('.add_to_ignored')
         span.ignore-action[
-          style=('display: none;' unless @resource.ignored?)
+          style=('display: none;' unless @view.ignored?)
           data-remote="true"
           data-action=api_ignore_url(@resource.id)
           data-method="delete"

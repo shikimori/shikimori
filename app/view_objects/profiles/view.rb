@@ -11,6 +11,10 @@ class Profiles::View < ViewObjectBase
     @achievements_preview_view ||= Profiles::AchievementsPreviewView.new @user
   end
 
+  def compatibility_view
+    @compatibility_view ||= Profiles::CompatibilityView.new @user
+  end
+
   def own_profile?
     h.user_signed_in? && h.current_user.id == @user.id
   end
@@ -25,6 +29,18 @@ class Profiles::View < ViewObjectBase
       @user.preferences.comments_in_profile?
   end
 
+  def ignored?
+    if h.user_signed_in?
+      h.current_user.ignores.any? { |v| v.target_id == object.id }
+    else
+      false
+    end
+  end
+
+  def avatar_url size = 160
+    @user.avatar_url size, own_profile?
+  end
+
   def about_html
     return if banned_profile?
 
@@ -33,7 +49,49 @@ class Profiles::View < ViewObjectBase
     end
   end
 
-  def avatar_url size = 160
-    @user.avatar_url size, own_profile?
+  def common_info
+    info = []
+
+    info << "id: #{@user.id}" if h.user_signed_in? && h.current_user.admin?
+
+    if h.can? :access_list, self
+      info << h.h(@user.name)
+      unless @user.sex.blank?
+        info << i18n_t('male') if male?
+        info << i18n_t('female') if female?
+      end
+      if @user.birth_on.present? && @user.full_years > 12
+        info << "#{@user.full_years} #{i18n_i 'years_old', @user.full_years}"
+      end
+      info << @user.location
+      info << @user.website
+
+      info.select!(&:present?)
+      info << i18n_t('no_personal_data') if info.empty?
+    else
+      info << i18n_t('personal_data_hidden')
+    end
+
+    info << "#{i18n_t 'member_since'} " \
+      "<span class='b-tooltipped unprocessed mobile' data-direction='right' "\
+      "title='#{localized_registration false}'>#{localized_registration true}" \
+      '</span>'.html_safe
+
+    info
+  end
+
+  def localized_registration shortened
+    if @user.created_at > 2.months.ago || !shortened
+      h.l @user.created_at, format: i18n_t('registration_formats.full')
+
+    elsif @user.created_at > 2.years.ago
+      h.l(
+        @user.created_at, format: i18n_t('registration_formats.month_year')
+      ).sub(/^\d+ /, '') # замена делается т.к. в русском варианте
+      # если брать перевод даты без %d, то месяц будет в неправильном падеже
+
+    else
+      h.l @user.created_at, format: i18n_t('registration_formats.year')
+    end
   end
 end

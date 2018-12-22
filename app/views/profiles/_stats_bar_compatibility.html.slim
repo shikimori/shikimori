@@ -1,7 +1,7 @@
-span.text class=user.compatibility_class(class_name)
-  = user.compatibility_text class_name
+span.text class=view.css_class(class_name)
+  = view.text class_name
 
-- if user.compatibility(class_name) > 0
+- if view.value(class_name).positive?
   span.text &nbsp;
   span.rate
-    = user.compatibility(class_name)
+    = view.value(class_name)
