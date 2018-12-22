@@ -51,6 +51,7 @@ class VersionDecorator < BaseDecorator
     [
       object,
       h.can?(:manage, object),
+      h.can?(:destroy, object),
       h.current_user&.id == object.user_id,
       I18n.locale
     ]
