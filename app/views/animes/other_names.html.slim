@@ -1,8 +1,3 @@
-- if ru_host?
-  = info_line Anime.human_attribute_name(:license_name_ru) do
-    - if @resource.license_name_ru.present?
-      span itemprop="alternativeHeadline" == @resource.license_name_ru
-
 = info_line t('in_japanese') do
   - if @resource.japanese.present?
     span itemprop="alternativeHeadline" == @resource.japanese

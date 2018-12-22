@@ -53,7 +53,12 @@
         data-direction='right'
       ] = entry.rating_text
 
-  - if entry.japanese.present? || entry.english.present? || entry.synonyms.present? || entry.license_name_ru.present?
+  - if ru_host?
+    = info_line Anime.human_attribute_name(:license_name_ru) do
+      - if @resource.license_name_ru.present?
+        span itemprop="alternativeHeadline" == @resource.license_name_ru
+
+  - if entry.japanese.present? || entry.english.present? || entry.synonyms.present?
     = info_line t('.other_names') do
       span.other-names.click-loader data-href=entry.other_names_url
         span ···
