@@ -14350,10 +14350,10 @@
   attributes:
     :neko_id: :music
     :level: 1
-    :image: "/assets/achievements/anime/music_1.png"
-    :border_color: "#8fa9dc"
-    :title_ru: Это не школьный клуб
-    :text_ru: Весьма посредственное отношение к музыке.
+    :image: "/assets/achievements/anime/music_1.jpg"
+    :border_color: "#FBCEB1"
+    :title_ru: Звуки музыки
+    :text_ru: Они раскрашивают этот мир в яркие цвета.
     :title_en: 
     :text_en: 
     :topic_id: 222061
@@ -14369,9 +14369,10 @@
     :neko_id: :music
     :level: 2
     :image: "/assets/achievements/anime/music_2.jpg"
-    :border_color: "#4285b4"
-    :title_ru: Это не вокалоид
-    :text_ru: Звуки сложились в песню.
+    :border_color: "#9DB1CC"
+    :title_ru: Там, где слова бессильны
+    :text_ru: Музыка – это язык, на котором душа общается с душою, стирая границы
+      условностей.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -14387,10 +14388,10 @@
     :neko_id: :music
     :level: 3
     :image: "/assets/achievements/anime/music_3.jpg"
-    :border_color: "#cd5c5c"
-    :title_ru: Это не айдол
-    :text_ru: Вы ведь знаете, неважно что они поют, но они должны вкладывать в это
-      своё сердце.
+    :border_color: "#7FC7FF"
+    :title_ru: Новая мелодия
+    :text_ru: В буре страстей и море эмоций рождаются композиции, способные изменить
+      мир.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -14406,10 +14407,10 @@
     :neko_id: :music
     :level: 4
     :image: "/assets/achievements/anime/music_4.gif"
-    :border_color: "#4c514a"
-    :title_ru: Это не продюсер
-    :text_ru: Кажется, вы знаток музыкальной индустрии. Ну и что теперь?.. Откроете
-      своё агентство с инновациями и идолами?
+    :border_color: "#4D4234"
+    :title_ru: Играя на струнах души
+    :text_ru: Музыка - это не просто красивые мелодии, без нее сама жизнь была бы
+      ошибкой
     :title_en: 
     :text_en: 
     :topic_id: 
