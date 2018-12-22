@@ -96,14 +96,4 @@ class UserDecorator < BaseDecorator
       ImageUrlGenerator.instance.url object, "x#{size}".to_sym
     end
   end
-
-private
-
-  def years
-    DateTime.now.year - birth_on.year if birth_on
-  end
-
-  def full_years
-    Date.parse(DateTime.now.to_s) - years.years + 1.day > birth_on ? years : years - 1 if birth_on
-  end
 end

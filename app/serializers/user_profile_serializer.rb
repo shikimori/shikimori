@@ -5,7 +5,7 @@ class UserProfileSerializer < UserSerializer
     :common_info, :last_online, :show_comments, :in_friends, :is_ignored,
     :stats, :style_id
 
-  delegate :common_info, to: :view
+  delegate :common_info, :full_years, to: :view
 
   def last_online_at
     object.exact_last_online_at
