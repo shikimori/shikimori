@@ -31,7 +31,7 @@ class Profiles::View < ViewObjectBase
 
   def ignored?
     if h.user_signed_in?
-      h.current_user.ignores.any? { |v| v.target_id == object.id }
+      h.current_user.ignores.any? { |v| v.target_id == @user.id }
     else
       false
     end
@@ -54,11 +54,11 @@ class Profiles::View < ViewObjectBase
 
     info << "id: #{@user.id}" if h.user_signed_in? && h.current_user.admin?
 
-    if h.can? :access_list, self
+    if h.can? :access_list, @user
       info << h.h(@user.name)
       unless @user.sex.blank?
-        info << i18n_t('male') if male?
-        info << i18n_t('female') if female?
+        info << i18n_t('male') if @user.male?
+        info << i18n_t('female') if @user.female?
       end
       if @user.birth_on.present? && @user.full_years > 12
         info << "#{@user.full_years} #{i18n_i 'years_old', @user.full_years}"
