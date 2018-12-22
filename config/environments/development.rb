@@ -86,5 +86,7 @@ Rails.application.configure do
     config.params_key_count_threshold = 4
     # If this value is true, nested Hash parameter is formatted coercively in any situation
     config.force_on_nested_params = false
+
+    config.sql_in_values_num = 9999
   end
 end
