@@ -7,7 +7,7 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
 
   def available?
     unless Users::AchievementsController::ACHIEVEMENTS_CLUB_USER_IDS.include?(@user.id) ||
-        h.current_user.admin?
+        h.current_user&.admin?
       return false
     end
 

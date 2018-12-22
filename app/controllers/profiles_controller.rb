@@ -44,7 +44,7 @@ class ProfilesController < ShikimoriController
     og noindex: true
     og page_title: i18n_t('feed')
 
-    if !@resource.show_comments? ||
+    if !@view.show_comments? ||
         @resource.main_comments_view.comments_count.zero?
       redirect_to @resource.url
     end

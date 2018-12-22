@@ -47,7 +47,7 @@ describe Neko::Rule do
   end
 
   describe '#group_name' do
-    it { expect(rule.group_name).to eq 'Аниме' }
+    it { expect(rule.group_name).to eq 'Общие' }
   end
 
   describe '#title' do

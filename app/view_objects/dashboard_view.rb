@@ -66,9 +66,11 @@ class DashboardView < ViewObjectBase
         is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass
       ),
       (
-        Titles::SeasonTitle.new(
-          is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass
-        ) if klass.is_a?(Ranobe)
+        if klass.is_a?(Ranobe)
+          Titles::SeasonTitle.new(
+            is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass
+          )
+        end
       )
     ].compact
   end
@@ -76,7 +78,7 @@ class DashboardView < ViewObjectBase
   def review_topic_views
     all_review_topic_views
       .shuffle
-      .select { |view| !view.topic.linked.target.censored? }
+      .reject { |view| view.topic.linked.target.censored? }
       .sort_by { |view| -view.topic.id }
       .select.with_index { |_review, index| index == cache_keys[:reviews_index] }
   end
@@ -111,11 +113,11 @@ class DashboardView < ViewObjectBase
   end
 
   def history
-    Profiles::HistoryView.new(h.current_user).preview.take DISPLAYED_HISTORY
+    Profiles::HistoryView.new(h.current_user).preview(DISPLAYED_HISTORY)
   end
 
   def forums
-    Forums::List.new(with_forum_size: true).select { |forum| !forum.is_special }
+    Forums::List.new(with_forum_size: true).reject(&:is_special)
   end
 
   def cache_keys

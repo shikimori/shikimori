@@ -24,7 +24,7 @@
         = user.last_online
 
     .history
-      - user.history.formatted.each do |entry|
+      - Profiles::HistoryView.new(user).preview(4).each do |entry|
         .line
           - if entry.special?
             time.date[

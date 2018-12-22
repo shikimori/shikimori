@@ -21,8 +21,8 @@ class Profiles::HistoryView < ViewObjectBase
     formatted.any?
   end
 
-  def preview
-    formatted.take(anime_with_manga? ? 3 : 2)
+  def preview limit = anime_with_manga? ? 3 : 2
+    formatted.take(limit)
   end
 
 private
