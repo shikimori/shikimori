@@ -19,12 +19,12 @@ class Profiles::View < ViewObjectBase
     h.user_signed_in? && h.current_user.id == @user.id
   end
 
-  def banned_profile?
-    BANNED_PROFILES.include?(@user.id.to_s) && !own_profile?
+  def censored_profile?
+    @user.censored_profile? && !own_profile?
   end
 
   def show_comments?
-    !banned_profile? &&
+    !censored_profile? &&
       (h.user_signed_in? || @user.comments.any?) &&
       @user.preferences.comments_in_profile?
   end
@@ -42,7 +42,7 @@ class Profiles::View < ViewObjectBase
   end
 
   def about_html
-    return if banned_profile?
+    return if censored_profile?
 
     Rails.cache.fetch [:about, @user] do
       BbCodes::Text.call @user.about || ''
