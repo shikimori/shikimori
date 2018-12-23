@@ -100,6 +100,7 @@ class Api::V1::UserRatesController < Api::V1Controller
     user = current_user.object
 
     user.history.where(target_type: params[:type].capitalize).delete_all
+    user.history.where(action: "#{params[:type]}_import").delete_all
     user.history.where(action: "mal_#{params[:type]}_import").delete_all
     user.history.where(action: "ap_#{params[:type]}_import").delete_all
     user.send("#{params[:type]}_rates").delete_all
