@@ -3,7 +3,7 @@
     .rate-number
       span.current-episodes= model.episodes
 
-      if entry.episodes == 0
+      if entry.episodes != 0
         span.b-separator
           | /
         span.total-episodes= entry.episodes
@@ -23,7 +23,7 @@
     .rate-number
       span.current-episodes= model.chapters
 
-      if entry.chapters == 0
+      if entry.chapters != 0
         span.b-separator
           | /
         span.total-episodes= entry.chapters

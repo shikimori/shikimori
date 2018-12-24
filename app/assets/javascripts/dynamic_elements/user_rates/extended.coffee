@@ -16,7 +16,7 @@ export default class UserRateExtended extends UserRateButton
     @on 'ajax:success', '.rate-edit', @_hide_form
     @on 'rate:change', @_change_score
 
-    super
+    super()
 
   # handlers
   _toggle_list: (e) =>
@@ -26,7 +26,7 @@ export default class UserRateExtended extends UserRateButton
       else
         @_fetch_form()
     else
-      super
+      super()
 
   _fetch_form: ->
     @_ajax_before()
@@ -55,6 +55,7 @@ export default class UserRateExtended extends UserRateButton
     @form_html || @_render_extended() if @_is_persisted()
 
   _render_extended: ->
+    console.log(@entry)
     JST[EXTENDED_TEMPLATE](
       entry: @entry
       model: @model
@@ -63,5 +64,5 @@ export default class UserRateExtended extends UserRateButton
     )
 
   _render: ->
-    super
+    super()
     @$('.b-rate').rateable()
