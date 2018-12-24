@@ -1,4 +1,6 @@
 class AnimeOnline::DashboardController < ShikimoriController
+  before_action { redirect_to root_url(subdomain: false) unless ignore_copyright? }
+
   def show # rubocop:disable all
     # redirect_to '/animes/genre/12-Hentai' if adult?
 
