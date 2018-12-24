@@ -58,7 +58,7 @@ module Copyright
     35320, # Cardcaptor Sakura: Clear Card Prologue (Cardcaptor Sakura: Clear Card-hen Prologue - Sakura to Futatsu no Kuma) | Russia + French 2018-01-01 - 2025-12-31
     35073, # Overlord II | Russia 2018-01-01 - 2022-01-01
     33478, # UQ Holder!: Mahou Sensei Negima! 2 | Russia 2017-10-01 - 2024-10-01
-    36027, # King's Game | Russia + French 2017-10-01 - 2024-10-01
+    36027, # King's Game The Animation (King's Game)| Russia + French 2017-10-01 - 2024-10-01
     35838, # Girls' Last Tour | Russia + French 2017-10-01 - 2020-10-01
     35712, # My Girlfriend is too much to handle | Russia + French 2017-10-01 - 2020-10-01
     36094, # Hakumei and Mikochi (Hakumei to Mikochi) | Russia + French 2018-01-01 - 2022-01-01

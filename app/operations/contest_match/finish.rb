@@ -56,6 +56,6 @@ private
 
     # need to reload model becase of cached field from acts_as_votable
     # without it cached_votes_left/right sometimes do not reload properly
-    @contest_match.reload unless Rails.env.test?
+    @contest_match = ContestMatch.find(@contest_match.id) unless Rails.env.test?
   end
 end
