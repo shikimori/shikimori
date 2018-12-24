@@ -6851,7 +6851,7 @@
         - 32962
         - 34753
         - 35315
-      :threshold: 96.1%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -12373,8 +12373,8 @@
       :filters:
         franchise: toriko
         not_anime_ids:
-        - 1178
-      :threshold: 98.1%
+        - 11787
+      :threshold: 99.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -12392,7 +12392,7 @@
       :filters:
         franchise: toriko
         not_anime_ids:
-        - 1178
+        - 11787
       :threshold: 0.01%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -15042,6 +15042,7 @@
         - 4214
         - 36726
         - 36943
+        - 34497
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -15399,6 +15400,7 @@
         - 4214
         - 36726
         - 36943
+        - 34497
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -15758,6 +15760,7 @@
         - 4214
         - 36726
         - 36943
+        - 34497
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
