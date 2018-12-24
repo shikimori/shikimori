@@ -118,6 +118,10 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     render plain: request.user_agent
   end
 
+  def country
+    render plain: GeoipAccess.instance.country_code(remote_addr)
+  end
+
   def raise_exception
     raise 'test'
   end

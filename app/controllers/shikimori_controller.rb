@@ -89,6 +89,7 @@ class ShikimoriController < ApplicationController
   # TODO: delete
   def check_post_permission
     return unless user_signed_in?
+
     unless current_user.can_post?
       banned_till = current_user.read_only_at.strftime('%H:%M %d.%m.%Y')
 

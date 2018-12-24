@@ -573,6 +573,7 @@ Rails.application.routes.draw do
         get :privacy
         get :for_right_holders
         get :user_agent
+        get :country
 
         get 'site-news' => redirect('/news_feed.rss')
         get 'anime-news' => redirect('/news_feed.rss')

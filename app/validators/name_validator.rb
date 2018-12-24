@@ -18,6 +18,15 @@ class NameValidator < ActiveModel::EachValidator
     polls
     oauth
     oauth2
+    tableau
+    ongoings
+    about
+    development
+    terms
+    privacy
+    for_right_holders
+    user_agent
+    country
   ]
   FORBIDDEN_NAMES = /
     \A(?:
