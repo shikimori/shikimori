@@ -272,4 +272,62 @@ http_interactions:
         zxct","locale":"ru"}}]}}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: head
+    uri: http://localhost:9200/shikimori_test_users
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.15.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '2120'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: post
+    uri: http://localhost:9200/shikimori_test_users/user/_bulk?refresh=true
+    body:
+      encoding: UTF-8
+      string: |
+        {"index":{"_id":23456901}}
+        {"nickname":"user_1042"}
+    headers:
+      Content-Type:
+      - application/x-ndjson
+      User-Agent:
+      - Faraday v0.15.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '206'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":82,"errors":false,"items":[{"index":{"_index":"shikimori_test_users","_type":"user","_id":"23456901","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0

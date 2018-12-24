@@ -5,11 +5,7 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
   before_action :authenticate_user!, only: %i[viewed]
   before_action :add_breadcrumb, except: %i[index destroy]
 
-  before_action do
-    if !ignore_copyright? || @resource.licensed? || @resource.censored? || @resource.forbidden?
-      redirect_to anime_url @resource, subdomain: false
-    end
-  end
+  before_action :redirect_copyrighted, only: %i[index]
 
   skip_before_action :verify_authenticity_token, only: %i[track_view]
 
@@ -120,6 +116,12 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
   end
 
 private
+
+  def redirect_copyrighted
+    if !ignore_copyright? || @resource.licensed? || @resource.censored? || @resource.forbidden?
+      redirect_to anime_url @resource, subdomain: false
+    end
+  end
 
   def new_params
     create_params
