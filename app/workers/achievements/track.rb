@@ -7,7 +7,7 @@ class Achievements::Track
   )
 
   def perform user_id, user_rate_id, action
-    RedisMutex.with_lock("achievements/track_#{user_id}", block: 0) do
+    RedisMutex.with_lock("achievements/track_#{user_id}", block: 0, expire: 60) do
       user = User.find user_id
       neko_update user, user_rate_id, action
     end
