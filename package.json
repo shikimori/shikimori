@@ -83,7 +83,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-react": "^7.11.1",
-    "fsevents": "1.2.4"
+    "fsevents": "2.0.1"
   },
   "optionalDependencies": {
     "fsevents": "*"
