@@ -1,10 +1,15 @@
 class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable ClassLength
   load_and_authorize_resource only: %i[new create edit update destroy]
 
-  before_action { redirect_to anime_url(@resource, subdomain: false) unless ignore_copyright? }
   before_action :actualize_resource, only: %i[new create edit update]
   before_action :authenticate_user!, only: %i[viewed]
   before_action :add_breadcrumb, except: %i[index destroy]
+
+  before_action do
+    if !ignore_copyright? || @resource.licensed? || @resource.censored? || @resource.forbidden?
+      redirect_to anime_url @resource, subdomain: false
+    end
+  end
 
   skip_before_action :verify_authenticity_token, only: %i[track_view]
 
