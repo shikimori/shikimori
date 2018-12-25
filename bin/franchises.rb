@@ -191,7 +191,7 @@ data
   .select { |rule| rule['filters']['franchise'].present? }
   .select { |rule| rule['level'] == 1 }
   .each do |rule|
-    data.push rule.dup.merge('level' => 0, 'threshold' => '0.01%')
+    data.push rule.dup.merge('level' => 0, 'threshold' => '0.001%')
   end
 
 data = data.sort_by do |rule|
