@@ -118,6 +118,8 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
 private
 
   def redirect_copyrighted
+    return if params[:no_redirect]
+
     if !ignore_copyright? || @resource.licensed? || @resource.censored? || @resource.forbidden?
       redirect_to anime_url @resource, subdomain: false
     end
