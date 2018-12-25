@@ -48,7 +48,7 @@ class ContestDecorator < DbEntryDecorator
 
   # раунды
   def rounds
-    object.rounds.includes matches: [:left, :right]
+    object.rounds.includes matches: %i[left right]
   end
 
   # финальное голосование контеста
@@ -57,9 +57,9 @@ class ContestDecorator < DbEntryDecorator
   end
 
   # описание контеста
-  #def description
+  # def description
     # BbCodes::EntryText.call object.description, object
-  #end
+  # end
 
   # # победители контеста
   # def results round=nil
@@ -97,17 +97,21 @@ class ContestDecorator < DbEntryDecorator
     object.suggestions
       .includes(:item)
       .by_votes
-      .sort_by {|v| [-v.votes, h.localized_name(v.item)] }
+      .sort_by { |v| [-v.votes, h.localized_name(v.item)] }
   end
+
   def unordered_suggestions
     suggestions.sort_by { |v| h.localized_name(v.item) }
   end
+
   def median_votes
-    suggestions.size > 10 ? suggestions[suggestions.size/3].votes : 0
+    suggestions.size > 10 ? suggestions[suggestions.size / 3].votes : 0
   end
+
   def certain_suggestions
     suggestions.select { |v| v.votes > median_votes }
   end
+
   def uncertain_suggestions
     suggestions.select { |v| v.votes <= median_votes }
   end
@@ -142,23 +146,23 @@ class ContestDecorator < DbEntryDecorator
     @rating ||= {}
     @rating[round] ||= begin
       matches_count = round.additional? ? round.matches.size * 2 : round.matches.size
-      strategy.results(round).take [[[matches_count*2, 8].max, 8].min, matches_count].max
+      strategy.results(round).take [[[matches_count * 2, 8].max, 8].min, matches_count].max
     end
   end
 
   def rating_stats round
     prior_rating = round.prior_round ? rating(round.prior_round) : []
 
-    rating(round).each_with_index.map do |member,index|
+    rating(round).each_with_index.map do |member, index|
       prior_index = prior_rating.index member
 
       diff = prior_index == -1 || !prior_index ? 0 : prior_index - index
 
       OpenStruct.new(
         member: member,
-        progress: diff == 0 ? nil : (diff > 0 ? "+#{diff}" : "#{diff}"),
-        status: diff > 0 ? :positive : :negative,
-        position: index+1
+        progress: diff.zero? ? nil : (diff.positive? ? "+#{diff}" : diff.to_s),
+        status: diff.positive? ? :positive : :negative,
+        position: index + 1
       )
     end
   end

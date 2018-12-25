@@ -1,7 +1,7 @@
 import ContestRound from 'views/contests/round';
 
 page_load('contests_show', () => {
-  if (!$('.contest.started').length) {
+  if (!$('.contest_round').length) {
     return;
   }
 

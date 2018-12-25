@@ -58,7 +58,6 @@ class Api::V2::UserRatesController < Api::V2Controller
     scope.offset!(limit * (page - 1)).limit!(limit) unless params[:user_id]
 
     @collection = Rails.cache.fetch(scope) { scope.to_a }
-
     respond_with @collection
   end
 
