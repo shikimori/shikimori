@@ -14066,6 +14066,7 @@
           - 31056
           - 19109
           - 25011
+          - 37517
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -14096,6 +14097,7 @@
           - 31056
           - 19109
           - 25011
+          - 37517
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -14126,6 +14128,7 @@
           - 31056
           - 19109
           - 25011
+          - 37517
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -14156,6 +14159,7 @@
           - 31056
           - 19109
           - 25011
+          - 37517
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - !ruby/object:Neko::Rule
   attributes:
