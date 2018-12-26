@@ -122,42 +122,46 @@ class Neko::Rule < Dry::Struct
       .order(:id)
   end
 
-  def animes_scope
+  def animes_scope filters = rule[:filters]
     scope = Animes::NekoScope.call
-    return scope unless rule[:filters]
+    return scope unless filters
 
-    if rule[:filters]['anime_ids']
-      scope.where! id: rule[:filters]['anime_ids']
+    if filters['anime_ids']
+      scope.where! id: filters['anime_ids']
     end
 
-    if rule[:filters]['not_anime_ids']
-      scope = scope.where.not id: rule[:filters]['not_anime_ids']
+    if filters['not_anime_ids']
+      scope = scope.where.not id: filters['not_anime_ids']
     end
 
-    if rule[:filters]['genre_ids']
-      grenre_ids = rule[:filters]['genre_ids'].map(&:to_i).join(',')
+    if filters['genre_ids']
+      grenre_ids = filters['genre_ids'].map(&:to_i).join(',')
       scope.where! "genre_ids && '{#{grenre_ids}}' and kind != 'Special'"
     end
 
-    if rule[:filters]['episodes_gte']
-      scope.where! EPISODES_GTE_SQL, episodes: rule[:filters]['episodes_gte'].to_i
+    if filters['episodes_gte']
+      scope.where! EPISODES_GTE_SQL, episodes: filters['episodes_gte'].to_i
     end
 
-    if rule[:filters]['duration_lte']
-      duration_lte = rule[:filters]['duration_lte'].to_i
+    if filters['duration_lte']
+      duration_lte = filters['duration_lte'].to_i
       scope.where! 'duration <= ?', duration_lte
     end
 
-    if rule[:filters]['year_lte']
-      year_lte = rule[:filters]['year_lte'].to_i
+    if filters['year_lte']
+      year_lte = filters['year_lte'].to_i
       scope.where! 'aired_on <= ?', Date.new(year_lte).end_of_year
     end
 
-    if rule[:filters]['franchise']
-      scope.where! franchise: rule[:filters]['franchise']
+    if filters['franchise']
+      scope.where! franchise: filters['franchise']
     end
 
-    scope
+    if filters['or']
+      scope.or animes_scope(filters['or'])
+    else
+      scope
+    end
   end
 
   def statistics
