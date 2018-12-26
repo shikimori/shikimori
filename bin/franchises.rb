@@ -60,7 +60,7 @@ end
 
   # data = data.select { |v| v['filters']['franchise'] == 'shakugan_no_shana' }
 
-puts 'downloading images'
+puts 'downloading images...'
 data
   .select { |rule| rule['level'] == 1 }
   .select { |rule| rule['metadata']['image'].present? }
@@ -195,7 +195,7 @@ data
   .select { |rule| rule['filters']['franchise'].present? }
   .select { |rule| rule['level'] == 1 }
   .each do |rule|
-    data.push rule.dup.merge('level' => 0, 'threshold' => '0.001%')
+    data.push rule.dup.merge('level' => 0, 'threshold' => 0.01)
   end
 
 data = data.sort_by do |rule|
