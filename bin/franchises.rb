@@ -126,12 +126,22 @@ data
 
     short_specials_duration_subtract = short_specials.size <= 3 ? short_specials_duration : short_specials_duration / 2.0
 
+    ignored_latest_duration = Anime
+      .where(id: rule.dig('generator', 'ignore_latest_ids') || [])
+      .where(
+        'released_on is not null and released_on > ? or aired_on > ?',
+        1.year.ago,
+        1.year.ago
+      )
+      .sum { |v| Neko::Duration.call v }
+
     formula_threshold = (
       total_duration -
       ova_duration_subtract -
       long_specials_duration_subtract -
       short_specials_duration_subtract -
-      mini_specials_duration
+      mini_specials_duration -
+      ignored_latest_duration
     ) * 100.0 / total_duration
 
     if total_duration > 30_000
@@ -163,7 +173,8 @@ data
       .sort
       .reverse
 
-    important_duration = important_durations[0..[(important_titles.size * 0.4).round, 3].max].sum
+    important_duration = important_durations[0..[(important_titles.size * 0.4).round, 3].max].sum -
+      ignored_latest_duration
     important_threshold = important_duration * 100.0 / total_duration
 
     threshold = [important_threshold, formula_threshold].max
