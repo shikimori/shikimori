@@ -177,7 +177,7 @@ class Neko::Rule < Dry::Struct
   end
 
   def cache_key
-    [Digest::MD5.hexdigest(to_json), users_scope.cache_key]
+    [Digest::MD5.hexdigest(to_json), users_scope.cache_key, :v2]
   end
 
 private
@@ -196,7 +196,7 @@ private
       .sum do |user_rate|
         anime = animes.find { |v| v.id == user_rate.target_id }
 
-        user_rate.watching? ?
+        (user_rate.watching? || user_rate.on_hold?) ?
           anime.duration * user_rate.episodes :
           Neko::Duration.call(anime)
       end
@@ -219,7 +219,7 @@ private
   def anime_rates user, is_add_watching
     statuses =
       if is_add_watching
-        %i[completed rewatching watching]
+        %i[completed rewatching watching on_hold]
       else
         %i[completed rewatching]
       end
