@@ -171,6 +171,10 @@ data
     current_threshold = rule['threshold'].to_s.gsub('%', '').to_f
     new_threshold = threshold.floor(1)
 
+    if rule.dig('generator', 'threshold').present?
+      new_threshold = rule['generator']['threshold']
+    end
+
     if current_threshold != new_threshold
       ap(
         franchise: rule['filters']['franchise'],
