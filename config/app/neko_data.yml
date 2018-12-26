@@ -8469,6 +8469,44 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :zero_no_tsukaima
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/zero_no_tsukaima.png"
+    :border_color: 
+    :title_ru: Подручный Луизы-Нулизы
+    :text_ru: 
+    :title_en: Zero no Tsukaima
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: zero_no_tsukaima
+        not_anime_ids:
+        - 6489
+      :threshold: 98%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :zero_no_tsukaima
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/zero_no_tsukaima.png"
+    :border_color: 
+    :title_ru: Подручный Луизы-Нулизы
+    :text_ru: 
+    :title_en: Zero no Tsukaima
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: zero_no_tsukaima
+        not_anime_ids:
+        - 6489
+      :threshold: 0.001%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :one_piece
     :level: 1
     :image: "/assets/achievements/anime/franchise/one_piece.png"
@@ -8515,44 +8553,6 @@
         - 36240
         - 36241
         - 36242
-      :threshold: 0.001%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :zero_no_tsukaima
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/zero_no_tsukaima.png"
-    :border_color: 
-    :title_ru: Подручный Луизы-Нулизы
-    :text_ru: 
-    :title_en: Zero no Tsukaima
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: zero_no_tsukaima
-        not_anime_ids:
-        - 6489
-      :threshold: 98%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :zero_no_tsukaima
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/zero_no_tsukaima.png"
-    :border_color: 
-    :title_ru: Подручный Луизы-Нулизы
-    :text_ru: 
-    :title_en: Zero no Tsukaima
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: zero_no_tsukaima
-        not_anime_ids:
-        - 6489
       :threshold: 0.001%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9967,44 +9967,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :negima
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/negima.jpg"
-    :border_color: 
-    :title_ru: Волшебный учитель Нэгима!
-    :text_ru: 
-    :title_en: Mahou Sensei Negima!
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: negima
-        not_anime_ids:
-        - 34450
-      :threshold: 95%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :negima
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/negima.jpg"
-    :border_color: 
-    :title_ru: Волшебный учитель Нэгима!
-    :text_ru: 
-    :title_en: Mahou Sensei Negima!
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: negima
-        not_anime_ids:
-        - 34450
-      :threshold: 0.001%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :uta_no_prince_sama
     :level: 1
     :image: "/assets/achievements/anime/franchise/uta_no_prince_sama.jpg"
@@ -10044,6 +10006,44 @@
         not_ignored_ids:
         - 36684
         - 36685
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :negima
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/negima.jpg"
+    :border_color: 
+    :title_ru: Волшебный учитель Нэгима!
+    :text_ru: 
+    :title_en: Mahou Sensei Negima!
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: negima
+        not_anime_ids:
+        - 34450
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :negima
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/negima.jpg"
+    :border_color: 
+    :title_ru: Волшебный учитель Нэгима!
+    :text_ru: 
+    :title_en: Mahou Sensei Negima!
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: negima
+        not_anime_ids:
+        - 34450
+      :threshold: 0.001%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -13254,25 +13254,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :kimagure_orange_road
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/kimagure_orange_road.jpg"
-    :border_color: 
-    :title_ru: Капризы Апельсиновой улицы
-    :text_ru: 
-    :title_en: Kimagure Orange☆Road
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: kimagure_orange_road
-        not_anime_ids:
-        - 14059
-      :threshold: 0.001%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :time_bokan
     :level: 1
     :image: "/assets/achievements/anime/franchise/time_bokan.jpg"
@@ -13289,6 +13270,25 @@
         not_anime_ids:
         - 8921
       :threshold: 80%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kimagure_orange_road
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/kimagure_orange_road.jpg"
+    :border_color: 
+    :title_ru: Капризы Апельсиновой улицы
+    :text_ru: 
+    :title_en: Kimagure Orange☆Road
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: kimagure_orange_road
+        not_anime_ids:
+        - 14059
+      :threshold: 0.001%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
