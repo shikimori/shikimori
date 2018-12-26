@@ -96,7 +96,23 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
     video = AnimeVideo.find params[:id]
     @user_rate = @anime.rates.find_or_initialize_by user: current_user
 
-    @user_rate.update! episodes: video.episode if @user_rate.episodes < video.episode
+    if @user_rate.episodes < video.episode
+      @user_rate.update! episodes: video.episode
+
+      UserRates::Log.call(
+        user_rate: @user_rate,
+        ip: remote_addr,
+        user_agent: request.user_agent,
+        oauth_application_id: doorkeeper_token&.application_id
+      )
+
+      Achievements::Track.perform_async(
+        @user_rate.user_id,
+        @user_rate.id,
+        Types::Neko::Action[:put]
+      )
+    end
+
     head 200
   end
 
