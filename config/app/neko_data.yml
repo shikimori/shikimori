@@ -7124,9 +7124,11 @@
         - 6948
         - 36725
         - 36796
-      :threshold: 95%
+      :threshold: 94.2%
       :generator:
         not_ignored_ids:
+        - 36999
+        ignore_latest_ids:
         - 36999
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -7151,6 +7153,8 @@
       :threshold: 0.01
       :generator:
         not_ignored_ids:
+        - 36999
+        ignore_latest_ids:
         - 36999
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8570,7 +8574,10 @@
       :algo: duration
       :filters:
         franchise: natsume_yuujinchou
-      :threshold: 95%
+      :threshold: 91.9%
+      :generator:
+        ignore_latest_ids:
+        - 36538
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8588,6 +8595,9 @@
       :filters:
         franchise: natsume_yuujinchou
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 36538
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -13254,25 +13264,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :time_bokan
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/time_bokan.jpg"
-    :border_color: 
-    :title_ru: Приключения во времени
-    :text_ru: 
-    :title_en: Time Bokan
-    :text_en: 
-    :topic_id: 247360
-    :rule:
-      :algo: duration
-      :filters:
-        franchise: time_bokan
-        not_anime_ids:
-        - 8921
-      :threshold: 80%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :kimagure_orange_road
     :level: 0
     :image: "/assets/achievements/anime/franchise/kimagure_orange_road.jpg"
@@ -13289,6 +13280,25 @@
         not_anime_ids:
         - 14059
       :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :time_bokan
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/time_bokan.jpg"
+    :border_color: 
+    :title_ru: Приключения во времени
+    :text_ru: 
+    :title_en: Time Bokan
+    :text_en: 
+    :topic_id: 247360
+    :rule:
+      :algo: duration
+      :filters:
+        franchise: time_bokan
+        not_anime_ids:
+        - 8921
+      :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
