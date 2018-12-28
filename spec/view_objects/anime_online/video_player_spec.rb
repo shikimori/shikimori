@@ -265,8 +265,8 @@ describe AnimeOnline::VideoPlayer do
           # it { is_expected.to eq true }
         # end
 
-        # context 'smotret-anime' do
-          # let(:url) { 'http://smotret-anime.ru/translations/embed/960633' }
+        # context 'smotretanime' do
+          # let(:url) { 'http://smotretanime.ru/translations/embed/960633' }
           # it { is_expected.to eq true }
         # end
       # end

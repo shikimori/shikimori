@@ -280,14 +280,14 @@ describe VideoExtractor::PlayerUrlExtractor do
       it { is_expected.to eq '//mipix.eu/translations/embed/274265' }
     end
 
-    describe 'smotret-anime.ru' do
-      let(:html) { 'http://smotret-anime.ru/catalog/anime-kod-gias-vosstavshiy-lelush-2-2522/11-seriya-3784/russkie-subtitry-522965' }
-      it { is_expected.to eq '//smotret-anime.ru/translations/embed/522965' }
+    describe 'smotretanime.ru' do
+      let(:html) { 'http://smotretanime.ru/catalog/anime-kod-gias-vosstavshiy-lelush-2-2522/11-seriya-3784/russkie-subtitry-522965' }
+      it { is_expected.to eq '//smotretanime.ru/translations/embed/522965' }
     end
 
-    describe 'smotret-anime.ru embed' do
-      let(:html) { '<iframe src="https://smotret-anime.ru/translations/embed/522965" width="853" height="526" allowfullscreen frameborder="0"></iframe>' }
-      it { is_expected.to eq '//smotret-anime.ru/translations/embed/522965' }
+    describe 'smotretanime.ru embed' do
+      let(:html) { '<iframe src="https://smotretanime.ru/translations/embed/522965" width="853" height="526" allowfullscreen frameborder="0"></iframe>' }
+      it { is_expected.to eq '//smotretanime.ru/translations/embed/522965' }
     end
 
     # describe 'play.aniland.org' do

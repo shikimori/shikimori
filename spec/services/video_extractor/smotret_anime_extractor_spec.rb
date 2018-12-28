@@ -3,11 +3,11 @@ describe VideoExtractor::SmotretAnimeExtractor do
 
   describe 'fetch' do
     subject { service.fetch }
-    let(:embed_url) { 'http://smotret-anime.ru/translations/embed/939915' }
-    let(:image_url) { 'https://smotret-anime.ru/translations/thumbnail/939915.320x180.jpg' }
+    let(:embed_url) { 'http://smotretanime.ru/translations/embed/939915' }
+    let(:image_url) { 'https://smotretanime.ru/translations/thumbnail/939915.320x180.jpg' }
 
     context 'full url' do
-      let(:url) { 'https://smotret-anime.ru/catalog/anime-krasavica-voin-seylor-mun-kristall-apostoly-smerti-13889/12-seriya-122880/ozvuchka-939915' }
+      let(:url) { 'https://smotretanime.ru/catalog/anime-krasavica-voin-seylor-mun-kristall-apostoly-smerti-13889/12-seriya-122880/ozvuchka-939915' }
 
       its(:hosting) { is_expected.to eq 'smotret_anime' }
       its(:image_url) { is_expected.to eq image_url }

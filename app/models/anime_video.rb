@@ -144,7 +144,7 @@ class AnimeVideo < ApplicationRecord
   end
 
   def smotret_anime?
-    hosting == 'smotret-anime.ru'
+    hosting == 'smotretanime.ru'
   end
 
   def allowed?

@@ -1,5 +1,5 @@
 NEKO_IP = '88.198.7.116'
-SMOTRET_ANIME_USER_AGENT = 'Anime 365 (https://smotret-anime.ru/; info@smotret-anime.ru)'
+SMOTRET_ANIME_USER_AGENT = 'Anime 365 (https://smotretanime.ru/; info@smotretanime.ru)'
 
 # Throttle requests to 5 requests per second per ip
 Rack::Attack.throttle('req/ip', limit: 5, period: 1.second) do |req|

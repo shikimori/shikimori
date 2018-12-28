@@ -3,7 +3,7 @@ class VideoExtractor::PlayerUrlExtractor < ServiceObjectBase
   CONTENT = /[^" ><\n]+/.source
   PARAM = %r{[^" ><&?\n\/]+}.source
   SMOTRET_ANIME_REGEXP = %r{
-    #{HTTP}smotret-anime.ru
+    #{HTTP}smotretanime.ru
       (?:
         /catalog/[\w-]+/[\w-]+/[\w-]+?-(?<id>\d+)
         |
@@ -113,7 +113,7 @@ private
     elsif html =~ /(?<url>#{HTTP}mipix.eu#{CONTENT})/
       $LAST_MATCH_INFO[:url]
     elsif html =~ SMOTRET_ANIME_REGEXP
-      "https://smotret-anime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
+      "https://smotretanime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ VideoExtractor::RutubeExtractor::URL_REGEX
       if $LAST_MATCH_INFO[:hash].size > 10
         format(

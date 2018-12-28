@@ -10,13 +10,13 @@ describe AnimeOnline::FilterSovetRomantica do
       let(:video_1) do
         create :anime_video,
           author_name: 'SovetRomantica',
-          url: 'https://smotret-anime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/russkie-subtitry-1013978',
+          url: 'https://smotretanime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/russkie-subtitry-1013978',
           kind: :subtitles
       end
       let(:video_2) do
         create :anime_video,
           author_name: 'SovetRomantica (Bla Bla Bla)',
-          url: 'https://smotret-anime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/angliyskie-subtitry-1014042',
+          url: 'https://smotretanime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/angliyskie-subtitry-1014042',
           kind: :fandub
       end
       let(:video_3) do
@@ -28,7 +28,7 @@ describe AnimeOnline::FilterSovetRomantica do
       let(:video_4) do
         create :anime_video,
           author_name: 'SovetRomantica',
-          url: 'https://smotret-anime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/angliyskie-subtitry-1014041',
+          url: 'https://smotretanime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/angliyskie-subtitry-1014041',
           kind: :unknown
       end
 
@@ -40,7 +40,7 @@ describe AnimeOnline::FilterSovetRomantica do
       let(:video_1) do
         create :anime_video,
           author_name: 'SovetRomantica (Bla Bla Bla)',
-          url: 'https://smotret-anime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/angliyskie-subtitry-1014042',
+          url: 'https://smotretanime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/angliyskie-subtitry-1014042',
           kind: :fandub
       end
       let(:video_2) do
@@ -57,7 +57,7 @@ describe AnimeOnline::FilterSovetRomantica do
       let(:video_1) do
         create :anime_video,
           author_name: 'SovetRomantica (Bla Bla Bla)',
-          url: 'https://smotret-anime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/angliyskie-subtitry-1014042',
+          url: 'https://smotretanime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/angliyskie-subtitry-1014042',
           kind: :fandub
       end
       let(:video_2) do

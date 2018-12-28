@@ -43,7 +43,7 @@ describe Api::V1::AnimeVideosController do
         kind: kind,
         author_name: 'test',
         episode: 3,
-        url: 'http://smotret-anime.ru/catalog/anime-princessa-vampir-miyu-1988-2/ova-1-seriya-93732/russkie-subtitry-758598',
+        url: 'http://smotretanime.ru/catalog/anime-princessa-vampir-miyu-1988-2/ova-1-seriya-93732/russkie-subtitry-758598',
         source: 'http://url-for-page-where-you-got-video',
         language: 'russian',
         quality: 'bd',

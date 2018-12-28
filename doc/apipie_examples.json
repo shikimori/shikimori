@@ -223,13 +223,13 @@
           "language": "russian",
           "quality": "bd",
           "source": "http://url-for-page-where-you-got-video",
-          "url": "http://smotret-anime.ru/catalog/anime-princessa-vampir-miyu-1988-2/ova-1-seriya-93732/russkie-subtitry-758598"
+          "url": "http://smotretanime.ru/catalog/anime-princessa-vampir-miyu-1988-2/ova-1-seriya-93732/russkie-subtitry-758598"
         }
       },
       "response_data": {
         "id": 2,
         "anime_id": 1,
-        "url": "http://smotret-anime.ru/translations/embed/758598",
+        "url": "http://smotretanime.ru/translations/embed/758598",
         "source": "http://url-for-page-where-you-got-video",
         "episode": 3,
         "kind": "fandub",

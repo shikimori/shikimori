@@ -1,6 +1,6 @@
 class SmotretAnimeParser < ServiceObjectBase
   CONFIG_FILE = "#{Rails.root.join}/tmp/cache/links.yml"
-  URL_TEMPLATE = "https://smotret-anime.ru/catalog/zzz-"
+  URL_TEMPLATE = "https://smotretanime.ru/catalog/zzz-"
   MAX_ID = 14892
 
   def call

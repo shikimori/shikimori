@@ -20,7 +20,7 @@ video_hostings = ($link) ->
   yandex_ru: video_hosting('yandex.ru', url)
   dailymotion_com: video_hosting('dailymotion.com', url)
   streamable_com: video_hosting('streamable.com', url)
-  smotret_anime: video_hosting('smotret-anime.ru', url)
+  smotret_anime: video_hosting('smotretanime.ru', url)
   ok_ru: video_hosting('ok.ru', url)
 
   # youtube_example:

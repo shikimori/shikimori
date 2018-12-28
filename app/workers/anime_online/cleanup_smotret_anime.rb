@@ -1,7 +1,7 @@
 class AnimeOnline::CleanupSmotretAnime
   include Sidekiq::Worker
 
-  URL_LIKE = "url like '%smotret-anime.ru%'"
+  URL_LIKE = "url like '%smotretanime.ru%'"
   SELECTS = 'max(id), max(episode) as max_episode, anime_id'
 
   def perform

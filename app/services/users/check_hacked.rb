@@ -16,7 +16,7 @@ class Users::CheckHacked
     myvi.ru
     rutube.ru
     sibnet.ru
-    smotret-anime.ru
+    smotretanime.ru
     vimeo.com
     vk.com
     yandex.ru

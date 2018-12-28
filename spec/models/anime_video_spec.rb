@@ -456,7 +456,7 @@ describe AnimeVideo do
       end
 
       context 'smotret_anime' do
-        let(:url) { 'http://smotret-anime.ru/translations/embed/960633' }
+        let(:url) { 'http://smotretanime.ru/translations/embed/960633' }
         it { expect(video).to_not be_vk }
         it { expect(video).to be_smotret_anime }
       end

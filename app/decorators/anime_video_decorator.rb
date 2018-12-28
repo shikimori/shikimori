@@ -2,7 +2,7 @@ class AnimeVideoDecorator < BaseDecorator
   HOSTINGS_ORDER = {
     'vk.com' => '_' * 1,
     'sovetromantica.com' => '_' * 2,
-    'smotret-anime.ru' => '_' * 3,
+    'smotretanime.ru' => '_' * 3,
     'myvi.ru' => '_' * 4,
     'sibnet.ru' => '_' * 5,
     'rutube.ru' => '_' * 6,
