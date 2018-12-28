@@ -48,7 +48,9 @@ module Copyright
     28805, # Bakemono no ko
     # https://www.mos-gorsud.ru/mgs/defend/statementForm/d059c855-42f4-40a3-a6ec-930b5af44187
     23273, # Shigatsu wa Kimi no Uso
-    28069
+    28069, # Shigatsu wa Kimi no Uso: Moments
+    # https://www.mos-gorsud.ru/mgs/defend/statementForm/80619321-6d78-4a51-8ca2-ae42d2c3c1ed
+    199 # Spirited Away
   ] + ISTARI_COPYRIGHTED + VGTRK_COPYRIGHTED + CAPELLA_FILM_COPYRIGHTED
 
   WAKANIM_COPYRIGHTED = [
