@@ -133,7 +133,7 @@ private
       ($LAST_MATCH_INFO[:url]).to_s.gsub(/-.*/, '')
     elsif html =~ ANIMAUNT_REGEXP
       ($LAST_MATCH_INFO[:url]).to_s
-    elsif html =~ %r{(?<url>#{HTTP}kadu.ru/embed#{CONTENT})}
+    elsif html =~ %r{(?<url>#{HTTP}gidfilm.ru/embed#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     elsif html =~ VideoExtractor::OkExtractor::URL_REGEX
       "https://ok.ru/videoembed/#{$LAST_MATCH_INFO[:key]}"
