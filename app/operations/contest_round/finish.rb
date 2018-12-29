@@ -2,9 +2,9 @@ class ContestRound::Finish
   method_object :contest_round
 
   def call
-    ContestRound.transaction do
-      finish_matches
+    finish_matches
 
+    ContestRound.transaction do
       @contest_round.finish!
 
       if last_round?
