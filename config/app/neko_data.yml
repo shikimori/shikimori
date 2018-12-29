@@ -14054,7 +14054,6 @@
       :filters:
         genre_ids:
         - 26
-        - 34
         or:
           anime_ids:
           - 7748
@@ -14085,7 +14084,6 @@
       :filters:
         genre_ids:
         - 26
-        - 34
         or:
           anime_ids:
           - 7748
@@ -14116,7 +14114,6 @@
       :filters:
         genre_ids:
         - 26
-        - 34
         or:
           anime_ids:
           - 7748
@@ -14147,7 +14144,6 @@
       :filters:
         genre_ids:
         - 26
-        - 34
         or:
           anime_ids:
           - 7748
@@ -16058,7 +16054,7 @@
     :border_color: "#5F9EA0"
     :title_ru: Быть человеком
     :text_ru: Если у вас нет ста пушек в руках и одной в сердце, то дальнейший просмотр
-      становиться рискованным.
+      становится рискованным.
     :title_en: 
     :text_en: 
     :topic_id: 
