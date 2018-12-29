@@ -103,6 +103,12 @@ rails neko:update
 ```
 
 
+## Add new video hosting
+```ruby
+# app/services/video_extractor/player_url_extractor.rb
+```
+
+
 ## Webpack debugger
 https://nodejs.org/en/docs/inspector/
 Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj
