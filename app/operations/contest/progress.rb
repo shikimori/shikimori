@@ -2,23 +2,21 @@ class Contest::Progress
   method_object :contest
 
   def call
-    Contest.transaction { progress_contest }
-  end
-
-private
-
-  def progress_contest
     matches_to_start = start_matches
     matches_to_finish = finish_matches
 
-    if current_round.can_finish?
-      round_to_finish = ContestRound::Finish.call current_round
-    end
+    Contest.transaction do
+      if current_round.can_finish?
+        round_to_finish = ContestRound::Finish.call current_round
+      end
 
-    if matches_to_start.any? || matches_to_finish.any? || round_to_finish
-      @contest.touch
+      if matches_to_start.any? || matches_to_finish.any? || round_to_finish
+        @contest.touch
+      end
     end
   end
+
+private
 
   def start_matches
     matches
