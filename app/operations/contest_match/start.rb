@@ -2,6 +2,8 @@ class ContestMatch::Start
   method_object :contest_match
 
   def call
+    Rails.logger.info "ContestMatch::Start #{@contest_match.id}"
+
     ContestMatch.transaction do
       @contest_match.start!
       reset_user_vote_key

@@ -2,6 +2,8 @@ class Contest::Progress
   method_object :contest
 
   def call
+    Rails.logger.info "Contest::Progress #{@contest.id}"
+
     matches_to_start = start_matches
     matches_to_finish = finish_matches
 

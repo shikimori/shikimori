@@ -2,6 +2,8 @@ class ContestMatch::Finish
   method_object :contest_match
 
   def call
+    Rails.logger.info "ContestMatch::Finish #{@contest_match.id}"
+
     ContestMatch.transaction do
       unvote_suspicious
       @contest_match.finish!

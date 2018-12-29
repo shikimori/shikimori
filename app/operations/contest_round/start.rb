@@ -2,6 +2,8 @@ class ContestRound::Start
   method_object :contest_round
 
   def call
+    Rails.logger.info "ContestRound::Start #{@contest_round.id}"
+
     ContestRound.transaction do
       @contest_round.start!
 

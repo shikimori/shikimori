@@ -2,6 +2,8 @@ class Contest::Finish
   method_object :contest
 
   def call
+    Rails.logger.info "Contest::Finish #{@contest.id}"
+
     Contest.transaction do
       @contest.finish!
       @contest.update!(

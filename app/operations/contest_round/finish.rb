@@ -2,6 +2,8 @@ class ContestRound::Finish
   method_object :contest_round
 
   def call
+    Rails.logger.info "ContestRound::Finish #{@contest_round.id}"
+
     finish_matches
 
     ContestRound.transaction do
