@@ -11,7 +11,7 @@ export default class ShikiHtml5Video extends View {
     // @on 'error', () => @error()
     this.on('click', () => this.click());
     this.on('volumechange', () => this.volumeChange());
-    this.on(FULLSCREEN_EVENTS, e => this.switchFullscreen(e));
+    this.on(FULLSCREEN_EVENTS, () => this.switchFullscreen());
   }
 
   click() {
@@ -27,8 +27,8 @@ export default class ShikiHtml5Video extends View {
     sessionStorage.set(VOLUME_KEY, this.root.volume);
   }
 
-  switchFullscreen(e) {
-    if (document.fullscreenElement == this.root) {
+  switchFullscreen() {
+    if (document.fullscreenElement === this.root) {
       this.root.classList.add('fullscreen');
     } else {
       this.root.classList.remove('fullscreen');
