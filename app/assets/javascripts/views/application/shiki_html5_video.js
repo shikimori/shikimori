@@ -2,6 +2,7 @@ import { sessionStorage } from 'js-storage';
 import View from 'views/application/view';
 
 const VOLUME_KEY = 'video_volume';
+const FULLSCREEN_EVENTS = 'webkitfullscreenchange mozfullscreenchange fullscreenchange';
 
 export default class ShikiHtml5Video extends View {
   initialize() {
@@ -9,7 +10,8 @@ export default class ShikiHtml5Video extends View {
 
     // @on 'error', () => @error()
     this.on('click', () => this.click());
-    this.on('volumechange', () => this.volumechange());
+    this.on('volumechange', () => this.volumeChange());
+    this.on(FULLSCREEN_EVENTS, e => this.switchFullscreen(e));
   }
 
   click() {
@@ -21,7 +23,15 @@ export default class ShikiHtml5Video extends View {
     return false;
   }
 
-  volumechange() {
+  volumeChange() {
     sessionStorage.set(VOLUME_KEY, this.root.volume);
+  }
+
+  switchFullscreen(e) {
+    if (document.fullscreenElement == this.root) {
+      this.root.classList.add('fullscreen');
+    } else {
+      this.root.classList.remove('fullscreen');
+    }
   }
 }
