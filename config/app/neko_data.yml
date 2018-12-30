@@ -7862,7 +7862,7 @@
         franchise: hellsing
         not_anime_ids:
         - 6904
-      :threshold: 96%
+      :threshold: 100%%
       :generator:
         threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -7884,6 +7884,8 @@
         not_anime_ids:
         - 6904
       :threshold: 0.01
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8254,7 +8256,7 @@
       :algo: duration
       :filters:
         franchise: clannad
-      :threshold: 96.1%
+      :threshold: 100%%
       :generator:
         threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -8274,6 +8276,8 @@
       :filters:
         franchise: clannad
       :threshold: 0.01
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9544,9 +9548,9 @@
         franchise: nurarihyon_no_mago
         not_anime_ids:
         - 9731
-        - 11083
         - 10886
-      :threshold: 98.9%
+        - 11083
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9565,8 +9569,8 @@
         franchise: nurarihyon_no_mago
         not_anime_ids:
         - 9731
-        - 11083
         - 10886
+        - 11083
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -11980,7 +11984,7 @@
       :algo: duration
       :filters:
         franchise: kiniro_no_corda
-      :threshold: 91.7%
+      :threshold: 100%%
       :generator:
         threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -12000,6 +12004,8 @@
       :filters:
         franchise: kiniro_no_corda
       :threshold: 0.01
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -12354,7 +12360,7 @@
         franchise: ookiku_furikabutte
         not_anime_ids:
         - 8423
-      :threshold: 95.1%
+      :threshold: 100%%
       :generator:
         threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -12376,6 +12382,8 @@
         not_anime_ids:
         - 8423
       :threshold: 0.01
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -12394,7 +12402,7 @@
         franchise: toriko
         not_anime_ids:
         - 11787
-      :threshold: 99.2%
+      :threshold: 100%%
       :generator:
         threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -12416,6 +12424,8 @@
         not_anime_ids:
         - 11787
       :threshold: 0.01
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -14628,8 +14638,8 @@
   attributes:
     :neko_id: :scifi
     :level: 2
-    :image: "/assets/achievements/anime/scifi_2.png"
-    :border_color: "#256d7b"
+    :image: "/assets/achievements/anime/scifi_2.jpg"
+    :border_color: "#876464"
     :title_ru: Изобретатель
     :text_ru: Вероятно, вы способны сделать пригодным для использования даже то, что
       является кучей мусора в глазах других.
@@ -14667,7 +14677,7 @@
     :neko_id: :scifi
     :level: 4
     :image: "/assets/achievements/anime/scifi_4.gif"
-    :border_color: "#2f353b"
+    :border_color: "#DAA520"
     :title_ru: Великий Разум
     :text_ru: Фантастика — это реальность. Всё, о чём вы подумали, осуществляется.
     :title_en: 
