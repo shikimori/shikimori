@@ -2979,7 +2979,7 @@
     :neko_id: :police
     :level: 1
     :image: "/assets/achievements/anime/police_1.jpg"
-    :border_color: 
+    :border_color: "#B03F35"
     :title_ru: Народный дружинник
     :text_ru: На улицах неспокойно. Нельзя терять бдительности.
     :title_en: 
@@ -7863,6 +7863,8 @@
         not_anime_ids:
         - 6904
       :threshold: 96%
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8253,6 +8255,8 @@
       :filters:
         franchise: clannad
       :threshold: 96.1%
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9541,6 +9545,7 @@
         not_anime_ids:
         - 9731
         - 11083
+        - 10886
       :threshold: 98.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9561,6 +9566,7 @@
         not_anime_ids:
         - 9731
         - 11083
+        - 10886
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -11975,6 +11981,8 @@
       :filters:
         franchise: kiniro_no_corda
       :threshold: 91.7%
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -12347,6 +12355,8 @@
         not_anime_ids:
         - 8423
       :threshold: 95.1%
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -12385,6 +12395,8 @@
         not_anime_ids:
         - 11787
       :threshold: 99.2%
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
