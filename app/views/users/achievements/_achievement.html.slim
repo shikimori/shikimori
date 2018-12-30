@@ -4,7 +4,6 @@
 - else
   .b-achievement[
     data-progress=achievement.progress
-    data-percent="#{achievement.progress}%"
     data-title=achievement.title(current_user, ru_host?)
     data-hint=achievement.hint
     class=(:badge if local_assigns[:badge_only])

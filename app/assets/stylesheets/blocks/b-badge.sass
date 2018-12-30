@@ -6,12 +6,12 @@
   line-height: 0
   margin-bottom: 5px
 
-  &:not([data-percent]):before,
-  &:not([data-percent]):after,
-  &[data-percent="0%"]:before,
-  &[data-percent="0%"]:after,
-  &[data-percent="100%"]:before,
-  &[data-percent="100%"]:after,
+  &:not([data-progress]):before,
+  &:not([data-progress]):after,
+  &[data-progress="0"]:before,
+  &[data-progress="0"]:after,
+  &[data-progress="100"]:before,
+  &[data-progress="100"]:after,
     display: none
     opacity: 0
 
@@ -31,7 +31,7 @@
 
   &:before
     color: #fff
-    content: attr(data-percent)
+    content: attr(data-progress) '%'
     font-size: 12px
     text-align: center
     z-index: 1
