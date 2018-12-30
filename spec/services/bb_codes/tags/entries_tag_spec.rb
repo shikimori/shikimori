@@ -10,7 +10,9 @@ describe BbCodes::Tags::EntriesTag do
         let(:anime_2) { create :anime }
         let(:text) { "[animes ids=#{anime_1.id},#{anime_2.id}]" }
 
-        it('has default number of columns') { expect(html).to include "<div class='cc-#{BbCodes::Tags::EntriesTag::DEFAULT_COLUMNS} " }
+        it 'has default number of columns' do
+          expect(html).to include "<div class='cc-#{BbCodes::Tags::EntriesTag::DEFAULT_COLUMNS}-g15 "
+        end
         it('has entries') { expect(html.scan('b-catalog_entry')).to have(2).items }
 
         context 'max entries limit' do
@@ -20,7 +22,7 @@ describe BbCodes::Tags::EntriesTag do
 
         context 'exact max entries limit' do
           before { stub_const 'BbCodes::Tags::EntriesTag::MAX_ENTRIES', 1 }
-          it('has warn message') { expect(html).to eq "[color=red]limit exceeded (1 max)[/color]" }
+          it('has warn message') { expect(html).to eq '[color=red]limit exceeded (1 max)[/color]' }
         end
       end
 

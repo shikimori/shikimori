@@ -18,44 +18,45 @@ class BbCodes::Tags::EntriesTag
       )+
     \]
   /imx
-  DEFAULT_COLUMNS = 5
+  DEFAULT_COLUMNS = 8
   MAX_ENTRIES = 500
 
   def format text
     # ограничение, чтобы нельзя было слишком много элементов вставить
     entries_count = 0
 
-    text.gsub REGEXP do |matched|
-      ids = $~[:ids].split(',').map(&:to_i).select {|v| v < 2147483647 }
-      klass = $~[:class]
+    text.gsub REGEXP do |_matched|
+      ids = $LAST_MATCH_INFO[:ids].split(',').map(&:to_i).select { |v| v < 2_147_483_647 }
+      klass = $LAST_MATCH_INFO[:class]
 
-      is_wall = $~[:wall].present?
+      is_wall = $LAST_MATCH_INFO[:wall].present?
       if is_wall
-        columns = [[($~[:columns] || DEFAULT_COLUMNS).to_i, 6].max, 9].min
+        columns = [[($LAST_MATCH_INFO[:columns] || DEFAULT_COLUMNS).to_i, 6].max, 9].min
         cover_notice = :none
         cover_title = :none
       else
-        columns = [[($~[:columns] || DEFAULT_COLUMNS).to_i, 4].max, 9].min
-        cover_notice = ($~[:cover_notice] || 'none').to_sym
+        columns = [[($LAST_MATCH_INFO[:columns] || DEFAULT_COLUMNS).to_i, 4].max, 9].min
+        cover_notice = ($LAST_MATCH_INFO[:cover_notice] || 'none').to_sym
         cover_title = :present
       end
 
       if ids.size + entries_count > MAX_ENTRIES
         next "[color=red]limit exceeded (#{MAX_ENTRIES} max)[/color]"
       end
+
       entries_count += ids.size
 
-      entries = fetch_entries ids, type_to_klass($~[:type]), entries_count
-      entries_html = entries.sort_by {|v| ids.index(v.id) }.map do |entry|
+      entries = fetch_entries ids, type_to_klass($LAST_MATCH_INFO[:type]), entries_count
+      entries_html = entries.sort_by { |v| ids.index(v.id) }.map do |entry|
         entry_to_html entry, cover_title, cover_notice
       end
 
       if is_wall
-        klass = "cc-#{columns}-g0" unless klass
+        klass ||= "cc-#{columns}-g0"
         "<div class='#{klass} align-posters unprocessed' data-columns='#{columns}'>#{entries_html.join ''}</div>"
       else
-        klass = "cc-#{columns}#{'-g15' if columns >= 6}" unless klass
-        ratio_type = [Character, Person].include?(type_to_klass($~[:type])) ? " data-ratio_type='person'" :''
+        klass ||= "cc-#{columns}#{'-g15' if columns >= 6}"
+        ratio_type = [Character, Person].include?(type_to_klass($LAST_MATCH_INFO[:type])) ? " data-ratio_type='person'" : ''
         "<div class='#{klass} m0 to-process' data-dynamic='cutted_covers'#{ratio_type}>#{entries_html.join ''}</div>"
       end
     end
@@ -70,16 +71,16 @@ private
     h.controller.render_to_string(
       partial: "#{name.pluralize}/#{name}",
       locals: {
-        "#{name}".to_sym => entry.decorate,
+        name.to_s.to_sym => entry.decorate,
         cover_title: cover_title,
         cover_notice: cover_notice
       },
       formats: [:html],
-      cache: ->(entry, _) { CacheHelper.keys entry, cover_title, cover_notice }
+      cache: ->(model, _) { CacheHelper.keys model, cover_title, cover_notice }
     )
   end
 
-  def fetch_entries ids, klass, current_count
+  def fetch_entries ids, klass, _current_count
     klass.where(id: ids)
   end
 
