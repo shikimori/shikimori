@@ -4,8 +4,8 @@ class BbCodes::Tags::CleanupNewLines
   TAGS = %i[div quote]
   TAG_REGEXP = {
     div: {
-      start: / \[ div (?: =[^\]]+ )? \] /mix.source,
-      end: %r{ \[ /div \] }mix.source
+      start: BbCodes::Tags::DivTag::TAG_START_REGEXP.source,
+      end: BbCodes::Tags::DivTag::TAG_END_REGEXP.source
     },
     quote: {
       start: / \[ quote (?: =[^\]]+ )? \] /mix.source,
@@ -44,8 +44,6 @@ class BbCodes::Tags::CleanupNewLines
       .gsub(CLEANUP_MARKER, '')
   end
 
-  # rubocop:disable MethodLength
-  # rubocop:disable AbcSize
   def cleanup text, tag
     text
       .gsub CLEANUP_REGEXP[tag][:tag_start_1] do
@@ -61,6 +59,4 @@ class BbCodes::Tags::CleanupNewLines
         $LAST_MATCH_INFO[:tag] + CLEANUP_MARKER
       end
   end
-  # rubocop:enablk MethodLength
-  # rubocop:enable AbcSize
 end

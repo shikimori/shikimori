@@ -13,7 +13,7 @@ class WebmThumbnail
 
     grab_thumbnail webm_video.url, thumbnail_path
 
-    if File.exists? thumbnail_path
+    if File.exist? thumbnail_path
       webm_video.update thumbnail: open(thumbnail_path)
       webm_video.process!
     else
@@ -24,6 +24,6 @@ class WebmThumbnail
 private
 
   def grab_thumbnail url, path
-    %x{ffmpeg -y -i #{url} -ss 00:00:01 -vframes 1 #{path}}
+    `ffmpeg -y -i #{url} -ss 00:00:01 -vframes 1 #{path}`
   end
 end
