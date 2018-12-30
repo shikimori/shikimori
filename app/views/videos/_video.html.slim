@@ -4,29 +4,29 @@
   - if defined? edition
     .mobile-edit
     .controls
-      .delete title="Удалить видео"
+      .delete title='Удалить видео'
       .confirm[
-        data-action="#{anime_video_url video.anime, video}"
-        data-method="delete"
-        data-remote="true"
-        data-type="json"
-        title="Подтвердить удаление"
+        data-action=anime_video_url(video.anime, video)
+        data-method='delete'
+        data-remote='true'
+        data-type='json'
+        title='Подтвердить удаление'
       ]
-      .cancel title="Отменить удаление"
+      .cancel title='Отменить удаление'
 
   a.video-link[
-    href="#{video.url}"
-    data-href="#{Url.new(video.player_url).without_protocol.to_s}"
+    href=video.url
+    data-href=Url.new(video.player_url).without_protocol.to_s
   ]
     img[
-      src="#{video.camo_image_url}"
-      data-id="#{video.id}"
+      src=video.camo_image_url
+      data-id=video.id
     ]
 
   - if video.name.present?
-    span.name title="#{video.name}" = video.name
+    span.name title=video.name = video.name
 
-  a.marker href="#{video.url}"
+  a.marker href=video.url
     - if defined?(video_counter) || defined?(show_kind)
       = video.kind_text
     - else

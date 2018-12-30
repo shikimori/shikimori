@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, params[:action]] do
+  = cache [@resource, params[:action], :v2] do
     .subheadline-buttons
       a.item-edit href=@resource.edit_field_url(:videos)
     .subheadline.m10 = i18n_i('video').capitalize
