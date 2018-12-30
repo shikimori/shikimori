@@ -1,11 +1,11 @@
 header.head.misc
   h1
     = og.headline
-  - if can? :create, Contest.new
-    a.misc[
-      href=new_contest_url
-      title=t('.create_new_contest')
-    ] = t('actions.create').downcase
+    - if can? :create, Contest.new
+      a.misc[
+        href=new_contest_url
+        title=t('.create_new_contest')
+      ] = t('actions.create').downcase
   p.notice.clearfix = t '.list_of_all_site_contests'
 
 .contests

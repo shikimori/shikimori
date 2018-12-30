@@ -6,13 +6,13 @@
 
 - else
   header.head.misc
-    h1 = og.headline
-
-    a.misc.to-process[
-      href=new_club_url(club: { owner_id: current_user&.id })
-      title=t('.new')
-      data-dynamic="week_registered"
-    ] = t('actions.create').downcase
+    h1
+      = og.headline
+      a.misc.to-process[
+        href=new_club_url(club: { owner_id: current_user&.id })
+        title=t('.new')
+        data-dynamic="week_registered"
+      ] = t('actions.create').downcase
 
     p.notice.clearfix = t '.notice'
 

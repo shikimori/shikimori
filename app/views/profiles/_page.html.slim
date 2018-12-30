@@ -16,9 +16,8 @@ header.head.misc
     = render 'profiles/status', view: @view
     = yield :head_misc
 
-  = render 'application/breadcrumbs'
-
   = yield :head_notice
+  = render 'application/breadcrumbs'
 
 .block.m0
   = yield
