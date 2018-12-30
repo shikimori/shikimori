@@ -18,14 +18,16 @@ class BbCodes::Text
     wall poll
 
     contest_status contest_round_status
-    html5_video source broadcast
+    source broadcast
 
     div hr br p
     b i u s
     size center right
     color solid url
     list h3
-  ]
+
+    html5_video
+  ] # html5_video must be after url tag
 
   DB_ENTRY_BB_CODES = %i[anime manga ranobe character person]
   DB_ENTRY_TAGS = BbCodes::ToTag.call DB_ENTRY_BB_CODES
