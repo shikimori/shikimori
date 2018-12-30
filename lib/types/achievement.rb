@@ -41,7 +41,6 @@ module Types
         scifi
         supernatural
 
-        action
         drama
         horror_thriller
         josei
@@ -49,7 +48,6 @@ module Types
         military
         mystery
         police
-        seinen
         space
         sports
 
