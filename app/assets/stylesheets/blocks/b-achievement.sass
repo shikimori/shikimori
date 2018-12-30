@@ -5,6 +5,7 @@
 @import mixins/link
 @import mixins/responsive
 @import mixins/shikimori
+@import mixins/ellipsis2
 
 .b-achievement
   +cc
@@ -30,6 +31,41 @@
     .c-image
       +column(1)
       padding-top: 50%
+
+  &.badge
+    margin-bottom: 5px
+    overflow: hidden
+
+    &:before,
+    &:after
+      bottom: 2px
+      height: 20px
+      left: 2px
+      position: absolute
+
+    &:before
+      +ellipsis2
+      color: #fff
+      content: attr(data-hint)
+      font-size: 11px
+      line-height: 20px
+      padding: 0 6px
+      width: calc(100% - 10px)
+      z-index: 1
+
+    &:after
+      background: #123
+      content: ''
+      opacity: 0.5
+      width: calc(100% - 4px)
+
+    .c-image
+      margin-right: 0
+      padding-top: 50%
+      width: 100%
+
+      .inner .border
+        border-width: 2px
 
   .c-image
     .inner

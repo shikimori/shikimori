@@ -31,12 +31,15 @@
             values: %w(popularity alphabet)
         h2.subheadline.green.m10 = t 'achievements.group.franchise'
         .cc
-          = render partial: 'users/achievements/achievement',
-            collection: @view.franchise_achievements
+          = render partial: 'users/achievements/badge',
+            collection: @view.franchise_achievements,
+            as: :achievement,
+            locals: { tipsy_size: 'medium' }
 
-          = render partial: 'users/achievements/achievement',
+          = render partial: 'users/achievements/badge',
             collection: @view.missing_franchise_achievements,
-            locals: { unavailable: true }
+            as: :achievement,
+            locals: { tipsy_size: 'medium', unavailable: true }
 
           - if @view.franchise_achievements.none? && @view.missing_franchise_achievements.none?
             p.b-nothing_here = t '.no_achievements'

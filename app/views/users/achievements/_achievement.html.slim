@@ -4,22 +4,27 @@
 - else
   .b-achievement[
     data-progress=achievement.progress
+    data-percent="#{achievement.progress}%"
+    data-title=achievement.title(current_user, ru_host?)
+    data-hint=achievement.hint
+    class=(:badge if local_assigns[:badge_only])
   ]
-    .c-about
-      - if local_assigns[:images] && !local_assigns[:info_link]
-        .title
-          = achievement.title(current_user, ru_host?)
-          - if local_assigns[:status]
-            - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
-              .gained ✓
+    - unless local_assigns[:badge_only]
+      .c-about
+        - if local_assigns[:images] && !local_assigns[:info_link]
+          .title
+            = achievement.title(current_user, ru_host?)
+            - if local_assigns[:status]
+              - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
+                .gained ✓
 
-      - else
-        a.title href=achievement_url(achievement.group, achievement.neko_id)
-          = achievement.title(current_user, ru_host?)
-      .percent #{achievement.progress}%
-      .hint = achievement.hint
-      .progress: .bar style="width: #{achievement.progress}%"
-      .text == achievement.text(ru_host?).gsub("\n", "<br>")
+        - else
+          a.title href=achievement_url(achievement.group, achievement.neko_id)
+            = achievement.title(current_user, ru_host?)
+        .percent #{achievement.progress}%
+        .hint = achievement.hint
+        .progress: .bar style="width: #{achievement.progress}%"
+        .text == achievement.text(ru_host?).gsub("\n", "<br>")
 
     - if local_assigns[:images] && achievement.images.any?
       - achievement.images.each_with_index do |image, index|

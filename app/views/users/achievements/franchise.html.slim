@@ -10,6 +10,7 @@
   h2.subheadline.m10 = og.headline
   .cc
     - @view.all_franchise_achievements.each do |achievement|
-      = render 'users/achievements/achievement',
+      = render 'users/achievements/badge',
         achievement: @view.franchise_achievements.find { |v| v.neko_id == achievement.neko_id } || achievement,
-        unavailable: @view.franchise_achievements.none? { |v| v.neko_id == achievement.neko_id }
+        unavailable: @view.franchise_achievements.none? { |v| v.neko_id == achievement.neko_id },
+        tipsy_size: 'large'

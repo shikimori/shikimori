@@ -7,9 +7,9 @@
         .title = t 'achievements.group.common'
       - if view.common_achievements.any?
         .cc-achievements
-          = render partial: 'users/achievements/badge',
+          = render partial: 'users/achievements/achievement',
             collection: view.common_achievements,
-            as: :achievement
+            locals: { badge_only: true }
       - else
         p.b-nothing_here = t '.no_achievements'
     .c-column
@@ -17,9 +17,9 @@
         .title = t 'achievements.group.genre'
       - if view.genre_achievements.any?
         .cc-achievements
-          = render partial: 'users/achievements/badge',
+          = render partial: 'users/achievements/achievement',
             collection: view.genre_achievements,
-            as: :achievement
+            locals: { badge_only: true }
       - else
         p.b-nothing_here = t '.no_achievements'
     .c-column
@@ -32,6 +32,7 @@
         .cc-franchises
           = render partial: 'users/achievements/badge',
             collection: view.franchise_achievements,
+            locals: { tipsy_size: 'normal' },
             as: :achievement
       - else
         p.b-nothing_here = t '.no_achievements'
