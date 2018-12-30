@@ -88,18 +88,19 @@
                     gravity = maybeCall(this.options.gravity, this.$element[0]);
 
                 var tp;
+                // +- 1 pixel because of bug in chrome https://github.com/shikimori/shikimori/issues/1587
                 switch (gravity.charAt(0)) {
                     case 'n':
-                        tp = {top: pos.top + pos.height + this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
+                        tp = {top: pos.top + pos.height + this.options.offset + 1, left: pos.left + pos.width / 2 - actualWidth / 2};
                         break;
                     case 's':
-                        tp = {top: pos.top - actualHeight - this.options.offset, left: pos.left + pos.width / 2 - actualWidth / 2};
+                        tp = {top: pos.top - actualHeight - this.options.offset - 1, left: pos.left + pos.width / 2 - actualWidth / 2};
                         break;
                     case 'e':
-                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth - this.options.offset};
+                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth - this.options.offset - 1};
                         break;
                     case 'w':
-                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width + this.options.offset};
+                        tp = {top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width + this.options.offset + 1};
                         break;
                     default:
                         break;
