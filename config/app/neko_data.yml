@@ -3243,7 +3243,7 @@
     :topic_id: 227424
     :rule:
       :algo: count
-      :threshold: 70
+      :threshold: 50
       :filters:
         year_lte: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
@@ -3261,7 +3261,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 150
+      :threshold: 100
       :filters:
         year_lte: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
@@ -3278,7 +3278,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 300
+      :threshold: 200
       :filters:
         year_lte: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
@@ -3295,7 +3295,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 500
+      :threshold: 350
       :filters:
         year_lte: 2000
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oldfag.yml
@@ -4650,7 +4650,7 @@
     :topic_id: 227419
     :rule:
       :algo: count
-      :threshold: 10%
+      :threshold: 7%
       :filters:
         anime_ids:
         - 1
@@ -5144,7 +5144,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 20%
+      :threshold: 15%
       :filters:
         anime_ids:
         - 1
@@ -5638,7 +5638,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 30%
+      :threshold: 25%
       :filters:
         anime_ids:
         - 1
@@ -6132,7 +6132,7 @@
     :topic_id: 222036
     :rule:
       :algo: count
-      :threshold: 45
+      :threshold: 30
       :filters:
         genre_ids:
         - 18
@@ -6151,7 +6151,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 90
+      :threshold: 60
       :filters:
         genre_ids:
         - 18
@@ -6170,7 +6170,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 150
+      :threshold: 100
       :filters:
         genre_ids:
         - 18
@@ -6188,7 +6188,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 230
+      :threshold: 160
       :filters:
         genre_ids:
         - 18
@@ -6350,7 +6350,7 @@
     :topic_id: 227427
     :rule:
       :algo: count
-      :threshold: 30%
+      :threshold: 50
       :filters:
         anime_ids:
         - 10073
@@ -14072,7 +14072,7 @@
     :topic_id: 227432
     :rule:
       :algo: count
-      :threshold: 25%
+      :threshold: 20%
       :filters:
         genre_ids:
         - 26
@@ -14102,7 +14102,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 45%
+      :threshold: 35%
       :filters:
         genre_ids:
         - 26
@@ -14132,7 +14132,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 65%
+      :threshold: 50%
       :filters:
         genre_ids:
         - 26
@@ -14162,7 +14162,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 85%
+      :threshold: 70%
       :filters:
         genre_ids:
         - 26
@@ -14512,7 +14512,7 @@
     :topic_id: 248176
     :rule:
       :algo: count
-      :threshold: 13
+      :threshold: 10
       :filters:
         anime_ids:
         - 2553
@@ -14775,7 +14775,7 @@
     :topic_id: 227421
     :rule:
       :algo: count
-      :threshold: 15%
+      :threshold: 10%
       :filters:
         anime_ids:
         - 7088
@@ -15133,7 +15133,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 20%
+      :threshold: 15%
       :filters:
         anime_ids:
         - 7088
@@ -15493,7 +15493,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 30%
+      :threshold: 25%
       :filters:
         anime_ids:
         - 7088
@@ -15851,7 +15851,7 @@
     :topic_id: 227425
     :rule:
       :algo: count
-      :threshold: 80%
+      :threshold: 50
       :filters:
         anime_ids:
         - 10020
@@ -16092,7 +16092,7 @@
     :topic_id: 227418
     :rule:
       :algo: count
-      :threshold: 25%
+      :threshold: 20%
       :filters:
         genre_ids:
         - 28
@@ -16112,7 +16112,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 45%
+      :threshold: 35%
       :filters:
         genre_ids:
         - 28
@@ -16131,7 +16131,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 65%
+      :threshold: 45%
       :filters:
         genre_ids:
         - 28
@@ -16150,7 +16150,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 85%
+      :threshold: 60%
       :filters:
         genre_ids:
         - 28
@@ -19528,7 +19528,7 @@
     :topic_id: 222645
     :rule:
       :algo: count
-      :threshold: 20%
+      :threshold: 15
       :filters:
         genre_ids:
         - 43
@@ -19547,7 +19547,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 35%
+      :threshold: 25
       :filters:
         genre_ids:
         - 43
@@ -19566,7 +19566,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 55%
+      :threshold: 40
       :filters:
         genre_ids:
         - 43
@@ -19584,7 +19584,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 75%
+      :threshold: 60
       :filters:
         genre_ids:
         - 43
