@@ -15,12 +15,12 @@ header.head
     - else
       = t '.new_club'
 
-  / - if can?(:edit, @club) && @club.persisted?
-    / - if params[:action] == 'show' || (params[:controller] == 'clubs' && params[:action] != 'edit')
-      / a.edit[
-        / href=edit_club_url(@club, page: :main)
-        / title=t('.edit_club')
-      / ] = t('actions.edit').downcase
+    / - if can?(:edit, @club) && @club.persisted?
+      / - if params[:action] == 'show' || (params[:controller] == 'clubs' && params[:action] != 'edit')
+        / a.edit[
+          / href=edit_club_url(@club, page: :main)
+          / title=t('.edit_club')
+        / ] = t('actions.edit').downcase
 
   = render 'application/breadcrumbs'
 
