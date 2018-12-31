@@ -62,10 +62,6 @@ private
   end
 
   def publish user, added, removed
-    unless !Rails.env.production? ||
-        Users::AchievementsController::ACHIEVEMENTS_CLUB_USER_IDS.include?(user.id)
-      return
-    end
     return if added.none? && removed.none?
 
     faye_publisher.publish_achievements(

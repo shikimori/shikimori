@@ -1,5 +1,4 @@
 class AchievementsController < ShikimoriController
-
   before_action do
     og page_title: i18n_i('Achievement', :other)
   end
