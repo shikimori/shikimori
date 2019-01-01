@@ -18,7 +18,7 @@
     "babel-preset-env": "^1.6.0",
     "blueimp-md5": "^2.10.0",
     "bowser": "^1.7.3",
-    "codemirror": "5.41.0",
+    "codemirror": "5.42.2",
     "coffee-loader": "^0.8.0",
     "coffeelint": "^2.1.0",
     "coffeescript": "^1.12.7",
