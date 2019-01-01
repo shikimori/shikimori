@@ -29,6 +29,7 @@ exceptions:
     - MalParser::RecordNotFound
     - BadImageError
     - Errors::NotIdentifiedByImageMagickError
+    - Sidekiq::Shutdown
 metrics:
   enabled: false
 traces:

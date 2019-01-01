@@ -74,6 +74,7 @@ module Shikimori
     MalParser::RecordNotFound
     BadImageError
     Errors::NotIdentifiedByImageMagickError
+    Sidekiq::Shutdown
   ]
 
   class Application < Rails::Application
