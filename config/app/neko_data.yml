@@ -1133,7 +1133,7 @@
     :level: 20
     :image: "/assets/achievements/anime/animelist_20.gif"
     :border_color: "#231A24"
-    :title_ru: 'SlotAchievName_0020: NULL'
+    :title_ru: 'SlotAchiveName_0020: NULL'
     :text_ru: 'Description: Теперь вам не нужно аниме, чтобы смотреть аниме.'
     :title_en: 
     :text_en: 
@@ -10623,9 +10623,9 @@
     :level: 1
     :image: "/assets/achievements/anime/franchise/brave_witches.jpg"
     :border_color: 
-    :title_ru: Храбрые ведьмы
+    :title_ru: Штурмовые ведьмы
     :text_ru: 
-    :title_en: Brave Witches
+    :title_en: Strike Witches
     :text_en: 
     :topic_id: 247360
     :rule:
@@ -10640,9 +10640,9 @@
     :level: 0
     :image: "/assets/achievements/anime/franchise/brave_witches.jpg"
     :border_color: 
-    :title_ru: Храбрые ведьмы
+    :title_ru: Штурмовые ведьмы
     :text_ru: 
-    :title_en: Brave Witches
+    :title_en: Strike Witches
     :text_en: 
     :topic_id: 247360
     :rule:
@@ -16237,7 +16237,7 @@
     :image: "/assets/achievements/anime/tsundere_1.png"
     :border_color: "#c5d0e6"
     :title_ru: Это не то, о чем ты подумал
-    :text_ru: Н-не то, что я бы волновалась о тебе, я-ясно?
+    :text_ru: Н-не то, чтобы я волновалась о тебе, я-ясно?
     :title_en: 
     :text_en: 
     :topic_id: 227430
