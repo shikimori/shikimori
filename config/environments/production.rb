@@ -50,7 +50,7 @@ Rails.application.configure do
   # config.force_ssl = true
 
   if Shikimori::PROTOCOL == 'https'
-    config.force_ssl = true
+    config.force_ssl = ENV['SHIKI_TYPE'] != 'db'
     config.ssl_options = {
       hsts: { preload: true, subdomains: true, expires: 3.years }
     }
