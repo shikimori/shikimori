@@ -409,6 +409,7 @@ private
 
   def grab_avatar
     return if avatar.exists?
+
     gravatar_url = format(
       'https://www.gravatar.com/avatar/%<email_hash>s?s=%<size>i&d=identicon',
       email_hash: Digest::MD5.hexdigest(email.downcase),
