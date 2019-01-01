@@ -193,9 +193,8 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
-    capistrano-bundler (1.4.0)
+    capistrano-bundler (1.5.0)
       capistrano (~> 3.1)
-      sshkit (~> 1.2)
     capistrano-copy-files (0.0.1)
       capistrano (>= 3.0.0)
     capistrano-rails (1.4.0)
