@@ -38,7 +38,7 @@ class UserHistoryDecorator < BaseDecorator
         kind = action =~ /anime/i ? :anime : :manga
         records = "#{value} #{i18n_i 'record', value.to_i}"
 
-        i18n_t "actions.import.#{kind}", value: records
+        i18n_t "actions.import.#{kind}", records: records
 
       when UserHistoryAction::REGISTRATION,
           UserHistoryAction::ADD,
