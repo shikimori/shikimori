@@ -65,7 +65,7 @@ namespace :deploy do
 
   namespace :i18n_js do
     task :export do
-      on roles(:web) do
+      on roles(:app) do
         bundle_exec 'rails i18n:js:export', release_path
       end
     end
@@ -73,7 +73,7 @@ namespace :deploy do
 
   namespace :yarn do
     task :install do
-      on roles(:web) do
+      on roles(:app) do
         execute "cd #{release_path} && yarn"
       end
     end
@@ -117,21 +117,21 @@ end
 namespace :unicorn do
   desc "Stop unicorn"
   task :stop do
-    on roles(:web), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence, wait: 5 do
       execute "sudo systemctl stop #{fetch :application}_unicorn_#{fetch :stage}"
     end
   end
 
   desc "Start unicorn"
   task :start do
-    on roles(:web), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence, wait: 5 do
       execute "sudo systemctl start #{fetch :application}_unicorn_#{fetch :stage}"
     end
   end
 
   desc "Restart unicorn"
   task :restart do
-    on roles(:web), in: :sequence, wait: 5 do
+    on roles(:app), in: :sequence, wait: 5 do
       execute "sudo systemctl reload #{fetch :application}_unicorn_#{fetch :stage} || sudo systemctl restart #{fetch :application}_unicorn_#{fetch :stage}"
     end
   end
