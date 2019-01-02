@@ -162,8 +162,6 @@ GEM
     anbt-sql-formatter (0.0.7)
     apipie-rails (0.5.14)
       rails (>= 4.1)
-    appsignal (2.8.1)
-      rack
     arel (9.0.0)
     ast (2.4.0)
     attr_extras (5.2.0)
@@ -740,7 +738,6 @@ DEPENDENCIES
   airbrussh
   amatch!
   apipie-rails
-  appsignal
   attr_extras
   autoprefixer-rails
   awesome_print
@@ -876,4 +873,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.17.1
+   1.17.2
