@@ -177,7 +177,7 @@ class Neko::Rule < Dry::Struct
   end
 
   def cache_key
-    [Digest::MD5.hexdigest(to_json), users_scope.cache_key, :v2]
+    [Digest::MD5.hexdigest(to_json), Achievement.where(neko_id: neko_id).cache_key, :v2]
   end
 
 private
