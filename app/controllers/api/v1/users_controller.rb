@@ -186,7 +186,8 @@ class Api::V1::UsersController < Api::V1Controller
           valid_authenticity_token?(session, token)
         end,
         verified_request: verified_request?,
-        shiki_type: ENV['SHIKI_TYPE']
+        shiki_type: ENV['SHIKI_TYPE'],
+        rack_url_scheme: request['rack.url_scheme']
       }
     else
       raise CanCan::AccessDenied

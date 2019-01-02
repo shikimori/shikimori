@@ -1,6 +1,5 @@
 class Api::V1::AppearController < Api::V1Controller
   before_action :authenticate_user!
-  skip_before_action :verify_authenticity_token # temporarily. becase appears api hosted in shiki_db
 
   # пометка элементов прочитанными
   api :POST, '/appear', 'Mark comments or topics as read'
