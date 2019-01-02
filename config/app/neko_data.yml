@@ -6881,7 +6881,7 @@
   attributes:
     :neko_id: :fullmetal_alchemist
     :level: 1
-    :image: https://nyaa.shikimori.org/system/user_images/original/249685/714590.jpg
+    :image: "/assets/achievements/anime/franchise/fullmetal_alchemist.jpg"
     :border_color: 
     :title_ru: Стальной алхимик
     :text_ru: 
@@ -6903,7 +6903,7 @@
   attributes:
     :neko_id: :fullmetal_alchemist
     :level: 0
-    :image: https://nyaa.shikimori.org/system/user_images/original/249685/714590.jpg
+    :image: "/assets/achievements/anime/franchise/fullmetal_alchemist.jpg"
     :border_color: 
     :title_ru: Стальной алхимик
     :text_ru: 
@@ -7230,7 +7230,6 @@
         - 23697
         - 36327
         - 36729
-        - 38784
       :threshold: 92.3%
       :generator:
         not_ignored_ids:
@@ -7272,7 +7271,6 @@
         - 23697
         - 36327
         - 36729
-        - 38784
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -9511,7 +9509,7 @@
         not_anime_ids:
         - 2920
         - 2922
-      :threshold: 99.4%
+      :threshold: 99%%
       :generator:
         threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -9534,6 +9532,8 @@
         - 2920
         - 2922
       :threshold: 0.01
+      :generator:
+        threshold: 99%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
