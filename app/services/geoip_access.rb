@@ -52,7 +52,7 @@ class GeoipAccess
     if @codes.include? safed_ip
       @codes[safed_ip]
     else
-      @codes[safed_ip] = Rails.cache.fetch([:geo_ip, safed_ip]) do
+      @codes[safed_ip] = Rails.cache.fetch([:geo_ip, safed_ip, :v2]) do
         ask_geoip safed_ip
       end
     end
@@ -61,7 +61,10 @@ class GeoipAccess
 private
 
   def ask_geoip ip
-    %x{geoiplookup #{ip}}
-      .fix_encoding[/GeoIP Country Edition: (\w+)/, 1] || HZ
+    result = `geoiplookup #{ip}`.fix_encoding
+
+    result[/GeoIP Country Edition: (\w+)/, 1] ||
+      result[/GeoIP City Edition(?:, Rev \d+)?: (\w+)/, 1] ||
+      HZ
   end
 end
