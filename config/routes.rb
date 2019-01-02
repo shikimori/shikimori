@@ -72,6 +72,7 @@ Rails.application.routes.draw do
       get :my_target_ad
       get :how_to_edit_achievements
       get :csrf_token
+      post :csrf_token
 
       get :bb_codes
       get :feedback
@@ -329,6 +330,7 @@ Rails.application.routes.draw do
         collection do
           get :whoami
           get :csrf_token
+          post :csrf_token
         end
         member do
           get :info

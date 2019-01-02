@@ -260,7 +260,14 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   def csrf_token
     if current_user&.admin?
-      render plain: session[:_csrf_token]
+      render json: {
+        _csrf_token: session[:_csrf_token],
+        x_csrf_token: request.x_csrf_token,
+        unmasked_x_csrf_token: ((unmask_token(Base64.strict_decode64(request.x_csrf_token)) rescue ArgumentError) if request.x_csrf_token.present?), # rubocop: disable all
+        is_valid: request_authenticity_tokens.any? do |token|
+          valid_authenticity_token?(session, token)
+        end
+      }
     else
       raise CanCan::AccessDenied
     end

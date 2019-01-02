@@ -1,6 +1,7 @@
 class Api::V1::UsersController < Api::V1Controller
   before_action :authenticate_user!, only: %i[messages unread_messages]
   before_action :authorize_lists_access, only: %i[anime_rates manga_rates history]
+  skip_before_action :verify_authenticity_token, only: :csrf_token
 
   caches_action :anime_rates, :manga_rates,
     cache_path: proc {
@@ -177,7 +178,14 @@ class Api::V1::UsersController < Api::V1Controller
 
   def csrf_token
     if current_user&.admin?
-      render plain: session[:_csrf_token]
+      render json: {
+        _csrf_token: session[:_csrf_token],
+        x_csrf_token: request.x_csrf_token,
+        # unmasked_x_csrf_token: ((unmask_token(Base64.strict_decode64(request.x_csrf_token)) rescue ArgumentError) if request.x_csrf_token.present?), # rubocop: disable all
+        is_valid: request_authenticity_tokens.any? do |token|
+          valid_authenticity_token?(session, token)
+        end
+      }
     else
       raise CanCan::AccessDenied
     end
