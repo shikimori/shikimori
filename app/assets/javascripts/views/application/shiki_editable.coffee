@@ -1,5 +1,6 @@
 import delay from 'delay'
 import getSelectionText from 'helpers/get_selection_text'
+import axios from 'helpers/axios'
 
 import ShikiView from 'views/application/shiki_view'
 
@@ -57,22 +58,14 @@ export default class ShikiEditable extends ShikiView
           .data(click_activated: true)
           .trigger('reappear')
 
-        $.ajax
-          url: $new_marker.data 'reappear_url'
-          type: 'POST'
-          data:
-            ids: @$root.attr('id')
+        axios.post $new_marker.data('reappear_url'), ids: @$root.attr('id')
 
       else if $new_marker.data('click_activated')
         $new_marker
           .addClass('off')
           .trigger('disappear')
 
-        $.ajax
-          url: $new_marker.data 'appear_url'
-          type: 'POST'
-          data:
-            ids: @$root.attr('id')
+        axios.post $new_marker.data('appear_url'), ids: @$root.attr('id')
 
       else
         # эвент appear обрабатывается в shiki-topic

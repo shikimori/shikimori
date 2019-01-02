@@ -4,6 +4,8 @@ import ShikiEditable from 'views/application/shiki_editable'
 import ShikiEditor from 'views/application/shiki_editor'
 import ShikiGallery from 'views/application/shiki_gallery'
 
+import axios from 'helpers/axios'
+
 # TODO: move code related to comments to separate class
 export default class Topic extends ShikiEditable
   I18N_KEY = 'frontend.dynamic_elements.topic'
@@ -300,11 +302,10 @@ export default class Topic extends ShikiEditable
         "#{item_type}-#{@id}"
       .toArray()
 
-    $.ajax
-      url: $markers.data('appear_url')
-      type: 'POST'
-      data:
-        ids: ids.join ","
+    axios.post(
+      $markers.data('appear_url'),
+      ids: ids.join(',')
+    )
 
     $filtered_appeared.remove()
 

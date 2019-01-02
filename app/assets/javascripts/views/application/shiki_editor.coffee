@@ -1,9 +1,11 @@
 import delay from 'delay'
 import autosize from 'autosize'
 
+import axios from 'helpers/axios'
 import ShikiView from 'views/application/shiki_view'
-mobileDetect = require('helpers/mobile_detect')
-flash = require('services/flash').default
+
+import { mobileDetect } from 'helpers/mobile_detect'
+import flash from 'services/flash'
 
 isMobile = mobileDetect.isMobile
 isTablet = mobileDetect.isTablet
@@ -275,14 +277,15 @@ export default class ShikiEditor extends ShikiView
         }
       data[@_type()] = item_data
 
-      $.ajax
-        type: 'POST'
-        url: $('footer .preview', @$root).data('preview_url')
-        data: data
-        beforeSend: @_shade
-        complete: @_unshade
-        success: (html) =>
-          @_show_preview html
+      @_shade()
+      axios
+        .post(
+          $('footer .preview', @$root).data('preview_url'),
+          data
+        )
+        .then (response) => @_show_preview(response.data)
+        .catch()
+        .then(@_unshade)
 
     # отзыв и оффтопик
     #@$('.item-offtopic, .item-summary').click (e, data) =>
