@@ -175,6 +175,14 @@ class Api::V1::UsersController < Api::V1Controller
     respond_with @collection.to_a
   end
 
+  def csrf_token
+    if current_user&.admin?
+      render plain: session[:_csrf_token]
+    else
+      raise CanCan::AccessDenied
+    end
+  end
+
 private
 
   def user

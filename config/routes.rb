@@ -71,6 +71,7 @@ Rails.application.routes.draw do
       get :timeout_120s
       get :my_target_ad
       get :how_to_edit_achievements
+      get :csrf_token
 
       get :bb_codes
       get :feedback
@@ -327,6 +328,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[index show], constraints: { id: user_id } do
         collection do
           get :whoami
+          get :csrf_token
         end
         member do
           get :info

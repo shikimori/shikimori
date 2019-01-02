@@ -232,7 +232,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   def bb_codes
   end
 
-  def oauth # rubocop:disable AbcSize
+  def oauth
     if params[:oauth_application_id]
       @oauth_application = current_user
         &.oauth_applications
@@ -256,5 +256,13 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   def my_target_ad
     raise 'allowed on production only' unless Rails.env.production?
+  end
+
+  def csrf_token
+    if current_user&.admin?
+      render plain: session[:_csrf_token]
+    else
+      raise CanCan::AccessDenied
+    end
   end
 end
