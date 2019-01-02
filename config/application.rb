@@ -75,6 +75,7 @@ module Shikimori
     BadImageError
     Errors::NotIdentifiedByImageMagickError
     Sidekiq::Shutdown
+    Terrapin::ExitStatusError
   ]
 
   class Application < Rails::Application

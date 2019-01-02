@@ -39,6 +39,7 @@ default: &defaults
     - BadImageError
     - Errors::NotIdentifiedByImageMagickError
     - Sidekiq::Shutdown
+    - Terrapin::ExitStatusError
 
 # Configuration per environment, leave out an environment or set active
 # to false to not push metrics for that environment.

@@ -30,6 +30,7 @@ exceptions:
     - BadImageError
     - Errors::NotIdentifiedByImageMagickError
     - Sidekiq::Shutdown
+    - Terrapin::ExitStatusError
 metrics:
   enabled: false
 traces:
