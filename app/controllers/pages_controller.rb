@@ -266,7 +266,9 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
         unmasked_x_csrf_token: ((unmask_token(Base64.strict_decode64(request.x_csrf_token)) rescue ArgumentError) if request.x_csrf_token.present?), # rubocop: disable all
         is_valid: request_authenticity_tokens.any? do |token|
           valid_authenticity_token?(session, token)
-        end
+        end,
+        verified_request: verified_request?,
+        shiki_type: ENV['SHIKI_TYPE']
       }
     else
       raise CanCan::AccessDenied
