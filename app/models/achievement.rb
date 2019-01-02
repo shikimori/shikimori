@@ -3,6 +3,8 @@ class Achievement < ApplicationRecord
 
   validates :user, :neko_id, :level, :progress, presence: true
 
+  delegate :cache_key, to: :neko
+
   enumerize :neko_id,
     in: Types::Achievement::NekoId.values,
     predicates: { prefix: true }
