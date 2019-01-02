@@ -111,7 +111,7 @@ class ApplicationController < ActionController::Base
   end
 
   def remote_addr
-    request.headers['HTTP_X_FORWARDED_FOR'] ||
+    request.headers['HTTP_X_FORWARDED_FOR']&.split(',')&.first ||
       request.headers['HTTP_X_REAL_IP'] ||
       request.headers['REMOTE_ADDR']
   end
