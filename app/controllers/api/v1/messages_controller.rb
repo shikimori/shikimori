@@ -155,11 +155,13 @@ private
 
   def location_text
     return if params[:message][:location].blank?
+
     "[url=#{params[:message][:location]}]#{params[:message][:location]}[/url]\n"
   end
 
   def feedback_address_text
     return if params[:message][:feedback_address].blank?
+
     "#{params[:message][:feedback_address]}\n"
   end
 end
