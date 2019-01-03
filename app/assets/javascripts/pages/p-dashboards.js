@@ -1,4 +1,4 @@
-import getjs from 'get-js';
+// import getjs from 'get-js';
 import delay from 'delay';
 
 page_load('dashboards_show', async () => {
