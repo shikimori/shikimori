@@ -7,6 +7,8 @@ ru:
     apply: Принять
     cancel: Отмена
     confirm: Это действие необратимо. Точно?
+    confirm_delete: Подтвердить удаление
+    cancel_delete: Отменить удаление
     create: Создать
     delete: Удалить
     delete_all: Удалить всё

@@ -4,15 +4,15 @@
   - if defined? edition
     .mobile-edit
     .controls
-      .delete title='Удалить видео'
+      .delete title=t('.delete_video')
       .confirm[
         data-action=anime_video_url(video.anime, video)
         data-method='delete'
         data-remote='true'
         data-type='json'
-        title='Подтвердить удаление'
+        title=t('actions.confirm_delete')
       ]
-      .cancel title='Отменить удаление'
+      .cancel title=t('actions.cancel_delete')
 
   a.video-link[
     href=video.url

@@ -7,6 +7,8 @@ en:
     apply: Apply
     cancel: Cancel
     confirm: This action is irreversible. Are you sure?
+    confirm_delete: Confirm deletion
+    cancel_delete: Cancel deletion
     create: Create
     delete: Delete
     delete_all: Delete All
