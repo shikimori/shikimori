@@ -2,12 +2,6 @@
 @import mixins/column
 @import mixins/shikimori
 
-@keyframes rotating
-  0%
-    transform: rotate(0deg)
-  100%
-    transform: rotate(-360deg)
-
 .b-admin_panel + .b-hot_topics
   border-top: 1px solid #d0d8db
   margin-top: 0
@@ -17,7 +11,7 @@
   // color: #ff8a3c
   // background-color: #ffe8d8
   // border-bottom: 1px solid #ffd5b8
-  margin-bottom: 5px
+  margin-bottom: 10px
   // margin-top: -8px
   min-height: 30px
   position: relative
@@ -38,8 +32,8 @@
       padding-left: 3px
 
   .build-status
-    display: inline-block
-    vertical-align: middle
+    position: absolute
+    margin-top: -14px
 
   .reload
     color: #666666
@@ -76,3 +70,9 @@
 
       .retries
         color: $red
+
+@keyframes rotating
+  0%
+    transform: rotate(0deg)
+  100%
+    transform: rotate(-360deg)

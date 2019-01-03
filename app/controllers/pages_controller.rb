@@ -161,14 +161,18 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
     @proxies_count = Proxy.count
 
-    if Rails.env.production?
-      memcached_stats = Rails.cache.stats[
-        "#{Rails.application.config.cache_store[1]}:11211"
-      ]
-      @memcached_space = (
-        memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f * 100.0
-      ).round 2
-    end
+    memcached_stats = Rails.cache.stats[
+      "#{Rails.application.config.cache_store[1]}:11211"
+    ]
+    @memcached_space = (
+      memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f * 100.0
+    ).round 2
+    @memcached_items = memcached_stats['curr_items'].to_i
+    @memcached_hits_misses = (
+      memcached_stats['get_hits'].to_f /
+        (memcached_stats['get_misses'].to_f + memcached_stats['get_hits'].to_f) * 100.0
+    ).round 2
+    @memcached_uptime = memcached_stats['uptime'].to_i
 
     @redis_keys = (Rails.application.redis.info['db0'] || 'keys=0')
       .split(',')[0]

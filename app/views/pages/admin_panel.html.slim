@@ -21,10 +21,6 @@ article
     / b Swap:
     / span #{@swap_space}%
 
-  .metric
-    b Memcached:
-    span #{@memcached_space}%
-
   / .metric class="#{:alert if @redis_keys.zero?}"
     / b Redis keys:
     / span = @redis_keys
@@ -72,6 +68,22 @@ article
   / .subheadline links
   / .m15
     / p: a href="#{publishing_cosplay_galleries_url}" Cosplay Publishing
+
+
+article
+  .metric
+    b Memcached Memory
+    span #{@memcached_space}%
+  .metric
+    b Hits/Misses
+    span #{@memcached_hits_misses}%
+  .metric
+    b Items
+    span = @memcached_items
+  .metric
+    b Uptime
+    span = time_ago_in_words @memcached_uptime.seconds.ago
+
 
 - if @sidkiq_busy&.any? || @sidkiq_enqueued&.any? || @sidkiq_retries&.any?
   article
