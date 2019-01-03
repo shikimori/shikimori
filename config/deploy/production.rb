@@ -9,5 +9,5 @@ set :branch, -> do
 end
 
 
-server '88.198.7.123', user: fetch(:user), roles: %w{app web}
-server '88.198.7.116', user: fetch(:user), roles: %w{app db}
+server '88.198.7.123', user: fetch(:user), roles: %w{app web main_web}
+server '88.198.7.116', user: fetch(:user), roles: %w{app web db}
