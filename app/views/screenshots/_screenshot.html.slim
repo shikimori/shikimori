@@ -1,27 +1,28 @@
 a.c-screenshot.b-image[
-  class="#{"entry-#{screenshot_counter+1}" if defined? screenshot_counter}"
-  href="#{cdn_image screenshot, :original}"
-  title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" rel="screenshot"
+  class=("entry-#{screenshot_counter+1}" if defined? screenshot_counter)
+  href=cdn_image(screenshot, :original)
+  title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}"
+  rel='screenshot'
 ]
   - if defined? edition
     .mobile-edit
     .controls
-      .delete title="Удалить кадр"
+      .delete title='Удалить кадр'
       .confirm[
-        title="Подтвердить удаление"
-        data-remote="true"
-        data-action="#{anime_screenshot_url screenshot.anime, screenshot}"
-        data-method="delete"
-        data-type="json"
+        title='Подтвердить удаление'
+        data-remote='true'
+        data-action=anime_screenshot_url(screenshot.anime, screenshot)
+        data-method='delete'
+        data-type='json'
       ]
-      .cancel title="Отменить удаление"
+      .cancel title='Отменить удаление'
       /.restore title="Восстановить удалённое"
     .move-controls
-      .move-left title="Переместить влево"
-      .move-right title="Переместить вправо"
+      .move-left title='Переместить влево'
+      .move-right title='Переместить вправо'
   img[
-    src="#{cdn_image screenshot, :x166}"
-    srcset="#{cdn_image screenshot, :x332}"
+    src=cdn_image(screenshot, :x166)
+    srcset=cdn_image(screenshot, :x332)
+    data-id=screenshot.id
     title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{screenshot.anime.kind_text}"
-    data-id="#{screenshot.id}"
   ]
