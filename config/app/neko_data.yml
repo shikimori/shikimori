@@ -7124,7 +7124,7 @@
         - 6948
         - 36725
         - 36796
-      :threshold: 94.2%
+      :threshold: 94.1%
       :generator:
         not_ignored_ids:
         - 36999
@@ -7230,7 +7230,7 @@
         - 23697
         - 36327
         - 36729
-      :threshold: 92.3%
+      :threshold: 92.1%
       :generator:
         not_ignored_ids:
         - 33049
@@ -7522,7 +7522,7 @@
         franchise: chuunibyou_demo_koi_ga_shitai
         not_anime_ids:
         - 36855
-      :threshold: 87.6%
+      :threshold: 87.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7902,7 +7902,7 @@
       :algo: duration
       :filters:
         franchise: danganronpa
-      :threshold: 97.3%
+      :threshold: 96.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8911,6 +8911,7 @@
         not_anime_ids:
         - 14267
         - 25257
+        - 38937
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8931,6 +8932,7 @@
         not_anime_ids:
         - 14267
         - 25257
+        - 38937
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9817,7 +9819,7 @@
         - 33221
         - 35949
         - 36436
-      :threshold: 87.6%
+      :threshold: 88.1%
       :generator:
         not_ignored_ids:
         - 14007
@@ -10162,6 +10164,8 @@
         - 10050
         - 31494
         - 35077
+        - 38675
+        - 38676
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10183,6 +10187,8 @@
         - 10050
         - 31494
         - 35077
+        - 38675
+        - 38676
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -12744,7 +12750,7 @@
         franchise: inazuma_eleven
         not_anime_ids:
         - 12585
-      :threshold: 93%
+      :threshold: 92.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -13614,7 +13620,7 @@
         franchise: doraemon
         not_anime_ids:
         - 501
-      :threshold: 94.1%
+      :threshold: 94%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
