@@ -183,7 +183,7 @@ data
     new_threshold = threshold.floor(1)
 
     if rule.dig('generator', 'threshold').present?
-      new_threshold = rule['generator']['threshold']
+      new_threshold = rule['generator']['threshold'].to_s.gsub('%', '').to_f
     end
 
     if current_threshold != new_threshold
