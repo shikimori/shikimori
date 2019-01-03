@@ -25,11 +25,11 @@ page_load('dashboards_show', async () => {
     $node.addClass('block');
   }
 
-  await delay(1500);
-  if ('VK' in window) {
-    vkWidget();
-  }
-  getjs('//vk.com/js/api/openapi.js?146').then(vkWidget);
+  // await delay(1500);
+  // if ('VK' in window) {
+  //   vkWidget();
+  // }
+  // getjs('//vk.com/js/api/openapi.js?146').then(vkWidget);
 });
 
 function alignBlocks($userNews, $generatedNews) {
@@ -42,16 +42,16 @@ function alignBlocks($userNews, $generatedNews) {
   }
 }
 
-function vkWidget() {
-  const $node = $('#vk_groups').addClass('block');
+// function vkWidget() {
+//   const $node = $('#vk_groups').addClass('block');
 
-  window.VK.Widgets.Group(
-    'vk_groups',
-    {
-      mode: 4,
-      width: $node.width(),
-      height: '500'
-    },
-    9273458
-  );
-}
+//   window.VK.Widgets.Group(
+//     'vk_groups',
+//     {
+//       mode: 4,
+//       width: $node.width(),
+//       height: '500'
+//     },
+//     9273458
+//   );
+// }
