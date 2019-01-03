@@ -167,8 +167,8 @@ namespace :sidekiq do
   end
 
   desc "Copy files to public folder so nginx could serve them as static files"
-  task :copy_nginx_assets do
-    on roles(:main_web), in: :sequence, wait: 5 do
+  task :copy_assets do
+    on roles(:web), in: :sequence, wait: 5 do
       sidekiq_path = capture(
         "cd #{release_path} && #{fetch :rbenv_prefix} bundle show sidekiq"
       )
