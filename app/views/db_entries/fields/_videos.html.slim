@@ -12,6 +12,6 @@
 
 - if @resource.videos.any?# || @resource.versions[:videos].any?
   .block.videos-deleter
-    .subheadline.m10 Изменение видео роликов
+    .subheadline.m10 = t '.videos'
     .cc
       = render @resource.videos, edition: true

@@ -15,5 +15,8 @@ ru:
         up: вверх
       image:
         warning: Текущая картинка будет безвозвратно удалена и перестанет обновляться с MAL.
+      videos:
+        videos: Изменение видео роликов
+
     contest_winners:
       top_in: '№%{position} в '
