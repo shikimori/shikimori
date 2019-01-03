@@ -166,7 +166,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
         "#{Rails.application.config.cache_store[1]}:11211"
       ]
       @memcached_space = (
-        memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f
+        memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f * 100.0
       ).round 2
     end
 
