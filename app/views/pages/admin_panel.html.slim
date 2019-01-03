@@ -70,19 +70,20 @@ article
     / p: a href="#{publishing_cosplay_galleries_url}" Cosplay Publishing
 
 
-article
-  .metric
-    b Memcached Memory
-    span #{@memcached_space}%
-  .metric
-    b Hits/Misses
-    span #{@memcached_hits_misses}%
-  .metric
-    b Items
-    span = @memcached_items
-  .metric
-    b Uptime
-    span = time_ago_in_words @memcached_uptime.seconds.ago
+- unless Rails.env.test?
+  article
+    .metric
+      b Memcached Memory
+      span #{@memcached_space}%
+    .metric
+      b Hits/Misses
+      span #{@memcached_hits_misses}%
+    .metric
+      b Items
+      span = @memcached_items
+    .metric
+      b Uptime
+      span = time_ago_in_words @memcached_uptime.seconds.ago
 
 
 - if @sidkiq_busy&.any? || @sidkiq_enqueued&.any? || @sidkiq_retries&.any?
