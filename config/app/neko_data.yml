@@ -7228,10 +7228,10 @@
         - 22763
         - 22847
         - 23697
+        - 36064
         - 36327
         - 36729
-        - 36064
-      :threshold: 92.3%
+      :threshold: 92.1%
       :generator:
         not_ignored_ids:
         - 33049
@@ -7270,9 +7270,9 @@
         - 22763
         - 22847
         - 23697
+        - 36064
         - 36327
         - 36729
-        - 36064
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -9513,7 +9513,7 @@
         not_anime_ids:
         - 2920
         - 2922
-      :threshold: 99%
+      :threshold: 99.3%
       :generator:
         threshold: 99.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -10539,8 +10539,8 @@
       :filters:
         franchise: initial_d
         not_anime_ids:
-        - 12725
         - 821
+        - 12725
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10559,8 +10559,8 @@
       :filters:
         franchise: initial_d
         not_anime_ids:
-        - 12725
         - 821
+        - 12725
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -11859,10 +11859,10 @@
       :filters:
         franchise: yuu_yuu_hakusho
         not_anime_ids:
-        - 6964
-        - 2126
         - 2125
-      :threshold: 97.9%
+        - 2126
+        - 6964
+      :threshold: 98.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -11880,9 +11880,9 @@
       :filters:
         franchise: yuu_yuu_hakusho
         not_anime_ids:
-        - 6964
-        - 2126
         - 2125
+        - 2126
+        - 6964
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
