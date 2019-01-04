@@ -7230,7 +7230,8 @@
         - 23697
         - 36327
         - 36729
-      :threshold: 92.1%
+        - 36064
+      :threshold: 92.3%
       :generator:
         not_ignored_ids:
         - 33049
@@ -7271,6 +7272,7 @@
         - 23697
         - 36327
         - 36729
+        - 36064
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -9511,9 +9513,9 @@
         not_anime_ids:
         - 2920
         - 2922
-      :threshold: 99%%
+      :threshold: 99%
       :generator:
-        threshold: 99%
+        threshold: 99.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -9535,7 +9537,7 @@
         - 2922
       :threshold: 0.01
       :generator:
-        threshold: 99%
+        threshold: 99.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -10538,6 +10540,7 @@
         franchise: initial_d
         not_anime_ids:
         - 12725
+        - 821
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10557,6 +10560,7 @@
         franchise: initial_d
         not_anime_ids:
         - 12725
+        - 821
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -11845,7 +11849,7 @@
     :level: 1
     :image: "/assets/achievements/anime/franchise/yuu_yuu_hakusho.jpg"
     :border_color: 
-    :title_ru: Отчет о буйстве духов
+    :title_ru: Отчёт о буйстве духов
     :text_ru: 
     :title_en: Yuu☆Yuu☆Hakusho
     :text_en: 
@@ -11856,6 +11860,8 @@
         franchise: yuu_yuu_hakusho
         not_anime_ids:
         - 6964
+        - 2126
+        - 2125
       :threshold: 97.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -11864,7 +11870,7 @@
     :level: 0
     :image: "/assets/achievements/anime/franchise/yuu_yuu_hakusho.jpg"
     :border_color: 
-    :title_ru: Отчет о буйстве духов
+    :title_ru: Отчёт о буйстве духов
     :text_ru: 
     :title_en: Yuu☆Yuu☆Hakusho
     :text_en: 
@@ -11875,6 +11881,8 @@
         franchise: yuu_yuu_hakusho
         not_anime_ids:
         - 6964
+        - 2126
+        - 2125
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -14073,7 +14081,7 @@
   attributes:
     :neko_id: :yuuri
     :level: 1
-    :image: "/assets/achievements/anime/yuuri_1.png"
+    :image: "/assets/achievements/anime/yuuri_1.jpg"
     :border_color: "#d5a471"
     :title_ru: Женская дружба
     :text_ru: Лишь невинные заигрывания, только и всего.
@@ -14098,6 +14106,7 @@
           - 19109
           - 25011
           - 37517
+          - 316
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -14128,13 +14137,14 @@
           - 19109
           - 25011
           - 37517
+          - 316
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yuuri
     :level: 3
     :image: "/assets/achievements/anime/yuuri_3.png"
-    :border_color: "#935c49"
+    :border_color: "#FADADD"
     :title_ru: Я поцеловала девушку...
     :text_ru: "... и мне понравилось!"
     :title_en: I kissed a girl...
@@ -14158,13 +14168,14 @@
           - 19109
           - 25011
           - 37517
+          - 316
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - !ruby/object:Neko::Rule
   attributes:
     :neko_id: :yuuri
     :level: 4
     :image: "/assets/achievements/anime/yuuri_4.gif"
-    :border_color: "#e73a95"
+    :border_color: "#FDD9B5"
     :title_ru: Счастливая семейная жизнь
     :text_ru: Лилии цветут в вашем доме.
     :title_en: 
@@ -14188,6 +14199,7 @@
           - 19109
           - 25011
           - 37517
+          - 316
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yuuri.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -16244,8 +16256,8 @@
   attributes:
     :neko_id: :tsundere
     :level: 1
-    :image: "/assets/achievements/anime/tsundere_1.png"
-    :border_color: "#c5d0e6"
+    :image: "/assets/achievements/anime/tsundere_1.jpg"
+    :border_color: "#FCD975"
     :title_ru: Это не то, о чем ты подумал
     :text_ru: Н-не то, чтобы я волновалась о тебе, я-ясно?
     :title_en: 
@@ -17322,7 +17334,7 @@
     :neko_id: :tsundere
     :level: 2
     :image: "/assets/achievements/anime/tsundere_2.jpg"
-    :border_color: "#89191C"
+    :border_color: "#D5713F"
     :title_ru: Дурак!
     :text_ru: Заткнись! Заткнись! Заткнись!
     :title_en: 
