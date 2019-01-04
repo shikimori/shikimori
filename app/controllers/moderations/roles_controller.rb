@@ -3,24 +3,13 @@ class Moderations::RolesController < ModerationsController
   before_action :check_access, only: %i[update destroy]
   before_action :fetch_target_user, only: %i[update destroy]
 
-  RESTRICTED_ROLES = %i[
-    not_trusted_version_changer
-    not_trusted_video_uploader
-    not_trusted_abuse_reporter
-    censored_avatar
-    censored_profile
-    cheat_bot
-  ]
-
-  helper_method :access?
-
   def index
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
   end
 
   def show
-    redirect_to moderations_roles_url unless access? @role
+    redirect_to moderations_roles_url unless RolesPolicy.accessible? @role
 
     og noindex: true, nofollow: true
     og page_title: @role.titleize
@@ -65,11 +54,6 @@ class Moderations::RolesController < ModerationsController
   end
 
 private
-
-  def access? role
-    !RESTRICTED_ROLES.include?(role.to_sym) ||
-      can?(:"manage_#{role}_role", User)
-  end
 
   def check_access
     authorize! :"manage_#{@role}_role", User

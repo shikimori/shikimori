@@ -2,8 +2,9 @@ class VideosController < ShikimoriController
   before_action :authenticate_user!
   before_action :fetch_anime
 
-  def create # rubocop:disable MethodLength
+  def create # rubocop:disable MethodLength, PerceivedComplexity, AbcSize
     @video, @version = versioneer.upload create_params, current_user
+    @version.auto_accept if @version&.persisted? && can?(:auto_accept, @version)
 
     if request.xhr?
       replace_video @video if duplicate? @video
@@ -24,7 +25,7 @@ class VideosController < ShikimoriController
   end
 
   # method based on code from DbEntriesController#update
-  def update # rubocop:disable MethodLength, AbcSize
+  def update # rubocop:disable MethodLength
     @video = @anime.videos.find params[:id]
 
     Version.transaction do

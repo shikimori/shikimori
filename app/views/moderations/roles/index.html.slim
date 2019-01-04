@@ -8,7 +8,7 @@ header.head
 ul.b-list.block
   - User.roles.values.each do |role|
     li
-      - if access?(role)
+      - if RolesPolicy.accessible? role
         a.b-js-link[
           href=moderations_role_url(id: role)
         ]

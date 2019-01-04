@@ -4,6 +4,7 @@ class ScreenshotsController < ShikimoriController
 
   def create
     @screenshot, @version = versioneer.upload params[:image], current_user
+    @version.auto_accept if @version&.persisted? && can?(:auto_accept, @version)
 
     if @screenshot.persisted?
       render json: {
