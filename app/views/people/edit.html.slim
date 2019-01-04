@@ -57,10 +57,4 @@
       b Desynced:
       span  #{@resource.desynced.join(', ')}
 
-  - if @resource.versions_page.first.any?
-    .subheadline = t 'db_entries.versions.changes_history'
-    .block
-      = render partial: 'versions/version', collection: @resource.versions_page.first
-
-      - if @resource.versions_page.second
-        = render 'blocks/postloader', next_url: @resource.next_versions_page
+  = render 'db_entries/history', resource: @resource
