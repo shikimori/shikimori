@@ -315,11 +315,11 @@ describe Version do
             item_diff: item_diff
         end
         let(:item_diff) { { russian: ['a', 'b'] } }
-        it { is_expected.to be_able_to :accept, version }
+        it { is_expected.to be_able_to :auto_accept, version }
       end
 
       describe 'user version' do
-        it { is_expected.to_not be_able_to :accept, version }
+        it { is_expected.to_not be_able_to :auto_accept, version }
       end
     end
 
@@ -335,26 +335,26 @@ describe Version do
       let(:item_diff) { { external_links: ['a', 'b'] } }
       let(:version_user) { user }
 
-      it { is_expected.to be_able_to :accept, version }
+      it { is_expected.to be_able_to :auto_accept, version }
 
       context 'not user version' do
         let(:version_user) { build_stubbed :user, :user }
-        it { is_expected.to_not be_able_to :accept, version }
+        it { is_expected.to_not be_able_to :auto_accept, version }
       end
 
       context 'not ranobe version' do
         let(:item) { build_stubbed :manga }
-        it { is_expected.to_not be_able_to :accept, version }
+        it { is_expected.to_not be_able_to :auto_accept, version }
       end
 
       context 'not only external_links changed' do
         let(:item_diff) { { external_links: %w[a b], name: %w[a b] } }
-        it { is_expected.to_not be_able_to :accept, version }
+        it { is_expected.to_not be_able_to :auto_accept, version }
       end
 
       context 'not external_links changed' do
         let(:item_diff) { { name: %w[a b] } }
-        it { is_expected.to_not be_able_to :accept, version }
+        it { is_expected.to_not be_able_to :auto_accept, version }
       end
 
       context 'not collection version' do
@@ -364,7 +364,32 @@ describe Version do
             user: version_user,
             item_diff: item_diff
         end
-        it { is_expected.to_not be_able_to :accept, version }
+        it { is_expected.to_not be_able_to :auto_accept, version }
+      end
+    end
+
+    context 'trusted_attached_video_changer' do
+      let(:user) { build_stubbed :user, :trusted_attached_video_changer, :week_registered }
+      let(:version) do
+        [
+          build_stubbed(:video_version, item: item, user: version_user),
+          build_stubbed(:version, item: video, user: version_user)
+        ].sample
+      end
+      let(:item) { build_stubbed :anime }
+      let(:video) { build_stubbed :video, anime: item }
+      let(:version_user) { user }
+
+      it { is_expected.to be_able_to :auto_accept, version }
+
+      context 'not user version' do
+        let(:version_user) { build_stubbed :user, :user }
+        it { is_expected.to_not be_able_to :auto_accept, version }
+      end
+
+      context 'not video version' do
+        let(:version) { build_stubbed :version, item: item, user: version_user }
+        it { is_expected.to_not be_able_to :auto_accept, version }
       end
     end
 

@@ -278,13 +278,16 @@ class Abilities::User
     cannot :lesser_change, Version
     cannot :major_change, Version
 
-    can :accept, Version do |version|
+    can :auto_accept, Version do |version|
       version.user_id == @user.id && (
         @user.trusted_version_changer? || (
-          version.is_a?(Versions::CollectionVersion) &&
           @user.trusted_ranobe_external_links_changer? &&
+            version.is_a?(Versions::CollectionVersion) &&
             version.item.ranobe? &&
             version.item_diff.keys == ['external_links']
+        ) || (
+          @user.trusted_attached_video_changer? &&
+            (version.is_a?(Versions::VideoVersion) || version.item_type == Video.name)
         )
       )
     end

@@ -6,6 +6,7 @@ module Types
       retired_moderator
       version_moderator
       trusted_version_changer
+      trusted_attached_video_changer
       not_trusted_version_changer
       trusted_ranobe_external_links_changer
       review_moderator
