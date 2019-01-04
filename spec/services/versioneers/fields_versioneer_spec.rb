@@ -1,7 +1,10 @@
 describe Versioneers::FieldsVersioneer do
-  let(:service) { Versioneers::FieldsVersioneer.new anime }
+  let(:service) { Versioneers::FieldsVersioneer.new anime, associated: associated }
+
   let(:anime) { create :anime, name: 'test', episodes: 3, episodes_aired: 5 }
-  let(:author) { build_stubbed :user }
+  let(:associated) { [nil, author].sample }
+
+  let(:author) { user }
   let(:reason) { 'change reason' }
 
   let(:changes) { { name: 'zzz', episodes: 7, episodes_aired: 5 } }
@@ -18,6 +21,7 @@ describe Versioneers::FieldsVersioneer do
 
       expect(version).to be_persisted
       expect(version).to be_pending
+      expect(version.associated).to eq associated
       expect(version.class).to eq Version
       expect(version.user).to eq author
       expect(version.reason).to eq reason

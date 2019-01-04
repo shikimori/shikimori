@@ -1,5 +1,5 @@
 class Versioneers::FieldsVersioneer
-  pattr_initialize :item
+  pattr_initialize :item, %i[associated]
 
   SPLITTED_DATE_FIELD = /
     (?<field> [\w-]+ )
@@ -28,6 +28,7 @@ private
         state: 'pending'
       ) do |version|
         version.item_diff = changes params, version
+        version.associated = @associated
       end
   end
 
