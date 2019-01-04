@@ -67,28 +67,60 @@ describe Versioneers::CollectionVersioneer do
   describe '#postmoderate' do
     subject!(:version) { service.postmoderate external_links_data, author, reason }
 
-    it do
-      expect(anime.reload.external_links).to have(2).items
-      expect { external_link.reload }.to raise_error ActiveRecord::RecordNotFound
+    context 'can auto_accept' do
+      let(:author) { user_admin }
 
-      expect(version).to be_persisted
-      expect(version).to be_auto_accepted
+      it do
+        expect(anime.reload.external_links).to have(2).items
+        expect { external_link.reload }.to raise_error ActiveRecord::RecordNotFound
 
-      expect(version).to be_instance_of Versions::CollectionVersion
-      expect(version).to have_attributes(
-        user: author,
-        reason: reason,
-        item_diff: {
-          'external_links' => [
-            [
-              JSON.parse(external_link.attributes.except('id').to_json)
-            ].map { |v| service.send :convert, v },
-            external_links_data.map { |v| service.send :convert, v }
-          ]
-        },
-        item: anime,
-        moderator: nil
-      )
+        expect(version).to be_persisted
+        expect(version).to be_auto_accepted
+
+        expect(version).to be_instance_of Versions::CollectionVersion
+        expect(version).to have_attributes(
+          user: author,
+          reason: reason,
+          item_diff: {
+            'external_links' => [
+              [
+                JSON.parse(external_link.attributes.except('id').to_json)
+              ].map { |v| service.send :convert, v },
+              external_links_data.map { |v| service.send :convert, v }
+            ]
+          },
+          item: anime,
+          moderator: nil
+        )
+      end
+    end
+
+    context 'cannot auto_accept' do
+      let(:author) { user_1 }
+
+      it do
+        expect(anime.reload.external_links).to have(1).item
+        expect(external_link.reload).to be_persisted
+
+        expect(version).to be_persisted
+        expect(version).to be_pending
+
+        expect(version).to be_instance_of Versions::CollectionVersion
+        expect(version).to have_attributes(
+          user: author,
+          reason: reason,
+          item_diff: {
+            'external_links' => [
+              [
+                JSON.parse(external_link.attributes.except('id').to_json)
+              ].map { |v| service.send :convert, v },
+              external_links_data.map { |v| service.send :convert, v }
+            ]
+          },
+          item: anime,
+          moderator: nil
+        )
+      end
     end
   end
 end

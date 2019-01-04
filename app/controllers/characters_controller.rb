@@ -24,9 +24,8 @@ class CharactersController < PeopleController
   end
 
   def seyu
-    if @resource.all_seyu.none?
-      return redirect_to @resource.url, status: 301
-    end
+    return redirect_to @resource.url, status: 301 if @resource.all_seyu.none?
+
     og noindex: true
     og page_title: t(:seyu)
   end
@@ -65,7 +64,8 @@ class CharactersController < PeopleController
 
   def cosplay
     @limit = 2
-    @collection, @add_postloader = CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
+    @collection, @add_postloader =
+      CosplayGalleriesQuery.new(@resource.object).postload @page, @limit
 
     if @collection.none?
       return redirect_to @resource.url, status: 301
@@ -78,6 +78,7 @@ class CharactersController < PeopleController
     if @resource.all_clubs.none?
       return redirect_to @resource.url, status: 301
     end
+
     og noindex: true
     og page_title: t('in_clubs')
   end

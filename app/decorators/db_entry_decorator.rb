@@ -167,7 +167,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 
   def parameterized_versions
     versions_scope
-      .paginate(h.controller.instance_variable_get(:@page), 20)
+      .paginate([h.params[:page].to_i, 1].max, 20)
       .transform(&:decorate)
   end
 
