@@ -80,6 +80,7 @@ shared_examples :db_entry_controller do |entry_name|
       patch :update, params: { id: entry.id }.merge(entry_name => changes)
     end
     let(:role) { :user }
+    let(:versions) { VersionsQuery.fetch(resource) }
 
     describe 'common user' do
       include_context :authenticated, :user, :week_registered
@@ -90,8 +91,8 @@ shared_examples :db_entry_controller do |entry_name|
 
         it do
           expect(resource).to_not have_attributes changes
-          expect(resource.versions[:russian]).to have(1).item
-          expect(resource.versions[:russian].first).to be_pending
+          expect(versions.by_field(:russian)).to have(1).item
+          expect(versions.by_field(:russian).first).to be_pending
           expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
         end
       end
@@ -109,8 +110,8 @@ shared_examples :db_entry_controller do |entry_name|
 
       it do
         expect(resource).to have_attributes changes
-        expect(resource.versions[:russian]).to have(1).item
-        expect(resource.versions[:russian].first).to be_accepted
+        expect(versions.by_field(:russian)).to have(1).item
+        expect(versions.by_field(:russian).first).to be_auto_accepted
         expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
       end
     end

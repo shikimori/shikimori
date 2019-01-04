@@ -108,18 +108,40 @@ describe Versioneers::FieldsVersioneer do
   describe '#postmoderate' do
     subject!(:version) { service.postmoderate changes, author, reason }
 
-    it do
-      expect(anime).to have_attributes changes
-      expect(anime).to_not be_changed
+    context 'can auto_accept' do
+      let(:author) { user_admin }
 
-      expect(version).to be_persisted
-      expect(version).to be_auto_accepted
-      expect(version.class).to eq Version
-      expect(version.user).to eq author
-      expect(version.reason).to eq reason
-      expect(version.item_diff).to eq result_diff
-      expect(version.item).to eq anime
-      expect(version.moderator).to be_nil
+      it do
+        expect(anime).to have_attributes changes
+        expect(anime).to_not be_changed
+
+        expect(version).to be_persisted
+        expect(version).to be_auto_accepted
+        expect(version.class).to eq Version
+        expect(version.user).to eq author
+        expect(version.reason).to eq reason
+        expect(version.item_diff).to eq result_diff
+        expect(version.item).to eq anime
+        expect(version.moderator).to be_nil
+      end
+    end
+
+    context 'cannot auto_accept' do
+      let(:author) { user_1 }
+
+      it do
+        expect(anime.episodes).to_not eq changes[:episodes]
+        expect(anime).to_not be_changed
+
+        expect(version).to be_persisted
+        expect(version).to be_pending
+        expect(version.class).to eq Version
+        expect(version.user).to eq author
+        expect(version.reason).to eq reason
+        expect(version.item_diff).to eq result_diff
+        expect(version.item).to eq anime
+        expect(version.moderator).to be_nil
+      end
     end
   end
 end

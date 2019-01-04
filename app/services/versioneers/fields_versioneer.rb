@@ -11,9 +11,15 @@ class Versioneers::FieldsVersioneer
     create_version params, author, reason
   end
 
+  # TODO: merge premoderate + postmoderate
+  # fix places where used premoderate + manual auto_accept after
   def postmoderate params, author = nil, reason = nil
     version = premoderate params, author, reason
-    version.auto_accept! if version.persisted? && version.can_auto_accept?
+
+    if version.persisted? && Ability.new(author).can?(:auto_accept, version)
+      version.auto_accept!
+    end
+
     version
   end
 
