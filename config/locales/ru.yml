@@ -17,6 +17,7 @@ ru:
       topic: Топик
       topics/news_topic: Новостной топик
       user: Пользователь
+      video: Видео
 
     attributes:
       anime: &anime_attributes

@@ -17,6 +17,7 @@ en:
       topic: Topic
       topics/news_topic: News Topic
       user: User
+      video: Video
 
     attributes:
       anime: &anime_attributes

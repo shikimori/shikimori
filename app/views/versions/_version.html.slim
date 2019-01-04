@@ -21,6 +21,8 @@
       - if version.item
         - if version.item_type == AnimeVideo.name
           = render 'versions/anime_video', version: version
+        - if version.item_type == Video.name
+          = render 'versions/video', version: version
         - elsif version.is_a? Versions::RoleVersion
           = render 'users/user_16', user: version.item
         - else
