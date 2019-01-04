@@ -20,3 +20,5 @@ en:
         videos: Edit video
     contest_winners:
       top_in: '#%{position} in '
+    edit_field:
+      changes_history: Changes history

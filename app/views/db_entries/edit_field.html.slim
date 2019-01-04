@@ -5,6 +5,6 @@
     = render "db_entries/fields/#{@field}", resource: @resource
 
   - if @resource.versions[@field.to_sym].any?
-    .subheadline История правок
+    .subheadline = t 'db_entries.edit_field.changes_history'
     .block
       = render partial: 'versions/version', collection: @resource.versions[@field.to_sym]

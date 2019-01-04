@@ -20,3 +20,5 @@ ru:
         video: Изменение видео ролика
     contest_winners:
       top_in: '№%{position} в '
+    edit_field:
+      changes_history: История правок
