@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
     @decorated_current_user ||= super.try :decorate
   end
 
-  private
+private
 
   def set_layout
     if request.xhr? || (

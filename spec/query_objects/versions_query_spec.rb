@@ -17,6 +17,13 @@ describe VersionsQuery do
       it { expect(query.all).to eq [version_1] }
     end
 
+    describe 'associated' do
+      let!(:version_1) { create :version, item: anime }
+      let!(:version_2) { create :version, associated: anime }
+
+      it { expect(query.all).to eq [version_2, version_1] }
+    end
+
     describe 'ordering' do
       let!(:version_1) { create :version, item: anime, created_at: 2.days.ago }
       let!(:version_2) { create :version, item: anime, created_at: 1.day.ago }
@@ -43,12 +50,26 @@ describe VersionsQuery do
     describe 'another field' do
       let!(:version_1) { create :version, item: anime }
       let!(:version_2) do
-        create :version,
-          item: anime,
-          item_diff: { 'name' => ['a', 'b'] }
+        create :version, item: anime, item_diff: { 'name' => ['a', 'b'] }
       end
 
       it { expect(query.by_field :russian).to eq [version_1] }
+    end
+
+    describe 'videos + associated' do
+      let!(:version_1) { create :version, item: anime, item_diff: { 'videos' => [] } }
+      let!(:version_2) { create :version, item: video, associated: anime }
+      let(:video) { create :video, anime: anime }
+
+      it { expect(query.by_field :videos).to eq [version_2, version_1] }
+
+      context 'another entry' do
+        let!(:version_3) { create :version, item: video_2, associated: anime_2 }
+        let(:video_2) { create :video, anime: anime_2 }
+        let(:anime_2) { create :anime }
+
+        it { expect(query.by_field :videos).to eq [version_2, version_1] }
+      end
     end
 
     describe 'ordering' do

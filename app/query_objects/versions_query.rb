@@ -1,5 +1,5 @@
 class VersionsQuery < SimpleQueryBase
-  pattr_initialize :entry
+  pattr_initialize :item
   decorate_page true
 
   def all
@@ -32,7 +32,8 @@ private
 
   def query
     Version
-      .where(item: entry)
+      .where(item: @item)
+      .or(Version.where(associated: @item))
       .where.not(state: :deleted)
       .includes(:user, :moderator)
       .order(created_at: :desc)
