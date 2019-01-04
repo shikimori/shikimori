@@ -160,19 +160,13 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     FavouritesQuery.new.favoured_size object
   end
 
-  def versions_scope
-    VersionsQuery.fetch(object)
+  def authors field
+    @authors ||= {}
+    @authors[field] ||= versions_scope.authors(field)
   end
 
   def parameterized_versions
-    scope = versions_scope
-
-    scope = scope.by_field(h.params[:field]) if h.params[:field]
-    if h.params[:video_id]
-      scope = scope.where(item_id: h.params[:video_id], item_type: Video.name)
-    end
-
-    scope
+    versions_scope
       .paginate(h.controller.instance_variable_get(:@page), 20)
       .transform(&:decorate)
   end
@@ -205,6 +199,17 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
 private
+
+  def versions_scope
+    scope = VersionsQuery.fetch(object)
+
+    scope = scope.by_field(h.params[:field]) if h.params[:field]
+    if h.params[:video_id]
+      scope = scope.where(item_id: h.params[:video_id], item_type: Video.name)
+    end
+
+    scope
+  end
 
   def show_description_ru?
     I18n.russian?

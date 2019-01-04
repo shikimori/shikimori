@@ -12,7 +12,7 @@
       field_name: "#{resource.object.class.name.downcase}[description_en_text]"
 
     = render 'blocks/source',
-      authors: resource.versions.authors(:description_en),
+      authors: resource.authors(:description_en),
       source: resource.description_en.source,
       field: 'description'
 

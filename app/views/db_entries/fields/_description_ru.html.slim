@@ -14,7 +14,7 @@ p.warning Перед внесением изменений обязательн�
       field_name: "#{resource.object.class.name.downcase}[description_ru_text]"
 
     = render 'blocks/source',
-      authors: resource.versions.authors(:description_ru),
+      authors: resource.authors(:description_ru),
       source: resource.description_ru.source,
       field: 'description'
 

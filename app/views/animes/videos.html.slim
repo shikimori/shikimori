@@ -16,7 +16,7 @@
 
     = render partial: 'blocks/source',
       locals: {\
-        authors: @resource.versions.authors(:videos),
+        authors: @resource.authors(:videos),
         source: nil,
         field: 'video'\
       },

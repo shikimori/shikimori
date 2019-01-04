@@ -7,6 +7,6 @@
       = render @resource.screenshots
 
     = render 'blocks/source',
-      authors: @resource.versions.authors(:screenshots),
+      authors: @resource.authors(:screenshots),
       source: nil,
       field: 'screenshots'

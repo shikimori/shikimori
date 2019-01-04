@@ -9,7 +9,7 @@
         / field 'description' is not used inside forms -
         / can be any name just to distinguish description
         = render 'blocks/source',
-          authors: resource.versions.authors(:description_en),
+          authors: resource.authors(:description_en),
           source: resource.description_en.source,
           field: 'description'
 
@@ -18,7 +18,7 @@
         = resource.description_html_ru
 
       = render 'blocks/source',
-        authors: resource.versions.authors(:description_ru),
+        authors: resource.authors(:description_ru),
         source: resource.description_ru.source,
         field: 'description'
 
@@ -27,6 +27,6 @@
       = resource.description_html_en
 
     = render 'blocks/source',
-      authors: resource.versions.authors(:description_en),
+      authors: resource.authors(:description_en),
       source: resource.description_en.source,
       field: 'description'
