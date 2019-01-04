@@ -1,4 +1,4 @@
-class AnimeVideosService
+class AnimeOnline::VideosService
   pattr_initialize :params
 
   def create user

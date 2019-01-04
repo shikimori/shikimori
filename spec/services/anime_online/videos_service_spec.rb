@@ -1,6 +1,6 @@
-describe AnimeVideosService do
+describe AnimeOnline::VideosService do
   let(:anime) { create :anime }
-  let(:service) { AnimeVideosService.new video_params }
+  let(:service) { AnimeOnline::VideosService.new video_params }
 
   describe '#create' do
     let(:video_params) do

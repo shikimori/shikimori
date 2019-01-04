@@ -42,7 +42,7 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
 
   # rubocop:disable MethodLength
   def create
-    @video = AnimeVideosService.new(create_params).create(current_user)
+    @video = AnimeOnline::VideosService.new(create_params).create(current_user)
 
     if @video.persisted?
       if params[:continue] == 'true'
@@ -62,7 +62,7 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
   end
 
   def update
-    @video = AnimeVideosService
+    @video = AnimeOnline::VideosService
       .new(
         current_user.video_moderator? ? moderator_update_params : update_params
       )

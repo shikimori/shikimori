@@ -24,7 +24,7 @@ class Api::V1::AnimeVideosController < Api::V1Controller
       desc: 'Link to the page from where you got the video'
   end
   def create
-    @resource = AnimeVideosService.new(create_params).create(current_user)
+    @resource = AnimeOnline::VideosService.new(create_params).create(current_user)
     respond_with @resource
   end
 
