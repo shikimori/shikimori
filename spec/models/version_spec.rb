@@ -3,6 +3,7 @@ describe Version do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :moderator }
     it { is_expected.to belong_to :item }
+    it { is_expected.to belong_to :associated }
   end
 
   describe 'validations' do

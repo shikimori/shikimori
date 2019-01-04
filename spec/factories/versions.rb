@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :version do
     item { create :anime }
+    associated { nil }
     user { seed :user }
     state { :pending }
     item_diff { { russian: ['a', 'b'] } }
