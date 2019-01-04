@@ -7122,6 +7122,7 @@
         franchise: bakemonogatari
         not_anime_ids:
         - 6948
+        - 32191
         - 36725
         - 36796
       :threshold: 94.1%
@@ -7148,6 +7149,7 @@
         franchise: bakemonogatari
         not_anime_ids:
         - 6948
+        - 32191
         - 36725
         - 36796
       :threshold: 0.01
@@ -7231,6 +7233,7 @@
         - 36064
         - 36327
         - 36729
+        - 38784
       :threshold: 92.1%
       :generator:
         not_ignored_ids:
@@ -7273,6 +7276,7 @@
         - 36064
         - 36327
         - 36729
+        - 38784
       :threshold: 0.01
       :generator:
         not_ignored_ids:
