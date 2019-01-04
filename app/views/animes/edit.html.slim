@@ -273,14 +273,4 @@
               .m5
                 = submit_tag t('.parse'), class: 'b-button'
 
-  - if @resource.versions.any?
-    .subheadline = t 'db_entries.versions.changes_history'
-    .block
-      = render partial: 'versions/version',
-        collection: @resource.versions
-
-      - if @resource.versions.next_page?
-        = render 'blocks/postloader',
-          filter: 'b-log_entry',
-          next_url: @resource.versions_url(@resource.versions.next_page),
-          prev_url: (@resource.versions_url(@resource.versions.prev_page) if @resource.versions.prev_page?)
+  = render 'db_entries/history', resource: @resource

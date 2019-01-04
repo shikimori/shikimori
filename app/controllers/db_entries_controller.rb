@@ -13,13 +13,12 @@ class DbEntriesController < ShikimoriController
   end
 
   def versions
-    @collection = @resource.versions
+    @collection = @resource.parameterized_versions
   end
 
   def collections
-    if @resource.collections_scope.none?
-      return redirect_to @resource.url, status: 301
-    end
+    return redirect_to @resource.url, status: 301 if @resource.collections_scope.none?
+
     og noindex: true, page_title: t('in_collections')
 
     page = [params[:page].to_i, 1].max

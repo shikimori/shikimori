@@ -4,7 +4,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     :contest_winners,
     :favoured, :favoured?, :all_favoured, :favoured_size,
     :main_topic_view, :preview_topic_view,
-    :versions
+    :parameterized_versions
 
   MAX_CLUBS = 4
   MAX_COLLECTIONS = 3
@@ -160,9 +160,19 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     FavouritesQuery.new.favoured_size object
   end
 
-  def versions
-    VersionsQuery
-      .fetch(object)
+  def versions_scope
+    VersionsQuery.fetch(object)
+  end
+
+  def parameterized_versions
+    scope = versions_scope
+
+    scope = scope.by_field(h.params[:field]) if h.params[:field]
+    if h.params[:video_id]
+      scope = scope.where(item_id: h.params[:video_id], item_type: Video.name)
+    end
+
+    scope
       .paginate(h.controller.instance_variable_get(:@page), 20)
       .transform(&:decorate)
   end

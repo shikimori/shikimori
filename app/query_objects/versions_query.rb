@@ -28,7 +28,7 @@ class VersionsQuery < QueryObjectBase
 private
 
   def field_sql field
-    if field == :videos
+    if field.to_sym == :videos
       "(item_diff->>:field) is not null or item_type = '#{Video.name}'"
     else
       '(item_diff->>:field) is not null'

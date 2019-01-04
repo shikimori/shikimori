@@ -1,0 +1,11 @@
+- if resource.parameterized_versions.any?
+  .subheadline = t 'db_entries.versions.changes_history'
+  .block
+    = render partial: 'versions/version',
+      collection: resource.parameterized_versions
+
+    - if resource.parameterized_versions.next_page?
+      = render 'blocks/postloader',
+        filter: 'b-log_entry',
+        next_url: resource.versions_url(resource.parameterized_versions.next_page),
+        prev_url: (resource.versions_url(resource.parameterized_versions.prev_page) if resource.parameterized_versions.prev_page?)
