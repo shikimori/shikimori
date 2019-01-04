@@ -1,8 +1,11 @@
-- if @resource.versions_page.first.any?
+- if @collection.any?
   .subheadline
-    | #{t '.changes_history'} #{t '.page', page: params[:page] || 1}
+    | #{t '.changes_history'} #{t '.page', page: @page}
   .block
-    = render partial: 'versions/version', collection: @resource.versions_page.first
+    = render partial: 'versions/version', collection: @collection
 
-    - if @resource.versions_page.second
-      = render 'blocks/postloader', next_url: @resource.next_versions_page
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        filter: 'b-log_entry',
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)

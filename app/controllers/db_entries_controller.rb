@@ -13,6 +13,7 @@ class DbEntriesController < ShikimoriController
   end
 
   def versions
+    @collection = @resource.versions
   end
 
   def collections

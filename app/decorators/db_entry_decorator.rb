@@ -3,7 +3,8 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     :menu_clubs, :all_clubs, :menu_collections,
     :contest_winners,
     :favoured, :favoured?, :all_favoured, :favoured_size,
-    :main_topic_view, :preview_topic_view
+    :main_topic_view, :preview_topic_view,
+    :versions
 
   MAX_CLUBS = 4
   MAX_COLLECTIONS = 3
@@ -160,7 +161,10 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def versions
-    VersionsQuery.new object
+    VersionsQuery
+      .fetch(object)
+      .paginate(h.controller.instance_variable_get(:@page), 20)
+      .transform(&:decorate)
   end
 
   def contest_winners
@@ -168,10 +172,6 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
       .where('position <= 16')
       .includes(:contest)
       .order(:position, id: :desc)
-  end
-
-  def versions_page
-    versions.postload (h.params[:page] || 1).to_i, 15
   end
 
   def path
@@ -190,9 +190,8 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     h.send "edit_field_#{klass_lower}_url", object, field: field
   end
 
-  def next_versions_page
-    h.send "versions_#{klass_lower}_url", object,
-      page: (h.params[:page] || 1).to_i + 1
+  def versions_url page
+    h.send "versions_#{klass_lower}_url", object, page: page
   end
 
 private

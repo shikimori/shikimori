@@ -1,19 +1,21 @@
-class VersionsQuery < SimpleQueryBase
-  pattr_initialize :item
-  decorate_page true
-
-  def all
-    query.decorate
+class VersionsQuery < QueryObjectBase
+  def self.fetch item
+    new(
+      Version
+        .where(item: item)
+        .or(Version.where(associated: item))
+        .where.not(state: :deleted)
+        .includes(:user, :moderator)
+        .order(created_at: :desc)
+    )
   end
 
   def by_field field
-    query
-      .where(field_sql(field), field: field)
-      .decorate
+    chain @scope.where(field_sql(field), field: field)
   end
 
   def authors field
-    query
+    by_field(field)
       .where(field_sql(field), field: field)
       .where(state_condition(field))
       .where(state: :accepted)
@@ -23,21 +25,7 @@ class VersionsQuery < SimpleQueryBase
       .uniq { |user| user.bot? ? 'bot' : user }
   end
 
-  def [] field
-    @versions ||= {}
-    @versions[field.to_s] ||= by_field field
-  end
-
 private
-
-  def query
-    Version
-      .where(item: @item)
-      .or(Version.where(associated: @item))
-      .where.not(state: :deleted)
-      .includes(:user, :moderator)
-      .order(created_at: :desc)
-  end
 
   def field_sql field
     if field == :videos

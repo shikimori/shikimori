@@ -11,7 +11,7 @@
           = render 'versions/reason'
 
         .buttons
-          a.cancel href=resource.url = t 'actions.cancel'
+          a.cancel href=resource.edit_field_url(:videos) = t 'actions.cancel'
           = f.button :magic_submit
 
   .block.videos-deleter
