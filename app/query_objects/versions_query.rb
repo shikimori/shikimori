@@ -8,13 +8,13 @@ class VersionsQuery < SimpleQueryBase
 
   def by_field field
     query
-      .where('(item_diff->>:field) is not null', field: field)
+      .where(field_sql(field), field: field)
       .decorate
   end
 
   def authors field
     query
-      .where('(item_diff->>:field) is not null', field: field)
+      .where(field_sql(field), field: field)
       .where(state_condition(field))
       .where(state: :accepted)
       .except(:order)
@@ -37,6 +37,14 @@ private
       .where.not(state: :deleted)
       .includes(:user, :moderator)
       .order(created_at: :desc)
+  end
+
+  def field_sql field
+    if field == :videos
+      "(item_diff->>:field) is not null or item_type = '#{Video.name}'"
+    else
+      '(item_diff->>:field) is not null'
+    end
   end
 
   def state_condition field
