@@ -26,13 +26,15 @@
     .mobile-edit
       display: none
 
-  &.deletable, &.deleted
+  &.deletable,
+  &.deleted
     img
       opacity: 0.3
 
     .controls
       display: block
 
+      .edit,
       .delete
         display: none
 
@@ -40,21 +42,28 @@
       display: none
 
   &.deletable
-    .confirm, .cancel
+    .confirm,
+    .cancel
       display: inline-block
 
   &.deleted
-    .confirm, .cancel, .move-left, .move-right
+    .confirm,
+    .cancel,
+    .move-left,
+    .move-right
       display: none
-
-    //.restore
-      display: inline-block
 
   &:first-child .move-left,
   &:last-child .move-right
     display: none !important
 
-  .delete, .confirm, .cancel, .move-left, .move-right, .mobile-edit//, .restore
+  .edit,
+  .delete,
+  .confirm,
+  .cancel,
+  .move-left,
+  .move-right,
+  .mobile-edit
     background: $link-3
     color: white
     cursor: pointer
@@ -70,6 +79,9 @@
     &:active
       background-color: $link-2
 
+  .edit
+    +icon('\e842', 12px)
+
   .delete
     +icon('✕', 12px)
 
@@ -84,26 +96,21 @@
     &:hover
       color: #fff
 
-  //.restore
-    +icon("\e801", 12px)
-    display: none
-
   .move-left
-    +icon("\e83e", 12px)
+    +icon('\e83e', 12px)
     left: 0
     margin-top: -10px !important
     position: absolute
     top: 50%
 
   .move-right
-    +icon("\e83f", 12px)
+    +icon('\e83f', 12px)
     margin-top: -10px !important
     position: absolute
     right: 0
     top: 50%
 
   .mobile-edit
-    //+icon('\e814', 12px)
     +icon('\e842', 12px)
     position: absolute
     right: 0

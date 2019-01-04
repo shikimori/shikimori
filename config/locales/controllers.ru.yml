@@ -252,7 +252,7 @@ ru:
     version_accepted: *version_accepted
     version_taken: *version_accepted
     version_auto_accepted: *version_accepted
-    no_changes: Нет изменений
+    no_changes: &no_changes Нет изменений
     entry_edit: Редактирование аниме
     edit: Редактирование
     characters:
@@ -329,6 +329,11 @@ ru:
 
   videos_controller:
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!
+    version_pending: *version_pending
+    version_accepted: *version_accepted
+    version_taken: *version_accepted
+    version_auto_accepted: *version_accepted
+    no_changes: *no_changes
 
   pages_controller:
     calendar_of_ongoings: Календарь онгоингов

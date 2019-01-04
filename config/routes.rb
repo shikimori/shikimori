@@ -734,12 +734,15 @@ Rails.application.routes.draw do
         external_links
       }.join('|'))
 
-      post 'torrent' => 'torrents#create', on: :member
+      member do
+        get 'edit/videos/:video_id' => :edit_field, as: :edit_video, field: :videos
+        post 'torrent' => 'torrents#create'
+      end
 
       resources :screenshots, only: %i[create destroy] do
         post :reposition, on: :collection
       end
-      resources :videos, only: %i[create destroy]
+      resources :videos, only: %i[create update destroy]
     end
 
     %i[mangas ranobe].each do |type|

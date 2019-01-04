@@ -252,7 +252,7 @@ en:
     version_accepted: *version_accepted
     version_taken: *version_accepted
     version_auto_accepted: *version_accepted
-    no_changes: No changes
+    no_changes: &no_changes No changes
     entry_edit: Edit anime
     edit: Edit
     characters:
@@ -329,6 +329,11 @@ en:
 
   videos_controller:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
+    version_pending: *version_pending
+    version_accepted: *version_accepted
+    version_taken: *version_accepted
+    version_auto_accepted: *version_accepted
+    no_changes: *no_changes
 
   pages_controller:
     calendar_of_ongoings: Calendar of currently airing and upcoming anime

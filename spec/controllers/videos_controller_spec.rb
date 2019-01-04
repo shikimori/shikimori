@@ -102,6 +102,44 @@ describe VideosController do
     end
   end
 
+  describe '#update' do
+    let(:video) { create :video, :confirmed, anime: anime }
+    subject! do
+      patch :update,
+        params: {
+          anime_id: anime.id,
+          id: video.id,
+          video: video_params,
+          reason: 'zxc'
+        }
+    end
+
+    context 'success' do
+      let(:video_params) { { kind: 'pv' } }
+      it do
+        expect(assigns :version).to be_persisted
+        expect(assigns :version).to have_attributes(
+          item: video,
+          user_id: user.id,
+          moderator_id: user.id,
+          state: 'accepted',
+          item_diff: { 'kind' => ['op', 'pv'] },
+          reason: 'zxc',
+          associated: anime
+        )
+        expect(response).to redirect_to edit_field_anime_url(anime, field: 'videos')
+      end
+    end
+
+    context 'failure' do
+      let(:video_params) { { kind: 'op' } }
+      it do
+        expect(assigns :version).to_not be_persisted
+        expect(response).to redirect_to edit_video_anime_url(anime, video)
+      end
+    end
+  end
+
   describe '#destroy' do
     let(:video) { create :video, :confirmed }
     subject! { post :destroy, params: { anime_id: anime.id, id: video.id } }

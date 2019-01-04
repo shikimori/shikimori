@@ -17,5 +17,6 @@ en:
         warning: The current picture will be permanently deleted.
       videos:
         videos: Edit videos
+        videos: Edit video
     contest_winners:
       top_in: '#%{position} in '

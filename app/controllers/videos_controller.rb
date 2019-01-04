@@ -3,7 +3,7 @@ class VideosController < ShikimoriController
   before_action :fetch_anime
 
   def create # rubocop:disable MethodLength
-    @video, @version = versioneer.upload video_params, current_user
+    @video, @version = versioneer.upload create_params, current_user
 
     if request.xhr?
       replace_video @video if duplicate? @video
@@ -23,6 +23,28 @@ class VideosController < ShikimoriController
     end
   end
 
+  # method based on code from DbEntriesController#update
+  def update # rubocop:disable MethodLength
+    @video = @anime.videos.find params[:id]
+
+    Version.transaction do
+      @version = create_version
+      authorize! :create, @version
+    end
+
+    if @version.persisted?
+      redirect_to(
+        edit_field_anime_url(@anime, field: 'videos'),
+        notice: i18n_t("version_#{@version.state}")
+      )
+    else
+      redirect_back(
+        fallback_location: edit_video_anime_url(@anime, @video),
+        alert: @version.errors[:base]&.dig(0) || i18n_t('no_changes')
+      )
+    end
+  end
+
   def destroy
     @version = versioneer.delete params[:id], current_user
 
@@ -35,11 +57,14 @@ class VideosController < ShikimoriController
 
 private
 
-  def video_params
+  def create_params
+    update_params.merge(uploader_id: current_user.id)
+  end
+
+  def update_params
     params
       .require(:video)
       .permit(:url, :kind, :name)
-      .merge(uploader_id: current_user.id)
   end
 
   def versioneer
@@ -59,5 +84,18 @@ private
 
   def replace_video video
     @video = Video.find_by url: video.url
+  end
+
+  def create_version
+    version = Versioneers::FieldsVersioneer
+      .new(@video, associated: @anime)
+      .premoderate(
+        update_params.is_a?(Hash) ? update_params : update_params.to_unsafe_h,
+        current_user,
+        params[:reason]
+      )
+
+    version.accept current_user if version.persisted? && can?(:accept, version)
+    version
   end
 end

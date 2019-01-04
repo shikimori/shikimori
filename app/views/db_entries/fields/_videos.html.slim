@@ -1,17 +1,39 @@
-.cc-2.block
-  .c-column
-    = simple_form_for [@resource, Video.new] do |f|
-      .inputs
-        = f.input :url, hint: Video::ALLOWED_HOSTINGS.join(', ')
-        = f.input :kind, as: :select, include_blank: false
-        = f.input :name
+- if params[:video_id]
+  - video = @resource.videos.find params[:video_id]
 
-      .buttons
-        a.cancel href=resource.url = t 'actions.cancel'
-        = f.button :magic_submit
+  .cc-2.block
+    .c-column
+      = simple_form_for [@resource, video] do |f|
+        .inputs
+          = f.input :url, hint: Video::ALLOWED_HOSTINGS.join(', ')
+          = f.input :kind, as: :select, include_blank: false
+          = f.input :name
+          = render 'versions/reason'
 
-- if @resource.videos.any?# || @resource.versions[:videos].any?
+        .buttons
+          a.cancel href=resource.url = t 'actions.cancel'
+          = f.button :magic_submit
+
   .block.videos-deleter
-    .subheadline.m10 = t '.videos'
+    .subheadline.m10 = t '.video'
     .cc
-      = render @resource.videos, edition: true
+      = render video
+
+- else
+  .cc-2.block
+    .c-column
+      = simple_form_for [@resource, Video.new] do |f|
+        .inputs
+          = f.input :url, hint: Video::ALLOWED_HOSTINGS.join(', ')
+          = f.input :kind, as: :select, include_blank: false
+          = f.input :name
+
+        .buttons
+          a.cancel href=resource.url = t 'actions.cancel'
+          = f.button :magic_submit
+
+  - if @resource.videos.any?# || @resource.versions[:videos].any?
+    .block.videos-deleter
+      .subheadline.m10 = t '.videos'
+      .cc
+        = render @resource.videos, edition: true
