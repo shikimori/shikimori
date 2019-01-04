@@ -29,7 +29,7 @@ class Video < ApplicationRecord
   YOUTUBE_PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
   VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
 
-  default_scope -> { order kind: :desc, name: :asc }
+  default_scope -> { order kind: :desc, id: :desc }
 
   state_machine :state, initial: :uploaded do
     state :uploaded
