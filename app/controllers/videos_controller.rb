@@ -24,7 +24,7 @@ class VideosController < ShikimoriController
   end
 
   # method based on code from DbEntriesController#update
-  def update # rubocop:disable MethodLength
+  def update # rubocop:disable MethodLength, AbcSize
     @video = @anime.videos.find params[:id]
 
     Version.transaction do
@@ -95,7 +95,7 @@ private
         params[:reason]
       )
 
-    version.accept current_user if version.persisted? && can?(:accept, version)
+    version.auto_accept if version.persisted? && can?(:auto_accept, version)
     version
   end
 end

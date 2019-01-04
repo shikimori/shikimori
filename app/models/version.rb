@@ -46,9 +46,7 @@ class Version < ApplicationRecord
     state :deleted
 
     event(:accept) { transition pending: :accepted }
-    event(:auto_accept) do
-      transition pending: :auto_accepted, if: :auto_acceptable?
-    end
+    event(:auto_accept) { transition pending: :auto_accepted }
     event(:take) { transition pending: :taken }
     event(:reject) { transition %i[pending auto_accepted] => :rejected }
     event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
@@ -181,9 +179,5 @@ private
     else
       value
     end
-  end
-
-  def auto_acceptable?
-    item_type != AnimeVideo.name || user.video_moderator? || user.trusted_video_changer?
   end
 end

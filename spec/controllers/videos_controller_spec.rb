@@ -121,8 +121,8 @@ describe VideosController do
         expect(assigns :version).to have_attributes(
           item: video,
           user_id: user.id,
-          moderator_id: user.id,
-          state: 'accepted',
+          moderator_id: nil,
+          state: 'auto_accepted',
           item_diff: { 'kind' => ['op', 'pv'] },
           reason: 'zxc',
           associated: anime

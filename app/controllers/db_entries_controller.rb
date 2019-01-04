@@ -113,7 +113,7 @@ private
         params[:reason]
       )
 
-    version.accept current_user if version.persisted? && can?(:accept, version)
+    version.auto_accept if version.persisted? && can?(:auto_accept, version)
     version
   end
 
@@ -144,7 +144,7 @@ private
         params[:reason]
       )
 
-    version.accept current_user if version.persisted? && can?(:accept, version)
+    version.auto_accept if version.persisted? && can?(:auto_accept, version)
     version
   end
 
