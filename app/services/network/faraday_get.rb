@@ -34,7 +34,7 @@ private
       req.options.open_timeout = 2
     end
 
-    check_meta_redirect response, url, deep
+    check_meta_redirect response, deep
   end
 
   def fixed_url url
@@ -43,21 +43,26 @@ private
     ).with_protocol.to_s
   end
 
-  def check_meta_redirect response, url, deep
+  def check_meta_redirect response, deep
     if deep < MAX_DEEP && response.body.size < TOO_LARGE_FOR_META_REDIRECT_SIZE
       redirect_url = ::Network::ExtractMetaRedirect.call(response.body)
+      current_url = response.env.url.to_s
 
       redirect_url ?
-        process(absolute_url(redirect_url, url), deep + 1) :
+        process(absolute_url(redirect_url, current_url), deep + 1) :
         response
     else
       response
     end
   end
 
-  def absolute_url url, base_url
-    if url.match?(%r{^/(?!/)})
-      "#{Url.new(base_url).without_path}#{url}"
+  def absolute_url url, current_url
+    if url.match? %r{^/(?!/)}
+      "#{Url.new(current_url).without_path}#{url}"
+
+    elsif url.match? %r{^(?!http)(?!/)\w}
+      "#{current_url.gsub(%r{/[^/]*$}, '/')}#{url}"
+
     else
       url
     end
