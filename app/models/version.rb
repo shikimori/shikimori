@@ -46,7 +46,7 @@ class Version < ApplicationRecord
     state :deleted
 
     event(:accept) { transition pending: :accepted }
-    event(:auto_accept) { transition pending: :auto_accepted }
+    event(:auto_accept) { transition pending: :auto_accepted, unless: :takeable? }
     event(:take) { transition pending: :taken }
     event(:reject) { transition %i[pending auto_accepted] => :rejected }
     event(:to_deleted) { transition pending: :deleted, if: :deleteable? }
