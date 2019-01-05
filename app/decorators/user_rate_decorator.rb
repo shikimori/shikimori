@@ -3,20 +3,21 @@ class UserRateDecorator < BaseDecorator
 
   # anime page
   def self.scores_options
-    @scores ||= 1.upto(10).map do |score|
+    @scores ||= {}
+    @scores[I18n.locale] ||= 1.upto(10).map do |score|
       ["(#{score}) #{I18n.t("activerecord.attributes.user_rate.scores.#{score}")}", score]
     end
   end
 
   def self.statuses_options target_type
-    UserRate.statuses.map do |status_name, status_id|
+    UserRate.statuses.map do |status_name, _status_id|
       [UserRate.status_name(status_name, target_type), status_name]
     end
   end
 
   def status_name
-    if completed? && rewatches > 0
-      "#{object.status_name} (#{rewatches+1}x)"
+    if completed? && rewatches.positive?
+      "#{object.status_name} (#{rewatches + 1}x)"
     else
       object.status_name
     end
