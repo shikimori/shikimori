@@ -18,7 +18,7 @@ class VersionsQuery < QueryObjectBase
     by_field(field)
       .where(field_sql(field), field: field)
       .where(state_condition(field))
-      .where(state: :accepted)
+      .where(state: %i[accepted auto_accepted])
       .except(:order)
       .order(created_at: :asc)
       .map(&:user)
