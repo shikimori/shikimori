@@ -44,6 +44,7 @@ class Comment < ApplicationRecord
 
   before_create :check_access
   before_create :cancel_summary
+  before_create :check_spam_abuse, if: -> { commentable_type == User.name }
   after_create :increment_comments
   after_create :creation_callbacks
 
@@ -97,6 +98,12 @@ class Comment < ApplicationRecord
   def cancel_summary
     self.is_summary = false if summary? && body.size < MIN_SUMMARY_SIZE
     true
+  end
+
+  def check_spam_abuse
+    unless Users::CheckHacked.call(model: self, text: body, user: user)
+      throw :abort
+    end
   end
 
   # TODO: get rid of this method

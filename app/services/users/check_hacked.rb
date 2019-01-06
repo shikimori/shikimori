@@ -22,6 +22,7 @@ class Users::CheckHacked
     yandex.ru
     youtu.be
     youtube.com
+    radikal.ru
   ]
 
   def call

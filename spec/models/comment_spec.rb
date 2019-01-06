@@ -51,6 +51,30 @@ describe Comment do
       end
     end
 
+    describe '#check_spam_abuse' do
+      before do
+        allow(Users::CheckHacked).to receive(:call).and_return true
+      end
+      context 'profile comment' do
+        let!(:comment) { create :comment, commentable: user }
+
+        it do
+          expect(Users::CheckHacked)
+            .to have_received(:call)
+            .with(
+              model: comment,
+              user: comment.user,
+              text: comment.body
+            )
+        end
+      end
+
+      context 'not profile comment' do
+        let!(:comment) { create :comment, commentable: build_stubbed(:topic) }
+        it { expect(Users::CheckHacked).to_not have_received :call }
+      end
+    end
+
     describe '#increment_comments' do
       let(:comment) { build :comment }
       after { comment.save }
