@@ -100,7 +100,7 @@ module Clockwork
   every 1.week, 'weekly.stuff.2', at: 'Monday 01:45' do
     # FindAnimeWorker.perform_async :two_pages
     # HentaiAnimeWorker.perform_async :first_page
-    DanbooruTagsImporter.perform_async
+    Tags::ImportDanbooruTagsWorker.perform_async
     OldMessagesCleaner.perform_async
     OldNewsCleaner.perform_async
     UserImagesCleaner.perform_async

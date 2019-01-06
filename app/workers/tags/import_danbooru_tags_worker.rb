@@ -1,4 +1,4 @@
-class DanbooruTagsImporter
+class Tags::ImportDanbooruTagsWorker
   include Sidekiq::Worker
 
   def perform
