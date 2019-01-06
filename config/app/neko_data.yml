@@ -3345,7 +3345,6 @@
         - 15879
         - 15927
         - 1593
-        - 16049
         - 16273
         - 16405
         - 16417
@@ -3435,7 +3434,6 @@
         - 5957
         - 5978
         - 6064
-        - 6213
         - 659
         - 66
         - 6862
@@ -3448,8 +3446,6 @@
         - 849
         - 8557
         - 8857
-        - 9047
-        - 9063
         - 9203
         - 9379
         - 9617
@@ -3744,6 +3740,12 @@
         - 37422
         - 21409
         - 31894
+        - 36817
+        - 37716
+        - 37579
+        - 38062
+        - 38199
+        - 37993
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3791,7 +3793,6 @@
         - 15879
         - 15927
         - 1593
-        - 16049
         - 16273
         - 16405
         - 16417
@@ -3881,7 +3882,6 @@
         - 5957
         - 5978
         - 6064
-        - 6213
         - 659
         - 66
         - 6862
@@ -3894,8 +3894,6 @@
         - 849
         - 8557
         - 8857
-        - 9047
-        - 9063
         - 9203
         - 9379
         - 9617
@@ -4190,6 +4188,12 @@
         - 37422
         - 21409
         - 31894
+        - 36817
+        - 37716
+        - 37579
+        - 38062
+        - 38199
+        - 37993
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -4237,7 +4241,6 @@
         - 15879
         - 15927
         - 1593
-        - 16049
         - 16273
         - 16405
         - 16417
@@ -4327,7 +4330,6 @@
         - 5957
         - 5978
         - 6064
-        - 6213
         - 659
         - 66
         - 6862
@@ -4340,8 +4342,6 @@
         - 849
         - 8557
         - 8857
-        - 9047
-        - 9063
         - 9203
         - 9379
         - 9617
@@ -4636,6 +4636,12 @@
         - 37422
         - 21409
         - 31894
+        - 36817
+        - 37716
+        - 37579
+        - 38062
+        - 38199
+        - 37993
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -16138,7 +16144,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 35%
+      :threshold: 30%
       :filters:
         genre_ids:
         - 28
@@ -17332,6 +17338,7 @@
         - 17681
         - 4038
         - 7745
+        - 37920
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -18409,6 +18416,7 @@
         - 17681
         - 4038
         - 7745
+        - 37920
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -19486,6 +19494,7 @@
         - 17681
         - 4038
         - 7745
+        - 37920
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
 - !ruby/object:Neko::Rule
   attributes:
