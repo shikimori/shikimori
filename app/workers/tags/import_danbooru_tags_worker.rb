@@ -2,7 +2,7 @@ class Tags::ImportDanbooruTagsWorker
   include Sidekiq::Worker
 
   def perform
-    DanbooruImporter.new.do_import
+    Tags::ImportDanbooruTags.new.do_import
 
     tags = Set.new(DanbooruTag.where(kind: DanbooruTag::Copyright).pluck(:name))
     [Anime, Manga].each do |klass|

@@ -1,6 +1,6 @@
 # починка sequences
 # ApplicationRecord.connection.execute("SELECT setval('danbooru_tags_id_seq', (SELECT MAX(id) FROM danbooru_tags))").first
-class DanbooruImporter
+class Tags::ImportDanbooruTags
   LIMIT = 1000
 
   def do_import
