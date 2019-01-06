@@ -1,4 +1,3 @@
-# загрузка новых тегов с DanbooruJob
 class DanbooruTagsImporter
   include Sidekiq::Worker
 

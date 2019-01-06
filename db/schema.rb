@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_04_170113) do
+ActiveRecord::Schema.define(version: 2019_01_06_215249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -449,6 +449,12 @@ ActiveRecord::Schema.define(version: 2019_01_04_170113) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["name"], name: "index_cosplayers_on_name", unique: true
+  end
+
+  create_table "coub_tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "danbooru_tags", id: :serial, force: :cascade do |t|
