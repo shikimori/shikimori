@@ -1,3 +1,3 @@
 class CoubTag < ApplicationRecord
-  validate :name, presence: true
+  validates :name, presence: true
 end

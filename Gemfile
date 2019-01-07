@@ -163,7 +163,6 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rbenv', require: false
 
-  gem 'rails-flog', require: 'flog'
   gem 'active_record_query_trace'
   # gem 'foreman'
 end

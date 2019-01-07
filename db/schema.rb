@@ -455,6 +455,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_215249) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_coub_tags_on_name", unique: true
   end
 
   create_table "danbooru_tags", id: :serial, force: :cascade do |t|
