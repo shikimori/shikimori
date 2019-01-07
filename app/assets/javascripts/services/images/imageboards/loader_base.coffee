@@ -1,4 +1,5 @@
 uEvent = require 'uevent'
+axios = require('helpers/axios').default
 
 module.exports = class LoaderBase
   FETCH_EVENT: 'loader:fetch'
@@ -21,11 +22,14 @@ module.exports = class LoaderBase
   # public methods
   fetch: (callback) ->
     @is_loading = true
-    $["yql#{@yql_format}"](@_images_source_url(), @_fetch_success, @_fetch_fail)
+    axios
+      .get(@_shiki_load_url())
+      .catch(@_fetch_fail)
+      .then (response) => @_fetch_success response.data
 
   # handlers
   _fetch_success: (data) =>
-    images = @_xhr_to_images(@_parse(data))
+    images = @_xhr_to_images(data)
     @page += 1
     @is_loading = false
 
@@ -70,6 +74,9 @@ module.exports = class LoaderBase
 
     images.filter (image) =>
       !(@forbidden_tags.test(image.tags) || image.rating == 'e')
+
+  _shiki_load_url: ->
+    "/danbooru/yandere/#{Base64.encode @_images_source_url()}"
 
   _images_source_url: ->
     "#{@base_url}/post/index.json?page=#{@page}&limit=#{@limit}&tags=#{@tags}"

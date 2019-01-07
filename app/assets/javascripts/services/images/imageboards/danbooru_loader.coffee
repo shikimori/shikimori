@@ -7,9 +7,6 @@ module.exports = class DanbooruLoader extends LoaderBase
     @yql_format = 'JSON'
 
   # private methods
-  _parse: (xhr_data) ->
-    xhr_data?.json || []
-
   _build_images: (xhr_images) ->
     xhr_images.forEach (image) =>
       return unless image.file_url && image.preview_url

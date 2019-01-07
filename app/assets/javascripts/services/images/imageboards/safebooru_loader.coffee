@@ -11,9 +11,6 @@ module.exports = class SafebooruLoader extends LoaderBase
     "#{@base_url}/index.php" +
       "?page=dapi&s=post&q=index&pid=#{@page - 1}&limit=#{@limit}&tags=#{@tags}"
 
-  _parse: (xhr_data) ->
-    xhr_data?.posts?.post || []
-
   # _image_url: (image_url, filename) ->
   #   image_url
 
