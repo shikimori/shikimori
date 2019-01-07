@@ -9,7 +9,7 @@ class Tags::ImportDanbooruTagsWorker
 private
 
   def import_tags
-    Tags::ImportDanbooruTags.new.do_import
+    Tags::ImportDanbooruTags.call
   end
 
   def match_tags

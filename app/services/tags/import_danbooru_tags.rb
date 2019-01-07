@@ -9,10 +9,11 @@ class Tags::ImportDanbooruTags
   DANBOORU_URL_TEMPLATE = 'https://danbooru.donmai.us/tag/index.json?'\
     '&limit=%<limit>s&order=created_at&page=%<page>s'
 
-  def do_import
+  method_object
+
+  def call
     import_page :danbooru, 1, LIMIT
     import_page :danbooru, 2, LIMIT
-
     import_page :konachan, nil, nil
   end
 
@@ -43,11 +44,15 @@ private
   end
 
   def get_page imageboard, page, limit
-    Faraday.get(imageboard_url(imageboard, page, limit)) do |req|
+    url = imageboard_url imageboard, page, limit
+
+    response = Faraday.get(url) do |req|
       req.options[:timeout] = 150
       req.options[:open_timeout] = 150
       req.headers['User-Agent'] = USER_AGENT
-    end.body
+    end
+
+    response.body
   end
 
   def imageboard_url imageboard, page, limit
