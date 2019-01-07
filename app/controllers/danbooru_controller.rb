@@ -19,7 +19,7 @@ class DanbooruController < ShikimoriController
       url = Base64.decode64 URI.decode(params[:url])
       raise Forbidden, url unless url.match? VALID_URL
 
-      json = PgCache.fetch "yandere_#{url}", expires_in: 1.weeks do
+      json = PgCache.fetch cache_key, expires_in: 4.months do
         content = OpenURI.open_uri(url, USER_AGENT_WITH_SSL).read
 
         if url.match? 'safebooru.org'
@@ -37,5 +37,13 @@ private
 
   def parse_safeboory xml
     Nokogiri::XML(xml).css('posts post').map(&:to_h)
+  end
+
+  def cache_key
+    [
+      params[:tag],
+      params[:imageboard],
+      params[:page]
+    ].join('|')
   end
 end

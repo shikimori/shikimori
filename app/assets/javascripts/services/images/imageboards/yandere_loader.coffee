@@ -3,5 +3,5 @@ LoaderBase = require './loader_base'
 
 module.exports = class YandereLoader extends LoaderBase
   _initialize: ->
-    @name = 'YandeRe'
+    @name = 'Yandere'
     @base_url = 'https://yande.re'

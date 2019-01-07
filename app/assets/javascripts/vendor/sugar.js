@@ -2793,6 +2793,21 @@
      ***/
     'capitalize': function(str, lower, all) {
       return stringCapitalize(str, lower, all);
+    },
+
+    /***
+     * @method underscore()
+     * @returns String
+     * @short Converts hyphens and camel casing to underscores.
+     *
+     * @example
+     *
+     *   'a-farewell-to-arms'.underscore() -> 'a_farewell_to_arms'
+     *   'capsLock'.underscore()           -> 'caps_lock'
+     *
+     ***/
+    'underscore': function(str) {
+      return stringUnderscore(str);
     }
 
   });

@@ -4,7 +4,7 @@ axios = require('helpers/axios').default
 module.exports = class LoaderBase
   FETCH_EVENT: 'loader:fetch'
 
-  constructor: (@tags, @forbidden_tags) ->
+  constructor: (@tag, @forbidden_tags) ->
     uEvent.mixin @
 
     @page = 1
@@ -54,7 +54,7 @@ module.exports = class LoaderBase
       .map (image) =>
         extension = '.' + image.file_url.replace(/.*\./, '')
         filename = [
-          @tags,
+          @tag,
           "#{image.width}x#{image.height}",
           image.author,
           image.id
@@ -76,10 +76,11 @@ module.exports = class LoaderBase
       !(@forbidden_tags.test(image.tags) || image.rating == 'e')
 
   _shiki_load_url: ->
-    "/danbooru/yandere/#{Base64.encode @_images_source_url()}"
+    "/danbooru/yandere/#{Base64.encode @_images_source_url()}" +
+      "?tag=#{@tag}&page=#{@page}&imageboard=#{@name.toLowerCase()}"
 
   _images_source_url: ->
-    "#{@base_url}/post/index.json?page=#{@page}&limit=#{@limit}&tags=#{@tags}"
+    "#{@base_url}/post/index.json?page=#{@page}&limit=#{@limit}&tags=#{@tag}"
 
   _camo_url: (image_url, filename) ->
     @camo_base_url + "?filename=#{filename}&url=#{image_url}"
