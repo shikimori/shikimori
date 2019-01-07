@@ -730,7 +730,7 @@ Rails.application.routes.draw do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian synonyms license_name_ru description_ru description_en image
         kind episodes rating duration
-        screenshots videos torrents_name tags aired_on released_on genre_ids
+        screenshots videos torrents_name imageboard_tag aired_on released_on genre_ids
         external_links
       }.join('|'))
 

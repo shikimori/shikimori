@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_06_215249) do
+ActiveRecord::Schema.define(version: 2019_01_07_120614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -128,7 +128,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_215249) do
     t.boolean "censored", default: false
     t.datetime "imported_at"
     t.datetime "next_episode_at"
-    t.string "tags", limit: 255
+    t.string "imageboard_tag", limit: 255
     t.string "source", limit: 255
     t.string "torrents_name", limit: 255
     t.float "site_score", default: 0.0, null: false
@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_215249) do
     t.integer "image_file_size"
     t.datetime "image_updated_at"
     t.datetime "imported_at"
-    t.string "tags", limit: 255
+    t.string "imageboard_tag", limit: 255
     t.string "russian"
     t.string "source", limit: 255
     t.text "desynced", default: [], null: false, array: true
@@ -611,7 +611,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_215249) do
     t.boolean "censored", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "tags", limit: 255
+    t.string "imageboard_tag", limit: 255
     t.string "source", limit: 255
     t.float "site_score", default: 0.0, null: false
     t.datetime "parsed_at"

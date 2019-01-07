@@ -46,7 +46,7 @@ en:
         score: Score
         screenshots: Screenshots
         status: Status
-        tags: Imageboards tag
+        imageboard_tag: Imageboards tag
         torrents_name: Torrents name
         videos: Videos
         franchise: Franchise
@@ -68,7 +68,7 @@ en:
         poster: *poster
         image: *poster
         russian: Russian name
-        tags: Imageboards tag
+        imageboard_tag: Imageboards tag
       person:
         <<: *character_attributes
         birthday: Birthday

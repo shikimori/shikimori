@@ -44,7 +44,7 @@
                 = info_line t('in_japanese'), @resource.japanese
                 = info_line t('.other'), @resource.altname
 
-                - if @resource.tags.present? || @resource.cosplay?
+                - if @resource.imageboard_tag.present? || @resource.cosplay?
                   .additional-links
                     .line-container
                       - if @resource.cosplay?
@@ -52,7 +52,7 @@
                           data-href=cosplay_character_url(@resource)
                         ] = t 'cosplay'
 
-                      - if @resource.tags.present?
+                      - if @resource.imageboard_tag.present?
                         span.linkeable[
                           data-href=art_character_url(@resource)
                         ] = t 'imageboard_art'

@@ -46,7 +46,7 @@ ru:
         score: Рейтинг
         screenshots: Кадры
         status: Статус
-        tags: Тег имиджборд
+        imageboard_tag: Тег имиджборд
         torrents_name: Название на торрентах
         videos: Видео
         franchise: Франшиза
@@ -68,7 +68,7 @@ ru:
         poster: *poster
         image: *poster
         russian: Русское имя
-        tags: Тег имиджборд
+        imageboard_tag: Тег имиджборд
       person:
         <<: *character_attributes
         birthday: Дата рождения

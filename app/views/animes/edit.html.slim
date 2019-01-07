@@ -194,10 +194,10 @@
             /a.b-js-action href=@resource.edit_field_url(:cosplay) = t 'actions.edit'
 
         li
-          .field = @resource.class.human_attribute_name(:tags)
-          .value = @resource.tags
+          .field = @resource.class.human_attribute_name(:imageboard_tag)
+          .value = @resource.imageboard_tag
           a.b-js-action.to-process[
-            href=@resource.edit_field_url(:tags)
+            href=@resource.edit_field_url(:imageboard_tag)
             data-dynamic="week_registered"
           ] = t 'actions.edit'
 

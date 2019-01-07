@@ -57,18 +57,18 @@ page_load '.db_entries-edit_field', ->
   if $('.edit-page.videos').exists()
     $('.videos-deleter .b-video').imageEditable()
 
-  if $('.edit-page.tags').exists()
+  if $('.edit-page.imageboard_tag').exists()
     $gallery = $('.b-gallery')
     gallery_html = $gallery.html()
 
-    if $gallery.data 'tags'
+    if $gallery.data 'imageboard_tag'
       new Images.ImageboardGallery $gallery
 
-    $('#anime_tags, #manga_tags, #character_tags')
+    $('#anime_imageboard_tag, #manga_imageboard_tag, #character_imageboard_tag')
       .completable()
       .on 'autocomplete:success autocomplete:text', (e, result) ->
         @value = if Object.isString(result) then result else result.value
-        $gallery.data(tags: @value)
+        $gallery.data(imageboard_tag: @value)
         $gallery.html(gallery_html)
         new Images.ImageboardGallery $gallery
 
