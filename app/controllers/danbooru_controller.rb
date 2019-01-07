@@ -9,6 +9,7 @@ class DanbooruController < ShikimoriController
   EXCEPTIONS = Network::FaradayGet::NET_ERRORS
 
   VALID_URL = %r{https?://(?:yande.re|konachan.com|safebooru.org|danbooru.donmai.us)/}
+  EXPIRES_IN = 4.months
 
   def autocomplete
     @collection = DanbooruTagsQuery.new(params[:search]).complete
@@ -19,7 +20,7 @@ class DanbooruController < ShikimoriController
       url = Base64.decode64 URI.decode(params[:url])
       raise Forbidden, url unless url.match? VALID_URL
 
-      json = PgCache.fetch cache_key, expires_in: 4.months do
+      json = PgCache.fetch pg_cache_key, expires_in: EXPIRES_IN do
         content = OpenURI.open_uri(url, USER_AGENT_WITH_SSL).read
 
         if url.match? 'safebooru.org'
@@ -33,17 +34,21 @@ class DanbooruController < ShikimoriController
     end
   end
 
+  def self.pg_cache_key tag:, imageboard:, page:
+    [tag, imageboard, page].join('|')
+  end
+
 private
 
   def parse_safeboory xml
     Nokogiri::XML(xml).css('posts post').map(&:to_h)
   end
 
-  def cache_key
-    [
-      params[:tag],
-      params[:imageboard],
-      params[:page]
-    ].join('|')
+  def pg_cache_key
+    self.class.pg_cache_key(
+      tag: params[:tag],
+      imageboard: params[:imageboard],
+      page: params[:page]
+    )
   end
 end
