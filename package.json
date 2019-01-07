@@ -63,7 +63,7 @@
     "uevent": "^1.0.0",
     "urijs": "^1.18.12",
     "vue": "2.5.17",
-    "vue-eslint-parser": "^3.3.0",
+    "vue-eslint-parser": "^5.0.0",
     "vue-loader": "13.6.2",
     "vue-template-compiler": "2.5.17",
     "vuedraggable": "^2.14.1",
