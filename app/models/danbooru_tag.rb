@@ -1,13 +1,13 @@
 class DanbooruTag < ApplicationRecord
-  Copyright = 3
-  Character = 4
+  COPYRIGHT = 3
+  CHARACTER = 4
 
-  # поиск среди списка names какого-либо имени, входящего в набор тегов tags
   def self.match names, tags, no_correct
     names.compact.each do |name|
-      tag = name.gsub(/'/, '').gsub(/ /, '_').downcase
-      while !tags.include?(tag)
+      tag = name.delete("'").tr(' ', '_').downcase
+      until tags.include?(tag)
         break if no_correct
+
         if tag.include?('-')
           tag = tag.sub('-', '_')
           next

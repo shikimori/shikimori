@@ -13,7 +13,7 @@ private
   end
 
   def match_tags
-    tags = Set.new(DanbooruTag.where(kind: DanbooruTag::Copyright).pluck(:name))
+    tags = Set.new(DanbooruTag.where(kind: DanbooruTag::COPYRIGHT).pluck(:name))
     [Anime, Manga].each do |klass|
       entries = klass.where(tags: nil).all
 
@@ -25,7 +25,7 @@ private
     end
 
     tags = Set.new(
-      DanbooruTag.where(kind: DanbooruTag::Character, ambiguous: false)
+      DanbooruTag.where(kind: DanbooruTag::CHARACTER, ambiguous: false)
         .pluck(:name)
     )
 
