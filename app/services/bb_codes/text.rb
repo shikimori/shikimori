@@ -35,8 +35,8 @@ class BbCodes::Text
   OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
 
   SPAM_DOMAINS = %r{
-    (https?://)?
-      (images.webpark.ru|#{Users::CheckHacked::SPAM_DOMAINS.join '|'})
+    (?:https?://)?
+      (?:images.webpark.ru|(?:[^.]\.)?chatree.net|#{Users::CheckHacked::SPAM_DOMAINS.join '|'})
   }mix
 
   default_url_options[:protocol] = Shikimori::PROTOCOL
