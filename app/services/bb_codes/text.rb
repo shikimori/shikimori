@@ -38,7 +38,8 @@ class BbCodes::Text
     (?:https?://)?
       (?:
        images.webpark.ru |
-       (?:[^.]\.)?(?:chatree|chatchu).net|
+       (?:[^.]\.)?chatchu.com |
+       (?:[^.]\.)?chatree.net |
        #{Users::CheckHacked::SPAM_DOMAINS.join '|'}
       )
   }mix
