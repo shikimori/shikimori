@@ -36,7 +36,11 @@ class BbCodes::Text
 
   SPAM_DOMAINS = %r{
     (?:https?://)?
-      (?:images.webpark.ru|(?:[^.]\.)?chatree.net|#{Users::CheckHacked::SPAM_DOMAINS.join '|'})
+      (?:
+       images.webpark.ru |
+       (?:[^.]\.)?(?:chatree|chatchu).net|
+       #{Users::CheckHacked::SPAM_DOMAINS.join '|'}
+      )
   }mix
 
   default_url_options[:protocol] = Shikimori::PROTOCOL
