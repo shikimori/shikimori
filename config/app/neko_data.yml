@@ -4656,7 +4656,7 @@
     :topic_id: 227419
     :rule:
       :algo: count
-      :threshold: 7%
+      :threshold: 10%
       :filters:
         anime_ids:
         - 1
@@ -6138,7 +6138,7 @@
     :topic_id: 222036
     :rule:
       :algo: count
-      :threshold: 30
+      :threshold: 35
       :filters:
         genre_ids:
         - 18
@@ -6157,7 +6157,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 60
+      :threshold: 70
       :filters:
         genre_ids:
         - 18
@@ -6176,7 +6176,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 100
+      :threshold: 120
       :filters:
         genre_ids:
         - 18
@@ -6194,7 +6194,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 160
+      :threshold: 190
       :filters:
         genre_ids:
         - 18
@@ -8668,7 +8668,10 @@
       :algo: duration
       :filters:
         franchise: free
-      :threshold: 91.6%
+        not_anime_ids:
+        - 33845
+        - 35191
+      :threshold: 90.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8685,6 +8688,9 @@
       :algo: duration
       :filters:
         franchise: free
+        not_anime_ids:
+        - 33845
+        - 35191
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9816,12 +9822,14 @@
         franchise: gundam
         not_anime_ids:
         - 91
+        - 2269
         - 2294
         - 3626
         - 3963
         - 3964
         - 5351
         - 6215
+        - 7270
         - 7953
         - 8839
         - 17655
@@ -9831,12 +9839,11 @@
         - 33221
         - 35949
         - 36436
-      :threshold: 88.1%
+      :threshold: 89%
       :generator:
         not_ignored_ids:
         - 14007
         - 20667
-        - 2269
         - 24371
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -9856,12 +9863,14 @@
         franchise: gundam
         not_anime_ids:
         - 91
+        - 2269
         - 2294
         - 3626
         - 3963
         - 3964
         - 5351
         - 6215
+        - 7270
         - 7953
         - 8839
         - 17655
@@ -9876,7 +9885,6 @@
         not_ignored_ids:
         - 14007
         - 20667
-        - 2269
         - 24371
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -16655,8 +16663,6 @@
         - 36704
         - 30415
         - 15335
-        - 7472
-        - 21899
         - 1906
         - 9958
         - 16904
@@ -16728,7 +16734,6 @@
         - 9969
         - 15417
         - 28977
-        - 25313
         - 32366
         - 34096
         - 35843
@@ -17137,7 +17142,6 @@
         - 30806
         - 167
         - 400
-        - 1124
         - 290
         - 1381
         - 396
@@ -17733,8 +17737,6 @@
         - 36704
         - 30415
         - 15335
-        - 7472
-        - 21899
         - 1906
         - 9958
         - 16904
@@ -17806,7 +17808,6 @@
         - 9969
         - 15417
         - 28977
-        - 25313
         - 32366
         - 34096
         - 35843
@@ -18215,7 +18216,6 @@
         - 30806
         - 167
         - 400
-        - 1124
         - 290
         - 1381
         - 396
@@ -18811,8 +18811,6 @@
         - 36704
         - 30415
         - 15335
-        - 7472
-        - 21899
         - 1906
         - 9958
         - 16904
@@ -18884,7 +18882,6 @@
         - 9969
         - 15417
         - 28977
-        - 25313
         - 32366
         - 34096
         - 35843
@@ -19293,7 +19290,6 @@
         - 30806
         - 167
         - 400
-        - 1124
         - 290
         - 1381
         - 396
