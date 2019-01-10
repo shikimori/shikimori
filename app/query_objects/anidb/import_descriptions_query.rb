@@ -17,7 +17,8 @@ class Anidb::ImportDescriptionsQuery
       when censored=true
       then 2
       else 1
-    end)
+    end),
+    id asc
   SQL
 
   class << self
