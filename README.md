@@ -119,3 +119,8 @@ Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google
 
 ## Webpack visualizer
 https://chrisbateman.github.io/webpack-visualizer/
+
+## Dependabot
+```
+@dependabot ignore this dependency
+```
