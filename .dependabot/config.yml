@@ -1,45 +1,44 @@
 version: 1
-
 update_configs:
   - package_manager: "ruby:bundler"
     directory: "/"
-    update_schedule: weekly
+    update_schedule: "weekly"
     ignored_updates:
     - match:
-      dependency_name: fsevents
-      version_requirement: 2.x
+        dependency_name: fsevents
+        version_requirement: 2.x
     - match:
-      dependency_name: bourbon
-      version_requirement: 5.x
+        dependency_name: bourbon
+        version_requirement: 5.x
     - match:
-      dependency_name: doorkeeper
-      version_requirement: 5.x
+        dependency_name: doorkeeper
+        version_requirement: 5.x
     - match:
-      dependency_name: capybara
-      version_requirement: 3.x
+        dependency_name: capybara
+        version_requirement: 3.x
     - match:
-      dependency_name: enumerize
-      version_requirement: 2.x
+        dependency_name: enumerize
+        version_requirement: 2.x
     - match:
-      dependency_name: rails-controller-testing
-      version_requirement: 1.x
+        dependency_name: rails-controller-testing
+        version_requirement: 1.x
 
   - package_manager: javascript
     directory: "/"
     update_schedule: weekly
     ignored_updates:
     - match:
-      dependency_name: vue-eslint-parser
-      version_requirement: 5.x
+        dependency_name: vue-eslint-parser
+        version_requirement: 5.x
     - match:
-      dependency_name: file-loader
-      version_requirement: 2.x
+        dependency_name: file-loader
+        version_requirement: 2.x
     - match:
-      dependency_name: babel-eslint
-      version_requirement: 10.x
+        dependency_name: babel-eslint
+        version_requirement: 10.x
     - match:
-      dependency_name: webpack-manifest-plugin
-      version_requirement: 2.x
+        dependency_name: webpack-manifest-plugin
+        version_requirement: 2.x
     - match:
-      dependency_name: d3
-      version_requirement: 5.x
+        dependency_name: d3
+        version_requirement: 5.x
