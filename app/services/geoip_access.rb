@@ -52,7 +52,7 @@ class GeoipAccess
     if @codes.include? safed_ip
       @codes[safed_ip]
     else
-      @codes[safed_ip] = Rails.cache.fetch([:geo_ip, safed_ip, :v2]) do
+      @codes[safed_ip] = Rails.cache.fetch([:geo_ip, safed_ip, :v3]) do
         ask_geoip safed_ip
       end
     end

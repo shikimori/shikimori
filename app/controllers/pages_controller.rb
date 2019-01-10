@@ -119,7 +119,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def country
-    render plain: GeoipAccess.instance.country_code(remote_addr)
+    render plain: GeoipAccess.instance.country_code(params[:ip] || remote_addr)
   end
 
   def raise_exception
