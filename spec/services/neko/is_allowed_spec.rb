@@ -40,7 +40,7 @@ describe Neko::IsAllowed do
   # end
 
   context 'banned in NekoRule' do
-    let(:status) { :anons }
+    let(:status) { :released }
     let(:franchise) { 'gundam' }
     let(:kind) { :tv }
     let(:id) { 3963 }
@@ -52,7 +52,7 @@ describe Neko::IsAllowed do
     let(:status) { :anons }
     let(:franchise) { 'gundam' }
     let(:kind) { %i[tv movie special ova].sample }
-    let(:id) { 2269 }
+    let(:id) { 14007 }
 
     it { is_expected.to eq true }
   end
