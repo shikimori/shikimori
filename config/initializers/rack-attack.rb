@@ -18,45 +18,45 @@ Rack::Attack.throttle('req/ip', limit: 5, period: 1.second) do |req|
 end
 
 
-Rack::Attack.throttle('req/ip', limit: 15, period: 1.second) do |req|
+Rack::Attack.throttle('per second', limit: 15, period: 1.second) do |req|
   if req.user_agent == SMOTRET_ANIME_USER_AGENT
     req.ip
   end
 end
 
-Rack::Attack.throttle('req/ip', limit: 90, period: 60.second) do |req|
+Rack::Attack.throttle('per minute', limit: 90, period: 60.second) do |req|
   # requests from neko are allowed
   if req.user_agent != SMOTRET_ANIME_USER_AGENT
     req.ip
   end
 end
 
-Rack::Attack.throttle('req/ip', limit: 270, period: 60.second) do |req|
+Rack::Attack.throttle('smotret-anime per minute', limit: 270, period: 60.second) do |req|
   if req.user_agent == SMOTRET_ANIME_USER_AGENT
     req.ip
   end
 end
 
 if ENV['SHIKI_TYPE'] == 'db'
-  Rack::Attack.throttle('req/ip', limit: 2, period: 1.second) do |req|
+  Rack::Attack.throttle('/video_online per second', limit: 2, period: 1.second) do |req|
     if req.url =~ %r{/video_online(?:/|$)}
       req.ip
     end
   end
 
-  Rack::Attack.throttle('req/ip', limit: 40, period: 1.minute) do |req|
+  Rack::Attack.throttle('/video_online per minute', limit: 40, period: 1.minute) do |req|
     if req.url =~ %r{/video_online(?:/|$)}
       req.ip
     end
   end
 
-  Rack::Attack.throttle('req/ip', limit: 500, period: 1.hour) do |req|
+  Rack::Attack.throttle('/video_online per hour', limit: 500, period: 1.hour) do |req|
     if req.url =~ %r{/video_online(?:/|$)}
       req.ip
     end
   end
 
-  Rack::Attack.throttle('req/ip', limit: 2000, period: 1.day) do |req|
+  Rack::Attack.throttle('/video_online per day', limit: 2000, period: 1.day) do |req|
     if req.url =~ %r{/video_online(?:/|$)}
       req.ip
     end
