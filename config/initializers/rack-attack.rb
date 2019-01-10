@@ -11,22 +11,20 @@ Rack::Attack.throttle('req/ip', limit: 5, period: 1.second) do |req|
   #
   # If falsy, the cache key is neither incremented nor checked.
 
-  # requests from neko are allowed
-  if req.user_agent != SMOTRET_ANIME_USER_AGENT
+  if req.user_agent != SMOTRET_ANIME_USER_AGENT && !req.url.include?('/autocomplete/')
     req.ip
   end
 end
 
 
 Rack::Attack.throttle('per second', limit: 15, period: 1.second) do |req|
-  if req.user_agent == SMOTRET_ANIME_USER_AGENT
+  if req.user_agent == SMOTRET_ANIME_USER_AGENT && !req.url.include?('/autocomplete/')
     req.ip
   end
 end
 
 Rack::Attack.throttle('per minute', limit: 90, period: 60.second) do |req|
-  # requests from neko are allowed
-  if req.user_agent != SMOTRET_ANIME_USER_AGENT
+  if req.user_agent != SMOTRET_ANIME_USER_AGENT && !req.url.include?('/autocomplete/')
     req.ip
   end
 end
