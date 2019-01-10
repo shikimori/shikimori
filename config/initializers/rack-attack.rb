@@ -38,13 +38,13 @@ Rack::Attack.throttle('smotret-anime per minute', limit: 270, period: 60.second)
 end
 
 if ENV['SHIKI_TYPE'] == 'db'
-  Rack::Attack.throttle('/video_online per second', limit: 2, period: 1.second) do |req|
+  Rack::Attack.throttle('/video_online per second', limit: 4, period: 1.second) do |req|
     if req.url =~ %r{/video_online(?:/|$)}
       req.ip
     end
   end
 
-  Rack::Attack.throttle('/video_online per minute', limit: 40, period: 1.minute) do |req|
+  Rack::Attack.throttle('/video_online per minute', limit: 50, period: 1.minute) do |req|
     if req.url =~ %r{/video_online(?:/|$)}
       req.ip
     end
