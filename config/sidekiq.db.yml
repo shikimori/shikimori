@@ -17,7 +17,7 @@ production:
   - [torrents_parsers, 5]
 
 :limits:
-  achievement: 50
+  achievement: 10
   cpu_intensive: 2
   episode_notifications: 1
   push_notifications: 5
