@@ -15970,6 +15970,7 @@
         - 28025
         - 29067
         - 26349
+        - 440
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
 - !ruby/object:Neko::Rule
   attributes:
