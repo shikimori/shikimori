@@ -15,9 +15,19 @@ describe Tags::ImportCoubTags do
   let(:stub_download) { File.open(Rails.root.join('spec/files/coub_tags.txt.gz')) }
 
   subject { service.call }
-  let!(:coub_tag) { create :coub_tag, name: 'naruto' }
 
-  it do
-    expect { subject }.to change(CoubTag, :count).by 1
+  context 'no tags present' do
+    it do
+      expect { subject }.to change(CoubTag, :count).by 2
+      is_expected.to eq %w[sword_art_online naruto]
+    end
+  end
+
+  context 'some tags present' do
+    let!(:coub_tag) { create :coub_tag, name: 'naruto' }
+    it do
+      expect { subject }.to change(CoubTag, :count).by 1
+      is_expected.to eq %w[sword_art_online]
+    end
   end
 end

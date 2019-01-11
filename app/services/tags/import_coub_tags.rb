@@ -8,7 +8,11 @@ class Tags::ImportCoubTags
   def call
     download
     ungzip
-    import uniq_tags(read_lines)
+
+    new_tags = uniq_tags(read_lines)
+    import new_tags
+
+    new_tags
   end
 
 private
