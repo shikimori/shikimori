@@ -6841,9 +6841,9 @@
     :level: 1
     :image: "/assets/achievements/anime/franchise/science_adventure.jpg"
     :border_color: 
-    :title_ru: Врата Штейна
+    :title_ru: Научные приключения
     :text_ru: 
-    :title_en: Steins;Gate
+    :title_en: Science Adventure
     :text_en: 
     :topic_id: 247360
     :rule:
@@ -6851,12 +6851,7 @@
       :filters:
         franchise: science_adventure
         not_anime_ids:
-        - 4975
-        - 13599
-        - 30485
-        - 32962
         - 34753
-        - 35315
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6865,9 +6860,9 @@
     :level: 0
     :image: "/assets/achievements/anime/franchise/science_adventure.jpg"
     :border_color: 
-    :title_ru: Врата Штейна
+    :title_ru: Научные приключения
     :text_ru: 
-    :title_en: Steins;Gate
+    :title_en: Science Adventure
     :text_en: 
     :topic_id: 247360
     :rule:
@@ -6875,12 +6870,7 @@
       :filters:
         franchise: science_adventure
         not_anime_ids:
-        - 4975
-        - 13599
-        - 30485
-        - 32962
         - 34753
-        - 35315
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8066,6 +8056,7 @@
         franchise: jojo_no_kimyou_na_bouken
         not_anime_ids:
         - 3603
+        - 38972
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -8085,6 +8076,7 @@
         franchise: jojo_no_kimyou_na_bouken
         not_anime_ids:
         - 3603
+        - 38972
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
