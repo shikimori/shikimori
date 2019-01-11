@@ -44,18 +44,20 @@ data.each do |rule|
     .reject { |anime| Neko::IsAllowed.call anime }
     .map(&:id)
 
-  if recap_ids.any?
-    not_anime_ids = (
-      (rule['filters']['not_anime_ids'] || []) + recap_ids
-    ).uniq.sort - (rule.dig('generator', 'not_ignored_ids') || [])
+  not_anime_ids = ((rule['filters']['not_anime_ids'] || []) + recap_ids).uniq.sort -
+    (rule.dig('generator', 'not_ignored_ids') || [])
 
-    rule['filters']['not_anime_ids'] = Anime
-      .where.not(status: :anons)
-      .where(id: not_anime_ids)
-      .order(:id)
-      .pluck(:id)
+  not_anime_ids =  Anime
+    .where.not(status: :anons)
+    .where(id: not_anime_ids)
+    .order(:id)
+    .pluck(:id)
+
+  if not_anime_ids.any?
+    rule['filters']['not_anime_ids'] = not_anime_ids
+  else
+    rule['filters'].delete 'not_anime_ids'
   end
-  rule['filters'].delete 'not_anime_ids' if rule['filters']['not_anime_ids'].blank?
 end
 
   # data = data.select { |v| v['filters']['franchise'] == 'shakugan_no_shana' }
