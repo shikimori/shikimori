@@ -13,8 +13,23 @@ describe Tags::MatchNames do
     let(:no_correct) { false }
 
     context 'has direct match' do
-      let(:names) { ['Sword Art Online'] }
-      it { is_expected.to eq 'sword_art_online' }
+      [
+        'sword art online',
+        'Sword Art Online',
+        "Sword 'Art' Online",
+        'Sword "Art" Online',
+        'Sword_Art_Online',
+        'sword_art_online',
+        'sword art online!',
+        'sword art online!!',
+        'sword_art_online: zxc',
+        'sword_art_online: zxc: zxc'
+      ].each do |name|
+        context name do
+          let(:names) { [name] }
+          it { is_expected.to eq 'sword_art_online' }
+        end
+      end
     end
 
     context 'has indirect match' do
