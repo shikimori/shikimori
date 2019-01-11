@@ -15,7 +15,7 @@ private
   def match_animangas tags, scope
     scope.find_each do |model|
       names = anime_names model
-      tag = DanbooruTag.match(names, tags, false)
+      tag = match names, tags, false
 
       model.update imageboard_tag: tag if tag
     end
@@ -33,13 +33,21 @@ private
       tag = nil
 
       if entries_tags.any?
-        tag = DanbooruTag.match compile_names(entries_tags, names), tags, true
+        tag = match compile_names(entries_tags, names), tags, true
       end
 
-      tag ||= DanbooruTag.match names, tags, true
+      tag ||= match names, tags, true
 
       model.update imageboard_tag: tag if tag
     end
+  end
+
+  def match names, tags, no_correct
+    Tags::MatchNames.call(
+      names: names,
+      tags: tags,
+      no_correct: no_correct
+    )
   end
 
   def animes_scope
@@ -61,10 +69,9 @@ private
 
   def compile_names entries_tags, names
     names
-      .map do |name|
+      .flat_map do |name|
         entries_tags.map { |entry_tag| "#{name.tr(' ', '_')}_(#{entry_tag})".downcase }
       end
-      .flatten
       .uniq
   end
 
