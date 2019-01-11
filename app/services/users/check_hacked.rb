@@ -8,6 +8,7 @@ class Users::CheckHacked
     hikanime.ru
     shikme.chatree.net
     shikme.chatchu.com
+    shikme.loli.su
   ]
   NOT_SPAM_DOMAINS = %w[
     animenewsnetwork.com
