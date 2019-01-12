@@ -158,7 +158,7 @@ private
   end
 
   def log text
-    NamedLogger.coub.info text
+    NamedLogger.coub_tag.info text
   end
 
   def ignored_tags
