@@ -9,6 +9,8 @@ class Anime < DbEntry
   DESYNCABLE = %w[
     name synonyms kind episodes rating aired_on released_on status genres
     duration description_en image external_links
+    imageboard_tag
+    coub_tag
   ]
   EXCLUDED_ONGOINGS = %w[
     966 1199 1960 2406 4459 6149 7511 7643 8189 8336 8631 8687 9943 9947 10506
