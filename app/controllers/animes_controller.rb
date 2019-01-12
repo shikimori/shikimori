@@ -15,7 +15,7 @@ class AnimesController < DbEntriesController
     russian
     license_name_ru
     torrents_name
-    tags
+    imageboard_tag
     description_ru
     description_en
   ] + [
