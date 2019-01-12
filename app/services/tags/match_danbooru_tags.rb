@@ -17,11 +17,14 @@ private
       names = anime_names model
       tag = match names, tags, false
 
-      model.update imageboard_tag: tag if tag
+      if tag
+        model.update imageboard_tag: tag
+        log model, tag
+      end
     end
   end
 
-  def match_characters tags, scope
+  def match_characters tags, scope # rubocop:disable MethodLength
     scope.find_each do |model|
       names = character_names model
 
@@ -38,7 +41,10 @@ private
 
       tag ||= match names, tags, true
 
-      model.update imageboard_tag: tag if tag
+      if tag
+        model.update imageboard_tag: tag
+        log model, tag
+      end
     end
   end
 
@@ -93,5 +99,11 @@ private
 
   def character_tags_scope
     DanbooruTag.where kind: DanbooruTag::CHARACTER, ambiguous: false
+  end
+
+  def log model, tag
+    NamedLogger.danbooru_tag.info(
+      "`#{tag}`: #{model.class.name.downcase} #{model.id} `#{model.name}`"
+    )
   end
 end
