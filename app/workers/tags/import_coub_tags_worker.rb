@@ -2,7 +2,8 @@ class Tags::ImportCoubTagsWorker
   include Sidekiq::Worker
 
   def perform
-    tags = Tags::ImportCoubTags.call
-    Tags::MatchCoubTags.call tags
+    Tags::ImportCoubTags.call do |tags|
+      Tags::MatchCoubTags.call tags
+    end
   end
 end

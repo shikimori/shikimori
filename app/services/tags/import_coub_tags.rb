@@ -3,27 +3,35 @@ class Tags::ImportCoubTags
   LOCAL_GZ_PATH = '/tmp/list.txt.gz'
   LOCAL_PATH = '/tmp/list.txt'
 
+  BATCH_SIZE = 5000
+
   method_object
 
-  def call
+  def call &block
     download
     ungzip
 
     new_tags = uniq_tags(read_lines)
-    import new_tags
+    import_batches new_tags, &block
 
     new_tags
   end
 
 private
 
-  def import new_tags
+  def import_batches new_tags, &block
     log "importing #{new_tags.size} tags"
 
-    new_tags.each_slice(5000) do |tags|
-      batch = build_tags(tags)
-      CoubTag.import batch, on_duplicate_key_ignore: true
-      log "imported batch of #{batch.size} tags"
+    new_tags.each_slice(BATCH_SIZE) do |tags|
+      import_batch tags, &block
+      log "imported batch of #{tags.size} tags"
+    end
+  end
+
+  def import_batch tags, &_block
+    CoubTag.transaction do
+      CoubTag.import build_tags(tags), on_duplicate_key_ignore: true
+      yield tags if block_given?
     end
   end
 
