@@ -103,7 +103,7 @@ private
 
   def log model, tag
     NamedLogger.danbooru_tag.info(
-      "`#{tag}`: #{model.class.name.downcase} #{model.id} `#{model.name}`"
+      "`#{tag}` for #{model.class.name.downcase} ID=#{model.id} NAME=#{model.name}"
     )
   end
 end

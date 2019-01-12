@@ -52,12 +52,12 @@ private
 
   def ungzip
     log "ungzipping #{LOCAL_GZ_PATH} into #{LOCAL_PATH}"
-    `gzip -d #{LOCAL_GZ_PATH} -k -N -f`
+    # `gzip -d #{LOCAL_GZ_PATH} -k -N -f`
   end
 
   def download
     log "downloading #{TAGS_URL} to #{LOCAL_GZ_PATH}"
-    `wget '#{TAGS_URL}' -P '/tmp' -q -O '#{LOCAL_GZ_PATH}'`
+    # `wget '#{TAGS_URL}' -P '/tmp' -q -O '#{LOCAL_GZ_PATH}'`
   end
 
   def log text

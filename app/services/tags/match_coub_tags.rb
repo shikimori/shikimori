@@ -25,12 +25,12 @@ private
   end
 
   def scope
-    Anime.where(coub_tag: nil)
+    Anime.where(coub_tag: nil).order(:franchise, :id)
   end
 
   def log model, tag
-    NamedLogger.danbooru_tag.info(
-      "`#{tag}`: #{model.class.name.downcase} #{model.id} `#{model.name}`"
+    NamedLogger.coub_tag.info(
+      "`#{tag}` for #{model.class.name.downcase} ID=#{model.id} NAME=#{model.name}"
     )
   end
 end
