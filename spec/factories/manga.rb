@@ -9,6 +9,7 @@ FactoryBot.define do
     kind { :manga }
     franchise { nil }
     type { Manga.name }
+    imageboard_tag { nil }
 
     factory :ranobe, class: 'Ranobe' do
       sequence(:name) { |n| "ranobe_#{n}" }

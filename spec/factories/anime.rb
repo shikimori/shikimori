@@ -14,6 +14,8 @@ FactoryBot.define do
     rating { :pg_13 }
     censored { false }
     next_episode_at { nil }
+    imageboard_tag { nil }
+    coub_tag { nil }
 
     after :build do |model|
       stub_method model, :track_changes

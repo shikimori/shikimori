@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_10_175340) do
+ActiveRecord::Schema.define(version: 2019_01_12_191815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 2019_01_10_175340) do
     t.string "season"
     t.string "franchise"
     t.string "license_name_ru"
+    t.string "coub_tag"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["russian"], name: "index_animes_on_russian"
