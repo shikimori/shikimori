@@ -1,6 +1,6 @@
 describe Tags::ImportCoubTagsWorker do
   before do
-    allow(Tags::ImportCoubTags).to receive(:call).and_return tags
+    allow(Tags::ImportCoubTags).to receive(:call).and_yield tags
     allow(Tags::MatchCoubTags).to receive :call
   end
   let(:tags) { %w[naruto] }

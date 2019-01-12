@@ -1,8 +1,5 @@
 # how to get most common words
 =begin
-LOCAL_PATH = Rails.root.join '/tmp/list.txt' unless defined? LOCAL_PATH
-CONFIG_PATH = Rails.root.join 'config/app/coub_tags.yml' unless defined? CONFIG_PATH
-
 def take_uniq tags, limit
   tags.
     each_with_object({}) { |word, memo| memo[word] ||= 0; memo[word] += 1 }.
@@ -17,7 +14,7 @@ def franchises
   )
 end
 
-raw_tags = File.open(LOCAL_PATH).
+raw_tags = File.open(Tags::ImportCoubTags::LOCAL_PATH).
   read.
   split("\n");
 
@@ -34,10 +31,10 @@ limit = 2000
 top_en_tags = take_uniq(tags.select { |v| v.match? /[A-z]/ }, limit);
 top_ru_tags = take_uniq(tags.select { |v| v.match? /[А-я]/ }, limit);
 
-config = YAML.load_file(Rails.root.join(CONFIG_PATH));
+config = YAML.load_file(Rails.root.join(Tags::CoubConfig::CONFIG_PATH));
 config[:ignored_auto_generated] = top_en_tags + top_ru_tags;
 
-File.open(Rails.root.join(CONFIG_PATH), 'w') do |f|
+File.open(Rails.root.join(Tags::CoubConfig::CONFIG_PATH), 'w') do |f|
   f.write config.to_yaml
 end
 =end
@@ -45,8 +42,6 @@ class Tags::ImportCoubTags # rubocop:disable ClassLength
   TAGS_URL = 'http://coub.com/tags/list.txt.gz'
   LOCAL_GZ_PATH = '/tmp/list.txt.gz'
   LOCAL_PATH = '/tmp/list.txt'
-
-  CONFIG_PATH = 'config/app/coub_tags.yml'
 
   MAXIMUM_TAG_SIZE = 40
   MINIMUM_TAG_SIZE = 4
@@ -165,10 +160,10 @@ private
   end
 
   def ignored_tags
-    config[:ignored_tags] + config[:ignored_auto_generated]
+    config.ignored_tags + config.ignored_auto_generated
   end
 
   def config
-    @config ||= YAML.load_file(Rails.root.join(CONFIG_PATH))
+    @config ||= Tags::CoubConfig.new
   end
 end
