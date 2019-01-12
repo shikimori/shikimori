@@ -48,6 +48,7 @@ class AniMangaDecorator < DbEntryDecorator
   # аниме в списке пользователя
   def current_rate
     return unless h.user_signed_in?
+
     rates.where(user_id: h.current_user.id).decorate.first
   end
 

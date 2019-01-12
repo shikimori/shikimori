@@ -26,5 +26,8 @@ en:
       show_anime_list: Show anime list
       of_duration: of duration
       hide: Hide
+      your_list: The size of your list of completed
+      your_progress: Your progress to next level
+      your_overall_progress: Your overall progress
     users:
       nothing_here: No users

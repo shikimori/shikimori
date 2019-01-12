@@ -26,5 +26,8 @@ ru:
       show_anime_list: Показать список аниме
       of_duration: от длительности
       hide: Скрыть
+      your_list: Размер твоего списка просмотренного
+      your_progress: Твой прогресс до следующего уровня
+      your_overall_progress: Твой общий прогресс
     users:
       nothing_here: Нет пользователей

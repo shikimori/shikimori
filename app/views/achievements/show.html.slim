@@ -1,10 +1,5 @@
 header.head.misc
-  h1
-    = og.headline
-    - if user_signed_in?
-      - cache [current_user, @collection.first.neko_id] do
-        .percent = @collection.first.completed_percent(current_user)
-  = render 'application/breadcrumbs'
+  h1 = og.headline
 
 .p-achievements-global
   / - if @collection.first.franchise?
@@ -26,7 +21,7 @@ header.head.misc
 
   = render 'achievements/info',
     achievements: @collection,
-    animes: true
+    extended: true
 
   - @collection.each do |achievement|
     .block

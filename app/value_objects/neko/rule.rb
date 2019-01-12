@@ -168,24 +168,12 @@ class Neko::Rule < Dry::Struct
     @statistics ||= Achievements::Statistics.call neko_id, level
   end
 
-  def completed_percent user
-    if rule[:filters]
-      "#{franchise? ? franchise_percent(user) : common_percent(user)}%".gsub(/\0%/, '%')
-    else
-      common_amount user
-    end
+  def list_size user
+    anime_rates(user, false).count
   end
 
   def cache_key
     [Digest::MD5.hexdigest(to_json), Achievement.where(neko_id: neko_id).cache_key, :v2]
-  end
-
-private
-
-  def default_hint
-    I18n.t 'achievements.hint.default',
-      neko_name: neko_name,
-      level: level
   end
 
   def franchise_percent user
@@ -206,14 +194,18 @@ private
     (user_time * 100.0 / franchise_time).floor(2)
   end
 
-  def common_percent user
+  def overall_percent user
     scope = anime_rates(user, false).where(target_id: animes_scope)
 
     (scope.count * 100.0 / animes_count).floor(2)
   end
 
-  def common_amount user
-    anime_rates(user, false).count
+private
+
+  def default_hint
+    I18n.t 'achievements.hint.default',
+      neko_name: neko_name,
+      level: level
   end
 
   def anime_rates user, is_add_watching
