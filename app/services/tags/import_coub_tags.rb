@@ -91,7 +91,9 @@ private
   end
 
   def exclude_single_words tags
-    new_tags = tags.select { |tag| tag.match?(/[ _]/) || franchises.include?(tag) }
+    new_tags = tags.select do |tag|
+      tag.sub(/the[ _]/i, '').match?(/[ _]/) || franchises.include?(tag)
+    end
     log "-#{tags.size - new_tags.size} single words"
     new_tags
   end
@@ -160,7 +162,7 @@ private
   end
 
   def ignored_tags
-    config.ignored_tags + config.ignored_auto_generated
+    config.all_ignored_tags
   end
 
   def config

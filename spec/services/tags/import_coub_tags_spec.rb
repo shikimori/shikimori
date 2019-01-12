@@ -80,8 +80,18 @@ describe Tags::ImportCoubTags do
     end
 
     context 'exclude single words' do
-      let(:franchises) { [] }
-      it { is_expected.to eq %w[sword_art_online] }
+      let(:read_tags) do
+        [
+          'sword_art',
+          'sword art',
+          'zzz',
+          'the_aaaa',
+          'the_bbbb_bbb',
+          'the aaaa',
+          'the bbbb bbb'
+        ]
+      end
+      it { is_expected.to eq ['sword_art', 'sword art', 'the_bbbb_bbb', 'the bbbb bbb'] }
     end
 
     context 'exclude long tags' do
