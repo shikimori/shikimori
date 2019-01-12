@@ -1,4 +1,47 @@
-class Tags::ImportCoubTags
+# how to get most common words
+=begin
+LOCAL_PATH = Rails.root.join '/tmp/list.txt' unless defined? LOCAL_PATH
+CONFIG_PATH = Rails.root.join 'config/app/coub_tags.yml' unless defined? CONFIG_PATH
+
+def take_uniq tags, limit
+  tags.
+    each_with_object({}) { |word, memo| memo[word] ||= 0; memo[word] += 1 }.
+    sort_by { |k,v| -v }.
+    take(limit).
+    map(&:first)
+end
+
+def franchises
+  @franchises ||= Set.new(
+    Anime.pluck(Arel.sql('distinct(franchise)')).select(&:present?)
+  )
+end
+
+raw_tags = File.open(LOCAL_PATH).
+  read.
+  split("\n");
+
+tags = raw_tags.
+  flat_map { |v| v.split(' ') }.
+  map { |v| v.gsub(/[^\wА-я]+/, '') }.
+  select { |v| v.size > 0 && v.size <= 40 }.
+  reject { |v| v.match? /^\d+$/ };
+
+tags.select { |v| franchises.include? v }.uniq.each { |v| puts "found franchise: #{v}" };
+tags = tags.reject { |v| franchises.include? v }
+
+limit = 2000
+top_en_tags = take_uniq(tags.select { |v| v.match? /[A-z]/ }, limit);
+top_ru_tags = take_uniq(tags.select { |v| v.match? /[А-я]/ }, limit);
+
+config = YAML.load_file(Rails.root.join(CONFIG_PATH));
+config[:ignored_auto_generated] = top_en_tags + top_ru_tags;
+
+File.open(Rails.root.join(CONFIG_PATH), 'w') do |f|
+  f.write config.to_yaml
+end
+=end
+class Tags::ImportCoubTags # rubocop:disable ClassLength
   TAGS_URL = 'http://coub.com/tags/list.txt.gz'
   LOCAL_GZ_PATH = '/tmp/list.txt.gz'
   LOCAL_PATH = '/tmp/list.txt'
@@ -78,7 +121,7 @@ private
 
   def take_new tags
     new_tags = tags - CoubTag.pluck(:name)
-    log "new tags found: #{new_tags.size}"
+    log "#{new_tags.size} new tags"
     new_tags
   end
 
@@ -89,7 +132,10 @@ private
   end
 
   def read_tags
-    File.open(LOCAL_PATH).read.split("\n")
+    log "reading tags from #{LOCAL_PATH}"
+    tags = File.open(LOCAL_PATH).read.split("\n")
+    log "#{tags.size} tags found"
+    tags
   end
 
   def ungzip
@@ -109,7 +155,9 @@ private
   end
 
   def franchises
-    @franchises ||= Set.new Anime.pluck('distinct(franchise)').select(&:present?)
+    @franchises ||= Set.new(
+      Anime.pluck(Arel.sql('distinct(franchise)')).select(&:present?)
+    )
   end
 
   def log text
@@ -117,7 +165,7 @@ private
   end
 
   def ignored_tags
-    config[:ignored_tags]
+    config[:ignored_tags] + config[:ignored_auto_generated]
   end
 
   def config

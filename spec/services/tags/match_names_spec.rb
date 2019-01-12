@@ -12,10 +12,12 @@ describe Tags::MatchNames do
     let(:tags) { ['sword_art_online'] }
     let(:no_correct) { false }
 
-    context 'has direct match' do
+    context 'has match' do
       [
         'sword art online',
         'Sword Art Online',
+        'Sword Art Online II',
+        'Sword Art Online ova',
         "Sword 'Art' Online",
         'Sword "Art" Online',
         'Sword_Art_Online',
@@ -23,11 +25,24 @@ describe Tags::MatchNames do
         'sword art online!',
         'sword art online!!',
         'sword_art_online: zxc',
-        'sword_art_online: zxc: zxc'
+        'sword_art_online - zxc'
       ].each do |name|
         context name do
           let(:names) { [name] }
           it { is_expected.to eq 'sword_art_online' }
+        end
+      end
+    end
+
+    context 'no match' do
+      [
+        'sword art onlin',
+        'sword art online bla bla',
+        'sword_art_online: zxc: zxc'
+      ].each do |name|
+        context name do
+          let(:names) { [name] }
+          it { is_expected.to be_nil }
         end
       end
     end
@@ -45,6 +60,13 @@ describe Tags::MatchNames do
         let(:tags) { ['sword'] }
         it { is_expected.to be_nil }
       end
+    end
+
+    context 'with !' do
+      let(:names) { ['working!!'] }
+      let(:tags) { ['working!'] }
+
+      it { is_expected.to eq 'working!' }
     end
   end
 
