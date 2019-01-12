@@ -1638,6 +1638,12 @@
         - 36692
         - 32843
         - 38256
+        - 37979
+        - 38897
+        - 37501
+        - 38850
+        - 38578
+        - 38672
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2059,6 +2065,12 @@
         - 36692
         - 32843
         - 38256
+        - 37979
+        - 38897
+        - 37501
+        - 38850
+        - 38578
+        - 38672
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2479,6 +2491,12 @@
         - 36692
         - 32843
         - 38256
+        - 37979
+        - 38897
+        - 37501
+        - 38850
+        - 38578
+        - 38672
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2899,6 +2917,12 @@
         - 36692
         - 32843
         - 38256
+        - 37979
+        - 38897
+        - 37501
+        - 38850
+        - 38578
+        - 38672
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
