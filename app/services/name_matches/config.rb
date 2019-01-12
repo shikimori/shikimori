@@ -5,7 +5,7 @@ class NameMatches::Config
   instance_cache :synonyms, :letter_synonyms, :word_synonyms, :regexp_replaces
 
   def config
-    @config ||= YAML::load_file Rails.root.join 'config/app/names_matches.yml'
+    @config ||= YAML.load_file Rails.root.join 'config/app/names_matches.yml'
   end
 
   def bad_names
@@ -29,7 +29,7 @@ private
   def letter_synonyms
     config[:letter_synonyms].map do |to, from|
       [
-        %r( (?:#{Array(from).join '|'}) )mix,
+        / (?:#{Array(from).join '|'}) /mix,
         to
       ]
     end
@@ -38,13 +38,13 @@ private
   def word_synonyms
     config[:word_synonyms].map do |to, from|
       [
-        %r(
+        /
           (?: [\[(] )?
           \b
           (?:#{Array(from).join '|'})
           \b
           (?: [\])] )?
-        )mix,
+        /mix,
         to
       ]
     end
@@ -53,7 +53,7 @@ private
   def regexp_replaces
     config[:regexp_replaces].map do |left, right|
       [
-        %r(#{left})mix,
+        /#{left}/mix,
         right
       ]
     end
