@@ -13,7 +13,7 @@ private
     if @no_correct
       fixed_names
     else
-      fixed_corrected_names
+      correct fixed_names
     end
   end
 
@@ -24,8 +24,8 @@ private
       .flat_map { |v| [v, v.tr('-', '_')] }
   end
 
-  def fixed_corrected_names
-    fixed_names
+  def correct names
+    names
       .flat_map { |v| [v, v.sub('!', ''), v.sub('!', '').sub('!', '')] }
       .flat_map { |v| multiply v }
       .uniq

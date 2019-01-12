@@ -2,8 +2,8 @@ class Tags::MatchDanbooruTags
   method_object
 
   def call
-    animanga_tags = Set.new animanga_tags_scope.pluck(:name)
-    character_tags = Set.new character_tags_scope.pluck(:name)
+    animanga_tags = animanga_tags_scope.pluck(:name)
+    character_tags = character_tags_scope.pluck(:name)
 
     match_animangas animanga_tags, animes_scope
     match_animangas animanga_tags, mangas_scope
@@ -77,8 +77,8 @@ private
 
   def anime_names model
     (
-      [model.name, model.english] + (model.synonyms || [])
-    ).select(&:present?)
+      [model.name, model.english] + (model.synonyms || []) + [model.franchise]
+    ).select(&:present?).uniq
   end
 
   def character_names model
