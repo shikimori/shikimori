@@ -4,11 +4,19 @@ describe Tags::ImportCoubTags do
   before do
     stub_const 'Tags::ImportCoubTags::BATCH_SIZE', batch_size
     allow(service).to receive(:franchises).and_return franchises
+    allow(service)
+      .to receive_message_chain(:config, :added_tags)
+      .and_return added_tags
+      allow(service)
+        .to receive_message_chain(:config, :ignored_tags)
+        .and_return ignored_tags
   end
   let(:stub_download) { File.open(Rails.root.join('spec/files/coub_tags.txt.gz')) }
   let(:batch_size) { 2 }
   let(:process) { double call: nil }
   let(:franchises) { %w[naruto] }
+  let(:added_tags) { [] }
+  let(:ignored_tags) { [] }
 
   subject { service.call }
 
@@ -75,11 +83,7 @@ describe Tags::ImportCoubTags do
     end
 
     context 'ignored tags' do
-      before do
-        allow(service)
-          .to receive_message_chain(:config, :ignored_tags)
-          .and_return %w[naruto]
-      end
+      let(:ignored_tags) { %w[naruto] }
       it { is_expected.to eq %w[sword_art_online] }
     end
 
@@ -106,6 +110,11 @@ describe Tags::ImportCoubTags do
     context 'exclude short tags' do
       before { stub_const 'Tags::ImportCoubTags::MINIMUM_TAG_SIZE', 7 }
       it { is_expected.to eq %w[sword_art_online] }
+    end
+
+    context 'added tags' do
+      let(:added_tags) { %w[aaaa bbbb] }
+      it { is_expected.to eq %w[aaaa bbbb sword_art_online naruto] }
     end
   end
 end

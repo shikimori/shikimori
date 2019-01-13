@@ -1,4 +1,5 @@
-# how to get most common words
+# get most common words
+#
 =begin
 def take_uniq tags, limit
   tags.
@@ -63,11 +64,13 @@ class Tags::ImportCoubTags # rubocop:disable ClassLength
 private
 
   def process tags
-    exclude_single_words(
-      exclude_large(
-        exclude_small(
-          exclude_ignored(
-            add(take_new(tags))
+    add(
+      exclude_single_words(
+        exclude_large(
+          exclude_small(
+            exclude_ignored(
+              take_new(tags)
+            )
           )
         )
       )
