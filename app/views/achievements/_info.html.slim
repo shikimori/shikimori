@@ -49,36 +49,37 @@
       - if achievement.franchise?
         |  #{t '.of_duration'}
 
-  = cache [current_user&.achievements&.cache_key, (current_user&.anime_rates&.cache_key unless achievement.rule[:filters]), achievement.neko_id] do
-    - user_achievement = achievements.reverse.find { |v| v.is_a? Achievement }
-    .m10
+  - if local_assigns[:extended]
+    = cache [current_user&.achievements&.cache_key, (current_user&.anime_rates&.cache_key unless achievement.rule[:filters]), achievement.neko_id, :v2] do
+      - user_achievement = achievements.reverse.find { |v| v.is_a? Achievement }
       .m10
-      .line
-        - unless achievement.rule[:filters]
-          .key #{t '.your_list'}:&nbsp;
-          .value = user_achievement&.list_size(current_user) || 0
-
-      / .line
-      /   .key #{t '.your_progress'}:&nbsp;
-      /   .value
-      /     - if user_achievement.rule[:filters]
-      /       = "#{user_achievement.completed_percent current_user}%".gsub(/\0%/, '%')
-      /     - else
-      /       = "#{user_achievement.progress}%"
-
-      .line
-        .key #{t '.your_progress'}:&nbsp;
-        .value
-          = "#{user_achievement&.progress || 0}%"
-
-      - if achievement.rule[:filters]
+        .m10
         .line
-          .key #{t '.your_overall_progress'}:&nbsp;
+          - unless achievement.rule[:filters]
+            .key #{t '.your_list'}:&nbsp;
+            .value = user_achievement&.list_size(current_user) || 0
+
+        / .line
+        /   .key #{t '.your_progress'}:&nbsp;
+        /   .value
+        /     - if user_achievement.rule[:filters]
+        /       = "#{user_achievement.completed_percent current_user}%".gsub(/\0%/, '%')
+        /     - else
+        /       = "#{user_achievement.progress}%"
+
+        .line
+          .key #{t '.your_progress'}:&nbsp;
           .value
-            - if achievement.franchise?
-              = "#{user_achievement&.franchise_percent(current_user) || '0'}%".gsub(/\0%/, '%')
-            - else
-              = "#{user_achievement&.overall_percent(current_user) || '0'}%".gsub(/\0%/, '%')
+            = "#{user_achievement&.progress || 0}%"
+
+        - if achievement.rule[:filters]
+          .line
+            .key #{t '.your_overall_progress'}:&nbsp;
+            .value
+              - if achievement.franchise?
+                = "#{user_achievement&.franchise_percent(current_user) || '0'}%".gsub(/\0%/, '%')
+              - else
+                = "#{user_achievement&.overall_percent(current_user) || '0'}%".gsub(/\0%/, '%')
 
   .line.m10
     .key = t '.rules'
