@@ -90,7 +90,7 @@ describe Versioneers::CollectionVersioneer do
             ]
           },
           item: anime,
-          moderator: nil
+          moderator: author
         )
       end
     end
