@@ -13,7 +13,7 @@ class Tags::CleanupIgnoredCoubTags
 private
 
   def scope
-    Anime.where(coub_tag: config.all_ignored_tags)
+    Anime.where(coub_tag: config.ignored_tags)
   end
 
   def config

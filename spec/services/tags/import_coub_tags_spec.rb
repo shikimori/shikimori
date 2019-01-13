@@ -75,7 +75,11 @@ describe Tags::ImportCoubTags do
     end
 
     context 'ignored tags' do
-      before { allow(service).to receive(:ignored_tags).and_return %w[naruto] }
+      before do
+        allow(service)
+          .to receive_message_chain(:config, :ignored_tags)
+          .and_return %w[naruto]
+      end
       it { is_expected.to eq %w[sword_art_online] }
     end
 

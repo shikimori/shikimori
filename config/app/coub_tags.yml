@@ -1,7 +1,18 @@
 ---
-:ignored_tags:
+:added_tags:
+- patlabor
+- angel beats
+:custom_ignored_tags:
+- 1001 nights
+- 5 card
 - a cat
+- 8 man
 - a letter
+- a chinese ghost story
+- a christmas carol
+- about girls
+- alice in voodooland
+- acchi_kocchi
 - after school
 - age
 - air
@@ -365,7 +376,7 @@
 - последний шанс
 - прекрасный мир
 - спаси меня
-:ignored_auto_generated:
+:auto_ignored_tags:
 - the
 - of
 - a

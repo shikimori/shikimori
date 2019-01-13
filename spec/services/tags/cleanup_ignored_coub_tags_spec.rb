@@ -4,7 +4,7 @@ describe Tags::CleanupIgnoredCoubTags do
 
   before do
     allow_any_instance_of(Tags::CoubConfig)
-      .to receive(:all_ignored_tags)
+      .to receive(:ignored_tags)
       .and_return %w[z]
   end
   subject! { described_class.call }
