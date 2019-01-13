@@ -118,11 +118,13 @@ describe Versioneers::FieldsVersioneer do
         expect(version).to be_persisted
         expect(version).to be_auto_accepted
         expect(version.class).to eq Version
-        expect(version.user).to eq author
-        expect(version.reason).to eq reason
-        expect(version.item_diff).to eq result_diff
-        expect(version.item).to eq anime
-        expect(version.moderator).to be_nil
+        expect(version).to have_attributes(
+          user: author,
+          reason: reason,
+          item_diff: result_diff,
+          item: anime,
+          moderator: author
+        )
       end
     end
 
@@ -136,11 +138,13 @@ describe Versioneers::FieldsVersioneer do
         expect(version).to be_persisted
         expect(version).to be_pending
         expect(version.class).to eq Version
-        expect(version.user).to eq author
-        expect(version.reason).to eq reason
-        expect(version.item_diff).to eq result_diff
-        expect(version.item).to eq anime
-        expect(version.moderator).to be_nil
+        expect(version).to have_attributes(
+          user: author,
+          reason: reason,
+          item_diff: result_diff,
+          item: anime,
+          moderator: nil
+        )
       end
     end
   end

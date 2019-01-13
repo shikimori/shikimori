@@ -64,6 +64,10 @@ class Version < ApplicationRecord
           transition.event
         )
       )
+      version.update moderator: version.user if transition.event
+    end
+    before_transition pending: %i[auto_accepted] do |version, _transition|
+      version.moderator = version.user
     end
 
     before_transition auto_accepted: :rejected do |version, transition|

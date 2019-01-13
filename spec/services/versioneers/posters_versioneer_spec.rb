@@ -40,7 +40,7 @@ describe Versioneers::PostersVersioneer do
         reason: reason,
         item_diff: { 'image' => [nil, 'anime.jpg'] },
         item: anime,
-        moderator: nil
+        moderator: author
       )
     end
   end

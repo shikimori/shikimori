@@ -19,11 +19,11 @@ class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
 
 private
 
-  def version_klass _
+  def version_klass _params
     Versions::PosterVersion
   end
 
-  def changes image, version
+  def changes image, _version
     {
       image: [@item.image_file_name, image.original_filename]
     }

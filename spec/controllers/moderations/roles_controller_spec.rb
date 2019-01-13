@@ -49,6 +49,7 @@ describe Moderations::RolesController do
         expect(resource).to have_attributes(
           state: 'auto_accepted',
           user_id: user.id,
+          moderator_id: user.id,
           item_id: target_user.id,
           item_type: User.name,
           item_diff: {
@@ -95,6 +96,7 @@ describe Moderations::RolesController do
         expect(resource).to have_attributes(
           state: 'auto_accepted',
           user_id: user.id,
+          moderator_id: user.id,
           item_id: target_user.id,
           item_type: User.name,
           item_diff: {

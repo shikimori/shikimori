@@ -43,7 +43,7 @@ class ModerationsController < ShikimoriController
       breadcrumb i18n_t('missing_videos_title'), missing_videos_moderations_url
       og page_title: i18n_t("missing_videos.#{params[:kind]}")
 
-      @collection = Rails.cache.fetch [:missing_videos, params[:kind], :v2], expires_in: 1.hour do
+      @collection = Rails.cache.fetch [:missing_videos, params[:kind], :v4], expires_in: 1.hour do
         Moderation::MissingVideosQuery.new(params[:kind]).animes
       end
     end
@@ -59,7 +59,7 @@ class ModerationsController < ShikimoriController
 private
 
   def abuse_requests_stats
-    Rails.cache.fetch %i[abuse_requests_stats v2], expires_in: 1.day do
+    Rails.cache.fetch %i[abuse_requests_stats v4], expires_in: 1.day do
       AbuseRequest
         .where('created_at > ?', 4.month.ago)
         .group(:approver_id)
@@ -67,14 +67,13 @@ private
         .where(
           approver_id: User.where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
         )
-        .where.not(approver_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
     end
   end
 
   def bans_stats
-    Rails.cache.fetch %i[bans_stats v2], expires_in: 1.day do
+    Rails.cache.fetch %i[bans_stats v4], expires_in: 1.day do
       Ban
         .where('created_at > ?', 4.month.ago)
         .group(:moderator_id)
@@ -82,14 +81,13 @@ private
         .where(
           moderator_id: User.where("roles && '{#{Types::User::Roles[:forum_moderator]}}'")
         )
-        .where.not(moderator_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
     end
   end
 
   def content_versions_stats
-    Rails.cache.fetch %i[content_versions_stats v2], expires_in: 1.day do
+    Rails.cache.fetch %i[content_versions_stats v4], expires_in: 1.day do
       Version
         .where('created_at > ?', 4.month.ago)
         .where.not(item_type: AnimeVideo.name)
@@ -98,14 +96,13 @@ private
         .where(
           moderator_id: User.where("roles && '{#{Types::User::Roles[:version_moderator]}}'")
         )
-        .where.not(moderator_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
     end
   end
 
   def video_versions_stats
-    Rails.cache.fetch %i[video_versions_stats v2], expires_in: 1.day do
+    Rails.cache.fetch %i[video_versions_stats v4], expires_in: 1.day do
       Version
         .where('created_at > ?', 4.month.ago)
         .where(item_type: AnimeVideo.name)
@@ -116,14 +113,13 @@ private
             "roles && '{#{Types::User::Roles[:video_moderator]}}'"
           )
         )
-        .where.not(moderator_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
     end
   end
 
   def anime_video_reports_stats
-    Rails.cache.fetch %i[anime_video_reports_stats v2], expires_in: 1.day do
+    Rails.cache.fetch %i[anime_video_reports_stats v4], expires_in: 1.day do
       AnimeVideoReport
         .where('created_at > ?', 4.month.ago)
         .group(:approver_id)
@@ -133,7 +129,6 @@ private
             "roles && '{#{Types::User::Roles[:video_moderator]}}'"
           )
         )
-        .where.not(approver_id: User::MORR_ID)
         .sort_by(&:count)
         .reverse
     end
