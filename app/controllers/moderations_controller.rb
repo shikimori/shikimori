@@ -59,9 +59,9 @@ class ModerationsController < ShikimoriController
 private
 
   def abuse_requests_stats
-    Rails.cache.fetch :abuse_requests_stats, expires_in: 1.day do
+    Rails.cache.fetch %i[abuse_requests_stats v2], expires_in: 1.day do
       AbuseRequest
-        .where('created_at > ?', 3.month.ago)
+        .where('created_at > ?', 4.month.ago)
         .group(:approver_id)
         .select('approver_id, count(*) as count')
         .where(
@@ -74,9 +74,9 @@ private
   end
 
   def bans_stats
-    Rails.cache.fetch :bans_stats, expires_in: 1.day do
+    Rails.cache.fetch %i[bans_stats v2], expires_in: 1.day do
       Ban
-        .where('created_at > ?', 3.month.ago)
+        .where('created_at > ?', 4.month.ago)
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
         .where(
@@ -89,9 +89,9 @@ private
   end
 
   def content_versions_stats
-    Rails.cache.fetch :content_versions_stats, expires_in: 1.day do
+    Rails.cache.fetch %i[content_versions_stats v2], expires_in: 1.day do
       Version
-        .where('created_at > ?', 6.month.ago)
+        .where('created_at > ?', 4.month.ago)
         .where.not(item_type: AnimeVideo.name)
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
@@ -105,9 +105,9 @@ private
   end
 
   def video_versions_stats
-    Rails.cache.fetch :video_versions_stats, expires_in: 1.day do
+    Rails.cache.fetch %i[video_versions_stats v2], expires_in: 1.day do
       Version
-        .where('created_at > ?', 6.month.ago)
+        .where('created_at > ?', 4.month.ago)
         .where(item_type: AnimeVideo.name)
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
@@ -123,9 +123,9 @@ private
   end
 
   def anime_video_reports_stats
-    Rails.cache.fetch :anime_video_reports_stats, expires_in: 1.day do
+    Rails.cache.fetch %i[anime_video_reports_stats v2], expires_in: 1.day do
       AnimeVideoReport
-        .where('created_at > ?', 6.month.ago)
+        .where('created_at > ?', 4.month.ago)
         .group(:approver_id)
         .select('approver_id, count(*) as count')
         .where(

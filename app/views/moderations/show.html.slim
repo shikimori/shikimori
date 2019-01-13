@@ -142,38 +142,41 @@ header.head
             title=t('moderations/user_rate_logs_controller.page_title.index')
           ] = t 'moderations/user_rate_logs_controller.page_title.index'
 
-.cc-3a
-  - if @abuse_requests_stats
-    .c-column
-      .subheadline.m10 Abuse Requests
-      ul.b-list
-        - @abuse_requests_stats.each do |stat|
-          li = "#{stat.approver.nickname}: #{stat.count}"
+- if @abuse_requests_stats || @bans_stats || @content_versions_stats || @video_versions_stats || @anime_video_reports_stats
+  .midheadline.m15 Statistics for last 4 months
+  .cc-3a
+    - if @abuse_requests_stats
+      .c-column
+        .subheadline.m10 Abuse Requests
+        ul.b-list
+          - @abuse_requests_stats.each do |stat|
+            li = "#{stat.approver.nickname}: #{stat.count}"
 
-  - if @bans_stats
-    .c-column
-      .subheadline.m10 Bans
-      ul.b-list
-        - @bans_stats.each do |stat|
-          li = "#{stat.moderator.nickname}: #{stat.count}"
+    - if @bans_stats
+      .c-column
+        .subheadline.m10 Bans
+        ul.b-list
+          - @bans_stats.each do |stat|
+            li = "#{stat.moderator.nickname}: #{stat.count}"
 
-  - if @content_versions_stats
-    .c-column
-      .subheadline.m10 Content Versions
-      ul.b-list
-        - @content_versions_stats.each do |stat|
-          li = "#{stat.moderator.nickname}: #{stat.count}"
+    - if @content_versions_stats
+      .c-column
+        .subheadline.m10 Content Changes
+        ul.b-list
+          - @content_versions_stats.each do |stat|
+            li = "#{stat.moderator.nickname}: #{stat.count}"
 
-  - if @video_versions_stats
-    .c-column
-      .subheadline.m10 Video Versions
-      ul.b-list
-        - @video_versions_stats.each do |stat|
-          li = "#{stat.moderator.nickname}: #{stat.count}"
+    - if @video_versions_stats
+      .c-column
+        .subheadline.m10 Video Changes
+        ul.b-list
+          - @video_versions_stats.each do |stat|
+            li = "#{stat.moderator.nickname}: #{stat.count}"
 
-  - if @anime_video_reports_stats
-    .c-column
-      .subheadline.m10 Anime Video Reports
-      ul.b-list
-        - @anime_video_reports_stats.each do |stat|
-          li = "#{stat.approver.nickname}: #{stat.count}"
+    - if @anime_video_reports_stats
+      .c-column
+        .subheadline.m10 Video Reports
+        ul.b-list
+          - @anime_video_reports_stats.each do |stat|
+            li = "#{stat.approver.nickname}: #{stat.count}"
+
