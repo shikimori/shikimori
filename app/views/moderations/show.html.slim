@@ -142,22 +142,38 @@ header.head
             title=t('moderations/user_rate_logs_controller.page_title.index')
           ] = t 'moderations/user_rate_logs_controller.page_title.index'
 
-- if @abuse_requests
-  .cc-3a
+.cc-3a
+  - if @abuse_requests_stats
     .c-column
       .subheadline.m10 Abuse Requests
       ul.b-list
-        - @abuse_requests.each do |stat|
-            li = "#{stat.approver.nickname}: #{stat.count}"
+        - @abuse_requests_stats.each do |stat|
+          li = "#{stat.approver.nickname}: #{stat.count}"
 
+  - if @bans_stats
     .c-column
       .subheadline.m10 Bans
       ul.b-list
-        - @bans.each do |stat|
-            li = "#{stat.moderator.nickname}: #{stat.count}"
+        - @bans_stats.each do |stat|
+          li = "#{stat.moderator.nickname}: #{stat.count}"
 
+  - if @content_versions_stats
     .c-column
-      .subheadline.m10 Versions
+      .subheadline.m10 Content Versions
       ul.b-list
-        - @versions.each do |stat|
-            li = "#{stat.moderator.nickname}: #{stat.count}"
+        - @content_versions_stats.each do |stat|
+          li = "#{stat.moderator.nickname}: #{stat.count}"
+
+  - if @video_versions_stats
+    .c-column
+      .subheadline.m10 Video Versions
+      ul.b-list
+        - @video_versions_stats.each do |stat|
+          li = "#{stat.moderator.nickname}: #{stat.count}"
+
+  - if @anime_video_reports_stats
+    .c-column
+      .subheadline.m10 Anime Video Reports
+      ul.b-list
+        - @anime_video_reports_stats.each do |stat|
+          li = "#{stat.approver.nickname}: #{stat.count}"
