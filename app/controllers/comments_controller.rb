@@ -1,9 +1,17 @@
 class CommentsController < ShikimoriController
   include CommentHelper
 
-  def show
+  def show # rubocop:disable AbcSize
     og noindex: true
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
+
+    if comment.commentable.is_a?(Topic) && comment.commentable.linked.is_a?(Club)
+      Clubs::RestrictCensored.call(
+        club: comment.commentable.linked,
+        current_user: current_user
+      )
+    end
+
     @view = Comments::View.new comment, false
 
     if comment.is_a? NoComment
@@ -26,17 +34,6 @@ class CommentsController < ShikimoriController
   def edit
     @comment = Comment.find params[:id]
   end
-
-  # динамическая подгрузка комментариев при скролле
-  # def postloader
-    # @limit = [[params[:limit].to_i, 1].max, 100].min
-    # @offset = params[:offset].to_i
-    # @page = (@offset+@limit) / @limit
-
-    # @comments, @add_postloader = CommentsQuery
-      # .new(params[:commentable_type], params[:commentable_id], params[:is_summary].present?)
-      # .postload(@page, @limit, true)
-  # end
 
   # все комментарии сущности до определённого коммента
   def fetch
@@ -75,7 +72,6 @@ class CommentsController < ShikimoriController
     render :collection, formats: :json
   end
 
-  # предпросмотр текста
   def preview
     @comment = Comment.new(preview_params).decorate
 
@@ -88,7 +84,6 @@ class CommentsController < ShikimoriController
     render @comment
   end
 
-  # смайлики для комментария
   def smileys
     render partial: 'comments/smileys'
   end
