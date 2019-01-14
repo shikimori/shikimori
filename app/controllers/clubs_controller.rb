@@ -142,7 +142,7 @@ private
   end
 
   def restrict_censored
-    raise ActiveRecord::RecordNotFound if @resource.censored? && !user_signed_in?
+    Clubs::RestrictCensored.call club: @resource, current_user: current_user
   end
 
   # censored check for guests performed in #restrict_censored
