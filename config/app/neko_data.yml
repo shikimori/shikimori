@@ -6392,7 +6392,6 @@
         - 1082
         - 1088
         - 1091
-        - 10937
         - 1096
         - 1097
         - 11021
@@ -6594,7 +6593,6 @@
         - 949
         - 9525
         - 958
-        - 96
         - 97
         - 9751
         - 9941
@@ -6624,10 +6622,6 @@
         - 5397
         - 3738
         - 8584
-        - 9544
-        - 31430
-        - 1999
-        - 608
         - 9544
         - 31430
         - 608
@@ -14831,7 +14825,7 @@
     :topic_id: 227421
     :rule:
       :algo: count
-      :threshold: 10%
+      :threshold: 15%
       :filters:
         anime_ids:
         - 7088
@@ -15189,7 +15183,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 15%
+      :threshold: 20%
       :filters:
         anime_ids:
         - 7088
@@ -15549,7 +15543,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 25%
+      :threshold: 28%
       :filters:
         anime_ids:
         - 7088
@@ -15995,6 +15989,7 @@
         - 29067
         - 26349
         - 440
+        - 441
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
 - !ruby/object:Neko::Rule
   attributes:
