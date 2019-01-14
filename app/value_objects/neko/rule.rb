@@ -106,7 +106,6 @@ class Neko::Rule < Dry::Struct
 
   def animes_count
     return if rule[:filters].blank?
-    return rule[:filters]['anime_ids'].size if rule[:filters]['anime_ids']
 
     animes_scope.size
   end
