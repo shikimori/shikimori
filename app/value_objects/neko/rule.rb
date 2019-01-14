@@ -187,7 +187,7 @@ class Neko::Rule < Dry::Struct
     if threshold_percent?
       (animes_count / 100.0 * rule[:threshold].to_f).ceil
     else
-      rule[:threshold].to_f
+      rule[:threshold].to_i
     end
   end
 
