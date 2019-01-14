@@ -169,10 +169,10 @@ describe Neko::Rule do
       it { expect(rule.animes_count).to be_nil }
     end
 
-    context 'anime_ids' do
-      let(:filters) { { 'anime_ids' => [0, 1, 2] } }
-      it { expect(rule.animes_count).to eq 3 }
-    end
+    # context 'anime_ids' do
+    #   let(:filters) { { 'anime_ids' => [0, 1, 2] } }
+    #   it { expect(rule.animes_count).to eq 3 }
+    # end
 
     context 'genre_ids' do
       let(:filters) { { 'genre_ids' => [genre.id] } }
