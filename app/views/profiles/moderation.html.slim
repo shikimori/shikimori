@@ -25,7 +25,7 @@
       .c-column.block_m
         .subheadline = User.model_name.human
         .b-entry-info
-          - %i[email created_at current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
+          - %i[id email created_at current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
             - unless %i[current_sign_in_ip last_sign_in_ip].include?(field) && @resource.admin?
               = info_line field do
                 - if @resource.send(field).respond_to? :strftime
