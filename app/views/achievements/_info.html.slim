@@ -25,8 +25,11 @@
       - if view.animes_count&.positive? && !view.achievement.franchise?
         - view.achievements.each do |achievement|
           span
-            ' #{format_percent achievement.threshold_percent(view.animes_count)}
-            | (#{achievement.threshold_value view.animes_count})
+            - if view.filters
+              ' #{format_percent achievement.threshold_percent(view.animes_count)}
+              | (#{achievement.threshold_value view.animes_count})
+            - else
+              = achievement.threshold_value nil
 
             - if current_user&.achievements&.any? { |v| v.neko_id == view.neko_id && v.level == achievement.level }
               .gained ✓
@@ -47,7 +50,7 @@
         .line
           - unless view.filters
             .key #{t '.your_list'}:&nbsp;
-            .value = view.user_achievement.list_size current_user
+            .value = view.list_size
 
         .line
           .key #{t '.your_progress'}:&nbsp;

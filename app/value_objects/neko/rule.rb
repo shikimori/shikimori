@@ -167,10 +167,6 @@ class Neko::Rule < Dry::Struct
     @statistics ||= Achievements::Statistics.call neko_id, level
   end
 
-  def list_size user
-    anime_rates(user, false).count
-  end
-
   def cache_key
     [Digest::MD5.hexdigest(to_json), Achievement.where(neko_id: neko_id).cache_key, :v2]
   end
@@ -215,20 +211,12 @@ class Neko::Rule < Dry::Struct
     (user_time * 100.0 / franchise_time).floor(2)
   end
 
-  def overall_percent user
-    return 0 unless user
+  def overall_percent user, animes_count
+    return 0 unless user && animes_count
 
     scope = anime_rates(user, false).where(target_id: animes_scope)
 
     (scope.count * 100.0 / animes_count).floor(2)
-  end
-
-private
-
-  def default_hint
-    I18n.t 'achievements.hint.default',
-      neko_name: neko_name,
-      level: level
   end
 
   def anime_rates user, is_add_watching
@@ -242,6 +230,14 @@ private
       end
 
     user.anime_rates.where(status: statuses)
+  end
+
+private
+
+  def default_hint
+    I18n.t 'achievements.hint.default',
+      neko_name: neko_name,
+      level: level
   end
 
   def locale_key user

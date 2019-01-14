@@ -2,7 +2,7 @@ class Achievements::InfoView
   include Draper::ViewHelpers
   vattr_initialize :achievements
 
-  delegate :animes_scope, :neko_id, to: :achievement
+  delegate :animes_scope, :neko_id, :anime_rates, to: :achievement
 
   CACHE_VERSION = :v5
 
@@ -20,11 +20,17 @@ class Achievements::InfoView
   end
 
   def overall_percent
-    @overall_percent ||= user_achievement.overall_percent h.current_user
+    @overall_percent ||= user_achievement.overall_percent h.current_user, animes_count
   end
 
   def animes_count
     @animes_count ||= achievement.animes_count
+  end
+
+  def list_size
+    return 0 unless h.current_user
+
+    anime_rates(h.current_user, false).count
   end
 
   def show_animes?
@@ -51,7 +57,8 @@ class Achievements::InfoView
     if user_achievement.is_a? Achievement
       user_achievement.progress
     else
-      (overall_percent * 100.0 / achievement.threshold_percent(animes_count)).ceil(2)
+      count = filters ? animes_count : list_size
+      (overall_percent * 100.0 / achievement.threshold_percent(count)).ceil(2)
     end
   end
 end
