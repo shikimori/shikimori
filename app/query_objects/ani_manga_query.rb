@@ -59,8 +59,7 @@ class AniMangaQuery
     @order = params[:order] || (@search_phrase.blank? ? DEFAULT_ORDER : nil)
   end
 
-  # выборка аниме или манги по заданным параметрам
-  def fetch # page = nil, limit = nil
+  def fetch
     kind!
     censored!
     disable_music!
@@ -114,16 +113,13 @@ private
     @search_phrase.present?
   end
 
-  def franchise?
-    !!@franchise
-  end
-
-  def achievement?
-    !!@achievement
-  end
-
-  def studio?
-    @studio.present?
+  def do_not_censore?
+    [false, 'false'].include?(@params[:censored]) ||
+      mylist? || userlist? ||
+      @franchise.present? ||
+      @achievement.present? ||
+      @studio.present? ||
+      @ids.any?
   end
 
   # фильтр по типам
@@ -133,7 +129,7 @@ private
     kinds = @kind
       .split(',')
       .each_with_object(complex: [], simple: []) do |kind, memo|
-        memo[kind =~ /tv_\d+/ ? :complex : :simple] << kind
+        memo[kind.match?(/tv_\d+/) ? :complex : :simple] << kind
       end
 
     simple_kinds = bang_split kinds[:simple]
@@ -175,7 +171,6 @@ private
     end
   end
 
-  # включение цензуры
   def censored!
     if @genre
       genres = bang_split(@genre.split(','), true).each { |k,v| v.flatten! }
@@ -187,10 +182,9 @@ private
     yaoi = genres && (genres[:include] & Genre::YAOI_IDS).any?
     yuri = genres && (genres[:include] & Genre::YURI_IDS).any?
 
-    return if [false, 'false'].include? @params[:censored]
-    return if rx || hentai || yaoi || yuri || mylist? || search? || userlist?
+    return if do_not_censore?
+    return if rx || hentai || yaoi || yuri
     return if @publisher || @studio
-    return if franchise? || achievement?
 
     if @params[:censored] == true || @params[:censored] == 'true'
       @query = @query.where(censored: false)
@@ -199,8 +193,7 @@ private
 
   # отключение выборки по музыке
   def disable_music!
-    unless @kind.match?(/music/) ||
-        mylist? || userlist? || franchise? || achievement? || studio?
+    unless @kind.match?(/music/) || do_not_censore?
       @query = @query.where("#{table_name}.kind != ?", :music)
     end
   end
@@ -208,14 +201,16 @@ private
   # отключение всего зацензуренной для парней/девушек
   def exclude_ai_genres!
     return unless @exclude_ai_genres && @user
+    return if do_not_censore?
 
     excludes = GENRES_EXCLUDED_BY_SEX[@user.sex || '']
 
-    @genre = if @genre.present?
-      "#{@genre},!#{excludes.join ',!'}"
-    else
-      "!#{excludes.join ',!'}"
-    end
+    @genre =
+      if @genre.present?
+        "#{@genre},!#{excludes.join ',!'}"
+      else
+        "!#{excludes.join ',!'}"
+      end
   end
 
   # фильтрация по жанрам, студиям и издателям
