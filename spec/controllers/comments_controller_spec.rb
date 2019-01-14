@@ -1,11 +1,16 @@
 describe CommentsController do
   let(:comment) { create :comment, commentable: offtopic_topic, user: user }
   let(:comment2) { create :comment, commentable: offtopic_topic, user: user }
-  before { allow(FayePublisher).to receive(:new).and_return double(FayePublisher, publish: true) }
+  before do
+    allow(FayePublisher)
+      .to receive(:new)
+      .and_return faye_publisher
+  end
+  let(:faye_publisher) { double FayePublisher, publish: true }
 
   describe '#show' do
     context 'html' do
-      before { get :show, params: { id: comment.id } }
+      subject! { get :show, params: { id: comment.id } }
 
       it do
         expect(response).to have_http_status :success
@@ -14,11 +19,29 @@ describe CommentsController do
     end
 
     context 'json' do
-      before { get :show, params: { id: comment.id }, format: 'json' }
+      subject! { get :show, params: { id: comment.id }, format: 'json' }
 
       it do
         expect(response).to have_http_status :success
         expect(response.content_type).to eq 'application/json'
+      end
+    end
+
+    context "comment of censored club's topic" do
+      let(:comment) { create :comment, commentable: topic }
+      let(:topic) { create :topic, linked: club }
+      let(:club) { create :club, is_censored: true }
+
+      subject { get :show, params: { id: comment.id } }
+
+      context 'guest' do
+        it { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
+      end
+
+      context 'user' do
+        include_context :authenticated, :user
+        before { subject }
+        it { expect(response).to have_http_status :success }
       end
     end
   end
@@ -53,17 +76,17 @@ describe CommentsController do
 
   describe '#chosen' do
     describe 'one' do
-      before { get :chosen, params: { ids: comment.id.to_s } }
+      subject! { get :chosen, params: { ids: comment.id.to_s } }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'multiple' do
-      before { get :chosen, params: {ids: "#{comment.id},#{comment2.id}"} }
+      subject! { get :chosen, params: { ids: "#{comment.id},#{comment2.id}" } }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'unexisted' do
-      before { get :chosen, params: {ids: "#{comment2.id + 1}"} }
+      subject! { get :chosen, params: { ids: (comment2.id + 1).to_s } }
       it { expect(response).to have_http_status :success }
     end
   end
