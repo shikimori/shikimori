@@ -619,6 +619,7 @@ Rails.application.routes.draw do
         iframe
         iframe_inner
         franchises
+        votes
       ].each do |page|
         get page
       end

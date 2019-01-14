@@ -10,6 +10,8 @@ class TestsController < ShikimoriController
   DEFAULT_MINIMUM_DURATION = 850
   DEFAULT_MINIMUM_USER_RATES = 1000
 
+  USERS_PER_PAGE = 72
+
   def show
     @traffic = Rails.cache.fetch("traffic_#{Time.zone.today}") do
       YandexMetrika.call 18
@@ -179,6 +181,22 @@ class TestsController < ShikimoriController
           end
           .sort_by { |_franchise, info| -info[:user_rates][:text] }
       end
+  end
+
+  def votes
+    raise Forbidden unless current_user&.admin?
+    return render plain: 'votable_type is not set' if params[:votable_type].blank?
+    return render plain: 'votable_id is not set' if params[:votable_id].blank?
+
+    @scope = ActsAsVotable::Vote
+      .where(votable_type: params[:votable_type], votable_id: params[:votable_id])
+      .includes(:voter)
+      .order(:id)
+
+    @collection = QueryObjectBase
+      .new(@scope)
+      .paginate(@page, USERS_PER_PAGE)
+      .transform(&:voter)
   end
 
 private
