@@ -20,7 +20,7 @@
         - else
           a.title href=achievement_url(achievement.group, achievement.neko_id)
             = achievement.title(current_user, ru_host?)
-        .percent #{achievement.progress}%
+        .percent = format_percent achievement.progress
         .hint = achievement.hint
         .progress: .bar style="width: #{achievement.progress}%"
         .text == achievement.text(ru_host?).gsub("\n", "<br>")
