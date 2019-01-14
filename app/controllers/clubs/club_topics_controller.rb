@@ -1,5 +1,4 @@
-class Clubs::ClubTopicsController < ShikimoriController
-  load_and_authorize_resource :club
+class Clubs::ClubTopicsController < ClubsController
   load_and_authorize_resource class: Topic.name
 
   before_action { og page_title: i18n_i('Club', :other) }
@@ -14,7 +13,6 @@ class Clubs::ClubTopicsController < ShikimoriController
   end
 
   def show
-    raise AgeRestricted if @club.censored? && censored_forbidden?
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
 
     og page_title: @resource.title
