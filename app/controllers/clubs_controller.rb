@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ClubsController < ShikimoriController
   load_and_authorize_resource :club, except: %i[index autocomplete]
 
@@ -7,7 +5,8 @@ class ClubsController < ShikimoriController
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :restrict_domain, except: %i[index create new autocomplete]
+  before_action :restrict_censored, if: :resource_id
+  before_action :restrict_domain, if: :resource_id
 
   before_action :set_breadcrumbs
 
@@ -33,7 +32,7 @@ class ClubsController < ShikimoriController
 
   MEMBERS_LIMIT = 48
 
-  def index
+  def index # rubocop:disable AbcSize
     og noindex: true
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
@@ -140,6 +139,17 @@ private
 
   def restrict_domain
     raise ActiveRecord::RecordNotFound if @resource.locale != locale_from_host
+  end
+
+  def restrict_censored
+    raise ActiveRecord::RecordNotFound if @resource.censored? && !user_signed_in?
+  end
+
+  # censored check for guests performed in #restrict_censored
+  def censored_forbidden?
+    return false unless user_signed_in?
+
+    super
   end
 
   def resource_klass
