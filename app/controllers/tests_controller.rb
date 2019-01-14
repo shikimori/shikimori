@@ -193,6 +193,10 @@ class TestsController < ShikimoriController
       .includes(:voter)
       .order(:id)
 
+    if params[:suspicious]
+      @scope = @scope.where(voter_id: User.suspicious)
+    end
+
     @collection = QueryObjectBase
       .new(@scope)
       .paginate(@page, USERS_PER_PAGE)

@@ -3,7 +3,14 @@ header.head.misc
 
 .block
   .b-options-floated = @scope.size
-  .subheadline.m10 = i18n_i 'User', :other
+  .subheadline.m10
+    = i18n_i 'User', :other
+    .misc-links
+      - if params[:suspicious]
+        a href=current_url(suspicious: nil) all
+      - else
+        a href=current_url(suspicious: 1) suspicious
+
   - if @collection.any?
     .cc-8
       = render partial: 'users/user',
@@ -15,4 +22,4 @@ header.head.misc
           filter: 'b-user',
           next_url: current_url(page: @page + 1)
   - else
-    .b-nothing_here No users
+    .b-nothing_here No votes found
