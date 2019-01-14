@@ -4,6 +4,8 @@ class Achievements::InfoView
 
   delegate :animes_scope, :neko_id, to: :achievement
 
+  CACHE_VERSION = :v5
+
   def achievement
     achievements.first
   end
@@ -41,7 +43,7 @@ class Achievements::InfoView
       h.current_user&.achievements&.cache_key,
       (h.current_user&.anime_rates&.cache_key unless filters),
       neko_id,
-      :v4
+      CACHE_VERSION
     ]
   end
 
