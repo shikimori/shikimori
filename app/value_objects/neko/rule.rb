@@ -176,7 +176,9 @@ class Neko::Rule < Dry::Struct
     [Digest::MD5.hexdigest(to_json), Achievement.where(neko_id: neko_id).cache_key, :v2]
   end
 
-  def franchise_percent user
+  def franchise_percent user # rubocop:disable AbcSize
+    return 0 unless user
+
     animes = animes_scope.to_a
 
     user_time = anime_rates(user, true)
@@ -184,7 +186,7 @@ class Neko::Rule < Dry::Struct
       .sum do |user_rate|
         anime = animes.find { |v| v.id == user_rate.target_id }
 
-        (user_rate.watching? || user_rate.on_hold?) ?
+        user_rate.watching? || user_rate.on_hold? ?
           anime.duration * user_rate.episodes :
           Neko::Duration.call(anime)
       end
@@ -195,6 +197,8 @@ class Neko::Rule < Dry::Struct
   end
 
   def overall_percent user
+    return 0 unless user
+
     scope = anime_rates(user, false).where(target_id: animes_scope)
 
     (scope.count * 100.0 / animes_count).floor(2)

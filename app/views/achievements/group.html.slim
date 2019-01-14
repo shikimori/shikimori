@@ -26,7 +26,7 @@ header.head
                     achievement: achievement,
                     hide_title: true
 
-              = render 'achievements/info', achievements: achievements
+              = render 'achievements/info', view: Achievements::InfoView.new(achievements)
 
     - else
       - @collection.group_by(&:neko_id).each do |neko_id, achievements|
@@ -43,7 +43,7 @@ header.head
                 images: true,
                 info_link: true
             .c-column
-              = render 'achievements/info', achievements: achievements
+              = render 'achievements/info', Achievements::InfoView.new(achievements)
 
           .incomplete[
             data-label=t('.incomplete_achievement')

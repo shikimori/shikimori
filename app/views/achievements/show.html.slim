@@ -2,25 +2,8 @@ header.head.misc
   h1 = og.headline
 
 .p-achievements-global
-  / - if @collection.first.franchise?
-  /   .block
-  /     - @collection.each do |achievement|
-  /       = render 'users/achievements/achievement',
-  /         achievement: achievement,
-  /         images: true,
-  /         status: true
-
-  /   .cc-2_3
-  /     .c-column
-  /       = render 'achievements/info',
-  /         achievements: @collection,
-  /         animes: true
-  /     .c-column
-  /       = render 'achievements/statistics', achievement: @collection.first
-  / - else
-
   = render 'achievements/info',
-    achievements: @collection,
+    view: Achievements::InfoView.new(@collection),
     extended: true
 
   - @collection.each do |achievement|
