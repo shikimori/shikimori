@@ -119,7 +119,7 @@ private
       @franchise.present? ||
       @achievement.present? ||
       @studio.present? ||
-      @ids.any?
+      @ids&.any?
   end
 
   # фильтр по типам
