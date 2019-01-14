@@ -1,7 +1,11 @@
 class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLength
   load_and_authorize_resource except: %i[read_all delete_all]
   before_action :prepare_group_action, only: %i[read_all delete_all]
+  before_action :check_antispam, only: %i[create], unless: :user_signed_in?
   before_action :append_info, only: %i[create]
+
+  ANTISPAM_TOKEN_NAME = 'bde0c23a4b6c2e99z6a14003ce1d728d319'
+  ANTISPAM_TOKEN_VALUE = '34f91ea4f1fa09e443f820b4ac5cf3d9dca'
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/messages/:id', 'Show a message'
@@ -126,6 +130,12 @@ private
       when :news then :news
       when :notifications then :notifications
       else raise CanCan::AccessDenied
+    end
+  end
+
+  def check_antispam
+    if params[ANTISPAM_TOKEN_NAME] != ANTISPAM_TOKEN_VALUE
+      render json: ['antispam check error'], status: 422
     end
   end
 

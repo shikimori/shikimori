@@ -9,6 +9,13 @@ $(document).on 'page:load', ->
     $form.find('.b-shiki_editor.unprocessed').shikiEditor()
     modal = new ShikiModal $form
 
-    $form.on 'ajax:success', ->
-      flash.notice I18n.t('frontend.blocks.feedback.message_sent')
-      modal.close()
+    $form
+      .one 'mouseover', ->
+        $antispam = $form.find('input[data-antispam]')
+
+        if $antispam.length
+          $antispam.val $antispam.data('token').replace('antispam-', '')
+
+      .on 'ajax:success', ->
+        flash.notice I18n.t('frontend.blocks.feedback.message_sent')
+        modal.close()

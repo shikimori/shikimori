@@ -10,6 +10,12 @@
         authenticity_token: true,
         html: { data: { type: :json } } do |f|
       - unless user_signed_in?
+        input[
+          type='hidden'
+          name=Api::V1::MessagesController::ANTISPAM_TOKEN_NAME
+          data-token="antispam-#{Api::V1::MessagesController::ANTISPAM_TOKEN_VALUE}"
+          data-antispam
+        ]
         .m10
           = f.input :feedback_address, label: 'E-mail', hint: 'Сюда может прийти ответ'
       = f.input :location, as: :hidden
