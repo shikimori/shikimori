@@ -54,6 +54,10 @@ module ApplicationHelper
     end
   end
 
+  def format_percent value
+    value.to_s.gsub(/(?:\.?0+)?$/, '%')
+  end
+
   # форматирование html текста для вывода в шаблон
   # TODO: выпилить
   def format_html_text text

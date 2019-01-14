@@ -43,7 +43,7 @@ header.head
                 images: true,
                 info_link: true
             .c-column
-              = render 'achievements/info', Achievements::InfoView.new(achievements)
+              = render 'achievements/info', view: Achievements::InfoView.new(achievements)
 
           .incomplete[
             data-label=t('.incomplete_achievement')

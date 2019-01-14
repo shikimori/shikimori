@@ -176,6 +176,26 @@ class Neko::Rule < Dry::Struct
     [Digest::MD5.hexdigest(to_json), Achievement.where(neko_id: neko_id).cache_key, :v2]
   end
 
+  def threshold_percent?
+    rule[:threshold].is_a?(String) && rule[:threshold].match?(/^\d+%$/)
+  end
+
+  def threshold_percent animes_count
+    if threshold_percent?
+      rule[:threshold].to_f
+    else
+      (rule[:threshold].to_f * 100.0 / animes_count).ceil(2)
+    end
+  end
+
+  def threshold_value animes_count
+    if threshold_percent?
+      (animes_count / 100.0 * rule[:threshold].to_f).ceil
+    else
+      rule[:threshold].to_f
+    end
+  end
+
   def franchise_percent user # rubocop:disable AbcSize
     return 0 unless user
 
@@ -213,6 +233,8 @@ private
   end
 
   def anime_rates user, is_add_watching
+    return UserRate.none unless user
+
     statuses =
       if is_add_watching
         %i[completed rewatching watching on_hold]

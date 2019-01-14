@@ -16,78 +16,65 @@
   .line
     .key #{t '.animes'}:&nbsp;
     .value
-      a href=animes_collection_url(achievement: view.achievement.neko_id)
+      a href=animes_collection_url(achievement: view.neko_id)
         == view.animes_count || '&ndash;'
 
   .line
     .key #{t '.threshold'}:&nbsp;
     .value.thresholds
       - if view.animes_count&.positive? && !view.achievement.franchise?
-        - if view.achievement.rule[:threshold].is_a?(String) && view.achievement.rule[:threshold].match?(/^\d+%$/)
-          - view.achievements.each do |achievement|
-            span
-              = "#{achievement.rule[:threshold]} (#{(view.animes_count / 100.0 * achievement.rule[:threshold].to_i).ceil})"
-              - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
-                .gained ✓
+        - view.achievements.each do |achievement|
+          span
+            ' #{format_percent achievement.threshold_percent(view.animes_count)}
+            | (#{achievement.threshold_value view.animes_count})
 
-        - else
-          - view.achievements.each do |achievement|
-            span
-              = "#{(achievement.rule[:threshold] * 100.0 / view.animes_count).ceil(2)}% (#{achievement.rule[:threshold]})"
-              - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
-                .gained ✓
+            - if current_user&.achievements&.any? { |v| v.neko_id == view.neko_id && v.level == achievement.level }
+              .gained ✓
       - else
         - view.achievements.each do |achievement|
           span
             = achievement.rule[:threshold]
-            - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
+            - if current_user&.achievements&.any? { |v| v.neko_id == view.neko_id && v.level == achievement.level }
               .gained ✓
 
       - if view.achievement.franchise?
         |  #{t '.of_duration'}
 
   - if local_assigns[:extended]
-    = cache [current_user&.achievements&.cache_key, (current_user&.anime_rates&.cache_key unless view.achievement.rule[:filters]), view.achievement.neko_id, :v2] do
-      - user_achievement = view.achievements.reverse.find { |v| v.is_a? Achievement } || view.achievement
-      - unless user_achievement.franchise?
-        - overall_percent = user_achievement.overall_percent current_user
-
+    = cache view.extended_cache_key do
       .m10
         .m10
         .line
-          - unless user_achievement.rule[:filters]
+          - unless view.filters
             .key #{t '.your_list'}:&nbsp;
-            .value = user_achievement.list_size current_user
+            .value = view.user_achievement.list_size current_user
 
         .line
           .key #{t '.your_progress'}:&nbsp;
           .value
-            / - if user_achievement.is_a? Achievement
-            = "#{user_achievement.progress || 0}%"
-            / - else
-              = user_achievement.
+            = format_percent view.user_progress
 
-        - if user_achievement.rule[:filters]
+        - if view.filters
           .line
             .key #{t '.your_overall_progress'}:&nbsp;
             .value
-              - if user_achievement.franchise?
-                = "#{user_achievement.franchise_percent current_user}%".gsub(/\0%/, '%')
+              - if view.user_achievement.franchise?
+                = format_percent view.franchise_percent
               - else
-                = "#{overall_percent}%".gsub(/\0%/, '%')
+                = format_percent view.overall_percent
 
   .line.m10
     .key = t '.rules'
     .value.filters
-      = BbCodes::Text.call "[code=json]#{JSON.pretty_generate(view.achievement.rule[:filters]).gsub(/\[.*\]/mix) {|match| match.gsub(/\n|\ /, '') }}[/code]"
+      = BbCodes::Text.call "[code=json]#{JSON.pretty_generate(view.filters).gsub(/\[.*\]/mix) {|match| match.gsub(/\n|\ /, '') }}[/code]"
 
   - if local_assigns[:extended] && view.show_animes?
     = spoiler t('.show_anime_list') do
-      - cache view.achievement.animes_scope.cache_key do
+      - cache view.animes_scope.cache_key do
         .hide-expanded = t '.hide'
         / .cc-8.user_rates-minified
         .cc-8
           = render partial: 'animes/anime',
-            collection: view.achievement.animes_scope.decorate,
+            collection: view.animes_scope.decorate,
             locals: { cover_notice: :year_kind },
             cache: ->(entry, _) { CacheHelper.keys entry, :year_kind }
