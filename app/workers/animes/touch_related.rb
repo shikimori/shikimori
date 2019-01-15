@@ -1,9 +1,9 @@
-# touches all related db_entires in order to invalidate their caches
+# touches all related db_entires in order to invalidate their cach
 class Animes::TouchRelated
   include Sidekiq::Worker
   sidekiq_options queue: :low_priority
 
-  def perform db_entry
+  def perform db_entry # rubocop:disable all
     touch db_entry.animes if db_entry.respond_to? :animes
     touch db_entry.mangas if db_entry.respond_to? :mangas
     touch db_entry.people if db_entry.respond_to? :people
