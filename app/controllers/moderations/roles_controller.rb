@@ -3,6 +3,9 @@ class Moderations::RolesController < ModerationsController
   before_action :check_access, only: %i[update destroy]
   before_action :fetch_target_user, only: %i[update destroy]
 
+  USERS_PER_PAGE = Moderations::UsersController::PER_PAGE
+  VERSIONS_PER_PAGE = 25
+
   def index
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
@@ -19,12 +22,16 @@ class Moderations::RolesController < ModerationsController
 
     @collection = role_users_scope
     @searched_collection = search_users_scope
-    @versions = versions_scope
+    @versions = versions_scope.paginate(page, VERSIONS_PER_PAGE).transform(&:decorate)
   end
 
   def search
     @collection = search_users_scope
     render :show, formats: :json
+  end
+
+  def versions
+    @versions = versions_scope
   end
 
   def update
@@ -70,7 +77,7 @@ private
   def role_users_scope
     QueryObjectBase
       .new(User.where("roles && '{#{Types::User::Roles[@role]}}'").order(:nickname))
-      .paginate(page, 44)
+      .paginate(page, USERS_PER_PAGE)
       .transform(&:decorate)
   rescue Dry::Types::ConstraintError
     redirect_to moderations_roles_url
@@ -79,15 +86,21 @@ private
   def search_users_scope
     scope = Users::Query.fetch
     scope = params[:search].present? ? scope.search(params[:search]) : scope.none
-    scope.paginate(page, 40).transform(&:decorate)
+    scope
+      .paginate(params[:action] == 'search' ? page : 1, USERS_PER_PAGE)
+      .transform(&:decorate)
   end
 
   def versions_scope
-    Moderation::ProcessedVersionsQuery
-      .new(Moderation::VersionsItemTypeQuery::Types[:role], nil)
-      .query
-      .where("item_diff->>'role' = ?", @role)
-      .decorate
+    QueryObjectBase
+      .new(
+        Moderation::ProcessedVersionsQuery
+          .new(Moderation::VersionsItemTypeQuery::Types[:role], nil)
+          .query
+          .where("item_diff->>'role' = ?", @role)
+      )
+      .paginate(params[:action] == 'versions' ? page : 1, VERSIONS_PER_PAGE)
+      .transform(&:decorate)
   end
 
   def page

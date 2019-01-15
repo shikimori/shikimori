@@ -114,6 +114,7 @@ Rails.application.routes.draw do
     resources :users, only: %i[index]
     resources :roles, only: %i[index show update destroy] do
       get :search, on: :member
+      get :versions, on: :member
     end
     resources :user_rate_logs, only: %i[index show] do
       get '(/page/:page)' => :index,

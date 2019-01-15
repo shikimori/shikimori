@@ -1,5 +1,5 @@
 class Moderations::UsersController < ModerationsController
-  LIMIT = 64
+  PER_PAGE = 44
 
   def index # rubocop:disable AbcSize
     og noindex: true, nofollow: true
@@ -16,6 +16,6 @@ class Moderations::UsersController < ModerationsController
         .last_sign_in_ip(params[:last_sign_in_ip])
     end
 
-    @collection = scope.paginate(@page, LIMIT)
+    @collection = scope.paginate(@page, PER_PAGE)
   end
 end

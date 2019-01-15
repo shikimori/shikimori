@@ -29,6 +29,7 @@ header.head
 
           - if @searched_collection&.next_page?
             = render 'blocks/postloader',
+              ignore_appear: true,
               filter: 'b-user',
               next_url: search_moderations_role_url(@role, page: @searched_collection.next_page),
               prev_url: (search_moderations_role_url(@role, page: @searched_collection.prev_page) if @searched_collection.prev_page?)
@@ -60,3 +61,10 @@ header.head
     .subheadline = t '.history'
     .block
       = render partial: 'versions/version', collection: @versions
+
+      - if @versions&.next_page?
+        = render 'blocks/postloader',
+          ignore_appear: true,
+          filter: 'b-log_entry',
+          next_url: versions_moderations_role_url(@role, page: @versions.next_page),
+          prev_url: (versions_moderations_role_url(@role, page: @versions.prev_page) if @versions.prev_page?)
