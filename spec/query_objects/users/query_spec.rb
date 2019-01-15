@@ -77,6 +77,20 @@ describe Users::Query do
     end
   end
 
+  describe '#id' do
+    subject { query.id id }
+
+    context 'present id' do
+      let(:id) { user_1.id }
+      it { is_expected.to eq [user_1] }
+    end
+
+    context 'missing id' do
+      let(:id) { ['', nil, 0].sample }
+      it { is_expected.to eq all_users }
+    end
+  end
+
   describe '#current_sign_in_ip' do
     subject { query.current_sign_in_ip ip }
 

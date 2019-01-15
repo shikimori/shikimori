@@ -1,22 +1,21 @@
 class Moderations::UsersController < ModerationsController
-  def index
+  LIMIT = 64
+
+  def index # rubocop:disable AbcSize
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
 
-    params[:created_on] ||= Time.zone.today.to_s
+    scope = Users::Query.fetch
+      .search(params[:search])
+      .created_on(params[:created_on])
 
-    @collection = users_scope
-  end
+    if can? :manage, Ban
+      scope = scope
+        .id(params[:id])
+        .current_sign_in_ip(params[:current_sign_in_ip])
+        .last_sign_in_ip(params[:last_sign_in_ip])
+    end
 
-private
-
-  def users_scope
-    User
-      .where(
-        'created_at >= ? and created_at <= ?',
-        Time.zone.parse(params[:created_on]).beginning_of_day,
-        Time.zone.parse(params[:created_on]).end_of_day
-      )
-      .order(:created_at)
+    @collection = scope.paginate(@page, LIMIT)
   end
 end

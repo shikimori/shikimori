@@ -1,7 +1,7 @@
 json.content render(
   partial: 'users/user',
   collection: @collection,
-  locals: { content_by: :detailed },
+  locals: { content_by: :moderation },
   formats: :html
 )
 

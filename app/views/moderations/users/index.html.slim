@@ -2,36 +2,84 @@ header.head
   h1 = og.headline
   = render 'application/breadcrumbs'
 
-.block
-  input.subheadline-input.date-filter[
-    type="text"
-    data-name="created_on"
-    placeholder=t('date_field')
-    value=params[:created_on]
-  ]
-  .subheadline = t '.users'
-  .cc-4
-    - cache [params[:created_on], @collection] do
-      - if @collection.none?
-        .b-nothing_here = t '.nothing_here'
-      - else
-        - @collection.each do |user|
-          .b-user.c-column.detailed
-            .info
-              .image-name
-                a.name[
-                  href=profile_url(user, subdomain: false)
-                  title=user.nickname
-                ] = user.nickname
+- if can? :manage, Ban
+  form.b-form.block method='get' params=current_url
+    .cc-3
+      - %i[id current_sign_in_ip last_sign_in_ip created_on].each do |field|
+        .c-column.block_m
+          .subheadline.m10
+            = field
+            - if params[field].present?
+              .misc-links
+                a.b-js-link[
+                  href=current_url(field => nil)
+                ] clear
+          .b-input
+            input[
+              class=('date-filter' if %i[created_on].include?(field))
+              type="text"
+              name=field
+              placeholder=(%i[created_on].include?(field) ? t('date_field') : field)
+              value=params[field]
+            ]
 
-                a[
-                  href=profile_url(user, subdomain: false)
-                  title=user.nickname
-                ]
-                  img.image[
-                    src=user.avatar_url(73)
-                    srcset="#{user.avatar_url 148} 2x"
-                    alt=user.nickname
-                  ]
-              p.last-online
-                = I18n.l user.created_at, format: :full
+    input.button type='submit'
+
+.b-collection_search[
+  data-search_url=current_url
+]
+  .field
+    input[
+      type="text"
+      placeholder=t('search.name')
+      value=params[:search]
+    ]
+    .clear
+
+  .searchable-collection.cc-4
+    - if @collection.any?
+      = render partial: 'users/user',
+        collection: @collection,
+        locals: { content_by: :moderation }
+    - else
+      .b-nothing_here = t 'nothing_found'
+
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        filter: 'b-user',
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)
+
+/ .block
+/   input.subheadline-input.date-filter[
+/     type="text"
+/     data-name="created_on"
+/     placeholder=t('date_field')
+/     value=params[:created_on]
+/   ]
+/   .subheadline = t '.users'
+/   .cc-4
+/     - cache [params[:created_on], @collection] do
+/       - if @collection.none?
+/         .b-nothing_here = t '.nothing_here'
+/       - else
+/         - @collection.each do |user|
+/           .b-user.c-column.detailed
+/             .info
+/               .image-name
+/                 a.name[
+/                   href=profile_url(user, subdomain: false)
+/                   title=user.nickname
+/                 ] = user.nickname
+
+/                 a[
+/                   href=profile_url(user, subdomain: false)
+/                   title=user.nickname
+/                 ]
+/                   img.image[
+/                     src=user.avatar_url(73)
+/                     srcset="#{user.avatar_url 148} 2x"
+/                     alt=user.nickname
+/                   ]
+/               p.last-online
+/                 = I18n.l user.created_at, format: :full

@@ -5,7 +5,9 @@
 @import mixins/responsive
 
 .b-user
-  &.avatar, &.named_avatar, &.avatar_fixed_margin
+  &.avatar,
+  &.named_avatar,
+  &.avatar_fixed_margin
     display: inline-block
     line-height: 0
 
@@ -35,7 +37,8 @@
       text-align: center
       max-width: 80px
 
-  &.detailed
+  &.detailed,
+  &.moderation
     border-bottom: 1px dashed #ddd
     margin-bottom: 5px
     height: 96px

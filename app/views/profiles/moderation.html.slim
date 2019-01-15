@@ -30,6 +30,12 @@
               = info_line field do
                 - if @resource.send(field).respond_to? :strftime
                   = l @resource.send(field), format: :full
+                - elsif field.to_s.match? /_ip$/
+                  = @resource.send(field)
+
+                  a.users-count[
+                    href=moderations_users_url(field => @resource.send(field))
+                  ] = pluralize User.where(field => @resource.send(field)).count, 'person', 'users'
                 - else
                   = @resource.send(field)
 

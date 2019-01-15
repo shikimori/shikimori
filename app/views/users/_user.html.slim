@@ -67,5 +67,26 @@
       title=user.nickname
     ] = user.nickname
 
+  - elsif content_by == :moderation
+    .info
+      .image-name
+        a.name[
+          href=profile_url(user, subdomain: false)
+          title=user.nickname
+        ] = user.nickname
+
+        a[
+          href=profile_url(user, subdomain: false)
+          title=user.nickname
+        ]
+          img.image[
+            src=user.avatar_url(73)
+            srcset="#{user.avatar_url 148} 2x"
+            alt=user.nickname
+          ]
+
+      p.last-online
+        = I18n.l user.created_at, format: :full
+
   - else
     - raise ArgumentError, content_by

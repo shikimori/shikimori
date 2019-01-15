@@ -5,19 +5,16 @@ class UsersController < ShikimoriController
   THRESHOLDS = [100, 175, 350]
 
   def index
-    @limit = LIMIT
-
     og page_title: i18n_i('User', :other)
 
     @collection = Users::Query.fetch
       .search(params[:search])
-      .paginate(@page, @limit)
+      .paginate(@page, LIMIT)
       .transform(&:decorate)
   end
 
   def similar # rubocop:disable MethodLength, AbcSize
     og noindex: true
-    @limit = LIMIT
     @threshold = params[:threshold].to_i
     @klass = params[:klass] == Manga.name.downcase ? Manga : Anime
 
@@ -34,8 +31,8 @@ class UsersController < ShikimoriController
 
     if @similar_ids
       ids = @similar_ids
-        .drop(@limit * (@page - 1))
-        .take(@limit)
+        .drop(LIMIT * (@page - 1))
+        .take(LIMIT)
 
       @collection = User
         .where(id: ids)
@@ -44,7 +41,7 @@ class UsersController < ShikimoriController
     end
 
     @add_postloader = @similar_ids&.any? &&
-      @page * @limit < SimilarUsersService::MAXIMUM_RESULTS
+      @page * LIMIT < SimilarUsersService::MAXIMUM_RESULTS
   end
 
   def autocomplete

@@ -9,12 +9,12 @@ header.head.misc
     = t '.notice'
 
 .b-collection_search[
-  data-search_url=users_url
+  data-search_url=current_url(search: nil)
 ]
   .field
     input[
       type="text"
-      placeholder=t('.search')
+      placeholder=t('search.name')
       value=params[:search]
     ]
     .clear
@@ -30,5 +30,5 @@ header.head.misc
     - if @collection.next_page?
       = render 'blocks/postloader',
         filter: 'b-user',
-        next_url: users_url(page: @collection.next_page, search: params[:search]),
-        prev_url: (users_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)

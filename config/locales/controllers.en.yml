@@ -211,7 +211,7 @@ en:
 
   moderations/users_controller:
     <<: *moderations_controller
-    page_title: Users registration
+    page_title: Users
 
   moderations/roles_controller:
     <<: *moderations_controller

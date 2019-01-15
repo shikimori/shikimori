@@ -2,7 +2,6 @@ en:
   users:
     index:
       list_of_similar_users: list of similar users
-      search: Search by name...
       notice: >-
         This page displays all users sorted by their last visit date.
 
