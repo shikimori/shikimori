@@ -49,37 +49,3 @@ header.head
         filter: 'b-user',
         next_url: current_url(page: @collection.next_page),
         prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)
-
-/ .block
-/   input.subheadline-input.date-filter[
-/     type="text"
-/     data-name="created_on"
-/     placeholder=t('date_field')
-/     value=params[:created_on]
-/   ]
-/   .subheadline = t '.users'
-/   .cc-4
-/     - cache [params[:created_on], @collection] do
-/       - if @collection.none?
-/         .b-nothing_here = t '.nothing_here'
-/       - else
-/         - @collection.each do |user|
-/           .b-user.c-column.detailed
-/             .info
-/               .image-name
-/                 a.name[
-/                   href=profile_url(user, subdomain: false)
-/                   title=user.nickname
-/                 ] = user.nickname
-
-/                 a[
-/                   href=profile_url(user, subdomain: false)
-/                   title=user.nickname
-/                 ]
-/                   img.image[
-/                     src=user.avatar_url(73)
-/                     srcset="#{user.avatar_url 148} 2x"
-/                     alt=user.nickname
-/                   ]
-/               p.last-online
-/                 = I18n.l user.created_at, format: :full
