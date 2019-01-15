@@ -6,7 +6,7 @@ $(() => $('.b-postloader').appear());
 $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) => {
   const $postloader = $(currentTarget);
   if ($postloader.data('locked') ||
-    ((type === 'appear') && $postloader.data('ignore-appear'))
+    (type === 'appear' && $postloader.data('ignore-appear'))
   ) {
     return;
   }
