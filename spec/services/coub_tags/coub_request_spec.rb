@@ -1,9 +1,9 @@
 describe CoubTags::CoubRequest, :vcr do
   subject { described_class.call tag, page }
+  let(:page) { 1 }
 
   context 'common tags' do
     let(:tag) { 'edm' }
-    let(:page) { 1 }
 
     it do
       is_expected.to have(10).items
@@ -19,7 +19,6 @@ describe CoubTags::CoubRequest, :vcr do
 
   context 'tag with non url symbols' do
     let(:tag) { 'girlfriend (kari)' }
-    let(:page) { 1 }
 
     it do
       is_expected.to have(1).item
@@ -36,5 +35,10 @@ describe CoubTags::CoubRequest, :vcr do
       before { allow(OpenURI).to receive(:open_uri).and_raise Timeout::Error }
       it { is_expected.to eq nil }
     end
+  end
+
+  context 'missing tag' do
+    let(:tag) { 'macross_frontier' }
+    it { is_expected.to eq [] }
   end
 end

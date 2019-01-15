@@ -8,6 +8,11 @@ class CoubTags::CoubRequest
   EXPIRES_IN = 1.month
   EXCEPTIONS = Network::FaradayGet::NET_ERRORS
 
+  NO_DATA_RESPONSE = {
+    coubs: [],
+    per_page: PER_PAGE
+  }.to_json
+
   def call
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       PgCache.fetch pg_cache_key, expires_in: EXPIRES_IN do
@@ -56,6 +61,12 @@ private
 
   def fetch
     OpenURI.open_uri(coub_url, 'User-Agent' => 'shikimori.org').read
+  rescue OpenURI::HTTPError => e
+    if e.message == '404 Not Found'
+      NO_DATA_RESPONSE
+    else
+      raise
+    end
   end
 
   def coub_url
