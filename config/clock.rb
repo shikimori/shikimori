@@ -96,6 +96,7 @@ module Clockwork
   every 1.week, 'weekly.stuff.1', at: 'Monday 00:45' do
     Anidb::ImportDescriptionsJob.perform_async
     Tags::CleanupImageboardsCacheJob.perform_async
+    Tags::CleanupCoubCacheJob.perform_async
     # FindAnimeWorker.perform_async :first_page
   end
 

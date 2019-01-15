@@ -15,6 +15,7 @@ class DanbooruController < ShikimoriController
     @collection = DanbooruTagsQuery.new(params[:search]).complete
   end
 
+  # TODO: extract into service object similar to CoubTags::CoubRequest
   def yandere
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       url = Base64.decode64 URI.decode(params[:url])

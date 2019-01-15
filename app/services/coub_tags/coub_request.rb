@@ -5,7 +5,7 @@ class CoubTags::CoubRequest
   EMBED_TEMPLATE = 'https://coub.com/embed/%<permalink>s'
   PER_PAGE = 10
 
-  EXPIRES_IN = 4.months
+  EXPIRES_IN = 1.month
   EXCEPTIONS = Network::FaradayGet::NET_ERRORS
 
   def call
@@ -18,14 +18,17 @@ class CoubTags::CoubRequest
     nil
   end
 
-  def self.pg_cache_key tag, page
+  def self.pg_cache_key tag:, page:
     [tag, page].join('|')
   end
 
 private
 
   def pg_cache_key
-    self.class.pg_cache_key @tag, @page
+    self.class.pg_cache_key(
+      tag: @tag,
+      page: @page
+    )
   end
 
   def convert data
