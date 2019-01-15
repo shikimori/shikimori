@@ -29,7 +29,7 @@ describe Tags::MatchNames do
       ].each do |name|
         context name do
           let(:names) { [name] }
-          it { is_expected.to eq 'sword_art_online' }
+          it { is_expected.to eq ['sword_art_online'] }
         end
       end
     end
@@ -42,7 +42,7 @@ describe Tags::MatchNames do
       ].each do |name|
         context name do
           let(:names) { [name] }
-          it { is_expected.to be_nil }
+          it { is_expected.to eq [] }
         end
       end
     end
@@ -52,13 +52,13 @@ describe Tags::MatchNames do
         let(:names) { ['Sword Art Online 2'] }
         let(:tags) { ['sword_art_online'] }
 
-        it { is_expected.to eq 'sword_art_online' }
+        it { is_expected.to eq ['sword_art_online'] }
       end
 
       context 'short name' do
         let(:names) { ['Sword 2'] }
         let(:tags) { ['sword'] }
-        it { is_expected.to be_nil }
+        it { is_expected.to eq [] }
       end
     end
 
@@ -66,7 +66,7 @@ describe Tags::MatchNames do
       let(:names) { ['working!!'] }
       let(:tags) { ['working!'] }
 
-      it { is_expected.to eq 'working!' }
+      it { is_expected.to eq ['working!'] }
     end
   end
 
@@ -76,12 +76,12 @@ describe Tags::MatchNames do
 
     context 'has direct match' do
       let(:names) { ['Sword Art Online'] }
-      it { is_expected.to eq 'sword_art_online' }
+      it { is_expected.to eq ['sword_art_online'] }
     end
 
     context 'has indirect match' do
       let(:names) { ['Sword Art Online 2'] }
-      it { is_expected.to be_nil }
+      it { is_expected.to eq [] }
     end
   end
 end

@@ -1,11 +1,11 @@
 class Tags::MatchNames
-  method_object %i[names! tags! no_correct!]
+  method_object %i[names! tags! no_correct]
 
   SHORT_NAME_SIZE = 6
   MAXIMUM_NAME_DIFFERENCE = 0.75 # i.e. name can be shortened for 25%
 
   def call
-    (generate_names & @tags).first
+    generate_names & @tags
   end
 
 private

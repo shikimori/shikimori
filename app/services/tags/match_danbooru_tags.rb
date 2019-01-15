@@ -53,7 +53,7 @@ private
       names: names,
       tags: tags,
       no_correct: no_correct
-    )
+    ).first
   end
 
   def animes_scope

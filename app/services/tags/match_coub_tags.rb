@@ -3,15 +3,15 @@ class Tags::MatchCoubTags
 
   def call
     scope.find_each do |anime|
-      tag = Tags::MatchNames.call(
+      tags = Tags::MatchNames.call(
         names: names(anime),
         tags: @tags,
         no_correct: false
       )
 
-      if tag.present?
-        anime.update coub_tag: tag
-        log anime, tag
+      if tags.any?
+        anime.update coub_tags: tags
+        log anime, tags
       end
     end
   end
@@ -25,12 +25,12 @@ private
   end
 
   def scope
-    Anime.where(coub_tag: nil).order(:franchise, :id)
+    Anime.where(coub_tags: []).order(:franchise, :id)
   end
 
-  def log model, tag
+  def log model, tags
     NamedLogger.coub_tag.info(
-      "`#{tag}` for #{model.class.name.downcase} ID=#{model.id} NAME=#{model.name}"
+      "`#{tags.join('`,`')}` for #{model.class.name.downcase} ID=#{model.id} NAME=#{model.name}"
     )
   end
 end
