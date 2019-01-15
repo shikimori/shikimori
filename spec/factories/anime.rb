@@ -15,7 +15,7 @@ FactoryBot.define do
     censored { false }
     next_episode_at { nil }
     imageboard_tag { nil }
-    coub_tag { nil }
+    coub_tags { [] }
 
     after :build do |model|
       stub_method model, :track_changes
