@@ -3,9 +3,11 @@ class Tags::CleanupIgnoredCoubTags
 
   def call
     scope.find_each do |anime|
+      new_tags = anime.coub_tags - config.ignored_tags
+
       anime.update!(
-        coub_tag: nil,
-        desynced: anime.desynced - %w[coub_tag]
+        coub_tags: new_tags,
+        desynced: new_tags.any? ? anime.desynced : anime.desynced - %w[coub_tags]
       )
     end
   end
@@ -13,7 +15,7 @@ class Tags::CleanupIgnoredCoubTags
 private
 
   def scope
-    Anime.where(coub_tag: config.ignored_tags)
+    Anime.where("coub_tags @> '{\"#{config.ignored_tags.join('","')}\"}'")
   end
 
   def config
