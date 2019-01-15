@@ -67,6 +67,7 @@ module Clockwork
     AnimeOnline::FixAnimeVideoAuthors.perform_async
     AnimeOnline::CleanupAnimeVideos.perform_async
     DbEntries::CleanupMalBanned.perform_async
+    Votable::CleanupCheatBotVotes.perform_async
     # Users::CleanupDoorkeeperTokens.perform_async
   end
 
