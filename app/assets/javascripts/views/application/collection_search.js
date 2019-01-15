@@ -120,12 +120,12 @@ export default class CollectionSearch extends View {
     const url = this.$root.data(`${key}_url`);
     if (!url) { return null; }
 
-    const uri = URI(url);
+    const uri = URI(url).removeQuery('search');
 
     if (phrase) {
-      return uri.query({ search: phrase });
+      return uri.addQuery({ search: phrase });
     }
-    return uri.removeQuery('search');
+    return uri;
   }
 
   _showAjax() {
