@@ -4,6 +4,10 @@ class Versions::ScreenshotsVersion < Version
     .constructor(&:to_sym)
     .enum(:upload, :reposition, :delete)
 
+  def antispam_enabled?
+    false
+  end
+
   def action
     Actions[item_diff['action']]
   end

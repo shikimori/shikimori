@@ -3,6 +3,10 @@ class Versions::RoleVersion < Version
     .constructor(&:to_sym)
     .enum(:add, :remove)
 
+  def antispam_enabled?
+    false
+  end
+
   def action
     Actions[item_diff['action']]
   end
