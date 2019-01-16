@@ -90,8 +90,6 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
     )
   end
 
-  def help; end
-
   def viewed
     video = AnimeVideo.find params[:id]
     @user_rate = @anime.rates.find_or_initialize_by user: current_user

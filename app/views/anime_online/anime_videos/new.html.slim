@@ -21,7 +21,8 @@
       = f.input :source, as: :hidden
       = f.input :state, as: :hidden
       = f.input :episode
-      = f.input :url, hint: "<a href='#{help_video_online_index_url @anime}' target='_blank'>как правильно получить ссылку на видео</a>".html_safe
+      = f.input :url
+      / = f.input :url, hint: "<a href='#{help_video_online_index_url @anime}' target='_blank'>как правильно получить ссылку на видео</a>".html_safe
       = f.input :author_name,
         input_html: { 'data-autocomplete' => autocomplete_anime_video_authors_url }
       = f.input :kind,
