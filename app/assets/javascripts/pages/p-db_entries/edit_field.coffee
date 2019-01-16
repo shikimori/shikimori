@@ -136,7 +136,15 @@ page_load '.db_entries-edit_field', ->
 
   if $('.edit-page.synonyms').exists()
     require.ensure [], ->
-      init_synonyms_app(
+      init_collection_app(
+        require('vue/instance').Vue,
+        require('vue/components/synonyms.vue').default,
+        require('vue/stores').collection
+      )
+
+  if $('.edit-page.coub_tags').exists()
+    require.ensure [], ->
+      init_collection_app(
         require('vue/instance').Vue,
         require('vue/components/synonyms.vue').default,
         require('vue/stores').collection
@@ -161,20 +169,20 @@ init_external_links_app = (Vue, ExternalLinks, store) ->
       entry_id: entry_id
     })
 
-init_synonyms_app = (Vue, Synonyms, store) ->
-  resource_type = $('#vue_synonyms').data('resource_type')
-  entry_type = $('#vue_synonyms').data('entry_type')
-  entry_id = $('#vue_synonyms').data('entry_id')
-  synonyms = $('#vue_synonyms').data('synonyms')
+init_collection_app = (Vue, Collection, store) ->
+  resource_type = $('#vue_app').data('resource_type')
+  entry_type = $('#vue_app').data('entry_type')
+  entry_id = $('#vue_app').data('entry_id')
+  values = $('#vue_app').data('values')
 
-  store.state.collection = synonyms.map (synonym, index) ->
+  store.state.collection = values.map (synonym, index) ->
     key: index
     name: synonym
 
   new Vue
-    el: '#vue_synonyms'
+    el: '#vue_app'
     store: store
-    render: (h) -> h(Synonyms, props: {
+    render: (h) -> h(Collection, props: {
       resource_type: resource_type
       entry_type: entry_type
       entry_id: entry_id

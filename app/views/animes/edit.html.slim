@@ -201,6 +201,15 @@
             data-dynamic="week_registered"
           ] = t 'actions.edit'
 
+        - if @resource.anime?
+          li
+            .field = @resource.class.human_attribute_name(:coub_tags)
+            .value = @resource.coub_tags.join(', ')
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:coub_tags)
+              data-dynamic="week_registered"
+            ] = t 'actions.edit'
+
         li
           .field = @resource.class.human_attribute_name(:genres)
           .value = @resource.genres.map { |v| localization_span v }.join(', ').html_safe
