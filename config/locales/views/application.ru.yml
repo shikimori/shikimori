@@ -19,7 +19,7 @@ ru:
         info: Инфо
         moderation: Модерация и контент
         site_rules: Правила сайта
-        socials: Shikimori в социальных сетях
+        socials: Мы в социальных сетях
         discord: Канал в discord
       anime_online:
         <<: *shikimori

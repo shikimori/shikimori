@@ -41,7 +41,7 @@ class Topic < ApplicationRecord
     site_problems: { ru: 102, en: 240_000 },
     anime_industry: { ru: 81_906, en: 250_000 },
     contests_proposals: { ru: 212_657 },
-    socials: { ru: 270099 }
+    socials: { ru: 270_099 }
   }
 
   LINKED_TYPES = /
@@ -91,11 +91,13 @@ class Topic < ApplicationRecord
 
   def title
     return self[:title]&.html_safe if user&.bot?
+
     self[:title]
   end
 
   def viewed?
     return true if generated?
+
     # invokes Viewable#viewed?
     super
   end
@@ -146,12 +148,14 @@ class Topic < ApplicationRecord
   # оригинальный текст без сгенерированных автоматом тегов
   def original_body
     return body if generated?
+
     (body || '').sub(NEWS_WALL, '')
   end
 
   # сгенерированные автоматом теги
   def appended_body
     return '' if generated?
+
     (body || '')[NEWS_WALL] || ''
   end
 

@@ -19,7 +19,7 @@ en:
         info: Info
         moderation: Moderation
         site_rules: Site rules
-        socials: Shikimori in social networks
+        socials: In social networks
         discord: Discord channel
       anime_online:
         <<: *shikimori

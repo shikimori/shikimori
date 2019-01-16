@@ -180,6 +180,7 @@
             as: :topic_view
 
     - if ru_host?
+      .midheadline.yellow = t '.our_projects'
       / #vk_groups
       center.block
         a href="https://vk.com/shikimori"
@@ -194,7 +195,7 @@
 
     - cache @dashboard_view.cache_keys[:updates] do
       .block
-        .midheadline.yellow.linkheadline
+        .midheadline.orange.linkheadline
           a[
             href=forum_topics_url(:updates)
             title=t('.anime_updates')
