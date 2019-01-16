@@ -5,20 +5,17 @@ header.head
 .cc-2a
   .c-column.m0
     ul.b-list
-      - site_rules = StickyTopicView.site_rules(locale_from_host)
-      - faq = StickyClubView.faq(locale_from_host)
-
       li: a.entry[
         href=about_pages_url
         title=t('about_site')
       ] = t 'about_site'
       li: a.entry[
-        href=site_rules.url
+        href=StickyTopicView.site_rules(locale_from_host).url
         title=t('application.top_menu.shikimori.site_rules')
       ] = t 'application.top_menu.shikimori.site_rules'
       - if ru_host?
         li: a.entry[
-          href=faq.url
+          href=StickyClubView.faq(locale_from_host).url
           title=t('application.top_menu.shikimori.faq')
         ] = t 'application.top_menu.shikimori.faq'
       - if ignore_copyright?
@@ -28,9 +25,9 @@ header.head
         ] = t 'copyrighted_animes'
       - if ru_host?
         li: a.entry[
-          href=Shikimori::VK_CLUB_URL
-          title=t('application.top_menu.shikimori.vk')
-        ] = t 'application.top_menu.shikimori.vk'
+          href=StickyTopicView.socials(locale_from_host).url
+          title=t('application.top_menu.shikimori.socials')
+        ] = t 'application.top_menu.shikimori.socials'
         li: a.entry[
           href=Shikimori::DISCORD_CHANNEL_URL
           title=t('application.top_menu.shikimori.discord')

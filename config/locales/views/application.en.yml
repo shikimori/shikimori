@@ -19,7 +19,7 @@ en:
         info: Info
         moderation: Moderation
         site_rules: Site rules
-        vk: Group in vk.com
+        socials: Shikimori in social networks
         discord: Discord channel
       anime_online:
         <<: *shikimori

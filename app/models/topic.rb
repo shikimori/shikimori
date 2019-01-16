@@ -40,7 +40,8 @@ class Topic < ApplicationRecord
     ideas_and_suggestions: { ru: 10_586, en: 230_000 },
     site_problems: { ru: 102, en: 240_000 },
     anime_industry: { ru: 81_906, en: 250_000 },
-    contests_proposals: { ru: 212_657 }
+    contests_proposals: { ru: 212_657 },
+    socials: { ru: 270099 }
   }
 
   LINKED_TYPES = /

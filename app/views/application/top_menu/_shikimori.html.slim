@@ -118,16 +118,14 @@
         title=t('about_site')
       ] = t 'about_site'
 
-      - site_rules = StickyTopicView.site_rules(locale_from_host)
       a.entry[
-        href=site_rules.url
+        href=StickyTopicView.site_rules(locale_from_host).url
         title=t('.site_rules')
       ] = t '.site_rules'
 
       - if ru_host?
-        - faq = StickyClubView.faq(locale_from_host)
         a.entry[
-          href=faq.url
+          href=StickyClubView.faq(locale_from_host).url
           title=t('.faq')
         ] = t '.faq'
 
@@ -139,9 +137,9 @@
 
       - if ru_host?
         a.entry[
-          href=Shikimori::VK_CLUB_URL
-          title=t('.vk')
-        ] = t '.vk'
+          href=StickyTopicView.socials(locale_from_host).url
+          title=t('.socials')
+        ] = t '.socials'
 
         a.entry[
           href=Shikimori::DISCORD_CHANNEL_URL

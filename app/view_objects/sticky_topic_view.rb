@@ -6,8 +6,8 @@ class StickyTopicView < Dry::Struct
   extend Translation
 
   attribute :url, Types::Strict::String
-  attribute :title, Types::Strict::String
-  attribute :description, Types::Strict::String
+  attribute :title, Types::Strict::String.optional
+  attribute :description, Types::Strict::String.optional
 
   STICKY_TOPICS = %i[
     site_rules
@@ -16,7 +16,10 @@ class StickyTopicView < Dry::Struct
     site_problems
     contests_proposals
   ]
-  STICKY_TOPICS.each do |topic_name|
+  GLOBAL_TOPICS = %i[
+    socials
+  ]
+  (STICKY_TOPICS + GLOBAL_TOPICS).each do |topic_name|
     define_singleton_method topic_name do |locale|
       topic_id = Topic::TOPIC_IDS[topic_name][locale.to_sym]
       next unless topic_id.present?
@@ -26,8 +29,24 @@ class StickyTopicView < Dry::Struct
           :"@#{topic_name}_#{locale}",
           new(
             url: url(topic_id),
-            title: title(topic_id),
-            description: description(topic_name, locale)
+            title: (title(topic_id) if STICKY_TOPICS.include?(topic_name)),
+            description: (description(topic_name, locale) if STICKY_TOPICS.include?(topic_name))
+          )
+        )
+    end
+  end
+  GLOBAL_TOPICS.each do |topic_name|
+    define_singleton_method topic_name do |locale|
+      topic_id = Topic::TOPIC_IDS[topic_name][locale.to_sym]
+      next unless topic_id.present?
+
+      instance_variable_get(:"@#{topic_name}_#{locale}") ||
+        instance_variable_set(
+          :"@#{topic_name}_#{locale}",
+          new(
+            url: url(topic_id),
+            title: '',
+            description: ''
           )
         )
     end
