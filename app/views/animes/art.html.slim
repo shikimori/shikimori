@@ -1,7 +1,7 @@
 = render layout: 'animes/page' do
+  .b-options-floated.mobile-phone_portrait.r-edit = @resource.imageboard_tag || t('answers.no')
   .subheadline-buttons
     a.item-edit href=@resource.edit_field_url(:imageboard_tag)
-  .b-options-floated.mobile-phone_portrait.r-edit = @resource.imageboard_tag || t('answers.no')
   .subheadline.m10 = og.headline
 
   .b-gallery[
