@@ -119,12 +119,13 @@
 
   .c-generated_news
     - if ru_host?
+      / convert -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
       center.block
-        a href="https://vk.com/wall-9273458_149371"
+        a href="https://vk.com/wall-9273458_154251"
           img[
             style="max-width: 100%"
-            src="/assets/globals/events/vk.jpg?v2"
-            srcset="/assets/globals/events/vk@2x.jpg?v2 2x"
+            src="/assets/globals/events/vk.jpg?v3"
+            srcset="/assets/globals/events/vk@2x.jpg?v3 2x"
           ]
 
     / - if Rails.env.production? && ru_host?
