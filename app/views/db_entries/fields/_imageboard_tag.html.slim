@@ -1,7 +1,7 @@
 .block
   = simple_form_for resource.object do |f|
     = f.input :imageboard_tag,
-      input_html: { 'data-autocomplete' => autocomplete_danbooru_index_url }
+      input_html: { 'data-autocomplete' => autocomplete_imageboards_url }
     = render 'versions/reason'
 
     .buttons

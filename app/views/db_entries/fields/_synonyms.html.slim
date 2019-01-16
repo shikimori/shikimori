@@ -1,11 +1,13 @@
+.m5
+  b = Anime.human_attribute_name :synonyms
 .cc-2
   .c-column
     = simple_form_for resource.object do |f|
-      #vue_synonyms[
+      #vue_app[
         data-resource_type=@resource.object.class.name
         data-entry_id=@resource.id
         data-entry_type=@resource.object.class.base_class.name
-        data-synonyms=@resource.synonyms.to_json
+        data-values=@resource.synonyms.to_json
       ]
         .block_m.b-nothing_here = t 'loading'
       = render 'versions/reason'

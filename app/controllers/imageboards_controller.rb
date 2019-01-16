@@ -1,4 +1,4 @@
-class DanbooruController < ShikimoriController
+class ImageboardsController < ShikimoriController
   respond_to :json, only: %i[autocomplete yandere]
 
   USER_AGENT_WITH_SSL = {
@@ -11,12 +11,8 @@ class DanbooruController < ShikimoriController
   VALID_URL = %r{https?://(?:yande.re|konachan.com|safebooru.org|danbooru.donmai.us)/}
   EXPIRES_IN = 4.months
 
-  def autocomplete
-    @collection = DanbooruTagsQuery.new(params[:search]).complete
-  end
-
   # TODO: extract into service object similar to CoubTags::CoubRequest
-  def yandere
+  def fetch
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       url = Base64.decode64 URI.decode(params[:url])
       raise Forbidden, url unless url.match? VALID_URL
@@ -33,6 +29,10 @@ class DanbooruController < ShikimoriController
 
       render json: json
     end
+  end
+
+  def autocomplete
+    @collection = DanbooruTagsQuery.new(params[:search]).complete
   end
 
   def self.pg_cache_key tag:, imageboard:, page:

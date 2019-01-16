@@ -414,7 +414,6 @@ Rails.application.routes.draw do
           end
 
           collection do
-            get :help
             get '(/:episode)(/:video_id)', action: :index, as: :play,
               episode: /\d+/, video_id: /\d+/
             post :extract_url
@@ -627,9 +626,8 @@ Rails.application.routes.draw do
       #get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
     end
 
-    # картинки с danbooru
-    resources :danbooru, only: [], concerns: %i[autocompletable] do
-      get 'yandere/:url' => :yandere, url: /.*/, on: :collection
+    resources :imageboards, only: [], concerns: %i[autocompletable] do
+      get 'fetch/:url' => :fetch, url: /.*/, on: :collection
     end
 
     # cosplay
@@ -695,6 +693,7 @@ Rails.application.routes.draw do
           get :screenshots
           get :videos
           get 'cosplay(/page/:page)' => :cosplay, as: :cosplay
+          get :coub if kind == 'animes'
 
           get :related
           get :chronology
@@ -732,7 +731,7 @@ Rails.application.routes.draw do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian synonyms license_name_ru description_ru description_en image
         kind episodes rating duration
-        screenshots videos torrents_name imageboard_tag aired_on released_on genre_ids
+        screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids
         external_links
       }.join('|'))
 

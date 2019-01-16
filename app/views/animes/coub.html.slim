@@ -1,0 +1,17 @@
+= render layout: 'animes/page' do
+  .b-options-floated.mobile-tablet.r-edit
+    - if @resource.coub_tags.any?
+      = truncate @resource.coub_tags.join(', '), length: 50
+    - else
+      = t 'answers.no'
+  .subheadline-buttons
+    a.item-edit href=@resource.edit_field_url(:coub_tags)
+  .subheadline.m10 = og.headline
+
+  / .b-gallery[
+    data-imageboard_tag=@resource.coub_tags
+  / ]
+    / data-with-hentai-images=(user_signed_in? && current_user.preferences.show_hentai_images?).to_json
+    / .container
+      .grid_sizer
+

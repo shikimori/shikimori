@@ -130,12 +130,21 @@ class AnimesController < DbEntriesController
     unless @resource.display_sensitive?
       return redirect_to @resource.url, status: 301
     end
+
     og noindex: true
     og page_title: t('imageboard_art')
   end
 
+  def coub
+    redirect_to @resource.url, status: 301 if @resource.coub_tags.none?
+    raise ActiveRecord::RecordNotFound if Rails.env.production?
+
+    og noindex: true
+    og page_title: 'Coub'
+  end
+
   def images
-    return redirect_to @resource.art_url, status: 301
+    redirect_to @resource.art_url, status: 301
   end
 
   def cosplay
@@ -147,6 +156,7 @@ class AnimesController < DbEntriesController
     if @collection.none?
       return redirect_to @resource.url, status: 301
     end
+
     og page_title: t('cosplay')
   end
 

@@ -76,7 +76,7 @@ module.exports = class LoaderBase
       !(@forbidden_tags.test(image.tags) || image.rating == 'e')
 
   _shiki_load_url: ->
-    "/danbooru/yandere/#{Base64.encode @_images_source_url()}" +
+    "/imageboards/fetch/#{Base64.encode @_images_source_url()}" +
       "?tag=#{@tag}&page=#{@page}&imageboard=#{@name.toLowerCase()}"
 
   _images_source_url: ->

@@ -104,6 +104,12 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#coub' do
+    let(:anime) { create :anime, coub_tags: %i[working] }
+    subject! { get :coub, params: { id: anime.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#images' do
     subject! { get :images, params: { id: anime.to_param } }
     it { expect(response).to redirect_to art_anime_url(anime) }
