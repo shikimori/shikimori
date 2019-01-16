@@ -403,6 +403,9 @@ en:
     score: Score
     other: Others
 
+  comments_controller:
+    comment_by: Comment from %{nickname}
+
   shikimori_controller:
     you_are_banned: You are banned till %{datetime}
 

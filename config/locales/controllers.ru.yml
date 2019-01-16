@@ -403,6 +403,9 @@ ru:
     score: Оценка
     other: Прочее
 
+  comments_controller:
+    comment_by: Комментарий от %{nickname}
+
   shikimori_controller:
     you_are_banned: Ты @{f:забанена|m:забанен} до %{datetime}
 

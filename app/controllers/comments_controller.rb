@@ -1,7 +1,7 @@
 class CommentsController < ShikimoriController
   include CommentHelper
 
-  def show # rubocop:disable AbcSize
+  def show # rubocop:disable AbcSize, MethodLength
     og noindex: true
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
 
@@ -17,6 +17,12 @@ class CommentsController < ShikimoriController
     if comment.is_a? NoComment
       render :missing
     else
+      og(
+        image: comment.user.avatar_url(160),
+        page_title: i18n_t('comment_by', nickname: comment.user.nickname),
+        description: comment.body.gsub(%r{\[[/\w_ =-]+\]}, '')
+      )
+
       render :show
     end
   end
@@ -41,6 +47,7 @@ class CommentsController < ShikimoriController
     topic = params[:topic_type].constantize.find(params[:topic_id])
 
     raise Forbidden unless comment.commentable == topic
+
     from = params[:skip].to_i
     to = [params[:limit].to_i, 100].min
 
