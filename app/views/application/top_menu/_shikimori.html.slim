@@ -118,12 +118,13 @@
         title=t('about_site')
       ] = t 'about_site'
 
-      a.entry[
-        href=StickyTopicView.site_rules(locale_from_host).url
-        title=t('.site_rules')
-      ] = t '.site_rules'
+      - unless Rails.env.test?
+        a.entry[
+          href=StickyTopicView.site_rules(locale_from_host).url
+          title=t('.site_rules')
+        ] = t '.site_rules'
 
-      - if ru_host?
+      - if ru_host? && !Rails.env.test?
         a.entry[
           href=StickyClubView.faq(locale_from_host).url
           title=t('.faq')
@@ -135,7 +136,7 @@
           title=t('copyrighted_animes')
         ] = t 'copyrighted_animes'
 
-      - if ru_host?
+      - if ru_host? && !Rails.env.test?
         a.entry[
           href=StickyTopicView.socials(locale_from_host).url
           title=t('.socials')
