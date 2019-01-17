@@ -4,6 +4,8 @@ class CoubTags::Fetch
   PER_PAGE = 10
 
   def call
+    return Coub::Results.new coubs: [], iterator: nil if @tags.none?
+
     tag, page, overfetched = (@iterator || default_iterator).split(':')
 
     fetch(

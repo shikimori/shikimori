@@ -73,6 +73,19 @@ describe CoubTags::Fetch do
 
   let(:iterator) { nil }
 
+  context 'no tags' do
+    let(:tags) { %w[] }
+
+    it do
+      is_expected.to be_kind_of Coub::Results
+      is_expected.to have_attributes(
+        coubs: [],
+        iterator: nil
+      )
+      expect(CoubTags::CoubRequest).to_not have_received :call
+    end
+  end
+
   context 'one tag' do
     let(:tags) { %w[zzz] }
 
