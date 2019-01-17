@@ -1,3 +1,5 @@
+import ImageboardGallery from 'views/images/imageboard_gallery'
+
 page_load '.db_entries-edit_field', ->
   $description = $('.edit-page.description_ru, .edit-page.description_en')
 
@@ -62,7 +64,7 @@ page_load '.db_entries-edit_field', ->
     gallery_html = $gallery.html()
 
     if $gallery.data 'imageboard_tag'
-      new Images.ImageboardGallery $gallery
+      new ImageboardGallery $gallery
 
     $('#anime_imageboard_tag, #manga_imageboard_tag, #character_imageboard_tag')
       .completable()

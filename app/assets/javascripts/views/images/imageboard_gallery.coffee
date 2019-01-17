@@ -1,10 +1,8 @@
 import URI from 'urijs'
-
 import PreloadedGallery from './preloaded_gallery'
 
-using 'Images'
-# динамическая загрузка картинок с борд danbooru, oreno.imouto, konachan, safebooru
-class Images.ImageboardGallery extends PreloadedGallery
+# dynamic loader for images from imageboards (danbooru, oreno.imouto, konachan, safebooru)
+export default class ImageboardGallery extends PreloadedGallery
   _after_initialize: ->
     @rel = 'imageboards'
 

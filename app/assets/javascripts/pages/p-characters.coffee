@@ -1,5 +1,6 @@
 import CollectionSearch from 'views/application/collection_search'
 import FavouriteStar from 'views/application/favourite_star'
+import ImageboardGallery from 'views/images/imageboard_gallery'
 
 page_load 'characters_index', ->
   new CollectionSearch '.b-collection_search'
@@ -15,7 +16,7 @@ page_load 'characters_show', ->
       $editor.focus()
 
 page_load 'characters_art', ->
-  new Images.ImageboardGallery '.b-gallery'
+  new ImageboardGallery '.b-gallery'
 
 page_load 'characters_cosplay', ->
   new Animes.Cosplay '.l-content'
