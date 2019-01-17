@@ -629,6 +629,9 @@ Rails.application.routes.draw do
     resources :imageboards, only: [], concerns: %i[autocompletable] do
       get 'fetch/:url' => :fetch, url: /.*/, on: :collection
     end
+    resources :coubs, only: [], concerns: %i[autocompletable] do
+      get 'fetch/:iterator' => :fetch, url: /.*/, on: :member
+    end
 
     # cosplay
     constraints id: /\d[^\/]*?/ do
