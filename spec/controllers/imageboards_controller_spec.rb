@@ -26,7 +26,7 @@ describe ImageboardsController do
     subject! { get :autocomplete, params: { search: 'test' } }
 
     it do
-      expect(collection).to have(1).item
+      expect(collection).to eq [tag_2]
       expect(response).to have_http_status :success
     end
   end
