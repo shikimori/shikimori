@@ -204,11 +204,6 @@ describe AnimeOnline::AnimeVideosController, :vcr do
     end
   end
 
-  describe '#help' do
-    subject! { get :help, params: { anime_id: anime.to_param } }
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#track_view' do
     include_context :authenticated
     let(:video) { create :anime_video, watch_view_count: view_count, anime: anime }

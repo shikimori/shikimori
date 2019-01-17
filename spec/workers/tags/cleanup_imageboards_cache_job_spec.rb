@@ -2,53 +2,53 @@ describe Tags::CleanupImageboardsCacheJob do
   let!(:pg_cache_1) { create :pg_cache_data, key: 'zxc' }
   let!(:pg_cache_2) do
     create :pg_cache_data,
-      key: DanbooruController.pg_cache_key(
+      key: ImageboardsController.pg_cache_key(
         tag: anime_1.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
         page: described_class::PAGES.sample
       ),
-      expires_at: DanbooruController::EXPIRES_IN.from_now -
+      expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN + 1.day
   end
   let!(:pg_cache_3) do
     create :pg_cache_data,
-      key: DanbooruController.pg_cache_key(
+      key: ImageboardsController.pg_cache_key(
         tag: anime_1.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
         page: described_class::PAGES.sample
       ),
-      expires_at: DanbooruController::EXPIRES_IN.from_now -
+      expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
   end
   let!(:pg_cache_4) do
     create :pg_cache_data,
-      key: DanbooruController.pg_cache_key(
+      key: ImageboardsController.pg_cache_key(
         tag: anime_2.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
         page: described_class::PAGES.sample
       ),
-      expires_at: DanbooruController::EXPIRES_IN.from_now -
+      expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
   end
 
   let!(:pg_cache_5) do
     create :pg_cache_data,
-      key: DanbooruController.pg_cache_key(
+      key: ImageboardsController.pg_cache_key(
         tag: character_1.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
         page: described_class::PAGES.sample
       ),
-      expires_at: DanbooruController::EXPIRES_IN.from_now -
+      expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
   end
   let!(:pg_cache_6) do
     create :pg_cache_data,
-      key: DanbooruController.pg_cache_key(
+      key: ImageboardsController.pg_cache_key(
         tag: character_2.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
         page: described_class::PAGES.sample
       ),
-      expires_at: DanbooruController::EXPIRES_IN.from_now -
+      expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
   end
 
