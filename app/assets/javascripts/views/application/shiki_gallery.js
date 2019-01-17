@@ -37,11 +37,12 @@ export default class ShikiGallery extends View {
   _addUpload(isShikiUploadCustom) {
     this.$container
       .shikiFile({
-        progress: this.$container.prev() })
-
+        progress: this.$container.prev()
+      })
       .on('upload:success', (e, response) => {
-        if (isShikiUploadCustom) { return; }
-        this._deployImage(response.html, DEPLOY_INTERVAL, 'prepended');
+        if (!isShikiUploadCustom) {
+          this._deployImage(response.html, DEPLOY_INTERVAL, 'prepended');
+        }
       });
   }
 

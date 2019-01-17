@@ -1,5 +1,5 @@
 uEvent = require 'uevent'
-StaticLoader = require './static_loader'
+StaticLoader = require('./static_loader').default
 SafebooruLoader = require './imageboards/safebooru_loader'
 DanbooruLoader = require './imageboards/danbooru_loader'
 YandereLoader = require './imageboards/yandere_loader'
@@ -24,45 +24,46 @@ module.exports = class ImageboardsLoader extends StaticLoader
     KonachanLoader
   ]
 
-  constructor: (@batch_size, @tags) ->
-    uEvent.mixin @
+  initialize: () ->
+    @tag = @cache
+    @cache = {}
 
-    @forbidden_tags =
+    @forbiddenTags =
       new RegExp FORBIDDEN_TAGS.map((v) -> "\\b#{v}\\b").join('|')
 
     @cache = []
     @hashes = {}
-    @awaiting_load = false
+    @awaitingLoad = false
 
-    @loaders = LOADERS.map (klass) => new klass(@tags, @forbidden_tags)
+    @loaders = LOADERS.map (klass) => new klass(@tag, @forbiddenTags)
     @loaders.forEach (loader) =>
-      loader.on loader.FETCH_EVENT, @_loader_fetch
+      loader.on loader.FETCH_EVENT, @_loaderFetch
 
   # public methods
   fetch: (count) ->
     if @cache.length
-      @_return_from_cache()
+      @_returnFromCache()
     else
-      @awaiting_load = true
-      @_vacant_loaders().forEach (loader) -> loader.fetch()
+      @awaitingLoad = true
+      @_vacantLoaders().forEach (loader) -> loader.fetch()
 
-  is_finished: ->
+  isFinished: ->
     @cache.length == 0 &&
       @loaders.every (loader) -> loader.is_finished
 
   # callbacks
   # loader returned images
-  _loader_fetch: (images) =>
+  _loaderFetch: (images) =>
     images
       .filter (image) => (image.md5 not of @hashes)
       .forEach (image) =>
         @hashes[image.md5] = true
         @cache.push image
 
-    if @awaiting_load
-      @awaiting_load = false
-      @_return_from_cache()
+    if @awaitingLoad
+      @awaitingLoad = false
+      @_returnFromCache()
 
   # private methods
-  _vacant_loaders: ->
+  _vacantLoaders: ->
     @loaders.filter (loader) -> !loader.is_loading && !loader.is_finished
