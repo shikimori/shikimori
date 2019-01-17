@@ -51,7 +51,7 @@ export default class ImageboardsLoader extends StaticLoader {
 
   isFinished() {
     return (this.cache.length === 0) &&
-      this.loaders.every(loader => loader.is_finished);
+      this.loaders.every(loader => loader.isFinished);
   }
 
   // callbacks
@@ -72,6 +72,6 @@ export default class ImageboardsLoader extends StaticLoader {
 
   // private methods
   _vacantLoaders() {
-    return this.loaders.filter(loader => !loader.is_loading && !loader.is_finished);
+    return this.loaders.filter(loader => !loader.is_loading && !loader.isFinished);
   }
 }
