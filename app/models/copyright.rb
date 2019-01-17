@@ -40,18 +40,22 @@ module Copyright
     35851, # Sayonara no Asa ni Yakusoku no Hana wo Kazarou
     10259 # Da hai
   ]
+  PIONER_COPYRIGHTED = [
+    # https://www.mos-gorsud.ru/mgs/defend/statementForm/80619321-6d78-4a51-8ca2-ae42d2c3c1ed
+    199, # Spirited Away
+    36936 # Mirai no Mirai
+  ]
   OTHER_COPYRIGHTED = [
     # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
     # [Notice_ID:*IdOAQy*] Nintendo Company Ltd - Нарушение прав правообладателей / Nintendo Company Ltd - Abuse
     19157,
     # письмо от chelnakova@group-ib.ru на mail+copyright@shikimori.org
     28805, # Bakemono no ko
+    # ООО "СИНЕМА ГАЛЭКСИ"
     # https://www.mos-gorsud.ru/mgs/defend/statementForm/d059c855-42f4-40a3-a6ec-930b5af44187
     23273, # Shigatsu wa Kimi no Uso
     28069, # Shigatsu wa Kimi no Uso: Moments
-    # https://www.mos-gorsud.ru/mgs/defend/statementForm/80619321-6d78-4a51-8ca2-ae42d2c3c1ed
-    199 # Spirited Away
-  ] + ISTARI_COPYRIGHTED + VGTRK_COPYRIGHTED + CAPELLA_FILM_COPYRIGHTED
+  ] + PIONER_COPYRIGHTED + ISTARI_COPYRIGHTED + VGTRK_COPYRIGHTED + CAPELLA_FILM_COPYRIGHTED
 
   WAKANIM_COPYRIGHTED = [
     36144, # Garo: Vanishing Line | Russia + Eastern Europe 2017-10-01 - 2024-10-01
