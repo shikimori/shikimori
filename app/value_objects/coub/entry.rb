@@ -1,8 +1,12 @@
 class Coub::Entry < Dry::Struct
-  attribute :player_url, Types::String
+  attribute :permalink, Types::String
   attribute :image_url, Types::String
+
   attribute :categories, Types::Array.of(Types::String)
   attribute :tags, Types::Array.of(Types::String)
+
+  attribute :title, Types::String
+  attribute :author, Coub::Author
 
   def anime?
     categories.none? ||

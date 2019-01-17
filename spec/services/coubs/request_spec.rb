@@ -8,11 +8,17 @@ describe Coubs::Request, :vcr do
     it do
       is_expected.to have(10).items
       expect(subject.first).to be_kind_of Coub::Entry
-      expect(subject.first).to have_attributes(
-        player_url: 'https://coub.com/embed/1m6oy1',
+      expect(subject.first.to_h).to eq(
+        permalink: '1m6oy1',
         image_url: 'https://coubsecure-s.akamaihd.net/get/b127/p/coub/simple/cw_image/0bb7cf8d2ed/bac412830fc4b47318ca2/med_1547753932_00032.jpg',
         categories: %w[dance],
-        tags: ['girls dancing', 'bang', 'edm shufflers', 'dance', 'dancers', 'vanesa', 'hot cutting shapes', 'shapes', 'e.cruz', 'vansecoo', 'elena cruz', 'violins space', 'house msuic', 'edm', 'cutting shapes']
+        tags: ['girls dancing', 'bang', 'edm shufflers', 'dance', 'dancers', 'vanesa', 'hot cutting shapes', 'shapes', 'e.cruz', 'vansecoo', 'elena cruz', 'violins space', 'house msuic', 'edm', 'cutting shapes'],
+        title: 'Violins Space',
+        author: {
+          avatar_template: 'https://coubsecure-s.akamaihd.net/get/b130/p/channel/cw_avatar/185f279738f/6c45a782d5776c135816d/%{version}_1546077566_cropped.jpeg',
+          name: 'Cutting Shapes',
+          permalink: 'cutting-shapes'
+        }
       )
     end
   end
@@ -23,11 +29,17 @@ describe Coubs::Request, :vcr do
     it do
       is_expected.to have(1).item
       expect(subject.first).to be_kind_of Coub::Entry
-      expect(subject.first).to have_attributes(
-        player_url: 'https://coub.com/embed/dcxm6',
+      expect(subject.first.to_h).to eq(
+        permalink: 'dcxm6',
         image_url: 'https://coubsecure-s.akamaihd.net/get/b57/p/coub/simple/cw_image/f7540dfe398/de96a2d8221af8702ebae/med_1467728423_00038.jpg',
         categories: [],
-        tags: ['animewebm', 'webm', 'girlfriend (kari)', 'anime', 'аниме']
+        tags: ['animewebm', 'webm', 'girlfriend (kari)', 'anime', 'аниме'],
+        title: '#Webm #AnimeWebm',
+        author: {
+          avatar_template: 'https://coubsecure-s.akamaihd.net/get/b118/p/channel/cw_avatar/e9dca0111ae/834df4f8093c65308570f/%{version}_1474495387_cropped.jpeg',
+          name: 'DimanVip',
+          permalink: 'dimanvip'
+        }
       )
     end
 

@@ -2,7 +2,8 @@ class Coubs::Request
   method_object :tag, :page
 
   COUB_TEMPLATE = 'https://coub.com/api/v2/timeline/tag/%<tag>s?page=%<page>i'
-  EMBED_TEMPLATE = 'https://coub.com/embed/%<permalink>s'
+  # EMBED_TEMPLATE = 'https://coub.com/embed/%<permalink>s'
+      # player_url: format(EMBED_TEMPLATE, permalink: entry[:permalink]),
   PER_PAGE = 10
 
   EXPIRES_IN = 1.month
@@ -38,13 +39,27 @@ private
 
   def convert data
     data[:coubs].map do |entry|
-      Coub::Entry.new(
-        image_url: entry[:picture],
-        player_url: format(EMBED_TEMPLATE, permalink: entry[:permalink]),
-        categories: entry[:categories].map { |v| v[:permalink] },
-        tags: entry[:tags].map { |v| URI.unescape v[:value] }
-      )
+      build_entry entry
     end
+  end
+
+  def build_entry entry
+    Coub::Entry.new(
+      permalink: entry[:permalink],
+      image_url: entry[:picture],
+      categories: entry[:categories].map { |v| v[:permalink] },
+      tags: entry[:tags].map { |v| URI.unescape v[:value] },
+      title: entry[:title],
+      author: build_author(entry[:channel])
+    )
+  end
+
+  def build_author channel
+    Coub::Author.new(
+      permalink: channel[:permalink],
+      name: channel[:title],
+      avatar_template: channel[:avatar_versions][:template]
+    )
   end
 
   def verify data
