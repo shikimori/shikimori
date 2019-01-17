@@ -1,7 +1,7 @@
 class CoubsController < ShikimoriController
   def fetch
     anime = Anime.find params[:id]
-    results = CoubTags::Fetch.call anime.coub_tags, params[:iterator]
+    results = Coubs::Fetch.call anime.coub_tags, params[:iterator]
 
     render json: results
   end

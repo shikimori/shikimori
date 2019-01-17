@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://coub.com/api/v2/timeline/tag/macross_frontier?page=1
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - shikimori.org
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 17 Jan 2019 19:41:50 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      X-Frame-Options:
+      - ALLOWALL
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Cache-Control:
+      - no-cache
+      Set-Cookie:
+      - is_logged_in=false; path=/
+      X-Request-Id:
+      - 3cff0a36-3c53-4573-b221-40a74c1ff263
+      X-Runtime:
+      - '0.018344'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":"ActiveRecord::RecordNotFound"}'
+    http_version: 
+  recorded_at: Thu, 17 Jan 2019 19:41:47 GMT
+recorded_with: VCR 4.0.0

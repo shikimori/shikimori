@@ -1,4 +1,4 @@
-class CoubTags::Fetch
+class Coubs::Fetch
   method_object %i[tags! iterator]
 
   PER_PAGE = 10
@@ -47,7 +47,7 @@ private
   end
 
   def fetch_tag tag:, page:, overfetched: 0, add_coubs: # rubocop:disable MethodLength
-    all_coubs = CoubTags::CoubRequest.call tag, page
+    all_coubs = Coubs::Request.call tag, page
     anime_coubs = (add_coubs + all_coubs.select(&:anime?))[overfetched..-1]
     overloaded_coubs = anime_coubs[PER_PAGE..-1] || []
 
@@ -78,7 +78,7 @@ private
   end
 
   def finished? coubs
-    coubs.size < CoubTags::CoubRequest::PER_PAGE
+    coubs.size < Coubs::Request::PER_PAGE
   end
 
   def enough? coubs

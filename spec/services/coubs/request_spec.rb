@@ -1,4 +1,4 @@
-describe CoubTags::CoubRequest, :vcr do
+describe Coubs::Request, :vcr do
   subject { described_class.call tag, page }
   let(:page) { 1 }
 
@@ -9,10 +9,10 @@ describe CoubTags::CoubRequest, :vcr do
       is_expected.to have(10).items
       expect(subject.first).to be_kind_of Coub::Entry
       expect(subject.first).to have_attributes(
-        player_url: 'https://coub.com/embed/1m1qqh',
-        image_url: 'https://coubsecure-s.akamaihd.net/get/b180/p/coub/simple/cw_image/8ec5aa13821/ca7605128a3f5568945cc/med_1547580310_00032.jpg',
+        player_url: 'https://coub.com/embed/1m6oy1',
+        image_url: 'https://coubsecure-s.akamaihd.net/get/b127/p/coub/simple/cw_image/0bb7cf8d2ed/bac412830fc4b47318ca2/med_1547753932_00032.jpg',
         categories: %w[dance],
-        tags: ['umf', 'ultra', 'dancers', 'edm coubs', 'edm', 'progressive house music', 'progressive house', 'house music', 'c.k - into the night (original mix)', 'c.k', 'into the night', 'dance', 'djs', 'gogo dancers']
+        tags: ['girls dancing', 'bang', 'edm shufflers', 'dance', 'dancers', 'vanesa', 'hot cutting shapes', 'shapes', 'e.cruz', 'vansecoo', 'elena cruz', 'violins space', 'house msuic', 'edm', 'cutting shapes']
       )
     end
   end

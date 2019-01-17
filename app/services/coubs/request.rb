@@ -1,4 +1,4 @@
-class CoubTags::CoubRequest
+class Coubs::Request
   method_object :tag, :page
 
   COUB_TEMPLATE = 'https://coub.com/api/v2/timeline/tag/%<tag>s?page=%<page>i'

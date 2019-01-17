@@ -2,7 +2,7 @@ require 'webmock/rspec'
 
 describe CoubsController do
   describe '#fetch' do
-    before { allow(CoubTags::Fetch).to receive(:call).and_return results }
+    before { allow(Coubs::Fetch).to receive(:call).and_return results }
     let(:results) do
       Coub::Results.new(
         coubs: [
@@ -22,7 +22,7 @@ describe CoubsController do
     let(:iterator) { 'zxc' }
 
     it do
-      expect(CoubTags::Fetch)
+      expect(Coubs::Fetch)
         .to have_received(:call)
         .with(anime.coub_tags, iterator)
       expect(json).to eq JSON.parse(results.to_json).symbolize_keys

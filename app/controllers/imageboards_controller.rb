@@ -9,7 +9,7 @@ class ImageboardsController < ShikimoriController
   VALID_URL = %r{https?://(?:yande.re|konachan.com|safebooru.org|danbooru.donmai.us)/}
   EXPIRES_IN = 4.months
 
-  # TODO: extract into service object similar to CoubTags::CoubRequest
+  # TODO: extract into service object similar to Coubs::Request
   def fetch
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       url = Base64.decode64 URI.decode(params[:url])

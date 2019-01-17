@@ -2,29 +2,29 @@ describe Tags::CleanupCoubCacheJob do
   let!(:pg_cache_1) { create :pg_cache_data, key: 'zxc' }
   let!(:pg_cache_2) do
     create :pg_cache_data,
-      key: CoubTags::CoubRequest.pg_cache_key(
+      key: Coubs::Request.pg_cache_key(
         tag: anime_1.coub_tags.sample,
         page: described_class::PAGES.sample
       ),
-      expires_at: CoubTags::CoubRequest::EXPIRES_IN.from_now -
+      expires_at: Coubs::Request::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN + 1.day
   end
   let!(:pg_cache_3) do
     create :pg_cache_data,
-      key: CoubTags::CoubRequest.pg_cache_key(
+      key: Coubs::Request.pg_cache_key(
         tag: anime_1.coub_tags.sample,
         page: described_class::PAGES.sample
       ),
-      expires_at: CoubTags::CoubRequest::EXPIRES_IN.from_now -
+      expires_at: Coubs::Request::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
   end
   let!(:pg_cache_4) do
     create :pg_cache_data,
-      key: CoubTags::CoubRequest.pg_cache_key(
+      key: Coubs::Request.pg_cache_key(
         tag: anime_2.coub_tags.sample,
         page: described_class::PAGES.sample
       ),
-      expires_at: CoubTags::CoubRequest::EXPIRES_IN.from_now -
+      expires_at: Coubs::Request::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
   end
 

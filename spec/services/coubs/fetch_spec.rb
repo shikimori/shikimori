@@ -1,34 +1,34 @@
-describe CoubTags::Fetch do
+describe Coubs::Fetch do
   subject { described_class.call tags: tags, iterator: iterator }
 
   before do
-    allow(CoubTags::CoubRequest)
+    allow(Coubs::Request)
       .to receive(:call)
       .with('zzz', 1)
       .and_return coubs_zzz_1
 
-    allow(CoubTags::CoubRequest)
+    allow(Coubs::Request)
       .to receive(:call)
       .with('zzz', 2)
       .and_return coubs_zzz_2
 
-    allow(CoubTags::CoubRequest)
+    allow(Coubs::Request)
       .to receive(:call)
       .with('zzz', 3)
       .and_return coubs_zzz_3
 
-    allow(CoubTags::CoubRequest)
+    allow(Coubs::Request)
       .to receive(:call)
       .with('xxx', 1)
       .and_return coubs_xxx_1
 
-    allow(CoubTags::CoubRequest)
+    allow(Coubs::Request)
       .to receive(:call)
       .with('xxx', 2)
       .and_return coubs_xxx_2
 
-    stub_const 'CoubTags::Fetch::PER_PAGE', 2
-    stub_const 'CoubTags::CoubRequest::PER_PAGE', 2
+    stub_const 'Coubs::Fetch::PER_PAGE', 2
+    stub_const 'Coubs::Request::PER_PAGE', 2
   end
 
   let(:coubs_zzz_1) { [] }
@@ -82,7 +82,7 @@ describe CoubTags::Fetch do
         coubs: [],
         iterator: nil
       )
-      expect(CoubTags::CoubRequest).to_not have_received :call
+      expect(Coubs::Request).to_not have_received :call
     end
   end
 
@@ -100,7 +100,7 @@ describe CoubTags::Fetch do
               coubs: coubs_zzz_1,
               iterator: nil
             )
-            expect(CoubTags::CoubRequest).to have_received(:call).once
+            expect(Coubs::Request).to have_received(:call).once
           end
         end
 
@@ -113,7 +113,7 @@ describe CoubTags::Fetch do
               coubs: coubs_zzz_1,
               iterator: 'zzz:2:0'
             )
-            expect(CoubTags::CoubRequest).to have_received(:call).once
+            expect(Coubs::Request).to have_received(:call).once
           end
         end
       end
@@ -129,7 +129,7 @@ describe CoubTags::Fetch do
               coubs: [coub_anime_1, coub_anime_2],
               iterator: nil
             )
-            expect(CoubTags::CoubRequest).to have_received(:call).twice
+            expect(Coubs::Request).to have_received(:call).twice
           end
         end
 
@@ -143,7 +143,7 @@ describe CoubTags::Fetch do
               coubs: [coub_anime_1, coub_anime_2],
               iterator: 'zzz:2:1'
             )
-            expect(CoubTags::CoubRequest).to have_received(:call).twice
+            expect(Coubs::Request).to have_received(:call).twice
           end
         end
       end
@@ -162,7 +162,7 @@ describe CoubTags::Fetch do
               coubs: coubs_zzz_2,
               iterator: nil
             )
-            expect(CoubTags::CoubRequest).to have_received(:call).once
+            expect(Coubs::Request).to have_received(:call).once
           end
         end
 
@@ -175,7 +175,7 @@ describe CoubTags::Fetch do
               coubs: coubs_zzz_2,
               iterator: 'zzz:3:0'
             )
-            expect(CoubTags::CoubRequest).to have_received(:call).once
+            expect(Coubs::Request).to have_received(:call).once
           end
         end
       end
@@ -191,7 +191,7 @@ describe CoubTags::Fetch do
             coubs: [coub_anime_2, coub_anime_3],
             iterator: 'zzz:4:0'
           )
-          expect(CoubTags::CoubRequest).to have_received(:call).twice
+          expect(Coubs::Request).to have_received(:call).twice
         end
       end
     end
@@ -210,7 +210,7 @@ describe CoubTags::Fetch do
           coubs: [coub_anime_1, coub_anime_2],
           iterator: nil
         )
-        expect(CoubTags::CoubRequest).to have_received(:call).twice
+        expect(Coubs::Request).to have_received(:call).twice
       end
     end
 
@@ -226,7 +226,7 @@ describe CoubTags::Fetch do
             coubs: [coub_anime_1, coub_anime_2],
             iterator: 'xxx:1:1'
           )
-          expect(CoubTags::CoubRequest).to have_received(:call).twice
+          expect(Coubs::Request).to have_received(:call).twice
         end
       end
 
@@ -239,7 +239,7 @@ describe CoubTags::Fetch do
             coubs: [coub_anime_1, coub_anime_2],
             iterator: 'xxx:2:0'
           )
-          expect(CoubTags::CoubRequest).to have_received(:call).twice
+          expect(Coubs::Request).to have_received(:call).twice
         end
       end
     end

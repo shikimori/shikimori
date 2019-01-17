@@ -10,7 +10,7 @@ class Tags::CleanupCoubCacheJob
     PAGES.each do |page|
       PgCacheData
         .where(key: pg_cache_keys(tags, page))
-        .where('expires_at < ?', (CoubTags::CoubRequest::EXPIRES_IN - ONGOING_EXPIRES_IN).from_now)
+        .where('expires_at < ?', (Coubs::Request::EXPIRES_IN - ONGOING_EXPIRES_IN).from_now)
         .delete_all
     end
   end
@@ -19,7 +19,7 @@ private
 
   def pg_cache_keys tags, page
     tags.map do |tag|
-      CoubTags::CoubRequest.pg_cache_key(
+      Coubs::Request.pg_cache_key(
         tag: tag,
         page: page
       )
