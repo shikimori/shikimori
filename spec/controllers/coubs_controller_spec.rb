@@ -1,22 +1,34 @@
 require 'webmock/rspec'
 
 describe CoubsController do
-  # describe '#fetch' do
-  #   let(:data) { { 'url' => url, 'test' => 'test' } }
+  describe '#fetch' do
+    before { allow(CoubTags::Fetch).to receive(:call).and_return results }
+    let(:results) do
+      Coub::Results.new(
+        coubs: [
+          Coub::Entry.new(
+            player_url: 'z',
+            image_url: 'x',
+            categories: ['a'],
+            tags: ['z']
+          )
+        ],
+        iterator: 'zxc'
+      )
+    end
 
-  #   before { stub_request(:any, url).to_return body: data.to_json }
-  #   subject! { get :fetch, params: { url: URI.encode(Base64.encode64(url).strip) } }
+    subject! { get :fetch, params: { id: anime.id, iterator: iterator } }
+    let(:anime) { create :anime, coub_tags: %w[z x c] }
+    let(:iterator) { 'zxc' }
 
-  #   context 'not allowed url' do
-  #     let(:url) { 'http://lenta.ru/image.jpg' }
-  #     it { expect(response).to be_forbidden }
-  #   end
-
-  #   context 'allowed url' do
-  #     let(:url) { 'https://yande.re/post/index.json?page=1&limit=100&tags=kaichou_wa_maid-sama!' }
-  #     it { expect(JSON.parse(response.body)).to eq data }
-  #   end
-  # end
+    it do
+      expect(CoubTags::Fetch)
+        .to have_received(:call)
+        .with(anime.coub_tags, iterator)
+      expect(json).to eq JSON.parse(results.to_json).symbolize_keys
+      expect(response).to have_http_status :success
+    end
+  end
 
   describe '#autocomplete' do
     let!(:tag_1) { create :coub_tag, name: 'ffff' }
