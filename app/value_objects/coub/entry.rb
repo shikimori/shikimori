@@ -1,6 +1,7 @@
 class Coub::Entry < Dry::Struct
   attribute :permalink, Types::String
   attribute :image_url, Types::String
+  attribute :recoubed_permalink, Types::String.optional
 
   attribute :categories, Types::Array.of(Types::String)
   attribute :tags, Types::Array.of(Types::String)

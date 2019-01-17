@@ -3,14 +3,22 @@ require 'webmock/rspec'
 describe CoubsController do
   describe '#fetch' do
     before { allow(Coubs::Fetch).to receive(:call).and_return results }
+
     let(:results) do
       Coub::Results.new(
         coubs: [
           Coub::Entry.new(
-            player_url: 'z',
+            permalink: 'z',
             image_url: 'x',
-            categories: ['a'],
-            tags: ['z']
+            categories: ['c'],
+            tags: ['v'],
+            title: 'b',
+            recoubed_permalink: nil,
+            author: {
+              permalink: 'n',
+              name: 'm',
+              avatar_template: 'a'
+            }
           )
         ],
         iterator: 'zxc'

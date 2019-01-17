@@ -40,34 +40,62 @@ describe Coubs::Fetch do
 
   let(:coub_anime_1) do
     Coub::Entry.new(
-      player_url: 'coub_anime_1',
+      permalink: 'coub_anime_1',
       image_url: 'coub_anime_1',
       categories: %w[anime],
-      tags: %w[anime]
+      tags: %w[anime],
+      title: 'b',
+      recoubed_permalink: nil,
+      author: {
+        permalink: 'n',
+        name: 'm',
+        avatar_template: 'a'
+      }
     )
   end
   let(:coub_anime_2) do
     Coub::Entry.new(
-      player_url: 'coub_anime_2',
+      permalink: 'coub_anime_2',
       image_url: 'coub_anime_2',
       categories: %w[anime],
-      tags: %w[anime]
+      tags: %w[anime],
+      title: 'b',
+      recoubed_permalink: nil,
+      author: {
+        permalink: 'n',
+        name: 'm',
+        avatar_template: 'a'
+      }
     )
   end
   let(:coub_anime_3) do
     Coub::Entry.new(
-      player_url: 'coub_anime_3',
+      permalink: 'coub_anime_3',
       image_url: 'coub_anime_3',
       categories: %w[anime],
-      tags: %w[anime]
+      tags: %w[anime],
+      title: 'b',
+      recoubed_permalink: nil,
+      author: {
+        permalink: 'n',
+        name: 'm',
+        avatar_template: 'a'
+      }
     )
   end
   let(:coub_not_anime_1) do
     Coub::Entry.new(
-      player_url: 'coub_not_anime_1',
+      permalink: 'coub_not_anime_1',
       image_url: 'coub_not_anime_1',
       categories: %w[gaming],
-      tags: %w[]
+      tags: %w[],
+      title: 'b',
+      recoubed_permalink: nil,
+      author: {
+        permalink: 'n',
+        name: 'm',
+        avatar_template: 'a'
+      }
     )
   end
 

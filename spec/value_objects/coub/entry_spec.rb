@@ -1,10 +1,17 @@
 describe Coub::Entry do
   subject(:entry) do
     Coub::Entry.new(
-      player_url: 'zxc',
+      permalink: 'zxc',
       image_url: 'qwe',
       categories: categories,
-      tags: tags
+      tags: tags,
+      title: 'b',
+      recoubed_permalink: nil,
+      author: {
+        permalink: 'n',
+        name: 'm',
+        avatar_template: 'a'
+      }
     )
   end
   let(:categories) { [] }

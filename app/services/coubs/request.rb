@@ -50,7 +50,8 @@ private
       categories: entry[:categories].map { |v| v[:permalink] },
       tags: entry[:tags].map { |v| URI.unescape v[:value] },
       title: entry[:title],
-      author: build_author(entry[:channel])
+      author: build_author(entry[:channel]),
+      recoubed_permalink: entry.dig(:media_blocks, :remixed_from_coubs, 0, :coub_permalink)
     )
   end
 

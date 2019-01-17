@@ -18,7 +18,8 @@ describe Coubs::Request, :vcr do
           avatar_template: 'https://coubsecure-s.akamaihd.net/get/b130/p/channel/cw_avatar/185f279738f/6c45a782d5776c135816d/%{version}_1546077566_cropped.jpeg',
           name: 'Cutting Shapes',
           permalink: 'cutting-shapes'
-        }
+        },
+        recoubed_permalink: nil
       )
     end
   end
@@ -39,7 +40,8 @@ describe Coubs::Request, :vcr do
           avatar_template: 'https://coubsecure-s.akamaihd.net/get/b118/p/channel/cw_avatar/e9dca0111ae/834df4f8093c65308570f/%{version}_1474495387_cropped.jpeg',
           name: 'DimanVip',
           permalink: 'dimanvip'
-        }
+        },
+        recoubed_permalink: nil
       )
     end
 
