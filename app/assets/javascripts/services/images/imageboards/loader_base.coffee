@@ -1,7 +1,9 @@
-uEvent = require 'uevent'
-axios = require('helpers/axios').default
+import uEvent from 'uevent'
+import { Base64 } from 'js-base64'
 
-module.exports = class LoaderBase
+import axios from 'helpers/axios'
+
+export default class LoaderBase
   FETCH_EVENT: 'loader:fetch'
 
   constructor: (@tag, @forbidden_tags) ->

@@ -1,11 +1,12 @@
-uEvent = require 'uevent'
-StaticLoader = require('./static_loader').default
-SafebooruLoader = require './imageboards/safebooru_loader'
-DanbooruLoader = require './imageboards/danbooru_loader'
-YandereLoader = require './imageboards/yandere_loader'
-KonachanLoader = require './imageboards/konachan_loader'
+import uEvent from 'uevent'
 
-module.exports = class ImageboardsLoader extends StaticLoader
+import StaticLoader from './static_loader'
+import SafebooruLoader from './imageboards/safebooru_loader'
+import DanbooruLoader from './imageboards/danbooru_loader'
+import YandereLoader from './imageboards/yandere_loader'
+import KonachanLoader from './imageboards/konachan_loader'
+
+export default class ImageboardsLoader extends StaticLoader
   # какие теги отфильтровывать
   FORBIDDEN_TAGS = [
     'comic', 'cum', 'fellatio', 'pussy', 'penis', 'sex', 'pussy_juice', 'nude',
@@ -24,7 +25,7 @@ module.exports = class ImageboardsLoader extends StaticLoader
     KonachanLoader
   ]
 
-  initialize: () ->
+  _initialize: () ->
     @tag = @cache
     @cache = {}
 

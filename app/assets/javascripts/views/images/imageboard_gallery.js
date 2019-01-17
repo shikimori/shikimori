@@ -9,7 +9,7 @@ export default class ImageboardGallery extends PreloadedGallery {
 
   _buildLoader() {
     return require.ensure([], require => {
-      const ImageboardsLoader = require('services/images/imageboards_loader');
+      const ImageboardsLoader = require('services/images/imageboards_loader').default;
       const tag = encodeURIComponent(this.$root.data('imageboard_tag') || '').trim();
 
       if (tag) {

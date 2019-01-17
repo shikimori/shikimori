@@ -9,11 +9,11 @@ export default class StaticLoader {
 
     uEvent.mixin(this);
 
-    this.initialize();
+    this._initialize();
   }
 
   // public methods
-  initialize() {
+  _initialize() {
   }
 
   fetch() {
