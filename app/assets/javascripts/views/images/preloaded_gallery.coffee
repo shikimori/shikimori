@@ -53,7 +53,7 @@ class Images.PreloadedGallery extends ShikiGallery
   _append_uploaded: (e, image) =>
     $image = $(@_image_to_html(image))
     $image.imagesLoaded =>
-      @_deploy_image $image, 0 * DEPLOY_INTERVAL, PREPEND_ACTION
+      @_deployImage $image, 0 * DEPLOY_INTERVAL, PREPEND_ACTION
 
   # private methods
   _build_loader: ->
@@ -88,7 +88,7 @@ class Images.PreloadedGallery extends ShikiGallery
 
   _deploy_batch: (images) =>
     images.elements.forEach (image_node, index) =>
-      @_deploy_image image_node, index * DEPLOY_INTERVAL, APPEND_ACTION
+      @_deployImage image_node, index * DEPLOY_INTERVAL, APPEND_ACTION
 
     # recheck postloader appearence after all images are deployed
     delay((images.elements.length + 1) * DEPLOY_INTERVAL).then =>
