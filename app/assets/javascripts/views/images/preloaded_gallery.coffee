@@ -3,8 +3,7 @@ import delay from 'delay'
 import ShikiGallery from 'views/application/shiki_gallery'
 import JST from 'helpers/jst'
 
-using 'Images'
-class Images.PreloadedGallery extends ShikiGallery
+export default class PreloadedGallery extends ShikiGallery
   @BATCH_SIZE = 5
   TEMPLATE = 'images/image'
 
@@ -62,7 +61,7 @@ class Images.PreloadedGallery extends ShikiGallery
 
       images = @$container.data 'images'
       if images
-        @loader = new StaticLoader(Images.PreloadedGallery.BATCH_SIZE, images)
+        @loader = new StaticLoader(PreloadedGallery.BATCH_SIZE, images)
 
   _appear_marker: ->
     @$appear_marker = $(APPEAR_MARKER_HTML).insertAfter @$container

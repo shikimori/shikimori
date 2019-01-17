@@ -1,10 +1,10 @@
 import URI from 'urijs'
 
-import './preloaded_gallery'
+import PreloadedGallery from './preloaded_gallery'
 
 using 'Images'
 # динамическая загрузка картинок с борд danbooru, oreno.imouto, konachan, safebooru
-class Images.ImageboardGallery extends Images.PreloadedGallery
+class Images.ImageboardGallery extends PreloadedGallery
   _after_initialize: ->
     @rel = 'imageboards'
 
