@@ -10,9 +10,8 @@ export default class ShikiGallery extends View {
     const options = customOptions || {};
 
     this.$container = this.$('.container');
-    const $images = $('.b-image', this.$container);
 
-    $images.shikiImage();
+    $('.b-image', this.$container).shikiImage();
 
     this.$container.imagesLoaded(() => {
       this.packery = new Packery(this.$container[0], {

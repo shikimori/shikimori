@@ -2,7 +2,7 @@
   .b-options-floated = @resource.all_images.size
   .subheadline.m5 = og.headline
   .b-gallery.block[
-    data-can_upload=can?(:upload, @resource)
+    data-can_upload=can?(:upload, @resource).to_s
     data-rel="club_gallery"
   ]
     - cache [@resource, :v2] do

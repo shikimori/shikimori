@@ -36,8 +36,8 @@
           .count = @club.all_images.count
 
       .b-gallery.block[
-        data-can_upload=can?(:upload, @club)
-        data-rel="club_gallery"
+        data-can_upload=can?(:upload, @club).to_s
+        data-rel='club_gallery'
       ]
         = render 'blocks/upload_progress'
         .container[
