@@ -30,8 +30,8 @@ export default class ShikiGallery extends View {
         .data({ packery: this.packery });
     });
 
-    if (options.shiki_upload) {
-      this._addUpload(options.shiki_upload_custom);
+    if (options.shikiUpload) {
+      this._addUpload(options.shikiUploadCustom);
     }
   }
 
@@ -46,12 +46,13 @@ export default class ShikiGallery extends View {
       });
   }
 
-  _deployImage(imageNode, delayInterval, action) {
+  async _deployImage(imageNode, delayInterval, action) {
     const $image = $(imageNode)
       .shikiImage()
       .css({ left: -9999 })
       .prependTo(this.$container);
 
-    delay(delayInterval).then(() => this.packery[action]($image[0]));
+    await delay(delayInterval);
+    this.packery[action]($image[0]);
   }
 }

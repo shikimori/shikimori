@@ -18,8 +18,8 @@ class Images.PreloadedGallery extends ShikiGallery
 
   initialize: ->
     super
-      shiki_upload: @$root.data('can_upload')
-      shiki_upload_custom: true
+      shikiUpload: @$root.data('can_upload')
+      shikiUploadCustom: true
 
     @rel = @$root.data 'rel'
     @can_load = true
