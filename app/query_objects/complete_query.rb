@@ -38,31 +38,14 @@ private
   end
 
   def field_search_query field
-    table_field = transalted_field field
     [
-      "#{table_field} = #{sanitize @search}",
-      "#{table_field} = #{sanitize @search.tr('_', ' ').strip}",
-      "#{table_field} ilike #{sanitize "#{@search}%"}",
-      "#{table_field} ilike #{sanitize "% #{@search}%"}",
-      "#{table_field} ilike #{sanitize "%#{@search}%"}",
-      (
-        @search.include?(' ') ?
-          "#{table_field} ilike #{sanitize @search.split(' ').reverse.join(' ').to_s}" :
-          nil
-      ),
-      (
-        @search.include?(' ') ?
-          "#{table_field} ilike #{sanitize @search.split(' ').reverse.join('% ').to_s}" :
-          nil
-      )
-    ].compact.map { |condition| "#{table_field} != '' and (#{condition})" }
+      "#{field} = #{sanitize @search}",
+      "#{field} = #{sanitize @search.tr('_', ' ').strip}",
+      "#{field} ilike #{sanitize "#{@search}%"}"
+    ].compact.map { |condition| "#{field} != '' and (#{condition})" }
   end
 
   def sanitize query
     ApplicationRecord.sanitize query.sub(/\\+$/, '')
-  end
-
-  def transalted_field field_name
-    "translate(#{field_name}, 'ёЁ', 'еЕ')"
   end
 end
