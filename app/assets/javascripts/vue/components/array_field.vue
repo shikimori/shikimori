@@ -15,21 +15,21 @@
       v-if='collection.length'
     )
       .b-collection_item(
-        v-for='synonym in collection'
+        v-for='entry in collection'
       )
         .delete(
-          @click='remove(synonym)'
+          @click='remove(entry)'
         )
         .drag-handle
         .b-input
           input(
             type='text'
-            v-model='synonym.name'
+            v-model='entry.name'
             :name="`${resource_type.toLowerCase()}[${field}][]`"
             :placeholder="I18n.t('frontend.' + field + '.name')"
             @keydown.enter="submit"
-            @keydown.8='removeEmpty(synonym)'
-            @keydown.esc='removeEmpty(synonym)'
+            @keydown.8='removeEmpty(entry)'
+            @keydown.esc='removeEmpty(entry)'
             :data-autocomplete='autocomplete_url'
           )
 
@@ -73,20 +73,34 @@ export default {
       'is_empty'
     ]),
   },
+  mounted() {
+    this.$nextTick(() => { this.autocomplete() });
+  },
   methods: {
-    add() {
-      this.$store.dispatch('add', { name: '' })
-      this.focusLast()
+    ...mapActions([
+      'remove'
+    ]),
+    async add() {
+      this.$store.dispatch('add', { name: '' });
+      await this.focusLast();
+      this.autocomplete();
     },
     submit(e) {
+      // can be submitted by press enter in autocomplete select
+      if ($('.ac_results').is(':visible')) {
+        return;
+      }
+
       if (!e.metaKey && !e.ctrlKey) {
         e.preventDefault()
         this.add()
       }
     },
-    removeEmpty(synonym) {
-      if (Object.isEmpty(synonym.name) && this.$store.state.collection.length > 1) {
-        this.remove(synonym)
+    removeEmpty(entry) {
+      if (Object.isEmpty(entry.name) &&
+          this.$store.state.collection.length > 1
+      ) {
+        this.remove(entry)
         this.focusLast()
       }
     },
@@ -95,9 +109,17 @@ export default {
       await delay();
       $('input', this.$el).last().focus();
     },
-    ...mapActions([
-      'remove'
-    ])
+    autocomplete() {
+      if (!this.autocomplete_url) { return; }
+
+      $('input', this.$el)
+        .filter((index, node) => !$(node).data('autocomplete-enabled'))
+        .data('autocomplete-enabled', true)
+        .completable()
+        .on('autocomplete:success', (e, { value }) => {
+          $(e.currentTarget).val(value);
+        });
+    }
   }
 }
 </script>

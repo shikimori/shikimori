@@ -83,9 +83,27 @@ export default {
       'links'
     ])
   },
+  mounted() {
+    this.$nextTick(() => {
+      $(this.$el).process()
+
+      if (!this.link.linked_id) {
+        $('input', this.$el)
+          .completable()
+          .focus()
+          .on('autocomplete:success', (e, { id, name, url }) => {
+            this.assign({
+              linked_id: parseInt(id),
+              name,
+              url
+            })
+          })
+      }
+    })
+  },
   methods: {
     assign(changes) {
-      this.fill_link({link: this.link, changes: changes})
+      this.fill_link({ link: this.link, changes: changes })
 
       this.$nextTick(() => {
         $(this.$el).process()
@@ -104,24 +122,6 @@ export default {
       'fill_link',
       'remove_link'
     ])
-  },
-  mounted() {
-    this.$nextTick(() => {
-      $(this.$el).process()
-
-      if (!this.link.linked_id) {
-        $('input', this.$el)
-          .completable()
-          .focus()
-          .on('autocomplete:success', (e, {id, name, url}) => {
-            this.assign({
-              linked_id: parseInt(id),
-              name,
-              url
-            })
-          })
-      }
-    })
   }
 }
 </script>
