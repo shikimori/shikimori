@@ -1,5 +1,7 @@
 ru:
   frontend:
-    synonyms:
+    synonyms: &synonyms
       nothing_here: Нет названий
       name: Название
+    coub_tags:
+      <<: *synonyms

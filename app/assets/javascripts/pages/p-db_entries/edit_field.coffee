@@ -136,28 +136,17 @@ page_load '.db_entries-edit_field', ->
         require('vue/stores').collection
       )
 
-  if $('.edit-page.synonyms').exists()
+  if $('.edit-page.synonyms, .edit-page.coub_tags').exists()
     require.ensure [], ->
-      init_collection_app(
+      init_array_field_app(
         require('vue/instance').Vue,
-        require('vue/components/synonyms.vue').default,
-        require('vue/stores').collection
-      )
-
-  if $('.edit-page.coub_tags').exists()
-    require.ensure [], ->
-      init_collection_app(
-        require('vue/instance').Vue,
-        require('vue/components/synonyms.vue').default,
+        require('vue/components/array_field.vue').default,
         require('vue/stores').collection
       )
 
 init_external_links_app = (Vue, ExternalLinks, store) ->
-  resource_type = $('#vue_external_links').data('resource_type')
-  entry_type = $('#vue_external_links').data('entry_type')
-  entry_id = $('#vue_external_links').data('entry_id')
-  external_links = $('#vue_external_links').data('external_links')
-  kind_options = $('#vue_external_links').data('kind_options')
+  $app = $('#vue_external_links')
+  external_links = $app.data('external_links')
 
   store.state.collection = external_links
 
@@ -165,17 +154,15 @@ init_external_links_app = (Vue, ExternalLinks, store) ->
     el: '#vue_external_links'
     store: store
     render: (h) -> h(ExternalLinks, props: {
-      kind_options: kind_options
-      resource_type: resource_type
-      entry_type: entry_type
-      entry_id: entry_id
+      kind_options: $app.data('kind_options')
+      resource_type: $app.data('resource_type')
+      entry_type: $app.data('entry_type')
+      entry_id: $app.data('entry_id')
     })
 
-init_collection_app = (Vue, Collection, store) ->
-  resource_type = $('#vue_app').data('resource_type')
-  entry_type = $('#vue_app').data('entry_type')
-  entry_id = $('#vue_app').data('entry_id')
-  values = $('#vue_app').data('values')
+init_array_field_app = (Vue, Collection, store) ->
+  $app = $('#vue_app')
+  values = $app.data('values')
 
   store.state.collection = values.map (synonym, index) ->
     key: index
@@ -185,7 +172,9 @@ init_collection_app = (Vue, Collection, store) ->
     el: '#vue_app'
     store: store
     render: (h) -> h(Collection, props: {
-      resource_type: resource_type
-      entry_type: entry_type
-      entry_id: entry_id
+      resource_type: $app.data('resource_type')
+      entry_type: $app.data('entry_type')
+      entry_id: $app.data('entry_id')
+      field: $app.data('field')
+      autocomplete_url: $app.data('autocomplete_url')
     })

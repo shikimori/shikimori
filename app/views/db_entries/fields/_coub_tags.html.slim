@@ -8,6 +8,8 @@
         data-entry_id=@resource.id
         data-entry_type=@resource.object.class.base_class.name
         data-values=@resource.coub_tags.to_json
+        data-field='coub_tags'
+        data-autocomplete_url=autocomplete_coubs_url
       ]
         .block_m.b-nothing_here = t 'loading'
       = render 'versions/reason'

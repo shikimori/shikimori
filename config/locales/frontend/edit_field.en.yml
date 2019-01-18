@@ -1,5 +1,7 @@
 en:
   frontend:
-    synonyms:
+    synonyms: &synonyms
       nothing_here: No names
       name: Name
+    coub_tags:
+      <<: *synonyms

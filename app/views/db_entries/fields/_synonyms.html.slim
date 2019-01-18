@@ -8,6 +8,7 @@
         data-entry_id=@resource.id
         data-entry_type=@resource.object.class.base_class.name
         data-values=@resource.synonyms.to_json
+        data-field='synonyms'
       ]
         .block_m.b-nothing_here = t 'loading'
       = render 'versions/reason'

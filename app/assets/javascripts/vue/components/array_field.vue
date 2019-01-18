@@ -1,35 +1,36 @@
-<template lang="pug">
+<template lang='pug'>
   .block
     input(
-      type="hidden"
-      :name="`${resource_type.toLowerCase()}[synonyms][]`"
-      v-if="is_empty"
+      type='hidden'
+      :name='`${resource_type.toLowerCase()}[${field}][]`'
+      v-if='is_empty'
     )
     .b-nothing_here(
-      v-if="!collection.length"
+      v-if='!collection.length'
     )
-      | {{ I18n.t('frontend.synonyms.nothing_here') }}
+      | {{ I18n.t('frontend.' + field + '.nothing_here') }}
     draggable.block(
-      :options="drag_options"
-      v-model="collection"
-      v-if="collection.length"
+      :options='drag_options'
+      v-model='collection'
+      v-if='collection.length'
     )
       .b-collection_item(
-        v-for="synonym in collection"
+        v-for='synonym in collection'
       )
         .delete(
-          @click="remove(synonym)"
+          @click='remove(synonym)'
         )
         .drag-handle
         .b-input
           input(
-            type="text"
-            v-model="synonym.name"
-            :name="`${resource_type.toLowerCase()}[synonyms][]`"
-            :placeholder="I18n.t('frontend.synonyms.name')"
+            type='text'
+            v-model='synonym.name'
+            :name="`${resource_type.toLowerCase()}[${field}][]`"
+            :placeholder="I18n.t('frontend.' + field + '.name')"
             @keydown.enter="submit"
-            @keydown.8="removeEmpty(synonym)"
-            @keydown.esc="removeEmpty(synonym)"
+            @keydown.8='removeEmpty(synonym)'
+            @keydown.esc='removeEmpty(synonym)'
+            :data-autocomplete='autocomplete_url'
           )
 
     .b-button(
@@ -45,9 +46,11 @@ import delay from 'delay';
 export default {
   components: { draggable },
   props: {
+    field: String,
     resource_type: String,
     entry_type: String,
-    entry_id: Number
+    entry_id: Number,
+    autocomplete_url: String
   },
   data() {
     return {
@@ -99,7 +102,7 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style scoped lang='sass'>
   .b-nothing_here
     margin-bottom: 15px
 

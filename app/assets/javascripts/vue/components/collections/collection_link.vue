@@ -18,7 +18,7 @@
         input(
           type="text"
           :placeholder="I18n.t(`frontend.collections.autocomplete.${collection.kind}`)"
-          :data-autocomplete="autocomplete_url"
+          :data-autocomplete='autocomplete_url'
         )
     .persisted(
       v-if="link.linked_id"

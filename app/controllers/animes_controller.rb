@@ -21,7 +21,8 @@ class AnimesController < DbEntriesController
   ] + [
     *Anime::DESYNCABLE,
     external_links: [EXTERNAL_LINK_PARAMS],
-    synonyms: []
+    synonyms: [],
+    coub_tags: []
   ]
 
   before_action :set_breadcrumbs, if: :resource_id
