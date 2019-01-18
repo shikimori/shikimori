@@ -9,6 +9,11 @@ class CoubsController < ShikimoriController
   end
 
   def autocomplete
-    @collection = CoubTagsQuery.new(params[:search]).complete
+    cache_key = [:autocomplete, :coub_tags, params[:search]]
+
+    @collection =
+      Rails.cache.fetch cache_key, expires_in: 1.month do
+        CoubTagsQuery.new(params[:search]).complete
+      end
   end
 end

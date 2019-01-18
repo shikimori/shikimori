@@ -30,7 +30,12 @@ class ImageboardsController < ShikimoriController
   end
 
   def autocomplete
-    @collection = DanbooruTagsQuery.new(params[:search]).complete
+    cache_key = [:autocomplete, :imageboard_tags, params[:search]]
+
+    @collection =
+      Rails.cache.fetch cache_key, expires_in: 1.month do
+        DanbooruTagsQuery.new(params[:search]).complete
+      end
   end
 
   def self.pg_cache_key tag:, imageboard:, page:
