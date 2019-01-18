@@ -15,7 +15,7 @@
       v-if='collection.length'
     )
       .b-collection_item(
-        v-for='entry in collection'
+        v-for='(entry, index) in collection'
       )
         .delete(
           @click='remove(entry)'
@@ -31,6 +31,7 @@
             @keydown.8='removeEmpty(entry)'
             @keydown.esc='removeEmpty(entry)'
             :data-autocomplete='autocomplete_url'
+            :data-collection_index='index'
           )
 
     .b-button(
@@ -117,7 +118,7 @@ export default {
         .data('autocomplete-enabled', true)
         .completable()
         .on('autocomplete:success', (e, { value }) => {
-          $(e.currentTarget).val(value);
+          this.collection[($(e.currentTarget).data('collection_index'))].name = value;
         });
     }
   }
