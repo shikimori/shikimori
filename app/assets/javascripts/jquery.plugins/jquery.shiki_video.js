@@ -1,0 +1,81 @@
+const prepare = (domain, href) => (
+  {
+    index: `${domain}/`,
+    src: '%id%',
+    id(_url) { return href; }
+  }
+);
+
+const hostingPatterns = url => (
+  {
+    youtube: prepare('youtube.com', url),
+    vimeo: prepare('vimeo.com', url),
+    youtu_be: prepare('youtu.be', url),
+    rutube_ru: prepare('rutube.ru', url),
+    vk_com: prepare('vk.com', url),
+    vkontakte_ru: prepare('vkontakte.ru', url),
+    coub_com: prepare('coub.com', url),
+    twitch_rv: prepare('twitch.tv', url),
+    myvi_ru: prepare('myvi.ru', url),
+    myvi_top: prepare('myvi.top', url),
+    sibnet: prepare('sibnet.ru', url),
+    yandex_ru: prepare('yandex.ru', url),
+    dailymotion_com: prepare('dailymotion.com', url),
+    streamable_com: prepare('streamable.com', url),
+    smotret_anime: prepare('smotretanime.ru', url),
+    ok_ru: prepare('ok.ru', url)
+  }
+);
+
+  // youtube_example:
+  //   index: 'youtube.com' # String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
+  //   id: 'v=' # String that splits URL in a two parts, second part should be %id%
+  //   Or null - full URL will be returned
+  //   Or a function that should return %id%, for example:
+  //   id: function(url) { return 'parsed id'; }
+  //   src: '//www.youtube.com/embed/%id%?autoplay=1' # URL that will be set as a source for iframe.
+
+$.fn.extend({
+  shikiVideo() {
+    return this.each(function () {
+      const $root = $(this);
+      if (!$root.hasClass('unprocessed')) { return; }
+      $root.removeClass('unprocessed');
+
+      const $link = $root.find('.video-link');
+      const isSpecialCoub = $root.hasClass('b-coub');
+
+      $link.magnificPopup({
+        preloader: false,
+        type: 'iframe',
+        iframe: {
+          // HTML markup of popup, `mfp-close` will be replaced by the close button
+          markup: `
+            <div
+              class='mfp-iframe-scaler ${isSpecialCoub ? 'mfp-coub' : ''}'
+              ${isSpecialCoub ? 'onclick="$.magnificPopup.instance.close()"' : ''}
+            >
+              <div class="mfp-close"></div>
+              <iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>
+            </div>
+          `,
+          // Templating object key. First part defines CSS selector, second attribute.
+          // "iframe_src" means: find "iframe" and set attribute "src".
+          srcAction: 'iframe_src',
+          closeOnContentClick: isSpecialCoub,
+          patterns: hostingPatterns($link.data('href'))
+        }
+      });
+
+      if ($root.hasClass('youtube') || $root.hasClass('vk')) {
+        const $poster = $root.find('img');
+
+        $poster.imagesLoaded(() => {
+          if ((($poster[0].naturalWidth * 1.0) / $poster[0].naturalHeight).round(1) === 1.3) {
+            $root.addClass('shrinked');
+          }
+        });
+      }
+    });
+  }
+});
