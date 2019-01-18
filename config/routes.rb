@@ -629,8 +629,11 @@ Rails.application.routes.draw do
     resources :imageboards, only: [], concerns: %i[autocompletable] do
       get ':url' => :index, as: :fetch, url: /.*/, on: :collection
     end
-    resources :coubs, only: [], concerns: %i[autocompletable] do
-      get '' => :index, as: :fetch, id: /(?!autocomplete)/, on: :member
+    resources :coubs, only: [] do
+      # autocomplete is added manually, not through cocern
+      # because it must be defined before fetch method (it must have higher priority)
+      get :autocomplete, on: :collection, format: :json
+      get '' => :index, as: :fetch, on: :member
     end
 
     # cosplay
