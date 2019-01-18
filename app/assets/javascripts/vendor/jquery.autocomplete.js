@@ -54,7 +54,6 @@ $.Autocompleter = function(input, options) {
     UP: 38,
     DOWN: 40,
     DEL: 46,
-    TAB: 9,
     RETURN: 13,
     ESC: 27,
     COMMA: 188,
@@ -133,7 +132,6 @@ $.Autocompleter = function(input, options) {
 
       // matches also semicolon
       case options.multiple && $.trim(options.multipleSeparator) == "," && KEY.COMMA:
-      case KEY.TAB:
       case KEY.RETURN:
         if( selectCurrent() ) {
           // stop default to prevent a form submit, Opera needs special handling
