@@ -18,7 +18,8 @@ describe CoubsController do
               permalink: 'n',
               name: 'm',
               avatar_template: 'a'
-            }
+            },
+            created_at: Time.zone.now.to_s
           )
         ],
         iterator: 'zxc'

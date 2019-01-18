@@ -3,6 +3,7 @@ class Coub::Author < Dry::Struct
   attribute :name, Types::String
   attribute :avatar_template, Types::String
 
+  URL_TEMPLATE = 'https://coub.com/%<permalink>s'
   VERSION_TEMPALTE = '%{version}' # rubocop:disable FormatStringToken
   # medium
   # medium_2x
@@ -16,11 +17,15 @@ class Coub::Author < Dry::Struct
   # ios_large
   # ios_small
 
+  def url
+    format URL_TEMPLATE, permalink: permalink
+  end
+
   def avatar_url
-    avatar_template.gsub(VERSION_TEMPALTE, 'profile_pic_new')
+    avatar_template.gsub(VERSION_TEMPALTE, 'medium')
   end
 
   def avatar_2x_url
-    avatar_template.gsub(VERSION_TEMPALTE, 'profile_pic_new_2x')
+    avatar_template.gsub(VERSION_TEMPALTE, 'medium_2x')
   end
 end

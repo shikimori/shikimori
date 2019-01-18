@@ -9,22 +9,21 @@
 
 .b-video
   +image_editable
-  cursor: zoom-in !important
+  // cursor: zoom-in !important
   display: inline-block
   line-height: 0
   overflow: hidden
-  position: relative
   vertical-align: text-top
 
-  img
+  .video-link img
     max-width: 100%
 
   &.fixed
-    img
+    .video-link img
       width: $media_width
 
     &.twitch, &.myvi, &.coub
-      img
+      .video-link img
         height: $media_height
         width: auto
 
@@ -32,12 +31,14 @@
       height: $media_height
 
   &.shrinked
-    img
+    .video-link img
       margin-top: -9.35%
       margin-bottom: -9.35%
 
   a.video-link
     cursor: zoom-in !important
+    display: block
+    position: relative
     transition: opacity 0.5s ease
 
     &:hover

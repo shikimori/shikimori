@@ -7,11 +7,15 @@ describe Coub::Author do
     )
   end
 
+  describe 'url' do
+    it { expect(author.url).to eq 'https://coub.com/zxc' }
+  end
+
   describe '#avatar_url' do
-    it { expect(author.avatar_url).to eq 'z_profile_pic_new_x' }
+    it { expect(author.avatar_url).to eq 'z_medium_x' }
   end
 
   describe '#avatar_2x_url' do
-    it { expect(author.avatar_2x_url).to eq 'z_profile_pic_new_2x_x' }
+    it { expect(author.avatar_2x_url).to eq 'z_medium_2x_x' }
   end
 end

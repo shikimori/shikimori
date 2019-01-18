@@ -11,7 +11,8 @@ describe Coub::Entry do
         permalink: 'n',
         name: 'm',
         avatar_template: 'a'
-      }
+      },
+      created_at: Time.zone.now.to_s
     )
   end
   let(:categories) { [] }

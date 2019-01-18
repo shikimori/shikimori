@@ -49,7 +49,8 @@ private
       tags: entry[:tags].map { |v| URI.unescape v[:value] },
       title: entry[:title],
       author: build_author(entry[:channel]),
-      recoubed_permalink: entry.dig(:media_blocks, :remixed_from_coubs, 0, :coub_permalink)
+      recoubed_permalink: entry.dig(:media_blocks, :remixed_from_coubs, 0, :coub_permalink),
+      created_at: entry[:created_at]
     )
   end
 

@@ -8,6 +8,7 @@ class Coub::Entry < Dry::Struct
 
   attribute :title, Types::String
   attribute :author, Coub::Author
+  attribute :created_at, Types::DateTime
 
   VIEW_TEMPLATE = 'https://coub.com/view/%<permalink>s'
   EMBED_TEMPLATE = 'https://coub.com/embed/%<permalink>s?autostart=true&startWithHD=true'

@@ -50,7 +50,8 @@ describe Coubs::Fetch do
         permalink: 'n',
         name: 'm',
         avatar_template: 'a'
-      }
+      },
+      created_at: Time.zone.now.to_s
     )
   end
   let(:coub_anime_2) do
@@ -65,7 +66,8 @@ describe Coubs::Fetch do
         permalink: 'n',
         name: 'm',
         avatar_template: 'a'
-      }
+      },
+      created_at: Time.zone.now.to_s
     )
   end
   let(:coub_anime_3) do
@@ -80,7 +82,8 @@ describe Coubs::Fetch do
         permalink: 'n',
         name: 'm',
         avatar_template: 'a'
-      }
+      },
+      created_at: Time.zone.now.to_s
     )
   end
   let(:coub_not_anime_1) do
@@ -95,7 +98,8 @@ describe Coubs::Fetch do
         permalink: 'n',
         name: 'm',
         avatar_template: 'a'
-      }
+      },
+      created_at: Time.zone.now.to_s
     )
   end
 

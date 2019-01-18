@@ -10,3 +10,14 @@
       srcset="#{coub.image_2x_url} 2x"
       data-id=coub.permalink
     ]
+
+  .info
+    .author
+      a href=coub.author.url
+        img[
+          src=coub.author.avatar_2x_url
+          srcset="#{coub.author.avatar_2x_url} 2x"
+        ]
+    .title
+      a href=coub.author.url
+        = coub.title

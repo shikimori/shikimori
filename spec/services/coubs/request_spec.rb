@@ -19,7 +19,8 @@ describe Coubs::Request, :vcr do
           name: 'Cutting Shapes',
           permalink: 'cutting-shapes'
         },
-        recoubed_permalink: nil
+        recoubed_permalink: nil,
+        created_at: '2019-01-17T19:30:58Z'
       )
     end
   end
@@ -41,7 +42,8 @@ describe Coubs::Request, :vcr do
           name: 'DimanVip',
           permalink: 'dimanvip'
         },
-        recoubed_permalink: nil
+        recoubed_permalink: nil,
+        created_at: '2016-07-05T14:18:43Z'
       )
     end
 
