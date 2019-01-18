@@ -6,7 +6,7 @@ describe Coub::Entry do
       categories: categories,
       tags: tags,
       title: 'b',
-      recoubed_permalink: nil,
+      recoubed_permalink: recoubed_permalink,
       author: {
         permalink: 'n',
         name: 'm',
@@ -17,6 +17,7 @@ describe Coub::Entry do
   end
   let(:categories) { [] }
   let(:tags) { [] }
+  let(:recoubed_permalink) { nil }
 
   describe '#anime?' do
     it { is_expected.to be_anime }
@@ -29,6 +30,22 @@ describe Coub::Entry do
         let(:tags) { [%w[anime zzz], %w[аниме xxx]].sample }
         it { is_expected.to be_anime }
       end
+    end
+  end
+
+  describe '#recoubed?, #original_url' do
+    context 'recoubed' do
+      let(:recoubed_permalink) { 'qwe' }
+
+      it { is_expected.to be_recoubed }
+      it { expect(coub.original_url).to eq 'https://coub.com/view/qwe' }
+    end
+
+    context 'not recoubed' do
+      let(:recoubed_permalink) { nil }
+
+      it { is_expected.to be_recoubed }
+      it { expect(coub.original_url).to be_nil }
     end
   end
 

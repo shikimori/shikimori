@@ -1,23 +1,39 @@
 .b-coub.b-video.unprocessed[
   id=coub.permalink
 ]
-  a.video-link[
-    href=coub.url
-    data-href=coub.player_url
-  ]
-    img[
-      src=coub.image_2x_url
-      srcset="#{coub.image_2x_url} 2x"
-      data-id=coub.permalink
+  .main
+    a.video-link[
+      href=coub.url
+      data-href=coub.player_url
     ]
+      img[
+        src=coub.image_2x_url
+        srcset="#{coub.image_2x_url} 2x"
+        data-id=coub.permalink
+      ]
 
-  .info
-    .author
-      a href=coub.author.url
-        img[
-          src=coub.author.avatar_2x_url
-          srcset="#{coub.author.avatar_2x_url} 2x"
-        ]
-    .title
-      a href=coub.author.url
-        = coub.title
+    .info
+      .author-avatar
+        a href=coub.author.url
+          img[
+            src=coub.author.avatar_2x_url
+            srcset="#{coub.author.avatar_2x_url} 2x"
+          ]
+      .title
+        a href=coub.url
+          = coub.title
+      .description
+        - if coub.recoubed?
+          a href=coub.original_url
+            = t '.recoubed_by'
+        - else
+          = t '.created_by'
+
+        a.author-name href=coub.author.url
+          = coub.author.name
+
+        time datetime=coub.created_at_time.iso8601
+          = l coub.created_at_time, format: '%e %B %Y'
+  .tags
+    - coub.tags.each do |tag|
+      .tag ##{tag}

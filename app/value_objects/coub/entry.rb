@@ -30,6 +30,16 @@ class Coub::Entry < Dry::Struct
       tags.include?('аниме')
   end
 
+  def recoubed?
+    recoubed_permalink.present?
+  end
+
+  def original_url
+    return unless recoubed?
+
+    format VIEW_TEMPLATE, permalink: recoubed_permalink
+  end
+
   def url
     format VIEW_TEMPLATE, permalink: permalink
   end
@@ -44,5 +54,9 @@ class Coub::Entry < Dry::Struct
 
   def image_2x_url
     image_template.gsub(VERSION_TEMPALTE, 'big')
+  end
+
+  def created_at_time
+    Time.zone.parse created_at
   end
 end
