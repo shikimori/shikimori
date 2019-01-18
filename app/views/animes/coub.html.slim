@@ -8,6 +8,12 @@
     a.item-edit href=@resource.edit_field_url(:coub_tags)
   .subheadline.m10 = og.headline
 
-  = render 'blocks/postloader',
-    filter: 'b-coub',
-    next_url: fetch_coub_url(@resource.id)
+  .block
+    - if @resource.coubs.coubs.any?
+      = render partial: 'coubs/coub', collection: @resource.coubs.coubs
+
+      = render 'blocks/postloader',
+        filter: 'b-coub',
+        next_url: fetch_coub_url(@resource.id)
+    - else
+      .b-nothing_here = t 'nothing_found'

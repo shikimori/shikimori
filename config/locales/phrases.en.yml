@@ -113,7 +113,8 @@ en:
   no_reviews: No reviews
   no_summaries: No summaries
   no_topics: No topics
-  nothing_found: Nothing found.
+  nothing_found: Nothing found
+  nothing_here: Nothing here
   notifications: Notifications
   of: of
   page: Page %{page}

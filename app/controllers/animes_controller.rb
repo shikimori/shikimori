@@ -131,7 +131,7 @@ class AnimesController < DbEntriesController
       return redirect_to @resource.url, status: 301
     end
 
-    og noindex: true
+    og noindex: true, nofollow: true
     og page_title: t('imageboard_art')
   end
 
@@ -139,7 +139,7 @@ class AnimesController < DbEntriesController
     redirect_to @resource.url, status: 301 if @resource.coub_tags.none?
     raise ActiveRecord::RecordNotFound if Rails.env.production?
 
-    og noindex: true
+    og noindex: true, nofollow: true
     og page_title: 'Coub'
   end
 

@@ -1,4 +1,3 @@
-json.content ''
 json.content render(
   partial: 'coubs/coub',
   collection: @results.coubs,

@@ -1,5 +1,5 @@
 class AnimeDecorator < AniMangaDecorator
-  instance_cache :files, :next_episode_at
+  instance_cache :files, :coubs, :next_episode_at
 
   # новости
   def news_topic_views
@@ -46,9 +46,12 @@ class AnimeDecorator < AniMangaDecorator
       end
   end
 
-  # презентер файлов
   def files
     AniMangaDecorator::Files.new object
+  end
+
+  def coubs
+    Coubs::Fetch.call(tags: coub_tags, iterator: nil)
   end
 
   # дата выхода следующего эпизода

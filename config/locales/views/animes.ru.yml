@@ -1,7 +1,5 @@
 ru:
   animes_collection:
-    collection:
-      nothing_here: Ничего нет
     menu:
       anime:
         status: &anime_statuses

@@ -113,7 +113,8 @@ ru:
   no_reviews: Нет рецензий
   no_summaries: Нет отзывов
   no_topics: Нет топиков
-  nothing_found: Ничего не найдено.
+  nothing_found: Ничего не найдено
+  nothing_here: Ничего нет
   notifications: Уведомления
   of: из
   page: Страница %{page}

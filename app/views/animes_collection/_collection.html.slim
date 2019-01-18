@@ -2,7 +2,7 @@
   / специальная вёрстка отображения отдельного сезона:
   / каталог разбит на куски по kind, каждый кусок отображается с заголовков
   - if @view.collection.none? && @view.page == 1
-    .b-nothing_here = t '.nothing_here'
+    .b-nothing_here = t 'nothing_here'
   - else
     - kinds_with_colors.each do |data|
       - next unless @view.collection[data[:kind]]
@@ -26,7 +26,7 @@
 - else
   .cc-entries
     - if (!@view.collection || @view.collection.none?) && @view.page == 1
-      .b-nothing_here = t '.nothing_here'
+      .b-nothing_here = t 'nothing_here'
     - else
       = render partial: 'animes/anime',
         collection: @view.collection,
