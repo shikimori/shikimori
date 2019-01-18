@@ -41,7 +41,7 @@ describe Coubs::Fetch do
   let(:coub_anime_1) do
     Coub::Entry.new(
       permalink: 'coub_anime_1',
-      image_url: 'coub_anime_1',
+      image_template: 'coub_anime_1',
       categories: %w[anime],
       tags: %w[anime],
       title: 'b',
@@ -56,7 +56,7 @@ describe Coubs::Fetch do
   let(:coub_anime_2) do
     Coub::Entry.new(
       permalink: 'coub_anime_2',
-      image_url: 'coub_anime_2',
+      image_template: 'coub_anime_2',
       categories: %w[anime],
       tags: %w[anime],
       title: 'b',
@@ -71,7 +71,7 @@ describe Coubs::Fetch do
   let(:coub_anime_3) do
     Coub::Entry.new(
       permalink: 'coub_anime_3',
-      image_url: 'coub_anime_3',
+      image_template: 'coub_anime_3',
       categories: %w[anime],
       tags: %w[anime],
       title: 'b',
@@ -86,7 +86,7 @@ describe Coubs::Fetch do
   let(:coub_not_anime_1) do
     Coub::Entry.new(
       permalink: 'coub_not_anime_1',
-      image_url: 'coub_not_anime_1',
+      image_template: 'coub_not_anime_1',
       categories: %w[gaming],
       tags: %w[],
       title: 'b',

@@ -25,7 +25,7 @@ class Coubs::Request
   end
 
   def self.pg_cache_key tag:, page:
-    [tag, page].join('|')
+    [:coub, tag, page].join('|')
   end
 
 private
@@ -46,7 +46,7 @@ private
   def build_entry entry
     Coub::Entry.new(
       permalink: entry[:permalink],
-      image_url: entry[:picture],
+      image_template: entry[:image_versions][:template],
       categories: entry[:categories].map { |v| v[:permalink] },
       tags: entry[:tags].map { |v| URI.unescape v[:value] },
       title: entry[:title],

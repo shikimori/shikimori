@@ -629,8 +629,8 @@ Rails.application.routes.draw do
     resources :imageboards, only: [], concerns: %i[autocompletable] do
       get ':url' => :index, as: :fetch, url: /.*/, on: :collection
     end
-    resources :coubs, only: [], concerns: %i[autocompletable] do
-      get ':iterator' => :index, as: :fetch, url: /.*/, on: :member
+    resources :coubs, only: [:show], concerns: %i[autocompletable] do
+      get '' => :index, as: :fetch, on: :member
     end
 
     # cosplay

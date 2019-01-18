@@ -10,7 +10,7 @@ describe Coubs::Request, :vcr do
       expect(subject.first).to be_kind_of Coub::Entry
       expect(subject.first.to_h).to eq(
         permalink: '1m6oy1',
-        image_url: 'https://coubsecure-s.akamaihd.net/get/b127/p/coub/simple/cw_image/0bb7cf8d2ed/bac412830fc4b47318ca2/med_1547753932_00032.jpg',
+        image_template: 'https://coubsecure-s.akamaihd.net/get/b127/p/coub/simple/cw_image/0bb7cf8d2ed/bac412830fc4b47318ca2/%{version}_1547753932_00032.jpg',
         categories: %w[dance],
         tags: ['girls dancing', 'bang', 'edm shufflers', 'dance', 'dancers', 'vanesa', 'hot cutting shapes', 'shapes', 'e.cruz', 'vansecoo', 'elena cruz', 'violins space', 'house msuic', 'edm', 'cutting shapes'],
         title: 'Violins Space',
@@ -32,7 +32,7 @@ describe Coubs::Request, :vcr do
       expect(subject.first).to be_kind_of Coub::Entry
       expect(subject.first.to_h).to eq(
         permalink: 'dcxm6',
-        image_url: 'https://coubsecure-s.akamaihd.net/get/b57/p/coub/simple/cw_image/f7540dfe398/de96a2d8221af8702ebae/med_1467728423_00038.jpg',
+        image_template: 'https://coubsecure-s.akamaihd.net/get/b57/p/coub/simple/cw_image/f7540dfe398/de96a2d8221af8702ebae/%{version}_1467728423_00038.jpg',
         categories: [],
         tags: ['animewebm', 'webm', 'girlfriend (kari)', 'anime', 'аниме'],
         title: '#Webm #AnimeWebm',

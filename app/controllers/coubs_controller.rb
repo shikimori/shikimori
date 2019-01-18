@@ -2,7 +2,10 @@ class CoubsController < ShikimoriController
   def index
     anime = Anime.find params[:id]
 
-    @results = Coubs::Fetch.call anime.coub_tags, params[:iterator]
+    @results = Coubs::Fetch.call(
+      tags: anime.coub_tags,
+      iterator: params[:iterator]
+    )
   end
 
   def autocomplete

@@ -2,7 +2,7 @@ describe Coub::Entry do
   subject(:entry) do
     Coub::Entry.new(
       permalink: 'zxc',
-      image_url: 'qwe',
+      image_template: 'z_%{version}_x',
       categories: categories,
       tags: tags,
       title: 'b',
@@ -29,5 +29,9 @@ describe Coub::Entry do
         it { is_expected.to be_anime }
       end
     end
+  end
+
+  describe '#image_url' do
+    it { expect(entry.image_url).to eq 'z_big_x' }
   end
 end

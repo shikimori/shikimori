@@ -9,7 +9,7 @@ describe CoubsController do
         coubs: [
           Coub::Entry.new(
             permalink: 'z',
-            image_url: 'x',
+            image_template: 'x',
             categories: ['c'],
             tags: ['v'],
             title: 'b',
@@ -32,8 +32,8 @@ describe CoubsController do
     it do
       expect(Coubs::Fetch)
         .to have_received(:call)
-        .with(anime.coub_tags, iterator)
-      expect(json).to eq JSON.parse(results.to_json).symbolize_keys
+        .with(tags: anime.coub_tags, iterator: iterator)
+      expect(assigns(:results)).to eq results
       expect(response).to have_http_status :success
     end
   end
