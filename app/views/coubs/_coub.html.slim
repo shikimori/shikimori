@@ -1,4 +1,12 @@
-.b-coub[
+.b-coub.b-video.unprocessed[
   id=coub.permalink
 ]
-  img src=coub.image_url
+  a.video-link[
+    href=coub.url
+    data-href=coub.player_url
+  ]
+    img[
+      src=coub.image_2x_url
+      srcset="#{coub.image_2x_url} 2x"
+      data-id=coub.permalink
+    ]

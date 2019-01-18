@@ -9,6 +9,8 @@ class Coub::Entry < Dry::Struct
   attribute :title, Types::String
   attribute :author, Coub::Author
 
+  VIEW_TEMPLATE = 'https://coub.com/view/%<permalink>s'
+  EMBED_TEMPLATE = 'https://coub.com/embed/%<permalink>s?autostart=true&startWithHD=true'
   VERSION_TEMPALTE = '%{version}' # rubocop:disable FormatStringToken
   # micro
   # tiny
@@ -27,7 +29,19 @@ class Coub::Entry < Dry::Struct
       tags.include?('аниме')
   end
 
+  def url
+    format VIEW_TEMPLATE, permalink: permalink
+  end
+
+  def player_url
+    format EMBED_TEMPLATE, permalink: permalink
+  end
+
   def image_url
+    image_template.gsub(VERSION_TEMPALTE, 'med')
+  end
+
+  def image_2x_url
     image_template.gsub(VERSION_TEMPALTE, 'big')
   end
 end

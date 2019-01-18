@@ -1,5 +1,5 @@
 describe Coub::Entry do
-  subject(:entry) do
+  subject(:coub) do
     Coub::Entry.new(
       permalink: 'zxc',
       image_template: 'z_%{version}_x',
@@ -31,7 +31,23 @@ describe Coub::Entry do
     end
   end
 
+  describe 'url' do
+    it { expect(coub.url).to eq 'https://coub.com/view/zxc' }
+  end
+
+  describe 'player_url' do
+    it do
+      expect(coub.player_url).to eq(
+        'https://coub.com/embed/zxc?autostart=true&startWithHD=true'
+      )
+    end
+  end
+
   describe '#image_url' do
-    it { expect(entry.image_url).to eq 'z_big_x' }
+    it { expect(coub.image_url).to eq 'z_med_x' }
+  end
+
+  describe '#image_2x_url' do
+    it { expect(coub.image_2x_url).to eq 'z_big_x' }
   end
 end

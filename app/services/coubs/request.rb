@@ -2,8 +2,6 @@ class Coubs::Request
   method_object :tag, :page
 
   COUB_TEMPLATE = 'https://coub.com/api/v2/timeline/tag/%<tag>s?page=%<page>i'
-  # EMBED_TEMPLATE = 'https://coub.com/embed/%<permalink>s'
-      # player_url: format(EMBED_TEMPLATE, permalink: entry[:permalink]),
   PER_PAGE = 10
 
   EXPIRES_IN = 1.month

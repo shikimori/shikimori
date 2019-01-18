@@ -55,7 +55,6 @@ $.fn.extend
           srcAction: 'iframe_src'
           patterns: video_hostings($link)
 
-
       if $root.hasClass('youtube') || $root.hasClass('vk')
         $poster = $root.find('img')
         $poster.imagesLoaded ->
