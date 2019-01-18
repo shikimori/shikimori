@@ -92,7 +92,7 @@ export default class LoaderBase {
   }
 
   _shikiLoadUrl() {
-    return `/imageboards/fetch/${Base64.encode(this._imagesSourceUrl())}` +
+    return `/imageboards/${Base64.encode(this._imagesSourceUrl())}` +
       `?tag=${this.tag}&page=${this.page}&imageboard=${this.name.toLowerCase()}`;
   }
 

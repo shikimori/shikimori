@@ -1,7 +1,7 @@
 require 'webmock/rspec'
 
 describe CoubsController do
-  describe '#fetch' do
+  describe '#index' do
     before { allow(Coubs::Fetch).to receive(:call).and_return results }
 
     let(:results) do
@@ -25,7 +25,7 @@ describe CoubsController do
       )
     end
 
-    subject! { get :fetch, params: { id: anime.id, iterator: iterator } }
+    subject! { get :index, params: { id: anime.id, iterator: iterator } }
     let(:anime) { create :anime, coub_tags: %w[z x c] }
     let(:iterator) { 'zxc' }
 

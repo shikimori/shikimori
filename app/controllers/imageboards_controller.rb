@@ -10,7 +10,7 @@ class ImageboardsController < ShikimoriController
   EXPIRES_IN = 4.months
 
   # TODO: extract into service object similar to Coubs::Request
-  def fetch
+  def index
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       url = Base64.decode64 URI.decode(params[:url])
       raise Forbidden, url unless url.match? VALID_URL

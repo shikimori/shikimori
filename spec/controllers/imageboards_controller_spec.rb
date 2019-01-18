@@ -1,11 +1,11 @@
 require 'webmock/rspec'
 
 describe ImageboardsController do
-  describe '#fetch' do
+  describe '#index' do
     let(:data) { { 'url' => url, 'test' => 'test' } }
 
     before { stub_request(:any, url).to_return body: data.to_json }
-    subject! { get :fetch, params: { url: URI.encode(Base64.encode64(url).strip) } }
+    subject! { get :index, params: { url: URI.encode(Base64.encode64(url).strip) } }
 
     context 'not allowed url' do
       let(:url) { 'http://lenta.ru/image.jpg' }
