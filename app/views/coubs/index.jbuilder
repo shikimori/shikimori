@@ -1,6 +1,7 @@
 json.content render(
   partial: 'coubs/coub',
   collection: @results.coubs,
+  locals: { match_tags: @anime.coub_tags },
   formats: :html
 )
 

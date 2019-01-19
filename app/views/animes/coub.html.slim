@@ -10,7 +10,9 @@
 
   .block
     - if @resource.coubs.coubs.any?
-      = render partial: 'coubs/coub', collection: @resource.coubs.coubs
+      = render partial: 'coubs/coub',
+        collection: @resource.coubs.coubs,
+        locals: { match_tags: @resource.coub_tags }
 
       = render 'blocks/postloader',
         filter: 'b-coub',

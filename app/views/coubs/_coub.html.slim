@@ -40,5 +40,8 @@
     - if coub.categories.any?
       .tag.category = coub.categories.first.capitalize
 
-    - coub.tags.each do |tag|
+    - (coub.tags & local_assigns[:match_tags]).each do |tag|
+      .tag.matched ##{tag}
+
+    - (coub.tags - local_assigns[:match_tags]).each do |tag|
       .tag ##{tag}

@@ -70,19 +70,23 @@
 
     .tag
       +ellipsis2
-      display: inline-block
       background-color: #f3f3f3
       border-radius: 7px
       color: $gray-3
-      height: 24px
+      display: inline-block
       font-size: 12px
+      height: 24px
       line-height: 24px
       margin-bottom: 6px
       margin-right: 6px
       padding: 0 10px
 
       &.category
-        color: #000
-        font-weight: bold
         background-color: #f8e71c
         border-radius: 12px
+        color: #000
+        font-weight: bold
+
+      &.matched
+        color: #123
+        font-weight: bold

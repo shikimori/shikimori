@@ -1,9 +1,9 @@
 class CoubsController < ShikimoriController
   def index
-    anime = Anime.find params[:id]
+    @anime = Anime.find params[:id]
 
     @results = Coubs::Fetch.call(
-      tags: anime.coub_tags,
+      tags: @anime.coub_tags,
       iterator: Encryptor.instance.decrypt(params[:iterator])
     )
   end
