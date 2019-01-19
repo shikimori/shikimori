@@ -5,7 +5,8 @@ class Tags::Cleanup
   ]
 
   CLEANUP_REGEXP = /
-    \b (?:
+    \b
+    (?:
       s?[ivx\d]+ |
       season |
       сезон |
@@ -22,8 +23,10 @@ class Tags::Cleanup
       ed |
       compilation |
       preview |
-      spoiler
-    ) \b
+      spoiler |
+      спойлер
+    )
+    \b
   /mx
 
   def call tag, fast: false

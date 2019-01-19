@@ -2,7 +2,7 @@ class Tags::CoubConfig
   CONFIG_PATH = 'config/app/coub_tags.yml'
 
   def ignored_tags
-    custom_ignored_tags + auto_ignored_tags
+    @ignored_tags ||= custom_ignored_tags + auto_ignored_tags
   end
 
   def custom_ignored_tags
