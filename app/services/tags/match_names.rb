@@ -5,23 +5,37 @@ class Tags::MatchNames
   MAXIMUM_NAME_DIFFERENCE = 0.75 # i.e. name can be shortened for 25%
 
   def call
-    generate_names & @tags
+    tags_map = build_tags_map
+
+    (generate(@names) & tags_map.keys)
+      .flat_map do |fixed_tag|
+        tags_map[fixed_tag]
+      end
+      .uniq
   end
 
 private
 
-  def generate_names
-    if @no_correct
-      fixed_names
-    else
-      correct fixed_names
+  def build_tags_map
+    @tags.each_with_object({}) do |tag, memo|
+      generate([tag]).each do |fixed_tag|
+        memo[fixed_tag] ||= []
+        memo[fixed_tag].push tag
+      end
     end
   end
 
-  def fixed_names
-    @names
-      .map { |v| v.gsub(/['"]/, '').downcase }
-      .flat_map { |v| [v, v.tr(' ', '_')] }
+  def generate names
+    if @no_correct
+      fix(names)
+    else
+      correct fix(names)
+    end
+  end
+
+  def fix names
+    names
+      .map { |v| v.gsub(/['"]/, '').tr(' ', '_').downcase }
       .flat_map { |v| [v, v.tr('-', '_')] }
   end
 

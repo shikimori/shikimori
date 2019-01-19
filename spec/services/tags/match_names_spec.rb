@@ -9,7 +9,7 @@ describe Tags::MatchNames do
 
   context 'with correct' do
     let(:names) { ['Sword Art Online'] }
-    let(:tags) { ['sword_art_online'] }
+    let(:tags) { ['sword_art_online', 'Sword Art Online', 'sword art online'] }
     let(:no_correct) { false }
 
     context 'has match' do
@@ -29,7 +29,7 @@ describe Tags::MatchNames do
       ].each do |name|
         context name do
           let(:names) { [name] }
-          it { is_expected.to eq ['sword_art_online'] }
+          it { is_expected.to eq tags }
         end
       end
     end
