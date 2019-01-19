@@ -4,27 +4,6 @@ class Tags::GenerateNames
   SHORT_NAME_SIZE = 6
   MAXIMUM_NAME_DIFFERENCE = 0.75 # i.e. name can be shortened for 25%
 
-  SEASON_WORDS = %w[
-    season
-    сезон
-    episode
-  ] + [
-    'full episode'
-  ]
-  SPECIAL_WORDS = %w[
-    tv
-    movie
-    ova
-    ona
-    amv
-    opening
-    op
-    ed
-    compilation
-    preview
-    spoiler
-  ]
-
   def call
     finalize(correct(fix(@names)))
   end
@@ -45,7 +24,7 @@ private
 
   def fix names
     Array(names)
-      .map { |name| self.class.cleanup name }
+      .map { |name| Tags::Cleanup.instance.call name }
       .uniq
   end
 

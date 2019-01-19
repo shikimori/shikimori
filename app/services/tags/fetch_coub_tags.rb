@@ -60,10 +60,10 @@ private
 
   def process tags
     add(
-      exclude_single_words(
-        exclude_large(
-          exclude_small(
-            exclude_ignored(
+      exclude_ignored(
+        exclude_single_words(
+          exclude_large(
+            exclude_small(
               log_new(tags)
             )
           )
@@ -93,8 +93,9 @@ private
   end
 
   def exclude_ignored tags
-    new_tags = (tags - config.ignored_tags)
-      .reject { |v| config.ignored_tags.include?(Tags::GenerateNames.cleanup(v)) }
+    new_tags = (tags - config.ignored_tags).reject do |tag|
+      config.ignored_tags.include? Tags::Cleanup.instance.call(tag, fast: true)
+    end
 
     log "-#{tags.size - new_tags.size} ignored tags"
     new_tags
