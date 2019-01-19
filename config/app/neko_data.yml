@@ -22,7 +22,6 @@
         - 15037
         - 1519
         - 1535
-        - 15583
         - 16700
         - 16762
         - 1719
@@ -36,7 +35,6 @@
         - 23199
         - 24655
         - 2476
-        - 2476
         - 2593
         - 27831
         - 27833
@@ -49,11 +47,9 @@
         - 4282
         - 437
         - 4725
-        - 4896
         - 4901
         - 4970
         - 5177
-        - 5356
         - 64
         - 65
         - 6594
@@ -70,7 +66,6 @@
         - 719
         - 5784
         - 32323
-        - 22199
         - 22729
         - 27655
         - 8577
@@ -159,7 +154,6 @@
         - 34281
         - 10491
         - 3652
-        - 16700
         - 2169
         - 17831
         - 9750
@@ -273,6 +267,7 @@
         - 6707
         - 36266
         - 35994
+        - 37675
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -297,7 +292,6 @@
         - 15037
         - 1519
         - 1535
-        - 15583
         - 16700
         - 16762
         - 1719
@@ -311,7 +305,6 @@
         - 23199
         - 24655
         - 2476
-        - 2476
         - 2593
         - 27831
         - 27833
@@ -324,11 +317,9 @@
         - 4282
         - 437
         - 4725
-        - 4896
         - 4901
         - 4970
         - 5177
-        - 5356
         - 64
         - 65
         - 6594
@@ -345,7 +336,6 @@
         - 719
         - 5784
         - 32323
-        - 22199
         - 22729
         - 27655
         - 8577
@@ -434,7 +424,6 @@
         - 34281
         - 10491
         - 3652
-        - 16700
         - 2169
         - 17831
         - 9750
@@ -548,6 +537,7 @@
         - 6707
         - 36266
         - 35994
+        - 37675
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -572,7 +562,6 @@
         - 15037
         - 1519
         - 1535
-        - 15583
         - 16700
         - 16762
         - 1719
@@ -586,7 +575,6 @@
         - 23199
         - 24655
         - 2476
-        - 2476
         - 2593
         - 27831
         - 27833
@@ -599,11 +587,9 @@
         - 4282
         - 437
         - 4725
-        - 4896
         - 4901
         - 4970
         - 5177
-        - 5356
         - 64
         - 65
         - 6594
@@ -620,7 +606,6 @@
         - 719
         - 5784
         - 32323
-        - 22199
         - 22729
         - 27655
         - 8577
@@ -709,7 +694,6 @@
         - 34281
         - 10491
         - 3652
-        - 16700
         - 2169
         - 17831
         - 9750
@@ -823,6 +807,7 @@
         - 6707
         - 36266
         - 35994
+        - 37675
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/yandere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -1644,6 +1629,7 @@
         - 38850
         - 38578
         - 38672
+        - 37561
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2071,6 +2057,7 @@
         - 38850
         - 38578
         - 38672
+        - 37561
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2497,6 +2484,7 @@
         - 38850
         - 38578
         - 38672
+        - 37561
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2923,6 +2911,7 @@
         - 38850
         - 38578
         - 38672
+        - 37561
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2967,7 +2956,7 @@
     :image: "/assets/achievements/anime/slice_of_life_3.png"
     :border_color: "#ddada5"
     :title_ru: Дзэн
-    :text_ru: Предельная концентрация на будничной жизни. Когда вы перестали задумыватсья
+    :text_ru: Предельная концентрация на будничной жизни. Когда вы перестали задумыватьcя
       о прошлом, будущем и начали жить этим моментом?
     :title_en: 
     :text_en: 
@@ -3015,6 +3004,10 @@
       :filters:
         genre_ids:
         - 39
+        or:
+          anime_ids:
+          - 1405
+          - 1349
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3033,6 +3026,10 @@
       :filters:
         genre_ids:
         - 39
+        or:
+          anime_ids:
+          - 1405
+          - 1349
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3051,6 +3048,10 @@
       :filters:
         genre_ids:
         - 39
+        or:
+          anime_ids:
+          - 1405
+          - 1349
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3069,6 +3070,10 @@
       :filters:
         genre_ids:
         - 39
+        or:
+          anime_ids:
+          - 1405
+          - 1349
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3651,7 +3656,6 @@
         - 9776
         - 11339
         - 35285
-        - 19919
         - 24031
         - 976
         - 36001
@@ -3668,7 +3672,6 @@
         - 4136
         - 29513
         - 29163
-        - 31804
         - 17739
         - 11239
         - 28915
@@ -3733,24 +3736,18 @@
         - 6203
         - 19799
         - 22189
-        - 1858
         - 15043
         - 980
         - 863
         - 31439
         - 941
         - 3841
-        - 25519
-        - 34284
-        - 34445
         - 36777
-        - 10849
         - 21451
         - 20033
         - 30384
         - 31560
         - 31252
-        - 15453
         - 12101
         - 37206
         - 36945
@@ -3770,6 +3767,11 @@
         - 38062
         - 38199
         - 37993
+        - 15061
+        - 22819
+        - 32717
+        - 37204
+        - 31485
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -4099,7 +4101,6 @@
         - 9776
         - 11339
         - 35285
-        - 19919
         - 24031
         - 976
         - 36001
@@ -4116,7 +4117,6 @@
         - 4136
         - 29513
         - 29163
-        - 31804
         - 17739
         - 11239
         - 28915
@@ -4181,24 +4181,18 @@
         - 6203
         - 19799
         - 22189
-        - 1858
         - 15043
         - 980
         - 863
         - 31439
         - 941
         - 3841
-        - 25519
-        - 34284
-        - 34445
         - 36777
-        - 10849
         - 21451
         - 20033
         - 30384
         - 31560
         - 31252
-        - 15453
         - 12101
         - 37206
         - 36945
@@ -4218,6 +4212,11 @@
         - 38062
         - 38199
         - 37993
+        - 15061
+        - 22819
+        - 32717
+        - 37204
+        - 31485
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -4547,7 +4546,6 @@
         - 9776
         - 11339
         - 35285
-        - 19919
         - 24031
         - 976
         - 36001
@@ -4564,7 +4562,6 @@
         - 4136
         - 29513
         - 29163
-        - 31804
         - 17739
         - 11239
         - 28915
@@ -4629,24 +4626,18 @@
         - 6203
         - 19799
         - 22189
-        - 1858
         - 15043
         - 980
         - 863
         - 31439
         - 941
         - 3841
-        - 25519
-        - 34284
-        - 34445
         - 36777
-        - 10849
         - 21451
         - 20033
         - 30384
         - 31560
         - 31252
-        - 15453
         - 12101
         - 37206
         - 36945
@@ -4666,6 +4657,11 @@
         - 38062
         - 38199
         - 37993
+        - 15061
+        - 22819
+        - 32717
+        - 37204
+        - 31485
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -4976,7 +4972,6 @@
         - 3676
         - 3702
         - 384
-        - 3864
         - 3882
         - 3898
         - 3901
@@ -5048,7 +5043,6 @@
         - 5968
         - 6
         - 6016
-        - 6030
         - 6031
         - 6033
         - 6090
@@ -5470,7 +5464,6 @@
         - 3676
         - 3702
         - 384
-        - 3864
         - 3882
         - 3898
         - 3901
@@ -5542,7 +5535,6 @@
         - 5968
         - 6
         - 6016
-        - 6030
         - 6031
         - 6033
         - 6090
@@ -5964,7 +5956,6 @@
         - 3676
         - 3702
         - 384
-        - 3864
         - 3882
         - 3898
         - 3901
@@ -6036,7 +6027,6 @@
         - 5968
         - 6
         - 6016
-        - 6030
         - 6031
         - 6033
         - 6090
@@ -6457,7 +6447,6 @@
         - 20971
         - 20973
         - 2215
-        - 22663
         - 22687
         - 22729
         - 2279
@@ -6648,6 +6637,7 @@
         - 781
         - 31147
         - 37722
+        - 37374
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6973,7 +6963,7 @@
   attributes:
     :neko_id: :ao_no_exorcist
     :level: 1
-    :image: "/assets/achievements/anime/franchise/ao_no_exorcist.jpg"
+    :image: https://kawai.shikimori.org/system/user_images/original/9560/722541.jpg
     :border_color: 
     :title_ru: Синий экзорцист
     :text_ru: 
@@ -6992,7 +6982,7 @@
   attributes:
     :neko_id: :ao_no_exorcist
     :level: 0
-    :image: "/assets/achievements/anime/franchise/ao_no_exorcist.jpg"
+    :image: https://kawai.shikimori.org/system/user_images/original/9560/722541.jpg
     :border_color: 
     :title_ru: Синий экзорцист
     :text_ru: 
@@ -7011,7 +7001,7 @@
   attributes:
     :neko_id: :boku_no_hero_academia
     :level: 1
-    :image: "/assets/achievements/anime/franchise/boku_no_hero_academia.jpg"
+    :image: https://desu.shikimori.org/system/user_images/original/9560/722538.jpg
     :border_color: 
     :title_ru: Моя геройская академия
     :text_ru: 
@@ -7030,7 +7020,7 @@
   attributes:
     :neko_id: :boku_no_hero_academia
     :level: 0
-    :image: "/assets/achievements/anime/franchise/boku_no_hero_academia.jpg"
+    :image: https://desu.shikimori.org/system/user_images/original/9560/722538.jpg
     :border_color: 
     :title_ru: Моя геройская академия
     :text_ru: 
@@ -7215,7 +7205,7 @@
   attributes:
     :neko_id: :fate
     :level: 1
-    :image: "/assets/achievements/anime/franchise/fate.jpg"
+    :image: https://moe.shikimori.org/system/user_images/original/2727/722532.jpg
     :border_color: 
     :title_ru: Судьба
     :text_ru: 
@@ -7258,7 +7248,7 @@
   attributes:
     :neko_id: :fate
     :level: 0
-    :image: "/assets/achievements/anime/franchise/fate.jpg"
+    :image: https://moe.shikimori.org/system/user_images/original/2727/722532.jpg
     :border_color: 
     :title_ru: Судьба
     :text_ru: 
@@ -8389,7 +8379,7 @@
   attributes:
     :neko_id: :hunter_x_hunter
     :level: 1
-    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.jpg"
+    :image: https://dere.shikimori.org/system/user_images/original/9560/722544.jpg
     :border_color: 
     :title_ru: Охотник х Охотник
     :text_ru: 
@@ -8406,7 +8396,7 @@
   attributes:
     :neko_id: :hunter_x_hunter
     :level: 0
-    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.jpg"
+    :image: https://dere.shikimori.org/system/user_images/original/9560/722544.jpg
     :border_color: 
     :title_ru: Охотник х Охотник
     :text_ru: 
@@ -14943,7 +14933,6 @@
         - 36833
         - 9756
         - 11977
-        - 23775
         - 33581
         - 18465
         - 19159
@@ -15169,6 +15158,18 @@
         - 36726
         - 36943
         - 34497
+        - 11285
+        - 36633
+        - 9253
+        - 37349
+        - 17549
+        - 21667
+        - 31138
+        - 36497
+        - 37087
+        - 37781
+        - 28223
+        - 14353
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -15301,7 +15302,6 @@
         - 36833
         - 9756
         - 11977
-        - 23775
         - 33581
         - 18465
         - 19159
@@ -15527,6 +15527,18 @@
         - 36726
         - 36943
         - 34497
+        - 11285
+        - 36633
+        - 9253
+        - 37349
+        - 17549
+        - 21667
+        - 31138
+        - 36497
+        - 37087
+        - 37781
+        - 28223
+        - 14353
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -15661,7 +15673,6 @@
         - 36833
         - 9756
         - 11977
-        - 23775
         - 33581
         - 18465
         - 19159
@@ -15887,6 +15898,18 @@
         - 36726
         - 36943
         - 34497
+        - 11285
+        - 36633
+        - 9253
+        - 37349
+        - 17549
+        - 21667
+        - 31138
+        - 36497
+        - 37087
+        - 37781
+        - 28223
+        - 14353
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -16298,10 +16321,8 @@
       :threshold: 10%
       :filters:
         anime_ids:
-        - 1010
         - 10165
         - 10719
-        - 10790
         - 11319
         - 11577
         - 11597
@@ -16352,11 +16373,9 @@
         - 27787
         - 2787
         - 28171
-        - 28701
         - 28883
         - 30
         - 31
-        - 31564
         - 31798
         - 32
         - 32282
@@ -16380,8 +16399,6 @@
         - 451
         - 452
         - 4654
-        - 5081
-        - 5233
         - 5233
         - 534
         - 535
@@ -16391,7 +16408,6 @@
         - 5941
         - 6213
         - 6351
-        - 637
         - 64
         - 65
         - 6512
@@ -16403,7 +16419,6 @@
         - 7748
         - 7769
         - 7817
-        - 792
         - 8074
         - 8424
         - 8425
@@ -16413,12 +16428,9 @@
         - 868
         - 869
         - 8769
-        - 8841
         - 8937
         - 9253
         - 934
-        - 9958
-        - 9989
         - 48
         - 5525
         - 6682
@@ -16700,7 +16712,6 @@
         - 4437
         - 6325
         - 8246
-        - 8246
         - 10589
         - 36538
         - 1122
@@ -16726,7 +16737,6 @@
         - 2685
         - 4938
         - 793
-        - 30413
         - 23289
         - 1022
         - 909
@@ -16769,7 +16779,6 @@
         - 3157
         - 23251
         - 266
-        - 3299
         - 13161
         - 11785
         - 18713
@@ -16985,7 +16994,6 @@
         - 21863
         - 10465
         - 2719
-        - 33487
         - 37377
         - 10397
         - 1805
@@ -17112,9 +17120,7 @@
         - 23309
         - 1008
         - 5493
-        - 210
         - 6713
-        - 418
         - 792
         - 10823
         - 1007
@@ -17139,7 +17145,6 @@
         - 21561
         - 35905
         - 20709
-        - 23277
         - 30727
         - 33255
         - 34612
@@ -17161,7 +17166,6 @@
         - 397
         - 12367
         - 1727
-        - 5504
         - 398
         - 5940
         - 6974
@@ -17187,10 +17191,7 @@
         - 32836
         - 18119
         - 100
-        - 12367
-        - 1727
         - 5504
-        - 28171
         - 31327
         - 34480
         - 35788
@@ -17372,10 +17373,8 @@
       :threshold: 15%
       :filters:
         anime_ids:
-        - 1010
         - 10165
         - 10719
-        - 10790
         - 11319
         - 11577
         - 11597
@@ -17426,11 +17425,9 @@
         - 27787
         - 2787
         - 28171
-        - 28701
         - 28883
         - 30
         - 31
-        - 31564
         - 31798
         - 32
         - 32282
@@ -17454,8 +17451,6 @@
         - 451
         - 452
         - 4654
-        - 5081
-        - 5233
         - 5233
         - 534
         - 535
@@ -17465,7 +17460,6 @@
         - 5941
         - 6213
         - 6351
-        - 637
         - 64
         - 65
         - 6512
@@ -17477,7 +17471,6 @@
         - 7748
         - 7769
         - 7817
-        - 792
         - 8074
         - 8424
         - 8425
@@ -17487,12 +17480,9 @@
         - 868
         - 869
         - 8769
-        - 8841
         - 8937
         - 9253
         - 934
-        - 9958
-        - 9989
         - 48
         - 5525
         - 6682
@@ -17774,7 +17764,6 @@
         - 4437
         - 6325
         - 8246
-        - 8246
         - 10589
         - 36538
         - 1122
@@ -17800,7 +17789,6 @@
         - 2685
         - 4938
         - 793
-        - 30413
         - 23289
         - 1022
         - 909
@@ -17843,7 +17831,6 @@
         - 3157
         - 23251
         - 266
-        - 3299
         - 13161
         - 11785
         - 18713
@@ -18059,7 +18046,6 @@
         - 21863
         - 10465
         - 2719
-        - 33487
         - 37377
         - 10397
         - 1805
@@ -18186,9 +18172,7 @@
         - 23309
         - 1008
         - 5493
-        - 210
         - 6713
-        - 418
         - 792
         - 10823
         - 1007
@@ -18213,7 +18197,6 @@
         - 21561
         - 35905
         - 20709
-        - 23277
         - 30727
         - 33255
         - 34612
@@ -18235,7 +18218,6 @@
         - 397
         - 12367
         - 1727
-        - 5504
         - 398
         - 5940
         - 6974
@@ -18261,10 +18243,7 @@
         - 32836
         - 18119
         - 100
-        - 12367
-        - 1727
         - 5504
-        - 28171
         - 31327
         - 34480
         - 35788
@@ -18446,10 +18425,8 @@
       :threshold: 25%
       :filters:
         anime_ids:
-        - 1010
         - 10165
         - 10719
-        - 10790
         - 11319
         - 11577
         - 11597
@@ -18500,11 +18477,9 @@
         - 27787
         - 2787
         - 28171
-        - 28701
         - 28883
         - 30
         - 31
-        - 31564
         - 31798
         - 32
         - 32282
@@ -18528,8 +18503,6 @@
         - 451
         - 452
         - 4654
-        - 5081
-        - 5233
         - 5233
         - 534
         - 535
@@ -18539,7 +18512,6 @@
         - 5941
         - 6213
         - 6351
-        - 637
         - 64
         - 65
         - 6512
@@ -18551,7 +18523,6 @@
         - 7748
         - 7769
         - 7817
-        - 792
         - 8074
         - 8424
         - 8425
@@ -18561,12 +18532,9 @@
         - 868
         - 869
         - 8769
-        - 8841
         - 8937
         - 9253
         - 934
-        - 9958
-        - 9989
         - 48
         - 5525
         - 6682
@@ -18848,7 +18816,6 @@
         - 4437
         - 6325
         - 8246
-        - 8246
         - 10589
         - 36538
         - 1122
@@ -18874,7 +18841,6 @@
         - 2685
         - 4938
         - 793
-        - 30413
         - 23289
         - 1022
         - 909
@@ -18917,7 +18883,6 @@
         - 3157
         - 23251
         - 266
-        - 3299
         - 13161
         - 11785
         - 18713
@@ -19133,7 +19098,6 @@
         - 21863
         - 10465
         - 2719
-        - 33487
         - 37377
         - 10397
         - 1805
@@ -19260,9 +19224,7 @@
         - 23309
         - 1008
         - 5493
-        - 210
         - 6713
-        - 418
         - 792
         - 10823
         - 1007
@@ -19287,7 +19249,6 @@
         - 21561
         - 35905
         - 20709
-        - 23277
         - 30727
         - 33255
         - 34612
@@ -19309,7 +19270,6 @@
         - 397
         - 12367
         - 1727
-        - 5504
         - 398
         - 5940
         - 6974
@@ -19335,10 +19295,7 @@
         - 32836
         - 18119
         - 100
-        - 12367
-        - 1727
         - 5504
-        - 28171
         - 31327
         - 34480
         - 35788
