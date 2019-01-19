@@ -12,7 +12,7 @@ private
 
   def fix names
     Array(names)
-      .map { |name| Tags::Cleanup.instance.call name }
+      .map { |name| Tags::CleanupTag.instance.call name }
       .uniq
   end
 

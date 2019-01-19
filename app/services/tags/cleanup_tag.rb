@@ -1,4 +1,4 @@
-class Tags::Cleanup
+class Tags::CleanupTag
   include Singleton
 
   SPECIAL_WORDS = %w[
@@ -27,7 +27,9 @@ class Tags::Cleanup
       spoiler |
       спойлер
     )
-    \b
+    \b |
+    [_'"!] |
+    \bthe\b
   /mx
 
   def call tag, fast: false
@@ -35,7 +37,6 @@ class Tags::Cleanup
 
     fixed_tag
       .downcase
-      .tr('_', ' ')
       .gsub(CLEANUP_REGEXP, ' ')
       .gsub(/  +/, ' ')
       .strip

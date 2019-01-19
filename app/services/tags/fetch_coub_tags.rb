@@ -94,7 +94,7 @@ private
 
   def exclude_ignored tags
     new_tags = (tags - config.ignored_tags).reject do |tag|
-      config.ignored_tags.include? Tags::Cleanup.instance.call(tag, fast: true)
+      config.ignored_tags.include? Tags::CleanupTag.instance.call(tag, fast: true)
     end
 
     log "-#{tags.size - new_tags.size} ignored tags"
