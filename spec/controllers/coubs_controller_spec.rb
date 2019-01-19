@@ -26,8 +26,15 @@ describe CoubsController do
       )
     end
 
-    subject! { get :index, params: { id: anime.id, iterator: iterator } }
+    subject! do
+      get :index,
+        params: {
+          id: anime.id,
+          iterator: encrypted_iterator
+        }
+    end
     let(:anime) { create :anime, coub_tags: %w[z x c] }
+    let(:encrypted_iterator) { Encryptor.instance.encrypt iterator }
     let(:iterator) { 'zxc' }
 
     it do

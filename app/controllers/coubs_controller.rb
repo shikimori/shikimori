@@ -4,7 +4,7 @@ class CoubsController < ShikimoriController
 
     @results = Coubs::Fetch.call(
       tags: anime.coub_tags,
-      iterator: params[:iterator]
+      iterator: Encryptor.instance.decrypt(params[:iterator])
     )
   end
 

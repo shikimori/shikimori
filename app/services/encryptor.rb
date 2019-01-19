@@ -13,12 +13,15 @@ class Encryptor
   end
 
   def decrypt text
+    return if text.to_s.blank?
+
     salt, data = text.split '$$'
 
     key = key_generator.generate_key salt, key_len
     crypt = ActiveSupport::MessageEncryptor.new key
 
     crypt.decrypt_and_verify data
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
   end
 
 private

@@ -6,6 +6,16 @@ describe Encryptor do
   end
 
   describe '#decrypt' do
-    it { expect(service.decrypt(service.encrypt('test'))).to eq 'test' }
+    subject { service.decrypt text }
+
+    context 'valid text' do
+      let(:text) { service.encrypt 'test' }
+      it { is_expected.to eq 'test' }
+    end
+
+    context 'invalid text' do
+      let(:text) { ['zxcz', nil, :zxc].sample }
+      it { is_expected.to be_nil }
+    end
   end
 end
