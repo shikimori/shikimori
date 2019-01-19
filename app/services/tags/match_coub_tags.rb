@@ -26,7 +26,7 @@ private
   end
 
   def scope
-    Anime.where(id: 21).where(coub_tags: []).order(:franchise, :id)
+    Anime.where(coub_tags: []).order(:franchise, :id)
   end
 
   def log model, tags
