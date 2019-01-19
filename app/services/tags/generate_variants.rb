@@ -1,4 +1,4 @@
-class Tags::BuildVariants
+class Tags::GenerateVariants
   method_object :tags
 
   def call

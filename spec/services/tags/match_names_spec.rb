@@ -2,10 +2,11 @@ describe Tags::MatchNames do
   subject do
     described_class.call(
       names: names,
-      tags: tags,
-      no_correct: no_correct
+      tags_variants: tags_variants
     )
   end
+
+  let(:tags_variants) { Tags::GenerateVariants.call tags }
 
   context 'with correct' do
     let(:names) { ['Sword Art Online'] }
@@ -38,7 +39,8 @@ describe Tags::MatchNames do
       [
         'sword art onlin',
         'sword art online bla bla',
-        'sword_art_online: zxc: zxc'
+        'bla bla',
+        'art online'
       ].each do |name|
         context name do
           let(:names) { [name] }
@@ -56,7 +58,7 @@ describe Tags::MatchNames do
       end
 
       context 'short name' do
-        let(:names) { ['Sword 2'] }
+        let(:names) { ['sword z'] }
         let(:tags) { ['sword'] }
         it { is_expected.to eq [] }
       end
@@ -67,21 +69,6 @@ describe Tags::MatchNames do
       let(:tags) { ['working!'] }
 
       it { is_expected.to eq ['working!'] }
-    end
-  end
-
-  context 'without correct' do
-    let(:tags) { ['sword_art_online'] }
-    let(:no_correct) { true }
-
-    context 'has direct match' do
-      let(:names) { ['Sword Art Online'] }
-      it { is_expected.to eq ['sword_art_online'] }
-    end
-
-    context 'has indirect match' do
-      let(:names) { ['Sword Art Online 2'] }
-      it { is_expected.to eq [] }
     end
   end
 end

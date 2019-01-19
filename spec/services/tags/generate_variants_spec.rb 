@@ -1,4 +1,4 @@
-describe Tags::BuildVariants do
+describe Tags::GenerateVariants do
   subject { described_class.call tags }
 
   context do
