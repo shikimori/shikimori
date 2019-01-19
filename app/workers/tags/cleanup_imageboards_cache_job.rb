@@ -18,7 +18,10 @@ class Tags::CleanupImageboardsCacheJob
       PAGES.each do |page|
         PgCacheData
           .where(key: pg_cache_keys(tags, imageboard, page))
-          .where('expires_at < ?', (ImageboardsController::EXPIRES_IN - ONGOING_EXPIRES_IN).from_now)
+          .where(
+            'expires_at < ?',
+            (ImageboardsController::EXPIRES_IN - ONGOING_EXPIRES_IN).from_now
+          )
           .delete_all
       end
     end
