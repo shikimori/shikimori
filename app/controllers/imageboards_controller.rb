@@ -21,7 +21,7 @@ class ImageboardsController < ShikimoriController
         if url.match? 'safebooru.org'
           parse_safeboory content
         else
-          content
+          parse_json content
         end
       end
 
@@ -46,6 +46,12 @@ private
 
   def parse_safeboory xml
     Nokogiri::XML(xml).css('posts post').map(&:to_h)
+  end
+
+  def parse_json json
+    JSON.parse json
+  rescue JSON::ParserError
+    []
   end
 
   def pg_cache_key

@@ -2,7 +2,7 @@ require 'webmock/rspec'
 
 describe ImageboardsController do
   describe '#index' do
-    let(:data) { { 'url' => url, 'test' => 'test' } }
+    let(:data) { [{ 'url' => url, 'test' => 'test' }] }
 
     before { stub_request(:any, url).to_return body: data.to_json }
     subject! { get :index, params: { url: URI.encode(Base64.encode64(url).strip) } }
