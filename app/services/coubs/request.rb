@@ -75,7 +75,11 @@ private
   end
 
   def fetch
-    OpenURI.open_uri(coub_url, 'User-Agent' => 'shikimori.org').read
+    OpenURI.open_uri(
+      coub_url,
+      read_timeout: 2,
+      'User-Agent' => 'shikimori.org'
+    ).read
   rescue OpenURI::HTTPError => e
     if e.message == '404 Not Found'
       NO_DATA_RESPONSE
