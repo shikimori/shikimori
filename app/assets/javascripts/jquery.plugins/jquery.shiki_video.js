@@ -43,7 +43,7 @@ $.fn.extend({
       $root.removeClass('unprocessed');
 
       const $link = $root.find('.video-link');
-      const isSpecialCoub = $root.hasClass('b-coub');
+      // const isSpecialCoub = $root.hasClass('b-coub');
 
       $link.magnificPopup({
         preloader: false,
@@ -51,18 +51,24 @@ $.fn.extend({
         iframe: {
           // HTML markup of popup, `mfp-close` will be replaced by the close button
           markup: `
-            <div
-              class='mfp-iframe-scaler ${isSpecialCoub ? 'mfp-coub' : ''}'
-              ${isSpecialCoub ? 'onclick="$.magnificPopup.instance.close()"' : ''}
-            >
+            <div class='mfp-iframe-scaler'>
               <div class="mfp-close"></div>
               <iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>
             </div>
           `,
+          // markup: `
+          //   <div
+          //     class='mfp-iframe-scaler ${isSpecialCoub ? 'mfp-coub' : ''}'
+          //     ${isSpecialCoub ? 'onclick="$.magnificPopup.instance.close()"' : ''}
+          //   >
+          //     <div class="mfp-close"></div>
+          //     <iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>
+          //   </div>
+          // `,
           // Templating object key. First part defines CSS selector, second attribute.
           // "iframe_src" means: find "iframe" and set attribute "src".
           srcAction: 'iframe_src',
-          closeOnContentClick: isSpecialCoub,
+          // closeOnContentClick: isSpecialCoub,
           patterns: hostingPatterns($link.data('href'))
         }
       });

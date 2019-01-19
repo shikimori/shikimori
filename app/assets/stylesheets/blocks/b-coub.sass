@@ -1,18 +1,18 @@
-@import mixins/block
 @import mixins/responsive
 @import mixins/ellipsis2
 
 .b-coub
-  +block2
-  margin-left: auto
-  margin-right: auto
-  max-width: 100%
   display: flex !important
+  margin: 0 auto $block_offset * 2.5
+  max-width: 100%
+
+  &:last-child
+    margin-bottom: 0
 
   +iphone
     flex-direction: column
 
-  .main
+  .content
     flex-shrink: 0
 
     +gte_ipad
@@ -22,7 +22,7 @@
       margin-bottom: 30px
 
     .video-link
-      display: block
+      display: inline-block
       margin-bottom: 20px
       max-width: 640px
 
@@ -31,40 +31,58 @@
         overflow: hidden
         max-height: 360px
 
-    .info
+    .footer
+      display: flex  // need for ellipsis in title
+      max-width: 640px
+
       .author-avatar
         border-radius: 50%
-        float: left
+        flex-shrink: 0
         margin-right: 12px
         overflow: hidden
 
-      .title
-        +ellipsis2
-        font-size: 20px
-        font-weight: bold
-        line-height: 1.3
-        margin-bottom: 13px
+        img
+          height: 48px
+          width: 48px
 
-      .description
-        color: $gray-2
-        font-size: 12px
+      .info
+        min-width: 0 // need for ellipsis in title
 
-        .author-name
+        .title
+          +ellipsis2
+          font-size: 20px
           font-weight: bold
-          padding: 0 6px
+          line-height: 1.3
+          margin-bottom: 13px
 
+        .description
+          color: $gray-2
+          font-size: 12px
+
+          .author-name
+            font-weight: bold
+            padding: 0 6px
 
   .tags
-    max-height: 360px
+    max-height: 355px
     overflow: hidden
+    text-overflow: ellipsis
 
     .tag
+      +ellipsis2
       display: inline-block
       background-color: #f3f3f3
-      border-radius: 8px
-      color: #7B7B7B
-      height: 30px
-      line-height: 30px
-      margin-bottom: 5px
-      margin-right: 5px
+      border-radius: 7px
+      color: $gray-3
+      height: 24px
+      font-size: 12px
+      line-height: 24px
+      margin-bottom: 6px
+      margin-right: 6px
       padding: 0 10px
+
+      &.category
+        color: #000
+        font-weight: bold
+        background-color: #f8e71c
+        border-radius: 12px

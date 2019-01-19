@@ -1,7 +1,7 @@
 .b-coub.b-video.unprocessed[
   id=coub.permalink
 ]
-  .main
+  .content
     a.video-link[
       href=coub.url
       data-href=coub.player_url
@@ -12,28 +12,33 @@
         data-id=coub.permalink
       ]
 
-    .info
+    .footer
       .author-avatar
         a href=coub.author.url
           img[
             src=coub.author.avatar_2x_url
             srcset="#{coub.author.avatar_2x_url} 2x"
           ]
-      .title
-        a href=coub.url
-          = coub.title
-      .description
-        - if coub.recoubed?
-          a href=coub.original_url
-            = t '.recoubed_by'
-        - else
-          = t '.created_by'
+      .info
+        .title
+          a href=coub.url
+            = coub.title
 
-        a.author-name href=coub.author.url
-          = coub.author.name
+        .description
+          - if coub.recoubed?
+            a href=coub.original_url
+              = t '.recoubed_by'
+          - else
+            = t '.created_by'
 
-        time datetime=coub.created_at_time.iso8601
-          = l coub.created_at_time, format: '%e %B %Y'
+          a.author-name href=coub.author.url
+            = coub.author.name
+
+          time datetime=coub.created_at_time.iso8601
+            = l coub.created_at_time, format: '%e %B %Y'
   .tags
+    - if coub.categories.any?
+      .tag.category = coub.categories.first.capitalize
+
     - coub.tags.each do |tag|
       .tag ##{tag}

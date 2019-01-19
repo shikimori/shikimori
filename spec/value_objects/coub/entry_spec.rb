@@ -44,7 +44,7 @@ describe Coub::Entry do
     context 'not recoubed' do
       let(:recoubed_permalink) { nil }
 
-      it { is_expected.to be_recoubed }
+      it { is_expected.to_not be_recoubed }
       it { expect(coub.original_url).to be_nil }
     end
   end
