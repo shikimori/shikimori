@@ -3,7 +3,7 @@ describe Tags::GenerateNames do
 
   context do
     let(:names) { ['sword_art_online - zxc', 'sword_art_online: zxc'].sample }
-    it { is_expected.to eq ['sword art online', 'sword art online zxc'] }
+    it { is_expected.to eq ['sword art online zxc', 'sword art online'] }
   end
 
   context do

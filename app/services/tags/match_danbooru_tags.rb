@@ -2,20 +2,24 @@ class Tags::MatchDanbooruTags
   method_object
 
   def call
-    animanga_tags = animanga_tags_scope.pluck(:name)
-    character_tags = character_tags_scope.pluck(:name)
+    animanga_tags_variants = tags_variants animanga_tags_scope
+    character_tags_variants = tags_variants character_tags_scope
 
-    match_animangas animanga_tags, animes_scope
-    match_animangas animanga_tags, mangas_scope
-    match_characters character_tags, characters_scope
+    match_animangas animanga_tags_variants, animes_scope
+    match_animangas animanga_tags_variants, mangas_scope
+    match_characters character_tags_variants, characters_scope
   end
 
 private
 
-  def match_animangas tags, scope
+  def tags_variants scope
+    Tags::GenerateVariants.call scope.pluck(:name)
+  end
+
+  def match_animangas tags_variants, scope
     scope.find_each do |model|
       names = anime_names model
-      tag = match names, tags, false
+      tag = match names, tags_variants
 
       if tag
         model.update imageboard_tag: tag
@@ -24,7 +28,7 @@ private
     end
   end
 
-  def match_characters tags, scope # rubocop:disable MethodLength
+  def match_characters tags_variants, scope # rubocop:disable MethodLength
     scope.find_each do |model|
       names = character_names model
 
@@ -36,10 +40,10 @@ private
       tag = nil
 
       if entries_tags.any?
-        tag = match compile_names(entries_tags, names), tags, true
+        tag = match compile_names(entries_tags, names), tags_variants
       end
 
-      tag ||= match names, tags, true
+      tag ||= match names, tags_variants
 
       if tag
         model.update imageboard_tag: tag
@@ -48,11 +52,10 @@ private
     end
   end
 
-  def match names, tags, no_correct
+  def match names, tags_variants
     Tags::MatchNames.call(
       names: names,
-      tags: tags,
-      no_correct: no_correct
+      tags_variants: tags_variants
     ).first
   end
 

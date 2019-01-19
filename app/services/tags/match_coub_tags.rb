@@ -2,11 +2,12 @@ class Tags::MatchCoubTags
   method_object :tags
 
   def call
+    tags_variants = Tags::GenerateVariants.call @tags
+
     scope.find_each do |anime|
       tags = Tags::MatchNames.call(
         names: names(anime),
-        tags: @tags,
-        no_correct: false
+        tags_variants: tags_variants
       )
 
       if tags.any?

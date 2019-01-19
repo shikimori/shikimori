@@ -41,7 +41,6 @@ private
           .strip
       end
       .uniq
-      .sort
   end
 
   def multiply name
