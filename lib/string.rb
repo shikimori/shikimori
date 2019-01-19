@@ -104,7 +104,6 @@ class String
     result
   end
 
-  # японский ли текст?
   def contains_cjkv?
     each_char do |ch|
       return true if CJKV_RANGES.any? { |range| range.cover? ch.unpack1('H*').hex }
@@ -112,7 +111,6 @@ class String
     false
   end
 
-  # русский ли текст?
   def contains_russian?
     matched = 0
     each_char do |char|

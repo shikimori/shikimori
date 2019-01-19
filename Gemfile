@@ -74,7 +74,7 @@ gem 'paperclip'
 gem 'paperclip-i18n'
 gem 'rs_russian'
 gem 'translit'
-gem 'sixarm_ruby_unaccent'
+gem 'sixarm_ruby_unaccent' # adds method `unaccent`. it is used in Tags::GenerateNames
 gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
 gem 'state_machine'

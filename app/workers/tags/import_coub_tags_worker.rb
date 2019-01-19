@@ -4,8 +4,10 @@ class Tags::ImportCoubTagsWorker
   def perform
     Tags::CleanupIgnoredCoubTags.call
 
-    Tags::ImportCoubTags.call do |tags|
+    CoubTag.transaction do
+      tags = Tags::FetchCoubTags.call
       Tags::MatchCoubTags.call tags
+      Tags::ImportCoubTags.call tags
     end
   end
 end

@@ -4,32 +4,55 @@ class Tags::GenerateNames
   SHORT_NAME_SIZE = 6
   MAXIMUM_NAME_DIFFERENCE = 0.75 # i.e. name can be shortened for 25%
 
+  SEASON_WORDS = %w[
+    season
+    сезон
+    episode
+  ] + [
+    'full episode'
+  ]
+  SPECIAL_WORDS = %w[
+    tv
+    movie
+    ova
+    ona
+    amv
+    opening
+    op
+    ed
+    compilation
+    preview
+    spoiler
+  ]
+
   def call
     finalize(correct(fix(@names)))
+  end
+
+  def self.cleanup tag
+    tag
+      .downcase
+      .unaccent
+      .tr('_', ' ')
+      .gsub(/\b(?:#{SEASON_WORDS.join '|'})\b/, ' ')
+      .gsub(/\bs?[ivx\d]+\b/, ' ')
+      .gsub(/\b(?:#{SPECIAL_WORDS.join '|'})\b/, ' ')
+      .gsub(/  +/, ' ')
+      .strip
   end
 
 private
 
   def fix names
     Array(names)
-      .map do |name|
-        name
-          .downcase
-          .unaccent
-          .tr('_', ' ')
-          .gsub(/ (?:season|сезон|episode) ?(?:i+|\d)\b/, ' ')
-          .gsub(/ s?(?:i+|\d)\b/, ' ')
-          .gsub(/ (?:tv|movie|ova|ona|amv)\b/, ' ')
-          .gsub(/  +/, ' ')
-          .strip
-      end
+      .map { |name| self.class.cleanup name }
       .uniq
   end
 
   def correct names
     names
-      .flat_map { |v| multiply v }
-      .flat_map { |v| shorten v }
+      .flat_map { |name| multiply name }
+      .flat_map { |name| shorten name }
       .uniq
   end
 
