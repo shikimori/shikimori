@@ -12,6 +12,7 @@ class Tags::Cleanup
       сезон |
       episode |
       эпизод |
+      серия |
       full\ episode |
       tv |
       movie |
