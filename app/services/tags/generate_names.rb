@@ -17,9 +17,9 @@ private
           .downcase
           .unaccent
           .tr('_', ' ')
-          .gsub(/ (?:season|сезон) ?(?:i+|\d)\b/, ' ')
+          .gsub(/ (?:season|сезон|episode) ?(?:i+|\d)\b/, ' ')
           .gsub(/ s?(?:i+|\d)\b/, ' ')
-          .gsub(/ (?:tv|movie|ova|ona)\b/, ' ')
+          .gsub(/ (?:tv|movie|ova|ona|amv)\b/, ' ')
           .gsub(/  +/, ' ')
           .strip
       end

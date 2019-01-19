@@ -42,7 +42,9 @@ describe Tags::GenerateNames do
         'Sword_Art_Online',
         'sword_art_online',
         'sword art online!',
-        'sword art online!!'
+        'sword art online!!',
+        'sword_art_online amv',
+        'sword_art_online episode 5'
       ]
     end
 
