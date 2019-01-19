@@ -8,18 +8,6 @@ class Tags::GenerateNames
     finalize(correct(fix(@names)))
   end
 
-  def self.cleanup tag
-    tag
-      .downcase
-      .unaccent
-      .tr('_', ' ')
-      .gsub(/\b(?:#{SEASON_WORDS.join '|'})\b/, ' ')
-      .gsub(/\bs?[ivx\d]+\b/, ' ')
-      .gsub(/\b(?:#{SPECIAL_WORDS.join '|'})\b/, ' ')
-      .gsub(/  +/, ' ')
-      .strip
-  end
-
 private
 
   def fix names
