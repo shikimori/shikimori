@@ -4,6 +4,6 @@ describe Coub::Results do
   let(:iterator) { 'zxc' }
 
   describe '#encrypted_iterator' do
-    it { expect(Encryptor.instance.decryot(coub.encrypted_iterator)).to eq iterator }
+    it { expect(Encryptor.instance.decrypt(coub_results.encrypted_iterator)).to eq iterator }
   end
 end
