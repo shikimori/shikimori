@@ -1,17 +1,32 @@
 describe Tags::GenerateNames do
   subject { described_class.call names }
 
-  context do
-    let(:names) { ['sword_art_online - zxc', 'sword_art_online: zxc'].sample }
-    it { is_expected.to eq ['sword art online zxc', 'sword art online'] }
-  end
-
-  context do
+  context 'just some name' do
     let(:names) { 'sword art online' }
     it { is_expected.to eq ['sword art online'] }
   end
 
-  context do
+  context 'dashes and colons' do
+    let(:names) { ['sword_art_online - zxc', 'sword_art_online: zxc'].sample }
+    it { is_expected.to eq ['sword art online zxc', 'sword art online'] }
+  end
+
+  context 'accents' do
+    let(:names) { 'Å déjà Ç' }
+    it { is_expected.to eq ['a deja c'] }
+  end
+
+  context 'russian text' do
+    let(:names) { 'видео' }
+    it { is_expected.to eq ['видео'] }
+  end
+
+  context 'japanese text' do
+    let(:names) { 'ソードアート・オンライン アリシゼーション' }
+    it { is_expected.to eq ['ソートアート・オンライン アリシセーション'] }
+  end
+
+  context 'multiple replaceable variants' do
     let(:names) do
       [
         'sword art online',

@@ -15,6 +15,7 @@ private
       .map do |name|
         name
           .downcase
+          .unaccent
           .tr('_', ' ')
           .gsub(/ (?:season|сезон) ?(?:i+|\d)\b/, ' ')
           .gsub(/ s?(?:i+|\d)\b/, ' ')
@@ -34,13 +35,17 @@ private
 
   def finalize names
     names
-      .map do |name|
-        name
-          .gsub(/[^\w ]+/, ' ')
-          .gsub(/  +/, ' ')
-          .strip
-      end
+      .map { |name| simplify(name).gsub(/  +/, ' ').strip }
       .uniq
+      .select(&:present?)
+  end
+
+  def simplify name
+    if name.contains_cjkv?
+      name
+    else
+      name.gsub(/[^\wА-Яа-я ]+/, ' ')
+    end
   end
 
   def multiply name
