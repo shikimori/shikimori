@@ -26,7 +26,9 @@ private
   end
 
   def scope
-    Anime.where(coub_tags: []).order(:franchise, :id)
+    Anime
+      .where(Arel.sql("not(desynced @> '{\"coub_tags\"}')"))
+      .order(:franchise, :id)
   end
 
   def log model, tags
