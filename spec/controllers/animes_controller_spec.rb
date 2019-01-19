@@ -106,7 +106,9 @@ describe AnimesController do
 
   describe '#coub' do
     let(:anime) { create :anime, coub_tags: %i[working] }
+    before { allow(Coubs::Fetch).to receive(:call).and_return double(coubs: [], iterator: nil) }
     subject! { get :coub, params: { id: anime.to_param } }
+
     it { expect(response).to have_http_status :success }
   end
 
