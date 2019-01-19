@@ -6963,7 +6963,7 @@
   attributes:
     :neko_id: :ao_no_exorcist
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/9560/722541.jpg
+    :image: "/assets/achievements/anime/franchise/ao_no_exorcist.jpg"
     :border_color: 
     :title_ru: Синий экзорцист
     :text_ru: 
@@ -6982,7 +6982,7 @@
   attributes:
     :neko_id: :ao_no_exorcist
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/9560/722541.jpg
+    :image: "/assets/achievements/anime/franchise/ao_no_exorcist.jpg"
     :border_color: 
     :title_ru: Синий экзорцист
     :text_ru: 
@@ -7001,7 +7001,7 @@
   attributes:
     :neko_id: :boku_no_hero_academia
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/9560/722538.jpg
+    :image: "/assets/achievements/anime/franchise/boku_no_hero_academia.jpg"
     :border_color: 
     :title_ru: Моя геройская академия
     :text_ru: 
@@ -7020,7 +7020,7 @@
   attributes:
     :neko_id: :boku_no_hero_academia
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/9560/722538.jpg
+    :image: "/assets/achievements/anime/franchise/boku_no_hero_academia.jpg"
     :border_color: 
     :title_ru: Моя геройская академия
     :text_ru: 
@@ -7205,7 +7205,7 @@
   attributes:
     :neko_id: :fate
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/2727/722532.jpg
+    :image: "/assets/achievements/anime/franchise/fate.jpg"
     :border_color: 
     :title_ru: Судьба
     :text_ru: 
@@ -7248,7 +7248,7 @@
   attributes:
     :neko_id: :fate
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/2727/722532.jpg
+    :image: "/assets/achievements/anime/franchise/fate.jpg"
     :border_color: 
     :title_ru: Судьба
     :text_ru: 
@@ -8379,7 +8379,7 @@
   attributes:
     :neko_id: :hunter_x_hunter
     :level: 1
-    :image: https://dere.shikimori.org/system/user_images/original/9560/722544.jpg
+    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.jpg"
     :border_color: 
     :title_ru: Охотник х Охотник
     :text_ru: 
@@ -8396,7 +8396,7 @@
   attributes:
     :neko_id: :hunter_x_hunter
     :level: 0
-    :image: https://dere.shikimori.org/system/user_images/original/9560/722544.jpg
+    :image: "/assets/achievements/anime/franchise/hunter_x_hunter.jpg"
     :border_color: 
     :title_ru: Охотник х Охотник
     :text_ru: 
