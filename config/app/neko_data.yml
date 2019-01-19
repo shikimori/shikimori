@@ -6783,7 +6783,7 @@
         - 37278
         - 37362
         - 37831
-      :threshold: 84.5%
+      :threshold: 84.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -7238,7 +7238,7 @@
         - 36327
         - 36729
         - 38784
-      :threshold: 92.1%
+      :threshold: 92%
       :generator:
         not_ignored_ids:
         - 33049
@@ -7346,7 +7346,7 @@
         - 246
         - 11511
         - 12121
-      :threshold: 96%
+      :threshold: 96.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -8742,7 +8742,7 @@
       :algo: duration
       :filters:
         franchise: tales_of
-      :threshold: 92.4%
+      :threshold: 92.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -11518,7 +11518,7 @@
         franchise: ikkitousen
         not_anime_ids:
         - 8507
-      :threshold: 95%
+      :threshold: 93.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -12548,7 +12548,7 @@
         franchise: gegege_no_kitarou
         not_anime_ids:
         - 10584
-      :threshold: 96.6%
+      :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -12776,7 +12776,7 @@
         franchise: inazuma_eleven
         not_anime_ids:
         - 12585
-      :threshold: 92.7%
+      :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -13682,7 +13682,7 @@
       :algo: duration
       :filters:
         franchise: captain_tsubasa
-      :threshold: 96.5%
+      :threshold: 96.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
