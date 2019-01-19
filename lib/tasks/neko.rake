@@ -12,6 +12,9 @@ namespace :neko do
         rule.merge 'source' =>
           GITHUB_URL + rule_file.sub(%r{^.*\.\./neko-achievements/}, '')
       end
+    rescue
+      puts rule_file
+      raise
     end
 
     neko_ids = %w[test] + rules.map { |v| v['neko_id'] }.uniq
