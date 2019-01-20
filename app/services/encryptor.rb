@@ -13,7 +13,7 @@ class Encryptor
   end
 
   def decrypt text
-    return if text.empty?
+    return if text.blank?
 
     salt, data = text.to_s.split '$$'
 
