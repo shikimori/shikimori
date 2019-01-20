@@ -4,7 +4,7 @@ class Coubs::Request
   COUB_TEMPLATE = 'https://coub.com/api/v2/timeline/tag/%<tag>s?page=%<page>i'
   PER_PAGE = 10
 
-  EXPIRES_IN = 1.month
+  EXPIRES_IN = 3.month
   EXCEPTIONS = Network::FaradayGet::NET_ERRORS
 
   NO_DATA_RESPONSE = {
