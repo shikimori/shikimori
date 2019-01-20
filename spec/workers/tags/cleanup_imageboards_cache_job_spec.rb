@@ -5,7 +5,7 @@ describe Tags::CleanupImageboardsCacheJob do
       key: ImageboardsController.pg_cache_key(
         tag: anime_1.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
-        page: described_class::PAGES.sample
+        page: 1 # described_class::PAGES.sample
       ),
       expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN + 1.day
@@ -15,7 +15,7 @@ describe Tags::CleanupImageboardsCacheJob do
       key: ImageboardsController.pg_cache_key(
         tag: anime_1.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
-        page: described_class::PAGES.sample
+        page: 2 # described_class::PAGES.sample
       ),
       expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
@@ -25,7 +25,7 @@ describe Tags::CleanupImageboardsCacheJob do
       key: ImageboardsController.pg_cache_key(
         tag: anime_2.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
-        page: described_class::PAGES.sample
+        page: 3 # described_class::PAGES.sample
       ),
       expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
@@ -36,7 +36,7 @@ describe Tags::CleanupImageboardsCacheJob do
       key: ImageboardsController.pg_cache_key(
         tag: character_1.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
-        page: described_class::PAGES.sample
+        page: 4 # described_class::PAGES.sample
       ),
       expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
@@ -46,7 +46,7 @@ describe Tags::CleanupImageboardsCacheJob do
       key: ImageboardsController.pg_cache_key(
         tag: character_2.imageboard_tag,
         imageboard: described_class::IMAGEBOARDS.sample,
-        page: described_class::PAGES.sample
+        page: 5 # described_class::PAGES.sample
       ),
       expires_at: ImageboardsController::EXPIRES_IN.from_now -
         described_class::ONGOING_EXPIRES_IN - 1.day
