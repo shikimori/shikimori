@@ -48,7 +48,7 @@ private
 
   def fetch_tag tag:, page:, overfetched: 0, add_coubs: # rubocop:disable MethodLength
     all_coubs = Coubs::Request.call tag, page
-    anime_coubs = (add_coubs + all_coubs.select(&:anime?))[overfetched..-1]
+    anime_coubs = (add_coubs + all_coubs.select(&:anime?))[overfetched..-1] || []
     overloaded_coubs = anime_coubs[PER_PAGE..-1] || []
 
     if finished?(all_coubs) || enough?(anime_coubs)
