@@ -118,40 +118,40 @@
             next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
 
   .c-generated_news
-    - if ru_host?
-      / convert -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
-      center.block
-        a href="https://vk.com/wall-9273458_154251"
-          img[
-            style="max-width: 100%"
-            src="/assets/globals/events/vk.jpg?v3"
-            srcset="/assets/globals/events/vk@2x.jpg?v3 2x"
+    / - if ru_host?
+    /   / convert -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
+    /   center.block
+    /     a href="https://vk.com/wall-9273458_154251"
+    /       img[
+    /         style="max-width: 100%"
+    /         src="/assets/globals/events/vk.jpg?v3"
+    /         srcset="/assets/globals/events/vk@2x.jpg?v3 2x"
           ]
 
-    / - if Rails.env.production? && ru_host?
-      / - if !user_signed_in? || !current_user.forum_moderator? || !current_user.version_moderator? || current_user.admin?
-        / .y-sponsored#yandex_rtb_R-A-227837-1
-          / javascript:
-              / (function(w, d, n, s, t) {
-                  / if (mobile_detect.tablet() || mobile_detect.phone()) {
-                    / return;
-                  / }
-                  / w[n] = w[n] || [];
-                  / w[n].push(function() {
-                      / Ya.Context.AdvManager.render({
-                          / blockId: "R-A-227837-1",
-                          / renderTo: "yandex_rtb_R-A-227837-1",
-                          / horizontalAlign: true,
-                          / async: true
-                      / });
-                  / });
-                  / t = d.getElementsByTagName("script")[0];
-                  / s = d.createElement("script");
-                  / s.type = "text/javascript";
-                  / s.src = "//an.yandex.ru/system/context.js";
-                  / s.async = true;
-                  / t.parentNode.insertBefore(s, t);
-              / })(this, this.document, "yandexContextAsyncCallbacks");
+    - if Rails.env.production? && ru_host?
+      - if !user_signed_in? || !current_user.forum_moderator? || !current_user.version_moderator? || current_user.admin?
+        .y-sponsored#yandex_rtb_R-A-227837-1
+          javascript:
+              (function(w, d, n, s, t) {
+                  if (mobile_detect.tablet() || mobile_detect.phone()) {
+                    return;
+                  }
+                  w[n] = w[n] || [];
+                  w[n].push(function() {
+                      Ya.Context.AdvManager.render({
+                          blockId: "R-A-227837-1",
+                          renderTo: "yandex_rtb_R-A-227837-1",
+                          horizontalAlign: true,
+                          async: true
+                      });
+                  });
+                  t = d.getElementsByTagName("script")[0];
+                  s = d.createElement("script");
+                  s.type = "text/javascript";
+                  s.src = "//an.yandex.ru/system/context.js";
+                  s.async = true;
+                  t.parentNode.insertBefore(s, t);
+              })(this, this.document, "yandexContextAsyncCallbacks");
 
     / = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
 
