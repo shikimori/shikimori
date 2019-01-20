@@ -13,9 +13,9 @@ class Encryptor
   end
 
   def decrypt text
-    return if text.to_s.blank?
+    return if text.empty?
 
-    salt, data = text.split '$$'
+    salt, data = text.to_s.split '$$'
 
     key = key_generator.generate_key salt, key_len
     crypt = ActiveSupport::MessageEncryptor.new key
