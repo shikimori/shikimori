@@ -138,7 +138,6 @@ class AnimesController < DbEntriesController
 
   def coub
     redirect_to @resource.url, status: 301 if @resource.coub_tags.none?
-    raise ActiveRecord::RecordNotFound if Rails.env.production?
 
     og noindex: true, nofollow: true
     og page_title: 'Coub'
