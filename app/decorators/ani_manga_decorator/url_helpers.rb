@@ -37,17 +37,14 @@ module AniMangaDecorator::UrlHelpers
     h.send "images_#{klass_lower}_url", object
   end
 
-  # адрес франшизы
   def franchise_url
     h.send "franchise_#{klass_lower}_url", object
   end
 
-  # адрес хронологии
   def chronology_url
     h.send "chronology_#{klass_lower}_url", object
   end
 
-  # адрес связанных аниме
   def related_url
     h.send "related_#{klass_lower}_url"
   end
@@ -62,6 +59,10 @@ module AniMangaDecorator::UrlHelpers
 
   def clubs_url
     h.send "clubs_#{klass_lower}_url", object, subdomain: false
+  end
+
+  def coub_url
+    h.send "coub_#{klass_lower}_url", object, subdomain: false
   end
 
   def collections_url page: nil
