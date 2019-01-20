@@ -1,4 +1,5 @@
 @import globals/variables
+@import mixins/ellipsis2
 
 .p-db_entries-edit
   .b-list
@@ -15,6 +16,10 @@
 
       &.under_development
         font-size: 11px
+
+    .sample
+      +ellipsis2
+      font-size: 12px
 
     .b-js-action
       margin-left: 5px

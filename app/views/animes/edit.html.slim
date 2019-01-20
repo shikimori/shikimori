@@ -204,11 +204,13 @@
         - if @resource.anime?
           li
             .field = @resource.class.human_attribute_name(:coub_tags)
-            .value = @resource.coub_tags.join(', ')
+            .value #{@resource.coub_tags.size} #{i18n_i 'tag', @resource.coub_tags.size}
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:coub_tags)
               data-dynamic="week_registered"
             ] = t 'actions.edit'
+            .sample
+              = @resource.coub_tags.join(', ')
 
         li
           .field = @resource.class.human_attribute_name(:genres)

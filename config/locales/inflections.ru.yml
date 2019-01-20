@@ -172,6 +172,12 @@ ru:
           few: видео
           many: видео
           other: видео
+      tag:
+        subjective:
+          one: тег
+          few: тега
+          many: тегов
+          other: теги
       type:
         subjective:
           one: тип
