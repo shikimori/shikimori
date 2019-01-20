@@ -1,5 +1,6 @@
 class Tags::ImportCoubTagsWorker
   include Sidekiq::Worker
+  sidekiq_options queue: :cpu_intensive
 
   def perform
     Tags::CleanupIgnoredCoubTags.call

@@ -103,7 +103,6 @@ module Clockwork
   every 1.week, 'weekly.stuff.2', at: 'Monday 01:45' do
     # FindAnimeWorker.perform_async :two_pages
     # HentaiAnimeWorker.perform_async :first_page
-    Tags::ImportDanbooruTagsWorker.perform_async
     OldMessagesCleaner.perform_async
     OldNewsCleaner.perform_async
     UserImagesCleaner.perform_async
@@ -134,6 +133,11 @@ module Clockwork
     Animes::FranchisesWorker.perform_async
     NameMatches::Refresh.perform_async Anime.name
     NameMatches::Refresh.perform_async Manga.name
+  end
+
+  every 1.week, 'weekly.stuff.cpu_intensive.2', at: 'Monday 06:45' do
+    Tags::ImportDanbooruTagsWorker.perform_async
+    Tags::ImportCoubTagsWorker.perform_async
   end
 
   # every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do
