@@ -30,19 +30,32 @@ describe CoubsController do
       get :index,
         params: {
           id: anime.id,
-          iterator: encrypted_iterator
+          iterator: iterator,
+          checksum: checksum
         }
     end
     let(:anime) { create :anime, coub_tags: %w[z x c] }
-    let(:encrypted_iterator) { Encoder.instance.encode iterator }
+    let(:checksum) { Encoder.instance.checksum iterator }
     let(:iterator) { 'zxc' }
 
-    it do
-      expect(Coubs::Fetch)
-        .to have_received(:call)
-        .with(tags: anime.coub_tags, iterator: iterator)
-      expect(assigns(:results)).to eq results
-      expect(response).to have_http_status :success
+    context 'valid iterator' do
+      it do
+        expect(Coubs::Fetch)
+          .to have_received(:call)
+          .with(tags: anime.coub_tags, iterator: iterator)
+        expect(assigns(:results)).to eq results
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'invalid iterator' do
+      let(:iterator) { ['a', :a, nil, ''].sample }
+      let(:checksum) { ['a', :a, nil, ''].sample }
+
+      it do
+        expect(Coubs::Fetch).to_not have_received :call
+        expect(response).to have_http_status 404
+      end
     end
   end
 

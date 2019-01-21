@@ -3,7 +3,7 @@ describe Coub::Results do
   let(:coubs) { [] }
   let(:iterator) { 'zxc' }
 
-  describe '#encrypted_iterator' do
-    it { expect(Encoder.instance.decode(coub_results.encrypted_iterator)).to eq iterator }
+  describe '#checksum' do
+    it { expect(coub_results.checksum).to eq 'b3e2686333cb0903809f8faf5ea7a3678f1e6fcc6bec8e30d541d42678e5b6b9' }
   end
 end

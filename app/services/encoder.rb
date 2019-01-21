@@ -1,32 +1,36 @@
 class Encoder
   include Singleton
 
-  def encode text
-    text = text.to_s unless text.is_a? String
+  # def encode text
+  #   text = text.to_s unless text.is_a? String
 
-    encoded = Base64.encode64(text).strip
-    hash = checksum text
+  #   encoded = Base64.encode64(text).strip
+  #   hash = checksum text
 
-    "#{encoded}$$#{hash}"
+  #   "#{encoded}$$#{hash}"
+  # end
+
+  # def decode string
+  #   return if string.blank?
+
+  #   encoded, hash = string.to_s.split '$$'
+  #   text = Base64.decode64(encoded).force_encoding('utf-8')
+
+  #   text if hash == checksum(text)
+  # end
+
+  def checksum text
+    Digest::SHA256.hexdigest(text.to_s + secret_key_base)
   end
 
-  def decode string
-    return if string.blank?
-
-    encoded, hash = string.to_s.split '$$'
-    text = Base64.decode64(encoded).force_encoding('utf-8')
-
-    text if hash == checksum(text)
+  def valid? text, hash
+    checksum(text) == hash
   end
 
 private
 
   def secret_key_base
     Rails.application.secrets.secret_key_base
-  end
-
-  def checksum text
-    Digest::MD5.hexdigest(text + secret_key_base)
   end
 end
 # sometime it generates non decryptable texts on production. dunny why

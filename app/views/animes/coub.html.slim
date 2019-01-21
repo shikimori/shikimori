@@ -17,6 +17,6 @@
       - if @resource.coubs.iterator
         = render 'blocks/postloader',
           filter: 'b-coub',
-          next_url: fetch_coub_url(@resource.id, iterator: @resource.coubs.encrypted_iterator)
+          next_url: fetch_coub_url(@resource.id, iterator: @resource.coubs.iterator, checksum: @resource.coubs.checksum)
     - else
       .b-nothing_here = t 'nothing_found'

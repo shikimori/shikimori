@@ -1,31 +1,54 @@
 describe Encoder do
   let(:service) { described_class.instance }
 
-  describe '#encode' do
-    it { expect(service.encode('test')).to eq 'dGVzdA==$$663afaef5b945f4b0609167b023527fc' }
+  # describe '#encode' do
+  #   it { expect(service.encode('test')).to eq 'dGVzdA==$$663afaef5b945f4b0609167b023527fc' }
+  # end
+
+  # describe '#decode' do
+  #   subject { service.decode text }
+
+  #   context 'valid text' do
+  #     let(:text) { 'dGVzdA$$663afaef5b945f4b0609167b023527fc' }
+  #     it { is_expected.to eq 'test' }
+  #   end
+
+  #   context 'invalid text' do
+  #     let(:text) do
+  #       %w[
+  #         GVzdA==$$663afaef5b945f4b0609167b023527fc
+  #         dGVzdA==$$663afaef5b945f4b0609167b023527f
+  #       ].sample
+  #     end
+  #     it { is_expected.to be_nil }
+  #   end
+
+  #   context 'utf8 symbols' do
+  #     let(:text) { service.encode 'test ψ-nan' }
+  #     it { is_expected.to eq 'test ψ-nan' }
+  #   end
+  # end
+
+  describe '#checksum' do
+    it do
+      expect(service.checksum('test')).to eq(
+        '40652654a739ea1bf250a76fd9c05f15a281fea48799a520cf46c8b60eb96ac5'
+      )
+    end
   end
 
-  describe '#decode' do
-    subject { service.decode text }
+  describe '#valid?' do
+    let(:string) { 'test' }
+    subject { service.valid? string, checksum }
 
-    context 'valid text' do
-      let(:text) { 'dGVzdA$$663afaef5b945f4b0609167b023527fc' }
-      it { is_expected.to eq 'test' }
+    context 'valid' do
+      let(:checksum) { service.checksum string }
+      it { is_expected.to eq true }
     end
 
-    context 'invalid text' do
-      let(:text) do
-        %w[
-          GVzdA==$$663afaef5b945f4b0609167b023527fc
-          dGVzdA==$$663afaef5b945f4b0609167b023527f
-        ].sample
-      end
-      it { is_expected.to be_nil }
-    end
-
-    context 'utf8 symbols' do
-      let(:text) { service.encode 'test ψ-nan' }
-      it { is_expected.to eq 'test ψ-nan' }
+    context 'invalid' do
+      let(:checksum) { 'zxc' }
+      it { is_expected.to eq false }
     end
   end
 

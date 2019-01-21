@@ -136,8 +136,11 @@ module Clockwork
   end
 
   every 1.week, 'weekly.stuff.cpu_intensive.2', at: 'Monday 06:45' do
-    Tags::ImportDanbooruTagsWorker.perform_async
     Tags::ImportCoubTagsWorker.perform_async
+  end
+
+  every 1.week, 'weekly.stuff.cpu_intensive.3', at: 'Tuesday 06:45' do
+    Tags::ImportDanbooruTagsWorker.perform_async
   end
 
   # every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do

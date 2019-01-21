@@ -9,6 +9,6 @@ if @results.iterator
   json.postloader render(
     'blocks/postloader',
     filter: 'b-coub',
-    next_url: current_url(iterator: @results.encrypted_iterator)
+    next_url: current_url(iterator: @results.iterator, checksum: @results.checksum)
   )
 end
