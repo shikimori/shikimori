@@ -57,4 +57,10 @@ describe Coubs::Request, :vcr do
     let(:tag) { 'macross_frontier' }
     it { is_expected.to eq [] }
   end
+
+  context 'infinite loop' do
+    let(:tag) { 'zxc' }
+    let(:page) { 1000 }
+    it { expect { subject }.to raise_error 'infinite loop' }
+  end
 end

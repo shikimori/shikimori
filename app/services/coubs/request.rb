@@ -13,7 +13,11 @@ class Coubs::Request
     per_page: PER_PAGE
   }.to_json
 
+  MAXIMUM_PAGE = 1000
+
   def call
+    raise 'infinite loop' if page >= MAXIMUM_PAGE
+
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       PgCache.fetch pg_cache_key, expires_in: EXPIRES_IN do
         convert verify(parse(fetch))

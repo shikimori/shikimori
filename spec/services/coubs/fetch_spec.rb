@@ -218,7 +218,7 @@ describe Coubs::Fetch do
         expect(Coubs::Request).to have_received(:call).twice
       end
 
-      context 'next page final' do
+      context 'next page' do
         let(:iterator) { 'xxx:1:0' }
 
         it do
