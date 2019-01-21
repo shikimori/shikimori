@@ -6,23 +6,24 @@ class Coubs::Fetch
   def call
     return Coub::Results.new coubs: [], iterator: nil if @tags.none?
 
-    tag, page, overfetched = (@iterator || default_iterator).split(':')
+    tag, page, prior_index = (@iterator || default_iterator).split(':')
+    NamedLogger.zzz.info "tag: #{tag} page: #{page} prior_index: #{prior_index}"
 
     fetch(
       tag: tag,
       page: page.to_i,
-      overfetched: overfetched.to_i,
+      prior_index: prior_index.to_i,
       add_coubs: []
     )
   end
 
 private
 
-  def fetch tag:, page:, overfetched:, add_coubs: [] # rubocop:disable MethodLength
+  def fetch tag:, page:, prior_index:, add_coubs: [] # rubocop:disable MethodLength
     results = fetch_tag(
       tag: tag,
       page: page,
-      overfetched: overfetched,
+      prior_index: prior_index,
       add_coubs: add_coubs
     )
 
@@ -30,7 +31,7 @@ private
       fetch(
         tag: next_tag(tag),
         page: 1,
-        overfetched: 0,
+        prior_index: -1,
         add_coubs: results.coubs
       )
     else
@@ -39,49 +40,53 @@ private
   end
 
   def default_iterator
-    "#{@tags.first}:1:0"
+    "#{@tags.first}:1:-1"
   end
 
   def next_tag tag
     tags[tags.index(tag) + 1]
   end
 
-  def fetch_tag tag:, page:, overfetched: 0, add_coubs: # rubocop:disable MethodLength
-    all_coubs = Coubs::Request.call tag, page
-    anime_coubs = (add_coubs + all_coubs.select(&:anime?))[overfetched..-1] || []
-    overloaded_coubs = anime_coubs[PER_PAGE..-1] || []
+  def fetch_tag tag:, page:, prior_index: -1, add_coubs: # rubocop:disable MethodLength
+    fetched_coubs = Coubs::Request.call tag, page
+    fetched_anime_coubs = fetched_coubs.select(&:anime?)
 
-    if finished?(all_coubs) || enough?(anime_coubs)
+    all_coubs = add_coubs + fetched_anime_coubs
+    anime_coubs = all_coubs[(prior_index + 1)..(prior_index + PER_PAGE)] || []
+
+    next_index = fetched_anime_coubs.last == anime_coubs.last ?
+      -1 :
+      fetched_anime_coubs.index(anime_coubs.last)
+
+    if finished?(fetched_coubs, next_index) || enough?(anime_coubs)
       Coub::Results.new(
-        coubs: anime_coubs - overloaded_coubs,
-        iterator: next_iterator(all_coubs, tag, page, overloaded_coubs)
+        coubs: anime_coubs,
+        iterator: next_iterator(fetched_coubs, tag, page, next_index)
       )
 
     else
       fetch_tag(
         tag: tag,
         page: page + 1,
-        overfetched: 0,
+        prior_index: -1,
         add_coubs: anime_coubs
       )
     end
   end
 
-  def next_iterator coubs, tag, page, overloaded_coubs
-    return nil if finished? coubs
+  def next_iterator coubs, tag, page, next_index
+    return nil if finished? coubs, next_index
 
-    if overloaded_coubs.any?
-      "#{tag}:#{page}:#{overloaded_coubs.size}"
-    else
-      "#{tag}:#{page + 1}:0"
-    end
+    next_page = next_index == -1 ? page + 1 : page
+
+    "#{tag}:#{next_page}:#{next_index}"
   end
 
-  def finished? coubs
-    coubs.size < Coubs::Request::PER_PAGE
+  def finished? coubs, next_index
+    coubs.size < Coubs::Request::PER_PAGE && next_index == -1
   end
 
   def enough? coubs
-    coubs.size >= PER_PAGE
+    coubs.size == PER_PAGE
   end
 end

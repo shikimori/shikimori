@@ -28,7 +28,7 @@ describe Coubs::Fetch do
       .and_return coubs_xxx_2
 
     stub_const 'Coubs::Fetch::PER_PAGE', 2
-    stub_const 'Coubs::Request::PER_PAGE', 2
+    stub_const 'Coubs::Request::PER_PAGE', 4
   end
 
   let(:coubs_zzz_1) { [] }
@@ -38,75 +38,22 @@ describe Coubs::Fetch do
   let(:coubs_xxx_1) { [] }
   let(:coubs_xxx_2) { [] }
 
-  let(:coub_anime_1) do
+  def coub index, is_anime
     Coub::Entry.new(
-      permalink: 'coub_anime_1',
-      image_template: 'coub_anime_1',
-      categories: %w[anime],
-      tags: %w[anime],
-      title: 'b',
-      recoubed_permalink: nil,
-      author: {
-        permalink: 'n',
-        name: 'm',
-        avatar_template: 'a'
-      },
-      created_at: Time.zone.now.to_s
-    )
-  end
-  let(:coub_anime_2) do
-    Coub::Entry.new(
-      permalink: 'coub_anime_2',
-      image_template: 'coub_anime_2',
-      categories: %w[anime],
-      tags: %w[anime],
-      title: 'b',
-      recoubed_permalink: nil,
-      author: {
-        permalink: 'n',
-        name: 'm',
-        avatar_template: 'a'
-      },
-      created_at: Time.zone.now.to_s
-    )
-  end
-  let(:coub_anime_3) do
-    Coub::Entry.new(
-      permalink: 'coub_anime_3',
-      image_template: 'coub_anime_3',
-      categories: %w[anime],
-      tags: %w[anime],
-      title: 'b',
-      recoubed_permalink: nil,
-      author: {
-        permalink: 'n',
-        name: 'm',
-        avatar_template: 'a'
-      },
-      created_at: Time.zone.now.to_s
-    )
-  end
-  let(:coub_not_anime_1) do
-    Coub::Entry.new(
-      permalink: 'coub_not_anime_1',
-      image_template: 'coub_not_anime_1',
-      categories: %w[gaming],
+      permalink: "coub_#{index}",
+      image_template: "coub_#{index}",
+      categories: is_anime ? %w[anime] : %w[gaming],
       tags: %w[],
       title: 'b',
       recoubed_permalink: nil,
-      author: {
-        permalink: 'n',
-        name: 'm',
-        avatar_template: 'a'
-      },
+      author: { permalink: 'n', name: 'm', avatar_template: 'a' },
       created_at: Time.zone.now.to_s
     )
   end
 
-  let(:iterator) { nil }
-
   context 'no tags' do
     let(:tags) { %w[] }
+    let(:iterator) { nil }
 
     it do
       is_expected.to be_kind_of Coub::Results
@@ -120,120 +67,132 @@ describe Coubs::Fetch do
 
   context 'one tag' do
     let(:tags) { %w[zzz] }
+    let(:coubs_zzz_1) do
+      [
+        coub_anime_1,
+        coub_not_anime_1,
+        coub_anime_2,
+        coub_anime_3,
+        coub_anime_4,
+        coub_anime_5
+      ]
+    end
+    let(:coubs_zzz_2) do
+      [
+        coub_not_anime_2,
+        coub_anime_6,
+        coub_anime_7,
+        coub_anime_8
+      ]
+    end
+    let(:coubs_zzz_3) do
+      [
+        coub_anime_9,
+        coub_anime_10,
+        coub_anime_11
+      ]
+    end
+
+    let(:coub_anime_1) { coub 1, true }
+    let(:coub_anime_2) { coub 2, true }
+    let(:coub_anime_3) { coub 3, true }
+    let(:coub_anime_4) { coub 4, true }
+    let(:coub_anime_5) { coub 5, true }
+    let(:coub_anime_6) { coub 6, true }
+    let(:coub_anime_7) { coub 7, true }
+    let(:coub_anime_8) { coub 8, true }
+    let(:coub_anime_9) { coub 9, true }
+    let(:coub_anime_10) { coub 10, true }
+    let(:coub_anime_11) { coub 11, true }
+    let(:coub_not_anime_1) { coub 1, false }
+    let(:coub_not_anime_2) { coub 2, false }
+    let(:coub_not_anime_3) { coub 3, false }
 
     context 'no iterator' do
-      context 'results from 1st coub request' do
-        context 'no more results' do
-          let(:coubs_zzz_1) { [coub_anime_1] }
-
-          it do
-            is_expected.to be_kind_of Coub::Results
-            is_expected.to have_attributes(
-              coubs: coubs_zzz_1,
-              iterator: nil
-            )
-            expect(Coubs::Request).to have_received(:call).once
-          end
-        end
-
-        context 'has more results' do
-          let(:coubs_zzz_1) { [coub_anime_1, coub_anime_2] }
-
-          it do
-            is_expected.to be_kind_of Coub::Results
-            is_expected.to have_attributes(
-              coubs: coubs_zzz_1,
-              iterator: 'zzz:2:0'
-            )
-            expect(Coubs::Request).to have_received(:call).once
-          end
-        end
-      end
-
-      context 'results from 2nd coub request' do
-        let(:coubs_zzz_1) { [coub_anime_1, coub_not_anime_1] }
-        let(:coubs_zzz_2) { [coub_anime_2] }
-
-        context 'no more results' do
-          it do
-            is_expected.to be_kind_of Coub::Results
-            is_expected.to have_attributes(
-              coubs: [coub_anime_1, coub_anime_2],
-              iterator: nil
-            )
-            expect(Coubs::Request).to have_received(:call).twice
-          end
-        end
-
-        context 'has more results' do
-          let(:coubs_zzz_1) { [coub_anime_1, coub_not_anime_1] }
-          let(:coubs_zzz_2) { [coub_anime_2, coub_anime_3] }
-
-          it do
-            is_expected.to be_kind_of Coub::Results
-            is_expected.to have_attributes(
-              coubs: [coub_anime_1, coub_anime_2],
-              iterator: 'zzz:2:1'
-            )
-            expect(Coubs::Request).to have_received(:call).twice
-          end
-        end
+      let(:iterator) { ['zzz:1:-1', nil].sample }
+      it do
+        is_expected.to be_kind_of Coub::Results
+        is_expected.to have_attributes(
+          coubs: [coub_anime_1, coub_anime_2],
+          iterator: 'zzz:1:1'
+        )
+        expect(Coubs::Request).to have_received(:call).once
       end
     end
 
-    describe 'has iterator' do
-      context '2nd page w/o overfetched' do
-        let(:iterator) { 'zzz:2:0' }
-
-        context 'no more results' do
-          let(:coubs_zzz_2) { [coub_anime_1] }
-
-          it do
-            is_expected.to be_kind_of Coub::Results
-            is_expected.to have_attributes(
-              coubs: coubs_zzz_2,
-              iterator: nil
-            )
-            expect(Coubs::Request).to have_received(:call).once
-          end
-        end
-
-        context 'has more results' do
-          let(:coubs_zzz_2) { [coub_anime_1, coub_anime_2] }
-
-          it do
-            is_expected.to be_kind_of Coub::Results
-            is_expected.to have_attributes(
-              coubs: coubs_zzz_2,
-              iterator: 'zzz:3:0'
-            )
-            expect(Coubs::Request).to have_received(:call).once
-          end
-        end
+    context 'zzz:1:1' do
+      let(:iterator) { 'zzz:1:1' }
+      it do
+        is_expected.to be_kind_of Coub::Results
+        is_expected.to have_attributes(
+          coubs: [coub_anime_3, coub_anime_4],
+          iterator: 'zzz:1:3'
+        )
+        expect(Coubs::Request).to have_received(:call).once
       end
+    end
 
-      context '2nd page with overfetched' do
-        let(:iterator) { 'zzz:2:1' }
-        let(:coubs_zzz_2) { [coub_anime_1, coub_anime_2] }
-        let(:coubs_zzz_3) { [coub_not_anime_1, coub_anime_3] }
+    context 'zzz:1:3' do
+      let(:iterator) { 'zzz:1:3' }
+      it do
+        is_expected.to be_kind_of Coub::Results
+        is_expected.to have_attributes(
+          coubs: [coub_anime_5, coub_anime_6],
+          iterator: 'zzz:2:0'
+        )
+        expect(Coubs::Request).to have_received(:call).twice
+      end
+    end
 
-        it do
-          is_expected.to be_kind_of Coub::Results
-          is_expected.to have_attributes(
-            coubs: [coub_anime_2, coub_anime_3],
-            iterator: 'zzz:4:0'
-          )
-          expect(Coubs::Request).to have_received(:call).twice
-        end
+    context 'zzz:2:0' do
+      let(:iterator) { 'zzz:2:0' }
+      it do
+        is_expected.to be_kind_of Coub::Results
+        is_expected.to have_attributes(
+          coubs: [coub_anime_7, coub_anime_8],
+          iterator: 'zzz:3:-1'
+        )
+        expect(Coubs::Request).to have_received(:call).once
+      end
+    end
+
+    context 'zzz:3:-1' do
+      let(:iterator) { 'zzz:3:-1' }
+      it do
+        is_expected.to be_kind_of Coub::Results
+        is_expected.to have_attributes(
+          coubs: [coub_anime_9, coub_anime_10],
+          iterator: 'zzz:3:1'
+        )
+        expect(Coubs::Request).to have_received(:call).once
+      end
+    end
+
+    context 'zzz:3:1' do
+      let(:iterator) { 'zzz:3:1' }
+      it do
+        is_expected.to be_kind_of Coub::Results
+        is_expected.to have_attributes(
+          coubs: [coub_anime_11],
+          iterator: nil
+        )
+        expect(Coubs::Request).to have_received(:call).once
       end
     end
   end
 
   context 'multiple tags' do
     let(:tags) { %w[zzz xxx] }
+    let(:iterator) { nil }
+
+    let(:coub_anime_1) { coub 1, true }
+    let(:coub_anime_2) { coub 2, true }
+    let(:coub_anime_3) { coub 3, true }
+    let(:coub_not_anime_1) { coub 1, false }
+
+    let(:coubs_zzz_1) { [coub_anime_1] }
 
     context 'no more results on 2nd tag' do
-      let(:coubs_zzz_1) { [coub_anime_1] }
       let(:coubs_xxx_1) { [coub_anime_2] }
 
       it do
@@ -247,31 +206,27 @@ describe Coubs::Fetch do
     end
 
     context 'has more results on 2nd tag' do
-      let(:coubs_zzz_1) { [coub_anime_1] }
+      let(:coubs_xxx_1) { [coub_anime_2, coub_anime_3] }
 
-      context 'overfetched' do
-        let(:coubs_xxx_1) { [coub_anime_2, coub_anime_3] }
-
-        it do
-          is_expected.to be_kind_of Coub::Results
-          is_expected.to have_attributes(
-            coubs: [coub_anime_1, coub_anime_2],
-            iterator: 'xxx:1:1'
-          )
-          expect(Coubs::Request).to have_received(:call).twice
-        end
+      it do
+        is_expected.to be_kind_of Coub::Results
+        is_expected.to have_attributes(
+          coubs: [coub_anime_1, coub_anime_2],
+          iterator: 'xxx:1:0'
+        )
+        expect(Coubs::Request).to have_received(:call).twice
       end
 
-      context 'not overfetched' do
-        let(:coubs_xxx_1) { [coub_anime_2, coub_not_anime_1] }
+      context 'next page' do
+        let(:iterator) { 'xxx:1:0' }
 
         it do
           is_expected.to be_kind_of Coub::Results
           is_expected.to have_attributes(
-            coubs: [coub_anime_1, coub_anime_2],
-            iterator: 'xxx:2:0'
+            coubs: [coub_anime_3],
+            iterator: nil
           )
-          expect(Coubs::Request).to have_received(:call).twice
+          expect(Coubs::Request).to have_received(:call).once
         end
       end
     end
