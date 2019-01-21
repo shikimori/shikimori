@@ -61,7 +61,7 @@ private
 
     next_index = fetched_anime_coubs.last == anime_coubs.last ?
       -1 :
-      fetched_anime_coubs.index(anime_coubs.last)
+      fetched_anime_coubs.index(anime_coubs.last) || -1
 
     if finished?(fetched_coubs, next_index) || enough?(anime_coubs)
       Coub::Results.new(
