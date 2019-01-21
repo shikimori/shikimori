@@ -6,21 +6,21 @@ describe Coubs::Request, :vcr do
     let(:tag) { 'edm' }
 
     it do
-      is_expected.to have(10).items
+      is_expected.to have(described_class::PER_PAGE).items
       expect(subject.first).to be_kind_of Coub::Entry
       expect(subject.first.to_h).to eq(
-        permalink: '1m6oy1',
-        image_template: 'https://coubsecure-s.akamaihd.net/get/b127/p/coub/simple/cw_image/0bb7cf8d2ed/bac412830fc4b47318ca2/%{version}_1547753932_00032.jpg',
-        categories: %w[dance],
-        tags: ['girls dancing', 'bang', 'edm shufflers', 'dance', 'dancers', 'vanesa', 'hot cutting shapes', 'shapes', 'e.cruz', 'vansecoo', 'elena cruz', 'violins space', 'house msuic', 'edm', 'cutting shapes'],
-        title: 'Violins Space',
+        permalink: '51pzi',
+        image_template: 'https://coubsecure-s.akamaihd.net/get/b29/p/coub/simple/cw_image/728221c44fe/eb9d518721913a927b6ca/%{version}_1424137252_00021.jpg',
+        categories: %w[animals-pets],
+        tags: ['edm', 'grime', 'dubstep', 'house', 'techno', 'bass', 'cat', 'rave', 'circly circles', '3d mapping', 'projection', 'rave cat', 'ravecat'],
+        title: 'ravecat',
         author: {
-          avatar_template: 'https://coubsecure-s.akamaihd.net/get/b130/p/channel/cw_avatar/185f279738f/6c45a782d5776c135816d/%{version}_1546077566_cropped.jpeg',
-          name: 'Cutting Shapes',
-          permalink: 'cutting-shapes'
+          avatar_template: 'https://coubsecure-s.akamaihd.net/get/b126/p/channel/cw_avatar/e97301ea36f/b8872d6565437a8ff7245/%{version}_1474683267_download__9_.jpeg',
+          name: '○)⃝⃝)⃝⃝○○.⃝.⃝○⃝○⃝○○⃝⃝))⃝⃝',
+          permalink: 'circlycircles'
         },
         recoubed_permalink: nil,
-        created_at: '2019-01-17T19:30:58Z'
+        created_at: '2015-02-17T01:40:28Z'
       )
     end
   end

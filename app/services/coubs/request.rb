@@ -1,8 +1,9 @@
 class Coubs::Request
   method_object :tag, :page
 
-  COUB_TEMPLATE = 'https://coub.com/api/v2/timeline/tag/%<tag>s?page=%<page>i'
-  PER_PAGE = 10
+  PER_PAGE = 25
+  COUB_TEMPLATE = 'https://coub.com/api/v2/timeline/tag/%<tag>s?page=%<page>i' \
+    "&per_page=#{PER_PAGE}&order_by=likes_count"
 
   EXPIRES_IN = 3.month
   EXCEPTIONS = Network::FaradayGet::NET_ERRORS
@@ -23,7 +24,7 @@ class Coubs::Request
   end
 
   def self.pg_cache_key tag:, page:
-    [:coub, tag, page].join('|')
+    [:coub, tag, page, :v2].join('|')
   end
 
 private

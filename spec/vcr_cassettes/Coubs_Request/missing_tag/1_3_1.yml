@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://coub.com/api/v2/timeline/tag/macross_frontier?page=1
+    uri: https://coub.com/api/v2/timeline/tag/macross_frontier?order_by=likes_count&page=1&per_page=25
     body:
       encoding: US-ASCII
       string: ''
@@ -21,7 +21,7 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 17 Jan 2019 19:41:50 GMT
+      - Mon, 21 Jan 2019 09:50:22 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -41,12 +41,12 @@ http_interactions:
       Set-Cookie:
       - is_logged_in=false; path=/
       X-Request-Id:
-      - 3cff0a36-3c53-4573-b221-40a74c1ff263
+      - ecded9f5-369c-4620-9be1-122672e1b404
       X-Runtime:
-      - '0.018344'
+      - '0.024731'
     body:
       encoding: ASCII-8BIT
       string: '{"error":"ActiveRecord::RecordNotFound"}'
     http_version: 
-  recorded_at: Thu, 17 Jan 2019 19:41:47 GMT
+  recorded_at: Mon, 21 Jan 2019 09:50:17 GMT
 recorded_with: VCR 4.0.0
