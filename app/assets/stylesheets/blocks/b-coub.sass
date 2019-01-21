@@ -12,14 +12,31 @@
   +iphone
     flex-direction: column
 
+  +laptop
+    flex-direction: column
+
+  .x1000 &
+    +gt_ipad
+      flex-direction: column
+
   .content
     flex-shrink: 0
 
-    +gte_ipad
+    +iphone
+      margin-bottom: 15px
+
+    +ipad
       margin-right: 30px
 
-    +iphone
-      margin-bottom: 30px
+    +laptop
+      margin-bottom: 15px
+
+    +gt_laptop
+      margin-right: 30px
+
+    .x1000 &
+      +gt_ipad
+        margin-bottom: 15px
 
     .video-link
       display: inline-block
