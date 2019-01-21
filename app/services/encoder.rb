@@ -23,7 +23,7 @@ class Encoder
     Digest::SHA256.hexdigest(text.to_s + secret_key_base)
   end
 
-  def valid? text, hash
+  def valid? text:, hash:
     checksum(text) == hash
   end
 

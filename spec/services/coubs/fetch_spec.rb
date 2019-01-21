@@ -142,6 +142,24 @@ describe Coubs::Fetch do
         )
         expect(Coubs::Request).to have_received(:call).twice
       end
+
+      context 'Coubs::Fetch failed and returned nil' do
+        before do
+          allow(Coubs::Request)
+            .to receive(:call)
+            .with('1st', 2)
+            .and_return nil
+        end
+
+        it do
+          is_expected.to be_kind_of Coub::Results
+          is_expected.to have_attributes(
+            coubs: [coub_anime_5],
+            iterator: nil
+          )
+          expect(Coubs::Request).to have_received(:call).twice
+        end
+      end
     end
 
     context '1st:2:0' do
@@ -233,7 +251,7 @@ describe Coubs::Fetch do
         end
       end
 
-      context 'no results on 2nd tag - fix nil next_index ' do
+      context 'no results on 2nd tag - fix nil next_index' do
         let(:coubs_2nd_1) { [coub_not_anime_1] }
 
         it do

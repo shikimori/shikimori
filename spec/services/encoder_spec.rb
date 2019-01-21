@@ -39,7 +39,7 @@ describe Encoder do
 
   describe '#valid?' do
     let(:string) { 'test' }
-    subject { service.valid? string, checksum }
+    subject { service.valid? text: string, hash: checksum }
 
     context 'valid' do
       let(:checksum) { service.checksum string }
