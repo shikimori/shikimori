@@ -3,6 +3,6 @@ class Coub::Results < Dry::Struct
   attribute :iterator, Types::String
 
   def encrypted_iterator
-    Encryptor.instance.encrypt iterator
+    Encoder.instance.encode iterator
   end
 end

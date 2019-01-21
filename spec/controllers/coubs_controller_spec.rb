@@ -34,7 +34,7 @@ describe CoubsController do
         }
     end
     let(:anime) { create :anime, coub_tags: %w[z x c] }
-    let(:encrypted_iterator) { Encryptor.instance.encrypt iterator }
+    let(:encrypted_iterator) { Encoder.instance.encode iterator }
     let(:iterator) { 'zxc' }
 
     it do
