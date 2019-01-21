@@ -6,11 +6,9 @@
   margin: 0 auto $block_offset * 2.5
   max-width: 100%
 
-  &:last-child
-    margin-bottom: 0
-
   +iphone
     flex-direction: column
+    margin-bottom: $block_offset * 2
 
   +laptop
     flex-direction: column
@@ -18,6 +16,9 @@
   .x1000 &
     +gt_ipad
       flex-direction: column
+
+  &:last-child
+    margin-bottom: 0
 
   .content
     flex-shrink: 0
