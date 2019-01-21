@@ -7,7 +7,6 @@ class Coubs::Fetch
     return Coub::Results.new coubs: [], iterator: nil if @tags.none?
 
     tag, page, prior_index = (@iterator || default_iterator).split(':')
-    NamedLogger.zzz.info "tag: #{tag} page: #{page} prior_index: #{prior_index}"
 
     fetch(
       tag: tag,
