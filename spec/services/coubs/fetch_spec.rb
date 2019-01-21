@@ -189,6 +189,7 @@ describe Coubs::Fetch do
     let(:coub_anime_2) { coub 2, true }
     let(:coub_anime_3) { coub 3, true }
     let(:coub_not_anime_1) { coub 1, false }
+    let(:coub_not_anime_2) { coub 2, false }
 
     let(:coubs_zzz_1) { [coub_anime_1] }
 
@@ -217,7 +218,7 @@ describe Coubs::Fetch do
         expect(Coubs::Request).to have_received(:call).twice
       end
 
-      context 'next page' do
+      context 'next page final' do
         let(:iterator) { 'xxx:1:0' }
 
         it do
@@ -228,6 +229,21 @@ describe Coubs::Fetch do
           )
           expect(Coubs::Request).to have_received(:call).once
         end
+      end
+    end
+
+    context 'first page 1 anime result, second page 0 results - fix infinite loop' do
+      let(:iterator) { nil }
+      let(:coubs_zzz_1) { [coub_anime_1, coub_not_anime_1] }
+      let(:coubs_zzz_2) { [] }
+
+      it do
+        is_expected.to be_kind_of Coub::Results
+        is_expected.to have_attributes(
+          coubs: [coub_anime_1],
+          iterator: nil
+        )
+        expect(Coubs::Request).to have_received(:call).twice
       end
     end
   end
