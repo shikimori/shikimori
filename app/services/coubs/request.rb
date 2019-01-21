@@ -80,12 +80,7 @@ private
   end
 
   def fetch
-    NamedLogger.coub_request.info coub_url
-    OpenURI.open_uri(
-      coub_url,
-      read_timeout: 2,
-      'User-Agent' => 'shikimori.org'
-    ).read
+    OpenURI.open_uri(coub_url, read_timeout: 2, 'User-Agent' => 'shikimori.org').read
   rescue OpenURI::HTTPError => e
     if e.message == '404 Not Found'
       NO_DATA_RESPONSE
@@ -95,6 +90,8 @@ private
   end
 
   def coub_url
-    format COUB_TEMPLATE, tag: URI.escape(@tag), page: @page
+    # URI.escape generates bad urls for [] symbols
+    # with CGI.escape(@tag) coub returns 0 records for `girlfriend (kari)` tag
+    format COUB_TEMPLATE, tag: ERB::Util.url_encode(@tag), page: @page
   end
 end

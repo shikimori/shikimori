@@ -52,7 +52,7 @@ private
     @tags[tags.index(tag) + 1]
   end
 
-  def fetch_tag tag:, page:, prior_index: -1, add_coubs: # rubocop:disable MethodLength
+  def fetch_tag tag:, page:, prior_index: -1, add_coubs: # rubocop:disable all
     fetched_coubs = Coubs::Request.call(tag, page) || []
     fetched_anime_coubs = fetched_coubs.select(&:anime?)
 
