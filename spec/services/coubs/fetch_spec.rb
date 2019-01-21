@@ -143,7 +143,7 @@ describe Coubs::Fetch do
         expect(Coubs::Request).to have_received(:call).twice
       end
 
-      context 'Coubs::Fetch failed and returned nil' do
+      context 'Coubs::Request failed and returned nil' do
         before do
           allow(Coubs::Request)
             .to receive(:call)
