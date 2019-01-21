@@ -1,12 +1,12 @@
 describe Encoder do
   let(:service) { described_class.instance }
 
-  describe '#encrypt' do
-    it { expect(service.encrypt('test')).to eq 'dGVzdA$$663afaef5b945f4b0609167b023527fc' }
+  describe '#encode' do
+    it { expect(service.encode('test')).to eq 'dGVzdA$$663afaef5b945f4b0609167b023527fc' }
   end
 
-  describe '#decrypt' do
-    subject { service.decrypt text }
+  describe '#decode' do
+    subject { service.decode text }
 
     context 'valid text' do
       let(:text) { 'dGVzdA$$663afaef5b945f4b0609167b023527fc' }
