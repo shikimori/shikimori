@@ -76,6 +76,7 @@ private
   end
 
   def fetch
+    NamedLogger.coub_request.info coub_url
     OpenURI.open_uri(
       coub_url,
       read_timeout: 2,

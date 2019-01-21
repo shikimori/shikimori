@@ -4,17 +4,17 @@ class Encoder
   def encode text
     text = text.to_s unless text.is_a? String
 
-    encoded = Base64.encode64(text).gsub(/==\n/, '')
+    encoded = Base64.encode64(text).strip
     hash = checksum text
 
     "#{encoded}$$#{hash}"
   end
 
-  def decode text
-    return if text.blank?
+  def decode string
+    return if string.blank?
 
-    encoded, hash = text.to_s.split '$$'
-    text = Base64.decode64(encoded + "==\n")
+    encoded, hash = string.to_s.split '$$'
+    text = Base64.decode64(encoded)
 
     text if hash == checksum(text)
   end

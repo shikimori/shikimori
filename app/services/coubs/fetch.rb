@@ -82,7 +82,10 @@ private
   end
 
   def finished? coubs, next_index
-    coubs.size < Coubs::Request::PER_PAGE && next_index == -1
+    coubs.empty? || (
+      coubs.size < Coubs::Request::PER_PAGE &&
+      next_index == -1
+    )
   end
 
   def enough? coubs
