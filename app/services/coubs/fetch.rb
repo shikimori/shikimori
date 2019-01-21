@@ -6,17 +6,23 @@ class Coubs::Fetch
   def call
     return Coub::Results.new coubs: [], iterator: nil if @tags.none?
 
-    tag, page, prior_index = (@iterator || default_iterator).split(':')
+    tag, page, prior_index = parse_iterator(@iterator || default_iterator)
 
     fetch(
       tag: tag,
-      page: page.to_i,
-      prior_index: prior_index.to_i,
+      page: page,
+      prior_index: prior_index,
       add_coubs: []
     )
   end
 
 private
+
+  def parse_iterator value
+    parts = value.split(':')
+
+    [parts[0..-3].join(':'), parts[-2].to_i, parts[-1].to_i]
+  end
 
   def fetch tag:, page:, prior_index:, add_coubs: [] # rubocop:disable MethodLength
     results = fetch_tag(
@@ -43,7 +49,7 @@ private
   end
 
   def next_tag tag
-    tags[tags.index(tag) + 1]
+    @tags[tags.index(tag) + 1]
   end
 
   def fetch_tag tag:, page:, prior_index: -1, add_coubs: # rubocop:disable MethodLength

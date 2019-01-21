@@ -247,4 +247,27 @@ describe Coubs::Fetch do
       end
     end
   end
+
+  describe '#parse_iterator' do
+    subject do
+      described_class
+        .new(tags: %w[], iterator: iterator)
+        .send(:parse_iterator, iterator)
+    end
+
+    context 'common' do
+      let(:iterator) { 'z:0:1' }
+      it { is_expected.to eq ['z', 0, 1] }
+    end
+
+    context 'with colon' do
+      let(:iterator) { 'z:x:1:2' }
+      it { is_expected.to eq ['z:x', 1, 2] }
+    end
+
+    context 'with more colons' do
+      let(:iterator) { 'z - x: a: b:-1:5' }
+      it { is_expected.to eq ['z - x: a: b', -1, 5] }
+    end
+  end
 end
