@@ -14,8 +14,9 @@
         collection: @resource.coubs.coubs,
         locals: { match_tags: @resource.coub_tags }
 
-      = render 'blocks/postloader',
-        filter: 'b-coub',
-        next_url: fetch_coub_url(@resource.id, iterator: @resource.coubs.encrypted_iterator)
+      - if @resource.coubs.iterator
+        = render 'blocks/postloader',
+          filter: 'b-coub',
+          next_url: fetch_coub_url(@resource.id, iterator: @resource.coubs.encrypted_iterator)
     - else
       .b-nothing_here = t 'nothing_found'
