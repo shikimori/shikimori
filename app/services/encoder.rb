@@ -14,7 +14,7 @@ class Encoder
     return if string.blank?
 
     encoded, hash = string.to_s.split '$$'
-    text = Base64.decode64(encoded)
+    text = Base64.decode64(encoded).force_encoding('utf-8')
 
     text if hash == checksum(text)
   end

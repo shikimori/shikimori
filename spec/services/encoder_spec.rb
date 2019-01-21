@@ -2,7 +2,7 @@ describe Encoder do
   let(:service) { described_class.instance }
 
   describe '#encode' do
-    it { expect(service.encode('test')).to eq 'dGVzdA$$663afaef5b945f4b0609167b023527fc' }
+    it { expect(service.encode('test')).to eq 'dGVzdA==$$663afaef5b945f4b0609167b023527fc' }
   end
 
   describe '#decode' do
@@ -16,11 +16,16 @@ describe Encoder do
     context 'invalid text' do
       let(:text) do
         %w[
-          dGVzdA1$$663afaef5b945f4b0609167b023527fc
-          dGVzdA$$663afaef5b945f4b0609167b023527fc1
+          GVzdA==$$663afaef5b945f4b0609167b023527fc
+          dGVzdA==$$663afaef5b945f4b0609167b023527f
         ].sample
       end
       it { is_expected.to be_nil }
+    end
+
+    context 'utf8 symbols' do
+      let(:text) { service.encode 'test ψ-nan' }
+      it { is_expected.to eq 'test ψ-nan' }
     end
   end
 
