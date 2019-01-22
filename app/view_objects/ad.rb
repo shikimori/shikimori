@@ -139,7 +139,7 @@ class Ad < ViewObjectBase
 
   META_TYPES = {
     Types::Ad::Meta[:menu_300x250] => [
-      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:special_x300],
       # Types::Ad::Type[:mt_300x250],
       Types::Ad::Type[:yd_240x400],
       Types::Ad::Type[:advrtr_240x400]
