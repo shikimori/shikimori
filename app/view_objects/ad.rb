@@ -7,8 +7,8 @@ class Ad < ViewObjectBase
   BANNERS = {
     Types::Ad::Type[:special_x300] => {
       provider: Types::Ad::Provider[:special],
-      url: 'https://www.filmpro.ru/special/bsd?utm_source=shikimori&utm_medium=cpm&utm_campaign=bsdr',
-      images: (2..2).map do |i|
+      url: 'https://shikimori.org/animes/36936-mirai-no-mirai',
+      images: (3..3).map do |i|
         {
           src: "/assets/globals/events/special_#{i}.jpg",
           src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
@@ -145,13 +145,13 @@ class Ad < ViewObjectBase
       Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:special_x300],
       # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x500],
       Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:special_x300],
       # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600],
       Types::Ad::Type[:advrtr_240x400]
