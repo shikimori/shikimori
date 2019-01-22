@@ -39,7 +39,7 @@ header.head
     .midheadline.m10 Exponenta
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
-        collection: @pioner.decorate,
+        collection: @exponenta.decorate,
         locals: { cover_notice: :studio },
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
