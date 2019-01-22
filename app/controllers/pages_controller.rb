@@ -49,6 +49,10 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       .where(id: Copyright::CAPELLA_FILM_COPYRIGHTED)
       .order(AniMangaQuery.order_sql('released_on', Anime))
 
+    @exponenta = Anime
+      .where(id: Copyright::EXPONENTA_COPYRIGHTED)
+      .order(AniMangaQuery.order_sql('released_on', Anime))
+
     @pioner = Anime
       .where(id: Copyright::PIONER_COPYRIGHTED)
       .order(AniMangaQuery.order_sql('released_on', Anime))
@@ -58,7 +62,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
         id: Copyright::OTHER_COPYRIGHTED -
           Copyright::WAKANIM_COPYRIGHTED - Copyright::ISTARI_COPYRIGHTED -
           Copyright::VGTRK_COPYRIGHTED - Copyright::CAPELLA_FILM_COPYRIGHTED -
-          Copyright::PIONER_COPYRIGHTED
+          Copyright::EXPONENTA_COPYRIGHTED - Copyright::PIONER_COPYRIGHTED
       )
       .order(AniMangaQuery.order_sql('released_on', Anime))
 
