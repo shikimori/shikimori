@@ -128,32 +128,32 @@
     /         srcset="/assets/globals/events/vk@2x.jpg?v3 2x"
           ]
 
-    - if Rails.env.production? && ru_host?
-      - if !user_signed_in? || !current_user.forum_moderator? || !current_user.version_moderator? || current_user.admin?
-        .y-sponsored#yandex_rtb_R-A-227837-1
-          javascript:
-              (function(w, d, n, s, t) {
-                  if (mobile_detect.tablet() || mobile_detect.phone()) {
-                    return;
-                  }
-                  w[n] = w[n] || [];
-                  w[n].push(function() {
-                      Ya.Context.AdvManager.render({
-                          blockId: "R-A-227837-1",
-                          renderTo: "yandex_rtb_R-A-227837-1",
-                          horizontalAlign: true,
-                          async: true
-                      });
-                  });
-                  t = d.getElementsByTagName("script")[0];
-                  s = d.createElement("script");
-                  s.type = "text/javascript";
-                  s.src = "//an.yandex.ru/system/context.js";
-                  s.async = true;
-                  t.parentNode.insertBefore(s, t);
-              })(this, this.document, "yandexContextAsyncCallbacks");
+    / - if Rails.env.production? && ru_host?
+    /   - if !user_signed_in? || !current_user.forum_moderator? || !current_user.version_moderator? || current_user.admin?
+    /     .y-sponsored#yandex_rtb_R-A-227837-1
+    /       javascript:
+    /           (function(w, d, n, s, t) {
+    /               if (mobile_detect.tablet() || mobile_detect.phone()) {
+    /                 return;
+    /               }
+    /               w[n] = w[n] || [];
+    /               w[n].push(function() {
+    /                   Ya.Context.AdvManager.render({
+    /                       blockId: "R-A-227837-1",
+    /                       renderTo: "yandex_rtb_R-A-227837-1",
+    /                       horizontalAlign: true,
+    /                       async: true
+    /                   });
+    /               });
+    /               t = d.getElementsByTagName("script")[0];
+    /               s = d.createElement("script");
+    /               s.type = "text/javascript";
+    /               s.src = "//an.yandex.ru/system/context.js";
+    /               s.async = true;
+    /               t.parentNode.insertBefore(s, t);
+    /           })(this, this.document, "yandexContextAsyncCallbacks");
 
-    / = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
+    = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
 
     / .midheadline.gray.m15 = t 'sponsors'
     / .container
