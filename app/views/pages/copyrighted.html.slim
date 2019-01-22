@@ -4,7 +4,7 @@ header.head
 
 = cache [@wakanim.cache_key, @istari.cache_key, @capella_film.cache_key, @vgtrk.cache_key] do
   .block2
-    .midheadline.m10 Истари
+    .midheadline.m10 Istari
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @istari.decorate,
@@ -12,7 +12,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Капелла фильм
+    .midheadline.m10 Capella Film
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @capella_film.decorate,
@@ -28,7 +28,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Пионер
+    .midheadline.m10 Pioner
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @pioner.decorate,
@@ -36,10 +36,10 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Экспонента
+    .midheadline.m10 Exponenta
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
-        collection: @exponenta.decorate,
+        collection: @pioner.decorate,
         locals: { cover_notice: :studio },
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
