@@ -40,7 +40,8 @@
         v-model="link.group"
         name="collection[links][][group]"
       )
-      a.b-link.bubbled(
+      a.b-link(
+        :class="link.url ? 'bubbled' : ''"
         :href="link.url"
         data-predelay="600"
       ) {{ link.name }}

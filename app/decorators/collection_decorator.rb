@@ -24,7 +24,8 @@ class CollectionDecorator < DbEntryDecorator
 
   def entries_sample
     if links.size.positive?
-      loaded_links.limit(SAMPLE_LIMIT).map { |v| v.send(kind).decorate }
+      # anime can be deleted but can still be present in collection
+      loaded_links.limit(SAMPLE_LIMIT).map { |v| v.send(kind)&.decorate }.compact
     else
       bbcode_entries_sample
     end
@@ -41,7 +42,8 @@ class CollectionDecorator < DbEntryDecorator
 private
 
   def cached_links
-    loaded_links
+    # anime can be deleted but can still be present in collection
+    loaded_links.select { |v| v.send(kind).present? }
   end
 
   def loaded_links

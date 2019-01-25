@@ -45,7 +45,7 @@ header.head.misc
     - if @resource.persisted?
       .block
         .buttons
-          a.cancel href="#{collections_url}" = t 'actions.cancel'
+          a.cancel href=collections_url = t 'actions.cancel'
           = f.button :magic_submit
 
         a.remove[
