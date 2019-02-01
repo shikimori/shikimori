@@ -5,6 +5,7 @@ class Ad < ViewObjectBase
   # block_3: [92_485, nil]
 
   BANNERS = {
+    # disable after 2019-02-11
     Types::Ad::Type[:special_x300] => {
       provider: Types::Ad::Provider[:special],
       url: 'https://vk.com/@animeinrussia-mirai-iz-buduschego-spisok-gorodov-i-kinoteatrov-prokata',

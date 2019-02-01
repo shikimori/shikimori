@@ -26,7 +26,9 @@ class AnimeVideo < ApplicationRecord
     #{ADULT_OVA_CONDITION}
   SQL
 
-  BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru myvi.tv play.aniland.org]
+  # kiwi.kz dailymotion.com myvi.ru myvi.tv - banned in RF
+  # rutube.ru - banned play.shikimori.org for some reason
+  BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru myvi.tv play.aniland.org rutube.ru]
   COPYRIGHTED_AUTHORS = /wakanim/i # |crunchyroll|crunchy|FreakCrSuBuS
 
   belongs_to :anime
@@ -94,7 +96,7 @@ class AnimeVideo < ApplicationRecord
       transition %i[working uploaded wrong rejected] => :wrong
     end
     event :ban do
-      transition working: :banned_hosting
+      transition %i[working uploaded] => :banned_hosting
     end
     event :reject do
       transition %i[uploaded wrong broken banned_hosting] => :rejected
@@ -118,7 +120,7 @@ class AnimeVideo < ApplicationRecord
     after_transition(
       uploaded: :working,
       do: :create_episode_notificaiton,
-      if: -> (anime_video) { anime_video.anime.anons? && !anime_video.any_videos? }
+      if: ->(anime_video) { anime_video.anime.anons? && !anime_video.any_videos? }
     )
   end
 
