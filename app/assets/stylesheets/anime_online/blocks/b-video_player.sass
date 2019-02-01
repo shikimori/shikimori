@@ -28,17 +28,24 @@
 
     .player-placeholder
       align-items: center
-      background: #ddd
+      background: lighten(#ddd, 5%)
       border: 1px solid #aaa
-      font-size: 20px
-      font-weight: bold
       display: flex
       justify-content: center
       width: 100%
 
-      a
+      .inner
         +ellipsis2
-        padding: 0 20px
+
+        a.player-url
+          padding: 0 20px
+          font-size: 20px
+          font-weight: bold
+
+        .hint
+          margin-top: 10px
+          padding: 0 20px
+          white-space: normal
 
   .cc-anime_video_report-new
     +block

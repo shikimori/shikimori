@@ -128,8 +128,13 @@ private
 
   def player_url_html url
     h.content_tag(:div, class: 'player-placeholder') do
-      h.content_tag(:a, href: url, target: '_blank') do
-        url
+      h.content_tag(:div, class: 'inner') do
+        h.content_tag(:a, class: 'player-url', href: url, target: '_blank') do
+          url
+        end +
+        h.content_tag(:div, class: 'hint') do
+          'Встраиваемый плеер не работает для этого хостинга. Для просмотра перейдите по ссылке выше.'
+        end
       end
     end
   end
