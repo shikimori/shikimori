@@ -111,7 +111,7 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
     context 'trust accept broken' do
       let(:anime_video) do
         create :anime_video,
-          url: 'http://rutube.ru/play/embed/8d2ba036c95314a62ce8a0fed801c81d',
+          url: 'http://video.sibnet.ru/shell.php?videoid=3540992',
           anime: anime
       end
       let(:report) do
@@ -121,16 +121,16 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
           state: 'pending',
           user: user
       end
-      before { AnimeOnline::Activists.reset }
+      # before { AnimeOnline::Activists.reset }
 
-      context 'auto_check' do
-        before do
-          allow(AnimeOnline::Activists)
-            .to receive(:rutube_responsible)
-            .and_return([user.id])
-        end
-        it { is_expected.to be_accepted }
-      end
+      # context 'auto_check' do
+      #   before do
+      #     allow(AnimeOnline::Activists)
+      #       .to receive(:rutube_responsible)
+      #       .and_return([user.id])
+      #   end
+      #   it { is_expected.to be_accepted }
+      # end
 
       context 'manual_check' do
         it { is_expected.to be_pending }

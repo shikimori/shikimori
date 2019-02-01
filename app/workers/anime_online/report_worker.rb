@@ -42,8 +42,8 @@ private
     if video_broken? report.anime_video
       report.accept! approver
 
-    elsif AnimeOnline::Activists.can_trust? report.user_id, report.anime_video.hosting
-      report.accept! approver
+    # elsif AnimeOnline::Activists.can_trust? report.user_id, report.anime_video.hosting
+      # report.accept! approver
 
     elsif report.user_id == User::GUEST_ID && (
         report.doubles.zero? || report.doubles(:rejected).positive?

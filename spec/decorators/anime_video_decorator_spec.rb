@@ -88,46 +88,46 @@ describe AnimeVideoDecorator, type: :controller do
       end
     end
 
-    context 'rutube.ru' do
-      context 'http://video.rutube.ru/7632871' do
-        let(:url) { 'http://video.rutube.ru/7632871' }
-        let(:expected_url) { '//rutube.ru/play/embed/7632871' }
-        it do
-          is_expected.to eq <<-HTML.squish
-            <iframe src="#{expected_url}" frameborder="0"
-              webkitAllowFullScreen="true" mozallowfullscreen="true"
-              scrolling="no" allowfullscreen="allowfullscreen"></iframe>
-          HTML
-        end
-      end
+    # context 'rutube.ru' do
+    #   context 'http://video.rutube.ru/7632871' do
+    #     let(:url) { 'http://video.rutube.ru/7632871' }
+    #     let(:expected_url) { '//rutube.ru/play/embed/7632871' }
+    #     it do
+    #       is_expected.to eq <<-HTML.squish
+    #         <iframe src="#{expected_url}" frameborder="0"
+    #           webkitAllowFullScreen="true" mozallowfullscreen="true"
+    #           scrolling="no" allowfullscreen="allowfullscreen"></iframe>
+    #       HTML
+    #     end
+    #   end
 
-      context 'http://rutube.ru/play/embed/7630847' do
-        let(:url) { 'http://rutube.ru/play/embed/7630847' }
-        it do
-          is_expected.to eq <<-HTML.squish
-            <iframe src="#{fixed_url}" frameborder="0"
-              webkitAllowFullScreen="true" mozallowfullscreen="true"
-              scrolling="no" allowfullscreen="allowfullscreen"></iframe>
-          HTML
-        end
-      end
+    #   context 'http://rutube.ru/play/embed/7630847' do
+    #     let(:url) { 'http://rutube.ru/play/embed/7630847' }
+    #     it do
+    #       is_expected.to eq <<-HTML.squish
+    #         <iframe src="#{fixed_url}" frameborder="0"
+    #           webkitAllowFullScreen="true" mozallowfullscreen="true"
+    #           scrolling="no" allowfullscreen="allowfullscreen"></iframe>
+    #       HTML
+    #     end
+    #   end
 
-      context 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' do
-        let(:url) { 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' }
-        let(:expected_url) { '//rutube.ru/player.swf?hash=4f4dbbd7882342b057b4c387097e491e' }
-        it do
-          is_expected.to eq <<-HTML.squish
-            <object><param name="movie"
-              value="#{expected_url}"></param><param name="allowFullScreen"
-              value="true"></param><param name="allowScriptAccess"
-              value="always"></param><embed src="#{expected_url}"
-              type="application/x-shockwave-flash"
-              allowfullscreen="allowfullscreen"
-              allowScriptAccess="always"></embed></object>
-          HTML
-        end
-      end
-    end
+    #   context 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' do
+    #     let(:url) { 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' }
+    #     let(:expected_url) { '//rutube.ru/player.swf?hash=4f4dbbd7882342b057b4c387097e491e' }
+    #     it do
+    #       is_expected.to eq <<-HTML.squish
+    #         <object><param name="movie"
+    #           value="#{expected_url}"></param><param name="allowFullScreen"
+    #           value="true"></param><param name="allowScriptAccess"
+    #           value="always"></param><embed src="#{expected_url}"
+    #           type="application/x-shockwave-flash"
+    #           allowfullscreen="allowfullscreen"
+    #           allowScriptAccess="always"></embed></object>
+    #       HTML
+    #     end
+    #   end
+    # end
 
     context 'youtube.ru' do
       context 'Fix fullscreen for https://www.youtube.com/embed/q89fWhsD5z8' do
