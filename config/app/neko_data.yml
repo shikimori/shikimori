@@ -1630,6 +1630,8 @@
         - 38578
         - 38672
         - 37561
+        - 1853
+        - 6496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2058,6 +2060,8 @@
         - 38578
         - 38672
         - 37561
+        - 1853
+        - 6496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2485,6 +2489,8 @@
         - 38578
         - 38672
         - 37561
+        - 1853
+        - 6496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -2912,6 +2918,8 @@
         - 38578
         - 38672
         - 37561
+        - 1853
+        - 6496
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/mahou_shoujo.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3008,6 +3016,7 @@
           anime_ids:
           - 1405
           - 1349
+          - 769
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3030,6 +3039,7 @@
           anime_ids:
           - 1405
           - 1349
+          - 769
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3052,6 +3062,7 @@
           anime_ids:
           - 1405
           - 1349
+          - 769
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -3074,6 +3085,7 @@
           anime_ids:
           - 1405
           - 1349
+          - 769
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/police.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -5154,6 +5166,8 @@
         - 10687
         - 28215
         - 36040
+        - 36028
+        - 37884
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -5646,6 +5660,8 @@
         - 10687
         - 28215
         - 36040
+        - 36028
+        - 37884
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6138,6 +6154,8 @@
         - 10687
         - 28215
         - 36040
+        - 36028
+        - 37884
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6671,7 +6689,7 @@
     :topic_id: 
     :rule:
       :algo: count
-      :threshold: 120
+      :threshold: 100
       :filters:
         genre_ids:
         - 37
@@ -7373,7 +7391,7 @@
   attributes:
     :neko_id: :durarara
     :level: 1
-    :image: "/assets/achievements/anime/franchise/durarara.png"
+    :image: "/assets/achievements/anime/franchise/durarara.jpg"
     :border_color: 
     :title_ru: Дюрарара!!
     :text_ru: 
@@ -7390,7 +7408,7 @@
   attributes:
     :neko_id: :durarara
     :level: 0
-    :image: "/assets/achievements/anime/franchise/durarara.png"
+    :image: "/assets/achievements/anime/franchise/durarara.jpg"
     :border_color: 
     :title_ru: Дюрарара!!
     :text_ru: 
