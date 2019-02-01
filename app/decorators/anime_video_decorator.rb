@@ -31,12 +31,16 @@ class AnimeVideoDecorator < BaseDecorator
         (hosting == 'i.ua')
       flash_player_html fixed_url
 
-    elsif hosting == 'rutube.ru' && url =~ /\/\/video\.rutube.ru\/(.*)/
-      # Простая фильтрация для http://video.rutube.ru/xxxxxxx
-      if fixed_url.size > 30
-        flash_player_html "//rutube.ru/player.swf?hash=#{$1}"
+    elsif hosting == 'rutube.ru'
+      if url =~ /\/\/video\.rutube.ru\/(.*)/
+        # Простая фильтрация для http://video.rutube.ru/xxxxxxx
+        if fixed_url.size > 30
+          player_url_html "//rutube.ru/player.swf?hash=#{$1}"
+        else
+          player_url_html "//rutube.ru/play/embed/#{$1}"
+        end
       else
-        iframe_player_html "//rutube.ru/play/embed/#{$1}"
+        player_url_html url
       end
 
     elsif hosting == 'animaunt.ru'
@@ -121,6 +125,14 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
 private
+
+  def player_url_html url
+    h.content_tag(:div, class: 'player-placeholder') do
+      h.content_tag(:a, href: url, target: '_blank') do
+        url
+      end
+    end
+  end
 
   def flash_player_html url
     h.content_tag(:object) do
