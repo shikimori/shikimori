@@ -1,5 +1,5 @@
 json.array! @collection do |entry|
-  name = (entry.russian if params[:search].contains_russian?) || entry.name
+  name = (entry.russian if params[:search]&.contains_russian?) || entry.name
 
   json.data entry.id
   json.value entry.name
