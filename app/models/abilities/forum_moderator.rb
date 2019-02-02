@@ -39,5 +39,9 @@ class Abilities::ForumModerator
     end
 
     can :delete_all_reviews, User
+
+    can %i[
+      manage_not_trusted_abuse_reporter_role
+    ], User
   end
 end
