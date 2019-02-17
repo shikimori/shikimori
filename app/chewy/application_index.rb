@@ -106,15 +106,15 @@ class ApplicationIndex < Chewy::Index
           type: 'synonym',
           synonyms: [
             'i, s1, 1',
-            'ii, s2, 2',
-            'iii, s3, 3',
-            'iv, s4, 4',
-            'v, s5, 5',
-            'vi, s6, 6',
-            'vii, s7, 7',
-            'viii, s8, 8',
-            'ix, s9, 9',
-            'x, s10, 10'
+            'ii, s2, 2, Ⅱ',
+            'iii, s3, 3, Ⅲ',
+            'iv, s4, 4, Ⅳ',
+            'v, s5, 5, Ⅴ',
+            'vi, s6, 6, Ⅵ',
+            'vii, s7, 7, Ⅶ',
+            'viii, s8, 8, Ⅷ',
+            'ix, s9, 9, Ⅸ',
+            'x, s10, 10, Ⅹ'
           ]
         }
       }
