@@ -20,6 +20,11 @@ postgres=# alter user shikimori_production with superuser;
 postgres=# alter user shikimori_test with superuser;
 ```
 
+### Create databases
+```sh
+rails db:create
+```
+
 ### Extensions
 ```sh
 psql -d shikimori_test
