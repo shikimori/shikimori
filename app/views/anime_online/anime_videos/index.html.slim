@@ -1,7 +1,7 @@
 / = render 'spnsrs/ad', ad: Ad.new(:advrtr_x728)
 
 = render layout: 'animes/page' do
-  - if @resource.licensed?
+  - if @resource.licensed? || (@resource.id == 21 && @player.current_episode.in?(861..910))
     .b-errors
       .subheadline Просмотр недоступен
       p Отключено по требованию правообладателя.
