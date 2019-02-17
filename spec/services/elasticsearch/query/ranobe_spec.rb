@@ -1,7 +1,7 @@
 describe Elasticsearch::Query::Ranobe, :vcr do
   # include_context :disable_vcr
   include_context :chewy_urgent
-  include_context :chewy_indexes, %i[mangas]
+  include_context :chewy_indexes, %i[ranobe]
   # include_context :chewy_logger
 
   subject { described_class.call phrase: phrase, limit: ids_limit }
