@@ -10,7 +10,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -35,13 +35,13 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"settings":{"analysis":{"tokenizer":{"edge_ngram_tokenizer":{"type":"edgeNGram","min_gram":1,"max_gram":99}},"filter":{"edgeNGram_filter":{"type":"edgeNGram","min_gram":1,"max_gram":99,"side":"front"},"nGram_filter":{"type":"nGram","min_gram":1,"max_gram":99},"distinct_words_filter":{"type":"unique","only_on_same_position":true},"unique_words_filter":{"type":"unique"},"synonyms_filter":{"type":"synonym","synonyms":["i,
-        s1, 1","ii, s2, 2","iii, s3, 3","iv, s4, 4","v, s5, 5","vi, s6, 6","vii, s7,
-        7","viii, s8, 8","ix, s9, 9","x, s10, 10"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"]}}}},"mappings":{"anime":{"properties":{"name":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"russian":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"english":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"japanese":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_0":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_1":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_2":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_3":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_4":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_5":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"license_name_ru":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"weight":{"type":"half_float","index":false}}}}}'
+        s1, 1","ii, s2, 2, Ⅱ","iii, s3, 3, Ⅲ","iv, s4, 4, Ⅳ","v, s5, 5, Ⅴ","vi, s6,
+        6, Ⅵ","vii, s7, 7, Ⅶ","viii, s8, 8, Ⅷ","ix, s9, 9, Ⅸ","x, s10, 10, Ⅹ"]}},"analyzer":{"original_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"]},"edge_phrase_analyzer":{"type":"custom","tokenizer":"edge_ngram_tokenizer","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter","unique_words_filter"]},"edge_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","edgeNGram_filter"]},"ngram_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter","nGram_filter","distinct_words_filter"]},"search_phrase_analyzer":{"type":"custom","tokenizer":"keyword","filter":["lowercase","asciifolding","synonyms_filter"]},"search_word_analyzer":{"type":"custom","tokenizer":"standard","filter":["lowercase","asciifolding","synonyms_filter"]}}}},"mappings":{"anime":{"properties":{"name":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"russian":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"english":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"japanese":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_0":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_1":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_2":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_3":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_4":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"synonyms_5":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"license_name_ru":{"type":"keyword","index":false,"fields":{"original":{"type":"text","index":true,"analyzer":"original_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_phrase":{"type":"text","index":true,"analyzer":"edge_phrase_analyzer","search_analyzer":"search_phrase_analyzer"},"edge_word":{"type":"text","index":true,"analyzer":"edge_word_analyzer","search_analyzer":"search_word_analyzer"},"ngram":{"type":"text","index":true,"analyzer":"ngram_analyzer","search_analyzer":"search_word_analyzer"}}},"weight":{"type":"half_float","index":false}}}}}'
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -52,13 +52,13 @@ http_interactions:
       message: OK
     headers:
       Warning:
-      - '299 Elasticsearch-6.4.1-e36acdb "Deprecated big difference between max_gram
+      - '299 Elasticsearch-6.6.0-a9861f4 "Deprecated big difference between max_gram
         and min_gram in NGram Tokenizer,expected difference must be less than or equal
-        to: [1]" "Sat, 22 Dec 2018 15:37:29 GMT"'
-      - 299 Elasticsearch-6.4.1-e36acdb "the default number of shards will change
+        to: [1]" "Sun, 17 Feb 2019 20:32:33 GMT"'
+      - 299 Elasticsearch-6.6.0-a9861f4 "the default number of shards will change
         from [5] to [1] in 7.0.0; if you wish to continue using the default of [5]
         shards, you must manage this on the create index request or with an index
-        template" "Sat, 22 Dec 2018 15:37:29 GMT"
+        template" "Sun, 17 Feb 2019 20:32:33 GMT"
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
@@ -78,7 +78,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept:
       - "*/*"
   response:
@@ -89,7 +89,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '6751'
+      - '6796'
     body:
       encoding: UTF-8
       string: ''
@@ -107,7 +107,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -120,10 +120,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '199'
+      - '198'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":7,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"1","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -136,7 +136,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept:
       - "*/*"
   response:
@@ -147,7 +147,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '6751'
+      - '6796'
     body:
       encoding: UTF-8
       string: ''
@@ -165,7 +165,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -178,10 +178,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '199'
+      - '198'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":9,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"2","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -194,7 +194,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept:
       - "*/*"
   response:
@@ -205,7 +205,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '6751'
+      - '6796'
     body:
       encoding: UTF-8
       string: ''
@@ -223,7 +223,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -239,7 +239,7 @@ http_interactions:
       - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":6,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
+      string: '{"took":10,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"3","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":0,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -252,7 +252,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept:
       - "*/*"
   response:
@@ -263,7 +263,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '6751'
+      - '6796'
     body:
       encoding: UTF-8
       string: ''
@@ -281,7 +281,7 @@ http_interactions:
       Content-Type:
       - application/x-ndjson
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
@@ -294,10 +294,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '200'
+      - '199'
     body:
       encoding: ASCII-8BIT
-      string: '{"took":8,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"4","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
+      string: '{"took":11,"errors":false,"items":[{"index":{"_index":"shikimori_test_animes","_type":"anime","_id":"4","_version":1,"result":"created","forced_refresh":true,"_shards":{"total":2,"successful":1,"failed":0},"_seq_no":1,"_primary_term":1,"status":201}}]}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
 - request:
@@ -310,7 +310,7 @@ http_interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - Faraday v0.15.3
+      - Faraday v0.15.4
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
