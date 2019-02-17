@@ -3784,6 +3784,9 @@
         - 32717
         - 37204
         - 31485
+        - 31793
+        - 33795
+        - 32454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -4229,6 +4232,9 @@
         - 32717
         - 37204
         - 31485
+        - 31793
+        - 33795
+        - 32454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -4674,6 +4680,9 @@
         - 32717
         - 37204
         - 31485
+        - 31793
+        - 33795
+        - 32454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6656,6 +6665,10 @@
         - 31147
         - 37722
         - 37374
+        - 36432
+        - 37979
+        - 37569
+        - 36028
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -6801,6 +6814,7 @@
         - 37278
         - 37362
         - 37831
+        - 39239
       :threshold: 84.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -6825,6 +6839,7 @@
         - 37278
         - 37362
         - 37831
+        - 39239
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10933,6 +10948,9 @@
         not_anime_ids:
         - 5343
         - 9035
+        - 9035
+        - 31984
+        - 16183
       :threshold: 80%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -10953,6 +10971,9 @@
         not_anime_ids:
         - 5343
         - 9035
+        - 9035
+        - 31984
+        - 16183
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
