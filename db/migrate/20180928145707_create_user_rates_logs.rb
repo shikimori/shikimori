@@ -1,6 +1,6 @@
-class CreateUserRateLogs < ActiveRecord::Migration[5.2]
+class CreateUserRatesLogs < ActiveRecord::Migration[5.2]
   def change
-    create_table :user_rate_logs do |t|
+    create_table :user_rates_logs do |t|
       t.references :user, null: false, index: true
       t.references :target, null: true, polymorphic: true
       t.jsonb :diff
