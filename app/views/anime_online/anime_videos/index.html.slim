@@ -1,78 +1,66 @@
 / = render 'spnsrs/ad', ad: Ad.new(:advrtr_x728)
 
 = render layout: 'animes/page' do
-  - if @resource.licensed? || (@resource.id == 21 && @player.current_episode.in?(861..910))
-    .b-errors
-      .subheadline Просмотр недоступен
-      p Отключено по требованию правообладателя.
+  .player-container
+    = render 'anime_online/anime_videos/player_container'
 
-  - elsif @resource.censored? || @resource.forbidden?
-    .b-errors
-      .subheadline Просмотр недоступен
-      p Отключено после принятия в 2016 году закона в РФ,
-        приравнивающего хентай к детскому порно.
+  - cache @player.videos_cache_key, expires_in: 2.weeks do
+    .cc
+      .c-videos
+        - cache @player.episode_videos_cache_key, expires_in: 2.weeks do
+          .title
+            | Варианты видео
+            - @player.videos_by_kind.each do |kind_text, videos|
+              .video-variant-switcher[
+                data-kind=videos.first.kind
+              ] = kind_text
 
-  - else
-    .player-container
-      = render 'anime_online/anime_videos/player_container'
+            - if @player.all_kind?
+              .video-variant-switcher data-kind="all" все
 
-    - cache @player.videos_cache_key, expires_in: 2.weeks do
-      .cc
-        .c-videos
-          - cache @player.episode_videos_cache_key, expires_in: 2.weeks do
-            .title
-              | Варианты видео
-              - @player.videos_by_kind.each do |kind_text, videos|
-                .video-variant-switcher[
-                  data-kind=videos.first.kind
-                ] = kind_text
+          - if @player.videos.any?
+            - @player.videos_by_kind.each do |kind_text, videos|
+              .video-variant-group[
+                data-kind=videos.first.kind
+              ]
+                = render partial: 'anime_online/anime_videos/video_variant',
+                  collection: videos,
+                  as: :video,
+                  locals: { is_special: false }
 
-              - if @player.all_kind?
-                .video-variant-switcher data-kind="all" все
+            - if @player.all_kind?
+              .video-variant-group data-kind="all"
+                = render partial: 'anime_online/anime_videos/video_variant',
+                  collection: @player.videos.uniq(&:uniq_criteria).sort_by(&:sort_criteria),
+                  as: :video,
+                  locals: { is_special: false }
+          - else
+            .b-nothing_here Нет видео
 
-            - if @player.videos.any?
-              - @player.videos_by_kind.each do |kind_text, videos|
-                .video-variant-group[
-                  data-kind=videos.first.kind
-                ]
-                  = render partial: 'anime_online/anime_videos/video_variant',
-                    collection: videos,
-                    as: :video,
-                    locals: { is_special: false }
+      .c-anime_video_episodes
+        - cache [@player.cache_key, :all_episodes], expires_in: 2.weeks do
+          .title Эпизоды
+          - if @player.anime_video_episodes.any?
+            = render partial: 'anime_online/anime_videos/anime_video_episode',
+              collection: @player.anime_video_episodes[0..12]
 
-              - if @player.all_kind?
-                .video-variant-group data-kind="all"
-                  = render partial: 'anime_online/anime_videos/video_variant',
-                    collection: @player.videos.uniq(&:uniq_criteria).sort_by(&:sort_criteria),
-                    as: :video,
-                    locals: { is_special: false }
-            - else
-              .b-nothing_here Нет видео
+            - if @player.anime_video_episodes.size > 13
+              .b-show_more.unprocessed + показать всё
+              .b-show_more-more
+                = render partial: 'anime_online/anime_videos/anime_video_episode',
+                  collection: @player.anime_video_episodes[13..-1]
+                .hide-more
+                  | &mdash; спрятать
+          - else
+            .b-nothing_here Нет эпизодов
 
-        .c-anime_video_episodes
-          - cache [@player.cache_key, :all_episodes], expires_in: 2.weeks do
-            .title Эпизоды
-            - if @player.anime_video_episodes.any?
-              = render partial: 'anime_online/anime_videos/anime_video_episode',
-                collection: @player.anime_video_episodes[0..12]
-
-              - if @player.anime_video_episodes.size > 13
-                .b-show_more.unprocessed + показать всё
-                .b-show_more-more
-                  = render partial: 'anime_online/anime_videos/anime_video_episode',
-                    collection: @player.anime_video_episodes[13..-1]
-                  .hide-more
-                    | &mdash; спрятать
-            - else
-              .b-nothing_here Нет эпизодов
-
-  - if @player.episode_topic_view
-    .block.clearfix
-      .subheadline.m3 = i18n_io 'Comment', :few
-      div
-        .b-topic.to-process[
-          data-dynamic='topic'
-          data-faye=@player.episode_topic_view.faye_channel.to_json
-        ]
-          = render 'topics/comments',
-            comments_view: @player.episode_topic_view.comments_view
+- if @player.episode_topic_view
+  .block.clearfix
+    .subheadline.m3 = i18n_io 'Comment', :few
+    div
+      .b-topic.to-process[
+        data-dynamic='topic'
+        data-faye=@player.episode_topic_view.faye_channel.to_json
+      ]
+        = render 'topics/comments',
+          comments_view: @player.episode_topic_view.comments_view

@@ -7,7 +7,20 @@
   data-video_ids=@player.same_videos&.map(&:id)
 ]
   .player-area
-    = @video.player_html
+    - if @resource.licensed? || (@resource.id == 21 && @player.current_episode.in?(861..910))
+      .player-placeholder
+        .b-errors
+          .subheadline Просмотр недоступен
+          p Отключено по требованию правообладателя.
+
+    - elsif @resource.censored? || @resource.forbidden?
+      .player-placeholder
+        .b-errors
+          .subheadline Просмотр недоступен
+          p Отключено после принятия в 2016 году закона в РФ,
+            приравнивающего хентай к детскому порно.
+    - else
+      = @video.player_html
 
   .cc-anime_video_report-new
     = render 'moderations/anime_video_reports/form',

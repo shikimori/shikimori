@@ -14,18 +14,18 @@
           b  #
           input[
             type="text"
-            value="#{@player.current_episode}"
-            data-href="#{@player.episode_url 'EPISODE_NUMBER'}"
+            value=@player.current_episode
+            data-href=@player.episode_url('EPISODE_NUMBER')
           ]
           .video-link.no-video нет видео
 
-        a.c-control.next href="#{@player.next_url}"
+        a.c-control.next href=@player.next_url
           .icon
           .label Следующий
 
     .c-column
       .cc-options
         .c-column.cc-2a
-          a.c-control.upload href="#{@player.new_video_url}"
+          a.c-control.upload href=@player.new_video_url
             .icon
-            .label #{t 'actions.upload'}
+            .label = t 'actions.upload'
