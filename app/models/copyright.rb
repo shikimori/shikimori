@@ -57,6 +57,8 @@ module Copyright
     # https://www.mos-gorsud.ru/mgs/defend/statementForm/d059c855-42f4-40a3-a6ec-930b5af44187
     23273, # Shigatsu wa Kimi no Uso
     28069, # Shigatsu wa Kimi no Uso: Moments
+    28999, # Charlotte
+    31553, # Charlotte: Tsuyoimono-tachi
   ] + EXPONENTA_COPYRIGHTED + PIONER_COPYRIGHTED + ISTARI_COPYRIGHTED + VGTRK_COPYRIGHTED + CAPELLA_FILM_COPYRIGHTED
 
   WAKANIM_COPYRIGHTED = [
@@ -93,5 +95,12 @@ module Copyright
     # 25537, # Fate/stay night: Heaven's Feel I. presage flower
     # 37141, # Cells at Work (TV)
     # 35840 # Cells at Work
+    37979, # Magical Girl Spec-Ops Asuka | Russia + French - 2018-04-01 - 2022-04-01
+    37451, # Boogiepop wa Warawanai (2019) | Russia + French - 2018-04-01 - 2022-04-01
+    36633, # Date A Live III | Russia + French - 2018-04-01 - 2022-04-01
+    37140, # Gegege no Kitarou | Russia and Russian speaking territories + French and French speaking territories - 2018-04-19 - 2021-10-18
+    # 21 episodes 861 - 910 # One Piece | Russia and Russian speaking territories + Germany and German speaking territories - 2018-10-11 - 2020-05-10
+    37999, # Kaguya-sama wa Kokurasetai | Russia and Russian speaking territories + French and French speaking territories - 2019-01-01 - 2023-01-01
+    37779, # The Promised Neverland | Russia and Russian speaking territories + French and French speaking territories - 2019-01-01 - 2026-01-01
   ]
 end
