@@ -42,7 +42,10 @@ shikimori_production=# CREATE EXTENSION pg_stat_statements;
 
 ### Restore from a backup
 ```sh
+rails db:drop && rails db:create
 psql -U shikimori_production -d shikimori_production -f db/dump.sql
+RAILS_ENV=test rails db:schema:load
+rake db:migrate
 ```
 
 ### Make a backup
