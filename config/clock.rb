@@ -135,11 +135,11 @@ module Clockwork
     NameMatches::Refresh.perform_async Manga.name
   end
 
-  every 1.week, 'weekly.stuff.cpu_intensive.2', at: 'Monday 06:45' do
+  every 1.week, 'weekly.stuff.cpu_intensive.2', at: 'Monday 03:45' do
     Tags::ImportCoubTagsWorker.perform_async
   end
 
-  every 1.week, 'weekly.stuff.cpu_intensive.3', at: 'Tuesday 06:45' do
+  every 1.week, 'weekly.stuff.cpu_intensive.3', at: 'Thursday 03:45' do
     Tags::ImportDanbooruTagsWorker.perform_async
   end
 
