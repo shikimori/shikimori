@@ -46,6 +46,7 @@ module Copyright
   PIONER_COPYRIGHTED = [
     # https://www.mos-gorsud.ru/mgs/defend/statementForm/80619321-6d78-4a51-8ca2-ae42d2c3c1ed
     199, # Spirited Away
+    572, # Kaze no Tani no Nausicaa
   ]
   OTHER_COPYRIGHTED = [
     # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
