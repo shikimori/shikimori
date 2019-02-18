@@ -24,36 +24,36 @@ class Ad < ViewObjectBase
     },
     Types::Ad::Type[:special_x1170] => {
       provider: Types::Ad::Provider[:special],
-      html: (
-        <<~HTML
-          <style>
-            #iframe_special_x1170 {
-              max-width: 1150px;
-              width: 100%;
-              height: 180px;
-              margin: 0 auto;
-              overflow: hidden;
-            }
-            .spns_special_x1170 {
-              max-width: 1150px;
-              margin: 0 auto;
-              overflow: hidden;
-            }
-            .b-spns-special_x1170 {
-              margin: 0 auto 45px;
-              overflow: hidden;
-            }
-          </style>
-          <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
-        HTML
-      ),
-      # url: 'https://www.filmpro.ru/special/bsd?utm_source=shikimori&utm_medium=cpm&utm_campaign=bsd',
-      # images: (1..1).map do |i|
-      #   {
-      #     src: "/assets/globals/events/special_#{i}.jpg",
-      #     src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
-      #   }
-      # end,
+      # html: (
+      #   <<~HTML
+      #     <style>
+      #       #iframe_special_x1170 {
+      #         max-width: 1150px;
+      #         width: 100%;
+      #         height: 180px;
+      #         margin: 0 auto;
+      #         overflow: hidden;
+      #       }
+      #       .spns_special_x1170 {
+      #         max-width: 1150px;
+      #         margin: 0 auto;
+      #         overflow: hidden;
+      #       }
+      #       .b-spns-special_x1170 {
+      #         margin: 0 auto 45px;
+      #         overflow: hidden;
+      #       }
+      #     </style>
+      #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
+      #   HTML
+      # ),
+      url: 'https://kassa.rambler.ru/movie/3773',
+      images: (4..4).map do |i|
+        {
+          src: "/assets/globals/events/special_#{i}.jpg",
+          src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+        }
+      end,
       # images: [{
       #   url: 'https://creagames.com/ref/575?utm_source=shikimori&utm_medium=banner',
       #   src: '/assets/globals/events/special_1.jpg?1',
