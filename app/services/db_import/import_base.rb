@@ -17,7 +17,7 @@ private
     entry.assign_attributes data_to_assign
     assign_special_fields
 
-    entry.mal_id = @data[:id] if entry.new_record?
+    entry.mal_id ||= @data[:id]
     entry.imported_at = Time.zone.now
 
     entry.save!
