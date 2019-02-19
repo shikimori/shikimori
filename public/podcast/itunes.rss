@@ -6,7 +6,7 @@
     <description>Разговоры об аниме и манге</description>
     <language>ru</language>
     <copyright>© Copyright 2018-2019</copyright>
-    <atom:linkhref="https://shikimori.org/podcast.rss" rel="self" type="application/rss+xml" />
+    <atom:linkhref="https://shikimori.org/podcast/podcast.rss" rel="self" type="application/rss+xml" />
     <lastBuildDate> Mon, 18 Feb 2019 15:40:00 GMT</lastBuildDate>
     <itunes:author>Shikimori</itunes:author>
     <itunes:summary>Шикикаст</itunes:summary>
@@ -15,7 +15,7 @@
       <itunes:email>harizmath@gmail.com</itunes:email>
     </itunes:owner>
     <itunes:explicit>No</itunes:explicit>
-    <itunes:imagehref="https://shikimori.org/podcast.jpg"/>
+    <itunes:imagehref="https://shikimori.org/podcast/podcast.jpg"/>
     <itunes:categorytext="tv-film">
     </itunes:category>
     <item>
