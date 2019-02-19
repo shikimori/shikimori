@@ -108,8 +108,15 @@ describe VideoExtractor::PlayerUrlExtractor do
       end
 
       context 'embed url' do
-        let(:html) { 'http://www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
-        it { is_expected.to eq '//www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+        context 'myvi.top' do
+          let(:html) { 'http://www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+          it { is_expected.to eq '//www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+        end
+
+        context 'myvi.tv' do
+          let(:html) { 'http://www.myvi.tv/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+          it { is_expected.to eq '//www.myvi.top/embed/kcptso3b1mpr8n8fc3xyof5tyh' }
+        end
       end
     end
 
