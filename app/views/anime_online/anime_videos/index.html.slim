@@ -5,7 +5,7 @@
     = render 'anime_online/anime_videos/player_container'
 
   - cache @player.videos_cache_key, expires_in: 2.weeks do
-    .cc
+    .cc.block
       .c-videos
         - cache @player.episode_videos_cache_key, expires_in: 2.weeks do
           .title
@@ -54,13 +54,13 @@
           - else
             .b-nothing_here Нет эпизодов
 
-- if @player.episode_topic_view
-  .block.clearfix
-    .subheadline.m3 = i18n_io 'Comment', :few
-    div
-      .b-topic.to-process[
-        data-dynamic='topic'
-        data-faye=@player.episode_topic_view.faye_channel.to_json
-      ]
-        = render 'topics/comments',
-          comments_view: @player.episode_topic_view.comments_view
+  - if @player.episode_topic_view
+    .block.clearfix
+      .subheadline.m3 = i18n_io 'Comment', :few
+      div
+        .b-topic.to-process[
+          data-dynamic='topic'
+          data-faye=@player.episode_topic_view.faye_channel.to_json
+        ]
+          = render 'topics/comments',
+            comments_view: @player.episode_topic_view.comments_view
