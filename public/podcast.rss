@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Шикикаст</title>
+    <link>https://vk.com/shikimori</link>
+    <description>Разговоры об аниме и манге</description>
+    <language>ru</language>
+    <copyright>© Copyright 2018-2019</copyright>
+    <atom:linkhref="https://shikimori.org/podcast.rss" rel="self" type="application/rss+xml" />
+    <lastBuildDate> Mon, 18 Feb 2019 15:40:00 GMT</lastBuildDate>
+    <itunes:author>Shikimori</itunes:author>
+    <itunes:summary>Шикикаст</itunes:summary>
+    <itunes:owner>
+      <itunes:name>Shikimori</itunes:name>
+      <itunes:email>harizmath@gmail.com</itunes:email>
+    </itunes:owner>
+    <itunes:explicit>No</itunes:explicit>
+    <itunes:imagehref="https://shikimori.org/podcast.jpg"/>
+    <itunes:categorytext="tv-film">
+    </itunes:category>
+    <item>
+      <title>Шикикаст #01 — Проба пера</title>
+      <link>https://shikimori.org/podcast/episode_001.mp3</link>
+      <pubDate> Mon, 18 Feb 2019 10:40:00 GMT</pubDate>
+      <description>Рассказ об истории паблика vk.com/shikimori от его создателя и обсуждаем осенний сезон аниме 2018</description>
+      <enclosure url="https://shikimori.org/podcast/episode_001.mp3" length="1447" type="audio/mpeg" />
+      <itunes:summary>Шикикаст #01 — Проба пера</itunes:summary>
+      <itunes:imagehref="https://shikimori.org/podcast.jpg" />
+    </item>
+    <item>
+      <title>Шикикаст #02 — Аниме и Netflix</title>
+      <link>https://shikimori.org/podcast/episode_002.mp3</link>
+      <pubDate> Mon, 18 Feb 2019 15:40:00 GMT</pubDate>
+      <description>Беседа о контенте Нетфликс и перспективах его развития.</description>
+      <enclosure url="https://shikimori.org/podcast/episode_002.mp3" length="2914" type="audio/mpeg" />
+      <itunes:summary>Шикикаст #02 — Аниме и Netflix</itunes:summary>
+      <itunes:imagehref="https://shikimori.org/podcast.jpg" />
+    </item>
+  </channel>
+</rss>
