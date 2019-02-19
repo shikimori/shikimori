@@ -1,10 +1,10 @@
-describe MalParsers::ScheduleExpired do
+describe MalParsers::ScheduleMissing do
   let(:worker) { described_class.new }
 
-  let!(:anime_1) { create :anime, imported_at: nil, mal_id: 1 }
+  let!(:anime_1) { create :anime, imported_at: nil, mal_id: nil }
   let!(:anime_2) { create :anime, imported_at: 2.days.ago, mal_id: 2 }
-  let!(:anime_3) { create :anime, imported_at: nil, mal_id: 3 }
-  let!(:anime_4) { create :anime, imported_at: nil, mal_id: nil }
+  let!(:anime_3) { create :anime, imported_at: 1.hour.ago, mal_id: nil }
+  let!(:anime_4) { create :anime, imported_at: 1.year.ago, mal_id: 5 }
 
   before { allow(MalParsers::FetchEntry).to receive :perform_async }
   subject! { worker.perform 'anime' }

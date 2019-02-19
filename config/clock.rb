@@ -143,6 +143,13 @@ module Clockwork
     Tags::ImportDanbooruTagsWorker.perform_async
   end
 
+  every 1.day, 'monthly.schedule_missing', at: '05:00', if: lambda { |t| t.day == 28 } do
+    MalParsers::ScheduleMissing.perform_async 'anime'
+    MalParsers::ScheduleMissing.perform_async 'manga'
+    MalParsers::ScheduleMissing.perform_async 'character'
+    MalParsers::ScheduleMissing.perform_async 'person'
+  end
+
   # every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do
   #   VacuumDb.perform_async
   # end
