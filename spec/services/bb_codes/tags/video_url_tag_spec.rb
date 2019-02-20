@@ -114,9 +114,14 @@ describe BbCodes::Tags::VideoUrlTag, :vcr do
       it { is_expected.to include '<div class="c-video b-video unprocessed youmite' }
     end
 
-    context 'viuly', :focus do
+    context 'viuly' do
       let(:text) { 'https://viuly.io/video/video-of-the-company-bizzilion.-start-making-money-on-television--online-broadcasts-with-bizzilion-2138479' }
       it { is_expected.to include '<div class="c-video b-video unprocessed viuly' }
+    end
+
+    context 'stormo' do
+      let(:text) { 'https://stormo.xyz/videos/415088/risuem-abstraktnye-cvety-verevkoy-i-cepyu/' }
+      it { is_expected.to include '<div class="c-video b-video unprocessed stormo' }
     end
   end
 

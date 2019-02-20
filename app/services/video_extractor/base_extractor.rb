@@ -5,18 +5,18 @@ class VideoExtractor::BaseExtractor
   ALLOWED_EXCEPTIONS = [Errno::ECONNRESET, Net::ReadTimeout]
   PARAMS = /(?:(?:\?|\#|&amp;|&)[\w=+%-]+)*/.source
 
-  PROXY_OPTIONS =
-    if Rails.env.production?
-      {}
-    else
-      {
-        proxy_http_basic_authentication: [
-          URI.parse('http://178.79.156.106:3128'),
-          'uptimus',
-          'holy_grail'
-        ]
-      }
-    end
+  PROXY_OPTIONS = {}
+    # if Rails.env.production?
+    #   {}
+    # else
+      # {
+        # proxy_http_basic_authentication: [
+        #   URI.parse('http://178.79.156.106:3128'),
+        #   'uptimus',
+        #   'holy_grail'
+        # ]
+      # }
+    # end
 
   USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 ' \
     '(KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36'

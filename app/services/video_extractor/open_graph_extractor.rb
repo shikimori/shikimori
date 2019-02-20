@@ -10,7 +10,8 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
       video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS} |
       (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS} |
       video.(?<hosting>youmite).ru/embed/[\wА-я_-]+#{PARAMS} |
-      (?<hosting>viuly).io/video/[\wА-я_.-]+#{PARAMS}
+      (?<hosting>viuly).io/video/[\wА-я_.-]+#{PARAMS} |
+      (?<hosting>stormo).xyz/videos/[\wА-я_-]+/[\wА-я_-]+/
     )
   }mix
 
@@ -26,7 +27,8 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   ]
 
   VIDEO_PROPERTIES_BY_HOSTING = {
-    viuly: %w[meta[property='og:video:iframe']]
+    viuly: %w[meta[property='og:video:iframe']],
+    stormo: %w[meta[property='og:video']]
   }
 
   VIDEO_PROPERTIES = %w[

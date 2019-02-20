@@ -86,6 +86,17 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
       its(:player_url) { is_expected.to eq '//viuly.io/embed/video-of-the-company-bizzilion.-start-making-money-on-television--online-broadcasts-with-bizzilion-2138479' }
     end
 
+    describe 'stormo' do
+      let(:url) { 'https://stormo.xyz/videos/415088/risuem-abstraktnye-cvety-verevkoy-i-cepyu/' }
+      its(:hosting) { is_expected.to eq 'stormo' }
+      its(:image_url) do
+        is_expected.to eq(
+          '//stormo.xyz/contents/videos_screenshots/415000/415088/preview.mp4.jpg'
+        )
+      end
+      its(:player_url) { is_expected.to eq '//stormo.xyz/embed/415088/' }
+    end
+
     context 'invalid_url' do
       let(:url) { 'http://coub.cOOOm/view/bqn2pda' }
       it { is_expected.to be_nil }

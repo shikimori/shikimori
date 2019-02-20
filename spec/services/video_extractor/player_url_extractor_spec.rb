@@ -343,5 +343,10 @@ describe VideoExtractor::PlayerUrlExtractor do
       let(:html) { 'https://viuly.io/embed/0148--neveroyatnoe-priklyuchenie-dzhodzho-rycari-zvzdnoy-pyli--anidub-150196' }
       it { is_expected.to eq '//viuly.io/embed/0148--neveroyatnoe-priklyuchenie-dzhodzho-rycari-zvzdnoy-pyli--anidub-150196' }
     end
+
+    context 'stormo.xyz' do
+      let(:html) { 'https://stormo.xyz/embed/415088/' }
+      it { is_expected.to eq '//stormo.xyz/embed/415088/' }
+    end
   end
 end
