@@ -17,6 +17,7 @@ const hostingPatterns = url => (
     coub_com: prepare('coub.com', url),
     twitch_rv: prepare('twitch.tv', url),
     myvi_ru: prepare('myvi.ru', url),
+    myvi_tv: prepare('myvi.tv', url),
     myvi_top: prepare('myvi.top', url),
     sibnet: prepare('sibnet.ru', url),
     yandex_ru: prepare('yandex.ru', url),
