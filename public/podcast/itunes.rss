@@ -7,6 +7,7 @@
     <language>ru</language>
     <copyright>© Copyright 2018-2019</copyright>
     <atom:link href="https://shikimori.org/podcast/itunes.rss" rel="self" type="application/rss+xml" />
+    <itunes:new-feed-url>https://shikimori.org/podcast/itunes.rss</itunes:new-feed-url>
     <lastBuildDate> Mon, 18 Feb 2019 15:40:00 GMT</lastBuildDate>
     <itunes:author>Shikimori</itunes:author>
     <itunes:summary>Шикикаст</itunes:summary>
