@@ -36,6 +36,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
 
   def player_url
     return unless parsed_data.second
+
     Url.new(parsed_data.second).without_protocol.to_s
   end
 
