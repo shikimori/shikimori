@@ -63,6 +63,18 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
       its(:player_url) { is_expected.to eq '//streamable.com/t/efgm' }
     end
 
+    context 'youmite' do
+      let(:url) { 'https://video.youmite.ru/embed/JIzidma8NwTMu8m' }
+
+      its(:hosting) { is_expected.to eq 'youmite' }
+      its(:image_url) do
+        is_expected.to eq(
+          '//video.youmite.ru/upload/photos/2019/02/c919b5968940f38c9bc790f40b80d52143a64ef5ObfFlhjplbdoGKbdEKEX.video_thumb_8584_936.jpeg'
+        )
+      end
+      its(:player_url) { is_expected.to eq '//video.youmite.ru/embed/JIzidma8NwTMu8m' }
+    end
+
     context 'invalid_url' do
       let(:url) { 'http://coub.cOOOm/view/bqn2pda' }
       it { is_expected.to be_nil }

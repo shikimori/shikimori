@@ -8,7 +8,8 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     https?://(?:www\.)?(
       (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS_REGEXP.source}
+      (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      video.(?<hosting>youmite).ru/embed/[\wА-я_-]+#{PARAMS_REGEXP.source}
     )
   }mix
 

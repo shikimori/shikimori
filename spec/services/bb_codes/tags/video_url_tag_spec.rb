@@ -108,6 +108,11 @@ describe BbCodes::Tags::VideoUrlTag, :vcr do
       let(:text) { 'https://ok.ru/videoembed/815923404420' }
       it { is_expected.to include '<div class="c-video b-video unprocessed ok' }
     end
+
+    context 'youmite' do
+      let(:text) { 'https://video.youmite.ru/embed/JIzidma8NwTMu8m' }
+      it { is_expected.to include '<div class="c-video b-video unprocessed youmite' }
+    end
   end
 
   describe '#preprocess' do

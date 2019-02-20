@@ -24,7 +24,8 @@ const hostingPatterns = url => (
     dailymotion_com: prepare('dailymotion.com', url),
     streamable_com: prepare('streamable.com', url),
     smotret_anime: prepare('smotretanime.ru', url),
-    ok_ru: prepare('ok.ru', url)
+    ok_ru: prepare('ok.ru', url),
+    youmite_ru: prepare('youmite.ru', url)
   }
 );
 
