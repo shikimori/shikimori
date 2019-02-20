@@ -112,6 +112,8 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ /(?<url>#{HTTP}vidbull.com#{CONTENT})/
       $LAST_MATCH_INFO[:url]
+    elsif html =~ %r{(?<url>#{HTTP}(?:www\.)?mp4upload.com/embed-#{CONTENT}.html)}
+      $LAST_MATCH_INFO[:url].gsub('www.mp4upload.com', 'mp4upload.com')
     elsif html =~ /(?<url>#{HTTP}mipix.eu#{CONTENT})/
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}viuly.io/embed/#{CONTENT})}

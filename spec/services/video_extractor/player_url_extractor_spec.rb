@@ -348,5 +348,17 @@ describe VideoExtractor::PlayerUrlExtractor do
       let(:html) { 'https://stormo.xyz/embed/415088/' }
       it { is_expected.to eq '//stormo.xyz/embed/415088/' }
     end
+
+    context 'mp4upload.com' do
+      context do
+        let(:html) { 'https://www.mp4upload.com/embed-169qug77sszf.html' }
+        it { is_expected.to eq '//mp4upload.com/embed-169qug77sszf.html' }
+      end
+
+      context do
+        let(:html) { 'https://mp4upload.com/embed-169qug77sszf.html' }
+        it { is_expected.to eq '//mp4upload.com/embed-169qug77sszf.html' }
+      end
+    end
   end
 end
