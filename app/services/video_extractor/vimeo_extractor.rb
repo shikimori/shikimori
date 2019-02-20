@@ -1,7 +1,7 @@
 class VideoExtractor::VimeoExtractor < VideoExtractor::OpenGraphExtractor
   URL_REGEX = %r{
     https?://(?:www\.)?(
-      (?<hosting>vimeo).com/[\wА-я_-]+#{PARAMS_REGEXP.source}
+      (?<hosting>vimeo).com/[\wА-я_-]+#{PARAMS}
     )
   }xi
 
@@ -14,6 +14,7 @@ class VideoExtractor::VimeoExtractor < VideoExtractor::OpenGraphExtractor
 
   def player_url
     return unless parsed_data.second
+
     "//player.vimeo.com/video/#{parsed_data.second}"
   end
 

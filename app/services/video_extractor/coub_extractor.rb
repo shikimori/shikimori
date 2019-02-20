@@ -3,7 +3,7 @@ class VideoExtractor::CoubExtractor < VideoExtractor::OpenGraphExtractor
   # shiki_video should include these hostings too
   URL_REGEX = %r{
     https?://(?:www\.)?(
-      (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS_REGEXP.source}
+      (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS}
     )
   }xi
 

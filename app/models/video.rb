@@ -10,7 +10,7 @@ class Video < ApplicationRecord
   enumerize :hosting,
     in: %i[
       youtube vk ok coub rutube vimeo sibnet yandex
-      streamable smotret_anime myvi youmite
+      streamable smotret_anime myvi youmite viuly
     ], # dailymotion twitch
     predicates: true
   enumerize :kind, in: %i[pv op ed other], predicates: true
@@ -71,6 +71,7 @@ private
 
   def check_url
     return if hosting.present?
+
     errors.add(
       :url,
       I18n.t('activerecord.errors.models.videos.attributes.url.incorrect')
@@ -80,6 +81,7 @@ private
 
   def check_hosting
     return if ALLOWED_HOSTINGS.include? hosting.to_sym
+
     errors.add(
       :url,
       I18n.t('activerecord.errors.models.videos.attributes.hosting.incorrect')

@@ -333,5 +333,15 @@ describe VideoExtractor::PlayerUrlExtractor do
       let(:html) { 'https://ok.ru/live/815923404420' }
       it { is_expected.to eq '//ok.ru/videoembed/815923404420' }
     end
+
+    describe 'youmite' do
+      let(:html) { 'https://video.youmite.ru/embed/JIzidma8NwTMu8m' }
+      it { is_expected.to eq '//video.youmite.ru/embed/JIzidma8NwTMu8m' }
+    end
+
+    describe 'viuly.io' do
+      let(:html) { 'https://viuly.io/embed/0148--neveroyatnoe-priklyuchenie-dzhodzho-rycari-zvzdnoy-pyli--anidub-150196' }
+      it { is_expected.to eq '//viuly.io/embed/0148--neveroyatnoe-priklyuchenie-dzhodzho-rycari-zvzdnoy-pyli--anidub-150196' }
+    end
   end
 end

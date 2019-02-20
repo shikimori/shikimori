@@ -114,6 +114,8 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ /(?<url>#{HTTP}mipix.eu#{CONTENT})/
       $LAST_MATCH_INFO[:url]
+    elsif html =~ %r{(?<url>#{HTTP}viuly.io/embed#{CONTENT})}
+      $LAST_MATCH_INFO[:url]
     elsif html =~ SMOTRET_ANIME_REGEXP
       "https://smotretanime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ VideoExtractor::RutubeExtractor::URL_REGEX

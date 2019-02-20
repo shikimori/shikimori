@@ -1,7 +1,7 @@
 class VideoExtractor::MyviExtractor < VideoExtractor::OpenGraphExtractor
   URL_REGEX = %r{
     https?://(?:www\.)?(
-      (?<hosting>myvi).(?:top|tv)/id\w+\?v=[\wА-я_-]+#{PARAMS_REGEXP.source}
+      (?<hosting>myvi).(?:top|tv)/id\w+\?v=[\wА-я_-]+#{PARAMS}
     )
   }xi
 

@@ -6,23 +6,28 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
 
   URL_REGEX = %r{
     https?://(?:www\.)?(
-      (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      video.(?<hosting>youmite).ru/embed/[\wА-я_-]+#{PARAMS_REGEXP.source}
+      (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS} |
+      video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS} |
+      (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS} |
+      video.(?<hosting>youmite).ru/embed/[\wА-я_-]+#{PARAMS} |
+      (?<hosting>viuly).io/video/[\wА-я_.-]+#{PARAMS}
     )
   }mix
 
   # myvi is banned in RF
-  # (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+  # (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS} |
 
   # twitch no long supports og video tags
   # (?:\w+\.)?(?<hosting>twitch).tv(/[\wА-я_-]+/[\wА-я_-]+|/videos)/
-    # [\wА-я_-]+#{PARAMS_REGEXP.source} |
+    # [\wА-я_-]+#{PARAMS} |
 
   IMAGE_PROPERTIES = %w[
     meta[property='og:image']
   ]
+
+  VIDEO_PROPERTIES_BY_HOSTING = {
+    viuly: %w[meta[property='og:video:iframe']]
+  }
 
   VIDEO_PROPERTIES = %w[
     meta[name='twitter:player']
@@ -49,7 +54,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     doc = Nokogiri::HTML html
 
     og_image = doc.css(IMAGE_PROPERTIES.join(',')).first
-    og_video = self.class::VIDEO_PROPERTIES
+    og_video = (self.class::VIDEO_PROPERTIES_BY_HOSTING[hosting] || self.class::VIDEO_PROPERTIES)
       .map { |v| doc.css(v).first }
       .find(&:present?)
 

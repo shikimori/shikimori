@@ -1,6 +1,6 @@
 class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
-    https?://vk.com/video(-?\d+)_(\d+)#{PARAMS_REGEXP.source}
+    https?://vk.com/video(-?\d+)_(\d+)#{PARAMS}
   }xi
 
   API_URL = 'https://api.vk.com/method/video.get'
@@ -50,6 +50,7 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   rescue RedisMutex::LockError, RetryError
     @attempts += 1
     return if @attempts >= 10
+
     sleep 1
     retry
   end

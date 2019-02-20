@@ -3,7 +3,7 @@ class VideoExtractor::BaseExtractor
   attr_implement :parse_data
 
   ALLOWED_EXCEPTIONS = [Errno::ECONNRESET, Net::ReadTimeout]
-  PARAMS_REGEXP = /(?:(?:\?|\#|&amp;|&)[\w=+%-]+)*/
+  PARAMS = /(?:(?:\?|\#|&amp;|&)[\w=+%-]+)*/.source
 
   PROXY_OPTIONS =
     if Rails.env.production?

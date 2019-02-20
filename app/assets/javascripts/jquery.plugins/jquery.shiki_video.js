@@ -25,7 +25,8 @@ const hostingPatterns = url => (
     streamable_com: prepare('streamable.com', url),
     smotret_anime: prepare('smotretanime.ru', url),
     ok_ru: prepare('ok.ru', url),
-    youmite_ru: prepare('youmite.ru', url)
+    youmite_ru: prepare('youmite.ru', url),
+    viuly_io: prepare('viuly.io', url)
   }
 );
 

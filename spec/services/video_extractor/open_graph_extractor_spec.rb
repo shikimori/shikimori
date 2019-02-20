@@ -75,6 +75,17 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
       its(:player_url) { is_expected.to eq '//video.youmite.ru/embed/JIzidma8NwTMu8m' }
     end
 
+    describe 'viuly' do
+      let(:url) { 'https://viuly.io/video/video-of-the-company-bizzilion.-start-making-money-on-television--online-broadcasts-with-bizzilion-2138479' }
+      its(:hosting) { is_expected.to eq 'viuly' }
+      its(:image_url) do
+        is_expected.to eq(
+          '//cdn3.viuly.io/v2/uploads/images/2089/medium/70035_1550697662_001.jpg'
+        )
+      end
+      its(:player_url) { is_expected.to eq '//viuly.io/embed/video-of-the-company-bizzilion.-start-making-money-on-television--online-broadcasts-with-bizzilion-2138479' }
+    end
+
     context 'invalid_url' do
       let(:url) { 'http://coub.cOOOm/view/bqn2pda' }
       it { is_expected.to be_nil }

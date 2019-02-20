@@ -9,7 +9,7 @@ class VideoExtractor::DailymotionExtractor < VideoExtractor::OpenGraphExtractor
         dai.ly
       )
       /[\wА-я_%-]+
-      #{PARAMS_REGEXP.source}
+      #{PARAMS}
   }xi
 
   def url

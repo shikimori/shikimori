@@ -10,6 +10,7 @@ class VideoExtractor::SovetRomanticaExtractor < VideoExtractor::BaseExtractor
 
   def image_url
     return unless parsed_data[:image_url]
+
     Url.new(parsed_data[:image_url]).without_protocol.to_s
   end
 
