@@ -108,6 +108,8 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ /(?<url>#{HTTP}flashx.tv#{CONTENT})/
       $LAST_MATCH_INFO[:url]
+    elsif html =~ %r{(?<url>#{HTTP}video.youmite.ru/embed/#{CONTENT})}
+      $LAST_MATCH_INFO[:url]
     elsif html =~ /(?<url>#{HTTP}vidbull.com#{CONTENT})/
       $LAST_MATCH_INFO[:url]
     elsif html =~ /(?<url>#{HTTP}mipix.eu#{CONTENT})/
