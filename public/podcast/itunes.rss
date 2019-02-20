@@ -6,7 +6,7 @@
     <description>Разговоры об аниме и манге</description>
     <language>ru</language>
     <copyright>© Copyright 2018-2019</copyright>
-    <atom:linkhref="https://shikimori.org/podcast/itunes.rss" rel="self" type="application/rss+xml" />
+    <atom:link href="https://shikimori.org/podcast/itunes.rss" rel="self" type="application/rss+xml" />
     <lastBuildDate> Mon, 18 Feb 2019 15:40:00 GMT</lastBuildDate>
     <itunes:author>Shikimori</itunes:author>
     <itunes:summary>Шикикаст</itunes:summary>
@@ -15,8 +15,8 @@
       <itunes:email>harizmath@gmail.com</itunes:email>
     </itunes:owner>
     <itunes:explicit>No</itunes:explicit>
-    <itunes:imagehref="https://shikimori.org/podcast/itunes.jpg"/>
-    <itunes:categorytext="tv-film">
+    <itunes:image href="https://shikimori.org/podcast/itunes.jpg"/>
+    <itunes:category text="tv-film">
     </itunes:category>
     <item>
       <title>Шикикаст #01 — Проба пера</title>
@@ -25,7 +25,7 @@
       <description>Рассказ об истории паблика vk.com/shikimori от его создателя и обсуждаем осенний сезон аниме 2018</description>
       <enclosure url="https://shikimori.org/podcast/episode_001.mp3" length="1447" type="audio/mpeg" />
       <itunes:summary>Шикикаст #01 — Проба пера</itunes:summary>
-      <itunes:imagehref="https://shikimori.org/podcast/itunes.jpg" />
+      <itunes:image href="https://shikimori.org/podcast/itunes.jpg" />
     </item>
     <item>
       <title>Шикикаст #02 — Аниме и Netflix</title>
@@ -34,7 +34,7 @@
       <description>Беседа о контенте Нетфликс и перспективах его развития.</description>
       <enclosure url="https://shikimori.org/podcast/episode_002.mp3" length="2914" type="audio/mpeg" />
       <itunes:summary>Шикикаст #02 — Аниме и Netflix</itunes:summary>
-      <itunes:imagehref="https://shikimori.org/podcast/itunes.jpg" />
+      <itunes:image href="https://shikimori.org/podcast/itunes.jpg" />
     </item>
   </channel>
 </rss>
