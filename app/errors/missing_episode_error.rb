@@ -1,5 +1,5 @@
 class MissingEpisodeError < ArgumentError
-  pattr_initialize :episode, :anime_id
+  vattr_initialize :anime_id, :episode
 
   def to_s
     "Missing episode #{@episode} for anime #{@anime_id}"

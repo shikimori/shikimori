@@ -30,8 +30,8 @@ private
 
   def missing_episode_error episode_notification
     MissingEpisodeError.new(
-      episode_notification.episode,
-      episode_notification.anime_id
+      episode_notification.anime_id,
+      episode_notification.episode
     )
   end
 

@@ -9,7 +9,7 @@ describe EpisodeNotification do
         if missing_episode_error
           allow(EpisodeNotification::TrackEpisode)
             .to receive(:call)
-            .and_raise MissingEpisodeError.new(episode, anime.id)
+            .and_raise MissingEpisodeError.new(anime.id, episode)
         else
           allow(EpisodeNotification::TrackEpisode).to receive :call
         end

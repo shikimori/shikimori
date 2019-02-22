@@ -7,7 +7,7 @@
     span
       a[
         target='_blank'
-        href=play_video_online_index_url(anime_video_report.anime_video.anime, anime_video_report.anime_video.episode, anime_video_report.anime_video.id, subdomain: :play)
+        href=play_video_online_index_url(anime_video_report.anime_video.anime, anime_video_report.anime_video.episode, anime_video_report.anime_video.id, domain: AnimeOnlineDomain::HOST, subdomain: false)
       ]
         span.id-label #
         = anime_video_report.id
@@ -19,7 +19,7 @@
 
     span
       a.bubbled[
-        href=play_video_online_index_url(anime_video_report.anime_video.anime, anime_video_report.anime_video.episode, anime_video_report.anime_video.id, subdomain: :play)
+        href=play_video_online_index_url(anime_video_report.anime_video.anime, anime_video_report.anime_video.episode, anime_video_report.anime_video.id, domain: AnimeOnlineDomain::HOST, subdomain: false)
         data-href=tooltip_anime_url(anime_video_report.anime_video.anime)
       ] = anime_video_report.anime_video.anime.name
 
