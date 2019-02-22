@@ -45,9 +45,10 @@ private
     )
 
     <<~BBCODE.squish
-      [url=#{episode_url}]Episode #{episode}[/url] is uploaded
-      for anime [anime=#{anime_id}] while there #{anime.episodes == 1 ? 'is' : 'are'}
-      #{anime.episodes} #{'episode'.pluralize anime.episodes} only.
+      [url=#{episode_url}]Episode ##{episode}[/url] is uploaded
+      for anime [anime=#{anime_id}] while in this anime
+      there #{anime.episodes == 1 ? 'is' : 'are'} only
+      #{anime.episodes} #{'episode'.pluralize anime.episodes}.
     BBCODE
   end
 
