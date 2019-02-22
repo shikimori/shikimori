@@ -3,7 +3,6 @@ class EpisodeNotifications::TrackEpisode
   sidekiq_options queue: :episode_notifications
 
   VIDEO_MODERATION_TOPIC_ID = 272_335
-  BOT_ID = 1680
 
   def perform episode_notification_id
     episode_notification = find episode_notification_id
@@ -27,7 +26,7 @@ private
         body: generate_report(anime_id, episode),
         commentable_id: VIDEO_MODERATION_TOPIC_ID,
         commentable_type: Topic.name,
-        user: bot
+        user: reporter
       },
       'ru'
     )
@@ -52,11 +51,11 @@ private
     BBCODE
   end
 
-  def bot
-    @bot ||= User.find BOT_ID
+  def reporter
+    @reporter ||= User.find User::MORR_ID
   end
 
   def faye
-    FayeService.new bot, nil
+    FayeService.new reporter, nil
   end
 end

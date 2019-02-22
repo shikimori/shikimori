@@ -2,7 +2,6 @@ describe EpisodeNotifications::TrackEpisode do
   let(:worker) { EpisodeNotifications::TrackEpisode.new }
   before do
     if has_error
-      stub_const 'EpisodeNotifications::TrackEpisode::BOT_ID', bot.id
       stub_const 'EpisodeNotifications::TrackEpisode::VIDEO_MODERATION_TOPIC_ID', topic.id
 
       allow(EpisodeNotification::TrackEpisode)
@@ -35,7 +34,6 @@ describe EpisodeNotifications::TrackEpisode do
     let(:has_error) { true }
 
     let(:episode) { 999 }
-    let(:bot) { create :user }
     let(:topic) { create :topic }
 
     it do
@@ -46,7 +44,7 @@ describe EpisodeNotifications::TrackEpisode do
       is_expected.to have_attributes(
         commentable: topic,
         body: worker.send(:generate_report, anime.id, episode) + "\n[broadcast]",
-        user: bot
+        user: user_admin
       )
     end
   end
