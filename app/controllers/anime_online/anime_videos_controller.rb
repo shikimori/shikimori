@@ -162,6 +162,10 @@ private
       .require(:anime_video)
       .permit(:episode, :author_name, :kind, :url, :state, :language, :quality, :is_first)
       .to_h
+      .tap do |params|
+        # or else it will try to change "false" to "0" on every update
+        params[:is_first] = params[:is_first] == '1'
+      end
   end
 
   def resource_id
