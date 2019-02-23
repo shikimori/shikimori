@@ -194,6 +194,7 @@ ru:
         state: Статус
         author_name: Автор
         anime_video_author_id: Автор
+        is_first: Отображать первым среди таких же
       anime_video_author:
         name: Название
         is_verified: Проверен

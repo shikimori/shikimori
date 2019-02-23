@@ -102,6 +102,7 @@ class AnimeVideoDecorator < BaseDecorator
       HOSTINGS_ORDER[hosting] || hosting,
       (author_name || '').downcase,
       AnimeVideo.quality.values.index(quality),
+      is_first ? 1 : 0,
       -id
     ]
   end

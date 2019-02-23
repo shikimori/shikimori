@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_01_100004) do
+ActiveRecord::Schema.define(version: 2019_02_23_105212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2019_02_01_100004) do
     t.string "state", limit: 255, default: "working", null: false
     t.integer "watch_view_count"
     t.string "quality"
+    t.boolean "is_first", default: false, null: false
     t.index ["anime_id", "state"], name: "index_anime_videos_on_anime_id_and_state"
     t.index ["anime_video_author_id"], name: "index_anime_videos_on_anime_video_author_id"
     t.index ["url"], name: "index_anime_videos_on_url"

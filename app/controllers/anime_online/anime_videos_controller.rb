@@ -160,7 +160,7 @@ private
   def moderator_update_params
     params
       .require(:anime_video)
-      .permit(:episode, :author_name, :kind, :url, :state, :language, :quality)
+      .permit(:episode, :author_name, :kind, :url, :state, :language, :quality, :is_first)
       .to_h
   end
 

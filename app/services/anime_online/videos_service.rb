@@ -39,6 +39,7 @@ private
       video.episode == @params[:episode] &&
       video[:kind] == @params[:kind] &&
       video[:language] == @params[:language] &&
-      video[:quality] == @params[:quality]
+      video[:quality] == @params[:quality] &&
+      video[:is_first] == @params[:is_first]
   end
 end

@@ -28,6 +28,7 @@
             as: :select,
             include_blank: false,
             collection: AnimeVideo.state_machine.states.map(&:name).select { |state| !%i[banned_hosting copyrighted].include?(state) }.map{ |state| [I18n.t("activerecord.state_machines.anime_video.states.#{state}"), state] }
+          = f.input :is_first
 
       = render 'versions/reason'
 
