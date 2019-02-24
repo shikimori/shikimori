@@ -41,6 +41,7 @@ module Types
 
       private_message_email
       friend_nickname_change
+      contest_event
     ]
     NotificationSettings = Types::Strict::Symbol
       .constructor(&:to_sym)

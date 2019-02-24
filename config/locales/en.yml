@@ -372,6 +372,7 @@ en:
         my_episode: My episode, aired any episode of added to my list ongoing
         private_message_email: Send private messages to e-mail
         friend_nickname_change: "Notifications about friends' nickname change"
+        contest_event: Contests notifications
     user_preferences:
       body_width:
         x1200: 1200 pixels
