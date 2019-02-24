@@ -20,7 +20,7 @@ describe Topics::SubscribedUsersQuery do
   context 'broadcast' do
     let(:topic) { build :topic, broadcast: true }
     it do
-      expect(subject.to_a).to eq(
+      is_expected.to eq(
         User
           .where(locale_from_host: topic.locale)
           .where('last_online_at > ?', Topics::SubscribedUsersQuery::ACTIVITY_INTERVAL.ago)
@@ -33,15 +33,11 @@ describe Topics::SubscribedUsersQuery do
   context 'contest news topic' do
     let(:topic) { build :topic, linked: contest }
     let(:contest) { build :contest }
-    it do
-      expect(subject.to_a).to eq(
-        User
-          .where(locale_from_host: topic.locale)
-          .where('last_online_at > ?', Topics::SubscribedUsersQuery::ACTIVITY_INTERVAL.ago)
-          .order(:id)
-          .to_a
-      )
-    end
+
+    let(:user) { create :user, notification_settings: notification_settings }
+    let(:notification_settings) { %i[contest_event] }
+
+    it { is_expected.to eq [user] }
   end
 
   context 'news topic' do

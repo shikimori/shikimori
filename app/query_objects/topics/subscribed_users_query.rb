@@ -10,7 +10,7 @@ class Topics::SubscribedUsersQuery
   ACTIVITY_INTERVAL = 4.months
 
   def call # rubocop:disable MethodLength, PerceivedComplexity, CyclomaticComplexity
-    if @topic.broadcast? || contest?
+    if @topic.broadcast?
       all_scope
 
     elsif anons?
@@ -29,6 +29,12 @@ class Topics::SubscribedUsersQuery
       subscribed_users_scope(
         Types::User::NotificationSettings[:any_released],
         Types::User::NotificationSettings[:my_released]
+      )
+
+    elsif contest?
+      subscribed_users_scope(
+        Types::User::NotificationSettings[:contest_event],
+        nil
       )
 
     else
