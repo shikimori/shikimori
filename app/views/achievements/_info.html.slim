@@ -1,6 +1,6 @@
 
 .b-entry-info
-  - unless view.achievement.franchise?
+  - unless view.achievement.duration_algo?
     .line.level
       .key #{t '.levels'}:&nbsp;
       .value = view.achievements.size
@@ -13,6 +13,13 @@
         ] = view.achievement.rule[:source].gsub %r{\A.*/}, ''
         a.b-question href=how_to_edit_achievements_pages_url
 
+  - if view.achievement.author?
+    .line
+      .key #{t '.author'}:&nbsp;
+      .value
+        a href=view.author.url
+          = localization_span view.author
+
   .line
     .key #{t '.animes'}:&nbsp;
     .value
@@ -22,7 +29,7 @@
   .line
     .key #{t '.threshold'}:&nbsp;
     .value.thresholds
-      - if view.animes_count&.positive? && !view.achievement.franchise?
+      - if view.animes_count&.positive? && !view.achievement.duration_algo?
         - view.achievements.each do |achievement|
           span
             - if view.filters
@@ -61,7 +68,7 @@
           .line
             .key #{t '.your_overall_progress'}:&nbsp;
             .value
-              - if view.user_achievement.franchise?
+              - if view.user_achievement.duration_algo?
                 = format_percent view.franchise_percent
               - else
                 = format_percent view.overall_percent

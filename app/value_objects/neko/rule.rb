@@ -46,6 +46,10 @@ class Neko::Rule < Dry::Struct
     group == Types::Achievement::NekoGroup[:genre]
   end
 
+  def duration_algo?
+    rule[:algo] == 'duration'
+  end
+
   def franchise?
     group == Types::Achievement::NekoGroup[:franchise]
   end

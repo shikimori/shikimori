@@ -16,7 +16,7 @@ raw_data = YAML.load_file(franchise_yml)
 FRANCHISES_TO_DELETE = %w[]
 
 raw_data = raw_data.reject { |rule| FRANCHISES_TO_DELETE.include? rule['filters']['franchise'] }
-data = raw_data.dup
+data = raw_data.dup.reject { |rule| rule['level'].zero? }
 
 FRANCHISES_TO_ADD = %w[]
   .reject { |franchise| data.find { |rule| rule['filters']['franchise'] == franchise } }
@@ -64,7 +64,6 @@ end
 
 puts 'downloading images...'
 data
-  .select { |rule| rule['level'] == 1 }
   .select { |rule| rule['metadata']['image'].present? }
   .reject { |rule| Array(rule['metadata']['image']).first.match? %r{^/assets/achievements/anime/franchise} }
   .each do |rule|
@@ -86,7 +85,6 @@ data
 
 puts 'generating thresholds...'
 data
-  .select { |rule| rule['level'] == 1 }
   .each do |rule|
     franchise = Anime.where(franchise: rule['filters']['franchise'])
     if rule['filters']['not_anime_ids'].present?
@@ -198,15 +196,11 @@ data
   end
 
 puts 'generating 0 levels...'
-data = data.reject { |rule| rule['level'] == 0 }
-
 franchises_index = data
-  .select { |rule| rule['level'] == 1 }
   .map { |rule| rule['filters']['franchise'] }
 
 data
   .select { |rule| rule['filters']['franchise'].present? }
-  .select { |rule| rule['level'] == 1 }
   .each do |rule|
     data.push rule.dup.merge('level' => 0, 'threshold' => 0.01)
   end

@@ -1,6 +1,9 @@
 header.head.misc
-  h1 = og.headline
+  h1
+    = og.headline
   = render 'application/breadcrumbs'
+
+.headline.purple.m20 #{t 'page_under_development'}
 
 .p-achievements-global
   = render 'achievements/info',

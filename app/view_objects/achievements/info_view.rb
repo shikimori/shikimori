@@ -10,6 +10,12 @@ class Achievements::InfoView
     achievements.first
   end
 
+  def author
+    @author ||= Person
+      .find(achievement.rule.dig(:generator, 'person_id'))
+      .decorate
+  end
+
   def user_achievement
     @user_achievement ||= achievements.reverse.find { |v| v.is_a? Achievement } ||
       achievement

@@ -8,11 +8,10 @@ authors_yml = "#{ENV['HOME']}/develop/neko-achievements/priv/rules/_authors.yml"
 puts 'loading authors...'
 raw_data = YAML.load_file(authors_yml)
 
-data = raw_data.dup
+data = raw_data.dup.select { |rule| rule['level'].zero? }
 
 puts 'generating anime_ids...'
 data
-  .select { |rule| rule['level'] == 1 }
   .each do |rule|
     rule['filters'] ||= {}
     rule['filters']['anime_ids'] = PersonRole
@@ -68,7 +67,6 @@ data
 
 puts 'downloading images...'
 data
-  .select { |rule| rule['level'] == 1 }
   .select { |rule| rule['metadata']['image'].present? }
   .reject { |rule| Array(rule['metadata']['image']).first.match? %r{^/assets/achievements/anime/author} }
   .each do |rule|
@@ -90,7 +88,6 @@ data
 
 # puts 'generating thresholds...'
 # data
-#   .select { |rule| rule['level'] == 1 }
 #   .each do |rule|
 #     franchise = Anime.where(franchise: rule['filters']['franchise'])
 #     if rule['filters']['not_anime_ids'].present?
@@ -201,22 +198,18 @@ data
 #     end
 #   end
 
-puts 'generating 0 levels...'
-data = data.reject { |rule| rule['level'] == 0 }
+# puts 'generating 0 levels...'
+# authors_index = data
+#   .map { |rule| rule['neko_id'] }
 
-authors_index = data
-  .select { |rule| rule['level'] == 1 }
-  .map { |rule| rule['neko_id'] }
+# data
+#   .each do |rule|
+#     data.push rule.dup.merge('level' => 0, 'threshold' => 0.01)
+#   end
 
-data
-  .select { |rule| rule['level'] == 1 }
-  .each do |rule|
-    data.push rule.dup.merge('level' => 0, 'threshold' => 0.01)
-  end
-
-data = data.sort_by do |rule|
-  [authors_index.index(rule['neko_id']), -rule['level']]
-end
+# data = data.sort_by do |rule|
+#   [authors_index.index(rule['neko_id']), -rule['level']]
+# end
 
 if data.any? && data.size >= raw_data.size
   File.open(authors_yml, 'w') { |f| f.write data.to_yaml }
