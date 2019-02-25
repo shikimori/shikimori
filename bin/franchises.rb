@@ -230,11 +230,15 @@ begin
     .sort_by do |rule|
       franchise = rule['filters']['franchise']
       popularity[franchise] ||= Rails.cache.fetch [:franchise, :popularity, franchise] do
+        neko_rule = Neko::Rule.new(
+          Neko::Rule::NO_RULE.attributes.merge(
+            rule: rule
+          )
+        )
+
         UserRate
           .where(target_type: Anime.name)
-          .where(
-            target_id: Anime.where(franchise: franchise, status: %i[released ongoing]).select('id')
-          )
+          .where(target_id: neko_rule.animes_scope.pluck(:id))
           .select('count(distinct(user_id))')
           .to_a
           .first
