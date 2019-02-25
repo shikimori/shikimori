@@ -73,6 +73,9 @@ private
   def faye_data achievements_data, event
     achievements_data
       .reject { |achivement_data| achivement_data[:level].zero? }
+      .reject do |achivement_data| # temporarily until it is finished
+        Types::Achievement::INVERTED_NEKO_IDS[achivement_data[:neko_id].to_sym] == :author
+      end
       .map do |achivement_data|
         neko = NekoRepository.instance.find achivement_data[:neko_id], achivement_data[:level]
 

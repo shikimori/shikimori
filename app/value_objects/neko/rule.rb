@@ -50,6 +50,10 @@ class Neko::Rule < Dry::Struct
     group == Types::Achievement::NekoGroup[:franchise]
   end
 
+  def author?
+    group == Types::Achievement::NekoGroup[:author]
+  end
+
   def group_name
     I18n.t "achievements.group.#{group}"
   end
