@@ -216,9 +216,10 @@ begin
     .sort_by do |rule|
       neko_id = rule['neko_id']
       popularity[neko_id] ||= Rails.cache.fetch [:franchise, :popularity, neko_id] do
+        puts "calculating for #{neko_id}"
         neko_rule = Neko::Rule.new(
           Neko::Rule::NO_RULE.attributes.merge(
-            rule: rule
+            rule: rule.except('neko_id', 'level', 'metadata').symbolize_keys
           )
         )
 
