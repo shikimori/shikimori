@@ -24,7 +24,24 @@ data
       .map(&:id)
       .sort
       .uniq
-  end
+    end
+
+# data.each do |rule|
+#   t = rule['threshold']
+#   g = rule['generator']
+#   f = rule['filters']
+#   m = rule['metadata']
+
+#   rule.delete 'threshold'
+#   rule.delete 'generator'
+#   rule.delete 'filters'
+#   rule.delete 'metadata'
+
+#   rule['threshold'] = t || '100%'
+#   rule['filters'] = f
+#   rule['metadata'] = m
+#   rule['generator'] = g
+# end
 
 # puts 'excluding recaps...'
 # data.each do |rule|
