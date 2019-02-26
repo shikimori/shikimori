@@ -21,17 +21,13 @@
     border-left-width: 5px
     border: 1px solid $gray-2
     cursor: default
+    display: flex
     line-height: 1.9
     margin-bottom: 10px
     min-height: 38px
-    padding: 5px 10px
+    padding: 5px 6px 5px 10px
     position: relative
     transition: opacity 1s ease, margin-top 0.5s ease
-
-    .image
-      float: right
-      max-height: 54px
-      margin-right: -4px
 
     &.appearing
       margin-top: calc(100vh + 100px)
@@ -69,22 +65,34 @@
     &.removing
       opacity: 0
 
-    .icon
-      position: absolute
-      font-size: 18px
-      cursor: default
-      left: 11px
+    .image
+      flex-shrink: 0
+      line-height: 0
+      margin-left: auto
 
-      &:before
-        font-size: inherit !important
+      img
+        max-height: 54px
 
-    .title
-      font-weight: bold
+    .content
+      flex-shrink: 0
+      margin-right: 10px
 
-    .name
-      margin-left: 26px
+      .icon
+        position: absolute
+        font-size: 18px
+        cursor: default
+        left: 11px
 
-      .level
-        color: $gray-1
-        font-size: 12px
-        padding-left: 6px
+        &:before
+          font-size: inherit !important
+
+      .title
+        font-weight: bold
+
+      .name
+        margin-left: 26px
+
+        .level
+          color: $gray-1
+          font-size: 12px
+          padding-left: 6px

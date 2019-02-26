@@ -1,19 +1,21 @@
 .achievement(
   class=achievement.event
 )
-  img.image(
-    src=achievement.image
-  )
-  .title
-    a(
-      href=window.SHIKI_USER.url + '/achievements'
-    )
-      = I18n.t('frontend.achievements.title.' + achievement.event)
+  .content
+    .title
+      a(
+        href=window.SHIKI_USER.url + '/achievements'
+      )
+        = I18n.t('frontend.achievements.title.' + achievement.event)
 
-  .name
-    .icon
-    a(
-      href='/achievements/' + achievement.neko_id
-    )= achievement.label
-    if achievement.level
-      span.level ур. #{achievement.level}
+    .name
+      .icon
+      a(
+        href='/achievements/' + achievement.neko_id
+      )= achievement.label
+      if achievement.level
+        span.level ур. #{achievement.level}
+  .image
+    img(
+      src=achievement.image
+    )
