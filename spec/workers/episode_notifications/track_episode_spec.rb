@@ -1,5 +1,5 @@
 describe EpisodeNotifications::TrackEpisode do
-  let(:worker) { EpisodeNotifications::TrackEpisode.new }
+  let(:worker) { described_class.new }
   before do
     if has_error
       stub_const 'EpisodeNotifications::TrackEpisode::VIDEO_MODERATION_TOPIC_ID', topic.id
@@ -13,6 +13,7 @@ describe EpisodeNotifications::TrackEpisode do
   end
   let(:has_error) { false }
   let(:anime) { create :anime }
+  let!(:user_bot) { create :user, id: described_class::BOT_ID }
   subject! { worker.perform episode_notification.id }
 
   context 'present episode_notification' do
@@ -44,7 +45,7 @@ describe EpisodeNotifications::TrackEpisode do
       is_expected.to have_attributes(
         commentable: topic,
         body: worker.send(:generate_report, anime.id, episode) + "\n[broadcast]",
-        user: user_admin
+        user: user_bot
       )
     end
   end

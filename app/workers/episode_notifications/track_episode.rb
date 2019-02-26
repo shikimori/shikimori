@@ -2,6 +2,7 @@ class EpisodeNotifications::TrackEpisode
   include Sidekiq::Worker
   sidekiq_options queue: :episode_notifications
 
+  BOT_ID = 1680
   VIDEO_MODERATION_TOPIC_ID = 272_335
 
   def perform episode_notification_id
@@ -53,7 +54,7 @@ private
   end
 
   def reporter
-    @reporter ||= User.find User::MORR_ID
+    @reporter ||= User.find BOT_ID
   end
 
   def faye
