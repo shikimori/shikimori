@@ -9,7 +9,7 @@ class String
     .gsub('?', 'QUEM')
     .gsub('QUEM', '?')
     .gsub('EXCM', '!')
-    .gsub(/\d+x\d+|\d+/, '')
+    .gsub(/(?<! \( ) (?<!\d) (?: \d+x\d+ | \d+ )/x, '')
     .tr('~', ' ')
     .gsub(/ +/, ' ')
     .gsub(/\b(?:the|for|in|by|to|[A-zА-я0-9])\b/, '')

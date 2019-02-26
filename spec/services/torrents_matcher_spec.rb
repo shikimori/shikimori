@@ -64,9 +64,9 @@ describe TorrentsMatcher do
       positive_match('[TV-J] Mirai Nikki - 11 [1440x810 h264+AAC TOKYO-MX].mp4', name: 'Mirai Nikk', torrents_name: 'Mirai Nikki', kind: 'tv')
     end
 
-    #it 'torrents_name top priority' do
-      #negative_match('[TV-J] Mirai Nikki - 11 [1440x810 h264+AAC TOKYO-MX].mp4', name: 'Mirai Nikki', torrents_name: 'Mirai Nikk', kind: 'tv')
-    #end
+    # it 'torrents_name top priority' do
+      # negative_match('[TV-J] Mirai Nikki - 11 [1440x810 h264+AAC TOKYO-MX].mp4', name: 'Mirai Nikki', torrents_name: 'Mirai Nikk', kind: 'tv')
+    # end
 
     it 'tilda and semicolon' do
       positive_match('[Zero-Raws] Queen\'s Blade ~Rebellion~ - 01 (AT-X 1280x720 x264 AAC).mp4', name: 'Queen\'s Blade: Rebellion', kind: 'tv')
@@ -82,6 +82,10 @@ describe TorrentsMatcher do
       it 'matches only exact match' do
         negative_match('[Hien] Hayate no Gotoku! - Can\'t Take My Eyes Off You - 05-06 [BD 1080p H.264 10-bit AAC]', name: 'Hayate no Gotoku! Cuties', torrents_name: 'Hayate no Gotoku! Cuties', kind: 'tv')
       end
+    end
+
+    it do
+      positive_match('[HorribleSubs] Boogiepop wa Warawanai (2019) - 13 [1080p].mkv', name: 'Boogiepop wa Warawanai (2019)', kind: 'tv')
     end
   end
 end
