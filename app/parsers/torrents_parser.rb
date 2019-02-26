@@ -164,7 +164,6 @@ class TorrentsParser
           next if v[:title].include? '[KRT]' # эти негодяи совсем криво торренты именуют
           next if v[:title].include? '[Arabic]' # это вообще какие-то неадекваты
         end
-        binding.pry
 
         TorrentsMatcher.new(anime).matches_for(
           v[:title],
