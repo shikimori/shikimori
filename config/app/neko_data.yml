@@ -6775,7 +6775,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -6852,7 +6852,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -6923,7 +6923,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7020,7 +7020,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7068,7 +7068,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7109,7 +7109,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7153,7 +7153,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7239,7 +7239,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7282,7 +7282,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7334,7 +7334,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7408,7 +7408,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7448,7 +7448,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7524,7 +7524,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7579,7 +7579,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7679,7 +7679,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7715,7 +7715,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7786,7 +7786,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7840,7 +7840,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7889,7 +7889,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7932,7 +7932,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -7977,7 +7977,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8024,7 +8024,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8070,7 +8070,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8103,7 +8103,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8189,7 +8189,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8279,7 +8279,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8399,7 +8399,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8462,7 +8462,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8537,7 +8537,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8564,7 +8564,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8601,7 +8601,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8628,7 +8628,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8745,7 +8745,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8808,7 +8808,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8855,7 +8855,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -8936,7 +8936,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -9003,7 +9003,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -9073,7 +9073,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -9123,7 +9123,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -9174,7 +9174,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -9227,7 +9227,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -9271,7 +9271,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -9326,7 +9326,7 @@
     :text_en: 
     :topic_id: 276032
     :rule:
-      :algo: duration
+      :algo: count
       :threshold: 100%
       :filters:
         anime_ids:
@@ -12932,7 +12932,7 @@
   attributes:
     :neko_id: :pokemon
     :level: 1
-    :image: https://kawai.shikimori.org/system/user_images/original/9560/744976.jpg
+    :image: "/assets/achievements/anime/franchise/pokemon.jpg"
     :border_color: 
     :title_ru: Покемон
     :text_ru: 
@@ -12960,7 +12960,7 @@
   attributes:
     :neko_id: :pokemon
     :level: 0
-    :image: https://kawai.shikimori.org/system/user_images/original/9560/744976.jpg
+    :image: "/assets/achievements/anime/franchise/pokemon.jpg"
     :border_color: 
     :title_ru: Покемон
     :text_ru: 
