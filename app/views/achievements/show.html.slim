@@ -3,7 +3,8 @@ header.head.misc
     = og.headline
   = render 'application/breadcrumbs'
 
-.headline.purple.m20 #{t 'page_under_development'}
+- if @collection.first.author?
+  .headline.purple.m20 #{t 'page_under_development'}
 
 .p-achievements-global
   = render 'achievements/info',
@@ -19,7 +20,8 @@ header.head.misc
           = render 'users/achievements/achievement',
             achievement: achievement,
             images: true,
-            status: true
+            status: true,
+            badge_only: true
 
         .c-column
           .b-entry-info

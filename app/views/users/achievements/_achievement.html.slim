@@ -1,21 +1,28 @@
-- if achievement.franchise?
-  = render partial: 'users/achievements/badge', locals: local_assigns
+- if local_assigns[:status]
+  - is_gained = current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
 
-- else
+- achievement.images.each_with_index do |image, index|
+  - break if index > 0 && !local_assigns[:images]
+
   .b-achievement[
     data-progress=achievement.progress
     data-title=achievement.title(current_user, ru_host?)
     data-hint=achievement.hint
-    class=(:badge if local_assigns[:badge_only])
+    class=('as-image-index' if index > 0)
   ]
-    - unless local_assigns[:badge_only]
+    - if achievement.franchise? || achievement.author?
+      .about
+        .title
+          = achievement.title(current_user, ru_host?)
+          - if is_gained
+            .gained ✓
+    - else
       .c-about
         - if local_assigns[:images] && !local_assigns[:info_link]
           .title
             = achievement.title(current_user, ru_host?)
-            - if local_assigns[:status]
-              - if current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
-                .gained ✓
+            - if is_gained
+              .gained ✓
 
         - else
           a.title href=achievement_url(achievement.group, achievement.neko_id)
@@ -25,21 +32,17 @@
         .progress: .bar style="width: #{achievement.progress}%"
         .text == achievement.text(ru_host?).gsub("\n", "<br>")
 
-    - if local_assigns[:images] && achievement.images.any?
-      - achievement.images.each_with_index do |image, index|
-        - if index > 0
-          .c-about &nbsp;
-        .c-image: .inner
-          a href=(local_assigns[:info_link] ? achievement_url(achievement.group, achievement.neko_id) : animes_collection_url(achievement: achievement.neko_id))
-            .border style="border-color: #{achievement.border_colors[index]}"
-          = image_tag image
-
-    - else
-      .c-image: .inner
-        a href=achievement_url(achievement.group, achievement.neko_id)
-          .border style="border-color: #{achievement.border_color}"
-
-        - if achievement.image.present?
-          = image_tag achievement.image
-        - else
-          .no-image
+    .c-image
+      .inner
+        a[
+          class=("b-badge level-#{achievement.level}" if achievement.franchise?)
+          href=(local_assigns[:info_link] ? achievement_url(achievement.group, achievement.neko_id) : animes_collection_url(achievement: achievement.neko_id))
+        ]
+          - unless achievement.franchise?
+            .border[
+              style=("border-color: #{achievement.border_colors[index]}" if achievement.border_colors[index].present?)
+            ]
+          - if image.present?
+            = image_tag image
+          - else
+            .no-image

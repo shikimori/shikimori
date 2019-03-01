@@ -101,7 +101,7 @@ class Neko::Rule < Dry::Struct
   end
 
   def images
-    Array(attributes[:image]&.split(',') || [])
+    Array(attributes[:image]&.split(',') || [nil])
   end
 
   def border_colors

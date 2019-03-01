@@ -3,7 +3,8 @@ header.head
     = og.headline
   = render 'application/breadcrumbs'
 
-.headline.purple.m20 #{t 'page_under_development'}
+- if params[:group] == 'author'
+  .headline.purple.m20 #{t 'page_under_development'}
 
 .p-achievements-global
   - cache NekoRepository.instance.statistics_cache_key(params[:group], :v6)  do
