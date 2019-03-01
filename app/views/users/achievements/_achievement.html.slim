@@ -1,5 +1,3 @@
-
-
 - is_badge = local_assigns[:badge_only] || achievement.author?
 
 - achievement.images.each_with_index do |image, index|
@@ -13,7 +11,7 @@
   ]
     - unless is_badge || achievement.franchise_author?
       .c-about
-        - if local_assigns[:images] && !local_assigns[:info_link]
+        - if local_assigns[:images]
           .title
             = achievement.title(current_user, ru_host?)
 
@@ -29,7 +27,7 @@
       .inner
         a[
           class=("b-badge level-#{achievement.level}" if achievement.franchise?)
-          href=(local_assigns[:info_link] ? achievement_url(achievement.group, achievement.neko_id) : animes_collection_url(achievement: achievement.neko_id))
+          href=(local_assigns[:status] ? animes_collection_url(achievement: achievement.neko_id) : achievement_url(achievement.group, achievement.neko_id))
         ]
           - if local_assigns[:status] && current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
             .gained ✓

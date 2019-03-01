@@ -43,8 +43,7 @@ header.head
             .c-column
               = render 'users/achievements/achievement',
                 achievement: achievements.first,
-                images: true,
-                info_link: true
+                images: true
             .c-column
               = render 'achievements/info', view: Achievements::InfoView.new(achievements)
 
