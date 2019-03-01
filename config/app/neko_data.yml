@@ -8926,28 +8926,6 @@
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :nobuyuki_fukumoto
-    :level: 1
-    :image: 
-    :border_color: 
-    :title_ru: Нобуюки Фукумото
-    :text_ru: 
-    :title_en: Nobuyuki Fukumoto
-    :text_en: 
-    :topic_id: 276032
-    :rule:
-      :algo: duration
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 658
-        - 3002
-        - 10271
-      :generator:
-        person_id: 2539
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :kunihiko_yuyama
     :level: 1
     :image: 
@@ -12954,7 +12932,7 @@
   attributes:
     :neko_id: :pokemon
     :level: 1
-    :image: "/assets/achievements/anime/franchise/pokemon.jpg"
+    :image: https://kawai.shikimori.org/system/user_images/original/9560/744976.jpg
     :border_color: 
     :title_ru: Покемон
     :text_ru: 
@@ -12982,7 +12960,7 @@
   attributes:
     :neko_id: :pokemon
     :level: 0
-    :image: "/assets/achievements/anime/franchise/pokemon.jpg"
+    :image: https://kawai.shikimori.org/system/user_images/original/9560/744976.jpg
     :border_color: 
     :title_ru: Покемон
     :text_ru: 
