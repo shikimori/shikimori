@@ -15924,6 +15924,7 @@
         not_anime_ids:
         - 399
         - 1381
+        - 39333
       :threshold: 97.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -15944,6 +15945,7 @@
         not_anime_ids:
         - 399
         - 1381
+        - 39333
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -18740,6 +18742,11 @@
         - 26349
         - 440
         - 441
+        - 62
+        - 291
+        - 9353
+        - 17777
+        - 21679
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
 - !ruby/object:Neko::Rule
   attributes:
