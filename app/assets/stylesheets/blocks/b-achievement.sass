@@ -32,6 +32,37 @@
       +column(1)
       padding-top: 50%
 
+  &.badge
+    margin-bottom: 5px
+    overflow: hidden
+
+    &:before
+      +ellipsis2
+      background: rgba(#123, 0.5)
+      bottom: 2px
+      box-sizing: border-box
+      color: #fff
+      content: attr(data-hint)
+      font-size: 11px
+      height: 20px
+      left: 0
+      line-height: 20px
+      padding: 0 8px
+      position: absolute
+      width: 100%
+      z-index: 1
+
+    .c-image
+      margin-right: 0
+      padding-top: 50%
+      width: 100%
+
+    .c-about
+      opacity: 0
+
+      .inner .border
+        border-width: 2px
+
   &.as-image-index
     &:last-child
       margin-bottom: 0
