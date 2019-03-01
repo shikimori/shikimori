@@ -82,7 +82,7 @@ private
         {
           neko_id: neko.neko_id,
           label: neko.title(@user, @user.locale_from_host == 'ru'),
-          level: (neko.level unless neko.duration_algo?),
+          level: (neko.level unless neko.franchise_author?),
           image: neko.image,
           event: event
         }

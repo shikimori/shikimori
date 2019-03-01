@@ -1,10 +1,10 @@
 @import mixins/responsive
 
-
 .b-badge
   display: inline-block
   line-height: 0
   margin-bottom: 5px
+  position: relative
 
   &:not([data-progress]):before,
   &[data-progress="0"]:before,
@@ -29,6 +29,10 @@
     top: 0px
     width: 34px
     z-index: 1
+
+  .gained
+    right: 3px
+    top: 3px
 
   img,
   .no-image

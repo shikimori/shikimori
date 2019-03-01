@@ -55,6 +55,10 @@
       width: 100%
       z-index: 1
 
+    .badge-gained
+      right: 6px
+      top: 6px
+
     .c-image
       margin-right: 0
       padding-top: 50%
@@ -74,6 +78,31 @@
       opacity: 0
 
     .about
+      display: none
+
+  .gained
+    +shikimori
+    background: #fff
+    border-radius: 27px
+    border: 2px solid #678
+    color: $green-check
+    height: 27px
+    line-height: 23px
+    position: absolute
+    right: 6px
+    text-align: center
+    top: 6px
+    width: 27px
+    z-index: 2
+
+    .b-badge &
+      right: 3px
+      top: 3px
+
+    &:before
+      display: none
+
+    &:after
       display: none
 
   .c-image
@@ -116,15 +145,6 @@
       margin-bottom: 3px
       margin-top: -5px
       display: block
-
-      .gained
-        +brackets_surrounded($gray, 2px)
-        +shikimori
-        color: $green-check
-        display: inline-block
-        font-size: 13px
-        font-weight: normal
-        margin-left: 7px
 
       //.level
         //+brackets_surrounded

@@ -46,8 +46,8 @@ class Neko::Rule < Dry::Struct
     group == Types::Achievement::NekoGroup[:genre]
   end
 
-  def duration_algo?
-    rule[:algo] == 'duration'
+  def franchise_author?
+    franchise? || author?
   end
 
   def franchise?
@@ -77,10 +77,14 @@ class Neko::Rule < Dry::Struct
       NO_RULE.text(is_ru_host)
   end
 
-  def hint
-    I18n.t "achievements.hint.#{neko_id}",
-      threshold: rule[:threshold],
-      default: proc { default_hint }
+  def hint user, is_ru_host
+    if franchise_author?
+      title user, is_ru_host
+    else
+      I18n.t "achievements.hint.#{neko_id}",
+        threshold: rule[:threshold],
+        default: proc { default_hint }
+    end
   end
 
   def neko_name
