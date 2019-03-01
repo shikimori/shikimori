@@ -64,7 +64,7 @@ class Neko::Rule < Dry::Struct
 
   def title user, is_ru_host # rubocop:disable PerceivedComplexity, CyclomaticComplexity
     send("title_#{franchise? ? locale_key(user) : I18n.locale}") ||
-      (neko_id.to_s.titleize if franchise?) ||
+      (neko_id.to_s.titleize if franchise? || author?) ||
       (title_ru if is_ru_host) ||
       (title_en unless is_ru_host) ||
       NO_RULE.title(user, is_ru_host)
@@ -85,7 +85,7 @@ class Neko::Rule < Dry::Struct
 
   def neko_name
     I18n.t "achievements.neko_name.#{neko_id}",
-      default: franchise? ? neko_id.to_s.titleize : neko_id.to_s.capitalize
+      default: franchise? || author? ? neko_id.to_s.titleize : neko_id.to_s.capitalize
   end
 
   def progress
