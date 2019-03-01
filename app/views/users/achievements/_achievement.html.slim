@@ -1,6 +1,8 @@
 - if local_assigns[:status]
   - is_gained = current_user&.achievements&.any? { |v| v.neko_id == achievement.neko_id && v.level == achievement.level }
 
+- is_badge = local_assigns[:badge_only] || achievement.author?
+
 - achievement.images.each_with_index do |image, index|
   - break if index > 0 && !local_assigns[:images]
 
@@ -8,10 +10,10 @@
     data-progress=achievement.progress
     data-title=achievement.title(current_user, ru_host?)
     data-hint=achievement.hint
-    class="#{:badge if local_assigns[:badge_only]} #{'as-image-index' if index > 0}".strip
+    class="#{'is-badge' if is_badge} #{'is-half' if is_badge && !local_assigns[:badge_only]} #{'is-image-index' if index > 0}".strip
   ]
-    - unless local_assigns[:badge_only]
-      - if achievement.franchise? || achievement.author?
+    - unless is_badge
+      - if achievement.franchise?
         .about
           .title
             = achievement.title(current_user, ru_host?)

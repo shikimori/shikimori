@@ -32,8 +32,12 @@
       +column(1)
       padding-top: 50%
 
-  &.badge
+  &.is-badge
     overflow: hidden
+
+    &.is-half
+      +gte_iphone-landscape
+        width: 50%
 
     &:before
       +ellipsis2
@@ -62,7 +66,7 @@
       .inner .border
         border-width: 2px
 
-  &.as-image-index
+  &.is-image-index
     &:last-child
       margin-bottom: 0
 
