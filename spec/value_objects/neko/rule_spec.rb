@@ -97,12 +97,12 @@ describe Neko::Rule do
   describe '#hint' do
     context 'test' do
       let(:neko_id) { Types::Achievement::NekoId[:test] }
-      it { expect(rule.hint).to eq 'Неизвестная ачивка 1 уровня' }
+      it { expect(rule.hint nil, true).to eq 'Неизвестная ачивка 1 уровня' }
     end
 
     context 'animelist' do
       let(:neko_id) { Types::Achievement::NekoId[:animelist] }
-      it { expect(rule.hint).to eq '15 просмотренных аниме' }
+      it { expect(rule.hint nil, true).to eq '15 просмотренных аниме' }
     end
 
     %i[ru en].each do |locale|
@@ -113,8 +113,8 @@ describe Neko::Rule do
           context neko_id_spec do
             let(:neko_id) { neko_id_spec }
             it do
-              expect(rule.hint).to be_present
-              expect(rule.hint).to eq rule.hint
+              expect(rule.hint nil, true).to be_present
+              expect(rule.hint nil, true).to eq rule.hint(nil, true)
             end
           end
         end
