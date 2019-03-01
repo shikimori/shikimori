@@ -28,7 +28,7 @@ describe Achievement do
       it { expect(achievement.image).to eq neko.image }
       it { expect(achievement.border_color).to eq neko.border_color }
       it { expect(achievement.title nil, true).to eq neko.title_ru }
-      it { expect(achievement.hint nil, true).to eq neko.hint }
+      it { expect(achievement.hint nil, true).to eq neko.hint nil, true }
       it { expect(achievement.text true).to eq neko.text_ru }
     end
   end
