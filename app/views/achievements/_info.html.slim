@@ -5,9 +5,10 @@
       .key neko_id:&nbsp;
       .value = view.achievement.neko_id
 
-    .line.level
-      .key #{t '.levels'}:&nbsp;
-      .value = view.achievements.size
+    - unless view.achievement.franchise_author?
+      .line.level
+        .key #{t '.levels'}:&nbsp;
+        .value = view.achievements.size
 
     .line
       .key #{t '.source'}:&nbsp;
