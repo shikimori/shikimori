@@ -1,14 +1,32 @@
 .to-top-fix
 .inner
   - if request.path == '/' && !user_signed_in?
-    span.linkeable data-href="#{root_url}" data-title="#{t :shikimori}"
+    span.logo-container.linkeable[
+      data-href=root_url
+      data-title=t(:shikimori)
+    ]
       .logo
   - else
-    a href="#{root_url}" title="#{t :shikimori}"
+    a.logo-container[
+      href=root_url
+      title=t(:shikimori)
+    ]
       .logo
 
   - if user_signed_in? && shikimori?
     a.to-mobile-forum href=forum_url
+
+  .menu.menu-items
+    - if anime_online?
+      = render "application/top_menu/anime_online", menu: Menus::TopMenu.new
+    - else
+      = render "application/top_menu/shikimori", menu: Menus::TopMenu.new
+
+    - if user_signed_in?
+      a.entry.sign_out[
+        href=destroy_user_session_url
+        data-method='delete'
+      ] = t '.sign_out'
 
   .menu-mobile
     .menu.mobile-menu-toggler title=t('.main_menu')
@@ -89,15 +107,3 @@
           li.type data-type="mangakas" = t 'mangaka'
           li.type data-type="people" = t 'person'
           li.type data-type="users" = User.model_name.human
-
-  .menu.menu-items
-    - if anime_online?
-      = render "application/top_menu/anime_online", menu: Menus::TopMenu.new
-    - else
-      = render "application/top_menu/shikimori", menu: Menus::TopMenu.new
-
-    - if user_signed_in?
-      a.entry.sign_out[
-        href=destroy_user_session_url
-        data-method='delete'
-      ] = t '.sign_out'
