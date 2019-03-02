@@ -23,8 +23,8 @@ $menu_link_color: #e1e7f2
         cursor: pointer
         float: left
         font-size: 12px
-        line-height: 21px
-        padding: 7px 10px 4px
+        line-height: $menu_height
+        padding: 0 20px
         transition: backround-color 0.3s ease
 
       .arrow-container
@@ -44,7 +44,6 @@ $menu_link_color: #e1e7f2
 
     .menu-items
       +clearfix
-      margin-left: 125px
       white-space: nowrap
 
       & > .entry
@@ -58,9 +57,7 @@ $menu_link_color: #e1e7f2
         &.moderation
           & > a
             margin-left: 0 !important
-            line-height: 28px
-            padding-top: 5px
-            margin-bottom: -2px
+            line-height: $menu_height
 
             &:before
               font-size: 18px !important
@@ -79,9 +76,9 @@ $menu_link_color: #e1e7f2
         & > a
           color: inherit
           display: inline-block
-          font-size: 12px
-          line-height: 27px
-          padding: 4px 10px 0
+          font-size: 14px
+          line-height: $menu_height
+          padding: 0 15px
 
           &:active
             color: #f9f9f9 !important
