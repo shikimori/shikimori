@@ -16,6 +16,10 @@ class BbCodes::Tags::DivTag
   }mix
 
   FORBIDDEN_CLASSES = %w[
+    l-menu
+    l-page
+    l-footer
+    l-top_menu-v2
     b-comments-notifier
     b-comments
     b-feedback
@@ -28,7 +32,6 @@ class BbCodes::Tags::DivTag
     menu-slide-outer
     menu-slide-inner
     menu-toggler
-    to-top-fix
   ]
   CLEANUP_CLASSES_REGEXP = /
     #{FORBIDDEN_CLASSES.join '|'} |

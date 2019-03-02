@@ -2,23 +2,8 @@
 @import mixins/responsive
 @import mixins/retina
 
-.to-top-fix, .l-top_menu
-  // +background-inline-retina('/assets/layouts/l-top_menu/noise', 'png', auto, auto, repeat)
+.l-top_menu-v2
   background: #343434
-
-.to-top-fix
-  border-bottom: 2px solid #444
-  height: $menu_height
-  left: 0
-  position: absolute
-  top: 0
-  width: 60px
-  z-index: 3
-
-  +responsive(tablet)
-    display: none
-
-.l-top_menu
   border-bottom: 1px solid #444
   position: relative
   z-index: 10
@@ -45,7 +30,7 @@
       margin-right: 30px
 
       .logo
-        +background-inline-retina('/assets/layouts/l-top_menu/logo', 'png')
+        +background-inline-retina('/assets/layouts/l-top_menu-v2/logo', 'png')
         background-size: contain !important
         width: 145px
         height: 30px

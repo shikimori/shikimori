@@ -1,6 +1,6 @@
 $(document).on 'page:load', ->
   # desktop menu
-  $triggers = $('.l-top_menu .submenu').parent()
+  $triggers = $('.l-top_menu-v2 .submenu').parent()
   $triggers.each ->
     $trigger = $(@)
     $menu = $trigger.children('.submenu').show()
@@ -28,7 +28,7 @@ $(document).on 'page:load', ->
 
     @classList.toggle 'active'
 
-    $('.l-top_menu .menu-items')
+    $('.l-top_menu-v2 .menu-items')
       .toggleClass('active')
       .siblings()
       .removeClass 'active'
@@ -39,7 +39,7 @@ $(document).on 'page:load', ->
 
     @classList.toggle 'active'
 
-    $('.l-top_menu .menu-search')
+    $('.l-top_menu-v2 .menu-search')
       .toggleClass('active')
       .siblings()
       .removeClass 'active'

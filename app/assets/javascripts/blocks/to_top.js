@@ -29,7 +29,7 @@ $(document).on('page:load', () => {
 function toggle() {
   if (scrollDisabled) { return; }
 
-  if ($(window).scrollTop() > $('.l-top_menu').height()) {
+  if ($(window).scrollTop() > $('.l-top_menu-v2').height()) {
     show();
   } else {
     hide();
