@@ -20,7 +20,7 @@
     ] = i18n_i 'Studio', :other
 
 .entry.calendar
-  a[
+  a.icon[
     class=(:selected if params[:controller] == 'pages' && params[:action] == 'ongoings')
     href=ongoings_pages_url
     title=t('calendar')
@@ -111,7 +111,7 @@
 - if user_signed_in?
   .entry.info
     .submenu-toggler
-    a title=t('.info') href=info_pages_url
+    a.icon title=t('.info') href=info_pages_url
     .submenu
       a.entry[
         href=about_pages_url
@@ -172,7 +172,7 @@
     .entry.moderation[
       class=(:selected if params[:controller].match?(/^moderations/))
     ]
-      a[
+      a.icon[
         title=t('.moderation')
         href=moderations_url
       ]

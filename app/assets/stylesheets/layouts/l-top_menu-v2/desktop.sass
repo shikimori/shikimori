@@ -3,12 +3,11 @@
 @import mixins/responsive
 @import mixins/margins
 
-$menu_link_color: #e1e7f2
+// $menu_link_color: #e1e7f2
+$menu_link_color: #fff
 
 +gt_ipad
   .l-top_menu-v2
-    height: $menu_height
-
     .menu-mobile
       display: none
 
@@ -25,21 +24,6 @@ $menu_link_color: #e1e7f2
         padding: 0 20px
         transition: backround-color 0.3s ease
 
-      .arrow-container
-        display: inline-block
-        height: 20px
-        width: 18px
-        vertical-align: top
-
-        .arrow-down
-          border-color: #ffffff transparent transparent transparent
-          border-style: solid
-          border-width: 4px 4.5px 0 4.5px
-          display: inline-block
-          height: 0
-          margin-left: 7px
-          width: 0
-
     .menu-items
       +clearfix
       white-space: nowrap
@@ -53,25 +37,42 @@ $menu_link_color: #e1e7f2
 
         &.calendar > a
           +icon('\e839', $menu-icon-size)
-          margin-left: 0 !important
+          // margin-left: 0 !important
+          // line-height: auto
+
+          // &:before
+          //   line-height: $menu_height !important
 
         &.info > a
           +icon('i', $menu-icon-size)
-          margin-left: 0 !important
+          // margin-left: 0 !important
+          // line-height: auto
+
+          // &:before
+            // line-height: $menu_height !important
 
         &.moderation > a
           +icon('\e80a', $menu-icon-size)
-          margin-left: 0 !important
+          // margin-left: 0 !important
+          // line-height: auto
+
+          // &:before
 
         & > a
           color: inherit
-          display: inline-block
-          font-size: 14px
-          line-height: $menu_height
           padding: 0 15px
 
-          &:active
-            color: #f9f9f9 !important
+          // &:active
+            color: #f9f9f9
+
+          &:not(.icon)
+            line-height: $menu_height
+
+          &.icon
+            margin-left: 0 !important
+
+            &:before
+              line-height: $menu_height !important
 
         &.selected, &:hover
           background-color: lighten(#4a4a4a, 4%)
