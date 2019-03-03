@@ -3,88 +3,74 @@
 @import mixins/icons
 @import mixins/shikimori
 
-.usernav
-  padding-bottom: 4px
-  padding-top: 6px
-  & > span
-    float: left
+// .menu
+//   .unread-count, .contest
+//     background: #5a5a5a
+//     border-radius: 1px
+//     color: #f9f9f9
+//     display: block
+//     float: right !important
+//     font-size: 12px
+//     font-weight: bold
+//     height: 20px
+//     line-height: 20px
+//     text-align: center
+//     transition: backround-color 0.3s ease
+//     width: 20px
 
-.menu
-  .unread-count, .contest
-    background: #5a5a5a
-    border-radius: 1px
-    color: #f9f9f9
-    display: block
-    float: right !important
-    font-size: 12px
-    font-weight: bold
-    height: 20px
-    line-height: 20px
-    text-align: center
-    transition: backround-color 0.3s ease
-    width: 20px
+//     &:hover
+//       background: #7a7a7a !important
 
-    &:hover
-      background: #7a7a7a !important
+//   .contest
+//     &:before
+//       +shikimori('✓')
+//       color: white
+//       font-weight: normal
+//       font-size: 12px
+//       line-height: 17px
 
-  .contest
-    &:before
-      +shikimori('✓')
-      color: white
-      font-weight: normal
-      font-size: 12px
-      line-height: 17px
+//   .avatar
+//     height: 20px
 
-  .avatar
-    height: 20px
+//   .entry:hover
+//     .unread-count,
+//     .contest
+//       background: #6a6a6a
+//       color: white
 
-  .entry:hover
-    .unread-count,
-    .contest
-      background: #6a6a6a
-      color: white
+// .userbox
+//   height: $menu_height
+//   float: none
 
-.userbox
-  height: $menu_height
-  float: none
+// +gte_ipad
+//   .userbox
+//     white-space: nowrap
 
-+gte_ipad
-  .userbox
-    white-space: nowrap
+//     & > a
+//       display: inline-block
+//       color: inherit
 
-    & > a
-      display: inline-block
-      color: inherit
+//     #sign_in
+//       +icon("r")
+//       display: block
+//       // onlick bug in safari
+//       margin-left: 0 !important
 
-      .graphics-arrow-down
-        display: inline-block
-        height: 14px
-        margin-left: 3px
-        margin-top: -10px
-        vertical-align: middle
-        width: 15px
+//       &:before
+//         font-size: 18px
 
-    #sign_in
-      +icon("r")
-      display: block
-      // onlick bug in safari
-      margin-left: 0 !important
+//   .menu
+//     .unread-count, .contest
+//       margin-left: 8px
 
-      &:before
-        font-size: 18px
+// +lte_ipad
+//   .menu
+//     .contest
+//       display: none
 
-  .menu
-    .unread-count, .contest
-      margin-left: 8px
+//     .unread-count
+//       margin-left: 12px
 
-+lte_ipad
-  .menu
-    .contest
-      display: none
-
-    .unread-count
-      margin-left: 12px
-
-  .userbox img.avatar,
-  .menu .unread-count
-    margin-top: 6px
+//   .userbox img.avatar,
+//   .menu .unread-count
+//     margin-top: 6px

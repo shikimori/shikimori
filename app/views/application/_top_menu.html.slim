@@ -1,108 +1,108 @@
-.inner
-  - if request.path == '/' && !user_signed_in?
-    span.logo-container.linkeable[
-      data-href=root_url
-      data-title=t(:shikimori)
-    ]
-      .logo
+- if request.path == '/' && !user_signed_in?
+  span.logo-container.linkeable[
+    data-href=root_url
+    data-title=t(:shikimori)
+  ]
+    .glyph
+    .logo
+- else
+  a.logo-container[
+    href=root_url
+    title=t(:shikimori)
+  ]
+    .glyph
+    .logo
+
+- if user_signed_in? && shikimori?
+  a.to-mobile-forum href=forum_url
+
+.menu-items
+  - if anime_online?
+    = render "application/top_menu/anime_online", menu: Menus::TopMenu.new
   - else
-    a.logo-container[
-      href=root_url
-      title=t(:shikimori)
+    = render "application/top_menu/shikimori", menu: Menus::TopMenu.new
+
+  - if user_signed_in?
+    a.entry.sign_out[
+      href=destroy_user_session_url
+      data-method='delete'
+    ] = t '.sign_out'
+
+.menu-search
+  .b-main_search.entry data-markers=CopyrightedIds::MARKERS
+    .input
+      input[
+        data-type=(manga_online? ? 'mangas' : 'animes')
+      ]
+      .suggest-placeholder
+    - if shikimori?
+      ul.popup
+        li.type data-type="animes" = Anime.model_name.human
+        li.type data-type="mangas" = Manga.model_name.human
+        li.type data-type="ranobe" = Ranobe.model_name.human
+        li.type data-type="characters" = Character.model_name.human
+        li.type data-type="seyu" = t 'seyu'
+        li.type data-type="producers" = t 'producer'
+        li.type data-type="mangakas" = t 'mangaka'
+        li.type data-type="people" = t 'person'
+        li.type data-type="users" = User.model_name.human
+
+.menu-mobile
+  .mobile-menu-toggler title=t('.main_menu')
+  .search.mobile-search-toggler title=t('.search')
+
+.userbox-container
+  - if user_signed_in?
+    - if current_user.unread_count > 0
+      a.unread-count[
+        href=current_user.unread_messages_url
+        title=t(:mail)
+      ] = [99, current_user.unread_count].min
+    a.avatar[
+      href=current_user.url
+      title=current_user.nickname
     ]
-      .logo
+      img.avatar[
+        src=current_user.avatar_url(48)
+        srcset="#{current_user.avatar_url 80} 2x"
+        title=current_user.nickname
+        alt=current_user.nickname
+      ]
+      - unless current_user.unread_count > 0
+        .arrow-container
+          .arrow-down
+    .submenu.right
+      a.entry[
+        href=profile_user_rates_url(current_user, list_type: 'anime', subdomain: nil)
+      ] = t 'anime_list'
+      a.entry[
+        href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
+      ] = t 'manga_list'
+      a.entry href=current_user.unread_messages_url
+        span = t :mail
+        - if current_user.unread_count > 0
+          | &nbsp;
+          span.b-separator.zero.inline
+            | [
+          = current_user.unread_messages
+          span.b-separator.zero.inline ;
+          = current_user.unread_news
+          span.b-separator.zero.inline ;
+          = current_user.unread_notifications
+          span.b-separator.zero.inline
+            | ]
 
-  - if user_signed_in? && shikimori?
-    a.to-mobile-forum href=forum_url
-
-  .menu.menu-items
-    - if anime_online?
-      = render "application/top_menu/anime_online", menu: Menus::TopMenu.new
-    - else
-      = render "application/top_menu/shikimori", menu: Menus::TopMenu.new
-
-    - if user_signed_in?
-      a.entry.sign_out[
-        href=destroy_user_session_url
+      a.entry[
+        href=edit_profile_url(current_user, page: :account, subdomain: nil)
+      ] = t :settings
+      a.entry[
+        href=destroy_user_session_url(subdomain: nil)
         data-method='delete'
       ] = t '.sign_out'
 
-  .menu-mobile
-    .menu.mobile-menu-toggler title=t('.main_menu')
-    .search.mobile-search-toggler title=t('.search')
-
-  .menu.menu-userbox
-    - if user_signed_in?
-      .entry.userbox
-        - if current_user.unread_count > 0
-          a.unread-count[
-            href=current_user.unread_messages_url
-            title=t(:mail)
-          ] = [99, current_user.unread_count].min
-        a.avatar[
-          href=current_user.url
-          title=current_user.nickname
-        ]
-          img.avatar[
-            src=current_user.avatar_url(48)
-            srcset="#{current_user.avatar_url 80} 2x"
-            title=current_user.nickname
-            alt=current_user.nickname
-          ]
-          - unless current_user.unread_count > 0
-            .arrow-container
-              .arrow-down
-        .submenu.right
-          a.entry[
-            href=profile_user_rates_url(current_user, list_type: 'anime', subdomain: nil)
-          ] = t 'anime_list'
-          a.entry[
-            href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
-          ] = t 'manga_list'
-          a.entry href=current_user.unread_messages_url
-            span = t :mail
-            - if current_user.unread_count > 0
-              | &nbsp;
-              span.b-separator.zero.inline
-                | [
-              = current_user.unread_messages
-              span.b-separator.zero.inline ;
-              = current_user.unread_news
-              span.b-separator.zero.inline ;
-              = current_user.unread_notifications
-              span.b-separator.zero.inline
-                | ]
-
-          a.entry[
-            href=edit_profile_url(current_user, page: :account, subdomain: nil)
-          ] = t :settings
-          a.entry[
-            href=destroy_user_session_url(subdomain: nil)
-            data-method='delete'
-          ] = t '.sign_out'
-
-    - else
-      .entry.userbox.linkeable[
-        data-href=new_user_session_url(subdomain: nil)
-        title=t('.sign_in')
-      ]
-        span#sign_in
-
-  .menu.menu-search
-    .b-main_search.entry data-markers=CopyrightedIds::MARKERS
-      .input
-        input[
-          data-type=(manga_online? ? 'mangas' : 'animes')
-        ]
-        .suggest-placeholder
-      - if shikimori?
-        ul.popup
-          li.type data-type="animes" = Anime.model_name.human
-          li.type data-type="mangas" = Manga.model_name.human
-          li.type data-type="ranobe" = Ranobe.model_name.human
-          li.type data-type="characters" = Character.model_name.human
-          li.type data-type="seyu" = t 'seyu'
-          li.type data-type="producers" = t 'producer'
-          li.type data-type="mangakas" = t 'mangaka'
-          li.type data-type="people" = t 'person'
-          li.type data-type="users" = User.model_name.human
+  - else
+    .entry.userbox.linkeable[
+      data-href=new_user_session_url(subdomain: nil)
+      title=t('.sign_in')
+    ]
+      span#sign_in

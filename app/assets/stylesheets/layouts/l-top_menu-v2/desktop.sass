@@ -1,6 +1,7 @@
 @import globals
 @import mixins/icons
 @import mixins/responsive
+@import mixins/margins
 
 $menu_link_color: #e1e7f2
 
@@ -14,14 +15,11 @@ $menu_link_color: #e1e7f2
     .to-mobile-forum
       display: none
 
-    .menu-search, .menu-userbox
-      float: right
-      margin-top: 0
-
+    .menu-search,
+    .menu-userbox
       & > .entry
         color: $menu_link_color
         cursor: pointer
-        float: left
         font-size: 12px
         line-height: $menu_height
         padding: 0 20px
@@ -45,33 +43,25 @@ $menu_link_color: #e1e7f2
     .menu-items
       +clearfix
       white-space: nowrap
+      display: flex
 
       & > .entry
+        +mr(2px)
         color: $menu_link_color
         cursor: pointer
-        float: left
         transition: backround-color 0.3s ease
 
-        &.calendar,
-        &.info,
-        &.moderation
-          & > a
-            margin-left: 0 !important
-            line-height: $menu_height
-
-            &:before
-              font-size: 18px !important
-              line-height: 20px !important
-              width: 20px !important
-
         &.calendar > a
-          +icon('\e839')
+          +icon('\e839', $menu-icon-size)
+          margin-left: 0 !important
 
         &.info > a
-          +icon('i')
+          +icon('i', $menu-icon-size)
+          margin-left: 0 !important
 
         &.moderation > a
-          +icon('\e80a')
+          +icon('\e80a', $menu-icon-size)
+          margin-left: 0 !important
 
         & > a
           color: inherit
