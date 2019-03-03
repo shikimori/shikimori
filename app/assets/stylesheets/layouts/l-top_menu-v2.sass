@@ -1,15 +1,20 @@
 @import globals
+@import mixins/icons
 @import mixins/responsive
 @import mixins/retina
+@import mixins/ellipsis2
 
 .l-top_menu-v2
   align-items: center
   background: #343434
   border-bottom: 1px solid #444
+  color: #fff
   display: flex
+  font-size: 14px
+  height: $menu_height
+  padding: 0 13px 0 13px
   position: relative
   z-index: 10
-  padding: 0 20px 0 13px
 
   &.is-fullscreen-mode
     z-index: -1
@@ -25,7 +30,7 @@
       background-size: contain !important
       height: 30px
       margin-right: 3px
-      margin-top: 3px
+      margin-top: 4px
       width: 30px
 
     .logo
@@ -35,10 +40,39 @@
       margin-top: -1px
       width: 145px
 
-  .userbox-container
-    margin-left: auto
-    justify-content: center
+  .userbox
+    align-items: center
     display: flex
+    margin-left: auto
+
+    .mail
+      & > a
+        +icon('\e81f', $menu-icon-size)
+        margin-left: 0 !important
+        color: #fff
 
     .avatar
-      height: 30px
+      max-width: 215px
+      align-items: center
+      display: flex
+
+      & > a
+        color: #fff
+        display: flex
+        align-items: center
+        +ellipsis2
+
+        img
+          height: 30px
+
+        .nickname
+          margin-left: 10px
+          font-size: 18px
+          letter-spacing: 0.5px
+          +ellipsis2
+
+      .arrow-down
+        +icon('\e846', $menu-icon-size)
+        // line-height: auto
+        margin-left: auto !important
+        padding-left: 12px
