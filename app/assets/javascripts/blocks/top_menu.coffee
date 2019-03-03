@@ -46,9 +46,6 @@ $(document).on 'page:load', ->
 
     $('.b-main_search input').focus()
 
-  #$('.mobile-sign-in-toggler').click ->
-    #$('.usernav').trigger 'click'
-
   $('.submenu-activator').on 'click', ->
     $(@).prev().click()
 

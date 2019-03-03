@@ -25,45 +25,40 @@ $entry_padding_left: 10px
       background: #545454
 
     .to-mobile-forum
-      +icon('f')
+      +icon('f', $menu-icon-size)
       color: #f9f9f9
       left: 125px
       margin: 0 !important
       position: absolute
 
-    .menu-mobile, .menu-userbox
-      float: right
+    .menu-mobile,
+    .menu-userbox
       margin: 0
 
       #sign_in
-        +icon("r")
+        +icon('r', $menu-icon-size)
 
       .search
-        +icon("s")
+        +icon('s', $menu-icon-size)
 
       .menu
-        +icon("m")
+        +icon('m', $menu-icon-size)
         margin-right: 10px
 
-      .search, .menu, #sign_in
+      .search,
+      .menu,
+      #sign_in
         color: #f9f9f9
-        float: right
         cursor: pointer
         height: $menu_height - 1px
-        margin-left: 15px !important
 
         &:before
           font-size: 22px
           line-height: $menu_height
           width: 30px
 
-    .menu-userbox
-      margin-right: 0
-
-      .entry
-        border-top: none
-
-    .menu-items, .menu-search
+    .menu-items,
+    .menu-search
       display: none
       padding-top: $menu_height + 2px
 
@@ -81,7 +76,7 @@ $entry_padding_left: 10px
         cursor: pointer
 
       .submenu-toggler
-        +icon("m")
+        +icon('m', $menu-icon-size)
         cursor: pointer
         position: absolute
         right: 10px
@@ -100,7 +95,7 @@ $entry_padding_left: 10px
         border-top: none
 
     .submenu
-      // important из-за назначения стилей десктопного меню скриптами
+      // important because of desktop styles
       display: none !important
       height: auto !important
       padding-left: 25px
@@ -123,9 +118,6 @@ $entry_padding_left: 10px
         margin-right: 16px
         margin-top: 6px
         padding: 0 !important
-
-      &.sign_out
-        display: block !important
 
     .moderation
       display: none
