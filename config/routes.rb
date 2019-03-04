@@ -381,14 +381,6 @@ Rails.application.routes.draw do
   end
   # /api
 
-  # constraints MangaOnlineDomain do
-    # get '/', to: 'manga_online/mangas#index'
-    # get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
-    # get 'chapters/:id(/:page)' => 'manga_online/chapters#show', as: :online_manga_chapter_show
-
-    # get 'robots.txt' => 'robots#manga_online'
-  # end
-
   constraints AnimeOnlineDomain do
     get '/', to: 'anime_online/dashboard#show'
     get '/page/:page', to: 'anime_online/dashboard#show', as: :anime_dashboard_page
