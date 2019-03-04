@@ -351,8 +351,8 @@ ru:
 
   reviews_controller:
     <<: *animes_controller
-    new_review: Новый обзор
-    edit_review: Изменение обзора
+    new_review: Новая рецензия
+    edit_review: Изменение рецензии
     review:
       created: Рецензия создана
       updated: Рецензия изменена
