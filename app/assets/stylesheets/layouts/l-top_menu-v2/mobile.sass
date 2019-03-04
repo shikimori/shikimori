@@ -1,123 +1,118 @@
-@import globals
-@import mixins/icons
-@import mixins/responsive
+// @import globals
+// @import mixins/icons
+// @import mixins/responsive
 
-$entry_padding_left: 10px
+// $entry_padding_left: 10px
 
-+lte_ipad
-  body[data-locale=ru] .l-top_menu-v2
-    .calendar > a:before
-      content: 'Календарь'
-    .info > a:before
-      content: 'Инфо'
+// +lte_ipad
+//   body[data-locale=ru] .l-top_menu-v2
+//     .calendar > a:before
+//       content: 'Календарь'
+//     .info > a:before
+//       content: 'Инфо'
 
-  body[data-locale=en] .l-top_menu-v2
-    .calendar > a:before
-      content: 'Calendar'
-    .info > a:before
-      content: 'Info'
+//   body[data-locale=en] .l-top_menu-v2
+//     .calendar > a:before
+//       content: 'Calendar'
+//     .info > a:before
+//       content: 'Info'
 
-  .l-top_menu-v2
-    +clearfix
+//   .l-top_menu-v2
+//     +clearfix
 
-    .mobile-menu-toggler.active,
-    .mobile-search-toggler.active
-      background: #545454
+//     .mobile-menu-toggler.active,
+//     .mobile-search-toggler.active
+//       background: #545454
 
-    .to-mobile-forum
-      +icon('f', $menu-icon-size)
-      color: #f9f9f9
-      left: 125px
-      margin: 0 !important
-      position: absolute
+//     .to-mobile-forum
+//       +icon('f', $menu-icon-size)
+//       color: #f9f9f9
+//       left: 125px
+//       margin: 0 !important
 
-    .menu-mobile,
-    .menu-userbox
-      margin: 0
+//     .menu-mobile
+//       #sign_in
+//         +icon('r', $menu-icon-size)
 
-      #sign_in
-        +icon('r', $menu-icon-size)
+//       .search
+//         +icon('s', $menu-icon-size)
 
-      .search
-        +icon('s', $menu-icon-size)
+//       .menu
+//         +icon('m', $menu-icon-size)
+//         margin-right: 10px
 
-      .menu
-        +icon('m', $menu-icon-size)
-        margin-right: 10px
+//       .search,
+//       .menu,
+//       #sign_in
+//         color: #f9f9f9
+//         cursor: pointer
+//         height: $menu_height - 1px
 
-      .search,
-      .menu,
-      #sign_in
-        color: #f9f9f9
-        cursor: pointer
-        height: $menu_height - 1px
+//         &:before
+//           font-size: 22px
+//           line-height: $menu_height
+//           width: 30px
 
-        &:before
-          font-size: 22px
-          line-height: $menu_height
-          width: 30px
+//     .menu,
+//     .menu-search
+//       display: none
 
-    .menu-items,
-    .menu-search
-      display: none
-      padding-top: $menu_height + 2px
+//       &.active
+//         display: block
 
-      &.active
-        display: block
+//     .menu
+//       .entry a
+//         display: block
+//         // чтобы на телефонах при нажатии на пункт меню подсвечивалась вся строка с пунктом (у .entry padding-left: $entry_padding_left)
+//         margin-left: -$entry_padding_left
+//         padding-left: $entry_padding_left
 
-    .menu-items
-      .entry a
-        display: block
-        // чтобы на телефонах при нажатии на пункт меню подсвечивалась вся строка с пунктом (у .entry padding-left: $entry_padding_left)
-        margin-left: -$entry_padding_left
-        padding-left: $entry_padding_left
+//       .submenu-activator
+//         cursor: pointer
 
-      .submenu-activator
-        cursor: pointer
+//       .submenu-toggler
+//         +icon('m', $menu-icon-size)
+//         cursor: pointer
+//         position: absolute
+//         right: 10px
+//         top: 0
 
-      .submenu-toggler
-        +icon('m', $menu-icon-size)
-        cursor: pointer
-        position: absolute
-        right: 10px
-        top: 0
+//         &:before
+//           content: '+'
+//           width: 30px
+//           line-height: 34px
 
-        &:before
-          content: '+'
-          width: 30px
-          line-height: 34px
+//         &.active:before
+//           content: '-'
 
-        &.active:before
-          content: '-'
+//     .menu-search
+//       .entry
+//         border-top: none
 
-    .menu-search
-      .entry
-        border-top: none
+//     .submenu
+//       // important because of desktop styles
+//       display: none !important
+//       height: auto !important
+//       padding-left: 25px
 
-    .submenu
-      // important because of desktop styles
-      display: none !important
-      height: auto !important
-      padding-left: 25px
+//       &.active
+//         display: block !important
 
-      &.active
-        display: block !important
+//     .entry
+//       border-top: 1px solid white
+//       color: white
+//       display: block
+//       line-height: $menu_height
+//       padding-left: $entry_padding_left
+//       position: relative
 
-    .entry
-      border-top: 1px solid white
-      color: white
-      display: block
-      line-height: $menu_height
-      padding-left: $entry_padding_left
-      position: relative
+//       a
+//         color: inherit
 
-      a
-        color: inherit
+//       .contest
+//         margin-right: 16px
+//         margin-top: 6px
+//         padding: 0 !important
 
-      .contest
-        margin-right: 16px
-        margin-top: 6px
-        padding: 0 !important
-
-    .moderation
-      display: none
+//     .moderation
+//       display: none

@@ -9,7 +9,6 @@ module ShikimoriDomain
   HOSTS = RU_HOSTS + EN_HOSTS
 
   def self.matches? request
-    !AnimeOnlineDomain.matches?(request) &&
-      !MangaOnlineDomain.matches?(request)
+    !AnimeOnlineDomain.matches?(request)
   end
 end

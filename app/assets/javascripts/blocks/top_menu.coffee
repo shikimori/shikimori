@@ -28,7 +28,7 @@ $(document).on 'page:load', ->
 
     @classList.toggle 'active'
 
-    $('.l-top_menu-v2 .menu-items')
+    $('.l-top_menu-v2 .menu')
       .toggleClass('active')
       .siblings()
       .removeClass 'active'
