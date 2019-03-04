@@ -6,13 +6,6 @@ class RobotsController < ShikimoriController
     ROBOTS
   end
 
-  # def manga_online
-    # render plain: <<~ROBOTS
-      # User-agent: *
-      # Disallow: /
-    # ROBOTS
-  # end
-
   def shikimori
     if ru_host?
       shikimori_ru

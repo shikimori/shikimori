@@ -14,16 +14,6 @@ $menu_link_color: #fff
     .to-mobile-forum
       display: none
 
-    .menu-search,
-    .menu-userbox
-      & > .entry
-        color: $menu_link_color
-        cursor: pointer
-        font-size: 12px
-        line-height: $menu_height
-        padding: 0 20px
-        transition: backround-color 0.3s ease
-
     .menu-items
       +clearfix
       white-space: nowrap
@@ -35,31 +25,20 @@ $menu_link_color: #fff
         cursor: pointer
         transition: backround-color 0.3s ease
 
+
         &.calendar > a
           +icon('\e839', $menu-icon-size)
-          // margin-left: 0 !important
-          // line-height: auto
-
-          // &:before
-          //   line-height: $menu_height !important
 
         &.info > a
           +icon('i', $menu-icon-size)
-          // margin-left: 0 !important
-          // line-height: auto
-
-          // &:before
-            // line-height: $menu_height !important
 
         &.moderation > a
           +icon('\e80a', $menu-icon-size)
-          // margin-left: 0 !important
-          // line-height: auto
-
-          // &:before
 
         & > a
           color: inherit
+          font-size: 14px
+          letter-spacing: 0.5px
           padding: 0 15px
 
           // &:active
@@ -72,7 +51,7 @@ $menu_link_color: #fff
             margin-left: 0 !important
 
             &:before
-              line-height: $menu_height !important
+              line-height: $menu_height
 
         &.selected, &:hover
           background-color: lighten(#4a4a4a, 4%)
@@ -107,22 +86,17 @@ $menu_link_color: #fff
       transition: height 0.3s ease
       z-index: 1000
 
-      &.right
-        right: 0
-        margin-top: -1px
-
       & > .entry
         background: #3f3f3f
         border-bottom: 1px solid #aaa
         color: #f9f9f9
         cursor: pointer
         display: block
-        font-family: Tahoma
-        font-size: 11px
-        height: 21px
-        line-height: 22px
+        font-size: 13px
+        height: 35px
+        line-height: 35px
         min-width: 80px
-        padding: 0 8px 0 8px
+        padding: 0 15px 0 10px
         transition: backround-color 0.3s ease, color 0.3s ease
 
         &:hover

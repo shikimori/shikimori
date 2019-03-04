@@ -5,12 +5,6 @@ describe RobotsController do
     it { expect(response.content_type).to eq 'text/plain' }
   end
 
-  # describe 'manga_online' do
-    # before { get :manga_online }
-    # it { expect(response).to have_http_status :success }
-    # it { expect(response.content_type).to eq 'text/plain' }
-  # end
-
   describe 'shikimori' do
     before { get :shikimori }
     it { expect(response).to have_http_status :success }

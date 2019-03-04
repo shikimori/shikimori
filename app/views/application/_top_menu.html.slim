@@ -32,7 +32,7 @@
   .b-main_search.entry data-markers=CopyrightedIds::MARKERS
     .input
       input[
-        data-type=(manga_online? ? 'mangas' : 'animes')
+        data-type='animes'
       ]
       .suggest-placeholder
     - if shikimori?
@@ -74,8 +74,7 @@
         ]
         span.nickname
           = current_user.nickname
-
-      .arrow-down
+        span.arrow-down
 
       .submenu.right
         a.entry[
@@ -84,20 +83,6 @@
         a.entry[
           href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
         ] = t 'manga_list'
-        a.entry href=current_user.unread_messages_url
-          span = t :mail
-          - if current_user.unread_count > 0
-            | &nbsp;
-            span.b-separator.zero.inline
-              | [
-            = current_user.unread_messages
-            span.b-separator.zero.inline ;
-            = current_user.unread_news
-            span.b-separator.zero.inline ;
-            = current_user.unread_notifications
-            span.b-separator.zero.inline
-              | ]
-
         a.entry[
           href=edit_profile_url(current_user, page: :account, subdomain: nil)
         ] = t :settings
