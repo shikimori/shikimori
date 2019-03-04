@@ -1,5 +1,6 @@
 @import globals/variables
 @import mixins/link
+@import mixins/margins
 @import mixins/responsive
 @import mixins/shikimori
 
@@ -9,15 +10,6 @@ $icon_mobile_size: 30px
 // кнопочки иконочные
 =icon($content, $font-size: 14px)
   cursor: pointer
-
-  +gt_ipad
-    margin-left: 15px
-
-  +lte_ipad
-    margin-left: 35px
-
-  //+responsive(narrow-phone)
-    margin-left: $icon_mobile_size
 
   &:before, &:after
     cursor: pointer
@@ -49,14 +41,6 @@ $icon_mobile_size: 30px
 
 =menu_icon($content, $font-size: 14px)
   +icon($content, $font-size)
-  +responsive(desktop)
-    margin-left: 0
-
-  +responsive(tablet)
-    margin-left: 0
-
-  +responsive(narrow-phone)
-    margin-left: 0
 
   &:before
     float: left
@@ -65,9 +49,17 @@ $icon_mobile_size: 30px
     +iphone
       margin-right: 7px
 
+=icon_left_margins
+  +gt_ipad
+    +ml(15px)
+
+  +lte_ipad
+    +ml(35px)
+
 =icon_button($content)
   +icon($content, 13px)
   +link_color(#444444)
+  +icon_left_margins
 
   &.selected
     color: $link-hover
@@ -76,77 +68,3 @@ $icon_mobile_size: 30px
   +gt_ipad
     &:after
       display: none
-
-=headline_icon_button($content)
-  +icon_button($content)
-  +link_color(#666666)
-  cursor: pointer
-  font-size: 12px
-  font-weight: normal
-  margin: 3px 10px 0
-
-=icon_expandable
-  +link_color(#123)
-  display: block
-  margin-left: 0
-  margin-bottom: 8px
-
-  &:after
-    content: attr(data-text)
-
-=icon_action($content)
-  +link_color(#444444)
-  cursor: pointer
-  display: inline-block
-  height: $icon_mobile_size
-  margin-right: $icon_desktop_size
-  width: $icon_mobile_size
-
-  &:last-child
-    margin-right: 0
-
-  &.selected
-    +link_color($link)
-
-  &:before,
-  &:after
-    display: inline-block
-    font-size: 18px
-    line-height: $icon_mobile_size
-
-    // For safety - reset parent styles, that can break glyph codes
-    font-variant: normal
-    text-transform: none
-
-    +iphone
-      font-size: 22px
-
-  &:before
-    +shikimori($content)
-    text-align: center
-
-  +iphone-portrait
-    display: table
-    margin-bottom: 10px
-    margin-right: 0
-    text-align: left
-    width: auto
-    height: auto
-
-    &:before
-      display: table-cell
-      float: left
-      font-size: 18px
-      vertical-align: middle
-      width: 20px
-
-    &:after
-      color: #123
-      content: attr(data-text)
-      display: table-cell
-      font-size: 15px
-      line-height: 1.3
-      padding-left: 10px
-      vertical-align: middle
-      word-break: break-all
-      word-wrap: break-word

@@ -1,5 +1,5 @@
 .b-clubs-menu
-  - if club.logo.exists?
+  - if club.logo.present?
     .b-menu_logo
       center: a[
         href=club.url
