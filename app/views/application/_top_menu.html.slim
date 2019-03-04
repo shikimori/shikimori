@@ -16,19 +16,19 @@
 - if user_signed_in? && shikimori?
   a.to-mobile-forum href=forum_url
 
-.menu-items
+.menu
   - if anime_online?
-    = render "application/top_menu/anime_online", menu: Menus::TopMenu.new
+    = render 'application/top_menu/anime_online', menu: Menus::TopMenu.new
   - else
-    = render "application/top_menu/shikimori", menu: Menus::TopMenu.new
+    = render 'application/top_menu/shikimori', menu: Menus::TopMenu.new
 
-  - if user_signed_in?
+  / - if user_signed_in?
     a.entry.sign_out[
       href=destroy_user_session_url
       data-method='delete'
     ] = t '.sign_out'
 
-.menu-search
+/ .menu-search
   .b-main_search.entry data-markers=CopyrightedIds::MARKERS
     .input
       input[
@@ -51,7 +51,7 @@
   .mobile-menu-toggler title=t('.main_menu')
   .search.mobile-search-toggler title=t('.search')
 
-.menu-items.userbox
+.menu.userbox
   - if user_signed_in?
     - if current_user.unread_count.positive?
       .entry.mail

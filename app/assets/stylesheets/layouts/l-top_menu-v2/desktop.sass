@@ -1,7 +1,6 @@
 @import globals
 @import mixins/icons
 @import mixins/responsive
-@import mixins/margins
 
 // $menu_link_color: #e1e7f2
 $menu_link_color: #fff
@@ -14,65 +13,13 @@ $menu_link_color: #fff
     .to-mobile-forum
       display: none
 
-    .menu-items
-      +clearfix
-      white-space: nowrap
-      display: flex
-
+    .menu-search
       & > .entry
-        +mr(2px)
         color: $menu_link_color
         cursor: pointer
+        line-height: $menu_height
+        padding: 0 20px
         transition: backround-color 0.3s ease
-
-
-        &.calendar > a
-          +icon('\e839', $menu-icon-size)
-
-        &.info > a
-          +icon('i', $menu-icon-size)
-
-        &.moderation > a
-          +icon('\e80a', $menu-icon-size)
-
-        & > a
-          color: inherit
-          font-size: 14px
-          letter-spacing: 0.5px
-          padding: 0 15px
-
-          // &:active
-            color: #f9f9f9
-
-          &:not(.icon)
-            line-height: $menu_height
-
-          &.icon
-            margin-left: 0 !important
-
-            &:before
-              line-height: $menu_height
-
-        &.selected, &:hover
-          background-color: lighten(#4a4a4a, 4%)
-          color: white
-          text-decoration: none
-
-        & > .submenu
-          margin-top: 0
-          margin-left: 0
-
-        &:active
-          background-color: #4A4A4A
-          color: $menu_link_color !important
-
-        & > .contest
-          margin: 7px 5px 0 0
-
-          &:before
-            position: absolute
-            margin-left: -5px
-            line-height: 15px
 
     .submenu
       background: #3f3f3f
@@ -113,6 +60,3 @@ $menu_link_color: #fff
 
         &:last-child
           border-bottom: none
-
-    .moderation
-      display: block
