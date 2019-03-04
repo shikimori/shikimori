@@ -2,7 +2,7 @@
 @import mixins/responsive
 
 .item-mobile
-  +icon_button("m")
+  +icon_button('m')
   float: right
   margin-left: 20px !important
   margin-top: -6px
@@ -10,7 +10,7 @@
 .buttons
   color: #999999
   float: right
-  font: 13px/20px "Trebuchet MS",Tahoma,Arial,Helvetica,sans-serif
+  font: 13px/20px 'Trebuchet MS',Tahoma,Arial,Helvetica,sans-serif
   margin-right: 5px
 
   span, a
@@ -64,71 +64,96 @@
 
   .item-save
     +icon_button('f')
+
   .item-moderation
-    +icon_button("\e806")
+    +icon_button('\e806')
+
   .item-preview
-    +icon_button("\e811")
+    +icon_button('\e811')
+
   .item-unpreview
-    +icon_button("\e812")
+    +icon_button('\e812')
+
   .item-quote
-    +icon_button("\e80B")
+    +icon_button('\e80B')
     display: none
+
   .item-reply
     +icon_button('f')
+
   .item-edit
-    +icon_button("\e814")
+    +icon_button('\e814')
+
   .item-delete
-    +icon_button("\e815")
+    +icon_button('\e815')
+
   .item-apply,
   .item-request-confirm,
   .item-delete-confirm
     +icon_button('✓')
+
   .item-cancel,
   .item-request-reject,
   .item-delete-cancel,
   .item-moderation-cancel
     +icon_button('✕')
+
   .item-subscribe
-    +icon_button("\e819")
+    +icon_button('\e819')
+
   .item-offtopic
-    +icon_button("\e82b")
+    +icon_button('\e82b')
     &.selected
       color: $red
+
   .item-summary
-    +icon_button("\e80f")
+    +icon_button('\e80f')
     &.selected
       color: $green
+
   .item-spoiler
-    +icon_button("\e82d")
+    +icon_button('\e82d')
+
   .item-abuse
-    +icon_button("\e82c")
+    +icon_button('\e82c')
+
   .item-ban
-    +icon_button("\e80a")
+    +icon_button('\e80a')
+
   .item-ignore
-    +icon_button("\e811")
+    +icon_button('\e811')
     &.selected
-      +icon_button("\e812")
+      +icon_button('\e812')
 
   .editor-bold
-    +icon_button("\e802")
+    +icon_button('\e802')
+
   .editor-italic
-    +icon_button("\e804")
+    +icon_button('\e804')
+
   .editor-underline
-    +icon_button("\e807")
+    +icon_button('\e807')
+
   .editor-strike
-    +icon_button("\e805")
+    +icon_button('\e805')
+
   .editor-link
     +icon_button('🔗')
+
   .editor-image
-    +icon_button("\e81d")
+    +icon_button('\e81d')
+
   .editor-quote
-    +icon_button("\e80B")
+    +icon_button('\e80B')
+
   .editor-spoiler
-    +icon_button("\e81b")
+    +icon_button('\e81b')
+
   .editor-smiley
-    +icon_button("\e800")
+    +icon_button('\e800')
+
   .editor-file
-    +icon_button("\e80c")
+    +icon_button('\e80c')
     position: relative
 
     span, a
