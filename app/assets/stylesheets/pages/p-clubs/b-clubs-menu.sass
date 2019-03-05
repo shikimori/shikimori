@@ -1,12 +1,9 @@
-@import globals
 @import mixins/block
 @import mixins/column
+@import mixins/icons
 @import mixins/link
 
 .b-clubs-menu
-  .b-menu_logo
-    margin-bottom: 0
-
   .members
     .b-user
       margin-bottom: 6px
@@ -32,9 +29,6 @@
   .b-catalog_entry
     margin-bottom: 5px !important
 
-  .subheadline + .club-actions
-    text-align: left
-
   .club-actions
     +block
     text-align: center
@@ -50,6 +44,21 @@
 
     .invite
       border-bottom: none
+
+    .edit-club
+      +big_icon('\e814')
+
+    .upload
+      +big_icon('\e80c')
+
+    .broadcast
+      +big_icon('\e837')
+
+    .invite
+      +big_icon('\e826')
+
+    .leave
+      +big_icon('\e827')
 
   & > .invite
     +block
