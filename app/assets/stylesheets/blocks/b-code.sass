@@ -4,8 +4,17 @@
   color: #fff
   display: block
   overflow-x: auto
-  padding: 0.5em
+  padding: 0.5rem
   word-break: break-all
+  position: relative
+
+  &:before
+    background-color: #747474
+    content: attr(data-language)
+    padding: 0 .5rem
+    position: absolute
+    right: .5rem
+    top: .5rem
 
 .hljs
   display: block
@@ -57,6 +66,8 @@
 
 .hljs a
   color: inherit
-  &:focus, &:hover
+
+  &:focus,
+  &:hover
     color: inherit
     text-decoration: underline
