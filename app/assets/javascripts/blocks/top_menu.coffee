@@ -22,7 +22,7 @@ $(document).on 'page:load', ->
     , 0, $menu.data('duration') || 150
 
   # mobile menu
-  $('.l-top_menu-v2 .menu-toggler').click ->
+  $('.l-top_menu-v2 .top_menu-toggler').click ->
     if !@classList.contains('active') && $('.mobile-search-toggler').hasClass('active')
       $('.mobile-search-toggler').click()
 
