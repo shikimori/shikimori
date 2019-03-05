@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2018 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2019 by original authors @ fontello.com</metadata>
 <defs>
 <font id="shikimori" horiz-adv-x="1000" >
 <font-face font-family="shikimori" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
@@ -159,6 +159,8 @@
 <glyph glyph-name="trophy" unicode="&#xe83b;" d="M510 134l0-66q70-8 116-32t46-56q0-36-65-63t-157-27q-90 0-156 27t-66 63q0 32 46 56t118 32l0 66q0 50-33 84t-113 88q-56 36-87 61t-75 72-64 108-20 137q0 14 11 24t25 10l172 0q48 92 242 92 196 0 244-92l170 0q14 0 25-10t11-24q0-76-20-137t-64-108-75-72-87-61q-78-52-111-87t-33-85z m138 252q80 56 126 114t54 148l-126 0q-6-158-54-262z m-198 364q-62 0-108-15t-64-32-18-29q0-14 18-31t64-32 108-15 108 15 64 32 18 31q0 12-18 29t-64 32-108 15z m-378-102q8-90 54-148t126-114q-48 104-54 262l-126 0z" horiz-adv-x="900" />
 
 <glyph glyph-name="doc-text-1" unicode="&#xe83c;" d="M212 308l0 90 280 0 0-90-280 0z m388 492q42 0 71-29t29-71l0-700q0-40-29-70t-71-30l-500 0q-40 0-70 30t-30 70l0 700q0 42 30 71t70 29l500 0z m0-800l0 700-500 0 0-700 500 0z m-110 592l0-88-280 0 0 88 280 0z m0-392l0-88-280 0 0 88 280 0z" horiz-adv-x="700" />
+
+<glyph glyph-name="zoom_out_map" unicode="&#xe83d;" d="M875 225v-250h-250l96 96-121 119 60 60 119-121z m-500-250h-250v250l96-96 119 121 60-60-121-119z m-250 500v250h250l-96-96 121-119-60-60-119 121z m500 250h250v-250l-96 96-119-121-60 60 121 119z" horiz-adv-x="1000" />
 
 <glyph glyph-name="left-open-big" unicode="&#xe83e;" d="M452-20q26-26 0-48-26-26-48 0l-392 394q-24 24 0 50l392 394q22 26 48 0 26-22 0-48l-358-372z" horiz-adv-x="465" />
 

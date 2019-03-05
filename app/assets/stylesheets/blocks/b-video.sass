@@ -1,6 +1,6 @@
-@import globals
 @import mixins/image_editable
 @import mixins/link
+@import mixins/media
 @import mixins/media_marker
 @import mixins/retina
 
@@ -9,15 +9,6 @@
 
 .b-video
   +image_editable
-  // cursor: zoom-in !important
-  display: inline-block
-  line-height: 0
-  overflow: hidden
-  vertical-align: text-top
-  position: relative // need to position properly .marker
-
-  .video-link img
-    max-width: 100%
 
   &.fixed
     .video-link img
@@ -36,41 +27,56 @@
       margin-top: -9.35%
       margin-bottom: -9.35%
 
-  a.video-link
-    cursor: zoom-in !important
-    display: block
-    position: relative
-    transition: opacity 0.5s ease
+  .video-link
+    +media
+    background: #212121
 
-    &:hover
-      opacity: 0.85
+    &:hover:before
+      opacity: 1
 
     &:before
-      // +background-inline-retina('/assets/blocks/b-video/play', 'png', 69px, 69px)
-      // background-size: 69px 69px
-      // margin-left: -34.5px
-      // margin-top: -34.5px
-      // height: 69px
-      // width: 69px
-      background: asset_url("/assets/blocks/b-video/play-optimized.png")
-      background-size: 80px 80px
-      content: ''
-      height: 80px
+      +shikimori('\e823')
+      background: rgba(0, 0, 0, 0.72)
+      border-radius: 50%
+      color: #fff
+      font-size: 40px
+      height: 54px
       left: 50%
-      margin-left: -40px
-      margin-top: -40px
+      line-height: 54px
+      margin-left: -29px
+      margin-top: -29px
+      opacity: 0
       position: absolute
+      text-align: center
       top: 50%
-      width: 80px
+      transition: all .24s ease-in-out
+      width: 54px
       z-index: 1
 
   .name
     +media_marker
+    background: transparent
     bottom: auto
-    max-width: 100%
-    padding-left: 0
-    top: 0
+    left: 4px
+    max-width: calc(100% - 8px)
+    right: auto
+    text-shadow: 0px 0px 1px rgba(#000, 0.9)
+    top: 4px
 
   .marker
-    +link
     +media_marker
+
+    &:before
+      +shikimori('\e831')
+      font-size: 12px
+      line-height: 20px
+      padding: 0 7px 0 2px
+
+  &.youtube .marker:before
+    color: #ed443c
+
+  &.vk .marker:before
+    color: #5992e8
+
+  &.smotret_anime .marker:before
+    color: #cddc39
