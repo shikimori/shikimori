@@ -22,7 +22,7 @@ $(document).on 'page:load', ->
     , 0, $menu.data('duration') || 150
 
   # mobile menu
-  $('.mobile-menu-toggler').click ->
+  $('.l-top_menu-v2 .menu-toggler').click ->
     if !@classList.contains('active') && $('.mobile-search-toggler').hasClass('active')
       $('.mobile-search-toggler').click()
 
@@ -33,7 +33,7 @@ $(document).on 'page:load', ->
       .siblings()
       .removeClass 'active'
 
-  $('.mobile-search-toggler').click ->
+  $('.l-top_menu-v2 .search-toggler').click ->
     if !@classList.contains('active') && $('.mobile-menu-toggler').hasClass('active')
       $('.mobile-menu-toggler').click()
 

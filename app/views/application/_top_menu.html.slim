@@ -13,9 +13,6 @@
     .glyph
     .logo
 
-- if user_signed_in? && shikimori?
-  a.to-mobile-forum href=forum_url
-
 .menu
   - if anime_online?
     = render 'application/top_menu/anime_online', menu: Menus::TopMenu.new
@@ -47,9 +44,16 @@
         li.type data-type="people" = t 'person'
         li.type data-type="users" = User.model_name.human
 
-.menu-mobile
-  .mobile-menu-toggler title=t('.main_menu')
-  .search.mobile-search-toggler title=t('.search')
+.menu.mobile
+  - if user_signed_in? && shikimori?
+    .entry
+      a.forum href=forum_url
+
+  .entry
+    span.search-toggler title=t('.search')
+
+  .entry
+    span.menu-toggler title=t('.main_menu')
 
 .menu.userbox
   - if user_signed_in?
