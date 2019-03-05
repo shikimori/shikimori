@@ -1,0 +1,16 @@
+=media
+  display: inline-block
+  line-height: 0
+  overflow: hidden
+  position: relative // need to position properly .marker
+  transition: opacity 0.5s ease
+  vertical-align: text-top
+
+  &:hover
+    img
+      opacity: .56
+
+  img
+    max-width: 100%
+    min-height: 20px
+    transition: opacity 0.25s ease

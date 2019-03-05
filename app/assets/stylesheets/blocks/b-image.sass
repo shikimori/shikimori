@@ -1,26 +1,18 @@
-@import globals
 @import mixins/image_editable
+@import mixins/media
+@import mixins/media_marker
 
 .cc > .c-screenshot
   margin-bottom: 10px
 
 .b-image
   +image_editable
+  +media
   cursor: zoom-in !important
-  display: inline-block
-  line-height: 0
-  overflow: hidden
-  position: relative
-  transition: opacity 0.5s ease
-  vertical-align: text-top
 
   &:hover
-    opacity: 0.85
-
-  img
-    max-width: 100%
-    min-height: 20px
-    transition: opacity 0.25s ease
+    img
+      opacity: 0.85
 
   &.fixed
     margin-bottom: 0
@@ -32,11 +24,20 @@
     max-width: $media_width !important
     max-height: $media_width !important
 
-  .marker
-    +media_marker
-
   .normalized_width
     max-width: $media_width !important
 
   .normalized_height
     max-height: $media_width !important
+
+  .marker
+    +media_marker
+
+    &:empty:before
+      display: none
+
+    &:before
+      +shikimori('\e83d')
+      font-size: 12px
+      line-height: 20px
+      padding: 0 7px 0 2px
