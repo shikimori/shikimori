@@ -4,6 +4,14 @@
   @media screen and (max-width: $iphone_max)
     @content
 
+=iphone-s
+  @media screen and (max-width: $phone)
+    @content
+
+=iphone-gt-s
+  @media screen and (min-width: $phone + 1) and (max-width: $iphone_max)
+    @content
+
 =iphone-portrait
   @media screen and (max-width: $iphone) and (orientation: portrait)
     @content
@@ -35,11 +43,11 @@
     @content
 
 =gt_ipad
-  @media only screen and (min-width: $ipad_max+1)
+  @media screen and (min-width: $ipad_max+1)
     @content
 
 =gte_ipad
-  @media only screen and (min-width: $ipad)
+  @media screen and (min-width: $ipad)
     @content
 
 =gte_ipad-landscape
@@ -67,22 +75,3 @@
 =gt_laptop
   @media screen and (min-width: $laptop_max+1)
     @content
-
-// TODO: выпилить миксин
-=responsive($media)
-  @if $media == narrow-phone
-    @media only screen and (max-width: $phone)
-      @content
-
-  @else if $media == phone
-    @media only screen and (max-width: $iphone)
-      @content
-
-  @else if $media == tablet
-    /*@media only screen and (min-width: 768px) and (max-width: 980px) { @content; }
-    @media only screen and (max-width: $ipad)
-      @content
-
-  @else if $media == desktop
-    @media only screen and (min-width: $ipad+1)
-      @content
