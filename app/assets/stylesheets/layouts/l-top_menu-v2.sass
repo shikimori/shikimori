@@ -5,6 +5,13 @@
 @import mixins/responsive
 @import mixins/retina
 
+=top_menu_icon($content)
+  +icon($content, $menu-icon-size)
+  line-height: inherit !important
+
+  &:before
+    line-height: $menu_height
+
 .l-top_menu-v2
   align-items: center
   background: #343434
@@ -33,6 +40,9 @@
       margin-top: 4px
       width: 30px
 
+      +iphone-narrow
+        display: none
+
     .logo
       +background-inline-retina('/assets/layouts/l-top_menu-v2/logo', 'png')
       background-size: contain !important
@@ -53,31 +63,21 @@
 
 
       &.calendar > a
-        +icon('\e839', $menu-icon-size)
+        +top_menu_icon('\e839')
 
       &.info > a
-        +icon('i', $menu-icon-size)
+        +top_menu_icon('i')
 
       &.moderation > a
-        +icon('\e80a', $menu-icon-size)
+        +top_menu_icon('\e80a')
 
-      & > a
+      & > a,
+      & > span
         color: inherit
         font-size: 14px
         letter-spacing: 0.5px
+        line-height: $menu_height
         padding: 0 15px
-
-        // &:active
-          color: #f9f9f9
-
-        &:not(.icon)
-          line-height: $menu_height
-
-        &.icon
-          margin-left: 0 !important
-
-          &:before
-            line-height: $menu_height
 
       &.selected, &:hover
         background-color: lighten(#4a4a4a, 4%)
@@ -106,8 +106,20 @@
     +iphone
       display: none !important
 
-  .mobile-menu-toggler
-    +icon('m', $menu-icon-size)
+  .mobile
+    margin-left: auto
+
+    +gt_ipad
+      display: none
+
+    .forum
+      +top_menu_icon('f')
+
+    .menu-toggler
+      +top_menu_icon('m')
+
+    .search-toggler
+      +top_menu_icon('s')
 
   .userbox
     align-items: center
@@ -117,11 +129,8 @@
     +iphone
       display: none
 
-    .mail
-      & > a
-        +icon('\e81f', $menu-icon-size)
-        margin-left: 0 !important
-        color: #fff
+    .mail > a
+      +top_menu_icon('\e81f')
 
     .avatar
       & > a
