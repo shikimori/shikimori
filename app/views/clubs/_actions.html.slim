@@ -9,7 +9,7 @@
 
   - else
     - unless club.logo.exists?
-      .subheadline = i18n_i 'action', :other
+      .subheadline.m10 = i18n_i 'action', :other
 
     .club-actions
       - if can? :edit, club
