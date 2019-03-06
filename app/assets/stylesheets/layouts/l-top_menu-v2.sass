@@ -11,6 +11,7 @@
 
   &:before
     line-height: $menu_height
+    vertical-align: middle
 
 .l-top_menu-v2
   align-items: center
@@ -39,7 +40,7 @@
       background-size: contain !important
       height: 30px
       margin-right: 3px
-      margin-top: 4px
+      margin-top: 2px
       width: 30px
 
       +iphone-s
@@ -135,6 +136,7 @@
     align-items: center
     display: flex
     margin-left: auto
+    margin-right: 10px
 
     +iphone
       display: none
@@ -151,11 +153,12 @@
         position: relative
 
         +gte_ipad
-          min-width: 150px
+          min-width: 200px
           max-width: 300px
 
         img
           height: 30px
+          pointer-events: none
 
         .nickname
           +ellipsis2
@@ -163,9 +166,11 @@
           letter-spacing: 0.5px
           margin-left: 10px
           margin-right: 25px
+          pointer-events: none
 
         .arrow-down
           +icon('\e846', $menu-icon-size)
-          margin-top: 3px
-          position: absolute
-          right: 10px
+          margin-left: auto
+
+          &:before
+            vertical-align: middle

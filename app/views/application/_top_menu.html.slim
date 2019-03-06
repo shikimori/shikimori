@@ -66,10 +66,7 @@
           / = [99, current_user.unread_count].min
 
     .entry.avatar
-      a[
-        href=current_user.url
-        title=current_user.nickname
-      ]
+      a
         img[
           src=current_user.avatar_url(48)
           srcset="#{current_user.avatar_url 80} 2x"
@@ -87,6 +84,9 @@
         a.entry[
           href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
         ] = t 'manga_list'
+        a.entry[
+          href=profile_achievements_url(current_user, subdomain: nil)
+        ] = i18n_i('Achievement', :other)
         a.entry[
           href=edit_profile_url(current_user, page: :account, subdomain: nil)
         ] = t :settings
