@@ -78,12 +78,16 @@
 
       .submenu.right
         .legend = t '.legend.profile'
-        a[
+        a.anime[
           href=profile_user_rates_url(current_user, list_type: 'anime', subdomain: nil)
-        ] = t 'anime_list'
-        a[
+        ]
+          .letter.a
+          = t 'anime_list'
+        a.manga[
           href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
-        ] = t 'manga_list'
+        ]
+          .letter.m
+          = t 'manga_list'
         a.achievements[
           href=profile_achievements_url(current_user, subdomain: nil)
         ] = i18n_i('Achievement', :other)
