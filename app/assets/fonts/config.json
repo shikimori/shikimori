@@ -259,12 +259,6 @@
       "src": "typicons"
     },
     {
-      "uid": "d139ce97a43aedd333fa40f776328c3c",
-      "css": "user-delete",
-      "code": 59431,
-      "src": "typicons"
-    },
-    {
       "uid": "62bc6fe2a82e4864e2b94d4c0985ee0c",
       "css": "up-small",
       "code": 59395,
@@ -649,6 +643,12 @@
       "css": "logout",
       "code": 113,
       "src": "websymbols"
+    },
+    {
+      "uid": "0d20938846444af8deb1920dc85a29fb",
+      "css": "logout-1",
+      "code": 59460,
+      "src": "fontawesome"
     },
     {
       "uid": "e847891cd6b1d14528603a17092d0b6d",
