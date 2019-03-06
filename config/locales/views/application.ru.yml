@@ -4,6 +4,9 @@ ru:
       report_bug: Сообщить об ошибке
 
     top_menu:
+      legend:
+        profile: Профиль
+        site: Сайт
       sign_out: Выход
       sign_in: Вход
       search: Поиск

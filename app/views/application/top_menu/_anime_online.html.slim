@@ -5,7 +5,7 @@
   a href=animes_collection_url title="Аниме" Аниме онлайн
   .submenu
     - menu.anime_seasons.each do |season, short_title, full_title|
-      a.item[
+      a[
         href=animes_collection_url(season.url_params)
         title=season.full_title
       ] = season.short_title

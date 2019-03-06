@@ -7,17 +7,18 @@ $(document).on('page:load', () => {
 
     const height = $menu.height();
     const borderBottomWidth = parseInt($menu.css('borderBottomWidth'));
-    $menu.css({ height: 0, borderBottomWidth: 0 });
+    const borderTopWidth = parseInt($menu.css('borderTopWidth'));
+    $menu.css({ height: 0, borderTopWidth: 0, borderBottomWidth: 0 });
 
     $menu
       .showModal({
         trigger: $trigger,
         show: () => {
-          $menu.css({ height, borderBottomWidth });
+          $menu.css({ height, borderTopWidth, borderBottomWidth });
           $trigger.addClass('active');
         },
         hide: () => {
-          $menu.css({ height: 0, borderBottomWidth: 0 });
+          $menu.css({ height: 0, borderTopWidth: 0, borderBottomWidth: 0 });
           $trigger.removeClass('active');
         }
 

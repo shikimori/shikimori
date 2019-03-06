@@ -1,28 +1,65 @@
+=submenu_icon($content, $font-size: 18px)
+  &:before
+    +shikimori($content)
+    font-size: $font-size
+    height: 20px
+    left: 14px
+    line-height: 20px
+    position: absolute
+    text-align: center
+    top: 9px
+    width: 20px
+
 .l-top_menu-v2 .submenu
   background: $top_menu_background_hover
-  // border: 2px solid $top_menu_background_hover
-  border-top: none
+  border-bottom: 1px solid $top_menu_background_hover
+  border-left: 1px solid $top_menu_background_hover
+  border-right: 1px solid $top_menu_background_hover
   display: none
   overflow: hidden
   position: absolute
-  transition: height 0.3s ease
   z-index: 1000
 
-  & > .item
-    border-bottom: 1px solid #aaa
-    color: #f9f9f9
+  & > .legend
+    font-size: 10px
+    font-weight: bold
+    letter-spacing: .5px
+    line-height: 24px
+    padding: 0 15px 0 10px
+    text-transform: uppercase
+
+    &:first-child
+      margin-top: 5px
+
+  & > a
+    // border-bottom: 1px solid #aaa
+    // transition: backround-color 0.3s ease, color 0.3s ease
+    color: #fff
     cursor: pointer
     display: block
     font-size: 13px
-    height: 35px
-    line-height: 35px
-    min-width: 80px
-    padding: 0 15px 0 10px
-    transition: backround-color 0.3s ease, color 0.3s ease
+    font-size: 13px
+    letter-spacing: 0.5px
+    line-height: 38px
+    padding: 0 10px 0 48px
+    position: relative
+    user-select: none
 
-    // &:hover
-    //   background: #555
-    //   color: white
+    // &:last-child
+      border-bottom: 1px solid $top_menu_background_hover
+
+    &:hover
+      background: #fff
+      color: #123
+
+    &.achievements
+      +submenu_icon('\e83b')
+
+    &.settings
+      +submenu_icon('\e822')
+
+    &.sign-out
+      +submenu_icon('q', 15px)
 
     // &.active
     //   background: #282828
@@ -34,4 +71,3 @@
 
     &:last-child
       border-bottom: none
-

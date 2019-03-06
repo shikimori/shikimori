@@ -4,6 +4,9 @@ en:
       report_bug: Report a bug
 
     top_menu:
+      legend:
+        profile: Profile
+        site: Site
       sign_in: Sign In
       sign_out: Sign Out
       search: Search
