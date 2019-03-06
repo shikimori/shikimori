@@ -1,5 +1,5 @@
-.entry[
-  class=(:selected if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime'))
+.item[
+  class=(:active if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime'))
 ]
   .submenu-toggler
   a[
@@ -9,25 +9,25 @@
 
   .submenu
     - menu.anime_seasons.each do |season|
-      a.entry[
+      a.item[
         href=animes_collection_url(season.url_params)
         title=season.full_title
       ] = season.short_title
 
-    a.entry[
+    a.item[
       href=studios_url
       title=i18n_i('Studio', :other)
     ] = i18n_i 'Studio', :other
 
-.entry.calendar
+.item.calendar
   a.icon[
-    class=(:selected if params[:controller] == 'pages' && params[:action] == 'ongoings')
+    class=(:active if params[:controller] == 'pages' && params[:action] == 'ongoings')
     href=ongoings_pages_url
     title=t('calendar')
   ]
 
-.entry[
-  class=(:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga'))
+.item[
+  class=(:active if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga'))
 ]
   .submenu-toggler
   a[
@@ -37,13 +37,13 @@
 
   .submenu
     - menu.manga_kinds.each do |kind|
-      a.entry[
+      a.item[
         href=mangas_collection_url(kind.url_params)
         title=kind.title
       ] = kind.title
 
-.entry[
-  class=(:selected if params[:controller] == 'ranobe' || (params[:controller] == 'animes_collection' && params[:klass] == 'ranobe'))
+.item[
+  class=(:active if params[:controller] == 'ranobe' || (params[:controller] == 'animes_collection' && params[:klass] == 'ranobe'))
 ]
   .submenu-toggler
   a[
@@ -53,12 +53,12 @@
 
   .submenu
     - menu.ranobe_seasons.each do |season|
-      a.entry[
+      a.item[
         href=ranobe_collection_url(season.url_params)
         title=season.full_title
       ] = season.short_title
 
-.entry
+.item
   - if user_signed_in? && current_user.show_contest_link?
     a.contest[
       href=current_contests_url
@@ -67,8 +67,8 @@
     ]
   a href=contests_url title=t('.contests') = t '.contests'
 
-.entry[
-  class=(:selected if %w[topics users clubs collections].include?(params[:controller]))
+.item[
+  class=(:active if %w[topics users clubs collections].include?(params[:controller]))
 ]
   .submenu-toggler
   a[
@@ -78,99 +78,99 @@
   ] = t '.community'
 
   .submenu
-    a.entry[
+    a.item[
       class=(:active if params[:controller] == 'topics')
       href=forum_url
       title=t('forum')
     ] = t 'forum'
 
-    a.entry[
+    a.item[
       class=(:active if params[:controller] == 'clubs')
       href=clubs_url
       title=i18n_i('Club', :other)
     ] = i18n_i 'Club', :other
 
-    a.entry[
+    a.item[
       class=(:active if params[:controller] == 'collections')
       href=collections_url
       title=i18n_i('Collection', :other)
     ] = i18n_i 'Collection', :other
 
-    a.entry[
+    a.item[
       class=(:active if params[:controller] == 'topics' && params[:forum] == 'reviews')
       href=forum_topics_url(:reviews)
       title=i18n_i('Review', :other)
     ] = i18n_i 'Review', :other
 
-    a.entry[
+    a.item[
       class=(:active if params[:controller] == 'users')
       href=users_url
       title=i18n_i('User', :other)
     ] = i18n_i 'User', :other
 
 - if user_signed_in?
-  .entry.info
+  .item.info
     .submenu-toggler
     a.icon title=t('.info') href=info_pages_url
     .submenu
-      a.entry[
+      a.item[
         href=about_pages_url
         title=t('about_site')
       ] = t 'about_site'
 
       - unless Rails.env.test?
-        a.entry[
+        a.item[
           href=StickyTopicView.site_rules(locale_from_host).url
           title=t('.site_rules')
         ] = t '.site_rules'
 
       - if ru_host? && !Rails.env.test?
-        a.entry[
+        a.item[
           href=StickyClubView.faq(locale_from_host).url
           title=t('.faq')
         ] = t '.faq'
 
       - if ignore_copyright?
-        a.entry[
+        a.item[
           href=copyrighted_pages_url
           title=t('copyrighted_animes')
         ] = t 'copyrighted_animes'
 
       - if ru_host? && !Rails.env.test?
-        a.entry[
+        a.item[
           href=StickyTopicView.socials(locale_from_host).url
           title=t('.socials')
         ] = t '.socials'
 
-      a.entry[
+      a.item[
         href=anime_statistics_url
         title=t('anime_industry')
       ] = t 'anime_industry'
 
-      a.entry[
+      a.item[
         href=moderations_url
         title=t('.moderation')
       ] = t '.moderation'
 
-      a.entry[
+      a.item[
         href=development_pages_url
         title=t('.development')
       ] = t '.development'
 
       - if ru_host?
-        a.entry[
+        a.item[
           href=club_url('950-shikimori-api')
           title='API'
         ] API
       - else
-        a.entry[
+        a.item[
           href=apipie_apipie_url
           title='API'
         ] API
 
   - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
-    .entry.moderation[
-      class=(:selected if params[:controller].match?(/^moderations/))
+    .item.moderation[
+      class=(:active if params[:controller].match?(/^moderations/))
     ]
       a.icon[
         title=t('.moderation')
@@ -178,10 +178,10 @@
       ]
 
 - else
-  .entry.info
+  .item.info
     a title=t('.info') href=info_pages_url
 
-  .entry
+  .item
     a[
       title=t('application.footer.for_right_holders')
       href=for_right_holders_pages_url(subdomain: false)

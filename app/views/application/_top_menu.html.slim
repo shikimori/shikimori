@@ -20,13 +20,13 @@
     = render 'application/top_menu/shikimori', menu: Menus::TopMenu.new
 
   / - if user_signed_in?
-    a.entry.sign_out[
+    a.item.sign_out[
       href=destroy_user_session_url
       data-method='delete'
     ] = t '.sign_out'
 
 / .menu-search
-  .b-main_search.entry data-markers=CopyrightedIds::MARKERS
+  .b-main_search.item data-markers=CopyrightedIds::MARKERS
     .input
       input[
         data-type='animes'
@@ -46,26 +46,26 @@
 
 .menu.mobile
   - if user_signed_in? && shikimori?
-    .entry
+    .item
       a.forum href=forum_url
 
-  .entry
+  .item
     span.search-toggler title=t('.search')
 
-  .entry
+  .item
     span.top_menu-toggler title=t('.main_menu')
 
 .menu.userbox
   - if user_signed_in?
     - if current_user.unread_count.positive?
-      .entry.mail
+      .item.mail
         a.icon[
           href=current_user.unread_messages_url
           title=t(:mail)
         ]
           / = [99, current_user.unread_count].min
 
-    .entry.avatar
+    .item.avatar.submenu-trigger
       a
         img[
           src=current_user.avatar_url(48)
@@ -75,29 +75,29 @@
         ]
         span.nickname
           = current_user.nickname
-        span.arrow-down
 
       .submenu.right
-        a.entry[
+        a.item[
           href=profile_user_rates_url(current_user, list_type: 'anime', subdomain: nil)
         ] = t 'anime_list'
-        a.entry[
+        a.item[
           href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
         ] = t 'manga_list'
-        a.entry[
+        a.item[
           href=profile_achievements_url(current_user, subdomain: nil)
         ] = i18n_i('Achievement', :other)
-        a.entry[
+        a.item[
           href=edit_profile_url(current_user, page: :account, subdomain: nil)
         ] = t :settings
-        a.entry[
+        a.item[
           href=destroy_user_session_url(subdomain: nil)
           data-method='delete'
         ] = t '.sign_out'
 
   - else
-    .entry.userbox.linkeable[
-      data-href=new_user_session_url(subdomain: nil)
-      title=t('.sign_in')
-    ]
-      span#sign_in
+    - 1/0
+    / .item.userbox.linkeable[
+    /   data-href=new_user_session_url(subdomain: nil)
+    /   title=t('.sign_in')
+    / ]
+    /   span#sign_in

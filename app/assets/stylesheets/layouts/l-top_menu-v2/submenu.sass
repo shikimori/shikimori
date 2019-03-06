@@ -1,0 +1,37 @@
+.l-top_menu-v2 .submenu
+  background: $top_menu_background_hover
+  // border: 2px solid $top_menu_background_hover
+  border-top: none
+  display: none
+  overflow: hidden
+  position: absolute
+  transition: height 0.3s ease
+  z-index: 1000
+
+  & > .item
+    border-bottom: 1px solid #aaa
+    color: #f9f9f9
+    cursor: pointer
+    display: block
+    font-size: 13px
+    height: 35px
+    line-height: 35px
+    min-width: 80px
+    padding: 0 15px 0 10px
+    transition: backround-color 0.3s ease, color 0.3s ease
+
+    // &:hover
+    //   background: #555
+    //   color: white
+
+    // &.active
+    //   background: #282828
+    //   cursor: inherit
+
+    // &:active
+    //   background: #333
+    //   color: $menu_link_color !important
+
+    &:last-child
+      border-bottom: none
+
