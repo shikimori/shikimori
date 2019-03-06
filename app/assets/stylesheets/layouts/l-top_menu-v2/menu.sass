@@ -6,7 +6,7 @@
   & > .item
     +mr(2px)
     // background: $top_menu-background_color
-    cursor: pointer
+    // cursor: pointer
     position: relative
     // transition: background-color .3s ease
 
@@ -27,12 +27,21 @@
     &.moderation > a
       +top_menu_icon('\e80a')
 
+    & > .contest
+      margin: 7px 5px 0 0
+
+      &:before
+        position: absolute
+        margin-left: -5px
+        line-height: 15px
+
     & > a,
     & > span
       color: inherit
       font-size: 14px
       letter-spacing: 0.5px
       line-height: $menu_height
+      user-select: none
 
       +iphone-s
         padding: 0 10px
@@ -50,6 +59,10 @@
           &:after
             transform: rotate(90deg)
 
+        // transition added on "show" only
+        .submenu
+          transition: height 0.3s ease
+
       &> a,
       & > span
         &:after
@@ -59,11 +72,3 @@
           margin-left: auto
           transition: transform .2s ease-in-out
           vertical-align: middle
-
-    & > .contest
-      margin: 7px 5px 0 0
-
-      &:before
-        position: absolute
-        margin-left: -5px
-        line-height: 15px

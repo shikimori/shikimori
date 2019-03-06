@@ -77,19 +77,22 @@
           = current_user.nickname
 
       .submenu.right
-        a.item[
+        .legend = t '.legend.profile'
+        a[
           href=profile_user_rates_url(current_user, list_type: 'anime', subdomain: nil)
         ] = t 'anime_list'
-        a.item[
+        a[
           href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
         ] = t 'manga_list'
-        a.item[
+        a.achievements[
           href=profile_achievements_url(current_user, subdomain: nil)
         ] = i18n_i('Achievement', :other)
-        a.item[
+        a.settings[
           href=edit_profile_url(current_user, page: :account, subdomain: nil)
         ] = t :settings
-        a.item[
+
+        .legend = t '.legend.site'
+        a.sign-out[
           href=destroy_user_session_url(subdomain: nil)
           data-method='delete'
         ] = t '.sign_out'
