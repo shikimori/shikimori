@@ -1,0 +1,69 @@
+.l-top_menu-v2 .menu
+  +clearfix
+  white-space: nowrap
+  display: flex
+
+  & > .item
+    +mr(2px)
+    // background: $top_menu-background_color
+    cursor: pointer
+    position: relative
+    // transition: background-color .3s ease
+
+    &.active,
+    &:hover
+      background-color: $top_menu_background_hover
+      text-decoration: none
+
+    &:active
+      background-color: $top_menu_background_active
+
+    &.calendar > a
+      +top_menu_icon('\e839')
+
+    &.info > a
+      +top_menu_icon('i')
+
+    &.moderation > a
+      +top_menu_icon('\e80a')
+
+    & > a,
+    & > span
+      color: inherit
+      font-size: 14px
+      letter-spacing: 0.5px
+      line-height: $menu_height
+
+      +iphone-s
+        padding: 0 10px
+
+      +iphone
+        padding: 0 12px
+
+      +gte_ipad
+        padding: 0 15px
+
+    &.submenu-trigger
+      &.active
+        &> a,
+        & > span
+          &:after
+            transform: rotate(90deg)
+
+      &> a,
+      & > span
+        &:after
+          +shikimori('\e846')
+          font-size: 16px
+          line-height: $menu-icon-size
+          margin-left: auto
+          transition: transform .2s ease-in-out
+          vertical-align: middle
+
+    & > .contest
+      margin: 7px 5px 0 0
+
+      &:before
+        position: absolute
+        margin-left: -5px
+        line-height: 15px

@@ -13,9 +13,19 @@
     line-height: $menu_height
     vertical-align: middle
 
+// $menu_link_color: #e1e7f2
+$menu_link_color: #fff
+$top_menu-background_color: #343434
+$top_menu_background_hover: $gray-4
+$top_menu_background_active: lighten($gray-4, 4%)
+
+@import ./l-top_menu-v2/menu
+@import ./l-top_menu-v2/submenu
+@import ./l-top_menu-v2/mobile
+
 .l-top_menu-v2
   align-items: center
-  background: #343434
+  background: $top_menu-background_color
   border-bottom: 1px solid #444
   color: #fff
   display: flex
@@ -52,64 +62,6 @@
       height: 30px
       margin-top: -1px
       width: 145px
-
-  .menu
-    +clearfix
-    white-space: nowrap
-    display: flex
-
-    & > .entry
-      +mr(2px)
-      // color: $menu_link_color
-      cursor: pointer
-      transition: backround-color 0.3s ease
-
-
-      &.calendar > a
-        +top_menu_icon('\e839')
-
-      &.info > a
-        +top_menu_icon('i')
-
-      &.moderation > a
-        +top_menu_icon('\e80a')
-
-      & > a,
-      & > span
-        color: inherit
-        font-size: 14px
-        letter-spacing: 0.5px
-        line-height: $menu_height
-
-        +iphone-s
-          padding: 0 10px
-
-        +iphone
-          padding: 0 12px
-
-        +gte_ipad
-          padding: 0 15px
-
-      &.selected, &:hover
-        background-color: lighten(#4a4a4a, 4%)
-        color: white
-        text-decoration: none
-
-      & > .submenu
-        margin-top: 0
-        margin-left: 0
-
-      &:active
-        background-color: #4A4A4A
-        // color: $menu_link_color !important
-
-      & > .contest
-        margin: 7px 5px 0 0
-
-        &:before
-          position: absolute
-          margin-left: -5px
-          line-height: 15px
 
   .submenu
     width: 100%
@@ -168,9 +120,14 @@
           margin-right: 25px
           pointer-events: none
 
-        .arrow-down
-          +icon('\e846', $menu-icon-size)
-          margin-left: auto
 
-          &:before
-            vertical-align: middle
+// +gt_ipad
+//   .l-top_menu-v2
+//     .menu-search
+//       & > .entry
+//         color: $menu_link_color
+//         cursor: pointer
+//         line-height: $menu_height
+//         padding: 0 20px
+//         transition: backround-color 0.3s ease
+

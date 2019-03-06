@@ -1,22 +1,22 @@
-.entry[
-  class=(:selected if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime'))
+.item[
+  class=(:active if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime'))
 ]
   .submenu-toggler
   a href=animes_collection_url title="Аниме" Аниме онлайн
   .submenu
     - menu.anime_seasons.each do |season, short_title, full_title|
-      a.entry[
+      a.item[
         href=animes_collection_url(season.url_params)
         title=season.full_title
       ] = season.short_title
 
-.entry
+.item
   a[
     title=t('application.footer.for_right_holders')
     href=for_right_holders_pages_url(subdomain: false)
   ] = t 'application.footer.for_right_holders'
 
-.entry
+.item
   a[
     href=root_url(subdomain: false)
     title="Основной сайт"
