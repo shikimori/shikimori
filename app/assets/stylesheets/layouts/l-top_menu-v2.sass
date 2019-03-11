@@ -85,8 +85,6 @@ $top_menu_background_active: lighten($gray-4, 4%)
       +top_menu_icon('s')
 
   .userbox
-    align-items: center
-    display: flex
     margin-left: auto
     margin-right: 10px
 
@@ -98,12 +96,6 @@ $top_menu_background_active: lighten($gray-4, 4%)
 
     .avatar
       & > a
-        +ellipsis2
-        align-items: center
-        color: #fff
-        display: flex
-        position: relative
-
         +gte_ipad
           min-width: 200px
           max-width: 300px
@@ -111,15 +103,6 @@ $top_menu_background_active: lighten($gray-4, 4%)
         img
           height: 30px
           pointer-events: none
-
-        .nickname
-          +ellipsis2
-          font-size: 18px
-          letter-spacing: 0.5px
-          margin-left: 10px
-          margin-right: 25px
-          pointer-events: none
-
 
 // +gt_ipad
 //   .l-top_menu-v2
@@ -130,4 +113,3 @@ $top_menu_background_active: lighten($gray-4, 4%)
 //         line-height: $menu_height
 //         padding: 0 20px
 //         transition: backround-color 0.3s ease
-

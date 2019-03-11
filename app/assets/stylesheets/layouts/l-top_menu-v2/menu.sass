@@ -35,9 +35,11 @@
         margin-left: -5px
         line-height: 15px
 
-    & > a,
-    & > span
+    & > a
+      +ellipsis2
+      align-items: center
       color: inherit
+      display: flex
       font-size: 14px
       letter-spacing: 0.5px
       line-height: $menu_height
@@ -52,19 +54,15 @@
       +gte_ipad
         padding: 0 15px
 
-    &.submenu-trigger
-      &.active
-        &> a,
-        & > span
-          &:after
-            transform: rotate(90deg)
-
-        // transition added on "show" only
-        .submenu
-          transition: height 0.3s ease
-
-      &> a,
       & > span
+        +ellipsis2
+        font-size: 18px
+        letter-spacing: 0.5px
+        margin-left: 10px
+        margin-right: 25px
+        pointer-events: none
+
+      &:not(.icon)
         &:after
           +shikimori('\e846')
           font-size: 16px
@@ -72,3 +70,11 @@
           margin-left: auto
           transition: transform .2s ease-in-out
           vertical-align: middle
+
+    &.active
+      & > a:not(.icon):after
+        transform: rotate(90deg)
+
+      // transition added on "show" only
+      .submenu
+        transition: height 0.3s ease

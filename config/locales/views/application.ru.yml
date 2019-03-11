@@ -14,12 +14,13 @@ ru:
 
       shikimori: &shikimori
         community: Сообщество
+        database: База данных
         contests: Турниры
         current_contest: Текущий турнир
         currently_airing: Сейчас выходит
         development: Разработка сайта
-        faq: FAQ - Часто задаваемые вопросы
-        info: Инфо
+        faq: FAQ
+        info: Информация
         moderation: Модерация и контент
         site_rules: Правила сайта
         socials: Мы в социальных сетях

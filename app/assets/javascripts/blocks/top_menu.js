@@ -1,6 +1,6 @@
 $(document).on('page:load', () => {
   // desktop menu
-  const $triggers = $('.l-top_menu-v2 .submenu-trigger');
+  const $triggers = $('.l-top_menu-v2 .submenu').parent();
   $triggers.each((_index, node) => {
     const $trigger = $(node);
     const $menu = $trigger.children('.submenu').show();
@@ -37,7 +37,7 @@ $(document).on('page:load', () => {
     //   }),
     // 0, $menu.data('duration') || 150);
   });
-  $triggers.last().click();
+  $triggers.first().click();
 
 //   // mobile menu
 //   $('.l-top_menu-v2 .top_menu-toggler').click(function () {
