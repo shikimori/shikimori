@@ -24,17 +24,31 @@ $top_menu_background_active: lighten($gray-4, 4%)
 @import ./l-top_menu-v2/mobile
 
 .l-top_menu-v2
-  align-items: center
   background: $top_menu-background_color
   border-bottom: 1px solid #444
   color: #fff
-  display: flex
   height: $menu_height
-  position: relative
   z-index: 10
+
+  // wo inner
+  align-items: center
+  display: flex
+  position: relative
 
   &.is-fullscreen-mode
     z-index: -1
+
+  // .inner
+  //   align-items: center
+  //   display: flex
+  //   margin: 0 auto
+  //   position: relative
+
+    .x1200 &
+      max-width: 1200px
+
+    .x1000 &
+      max-width: 1000px
 
   .logo-container
     align-items: center
@@ -83,6 +97,12 @@ $top_menu_background_active: lighten($gray-4, 4%)
 
     .search-toggler
       +top_menu_icon('s')
+
+  .main
+    & > a
+      +gte_ipad
+        min-width: 250px
+        max-width: 350px
 
   .userbox
     margin-left: auto
