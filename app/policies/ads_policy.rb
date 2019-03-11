@@ -11,6 +11,7 @@ class AdsPolicy
     return false if @is_disabled
     return false unless @is_ru_host
 
+    return false if special?(@ad_provider) && !@is_shikimori
     return false if mainstream?(@ad_provider) && Rails.env.development?
     return false if mainstream?(@ad_provider) && !@is_shikimori
 
