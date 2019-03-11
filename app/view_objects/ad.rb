@@ -8,8 +8,8 @@ class Ad < ViewObjectBase
     # disable after 2019-02-11
     Types::Ad::Type[:special_x300] => {
       provider: Types::Ad::Provider[:special],
-      url: 'https://vk.com/@animeinrussia-mirai-iz-buduschego-spisok-gorodov-i-kinoteatrov-prokata',
-      images: (3..3).map do |i|
+      url: 'https://animeinrussia.ru/goto/1/',
+      images: (2..2).map do |i|
         {
           src: "/assets/globals/events/special_#{i}.jpg",
           src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
@@ -47,8 +47,8 @@ class Ad < ViewObjectBase
       #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
       #   HTML
       # ),
-      url: 'https://kassa.rambler.ru/movie/3773',
-      images: (4..4).map do |i|
+      url: 'https://animeinrussia.ru/goto/1/',
+      images: (1..1).map do |i|
         {
           src: "/assets/globals/events/special_#{i}.jpg",
           src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
@@ -140,19 +140,19 @@ class Ad < ViewObjectBase
 
   META_TYPES = {
     Types::Ad::Meta[:menu_300x250] => [
-      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:special_x300],
       # Types::Ad::Type[:mt_300x250],
       Types::Ad::Type[:yd_240x400],
       Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:special_x300],
       # Types::Ad::Type[:mt_240x400],
       Types::Ad::Type[:yd_240x500],
       Types::Ad::Type[:advrtr_240x400]
     ],
     Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300],
+      Types::Ad::Type[:special_x300],
       # Types::Ad::Type[:mt_300x600],
       Types::Ad::Type[:yd_300x600],
       Types::Ad::Type[:advrtr_240x400]
