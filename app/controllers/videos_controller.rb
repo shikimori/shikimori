@@ -6,7 +6,7 @@ class VideosController < ShikimoriController
     @video, @version = versioneer.upload create_params, current_user
     @version.auto_accept if @version&.persisted? && can?(:auto_accept, @version)
 
-    @video.destroy! if @video.persisted? && !@version.persisted?
+    @video.destroy! if @video.persisted? && !@version.persisted? && params[:anime_id] != '0'
 
     if request.xhr?
       replace_video @video if duplicate? @video
