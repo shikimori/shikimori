@@ -42,7 +42,7 @@ $.fn.extend
           'image/jpeg'
           'image/png'
         ]
-        error: (status, _file, _fileIndex, _status, error) ->
+        error: (status, _file, _fileIndex, _status, error_text) ->
           @afterAll()
 
           switch status
@@ -53,8 +53,8 @@ $.fn.extend
               flash.error I18n.t("#{I18N_KEY}.too_large_file")
 
             when 'Unprocessable Entity'
-              if (error)
-                flash.error error
+              if error_text
+                flash.error error_text
               else
                 flash.error I18n.t("#{I18N_KEY}.please_try_again_later")
 
@@ -139,13 +139,14 @@ $.fn.extend
         uploadFinished: (i, file, response, time) ->
           if Object.isString(response) || 'error' of response
             $node.trigger 'upload:failed', [response, i]
-            alert =
-              if Object.isString(response)
-                I18n.t("#{I18N_KEY}.please_try_again_later")
-              else
-                response.error
+            # alert =
+            #   if Object.isString(response)
+            #     # I18n.t("#{I18N_KEY}.please_try_again_later")
+            #     response
+            #   else
+            #     response.error
 
-            flash.error alert
+            # flash.error alert
           else
             $node.trigger 'upload:success', [response, i]
           #$.hideCursorMessage()

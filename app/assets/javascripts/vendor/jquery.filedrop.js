@@ -358,7 +358,6 @@
             }
           });
           //opts.error(errors[0]);
-          debugger
           opts.error(err);
         }
 
@@ -485,10 +484,7 @@
 
           // Pass any errors to the error option
           if (xhr.status < 200 || xhr.status > 299) {
-            try {
-              var error = JSON.parse(xhr.responseText);
-            } catch (e) {}
-            opts.error(xhr.statusText, file, fileIndex, xhr.status, error);
+            opts.error(xhr.statusText, file, fileIndex, xhr.status, xhr.responseText);
           }
         };
       };
