@@ -1,188 +1,298 @@
-.item[
-  class=(:active if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime'))
-]
-  .submenu-toggler
-  a[
-    href=animes_collection_url
-    title=Anime.model_name.human
-  ] = Anime.model_name.human
-
-  .submenu
-    - menu.anime_seasons.each do |season|
-      a.item[
-        href=animes_collection_url(season.url_params)
-        title=season.full_title
-      ] = season.short_title
-
-    a.item[
-      href=studios_url
-      title=i18n_i('Studio', :other)
-    ] = i18n_i 'Studio', :other
-
-.item.calendar
-  a.icon[
-    class=(:active if params[:controller] == 'pages' && params[:action] == 'ongoings')
-    href=ongoings_pages_url
-    title=t('calendar')
-  ]
-
-.item[
-  class=(:active if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga'))
-]
-  .submenu-toggler
-  a[
-    href=mangas_collection_url
-    title=Manga.model_name.human
-  ] = Manga.model_name.human
-
-  .submenu
-    - menu.manga_kinds.each do |kind|
-      a[
-        href=mangas_collection_url(kind.url_params)
-        title=kind.title
-      ] = kind.title
-
-.item[
-  class=(:active if params[:controller] == 'ranobe' || (params[:controller] == 'animes_collection' && params[:klass] == 'ranobe'))
-]
-  .submenu-toggler
-  a[
-    href=ranobe_collection_url
-    title=Ranobe.model_name.human
-  ] = Ranobe.model_name.human
-
-  .submenu
-    - menu.ranobe_seasons.each do |season|
-      a[
-        href=ranobe_collection_url(season.url_params)
-        title=season.full_title
-      ] = season.short_title
-
 .item
-  - if user_signed_in? && current_user.show_contest_link?
-    a.contest[
-      href=current_contests_url
-      title=t('.current_contest')
-      data-count=current_user.unvoted_contests
-    ]
-  a href=contests_url title=t('.contests') = t '.contests'
-
-.item[
-  class=(:active if %w[topics users clubs collections].include?(params[:controller]))
-]
-  .submenu-toggler
-  a[
-    class=(:active if params[:controller] == 'topics' && params[:forum] != 'reviews')
-    href=forum_url
-    title=t('.community')
-  ] = t '.community'
+  a
+    span Главная
 
   .submenu
+    .legend = t '.database'
+    a.anime[
+      href=animes_collection_url
+      title=Anime.model_name.human
+    ]
+      .letter.a
+      = Anime.model_name.human
+    a.manga[
+      href=mangas_collection_url
+      title=Manga.model_name.human
+    ]
+      .letter.m
+      = Manga.model_name.human
+    a.ranobe[
+      href=ranobe_collection_url
+      title=Ranobe.model_name.human
+    ]
+      .letter.r
+      = Ranobe.model_name.human
+
+    .legend = t '.community'
     a[
-      class=(:active if params[:controller] == 'topics')
+      href=contests_url
+      title=t('.contests')
+    ] = t '.contests'
+    a[
+      href=clubs_url
+      title=i18n_i('Club', :other)
+    ] = i18n_i 'Club', :other
+    a[
+      href=collections_url
+      title=i18n_i('Collection', :other)
+    ] = i18n_i 'Collection', :other
+    a[
+      href=forum_topics_url(:reviews)
+      title=i18n_i('Review', :other)
+    ] = i18n_i 'Review', :other
+    a[
       href=forum_url
       title=t('forum')
     ] = t 'forum'
 
+    .legend = t '.info'
     a[
-      class=(:active if params[:controller] == 'clubs')
-      href=clubs_url
-      title=i18n_i('Club', :other)
-    ] = i18n_i 'Club', :other
+      href=about_pages_url
+      title=t('about_site')
+    ] = t 'about_site'
 
-    a[
-      class=(:active if params[:controller] == 'collections')
-      href=collections_url
-      title=i18n_i('Collection', :other)
-    ] = i18n_i 'Collection', :other
-
-    a[
-      class=(:active if params[:controller] == 'topics' && params[:forum] == 'reviews')
-      href=forum_topics_url(:reviews)
-      title=i18n_i('Review', :other)
-    ] = i18n_i 'Review', :other
-
-    a[
-      class=(:active if params[:controller] == 'users')
-      href=users_url
-      title=i18n_i('User', :other)
-    ] = i18n_i 'User', :other
-
-- if user_signed_in?
-  .item.info
-    .submenu-toggler
-    a.icon title=t('.info') href=info_pages_url
-    .submenu
+    - unless Rails.env.test?
       a[
-        href=about_pages_url
-        title=t('about_site')
-      ] = t 'about_site'
+        href=StickyTopicView.site_rules(locale_from_host).url
+        title=t('.site_rules')
+      ] = t '.site_rules'
 
-      - unless Rails.env.test?
-        a[
-          href=StickyTopicView.site_rules(locale_from_host).url
-          title=t('.site_rules')
-        ] = t '.site_rules'
-
-      - if ru_host? && !Rails.env.test?
-        a[
-          href=StickyClubView.faq(locale_from_host).url
-          title=t('.faq')
-        ] = t '.faq'
-
-      - if ignore_copyright?
-        a[
-          href=copyrighted_pages_url
-          title=t('copyrighted_animes')
-        ] = t 'copyrighted_animes'
-
-      - if ru_host? && !Rails.env.test?
-        a[
-          href=StickyTopicView.socials(locale_from_host).url
-          title=t('.socials')
-        ] = t '.socials'
-
+    - if ru_host? && !Rails.env.test?
       a[
-        href=anime_statistics_url
-        title=t('anime_industry')
-      ] = t 'anime_industry'
+        href=StickyClubView.faq(locale_from_host).url
+        title=t('.faq')
+      ] = t '.faq'
 
+    - if ignore_copyright?
       a[
-        href=moderations_url
-        title=t('.moderation')
-      ] = t '.moderation'
+        href=copyrighted_pages_url
+        title=t('copyrighted_animes')
+      ] = t 'copyrighted_animes'
 
+    - if ru_host? && !Rails.env.test?
       a[
-        href=development_pages_url
-        title=t('.development')
-      ] = t '.development'
+        href=StickyTopicView.socials(locale_from_host).url
+        title=t('.socials')
+      ] = t '.socials'
 
-      - if ru_host?
-        a[
-          href=club_url('950-shikimori-api')
-          title='API'
-        ] API
-      - else
-        a[
-          href=apipie_apipie_url
-          title='API'
-        ] API
-
-  - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
-    .item.moderation[
-      class=(:active if params[:controller].match?(/^moderations/))
-    ]
-      a.icon[
-        title=t('.moderation')
-        href=moderations_url
-      ]
-
-- else
-  .item.info
-    a title=t('.info') href=info_pages_url
-
-  .item
     a[
-      title=t('application.footer.for_right_holders')
-      href=for_right_holders_pages_url(subdomain: false)
-    ] = t 'application.footer.for_right_holders'
+      href=moderations_url
+      title=t('.moderation')
+    ] = t '.moderation'
+
+    a[
+      href=development_pages_url
+      title=t('.development')
+    ] = t '.development'
+
+    - if ru_host?
+      a[
+        href=club_url('950-shikimori-api')
+        title='API'
+      ] API
+    - else
+      a[
+        href=apipie_apipie_url
+        title='API'
+      ] API
+
+    / - menu.anime_seasons.each do |season|
+    /   a[
+    /     href=animes_collection_url(season.url_params)
+    /     title=season.full_title
+    /   ] = season.short_title
+
+    / a[
+    /   href=studios_url
+    /   title=i18n_i('Studio', :other)
+    / ] = i18n_i 'Studio', :other
+
+
+/ .item[
+/   class=(:active if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime'))
+/ ]
+/   .submenu-toggler
+/   a[
+/     href=animes_collection_url
+/     title=Anime.model_name.human
+/   ] = Anime.model_name.human
+
+/   .submenu
+/     - menu.anime_seasons.each do |season|
+/       a.item[
+/         href=animes_collection_url(season.url_params)
+/         title=season.full_title
+/       ] = season.short_title
+
+/     a.item[
+/       href=studios_url
+/       title=i18n_i('Studio', :other)
+/     ] = i18n_i 'Studio', :other
+
+/ .item.calendar
+/   a.icon[
+/     class=(:active if params[:controller] == 'pages' && params[:action] == 'ongoings')
+/     href=ongoings_pages_url
+/     title=t('calendar')
+/   ]
+
+/ .item[
+/   class=(:active if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga'))
+/ ]
+/   .submenu-toggler
+/   a[
+/     href=mangas_collection_url
+/     title=Manga.model_name.human
+/   ] = Manga.model_name.human
+
+/   .submenu
+/     - menu.manga_kinds.each do |kind|
+/       a[
+/         href=mangas_collection_url(kind.url_params)
+/         title=kind.title
+/       ] = kind.title
+
+/ .item[
+/   class=(:active if params[:controller] == 'ranobe' || (params[:controller] == 'animes_collection' && params[:klass] == 'ranobe'))
+/ ]
+/   .submenu-toggler
+/   a[
+/     href=ranobe_collection_url
+/     title=Ranobe.model_name.human
+/   ] = Ranobe.model_name.human
+
+/   .submenu
+/     - menu.ranobe_seasons.each do |season|
+/       a[
+/         href=ranobe_collection_url(season.url_params)
+/         title=season.full_title
+/       ] = season.short_title
+
+/ .item
+/   - if user_signed_in? && current_user.show_contest_link?
+/     a.contest[
+/       href=current_contests_url
+/       title=t('.current_contest')
+/       data-count=current_user.unvoted_contests
+/     ]
+/   a href=contests_url title=t('.contests') = t '.contests'
+
+/ .item[
+/   class=(:active if %w[topics users clubs collections].include?(params[:controller]))
+/ ]
+/   .submenu-toggler
+/   a[
+/     class=(:active if params[:controller] == 'topics' && params[:forum] != 'reviews')
+/     href=forum_url
+/     title=t('.community')
+/   ] = t '.community'
+
+/   .submenu
+/     a[
+/       class=(:active if params[:controller] == 'topics')
+/       href=forum_url
+/       title=t('forum')
+/     ] = t 'forum'
+
+/     a[
+/       class=(:active if params[:controller] == 'clubs')
+/       href=clubs_url
+/       title=i18n_i('Club', :other)
+/     ] = i18n_i 'Club', :other
+
+/     a[
+/       class=(:active if params[:controller] == 'collections')
+/       href=collections_url
+/       title=i18n_i('Collection', :other)
+/     ] = i18n_i 'Collection', :other
+
+/     a[
+/       class=(:active if params[:controller] == 'topics' && params[:forum] == 'reviews')
+/       href=forum_topics_url(:reviews)
+/       title=i18n_i('Review', :other)
+/     ] = i18n_i 'Review', :other
+
+/     a[
+/       class=(:active if params[:controller] == 'users')
+/       href=users_url
+/       title=i18n_i('User', :other)
+/     ] = i18n_i 'User', :other
+
+/ - if user_signed_in?
+/   .item.info
+/     .submenu-toggler
+/     a.icon title=t('.info') href=info_pages_url
+/     .submenu
+/       a[
+/         href=about_pages_url
+/         title=t('about_site')
+/       ] = t 'about_site'
+
+/       - unless Rails.env.test?
+/         a[
+/           href=StickyTopicView.site_rules(locale_from_host).url
+/           title=t('.site_rules')
+/         ] = t '.site_rules'
+
+/       - if ru_host? && !Rails.env.test?
+/         a[
+/           href=StickyClubView.faq(locale_from_host).url
+/           title=t('.faq')
+/         ] = t '.faq'
+
+/       - if ignore_copyright?
+/         a[
+/           href=copyrighted_pages_url
+/           title=t('copyrighted_animes')
+/         ] = t 'copyrighted_animes'
+
+/       - if ru_host? && !Rails.env.test?
+/         a[
+/           href=StickyTopicView.socials(locale_from_host).url
+/           title=t('.socials')
+/         ] = t '.socials'
+
+/       a[
+/         href=anime_statistics_url
+/         title=t('anime_industry')
+/       ] = t 'anime_industry'
+
+/       a[
+/         href=moderations_url
+/         title=t('.moderation')
+/       ] = t '.moderation'
+
+/       a[
+/         href=development_pages_url
+/         title=t('.development')
+/       ] = t '.development'
+
+/       - if ru_host?
+/         a[
+/           href=club_url('950-shikimori-api')
+/           title='API'
+/         ] API
+/       - else
+/         a[
+/           href=apipie_apipie_url
+/           title='API'
+/         ] API
+
+/   - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
+/     .item.moderation[
+/       class=(:active if params[:controller].match?(/^moderations/))
+/     ]
+/       a.icon[
+/         title=t('.moderation')
+/         href=moderations_url
+/       ]
+
+/ - else
+/   .item.info
+/     a title=t('.info') href=info_pages_url
+
+/   .item
+/     a[
+/       title=t('application.footer.for_right_holders')
+/       href=for_right_holders_pages_url(subdomain: false)
+/     ] = t 'application.footer.for_right_holders'
