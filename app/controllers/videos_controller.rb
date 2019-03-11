@@ -2,9 +2,11 @@ class VideosController < ShikimoriController
   before_action :authenticate_user!
   before_action :fetch_anime
 
-  def create # rubocop:disable MethodLength, PerceivedComplexity, AbcSize
+  def create # rubocop:disable all
     @video, @version = versioneer.upload create_params, current_user
     @version.auto_accept if @version&.persisted? && can?(:auto_accept, @version)
+
+    @video.destroy! if @video.persisted? && !@version.persisted?
 
     if request.xhr?
       replace_video @video if duplicate? @video
@@ -14,7 +16,7 @@ class VideosController < ShikimoriController
         flash_value = i18n_t('pending_version')
       else
         flash_key = :alert
-        flash_value = @video.errors.full_messages.join(', ')
+        flash_value = (@video.destroyed? ? @version : @video).errors.full_messages.join(', ')
       end
 
       redirect_back(
