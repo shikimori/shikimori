@@ -28,7 +28,7 @@ class AnimeVideo < ApplicationRecord
 
   # kiwi.kz dailymotion.com myvi.ru myvi.tv - banned in RF
   # rutube.ru - banned play.shikimori.org for some reason
-  BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru myvi.tv play.aniland.org rutube.ru]
+  BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru play.aniland.org rutube.ru]
   COPYRIGHTED_AUTHORS = /wakanim/i # |crunchyroll|crunchy|FreakCrSuBuS
 
   belongs_to :anime
