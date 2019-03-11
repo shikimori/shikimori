@@ -4,10 +4,6 @@ class Versions::VideoVersion < Version
     .constructor(&:to_sym)
     .enum(:upload, :delete)
 
-  def antispam_enabled?
-    false
-  end
-
   def action
     Actions[item_diff['action']]
   end
