@@ -43,11 +43,11 @@ page_load '.db_entries-edit_field', ->
       $screenshots_positioner.find('#entry_ids').val $.makeArray(ids).join(',')
 
     $screenshots_uploader = $('.screenshots-uploader')
-    $screenshots_uploader.shikiFile
-        progress: $screenshots_uploader.find(".b-upload_progress")
-        input: $screenshots_uploader.find("input[type=file]")
-        maxfiles: 250
-
+    $screenshots_uploader.shikiFile(
+      progress: $screenshots_uploader.find('.b-upload_progress')
+      input: $screenshots_uploader.find('input[type=file]')
+      maxfiles: 250
+    )
       .on 'upload:after', ->
         $screenshots_uploader.find('.thank-you').show()
 

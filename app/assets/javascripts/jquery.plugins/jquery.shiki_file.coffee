@@ -42,10 +42,10 @@ $.fn.extend
           'image/jpeg'
           'image/png'
         ]
-        error: (err, file) ->
+        error: (status, _file, _fileIndex, _status, error) ->
           @afterAll()
 
-          switch err
+          switch status
             when 'TooManyFiles'
               flash.error I18n.t("#{I18N_KEY}.too_many_files", count: options.maxfiles)
 
@@ -53,7 +53,10 @@ $.fn.extend
               flash.error I18n.t("#{I18N_KEY}.too_large_file")
 
             when 'Unprocessable Entity'
-              flash.error I18n.t("#{I18N_KEY}.please_try_again_later")
+              if (error)
+                flash.error error
+              else
+                flash.error I18n.t("#{I18N_KEY}.please_try_again_later")
 
             when 'FileTypeNotAllowed'
               flash.error I18n.t("#{I18N_KEY}.file_type_not_allowed")

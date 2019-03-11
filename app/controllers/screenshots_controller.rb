@@ -2,16 +2,22 @@ class ScreenshotsController < ShikimoriController
   before_action :authenticate_user!
   before_action :fetch_anime
 
-  def create
+  def create # rubocop:disable AbcSize
     @screenshot, @version = versioneer.upload params[:image], current_user
     @version.auto_accept if @version&.persisted? && can?(:auto_accept, @version)
+
+    @screenshot.destroy! if @screenshot.persisted? && !@version.persisted?
 
     if @screenshot.persisted?
       render json: {
         html: render_to_string(@screenshot, locals: { edition: true })
       }
     else
-      render json: @screenshot.errors.full_messages, status: :unprocessable_entity
+      render(
+        json: @version.errors.full_messages +
+          @screenshot.errors.full_messages,
+        status: :unprocessable_entity
+      )
     end
   end
 

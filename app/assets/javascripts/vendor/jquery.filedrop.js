@@ -324,7 +324,7 @@
               throw errors[2];
             }
 
-            reader.onerror = function(e) {
+            reader.onerror = function(e,z,x) {
                 switch(e.target.error.code) {
                     case e.target.error.NOT_FOUND_ERR:
                         opts.error(errors[4]);
@@ -358,6 +358,7 @@
             }
           });
           //opts.error(errors[0]);
+          debugger
           opts.error(err);
         }
 
@@ -484,7 +485,10 @@
 
           // Pass any errors to the error option
           if (xhr.status < 200 || xhr.status > 299) {
-            opts.error(xhr.statusText, file, fileIndex, xhr.status);
+            try {
+              var error = JSON.parse(xhr.responseText);
+            } catch (e) {}
+            opts.error(xhr.statusText, file, fileIndex, xhr.status, error);
           }
         };
       };
