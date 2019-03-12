@@ -13,19 +13,15 @@ ru:
       main_menu: Основное меню
       site_rules: Правила сайта
       faq: FAQ
-
-      shikimori: &shikimori
-        community: Сообщество
-        database: База данных
-        contests: Турниры
-        current_contest: Текущий турнир
-        currently_airing: Сейчас выходит
-        misc: Разное
-        info: Информация
-        moderation: Модерация и контент
-        socials: Мы в социальных сетях
-      anime_online:
-        <<: *shikimori
+      community: Сообщество
+      database: База данных
+      contests: Турниры
+      current_contest: Текущий турнир
+      currently_airing: Сейчас выходит
+      misc: Разное
+      info: Информация
+      moderation: Модерация и контент
+      socials: Мы в социальных сетях
 
     hot_topics:
       hot_topics: Темы дня

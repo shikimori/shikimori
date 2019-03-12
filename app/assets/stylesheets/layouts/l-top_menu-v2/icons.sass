@@ -23,14 +23,26 @@
       top: 10px
       width: 18px
 
-  .icon-letter-a:before
-    background-image: url(/assets/layouts/l-top_menu-v2/letter-a.svg)
+  .icon-letter-a
+    &:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-a.svg)
 
-  .icon-letter-m:before
-    background-image: url(/assets/layouts/l-top_menu-v2/letter-m.svg)
+    &:hover:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-a-hover.svg)
 
-  .icon-letter-r:before
-    background-image: url(/assets/layouts/l-top_menu-v2/letter-r.svg)
+  .icon-letter-m
+    &:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-m.svg)
+
+    &:hover:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-m-hover.svg)
+
+  .icon-letter-r
+    &:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-r.svg)
+
+    &:hover:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-r-hover.svg)
 
   .icon-clubs
     +submenu_icon('\e813')
