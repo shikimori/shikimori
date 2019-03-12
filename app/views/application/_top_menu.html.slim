@@ -78,15 +78,13 @@
 
       .submenu.right
         .legend = t '.legend.profile'
-        a[
+        a.icon-letter-a[
           href=profile_user_rates_url(current_user, list_type: 'anime', subdomain: nil)
         ]
-          .icon-letter-a
           = t 'anime_list'
-        a[
+        a.icon-letter-m[
           href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
         ]
-          .icon-letter-m
           = t 'manga_list'
         a.icon-achievements[
           href=profile_achievements_url(current_user, subdomain: nil)

@@ -4,25 +4,18 @@
 
   .submenu
     .legend = t '.database'
-    a[
+    a.icon-letter-a[
       href=animes_collection_url
       title=Anime.model_name.human
-    ]
-      .icon-letter-a
-      = Anime.model_name.human
-    a[
+    ] = Anime.model_name.human
+    a.icon-letter-m[
       href=mangas_collection_url
       title=Manga.model_name.human
-    ]
-      .icon-letter-m
-      = Manga.model_name.human
-    a[
+    ] = Manga.model_name.human
+    a.icon-letter-r[
       href=ranobe_collection_url
       title=Ranobe.model_name.human
-    ]
-      .icon-letter-r
-      = Ranobe.model_name.human
-
+    ] = Ranobe.model_name.human
     .legend = t '.community'
     a.icon-clubs[
       href=clubs_url
