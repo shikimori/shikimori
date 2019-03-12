@@ -645,6 +645,12 @@
       "src": "fontelico"
     },
     {
+      "uid": "e36d581e4f2844db345bddc205d15dda",
+      "css": "group",
+      "code": 59411,
+      "src": "elusive"
+    },
+    {
       "uid": "e847891cd6b1d14528603a17092d0b6d",
       "css": "done_all",
       "code": 59446,
@@ -6008,8 +6014,8 @@
     },
     {
       "uid": "371494213f7b5f1763f29d50ab63d374",
-      "css": "group",
-      "code": 103,
+      "css": "group-1",
+      "code": 59431,
       "src": "custom_icons",
       "selected": false,
       "svg": {
