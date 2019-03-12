@@ -38,6 +38,8 @@ class BbCodes::Text
     (?:https?://)?
       (?:
        images.webpark.ru |
+       18xxx.me |
+       myflirtcontacts1.com |
        (?:[^.]\.)?chatchu.com |
        (?:[^.]\.)?chatree.net |
        #{Users::CheckHacked::SPAM_DOMAINS.join '|'}
