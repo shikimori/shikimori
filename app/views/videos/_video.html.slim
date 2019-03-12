@@ -30,7 +30,7 @@
   - if video.name.present?
     span.name title=video.name = video.name
 
-  .marker
+  span.marker
     - if defined?(video_counter) || defined?(show_kind)
       = video.kind_text
     - else
