@@ -37,7 +37,7 @@ class Menus::TopMenu < ViewObjectBase
     misc: [
       {
         url: :contests_url,
-        title: :'.contests',
+        title: :'application.top_menu.contests',
         class: 'icon-contests'
       }, {
         url: :ongoings_pages_url,
@@ -53,11 +53,11 @@ class Menus::TopMenu < ViewObjectBase
       }, {
         if: ->(h) { h.ru_host? && !Rails.env.test? },
         url: ->(h) { StickyTopicView.socials(h.locale_from_host).url },
-        title: :'.socials',
+        title: :'application.top_menu.socials',
         class: 'icon-socials'
       }, {
         url: :moderations_url,
-        title: :'.moderation',
+        title: :'application.top_menu.moderation',
         class: 'icon-moderation'
       }
     ]
@@ -68,7 +68,32 @@ class Menus::TopMenu < ViewObjectBase
   end
 
   def items group
-    DATA[group]
+    data.select { |v| v.group == group }
+  end
+
+  def current_item
+    @current_item ||= data.find do |item|
+      item.url == h.request.url
+    end
+  end
+
+private
+
+  def data # rubocop:disable AbcSize
+    @data ||= DATA
+      .flat_map do |group, items|
+        items.map do |item|
+          next if item[:if] && !item[:if].call(h)
+
+          OpenStruct.new(
+            group: group,
+            title: item[:title].respond_to?(:call) ? item[:title].call(self) : h.t(item[:title]),
+            css_class: item[:class],
+            url: item[:url].respond_to?(:call) ? item[:url].call(h) : h.send(item[:url])
+          )
+        end
+      end
+      .compact
   end
   # def anime_seasons
   #   month = Time.zone.now.beginning_of_month

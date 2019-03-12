@@ -15,22 +15,18 @@
 
 .menu
   .item.main
-    a
-      span zzzzzzzzzzzz
+    a class=@top_menu.current_item.css_class
+      span = @top_menu.current_item.title
     .submenu
-      - @top_menu.groups.each do |group, items|
+      - @top_menu.groups.each do |group|
         .legend = t ".#{group}"
 
         - @top_menu.items(group).each do |item|
-          - next if item[:if] && !item[:if].call(self)
-          - title = item[:title].respond_to?(:call) ? item[:title].call(self) : t(item[:title])
-
           a[
-            class=item[:class]
-            href=(item[:url].respond_to?(:call) ? item[:url].call(self) : send(item[:url]))
-            title=title
-          ] = title
-
+            class=item.css_class
+            href=item.url
+            title=item.title
+          ] = item.title
 
   / - if anime_online?
     = render 'application/top_menu/anime_online', menu: Menus::TopMenu.new
