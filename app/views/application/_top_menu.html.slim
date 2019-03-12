@@ -14,9 +14,27 @@
     .logo
 
 .menu
-  - if anime_online?
+  .item.main
+    a
+      span zzzzzzzzzzzz
+    .submenu
+      - @top_menu.groups.each do |group, items|
+        .legend = t ".#{group}"
+
+        - @top_menu.items(group).each do |item|
+          - next if item[:if] && !item[:if].call(self)
+          - title = item[:title].respond_to?(:call) ? item[:title].call(self) : t(item[:title])
+
+          a[
+            class=item[:class]
+            href=(item[:url].respond_to?(:call) ? item[:url].call(self) : send(item[:url]))
+            title=title
+          ] = title
+
+
+  / - if anime_online?
     = render 'application/top_menu/anime_online', menu: Menus::TopMenu.new
-  - else
+  / - else
     = render 'application/top_menu/shikimori', menu: Menus::TopMenu.new
 
   / - if user_signed_in?

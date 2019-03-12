@@ -13,19 +13,15 @@ en:
       main_menu: Main Menu
       site_rules: Site rules
       faq: FAQ
-
-      shikimori: &shikimori
-        community: Community
-        database: Database
-        contests: Contests
-        current_contest: Current Contest
-        currently_airing: Currently Airing
-        misc: Miscellaneous
-        info: Information
-        moderation: Moderation
-        socials: In social networks
-      anime_online:
-        <<: *shikimori
+      community: Community
+      database: Database
+      contests: Contests
+      current_contest: Current Contest
+      currently_airing: Currently Airing
+      misc: Miscellaneous
+      info: Information
+      moderation: Moderation
+      socials: In social networks
 
     hot_topics:
       hot_topics: Hot topics

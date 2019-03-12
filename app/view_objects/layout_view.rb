@@ -71,7 +71,7 @@ class LayoutView < ViewObjectBase
 
 private
 
-  def base_controller_name # rubocop:disable AbcSize
+  def base_controller_name
     return if h.controller.class.superclass == ApplicationController
     return if h.controller.class.superclass == ShikimoriController
 
