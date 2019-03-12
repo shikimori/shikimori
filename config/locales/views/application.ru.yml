@@ -7,10 +7,12 @@ ru:
       legend:
         profile: Профиль
         site: Сайт
+        info: Информация
       sign_out: Выход
       sign_in: Вход
       search: Поиск
       main_menu: Основное меню
+      development: Разработка сайта
 
       shikimori: &shikimori
         community: Сообщество
@@ -18,8 +20,8 @@ ru:
         contests: Турниры
         current_contest: Текущий турнир
         currently_airing: Сейчас выходит
-        development: Разработка сайта
         faq: FAQ
+        misc: Разное
         info: Информация
         moderation: Модерация и контент
         site_rules: Правила сайта

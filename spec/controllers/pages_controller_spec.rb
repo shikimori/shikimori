@@ -17,11 +17,6 @@ describe PagesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#info' do
-    before { get :info }
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#copyrighted' do
     let!(:topic) { create :topic, id: PagesController::COPYRIGHTED_TOPIC_ID }
     before { get :copyrighted }

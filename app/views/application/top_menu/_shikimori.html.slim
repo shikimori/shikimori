@@ -4,19 +4,19 @@
 
   .submenu
     .legend = t '.database'
-    a.anime[
+    a[
       href=animes_collection_url
       title=Anime.model_name.human
     ]
       .icon-letter-a
       = Anime.model_name.human
-    a.manga[
+    a[
       href=mangas_collection_url
       title=Manga.model_name.human
     ]
       .icon-letter-m
       = Manga.model_name.human
-    a.ranobe[
+    a[
       href=ranobe_collection_url
       title=Ranobe.model_name.human
     ]
@@ -24,10 +24,6 @@
       = Ranobe.model_name.human
 
     .legend = t '.community'
-    a.icon-contests[
-      href=contests_url
-      title=t('.contests')
-    ] = t '.contests'
     a.icon-clubs[
       href=clubs_url
       title=i18n_i('Club', :other)
@@ -45,12 +41,17 @@
       title=t('forum')
     ] = t 'forum'
 
-    .legend = t '.info'
-    a[
-      href=about_pages_url
-      title=t('about_site')
-    ] = t 'about_site'
+    .legend = t '.misc'
+    a.icon-contests[
+      href=contests_url
+      title=t('.contests')
+    ] = t '.contests'
+    a.icon-calendar[
+      href=ongoings_pages_url
+      title=t('calendar')
+    ] = t 'calendar'
 
+    .legend = t '.info'
     - unless Rails.env.test?
       a[
         href=StickyTopicView.site_rules(locale_from_host).url
@@ -63,12 +64,10 @@
         title=t('.faq')
       ] = t '.faq'
 
-    - if ignore_copyright?
-      a[
-        href=copyrighted_pages_url
-        title=t('copyrighted_animes')
-      ] = t 'copyrighted_animes'
-
+    a[
+      href=about_pages_url
+      title=t('about_site')
+    ] = t 'about_site'
     - if ru_host? && !Rails.env.test?
       a[
         href=StickyTopicView.socials(locale_from_host).url
@@ -79,22 +78,6 @@
       href=moderations_url
       title=t('.moderation')
     ] = t '.moderation'
-
-    a[
-      href=development_pages_url
-      title=t('.development')
-    ] = t '.development'
-
-    - if ru_host?
-      a[
-        href=club_url('950-shikimori-api')
-        title='API'
-      ] API
-    - else
-      a[
-        href=apipie_apipie_url
-        title='API'
-      ] API
 
     / - menu.anime_seasons.each do |season|
     /   a[

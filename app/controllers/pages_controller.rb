@@ -74,12 +74,8 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     og page_title: t('application.footer.for_right_holders')
   end
 
-  def info
-    og page_title: i18n_t('.info')
-  end
-
   def development
-    og page_title: i18n_t('.application.top_menu.shikimori.development')
+    og page_title: i18n_t('.application.top_menu.development')
     @blank_layout = true
   end
 
