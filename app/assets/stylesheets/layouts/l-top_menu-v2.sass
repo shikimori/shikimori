@@ -99,11 +99,24 @@ $top_menu_background_active: lighten($gray-4, 4%)
     .search-toggler
       +top_menu_icon('s')
 
-  .main
+  .main.item
     & > a
+      padding-left: 38px
+      pointer-events: none
+
       +gte_ipad
         min-width: 250px
         max-width: 350px
+
+      &:before
+        line-height: 28px
+        left: 15px
+
+      &.icon-letter-a:before,
+      &.icon-letter-m:before,
+      &.icon-letter-r:before
+        top: 15px
+        left: 16px
 
   .userbox
     margin-left: auto
