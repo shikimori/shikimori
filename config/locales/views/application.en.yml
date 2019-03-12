@@ -7,12 +7,12 @@ en:
       legend:
         profile: Profile
         site: Site
-        info: Information
       sign_in: Sign In
       sign_out: Sign Out
       search: Search
       main_menu: Main Menu
-      development: Website development
+      site_rules: Site rules
+      faq: FAQ
 
       shikimori: &shikimori
         community: Community
@@ -20,13 +20,10 @@ en:
         contests: Contests
         current_contest: Current Contest
         currently_airing: Currently Airing
-        faq: FAQ
         misc: Miscellaneous
         info: Information
         moderation: Moderation
-        site_rules: Site rules
         socials: In social networks
-        discord: Discord channel
       anime_online:
         <<: *shikimori
 
