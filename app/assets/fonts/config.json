@@ -7,12 +7,6 @@
   "ascent": 850,
   "glyphs": [
     {
-      "uid": "c64623255a4a7c72436b199b05296c4f",
-      "css": "emo-happy",
-      "code": 59392,
-      "src": "fontelico"
-    },
-    {
       "uid": "474656633f79ea2f1dad59ff63f6bf07",
       "css": "star",
       "code": 59456,
@@ -253,12 +247,6 @@
       "src": "entypo"
     },
     {
-      "uid": "076f940ac56adee91dd43d6fd77dd0cf",
-      "css": "user-add-1",
-      "code": 59430,
-      "src": "typicons"
-    },
-    {
       "uid": "62bc6fe2a82e4864e2b94d4c0985ee0c",
       "css": "up-small",
       "code": 59395,
@@ -412,12 +400,6 @@
       "uid": "31951fbb9820ed0690f675b3d495c8da",
       "css": "chat-empty",
       "code": 59447,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "eeec3208c90b7b48e804919d0d2d4a41",
-      "css": "upload",
-      "code": 59404,
       "src": "fontawesome"
     },
     {
@@ -643,6 +625,24 @@
       "css": "logout-1",
       "code": 59460,
       "src": "fontawesome"
+    },
+    {
+      "uid": "4fc965c0a4abf27512ac06752c56b3b5",
+      "css": "upload-1",
+      "code": 59404,
+      "src": "elusive"
+    },
+    {
+      "uid": "1bafeeb1808a5fe24484c7890096901a",
+      "css": "user-plus",
+      "code": 59430,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "c64623255a4a7c72436b199b05296c4f",
+      "css": "emo-happy",
+      "code": 59392,
+      "src": "fontelico"
     },
     {
       "uid": "e847891cd6b1d14528603a17092d0b6d",
