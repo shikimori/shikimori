@@ -96,27 +96,21 @@
         ] = t :settings
 
         .legend = t '.legend.site'
+        - unless Rails.env.test?
+          a.icon-rules[
+            href=StickyTopicView.site_rules(locale_from_host).url
+            title=t('.site_rules')
+          ] = t '.site_rules'
+
+        - if ru_host? && !Rails.env.test?
+          a.icon-faq[
+            href=StickyClubView.faq(locale_from_host).url
+            title=t('.faq')
+          ] = t '.faq'
         a.icon-sign_out[
           href=destroy_user_session_url(subdomain: nil)
           data-method='delete'
         ] = t '.sign_out'
-
-        .legend = t '.legend.info'
-        a[
-          href=development_pages_url
-          title=t('.development')
-        ] = t '.development'
-
-        - if ru_host?
-          a[
-            href=club_url('950-shikimori-api')
-            title='API'
-          ] API
-        - else
-          a[
-            href=apipie_apipie_url
-            title='API'
-          ] API
 
   - else
     - 1/0

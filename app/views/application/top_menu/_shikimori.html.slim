@@ -52,29 +52,17 @@
     ] = t 'calendar'
 
     .legend = t '.info'
-    - unless Rails.env.test?
-      a[
-        href=StickyTopicView.site_rules(locale_from_host).url
-        title=t('.site_rules')
-      ] = t '.site_rules'
-
-    - if ru_host? && !Rails.env.test?
-      a[
-        href=StickyClubView.faq(locale_from_host).url
-        title=t('.faq')
-      ] = t '.faq'
-
-    a[
+    a.icon-info[
       href=about_pages_url
       title=t('about_site')
     ] = t 'about_site'
     - if ru_host? && !Rails.env.test?
-      a[
+      a.icon-socials[
         href=StickyTopicView.socials(locale_from_host).url
         title=t('.socials')
       ] = t '.socials'
 
-    a[
+    a.icon-moderation[
       href=moderations_url
       title=t('.moderation')
     ] = t '.moderation'

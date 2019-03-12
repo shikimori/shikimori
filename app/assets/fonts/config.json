@@ -159,7 +159,7 @@
     {
       "uid": "3a230e539a4f3b904debd04c6c155034",
       "css": "help",
-      "code": 59434,
+      "code": 63,
       "src": "entypo"
     },
     {
@@ -649,6 +649,12 @@
       "css": "group",
       "code": 59411,
       "src": "elusive"
+    },
+    {
+      "uid": "00391fac5d419345ffcccd95b6f76263",
+      "css": "attention-alt",
+      "code": 33,
+      "src": "fontawesome"
     },
     {
       "uid": "e847891cd6b1d14528603a17092d0b6d",
@@ -3341,7 +3347,7 @@
     {
       "uid": "5609b2029ca16288378c829396ed446f",
       "css": "copyright",
-      "code": 99,
+      "code": 59431,
       "src": "custom_icons",
       "selected": false,
       "svg": {
