@@ -1,21 +1,35 @@
+=submenu_icon($content, $font-size: 18px)
+  &:before
+    +shikimori($content)
+    font-size: $font-size
+    height: 20px
+    left: 14px
+    line-height: 20px
+    position: absolute
+    text-align: center
+    top: 9px
+    width: 20px
+
 .l-top_menu-v2
   .icon-letter-a,
   .icon-letter-m,
   .icon-letter-r
-    background-size: contain
-    height: 18px
-    left: 15px
-    position: absolute
-    top: 10px
-    width: 18px
+    &:before
+      background-size: contain
+      content: ''
+      height: 18px
+      left: 15px
+      position: absolute
+      top: 10px
+      width: 18px
 
-  .icon-letter-a
+  .icon-letter-a:before
     background-image: url(/assets/layouts/l-top_menu-v2/letter-a.svg)
 
-  .icon-letter-m
+  .icon-letter-m:before
     background-image: url(/assets/layouts/l-top_menu-v2/letter-m.svg)
 
-  .icon-letter-r
+  .icon-letter-r:before
     background-image: url(/assets/layouts/l-top_menu-v2/letter-r.svg)
 
   .icon-clubs
