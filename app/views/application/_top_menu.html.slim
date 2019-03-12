@@ -78,12 +78,12 @@
 
       .submenu.right
         .legend = t '.legend.profile'
-        a.anime[
+        a[
           href=profile_user_rates_url(current_user, list_type: 'anime', subdomain: nil)
         ]
           .icon-letter-a
           = t 'anime_list'
-        a.manga[
+        a[
           href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
         ]
           .icon-letter-m
@@ -100,6 +100,23 @@
           href=destroy_user_session_url(subdomain: nil)
           data-method='delete'
         ] = t '.sign_out'
+
+        .legend = t '.legend.info'
+        a[
+          href=development_pages_url
+          title=t('.development')
+        ] = t '.development'
+
+        - if ru_host?
+          a[
+            href=club_url('950-shikimori-api')
+            title='API'
+          ] API
+        - else
+          a[
+            href=apipie_apipie_url
+            title='API'
+          ] API
 
   - else
     - 1/0

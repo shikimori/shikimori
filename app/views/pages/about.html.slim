@@ -2,23 +2,56 @@ header.head
   h1 = og.headline
   p.notice Статистика сайта и список особо отличившихся людей
 
+.cc-2a
+  .c-column
+    ul.b-list
+      li: a.entry[
+        href=StickyTopicView.site_rules(locale_from_host).url
+        title=t('application.top_menu.shikimori.site_rules')
+      ] = t 'application.top_menu.shikimori.site_rules'
+      - if ru_host? && !Rails.env.test?
+        li: a.entry[
+          href=StickyClubView.faq(locale_from_host).url
+          title=t('application.top_menu.shikimori.faq')
+        ] = t 'application.top_menu.shikimori.faq'
+      - if ignore_copyright?
+        li: a.entry[
+          href=copyrighted_pages_url
+          title=t('copyrighted_animes')
+        ] = t 'copyrighted_animes'
+      - if ru_host? && !Rails.env.test?
+        li: a.entry[
+          href=StickyTopicView.socials(locale_from_host).url
+          title=t('application.top_menu.shikimori.socials')
+        ] = t 'application.top_menu.shikimori.socials'
+        li: a.entry[
+          href=Shikimori::DISCORD_CHANNEL_URL
+          title=t('application.top_menu.shikimori.discord')
+        ] = t 'application.top_menu.shikimori.discord'
+      li: a.entry[
+        href=moderations_url
+        title=t('application.top_menu.shikimori.moderation')
+      ] = t 'application.top_menu.shikimori.moderation'
+      li: a.entry[
+        href=development_pages_url
+        title=t('application.top_menu.development')
+      ] = t 'application.top_menu.development'
+
+      li: a.entry[
+        href=apipie_apipie_url
+        title='API'
+      ] API
+
+  .c-column
+    ul.b-list
+      li: a.entry[
+        href=anime_statistics_url
+        title=t('anime_industry')
+      ] = t 'anime_industry'
+
 = cache [:about_block, :v9, Time.zone.today] do
   .b-brief
     .description
-      / p.m3 У многих из увлёкшихся мангой и японской анимацией рано или поздно возникают вопросы:
-      / ul.b-list.m10
-        / li
-          / p Как из огромного разнообразия выбрать то, что посмотреть или почитать дальше?
-        / li
-          / p Как и где вести список просмотренного аниме и прочитанной манги, ведь со временем просмотренное забывается?
-        / li
-          / p Как отслеживать появление новых аниме и выход серий у новинок?
-        / li
-          / p Где и с кем можно обсудить понравившуются анимацию, а так же почитать чужие отзывы и рецензии?
-
-      / p.m30 Подобными вопросами однажды задался и автор сайта, и, не найдя в интернетах для себя удобного, современного решения, cтал воплощать свои идеи в этом сайте.
-
-      /*.headline.m20 Участники проекта*/
       .members-block
         .subheadline.red.m5 = t '.moderation'
         .members-block.left
