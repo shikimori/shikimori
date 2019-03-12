@@ -81,22 +81,22 @@
         a.anime[
           href=profile_user_rates_url(current_user, list_type: 'anime', subdomain: nil)
         ]
-          .letter.a
+          .icon-letter-a
           = t 'anime_list'
         a.manga[
           href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
         ]
-          .letter.m
+          .icon-letter-m
           = t 'manga_list'
-        a.achievements[
+        a.icon-achievements[
           href=profile_achievements_url(current_user, subdomain: nil)
         ] = i18n_i('Achievement', :other)
-        a.settings[
+        a.icon-settings[
           href=edit_profile_url(current_user, page: :account, subdomain: nil)
         ] = t :settings
 
         .legend = t '.legend.site'
-        a.sign-out[
+        a.icon-sign_out[
           href=destroy_user_session_url(subdomain: nil)
           data-method='delete'
         ] = t '.sign_out'
