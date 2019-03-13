@@ -30,11 +30,12 @@
       data-search_url=@forums_view.page_url(1)
     ]
       .field
-        input[
-          type="text"
-          placeholder=t('search.title')
-          value=params[:search]
-        ]
+        label
+          input[
+            type="text"
+            placeholder=t('search.title')
+            value=params[:search]
+          ]
         .clear
 
       .b-forum.to-process.searchable-collection[

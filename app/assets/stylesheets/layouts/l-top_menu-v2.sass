@@ -85,6 +85,8 @@ $top_menu_background_active: lighten($gray-4, 4%)
   //     +top_menu_icon('s')
 
   .main-menu
+    margin-right: 25px
+
     & > a
       padding-left: 38px
       pointer-events: none
@@ -100,6 +102,24 @@ $top_menu_background_active: lighten($gray-4, 4%)
       &.icon-letter-r:before
         top: 15px
         left: 16px
+
+  .b-collection_search
+    margin-right: 25px
+    width: 100%
+
+    .field
+      margin-bottom: 0
+
+      input
+        color: #123
+        line-height: 28px
+        border-radius: 2px
+
+      label:before,
+      .clear:before
+        font-size: 20px
+        height: 32px
+        line-height: 32px
 
   .userbox
     display: flex

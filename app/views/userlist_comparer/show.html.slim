@@ -11,11 +11,12 @@ header.head
   data-search_url=current_url(search: nil)
 ]
   .field
-    input[
-      type="text"
-      placeholder=t('search.title')
-      value=params[:search]
-    ]
+    label
+      input[
+        type="text"
+        placeholder=t('search.title')
+        value=params[:search]
+      ]
     .clear
 
   .menu-toggler

@@ -28,6 +28,19 @@
           title=item.title
         ] = item.title
 
+.b-collection_search[
+  data-search_url=clubs_url
+]
+  .field
+    label
+      input[
+        type="text"
+        placeholder=t('search.title')
+        value=params[:search]
+      ]
+    .clear
+
+
   / - if anime_online?
     = render 'application/top_menu/anime_online', menu: Menus::TopMenu.new
   / - else
