@@ -1,12 +1,26 @@
-.l-top_menu-v2 .menu
-  display: flex
+.l-top_menu-v2
+  .item,
+  .menu > a
+    align-items: center
+    color: inherit
+    display: flex
+    letter-spacing: 0.5px
+    line-height: $menu_height
+    user-select: none
 
-  & > .item
+    +iphone-s
+      padding: 0 10px
+
+    +iphone
+      padding: 0 12px
+
+    +gte_ipad
+      padding: 0 15px
+
+  .menu,
+  .item
     +mr(2px)
-    // background: $top_menu-background_color
-    // cursor: pointer
     position: relative
-    // transition: background-color .3s ease
 
     &.active,
     &:hover
@@ -16,23 +30,9 @@
     &:active
       background-color: $top_menu_background_active
 
+  .menu
     & > a
       +ellipsis2
-      align-items: center
-      color: inherit
-      display: flex
-      letter-spacing: 0.5px
-      line-height: $menu_height
-      user-select: none
-
-      +iphone-s
-        padding: 0 10px
-
-      +iphone
-        padding: 0 12px
-
-      +gte_ipad
-        padding: 0 15px
 
       & > span
         +ellipsis2
@@ -42,17 +42,16 @@
         margin-right: 25px
         pointer-events: none
 
-      &:not(.icon)
-        &:after
-          +shikimori('\e846')
-          font-size: 16px
-          line-height: $menu-icon-size
-          margin-left: auto
-          transition: transform .2s ease-in-out
-          vertical-align: middle
+      &:after
+        +shikimori('\e846')
+        font-size: 16px
+        line-height: $menu-icon-size
+        margin-left: auto
+        transition: transform .2s ease-in-out
+        vertical-align: middle
 
     &.active
-      & > a:not(.icon):after
+      & > a:after
         transform: rotate(90deg)
 
       // transition added on "show" only

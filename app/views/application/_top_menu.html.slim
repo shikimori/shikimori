@@ -14,19 +14,19 @@
     .logo
 
 .menu
-  .item.main
-    a class=@top_menu.current_item.css_class
-      span = @top_menu.current_item.title
-    .submenu
-      - @top_menu.groups.each do |group|
-        .legend = t ".#{group}"
+  a class=@top_menu.current_item.css_class
+    span = @top_menu.current_item.title
 
-        - @top_menu.items(group).each do |item|
-          a[
-            class=item.css_class
-            href=item.url
-            title=item.title
-          ] = item.title
+  .submenu
+    - @top_menu.groups.each do |group|
+      .legend = t ".#{group}"
+
+      - @top_menu.items(group).each do |item|
+        a[
+          class=item.css_class
+          href=item.url
+          title=item.title
+        ] = item.title
 
   / - if anime_online?
     = render 'application/top_menu/anime_online', menu: Menus::TopMenu.new
@@ -58,28 +58,25 @@
         li.type data-type="people" = t 'person'
         li.type data-type="users" = User.model_name.human
 
-.menu.mobile
+/ .menu.mobile
   - if user_signed_in? && shikimori?
     .item
       a.forum href=forum_url
-
   .item
     span.search-toggler title=t('.search')
-
   .item
     span.top_menu-toggler title=t('.main_menu')
 
-.menu.userbox
+.userbox
   - if user_signed_in?
     - if current_user.unread_count.positive?
-      .item.mail
-        a.icon[
-          href=current_user.unread_messages_url
-          title=t(:mail)
-        ]
-          / = [99, current_user.unread_count].min
+      a.item.icon-mail[
+        href=current_user.unread_messages_url
+        title=t(:mail)
+      ]
+        / = [99, current_user.unread_count].min
 
-    .item.avatar
+    .menu
       a
         img[
           src=current_user.avatar_url(48)
