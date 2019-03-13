@@ -1,98 +1,122 @@
 class Menus::TopMenu < ViewObjectBase
-  DATA = {
-    database: [
-      {
-        url: :animes_collection_url,
-        title: :'activerecord.models.anime',
-        class: 'icon-letter-a'
-      }, {
-        url: :mangas_collection_url,
-        title: :'activerecord.models.manga',
-        class: 'icon-letter-m'
-      }, {
-        url: :ranobe_collection_url,
-        title: :'activerecord.models.ranobe',
-        class: 'icon-letter-r'
-      }
-    ],
-    community: [
-      {
-        url: :clubs_url,
-        title: ->(h) { h.i18n_i 'Club', :other },
-        class: 'icon-clubs'
-      }, {
-        url: :collections_url,
-        title: ->(h) { h.i18n_i 'Collection', :other },
-        class: 'icon-collections'
-      }, {
-        url: ->(h) { h.forum_topics_url :reviews },
-        title: ->(h) { h.i18n_i 'Review', :other },
-        class: 'icon-reviews'
-      }, {
-        url: :forum_url,
-        title: :forum,
-        class: 'icon-forum'
-      }
-    ],
-    misc: [
-      {
-        url: :contests_url,
-        title: :'application.top_menu.contests',
-        class: 'icon-contests'
-      }, {
-        url: :ongoings_pages_url,
-        title: :calendar,
-        class: 'icon-calendar'
-      }
-    ],
-    info: [
-      {
-        url: :about_pages_url,
-        title: :about_site,
-        class: 'icon-info'
-      }, {
-        if: ->(h) { h.ru_host? && !Rails.env.test? },
-        url: ->(h) { StickyTopicView.socials(h.locale_from_host).url },
-        title: :'application.top_menu.socials',
-        class: 'icon-socials'
-      }, {
-        if: ->(h) { h.user_signed_in? },
-        url: :moderations_url,
-        title: :'application.top_menu.moderation',
-        class: 'icon-moderation'
-      }
-    ]
-  }
+  ITEMS = [
+    ## main
+    # database
+    {
+      placement: :main,
+      group: :database,
+      url: :animes_collection_url,
+      title: :'activerecord.models.anime',
+      class: 'icon-letter-a'
+    }, {
+      placement: :main,
+      group: :database,
+      url: :mangas_collection_url,
+      title: :'activerecord.models.manga',
+      class: 'icon-letter-m'
+    }, {
+      placement: :main,
+      group: :database,
+      url: :ranobe_collection_url,
+      title: :'activerecord.models.ranobe',
+      class: 'icon-letter-r'
+    },
+    # community
+    {
+      placement: :main,
+      group: :community,
+      url: :clubs_url,
+      title: ->(h) { h.i18n_i 'Club', :other },
+      class: 'icon-clubs'
+    }, {
+      placement: :main,
+      group: :community,
+      url: :collections_url,
+      title: ->(h) { h.i18n_i 'Collection', :other },
+      class: 'icon-collections'
+    }, {
+      placement: :main,
+      group: :community,
+      url: ->(h) { h.forum_topics_url :reviews },
+      title: ->(h) { h.i18n_i 'Review', :other },
+      class: 'icon-reviews'
+    }, {
+      placement: :main,
+      group: :community,
+      url: :forum_url,
+      title: :forum,
+      class: 'icon-forum'
+    },
+    # misc
+    {
+      placement: :main,
+      group: :misc,
+      url: :contests_url,
+      title: :'application.top_menu.contests',
+      class: 'icon-contests'
+    }, {
+      placement: :main,
+      group: :misc,
+      url: :ongoings_pages_url,
+      title: :calendar,
+      class: 'icon-calendar'
+    },
+    # info
+    {
+      placement: :main,
+      group: :info,
+      url: :about_pages_url,
+      title: :about_site,
+      class: 'icon-info'
+    }, {
+      placement: :main,
+      group: :info,
+      if: ->(h) { h.ru_host? && !Rails.env.test? },
+      url: ->(h) { StickyTopicView.socials(h.locale_from_host).url },
+      title: :'application.top_menu.socials',
+      class: 'icon-socials'
+    }, {
+      placement: :main,
+      group: :info,
+      if: ->(h) { h.user_signed_in? },
+      url: :moderations_url,
+      title: :'application.top_menu.moderation',
+      class: 'icon-moderation'
+    }
+    ## profile
+  ]
 
-  def groups
-    DATA.keys
+  def groups placement
+    all_items
+      .select { |v| v.placement == placement }
+      .map(&:group)
+      .uniq
   end
 
   def items group
-    data.select { |v| v.group == group }
+    all_items.select { |v| v.group == group }
   end
 
   def current_item
     @current_item ||=
-      data.find { |item| item.url == h.request.url } ||
-      data.find { |item| h.request.url.starts_with?(item.url) }
+      all_items.find { |item| item.url == h.request.url } ||
+      all_items.find { |item| h.request.url.starts_with?(item.url) }
   end
 
 private
 
-  def data # rubocop:disable AbcSize
-    @data ||= DATA
-      .flat_map do |group, items|
-        items.map do |item|
-          next if item[:if] && !item[:if].call(h)
+  def all_items # rubocop:disable AbcSize
+    @all_items ||= ITEMS
+      .map do |item|
+        next if item[:if] && !item[:if].call(h)
 
-          OpenStruct.new(
-            group: group,
-            title: item[:title].respond_to?(:call) ? item[:title].call(self) : h.t(item[:title]),
-            css_class: item[:class],
-            url: item[:url].respond_to?(:call) ? item[:url].call(h) : h.send(item[:url])
-          )
-        end
+        OpenStruct.new(
+          placement: item[:placement],
+          group: item[:group],
+          title: item[:title].respond_to?(:call) ? item[:title].call(self) : h.t(item[:title]),
+          css_class: item[:class],
+          url: item[:url].respond_to?(:call) ? item[:url].call(h) : h.send(item[:url])
+        )
       end
       .compact
   end

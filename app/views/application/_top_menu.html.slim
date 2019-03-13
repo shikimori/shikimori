@@ -18,7 +18,7 @@
     span = @top_menu.current_item.title
 
   .submenu
-    - @top_menu.groups.each do |group|
+    - @top_menu.groups(:main).each do |group|
       .legend = t ".#{group}"
 
       - @top_menu.items(group).each do |item|
@@ -81,9 +81,20 @@
     span.top_menu-toggler title=t('.main_menu')
 
 .userbox
+  a.item-icon.forum[
+    title=t('forum')
+    href=forum_url
+  ]
+
   - if user_signed_in?
+    - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
+      a.item-icon.moderation[
+        title=t('.moderation')
+        href=moderations_url
+      ]
+
     - if current_user.unread_count.positive?
-      a.item.icon-mail[
+      a.item-icon.mail[
         href=current_user.unread_messages_url
         title=t(:mail)
       ]
@@ -135,7 +146,7 @@
         ] = t '.sign_out'
 
   - else
-    .item.linkeable[
+    .item-icon.linkeable[
       data-href=new_user_session_url(subdomain: nil)
       title=t('.sign_in')
       data-text=t('.sign_in')
