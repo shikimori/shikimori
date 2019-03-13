@@ -1,7 +1,5 @@
 .l-top_menu-v2 .menu
-  +clearfix
   display: flex
-  white-space: nowrap
 
   & > .item
     +mr(2px)
@@ -18,21 +16,11 @@
     &:active
       background-color: $top_menu_background_active
 
-    &.calendar > a
-      +top_menu_icon('\e839')
-
-    &.info > a
-      +top_menu_icon('i')
-
-    &.moderation > a
-      +top_menu_icon('\e80a')
-
     & > a
       +ellipsis2
       align-items: center
       color: inherit
       display: flex
-      font-size: 14px
       letter-spacing: 0.5px
       line-height: $menu_height
       user-select: none
@@ -48,7 +36,7 @@
 
       & > span
         +ellipsis2
-        font-size: 18px
+        font-size: 16px
         letter-spacing: 0.5px
         margin-left: 10px
         margin-right: 25px

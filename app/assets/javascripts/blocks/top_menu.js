@@ -24,7 +24,6 @@ $(document).on('page:load', () => {
 
       });
 
-
     // return $trigger.hoverDelayed(() =>
     //   $menu.css({
     //     height,
@@ -37,7 +36,6 @@ $(document).on('page:load', () => {
     //   }),
     // 0, $menu.data('duration') || 150);
   });
-  $triggers.first().click();
 
 //   // mobile menu
 //   $('.l-top_menu-v2 .top_menu-toggler').click(function () {
