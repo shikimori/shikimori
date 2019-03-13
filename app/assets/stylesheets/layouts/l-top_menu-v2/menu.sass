@@ -4,7 +4,7 @@
     align-items: center
     color: inherit
     display: flex
-    letter-spacing: 0.5px
+    letter-spacing: 0.25px
     line-height: $menu_height
     user-select: none
 
@@ -30,6 +30,13 @@
     &:active
       background-color: $top_menu_background_active
 
+  .item
+    &[data-text]
+      &:after
+        content: attr(data-text)
+        font-size: 14px
+        padding-left: 8px
+
   .menu
     background: lighten($top_menu-background_color, 4%)
 
@@ -38,8 +45,8 @@
 
       & > span
         +ellipsis2
-        font-size: 16px
-        letter-spacing: 0.5px
+        font-size: 15px
+        letter-spacing: 0.25px
         margin-left: 10px
         margin-right: 25px
         pointer-events: none

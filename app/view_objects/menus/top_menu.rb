@@ -56,6 +56,7 @@ class Menus::TopMenu < ViewObjectBase
         title: :'application.top_menu.socials',
         class: 'icon-socials'
       }, {
+        if: ->(h) { h.user_signed_in? },
         url: :moderations_url,
         title: :'application.top_menu.moderation',
         class: 'icon-moderation'
