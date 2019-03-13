@@ -5,11 +5,9 @@
 @import mixins/responsive
 @import mixins/retina
 
-// $menu_link_color: #e1e7f2
-$menu_height: 48px
-$menu-icon-size: 20px
+$top_menu-height: 48px
+$top_menu-icon-size: 20px
 
-$menu_link_color: #fff
 $top_menu-background_color: #343434
 $top_menu_background_hover: $gray-4
 $top_menu_background_active: lighten($gray-4, 4%)
@@ -23,7 +21,7 @@ $top_menu_background_active: lighten($gray-4, 4%)
   background: $top_menu-background_color
   border-bottom: 1px solid #444
   color: #fff
-  height: $menu_height
+  height: $top_menu-height
   z-index: 10
 
   // wo inner
@@ -48,7 +46,7 @@ $top_menu_background_active: lighten($gray-4, 4%)
   .logo-container
     align-items: center
     display: flex
-    height: $menu_height
+    height: $top_menu-height
     padding: 0 5px
 
     +gte_ipad
@@ -97,8 +95,9 @@ $top_menu_background_active: lighten($gray-4, 4%)
       max-width: 275px
 
       &:before
-        line-height: 28px
         left: 15px
+        line-height: 28px
+        top: 10px
 
       &.icon-letter-a:before,
       &.icon-letter-m:before,
@@ -141,13 +140,3 @@ $top_menu_background_active: lighten($gray-4, 4%)
         img
           height: 30px
           pointer-events: none
-
-// +gt_ipad
-//   .l-top_menu-v2
-//     .menu-search
-//       & > .entry
-//         color: $menu_link_color
-//         cursor: pointer
-//         line-height: $menu_height
-//         padding: 0 20px
-//         transition: backround-color 0.3s ease
