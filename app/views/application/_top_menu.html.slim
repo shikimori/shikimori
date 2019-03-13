@@ -122,9 +122,8 @@
         ] = t '.sign_out'
 
   - else
-    - 1/0
-    / .item.userbox.linkeable[
-    /   data-href=new_user_session_url(subdomain: nil)
-    /   title=t('.sign_in')
-    / ]
-    /   span#sign_in
+    .item.linkeable[
+      data-href=new_user_session_url(subdomain: nil)
+      title=t('.sign_in')
+      data-text=t('.sign_in')
+    ]
