@@ -1,11 +1,11 @@
 .l-top_menu-v2
-  .item,
+  .item-icon,
   .menu > a
     align-items: center
     color: inherit
     display: flex
     letter-spacing: 0.25px
-    line-height: $menu_height
+    line-height: $top_menu-height
     user-select: none
 
     +iphone-s
@@ -18,7 +18,7 @@
       padding: 0 15px
 
   .menu,
-  .item
+  .item-icon
     +mr(2px)
     position: relative
 
@@ -30,7 +30,7 @@
     &:active
       background-color: $top_menu_background_active
 
-  .item
+  .item-icon
     &[data-text]
       &:after
         content: attr(data-text)
@@ -53,7 +53,7 @@
       &:after
         +shikimori('\e846')
         font-size: 16px
-        line-height: $menu-icon-size
+        line-height: $top_menu-icon-size
         margin-left: auto
         transition: transform .2s ease-in-out
         vertical-align: middle

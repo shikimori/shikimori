@@ -11,16 +11,23 @@
     width: 20px
 
 =top_menu_icon($content)
-  +icon($content, $menu-icon-size)
+  +icon($content, $top_menu-icon-size)
   line-height: inherit !important
 
   &:before
-    line-height: $menu_height
+    line-height: $top_menu-height
     vertical-align: middle
 
 .l-top_menu-v2
-  .icon-mail
-    +top_menu_icon('\e81f')
+  .item-icon
+    &.mail
+      +top_menu_icon('\e81f')
+
+    &.moderation
+      +top_menu_icon('\e80a')
+
+    &.forum
+      +top_menu_icon('\e837')
 
   // .icon-sign_in
     +top_menu_icon('r')
@@ -89,7 +96,7 @@
     +submenu_icon('V')
 
   .icon-moderation
-    +submenu_icon('\E80A')
+    +submenu_icon('\e80a')
 
   .icon-achievements
     +submenu_icon('\e83b')
