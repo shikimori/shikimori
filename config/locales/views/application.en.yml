@@ -5,21 +5,24 @@ en:
 
     top_menu:
       legend:
+        database: Database
+        community: Community
+        misc: Miscellaneous
+        info: Information
         profile: Profile
         site: Site
-      sign_in: Sign In
-      sign_out: Sign Out
-      search: Search
-      main_menu: Main Menu
-      site_rules: Site rules
-      faq: FAQ
-      community: Community
-      database: Database
-      contests: Contests
-      misc: Miscellaneous
-      info: Information
-      moderation: Moderation
-      socials: In social networks
+      items:
+        contests: Contests
+        faq: FAQ
+        home: Home
+        main: Shikimori
+        main_menu: Main Menu
+        moderation: Moderation
+        search: Search
+        sign_in: Sign In
+        sign_out: Sign Out
+        site_rules: Site rules
+        socials: In social networks
 
     hot_topics:
       hot_topics: Hot topics

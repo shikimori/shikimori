@@ -1,23 +1,30 @@
 class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
+  OTHER_ITEMS = [
+    {
+      url: :root_url,
+      title: 'application.top_menu.items.home',
+      class: 'icon-home'
+    }
+  ]
   MAIN_ITEMS = [
     # database
     {
       placement: :main,
       group: :database,
       url: :animes_collection_url,
-      title: :'activerecord.models.anime',
+      title: 'activerecord.models.anime',
       class: 'icon-letter-a'
     }, {
       placement: :main,
       group: :database,
       url: :mangas_collection_url,
-      title: :'activerecord.models.manga',
+      title: 'activerecord.models.manga',
       class: 'icon-letter-m'
     }, {
       placement: :main,
       group: :database,
       url: :ranobe_collection_url,
-      title: :'activerecord.models.ranobe',
+      title: 'activerecord.models.ranobe',
       class: 'icon-letter-r'
     },
     # community
@@ -51,7 +58,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :main,
       group: :misc,
       url: :contests_url,
-      title: :'application.top_menu.contests',
+      title: 'application.top_menu.items.contests',
       class: 'icon-contests'
     }, {
       placement: :main,
@@ -72,14 +79,14 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       group: :info,
       if: ->(h) { h.ru_host? && !Rails.env.test? },
       url: ->(h) { StickyTopicView.socials(h.locale_from_host).url },
-      title: :'application.top_menu.socials',
+      title: 'application.top_menu.items.socials',
       class: 'icon-socials'
     }, {
       placement: :main,
       group: :info,
       if: ->(h) { h.user_signed_in? },
       url: :moderations_url,
-      title: :'application.top_menu.moderation',
+      title: 'application.top_menu.items.moderation',
       class: 'icon-moderation'
     }
   ]
@@ -100,6 +107,12 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
     }, {
       placement: :profile,
       group: :profile,
+      url: ->(h) { h.current_user.unread_messages_url },
+      title: :mail,
+      class: 'icon-mail'
+    }, {
+      placement: :profile,
+      group: :profile,
       url: ->(h) { h.profile_achievements_url h.current_user, subdomain: nil },
       title: ->(h) { h.i18n_i 'Achievement', :other },
       class: 'icon-achievements'
@@ -114,19 +127,19 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       group: :site,
       if: ->(_h) { !Rails.env.test? },
       url: ->(h) { StickyTopicView.site_rules(h.locale_from_host).url },
-      title: :'application.top_menu.site_rules',
+      title: 'application.top_menu.items.site_rules',
       class: 'icon-rules'
     }, {
       placement: :profile,
       group: :site,
       if: ->(h) { h.ru_host? && !Rails.env.test? },
       url: ->(h) { StickyClubView.faq(h.locale_from_host).url },
-      title: :'application.top_menu.faq',
+      title: 'application.top_menu.items.faq',
       class: 'icon-faq'
     }
   ]
 
-  SHIKIMORI_ITEMS = MAIN_ITEMS + PROFILE_ITEMS
+  SHIKIMORI_ITEMS = MAIN_ITEMS + PROFILE_ITEMS + OTHER_ITEMS
 
   def groups placement
     all_items
