@@ -10,7 +10,18 @@
     top: 9px
     width: 20px
 
+=top_menu_icon($content)
+  +icon($content, $menu-icon-size)
+  line-height: inherit !important
+
+  &:before
+    line-height: $menu_height
+    vertical-align: middle
+
 .l-top_menu-v2
+  .icon-mail
+    +top_menu_icon('\e81f')
+
   .icon-letter-a,
   .icon-letter-m,
   .icon-letter-r

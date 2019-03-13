@@ -5,14 +5,6 @@
 @import mixins/responsive
 @import mixins/retina
 
-=top_menu_icon($content)
-  +icon($content, $menu-icon-size)
-  line-height: inherit !important
-
-  &:before
-    line-height: $menu_height
-    vertical-align: middle
-
 // $menu_link_color: #e1e7f2
 $menu_link_color: #fff
 $top_menu-background_color: #343434
@@ -34,7 +26,6 @@ $top_menu_background_active: lighten($gray-4, 4%)
   // wo inner
   align-items: center
   display: flex
-  position: relative
 
   &.is-fullscreen-mode
     z-index: -1
@@ -78,28 +69,22 @@ $top_menu_background_active: lighten($gray-4, 4%)
       margin-top: -1px
       width: 145px
 
-  .submenu
-    width: 100%
+  // .mobile
+  //   margin-left: auto
 
-    +iphone
-      display: none !important
+  //   +gt_ipad
+  //     display: none
 
-  .mobile
-    margin-left: auto
+  //   .forum
+  //     +top_menu_icon('f')
 
-    +gt_ipad
-      display: none
+  //   .top_menu-toggler
+  //     +top_menu_icon('m')
 
-    .forum
-      +top_menu_icon('f')
+  //   .search-toggler
+  //     +top_menu_icon('s')
 
-    .top_menu-toggler
-      +top_menu_icon('m')
-
-    .search-toggler
-      +top_menu_icon('s')
-
-  .main.item
+  & > .menu
     & > a
       padding-left: 38px
       pointer-events: none
@@ -116,16 +101,15 @@ $top_menu_background_active: lighten($gray-4, 4%)
         left: 16px
 
   .userbox
+    display: flex
     margin-left: auto
     margin-right: 10px
 
     +iphone
       display: none
 
-    .mail > a
-      +top_menu_icon('\e81f')
 
-    .avatar
+    .menu
       & > a
         +gte_ipad
           min-width: 180px
