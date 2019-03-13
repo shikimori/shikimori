@@ -72,9 +72,9 @@ class Menus::TopMenu < ViewObjectBase
   end
 
   def current_item
-    @current_item ||= data.find do |item|
-      item.url == h.request.url
-    end
+    @current_item ||=
+      data.find { |item| item.url == h.request.url } ||
+      data.find { |item| h.request.url.starts_with?(item.url) }
   end
 
 private
