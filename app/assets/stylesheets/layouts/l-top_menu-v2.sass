@@ -84,11 +84,12 @@ $top_menu_background_active: lighten($gray-4, 4%)
   //   .search-toggler
   //     +top_menu_icon('s')
 
-  & > .menu
+  .main-menu
     & > a
       padding-left: 38px
       pointer-events: none
-      min-width: 218px
+      min-width: 190px
+      max-width: 275px
 
       &:before
         line-height: 28px
@@ -107,7 +108,6 @@ $top_menu_background_active: lighten($gray-4, 4%)
 
     +iphone
       display: none
-
 
     .menu
       & > a
