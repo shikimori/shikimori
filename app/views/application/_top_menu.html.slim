@@ -19,7 +19,7 @@
 
   .submenu
     - @top_menu.groups(:main).each do |group|
-      .legend = t ".#{group}"
+      .legend = t ".legend.#{group}"
 
       - @top_menu.items(group).each do |item|
         a[
@@ -89,7 +89,7 @@
   - if user_signed_in?
     - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
       a.item-icon.moderation[
-        title=t('.moderation')
+        title=t('.items.moderation')
         href=moderations_url
       ]
 

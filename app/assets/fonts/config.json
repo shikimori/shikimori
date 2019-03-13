@@ -657,6 +657,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "513ac180ff85bd275f2b736720cbbf5e",
+      "css": "home-2",
+      "code": 59461,
+      "src": "entypo"
+    },
+    {
       "uid": "e847891cd6b1d14528603a17092d0b6d",
       "css": "done_all",
       "code": 59446,
@@ -6273,7 +6279,7 @@
     {
       "uid": "7ff7ba829c8acd3fe7504befb018bae8",
       "css": "home",
-      "code": 104,
+      "code": 59431,
       "src": "custom_icons",
       "selected": false,
       "svg": {

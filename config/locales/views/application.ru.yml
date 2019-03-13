@@ -5,21 +5,24 @@ ru:
 
     top_menu:
       legend:
+        database: База данных
+        community: Сообщество
+        misc: Разное
+        info: Информация
         profile: Профиль
         site: Сайт
-      sign_out: Выход
-      sign_in: Вход
-      search: Поиск
-      main_menu: Основное меню
-      site_rules: Правила сайта
-      faq: FAQ
-      community: Сообщество
-      database: База данных
-      contests: Турниры
-      misc: Разное
-      info: Информация
-      moderation: Модерация
-      socials: Мы в соц. сетях
+      items:
+        contests: Турниры
+        faq: FAQ
+        home: Главная
+        main: Shikimori
+        main_menu: Основное меню
+        moderation: Модерация
+        search: Поиск
+        sign_in: Вход
+        sign_out: Выход
+        site_rules: Правила сайта
+        socials: Мы в соц. сетях
 
     hot_topics:
       hot_topics: Темы дня
