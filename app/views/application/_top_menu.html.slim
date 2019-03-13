@@ -112,34 +112,16 @@
           = current_user.nickname
 
       .submenu.right
-        .legend = t '.legend.profile'
-        a.icon-letter-a[
-          href=profile_user_rates_url(current_user, list_type: 'anime', subdomain: nil)
-        ]
-          = t 'anime_list'
-        a.icon-letter-m[
-          href=profile_user_rates_url(current_user, list_type: 'manga', subdomain: nil)
-        ]
-          = t 'manga_list'
-        a.icon-achievements[
-          href=profile_achievements_url(current_user, subdomain: nil)
-        ] = i18n_i('Achievement', :other)
-        a.icon-settings[
-          href=edit_profile_url(current_user, page: :account, subdomain: nil)
-        ] = t :settings
+        - @top_menu.groups(:profile ).each do |group|
+          .legend = t ".legend.#{group}"
 
-        .legend = t '.legend.site'
-        - unless Rails.env.test?
-          a.icon-rules[
-            href=StickyTopicView.site_rules(locale_from_host).url
-            title=t('.site_rules')
-          ] = t '.site_rules'
+          - @top_menu.items(group).each do |item|
+            a[
+              class=item.css_class
+              href=item.url
+              title=item.title
+            ] = item.title
 
-        - if ru_host? && !Rails.env.test?
-          a.icon-faq[
-            href=StickyClubView.faq(locale_from_host).url
-            title=t('.faq')
-          ] = t '.faq'
         a.icon-sign_out[
           href=destroy_user_session_url(subdomain: nil)
           data-method='delete'

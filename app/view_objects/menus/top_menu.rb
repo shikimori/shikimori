@@ -1,6 +1,5 @@
-class Menus::TopMenu < ViewObjectBase
-  ITEMS = [
-    ## main
+class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
+  MAIN_ITEMS = [
     # database
     {
       placement: :main,
@@ -83,8 +82,51 @@ class Menus::TopMenu < ViewObjectBase
       title: :'application.top_menu.moderation',
       class: 'icon-moderation'
     }
-    ## profile
   ]
+  PROFILE_ITEMS = [
+    # profile
+    {
+      placement: :profile,
+      group: :profile,
+      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: nil },
+      title: :anime_list,
+      class: 'icon-letter-a'
+    }, {
+      placement: :profile,
+      group: :profile,
+      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: nil },
+      title: :manga_list,
+      class: 'icon-letter-a'
+    }, {
+      placement: :profile,
+      group: :profile,
+      url: ->(h) { h.profile_achievements_url h.current_user, subdomain: nil },
+      title: ->(h) { h.i18n_i 'Achievement', :other },
+      class: 'icon-achievements'
+    }, {
+      placement: :profile,
+      group: :profile,
+      url: ->(h) { h.edit_profile_url h.current_user, page: :account, subdomain: nil },
+      title: :settings,
+      class: 'icon-settings'
+    }, {
+      placement: :profile,
+      group: :site,
+      if: ->(_h) { !Rails.env.test? },
+      url: ->(h) { StickyTopicView.site_rules(h.locale_from_host).url },
+      title: :'application.top_menu.site_rules',
+      class: 'icon-rules'
+    }, {
+      placement: :profile,
+      group: :site,
+      if: ->(h) { h.ru_host? && !Rails.env.test? },
+      url: ->(h) { StickyClubView.faq(h.locale_from_host).url },
+      title: :'application.top_menu.faq',
+      class: 'icon-faq'
+    }
+  ]
+
+  SHIKIMORI_ITEMS = MAIN_ITEMS + PROFILE_ITEMS
 
   def groups placement
     all_items
@@ -106,7 +148,7 @@ class Menus::TopMenu < ViewObjectBase
 private
 
   def all_items # rubocop:disable AbcSize
-    @all_items ||= ITEMS
+    @all_items ||= SHIKIMORI_ITEMS
       .map do |item|
         next if item[:if] && !item[:if].call(h)
 
