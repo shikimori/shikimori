@@ -28,11 +28,12 @@ header.head
   data-search_url=search_url
 ]
   .field
-    input[
-      type="text"
-      placeholder=t('search.name')
-      value=params[:search]
-    ]
+    label
+      input[
+        type="text"
+        placeholder=t('search.name')
+        value=params[:search]
+      ]
     .clear
 
   .cc-8.searchable-collection

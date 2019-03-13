@@ -12,11 +12,12 @@ header.head.misc
   data-search_url=current_url(search: nil)
 ]
   .field
-    input[
-      type="text"
-      placeholder=t('search.name')
-      value=params[:search]
-    ]
+    label
+      input[
+        type="text"
+        placeholder=t('search.name')
+        value=params[:search]
+      ]
     .clear
 
   .searchable-collection

@@ -20,11 +20,12 @@
     data-search_url=clubs_url
   ]
     .field
-      input[
-        type="text"
-        placeholder=t('search.title')
-        value=params[:search]
-      ]
+      label
+        input[
+          type="text"
+          placeholder=t('search.title')
+          value=params[:search]
+        ]
       .clear
 
     .b-clubs.searchable-collection

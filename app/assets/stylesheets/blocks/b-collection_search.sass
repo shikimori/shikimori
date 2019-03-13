@@ -11,10 +11,27 @@
   .field
     position: relative
 
+    label,
+    .clear
+      &:before
+        font-size: 23px
+        height: 38px
+        line-height: 38px
+        position: absolute
+        text-align: center
+        top: 0
+
+    label
+      color: #123
+
+      &:before
+        +shikimori('s')
+        width: 42px
+
     input
-      border: 1px solid rgba(172, 177, 180, 0.4)
-      font-size: 13px
-      padding: 10px
+      border: 1px solid rgba(#acb1b4, 0.4)
+      padding: 2px 42px 0 38px
+      line-height: 34px
       width: 100%
 
       +shiki_placeholder
@@ -26,14 +43,8 @@
 
       &:before
         +shikimori('✕')
-        font-size: 23px
-        height: 37px
-        line-height: 37px
-        position: absolute
         right: 0
-        text-align: center
-        top: 0
-        width: 37px
+        width: 38px
 
     // .ajax
       // +background-inline-retina('blocks/b-ajax/ajax', 'gif', 30px, 30px)
