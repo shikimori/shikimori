@@ -15,6 +15,12 @@
 
 .menu.main-menu
   a class=@top_menu.current_item.css_class
+    - if @top_menu.current_item.item[:image_url]
+      img[
+        src=@top_menu.current_item.item[:image_url]
+        srcset="#{@top_menu.current_item.item[:image_2x_url]} 2x"
+        alt=@top_menu.current_item.title
+      ]
     span = @top_menu.current_item.title
 
   .submenu
