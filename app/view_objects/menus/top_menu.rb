@@ -103,7 +103,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       group: :profile,
       url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: nil },
       title: :manga_list,
-      class: 'icon-letter-a'
+      class: 'icon-letter-m'
     }, {
       placement: :profile,
       group: :profile,
