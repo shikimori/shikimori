@@ -89,21 +89,23 @@ $top_menu_background_active: lighten($gray-4, 4%)
     margin-right: 25px
 
     & > a
-      padding-left: 38px
       pointer-events: none
       min-width: 190px
       max-width: 275px
+      padding-left: 0
 
-      &:before
-        left: 15px
-        line-height: 28px
-        top: 10px
+      span
+        margin-left: -5px
+      // &:before
+      //   left: 15px
+      //   line-height: 28px
+      //   top: 10px
 
-      &.icon-letter-a:before,
-      &.icon-letter-m:before,
-      &.icon-letter-r:before
-        top: 15px
-        left: 16px
+      // &.icon-letter-a:before,
+      // &.icon-letter-m:before,
+      // &.icon-letter-r:before
+      //   top: 15px
+      //   left: 16px
 
   .b-collection_search
     margin-right: 10px

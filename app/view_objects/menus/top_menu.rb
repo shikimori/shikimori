@@ -13,19 +13,19 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       group: :database,
       url: :animes_collection_url,
       title: 'activerecord.models.anime',
-      class: 'icon-letter-a'
+      class: 'icon-anime'
     }, {
       placement: :main,
       group: :database,
       url: :mangas_collection_url,
       title: 'activerecord.models.manga',
-      class: 'icon-letter-m'
+      class: 'icon-manga'
     }, {
       placement: :main,
       group: :database,
       url: :ranobe_collection_url,
       title: 'activerecord.models.ranobe',
-      class: 'icon-letter-r'
+      class: 'icon-ranobe'
     },
     # community
     {
