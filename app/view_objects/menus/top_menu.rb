@@ -88,6 +88,12 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
     {
       placement: :profile,
       group: :profile,
+      url: ->(h) { h.current_user.url },
+      title: :'application.top_menu.items.profile',
+      class: 'icon-profile'
+    }, {
+      placement: :profile,
+      group: :profile,
       url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: nil },
       title: :anime_list,
       class: 'icon-letter-a'

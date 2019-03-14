@@ -9,7 +9,7 @@ ru:
         community: Сообщество
         misc: Разное
         info: Информация
-        profile: Профиль
+        profile: Аккаунт
         site: Сайт
       items:
         contests: Турниры
@@ -18,12 +18,13 @@ ru:
         main: Shikimori
         main_menu: Основное меню
         moderation: Модерация
+        profile: Профиль
+        other: Прочее
         search: Поиск
         sign_in: Вход
         sign_out: Выход
         site_rules: Правила сайта
         socials: Мы в соц. сетях
-        other: Прочее
 
     hot_topics:
       hot_topics: Темы дня
