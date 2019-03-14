@@ -172,8 +172,8 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
 
   def current_item
     @current_item ||=
-      all_items.find { |item| item.url == h.request.url } ||
-      all_items.find { |item| h.request.url.starts_with?(item.url) && !item.item[:is_root] } ||
+      sorted_items.find { |item| item.url == h.request.url } ||
+      sorted_items.find { |item| h.request.url.starts_with?(item.url) && !item.item[:is_root] } ||
       other_item
   end
 
@@ -195,6 +195,10 @@ private
     @all_items ||= SHIKIMORI_ITEMS
       .map { |item| build item }
       .compact
+  end
+
+  def sorted_items
+    @sorted_items ||= all_items.sort_by(&:url).reverse
   end
 
   def other_item
