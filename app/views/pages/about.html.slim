@@ -7,14 +7,14 @@ header.head
     ul.b-list
       li: a.entry[
         href=StickyTopicView.site_rules(locale_from_host).url
-        title=t('application.top_menu.shikimori.site_rules')
-      ] = t 'application.top_menu.shikimori.site_rules'
+        title=t('application.top_menu.items.site_rules')
+      ] = t 'application.top_menu.items.site_rules'
 
       - if ru_host? && !Rails.env.test?
         li: a.entry[
           href=StickyClubView.faq(locale_from_host).url
-          title=t('application.top_menu.shikimori.faq')
-        ] = t 'application.top_menu.shikimori.faq'
+          title=t('application.top_menu.items.faq')
+        ] = t 'application.top_menu.items.faq'
 
       li: a.entry[
         href=copyrighted_pages_url
@@ -24,8 +24,8 @@ header.head
       - if ru_host? && !Rails.env.test?
         li: a.entry[
           href=StickyTopicView.socials(locale_from_host).url
-          title=t('application.top_menu.shikimori.socials')
-        ] = t 'application.top_menu.shikimori.socials'
+          title=t('application.top_menu.items.socials')
+        ] = t 'application.top_menu.items.socials'
 
       li: a.entry[
         href=anime_statistics_url
@@ -36,8 +36,8 @@ header.head
     ul.b-list
       li: a.entry[
         href=moderations_url
-        title=t('application.top_menu.shikimori.moderation')
-      ] = t 'application.top_menu.shikimori.moderation'
+        title=t('application.top_menu.items.moderation')
+      ] = t 'application.top_menu.items.moderation'
 
       li: a.entry[
         href=development_pages_url
