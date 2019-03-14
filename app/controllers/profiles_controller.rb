@@ -253,7 +253,7 @@ private
     og page_title: i18n_t('profile')
     og page_title: @resource.nickname
 
-    @top_menu.add_user_item @resource
+    @top_menu.add_user_item @resource unless @view.own_profile?
   end
 
   def update_params
