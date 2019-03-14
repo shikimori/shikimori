@@ -3,12 +3,9 @@
     +shikimori($content)
     font-size: $font-size
     height: 20px
-    left: 14px
     line-height: 20px
-    position: absolute
     text-align: center
-    top: 9px
-    width: 20px
+    width: 50px
 
 =top_menu_icon($content)
   +icon($content, $top_menu-icon-size)
@@ -29,23 +26,34 @@
     &.forum
       +top_menu_icon('\e837')
 
-  // .icon-sign_in
-    +top_menu_icon('r')
-
-  // .icon-sign_up
-    +top_menu_icon('\e826')
-
   .icon-letter-a,
   .icon-letter-m,
   .icon-letter-r
     &:before
       background-size: contain
       content: ''
+      display: block
       height: 18px
-      left: 15px
-      position: absolute
-      top: 10px
+      margin: 0 16px
+      text-align: center
       width: 18px
+
+  .icon-anime,
+  .icon-manga,
+  .icon-ranobe
+    &:before
+      display: block
+      width: 70px
+      text-align: center
+
+  .icon-anime:before
+    content: 'アニメ'
+
+  .icon-manga:before
+    content: 'マンガ'
+
+  .icon-ranobe:before
+    content: 'ラノベ'
 
   .icon-letter-a
     &:before
