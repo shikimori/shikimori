@@ -1,4 +1,4 @@
-class ProfilesController < ShikimoriController
+class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   before_action :fetch_resource
   before_action :set_breadcrumbs
 
@@ -251,7 +251,9 @@ private
     breadcrumb @resource.nickname, @resource.url
 
     og page_title: i18n_t('profile')
-    og page_title: (@resource || @user).nickname
+    og page_title: @resource.nickname
+
+    @top_menu.add_user_item @resource
   end
 
   def update_params
