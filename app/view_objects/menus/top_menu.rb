@@ -3,7 +3,12 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
     {
       url: :root_url,
       title: 'application.top_menu.items.home',
-      class: 'icon-home'
+      class: 'icon-home',
+      is_root: true
+    }, {
+      url: :root_url,
+      title: 'application.top_menu.items.other',
+      class: 'icon-other'
     }
   ]
   MAIN_ITEMS = [
@@ -155,7 +160,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
   def current_item
     @current_item ||=
       all_items.find { |item| item.url == h.request.url } ||
-      all_items.find { |item| h.request.url.starts_with?(item.url) }
+      all_items.find { |item| h.request.url.starts_with?(item.url) && !item.is_root }
   end
 
 private
@@ -170,7 +175,8 @@ private
           group: item[:group],
           title: item[:title].respond_to?(:call) ? item[:title].call(self) : h.t(item[:title]),
           css_class: item[:class],
-          url: item[:url].respond_to?(:call) ? item[:url].call(h) : h.send(item[:url])
+          url: (item[:url].respond_to?(:call) ? item[:url].call(h) : h.send(item[:url])),
+          is_root: !!item[:is_root]
         )
       end
       .compact
