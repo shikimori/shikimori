@@ -6,6 +6,10 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       class: 'icon-home',
       is_root: true
     }, {
+      url: :achievements_url,
+      title: ->(h) { h.i18n_i 'Achievement', :other },
+      class: 'icon-achievements'
+    }, {
       url: :root_url,
       title: 'application.top_menu.items.other',
       class: 'icon-other'
