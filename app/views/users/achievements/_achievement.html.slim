@@ -7,7 +7,7 @@
     data-progress=achievement.progress
     data-title=achievement.title(current_user, ru_host?)
     data-hint=achievement.hint(current_user, ru_host?)
-    class="#{'is-badge' if is_badge} #{'is-half' if is_badge && !local_assigns[:badge_only]} #{'is-image-index' if index > 0}".strip
+    class=("#{'is-badge' if is_badge} #{'is-half' if is_badge && !local_assigns[:badge_only]} #{'is-image-index' if index > 0}").strip
   ]
     - unless is_badge || achievement.franchise_author?
       .c-about
