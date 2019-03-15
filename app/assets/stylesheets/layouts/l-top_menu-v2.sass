@@ -24,6 +24,9 @@ $top_menu_background_active: lighten($gray-4, 4%)
   height: $top_menu-height
   z-index: 10
 
+  +gte_ipad
+    padding: 0 8px
+
   // wo inner
   align-items: center
   display: flex
@@ -37,11 +40,11 @@ $top_menu_background_active: lighten($gray-4, 4%)
   //   margin: 0 auto
   //   position: relative
 
-    .x1200 &
-      max-width: 1200px
+  //   .x1200 &
+  //     max-width: 1200px
 
-    .x1000 &
-      max-width: 1000px
+  //   .x1000 &
+  //     max-width: 1000px
 
   .logo-container
     align-items: center
@@ -50,7 +53,7 @@ $top_menu_background_active: lighten($gray-4, 4%)
     padding: 0 5px
 
     +gte_ipad
-      margin: 0 25px 0 8px
+      margin-right: 25px
 
     .glyph
       +background-inline-retina('/assets/layouts/l-top_menu-v2/glyph', 'png')
@@ -85,17 +88,28 @@ $top_menu_background_active: lighten($gray-4, 4%)
   //   .search-toggler
   //     +top_menu_icon('s')
 
-  .main-menu
-    margin-right: 25px
+  .menu-dropdown
+    &.main
+      margin-right: 25px
 
-    & > a
-      pointer-events: none
-      min-width: 190px
-      max-width: 275px
-      padding-left: 0
+      & > a
+        max-width: 275px
+        min-width: 190px
+        padding-left: 0
+        pointer-events: none
 
-      span
-        margin-left: -5px
+        span
+          margin-left: -5px
+
+    &.profile
+      & > a
+        +gte_ipad
+          min-width: 180px
+          max-width: 250px
+
+        img
+          height: 30px
+          pointer-events: none
 
   .b-collection_search
     margin-right: 10px
@@ -117,20 +131,3 @@ $top_menu_background_active: lighten($gray-4, 4%)
         height: 32px
         line-height: 32px
 
-  .userbox
-    display: flex
-    margin-left: auto
-    margin-right: 10px
-
-    +iphone
-      display: none
-
-    .menu
-      & > a
-        +gte_ipad
-          min-width: 180px
-          max-width: 250px
-
-        img
-          height: 30px
-          pointer-events: none

@@ -13,7 +13,7 @@
     .glyph
     .logo
 
-.menu-dropdown.main-menu
+.menu-dropdown.main
   a class=@top_menu.current_item.css_class
     - if @top_menu.current_item.item[:image_url]
       img[
@@ -86,56 +86,55 @@
   .item
     span.top_menu-toggler title=t('.main_menu')
 
-.userbox
-  a.menu-icon.forum[
-    title=t('forum')
-    href=forum_url
-  ]
+a.menu-icon.forum[
+  title=t('forum')
+  href=forum_url
+]
 
-  - if user_signed_in?
-    - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
-      a.menu-icon.moderation[
-        title=t('.items.moderation')
-        href=moderations_url
-      ]
-
-    - if current_user.unread_count.positive?
-      a.menu-icon.mail[
-        href=current_user.unread_messages_url
-        title=t(:mail)
-      ]
-        / = [99, current_user.unread_count].min
-
-    .menu-dropdown
-      a
-        img[
-          src=current_user.avatar_url(48)
-          srcset="#{current_user.avatar_url 80} 2x"
-          title=current_user.nickname
-          alt=current_user.nickname
-        ]
-        span.nickname
-          = current_user.nickname
-
-      .submenu.right
-        - @top_menu.groups(:profile ).each do |group|
-          .legend = t ".legend.#{group}"
-
-          - @top_menu.items(group).each do |item|
-            a[
-              class=item.css_class
-              href=item.url
-              title=item.title
-            ] = item.title
-
-        a.icon-sign_out[
-          href=destroy_user_session_url(subdomain: nil)
-          data-method='delete'
-        ] = t '.items.sign_out'
-
-  - else
-    .menu-icon.linkeable[
-      data-href=new_user_session_url(subdomain: nil)
-      title=t('.items.sign_in')
-      data-text=t('.items.sign_in')
+- if user_signed_in?
+  - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
+    a.menu-icon.moderation[
+      title=t('.items.moderation')
+      href=moderations_url
     ]
+
+  - if current_user.unread_count.positive?
+    a.menu-icon.mail[
+      href=current_user.unread_messages_url
+      title=t(:mail)
+    ]
+      / = [99, current_user.unread_count].min
+
+  .menu-dropdown.profile
+    a
+      img[
+        src=current_user.avatar_url(48)
+        srcset="#{current_user.avatar_url 80} 2x"
+        title=current_user.nickname
+        alt=current_user.nickname
+      ]
+      span.nickname
+        = current_user.nickname
+
+    .submenu.right
+      - @top_menu.groups(:profile ).each do |group|
+        .legend = t ".legend.#{group}"
+
+        - @top_menu.items(group).each do |item|
+          a[
+            class=item.css_class
+            href=item.url
+            title=item.title
+          ] = item.title
+
+      a.icon-sign_out[
+        href=destroy_user_session_url(subdomain: nil)
+        data-method='delete'
+      ] = t '.items.sign_out'
+
+- else
+  .menu-icon.linkeable[
+    data-href=new_user_session_url(subdomain: nil)
+    title=t('.items.sign_in')
+    data-text=t('.items.sign_in')
+  ]
