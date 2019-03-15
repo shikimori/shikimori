@@ -32,13 +32,15 @@ private
 
     <<-HTML.squish
       <div class="b-video fixed">
-        <img class="to-process" data-dynamic="html5_video" \
-          src="#{DEFAULT_THUMBNAIL_NORMAL}" \
-          srcset="#{DEFAULT_THUMBNAIL_RETINA} 2x" \
-          data-src="#{webm_video.thumbnail.url :normal}" \
-          data-srcset="#{webm_video.thumbnail.url :retina} 2x" \
-          data-video="#{webm_video.url}" \
-        />
+        <div class="video-link">
+          <img class="to-process" data-dynamic="html5_video" \
+            src="#{DEFAULT_THUMBNAIL_NORMAL}" \
+            srcset="#{DEFAULT_THUMBNAIL_RETINA} 2x" \
+            data-src="#{webm_video.thumbnail.url :normal}" \
+            data-srcset="#{webm_video.thumbnail.url :retina} 2x" \
+            data-video="#{webm_video.url}" \
+          />
+        </div>
         <a class="marker" href="#{webm_video.url}">html5</a>
       </div>
     HTML
