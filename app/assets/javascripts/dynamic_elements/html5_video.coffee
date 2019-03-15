@@ -14,11 +14,10 @@ export default class Html5Video extends View
     @_replace_image()
 
   _replace_image: (attempt = 1) ->
-    url = @$node.data('src')
-    return if url.match(/\.mp3$/)
+    return if @$node.data('video').match(/\.mp3$/)
 
     thumbnail = new Image
-    thumbnail.src = url
+    thumbnail.src = @$node.data('src')
 
     imagesLoaded(thumbnail)
       .on 'done', =>
