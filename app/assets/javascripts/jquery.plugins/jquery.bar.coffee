@@ -118,7 +118,10 @@ simple_bar = ($chart, options) ->
         entry[field]
 
     value =
-      if percent > 15 || (percent > 10 && entry[field] < 100) || (percent > 5 && entry[field] < 10)
+      if percent > 25 ||
+          (percent > 17 && entry[field] < 1000) ||
+          (percent > 10 && entry[field] < 100) ||
+          (percent > 5 && entry[field] < 10)
         entry[field]
       else
         ''
@@ -129,16 +132,20 @@ simple_bar = ($chart, options) ->
       else
         ''
 
+    value_classes = ['value']
+    value_classes.push 'narrow' if percent < 10
+    value_classes.push 'mini' if entry[field] > 99
+
     $chart.append(
       "<div class='line'" +
       (if options.type == 'vertical' then ' style="width: ' + (100.0 / (intervals_count)) + '%;"' else '') +
       "><div class='x_label'>" + x_axis +
       "</div><div class='bar-container'><div class='bar " + color +
-      (if percent > 0 then ' min' else '') + "' style='" + dimension+ ": " +
+      (if percent > 0 then ' min' else '') + "' style='" + dimension + ': ' +
       percent + "%'" + " title='" + (title || entry[field]) + "'>" +
-      "<div class='value" + (if percent < 10 then " narrow" else "") + (if entry[field] > 99 then " mini" else "") + "'>" +
-      value + "</div>" +
-      "</div></div></div>"
+      "<div class='#{value_classes.join(' ')}'>" +
+      value + '</div>' +
+      '</div></div></div>'
     )
 
 # многослойный вертикальный график
