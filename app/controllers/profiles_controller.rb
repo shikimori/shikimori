@@ -2,7 +2,15 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   before_action :fetch_resource
   before_action :set_breadcrumbs
   before_action do
-    @top_menu.add_user_item @resource unless @view.own_profile?
+    unless @view.own_profile?
+      @top_menu.current_item = {
+        url: @resource.url,
+        title: @resource.nickname,
+        class: 'icon-avatar',
+        image_url: @resource.avatar_url(20),
+        image_2x_url: @resource.avatar_url(48)
+      }
+    end
   end
 
   PARENT_PAGES = {

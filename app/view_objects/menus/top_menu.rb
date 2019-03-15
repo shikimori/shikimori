@@ -181,16 +181,8 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       other_item
   end
 
-  def add_user_item user
-    all_items.push(
-      build(
-        url: user.url,
-        title: user.nickname,
-        class: 'icon-avatar',
-        image_url: user.avatar_url(20),
-        image_2x_url: user.avatar_url(48)
-      )
-    )
+  def current_item= item
+    @current_item = build item
   end
 
 private
