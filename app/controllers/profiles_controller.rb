@@ -1,6 +1,9 @@
 class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   before_action :fetch_resource
   before_action :set_breadcrumbs
+  before_action do
+    @top_menu.add_user_item @resource unless @view.own_profile?
+  end
 
   PARENT_PAGES = {
     'password' => 'account',
@@ -252,8 +255,6 @@ private
 
     og page_title: i18n_t('profile')
     og page_title: @resource.nickname
-
-    @top_menu.add_user_item @resource unless @view.own_profile?
   end
 
   def update_params
