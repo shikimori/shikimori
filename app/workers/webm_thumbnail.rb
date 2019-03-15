@@ -14,7 +14,7 @@ class WebmThumbnail
     grab_thumbnail webm_video.url, thumbnail_path
 
     if File.exist? thumbnail_path
-      webm_video.update thumbnail: open(thumbnail_path)
+      webm_video.update thumbnail: File.open(thumbnail_path, 'r')
       webm_video.process!
     else
       webm_video.to_failed!
