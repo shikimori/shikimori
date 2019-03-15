@@ -24,13 +24,16 @@ $top_menu_background_active: lighten($gray-4, 4%)
   height: $top_menu-height
   position: relative // w/o it z-index wont work
   z-index: 10
+  // wo inner
+  align-items: center
+  display: flex
+
+  // +iphone
+    justify-content: space-between
 
   +gte_ipad
     padding: 0 8px
 
-  // wo inner
-  align-items: center
-  display: flex
 
   &.is-fullscreen-mode
     z-index: -1
@@ -52,9 +55,10 @@ $top_menu_background_active: lighten($gray-4, 4%)
     display: flex
     height: $top_menu-height
     padding: 0 5px
+    margin-right: 10px
 
-    +iphone
-      margin-right: 10px
+    +iphone-s
+      margin-right: 0
 
     +gte_ipad
       margin-right: 25px
@@ -67,7 +71,7 @@ $top_menu_background_active: lighten($gray-4, 4%)
       margin-top: 2px
       width: 30px
 
-      +iphone
+      +iphone-portrait
         display: none
 
     .logo
