@@ -24,6 +24,6 @@ class WebmThumbnail
 private
 
   def grab_thumbnail url, path
-    `ffmpeg -y -i #{url} -ss 00:00:01 -vframes 1 #{path}`
+    `ffmpeg -y -i #{url} -ss 00:00:05 -vframes 1 #{path}`
   end
 end
