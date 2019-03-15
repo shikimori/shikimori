@@ -15,6 +15,7 @@ class Abilities::Admin
     can :manage, User
     can :manage, Message
     can :manage, Club
+    can :manage, ClubPage
 
     cannot :delete_all_comments, User
     cannot :delete_all_topics, User
