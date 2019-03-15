@@ -148,6 +148,10 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       url: :achievements_url,
       title: ->(h) { h.i18n_i 'Achievement', :other },
       class: 'icon-achievements'
+    }, {
+      url: :characters_url,
+      title: ->(h) { h.i18n_i 'Character', :other },
+      class: 'icon-characters'
     }
   ]
 
