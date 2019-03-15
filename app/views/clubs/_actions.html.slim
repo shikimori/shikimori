@@ -29,8 +29,11 @@
         ]
 
       - if can? :upload_image, club
-        = form_tag club_club_images_url(club), method: :post, multipart: true do
-          label.upload.b-tooltipped.unprocessed[
+        = form_tag club_club_images_url(club),
+            method: :post,
+            multipart: true,
+            class: :upload do
+          label.b-tooltipped.unprocessed[
             title=t('actions.upload_image')
             data-direction="top"
             data-text=t('actions.upload_image')
