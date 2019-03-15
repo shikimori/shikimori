@@ -40,6 +40,11 @@ describe BbCodes::Tags::UrlTag do
         it { is_expected.to eq '[html5_video]http://html5demos.com/assets/dizzy.webm[/html5_video]' }
       end
 
+      context 'mp4 url tag' do
+        let(:url) { 'http://media.w3.org/2010/05/sintel/trailer.mp4' }
+        it { is_expected.to eq '[html5_video]http://media.w3.org/2010/05/sintel/trailer.mp4[/html5_video]' }
+      end
+
       context 'webm url' do
         let(:text) { 'http://html5demos.com/assets/dizzy.webm' }
         it { is_expected.to eq '[html5_video]http://html5demos.com/assets/dizzy.webm[/html5_video]' }

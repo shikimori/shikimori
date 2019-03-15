@@ -72,6 +72,6 @@ private
   end
 
   def webm_link? url
-    url.ends_with? '.webm'
+    url.ends_with?('.webm') || url.ends_with?('.mp4')
   end
 end
