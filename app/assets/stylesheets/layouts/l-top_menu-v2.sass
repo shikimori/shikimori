@@ -53,6 +53,9 @@ $top_menu_background_active: lighten($gray-4, 4%)
     height: $top_menu-height
     padding: 0 5px
 
+    +iphone
+      margin-right: 10px
+
     +gte_ipad
       margin-right: 25px
 
@@ -64,7 +67,7 @@ $top_menu_background_active: lighten($gray-4, 4%)
       margin-top: 2px
       width: 30px
 
-      +iphone-s
+      +iphone
         display: none
 
     .logo
@@ -93,16 +96,23 @@ $top_menu_background_active: lighten($gray-4, 4%)
     &.main
       margin-right: 25px
 
+      +iphone
+        display: none
+
       & > a
-        max-width: 275px
-        min-width: 190px
         padding-left: 0
         pointer-events: none
+
+        +gte_ipad
+          max-width: 275px
+          min-width: 190px
 
         span
           margin-left: -5px
 
     &.profile
+      margin-left: auto
+
       & > a
         +gte_ipad
           min-width: 180px
@@ -115,6 +125,9 @@ $top_menu_background_active: lighten($gray-4, 4%)
   .b-collection_search
     margin-right: 10px
     width: 100%
+
+    +iphone
+      display: none
 
     .field
       margin-bottom: 0
@@ -131,4 +144,3 @@ $top_menu_background_active: lighten($gray-4, 4%)
         font-size: 20px
         height: 32px
         line-height: 32px
-

@@ -34,6 +34,9 @@
           title=item.title
         ] = item.title
 
+.menu-icon.trigger.mobile
+.menu-icon.search.mobile
+
 .b-collection_search[
   data-search_url=clubs_url
 ]
@@ -133,7 +136,7 @@ a.menu-icon.forum[
       ] = t '.items.sign_out'
 
 - else
-  .menu-icon.linkeable[
+  .menu-icon.mobile.linkeable[
     data-href=new_user_session_url(subdomain: nil)
     title=t('.items.sign_in')
     data-text=t('.items.sign_in')

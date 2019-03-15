@@ -6,6 +6,7 @@
     display: flex
     letter-spacing: 0.25px
     line-height: $top_menu-height
+    height: $top_menu-height // need for mobile profile height
     user-select: none
     align-items: center
 
@@ -31,12 +32,6 @@
     &:active
       background-color: $top_menu_background_active
 
-  .menu-icon
-    &[data-text]
-      &:after
-        content: attr(data-text)
-        font-size: 14px
-
   .menu-dropdown
     background: lighten($top_menu-background_color, 4%)
 
@@ -51,6 +46,9 @@
         margin-right: 25px
         pointer-events: none
 
+        +iphone
+          display: none
+
       &:after
         +shikimori('\e846')
         font-size: 16px
@@ -58,6 +56,9 @@
         margin-left: auto
         transition: transform .2s ease-in-out
         vertical-align: middle
+
+        +iphone
+          display: none
 
     &.active
       & > a:after

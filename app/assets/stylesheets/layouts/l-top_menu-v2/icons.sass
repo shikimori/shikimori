@@ -17,6 +17,15 @@
 
 .l-top_menu-v2
   .menu-icon
+    &:not(.mobile)
+      +iphone
+        display: none
+
+    &[data-text]
+      &:after
+        content: attr(data-text)
+        font-size: 14px
+
     &.mail
       +top_menu_icon('\e81f')
 
@@ -25,6 +34,12 @@
 
     &.forum
       +top_menu_icon('\e837')
+
+    &.trigger
+      +top_menu_icon('m')
+
+    &.search
+      +top_menu_icon('s')
 
   .icon-anime,
   .icon-manga,
