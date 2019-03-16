@@ -1,40 +1,40 @@
-.menu-icon.trigger.mobile
+.menu-logo
+  - if request.path == '/' && !user_signed_in?
+    span.logo-container.linkeable[
+      data-href=root_url
+      data-title=t(:shikimori)
+    ]
+      .glyph
+      .logo
+  - else
+    a.logo-container[
+      href=root_url
+      title=t(:shikimori)
+    ]
+      .glyph
+      .logo
 
-- if request.path == '/' && !user_signed_in?
-  span.logo-container.linkeable[
-    data-href=root_url
-    data-title=t(:shikimori)
-  ]
-    .glyph
-    .logo
-- else
-  a.logo-container[
-    href=root_url
-    title=t(:shikimori)
-  ]
-    .glyph
-    .logo
+  .menu-dropdown.main
+    .menu-icon.trigger.mobile
+    a class=@top_menu.current_item.css_class
+      - if @top_menu.current_item.item[:image_url]
+        img[
+          src=@top_menu.current_item.item[:image_url]
+          srcset="#{@top_menu.current_item.item[:image_2x_url]} 2x"
+          alt=@top_menu.current_item.title
+        ]
+      span = @top_menu.current_item.title
 
-.menu-dropdown.main
-  a class=@top_menu.current_item.css_class
-    - if @top_menu.current_item.item[:image_url]
-      img[
-        src=@top_menu.current_item.item[:image_url]
-        srcset="#{@top_menu.current_item.item[:image_2x_url]} 2x"
-        alt=@top_menu.current_item.title
-      ]
-    span = @top_menu.current_item.title
+    .submenu
+      - @top_menu.groups(:main).each do |group|
+        .legend = t ".legend.#{group}"
 
-  .submenu
-    - @top_menu.groups(:main).each do |group|
-      .legend = t ".legend.#{group}"
-
-      - @top_menu.items(group).each do |item|
-        a[
-          class=item.css_class
-          href=item.url
-          title=item.title
-        ] = item.title
+        - @top_menu.items(group).each do |item|
+          a[
+            class=item.css_class
+            href=item.url
+            title=item.title
+          ] = item.title
 
 .menu-icon.search.mobile
 
@@ -120,7 +120,7 @@ a.menu-icon.forum[
       span.nickname
         = current_user.nickname
 
-    .submenu.right
+    .submenu
       - @top_menu.groups(:profile ).each do |group|
         .legend = t ".legend.#{group}"
 
