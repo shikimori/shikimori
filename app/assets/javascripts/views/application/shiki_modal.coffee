@@ -20,10 +20,14 @@ export default class ShikiModal extends View
     @_unshade()
 
   _shade: ->
-    $('#shade').show().on('click', @close)
+    $('.b-shade')
+      .addClass('active')
+      .on('click', @close)
 
   _unshade: ->
-    $('#shade').hide().off('click', @close)
+    $('.b-shade')
+      .removeClass('active')
+      .off('click', @close)
 
   _key_cancel: (e) =>
     if e.keyCode == 27

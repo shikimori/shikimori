@@ -16,12 +16,13 @@ $(document).on('page:load', () => {
         show: () => {
           $menu.css({ height, borderTopWidth, borderBottomWidth });
           $trigger.addClass('active');
+          $('.l-top_menu-v2').addClass('is-submenu');
         },
         hide: () => {
           $menu.css({ height: 0, borderTopWidth: 0, borderBottomWidth: 0 });
           $trigger.removeClass('active');
+          $('.l-top_menu-v2').removeClass('is-submenu');
         }
-
       });
 
     // return $trigger.hoverDelayed(() =>
