@@ -22,7 +22,6 @@
   .menu-dropdown,
   .menu-icon
     +mr(2px)
-    position: relative
 
     &.active,
     &:hover
@@ -32,8 +31,15 @@
     &:active
       background-color: $top_menu_background_active
 
+  .menu-icon.mobile
+    +gte_ipad
+      display: none
+
   .menu-dropdown
     background: lighten($top_menu-background_color, 4%)
+
+    +gte_ipad
+      position: relative // it needs to make .submenu width equal to .menu-dropdown width
 
     & > a
       +ellipsis2
@@ -63,7 +69,3 @@
     &.active
       & > a:after
         transform: rotate(90deg)
-
-      // transition added on "show" only
-      .submenu
-        transition: height 0.3s ease

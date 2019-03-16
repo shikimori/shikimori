@@ -37,6 +37,16 @@ $top_menu_background_active: lighten($gray-4, 4%)
   &.is-fullscreen-mode
     z-index: -1
 
+  &.is-submenu
+    +iphone
+      & + .l-page
+        position: fixed
+        width: 100vw
+
+        & + .b-shade
+          z-index: 9
+          display: block
+
   // .inner
   //   align-items: center
   //   display: flex

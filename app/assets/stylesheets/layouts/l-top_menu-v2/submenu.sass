@@ -1,44 +1,56 @@
-.l-top_menu-v2 .submenu
-  background: $top_menu_background_hover
-  border-bottom: 1px solid $top_menu_background_hover
-  border-left: 1px solid $top_menu_background_hover
-  border-right: 1px solid $top_menu_background_hover
-  display: none
-  overflow: hidden
-  position: absolute
-  width: 100%
-  z-index: 1000
+.l-top_menu-v2
+  .active .submenu
+    +iphone
+      left: 0
 
-  & > .legend
-    font-size: 10px
-    font-weight: bold
-    letter-spacing: .5px
-    line-height: 24px
-    padding: 0 15px 0 10px
-    pointer-events: none
-    text-transform: uppercase
-    user-select: none
+    +gte_ipad
+      transition: height 0.3s ease
 
-    &:first-child
-      margin-top: 5px
+  .submenu
+    background: $top_menu_background_hover
+    border-bottom: 1px solid $top_menu_background_hover
+    border-left: 1px solid $top_menu_background_hover
+    border-right: 1px solid $top_menu_background_hover
+    display: none
+    overflow: hidden
+    position: absolute
+    width: 100%
+    z-index: 1000
 
-  & > a
-    +ellipsis2
-    align-items: center
-    color: #fff
-    cursor: pointer
-    display: flex
-    font-size: 13px
-    height: 38px
-    letter-spacing: 0.25px
-    line-height: 38px
-    padding-right: 10px
-    position: relative
-    user-select: none
+    // transition added to "show" only
+    // +iphone
+      height: auto !important
 
-    &:hover
-      background: #fff
-      color: #123
+    & > .legend
+      font-size: 10px
+      font-weight: bold
+      letter-spacing: .5px
+      line-height: 24px
+      padding: 0 15px 0 10px
+      pointer-events: none
+      text-transform: uppercase
+      user-select: none
 
-    &:last-child
-      border-bottom: none
+      &:first-child
+        margin-top: 5px
+
+    & > a
+      +ellipsis2
+      align-items: center
+      color: #fff
+      cursor: pointer
+      display: flex
+      font-size: 13px
+      height: 38px
+      letter-spacing: 0.25px
+      line-height: 38px
+      padding-right: 10px
+      position: relative
+      user-select: none
+
+      &:hover
+        background: #fff
+        color: #123
+
+      &:last-child
+        border-bottom: none
