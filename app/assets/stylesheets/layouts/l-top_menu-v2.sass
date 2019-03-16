@@ -6,7 +6,6 @@
 @import mixins/retina
 
 $top_menu-height: 48px
-$top_menu-icon-size: 20px
 
 $top_menu-background_color: #343434
 $top_menu_background_hover: $gray-4
@@ -27,6 +26,13 @@ $top_menu_background_active: lighten($gray-4, 4%)
   // wo inner
   align-items: center
   display: flex
+
+  .menu-logo
+    align-items: center
+    display: flex
+
+    +iphone
+      flex-direction: row-reverse
 
   // +iphone
     justify-content: space-between
@@ -89,34 +95,20 @@ $top_menu_background_active: lighten($gray-4, 4%)
       margin-top: -1px
       width: 145px
 
-  // .mobile
-  //   margin-left: auto
-
-  //   +gt_ipad
-  //     display: none
-
-  //   .forum
-  //     +top_menu_icon('f')
-
-  //   .top_menu-toggler
-  //     +top_menu_icon('m')
-
-  //   .search-toggler
-  //     +top_menu_icon('s')
-
   .menu-icon.search
     margin-left: auto
 
   .menu-dropdown
     &.main
-      margin-right: 25px
-
-      +iphone
-        display: none
+      +gte_ipad
+        margin-right: 25px
 
       & > a
         padding-left: 0
         pointer-events: none
+
+        +iphone
+          display: none
 
         +gte_ipad
           max-width: 275px
@@ -151,9 +143,7 @@ $top_menu_background_active: lighten($gray-4, 4%)
       input
         border-radius: 2px
         color: #123
-        // font-size: 15px
         line-height: 28px
-        // padding-top: 0
 
       label:before,
       .clear:before
