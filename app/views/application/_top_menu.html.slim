@@ -1,3 +1,5 @@
+.menu-icon.trigger.mobile
+
 - if request.path == '/' && !user_signed_in?
   span.logo-container.linkeable[
     data-href=root_url
@@ -34,7 +36,6 @@
           title=item.title
         ] = item.title
 
-.menu-icon.trigger.mobile
 .menu-icon.search.mobile
 
 .b-collection_search[
