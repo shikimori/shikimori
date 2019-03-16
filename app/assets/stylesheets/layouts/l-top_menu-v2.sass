@@ -34,7 +34,6 @@ $top_menu_background_active: lighten($gray-4, 4%)
   +gte_ipad
     padding: 0 8px
 
-
   &.is-fullscreen-mode
     z-index: -1
 
@@ -55,7 +54,6 @@ $top_menu_background_active: lighten($gray-4, 4%)
     display: flex
     height: $top_menu-height
     padding: 0 5px
-    margin-right: 10px
 
     +iphone-s
       margin-right: 0
@@ -96,6 +94,9 @@ $top_menu_background_active: lighten($gray-4, 4%)
   //   .search-toggler
   //     +top_menu_icon('s')
 
+  .menu-icon.search
+    margin-left: auto
+
   .menu-dropdown
     &.main
       margin-right: 25px
@@ -115,7 +116,8 @@ $top_menu_background_active: lighten($gray-4, 4%)
           margin-left: -5px
 
     &.profile
-      margin-left: auto
+      +gte_ipad
+        margin-left: auto
 
       & > a
         +gte_ipad
