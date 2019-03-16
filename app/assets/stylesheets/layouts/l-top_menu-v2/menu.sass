@@ -23,10 +23,14 @@
   .menu-icon
     +mr(2px)
 
-    &.active,
-    &:hover
+    &.active
       background-color: $top_menu_background_hover
       text-decoration: none
+
+    +gt_ipad
+      &:hover
+        background-color: $top_menu_background_hover
+        text-decoration: none
 
     &:active
       background-color: $top_menu_background_active
@@ -36,9 +40,8 @@
       display: none
 
   .menu-dropdown
-    background: lighten($top_menu-background_color, 4%)
-
     +gte_ipad
+      background: lighten($top_menu-background_color, 4%)
       position: relative // it needs to make .submenu width equal to .menu-dropdown width
 
     & > a
