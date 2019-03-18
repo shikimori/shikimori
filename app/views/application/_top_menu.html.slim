@@ -16,11 +16,11 @@
 
   .menu-dropdown.main
     .menu-icon.trigger.mobile
-    a class=@top_menu.current_item.css_class
-      - if @top_menu.current_item.item[:image_url]
+    a class=@top_menu.current_item.data[:class]
+      - if @top_menu.current_item.data[:image_url]
         img[
-          src=@top_menu.current_item.item[:image_url]
-          srcset="#{@top_menu.current_item.item[:image_2x_url]} 2x"
+          src=@top_menu.current_item.data[:image_url]
+          srcset="#{@top_menu.current_item.data[:image_2x_url]} 2x"
           alt=@top_menu.current_item.title
         ]
       span = @top_menu.current_item.title
@@ -31,15 +31,15 @@
 
         - @top_menu.items(group).each do |item|
           a[
-            class=item.css_class
+            class=item.data[:class]
             href=item.url
             title=item.title
           ] = item.title
 
 .menu-icon.search.mobile
 
-.b-search[
-  data-search_url=clubs_url
+.b-global-search[
+  data-search_url=@top_menu.search_url
 ]
   .field
     label

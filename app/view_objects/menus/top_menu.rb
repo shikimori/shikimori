@@ -38,7 +38,8 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       group: :community,
       url: ->(h) { h.forum_topics_url :reviews },
       title: ->(h) { h.i18n_i 'Review', :other },
-      class: 'icon-reviews'
+      class: 'icon-reviews',
+      search_url: ->(h) { h.forum_topics_url :reviews }
     }, {
       placement: :main,
       group: :community,
@@ -58,7 +59,8 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       group: :misc,
       url: :ongoings_pages_url,
       title: :calendar,
-      class: 'icon-calendar'
+      class: 'icon-calendar',
+      search_url: :animes_collection_url
     },
     # info
     {
@@ -66,21 +68,24 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       group: :info,
       url: :about_pages_url,
       title: :about_site,
-      class: 'icon-info'
+      class: 'icon-info',
+      search_url: false
     }, {
       placement: :main,
       group: :info,
       if: ->(h) { h.ru_host? && !Rails.env.test? },
       url: ->(h) { StickyTopicView.socials(h.locale_from_host).url },
       title: :'application.top_menu.items.socials',
-      class: 'icon-socials'
+      class: 'icon-socials',
+      search_url: false
     }, {
       placement: :main,
       group: :info,
       if: ->(h) { h.user_signed_in? },
       url: :moderations_url,
       title: :'application.top_menu.items.moderation',
-      class: 'icon-moderation'
+      class: 'icon-moderation',
+      search_url: false
     }
   ]
   PROFILE_ITEMS = [
@@ -90,51 +95,59 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       group: :profile,
       url: ->(h) { h.current_user.url },
       title: :'application.top_menu.items.profile',
-      class: 'icon-profile'
+      class: 'icon-profile',
+      search_url: false
     }, {
       placement: :profile,
       group: :profile,
       url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: nil },
       title: :anime_list,
-      class: 'icon-letter-a'
+      class: 'icon-letter-a',
+      search_url: false
     }, {
       placement: :profile,
       group: :profile,
       url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: nil },
       title: :manga_list,
-      class: 'icon-letter-m'
+      class: 'icon-letter-m',
+      search_url: false
     }, {
       placement: :profile,
       group: :profile,
       url: ->(h) { h.current_user.unread_messages_url },
       title: :mail,
-      class: 'icon-mail'
+      class: 'icon-mail',
+      search_url: false
     }, {
       placement: :profile,
       group: :profile,
       url: ->(h) { h.profile_achievements_url h.current_user, subdomain: nil },
       title: ->(h) { h.i18n_i 'Achievement', :other },
-      class: 'icon-achievements'
+      class: 'icon-achievements',
+      search_url: false
     }, {
       placement: :profile,
       group: :profile,
       url: ->(h) { h.edit_profile_url h.current_user, page: :account, subdomain: nil },
       title: :settings,
-      class: 'icon-settings'
+      class: 'icon-settings',
+      search_url: false
     }, {
       placement: :profile,
       group: :site,
       if: ->(_h) { !Rails.env.test? },
       url: ->(h) { StickyTopicView.site_rules(h.locale_from_host).url },
       title: :'application.top_menu.items.site_rules',
-      class: 'icon-rules'
+      class: 'icon-rules',
+      search_url: false
     }, {
       placement: :profile,
       group: :site,
       if: ->(h) { h.ru_host? && !Rails.env.test? },
       url: ->(h) { StickyClubView.faq(h.locale_from_host).url },
       title: :'application.top_menu.items.faq',
-      class: 'icon-faq'
+      class: 'icon-faq',
+      search_url: false
     }
   ]
 
@@ -180,13 +193,25 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
 
   def current_item
     @current_item ||=
-      sorted_items.find { |item| item.url == h.request.url } ||
-      sorted_items.find { |item| h.request.url.starts_with?(item.url) && !item.item[:is_root] } ||
+      sorted_items.find { |item| item.url == request_url } ||
+      sorted_items.find { |item| request_url.starts_with?(item.url) && !item.item[:is_root] } ||
       other_item
   end
 
   def current_item= item
     @current_item = build item
+  end
+
+  def search_url
+    if current_item.data[:search_url].nil?
+      current_item.url
+
+    elsif current_item.data[:search_url] == false
+      h.animes_collection_url
+
+    else
+      item_url current_item.data[:search_url]
+    end
   end
 
 private
@@ -212,9 +237,8 @@ private
       placement: item[:placement],
       group: item[:group],
       title: item_title(item[:title]),
-      css_class: item[:class],
       url: item_url(item[:url]),
-      item: item
+      data: item
     )
   end
 
@@ -241,6 +265,11 @@ private
       value.call h
     end
   end
+
+  def request_url
+    @request_url ||= h.request.url.gsub(/\?.*|#.*/, '')
+  end
+
   # def anime_seasons
   #   month = Time.zone.now.beginning_of_month
   #   # + 1.month since 12th month belongs to the next year in Titles::SeasonTitle

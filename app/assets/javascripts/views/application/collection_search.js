@@ -10,8 +10,10 @@ const PENDING_REQUEST = 'pending_request';
 export default class CollectionSearch extends View {
   cache = {}
 
-  initialize() {
-    this.$collection = this.$root.find('.searchable-collection');
+  initialize($searchableCollection) {
+    this.$collection = $searchableCollection ||
+      this.$root.find('.searchable-collection');
+
     if (!this.$collection.length) {
       console.warn('not found .searchable-collection');
     }
