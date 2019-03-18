@@ -13,7 +13,7 @@ page_load(
 )
 
 page_load 'topics_index', ->
-  new CollectionSearch '.b-collection_search'
+  new CollectionSearch '.b-search'
 
   $form = $('form.edit_user_preferences')
   $form

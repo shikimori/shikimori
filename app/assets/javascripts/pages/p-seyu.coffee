@@ -2,7 +2,7 @@ import CollectionSearch from 'views/application/collection_search'
 import FavouriteStar from 'views/application/favourite_star'
 
 page_load 'seyu_index', ->
-  new CollectionSearch '.b-collection_search'
+  new CollectionSearch '.b-search'
 
 page_load 'seyu_show', ->
   new FavouriteStar $('.c-actions .fav-add'), gon.is_favoured.seyu

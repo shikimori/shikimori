@@ -26,7 +26,7 @@
       = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/site', title: 'Новости сайта'
 
   = render layout: 'topics/page' do |f|
-    .b-collection_search[
+    .b-search[
       data-search_url=@forums_view.page_url(1)
     ]
       .field
