@@ -4,36 +4,24 @@ header.head
   .notice
     == og.notice
 
-.b-search[
-  data-search_url=current_url(search: nil)
-]
-  .field
-    label
-      input[
-        type="text"
-        placeholder=t('search.title')
-        value=params[:search]
-      ]
-    .clear
+= render 'pagination', view: @view
 
-  = render 'pagination', view: @view
+.menu-toggler
+  .toggler
 
-  .menu-toggler
-    .toggler
+.menu-slide-outer.x199
+  .menu-slide-inner
+    section.l-content.to-process.searchable-collection[
+      data-dynamic='cutted_covers'
+    ]
+      = render 'cached_collection', view: @view
 
-  .menu-slide-outer.x199
-    .menu-slide-inner
-      section.l-content.to-process.searchable-collection[
-        data-dynamic='cutted_covers'
-      ]
-        = render 'cached_collection', view: @view
+    aside.l-menu
+      - if user_signed_in? || turbolinks_request?
+        = render 'menu', social: true, menu: @menu
+      - else
+        .postloaded data-href=@menu.url
+          .ajax-loading title=t('loading')
 
-      aside.l-menu
-        - if user_signed_in? || turbolinks_request?
-          = render 'menu', social: true, menu: @menu
-        - else
-          .postloaded data-href=@menu.url
-            .ajax-loading title=t('loading')
-
-  / - if user_signed_in? && !current_user.preferences.postload_in_catalog
-  = render 'pagination', view: @view
+/ - if user_signed_in? && !current_user.preferences.postload_in_catalog
+= render 'pagination', view: @view

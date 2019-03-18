@@ -218,15 +218,15 @@ export default class PaginatedCatalog
 
     @$link_prev.attr(href: data.prev_page_url || '', action: data.prev_page_url)
     if data.prev_page_url
-      @$link_prev.removeClass "disabled"
+      @$link_prev.removeClass 'disabled'
     else
       @$link_prev.addClass "disabled"
 
     @$link_next.attr(href: data.next_page_url || '', action: data.next_page_url)
     if data.next_page_url
-      @$link_next.removeClass "disabled"
+      @$link_next.removeClass 'disabled'
     else
-      @$link_next.addClass "disabled"
+      @$link_next.addClass 'disabled'
 
     @$pagination.toggle !(@$link_next.hasClass('disabled') && @$link_prev.hasClass('disabled'))
 
