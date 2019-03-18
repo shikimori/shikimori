@@ -16,14 +16,14 @@ export default class CommentsNotifier {
 
   constructor() {
     // при загрузке новой страницы вставляем в DOM счётчик
-    $(document).on('page:load', () => this.$container = null);
+    $(document).on('turbolinks:load', () => this.$container = null);
     // при прочтении комментов, декрементим счётчик
     $(document).on('appear', (e, $appeared, byClick) => this._appear(e, $appeared, byClick));
     // при добавление блока о новом комментарии/топике делаем инкремент
     $(document).on('faye:added', () => this._incrementCounter());
     // при загрузке контента аяксом, fayer-loader'ом, postloader'ом, при перезагрузке страницы
     $(document).on(
-      'page:load page:restore faye:loaded ajax:success postloader:success',
+      'turbolinks:load page:restore faye:loaded ajax:success postloader:success',
       () => this._refresh()
     );
 

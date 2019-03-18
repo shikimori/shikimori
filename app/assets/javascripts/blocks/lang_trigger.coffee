@@ -1,4 +1,4 @@
-$(document).on 'page:load', ->
+$(document).on 'turbolinks:load', ->
   # переключение языка описания
   $('.b-lang_trigger').on 'click', ->
     $english = $('.english')

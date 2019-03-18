@@ -1,7 +1,7 @@
 // import delay from 'delay';
 // import Turbolinks from 'turbolinks';
 
-// $(document).on('page:load', () => {
+// $(document).on('turbolinks:load', () => {
 //   const $mainSearch = $('.b-main_search');
 //   const $search = $('.b-main_search input');
 //   const $popup = $('.b-main_search .popup');

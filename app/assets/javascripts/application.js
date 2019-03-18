@@ -117,7 +117,7 @@ $(() => {
 
   window.MOMENT_DIFF = moment($body.data('server_time')).diff(new Date());
 
-  $(document).trigger('page:load', true);
+  $(document).trigger('turbolinks:load', true);
 
   if (window.SHIKI_USER.isSignedIn && !window.SHIKI_FAYE_LOADER) {
     window.SHIKI_COMMENTS_NOTIFIER = new CommentsNotifier();
@@ -153,7 +153,7 @@ $(document).on('page:restore', (_e, _isDomContentLoaded) => {
   $('.tipsy').remove();
 });
 
-$(document).on('page:load', (_e, _isDomContentLoaded) => {
+$(document).on('turbolinks:load', (_e, _isDomContentLoaded) => {
   // if (isMobile()) {
   //   Turbolinks.enableProgressBar(false);
   //   Turbolinks.enableProgressBar(true, '.turbolinks');
