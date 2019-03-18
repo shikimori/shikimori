@@ -18,9 +18,10 @@ extends:
 
 globals:
   I18n: true
-  page_load: true
   gon: true
   p: true
+  page_load: true
+  page_restore: true
 
 parserOptions:
   ecmaVersion: 6
