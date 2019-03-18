@@ -92,7 +92,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       name: :moderation,
       placement: :main,
       group: :info,
-      if: ->(h) { h.user_signed_in? },
+      if: :user_signed_in?,
       url: :moderations_url,
       search_url: false
     }
@@ -103,36 +103,42 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       name: :profile,
       placement: :profile,
       group: :profile,
+      if: :user_signed_in?,
       url: ->(h) { h.current_user.url },
       search_url: false
     }, {
       name: :anime_list,
       placement: :profile,
       group: :profile,
+      if: :user_signed_in?,
       url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: nil },
       search_url: false
     }, {
       name: :manga_list,
       placement: :profile,
       group: :profile,
+      if: :user_signed_in?,
       url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: nil },
       search_url: false
     }, {
       name: :mail,
       placement: :profile,
       group: :profile,
+      if: :user_signed_in?,
       url: ->(h) { h.current_user.unread_messages_url },
       search_url: false
     }, {
       name: :achievements,
       placement: :profile,
       group: :profile,
+      if: :user_signed_in?,
       url: ->(h) { h.profile_achievements_url h.current_user, subdomain: nil },
       search_url: false
     }, {
       name: :settings,
       placement: :profile,
       group: :profile,
+      if: :user_signed_in?,
       url: ->(h) { h.edit_profile_url h.current_user, page: :account, subdomain: nil },
       search_url: false
     }, {
@@ -228,7 +234,7 @@ private
   end
 
   def build item
-    return if item[:if] && !item[:if].call(h)
+    return if if_condition(item[:if])
 
     OpenStruct.new(
       placement: item[:placement],
@@ -263,6 +269,16 @@ private
 
     else
       value.call h
+    end
+  end
+
+  def if_condition item_if
+    return false unless item_if
+
+    if item_if.is_a? Symbol
+      !h.send(item_if)
+    else
+      !item_if.call(h)
     end
   end
 
