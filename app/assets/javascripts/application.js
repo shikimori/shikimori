@@ -35,6 +35,12 @@ import 'codemirror/addon/search/matchesonscrollbar.css';
 import bowser from 'bowser';
 import { throttle, debounce } from 'throttle-debounce';
 
+import pageLoad from 'helpers/page_load'; // eslint-disable-line import/newline-after-import
+window.pageLoad = pageLoad;
+
+import pageUnload from 'helpers/page_unload'; // eslint-disable-line import/newline-after-import
+window.pageUnload = pageUnload;
+
 const requireJqueryPlugins = require.context('jquery.plugins', true);
 requireJqueryPlugins.keys().forEach(requireJqueryPlugins);
 
@@ -62,12 +68,6 @@ import bindings from 'helpers/bindings';
 
 import 'helpers/using'; // TODO: get rid of this helper
 import 'helpers/p';
-
-import pageLoad from 'helpers/page_load'; // eslint-disable-line import/newline-after-import
-window.pageLoad = pageLoad;
-
-import pageUnload from 'helpers/page_unload'; // eslint-disable-line import/newline-after-import
-window.pageUnload = pageUnload;
 
 import 'i18n/translations';
 
@@ -117,8 +117,6 @@ $(() => {
 
   window.MOMENT_DIFF = moment($body.data('server_time')).diff(new Date());
 
-  $(document).trigger('turbolinks:load', true);
-
   if (window.SHIKI_USER.isSignedIn && !window.SHIKI_FAYE_LOADER) {
     window.SHIKI_COMMENTS_NOTIFIER = new CommentsNotifier();
     window.SHIKI_ACHIEVEMENTS_NOTIFIER = new AchievementsNotifier();
@@ -145,15 +143,7 @@ $(() => {
   $(window).on('scroll', throttle(750, () => $(document.body).trigger('scroll:throttled')));
 });
 
-$(document).on('page:restore', (_e, _isDomContentLoaded) => {
-  $(document.body).process();
-  // need to reset style of HTML because it can be set to 'overflow: hidden' by magnificPopup
-  $('html').attr('style', null);
-  // need to remove old tooltips
-  $('.tipsy').remove();
-});
-
-$(document).on('turbolinks:load', (_e, _isDomContentLoaded) => {
+$(document).on('turbolinks:load', () => {
   // if (isMobile()) {
   //   Turbolinks.enableProgressBar(false);
   //   Turbolinks.enableProgressBar(true, '.turbolinks');
@@ -182,4 +172,12 @@ $(document).on('turbolinks:load', (_e, _isDomContentLoaded) => {
     $.cookie($(this).data('name'), $(this).data('value'), { expires: 730, path: '/' });
     Turbolinks.visit(document.location.href);
   });
+});
+
+$(document).on('turbolinks:before-cache', () => {
+  // need to reset style of HTML because it can be set to 'overflow: hidden' by magnificPopup
+  $('html').attr('style', null);
+  // need to remove old tooltips
+  $('.tipsy').remove();
+  $('body > .tooltip').remove();
 });

@@ -24,10 +24,6 @@ gem 'bourbon'
 gem 'coffee-rails'
 gem 'non-stupid-digest-assets'
 gem 'sassc-rails'
-# gem 'turbolinks'
-# использовать возможность раздельной загрузки скриптов:
-#   в /about сделать подгружаемую highcharts
-#   а на странице /animes/id/franchise - d3
 gem 'gon'
 gem 'turbolinks'
 gem 'uglifier'
