@@ -15,15 +15,11 @@ export default class CommentsNotifier {
   blockTop = 0
 
   constructor() {
-    // при загрузке новой страницы вставляем в DOM счётчик
-    $(document).on('turbolinks:load', () => this.$container = null);
-    // при прочтении комментов, декрементим счётчик
+    $(document).on('turbolinks:before-cache', () => this._cleanup());
     $(document).on('appear', (e, $appeared, byClick) => this._appear(e, $appeared, byClick));
-    // при добавление блока о новом комментарии/топике делаем инкремент
     $(document).on('faye:added', () => this._incrementCounter());
-    // при загрузке контента аяксом, fayer-loader'ом, postloader'ом, при перезагрузке страницы
     $(document).on(
-      'turbolinks:load page:restore faye:loaded ajax:success postloader:success',
+      'turbolinks:load faye:loaded ajax:success postloader:success',
       () => this._refresh()
     );
 
@@ -67,6 +63,13 @@ export default class CommentsNotifier {
 
   _render() {
     return JST['comments/notifier']();
+  }
+
+  _cleanup() {
+    if (this.$container) {
+      this.$container.remove();
+      this.$container = null;
+    }
   }
 
   async _refresh() {
