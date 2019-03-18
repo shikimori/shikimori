@@ -126,7 +126,7 @@ a.menu-icon.forum[
 
         - @top_menu.items(group).each do |item|
           a[
-            class=item.css_class
+            class=item.data[:class]
             href=item.url
             title=item.title
           ] = item.title
