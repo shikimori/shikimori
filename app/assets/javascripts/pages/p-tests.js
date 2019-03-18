@@ -8,7 +8,7 @@ function setLink() {
   );
 }
 
-page_load('.tests', () => {
+pageLoad('.tests', () => {
   $('#image_url')
     .on('keypress', function (e) {
       if ((e.keyCode === 10) || (e.keyCode === 13)) {

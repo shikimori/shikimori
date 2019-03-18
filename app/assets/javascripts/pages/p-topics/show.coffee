@@ -1,6 +1,6 @@
 import imagesLoaded from 'imagesloaded'
 
-page_load 'topics_show', ->
+pageLoad 'topics_show', ->
   $stars = $('.body-inner .review-stars')
 
   if $stars.length

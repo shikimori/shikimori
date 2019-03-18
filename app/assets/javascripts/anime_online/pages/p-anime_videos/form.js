@@ -1,6 +1,6 @@
 import axios from 'helpers/axios';
 
-page_load(
+pageLoad(
   'anime_videos_new',
   'anime_videos_edit',
   'anime_videos_create',

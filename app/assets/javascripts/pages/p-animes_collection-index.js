@@ -17,7 +17,7 @@ page_restore('animes_collection_index', 'recommendations_index', 'userlist_compa
   // paginatedCatalog.bind_history()
 });
 
-page_load('animes_collection_index', 'recommendations_index', 'userlist_comparer_show', () => {
+pageLoad('animes_collection_index', 'recommendations_index', 'userlist_comparer_show', () => {
   if ($('.l-menu .ajax-loading').exists()) {
     $('.l-menu').one('postloaded:success', initCatalog);
   } else {

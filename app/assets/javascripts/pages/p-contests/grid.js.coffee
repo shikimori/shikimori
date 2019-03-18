@@ -1,4 +1,4 @@
-page_load 'contests_grid', ->
+pageLoad 'contests_grid', ->
   place_final()
   $(window).on 'resize', place_final
 

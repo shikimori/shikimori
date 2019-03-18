@@ -6,7 +6,7 @@ import axios from 'helpers/axios';
 import flash from 'services/flash'
 import ShikiHtml5Video from 'views/application/shiki_html5_video';
 
-page_load('anime_videos_index', () => {
+pageLoad('anime_videos_index', () => {
   initVideoPlayer();
 
   const debouncedResize = debounce(250, resizeVideoPlayer);

@@ -1,6 +1,6 @@
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
 
-page_load('userlist_comparer_show', () =>
+pageLoad('userlist_comparer_show', () =>
   $('tr.unprocessed')
     .removeClass('unprocessed')
     .find('a.tooltipped')

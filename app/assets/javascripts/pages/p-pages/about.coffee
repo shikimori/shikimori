@@ -1,4 +1,4 @@
-page_load 'pages_about', ->
+pageLoad 'pages_about', ->
   require.ensure [], (require) =>
     Highcharts = require('highcharts')
 

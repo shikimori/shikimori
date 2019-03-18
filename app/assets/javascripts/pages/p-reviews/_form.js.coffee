@@ -1,4 +1,4 @@
-page_load 'reviews_new', 'reviews_edit', 'reviews_create', 'reviews_update', ->
+pageLoad 'reviews_new', 'reviews_edit', 'reviews_create', 'reviews_update', ->
   $('.b-rate').rateable()
   $('.b-shiki_editor.unprocessed')
     .shikiEditor()

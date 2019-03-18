@@ -20,8 +20,8 @@ globals:
   I18n: true
   gon: true
   p: true
-  page_load: true
-  page_restore: true
+  pageLoad: true
+  pageUnload: true
 
 parserOptions:
   ecmaVersion: 6

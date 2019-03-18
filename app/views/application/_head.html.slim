@@ -98,16 +98,16 @@ title = og.meta_title
   script src="//dmc1acwvwny3.cloudfront.net/atatus.js"
 
 - unless Rails.env.test?
-  = stylesheet_pack_tag 'vendor', media: 'all', data: { 'turbolinks-track' => ''  }
-  = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => '' }
+  = stylesheet_pack_tag 'vendor', media: 'all', data: { 'turbolinks-track' => 'reload'  }
+  = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => 'reload' }
 
   - if anime_online?
-    = stylesheet_link_tag 'anime_online/application', media: 'all', data: { 'turbolinks-track' => '' }
+    = stylesheet_link_tag 'anime_online/application', media: 'all', data: { 'turbolinks-track' => 'reload' }
 
   = yield :head
 
-  = javascript_pack_tag 'vendor', data: { 'turbolinks-track' => '' }
-  = javascript_pack_tag 'application', data: { 'turbolinks-track' => '' }
+  = javascript_pack_tag 'vendor', data: { 'turbolinks-track' => 'reload' }
+  = javascript_pack_tag 'application', data: { 'turbolinks-track' => 'reload' }
 
   - if Rails.env.production?
     - if anime_online?

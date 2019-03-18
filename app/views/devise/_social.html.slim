@@ -4,8 +4,8 @@
   div
     - (I18n.russian? ? [:vkontakte, :facebook, :twitter] : [:facebook, :twitter, :vkontakte]).each do |network|
       a.b-oauth_token[
-        class="#{network}"
-        href="#{send :"user_#{network}_omniauth_authorize_url"}"
-        title="#{t ".#{network}"}"
-        data-no-turbolink="true"
+        class=network
+        href=send(:"user_#{network}_omniauth_authorize_url")
+        title=t(".#{network}")
+        data-turbolinks='false'
       ]

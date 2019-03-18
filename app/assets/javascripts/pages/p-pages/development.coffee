@@ -1,4 +1,4 @@
-page_load 'pages_development', ->
+pageLoad 'pages_development', ->
   $ajax = $ '.b-ajax'
   $iframe = $ 'iframe'
 

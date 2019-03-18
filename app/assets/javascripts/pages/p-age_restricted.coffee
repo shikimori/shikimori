@@ -1,4 +1,4 @@
-page_load 'age_restricted', ->
+pageLoad 'age_restricted', ->
   $('.confirm').click ->
     $.cookie $('.confirm').data('cookie'), true,
       expires: 9999

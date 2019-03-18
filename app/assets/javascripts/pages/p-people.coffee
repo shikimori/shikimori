@@ -1,10 +1,10 @@
 import CollectionSearch from 'views/application/collection_search'
 import FavouriteStar from 'views/application/favourite_star'
 
-page_load 'people_index', ->
+pageLoad 'people_index', ->
   new CollectionSearch '.b-search'
 
-page_load 'people_show', ->
+pageLoad 'people_show', ->
   $('.b-entry-info').checkHeight max_height: 101, without_shade: true
 
   Object.keys(gon.is_favoured).forEach (role) ->
