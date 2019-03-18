@@ -34,7 +34,7 @@ export default class PaginatedCatalog
       @_filter_page_change
     )
 
-    $collection_search = $('.b-collection_search')
+    $collection_search = $('.b-search')
     if $collection_search.length
       @collection_search = new CollectionSearch $collection_search
       @collection_search._process_response = @_process_ajax_content

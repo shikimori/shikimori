@@ -69,7 +69,7 @@ page_load('moderations_missing_videos', () => {
 });
 
 page_load('roles_show', () => {
-  new CollectionSearch('.b-collection_search');
+  new CollectionSearch('.b-search');
 
   $('.l-page')
     .on('ajax:before', '.b-user', ({ currentTarget }) => {

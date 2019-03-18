@@ -25,13 +25,13 @@ page_load('user_rates_index', () => {
   });
 
   // фокус по инпуту фильтра по тайтлу
-  $('.b-collection_search input').on('focus', () => {
+  $('.b-search input').on('focus', () => {
     if (listCache.length) { return; }
     updateListCache();
   });
 
   // разворачивание свёрнутых блоков при фокусе на инпут
-  $('.b-collection_search input').on('focus', () =>
+  $('.b-search input').on('focus', () =>
     $('.collapsed').each((_index, node) => {
       if (node.style.display === 'block') {
         $(node).trigger('click');
@@ -40,7 +40,7 @@ page_load('user_rates_index', () => {
   );
 
   // пишут в инпуте фильтра по тайтлу
-  $('.b-collection_search input').on('keyup', ({ keyCode }) => {
+  $('.b-search input').on('keyup', ({ keyCode }) => {
     if (keyCode === 91 || keyCode === 18 || keyCode === 16 || keyCode === 17) { return; }
 
     if (filterTimer) {
@@ -96,7 +96,7 @@ function filterList() {
   filterTimer = null;
 
   // разворачивание свёрнутых элементов
-  const filterValue = $('.b-collection_search input').val().toLowerCase();
+  const filterValue = $('.b-search input').val().toLowerCase();
 
   listCache.forEach(block => {
     let visible = false;
@@ -439,7 +439,7 @@ function insertNextPage(e, $data) {
 
 function processNextPage() {
   updateListCache();
-  if (!Object.isEmpty($('.b-collection_search input').val())) {
+  if (!Object.isEmpty($('.b-search input').val())) {
     filterList();
   }
   $.force_appear();

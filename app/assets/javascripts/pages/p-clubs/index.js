@@ -1,5 +1,5 @@
 import CollectionSearch from 'views/application/collection_search';
 
 page_load('clubs_index', () => {
-  new CollectionSearch('.b-collection_search');
+  new CollectionSearch('.b-search');
 });

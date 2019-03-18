@@ -3,7 +3,7 @@ import FavouriteStar from 'views/application/favourite_star'
 import ImageboardGallery from 'views/images/imageboard_gallery'
 
 page_load 'characters_index', ->
-  new CollectionSearch '.b-collection_search'
+  new CollectionSearch '.b-search'
 
 page_load 'characters_show', ->
   $('.text').checkHeight max_height: 200
