@@ -12,19 +12,38 @@ ru:
         profile: Аккаунт
         site: Сайт
       items:
+        anime: :activerecord.models.anime
+        manga: :activerecord.models.manga
+        ranobe: :activerecord.models.ranobe
+        clubs: Клубы
+        collections: Коллекции
+        reviews: Рецензии
+        forum: :forum
+        users: Пользователи
         contests: Турниры
+        calendar: :calendar
+        info: :about_site
+        socials: Мы в соц. сетях
+        moderation: Модерация
+
+        profile: Профиль
+        anime_list: :anime_list
+        manga_list: :manga_list
+        mail: :mail
+        achievements: Ачивки
+        settings: :settings
+        site_rules: Правила сайта
         faq: FAQ
+
+        characters: Персонажи
         home: Главная
         main: Shikimori
         main_menu: Основное меню
-        moderation: Модерация
-        profile: Профиль
         other: Прочее
+        people: Люди
         search: Поиск
         sign_in: Вход
         sign_out: Выход
-        site_rules: Правила сайта
-        socials: Мы в соц. сетях
 
     hot_topics:
       hot_topics: Темы дня
