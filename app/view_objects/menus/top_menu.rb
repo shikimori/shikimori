@@ -194,7 +194,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
   def current_item
     @current_item ||=
       sorted_items.find { |item| item.url == request_url } ||
-      sorted_items.find { |item| request_url.starts_with?(item.url) && !item.item[:is_root] } ||
+      sorted_items.find { |item| request_url.starts_with?(item.url) && !item.data[:is_root] } ||
       other_item
   end
 
