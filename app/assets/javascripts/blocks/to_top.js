@@ -6,7 +6,7 @@ let $toTop = null;
 let scrollDisabled = false;
 let scrollBinded = false;
 
-$(document).on('page:load', () => {
+$(document).on('turbolinks:load', () => {
   if (isMobile()) { return; }
 
   $toTop = $('.b-to-top');

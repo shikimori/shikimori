@@ -1,4 +1,4 @@
-$(document).on('page:load', () => {
+$(document).on('turbolinks:load', () => {
   // desktop menu
   const $triggers = $('.l-top_menu-v2 .submenu').parent();
   $triggers.each((_index, node) => {
