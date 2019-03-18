@@ -11,7 +11,7 @@ export default class CommentsNotifier {
   $container = null
   currentCounter = 0
 
-  maxTop = 31
+  maxTop = 48
   blockTop = 0
 
   constructor() {
