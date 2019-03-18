@@ -139,7 +139,7 @@ module Clockwork
     Tags::ImportDanbooruTagsWorker.perform_async
   end
 
-  every 1.day, 'monthly.coub', at: '05:00', if: lambda { |t| t.day == 10 } do
+  every 1.day, 'monthly.very-very-long-coub', at: '22:00', if: lambda { |t| t.day == 10 } do
     Tags::ImportCoubTagsWorker.perform_async
   end
 
