@@ -2,180 +2,170 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
   MAIN_ITEMS = [
     # database
     {
+      name: :anime,
       placement: :main,
       group: :database,
       url: :animes_collection_url,
-      title: :'activerecord.models.anime',
-      class: 'icon-anime'
+      search_url: ->(h) {
+        h.params[:controller] == 'animes_collection' ?
+          h.current_url(search: nil) :
+          h.animes_collection_url
+      }
     }, {
+      name: :manga,
       placement: :main,
       group: :database,
       url: :mangas_collection_url,
-      title: :'activerecord.models.manga',
-      class: 'icon-manga'
+      search_url: ->(h) {
+        h.params[:controller] == 'mangas_collection' ?
+          h.current_url(search: nil) :
+          h.mangas_collection_url
+      }
     }, {
+      name: :ranobe,
       placement: :main,
       group: :database,
       url: :ranobe_collection_url,
-      title: :'activerecord.models.ranobe',
-      class: 'icon-ranobe'
+      search_url: ->(h) {
+        h.params[:controller] == 'ranobes_collection' ?
+          h.current_url(search: nil) :
+          h.ranobes_collection_url
+      }
     },
     # community
     {
+      name: :clubs,
       placement: :main,
       group: :community,
-      url: :clubs_url,
-      title: ->(h) { h.i18n_i 'Club', :other },
-      class: 'icon-clubs'
+      url: :clubs_url
     }, {
+      name: :collections,
       placement: :main,
       group: :community,
-      url: :collections_url,
-      title: ->(h) { h.i18n_i 'Collection', :other },
-      class: 'icon-collections'
+      url: :collections_url
     }, {
+      name: :reviews,
       placement: :main,
       group: :community,
       url: ->(h) { h.forum_topics_url :reviews },
-      title: ->(h) { h.i18n_i 'Review', :other },
-      class: 'icon-reviews',
       search_url: ->(h) { h.forum_topics_url :reviews }
     }, {
+      name: :forum,
       placement: :main,
       group: :community,
-      url: :forum_url,
-      title: :forum,
-      class: 'icon-forum'
+      url: :forum_url
     },
     {
+      name: :users,
       placement: :main,
       group: :community,
-      url: :users_url,
-      title: ->(h) { h.i18n_i 'User', :other },
-      class: 'icon-users'
+      url: :users_url
     },
     # misc
     {
+      name: :contests,
       placement: :main,
       group: :misc,
-      url: :contests_url,
-      title: :'application.top_menu.items.contests',
-      class: 'icon-contests'
+      url: :contests_url
     }, {
+      name: :calendar,
       placement: :main,
       group: :misc,
       url: :ongoings_pages_url,
-      title: :calendar,
-      class: 'icon-calendar',
       search_url: :animes_collection_url
     },
     # info
     {
+      name: :info,
       placement: :main,
       group: :info,
       url: :about_pages_url,
-      title: :about_site,
-      class: 'icon-info',
       search_url: false
     }, {
+      name: :socials,
       placement: :main,
       group: :info,
       if: ->(h) { h.ru_host? && !Rails.env.test? },
       url: ->(h) { StickyTopicView.socials(h.locale_from_host).url },
-      title: :'application.top_menu.items.socials',
-      class: 'icon-socials',
       search_url: false
     }, {
+      name: :moderation,
       placement: :main,
       group: :info,
       if: ->(h) { h.user_signed_in? },
       url: :moderations_url,
-      title: :'application.top_menu.items.moderation',
-      class: 'icon-moderation',
       search_url: false
     }
   ]
   PROFILE_ITEMS = [
     # profile
     {
+      name: :profile,
       placement: :profile,
       group: :profile,
       url: ->(h) { h.current_user.url },
-      title: :'application.top_menu.items.profile',
-      class: 'icon-profile',
       search_url: false
     }, {
+      name: :anime_list,
       placement: :profile,
       group: :profile,
       url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: nil },
-      title: :anime_list,
-      class: 'icon-letter-a',
       search_url: false
     }, {
+      name: :manga_list,
       placement: :profile,
       group: :profile,
       url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: nil },
-      title: :manga_list,
-      class: 'icon-letter-m',
       search_url: false
     }, {
+      name: :mail,
       placement: :profile,
       group: :profile,
       url: ->(h) { h.current_user.unread_messages_url },
-      title: :mail,
-      class: 'icon-mail',
       search_url: false
     }, {
+      name: :achievements,
       placement: :profile,
       group: :profile,
       url: ->(h) { h.profile_achievements_url h.current_user, subdomain: nil },
-      title: ->(h) { h.i18n_i 'Achievement', :other },
-      class: 'icon-achievements',
       search_url: false
     }, {
+      name: :settings,
       placement: :profile,
       group: :profile,
       url: ->(h) { h.edit_profile_url h.current_user, page: :account, subdomain: nil },
-      title: :settings,
-      class: 'icon-settings',
       search_url: false
     }, {
+      name: :site_rules,
       placement: :profile,
       group: :site,
       if: ->(_h) { !Rails.env.test? },
       url: ->(h) { StickyTopicView.site_rules(h.locale_from_host).url },
-      title: :'application.top_menu.items.site_rules',
-      class: 'icon-rules',
       search_url: false
     }, {
+      name: :faq,
       placement: :profile,
       group: :site,
       if: ->(h) { h.ru_host? && !Rails.env.test? },
       url: ->(h) { StickyClubView.faq(h.locale_from_host).url },
-      title: :'application.top_menu.items.faq',
-      class: 'icon-faq',
       search_url: false
     }
   ]
 
   HIDDEN_ITEMS = [
     {
+      name: :home,
       url: :root_url,
-      title: :'application.top_menu.items.home',
-      class: 'icon-home',
       is_root: true
     }, {
-      url: :achievements_url,
-      title: ->(h) { h.i18n_i 'Achievement', :other },
-      class: 'icon-achievements'
+      name: :achievements,
+      url: :achievements_url
     }, {
-      url: :characters_url,
-      title: ->(h) { h.i18n_i 'Character', :other },
-      class: 'icon-characters'
+      name: :characters,
+      url: :characters_url
     }, {
-      url: :people_url,
-      title: ->(h) { h.i18n_i 'Person', :other },
-      class: 'icon-people'
+      name: :people,
+      url: :people_url
     }
   ]
 
@@ -243,21 +233,24 @@ private
     OpenStruct.new(
       placement: item[:placement],
       group: item[:group],
-      title: item_title(item[:title]),
+      title: item_title(item[:name], item[:title]),
       url: item_url(item[:url]),
       data: item
     )
   end
 
-  def item_title value
-    if value.respond_to?(:call)
-      value.call(self)
+  def item_title name, title
+    if title.respond_to?(:call)
+      title.call(self)
 
-    elsif value.is_a? Symbol
-      h.t value
+    elsif title.is_a? Symbol
+      h.t title
+
+    elsif title.is_a? String
+      title
 
     else
-      value
+      h.t "application.top_menu.items.#{name}"
     end
   end
 

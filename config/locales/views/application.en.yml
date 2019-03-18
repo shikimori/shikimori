@@ -12,19 +12,38 @@ en:
         profile: Account
         site: Site
       items:
+        anime: :activerecord.models.anime
+        manga: :activerecord.models.manga
+        ranobe: :activerecord.models.ranobe
+        clubs: Clubs
+        collections: Collections
+        reviews: Clubs
+        forum: :forum
+        users: Users
         contests: Contests
+        calendar: :calendar
+        info: :about_site
+        socials: In social networks
+        moderation: Moderation
+
+        profile: Profile
+        anime_list: :anime_list
+        manga_list: :manga_list
+        mail: :mail
+        achievements: Achievements
+        settings: :settings
+        site_rules: Site rules
         faq: FAQ
+
+        characters: Characters
         home: Home
         main: Shikimori
         main_menu: Main Menu
-        moderation: Moderation
-        profile: Profile
+        other: Other
+        people: People
         search: Search
         sign_in: Sign In
         sign_out: Sign Out
-        site_rules: Site rules
-        socials: In social networks
-        other: Other
 
     hot_topics:
       hot_topics: Hot topics

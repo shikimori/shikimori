@@ -4,9 +4,9 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   before_action do
     unless @view.own_profile?
       @top_menu.current_item = {
+        name: :avatar,
         url: @resource.url,
         title: @resource.nickname,
-        class: 'icon-avatar',
         image_url: @resource.avatar_url(20),
         image_2x_url: @resource.avatar_url(48)
       }
