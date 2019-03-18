@@ -7,7 +7,9 @@ window.$ = $;
 window.jQuery = window.$;
 sugar.extend();
 
-import Turbolinks from 'turbolinks';
+import Turbolinks from 'turbolinks'; // eslint-disable-line import/newline-after-import
+Turbolinks.start();
+
 import moment from 'moment';
 import delay from 'delay';
 
@@ -55,12 +57,17 @@ import FayeLoader from 'services/faye_loader';
 import CommentsNotifier from 'services/comments_notifier';
 import AchievementsNotifier from 'services/achievements_notifier';
 
-import { isMobile } from 'helpers/mobile_detect';
+// import { isMobile } from 'helpers/mobile_detect';
 import bindings from 'helpers/bindings';
 
 import 'helpers/using'; // TODO: get rid of this helper
 import 'helpers/p';
-import 'helpers/events';
+
+import pageLoad from 'helpers/page_load'; // eslint-disable-line import/newline-after-import
+window.pageLoad = pageLoad;
+
+import pageUnload from 'helpers/page_unload'; // eslint-disable-line import/newline-after-import
+window.pageUnload = pageUnload;
 
 import 'i18n/translations';
 
@@ -147,18 +154,17 @@ $(document).on('page:restore', (_e, _isDomContentLoaded) => {
 });
 
 $(document).on('page:load', (_e, _isDomContentLoaded) => {
-  if (isMobile()) {
-    Turbolinks.enableProgressBar(false);
-    Turbolinks.enableProgressBar(true, '.turbolinks');
-  } else {
-    Turbolinks.enableProgressBar(true);
-  }
+  // if (isMobile()) {
+  //   Turbolinks.enableProgressBar(false);
+  //   Turbolinks.enableProgressBar(true, '.turbolinks');
+  // } else {
+  //   Turbolinks.enableProgressBar(true);
+  // }
 
   document.body.classList.add(
     bowser.name.toLowerCase().replace(/ /g, '_')
   );
 
-  // отображение flash сообщений от рельс
   $('p.flash-notice').each((k, v) => {
     if (v.innerHTML.length) { flash.notice(v.innerHTML); }
   });

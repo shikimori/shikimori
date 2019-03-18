@@ -1,4 +1,4 @@
-page_load '.polls', ->
+pageLoad '.polls', ->
   $('.b-shiki_editor').shikiEditor()
 
   if $('#vue_poll_variants').exists()

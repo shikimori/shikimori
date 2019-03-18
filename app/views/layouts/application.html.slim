@@ -25,8 +25,6 @@ html
     data-camo_url=UrlGenerator.instance.camo_root_url
     data-faye=(current_user.faye_channel.to_json if user_signed_in?)
   ]
-    .turbolinks
-
     = @layout.custom_styles
 
     - if defined?(notice) && notice

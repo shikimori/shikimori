@@ -24,16 +24,12 @@ gem 'bourbon'
 gem 'coffee-rails'
 gem 'non-stupid-digest-assets'
 gem 'sassc-rails'
-# turbolinks
-# events migration https://github.com/turbolinks/turbolinks/blob/master/src/turbolinks/compatibility.coffee
-# new events https://github.com/turbolinks/turbolinks#full-list-of-events
-# old events https://github.com/turbolinks/turbolinks-classic
 # gem 'turbolinks'
 # использовать возможность раздельной загрузки скриптов:
 #   в /about сделать подгружаемую highcharts
 #   а на странице /animes/id/franchise - d3
 gem 'gon'
-gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
+gem 'turbolinks'
 gem 'uglifier'
 gem 'webpacker'
 

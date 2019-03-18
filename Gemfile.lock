@@ -54,14 +54,6 @@ GIT
       simple_form (>= 3.0.0.beta1)
 
 GIT
-  remote: https://github.com/morr/turbolinks.git
-  revision: be44d5717f7657ac4f0f209a6e0c851ecf35e771
-  branch: master
-  specs:
-    turbolinks (2.5.3)
-      coffee-rails
-
-GIT
   remote: https://github.com/nbudin/htmldiff-lcs.git
   revision: efeec72cdedadfb310dbb6474395289287d0fcdc
   specs:
@@ -690,6 +682,9 @@ GEM
     tins (1.16.3)
     translit (0.1.5)
     truncate_html (0.9.3)
+    turbolinks (5.2.0)
+      turbolinks-source (~> 5.2)
+    turbolinks-source (5.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.20)
@@ -859,7 +854,7 @@ DEPENDENCIES
   timecop
   translit
   truncate_html
-  turbolinks!
+  turbolinks
   uglifier
   unicode
   unicorn

@@ -12,7 +12,7 @@ import flash from 'services/flash';
 let listCache = [];
 let filterTimer = null;
 
-page_load('user_rates_index', () => {
+pageLoad('user_rates_index', () => {
   applyListHandlers($('.l-content'));
   updateListCache();
 

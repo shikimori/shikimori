@@ -59,7 +59,7 @@
     "style-loader": "0.23.1",
     "throttle-debounce": "2.0.1",
     "toastr": "^2.1.2",
-    "turbolinks": "morr/turbolinks#master",
+    "turbolinks": "^5.2.0",
     "uevent": "^1.0.0",
     "urijs": "^1.18.12",
     "vue": "2.5.17",

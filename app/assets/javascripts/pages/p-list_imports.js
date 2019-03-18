@@ -1,7 +1,7 @@
 import delay from 'delay';
 import Turbolinks from 'turbolinks';
 
-page_load('list_imports_show', async () => {
+pageLoad('list_imports_show', async () => {
   // если страница ещё не готова, перегрузимся через 5 секунд
   if ($('.b-nothing_here').exists()) {
     const url = document.location.href;

@@ -1,7 +1,7 @@
 import CollectionSearch from 'views/application/collection_search'
 import AnimesMenu from 'views/animes/menu'
 
-page_load(
+pageLoad(
   'topics_index',
   'topics_show',
   'topics_new',
@@ -12,7 +12,7 @@ page_load(
     new AnimesMenu('.b-animes-menu') if $('.b-animes-menu').exists()
 )
 
-page_load 'topics_index', ->
+pageLoad 'topics_index', ->
   new CollectionSearch '.b-search'
 
   $form = $('form.edit_user_preferences')

@@ -1,4 +1,4 @@
-page_load 'statistics_index', ->
+pageLoad 'statistics_index', ->
   $('#image_placeholder').hide()
 
   require.ensure [], (require) =>

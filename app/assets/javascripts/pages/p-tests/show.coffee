@@ -1,4 +1,4 @@
-page_load 'tests_show', ->
+pageLoad 'tests_show', ->
   new Wall.Gallery $('.images-test .shiki-wall')
 
   require.ensure [], (require) =>

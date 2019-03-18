@@ -1,3 +1,3 @@
-page_load('animes_coub', () => {
+pageLoad('animes_coub', () => {
   $.force_appear();
 });

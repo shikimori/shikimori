@@ -1,6 +1,6 @@
 LINKED_TYPE_USER_SELECT = '.topic_linked select.type'
 
-page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
+pageLoad 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $ '.b-form.edit_topic, .b-form.new_topic'
   $topic_linked = $ '#topic_linked', $form
   $linked_type = $ '#topic_linked_type', $form

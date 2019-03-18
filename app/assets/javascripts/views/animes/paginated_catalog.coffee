@@ -24,7 +24,7 @@ export default class PaginatedCatalog
 
     @page_change = {}
 
-    @$content.on 'postloader:before', @_page_loaded_by_scroll
+    @$content.on 'postloader:before', @_pageLoaded_by_scroll
     @$pagination.on 'click', '.link', @_link_click
     @$pagination.on 'click', '.no-hover', @_page_select
 
@@ -71,7 +71,7 @@ export default class PaginatedCatalog
       $.scrollTo '.head' if $(window).scrollTop() > 400
 
   # загружена следующая страница при скролле вниз
-  _page_loaded_by_scroll: (e, $content, data) =>
+  _pageLoaded_by_scroll: (e, $content, data) =>
     @$link_current.html @$link_current.html().replace(/-\d+|$/, "-" + data.page)
     @$link_title.html @$link_title.data('text')
     @$link_total.html data.pages_count

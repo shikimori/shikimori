@@ -1,7 +1,7 @@
 // import getjs from 'get-js';
 import delay from 'delay';
 
-page_load('dashboards_show', async () => {
+pageLoad('dashboards_show', async () => {
   $('.user_list .switch').on('click', function () {
     return $(this)
       .closest('.list-type')
