@@ -63,7 +63,6 @@ import FayeLoader from 'services/faye_loader';
 import CommentsNotifier from 'services/comments_notifier';
 import AchievementsNotifier from 'services/achievements_notifier';
 
-// import { isMobile } from 'helpers/mobile_detect';
 import bindings from 'helpers/bindings';
 
 import 'helpers/using'; // TODO: get rid of this helper
@@ -144,13 +143,6 @@ $(() => {
 });
 
 $(document).on('turbolinks:load', () => {
-  // if (isMobile()) {
-  //   Turbolinks.enableProgressBar(false);
-  //   Turbolinks.enableProgressBar(true, '.turbolinks');
-  // } else {
-  //   Turbolinks.enableProgressBar(true);
-  // }
-
   document.body.classList.add(
     bowser.name.toLowerCase().replace(/ /g, '_')
   );
