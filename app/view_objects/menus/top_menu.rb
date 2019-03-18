@@ -47,6 +47,13 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       title: :forum,
       class: 'icon-forum'
     },
+    {
+      placement: :main,
+      group: :community,
+      url: :users_url,
+      title: ->(h) { h.i18n_i 'User', :other },
+      class: 'icon-users'
+    },
     # misc
     {
       placement: :main,
@@ -169,10 +176,6 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       url: :people_url,
       title: ->(h) { h.i18n_i 'Person', :other },
       class: 'icon-people'
-    }, {
-      url: :users_url,
-      title: ->(h) { h.i18n_i 'User', :other },
-      class: 'icon-users'
     }
   ]
 
