@@ -8,38 +8,26 @@ header.head.misc
     ] = t('actions.create').downcase
   p.notice.clearfix = t '.notice'
 
-.b-search[
-  data-search_url=collections_url
-]
-  .field
-    label
-      input[
-        type="text"
-        placeholder=t('search.title')
-        value=params[:search]
-      ]
-    .clear
-
-  .searchable-collection
-    - if @unpublished_collections&.any?
-      .block
-        b #{t '.my_unpublished_collections'}:&nbsp;
-        - @unpublished_collections.each do |collection|
-          a href=edit_collection_url(collection) = collection.name
-          - unless collection == @unpublished_collections.last
-            | ,&nbsp;
-
+.searchable-collection
+  - if @unpublished_collections&.any?
     .block
-      - if @collection.any?
-        = render partial: 'topics/topic',
-          collection: @collection,
-          as: :topic_view,
-          cache: true
-      - else
-        .b-nothing_here = t '.nothing_here'
+      b #{t '.my_unpublished_collections'}:&nbsp;
+      - @unpublished_collections.each do |collection|
+        a href=edit_collection_url(collection) = collection.name
+        - unless collection == @unpublished_collections.last
+          | ,&nbsp;
 
-      - if @collection.next_page?
-        = render 'blocks/postloader',
-          filter: 'b-collection-topic',
-          next_url: collections_url(page: @collection.next_page, search: params[:search]),
-          prev_url: (collections_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
+  .block
+    - if @collection.any?
+      = render partial: 'topics/topic',
+        collection: @collection,
+        as: :topic_view,
+        cache: true
+    - else
+      .b-nothing_here = t '.nothing_here'
+
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        filter: 'b-collection-topic',
+        next_url: collections_url(page: @collection.next_page, search: params[:search]),
+        prev_url: (collections_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
