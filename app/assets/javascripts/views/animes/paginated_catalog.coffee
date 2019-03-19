@@ -24,9 +24,9 @@ export default class PaginatedCatalog
 
     @page_change = {}
 
-    @$content.on 'postloader:before', @_pageLoaded_by_scroll
-    @$pagination.on 'click', '.link', @_link_click
-    @$pagination.on 'click', '.no-hover', @_page_select
+    @$content.on 'postloader:before', @_page_loaded_by_scroll
+    @$pagination.on 'click', '.link', @_pagination_link_click
+    @$pagination.on 'click', '.no-hover', @_pagination_page_select
 
     @filters = new Animes.CatalogFilters(
       base_catalog_path,
@@ -34,34 +34,34 @@ export default class PaginatedCatalog
       @_filter_page_change
     )
 
-    $collection_search = $('.b-search')
-    if $collection_search.length
-      @collection_search = new CollectionSearch $collection_search
-      @collection_search._process_response = @_process_ajax_content
+    @collection_search = $('.b-global-search').view()
+    old_process_response = @collection_search._process_response
+    @collection_search._process_response = @_process_ajax_content
 
-  #bind_history: =>
-    #$(window).off 'popstate', @_history_page_changed
-    #$(window).on 'popstate', @_history_page_changed
+    # restore search._process_response
+    $(document).one 'turbolinks:before-cache', =>
+      @collection_search._process_response = old_process_response
 
-    #$(window).one 'page:before-unload', =>
-      #$(window).off 'popstate', @_history_page_changed
+  # bind_history: =>
+  #   $(window).off 'popstate', @_history_page_changed
+  #   $(window).on 'popstate', @_history_page_changed
 
-  # выбраны какие-то фильтры, необходимо загрузить страницу
+  #   $(window).one 'page:before-unload', =>
+  #     $(window).off 'popstate', @_history_page_changed
+
   _filter_page_change: (url) =>
     window.history.pushState { turbolinks: true, url: url }, '', url
     @_history_page_changed()
 
     @collection_search.$root.data search_url: url
 
-  # урл страницы изменён через history api
   _history_page_changed: =>
     url = location.href
 
     @filters.parse(url)# if url != @filters.last_compiled
     @_fetch_ajax_content(url, true)#.call this, url, null, true
 
-  # клик по ссылке пагинации
-  _link_click: (e) ->
+  _pagination_link_click: (e) ->
     return if inNewTab(e)
     $link = $(e.target)
 
@@ -70,18 +70,17 @@ export default class PaginatedCatalog
     else
       $.scrollTo '.head' if $(window).scrollTop() > 400
 
-  # загружена следующая страница при скролле вниз
-  _pageLoaded_by_scroll: (e, $content, data) =>
-    @$link_current.html @$link_current.html().replace(/-\d+|$/, "-" + data.page)
+  _page_loaded_by_scroll: (e, $content, data) =>
+    @$link_current.html @$link_current.html().replace(/-\d+|$/, '-' + data.page)
     @$link_title.html @$link_title.data('text')
     @$link_total.html data.pages_count
 
     @$link_prev.attr
-      href: data.prev_page_url || ""
+      href: data.prev_page_url || ''
       action: data.prev_page_url
 
     @$link_next.attr
-      href: data.next_page_url || ""
+      href: data.next_page_url || ''
       action: data.next_page_url
 
     @$link_prev.toggleClass 'disabled', !data.prev_page_url
@@ -97,14 +96,15 @@ export default class PaginatedCatalog
   _is_pages_limit: ->
     @$content.children().length >= @pages_limit
 
-  # клик по блоку выбора страницы
-  _page_select: (e) =>
-    $link = $(e.currentTarget).find(".link-current")
+  _pagination_page_select: (e) =>
+    $link = $(e.currentTarget).find('.link-current')
     return if $link.has('input').length
 
     @page_change.prior_value = parseInt @$link_current.html()
     @page_change.max_value = parseInt @$link_total.html()
-    $link.html "<input type='number' min='1' max='#{@page_change.max_value}' value='#{@page_change.prior_value}' />"
+    $link.html(
+      "<input type='number' min='1' max='#{@page_change.max_value}' value='#{@page_change.prior_value}' />"
+    )
 
     @page_change.$input = $link
       .children()
@@ -138,8 +138,8 @@ export default class PaginatedCatalog
 
   # загрузка ajax'ом контента каталога
   _fetch_ajax_content: (url, break_pending) ->
-    if url.indexOf(location.protocol + "//" + location.host) == -1
-      url = location.protocol + "//" + location.host + url
+    if url.indexOf(location.protocol + '//' + location.host) == -1
+      url = location.protocol + '//' + location.host + url
 
     $.ajax
       url: url
@@ -163,10 +163,10 @@ export default class PaginatedCatalog
           xhr.abort()
 
           if 'abort' of cached_data && 'setRequestHeader' of cached_data
-            #cached_data
-              #.success(xhr.success)
-              #.complete(xhr.complete)
-              #.error(xhr.error)
+            # cached_data
+            #   .success(xhr.success)
+            #   .complete(xhr.complete)
+            #   .error(xhr.error)
           else
             @_process_ajax_content cached_data, url
             @pending_request = null
@@ -176,11 +176,11 @@ export default class PaginatedCatalog
           pending_request = xhr
 
         # если подгрузка следующей страницы при прокруте, то никаких индикаций загрузки не надо
-        #return if $postloader
-        #if $(".ajax").children().length isnt 1 or $(".ajax").children(".ajax-loading").length isnt 1
-          #$(".ajax:not(.no-animation), .ajax-opacity").animate opacity: 0.3
-          #$(".ajax.no-animation").css opacity: 0.3
-        #$.cursorMessage()
+        # return if $postloader
+        # if $(".ajax").children().length isnt 1 or $(".ajax").children(".ajax-loading").length != 1
+        #   $(".ajax:not(.no-animation), .ajax-opacity").animate opacity: 0.3
+        #   $(".ajax.no-animation").css opacity: 0.3
+        # $.cursorMessage()
 
       success: (data, status, xhr) =>
         ajaxCacher.push url, data
@@ -191,7 +191,7 @@ export default class PaginatedCatalog
         @pending_request = null
         @$content.removeClass('b-ajax')
 
-      error: (xhr, status, error) =>
+      error: (xhr, status, error) ->
         if xhr?.responseText?.includes('age-restricted-warning')
           Turbolinks.visit location.href
         else
@@ -220,7 +220,7 @@ export default class PaginatedCatalog
     if data.prev_page_url
       @$link_prev.removeClass 'disabled'
     else
-      @$link_prev.addClass "disabled"
+      @$link_prev.addClass 'disabled'
 
     @$link_next.attr(href: data.next_page_url || '', action: data.next_page_url)
     if data.next_page_url
