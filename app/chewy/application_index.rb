@@ -18,25 +18,25 @@ curl -XPOST 'http://localhost:9200/shikimori_test_clubs/_analyze' \
 =end
 class ApplicationIndex < Chewy::Index
   ORIGINAL_FIELD = {
-    value: -> { self },
+    type: 'text',
     index: true,
     analyzer: :original_analyzer,
     search_analyzer: :search_phrase_analyzer
   }
   EDGE_PHRASE_FIELD = {
-    value: -> { self },
+    type: 'text',
     index: true,
     analyzer: :edge_phrase_analyzer,
     search_analyzer: :search_phrase_analyzer
   }
   EDGE_WORD_FIELD = {
-    value: -> { self },
+    type: 'text',
     index: true,
     analyzer: :edge_word_analyzer,
     search_analyzer: :search_word_analyzer
   }
   NGRAM_FIELD = {
-    value: -> { self },
+    type: 'text',
     index: true,
     analyzer: :ngram_analyzer,
     search_analyzer: :search_word_analyzer

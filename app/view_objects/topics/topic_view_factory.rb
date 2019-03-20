@@ -5,8 +5,7 @@ class Topics::TopicViewFactory
     build Topic.find(topic_id)
   end
 
-  # rubocop:disable MethodLength
-  def build topic
+  def build topic # rubocop:disable all
     topic_type_policy = Topic::TypePolicy.new(topic)
 
     if topic_type_policy.review_topic?
@@ -37,7 +36,6 @@ class Topics::TopicViewFactory
       common_topic topic
     end
   end
-  # rubocop:enable MethodLength
 
 private
 
