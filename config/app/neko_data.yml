@@ -9448,7 +9448,7 @@
         - 37362
         - 37831
         - 39239
-      :threshold: 85.5%
+      :threshold: 85.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -12955,7 +12955,7 @@
         - 33898
         - 35552
         - 36835
-      :threshold: 91.9%
+      :threshold: 92%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -13714,7 +13714,7 @@
         - 6714
         - 11359
         - 22699
-      :threshold: 95%
+      :threshold: 94.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -14208,7 +14208,7 @@
       :algo: duration
       :filters:
         franchise: uchuu_senkan_yamato
-      :threshold: 94.7%
+      :threshold: 94.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -14518,11 +14518,11 @@
         - 176
         - 4849
         - 12101
+        - 31137
         - 32316
         - 35501
         - 37933
         - 37934
-        - 31137
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -14544,11 +14544,11 @@
         - 176
         - 4849
         - 12101
+        - 31137
         - 32316
         - 35501
         - 37933
         - 37934
-        - 31137
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -15086,6 +15086,7 @@
         franchise: gegege_no_kitarou
         not_anime_ids:
         - 10584
+        - 39414
       :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -15105,6 +15106,7 @@
         franchise: gegege_no_kitarou
         not_anime_ids:
         - 10584
+        - 39414
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -15379,7 +15381,7 @@
         not_anime_ids:
         - 10736
         - 30103
-      :threshold: 92.4%
+      :threshold: 92.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -15456,7 +15458,7 @@
         franchise: inazuma_eleven
         not_anime_ids:
         - 12585
-      :threshold: 91.3%
+      :threshold: 90.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -16372,7 +16374,7 @@
         franchise: doraemon
         not_anime_ids:
         - 501
-      :threshold: 94%
+      :threshold: 94.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -16408,7 +16410,7 @@
       :algo: duration
       :filters:
         franchise: captain_tsubasa
-      :threshold: 97%
+      :threshold: 97.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
