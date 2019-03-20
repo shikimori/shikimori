@@ -24,18 +24,6 @@ $(document).on('turbolinks:load', () => {
           $('.l-top_menu-v2').removeClass('is-submenu');
         }
       });
-
-    // return $trigger.hoverDelayed(() =>
-    //   $menu.css({
-    //     height,
-    //     borderBottomWidth
-    //   }),
-    // () =>
-    //   $menu.css({
-    //     height: 0,
-    //     borderBottomWidth: 0
-    //   }),
-    // 0, $menu.data('duration') || 150);
   });
 
 //   // mobile menu
