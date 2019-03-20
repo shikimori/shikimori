@@ -8,7 +8,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       url: :animes_collection_url,
       search_url: ->(h) {
         h.params[:controller] == 'animes_collection' ?
-          h.current_url(search: nil) :
+          h.current_url(search: nil, page: nil) :
           h.animes_collection_url
       }
     }, {
@@ -18,7 +18,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       url: :mangas_collection_url,
       search_url: ->(h) {
         h.params[:controller] == 'animes_collection' ?
-          h.current_url(search: nil) :
+          h.current_url(search: nil, page: nil) :
           h.mangas_collection_url
       }
     }, {
@@ -28,7 +28,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       url: :ranobe_collection_url,
       search_url: ->(h) {
         h.params[:controller] == 'animes_collection' ?
-          h.current_url(search: nil) :
+          h.current_url(search: nil, page: nil) :
           h.ranobe_collection_url
       }
     },
