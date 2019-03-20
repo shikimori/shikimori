@@ -42,9 +42,8 @@ class PeopleController < DbEntriesController
   end
 
   def favoured
-    if @resource.all_favoured.none?
-      return redirect_to @resource.url, status: 301
-    end
+    return redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
+
     og noindex: true
     og page_title: t('in_favorites')
   end
