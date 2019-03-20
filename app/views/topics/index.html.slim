@@ -26,20 +26,8 @@
       = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/site', title: 'Новости сайта'
 
   = render layout: 'topics/page' do |f|
-    .b-search[
-      data-search_url=@forums_view.page_url(1)
+    .b-forum.to-process.searchable-collection[
+      data-dynamic='forum'
+      data-faye=@forums_view.faye_subscriptions.to_json
     ]
-      .field
-        label
-          input[
-            type="text"
-            placeholder=t('search.title')
-            value=params[:search]
-          ]
-        .clear
-
-      .b-forum.to-process.searchable-collection[
-        data-dynamic='forum'
-        data-faye=@forums_view.faye_subscriptions.to_json
-      ]
-        = render 'topics/collection', forums_view: @forums_view
+      = render 'topics/collection', forums_view: @forums_view
