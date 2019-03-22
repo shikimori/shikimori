@@ -32,38 +32,42 @@ export default class ShikiEditor extends ShikiView
       delay().then => autosize @$textarea[0]
 
     @$textarea.on 'keypress keydown', (e) =>
-      if e.metaKey || e.ctrlKey
+      if e.keyCode == 27 # esc
+        @$textarea.blur()
+        false
+
+      else if e.metaKey || e.ctrlKey
         # сохранение по ctrl+enter
-        if e.keyCode is 10 || e.keyCode is 13
+        if e.keyCode == 10 || e.keyCode == 13
           @$form.submit()
           false
 
         # [b] tag
-        # else if e.keyCode is 98 || e.keyCode is 66
-        else if e.keyCode is 66 # b
+        # else if e.keyCode == 98 || e.keyCode == 66
+        else if e.keyCode == 66 # b
           @$('.editor-bold').click()
           false
 
         # [i] tag
-        # else if e.keyCode is 105 || e.keyCode is 73
-        else if e.keyCode is 73 # i
+        # else if e.keyCode == 105 || e.keyCode == 73
+        else if e.keyCode == 73 # i
           @$('.editor-italic').click()
           false
 
         # [u] tag
-        # else if e.keyCode is 117 || e.keyCode is 85
-        else if e.keyCode is 85 # u
+        # else if e.keyCode == 117 || e.keyCode == 85
+        else if e.keyCode == 85 # u
           @$('.editor-underline').click()
           false
 
         # spoiler tag
-        # else if e.keyCode is 115 || e.keyCode is 83
-        else if e.keyCode is 83 # s
+        # else if e.keyCode == 115 || e.keyCode == 83
+        else if e.keyCode == 83 # s
           @$('.editor-spoiler').click()
           false
 
         # code tag
-        else if e.keyCode is 79 # o
+        else if e.keyCode == 79 # o
           @$textarea.insertAtCaret '[code]', '[/code]'
           false
 
