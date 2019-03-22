@@ -24,7 +24,7 @@
               include_blank: false,
               label: Video.human_attribute_name(:kind),
               wrapper_html: { class: 'video-kind' },
-            input_html: { value: decomposed_body.wall_video&.kind }
+              input_html: { value: decomposed_body.wall_video&.kind }
           .c-column
             = ff.input :name,
               label: Video.human_attribute_name(:name),
