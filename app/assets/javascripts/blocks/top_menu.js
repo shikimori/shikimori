@@ -5,10 +5,16 @@ $(document).on('turbolinks:load', () => {
     const $trigger = $(node);
     const $menu = $trigger.children('.submenu').show();
 
-    const height = $menu.height();
-    const borderBottomWidth = parseInt($menu.css('borderBottomWidth'));
-    const borderTopWidth = parseInt($menu.css('borderTopWidth'));
-    $menu.css({ height: 0, borderTopWidth: 0, borderBottomWidth: 0 });
+    let height = null;
+    let borderBottomWidth = null;
+    let borderTopWidth = null;
+
+    $trigger.one('mouseover', () => {
+      height = $menu.height();
+      borderBottomWidth = parseInt($menu.css('borderBottomWidth'));
+      borderTopWidth = parseInt($menu.css('borderTopWidth'));
+      $menu.css({ height: 0, borderTopWidth: 0, borderBottomWidth: 0 });
+    });
 
     $menu
       .showModal({
