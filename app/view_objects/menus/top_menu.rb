@@ -179,9 +179,9 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
   ]
 
   OTHER_ITEM = {
+    name: :other,
     url: :root_url,
-    title: :'application.top_menu.items.other',
-    class: 'icon-other'
+    search_url: false
   }
 
   SHIKIMORI_ITEMS = MAIN_ITEMS + PROFILE_ITEMS + HIDDEN_ITEMS
