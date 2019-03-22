@@ -1,6 +1,7 @@
 @import globals/variables
 @import mixins/responsive
 @import mixins/input
+@import mixins/textarea
 
 .b-input
   margin-bottom: $block-offset / 2
@@ -14,8 +15,11 @@
   &:last-child
     margin-bottom: 0
 
-  input, textarea
+  input
     +input
+
+  textarea
+    +textarea
 
   input[type=checkbox]
     margin-right: 6px
@@ -25,17 +29,8 @@
     background: #EEE
     color: #666
 
-  textarea
-    -webkit-appearance: none
-    height: 98px
-    line-height: 1.5
-    // width: 100%
-
   select
     max-width: 100%
-
-    +lte_ipad
-      font-size: 14px
 
   label
     display: block

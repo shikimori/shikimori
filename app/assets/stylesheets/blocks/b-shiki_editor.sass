@@ -3,6 +3,7 @@
 @import mixins/link
 @import mixins/shiki_placeholder
 @import mixins/responsive
+@import mixins/textarea
 
 .b-shiki_editor
   transition: opacity 0.5s ease
@@ -109,24 +110,8 @@
         display: none
 
       textarea
-        -webkit-appearance: none
-        background: #fcfcfc
-        border: 1px solid #ddd
-        border-radius: 0
-        color: #333333
-        height: 89px
-        line-height: $line_height
-        max-height: 417px
-        min-height: 89px
-        outline: none
-        padding: 3px 7px 5px
+        +textarea
         position: relative
-        resize: none
-        width: 100%
-
-        +shiki_placeholder
-          line-height: $line_height
-          color: #999
 
   .ajax-loading
     height: 100%

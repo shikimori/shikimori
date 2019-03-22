@@ -3,8 +3,18 @@
 
 =input
   border-radius: 0
+  background-color: #fcfcfc
+  border-color: #ddd
+  color: #333
+  line-height: 27px
+  margin: 0
+  padding: 0 7px
+  max-width: 100%
 
-  &[type=submit], &[type=text], &[type=password], &[type=email]
+  &[type=submit],
+  &[type=text],
+  &[type=password],
+  &[type=email],
     -webkit-appearance: none
 
   &[type=text],
@@ -16,33 +26,28 @@
     border: none
     padding: 0
 
-  background-color: #fcfcfc
-  border-color: #ddd
-  color: #333
-  line-height: $line-height
-  margin: 0
-  padding: 1px 5px 1px 5px
-  max-width: 100%
-
   &[type=number]
     max-width: 100px
 
+  &:focus
+    border-color: $link-4
+
   +shiki_placeholder
-    line-height: $line-height
+    line-height: 27px
     color: #999
     padding-top: 1px
 
     +iphone
       padding-top: 0
-      line-height: 23px
+      line-height: 31px
 
   +gte_ipad
-    //line-height: 14px
-    width: 375px
+    &:not(textarea)
+      width: 375px
 
   +lte_ipad
     font-size: 16px
 
   +iphone
-    line-height: 23px
+    line-height: 31px
     width: 100%
