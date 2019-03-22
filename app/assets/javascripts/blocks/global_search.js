@@ -10,13 +10,15 @@ $(document).on('turbolinks:load', () => {
 });
 
 $(document).on('keypress', e => {
+  if (e.keyCode !== 47) { return; }
+
   const target = e.target || e.srcElement;
   const isIgnored = target.isContentEditable ||
     target.tagName === 'INPUT' || target.tagName === 'SELECT' || target.tagName === 'TEXTAREA';
 
-  if (e.keyCode === 47 && !isIgnored) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    searchView.$input.focus();
-  }
+  if (isIgnored) { return; }
+
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  searchView.$input.focus();
 });
