@@ -162,16 +162,19 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
     {
       name: :home,
       url: :root_url,
-      is_root: true
+      is_root: true,
+      search_url: false
     }, {
       name: :achievements,
-      url: :achievements_url
+      url: :achievements_url,
+      search_url: false
     }, {
       name: :characters,
       url: :characters_url
     }, {
       name: :people,
-      url: :people_url
+      url: :people_url,
+      search_url: ->(h) { h.people_url kind: h.params[:kind] }
     }
   ]
 
