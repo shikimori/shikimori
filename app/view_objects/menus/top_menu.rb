@@ -181,7 +181,11 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
   OTHER_ITEM = {
     name: :other,
     url: :root_url,
-    search_url: false
+    search_url: ->(h) {
+      h.params[:controller] == 'userlist_comparer' ?
+        h.current_url(search: nil) :
+        h.animes_collection_url
+    }
   }
 
   SHIKIMORI_ITEMS = MAIN_ITEMS + PROFILE_ITEMS + HIDDEN_ITEMS
