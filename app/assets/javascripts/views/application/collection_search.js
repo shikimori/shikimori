@@ -24,7 +24,7 @@ export default class CollectionSearch extends View {
     this.debounced_search = debounce(250, () => this._search());
     this.current_phrase = this._searchPhrase();
 
-    this.$clear.toggle(!Object.isEmpty(this.current_phrase));
+    this.$clear.toggleClass('active', !Object.isEmpty(this.current_phrase));
     // @$input.focus() if @$input.is(':appeared')
 
     this.$input.on('change blur keyup paste', e => this._filterChanged(e));
@@ -53,7 +53,7 @@ export default class CollectionSearch extends View {
       this.debounced_search();
       this._showAjax();
 
-      this.$clear.toggle(!Object.isEmpty(phrase));
+      this.$clear.toggleClass('active', !Object.isEmpty(phrase));
     }
   }
 

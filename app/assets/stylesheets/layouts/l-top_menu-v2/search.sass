@@ -1,48 +1,68 @@
 @import mixins/shiki_placeholder
 
 .l-top_menu-v2 .global-search
+  color: #123
   margin-right: 10px
+  position: relative
   width: 100%
 
   +iphone
     display: none
 
-  .field
-    position: relative
+  &,
+  .clear
+    &:before
+      font-size: 20px
+      height: 32px
+      line-height: 32px
+      position: absolute
+      text-align: center
+      top: 0
 
-    label,
-    .clear
-      &:before
-        font-size: 20px
-        height: 32px
-        line-height: 32px
-        position: absolute
-        text-align: center
-        top: 0
+    &:before
+      +shikimori('s')
+      width: 42px
 
-    label
-      color: #123
+  input
+    border-radius: 2px
+    border: 1px solid rgba(#acb1b4, 0.4)
+    color: #123
+    line-height: 28px
+    padding: 2px 42px 0 38px
+    width: 100%
 
-      &:before
-        +shikimori('s')
-        width: 42px
+    +shiki_placeholder
+      color: $gray-1
 
-    input
-      border-radius: 2px
-      border: 1px solid rgba(#acb1b4, 0.4)
-      color: #123
-      line-height: 28px
-      padding: 2px 42px 0 38px
-      width: 100%
+  input:focus ~ .hotkey-marker,
+  .clear.active + .hotkey-marker
+    display: none
 
-      +shiki_placeholder
-        color: $gray-1
+  .hotkey-marker
+    display: block
 
-    .clear
-      +link(#333)
-      display: none
+    &:before
+      border-radius: 3px
+      border: 1px solid $gray-1
+      color: $gray-1
+      content: '/'
+      font-size: 13px
+      height: 20px
+      line-height: 20px
+      position: absolute
+      right: 7px
+      text-align: center
+      top: 5px
+      width: 18px
 
-      &:before
-        +shikimori('✕')
-        right: 0
-        width: 38px
+  .clear
+    +link(#333)
+    display: none
+
+    &.active
+      display: block
+
+    &:before
+      +shikimori('✕')
+      right: 0
+      width: 38px

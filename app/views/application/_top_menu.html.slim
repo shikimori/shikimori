@@ -43,15 +43,15 @@
 .global-search[
   data-search_url=@top_menu.search_url
 ]
-  .field
-    label
-      input[
-        type="text"
-        placeholder=t('search.search')
-        value=params[:search]
-      ]
-      // data-turbolinks-permanent
+  label.field
+    input[
+      type="text"
+      placeholder=t('search.search')
+      value=params[:search]
+    ]
     .clear
+    .hotkey-marker
+      // data-turbolinks-permanent
 
 
   / - if anime_online?

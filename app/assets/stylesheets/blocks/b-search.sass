@@ -7,11 +7,8 @@
 .b-search
   .field
     margin-bottom: $block_offset
-
-  .field
     position: relative
 
-    label,
     .clear
       &:before
         font-size: 23px
@@ -20,9 +17,6 @@
         position: absolute
         text-align: center
         top: 0
-
-    label
-      color: #123
 
     input
       border: 1px solid rgba(#acb1b4, 0.4)
@@ -36,6 +30,9 @@
     .clear
       +link(#333)
       display: none
+
+      &.active
+        display: block
 
       &:before
         +shikimori('✕')
