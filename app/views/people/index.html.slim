@@ -24,23 +24,11 @@ header.head
       - else
         a href=mangakas_people_url(search: params[:search]) = t ".notice.mangakas"
 
-.b-search[
-  data-search_url=search_url
-]
-  .field
-    label
-      input[
-        type="text"
-        placeholder=t('search.name')
-        value=params[:search]
-      ]
-    .clear
+.cc-8.searchable-collection
+  = render @collection
 
-  .cc-8.searchable-collection
-    = render @collection
-
-    - if @collection.next_page?
-      = render 'blocks/postloader',
-        next_url: search_url(page: @collection.next_page, search: params[:search]),
-        prev_url: (search_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
-      = render 'people/collection'
+  - if @collection.next_page?
+    = render 'blocks/postloader',
+      next_url: search_url(page: @collection.next_page, search: params[:search]),
+      prev_url: (search_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
+    = render 'people/collection'
