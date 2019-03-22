@@ -10247,8 +10247,9 @@
       :filters:
         franchise: chuunibyou_demo_koi_ga_shitai
         not_anime_ids:
+        - 19021
         - 36855
-      :threshold: 87.8%
+      :threshold: 86.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -10266,6 +10267,7 @@
       :filters:
         franchise: chuunibyou_demo_koi_ga_shitai
         not_anime_ids:
+        - 19021
         - 36855
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
