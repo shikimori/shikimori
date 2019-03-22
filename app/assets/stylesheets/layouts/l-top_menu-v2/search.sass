@@ -1,0 +1,48 @@
+@import mixins/shiki_placeholder
+
+.l-top_menu-v2 .global-search
+  margin-right: 10px
+  width: 100%
+
+  +iphone
+    display: none
+
+  .field
+    position: relative
+
+    label,
+    .clear
+      &:before
+        font-size: 20px
+        height: 32px
+        line-height: 32px
+        position: absolute
+        text-align: center
+        top: 0
+
+    label
+      color: #123
+
+      &:before
+        +shikimori('s')
+        width: 42px
+
+    input
+      border-radius: 2px
+      border: 1px solid rgba(#acb1b4, 0.4)
+      color: #123
+      line-height: 28px
+      padding: 2px 42px 0 38px
+      width: 100%
+
+      +shiki_placeholder
+        color: $gray-1
+
+    .clear
+      +link(#333)
+      display: none
+
+      &:before
+        +shikimori('✕')
+        right: 0
+        width: 38px

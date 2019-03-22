@@ -4,22 +4,6 @@
 @import mixins/shiki_placeholder
 @import mixins/shikimori
 
-.b-global-search
-  .field
-    label
-      &:before
-        +shikimori('s')
-        width: 42px
-
-    input
-      padding-left: 38px
-
-.b-search
-  .field
-    input
-      padding-left: 13px
-
-.b-global-search,
 .b-search
   .field
     margin-bottom: $block_offset
@@ -42,8 +26,7 @@
 
     input
       border: 1px solid rgba(#acb1b4, 0.4)
-      padding-top: 2px
-      padding-right: 42px
+      padding: 2px 42px 0 13px
       line-height: 34px
       width: 100%
 

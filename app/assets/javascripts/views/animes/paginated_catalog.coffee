@@ -34,7 +34,7 @@ export default class PaginatedCatalog
       @_filter_page_change
     )
 
-    @collection_search = $('.b-global-search').view()
+    @collection_search = $('.b-global_search').view()
     old_process_response = @collection_search._process_response
     @collection_search._process_response = @_process_ajax_content
 
