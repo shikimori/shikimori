@@ -13,7 +13,6 @@ $top_menu_background_active: lighten($gray-4, 4%)
 
 @import ./l-top_menu-v2/menu
 @import ./l-top_menu-v2/submenu
-@import ./l-top_menu-v2/mobile
 @import ./l-top_menu-v2/icons
 
 .l-top_menu-v2
@@ -130,24 +129,3 @@ $top_menu_background_active: lighten($gray-4, 4%)
         img
           height: 30px
           pointer-events: none
-
-  .b-global-search
-    margin-right: 10px
-    width: 100%
-
-    +iphone
-      display: none
-
-    .field
-      margin-bottom: 0
-
-      input
-        border-radius: 2px
-        color: #123
-        line-height: 28px
-
-      label:before,
-      .clear:before
-        font-size: 20px
-        height: 32px
-        line-height: 32px
