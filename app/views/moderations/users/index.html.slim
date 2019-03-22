@@ -38,7 +38,7 @@ header.head
 
   .b-options-floated = @collection.except(:limit, :offset).size
   .subheadline.m10 = i18n_i('User', :other)
-  .searchable-collection.cc-4
+  .b-search-results.cc-4
     - if @collection.any?
       = render partial: 'users/user',
         collection: @collection,

@@ -12,10 +12,10 @@ export default class CollectionSearch extends View {
 
   initialize($searchableCollection) {
     this.$collection = $searchableCollection ||
-      this.$root.find('.searchable-collection');
+      this.$root.find('.b-search-results');
 
     if (!this.$collection.length) {
-      console.warn('not found .searchable-collection');
+      console.warn('not found .b-search-results');
     }
 
     this.$input = this.$('.field input');

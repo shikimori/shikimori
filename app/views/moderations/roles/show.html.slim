@@ -21,7 +21,7 @@ header.head
         ]
         .clear
 
-      .searchable-collection.cc-4
+      .b-search-results.cc-4
         - if @searched_collection&.any?
           = render partial: 'moderations/roles/user',
             collection: @searched_collection,

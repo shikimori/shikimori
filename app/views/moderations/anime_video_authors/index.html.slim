@@ -65,7 +65,7 @@ ul.b-list.block
           href=current_url(search: nil)
         ]
 
-  .block.searchable-collection
+  .block.b-search-results
     form
       - if params[:is_verified].present?
         input type="hidden" name="is_verified" value=params[:is_verified]

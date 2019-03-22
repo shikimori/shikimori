@@ -1,9 +1,5 @@
-import CollectionSearch from 'views/application/collection_search'
 import FavouriteStar from 'views/application/favourite_star'
 import ImageboardGallery from 'views/images/imageboard_gallery'
-
-pageLoad 'characters_index', ->
-  new CollectionSearch '.b-search'
 
 pageLoad 'characters_show', ->
   $('.text').checkHeight max_height: 200

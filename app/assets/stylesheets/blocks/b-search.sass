@@ -4,6 +4,13 @@
 @import mixins/shiki_placeholder
 @import mixins/shikimori
 
+.b-search-results
+  &.b-ajax
+    min-height: 215px
+
+    &:after
+      top: 107px
+
 .b-search
   .field
     margin-bottom: $block_offset
@@ -50,8 +57,3 @@
       // top: 50%
       // width: 30px
 
-  .searchable-collection.b-ajax
-    min-height: 215px
-
-    &:after
-      top: 107px
