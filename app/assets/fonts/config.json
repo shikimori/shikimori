@@ -247,12 +247,6 @@
       "src": "entypo"
     },
     {
-      "uid": "62bc6fe2a82e4864e2b94d4c0985ee0c",
-      "css": "up-small",
-      "code": 59395,
-      "src": "typicons"
-    },
-    {
       "uid": "96a3aff31cec6cfbe6177151b3a44d20",
       "css": "quote-left-alt",
       "code": 34,
@@ -708,6 +702,20 @@
       },
       "search": [
         "people"
+      ]
+    },
+    {
+      "uid": "0dc0bbb32961e94bbee4184339e5ec32",
+      "css": "arrow_upward",
+      "code": 59395,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M166 500L500 166 834 500 773.4 558.6 541 326.2V834H459V326.2L224.6 558.6Z",
+        "width": 1000
+      },
+      "search": [
+        "arrow_upward"
       ]
     },
     {
@@ -1436,20 +1444,6 @@
       },
       "search": [
         "arrow_forward"
-      ]
-    },
-    {
-      "uid": "0dc0bbb32961e94bbee4184339e5ec32",
-      "css": "arrow_upward",
-      "code": 97,
-      "src": "custom_icons",
-      "selected": false,
-      "svg": {
-        "path": "M166 500L500 166 834 500 773.4 558.6 541 326.2V834H459V326.2L224.6 558.6Z",
-        "width": 1000
-      },
-      "search": [
-        "arrow_upward"
       ]
     },
     {
