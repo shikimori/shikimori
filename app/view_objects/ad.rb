@@ -47,11 +47,11 @@ class Ad < ViewObjectBase
       #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
       #   HTML
       # ),
-      url: 'https://animeinrussia.ru/goto/1/',
-      images: (1..1).map do |i|
+      url: 'https://www.animenagrani.com/',
+      images: (3..3).map do |i|
         {
-          src: "/assets/globals/events/special_#{i}.jpg",
-          src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          src: "/assets/globals/events/special_#{i}.jpg"
+          # src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
         }
       end,
       # images: [{
