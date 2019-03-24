@@ -18957,8 +18957,8 @@
   attributes:
     :neko_id: :fujoshi
     :level: 4
-    :image: "/assets/achievements/anime/fujoshi_4.jpg"
-    :border_color: "#e82a8d"
+    :image: "/assets/achievements/anime/fujoshi_4.gif"
+    :border_color: "#915274"
     :title_ru: Яойный бог
     :text_ru: Яой — не жанр. Яой — это стиль жизни.
     :title_en: 
@@ -19400,7 +19400,6 @@
         - 71
         - 72
         - 73
-        - 1015
         - 31931
         - 1251
         - 1252
@@ -20438,7 +20437,6 @@
         - 71
         - 72
         - 73
-        - 1015
         - 31931
         - 1251
         - 1252
@@ -21476,7 +21474,6 @@
         - 71
         - 72
         - 73
-        - 1015
         - 31931
         - 1251
         - 1252
