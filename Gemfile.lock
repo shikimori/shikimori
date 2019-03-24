@@ -70,9 +70,9 @@ GIT
 
 GIT
   remote: https://github.com/shikimori/mal_parser.git
-  revision: 19c1516b014bfac747b3d12dada44f17b73fb2f2
+  revision: 249f7461862e269360a3139917c2cad8a5275844
   specs:
-    mal_parser (0.1.0)
+    mal_parser (0.1.1)
       attr_extras
       nokogiri
 
@@ -163,7 +163,7 @@ GEM
       rails (>= 4.1)
     arel (9.0.0)
     ast (2.4.0)
-    attr_extras (5.2.0)
+    attr_extras (6.2.0)
     autoprefixer-rails (9.4.5)
       execjs
     awesome_print (1.8.0)
