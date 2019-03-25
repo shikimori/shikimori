@@ -41,7 +41,8 @@ module Copyright
     10259 # Da hai
   ]
   EXPONENTA_COPYRIGHTED = [
-    36936 # Mirai no Mirai
+    36936, # Mirai no Mirai
+    37207 # Zuori Qing Kong
   ]
   PIONER_COPYRIGHTED = [
     # https://www.mos-gorsud.ru/mgs/defend/statementForm/80619321-6d78-4a51-8ca2-ae42d2c3c1ed
