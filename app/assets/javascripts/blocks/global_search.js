@@ -20,5 +20,7 @@ $(document).on('keypress', e => {
 
   e.preventDefault();
   e.stopImmediatePropagation();
+
   searchView.$input.focus();
+  searchView.$input[0].setSelectionRange(0, searchView.$input[0].value.length);
 });
