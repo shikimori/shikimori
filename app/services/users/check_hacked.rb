@@ -12,6 +12,7 @@ class Users::CheckHacked
     shikme.aen.su
     shikme.tru.io
     shikme.z86.ru
+    shikme.naru.to
   ]
   NOT_SPAM_DOMAINS = %w[
     animenewsnetwork.com
