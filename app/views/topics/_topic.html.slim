@@ -12,23 +12,23 @@ article.b-topic.shiki-object.not-tracked.to-process[
   itemscope
   itemtype=(topic_view.topic_type_policy.review_topic? ? 'http://schema.org/Review' : 'http://schema.org/Article')
 ]
-  meta itemprop="author" content=topic_view.topic.user.nickname
-  meta itemprop="name" content=topic_view.topic.title
-  meta itemprop="headline" content=topic_view.topic.title
+  meta itemprop='author' content=topic_view.topic.user.nickname
+  meta itemprop='name' content=topic_view.topic.title
+  meta itemprop='headline' content=topic_view.topic.title
   meta[
-    itemprop="url"
+    itemprop='url'
     content=UrlGenerator.instance.topic_url(topic_view.topic)
   ]
   meta[
     itemscope
-    itemprop="mainEntityOfPage"
-    itemType="https://schema.org/WebPage"
+    itemprop='mainEntityOfPage'
+    itemType='https://schema.org/WebPage'
     itemid=UrlGenerator.instance.topic_url(topic_view.topic)
   ]
-  meta itemprop="dateCreated" content=topic_view.created_at.iso8601
-  meta itemprop="datePublished" content=topic_view.created_at.iso8601
+  meta itemprop='dateCreated' content=topic_view.created_at.iso8601
+  meta itemprop='datePublished' content=topic_view.created_at.iso8601
   - if topic_view.updated_at
-    meta itemprop="dateModified" content=topic_view.updated_at.iso8601
+    meta itemprop='dateModified' content=topic_view.updated_at.iso8601
 
   a name="topic-#{topic_view.topic.id}"
 

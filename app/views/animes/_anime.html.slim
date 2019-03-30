@@ -8,24 +8,27 @@
 article.c-column.b-catalog_entry.not-tracked[
   class="c-#{anime.anime? ? :anime : :manga} entry-#{anime.id} #{:cc if content_by == :block}"
   id=anime.id
-  itemscope itemtype="#{anime.itemtype}"
+  itemscope
+  itemtype=anime.itemtype
   data-track_user_rate=JsExports::UserRatesExport.instance.placeholder(:catalog_entry, anime)
 ]
   meta[
-    itemprop="image"
+    itemprop='image'
     content="#{{meta_image_url anime.image, :original, false}}"
   ]
   meta[
-    itemprop="thumbnailUrl"
+    itemprop='thumbnailUrl'
     content="#{{meta_image_url anime.image, :x48, false}}"
   ]
+  - if anime.aired_on
+    meta itemprop='dateCreated' content=anime.aired_on.iso8601
 
   - if cover_by == :link || cover_by == :image_link
     a.cover[
       class=('anime-tooltip' if content_by == :tooltip)
       href=anime.url
       title=anime.name
-      data-delay="150"
+      data-delay='150'
       data-predelay=(tooltip_predelay if defined? tooltip_predelay)
       data-tooltip_url=anime.tooltip_url
     ]
@@ -43,7 +46,7 @@ article.c-column.b-catalog_entry.not-tracked[
       class=('anime-tooltip' if content_by == :tooltip)
       data-href=anime.url
       data-title=anime.name
-      data-delay="150"
+      data-delay='150'
       data-tooltip_url=anime.tooltip_url
     ]
       = render partial: 'animes/cover',

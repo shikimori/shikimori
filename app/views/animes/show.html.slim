@@ -1,21 +1,22 @@
 = render layout: 'page' do
   = cache [@resource, user_signed_in?, :v7] do
-    meta itemprop="url" content="#{{@resource.url}}"
-    meta itemprop="headline" content=@resource.name
+    meta itemprop='url' content="#{{@resource.url}}"
+    meta itemprop='headline' content=@resource.name
 
     - if @resource.russian
-      meta itemprop="alternativeHeadline" content=@resource.russian
+      meta itemprop='alternativeHeadline' content=@resource.russian
 
     - if @resource.anime? && @resource.kind_movie? && (@resource.aired_on || @resource.released_on)
       meta[
-        itemprop="datePublished"
+        itemprop='datePublished'
         content=(@resource.aired_on.to_s || @resource.released_on.to_s)
       ]
     - elsif @resource.anime?
       - if @resource.aired_on
-        meta itemprop="startDate" content=@resource.aired_on
-      - if @resource.released_on
-        meta itemprop="endDate" content=@resource.released_on
+        meta itemprop='dateCreated' content=anime.aired_on.iso8601
+        / meta itemprop='startDate' content=@resource.aired_on
+      / - if @resource.released_on
+        / meta itemprop='endDate' content=@resource.released_on
 
     .b-db_entry
       .c-image
