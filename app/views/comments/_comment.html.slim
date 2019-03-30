@@ -8,7 +8,7 @@
   id=comment.id
   itemscope
   itemprop="comment"
-  itemtype="http://schema.org/UserComments"
+  itemtype="http://schema.org/Comment"
 ]
   a name="comment-#{comment.id}"
   / класс нужен из-за проверки высоты
@@ -76,12 +76,12 @@
           - if comment.persisted?
             span.time
               time[
-                itemprop="commentTime"
+                itemprop="dateCreated"
                 datetime=comment.created_at.iso8601
               ] = l comment.created_at, format: '%e %B %Y'
               span.hash data-url=comment_url(comment) #
 
-    .body itemprop="commentText"
+    .body itemprop="text"
       = comment.html_body
 
     .b-appear_marker[
