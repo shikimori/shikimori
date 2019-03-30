@@ -33,7 +33,8 @@ class Abilities::User
     message_abilities
     user_abilities
     user_rate_abilities
-    anime_video_abilities
+    anime_video_report_abilities
+    anime_video_abilities if @user.day_registered?
     version_abilities if @user.week_registered?
     style_abilities
     list_import_abilities
@@ -215,7 +216,7 @@ class Abilities::User
     end
   end
 
-  def anime_video_abilities
+  def anime_video_report_abilities
     can :create, AnimeVideoReport do |report|
       !@user.banned? && !@user.not_trusted_video_uploader? &&
         report.user_id == @user.id && (
@@ -226,6 +227,9 @@ class Abilities::User
       !@user.banned? && !@user.not_trusted_video_uploader? &&
         report.user_id == @user.id && report.pending?
     end
+  end
+
+  def anime_video_abilities
     can %i[new create], AnimeVideo do |anime_video|
       !@user.banned? && !@user.not_trusted_video_uploader? &&
         anime_video.uploaded?

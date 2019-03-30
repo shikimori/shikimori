@@ -37,7 +37,7 @@ describe Api::V1::AnimeVideosController do
   end
 
   describe '#create', :show_in_doc do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :day_registered
     let(:video_params) do
       {
         kind: kind,
@@ -75,8 +75,14 @@ describe Api::V1::AnimeVideosController do
 
   describe '#destroy' do
     include_context :authenticated, :api_video_uploader
+
     let(:video) { create :anime_video, anime: anime }
-    let!(:upload_report) { create :anime_video_report, anime_video: video, kind: 'uploaded', user: user }
+    let!(:upload_report) do
+      create :anime_video_report,
+        anime_video: video,
+        kind: 'uploaded',
+        user: user
+    end
 
     subject! { delete :destroy, params: { anime_id: anime.id, id: video.id }, format: :json }
 

@@ -31,32 +31,32 @@
           .c-actions
             a.new_comment.b-tooltipped.unprocessed.to-process[
               title=t('.actions.comment')
-              data-direction="top"
-              data-dynamic="day_registered"
+              data-direction='top'
+              data-dynamic='day_registered'
               data-text=t('.actions.comment')
             ]
             a.new_review.b-tooltipped.unprocessed.to-process[
               href=@resource.new_review_url
               title=t('.actions.review')
-              data-direction="top"
-              data-dynamic="week_registered"
+              data-direction='top'
+              data-dynamic='week_registered'
               data-text=t('.actions.review')
             ]
             a.fav-add.b-tooltipped.unprocessed.to-process[
               href=favourites_url(@resource.object.class.name, @resource.id)
-              data-remote="true"
-              data-type="json"
-              data-kind=""
-              data-direction="top"
-              data-dynamic="authorized"
+              data-remote='true'
+              data-type='json'
+              data-kind=''
+              data-direction='top'
+              data-dynamic='authorized'
               data-add_text=t('.actions.add_to_favorites')
               data-remove_text=t('.actions.remove_from_favorites')
             ]
             a.edit.b-tooltipped.unprocessed.to-process[
               href=@resource.edit_url
               title=t('.actions.edit')
-              data-direction="top"
-              data-dynamic="authorized"
+              data-direction='top'
+              data-dynamic='authorized'
               data-text=t('.actions.edit')
             ]
 
@@ -74,16 +74,16 @@
             - if @resource.with_score?
               .block[
                 itemscope
-                itemprop="aggregateRating"
-                itemtype="http://schema.org/AggregateRating"
+                itemprop='aggregateRating'
+                itemtype='http://schema.org/AggregateRating'
               ]
                 .subheadline.m5 = Anime.human_attribute_name(:score)
                 .scores
-                  meta itemprop="bestRating" content="10"
-                  meta itemprop="ratingValue" content=@resource.score
+                  meta itemprop='bestRating' content='10'
+                  meta itemprop='ratingValue' content=@resource.score
                   - if @resource.cached_rates_count > 0
                     meta[
-                      itemprop="ratingCount"
+                      itemprop='ratingCount'
                       content=@resource.cached_rates_count
                     ]
                   = render 'blocks/rate', score: @resource.score

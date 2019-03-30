@@ -43,7 +43,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
   end
 
   describe '#new' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :day_registered
     let(:video_params) { { anime_id: @resource, state: 'uploaded' } }
     subject! do
       get :new,
@@ -56,7 +56,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
   end
 
   describe '#create' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :day_registered
     let(:video_params) do
       {
         state: 'uploaded',
@@ -128,7 +128,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
   end
 
   describe '#edit' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :day_registered
     let(:video) { create :anime_video, anime: anime, state: 'uploaded' }
     subject! { get :edit, params: { anime_id: anime.to_param, id: video.id } }
 
@@ -155,7 +155,7 @@ describe AnimeOnline::AnimeVideosController, :vcr do
       let(:video_versions) { Version.where item: anime_video }
       let(:kind) { 'subtitles' }
 
-      include_context :authenticated, :user
+      include_context :authenticated, :user, :day_registered
       subject! { make_request }
 
       it do

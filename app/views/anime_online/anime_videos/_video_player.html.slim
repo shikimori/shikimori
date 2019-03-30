@@ -39,13 +39,13 @@
             span Эпизод
           b  #
           input[
-            type="text"
+            type='text'
             value=@player.current_episode
             data-href=@player.episode_url('EPISODE_NUMBER')
           ]
           - unless @resource.id == 21 && @player.current_episode.in?(861..910)
             .video-link
-              a href=@video.url target="_blank" прямая ссылка
+              a href=@video.url target='_blank' прямая ссылка
         a.c-control.next href=@player.next_url
           .icon
           .label Следующий
@@ -53,7 +53,10 @@
       - if user_signed_in?
         .cc-optional_controls
           - unless current_user&.not_trusted_video_uploader?
-            a.c-control.upload href=@player.new_video_url
+            a.c-control.upload.to-process[
+              href=@player.new_video_url
+              data-dynamic='day_registered'
+            ]
               .icon
               .label = t 'actions.upload'
           - if can? :edit, @video
@@ -63,7 +66,7 @@
           - if can? :destroy, @video
             a.c-control.delete[
               href=video_online_url(@resource, @video)
-              data-method="delete"
+              data-method='delete'
               data-confirm=t('actions.confirm')
             ]
               .icon
@@ -77,21 +80,21 @@
               a.c-column.c-control.increment-user_rate[
                 class=(:watched if @video.watched?)
                 href=@video.viewed_url
-                data-method="post"
+                data-method='post'
                 data-next_url=@player.next_watch_url
-                data-remote="true"
+                data-remote='true'
               ]
                 .icon
                 .label Просмотрено
             - else
               a.c-column.c-control.create-user_rate[
                 href=@video.add_to_list_url
-                data-remote="true"
-                data-method="post"
-                data-type="json"
+                data-remote='true'
+                data-method='post'
+                data-type='json'
                 data-increment_url=@video.viewed_url
                 data-next_url=@player.next_watch_url
-                data-increment_text="Просмотрено"
+                data-increment_text='Просмотрено'
               ]
                 .icon
                 .label В мой список

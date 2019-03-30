@@ -128,7 +128,8 @@ private
   def ignore_copyright?
     ru_host? && (
       current_user&.day_registered? ||
-      GeoipAccess.instance.anime_online_allowed?(remote_addr)
+      GeoipAccess.instance.anime_online_allowed?(remote_addr) ||
+      Rails.env.development?
     )
   end
 

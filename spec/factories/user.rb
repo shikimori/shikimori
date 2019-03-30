@@ -47,8 +47,14 @@ FactoryBot.define do
       roles { %i[bot] }
     end
 
-    (Types::User::ROLES - %i[admin]).each do |role|
+    (Types::User::ROLES - %i[admin api_video_uploader]).each do |role|
       trait(role) { roles { [role] } }
+    end
+
+    trait :api_video_uploader do
+      day_registered
+      sequence(:nickname) { |n| "api_video_uploader_#{n}" }
+      roles { %i[api_video_uploader] }
     end
 
     trait :suspicious do
@@ -67,7 +73,7 @@ FactoryBot.define do
     trait(:forever_banned) { read_only_at { 1.year.from_now + 1.week } }
 
     trait(:day_registered) do
-      nickname { 'day_registered' }
+      sequence(:nickname) { |n| "day_registered_#{n}" }
       created_at { 25.hours.ago }
     end
     trait(:week_registered) do

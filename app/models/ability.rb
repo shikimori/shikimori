@@ -67,7 +67,7 @@ class Ability
       report.user_id == User::GUEST_ID && (report.broken? || report.wrong?)
     end
 
-    can %i[new create], AnimeVideo, &:uploaded?
+    # can %i[new create], AnimeVideo, &:uploaded?
   end
 
   def guest_allowances

@@ -552,6 +552,7 @@ describe AnimeVideo do
 
   describe 'permissions' do
     subject { Ability.new user }
+
     let(:uploaded_video) { build :anime_video, state: 'uploaded' }
     let(:working_video) { build :anime_video, state: 'working' }
     let(:broken_video) { build :anime_video, state: 'broken' }
@@ -560,8 +561,8 @@ describe AnimeVideo do
 
     describe 'guest' do
       let(:user) {}
-      it { is_expected.to be_able_to :new, uploaded_video }
-      it { is_expected.to be_able_to :create, uploaded_video }
+      it { is_expected.to_not be_able_to :new, uploaded_video }
+      it { is_expected.to_not be_able_to :create, uploaded_video }
 
       it { is_expected.to_not be_able_to :new, working_video }
       it { is_expected.to_not be_able_to :create, working_video }
@@ -577,8 +578,17 @@ describe AnimeVideo do
     describe 'user' do
       let(:user) { build_stubbed :user, :user }
 
-      it { is_expected.to be_able_to :new, uploaded_video }
-      it { is_expected.to be_able_to :create, uploaded_video }
+      context 'day_registered' do
+        let(:user) { build_stubbed :user, :user, :day_registered }
+
+        it { is_expected.to be_able_to :new, uploaded_video }
+        it { is_expected.to be_able_to :create, uploaded_video }
+      end
+
+      context 'not day_registered' do
+        it { is_expected.to_not be_able_to :new, uploaded_video }
+        it { is_expected.to_not be_able_to :create, uploaded_video }
+      end
 
       it { is_expected.to_not be_able_to :new, working_video }
       it { is_expected.to_not be_able_to :create, working_video }
@@ -587,10 +597,21 @@ describe AnimeVideo do
 
       it { is_expected.to_not be_able_to :destroy, uploaded_video }
 
-      it { is_expected.to be_able_to :edit, uploaded_video }
-      it { is_expected.to be_able_to :update, uploaded_video }
-      it { is_expected.to be_able_to :edit, working_video }
-      it { is_expected.to be_able_to :update, working_video }
+      context 'day_registered' do
+        let(:user) { build_stubbed :user, :user, :day_registered }
+
+        it { is_expected.to be_able_to :edit, uploaded_video }
+        it { is_expected.to be_able_to :update, uploaded_video }
+        it { is_expected.to be_able_to :edit, working_video }
+        it { is_expected.to be_able_to :update, working_video }
+      end
+
+      context 'not day_registered' do
+        it { is_expected.to_not be_able_to :edit, uploaded_video }
+        it { is_expected.to_not be_able_to :update, uploaded_video }
+        it { is_expected.to_not be_able_to :edit, working_video }
+        it { is_expected.to_not be_able_to :update, working_video }
+      end
 
       it { is_expected.to_not be_able_to :edit, banned_video }
       it { is_expected.to_not be_able_to :update, banned_video }
@@ -610,14 +631,25 @@ describe AnimeVideo do
     end
 
     describe 'video uploader' do
-      let(:video) { build_stubbed :anime_video, created_at: created_at, state: 'uploaded' }
-      let!(:upload_report) { create :anime_video_report, anime_video: video, user: user, kind: 'uploaded' }
+      let(:user) { create :user, :user, :day_registered }
+
+      let(:video) do
+        build_stubbed :anime_video,
+          created_at: created_at,
+          state: 'uploaded'
+      end
+      let!(:upload_report) do
+        create :anime_video_report,
+          anime_video: video,
+          user: user,
+          kind: 'uploaded'
+      end
 
       context 'video created long ago' do
         let(:created_at) { 1.week.ago - 1.day }
 
         context 'api video uploader' do
-          let(:user) { create :user, :api_video_uploader }
+          let(:user) { create :user, :api_video_uploader, :day_registered }
           it { is_expected.to be_able_to :destroy, video }
         end
 
