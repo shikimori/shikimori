@@ -53,6 +53,7 @@ module Shikimori
     ActionController::InvalidAuthenticityToken
     CanCan::AccessDenied
     ActionController::UnknownFormat
+    ActionController::UnknownHttpMethod
     ActionDispatch::RemoteIp::IpSpoofAttackError
     ActiveRecord::RecordNotFound
     ActionController::RoutingError
