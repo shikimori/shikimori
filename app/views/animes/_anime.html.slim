@@ -12,17 +12,6 @@ article.c-column.b-catalog_entry.not-tracked[
   itemtype=anime.itemtype
   data-track_user_rate=JsExports::UserRatesExport.instance.placeholder(:catalog_entry, anime)
 ]
-  meta[
-    itemprop='image'
-    content="#{{meta_image_url anime.image, :original, false}}"
-  ]
-  meta[
-    itemprop='thumbnailUrl'
-    content="#{{meta_image_url anime.image, :x48, false}}"
-  ]
-  - if anime.aired_on
-    meta itemprop='dateCreated' content=anime.aired_on.iso8601
-
   - if cover_by == :link || cover_by == :image_link
     a.cover[
       class=('anime-tooltip' if content_by == :tooltip)
@@ -73,3 +62,14 @@ article.c-column.b-catalog_entry.not-tracked[
 
       - else
         - raise ArgumentError, content_by
+
+  meta[
+    itemprop='image'
+    content="#{{meta_image_url anime.image, :original, false}}"
+  ]
+  meta[
+    itemprop='thumbnailUrl'
+    content="#{{meta_image_url anime.image, :x48, false}}"
+  ]
+  - if anime.aired_on
+    meta itemprop='dateCreated' content=anime.aired_on.iso8601
