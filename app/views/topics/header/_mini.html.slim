@@ -14,4 +14,5 @@
   a.name[
     href=topic_view.urls.poster_url
     title=topic_view.topic_title
+    itemprop=('itemReviewed' if topic_view.topic_type_policy.review_topic?)
   ] = topic_view.topic_title_html
