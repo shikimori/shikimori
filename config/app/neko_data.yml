@@ -3236,7 +3236,7 @@
     :image: "/assets/achievements/anime/otaku_4.gif"
     :border_color: "#ff496c"
     :title_ru: Хикикомори
-    :text_ru: Уровень вашего либидо достиг максимального. Окружающие трепещут.
+    :text_ru: Уровень вашего либидо достиг максимально возможного. Окружающие трепещут.
     :title_en: 
     :text_en: 
     :topic_id: 
@@ -14210,6 +14210,8 @@
       :algo: duration
       :filters:
         franchise: uchuu_senkan_yamato
+        not_anime_ids:
+        - 7122
       :threshold: 94.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -14227,6 +14229,8 @@
       :algo: duration
       :filters:
         franchise: uchuu_senkan_yamato
+        not_anime_ids:
+        - 7122
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -17906,6 +17910,7 @@
         - 37781
         - 28223
         - 14353
+        - 38101
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -18275,6 +18280,7 @@
         - 37781
         - 28223
         - 14353
+        - 38101
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -18646,6 +18652,7 @@
         - 37781
         - 28223
         - 14353
+        - 38101
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
 - !ruby/object:Neko::Rule
   attributes:
@@ -18918,7 +18925,7 @@
   attributes:
     :neko_id: :fujoshi
     :level: 2
-    :image: "/assets/achievements/anime/fujoshi_2.png"
+    :image: "/assets/achievements/anime/fujoshi_2.jpg"
     :border_color: "#e82a8d"
     :title_ru: Голубок
     :text_ru: Поворачивать назад уже слишком поздно. Пора совершить каминг-аут и наконец-то
