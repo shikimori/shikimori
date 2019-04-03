@@ -169,20 +169,6 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#autocomplete' do
-    let(:anime) { build_stubbed :anime }
-    let(:phrase) { 'qqq' }
-
-    before { allow(Autocomplete::Anime).to receive(:call).and_return [anime] }
-    subject! { get :autocomplete, params: { search: 'Fff' } }
-
-    it do
-      expect(collection).to eq [anime]
-      expect(response.content_type).to eq 'application/json'
-      expect(response).to have_http_status :success
-    end
-  end
-
   describe '#rollback_episode' do
     let(:make_request) { post :rollback_episode, params: { id: anime.to_param } }
     let(:anime) { create :anime, episodes_aired: 10 }

@@ -1,16 +1,6 @@
 class RanobeController < AnimesController
   UPDATE_PARAMS = MangasController::UPDATE_PARAMS
 
-  def autocomplete
-    scope = Ranobe.all
-    scope.where! censored: false if params[:censored] == 'false'
-
-    @collection = Autocomplete::Ranobe.call(
-      scope: scope,
-      phrase: params[:search] || params[:q]
-    )
-  end
-
 private
 
   def og_meta

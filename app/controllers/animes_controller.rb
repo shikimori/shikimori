@@ -191,16 +191,6 @@ class AnimesController < DbEntriesController
     render json: @resource.files.episodes_data
   end
 
-  def autocomplete
-    scope = Anime.all
-    scope.where! censored: false if params[:censored] == 'false'
-
-    @collection = Autocomplete::Anime.call(
-      scope: scope,
-      phrase: params[:search] || params[:q]
-    )
-  end
-
   def rollback_episode
     authorize! :rollback_episode, @resource
 
