@@ -2,7 +2,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   before_action :fetch_resource
   before_action :set_breadcrumbs
   before_action do
-    unless @view.own_profile?
+    unless !@view || @view.own_profile?
       @top_menu.current_item = {
         name: :avatar,
         url: @resource.url,
