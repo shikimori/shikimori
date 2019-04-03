@@ -38,11 +38,11 @@ module Copyright
     # Capella Film
     33970, # Girls und Panzer das Finale
     35851, # Sayonara no Asa ni Yakusoku no Hana wo Kazarou
-    10259 # Da hai
+    10259, # Da hai
+    37207 # Zuori Qing Kong
   ]
   EXPONENTA_COPYRIGHTED = [
-    36936, # Mirai no Mirai
-    37207 # Zuori Qing Kong
+    36936 # Mirai no Mirai
   ]
   PIONER_COPYRIGHTED = [
     # https://www.mos-gorsud.ru/mgs/defend/statementForm/80619321-6d78-4a51-8ca2-ae42d2c3c1ed
