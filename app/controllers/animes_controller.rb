@@ -173,6 +173,7 @@ class AnimesController < DbEntriesController
     if @resource.all_clubs.none?
       return redirect_to @resource.url, status: 301
     end
+
     og noindex: true
     og page_title: t('in_clubs')
   end
