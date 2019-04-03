@@ -154,7 +154,7 @@ aside.buttons
       = f.input :body,
         as: :text,
         input_html: {\
-          class: "b-#{f.object.class.name.downcase} editor-area",
+          class: "editor-area",
           placeholder: (browser.ie? ? '' : t('.comment')),
           tabindex: 0,
           'data-upload_url' => api_user_images_url(linked_type: Comment.name),
