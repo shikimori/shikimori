@@ -6,5 +6,5 @@ json.array! @collection do |entry|
   json.data entry.id
   json.value name
   json.label render('suggest', entry: entry, entry_name: name)
-  json.url url_for(entry)
+  json.url entry.decorate.url
 end
