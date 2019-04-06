@@ -94,7 +94,7 @@ class AnimeDecorator < AniMangaDecorator
       Copyright::WAKANIM_COPYRIGHTED.include?(id)
     # || (
       # Copyright::WAKANIM_COPYRIGHTED.include?(id) &&
-      # !GeoipAccess.instance.wakanim_allowed?(h.remote_addr)
+      # !GeoipAccess.instance.wakanim_allowed?(h.request.remote_ip)
     # )
   end
 

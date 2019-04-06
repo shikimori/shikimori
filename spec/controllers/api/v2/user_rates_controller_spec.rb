@@ -63,7 +63,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
           .to have_received(:call)
           .with(
             user_rate: resource,
-            ip: controller.send(:remote_addr),
+            ip: controller.send(:request).remote_ip,
             user_agent: request.user_agent,
             oauth_application_id: controller.send(:doorkeeper_token)&.application_id
           )
@@ -88,7 +88,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
           .to have_received(:call)
           .with(
             user_rate: resource,
-            ip: controller.send(:remote_addr),
+            ip: controller.send(:request).remote_ip,
             user_agent: request.user_agent,
             oauth_application_id: controller.send(:doorkeeper_token)&.application_id
           )
@@ -124,7 +124,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
         .to have_received(:call)
         .with(
           user_rate: resource,
-          ip: controller.send(:remote_addr),
+          ip: controller.send(:request).remote_ip,
           user_agent: request.user_agent,
           oauth_application_id: controller.send(:doorkeeper_token)&.application_id
         )
@@ -148,7 +148,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
         .to have_received(:call)
         .with(
           user_rate: resource,
-          ip: controller.send(:remote_addr),
+          ip: controller.send(:request).remote_ip,
           user_agent: request.user_agent,
           oauth_application_id: controller.send(:doorkeeper_token)&.application_id
         )
@@ -172,7 +172,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
         .to have_received(:call)
         .with(
           user_rate: resource,
-          ip: controller.send(:remote_addr),
+          ip: controller.send(:request).remote_ip,
           user_agent: request.user_agent,
           oauth_application_id: controller.send(:doorkeeper_token)&.application_id
         )

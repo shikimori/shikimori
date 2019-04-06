@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
   before_action :force_no_cache, unless: :user_signed_in?
 
   helper_method :resource_class
-  helper_method :remote_addr
   helper_method :json?
   helper_method :adaptivity_class
   helper_method :turbolinks_request?
@@ -110,16 +109,6 @@ private
     current_user.update_last_online
   end
 
-  def remote_addr
-    request.headers['HTTP_X_FORWARDED_FOR']&.split(',')&.first ||
-      request.headers['HTTP_X_REAL_IP'] ||
-      request.headers['REMOTE_ADDR']
-  end
-
-  def local_addr?
-    remote_addr == '127.0.0.1' || remote_addr == '::1'
-  end
-
   def json?
     request.format == Mime::Type.lookup_by_extension('json') ||
       params[:format] == 'json'
@@ -128,7 +117,7 @@ private
   def ignore_copyright?
     ru_host? && (
       current_user&.day_registered? ||
-      GeoipAccess.instance.anime_online_allowed?(remote_addr) ||
+      GeoipAccess.instance.anime_online_allowed?(request.remote_ip) ||
       Rails.env.development?
     )
   end

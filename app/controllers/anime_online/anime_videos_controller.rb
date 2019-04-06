@@ -99,7 +99,7 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
 
       UserRates::Log.call(
         user_rate: @user_rate,
-        ip: remote_addr,
+        ip: request.remote_ip,
         user_agent: request.user_agent,
         oauth_application_id: doorkeeper_token&.application_id
       )

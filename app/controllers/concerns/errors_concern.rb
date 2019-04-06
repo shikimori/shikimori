@@ -34,7 +34,7 @@ module ErrorsConcern
       # .error("#{error.message}\n#{error.backtrace.join("\n")}")
     # Rails.logger.error("#{error.message}\n#{error.backtrace.join("\n")}")
 
-    raise error if local_addr? && (
+    raise error if (request.ip == '127.0.0.1' || request.ip == '::1') && (
       !error.is_a?(AgeRestricted) &&
       !error.is_a?(CopyrightedResource) &&
       !error.is_a?(Forbidden)

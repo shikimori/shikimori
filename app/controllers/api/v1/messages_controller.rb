@@ -153,7 +153,7 @@ private
     info = [
       "#{location_text}#{feedback_address_text}",
       params[:message][:user_agent] || request.env['HTTP_USER_AGENT'],
-      remote_addr
+      request.remote_ip
     ].select(&:present?).join("\n")
 
     "\n" + <<~TEXT.strip
