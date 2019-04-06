@@ -203,6 +203,13 @@ class TestsController < ShikimoriController
       .transform(&:voter)
   end
 
+  def ip
+    render json: {
+      ip: request.ip,
+      remote_ip: request.remote_ip
+    }
+  end
+
 private
 
   def franchise_info animes
