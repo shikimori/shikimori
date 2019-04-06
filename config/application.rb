@@ -144,6 +144,13 @@ module Shikimori
     # достали эксепшены с ханибаджера
     config.action_dispatch.ip_spoofing_check = false
 
+    config.action_dispatch.trusted_proxies = %w(
+      51.15.116.215
+      88.198.7.123
+    ).map do |proxy|
+      IPAddr.new proxy
+    end
+
     config.action_mailer.default_url_options = { host: Shikimori::DOMAIN }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
