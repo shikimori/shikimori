@@ -147,6 +147,8 @@ module Shikimori
     config.action_dispatch.trusted_proxies = %w(
       51.15.116.215
       88.198.7.123
+      192.168.0.3
+      192.168.0.2
     ).map do |proxy|
       IPAddr.new proxy
     end
