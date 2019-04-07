@@ -59,6 +59,10 @@ class AnimesCollectionController < ShikimoriController
     )
   end
 
+  def autocomplete_v2
+    autocomplete
+  end
+
 private
 
   # TODO: refactor this shit

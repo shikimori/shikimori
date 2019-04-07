@@ -69,6 +69,24 @@ describe AnimesCollectionController do
           expect(response).to have_http_status :success
         end
       end
+
+      describe '#autocomplete_v2' do
+        let(:entry) { build_stubbed kind }
+        let(:phrase) { 'qqq' }
+
+        before do
+          allow("Autocomplete::#{kind.classify}".constantize)
+            .to receive(:call)
+            .and_return [entry]
+        end
+        subject! { get :autocomplete_v2, params: { search: 'Fff', klass: kind } }
+
+        it do
+          expect(collection).to eq [entry]
+          expect(response.content_type).to eq 'application/json'
+          expect(response).to have_http_status :success
+        end
+      end
     end
   end
 end
