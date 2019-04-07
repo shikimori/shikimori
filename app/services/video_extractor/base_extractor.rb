@@ -40,13 +40,17 @@ class VideoExtractor::BaseExtractor
 
   def fetch
     Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
-      if valid_url? && opengraph_page?
-        AnimeOnline::VideoData.new(
-          hosting: hosting,
-          image_url: image_url,
-          player_url: player_url
-        )
-      end
+      return unless valid_url? && opengraph_page?
+
+      current_image_url = image_url
+      current_player_url = player_url
+      return unless current_image_url && current_player_url
+
+      AnimeOnline::VideoData.new(
+        hosting: hosting,
+        image_url: current_image_url,
+        player_url: current_player_url
+      )
     end
   rescue *(Network::FaradayGet::NET_ERRORS + [EmptyContentError])
     nil

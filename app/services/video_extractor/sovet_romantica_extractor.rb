@@ -21,8 +21,12 @@ class VideoExtractor::SovetRomanticaExtractor < VideoExtractor::BaseExtractor
   def parse_data html
     doc = Nokogiri::HTML html
 
-    {
-      image_url: doc.css('video').first.attr('poster')
-    }
+    video = doc.css('video').first
+
+    if video
+      {
+        image_url: video.attr('poster')
+      }
+    end
   end
 end

@@ -25,6 +25,7 @@ describe VideoExtractor::SovetRomanticaExtractor, :vcr do
         expect(subject.hosting).to eq 'sovet_romantica'
         expect(subject.image_url).to eq image_url
         expect(subject.player_url).to eq player_url
-      end end
+      end
+    end
   end
 end
