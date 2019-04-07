@@ -35,12 +35,12 @@ export default class PaginatedCatalog
     )
 
     @collection_search = $('.l-top_menu-v2 .global-search').view()
-    old_process_response = @collection_search._process_response
-    @collection_search._process_response = @_process_ajax_content
+    old_processResponse = @collection_search._processResponse
+    @collection_search._processResponse = @_process_ajax_content
 
-    # restore search._process_response
+    # restore search._processResponse
     $(document).one 'turbolinks:before-cache', =>
-      @collection_search._process_response = old_process_response
+      @collection_search._processResponse = old_processResponse
 
   # bind_history: =>
   #   $(window).off 'popstate', @_history_page_changed
