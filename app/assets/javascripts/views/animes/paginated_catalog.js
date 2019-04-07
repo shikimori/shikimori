@@ -147,32 +147,23 @@ export default class PaginatedCatalog {
     this.pageChange.$input = null;
   }
 
-  _fetch(url) {
-    // let url = url;
+  async _fetch(url) {
+    let absoulteUrl = url;
 
-    // if (url.indexOf(window.location.protocol + '//' + window.location.host) === -1) {
-    //   url = window.location.protocol + '//' + window.location.host + url;
-    // }
-
-    if (this.pendingRequest) {
-      this.pendingRequest.cancel();
+    if (url.indexOf(`${window.location.protocol}//${window.location.host}`) === -1) {
+      absoulteUrl = `${window.location.protocol}//${window.location.host}${url}`;
     }
 
-    const cachedData = ajaxCacher.get(url);
+    const cachedData = ajaxCacher.get(absoulteUrl);
     if (cachedData) {
-      this._processAjaxContent(cachedData, url);
+      this._processAjaxContent(cachedData, absoulteUrl);
       return;
     }
 
     this.$content.addClass('b-ajax');
-    this.pendingRequest = CancelToken.source();
 
-    axios
-      .get(url, { cancelToken: this.pendingRequest.token })
-      .then(({ data }) => {
-        ajaxCacher.push(url, data);
-        this._processAjaxContent(data, url);
-      })
+    const { data } = await axios
+      .get(absoulteUrl)
       .catch(({ response }) => {
         if (response.status === 451) { // || response.data === 'age_restricted'
           Turbolinks.visit(window.location.href);
@@ -183,60 +174,12 @@ export default class PaginatedCatalog {
         }
       });
 
-    this.pendingRequest = null;
-    this.$content.removeClass('b-ajax');
+    ajaxCacher.push(absoulteUrl, data);
 
-    return;
-    $.ajax({
-      url,
-      dataType: 'json',
-      beforeSend: xhr => {
-        this.$content.addClass('b-ajax');
-
-        if (this.pendingRequest) {
-          if ('abort' in this.pendingRequest) {
-            this.pendingRequest.abort();
-          } else {
-            this.pendingRequest.aborted = true;
-          }
-          this.pendingRequest = null;
-        }
-
-        if (this.pendingRequest) {
-          xhr.abort();
-          return;
-        }
-
-        const cachedData = ajaxCacher.get(url);
-
-        if (cachedData) {
-          xhr.abort();
-
-          if ('abort' in cachedData && 'setRequestHeader' in cachedData) {
-          } else {
-            this._processAjaxContent(cachedData, url);
-            this.pendingRequest = null;
-            this.$content.removeClass('b-ajax');
-          }
-        } else {
-          this.pendingRequest = xhr;
-        }
-      },
-
-
-      complete: _xhr => {
-        this.pendingRequest = null;
-        return this.$content.removeClass('b-ajax');
-      },
-
-      error(xhr, _status, _error) {
-        if (xhr && xhr.responseText && xhr.responseText.includes('age-restricted-warning')) {
-          Turbolinks.visit(window.location.href);
-        } else {
-          flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'));
-        }
-      }
-    });
+    if (window.location.href === absoulteUrl) {
+      this._processAjaxContent(data, absoulteUrl);
+      this.$content.removeClass('b-ajax');
+    }
   }
 
   _processAjaxContent(data, url) {
