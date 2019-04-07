@@ -1,14 +1,23 @@
-NEKO_IP = '88.198.7.116'
-SMOTRET_ANIME_USER_AGENT = 'Anime 365 (https://smotretanime.ru/; info@smotretanime.ru)'
-
-Rack::Attack.safelist_ip NEKO_IP
-
-class Rack::Attack::Request < ::Rack::Request
+module Rack::Attack::Request::RealIpFix
   def real_ip
     env['HTTP_X_FORWARDED_FOR']&.split(',')&.first ||
       env['HTTP_X_REAL_IP'] ||
       env['REMOTE_ADDR'] ||
       ip
+  end
+end
+Rack::Attack::Request.send :include, Rack::Attack::Request::RealIpFix
+
+NEKO_IP = '88.198.7.116'
+SMOTRET_ANIME_USER_AGENT = 'Anime 365 (https://smotretanime.ru/; info@smotretanime.ru)'
+
+Rack::Attack.safelist('neko') do |req|
+  req.real_ip == NEKO_IP
+end
+
+if Rails.env.development?
+  Rack::Attack.safelist('localhost') do |req|
+    req.real_ip == '127.0.0.1'
   end
 end
 
