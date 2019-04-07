@@ -4,7 +4,8 @@ let queue = [];
 const queueLimit = 30;
 const enabled = true;// false;
 
-// обновление очереди - переданный url будет помещен в конец, и будут удалены лишние элементы, если очередь разрослась
+// обновление очереди - переданный url будет помещен в конец, и будут удалены лишние элементы,
+// если очередь разрослась
 function updateQueue(url, noDelete) {
   if (queue.includes(url)) {
     queue = queue.subtract(url);
