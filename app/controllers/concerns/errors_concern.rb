@@ -66,7 +66,7 @@ module ErrorsConcern
 
 private
 
-  def not_found_error _e
+  def not_found_error _error
     if error_json_response?
       render json: { message: t('page_not_found'), code: 404 }, status: 404
     else
@@ -74,8 +74,12 @@ private
     end
   end
 
-  def age_restricted_error _e
-    render 'pages/age_restricted', layout: false, formats: :html
+  def age_restricted_error _error
+    if error_json_response?
+      render plain: 'age_restricted', status: 451
+    else
+      render 'pages/age_restricted', layout: false, formats: :html
+    end
   end
 
   def forbidden_error error
@@ -113,7 +117,7 @@ private
     )
   end
 
-  def standard_error _e
+  def standard_error _error
     og page_title: t('error')
     render 'pages/page503.html', layout: false, status: 503, formats: :html
   end

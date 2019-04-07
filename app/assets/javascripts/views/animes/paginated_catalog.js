@@ -147,7 +147,7 @@ export default class PaginatedCatalog {
     this.pageChange.$input = null;
   }
 
-  async _fetch(url) {
+  _fetch(url) {
     // let url = url;
 
     // if (url.indexOf(window.location.protocol + '//' + window.location.host) === -1) {
@@ -167,14 +167,20 @@ export default class PaginatedCatalog {
     this.$content.addClass('b-ajax');
     this.pendingRequest = CancelToken.source();
 
-    await axios
+    axios
       .get(url, { cancelToken: this.pendingRequest.token })
       .then(({ data }) => {
         ajaxCacher.push(url, data);
         this._processAjaxContent(data, url);
       })
-      .catch((a,b,c) => {
-        debugger
+      .catch(({ response }) => {
+        if (response.status === 451) { // || response.data === 'age_restricted'
+          Turbolinks.visit(window.location.href);
+        } else {
+          flash.error(
+            I18n.t('frontend.lib.paginated_catalog.please_try_again_later')
+          );
+        }
       });
 
     this.pendingRequest = null;
