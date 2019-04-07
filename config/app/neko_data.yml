@@ -11568,6 +11568,8 @@
       :algo: duration
       :filters:
         franchise: full_metal_panic
+        not_anime_ids:
+        - 38149
       :threshold: 94.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -11585,6 +11587,8 @@
       :algo: duration
       :filters:
         franchise: full_metal_panic
+        not_anime_ids:
+        - 38149
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
 - !ruby/object:Neko::Rule
@@ -18833,6 +18837,7 @@
         - 9353
         - 17777
         - 21679
+        - 37982
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
 - !ruby/object:Neko::Rule
   attributes:
