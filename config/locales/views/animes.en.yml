@@ -103,9 +103,6 @@ en:
     studios_info:
       studio_animes: "%{studio_name} animes"
 
-    relation_note:
-      year: '%{year}'
-
     content:
       year: '%{year}'
 

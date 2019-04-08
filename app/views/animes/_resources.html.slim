@@ -19,8 +19,9 @@
 
         .subheadline.m5 = t '.linked'
         .cc.to-process data-dynamic="cutted_covers"
-          = render partial: 'animes/relation_note',
-            collection: @resource.related.related.take(related_size)
+          = render partial: 'animes/variants/list_item',
+            collection: @resource.related.related.take(related_size),
+            as: :entry
 
           - if @resource.related.related.size > related_size
             .b-show_more.unprocessed

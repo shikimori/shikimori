@@ -1,10 +1,11 @@
 @import mixins/brackets_surrounded
 @import mixins/comma_separated
+@import mixins/ellipsis2
 @import mixins/link
 @import mixins/margins
 @import mixins/responsive
-@import mixins/user_rate-minified
 @import mixins/tag
+@import mixins/user_rate-minified
 
 .b-db_entry-variant-list_item
   +mb(10px)
@@ -22,33 +23,44 @@
     img
       width: 48px
 
-  .info
+  & > .info
     margin-left: 16px
     line-height: $line_height
+    overflow: hidden
 
     .name
-      font-size: 14px
-      font-weight: bold
-      line-height: 1
-      margin-bottom: 5px
+      align-items: center
+      display: flex
+      margin-bottom: 4px
 
-    .note
-      span
-        +comma_separated
-        &:after
-          display: inline
+      .b-anime_status_tag
+        align-self: baseline
+        margin-right: 10px
+        white-space: nowrap
 
-      .relation,
-      .additional
-        display: inline-block
-        margin-right: 5px
+      .b-link
+        +ellipsis2
+        font-size: 14px
+        font-weight: bold
+        line-height: 1
 
-      .relation + .additional
-        +brackets_surrounded
+    // .note
+    //   span
+    //     +comma_separated
+    //     &:after
+    //       display: inline
+
+    //   .relation,
+    //   .additional
+    //     display: inline-block
+    //     margin-right: 5px
+
+    //   .relation + .additional
+    //     +brackets_surrounded
 
     .line
       font-size: 12px
-      line-height: 23px
+      line-height: 22px
 
       &.name
         line-height: 1
@@ -62,11 +74,8 @@
       .value
         display: inline
 
-        a
+        // a
           +link
-
-        .tag
-          +tag
 
     .b-user_rate
       +user_rate-minified

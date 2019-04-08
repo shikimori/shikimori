@@ -103,9 +103,6 @@ ru:
     studios_info:
       studio_animes: Аниме студии %{studio_name}
 
-    relation_note:
-      year: '%{year} г.'
-
     content:
       year: '%{year} год'
 

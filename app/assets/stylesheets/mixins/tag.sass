@@ -1,19 +1,28 @@
 @import globals/variables
 
 =tag
-  transition: none
   border-bottom: 1px dashed $link-4
   color: #123
   cursor: pointer
   display: inline-block
   line-height: 16px
-  margin: 0 5px 3px
+  margin-left: 3px
+  margin-right: 7px
+  transition: none
 
+  &:last-child
+    margin-right: 3px
+
+    &:hover
+      margin-right: 0
+
+  &.active,
   &:hover
     background-color: $link-4
-    border-bottom-color: transparent
+    border-bottom: transparent
     color: #fff
-    margin: 0 2px 3px
+    margin-left: 0
+    margin-right: 4px
     padding: 0 3px
     text-decoration: none
 
