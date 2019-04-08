@@ -1,8 +1,8 @@
 class DbEntries::Description
   include ShallowAttributes
-  
-  attribute :text, String
-  attribute :source, String
+
+  attribute :text, String, allow_nil: true
+  attribute :source, String, allow_nil: true
 
   def value
     if source.present?
@@ -32,11 +32,13 @@ class DbEntries::Description
     def parse_text value
       return unless value.present?
       return value if value !~ /\[source\]/
+
       value[/(.+)(?=\[source\])/m, 1]
     end
 
     def parse_source value
       return unless value.present?
+
       value[%r{\[source\](.+)\[/source\]}, 1]
     end
   end

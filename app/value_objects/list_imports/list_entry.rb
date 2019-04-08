@@ -1,9 +1,11 @@
 class ListImports::ListEntry
   include ShallowAttributes
 
-  attribute :target_title, String
+  TargetType = Types::Strict::String.enum('Anime', 'Manga')
+
+  attribute :target_title, String, allow_nil: true
   attribute :target_id, Integer
-  attribute :target_type, Types::Strict::String.enum('Anime', 'Manga')
+  attribute :target_type, TargetType
 
   attribute :score, Integer, default: 0
 
@@ -46,7 +48,7 @@ class ListImports::ListEntry
   end
 
   def anime?
-    target_type == Anime.name
+    target_type == TargetType[Anime.name]
   end
 
 private
@@ -63,7 +65,7 @@ private
   end
 
   def export_counter user_rate, counter
-    user_rate[counter] = self[counter]
+    user_rate[counter] = send(counter)
 
     if user_rate.target[counter].positive?
       # у просмотренного выставляем число эпизодов/частей/томов равное

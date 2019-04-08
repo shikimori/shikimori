@@ -23,9 +23,9 @@ describe Profiles::StatsView do
   let(:user) { user_2 }
   let(:stats) { Profiles::StatsView.new(profile_stats) }
 
-  let(:anime_spent_time) {}
-  let(:manga_spent_time) {}
-  let(:spent_time) {}
+  let(:anime_spent_time) { SpentTime.new 0 }
+  let(:manga_spent_time) { SpentTime.new 0 }
+  let(:spent_time) { SpentTime.new 0 }
 
   describe '#spent_percent' do
     let(:spent_time) { SpentTime.new interval }

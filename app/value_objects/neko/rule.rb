@@ -3,12 +3,12 @@ class Neko::Rule
 
   attribute :neko_id, Types::Achievement::NekoId
   attribute :level, Integer
-  attribute :image, String
-  attribute :border_color, String
-  attribute :title_ru, String
-  attribute :text_ru, String
-  attribute :title_en, String
-  attribute :text_en, String
+  attribute :image, String, allow_nil: true
+  attribute :border_color, String, allow_nil: true
+  attribute :title_ru, String, allow_nil: true
+  attribute :text_ru, String, allow_nil: true
+  attribute :title_en, String, allow_nil: true
+  attribute :text_en, String, allow_nil: true
   attribute :topic_id, Integer
   attribute :rule, Hash
 
