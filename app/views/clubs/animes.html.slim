@@ -6,8 +6,9 @@
   h2.subheadline.m10 = og.headline
   - if cookies['club_animes'] == 'list'
     div
-      = render partial: 'animes/relation_note',
-        collection: @resource.animes
+      = render partial: 'animes/variants/list_item',
+        collection: @resource.animes,
+        as: :entry
   - else
     .cc-5.to-process data-dynamic="cutted_covers"
       = render partial: 'animes/anime',

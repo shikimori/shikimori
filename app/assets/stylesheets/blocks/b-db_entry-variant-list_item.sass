@@ -1,22 +1,20 @@
 @import mixins/brackets_surrounded
-@import mixins/clear_left
 @import mixins/comma_separated
 @import mixins/link
+@import mixins/margins
 @import mixins/responsive
 @import mixins/user_rate-minified
+@import mixins/tag
 
-.b-db_entry-note
+.b-db_entry-variant-list_item
+  +mb(10px)
   border-top: 1px dashed #DDD
   display: flex
-  margin-bottom: 10px
   padding-top: 7px
 
   &:first-child
     border-top: none
     padding-top: 0
-
-  &:last-child
-    margin-bottom: 0
 
   .image
     margin-top: 3px
@@ -24,7 +22,7 @@
     img
       width: 48px
 
-  .name-container
+  .info
     margin-left: 16px
     line-height: $line_height
 
@@ -39,12 +37,35 @@
         &:after
           display: inline
 
-      .relation, .additional
+      .relation,
+      .additional
         display: inline-block
         margin-right: 5px
 
       .relation + .additional
         +brackets_surrounded
+
+    .line
+      font-size: 12px
+      line-height: 23px
+
+      &.name
+        line-height: 1
+        margin-bottom: 5px
+
+      .key
+        color: #444
+        font-weight: bold
+        display: inline
+
+      .value
+        display: inline
+
+        a
+          +link
+
+        .tag
+          +tag
 
     .b-user_rate
       +user_rate-minified

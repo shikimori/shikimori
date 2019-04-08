@@ -27,8 +27,9 @@
               ' + #{t '.show_all'}
               | (#{@resource.related.related.size - related_size})
             .b-show_more-more
-              = render partial: 'animes/relation_note',
-                collection: @resource.related.related[related_size..-1]
+              = render partial: 'animes/variants/list_item',
+                collection: @resource.related.related[related_size..-1],
+                as: :entry
 
               .hide-more
                 | &mdash; #{t '.hide'}
