@@ -47,7 +47,7 @@ GIT
 
 GIT
   remote: https://github.com/morr/shallow_attributes.git
-  revision: 6008302c194fd92d379863080f2105e3510c905c
+  revision: 8e66b0f30bab2775941a6b2bce6b4a3cf798e8b5
   branch: master
   specs:
     shallow_attributes (0.9.4)
