@@ -41,7 +41,7 @@
         - if entry.year.present?
           .b-tag.linkeable data-href=entry.collection_url(season: entry.year)
             = t 'animes.content.year', year: entry.year
-        - if entry.anime? && !entry.rating_none?
+        / - if entry.anime? && !entry.rating_none?
           .b-tag.linkeable data-href=entry.collection_url(rating: entry.rating)
             = entry.rating_text
 
