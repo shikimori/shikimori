@@ -186,7 +186,7 @@ class Profiles::StatsView # rubocop:disable ClassLength
     AnimeVideoReport
       .where(user: user)
       .where(kind: :uploaded)
-      .where.not(state: %w[rejected post_rejected])
+      .where.not(state: %i[rejected post_rejected])
       .count
   end
 
@@ -198,7 +198,7 @@ class Profiles::StatsView # rubocop:disable ClassLength
     AnimeVideoReport
       .where(user: user)
       .where.not(kind: :uploaded)
-      .where.not(state: %w[rejected post_rejected])
+      .where.not(state: %i[rejected post_rejected])
       .count
   end
 
