@@ -6,8 +6,8 @@
 @import mixins/user_rate-minified
 
 .b-db_entry-note
-  +clear_left
   border-top: 1px dashed #DDD
+  display: flex
   margin-bottom: 10px
   padding-top: 7px
 
@@ -19,14 +19,13 @@
     margin-bottom: 0
 
   .image
-    float: left
     margin-top: 3px
 
     img
       width: 48px
 
   .name-container
-    margin-left: 62px
+    margin-left: 16px
     line-height: $line_height
 
     .name
