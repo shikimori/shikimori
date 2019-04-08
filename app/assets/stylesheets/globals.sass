@@ -1,10 +1,9 @@
-$asset-pipeline: true
-$output-bourbon-deprecation-warnings: true
-@import bourbon
+@import mixins/font_face
 @import globals/variables
 
 // +font-face("shikimori", font-files("shikimori.woff", "shikimori.woff2", "shikimori.ttf", "shikimori.svg#FontshikimoriRegular"), "shikimori.eot", normal, normal)
-+font-face("shikimori", "shikimori", normal, $asset-pipeline: true, $file-formats: eot woff woff2 ttf svg);
+// +font-face("shikimori", "shikimori", normal, $asset-pipeline: true, $file-formats: eot woff woff2 ttf svg);
++font-face('shikimori', 'shikimori');
 /*@font-face {*/
   /*font-family: 'shikimori';*/
   /*src: url('/font/shikimori.eot?54133551');*/

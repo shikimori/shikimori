@@ -168,9 +168,6 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.4.1)
       msgpack (~> 1.0)
-    bourbon (4.3.4)
-      sass (~> 3.4)
-      thor (~> 0.19)
     browser (2.5.3)
     bugsnag (6.11.1)
       concurrent-ruby (~> 1.0)
@@ -606,11 +603,6 @@ GEM
     ruby_parser (3.13.0)
       sexp_processor (~> 4.9)
     safe_yaml (1.0.5)
-    sass (3.7.3)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
@@ -738,7 +730,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap
-  bourbon
   browser
   bugsnag
   byebug
