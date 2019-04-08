@@ -63,7 +63,7 @@ describe User do
     it { is_expected.to have_many(:list_imports).dependent(:destroy) }
     it { is_expected.to have_many(:polls).dependent(:destroy) }
 
-    it { is_expected.to belong_to :style }
+    it { is_expected.to belong_to(:style).optional }
     it { is_expected.to have_many(:styles).dependent(:destroy) }
   end
 

@@ -4,7 +4,7 @@ describe Review do
   describe 'relations' do
     it { is_expected.to belong_to :target }
     it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to :approver }
+    it { is_expected.to belong_to(:approver).optional }
   end
 
   describe 'validations' do

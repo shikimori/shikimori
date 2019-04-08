@@ -28,7 +28,7 @@ describe Club do
     it { is_expected.to have_many(:bans).dependent(:destroy) }
     it { is_expected.to have_many :banned_users }
 
-    it { is_expected.to belong_to :style }
+    it { is_expected.to belong_to(:style).optional }
     it { is_expected.to have_many(:styles).dependent(:destroy) }
   end
 
