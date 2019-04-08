@@ -1,11 +1,9 @@
 let store = {};
 let queue = [];
 
-const queueLimit = 30;
+const queueLimit = 100;
 const enabled = true;// false;
 
-// обновление очереди - переданный url будет помещен в конец, и будут удалены лишние элементы,
-// если очередь разрослась
 function updateQueue(url, noDelete) {
   if (queue.includes(url)) {
     queue = queue.subtract(url);
@@ -14,11 +12,10 @@ function updateQueue(url, noDelete) {
 
   while (!noDelete && queue.length > queueLimit) {
     const entry = queue.shift();
-    // console.log('delete cache: '+entry);
     delete store[entry];
   }
 }
-// выделение из урла части после /
+
 function getUriPart(url) {
   return url.replace(/https?:\/\/[^/]+/, '');
 }
@@ -31,7 +28,7 @@ export default {
     }
 
     store[uri] = $.ajax({
-      url: document.location.protocol + '//' + document.location.host + uri,
+      url: `${document.location.protocol}//${document.location.host}${uri}`,
       data: null,
       dataType: 'json',
       success(data, _status, _xhr) {
