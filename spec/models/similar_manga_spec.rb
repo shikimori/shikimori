@@ -1,4 +1,4 @@
 describe SimilarManga do
-  it { should belong_to :src }
-  it { should belong_to :dst }
+  it { is_expected.to belong_to(:src).optional }
+  it { is_expected.to belong_to(:dst).optional }
 end

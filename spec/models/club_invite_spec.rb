@@ -3,7 +3,7 @@ describe ClubInvite do
     it { is_expected.to belong_to :club }
     it { is_expected.to belong_to :src }
     it { is_expected.to belong_to :dst }
-    it { is_expected.to belong_to(:message).dependent :destroy }
+    it { is_expected.to belong_to(:message).optional.dependent :destroy }
   end
 
   describe 'enumerize' do

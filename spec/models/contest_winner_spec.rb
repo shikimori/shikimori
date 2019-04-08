@@ -2,8 +2,8 @@ describe ContestWinner do
   describe 'relations' do
     it { is_expected.to belong_to :contest }
     it { is_expected.to belong_to :item }
-    it { is_expected.to belong_to :anime }
-    it { is_expected.to belong_to :character }
+    it { is_expected.to belong_to(:anime).optional }
+    it { is_expected.to belong_to(:character).optional }
   end
 
   describe 'validations' do

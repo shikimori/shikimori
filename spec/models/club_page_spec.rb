@@ -1,7 +1,7 @@
 describe ClubPage do
   describe 'relations' do
     it { is_expected.to belong_to :club }
-    it { is_expected.to belong_to :parent_page }
+    it { is_expected.to belong_to(:parent_page).optional }
     it { is_expected.to have_many(:child_pages).dependent(:destroy) }
     it { is_expected.to have_one(:topic).dependent(:destroy) }
   end

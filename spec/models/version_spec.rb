@@ -1,9 +1,9 @@
 describe Version do
   describe 'relations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to :moderator }
-    it { is_expected.to belong_to :item }
-    it { is_expected.to belong_to :associated }
+    it { is_expected.to belong_to(:moderator).optional }
+    it { is_expected.to belong_to(:item).without_validating_presence }
+    it { is_expected.to belong_to(:associated).optional }
   end
 
   describe 'validations' do

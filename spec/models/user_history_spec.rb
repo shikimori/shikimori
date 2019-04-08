@@ -1,9 +1,9 @@
 describe UserHistory do
   describe 'relations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to :target }
-    it { is_expected.to belong_to :anime }
-    it { is_expected.to belong_to :manga }
+    it { is_expected.to belong_to(:target).optional }
+    it { is_expected.to belong_to(:anime).optional }
+    it { is_expected.to belong_to(:manga).optional }
   end
 
   describe 'class methods' do

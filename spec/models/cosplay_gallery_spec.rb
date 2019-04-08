@@ -2,7 +2,7 @@
 
 describe CosplayGallery do
   describe 'relations' do
-    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to(:user).optional }
     it { is_expected.to have_many :image }
     it { is_expected.to have_many(:images).dependent :destroy }
     it { is_expected.to have_many :deleted_images }

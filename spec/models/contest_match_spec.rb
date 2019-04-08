@@ -1,8 +1,8 @@
 describe ContestMatch do
   describe 'relations' do
     it { is_expected.to belong_to :round }
-    it { is_expected.to belong_to :left }
-    it { is_expected.to belong_to :right }
+    it { is_expected.to belong_to(:left).optional }
+    it { is_expected.to belong_to(:right).optional }
   end
 
   describe 'state_machine' do
