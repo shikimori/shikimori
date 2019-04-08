@@ -5,7 +5,7 @@ class Capybara::Node::Element
       return session.evaluate_script "$('##{self['id']}').submit()"
     end
 
-    Capybara::RackTest::Form.new(driver, self.native).submit({})
+    Capybara::RackTest::Form.new(driver, self.native).submit(self)
   end
 end
 
