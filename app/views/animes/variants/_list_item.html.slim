@@ -13,6 +13,21 @@
     .name
       - if entry.respond_to?(:relation)
         .b-anime_status_tag.info data-text=t("relation.#{entry.relation}")
+      - else
+        - if entry.respond_to?(:studios) && entry.real_studios.any?
+          - entry.real_studios.each do |studio|
+            .b-anime_status_tag.info.linkeable[
+              data-href=entry.collection_url(studio: studio.to_param)
+              data-text=studio.name
+            ]
+
+        - if entry.respond_to?(:publishers) && entry.real_publishers.any?
+          - entry.real_publishers.each do |publisher|
+            .b-anime_status_tag.info.linkeable[
+              data-href=entry.collection_url(publisher: publisher.to_param)
+              data-text=publisher.name
+            ]
+
       a.b-link.bubbled[
         href=entry.url
         title=entry.name
@@ -29,18 +44,6 @@
         - if entry.anime? && !entry.rating_none?
           .b-tag.linkeable data-href=entry.collection_url(rating: entry.rating)
             = entry.rating_text
-
-      / - if entry.respond_to?(:studios) && entry.real_studios.any?
-      /   = info_line i18n_io('Producer', entry.real_studios.one? ? :one : :few) do
-      /     - entry.real_studios.each do |studio|
-      /       .tag.linkeable data-href=entry.collection_url(studio: studio.to_param)
-      /         = studio.name
-
-      / - if entry.respond_to?(:publishers) && entry.real_publishers.any?
-      /   = info_line i18n_io('Publisher', entry.real_publishers.one? ? :one : :few) do
-      /     - entry.real_publishers.each do |publisher|
-      /       .tag.linkeable data-href=entry.collection_url(publisher: publisher.to_param)
-      /         = publisher.name
 
     = info_line i18n_io('Genre', entry.main_genres.one? ? :one : :few) do
       - entry.main_genres.each do |genre|
