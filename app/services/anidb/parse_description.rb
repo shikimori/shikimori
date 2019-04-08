@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Anidb::ParseDescription
-  include ChainableMethods
   method_object :url
 
   REQUIRED_TEXT = 'AniDB</title>'
@@ -25,7 +24,7 @@ class Anidb::ParseDescription
   }
 
   def call
-    chain_from(get).parse.sanitize.unwrap
+    sanitize(parse(get))
   end
 
   private
@@ -53,7 +52,7 @@ class Anidb::ParseDescription
   def get_authorized! url
     cookie = Anidb::Authorization.instance.cookie_string
     headers = HEADERS_WHEN_AUTHORIZED.merge('Cookie' => cookie)
-    content = open(url, headers).read
+    content = OpenURI.open_uri(url, headers).read
 
     raise CaptchaError, url if captcha?(content)
     raise AutoBannedError, url if auto_banned?(content)

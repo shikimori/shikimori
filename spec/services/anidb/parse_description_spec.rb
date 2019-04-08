@@ -6,16 +6,16 @@ describe Anidb::ParseDescription do
   let(:cookie) { cookie_naruto2148 }
   # banned account (daria.ingate@mail.ru)
   let(:cookie_naruto2148) do
-    %w(
+    %w[
       adbautopass=vbzjomexrccnxcla;
       adbautouser=naruto2148;
       adbsessuser=naruto2148;
       adbuin=1490295269-RLyR;
-    )
+    ]
   end
   # active account (temp email)
   let(:cookie_naruto1451) do
-    %w(
+    %w[
       adbautopass=zwsofsxfdnrzyxdj;
       adbautouser=naruto1451;
       adbsess=HeOtBhOHtFVJILxs;
@@ -23,7 +23,7 @@ describe Anidb::ParseDescription do
       adbss=740345-HeOtBhOH;
       adbuin=1491134069-bSaf;
       anidbsettings=%7B%22USEAJAX%22%3A1%7D;
-    )
+    ]
   end
   before do
     allow(Anidb::Authorization.instance)

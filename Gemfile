@@ -113,7 +113,6 @@ gem 'i18n-inflector', github: 'morr/i18n-inflector', branch: :master # fork fixe
 gem 'i18n-js'
 gem 'rails-i18n'
 
-gem 'chainable_methods'
 gem 'dry-struct'
 gem 'shallow_attributes'
 
