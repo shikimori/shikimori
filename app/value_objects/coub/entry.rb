@@ -3,7 +3,7 @@ class Coub::Entry
 
   attribute :permalink, String
   attribute :image_template, String
-  attribute :recoubed_permalink, String
+  attribute :recoubed_permalink, String, allow_nil: true
 
   attribute :categories, Array, of: String
   attribute :tags, Array, of: String
@@ -56,9 +56,5 @@ class Coub::Entry
 
   def image_2x_url
     image_template.gsub(VERSION_TEMPALTE, 'big')
-  end
-
-  def created_at_time
-    Time.zone.parse created_at
   end
 end

@@ -28,7 +28,7 @@ class Coubs::Request
   end
 
   def self.pg_cache_key tag:, page:
-    [:coub, tag, page, :v2].join('|')
+    [:coub, tag, page, :v3].join('|')
   end
 
 private
@@ -55,7 +55,7 @@ private
       title: entry[:title],
       author: build_author(entry[:channel]),
       recoubed_permalink: entry.dig(:media_blocks, :remixed_from_coubs, 0, :coub_permalink),
-      created_at: entry[:created_at]
+      created_at: Time.zone.parse(entry[:created_at])
     )
   end
 

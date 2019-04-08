@@ -34,8 +34,8 @@
           a.author-name href=coub.author.url
             = coub.author.name
 
-          time datetime=coub.created_at_time.iso8601
-            = l coub.created_at_time, format: '%e %B %Y'
+          time datetime=coub.created_at.iso8601
+            = l coub.created_at, format: '%e %B %Y'
   .tags
     - if coub.categories.any?
       .tag.category = coub.categories.first.capitalize
