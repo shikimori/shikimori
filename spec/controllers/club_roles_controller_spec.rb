@@ -2,7 +2,16 @@ describe ClubRolesController do
   include_context :authenticated, :user
 
   describe '#create' do
-    before { post :create, params: { club_id: club.id, club_role: { club_id: club.id, user_id: user.id } } }
+    subject! do
+      post :create,
+        params: {
+          club_id: club.id,
+          club_role: {
+            club_id: club.id, user_id:
+            user.id
+          }
+        }
+    end
 
     it do
       expect(club.member? user).to be true
@@ -12,7 +21,7 @@ describe ClubRolesController do
 
   describe '#destroy' do
     let!(:club_role) { create :club_role, club: club, user: user }
-    before { post :destroy, params: { club_id: club.id, id: club_role.id } }
+    subject! { post :destroy, params: { club_id: club.id, id: club_role.id } }
 
     it do
       expect(club.member? user).to be false
@@ -24,7 +33,14 @@ describe ClubRolesController do
     let(:user) { create :user, nickname: 'Fff' }
     let!(:club_role) { create :club_role, club: club, user: user }
     let(:club) { create :club, owner: user }
-    before { get :autocomplete, params: { club_id: club.to_param, search: user.nickname } }
+    subject! do
+      get :autocomplete,
+        params: {
+          club_id: club.to_param,
+          search: user.nickname
+        },
+        xhr: true
+    end
 
     it do
       expect(collection).to eq [user]

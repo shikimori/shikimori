@@ -18,12 +18,12 @@ describe ImageboardsController do
     end
   end
 
-  describe '#autocomplete' do
+  describe '#autocomplete', xhr: true do
     let!(:tag_1) { create :danbooru_tag, name: 'ffff' }
     let!(:tag_2) { create :danbooru_tag, name: 'testt' }
     let!(:tag_3) { create :danbooru_tag, name: 'zula zula' }
 
-    subject! { get :autocomplete, params: { search: 'test' } }
+    subject! { get :autocomplete, params: { search: 'test' }, xhr: true }
 
     it do
       expect(collection).to eq [tag_2]

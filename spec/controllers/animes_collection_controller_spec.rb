@@ -61,7 +61,7 @@ describe AnimesCollectionController do
             .to receive(:call)
             .and_return [entry]
         end
-        subject! { get :autocomplete, params: { search: 'Fff', klass: kind } }
+        subject! { get :autocomplete, params: { search: 'Fff', klass: kind }, xhr: true }
 
         it do
           expect(collection).to eq [entry]
@@ -79,7 +79,7 @@ describe AnimesCollectionController do
             .to receive(:call)
             .and_return [entry]
         end
-        subject! { get :autocomplete_v2, params: { search: 'Fff', klass: kind } }
+        subject! { get :autocomplete_v2, params: { search: 'Fff', klass: kind }, xhr: true }
 
         it do
           expect(collection).to eq [entry]

@@ -64,7 +64,7 @@ describe CoubsController do
     let!(:tag_2) { create :coub_tag, name: 'testt' }
     let!(:tag_3) { create :coub_tag, name: 'zula zula' }
 
-    subject! { get :autocomplete, params: { search: 'test' } }
+    subject! { get :autocomplete, params: { search: 'test' }, xhr: true }
 
     it do
       expect(collection).to eq [tag_2]

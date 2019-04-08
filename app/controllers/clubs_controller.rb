@@ -32,7 +32,7 @@ class ClubsController < ShikimoriController
 
   MEMBERS_LIMIT = 48
 
-  def index # rubocop:disable AbcSize
+  def index
     og noindex: true
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
