@@ -6,7 +6,7 @@ $(document).on('turbolinks:load', () => {
   const $globalSearch = $('.l-top_menu-v2 .global-search');
 
   if ($globalSearch.length) {
-    searchView = new CollectionSearch($globalSearch, $('.b-search-results'))
+    searchView = new CollectionSearch($globalSearch, $('.b-search-results'));
   }
 });
 
