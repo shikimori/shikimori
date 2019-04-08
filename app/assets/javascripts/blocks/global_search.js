@@ -3,10 +3,15 @@ import CollectionSearch from 'views/application/collection_search';
 let searchView = null;
 
 $(document).on('turbolinks:load', () => {
-  searchView = new CollectionSearch(
-    '.l-top_menu-v2 .global-search',
-    $('.b-search-results')
-  );
+  const $globalSearch = $('.l-top_menu-v2 .global-search');
+
+  if ($globalSearch.length) {
+    searchView = new CollectionSearch($globalSearch, $('.b-search-results'))
+  }
+});
+
+$(document).on('turbolinks:before-cache', () => {
+  searchView = null;
 });
 
 $(document).on('keypress', e => {
@@ -18,9 +23,11 @@ $(document).on('keypress', e => {
 
   if (isIgnored) { return; }
 
-  e.preventDefault();
-  e.stopImmediatePropagation();
+  if (searchView) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
 
-  searchView.$input.focus();
-  searchView.$input[0].setSelectionRange(0, searchView.$input[0].value.length);
+    searchView.$input.focus();
+    searchView.$input[0].setSelectionRange(0, searchView.$input[0].value.length);
+  }
 });
