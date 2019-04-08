@@ -5,6 +5,7 @@ import ajaxCacher from 'services/ajax_cacher';
 import flash from 'services/flash';
 
 import DynamicParser from 'dynamic_elements/_parser';
+import CatalogFilters from 'views/animes/catalog_filters';
 
 import axios from 'helpers/axios';
 import inNewTab from 'helpers/in_new_tab';
@@ -35,7 +36,7 @@ export default class PaginatedCatalog {
       .on('click', '.link', e => this._onPaginationLinkClick(e))
       .on('click', '.no-hover', e => this._onPaginationPageSelect(e));
 
-    this.filters = new Animes.CatalogFilters(
+    this.filters = new CatalogFilters(
       basePath,
       window.location.href,
       this.load.bind(this)

@@ -6,6 +6,7 @@ import { isMobile } from 'helpers/mobile_detect';
 import axios from 'helpers/axios';
 
 import ShikiModal from 'views/application/shiki_modal';
+import CatalogFilters from 'views/animes/catalog_filters';
 import flash from 'services/flash';
 
 // TODO: этот гигантский файл нуждается в рефакторинге
@@ -82,7 +83,7 @@ pageLoad('user_rates_index', () => {
 
   // фильтры каталога
   const basePath = document.location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1');
-  new Animes.CatalogFilters(basePath, document.location.href, (url => {
+  new CatalogFilters(basePath, document.location.href, (url => {
     Turbolinks.visit(url, true);
     if ($('.l-page.menu-expanded').exists()) {
       $(document).one('page:change', () => $('.l-page').addClass('menu-expanded'));

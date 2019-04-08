@@ -84,7 +84,7 @@ export default class CollectionSearch extends View {
   }
 
   _showResults(response, url) {
-    window.history.replaceState({ turbolinks: true, url: url }, '', url);
+    window.history.replaceState({ turbolinks: true, url }, '', url);
 
     this._processResponse(response);
     this._hideAjax();
