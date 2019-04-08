@@ -232,10 +232,10 @@ class Users::StatisticsQuery
         value = stat[:rates].select { |v| filter.(v) }.select {|v| v[criteria] == variant }.size
         next if value == 0
 
-        {
+        Profiles::CriteriaStat.new(
           name: i18n ? I18n.t(i18n.sub(':klass', stat[:klass].name) % variant) : variant,
           value: value
-        }
+        )
       end.compact
 
       rez[stat[:klass].name.downcase.to_sym] = entry

@@ -2,7 +2,7 @@ class Profiles::Stats
   include ShallowAttributes
 
   attribute :activity, Hash
-  attribute :anime_ratings, Array, of: Profiles::ActivityStat
+  attribute :anime_ratings, Array, of: Profiles::CriteriaStat
   attribute :anime_spent_time, SpentTime
   attribute :full_statuses, Hash
   attribute :is_anime, Boolean

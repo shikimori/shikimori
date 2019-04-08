@@ -38,6 +38,7 @@ class Users::ProfileStatsQuery
           .new(extended_user_rate)
           .anime_hours(extended_user_rate.entry_episodes, extended_user_rate.duration)
       end
+
     SpentTime.new(time / 60.0 / 24)
   end
 
