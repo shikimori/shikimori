@@ -272,13 +272,13 @@ GEM
       dry-equalizer (~> 0.2)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 0.4, >= 0.4.2)
-    elasticsearch (6.1.0)
-      elasticsearch-api (= 6.1.0)
-      elasticsearch-transport (= 6.1.0)
-    elasticsearch-api (6.1.0)
+    elasticsearch (6.2.0)
+      elasticsearch-api (= 6.2.0)
+      elasticsearch-transport (= 6.2.0)
+    elasticsearch-api (6.2.0)
       multi_json
-    elasticsearch-dsl (0.1.6)
-    elasticsearch-transport (6.1.0)
+    elasticsearch-dsl (0.1.7)
+    elasticsearch-transport (6.2.0)
       faraday
       multi_json
     em-http-request (1.1.5)
