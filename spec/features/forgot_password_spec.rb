@@ -15,7 +15,7 @@ feature 'forgot_password' do
 
       expect(user.reload.reset_password_token).to be_nil
       expect(current_path).to eq user_password_path
-      expect(page).to have_selector '#sign_in'
+      expect(page).to have_selector '.menu-icon.sign_in'
     end
   end
 
@@ -45,7 +45,7 @@ feature 'forgot_password' do
 
       expect(user.reload.reset_password_token).to_not be_nil
       expect(current_path).to eq user_password_path
-      expect(page).to have_selector '#sign_in'
+      expect(page).to have_selector '.menu-icon.sign_in'
     end
   end
 end

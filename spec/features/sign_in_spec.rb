@@ -9,7 +9,7 @@ feature 'sign in' do
   scenario 'when fail' do
     user.nickname = user.nickname + 'z'
     sign_in user
-    expect(page).to have_selector '#sign_in'
+    expect(page).to have_selector '.menu-icon.sign_in'
     expect(current_path).to eq new_user_session_path
   end
 end
