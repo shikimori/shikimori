@@ -61,13 +61,13 @@ describe CollectionsController do
         }
       end
       let(:anime) { create :anime }
-      let(:link) {
+      let(:link) do
         {
           linked_id: anime.id,
           group: 'test',
           text: 'zzzz'
         }
-      }
+      end
 
       it do
         expect(resource.reload).to have_attributes name: params[:name]
