@@ -43,7 +43,7 @@ export default class PaginatedCatalog {
 
     this.collectionSearch = $('.l-top_menu-v2 .global-search').view();
     const oldProcessResponse = this.collectionSearch._processResponse;
-    this.collectionSearch._processResponse = this._process;
+    this.collectionSearch._processResponse = this._processResponse.bind(this);
 
     // restore original search._processResponse
     $(document).one(
@@ -62,7 +62,7 @@ export default class PaginatedCatalog {
     this.filters.parse(url);
     this._fetch(url);
 
-    this.collectionSearch.$root.data({ search_url: url });
+    this.collectionSearch.$root.data('search_url', url.replace(/\/page\/\d+/, ''));
   }
 
   // events
@@ -165,7 +165,7 @@ export default class PaginatedCatalog {
 
     const cachedData = ajaxCacher.get(absoulteUrl);
     if (cachedData) {
-      this._process(cachedData, absoulteUrl);
+      this._processResponse(cachedData, absoulteUrl);
       return;
     }
 
@@ -186,12 +186,12 @@ export default class PaginatedCatalog {
     ajaxCacher.push(absoulteUrl, data);
 
     if (window.location.href === absoulteUrl) {
-      this._process(data, absoulteUrl);
+      this._processResponse(data, absoulteUrl);
       this.$content.removeClass('b-ajax');
     }
   }
 
-  _process(data, url) {
+  _processResponse(data, url) {
     document.title = `${data.title}`;
     const $content = $(data.content);
 
@@ -230,13 +230,15 @@ export default class PaginatedCatalog {
       !(this.$linkNext.hasClass('disabled') && this.$linkPrev.hasClass('disabled'))
     );
 
-    // google analytics
-    if ('_gaq' in window) {
-      window._gaq.push(['_trackPageview', url]);
-    }
-    // yandex metrika
-    if ('yaCounter7915231' in window) {
-      window.yaCounter7915231.hit(url);
+    if (url) {
+      // google analytics
+      if ('_gaq' in window) {
+        window._gaq.push(['_trackPageview', url]);
+      }
+      // yandex metrika
+      if ('yaCounter7915231' in window) {
+        window.yaCounter7915231.hit(url);
+      }
     }
   }
 }

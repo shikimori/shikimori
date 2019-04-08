@@ -83,15 +83,11 @@ export default class CollectionSearch extends View {
     }
   }
 
-  _showResults(response, searchUrl) {
+  _showResults(response, url) {
+    window.history.replaceState({ turbolinks: true, url: url }, '', url);
+
     this._processResponse(response);
     this._hideAjax();
-
-    window.history.replaceState(
-      { turbolinks: true, url: searchUrl },
-      '',
-      searchUrl
-    );
   }
 
   _processResponse(response) {
