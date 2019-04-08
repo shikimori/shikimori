@@ -1,5 +1,5 @@
 # TODO: refactor
-class UserStatisticsQuery
+class Users::StatisticsQuery
   prepend ActiveCacher.instance
   instance_cache :activity_stats
 
@@ -218,10 +218,10 @@ class UserStatisticsQuery
         spent_time += entry_time
       end
 
-      {
+      Profiles::ActivityStat.new(
         name: [from.to_i, to.to_i],
         value: spent_time.ceil
-      }
+      )
     end.compact
   end
 
@@ -278,7 +278,7 @@ class UserStatisticsQuery
     lists
       .compact
       .map do |type, lists_stats|
-        Profiles::StatsBar.new type: type, lists_stats: lists_stats
+        Profiles::BarStats.new type: type, lists_stats: lists_stats
       end
       .select(&:any?)
   end

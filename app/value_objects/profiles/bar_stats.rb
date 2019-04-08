@@ -1,4 +1,4 @@
-class Profiles::StatsBar
+class Profiles::BarStats
   include ShallowAttributes
 
   attribute :type, String

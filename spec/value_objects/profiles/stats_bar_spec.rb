@@ -1,5 +1,5 @@
-describe Profiles::StatsBar do
-  let(:struct) { Profiles::StatsBar.new type: Anime.name, lists_stats: stats }
+describe Profiles::BarStats do
+  let(:struct) { Profiles::BarStats.new type: Anime.name, lists_stats: stats }
   let(:stats) { [completed_list, dropped_list, planned_list] }
 
   let(:completed_list) do

@@ -1,5 +1,5 @@
 # TODO: refactor
-class ProfileStatsQuery
+class Users::ProfileStatsQuery
   prepend ActiveCacher.instance
 
   vattr_initialize :user
@@ -8,11 +8,11 @@ class ProfileStatsQuery
   instance_cache :anime_spent_time, :manga_spent_time, :spent_time
 
   def to_profile_stats
-    stats_keys = ProfileStats.schema.keys
-    stats_hash = stats_keys.each_with_object({}) do |k, memo|
+    stats_hash = Profiles::Stats.attributes.each_with_object({}) do |k, memo|
       memo[k] = public_send(k)
     end
-    ProfileStats.new(stats_hash)
+
+    Profiles::Stats.new stats_hash
   end
 
   def activity
@@ -25,7 +25,7 @@ class ProfileStatsQuery
   def anime_ratings
     stats.by_criteria(
       :rating,
-      Anime.rating.values.select { |v| v != 'none' },
+      Anime.rating.values.reject { |v| v == 'none' },
       'enumerize.anime.rating.%s'
     )[:anime]
   end
@@ -101,9 +101,9 @@ class ProfileStatsQuery
     }
   end
 
-  #def graph_time
-    #GrapthTime.new spent_time
-  #end
+  # def graph_time
+    # GrapthTime.new spent_time
+  # end
 
   def genres
     {
@@ -181,7 +181,7 @@ class ProfileStatsQuery
 
   def stats
     Rails.cache.fetch [:user_statistics_query, :v4, user] do
-      UserStatisticsQuery.new user
+      Users::StatisticsQuery.new user
     end
   end
 end
