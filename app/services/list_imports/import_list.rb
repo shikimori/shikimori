@@ -30,8 +30,8 @@ private
   def build_user_rate list_entry
     list_entry.export UserRate.new(
       user: @list_import.user,
-      target_id: list_entry[:target_id],
-      target_type: list_entry[:target_type]
+      target_id: list_entry.target_id,
+      target_type: list_entry.target_type
     )
   end
 

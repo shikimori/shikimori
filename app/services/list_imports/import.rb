@@ -73,7 +73,7 @@ private
 
   def wrong_list_type? list
     list.any? do |list_entry|
-      list_entry[:target_type].downcase != @list_import.list_type
+      list_entry.target_type.downcase != @list_import.list_type
     end
   end
 end
