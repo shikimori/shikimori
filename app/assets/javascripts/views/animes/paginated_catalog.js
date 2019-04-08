@@ -38,12 +38,12 @@ export default class PaginatedCatalog {
     this.filters = new Animes.CatalogFilters(
       basePath,
       window.location.href,
-      this._loadUrl.bind(this)
+      this.load.bind(this)
     );
 
     this.collectionSearch = $('.l-top_menu-v2 .global-search').view();
     const oldProcessResponse = this.collectionSearch._processResponse;
-    this.collectionSearch._processResponse = this._processAjaxContent;
+    this.collectionSearch._processResponse = this._process;
 
     // restore original search._processResponse
     $(document).one(
@@ -54,6 +54,15 @@ export default class PaginatedCatalog {
 
   get isPagesLimit() {
     return this.$content.children().length >= this.pagesLimit;
+  }
+
+  load(url) {
+    window.history.pushState({ turbolinks: true, url }, '', url);
+
+    this.filters.parse(url);
+    this._fetch(url);
+
+    this.collectionSearch.$root.data({ search_url: url });
   }
 
   // events
@@ -69,7 +78,7 @@ export default class PaginatedCatalog {
       $.scrollTo('.head');
     }
 
-    this._loadUrl($link.attr('href'));
+    this.load($link.attr('href'));
   }
 
   _onPaginationPageSelect({ currentTarget }) {
@@ -130,30 +139,21 @@ export default class PaginatedCatalog {
   _changePage(isRollback) {
     const value = parseInt(this.pageChange.$input.val()) || 1;
 
+    this.$linkCurrent.removeClass('active');
+
     if (isRollback || (value === this.pageChange.priorValue)) {
-      this.pageChange.$input.parent()
-        .removeClass('active')
-        .html(this.pageChange.priorValue);
+      this.$linkCurrent.html(this.pageChange.priorValue);
     } else {
       const $link = this.$linkNext
         .add(this.$linkPrev)
         .filter(':not(.disabled)')
         .first();
 
-      this.pageChange.$input.parent().html(value);
-      this._loadUrl($link.attr('href').replace(/\/\d+$/, `/${value}`));
+      this.$linkCurrent.html(value);
+      this.load($link.attr('href').replace(/\/\d+$/, `/${value}`));
     }
 
     this.pageChange.$input = null;
-  }
-
-  _loadUrl(url) {
-    window.history.pushState({ turbolinks: true, url }, '', url);
-
-    this.filters.parse(url);
-    this._fetch(url);
-
-    this.collectionSearch.$root.data({ search_url: url });
   }
 
   async _fetch(url) {
@@ -165,7 +165,7 @@ export default class PaginatedCatalog {
 
     const cachedData = ajaxCacher.get(absoulteUrl);
     if (cachedData) {
-      this._processAjaxContent(cachedData, absoulteUrl);
+      this._process(cachedData, absoulteUrl);
       return;
     }
 
@@ -186,12 +186,12 @@ export default class PaginatedCatalog {
     ajaxCacher.push(absoulteUrl, data);
 
     if (window.location.href === absoulteUrl) {
-      this._processAjaxContent(data, absoulteUrl);
+      this._process(data, absoulteUrl);
       this.$content.removeClass('b-ajax');
     }
   }
 
-  _processAjaxContent(data, url) {
+  _process(data, url) {
     document.title = `${data.title}`;
     const $content = $(data.content);
 
