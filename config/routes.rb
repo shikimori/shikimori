@@ -40,7 +40,11 @@ Rails.application.routes.draw do
   end
   concern :autocompletable do
     get :autocomplete, on: :collection, format: :json
-    get 'autocomplete/v2', as: :sutocomplete_v2, on: :collection, format: :json
+    get 'autocomplete/v2',
+      action: :autocomplete_v2,
+      as: :autocomplete_v2,
+      on: :collection,
+      format: :json
   end
 
   devise_for :users, controllers: {
