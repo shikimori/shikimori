@@ -83,7 +83,7 @@ describe AnimesCollectionController do
 
         it do
           expect(collection).to eq [entry]
-          expect(response.content_type).to eq 'application/json'
+          expect(response.content_type).to eq 'text/html'
           expect(response).to have_http_status :success
         end
       end

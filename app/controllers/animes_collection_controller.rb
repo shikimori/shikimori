@@ -61,6 +61,7 @@ class AnimesCollectionController < ShikimoriController
 
   def autocomplete_v2
     autocomplete
+    @collection = @collection.map(&:decorate)
   end
 
 private
