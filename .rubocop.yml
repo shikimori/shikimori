@@ -106,6 +106,8 @@ Naming/VariableNumber:
   EnforcedStyle: snake_case
 Lint/UriEscapeUnescape:
   Enabled: false
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
 
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.
