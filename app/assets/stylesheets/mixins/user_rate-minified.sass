@@ -3,10 +3,10 @@
     margin-bottom: 0
 
     .trigger
-      line-height: 23px
+      line-height: 25px
 
     .option
-      line-height: 25px
+      line-height: 27px
 
     .trigger, .option
       font-size: 12px
@@ -14,21 +14,11 @@
       padding: 0 4px
       border-left-width: 4px
 
-      .plus::before, .edit::before, .trigger-arrow::before
+      .plus::before,
+      .edit::before,
+      .trigger-arrow::before
         font-size: 13px
         width: 20px !important
-
-      &:hover
-        .plus::before, .edit::before, .trigger-arrow::before
-          color: $link-3
-
-      &:active
-        .plus::before, .edit::before, .trigger-arrow::before
-          color: $link-2
-
-      //.plus::before, .edit::before, .trigger-arrow::before
-        //font-size: 13px
-        //width: 20px !important
 
   .rate-edit, .rate-show
     display: none
