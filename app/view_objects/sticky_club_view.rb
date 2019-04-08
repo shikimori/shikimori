@@ -2,12 +2,13 @@
 
 # views for topics to be shown in sticky topics forum section:
 # all of them belong to offtopic forum
-class StickyClubView < Dry::Struct
+class StickyClubView
+  include ShallowAttributes
   extend Translation
 
-  attribute :url, Types::Strict::String
-  attribute :title, Types::Strict::String
-  attribute :description, Types::Strict::String
+  attribute :url, String
+  attribute :title, String
+  attribute :description, String
 
   CLUB_IDS = {
     faq: { ru: 1_093, en: nil }

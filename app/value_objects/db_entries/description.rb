@@ -1,6 +1,8 @@
-class DbEntries::Description < Dry::Struct
-  attribute :text, Types::Strict::String.optional
-  attribute :source, Types::Strict::String.optional
+class DbEntries::Description
+  include ShallowAttributes
+  
+  attribute :text, String
+  attribute :source, String
 
   def value
     if source.present?

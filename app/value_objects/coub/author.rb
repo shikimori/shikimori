@@ -1,7 +1,9 @@
-class Coub::Author < Dry::Struct
-  attribute :permalink, Types::String
-  attribute :name, Types::String
-  attribute :avatar_template, Types::String
+class Coub::Author
+  include ShallowAttributes
+
+  attribute :permalink, String
+  attribute :name, String
+  attribute :avatar_template, String
 
   URL_TEMPLATE = 'https://coub.com/%<permalink>s'
   VERSION_TEMPALTE = '%{version}' # rubocop:disable FormatStringToken

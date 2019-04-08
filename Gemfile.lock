@@ -46,6 +46,13 @@ GIT
       i18n (>= 0.4.1)
 
 GIT
+  remote: https://github.com/morr/shallow_attributes.git
+  revision: 6008302c194fd92d379863080f2105e3510c905c
+  branch: master
+  specs:
+    shallow_attributes (0.9.4)
+
+GIT
   remote: https://github.com/morr/simple_form-magic_submit.git
   revision: de7cc3396cd52465b5a5be29eb2d78b9cdeed373
   specs:
@@ -199,7 +206,6 @@ GEM
       xpath (~> 3.2)
     case_transform (0.2)
       activesupport
-    chainable_methods (0.2.1)
     climate_control (0.2.0)
     clockwork (2.0.3)
       tzinfo
@@ -261,11 +267,6 @@ GEM
       dry-container (~> 0.2, >= 0.2.6)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
-    dry-struct (0.6.0)
-      dry-core (~> 0.4, >= 0.4.3)
-      dry-equalizer (~> 0.2)
-      dry-types (~> 0.13)
-      ice_nine (~> 0.11)
     dry-types (0.13.4)
       concurrent-ruby (~> 1.0)
       dry-container (~> 0.3)
@@ -375,7 +376,6 @@ GEM
     icalendar (2.5.3)
       ice_cube (~> 0.16)
     ice_cube (0.16.3)
-    ice_nine (0.11.2)
     jaro_winkler (1.5.2)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
@@ -601,6 +601,8 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.6)
+    rubocop-performance (1.1.0)
+      rubocop (>= 0.67.0)
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     ruby_parser (3.13.1)
@@ -617,7 +619,6 @@ GEM
       tilt
     scout_apm (2.4.24)
     sexp_processor (4.12.0)
-    shallow_attributes (0.9.4)
     shellany (0.0.1)
     shoulda-matchers (4.0.1)
       activesupport (>= 4.2.0)
@@ -743,7 +744,6 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rbenv
   capybara
-  chainable_methods
   chewy!
   clockwork
   coffee-rails
@@ -756,7 +756,7 @@ DEPENDENCIES
   dotenv-rails
   draper
   draper-cancancan
-  dry-struct
+  dry-types
   enumerize (= 2.0.1)
   factory_bot_rails
   factory_girl-seeds!
@@ -830,10 +830,11 @@ DEPENDENCIES
   rspec-mocks
   rspec-rails
   rspec_junit_formatter
+  rubocop-performance
   ruby-esvidi!
   sassc-rails
   scout_apm
-  shallow_attributes
+  shallow_attributes!
   shoulda-matchers
   sidekiq
   sidekiq-limit_fetch

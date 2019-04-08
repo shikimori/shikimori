@@ -1,6 +1,8 @@
-class Profiles::StatsBar < Dry::Struct
-  attribute :type, Types::Strict::String
-  attribute :lists_stats, Types::Strict::Array.of(Profiles::ListStats)
+class Profiles::StatsBar
+  include ShallowAttributes
+
+  attribute :type, String
+  attribute :lists_stats, Array, of: Profiles::ListStats
 
   def any?
     total.positive?

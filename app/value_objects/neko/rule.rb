@@ -1,14 +1,16 @@
-class Neko::Rule < Dry::Struct
+class Neko::Rule
+  include ShallowAttributes
+
   attribute :neko_id, Types::Achievement::NekoId
-  attribute :level, Types::Coercible::Integer
-  attribute :image, Types::String.optional
-  attribute :border_color, Types::String.optional
-  attribute :title_ru, Types::String.optional
-  attribute :text_ru, Types::String.optional
-  attribute :title_en, Types::String.optional
-  attribute :text_en, Types::String.optional
-  attribute :topic_id, Types::Coercible::Integer.optional
-  attribute :rule, Types::Hash
+  attribute :level, Integer
+  attribute :image, String
+  attribute :border_color, String
+  attribute :title_ru, String
+  attribute :text_ru, String
+  attribute :title_en, String
+  attribute :text_en, String
+  attribute :topic_id, Integer
+  attribute :rule, Hash
 
   NO_RULE = new(
     neko_id: Types::Achievement::NekoId[:test],

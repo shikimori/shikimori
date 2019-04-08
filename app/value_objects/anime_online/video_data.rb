@@ -1,5 +1,7 @@
-class AnimeOnline::VideoData < Dry::Struct
-  attribute :hosting, Types::Coercible::String
-  attribute :image_url, Types::Strict::String
-  attribute :player_url, Types::Strict::String
+class AnimeOnline::VideoData
+  include ShallowAttributes
+
+  attribute :hosting, String
+  attribute :image_url, String
+  attribute :player_url, String
 end

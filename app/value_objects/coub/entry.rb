@@ -1,14 +1,16 @@
-class Coub::Entry < Dry::Struct
-  attribute :permalink, Types::String
-  attribute :image_template, Types::String
-  attribute :recoubed_permalink, Types::String.optional
+class Coub::Entry
+  include ShallowAttributes
 
-  attribute :categories, Types::Array.of(Types::String)
-  attribute :tags, Types::Array.of(Types::String)
+  attribute :permalink, String
+  attribute :image_template, String
+  attribute :recoubed_permalink, String
 
-  attribute :title, Types::String
+  attribute :categories, Array, of: String
+  attribute :tags, Array, of: String
+
+  attribute :title, String
   attribute :author, Coub::Author
-  attribute :created_at, Types::DateTime
+  attribute :created_at, ActiveSupport::TimeWithZone
 
   VIEW_TEMPLATE = 'https://coub.com/view/%<permalink>s'
   EMBED_TEMPLATE = 'https://coub.com/embed/%<permalink>s?autostart=true&startWithHD=true'
