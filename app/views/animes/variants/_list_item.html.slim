@@ -22,10 +22,6 @@
         - unless entry.respond_to?(:relation)
           .key #{Anime.human_attribute_name :kind}:
         .value
-          - if relation_mode
-            .b-anime_status_tag.misc
-              = t "relation.#{entry.relation}"
-
           - if entry.kind.present?
             .b-tag.linkeable data-href=entry.collection_url(type: entry.kind)
               = entry.kind_text
@@ -50,6 +46,10 @@
               class=entry.status.downcase.gsub(' ', '_')
               data-text=entry.status_text.downcase
             ]
+
+          - if relation_mode
+            .b-anime_status_tag.other
+              = t "relation.#{entry.relation}"
 
     - unless relation_mode
       .line

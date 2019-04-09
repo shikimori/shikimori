@@ -9,7 +9,7 @@
         alt=t('.studio_animes', studio_name: studio.name)
       ]
   - else
-    a.b-tag[
+    a.b-anime_status_tag.studio[
       href=entry.collection_url(studio: studio)
       title=t('.studio_animes', studio_name: studio.name)
     ] == "#{studio.name}\n"
