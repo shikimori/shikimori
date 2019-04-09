@@ -210,6 +210,11 @@ describe VideoExtractor::PlayerUrlExtractor do
         it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1224221' }
       end
 
+      describe do
+        let(:html) { 'https://video.sibnet.ru/rub/anime/video3589155-Gunjou_no_Magmel_1___Magmel_sinego_morya_1__russkie_subtitryi_/' }
+        it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=3589155' }
+      end
+
       describe 'remove misc parameters from url' do
         context 'digits only in videoid' do
           let(:html) { 'http://video.sibnet.ru/shell.php?videoid=1224221qwe' }

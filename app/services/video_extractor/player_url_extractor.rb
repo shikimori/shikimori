@@ -96,6 +96,8 @@ private
         .sub(/\.(flv|mp4)\?.*/, '')
         .gsub(/(videoid=\d+)[\w\.]*/, '\1')
       "https://video.sibnet.ru/shell.php?videoid=#{video_id}"
+    elsif html =~ %r{(?<url>#{HTTP}video.sibnet.ru/\w+/\w+/video(?<videoid>\d+)#{CONTENT})}
+      "https://video.sibnet.ru/shell.php?videoid=#{$LAST_MATCH_INFO[:videoid]}"
     elsif html =~ %r{(?<url>#{HTTP}v.kiwi.\w+/(?:v|v2)/#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}p.kiwi.\w+/static/player2/player.swf\?config=#{CONTENT})}
