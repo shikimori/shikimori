@@ -17,6 +17,7 @@
 // по появлению и скрытию модального слоя
 (function($) {
   let closeModalOnEsc;
+
   $.fn.extend({
     showModal(options) {
       return this.each(function() {

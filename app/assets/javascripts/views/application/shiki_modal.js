@@ -32,13 +32,13 @@ export default class ShikiModal extends View {
   _shade() {
     $('.b-shade')
       .addClass('active')
-      .on('click', this.close);
+      .on('click', () => this.close());
   }
 
   _unshade() {
     $('.b-shade')
       .removeClass('active')
-      .off('click', this.close);
+      .off('click', () => this.close());
   }
 
   _onKeyPress(e) {
