@@ -101,6 +101,7 @@ class AnimeVideoDecorator < BaseDecorator
       AnimeVideo.language.values.index(language.gsub('unknown', 'russian')),
       HOSTINGS_ORDER[hosting] || hosting,
       (author_name || '').downcase.gsub(/[^a-zа-я]/, ''),
+      (author_name || '').downcase,
       AnimeVideo.quality.values.index(quality),
       is_first ? 0 : 1,
       -id
