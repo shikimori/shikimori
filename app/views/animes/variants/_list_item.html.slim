@@ -33,14 +33,16 @@
             - entry.real_studios.each do |studio|
               .b-anime_status_tag.studio.linkeable[
                 data-href=entry.collection_url(studio: studio.to_param)
+                data-text=studio.name
                 title=studio.name
-              ] == studio.name
+              ]
           - if entry.respond_to?(:publishers) && entry.real_publishers.any?
             - entry.real_publishers.each do |publisher|
               .b-anime_status_tag.studio.linkeable[
                 data-href=entry.collection_url(publisher: publisher.to_param)
+                data-text=publisher.name
                 title=publisher.name
-              ] ==publisher.name
+              ]
           - unless relation_mode
             span.b-anime_status_tag[
               class=entry.status.downcase.gsub(' ', '_')
