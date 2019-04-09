@@ -2,16 +2,22 @@
 @import mixins/static_marker
 
 =marker($width, $color, $hover_color, $active_color)
-  +static_marker(white, $color)
   float: right
   margin: 1px 0 0 15px
   width: $width
 
+  +gt_ipad
+    transition: all 0.25s ease
+
   &:before
+    background-color: $color
+    border: 1px solid darken($color, 1.5%)
+    color: #fff
+    content: attr(data-text)
     font-size: 11px
     line-height: 1.2
-    padding: 0
     position: absolute
+    text-align: center
     width: $width - 2px
 
   &.active
