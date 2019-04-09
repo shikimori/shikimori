@@ -29,6 +29,8 @@ class RobotsController < ShikimoriController
       Disallow: /mangas/search/*
       Disallow: /*/comments
       Disallow: /*/tooltip
+      Disallow: /*/autocomplete
+      Disallow: /*/autocomplete/v2
       Disallow: /groups/9-Hentai*
       Disallow: /messages/*
       Disallow: /*undefined

@@ -60,6 +60,8 @@ class AnimesCollectionController < ShikimoriController
   end
 
   def autocomplete_v2
+    og noindex: true, nofollow: true
+
     autocomplete
     @collection = @collection.map(&:decorate)
   end
