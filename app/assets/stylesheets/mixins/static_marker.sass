@@ -2,19 +2,19 @@
 @import mixins/responsive
 
 =static_marker($color, $background)
+  background-color: $background
+  border: 1px solid darken($background, 1.5%)
   box-sizing: border-box
+  color: $color
   display: inline-block
+  font-size: 12px
+  line-height: 1.4
+  padding: 0 5px
+  text-align: center
 
-  &:before
-    background-color: $background
-    border: 1px solid darken($background, 1.5%)
-    color: $color
-    content: attr(data-text)
-    display: inline-block
-    font-size: 12px
-    line-height: 1.4
-    padding: 0 5px
-    text-align: center
+  +gt_ipad
+    transition: all 0.25s ease
 
-    +gt_ipad
-      transition: all 0.25s ease
+  &[data-text]
+    &:before
+      content: attr(data-text)

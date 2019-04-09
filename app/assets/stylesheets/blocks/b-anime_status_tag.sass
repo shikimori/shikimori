@@ -5,15 +5,33 @@
   &.released
     +static_marker(white, $released_tag)
 
+    // &.light
+    //   background-color: #699e5d
+    //   border: 1px solid darken(#699e5d, 1.5%)
+
   &.anons
     +static_marker(white, $anons_tag)
+
+    // &.light
+    //   background-color: #c16348
+    //   border: 1px solid darken(#c16348, 1.5%)
 
   &.ongoing,
   &.info
     +static_marker(white, $ongoing_tag)
 
+    // &.light
+    //   background-color: #4f84ba
+    //   border: 1px solid darken(#4f84ba, 1.5%)
+
   &.episode
     +static_marker(#123, #e8ebf0)
+
+  &.studio
+    +static_marker(#123, #e8ebf0)
+
+  // &.studio
+    +marker(#123, #e8ebf0, darken(#e8ebf0, 6%), lighten(#e8ebf0, 6%))
 
   &.summary
     +static_marker(white, #c09eda)

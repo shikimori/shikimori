@@ -33,26 +33,32 @@
       - if anime.kind.present?
         = info_line Anime.human_attribute_name(:kind) do
           - if anime.kind.present?
-            .tag.linkeable data-href=anime.collection_url(type: anime.kind)
+            .b-tag.linkeable data-href=anime.collection_url(type: anime.kind)
               = anime.kind_text
           - if anime.year.present?
-            .tag.linkeable data-href=anime.collection_url(season: anime.year)
+            .b-tag.linkeable data-href=anime.collection_url(season: anime.year)
               = t '.year', year: anime.year
           - if anime.anime? && !anime.rating_none?
-            .tag.linkeable data-href=anime.collection_url(rating: anime.rating)
+            .b-tag.linkeable data-href=anime.collection_url(rating: anime.rating)
               = anime.rating_text
+          span.b-anime_status_tag[
+            class=anime.status.downcase.gsub(' ', '_')
+            data-text=anime.status_text.downcase
+          ]
 
       - if anime.respond_to?(:studios) && anime.real_studios.any?
         = info_line i18n_io('Producer', anime.real_studios.one? ? :one : :few) do
           - anime.real_studios.each do |studio|
-            .tag.linkeable data-href=anime.collection_url(studio: studio.to_param)
-              = studio.name
+            .b-anime_status_tag.studio.linkeable[
+              data-href=anime.collection_url(studio: studio.to_param)
+            ] = studio.name
 
       - if anime.respond_to?(:publishers) && anime.real_publishers.any?
         = info_line i18n_io('Publisher', anime.real_publishers.one? ? :one : :few) do
           - anime.real_publishers.each do |publisher|
-            .tag.linkeable data-href=anime.collection_url(publisher: publisher.to_param)
-              = publisher.name
+            .b-anime_status_tag.studio.linkeable[
+              data-href=anime.collection_url(publisher: publisher.to_param)
+            ] = publisher.name
 
       - if anime.respond_to?(:episodes) && (anime.episodes > 0 || anime.episodes_aired > 0)
         = render partial: 'animes/aired_chapters', formats: :html,
@@ -77,7 +83,7 @@
 
       = info_line i18n_io('Genre', anime.main_genres.one? ? :one : :few) do
         - anime.main_genres.each do |genre|
-          .linkeable.tag[
+          .linkeable.b-tag[
             temprop='genre'
             class=(:bubbled if genre.description)
             data-predelay='250'

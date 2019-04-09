@@ -2,8 +2,8 @@
 @import mixins/clear_left
 @import mixins/comma_separated
 @import mixins/link
+@import mixins/margins
 @import mixins/responsive
-@import mixins/tag
 
 .b-catalog_entry-tooltip
   +clear_left
@@ -62,11 +62,9 @@
       .value
         display: inline
 
-        a
-          +link
-
-        .tag
-          +tag
+      .b-anime_status_tag
+        +mr(5px)
+        line-height: 14px
 
       &.works .value a
         +comma_separated
