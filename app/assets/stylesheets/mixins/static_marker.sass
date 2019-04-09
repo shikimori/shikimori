@@ -1,10 +1,11 @@
 @import globals/variables
 @import mixins/responsive
 
-=static_marker($color, $background)
+=static_marker($color, $background, $hover_color: darken($background, 4%), $active_color: darken($background, 2%))
   background-color: $background
   border: 1px solid darken($background, 1.5%)
   color: $color
+  cursor: default
   display: inline-block
   font-size: 12px
   letter-spacing: 0.25px
@@ -19,5 +20,14 @@
     &:before
       content: attr(data-text)
 
-  &:not([href])
-    cursor: default
+  &[href]
+    cursor: pointer
+
+    +gt_ipad
+      &:hover
+        background-color: $hover_color
+        border-color: darken($hover_color, 1.5%)
+
+      &:active
+        background-color: $active_color
+        border-color: darken($active_color, 1.5%)
