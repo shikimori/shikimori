@@ -2,7 +2,6 @@
 @import mixins/clear_left
 @import mixins/comma_separated
 @import mixins/link
-@import mixins/margins
 @import mixins/responsive
 
 .b-catalog_entry-tooltip
@@ -56,16 +55,11 @@
 
       .key
         color: #444
-        cursor: default
-        display: inline
         font-weight: bold
+        display: inline
 
       .value
         display: inline
-
-      .b-anime_status_tag
-        +mr(5px)
-        line-height: 14px
 
       &.works .value a
         +comma_separated

@@ -30,16 +30,7 @@
     .name
       align-items: center
       display: flex
-      margin-bottom: 6px
-
-      .b-anime_status_tag
-        align-self: baseline
-        margin-right: 10px
-        white-space: nowrap
-
-      .b-anime_status_tag,
-      .b-anime_status_tag + .b-link
-        margin-bottom: -2px
+      margin-bottom: 7px
 
       .b-link
         +ellipsis2
@@ -48,31 +39,36 @@
         line-height: 1
 
     .line
+      align-items: baseline
+      display: flex
       font-size: 12px
-      line-height: 21px
+      margin-bottom: 5px
 
-      &.name
-        line-height: 1
-        margin-bottom: 5px
+      &.multiline
+        .value
+          flex-wrap: wrap
 
       .key
         color: #444
         cursor: default
         font-weight: bold
-        display: inline
+        line-height: 17px
+        margin-right: 4px
 
       .value
-        display: inline
+        display: flex
+        overflow: hidden // for ellipsis
+
+      .b-tag
+        flex-shrink: 0
 
       .b-anime_status_tag
-        +mr(5px)
-        line-height: 14px
+        +mr(8px)
+        white-space: nowrap
 
-    .user_rate-container
-      margin-top: 6px
+        &:last-child
+          +ellipsis2
 
-      &.with-relation
-        margin-top: 14px
-
-      .b-user_rate
-        +user_rate-minified
+    .b-user_rate
+      margin-top: 13px
+      +user_rate-minified

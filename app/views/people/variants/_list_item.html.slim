@@ -17,7 +17,8 @@
       ] = localized_name entry
 
     - roles = entry.formatted_roles.split(',').map(&:strip)
-    = info_line i18n_i('Role', roles.size) do
-      - roles.each do |role|
-        .b-tag = role
-
+    .line.multiline
+      .key #{i18n_i('Role', roles.size)}:
+      .value
+        - roles.each do |role|
+          .b-tag = role
