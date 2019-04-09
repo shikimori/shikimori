@@ -41,8 +41,9 @@
         .subheadline.m5
           span.linkeable data-href=@resource.staff_url = t '.staff'
         .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-          = render partial: 'people/role_note',
-            collection: @resource.roles.main_people
+          = render partial: 'people/variants/list_item',
+            collection: @resource.roles.main_people,
+            as: :entry
 
 - if @resource.roles.main_characters.any?
   .cc-characters

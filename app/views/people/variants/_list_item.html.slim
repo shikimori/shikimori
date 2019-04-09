@@ -1,0 +1,23 @@
+.b-db_entry-variant-list_item
+  .image.linkeable.bubbled[
+    data-href=person_url(entry)
+    title=localized_name(entry)
+  ]
+    img[
+      src=cdn_image(entry, :x48)
+      srcset="#{cdn_image entry, :x96} 2x"
+      alt=localized_name(entry)
+    ]
+
+  .info
+    .name
+      a.b-link.bubbled[
+        href=person_url(entry)
+        title=localized_name(entry)
+      ] = localized_name entry
+
+    - roles = entry.formatted_roles.split(',').map(&:strip)
+    = info_line i18n_i('Role', roles.size) do
+      - roles.each do |role|
+        .b-tag = role
+
