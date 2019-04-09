@@ -30,7 +30,7 @@
     .name
       align-items: center
       display: flex
-      margin-bottom: 7px
+      margin-bottom: 6px
 
       .b-anime_status_tag
         align-self: baseline
@@ -39,7 +39,7 @@
 
       .b-anime_status_tag,
       .b-anime_status_tag + .b-link
-        margin-bottom: -3px
+        margin-bottom: -2px
 
       .b-link
         +ellipsis2
@@ -47,23 +47,9 @@
         font-weight: bold
         line-height: 1
 
-    // .note
-    //   span
-    //     +comma_separated
-    //     &:after
-    //       display: inline
-
-    //   .relation,
-    //   .additional
-    //     display: inline-block
-    //     margin-right: 5px
-
-    //   .relation + .additional
-    //     +brackets_surrounded
-
     .line
       font-size: 12px
-      line-height: 23px
+      line-height: 21px
 
       &.name
         line-height: 1
@@ -82,12 +68,11 @@
         +mr(5px)
         line-height: 14px
 
-    // .additional
-    //   margin-top: 2px
-
-    //   .b-anime_status_tag
-    //     +mr(10px)
-
-    .b-user_rate
-      +user_rate-minified
+    .user_rate-container
       margin-top: 6px
+
+      &.with-relation
+        margin-top: 14px
+
+      .b-user_rate
+        +user_rate-minified

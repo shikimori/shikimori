@@ -1,3 +1,4 @@
+- relation_mode = entry.respond_to?(:relation)
 .b-db_entry-variant-list_item
   .image.linkeable.bubbled[
     data-href=entry.url
@@ -11,39 +12,23 @@
 
   .info
     .name
-      - if entry.respond_to?(:relation)
-        .b-anime_status_tag.info
-          = t "relation.#{entry.relation}"
-      - else
-        / - if entry.respond_to?(:studios) && entry.real_studios.any?
-        /   - entry.real_studios.each do |studio|
-        /     .b-anime_status_tag.info.linkeable[
-        /       data-href=entry.collection_url(studio: studio.to_param)
-        /       data-text=studio.name
-        /     ]
-        / - if entry.respond_to?(:publishers) && entry.real_publishers.any?
-        /   - entry.real_publishers.each do |publisher|
-        /     .b-anime_status_tag.info.linkeable[
-        /       data-href=entry.collection_url(publisher: publisher.to_param)
-        /       data-text=publisher.name
-        /     ]
-
       a.b-link.bubbled[
         href=entry.url
         title=entry.name
       ] = localization_span entry
 
     - if entry.kind.present?
-      = info_line Anime.human_attribute_name(:kind) do
+      = info_line((Anime.human_attribute_name(:kind) unless entry.respond_to?(:relation))) do
+        - if relation_mode
+          .b-anime_status_tag.info
+            = t "relation.#{entry.relation}"
+
         - if entry.kind.present?
           .b-tag.linkeable data-href=entry.collection_url(type: entry.kind)
             = entry.kind_text
         - if entry.year.present?
           .b-tag.linkeable data-href=entry.collection_url(season: entry.year)
             = t 'animes.content.year', year: entry.year
-        / - if entry.anime? && !entry.rating_none?
-          .b-tag.linkeable data-href=entry.collection_url(rating: entry.rating)
-            = entry.rating_text
 
         - if entry.respond_to?(:studios) && entry.real_studios.any?
           - entry.real_studios.each do |studio|
@@ -55,40 +40,26 @@
             .b-anime_status_tag.studio.linkeable[
               data-href=entry.collection_url(publisher: publisher.to_param)
             ] ==publisher.name
-        - if local_assigns[:with_status]
+        - unless relation_mode
           span.b-anime_status_tag[
             class=entry.status.downcase.gsub(' ', '_')
             data-text=entry.status_text.downcase
           ]
 
-    = info_line i18n_io('Genre', entry.main_genres.one? ? :one : :few) do
-      - entry.main_genres.each do |genre|
-        .b-tag.linkeable[
-          temprop='genre'
-          class=(:bubbled if genre.description)
-          data-predelay='250'
-          data-tooltip_url=tooltip_moderations_genre_url(genre, subdomain: false)
-          data-href=entry.collection_url(genre: genre.to_param)
-        ] = localization_span genre
-
-    / .additional
-      - if entry.respond_to?(:studios) && entry.real_studios.any?
-        - entry.real_studios.each do |studio|
-          .b-anime_status_tag.info.linkeable[
-            data-href=entry.collection_url(studio: studio.to_param)
-            data-text=studio.name
-          ]
-      - if entry.respond_to?(:publishers) && entry.real_publishers.any?
-        - entry.real_publishers.each do |publisher|
-          .b-anime_status_tag.info.linkeable[
-            data-href=entry.collection_url(publisher: publisher.to_param)
-            data-text=publisher.name
-          ]
-      / span.b-anime_status_tag[
-        class=entry.status.downcase.gsub(' ', '_')
-        data-text=entry.status_text.downcase
-      ]
+    - unless relation_mode
+      = info_line i18n_io('Genre', entry.main_genres.one? ? :one : :few) do
+        - entry.main_genres.each do |genre|
+          .b-tag.linkeable[
+            temprop='genre'
+            class=(:bubbled if genre.description)
+            data-predelay='250'
+            data-tooltip_url=tooltip_moderations_genre_url(genre, subdomain: false)
+            data-href=entry.collection_url(genre: genre.to_param)
+          ] = localization_span genre
 
     - unless local_assigns[:no_user_rate]
-      = render partial: 'user_rates/placeholder',
-        locals: { target: entry, extended: false }
+      .user_rate-container[
+        class=('with-relation' if relation_mode)
+      ]
+        = render partial: 'user_rates/placeholder',
+          locals: { target: entry, extended: false }
