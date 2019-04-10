@@ -62,23 +62,21 @@ export default class CollectionSearch extends View {
 
   async _search(phrase) {
     const { data, status } = await ajaxCacher.fetch(this._searchUrl(phrase));
+    this._hideAjax();
 
     if (status !== 200) {
       flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'));
-      this._hideAjax();
       return;
     }
 
     if (phrase === this.inputSearchPhrase) {
-      this._showResults(data, this._displayUrl(phrase));
+      this._changeUrl(this._displayUrl(phrase));
+      this._processResponse(data);
     }
   }
 
-  _showResults(response, url) {
+  _changeUrl(url) {
     window.history.replaceState({ turbolinks: true, url }, '', url);
-
-    this._processResponse(response);
-    this._hideAjax();
   }
 
   _processResponse(response) {
@@ -98,7 +96,8 @@ export default class CollectionSearch extends View {
   }
 
   _displayUrl(phrase) {
-    return this._url(phrase, 'display') || this._url(phrase, 'search');
+    return this._url(phrase, 'display') ||
+      this._url(phrase, 'search');
   }
 
   _url(phrase, key) {

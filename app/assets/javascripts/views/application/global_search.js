@@ -1,14 +1,24 @@
 import CollectionSearch from './collection_search';
 
-const GLOBAL_MODE = 'GLOBAL_MODE';
-// const COLLECTION_MODE = 'COLLECTION_MODE';
-
 export default class GlobalSearch extends CollectionSearch {
   initialize() {
-    this.mode = GLOBAL_MODE;
+    this.isGlobalMode = true;
+    this.$globalCollection = this.$root.find('.search-results');
     super.initialize();
 
     this._bindHotkey();
+  }
+
+  get $collection() {
+    return this.isGlobalMode ? this.$globalCollection : super.$collection;
+  }
+
+  get isGlobalMode() {
+    return this._isGlobalMode;
+  }
+
+  set isGlobalMode(value) {
+    this._isGlobalMode = value;
   }
 
   // private functions
@@ -19,6 +29,20 @@ export default class GlobalSearch extends CollectionSearch {
     $(document).one('turbolinks:before-cache', () => {
       $(document).off('keypress', this.globalKeypressHandler);
     });
+  }
+
+  _changeUrl(url) {
+    if (this.isGlobalMode) { return; }
+
+    super._changeUrl(url);
+  }
+
+  _searchUrl(phrase) {
+    if (this.isGlobalMode) {
+      return this._url(phrase, 'autocomplete');
+    }
+
+    return super._searchUrl(phrase);
   }
 
   _onGlobalKeypress(e) {
