@@ -9,7 +9,6 @@ class AnimesCollectionController < ShikimoriController
     @menu = Menus::CollectionMenu.new @view.klass
   end
 
-  # страница каталога аниме/манги
   def index
     forbidden_params_redirect_check
     build_background # should be placed after is_adult check

@@ -54,8 +54,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :main,
       group: :community,
       url: :forum_url
-    },
-    {
+    }, {
       name: :users,
       placement: :main,
       group: :community,

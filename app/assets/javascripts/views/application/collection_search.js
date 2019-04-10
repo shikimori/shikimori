@@ -60,10 +60,10 @@ export default class CollectionSearch extends View {
     const phrase = this._searchPhrase();
 
     const { data, status } = await ajaxCacher.fetch(this._searchUrl(phrase));
-    this._hideAjax();
 
     if (status !== 200) {
       flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'));
+      this._hideAjax();
       return;
     }
 

@@ -42,10 +42,11 @@
 
 .global-search[
   data-search_url=@top_menu.search_url
+  data-autocomplete_url=autocomplete_v2_animes_url
 ]
   label.field
     input[
-      type="text"
+      type='text'
       placeholder=t('search.search')
       value=params[:search]
     ]
@@ -74,15 +75,15 @@
       .suggest-placeholder
     - if shikimori?
       ul.popup
-        li.type data-type="animes" = Anime.model_name.human
-        li.type data-type="mangas" = Manga.model_name.human
-        li.type data-type="ranobe" = Ranobe.model_name.human
-        li.type data-type="characters" = Character.model_name.human
-        li.type data-type="seyu" = t 'seyu'
-        li.type data-type="producers" = t 'producer'
-        li.type data-type="mangakas" = t 'mangaka'
-        li.type data-type="people" = t 'person'
-        li.type data-type="users" = User.model_name.human
+        li.type data-type='animes' = Anime.model_name.human
+        li.type data-type='mangas' = Manga.model_name.human
+        li.type data-type='ranobe' = Ranobe.model_name.human
+        li.type data-type='characters' = Character.model_name.human
+        li.type data-type='seyu' = t 'seyu'
+        li.type data-type='producers' = t 'producer'
+        li.type data-type='mangakas' = t 'mangaka'
+        li.type data-type='people' = t 'person'
+        li.type data-type='users' = User.model_name.human
 
 / .menu-dropdown.mobile
   - if user_signed_in? && shikimori?
