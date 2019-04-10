@@ -9,7 +9,7 @@ class ContestsController < ShikimoriController
   before_action :set_breadcrumbs
   before_action :js_export, only: %i[show]
 
-  LIMIT = 20
+  LIMIT = 40
   PARAMS = %i[
     title_ru
     title_en
