@@ -1,41 +1,36 @@
 import URI from 'urijs';
 import { debounce } from 'throttle-debounce';
 
+import ajaxCacher from 'services/ajax_cacher';
+import flash from 'services/flash';
 import View from 'views/application/view';
-import axios from 'helpers/axios';
+
 import JST from 'helpers/jst';
 
-const PENDING_REQUEST = 'pending_request';
-
 export default class CollectionSearch extends View {
-  cache = {}
-
-  initialize($searchableCollection) {
-    this.$collection = $searchableCollection ||
-      this.$root.find('.b-search-results');
-
-    if (!this.$collection.length) {
-      console.warn('not found .b-search-results');
-    }
-
+  initialize() {
     this.$input = this.$('.field input');
     this.$clear = this.$('.field .clear');
 
-    this.debounced_search = debounce(250, () => this._search());
-    this.current_phrase = this._searchPhrase();
+    this.debouncedSearch = debounce(250, () => this._search());
+    this.currentPhrase = this._searchPhrase();
 
-    this.$clear.toggleClass('active', !Object.isEmpty(this.current_phrase));
+    this.$clear.toggleClass('active', !Object.isEmpty(this.currentPhrase));
     // @$input.focus() if @$input.is(':appeared')
 
-    this.$input.on('change blur keyup paste', e => this._filterChanged(e));
+    this.$input.on('change blur keyup paste', e => this._onChange(e));
     this.$clear.on('click', () => this._clearPhrase());
   }
 
+  get $collection() {
+    return $('.b-search-results');
+  }
+
   // handlers
-  _filterChanged(e) {
+  _onChange({ keyCode }) {
     const phrase = this._searchPhrase();
 
-    if (e.keyCode === 27) {
+    if (keyCode === 27) {
       if (Object.isEmpty(phrase)) {
         this.$input.blur();
       } else {
@@ -44,21 +39,17 @@ export default class CollectionSearch extends View {
       return;
     }
 
-    if (phrase === this.current_phrase) { return; }
+    if (phrase === this.currentPhrase) { return; }
 
-    if (phrase.length === 1) {
-      this._hideAjax();
-    } else {
-      this.current_phrase = phrase;
-      this.debounced_search();
-      this._showAjax();
+    this.currentPhrase = phrase;
+    this.debouncedSearch();
+    this._showAjax();
 
-      this.$clear.toggleClass('active', !Object.isEmpty(phrase));
-    }
+    this.$clear.toggleClass('active', !Object.isEmpty(phrase));
   }
 
   _clearPhrase() {
-    return this.$input
+    this.$input
       .val('')
       .trigger('change')
       .focus();
@@ -67,19 +58,17 @@ export default class CollectionSearch extends View {
   // private functions
   async _search() {
     const phrase = this._searchPhrase();
-    if (this.cache[phrase] === PENDING_REQUEST) { return; }
 
-    if (phrase.length === 1) {
-      this._hideAjax();
-    } else if (this.cache[phrase]) {
-      this._showResults(this.cache[phrase], this._displayUrl(phrase));
-    } else {
-      const response = await axios.get(this._searchUrl(phrase));
-      this.cache[phrase] = response.data;
+    const { data, status } = await ajaxCacher.fetch(this._searchUrl(phrase));
+    this._hideAjax();
 
-      if (phrase === this._searchPhrase()) {
-        this._showResults(this.cache[phrase], this._displayUrl(phrase));
-      }
+    if (status !== 200) {
+      flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'));
+      return;
+    }
+
+    if (phrase === this._searchPhrase()) {
+      this._showResults(data, this._displayUrl(phrase));
     }
   }
 
