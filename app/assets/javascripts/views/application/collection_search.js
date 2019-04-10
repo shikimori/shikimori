@@ -12,8 +12,8 @@ export default class CollectionSearch extends View {
     this.$input = this.$('.field input');
     this.$clear = this.$('.field .clear');
 
-    this.debouncedSearch = debounce(250, () => this._search());
-    this.currentPhrase = this._searchPhrase();
+    this.debouncedSearch = debounce(250, phrase => this._search(phrase));
+    this.currentPhrase = this.inputSearchPhrase;
 
     this.$clear.toggleClass('active', !Object.isEmpty(this.currentPhrase));
     // @$input.focus() if @$input.is(':appeared')
@@ -26,9 +26,13 @@ export default class CollectionSearch extends View {
     return $('.b-search-results');
   }
 
+  get inputSearchPhrase() {
+    return this.$input.val().trim();
+  }
+
   // handlers
   _onChange({ keyCode }) {
-    const phrase = this._searchPhrase();
+    const phrase = this.inputSearchPhrase;
 
     if (keyCode === 27) {
       if (Object.isEmpty(phrase)) {
@@ -42,12 +46,13 @@ export default class CollectionSearch extends View {
     if (phrase === this.currentPhrase) { return; }
 
     this.currentPhrase = phrase;
-    this.debouncedSearch();
+    this.debouncedSearch(phrase);
     this._showAjax();
 
     this.$clear.toggleClass('active', !Object.isEmpty(phrase));
   }
 
+  // private functions
   _clearPhrase() {
     this.$input
       .val('')
@@ -55,10 +60,7 @@ export default class CollectionSearch extends View {
       .focus();
   }
 
-  // private functions
-  async _search() {
-    const phrase = this._searchPhrase();
-
+  async _search(phrase) {
     const { data, status } = await ajaxCacher.fetch(this._searchUrl(phrase));
 
     if (status !== 200) {
@@ -67,7 +69,7 @@ export default class CollectionSearch extends View {
       return;
     }
 
-    if (phrase === this._searchPhrase()) {
+    if (phrase === this.inputSearchPhrase) {
       this._showResults(data, this._displayUrl(phrase));
     }
   }
@@ -89,10 +91,6 @@ export default class CollectionSearch extends View {
     }
 
     this.$collection.html(html).process(response.JS_EXPORTS);
-  }
-
-  _searchPhrase() {
-    return this.$input.val().trim();
   }
 
   _searchUrl(phrase) {

@@ -1,8 +1,13 @@
 import CollectionSearch from './collection_search';
 
+const GLOBAL_MODE = 'GLOBAL_MODE';
+// const COLLECTION_MODE = 'COLLECTION_MODE';
+
 export default class GlobalSearch extends CollectionSearch {
   initialize() {
+    this.mode = GLOBAL_MODE;
     super.initialize();
+
     this._bindHotkey();
   }
 
@@ -17,7 +22,6 @@ export default class GlobalSearch extends CollectionSearch {
   }
 
   _onGlobalKeypress(e) {
-    console.log('_onGlobalKeypress');
     if (e.keyCode !== 47) { return; }
 
     const target = e.target || e.srcElement;
