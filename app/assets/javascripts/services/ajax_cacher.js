@@ -3,7 +3,7 @@ import axios from 'helpers/axios';
 const store = {};
 let queue = [];
 
-const queueLimit = 100;
+const queueLimit = 300;
 
 function updateQueue(url, noDelete) {
   if (queue.includes(url)) {
