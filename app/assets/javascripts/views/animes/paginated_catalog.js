@@ -7,7 +7,6 @@ import flash from 'services/flash';
 import DynamicParser from 'dynamic_elements/_parser';
 import CatalogFilters from 'views/animes/catalog_filters';
 
-import axios from 'helpers/axios';
 import inNewTab from 'helpers/in_new_tab';
 
 export default class PaginatedCatalog {
@@ -164,31 +163,23 @@ export default class PaginatedCatalog {
       absoulteUrl = `${window.location.protocol}//${window.location.host}${url}`;
     }
 
-    const cachedData = ajaxCacher.get(absoulteUrl);
-    if (cachedData) {
-      this._processResponse(cachedData, absoulteUrl);
+    this._showAjax();
+    const { data, status } = await ajaxCacher.fetch(absoulteUrl);
+    this._hideAjax();
+
+    if (status !== 200) {
+      if (status === 451) {
+        Turbolinks.visit(window.location.href);
+      } else {
+        flash.error(
+          I18n.t('frontend.lib.paginated_catalog.please_try_again_later')
+        );
+      }
       return;
     }
 
-    this.$content.addClass('b-ajax');
-
-    const { data } = await axios
-      .get(absoulteUrl)
-      .catch(({ response }) => {
-        if (response.status === 451) { // || response.data === 'age_restricted'
-          Turbolinks.visit(window.location.href);
-        } else {
-          flash.error(
-            I18n.t('frontend.lib.paginated_catalog.please_try_again_later')
-          );
-        }
-      });
-
-    ajaxCacher.push(absoulteUrl, data);
-
     if (window.location.href === absoulteUrl) {
       this._processResponse(data, absoulteUrl);
-      this.$content.removeClass('b-ajax');
     }
   }
 
@@ -241,5 +232,13 @@ export default class PaginatedCatalog {
         window.yaCounter7915231.hit(url);
       }
     }
+  }
+
+  _showAjax() {
+    this.$content.addClass('b-ajax');
+  }
+
+  _hideAjax() {
+    this.$content.removeClass('b-ajax');
   }
 }
