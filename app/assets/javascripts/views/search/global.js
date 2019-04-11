@@ -1,4 +1,4 @@
-import CollectionSearch from './collection_search';
+import CollectionSearch from './collection';
 
 export default class GlobalSearch extends CollectionSearch {
   initialize() {

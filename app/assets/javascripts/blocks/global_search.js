@@ -1,4 +1,4 @@
-import GlobalSearch from 'views/application/global_search';
+import GlobalSearch from 'views/search/global';
 
 $(document).on('turbolinks:load', () => {
   const $globalSearch = $('.l-top_menu-v2 .global-search');
