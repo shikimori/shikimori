@@ -27,6 +27,11 @@ export default class GlobalSearch extends CollectionSearch {
     return this._url(phrase, 'autocomplete');
   }
 
+  _processResponse(response) {
+    super._processResponse(response);
+    this.$collection.children().eq(2).addClass('active');
+  }
+
   _cancel() {
     if (Object.isEmpty(this.phrase)) {
       this._clearPhrase();
