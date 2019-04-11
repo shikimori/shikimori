@@ -32,8 +32,8 @@
     width: 100%
 
     &:focus
-      border-color: lighten($link-4, 5%)
-      box-shadow: 0px 0px 5px lighten($link-4, 5%)
+      border-color: $link-4
+      box-shadow: 0px 0px 4px $link-4, inset 0px 0px 1px rgba($link-4, 0.8)
 
     +placeholder
       color: $gray-1
@@ -102,12 +102,16 @@
       padding-left: 25px
 
       &.active
-        background: linear-gradient(270deg, rgba($link-4, 0.1) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.01);
+        background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.01);
         padding-left: 0
         cursor: pointer
+        border-top: 1px solid $link-3
+
+        & + .b-db_entry-variant-list_item
+          border-top: 1px solid $link-3
 
         &:before
-          background: $link
+          background: $link-2
           content: ''
           display: block
           margin: 3px 10px
