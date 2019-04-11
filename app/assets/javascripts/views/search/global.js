@@ -1,3 +1,5 @@
+import { debounce } from 'throttle-debounce';
+
 import CollectionSearch from './collection';
 
 const ITEM_SELECTOR = '.b-db_entry-variant-list_item';
@@ -9,7 +11,7 @@ export default class GlobalSearch extends CollectionSearch {
     this._bindGlobalHotkey();
 
     this.$collection.on('mouseover', ITEM_SELECTOR, ({ currentTarget }) => (
-      this._selectItem(currentTarget)
+      this._selectItem(currentTarget, false)
     ));
   }
 
@@ -75,7 +77,7 @@ export default class GlobalSearch extends CollectionSearch {
     }
 
     if (item) {
-      this._selectItem(item);
+      this._selectItem(item, true);
     }
   }
 
@@ -89,7 +91,7 @@ export default class GlobalSearch extends CollectionSearch {
     }
 
     if (item) {
-      this._selectItem(item);
+      this._selectItem(item, true);
     }
   }
 
@@ -147,12 +149,20 @@ export default class GlobalSearch extends CollectionSearch {
     super._showAjax();
   }
 
-  _selectItem(node) {
+  _selectItem(node, doScroll) {
     this.currentItem = node;
 
     const $node = $(node);
     $node.siblings().removeClass('active');
     $node.addClass('active');
+
+    if (doScroll) {
+      this._scrollToItem($node);
+    }
+  }
+
+  _scrollToItem($node) {
+    let didScroll = false;
 
     const nodeTop = $node.offset().top;
     const nodeHeight = $node.outerHeight();
@@ -161,13 +171,28 @@ export default class GlobalSearch extends CollectionSearch {
     const windowHeight = $(window).height();
 
     if (nodeTop < windowTop) {
+      didScroll = true;
       if ($node.is(':first-child')) {
         window.scrollTo(0, 0);
       } else {
         window.scrollTo(0, nodeTop - 10);
       }
     } else if (nodeTop + nodeHeight > windowTop + windowHeight) {
+      didScroll = true;
       window.scrollTo(0, windowTop + (nodeTop + nodeHeight) - (windowTop + windowHeight) + 10);
+    }
+
+    // to prevent item selection by mouseover event
+    // it could happen if mouse cursor currently is over some item
+    if (didScroll) {
+      this.$collection.addClass('no-selection');
+
+      if (!this.debouncedRemoveNoSelection) {
+        this.debouncedRemoveNoSelection = debounce(250, () => (
+          this.$collection.removeClass('no-selection')
+        ));
+      }
+      this.debouncedRemoveNoSelection();
     }
   }
 
