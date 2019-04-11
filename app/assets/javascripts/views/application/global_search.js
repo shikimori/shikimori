@@ -48,7 +48,7 @@ export default class GlobalSearch extends CollectionSearch {
 
   _cancel() {
     if (this.isGlobalMode) {
-      if (Object.isEmpty(this.currentPhrase)) {
+      if (Object.isEmpty(this.phrase)) {
         this._clearPhrase();
         this.$input.blur();
       } else {
@@ -62,7 +62,7 @@ export default class GlobalSearch extends CollectionSearch {
 
   _activate() {
     if (this.isGlobalMode) {
-      if (Object.isEmpty(this.currentPhrase)) {
+      if (Object.isEmpty(this.phrase)) {
         this._deactivate();
         return;
       }

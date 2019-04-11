@@ -14,12 +14,11 @@ export default class CollectionSearch extends View {
 
     this.isActive = false;
     this.debouncedSearch = debounce(250, phrase => this._search(phrase));
-    this.currentPhrase = this.inputSearchPhrase;
 
-    this.$clear.toggleClass('active', !Object.isEmpty(this.currentPhrase));
-    // @$input.focus() if @$input.is(':appeared')
+    this.$clear.toggleClass('active', !Object.isEmpty(this.phrase));
 
-    this.$input.on('change blur keyup paste', e => this._onChange(e));
+    this.$input.on('change blur paste', () => this._onChange());
+    this.$input.on('keyup', e => this._onKeyup(e));
     this.$clear.on('click', () => this._clearPhrase(true));
   }
 
@@ -31,20 +30,35 @@ export default class CollectionSearch extends View {
     return this.$input.val().trim();
   }
 
-  // handlers
-  _onChange({ keyCode }) {
-    const phrase = this.inputSearchPhrase;
+  get phrase() {
+    if (this._phrase === undefined) {
+      this._phrase = this.inputSearchPhrase;
+    }
+    return this._phrase;
+  }
 
+  set phrase(value) {
+    const trimmedValue = value.trim();
+
+    if (this._phrase !== trimmedValue) {
+      this._phrase = trimmedValue;
+      this._activate();
+      this.debouncedSearch(this._phrase);
+    }
+  }
+
+  // handlers
+  _onKeyup({ keyCode }) {
     if (keyCode === 27) {
       this._cancel();
       return;
     }
 
-    if (phrase === this.currentPhrase) { return; }
+    this.phrase = this.inputSearchPhrase;
+  }
 
-    this.currentPhrase = phrase;
-    this.debouncedSearch(phrase);
-    this._activate();
+  _onChange() {
+    this.phrase = this.inputSearchPhrase;
   }
 
   // private functions
@@ -59,7 +73,7 @@ export default class CollectionSearch extends View {
   }
 
   _cancel() {
-    if (Object.isEmpty(this.currentPhrase)) {
+    if (Object.isEmpty(this.phrase)) {
       this._deactivate();
     } else {
       this._clearPhrase();
@@ -68,7 +82,7 @@ export default class CollectionSearch extends View {
 
   _activate() {
     this._showAjax();
-    this.$clear.toggleClass('active', !Object.isEmpty(this.currentPhrase));
+    this.$clear.toggleClass('active', !Object.isEmpty(this.phrase));
     this.isActive = true;
   }
 
@@ -102,7 +116,7 @@ export default class CollectionSearch extends View {
     if (response.content) {
       html = response.content + (response.postloader || '');
     } else {
-      html = Object.isEmpty(this.currentPhrase) ?
+      html = Object.isEmpty(this.phrase) ?
         '' :
         JST['search/nothing_found']();
     }
