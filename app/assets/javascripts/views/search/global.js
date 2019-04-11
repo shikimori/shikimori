@@ -185,14 +185,14 @@ export default class GlobalSearch extends CollectionSearch {
     // to prevent item selection by mouseover event
     // it could happen if mouse cursor currently is over some item
     if (didScroll) {
-      this.$collection.addClass('no-selection');
+      document.body.style.pointerEvents = 'none';
 
-      if (!this.debouncedRemoveNoSelection) {
-        this.debouncedRemoveNoSelection = debounce(250, () => (
-          this.$collection.removeClass('no-selection')
+      if (!this.debouncedEnableMouseEvents) {
+        this.debouncedEnableMouseEvents = debounce(250, () => (
+          document.body.style.pointerEvents = ''
         ));
       }
-      this.debouncedRemoveNoSelection();
+      this.debouncedEnableMouseEvents();
     }
   }
 
