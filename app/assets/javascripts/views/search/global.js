@@ -3,23 +3,11 @@ import CollectionSearch from './collection';
 export default class GlobalSearch extends CollectionSearch {
   initialize() {
     super.initialize();
-
-    this.isGlobalMode = true;
-    this.$globalCollection = this.$root.find('.search-results');
-
     this._bindHotkey();
   }
 
   get $collection() {
-    return this.isGlobalMode ? this.$globalCollection : super.$collection;
-  }
-
-  get isGlobalMode() {
-    return this._isGlobalMode;
-  }
-
-  set isGlobalMode(value) {
-    this._isGlobalMode = value;
+    return this.$root.find('.search-results');
   }
 
   // private functions
@@ -32,65 +20,46 @@ export default class GlobalSearch extends CollectionSearch {
     });
   }
 
-  _changeUrl(url) {
-    if (this.isGlobalMode) { return; }
-
-    super._changeUrl(url);
+  _changeUrl(_url) {
   }
 
   _searchUrl(phrase) {
-    if (this.isGlobalMode) {
-      return this._url(phrase, 'autocomplete');
-    }
-
-    return super._searchUrl(phrase);
+    return this._url(phrase, 'autocomplete');
   }
 
   _cancel() {
-    if (this.isGlobalMode) {
-      if (Object.isEmpty(this.phrase)) {
-        this._clearPhrase();
-        this.$input.blur();
-      } else {
-        this._clearPhrase();
-      }
-      this._deactivate();
+    if (Object.isEmpty(this.phrase)) {
+      this._clearPhrase();
+      this.$input.blur();
     } else {
-      super._cancel();
+      this._clearPhrase();
     }
+    this._deactivate();
   }
 
   _activate() {
-    if (this.isGlobalMode) {
-      if (Object.isEmpty(this.phrase)) {
-        this._deactivate();
-        return;
-      }
-
-      this.$globalCollection.show();
-      $('.l-top_menu-v2').addClass('is-global_search');
+    if (Object.isEmpty(this.phrase)) {
+      this._deactivate();
+      return;
     }
+
+    this.$collection.show();
+    $('.l-top_menu-v2').addClass('is-global_search');
 
     super._activate();
   }
 
   _deactivate() {
-    if (this.isGlobalMode) {
-      this.$globalCollection
-        .empty()
-        .hide();
-      $('.l-top_menu-v2').removeClass('is-global_search');
+    this.$collection
+      .empty()
+      .hide();
+    $('.l-top_menu-v2').removeClass('is-global_search');
 
-      this.isActive = false;
-    } else {
-      super._deactivate();
-    }
+    this.isActive = false;
   }
 
   _showAjax() {
-    if (this.isGlobalMode) {
-      this.$globalCollection.find('.b-nothing_here').remove();
-    }
+    this.$collection.find('.b-nothing_here').remove();
     super._showAjax();
   }
 
@@ -106,7 +75,7 @@ export default class GlobalSearch extends CollectionSearch {
     if (isIgnored) { return; }
 
     if (e.keyCode === 27) {
-      if (this.isGlobalMode && this.isActive) {
+      if (this.isActive) {
         e.preventDefault();
         e.stopImmediatePropagation();
 
