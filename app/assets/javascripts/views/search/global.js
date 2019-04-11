@@ -1,4 +1,4 @@
-import { debounce } from 'throttle-debounce';
+// import { debounce } from 'throttle-debounce';
 
 import CollectionSearch from './collection';
 
@@ -8,11 +8,15 @@ export default class GlobalSearch extends CollectionSearch {
   initialize() {
     super.initialize();
 
+    this.currentItem = null;
     this._bindGlobalHotkey();
 
-    this.$collection.on('mouseover', ITEM_SELECTOR, ({ currentTarget }) => (
-      this._selectItem(currentTarget, false)
-    ));
+    this.$collection.on('mousemove', ITEM_SELECTOR, ({ currentTarget }) => {
+      // better than mouseover cause it does not trigger after keyboard scroll
+      if (this.currentItem !== currentTarget) {
+        this._selectItem(currentTarget, false);
+      }
+    });
   }
 
   get $collection() {
@@ -182,18 +186,19 @@ export default class GlobalSearch extends CollectionSearch {
       window.scrollTo(0, windowTop + (nodeTop + nodeHeight) - (windowTop + windowHeight) + 10);
     }
 
+    // NOTE: no need in it after switching from mouseover to mousemove
     // to prevent item selection by mouseover event
     // it could happen if mouse cursor currently is over some item
-    if (didScroll) {
-      document.body.style.pointerEvents = 'none';
+    // if (didScroll) {
+    //   document.body.style.pointerEvents = 'none';
 
-      if (!this.debouncedEnableMouseEvents) {
-        this.debouncedEnableMouseEvents = debounce(250, () => (
-          document.body.style.pointerEvents = ''
-        ));
-      }
-      this.debouncedEnableMouseEvents();
-    }
+    //   if (!this.debouncedEnableMouseEvents) {
+    //     this.debouncedEnableMouseEvents = debounce(250, () => (
+    //       document.body.style.pointerEvents = ''
+    //     ));
+    //   }
+    //   this.debouncedEnableMouseEvents();
+    // }
   }
 
   _changeUrl(_url) {}
