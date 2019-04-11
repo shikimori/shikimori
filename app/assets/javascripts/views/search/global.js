@@ -1,35 +1,114 @@
 import CollectionSearch from './collection';
 
+const ITEM_SELECTOR = '.b-db_entry-variant-list_item';
+
 export default class GlobalSearch extends CollectionSearch {
   initialize() {
     super.initialize();
-    this._bindHotkey();
+
+    this._bindGlobalHotkey();
+
+    this.$collection.on('mouseover', ITEM_SELECTOR, ({ currentTarget }) => (
+      this._selectItem(currentTarget)
+    ));
   }
 
   get $collection() {
     return this.$root.find('.search-results');
   }
 
-  // private functions
-  _bindHotkey() {
-    this.globalKeypressHandler = this._onGlobalKeypress.bind(this);
-
-    $(document).on('keyup', this.globalKeypressHandler);
-    $(document).one('turbolinks:before-cache', () => {
-      $(document).off('keyup', this.globalKeypressHandler);
-    });
+  get $activeItem() {
+    return this.$collection.find(`${ITEM_SELECTOR}.active`);
   }
 
-  _changeUrl(_url) {
+  // handlers
+  _onGlobalKeyup(e) {
+    if (e.keyCode === 27) {
+      this._onGlobalEsc(e);
+    } else if (e.keyCode === 47 || e.keyCode === 191) {
+      this._onGlobalSlash(e);
+    }
+  }
+
+  _onGlobalKeydown(e) {
+    if (e.keyCode === 40) {
+      this._onGlobalDown(e);
+    } else if (e.keyCode === 38) {
+      this._onGlobalUp(e);
+    }
+  }
+
+  _onGlobalEsc(e) {
+    if (!this.isActive) { return; }
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    this._cancel();
+  }
+
+  _onGlobalSlash(e) {
+    const target = e.target || e.srcElement;
+    const isIgnored = target.isContentEditable ||
+      target.tagName === 'INPUT' ||
+      target.tagName === 'SELECT' ||
+      target.tagName === 'TEXTAREA';
+
+    if (isIgnored) { return; }
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    this.$input.focus();
+    this.$input[0].setSelectionRange(0, this.$input[0].value.length);
+  }
+
+  _onGlobalDown(e) {
+    const { $activeItem } = this;
+    const item = $activeItem.length ?
+      $activeItem.next()[0] :
+      this.$collection.find(ITEM_SELECTOR).first()[0];
+
+    if (this.isActive) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+
+    if (item) {
+      this._selectItem(item);
+    }
+  }
+
+  _onGlobalUp(e) {
+    const { $activeItem } = this;
+    const item = $activeItem.prev()[0];
+
+    if (this.isActive) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+
+    if (item) {
+      this._selectItem(item);
+    }
+  }
+
+  // private functions
+  _bindGlobalHotkey() {
+    this.globalKeyupHandler = this._onGlobalKeyup.bind(this);
+    this.globalKeydownHandler = this._onGlobalKeydown.bind(this);
+
+    $(document).on('keyup', this.globalKeyupHandler);
+    $(document).on('keydown', this.globalKeydownHandler);
+
+    $(document).one('turbolinks:before-cache', () => {
+      $(document).off('keyup', this.globalKeyupHandler);
+      $(document).off('keydown', this.globalKeydownHandler);
+    });
   }
 
   _searchUrl(phrase) {
     return this._url(phrase, 'autocomplete');
-  }
-
-  _processResponse(response) {
-    super._processResponse(response);
-    this.$collection.children().eq(2).addClass('active');
   }
 
   _cancel() {
@@ -68,30 +147,11 @@ export default class GlobalSearch extends CollectionSearch {
     super._showAjax();
   }
 
-  _onGlobalKeypress(e) {
-    if (e.keyCode !== 47 && e.keyCode !== 191 && e.keyCode !== 27) { return; }
-
-    const target = e.target || e.srcElement;
-    const isIgnored = target.isContentEditable ||
-      target.tagName === 'INPUT' ||
-      target.tagName === 'SELECT' ||
-      target.tagName === 'TEXTAREA';
-
-    if (isIgnored) { return; }
-
-    if (e.keyCode === 27) {
-      if (this.isActive) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        this._cancel();
-      }
-    } else {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-
-      this.$input.focus();
-      this.$input[0].setSelectionRange(0, this.$input[0].value.length);
-    }
+  _selectItem(node) {
+    this.currentItem = node;
+    $(node).siblings().removeClass('active');
+    $(node).addClass('active');
   }
+
+  _changeUrl(_url) {}
 }
