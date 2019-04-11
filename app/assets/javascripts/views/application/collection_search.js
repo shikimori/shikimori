@@ -102,7 +102,9 @@ export default class CollectionSearch extends View {
     if (response.content) {
       html = response.content + (response.postloader || '');
     } else {
-      html = JST['search/nothing_found']();
+      html = Object.isEmpty(this.currentPhrase) ?
+        '' :
+        JST['search/nothing_found']();
     }
 
     this.$collection.html(html).process(response.JS_EXPORTS);
