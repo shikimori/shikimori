@@ -2,9 +2,10 @@ import CollectionSearch from './collection_search';
 
 export default class GlobalSearch extends CollectionSearch {
   initialize() {
+    super.initialize();
+
     this.isGlobalMode = true;
     this.$globalCollection = this.$root.find('.search-results');
-    super.initialize();
 
     this._bindHotkey();
   }
@@ -25,9 +26,9 @@ export default class GlobalSearch extends CollectionSearch {
   _bindHotkey() {
     this.globalKeypressHandler = this._onGlobalKeypress.bind(this);
 
-    $(document).on('keypress', this.globalKeypressHandler);
+    $(document).on('keyup', this.globalKeypressHandler);
     $(document).one('turbolinks:before-cache', () => {
-      $(document).off('keypress', this.globalKeypressHandler);
+      $(document).off('keyup', this.globalKeypressHandler);
     });
   }
 
@@ -45,8 +46,56 @@ export default class GlobalSearch extends CollectionSearch {
     return super._searchUrl(phrase);
   }
 
+  _cancel() {
+    if (this.isGlobalMode) {
+      if (Object.isEmpty(this.currentPhrase)) {
+        this._clearPhrase();
+        this.$input.blur();
+      } else {
+        this._clearPhrase();
+      }
+      this._deactivate();
+    } else {
+      super._cancel();
+    }
+  }
+
+  _activate() {
+    if (this.isGlobalMode) {
+      if (Object.isEmpty(this.currentPhrase)) {
+        this._deactivate();
+        return;
+      }
+
+      this.$globalCollection.show();
+      $('.l-top_menu-v2').addClass('is-global_search');
+    }
+
+    super._activate();
+  }
+
+  _deactivate() {
+    if (this.isGlobalMode) {
+      this.$globalCollection
+        .empty()
+        .hide();
+      $('.l-top_menu-v2').removeClass('is-global_search');
+
+      this.isActive = false;
+    } else {
+      super._deactivate();
+    }
+  }
+
+  _showAjax() {
+    if (this.isGlobalMode) {
+      this.$globalCollection.find('.b-nothing_here').remove();
+    }
+    super._showAjax();
+  }
+
   _onGlobalKeypress(e) {
-    if (e.keyCode !== 47) { return; }
+    if (e.keyCode !== 47 && e.keyCode !== 191 && e.keyCode !== 27) { return; }
 
     const target = e.target || e.srcElement;
     const isIgnored = target.isContentEditable ||
@@ -56,10 +105,19 @@ export default class GlobalSearch extends CollectionSearch {
 
     if (isIgnored) { return; }
 
-    e.preventDefault();
-    e.stopImmediatePropagation();
+    if (e.keyCode === 27) {
+      if (this.isGlobalMode && this.isActive) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
 
-    this.$input.focus();
-    this.$input[0].setSelectionRange(0, this.$input[0].value.length);
+        this._cancel();
+      }
+    } else {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+
+      this.$input.focus();
+      this.$input[0].setSelectionRange(0, this.$input[0].value.length);
+    }
   }
 }

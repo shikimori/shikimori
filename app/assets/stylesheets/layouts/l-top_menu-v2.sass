@@ -53,6 +53,13 @@ $top_menu_background_active: lighten($gray-4, 4%)
           z-index: 9
           display: block
 
+  &.is-global_search
+    & + .l-page
+
+      & + .b-shade
+        z-index: 9
+        display: block
+
   // .inner
   //   align-items: center
   //   display: flex

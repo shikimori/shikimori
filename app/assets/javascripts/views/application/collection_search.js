@@ -12,6 +12,7 @@ export default class CollectionSearch extends View {
     this.$input = this.$('.field input');
     this.$clear = this.$('.field .clear');
 
+    this.isActive = false;
     this.debouncedSearch = debounce(250, phrase => this._search(phrase));
     this.currentPhrase = this.inputSearchPhrase;
 
@@ -19,7 +20,7 @@ export default class CollectionSearch extends View {
     // @$input.focus() if @$input.is(':appeared')
 
     this.$input.on('change blur keyup paste', e => this._onChange(e));
-    this.$clear.on('click', () => this._clearPhrase());
+    this.$clear.on('click', () => this._clearPhrase(true));
   }
 
   get $collection() {
@@ -35,11 +36,7 @@ export default class CollectionSearch extends View {
     const phrase = this.inputSearchPhrase;
 
     if (keyCode === 27) {
-      if (Object.isEmpty(phrase)) {
-        this.$input.blur();
-      } else {
-        this._clearPhrase();
-      }
+      this._cancel();
       return;
     }
 
@@ -47,17 +44,37 @@ export default class CollectionSearch extends View {
 
     this.currentPhrase = phrase;
     this.debouncedSearch(phrase);
-    this._showAjax();
-
-    this.$clear.toggleClass('active', !Object.isEmpty(phrase));
+    this._activate();
   }
 
   // private functions
-  _clearPhrase() {
+  _clearPhrase(isFocus) {
     this.$input
       .val('')
-      .trigger('change')
-      .focus();
+      .trigger('change');
+
+    if (isFocus) {
+      this.$input.focus();
+    }
+  }
+
+  _cancel() {
+    if (Object.isEmpty(this.currentPhrase)) {
+      this._deactivate();
+    } else {
+      this._clearPhrase();
+    }
+  }
+
+  _activate() {
+    this._showAjax();
+    this.$clear.toggleClass('active', !Object.isEmpty(this.currentPhrase));
+    this.isActive = true;
+  }
+
+  _deactivate() {
+    this.$input.blur();
+    this.isActive = false;
   }
 
   async _search(phrase) {
