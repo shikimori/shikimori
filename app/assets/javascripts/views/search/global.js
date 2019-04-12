@@ -96,6 +96,8 @@ export default class GlobalSearch extends CollectionSearch {
 
     if (item) {
       this._selectItem(item, true);
+    } else {
+      this._deselectItems();
     }
   }
 
@@ -155,9 +157,9 @@ export default class GlobalSearch extends CollectionSearch {
 
   _selectItem(node, doScroll) {
     this.currentItem = node;
+    this._deselectItems();
 
     const $node = $(node);
-    $node.siblings().removeClass('active');
     $node.addClass('active');
 
     if (doScroll) {
@@ -165,8 +167,12 @@ export default class GlobalSearch extends CollectionSearch {
     }
   }
 
+  _deselectItems() {
+    this.$collection.find(ITEM_SELECTOR).removeClass('active');
+  }
+
   _scrollToItem($node) {
-    let didScroll = false;
+    // let didScroll = false;
 
     const nodeTop = $node.offset().top;
     const nodeHeight = $node.outerHeight();
@@ -175,14 +181,14 @@ export default class GlobalSearch extends CollectionSearch {
     const windowHeight = $(window).height();
 
     if (nodeTop < windowTop) {
-      didScroll = true;
+      // didScroll = true;
       if ($node.is(':first-child')) {
         window.scrollTo(0, 0);
       } else {
         window.scrollTo(0, nodeTop - 10);
       }
     } else if (nodeTop + nodeHeight > windowTop + windowHeight) {
-      didScroll = true;
+      // didScroll = true;
       window.scrollTo(0, windowTop + (nodeTop + nodeHeight) - (windowTop + windowHeight) + 10);
     }
 
