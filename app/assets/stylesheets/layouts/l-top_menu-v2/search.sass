@@ -38,7 +38,8 @@
       border-color: $link-4
       box-shadow: 0px 0px 4px $link-4, inset 0px 0px 1px rgba($link-4, 0.8)
 
-    &:focus ~ .hotkey-marker
+    &:focus ~ .hotkey-marker,
+    &.has-value ~ .hotkey-marker
       display: none
 
     &.has-value ~ .clear
@@ -81,6 +82,9 @@
     position: absolute
     width: 100%
     z-index: 1001
+
+    &.b-ajax:after
+      top: 26px
 
     .b-nothing_here
       color: #123
