@@ -43,9 +43,7 @@ export default class CollectionSearch extends View {
     this._phrase = trimmedValue;
 
     if (priorPhrase !== undefined) { // it is undefined in constructor
-      if (!Object.isEmpty(this.phrase)) {
-        this._activate();
-      }
+      this._activate();
       this.debouncedSearch(this._phrase);
     }
 
