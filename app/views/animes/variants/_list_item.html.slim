@@ -43,15 +43,15 @@
                 data-text=publisher.name
                 title=publisher.name
               ]
-          - unless relation_mode
-            span.b-anime_status_tag[
-              class=entry.status.downcase.gsub(' ', '_')
-              data-text=entry.status_text.downcase
-            ]
 
           - if relation_mode
             .b-anime_status_tag.other
               = t "relation.#{entry.relation}"
+          - elsif entry.status
+            .b-anime_status_tag[
+              class=entry.status.downcase.gsub(' ', '_')
+              data-text=entry.status_text.downcase
+            ]
 
     - unless relation_mode
       .line

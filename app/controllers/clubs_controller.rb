@@ -166,6 +166,8 @@ private
 
   def create_params
     params.require(:club).permit(*CREATE_PARAMS)
+  rescue ActionController::ParameterMissing
+    {}
   end
   alias new_params create_params
 

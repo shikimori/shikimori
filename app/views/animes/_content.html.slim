@@ -41,10 +41,11 @@
           - if anime.anime? && !anime.rating_none?
             .b-tag.linkeable data-href=anime.collection_url(rating: anime.rating)
               = anime.rating_text
-          span.b-anime_status_tag[
-            class=anime.status.downcase.gsub(' ', '_')
-            data-text=anime.status_text.downcase
-          ]
+          - if anime.status
+            span.b-anime_status_tag[
+              class=anime.status.downcase.gsub(' ', '_')
+              data-text=anime.status_text.downcase
+            ]
 
       - if anime.respond_to?(:studios) && anime.real_studios.any?
         = info_line i18n_io('Producer', anime.real_studios.one? ? :one : :few) do
