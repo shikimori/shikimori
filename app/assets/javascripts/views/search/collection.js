@@ -15,7 +15,7 @@ export default class CollectionSearch extends View {
     this.isActive = false;
     this.debouncedSearch = debounce(250, phrase => this._search(phrase));
 
-    this.$clear.toggleClass('active', !Object.isEmpty(this.phrase));
+    this.phrase = this.inputSearchPhrase;
 
     this.$input.on('change blur paste', () => this._onChange());
     this.$input.on('keyup', e => this._onKeyup(e));
@@ -31,20 +31,25 @@ export default class CollectionSearch extends View {
   }
 
   get phrase() {
-    if (this._phrase === undefined) {
-      this._phrase = this.inputSearchPhrase;
-    }
     return this._phrase;
   }
 
   set phrase(value) {
     const trimmedValue = value.trim();
+    const priorPhrase = this._phrase;
 
-    if (this._phrase !== trimmedValue) {
-      this._phrase = trimmedValue;
-      this._activate();
+    if (this._phrase === trimmedValue) { return; }
+
+    this._phrase = trimmedValue;
+
+    if (priorPhrase !== undefined) { // it is undefined in constructor
+      if (!Object.isEmpty(this.phrase)) {
+        this._activate();
+      }
       this.debouncedSearch(this._phrase);
     }
+
+    this.$input.toggleClass('has-value', !Object.isEmpty(this._phrase));
   }
 
   // handlers
@@ -82,7 +87,6 @@ export default class CollectionSearch extends View {
 
   _activate() {
     this._showAjax();
-    this.$clear.toggleClass('active', !Object.isEmpty(this.phrase));
     this.isActive = true;
   }
 

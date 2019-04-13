@@ -31,16 +31,18 @@
     padding: 2px 42px 0 38px
     width: 100%
 
+    +placeholder
+      color: $gray-1
+
     &:focus
       border-color: $link-4
       box-shadow: 0px 0px 4px $link-4, inset 0px 0px 1px rgba($link-4, 0.8)
 
-    +placeholder
-      color: $gray-1
+    &:focus ~ .hotkey-marker
+      display: none
 
-  input:focus ~ .hotkey-marker,
-  .clear.active + .hotkey-marker
-    display: none
+    &.has-value ~ .clear
+      display: block
 
   .hotkey-marker
     display: block
