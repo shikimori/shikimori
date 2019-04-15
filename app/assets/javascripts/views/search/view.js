@@ -1,6 +1,6 @@
 import View from 'views/application/view';
 
-// import GlobalSearch from './global';
+import AutocompleteEngine from './autocomplete_engine';
 // import CollectionSearch from './collection';
 
 import JST from 'helpers/jst';
@@ -15,7 +15,6 @@ export default class SearchView extends View {
     this.isActive = false;
     this.currentMode = this.hasCollection ? 'collection' : 'anime';
 
-    // new GlobalSearch(this.$node);
     this._bindGlobalHotkey();
 
     this.$input
@@ -25,24 +24,32 @@ export default class SearchView extends View {
     this.$('.field .clear')
       .on('click', () => this._clearPhrase(true));
 
-    this.$collection
+    this.$content
       .on('click', '.search-mode', ({ currentTarget }) => this._selectItem(currentTarget));
-  }
-
-  get inputSearchPhrase() {
-    return this.$input.val().trim();
   }
 
   get hasCollection() {
     return !!$('.b-search-results').length;
   }
 
-  get $collection() {
+  get currentMode() {
+    return this._currentMode;
+  }
+
+  set currentMode(value) {
+    this._currentMode = value;
+    this.searchEngine = new AutocompleteEngine(
+      this.$node.data(`autocomplete_${this.currentMode}_url`),
+      this.$content
+    );
+  }
+
+  get $content() {
     return this.$root.find('.search-results');
   }
 
   get $activeItem() {
-    return this.$collection.find(`${ITEM_SELECTOR}.active`);
+    return this.$content.find(ITEM_SELECTOR).filter('.active');
   }
 
   get isSearching() {
@@ -55,7 +62,7 @@ export default class SearchView extends View {
 
   set phrase(value) {
     const trimmedValue = value.trim();
-    // const priorPhrase = this._phrase;
+    const priorPhrase = this._phrase;
 
     if (this._phrase === trimmedValue) { return; }
 
@@ -64,28 +71,32 @@ export default class SearchView extends View {
       this.$input[0].value = value;
     }
 
-    // if (priorPhrase !== undefined) { // it is undefined in constructor
-    //   this._activate();
-    //   this.debouncedSearch(this._phrase);
-    // }
-
     this.$input.toggleClass('has-value', !Object.isEmpty(this._phrase));
+
+    if (priorPhrase === undefined) { return; }
+
+    if (this._phrase) { // it is undefined in constructor
+      this.searchEngine.search(this._phrase);
+      //   this._activate();
+      //   this.debouncedSearch(this._phrase);
+    } else {
+      this.searchEngine.cancel();
+      this._renderModes();
+    }
+  }
+
+  get inputSearchPhrase() {
+    return this.$input.val().trim();
   }
 
   // private functions
   _activate() {
-    console.log(this.currentMode);
     if (this.isActive) { return; }
 
     this.isActive = true;
     $('.l-top_menu-v2').addClass('is-global_search');
 
-    this.$collection.html(
-      JST['search/options']({
-        currentMode: this.currentMode,
-        hasCollection: this.hasCollection
-      })
-    );
+    this._renderModes();
   }
 
   _deactivate() {
@@ -100,6 +111,15 @@ export default class SearchView extends View {
     } else {
       this._clearPhrase();
     }
+  }
+
+  _renderModes() {
+    this.$content.html(
+      JST['search/options']({
+        currentMode: this.currentMode,
+        hasCollection: this.hasCollection
+      })
+    );
   }
 
   _clearPhrase(isFocus) {
@@ -118,7 +138,6 @@ export default class SearchView extends View {
     } else {
       this.currentMode = $(node).data('mode');
     }
-    console.log(this.currentMode);
 
     const $node = $(node);
     $node.addClass('active');
@@ -129,7 +148,7 @@ export default class SearchView extends View {
   }
 
   _deselectItems() {
-    this.$collection.find(ITEM_SELECTOR).removeClass('active');
+    this.$content.find(ITEM_SELECTOR).removeClass('active');
   }
 
   _scrollToItem($node) {
@@ -225,7 +244,7 @@ export default class SearchView extends View {
     const { $activeItem } = this;
     const item = $activeItem.length ?
       $activeItem.next()[0] :
-      this.$collection.find(ITEM_SELECTOR).first()[0];
+      this.$content.find(ITEM_SELECTOR).first()[0];
 
     if (this.isActive) {
       e.preventDefault();

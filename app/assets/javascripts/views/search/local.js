@@ -22,7 +22,7 @@ export default class LocalSearch extends View {
     this.$clear.on('click', () => this._clearPhrase(true));
   }
 
-  get $collection() {
+  get $content() {
     return $('.b-search-results');
   }
 
@@ -123,7 +123,7 @@ export default class LocalSearch extends View {
         JST['search/nothing_found']();
     }
 
-    this.$collection.html(html).process(response.JS_EXPORTS);
+    this.$content.html(html).process(response.JS_EXPORTS);
   }
 
   _searchUrl(phrase) {
@@ -148,10 +148,10 @@ export default class LocalSearch extends View {
   }
 
   _showAjax() {
-    this.$collection.addClass('b-ajax');
+    this.$content.addClass('b-ajax');
   }
 
   _hideAjax() {
-    this.$collection.removeClass('b-ajax');
+    this.$content.removeClass('b-ajax');
   }
 }
