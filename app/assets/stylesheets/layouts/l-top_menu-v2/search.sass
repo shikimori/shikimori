@@ -86,13 +86,16 @@
     &.b-ajax:after
       top: 26px
 
-    .b-nothing_here
+    .b-nothing_here,
+    .search-mode
       color: #123
       font-size: 14px
       letter-spacing: 0.25px
-      line-height: 30px
+
+    .b-nothing_here
       margin-left: 0
       margin-top: 10px
+      line-height: 30px
 
       &:before
         +shikimori('\e843')
@@ -100,32 +103,55 @@
         text-align: center
         width: 39px
 
+    .search-mode
+      cursor: pointer
+      display: flex
+      line-height: 41px
+      padding-top: 1px
+      user-select: none
+
+      &:before
+        margin-right: 15px !important
+
+      &.active:before
+        margin-top: 5px
+        margin-bottom: 5px
+
     .b-db_entry-variant-list_item
-      border-top-style: solid
+      padding-bottom: 10px
+
+      &:first-child
+        padding-top: 10px
+
+    .b-db_entry-variant-list_item,
+    .search-mode
       border-top: 1px solid rgba($link-4, 0.2)
       margin-bottom: 0
-      padding-bottom: 10px
-      padding-left: 25px
+
+      &:before
+        content: ''
+        display: block
+        margin: 3px 10px
+        width: 5px
 
       &.active
         background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.01);
-        padding-left: 0
         cursor: pointer
         border-top: 1px solid $link-3
 
-        & + .b-db_entry-variant-list_item
+        & + .b-db_entry-variant-list_item,
+        & + .search-mode
           border-top: 1px solid $link-3
 
         &:before
           background: $link-2
-          content: ''
-          display: block
-          margin: 3px 10px
-          width: 5px
 
+      // must be after &.active
       &:first-child
         border-top: none
-        padding-top: 10px
+
+.l-top_menu-v2.is-global_search .search-results
+  display: block
 
 .l-top_menu-v2.is-submenu .global-search
   display: block

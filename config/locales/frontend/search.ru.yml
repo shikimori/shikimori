@@ -2,3 +2,10 @@ ru:
   frontend:
     search:
       nothing_found: Ничего не найдено.
+      mode:
+        collection: На этой странице
+        anime: Аниме
+        manga: Манга
+        ranobe: Ранобэ
+        character: Персонаж
+        person: Человек
