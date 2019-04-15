@@ -94,7 +94,6 @@
     .nothing_found,
     .search-mode
       color: #123
-      cursor: pointer
       display: flex
       font-size: 13px
       letter-spacing: 0.25px
@@ -129,7 +128,6 @@
 
       &.active
         background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.01);
-        cursor: pointer
         border-top: 1px solid $link-3
 
         & + .b-db_entry-variant-list_item,
@@ -142,6 +140,10 @@
       // must be after &.active
       &:first-child
         border-top: none
+
+    .b-db_entry-variant-list_item
+      &.active
+        cursor: pointer
 
 .l-top_menu-v2.is-global_search .search-results
   display: block

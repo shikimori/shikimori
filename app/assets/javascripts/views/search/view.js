@@ -5,7 +5,8 @@ import AutocompleteEngine from './autocomplete_engine';
 
 import JST from 'helpers/jst';
 
-const ITEM_SELECTOR = '.b-db_entry-variant-list_item, .search-mode';
+const VARIANT_SELECTOR = '.b-db_entry-variant-list_item';
+const ITEM_SELECTOR = `${VARIANT_SELECTOR}, .search-mode`;
 
 export default class SearchView extends View {
   initialize() {
@@ -25,7 +26,16 @@ export default class SearchView extends View {
       .on('click', () => this._clearPhrase(true));
 
     this.$content
-      .on('click', '.search-mode', ({ currentTarget }) => this._selectItem(currentTarget));
+      .on('click', '.search-mode', ({ currentTarget }) => {
+        this._selectItem(currentTarget);
+        this.$input.focus();
+      })
+      .on('mousemove', VARIANT_SELECTOR, ({ currentTarget }) => {
+        // better than mouseover cause it does not trigger after keyboard scroll
+        if (this.currentItem !== currentTarget) {
+          this._selectItem(currentTarget, false);
+        }
+      });
   }
 
   get hasCollection() {
