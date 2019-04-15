@@ -78,34 +78,26 @@
     background-color: #fff
     display: none
     margin-top: 8px
-    min-height: 50px
+    min-height: 42px
     position: absolute
     width: 100%
     z-index: 1001
 
     &.b-ajax:after
-      top: 26px
+      display: none
 
-    .b-nothing_here,
+    .nothing_found:before
+      background: $red-check
+      margin-top: 5px !important
+      margin-bottom: 5px !important
+
+    .nothing_found,
     .search-mode
       color: #123
-      font-size: 13px
-      letter-spacing: 0.25px
-
-    .b-nothing_here
-      margin-left: 0
-      margin-top: 10px
-      line-height: 30px
-
-      &:before
-        +shikimori('\e843')
-        display: inline-block
-        text-align: center
-        width: 39px
-
-    .search-mode
       cursor: pointer
       display: flex
+      font-size: 13px
+      letter-spacing: 0.25px
       line-height: 41px
       padding-top: 1px
       user-select: none
@@ -123,6 +115,7 @@
       &:first-child
         padding-top: 10px
 
+    .nothing_found,
     .b-db_entry-variant-list_item,
     .search-mode
       border-top: 1px solid rgba($link-4, 0.2)

@@ -1,1 +1,4 @@
-.b-nothing_here= I18n.t('frontend.search.nothing_found')
+if isAutocomplete
+  .nothing_found= I18n.t('frontend.search.nothing_found')
+else
+  .b-nothing_here= I18n.t('frontend.search.nothing_found')

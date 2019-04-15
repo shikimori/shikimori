@@ -120,7 +120,7 @@ export default class CollectionSearch extends View {
     } else {
       html = Object.isEmpty(this.phrase) ?
         '' :
-        JST['search/nothing_found']();
+        JST['search/nothing_found']({ isAutocomplete: false });
     }
 
     this.$collection.html(html).process(response.JS_EXPORTS);

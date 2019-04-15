@@ -63,7 +63,7 @@ export default class AutocompleteEngine {
     } else {
       html = Object.isEmpty(this.phrase) ?
         '' :
-        JST['search/nothing_found']();
+        JST['search/nothing_found']({ isAutocomplete: true });
     }
 
     this.$content.html(html).process(response.JS_EXPORTS);
