@@ -3,7 +3,7 @@ ru:
     search:
       nothing_found: Ничего не найдено.
       mode:
-        collection: На этой странице
+        index: Каталог
         anime: Аниме
         manga: Манга
         ranobe: Ранобэ

@@ -1,8 +1,8 @@
 if hasCollection
   .search-mode(
-    class=(currentMode === 'collection' ? 'active' : '')
-    data-mode='collection'
-  )= I18n.t('frontend.search.mode.collection')
+    class=(currentMode === 'index' ? 'active' : '')
+    data-mode='index'
+  )= I18n.t('frontend.search.mode.index')
 each mode in ['anime', 'manga', 'ranobe', 'character', 'person']
   .search-mode(
     class=(currentMode === mode ? 'active' : '')

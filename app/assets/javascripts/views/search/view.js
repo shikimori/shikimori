@@ -1,7 +1,7 @@
 import View from 'views/application/view';
 
 import AutocompleteEngine from './autocomplete_engine';
-// import CollectionSearch from './collection';
+import IndexEngine from './index_engine';
 
 import JST from 'helpers/jst';
 
@@ -14,7 +14,7 @@ export default class SearchView extends View {
 
     this.phrase = this.inputSearchPhrase;
     this.isActive = false;
-    this.currentMode = this.hasCollection ? 'collection' : 'anime';
+    this.currentMode = this.hasCollection ? 'index' : 'anime';
 
     this._bindGlobalHotkey();
 
@@ -48,10 +48,15 @@ export default class SearchView extends View {
 
   set currentMode(value) {
     this._currentMode = value;
-    this.searchEngine = new AutocompleteEngine(
-      this.$node.data(`autocomplete_${this.currentMode}_url`),
-      this.$content
-    );
+
+    if (this.currentMode === 'index') {
+      this.searchEngine = new IndexEngine();
+    } else {
+      this.searchEngine = new AutocompleteEngine(
+        this.$node.data(`autocomplete_${this.currentMode}_url`),
+        this.$content
+      );
+    }
   }
 
   get $content() {
@@ -81,14 +86,14 @@ export default class SearchView extends View {
       this.$input[0].value = value;
     }
 
-    this.$input.toggleClass('has-value', !Object.isEmpty(this._phrase));
+    this.$input.toggleClass('has-value', !Object.isEmpty(this.phrase));
 
     if (priorPhrase === undefined) { return; }
 
-    if (this._phrase) { // it is undefined in constructor
-      this.searchEngine.search(this._phrase);
+    if (this.phrase) { // it is undefined in constructor
+      this.searchEngine.search(this.phrase);
       //   this._activate();
-      //   this.debouncedSearch(this._phrase);
+      //   this.debouncedSearch(this.phrase);
     } else {
       this.searchEngine.cancel();
       this._renderModes();

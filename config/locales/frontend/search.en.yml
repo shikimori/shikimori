@@ -3,7 +3,7 @@ en:
     search:
       nothing_found: Nothing found.
       mode:
-        collection: On this page
+        index: Index
         anime: Anime
         manga: Manga
         ranobe: Ranobe
