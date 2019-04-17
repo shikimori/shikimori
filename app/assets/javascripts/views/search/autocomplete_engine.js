@@ -22,7 +22,7 @@ export default class AutocompleteEngine extends IndexEngine {
 
     if (!Object.isEmpty(this.phrase)) {
       this._showAjax();
-      this._debouncedSearch(this.phrase);
+      this.debouncedSearch(this.phrase);
     }
   }
 

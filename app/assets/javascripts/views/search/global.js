@@ -14,13 +14,14 @@ export default class GlobalSearch extends View {
 
     this.phrase = this.inputSearchPhrase;
     this.isActive = false;
-    this.currentMode = this.hasCollection ? 'index' : 'anime';
+    this.currentMode = this.hasIndex ? 'index' : 'anime';
 
     this._bindGlobalHotkey();
 
     this.$input
       .on('focus', () => this._activate())
-      .on('change blur paste keyup', () => this.phrase = this.inputSearchPhrase);
+      .on('change blur paste keyup', () => this.phrase = this.inputSearchPhrase)
+      .on('blur', () => (this.isIndexMode ? this._deactivate() : undefined));
 
     this.$('.field .clear')
       .on('click', () => this._clearPhrase(true));
@@ -38,7 +39,7 @@ export default class GlobalSearch extends View {
       });
   }
 
-  get hasCollection() {
+  get hasIndex() {
     return !!$('.b-search-results').length;
   }
 
@@ -118,28 +119,39 @@ export default class GlobalSearch extends View {
     this._toggleGlobalSearch();
 
     this._renderModes();
+
+    this._bindedDeactivate = this._deactivate.bind(this);
+    $('.b-shade').on('click', this._bindedDeactivate);
   }
 
   _deactivate() {
+    if (!this.isActive) { return; }
+
     this.isActive = false;
     this._toggleGlobalSearch();
 
-    this.$input.blur();
+    if (this.$input.is(':focus')) {
+      this.$input.blur();
+    }
+
+    $('.b-shade').off('click', this._bindedDeactivate);
   }
 
   _cancel() {
-    if (Object.isEmpty(this.phrase)) {
-      this._deactivate();
-    } else {
-      this._clearPhrase();
-    }
+    this._deactivate();
+
+    // if (Object.isEmpty(this.phrase)) {
+    //   this._deactivate();
+    // } else {
+    //   this._clearPhrase();
+    // }
   }
 
   _renderModes() {
     this.$content.html(
       JST['search/options']({
         currentMode: this.currentMode,
-        hasCollection: this.hasCollection
+        hasIndex: this.hasIndex
       })
     );
   }
