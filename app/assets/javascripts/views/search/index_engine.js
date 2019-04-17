@@ -9,18 +9,14 @@ import JST from 'helpers/jst';
 export default class IndexEngine {
   constructor() {
     this.isAutocomplete = false;
-    this.phrase = undefined;
+    this._debouncedSearch = debounce(250, v => this._search(v));
   }
 
   cancel() {
-    this.phrase = undefined;
+    this.phrase = '';
   }
 
   search(phrase) {
-    if (this._debouncedSearch === undefined) {
-      this._debouncedSearch = debounce(250, v => this._search(v));
-    }
-
     this.phrase = phrase;
   }
 
@@ -35,9 +31,9 @@ export default class IndexEngine {
   set phrase(value) {
     this._phrase = value;
 
-    if (!Object.isEmpty(this._phrase)) {
+    if (this.phrase !== undefined) {
       this._showAjax();
-      this._debouncedSearch(this._phrase);
+      this._debouncedSearch(this.phrase);
     }
   }
 

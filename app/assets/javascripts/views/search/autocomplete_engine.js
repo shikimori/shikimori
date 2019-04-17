@@ -13,6 +13,19 @@ export default class AutocompleteEngine extends IndexEngine {
     return this._$content;
   }
 
+  get phrase() {
+    return this._phrase;
+  }
+
+  set phrase(value) {
+    this._phrase = value;
+
+    if (!Object.isEmpty(this.phrase)) {
+      this._showAjax();
+      this._debouncedSearch(this.phrase);
+    }
+  }
+
   _searchUrl(phrase) {
     return this._url(this.fetchUrl, phrase);
   }
