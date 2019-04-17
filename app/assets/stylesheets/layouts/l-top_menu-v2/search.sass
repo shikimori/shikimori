@@ -105,6 +105,7 @@
       &:before
         margin-right: 15px !important
 
+      &:active:before,
       &.active:before
         margin-top: 5px
         margin-bottom: 5px
@@ -115,11 +116,18 @@
       &:first-child
         padding-top: 10px
 
+      &.active
+        cursor: pointer
+
     .nothing_found,
     .b-db_entry-variant-list_item,
     .search-mode
+      transition: border-top 0.2s ease, background 0.2s ease
       border-top: 1px solid rgba($link-4, 0.2)
       margin-bottom: 0
+
+      &:first-child
+        border-top: none !important
 
       &:before
         content: ''
@@ -138,13 +146,18 @@
         &:before
           background: $link-2
 
-      // must be after &.active
-      &:first-child
-        border-top: none
-
+    .search-mode,
     .b-db_entry-variant-list_item
-      &.active
-        cursor: pointer
+      &:active
+        border-top: 1px solid $link-2
+        background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.1)
+
+        &:before
+          background: darken($link-2, 5%)
+
+        & + .b-db_entry-variant-list_item,
+        & + .search-mode
+          border-top: 1px solid $link-2
 
 .l-top_menu-v2.is-global_search .search-results
   display: block
