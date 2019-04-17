@@ -46,10 +46,14 @@ export default class SearchView extends View {
     return this._currentMode;
   }
 
+  get isIndexMode() {
+    return this.currentMode === 'index';
+  }
+
   set currentMode(value) {
     this._currentMode = value;
 
-    if (this.currentMode === 'index') {
+    if (this.isIndexMode) {
       this.searchEngine = new IndexEngine();
     } else {
       this.searchEngine = new AutocompleteEngine(
@@ -98,6 +102,8 @@ export default class SearchView extends View {
       this.searchEngine.cancel();
       this._renderModes();
     }
+
+    this._toggleGlobalSearch();
   }
 
   get inputSearchPhrase() {
@@ -109,14 +115,15 @@ export default class SearchView extends View {
     if (this.isActive) { return; }
 
     this.isActive = true;
-    $('.l-top_menu-v2').addClass('is-global_search');
+    this._toggleGlobalSearch();
 
     this._renderModes();
   }
 
   _deactivate() {
     this.isActive = false;
-    $('.l-top_menu-v2').removeClass('is-global_search');
+    this._toggleGlobalSearch();
+
     this.$input.blur();
   }
 
@@ -200,6 +207,15 @@ export default class SearchView extends View {
     //   }
     //   this.debouncedEnableMouseEvents();
     // }
+  }
+
+  _toggleGlobalSearch() {
+    const isEnabled = this.isActive && (
+      !this.isIndexMode ||
+        (this.isIndexMode && Object.isEmpty(this.phrase))
+    );
+
+    $('.l-top_menu-v2').toggleClass('is-global_search', isEnabled);
   }
 
   // global hotkeys
