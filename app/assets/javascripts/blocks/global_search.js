@@ -1,9 +1,9 @@
-import Search from 'views/search/view';
+import GlobalSearch from 'views/search/global';
 
 $(document).on('turbolinks:load', () => {
   const $search = $('.l-top_menu-v2 .global-search');
 
   if ($search.length) {
-    new Search($search);
+    new GlobalSearch($search);
   }
 });

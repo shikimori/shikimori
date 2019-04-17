@@ -1,117 +1,165 @@
-// import { debounce } from 'throttle-debounce';
+import View from 'views/application/view';
 
-import LocalSearch from './local';
+import AutocompleteEngine from './autocomplete_engine';
+import IndexEngine from './index_engine';
 
-const ITEM_SELECTOR = '.b-db_entry-variant-list_item';
+import JST from 'helpers/jst';
 
-export default class GlobalSearch extends LocalSearch {
+const VARIANT_SELECTOR = '.b-db_entry-variant-list_item';
+const ITEM_SELECTOR = `${VARIANT_SELECTOR}, .search-mode`;
+
+export default class GlobalSearch extends View {
   initialize() {
-    super.initialize();
+    this.$input = this.$('.field input');
 
-    this.currentItem = null;
+    this.phrase = this.inputSearchPhrase;
+    this.isActive = false;
+    this.currentMode = this.hasCollection ? 'index' : 'anime';
+
     this._bindGlobalHotkey();
 
-    this.$collection.on('mousemove', ITEM_SELECTOR, ({ currentTarget }) => {
-      // better than mouseover cause it does not trigger after keyboard scroll
-      if (this.currentItem !== currentTarget) {
-        this._selectItem(currentTarget, false);
-      }
-    });
+    this.$input
+      .on('focus', () => this._activate())
+      .on('change blur paste keyup', () => this.phrase = this.inputSearchPhrase);
+
+    this.$('.field .clear')
+      .on('click', () => this._clearPhrase(true));
+
+    this.$content
+      .on('click', '.search-mode', ({ currentTarget }) => {
+        this._selectItem(currentTarget);
+        this.$input.focus();
+      })
+      .on('mousemove', VARIANT_SELECTOR, ({ currentTarget }) => {
+        // better than mouseover cause it does not trigger after keyboard scroll
+        if (this.currentItem !== currentTarget) {
+          this._selectItem(currentTarget, false);
+        }
+      });
   }
 
-  get $collection() {
+  get hasCollection() {
+    return !!$('.b-search-results').length;
+  }
+
+  get currentMode() {
+    return this._currentMode;
+  }
+
+  get isIndexMode() {
+    return this.currentMode === 'index';
+  }
+
+  set currentMode(value) {
+    this._currentMode = value;
+
+    if (this.isIndexMode) {
+      this.searchEngine = new IndexEngine();
+    } else {
+      this.searchEngine = new AutocompleteEngine(
+        this.$node.data(`autocomplete_${this.currentMode}_url`),
+        this.$content
+      );
+    }
+  }
+
+  get $content() {
     return this.$root.find('.search-results');
   }
 
   get $activeItem() {
-    return this.$collection.find(`${ITEM_SELECTOR}.active`);
+    return this.$content.find(ITEM_SELECTOR).filter('.active');
   }
 
-  // handlers
-  _onGlobalEsc(e) {
-    if (!this.isActive) { return; }
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-
-    this._cancel();
+  get isSearching() {
+    return !Object.isEmpty(this.phrase);
   }
 
-  _onGlobalDown(e) {
-    const { $activeItem } = this;
-    const item = $activeItem.length ?
-      $activeItem.next()[0] :
-      this.$collection.find(ITEM_SELECTOR).first()[0];
-
-    if (this.isActive) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-
-    if (item) {
-      this._selectItem(item, true);
-    }
+  get phrase() {
+    return this._phrase;
   }
 
-  _onGlobalUp(e) {
-    const { $activeItem } = this;
-    const item = $activeItem.prev()[0];
+  set phrase(value) {
+    const trimmedValue = value.trim();
+    const priorPhrase = this._phrase;
 
-    if (this.isActive) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
+    if (this._phrase === trimmedValue) { return; }
+
+    this._phrase = trimmedValue;
+    if (this.$input[0].value !== value) {
+      this.$input[0].value = value;
     }
 
-    if (item) {
-      this._selectItem(item, true);
+    this.$input.toggleClass('has-value', !Object.isEmpty(this.phrase));
+
+    if (priorPhrase === undefined) { return; }
+
+    if (this.phrase) { // it is undefined in constructor
+      this.searchEngine.search(this.phrase);
+      //   this._activate();
+      //   this.debouncedSearch(this.phrase);
     } else {
-      this._deselectItems();
+      this.searchEngine.cancel();
+      this._renderModes();
     }
+
+    this._toggleGlobalSearch();
+  }
+
+  get inputSearchPhrase() {
+    return this.$input.val().trim();
   }
 
   // private functions
-  _searchUrl(phrase) {
-    return this._url(phrase, 'autocomplete');
+  _activate() {
+    if (this.isActive) { return; }
+
+    this.isActive = true;
+    this._toggleGlobalSearch();
+
+    this._renderModes();
+  }
+
+  _deactivate() {
+    this.isActive = false;
+    this._toggleGlobalSearch();
+
+    this.$input.blur();
   }
 
   _cancel() {
     if (Object.isEmpty(this.phrase)) {
-      this.$input.blur();
+      this._deactivate();
     } else {
       this._clearPhrase();
     }
-    this._deactivate();
   }
 
-  _activate() {
-    if (Object.isEmpty(this.phrase)) {
-      this._deactivate();
-      return;
+  _renderModes() {
+    this.$content.html(
+      JST['search/options']({
+        currentMode: this.currentMode,
+        hasCollection: this.hasCollection
+      })
+    );
+  }
+
+  _clearPhrase(isFocus) {
+    this.phrase = '';
+
+    if (isFocus) {
+      this.$input.focus();
     }
-
-    this.$collection.show();
-    $('.l-top_menu-v2').addClass('is-global_search');
-
-    super._activate();
-  }
-
-  _deactivate() {
-    this.$collection
-      .empty()
-      .hide();
-    $('.l-top_menu-v2').removeClass('is-global_search');
-
-    this.isActive = false;
-  }
-
-  _showAjax() {
-    this.$collection.find('.b-nothing_here').remove();
-    super._showAjax();
   }
 
   _selectItem(node, doScroll) {
-    this.currentItem = node;
     this._deselectItems();
+
+    if (this.isSearching) {
+      this.currentItem = node;
+    } else {
+      this.currentMode = $(node).data('mode');
+    }
 
     const $node = $(node);
     $node.addClass('active');
@@ -122,7 +170,7 @@ export default class GlobalSearch extends LocalSearch {
   }
 
   _deselectItems() {
-    this.$collection.find(ITEM_SELECTOR).removeClass('active');
+    this.$content.find(ITEM_SELECTOR).removeClass('active');
   }
 
   _scrollToItem($node) {
@@ -161,5 +209,97 @@ export default class GlobalSearch extends LocalSearch {
     // }
   }
 
-  _changeUrl(_url) {}
+  _toggleGlobalSearch() {
+    const isEnabled = this.isActive && (
+      !this.isIndexMode ||
+        (this.isIndexMode && Object.isEmpty(this.phrase))
+    );
+
+    $('.l-top_menu-v2').toggleClass('is-global_search', isEnabled);
+  }
+
+  // global hotkeys
+  _bindGlobalHotkey() {
+    this.globalKeyupHandler = this._onGlobalKeyup.bind(this);
+    this.globalKeydownHandler = this._onGlobalKeydown.bind(this);
+
+    $(document).on('keyup', this.globalKeyupHandler);
+    $(document).on('keydown', this.globalKeydownHandler);
+
+    $(document).one('turbolinks:before-cache', () => {
+      $(document).off('keyup', this.globalKeyupHandler);
+      $(document).off('keydown', this.globalKeydownHandler);
+    });
+  }
+
+  _onGlobalKeyup(e) {
+    if (e.keyCode === 27) {
+      this._onGlobalEsc(e);
+    } else if (e.keyCode === 47 || e.keyCode === 191) {
+      this._onGlobalSlash(e);
+    }
+  }
+
+  _onGlobalKeydown(e) {
+    if (e.keyCode === 40) {
+      this._onGlobalDown(e);
+    } else if (e.keyCode === 38) {
+      this._onGlobalUp(e);
+    }
+  }
+
+  _onGlobalSlash(e) {
+    const target = e.target || e.srcElement;
+    const isIgnored = target.isContentEditable ||
+      target.tagName === 'INPUT' ||
+      target.tagName === 'SELECT' ||
+      target.tagName === 'TEXTAREA';
+
+    if (isIgnored) { return; }
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    this.$input.focus();
+    this.$input[0].setSelectionRange(0, this.$input[0].value.length);
+  }
+
+  _onGlobalEsc(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    this._cancel();
+  }
+
+  _onGlobalDown(e) {
+    const { $activeItem } = this;
+    const item = $activeItem.length ?
+      $activeItem.next()[0] :
+      this.$content.find(ITEM_SELECTOR).first()[0];
+
+    if (this.isActive) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+
+    if (item) {
+      this._selectItem(item, true);
+    }
+  }
+
+  _onGlobalUp(e) {
+    const { $activeItem } = this;
+    const item = $activeItem.prev()[0];
+
+    if (this.isActive) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+
+    if (item) {
+      this._selectItem(item, true);
+    } else if (this.isSearching) {
+      this._deselectItems();
+    }
+  }
 }
