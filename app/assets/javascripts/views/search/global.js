@@ -20,8 +20,7 @@ export default class GlobalSearch extends View {
 
     this.$input
       .on('focus', () => this._activate())
-      .on('change blur paste keyup', () => this.phrase = this.inputSearchPhrase)
-      .on('blur', () => (this.isIndexMode ? this._deactivate() : undefined));
+      .on('change blur paste keyup', () => this.phrase = this.inputSearchPhrase);
 
     this.$('.field .clear')
       .on('click', () => this._clearPhrase(true));
@@ -119,9 +118,6 @@ export default class GlobalSearch extends View {
     this._toggleGlobalSearch();
 
     this._renderModes();
-
-    this._bindedDeactivate = this._deactivate.bind(this);
-    $('.b-shade').on('click', this._bindedDeactivate);
   }
 
   _deactivate() {
@@ -133,8 +129,6 @@ export default class GlobalSearch extends View {
     if (this.$input.is(':focus')) {
       this.$input.blur();
     }
-
-    $('.b-shade').off('click', this._bindedDeactivate);
   }
 
   _cancel() {
@@ -228,6 +222,14 @@ export default class GlobalSearch extends View {
     );
 
     $('.l-top_menu-v2').toggleClass('is-global_search', isEnabled);
+
+    if (!this._bindedDeactivate) {
+      this._bindedDeactivate = this._deactivate.bind(this);
+    }
+    $('.b-shade').off('click', this._bindedDeactivate);
+    if (isEnabled) {
+      $('.b-shade').on('click', this._bindedDeactivate);
+    }
   }
 
   // global hotkeys
