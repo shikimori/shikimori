@@ -13,7 +13,8 @@
 
   input
     border-radius: 2px
-    border: 1px solid rgba(#acb1b4, 0.4)
+    border: 1px solid transparent
+    // border: 1px solid rgba(#acb1b4, 0.4)
     color: #123
     line-height: 28px
     padding: 2px 42px 0 38px
@@ -22,9 +23,9 @@
     +placeholder
       color: $gray-1
 
-    &:focus
-      border-color: $link-4
-      box-shadow: 0px 0px 4px $link-4, inset 0px 0px 1px rgba($link-4, 0.8)
+    // &:focus
+    //   border-color: $link-4
+    //   box-shadow: 0px 0px 4px $link-4, inset 0px 0px 1px rgba($link-4, 0.8)
 
     &:focus ~ .hotkey-marker,
     &.has-value ~ .hotkey-marker
