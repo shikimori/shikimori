@@ -1,8 +1,10 @@
 =top_menu_icon($content)
-  +icon($content, 20px)
+  cursor: pointer
   line-height: inherit !important
 
   &:before
+    +shikimori($content)
+    font-size: 20px
     line-height: $top_menu-height
     vertical-align: middle
 
