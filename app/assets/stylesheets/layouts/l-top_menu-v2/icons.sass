@@ -45,6 +45,12 @@
     &.search
       +top_menu_icon('s')
 
+    +lte_ipad
+      &.trigger,
+      &.search
+        &:before
+          font-size: 25px
+
   .icon-anime,
   .icon-manga,
   .icon-ranobe
@@ -164,9 +170,6 @@
 
   .icon-faq
     +submenu_icon('?')
-
-  .icon-sign_out
-    +submenu_icon('q', 15px)
 
   .icon-people
     +submenu_icon('\e849')
