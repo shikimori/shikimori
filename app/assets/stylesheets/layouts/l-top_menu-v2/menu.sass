@@ -1,6 +1,6 @@
 .l-top_menu-v2
   .menu-icon,
-  .menu-dropdown > a
+  .menu-dropdown > button
     align-items: center
     color: inherit
     display: flex
@@ -45,7 +45,7 @@
       background: lighten($top_menu-background_color, 4%)
       position: relative // it needs to make .submenu width equal to .menu-dropdown width
 
-    & > a
+    & > button
       +ellipsis2
 
       & > span
@@ -59,17 +59,19 @@
         +iphone
           display: none
 
-      &:after
-        +shikimori('\e846')
-        font-size: 16px
-        line-height: 20px
-        margin-left: auto
-        transition: transform .2s ease-in-out
-        vertical-align: middle
+    +gte_ipad
+      & > button
+        &:after
+          +shikimori('\e846')
+          font-size: 16px
+          line-height: 20px
+          margin-left: auto
+          transition: transform .2s ease-in-out
+          vertical-align: middle
 
-        +iphone
-          display: none
+          +iphone
+            display: none
 
-    &.active
-      & > a:after
-        transform: rotate(90deg)
+        &.active
+          & > button:after
+            transform: rotate(90deg)

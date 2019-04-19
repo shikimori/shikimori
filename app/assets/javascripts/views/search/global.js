@@ -221,7 +221,7 @@ export default class GlobalSearch extends View {
         (this.isIndexMode && Object.isEmpty(this.phrase))
     );
 
-    $('.l-top_menu-v2').toggleClass('is-global_search', isEnabled);
+    $('.l-top_menu-v2').toggleClass('is-global-search', isEnabled);
 
     if (!this._bindedDeactivate) {
       this._bindedDeactivate = this._deactivate.bind(this);

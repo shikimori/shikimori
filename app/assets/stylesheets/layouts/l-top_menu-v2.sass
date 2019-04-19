@@ -53,24 +53,12 @@ $top_menu_background_active: lighten($gray-4, 4%)
           z-index: 9
           display: block
 
-  &.is-global_search
+  &.is-global-search
     & + .l-page
 
       & + .b-shade
         z-index: 9
         display: block
-
-  // .inner
-  //   align-items: center
-  //   display: flex
-  //   margin: 0 auto
-  //   position: relative
-
-  //   .x1200 &
-  //     max-width: 1200px
-
-  //   .x1000 &
-  //     max-width: 1000px
 
   .logo-container
     align-items: center
@@ -111,7 +99,7 @@ $top_menu_background_active: lighten($gray-4, 4%)
       +gte_ipad
         margin-right: 25px
 
-      & > a
+      & > button:not(.mobile)
         padding-left: 0
         pointer-events: none
 
@@ -129,7 +117,7 @@ $top_menu_background_active: lighten($gray-4, 4%)
       +gte_ipad
         margin-left: auto
 
-      & > a
+      & > button
         +gte_ipad
           min-width: 180px
           max-width: 250px

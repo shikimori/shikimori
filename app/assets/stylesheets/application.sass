@@ -72,7 +72,9 @@ em
 strong, b
   font-weight: bold
 
-input, select, button, textarea
+input,
+select,
+textarea
   border: 1px solid #999999
   font-family: $font-family
   outline: none
@@ -96,11 +98,21 @@ select
 
 textarea
   line-height: $line_height
+
 input[type=radio]
   border: none
-textarea, input[type=submit], input[type=text], input[type=email], input[type=number]
+
+button,
+textarea,
+input[type=submit],
+input[type=text],
+input[type=email],
+input[type=number]
   -webkit-appearance: none
   -webkit-border-radius: 0px
+
+button
+  background: transparent
 
 li
   list-style: none outside none
@@ -108,8 +120,9 @@ li
 p.flash-notice, p.flash-alert
   display: none
 
-::selection, ::-moz-selection
-  background: #FFCC89
+::selection,
+::-moz-selection
+  background: #ffcc89
   color: #555
 
 hr

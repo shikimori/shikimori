@@ -2,26 +2,14 @@
 
 .l-top_menu-v2 .global-search
   color: #123
-  margin-right: 10px
-  position: relative
   width: 100%
 
   +iphone
     display: none
 
-  &,
-  .clear
-    &:before
-      font-size: 20px
-      height: 32px
-      line-height: 32px
-      position: absolute
-      text-align: center
-      top: 0
-
-    &:before
-      +shikimori('s')
-      width: 42px
+  +gte_ipad
+    margin-right: 10px
+    position: relative
 
   input
     border-radius: 2px
@@ -48,6 +36,9 @@
   .hotkey-marker
     display: block
 
+    +iphone
+      display: none
+
     &:before
       border-radius: 3px
       border: 1px solid $gray-1
@@ -62,18 +53,32 @@
       top: 5px
       width: 18px
 
+  label.field:before
+    +shikimori('s')
+    width: 42px
+
+  label.field:before,
   .clear
-    +link(#333)
+    font-size: 20px
+    height: 32px
+    line-height: 32px
+    position: absolute
+    text-align: center
+    top: 0
+
+  .clear
     display: none
+    height: 32px
+    right: 0
+    width: 38px
 
     &.active
       display: block
 
     &:before
+      +link(#333)
       +shikimori('\e828')
       font-size: 23px
-      right: 0
-      width: 38px
 
   .search-results
     background-color: #fff
@@ -159,5 +164,29 @@
         & + .search-mode
           border-top: 1px solid $link-2
 
-.l-top_menu-v2.is-global_search .search-results
+.l-top_menu-v2.is-global-search .search-results
   display: block
+
+.l-top_menu-v2.is-mobile-search
+  // border-bottom-color: $top_menu-background_color
+  // border-bottom-color: $top_menu_background_hover
+
+  .global-search
+    // background: $top_menu-background_color
+    background: $top_menu_background_hover
+    display: block
+    padding: 18px 0
+    position: absolute
+    top: 47px
+
+    label.field
+      display: block
+      padding: 0 10px
+      position: relative
+
+    .search-results
+      margin-top: 18px
+
+    .clear
+      display: block
+      right: 10px

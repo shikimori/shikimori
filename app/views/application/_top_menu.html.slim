@@ -15,8 +15,8 @@
       .logo
 
   .menu-dropdown.main
-    .menu-icon.trigger.mobile
-    a[
+    button.menu-icon.trigger.mobile
+    button[
       class="icon-#{@top_menu.current_item.data[:name]}"
     ]
       - if @top_menu.current_item.data[:image_url]
@@ -54,7 +54,7 @@
       placeholder=t('search.search')
       value=params[:search]
     ]
-    .clear
+    button.clear
     .hotkey-marker
   .search-results
 
@@ -117,7 +117,7 @@ a.menu-icon.forum[
       / = [99, current_user.unread_count].min
 
   .menu-dropdown.profile
-    a
+    button
       img[
         src=current_user.avatar_url(48)
         srcset="#{current_user.avatar_url 80} 2x"
