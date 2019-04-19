@@ -1,4 +1,15 @@
+import GlobalSearch from 'views/search/global';
+
+let search;
+
 $(document).on('turbolinks:load', () => {
+  const $search = $('.l-top_menu-v2 .global-search');
+
+  if ($search.length) {
+    search = new GlobalSearch($search);
+  }
+  $search.find('.clear').on('click', hideMobileSearch);
+
   // desktop menu
   const $triggers = $('.l-top_menu-v2 .submenu').parent();
   $triggers.each((_index, node) => {
@@ -24,7 +35,7 @@ $(document).on('turbolinks:load', () => {
           $trigger.addClass('active');
           $('.l-top_menu-v2').addClass('is-submenu');
 
-          hideSearch();
+          hideMobileSearch();
         },
         hide: () => {
           $menu.css({ height: 0, borderTopWidth: 0, borderBottomWidth: 0 });
@@ -40,12 +51,8 @@ $(document).on('turbolinks:load', () => {
     $('.l-top_menu-v2').toggleClass('is-mobile-search');
 
     if (currentTarget.classList.contains('active')) {
-      $('.l-top_menu-v2 .global-search input').focus();
+      $search.find('input').focus();
     }
-  });
-
-  $('.l-top_menu-v2 .global-search .clear').on('click', () => {
-    hideSearch();
   });
 });
 
@@ -54,6 +61,10 @@ $(document).on('turbolinks:before-cache', () => {
   $('.l-top_menu-v2 .submenu').prop('style', false);
 });
 
-function hideSearch() {
-  $('.l-top_menu-v2.is-mobile-search .search.mobile').click();
+function hideMobileSearch() {
+  const $activeSearch = $('.l-top_menu-v2.is-mobile-search .search.mobile');
+  if ($activeSearch.length) {
+    $activeSearch.click();
+    search.cancel();
+  }
 }

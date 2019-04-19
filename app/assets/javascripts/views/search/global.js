@@ -110,6 +110,16 @@ export default class GlobalSearch extends View {
     return this.$input.val().trim();
   }
 
+  cancel() {
+    this._deactivate();
+
+    // if (Object.isEmpty(this.phrase)) {
+    //   this._deactivate();
+    // } else {
+    //   this._clearPhrase();
+    // }
+  }
+
   // private functions
   _activate() {
     if (this.isActive) { return; }
@@ -129,16 +139,6 @@ export default class GlobalSearch extends View {
     if (this.$input.is(':focus')) {
       this.$input.blur();
     }
-  }
-
-  _cancel() {
-    this._deactivate();
-
-    // if (Object.isEmpty(this.phrase)) {
-    //   this._deactivate();
-    // } else {
-    //   this._clearPhrase();
-    // }
   }
 
   _renderModes() {
@@ -282,7 +282,7 @@ export default class GlobalSearch extends View {
     e.preventDefault();
     e.stopImmediatePropagation();
 
-    this._cancel();
+    this.cancel();
   }
 
   _onGlobalDown(e) {
