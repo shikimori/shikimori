@@ -178,16 +178,16 @@ footer
   - if defined?(f)
     - if comment.persisted?
       = f.button :magic_submit
-      .b-button.preview data-preview_url=preview_url = t '.preview'
-      .unpreview = t '.back_to_editing'
-      .cancel = t 'actions.cancel'
+      .b-button.preview tabindex='0' data-preview_url=preview_url = t '.preview'
+      .unpreview tabindex='0' = t '.back_to_editing'
+      .cancel tabindex='0' = t 'actions.cancel'
 
     - else
       = f.button :magic_submit
-      .unpreview = t '.back_to_editing'
-      .b-button.preview data-preview_url=preview_url = t '.preview'
+      .unpreview tabindex='0' = t '.back_to_editing'
+      .b-button.preview tabindex='0' data-preview_url=preview_url = t '.preview'
       .hide = t '.hide'
 
   - else
-    .b-button.preview data-preview_url=preview_url = t '.preview'
-    .unpreview = t '.back_to_editing'
+    .b-button.preview tabindex='0' data-preview_url=preview_url = t '.preview'
+    .unpreview tabindex='0' = t '.back_to_editing'

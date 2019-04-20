@@ -75,13 +75,19 @@ select,
 textarea
   border: 1px solid #999999
   font-family: $font-family
-  outline: none
 
   +gte_ipad
     font-size: 13px
 
   +iphone
     font-size: 15px
+
+input[type=text],
+input[type=email],
+input[type=number],
+select,
+textarea
+  outline: none
 
 input
   +placeholder
@@ -99,6 +105,9 @@ textarea
 
 input[type=radio]
   border: none
+
+input[type=submit],
+  outline: initial
 
 button,
 textarea,
