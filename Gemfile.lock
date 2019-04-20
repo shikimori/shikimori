@@ -554,6 +554,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    recaptcha (4.14.0)
+      json
     redis (4.1.0)
     redis-classy (2.4.1)
       redis-namespace (~> 1.0)
@@ -824,6 +826,7 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify
+  recaptcha
   redis
   redis-mutex
   redis-namespace

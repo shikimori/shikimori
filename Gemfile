@@ -58,6 +58,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
 gem 'doorkeeper', '4.2.6' # https://github.com/doorkeeper-gem/doorkeeper/issues/1013
 gem 'devise-doorkeeper'
+gem 'recaptcha'
 
 # application
 gem 'mal_parser', github: 'shikimori/mal_parser'

@@ -12,6 +12,7 @@ html
       / });
 
   / refactor to LayoutView. put top_menu to LayoutView
+  - @layout ||= LayoutView.new # for devise controllers
   body[
     id=@layout.body_id
     class=@layout.body_class

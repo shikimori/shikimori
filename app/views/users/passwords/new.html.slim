@@ -3,6 +3,13 @@ header.head.m15
   p.notice На данной странице вы сможете запустить процедуру восстановления пароля, введя ваш e-mail в расположенное ниже поле.
 
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  - if f.object.errors.any? || flash[:recaptcha_error].present?
+    .b-errors
+      .subheadline = t '.errors'
+      .block
+        p == f.object.errors.full_messages.join('<br>')
+        p = flash[:recaptcha_error]
+
   .block
     = f.input :email,
       input_html: {\
@@ -11,6 +18,9 @@ header.head.m15
         spellcheck: false,
         autofocus: true\
       }
+
+  .block
+    = recaptcha_tags
 
   .block
     = f.button :magic_submit

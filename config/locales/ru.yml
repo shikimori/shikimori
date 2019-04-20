@@ -575,3 +575,7 @@ ru:
     previous_label: '<'
     next_label: '>'
     page_gap: ...
+
+  recaptcha:
+    errors:
+      verification_failed: Проверка reCAPTCHA не пройдена, пожалуйста, повторите попытку

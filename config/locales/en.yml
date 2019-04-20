@@ -573,3 +573,7 @@ en:
     previous_label: '<'
     next_label: '>'
     page_gap: ...
+
+  recaptcha:
+    errors:
+      verification_failed: reCAPTCHA verification failed, please try again

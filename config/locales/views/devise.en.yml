@@ -24,3 +24,8 @@ en:
       twitter: Sign in with Twitter
       facebook: Sign in with Facebook
       vkontakte: Sign in with vk.com
+
+  users:
+    passwords:
+      new:
+        <<: *common
