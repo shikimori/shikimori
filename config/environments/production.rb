@@ -49,6 +49,7 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
+  # TODO: enable when get rid of reverse proxy
   # if Shikimori::PROTOCOL == 'https'
   #   config.force_ssl = ENV['SHIKI_TYPE'] != 'db'
   #   config.ssl_options = {
