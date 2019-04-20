@@ -53,6 +53,7 @@
       cursor: pointer
       display: flex
       letter-spacing: 0.25px
+      outline: none
       padding-right: 10px
       position: relative
       user-select: none
@@ -67,8 +68,9 @@
         height: 38px
         line-height: 38px
 
-      +gt_ipad
-        &:hover
+      &:focus,
+      &:hover
+        +gt_ipad
           background: #fff
           color: #123
 

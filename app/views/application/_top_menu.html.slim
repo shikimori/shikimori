@@ -1,6 +1,7 @@
 .menu-logo
   - if request.path == '/' && !user_signed_in?
     span.logo-container.linkeable[
+      aria-label='home'
       data-href=root_url
       data-title=t(:shikimori)
     ]
@@ -8,6 +9,7 @@
       .logo
   - else
     a.logo-container[
+      aria-label='home'
       href=root_url
       title=t(:shikimori)
     ]
@@ -112,5 +114,4 @@ a.menu-icon.forum[
     data-href=new_user_session_url(subdomain: nil)
     title=t('.items.sign_in')
     data-text=t('.items.sign_in')
-    tabindex="-1"
   ]
