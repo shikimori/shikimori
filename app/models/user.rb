@@ -188,7 +188,9 @@ class User < ApplicationRecord
   validates :nickname,
     name: true,
     length: { maximum: MAX_NICKNAME_LENGTH },
-    if: -> { new_record? || will_save_change_to_nickname? }
+    if: -> { (new_record? && password.present?) || will_save_change_to_nickname? }
+    # password presence check to avaid unnecessary checks to prevend ddos from bots
+
   validates :email,
     presence: true,
     if: -> {
