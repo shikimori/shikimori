@@ -18,7 +18,6 @@
     button.menu-icon.trigger.mobile tab-index='-1'
     button[
       class="icon-#{@top_menu.current_item.data[:name]}"
-      tab-index='-1'
     ]
       - if @top_menu.current_item.data[:image_url]
         img[
@@ -60,49 +59,9 @@
     .hotkey-marker
   .search-results
 
-  / - if anime_online?
-    = render 'application/top_menu/anime_online', menu: Menus::TopMenu.new
-  / - else
-    = render 'application/top_menu/shikimori', menu: Menus::TopMenu.new
-
-  / - if user_signed_in?
-    a.item.sign_out[
-      href=destroy_user_session_url
-      data-method='delete'
-    ] = t '.sign_out'
-
-/ .menu-search
-  .b-main_search.item data-markers=CopyrightedIds::MARKERS
-    .input
-      input[
-        data-type='animes'
-      ]
-      .suggest-placeholder
-    - if shikimori?
-      ul.popup
-        li.type data-type='animes' = Anime.model_name.human
-        li.type data-type='mangas' = Manga.model_name.human
-        li.type data-type='ranobe' = Ranobe.model_name.human
-        li.type data-type='characters' = Character.model_name.human
-        li.type data-type='seyu' = t 'seyu'
-        li.type data-type='producers' = t 'producer'
-        li.type data-type='mangakas' = t 'mangaka'
-        li.type data-type='people' = t 'person'
-        li.type data-type='users' = User.model_name.human
-
-/ .menu-dropdown.mobile
-  - if user_signed_in? && shikimori?
-    .item
-      a.forum href=forum_url
-  .item
-    span.search-toggler title=t('.search')
-  .item
-    span.top_menu-toggler title=t('.main_menu')
-
 a.menu-icon.forum[
   title=t('forum')
   href=forum_url
-  tabindex="-1"
 ]
 
 - if user_signed_in?
@@ -110,21 +69,17 @@ a.menu-icon.forum[
     a.menu-icon.moderation[
       title=t('.items.moderation')
       href=moderations_url
-      tabindex="-1"
     ]
 
   - if current_user.unread_count.positive?
     a.menu-icon.mail[
       href=current_user.unread_messages_url
       title=t(:mail)
-      tabindex="-1"
     ]
       / = [99, current_user.unread_count].min
 
   .menu-dropdown.profile
-    button[
-      tab-index='-1'
-    ]
+    button
       img[
         src=current_user.avatar_url(48)
         srcset="#{current_user.avatar_url 80} 2x"

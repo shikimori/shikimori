@@ -4,11 +4,10 @@
     align-items: center
     color: inherit
     display: flex
+    height: $top_menu-height // need for mobile profile height
     letter-spacing: 0.25px
     line-height: $top_menu-height
-    height: $top_menu-height // need for mobile profile height
     user-select: none
-    align-items: center
 
     +iphone-s
       padding: 0 10px
@@ -19,31 +18,35 @@
     +gte_ipad
       padding: 0 15px
 
-  .menu-dropdown,
-  .menu-icon
+  .menu-icon,
+  .menu-dropdown
     +gte_ipad
       +mr(2px)
 
-    &.active
-      background-color: $top_menu_background_hover
-      text-decoration: none
+  .menu-icon.active,
+  .menu-icon:focus,
+  .menu-dropdown.active > button,
+  .menu-dropdown > button:focus
+    background-color: $top_menu_background_hover
 
+  .menu-icon:hover,
+  .menu-dropdown:hover > button
     +gt_ipad
-      &:hover
-        background-color: $top_menu_background_hover
-        text-decoration: none
+      background-color: $top_menu_background_hover
 
-    &:active
-      background-color: $top_menu_background_active
+  .menu-icon
+    &.mobile
+      +gte_ipad
+        display: none
 
-  .menu-icon.mobile
-    +gte_ipad
-      display: none
+    &.search
+      +iphone
+        margin-left: auto
 
   .menu-dropdown
     +gte_ipad
       background: lighten($top_menu-background_color, 4%)
-      position: relative // it needs to make .submenu width equal to .menu-dropdown width
+      position: relative // required to make .submenu width equal to .menu-dropdown width
 
     & > button
       +ellipsis2
@@ -75,3 +78,33 @@
         &.active
           & > button:after
             transform: rotate(90deg)
+
+    &.main
+      +gte_ipad
+        margin-right: 25px
+
+      & > button:not(.mobile)
+        padding-left: 0
+
+        +iphone
+          display: none
+
+        +gte_ipad
+          max-width: 275px
+          min-width: 190px
+
+        span
+          margin-left: -5px
+
+    &.profile
+      +gte_ipad
+        margin-left: auto
+
+      & > button
+        +gte_ipad
+          min-width: 180px
+          max-width: 250px
+
+        img
+          height: 30px
+          pointer-events: none
