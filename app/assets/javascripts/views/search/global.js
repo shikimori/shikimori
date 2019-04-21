@@ -16,6 +16,7 @@ export default class GlobalSearch extends View {
     this.isActive = false;
     this.currentMode = this.hasIndex ? 'index' : 'anime';
 
+    this.globalTryCloseOnFocus = this._tryCloseOnFocus.bind(this);
     this._bindGlobalHotkey();
 
     this.$input
@@ -128,6 +129,8 @@ export default class GlobalSearch extends View {
     this._toggleGlobalSearch();
 
     this._renderModes();
+
+    $(document.body).on('focus', '*', this.globalTryCloseOnFocus);
   }
 
   _deactivate() {
@@ -139,6 +142,8 @@ export default class GlobalSearch extends View {
     if (this.$input.is(':focus')) {
       this.$input.blur();
     }
+
+    $(document.body).off('focus', '*', this.globalTryCloseOnFocus);
   }
 
   _renderModes() {
@@ -315,5 +320,14 @@ export default class GlobalSearch extends View {
     } else if (this.isSearching) {
       this._deselectItems();
     }
+  }
+
+  _tryCloseOnFocus({ target }) {
+    const $target = $(target);
+    const isInside = target === this.root || $target.closest(this.$root).length;
+
+    if (isInside || !$target.parents('html').length) { return; }
+
+    this._deactivate();
   }
 }

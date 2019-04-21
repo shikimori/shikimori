@@ -18,14 +18,11 @@ export default function ({ $modal, $trigger, $outerNode, show, hide, onlyShow })
   }
 
   function tryCloseModal({ target }) {
-    console.log('tryCloseModal');
     const $target = $(target);
-    const isInsideModal = target === ($outerNode || $modal)[0] ||
+    const isInside = target === ($outerNode || $modal)[0] ||
       $target.closest($outerNode || $modal).length;
 
-    if (isInsideModal || !$target.parents('html').length) {
-      return;
-    }
+    if (isInside || !$target.parents('html').length) { return; }
 
     $modal.trigger('modal:hide');
   }
