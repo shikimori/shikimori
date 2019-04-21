@@ -4,11 +4,8 @@ import autosize from 'autosize'
 import axios from 'helpers/axios'
 import ShikiView from 'views/application/shiki_view'
 
-import { mobileDetect } from 'helpers/mobile_detect'
+import { isMobile, isTablet } from 'helpers/mobile_detect'
 import flash from 'services/flash'
-
-isMobile = mobileDetect.isMobile
-isTablet = mobileDetect.isTablet
 
 # TODO: refactor constructor
 export default class ShikiEditor extends ShikiView
