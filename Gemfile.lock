@@ -54,7 +54,7 @@ GIT
 
 GIT
   remote: https://github.com/morr/simple_form-magic_submit.git
-  revision: de7cc3396cd52465b5a5be29eb2d78b9cdeed373
+  revision: 8b78222cfbfa4b116b5e07da9d2368ffbceb9b64
   specs:
     simple_form-magic_submit (1.2.0)
       i18n (>= 0.6)
