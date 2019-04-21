@@ -143,7 +143,9 @@
       span
         display: none
 
-      .editor-spoiler, .editor-file, .editor-smiley
+      .editor-spoiler,
+      .editor-file,
+      .editor-smiley
         display: inline-block
 
     +ipad-portrait
@@ -155,40 +157,54 @@
         margin-left: 0
 
     +iphone-landscape
-      .editor-bold, .editor-link,
-      .editor-file, .editor-file span
+      .editor-bold,
+      .editor-link,
+      .editor-file,
+      .editor-file span
         display: inline-block
 
   footer
     margin-top: 10px
+    display: flex
+    align-items: center
+    +iphone
+      flex-wrap: wrap
 
-    input[type=submit], .unpreview, .preview
+    input[type=submit],
+    .unpreview,
+    .preview
       margin-right: 20px
-      +iphone_portrait
-        margin-bottom: 10px
 
-    .unpreview, .cancel, .hide
+    .unpreview,
+    .cancel,
+    .hide
       font-size: 13px
       margin-left: 0
 
     .unpreview
       +link
 
-    .unpreview:not(.link), .cancel, .hide
+    .unpreview:not(.link),
+    .cancel,
+    .hide
       +js-link
-
-    .about-bb_codes
-      +link
-      float: right
-      margin-top: 4px
-      font-size: 11px
-      line-height: 1.2
 
     .hide
       display: none
 
     .unpreview
       display: none!important
+
+    .about-bb_codes
+      +link
+      font-size: 11px
+      line-height: 1.2
+      margin-left: auto
+
+      +iphone-portrait
+        flex-basis: 100%
+        margin-top: 15px
+        text-align: right
 
   &.previewed
     & > .buttons,
@@ -206,5 +222,6 @@
       .unpreview
         display: inline-block !important
 
-      .cancel, .b-button.preview
+      .cancel,
+      .b-button.preview
         display: none
