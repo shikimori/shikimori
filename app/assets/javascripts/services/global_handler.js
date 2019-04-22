@@ -86,7 +86,7 @@ export default class GlobalHandler {
       this.events[event][keyCode].indexOf(handler),
       1
     );
-    if (!this.events[event][keyCode]) {
+    if (Object.isEmpty(this.events[event][keyCode])) {
       delete this.events[event][keyCode];
     }
     if (Object.isEmpty(this.events[event])) {
