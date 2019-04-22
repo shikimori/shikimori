@@ -2,10 +2,10 @@ import { bind } from 'decko';
 
 import View from 'views/application/view';
 
-import GlobalHandler from 'services/global_handler';
 import AutocompleteEngine from './autocomplete_engine';
 import IndexEngine from './index_engine';
 
+import globalHandler from 'helpers/global_handler';
 import JST from 'helpers/jst';
 
 const VARIANT_SELECTOR = '.b-db_entry-variant-list_item';
@@ -22,11 +22,7 @@ export default class GlobalSearch extends View {
 
     this.globalTryCloseOnFocus = this._tryCloseOnFocus.bind(this);
 
-    this.globalHandler = new GlobalHandler()
-      .esc(this._onGlobalEsc)
-      .slash(this._onGlobalSlash)
-      .up(this._onGlobalUp)
-      .down(this._onGlobalDown);
+    globalHandler.on('slash', this._onGlobalSlash);
 
     this.$input
       .on('focus', () => this._activate())
@@ -132,12 +128,18 @@ export default class GlobalSearch extends View {
 
   // private functions
   _activate() {
+    console.log('activate');
     if (this.isActive) { return; }
 
     this.isActive = true;
     this._toggleGlobalSearch();
 
     this._renderModes();
+
+    globalHandler
+      .on('up', this._onMoveUp)
+      .on('down', this._onMoveDown)
+      .on('esc', this._onEsc);
 
     $(document.body).on('focus', '*', this.globalTryCloseOnFocus);
     $(document).one('turbolinks:before-cache', () => {
@@ -146,6 +148,7 @@ export default class GlobalSearch extends View {
   }
 
   _deactivate() {
+    console.log('deactivate');
     if (!this.isActive) { return; }
 
     this.isActive = false;
@@ -154,6 +157,11 @@ export default class GlobalSearch extends View {
     if (this.$input.is(':focus')) {
       this.$input.blur();
     }
+
+    globalHandler
+      .off('esc', this._onEsc)
+      .off('up', this._onMoveUp)
+      .off('down', this._onMoveDown);
 
     $(document.body).off('focus', '*', this.globalTryCloseOnFocus);
   }
@@ -267,7 +275,7 @@ export default class GlobalSearch extends View {
   }
 
   @bind
-  _onGlobalEsc(e) {
+  _onEsc(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
 
@@ -275,24 +283,7 @@ export default class GlobalSearch extends View {
   }
 
   @bind
-  _onGlobalDown(e) {
-    const { $activeItem } = this;
-    const item = $activeItem.length ?
-      $activeItem.next()[0] :
-      this.$content.find(ITEM_SELECTOR).first()[0];
-
-    if (this.isActive) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-
-    if (item) {
-      this._selectItem(item, true);
-    }
-  }
-
-  @bind
-  _onGlobalUp(e) {
+  _onMoveUp(e) {
     const { $activeItem } = this;
     const item = $activeItem.prev()[0];
 
@@ -305,6 +296,23 @@ export default class GlobalSearch extends View {
       this._selectItem(item, true);
     } else if (this.isSearching) {
       this._deselectItems();
+    }
+  }
+
+  @bind
+  _onMoveDown(e) {
+    const { $activeItem } = this;
+    const item = $activeItem.length ?
+      $activeItem.next()[0] :
+      this.$content.find(ITEM_SELECTOR).first()[0];
+
+    if (this.isActive) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+
+    if (item) {
+      this._selectItem(item, true);
     }
   }
 
