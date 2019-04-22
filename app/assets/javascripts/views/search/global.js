@@ -128,7 +128,6 @@ export default class GlobalSearch extends View {
 
   // private functions
   _activate() {
-    console.log('activate');
     if (this.isActive) { return; }
 
     this.isActive = true;
@@ -148,7 +147,6 @@ export default class GlobalSearch extends View {
   }
 
   _deactivate() {
-    console.log('deactivate');
     if (!this.isActive) { return; }
 
     this.isActive = false;
