@@ -112,14 +112,16 @@
     &:before
       background-image: url(/assets/layouts/l-top_menu-v2/letter-a.svg)
 
-    &:hover:before
-      background-image: url(/assets/layouts/l-top_menu-v2/letter-a-hover.svg)
-
   .icon-manga_list
     &:before
       background-image: url(/assets/layouts/l-top_menu-v2/letter-m.svg)
 
-    &:hover:before
+  // should not be displayed in "main" mennu
+  .menu-dropdown.profile
+    .icon-anime_list:hover:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-a-hover.svg)
+
+    .icon-manga_list:hover:before
       background-image: url(/assets/layouts/l-top_menu-v2/letter-m-hover.svg)
 
   .icon-home
