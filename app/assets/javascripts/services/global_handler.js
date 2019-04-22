@@ -2,6 +2,7 @@ import { chain } from 'chain-decorator';
 import { bind } from 'decko';
 
 const KEY_CODES = {
+  enter: 13,
   esc: 27,
   slash: [47, 191],
   up: 38,
