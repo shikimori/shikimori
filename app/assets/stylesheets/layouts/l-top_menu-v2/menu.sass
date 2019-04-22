@@ -28,11 +28,13 @@
   .menu-icon:focus,
   .menu-dropdown.active > button,
   .menu-dropdown > button:focus
+    transition: background 0.2s ease
     background-color: $top_menu_background_hover
 
   .menu-icon:hover,
   .menu-dropdown:hover > button
     +gt_ipad
+      transition: background 0.2s ease
       background-color: $top_menu_background_hover
 
   .menu-icon
@@ -64,21 +66,20 @@
           display: none
 
     +gte_ipad
-      & > button
-        &:after
-          +shikimori('\e846')
-          font-size: 16px
-          line-height: 20px
-          margin-left: auto
-          transition: transform .2s ease-in-out
-          vertical-align: middle
+      & > button:after
+        +shikimori('\e846')
+        font-size: 16px
+        line-height: 20px
+        margin-left: auto
+        transition: transform .2s ease-in-out
+        vertical-align: middle
 
-          +iphone
-            display: none
+        +iphone
+          display: none
 
-        &.active
-          & > button:after
-            transform: rotate(90deg)
+      &.active
+        & > button:after
+          transform: rotate(90deg)
 
     &.main
       +gte_ipad
