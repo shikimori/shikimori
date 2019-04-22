@@ -1,5 +1,8 @@
+import { bind } from 'decko';
+
 import View from 'views/application/view';
 
+import GlobalHandler from 'services/global_handler';
 import AutocompleteEngine from './autocomplete_engine';
 import IndexEngine from './index_engine';
 
@@ -9,15 +12,21 @@ const VARIANT_SELECTOR = '.b-db_entry-variant-list_item';
 const ITEM_SELECTOR = `${VARIANT_SELECTOR}, .search-mode`;
 
 export default class GlobalSearch extends View {
+  isActive = false
+
   initialize() {
     this.$input = this.$('.field input');
 
     this.phrase = this.inputSearchPhrase;
-    this.isActive = false;
     this.currentMode = this.hasIndex ? 'index' : 'anime';
 
     this.globalTryCloseOnFocus = this._tryCloseOnFocus.bind(this);
-    this._bindGlobalHotkey();
+
+    this.globalHandler = new GlobalHandler()
+      .esc(this._onGlobalEsc)
+      .slash(this._onGlobalSlash)
+      .up(this._onGlobalUp)
+      .down(this._onGlobalDown);
 
     this.$input
       .on('focus', () => this._activate())
@@ -240,36 +249,7 @@ export default class GlobalSearch extends View {
     }
   }
 
-  // global hotkeys
-  _bindGlobalHotkey() {
-    this.globalKeyupHandler = this._onGlobalKeyup.bind(this);
-    this.globalKeydownHandler = this._onGlobalKeydown.bind(this);
-
-    $(document).on('keyup', this.globalKeyupHandler);
-    $(document).on('keydown', this.globalKeydownHandler);
-
-    $(document).one('turbolinks:before-cache', () => {
-      $(document).off('keyup', this.globalKeyupHandler);
-      $(document).off('keydown', this.globalKeydownHandler);
-    });
-  }
-
-  _onGlobalKeyup(e) {
-    if (e.keyCode === 27) {
-      this._onGlobalEsc(e);
-    } else if (e.keyCode === 47 || e.keyCode === 191) {
-      this._onGlobalSlash(e);
-    }
-  }
-
-  _onGlobalKeydown(e) {
-    if (e.keyCode === 40) {
-      this._onGlobalDown(e);
-    } else if (e.keyCode === 38) {
-      this._onGlobalUp(e);
-    }
-  }
-
+  @bind
   _onGlobalSlash(e) {
     const target = e.target || e.srcElement;
     const isIgnored = target.isContentEditable ||
@@ -286,6 +266,7 @@ export default class GlobalSearch extends View {
     this.$input[0].setSelectionRange(0, this.$input[0].value.length);
   }
 
+  @bind
   _onGlobalEsc(e) {
     e.preventDefault();
     e.stopImmediatePropagation();
@@ -293,6 +274,7 @@ export default class GlobalSearch extends View {
     this.cancel();
   }
 
+  @bind
   _onGlobalDown(e) {
     const { $activeItem } = this;
     const item = $activeItem.length ?
@@ -309,6 +291,7 @@ export default class GlobalSearch extends View {
     }
   }
 
+  @bind
   _onGlobalUp(e) {
     const { $activeItem } = this;
     const item = $activeItem.prev()[0];
