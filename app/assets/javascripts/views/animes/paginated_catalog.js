@@ -40,16 +40,6 @@ export default class PaginatedCatalog {
       window.location.href,
       this.load.bind(this)
     );
-
-    this.collectionSearch = $('.l-top_menu-v2 .global-search').view();
-    const oldProcessResponse = this.collectionSearch._processResponse;
-    this.collectionSearch._processResponse = this._processResponse.bind(this);
-
-    // restore original search._processResponse
-    $(document).one(
-      'turbolinks:before-cache',
-      () => this.collectionSearch._processResponse = oldProcessResponse
-    );
   }
 
   get isPagesLimit() {
@@ -61,8 +51,6 @@ export default class PaginatedCatalog {
 
     this.filters.parse(url);
     this._fetch(url);
-
-    this.collectionSearch.$root.data('search_url', url.replace(/\/page\/\d+/, ''));
   }
 
   // events
