@@ -131,6 +131,9 @@ export default class GlobalSearch extends View {
     this._renderModes();
 
     $(document.body).on('focus', '*', this.globalTryCloseOnFocus);
+    $(document).one('turbolinks:before-cache', () => {
+      $(document.body).off('focus', '*', this.globalTryCloseOnFocus);
+    });
   }
 
   _deactivate() {

@@ -56,6 +56,12 @@ export default function ({ $modal, $trigger, $outerNode, show, hide, onlyShow })
         $(document.body).on('click', tryCloseModal);
         $(document.body).on('focus', '*', tryCloseModal);
         $(document.body).on('keydown', closeModalOnEsc);
+
+        $(document).one('turbolinks:before-cache', () => {
+          $(document.body).off('click', tryCloseModal);
+          $(document.body).off('focus', '*', tryCloseModal);
+          $(document.body).off('keydown', closeModalOnEsc);
+        });
       });
     })
     .on('modal:hide', () => {
