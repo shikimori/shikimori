@@ -14,7 +14,7 @@ export default function ({ $modal, $trigger, $outerNode, show, hide, onlyShow })
 
     // to prevent immediately click after focus
     ignoreNextEvent = true;
-    delay(300).then(() => ignoreNextEvent = false);
+    delay().then(() => ignoreNextEvent = false);
   }
 
   function tryCloseModal({ target }) {

@@ -1,3 +1,5 @@
+import delay from 'delay';
+
 import GlobalSearch from 'views/search/global';
 
 import showModal from 'helpers/show_modal';
@@ -26,6 +28,18 @@ $(document).on('turbolinks:load', () => {
         ({ currentTarget }) => $(currentTarget).focus(),
         ({ currentTarget }) => $(currentTarget).blur()
       );
+
+    let height = null;
+    let borderBottomWidth = null;
+    let borderTopWidth = null;
+
+    $outerNode.one('mouseover', () => {
+      height = $menu.height();
+      borderBottomWidth = parseInt($menu.css('borderBottomWidth'));
+      borderTopWidth = parseInt($menu.css('borderTopWidth'));
+
+      $menu.css({ height: 0, borderTopWidth: 0, borderBottomWidth: 0 });
+    });
 
     const moveUp = e => {
       e.preventDefault();
@@ -57,6 +71,8 @@ $(document).on('turbolinks:load', () => {
       $outerNode,
       $trigger: $buttons,
       show: () => {
+        $menu.css({ height, borderTopWidth, borderBottomWidth });
+
         $outerNode.addClass('active');
         $('.l-top_menu-v2').addClass('is-submenu');
 
@@ -66,13 +82,20 @@ $(document).on('turbolinks:load', () => {
 
         hideMobileSearch();
       },
-      hide: () => {
+      hide: async () => {
+        $menu.css({ height: 0, borderTopWidth: 0, borderBottomWidth: 0 });
+
         $outerNode.removeClass('active');
         $('.l-top_menu-v2').removeClass('is-submenu');
 
         globalHandler
           .off('up', moveUp)
           .off('down', moveDown);
+
+        // need to properly remove focus from menu button when
+        // clicked on button when menu is already opened
+        await delay();
+        $buttons.blur();
       }
     });
   });
