@@ -120,13 +120,13 @@ describe CharactersController do
   end
 
   describe '#autocomplete_v2' do
-    let(:entry) { create :character }
+    let(:entry) { build_stubbed :character }
     let(:phrase) { 'qqq' }
 
     before do
       allow(Autocomplete::Character)
         .to receive(:call)
-        .and_return Character.where(id: entry.id)
+        .and_return [entry]
     end
     subject! { get :autocomplete_v2, params: { search: 'Fff' }, xhr: true }
 
