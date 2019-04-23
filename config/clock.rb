@@ -129,6 +129,8 @@ module Clockwork
 
   every 1.week, 'weekly.stuff.cpu_intensive', at: 'Monday 05:45' do
     People::JobsWorker.perform_async
+    Characters::JobsWorker.perform_async
+
     Animes::UpdateCachedRatesCounts.perform_async
     Animes::FranchisesWorker.perform_async
     NameMatches::Refresh.perform_async Anime.name

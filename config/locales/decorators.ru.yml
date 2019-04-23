@@ -16,8 +16,12 @@ ru:
     job_title:
       character: Персонаж
       anime_character: Персонаж аниме
-      manga_character: Персонаж манги
       anime_manga_character: Персонаж аниме и манги
+      anime_manga_ranobe_character: Персонаж аниме, манги и ранобэ
+      anime_ranobe_character: Персонаж аниме и ранобэ
+      manga_character: Персонаж манги
+      manga_ranobe_character: Персонаж манги и ранобэ
+      ranobe_character: Персонаж ранобэ
   contest_decorator:
     <<: *db_entry_decorator
   club_decorator:

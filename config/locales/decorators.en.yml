@@ -16,8 +16,12 @@ en:
     job_title:
       character: Character
       anime_character: Anime character
-      manga_character: Manga character
       anime_manga_character: Anime & Manga Character
+      anime_manga_ranobe_character: Anime & Manga & Light Novel character
+      anime_ranobe_character: Anime & Light Novel character
+      manga_character: Manga character
+      manga_ranobe_character: Manga & Light Novel character
+      ranobe_character: Light Novel character
   contest_decorator:
     <<: *db_entry_decorator
   club_decorator:
