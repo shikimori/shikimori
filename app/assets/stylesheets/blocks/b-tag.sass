@@ -1,26 +1,26 @@
 @import globals/variables
 
+$margin-left: 3px
+$margin-right: 9px
+
 .b-tag
   border-bottom: 1px dashed #bbb
   color: #123
   cursor: default
   display: inline-block
   line-height: 16px
-  margin-left: 3px
-  margin-right: 9px
+  margin-left: $margin-left
+  margin-right: $margin-right
   padding-top: 1px
   text-decoration: none
   transition: none
 
-  &:last-child
-    margin-right: 5px
-
-    &:hover
-      margin-right: 0
-
   &[href]
     border-bottom-color: $link-4
     cursor: pointer
+
+    &:first-child
+      margin-left: $margin-left
 
     &.active,
     &:hover
@@ -28,13 +28,23 @@
       border-bottom-color: transparent
       color: #fff
       margin-left: 0
-      margin-right: 6px
-      padding-left: 3px
-      padding-right: 3px
+      margin-right: $margin-right - $margin-left
+      padding-left: $margin-left
+      padding-right: $margin-left
       text-decoration: none
 
     &:active
       background-color: $link-3
+
+  // must be after &[href] so styles could have proper priority
+  &:first-child
+    margin-left: 0
+
+  &:last-child
+    margin-right: 3px
+
+    &:hover
+      margin-right: 0
 
   a
     transition: none
