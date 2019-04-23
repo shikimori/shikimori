@@ -9,6 +9,6 @@ class Autocomplete::Person < Autocomplete::AutocompleteBase
       is_mangaka: @is_mangaka,
       is_producer: @is_producer,
       is_seyu: @is_seyu
-    ).reverse
+    )
   end
 end
