@@ -294,6 +294,7 @@ export default class GlobalSearch extends View {
       this._selectItem(item, true);
     } else if (this.isSearching) {
       this._deselectItems();
+      this.$input.focus();
     }
   }
 
