@@ -17,7 +17,7 @@
             span.linkeable data-href=@resource.franchise_url
               = t 'animes.page.franchise'
 
-        .subheadline.m5 = t '.linked'
+        .subheadline.m10 = t '.linked'
         .cc.to-process data-dynamic="cutted_covers"
           = render partial: 'animes/variants/list_item',
             collection: @resource.related.related.take(related_size),
@@ -38,7 +38,7 @@
     / авторы
     - if @resource.roles.main_people.any?
       .c-column.c-authors.block_m
-        .subheadline.m5
+        .subheadline.m10
           span.linkeable data-href=@resource.staff_url = t '.staff'
         .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
           = render partial: 'people/variants/list_item',

@@ -16,9 +16,10 @@
         title=localized_name(entry)
       ] = localized_name entry
 
-    - roles = entry.formatted_roles.split(',').map(&:strip)
-    .line.multiline
-      .key #{i18n_i('Role', roles.size)}:
-      .value
-        - roles.each do |role|
-          .b-tag = role
+    - if entry.is_a? RoleEntry
+      - roles = entry.formatted_roles.split(',').map(&:strip)
+      .line.multiline
+        .key #{i18n_i('Role', roles.size)}:
+        .value
+          - roles.each do |role|
+            .b-tag = role

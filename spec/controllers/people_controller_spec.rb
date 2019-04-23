@@ -72,4 +72,22 @@ describe PeopleController do
       expect(response).to have_http_status :success
     end
   end
+
+  describe '#autocomplete_v2' do
+    let(:entry) { build_stubbed :character }
+    let(:phrase) { 'qqq' }
+
+    before do
+      allow(Autocomplete::Character)
+        .to receive(:call)
+        .and_return [entry]
+    end
+    subject! { get :autocomplete_v2, params: { search: 'Fff' }, xhr: true }
+
+    it do
+      expect(collection).to eq [entry]
+      expect(response.content_type).to eq 'text/html'
+      expect(response).to have_http_status :success
+    end
+  end
 end
