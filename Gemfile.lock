@@ -179,6 +179,9 @@ GEM
     bugsnag (6.11.1)
       concurrent-ruby (~> 1.0)
     builder (3.2.3)
+    bullet (5.9.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     byebug (11.0.1)
     callsite (0.0.11)
     capistrano (3.11.0)
@@ -695,6 +698,7 @@ GEM
     unicorn (5.5.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
+    uniform_notifier (1.12.1)
     vcr (4.0.0)
     warden (1.2.8)
       rack (>= 2.0.6)
@@ -736,6 +740,7 @@ DEPENDENCIES
   bootsnap
   browser
   bugsnag
+  bullet
   byebug
   cancancan!
   capistrano
