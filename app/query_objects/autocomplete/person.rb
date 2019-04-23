@@ -1,5 +1,5 @@
 class Autocomplete::Person < Autocomplete::AutocompleteBase
-  method_object %i(scope phrase is_mangaka is_producer is_seyu)
+  method_object %i[scope phrase is_mangaka is_producer is_seyu]
 
   def call
     autocomplete_klass.call(

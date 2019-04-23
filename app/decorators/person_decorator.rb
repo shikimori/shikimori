@@ -180,31 +180,34 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def job_title
-    if main_role? :producer
-      i18n_t 'job_title.producer'
-    elsif main_role? :mangaka
-      i18n_t 'job_title.mangaka'
-    elsif main_role? :composer
-      i18n_t 'job_title.composer'
-    elsif main_role? :vocalist
-      i18n_t 'job_title.vocalist'
-    elsif main_role? :seyu
-      i18n_t 'job_title.seyu'
-    elsif has_anime? && has_manga?
-      i18n_t 'job_title.anime_manga_projects_participant'
-    elsif has_anime?
-      i18n_t 'job_title.anime_projects_participant'
-    elsif has_manga?
-      i18n_t 'job_title.manga_projects_participant'
-    end
+    key =
+      if main_role? :producer
+        'producer'
+      elsif main_role? :mangaka
+        'mangaka'
+      elsif main_role? :composer
+        'composer'
+      elsif main_role? :vocalist
+        'vocalist'
+      elsif main_role? :seyu
+        'seyu'
+      elsif anime? && manga?
+        'anime_manga_projects_participant'
+      elsif anime?
+        'anime_projects_participant'
+      elsif manga?
+        'manga_projects_participant'
+      end
+
+    i18n_t "job_title.#{key}"
   end
 
-  def occupation
-    if has_anime? && has_manga?
+  def occupation_key
+    if anime? && manga?
       :anime_manga
-    elsif has_anime?
+    elsif anime?
       :anime
-    elsif has_manga?
+    elsif manga?
       :manga
     else
       :anime
@@ -262,11 +265,11 @@ class PersonDecorator < DbEntryDecorator
     Character.find(fav_character)
   end
 
-  def has_anime?
+  def anime?
     all_roles.any? { |v| !v.anime_id.nil? }
   end
 
-  def has_manga?
+  def manga?
     all_roles.any? { |v| !v.manga_id.nil? }
   end
 
@@ -277,7 +280,11 @@ class PersonDecorator < DbEntryDecorator
 private
 
   def all_roles
-    object.person_roles.includes(:anime).includes(:manga).to_a
+    if object.association_cached? :person_roles
+      object.person_roles
+    else
+      object.person_roles.includes(:anime, :manga).to_a
+    end
   end
 
   def roles_names
@@ -290,12 +297,14 @@ private
 
   def website_host
     return if object.website.blank?
+
     URI.parse(website_url).host
   rescue URI::Error
   end
 
   def website_url
     return if object.website.blank?
+
     if object.website.match?(%r{^https?://})
       object.website
     else

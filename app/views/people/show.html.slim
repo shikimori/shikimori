@@ -88,7 +88,7 @@
 
           - if @resource.grouped_roles.any?
             .c-info-right
-              .subheadline = t ".positions_in_#{@resource.occupation}"
+              .subheadline = t ".positions_in_#{@resource.occupation_key}"
               .b-entry-info
                 - @resource.grouped_roles.each do |role,times|
                   = info_line role, times

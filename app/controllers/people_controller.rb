@@ -59,7 +59,9 @@ class PeopleController < DbEntriesController
     og noindex: true, nofollow: true
 
     autocomplete
-    @collection = @collection.map(&:decorate)
+    @collection = @collection
+      .includes(:person_roles)
+      .map(&:decorate)
   end
 
 private

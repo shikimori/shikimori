@@ -16,10 +16,14 @@
         title=localized_name(entry)
       ] = localized_name entry
 
-    - if entry.is_a? RoleEntry
+    - if entry.respond_to? :formatted_roles
       - roles = entry.formatted_roles.split(',').map(&:strip)
       .line.multiline
         .key #{i18n_i('Role', roles.size)}:
         .value
           - roles.each do |role|
             .b-tag = role
+    - else
+      .line
+        .value
+          .b-tag = entry.job_title

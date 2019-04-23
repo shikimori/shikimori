@@ -74,13 +74,13 @@ describe PeopleController do
   end
 
   describe '#autocomplete_v2' do
-    let(:entry) { build_stubbed :character }
+    let(:entry) { create :person }
     let(:phrase) { 'qqq' }
 
     before do
-      allow(Autocomplete::Character)
+      allow(Autocomplete::Person)
         .to receive(:call)
-        .and_return [entry]
+        .and_return Person.where(id: entry.id)
     end
     subject! { get :autocomplete_v2, params: { search: 'Fff' }, xhr: true }
 

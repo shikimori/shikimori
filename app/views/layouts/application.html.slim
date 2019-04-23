@@ -69,7 +69,8 @@ html
             = yield
 
         footer.l-footer
-          = render 'application/footer'
+          - unless Rails.env.development? && params[:no_menu]
+              = render 'application/footer'
 
         ins.mrg-tag[
           style="width:100%;"
