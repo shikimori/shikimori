@@ -58,7 +58,7 @@
 
     - if club.menu_clubs.any?
       .subheadline.m10 = i18n_i 'club', :other
-      .cc-4.clubs
+      .clubs
         = render partial: 'clubs/club',
           collection: club.menu_clubs,
           locals: { content_by: :detailed }
