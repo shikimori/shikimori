@@ -202,8 +202,8 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
 
   def current_item
     @current_item ||=
-      sorted_items.find { |item| item.url == request_url } ||
-      sorted_items.find { |item| request_url.starts_with?(item.url) && !item.data[:is_root] } ||
+      sorted_items.find { |v| v.comparable_url == request_url } ||
+      sorted_items.find { |v| request_url.starts_with?(v.comparable_url) && !v.data[:is_root] } ||
       other_item
   end
 
@@ -241,12 +241,14 @@ private
 
   def build item
     return if if_condition(item[:if])
+    url = item_url(item[:url])
 
     OpenStruct.new(
       placement: item[:placement],
       group: item[:group],
       title: item_title(item[:name], item[:title]),
-      url: item_url(item[:url]),
+      url: url,
+      comparable_url: fix_url(url),
       data: item
     )
   end
@@ -289,7 +291,11 @@ private
   end
 
   def request_url
-    @request_url ||= h.request.url.gsub(/\?.*|#.*/, '')
+    @request_url ||= fix_url h.request.url
+  end
+
+  def fix_url url
+    url.gsub(/\?.*|#.*/, '')
   end
 
   # def anime_seasons
