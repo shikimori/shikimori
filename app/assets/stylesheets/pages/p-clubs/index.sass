@@ -5,5 +5,14 @@
   .b-club
     margin-bottom: $block_offset
 
+    +gte_ipad
+      +column(3)
+
+    +iphone_landscape
+      +column(2)
+
+    +iphone_portrait
+      +column(1)
+
   .b-postloader
     clear: both
