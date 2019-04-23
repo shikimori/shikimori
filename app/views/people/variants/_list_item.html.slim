@@ -1,6 +1,6 @@
 .b-db_entry-variant-list_item
   .image.linkeable.bubbled[
-    data-href=person_url(entry)
+    data-href=(entry.respond_to?(:url) ? entry.url : person_url(entry))
     title=localized_name(entry)
   ]
     img[
@@ -12,7 +12,7 @@
   .info
     .name
       a.b-link.bubbled[
-        href=person_url(entry)
+        href=(entry.respond_to?(:url) ? entry.url : person_url(entry))
         title=localized_name(entry)
       ] = localized_name entry
 
