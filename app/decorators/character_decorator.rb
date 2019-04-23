@@ -24,10 +24,10 @@ class CharacterDecorator < PersonDecorator
     key = [
       (:anime if object.is_anime),
       (:manga if object.is_manga),
-      (:ranobe if object.is_ranobe),
+      (:ranobe if object.is_ranobe)
     ].compact.join('_')
 
-    i18n_t "job_title.#{key}"
+    i18n_t "job_title.#{key.present? ? key : 'character'}"
   end
 
   # презентер косплея
