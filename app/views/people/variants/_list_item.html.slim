@@ -19,7 +19,7 @@
     - if entry.respond_to? :formatted_roles
       - roles = entry.formatted_roles.split(',').map(&:strip)
       .line.multiline
-        .key #{i18n_i('Role', roles.size)}:
+        .key #{i18n_i('Role', roles.size > 1 ? :other : :one)}:
         .value
           - roles.each do |role|
             .b-tag = role
