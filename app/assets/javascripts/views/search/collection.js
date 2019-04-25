@@ -142,7 +142,7 @@ export default class CollectionSearch extends View {
     const uri = URI(url).removeQuery('search');
 
     if (phrase) {
-      return uri.addQuery({ search: phrase });
+      return uri.addQuery({ phrase: phrase });
     }
     return uri;
   }
