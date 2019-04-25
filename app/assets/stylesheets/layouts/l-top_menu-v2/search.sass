@@ -14,19 +14,15 @@
   input
     border-radius: 2px
     border: 1px solid transparent
-    // border: 1px solid rgba(#acb1b4, 0.4)
     color: #123
     cursor: default
-    line-height: 28px
-    padding: 2px 42px 0 38px
+    font-size: 14px
+    line-height: 30px
+    padding: 0 42px 0 38px
     width: 100%
 
     +placeholder
       color: $gray-1
-
-    // &:focus
-    //   border-color: $link-4
-    //   box-shadow: 0px 0px 4px $link-4, inset 0px 0px 1px rgba($link-4, 0.8)
 
     &:focus ~ .hotkey-marker,
     &.has-value ~ .hotkey-marker
@@ -69,6 +65,7 @@
     top: 0
 
   .clear
+    +link_color(#333)
     display: none
     height: 32px
     right: 0
@@ -78,9 +75,9 @@
       display: block
 
     &:before
-      +link(#333)
       +shikimori('\e828')
       font-size: 23px
+
 
   .search-results
     background-color: #fff
