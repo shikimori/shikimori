@@ -80,6 +80,9 @@ pageLoad('roles_show', () => {
     });
 });
 
+// users#index matches this too
 pageLoad('users_index', () => {
-  new CollectionSearch('.b-collection_search');
+  if ($('.b-collection_search').length) {
+    new CollectionSearch('.b-collection_search');
+  }
 });
