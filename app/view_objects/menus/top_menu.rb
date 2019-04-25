@@ -5,32 +5,17 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       name: :anime,
       placement: :main,
       group: :database,
-      url: :animes_collection_url,
-      search_url: ->(h) {
-        h.params[:controller] == 'animes_collection' ?
-          h.current_url(search: nil, page: nil) :
-          h.animes_collection_url
-      }
+      url: :animes_collection_url
     }, {
       name: :manga,
       placement: :main,
       group: :database,
-      url: :mangas_collection_url,
-      search_url: ->(h) {
-        h.params[:controller] == 'animes_collection' ?
-          h.current_url(search: nil, page: nil) :
-          h.mangas_collection_url
-      }
+      url: :mangas_collection_url
     }, {
       name: :ranobe,
       placement: :main,
       group: :database,
-      url: :ranobe_collection_url,
-      search_url: ->(h) {
-        h.params[:controller] == 'animes_collection' ?
-          h.current_url(search: nil, page: nil) :
-          h.ranobe_collection_url
-      }
+      url: :ranobe_collection_url
     },
     # community
     {
@@ -47,8 +32,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       name: :reviews,
       placement: :main,
       group: :community,
-      url: ->(h) { h.forum_topics_url :reviews },
-      search_url: ->(h) { h.forum_topics_url :reviews }
+      url: ->(h) { h.forum_topics_url :reviews }
     }, {
       name: :forum,
       placement: :main,
@@ -70,30 +54,26 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       name: :calendar,
       placement: :main,
       group: :misc,
-      url: :ongoings_pages_url,
-      search_url: :animes_collection_url
+      url: :ongoings_pages_url
     },
     # info
     {
       name: :info,
       placement: :main,
       group: :info,
-      url: :about_pages_url,
-      search_url: false
+      url: :about_pages_url
     }, {
       name: :socials,
       placement: :main,
       group: :info,
       if: ->(h) { h.ru_host? && !Rails.env.test? },
-      url: ->(h) { StickyTopicView.socials(h.locale_from_host).url },
-      search_url: false
+      url: ->(h) { StickyTopicView.socials(h.locale_from_host).url }
     }, {
       name: :moderation,
       placement: :main,
       group: :info,
       if: :user_signed_in?,
-      url: :moderations_url,
-      search_url: false
+      url: :moderations_url
     }
   ]
   PROFILE_ITEMS = [
@@ -103,57 +83,49 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.current_user.url },
-      search_url: false
+      url: ->(h) { h.current_user.url }
     }, {
       name: :anime_list,
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: nil },
-      search_url: false
+      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: nil }
     }, {
       name: :manga_list,
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: nil },
-      search_url: false
+      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: nil }
     }, {
       name: :mail,
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.current_user.unread_messages_url },
-      search_url: false
+      url: ->(h) { h.current_user.unread_messages_url }
     }, {
       name: :achievements,
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.profile_achievements_url h.current_user, subdomain: nil },
-      search_url: false
+      url: ->(h) { h.profile_achievements_url h.current_user, subdomain: nil }
     }, {
       name: :settings,
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.edit_profile_url h.current_user, page: :account, subdomain: nil },
-      search_url: false
+      url: ->(h) { h.edit_profile_url h.current_user, page: :account, subdomain: nil }
     }, {
       name: :site_rules,
       placement: :profile,
       group: :site,
       if: ->(_h) { !Rails.env.test? },
-      url: ->(h) { StickyTopicView.site_rules(h.locale_from_host).url },
-      search_url: false
+      url: ->(h) { StickyTopicView.site_rules(h.locale_from_host).url }
     }, {
       name: :faq,
       placement: :profile,
       group: :site,
       if: ->(h) { h.ru_host? && !Rails.env.test? },
-      url: ->(h) { StickyClubView.faq(h.locale_from_host).url },
-      search_url: false
+      url: ->(h) { StickyClubView.faq(h.locale_from_host).url }
     }
   ]
 
@@ -161,30 +133,22 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
     {
       name: :home,
       url: :root_url,
-      is_root: true,
-      search_url: false
+      is_root: true
     }, {
       name: :achievements,
-      url: :achievements_url,
-      search_url: false
+      url: :achievements_url
     }, {
       name: :characters,
       url: :characters_url
     }, {
       name: :people,
-      url: :people_url,
-      search_url: ->(h) { h.people_url kind: h.params[:kind] }
+      url: :people_url
     }
   ]
 
   OTHER_ITEM = {
     name: :other,
-    url: :root_url,
-    search_url: ->(h) {
-      h.params[:controller] == 'userlist_comparer' ?
-        h.current_url(search: nil) :
-        h.animes_collection_url
-    }
+    url: :root_url
   }
 
   SHIKIMORI_ITEMS = MAIN_ITEMS + PROFILE_ITEMS + HIDDEN_ITEMS
@@ -209,18 +173,6 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
 
   def current_item= item
     @current_item = build item
-  end
-
-  def search_url
-    if current_item.data[:search_url].nil?
-      current_item.url
-
-    elsif current_item.data[:search_url] == false
-      h.animes_collection_url
-
-    else
-      item_url current_item.data[:search_url]
-    end
   end
 
 private
