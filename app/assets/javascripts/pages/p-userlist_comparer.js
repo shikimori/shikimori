@@ -1,6 +1,9 @@
+import CollectionSearch from 'views/search/collection';
 import { COMMON_TOOLTIP_OPTIONS } from 'helpers/tooltip_options';
 
-pageLoad('userlist_comparer_show', () =>
+pageLoad('userlist_comparer_show', () => {
+  new CollectionSearch('.b-collection_search');
+
   $('tr.unprocessed')
     .removeClass('unprocessed')
     .find('a.tooltipped')
@@ -13,5 +16,5 @@ pageLoad('userlist_comparer_show', () =>
         position: 'bottom right',
         opacity: 1
       })
-    )
-);
+    );
+});

@@ -9,7 +9,7 @@ header.head
 - if can? :"manage_#{@role}_role", User
   .block
     .subheadline.m10 = t '.add_user'
-    .b-search[
+    .b-collection_search[
       data-display_url=current_url(search: nil)
       data-search_url=search_moderations_role_url(@role)
     ]
@@ -21,7 +21,7 @@ header.head
         ]
         .clear
 
-      .b-search-results.cc-4
+      .search-results.cc-4
         - if @searched_collection&.any?
           = render partial: 'moderations/roles/user',
             collection: @searched_collection,

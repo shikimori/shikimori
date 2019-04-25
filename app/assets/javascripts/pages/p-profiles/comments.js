@@ -7,6 +7,7 @@ pageLoad('profiles_comments', () =>
 
     const $search = $(e.currentTarget).find('input.search');
     const url = URI($search.data('search_url'))
+      .removeQuery('phrase')
       .addQuery({ phrase: $search.val() });
 
     Turbolinks.visit(url);

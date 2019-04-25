@@ -290,6 +290,7 @@ export default class GlobalSearch extends View {
     } else {
       url =
         URI(this.$node.data(`search_${this.currentMode}_url`))
+          .removeQuery('search')
           .addQuery({ search: this.phrase });
     }
 

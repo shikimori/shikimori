@@ -69,7 +69,7 @@ pageLoad('moderations_missing_videos', () => {
 });
 
 pageLoad('roles_show', () => {
-  new CollectionSearch('.b-search');
+  new CollectionSearch('.b-collection_search');
 
   $('.l-page')
     .on('ajax:before', '.b-user', ({ currentTarget }) => {
@@ -78,4 +78,8 @@ pageLoad('roles_show', () => {
     .on('ajax:success', '.b-user', ({ currentTarget }, { content }) => {
       $(`.b-user[id=${currentTarget.id}]`).replaceWith(content);
     });
+});
+
+pageLoad('users_index', () => {
+  new CollectionSearch('.b-collection_search');
 });

@@ -42,7 +42,7 @@ ul.b-list.block
       href=none_moderations_anime_video_authors_url
     ] Видео без авторов
 
-.b-search
+.b-collection_search
   .field
     form
       - if params[:is_verified].present?
@@ -65,7 +65,7 @@ ul.b-list.block
           href=current_url(search: nil)
         ]
 
-  .block.b-search-results
+  .block.search-results
     form
       - if params[:is_verified].present?
         input type="hidden" name="is_verified" value=params[:is_verified]

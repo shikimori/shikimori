@@ -85,7 +85,7 @@ private
 
   def search_users_scope
     scope = Users::Query.fetch
-    scope = params[:search].present? ? scope.search(params[:search]) : scope.none
+    scope = params[:phrase].present? ? scope.search(params[:phrase]) : scope.none
     scope
       .paginate(params[:action] == 'search' ? page : 1, USERS_PER_PAGE)
       .transform(&:decorate)

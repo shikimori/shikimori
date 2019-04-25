@@ -7,18 +7,29 @@ header.head
   p.notice
     == t '.notice_2'
 
-.menu-toggler
-  .toggler
+.b-collection_search[
+  data-search_url=current_url(search: nil)
+]
+  .field
+    input[
+      type="text"
+      placeholder=t('search.title')
+      value=params[:search]
+    ]
+    .clear
 
-.menu-slide-outer.x199
-  .menu-slide-inner
-    section.l-content.b-search-results
-      = render 'table'
+  .menu-toggler
+    .toggler
 
-    aside.l-menu
-      = render 'animes_collection/menu',
-        menu: @menu,
-        custom_sorts: [\
-          [:user_1, t('.by_user_score', user: @user_1.nickname)],
-          [:user_2, t('.by_user_score', user: @user_2.nickname)]\
-        ]
+  .menu-slide-outer.x199
+    .menu-slide-inner
+      section.l-content.search-results
+        = render 'table'
+
+      aside.l-menu
+        = render 'animes_collection/menu',
+          menu: @menu,
+          custom_sorts: [\
+            [:user_1, t('.by_user_score', user: @user_1.nickname)],
+            [:user_2, t('.by_user_score', user: @user_2.nickname)]\
+          ]

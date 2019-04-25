@@ -23,7 +23,7 @@ export default class CollectionSearch extends View {
   }
 
   get $collection() {
-    return $('.b-search-results');
+    return this.$('.search-results');
   }
 
   get inputSearchPhrase() {
@@ -139,7 +139,7 @@ export default class CollectionSearch extends View {
     const url = this.$root.data(`${key}_url`);
     if (!url) { return null; }
 
-    const uri = URI(url).removeQuery('search');
+    const uri = URI(url).removeQuery('phrase');
 
     if (phrase) {
       return uri.addQuery({ phrase: phrase });

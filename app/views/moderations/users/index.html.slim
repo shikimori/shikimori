@@ -25,7 +25,7 @@ header.head
 
     input.button type='submit'
 
-.b-search.block[
+.b-collection_search.block[
   data-search_url=current_url
 ]
   .field
@@ -38,7 +38,7 @@ header.head
 
   .b-options-floated = @collection.except(:limit, :offset).size
   .subheadline.m10 = i18n_i('User', :other)
-  .b-search-results.cc-4
+  .search-results.cc-4
     - if @collection.any?
       = render partial: 'users/user',
         collection: @collection,
