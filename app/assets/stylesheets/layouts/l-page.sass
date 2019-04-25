@@ -20,20 +20,3 @@
 
   .x1000 &
     max-width: 1000px
-
-  &:before, &:after
-    display: none
-
-  +gt_ipad
-    &:before, &:after
-      background: rgba(255,255,255,0.3)
-      content: ''
-      height: 100%
-      position: absolute
-      top: 0
-      width: 20px
-
-    &:before
-      left: -20px
-    &:after
-      right: -20px

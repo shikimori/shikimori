@@ -7,7 +7,7 @@ class Style < ApplicationRecord
   validates :owner_type, inclusion: { in: OWNER_TYPES }
 
   PAGE_BORDER_CSS = <<-CSS.strip.gsub(/^ +/, '')
-    /* AUTO=page_border */ .l-page:before, .l-page:after, .l-footer:before, .l-footer:after { display: %s; }
+    /* AUTO=page_border */ .l-page { outline: 20px solid rgba(255, 255, 255, 0.3); margin-bottom: 20px; }
   CSS
 
   PAGE_BACKGROUND_COLOR_CSS = <<-CSS.strip.gsub(/^ +/, '')
