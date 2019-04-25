@@ -1,6 +1,6 @@
 import { bind } from 'decko';
 import URI from 'urijs';
-import Turbolinks from 'turbolinks'
+import Turbolinks from 'turbolinks';
 
 import View from 'views/application/view';
 
@@ -289,10 +289,7 @@ export default class GlobalSearch extends View {
       url = this.$activeItem.find('a').first().attr('href');
     } else {
       url =
-        URI(
-          this.$node.data(`search_${this.currentMode}_url`)
-        )
-          .removeQuery('search')
+        URI(this.$node.data(`search_${this.currentMode}_url`))
           .addQuery({ search: this.phrase });
     }
 

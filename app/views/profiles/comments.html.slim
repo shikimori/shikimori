@@ -9,7 +9,7 @@
 
   = form_tag '', method: :get, class: 'comments-search' do
     input.subheadline-input.search[
-      value=params[:search]
+      value=params[:query]
       type="text"
       placeholder=t('search.text')
       data-search_url=comments_profile_url(@resource)
