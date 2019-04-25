@@ -1,4 +1,6 @@
 import { bind } from 'decko';
+import URI from 'urijs';
+import Turbolinks from 'turbolinks'
 
 import View from 'views/application/view';
 
@@ -136,6 +138,7 @@ export default class GlobalSearch extends View {
     this._renderModes();
 
     globalHandler
+      .on('enter', this._onEnter)
       .on('up', this._onMoveUp)
       .on('down', this._onMoveDown)
       .on('esc', this._onEsc);
@@ -157,6 +160,7 @@ export default class GlobalSearch extends View {
     }
 
     globalHandler
+      .off('enter', this._onEnter)
       .off('esc', this._onEsc)
       .off('up', this._onMoveUp)
       .off('down', this._onMoveDown);
@@ -270,6 +274,29 @@ export default class GlobalSearch extends View {
 
     this.$input.focus();
     this.$input[0].setSelectionRange(0, this.$input[0].value.length);
+  }
+
+  @bind
+  _onEnter(e) {
+    if (this.isIndexMode) { return; }
+    if (!this.phrase.trim()) { return; }
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    let url;
+
+    if (this.$activeItem.length) {
+      url = this.$activeItem.find('a').first().attr('href');
+    } else {
+      url =
+        URI(
+          this.$node.data(`search_${this.currentMode}_url`)
+        )
+          .removeQuery('search')
+          .addQuery({ search: this.phrase });
+    }
+
+    Turbolinks.visit(url);
   }
 
   @bind
