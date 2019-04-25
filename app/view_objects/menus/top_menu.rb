@@ -19,6 +19,11 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
     },
     # community
     {
+      name: :forum,
+      placement: :main,
+      group: :community,
+      url: :forum_url
+    }, {
       name: :clubs,
       placement: :main,
       group: :community,
@@ -33,11 +38,6 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :main,
       group: :community,
       url: ->(h) { h.forum_topics_url :reviews }
-    }, {
-      name: :forum,
-      placement: :main,
-      group: :community,
-      url: :forum_url
     }, {
       name: :users,
       placement: :main,
