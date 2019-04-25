@@ -196,8 +196,7 @@ class TorrentsParser
       .to_a
 
     (ongoings + anons + released).select do |v|
-      !v.kind_special? && !Anime::EXCLUDED_ONGOINGS.include?(v.id) &&
-        !TorrentsParser::IGNORED_ANIME_IDS.include?(v.id)
+      !v.kind_special? && !TorrentsParser::IGNORED_ANIME_IDS.include?(v.id) # && !Anime::EXCLUDED_ONGOINGS.include?(v.id)
     end
   end
 
