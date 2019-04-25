@@ -16,12 +16,14 @@
     border-top: none
     padding-top: 0
 
-  .image img
-    height: 75px
-    width: 48px
+  .image
+    margin-right: 16px
+
+    img
+      height: 75px
+      width: 48px
 
   & > .info
-    margin-left: 16px
     line-height: $line_height
     overflow: hidden
 
@@ -40,9 +42,7 @@
       align-items: baseline
       display: flex
       font-size: 12px
-
-      +gte_ipad
-        margin-bottom: 5px
+      margin-bottom: 5px
 
       &.multiline
         .value
@@ -52,25 +52,26 @@
         color: #444
         cursor: default
         font-weight: bold
-        line-height: 17px
         margin-right: 2px
 
-        +iphone
+        +iphone-portrait
           display: none
 
       .value
         display: flex
+        margin: -2.5px 0
 
-        +gte_ipad
-          overflow: hidden // for ellipsis
+        & > a,
+        & > div,
+        & > span
+          margin-top: 2.5px
+          margin-bottom: 2.5px
 
-        +iphone
+        +iphone-portrait
           flex-wrap: wrap
 
-          & > a,
-          & > div,
-          & > span
-            margin-bottom: 4px
+        +gte_iphone-landscape
+          overflow: hidden // for ellipsis
 
       .b-tag
         flex-shrink: 0
