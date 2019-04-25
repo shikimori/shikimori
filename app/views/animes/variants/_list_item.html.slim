@@ -19,7 +19,7 @@
 
     - if entry.kind.present?
       .line
-        - unless entry.respond_to?(:relation)
+        - unless local_assigns[:hide_line_key]
           .key #{Anime.human_attribute_name :kind}:
         .value
           - if entry.kind.present?
@@ -53,9 +53,10 @@
               data-text=entry.status_text.downcase
             ]
 
-    - unless relation_mode
+    - unless local_assigns[:hide_genres]
       .line
-        .key #{i18n_io 'Genre', entry.main_genres.one? ? :one : :few}:
+        - unless local_assigns[:hide_line_key]
+          .key #{i18n_io 'Genre', entry.main_genres.one? ? :one : :few}:
         .value
           - entry.main_genres.each do |genre|
             .b-tag.linkeable[

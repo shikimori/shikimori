@@ -19,9 +19,6 @@ $margin-right: 9px
     border-bottom-color: $link-4
     cursor: pointer
 
-    &:first-child
-      margin-left: $margin-left
-
     &.active,
     &:hover
       background-color: $link-4
@@ -35,10 +32,6 @@ $margin-right: 9px
 
     &:active
       background-color: $link-3
-
-  // must be after &[href] so styles could have proper priority
-  &:first-child
-    margin-left: 0
 
   &:last-child
     margin-right: 3px

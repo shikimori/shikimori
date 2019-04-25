@@ -50,14 +50,14 @@
       - if anime.respond_to?(:studios) && anime.real_studios.any?
         = info_line i18n_io('Producer', anime.real_studios.one? ? :one : :few) do
           - anime.real_studios.each do |studio|
-            .b-anime_status_tag.studio.linkeable[
+            .b-tag.linkeable[
               data-href=anime.collection_url(studio: studio.to_param)
             ] = studio.name
 
       - if anime.respond_to?(:publishers) && anime.real_publishers.any?
         = info_line i18n_io('Publisher', anime.real_publishers.one? ? :one : :few) do
           - anime.real_publishers.each do |publisher|
-            .b-anime_status_tag.studio.linkeable[
+            .b-tag.linkeable[
               data-href=anime.collection_url(publisher: publisher.to_param)
             ] = publisher.name
 

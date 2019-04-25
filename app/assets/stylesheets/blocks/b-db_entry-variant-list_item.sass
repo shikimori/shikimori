@@ -40,7 +40,9 @@
       align-items: baseline
       display: flex
       font-size: 12px
-      margin-bottom: 5px
+
+      +gte_ipad
+        margin-bottom: 5px
 
       &.multiline
         .value
@@ -51,11 +53,24 @@
         cursor: default
         font-weight: bold
         line-height: 17px
-        margin-right: 4px
+        margin-right: 2px
+
+        +iphone
+          display: none
 
       .value
         display: flex
-        overflow: hidden // for ellipsis
+
+        +gte_ipad
+          overflow: hidden // for ellipsis
+
+        +iphone
+          flex-wrap: wrap
+
+          & > a,
+          & > div,
+          & > span
+            margin-bottom: 4px
 
       .b-tag
         flex-shrink: 0

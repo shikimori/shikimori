@@ -2,7 +2,6 @@
   - related_size = @resource.roles.main_people.none? ? 4 : [@resource.roles.main_people.size, 3].max
 
   .cc-related-authors
-    / связанное
     - if @resource.related.related.any?
       .c-column.block_m
         /.subheadline.m5
@@ -21,7 +20,8 @@
         .cc.to-process data-dynamic="cutted_covers"
           = render partial: 'animes/variants/list_item',
             collection: @resource.related.related.take(related_size),
-            as: :entry
+            as: :entry,
+            locals: { hide_line_key: true, hide_genres: true }
 
           - if @resource.related.related.size > related_size
             .b-show_more.unprocessed
@@ -30,12 +30,12 @@
             .b-show_more-more
               = render partial: 'animes/variants/list_item',
                 collection: @resource.related.related[related_size..-1],
-                as: :entry
+                as: :entry,
+                locals: { hide_line_key: true, hide_genres: true }
 
               .hide-more
                 | &mdash; #{t '.hide'}
 
-    / авторы
     - if @resource.roles.main_people.any?
       .c-column.c-authors.block_m
         .subheadline.m10
