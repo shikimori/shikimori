@@ -38,7 +38,7 @@ export default class GlobalSearch extends View {
         this._selectItem(currentTarget);
         this.$input.focus();
       })
-      .on('mousemove', VARIANT_SELECTOR, ({ currentTarget }) => {
+      .on('focus mousemove', VARIANT_SELECTOR, ({ currentTarget }) => {
         // better than mouseover cause it does not trigger after keyboard scroll
         if (this.currentItem !== currentTarget) {
           this._selectItem(currentTarget, false);
@@ -197,6 +197,12 @@ export default class GlobalSearch extends View {
     const $node = $(node);
     $node.addClass('active');
 
+    // switch focus is another variant is already focused
+    const focusedNode = this.$content.find(`${VARIANT_SELECTOR}:focus`)[0];
+    if (focusedNode && focusedNode !== node) {
+      $node.focus();
+    }
+
     if (doScroll) {
       this._scrollToItem($node);
     }
@@ -286,7 +292,7 @@ export default class GlobalSearch extends View {
     let url;
 
     if (this.$activeItem.length) {
-      url = this.$activeItem.find('a').first().attr('href');
+      url = this.$activeItem.find('.name .b-link').attr('href');
     } else {
       url =
         URI(this.$node.data(`search_${this.currentMode}_url`))

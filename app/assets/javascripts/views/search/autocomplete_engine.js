@@ -1,5 +1,7 @@
 import IndexEngine from './index_engine';
 
+const VARIANT_SELECTOR = '.b-db_entry-variant-list_item';
+
 export default class AutocompleteEngine extends IndexEngine {
   constructor(fetchUrl, $content) {
     super();
@@ -24,6 +26,20 @@ export default class AutocompleteEngine extends IndexEngine {
       this._showAjax();
       this.debouncedSearch(this.phrase);
     }
+  }
+
+  _responseToHtml(response) {
+    const $html = $(super._responseToHtml(response));
+
+    $html.find('a').changeTag('span');
+    $html.find('.linkeable').removeClass('linkeable');
+
+    $html.filter(VARIANT_SELECTOR).each((_index, node) => {
+      node.classList.add('linkeable');
+      node.setAttribute('href', $(node).find('.name .b-link').attr('href'));
+    });
+
+    return $html;
   }
 
   _searchUrl(phrase) {

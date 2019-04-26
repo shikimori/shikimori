@@ -53,17 +53,21 @@ export default class IndexEngine {
   }
 
   _processResponse(response) {
-    let html;
+    this.$content
+      .html(this._responseToHtml(response))
+      .process(response.JS_EXPORTS);
+  }
 
+  _responseToHtml(response) {
     if (response.content) {
-      html = response.content + (response.postloader || '');
-    } else {
-      html = Object.isEmpty(this.phrase) ?
-        '' :
-        JST['search/nothing_found']({ isAutocomplete: this.isAutocomplete });
+      return response.content + (response.postloader || '');
     }
 
-    this.$content.html(html).process(response.JS_EXPORTS);
+    return (
+      Object.isEmpty(this.phrase) ?
+        '' :
+        JST['search/nothing_found']({ isAutocomplete: this.isAutocomplete })
+    );
   }
 
   _searchUrl(phrase) {
