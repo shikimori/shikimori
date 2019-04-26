@@ -17,7 +17,7 @@
       .logo
 
   .menu-dropdown.main
-    button.menu-icon.trigger.mobile tab-index='-1'
+    button.menu-icon.trigger.mobile tabindex='-1'
     button[
       class="icon-#{@top_menu.current_item.data[:name]}"
     ]
@@ -61,7 +61,7 @@
       placeholder=t('search.search')
       value=params[:search]
     ]
-    button.clear tab-index='-1'
+    button.clear tabindex='-1'
     .hotkey-marker
   .search-results
 
