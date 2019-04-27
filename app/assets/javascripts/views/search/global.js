@@ -39,7 +39,7 @@ export default class GlobalSearch extends View {
         this.$input.focus();
       })
       .on('focus mousemove', VARIANT_SELECTOR, ({ currentTarget }) => {
-        // better than mouseover cause it does not trigger after keyboard scroll
+        // prefer mousemove over mouseover cause it does not trigger after keyboard scroll
         if (this.currentItem !== currentTarget) {
           this._selectItem(currentTarget, false);
         }

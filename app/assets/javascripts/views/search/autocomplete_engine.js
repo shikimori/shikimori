@@ -32,7 +32,7 @@ export default class AutocompleteEngine extends IndexEngine {
     const $html = $(super._responseToHtml(response));
 
     $html.find('a').changeTag('span');
-    $html.find('.linkeable').removeClass('linkeable');
+    $html.find('.linkeable, .bubbled').removeClass('linkeable bubbled');
 
     $html.filter(VARIANT_SELECTOR).each((_index, node) => {
       node.classList.add('linkeable');
