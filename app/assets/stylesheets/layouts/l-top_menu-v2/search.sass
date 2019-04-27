@@ -174,21 +174,24 @@
   display: block
 
 +iphone
-  .l-top_menu-v2.is-mobile-search .global-search
-    background: $top_menu_background_hover
-    display: block
-    padding: 18px 0
-    position: absolute
-    top: 47px
+  .l-top_menu-v2.is-mobile-search
+    margin-bottom: 68px // = global-search height
 
-    label.field
+    .global-search
+      background: $top_menu_background_hover
       display: block
-      padding: 0 10px
-      position: relative
+      padding: 18px 0
+      position: absolute
+      top: 47px
 
-    .search-results
-      margin-top: 18px
+      label.field
+        display: block
+        padding: 0 10px
+        position: relative
 
-    .clear
-      display: block
-      right: 10px
+      .search-results
+        margin-top: 18px
+
+      .clear
+        display: block
+        right: 10px
