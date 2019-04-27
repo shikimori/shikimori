@@ -28,6 +28,9 @@
     &.has-value ~ .hotkey-marker
       display: none
 
+    &:focus ~ .search-marker
+      color: $link-3
+
     &.has-value ~ .clear
       display: block
 
@@ -51,11 +54,7 @@
       top: 5px
       width: 18px
 
-  label.field:before
-    +shikimori('s')
-    width: 42px
-
-  label.field:before,
+  .search-marker,
   .clear
     font-size: 20px
     height: 32px
@@ -64,12 +63,19 @@
     text-align: center
     top: 0
 
+  .search-marker
+    width: 42px
+
+    &:before
+      +shikimori('s')
+
   .clear
     +link_color(#333)
     display: none
     height: 32px
     right: 0
     width: 38px
+    outline: none
 
     &.active
       display: block
@@ -77,7 +83,6 @@
     &:before
       +shikimori('\e828')
       font-size: 23px
-
 
   .search-results
     background-color: #fff
