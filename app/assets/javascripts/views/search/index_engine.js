@@ -33,16 +33,21 @@ export default class IndexEngine {
 
     if (this.phrase !== undefined) {
       this._showAjax();
-      this.debouncedSearch(this.phrase);
+
+      if (Object.isEmpty(this.phrase)) {
+        this._search(this.phrase);
+      } else {
+        this.debouncedSearch(this.phrase);
+      }
     }
   }
 
   async _search(phrase) {
     const { data, status } = await ajaxCacher.fetch(this._searchUrl(phrase));
-    this._hideAjax();
 
     if (status !== 200) {
       flash.error(I18n.t('frontend.lib.paginated_catalog.please_try_again_later'));
+      this._hideAjax();
       return;
     }
 
@@ -50,6 +55,7 @@ export default class IndexEngine {
       this._changeUrl(phrase);
       this._processResponse(data);
     }
+    this._hideAjax();
   }
 
   _processResponse(response) {
