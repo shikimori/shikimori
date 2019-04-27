@@ -4,10 +4,10 @@
   color: #123
   width: 100%
 
-  +iphone
+  +lte_ipad
     display: none
 
-  +gte_ipad
+  +gt_ipad
     margin-right: 10px
     position: relative
 
@@ -37,7 +37,7 @@
   .hotkey-marker
     display: block
 
-    +iphone
+    +lte_ipad
       display: none
 
     &:before
@@ -173,13 +173,14 @@
 .l-top_menu-v2.is-global-search .search-results
   display: block
 
-+iphone
++lte_ipad
   .l-top_menu-v2.is-mobile-search
     margin-bottom: 68px // = global-search height
 
     .global-search
       background: $top_menu_background_hover
       display: block
+      left: 0
       padding: 18px 0
       position: absolute
       top: 47px
