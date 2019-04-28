@@ -1,6 +1,7 @@
-import { bind } from 'decko';
-import URI from 'urijs';
 import Turbolinks from 'turbolinks';
+import URI from 'urijs';
+import delay from 'delay';
+import { bind } from 'decko';
 
 import View from 'views/application/view';
 
@@ -22,13 +23,12 @@ export default class GlobalSearch extends View {
     this.phrase = this.inputSearchPhrase;
     this.currentMode = this.hasIndex ? 'index' : 'anime';
 
-    this.globalTryCloseOnFocus = this._tryCloseOnFocus.bind(this);
-
     globalHandler.on('slash', this._onGlobalSlash);
 
     this.$input
       .on('focus', () => this._activate())
-      .on('change blur paste keyup', () => this.phrase = this.inputSearchPhrase);
+      .on('change blur paste keyup', () => this.phrase = this.inputSearchPhrase)
+      .on('blur', this._onBlur);
 
     this.$('.field .clear')
       .on('click', () => this._clearPhrase(true));
@@ -149,6 +149,7 @@ export default class GlobalSearch extends View {
     });
   }
 
+  @bind
   _deactivate() {
     if (!this.isActive) { return; }
 
@@ -248,20 +249,29 @@ export default class GlobalSearch extends View {
     // }
   }
 
+  @bind
+  async _onBlur() {
+    if (!this.isIndexMode) { return; }
+
+    await delay();
+    if (!this.$input.is(':focus')) {
+      this._deactivate();
+    }
+  }
+
   _toggleGlobalSearch() {
-    const isEnabled = this.isActive && (
+    const isShade = this.isActive && (
       !this.isIndexMode ||
         (this.isIndexMode && Object.isEmpty(this.phrase))
     );
 
-    $('.l-top_menu-v2').toggleClass('is-global-search', isEnabled);
+    $('.l-top_menu-v2')
+      .toggleClass('is-search-focus', this.isActive)
+      .toggleClass('is-search-shade', isShade);
 
-    if (!this._bindedDeactivate) {
-      this._bindedDeactivate = this._deactivate.bind(this);
-    }
-    $('.b-shade').off('click', this._bindedDeactivate);
-    if (isEnabled) {
-      $('.b-shade').on('click', this._bindedDeactivate);
+    $('.b-shade').off('click', this._deactivate);
+    if (isShade) {
+      $('.b-shade').on('click', this._deactivate);
     }
   }
 
@@ -346,6 +356,7 @@ export default class GlobalSearch extends View {
     }
   }
 
+  @bind
   _tryCloseOnFocus({ target }) {
     const $target = $(target);
     const isInside = target === this.root || $target.closest(this.$root).length;
