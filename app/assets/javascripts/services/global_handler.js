@@ -19,20 +19,26 @@ export default class GlobalHandler {
 
   @chain
   on(key, handler) {
-    if (key.constructor === String) {
+    if (key === 'focus') {
+      this._bind('focus', null, handler);
+    } else if (key.constructor === String) {
+      // key name
       if (KEY_CODES[key].constructor === Array) {
         KEY_CODES[key].forEach(keyCode => this._bind(null, keyCode, handler));
       } else {
         this._bind(null, KEY_CODES[key], handler);
       }
     } else {
+      // key code
       this._bind(null, key, handler);
     }
   }
 
   @chain
   off(key, handler) {
-    if (key.constructor === String) {
+    if (key === 'focus') {
+      this._unbind('focus', null, handler);
+    } else if (key.constructor === String) {
       if (KEY_CODES[key].constructor === Array) {
         KEY_CODES[key].forEach(keyCode => this._unbind(null, keyCode, handler));
       } else {
@@ -45,25 +51,34 @@ export default class GlobalHandler {
 
   @bind
   _onKeyup(e) {
-    const handlers = this.events.keyup[e.keyCode];
-    if (!handlers) { return; }
+    if (!this.events.keyup || !this.events.keyup[e.keyCode]) { return; }
 
-    handlers.forEach(handler => handler(e));
+    this.events.keyup[e.keyCode].forEach(handler => handler(e));
   }
 
   @bind
   _onKeydown(e) {
-    const handlers = this.events.keydown[e.keyCode];
-    if (!handlers) { return; }
+    if (!this.events.keyup || !this.events.keydown[e.keyCode]) { return; }
 
-    handlers.forEach(handler => handler(e));
+    this.events.keydown[e.keyCode].forEach(handler => handler(e));
+  }
+
+  @bind
+  _onFocus(e) {
+    if (!this.events.focus || !this.events.focus.null) { return; }
+
+    this.events.focus.null.forEach(handler => handler(e));
   }
 
   _bind(event, keyCode, handler) {
     if (!event) { event = keyCodeEvent(keyCode); } // eslint-disable-line no-param-reassign
 
     if (!this.events[event]) {
-      $(document).on(event, this._handler(event));
+      if (event === 'focus') {
+        $(document.body).on(event, '*', this._handler(event));
+      } else {
+        $(document).on(event, this._handler(event));
+      }
 
       if (Object.isEmpty(this.events)) {
         this._scheduleUnbind();
@@ -107,7 +122,7 @@ export default class GlobalHandler {
 
   _unbindEvent(event) {
     if (event === 'focus') {
-      $(document).off(event, '*', this._handler(event));
+      $(document.body).off(event, '*', this._handler(event));
     } else {
       $(document).off(event, this._handler(event));
     }

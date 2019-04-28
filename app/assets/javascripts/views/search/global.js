@@ -141,12 +141,8 @@ export default class GlobalSearch extends View {
       .on('enter', this._onEnter)
       .on('up', this._onMoveUp)
       .on('down', this._onMoveDown)
-      .on('esc', this._onEsc);
-
-    $(document.body).on('focus', '*', this.globalTryCloseOnFocus);
-    $(document).one('turbolinks:before-cache', () => {
-      $(document.body).off('focus', '*', this.globalTryCloseOnFocus);
-    });
+      .on('esc', this._onEsc)
+      .on('focus', this._tryCloseOnFocus);
   }
 
   @bind
@@ -164,9 +160,8 @@ export default class GlobalSearch extends View {
       .off('enter', this._onEnter)
       .off('esc', this._onEsc)
       .off('up', this._onMoveUp)
-      .off('down', this._onMoveDown);
-
-    $(document.body).off('focus', '*', this.globalTryCloseOnFocus);
+      .off('down', this._onMoveDown)
+      .off('focus', this._tryCloseOnFocus);
   }
 
   _renderModes() {
