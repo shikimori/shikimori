@@ -6,60 +6,50 @@
   +clear_left
   background-color: #eef1f2
   border-bottom: 1px solid #d0d8db
-  margin: -15px -15px 15px -15px
-  padding: 7px 15px 5px 15px
+  display: flex
+  flex-wrap: wrap
+  margin: -15px -10px 15px
+  overflow: hidden
+  padding: 4px 15px
+  position: relative
+  line-height: 24px
+  align-items: center
+  justify-content: space-between
+  height: 32px
 
-  +lte_ipad
-    margin-left: -10px
-    margin-right: -10px
+  +gt_laptop
+    margin-left: -15px
+    margin-right: -15px
 
-  .topic
-    font-size: 11px
-    text-align: center
+  .subject
+    color: #234
+    font-weight: bold
+    margin-right: 10px
 
-    +gt_ipad
-      +column(9, 1/9, 2%)
+  .subject,
+  .b-link
+    font-size: 12px
+    white-space: nowrap
 
-    +ipad
-      +column(8, 1/8, 2%)
+    // &:not(:last-child)
+      margin-right: 2%
 
-      &:nth-child(9)
-        display: none
+  .b-link
+    align-items: center
+    display: inline-flex
+    max-width: 150px
+    padding: 0 5px
 
-    +iphone_landscape
-      +column(6, 1/6, 2%)
-
-      &:nth-child(7), &:nth-child(8), &:nth-child(9)
-        display: none
-
-    +iphone_portrait
-      +column(4, 1/4, 2%)
-
-      &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8), &:nth-child(9)
-        display: none
-
-    &:nth-child(10), &:nth-child(11), &:nth-child(12), &:nth-child(13), &:nth-child(14)
-      display: none
-
-    &.subject
-      color: #234
-      font-weight: bold
-      line-height: 12px
+    span:not(.poster)
+      +ellipsis2
 
     &.moderation
-      a
-        color: $red
+      color: $red
 
-    a
-      +ellipsis2
-      display: block
-
-      padding-left: 17px
-
-      .poster
-        background-size: 100%
-        height: 14px
-        margin-left: -17px
-        margin-top: -1px
-        position: absolute
-        width: 14px
+    .poster
+      background-size: 100%
+      flex-shrink: 0
+      height: 16px
+      margin-right: 5px
+      margin-top: -2px
+      width: 16px
