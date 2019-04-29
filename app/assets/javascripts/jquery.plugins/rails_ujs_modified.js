@@ -79,7 +79,7 @@ jQuery($ => {
           },
           error(xhr, status, error) {
             $this.data('ajax:locked', false);
-            if (xhr.responseText.match(/invalid/)) { // || xhr.responseText.match(/unauthenticated/)) {
+            if (xhr.responseText && xhr.responseText.match(/invalid/)) { // || xhr.responseText.match(/unauthenticated/)) {
               flash.error(I18n.t('frontend.lib.rails_ujs_modified.invalid_login_or_password'));
             } else if (xhr.status == 403) {
               try {
