@@ -34,7 +34,7 @@ export default class GlobalSearch extends View {
       .on('click', () => this._clearPhrase(true));
 
     this.$content
-      .on('click', '.search-mode', ({ currentTarget }) => {
+      .on('mousedown', '.search-mode', ({ currentTarget }) => {
         this._selectItem(currentTarget);
         this.$input.focus();
       })
