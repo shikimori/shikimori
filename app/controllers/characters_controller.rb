@@ -107,7 +107,6 @@ class CharactersController < PeopleController
     @collection = @collection.map(&:decorate)
   end
 
-
 private
 
   def update_params

@@ -45,15 +45,15 @@
 
 .global-search[
   data-search_anime_url=animes_collection_url
-  data-search_manga_url=mangas_collection_url
-  data-search_ranobe_url=ranobe_collection_url
-  data-search_character_url=characters_url
-  data-search_person_url=people_url
+  data-search_manga_url=mangas_collection_url(subdomain: false)
+  data-search_ranobe_url=ranobe_collection_url(subdomain: false)
+  data-search_character_url=characters_url(subdomain: false)
+  data-search_person_url=people_url(subdomain: false)
   data-autocomplete_anime_url=autocomplete_v2_animes_url
-  data-autocomplete_manga_url=autocomplete_v2_mangas_url
-  data-autocomplete_ranobe_url=autocomplete_v2_ranobe_index_url
-  data-autocomplete_character_url=autocomplete_v2_characters_url
-  data-autocomplete_person_url=autocomplete_v2_people_url
+  data-autocomplete_manga_url=autocomplete_v2_mangas_url(subdomain: false)
+  data-autocomplete_ranobe_url=autocomplete_v2_ranobe_index_url(subdomain: false)
+  data-autocomplete_character_url=autocomplete_v2_characters_url(subdomain: false)
+  data-autocomplete_person_url=autocomplete_v2_people_url(subdomain: false)
 ]
   label.field
     input[
@@ -68,13 +68,13 @@
 
 a.menu-icon.forum[
   title=t('forum')
-  href=forum_url
+  href=forum_url(subdomain: false)
 ]
 
 - if user_signed_in?
   - if current_user.show_contest_link?
     a.menu-icon.contest[
-      href=current_contests_url
+      href=current_contests_url(subdomain: false)
       title=t('.items.current_contest')
     ]
 
@@ -88,7 +88,7 @@ a.menu-icon.forum[
   - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
     a.menu-icon.moderation[
       title=t('.items.moderation')
-      href=moderations_url
+      href=moderations_url(subdomain: false)
     ]
 
   .menu-dropdown.profile
@@ -115,14 +115,14 @@ a.menu-icon.forum[
           ] = item.title
 
       a.icon-sign_out[
-        href=destroy_user_session_url(subdomain: nil)
+        href=destroy_user_session_url(subdomain: false)
         data-method='delete'
         tabindex="-1"
       ] = t '.items.sign_out'
 
 - else
   .menu-icon.linkeable.sign_in[
-    data-href=new_user_session_url(subdomain: nil)
+    data-href=new_user_session_url(subdomain: false)
     title=t('.items.sign_in')
     data-text=t('.items.sign_in')
   ]

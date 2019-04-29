@@ -12,6 +12,7 @@ en:
         profile: Account
         site: Site
       items:
+        play: Play
         anime: :activerecord.models.anime
         manga: :activerecord.models.manga
         ranobe: :activerecord.models.ranobe
@@ -38,7 +39,8 @@ en:
 
         characters: Characters
         home: Home
-        main: Shikimori
+        play: Anime Online
+        # main: Shikimori
         main_menu: Main Menu
         other: Other
         people: People

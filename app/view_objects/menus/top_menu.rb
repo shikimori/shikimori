@@ -6,6 +6,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :main,
       group: :database,
       url: :animes_collection_url
+
     }, {
       name: :manga,
       placement: :main,
@@ -37,7 +38,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       name: :reviews,
       placement: :main,
       group: :community,
-      url: ->(h) { h.forum_topics_url :reviews }
+      url: ->(h) { h.forum_topics_url :reviews, subdomain: false }
     },
     # misc
     {
@@ -84,13 +85,13 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: nil }
+      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: false }
     }, {
       name: :manga_list,
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: nil }
+      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: false }
     }, {
       name: :mail,
       placement: :profile,
@@ -102,13 +103,13 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.profile_achievements_url h.current_user, subdomain: nil }
+      url: ->(h) { h.profile_achievements_url h.current_user, subdomain: false }
     }, {
       name: :settings,
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.edit_profile_url h.current_user, page: :account, subdomain: nil }
+      url: ->(h) { h.edit_profile_url h.current_user, page: :account, subdomain: false }
     }, {
       name: :site_rules,
       placement: :profile,
@@ -143,6 +144,9 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
     }, {
       name: :people,
       url: :people_url
+    }, {
+      name: :play,
+      url: ->(h) { h.root_url(subdomain: 'play') }
     }
   ]
 
@@ -193,6 +197,7 @@ private
 
   def build item
     return if if_condition(item[:if])
+
     url = item_url(item[:url])
 
     OpenStruct.new(
@@ -225,7 +230,7 @@ private
       value
 
     elsif value.is_a? Symbol
-      h.send value
+      h.send value, subdomain: false
 
     else
       value.call h
