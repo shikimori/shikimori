@@ -5,7 +5,9 @@ pageLoad('topics_show', () => {
     const $firstImage = $('.body-inner img.b-poster').first();
 
     $firstImage.imagesLoaded(() => {
-      if ($firstImage.offset().top === ($stars.offset().top + $stars.outerHeight())) {
+      const imageOffset = $firstImage.offset();
+
+      if (imageOffset && imageOffset.top === ($stars.offset().top + $stars.outerHeight())) {
         $firstImage.addClass('review-poster');
       }
     });
