@@ -4,7 +4,7 @@ import View from 'views/application/view'
 recalc_styles = ->
   $('#injectCSSContainer').empty()
   $(".#{CuttedCovers.CLASS_NAME}").each ->
-    $(@).data(CuttedCovers.CLASS_NAME).inject_css()
+    $(@).data(CuttedCovers.CLASS_NAME)?.inject_css()
 
 set_hanler = ->
   CuttedCovers.GLOBAL_HANDLER = true
