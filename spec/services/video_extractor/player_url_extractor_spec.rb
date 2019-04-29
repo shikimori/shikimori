@@ -361,7 +361,7 @@ describe VideoExtractor::PlayerUrlExtractor do
 
     context 'zedfilm.ru' do
       let(:html) { 'http://zedfilm.ru/785805' }
-      it { is_expected.to eq '//zedfilm.ru/785805' }
+      it { is_expected.to eq '//gidfilm.ru/embed/785805' }
     end
 
     context 'wikianime.tv' do

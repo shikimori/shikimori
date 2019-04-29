@@ -122,8 +122,8 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}stormo.(?:xyz|tv)/embed/#{CONTENT})}
       $LAST_MATCH_INFO[:url]
-    elsif html =~ %r{(?<url>#{HTTP}zedfilm.ru/#{CONTENT})}
-      $LAST_MATCH_INFO[:url]
+    elsif html =~ %r{#{HTTP}(?:zedfilm|gidfilm).ru(?:/embed)?/(?<id>#{CONTENT})}
+      "https://gidfilm.ru/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ %r{(?<url>#{HTTP}wikianime.tv/embed/\?id=#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{#{HTTP}(?:mediafile.online|iframedream.com)/embed/(?<id>#{CONTENT})}
@@ -149,8 +149,6 @@ private
       ($LAST_MATCH_INFO[:url]).to_s.gsub(/-.*/, '')
     elsif html =~ ANIMAUNT_REGEXP
       ($LAST_MATCH_INFO[:url]).to_s
-    elsif html =~ %r{(?<url>#{HTTP}gidfilm.ru/embed#{CONTENT})}
-      $LAST_MATCH_INFO[:url]
     elsif html =~ VideoExtractor::OkExtractor::URL_REGEX
       "https://ok.ru/videoembed/#{$LAST_MATCH_INFO[:key]}"
     else
