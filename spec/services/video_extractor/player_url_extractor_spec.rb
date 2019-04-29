@@ -354,6 +354,16 @@ describe VideoExtractor::PlayerUrlExtractor do
       it { is_expected.to eq '//stormo.xyz/embed/415088/' }
     end
 
+    context 'mediafile.online / iframedream.com' do
+      let(:html) { 'https://mediafile.online/embed/212866' }
+      it { is_expected.to eq '//mediafile.online/embed/212866' }
+    end
+
+    context 'zedfilm.ru' do
+      let(:html) { 'http://zedfilm.ru/785805' }
+      it { is_expected.to eq '//zedfilm.ru/785805' }
+    end
+
     context 'mp4upload.com' do
       context do
         let(:html) { 'https://www.mp4upload.com/embed-169qug77sszf.html' }
