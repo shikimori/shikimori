@@ -289,10 +289,11 @@ export default class GlobalSearch extends View {
 
   @bind
   _onEnter(e) {
-    if (this.isIndexMode) { return; }
-    if (!this.phrase.trim()) { return; }
     e.preventDefault();
     e.stopImmediatePropagation();
+
+    if (this.isIndexMode) { return; }
+    if (!this.phrase.trim()) { return; }
 
     let url;
 
