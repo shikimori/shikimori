@@ -11,7 +11,8 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
       (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS} |
       video.(?<hosting>youmite).ru/embed/[\wА-я_-]+#{PARAMS} |
       (?<hosting>viuly).io/video/[\wА-я_.-]+#{PARAMS} |
-      (?<hosting>stormo).(?:xyz|tv)/videos/[\wА-я_-]+/[\wА-я_-]+/
+      (?<hosting>stormo).(?:xyz|tv)/videos/[\wА-я_-]+/[\wА-я_-]+/ |
+      (?<hosting>mediafile).online/video/[\wА-я_-]+/[\wА-я_-]+/
     )
   }mix
 

@@ -11,6 +11,7 @@ class Video < ApplicationRecord
     in: %i[
       youtube vk ok coub rutube vimeo sibnet yandex
       streamable smotret_anime myvi youmite viuly stormo
+      mediafile
     ], # dailymotion twitch
     predicates: true
   enumerize :kind, in: %i[pv op ed other], predicates: true

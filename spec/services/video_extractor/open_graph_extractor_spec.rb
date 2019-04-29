@@ -97,6 +97,17 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
       its(:player_url) { is_expected.to eq '//stormo.xyz/embed/415088/' }
     end
 
+    describe 'mediafile.online' do
+      let(:url) { 'https://mediafile.online/video/176446/bolshoy-sobachiy-pobeg-treyler-2016/' }
+      its(:hosting) { is_expected.to eq 'mediafile' }
+      its(:image_url) do
+        is_expected.to eq(
+          '//mediafile.online/contents/videos_screenshots/176000/176446/preview.mp4.jpg'
+        )
+      end
+      its(:player_url) { is_expected.to eq '//mediafile.online/embed/176446/' }
+    end
+
     context 'invalid_url' do
       let(:url) { 'http://coub.cOOOm/view/bqn2pda' }
       it { is_expected.to be_nil }
