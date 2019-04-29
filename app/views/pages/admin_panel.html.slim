@@ -1,93 +1,88 @@
-.reload
+.lines
+  .line
+    .metric
+      b Ruby:
+      span #{RUBY_VERSION}
 
-article
-  .metric
-    b Ruby:
-    span #{RUBY_VERSION}
+    .metric
+      b Commit:
+      span #{@code[0..6]}
 
-  .metric
-    b Commit:
-    span #{@code[0..6]}
+    .metric class="#{:alert if (!@disk_space.respond_to?(:nan?) || !@disk_space.nan?) && @disk_space.to_i > 90}"
+      b Disk:
+      span #{@disk_space}%
 
-  .metric class="#{:alert if (!@disk_space.respond_to?(:nan?) || !@disk_space.nan?) && @disk_space.to_i > 90}"
-    b Disk:
-    span #{@disk_space}%
+    .metric class="#{:alert if (!@mem_space.respond_to?(:nan?) || !@mem_space.nan?) && @mem_space.to_i > 90}"
+      b Memory:
+      span #{@mem_space}%
 
-  .metric class="#{:alert if (!@mem_space.respond_to?(:nan?) || !@mem_space.nan?) && @mem_space.to_i > 90}"
-    b Memory:
-    span #{@mem_space}%
+    / .metric class="#{:alert if @swap_space.to_i > 10}"
+      / b Swap:
+      / span #{@swap_space}%
 
-  / .metric class="#{:alert if @swap_space.to_i > 10}"
-    / b Swap:
-    / span #{@swap_space}%
+    / .metric class="#{:alert if @redis_keys.zero?}"
+      / b Redis keys:
+      / span = @redis_keys
 
-  / .metric class="#{:alert if @redis_keys.zero?}"
-    / b Redis keys:
-    / span = @redis_keys
+    .metric class="#{:alert if @proxies_count < 200}"
+      b Proxies:
+      span = @proxies_count
 
-  .metric class="#{:alert if @proxies_count < 200}"
-    b Proxies:
-    span = @proxies_count
+    - if @last_episodes_message
+      .metric class="#{:alert if @last_episodes_message < 1.day.ago}"
+        b Last Episode:
+        span = time_ago_in_words @last_episodes_message
 
-  - if @last_episodes_message
-    .metric class="#{:alert if @last_episodes_message < 1.day.ago}"
-      b Last Episode:
-      span = time_ago_in_words @last_episodes_message
+    / - if @calendar_update
+      / .metric class="#{:alert if @calendar_update < 1.day.ago}"
+        / b Calendar Update:
+        / span = time_ago_in_words @calendar_update
 
-  / - if @calendar_update
-    / .metric class="#{:alert if @calendar_update < 1.day.ago}"
-      / b Calendar Update:
-      / span = time_ago_in_words @calendar_update
+    .metric
+      / class="#{:alert if @pending_anidb > 30}"
+      b Anidb:
+      span #{@pending_anidb} (#{@missing_anidb})
+    .metric
+      b Animes:
+      span = @animes_to_import
+    .metric
+      b Mangas:
+      span = @mangas_to_import
+    .metric
+      b Characters:
+      span = @characters_to_import
+    .metric
+      b People:
+      span = @people_to_import
 
-  .metric
-    / class="#{:alert if @pending_anidb > 30}"
-    b Anidb:
-    span #{@pending_anidb} (#{@missing_anidb})
-  .metric
-    b Animes:
-    span = @animes_to_import
-  .metric
-    b Mangas:
-    span = @mangas_to_import
-  .metric
-    b Characters:
-    span = @characters_to_import
-  .metric
-    b People:
-    span = @people_to_import
-  .metric
-    a.build-status href="https://circleci.com/gh/shikimori/shikimori/tree/master"
-      / img src="https://circleci.com/gh/shikimori/shikimori.svg?style=svg&circle-token=5bd1a64ae9642ddb8d27a9585881756804ce9163"
-      img src="https://camo-v2.shikimori.org/7093b6c65fc8c6755c33c11bfe046ba355b3b424?url=https%3A%2F%2Fcircleci.com%2Fgh%2Fshikimori%2Fshikimori.svg%3Fstyle%3Dsvg%26circle-token%3D5bd1a64ae9642ddb8d27a9585881756804ce9163"
-
-  / - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
-    / .subheadline Calendar Unrecognized
+    / - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
+      / .subheadline Calendar Unrecognized
+      / .m15
+        / - @calendar_unrecognized.each do |name|
+          / p.m5 = name
+    / .subheadline links
     / .m15
-      / - @calendar_unrecognized.each do |name|
-        / p.m5 = name
-  / .subheadline links
-  / .m15
-    / p: a href="#{publishing_cosplay_galleries_url}" Cosplay Publishing
+      / p: a href="#{publishing_cosplay_galleries_url}" Cosplay Publishing
 
 
-- unless Rails.env.test?
-  article
-    .metric
-      b Memcached Memory
-      span #{@memcached_space}%
-    .metric
-      b Hits/Misses
-      span #{@memcached_hits_misses}%
-    .metric
-      b Items
-      span = @memcached_items
-    .metric
-      b Uptime
-      span = time_ago_in_words @memcached_uptime.seconds.ago
+  - unless Rails.env.test?
+    .line
+      .metric
+        b Memcached Memory
+        span #{@memcached_space}%
+      .metric
+        b Hits/Misses
+        span #{@memcached_hits_misses}%
+      .metric
+        b Items
+        span = @memcached_items
+      .metric
+        b Uptime
+        span = time_ago_in_words @memcached_uptime.seconds.ago
 
 
-- if @sidkiq_busy&.any? || @sidkiq_enqueued&.any? || @sidkiq_retries&.any?
-  article
+  / - if @sidkiq_busy&.any? || @sidkiq_enqueued&.any? || @sidkiq_retries&.any?
+  .line
     - if @sidkiq_stats
       .metric
         b
@@ -123,3 +118,10 @@ article
             = time_ago_in_words Time.at(job['enqueued_at'])
           span.retries
             = job['class']
+
+.status
+  .reload
+
+  a.build-status href="https://circleci.com/gh/shikimori/shikimori/tree/master"
+    / img src="https://circleci.com/gh/shikimori/shikimori.svg?style=svg&circle-token=5bd1a64ae9642ddb8d27a9585881756804ce9163"
+    img src="https://camo-v2.shikimori.org/7093b6c65fc8c6755c33c11bfe046ba355b3b424?url=https%3A%2F%2Fcircleci.com%2Fgh%2Fshikimori%2Fshikimori.svg%3Fstyle%3Dsvg%26circle-token%3D5bd1a64ae9642ddb8d27a9585881756804ce9163"

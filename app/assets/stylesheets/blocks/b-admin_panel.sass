@@ -7,53 +7,53 @@
   margin-top: 0
 
 .b-admin_panel
-  +clear_left
   // color: #ff8a3c
   // background-color: #ffe8d8
   // border-bottom: 1px solid #ffd5b8
-  margin-bottom: 10px
-  // margin-top: -8px
-  min-height: 30px
-  position: relative
+  margin-bottom: 5px
+  margin-top: -5px
+  min-height: 32px
+  display: flex
+  align-items: center
 
-  article
+  .line
     margin-bottom: 2px
 
-  .metric
-    display: inline-block
-    font-size: 10px
-    margin-bottom: 0
-    margin-right: 15px
+    .metric
+      display: inline-block
+      font-size: 10px
+      margin-bottom: 0
+      margin-right: 15px
 
-    &.alert span
-      color: $red
+      &.alert span
+        color: $red
 
-    span
-      padding-left: 3px
+      span
+        padding-left: 3px
 
-  .build-status
-    position: absolute
-    margin-top: -14px
+  .status
+    margin-left: auto
+    display: flex
+    flex-direction: column
+    align-items: center
 
-  .reload
-    color: #666666
-    cursor: pointer
-    position: absolute
-    right: 0
-    top: 2px
+    .reload
+      color: #666
+      cursor: pointer
+      margin-bottom: 5px
 
-    &:before
-      +shikimori('\e801')
-      font-size: 14px
+      &:before
+        +shikimori('\e801')
+        font-size: 14px
 
-    &:active
-      text-shadow: #DDDDDD, 1px, 1px, 0px
+      &:active
+        text-shadow: #DDDDDD, 1px, 1px, 0px
 
-    &:hover
-      color: #333333
+      &:hover
+        color: #333333
 
-    &.active
-      animation: rotating 0.75s linear infinite
+      &.active
+        animation: rotating 0.75s linear infinite
 
   .sidekiq
     .metric
