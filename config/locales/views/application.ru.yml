@@ -21,6 +21,7 @@ ru:
         forum: :forum
         users: Пользователи
         contests: Турниры
+        current_contest: Текущий турнир
         calendar: :calendar
         info: :about_site
         socials: Мы в соц. сетях

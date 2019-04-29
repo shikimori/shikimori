@@ -21,6 +21,7 @@ en:
         forum: :forum
         users: Users
         contests: Contests
+        current_contest: Current Contest
         calendar: :calendar
         info: :about_site
         socials: In social networks

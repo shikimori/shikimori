@@ -47,21 +47,29 @@
         display: block
         margin-left: auto
 
+    &.contest,
     &.mail
       &:after
         background: #fff
         border-radius: 50%
         border: 1px solid $top_menu-background_color
         color: $top_menu-background_color
-        content: attr(data-count)
         font-size: 8px
-        height: 15px
+        height: 14px
         line-height: 14px
-        margin-left: 10px
-        margin-top: -6px
+        margin-top: -7px
         position: absolute
         text-align: center
-        width: 15px
+        width: 14px
+
+    &.contest:after
+      content: '\2713'
+      font-family: shikimori
+      margin-left: 5px
+
+    &.mail:after
+      content: attr(data-count)
+      margin-left: 10px
 
   .menu-dropdown
     +gte_ipad
