@@ -230,12 +230,19 @@ private
     end
   end
 
-  # имя класса текущего элемента в нижнем регистре
   def klass_lower
-    if respond_to?(:anime?) && anime?
+    if object.is_a? Character # becase character has method :anime?
+      Character.name.downcase
+
+    elsif object.is_a? Person
+      Person.name.downcase
+
+    elsif respond_to?(:anime?) && anime?
       Anime.name.downcase
+
     elsif respond_to?(:manga?) && manga?
       Manga.name.downcase
+
     else
       object.class.name.downcase
     end
