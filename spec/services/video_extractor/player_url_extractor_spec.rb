@@ -364,6 +364,11 @@ describe VideoExtractor::PlayerUrlExtractor do
       it { is_expected.to eq '//zedfilm.ru/785805' }
     end
 
+    context 'wikianime.tv' do
+      let(:html) { 'https://wikianime.tv/embed/?id=10' }
+      it { is_expected.to eq '//wikianime.tv/embed/?id=10' }
+    end
+
     context 'mp4upload.com' do
       context do
         let(:html) { 'https://www.mp4upload.com/embed-169qug77sszf.html' }

@@ -124,6 +124,8 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}zedfilm.ru/#{CONTENT})}
       $LAST_MATCH_INFO[:url]
+    elsif html =~ %r{(?<url>#{HTTP}wikianime.tv/embed/\?id=#{CONTENT})}
+      $LAST_MATCH_INFO[:url]
     elsif html =~ %r{#{HTTP}(?:mediafile.online|iframedream.com)/embed/(?<id>#{CONTENT})}
       "https://mediafile.online/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ SMOTRET_ANIME_REGEXP
