@@ -3,6 +3,7 @@ en:
     editor:
       hotkeys: Hotkeys
       f11: F11 / Ctrl+F11 - fullscreen mode
+      sticky_menu: Sticky menu
       page_background_color: Page background
       page_border: Transparent page border
       body_background: Background image

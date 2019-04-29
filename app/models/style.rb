@@ -10,6 +10,10 @@ class Style < ApplicationRecord
     /* AUTO=page_border */ .l-page { outline: 20px solid rgba(255, 255, 255, 0.3); margin-bottom: 20px; }
   CSS
 
+  STICKY_MENU_CSS = <<-CSS.strip.gsub(/^ +/, '')
+    /* AUTO=sticky_menu */ .l-top_menu-v2 { position: sticky; top: 0; }
+  CSS
+
   PAGE_BACKGROUND_COLOR_CSS = <<-CSS.strip.gsub(/^ +/, '')
     /* AUTO=page_background_color */ .l-page { background-color: rgba(%d, %d, %d, %d); } .b-ajax:before { background: rgba(%d, %d, %d, 0.75); }
   CSS

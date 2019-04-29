@@ -1,5 +1,5 @@
 .cc-2.block.b-edit_styles[
-  data-custom_css_id="#{LayoutView::CUSTOM_CSS_ID}"
+  data-custom_css_id=LayoutView::CUSTOM_CSS_ID
   class=(:expanded if cookies['expanded-styles'] == '1')
 ]
   .c-column
@@ -41,6 +41,14 @@
         ] Рекомендации по настройке внешнего вида профиля
 
   .c-column
+    .sticky_menu[
+      data-css_template=Style::STICKY_MENU_CSS
+    ]
+      .b-input
+        label.checkbox
+          input.boolean type="checkbox"
+          = t '.sticky_menu'
+
     .page_border[
       data-css_template=Style::PAGE_BORDER_CSS
     ]
