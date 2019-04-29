@@ -1,3 +1,8 @@
+import * as atatus from 'atatus-js'; // eslint-disable-line import/newline-after-import
+atatus
+  .config('ebe5fd3d4c754a9592b7f30f70a9c16f')
+  .install();
+
 import 'babel-polyfill'; // async won't work w/o it
 
 import sugar from 'vendor/sugar';
@@ -91,8 +96,6 @@ $(document).on(Object.keys(bindings).join(' '), e => {
   });
 });
 
-import * as atatus from 'atatus-js';
-
 $(() => {
   if (!window.JS_EXPORTS) { window.JS_EXPORTS = {}; }
 
@@ -107,9 +110,6 @@ $(() => {
 
   window.atatus = atatus;
   if ('atatus' in window) {
-    window.atatus
-      .config('ebe5fd3d4c754a9592b7f30f70a9c16f')
-      .install();
     window.atatus.setUser(window.SHIKI_USER.id);
   }
 
