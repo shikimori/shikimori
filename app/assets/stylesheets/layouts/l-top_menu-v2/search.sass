@@ -37,24 +37,26 @@
       display: block
 
   .hotkey-marker
-    display: block
+    border-radius: 3px
+    border: 1px solid $gray-1
+    bottom: 0
+    color: $gray-1
+    content: '/'
+    font-size: 13px
+    height: 22px
+    line-height: 22px
+    margin: auto 0
+    position: absolute
+    right: 7px
+    text-align: center
+    top: 0
+    width: 20px
 
     +lte_ipad
       display: none
 
     &:before
-      border-radius: 3px
-      border: 1px solid $gray-1
-      color: $gray-1
       content: '/'
-      font-size: 13px
-      height: 20px
-      line-height: 20px
-      position: absolute
-      right: 7px
-      text-align: center
-      top: 5px
-      width: 18px
 
   .search-marker,
   .clear
