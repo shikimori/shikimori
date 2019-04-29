@@ -120,7 +120,7 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}viuly.io/embed/#{CONTENT})}
       $LAST_MATCH_INFO[:url]
-    elsif html =~ %r{(?<url>#{HTTP}stormo.xyz/embed/#{CONTENT})}
+    elsif html =~ %r{(?<url>#{HTTP}stormo.(?:xyz|tv)/embed/#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     elsif html =~ SMOTRET_ANIME_REGEXP
       "https://smotretanime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"

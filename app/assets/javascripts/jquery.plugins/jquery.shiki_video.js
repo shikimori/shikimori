@@ -27,7 +27,8 @@ const hostingPatterns = url => (
     ok_ru: prepare('ok.ru', url),
     youmite_ru: prepare('youmite.ru', url),
     viuly_io: prepare('viuly.io', url),
-    stormo_xyz: prepare('stormo.xyz', url)
+    stormo_xyz: prepare('stormo.xyz', url),
+    stormo_xyz: prepare('stormo.tv', url)
   }
 );
 
