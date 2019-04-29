@@ -36,6 +36,8 @@ export default class GlobalSearch extends View {
     this.$content
       .on('mousedown', '.search-mode', ({ currentTarget }) => {
         this._selectItem(currentTarget);
+      })
+      .on('mouseup', '.search-mode', () => {
         this.$input.focus();
       })
       .on('focus mousemove', VARIANT_SELECTOR, ({ currentTarget }) => {
@@ -190,22 +192,27 @@ export default class GlobalSearch extends View {
       this.currentMode = $(node).data('mode');
     }
 
-    const $node = $(node);
-    $node.addClass('active');
+    node.setAttribute('tabindex', 0);
+    node.classList.add('active');
 
-    // switch focus is another variant is already focused
+    // switch focus if another variant is already focused
     const focusedNode = this.$content.find(`${VARIANT_SELECTOR}:focus`)[0];
     if (focusedNode && focusedNode !== node) {
-      $node.focus();
+      $(node).focus();
     }
 
     if (doScroll) {
-      this._scrollToItem($node);
+      this._scrollToItem($(node));
     }
   }
 
   _deselectItems() {
-    this.$content.find(ITEM_SELECTOR).removeClass('active');
+    const node = this.$activeItem[0];
+
+    if (node) {
+      node.setAttribute('tabindex', -1);
+      node.classList.remove('active');
+    }
   }
 
   _scrollToItem($node) {
@@ -249,7 +256,7 @@ export default class GlobalSearch extends View {
     if (!this.isIndexMode) { return; }
 
     await delay();
-    if (!this.$input.is(':focus')) {
+    if (!this.$input.is(':focus') && !this.$activeItem.is(':focus')) {
       this._deactivate();
     }
   }

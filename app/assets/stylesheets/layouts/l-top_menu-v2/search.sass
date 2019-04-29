@@ -34,12 +34,17 @@ $input-height: 29px
     &.has-value ~ .hotkey-marker
       display: none
 
-    &:focus ~ .search-marker
-      color: $link-3
-
     &.has-value ~ .clear
       display: block
 
+.l-top_menu-v2.is-search-focus .global-search
+  .hotkey-marker
+    display: none
+
+  .search-marker
+    color: $link-3
+
+.l-top_menu-v2 .global-search
   .hotkey-marker
     border-radius: 3px
     border: 1px solid $gray-1
@@ -166,6 +171,8 @@ $input-height: 29px
 
     .search-mode,
     .b-db_entry-variant-list_item
+      outline: none
+
       &:active
         border-top: 1px solid $link-2
         background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.1)
