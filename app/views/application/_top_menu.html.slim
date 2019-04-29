@@ -82,8 +82,8 @@ a.menu-icon.forum[
     a.menu-icon.mail[
       href=current_user.unread_messages_url
       title=t(:mail)
+      data-count=([99, current_user.unread_count].min)
     ]
-      / = [99, current_user.unread_count].min
 
   .menu-dropdown.profile
     button
