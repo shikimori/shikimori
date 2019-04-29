@@ -1,11 +1,11 @@
 import { bind } from 'decko';
 import View from 'views/application/view';
 
-const REGEXP = /\/\* AUTO=page_border \*\/ \.l-page\b.*[\r\n]?/;
-
-export default class PageBorder extends View {
-  initialize() {
+export default class PredefinedCheckbox extends View {
+  initialize(regexp) {
     this.cssTemplate = this.$root.data('css_template');
+    this.regexp = regexp;
+
     this.$input = this.$('input');
     [this.input] = this.$input;
 
@@ -18,13 +18,13 @@ export default class PageBorder extends View {
   }
 
   _extract(css) {
-    return !!css.match(REGEXP);
+    return !!css.match(this.regexp);
   }
 
   @bind
   _syncState() {
     this.hasBorder = this.input.checked;
-    this.trigger('component:update', [REGEXP, this._compile()]);
+    this.trigger('component:update', [this.regexp, this._compile()]);
   }
 
   _compile() {

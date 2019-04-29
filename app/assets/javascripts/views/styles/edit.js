@@ -3,9 +3,12 @@ import { debounce } from 'throttle-debounce';
 import axios from 'helpers/axios';
 
 import View from 'views/application/view';
+import PredefinedCheckbox from './predefined_checkbox';
 import PageBackgroundColor from './page_background_color';
-import PageBorder from './page_border';
 import BodyBackground from './body_background';
+
+const PAGE_BORDER_REGEXP = /\/\* AUTO=page_border \*\/ .*[\r\n]?/;
+const STICKY_MENU_REGEXP = /\/\* AUTO=sticky_menu \*\/ .*[\r\n]?/;
 
 export default class EditStyles extends View {
   cssCache = {}
@@ -53,7 +56,8 @@ export default class EditStyles extends View {
 
       this.components = [
         new PageBackgroundColor(this.$('.page_background_color')),
-        new PageBorder(this.$('.page_border')),
+        new PredefinedCheckbox(this.$('.page_border'), PAGE_BORDER_REGEXP),
+        new PredefinedCheckbox(this.$('.sticky_menu'), STICKY_MENU_REGEXP),
         new BodyBackground(this.$('.body_background'))
       ];
 

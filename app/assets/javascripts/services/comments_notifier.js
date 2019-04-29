@@ -28,11 +28,10 @@ export default class CommentsNotifier {
     // при добавление блока о новом комментарии/топике делаем инкремент
     $(document).on('reappear', () => this._incrementCounter());
 
-    // смещение вверх-вниз блока уведомлялки
-    this.scroll = $(window).scrollTop();
+    this._refresh();
 
     $(window).scroll(() => {
-      if (!this.$container) { return; }
+      if (!this.$container || this.isStickyMenu) { return; }
 
       this.scroll = $(window).scrollTop();
 
@@ -42,8 +41,6 @@ export default class CommentsNotifier {
         this._move();
       }
     });
-
-    this._refresh();
   }
 
   _$container() {
@@ -74,6 +71,10 @@ export default class CommentsNotifier {
 
   async _refresh() {
     await delay();
+
+    this.scroll = $(window).scrollTop();
+    this.isStickyMenu = $('.l-top_menu-v2').css('position') == 'sticky';
+
     const $commentNew = $(COMMENT_SELECTOR);
     const $fayeLoader = $(FAYE_LOADER_SELECTOR);
 
