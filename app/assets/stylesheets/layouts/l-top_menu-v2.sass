@@ -6,7 +6,7 @@
 @import mixins/retina
 @import mixins/shikimori
 
-$top_menu-height: 48px
+$top_menu-height: 46px
 
 $top_menu-background_color: #343434
 $top_menu_background_hover: $gray-4
@@ -19,7 +19,6 @@ $top_menu_background_active: lighten($gray-4, 4%)
 
 .l-top_menu-v2
   background: $top_menu-background_color
-  border-bottom: 1px solid #444
   color: #fff
   height: $top_menu-height
   position: relative // w/o it z-index wont work
@@ -75,10 +74,10 @@ $top_menu_background_active: lighten($gray-4, 4%)
     .glyph
       +background-inline-retina('/assets/layouts/l-top_menu-v2/glyph', 'png')
       background-size: contain !important
-      height: 30px
+      height: 28px
       margin-right: 3px
-      margin-top: 2px
-      width: 30px
+      margin-top: 1px
+      width: 28px
 
       +iphone-portrait
         display: none
@@ -86,6 +85,5 @@ $top_menu_background_active: lighten($gray-4, 4%)
     .logo
       +background-inline-retina('/assets/layouts/l-top_menu-v2/logo', 'png')
       background-size: contain !important
-      height: 30px
-      margin-top: -1px
-      width: 145px
+      height: 28px
+      width: 135px
