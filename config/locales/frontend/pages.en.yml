@@ -3,6 +3,8 @@ en:
     pages:
       # p-animes.coffee
       p_animes:
+        hentai: Hentai / Roskomnadzor
+        licensed: Licensed in Russia
         no_data: No data
         watch_online: Watch Online
 

@@ -3,6 +3,8 @@ ru:
     pages:
       # p-animes.coffee
       p_animes:
+        hentai: Хентай / Роскомнадзор
+        licensed: Лицензировано в РФ
         no_data: Нет данных
         watch_online: Смотреть онлайн
 
