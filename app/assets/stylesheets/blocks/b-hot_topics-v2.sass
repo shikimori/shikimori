@@ -29,18 +29,22 @@
   .subject,
   .b-link
     font-size: 12px
-    white-space: nowrap
+    // white-space: nowrap
 
   .b-link
     align-items: center
     display: inline-flex
     padding: 0 5px
+    overflow: hidden
 
-    +iphone-portrait
-      max-width: 90px
+    @media screen and (max-width: 375px)
+      flex-basis: calc(50% - 40px);
 
-    +iphone-landscape
-      max-width: 130px
+    @media screen and (min-width: 376px) and (max-width: 450px)
+      flex-basis: calc(33.3% - 26px);
+
+    @media screen and (min-width: 451px) and (max-width: $iphone_max)
+      flex-basis: calc(25% - 20px);
 
     +gte_ipad
       max-width: 150px
