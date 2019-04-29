@@ -23,8 +23,12 @@
 
 .l-top_menu-v2
   .menu-icon
+    &.desktop
+      +gte_ipad
+        display: none
+
     &:not(.mobile)
-      +lte_ipad
+      +iphone
         display: none
 
     &[data-text]

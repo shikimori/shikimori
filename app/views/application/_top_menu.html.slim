@@ -66,7 +66,7 @@
     .search-marker
   .search-results
 
-a.menu-icon.forum[
+a.menu-icon.forum.desktop[
   title=t('forum')
   href=forum_url(subdomain: false)
 ]
@@ -86,7 +86,7 @@ a.menu-icon.forum[
     ]
 
   - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
-    a.menu-icon.moderation[
+    a.menu-icon.moderation.desktop[
       title=t('.items.moderation')
       href=moderations_url(subdomain: false)
     ]
