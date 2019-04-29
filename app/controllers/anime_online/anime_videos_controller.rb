@@ -120,12 +120,15 @@ class AnimeOnline::AnimeVideosController < AnimesController # rubocop:disable Cl
   end
 
   def extract_url
-    if params[:url].present?
-      url = VideoExtractor::PlayerUrlExtractor.call(Url.new(params[:url].strip).with_http.to_s)
-    end
+    # if params[:url].present?
+    #   Rails.cache.fetch [:extract_url, params[:url].strip] do
+    #     url = VideoExtractor::PlayerUrlExtractor.call(Url.new(params[:url].strip).with_http.to_s)
+    #   end
+    # end
+    anime_video = AnimeVideo.new(url: Url.new(params[:url].strip).with_http.to_s).decorate
 
     render json: {
-      player_html: (AnimeVideo.new(url: url).decorate.player_html if url)
+      player_html: anime_video.player_html
     }
   end
 
