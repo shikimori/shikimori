@@ -25,8 +25,15 @@ class Anime < DbEntry
 
   ADULT_RATING = 'rx'
   SUB_ADULT_RATING = 'r_plus'
-  # banned by roskomnadzor
-  FORBIDDEN_ADULT_IDS = [5042, 7593, 8861, 6987]
+  FORBIDDEN_ADULT_IDS = [
+    # banned by roskomnadzor
+    5042,
+    7593,
+    8861,
+    6987,
+    # hentai w/o Rx rating
+    39_337
+  ]
 
   update_index('animes#anime') do
     if saved_change_to_name? || saved_change_to_russian? ||
