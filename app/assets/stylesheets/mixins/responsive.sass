@@ -13,11 +13,11 @@
     @content
 
 =iphone-portrait
-  @media screen and (max-width: $iphone) and (orientation: portrait)
+  @media screen and (max-width: 420px)
     @content
 
 =iphone-landscape
-  @media screen and (min-width: $iphone+1) and (max-width: $iphone_max), screen and (max-width: $iphone_max) and (orientation: landscape)
+  @media screen and (min-width: 421px) and (max-width: $iphone_max), screen and (max-width: $iphone_max) and (orientation: landscape)
     @content
 
 =gte_iphone-landscape
