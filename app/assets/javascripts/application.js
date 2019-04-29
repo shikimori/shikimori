@@ -108,11 +108,9 @@ $(() => {
   window.atatus = atatus;
   if ('atatus' in window) {
     window.atatus
-      .config(
-        'ebe5fd3d4c754a9592b7f30f70a9c16f',
-        { customData: { SHIKI_USER: window.SHIKI_USER.id } }
-      )
+      .config('ebe5fd3d4c754a9592b7f30f70a9c16f')
       .install();
+    window.atatus.setUser(window.SHIKI_USER.id);
   }
 
   window.I18n = I18n;
