@@ -59,28 +59,30 @@
 
       .value
         display: flex
+        flex-wrap: wrap
         margin: -2.5px 0
 
         & > a,
         & > div,
         & > span
+          flex-shrink: 0
           margin-top: 2.5px
           margin-bottom: 2.5px
 
-        +iphone-portrait
+        // +iphone-portrait
           flex-wrap: wrap
 
-        +gte_iphone-landscape
+        // +gte_iphone-landscape
           overflow: hidden // for ellipsis
 
-      .b-tag
+      // .b-tag
         flex-shrink: 0
 
       .b-anime_status_tag
         +mr(8px)
         white-space: nowrap
 
-        &:last-child
+        // &:last-child
           +ellipsis2
 
     .b-user_rate
