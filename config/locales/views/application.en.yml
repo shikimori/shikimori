@@ -4,25 +4,49 @@ en:
       report_bug: Report a bug
 
     top_menu:
-      sign_in: Sign In
-      sign_out: Sign Out
-      search: Search
-      main_menu: Main Menu
-
-      shikimori: &shikimori
+      legend:
+        database: Database
         community: Community
+        misc: Miscellaneous
+        info: Information
+        profile: Account
+        site: Site
+      items:
+        play: Play
+        anime: :activerecord.models.anime
+        manga: :activerecord.models.manga
+        ranobe: :activerecord.models.ranobe
+        clubs: Clubs
+        collections: Collections
+        reviews: Clubs
+        forum: :forum
+        users: Users
         contests: Contests
         current_contest: Current Contest
-        currently_airing: Currently Airing
-        development: Website development
-        faq: FAQ
-        info: Info
-        moderation: Moderation
-        site_rules: Site rules
+        calendar: :calendar
+        info: :about_site
         socials: In social networks
-        discord: Discord channel
-      anime_online:
-        <<: *shikimori
+        moderation: Moderation
+
+        profile: Profile
+        anime_list: :anime_list
+        manga_list: :manga_list
+        mail: :mail
+        achievements: Achievements
+        settings: :settings
+        site_rules: Site rules
+        faq: FAQ
+
+        characters: Characters
+        home: Home
+        play: Anime Online
+        # main: Shikimori
+        main_menu: Main Menu
+        other: Other
+        people: People
+        search: Search
+        sign_in: Sign In
+        sign_out: Sign Out
 
     hot_topics:
       hot_topics: Hot topics

@@ -6,25 +6,27 @@
 //= require ./layouts/l-page
 //= require ./layouts/l-menu
 //= require ./layouts/l-footer
-//= require_directory ./layouts/top_menu
+//= require ./layouts/l-top_menu-v2
 //= require_tree ./blocks
 //= require_tree ./anime_online/blocks
 //= require ./lib/headlines
 //= require_tree ./lib
 //= require_tree ./pages
 
-// require anime_online/application
-// require manga_online/application
-
 @import globals
 @import mixins/responsive
 @import mixins/link
+@import mixins/placeholder
+
+html
+  font-family: $font-family
+  font-size: 13px
 
 body
   background-image: asset_url("/assets/background/square_bg.png")
-  font-family: $font-family
-  font-size: 13px
-  -webkit-overflow-scrolling: touch
+  // -moz-osx-font-smoothing: grayscale
+  // -webkit-font-smoothing: antialiased
+  // // -webkit-overflow-scrolling: touch
 
   +lte_ipad
     background: none !important
@@ -34,17 +36,13 @@ body
   &.no-smileys .smiley
     display: none
 
-html.turbolinks-progress-bar:before,
-.turbolinks.turbolinks-progress-bar
+.turbolinks-progress-bar
   z-index: 9999 !important
-  // background-color: #ff8a3c !important
   background: #77b6ff !important
-  box-shadow: 0 0 10px rgba(119,182,255,0.7) !important
+  box-shadow: 0 0 10px rgba(#77b6ff, 0.7) !important
 
 a
   +link_color
-  -moz-outline-style: none
-  outline: none
   text-decoration: none
 
 p
@@ -72,16 +70,29 @@ em
 strong, b
   font-weight: bold
 
-input, select, button, textarea
+input,
+select,
+textarea
   border: 1px solid #999999
   font-family: $font-family
-  outline: none
 
   +gte_ipad
     font-size: 13px
 
   +iphone
     font-size: 15px
+
+input:not([type]),
+input[type=text],
+input[type=email],
+input[type=number],
+select,
+textarea
+  outline: none
+
+input
+  +placeholder
+    user-select: none
 
 select
   +gte_ipad
@@ -92,11 +103,24 @@ select
 
 textarea
   line-height: $line_height
+
 input[type=radio]
   border: none
-textarea, input[type=submit], input[type=text], input[type=email], input[type=number]
+
+// input[type=submit]
+  outline: initial
+
+button,
+textarea,
+input[type=submit],
+input[type=text],
+input[type=email],
+input[type=number]
   -webkit-appearance: none
   -webkit-border-radius: 0px
+
+button
+  background: transparent
 
 li
   list-style: none outside none
@@ -104,8 +128,9 @@ li
 p.flash-notice, p.flash-alert
   display: none
 
-::selection, ::-moz-selection
-  background: #FFCC89
+::selection,
+::-moz-selection
+  background: #ffcc89
   color: #555
 
 hr

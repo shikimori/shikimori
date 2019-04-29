@@ -1,6 +1,5 @@
-
 describe RelatedManga do
-  it { should belong_to :source }
-  it { should belong_to :anime }
-  it { should belong_to :manga }
+  it { is_expected.to belong_to(:source).optional }
+  it { is_expected.to belong_to(:anime).optional }
+  it { is_expected.to belong_to(:manga).optional }
 end

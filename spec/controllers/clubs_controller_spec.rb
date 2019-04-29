@@ -192,7 +192,7 @@ describe ClubsController do
         club_2.id => 654
       )
     end
-    subject! { get :autocomplete, params: { search: phrase } }
+    subject! { get :autocomplete, params: { search: phrase }, xhr: true }
 
     it do
       expect(collection).to eq [club_2, club_1]

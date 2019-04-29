@@ -5,14 +5,15 @@ import ajaxCacher from 'services/ajax_cacher';
 import inNewTab from 'helpers/in_new_tab';
 import axios from 'helpers/axios';
 
-page_load('recommendations_index', 'recommendations_favourites', async () => {
+pageLoad('recommendations_index', 'recommendations_favourites', async () => {
   // если страница ещё не готова, перегрузимся через 5 секунд
   if ($('p.pending').exists()) {
     const url = document.location.href;
     await delay(5000);
 
     if (url === document.location.href) {
-      return Turbolinks.visit(document.location.href, true);
+      Turbolinks.visit(document.location.href);
+      return;
     }
   }
 

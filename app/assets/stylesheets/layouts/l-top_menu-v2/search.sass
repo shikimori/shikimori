@@ -1,0 +1,208 @@
+@import mixins/placeholder
+
+.l-top_menu-v2 .global-search
+  color: #123
+  width: 100%
+
+  +lte_ipad
+    display: none
+
+  +gt_ipad
+    margin-right: 10px
+    position: relative
+
+  input
+    background: #fff
+    border-radius: 2px
+    border: 1px solid transparent
+    color: #123
+    cursor: default
+    font-size: 14px
+    line-height: 30px
+    padding: 0 42px 0 38px
+    text-overflow: ellipsis
+    width: 100%
+
+    +placeholder
+      color: $gray-1
+
+    &:focus ~ .hotkey-marker,
+    &.has-value ~ .hotkey-marker
+      display: none
+
+    &:focus ~ .search-marker
+      color: $link-3
+
+    &.has-value ~ .clear
+      display: block
+
+  .hotkey-marker
+    display: block
+
+    +lte_ipad
+      display: none
+
+    &:before
+      border-radius: 3px
+      border: 1px solid $gray-1
+      color: $gray-1
+      content: '/'
+      font-size: 13px
+      height: 20px
+      line-height: 20px
+      position: absolute
+      right: 7px
+      text-align: center
+      top: 5px
+      width: 18px
+
+  .search-marker,
+  .clear
+    font-size: 20px
+    height: 32px
+    line-height: 32px
+    position: absolute
+    text-align: center
+    top: 0
+
+  .search-marker
+    width: 42px
+
+    &:before
+      +shikimori('s')
+
+  .clear
+    +link_color(#333)
+    display: none
+    height: 32px
+    right: 0
+    width: 38px
+    outline: none
+
+    &.active
+      display: block
+
+    &:before
+      +shikimori('\e828')
+      font-size: 23px
+
+  .search-results
+    background-color: #fff
+    display: none
+    margin-top: 8px
+    min-height: 42px
+    position: absolute
+    width: 100%
+    z-index: 1001
+
+    &.b-ajax:after
+      display: none
+
+    .nothing_found:before
+      background: $red-check
+      margin-top: 5px !important
+      margin-bottom: 5px !important
+
+    .nothing_found,
+    .search-mode
+      color: #123
+      display: flex
+      font-size: 13px
+      letter-spacing: 0.25px
+      line-height: 41px
+      padding-top: 1px
+      user-select: none
+
+      &:before
+        margin-right: 15px !important
+
+      &:active:before,
+      &.active:before
+        margin-top: 5px
+        margin-bottom: 5px
+
+    .b-db_entry-variant-list_item
+      padding-bottom: 10px
+      padding-top: 10px
+
+      &.active
+        cursor: pointer
+
+      &:focus
+        outline: none
+
+    .nothing_found,
+    .b-db_entry-variant-list_item,
+    .search-mode
+      transition: border-top 0.2s ease, background 0.2s ease
+      border-top: 1px solid rgba($link-4, 0.2)
+      margin-bottom: 0
+
+      &:first-child
+        border-top: none !important
+
+      &:before
+        content: ''
+        display: block
+        margin: 0 10px 3px
+        width: 5px
+
+      &.active,
+      &:focus
+        background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.01)
+        border-top: 1px solid $link-3
+
+        & + .b-db_entry-variant-list_item,
+        & + .search-mode
+          border-top: 1px solid $link-3
+
+        &:before
+          background: $link-2
+
+    .search-mode,
+    .b-db_entry-variant-list_item
+      &:active
+        border-top: 1px solid $link-2
+        background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.1)
+
+        &:before
+          background: darken($link-2, 5%)
+
+        & + .b-db_entry-variant-list_item,
+        & + .search-mode
+          border-top: 1px solid $link-2
+
+.l-top_menu-v2
+  +laptop
+    &.is-search-focus
+      .menu-dropdown.main,
+      & > .menu-icon
+        display: none
+
+  &.is-search-shade
+    .search-results
+      display: block
+
+  +lte_ipad
+    &.is-search-mobile
+      margin-bottom: 68px // = global-search height
+
+      .global-search
+        background: $top_menu_background_hover
+        display: block
+        left: 0
+        padding: 18px 0
+        position: absolute
+        top: 47px
+
+        label.field
+          display: block
+          padding: 0 10px
+          position: relative
+
+        .search-results
+          margin-top: 18px
+
+        .clear
+          display: block
+          right: 10px

@@ -1,7 +1,7 @@
 import ShikiModal from 'views/application/shiki_modal'
 import flash from 'services/flash'
 
-$(document).on 'page:load', ->
+$(document).on 'turbolinks:load', ->
   $feedback = $('.b-feedback')
 
   $('.marker-positioner', $feedback).on 'ajax:success', (e, data) ->

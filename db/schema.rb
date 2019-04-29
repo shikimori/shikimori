@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_23_105212) do
+ActiveRecord::Schema.define(version: 2019_04_25_143418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -185,6 +185,9 @@ ActiveRecord::Schema.define(version: 2019_02_23_105212) do
     t.string "source", limit: 255
     t.text "desynced", default: [], null: false, array: true
     t.integer "mal_id"
+    t.boolean "is_anime", default: false, null: false
+    t.boolean "is_manga", default: false, null: false
+    t.boolean "is_ranobe", default: false, null: false
     t.index ["name"], name: "index_characters_on_name"
     t.index ["russian"], name: "index_characters_on_russian"
   end

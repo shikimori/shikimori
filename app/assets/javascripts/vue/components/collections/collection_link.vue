@@ -131,6 +131,7 @@ export default {
   textarea
     height: auto
     resize: none
+    min-height: auto
 
   textarea, input
     width: 100%

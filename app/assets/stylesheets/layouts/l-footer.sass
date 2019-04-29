@@ -27,28 +27,13 @@
     vertical-align: middle
     white-space: nowrap
 
-  &:before, &:after
-    display: none
-
-  +gt_ipad
-    &:after, &:before
-      background: rgba(255,255,255,0.3)
-      content: ""
-      height: 20px
-      bottom: -20px
-      position: absolute
-
-    &:before
-      left: -20px
-      width: 100%
-    &:after
-      right: -20px
-      width: 40px
-
   +iphone_portrait
-    .privacy, .for-right-holders, .sitemap
+    .privacy,
+    .for-right-holders,
+    .sitemap
       display: none
 
   +iphone_landscape
-    .for-right-holders, .sitemap
+    .for-right-holders,
+    .sitemap
       display: none

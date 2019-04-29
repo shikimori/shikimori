@@ -3,7 +3,6 @@
 @import mixins/comma_separated
 @import mixins/link
 @import mixins/responsive
-@import mixins/tag
 
 .b-catalog_entry-tooltip
   +clear_left
@@ -61,12 +60,6 @@
 
       .value
         display: inline
-
-        a
-          +link
-
-        .tag
-          +tag
 
       &.works .value a
         +comma_separated

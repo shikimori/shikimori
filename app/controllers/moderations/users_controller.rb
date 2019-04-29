@@ -6,7 +6,7 @@ class Moderations::UsersController < ModerationsController
     og page_title: i18n_t('page_title')
 
     scope = Users::Query.fetch
-      .search(params[:search])
+      .search(params[:phrase])
       .created_on(params[:created_on])
 
     if can? :manage, Ban

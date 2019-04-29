@@ -1,6 +1,8 @@
-class Neko::AchievementData < Dry::Struct
-  attribute :user_id, Types::Coercible::Integer
+class Neko::AchievementData
+  include ShallowAttributes
+
+  attribute :user_id, Integer
   attribute :neko_id, Types::Achievement::NekoId
-  attribute :level, Types::Coercible::Integer
-  attribute :progress, Types::Coercible::Integer
+  attribute :level, Integer
+  attribute :progress, Integer
 end

@@ -1,6 +1,6 @@
 describe Style do
   describe 'relations' do
-    it { is_expected.to belong_to :owner }
+    it { is_expected.to belong_to(:owner).without_validating_presence }
   end
 
   describe 'validations' do

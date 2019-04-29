@@ -10,7 +10,7 @@ feature 'sign up' do
   scenario 'when success', :vcr do
     expect { sign_up user }.to change(User, :count).by 1
 
-    expect(page).to_not have_selector '#sign_in'
+    expect(page).to_not have_selector '.menu-icon.sign_in'
     expect(current_path).to eq root_path
   end
 
@@ -18,7 +18,7 @@ feature 'sign up' do
     user.password = ''
     sign_up user
 
-    expect(page).to have_selector '#sign_in'
+    expect(page).to have_selector '.menu-icon.sign_in'
     expect(current_path).to_not eq new_user_session_path
   end
 end

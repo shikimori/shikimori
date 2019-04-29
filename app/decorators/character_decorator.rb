@@ -21,9 +21,13 @@ class CharacterDecorator < PersonDecorator
   end
 
   def job_title
-    i18n_t(
-      "job_title.#{'anime_' if animes.any?}#{'manga_' if mangas.any?}character"
-    )
+    key = [
+      (:anime if object.is_anime),
+      (:manga if object.is_manga),
+      (:ranobe if object.is_ranobe)
+    ].compact.join('_')
+
+    i18n_t "job_title.#{key.present? ? key : 'character'}"
   end
 
   # презентер косплея

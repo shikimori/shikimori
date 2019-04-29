@@ -17,7 +17,7 @@ class UserDecorator < BaseDecorator
   def url
     h.profile_url(
       will_save_change_to_nickname? ? to_param(changes['nickname'][0]) : self,
-      subdomain: nil
+      subdomain: false
     )
   end
 
@@ -47,8 +47,8 @@ class UserDecorator < BaseDecorator
 
   def stats
     Rails.cache.fetch [:profile_stats, object, :v3] do
-      profile_stats = ProfileStatsQuery.new(object).to_profile_stats
-      ProfileStatsView.new(profile_stats)
+      profile_stats = Users::ProfileStatsQuery.new(object).to_profile_stats
+      Profiles::StatsView.new(profile_stats)
     end
   end
 
@@ -76,11 +76,11 @@ class UserDecorator < BaseDecorator
 
   def unread_messages_url
     if unread_messages > 0 || (unread_news == 0 && unread_notifications == 0)
-      h.profile_dialogs_url object, subdomain: nil
+      h.profile_dialogs_url object, subdomain: false
     elsif unread_news > 0
-      h.index_profile_messages_url object, messages_type: :news, subdomain: nil
+      h.index_profile_messages_url object, messages_type: :news, subdomain: false
     else
-      h.index_profile_messages_url object, messages_type: :notifications, subdomain: nil
+      h.index_profile_messages_url object, messages_type: :notifications, subdomain: false
     end
   end
 

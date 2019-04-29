@@ -1,4 +1,4 @@
-@import globals
+@import globals/variables
 @import mixins/icons
 @import mixins/link
 
@@ -11,97 +11,100 @@
 .item-sign
   +icon_button('✓')
 
-// действия
 .actions
   li span
     display: block
+
   .comment
     +menu_icon('f')
   .reviews-edit
-    +menu_icon("\e820")
+    +menu_icon('\e820')
   .list-add//, .new-topic
-    +menu_icon("+")
+    +menu_icon('+')
   .list-remove
-    +menu_icon("-")
+    +menu_icon('-')
   .fav-remove
-    +menu_icon("\e829")
+    +menu_icon('\e829')
   .fav-add
-    +menu_icon("\e819")
+    +menu_icon('\e819')
   .edit-entry
-    +menu_icon("\e822")
+    +menu_icon('\e822')
     // TODO: удалить из шрифта
-    +menu_icon("\e814")
-
-.club-actions
-  .edit-club
-    +icon_action("\e814")
-  .upload
-    +icon_action("\e80c")
-  .broadcast
-    +icon_action("\e837")
-  .invite
-    +icon_action("\e826")
-  .leave
-    +icon_action("\e827")
+    +menu_icon('\e814')
 
 .profile-actions
-  & > a:first-child, & > span:first-child
-    margin-left: 0
-  // дейсвтия в профиле
   .fav-add
-    +icon_button("\e819")
+    +icon_button('\e819')
   .fav-remove
-    +icon_button("\e819")
+    +icon_button('\e819')
     +link_color
   .ban
-    +icon_button("\e80a")
+    +icon_button('\e80a')
   .ignore-add
-    +icon_button("\e812")
+    +icon_button('\e812')
   .ignore-remove
-    +icon_button("\e812")
+    +icon_button('\e812')
     +link_color
   .talk
-    +icon_button("\e81f")
+    +icon_button('\e81f')
   .mail
-    +icon_button("\e81f")
+    +icon_button('\e81f')
   .settings
-    +icon_button("\e822")
+    +icon_button('\e822')
 
 .c-actions
   text-align: center
 
   // дейсвтия над аниме
   .fav-add
-    +icon_action("\e819")
+    +big_icon('\e819')
+
+    +iphone-portrait
+      margin-left: 0
+
   .fav-remove
-    +icon_action("\e819")
-    +link_color
+    +big_icon('\e819')
+
+    +iphone-portrait
+      margin-left: 0
+
   .edit
-    +icon_action("\e822")
+    +big_icon('\e822')
+
+    +iphone-portrait
+      margin-left: 0
+
   .new_review
-    +icon_action("\e820")
+    +big_icon('\e820')
+
+    +iphone-portrait
+      margin-left: 0
+
   .new_comment
-    +icon_action('f')
+    +big_icon('f')
+
+    +iphone-portrait
+      margin-left: 0
 
 /* переводы
 .translations
   .translation_planned
-    +menu_icon("\e818")
+    +menu_icon('\e818')
   .translation_finished
-    +menu_icon("\e825")
+    +menu_icon('\e825')
 
 /* статусы просмотра/чтения
 .rate-statuses
   #rate-status-0
-    +menu_icon("\e833")
+    +menu_icon('\e833')
   #rate-status-1
-    +menu_icon("\e834")
+    +menu_icon('\e834')
   #rate-status-2
-    +menu_icon("\e835")
+    +menu_icon('\e835')
   #rate-status-3
-    +menu_icon("\e836")
+    +menu_icon('\e836')
   #rate-status-4
-    +menu_icon("\e837")
+    +menu_icon('\e837')
 
 /* профиль пользователя
 /*.profile .left-block {
@@ -111,7 +114,7 @@
 /*}
 
 .rss
-  +icon_button("\e81a")
+  +icon_button('\e81a')
   color: $gray-2 !important
   float: right
   margin-right: -7px !important
@@ -124,5 +127,4 @@
   &:active
     color: $link-2 !important
   &:after
-    content: "" !important
-
+    content: '' !important

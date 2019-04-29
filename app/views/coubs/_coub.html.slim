@@ -1,16 +1,17 @@
-.b-coub.b-video.unprocessed[
+.b-coub[
   id=coub.permalink
 ]
   .content
-    a.video-link[
-      href=coub.url
-      data-href=coub.player_url
-    ]
-      img[
-        src=coub.image_2x_url
-        srcset="#{coub.image_2x_url} 2x"
-        data-id=coub.permalink
+    .b-video.unprocessed
+      a.video-link[
+        href=coub.url
+        data-href=coub.player_url
       ]
+        img[
+          src=coub.image_2x_url
+          srcset="#{coub.image_2x_url} 2x"
+          data-id=coub.permalink
+        ]
 
     .footer
       .author-avatar
@@ -34,8 +35,8 @@
           a.author-name href=coub.author.url
             = coub.author.name
 
-          time datetime=coub.created_at_time.iso8601
-            = l coub.created_at_time, format: '%e %B %Y'
+          time datetime=coub.created_at.iso8601
+            = l coub.created_at, format: '%e %B %Y'
   .tags
     - if coub.categories.any?
       .tag.category = coub.categories.first.capitalize

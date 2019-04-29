@@ -20,15 +20,15 @@
       .l-content
         .b-options-floated.mylist.mobile-desktop
           - @library.counts.each do |stat|
-            - is_selected = params[:mylist].to_s.split(',').include?(stat[:grouped_id])
+            - is_selected = params[:mylist].to_s.split(',').include?(stat.grouped_id)
             a.b-link.always-active[
-              data-id=stat[:grouped_id]
+              data-id=stat.grouped_id
               class=(:selected if is_selected)
-              href=url_for(safe_params.merge(mylist: is_selected ? nil : stat[:grouped_id]))
+              href=url_for(safe_params.merge(mylist: is_selected ? nil : stat.grouped_id))
             ]
-              = UserRate.status_name stat[:name], @library.klass.name
+              = UserRate.status_name stat.name, @library.klass.name
               | &nbsp;
-              span = stat[:size]
+              span = stat.size
 
         .subheadline-buttons
           = render 'blocks/list_switchers',
@@ -40,6 +40,7 @@
         .b-collection_search
           .field
             input placeholder=t('search.title')
+            .clear
 
         - if @library.any?
           .list-groups

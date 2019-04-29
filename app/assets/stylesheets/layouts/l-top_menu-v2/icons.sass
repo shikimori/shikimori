@@ -1,0 +1,195 @@
+=top_menu_icon($content)
+  cursor: pointer
+  line-height: inherit !important
+
+  &:before
+    +shikimori($content)
+    font-size: 20px
+    line-height: $top_menu-height
+    vertical-align: middle
+
+=submenu_icon($content, $font-size: 18px)
+  &:before
+    +shikimori($content)
+    font-size: $font-size
+    text-align: center
+
+    +iphone
+      font-size: 22px
+      width: 60px
+
+    +gte_ipad
+      width: 50px
+
+.l-top_menu-v2
+  .menu-icon
+    &:not(.mobile)
+      +lte_ipad
+        display: none
+
+    &[data-text]
+      &:after
+        content: attr(data-text)
+        font-size: 14px
+
+    &.contest
+      +top_menu_icon('\e817')
+
+    &.mail
+      +top_menu_icon('\e81f')
+
+    &.moderation
+      +top_menu_icon('\e80a')
+
+    &.forum
+      +top_menu_icon('\e837')
+
+    &.trigger
+      +top_menu_icon('m')
+
+    &.search
+      +top_menu_icon('s')
+
+    +lte_ipad
+      &.trigger,
+      &.search
+        &:before
+          font-size: 25px
+
+  .icon-anime,
+  .icon-manga,
+  .icon-ranobe
+    &:before
+      display: block
+      text-align: center
+
+      +iphone
+        width: 80px
+
+      +gte_ipad
+        width: 70px
+
+  .icon-anime:before
+    content: 'アニメ'
+
+  .icon-manga:before
+    content: 'マンガ'
+
+  .icon-ranobe:before
+    content: 'ラノベ'
+
+  .icon-avatar
+    img
+      width: 20px
+      height: 20px
+      display: inline-block
+      margin: 0 15px
+
+  .icon-anime_list,
+  .icon-manga_list,
+  .icon-characters
+    &:before
+      background-size: contain
+      content: ''
+      display: block
+      text-align: center
+
+      +iphone
+        height: 22px
+        margin: 0 19px
+        width: 22px
+
+      +gte_ipad
+        height: 18px
+        margin: 0 16px
+        width: 18px
+
+  .icon-characters
+    &:before
+      background-image: url(/assets/layouts/l-top_menu-v2/characters.svg)
+      height: 20px
+      margin: 0 15px
+      width: 20px
+
+  .icon-anime_list
+    &:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-a.svg)
+
+  .icon-manga_list
+    &:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-m.svg)
+
+  // should not be displayed in "main" mennu and also on iphone in "profile"
+  +gte_ipad
+    .menu-dropdown.profile
+      .icon-anime_list:hover:before
+        background-image: url(/assets/layouts/l-top_menu-v2/letter-a-hover.svg)
+
+      .icon-manga_list:hover:before
+        background-image: url(/assets/layouts/l-top_menu-v2/letter-m-hover.svg)
+
+  .icon-home
+    +submenu_icon('\e845')
+
+  .icon-play
+    +submenu_icon('\e84d')
+
+  .icon-clubs
+    +submenu_icon('\e813')
+
+  .icon-collections
+    +submenu_icon('\f00a')
+
+    &:before
+      font-size: 16px
+
+  .icon-reviews
+    +submenu_icon('\e820')
+
+  .icon-forum
+    +submenu_icon('\e837')
+
+  .icon-calendar
+    +submenu_icon('\e839')
+
+  .icon-contests
+    +submenu_icon('\e817')
+
+  .icon-info
+    +submenu_icon('i')
+
+  .icon-socials
+    +submenu_icon('V')
+
+  .icon-moderation
+    +submenu_icon('\e80a')
+
+  .icon-profile
+    +submenu_icon('\e82a')
+
+  .icon-mail
+    +submenu_icon('\e81f')
+
+  .icon-achievements
+    +submenu_icon('\e83b')
+
+  .icon-settings
+    +submenu_icon('\e822')
+
+  .icon-site_rules
+    +submenu_icon('!')
+
+  .icon-faq
+    +submenu_icon('?')
+
+  .icon-sign_out
+    +submenu_icon('q', 15px)
+
+  .icon-people
+    +submenu_icon('\e849')
+
+  .icon-users
+    +submenu_icon('\e84b')
+
+  .icon-other
+    +submenu_icon('\e827')

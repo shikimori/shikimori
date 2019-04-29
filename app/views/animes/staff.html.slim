@@ -2,4 +2,6 @@
   = cache [@resource, params[:action]] do
     h2.subheadline.m10 = og.headline
     .to-process data-dynamic='cutted_covers' data-ratio_type='person'
-      = render partial: 'people/role_note', collection: @resource.roles.people
+      = render partial: 'people/variants/list_item',
+        collection: @resource.roles.people,
+        as: :entry

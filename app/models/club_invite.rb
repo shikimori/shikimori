@@ -3,7 +3,7 @@ class ClubInvite < ApplicationRecord
   belongs_to :src, class_name: User.name, foreign_key: :src_id
   belongs_to :dst, class_name: User.name, foreign_key: :dst_id
   # invite messages
-  belongs_to :message, dependent: :destroy, optional: true
+  belongs_to :message, optional: true, dependent: :destroy
 
   enumerize :status,
     in: Types::ClubInvite::Status.values,

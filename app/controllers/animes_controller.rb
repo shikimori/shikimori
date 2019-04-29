@@ -173,6 +173,7 @@ class AnimesController < DbEntriesController
     if @resource.all_clubs.none?
       return redirect_to @resource.url, status: 301
     end
+
     og noindex: true
     og page_title: t('in_clubs')
   end
@@ -188,16 +189,6 @@ class AnimesController < DbEntriesController
   # торренты к эпизодам аниме
   def episode_torrents
     render json: @resource.files.episodes_data
-  end
-
-  def autocomplete
-    scope = Anime.all
-    scope.where! censored: false if params[:censored] == 'false'
-
-    @collection = Autocomplete::Anime.call(
-      scope: scope,
-      phrase: params[:search] || params[:q]
-    )
   end
 
   def rollback_episode

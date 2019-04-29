@@ -31,17 +31,19 @@
       &:after
         margin-left: 2px
 
+  $icon-size: 18px
   .plus
     +link_color
-    +menu_icon('+')
+    +menu_icon($icon-planned, $icon-size + 2)
+    // +menu_icon('+')
 
     &:before
       line-height: inherit
+      width: 25px
 
     &:hover
       color: inherit
 
-  $icon-size: 18px
   &.planned
     .trigger, .option
       background: #daf1ff
@@ -120,7 +122,12 @@
       &:before
         font-size: 18px
 
-  &.planned, &.watching, &.completed, &.rewatching, &.on_hold, &.dropped
+  &.planned,
+  &.watching,
+  &.completed,
+  &.rewatching,
+  &.on_hold,
+  &.dropped
     .edit:before
       line-height: inherit
       width: 25px

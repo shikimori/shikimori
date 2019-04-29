@@ -1,25 +1,25 @@
-class ListImports::ListEntry < Dry::Struct
-  attribute :target_title, Types::Strict::String.optional.meta(omittable: true)
-  attribute :target_id, Types::Coercible::Integer
-  attribute :target_type, Types::Strict::String.enum('Anime', 'Manga')
+class ListImports::ListEntry
+  include ShallowAttributes
 
-  attribute :score, Types::Coercible::Integer.default(0)
+  TargetType = Types::Strict::String.enum('Anime', 'Manga')
+
+  attribute :target_title, String, allow_nil: true
+  attribute :target_id, Integer
+  attribute :target_type, TargetType
+
+  attribute :score, Integer, default: 0
 
   attribute :status, Types::UserRate::Status
 
-  attribute :rewatches,
-    Types::Coercible::Integer.default(0).meta(omittable: true)
+  attribute :rewatches, Integer, default: 0
 
-  attribute :episodes,
-    Types::Coercible::Integer.default(0).meta(omittable: true)
-  attribute :volumes,
-    Types::Coercible::Integer.default(0).meta(omittable: true)
-  attribute :chapters,
-    Types::Coercible::Integer.default(0).meta(omittable: true)
+  attribute :episodes, Integer, default: 0
+  attribute :volumes, Integer, default: 0
+  attribute :chapters, Integer, default: 0
 
-  attribute :text, Types::String.default('').meta(omittable: true)
+  attribute :text, String, default: ''
 
-  def self.build user_rate # rubocop:disable MethodLength
+  def self.build user_rate
     new(
       target_title: user_rate.target&.name,
       target_id: user_rate.target_id,
@@ -48,7 +48,7 @@ class ListImports::ListEntry < Dry::Struct
   end
 
   def anime?
-    target_type == Anime.name
+    target_type == TargetType[Anime.name]
   end
 
 private
@@ -65,7 +65,7 @@ private
   end
 
   def export_counter user_rate, counter
-    user_rate[counter] = self[counter]
+    user_rate[counter] = send(counter)
 
     if user_rate.target[counter].positive?
       # у просмотренного выставляем число эпизодов/частей/томов равное

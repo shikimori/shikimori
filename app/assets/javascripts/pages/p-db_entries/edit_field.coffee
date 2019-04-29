@@ -1,6 +1,6 @@
 import ImageboardGallery from 'views/images/imageboard_gallery'
 
-page_load '.db_entries-edit_field', ->
+pageLoad '.db_entries-edit_field', ->
   $description = $('.edit-page.description_ru, .edit-page.description_en')
 
   if $description.exists()

@@ -9,7 +9,6 @@ class AnimesCollectionController < ShikimoriController
     @menu = Menus::CollectionMenu.new @view.klass
   end
 
-  # страница каталога аниме/манги
   def index
     forbidden_params_redirect_check
     build_background # should be placed after is_adult check
@@ -47,6 +46,23 @@ class AnimesCollectionController < ShikimoriController
         censored_forbidden?
       raise AgeRestricted
     end
+  end
+
+  def autocomplete
+    scope = @view.klass == Manga ? Manga.where.not(kind: Ranobe::KIND) : @view.klass.all
+    scope.where! censored: false if params[:censored] == 'false'
+
+    @collection = "Autocomplete::#{@view.klass.name}".constantize.call(
+      scope: scope,
+      phrase: params[:search] || params[:q]
+    )
+  end
+
+  def autocomplete_v2
+    og noindex: true, nofollow: true
+
+    autocomplete
+    @collection = @collection.map(&:decorate)
   end
 
 private

@@ -29,7 +29,7 @@ export default class AnimesMenu extends View {
   }
 
   _scoresStatsBar() {
-    this.$('#rates_scores_stats').bar({
+    this.$('#rates_scores_stats').empty().bar({
       filter(entry, percent) { return percent >= 2; },
       no_data($chart) {
         $chart.html(`<p class='b-nothing_here'>${I18n.t(NO_DATA_I18N_KEY)}</p>`);
@@ -38,7 +38,7 @@ export default class AnimesMenu extends View {
   }
 
   _statusesStatsBar() {
-    this.$('#rates_statuses_stats').bar({
+    this.$('#rates_statuses_stats').empty().bar({
       title(entry, percent) {
         return percent > 15 ? entry.value : '';
       },

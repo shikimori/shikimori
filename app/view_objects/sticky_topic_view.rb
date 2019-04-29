@@ -2,12 +2,13 @@
 
 # views for topics to be shown in sticky topics forum section:
 # all of them belong to offtopic forum
-class StickyTopicView < Dry::Struct
+class StickyTopicView
+  include ShallowAttributes
   extend Translation
 
-  attribute :url, Types::Strict::String
-  attribute :title, Types::Strict::String.optional
-  attribute :description, Types::Strict::String.optional
+  attribute :url, String
+  attribute :title, String
+  attribute :description, String
 
   STICKY_TOPICS = %i[
     site_rules

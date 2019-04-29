@@ -21,5 +21,6 @@
           cache: ->(entry, _) { CacheHelper.keys entry, :relation }
     - else
       .block
-        = render partial: 'animes/relation_note',
-          collection: @resource.related.related
+        = render partial: 'animes/variants/list_item',
+          collection: @resource.related.related,
+          as: :entry

@@ -1,6 +1,6 @@
 import axios from 'helpers/axios';
 
-page_load('contests_show', 'contests_edit', () => {
+pageLoad('contests_show', 'contests_edit', () => {
   if (!$('.proposing').exists()) { return; }
 
   $('.proposing .suggestion .show').on('click', ({ currentTarget }) => {
@@ -28,7 +28,7 @@ page_load('contests_show', 'contests_edit', () => {
   });
 });
 
-page_load('contests_show', () => {
+pageLoad('contests_show', () => {
   if (!$('.proposing').exists()) { return; }
 
   const $suggest = $('.proposing .item-suggest');

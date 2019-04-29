@@ -1,8 +1,4 @@
-@import globals
-
-// дефолтная кнопка
 =shiki_button
-  transition: backround-color 0.3s ease, color 0.3s ease
   background-color: #525252
   border: 0
   clear: right
@@ -10,7 +6,9 @@
   cursor: pointer
   display: inline
   font-size: 13px
-  padding: 4px 10px 4px 10px
+  line-height: 23px
+  padding: 0 10px
+  transition: backround-color 0.3s ease, color 0.3s ease
 
   span
     font-size: 15px
@@ -24,6 +22,7 @@
   &:active
     background-color: rgb(80, 80, 80)
 
-  &[disabled], &.disabled
-    cursor: default
+  &[disabled],
+  &.disabled
     background-color: rgb(120, 120, 120)
+    cursor: default

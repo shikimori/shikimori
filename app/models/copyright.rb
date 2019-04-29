@@ -60,7 +60,7 @@ module Copyright
     23273, # Shigatsu wa Kimi no Uso
     28069, # Shigatsu wa Kimi no Uso: Moments
     28999, # Charlotte
-    31553, # Charlotte: Tsuyoimono-tachi
+    31553 # Charlotte: Tsuyoimono-tachi
   ] + EXPONENTA_COPYRIGHTED + PIONER_COPYRIGHTED + ISTARI_COPYRIGHTED + VGTRK_COPYRIGHTED + CAPELLA_FILM_COPYRIGHTED
 
   WAKANIM_COPYRIGHTED = [

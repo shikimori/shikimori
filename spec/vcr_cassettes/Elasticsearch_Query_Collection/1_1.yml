@@ -272,4 +272,50 @@ http_interactions:
         zxct","locale":"ru"}}]}}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - Faraday v0.15.4
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '297'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "EGskHAA",
+          "cluster_name" : "elasticsearch_morr",
+          "cluster_uuid" : "6pEyihhxRCaggNPc9LcVaA",
+          "version" : {
+            "number" : "6.6.0",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "a9861f4",
+            "build_date" : "2019-01-24T11:27:09.439740Z",
+            "build_snapshot" : false,
+            "lucene_version" : "7.6.0",
+            "minimum_wire_compatibility_version" : "5.6.0",
+            "minimum_index_compatibility_version" : "5.0.0"
+          },
+          "tagline" : "You Know, for Search"
+        }
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0

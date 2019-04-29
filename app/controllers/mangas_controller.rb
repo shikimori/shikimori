@@ -11,16 +11,6 @@ class MangasController < AnimesController
     synonyms: []
   ]
 
-  def autocomplete
-    scope = Manga.where.not(kind: Ranobe::KIND)
-    scope.where! censored: false if params[:censored] == 'false'
-
-    @collection = Autocomplete::Manga.call(
-      scope: scope,
-      phrase: params[:search] || params[:q]
-    )
-  end
-
 private
 
   def og_meta

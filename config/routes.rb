@@ -40,6 +40,11 @@ Rails.application.routes.draw do
   end
   concern :autocompletable do
     get :autocomplete, on: :collection, format: :json
+    get 'autocomplete/v2',
+      action: :autocomplete_v2,
+      as: :autocomplete_v2,
+      on: :collection,
+      format: :json
   end
 
   devise_for :users, controllers: {
@@ -51,18 +56,19 @@ Rails.application.routes.draw do
 
   # do not move these autocompletable concerns into resources definition.
   # they will confict with resource#show routes
-  resources :animes, only: [], concerns: %i[autocompletable]
-  resources :mangas, only: [], concerns: %i[autocompletable]
-  resources :ranobe, only: [], concerns: %i[autocompletable]
-  resources :characters, only: [], concerns: %i[autocompletable]
-  resources :people, only: [], concerns: %i[autocompletable]
-  resources :seyu, only: [], concerns: %i[autocompletable]
-  resources :users, only: [], concerns: %i[autocompletable]
-  resources :clubs, only: [], concerns: %i[autocompletable]
+  %i[animes mangas ranobe].each do |kind|
+    resources kind,
+      only: [],
+      concerns: %i[autocompletable],
+      controller: 'animes_collection',
+      klass: kind.to_s.singularize.downcase
+  end
+  %i[characters people seyu users clubs].each do |kind|
+    resources kind, only: [], concerns: %i[autocompletable]
+  end
 
   resources :pages, path: '/', only: [] do
     collection do
-      get :info
       get :copyrighted
       get :privacy
       get :page404
@@ -380,14 +386,6 @@ Rails.application.routes.draw do
     end
   end
   # /api
-
-  # constraints MangaOnlineDomain do
-    # get '/', to: 'manga_online/mangas#index'
-    # get 'mangas/:id' => 'manga_online/mangas#show', as: :online_manga_show
-    # get 'chapters/:id(/:page)' => 'manga_online/chapters#show', as: :online_manga_chapter_show
-
-    # get 'robots.txt' => 'robots#manga_online'
-  # end
 
   constraints AnimeOnlineDomain do
     get '/', to: 'anime_online/dashboard#show'
@@ -997,7 +995,7 @@ Rails.application.routes.draw do
           get :animes, format: /xml|json/
           get :mangas, format: /xml|json/
         end
-        resource :moderation, only: %i[] do
+        resource :moderation, only: [] do
           delete :comments
           delete :summaries
           delete :topics

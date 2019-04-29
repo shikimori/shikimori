@@ -6,7 +6,7 @@ let $toTop = null;
 let scrollDisabled = false;
 let scrollBinded = false;
 
-$(document).on('page:load', () => {
+$(document).on('turbolinks:load', () => {
   if (isMobile()) { return; }
 
   $toTop = $('.b-to-top');
@@ -29,7 +29,7 @@ $(document).on('page:load', () => {
 function toggle() {
   if (scrollDisabled) { return; }
 
-  if ($(window).scrollTop() > $('.l-top_menu').height()) {
+  if ($(window).scrollTop() > $('.l-top_menu-v2').height()) {
     show();
   } else {
     hide();

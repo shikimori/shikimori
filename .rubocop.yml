@@ -1,3 +1,4 @@
+require: rubocop-performance
 AllCops:
   TargetRubyVersion: 2.5
   Exclude:
@@ -104,6 +105,8 @@ Naming/MemoizedInstanceVariableName:
 Naming/VariableNumber:
   EnforcedStyle: snake_case
 Lint/UriEscapeUnescape:
+  Enabled: false
+Naming/RescuedExceptionsVariableName:
   Enabled: false
 
 Style/StringLiterals:

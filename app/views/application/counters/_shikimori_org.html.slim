@@ -26,7 +26,7 @@ javascript:
     window.turbolinks_referer = location.href;
   });
 
-  $(document).on('page:load', function() {
+  $(document).on('turbolinks:load', function() {
     if (window.turbolinks_referer) {
       if (window.yaCounter7915231) {
         window.yaCounter7915231.hit(location.href, $('title').html(), window.turbolinks_referer);

@@ -1,5 +1,44 @@
-@import mixins/tag
+@import globals/variables
+
+$margin-left: 3px
+$margin-right: 9px
 
 .b-tag
-  +tag
+  border-bottom: 1px dashed #bbb
+  color: #123
+  cursor: default
+  display: inline-block
+  line-height: 16px
+  margin-left: $margin-left
+  margin-right: $margin-right
+  padding-top: 1px
   text-decoration: none
+  transition: none
+
+  &[href]
+    border-bottom-color: $link-4
+    cursor: pointer
+
+    &.active,
+    &:hover
+      background-color: $link-4
+      border-bottom-color: transparent
+      color: #fff
+      margin-left: 0
+      margin-right: $margin-right - $margin-left
+      padding-left: $margin-left
+      padding-right: $margin-left
+      text-decoration: none
+
+    &:active
+      background-color: $link-3
+
+  &:last-child
+    margin-right: 3px
+
+    &:hover
+      margin-right: 0
+
+  a
+    transition: none
+    color: inherit

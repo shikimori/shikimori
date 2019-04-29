@@ -21,18 +21,4 @@ describe RanobeController do
       it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
-
-  describe '#autocomplete' do
-    let(:manga) { build_stubbed :manga }
-    let(:phrase) { 'qqq' }
-
-    before { allow(Autocomplete::Ranobe).to receive(:call).and_return [manga] }
-    before { get :autocomplete, params: { search: 'Fff' } }
-
-    it do
-      expect(collection).to eq [manga]
-      expect(response.content_type).to eq 'application/json'
-      expect(response).to have_http_status :success
-    end
-  end
 end

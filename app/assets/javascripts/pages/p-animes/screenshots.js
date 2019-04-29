@@ -1,3 +1,3 @@
-page_load('animes_screenshots', () => {
+pageLoad('animes_screenshots', () => {
   $('.c-screenshot').magnificRelGallery();
 });

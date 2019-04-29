@@ -1,0 +1,88 @@
+@import mixins/brackets_surrounded
+@import mixins/comma_separated
+@import mixins/ellipsis2
+@import mixins/link
+@import mixins/margins
+@import mixins/responsive
+@import mixins/user_rate-minified
+
+.b-db_entry-variant-list_item
+  +mb(17px)
+  border-top: 1px dashed #DDD
+  display: flex
+  padding-top: 10px
+
+  &:first-child
+    border-top: none
+    padding-top: 0
+
+  .image
+    margin-right: 16px
+
+    img
+      height: 75px
+      width: 48px
+
+  & > .info
+    line-height: $line_height
+    overflow: hidden
+
+    .name
+      align-items: center
+      display: flex
+      margin-bottom: 7px
+
+      .b-link
+        +ellipsis2
+        font-size: 14px
+        font-weight: bold
+        line-height: 1
+
+    .line
+      align-items: baseline
+      display: flex
+      font-size: 12px
+      margin-bottom: 5px
+
+      &.multiline
+        .value
+          flex-wrap: wrap
+
+      .key
+        color: #444
+        cursor: default
+        font-weight: bold
+        margin-right: 2px
+
+        +iphone-portrait
+          display: none
+
+      .value
+        display: flex
+        margin: -2.5px 0
+
+        & > a,
+        & > div,
+        & > span
+          margin-top: 2.5px
+          margin-bottom: 2.5px
+
+        +iphone-portrait
+          flex-wrap: wrap
+
+        +gte_iphone-landscape
+          overflow: hidden // for ellipsis
+
+      .b-tag
+        flex-shrink: 0
+
+      .b-anime_status_tag
+        +mr(8px)
+        white-space: nowrap
+
+        &:last-child
+          +ellipsis2
+
+    .b-user_rate
+      margin-top: 16px
+      +user_rate-minified

@@ -2,7 +2,7 @@ describe Message do
   describe 'relations' do
     it { is_expected.to belong_to :from }
     it { is_expected.to belong_to :to }
-    it { is_expected.to belong_to :linked }
+    it { is_expected.to belong_to(:linked).optional }
 
     it { is_expected.to validate_presence_of :from }
     it { is_expected.to validate_presence_of :to }

@@ -1,6 +1,6 @@
 import ShikiEditor from 'views/application/shiki_editor';
 
-page_load(
+pageLoad(
   'oauth_applications_new',
   'oauth_applications_create',
   'oauth_applications_edit',

@@ -1,14 +1,16 @@
-class Coub::Entry < Dry::Struct
-  attribute :permalink, Types::String
-  attribute :image_template, Types::String
-  attribute :recoubed_permalink, Types::String.optional
+class Coub::Entry
+  include ShallowAttributes
 
-  attribute :categories, Types::Array.of(Types::String)
-  attribute :tags, Types::Array.of(Types::String)
+  attribute :permalink, String
+  attribute :image_template, String
+  attribute :recoubed_permalink, String, allow_nil: true
 
-  attribute :title, Types::String
+  attribute :categories, Array, of: String
+  attribute :tags, Array, of: String
+
+  attribute :title, String
   attribute :author, Coub::Author
-  attribute :created_at, Types::DateTime
+  attribute :created_at, ActiveSupport::TimeWithZone
 
   VIEW_TEMPLATE = 'https://coub.com/view/%<permalink>s'
   EMBED_TEMPLATE = 'https://coub.com/embed/%<permalink>s?autostart=true&startWithHD=true'
@@ -54,9 +56,5 @@ class Coub::Entry < Dry::Struct
 
   def image_2x_url
     image_template.gsub(VERSION_TEMPALTE, 'big')
-  end
-
-  def created_at_time
-    Time.zone.parse created_at
   end
 end

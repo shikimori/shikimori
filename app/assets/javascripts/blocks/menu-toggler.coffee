@@ -1,4 +1,4 @@
-$(document).on 'page:load', ->
+$(document).on 'turbolinks:load', ->
   $menu = $('.menu-toggler')
   return unless $menu.exists()
 

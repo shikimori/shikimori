@@ -48,6 +48,5 @@ class UsersController < ShikimoriController
     @collection = Users::Query.fetch
       .search(params[:search])
       .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
-      .reverse
   end
 end

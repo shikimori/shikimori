@@ -17,8 +17,8 @@ describe ListImports::ImportList do
   end
   let!(:target) do
     create :anime,
-      id: list.first[:target_id],
-      name: list.first[:target_title]
+      id: list.first.target_id,
+      name: list.first.target_title
   end
   let!(:user_rate) { nil }
 

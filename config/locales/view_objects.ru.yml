@@ -13,7 +13,7 @@ ru:
       moderate: средняя совместимость
       high: высокая совместимость
       full: полная совместимость
-  profile_stats_view:
+  profiles/stats_view:
     time_spent:
       anime: Время за аниме
       manga: Время за мангой

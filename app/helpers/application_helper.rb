@@ -42,15 +42,18 @@ module ApplicationHelper
     end
   end
 
-  def info_line title, value=nil, &block
+  def info_line title = nil, value = nil, &block
     value = capture(&block) if value.nil? && block_given?
+
     if value.present?
-      "<div class='line-container'>
+      <<~HTML.squish.html_safe
+        <div class='line-container'>
          <div class='line'>
-           <div class='key'>#{title}:</div>
-           <div class='value'>#{value}</div>
+           #{"<div class='key'>#{title}:</div>" if title}
+           #{"<div class='value'>#{value}</div>" if value}
           </div>
-        </div>".html_safe
+        </div>
+      HTML
     end
   end
 

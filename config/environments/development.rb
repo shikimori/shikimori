@@ -19,7 +19,7 @@ Rails.application.configure do
 
     # config.cache_store = :memory_store
     config.cache_store = :mem_cache_store, 'localhost', {
-      namespace: 'shikimori_development',
+      namespace: 'shikimori_development_v2',
       compress: true,
       value_max_bytes: 1024 * 1024 * 128
     }
@@ -57,7 +57,7 @@ Rails.application.configure do
   config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations.
-  config.active_record.migration_error = :page_load
+  config.active_record.migration_error = :pageLoad
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
@@ -76,4 +76,13 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    # Bullet.add_footer = true
+    # Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
+    # Bullet.stacktrace_excludes = [ 'their_gem', 'their_middleware', ['my_file.rb', 'my_method'], ['my_file.rb', 16..20] ]
+  end
 end

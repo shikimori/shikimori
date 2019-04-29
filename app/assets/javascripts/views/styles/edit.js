@@ -154,7 +154,7 @@ export default class EditStyles extends View {
     const isFullScreen = editor.getOption('fullScreen');
 
     editor.setOption('fullScreen', !isFullScreen);
-    $('.l-top_menu').toggleClass('is-fullscreen-mode', !isFullScreen);
+    $('.l-top_menu-v2').toggleClass('is-fullscreen-mode', !isFullScreen);
   }
 
   _toggleExpand(newValue) {

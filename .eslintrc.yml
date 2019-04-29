@@ -18,9 +18,10 @@ extends:
 
 globals:
   I18n: true
-  page_load: true
   gon: true
   p: true
+  pageLoad: true
+  pageUnload: true
 
 parserOptions:
   ecmaVersion: 6
@@ -61,6 +62,10 @@ rules:
   no-use-before-define: 0
   no-mixed-operators: 0
   no-new: 0
+  no-shadow:
+    - 2
+    - allow:
+      - '_'
   function-paren-newline: 0
   comma-dangle:
     - warn

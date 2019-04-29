@@ -1,6 +1,6 @@
 import EditStyles from 'views/styles/edit'
 
-page_load 'clubs_edit', ->
+pageLoad 'clubs_edit', ->
   # description page
   if $('.edit-page.description').exists()
     $('.b-shiki_editor')

@@ -96,12 +96,13 @@
         padding: 0
         text-align: center
         width: 44px !important
+        line-height: 18px
 
       span
         padding: 0 3px
 
-      .link-current
-        border-bottom: 1px solid #333
+      .link-current:not(.active)
+        border-bottom: 1px dotted #333
 
     .link
       +link

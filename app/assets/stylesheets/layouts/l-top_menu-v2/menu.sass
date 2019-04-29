@@ -1,0 +1,138 @@
+.l-top_menu-v2
+  .menu-icon,
+  .menu-dropdown > button
+    align-items: center
+    color: inherit
+    display: flex
+    height: $top_menu-height // need for mobile profile height
+    letter-spacing: 0.25px
+    line-height: $top_menu-height
+    outline: none
+    user-select: none
+
+    +iphone-s
+      padding: 0 10px
+
+    +iphone
+      padding: 0 12px
+
+    +gte_ipad
+      padding: 0 15px
+
+  .menu-icon,
+  .menu-dropdown
+    +gte_ipad
+      +mr(2px)
+
+  .menu-icon.active,
+  .menu-icon:focus,
+  .menu-dropdown.active > button,
+  .menu-dropdown > button:focus
+    transition: background 0.2s ease
+    background-color: $top_menu_background_hover
+
+  .menu-icon:hover,
+  .menu-dropdown:hover > button
+    +gt_ipad
+      transition: background 0.2s ease
+      background-color: $top_menu_background_hover
+
+  .menu-icon
+    &.mobile
+      +gte_ipad
+        display: none
+
+    &.search
+      +lte_ipad
+        display: block
+        margin-left: auto
+
+    &.contest,
+    &.mail
+      &:after
+        background: #fff
+        border-radius: 50%
+        border: 1px solid $top_menu-background_color
+        color: $top_menu-background_color
+        font-size: 8px
+        height: 14px
+        line-height: 15px
+        margin-top: -7px
+        position: absolute
+        text-align: center
+        width: 14px
+
+    &.contest:after
+      content: '\2713'
+      font-family: shikimori
+      margin-left: 5px
+
+    &.mail:after
+      content: attr(data-count)
+      margin-left: 10px
+
+  .menu-dropdown
+    +gte_ipad
+      position: relative // required to make .submenu width equal to .menu-dropdown width
+
+    & > button
+      +ellipsis2
+      background: lighten($top_menu-background_color, 4%)
+      cursor: default
+
+      & > span
+        +ellipsis2
+        font-size: 15px
+        letter-spacing: 0.25px
+        margin-left: 10px
+        margin-right: 25px
+        pointer-events: none
+
+        +iphone
+          display: none
+
+    +gte_ipad
+      & > button:after
+        +shikimori('\e846')
+        font-size: 16px
+        line-height: 20px
+        margin-left: auto
+        transition: transform .2s ease-in-out
+        vertical-align: middle
+
+        +iphone
+          display: none
+
+      &.active
+        & > button:after
+          transform: rotate(90deg)
+
+    &.main
+      +gte_ipad
+        margin-right: 25px
+
+      & > button:not(.mobile)
+        padding-left: 0
+
+        +iphone
+          display: none
+
+        +gte_ipad
+          max-width: 275px
+          min-width: 190px
+
+        span
+          margin-left: -5px
+
+    &.profile
+      +gt_ipad
+        margin-left: auto
+
+      & > button
+        +gte_ipad
+          min-width: 180px
+          max-width: 250px
+
+        img
+          height: 30px
+          pointer-events: none

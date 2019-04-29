@@ -1,10 +1,22 @@
-@import globals
-@import mixins/icons
+@import globals/variables
+@import mixins/clearfix
 @import mixins/ellipsis2
-@import mixins/responsive
+@import mixins/icons
 @import mixins/link
+@import mixins/responsive
 
 $aside_width: 280px
+
+=icon_expandable
+  +link_color(#123)
+  display: block
+  margin-bottom: 8px
+
+  +lte_ipad
+    margin-left: 0
+
+  &:after
+    content: attr(data-text)
 
 =forum_entry
   +clearfix
@@ -117,41 +129,52 @@ $aside_width: 280px
           .main-controls
             .item-ignore
               +icon_expandable
+
             .item-reply
               +icon_expandable
+
             .item-edit
               +icon_expandable
+
             .item-delete
               +icon_expandable
+
             .item-moderation
               +icon_expandable
+
             .item-cancel
               +icon_expandable
 
             .item-request-confirm
               +icon_expandable
+
             .item-request-reject
               +icon_expandable
 
           .delete-controls
             .item-delete-confirm
               +icon_expandable
+
             .item-delete-cancel
               +icon_expandable
 
           .moderation-controls
             .item-ban
               +icon_expandable
+
             .item-abuse
               +icon_expandable
+
             .item-spoiler
               +icon_expandable
+
             .item-summary
               +icon_expandable
               &.selected
                 color: $green
                 &:after
                   content: attr(data-text-alt)
+
             .item-offtopic
               +icon_expandable
               &.selected

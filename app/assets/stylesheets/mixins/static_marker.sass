@@ -1,20 +1,33 @@
-@import globals
+@import globals/variables
 @import mixins/responsive
 
-=static_marker($color, $background)
-  box-sizing: border-box
+=static_marker($color, $background, $hover_color: darken($background, 4%), $active_color: darken($background, 2%))
+  background-color: $background
+  border: 1px solid darken($background, 1.5%)
+  color: $color
+  cursor: default
   display: inline-block
+  font-size: 12px
+  letter-spacing: 0.25px
+  line-height: 1.4
+  padding: 0 5px
+  text-align: center
 
-  &:before
-    background-color: $background
-    border: 1px solid darken($background, 1.5%)
-    color: $color
-    content: attr(data-text)
-    display: inline-block
-    font-size: 12px
-    line-height: 1.4
-    padding: 0 5px
-    text-align: center
+  +gt_ipad
+    transition: all 0.25s ease
+
+  &[data-text]
+    &:before
+      content: attr(data-text)
+
+  &[href]
+    cursor: pointer
 
     +gt_ipad
-      transition: all 0.25s ease
+      &:hover
+        background-color: $hover_color
+        border-color: darken($hover_color, 1.5%)
+
+      &:active
+        background-color: $active_color
+        border-color: darken($active_color, 1.5%)

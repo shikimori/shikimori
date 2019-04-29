@@ -129,18 +129,20 @@ module Clockwork
 
   every 1.week, 'weekly.stuff.cpu_intensive', at: 'Monday 05:45' do
     People::JobsWorker.perform_async
+    Characters::JobsWorker.perform_async
+
     Animes::UpdateCachedRatesCounts.perform_async
     Animes::FranchisesWorker.perform_async
     NameMatches::Refresh.perform_async Anime.name
     NameMatches::Refresh.perform_async Manga.name
   end
 
-  every 1.week, 'weekly.stuff.cpu_intensive.2', at: 'Monday 03:45' do
-    Tags::ImportCoubTagsWorker.perform_async
-  end
-
   every 1.week, 'weekly.stuff.cpu_intensive.3', at: 'Thursday 03:45' do
     Tags::ImportDanbooruTagsWorker.perform_async
+  end
+
+  every 1.day, 'monthly.very-very-long-coub', at: '22:00', if: lambda { |t| t.day == 10 } do
+    Tags::ImportCoubTagsWorker.perform_async
   end
 
   every 1.day, 'monthly.schedule_missing', at: '05:00', if: lambda { |t| t.day == 28 } do

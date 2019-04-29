@@ -1,6 +1,17 @@
-class ProfilesController < ShikimoriController
+class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   before_action :fetch_resource
   before_action :set_breadcrumbs
+  before_action do
+    unless !@view || @view.own_profile?
+      @top_menu.current_item = {
+        name: :avatar,
+        url: @resource.url,
+        title: @resource.nickname,
+        image_url: @resource.avatar_url(20),
+        image_2x_url: @resource.avatar_url(48)
+      }
+    end
+  end
 
   PARENT_PAGES = {
     'password' => 'account',
@@ -97,8 +108,8 @@ class ProfilesController < ShikimoriController
 
     scope = Comment
       .where(user: @resource.object)
-      .where(params[:search].present? ?
-        "body ilike #{ApplicationRecord.sanitize "%#{params[:search]}%"}" :
+      .where(params[:phrase].present? ?
+        "body ilike #{ApplicationRecord.sanitize "%#{params[:phrase]}%"}" :
         nil)
       .order(id: :desc)
 
@@ -251,7 +262,7 @@ private
     breadcrumb @resource.nickname, @resource.url
 
     og page_title: i18n_t('profile')
-    og page_title: (@resource || @user).nickname
+    og page_title: @resource.nickname
   end
 
   def update_params

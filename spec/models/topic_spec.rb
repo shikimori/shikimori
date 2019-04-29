@@ -3,7 +3,7 @@
 describe Topic do
   describe 'associations' do
     it { is_expected.to belong_to :forum }
-    it { is_expected.to belong_to :linked }
+    it { is_expected.to belong_to(:linked).optional }
     it { is_expected.to belong_to :user }
     it { is_expected.to have_many :messages }
     it { is_expected.to have_many :topic_ignores }

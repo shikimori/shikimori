@@ -2,11 +2,11 @@
   - if studio.image.exists? && entry.real_studios.uniq(&:name).one?
     a[
       href=entry.collection_url(studio: studio)
-      title="#{t '.studio_animes', studio_name: studio.name}"
+      title=t('.studio_animes', studio_name: studio.name)
     ]
       img.studio-logo[
         src=studio.image.url
-        alt="#{t '.studio_animes', studio_name: studio.name}"
+        alt=t('.studio_animes', studio_name: studio.name)
       ]
   - else
     a.b-tag[

@@ -1,0 +1,29 @@
+.b-db_entry-variant-list_item
+  .image.linkeable.bubbled[
+    data-href=(entry.respond_to?(:url) ? entry.url : person_url(entry))
+    title=localized_name(entry)
+  ]
+    img[
+      src=cdn_image(entry, :x48)
+      srcset="#{cdn_image entry, :x96} 2x"
+      alt=localized_name(entry)
+    ]
+
+  .info
+    .name
+      a.b-link.bubbled[
+        href=(entry.respond_to?(:url) ? entry.url : person_url(entry))
+        title=localized_name(entry)
+      ] = localized_name entry
+
+    - if entry.respond_to? :formatted_roles
+      - roles = entry.formatted_roles.split(',').map(&:strip)
+      .line.multiline
+        .key #{i18n_i('Role', roles.size > 1 ? :other : :one)}:
+        .value
+          - roles.each do |role|
+            .b-tag = role
+    - else
+      .line
+        .value
+          .b-tag = entry.job_title

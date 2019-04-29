@@ -26,8 +26,6 @@ html
     data-camo_url=UrlGenerator.instance.camo_root_url
     data-faye=(current_user.faye_channel.to_json if user_signed_in?)
   ]
-    .turbolinks
-
     = @layout.custom_styles
 
     - if defined?(notice) && notice
@@ -42,7 +40,7 @@ html
         = yield
 
     - else
-      header.l-top_menu
+      header.l-top_menu-v2
         - unless Rails.env.development? && params[:no_menu]
           = render 'application/top_menu'
 
@@ -71,7 +69,8 @@ html
             = yield
 
         footer.l-footer
-          = render 'application/footer'
+          - unless Rails.env.development? && params[:no_menu]
+              = render 'application/footer'
 
         ins.mrg-tag[
           style="width:100%;"
@@ -79,7 +78,7 @@ html
           data-ad-slot="99457"
         ]
         / = render 'spnsrs/ad', ad: Ad.new(:footer)
-      #shade
+      .b-shade
       .b-to-top
         .slide
         .arrow

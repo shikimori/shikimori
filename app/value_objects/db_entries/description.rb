@@ -1,6 +1,8 @@
-class DbEntries::Description < Dry::Struct
-  attribute :text, Types::Strict::String.optional
-  attribute :source, Types::Strict::String.optional
+class DbEntries::Description
+  include ShallowAttributes
+
+  attribute :text, String, allow_nil: true
+  attribute :source, String, allow_nil: true
 
   def value
     if source.present?
@@ -30,11 +32,13 @@ class DbEntries::Description < Dry::Struct
     def parse_text value
       return unless value.present?
       return value if value !~ /\[source\]/
+
       value[/(.+)(?=\[source\])/m, 1]
     end
 
     def parse_source value
       return unless value.present?
+
       value[%r{\[source\](.+)\[/source\]}, 1]
     end
   end

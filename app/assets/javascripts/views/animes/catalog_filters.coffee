@@ -1,5 +1,5 @@
 # TODO: refactor to normal classes
-inNewTab = require('helpers/in_new_tab').default
+import inNewTab from 'helpers/in_new_tab'
 
 DEFAULT_ORDER = 'ranked'
 DEFAULT_DATA =
@@ -19,8 +19,7 @@ DEFAULT_DATA =
   search: []
   "order-by": []
 
-using 'Animes'
-module.exports = Animes.CatalogFilters = (base_path, current_url, change_callback) ->
+export default (base_path, current_url, change_callback) ->
   $root = $('.b-collection-filters')
 
   # вытаскивание из класса элемента типа и значения

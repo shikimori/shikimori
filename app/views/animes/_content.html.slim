@@ -11,14 +11,14 @@
           alt=anime.name
         ]
 
-    .inner class="#{:offset if local_assigns[:with_image]}"
+    .inner class=(:offset if local_assigns[:with_image])
       - if content_title != :none
-        .line.name itemprop="name"
+        .line.name itemprop='name'
           - if !defined?(cover_by) || cover_by != :link
             a.data.name[
               href=anime.url
               title=anime.name
-              itemprop="name"
+              itemprop='name'
             ] = localization_span anime
           - else
             .linkeable.name[
@@ -27,32 +27,39 @@
             ] = localization_span anime
 
       - if content_text != :none
-        .text itemprop="description"
+        .text itemprop='description'
           = anime.decorate.description_html_truncated
 
       - if anime.kind.present?
         = info_line Anime.human_attribute_name(:kind) do
           - if anime.kind.present?
-            .tag.linkeable data-href=anime.collection_url(type: anime.kind)
+            .b-tag.linkeable data-href=anime.collection_url(type: anime.kind)
               = anime.kind_text
           - if anime.year.present?
-            .tag.linkeable data-href=anime.collection_url(season: anime.year)
+            .b-tag.linkeable data-href=anime.collection_url(season: anime.year)
               = t '.year', year: anime.year
           - if anime.anime? && !anime.rating_none?
-            .tag.linkeable data-href=anime.collection_url(rating: anime.rating)
+            .b-tag.linkeable data-href=anime.collection_url(rating: anime.rating)
               = anime.rating_text
+          - if anime.status
+            span.b-anime_status_tag[
+              class=anime.status.downcase.gsub(' ', '_')
+              data-text=anime.status_text.downcase
+            ]
 
       - if anime.respond_to?(:studios) && anime.real_studios.any?
         = info_line i18n_io('Producer', anime.real_studios.one? ? :one : :few) do
           - anime.real_studios.each do |studio|
-            .tag.linkeable data-href=anime.collection_url(studio: studio.to_param)
-              = studio.name
+            .b-tag.linkeable[
+              data-href=anime.collection_url(studio: studio.to_param)
+            ] = studio.name
 
       - if anime.respond_to?(:publishers) && anime.real_publishers.any?
         = info_line i18n_io('Publisher', anime.real_publishers.one? ? :one : :few) do
           - anime.real_publishers.each do |publisher|
-            .tag.linkeable data-href=anime.collection_url(publisher: publisher.to_param)
-              = publisher.name
+            .b-tag.linkeable[
+              data-href=anime.collection_url(publisher: publisher.to_param)
+            ] = publisher.name
 
       - if anime.respond_to?(:episodes) && (anime.episodes > 0 || anime.episodes_aired > 0)
         = render partial: 'animes/aired_chapters', formats: :html,
@@ -77,10 +84,10 @@
 
       = info_line i18n_io('Genre', anime.main_genres.one? ? :one : :few) do
         - anime.main_genres.each do |genre|
-          .linkeable.tag[
-            temprop="genre"
+          .linkeable.b-tag[
+            temprop='genre'
             class=(:bubbled if genre.description)
-            data-predelay="250"
+            data-predelay='250'
             data-tooltip_url=tooltip_moderations_genre_url(genre, subdomain: false)
             data-href=anime.collection_url(genre: genre.to_param)
           ] = localization_span genre
@@ -88,13 +95,13 @@
       - if anime.with_score?
         .rating[
           itemscope
-          itemprop="aggregateRating"
-          itemtype="http://schema.org/AggregateRating"
+          itemprop='aggregateRating'
+          itemtype='http://schema.org/AggregateRating'
         ]
           - if anime.cached_rates_count > 0
-            meta itemprop="bestRating" content="10"
-            meta itemprop="ratingValue" content=anime.score
-            meta itemprop="ratingCount" content=anime.cached_rates_count
+            meta itemprop='bestRating' content='10'
+            meta itemprop='ratingValue' content=anime.score
+            meta itemprop='ratingCount' content=anime.cached_rates_count
 
           span = '%.2f' % anime.score
           span.text = Anime.human_attribute_name(:score).downcase

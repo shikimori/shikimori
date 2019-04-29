@@ -1,6 +1,6 @@
 import EditStyles from 'views/styles/edit'
 
-page_load 'profiles_edit', ->
+pageLoad 'profiles_edit', ->
   # account page
   # if $('.edit-page.account').exists()
 

@@ -1,0 +1,79 @@
+.l-top_menu-v2
+  .active .submenu
+    top: auto
+
+    +iphone
+      left: 0
+
+  .submenu
+    background: $top_menu_background_hover
+    border-bottom: 1px solid $top_menu_background_hover
+    border-left: 1px solid $top_menu_background_hover
+    border-right: 1px solid $top_menu_background_hover
+    display: none
+    overflow: hidden
+    position: absolute
+    width: 100%
+    top: -999px
+    left: 0
+
+    & > .legend
+      font-weight: bold
+      letter-spacing: .5px
+      margin-top: 5px
+      padding: 0 15px 0 10px
+      pointer-events: none
+      text-transform: uppercase
+      user-select: none
+
+      &:first-child
+        margin-top: 0
+
+      +iphone
+        font-size: 11px
+        line-height: 26px
+
+        &:first-child
+          margin-top: 8px
+
+      +gte_ipad
+        font-size: 10px
+        line-height: 24px
+
+        &:first-child
+          margin-top: 3px
+
+    & > a
+      +ellipsis2
+      align-items: center
+      color: #fff
+      cursor: pointer
+      display: flex
+      letter-spacing: 0.25px
+      outline: none
+      padding-right: 10px
+      position: relative
+      user-select: none
+
+      +iphone
+        font-size: 16px
+        height: 48px
+        line-height: 48px
+
+      +gte_ipad
+        font-size: 13px
+        height: 38px
+        line-height: 38px
+
+      +gte_ipad
+        &.active
+          background: #fff
+          color: #123
+
+        &:active
+          transition: background 0.2s ease
+          background: #ddd
+          color: #123
+
+      &:last-child
+        border-bottom: none

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-page_load 'pages_oauth', ->
+pageLoad 'pages_oauth', ->
   $('select#oauth_application_id').on 'change', ->
     $('.l-page').addClass('b-ajax')
     $(@).closest('form').submit()

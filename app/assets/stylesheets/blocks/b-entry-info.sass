@@ -3,7 +3,6 @@
 @import mixins/comma_separated
 @import mixins/link
 @import mixins/responsive
-@import mixins/tag
 
 .b-entry-info
   +block
@@ -16,6 +15,7 @@
 
     .key
       color: $gray-3
+      cursor: default
       display: inline
 
     .value
@@ -24,9 +24,3 @@
 
       +iphone
         font-weight: bold
-
-    a
-      +link
-
-    .b-tag
-      +tag

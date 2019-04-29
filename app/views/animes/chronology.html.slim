@@ -21,5 +21,6 @@
     - else
       .subheadline.m10 = og.headline
       .block
-        = render partial: 'animes/relation_note',
-          collection: @resource.chronology
+        = render partial: 'animes/variants/list_item',
+          collection: @resource.chronology,
+          as: :entry

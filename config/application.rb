@@ -111,7 +111,9 @@ module Shikimori
     end
 
     config.middleware.insert 0, Rack::UTF8Sanitizer
-    config.middleware.insert 0, ProxyTest if defined? ProxyTest # not defined for clockwork
+    if defined?(ProxyTest) && Rails.env.production? && !LOCAL_RUN # not defined for clockwork
+      config.middleware.insert 0, ProxyTest
+    end
 
     config.middleware.use Rack::JSONP
     config.middleware.use Rack::Attack

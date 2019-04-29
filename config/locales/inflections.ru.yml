@@ -504,6 +504,12 @@ ru:
           few: субтитра
           many: субтитров
           other: субтитры
+      role:
+        subjective:
+          one: роль
+          few: роли
+          many: ролей
+          other: роли
 
       datetime:
         second:

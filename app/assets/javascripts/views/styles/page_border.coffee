@@ -1,9 +1,7 @@
 import View from 'views/application/view'
 
 export default class PageBorder extends View
-  REGEXP = /\/\* AUTO=page_border.*? { display: (\w+); }.*[\r\n]?/
-
-  BORDER_STYLE = 'block'
+  REGEXP = /\/\* AUTO=page_border \*\/ \.l-page\b.*[\r\n]?/
 
   initialize: ->
     @css_template = @$root.data 'css_template'
@@ -17,12 +15,7 @@ export default class PageBorder extends View
     @input.checked = @has_border
 
   _extract: (css) ->
-    matches = css.match(REGEXP)
-
-    if matches && matches[1] == BORDER_STYLE
-      true
-    else
-      false
+    !!css.match(REGEXP)
 
   _sync_state: =>
     @has_border = @input.checked
@@ -30,6 +23,6 @@ export default class PageBorder extends View
 
   _compile: ->
     if @has_border
-      @css_template.replace(/%s/, BORDER_STYLE)
+      @css_template
     else
       ''

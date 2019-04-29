@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :video do
-    association :uploader, factory: :user
     state { 'uploaded' }
     anime { create :anime }
     url { 'http://youtube.com/watch?v=VdwKZ6JDENc' }
     kind { :op }
+    uploader { seed :user }
 
     trait :uploaded do
       state { 'uploaded' }

@@ -42,9 +42,8 @@ class PeopleController < DbEntriesController
   end
 
   def favoured
-    if @resource.all_favoured.none?
-      return redirect_to @resource.url, status: 301
-    end
+    return redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
+
     og noindex: true
     og page_title: t('in_favorites')
   end
@@ -54,6 +53,15 @@ class PeopleController < DbEntriesController
 
   def autocomplete
     @collection = Autocomplete::Person.call search_params
+  end
+
+  def autocomplete_v2
+    og noindex: true, nofollow: true
+
+    autocomplete
+    @collection = @collection
+      .includes(:person_roles)
+      .map(&:decorate)
   end
 
 private

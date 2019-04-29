@@ -1,10 +1,10 @@
-let store = {};
+import axios from 'helpers/axios';
+
+const store = {};
 let queue = [];
 
-const queueLimit = 30;
-const enabled = true;// false;
+const queueLimit = 300;
 
-// обновление очереди - переданный url будет помещен в конец, и будут удалены лишние элементы, если очередь разрослась
 function updateQueue(url, noDelete) {
   if (queue.includes(url)) {
     queue = queue.subtract(url);
@@ -13,64 +13,37 @@ function updateQueue(url, noDelete) {
 
   while (!noDelete && queue.length > queueLimit) {
     const entry = queue.shift();
-    // console.log('delete cache: '+entry);
     delete store[entry];
   }
 }
-// выделение из урла части после /
-function getUriPart(url) {
-  return url.replace(/https?:\/\/[^/]+/, '');
-}
+
+// function getUriPart(url) {
+//   return url.replace(/https?:\/\/[^/]+/, '');
+// }
 
 export default {
-  cache(url) {
-    const uri = getUriPart(url);
-    if (!enabled || uri in store || uri === '') {
-      return;
-    }
-
-    store[uri] = $.ajax({
-      url: document.location.protocol + '//' + document.location.host + uri,
-      data: null,
-      dataType: 'json',
-      success(data, _status, _xhr) {
-        store[uri] = data;
-        updateQueue(uri, true);
-      }
-    });
-  },
-  push(url, data) {
-    if (!enabled) {
-      return;
-    }
-    if ('next_page' in data && data.next_page) {
-      this.cache(data.next_page);
-    }
-    if ('prev_page' in data && data.prev_page) {
-      this.cache(data.prev_page);
-    }
-    store[url] = data;
-    updateQueue(url);
-  },
-  get(url) {
-    if (enabled && url in store) {
-      updateQueue(url);
-
-      if ('next_page' in store[url] && store[url].next_page) {
-        this.cache(store[url].next_page); // eslint-disable-line react/no-this-in-sfc
-      }
-      if ('prev_page' in store[url] && store[url].prev_page) {
-        this.cache(store[url].prev_page); // eslint-disable-line react/no-this-in-sfc
-      }
-
+  fetch(url) {
+    if (store[url]) {
       return store[url];
     }
-    return null;
-  },
-  clear(url) {
-    delete store[url];
-  },
-  reset() {
-    store = {};
+
+    const promise = axios
+      .get(url)
+      .catch(({ response }) => {
+        delete store[url];
+        return { status: response.status };
+      });
+
+    store[url] = promise;
+
+    updateQueue(url);
+
+    return promise;
   }
+  // clear(url) {
+    // delete store[url];
+  // },
+  // reset() {
+  //   store = {};
+  // }
 };

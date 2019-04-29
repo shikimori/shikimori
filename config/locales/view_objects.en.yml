@@ -13,7 +13,7 @@ en:
       moderate: medium compatibility
       high: high compatibility
       full: full compatibility
-  profile_stats_view:
+  profiles/stats_view:
     time_spent:
       anime: Time spent on anime
       manga: Time spent on manga

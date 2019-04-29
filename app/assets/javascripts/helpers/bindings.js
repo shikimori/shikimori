@@ -1,5 +1,4 @@
 export default {
-  'page:load': [],
-  'page:restore': []
-  // 'page:change': []
+  'turbolinks:load': [],
+  'turbolinks:before-cache': []
 };

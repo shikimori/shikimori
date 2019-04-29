@@ -1,24 +1,28 @@
 @import globals/variables
 @import mixins/link
 @import mixins/retina
-@import mixins/shiki_placeholder
+@import mixins/placeholder
 @import mixins/shikimori
 
 .b-collection_search
   .field
     margin-bottom: $block_offset
-
-  .field
     position: relative
 
     input
-      border: 1px solid rgba(172, 177, 180, 0.4)
-      font-size: 13px
-      padding: 10px
+      border: 1px solid rgba(#acb1b4, 0.4)
+      line-height: 34px
+      padding: 2px 42px 0 13px
       width: 100%
 
-      +shiki_placeholder
+      +placeholder
         color: $gray-1
+
+      &:focus
+        border-color: $link-4
+
+      &.has-value + .clear
+        display: block
 
     .clear
       +link(#333)
@@ -27,13 +31,13 @@
       &:before
         +shikimori('✕')
         font-size: 23px
-        height: 37px
-        line-height: 37px
+        height: 38px
+        line-height: 38px
         position: absolute
         right: 0
         text-align: center
         top: 0
-        width: 37px
+        width: 38px
 
     // .ajax
       // +background-inline-retina('blocks/b-ajax/ajax', 'gif', 30px, 30px)
@@ -46,8 +50,9 @@
       // top: 50%
       // width: 30px
 
-  .searchable-collection.b-ajax
-    min-height: 215px
+  .search-results
+    &.b-ajax
+      min-height: 215px
 
-    &:after
-      top: 107px
+      &:after
+        top: 107px

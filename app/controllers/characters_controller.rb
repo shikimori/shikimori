@@ -100,6 +100,13 @@ class CharactersController < PeopleController
     )
   end
 
+  def autocomplete_v2
+    og noindex: true, nofollow: true
+
+    autocomplete
+    @collection = @collection.map(&:decorate)
+  end
+
 private
 
   def update_params

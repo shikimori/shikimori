@@ -1,2 +1,2 @@
-page_load '.club_pages', ->
+pageLoad '.club_pages', ->
   $('.b-shiki_editor').shikiEditor()

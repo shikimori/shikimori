@@ -20,7 +20,7 @@ describe Coubs::Request, :vcr do
           permalink: 'circlycircles'
         },
         recoubed_permalink: nil,
-        created_at: '2015-02-17T01:40:28Z'
+        created_at: Time.zone.parse('2015-02-17T01:40:28Z')
       )
     end
   end
@@ -43,7 +43,7 @@ describe Coubs::Request, :vcr do
           permalink: 'dimanvip'
         },
         recoubed_permalink: nil,
-        created_at: '2016-07-05T14:18:43Z'
+        created_at: Time.zone.parse('2016-07-05T14:18:43Z')
       )
     end
 

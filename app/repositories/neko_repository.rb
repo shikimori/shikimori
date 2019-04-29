@@ -42,11 +42,11 @@ private
 
   def collection
     @collection ||= YAML.load(raw_config) # rubocop:disable Security/YAMLLoad
-      .map { |raw_rule| Neko::Rule.new raw_rule }
+      .map { |raw_rule| Neko::Rule.new raw_rule.to_h }
       .sort_by(&:sort_criteria)
   end
 
   def raw_config
-    @raw_config ||= open(CONFIG_FILE).read # rubocop:disable Security/Open
+    @raw_config ||= File.open(CONFIG_FILE).read
   end
 end

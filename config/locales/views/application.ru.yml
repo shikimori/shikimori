@@ -4,25 +4,48 @@ ru:
       report_bug: Сообщить об ошибке
 
     top_menu:
-      sign_out: Выход
-      sign_in: Вход
-      search: Поиск
-      main_menu: Основное меню
-
-      shikimori: &shikimori
+      legend:
+        database: База данных
         community: Сообщество
+        misc: Разное
+        info: Информация
+        profile: Аккаунт
+        site: Сайт
+      items:
+        anime: :activerecord.models.anime
+        manga: :activerecord.models.manga
+        ranobe: :activerecord.models.ranobe
+        clubs: Клубы
+        collections: Коллекции
+        reviews: Рецензии
+        forum: :forum
+        users: Пользователи
         contests: Турниры
         current_contest: Текущий турнир
-        currently_airing: Сейчас выходит
-        development: Разработка сайта
-        faq: FAQ - Часто задаваемые вопросы
-        info: Инфо
-        moderation: Модерация и контент
+        calendar: :calendar
+        info: :about_site
+        socials: Мы в соц. сетях
+        moderation: Модерация
+
+        profile: Профиль
+        anime_list: :anime_list
+        manga_list: :manga_list
+        mail: :mail
+        achievements: Ачивки
+        settings: :settings
         site_rules: Правила сайта
-        socials: Мы в социальных сетях
-        discord: Канал в discord
-      anime_online:
-        <<: *shikimori
+        faq: FAQ
+
+        characters: Персонажи
+        home: Главная
+        play: Аниме Онлайн
+        # main: Shikimori
+        main_menu: Основное меню
+        other: Прочее
+        people: Люди
+        search: Поиск
+        sign_in: Вход
+        sign_out: Выход
 
     hot_topics:
       hot_topics: Темы дня

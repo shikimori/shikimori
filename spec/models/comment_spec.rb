@@ -2,7 +2,7 @@ describe Comment do
   describe 'associations' do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :commentable }
-    it { is_expected.to belong_to :topic }
+    it { is_expected.to belong_to(:topic).optional }
     it { is_expected.to have_many :messages }
     it { is_expected.to have_many :viewings }
     it { is_expected.to have_many :abuse_requests }

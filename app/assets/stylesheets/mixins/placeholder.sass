@@ -1,0 +1,18 @@
+@import mixins/ellipsis2
+
+=placeholder
+  &::-webkit-input-placeholder
+    +ellipsis2
+    @content
+
+  &:-moz-placeholder
+    +ellipsis2
+    @content
+
+  &::-moz-placeholder
+    +ellipsis2
+    @content
+
+  &:-ms-input-placeholder
+    +ellipsis2
+    @content

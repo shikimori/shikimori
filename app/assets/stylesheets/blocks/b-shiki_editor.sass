@@ -1,8 +1,9 @@
-@import globals
+@import globals/variables
 @import mixins/icons
 @import mixins/link
-@import mixins/shiki_placeholder
+@import mixins/placeholder
 @import mixins/responsive
+@import mixins/textarea
 
 .b-shiki_editor
   transition: opacity 0.5s ease
@@ -34,10 +35,10 @@
     line-height: 25px
     padding-left: 4px
 
-    +responsive(phone)
+    +iphone-s
       height: 43px
 
-    +responsive(narrow-phone)
+    +iphone-gt-s
       height: 64px
 
     &.links
@@ -109,24 +110,8 @@
         display: none
 
       textarea
-        -webkit-appearance: none
-        background: #fcfcfc
-        border: 1px solid #ddd
-        border-radius: 0
-        color: #333333
-        height: 89px
-        line-height: $line_height
-        max-height: 417px
-        min-height: 89px
-        outline: none
-        padding: 3px 7px 5px
+        +textarea
         position: relative
-        resize: none
-        width: 100%
-
-        +shiki_placeholder
-          line-height: $line_height
-          color: #999
 
   .ajax-loading
     height: 100%
@@ -158,7 +143,9 @@
       span
         display: none
 
-      .editor-spoiler, .editor-file, .editor-smiley
+      .editor-spoiler,
+      .editor-file,
+      .editor-smiley
         display: inline-block
 
     +ipad-portrait
@@ -170,40 +157,54 @@
         margin-left: 0
 
     +iphone-landscape
-      .editor-bold, .editor-link,
-      .editor-file, .editor-file span
+      .editor-bold,
+      .editor-link,
+      .editor-file,
+      .editor-file span
         display: inline-block
 
   footer
     margin-top: 10px
+    display: flex
+    align-items: center
+    +iphone
+      flex-wrap: wrap
 
-    input[type=submit], .unpreview, .preview
+    input[type=submit],
+    .unpreview,
+    .preview
       margin-right: 20px
-      +iphone_portrait
-        margin-bottom: 10px
 
-    .unpreview, .cancel, .hide
+    .unpreview,
+    .cancel,
+    .hide
       font-size: 13px
       margin-left: 0
 
     .unpreview
       +link
 
-    .unpreview:not(.link), .cancel, .hide
+    .unpreview:not(.link),
+    .cancel,
+    .hide
       +js-link
-
-    .about-bb_codes
-      +link
-      float: right
-      margin-top: 4px
-      font-size: 11px
-      line-height: 1.2
 
     .hide
       display: none
 
     .unpreview
       display: none!important
+
+    .about-bb_codes
+      +link
+      font-size: 11px
+      line-height: 1.2
+      margin-left: auto
+
+      +iphone-portrait
+        flex-basis: 100%
+        margin-top: 15px
+        text-align: right
 
   &.previewed
     & > .buttons,
@@ -217,13 +218,10 @@
       .preview
         display: block
 
-        .b-comment, .b-message
-          border-top: none
-          padding-top: 0
-
     footer
       .unpreview
         display: inline-block !important
 
-      .cancel, .b-button.preview
+      .cancel,
+      .b-button.preview
         display: none

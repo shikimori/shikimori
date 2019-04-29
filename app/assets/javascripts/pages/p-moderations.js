@@ -1,7 +1,7 @@
 import URI from 'urijs';
 import Turbolinks from 'turbolinks';
 
-import CollectionSearch from 'views/application/collection_search';
+import CollectionSearch from 'views/search/collection';
 import DatePicker from 'views/application/date_picker';
 import axios from 'helpers/axios';
 
@@ -15,7 +15,7 @@ function datePicker() {
     });
 }
 
-page_load('anime_video_reports_index', 'profiles_videos', () => {
+pageLoad('anime_video_reports_index', 'profiles_videos', () => {
   datePicker();
 
   $('.l-page').on('click', '.b-log_entry.video .collapsed', ({ currentTarget }) => {
@@ -28,13 +28,13 @@ page_load('anime_video_reports_index', 'profiles_videos', () => {
   });
 });
 
-page_load('versions_index', 'users_index', datePicker);
+pageLoad('versions_index', 'users_index', datePicker);
 
-page_load('versions_show', 'user_rate_logs_show', () => {
+pageLoad('versions_show', 'user_rate_logs_show', () => {
   $('.collapsed.spoiler', '.b-log_entry, .b-user_rate_log').click();
 });
 
-page_load(
+pageLoad(
   'bans_index',
   'abuse_requests_index',
   'versions_index',
@@ -51,7 +51,7 @@ page_load(
     });
   });
 
-page_load('moderations_missing_videos', () => {
+pageLoad('moderations_missing_videos', () => {
   $('.missing-video .show-details').one('click', async e => {
     e.preventDefault();
 
@@ -68,7 +68,7 @@ page_load('moderations_missing_videos', () => {
   });
 });
 
-page_load('roles_show', () => {
+pageLoad('roles_show', () => {
   new CollectionSearch('.b-collection_search');
 
   $('.l-page')
@@ -78,4 +78,11 @@ page_load('roles_show', () => {
     .on('ajax:success', '.b-user', ({ currentTarget }, { content }) => {
       $(`.b-user[id=${currentTarget.id}]`).replaceWith(content);
     });
+});
+
+// users#index matches this too
+pageLoad('users_index', () => {
+  if ($('.b-collection_search').length) {
+    new CollectionSearch('.b-collection_search');
+  }
 });

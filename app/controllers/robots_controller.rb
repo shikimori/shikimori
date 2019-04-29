@@ -6,13 +6,6 @@ class RobotsController < ShikimoriController
     ROBOTS
   end
 
-  # def manga_online
-    # render plain: <<~ROBOTS
-      # User-agent: *
-      # Disallow: /
-    # ROBOTS
-  # end
-
   def shikimori
     if ru_host?
       shikimori_ru
@@ -36,6 +29,8 @@ class RobotsController < ShikimoriController
       Disallow: /mangas/search/*
       Disallow: /*/comments
       Disallow: /*/tooltip
+      Disallow: /*/autocomplete
+      Disallow: /*/autocomplete/v2
       Disallow: /groups/9-Hentai*
       Disallow: /messages/*
       Disallow: /*undefined

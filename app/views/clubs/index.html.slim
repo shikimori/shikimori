@@ -16,16 +16,5 @@
 
     p.notice.clearfix = t '.notice'
 
-  .b-collection_search[
-    data-search_url=clubs_url
-  ]
-    .field
-      input[
-        type="text"
-        placeholder=t('search.title')
-        value=params[:search]
-      ]
-      .clear
-
-    .b-clubs.searchable-collection
-      = render 'clubs/collection'
+  .b-clubs.b-search-results
+    = render 'clubs/collection'

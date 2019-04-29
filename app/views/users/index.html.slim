@@ -8,27 +8,16 @@ header.head.misc
   p.notice
     = t '.notice'
 
-.b-collection_search[
-  data-search_url=current_url(search: nil)
-]
-  .field
-    input[
-      type="text"
-      placeholder=t('search.name')
-      value=params[:search]
-    ]
-    .clear
+.b-search-results
+  - if @collection.any?
+    = render partial: 'users/user',
+      collection: @collection,
+      locals: { content_by: :detailed }
+  - else
+    .b-nothing_here = t 'nothing_found'
 
-  .searchable-collection
-    - if @collection.any?
-      = render partial: 'users/user',
-        collection: @collection,
-        locals: { content_by: :detailed }
-    - else
-      .b-nothing_here = t 'nothing_found'
-
-    - if @collection.next_page?
-      = render 'blocks/postloader',
-        filter: 'b-user',
-        next_url: current_url(page: @collection.next_page),
-        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)
+  - if @collection.next_page?
+    = render 'blocks/postloader',
+      filter: 'b-user',
+      next_url: current_url(page: @collection.next_page),
+      prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)

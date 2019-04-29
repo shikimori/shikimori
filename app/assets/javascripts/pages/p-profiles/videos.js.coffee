@@ -1,4 +1,4 @@
-page_load 'profiles_video_uploads', ->
+pageLoad 'profiles_video_uploads', ->
   $('.l-page').on 'click', '.b-log_entry.video .collapsed', ->
     $player = $(@).parent().find('.player')
 

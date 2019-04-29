@@ -2,3 +2,10 @@ en:
   frontend:
     search:
       nothing_found: Nothing found.
+      mode:
+        index: This page
+        anime: Anime
+        manga: Manga
+        ranobe: Ranobe
+        character: Character
+        person: Person

@@ -1,0 +1,91 @@
+@import globals/variables
+@import mixins/ellipsis2
+@import mixins/link
+@import mixins/margins
+@import mixins/responsive
+@import mixins/retina
+@import mixins/shikimori
+
+$top_menu-height: 48px
+
+$top_menu-background_color: #343434
+$top_menu_background_hover: $gray-4
+$top_menu_background_active: lighten($gray-4, 4%)
+
+@import ./l-top_menu-v2/menu
+@import ./l-top_menu-v2/submenu
+@import ./l-top_menu-v2/search
+@import ./l-top_menu-v2/icons
+
+.l-top_menu-v2
+  background: $top_menu-background_color
+  border-bottom: 1px solid #444
+  color: #fff
+  height: $top_menu-height
+  position: relative // w/o it z-index wont work
+  z-index: 10
+  // wo inner
+  align-items: center
+  display: flex
+
+  .menu-logo
+    align-items: center
+    display: flex
+
+    +iphone
+      flex-direction: row-reverse
+
+  // +iphone
+    justify-content: space-between
+
+  +gt_ipad
+    padding: 0 8px
+
+  &.is-fullscreen-mode
+    z-index: -1
+
+  &.is-submenu
+    +iphone
+      & + .l-page
+        position: fixed
+        width: 100vw
+
+        & + .b-shade
+          z-index: 9
+          display: block
+
+  &.is-search-shade
+    & + .l-page
+      & + .b-shade
+        z-index: 9
+        display: block
+
+  .logo-container
+    align-items: center
+    display: flex
+    height: $top_menu-height
+    padding: 0 5px
+
+    +iphone-s
+      margin-right: 0
+
+    +gte_ipad
+      margin-right: 25px
+
+    .glyph
+      +background-inline-retina('/assets/layouts/l-top_menu-v2/glyph', 'png')
+      background-size: contain !important
+      height: 30px
+      margin-right: 3px
+      margin-top: 2px
+      width: 30px
+
+      +iphone-portrait
+        display: none
+
+    .logo
+      +background-inline-retina('/assets/layouts/l-top_menu-v2/logo', 'png')
+      background-size: contain !important
+      height: 30px
+      margin-top: -1px
+      width: 145px

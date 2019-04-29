@@ -3,8 +3,7 @@ require 'jquery.idle/vanilla.idle'
 
 export default class FayeLoader
   WORLD_CHANGED_EVENTS = [
-    'page:load'
-    'page:restore'
+    'turbolinks:load'
     'ajax:success'
     'postloader:success'
   ]

@@ -20,20 +20,11 @@ gem 'msgpack'
 group :beta, :production do
   gem 'autoprefixer-rails'
 end
-gem 'bourbon'
 gem 'coffee-rails'
 gem 'non-stupid-digest-assets'
 gem 'sassc-rails'
-# turbolinks
-# events migration https://github.com/turbolinks/turbolinks/blob/master/src/turbolinks/compatibility.coffee
-# new events https://github.com/turbolinks/turbolinks#full-list-of-events
-# old events https://github.com/turbolinks/turbolinks-classic
-# gem 'turbolinks'
-# использовать возможность раздельной загрузки скриптов:
-#   в /about сделать подгружаемую highcharts
-#   а на странице /animes/id/franchise - d3
 gem 'gon'
-gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
+gem 'turbolinks'
 gem 'uglifier'
 gem 'webpacker'
 
@@ -104,9 +95,9 @@ gem 'amatch', github: 'flori/amatch' # для поиска русских имё
 gem 'faraday'
 gem 'faraday-cookie_jar'
 gem 'faraday_middleware'
-gem 'icalendar' # для аниме календраря
+gem 'icalendar' # for anime calendar
 gem 'ruby-esvidi', github: 'shikimori/ruby-esvidi'
-gem 'unicode' # для downcase русских слов
+gem 'unicode' # to downcase russian words
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 
 gem 'rack-contrib', github: 'libc/rack-contrib', branch: 'rack_ruby_2+no-gvb' # для поддержки jsonp в api
@@ -116,15 +107,14 @@ gem 'zaru'
 gem 'apipie-rails'
 gem 'gcm'
 gem 'maruku'
-gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
+gem 'open_uri_redirections' # for http->https redirects. for example for loading videos fom vimeo (http://vimeo.com/113998423)
 
 gem 'i18n-inflector', github: 'morr/i18n-inflector', branch: :master # fork fixes regular expression for parsing @ inflections
 gem 'i18n-js'
 gem 'rails-i18n'
 
-gem 'chainable_methods'
-gem 'dry-struct'
-gem 'shallow_attributes'
+gem 'shallow_attributes', github: 'morr/shallow_attributes', branch: :master
+gem 'dry-types'
 
 group :beta, :production do
   gem 'unicorn'
@@ -149,6 +139,7 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'bullet'
 
   # gem 'web-console'
   # gem 'listen'
@@ -193,6 +184,7 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'guard-rubocop', require: false
   gem 'guard-spring', require: false
+  gem 'rubocop-performance', require: false
   # gem 'guard-webpack', github: 'imarcelolz/guard-webpack', branch: 'master'
 end
 

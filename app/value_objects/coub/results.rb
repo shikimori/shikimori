@@ -1,6 +1,8 @@
-class Coub::Results < Dry::Struct
-  attribute :coubs, Types::Array.of(Coub::Entry)
-  attribute :iterator, Types::String
+class Coub::Results
+  include ShallowAttributes
+
+  attribute :coubs, Array, of: Coub::Entry
+  attribute :iterator, String, allow_nil: true
 
   def checksum
     Encoder.instance.checksum iterator

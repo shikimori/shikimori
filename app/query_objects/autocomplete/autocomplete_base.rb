@@ -10,7 +10,7 @@ class Autocomplete::AutocompleteBase
       scope: @scope,
       phrase: @phrase,
       ids_limit: LIMIT
-    ).reverse
+    )
   end
 
 private

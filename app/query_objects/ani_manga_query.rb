@@ -43,7 +43,8 @@ class AniMangaQuery
       UserRate.statuses.find { |name, id| id == status_id.to_i }.first
     end
 
-    @search_phrase = params[:search] || params[:q]
+    # phrase is used in collection-search (userlist comparer)
+    @search_phrase = params[:search] || params[:q] || params[:phrase]
 
     @exclude_ai_genres = params[EXCLUDE_AI_GENRES_KEY]
 

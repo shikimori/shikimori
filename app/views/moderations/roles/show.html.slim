@@ -15,13 +15,13 @@ header.head
     ]
       .field
         input[
-          type="text"
+          type='text'
           placeholder=t('.search')
-          value=params[:search]
+          value=params[:phrase]
         ]
         .clear
 
-      .searchable-collection.cc-4
+      .search-results.cc-4
         - if @searched_collection&.any?
           = render partial: 'moderations/roles/user',
             collection: @searched_collection,
@@ -34,7 +34,7 @@ header.head
               next_url: search_moderations_role_url(@role, page: @searched_collection.next_page),
               prev_url: (search_moderations_role_url(@role, page: @searched_collection.prev_page) if @searched_collection.prev_page?)
 
-        - else
+        - elsif params[:search].present?
           .b-nothing_here = t 'nothing_found'
 
 - cache [params[:role], @collection.cache_key, can?(:"manage_#{@role}_role", User)] do
