@@ -91,6 +91,8 @@ $(document).on(Object.keys(bindings).join(' '), e => {
   });
 });
 
+import * as atatus from 'atatus-js';
+
 $(() => {
   if (!window.JS_EXPORTS) { window.JS_EXPORTS = {}; }
 
@@ -103,12 +105,15 @@ $(() => {
   window.CAMO_URL = $body.data('camo_url');
   if (window.SHIKI_USER) { window.FAYE_CHANNEL = $body.data('faye'); }
 
-  // if 'atatus' of window
-  //   atatus
-  //     .config(
-  //       'e939107bae3f4735891fd79f9dee7e40',
-  //       { customData: { SHIKI_USER: SHIKI_USER.id } }
-  //     ).install?()
+  window.atatus = atatus;
+  if ('atatus' in window) {
+    window.atatus
+      .config(
+        'ebe5fd3d4c754a9592b7f30f70a9c16f',
+        { customData: { SHIKI_USER: window.SHIKI_USER.id } }
+      )
+      .install();
+  }
 
   window.I18n = I18n;
   I18n.locale = window.LOCALE;
