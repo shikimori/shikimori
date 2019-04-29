@@ -73,7 +73,7 @@ export default class CommentsNotifier {
     await delay();
 
     this.scroll = $(window).scrollTop();
-    this.isStickyMenu = $('.l-top_menu-v2').css('position') == 'sticky';
+    this.isStickyMenu = $('.l-top_menu-v2').css('position') === 'sticky';
 
     const $commentNew = $(COMMENT_SELECTOR);
     const $fayeLoader = $(FAYE_LOADER_SELECTOR);
