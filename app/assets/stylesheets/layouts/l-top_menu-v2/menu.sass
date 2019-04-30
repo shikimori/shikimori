@@ -90,6 +90,22 @@
         +iphone
           display: none
 
+    +iphone
+      & > button:after
+        background: #fff
+        border-radius: 50%
+        border: 1px solid $top_menu-background_color
+        color: $top_menu-background_color
+        content: attr(data-unread_count)
+        font-size: 9px
+        height: 16px
+        line-height: 16px
+        position: absolute
+        right: 3px
+        text-align: center
+        top: 3px
+        width: 16px
+
     +gte_ipad
       & > button:after
         +shikimori('\e846')
@@ -98,9 +114,6 @@
         margin-left: auto
         transition: transform .2s ease-in-out
         vertical-align: middle
-
-        +iphone
-          display: none
 
       &.active
         & > button:after
