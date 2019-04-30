@@ -31,11 +31,6 @@
       +iphone
         display: none
 
-    &[data-text]
-      &:after
-        content: attr(data-text)
-        font-size: 14px
-
     &.contest
       +top_menu_icon('\e817')
 
@@ -60,6 +55,17 @@
       &.search
         &:before
           font-size: 25px
+
+    &.sign_in
+      display: flex // overlap iphone &:not(.mobile) display: none
+
+      +iphone
+        +top_menu_icon('\e826')
+
+      +gte_ipad
+        &:after
+          content: attr(data-text)
+          font-size: 14px
 
   .icon-anime,
   .icon-manga,
