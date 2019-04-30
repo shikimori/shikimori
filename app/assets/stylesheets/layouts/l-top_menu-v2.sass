@@ -75,7 +75,8 @@ $top_menu_background_active: lighten($gray-4, 4%)
       margin-right: 25px
 
     .glyph
-      +background-inline-retina('/assets/layouts/l-top_menu-v2/glyph', 'png')
+      // +background-inline-retina('/assets/layouts/l-top_menu-v2/glyph', 'png')
+      background-image: asset_url('/assets/layouts/l-top_menu-v2/glyph@2x.png')
       background-size: contain !important
       height: 28px
       margin-right: 3px
@@ -86,7 +87,8 @@ $top_menu_background_active: lighten($gray-4, 4%)
         display: none
 
     .logo
-      +background-inline-retina('/assets/layouts/l-top_menu-v2/logo', 'png')
+      // +background-inline-retina('/assets/layouts/l-top_menu-v2/logo', 'png')
+      background-image: asset_url('/assets/layouts/l-top_menu-v2/logo@2x.png')
       background-size: contain !important
       height: 28px
       width: 135px
