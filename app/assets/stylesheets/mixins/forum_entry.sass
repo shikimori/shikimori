@@ -5,7 +5,7 @@
 @import mixins/link
 @import mixins/responsive
 
-$aside_width: 280px
+$aside_width: 250px
 
 =icon_expandable
   +link_color(#123)
@@ -121,9 +121,8 @@ $aside_width: 280px
 
         aside.buttons
           display: block
-          margin-right: -$aside_width - $block_offset * 3
-          margin-top: -6px
-          padding-top: 5px
+          margin-right: -$aside_width - $block_offset * 1.5
+          padding-left: $block_offset * 1.5
           width: $aside_width
 
           .main-controls
