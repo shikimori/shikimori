@@ -78,3 +78,35 @@
 
       &:last-child
         border-bottom: none
+
+  .icon-mail
+    span.text
+      align-items: baseline
+      display: flex
+      flex-grow: 1
+
+    span.unread
+      color: $gray-1
+      font-size: 11px
+
+      +iphone
+        margin-left: 20px
+
+      +gte_ipad
+        margin-left: auto
+
+      span
+        align-items: center
+        color: #fff
+        display: inline-flex
+
+        &:not(:last-child):after
+          content: ''
+          width: 1px
+          background: $gray-1
+          height: 12px
+          margin: 0px 5px 0
+
+    &:hover
+      span.unread span
+        color: #123

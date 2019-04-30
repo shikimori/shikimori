@@ -19,7 +19,7 @@
   .menu-dropdown.main
     button.menu-icon.trigger.mobile tabindex='-1'
     button[
-      class="icon-#{@top_menu.current_item.data[:name]}"
+      class="icon-#{@top_menu.current_item.name}"
     ]
       - if @top_menu.current_item.data[:image_url]
         img[
@@ -35,7 +35,7 @@
 
         - @top_menu.items(group).each do |item|
           a[
-            class="icon-#{item.data[:name]}"
+            class="icon-#{item.name}"
             href=item.url
             title=item.title
             tabindex="-1"
@@ -108,11 +108,23 @@ a.menu-icon.forum.desktop[
 
         - @top_menu.items(group).each do |item|
           a[
-            class="icon-#{item.data[:name]}"
+            class="icon-#{item.name}"
             href=item.url
             title=item.title
             tabindex="-1"
-          ] = item.title
+          ]
+            span.text
+              = item.title
+              - if item.name == :mail && current_user.unread_count > 0
+                span.unread
+                  span = current_user.unread_messages
+                  span = current_user.unread_news
+                  span = current_user.unread_notifications
+            / - if item.name == :mail && current_user.unread_count > 0
+              span.unread
+                span = current_user.unread_messages
+                span = current_user.unread_news
+                = current_user.unread_notifications
 
       a.icon-sign_out[
         href=destroy_user_session_url(subdomain: false)

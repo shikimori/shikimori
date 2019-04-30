@@ -201,6 +201,7 @@ private
     url = item_url(item[:url])
 
     OpenStruct.new(
+      name: item[:name],
       placement: item[:placement],
       group: item[:group],
       title: item_title(item[:name], item[:title]),
