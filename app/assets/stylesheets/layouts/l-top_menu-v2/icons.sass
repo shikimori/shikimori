@@ -131,19 +131,20 @@
       background-image: url(/assets/layouts/l-top_menu-v2/letter-m.svg)
 
   // should not be displayed in "main" mennu and also on iphone in "profile"
-  // +gte_ipad
   .menu-dropdown.profile
-    .icon-anime_list
-      &.active,
-      &:hover
-        &:before
-          background-image: url(/assets/layouts/l-top_menu-v2/letter-a-hover.svg)
+    .icon-anime_list.active:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-a-hover.svg)
 
-    .icon-manga_list
-      &.active,
-      &:hover
-        &:before
-          background-image: url(/assets/layouts/l-top_menu-v2/letter-m-hover.svg)
+    .icon-manga_list.active:before
+      background-image: url(/assets/layouts/l-top_menu-v2/letter-m-hover.svg)
+
+  +gte_ipad
+    .menu-dropdown.profile
+      .icon-anime_list:hover:before
+        background-image: url(/assets/layouts/l-top_menu-v2/letter-a-hover.svg)
+
+      .icon-manga_list:hover:before
+        background-image: url(/assets/layouts/l-top_menu-v2/letter-m-hover.svg)
 
   .icon-home
     +submenu_icon('\e845')

@@ -65,12 +65,15 @@
         height: 38px
         line-height: 38px
 
-      &.active,
-      &:hover
+      &.active
         background: #fff
         color: #123
 
       +gte_ipad
+        &:hover
+          background: #fff
+          color: #123
+
         &:active
           transition: background 0.2s ease
           background: #ddd
