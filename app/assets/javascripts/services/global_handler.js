@@ -58,7 +58,7 @@ export default class GlobalHandler {
 
   @bind
   _onKeydown(e) {
-    if (!this.events.keyup || !this.events.keydown[e.keyCode]) { return; }
+    if (!this.events.keydown || !this.events.keydown[e.keyCode]) { return; }
 
     this.events.keydown[e.keyCode].forEach(handler => handler(e));
   }
