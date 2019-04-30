@@ -41,21 +41,19 @@
         ] Рекомендации по настройке внешнего вида профиля
 
   .c-column
-    .sticky_menu[
+    .b-input.sticky_menu[
       data-css_template=Style::STICKY_MENU_CSS
     ]
-      .b-input
-        label.checkbox
-          input.boolean type="checkbox"
-          = t '.sticky_menu'
+      label.checkbox
+        input.boolean type="checkbox"
+        = t '.sticky_menu'
 
-    .page_border[
+    .b-input.page_border[
       data-css_template=Style::PAGE_BORDER_CSS
     ]
-      .b-input
-        label.checkbox
-          input.boolean type="checkbox"
-          = t '.page_border'
+      label.checkbox
+        input.boolean type="checkbox"
+        = t '.page_border'
 
     .page_background_color[
       data-css_template=Style::PAGE_BACKGROUND_COLOR_CSS
