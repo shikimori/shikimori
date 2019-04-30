@@ -11,7 +11,7 @@ class Style < ApplicationRecord
   CSS
 
   STICKY_MENU_CSS = <<-CSS.strip.gsub(/^ +/, '')
-    /* AUTO=sticky_menu */ .l-top_menu-v2 { position: sticky; top: 0; }
+    /* AUTO=sticky_menu */ .l-top_menu-v2 { position: sticky; top: 0; } .l-top_menu-v2 .active .submenu { max-height: calc(100vh - 46px); overflow: auto; }
   CSS
 
   PAGE_BACKGROUND_COLOR_CSS = <<-CSS.strip.gsub(/^ +/, '')
