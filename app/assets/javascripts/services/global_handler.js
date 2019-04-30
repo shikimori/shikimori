@@ -109,7 +109,7 @@ export default class GlobalHandler {
       this._unbindEvent(event);
       delete this.events[event];
     }
-    if (Object.isEmpty(this.event)) {
+    if (Object.isEmpty(this.events)) {
       this._unScheduleUnbind();
     }
   }
@@ -117,6 +117,7 @@ export default class GlobalHandler {
   @bind
   _unbindAll() {
     Object.keys(this.events).forEach(event => this._unbindEvent(event));
+    this._unScheduleUnbind();
     this.events = {};
   }
 
