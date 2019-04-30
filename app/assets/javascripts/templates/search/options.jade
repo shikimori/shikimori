@@ -1,3 +1,4 @@
+// es5 only in pug
 if hasIndex
   .search-mode(
     class=(currentMode === 'index' ? 'active' : '')
@@ -7,4 +8,4 @@ each mode in ['anime', 'manga', 'ranobe', 'character', 'person']
   .search-mode(
     class=(currentMode === mode ? 'active' : '')
     data-mode=mode
-  )= I18n.t(`frontend.search.mode.${mode}`)
+  )= I18n.t('frontend.search.mode.' + mode)
