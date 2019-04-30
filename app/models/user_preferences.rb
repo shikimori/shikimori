@@ -37,7 +37,6 @@ class UserPreferences < ApplicationRecord
     russian_names
     russian_genres
     about_on_top
-    menu_contest
     show_smileys
     show_social_buttons
     show_hentai_images

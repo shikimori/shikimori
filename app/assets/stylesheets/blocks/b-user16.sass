@@ -1,11 +1,13 @@
 @import mixins/link
 @import mixins/hover_underlined
 
+$offset: 20px
+
 .b-user16
   +link
   display: inline-block
   line-height: $line_height
-  margin-left: 20px
+  margin-left: $offset
   margin-right: 5px
   position: relative // must be set to prevent absolute positioned & > img overflow
   white-space: nowrap
@@ -25,12 +27,14 @@
 
   img
     position: absolute
-    margin-left: -20px
+    margin-left: -$offset
     margin-top: 3px
     padding-right: 2px // чтобы пробела не было и ссылка не мелькала
 
+  // comments#show page
   .subheadline &
     line-height: inherit
+    margin-left: $offset + 5px
 
     img
       margin-top: -1px

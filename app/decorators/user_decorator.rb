@@ -29,7 +29,7 @@ class UserDecorator < BaseDecorator
   end
 
   def show_contest_link?
-    (can_vote_1? || can_vote_2? || can_vote_3?) && preferences.menu_contest?
+    (can_vote_1? || can_vote_2? || can_vote_3?) && notification_settings_contest_event?
   end
 
   def unvoted_contests
