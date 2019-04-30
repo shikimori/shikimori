@@ -32,15 +32,16 @@
         padding-left: 3px
 
   .status
-    margin-left: auto
-    display: flex
-    flex-direction: column
     align-items: center
+    align-self: flex-start
+    display: flex
+    flex-direction: column-reverse
+    margin-left: auto
 
     .reload
       color: #666
       cursor: pointer
-      margin-bottom: 5px
+      margin-top: 5px
 
       &:before
         +shikimori('\e801')
@@ -56,20 +57,22 @@
         animation: rotating 0.75s linear infinite
 
   .sidekiq
-    .metric
-      font-size: 9px
+    max-height: 73px
+    overflow-y: scroll
+    font-size: 9px
 
-      .right
-        margin-left: 5px
+    .enqueued_at
+      margin-left: 8px
+      font-size: 8px
 
-      .busy
-        color: $green
+    .busy
+      color: $green
 
-      .enqueued
-        color: $blue
+    .enqueued
+      color: $blue
 
-      .retries
-        color: $red
+    .retries
+      color: $red
 
 @keyframes rotating
   0%

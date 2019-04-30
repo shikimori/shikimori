@@ -97,27 +97,26 @@
         / span #{@sidkiq_stats.failed}
 
   .sidekiq
-    .metric
-      - @sidkiq_busy&.each do |job|
-        .job
-          span.right
-            = time_ago_in_words Time.at(job['enqueued_at'])
-          span.busy
-            = job['class']
+    - @sidkiq_busy&.each do |job|
+      .job
+        span.busy
+          = job['class']
+        span.enqueued_at
+          = time_ago_in_words Time.at(job['enqueued_at'])
 
-      - @sidkiq_enqueued&.each do |job|
-        .job
-          span.right
-            = time_ago_in_words Time.at(job['enqueued_at'])
-          span.enqueued
-            = job['class']
+    - @sidkiq_enqueued&.each do |job|
+      .job
+        span.enqueued
+          = job['class']
+        span.enqueued_at
+          = time_ago_in_words Time.at(job['enqueued_at'])
 
-      - @sidkiq_retries&.each do |job|
-        .job
-          span.right
-            = time_ago_in_words Time.at(job['enqueued_at'])
-          span.retries
-            = job['class']
+    - @sidkiq_retries&.each do |job|
+      .job
+        span.retries
+          = job['class']
+        span.enqueued_at
+          = time_ago_in_words Time.at(job['enqueued_at'])
 
 .status
   .reload
