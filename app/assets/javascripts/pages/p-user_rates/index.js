@@ -18,7 +18,7 @@ pageLoad('user_rates_index', () => {
   updateListCache();
 
   // графики
-  $('#scores, #types, #ratings').bar({
+  $('#scores, #types, #ratings').empty().bar({
     no_data($chart) {
       const text = I18n.t('frontend.pages.p_user_rates.insufficient_data');
       return $chart.html(`<p class='b-nothing_here'>${text}</p>`);

@@ -15,7 +15,7 @@ pageLoad 'profiles_show', ->
     html: true
     prependTo: document.body
 
-  $('.activity .graph').bar
+  $('.activity .graph').empty().bar
     before: (stats, options, $chart) ->
       # конвертируем даты
       stats.forEach (stat, index) ->
