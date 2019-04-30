@@ -8,7 +8,7 @@ const KEY_CODES = {
   up: 38,
   down: 40
 };
-const KEYDOWN_CODES = [38, 40];
+const KEYDOWN_CODES = [38, 40, 47, 191];
 
 function keyCodeEvent(keyCode) {
   return KEYDOWN_CODES.includes(keyCode) ? 'keydown' : 'keyup';
