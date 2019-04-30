@@ -125,12 +125,7 @@ $input-height: 29px
       user-select: none
 
       &:before
-        margin-right: 15px !important
-
-      &:active:before,
-      &.active:before
-        margin-top: 5px
-        margin-bottom: 5px
+        margin: 5px 15px 5px 10px !important
 
     .b-db_entry-variant-list_item
       padding-bottom: 10px
@@ -141,6 +136,16 @@ $input-height: 29px
 
       &:focus
         outline: none
+
+    .search-mode
+      cursor: pointer
+
+      &:hover
+        +gt_ipad
+          background: linear-gradient(270deg, rgba($link-4, 0.1) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.01)
+
+          &:before
+            background: rgba($link-2, 0.35)
 
     .nothing_found,
     .b-db_entry-variant-list_item,
@@ -161,11 +166,11 @@ $input-height: 29px
       &.active,
       &:focus
         background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.01)
-        border-top: 1px solid $link-3
+        border-top-color: $link-3
 
         & + .b-db_entry-variant-list_item,
         & + .search-mode
-          border-top: 1px solid $link-3
+          border-top-color: $link-3
 
         &:before
           background: $link-2
@@ -175,7 +180,7 @@ $input-height: 29px
       outline: none
 
       &:active
-        border-top: 1px solid $link-2
+        border-top-color: $link-2
         background: linear-gradient(270deg, rgba($link-4, 0.2) 0%, rgba($link-4, 0.0) 100%), rgba($link-4, 0.1)
 
         &:before
@@ -183,7 +188,7 @@ $input-height: 29px
 
         & + .b-db_entry-variant-list_item,
         & + .search-mode
-          border-top: 1px solid $link-2
+          border-top-color: $link-2
 
 .l-top_menu-v2
   +laptop
