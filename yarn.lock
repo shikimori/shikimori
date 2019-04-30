@@ -1782,9 +1782,9 @@ center-align@^0.1.1:
     lazy-cache "^1.0.3"
 
 chain-decorator@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/chain-decorator/-/chain-decorator-1.0.2.tgz#5da8fcd3fc7e943171667ae2ee8d129bcbe92397"
-  integrity sha512-lZJHAhADzOno8jyKXCfA+i1rcmCkm8QpX5X5H7jytGfsKgNFBLWNx576GVRkLx13ChkLlQwmJws02daugdkbdg==
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/chain-decorator/-/chain-decorator-1.0.3.tgz#28d09f405c634b7f2188509c4032f498253c5db7"
+  integrity sha512-w9VjXFN5BHQ5qKJSiufl7Q/DguJXr+ItbaQaZhc3YcMU8Q8XUN90yJcjK+vMLxYnIHarEiRyHbMY1g1+dklpeQ==
 
 chalk@^1.0.0, chalk@^1.1.1, chalk@^1.1.3:
   version "1.1.3"
