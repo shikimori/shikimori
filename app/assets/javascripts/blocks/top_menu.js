@@ -1,9 +1,11 @@
 import delay from 'delay';
+import { debounce } from 'throttle-debounce';
 
 import GlobalSearch from 'views/search/global';
 
 import showModal from 'helpers/show_modal';
 import globalHandler from 'helpers/global_handler';
+import { isTablet, isMobile } from 'helpers/mobile_detect';
 
 let search;
 
@@ -54,34 +56,61 @@ $(document).on('turbolinks:load', () => {
       $($items[$items.index($activeItem) + 1]).focus();
     };
 
+    const show = () => {
+      $outerNode.addClass('active');
+      $('.l-top_menu-v2').addClass('is-submenu');
+
+      globalHandler
+        .on('up', moveUp)
+        .on('down', moveDown);
+
+      hideMobileSearch();
+    };
+
+    const hide = () => {
+      $outerNode.removeClass('active');
+      $('.l-top_menu-v2').removeClass('is-submenu');
+
+      globalHandler
+        .off('up', moveUp)
+        .off('down', moveDown);
+    };
+
     showModal({
       $modal: $menu,
       $outerNode,
       $trigger: $buttons,
-      show: () => {
-        $outerNode.addClass('active');
-        $('.l-top_menu-v2').addClass('is-submenu');
-
-        globalHandler
-          .on('up', moveUp)
-          .on('down', moveDown);
-
-        hideMobileSearch();
-      },
+      show,
       hide: async () => {
-        $outerNode.removeClass('active');
-        $('.l-top_menu-v2').removeClass('is-submenu');
-
-        globalHandler
-          .off('up', moveUp)
-          .off('down', moveDown);
+        hide();
 
         // need to properly remove focus from menu button when
         // clicked on button when menu is already opened
         await delay();
         $buttons.blur();
+      },
+      isIgnored: () => !isTablet() && !isMobile()
+    });
+
+    const debouncedHide = debounce(200, () => {
+      if (needToClose) {
+        hide();
       }
     });
+    let needToClose = false;
+
+    $outerNode.hover(
+      () => {
+        if (isTablet() || isMobile()) { return; }
+        needToClose = false;
+        show();
+      },
+      () => {
+        if (isTablet() || isMobile()) { return; }
+        needToClose = true;
+        debouncedHide();
+      }
+    );
   });
 
   $('.l-top_menu-v2 .search.mobile').on('click', ({ currentTarget }) => {

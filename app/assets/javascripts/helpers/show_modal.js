@@ -1,10 +1,11 @@
 import delay from 'delay';
 
-export default function ({ $modal, $trigger, $outerNode, show, hide, onlyShow }) {
+export default function ({ $modal, $trigger, $outerNode, show, hide, onlyShow, isIgnored }) {
   let isHidden = true;
   let ignoreNextEvent = false;
 
   function toggleModal({ type }) {
+    if (type !== 'focus' && isIgnored && isIgnored()) { return; }
     const eventName = isHidden || type === 'focus' ? 'modal:show' : 'modal:hide';
 
     if (eventName === 'modal:hide' && onlyShow) { return; }

@@ -106,8 +106,6 @@ export default class GlobalSearch extends View {
 
     if (this.phrase) { // it is undefined in constructor
       this.searchEngine.search(this.phrase);
-      //   this._activate();
-      //   this.debouncedSearch(this.phrase);
     } else {
       this.searchEngine.cancel();
       this._renderModes();
@@ -122,12 +120,6 @@ export default class GlobalSearch extends View {
 
   cancel() {
     this._deactivate();
-
-    // if (Object.isEmpty(this.phrase)) {
-    //   this._deactivate();
-    // } else {
-    //   this._clearPhrase();
-    // }
   }
 
   // private functions

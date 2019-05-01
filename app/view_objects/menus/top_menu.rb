@@ -6,7 +6,6 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :main,
       group: :database,
       url: :animes_collection_url
-
     }, {
       name: :manga,
       placement: :main,
