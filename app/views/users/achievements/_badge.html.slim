@@ -1,5 +1,7 @@
 a.b-badge[
-  class="#{:unavailable if local_assigns[:unavailable]} #{'b-tooltipped unprocessed' unless local_assigns[:no_badge]} #{"level-#{achievement.level}"}"
+  class=(:unavailable if local_assigns[:unavailable])
+  class=('b-tooltipped unprocessed' unless local_assigns[:no_badge])
+  class=("level-#{achievement.level}")
   title=achievement.title(current_user, ru_host?)
   href=achievement_url(achievement.group, achievement.neko_id)
   data-direction='top'

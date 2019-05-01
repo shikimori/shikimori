@@ -35,7 +35,7 @@
       | &nbsp;
 
       - if entry.release_date_tooltip
-        span.b-tooltipped.mobile.unprocessed[
+        span.b-tooltipped.dotted.mobile.unprocessed[
           data-direction='right'
           title=entry.release_date_tooltip
         ] = entry.release_date_text
@@ -48,7 +48,7 @@
 
   - if entry.rating.present? && !entry.rating_none?
     = info_line Anime.human_attribute_name(:rating) do
-      span.b-tooltipped.mobile.unprocessed[
+      span.b-tooltipped.dotted.mobile.unprocessed[
         title=t("enumerize.anime.rating.hint.#{entry.rating}")
         data-direction='right'
       ] = entry.rating_text

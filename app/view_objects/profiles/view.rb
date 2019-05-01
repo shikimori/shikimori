@@ -73,7 +73,7 @@ class Profiles::View < ViewObjectBase
     end
 
     info << "#{i18n_t 'member_since'} " \
-      "<span class='b-tooltipped unprocessed mobile' data-direction='right' "\
+      "<span class='b-tooltipped dotted mobile unprocessed' data-direction='right' "\
       "title='#{localized_registration false}'>#{localized_registration true}" \
       '</span>'.html_safe
 

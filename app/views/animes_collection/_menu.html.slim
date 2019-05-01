@@ -36,7 +36,7 @@
     ul.b-block_list.statuses.anime-params
       - menu.statuses.each do |status|
         li class="status-#{status.text}"
-          input type="checkbox" autocomplete="off"
+          input type='checkbox' autocomplete='off'
           = status.catalog_title
 
   - if menu.kinds.any?
@@ -54,8 +54,8 @@
                 input type='checkbox' autocomplete='off'
                   = t ".anime.kind.tv_#{episodes_kind}.name"
                   span.b-question.b-tooltipped.mobile.unprocessed[
-                    title="#{t ".anime.kind.tv_#{episodes_kind}.tooltip"}"
-                    data-direction="top"
+                    title=t(".anime.kind.tv_#{episodes_kind}.tooltip")
+                    data-direction='top'
                   ]
 
   - if show_social?
@@ -113,7 +113,7 @@
     ul.b-block_list.seasons.anime-params
       - menu.seasons.each do |season|
         li class="season-#{season.text}"
-          input type="checkbox" autocomplete="off"
+          input type='checkbox' autocomplete='off'
           = season.catalog_title
 
   - unless %w[user_rates userlist_comparer].include? params[:controller]
@@ -122,7 +122,7 @@
       ul.b-block_list.scores.anime-params
         - [8, 7, 6].each do |score|
           li class="score-#{score}"
-            input type="checkbox" autocomplete="off"
+            input type='checkbox' autocomplete='off'
             | #{score}+
 
   - if menu.klass == Anime
@@ -131,7 +131,7 @@
       ul.b-block_list.durations.anime-params
         - ::Types::Anime::Duration.values.each do |value|
           li class="duration-#{value}"
-            input type="checkbox" autocomplete="off"
+            input type='checkbox' autocomplete='off'
             = t ".anime.duration.#{value}"
 
     .block.ratings
@@ -141,11 +141,11 @@
           - next if rating == 'none'
           - next if rating == 'rx' && !user_signed_in?
           li class="rating-#{rating}"
-            input type="checkbox" autocomplete="off"
+            input type='checkbox' autocomplete='off'
             = title
             span.b-question.b-tooltipped.mobile.unprocessed[
               title=t("enumerize.anime.rating.hint.#{rating}")
-              data-direction="top"
+              data-direction='top'
             ]
 
   .block.genres
@@ -155,11 +155,11 @@
         - menu.sorted_genres.each do |genre|
           - next if genre.censored? && !user_signed_in?
           li class="genre-#{genre.to_param} #{:m10 if genre.position && genre.position % 10 == 0}"
-            input type="checkbox" autocomplete="off"
+            input type='checkbox' autocomplete='off'
             = localization_span genre
             - if genre.description.present?
               span.b-question.mobile.bubbled[
                 title=genre.description
-                data-predelay="150"
+                data-predelay='150'
                 data-href=tooltip_moderations_genre_url(genre, subdomain: false)
               ]
