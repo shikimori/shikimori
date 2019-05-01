@@ -84,34 +84,38 @@
       &:last-child
         border-bottom: none
 
-  .icon-mail
-    span.text
-      align-items: baseline
-      display: flex
-      flex-grow: 1
+    &.icon-profile
+      +gt_ipad
+        display: none !important
 
-    span.unread
-      color: $gray-1
-      font-size: 11px
+    &.icon-mail
+      span.text
+        align-items: baseline
+        display: flex
+        flex-grow: 1
 
-      +iphone
-        margin-left: 20px
+      span.unread
+        color: $gray-1
+        font-size: 11px
 
-      +gte_ipad
-        margin-left: auto
+        +iphone
+          margin-left: 20px
 
-      span
-        align-items: center
-        color: #fff
-        display: inline-flex
+        +gte_ipad
+          margin-left: auto
 
-        &:not(:last-child):after
-          content: ''
-          width: 1px
-          background: $gray-1
-          height: 12px
-          margin: 0px 5px 0
+        span
+          align-items: center
+          color: #fff
+          display: inline-flex
 
-    &:hover
-      span.unread span
-        color: #123
+          &:not(:last-child):after
+            content: ''
+            width: 1px
+            background: $gray-1
+            height: 12px
+            margin: 0px 5px 0
+
+      &:hover
+        span.unread span
+          color: #123

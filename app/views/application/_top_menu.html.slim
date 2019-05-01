@@ -18,7 +18,7 @@
 
   .menu-dropdown.main
     button.menu-icon.trigger.mobile tabindex='-1'
-    button[
+    button.submenu-triangle[
       class="icon-#{@top_menu.current_item.name}"
     ]
       - if @top_menu.current_item.data[:image_url]
@@ -95,14 +95,15 @@ a.menu-icon.forum.desktop[
     button[
       data-unread_count=([99, current_user.unread_count].min if current_user.unread_count.positive?)
     ]
-      img[
-        src=current_user.avatar_url(48)
-        srcset="#{current_user.avatar_url 80} 2x"
-        title=current_user.nickname
-        alt=current_user.nickname
-      ]
-      span.nickname
-        = current_user.nickname
+      a.submenu-triangle href=current_user.url
+        img[
+          src=current_user.avatar_url(48)
+          srcset="#{current_user.avatar_url 80} 2x"
+          title=current_user.nickname
+          alt=current_user.nickname
+        ]
+        span.nickname
+          = current_user.nickname
 
     .submenu
       - @top_menu.groups(:profile ).each do |group|

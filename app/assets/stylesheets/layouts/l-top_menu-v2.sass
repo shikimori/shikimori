@@ -10,7 +10,7 @@ $top_menu-height: 46px
 
 $top_menu-background_color: #343434
 $top_menu_background_hover: $gray-4
-$top_menu_background_active: lighten($gray-4, 4%)
+$top_menu_background_active: lighten($gray-4, 6%)
 
 @import ./l-top_menu-v2/menu
 @import ./l-top_menu-v2/submenu
@@ -73,6 +73,14 @@ $top_menu_background_active: lighten($gray-4, 4%)
 
     +gte_ipad
       margin-right: 25px
+
+    // +gt_ipad
+    //   &:hover
+    //     transition: background 0.2s ease
+    //     background-color: $top_menu_background_hover
+
+    //   &:active
+    //     background-color: lighten($top_menu_background_hover, 10%)
 
     .glyph
       // +background-inline-retina('/assets/layouts/l-top_menu-v2/glyph', 'png')

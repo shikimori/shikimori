@@ -30,11 +30,13 @@
     transition: background 0.2s ease
     background-color: $top_menu_background_hover
 
-  .menu-icon:hover,
-  .menu-dropdown:hover > button
-    +gt_ipad
+  +gt_ipad
+    .menu-icon:hover,
       transition: background 0.2s ease
       background-color: $top_menu_background_hover
+
+    .menu-icon:active,
+      background-color: $top_menu_background_active
 
   .menu-icon
     &.mobile
@@ -80,18 +82,51 @@
     & > button
       +ellipsis2
       background: lighten($top_menu-background_color, 4%)
-      cursor: default
 
-      & > span
+      +gt_ipad
+        cursor: default
+
+      span,
+      a
         +ellipsis2
         font-size: 15px
         letter-spacing: 0.25px
+
+      a
+        align-items: center
+        color: #fff
+        display: inline-flex
+        height: $top_menu-height
+        flex-grow: 1
+        // compensates button gte_ipad padding. need to remove button padding around link
+        margin: 0 -15px
+        padding: 0 15px
+
+        // to prevent link click on mobile
+        +lte_ipad
+          pointer-events: none
+
+        +gt_ipad
+          &:hover
+            transition: background 0.2s ease
+            background-color: lighten($top_menu_background_active, 2%)
+
+          &:active
+            background-color: lighten($top_menu_background_active, 6%)
+
+      span
+        pointer-events: none
         margin-left: 10px
         margin-right: 25px
-        pointer-events: none
 
-        +iphone
-          display: none
+      +iphone
+        & span,
+        & a span
+            display: none
+
+      +lte_ipad
+        a
+          pointer-events: none
 
     +iphone
       & > button[data-unread_count]:after
@@ -110,7 +145,7 @@
         width: 16px
 
     +gte_ipad
-      & > button:after
+      .submenu-triangle:after
         +shikimori('\e846')
         font-size: 16px
         line-height: 20px
@@ -119,7 +154,7 @@
         vertical-align: middle
 
       &.active
-        & > button:after
+        .submenu-triangle:after
           transform: rotate(90deg)
 
     &.main
