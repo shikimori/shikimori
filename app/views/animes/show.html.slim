@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, user_signed_in?, :v7] do
+  = cache [@resource, user_signed_in?, :v9] do
     meta itemprop='url' content="#{{@resource.url}}"
     meta itemprop='headline' content=@resource.name
 
@@ -29,36 +29,37 @@
             ]
 
           .c-actions
-            a.new_comment.b-tooltipped.unprocessed.to-process[
-              title=t('.actions.comment')
-              data-direction='top'
-              data-dynamic='day_registered'
-              data-text=t('.actions.comment')
-            ]
-            a.new_review.b-tooltipped.unprocessed.to-process[
-              href=@resource.new_review_url
-              title=t('.actions.review')
-              data-direction='top'
-              data-dynamic='week_registered'
-              data-text=t('.actions.review')
-            ]
-            a.fav-add.b-tooltipped.unprocessed.to-process[
-              href=favourites_url(@resource.object.class.name, @resource.id)
-              data-remote='true'
-              data-type='json'
-              data-kind=''
-              data-direction='top'
-              data-dynamic='authorized'
-              data-add_text=t('.actions.add_to_favorites')
-              data-remove_text=t('.actions.remove_from_favorites')
-            ]
-            a.edit.b-tooltipped.unprocessed.to-process[
-              href=@resource.edit_url
-              title=t('.actions.edit')
-              data-direction='top'
-              data-dynamic='authorized'
-              data-text=t('.actions.edit')
-            ]
+            .b-subposter-actions
+              a.b-subposter-action.new_comment.b-tooltipped.unprocessed.to-process[
+                title=t('.actions.comment')
+                data-direction='top'
+                data-dynamic='day_registered'
+                data-text=t('.actions.comment')
+              ]
+              a.b-subposter-action.new_review.b-tooltipped.unprocessed.to-process[
+                href=@resource.new_review_url
+                title=t('.actions.review')
+                data-direction='top'
+                data-dynamic='week_registered'
+                data-text=t('.actions.review')
+              ]
+              a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
+                href=favourites_url(@resource.object.class.name, @resource.id)
+                data-remote='true'
+                data-type='json'
+                data-kind=''
+                data-direction='top'
+                data-dynamic='authorized'
+                data-add_text=t('.actions.add_to_favorites')
+                data-remove_text=t('.actions.remove_from_favorites')
+              ]
+              a.b-subposter-action.edit.b-tooltipped.unprocessed.to-process[
+                href=@resource.edit_url
+                title=t('.actions.edit')
+                data-direction='top'
+                data-dynamic='authorized'
+                data-text=t('.actions.edit')
+              ]
 
         = render partial: 'user_rates/placeholder',
           locals: { target: @resource, extended: true }

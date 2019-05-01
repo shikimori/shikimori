@@ -1,6 +1,6 @@
 pageLoad '.clubs', ->
   $menu = $('.b-clubs-menu')
-  $actions_block = $('.club-actions', $menu)
+  $actions_block = $('.b-subposter-actions', $menu)
   $invite_block = $menu.children('.invite')
   $nickname_input = $('#club_invite_dst_id', $invite_block)
 
@@ -27,4 +27,4 @@ pageLoad '.clubs', ->
 
   # загрузка картинки
   $('.upload input', $menu).on 'change', ->
-      $(@).closest('form').submit()
+    $(@).closest('form').submit()

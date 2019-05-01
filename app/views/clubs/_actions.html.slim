@@ -8,12 +8,12 @@
       ] = t '.join_club'
 
   - else
-    - unless club.logo.exists?
-      .subheadline.m10 = i18n_i 'action', :other
+    .b-subposter-actions
+      - unless club.logo.exists?
+        .subheadline.m5 = i18n_i 'action', :other
 
-    .club-actions
       - if can? :edit, club
-        a.edit-club.b-tooltipped.unprocessed[
+        a.b-subposter-action.edit-alt.b-tooltipped.unprocessed[
           href=edit_club_url(club, page: :main)
           title=t('.edit_club')
           data-direction="top"
@@ -21,7 +21,7 @@
         ]
 
       - if can? :broadcast, club
-        a.broadcast.b-tooltipped.unprocessed[
+        a.b-subposter-action.broadcast.b-tooltipped.unprocessed[
           href=broadcast_club_comments_url(club)
           title=t('.broadcast')
           data-direction="top"
@@ -32,7 +32,7 @@
         = form_tag club_club_images_url(club),
             method: :post,
             multipart: true,
-            class: :upload do
+            class: 'b-subposter-action upload' do
           label.b-tooltipped.unprocessed[
             title=t('actions.upload_image')
             data-direction="top"
@@ -43,14 +43,14 @@
           span
 
       - if can? :invite, club
-        .invite.b-tooltipped.unprocessed[
+        .b-subposter-action.invite.b-tooltipped.unprocessed[
           title="#{t '.invite_to_club'}"
           data-direction="top"
           data-text="#{t '.invite_to_club'}"
         ]
 
       - if can?(:leave, club) && club.member?(current_user)
-        a.leave.b-tooltipped.unprocessed[
+        a.b-subposter-action.leave.b-tooltipped.unprocessed[
           href=club_club_role_path(club, club.member_role(current_user))
           title=t('.leave_club')
           data-direction="top"

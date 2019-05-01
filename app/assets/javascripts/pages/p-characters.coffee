@@ -4,9 +4,9 @@ import ImageboardGallery from 'views/images/imageboard_gallery'
 pageLoad 'characters_show', ->
   $('.text').checkHeight max_height: 200
 
-  new FavouriteStar $('.c-actions .fav-add'), gon.is_favoured
+  new FavouriteStar $('.b-subposter-actions .fav-add'), gon.is_favoured
 
-  $('.c-actions .new_comment').on 'click', ->
+  $('.b-subposter-actions .new_comment').on 'click', ->
     $editor = $('.b-form.new_comment textarea')
     $.scrollTo $editor, ->
       $editor.focus()

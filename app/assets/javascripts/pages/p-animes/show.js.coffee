@@ -7,7 +7,7 @@ pageLoad 'animes_show', 'mangas_show', 'ranobe_show', ->
   # сокращение высоты описания
   $('.text').checkHeight max_height: 200
 
-  new FavouriteStar $('.c-actions .fav-add'), gon.is_favoured
+  new FavouriteStar $('.b-subposter-actions .fav-add'), gon.is_favoured
   new Animes.WathOnlineButton $('.watch-online-placeholer'), gon.watch_online
 
   $new_review = $('.new_review')
@@ -33,7 +33,7 @@ pageLoad 'animes_show', 'mangas_show', 'ranobe_show', ->
     $(@).remove()
 
   # комментировать
-  $('.c-actions .new_comment').on 'click', ->
+  $('.b-subposter-actions .new_comment').on 'click', ->
     $editor = $('.b-form.new_comment textarea')
     $.scrollTo $editor, ->
       $editor.focus()

@@ -5,7 +5,7 @@ pageLoad('people_show', () => {
 
   Object.keys(gon.is_favoured).forEach(role => {
     if (gon.person_role[role] || gon.is_favoured[role]) {
-      const $button = $(`.c-actions .fav-add[data-kind='${role}']`);
+      const $button = $(`.b-subposter-actions .fav-add[data-kind='${role}']`);
 
       $button.show();
       new FavouriteStar($button, gon.is_favoured[role]);
@@ -13,7 +13,7 @@ pageLoad('people_show', () => {
   });
 
   // комментировать
-  $('.c-actions .new_comment').on('click', () => {
+  $('.b-subposter-actions .new_comment').on('click', () => {
     const $editor = $('.b-form.new_comment textarea');
     $.scrollTo($editor, () => $editor.focus());
   });

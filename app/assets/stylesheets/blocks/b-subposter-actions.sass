@@ -1,0 +1,77 @@
+@import mixins/icons
+
+.b-subposter-actions
+  display: flex
+  justify-content: space-around
+
+.b-subposter-action
+  +link_color(#444)
+  cursor: pointer
+  display: inline-block
+  height: $icon_mobile_size
+  text-align: center
+  width: $icon_mobile_size
+
+  &.selected
+    +link_color($link)
+
+  &:before,
+  &:after
+    display: inline-block
+    font-size: 18px
+    line-height: $icon_mobile_size
+
+    +iphone
+      font-size: 22px
+
+  &:before
+    +shikimori
+    text-align: center
+
+  +iphone-portrait
+    display: table
+    text-align: left
+    width: auto
+    height: auto
+
+    &:before
+      display: table-cell
+      float: left
+      font-size: 18px
+      vertical-align: middle
+      width: 20px
+
+    &:after
+      color: #123
+      content: attr(data-text)
+      display: table-cell
+      font-size: 15px
+      line-height: 1.3
+      padding-left: 10px
+      vertical-align: middle
+      word-break: break-all
+      word-wrap: break-word
+
+  // db_entry
+  &.fav-add:before
+    content: '\e819'
+  &.fav-remove:before
+    content: '\e819'
+  &.edit:before
+    content: '\e822'
+  &.new_review:before
+    content: '\e820'
+  &.new_comment:before
+    content: 'f'
+
+  // club
+  &.edit-alt:before
+    content: '\e808'
+  &.upload:before
+    content: '\e80c'
+  &.broadcast:before
+    content: '\e837'
+  &.invite:before
+    content: '\e826'
+  &.leave:before
+    content: '\e844'

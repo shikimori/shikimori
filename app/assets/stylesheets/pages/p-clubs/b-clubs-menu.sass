@@ -29,8 +29,12 @@
   .b-catalog_entry
     margin-bottom: 5px !important
 
-  .club-actions
+  .b-subposter-actions
     +block
+    flex-wrap: wrap
+
+    .subheadline
+      flex-basis: 100%
 
     form
       display: inline
@@ -44,20 +48,6 @@
     .invite
       border-bottom: none
 
-    .edit-club
-      +big_icon('\e808')
-
-    .upload
-      +big_icon('\e80c')
-
-    .broadcast
-      +big_icon('\e837')
-
-    .invite
-      +big_icon('\e826')
-
-    .leave
-      +big_icon('\e844')
 
   & > .invite
     +block

@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  - cache [@resource, params[:action], :v1] do
+  - cache [@resource, params[:action], :v3] do
     .b-db_entry
       .c-image.cc
         .c-poster
@@ -10,68 +10,64 @@
           ]
 
         .c-actions
-          a.new_comment.b-tooltipped.unprocessed[
-            title=t('.actions.comment')
-            data-direction='top'
-            data-text=t('.actions.comment')
-            data-dynamic='authorized'
-          ]
-
-          a.fav-add.b-tooltipped.unprocessed.to-process[
-            href=favourites_producer_url(@resource.object.class.name, @resource)
-            style='display: none'
-            data-remote='true'
-            data-type='json'
-            data-kind='producer'
-            data-direction='top'
-            data-dynamic='authorized'
-            data-add_text=t('.actions.add_to_favorites')
-            data-remove_text=t('.actions.remove_from_favorites')
-          ]
-
-          a.fav-add.b-tooltipped.unprocessed.to-process[
-            href=favourites_mangaka_url(@resource.object.class.name, @resource)
-            style='display: none'
-            data-remote='true'
-            data-type='json'
-            data-kind='mangaka'
-            data-direction='top'
-            data-dynamic='authorized'
-            data-add_text=t('.actions.add_to_favorites')
-            data-remove_text=t('.actions.remove_from_favorites')
-          ]
-
-          a.fav-add.b-tooltipped.unprocessed.to-process[
-            href=favourites_seyu_url(@resource.object.class.name, @resource)
-            style='display: none'
-            data-remote='true'
-            data-type='json'
-            data-kind='seyu'
-            data-direction='top'
-            data-dynamic='authorized'
-            data-add_text=t('.actions.add_to_favorites')
-            data-remove_text=t('.actions.remove_from_favorites')
-          ]
-
-          a.fav-add.b-tooltipped.unprocessed.to-process[
-            href=favourites_person_url(@resource.object.class.name, @resource)
-            style='display: none'
-            data-remote='true'
-            data-type='json'
-            data-kind='person'
-            data-direction='top'
-            data-dynamic='authorized'
-            data-add_text=t('.actions.add_to_favorites')
-            data-remove_text=t('.actions.remove_from_favorites')
-          ]
-
-          a.edit.b-tooltipped.unprocessed.to-process[
-            href=@resource.edit_url
-            title=t('.actions.edit')
-            data-direction='top'
-            data-text=t('.actions.edit')
-            data-dynamic='authorized'
-          ]
+          .b-subposter-actions
+            a.b-subposter-action.new_comment.b-tooltipped.unprocessed[
+              title=t('.actions.comment')
+              data-direction='top'
+              data-text=t('.actions.comment')
+              data-dynamic='authorized'
+            ]
+            a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
+              href=favourites_producer_url(@resource.object.class.name, @resource)
+              style='display: none'
+              data-remote='true'
+              data-type='json'
+              data-kind='producer'
+              data-direction='top'
+              data-dynamic='authorized'
+              data-add_text=t('.actions.add_to_favorites')
+              data-remove_text=t('.actions.remove_from_favorites')
+            ]
+            a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
+              href=favourites_mangaka_url(@resource.object.class.name, @resource)
+              style='display: none'
+              data-remote='true'
+              data-type='json'
+              data-kind='mangaka'
+              data-direction='top'
+              data-dynamic='authorized'
+              data-add_text=t('.actions.add_to_favorites')
+              data-remove_text=t('.actions.remove_from_favorites')
+            ]
+            a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
+              href=favourites_seyu_url(@resource.object.class.name, @resource)
+              style='display: none'
+              data-remote='true'
+              data-type='json'
+              data-kind='seyu'
+              data-direction='top'
+              data-dynamic='authorized'
+              data-add_text=t('.actions.add_to_favorites')
+              data-remove_text=t('.actions.remove_from_favorites')
+            ]
+            a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
+              href=favourites_person_url(@resource.object.class.name, @resource)
+              style='display: none'
+              data-remote='true'
+              data-type='json'
+              data-kind='person'
+              data-direction='top'
+              data-dynamic='authorized'
+              data-add_text=t('.actions.add_to_favorites')
+              data-remove_text=t('.actions.remove_from_favorites')
+            ]
+            a.b-subposter-action.edit.b-tooltipped.unprocessed.to-process[
+              href=@resource.edit_url
+              title=t('.actions.edit')
+              data-direction='top'
+              data-text=t('.actions.edit')
+              data-dynamic='authorized'
+            ]
 
       .c-about
         .cc
