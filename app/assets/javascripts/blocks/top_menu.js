@@ -69,7 +69,11 @@ $(document).on('turbolinks:load', () => {
 
     const hide = () => {
       $outerNode.removeClass('active');
-      $('.l-top_menu-v2').removeClass('is-submenu');
+
+      // because another menu could already be opened
+      if (!$('.l-top_menu-v2 .menu-dropdown.active').length) {
+        $('.l-top_menu-v2').removeClass('is-submenu');
+      }
 
       globalHandler
         .off('up', moveUp)
