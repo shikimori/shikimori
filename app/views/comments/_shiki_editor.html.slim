@@ -20,50 +20,50 @@
 
 aside.buttons
   .editor-controls
-    span.editor-bold.b-tooltipped.unprocessed[
+    span.editor-bold.b-tooltipped.unstyled.unprocessed[
       title=t('.bold')
-      data-direction="top"
+      data-direction='top'
     ]
-    span.editor-italic.b-tooltipped.unprocessed[
+    span.editor-italic.b-tooltipped.unstyled.unprocessed[
       title=t('.italic')
-      data-direction="top"
+      data-direction='top'
     ]
-    span.editor-underline.b-tooltipped.unprocessed[
+    span.editor-underline.b-tooltipped.unstyled.unprocessed[
       title=t('.underline')
-      data-direction="top"
+      data-direction='top'
     ]
-    span.editor-strike.b-tooltipped.unprocessed[
+    span.editor-strike.b-tooltipped.unstyled.unprocessed[
       title=t('.striked')
-      data-direction="top"
+      data-direction='top'
     ]
 
-    span.editor-link.b-tooltipped.unprocessed[
+    span.editor-link.b-tooltipped.unstyled.unprocessed[
       title=t('.link')
-      data-direction="top"
+      data-direction='top'
     ]
-    span.editor-image.b-tooltipped.unprocessed[
+    span.editor-image.b-tooltipped.unstyled.unprocessed[
       title=t('.image_link')
-      data-direction="top"
+      data-direction='top'
     ]
-    span.editor-quote.b-tooltipped.unprocessed[
-      title="#{t '.quote'}"
-      data-direction="top"
+    span.editor-quote.b-tooltipped.unstyled.unprocessed[
+      title=t('.quote')
+      data-direction='top'
     ]
-    span.editor-spoiler.b-tooltipped.unprocessed[
-      title="#{t '.spoiler'}"
-      data-direction="top"
+    span.editor-spoiler.b-tooltipped.unstyled.unprocessed[
+      title=t('.spoiler')
+      data-direction='top'
     ]
 
-    span.editor-file.b-tooltipped.unprocessed[
+    span.editor-file.b-tooltipped.unstyled.unprocessed[
         title=t('.upload_image')
-        data-direction="top"
+        data-direction='top'
       ]
       span
-        input type="file"
+        input type='file'
     span.editor-upload
-    span.editor-smiley.b-tooltipped.unprocessed[
+    span.editor-smiley.b-tooltipped.unstyled.unprocessed[
       title=t('.smiley')
-      data-direction="top"
+      data-direction='top'
     ]
 
 .smileys.hidden-block data-href=smileys_comments_url(subdomain: false)
@@ -190,5 +190,5 @@ footer
   .about-bb_codes
     a[
       href=bb_codes_pages_url
-      target="_blank"
+      target='_blank'
     ] = t '.bb_codes_guide'
