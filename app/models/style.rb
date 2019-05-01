@@ -11,7 +11,7 @@ class Style < ApplicationRecord
   CSS
 
   STICKY_MENU_CSS = <<-CSS.strip.gsub(/^ +/, '')
-    /* AUTO=sticky_menu */ .l-top_menu-v2 { position: sticky; top: 0; } .l-top_menu-v2 .active .submenu { max-height: calc(100vh - 46px); overflow: auto; }
+    /* AUTO=sticky_menu */ @media screen and (min-width: 1025px) { .l-top_menu-v2 { position: sticky; top: 0; } .l-top_menu-v2 .active .submenu { max-height: calc(100vh - 46px); overflow: auto; } }
   CSS
 
   PAGE_BACKGROUND_COLOR_CSS = <<-CSS.strip.gsub(/^ +/, '')
@@ -24,13 +24,13 @@ class Style < ApplicationRecord
   MEDIA_QUERY_CSS = '@media only screen and (min-width: 1024px)'
 
   def compiled_css
-    media_query(sanitize(camo_images(strip_comments(css))))
+    strip_comments(media_query(sanitize(camo_images(css))))
   end
 
 private
 
   def media_query css
-    if css.include?('@media') || css.blank?
+    if css.blank? || css.gsub(%r{^/\* AUTO=.*}, '').include?('@media')
       css
     else
       "#{MEDIA_QUERY_CSS} { #{css} }"
@@ -50,7 +50,7 @@ private
   end
 
   def strip_comments css
-    css.gsub(%r{/\* .*? \*/[\n\r]*}mix, '')
+    css.gsub(%r{/^\* .*? \*/[\n\r]*}mix, '')
   end
 
   def sanitize css
