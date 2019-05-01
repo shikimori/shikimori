@@ -12,7 +12,7 @@ ru:
       no_comment: Комментарий или был удалён, или никогда не существовал на сайте
     shiki_editor:
       back_to_editing: Вернуться к редактированию
-      bb_codes_guide: справка по бб-кодам
+      bb_codes_guide: примеры BBCode
       bold: Жирный
       comment: Текст комментария
       links:
