@@ -35,15 +35,17 @@
     .subheadline
       flex-basis: 100%
 
-    .upload
-      border-bottom: none
+    +iphone-portrait
+      .upload-form
+        display: block
+        width: 100%
 
+    .upload
       input
         display: none
 
     .invite
       border-bottom: none
-
 
   & > .invite
     +block

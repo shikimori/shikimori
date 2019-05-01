@@ -32,9 +32,8 @@
         = form_tag club_club_images_url(club),
             method: :post,
             multipart: true,
-            data: { text: t('actions.upload_image') },
-            class: 'b-subposter-action upload' do
-          label.b-tooltipped.unprocessed[
+            class: 'upload-form' do
+          label.b-subposter-action.upload.b-tooltipped.unstyled.unprocessed[
             title=t('actions.upload_image')
             data-direction='top'
             data-text=t('actions.upload_image')
@@ -44,7 +43,7 @@
           span
 
       - if can? :invite, club
-        .b-subposter-action.invite.b-tooltipped.unprocessed[
+        .b-subposter-action.invite.b-tooltipped.unstyled.unprocessed[
           title=t('.invite_to_club')
           data-direction='top'
           data-text=t('.invite_to_club')
