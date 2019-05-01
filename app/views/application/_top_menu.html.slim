@@ -76,6 +76,7 @@ a.menu-icon.forum.desktop[
     a.menu-icon.contest[
       href=current_contests_url(subdomain: false)
       title=t('.items.current_contest')
+      data-count=current_user.unvoted_contests
     ]
 
   - if current_user.unread_count.positive?
