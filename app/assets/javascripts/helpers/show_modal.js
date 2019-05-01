@@ -1,12 +1,24 @@
 import delay from 'delay';
 
-export default function ({ $modal, $trigger, $outerNode, show, hide, onlyShow, isIgnored }) {
-  let isHidden = true;
+export default function ({
+  $modal,
+  $trigger,
+  $outerNode,
+  show,
+  hide,
+  onlyShow,
+  isIgnored,
+  isHidden
+}) {
   let ignoreNextEvent = false;
+
+  function checkHidden() {
+    return isHidden ? isHidden() : $modal.css('display') !== 'none';
+  }
 
   function toggleModal({ type }) {
     if (type !== 'focus' && isIgnored && isIgnored()) { return; }
-    const eventName = isHidden || type === 'focus' ? 'modal:show' : 'modal:hide';
+    const eventName = checkHidden() || type === 'focus' ? 'modal:show' : 'modal:hide';
 
     if (eventName === 'modal:hide' && onlyShow) { return; }
     if (ignoreNextEvent) { return; }
@@ -44,8 +56,7 @@ export default function ({ $modal, $trigger, $outerNode, show, hide, onlyShow, i
 
   $modal
     .on('modal:show', () => {
-      if (!isHidden) { return; }
-      isHidden = false;
+      if (!checkHidden()) { return; }
 
       if (show) {
         show();
@@ -66,8 +77,7 @@ export default function ({ $modal, $trigger, $outerNode, show, hide, onlyShow, i
       });
     })
     .on('modal:hide', () => {
-      if (isHidden) { return; }
-      isHidden = true;
+      if (checkHidden()) { return; }
 
       if (hide) {
         hide();

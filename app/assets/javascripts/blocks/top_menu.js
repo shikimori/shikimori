@@ -75,6 +75,7 @@ $(document).on('turbolinks:load', () => {
         .off('up', moveUp)
         .off('down', moveDown);
     };
+    const isProfile = !!$buttons.children('a').length;
 
     showModal({
       $modal: $menu,
@@ -89,7 +90,8 @@ $(document).on('turbolinks:load', () => {
         await delay();
         $buttons.blur();
       },
-      isIgnored: () => !isTablet() && !isMobile()
+      isIgnored: () => !isTablet() && !isMobile() && isProfile,
+      isHidden: () => !$outerNode.hasClass('active')
     });
 
     const debouncedHide = debounce(200, () => {
