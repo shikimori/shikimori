@@ -1,7 +1,7 @@
-import * as atatus from 'atatus-js'; // eslint-disable-line import/newline-after-import
-atatus
-  .config('ebe5fd3d4c754a9592b7f30f70a9c16f')
-  .install();
+// import * as atatus from 'atatus-js'; // eslint-disable-line import/newline-after-import
+// atatus
+//   .config('ebe5fd3d4c754a9592b7f30f70a9c16f')
+//   .install();
 
 import 'babel-polyfill'; // async won't work w/o it
 
@@ -108,10 +108,10 @@ $(() => {
   window.CAMO_URL = $body.data('camo_url');
   if (window.SHIKI_USER) { window.FAYE_CHANNEL = $body.data('faye'); }
 
-  window.atatus = atatus;
-  if ('atatus' in window) {
-    window.atatus.setUser(window.SHIKI_USER.id);
-  }
+  // window.atatus = atatus;
+  // if ('atatus' in window) {
+  //   window.atatus.setUser(window.SHIKI_USER.id);
+  // }
 
   window.I18n = I18n;
   I18n.locale = window.LOCALE;
