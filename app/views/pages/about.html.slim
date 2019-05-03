@@ -76,6 +76,10 @@ header.head
             p == t '.discord', url: Shikimori::DISCORD_CHANNEL_URL
             = render @statistics.discord_admins, content_by: :avatar
 
+        .members-block.left
+          p = t '.moderation_video'
+          = render @statistics.video_moderators, content_by: :avatar
+
         / .members-block.left
           p = t '.moderation_cosplay'
           = render @statistics.cosplay_moderators, content_by: :avatar

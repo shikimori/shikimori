@@ -39,6 +39,7 @@ private
     end
   rescue RuntimeError => e
     raise if e.message !~ /HTTP redirection loop/
+
     Proxy.get @image_url, PROXY_OPTIONS
   end
 end
