@@ -14,6 +14,16 @@ $(document).on('turbolinks:before-cache', () => {
   if (!Object.isEmpty(jsExportKeys)) {
     dumpJsExports(jsExportKeys);
   }
+
+  // TODO: remove after moving processCurrentDom logic into DynamicParser
+  $('.b-video, .b-shiki_wall, .b-tooltipped, .b-spoiler, .b-image, .b-show_more')
+    .addClass('unprocessed');
+  $('.anime-tooltip-processed')
+    .removeClass('anime-tooltip-processed')
+    .addClass('anime-tooltip');
+  $('.bubbled-processed')
+    .removeClass('bubbled-processed')
+    .addClass('bubbled');
 });
 
 function dumpJsExports(keys) {

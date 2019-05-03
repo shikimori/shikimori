@@ -21,8 +21,6 @@ $.fn.extend({
   }
 });
 
-// обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
-// TODO: переписать всю тут имеющееся на dynamic_element
 async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EXPORTS) {
   const $root = $(root);
 
@@ -34,6 +32,8 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   new DynamicParser($with('.to-process', $root));
 
   $with('time', $root).livetime();
+
+  // TODO: move all logic into DynamicParser
 
   // то, что должно превратиться в ссылки
   $with('.linkeable', $root)
@@ -97,6 +97,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   $with('.anime-tooltip', $root)
     .tooltip(ANIME_TOOLTIP_OPTIONS)
     .removeClass('anime-tooltip')
+    .addClass('anime-tooltip-processed')
     .removeAttr('title');
 
   $with('.bubbled', $root)
@@ -127,8 +128,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   }
 
   // с задержкой делаем потому, что collapsed блоки могут быть в контенте,
-  // загруженном аяксом, а process для таких случаев вызывается ещё до вставки в
-  // DOM
+  // загруженном аяксом, а process для таких случаев вызывается ещё до вставки в DOM
   await delay();
   // сворачиваение всех нужных блоков "свернуть"
   ($.cookie('collapses') || '')
