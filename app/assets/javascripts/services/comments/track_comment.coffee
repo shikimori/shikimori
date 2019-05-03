@@ -1,11 +1,8 @@
 $with = require('helpers/with').default
 
 module.exports = class TrackComment
-  MARK = 'not-tracked'
-
   constructor: (comment, $root) ->
-    $with(".#{MARK}#{@_selector comment}", $root)
-      .removeClass(MARK)
+    $with(@_selector(comment), $root)
       .data(model: comment)
 
   _selector: (comment) ->

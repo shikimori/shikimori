@@ -25,6 +25,7 @@ class JsExports::ExportBase
 
   def export user
     return [] if tracked_ids.none?
+
     fetch_entries(user).map { |topic| serialize topic, user }
   end
 

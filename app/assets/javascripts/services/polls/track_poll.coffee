@@ -1,11 +1,8 @@
 $with = require('helpers/with').default
 
 module.exports = class TrackPoll
-  MARK = 'not-tracked'
-
   constructor: (poll, $root) ->
-    $with(".#{MARK}#{@_selector poll}", $root)
-      .removeClass(MARK)
+    $with(@_selector(poll), $root)
       .data(model: poll)
       .each (_, node) ->
         new Polls.View node, poll

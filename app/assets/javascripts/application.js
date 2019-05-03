@@ -37,7 +37,6 @@ import 'codemirror/addon/dialog/dialog.css';
 import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/search/matchesonscrollbar.css';
 
-import bowser from 'bowser';
 import { throttle, debounce } from 'throttle-debounce';
 
 import pageLoad from 'helpers/page_load'; // eslint-disable-line import/newline-after-import
@@ -63,7 +62,6 @@ requireBlocks.keys().forEach(requireBlocks);
 
 import ShikiUser from 'models/shiki_user';
 
-import flash from 'services/flash';
 import FayeLoader from 'services/faye_loader';
 import CommentsNotifier from 'services/comments_notifier';
 import AchievementsNotifier from 'services/achievements_notifier';
@@ -143,36 +141,4 @@ $(() => {
   // отдельные эвенты для ресайзов и скрола
   $(window).on('resize', debounce(500, () => $(document.body).trigger('resize:debounced')));
   $(window).on('scroll', throttle(750, () => $(document.body).trigger('scroll:throttled')));
-});
-
-$(document).on('turbolinks:load', () => {
-  document.body.classList.add(
-    bowser.name.toLowerCase().replace(/ /g, '_')
-  );
-
-  $('p.flash-notice').each((k, v) => {
-    if (v.innerHTML.length) { flash.notice(v.innerHTML); }
-  });
-
-  $('p.flash-alert').each((k, v) => {
-    if (v.innerHTML.length) {
-      flash.error(v.innerHTML);
-    }
-  });
-
-  $(document.body).process();
-
-  // переключатели видов отображения списка
-  $('.b-list_switchers .switcher').on('click', function () {
-    $.cookie($(this).data('name'), $(this).data('value'), { expires: 730, path: '/' });
-    Turbolinks.visit(document.location.href);
-  });
-});
-
-$(document).on('turbolinks:before-cache', () => {
-  // need to reset style of HTML because it can be set to 'overflow: hidden' by magnificPopup
-  $('html').attr('style', null);
-  // need to remove old tooltips
-  $('.tipsy').remove();
-  $('body > .tooltip').remove();
 });

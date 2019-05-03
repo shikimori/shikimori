@@ -1,4 +1,4 @@
-.b-user_rate.not-tracked.to-process[
+.b-user_rate.to-process[
   class="#{local_assigns[:target].anime? ? :anime : :manga}-#{local_assigns[:target].id}"
   data-dynamic="user_rate"
   data-entry=(UserRateEntrySerializer.new(local_assigns[:target]).to_json if local_assigns[:extended])

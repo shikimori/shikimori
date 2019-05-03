@@ -1,11 +1,8 @@
 $with = require('helpers/with').default
 
 export default class TrackUserRate
-  MARK = 'not-tracked'
-
   constructor: (user_rate, $root) ->
-    $with(".#{MARK}#{@_selector user_rate}", $root)
-      .removeClass(MARK)
+    $with(@_selector(user_rate), $root)
       .data(model: user_rate)
 
   _selector: (user_rate) ->

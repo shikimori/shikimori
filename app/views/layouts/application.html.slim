@@ -25,6 +25,7 @@ html
     data-faye_url=FayePublisher.faye_url
     data-camo_url=UrlGenerator.instance.camo_root_url
     data-faye=(current_user.faye_channel.to_json if user_signed_in?)
+    data-js_export_supervisor_keys=JsExports::Supervisor::KEYS.to_json
   ]
     = @layout.custom_styles
 
@@ -93,7 +94,7 @@ html
         ]
           .marker-text data-text=t('application.aside.report_bug')
     - if user_signed_in?
-      javascript:
-        JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
+      javascript [id='js_export']:
+        window.JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
     = yield :tail
     = Gon::Base.render_data

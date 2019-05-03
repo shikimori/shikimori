@@ -5,7 +5,7 @@
 - content_title ||= :present
 - content_text ||= :present
 
-article.c-column.b-catalog_entry.not-tracked[
+article.c-column.b-catalog_entry[
   class="c-#{anime.anime? ? :anime : :manga} entry-#{anime.id} #{:cc if content_by == :block}"
   id=anime.id
   itemscope

@@ -55,7 +55,6 @@ export default class UserRateExtended extends UserRateButton
     @form_html || @_render_extended() if @_is_persisted()
 
   _render_extended: ->
-    console.log(@entry)
     JST[EXTENDED_TEMPLATE](
       entry: @entry
       model: @model
