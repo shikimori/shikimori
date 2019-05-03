@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1000"
+   height="1000"
+   version="1.1"
+   id="svg3733"
+   sodipodi:docname="letter-a.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata3739">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3737" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview3735"
+     showgrid="false"
+     inkscape:snap-grids="true"
+     inkscape:pagecheckerboard="true"
+     showborder="true"
+     borderlayer="false"
+     inkscape:zoom="0.50027805"
+     inkscape:cx="113.34499"
+     inkscape:cy="418.92838"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3733"
+     fit-margin-bottom="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="-177.90107,1207.3286"
+       orientation="0,1"
+       id="guide9"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:600px;line-height:1.25;font-family:HelveticaNeueCyr;-inkscape-font-specification:'HelveticaNeueCyr, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
+     x="305.60001"
+     y="713.60004"
+     id="text4549"><tspan
+       sodipodi:role="line"
+       id="tspan4547"
+       x="305.60001"
+       y="713.60004">A</tspan></text>
+  <circle
+     cy="500.00003"
+     cx="500"
+     id="ellipse3727"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:84.74575806;stroke-opacity:1"
+     r="457.62711" />
+</svg>
