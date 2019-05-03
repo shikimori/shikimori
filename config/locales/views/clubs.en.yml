@@ -32,6 +32,7 @@ en:
       invite_to_club: Invite to the club
       join_club: Join the club
       leave_club: Leave the club
+      confirm_leave_club: Leave the club?
 
     show:
       images: Pictures

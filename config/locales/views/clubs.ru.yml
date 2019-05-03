@@ -32,6 +32,7 @@ ru:
       invite_to_club: Пригласить в клуб
       join_club: Вступить в клуб
       leave_club: Уйти из клуба
+      confirm_leave_club: Уйти из клуба?
 
     show:
       images: Картинки
