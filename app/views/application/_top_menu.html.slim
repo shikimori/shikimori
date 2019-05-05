@@ -1,7 +1,6 @@
 .menu-logo
   - if request.path == '/' && !user_signed_in?
-    span.logo-container.linkeable[
-      aria-label='home'
+    .logo-container.linkeable[
       data-href=root_url
       data-title=t(:shikimori)
     ]
@@ -9,7 +8,6 @@
       .logo
   - else
     a.logo-container[
-      aria-label='home'
       href=root_url
       title=t(:shikimori)
     ]
@@ -61,9 +59,9 @@
       placeholder=t('search.search')
       value=params[:search]
     ]
-    button.clear tabindex='-1'
-    .hotkey-marker
-    .search-marker
+    span.clear tabindex='-1'
+    span.hotkey-marker
+    span.search-marker
   .search-results
 
 a.menu-icon.forum.desktop[
