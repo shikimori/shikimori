@@ -1,4 +1,4 @@
-json.array! @collection do |entry|
+json.array! @collection.reverse do |entry|
   name = (entry.russian if params[:search]&.contains_russian?) || entry.name
 
   json.data entry.id
