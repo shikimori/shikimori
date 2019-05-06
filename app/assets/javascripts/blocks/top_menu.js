@@ -20,7 +20,7 @@ $(document).on('turbolinks:load', () => {
   // desktop menu
   $('.l-top_menu-v2 .menu-dropdown').each((_, node) => {
     const $outerNode = $(node);
-    const $buttons = $outerNode.children('button');
+    const $buttons = $outerNode.children('span');
     const $menu = $outerNode.children('.submenu').show();
 
     const $items = $menu.children('a')

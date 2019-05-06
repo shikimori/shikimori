@@ -1,6 +1,6 @@
 .l-top_menu-v2
   .menu-icon,
-  .menu-dropdown > button
+  .menu-dropdown > span
     align-items: center
     color: inherit
     display: flex
@@ -25,8 +25,8 @@
 
   .menu-icon.active,
   .menu-icon:focus,
-  .menu-dropdown.active > button,
-  .menu-dropdown > button:focus
+  .menu-dropdown.active > span,
+  .menu-dropdown > span:focus
     transition: background 0.2s ease
     background-color: $top_menu_background_hover
 
@@ -79,7 +79,7 @@
     +gte_ipad
       position: relative // required to make .submenu width equal to .menu-dropdown width
 
-    & > button
+    & > span
       +ellipsis2
       background: lighten($top_menu-background_color, 4%)
 
@@ -129,7 +129,7 @@
           pointer-events: none
 
     +iphone
-      & > button[data-unread_count]:after
+      & > span[data-unread_count]:after
         background: #fff
         border-radius: 50%
         border: 1px solid $top_menu-background_color
@@ -161,7 +161,7 @@
       +gte_ipad
         margin-right: 25px
 
-      & > button:not(.mobile)
+      & > span:not(.mobile)
         padding-left: 0
 
         +iphone
@@ -178,7 +178,7 @@
       +gt_ipad
         margin-left: auto
 
-      & > button
+      & > span
         +gte_ipad
           min-width: 180px
           max-width: 250px

@@ -15,9 +15,10 @@
       .logo
 
   .menu-dropdown.main
-    button.menu-icon.trigger.mobile tabindex='-1'
-    button.submenu-triangle[
+    span.menu-icon.trigger.mobile tabindex='-1'
+    span.submenu-triangle[
       class="icon-#{@top_menu.current_item.name}"
+      tabindex='0'
     ]
       - if @top_menu.current_item.data[:image_url]
         img[
@@ -91,8 +92,9 @@ a.menu-icon.forum.desktop[
     ]
 
   .menu-dropdown.profile
-    button[
+    span[
       data-unread_count=([99, current_user.unread_count].min if current_user.unread_count.positive?)
+      tabindex='0'
     ]
       a.submenu-triangle href=current_user.url
         img[
