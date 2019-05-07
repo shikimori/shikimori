@@ -1,4 +1,4 @@
-FavoriteStar = require 'views/application/favorite_star'
+import FavoriteStar from 'views/application/favorite_star'
 
 pageLoad 'animes_show', 'mangas_show', 'ranobe_show', ->
   $('.b-notice').tipsy gravity: 's'
