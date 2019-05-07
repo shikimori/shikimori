@@ -1,4 +1,4 @@
-FavouriteStar = require 'views/application/favourite_star'
+FavoriteStar = require 'views/application/favorite_star'
 
 pageLoad 'animes_show', 'mangas_show', 'ranobe_show', ->
   $('.b-notice').tipsy gravity: 's'
@@ -7,7 +7,7 @@ pageLoad 'animes_show', 'mangas_show', 'ranobe_show', ->
   # сокращение высоты описания
   $('.text').checkHeight max_height: 200
 
-  new FavouriteStar $('.b-subposter-actions .fav-add'), gon.is_favoured
+  new FavoriteStar $('.b-subposter-actions .fav-add'), gon.is_favoured
   new Animes.WathOnlineButton $('.watch-online-placeholer'), gon.watch_online
 
   $new_review = $('.new_review')

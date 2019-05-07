@@ -1,10 +1,10 @@
-import FavouriteStar from 'views/application/favourite_star';
+import FavoriteStar from 'views/application/favorite_star';
 import ImageboardGallery from 'views/images/imageboard_gallery';
 
 pageLoad('characters_show', () => {
   $('.text').checkHeight({ max_height: 200 });
 
-  new FavouriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
+  new FavoriteStar($('.b-subposter-actions .fav-add'), gon.is_favoured);
 
   $('.b-subposter-actions .new_comment').on('click', () => {
     const $editor = $('.b-form.new_comment textarea');

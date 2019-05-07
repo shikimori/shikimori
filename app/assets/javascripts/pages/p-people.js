@@ -1,4 +1,4 @@
-import FavouriteStar from 'views/application/favourite_star';
+import FavoriteStar from 'views/application/favorite_star';
 
 pageLoad('people_show', () => {
   $('.b-entry-info').checkHeight({ max_height: 101, without_shade: true });
@@ -8,7 +8,7 @@ pageLoad('people_show', () => {
       const $button = $(`.b-subposter-actions .fav-add[data-kind='${role}']`);
 
       $button.show();
-      new FavouriteStar($button, gon.is_favoured[role]);
+      new FavoriteStar($button, gon.is_favoured[role]);
     }
   });
 
