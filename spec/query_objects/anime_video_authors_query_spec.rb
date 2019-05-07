@@ -7,6 +7,7 @@ describe AnimeVideoAuthorsQuery do
 
     it do
       expect(AnimeVideoAuthorsQuery.new('test').complete).to have(2).items
+      expect(AnimeVideoAuthorsQuery.new('est').complete).to have(2).items
       expect(AnimeVideoAuthorsQuery.new('z').complete).to have(1).item
       expect(AnimeVideoAuthorsQuery.new('fofo').complete).to have(0).items
     end
