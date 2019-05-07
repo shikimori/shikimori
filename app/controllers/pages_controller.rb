@@ -75,7 +75,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def development
-    og page_title: i18n_t('about.development')
+    og page_title: t('pages.about.development')
     @blank_layout = true
   end
 
