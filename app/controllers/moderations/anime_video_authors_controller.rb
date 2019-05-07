@@ -63,7 +63,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController # rubocop
 
 private
 
-  def authors_scope # rubocop:disable AbcSize
+  def authors_scope
     scope =
       if @anime
         AnimeVideoAuthor.where(id: filter_authors(@anime))
