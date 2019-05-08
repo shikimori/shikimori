@@ -24,13 +24,10 @@ $.fn.extend({
 async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EXPORTS) {
   const $root = $(root);
 
-  // will be null for guests
-  if (JS_EXPORTS) {
-    UserRatesTracker.track(JS_EXPORTS, $root);
-    TopicsTracker.track(JS_EXPORTS, $root);
-    CommentsTracker.track(JS_EXPORTS, $root);
-    PollsTracker.track(JS_EXPORTS, $root);
-  }
+  UserRatesTracker.track(JS_EXPORTS, $root);
+  TopicsTracker.track(JS_EXPORTS, $root);
+  CommentsTracker.track(JS_EXPORTS, $root);
+  PollsTracker.track(JS_EXPORTS, $root);
 
   new DynamicParser($with('.to-process', $root));
 

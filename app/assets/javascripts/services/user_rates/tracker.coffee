@@ -5,10 +5,13 @@ import UpdateUserRate from './update_user_rate'
 
 export default class UserRatesTracker
   @track: (JS_EXPORTS, $root) ->
-    JS_EXPORTS.user_rates?.catalog_entry?.forEach (user_rate) ->
+    if Object.isEmpty(JS_EXPORTS?.user_rates)
+      return
+
+    JS_EXPORTS.user_rates.catalog_entry?.forEach (user_rate) ->
       new TrackCatalogEntry user_rate, $root
 
-    JS_EXPORTS.user_rates?.user_rate?.forEach (user_rate) ->
+    JS_EXPORTS.user_rates.user_rate?.forEach (user_rate) ->
       new TrackUserRate user_rate, $root
 
     JS_EXPORTS.user_rates = null
