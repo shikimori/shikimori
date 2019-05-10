@@ -5,17 +5,20 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       name: :anime,
       placement: :main,
       group: :database,
-      url: :animes_collection_url
+      url: :animes_collection_url,
+      search_mode: :anime
     }, {
       name: :manga,
       placement: :main,
       group: :database,
-      url: :mangas_collection_url
+      url: :mangas_collection_url,
+      search_mode: :manga
     }, {
       name: :ranobe,
       placement: :main,
       group: :database,
-      url: :ranobe_collection_url
+      url: :ranobe_collection_url,
+      search_mode: :ranobe
     },
     # community
     {
@@ -139,10 +142,12 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       url: :users_url
     }, {
       name: :characters,
-      url: :characters_url
+      url: :characters_url,
+      search_mode: :character
     }, {
       name: :people,
-      url: :people_url
+      url: :people_url,
+      search_mode: :person
     }, {
       name: :play,
       url: ->(h) { h.root_url(subdomain: 'play') }

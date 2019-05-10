@@ -21,7 +21,7 @@ export default class GlobalSearch extends View {
     this.$input = this.$('.field input');
 
     this.phrase = this.inputSearchPhrase;
-    this.currentMode = this.hasIndex ? 'index' : 'anime';
+    this.currentMode = this.hasIndex ? 'index' : this.$root.data('default-mode') || 'anime';
 
     globalHandler.on('slash', this._onGlobalSlash);
 
@@ -208,8 +208,6 @@ export default class GlobalSearch extends View {
   }
 
   _scrollToItem($node) {
-    // let didScroll = false;
-
     const nodeTop = $node.offset().top;
     const nodeHeight = $node.outerHeight();
 
@@ -217,30 +215,14 @@ export default class GlobalSearch extends View {
     const windowHeight = $(window).height();
 
     if (nodeTop < windowTop) {
-      // didScroll = true;
       if ($node.is(':first-child')) {
         window.scrollTo(0, 0);
       } else {
         window.scrollTo(0, nodeTop - 10);
       }
     } else if (nodeTop + nodeHeight > windowTop + windowHeight) {
-      // didScroll = true;
       window.scrollTo(0, windowTop + (nodeTop + nodeHeight) - (windowTop + windowHeight) + 10);
     }
-
-    // NOTE: no need in it after switching from mouseover to mousemove
-    // to prevent item selection by mouseover event
-    // it could happen if mouse cursor currently is over some item
-    // if (didScroll) {
-    //   document.body.style.pointerEvents = 'none';
-
-    //   if (!this.debouncedEnableMouseEvents) {
-    //     this.debouncedEnableMouseEvents = debounce(250, () => (
-    //       document.body.style.pointerEvents = ''
-    //     ));
-    //   }
-    //   this.debouncedEnableMouseEvents();
-    // }
   }
 
   @bind
