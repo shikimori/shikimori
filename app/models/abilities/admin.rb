@@ -13,6 +13,8 @@ class Abilities::Admin
     ], User
 
     can :manage, User
+    can :manage, ListImport
+
     can :manage, Message
     can :manage, Club
     can :manage, ClubPage
