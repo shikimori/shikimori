@@ -12,7 +12,7 @@ pageLoad 'animes_franchise', 'mangas_franchise', 'ranobe_franchise', ->
 
 render = (ShikiMath, FranchiseGraph, d3) ->
   ShikiMath.rspec()
-  $graph = $('.graph')
+  $graph = $('.graph').empty()
   d3.json $graph.data('api_url'), (error, data) =>
     @franchise = new FranchiseGraph(data)
     @franchise.render_to $graph[0]
