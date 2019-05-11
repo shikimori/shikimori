@@ -187,12 +187,6 @@
       "src": "entypo"
     },
     {
-      "uid": "2c5335c6e56b876139d7a58ab2f4b2fe",
-      "css": "bell-1",
-      "code": 59398,
-      "src": "entypo"
-    },
-    {
       "uid": "39a5a0d7ce8342d149373b2ce219503a",
       "css": "alert",
       "code": 59402,
@@ -771,6 +765,12 @@
       "css": "reply",
       "code": 61482,
       "src": "mfglabs"
+    },
+    {
+      "uid": "1d2a6c3d9236b88b0f185c7c4530fa52",
+      "css": "flag",
+      "code": 59398,
+      "src": "entypo"
     },
     {
       "uid": "e847891cd6b1d14528603a17092d0b6d",
