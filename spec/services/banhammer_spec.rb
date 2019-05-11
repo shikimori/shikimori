@@ -87,6 +87,10 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'пиздец').to eq true }
     it { expect(banhammer.abusive? 'н[size=15]а[/size]х').to eq true }
     it { expect(banhammer.abusive? 'х[b][/b][b][/b]ер').to eq true }
+
+    context 'soft hypen' do # http://www.fileformat.info/info/unicode/char/00AD/index.htm
+      it { expect(banhammer.abusive? 'н­ах').to eq true }
+    end
   end
 
   describe '#abusiveness' do

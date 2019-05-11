@@ -7,6 +7,8 @@ class Banhammer # rubocop:disable ClassLength
   TAG = '(?: \[ [^\]]+ \] )*'
   TAG_REGEXP = /#{TAG}/mix
 
+  INVISIBLE_SYMBOLS = '[­]*'
+
   SYNONYMS = {
     а: %w[a а],
     б: %w[b б],
@@ -39,7 +41,7 @@ class Banhammer # rubocop:disable ClassLength
 
   def self.l letter
     synonyms = SYNONYMS[letter.to_sym] || [letter]
-    "(?:#{synonyms.join('|')}|#{Z})#{TAG}"
+    "(?:#{synonyms.join('|')}|#{Z})#{INVISIBLE_SYMBOLS}?#{TAG}"
   end
 
   ABUSIVE_WORDS = YAML.load_file Rails.root.join('config/app/abusive_words.yml')
