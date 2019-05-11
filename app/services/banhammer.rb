@@ -1,7 +1,4 @@
-# frozen_string_literal: true
-# rubocop:disable ClassLength
-
-class Banhammer
+class Banhammer # rubocop:disable ClassLength
   include Translation
   include Singleton
 
@@ -11,26 +8,26 @@ class Banhammer
   TAG_REGEXP = /#{TAG}/mix
 
   SYNONYMS = {
-    а: %w(a а),
-    б: %w(b б),
-    в: %w(v в),
-    д: %w(d д),
-    е: %w(e е ё),
-    з: %w(z 3 з),
-    и: %w(i и),
-    й: %w(y i й),
-    к: %w(k к),
-    л: %w(l л),
-    н: %w(n н),
-    о: %w(o о),
-    п: %w(p п),
-    р: %w(р p r),
-    с: %w(c s с),
-    т: %w(t т),
-    у: %w(y у),
-    х: %w(x h х),
-    ч: %w(ch ч),
-    я: %w(ya я)
+    а: %w[a а],
+    б: %w[b б],
+    в: %w[v в],
+    д: %w[d д],
+    е: %w[e е ё],
+    з: %w[z 3 з],
+    и: %w[i и],
+    й: %w[y i й],
+    к: %w[k к],
+    л: %w[l л],
+    н: %w[n н],
+    о: %w[o о],
+    п: %w[p п],
+    р: %w[р p r],
+    с: %w[c s с],
+    т: %w[t т],
+    у: %w[y у],
+    х: %w[x h х],
+    ч: %w[ch ч],
+    я: %w[ya я]
   }
 
   HALF_YEAR_DURATION = 60 * 24 * 7 * 26
@@ -72,7 +69,7 @@ class Banhammer
   end
 
   def abusive? text
-    abusiveness(text) > 0
+    abusiveness(text).positive?
   end
 
   def censor text
@@ -129,7 +126,6 @@ private
     end
   end
 
-  # rubocop:enable MethodLength
   def abusiveness text
     @abusivenesses ||= {}
     @abusivenesses[text] ||=
@@ -146,7 +142,6 @@ private
         end
         .size
   end
-  # rubocop:enable MethodLength
 
   def valid_match? match
     is_matched = match.size >= 3 && match !~ NOT_ABUSE
@@ -156,4 +151,3 @@ private
       match_wo_tags.scan(ABUSE_SYMBOL).size <= (match_wo_tags.size / 2).floor
   end
 end
-# rubocop:enable ClassLength
