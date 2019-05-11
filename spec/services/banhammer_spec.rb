@@ -130,8 +130,9 @@ describe Banhammer do
     end
 
     describe 'maximum ban duration' do
-      let(:text) { 'хуй ' * 99999 }
-      it { is_expected.to eq '26w' }
+      let(:text) { 'хуй ' }
+      before { allow(banhammer).to receive(:abusiveness).and_return 99999 }
+      it { is_expected.to eq '4w' }
     end
   end
 end

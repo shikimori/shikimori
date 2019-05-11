@@ -30,7 +30,7 @@ class Banhammer # rubocop:disable ClassLength
     я: %w[ya я]
   }
 
-  HALF_YEAR_DURATION = 60 * 24 * 7 * 26
+  MONTH_DURATION = 60 * 24 * 7 * 4
 
   def self.w word
     fixed_word = word.to_s.split(//).map { |v| l v }.join ' '
@@ -101,7 +101,7 @@ private
     multiplier = BanDuration.new(duration).to_i
 
     BanDuration.new(
-      [multiplier * abusiveness(comment.body), HALF_YEAR_DURATION].min
+      [multiplier * abusiveness(comment.body), MONTH_DURATION].min
     ).to_s
   end
 
