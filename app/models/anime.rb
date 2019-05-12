@@ -157,6 +157,12 @@ class Anime < DbEntry
       x96: ['96x150#', :jpg],
       x48: ['48x75#', :jpg]
     },
+    convert_options: {
+      original: '-quality 95',
+      preview: '-quality 90',
+      x96: '-quality 86',
+      x48: '-quality 86'
+    },
     # convert_options: {
       # original: " -gravity center -crop '225x310+0+0'",
       # preview: " -gravity center -crop '160x220+0+0'"

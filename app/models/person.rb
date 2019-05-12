@@ -26,6 +26,12 @@ class Person < DbEntry
       x96: ['96x150#', :jpg],
       x48: ['48x75#', :jpg]
     },
+    convert_options: {
+      original: '-quality 95',
+      preview: '-quality 90',
+      x96: '-quality 86',
+      x48: '-quality 86'
+    },
     url: '/system/people/:style/:id.:extension',
     path: ':rails_root/public/system/people/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
