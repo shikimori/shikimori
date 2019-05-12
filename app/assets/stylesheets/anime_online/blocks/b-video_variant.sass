@@ -72,9 +72,15 @@ $image-path: '/assets/blocks/b-video_variant'
       content: 'EN'
       font-family: sans-serif
       font-size: 10px
-      left: -21px
-      margin-top: 3px
-      position: absolute
+
+      +iphone
+        margin-right: 6px
+
+      +gte_ipad
+        left: -21px
+        margin-top: 3px
+        position: absolute
+
 
   .episode-hostings, .video-hosting, .video-language
     color: $gray-3
