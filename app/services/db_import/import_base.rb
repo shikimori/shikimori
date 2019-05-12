@@ -49,7 +49,7 @@ private
   end
 
   def assign_image image
-    # DbImport::MalImage.call entry, image
+    DbImport::MalImage.call entry, image
   end
 
   def data_to_assign
