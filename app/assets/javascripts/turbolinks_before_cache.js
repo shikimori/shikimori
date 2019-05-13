@@ -24,6 +24,14 @@ $(document).on('turbolinks:before-cache', () => {
   $('.bubbled-processed')
     .removeClass('bubbled-processed')
     .addClass('bubbled');
+
+  // height shortener
+  $('.b-height_shortener').each((_index, node) => {
+    $(node).prev()
+      .removeClass('shortened')
+      .css('height', '');
+    $(node).remove();
+  });
 });
 
 function dumpJsExports(keys) {
