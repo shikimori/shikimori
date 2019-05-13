@@ -25,6 +25,8 @@ $(document).on('turbolinks:before-cache', () => {
     .removeClass('bubbled-processed')
     .addClass('bubbled');
 
+  $('.b-shiki_editor').addClass('unprocessed');
+
   // height shortener
   $('.b-height_shortener').each((_index, node) => {
     $(node).prev()
