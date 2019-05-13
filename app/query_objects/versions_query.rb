@@ -5,7 +5,7 @@ class VersionsQuery < QueryObjectBase
         .where(item: item)
         .or(Version.where(associated: item))
         .where.not(state: :deleted)
-        .includes(:user, :moderator)
+        .includes(:user, :moderator, :item)
         .order(created_at: :desc)
     )
   end
