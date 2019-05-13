@@ -91,11 +91,11 @@ export default class GlobalSearch extends View {
 
   set phrase(value) {
     const trimmedValue = value.trim();
+    if (this._phrase && this._phrase.trim() === trimmedValue) { return; }
+
     const priorPhrase = this._phrase;
+    this._phrase = value;
 
-    if (this._phrase === trimmedValue) { return; }
-
-    this._phrase = trimmedValue;
     if (this.$input[0].value !== value) {
       this.$input[0].value = value;
     }
@@ -105,7 +105,7 @@ export default class GlobalSearch extends View {
     if (priorPhrase === undefined) { return; }
 
     if (this.phrase) { // it is undefined in constructor
-      this.searchEngine.search(this.phrase);
+      this.searchEngine.search(trimmedValue);
     } else {
       this.searchEngine.cancel();
       this._renderModes();
