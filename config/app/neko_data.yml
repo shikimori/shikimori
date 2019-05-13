@@ -10924,14 +10924,14 @@
         - 16099
         - 21879
         - 27891
+        - 28063
         - 36439
         - 36855
         - 37278
         - 37362
         - 37831
         - 39239
-        - 28063
-      :threshold: 90.5%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :sword_art_online
@@ -10964,13 +10964,13 @@
         - 16099
         - 21879
         - 27891
+        - 28063
         - 36439
         - 36855
         - 37278
         - 37362
         - 37831
         - 39239
-        - 28063
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -11199,10 +11199,10 @@
       :filters:
         franchise: fullmetal_alchemist
         not_anime_ids:
-        - 10842
         - 664
         - 7902
-      :threshold: 95%
+        - 10842
+      :threshold: 97.3%
       :generator:
         not_ignored_ids:
         - 908
@@ -11235,9 +11235,9 @@
       :filters:
         franchise: fullmetal_alchemist
         not_anime_ids:
-        - 10842
         - 664
         - 7902
+        - 10842
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -13246,7 +13246,9 @@
         - 2448
         - 2449
         - 4672
+        - 10090
         - 10870
+        - 10948
         - 10949
         - 10950
         - 17187
@@ -13256,8 +13258,7 @@
         - 22013
         - 31617
         - 38600
-        - 10090
-      :threshold: 95%
+      :threshold: 90.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :ghost_in_the_shell
@@ -13290,7 +13291,9 @@
         - 2448
         - 2449
         - 4672
+        - 10090
         - 10870
+        - 10948
         - 10949
         - 10950
         - 17187
@@ -13300,7 +13303,6 @@
         - 22013
         - 31617
         - 38600
-        - 10090
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -14412,9 +14414,9 @@
         franchise: kara_no_kyoukai
         not_anime_ids:
         - 6624
-        - 23697
         - 22847
-      :threshold: 90.3%
+        - 23697
+      :threshold: 90.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :kara_no_kyoukai
@@ -14445,8 +14447,8 @@
         franchise: kara_no_kyoukai
         not_anime_ids:
         - 6624
-        - 23697
         - 22847
+        - 23697
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -16190,7 +16192,7 @@
         franchise: yuru_yuri
         not_anime_ids:
         - 12665
-      :threshold: 94.5%
+      :threshold: 94.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yuru_yuri
@@ -17088,7 +17090,7 @@
         franchise: hetalia
         not_anime_ids:
         - 9865
-      :threshold: 81.2%
+      :threshold: 90%
       :generator:
         threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -17122,6 +17124,8 @@
         not_anime_ids:
         - 9865
       :threshold: 0.01
+      :generator:
+        threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :hetalia
@@ -20435,7 +20439,7 @@
   attributes:
     :neko_id: :ookiku_furikabutte
     :level: 1
-    :image: https://desu.shikimori.org/system/user_images/original/9560/744953.jpg
+    :image: "/assets/achievements/anime/franchise/ookiku_furikabutte.jpg"
     :border_color: 
     :title_ru: Замахнись сильнее
     :text_ru: 
@@ -20455,7 +20459,7 @@
   default_values: *2
   neko_id: :ookiku_furikabutte
   level: 1
-  image: https://desu.shikimori.org/system/user_images/original/9560/744953.jpg
+  image: "/assets/achievements/anime/franchise/ookiku_furikabutte.jpg"
   border_color: 
   title_ru: Замахнись сильнее
   text_ru: 
@@ -20468,7 +20472,7 @@
   attributes:
     :neko_id: :ookiku_furikabutte
     :level: 0
-    :image: https://desu.shikimori.org/system/user_images/original/9560/744953.jpg
+    :image: "/assets/achievements/anime/franchise/ookiku_furikabutte.jpg"
     :border_color: 
     :title_ru: Замахнись сильнее
     :text_ru: 
@@ -20488,7 +20492,7 @@
   default_values: *2
   neko_id: :ookiku_furikabutte
   level: 0
-  image: https://desu.shikimori.org/system/user_images/original/9560/744953.jpg
+  image: "/assets/achievements/anime/franchise/ookiku_furikabutte.jpg"
   border_color: 
   title_ru: Замахнись сильнее
   text_ru: 
