@@ -1,3 +1,4 @@
+- @top_menu ||= Menus::TopMenu.new # for devise controllers
 .menu-logo
   - if request.path == '/' && !user_signed_in?
     .logo-container.linkeable[
