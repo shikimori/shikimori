@@ -57,8 +57,10 @@
   // db_entry
   &.fav-add:before
     content: '\e819'
-  &.fav-remove:before
-    content: '\e829'
+  &.fav-remove
+    +link_color
+    &:before
+      content: '\e819'
   &.edit:before
     content: '\e822'
   &.new_review:before
