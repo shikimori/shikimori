@@ -10,7 +10,7 @@ class RobotsController < ShikimoriController
     if clean_host?
       shikimori_clean
     elsif ru_host?
-      shikimori_ru
+      redirect_to "#{Shikimori::PROTOCOL}://#{ShikimoriDomain::CLEAN_HOST}/robots.txt"
     else
       shikimori_en
     end

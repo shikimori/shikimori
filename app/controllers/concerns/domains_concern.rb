@@ -22,6 +22,6 @@ module DomainsConcern
   end
 
   def clean_host?
-    ShikimoriDomain::CLEAN_HOSTS.include? request.host
+    ShikimoriDomain::CLEAN_HOST == request.host
   end
 end
