@@ -7,10 +7,10 @@ class RobotsController < ShikimoriController
   end
 
   def shikimori
-    if ru_host?
-      shikimori_ru
-    elsif clean_host?
+    if clean_host?
       shikimori_clean
+    elsif ru_host?
+      shikimori_ru
     else
       shikimori_en
     end
