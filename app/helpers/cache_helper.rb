@@ -40,9 +40,9 @@ module CacheHelper
     # end
   end
 
-  # def cache(name = {}, *args)
-  #   super CacheHelper.keys(*Array(name)), *args
-  # end
+  def cache(name = {}, *args)
+    super CacheHelper.keys(*Array(name)), *args
+  end
 
   # def social_key
   #   !user_signed_in? || current_user.preferences.show_social_buttons? ?
