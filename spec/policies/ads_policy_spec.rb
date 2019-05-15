@@ -2,6 +2,7 @@ describe AdsPolicy do
   subject(:policy) do
     AdsPolicy.new(
       is_ru_host: is_ru_host,
+      is_clean_host: is_clean_host,
       is_shikimori: is_shikimori,
       ad_provider: ad_provider,
       user: user,
@@ -10,6 +11,7 @@ describe AdsPolicy do
   end
 
   let(:is_ru_host) { true }
+  let(:is_clean_host) { false }
   let(:is_shikimori) { true }
   let(:ad_provider) { Types::Ad::Provider.values.sample }
   let(:user) { nil }
@@ -24,6 +26,11 @@ describe AdsPolicy do
 
   context 'not ru_host' do
     let(:is_ru_host) { false }
+    it { is_expected.to_not be_allowed }
+  end
+
+  context 'clean host' do
+    let(:is_clean_host) { true }
     it { is_expected.to_not be_allowed }
   end
 

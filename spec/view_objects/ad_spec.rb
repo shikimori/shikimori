@@ -11,6 +11,7 @@ describe Ad do
     double(
       params: params,
       ru_host?: is_ru_host,
+      clean_host?: is_clean_host,
       shikimori?: is_shikimori,
       current_user: user,
       spnsr_url: 'zxc',
@@ -23,6 +24,7 @@ describe Ad do
   end
   let(:params) { { controller: 'anime' } }
   let(:is_ru_host) { true }
+  let(:is_clean_host) { false }
   let(:is_shikimori) { true }
   let(:width) { 240 }
   let(:height) { 400 }

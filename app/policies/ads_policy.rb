@@ -3,6 +3,7 @@ class AdsPolicy
     user!
     ad_provider!
     is_ru_host!
+    is_clean_host!
     is_shikimori!
     is_disabled!
   ]
@@ -10,6 +11,7 @@ class AdsPolicy
   def allowed? # rubocop:disable all
     return false if @is_disabled
     return false unless @is_ru_host
+    return false if @is_clean_host
 
     return false if special?(@ad_provider) && !@is_shikimori
     return false if mainstream?(@ad_provider) && Rails.env.development?

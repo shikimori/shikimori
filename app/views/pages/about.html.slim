@@ -16,10 +16,10 @@ header.head
           title=t('application.top_menu.items.faq')
         ] = t 'application.top_menu.items.faq'
 
-      li: a.entry[
-        href=copyrighted_pages_url
-        title=t('copyrighted_animes')
-      ] = t 'copyrighted_animes'
+      / li: a.entry[
+      /   href=copyrighted_pages_url
+      /   title=t('copyrighted_animes')
+      / ] = t 'copyrighted_animes'
 
       - if ru_host? && !Rails.env.test?
         li: a.entry[
