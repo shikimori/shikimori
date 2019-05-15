@@ -3,7 +3,7 @@ module DomainsConcern
 
   included do
     helper_method :shikimori?, :anime_online?
-    helper_method :ru_host?
+    helper_method :ru_host?, :clean_host?
   end
 
   def shikimori?
@@ -22,6 +22,6 @@ module DomainsConcern
   end
 
   def clean_host?
-    CLEAN_HOSTS.include? request.host
+    ShikimoriDomain::CLEAN_HOSTS.include? request.host
   end
 end

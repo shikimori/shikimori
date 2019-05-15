@@ -246,7 +246,7 @@ private
       user: h.current_user,
       ad_provider: provider,
       is_ru_host: h.ru_host?,
-      is_clean_host: false,
+      is_clean_host: h.clean_host?,
       is_shikimori: h.shikimori?,
       is_disabled: h.cookies["#{css_class}_disabled"].present?
     )
