@@ -50,8 +50,8 @@ link rel="yandex-tableau-widget" href="#{Shikimori::PROTOCOL}://#{Shikimori::DOM
   - if @collection.prev_page?
     link rel="prev" href==current_url(page: @collection.prev_page == 1 ? nil : @collection.prev_page)
 
-- if og.canonical_url != request.url
-  link rel="canonical" href==og.canonical_url
+- if og.canonical_url != request.url || !clean_host?
+  link rel="canonical" href==(og.canonical_url || request.url).gsub(request.host, ShikimoriDomain::CLEAN_HOSTS.first)
 
 - if og.type.present?
   meta property="og:type" content=og.type
