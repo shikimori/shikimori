@@ -22,8 +22,7 @@ module CacheHelper
         I18n.locale,
         I18N_HASH[I18n.locale],
         CacheHelperInstance.instance.domain,
-        CacheHelperInstance.instance.subdomain,
-        CacheHelperInstance.instance.ru_host?
+        CacheHelperInstance.instance.subdomain
       ]
     end
 
