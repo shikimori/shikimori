@@ -3,7 +3,7 @@ class CommentDecorator < BaseDecorator
 
   def html_body
     if persisted?
-      Rails.cache.fetch [:body, object, :v3] do
+      Rails.cache.fetch CacheHelper.keys(:body, object, :v4) do
         object.html_body
       end
     else

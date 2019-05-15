@@ -7,7 +7,7 @@ class ReviewSerializer < ActiveModel::Serializer
   end
 
   def html_body
-    Rails.cache.fetch [object, 'body'], expires_in: 2.weeks do
+    Rails.cache.fetch CacheHelper.keys(object, :body), expires_in: 2.weeks do
       BbCodes::EntryText.call object.text, object
     end
   end

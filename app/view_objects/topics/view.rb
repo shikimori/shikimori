@@ -128,7 +128,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def html_body
     return '' if @topic.original_body.blank?
 
-    Rails.cache.fetch [:body, Digest::MD5.hexdigest(@topic.original_body)] do
+    Rails.cache.fetch CacheHelper.keys(:body, Digest::MD5.hexdigest(@topic.original_body)) do
       BbCodes::Text.call @topic.original_body
     end
   end

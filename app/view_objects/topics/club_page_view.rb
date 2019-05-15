@@ -14,7 +14,7 @@ class Topics::ClubPageView < Topics::View
   def html_body
     return super if preview?
 
-    Rails.cache.fetch [topic.linked, :html] do
+    Rails.cache.fetch CacheHelper.keys(topic.linked, :html) do
       BbCodes::Text.call(topic.linked.text)
     end
   end

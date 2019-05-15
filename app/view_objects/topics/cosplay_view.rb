@@ -28,10 +28,12 @@ class Topics::CosplayView < Topics::UserContentView
   end
 
   def action_tag
+    return unless minified?
+
     OpenStruct.new(
       type: 'cosplay',
       text: h.t('cosplay').downcase
-    ) if minified?
+    )
   end
 
   def images_bb_codes
