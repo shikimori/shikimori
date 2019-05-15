@@ -46,6 +46,12 @@ html
           = render 'application/top_menu'
 
       section.l-page *itemprop
+        - unless clean_host? || cookies[:red_alert]
+          .b-hot_topics-v2.red-alert
+            a href='/forum/site/284035-novyy-domen-shikimori-one'
+              | Сайт забанен мосгорсудом. Новый домен.
+            .b-close data-cookie-name='red_alert'
+
         - unless params[:no_menu]
           - if current_user&.admin? && request.path == root_path
             javascript:
