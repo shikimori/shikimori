@@ -21,7 +21,7 @@ module DomainsConcern
     ShikimoriDomain::RU_HOSTS.include? request.host
   end
 
-  def clean_host
+  def clean_host?
     CLEAN_HOSTS.include? request.host
   end
 end
