@@ -12,7 +12,7 @@ module AnimeOnlineDomain
 
   def self.valid_host? anime, request
     if anime.censored?
-      self.adult_host? request
+      adult_host? request
     else
       !!(request.host =~ /^#{DOMAIN_COMMON}\./)
     end

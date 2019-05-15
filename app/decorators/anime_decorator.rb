@@ -85,17 +85,18 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def licensed?
-    # if h.current_user&.video_moderator? ||
-    #     h.current_user&.trusted_video_uploader?
-    #   return false
-    # end
+    false
+    # # if h.current_user&.video_moderator? ||
+    # #     h.current_user&.trusted_video_uploader?
+    # #   return false
+    # # end
 
-    Copyright::OTHER_COPYRIGHTED.include?(id) ||
-      Copyright::WAKANIM_COPYRIGHTED.include?(id)
-    # || (
-      # Copyright::WAKANIM_COPYRIGHTED.include?(id) &&
-      # !GeoipAccess.instance.wakanim_allowed?(h.request.remote_ip)
-    # )
+    # Copyright::OTHER_COPYRIGHTED.include?(id) ||
+    #   Copyright::WAKANIM_COPYRIGHTED.include?(id)
+    # # || (
+    #   # Copyright::WAKANIM_COPYRIGHTED.include?(id) &&
+    #   # !GeoipAccess.instance.wakanim_allowed?(h.request.remote_ip)
+    # # )
   end
 
 private
