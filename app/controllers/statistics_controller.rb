@@ -2,8 +2,6 @@ class StatisticsController < ShikimoriController
   respond_to :html
   YEARS_AGO = 26.years
 
-  include CacheHelper
-
   def index
     og page_title: i18n_t('page_title')
     og description: i18n_t('page_description')
