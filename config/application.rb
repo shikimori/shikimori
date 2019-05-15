@@ -19,7 +19,7 @@ Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
 
 module Shikimori
   DOMAINS = {
-    production: 'shikimori.org',
+    production: 'shikimori.one',
     development: 'shikimori.local',
     test: 'shikimori.test'
   }

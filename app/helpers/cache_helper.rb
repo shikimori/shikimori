@@ -21,6 +21,7 @@ module CacheHelper
       args + [
         I18n.locale,
         I18N_HASH[I18n.locale],
+        CacheHelperInstance.instance.domain,
         CacheHelperInstance.instance.subdomain,
         CacheHelperInstance.instance.ru_host?
       ]
@@ -54,6 +55,10 @@ end
 class CacheHelperInstance
   include Singleton
   include Draper::ViewHelpers
+
+  def domain
+    h.request.domain
+  end
 
   def subdomain
     h.request.subdomain
