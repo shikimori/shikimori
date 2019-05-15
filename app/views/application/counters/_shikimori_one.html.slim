@@ -7,19 +7,19 @@ javascript:
   ga('create', 'UA-21173910-2', 'shikimori.one');
   ga('send', 'pageview');
 
-  // (function() {
-    // var ym = document.createElement('script'); ym.type = 'text/javascript'; ym.async = true;
-    // ym.src = (location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-    // var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ym, s);
-  // })();
+  (function() {
+    var ym = document.createElement('script'); ym.type = 'text/javascript'; ym.async = true;
+    ym.src = (location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ym, s);
+  })();
 
-  // (function(w, c) {
-    // (w[c] = w[c] || []).push(function() {
-      // try {
-        // w.yaCounter7915231 = new Ya.Metrika({id:7915231, enableAll: true});
-      // } catch(e) { }
-    // });
-  // })(window, 'yandex_metrika_callbacks');
+  (function(w, c) {
+    (w[c] = w[c] || []).push(function() {
+      try {
+        w.yaCounter53670769 = new Ya.Metrika({id:53670769, enableAll: true});
+      } catch(e) { }
+    });
+  })(window, 'yandex_metrika_callbacks');
 
   // для совместимости счётчиков с турболинками
   $(document).on('page:before-change', function() {
@@ -28,9 +28,9 @@ javascript:
 
   $(document).on('turbolinks:load', function() {
     if (window.turbolinks_referer) {
-      // if (window.yaCounter7915231) {
-        // window.yaCounter7915231.hit(location.href, $('title').html(), window.turbolinks_referer);
-      // }
+      if (window.yaCounter53670769) {
+        window.yaCounter53670769.hit(location.href, $('title').html(), window.turbolinks_referer);
+      }
       if (window.ga) {
         window.ga('send', 'pageview');
       }

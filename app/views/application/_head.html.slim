@@ -42,7 +42,7 @@ link[
   title=Shikimori::DOMAIN
   href='/search.xml'
 ]
-link rel='yandex-tableau-widget' href="#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}/yandex-tableau-widget-manifest.json"
+link rel='yandex-tableau-widget' href='/yandex-tableau-widget-manifest.json'
 
 - if defined?(@collection) && @collection.respond_to?(:next_page?)
   - if @collection.next_page?
@@ -112,7 +112,7 @@ title = og.meta_title
   - if Rails.env.production?
     - if anime_online?
       = render partial: 'application/counters/anime_online'
+    - elsif clean_host?
+      = render partial: 'application/counters/shikimori_one'
     - elsif ru_host?
       = render partial: 'application/counters/shikimori_org'
-    - else
-      = render partial: 'application/counters/shikimori_one'
