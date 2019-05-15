@@ -129,6 +129,11 @@ describe BbCodes::Tags::UrlTag do
         it { is_expected.to eq '<a class="b-link" href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }
       end
 
+      context 'shikimori link' do
+        let(:text) { 'http://shikimori.org/zxc' }
+        it { is_expected.to eq '<a class="b-link" href="/zxc">/zxc</a>' }
+      end
+
       # context 'broken tag' do
       #   let(:link) { '[url=https://z.org/%B0«z»' } # Zrubocop:disable Style/FormatStringToken
       #   let(:text) { "[url=#{url}]#{link}[/url]" }

@@ -50,7 +50,13 @@ private
   end
 
   def match_url url
-    url.starts_with?('/') ? url : Url.new(url).with_http.to_s
+    if url.starts_with?('/')
+      url
+    elsif Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori.\w+/(?<path>.+)}
+      "/#{$LAST_MATCH_INFO[:path]}"
+    else
+      Url.new(url).with_http.to_s
+    end
   end
 
   def match_text text, url

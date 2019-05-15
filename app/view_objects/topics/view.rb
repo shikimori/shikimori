@@ -128,7 +128,9 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def html_body
     return '' if @topic.original_body.blank?
 
-    Rails.cache.fetch CacheHelper.keys(:body, Digest::MD5.hexdigest(@topic.original_body)) do
+    Rails.cache.fetch(
+      CacheHelper.keys(:body, Digest::MD5.hexdigest(@topic.original_body), :v2)
+    ) do
       BbCodes::Text.call @topic.original_body
     end
   end
@@ -186,7 +188,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
       @is_mini,
-      :v13
+      :v14
     )
   end
 
