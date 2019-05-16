@@ -36,9 +36,9 @@ private
     if Rails.env.test?
       'test.host'
     elsif Rails.env.development?
-      Shikimori::DOMAIN
+      Shikimori::DOMAINS[:production]
     elsif (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
-      Shikimori::DOMAIN
+      Shikimori::DOMAINS[:production]
     else
       Url.new(Draper::ViewContext.current.request.host).cut_subdomain.to_s
     end
