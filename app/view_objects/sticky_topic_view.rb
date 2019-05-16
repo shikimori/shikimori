@@ -6,7 +6,7 @@ class StickyTopicView
   include ShallowAttributes
   extend Translation
 
-  attribute :url, String
+  attribute :object, Object
   attribute :title, String
   attribute :description, String
 
@@ -29,7 +29,7 @@ class StickyTopicView
         instance_variable_set(
           :"@#{topic_name}_#{locale}",
           new(
-            url: url(topic_id),
+            object: Topics::TopicViewFactory.new(true, true).build(topics[topic_id]),
             title: (title(topic_id) if STICKY_TOPICS.include?(topic_name)),
             description: (description(topic_name, locale) if STICKY_TOPICS.include?(topic_name))
           )
@@ -45,7 +45,7 @@ class StickyTopicView
         instance_variable_set(
           :"@#{topic_name}_#{locale}",
           new(
-            url: url(topic_id),
+            object: Topics::TopicViewFactory.new(true, true).build(topics[topic_id]),
             title: '',
             description: ''
           )
@@ -54,12 +54,6 @@ class StickyTopicView
   end
 
   private_class_method
-
-  def self.url topic_id
-    Rails.cache.fetch("sticky_topic_url_#{topic_id}") do
-      UrlGenerator.instance.topic_url topics[topic_id]
-    end
-  end
 
   def self.title topic_id
     topics[topic_id].title

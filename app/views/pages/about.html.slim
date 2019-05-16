@@ -6,13 +6,13 @@ header.head
   .c-column
     ul.b-list
       li: a.entry[
-        href=StickyTopicView.site_rules(locale_from_host).url
+        href=StickyTopicView.site_rules(locale_from_host).object.url
         title=t('application.top_menu.items.site_rules')
       ] = t 'application.top_menu.items.site_rules'
 
       - if ru_host? && !Rails.env.test?
         li: a.entry[
-          href=StickyClubView.faq(locale_from_host).url
+          href=StickyClubView.faq(locale_from_host).object.url
           title=t('application.top_menu.items.faq')
         ] = t 'application.top_menu.items.faq'
 
@@ -23,7 +23,7 @@ header.head
 
       - if ru_host? && !Rails.env.test?
         li: a.entry[
-          href=StickyTopicView.socials(locale_from_host).url
+          href=StickyTopicView.socials(locale_from_host).object.url
           title=t('application.top_menu.items.socials')
         ] = t 'application.top_menu.items.socials'
 

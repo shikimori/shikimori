@@ -7,8 +7,8 @@ class Messages::CreateNotification # rubocop:disable ClassLength
     locale = @target.locale
     body = i18n_t(
       'user_registered_message',
-      faq_url: StickyClubView.faq(locale).url,
-      site_rules_url: StickyTopicView.site_rules(locale).url,
+      faq_url: StickyClubView.faq(locale).object.url,
+      site_rules_url: StickyTopicView.site_rules(locale).object.url,
       settings_path: @target.to_param,
       locale: locale
     )

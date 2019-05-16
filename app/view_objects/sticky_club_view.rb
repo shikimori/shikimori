@@ -6,7 +6,7 @@ class StickyClubView
   include ShallowAttributes
   extend Translation
 
-  attribute :url, String
+  attribute :object, Object
   attribute :title, String
   attribute :description, String
 
@@ -17,13 +17,13 @@ class StickyClubView
   CLUB_IDS.keys.each do |club_name|
     define_singleton_method club_name do |locale|
       club_id = CLUB_IDS[club_name][locale.to_sym]
-      next unless club_id
+      next unless club_id.present?
 
       instance_variable_get(:"@#{club_name}_#{locale}") ||
         instance_variable_set(
           :"@#{club_name}_#{locale}",
           new(
-            url: club_url(club_id),
+            object: clubs[club_id],
             title: club_name(club_id),
             description: description(club_name, locale)
           )
@@ -32,12 +32,6 @@ class StickyClubView
   end
 
   private_class_method
-
-  def self.club_url club_id
-    Rails.cache.fetch("sticky_club_url_#{club_id}") do
-      UrlGenerator.instance.club_url clubs[club_id]
-    end
-  end
 
   def self.club_name club_id
     clubs[club_id].name
@@ -49,7 +43,7 @@ class StickyClubView
 
   def self.clubs
     @clubs ||= Hash.new do |cache, club_id|
-      cache[club_id] = Club.find club_id
+      cache[club_id] = Club.find(club_id).decorate
     end
   end
 end

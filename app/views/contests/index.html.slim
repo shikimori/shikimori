@@ -14,7 +14,7 @@ header.head.misc
       - if contests.first == @collection.first && StickyTopicView.contests_proposals(locale_from_host)
         .b-options-floated
           a.b-link[
-            href=StickyTopicView.contests_proposals(locale_from_host).url
+            href=StickyTopicView.contests_proposals(locale_from_host).object.url
           ] = StickyTopicView.contests_proposals(locale_from_host).title
       .subheadline
         - if state == :scheduled

@@ -1,6 +1,7 @@
 describe DashboardsController do
   describe '#show' do
-    before { get :show }
+    let!(:topic) { create :topic, id: Topic::TOPIC_IDS[:socials][:ru] }
+    subject! { get :show }
     it { expect(response).to have_http_status :success }
   end
 end

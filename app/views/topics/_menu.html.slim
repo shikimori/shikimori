@@ -88,7 +88,7 @@
     h2.midheadline.m8 = t '.sticky_topics'
     div
       - menu.sticky_topics.take(3).each do |topic|
-        a.topic href=topic.url
+        a.topic href=topic.object.url
           span.title = topic.title
           span.notice = topic.description
     - if menu.sticky_topics.size > 3
@@ -96,7 +96,7 @@
       .b-show_more-more
         span
         - menu.sticky_topics.slice(3, 99).each do |topic|
-          a.topic href=topic.url
+          a.topic href=topic.object.url
             span.title = topic.title
             span.notice = topic.description
         .hide-more #{{t '.hide'}}

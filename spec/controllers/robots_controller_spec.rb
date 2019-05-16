@@ -1,13 +1,17 @@
 describe RobotsController do
   describe 'anime_online' do
-    before { get :anime_online }
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'text/plain' }
+    subject! { get :anime_online }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'text/plain'
+    end
   end
 
   describe 'shikimori' do
-    before { get :shikimori }
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'text/plain' }
+    subject! { get :shikimori }
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'text/plain'
+    end
   end
 end
