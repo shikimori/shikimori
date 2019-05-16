@@ -21,7 +21,7 @@ private
     CacheHelper.keys(
       object,
       :body,
-      :v5
+      :v6
     )
   end
 end
