@@ -32,10 +32,22 @@ class ImageUrlGenerator
 
 private
 
+  def shiki_domain
+    if Rails.env.test?
+      'test.host'
+    elsif Rails.env.development?
+      Shikimori::DOMAIN
+    elsif (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
+      Shikimori::DOMAIN
+    else
+      Url.new(Draper::ViewContext.current.request.host).cut_subdomain.to_s
+    end
+  end
+
   def production_url image_url_path, image_index
     "#{Shikimori::PROTOCOLS[:production]}://" \
       "#{Shikimori::STATIC_SUBDOMAINS[image_index]}." \
-      "#{Shikimori::DOMAINS[:production]}#{image_url_path}"
+      "#{shiki_domain}#{image_url_path}"
   end
 
   def local_url image_url_path
