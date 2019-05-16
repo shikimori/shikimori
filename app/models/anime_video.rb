@@ -29,7 +29,7 @@ class AnimeVideo < ApplicationRecord
   # kiwi.kz dailymotion.com myvi.ru myvi.tv - banned in RF
   # rutube.ru - banned play.shikimori.org for some reason
   BANNED_HOSTINGS = %w[kiwi.kz dailymotion.com myvi.ru play.aniland.org rutube.ru]
-  COPYRIGHTED_AUTHORS = /wakanim/i # |crunchyroll|crunchy|FreakCrSuBuS
+  # COPYRIGHTED_AUTHORS = /wakanim/i # |crunchyroll|crunchy|FreakCrSuBuS
 
   belongs_to :anime
   belongs_to :author,
@@ -58,8 +58,8 @@ class AnimeVideo < ApplicationRecord
     if: -> { new_record? || changes['url'] }
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
-  before_save :check_copyrighted_authors,
-    if: :anime_video_author_id_changed?
+  # before_save :check_copyrighted_authors,
+  #   if: :anime_video_author_id_changed?
   before_save :check_banned_hostings
   before_save :check_copyrighted_animes
 
@@ -192,12 +192,12 @@ class AnimeVideo < ApplicationRecord
 
 private
 
-  def check_copyrighted_authors
-    return unless author_name&.match? COPYRIGHTED_AUTHORS
+  # def check_copyrighted_authors
+  #   return unless author_name&.match? COPYRIGHTED_AUTHORS
 
-    errors.add :base, 'Видео этого автора не могут быть загружены на сайт'
-    throw :abort
-  end
+  #   errors.add :base, 'Видео этого автора не могут быть загружены на сайт'
+  #   throw :abort
+  # end
 
   def check_banned_hostings
     self.state = 'banned_hosting' if BANNED_HOSTINGS.include? hosting
