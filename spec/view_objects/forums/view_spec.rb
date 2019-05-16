@@ -29,7 +29,8 @@ describe Forums::View do
         description_of_genres_topic,
         ideas_and_suggestions_topic,
         site_problems_topic,
-        contests_proposals_topic
+        contests_proposals_topic,
+        socials_topic
       ]
     end
     before { user.preferences.forums = [offtopic_forum.id] }

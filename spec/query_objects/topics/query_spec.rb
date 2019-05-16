@@ -11,7 +11,8 @@ describe Topics::Query do
       description_of_genres_topic,
       ideas_and_suggestions_topic,
       site_problems_topic,
-      contests_proposals_topic
+      contests_proposals_topic,
+      socials_topic
     ]
   end
 
@@ -299,7 +300,7 @@ describe Topics::Query do
     subject(:views) { query.as_views(is_preview, is_mini) }
 
     it do
-      expect(views).to have(6).items
+      expect(views).to have(7).items
       expect(views.first).to be_kind_of Topics::View
       expect(views.first.is_mini).to eq true
       expect(views.first.is_preview).to eq true
