@@ -21,9 +21,9 @@ describe TopicsController do
       subject! { get :index, params: { forum: offtopic_forum.permalink } }
 
       # offtopic_topic_1 + 7 seeded offtopic topics
-      # (offtopic topic itself + 6 offtopic sticky topics)
+      # (offtopic topic itself + 7 offtopic sticky topics)
       it do
-        expect(assigns(:forums_view).topic_views).to have(7).items
+        expect(assigns(:forums_view).topic_views).to have(8).items
         expect(response).to have_http_status :success
       end
     end
