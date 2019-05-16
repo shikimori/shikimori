@@ -52,7 +52,7 @@ private
   def match_url url
     if url.starts_with?('/')
       url
-    elsif Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori.\w+/(?<path>.+)}
+    elsif Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori\.\w+/(?<path>.+)}
       "/#{$LAST_MATCH_INFO[:path]}"
     else
       Url.new(url).with_http.to_s
@@ -62,7 +62,7 @@ private
   def match_text text, url
     return text if text
 
-    if Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori.\w+/(?<path>.+)}
+    if Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori\.\w+/(?<path>.+)}
       "/#{$LAST_MATCH_INFO[:path]}"
     elsif url.size > MAX_SHORT_URL_SIZE
       Url.new(url).domain.to_s

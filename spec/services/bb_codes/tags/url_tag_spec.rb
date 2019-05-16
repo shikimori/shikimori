@@ -134,6 +134,11 @@ describe BbCodes::Tags::UrlTag do
         it { is_expected.to eq '<a class="b-link" href="/zxc">/zxc</a>' }
       end
 
+      context 'partial shikimori link' do
+        let(:text) { 'https://github.com/shikimori/shikimori/commit/f77bcc324ac6e20eeadaff9363ac71ec9c99301e' }
+        it { is_expected.to eq '<a class="b-link" href="https://github.com/shikimori/shikimori/commit/f77bcc324ac6e20eeadaff9363ac71ec9c99301e">github.com</a>' }
+      end
+
       # context 'broken tag' do
       #   let(:link) { '[url=https://z.org/%B0«z»' } # Zrubocop:disable Style/FormatStringToken
       #   let(:text) { "[url=#{url}]#{link}[/url]" }
