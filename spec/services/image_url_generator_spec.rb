@@ -18,7 +18,7 @@ describe ImageUrlGenerator do
           let(:image_size) { :original }
           it do
             is_expected.to eq(
-              "#{protocol}://kawai.shikimori.org/system/animes/original/1.jpg?#{timestamp}"
+              "#{protocol}://kawai.test.host/system/animes/original/1.jpg?#{timestamp}"
             )
           end
         end
@@ -27,7 +27,7 @@ describe ImageUrlGenerator do
           let(:image_size) { :x48 }
           it do
             is_expected.to eq(
-              "#{protocol}://kawai.shikimori.org/system/animes/x48/1.jpg?#{timestamp}"
+              "#{protocol}://kawai.test.host/system/animes/x48/1.jpg?#{timestamp}"
             )
           end
         end
@@ -38,7 +38,7 @@ describe ImageUrlGenerator do
         let(:image_size) { :x96 }
         it do
           is_expected.to eq(
-            "#{protocol}://moe.shikimori.org/system/clubs/x96/2.jpg?#{timestamp}"
+            "#{protocol}://moe.test.host/system/clubs/x96/2.jpg?#{timestamp}"
           )
         end
       end
@@ -48,7 +48,7 @@ describe ImageUrlGenerator do
         let(:image_size) { :x160 }
         it do
           is_expected.to eq(
-            "#{protocol}://moe.shikimori.org/system/users/x160/2.png?#{timestamp}"
+            "#{protocol}://moe.test.host/system/users/x160/2.png?#{timestamp}"
           )
         end
       end
@@ -58,7 +58,7 @@ describe ImageUrlGenerator do
         let(:image_size) { :x48 }
         it do
           is_expected.to eq(
-            "#{protocol}://desu.shikimori.org/system/users/x48/3.png?#{timestamp}"
+            "#{protocol}://desu.test.host/system/users/x48/3.png?#{timestamp}"
           )
         end
       end

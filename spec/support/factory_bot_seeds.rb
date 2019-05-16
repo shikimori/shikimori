@@ -22,6 +22,7 @@ class FactoryBotSeeds
     ideas_and_suggestions_topic
     site_problems_topic
     contests_proposals_topic
+    socials_topic
   ]
   CUSTOM_FACTORIES = %i[
     user

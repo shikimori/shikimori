@@ -151,6 +151,13 @@ FactoryBot.define do
       created_at { 7.days.ago }
       updated_at { 7.days.ago }
     end
+    trait :socials do
+      id { Topic::TOPIC_IDS[:socials][:ru] }
+      title { 'socials' }
+      body { 'socials' }
+      created_at { 8.days.ago }
+      updated_at { 8.days.ago }
+    end
 
     factory :offtopic_topic, traits: [:offtopic]
     factory :site_rules_topic, traits: [:site_rules]
@@ -158,5 +165,6 @@ FactoryBot.define do
     factory :ideas_and_suggestions_topic, traits: [:ideas_and_suggestions]
     factory :site_problems_topic, traits: [:site_problems]
     factory :contests_proposals_topic, traits: [:contests_proposals]
+    factory :socials_topic, traits: [:socials]
   end
 end
