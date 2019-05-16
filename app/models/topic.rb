@@ -35,7 +35,6 @@ class Topic < ApplicationRecord
   TOPIC_IDS = {
     offtopic: { ru: 82_468, en: 210_000 },
     site_rules: { ru: 79_042, en: 220_000 },
-    faq: { ru: 85_018, en: nil },
     description_of_genres: { ru: 103_553, en: nil },
     ideas_and_suggestions: { ru: 10_586, en: 230_000 },
     site_problems: { ru: 102, en: 240_000 },
