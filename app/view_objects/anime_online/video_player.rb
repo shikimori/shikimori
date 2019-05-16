@@ -12,7 +12,7 @@ class AnimeOnline::VideoPlayer
   PREFERENCES_HOSTING = 'anime_video_hosting'
   PREFERENCES_AUTHOR = 'anime_video_author'
 
-  CACHE_VERSION = :v5
+  CACHE_VERSION = :v6
 
   def nav
     AnimeOnline::VideoPlayerNavigation.new self

@@ -7,7 +7,7 @@
   data-video_ids=@player.same_videos&.map(&:id)
 ]
   .player-area
-    - if @resource.licensed? || (@resource.id == 21 && @player.current_episode.in?(861..910))
+    - if @resource.licensed?# || (@resource.id == 21 && @player.current_episode.in?(861..910))
       .player-placeholder
         .b-errors
           .subheadline Просмотр недоступен
