@@ -10,7 +10,7 @@ pageLoad 'pages_about', ->
     require('vendor/highcharts_colors').forEach (color) ->
       Highcharts.getOptions().colors.push(color)
 
-    traffic_chart Highcharts
+    # traffic_chart Highcharts
     comments_chart Highcharts
     users_chart Highcharts
 
