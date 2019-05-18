@@ -4,7 +4,7 @@ class ShikiMailer < ActionMailer::Base
   include Routing
   include Translation
 
-  default from: "noreply@#{Shikimori::DOMAIN}"
+  default from: 'noreply@shikimori.org'
 
   rescue_from Net::SMTPSyntaxError do
     user = User.find_by email: message[:to].value
