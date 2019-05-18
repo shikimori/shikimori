@@ -48,7 +48,7 @@ class UserHistoryDecorator < BaseDecorator
         i18n_t "actions.#{action}"
 
       when UserHistoryAction::STATUS
-        status_name = UserRate.statuses.find { |k,v| v == value.to_i }.first
+        status_name = UserRate.statuses.find { |k, v| v == value.to_i }.first
         I18n.t "user_history_decorator.actions.status.#{status_name}",
           default: UserRate.status_name(value.to_i, target.class.name)
 

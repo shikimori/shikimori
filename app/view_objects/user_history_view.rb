@@ -15,7 +15,7 @@ class UserHistoryView < ViewObjectBase
 private
 
   def query
-    Rails.cache.fetch [:history, user, page] do
+    Rails.cache.fetch CacheHelper.keys(:history, user, page) do
       UserHistoryQuery.new(user).postload(page, LIMIT)
     end
   end
