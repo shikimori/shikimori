@@ -62,7 +62,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   end
 
   def description_html_ru
-    html = Rails.cache.fetch [:description_html_ru, object, :v3] do
+    html = Rails.cache.fetch CacheHelper.keys(:description_html_ru, object, :v3) do
       BbCodes::EntryText.call description_ru.text, object
     end
 
