@@ -2,17 +2,17 @@ describe SiteStatistics do
   subject(:query) { SiteStatistics.new }
 
   describe 'cached_stats' do
-    describe 'traffic' do
-      let(:traffic) { 'traff' }
-      before do
-        allow(YandexMetrika)
-          .to receive(:call)
-          .with(SiteStatistics::METRIKA_MONTHS)
-          .and_return traffic
-      end
+    # describe 'traffic' do
+    #   let(:traffic) { 'traff' }
+    #   before do
+    #     allow(YandexMetrika)
+    #       .to receive(:call)
+    #       .with(SiteStatistics::METRIKA_MONTHS)
+    #       .and_return traffic
+    #   end
 
-      its(:traffic) { is_expected.to eq traffic }
-    end
+    #   its(:traffic) { is_expected.to eq traffic }
+    # end
 
     describe 'comments' do
       let!(:comments) { create_list :comment, 1, user: user }

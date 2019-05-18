@@ -14,66 +14,66 @@ pageLoad 'pages_about', ->
     comments_chart Highcharts
     users_chart Highcharts
 
-traffic_chart = (Highcharts, data) ->
-  data = $('.traffic-chart').data('stats')
-  colors = [
-    Highcharts.getOptions().colors[2],
-    Highcharts.getOptions().colors[1],
-    Highcharts.getOptions().colors[0]
-  ]
+# traffic_chart = (Highcharts, data) ->
+#   data = $('.traffic-chart').data('stats')
+#   colors = [
+#     Highcharts.getOptions().colors[2],
+#     Highcharts.getOptions().colors[1],
+#     Highcharts.getOptions().colors[0]
+#   ]
 
-  $('.traffic-chart').highcharts chart_options
-    series: [
-      name: I18n.t('frontend.about.views')
-      pointInterval: 24 * 3600 * 1000
-      pointStart: new Date(data.first().date).getTime()
-      data: data.map (v) -> v.page_views
-      visible: false
-      color: colors[0]
-      fillColor:
-        linearGradient:
-          x1: 0
-          y1: 0
-          x2: 0
-          y2: 1
-        stops: [
-          [0, colors[0]],
-          [1, Highcharts.Color(colors[0]).setOpacity(0).get("rgba")]
-        ]
-    ,
-      name: I18n.t('frontend.about.visits')
-      pointInterval: 24 * 3600 * 1000
-      pointStart: new Date(data.first().date).getTime()
-      data: data.map (v) -> v.visits
-      visible: false
-      color: colors[1]
-      fillColor:
-        linearGradient:
-          x1: 0
-          y1: 0
-          x2: 0
-          y2: 1
-        stops: [
-          [0, colors[1]],
-          [1, Highcharts.Color(colors[1]).setOpacity(0).get("rgba")]
-        ]
-    ,
-      name: I18n.t('frontend.about.unique_visitors')
-      pointInterval: 24 * 3600 * 1000
-      pointStart: new Date(data.first().date).getTime()
-      data: data.map (v) -> v.visitors
-      color: colors[2]
-      fillColor:
-        linearGradient:
-          x1: 0
-          y1: 0
-          x2: 0
-          y2: 1
-        stops: [
-          [0, colors[2]],
-          [1, Highcharts.Color(colors[2]).setOpacity(0).get("rgba")]
-        ]
-    ]
+#   $('.traffic-chart').highcharts chart_options
+#     series: [
+#       name: I18n.t('frontend.about.views')
+#       pointInterval: 24 * 3600 * 1000
+#       pointStart: new Date(data.first().date).getTime()
+#       data: data.map (v) -> v.page_views
+#       visible: false
+#       color: colors[0]
+#       fillColor:
+#         linearGradient:
+#           x1: 0
+#           y1: 0
+#           x2: 0
+#           y2: 1
+#         stops: [
+#           [0, colors[0]],
+#           [1, Highcharts.Color(colors[0]).setOpacity(0).get("rgba")]
+#         ]
+#     ,
+#       name: I18n.t('frontend.about.visits')
+#       pointInterval: 24 * 3600 * 1000
+#       pointStart: new Date(data.first().date).getTime()
+#       data: data.map (v) -> v.visits
+#       visible: false
+#       color: colors[1]
+#       fillColor:
+#         linearGradient:
+#           x1: 0
+#           y1: 0
+#           x2: 0
+#           y2: 1
+#         stops: [
+#           [0, colors[1]],
+#           [1, Highcharts.Color(colors[1]).setOpacity(0).get("rgba")]
+#         ]
+#     ,
+#       name: I18n.t('frontend.about.unique_visitors')
+#       pointInterval: 24 * 3600 * 1000
+#       pointStart: new Date(data.first().date).getTime()
+#       data: data.map (v) -> v.visitors
+#       color: colors[2]
+#       fillColor:
+#         linearGradient:
+#           x1: 0
+#           y1: 0
+#           x2: 0
+#           y2: 1
+#         stops: [
+#           [0, colors[2]],
+#           [1, Highcharts.Color(colors[2]).setOpacity(0).get("rgba")]
+#         ]
+#     ]
 
 comments_chart = (Highcharts, data)->
   data = $('.comments-chart').data('stats')
