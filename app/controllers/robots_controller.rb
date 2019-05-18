@@ -10,7 +10,7 @@ class RobotsController < ShikimoriController
     if clean_host?
       shikimori_clean
     elsif ru_host?
-      redirect_to "#{Shikimori::PROTOCOL}://#{ShikimoriDomain::CLEAN_HOST}/robots.txt"
+      shikimori_ru
     else
       shikimori_en
     end
@@ -38,8 +38,8 @@ class RobotsController < ShikimoriController
       Disallow: /*undefined
       Disallow: /api/*
       Disallow: /*.html
-      Host: https://shikimori.org
-      Sitemap: https://shikimori.org/sitemap.xml
+      Host: https://shikimori.one
+      Sitemap: https://shikimori.one/sitemap.xml
 
       User-agent: AhrefsBot
       User-agent: moget

@@ -22,9 +22,8 @@ describe RobotsController do
     context 'not clean' do
       let(:is_clean) { false }
       it do
-        is_expected.to redirect_to(
-          "#{Shikimori::PROTOCOL}://#{ShikimoriDomain::CLEAN_HOST}/robots.txt"
-        )
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'text/plain'
       end
     end
   end
