@@ -15,6 +15,8 @@ class Abilities::Admin
     can :manage, User
     can :manage, ListImport
 
+    can :manage, Topic
+    can :manage, Comment
     can :manage, Message
     can :manage, Club
     can :manage, ClubPage
