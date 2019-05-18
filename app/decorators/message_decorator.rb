@@ -7,7 +7,7 @@ class MessageDecorator < BaseDecorator
 
   def image
     if anime_related?
-      anime.image.url :x48
+      ImageUrlGenerator.instance.url anime, :x48
     elsif club_broadcast?
       ImageUrlGenerator.instance.url linked.commentable.linked, :x48
     else
@@ -17,7 +17,7 @@ class MessageDecorator < BaseDecorator
 
   def image_2x
     if anime_related?
-      anime.image.url :x96
+      ImageUrlGenerator.instance.url anime, :x96
     elsif club_broadcast?
       ImageUrlGenerator.instance.url linked.commentable.linked, :x96
     else
@@ -25,7 +25,7 @@ class MessageDecorator < BaseDecorator
     end
   end
 
-  def url
+  def url # rubocop:disable AbcSize
     if kind == MessageType::EPISODE
       linked.linked.decorate.url
     elsif [MessageType::CONTEST_STARTED, MessageType::CONTEST_FINISHED].include? kind
@@ -52,6 +52,7 @@ class MessageDecorator < BaseDecorator
   def for_generated_news_topic?
     return false if linked_type.blank?
     return false unless linked.is_a?(Topic)
+
     Topic::TypePolicy.new(linked).generated_news_topic?
   end
 
