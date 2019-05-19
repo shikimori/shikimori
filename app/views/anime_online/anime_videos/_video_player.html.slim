@@ -43,9 +43,9 @@
             value=@player.current_episode
             data-href=@player.episode_url('EPISODE_NUMBER')
           ]
-          - unless @resource.id == 21 && @player.current_episode.in?(861..910)
-            .video-link
-              a href=@video.url target='_blank' прямая ссылка
+          / - unless @resource.id == 21 && @player.current_episode.in?(861..910)
+          .video-link
+            a href=@video.url target='_blank' прямая ссылка
         a.c-control.next href=@player.next_url
           .icon
           .label Следующий
