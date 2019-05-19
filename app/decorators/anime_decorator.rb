@@ -85,7 +85,7 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def licensed?
-    false
+    [23273, 28069, 28999, 31553].include?(id)
     # # if h.current_user&.video_moderator? ||
     # #     h.current_user&.trusted_video_uploader?
     # #   return false
