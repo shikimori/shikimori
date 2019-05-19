@@ -38,7 +38,7 @@
             .b-nothing_here Нет видео
 
       .c-anime_video_episodes
-        - cache [@player.cache_key, :all_episodes], expires_in: 2.weeks do
+        - cache [@player.cache_key, :all_episodes, :v2], expires_in: 2.weeks do
           .title Эпизоды
           - if @player.anime_video_episodes.any?
             = render partial: 'anime_online/anime_videos/anime_video_episode',
