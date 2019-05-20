@@ -21,8 +21,8 @@ Apipie.configure do |config|
   app_info = <<~MARKDOWN
     ## Welcome to Shikimori API #{version_placeholder}
     This API has two versions:
-      [**v2**](https://shikimori.org/api/doc/2.0.html) and
-      [**v1**](https://shikimori.org/api/doc/1.0.html).
+      [**v2**](/api/doc/2.0.html) and
+      [**v1**](/api/doc/1.0.html).
       `v2` consists of newly updated methods.
       Prefer using `v2` over `v1` when it is possible.
 
