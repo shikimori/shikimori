@@ -11,6 +11,10 @@ class MangaDecorator < AniMangaDecorator
     []
   end
 
+  def licensed?
+    true
+  end
+
   # тип элемента для schema.org
   def itemtype
     'http://schema.org/CreativeWork'
