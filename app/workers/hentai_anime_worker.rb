@@ -1,2 +1,0 @@
-class HentaiAnimeWorker < FindAnimeWorker
-end
