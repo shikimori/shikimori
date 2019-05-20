@@ -38,15 +38,9 @@ private
 
   def generate_report anime_id, episode
     anime = Anime.find anime_id
-    episode_url = UrlGenerator.instance.play_video_online_index_url(
-      anime,
-      episode,
-      domain: AnimeOnlineDomain::HOST,
-      subdomain: false
-    )
 
     <<~BBCODE.squish
-      [url=#{episode_url}]Episode ##{episode}[/url] is uploaded
+      Episode ##{episode} is tracked
       for anime [anime=#{anime_id}] while in this anime
       there #{anime.episodes == 1 ? 'is' : 'are'} only
       #{anime.episodes} #{'episode'.pluralize anime.episodes}.

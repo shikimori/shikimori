@@ -55,7 +55,7 @@
     - if comment.user
       header
         span.linkeable[
-          data-href=(comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false))
+          data-href=(comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user))
         ]
           img[
             src=comment.user.avatar_url(48)
@@ -64,7 +64,7 @@
           ]
         .name-date
           a.name[
-            href=(comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false))
+            href=(comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user))
             itemprop='creator'
             tabindex="-1"
           ]

@@ -1,9 +1,0 @@
-.b-video_variant data-episode=anime_video_episode.episode
-  a href=@player.episode_url(anime_video_episode.episode)
-    / - if @resource.id == 21 && anime_video_episode.episode.in?(861..910)
-    /   span.episode-num = anime_video_episode.episode_text
-    /   |  Эпизод лицензирован в РФ
-    / - else
-    span.episode-num = anime_video_episode.episode_text
-    span.episode-kinds = anime_video_episode.kinds_text
-    span.episode-hostings = anime_video_episode.hostings_text

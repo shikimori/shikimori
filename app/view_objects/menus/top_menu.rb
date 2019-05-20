@@ -40,7 +40,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       name: :reviews,
       placement: :main,
       group: :community,
-      url: ->(h) { h.forum_topics_url :reviews, subdomain: false }
+      url: ->(h) { h.forum_topics_url :reviews }
     },
     # misc
     {
@@ -87,13 +87,13 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime', subdomain: false }
+      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'anime' }
     }, {
       name: :manga_list,
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga', subdomain: false }
+      url: ->(h) { h.profile_user_rates_url h.current_user, list_type: 'manga' }
     }, {
       name: :mail,
       placement: :profile,
@@ -105,13 +105,13 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.profile_achievements_url h.current_user, subdomain: false }
+      url: ->(h) { h.profile_achievements_url h.current_user }
     }, {
       name: :settings,
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.edit_profile_url h.current_user, page: :account, subdomain: false }
+      url: ->(h) { h.edit_profile_url h.current_user, page: :account }
     }, {
       name: :site_rules,
       placement: :profile,
@@ -235,7 +235,7 @@ private
       value
 
     elsif value.is_a? Symbol
-      h.send value, subdomain: false
+      h.send value
 
     else
       value.call h

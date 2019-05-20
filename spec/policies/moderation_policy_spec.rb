@@ -144,26 +144,4 @@ describe ModerationPolicy do
       it { expect(policy.videos_count).to eq 0 }
     end
   end
-
-  describe '#video_reports_count' do
-    before do
-      allow(AnimeVideoReport)
-        .to receive_message_chain(:pending, :size)
-        .and_return(video_reports_count)
-    end
-    let(:video_reports_count) { 1 }
-    let(:user) { build :user, :video_moderator }
-
-    it { expect(policy.video_reports_count).to eq 1 }
-
-    context 'not moderator' do
-      let(:user) { build :user, :user }
-      it { expect(policy.video_reports_count).to eq 0 }
-    end
-
-    context 'no user' do
-      let(:user) { nil }
-      it { expect(policy.video_reports_count).to eq 0 }
-    end
-  end
 end

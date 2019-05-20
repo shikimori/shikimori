@@ -181,8 +181,6 @@ ru:
   moderations_controller: &moderations_controller
     title: Модерация и контент
     missing_screenshots_title: Аниме без кадров
-    missing_videos_title: Отсутствующие видео
-    missing_videos: :moderations.missing_videos
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller
@@ -376,9 +374,6 @@ ru:
       manga: Сравнение списка манги %{user_1} и %{user_2}
     fetch_users_alert:
       Невозможно сравнить списки - пользователь %{user} не найден
-
-  anime_online/anime_videos_controller:
-    <<: *animes_controller
 
   users/omniauth_callbacks_controller:
     already_linked: >-

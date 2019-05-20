@@ -8,7 +8,7 @@ class GeoipAccess
   include Singleton
 
   # User.pluck(:last_sign_in_ip).uniq.map {|v| %x{geoiplookup #{v}}.fix_encoding[/GeoIP Country Edition: .*/] }.group_by {|v| v }.sort_by {|k,v| v.size }.each_with_object({}) {|(k,v),memo| memo[k] = v.size }
-  ANIME_ONLINE_ALLOWED_COUNTRIES = Set.new [
+  SNG_COUNTRIES = Set.new [
     'RU', # Russian Federation
     'UA', # Ukraine
     'BY', # Belarus
@@ -21,24 +21,12 @@ class GeoipAccess
     'UZ', # Uzbekistan
     'LT', # Lithuania
     'RO', # Romania
-    'TJ', # Tajikistan
+    'TJ' # Tajikistan
   ]
   HZ = 'hz'
 
-  WAKANIM_FORBIDDEN_COUNTRIES = Set.new [
-    HZ,
-    'RU',
-    'JP',
-    'FR'
-  ]
-
-  def anime_online_allowed? ip
-    ANIME_ONLINE_ALLOWED_COUNTRIES.include? country_code(ip)
-  end
-
-  def wakanim_allowed? _ip
-    false
-    # !WAKANIM_FORBIDDEN_COUNTRIES.include? country_code(ip)
+  def sng? ip
+    SNG_COUNTRIES.include? country_code(ip)
   end
 
   def safe_ip ip

@@ -35,10 +35,4 @@ class ModerationPolicy
 
     Version.pending_videos.size
   end
-
-  def video_reports_count
-    return 0 unless !@moderation_filter || @user&.video_moderator?
-
-    AnimeVideoReport.pending.size
-  end
 end

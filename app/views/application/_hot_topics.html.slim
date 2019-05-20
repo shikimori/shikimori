@@ -33,14 +33,6 @@
       ]
         = "#{t '.video'}: #{layout.moderation_policy.videos_count}"
 
-  - unless layout.moderation_policy.video_reports_count.zero?
-    - unless current_user.admin? && layout.moderation_policy.video_reports_count < 100
-      a.b-link.b-tooltipped.unprocessed.moderation[
-        href=moderations_anime_video_reports_url
-        data-direction='bottom'
-      ]
-        = "#{t '.video'}: #{layout.moderation_policy.video_reports_count}"
-
   - cache :hot_topics, expires_in: 10.minutes do
     - layout.hot_topics.each do |topic_view|
       a.b-link[

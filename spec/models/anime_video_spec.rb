@@ -108,16 +108,16 @@ describe AnimeVideo do
         let(:anime_video) { build :anime_video, author_name: author_name }
         subject! { anime_video.save }
 
-        context 'copyrighted' do
-          # let(:author_name) { %w[wakanim crunchyroll].sample }
-          let(:author_name) { 'wakanim' }
-          it do
-            is_expected.to eq false
-            expect(anime_video.errors[:base]).to eq [
-              'Видео этого автора не могут быть загружены на сайт'
-            ]
-          end
-        end
+        # context 'copyrighted' do
+        #   # let(:author_name) { %w[wakanim crunchyroll].sample }
+        #   let(:author_name) { 'wakanim' }
+        #   it do
+        #     is_expected.to eq false
+        #     expect(anime_video.errors[:base]).to eq [
+        #       'Видео этого автора не могут быть загружены на сайт'
+        #     ]
+        #   end
+        # end
 
         context 'not copyrighted' do
           let(:author_name) { 'zzz' }

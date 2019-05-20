@@ -10,6 +10,6 @@ module ShikimoriDomain
   HOSTS = RU_HOSTS + EN_HOSTS
 
   def self.matches? request
-    !AnimeOnlineDomain.matches?(request)
+    HOSTS.include? request.host
   end
 end

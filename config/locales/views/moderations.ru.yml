@@ -7,13 +7,11 @@ ru:
       missing_anime_descriptions: Аниме без описаний
       missing_manga_descriptions: Манга без описаний
       missing_screenshots: Аниме без кадров
-      missing_videos: Отсутствующие видео
       moderation: Модерация
       reviews_journal: Журнал рецензий
       collections_journal: Журнал коллекций
       anime_video_authors: Авторы видео
       forums: Форумы
-      uploaded_videos_journal: Журнал видео
 
     missing_screenshots:
       animes: Аниме
@@ -21,35 +19,6 @@ ru:
         - Здесь отображены %{limit} наиболее популярных аниме,
           у которых отсутствуют кадры.
         - Отображённый список кешируется сайтом. Обновляется раз в час.
-
-    missing_videos:
-      video_types: Типы видео
-      videos: Видео
-      all: Любые видео
-      vk: vk.com видео
-      vk_subbed: vk.com с субтитрами
-      vk_dubbed: vk.com с озвучкой
-      subbed: С субтитрами
-      dubbed: С озвучкой
-      notices:
-        - Здесь отображены %{limit} наиболее популярных аниме,
-          у которых пропущены видео.
-        - По клику на аниме отображается подробная информация о
-          пропущенных видео.
-        - Отображённый список кешируется сайтом. Обновляется раз в час.
-        - Иногда может показывать, что присутствуют только 1-3 серии из 13-26,
-          в таком случае это, скорее всего, означает что присутствующие серии
-          не от того аниме (ошибочно автоматически были импортированы не от
-          того аниме с другого сайта). Подобные неправильные серии нужно удалить.
-
-    anime_video_reports:
-      index:
-        expand_all: :moderations.bans.index.expand_all
-        queue: :moderations.bans.index.queue
-        history: :moderations.bans.index.history
-      anime_video_report:
-        show: показать
-        show_changes: показать правку
 
     abuse_requests:
       index:

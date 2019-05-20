@@ -1,8 +1,7 @@
 module AniMangaDecorator::UrlHelpers
   def tooltip_url minified = false
     h.send "tooltip_#{klass_lower}_url", object,
-      minified: minified ? :minified : nil,
-      subdomain: false
+      minified: minified ? :minified : nil
   end
 
   def stats_url
@@ -54,23 +53,22 @@ module AniMangaDecorator::UrlHelpers
   end
 
   def favoured_url
-    h.send "favoured_#{klass_lower}_url", object, subdomain: false
+    h.send "favoured_#{klass_lower}_url", object
   end
 
   def clubs_url
-    h.send "clubs_#{klass_lower}_url", object, subdomain: false
+    h.send "clubs_#{klass_lower}_url", object
   end
 
   def coub_url
-    h.send "coub_#{klass_lower}_url", object, subdomain: false
+    h.send "coub_#{klass_lower}_url", object
   end
 
   def collections_url page: nil
     h.send(
       "collections_#{klass_lower}_url",
       object,
-      page: page,
-      subdomain: false
+      page: page
     )
   end
 
@@ -89,7 +87,7 @@ module AniMangaDecorator::UrlHelpers
   def collection_url params = {}
     h.send(
       "#{klass_lower.pluralize}_collection_url",
-      params.merge(subdomain: false)
+      params
     )
   end
 
@@ -123,23 +121,5 @@ module AniMangaDecorator::UrlHelpers
 
   def summaries_url
     h.send "summaries_#{klass_lower}_url", object
-  end
-
-  def video_online_url
-    h.play_video_online_index_url object,
-      episode: 1, domain: AnimeOnlineDomain::HOST, subdomain: false
-  end
-
-  def upload_first_video_online_url
-    h.new_video_online_url(
-      object,
-      'anime_video[anime_id]' => id,
-      'anime_video[source]' => Shikimori::DOMAIN,
-      'anime_video[state]' => 'uploaded',
-      'anime_video[kind]' => 'fandub',
-      'anime_video[episode]' => 1,
-      domain: AnimeOnlineDomain::HOST,
-      subdomain: false
-    )
   end
 end

@@ -9,7 +9,6 @@ production:
 
 :queues:
   - [achievements, 6]
-  - [anime_online_parsers, 5]
   - [default, 5]
   - [cpu_intensive, 5]
   - [high_priority, 8]
@@ -23,7 +22,6 @@ production:
 
 :limits:
   achievement: 10
-  anime_online_parsers: 1
   cpu_intensive: 2
   imports: 2
   mal_parsers: 50

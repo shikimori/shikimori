@@ -36,26 +36,6 @@ class ModerationsController < ShikimoriController
     end
   end
 
-  def missing_videos # rubocop:disable AbcSize
-    og page_title: i18n_t('missing_videos_title')
-
-    if params[:kind]
-      breadcrumb i18n_t('missing_videos_title'), missing_videos_moderations_url
-      og page_title: i18n_t("missing_videos.#{params[:kind]}")
-
-      @collection = Rails.cache.fetch [:missing_videos, params[:kind], :v4], expires_in: 1.hour do
-        Moderation::MissingVideosQuery.new(params[:kind]).animes
-      end
-    end
-  end
-
-  def missing_episodes
-    @anime = Anime.find(
-      CopyrightedIds.instance.restore(params[:anime_id], 'anime')
-    )
-    @episodes = Moderation::MissingVideosQuery.new(params[:kind]).episodes @anime
-  end
-
 private
 
   def abuse_requests_stats

@@ -31,14 +31,6 @@ header.head
 
       - if ru_host?
         li
-          a.b-link[
-            href=moderations_anime_video_reports_url
-            title=t('.uploaded_videos_journal')
-          ]
-            = t '.uploaded_videos_journal'
-            span.size = @moderation_policy.video_reports_count
-
-        li
           a[
             href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[:anime_video])
             title=t('moderations/versions_controller.video_changes')
@@ -85,20 +77,6 @@ header.head
               href=missing_screenshots_moderations_url
               title=t('.missing_screenshots')
             ] = t '.missing_screenshots'
-          li
-            a.b-link[
-              href=missing_videos_moderations_url
-              title=t('.missing_videos')
-            ] = t '.missing_videos'
-
-      - if can? :edit, AnimeVideoAuthor
-        .block
-          ul.b-list
-            li
-              a.b-link[
-                href=moderations_anime_video_authors_url
-                title=t('.anime_video_authors')
-              ] = t '.anime_video_authors'
 
       .block
         ul.b-list

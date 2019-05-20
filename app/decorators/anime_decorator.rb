@@ -16,7 +16,7 @@ class AnimeDecorator < AniMangaDecorator
   # скриншоты
   def screenshots limit = nil
     return [] if Copyright::SCREENSHOTS.include?(id)
-    return [] unless h.ignore_copyright?
+    # return [] unless h.ignore_copyright?
     return [] unless display_sensitive?
 
     # return [] if forbidden?
@@ -33,7 +33,7 @@ class AnimeDecorator < AniMangaDecorator
   # видео
   def videos limit = nil
     return [] if Copyright::VIDEOS.include?(id)
-    return [] unless h.ignore_copyright?
+    # return [] unless h.ignore_copyright?
 
     # return [] if forbidden?
 
@@ -85,18 +85,7 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def licensed?
-    [23273, 28069, 28999, 31553].include?(id)
-    # # if h.current_user&.video_moderator? ||
-    # #     h.current_user&.trusted_video_uploader?
-    # #   return false
-    # # end
-
-    # Copyright::OTHER_COPYRIGHTED.include?(id) ||
-    #   Copyright::WAKANIM_COPYRIGHTED.include?(id)
-    # # || (
-    #   # Copyright::WAKANIM_COPYRIGHTED.include?(id) &&
-    #   # !GeoipAccess.instance.wakanim_allowed?(h.request.remote_ip)
-    # # )
+    Copyright::COPYRIGHTED.include?(id)
   end
 
 private

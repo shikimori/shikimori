@@ -158,24 +158,6 @@ class Api::V1::UsersController < Api::V1Controller
     respond_with @collection
   end
 
-  api :GET, '/users/:id/anime_video_reports'
-  param :page, :pagination, required: false
-  param :limit, :pagination,
-    required: false,
-    desc: "#{ANIME_VIDEO_REPORTS_LIMIT} maximum"
-  def anime_video_reports
-    @limit = [[params[:limit].to_i, 1].max, ANIME_VIDEO_REPORTS_LIMIT].min
-
-    scope = AnimeVideoReport
-      .where(user: user)
-      .includes(:user, :approver, anime_video: :author)
-      .order(id: :desc)
-
-    @collection = QueryObjectBase.new(scope).paginate(@page, @limit)
-
-    respond_with @collection.to_a
-  end
-
   def csrf_token
     if current_user&.admin?
       render json: {

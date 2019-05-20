@@ -128,7 +128,6 @@ describe LayoutView do
           ignored_users: [ignored_user.id],
           is_day_registered: false,
           is_week_registered: false,
-          is_ignore_copyright: true,
           is_comments_auto_collapsed: true,
           is_comments_auto_loaded: true
         )
@@ -147,7 +146,6 @@ describe LayoutView do
           ignored_users: [],
           is_day_registered: false,
           is_week_registered: false,
-          is_ignore_copyright: true,
           is_comments_auto_collapsed: true,
           is_comments_auto_loaded: false
         )

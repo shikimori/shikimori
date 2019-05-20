@@ -8,7 +8,6 @@ pageLoad 'animes_show', 'mangas_show', 'ranobe_show', ->
   $('.text').checkHeight max_height: 200
 
   new FavoriteStar $('.b-subposter-actions .fav-add'), gon.is_favoured
-  new Animes.WathOnlineButton $('.watch-online-placeholer'), gon.watch_online
 
   $new_review = $('.new_review')
   if window.SHIKI_USER.isSignedIn

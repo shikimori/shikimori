@@ -54,11 +54,11 @@ private
   end
 
   def entry_url entry
-    UrlGenerator.instance.send :"#{name}_url", entry, subdomain: false
+    UrlGenerator.instance.send :"#{name}_url", entry
   end
 
   def tooltip_url entry
-    UrlGenerator.instance.send :"tooltip_#{name}_url", entry, subdomain: false
+    UrlGenerator.instance.send :"tooltip_#{name}_url", entry
   end
 
   def localization_span entry

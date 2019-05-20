@@ -8,8 +8,7 @@ class ClubDecorator < DbEntryDecorator
   FORUM_TOPICS = 4
 
   def url
-    # need to disable subdomain because it is used in StickyClubView
-    h.club_url object, subdomain: false
+    h.club_url object
   end
 
   def new_topic_url

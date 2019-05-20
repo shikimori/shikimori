@@ -90,14 +90,14 @@ module Copyright
     35540, # Slow Start | Russia + Europe - 2018-01-01 - 2025-01-01
     37349, # Goblin Slayer | Russia - 2018-10-01 - 2022-09-30
     31646, # March comes in like a lion | Russia + Europe - 2017-07-01 - 2024-07-01
-    # 37675, # Overlord III
-    # 37140, # GeGeGe no Kitaro
-    # 36726, # Yuuna and the Haunted Hot Springs
-    # 36023, # PERSONA5 the Animation
-    # 36475, # SWORD ART ONLINE ALTERNATIVE «GUN GALE ONLINE»
-    # 25537, # Fate/stay night: Heaven's Feel I. presage flower
-    # 37141, # Cells at Work (TV)
-    # 35840 # Cells at Work
+    37675, # ? Overlord III
+    37140, # ? GeGeGe no Kitaro
+    36726, # ? Yuuna and the Haunted Hot Springs
+    36023, # ? PERSONA5 the Animation
+    36475, # ? SWORD ART ONLINE ALTERNATIVE «GUN GALE ONLINE»
+    25537, # ? Fate/stay night: Heaven's Feel I. presage flower
+    37141, # ? Cells at Work (TV)
+    35840, # ? Cells at Work
     37979, # Magical Girl Spec-Ops Asuka | Russia + French - 2018-04-01 - 2022-04-01
     37451, # Boogiepop wa Warawanai (2019) | Russia + French - 2018-04-01 - 2022-04-01
     36633, # Date A Live III | Russia + French - 2018-04-01 - 2022-04-01
@@ -106,4 +106,6 @@ module Copyright
     37999, # Kaguya-sama wa Kokurasetai | Russia and Russian speaking territories + French and French speaking territories - 2019-01-01 - 2023-01-01
     37779, # The Promised Neverland | Russia and Russian speaking territories + French and French speaking territories - 2019-01-01 - 2026-01-01
   ]
+
+  COPYRIGHTED = OTHER_COPYRIGHTED + WAKANIM_COPYRIGHTED
 end

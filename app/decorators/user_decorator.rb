@@ -16,8 +16,7 @@ class UserDecorator < BaseDecorator
 
   def url
     h.profile_url(
-      will_save_change_to_nickname? ? to_param(changes['nickname'][0]) : self,
-      subdomain: false
+      will_save_change_to_nickname? ? to_param(changes['nickname'][0]) : self
     )
   end
 
@@ -76,11 +75,11 @@ class UserDecorator < BaseDecorator
 
   def unread_messages_url
     if unread_messages > 0 || (unread_news == 0 && unread_notifications == 0)
-      h.profile_dialogs_url object, subdomain: false
+      h.profile_dialogs_url object
     elsif unread_news > 0
-      h.index_profile_messages_url object, messages_type: :news, subdomain: false
+      h.index_profile_messages_url object, messages_type: :news
     else
-      h.index_profile_messages_url object, messages_type: :notifications, subdomain: false
+      h.index_profile_messages_url object, messages_type: :notifications
     end
   end
 

@@ -97,7 +97,7 @@ class AniMangaDecorator < DbEntryDecorator
 
   # показывать ли ссылки, если аниме или манга для взрослых?
   def display_sensitive?
-    !object.censored? && h.ignore_copyright?
+    !object.censored? && !licensed?
   end
 
   # есть ли видео для просмотра онлайн?

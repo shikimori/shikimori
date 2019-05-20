@@ -6,12 +6,12 @@
     .info
       .image-name
         a.name[
-          href=profile_url(user, subdomain: false)
+          href=profile_url(user)
           title=user.nickname
         ] = user.nickname
 
         a[
-          href=profile_url(user, subdomain: false)
+          href=profile_url(user)
           title=user.nickname
         ]
           img.image[
@@ -43,7 +43,7 @@
 
   - elsif content_by == :avatar || content_by == :avatar_fixed_margin
     a.avatar[
-      href=profile_url(user, subdomain: false)
+      href=profile_url(user)
       title=user.nickname
     ]
       img[
@@ -54,7 +54,7 @@
 
   - elsif content_by == :named_avatar
     a.avatar[
-      href=profile_url(user, subdomain: false)
+      href=profile_url(user)
       title=user.nickname
     ]
       img[
@@ -63,7 +63,7 @@
         alt=user.nickname
       ]
     a.name[
-      href=profile_url(user, subdomain: false)
+      href=profile_url(user)
       title=user.nickname
     ] = user.nickname
 
@@ -71,12 +71,12 @@
     .info
       .image-name
         a.name[
-          href=profile_url(user, subdomain: false)
+          href=profile_url(user)
           title=user.nickname
         ] = user.nickname
 
         a[
-          href=profile_url(user, subdomain: false)
+          href=profile_url(user)
           title=user.nickname
         ]
           img.image[

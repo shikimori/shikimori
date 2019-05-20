@@ -101,18 +101,13 @@ title = og.meta_title
   = stylesheet_pack_tag 'vendor', media: 'all', data: { 'turbolinks-track' => 'reload'  }
   = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => 'reload' }
 
-  - if anime_online?
-    = stylesheet_link_tag 'anime_online/application', media: 'all', data: { 'turbolinks-track' => 'reload' }
-
   = yield :head
 
   = javascript_pack_tag 'vendor', data: { 'turbolinks-track' => 'reload' }
   = javascript_pack_tag 'application', data: { 'turbolinks-track' => 'reload' }
 
   - if Rails.env.production?
-    - if anime_online?
-      = render partial: 'application/counters/anime_online'
-    - elsif clean_host?
+    - if clean_host?
       = render partial: 'application/counters/shikimori_one'
     - elsif ru_host?
       = render partial: 'application/counters/shikimori_org'

@@ -5,7 +5,7 @@
   - if content_by == :detailed
     - comments_count = club.maybe_topic(locale_from_host).comments_count
     a.name-logo[
-      href=club_url(club, subdomain: false)
+      href=club_url(club)
       title=club.name
     ]
       img.logo[
@@ -42,7 +42,7 @@
 
   - elsif content_by == :avatar
     a[
-      href=club_url(club, subdomain: false)
+      href=club_url(club)
       title=club.name
     ]
       img.logo[

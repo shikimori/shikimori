@@ -124,23 +124,20 @@
     - if ru_host? && @resource.stats.video_uploads_count.positive?
       .c-column
         .subheadline
-          a href=video_uploads_profile_url(@resource)
-            = i18n_io 'Video_upload', :few
+          = i18n_io 'Video_upload', :few
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.stats.video_uploads_count
 
     - if ru_host? && @resource.stats.video_versions_count.positive?
       .c-column
         .subheadline
-          a href=video_versions_profile_url(@resource)
-            = i18n_io 'Video_change', :few
+          = i18n_io 'Video_change', :few
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.stats.video_versions_count
 
     - if ru_host? && @resource.stats.video_reports_count.positive?
       .c-column
         .subheadline
-          a href=video_reports_profile_url(@resource)
-            = i18n_io 'Video_report', :few
+          = i18n_io 'Video_report', :few
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.stats.video_reports_count

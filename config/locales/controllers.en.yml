@@ -181,8 +181,6 @@ en:
   moderations_controller: &moderations_controller
     title: Moderation and content
     missing_screenshots_title: Missing screenshots
-    missing_videos_title: Missing videos
-    missing_videos: :moderations.missing_videos
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller
@@ -376,9 +374,6 @@ en:
       manga: Manga list comparison of users %{user_1} and %{user_2}
     fetch_users_alert:
       Cannot compare user's lists - user %{user} not found
-
-  anime_online/anime_videos_controller:
-    <<: *animes_controller
 
   users/omniauth_callbacks_controller:
     already_linked: >-

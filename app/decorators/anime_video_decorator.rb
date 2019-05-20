@@ -55,16 +55,6 @@ class AnimeVideoDecorator < BaseDecorator
     url
   end
 
-  def video_url
-    h.play_video_online_index_url(
-      anime,
-      episode,
-      id,
-      domain: AnimeOnlineDomain.host(anime),
-      subdomain: false
-    )
-  end
-
   def in_list?
     user_rate.present?
   end
@@ -77,21 +67,6 @@ class AnimeVideoDecorator < BaseDecorator
     @user_rate ||= if h.user_signed_in?
       h.current_user.anime_rates.where(target_id: anime_id, target_type: Anime.name).first
     end
-  end
-
-  def add_to_list_url
-    h.api_user_rates_path(
-      'user_rate[episodes]' => 0,
-      'user_rate[score]' => 0,
-      'user_rate[status]' => :planned,
-      'user_rate[target_id]' => anime.id,
-      'user_rate[target_type]' => anime.class.name,
-      'user_rate[user_id]' => h.current_user.id
-    )
-  end
-
-  def viewed_url
-    h.viewed_video_online_url(anime, id)
   end
 
   def sort_criteria

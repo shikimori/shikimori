@@ -86,14 +86,14 @@ RSpec.configure do |config|
         .to receive(:default_url_options)
         .and_return ApplicationController.default_url_options
     end
-    allow(GeoipAccess.instance)
-      .to receive(:anime_online_allowed?)
-      .with('0.0.0.0')
-      .and_return true
-    allow(GeoipAccess.instance)
-      .to receive(:anime_online_allowed?)
-      .with('127.0.0.1')
-      .and_return true
+    # allow(GeoipAccess.instance)
+    #   .to receive(:sng?)
+    #   .with('0.0.0.0')
+    #   .and_return true
+    # allow(GeoipAccess.instance)
+    #   .to receive(:sng?)
+    #   .with('127.0.0.1')
+    #   .and_return true
 
     Forum.instance_variable_set '@cached', nil
 

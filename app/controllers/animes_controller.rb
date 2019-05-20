@@ -73,7 +73,7 @@ class AnimesController < DbEntriesController
   end
 
   def screenshots
-    unless @resource.screenshots.any? && user_signed_in? && ignore_copyright?
+    unless @resource.screenshots.any? && user_signed_in? # && ignore_copyright?
       return redirect_to @resource.url, status: 301
     end
 
@@ -82,7 +82,7 @@ class AnimesController < DbEntriesController
   end
 
   def videos
-    unless @resource.videos.any? && user_signed_in? && ignore_copyright?
+    unless @resource.videos.any? && user_signed_in? # && ignore_copyright?
       return redirect_to @resource.url, status: 301
     end
 
@@ -265,8 +265,8 @@ private
     end
 
     if @resource
-      # все страницы, кроме animes#show
-      if (params[:action] != 'show' || params[:controller] == 'reviews')
+      # everything except animes#show
+      if params[:action] != 'show' || params[:controller] == 'reviews'
         breadcrumb(
           UsersHelper.localized_name(@resource, current_user),
           @resource.url(false)
@@ -282,18 +282,5 @@ private
 
   def js_export
     gon.push is_favoured: @resource.favoured?
-
-    if @resource.anime?
-      gon.push watch_online: {
-        is_allowed: ignore_copyright?,
-        is_licensed: @resource.licensed?,
-        is_censored: @resource.censored? || @resource.forbidden?,
-        has_videos: @resource.anime_videos?,
-        watch_url: @resource.video_online_url,
-        upload_url: @resource.upload_first_video_online_url
-      }
-    else
-      gon.push watch_online: { is_allowed: false }
-    end
   end
 end

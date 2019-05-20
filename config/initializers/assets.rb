@@ -16,7 +16,6 @@ Rails.application.config.assets.paths << Rails.root.join('app/assets/fonts')
 
 Rails.application.config.assets.precompile += %w[
   application.css
-  anime_online/application.css
   pghero/favicon.png
   page503.css
   page404.css

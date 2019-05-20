@@ -1,2 +1,0 @@
-class AnimeSpiritWorker < FindAnimeWorker
-end

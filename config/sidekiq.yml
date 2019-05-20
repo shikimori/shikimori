@@ -17,8 +17,6 @@ production:
   - [slow_parsers, 5]
   - [torrents_parsers, 5]
   # - [mal_parsers, 3]
-  - [anime_online_parsers, 5]
-  - [manga_online_parsers, 5]
   - [webm_thumbnails, 5]
   - [history_jobs, 5]
   - [low_priority, 1]
@@ -31,8 +29,6 @@ production:
   cpu_intensive: 2
   slow_parsers: 2
   torrents_parsers: 1
-  anime_online_parsers: 1
-  manga_online_parsers: 1
   webm_thumbnails: 1
   history_jobs: 1
   # mal_parsers: 50

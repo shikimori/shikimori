@@ -226,23 +226,4 @@ describe Api::V1::UsersController, :show_in_doc do
       expect(response).to have_http_status :success
     end
   end
-
-  describe '#anime_video_reports' do
-    let!(:anime_video_report) { create :anime_video_report, user: user, anime_video: anime_video }
-    let(:anime_video) { create :anime_video }
-    subject! do
-      get :anime_video_reports,
-        params: {
-          id: user.id,
-          page: 1,
-          limit: 1
-        },
-        format: :json
-    end
-
-    it do
-      expect(collection).to have(1).item
-      expect(response).to have_http_status :success
-    end
-  end
 end

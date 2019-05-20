@@ -7,13 +7,11 @@ en:
       missing_anime_descriptions: Animes w/o description
       missing_manga_descriptions: Mangas w/o description
       missing_screenshots: Animes w/o screenshots
-      missing_videos: Missing videos
       moderation: Moderation
       reviews_journal: Reviews journal
       collections_journal: Collections journal
       anime_video_authors: Anime video authors
       forums: Forums
-      uploaded_videos_journal: Uploaded videos journal
 
     missing_screenshots:
       animes: Animes
@@ -21,35 +19,6 @@ en:
         - This is the list of top %{limit} most popular animes
           with missing screenshots.
         - The list is cached by the site and refreshed once per hour.
-
-    missing_videos:
-      video_types: Video types
-      videos: Videos
-      all: Any missing videos
-      vk: vk.com videos
-      vk_subbed: vk.com videos with subtitles
-      vk_dubbed: vk.com dubbed videos
-      subbed: Videos with subtitles
-      dubbed: Dubbed videos
-      notices:
-        - This is the list of top %{limit} most popular animes with
-          missing videos.
-        - You can get detailed information about missing video by clicking
-          corresponding anime in the list.
-        - The list is cached by the site and refreshed once per hour.
-        - Sometimes only 1-3 episodes of 13-26 ones are shown as available -
-          most likely this means that available episodes are from another
-          anime (they have been imported from another site automatically
-          by mistake). Such episodes should be deleted.
-
-    anime_video_reports:
-      index:
-        expand_all: :moderations.bans.index.expand_all
-        queue: :moderations.bans.index.queue
-        history: :moderations.bans.index.history
-      anime_video_report:
-        show: show
-        show_changes: show details
 
     abuse_requests:
       index:

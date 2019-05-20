@@ -230,7 +230,7 @@ module CommentHelper
             title = $2.nil? ? entry.name : $3
 
             additional = if preloader
-              preloader_url = send(preloader, (entry.kind_of?(AnimeVideo) ? entry.anime : entry), subdomain: false)
+              preloader_url = send preloader, (entry.kind_of?(AnimeVideo) ? entry.anime : entry)
               " class=\"bubbled b-link\" data-tooltip_url=\"#{preloader_url}\""
             else
               " class=\"b-link\""

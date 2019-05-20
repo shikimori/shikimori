@@ -15,7 +15,7 @@
 
     .b-list style="margin-left: 5px"
       li: a.b-link[
-        href=send(:"recommendations_favourites_#{menu.klass.name.downcase}_url", subdomain: false)
+        href=send(:"recommendations_favourites_#{menu.klass.name.downcase}_url")
       ] = t "dashboards.#{menu.klass.table_name}.recommended.favourite"
 
       - if menu.anime?
@@ -25,7 +25,7 @@
 
       - unless menu.ranobe?
         li: a.b-link[
-          href=recommendations_url(klass: menu.klass.name.downcase, subdomain: false)
+          href=recommendations_url(klass: menu.klass.name.downcase)
         ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
   - unless %w[user_rates userlist_comparer].include? params[:controller]
@@ -161,5 +161,5 @@
               span.b-question.mobile.bubbled[
                 title=genre.description
                 data-predelay='150'
-                data-href=tooltip_moderations_genre_url(genre, subdomain: false)
+                data-href=tooltip_moderations_genre_url(genre)
               ]

@@ -8,20 +8,20 @@ article.c-column.b-catalog_entry.c-character[
   itemscope itemtype="http://schema.org/Person"
 ]
   meta[
-    itemprop="image"
+    itemprop='image'
     content="#{{meta_image_url character.image, :original, false}}"
   ]
   meta[
-    itemprop="thumbnailUrl"
+    itemprop='thumbnailUrl'
     content="#{{meta_image_url character.image, :x48, false}}"
   ]
 
   a.cover[
     class=('anime-tooltip' if content_by == :tooltip)
     href=character_url(character)
-    data-delay="150"
+    data-delay='150'
     data-predelay=(tooltip_predelay if defined? tooltip_predelay)
-    data-tooltip_url=tooltip_character_url(character, subdomain: false)
+    data-tooltip_url=tooltip_character_url(character)
   ]
     span.image-decor
       span.image-cutter
@@ -33,7 +33,7 @@ article.c-column.b-catalog_entry.c-character[
 
     - if cover_title != :none
       - if cover_by == :link
-        span.title.two_lined itemprop="name"
+        span.title.two_lined itemprop='name'
           = localization_span character
 
   - unless content_by == :tooltip || content_by == :none

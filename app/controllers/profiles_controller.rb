@@ -144,45 +144,6 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .transform(&:decorate)
   end
 
-  def video_versions
-    og noindex: true
-    og page_title: i18n_io('Video_change', :few)
-
-    scope = @resource.versions
-      .where(item_type: AnimeVideo.name)
-      .order(id: :desc)
-
-    @collection = QueryObjectBase.new(scope)
-      .paginate(@page, VERSIONS_LIMIT)
-      .transform(&:decorate)
-  end
-
-  def video_uploads
-    og noindex: true
-    og page_title: i18n_io('Video_upload', :few)
-
-    scope = AnimeVideoReport
-      .where(user: @resource.object)
-      .where(kind: :uploaded)
-      .includes(:user, anime_video: :author)
-      .order(id: :desc)
-
-    @collection = QueryObjectBase.new(scope).paginate(@page, VERSIONS_LIMIT)
-  end
-
-  def video_reports
-    og noindex: true
-    og page_title: i18n_io('Video_report', :few)
-
-    scope = AnimeVideoReport
-      .where(user: @resource.object)
-      .where.not(kind: :uploaded)
-      .includes(:user, anime_video: :author)
-      .order(id: :desc)
-
-    @collection = QueryObjectBase.new(scope).paginate(@page, VERSIONS_LIMIT)
-  end
-
   def moderation
     og noindex: true
     if can? :manage, Ban

@@ -33,7 +33,7 @@ module Routing
       db_entry_url topic.linked, options
 
     elsif topic.is_a?(User)
-      profile_url topic, options.merge(subdomain: false)
+      profile_url topic, options
 
     elsif topic_type_policy.any_club_topic?
       club =
@@ -46,8 +46,7 @@ module Routing
       club_club_topic_url options.merge(
         club_id: club.to_param,
         id: topic.to_param,
-        format: format,
-        subdomain: false
+        format: format
       )
 
     elsif topic_type_policy.not_generated_news_topic? ||
@@ -57,8 +56,7 @@ module Routing
         id: topic,
         forum: topic.forum,
         linked: nil,
-        format: format,
-        subdomain: false
+        format: format
       )
 
     else
@@ -67,8 +65,7 @@ module Routing
         forum: topic.forum,
         linked_type: topic.linked.class.name.underscore,
         linked_id: topic.linked.to_param,
-        format: format,
-        subdomain: false
+        format: format
       )
     end
   end

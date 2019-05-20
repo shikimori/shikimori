@@ -47,7 +47,6 @@ class LayoutView < ViewObjectBase
       ignored_users: user&.ignores&.pluck(:target_id) || [],
       is_day_registered: !!user&.day_registered?,
       is_week_registered: !!user&.week_registered?,
-      is_ignore_copyright: h.ignore_copyright?,
       is_comments_auto_collapsed: !h.user_signed_in? ||
         user&.preferences&.comments_auto_collapsed?,
       is_comments_auto_loaded: !!user&.preferences&.comments_auto_loaded?

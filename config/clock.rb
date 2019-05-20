@@ -25,16 +25,8 @@ module Clockwork
 
   every 1.hour, 'hourly', at: '**:45' do
     ProxyWorker.perform_async
-    # FindAnimeWorker.perform_async :last_3_entries
-    # AnimeSpiritWorker.perform_async :last_3_entries
     BadReviewsCleaner.perform_async
   end
-
-  # every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
-    # FindAnimeWorker.perform_async :last_15_entries
-    # HentaiAnimeWorker.perform_async :last_15_entries
-    # AnimeSpiritWorker.perform_async :two_pages
-  # end
 
   every 1.day, 'daily.stuff', at: '00:02' do
     ImportAnimeCalendars.perform_async
@@ -97,12 +89,9 @@ module Clockwork
     Anidb::ImportDescriptionsJob.perform_async
     Tags::CleanupImageboardsCacheJob.perform_async
     Tags::CleanupCoubCacheJob.perform_async
-    # FindAnimeWorker.perform_async :first_page
   end
 
   every 1.week, 'weekly.stuff.2', at: 'Monday 01:45' do
-    # FindAnimeWorker.perform_async :two_pages
-    # HentaiAnimeWorker.perform_async :first_page
     OldMessagesCleaner.perform_async
     OldNewsCleaner.perform_async
     UserImagesCleaner.perform_async

@@ -50,7 +50,7 @@
                   | &nbsp;&ndash;&nbsp;#{rate.score}
               .b-user16
                 a[
-                  href=profile_url(rate.user, subdomain: false)
+                  href=profile_url(rate.user)
                   title=rate.user.nickname
                 ]
                   img[
@@ -72,7 +72,7 @@
                       | &nbsp;&ndash;&nbsp;#{rate.score}
                   .b-user16
                     a[
-                      href=profile_url(rate.user, subdomain: false)
+                      href=profile_url(rate.user)
                       title=rate.user.nickname
                     ]
                       img[
@@ -113,7 +113,7 @@
         .block
           - resource.menu_collections.each do |collection|
             .b-menu-line
-              a.b-link href=collection_url(collection, subdomain: false)
+              a.b-link href=collection_url(collection)
                 = collection.name
 
     / - if resource.topic_views.any?
@@ -127,7 +127,7 @@
 
     - resource.news_topic_views.any?
       .b-menu-links.menu-topics-block.history.m30[
-        data-source_url=(episode_torrents_anime_url(resource, subdomain: false) if resource.display_sensitive? && !resource.licensed?)
+        data-source_url=(episode_torrents_anime_url(resource) if resource.display_sensitive? && !resource.licensed?)
       ]
         .subheadline = t 'news'
         .block

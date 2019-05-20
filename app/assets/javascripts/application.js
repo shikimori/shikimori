@@ -54,9 +54,6 @@ requireViews.keys().forEach(requireViews);
 const requirePages = require.context('pages', true);
 requirePages.keys().forEach(requirePages);
 
-const requireAnimeOnlinePages = require.context('anime_online/pages', true);
-requireAnimeOnlinePages.keys().forEach(requireAnimeOnlinePages);
-
 const requireBlocks = require.context('blocks', true);
 requireBlocks.keys().forEach(requireBlocks);
 

@@ -4,23 +4,23 @@
 
 .links
   a.terms[
-    href=terms_pages_url(subdomain: false)
+    href=terms_pages_url
     title=t('.terms')
-    tabindex="-1"
+    tabindex='-1'
   ] = t '.terms'
   a.privacy[
-    href=privacy_pages_url(subdomain: false)
+    href=privacy_pages_url
     title=t('.privacy')
-    tabindex="-1"
+    tabindex='-1'
   ] = t '.privacy'
   - if ru_host?
     a.for-right-holders[
-      href=for_right_holders_pages_url(subdomain: false)
+      href=for_right_holders_pages_url
       title=t('.for_right_holders')
-      tabindex="-1"
+      tabindex='-1'
     ] = t '.for_right_holders'
   a.sitemap[
-    href=sitemap_url(subdomain: false)
+    href=sitemap_url
     title=t('.sitemap')
-    tabindex="-1"
+    tabindex='-1'
   ] = t '.sitemap'

@@ -1,11 +1,4 @@
 class RobotsController < ShikimoriController
-  def anime_online
-    render plain: <<~ROBOTS
-      User-agent: *
-      Disallow: /
-    ROBOTS
-  end
-
   def shikimori
     if clean_host?
       shikimori_clean

@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   helper_method :adaptivity_class
   helper_method :turbolinks_request?
   helper_method :base_controller_names
-  helper_method :ignore_copyright?
+  # helper_method :ignore_copyright?
 
   helper_method :i18n_i, :i18n_io, :i18n_v
 
@@ -113,14 +113,14 @@ private
       params[:format] == 'json'
   end
 
-  def ignore_copyright?
-    !clean_host?
-    # ru_host? && !clean_host? && (
-    #   current_user&.day_registered? ||
-    #   GeoipAccess.instance.anime_online_allowed?(request.remote_ip) ||
-    #   Rails.env.development?
-    # )
-  end
+  # def ignore_copyright?
+  #   !clean_host?
+  #   # ru_host? && !clean_host? && (
+  #   #   current_user&.day_registered? ||
+  #   #   GeoipAccess.instance.anime_online_allowed?(request.remote_ip) ||
+  #   #   Rails.env.development?
+  #   # )
+  # end
 
   def faye_token
     request.headers['X-Faye-Token'] || params[:faye]

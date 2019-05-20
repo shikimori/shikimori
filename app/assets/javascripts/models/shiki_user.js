@@ -4,7 +4,6 @@ const PUBLIC_FIELDS = [
   'is_moderator',
   'is_day_registered',
   'is_week_registered',
-  'is_ignore_copyright',
   'is_comments_auto_collapsed',
   'is_comments_auto_loaded'
 ];

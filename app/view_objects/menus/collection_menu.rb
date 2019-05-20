@@ -2,7 +2,7 @@ class Menus::CollectionMenu < ViewObjectBase
   vattr_initialize :klass
 
   def url
-    h.send "menu_#{klass.name.tableize}_url", rating: h.params[:rating], subdomain: false
+    h.send "menu_#{klass.name.tableize}_url", rating: h.params[:rating]
   end
 
   def sorted_genres
@@ -23,6 +23,7 @@ class Menus::CollectionMenu < ViewObjectBase
 
   def kinds
     return [] if klass == Ranobe
+
     allowed_kinds.map { |kind| Titles::KindTitle.new kind, klass }
   end
 

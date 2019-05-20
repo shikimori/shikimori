@@ -192,14 +192,14 @@
           div[
             data-type='video_uploads'
           ]
-            a href=video_uploads_profile_url(@resource)
+            span
               = "#{@resource.stats.video_uploads_count} #{i18n_i 'video_upload', @resource.stats.video_uploads_count}"
 
         - if ru_host? && @resource.stats.video_changes_count.positive?
           div[
             data-type='video_changes'
           ]
-            a href=video_versions_profile_url(@resource)
+            span
               = "#{@resource.stats.video_changes_count} #{i18n_i 'video_change', @resource.stats.video_changes_count}"
 
         - if @resource.stats.comments_count.positive?
