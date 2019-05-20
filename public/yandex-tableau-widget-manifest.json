@@ -3,13 +3,13 @@
   "api_version": 1,
 
   "layout": {
-    "logo": "https://shikimori.org/assets/layouts/l-top_menu-v2/logo@2x.png",
+    "logo": "https://shikimori.one/assets/layouts/l-top_menu-v2/logo@2x.png",
     "color": "#111111",
     "show_title": false
   },
 
   "feed": {
-    "url": "https://shikimori.org/tableau",
+    "url": "https://shikimori.one/tableau",
     "format": "json",
     "notifiers": [
       {

@@ -14,7 +14,7 @@ class RecommendationsController < AnimesCollectionController
       'pearson_z' => [30, 150, 400, 750, 1250]
     }
   }
-  TOPIC_URL = '//shikimori.org/s/104346-spisok-otbornyh-i-vkusnyh-animeh'
+  TOPIC_URL = '//shikimori.one/s/104346-spisok-otbornyh-i-vkusnyh-animeh'
 
   def index
     @threshold = params[:threshold].to_i

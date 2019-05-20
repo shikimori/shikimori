@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-  <ShortName>shikimori.org</ShortName>
-  <Description>shikimori.org anime search</Description>
-  <Image height="16" width="16" type="image/x-icon">http://shikimori.org/favicon.ico</Image>
+  <ShortName>shikimori.one</ShortName>
+  <Description>shikimori.one anime search</Description>
+  <Image height="16" width="16" type="image/x-icon">https://shikimori.one/favicon.ico</Image>
   <Url type="text/html"
     method="get"
     rel="results"
-    template="http://shikimori.org/animes?search={searchTerms}"/>
+    template="https://shikimori.one/animes?search={searchTerms}"/>
   <Url type="application/x-suggestions+json"
     rel="suggestions"
-    template="http://shikimori.org/animes.os?search={searchTerms}"/>
+    template="https://shikimori.one/animes.os?search={searchTerms}"/>
   <OutputEncoding>UTF-8</OutputEncoding>
   <InputEncoding>UTF-8</InputEncoding>
   <SyndicationRight>open</SyndicationRight>

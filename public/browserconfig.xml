@@ -2,8 +2,8 @@
 <browserconfig>
   <msapplication>
     <tile>
-      <square70x70logo src="//shikimori.org/favicons/favicon-152x152.png"/>
-      <square150x150logo src="//shikimori.org/favicons/favicon-228x228.png"/>
+      <square70x70logo src="//shikimori.one/favicons/favicon-152x152.png"/>
+      <square150x150logo src="//shikimori.one/favicons/favicon-228x228.png"/>
       <TileColor>#111111</TileColor>
     </tile>
   </msapplication>
