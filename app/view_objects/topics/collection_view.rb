@@ -63,6 +63,7 @@ private
   end
 
   def collection_html
-    h.render collection
+    # without specifying format it won't be rendered in api (https://shikimori.one/api/topics/223789)
+    h.render partial: 'collections/collection', object: collection, formats: :html
   end
 end
