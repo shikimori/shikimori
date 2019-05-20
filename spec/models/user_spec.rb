@@ -33,6 +33,7 @@ describe User do
 
     it { is_expected.to have_many(:abuse_requests).dependent(:destroy) }
     it { is_expected.to have_many(:messages).dependent(:destroy) }
+    it { is_expected.to have_many(:messages_from).dependent(:destroy) }
     it { is_expected.to have_many :comments }
 
     it { is_expected.to have_many(:reviews).dependent(:destroy) }

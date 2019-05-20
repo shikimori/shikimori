@@ -122,6 +122,7 @@ class User < ApplicationRecord
     source_type: Person.name
 
   has_many :messages, foreign_key: :to_id, dependent: :destroy
+  has_many :messages_from, foreign_key: :from_id, dependent: :destroy, class_name: Message.name
 
   has_many :reviews, dependent: :destroy
 
