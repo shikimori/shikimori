@@ -236,19 +236,24 @@ module CommentHelper
               " class=\"b-link\""
             end
 
-            url = if entry.kind_of? Version
-              moderations_version_url entry
-            elsif entry.kind_of? Club
-              club_url entry
-            elsif entry.kind_of? ClubPage
-              club_club_page_url entry.club, entry
-            elsif entry.kind_of? AnimeVideo
-              entry.video_url
-            else
-              url_for entry
-            end
+            url =
+              if entry.kind_of? Version
+                moderations_version_url entry
+              elsif entry.kind_of? Club
+                club_url entry
+              elsif entry.kind_of? ClubPage
+                club_club_page_url entry.club, entry
+              elsif entry.kind_of? AnimeVideo
+                nil
+              else
+                url_for entry
+              end
 
-            text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.respond_to?(:name) ? name : title}\"#{additional}>#{title}</a>"
+            if url
+              text.gsub! $1, "<a href=\"#{url}\" title=\"#{entry.respond_to?(:name) ? name : title}\"#{additional}>#{title}</a>"
+            else
+              text.gsub! $1, title
+            end
 
           rescue ActiveRecord::RecordNotFound
             text.gsub! $1, "<b>#{$3}</b>"
