@@ -125,9 +125,9 @@
             collection: resource.topic_views,
             as: :topic_view
 
-    - resource.news_topic_views.any?
+    - if resource.news_topic_views.any?
       .b-menu-links.menu-topics-block.history.m30[
-        data-source_url=(episode_torrents_anime_url(resource) if resource.display_sensitive? && !resource.licensed?)
+        data-source_url=(episode_torrents_anime_url(resource) if resource.files?)
       ]
         .subheadline = t 'news'
         .block

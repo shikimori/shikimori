@@ -100,6 +100,7 @@ describe AnimesController do
   end
 
   describe '#art' do
+    before { Anime.find(anime.id).update imageboard_tag: 'zxc' }
     subject! { get :art, params: { id: anime.to_param } }
     it { expect(response).to have_http_status :success }
   end

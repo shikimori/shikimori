@@ -31,8 +31,17 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def files?
-    anime? && display_sensitive? && !forbidden? && !licensed? &&
-      h.user_signed_in? # && h.current_user.day_registered?
+    anime? && !forbidden? && h.user_signed_in? && (
+      h.ru_host?
+      # h.current_user.admin? ||
+      # h.current_user.forum_moderator? ||
+      # h.current_user.version_moderator? ||
+      # h.current_user.video_moderator?
+    )
+  end
+
+  def art?
+    imageboard_tag.present? && !forbidden?
   end
 
   # есть ли обзоры
@@ -109,6 +118,7 @@ class AniMangaDecorator < DbEntryDecorator
 
   def release_date_text
     return unless released_on || aired_on
+
     parts = []
 
     if released?

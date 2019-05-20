@@ -13,15 +13,12 @@ export default class AnimesMenu extends View {
 
     // delay is required becase span.person-tooltip
     // is replaced by a.person-tooltip because of linkeable class
-    if (this.isHistoryAllowed) {
-      await delay(100);
-      this._history();
-    }
+    await delay(100);
+    this._history();
   }
 
   get isHistoryAllowed() {
-    return window.SHIKI_USER.isSignedIn && window.SHIKI_USER.isDayRegistered &&
-      window.SHIKI_USER.isIgnoreCopyright;
+    return window.SHIKI_USER.isSignedIn && window.SHIKI_USER.isYearRegistered;
   }
 
   get $historyBlock() {
@@ -52,13 +49,11 @@ export default class AnimesMenu extends View {
     const sourceUrl = this.$historyBlock.attr('data-source_url');
     if (!sourceUrl) { return; }
 
-    // подгрузка тултипов истории
     this.$historyBlock.one('mouseover', async () => {
       const { data } = await axios.get(sourceUrl);
       this._tooltipContent(data);
     });
 
-    // anime history tooltips
     $('.person-tooltip', this.$historyBlock).tooltip(
       Object.add(ANIME_TOOLTIP_OPTIONS, {
         position: 'top right',

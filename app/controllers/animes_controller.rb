@@ -46,27 +46,21 @@ class AnimesController < DbEntriesController
   end
 
   def staff
-    if @resource.roles.people.none?
-      return redirect_to @resource.url, status: 301
-    end
+    return redirect_to @resource.url, status: 301 if @resource.roles.people.none?
 
     og noindex: true
     og page_title: i18n_t("producers.#{@resource.object.class.name.downcase}")
   end
 
   def files
-    unless @resource.files?
-      return redirect_to @resource.url, status: 301
-    end
+    return redirect_to @resource.url, status: 301 unless @resource.files?
 
     og noindex: true
     og page_title: i18n_t('files')
   end
 
   def similar
-    if @resource.related.similar.none?
-      return redirect_to @resource.url, status: 301
-    end
+    return redirect_to @resource.url, status: 301 if @resource.related.similar.none?
 
     og noindex: true
     og page_title: i18n_t("similar.#{@resource.object.class.name.downcase}")
@@ -128,9 +122,7 @@ class AnimesController < DbEntriesController
   end
 
   def art
-    unless @resource.display_sensitive?
-      return redirect_to @resource.url, status: 301
-    end
+    return redirect_to @resource.url, status: 301 unless @resource.art?
 
     og noindex: true, nofollow: true
     og page_title: t('imageboard_art')
