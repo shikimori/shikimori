@@ -18,6 +18,21 @@ class User < ApplicationRecord
   BANHAMMER_ID = 6_942
   MESSANGER_ID = Rails.env.test? ? MORR_ID : 1_680
 
+  STAFF_ROLES = %w[
+    admin
+    super_moderator
+    forum_moderator
+    version_moderator
+    trusted_version_changer
+    trusted_video_uploader
+    review_moderator
+    collection_moderator
+    cosplay_moderator
+    contest_moderator
+    video_super_moderator
+    video_moderator
+  ]
+
   devise(
     :database_authenticatable,
     :registerable,
@@ -378,6 +393,10 @@ class User < ApplicationRecord
 
   def week_registered?
     created_at + WEEK_LIFE_INTERVAL <= Time.zone.now
+  end
+
+  def staff?
+    (roles.to_a & STAFF_ROLES).any?
   end
 
   # for async mails for Devise 4

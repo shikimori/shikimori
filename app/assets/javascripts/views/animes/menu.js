@@ -46,7 +46,7 @@ export default class AnimesMenu extends View {
   }
 
   _history() {
-    const sourceUrl = this.$historyBlock.attr('data-source_url');
+    const sourceUrl = this.$node.attr('data-history_source_url');
     if (!sourceUrl) { return; }
 
     this.$historyBlock.one('mouseover', async () => {

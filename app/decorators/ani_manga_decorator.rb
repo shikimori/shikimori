@@ -31,17 +31,16 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def files?
-    anime? && !forbidden? && h.user_signed_in? && (
-      h.ru_host?
-      # h.current_user.admin? ||
-      # h.current_user.forum_moderator? ||
-      # h.current_user.version_moderator? ||
-      # h.current_user.video_moderator?
-    )
+    # anime? && !forbidden? && h.user_signed_in? &&
+    anime? && h.current_user&.admin?
   end
 
   def art?
     imageboard_tag.present? && !forbidden?
+  end
+
+  def episode_torrents?
+    anime? && h.current_user&.staff?
   end
 
   # есть ли обзоры

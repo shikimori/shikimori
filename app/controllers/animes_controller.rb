@@ -178,8 +178,9 @@ class AnimesController < DbEntriesController
     og noindex: true
   end
 
-  # торренты к эпизодам аниме
   def episode_torrents
+    raise ActiveRecord::RecordNotFound unless @resource.episode_torrents?
+
     render json: @resource.files.episodes_data
   end
 

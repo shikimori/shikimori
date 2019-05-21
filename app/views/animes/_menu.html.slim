@@ -1,4 +1,6 @@
-.b-animes-menu
+.b-animes-menu[
+  data-history_source_url=(episode_torrents_anime_url(resource) if resource.episode_torrents?)
+]
   - if !@itemtype
     .b-menu_logo
       center: a[
@@ -126,9 +128,7 @@
             as: :topic_view
 
     - if resource.news_topic_views.any?
-      .b-menu-links.menu-topics-block.history.m30[
-        data-source_url=(episode_torrents_anime_url(resource) if resource.files?)
-      ]
+      .b-menu-links.menu-topics-block.history.m30
         .subheadline = t 'news'
         .block
           = render partial: 'animes/menu_topic',

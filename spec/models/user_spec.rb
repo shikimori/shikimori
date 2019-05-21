@@ -314,6 +314,20 @@ describe User do
       end
     end
 
+    describe '#staff?' do
+      let(:user) { build :user, roles: [role] }
+
+      context 'staff' do
+        let(:role) { User::STAFF_ROLES.sample }
+        it { expect(user).to be_staff }
+      end
+
+      context 'not staff' do
+        let(:role) { (Types::User::ROLES.map(&:to_s) - User::STAFF_ROLES).sample }
+        it { expect(user).to_not be_staff }
+      end
+    end
+
     describe '#faye_channel' do
       it { expect(user.faye_channel).to eq %W[/user-#{user.id}] }
     end

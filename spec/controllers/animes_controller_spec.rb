@@ -32,9 +32,17 @@ describe AnimesController do
     let(:make_request) { get :files, params: { id: anime.to_param } }
 
     context 'authenticated' do
-      include_context :authenticated, :user
-      subject! { make_request }
-      it { expect(response).to have_http_status :success }
+      context 'user' do
+        include_context :authenticated, :user
+        subject! { make_request }
+        it { expect(response).to redirect_to anime_url(anime) }
+      end
+
+      context 'admin' do
+        include_context :authenticated, :admin
+        subject! { make_request }
+        it { expect(response).to have_http_status :success }
+      end
     end
 
     context 'guest' do
@@ -166,8 +174,25 @@ describe AnimesController do
   end
 
   describe '#episode_torrents' do
-    subject! { get :episode_torrents, params: { id: anime.to_param } }
-    it { expect(response).to have_http_status :success }
+    let(:make_request) { get :episode_torrents, params: { id: anime.to_param } }
+
+    context 'authenticated' do
+      context 'user' do
+        include_context :authenticated, :user
+        it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
+      end
+
+      context 'admin' do
+        include_context :authenticated, :forum_moderator
+        subject! { make_request }
+        it { expect(response).to have_http_status :success }
+      end
+    end
+
+    context 'guest' do
+      subject! { get :files, params: { id: anime.to_param } }
+      it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
+    end
   end
 
   describe '#rollback_episode' do
