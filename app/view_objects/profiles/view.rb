@@ -44,7 +44,7 @@ class Profiles::View < ViewObjectBase
   def about_html
     return if censored_profile?
 
-    Rails.cache.fetch [:about, @user] do
+    Rails.cache.fetch CacheHelper.keys(:about, @user) do
       BbCodes::Text.call @user.about || ''
     end
   end
