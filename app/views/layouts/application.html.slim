@@ -46,7 +46,7 @@ html
           = render 'application/top_menu'
 
       section.l-page *itemprop
-        - unless clean_host? || cookies[:red_alert]
+        / - unless clean_host? || cookies[:red_alert]
           .b-hot_topics-v2.red-alert
             a href='/forum/site/284035-novyy-domen-shikimori-one'
               | shikimori.org забанен мосгорсудом
