@@ -132,3 +132,40 @@ https://chrisbateman.github.io/webpack-visualizer/
 ```
 @dependabot ignore this dependency
 ```
+
+## Move data from development to production
+```ruby
+user = User.find(80804);
+
+File.open('/tmp/z.json', 'w') do |f|
+  f.write({
+    user: user,
+    user_preferences: user.preferences,
+    style: user.style,
+    user_history: UserHistory.where(user_id: user.id),
+    user_rates: UserRate.where(user_id: user.id)
+  }.to_json);
+end;
+```
+
+```sh
+scp /tmp/z.json devops@shiki_web:/tmp/
+```
+
+```
+user_id = 80804;
+json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
+
+UserRate.where(user_id: user_id).destroy_all;
+UserHistory.where(user_id: user_id).destroy_all;
+
+UserHistory.wo_timestamp { UserHistory.import(json[:user_history].map {|v| UserHistory.new v }); };
+UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }); };
+
+User.wo_timestamp { v = User.new json[:user]; v.save validate: false }
+UserPreferences.wo_timestamp { v = UserPreferences.new json[:user_preferences]; v.save validate: false }
+Style.wo_timestamp { v = Style.new json[:style]; v.save validate: false }
+
+User.find(user_id).touch
+```
+
