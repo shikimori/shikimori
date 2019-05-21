@@ -14953,7 +14953,7 @@
         - 246
         - 11511
         - 12121
-      :threshold: 96.2%
+      :threshold: 96.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :fairy_tail
@@ -15811,7 +15811,7 @@
       :algo: duration
       :filters:
         franchise: bleach
-      :threshold: 98.2%
+      :threshold: 98.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :bleach
@@ -16973,7 +16973,7 @@
         - 36240
         - 36241
         - 36242
-      :threshold: 93.3%
+      :threshold: 93.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :one_piece
@@ -19816,7 +19816,8 @@
         - 33898
         - 35552
         - 36835
-      :threshold: 92.3%
+        - 37865
+      :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pokemon
@@ -19856,6 +19857,7 @@
         - 33898
         - 35552
         - 36835
+        - 37865
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -20397,7 +20399,7 @@
         - 21409
         - 31894
         - 38271
-      :threshold: 86.3%
+      :threshold: 85.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :idolmaster
@@ -20520,7 +20522,7 @@
         not_anime_ids:
         - 12015
         - 30178
-      :threshold: 98.1%
+      :threshold: 91.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :tiger_bunny
@@ -22281,7 +22283,7 @@
       :algo: duration
       :filters:
         franchise: diamond_no_ace
-      :threshold: 98.4%
+      :threshold: 98.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :diamond_no_ace
@@ -23388,7 +23390,7 @@
         not_anime_ids:
         - 10584
         - 39414
-      :threshold: 96.7%
+      :threshold: 96.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :gegege_no_kitarou
@@ -23816,7 +23818,7 @@
         not_anime_ids:
         - 10736
         - 30103
-      :threshold: 92.3%
+      :threshold: 92.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pretty_cure
@@ -23879,7 +23881,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 97.6%
+      :threshold: 97.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -24001,7 +24003,7 @@
       :algo: duration
       :filters:
         franchise: pripara
-      :threshold: 95%
+      :threshold: 94.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pripara
