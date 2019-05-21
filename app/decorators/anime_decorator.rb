@@ -33,8 +33,8 @@ class AnimeDecorator < AniMangaDecorator
   # видео
   def videos limit = nil
     return [] if Copyright::VIDEOS.include?(id)
-    # return [] unless h.ignore_copyright?
 
+    # return [] unless h.ignore_copyright?
     # return [] if forbidden?
 
     @videos ||= {}
