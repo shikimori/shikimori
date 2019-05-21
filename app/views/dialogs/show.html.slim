@@ -23,7 +23,7 @@
           .subheadline.red = t '.before_you_message_me'
           ul.b-list
             == t '.admin_message'
-            - if ru_host? && I18n.russian?
+            / - if ru_host? && I18n.russian?
               li
                 | Шикимори никак не влияет на работу видео плеера при просмотре онлайн.&nbsp;
                 == BbCodes::Text.call "[spoiler=Подробнее.]#{t '.admin_message_about_video'}[/spoiler]"
