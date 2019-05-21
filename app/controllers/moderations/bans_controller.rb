@@ -48,7 +48,7 @@ private
     params
       .require(:ban)
       .permit(:reason, :duration, :comment_id, :abuse_request_id, :user_id)
-      .merge(moderator_id: current_user.id)
+      .merge(moderator_id: current_user&.id)
   end
 
   def moderators_scope
