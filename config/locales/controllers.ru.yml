@@ -20,7 +20,7 @@ ru:
     friends: Друзья
     favorites: Избранное
     feed: Лента
-    achievements: Ачивки
+    achievements: Достижения
     users: Пользователи
 
   dialogs_controller:
@@ -404,7 +404,7 @@ ru:
     you_are_banned: Ты @{f:забанена|m:забанен} до %{datetime}
 
   achievements_controller:
-    title: Ачивки
+    title: Достижения
     level: '%{level} уровень'
 
   doorkeeper/oauth_applications_controller:
