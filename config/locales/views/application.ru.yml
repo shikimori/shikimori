@@ -32,6 +32,7 @@ ru:
         manga_list: :manga_list
         mail: :mail
         achievements: Достижения
+        clubs: Клубы
         settings: :settings
         site_rules: Правила сайта
         faq: FAQ

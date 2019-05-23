@@ -33,6 +33,7 @@ en:
         manga_list: :manga_list
         mail: :mail
         achievements: Achievements
+        clubs: Clubs
         settings: :settings
         site_rules: Site rules
         faq: FAQ

@@ -107,6 +107,12 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       if: :user_signed_in?,
       url: ->(h) { h.profile_achievements_url h.current_user }
     }, {
+      name: :clubs,
+      placement: :profile,
+      group: :profile,
+      if: :user_signed_in?,
+      url: ->(h) { h.clubs_profile_url h.current_user }
+    }, {
       name: :settings,
       placement: :profile,
       group: :profile,
