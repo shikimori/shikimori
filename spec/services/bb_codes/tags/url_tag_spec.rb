@@ -54,6 +54,12 @@ describe BbCodes::Tags::UrlTag do
         let(:text) { "[url]#{%w[< > " '].sample}[/url]" }
         it { is_expected.to eq text }
       end
+
+      context 'some shiki url' do
+        let(:text) { "https://shikimori.one#{path}" }
+        let(:path) { '/tests/border?image_url=http://i.imgur.com/Arxun3R.gif&image_border=@ff0000' }
+        it { is_expected.to eq "<a class=\"b-link\" href=\"#{path}\">#{path}</a>" }
+      end
     end
 
     context 'with text' do

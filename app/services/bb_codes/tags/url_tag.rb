@@ -38,11 +38,16 @@ class BbCodes::Tags::UrlTag
 private
 
   def link_tag url, text, css_class
-    decoded_text = decode_uri text
+    link_text = decode_uri text
     css_classes = ['b-link', css_class].select(&:present?).join(' ')
 
-    "<a class=\"#{css_classes}\" href=\"#{url}\">"\
-      "#{decoded_text.valid_encoding? ? decoded_text : Url.new(url).domain}</a>"
+    if !link_text.valid_encoding? || link_text.blank?
+      link_text = url.starts_with?('/') ? url : Url.new(url).domain
+    end
+
+    <<~HTML.strip
+      <a class="#{css_classes}" href="#{url}">#{link_text}</a>
+    HTML
   end
 
   def video_bb_code url
