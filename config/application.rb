@@ -12,6 +12,7 @@ require_relative '../lib/i18n_hack'
 require_relative '../lib/open_image'
 require_relative '../lib/responders/json_responder'
 require_relative '../lib/named_logger'
+require_relative '../lib/log_before_timeout'
 # require_relative '../config/initializers/log_before_timeout'
 
 Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
@@ -115,7 +116,7 @@ module Shikimori
 
     config.middleware.use Rack::JSONP
     config.middleware.use Rack::Attack
-    config.middleware.use LogBeforeTimeout if Rails.env.production?
+    config.middleware.use LogBeforeTimeout
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
