@@ -4,26 +4,28 @@ header.head
 
 .block
   .b-input
-    label for="image_url" Url картинки
-    input id="image_url" value="#{params[:image_url]}"
+    label for='image_url' Url картинки
+    input id='image_url' value="#{params[:image_url]}"
 
   .b-input
-    label for="image_border" Цвет рамки
-    input id="image_border" value="#{params[:image_border].try :sub, '@', '#'}"
+    label for='image_border' Цвет рамки
+    input id='image_border' value="#{params[:image_border].try :sub, '@', '#'}"
 
   .b-input
-    label for="link" Ссылка
-    input id="link" value="" style="width: 100%" disabled="disabled"
+    label for='link' Ссылка
+    input id='link' value='' style='width: 100%' disabled='disabled'
 
 .cc-achievements.cc-2
   .c-column
     .b-achievement
       .c-about
         .title Мои силы растут!
+        .percent 35%
         .hint 200 просмотренных аниме
-        .progress: .bar style="width: 35%"
+        .progress: .bar style='width: 35%'
         .text Бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла-бла бла-бла-бла-бла-бла бла бла-бла бла-бла-бла.
       .c-image
         .inner
-          .border
-          img
+          a
+            .border
+            img
