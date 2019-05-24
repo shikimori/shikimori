@@ -16,6 +16,8 @@ FactoryBot.define do
     next_episode_at { nil }
     imageboard_tag { nil }
     coub_tags { [] }
+    fansubbers { [] }
+    fandubbers { [] }
 
     after :build do |model|
       stub_method model, :track_changes
