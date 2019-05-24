@@ -4,6 +4,7 @@ xml.myanimelist do
 
   @collection.each do |user_rate|
     xml.tag! user_rate.target_type.downcase do
+      raise user_rate.id.to_json if user_rate.target.nil?
       xml.series_title user_rate.target.name
       xml.series_type user_rate.target.kind
 

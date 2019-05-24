@@ -12,5 +12,6 @@ describe Person do
 
   it_behaves_like :touch_related_in_db_entry, :person
   it_behaves_like :topics_concern, :person
-  it_behaves_like :collections_concern, :person
+  it_behaves_like :collections_concern
+  it_behaves_like :versions_concern
 end

@@ -1,4 +1,4 @@
-shared_examples :collections_concern do |type|
+shared_examples :collections_concern do
   describe 'collections concern' do
     describe 'associations' do
       it { is_expected.to have_many(:collection_links).dependent :destroy }

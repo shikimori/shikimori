@@ -4,6 +4,7 @@ class Anime < DbEntry
   include AniManga
   include TopicsConcern
   include CollectionsConcern
+  include VersionsConcern
   include ClubsConcern
 
   DESYNCABLE = %w[

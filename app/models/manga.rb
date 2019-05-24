@@ -4,6 +4,7 @@ class Manga < DbEntry
   include AniManga
   include TopicsConcern
   include CollectionsConcern
+  include VersionsConcern
   include ClubsConcern
 
   EXCLUDED_ONGOINGS = [-1]
