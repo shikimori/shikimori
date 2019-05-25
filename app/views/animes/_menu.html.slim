@@ -149,6 +149,18 @@
             data-href=external_link.url
           ] = external_link.label
 
+  - if resource.fansubbers.any?
+    .block
+      .subheadline = t '.fansubbers'
+      - resource.fansubbers.each do |name|
+        .b-menu-line = name
+
+  - if resource.fandubbers.any?
+    .block
+      .subheadline = t '.fandubbers'
+      - resource.fandubbers.each do |name|
+        .b-menu-line = name
+
   - if show_social?
     .block
       .subheadline.m10 = t 'share'
