@@ -1,4 +1,4 @@
-json.cache! [:history, :v3, @resource, @view.page, I18n.locale, request.format] do
+json.cache! [:history, @resource, @view.page, @profile_view.own_profile?, :v4] do
   json.content render(
     partial: 'history',
     locals: { collection: @view.collection, user: @user },
