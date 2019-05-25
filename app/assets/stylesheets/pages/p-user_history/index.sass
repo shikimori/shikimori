@@ -29,8 +29,11 @@
       p
         align-items: center
         display: flex
-        line-height: 1.4
+        line-height: 20px
         margin-bottom: 5px
+
+        +lte_ipad
+          margin-bottom: 9px
 
         a
           +link_color
@@ -38,14 +41,27 @@
 
         .date
           +date
-          margin-left: auto
+          align-self: flex-start
+          flex-shrink: 0
           font-size: 12px
+          margin-left: auto
+          padding-left: 15px
+          white-space: nowrap
 
         .destroy
-          +icon_button('\e815')
+          align-self: flex-start
           color: $date
-          font-size: 12px
-          margin-left: 5px !important
+          flex-shrink: 0
+          font-size: 13px
+          margin-left: 5px
+          text-align: center
+          width: 20px
+
+          +lte_ipad
+            font-size: 16px
+
+          &:before
+            +shikimori('\e815')
 
     .b-postloader
       margin-top: -20px
