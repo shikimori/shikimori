@@ -149,17 +149,31 @@
             data-href=external_link.url
           ] = external_link.label
 
-  - if resource.fansubbers.any?
+  - if resource.respond_to?(:fansubbers) && resource.fansubbers.any?
     .block
-      .subheadline = t '.fansubbers'
-      - resource.fansubbers.each do |name|
+      .subheadline = Anime.human_attribute_name :fansubbers
+      - resource.sorted_fansubbers.take(5).each do |name|
         .b-menu-line = name
+      - if resource.sorted_fansubbers.size > 5
+        .b-show_more.unprocessed = t '.show_all'
+        .b-show_more-more
+          - resource.sorted_fansubbers.slice(5, 99).each do |name|
+            .b-menu-line = name
+          .hide-more
+            | &mdash; #{t '.hide'}
 
-  - if resource.fandubbers.any?
+  - if resource.respond_to?(:fandubbers) && resource.fandubbers.any?
     .block
-      .subheadline = t '.fandubbers'
-      - resource.fandubbers.each do |name|
+      .subheadline = Anime.human_attribute_name :fandubbers
+      - resource.sorted_fandubbers.take(5).each do |name|
         .b-menu-line = name
+      - if resource.sorted_fandubbers.size > 5
+        .b-show_more.unprocessed = t '.show_all'
+        .b-show_more-more
+          - resource.sorted_fandubbers.slice(5, 99).each do |name|
+            .b-menu-line = name
+          .hide-more
+            | &mdash; #{t '.hide'}
 
   - if show_social?
     .block

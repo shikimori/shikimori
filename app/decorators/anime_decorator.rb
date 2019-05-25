@@ -88,6 +88,16 @@ class AnimeDecorator < AniMangaDecorator
     Copyright::COPYRIGHTED.include?(id)
   end
 
+  def sorted_fansubbers
+    @sorted_fansubbers ||=
+      object.fansubbers.sort_by { |v| v.downcase.gsub(/[^a-zа-я]/, '') }
+  end
+
+  def sorted_fandubbers
+    @sorted_fandubbers ||=
+      object.fandubbers.sort_by { |v| v.downcase.gsub(/[^a-zа-я]/, '') }
+  end
+
 private
 
   def next_broadcast_at

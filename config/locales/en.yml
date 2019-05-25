@@ -51,6 +51,8 @@ en:
         torrents_name: Torrents name
         videos: Videos
         franchise: Franchise
+        fansubbers: Subtitles
+        fandubbers: Dubbing
       manga: &manga_attributes
         <<: *anime_attributes
         volumes: Volumes
