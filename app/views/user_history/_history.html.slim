@@ -1,13 +1,11 @@
 .history-page
-  - collection.each do |interval,history|
+  - collection.each do |interval, history|
     .mischeadline = t "datetime.intervals.#{interval}"
 
     .history-interval
       - history.each do |entry|
         - next if entry.target_type && entry.target.nil?
         p data-id=entry.id
-          time.date datetime=entry.created_at.iso8601
-            = l entry.created_at, format: '%e %B %Y'
           - if entry.target
             a.bubbled href=url_for(entry.target)
               = localization_span entry.target
@@ -15,3 +13,10 @@
             == entry.format.downcase
           - else
             == entry.format
+
+          time.date datetime=entry.created_at.iso8601
+            = l entry.created_at, format: '%e %B %Y'
+          a.destroy[
+            data-method='delete'
+            href=profile_user_history_url(user.to_param, entry)
+          ]

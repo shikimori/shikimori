@@ -1,4 +1,5 @@
 class UserHistoryController < ProfilesController
+  load_and_authorize_resource only: %i[destroy]
   before_action :check_access, only: %i[index logs]
 
   LOGS_LIMIT = 45
@@ -8,6 +9,7 @@ class UserHistoryController < ProfilesController
     og noindex: true
     og page_title: i18n_t('page_title.history')
 
+    @profile_view = @view
     @view = UserHistoryView.new @resource
   end
 
@@ -20,6 +22,11 @@ class UserHistoryController < ProfilesController
     @collection = QueryObjectBase
       .new(@resource.user_rate_logs.order(id: :desc).includes(:target, :oauth_application))
       .paginate(@page, LOGS_LIMIT)
+  end
+
+  def destroy
+    @resource.destroy
+    redirect_to profile_list_history_url(@user)
   end
 
   def reset

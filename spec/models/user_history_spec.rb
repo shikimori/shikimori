@@ -367,4 +367,27 @@ describe UserHistory do
       end
     end
   end
+
+  describe 'permissions' do
+    let(:user_history) { build_stubbed :user_history, user: user }
+    subject { Ability.new user }
+
+    context 'owner' do
+      let(:user) { build_stubbed :user, :user }
+      it { is_expected.to be_able_to :destroy, user_history }
+    end
+
+    context 'guest' do
+      let(:user) { nil }
+      it { is_expected.to_not be_able_to :destroy, user_history }
+    end
+
+    context 'user' do
+      let(:user) { build_stubbed :user, :user }
+      let(:user_2) { build_stubbed :user }
+      let(:user_history) { build_stubbed :user_history, user: user_2 }
+
+      it { is_expected.to_not be_able_to :destroy, user_history }
+    end
+  end
 end

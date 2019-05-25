@@ -29,6 +29,17 @@ describe UserHistoryController do
     end
   end
 
+  describe '#destroy' do
+    include_context :authenticated, :user, :week_registered
+    let(:user_history) { create :user_history, user: user }
+    subject! { post :destroy, params: { profile_id: user.to_param, id: user_history.id } }
+
+    it do
+      expect { user_history.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect(response).to redirect_to profile_list_history_url(user)
+    end
+  end
+
   describe '#logs' do
     let!(:user_rate_log) { create :user_rate_log, user: user }
     let(:make_request) { get :logs, params: { profile_id: user.to_param } }

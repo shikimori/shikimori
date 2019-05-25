@@ -21,8 +21,8 @@ private
       sleep UNICORN_TIMEOUT - 2 # set this to Unicorn timeout - 1
 
       unless Thread.current[:done]
-        path = env['PATH_INFO']
-        qs = env['QUERY_STRING'] and path = "#{path}?#{qs}"
+        qs = env['QUERY_STRING']
+        path = "#{env['PATH_INFO']}?#{qs}"
         NamedLogger.slow_requests.info path
       end
     end

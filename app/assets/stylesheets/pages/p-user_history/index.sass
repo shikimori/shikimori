@@ -1,6 +1,7 @@
 @import mixins/clearfix
 @import mixins/date
 @import mixins/hover_underlined
+@import mixins/icons
 @import mixins/link
 
 .p-user_history-index
@@ -26,6 +27,8 @@
         margin-bottom: 0
 
       p
+        align-items: center
+        display: flex
         line-height: 1.4
         margin-bottom: 5px
 
@@ -35,8 +38,14 @@
 
         .date
           +date
+          margin-left: auto
           font-size: 12px
-          float: right
+
+        .destroy
+          +icon_button('\e815')
+          color: $date
+          font-size: 12px
+          margin-left: 5px !important
 
     .b-postloader
       margin-top: -20px

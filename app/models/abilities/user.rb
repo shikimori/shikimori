@@ -33,6 +33,7 @@ class Abilities::User
     message_abilities
     user_abilities
     user_rate_abilities
+    user_history_abilities
     anime_video_report_abilities
     anime_video_abilities if @user.day_registered?
     version_abilities if @user.week_registered?
@@ -147,6 +148,10 @@ class Abilities::User
   def user_rate_abilities
     can :manage, UserRate, user_id: @user.id
     can %i[cleanup reset], UserRate
+  end
+
+  def user_history_abilities
+    can :destroy, UserHistory, user_id: @user.id
   end
 
   def review_abilities
