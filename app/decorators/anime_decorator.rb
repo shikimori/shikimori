@@ -90,12 +90,12 @@ class AnimeDecorator < AniMangaDecorator
 
   def sorted_fansubbers
     @sorted_fansubbers ||=
-      object.fansubbers.sort_by { |v| v.downcase.gsub(/[^a-zа-я]/, '') }
+      object.fansubbers.sort_by { |v| v.downcase.gsub(/[^a-zа-я]/i, '') } # |^anime|^ani
   end
 
   def sorted_fandubbers
     @sorted_fandubbers ||=
-      object.fandubbers.sort_by { |v| v.downcase.gsub(/[^a-zа-я]/, '') }
+      object.fandubbers.sort_by { |v| v.downcase.gsub(/[^a-zа-я]/i, '') } # |^anime|^ani
   end
 
 private
