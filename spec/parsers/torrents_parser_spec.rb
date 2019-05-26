@@ -86,6 +86,16 @@ describe TorrentsParser do
       it { is_expected.to eq [1] }
     end
 
+    describe 'season 2' do
+      let(:name) { '[HorribleSubs] Rozen Maiden 2 - 01 [720p].mkv' }
+      it { is_expected.to eq [1] }
+
+      describe 'with year' do
+        let(:name) { '[HorribleSubs] Rozen Maiden 2 (2013) - 01 [720p].mkv' }
+        it { is_expected.to eq [1] }
+      end
+    end
+
     describe 'name with plus' do
       let(:name) { '[Ohys-Raws] Sin Strange+ - 02 (AT-X 1280x720 x264 AAC).mp4' }
       it { is_expected.to eq [2] }
@@ -101,9 +111,14 @@ describe TorrentsParser do
       it { is_expected.to eq [5] }
     end
 
-    describe 'episode with part' do
-      let(:name) { '[BakedFish] Re:Zero kara Hajimeru Isekai Seikatsu - 01 - Part 2 [720p][AAC].mp4' }
-      it { is_expected.to eq [1] }
+    # describe 'episode with part' do
+    #   let(:name) { '[BakedFish] Re:Zero kara Hajimeru Isekai Seikatsu - 01 - Part 2 [720p][AAC].mp4' }
+    #   it { is_expected.to eq [1] }
+    # end
+
+    context 'episode with year' do
+      let(:name) { '[Ohys-Raws] Shingeki no Kyojin Season 3 (2019) - 05 (NHKG 1280x720 x264 AAC).mp4' }
+      it { is_expected.to eq [5] }
     end
 
     describe 'multiple episodes' do

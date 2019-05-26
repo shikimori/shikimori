@@ -29,22 +29,22 @@ class TorrentsParser
   ]
   ANIME_WITH_ALL_SUB_GROUPS = [9539, 12_979, 13_163, 6702, 15_417]
 
-  END_OF_NAME = /[\w\)!~?\.+-‒]/
+  END_OF_NAME = /[\w()_!~?\.+-‒]+/
   EPISODE_FOR_HISTORY_REGEXES = /
-    #{END_OF_NAME} # завершающий кусочек названия
+    #{END_OF_NAME} # last part of name
     (?: _- )?
     _
     \#?
     (?:Vol\.)?
     (?:CH-)?
-    (\d+) # номер эпизода
+    (\d+) # episode name
     (?: _-_Part_\d )?
-    (?: v[0-3] )? # v0 v1 v2 - версия релиза
-    (?: _ \( \d{1,2} \) )? # в скобках дополнительная нумерация эпизода
+    (?: v[0-3] )? # v0 v1 v2 - release version
+    (?: _ \( \d{1,2} \) )? # additional episode number in bracked
     [_-]*
     (?: _rev\d )?
     (?: _RAW | _END )?
-    (?: # различные варианты концовки
+    (?: # different endings
       [_-]+
       (?:
           \[(1080|720|480)p\] _? \[ .*

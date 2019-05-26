@@ -12,8 +12,6 @@ class TorrentsMatcher
       # .gsub(/\.(?:mkv|flv|mp4)/, '')
       # .gsub(/ - \d+ (?:\(|\[).*?(?:\)|\])/, '')
 
-    # ap title
-
     if options[:exact_name] || anime.torrents_name.present?
       fixed_title = title.downcase.gsub(/[- :_]/, '')
       fixed_name = (anime.torrents_name || name).downcase.gsub(/[- :_]/, '')
