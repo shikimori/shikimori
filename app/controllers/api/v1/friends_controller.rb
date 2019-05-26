@@ -2,6 +2,8 @@ class Api::V1::FriendsController < Api::V1Controller
   before_action :authenticate_user!
   before_action :fetch_user
 
+  SPAM_LIMIT = 20
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/friends/:id', 'Create a friend'
   def create
@@ -14,7 +16,7 @@ class Api::V1::FriendsController < Api::V1Controller
         .where(kind: MessageType::FRIEND_REQUEST)
         .delete_all
 
-      if @user.id != 1 # no friend requests for morr
+      if @user.id != 1 && !spam? # no friend requests for morr
         Message.create(
           from_id: current_user.id,
           to_id: @user.id,
@@ -54,5 +56,12 @@ private
       "removed_from_friends.#{@user.sex.present? ? @user.sex : 'male'}",
       nickname: @user.nickname
     )
+  end
+
+  def spam?
+    Message
+      .where(from_id: current_user.id, kind: MessageType::FRIEND_REQUEST)
+      .where('created_at > ?', 1.day.ago)
+      .size >= SPAM_LIMIT
   end
 end
