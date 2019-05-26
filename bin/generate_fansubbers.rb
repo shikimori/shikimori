@@ -91,6 +91,7 @@ def ignored? name, size
     'Титры',
     'Французская',
     'Рабочий Стол',
+    'Bistriy',
     'Андрей',
     'высокое качество',
     'вхсрип',
@@ -120,13 +121,13 @@ end
 def enough? anime, size
   if anime.ongoing?
     if anime.episodes_aired > 300
-      size >= 50
+      size >= 40
     elsif anime.episodes_aired > 52
-      size >= 25
+      size >= 20
     elsif anime.episodes_aired >= 20
-      size >= 10
+      size >= 7
     elsif anime.episodes_aired >= 10
-      size >= 5
+      size >= 4
     elsif anime.episodes_aired >= 5
       size >= 3
     else
@@ -134,13 +135,13 @@ def enough? anime, size
     end
   else
     if anime.episodes > 300
-      size >= 50
+      size >= 40
     elsif anime.episodes > 52
-      size >= 25
+      size >= 20
     elsif anime.episodes >= 20
-      size >= 10
+      size >= 7
     elsif anime.episodes >= 10
-      size >= 5
+      size >= 4
     elsif anime.episodes >= 5
       size >= 3
     else
@@ -150,7 +151,6 @@ def enough? anime, size
 end
 
 Chewy.strategy(:bypass) do
-  Anime.update_all fansubbers: [], fandubbers: []
   Anime
     .where(id: AnimeVideo.pluck('distinct(anime_id)'))
     .order(id: :desc)
@@ -176,8 +176,8 @@ Chewy.strategy(:bypass) do
 
           anime.update!(
             is_subtitles ? :fansubbers : :fandubbers =>
-              groups.map { |name, _videos| name } # "#{name} #{videos.size}" }
-              # groups.map { |name, videos|  "#{name} #{videos.size}" }
+              groups.map { |name, videos|  "#{name} #{videos.size}" }
+              # groups.map { |name, _videos| name } # "#{name} #{videos.size}" }
           )
         end
   end
