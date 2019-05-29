@@ -21,6 +21,8 @@ class BbCodes::Tags::DivTag
     l-footer
     l-top_menu-v2
     b-comments-notifier
+    b-achievements_notifier
+    b-fancy_loader
     b-comments
     b-feedback
     b-to-top
