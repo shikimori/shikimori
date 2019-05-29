@@ -8064,7 +8064,7 @@
     :neko_id: :gen_urobuchi
     :level: 1
     :image: "/assets/achievements/anime/author/gen_urobuchi.jpg"
-    :border_color: 
+    :border_color: "#F00100"
     :title_ru: Гэн Уробути
     :text_ru: 
     :title_en: Gen Urobuchi
@@ -8076,7 +8076,6 @@
       :filters:
         anime_ids:
         - 438
-        - 3407
         - 5682
         - 9756
         - 10087
@@ -8087,13 +8086,10 @@
         - 13391
         - 13601
         - 16524
-        - 19211
         - 21339
         - 22729
-        - 23281
         - 23319
         - 27655
-        - 28791
         - 29017
         - 30091
         - 32313
@@ -8107,7 +8103,7 @@
   neko_id: :gen_urobuchi
   level: 1
   image: "/assets/achievements/anime/author/gen_urobuchi.jpg"
-  border_color: 
+  border_color: "#F00100"
   title_ru: Гэн Уробути
   text_ru: 
   title_en: Gen Urobuchi
@@ -8218,7 +8214,7 @@
     :neko_id: :key
     :level: 1
     :image: "/assets/achievements/anime/author/key.png"
-    :border_color: 
+    :border_color: "#000000"
     :title_ru: Key
     :text_ru: 
     :title_en: Key
@@ -8260,7 +8256,7 @@
   neko_id: :key
   level: 1
   image: "/assets/achievements/anime/author/key.png"
-  border_color: 
+  border_color: "#000000"
   title_ru: Key
   text_ru: 
   title_en: Key
@@ -8284,39 +8280,25 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 21
-        - 170
-        - 205
-        - 341
-        - 353
-        - 440
-        - 464
-        - 552
-        - 813
-        - 883
-        - 893
-        - 901
-        - 903
-        - 996
         - 1153
-        - 1240
-        - 1861
-        - 1946
-        - 2055
+        - 901
+        - 36936
+        - 28805
+        - 12355
+        - 5681
         - 2236
+        - 464
         - 2290
         - 2397
-        - 2498
-        - 2499
         - 2961
         - 3602
-        - 5681
-        - 8490
-        - 8493
-        - 8812
-        - 12355
-        - 28805
-        - 36936
+        - 893
+        - 1240
+        - 2499
+        - 2498
+        - 1861
+        - 883
+        - 903
       :generator:
         person_id: 5067
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -8588,6 +8570,18 @@
         - 33047
         - 34321
         - 34662
+        - 22763
+        - 31056
+        - 34100
+        - 33456
+        - 38958
+        - 38936
+        - 36914
+        - 36915
+        - 36833
+        - 37033
+        - 37651
+        - 169
       :generator:
         person_id: 2582
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -8607,8 +8601,8 @@
   attributes:
     :neko_id: :shoji_kawamori
     :level: 1
-    :image: 
-    :border_color: 
+    :image: https://desu.shikimori.one/system/user_images/original/3824/793818.jpg
+    :border_color: "#6483B8"
     :title_ru: Сёдзи Кавамори
     :text_ru: 
     :title_en: Shoji Kawamori
@@ -8706,8 +8700,8 @@
   default_values: *2
   neko_id: :shoji_kawamori
   level: 1
-  image: 
-  border_color: 
+  image: https://desu.shikimori.one/system/user_images/original/3824/793818.jpg
+  border_color: "#6483B8"
   title_ru: Сёдзи Кавамори
   text_ru: 
   title_en: Shoji Kawamori
