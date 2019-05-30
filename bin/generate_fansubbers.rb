@@ -176,8 +176,8 @@ Chewy.strategy(:bypass) do
 
           anime.update!(
             is_subtitles ? :fansubbers : :fandubbers =>
-              groups.map { |name, videos|  "#{name} #{videos.size}" }
-              # groups.map { |name, _videos| name } # "#{name} #{videos.size}" }
+              groups.map { |name, _videos| name } # "#{name} #{videos.size}" }
+              # groups.map { |name, videos|  "#{name} #{videos.size}" }
           )
         end
   end
