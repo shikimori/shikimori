@@ -23854,35 +23854,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :pripara
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/pripara.jpg"
-    :border_color: 
-    :title_ru: При Пара
-    :text_ru: 
-    :title_en: PriPara
-    :text_en: 
-    :topic_id: 247360
-    :rule: &422
-      :algo: duration
-      :filters:
-        franchise: pripara
-      :threshold: 94.2%
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :pripara
-  level: 1
-  image: "/assets/achievements/anime/franchise/pripara.jpg"
-  border_color: 
-  title_ru: При Пара
-  text_ru: 
-  title_en: PriPara
-  text_en: 
-  topic_id: 247360
-  rule: *422
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :urusei_yatsura
     :level: 0
     :image: "/assets/achievements/anime/franchise/urusei_yatsura.jpg"
@@ -23892,7 +23863,7 @@
     :title_en: Urusei Yatsura
     :text_en: 
     :topic_id: 247360
-    :rule: &423
+    :rule: &422
       :algo: duration
       :filters:
         franchise: urusei_yatsura
@@ -23906,6 +23877,35 @@
   title_ru: Несносные пришельцы
   text_ru: 
   title_en: Urusei Yatsura
+  text_en: 
+  topic_id: 247360
+  rule: *422
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :pripara
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/pripara.jpg"
+    :border_color: 
+    :title_ru: При Пара
+    :text_ru: 
+    :title_en: PriPara
+    :text_en: 
+    :topic_id: 247360
+    :rule: &423
+      :algo: duration
+      :filters:
+        franchise: pripara
+      :threshold: 94.2%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :pripara
+  level: 1
+  image: "/assets/achievements/anime/franchise/pripara.jpg"
+  border_color: 
+  title_ru: При Пара
+  text_ru: 
+  title_en: PriPara
   text_en: 
   topic_id: 247360
   rule: *423
@@ -26315,8 +26315,8 @@
     :border_color: "#d5a471"
     :title_ru: Женская дружба
     :text_ru: Лишь невинные заигрывания, только и всего.
-    :title_en: 
-    :text_en: 
+    :title_en: Female friendship
+    :text_en: Just innocent flirtations, that's all.
     :topic_id: 227432
     :rule: &503
       :algo: count
@@ -26345,8 +26345,8 @@
   border_color: "#d5a471"
   title_ru: Женская дружба
   text_ru: Лишь невинные заигрывания, только и всего.
-  title_en: 
-  text_en: 
+  title_en: Female friendship
+  text_en: Just innocent flirtations, that's all.
   topic_id: 227432
   rule: *503
   mandatory_attributes: *4
@@ -26358,8 +26358,8 @@
     :border_color: "#d293a2"
     :title_ru: Первые чувства
     :text_ru: Быть может, это неправильно. Но кого это волнует?
-    :title_en: 
-    :text_en: 
+    :title_en: First feelings
+    :text_en: Maybe this is wrong. But who cares?
     :topic_id: 0
     :rule: &504
       :algo: count
@@ -26388,8 +26388,8 @@
   border_color: "#d293a2"
   title_ru: Первые чувства
   text_ru: Быть может, это неправильно. Но кого это волнует?
-  title_en: 
-  text_en: 
+  title_en: First feelings
+  text_en: Maybe this is wrong. But who cares?
   topic_id: 0
   rule: *504
   mandatory_attributes: *4
@@ -26444,8 +26444,8 @@
     :border_color: "#FDD9B5"
     :title_ru: Счастливая семейная жизнь
     :text_ru: Лилии цветут в вашем доме.
-    :title_en: 
-    :text_en: 
+    :title_en: Happy family life
+    :text_en: Lilies are blooming in your house.
     :topic_id: 0
     :rule: &506
       :algo: count
@@ -26474,8 +26474,8 @@
   border_color: "#FDD9B5"
   title_ru: Счастливая семейная жизнь
   text_ru: Лилии цветут в вашем доме.
-  title_en: 
-  text_en: 
+  title_en: Happy family life
+  text_en: Lilies are blooming in your house.
   topic_id: 0
   rule: *506
   mandatory_attributes: *4

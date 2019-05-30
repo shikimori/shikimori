@@ -70,8 +70,7 @@ class TorrentsParser
   EPISODES_WITH_COMMA_FOR_HISTORY_REGEXES = [
     /#{END_OF_NAME}_(\d+)-(\d+),_?(\d+)_raw_720/i
   ]
-
-  def self.extract_episodes_num episode_name
+def self.extract_episodes_num episode_name
     return [] if IGNORED_TORRENTS.include? episode_name
     return [] if ignored_phrases? episode_name
 
