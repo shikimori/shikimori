@@ -225,6 +225,8 @@ Rails.application.routes.draw do
           get :franchise
           get :videos
           get :external_links
+          get :fansubbers
+          get :fandubbers
           get :topics
         end
         collection do
@@ -675,7 +677,7 @@ Rails.application.routes.draw do
       name russian synonyms license_name_ru description_ru description_en image
       kind episodes rating duration
       screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids
-      external_links
+      external_links fansubbers fandubbers
     }.join('|'))
 
     member do

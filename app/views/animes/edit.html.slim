@@ -18,7 +18,7 @@
           .value = @resource.russian
           a.b-js-action.to-process[
             href=@resource.edit_field_url(:russian)
-            data-dynamic="week_registered"
+            data-dynamic='week_registered'
           ] = t 'actions.edit'
 
         li
@@ -36,7 +36,7 @@
           .value = @resource.synonyms.join(', ')
           a.b-js-action.to-process[
             href=@resource.edit_field_url(:synonyms)
-            data-dynamic="week_registered"
+            data-dynamic='week_registered'
           ] = t 'actions.edit'
 
         li
@@ -44,7 +44,7 @@
           .value = @resource.kind_text
           a.b-js-action.to-process[
             href=@resource.edit_field_url(:kind)
-            data-dynamic="week_registered"
+            data-dynamic='week_registered'
           ] = t 'actions.edit'
 
         - if @resource.kinda_manga?
@@ -53,7 +53,7 @@
             .value = @resource.status_text
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:status)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
         li
@@ -61,7 +61,7 @@
           .value = formatted_date @resource.aired_on, true
           a.b-js-action.to-process[
             href=@resource.edit_field_url(:aired_on)
-            data-dynamic="week_registered"
+            data-dynamic='week_registered'
           ] = t 'actions.edit'
 
         li
@@ -69,7 +69,7 @@
           .value = formatted_date @resource.released_on, true
           a.b-js-action.to-process[
            href=@resource.edit_field_url(:released_on)
-            data-dynamic="week_registered"
+            data-dynamic='week_registered'
           ] = t 'actions.edit'
 
         - if @resource.anime?
@@ -78,7 +78,7 @@
             .value = @resource.episodes
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:episodes)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
           li
@@ -87,7 +87,7 @@
             - if can? :minor_change, Version
               a.b-js-action.to-process[
                 href=@resource.edit_field_url(:duration)
-                data-dynamic="week_registered"
+                data-dynamic='week_registered'
               ] = t '.moderators_only'
             - else
               .b-js-action = t '.moderators_only'
@@ -99,7 +99,7 @@
               - if @resource.episodes_aired.positive?
                 a.b-js-action[
                   href=rollback_episode_anime_url(@resource)
-                  data-method="post"
+                  data-method='post'
                   data-confirm=t('actions.confirm')
                 ] = t 'actions.rollback'
 
@@ -109,7 +109,7 @@
             .value = @resource.volumes
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:volumes)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
           li
@@ -117,7 +117,7 @@
             .value = @resource.chapters
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:chapters)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
         - if @resource.anime?
@@ -126,7 +126,7 @@
             .value = @resource.rating_text
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:rating)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
         - if @resource.franchise.present?
@@ -145,7 +145,7 @@
             - if can? :major_change, Version.new(item: @resource.object)
               a.b-js-action.to-process[
                 href=@resource.edit_field_url(:image)
-                data-dynamic="week_registered"
+                data-dynamic='week_registered'
               ] = t '.moderators_only'
             - else
               .b-js-action = t '.moderators_only'
@@ -153,7 +153,7 @@
           - else
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:image)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
         - if ru_host?
@@ -161,14 +161,14 @@
             .field = @resource.class.human_attribute_name(:description_ru)
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:description_ru)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
         li
           .field = @resource.class.human_attribute_name(:description_en)
           a.b-js-action.to-process[
             href=@resource.edit_field_url(:description_en)
-            data-dynamic="week_registered"
+            data-dynamic='week_registered'
           ] = t 'actions.edit'
 
         - if @resource.anime? && !Copyright::SCREENSHOTS.include?(@resource.id)
@@ -177,7 +177,7 @@
             .value #{@resource.screenshots.size} #{i18n_i 'screenshot', @resource.screenshots.size}
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:screenshots)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
           li
@@ -185,7 +185,7 @@
             .value #{@resource.videos.size} #{i18n_i 'video', @resource.videos.size}
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:videos)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
           / li
@@ -198,7 +198,7 @@
           .value = @resource.imageboard_tag
           a.b-js-action.to-process[
             href=@resource.edit_field_url(:imageboard_tag)
-            data-dynamic="week_registered"
+            data-dynamic='week_registered'
           ] = t 'actions.edit'
 
         - if @resource.anime?
@@ -207,7 +207,7 @@
             .value #{@resource.coub_tags.size} #{i18n_i 'tag', @resource.coub_tags.size}
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:coub_tags)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
             .sample
               = @resource.coub_tags.join(', ')
@@ -218,7 +218,7 @@
           - if can? :major_change, Version
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:genre_ids)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t '.moderators_only'
           - else
             .b-js-action = t '.moderators_only'
@@ -229,7 +229,7 @@
             .value = @resource.torrents_name
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:torrents_name)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
         li
@@ -237,8 +237,19 @@
           .value = @resource.external_links.map(&:label).join(', ').html_safe
           a.b-js-action.to-process[
             href=@resource.edit_field_url(:external_links)
-            data-dynamic="week_registered"
+            data-dynamic='week_registered'
           ] = t 'actions.edit'
+
+        - if @resource.anime?
+          - %i[fansubbers fandubbers].each do |field|
+            li
+              .field = @resource.class.human_attribute_name(field)
+              .value = @resource.send(field).join(', ')
+              a.b-js-action.to-process[
+                href=@resource.edit_field_url(field)
+                data-dynamic='week_registered'
+              ] = t 'actions.edit'
+
 
   - if @resource.desynced.any?
     .block
