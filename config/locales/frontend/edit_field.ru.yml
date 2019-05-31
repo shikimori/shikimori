@@ -5,3 +5,10 @@ ru:
       name: Название
     coub_tags:
       <<: *synonyms
+    fansubbers:
+      <<: *synonyms
+    fandubbers:
+      <<: *synonyms
+    desynced:
+      nothing_here: Нет поля
+      name: Название поля

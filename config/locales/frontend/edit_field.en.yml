@@ -5,3 +5,10 @@ en:
       name: Name
     coub_tags:
       <<: *synonyms
+    fansubbers:
+      <<: *synonyms
+    fandubbers:
+      <<: *synonyms
+    desynced:
+      nothing_here: No fields
+      name: Field name

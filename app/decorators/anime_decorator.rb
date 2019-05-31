@@ -89,13 +89,15 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def sorted_fansubbers
-    @sorted_fansubbers ||=
-      object.fansubbers.sort_by { |v| v.downcase.gsub(/[^a-zа-я]/i, '') } # |^anime|^ani
+    @sorted_fansubbers ||= object.fansubbers
+      .map { |name| fix_group_name name }
+      .sort_by { |name| group_name_sort_criteria name }
   end
 
   def sorted_fandubbers
-    @sorted_fandubbers ||=
-      object.fandubbers.sort_by { |v| v.downcase.gsub(/[^a-zа-я]/i, '') } # |^anime|^ani
+    @sorted_fandubbers ||= object.fandubbers
+      .map { |name| fix_group_name name }
+      .sort_by { |name| group_name_sort_criteria name }
   end
 
 private
@@ -104,5 +106,13 @@ private
     if broadcast_at && broadcast_at > 1.week.ago
       broadcast_at < 1.hour.ago ? broadcast_at + 1.week : broadcast_at
     end
+  end
+
+  def fix_group_name name
+    name.gsub(/\.(?:tv|ru|com|net|online|su)/i, '')
+  end
+
+  def group_name_sort_criteria name
+    name.downcase.gsub(/[^a-zа-я]/i, '')
   end
 end

@@ -157,7 +157,8 @@ pageLoad('.db_entries-edit_field', () => {
     );
   }
 
-  if ($('.edit-page').filter('.synonyms, .coub_tags, .fansubbers, .fandubbers').exists()) {
+  const ARRAY_FIELDS = ['synonyms', 'coub_tags', 'fansubbers', 'fandubbers', 'desynced'];
+  if ($(ARRAY_FIELDS.map(v => `.edit-page.${v}`).join(',')).exists()) {
     require.ensure([], () =>
       initArrayFieldApp(
         require('vue/instance').Vue,
