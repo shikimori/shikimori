@@ -20,6 +20,16 @@ ru:
         video: Изменение видео ролика
       desynced:
         hint: Список полей, которые больше не синхронизируются с MAL.
+      fansubbers: &fansubbers
+        hint: Условия добавления в список
+        episodes: Вышедших эпизодов в аниме
+        translated: Сколько должно быть переведено
+        except: кроме последнего эпизода онгоига
+        all: Все
+        reason: В причину правки укажите ссылку на ваши работы по данному аниме
+      fandubbers:
+        <<: *fansubbers
+        translated: Сколько должно быть озвучено
     contest_winners:
       top_in: '№%{position} в '
     edit_field:

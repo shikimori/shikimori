@@ -20,6 +20,16 @@ en:
         videos: Edit video
       desynced:
         hint: List of fields that are no longer synced to MAL.
+      fansubbers: &fansubbers
+        hint: Requirements to add to the list
+        episodes: Episodes aired
+        translated: How much must be translated
+        all: Everything
+        except: except for last episode of ongoing
+        reason: In the reason for editing, specify a link to your works on this anime.
+      fandubbers:
+        <<: *fansubbers
+
     contest_winners:
       top_in: '#%{position} in '
     edit_field:

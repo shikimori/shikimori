@@ -1,5 +1,5 @@
 .m5
-  b = Anime.human_attribute_name :fandubbers
+  p: b = Anime.human_attribute_name :fandubbers
 .cc-2
   .c-column
     = simple_form_for resource.object do |f|
@@ -11,6 +11,38 @@
         data-field='fandubbers'
       ]
         .block_m.b-nothing_here = t 'loading'
+
+      .m20
+        p: b = t '.hint'
+        table.fansub-conditions
+          thead
+            tr
+              th
+              th = t '.except'
+            tr
+              th = t '.episodes'
+              th = t '.translated'
+          tbody
+            tr
+              td < 5
+              td = t '.all'
+            tr
+              td >= 5
+              td 3
+            tr
+              td >= 10
+              td 5
+            tr
+              td >= 20
+              td 10
+            tr
+              td >= 50
+              td 20
+            tr
+              td >= 300
+              td 40
+        p = t '.reason'
+
       = render 'versions/reason'
 
       .buttons
