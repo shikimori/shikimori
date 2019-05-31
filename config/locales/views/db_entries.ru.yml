@@ -18,6 +18,8 @@ ru:
       videos:
         videos: Изменение видео роликов
         video: Изменение видео ролика
+      desynced:
+        hint: Список полей, которые больше не синхронизируются с MAL.
     contest_winners:
       top_in: '№%{position} в '
     edit_field:

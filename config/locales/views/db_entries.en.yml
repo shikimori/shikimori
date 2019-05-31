@@ -18,6 +18,8 @@ en:
       videos:
         videos: Edit videos
         videos: Edit video
+      desynced:
+        hint: List of fields that are no longer synced to MAL.
     contest_winners:
       top_in: '#%{position} in '
     edit_field:
