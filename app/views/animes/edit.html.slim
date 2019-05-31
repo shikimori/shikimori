@@ -253,8 +253,15 @@
 
   - if @resource.desynced.any?
     .block
-      b Desynced:
-      span  #{@resource.desynced.join(', ')}
+      ul.b-list
+        li
+          .field Desynced
+          .value = @resource.desynced.join(', ')
+          - if can? :major_change, Version
+            a.b-js-action href=@resource.edit_field_url(:desynced)
+              = t '.moderators_only'
+          - else
+            .b-js-action = t '.moderators_only'
 
   - if current_user&.admin? && @resource.anime?
     = spoiler 'Torrents' do
