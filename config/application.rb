@@ -146,6 +146,7 @@ module Shikimori
     config.action_dispatch.ip_spoofing_check = false
 
     config.action_dispatch.trusted_proxies = %w(
+      84.201.128.45
       145.239.87.191
       185.62.190.16
       88.198.7.123
