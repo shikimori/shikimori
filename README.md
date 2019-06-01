@@ -5,6 +5,9 @@ Feel free to open tickets or send pull requests with improvements. Thanks in adv
 
 Please follow the [contribution guidelines](https://github.com/shikimori/shikimori/blob/master/CONTRIBUTING.md).
 
+## Requirements
+OSX or Linux, PostgreSQL >= 9.6, Ruby >= 2.6
+
 ## Issues Board (Agile Season)
 https://agileseason.com/shared/boards/a98d1565b276f3781070f0e74a7ffcf1
 
@@ -66,7 +69,7 @@ git clone git@github.com:shikimori/faye-server.git
 cd shikimori
 ```
 
-#### Install `yarn` and `honcho`
+#### Install `yarn` and `honcho` (OSX)
 ```sh
 brew install yarn
 brew install honcho # https://github.com/nickstenning/honcho
