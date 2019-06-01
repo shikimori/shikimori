@@ -368,6 +368,36 @@ describe Version do
       end
     end
 
+    context 'trusted_fansub_changer' do
+      let(:user) { build_stubbed :user, :trusted_fansub_changer, :week_registered }
+      let(:version) do
+        build_stubbed :version,
+          item: item,
+          user: version_user,
+          item_diff: item_diff
+      end
+      let(:item) { build_stubbed :anime }
+      let(:item_diff) { [{ fandubbers: ['a', 'b'] }, { fansubbers: ['a', 'b'] }].sample }
+      let(:version_user) { user }
+
+      it { is_expected.to be_able_to :auto_accept, version }
+
+      context 'not user version' do
+        let(:version_user) { build_stubbed :user, :user }
+        it { is_expected.to_not be_able_to :auto_accept, version }
+      end
+
+      context 'not only fansubbers/fandubbers changed' do
+        let(:item_diff) { { fandubbers: %w[a b], name: %w[a b] } }
+        it { is_expected.to_not be_able_to :auto_accept, version }
+      end
+
+      context 'not fandubbers changed' do
+        let(:item_diff) { { name: %w[a b] } }
+        it { is_expected.to_not be_able_to :auto_accept, version }
+      end
+    end
+
     context 'trusted_attached_video_changer' do
       let(:user) { build_stubbed :user, :trusted_attached_video_changer, :week_registered }
       let(:version) do

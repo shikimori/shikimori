@@ -9,6 +9,7 @@ module Types
       trusted_attached_video_changer
       not_trusted_version_changer
       trusted_ranobe_external_links_changer
+      trusted_fansub_changer
       review_moderator
       collection_moderator
       cosplay_moderator

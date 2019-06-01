@@ -216,6 +216,7 @@ ru:
           trusted_version_changer: Может менять контент без модерации изменений
           not_trusted_version_changer: Не может менять контент сайта
           trusted_ranobe_external_links_changer: Может менять ссылки для ранобэ без модерации
+          trusted_fansub_changer: Может менять фансабберов и фандабберов без модерации
           video_super_moderator: Может назначать модераторов видео
           api_video_uploader: Имеет доступ к видео api
           trusted_video_uploader: Может загружать видео без модерации

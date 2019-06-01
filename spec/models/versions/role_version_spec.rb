@@ -86,6 +86,7 @@ describe Versions::RoleVersion do
         it { is_expected.to be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to be_able_to :manage_trusted_ranobe_external_links_changer_role, user }
+        it { is_expected.to be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
         it { is_expected.to be_able_to :manage_cheat_bot_role, user }
@@ -123,6 +124,7 @@ describe Versions::RoleVersion do
         it { is_expected.to be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to be_able_to :manage_trusted_ranobe_external_links_changer_role, user }
+        it { is_expected.to be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
         it { is_expected.to be_able_to :manage_cheat_bot_role, user }
@@ -160,6 +162,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_ranobe_external_links_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to be_able_to :manage_not_trusted_abuse_reporter_role, user }
         it { is_expected.to_not be_able_to :manage_cheat_bot_role, user }
@@ -197,6 +200,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_ranobe_external_links_changer_role, user }
+        it { is_expected.to be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
         it { is_expected.to_not be_able_to :manage_cheat_bot_role, user }
@@ -234,6 +238,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_ranobe_external_links_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
         it { is_expected.to_not be_able_to :manage_cheat_bot_role, user }
@@ -271,6 +276,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_ranobe_external_links_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
         it { is_expected.to be_able_to :manage_cheat_bot_role, user }
@@ -311,6 +317,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_version_changer_role, user }
         it { is_expected.to_not be_able_to :manage_trusted_ranobe_external_links_changer_role, user }
+        it { is_expected.to_not be_able_to :manage_trusted_fansub_changer_role, user }
         it { is_expected.to_not be_able_to :manage_retired_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_not_trusted_abuse_reporter_role, user }
         it { is_expected.to_not be_able_to :manage_cheat_bot_role, user }

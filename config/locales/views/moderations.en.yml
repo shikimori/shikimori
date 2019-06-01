@@ -216,6 +216,7 @@ en:
           trusted_version_changer: Can change database content without moderation
           not_trusted_version_changer: Cannot change database content
           trusted_ranobe_external_links_changer: Can change Light Novel external links without moderation
+          trusted_fansub_changer: Can change fansubbers & fandubbers without moderation
           video_super_moderator: Can assign video moderators
           api_video_uploader: Have access to videos api
           trusted_video_uploader: Can upload videos wihtout moderation

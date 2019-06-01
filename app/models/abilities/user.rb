@@ -295,6 +295,9 @@ class Abilities::User
             version.item.ranobe? &&
             version.item_diff.keys == ['external_links']
         ) || (
+          @user.trusted_fansub_changer? &&
+            (version.item_diff.keys == ['fansubbers'] || version.item_diff.keys == ['fandubbers'])
+        ) || (
           @user.trusted_attached_video_changer? &&
             (version.is_a?(Versions::VideoVersion) || version.item_type == Video.name)
         )
