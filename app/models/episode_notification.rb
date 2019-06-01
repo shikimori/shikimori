@@ -14,8 +14,10 @@ class EpisodeNotification < ApplicationRecord
 
     if nothig_to_rollback?
       save!
-    else
+    elsif !old_released_anime?
       Anime::RollbackEpisode.call anime, episode
+    else
+      destroy!
     end
   end
 
@@ -23,6 +25,13 @@ private
 
   def not_tracked?
     anime.episodes_aired < episode
+  end
+
+  def old_released_anime?
+    anime.released? && (
+      (anime.aired_on && anime.aired_on < 10.years.ago) ||
+        (anime.released_on && anime.released_on < 1.week.ago)
+    )
   end
 
   def track_episode

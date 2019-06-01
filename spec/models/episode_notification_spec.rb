@@ -78,9 +78,18 @@ describe EpisodeNotification do
           is_raw: is_raw,
           is_torrent: is_torrent
       end
-      let(:anime) { create :anime, episodes_aired: episodes_aired }
+      let(:anime) do
+        create :anime, :with_track_changes,
+          episodes_aired: episodes_aired,
+          status: :released,
+          episodes: episodes_aired,
+          aired_on: aired_on,
+          released_on: released_on
+      end
       let(:episode) { 10 }
       let(:episodes_aired) { 10 }
+      let(:aired_on) { nil }
+      let(:released_on) { nil }
 
       before { allow(Anime::RollbackEpisode).to receive(:call).and_call_original }
       subject! { episode_notification.rollback :raw }
@@ -95,6 +104,18 @@ describe EpisodeNotification do
             it do
               expect(Anime::RollbackEpisode).to have_received :call
               expect { episode_notification.reload }.to raise_error ActiveRecord::RecordNotFound
+              expect(anime).to be_ongoing
+            end
+
+            context 'old anime' do
+              let(:aired_on) { [11.years.ago, nil].sample }
+              let(:released_on) { aired_on.nil? ? 8.days.ago : [8.days.ago, nil].sample }
+
+              it do
+                expect(Anime::RollbackEpisode).to_not have_received :call
+                expect { episode_notification.reload }.to raise_error ActiveRecord::RecordNotFound
+                expect(anime).to be_released
+              end
             end
           end
 
