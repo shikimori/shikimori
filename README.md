@@ -7,6 +7,7 @@ Please follow the [contribution guidelines](https://github.com/shikimori/shikimo
 
 ## Requirements
 OSX or Linux
+
 PostgreSQL >= 9.6, Ruby >= 2.6, NodeJS >= 10.0, Memcached, Redis
 
 ## Issues Board (Agile Season)
