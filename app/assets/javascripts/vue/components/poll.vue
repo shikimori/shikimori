@@ -14,7 +14,7 @@
       v-model="collection"
       v-if="collection.length"
     )
-      .b-collection_item(
+      .b-collection_item.single-line(
         v-for="pollVariant in collection"
       )
         .delete(
@@ -102,25 +102,4 @@ export default {
 <style scoped lang="sass">
   .b-nothing_here
     margin-bottom: 15px
-
-  .b-collection_item
-    .delete
-      top: 3px
-
-    .drag-handle
-      top: 3px
-      left: 53px
-
-    &:first-child
-      margin-top: 5px
-
-    &:first-child:last-child
-      .drag-handle
-        display: none
-
-      .b-input
-        margin-left: 0
-
-    .b-input
-      margin-left: 25px
 </style>

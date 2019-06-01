@@ -112,8 +112,11 @@ export default {
       margin-bottom: 2px
 
       &.select
-      margin-bottom: 5px
+        margin-bottom: 5px
 
       input
         width: 100%
+
+    .drag-handle
+      margin-top: 3px
 </style>

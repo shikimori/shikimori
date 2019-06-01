@@ -10,23 +10,38 @@
   &:last-child
     margin-bottom: 0
 
+  &:first-child:last-child
+    .drag-handle
+      display: none
+
   // &.sortable-chosen
   &.sortable-ghost
-    border: 1px dashed $gray-1
+    outline: 1px dashed $gray-1
     opacity: 0.6
-    padding: 0 5px 0 30px
 
     .drag-handle
       color: $gray !important
-
-    .delete, .drag-handle
-      margin-top: -2px
 
   &.sortable-drag
     opacity: 1
 
     .drag-handle
       color: $link-active !important
+
+  &.single-line
+    .delete
+      top: 3px
+
+    .drag-handle
+      top: 3px
+      left: 53px
+
+    &:first-child:last-child
+      .b-input
+        margin-left: 0
+
+    .b-input
+      margin-left: 25px
 
   .delete, .drag-handle
     cursor: pointer
@@ -47,16 +62,14 @@
 
   .delete
     color: #123
-    margin-top: -1px
-    top: 1px
+    top: 0
 
     &:before
       content: '✕'
 
   .drag-handle
     color: $gray
-    margin-top: 2px
-    top: 24px
+    top: 25px
 
     &:before
       content: 'm'

@@ -135,7 +135,7 @@ https://chrisbateman.github.io/webpack-visualizer/
 
 ## Move data from development to production
 ```ruby
-user = User.find(80804);
+user = User.find(215190);
 
 File.open('/tmp/z.json', 'w') do |f|
   f.write({
@@ -153,7 +153,7 @@ scp /tmp/z.json devops@shiki_web:/tmp/
 ```
 
 ```
-user_id = 80804;
+user_id = 215190;
 json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
 
 UserRate.where(user_id: user_id).destroy_all;
