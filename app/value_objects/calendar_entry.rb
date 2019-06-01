@@ -37,9 +37,9 @@ class CalendarEntry < SimpleDelegator
 
   def next_episode_start_at
     anime.next_episode_at ||
-      anime_calendars.first&.start_at ||
       aired_at ||
-      broadcast_at
+      broadcast_at ||
+      anime_calendars.first&.start_at
   end
 
   def next_episode_end_at

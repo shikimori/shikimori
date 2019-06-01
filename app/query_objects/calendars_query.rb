@@ -1,4 +1,11 @@
 class CalendarsQuery
+  ONGOINGS_SQL = <<~SQL
+    animes.broadcast is not null or
+      (next_episode_at is not null and next_episode_at > (now() - interval '1 day')) or
+      anime_calendars.episode is null or
+      anime_calendars.episode = episodes_aired + 1
+  SQL
+
   # список онгоингов, сгруппированный по времени выхода
   def fetch_grouped locale
     group fetch(locale)
@@ -23,7 +30,7 @@ class CalendarsQuery
   def cache_key
     [
       :calendar,
-      :v2,
+      :v3,
       AnimeCalendar.last.try(:id),
       Topics::NewsTopic.last.try(:id),
       Time.zone.today.to_s
@@ -75,10 +82,7 @@ private
       .where(status: :ongoing) # .where(id: 31680)
       .where(kind: %i[tv ona]) # 15133 - спешл Aoi Sekai no Chuushin de
       .where.not(id: Anime::EXCLUDED_ONGOINGS + [15_547]) # 15547 - Cross Fight B-Daman eS
-      .where(
-        Arel.sql('anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1')
-      )
-      .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
+      .where(Arel.sql(ONGOINGS_SQL))
       .where(
         'episodes_aired != 0 or (aired_on is not null and aired_on > ?)',
         Time.zone.now - 1.months
