@@ -20,5 +20,6 @@
           - if can? :destroy, entry
             a.destroy[
               data-method='delete'
+              data-confirm=t('actions.confirm')
               href=profile_user_history_url(user.to_param, entry)
             ]
