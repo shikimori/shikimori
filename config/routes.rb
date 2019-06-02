@@ -143,7 +143,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :bans, only: %i[show new create] do
+    resources :bans, only: %i[show new create destroy] do
       get '(/page/:page)' => :index, as: '', on: :collection
     end
     resources :abuse_requests, only: %i[show] do

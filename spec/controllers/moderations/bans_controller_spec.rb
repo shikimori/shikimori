@@ -63,4 +63,27 @@ describe Moderations::BansController do
       expect(response.content_type).to eq 'application/json'
     end
   end
+
+  describe '#destroy' do
+    include_context :authenticated, :super_moderator
+    include_context :timecop
+
+    let!(:ban) do
+      create :ban,
+        reason: 'test',
+        duration: '1h',
+        comment: comment,
+        abuse_request: abuse_request,
+        user: user_admin,
+        moderator: user
+    end
+
+    subject! { delete :destroy, params: { id: ban.id } }
+
+    it do
+      expect { ban.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect(user_admin.reload.read_only_at).to eq Time.zone.now
+      expect(response).to redirect_to moderation_profile_url(user_admin)
+    end
+  end
 end

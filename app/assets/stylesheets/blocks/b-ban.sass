@@ -2,6 +2,7 @@
 @import mixins/date
 @import mixins/link
 @import mixins/log_entry
+@import mixins/shikimori
 
 .b-ban
   +log_entry
@@ -26,6 +27,20 @@
 
     & > span
       padding-left: 5px
+
+  .destroy
+    float: right
+    color: $gray-4
+    font-size: 13px
+    margin-left: 5px
+    text-align: center
+    width: 20px
+
+    +lte_ipad
+      font-size: 16px
+
+    &:before
+      +shikimori('\e815')
 
   .abuser
     +bracket_details

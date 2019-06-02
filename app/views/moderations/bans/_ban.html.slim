@@ -25,6 +25,13 @@
   - elsif ban.comment_id
     span = t '.for_deleted_comment'
 
+  - if can? :destroy, ban
+    a.destroy[
+      data-method='delete'
+      data-confirm=t('actions.confirm')
+      href=moderations_ban_url(ban)
+    ]
+
   .moderator
     = render 'users/user_16', user: ban.moderator
     - if ban.abuse_request

@@ -42,6 +42,11 @@ class Moderations::BansController < ModerationsController
   rescue StateMachine::InvalidTransition
   end
 
+  def destroy
+    @resource.destroy
+    redirect_back fallback_location: moderation_profile_url(@resource.user)
+  end
+
 private
 
   def ban_params
