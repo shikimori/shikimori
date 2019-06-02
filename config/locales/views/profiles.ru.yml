@@ -39,7 +39,6 @@ ru:
         notifications: Уведомления
         misc: Прочее
       roles: Роли
-      no_roles: Нет ролей
       banned: '@{m:Забанен|f:Забанена}'
       ban_removal: >-
         Время снятия бана

@@ -1,11 +1,10 @@
 = render layout: 'page' do
-  .block
-    .subheadline = t '.roles'
-    - if @resource.roles.any?
-      - @resource.roles.each do |role|
+  - roles = @resource.roles.select { |role| RolesPolicy.accessible? role }
+  - if roles.any?
+    .block
+      .subheadline = t '.roles'
+      - roles.each do |role|
         div = role.titleize
-    - else
-      .b-nothing_here = t '.no_roles'
 
   - if @resource.read_only_at && @resource.banned?
     .errors.block

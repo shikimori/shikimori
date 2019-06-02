@@ -39,7 +39,6 @@ en:
         notifications: Notifications
         misc: Misc
       roles: Roles
-      no_roles: No roles
       banned: Banned
       ban_removal: >-
         Ban will be removed at
