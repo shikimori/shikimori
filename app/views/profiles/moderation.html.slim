@@ -1,17 +1,17 @@
 = render layout: 'page' do
-  - roles = @resource.roles.select { |role| RolesPolicy.accessible? role }
-  - if roles.any?
-    .block
-      .subheadline = t '.roles'
-      - roles.each do |role|
-        div = role.titleize
-
   - if @resource.read_only_at && @resource.banned?
     .errors.block
       .subheadline.red = t '.banned', gender: @resource.sex
       p == t '.ban_removal',
         formatted_date: l(@resource.read_only_at, format: :full),
         iso_date: @resource.read_only_at.iso8601
+
+  - roles = @resource.roles.select { |role| RolesPolicy.accessible? role }
+  - if roles.any?
+    .block
+      .subheadline = t '.roles'
+      - roles.each do |role|
+        div = role.titleize
 
   - if can? :manage, Ban
     .cc-2.block
