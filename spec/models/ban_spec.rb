@@ -109,16 +109,25 @@ describe Ban do
       end
     end
 
+    describe '#unban_user' do
+      include_context :timecop
+      let!(:ban) { create :ban, params.merge(created_at: Time.zone.now) }
+
+      subject! { ban.destroy }
+
+      it { expect(user.read_only_at).to eq Time.zone.now }
+    end
+
     describe '#mention_in_comment' do
       subject { comment.reload.body }
       let(:comment) { create :comment, user: user, body: "test\n" }
 
-       context 'no prior ban' do
+      context 'no prior ban' do
         let!(:ban) { create :ban, params }
         it { is_expected.to eq "test\n\n[ban=#{ban.id}]" }
       end
 
-       context 'with prior ban' do
+      context 'with prior ban' do
         let!(:prior_ban) { create :ban, params }
         let!(:ban) { create :ban, params }
         it { is_expected.to eq "test\n\n[ban=#{prior_ban.id}][ban=#{ban.id}]" }

@@ -11,10 +11,13 @@ class Ban < ApplicationRecord
   # validates :comment, :abuse_request, presence: true
 
   before_validation :set_user
+
   after_create :ban_user
   after_create :notify_user
   after_create :mention_in_comment
   after_create :accept_abuse_request
+
+  after_destroy :unban_user
 
   ACTIVE_DURATION = 60.days
 
@@ -60,8 +63,15 @@ class Ban < ApplicationRecord
   # callbacks
   def ban_user
     return if warning?
+
     start_at = [user.read_only_at || Time.zone.now, Time.zone.now].max
     user.update_column :read_only_at, start_at + duration.minutes
+  end
+
+  def unban_user
+    if user.read_only_at
+      user.update_column :read_only_at, user.read_only_at - duration.minutes
+    end
   end
 
   def notify_user
@@ -75,6 +85,7 @@ class Ban < ApplicationRecord
 
   def mention_in_comment
     return if comment.nil?
+
     comment.body = (comment.body.strip + "\n\n[ban=#{id}]")
       .gsub(/(\[ban=\d+\])\s+(\[ban=\d+\])/, '\1\2')
 
