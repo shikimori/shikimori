@@ -37,6 +37,7 @@ class BbCodes::Text
   BANNED_DOMAINS = %r{
     (?:https?://)?
       (?:
+       shikimori.online |
        images.webpark.ru |
        18xxx.me |
        myflirtcontacts1.com |
