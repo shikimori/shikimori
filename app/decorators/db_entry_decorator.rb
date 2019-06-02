@@ -10,7 +10,7 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
   MAX_COLLECTIONS = 3
   MAX_FAVOURITES = 12
 
-  CACHE_VERSION = :v5
+  CACHE_VERSION = :v6
 
   def headline
     headline_array

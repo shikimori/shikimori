@@ -36,7 +36,7 @@ describe FixName do
 
     describe 'spam domains' do
       let(:name) { %w[images.webpark.ru shikme.ru].sample }
-      it { is_expected.to eq '[deleted]' }
+      it { is_expected.to eq BbCodes::Text::BANNED_TEXT }
     end
 
     context 'extension' do

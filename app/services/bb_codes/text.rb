@@ -37,7 +37,6 @@ class BbCodes::Text
   BANNED_DOMAINS = %r{
     (?:https?://)?
       (?:
-       shikimori.online |
        images.webpark.ru |
        18xxx.me |
        myflirtcontacts1.com |
@@ -46,6 +45,8 @@ class BbCodes::Text
        #{Users::CheckHacked::SPAM_DOMAINS.join '|'}
       )
   }mix
+
+  BANNED_TEXT = '[deleted]'
 
   default_url_options[:protocol] = Shikimori::PROTOCOL
   default_url_options[:host] ||=
@@ -79,7 +80,7 @@ class BbCodes::Text
   end
 
   def remove_spam text
-    text.gsub BANNED_DOMAINS, '[deleted]'
+    text.gsub BANNED_DOMAINS, BANNED_TEXT
   end
 
 private
