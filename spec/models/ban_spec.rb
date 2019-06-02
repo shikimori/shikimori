@@ -203,6 +203,19 @@ describe Ban do
     context 'forum_moderator' do
       let(:role) { :forum_moderator }
       it { is_expected.to be_able_to :manage, ban }
+      it { is_expected.to_not be_able_to :destroy, ban }
+    end
+
+    context 'super_moderator' do
+      let(:role) { :super_moderator }
+      it { is_expected.to be_able_to :manage, ban }
+      it { is_expected.to be_able_to :destroy, ban }
+    end
+
+    context 'admin' do
+      let(:role) { :admin }
+      it { is_expected.to be_able_to :manage, ban }
+      it { is_expected.to be_able_to :destroy, ban }
     end
 
     context 'not forum_moderator' do

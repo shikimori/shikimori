@@ -21,6 +21,8 @@ class Abilities::ForumModerator
     can %i[edit update], Genre
 
     can :manage, Ban
+    cannot :destroy, Ban
+
     can :manage, AbuseRequest
     can %i[
       manage_censored_avatar_role

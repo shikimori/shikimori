@@ -16,5 +16,7 @@ class Abilities::SuperModerator
       manage_not_trusted_abuse_reporter_role
       manage_cheat_bot_role
     ], User
+
+    can :destroy, Ban
   end
 end
