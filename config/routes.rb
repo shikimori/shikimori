@@ -697,7 +697,7 @@ Rails.application.routes.draw do
         name russian synonyms license_name_ru description_ru description_en image
         kind rating volumes chapters
         imageboard_tag aired_on released_on status genre_ids
-        external_links
+        external_links desynced
       }.join('|'))
     end
   end
