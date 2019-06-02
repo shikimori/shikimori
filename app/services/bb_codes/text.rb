@@ -79,7 +79,7 @@ class BbCodes::Text
   end
 
   def remove_spam text
-    text.gsub BANNED_DOMAINS, 'domain'
+    text.gsub BANNED_DOMAINS, '[deleted]'
   end
 
 private

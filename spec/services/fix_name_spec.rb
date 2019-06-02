@@ -36,7 +36,7 @@ describe FixName do
 
     describe 'spam domains' do
       let(:name) { %w[images.webpark.ru shikme.ru].sample }
-      it { is_expected.to eq 'domain' }
+      it { is_expected.to eq '[deleted]' }
     end
 
     context 'extension' do
@@ -80,7 +80,7 @@ describe FixName do
 
     describe 'spam domains' do
       let(:name) { %w[images.webpark.ru shikme.ru].sample }
-      it { is_expected.to eq 'domain' }
+      it { is_expected.to eq '[deleted]' }
     end
 
     context 'extension' do

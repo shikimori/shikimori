@@ -23,7 +23,7 @@ private
   end
 
   def remove_spam name
-    name.gsub BbCodes::Text::BANNED_DOMAINS, 'domain'
+    name.gsub BbCodes::Text::BANNED_DOMAINS, '[deleted]'
   end
 
   def cleanup name

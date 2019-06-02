@@ -206,7 +206,7 @@ describe BbCodes::Text do
 
     describe 'spam domains' do
       let(:text) { ['http://images.webpark.ru', 'http://shikme.ru'].sample }
-      it { is_expected.to eq 'domain' }
+      it { is_expected.to eq '[deleted]' }
     end
 
     describe '[b]' do
