@@ -34,9 +34,10 @@ class BbCodes::Text
 
   OBSOLETE_TAGS = %r{\[user_change=\d+\] | \[/user_change\]}mix
 
-  SPAM_DOMAINS = %r{
+  BANNED_DOMAINS = %r{
     (?:https?://)?
       (?:
+       shikimori.online |
        images.webpark.ru |
        18xxx.me |
        myflirtcontacts1.com |
@@ -78,7 +79,7 @@ class BbCodes::Text
   end
 
   def remove_spam text
-    text.gsub SPAM_DOMAINS, 'spam.domain'
+    text.gsub BANNED_DOMAINS, 'domain'
   end
 
 private
