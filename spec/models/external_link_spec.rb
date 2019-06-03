@@ -23,6 +23,24 @@ describe ExternalLink do
       it { expect(external_link.url).to eq 'http://zzz' }
     end
 
+    describe 'visible?' do
+      let(:external_link) { build :external_link, kind: kind }
+
+      context 'visible' do
+        let(:kind) do
+          (
+            Types::ExternalLink::Kind.values - Types::ExternalLink::INVISIBLE_KINDS
+          ).sample
+        end
+        it { expect(external_link).to be_visible }
+      end
+
+      context 'invisible' do
+        let(:kind) { Types::ExternalLink::INVISIBLE_KINDS.sample }
+        it { expect(external_link).to_not be_visible }
+      end
+    end
+
     describe '#label' do
       let(:external_link) { build :external_link, kind, url: url }
       subject { external_link.label }
