@@ -33,7 +33,7 @@ private
     if css.blank? || css.gsub(%r{^/\* AUTO=.*}, '').include?('@media')
       css
     else
-      "#{MEDIA_QUERY_CSS} { #{css} }"
+      unwrap_imports("#{MEDIA_QUERY_CSS} { #{css} }")
     end
   end
 
@@ -55,5 +55,20 @@ private
 
   def sanitize css
     Misc::SanitizeEvilCss.call(css).strip.gsub(/;;+/, ';').strip
+  end
+
+  def unwrap_imports css
+    if css.include? '@import'
+      imports = []
+
+      fixed_css = css.gsub /@import.*?;[\n\r]*/ do |match|
+        imports << match
+        nil
+      end
+
+      imports.join('') + fixed_css
+    else
+      css
+    end
   end
 end
