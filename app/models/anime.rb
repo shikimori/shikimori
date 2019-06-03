@@ -149,6 +149,11 @@ class Anime < DbEntry
     class_name: ExternalLink.name,
     as: :entry,
     inverse_of: :entry
+  has_one :smotret_anime_external_link,
+    -> { where kind: Types::ExternalLink::Kind[:smotret_anime] },
+    class_name: ExternalLink.name,
+    as: :entry,
+    inverse_of: :entry
 
   has_many :contest_winners,
     -> { where item_type: Anime.name },
