@@ -77,8 +77,6 @@ class Manga < DbEntry
     foreign_key: :target_id,
     dependent: :destroy
 
-  has_many :manga_chapters, class_name: MangaChapter.name, dependent: :destroy
-
   has_many :name_matches, -> { where target_type: Manga.name },
     foreign_key: :target_id,
     dependent: :destroy

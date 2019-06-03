@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_24_212216) do
+ActiveRecord::Schema.define(version: 2019_06_03_224314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -572,25 +572,6 @@ ActiveRecord::Schema.define(version: 2019_05_24_212216) do
     t.string "list_type", null: false
     t.jsonb "output"
     t.index ["user_id"], name: "index_list_imports_on_user_id"
-  end
-
-  create_table "manga_chapters", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "url", limit: 255
-    t.integer "manga_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "manga_pages", id: :serial, force: :cascade do |t|
-    t.string "url", limit: 255
-    t.integer "number"
-    t.integer "manga_chapter_id"
-    t.string "image_file_name", limit: 255
-    t.string "image_content_type", limit: 255
-    t.integer "image_file_size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "mangas", id: :serial, force: :cascade do |t|

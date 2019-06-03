@@ -102,7 +102,6 @@ gem 'xxhash' # очень быстрый несекьюрный алгоритм
 
 gem 'rack-contrib', github: 'libc/rack-contrib', branch: 'rack_ruby_2+no-gvb' # для поддержки jsonp в api
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
-gem 'zaru'
 
 gem 'apipie-rails'
 gem 'gcm'

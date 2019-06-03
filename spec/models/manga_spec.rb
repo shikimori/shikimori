@@ -26,7 +26,6 @@ describe Manga do
     it { is_expected.to have_attached_file :image }
 
     it { is_expected.to have_many(:recommendation_ignores).dependent(:destroy) }
-    it { is_expected.to have_many(:manga_chapters).dependent(:destroy) }
 
     it { is_expected.to have_many(:name_matches).dependent(:destroy) }
 
