@@ -51,29 +51,3 @@ Rack::Attack.throttle('smotret-anime per minute', limit: 270, period: 60.second)
     req.real_ip
   end
 end
-
-if ENV['SHIKI_TYPE'] == 'db'
-  Rack::Attack.throttle('/video_online per second', limit: 4, period: 1.second) do |req|
-    if req.url =~ %r{/video_online(?:/|$)}
-      req.real_ip
-    end
-  end
-
-  Rack::Attack.throttle('/video_online per minute', limit: 50, period: 1.minute) do |req|
-    if req.url =~ %r{/video_online(?:/|$)}
-      req.real_ip
-    end
-  end
-
-  Rack::Attack.throttle('/video_online per hour', limit: 500, period: 1.hour) do |req|
-    if req.url =~ %r{/video_online(?:/|$)}
-      req.real_ip
-    end
-  end
-
-  Rack::Attack.throttle('/video_online per day', limit: 2000, period: 1.day) do |req|
-    if req.url =~ %r{/video_online(?:/|$)}
-      req.real_ip
-    end
-  end
-end
