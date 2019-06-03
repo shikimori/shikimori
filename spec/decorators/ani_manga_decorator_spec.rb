@@ -133,20 +133,51 @@ describe AniMangaDecorator do
   end
 
   describe '#displayed_external_links' do
-    let(:anime) { build :anime, mal_id: mal_id }
-    let!(:external_link) { create :external_link, entry: anime }
+    let(:anime) do
+      build_stubbed :anime,
+        mal_id: mal_id,
+        all_external_links: [
+          external_link_1,
+          external_link_2,
+          external_link_3,
+          external_link_4
+        ]
+    end
+    let!(:external_link_1) do
+      build_stubbed :external_link, :shikimori, :wikipedia,
+        url: 'https://en.wikipedia.org/wiki/Kono_Oto_Tomare!'
+    end
+    let!(:external_link_2) do
+      build_stubbed :external_link, kind: :smotret_anime, source: :smotret_anime
+    end
+    let!(:external_link_3) do
+      build_stubbed :external_link, :wikipedia,
+        source: :smotret_anime,
+        url: 'https://en.wikipedia.org/wiki/Kono_Oto_Tomare!'
+    end
+    let!(:external_link_4) do
+      build_stubbed :external_link, :wikipedia,
+        source: :smotret_anime,
+        url: 'https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%AE%E9%9F%B3%E3%81%A8%E3%81%BE%E3%82%8C!c'
+    end
 
     context 'without mal_id' do
       let(:mal_id) { nil }
-      it { expect(decorator.displayed_external_links).to eq [external_link] }
+      it do
+        expect(decorator.displayed_external_links).to eq [
+          external_link_1,
+          external_link_4
+        ]
+      end
     end
 
     context 'with mal_id' do
       let(:mal_id) { 123 }
       it do
         expect(decorator.displayed_external_links).to eq [
-          decorator.send(:mal_external_link),
-          external_link
+          external_link_1,
+          external_link_4,
+          decorator.send(:mal_external_link)
         ]
       end
     end

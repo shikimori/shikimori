@@ -1,6 +1,6 @@
 module Types
   module ExternalLink
-    SOURCES = %i[myanimelist shikimori smotret_anime]
+    SOURCES = %i[shikimori myanimelist smotret_anime]
 
     Source = Types::Strict::Symbol
       .constructor(&:to_sym)

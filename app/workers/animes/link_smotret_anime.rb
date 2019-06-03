@@ -18,7 +18,7 @@ class Animes::LinkSmotretAnime
 private
 
   def process anime, data
-    anime.external_links.create!(
+    anime.all_external_links.create!(
       kind: Types::ExternalLink::Kind[:smotret_anime],
       url: format(SMOTRET_ANIME_URL, smotret_anime_id: data[:id]),
       source: Types::ExternalLink::Kind[:smotret_anime]
@@ -27,7 +27,7 @@ private
     valuable_links(data[:links]).each do |link|
       next if present_link? anime, link[:kind]
 
-      anime.external_links.create!(
+      anime.all_external_links.create!(
         kind: link[:kind],
         url: link[:url],
         source: Types::ExternalLink::Source[:smotret_anime]
@@ -37,7 +37,7 @@ private
 
   def cleanup anime
     anime
-      .external_links
+      .all_external_links
       .where(source: Types::ExternalLink::Source[:smotret_anime])
       .delete_all
   end
@@ -57,7 +57,7 @@ private
   end
 
   def present_link? anime, kind
-    anime.external_links.any? do |external_link|
+    anime.all_external_links.any? do |external_link|
       external_link.source_shikimori? && external_link.kind == kind
     end
   end

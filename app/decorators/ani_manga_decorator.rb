@@ -193,11 +193,10 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def displayed_external_links
-    (
-      object.all_external_links.select(&:visible?) + (mal_id ? [mal_external_link] : [])
-    ).sort_by do |link|
-      Types::ExternalLink::Kind.values.index link.kind.to_sym
-    end
+    (object.all_external_links.select(&:visible?) + (mal_id ? [mal_external_link] : []))
+      .sort_by { |link| Types::ExternalLink::Source.values.index link.source.to_sym }
+      .uniq(&:label)
+      .sort_by { |link| Types::ExternalLink::Kind.values.index link.kind.to_sym }
   end
 
 private
@@ -228,6 +227,7 @@ private
     @mal_external_link ||= ExternalLink.new(
       entry: object,
       kind: :myanimelist,
+      source: :myanimelist,
       url: object.mal_url
     )
   end
