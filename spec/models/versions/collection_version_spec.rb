@@ -56,8 +56,10 @@ describe Versions::CollectionVersion do
     end
 
     describe '#rollback_changes' do
-      before { version.apply_changes }
-      before { version.rollback_changes }
+      before do
+        version.apply_changes
+        version.reload.rollback_changes
+      end
 
       it do
         expect(anime.reload.external_links).to have(1).item

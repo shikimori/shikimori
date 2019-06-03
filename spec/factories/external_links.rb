@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :external_link do
     entry { nil }
     kind { 'anime_db' }
-    source { 'myanimelist' }
+    source { 'shikimori' }
     url { 'http://test.com' }
     imported_at { nil }
 
