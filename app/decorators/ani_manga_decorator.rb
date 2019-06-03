@@ -115,7 +115,7 @@ class AniMangaDecorator < DbEntryDecorator
       object.anime_videos.available.any?
   end
 
-  def release_date_text
+  def release_date_text # rubocop:disable all
     return unless released_on || aired_on
 
     parts = []
@@ -151,34 +151,35 @@ class AniMangaDecorator < DbEntryDecorator
         )
       end
 
-    else # ongoings
-      if aired_on && released_on
+    elsif aired_on && released_on # ongoings
+      parts << i18n_t(
+        'datetime.release_dates.since_till_date',
+        from_date: h.formatted_date(aired_on, true),
+        to_date: h.formatted_date(released_on, true)
+      )
+    else
+      if aired_on
         parts << i18n_t(
-          'datetime.release_dates.since_till_date',
-          from_date: h.formatted_date(aired_on, true),
-          to_date: h.formatted_date(released_on, true)
+          'datetime.release_dates.since_date',
+          date: h.formatted_date(aired_on, true)
         )
-      else
-        if aired_on
-          parts << i18n_t(
-            'datetime.release_dates.since_date',
-            date: h.formatted_date(aired_on, true)
-          )
-        end
-        if released_on
-          parts << i18n_t(
-            'datetime.release_dates.till_date',
-            date: h.formatted_date(released_on, true)
-          )
-        end
+      end
+      if released_on
+        parts << i18n_t(
+          'datetime.release_dates.till_date',
+          date: h.formatted_date(released_on, true)
+        )
       end
     end
 
     text = parts.join(' ').html_safe
-    I18n.russian? ? text.downcase : text if text.present?
+
+    if text.present?
+      I18n.russian? ? text.downcase : text
+    end
   end
 
-  def release_date_tooltip
+  def release_date_tooltip # rubocop:disable all
     return unless released_on && aired_on
     return unless released?
     return if aired_on.year == released_on.year

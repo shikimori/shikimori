@@ -132,19 +132,19 @@ describe AniMangaDecorator do
     end
   end
 
-  describe '#all_external_links' do
+  describe '#displayed_external_links' do
     let(:anime) { build :anime, mal_id: mal_id }
     let!(:external_link) { create :external_link, entry: anime }
 
     context 'without mal_id' do
       let(:mal_id) { nil }
-      it { expect(decorator.all_external_links).to eq [external_link] }
+      it { expect(decorator.displayed_external_links).to eq [external_link] }
     end
 
     context 'with mal_id' do
       let(:mal_id) { 123 }
       it do
-        expect(decorator.all_external_links).to eq [
+        expect(decorator.displayed_external_links).to eq [
           decorator.send(:mal_external_link),
           external_link
         ]
