@@ -52,7 +52,7 @@ ru:
         videos: Видео
         franchise: Франшиза
         fansubbers: Субтитры
-        fandubbers: Дубляж
+        fandubbers: Озвучка
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания
