@@ -61,7 +61,7 @@ private
     if css.include? '@import'
       imports = []
 
-      fixed_css = css.gsub /@import.*?;[\n\r]*/ do |match|
+      fixed_css = css.gsub(/@import.*?;[\n\r]*/) do |match|
         imports << match
         nil
       end

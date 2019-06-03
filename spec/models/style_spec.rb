@@ -49,6 +49,26 @@ describe Style do
           context 'without media' do
             let(:css) { 'test' }
             it { expect(style.compiled_css).to eq "#{Style::MEDIA_QUERY_CSS} { test }" }
+
+            context 'with multiple imports' do
+              let(:css) do
+                <<~CSS
+                  @import url('https://zzz.com');
+                  @import url('https://xxx.com');
+                  zxc
+                CSS
+              end
+
+              it do
+                expect(style.compiled_css).to eq(
+                  <<~CSS.strip
+                    @import url('https://zzz.com');
+                    @import url('https://xxx.com');
+                    #{Style::MEDIA_QUERY_CSS} { zxc }
+                  CSS
+                )
+              end
+            end
           end
         end
 

@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://smotretanime.ru/api/series/?fields=id,title,links&myAnimeListId=38080
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - shikimori
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Jun 2019 20:42:38 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - PHPSESSID=7pd2qd868jilmojkcotf2lo4gi; path=/; secure; HttpOnly
+      - __cfduid=dcc21913eeb77d9296114810c45e909181559594558; expires=Tue, 02-Jun-20
+        20:42:38 GMT; path=/; domain=.smotretanime.ru; HttpOnly
+      - guestId=2f1f0bbdcad37b8182e47d7e49f99cee85599f33cad7e6faa766ef890f436e88;
+        expires=Sat, 01-Jun-2024 20:42:38 GMT; Max-Age=157680000; path=/
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Pragma:
+      - no-cache
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 4e147ea6aaf88ecb-DME
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJkYXRhIjpbeyJpZCI6MTkzNTEsImxpbmtzIjpbeyJ0aXRsZSI6IldvcmxkIEFydCIsInVybCI6Imh0dHA6Ly93d3cud29ybGQtYXJ0LnJ1L2FuaW1hdGlvbi9hbmltYXRpb24ucGhwP2lkPTk3NzgifSx7InRpdGxlIjoi0KjQuNC60LjQvNC+0YDQuCIsInVybCI6Imh0dHBzOi8vc2hpa2ltb3JpLm9uZS9hbmltZXMvMzgwODAifSx7InRpdGxlIjoiTXlBbmltZUxpc3QiLCJ1cmwiOiJodHRwczovL215YW5pbWVsaXN0Lm5ldC9hbmltZS8zODA4MCJ9LHsidGl0bGUiOiJBbmlEYiAiLCJ1cmwiOiJodHRwczovL2FuaWRiLm5ldC9wZXJsLWJpbi9hbmltZWRiLnBsP3Nob3c9YW5pbWUmYWlkPTE0MjM0In0seyJ0aXRsZSI6IkFuaW1lIE5ld3MgTmV0d29yayIsInVybCI6Imh0dHBzOi8vd3d3LmFuaW1lbmV3c25ldHdvcmsuY29tL2VuY3ljbG9wZWRpYS9hbmltZS5waHA/aWQ9MjEyMzcifSx7InVybCI6Imh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0tvbm9fT3RvX1RvbWFyZSEiLCJ0aXRsZSI6Ildpa2lwZWRpYSJ9LHsidXJsIjoiaHR0cHM6Ly9qYS53aWtpcGVkaWEub3JnL3dpa2kvJUUzJTgxJTkzJUUzJTgxJUFFJUU5JTlGJUIzJUUzJTgxJUE4JUUzJTgxJUJFJUUzJTgyJThDISIsInRpdGxlIjoi44Km44Kj44Kt44Oa44OH44Kj44KiIn0seyJ1cmwiOiJodHRwOi8vd3d3LmFsbGNpbmVtYS5uZXQvcHJvZy9zaG93X2MucGhwP251bV9jPTM2NTA0NiIsInRpdGxlIjoiYWxsY2luZW1hIn0seyJ1cmwiOiJodHRwOi8vY2FsLnN5b2JvaS5qcC90aWQvNTI5OS90aW1lIiwidGl0bGUiOiJzeW9ib2kifSx7InVybCI6Imh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0tvbm9fT3RvX1RvbWFyZSFfU291bmRzX29mX0xpZmUiLCJ0aXRsZSI6Indpa2lwZWRpYSJ9XSwidGl0bGUiOiLQl9Cw0LTQtdGA0LbQuCDRjdGC0L7RgiDQt9Cy0YPQuiEgLyBLb25vIE90byBUb21hcmUhIn1dfQ==
+    http_version: 
+  recorded_at: Mon, 03 Jun 2019 20:42:37 GMT
+recorded_with: VCR 4.0.0
