@@ -25,7 +25,7 @@ module Types
       ranobe: COMMON_KINDS + %i[ruranobe novelupdates]
     }
 
-    INVISIBLE_KINDS = %i[smotret_anime]
+    INVISIBLE_KINDS = %i[myanimelist smotret_anime]
 
     Kind = Types::Strict::Symbol
       .constructor(&:to_sym)
