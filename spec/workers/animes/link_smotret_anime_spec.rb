@@ -15,11 +15,11 @@ describe Animes::LinkSmotretAnime, :vcr do
       entry: anime,
       url: 'http://fansubs.ru/base.php?id=5387'
   end
+  let!(:external_link_4) {}
 
   subject! { described_class.new.perform anime.id }
 
   let(:anime) { create :anime, mal_id: mal_id }
-  let(:mal_id) { 38080 }
 
   context 'no mal_id' do
     let(:mal_id) { nil }
@@ -27,6 +27,7 @@ describe Animes::LinkSmotretAnime, :vcr do
   end
 
   context 'matched mal_id' do
+    let(:mal_id) { 38080 }
     it do
       expect(external_link_1.reload).to be_persisted
       expect { external_link_2.reload }.to raise_error ActiveRecord::RecordNotFound
@@ -55,6 +56,29 @@ describe Animes::LinkSmotretAnime, :vcr do
         url: 'https://en.wikipedia.org/wiki/Kono_Oto_Tomare!_Sounds_of_Life',
         source: 'smotret_anime'
       )
+    end
+
+    context 'disabled smotret_anime parsing' do
+      let!(:external_link_4) do
+        create :external_link,
+          source: :smotret_anime,
+          kind: :smotret_anime,
+          entry: anime,
+          url: format(described_class::SMOTRET_ANIME_URL, smotret_anime_id: -1)
+      end
+      it { expect(anime.all_external_links).to have(4).items }
+    end
+  end
+
+  context 'not matched mal_id' do
+    let(:mal_id) { 999999 }
+
+    context 'ongoing && aired_on < 1.month.ago' do
+      pending
+    end
+
+    context 'not ongoing || aired_on < 1.month.ago' do
+      pending
     end
   end
 end

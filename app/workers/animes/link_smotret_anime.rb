@@ -8,6 +8,7 @@ class Animes::LinkSmotretAnime
   def perform anime_id
     anime = Anime.find_by id: anime_id
     return unless anime&.mal_id
+    return if disabled? anime
 
     data = parse fetch anime.mal_id
 
@@ -54,6 +55,11 @@ private
     end
     .compact
     .reject { |link| link[:kind] == Types::ExternalLink::Kind[:myanimelist] }
+  end
+
+  def disabled? anime
+    anime.all_external_links.any?(&:kind_smotret_anime?) &&
+      !Animes::SmotretAnimeId.call(anime)
   end
 
   def present_link? anime, kind
