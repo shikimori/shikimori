@@ -135,7 +135,11 @@ class Anime < DbEntry
 
   has_many :links, class_name: AnimeLink.name, dependent: :destroy
 
-  has_many :external_links, -> { order :id },
+  has_many :external_links, -> { where(source: :shikimori).order(:id) },
+    class_name: ExternalLink.name,
+    as: :entry,
+    inverse_of: :entry
+  has_many :all_external_links, -> { order :id },
     class_name: ExternalLink.name,
     as: :entry,
     inverse_of: :entry,

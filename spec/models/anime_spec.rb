@@ -47,7 +47,8 @@ describe Anime do
     it { is_expected.to have_many(:name_matches).dependent :destroy }
 
     it { is_expected.to have_many(:links).dependent :destroy }
-    it { is_expected.to have_many(:external_links).dependent :destroy }
+    it { is_expected.to have_many :external_links }
+    it { is_expected.to have_many(:all_external_links).dependent :destroy }
     it { is_expected.to have_one :anidb_external_link }
 
     it { is_expected.to have_many(:contest_winners).dependent :destroy }

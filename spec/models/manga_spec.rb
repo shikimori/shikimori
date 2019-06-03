@@ -2,35 +2,36 @@
 
 describe Manga do
   describe 'relations' do
-    it { is_expected.to have_many :person_roles }
+    it { is_expected.to have_many(:person_roles).dependent(:destroy) }
     it { is_expected.to have_many :characters }
     it { is_expected.to have_many :people }
 
     it { is_expected.to have_many :rates }
     it { is_expected.to have_many(:user_rate_logs).dependent(:destroy) }
 
-    it { is_expected.to have_many :related }
+    it { is_expected.to have_many(:related).dependent(:destroy) }
     it { is_expected.to have_many :related_mangas }
     it { is_expected.to have_many :related_animes }
 
-    it { is_expected.to have_many :similar }
+    it { is_expected.to have_many(:similar).dependent(:destroy) }
     it { is_expected.to have_many :similar_mangas }
 
-    it { is_expected.to have_many :user_histories }
+    it { is_expected.to have_many(:user_histories).dependent(:destroy) }
 
     it { is_expected.to have_many :cosplay_gallery_links }
     it { is_expected.to have_many :cosplay_galleries }
 
-    it { is_expected.to have_many :reviews }
+    it { is_expected.to have_many(:reviews).dependent(:destroy) }
 
     it { is_expected.to have_attached_file :image }
 
-    it { is_expected.to have_many :recommendation_ignores }
-    it { is_expected.to have_many :manga_chapters }
+    it { is_expected.to have_many(:recommendation_ignores).dependent(:destroy) }
+    it { is_expected.to have_many(:manga_chapters).dependent(:destroy) }
 
-    it { is_expected.to have_many :name_matches }
+    it { is_expected.to have_many(:name_matches).dependent(:destroy) }
 
     it { is_expected.to have_many :external_links }
+    it { is_expected.to have_many(:all_external_links).dependent(:destroy) }
     it { is_expected.to have_one :anidb_external_link }
   end
 
