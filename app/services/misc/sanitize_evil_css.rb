@@ -4,7 +4,7 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   EVIL_CSS = [
     # suspicious javascript-type words
     /(\bdata:\b|eval|cookie|\bwindow\b|\bparent\b|\bthis\b)/i,
-    /behaviou?r|expression|moz-binding|@import|@charset/i,
+    /behaviou?r|expression|moz-binding|@charset/i,
     /(java|vb)?script|[\<]|\\\w/i,
     # back slash, html tags,
     # /[\<>]/,
