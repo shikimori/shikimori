@@ -19,7 +19,9 @@ describe Animes::LinkSmotretAnime, :vcr do
 
   subject! { described_class.new.perform anime.id }
 
-  let(:anime) { create :anime, mal_id: mal_id }
+  let(:anime) { create :anime, mal_id: mal_id, aired_on: aired_on, status: status }
+  let(:aired_on) { 1.week.from_now }
+  let(:status) { :anons }
 
   context 'no mal_id' do
     let(:mal_id) { nil }
@@ -73,12 +75,28 @@ describe Animes::LinkSmotretAnime, :vcr do
   context 'not matched mal_id' do
     let(:mal_id) { 999999 }
 
-    context 'ongoing && aired_on < 1.month.ago' do
-      pending
+    context 'ongoing/released && aired_on < 1.month.ago' do
+      let(:aired_on) { described_class::GIVE_UP_INTERVAL.ago - 1.day }
+      let(:status) { %i[ongoing released].sample }
+
+      it do
+        expect(anime.all_external_links).to have(4).items
+        expect(anime.all_external_links.last).to have_attributes(
+          source: 'smotret_anime',
+          kind: 'smotret_anime',
+          url: format(described_class::SMOTRET_ANIME_URL, smotret_anime_id: -1)
+        )
+      end
     end
 
-    context 'not ongoing || aired_on < 1.month.ago' do
-      pending
+    context 'not ongoing/released || aired_on < 1.month.ago' do
+      let(:status) { %i[ongoing released anons].sample }
+      let(:aired_on) do
+        status != :ongoing && status != :released ?
+          described_class::GIVE_UP_INTERVAL.ago - 1.day :
+          described_class::GIVE_UP_INTERVAL.ago + 1.day
+      end
+      it { expect(anime.all_external_links).to have(3).items }
     end
   end
 end

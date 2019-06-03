@@ -5,6 +5,8 @@ class Animes::LinkSmotretAnime
   API_URL = 'https://smotretanime.ru/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
   SMOTRET_ANIME_URL = 'https://smotretanime.ru/catalog/%<smotret_anime_id>i'
 
+  GIVE_UP_INTERVAL = 1.month
+
   def perform anime_id
     anime = Anime.find_by id: anime_id
     return unless anime&.mal_id
@@ -12,8 +14,13 @@ class Animes::LinkSmotretAnime
 
     data = parse fetch anime.mal_id
 
-    cleanup anime
-    process anime, data if data
+    if data
+      cleanup anime
+      process anime, data
+
+    elsif give_up? anime
+      give_up anime
+    end
   end
 
 private
@@ -21,8 +28,8 @@ private
   def process anime, data
     anime.all_external_links.create!(
       kind: Types::ExternalLink::Kind[:smotret_anime],
-      url: format(SMOTRET_ANIME_URL, smotret_anime_id: data[:id]),
-      source: Types::ExternalLink::Kind[:smotret_anime]
+      source: Types::ExternalLink::Kind[:smotret_anime],
+      url: format(SMOTRET_ANIME_URL, smotret_anime_id: data[:id])
     )
 
     valuable_links(data[:links]).each do |link|
@@ -60,6 +67,19 @@ private
   def disabled? anime
     anime.all_external_links.any?(&:kind_smotret_anime?) &&
       !Animes::SmotretAnimeId.call(anime)
+  end
+
+  def give_up? anime
+    (anime.ongoing? || anime.released?) &&
+      anime.aired_on && anime.aired_on < GIVE_UP_INTERVAL.ago
+  end
+
+  def give_up anime
+    anime.all_external_links.create!(
+      kind: Types::ExternalLink::Kind[:smotret_anime],
+      source: Types::ExternalLink::Kind[:smotret_anime],
+      url: format(SMOTRET_ANIME_URL, smotret_anime_id: Animes::SmotretAnimeId::NO_ID)
+    )
   end
 
   def present_link? anime, kind

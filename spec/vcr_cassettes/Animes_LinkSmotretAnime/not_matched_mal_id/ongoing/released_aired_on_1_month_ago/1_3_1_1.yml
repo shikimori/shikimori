@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://smotretanime.ru/api/series/?fields=id,title,links&myAnimeListId=999999
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - shikimori
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 03 Jun 2019 23:56:27 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - PHPSESSID=93o25dskcc2jht7n27u7p1ibl1; path=/; secure; HttpOnly
+      - __cfduid=d679c9d01bd7fdc31af2daf1baef4a3891559606187; expires=Tue, 02-Jun-20
+        23:56:27 GMT; path=/; domain=.smotretanime.ru; HttpOnly
+      - guestId=24f48a7f3017a75bc00b50a1e48e6c40ec610588ce1100a022a976f4075ac5f6;
+        expires=Sat, 01-Jun-2024 23:56:27 GMT; Max-Age=157680000; path=/
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Pragma:
+      - no-cache
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 4e159a8f0fe18fbb-DME
+    body:
+      encoding: ASCII-8BIT
+      string: '{"data":[]}'
+    http_version: 
+  recorded_at: Mon, 03 Jun 2019 23:56:26 GMT
+recorded_with: VCR 4.0.0
