@@ -10,7 +10,8 @@ class Versions::CollectionVersion < Version
   def apply_changes
     item.class.transaction do
       item_diff.each do |(association, (_old_collection, new_collection))|
-        item.send(association).delete_all
+        # will fail with "delete_all" on applying external_link version
+        item.send(association).destroy_all
         import_collection association, new_collection
 
         add_desynced association
@@ -27,7 +28,7 @@ class Versions::CollectionVersion < Version
   def rollback_changes
     item.class.transaction do
       item_diff.each do |(association, (old_collection, _new_collection))|
-        item.send(association).delete_all
+        item.send(association).destroy_all
         import_collection association, old_collection
       end
       item.touch

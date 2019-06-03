@@ -234,7 +234,7 @@
 
         li
           .field = t '.external_links'
-          .value = @resource.external_links.select(&:source_shikimori?).map(&:label).join(', ').html_safe
+          .value = @resource.external_links.map(&:label).join(', ').html_safe
           a.b-js-action.to-process[
             href=@resource.edit_field_url(:external_links)
             data-dynamic='week_registered'

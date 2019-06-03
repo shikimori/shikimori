@@ -138,10 +138,10 @@
 
   / - if user_signed_in?
     - if resource.display_sensitive?
-  - if resource.all_external_links.any?
+  - if resource.displayed_external_links.any?
     .block
       .subheadline = t '.on_other_sites'
-      - resource.all_external_links.each do |external_link|
+      - resource.displayed_external_links.each do |external_link|
         .b-menu-line.b-external_link[
           class=external_link.kind
         ]

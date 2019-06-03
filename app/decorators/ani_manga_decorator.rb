@@ -10,7 +10,7 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?,
     :current_rate, :changes, :versions, :versions_page,
     :roles, :related, :friend_rates, :recent_rates, :chronology,
-    :rates_scores_stats, :rates_statuses_stats, :all_external_links
+    :rates_scores_stats, :rates_statuses_stats, :displayed_external_links
 
   # топики
   def topic_views
@@ -191,9 +191,9 @@ class AniMangaDecorator < DbEntryDecorator
     I18n.russian? ? text.capitalize : text
   end
 
-  def all_external_links
+  def displayed_external_links
     (
-      object.external_links.select(&:visible?) + (mal_id ? [mal_external_link] : [])
+      object.all_external_links.select(&:visible?) + (mal_id ? [mal_external_link] : [])
     ).sort_by do |link|
       Types::ExternalLink::Kind.values.index link.kind.to_sym
     end
