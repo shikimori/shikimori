@@ -1,4 +1,4 @@
-class Animes::LinkSmotretAnime
+class SmotretAnime::LinkWorker
   include Sidekiq::Worker
   sidekiq_options queue: :slow_parsers
 

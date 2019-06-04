@@ -1,4 +1,4 @@
-describe Animes::LinkSmotretAnime, :vcr do
+describe SmotretAnime::LinkWorker, :vcr do
   let!(:external_link_1) do
     create :external_link, :anime_news_network, :shikimori,
       entry: anime,
