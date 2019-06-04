@@ -14,7 +14,8 @@ class Versions::CollectionVersion < Version
         item.send(association).destroy_all
         import_collection association, new_collection
 
-        add_desynced association
+        # no need to add external_links into desynced
+        # add_desynced association
       end
 
       if item.changed?
