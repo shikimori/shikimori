@@ -122,8 +122,11 @@ module Clockwork
 
     Animes::UpdateCachedRatesCounts.perform_async
     Animes::FranchisesWorker.perform_async
+
     NameMatches::Refresh.perform_async Anime.name
     NameMatches::Refresh.perform_async Manga.name
+
+    SmotretAnime::ScheduleLinkWorkers.perform_async
   end
 
   every 1.week, 'weekly.stuff.cpu_intensive.3', at: 'Thursday 03:45' do
