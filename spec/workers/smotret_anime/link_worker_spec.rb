@@ -43,27 +43,27 @@ describe SmotretAnime::LinkWorker, :vcr do
       expect(anime.all_external_links[2]).to have_attributes(
         kind: 'smotret_anime',
         url: 'https://smotretanime.ru/catalog/19351',
-        source: 'smotret_anime',
-        imported_at: Time.zone.now
+        source: 'smotret_anime'
       )
+      expect(anime.all_external_links[2].imported_at).to be_within(0.1).of Time.zone.now
       expect(anime.all_external_links[3]).to have_attributes(
         kind: 'world_art',
         url: 'http://www.world-art.ru/animation/animation.php?id=9778',
-        source: 'smotret_anime',
-        imported_at: Time.zone.now
+        source: 'smotret_anime'
       )
+      expect(anime.all_external_links[3].imported_at).to be_within(0.1).of Time.zone.now
       expect(anime.all_external_links[4]).to have_attributes(
         kind: 'wikipedia',
         url: 'https://en.wikipedia.org/wiki/Kono_Oto_Tomare!',
-        source: 'smotret_anime',
-        imported_at: Time.zone.now
+        source: 'smotret_anime'
       )
+      expect(anime.all_external_links[4].imported_at).to be_within(0.1).of Time.zone.now
       expect(anime.all_external_links[5]).to have_attributes(
         kind: 'wikipedia',
         url: 'https://en.wikipedia.org/wiki/Kono_Oto_Tomare!_Sounds_of_Life',
-        source: 'smotret_anime',
-        imported_at: Time.zone.now
+        source: 'smotret_anime'
       )
+      expect(anime.all_external_links[5].imported_at).to be_within(0.1).of Time.zone.now
     end
 
     context 'disabled smotret_anime parsing' do
@@ -87,12 +87,12 @@ describe SmotretAnime::LinkWorker, :vcr do
 
       it do
         expect(anime.all_external_links).to have(4).items
-        expect(anime.all_external_links.last).to have_attributes(
+        expect(anime.all_external_links[3]).to have_attributes(
           source: 'smotret_anime',
           kind: 'smotret_anime',
-          url: format(described_class::SMOTRET_ANIME_URL, smotret_anime_id: -1),
-          imported_at: Time.zone.now
+          url: format(described_class::SMOTRET_ANIME_URL, smotret_anime_id: -1)
         )
+        expect(anime.all_external_links[3].imported_at).to be_within(0.1).of Time.zone.now
       end
     end
 

@@ -4,7 +4,7 @@
 .m5
   p: b = Anime.human_attribute_name :external_links
 
-.block.external_links
+.external_links
   = simple_form_for resource.object do |f|
     #vue_external_links[
       data-resource_type=resource.object.class.name
@@ -47,8 +47,3 @@
         .buttons
           a.cancel href=resource.edit_url = t 'actions.cancel'
           = f.button :magic_submit
-
-- if current_user.admin?
-  .block
-    = spoiler 'All External Links' do
-      = BbCodes::Text.call "[code=json]#{JSON.pretty_generate resource.all_external_links.map(&:attributes)}[/code]"
