@@ -10,7 +10,7 @@ describe MalParsers::FetchEntryAuthorized do
 
     it do
       anime.reload
-      expect(anime.external_links).to have(4).items
+      expect(anime.all_external_links).to have(4).items
       expect(anime.authorized_imported_at).to be_within(0.1).of(Time.zone.now)
     end
   end
