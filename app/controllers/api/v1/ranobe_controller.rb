@@ -146,7 +146,7 @@ class Api::V1::RanobeController < Api::V1::MangasController
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/ranobe/:id/external_links'
   def external_links
-    @collection = @resource.all_external_links
+    @collection = @resource.visible_external_links
     respond_with @collection
   end
 
