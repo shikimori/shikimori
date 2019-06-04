@@ -1,5 +1,5 @@
 describe SmotretAnime::ScheduleLinkWorkers do
-  before { allow(SmotretAnime::ScheduleLinkWorkers).to receive :perform_async }
+  before { allow(SmotretAnime::LinkWorker).to receive :perform_async }
 
   let!(:animes) { create_list :anime, 4 }
 
@@ -21,13 +21,13 @@ describe SmotretAnime::ScheduleLinkWorkers do
   subject! { described_class.new.perform }
 
   it do
-    expect(SmotretAnime::ScheduleLinkWorkers)
+    expect(SmotretAnime::LinkWorker)
       .to have_received(:perform_async)
       .twice
-    expect(SmotretAnime::ScheduleLinkWorkers)
+    expect(SmotretAnime::LinkWorker)
       .to have_received(:perform_async)
       .with animes[2].id
-    expect(SmotretAnime::ScheduleLinkWorkers)
+    expect(SmotretAnime::LinkWorker)
       .to have_received(:perform_async)
       .with animes[3].id
   end

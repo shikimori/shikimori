@@ -1,4 +1,6 @@
 describe SmotretAnime::LinkWorker, :vcr do
+  include_context :timecop
+
   let!(:external_link_1) do
     create :external_link, :anime_news_network, :shikimori,
       entry: anime,
@@ -41,22 +43,26 @@ describe SmotretAnime::LinkWorker, :vcr do
       expect(anime.all_external_links[2]).to have_attributes(
         kind: 'smotret_anime',
         url: 'https://smotretanime.ru/catalog/19351',
-        source: 'smotret_anime'
+        source: 'smotret_anime',
+        imported_at: Time.zone.now
       )
       expect(anime.all_external_links[3]).to have_attributes(
         kind: 'world_art',
         url: 'http://www.world-art.ru/animation/animation.php?id=9778',
-        source: 'smotret_anime'
+        source: 'smotret_anime',
+        imported_at: Time.zone.now
       )
       expect(anime.all_external_links[4]).to have_attributes(
         kind: 'wikipedia',
         url: 'https://en.wikipedia.org/wiki/Kono_Oto_Tomare!',
-        source: 'smotret_anime'
+        source: 'smotret_anime',
+        imported_at: Time.zone.now
       )
       expect(anime.all_external_links[5]).to have_attributes(
         kind: 'wikipedia',
         url: 'https://en.wikipedia.org/wiki/Kono_Oto_Tomare!_Sounds_of_Life',
-        source: 'smotret_anime'
+        source: 'smotret_anime',
+        imported_at: Time.zone.now
       )
     end
 
@@ -84,7 +90,8 @@ describe SmotretAnime::LinkWorker, :vcr do
         expect(anime.all_external_links.last).to have_attributes(
           source: 'smotret_anime',
           kind: 'smotret_anime',
-          url: format(described_class::SMOTRET_ANIME_URL, smotret_anime_id: -1)
+          url: format(described_class::SMOTRET_ANIME_URL, smotret_anime_id: -1),
+          imported_at: Time.zone.now
         )
       end
     end
