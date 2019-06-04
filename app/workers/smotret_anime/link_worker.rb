@@ -32,7 +32,7 @@ private
       url: format(SMOTRET_ANIME_URL, smotret_anime_id: data[:id])
 
     valuable_links(data[:links]).each do |link|
-      next if present_link? anime, link[:kind]
+      next if present? anime, link[:kind]
 
       create_link anime,
         kind: link[:kind],
@@ -46,6 +46,8 @@ private
       .all_external_links
       .where(source: Types::ExternalLink::Source[:smotret_anime])
       .delete_all
+
+    anime.all_external_links.reset # clear association cache
   end
 
   def valuable_links links
@@ -83,9 +85,9 @@ private
       url: format(SMOTRET_ANIME_URL, smotret_anime_id: Animes::SmotretAnimeId::NO_ID)
   end
 
-  def present_link? anime, kind
+  def present? anime, kind
     anime.all_external_links.any? do |external_link|
-      external_link.source_shikimori? && external_link.kind == kind
+      external_link.source_smotret_anime? && external_link.send("kind_#{kind}?")
     end
   end
 
