@@ -235,8 +235,8 @@ describe DbImport::Anime do
 
     describe 'import' do
       it do
-        expect(entry.reload.external_links).to have(1).item
-        expect(entry.external_links.first).to have_attributes(
+        expect(entry.reload.all_external_links).to have(1).item
+        expect(entry.all_external_links.first).to have_attributes(
           entry_id: entry.id,
           entry_type: entry.class.name,
           source: 'myanimelist',

@@ -14,7 +14,7 @@ describe DbImport::ExternalLinks do
   let!(:shiki_external_link) { create :external_link, :shikimori, :official_site, entry: target }
 
   subject! { service.call }
-  let(:new_external_links) { target.external_links.order :id }
+  let(:new_external_links) { target.all_external_links.order :id }
 
   it do
     expect { mal_external_link.reload }.to raise_error ActiveRecord::RecordNotFound

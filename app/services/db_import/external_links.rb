@@ -33,7 +33,7 @@ private
 
   def new_external_links
     @external_links.select do |external_link|
-      @target.external_links.none? { |v| v.source == external_link[:source] }
+      @target.all_external_links.none? { |v| v.source == external_link[:source] }
     end
   end
 end

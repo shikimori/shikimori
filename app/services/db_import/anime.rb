@@ -53,7 +53,7 @@ private
   end
 
   def anidb_synopsis?
-    entry.external_links.any? do |external_link|
+    entry.all_external_links.any? do |external_link|
       external_link.kind_anime_db? && external_link.imported_at.present?
     end
   end
