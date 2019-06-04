@@ -1,18 +1,24 @@
 - kind_options = ExternalLink.kind.options.select {|_, key| !::Types::ExternalLink::INVISIBLE_KINDS.include?(::Types::ExternalLink::Kind[key]) && ::Types::ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }
 
-= simple_form_for resource.object do |f|
-  #vue_external_links[
-    data-resource_type=@resource.object.class.name
-    data-entry_id=@resource.id
-    data-entry_type=@resource.object.class.base_class.name
-    data-external_links=ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json
-    data-kind_options=kind_options.to_json
-  ]
-    .block_m.b-nothing_here = t 'loading'
-  .cc-2
-    .c-column
-      = render 'versions/reason'
+.block
+  = simple_form_for resource.object do |f|
+    #vue_external_links[
+      data-resource_type=@resource.object.class.name
+      data-entry_id=@resource.id
+      data-entry_type=@resource.object.class.base_class.name
+      data-external_links=ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json
+      data-kind_options=kind_options.to_json
+    ]
+      .block_m.b-nothing_here = t 'loading'
+    .cc-2
+      .c-column
+        = render 'versions/reason'
 
-      .buttons
-        a.cancel href=resource.edit_url = t 'actions.cancel'
-        = f.button :magic_submit
+        .buttons
+          a.cancel href=resource.edit_url = t 'actions.cancel'
+          = f.button :magic_submit
+
+- if current_user.admin?
+  .block
+    = spoiler 'All External Links' do
+      = BbCodes::Text.call "[code=json]#{JSON.pretty_generate resource.all_external_links.map(&:attributes)}[/code]"
