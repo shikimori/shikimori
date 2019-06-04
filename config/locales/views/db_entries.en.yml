@@ -30,6 +30,10 @@ en:
       fandubbers:
         <<: *fansubbers
 
+      external_links:
+        imported: Imported
+        to_edit: to edit these links copy them in fields above
+        from: from
     contest_winners:
       top_in: '#%{position} in '
     edit_field:

@@ -30,6 +30,10 @@ ru:
       fandubbers:
         <<: *fansubbers
         translated: Сколько должно быть озвучено
+      external_links:
+        imported: Импортировано
+        to_edit: для изменения этих ссылок продублируйте их выше
+        from: из
     contest_winners:
       top_in: '№%{position} в '
     edit_field:

@@ -43,6 +43,9 @@
     .b-input
       margin-left: 25px
 
+  &.read-only
+    padding-left: 0
+
   .delete, .drag-handle
     cursor: pointer
     margin-left: -30px
@@ -77,7 +80,9 @@
   .b-input
     input[type=text]
       +ellipsis2
+      width: 100%
 
   .b-input
     textarea
       line-height: $line-height
+      width: 100%

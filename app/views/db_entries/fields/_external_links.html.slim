@@ -1,15 +1,45 @@
 - kind_options = ExternalLink.kind.options.select {|_, key| !::Types::ExternalLink::INVISIBLE_KINDS.include?(::Types::ExternalLink::Kind[key]) && ::Types::ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }
+- other_links = (resource.all_external_links - resource.external_links).select(&:visible?).sort_by { |link| ::Types::ExternalLink::Kind.values.index link.kind.to_sym }
 
-.block
+.m5
+  p: b = Anime.human_attribute_name :external_links
+
+.block.external_links
   = simple_form_for resource.object do |f|
     #vue_external_links[
-      data-resource_type=@resource.object.class.name
-      data-entry_id=@resource.id
-      data-entry_type=@resource.object.class.base_class.name
-      data-external_links=ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json
+      data-resource_type=resource.object.class.name
+      data-entry_id=resource.id
+      data-entry_type=resource.object.class.base_class.name
+      data-external_links=ActiveModel::Serializer::CollectionSerializer.new(resource.external_links).to_json
       data-kind_options=kind_options.to_json
     ]
       .block_m.b-nothing_here = t 'loading'
+
+    - if other_links.any?
+    .block
+      .m5
+        p
+          b = t '.imported'
+          span.hint = t '.to_edit'
+
+      - other_links.each do |external_link|
+        .b-collection_item.read-only
+          .b-input.select
+            select[disabled]
+              option = external_link.kind_text
+            span.from = t '.from'
+
+            b.b-external_link class=external_link.source
+              span
+                = external_link.source_text
+
+          .b-input
+            input[
+            type='text'
+            value=external_link.url
+            disabled
+          ]
+
     .cc-2
       .c-column
         = render 'versions/reason'

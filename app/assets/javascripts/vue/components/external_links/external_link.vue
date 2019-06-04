@@ -103,20 +103,17 @@ export default {
 </script>
 
 <style scoped lang="sass">
-  .b-collection_item
-    &:first-child:last-child
-      .drag-handle
-        display: none
-
-    .b-input
-      margin-bottom: 2px
-
-      &.select
-        margin-bottom: 5px
-
-      input
-        width: 100%
-
+.b-collection_item
+  &:first-child:last-child
     .drag-handle
-      margin-top: 3px
+      display: none
+
+  .b-input
+    margin-bottom: 2px
+
+    &.select
+      margin-bottom: 5px
+
+  .drag-handle
+    margin-top: 3px
 </style>

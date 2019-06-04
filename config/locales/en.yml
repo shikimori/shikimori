@@ -463,6 +463,10 @@ en:
         mangafox: MangaFox
         mangachan: Mangachan
         mangahub: Mangahub
+      source:
+        shikimori: Shikimori
+        myanimelist: MyAnimeList
+        smotret_anime: Anime 365
     contest:
       strategy_type:
         double_elimination: Double elimination

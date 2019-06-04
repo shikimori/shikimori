@@ -128,11 +128,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
-  textarea
-    height: auto
-    resize: none
-    min-height: auto
-
-  textarea, input
-    width: 100%
+textarea
+  height: auto
+  resize: none
+  min-height: auto
 </style>

@@ -464,6 +464,10 @@ ru:
         mangafox: MangaFox
         mangachan: Mangachan
         mangahub: Mangahub
+      source:
+        shikimori: Shikimori
+        myanimelist: MyAnimeList
+        smotret_anime: Smotret-Anime
 
     contest:
       strategy_type:
