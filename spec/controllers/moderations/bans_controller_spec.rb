@@ -82,7 +82,7 @@ describe Moderations::BansController do
 
     it do
       expect { ban.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect(user_admin.reload.read_only_at).to eq Time.zone.now
+      expect(user_admin.reload.read_only_at).to be_within(0.1).of Time.zone.now
       expect(response).to redirect_to moderation_profile_url(user_admin)
     end
   end
