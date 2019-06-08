@@ -1,6 +1,6 @@
 module Types
   module ExternalLink
-    SOURCES = %i[shikimori myanimelist smotret_anime]
+    SOURCES = %i[shikimori myanimelist smotret_anime hidden]
 
     Source = Types::Strict::Symbol
       .constructor(&:to_sym)
@@ -25,7 +25,7 @@ module Types
       ranobe: COMMON_KINDS + %i[ruranobe novelupdates]
     }
 
-    INVISIBLE_KINDS = %i[myanimelist smotret_anime]
+    INVISIBLE_KINDS = %i[myanimelist smotret_anime mangachan]
 
     Kind = Types::Strict::Symbol
       .constructor(&:to_sym)

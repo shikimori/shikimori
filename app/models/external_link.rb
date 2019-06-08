@@ -26,7 +26,8 @@ class ExternalLink < ApplicationRecord
   end
 
   def visible?
-    !Types::ExternalLink::INVISIBLE_KINDS.include?(kind.to_sym)
+    !source_hidden? &&
+      !Types::ExternalLink::INVISIBLE_KINDS.include?(kind.to_sym)
   end
 
   def label
