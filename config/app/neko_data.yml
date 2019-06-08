@@ -8115,8 +8115,8 @@
   attributes:
     :neko_id: :hayao_miyazaki
     :level: 1
-    :image: 
-    :border_color: 
+    :image: https://nyaa.shikimori.one/system/user_images/original/34807/794630.jpg
+    :border_color: "#C48D5E"
     :title_ru: Хаяо Миядзаки
     :text_ru: 
     :title_en: Hayao Miyazaki
@@ -8127,81 +8127,49 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 164
-        - 199
-        - 283
-        - 302
-        - 416
-        - 431
-        - 512
-        - 513
-        - 523
-        - 572
-        - 585
-        - 597
-        - 1029
-        - 1030
         - 1044
-        - 1412
-        - 1425
-        - 1430
-        - 1663
-        - 1972
-        - 2225
         - 2279
-        - 2452
-        - 2488
-        - 2553
-        - 2576
-        - 2611
-        - 2614
-        - 2616
         - 2811
-        - 2833
-        - 2890
-        - 2895
-        - 2897
-        - 3285
-        - 3356
-        - 3570
         - 3842
         - 3843
-        - 4208
-        - 4306
-        - 6311
-        - 6463
-        - 6975
-        - 7711
-        - 8234
-        - 8632
-        - 9228
-        - 9438
-        - 9798
-        - 9916
-        - 10029
-        - 10889
-        - 11275
-        - 11561
-        - 12267
-        - 13307
-        - 15021
+        - 2553
         - 15347
+        - 1430
+        - 302
+        - 15021
+        - 1412
+        - 199
+        - 164
+        - 2616
+        - 2897
+        - 416
+        - 512
+        - 523
+        - 513
+        - 1972
+        - 572
         - 16662
-        - 17521
-        - 19401
-        - 19681
-        - 20441
+        - 9798
+        - 2890
+        - 4306
         - 24975
-        - 25291
-        - 32133
+        - 431
+        - 2488
+        - 10029
+        - 7711
+        - 585
+        - 2611
+        - 597
+        - 1030
+        - 1029
       :generator:
         person_id: 1870
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
   neko_id: :hayao_miyazaki
   level: 1
-  image: 
-  border_color: 
+  image: https://nyaa.shikimori.one/system/user_images/original/34807/794630.jpg
+  border_color: "#C48D5E"
   title_ru: Хаяо Миядзаки
   text_ru: 
   title_en: Hayao Miyazaki
@@ -8382,8 +8350,8 @@
   attributes:
     :neko_id: :kunihiko_ikuhara
     :level: 1
-    :image: 
-    :border_color: 
+    :image: https://desu.shikimori.org/system/user_images/original/34807/798103.jpg
+    :border_color: "#EF795B"
     :title_ru: Кунихико Икухара
     :text_ru: 
     :title_en: Kunihiko Ikuhara
@@ -8394,35 +8362,23 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 440
-        - 530
-        - 531
-        - 532
-        - 727
-        - 740
-        - 1002
-        - 1239
-        - 1698
-        - 2223
-        - 3588
-        - 5203
-        - 6164
-        - 6347
-        - 8194
-        - 10721
-        - 11887
-        - 12391
-        - 15605
-        - 22827
+        - 37426
         - 26165
+        - 10721
+        - 441
+        - 440
+        - 1239
+        - 532
+        - 531
+        - 740
       :generator:
         person_id: 5082
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
   neko_id: :kunihiko_ikuhara
   level: 1
-  image: 
-  border_color: 
+  image: https://desu.shikimori.org/system/user_images/original/34807/798103.jpg
+  border_color: "#EF795B"
   title_ru: Кунихико Икухара
   text_ru: 
   title_en: Kunihiko Ikuhara
@@ -9212,20 +9168,14 @@
       :threshold: 100%
       :filters:
         anime_ids:
+        - 2832
+        - 1943
         - 323
-        - 437
-        - 665
-        - 666
         - 759
         - 1033
-        - 1096
+        - 437
         - 1462
-        - 1483
-        - 1943
         - 2000
-        - 2693
-        - 2832
-        - 4876
       :generator:
         person_id: 4580
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
