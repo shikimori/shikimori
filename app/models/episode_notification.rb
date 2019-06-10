@@ -24,7 +24,7 @@ class EpisodeNotification < ApplicationRecord
 private
 
   def not_tracked?
-    anime.episodes_aired < episode
+    anime.episodes_aired < episode && !anime.released?
   end
 
   def old_released_anime?

@@ -26,7 +26,19 @@ describe EpisodeNotification do
           anime: anime,
           episode: episode
       end
-      let(:anime) { create :anime, episodes_aired: 2, episodes: 4 }
+      let(:anime) { create :anime, episodes_aired: 2, episodes: 4, status: status }
+      let(:status) { :ongoing }
+
+      context 'released' do
+        let(:episode) { anime.episodes_aired + 1 }
+        let(:status) { :released }
+
+        it do
+          expect(EpisodeNotification::TrackEpisode).to_not have_received :call
+          expect(EpisodeNotifications::TrackEpisode).to_not have_received :set
+          expect(track_episode_worker).to_not have_received :perform_async
+        end
+      end
 
       context 'episodes_aired == episode' do
         let(:episode) { anime.episodes_aired }
