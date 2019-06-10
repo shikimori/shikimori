@@ -34,7 +34,7 @@ class Clubs::ClubTopicsController < ClubsController
     if @resource.persisted?
       redirect_to(
         UrlGenerator.instance.topic_url(@resource),
-        notice: i18n_t('topic_created')
+        notice: i18n_t('topic.created')
       )
     else
       flash[:alert] = t('changes_not_saved')
