@@ -33,11 +33,45 @@ describe Topic::BroadcastPolicy do
       let(:topic) do
         create :news_topic,
           processed: processed,
-          generated: generated
+          generated: generated,
+          action: action,
+          created_at: created_at
       end
       let(:generated) { true }
+      let(:action) { nil }
+      let(:created_at) { Time.zone.now }
 
       it { is_expected.to be_required }
+
+      context 'episode topic' do
+        let(:created_at) { Topic::BroadcastPolicy::EPISODE_EXPIRATION_INTERVAL.ago + offset }
+        let(:action) { Types::Topic::NewsTopic::Action[:episode] }
+
+        context 'expired' do
+          let(:offset) { - 1.minute }
+          it { is_expected.to_not be_required }
+        end
+
+        context 'not expired' do
+          let(:offset) { 1.minute }
+          it { is_expected.to be_required }
+        end
+      end
+
+      context 'released topic' do
+        let(:created_at) { Topic::BroadcastPolicy::RELEASED_EXPIRATION_INTERVAL.ago + offset }
+        let(:action) { Types::Topic::NewsTopic::Action[:released] }
+
+        context 'expired' do
+          let(:offset) { - 1.minute }
+          it { is_expected.to_not be_required }
+        end
+
+        context 'not expired' do
+          let(:offset) { 1.minute }
+          it { is_expected.to be_required }
+        end
+      end
 
       context 'not generated change' do
         before { topic.update body: 'zxc' }
