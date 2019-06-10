@@ -7,7 +7,7 @@ class EpisodeNotification < ApplicationRecord
   boolean_attribute :unknown
   boolean_attribute :torrent
 
-  after_create :track_episode, if: :not_tracked?
+  after_create :track_episode
 
   def rollback kind
     send "is_#{kind}=", false
@@ -22,10 +22,6 @@ class EpisodeNotification < ApplicationRecord
   end
 
 private
-
-  def not_tracked?
-    anime.episodes_aired < episode && !anime.released?
-  end
 
   def old_released_anime?
     anime.released? && (

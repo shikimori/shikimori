@@ -26,56 +26,32 @@ describe EpisodeNotification do
           anime: anime,
           episode: episode
       end
-      let(:anime) { create :anime, episodes_aired: 2, episodes: 4, status: status }
-      let(:status) { :ongoing }
+      let(:anime) { create :anime, episodes_aired: 2, episodes: 4 }
+      let(:episode) { anime.episodes_aired + 1 }
 
-      context 'released' do
-        let(:episode) { anime.episodes_aired + 1 }
-        let(:status) { :released }
-
+      context 'valid episode' do
         it do
-          expect(EpisodeNotification::TrackEpisode).to_not have_received :call
+          expect(EpisodeNotification::TrackEpisode)
+            .to have_received(:call)
+            .with(episode_notification)
           expect(EpisodeNotifications::TrackEpisode).to_not have_received :set
           expect(track_episode_worker).to_not have_received :perform_async
         end
       end
 
-      context 'episodes_aired == episode' do
-        let(:episode) { anime.episodes_aired }
+      context 'invalid episode' do
+        let(:missing_episode_error) { true }
+
         it do
-          expect(EpisodeNotification::TrackEpisode).to_not have_received :call
-          expect(EpisodeNotifications::TrackEpisode).to_not have_received :set
-          expect(track_episode_worker).to_not have_received :perform_async
-        end
-      end
-
-      context 'episodes_aired < episode' do
-        let(:episode) { anime.episodes_aired + 1 }
-
-        context 'valid episode' do
-          it do
-            expect(EpisodeNotification::TrackEpisode)
-              .to have_received(:call)
-              .with(episode_notification)
-            expect(EpisodeNotifications::TrackEpisode).to_not have_received :set
-            expect(track_episode_worker).to_not have_received :perform_async
-          end
-        end
-
-        context 'invalid episode' do
-          let(:missing_episode_error) { true }
-
-          it do
-            expect(EpisodeNotification::TrackEpisode)
-              .to have_received(:call)
-              .with(episode_notification)
-            expect(EpisodeNotifications::TrackEpisode)
-              .to have_received(:set)
-              .with(wait: 5.seconds)
-            expect(track_episode_worker)
-              .to have_received(:perform_async)
-              .with(episode_notification.id)
-          end
+          expect(EpisodeNotification::TrackEpisode)
+            .to have_received(:call)
+            .with(episode_notification)
+          expect(EpisodeNotifications::TrackEpisode)
+            .to have_received(:set)
+            .with(wait: 5.seconds)
+          expect(track_episode_worker)
+            .to have_received(:perform_async)
+            .with(episode_notification.id)
         end
       end
     end
