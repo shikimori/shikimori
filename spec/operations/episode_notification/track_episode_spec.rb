@@ -3,7 +3,7 @@ describe EpisodeNotification::TrackEpisode do
   subject(:call) { described_class.call episode_notification }
 
   let!(:episode_notification) do
-    create :episode_notification, :with_track_episode,
+    create :episode_notification,
       anime: anime,
       episode: episode
   end
@@ -27,12 +27,18 @@ describe EpisodeNotification::TrackEpisode do
 
     context 'episode == anime.episodes_aired' do
       let(:episode) { anime.episodes_aired }
-      it { expect(Topics::Generate::News::EpisodeTopic).to_not have_received :call }
+      it do
+        expect(Topics::Generate::News::EpisodeTopic).to have_received(:call).twice
+        expect(anime.episodes_aired).to eq 2
+      end
     end
 
     context 'episode < anime.episodes_aired' do
       let(:episode) { anime.episodes_aired - 1 }
-      it { expect(Topics::Generate::News::EpisodeTopic).to_not have_received :call }
+      it do
+        expect(Topics::Generate::News::EpisodeTopic).to have_received(:call).twice
+        expect(anime.episodes_aired).to eq 2
+      end
     end
 
     context 'episode > anime.episodes_aired' do
@@ -50,25 +56,25 @@ describe EpisodeNotification::TrackEpisode do
               episode: episode_notification.episode
             )
         end
-        expect(anime.reload.episodes_aired).to eq episode
+        expect(anime.reload.episodes_aired).to eq 3
       end
 
       describe 'old_released_anime?' do
         context 'old released anime' do
           let(:status) { :released }
-          let(:released_on) { described_class::RELEASE_EXPIRATINO_INTERVAL.ago - 1.day }
-          it { expect(Topics::Generate::News::EpisodeTopic).to_not have_received :call }
+          let(:released_on) { described_class::RELEASE_EXPIRATION_INTERVAL.ago - 1.day }
+          it { expect(Topics::Generate::News::EpisodeTopic).to have_received(:call).twice }
         end
 
         context 'old ongoing anime' do
           let(:status) { :ongoing }
-          let(:released_on) { described_class::RELEASE_EXPIRATINO_INTERVAL.ago - 1.day }
+          let(:released_on) { described_class::RELEASE_EXPIRATION_INTERVAL.ago - 1.day }
           it { expect(Topics::Generate::News::EpisodeTopic).to have_received(:call).twice }
         end
 
         context 'new released anime' do
           let(:status) { :released }
-          let(:released_on) { described_class::RELEASE_EXPIRATINO_INTERVAL.ago + 1.day }
+          let(:released_on) { described_class::RELEASE_EXPIRATION_INTERVAL.ago + 1.day }
           it { expect(Topics::Generate::News::EpisodeTopic).to have_received(:call).twice }
         end
       end
