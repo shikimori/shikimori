@@ -26249,7 +26249,7 @@
   attributes:
     :neko_id: :saiki_kusuo_no_nan
     :level: 1
-    :image: https://moe.shikimori.org/system/user_images/original/47216/799112.jpg
+    :image: "/assets/achievements/anime/franchise/saiki_kusuo_no_nan.jpg"
     :border_color: 
     :title_ru: Ох уж этот экстрасенс Сайки Кусуо!
     :text_ru: 
@@ -26260,12 +26260,12 @@
       :algo: duration
       :filters:
         franchise: saiki_kusuo_no_nan
-      :threshold: 100%
+      :threshold: 95.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :saiki_kusuo_no_nan
   level: 1
-  image: https://moe.shikimori.org/system/user_images/original/47216/799112.jpg
+  image: "/assets/achievements/anime/franchise/saiki_kusuo_no_nan.jpg"
   border_color: 
   title_ru: Ох уж этот экстрасенс Сайки Кусуо!
   text_ru: 
@@ -26278,7 +26278,7 @@
   attributes:
     :neko_id: :saiki_kusuo_no_nan
     :level: 0
-    :image: https://moe.shikimori.org/system/user_images/original/47216/799112.jpg
+    :image: "/assets/achievements/anime/franchise/saiki_kusuo_no_nan.jpg"
     :border_color: 
     :title_ru: Ох уж этот экстрасенс Сайки Кусуо!
     :text_ru: 
@@ -26294,7 +26294,7 @@
   default_values: *2
   neko_id: :saiki_kusuo_no_nan
   level: 0
-  image: https://moe.shikimori.org/system/user_images/original/47216/799112.jpg
+  image: "/assets/achievements/anime/franchise/saiki_kusuo_no_nan.jpg"
   border_color: 
   title_ru: Ох уж этот экстрасенс Сайки Кусуо!
   text_ru: 
