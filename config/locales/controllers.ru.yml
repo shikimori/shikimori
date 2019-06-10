@@ -11,9 +11,10 @@ ru:
     title: Форум Шикимори
     new_topic: Добавление топика
     new_news: Добавление новости
-    topic_created: Топик создан
-    topic_updated: Топик обновлён
-    topic_deleted: Топик удалён
+    topic:
+      created: Топик создан
+      updated: Топик обновлён
+      deleted: Топик удалён
 
   profiles_controller: &profiles_controller
     profile: Профиль
@@ -412,6 +413,9 @@ ru:
       title: OAuth приложения
     new:
       title: Новое OAuth приложение
+
+  api/v1/topics_controller:
+    <<: *topics_controller
 
   api/v1/comments_controller:
     comment:

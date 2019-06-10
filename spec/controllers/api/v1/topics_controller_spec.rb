@@ -1,5 +1,7 @@
-describe Api::V1::TopicsController, :show_in_doc do
-  describe '#index' do
+describe Api::V1::TopicsController do
+  let(:anime) { create :anime }
+
+  describe '#index', :show_in_doc do
     let!(:topic) do
       create :topic,
         forum: animanga_forum,
@@ -23,7 +25,7 @@ describe Api::V1::TopicsController, :show_in_doc do
     end
   end
 
-  describe '#show' do
+  describe '#show', :show_in_doc do
     let(:review) { create :review }
     let(:topic) do
       create :review_topic,
@@ -36,7 +38,7 @@ describe Api::V1::TopicsController, :show_in_doc do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#updates' do
+  describe '#updates', :show_in_doc do
     let(:anime) { create :anime }
     let!(:topic) do
       create :topic,
@@ -51,6 +53,70 @@ describe Api::V1::TopicsController, :show_in_doc do
     it do
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
+    end
+  end
+
+  describe '#create' do
+    include_context :authenticated, :user, :week_registered
+    subject! { post :create, params: { topic: params }, format: :json }
+
+    let(:params) do
+      {
+        user_id: user.id,
+        forum_id: animanga_forum.id,
+        title: title,
+        body: 'text',
+        type: Topic.name,
+        linked_id: anime.id,
+        linked_type: Anime.name
+      }
+    end
+
+    context 'success', :show_in_doc do
+      let(:title) { 'zxc' }
+      it_behaves_like :successful_resource_change, :api
+    end
+
+    context 'failure' do
+      let(:title) { '' }
+      it_behaves_like :failed_resource_change
+    end
+  end
+
+  describe '#update' do
+    include_context :authenticated, :user, :week_registered
+    subject! { patch :update, params: { id: topic.id, topic: params }, format: :json }
+    let(:topic) { create :topic, user: user }
+
+    context 'success', :show_in_doc do
+      let(:params) { { body: 'blablalbla' } }
+      it_behaves_like :successful_resource_change, :api
+    end
+
+    context 'failure' do
+      let(:params) { { title: 'blablalbla' } }
+      it_behaves_like :failed_resource_change
+    end
+  end
+
+  describe '#destroy' do
+    include_context :authenticated, :user, :week_registered
+    let(:make_request) { delete :destroy, params: { id: topic.id }, format: :json }
+
+    context 'success', :show_in_doc do
+      subject! { make_request }
+      let(:topic) { create :topic, user: user }
+
+      it do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+        expect(json[:notice]).to eq 'Топик удалён'
+      end
+    end
+
+    context 'forbidden' do
+      let(:topic) { create :topic }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 end

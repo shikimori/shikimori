@@ -43,21 +43,19 @@ class Topic < ApplicationRecord
     socials: { ru: 270_099 }
   }
 
-  LINKED_TYPES = /
-    ^(
-      Anime|
-      Manga|
-      Ranobe|
-      Character|
-      Person|
-      Club|
-      ClubPage|
-      Review|
-      Contest|
-      CosplayGallery|
-      Collection
-    )$
-  /x
+  LINKED_TYPES = [
+    Anime,
+    Manga,
+    Ranobe,
+    Character,
+    Person,
+    Club,
+    ClubPage,
+    Review,
+    Contest,
+    CosplayGallery,
+    Collection
+  ].map(&:name)
 
   belongs_to :forum
   belongs_to :linked, polymorphic: true, optional: true
@@ -161,10 +159,7 @@ class Topic < ApplicationRecord
 private
 
   def validate_linked
-    return if linked_type.blank?
-
-    match = linked_type =~ LINKED_TYPES
-    return if match.present?
+    return if linked_type.blank? || LINKED_TYPES.include?(linked_type)
 
     errors.add :linked_type, 'Forbidden Linked Type'
     throw :abort

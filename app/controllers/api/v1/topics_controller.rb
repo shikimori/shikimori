@@ -1,5 +1,10 @@
 class Api::V1::TopicsController < Api::V1Controller
+  load_and_authorize_resource only: %i[create update destroy]
+
   LIMIT = 30
+
+  UPDATE_PARAMS = %i[body title linked_id linked_type]
+  CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
 
   api :GET, '/topics', 'List topics'
   param :page, :pagination, required: false
@@ -49,7 +54,77 @@ class Api::V1::TopicsController < Api::V1Controller
     respond_with @topic, serializer: TopicSerializer
   end
 
+  api :POST, '/topics', 'Create a topic'
+  param :topic, Hash do
+    param :body, String, required: true
+    param :forum_id, :number, required: true
+    param :linked_id, :number, required: false
+    param :linked_type, Topic::LINKED_TYPES, required: false
+    param :title, String, required: true
+    param :type, %w[Topic], required: true
+    param :user_id, :number, required: true
+  end
+  error code: 422
+  def create
+    @resource = Topic::Create.call(
+      faye: faye,
+      params: topic_params,
+      locale: locale_from_host
+    )
+
+    if @resource.persisted?
+      view = Topics::TopicViewFactory.new(false, false).build(@resource)
+      respond_with view, serializer: TopicSerializer
+    else
+      respond_with @resource
+    end
+  end
+
+  api :PATCH, '/topics/:id', 'Update a topic'
+  api :PUT, '/topics/:id', 'Update a topic'
+  param :topic, Hash do
+    param :body, String, required: false
+    param :linked_id, :number, required: false
+    param :linked_type, Topic::LINKED_TYPES, required: false
+    param :title, String, required: false
+  end
+  def update
+    is_updated = Topic::Update.call(
+      topic: @resource,
+      params: topic_params,
+      faye: faye
+    )
+
+    if is_updated
+      view = Topics::TopicViewFactory.new(false, false).build(@resource)
+      respond_with view, serializer: TopicSerializer
+    else
+      respond_with @resource
+    end
+  end
+
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  api :DELETE, '/topics/:id', 'Destroy a topic'
+  def destroy
+    faye.destroy @resource
+    render json: { notice: i18n_t('topic.deleted') }
+  end
+
 private
+
+  def topic_params
+    allowed_params =
+      if can?(:manage, Topic) || %w[new create].include?(params[:action])
+        CREATE_PARAMS
+      else
+        UPDATE_PARAMS
+      end
+    allowed_params += [:broadcast] if current_user&.admin?
+
+    params.require(:topic).permit(*allowed_params).tap do |fixed_params|
+      fixed_params[:body] = Topics::ComposeBody.call(params[:topic])
+    end
+  end
 
   def map_updates topics
     topics.map do |topic|
@@ -84,5 +159,9 @@ private
     else
       MangaSerializer.new topic.linked
     end
+  end
+
+  def faye
+    FayeService.new current_user, faye_token
   end
 end

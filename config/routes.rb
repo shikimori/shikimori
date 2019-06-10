@@ -266,7 +266,7 @@ Rails.application.routes.draw do
       resources :publishers, only: %i[index]
 
       resources :forums, only: %i[index]
-      resources :topics, only: %i[index show] do
+      resources :topics, only: %i[index show create update destroy] do
         get :updates, on: :collection
       end
       resources :comments, only: %i[show index create update destroy]

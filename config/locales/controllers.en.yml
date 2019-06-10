@@ -11,9 +11,10 @@ en:
     title: Shikimori Forum
     new_topic: Add topic
     new_news: Add news
-    topic_created: Topic created
-    topic_updated: Topic updated
-    topic_deleted: Topic deleted
+    topic:
+      created: Topic created
+      updated: Topic updated
+      deleted: Topic deleted
 
   profiles_controller: &profiles_controller
     profile: Profile
@@ -412,6 +413,9 @@ en:
       title: OAuth Applications
     new:
       title: New OAuth Application
+
+  api/v1/topics_controller:
+    <<: *topics_controller
 
   api/v1/comments_controller:
     comment:
