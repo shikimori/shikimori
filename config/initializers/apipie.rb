@@ -59,7 +59,7 @@ Apipie.configure do |config|
     <br><br>
 
     ### Feedback
-    [@morr](http://shikimori.org/morr), [email](mailto:takandar@gmail.com)
+    [@morr](/morr), [email](mailto:takandar@gmail.com)
     <br><br>
   MARKDOWN
 
@@ -69,13 +69,13 @@ Apipie.configure do |config|
     <br><br>
 
     ### Documentation for v2
-    [Click here](https://shikimori.org/api/doc/2.0.html).
+    [Click here](/api/doc/2.0.html).
     <br><br>
   MARKDOWN
 
   v2_documentation = <<~MARKDOWN
     ### Documentation for v1
-    [Click here](https://shikimori.org/api/doc/1.0.html).
+    [Click here](/api/doc/1.0.html).
     <br><br>
 
     ### Documentation for v2
