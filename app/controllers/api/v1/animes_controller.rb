@@ -245,7 +245,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
   param :kind, Types::Topic::NewsTopic::Action.values.map(&:to_s), required: false
-  param :episode, String, required: false, desc: 'Episode number for episode topics'
+  param :episode, String, required: false
   def topics # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
 
