@@ -12,7 +12,7 @@ class SmotretAnime::LinkWorker
     return unless anime&.mal_id
     return if disabled? anime
 
-    data = parse fetch anime.mal_id
+    data = fetch format(API_URL, mal_id: anime.mal_id)
 
     if data
       cleanup anime
@@ -91,13 +91,10 @@ private
     end
   end
 
-  def fetch mal_id
-    OpenURI.open_uri(
-      format(API_URL, mal_id: mal_id), 'User-Agent' => 'shikimori'
-    ).read
-  end
-
-  def parse data
-    JSON.parse(data, symbolize_names: true).dig(:data, 0)
+  def fetch url
+    JSON.parse(
+      OpenURI.open_uri(url, 'User-Agent' => 'shikimori').read,
+      symbolize_names: true
+    ).dig(:data, 0)
   end
 end

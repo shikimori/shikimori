@@ -16,7 +16,8 @@ production:
   - [cpu_intensive, 5]
   - [slow_parsers, 5]
   - [torrents_parsers, 5]
-  # - [mal_parsers, 3]
+  - [mal_parsers, 3]
+  - [other_parsers, 3]
   - [webm_thumbnails, 5]
   - [history_jobs, 5]
   - [low_priority, 1]
@@ -31,7 +32,8 @@ production:
   torrents_parsers: 1
   webm_thumbnails: 1
   history_jobs: 1
-  # mal_parsers: 50
+  mal_parsers: 50
+  other_parsers: 5
   push_notifications: 5
   imports: 2
   achievement: 50
