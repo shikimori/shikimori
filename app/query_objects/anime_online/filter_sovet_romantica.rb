@@ -6,6 +6,7 @@ class AnimeOnline::FilterSovetRomantica < ServiceObjectBase
 
   def call
     return unless @videos
+
     @videos.select do |video|
       video.hosting == HOSTING_NAME || !duplicate?(video)
     end
