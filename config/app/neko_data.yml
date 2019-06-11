@@ -8022,28 +8022,26 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 256
-        - 433
-        - 546
-        - 1004
-        - 1689
-        - 2210
-        - 2832
-        - 2924
-        - 4789
-        - 9760
-        - 10354
         - 13675
+        - 21441
         - 13691
+        - 25271
+        - 2832
+        - 1689
+        - 433
+        - 2953
+        - 1004
+        - 256
+        - 2210
+        - 32491
+        - 38826
+        - 32281
         - 16782
         - 17121
-        - 21441
+        - 9760
         - 22839
-        - 25271
+        - 38065
         - 25883
-        - 32281
-        - 32491
-        - 33902
       :generator:
         person_id: 1117
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9874,14 +9872,12 @@
         - 450
         - 451
         - 452
-        - 511
         - 620
         - 792
         - 1007
         - 1008
         - 1010
         - 1011
-        - 1058
         - 1293
         - 1328
         - 1453
@@ -9900,15 +9896,10 @@
         - 2460
         - 2486
         - 2973
-        - 3484
         - 3787
-        - 5013
-        - 6566
         - 6567
         - 6811
-        - 23179
         - 28423
-        - 31133
         - 31610
         - 34106
       :generator:
@@ -9942,34 +9933,21 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 307
-        - 543
-        - 586
-        - 732
-        - 885
-        - 1458
+        - 6909
         - 1793
-        - 2249
-        - 2389
-        - 2574
         - 3258
-        - 3670
+        - 543
+        - 732
         - 3671
-        - 3914
+        - 3670
+        - 1458
+        - 2389
         - 4210
         - 5802
+        - 3914
+        - 2249
+        - 10639
         - 5819
-        - 6909
-        - 7551
-        - 10705
-        - 10706
-        - 11221
-        - 16788
-        - 17403
-        - 18817
-        - 20125
-        - 23861
-        - 32830
       :generator:
         person_id: 2967
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -9989,8 +9967,8 @@
   attributes:
     :neko_id: :osamu_dezaki
     :level: 1
-    :image: 
-    :border_color: 
+    :image: https://moe.shikimori.one/system/user_images/original/34807/800072.jpg
+    :border_color: "#285F8D"
     :title_ru: Осаму Дэдзаки
     :text_ru: 
     :title_en: Osamu Dezaki
@@ -10001,76 +9979,52 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 311
-        - 312
-        - 313
-        - 314
-        - 338
-        - 713
-        - 754
-        - 795
-        - 1328
-        - 1415
-        - 1420
-        - 1421
-        - 1423
-        - 1434
-        - 1451
-        - 1466
-        - 1520
-        - 1521
-        - 1723
-        - 1742
-        - 1760
-        - 1761
-        - 2282
+        - 19973
         - 2402
+        - 2921
+        - 311
+        - 313
+        - 5267
+        - 2828
+        - 2618
+        - 1761
+        - 1760
         - 2451
         - 2452
-        - 2618
-        - 2687
-        - 2747
-        - 2828
-        - 2831
-        - 2921
-        - 3038
+        - 338
         - 3175
-        - 3220
-        - 4264
-        - 4485
-        - 5155
-        - 5267
-        - 5760
-        - 6262
-        - 7329
-        - 7330
-        - 7479
-        - 8108
-        - 8109
-        - 8130
-        - 8542
-        - 8763
-        - 9177
-        - 9613
-        - 9916
         - 11685
-        - 11867
-        - 17959
-        - 17963
-        - 18637
-        - 19973
-        - 20463
-        - 23615
-        - 23815
-        - 28983
+        - 795
+        - 1451
+        - 4485
+        - 1328
+        - 3220
+        - 3038
+        - 4264
+        - 5155
+        - 1723
+        - 754
+        - 713
+        - 8109
+        - 8108
+        - 7330
+        - 7329
+        - 1466
+        - 1521
+        - 1520
+        - 1434
+        - 1420
+        - 1423
+        - 1421
+        - 1415
       :generator:
         person_id: 5393
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
   neko_id: :osamu_dezaki
   level: 1
-  image: 
-  border_color: 
+  image: https://moe.shikimori.one/system/user_images/original/34807/800072.jpg
+  border_color: "#285F8D"
   title_ru: Осаму Дэдзаки
   text_ru: 
   title_en: Osamu Dezaki
@@ -17307,6 +17261,8 @@
       :filters:
         franchise: saiki_kusuo_no_nan
       :threshold: 95.9%
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :saiki_kusuo_no_nan
