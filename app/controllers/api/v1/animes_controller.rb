@@ -244,11 +244,18 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   api :GET, '/animes/:id/topics'
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{Api::V1::TopicsController::LIMIT} maximum"
-  def topics
+  param :kind, Types::Topic::NewsTopic::Action.values.map(&:to_s), required: false
+  param :episode, String, required: false, desc: 'Episode number for episode topics'
+  def topics # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 1].max, Api::V1::TopicsController::LIMIT].min
 
-    @collection = Topics::Query.new(@resource.all_topics)
+    scope = Topics::Query.new(@resource.all_topics)
       .where(locale: locale_from_host)
+
+    scope = scope.where action: params[:kind] if params[:kind].present?
+    scope = scope.where value: params[:episode] if params[:episode].present?
+
+    @collection = scope
       .includes(:forum, :user)
       .offset(@limit * (@page - 1))
       .limit(@limit + 1)
