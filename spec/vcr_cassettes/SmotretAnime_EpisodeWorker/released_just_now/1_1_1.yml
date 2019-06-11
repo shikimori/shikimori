@@ -1,0 +1,53 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://smotretanime.ru/api/series/15527?fields=episodes
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - shikimori
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 11 Jun 2019 19:41:38 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - PHPSESSID=ahcduedrk8me6t316g72gdv4a9; path=/; secure; HttpOnly
+      - __cfduid=d5913381f4375434704be1c0577b3a0eb1560282098; expires=Wed, 10-Jun-20
+        19:41:38 GMT; path=/; domain=.smotretanime.ru; HttpOnly
+      - guestId=4e0df1fe38a3bd9c291a8d1ac3a1702278ded830fe82899aec47bbade0cd36ec;
+        expires=Sun, 09-Jun-2024 19:41:38 GMT; Max-Age=157680000; path=/
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate
+      Pragma:
+      - no-cache
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 4e5610496cd68e41-DME
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJkYXRhIjp7ImVwaXNvZGVzIjpbeyJpZCI6MTkzNzU2LCJlcGlzb2RlRnVsbCI6IjAg0YHQtdGA0LjRjyIsImVwaXNvZGVJbnQiOiIwIiwiZXBpc29kZVRpdGxlIjoiIiwiZXBpc29kZVR5cGUiOiJ0diIsImZpcnN0VXBsb2FkZWREYXRlVGltZSI6IjIwMTktMDQtMDIgMjE6MjM6NDQiLCJpc0FjdGl2ZSI6MSwic2VyaWVzSWQiOjE1NTI3LCJjb3VudFZpZXdzIjozNjI0fSx7ImlkIjoxNDY1NDQsImVwaXNvZGVGdWxsIjoiMSDRgdC10YDQuNGPIiwiZXBpc29kZUludCI6IjEiLCJlcGlzb2RlVGl0bGUiOiIiLCJlcGlzb2RlVHlwZSI6InR2IiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNC0wOSAyMDoyODoyMCIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjI5NzY2fSx7ImlkIjoxOTQxMzgsImVwaXNvZGVGdWxsIjoiMiDRgdC10YDQuNGPIiwiZXBpc29kZUludCI6IjIiLCJlcGlzb2RlVGl0bGUiOiIiLCJlcGlzb2RlVHlwZSI6InR2IiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNC0xNiAyMDoxNjoxNCIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjI2NTUyfSx7ImlkIjoxOTQ2MDUsImVwaXNvZGVGdWxsIjoiMyDRgdC10YDQuNGPIiwiZXBpc29kZUludCI6IjMiLCJlcGlzb2RlVGl0bGUiOiIiLCJlcGlzb2RlVHlwZSI6InR2IiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNC0yMyAyMDoxNjoyNyIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjI2MzIyfSx7ImlkIjoxOTUwODEsImVwaXNvZGVGdWxsIjoiNCDRgdC10YDQuNGPIiwiZXBpc29kZUludCI6IjQiLCJlcGlzb2RlVGl0bGUiOiIiLCJlcGlzb2RlVHlwZSI6InR2IiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNC0zMCAyMDoyNDo0NCIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjIwNzA2fSx7ImlkIjoxOTU1ODQsImVwaXNvZGVGdWxsIjoiNSDRgdC10YDQuNGPIiwiZXBpc29kZUludCI6IjUiLCJlcGlzb2RlVGl0bGUiOiIiLCJlcGlzb2RlVHlwZSI6InR2IiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNS0wNyAyMDoyODowMSIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjIzNzU5fSx7ImlkIjoxOTYwMDEsImVwaXNvZGVGdWxsIjoiNiDRgdC10YDQuNGPIiwiZXBpc29kZUludCI6IjYiLCJlcGlzb2RlVGl0bGUiOiIiLCJlcGlzb2RlVHlwZSI6InR2IiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNS0xNCAyMDoyNjoyNSIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjE2OTQ4fSx7ImlkIjoxOTY5MDAsImVwaXNvZGVGdWxsIjoiNyDRgdC10YDQuNGPIiwiZXBpc29kZUludCI6IjciLCJlcGlzb2RlVGl0bGUiOiIiLCJlcGlzb2RlVHlwZSI6InR2IiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNS0yMSAyMDoyMDoyNCIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjIwNzI4fSx7ImlkIjoxOTczODYsImVwaXNvZGVGdWxsIjoiOCDRgdC10YDQuNGPIiwiZXBpc29kZUludCI6IjgiLCJlcGlzb2RlVGl0bGUiOiIiLCJlcGlzb2RlVHlwZSI6InR2IiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNS0yOCAyMTo0NDozMyIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjIwOTE4fSx7ImlkIjoxOTc3NzUsImVwaXNvZGVGdWxsIjoiOSDRgdC10YDQuNGPIiwiZXBpc29kZUludCI6IjkiLCJlcGlzb2RlVGl0bGUiOiIiLCJlcGlzb2RlVHlwZSI6InR2IiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNi0xMSAyMDoxODoyNSIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjE3Mzd9LHsiaWQiOjE5Mzc2MiwiZXBpc29kZUZ1bGwiOiJTcGVjaWFsIDAg0YHQtdGA0LjRjyIsImVwaXNvZGVJbnQiOiIwIiwiZXBpc29kZVRpdGxlIjoiIiwiZXBpc29kZVR5cGUiOiJzcGVjaWFsIiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNC0wMyAxODoyODoyNCIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjEzMTZ9LHsiaWQiOjE5Mzg1OSwiZXBpc29kZUZ1bGwiOiJTcGVjaWFsIDEg0YHQtdGA0LjRjyIsImVwaXNvZGVJbnQiOiIxIiwiZXBpc29kZVRpdGxlIjoiIiwiZXBpc29kZVR5cGUiOiJzcGVjaWFsIiwiZmlyc3RVcGxvYWRlZERhdGVUaW1lIjoiMjAxOS0wNC0xOSAwOTo0Njo0MiIsImlzQWN0aXZlIjoxLCJzZXJpZXNJZCI6MTU1MjcsImNvdW50Vmlld3MiOjQ4Mn1dfX0=
+    http_version: 
+  recorded_at: Tue, 11 Jun 2019 19:41:36 GMT
+recorded_with: VCR 4.0.0
