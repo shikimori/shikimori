@@ -1,11 +1,9 @@
 class EpisodeNotification < ApplicationRecord
   belongs_to :anime, touch: true
 
+  boolean_attribute :raw
   boolean_attribute :subtitles
   boolean_attribute :fandub
-  boolean_attribute :raw
-  boolean_attribute :unknown
-  boolean_attribute :torrent
 
   after_create :track_episode
 
@@ -39,6 +37,6 @@ private
   end
 
   def nothig_to_rollback?
-    subtitles? || fandub? || raw? || unknown? || torrent? || anime.episodes_aired > episode
+    subtitles? || fandub? || raw? || anime.episodes_aired > episode
   end
 end
