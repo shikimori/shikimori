@@ -211,6 +211,8 @@ Rails.application.routes.draw do
           post :summary
         end
       end
+
+      resources :episode_notifications, only: %i[create]
     end
   end
   # v1

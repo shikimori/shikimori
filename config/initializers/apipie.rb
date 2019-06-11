@@ -103,3 +103,26 @@ Apipie.configure do |config|
     .gsub(documentation_placeholder, v2_documentation)
     .gsub(pagination_placeholder, v2_pagination)
 end
+
+class DateTimeValidator < Apipie::Validator::BaseValidator
+  def initialize param_description, argument
+    super param_description
+    @type = argument
+  end
+
+  def validate(value)
+    return false if value.nil?
+
+    value.to_s.match? ActiveSupport::JSON::DATETIME_REGEX
+  end
+
+  def self.build param_description, argument, _options, _block
+    if argument == DateTime
+      new(param_description, argument)
+    end
+  end
+
+  def description
+    'Must be a date in `iso8601` `YYYY-MM-DDThh:mm:ss±hh` format'
+  end
+end
