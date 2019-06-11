@@ -1,6 +1,6 @@
 class SmotretAnime::LinkWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :slow_parsers
+  sidekiq_options queue: :other_parsers
 
   API_URL = 'https://smotretanime.ru/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
   SMOTRET_ANIME_URL = 'https://smotretanime.ru/catalog/%<smotret_anime_id>i'
@@ -32,7 +32,7 @@ private
       url: format(SMOTRET_ANIME_URL, smotret_anime_id: data[:id])
 
     valuable_links(data[:links]).each do |link|
-      next if present? anime, link[:kind]
+      next if present? anime, link[:url]
 
       create_link anime,
         kind: link[:kind],
@@ -48,6 +48,18 @@ private
       .delete_all
 
     anime.all_external_links.reset # clear association cache
+  end
+
+  def give_up? anime
+    (anime.ongoing? || anime.released?) &&
+      anime.aired_on && anime.aired_on < GIVE_UP_INTERVAL.ago
+  end
+
+  def give_up anime
+    create_link anime,
+      kind: Types::ExternalLink::Kind[:smotret_anime],
+      source: Types::ExternalLink::Kind[:smotret_anime],
+      url: format(SMOTRET_ANIME_URL, smotret_anime_id: Animes::SmotretAnimeId::NO_ID)
   end
 
   def valuable_links links
@@ -73,21 +85,9 @@ private
       !Animes::SmotretAnimeId.call(anime)
   end
 
-  def give_up? anime
-    (anime.ongoing? || anime.released?) &&
-      anime.aired_on && anime.aired_on < GIVE_UP_INTERVAL.ago
-  end
-
-  def give_up anime
-    create_link anime,
-      kind: Types::ExternalLink::Kind[:smotret_anime],
-      source: Types::ExternalLink::Kind[:smotret_anime],
-      url: format(SMOTRET_ANIME_URL, smotret_anime_id: Animes::SmotretAnimeId::NO_ID)
-  end
-
-  def present? anime, kind
+  def present? anime, url
     anime.all_external_links.any? do |external_link|
-      external_link.source_smotret_anime? && external_link.send("kind_#{kind}?")
+      external_link.url == url
     end
   end
 

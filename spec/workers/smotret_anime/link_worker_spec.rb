@@ -53,17 +53,11 @@ describe SmotretAnime::LinkWorker, :vcr do
       )
       expect(anime.all_external_links[3].imported_at).to be_within(0.1).of Time.zone.now
       expect(anime.all_external_links[4]).to have_attributes(
-        kind: 'anime_news_network',
-        url: 'https://www.animenewsnetwork.com/encyclopedia/anime.php?id=21237',
-        source: 'smotret_anime'
-      )
-      expect(anime.all_external_links[4].imported_at).to be_within(0.1).of Time.zone.now
-      expect(anime.all_external_links[5]).to have_attributes(
         kind: 'wikipedia',
         url: 'https://en.wikipedia.org/wiki/Kono_Oto_Tomare!',
         source: 'smotret_anime'
       )
-      expect(anime.all_external_links[5].imported_at).to be_within(0.1).of Time.zone.now
+      expect(anime.all_external_links[4].imported_at).to be_within(0.1).of Time.zone.now
     end
 
     context 'disabled smotret_anime parsing' do
