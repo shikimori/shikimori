@@ -26,7 +26,12 @@ private
   end
 
   def expired_news?
-    (@topic.episode? && @topic.created_at < EPISODE_EXPIRATION_INTERVAL.ago) ||
-      (@topic.released? && @topic.created_at < RELEASED_EXPIRATION_INTERVAL.ago)
+    (
+      @topic.action == Types::Topic::NewsTopic::Action[:episode] &&
+      @topic.created_at < EPISODE_EXPIRATION_INTERVAL.ago
+    ) || (
+      @topic.action == Types::Topic::NewsTopic::Action[:released] &&
+      @topic.created_at < RELEASED_EXPIRATION_INTERVAL.ago
+    )
   end
 end

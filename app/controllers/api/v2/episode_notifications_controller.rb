@@ -1,16 +1,16 @@
 class Api::V2::EpisodeNotificationsController < Api::V2Controller
   skip_before_action :verify_authenticity_token
 
-  api :POST, '/v2/episode_notifications', 'Create an episode notification'
+  api :POST, '/v2/episode_notifications', 'Notify shikimori about anime episode release'
   param :episode_notification, Hash do
     param :anime_id, :number, required: true
     param :episode, :number, required: true
-    param :aired_at, DateTime, required: true
+    param :aired_at, DateTime, required: true, desc: 'Episode release date'
     param :is_fandub, :boolean, required: false
     param :is_raw, :boolean, required: false
     param :is_subtitles, :boolean, required: false
   end
-  param :token, String
+  param :token, String, required: true, desc: 'Private token required to access this api'
   def create
     raise CanCan::AccessDenied unless access_granted?
 
