@@ -1,4 +1,5 @@
 describe Api::V2::EpisodeNotificationsController, :show_in_doc do
+  include_context :timecop
   let(:anime) { create :anime, :ongoing, episodes_aired: 2, episodes: 4 }
 
   describe '#create' do
