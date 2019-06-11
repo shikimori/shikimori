@@ -2,6 +2,7 @@ getjs = require('get-js')
 require 'views/ads/view'
 
 state = null
+pending_ads = []
 
 using 'Ads'
 class Ads.Mytarget extends Ads.View
@@ -13,6 +14,8 @@ class Ads.Mytarget extends Ads.View
   initialize: (@html, @css_class) ->
     if state == STATE.LOADED
       @_render()
+    else if state == STATE.LOADING
+      @_schedule()
     else if state == null
       @_load_js()
 
@@ -21,8 +24,12 @@ class Ads.Mytarget extends Ads.View
 
     getjs('//ad.mail.ru/static/ads-async.js').then =>
       state = STATE.LOADED
+      pending_ads.forEach (render) -> render()
       @_render()
 
-  _render: ->
+  _schedule: ->
+    pending_ads.push @_render
+
+  _render: =>
     @_replace_node()
     (window.MRGtag = window.MRGtag || []).push({})
