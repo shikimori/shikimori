@@ -1,5 +1,7 @@
 describe SmotretAnime::EpisodeWorker, :vcr do
   include_context :timecop
+  let(:now) { 'Tue, 11 Jun 2019 22:40:03 MSK +03:00' }
+
   subject! { described_class.new.perform anime.id, smotret_anime_id }
 
   let(:anime) do
@@ -11,7 +13,6 @@ describe SmotretAnime::EpisodeWorker, :vcr do
   let(:episodes_aired) { 6 }
 
   context 'released just now' do
-    let(:datetime) { 'Tue, 11 Jun 2019 22:40:03 MSK +03:00' }
     it do
       expect(anime.reload.episodes_aired).to eq 8
       expect(anime.episode_notifications).to have(2).item
@@ -26,7 +27,7 @@ describe SmotretAnime::EpisodeWorker, :vcr do
   end
 
   context 'released long ago' do
-    let(:datetime) { 'Tue, 12 Jun 2019 22:40:03 MSK +03:00' }
+    let(:now) { 'Tue, 12 Jun 2019 22:40:03 MSK +03:00' }
     it do
       expect(anime.reload.episodes_aired).to eq 9
       expect(anime.episode_notifications).to have(3).items

@@ -1,10 +1,10 @@
-shared_context :timecop do |value|
-  if value
-    before { Timecop.freeze Time.zone.parse(value) }
+shared_context :timecop do |datetime|
+  if datetime
+    before { Timecop.freeze Time.zone.parse(datetime) }
   else
     before do
-      if defined? datetime
-        Timecop.freeze Time.zone.parse(datetime)
+      if defined? now
+        Timecop.freeze Time.zone.parse(now)
       else
         Timecop.freeze
       end
