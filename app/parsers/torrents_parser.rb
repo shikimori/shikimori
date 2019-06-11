@@ -289,11 +289,12 @@ def self.extract_episodes_num episode_name
           #   )
           # end
 
-          EpisodeNotification
-            .find_or_initialize_by(anime: anime, episode: episode) do |model|
-              model.created_at = aired_at
-            end
-            .update!(is_torrent: true)
+          EpisodeNotification::Track.call(
+            anime_id: anime.id,
+            episode: episode,
+            aired_at: aired_at,
+            is_raw: true
+          )
 
           # episodes_aired must be set becase
           # anime object is used in next iterations
