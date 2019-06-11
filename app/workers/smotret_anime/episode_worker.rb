@@ -11,7 +11,7 @@ class SmotretAnime::EpisodeWorker
     data = fetch format(EPISODES_API_URL, smotret_anime_id: smotret_anime_id)
 
     if data.nil?
-      unlink anime
+      unlink anime, smotret_anime_id
     else
       episodes = extract data, anime.kind, anime.episodes_aired
       episodes.each { |episode| track anime.id, episode }
@@ -20,7 +20,11 @@ class SmotretAnime::EpisodeWorker
 
 private
 
-  def unlink anime
+  def unlink anime, smotret_anime_id
+    NamedLogger.smotret_anime.info(
+      "unlink anime_id=#{anime.id} smotret_anime_id=#{smotret_anime_id}"
+    )
+
     anime
       .all_external_links
       .where(source: Types::ExternalLink::Source[:smotret_anime])
