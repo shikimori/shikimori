@@ -5,8 +5,6 @@ FactoryBot.define do
     is_raw { false }
     is_subtitles { false }
     is_fandub { false }
-    is_unknown { false }
-    is_torrent { false }
 
     after :build do |model|
       stub_method model, :track_episode

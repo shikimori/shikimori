@@ -4,8 +4,6 @@ class EpisodeNotification::Track
     episode!
     aired_at
     is_raw
-    is_torrent
-    is_unknown
     is_subtitles
     is_fandub
   ]
@@ -13,7 +11,7 @@ class EpisodeNotification::Track
   def call
     model = find_or_initialize
 
-    if @is_raw || @is_torrent || @is_unknown || @is_subtitles || @is_fandub
+    if @is_raw || @is_subtitles || @is_fandub
       assign model
       save model
     end
@@ -30,10 +28,8 @@ private
     )
   end
 
-  def assign model # rubocop:disable all
+  def assign model
     model.is_raw = true if @is_raw
-    model.is_torrent = true if @is_torrent
-    model.is_unknown = true if @is_unknown
     model.is_subtitles = true if @is_subtitles
     model.is_fandub = true if @is_fandub
 

@@ -64,7 +64,7 @@ describe EpisodeNotification do
           episode: episode,
           anime: anime,
           is_raw: is_raw,
-          is_torrent: is_torrent
+          is_subtitles: is_subtitles
       end
       let(:anime) do
         create :anime, :with_track_changes,
@@ -85,7 +85,7 @@ describe EpisodeNotification do
       context 'true => false' do
         context 'last positive field' do
           let(:is_raw) { true }
-          let(:is_torrent) { false }
+          let(:is_subtitles) { false }
 
           context 'episode >= anime.episodes_aired' do
             let(:episodes_aired) { 10 }
@@ -113,30 +113,30 @@ describe EpisodeNotification do
               expect(Anime::RollbackEpisode).to_not have_received :call
               expect(episode_notification).to_not be_changed
               expect(episode_notification.reload.raw?).to eq false
-              expect(episode_notification.torrent?).to eq false
+              expect(episode_notification.subtitles?).to eq false
             end
           end
         end
 
         context 'not last positive field' do
           let(:is_raw) { true }
-          let(:is_torrent) { true }
+          let(:is_subtitles) { true }
           it do
             expect(episode_notification).to_not be_changed
             expect(episode_notification.reload.raw?).to eq false
-            expect(episode_notification.torrent?).to eq true
+            expect(episode_notification.subtitles?).to eq true
           end
         end
       end
 
       context 'false => false' do
         let(:is_raw) { false }
-        let(:is_torrent) { true }
+        let(:is_subtitles) { true }
 
         it do
           expect(episode_notification).to_not be_changed
           expect(episode_notification.raw?).to eq false
-          expect(episode_notification.torrent?).to eq true
+          expect(episode_notification.subtitles?).to eq true
         end
       end
     end

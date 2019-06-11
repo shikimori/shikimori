@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_08_121819) do
+ActiveRecord::Schema.define(version: 2019_06_11_105928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -490,8 +490,6 @@ ActiveRecord::Schema.define(version: 2019_06_08_121819) do
     t.boolean "is_fandub", default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "is_unknown", default: false, null: false
-    t.boolean "is_torrent", default: false, null: false
     t.index ["anime_id", "episode"], name: "index_episode_notifications_on_anime_id_and_episode", unique: true
     t.index ["anime_id"], name: "index_episode_notifications_on_anime_id"
   end

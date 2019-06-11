@@ -11,8 +11,6 @@ describe EpisodeNotification::Track do
       episode: episode,
       aired_at: aired_at,
       is_raw: is_raw,
-      is_torrent: is_torrent,
-      is_unknown: is_unknown,
       is_subtitles: is_subtitles,
       is_fandub: is_fandub
     }
@@ -20,8 +18,6 @@ describe EpisodeNotification::Track do
   let(:episode) { 3 }
   let(:aired_at) { 1.week.ago }
   let(:is_raw) { false }
-  let(:is_torrent) { true }
-  let(:is_unknown) { false }
   let(:is_subtitles) { false }
   let(:is_fandub) { false }
 
@@ -35,7 +31,7 @@ describe EpisodeNotification::Track do
 
     it do
       is_expected.to eq episode_notification
-      expect(episode_notification.reload.is_torrent).to eq true
+      expect(episode_notification.reload.is_raw).to eq true
       expect(episode_notification.created_at).to be_within(0.1).of Time.zone.now
       expect(anime.episode_notifications).to have(1).item
     end
@@ -43,8 +39,6 @@ describe EpisodeNotification::Track do
 
   context 'no episode notification' do
     let(:is_raw) { true }
-    let(:is_torrent) { true }
-    let(:is_unknown) { true }
     let(:is_subtitles) { true }
     let(:is_fandub) { true }
 
@@ -54,8 +48,6 @@ describe EpisodeNotification::Track do
         anime_id: anime.id,
         episode: episode,
         is_raw: is_raw,
-        is_torrent: is_torrent,
-        is_unknown: is_unknown,
         is_subtitles: is_subtitles,
         is_fandub: is_fandub
       )
@@ -66,8 +58,6 @@ describe EpisodeNotification::Track do
 
     context 'no true values' do
       let(:is_raw) { false }
-      let(:is_torrent) { false }
-      let(:is_unknown) { false }
       let(:is_subtitles) { false }
       let(:is_fandub) { false }
 
@@ -87,8 +77,6 @@ describe EpisodeNotification::Track do
           anime_id: anime.id,
           episode: episode,
           is_raw: is_raw,
-          is_torrent: is_torrent,
-          is_unknown: is_unknown,
           is_subtitles: is_subtitles,
           is_fandub: is_fandub
         )
