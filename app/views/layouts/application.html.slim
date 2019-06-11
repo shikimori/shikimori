@@ -79,11 +79,11 @@ html
           - unless Rails.env.development? && params[:no_menu]
               = render 'application/footer'
 
-        ins.mrg-tag[
-          style="width:100%;"
-          data-ad-client="ad-99457"
-          data-ad-slot="99457"
-        ]
+        / ins.mrg-tag[
+        /   style="width:100%;"
+        /   data-ad-client="ad-99457"
+        /   data-ad-slot="99457"
+        / ]
         / = render 'spnsrs/ad', ad: Ad.new(:footer)
       .b-shade
       .b-to-top
