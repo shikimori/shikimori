@@ -1,173 +1,248 @@
-class Ad < ViewObjectBase
+class Ad < ViewObjectBase # rubocop:disable ClassLength
   # present advertur blocks
   # block_1: [92_129, 2_731],
   # block_2: [92_445, 1_256],
   # block_3: [92_485, nil]
 
   BANNERS = {
-    # disable after 2019-02-11
-    Types::Ad::Type[:special_x300] => {
-      provider: Types::Ad::Provider[:special],
-      url: 'https://animeinrussia.ru/goto/1/',
-      images: (2..2).map do |i|
-        {
-          src: "/assets/globals/events/special_#{i}.jpg",
-          src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
-        }
-      end,
-      # rules: {
-      #   cookie: 'i2',
-      #   shows_per_week: 30
-      # },
-      placement: Types::Ad::Placement[:menu],
-      platform: Types::Ad::Platform[:desktop]
+    true => {
+      Types::Ad::Type[:special_x300] => {
+      },
+      Types::Ad::Type[:special_x1170] => {
+      },
+      Types::Ad::Type[:mt_300x250] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491744',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_240x400] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491736',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_300x600] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491732',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_970x250] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491748',
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_728x90] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491746',
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_footer] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '457333',
+        placement: Types::Ad::Placement[:footer],
+        platform: Types::Ad::Platform[:mobile]
+      }
     },
-    Types::Ad::Type[:special_x1170] => {
-      provider: Types::Ad::Provider[:special],
-      # html: (
-      #   <<~HTML
-      #     <style>
-      #       #iframe_special_x1170 {
-      #         max-width: 1150px;
-      #         width: 100%;
-      #         height: 180px;
-      #         margin: 0 auto;
-      #         overflow: hidden;
-      #       }
-      #       .spns_special_x1170 {
-      #         max-width: 1150px;
-      #         margin: 0 auto;
-      #         overflow: hidden;
-      #       }
-      #       .b-spns-special_x1170 {
-      #         margin: 0 auto 45px;
-      #         overflow: hidden;
-      #       }
-      #     </style>
-      #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
-      #   HTML
-      # ),
-      url: 'https://www.animenagrani.com/',
-      images: (3..3).map do |i|
-        {
-          src: "/assets/globals/events/special_#{i}.jpg"
-          # src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
-        }
-      end,
-      # images: [{
-      #   url: 'https://creagames.com/ref/575?utm_source=shikimori&utm_medium=banner',
-      #   src: '/assets/globals/events/special_1.jpg?1',
-      #   src_2x: '/assets/globals/events/special_1@2x.jpg?1'
-      # }, {
-      #   url: 'https://creagames.com/games/kr?utm_source=shikimori&utm_medium=banner',
-      #   src: '/assets/globals/events/special_2.jpg',
-      #   src_2x: '/assets/globals/events/special_2@2x.jpg'
-      # }],
-      placement: Types::Ad::Placement[:content],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:advrtr_x728] => {
-      provider: Types::Ad::Provider[:advertur],
-      advertur_id: 1_256,
-      width: 728,
-      height: 90,
-      placement: Types::Ad::Placement[:content],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:advrtr_240x400] => {
-      provider: Types::Ad::Provider[:advertur],
-      advertur_id: 2_731,
-      width: 240,
-      height: 400,
-      placement: Types::Ad::Placement[:menu],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:yd_300x600] => {
-      provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-227837-4',
-      placement: Types::Ad::Placement[:menu],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:yd_240x500] => {
-      provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-227837-5',
-      placement: Types::Ad::Placement[:menu],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:yd_240x400] => {
-      provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-227837-2',
-      placement: Types::Ad::Placement[:menu],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:yd_horizontal] => {
-      provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-227837-7',
-      placement: Types::Ad::Placement[:content],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:mt_300x250] => {
-      provider: Types::Ad::Provider[:mytarget],
-      mytarget_id: '239817',
-      placement: Types::Ad::Placement[:menu],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:mt_240x400] => {
-      provider: Types::Ad::Provider[:mytarget],
-      mytarget_id: '239815',
-      placement: Types::Ad::Placement[:menu],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:mt_300x600] => {
-      provider: Types::Ad::Provider[:mytarget],
-      mytarget_id: '239819',
-      placement: Types::Ad::Placement[:menu],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:mt_728x90] => {
-      provider: Types::Ad::Provider[:mytarget],
-      mytarget_id: '239978',
-      placement: Types::Ad::Placement[:content],
-      platform: Types::Ad::Platform[:desktop]
-    },
-    Types::Ad::Type[:mt_footer] => {
-      provider: Types::Ad::Provider[:mytarget],
-      mytarget_id: '99457',
-      placement: Types::Ad::Placement[:footer],
-      platform: Types::Ad::Platform[:mobile]
+    false => {
+      # disable after 2019-02-11
+      Types::Ad::Type[:special_x300] => {
+        provider: Types::Ad::Provider[:special],
+        url: 'https://animeinrussia.ru/goto/1/',
+        images: (2..2).map do |i|
+          {
+            src: "/assets/globals/events/special_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          }
+        end,
+        # rules: {
+        #   cookie: 'i2',
+        #   shows_per_week: 30
+        # },
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:special_x1170] => {
+        provider: Types::Ad::Provider[:special],
+        # html: (
+        #   <<~HTML
+        #     <style>
+        #       #iframe_special_x1170 {
+        #         max-width: 1150px;
+        #         width: 100%;
+        #         height: 180px;
+        #         margin: 0 auto;
+        #         overflow: hidden;
+        #       }
+        #       .spns_special_x1170 {
+        #         max-width: 1150px;
+        #         margin: 0 auto;
+        #         overflow: hidden;
+        #       }
+        #       .b-spns-special_x1170 {
+        #         margin: 0 auto 45px;
+        #         overflow: hidden;
+        #       }
+        #     </style>
+        #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
+        #   HTML
+        # ),
+        url: 'https://www.animenagrani.com/',
+        images: (3..3).map do |i|
+          {
+            src: "/assets/globals/events/special_#{i}.jpg"
+            # src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          }
+        end,
+        # images: [{
+        #   url: 'https://creagames.com/ref/575?utm_source=shikimori&utm_medium=banner',
+        #   src: '/assets/globals/events/special_1.jpg?1',
+        #   src_2x: '/assets/globals/events/special_1@2x.jpg?1'
+        # }, {
+        #   url: 'https://creagames.com/games/kr?utm_source=shikimori&utm_medium=banner',
+        #   src: '/assets/globals/events/special_2.jpg',
+        #   src_2x: '/assets/globals/events/special_2@2x.jpg'
+        # }],
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:advrtr_x728] => {
+        provider: Types::Ad::Provider[:advertur],
+        advertur_id: 1_256,
+        width: 728,
+        height: 90,
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:advrtr_240x400] => {
+        provider: Types::Ad::Provider[:advertur],
+        advertur_id: 2_731,
+        width: 240,
+        height: 400,
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:yd_300x600] => {
+        provider: Types::Ad::Provider[:yandex_direct],
+        yandex_id: 'R-A-227837-4',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:yd_240x500] => {
+        provider: Types::Ad::Provider[:yandex_direct],
+        yandex_id: 'R-A-227837-5',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:yd_240x400] => {
+        provider: Types::Ad::Provider[:yandex_direct],
+        yandex_id: 'R-A-227837-2',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:yd_horizontal] => {
+        provider: Types::Ad::Provider[:yandex_direct],
+        yandex_id: 'R-A-227837-7',
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_300x250] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '239817',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_240x400] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '239815',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_300x600] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '239819',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_728x90] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '239978',
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_footer] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '99457',
+        placement: Types::Ad::Placement[:footer],
+        platform: Types::Ad::Platform[:mobile]
+      }
     }
   }
 
   META_TYPES = {
-    Types::Ad::Meta[:menu_300x250] => [
-      # Types::Ad::Type[:special_x300],
-      # Types::Ad::Type[:mt_300x250],
-      Types::Ad::Type[:yd_240x400],
-      Types::Ad::Type[:advrtr_240x400]
-    ],
-    Types::Ad::Meta[:menu_240x400] => [
-      # Types::Ad::Type[:special_x300],
-      # Types::Ad::Type[:mt_240x400],
-      Types::Ad::Type[:yd_240x500],
-      Types::Ad::Type[:advrtr_240x400]
-    ],
-    Types::Ad::Meta[:menu_300x600] => [
-      # Types::Ad::Type[:special_x300],
-      # Types::Ad::Type[:mt_300x600],
-      Types::Ad::Type[:yd_300x600],
-      Types::Ad::Type[:advrtr_240x400]
-    ],
-    Types::Ad::Meta[:horizontal] => [
-      # Types::Ad::Type[:mt_728x90],
-      Types::Ad::Type[:yd_horizontal],
-      Types::Ad::Type[:advrtr_x728]
-    ],
-    Types::Ad::Meta[:footer] => [
-      Types::Ad::Type[:mt_footer]
-    ],
-    Types::Ad::Meta[:special_x1170] => [
-      Types::Ad::Type[:special_x1170]
-    ]
+    true => {
+      Types::Ad::Meta[:menu_300x250] => [
+        Types::Ad::Type[:mt_300x250]
+      ],
+      Types::Ad::Meta[:menu_240x400] => [
+        Types::Ad::Type[:mt_240x400]
+      ],
+      Types::Ad::Meta[:menu_300x600] => [
+        Types::Ad::Type[:mt_300x600]
+      ],
+      Types::Ad::Meta[:horizontal_x250] => [
+        Types::Ad::Type[:mt_970x250]
+      ],
+      Types::Ad::Meta[:horizontal_x90] => [
+        Types::Ad::Type[:mt_728x90]
+      ],
+      Types::Ad::Meta[:footer] => [
+        Types::Ad::Type[:mt_footer]
+      ],
+      Types::Ad::Meta[:special_x1170] => [
+        # Types::Ad::Type[:special_x1170],
+        Types::Ad::Type[:mt_970x250]
+      ]
+    },
+    false => {
+      Types::Ad::Meta[:menu_300x250] => [
+        # Types::Ad::Type[:special_x300],
+        # Types::Ad::Type[:mt_300x250],
+        Types::Ad::Type[:yd_240x400],
+        Types::Ad::Type[:advrtr_240x400]
+      ],
+      Types::Ad::Meta[:menu_240x400] => [
+        # Types::Ad::Type[:special_x300],
+        # Types::Ad::Type[:mt_240x400],
+        Types::Ad::Type[:yd_240x500],
+        Types::Ad::Type[:advrtr_240x400]
+      ],
+      Types::Ad::Meta[:menu_300x600] => [
+        # Types::Ad::Type[:special_x300],
+        # Types::Ad::Type[:mt_300x600],
+        Types::Ad::Type[:yd_300x600],
+        Types::Ad::Type[:advrtr_240x400]
+      ],
+      Types::Ad::Meta[:horizontal_x250] => [
+        Types::Ad::Type[:yd_horizontal],
+        Types::Ad::Type[:advrtr_x728]
+      ],
+      Types::Ad::Meta[:horizontal_x90] => [
+        # Types::Ad::Type[:mt_728x90],
+        Types::Ad::Type[:yd_horizontal],
+        Types::Ad::Type[:advrtr_x728]
+      ],
+      Types::Ad::Meta[:footer] => [
+        Types::Ad::Type[:mt_footer]
+      ],
+      Types::Ad::Meta[:special_x1170] => [
+        # Types::Ad::Type[:special_x1170],
+        Types::Ad::Type[:yd_horizontal]
+      ]
+    }
   }
 
   # CACHE_KEY = Digest::MD5.hexdigest(META_TYPES.to_json)
@@ -178,7 +253,7 @@ class Ad < ViewObjectBase
     meta = Types::Ad::Meta[:menu_240x400] if switch_to_x240? meta
     meta = Types::Ad::Meta[:menu_300x600] if switch_to_x300? meta
 
-    META_TYPES[Types::Ad::Meta[meta]].each do |type|
+    META_TYPES[h.clean_host?][Types::Ad::Meta[meta]].each do |type|
       switch_banner Types::Ad::Type[type]
       break if policy.allowed?
     end
@@ -246,8 +321,6 @@ private
       user: h.current_user,
       ad_provider: provider,
       is_ru_host: h.ru_host?,
-      is_clean_host: h.clean_host?,
-      is_shikimori: h.shikimori?,
       is_disabled: h.cookies["#{css_class}_disabled"].present?
     )
   end
@@ -257,7 +330,7 @@ private
   end
 
   def banner
-    BANNERS[@banner_type]
+    BANNERS[h.clean_host?][@banner_type]
   end
 
   def yandex_direct?
@@ -281,7 +354,11 @@ private
   end
 
   def ad_html # rubocop:disable all
-    if yandex_direct?
+    if Rails.env.development? && @banner_type =~ /(?<width>\d+)x(?<height>\d+)/
+      "<div class='ad-placeholder' style='width: #{$LAST_MATCH_INFO[:width]}px; "\
+        "height: #{$LAST_MATCH_INFO[:height]}px;' data-banner_type='#{@banner_type}' >"
+
+    elsif yandex_direct?
       "<div id='#{@banner_type}'></div>"
 
     elsif mytarget?
@@ -308,8 +385,7 @@ private
       banner[:html]
 
     elsif iframe?
-      "<iframe src='#{advertur_url}' width='#{banner[:width]}px' "\
-        "height='#{banner[:height]}px'>"
+      "<iframe src='#{advertur_url}' width='#{banner[:width]}px' height='#{banner[:height]}px'>"
 
     else
       raise ArgumentError

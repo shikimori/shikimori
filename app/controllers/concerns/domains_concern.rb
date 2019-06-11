@@ -16,6 +16,6 @@ module DomainsConcern
   end
 
   def clean_host?
-    ShikimoriDomain::CLEAN_HOST == request.host
+    Rails.env.development? || ShikimoriDomain::CLEAN_HOST == request.host
   end
 end

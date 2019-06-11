@@ -2,7 +2,7 @@ module Types
   module Ad
     Provider = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:yandex_direct, :advertur, :istari, :special, :mytarget)
+      .enum(:yandex_direct, :advertur, :special, :mytarget)
 
     Placement = Types::Strict::Symbol
       .constructor(&:to_sym)
@@ -14,7 +14,8 @@ module Types
         :menu_300x250,
         :menu_240x400,
         :menu_300x600,
-        :horizontal,
+        :horizontal_x250,
+        :horizontal_x90,
         :footer,
         :special_x1170
       )
@@ -33,6 +34,7 @@ module Types
         :mt_300x250,
         :mt_240x400,
         :mt_300x600,
+        :mt_970x250,
         :mt_728x90,
         :mt_footer
       )

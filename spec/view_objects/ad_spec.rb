@@ -4,7 +4,7 @@ describe Ad do
   subject(:ad) { Ad.new meta }
 
   let(:meta) { :menu_300x600 }
-  let(:banner) { Ad::BANNERS[ad.banner_type] }
+  let(:banner) { Ad::BANNERS[is_clean_host][ad.banner_type] }
 
   before { allow_any_instance_of(Ad).to receive(:h).and_return h }
   let(:h) do
@@ -12,7 +12,6 @@ describe Ad do
       params: params,
       ru_host?: is_ru_host,
       clean_host?: is_clean_host,
-      shikimori?: is_shikimori,
       current_user: user,
       spnsr_url: 'zxc',
       controller: double(
@@ -25,14 +24,13 @@ describe Ad do
   let(:params) { { controller: 'anime' } }
   let(:is_ru_host) { true }
   let(:is_clean_host) { false }
-  let(:is_shikimori) { true }
   let(:width) { 240 }
   let(:height) { 400 }
   let(:user) { nil }
   let(:cookies) { {} }
 
   describe '#banner_type' do
-    it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
+    it { expect(ad.banner_type).to eq Ad::META_TYPES[is_clean_host][:menu_300x600].first }
 
     describe 'meta changed by user preferences body_width_x1000' do
       let(:user) { build_stubbed :user, preferences: preferences }
@@ -42,12 +40,12 @@ describe Ad do
         let(:meta) { %i[menu_300x600 menu_300x250].sample }
         let(:body_width) { :x1000 }
 
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_240x400].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_clean_host][:menu_240x400].first }
       end
 
       context 'x1200 site width' do
         let(:body_width) { :x1200 }
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_clean_host][:menu_300x600].first }
       end
     end
 
@@ -55,17 +53,17 @@ describe Ad do
       context 'topics' do
         let(:meta) { :menu_240x400 }
         let(:params) { { controller: 'topics' } }
-        it { expect(ad.banner_type).to eq Ad::META_TYPES[:menu_300x600].first }
+        it { expect(ad.banner_type).to eq Ad::META_TYPES[is_clean_host][:menu_300x600].first }
       end
     end
   end
 
   describe '#platform' do
-    it { expect(ad.platform).to eq Ad::BANNERS[:yd_300x600][:platform] }
+    it { expect(ad.platform).to eq Ad::BANNERS[is_clean_host][:yd_300x600][:platform] }
   end
 
   describe '#provider' do
-    it { expect(ad.provider).to eq Ad::BANNERS[Ad::META_TYPES[:menu_300x600].first][:provider] }
+    it { expect(ad.provider).to eq Ad::BANNERS[is_clean_host][Ad::META_TYPES[is_clean_host][:menu_300x600].first][:provider] }
   end
 
   describe '#allowed?' do
@@ -116,7 +114,7 @@ describe Ad do
 
       it do
         expect(ad.ad_params).to eq(
-          blockId: Ad::BANNERS[banner_type][:yandex_id],
+          blockId: Ad::BANNERS[is_clean_host][banner_type][:yandex_id],
           renderTo: banner_type,
           async: true
         )
@@ -151,50 +149,6 @@ describe Ad do
         )
       end
     end
-
-    # context 'istari' do
-      # let(:cookie_key) { Ad::BANNERS[:istari_x300][:rules][:cookie] }
-
-      # context 'without rules' do
-        # let(:banner_type) { :istari_x1170 }
-        # it do
-          # expect(ad.to_html).to eq(
-            # <<-HTML.gsub(/\n|^\ +/, '')
-              # <div class="b-spns-istari_x1170">
-                # <center>
-                  # <a href='http://kimi.istaricomics.com'>
-                    # <img src='/assets/globals/events/i1_2.jpg' srcset='/assets/globals/events/i1_2@2x.jpg 2x'>
-                  # </a>
-                # </center>
-              # </div>
-            # HTML
-          # )
-        # end
-      # end
-
-      # context 'with rules' do
-      #   let(:banner_type) { :istari_x300 }
-
-      #   context 'without show in cookies' do
-      #     it do
-      #       expect(h.cookies[cookie_key]).to eq(
-      #         value: [Time.zone.now].map(&:to_i).join(Ads::Rules::DELIMITER),
-      #         expires: 1.week.from_now
-      #       )
-      #     end
-      #   end
-
-      #   context 'with show in cookies' do
-      #     let(:cookies) { { cookie_key => [1.day.ago].map(&:to_i).join(Ads::Rules::DELIMITER) } }
-      #     it do
-      #       expect(h.cookies[Ad::BANNERS[:istari_x300][:rules][:cookie]]).to eq(
-      #         value: [1.day.ago, Time.zone.now].map(&:to_i).join(Ads::Rules::DELIMITER),
-      #         expires: 1.week.from_now
-      #       )
-      #     end
-      #   end
-      # end
-    # end
 
     context 'yandex_direct' do
       let(:banner_type) { :yd_240x400 }

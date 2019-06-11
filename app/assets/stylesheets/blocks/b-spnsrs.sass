@@ -2,6 +2,18 @@
 @import mixins/shikimori
 @import mixins/responsive
 
+.ad-placeholder
+  max-width: 100%
+  background: #f5f5f5
+  border: 1px solid #ddd
+  display: flex
+  align-items: center
+  justify-content: center
+
+  &:before
+    content: attr(data-banner_type)
+    color: $gray-4
+
 .b-spns-yd_240x400,
 .b-spns-yd_240x500,
 .b-spns-yd_300x600,
@@ -16,7 +28,7 @@
     max-width: 100%
 
 .b-spns-yd_horizontal,
-.b-spns-mt_horizontal,
+.b-spns-mt_728x90,
 .b-spns-advrtr_x728
   +block
   overflow: hidden
@@ -35,6 +47,13 @@
 
     +gte_ipad
       max-width: 728px
+
+.b-spns-mt_970x250
+  +block2
+  overflow: hidden
+
+  +iphone
+    +block
 
 .b-spns-special_x300,
 .b-spns-special_x1170,
