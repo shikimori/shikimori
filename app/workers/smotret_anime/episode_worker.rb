@@ -2,7 +2,7 @@ class SmotretAnime::EpisodeWorker
   include Sidekiq::Worker
   sidekiq_options queue: :anime365_parsers
 
-  EPISODES_API_URL = 'https://smotretanime.ru/api/series/%<smotret_anime_id>i?fields=episodes'
+  EPISODES_API_URL = 'https://smotretanime.ru/api/series/%<smotret_anime_id>i?fields=id,episodes'
   TRUST_INTERVAL = 3.hours
 
   def perform anime_id, smotret_anime_id
@@ -10,11 +10,11 @@ class SmotretAnime::EpisodeWorker
 
     data = fetch format(EPISODES_API_URL, smotret_anime_id: smotret_anime_id)
 
-    if data.nil?
-      unlink anime, smotret_anime_id
-    else
-      episodes = extract data, anime.kind, anime.episodes_aired
+    if data
+      episodes = extract data[:episodes], anime.kind, anime.episodes_aired
       episodes.each { |episode| track anime.id, episode }
+    else
+      unlink anime, smotret_anime_id
     end
   end
 
@@ -41,7 +41,7 @@ private
   end
 
   def extract episodes, kind, episodes_aired
-    episodes
+    (episodes || [])
       .select { |v| v[:episodeType] == kind && v[:isActive] == 1 }
       .map do |episode|
         {
@@ -57,6 +57,6 @@ private
     JSON.parse(
       OpenURI.open_uri(url, 'User-Agent' => 'shikimori').read,
       symbolize_names: true
-    ).dig(:data, :episodes)
+    )[:data]
   end
 end
