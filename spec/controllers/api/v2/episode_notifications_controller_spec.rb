@@ -18,7 +18,8 @@ describe Api::V2::EpisodeNotificationsController, :show_in_doc do
         aired_at: 1.week.ago.iso8601,
         is_raw: false,
         is_subtitles: false,
-        is_fandub: true
+        is_fandub: true,
+        is_anime365: true
       }
     end
 
@@ -47,7 +48,8 @@ describe Api::V2::EpisodeNotificationsController, :show_in_doc do
             episode: 3,
             is_raw: false,
             is_subtitles: false,
-            is_fandub: true
+            is_fandub: true,
+            is_anime365: true
           )
           expect(anime.episode_notifications.first.created_at).to be_within(1).of 1.week.ago
 

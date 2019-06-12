@@ -9,6 +9,7 @@ class Api::V2::EpisodeNotificationsController < Api::V2Controller
     param :is_fandub, :boolean, required: false
     param :is_raw, :boolean, required: false
     param :is_subtitles, :boolean, required: false
+    param :is_anime365, :boolean, required: false
   end
   param :token, String, required: true, desc: 'Private token required to access this api'
   def create
@@ -23,6 +24,7 @@ class Api::V2::EpisodeNotificationsController < Api::V2Controller
       is_raw: @resource.is_raw,
       is_subtitles: @resource.is_subtitles,
       is_fandub: @resource.is_fandub,
+      is_anime365: @resource.is_anime365,
       topic_id: topic_id(@resource)
     }
   rescue ActiveRecord::RecordNotSaved => e
@@ -38,14 +40,15 @@ private
       aired_at: params[:aired_at],
       is_raw: ActiveRecord::Type::Boolean.new.cast(params[:is_raw]),
       is_subtitles: ActiveRecord::Type::Boolean.new.cast(params[:is_subtitles]),
-      is_fandub: ActiveRecord::Type::Boolean.new.cast(params[:is_fandub])
+      is_fandub: ActiveRecord::Type::Boolean.new.cast(params[:is_fandub]),
+      is_anime365: ActiveRecord::Type::Boolean.new.cast(params[:is_anime365])
     }
   end
 
   def episode_notification_params
     params
       .require(:episode_notification)
-      .permit(:anime_id, :episode, :aired_at, :is_raw, :is_subtitles, :is_fandub)
+      .permit(:anime_id, :episode, :aired_at, :is_raw, :is_subtitles, :is_fandub, :is_anime365)
   end
 
   def access_granted?
