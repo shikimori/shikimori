@@ -18,7 +18,7 @@ class SmotretAnime::ScheduleEpisodeWorkers
       .where(status: :ongoing)
       .where(GROUP_SQL[Group[group]])
       .order('animes.id')
-      .find_each do |anime|
+      .each do |anime|
         smotret_anime_id = Animes::SmotretAnimeId.call anime
 
         if smotret_anime_id
