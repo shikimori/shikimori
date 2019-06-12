@@ -13,7 +13,7 @@ class SmotretAnime::EpisodeWorker
     data = fetch format(EPISODES_API_URL, smotret_anime_id: smotret_anime_id)
 
     if data
-      episodes = extract data[:episodes], anime.kind, anime.episodes_aired
+      episodes = extract data[:episodes] || [], anime.kind, anime.episodes_aired
       episodes.each { |episode| track anime.id, episode }
     else
       unlink anime, smotret_anime_id
@@ -43,7 +43,7 @@ private
   end
 
   def extract episodes, kind, episodes_aired
-    (episodes || [])
+    episodes
       .select do |episode|
         episode[:episodeType] == kind && episode[:isActive] == 1 &&
           episode[:firstUploadedDateTime] != NO_DATE

@@ -12,7 +12,7 @@ class EpisodeNotification::Track
   def call
     model = find_or_initialize
 
-    if @is_raw || @is_subtitles || @is_fandub
+    if @is_raw || @is_subtitles || @is_fandub || @is_anime365
       assign model
       save model
     end
