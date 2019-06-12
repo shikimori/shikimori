@@ -28,11 +28,25 @@ module Clockwork
     BadReviewsCleaner.perform_async
   end
 
-  every 1.day, 'daily.stuff', at: '00:02' do
-    ImportAnimeCalendars.perform_async
+  every 2.hours, '2.hours', at: '**:05' do
+    SmotretAnime::ScheduleEpisodeWorkers.perform_async 'a'
+  end
+
+  every 1.day, 'daily.1/3', at: '10:02' do
+    SmotretAnime::ScheduleEpisodeWorkers.perform_async 'b'
+  end
+
+  every 1.day, 'daily.2/3', at: '18:02' do
+    SmotretAnime::ScheduleEpisodeWorkers.perform_async 'b'
+  end
+
+  every 1.day, 'daily.3/3', at: '00:02' do
+    SmotretAnime::ScheduleEpisodeWorkers.perform_async 'b'
+    SmotretAnime::ScheduleEpisodeWorkers.perform_async 'c'
   end
 
   every 1.day, 'daily.stuff', at: '00:30' do
+    ImportAnimeCalendars.perform_async
     MalParsers::ScheduleExpired.perform_async 'manga'
     MalParsers::ScheduleExpired.perform_async 'character'
     MalParsers::ScheduleExpired.perform_async 'person'
