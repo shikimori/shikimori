@@ -1,6 +1,6 @@
 class SmotretAnime::LinkWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :other_parsers
+  sidekiq_options queue: :anime365_parsers
 
   API_URL = 'https://smotretanime.ru/api/series/?myAnimeListId=%<mal_id>i&fields=id,title,links'
   SMOTRET_ANIME_URL = 'https://smotretanime.ru/catalog/%<smotret_anime_id>i'
