@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 11 Jun 2019 20:02:09 GMT
+      - Wed, 12 Jun 2019 20:15:19 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,11 +27,11 @@ http_interactions:
       Connection:
       - keep-alive
       Set-Cookie:
-      - PHPSESSID=81f4bht482cvgmudr2roid8l84; path=/; secure; HttpOnly
-      - __cfduid=d29bd50a7845ca0086a0ae5ef7cdd958a1560283329; expires=Wed, 10-Jun-20
-        20:02:09 GMT; path=/; domain=.smotretanime.ru; HttpOnly
-      - guestId=471a8ccf392ca4daa09f025322d883e7e580ff9cecd9491373e99c1d33b821d7;
-        expires=Sun, 09-Jun-2024 20:02:09 GMT; Max-Age=157680000; path=/
+      - PHPSESSID=pinc6uj1jee5ghj8s5bv6tcon7; path=/; secure; HttpOnly
+      - __cfduid=d8d36931ff7e75cea2e4edb04ea36d25d1560370519; expires=Thu, 11-Jun-20
+        20:15:19 GMT; path=/; domain=.smotretanime.ru; HttpOnly
+      - guestId=01b33f66516676e8550840c37f358847d1ddaaa584a22ef429325967a02931ae;
+        expires=Mon, 10-Jun-2024 20:15:19 GMT; Max-Age=157680000; path=/
       Expires:
       - Thu, 19 Nov 1981 08:52:00 GMT
       Cache-Control:
@@ -43,7 +43,7 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 4e562e586fcd90b7-DME
+      - 4e5e7f0138f38fdf-DME
     body:
       encoding: ASCII-8BIT
       string: '{"error":{"code":404,"message":"Series not found."}}'

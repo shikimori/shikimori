@@ -44,18 +44,22 @@ private
 
   def extract episodes, kind, episodes_aired
     episodes
-      .select do |episode|
-        episode[:episodeType] == kind && episode[:isActive] == 1 &&
-          episode[:firstUploadedDateTime] != NO_DATE
-      end
-      .map do |episode|
+      .select { |entry| valid? entry, kind }
+      .map do |entry|
         {
-          episode: episode[:episodeInt].to_i,
-          aired_at: Time.zone.parse(episode[:firstUploadedDateTime])
+          episode: entry[:episodeInt].to_i,
+          aired_at: Time.zone.parse(entry[:firstUploadedDateTime])
         }
       end
       .select { |v| v[:episode].to_i > episodes_aired && v[:aired_at] < TRUST_INTERVAL.ago }
       .sort_by { |v| v[:episode] }
+  end
+
+  def valid? entry, kind
+    entry[:episodeType] == kind &&
+      entry[:isActive] == 1 &&
+      entry[:isFirstUploaded] == 1 &&
+      entry[:firstUploadedDateTime] != NO_DATE
   end
 
   def fetch url
