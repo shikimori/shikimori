@@ -17260,7 +17260,7 @@
       :algo: duration
       :filters:
         franchise: saiki_kusuo_no_nan
-      :threshold: 95.9%
+      :threshold: 100%
       :generator:
         threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -17292,6 +17292,8 @@
       :filters:
         franchise: saiki_kusuo_no_nan
       :threshold: 0.01
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :saiki_kusuo_no_nan
