@@ -192,10 +192,12 @@ class AniMangaDecorator < DbEntryDecorator
     I18n.russian? ? text.capitalize : text
   end
 
-  def displayed_external_links
-    (object.all_external_links.select(&:visible?) + (mal_id ? [mal_external_link] : []))
+  def displayed_external_links # rubocop:disable all
+    all_links = (object.all_external_links.select(&:visible?) + (mal_id ? [mal_external_link] : []))
       .sort_by { |link| Types::ExternalLink::Source.values.index link.source.to_sym }
-      .uniq(&:label)
+
+    (all_links.select(&:source_shikimori?) + all_links.uniq(&:label))
+      .uniq(&:id)
       .sort_by { |link| Types::ExternalLink::Kind.values.index link.kind.to_sym }
   end
 
