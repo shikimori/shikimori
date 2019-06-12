@@ -5,6 +5,8 @@ class SmotretAnime::EpisodeWorker
   EPISODES_API_URL = 'https://smotretanime.ru/api/series/%<smotret_anime_id>i?fields=id,episodes'
   TRUST_INTERVAL = 3.hours
 
+  NO_DATE = '2000-01-01 00:00:00'
+
   def perform anime_id, smotret_anime_id
     anime = Anime.find_by id: anime_id
 
@@ -42,7 +44,10 @@ private
 
   def extract episodes, kind, episodes_aired
     (episodes || [])
-      .select { |v| v[:episodeType] == kind && v[:isActive] == 1 }
+      .select do |episode|
+        episode[:episodeType] == kind && episode[:isActive] == 1 &&
+          episode[:firstUploadedDateTime] != NO_DATE
+      end
       .map do |episode|
         {
           episode: episode[:episodeInt].to_i,
