@@ -12,7 +12,8 @@ describe EpisodeNotification::Track do
       aired_at: aired_at,
       is_raw: is_raw,
       is_subtitles: is_subtitles,
-      is_fandub: is_fandub
+      is_fandub: is_fandub,
+      is_anime365: is_anime365
     }
   end
   let(:episode) { 3 }
@@ -20,6 +21,7 @@ describe EpisodeNotification::Track do
   let(:is_raw) { false }
   let(:is_subtitles) { false }
   let(:is_fandub) { false }
+  let(:is_anime365) { false }
 
   context 'has episode notification' do
     let!(:episode_notification) do
@@ -39,8 +41,9 @@ describe EpisodeNotification::Track do
 
   context 'no episode notification' do
     let(:is_raw) { true }
-    let(:is_subtitles) { true }
-    let(:is_fandub) { true }
+    let(:is_subtitles) { [true, false].sample }
+    let(:is_fandub) { [true, false].sample }
+    let(:is_anime365) { [true, false].sample }
 
     it do
       is_expected.to be_persisted
@@ -49,7 +52,7 @@ describe EpisodeNotification::Track do
         episode: episode,
         is_raw: is_raw,
         is_subtitles: is_subtitles,
-        is_fandub: is_fandub
+        is_anime365: is_anime365
       )
       expect(subject.created_at).to be_within(0.1).of 1.week.ago
       expect(anime.episode_notifications).to have(1).item
@@ -60,6 +63,7 @@ describe EpisodeNotification::Track do
       let(:is_raw) { false }
       let(:is_subtitles) { false }
       let(:is_fandub) { false }
+      let(:is_anime365) { false }
 
       it do
         is_expected.to be_new_record
@@ -78,7 +82,8 @@ describe EpisodeNotification::Track do
           episode: episode,
           is_raw: is_raw,
           is_subtitles: is_subtitles,
-          is_fandub: is_fandub
+          is_fandub: is_fandub,
+          is_anime365: is_anime365
         )
         expect(subject.created_at).to be_within(0.1).of Time.zone.now
         expect(anime.episode_notifications).to have(1).item

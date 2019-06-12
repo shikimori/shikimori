@@ -20,9 +20,10 @@ describe SmotretAnime::EpisodeWorker, :vcr do
       expect(anime.episode_notifications.last).to have_attributes(
         episode: 8,
         created_at: Time.zone.parse('2019-05-28 21:44:33 +0300'),
-        is_raw: true,
+        is_raw: false,
         is_subtitles: false,
-        is_fandub: false
+        is_fandub: false,
+        is_anime365: true
       )
     end
   end

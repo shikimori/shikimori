@@ -6,6 +6,7 @@ class EpisodeNotification::Track
     is_raw
     is_subtitles
     is_fandub
+    is_anime365
   ]
 
   def call
@@ -28,10 +29,11 @@ private
     )
   end
 
-  def assign model
+  def assign model # rubocop:disable all
     model.is_raw = true if @is_raw
     model.is_subtitles = true if @is_subtitles
     model.is_fandub = true if @is_fandub
+    model.is_anime365 = true if @is_anime365
 
     if model.new_record? && @aired_at.present?
       model.created_at = @aired_at

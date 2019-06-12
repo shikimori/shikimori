@@ -38,7 +38,7 @@ private
       anime_id: anime_id,
       episode: episode[:episode],
       aired_at: episode[:aired_at],
-      is_raw: true
+      is_anime365: true
     )
   end
 

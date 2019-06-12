@@ -4,6 +4,7 @@ class EpisodeNotification < ApplicationRecord
   boolean_attribute :raw
   boolean_attribute :subtitles
   boolean_attribute :fandub
+  boolean_attribute :anime365
 
   after_create :track_episode
 
@@ -37,6 +38,7 @@ private
   end
 
   def nothig_to_rollback?
-    subtitles? || fandub? || raw? || anime.episodes_aired > episode
+    subtitles? || fandub? || raw? || anime365? ||
+      anime.episodes_aired > episode
   end
 end

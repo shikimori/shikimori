@@ -5,6 +5,7 @@ FactoryBot.define do
     is_raw { false }
     is_subtitles { false }
     is_fandub { false }
+    is_anime365 { false }
 
     after :build do |model|
       stub_method model, :track_episode
