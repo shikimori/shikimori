@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_12_191505) do
+ActiveRecord::Schema.define(version: 2019_06_15_093052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -150,6 +150,7 @@ ActiveRecord::Schema.define(version: 2019_06_12_191505) do
     t.text "coub_tags", default: [], null: false, array: true
     t.text "fansubbers", default: [], null: false, array: true
     t.text "fandubbers", default: [], null: false, array: true
+    t.string "options", default: [], null: false, array: true
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["russian"], name: "index_animes_on_russian"

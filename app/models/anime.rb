@@ -210,6 +210,11 @@ class Anime < DbEntry
     in: %i[none g pg pg_13 r r_plus rx],
     predicates: { prefix: true }
 
+  enumerize :options,
+    in: Types::Anime::Roles.values,
+    predicates: true,
+    multiple: true
+
   validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 

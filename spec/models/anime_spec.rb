@@ -64,6 +64,7 @@ describe Anime do
     it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
     it { is_expected.to enumerize(:rating).in :none, :g, :pg, :pg_13, :r, :r_plus, :rx }
     it { is_expected.to enumerize(:origin) }
+    it { is_expected.to enumerize(:options).in(*Types::Anime::Options.values) }
   end
 
   describe 'callbacks' do
