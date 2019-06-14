@@ -18,6 +18,7 @@ FactoryBot.define do
     coub_tags { [] }
     fansubbers { [] }
     fandubbers { [] }
+    options { [] }
 
     after :build do |model|
       stub_method model, :track_changes

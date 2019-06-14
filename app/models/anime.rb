@@ -211,7 +211,7 @@ class Anime < DbEntry
     predicates: { prefix: true }
 
   enumerize :options,
-    in: Types::Anime::Roles.values,
+    in: Types::Anime::Options.values,
     predicates: true,
     multiple: true
 
