@@ -4,53 +4,6 @@ describe Api::V1::UserRatesController do
     allow(UserRates::Log).to receive :call
   end
 
-  context 'token authentication' do
-    let!(:user) { create :user, api_access_token: 'zzzxxxccc' }
-
-    describe '#create' do
-      let(:target) { create :anime }
-      let(:create_params) do
-        {
-          user_id: user.id,
-          target_id: target.id,
-          target_type: target.class.name,
-          score: 10,
-          status: %w[watching completed].sample,
-          episodes: 2,
-          volumes: 3,
-          chapters: 4,
-          text: 'test',
-          rewatches: 5
-        }
-      end
-      before do
-        @request.headers['X-User-Nickname'] = user.nickname
-        @request.headers['X-User-Api-Access-Token'] = user.api_access_token
-        post :create, params: { user_rate: create_params }, format: :json
-      end
-
-      it do
-        expect(resource).to be_persisted
-        expect(resource).to have_attributes create_params
-
-        expect(UserRates::Log)
-          .to have_received(:call)
-          .with(
-            user_rate: resource,
-            ip: controller.send(:request).remote_ip,
-            user_agent: request.user_agent,
-            oauth_application_id: controller.send(:doorkeeper_token)&.application_id
-          )
-
-        expect(Achievements::Track)
-          .to have_received(:perform_async)
-          .with resource.user_id, resource.id, Types::Neko::Action[:put]
-
-        expect(response).to have_http_status :success
-      end
-    end
-  end
-
   context 'login&password authentication' do
     include_context :authenticated, :user
 

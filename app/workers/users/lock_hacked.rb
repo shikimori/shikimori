@@ -13,7 +13,6 @@ private
 
   def lock user
     user.password = Devise.friendly_token
-    user.api_access_token = Devise.friendly_token
     user.save! validate: false
   end
 

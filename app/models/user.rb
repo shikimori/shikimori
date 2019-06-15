@@ -3,7 +3,6 @@ class User < ApplicationRecord
   include PermissionsPolicy
   include Commentable
   include User::NotificationsConcern
-  include User::TokenAuthenticatable
   include StylesConcern
 
   MAX_NICKNAME_LENGTH = 20

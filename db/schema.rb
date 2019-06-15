@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_15_151405) do
+ActiveRecord::Schema.define(version: 2019_06_15_160053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -1102,13 +1102,11 @@ ActiveRecord::Schema.define(version: 2019_06_15_151405) do
     t.boolean "can_vote_3", default: false, null: false
     t.datetime "reset_password_sent_at"
     t.string "remember_token", limit: 255
-    t.string "api_access_token"
     t.string "locale", default: "ru", null: false
     t.string "locale_from_host", default: "ru", null: false
     t.integer "style_id"
     t.string "roles", limit: 4096, default: [], null: false, array: true
     t.text "notification_settings", default: [], null: false, array: true
-    t.index ["api_access_token"], name: "index_users_on_api_access_token", unique: true
     t.index ["email"], name: "index_users_on_email"
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
