@@ -8476,8 +8476,8 @@
   attributes:
     :neko_id: :type_moon
     :level: 1
-    :image: "/assets/achievements/anime/author/type_moon.png"
-    :border_color: "#d58c3f"
+    :image: https://desu.shikimori.one/system/user_images/original/3824/801573.jpg
+    :border_color: "#4285B4"
     :title_ru: Type-Moon
     :text_ru: 
     :title_en: Type-Moon
@@ -8542,8 +8542,8 @@
   default_values: *2
   neko_id: :type_moon
   level: 1
-  image: "/assets/achievements/anime/author/type_moon.png"
-  border_color: "#d58c3f"
+  image: https://desu.shikimori.one/system/user_images/original/3824/801573.jpg
+  border_color: "#4285B4"
   title_ru: Type-Moon
   text_ru: 
   title_en: Type-Moon
@@ -8727,58 +8727,30 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 205
-        - 366
         - 415
-        - 601
-        - 875
-        - 951
-        - 966
-        - 1181
-        - 1454
-        - 1978
-        - 2172
-        - 2387
-        - 2656
-        - 2658
-        - 2677
-        - 2895
-        - 3023
-        - 3290
-        - 3508
-        - 3701
-        - 4087
-        - 4420
-        - 6074
-        - 6149
-        - 6217
-        - 6460
-        - 6509
-        - 7785
-        - 8115
-        - 8358
-        - 8359
-        - 8360
-        - 8361
-        - 8362
-        - 8364
-        - 8367
-        - 8664
-        - 8723
-        - 8915
-        - 8985
-        - 9799
-        - 13203
-        - 16149
-        - 16397
-        - 21395
-        - 22135
-        - 23327
-        - 25029
         - 27653
-        - 34537
-        - 34792
+        - 8364
+        - 8362
+        - 6460
+        - 6217
+        - 9878
+        - 9348
+        - 2677
+        - 601
+        - 1978
+        - 38594
         - 35120
+        - 34792
+        - 34537
+        - 22135
+        - 16149
+        - 8985
+        - 7785
+        - 3701
+        - 3508
+        - 1454
+        - 875
+        - 4420
       :generator:
         person_id: 5068
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -8810,41 +8782,31 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 43
-        - 150
-        - 324
-        - 405
-        - 468
-        - 570
-        - 801
-        - 885
-        - 1095
-        - 1096
-        - 1288
-        - 1289
-        - 1293
-        - 1920
-        - 1921
-        - 1981
-        - 2151
-        - 2388
-        - 2612
-        - 2733
-        - 2832
-        - 3008
-        - 3060
-        - 3089
-        - 3336
-        - 4639
-        - 4640
-        - 4672
         - 5386
-        - 6374
-        - 6867
-        - 7106
-        - 7664
-        - 9001
+        - 405
+        - 570
+        - 1289
+        - 801
+        - 2733
+        - 324
+        - 1981
         - 9629
+        - 9001
+        - 6867
+        - 3089
+        - 2832
+        - 3336
+        - 468
+        - 43
+        - 4639
+        - 1096
+        - 1095
+        - 1288
+        - 885
+        - 3060
+        - 1921
+        - 1920
+        - 1293
       :generator:
         person_id: 4097
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
