@@ -9,8 +9,8 @@ module Types
       .enum(:anons, :ongoing, :released, :planned, :latest)
 
     OPTIONS = %i[
-      disable_torrents_sync
-      disable_anime365_sync
+      disabled_torrents_sync
+      disabled_anime365_sync
     ]
 
     Options = Types::Strict::Symbol

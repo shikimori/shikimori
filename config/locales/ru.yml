@@ -425,8 +425,8 @@ ru:
           r_plus: R+ - Лицам до 17 лет просмотр запрещён
           rx: Rx - Хентай
       options:
-        disable_torrents_sync: отключение поиска новых эпизодов на торрентах
-        disable_anime365_sync: отключение поиска новых эпизодов на anime365
+        disabled_torrents_sync: отключение поиска новых эпизодов на торрентах
+        disabled_anime365_sync: отключение поиска новых эпизодов на anime365
     manga: &manga_enumerize
       status:
         anons: Анонс

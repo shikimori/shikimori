@@ -298,6 +298,9 @@ class Abilities::User
           @user.trusted_fansub_changer? &&
             (version.item_diff.keys == ['fansubbers'] || version.item_diff.keys == ['fandubbers'])
         ) || (
+          (@user.video_moderator? || @user.super_video_moderator?) &&
+            version.item_diff.keys == ['options']
+        ) || (
           @user.trusted_attached_video_changer? &&
             (version.is_a?(Versions::VideoVersion) || version.item_type == Video.name)
         )

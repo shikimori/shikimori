@@ -425,8 +425,8 @@ en:
           r_plus: R+ - Mild Nudity (may also contain violence & profanity)
           rx: Rx - Hentai (extreme sexual content/nudity)
       options:
-        disable_torrents_sync: disable of searching of new episodes on torrents
-        disable_anime365_sync: disable of searching of new episodes on anime365
+        disabled_torrents_sync: disable of searching of new episodes on torrents
+        disabled_anime365_sync: disable of searching of new episodes on anime365
     manga: &manga_enumerize
       status:
         anons: Planned
