@@ -251,17 +251,27 @@
               ] = t 'actions.edit'
 
 
-  - if @resource.desynced.any?
-    .block
-      ul.b-list
+  .block
+    ul.b-list
+      li
+        .field = @resource.class.human_attribute_name(:desynced)
+        .value = @resource.desynced.join(', ')
+        - if can? :major_change, Version
+          a.b-js-action href=@resource.edit_field_url(:desynced)
+            = t '.moderators_only'
+        - else
+          .b-js-action = t '.moderators_only'
+
+      - if @resource.anime?
         li
-          .field Desynced
-          .value = @resource.desynced.join(', ')
-          - if can? :major_change, Version
-            a.b-js-action href=@resource.edit_field_url(:desynced)
-              = t '.moderators_only'
-          - else
-            .b-js-action = t '.moderators_only'
+          .field = @resource.class.human_attribute_name(:options)
+          .value
+            = @resource.options.join(', ')
+            - if can? :major_change, Version
+              a.b-js-action href=@resource.edit_field_url(:options)
+                = t '.moderators_only'
+            - else
+              .b-js-action = t '.moderators_only'
 
   - if current_user&.admin? && @resource.anime?
     = spoiler 'Torrents' do

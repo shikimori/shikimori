@@ -24,7 +24,8 @@ class AnimesController < DbEntriesController
     synonyms: [],
     coub_tags: [],
     fansubbers: [],
-    fandubbers: []
+    fandubbers: [],
+    options: []
   ]
 
   before_action :set_breadcrumbs, if: :resource_id

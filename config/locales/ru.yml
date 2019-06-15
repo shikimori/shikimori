@@ -53,6 +53,7 @@ ru:
         franchise: Франшиза
         fansubbers: Субтитры
         fandubbers: Озвучка
+        options: Настройки
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания
@@ -423,6 +424,9 @@ ru:
           r: R - Лицам до 17 лет обязательно присутствие взрослого
           r_plus: R+ - Лицам до 17 лет просмотр запрещён
           rx: Rx - Хентай
+      options:
+        disable_torrents_sync: отключение поиска новых эпизодов на торрентах
+        disable_anime365_sync: отключение поиска новых эпизодов на anime365
     manga: &manga_enumerize
       status:
         anons: Анонс
@@ -469,7 +473,6 @@ ru:
         shikimori: Shikimori
         myanimelist: MyAnimeList
         smotret_anime: Smotret-Anime
-
     contest:
       strategy_type:
         double_elimination: Вылет после двух поражений

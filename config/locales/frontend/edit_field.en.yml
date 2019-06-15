@@ -12,3 +12,6 @@ en:
     desynced:
       nothing_here: No fields
       name: Field name
+    options:
+      nothing_here: No options
+      name: Option name

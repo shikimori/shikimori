@@ -12,3 +12,6 @@ ru:
     desynced:
       nothing_here: Нет поля
       name: Название поля
+    options:
+      nothing_here: Нет настроек
+      name: Настройка

@@ -53,6 +53,7 @@ en:
         franchise: Franchise
         fansubbers: Subtitles
         fandubbers: Dubbing
+        options: Options
       manga: &manga_attributes
         <<: *anime_attributes
         volumes: Volumes
@@ -195,6 +196,7 @@ en:
         state: Status
         author_name: Author
         anime_video_author_id: Author
+        is_first: Display first among similar videos
       anime_video_author:
         name: Name
         is_verified: Verified
@@ -422,6 +424,9 @@ en:
           r: R - 17+ recommended (violence & profanity)
           r_plus: R+ - Mild Nudity (may also contain violence & profanity)
           rx: Rx - Hentai (extreme sexual content/nudity)
+      options:
+        disable_torrents_sync: disable of searching of new episodes on torrents
+        disable_anime365_sync: disable of searching of new episodes on anime365
     manga: &manga_enumerize
       status:
         anons: Planned

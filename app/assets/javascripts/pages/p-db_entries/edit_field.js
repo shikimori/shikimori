@@ -157,7 +157,14 @@ pageLoad('.db_entries-edit_field', () => {
     );
   }
 
-  const ARRAY_FIELDS = ['synonyms', 'coub_tags', 'fansubbers', 'fandubbers', 'desynced'];
+  const ARRAY_FIELDS = [
+    'synonyms',
+    'coub_tags',
+    'fansubbers',
+    'fandubbers',
+    'desynced',
+    'options'
+  ];
   if ($(ARRAY_FIELDS.map(v => `.edit-page.${v}`).join(',')).exists()) {
     require.ensure([], () =>
       initArrayFieldApp(
