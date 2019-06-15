@@ -80,7 +80,7 @@ export default class PreloadedGallery extends ShikiGallery {
 
   _cleanup() {
     // need to clenup old images that can be present because of turbolinks page:restore
-    this.$container.children(':not(.grid-sizer)').remove();
+    this.$container.children(':not(.grid_sizer)').remove();
   }
 
   _startPostload() {
