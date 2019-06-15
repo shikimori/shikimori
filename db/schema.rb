@@ -895,7 +895,7 @@ ActiveRecord::Schema.define(version: 2019_06_15_185136) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "compiled_css"
-    t.text "imports", default: [], null: false, array: true
+    t.text "imports", array: true
   end
 
   create_table "svds", id: :serial, force: :cascade do |t|

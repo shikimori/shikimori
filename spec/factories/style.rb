@@ -4,6 +4,6 @@ FactoryBot.define do
     name { '' }
     css { '' }
     compiled_css { nil }
-    imports { [] }
+    imports { nil }
   end
 end

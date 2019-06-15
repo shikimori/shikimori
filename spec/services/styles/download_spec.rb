@@ -4,7 +4,7 @@ describe Styles::Download, :vcr do
 
   it do
     is_expected.to eq(
-      "// https://thiaya.github.io/1/shi.Modern.css\nx"
+      "/* https://thiaya.github.io/1/shi.Modern.css */\nx"
     )
   end
 end

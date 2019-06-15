@@ -5,9 +5,7 @@ class Styles::Download
   EXPIRES_IN = 8.hours
 
   def call
-    Rails.cache.fetch format(CACHE_KEY, url: @url), expires_in: EXPIRES_IN do
-      "// #{@url}\n" + sanitize(download)
-    end
+    "/* #{@url} */\n" + sanitize(download)
   end
 
 private
@@ -17,6 +15,8 @@ private
   end
 
   def download
-    Network::FaradayGet.call(@url)&.body || ''
+    Rails.cache.fetch format(CACHE_KEY, url: @url), expires_in: EXPIRES_IN do
+      Network::FaradayGet.call(@url)&.body&.force_encoding('utf-8') || ''
+    end
   end
 end

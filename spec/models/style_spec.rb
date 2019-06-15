@@ -8,17 +8,55 @@ describe Style do
   end
 
   describe 'instance methods' do
-    describe '#compiled_css' do
+    describe '#css=' do
+      let(:style) { build :style, css: 'z', compiled_css: 'x', imports: [] }
+      subject! { style.css = 'y' }
+
+      it do
+        expect(style.css).to eq 'y'
+        expect(style.compiled_css).to be_nil
+        expect(style.imports).to be_nil
+      end
+    end
+
+    describe '#compile!' do
       include_context :timecop
       let(:style) { build :style, css: css, created_at: 1.hour.ago, updated_at: 1.hour.ago }
       let(:css) { '/* test */ test' }
 
+      subject { style.compile! }
+
       it do
-        expect(style.compiled_css).to eq "#{Styles::Compile::MEDIA_QUERY_CSS} { test }"
-        expect(style.reload.attributes['compiled_css']).to eq(
+        is_expected.to eq "#{Styles::Compile::MEDIA_QUERY_CSS} { test }"
+        expect(style.reload.compiled_css).to eq(
           "#{Styles::Compile::MEDIA_QUERY_CSS} { test }"
         )
         expect(style.updated_at).to be_within(0.1).of Time.zone.now
+      end
+    end
+
+    describe '#compiled?' do
+      subject { build :style, css: css, compiled_css: compiled_css }
+
+      context 'has css, has compiled_css' do
+        let(:css) { 'zxc' }
+        let(:compiled_css) { 'cvb' }
+
+        it { is_expected.to be_compiled }
+      end
+
+      context 'has css, no compiled_css' do
+        let(:css) { 'zxc' }
+        let(:compiled_css) { nil }
+
+        it { is_expected.to_not be_compiled }
+      end
+
+      context 'no css, no compiled_css' do
+        let(:css) { nil }
+        let(:compiled_css) { nil }
+
+        it { is_expected.to be_compiled }
       end
     end
   end

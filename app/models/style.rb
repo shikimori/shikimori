@@ -22,14 +22,24 @@ class Style < ApplicationRecord
     /* AUTO=body_background */ body { background: %s; }
   CSS
 
-  def compiled_css
+  def css= value
+    self.compiled_css = nil
+    self.imports = nil
+    super value
+  end
+
+  def compile!
     return if css.blank?
 
-    if attributes['compiled_css'].nil?
+    if compiled_css.nil?
       self.updated_at = Time.zone.now
       update Styles::Compile.call css
     end
 
-    attributes['compiled_css']
+    compiled_css
+  end
+
+  def compiled?
+    css.blank? || (css.present? && compiled_css.present?)
   end
 end

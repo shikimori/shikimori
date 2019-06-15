@@ -13,6 +13,7 @@ class Api::V1::StylesController < Api::V1Controller
   end
   def preview
     @resource = Style.new css: params[:style][:css]
+    @resource.assign_attributes Styles::Compile.call(@resource.css)
     respond_with @resource
   end
 
@@ -36,6 +37,7 @@ class Api::V1::StylesController < Api::V1Controller
   end
   def update
     @resource.update update_params
+    @resource.compile!
     respond_with @resource, location: nil
   end
 

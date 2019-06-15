@@ -31,8 +31,11 @@ class LayoutView < ViewObjectBase
   def custom_styles
     return if blank_layout?
 
+    style = custom_style
+    style.compile! unless !style || style.compiled?
+
     <<-CSS.squish.strip.html_safe
-      <style id="#{CUSTOM_CSS_ID}" type="text/css">#{custom_css}</style>
+      <style id="#{CUSTOM_CSS_ID}" type="text/css">#{custom_style&.compiled_css}</style>
     CSS
   end
 
@@ -94,7 +97,7 @@ private
     h.controller.is_a? DbEntriesController
   end
 
-  def custom_css # rubocop:disable AbcSize
+  def custom_style # rubocop:disable AbcSize
     user = h.controller.instance_variable_get('@user')
     club = h.controller.instance_variable_get('@club')
 
@@ -108,6 +111,6 @@ private
   end
 
   def try_style target
-    target.style.compiled_css if target&.style&.css&.strip.present?
+    target.style if target&.style&.css&.strip.present?
   end
 end
