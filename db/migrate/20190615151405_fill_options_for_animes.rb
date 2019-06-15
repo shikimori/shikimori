@@ -17,5 +17,15 @@ class FillOptionsForAnimes < ActiveRecord::Migration[5.2]
         anime.options << Types::Anime::Options[:disabled_torrents_sync]
         anime.save!
       end
+
+    Anime
+      .where(id: [
+        10_161, 10_490, 10_379, 6336, 11_319, 14_645, 15_085, 14_967, 15_611,
+        17_705, 15_699, 16_241, 16_049, 34_984
+      ])
+      .each do |anime|
+        anime.options << Types::Anime::Options[:strict_torrent_name_match]
+        anime.save!
+      end
   end
 end

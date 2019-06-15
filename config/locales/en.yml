@@ -425,6 +425,9 @@ en:
           r_plus: R+ - Mild Nudity (may also contain violence & profanity)
           rx: Rx - Hentai (extreme sexual content/nudity)
       options:
+        strict_torrent_name_match: |
+          search only for those torrents whose name completely matches
+          (for cases with a long name, when the parser alone cannot find the episodes)
         disabled_torrents_sync: disable of searching of new episodes on torrents
         disabled_anime365_sync: disable of searching of new episodes on anime365
     manga: &manga_enumerize

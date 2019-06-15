@@ -9,6 +9,7 @@ module Types
       .enum(:anons, :ongoing, :released, :planned, :latest)
 
     OPTIONS = %i[
+      strict_torrent_name_match
       disabled_torrents_sync
       disabled_anime365_sync
     ]

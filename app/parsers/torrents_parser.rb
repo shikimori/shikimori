@@ -18,10 +18,6 @@ class TorrentsParser
   ]
 
   ANIME_WITH_NAME_MATCH_ONLY = [10_049, 10_033, 6336, 11_319]
-  ANIME_WITH_EXACT_NAME_MATCH = [
-    10_161, 10_490, 10_379, 6336, 11_319, 14_645, 15_085, 14_967, 15_611,
-    17_705, 15_699, 16_241, 16_049, 34_984
-  ]
   ANIME_WITH_ALL_SUB_GROUPS = [9539, 12_979, 13_163, 6702, 15_417]
 
   END_OF_NAME = /[\w()_!~?\.+-‒]+/
@@ -162,7 +158,7 @@ def self.extract_episodes_num episode_name
         TorrentsMatcher.new(anime).matches_for(
           v[:title],
           only_name: ANIME_WITH_NAME_MATCH_ONLY.include?(anime.id),
-          exact_name: ANIME_WITH_EXACT_NAME_MATCH.include?(anime.id)
+          exact_name: anime.strict_torrent_name_match?
         )
       end
 
