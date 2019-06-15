@@ -560,9 +560,11 @@ Rails.application.routes.draw do
       franchises
       votes
       ip
+      reset_styles_cache
     ].each do |page|
       get page
     end
+    post :reset_styles_cache
     #get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
   end
 

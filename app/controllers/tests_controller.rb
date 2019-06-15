@@ -203,6 +203,18 @@ class TestsController < ShikimoriController
       .transform(&:voter)
   end
 
+  def reset_styles_cache
+    if request.post?
+      cache_key = format(Styles::Download::CACHE_KEY, url: params[:url])
+      @was_exist = Rails.cache.exist? cache_key
+      Rails.cache.delete cache_key if @was_exist
+
+      Style
+        .where('imports is not null and ? = ANY(imports)', params[:url])
+        .update_all compiled_css: nil
+    end
+  end
+
   def ip
     render json: {
       ip: request.ip,
