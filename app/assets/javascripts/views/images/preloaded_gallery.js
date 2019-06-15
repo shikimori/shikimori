@@ -29,6 +29,7 @@ export default class PreloadedGallery extends ShikiGallery {
 
     this.on('upload:success', (_e, image) => this._appendUploaded(image));
 
+    this._cleanup();
     this._buildLoader().then(() => {
       this.loader.on(this.loader.FETCH_EVENT, loadedImages => {
         this._imagesLoad(loadedImages);
@@ -38,7 +39,6 @@ export default class PreloadedGallery extends ShikiGallery {
       this._fetch();
     });
   }
-
 
   // callbacks
   // loader returned images
@@ -76,6 +76,11 @@ export default class PreloadedGallery extends ShikiGallery {
       this.loader.fetch();
       this._stopPostload();
     }
+  }
+
+  _cleanup() {
+    // need to clenup old images that can be present because of turbolinks page:restore
+    this.$container.children(':not(.grid-sizer)').remove();
   }
 
   _startPostload() {
