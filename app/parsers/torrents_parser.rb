@@ -17,11 +17,6 @@ class TorrentsParser
     %w[Tompel Fansub]
   ]
 
-  IGNORED_ANIME_IDS = [
-    13_185, 19_207, 5042, 17_249, 11_457, 21_729, 22_757, 32_670, 31_670,
-    31_592, 10_937, 34_454, 31_499, 37_277, 2406
-  ]
-
   ANIME_WITH_NAME_MATCH_ONLY = [10_049, 10_033, 6336, 11_319]
   ANIME_WITH_EXACT_NAME_MATCH = [
     10_161, 10_490, 10_379, 6336, 11_319, 14_645, 15_085, 14_967, 15_611,
@@ -194,8 +189,8 @@ def self.extract_episodes_num episode_name
       .where('episodes_aired >= 5')
       .to_a
 
-    (ongoings + anons + released).select do |v|
-      !v.kind_special? && !TorrentsParser::IGNORED_ANIME_IDS.include?(v.id) # && !Anime::EXCLUDED_ONGOINGS.include?(v.id)
+    (ongoings + anons + released).select do |anime|
+      !anime.kind_special? && !anime.disabled_torrents_sync? # && !Anime::EXCLUDED_ONGOINGS.include?(v.id)
     end
   end
 
