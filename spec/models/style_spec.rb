@@ -9,73 +9,16 @@ describe Style do
 
   describe 'instance methods' do
     describe '#compiled_css' do
-      let(:style) { build :style, css: css }
+      include_context :timecop
+      let(:style) { build :style, css: css, created_at: 1.hour.ago, updated_at: 1.hour.ago }
+      let(:css) { '/* test */ test' }
 
-      context '#strip_comments' do
-        let(:css) { '/* test */ test' }
-        it { expect(style.compiled_css).to eq "#{Style::MEDIA_QUERY_CSS} { test }" }
-      end
-
-      context '#camo_images' do
-        let(:image_url) { 'http://s8.hostingkartinok.com/uploads/images/2016/02/87303db8016e56e8a9eeea92f81f5760.jpg' }
-        let(:quote) { ['"', "'", '`', ''].sample }
-        let(:css) { "body { background: url(#{quote}#{image_url}#{quote}); };" }
-
-        it do
-          expect(style.compiled_css).to eq(
-            <<-CSS.squish
-              #{Style::MEDIA_QUERY_CSS} {
-                body {
-                  background: url(#{quote}#{UrlGenerator.instance.camo_url image_url}#{quote});
-                };
-              }
-            CSS
-          )
-        end
-      end
-
-      context '#sanitize' do
-        let(:css) { 'body { color: red; }; javascript:blablalba;;' }
-        it { expect(style.compiled_css).to eq "#{Style::MEDIA_QUERY_CSS} { body { color: red; }; :blablalba; }" }
-      end
-
-      describe '#media_query' do
-        context 'with styles' do
-          context 'with media' do
-            let(:css) { '@media only screen and (min-width: 100px) { test }' }
-            it { expect(style.compiled_css).to eq css }
-          end
-
-          context 'without media' do
-            let(:css) { 'test' }
-            it { expect(style.compiled_css).to eq "#{Style::MEDIA_QUERY_CSS} { test }" }
-
-            context 'with multiple imports' do
-              let(:css) do
-                <<~CSS
-                  @import url('https://zzz.com');
-                  @import url('https://xxx.com');
-                  zxc
-                CSS
-              end
-
-              it do
-                expect(style.compiled_css).to eq(
-                  <<~CSS.strip
-                    @import url('https://zzz.com');
-                    @import url('https://xxx.com');
-                    #{Style::MEDIA_QUERY_CSS} { zxc }
-                  CSS
-                )
-              end
-            end
-          end
-        end
-
-        context 'without styles' do
-          let(:css) { '' }
-          it { expect(style.compiled_css).to eq '' }
-        end
+      it do
+        expect(style.compiled_css).to eq "#{Styles::Compile::MEDIA_QUERY_CSS} { test }"
+        expect(style.reload.attributes['compiled_css']).to eq(
+          "#{Styles::Compile::MEDIA_QUERY_CSS} { test }"
+        )
+        expect(style.updated_at).to be_within(0.1).of Time.zone.now
       end
     end
   end

@@ -21,54 +21,15 @@ class Style < ApplicationRecord
   BODY_BACKGROUND_CSS = <<-CSS.strip.gsub(/^ +/, '')
     /* AUTO=body_background */ body { background: %s; }
   CSS
-  MEDIA_QUERY_CSS = '@media only screen and (min-width: 1024px)'
 
   def compiled_css
-    strip_comments(media_query(sanitize(camo_images(css))))
-  end
+    return if css.blank?
 
-private
-
-  def media_query css
-    if css.blank? || css.gsub(%r{^/\* AUTO=.*}, '').include?('@media')
-      css
-    else
-      unwrap_imports("#{MEDIA_QUERY_CSS} { #{css} }")
+    if attributes['compiled_css'].nil?
+      self.updated_at = Time.zone.now
+      update Styles::Compile.call css
     end
-  end
 
-  def camo_images css
-    css.gsub(BbCodes::Tags::UrlTag::URL) do
-      url = $LAST_MATCH_INFO[:url]
-      if url =~ /(?<quote>["'`])$/
-        quote = $LAST_MATCH_INFO[:quote]
-        url = url.gsub(/["'`]$/, '')
-      end
-
-      "#{UrlGenerator.instance.camo_url url}#{quote}"
-    end
-  end
-
-  def strip_comments css
-    css.gsub(%r{/\* .*? \*/\s*[\n\r]*}mix, '')
-  end
-
-  def sanitize css
-    Misc::SanitizeEvilCss.call(css).strip.gsub(/;;+/, ';').strip
-  end
-
-  def unwrap_imports css
-    if css.include? '@import'
-      imports = []
-
-      fixed_css = css.gsub(/@import.*?;[\n\r]*/) do |match|
-        imports << match
-        nil
-      end
-
-      imports.join('') + fixed_css
-    else
-      css
-    end
+    attributes['compiled_css']
   end
 end
