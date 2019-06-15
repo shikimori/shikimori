@@ -9,7 +9,9 @@ class Styles::Compile
   /mix
 
   def call
-    imports, compiled_css = extract_imports(strip_comments(media_query(sanitize(camo_images(css)))))
+    compiled_css = strip_comments(media_query(sanitize(camo_images(@css))))
+    imports, compiled_css = extract_imports(compiled_css)
+    compiled_css = inline_imports(download_imports(imports), compiled_css)
 
     {
       compiled_css: compiled_css,
@@ -18,6 +20,16 @@ class Styles::Compile
   end
 
 private
+
+  def inline_imports downloaded_imports, compiled_css
+    "#{downloaded_imports.join("\n\n")}\n\n#{compiled_css}".strip
+  end
+
+  def download_imports imports
+    imports.map do |url|
+      Styles::Download.call url
+    end
+  end
 
   def camo_images css
     css.gsub(BbCodes::Tags::UrlTag::URL) do

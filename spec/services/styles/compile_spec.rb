@@ -61,19 +61,22 @@ describe Styles::Compile do
           )
         end
 
-        context 'with multiple imports' do
+        context 'with multiple imports', :vcr do
           let(:css) do
             <<~CSS
-              @import url('https://zzz.com');
-              @import url('https://xxx.com');
+              @import url('https://thiaya.github.io/1//shi.Modern.css');
+              @import url('https://thiaya.github.io/1/shi.Modern.css');
               zxc
             CSS
           end
 
           it do
             is_expected.to eq(
-              imports: ['https://zzz.com', 'https://xxx.com'],
-              compiled_css: "#{described_class::MEDIA_QUERY_CSS} { zxc }"
+              imports: [
+                'https://thiaya.github.io/1//shi.Modern.css',
+                'https://thiaya.github.io/1/shi.Modern.css'
+              ],
+              compiled_css: "// https://thiaya.github.io/1//shi.Modern.css\nz\n\n// https://thiaya.github.io/1/shi.Modern.css\nx\n\n#{described_class::MEDIA_QUERY_CSS} { zxc }"
             )
           end
         end

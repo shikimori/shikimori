@@ -1,0 +1,68 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://thiaya.github.io/1/shi.Modern.css
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.15.4
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Content-Type:
+      - text/css; charset=utf-8
+      Strict-Transport-Security:
+      - max-age=31556952
+      Last-Modified:
+      - Thu, 06 Jun 2019 14:20:42 GMT
+      Etag:
+      - W/"5cf9213a-2a3ef"
+      Access-Control-Allow-Origin:
+      - "*"
+      Expires:
+      - Sat, 15 Jun 2019 20:08:30 GMT
+      Cache-Control:
+      - max-age=600
+      X-Github-Request-Id:
+      - D964:0595:C51D06:1018A94:5D054DE6
+      Content-Length:
+      - '26920'
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 15 Jun 2019 19:58:30 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      Connection:
+      - keep-alive
+      X-Served-By:
+      - cache-ams21035-AMS
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1560628710.397864,VS0,VE104
+      Vary:
+      - Accept-Encoding
+      X-Fastly-Request-Id:
+      - 73caf8489d4b1773f6b90553d41607686b7a6fb1
+    body:
+      encoding: UTF-8
+      string: " x eval "
+    http_version: 
+  recorded_at: Sat, 15 Jun 2019 19:58:26 GMT
+recorded_with: VCR 4.0.0

@@ -3,7 +3,7 @@ describe Misc::SanitizeEvilCss do
     subject { Misc::SanitizeEvilCss.call css }
 
     context 'evil css' do
-      let(:css) { '&#1234;' }
+      let(:css) { '&#1234; ' }
       it { is_expected.to eq '1234;' }
     end
 

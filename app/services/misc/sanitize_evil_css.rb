@@ -17,8 +17,10 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
   ]
 
   def call
-    EVIL_CSS.inject(css) do |styles, regex|
-      styles.gsub(regex, '')
-    end
+    EVIL_CSS
+      .inject(css) do |styles, regex|
+        styles.gsub(regex, '')
+      end
+      .strip
   end
 end
