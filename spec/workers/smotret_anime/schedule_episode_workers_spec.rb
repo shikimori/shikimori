@@ -58,6 +58,19 @@ describe SmotretAnime::ScheduleEpisodeWorkers do
         .to have_received(:perform_async)
         .with anime_4.id, 34
     end
+
+    context 'disabled_anime365_sync' do
+      let!(:anime_4) { create :anime, :ongoing, :disabled_anime365_sync, score: 9 }
+
+      it do
+        expect(SmotretAnime::EpisodeWorker)
+          .to have_received(:perform_async)
+          .once
+        expect(SmotretAnime::EpisodeWorker)
+          .to have_received(:perform_async)
+          .with anime_3.id, 23
+      end
+    end
   end
 
   context 'b' do

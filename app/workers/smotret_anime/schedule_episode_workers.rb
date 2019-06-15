@@ -16,6 +16,9 @@ class SmotretAnime::ScheduleEpisodeWorkers
     Anime
       .joins(:smotret_anime_external_link)
       .where(status: :ongoing)
+      .where(
+        "not(options @> ARRAY['#{Types::Anime::Options[:disabled_anime365_sync]}']::varchar[])"
+      )
       .where(GROUP_SQL[Group[group]])
       .order('animes.id')
       .each do |anime|
