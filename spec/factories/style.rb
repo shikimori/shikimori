@@ -3,5 +3,7 @@ FactoryBot.define do
     owner { seed :user }
     name { '' }
     css { '' }
+    compiled_css { nil }
+    imports { [] }
   end
 end
