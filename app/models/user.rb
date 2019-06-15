@@ -25,6 +25,7 @@ class User < ApplicationRecord
     version_moderator
     trusted_version_changer
     trusted_video_uploader
+    trusted_fansub_changer
     review_moderator
     collection_moderator
     cosplay_moderator

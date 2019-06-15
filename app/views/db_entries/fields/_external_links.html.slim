@@ -22,7 +22,7 @@
           b = t '.imported'
           span.hint = t '.to_edit'
 
-      - (other_links + (resource.anime? && current_user.admin? ? [resource.smotret_anime_external_link] : [])).compact.each do |external_link|
+      - (other_links + (resource.anime? && current_user.staff? ? [resource.smotret_anime_external_link] : [])).compact.each do |external_link|
         .b-collection_item.read-only
           .b-input.select
             select[disabled]
