@@ -31,3 +31,6 @@ en:
         <<: *common
         title: Password recovery
         notice: On this page you can start the password recovery procedure by entering your e-mail in the field below.
+        info:
+          first: Letters to
+          last: can get into spam, check in spam folder too.

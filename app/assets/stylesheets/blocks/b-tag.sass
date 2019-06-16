@@ -33,11 +33,15 @@ $margin-right: 9px
     &:active
       background-color: $link-3
 
+    &:last-child
+      &:hover
+        margin-right: 0
+
   &:last-child
     margin-right: 3px
 
-    &:hover
-      margin-right: 0
+  &.narrow
+    margin-right: 5px
 
   a
     transition: none
