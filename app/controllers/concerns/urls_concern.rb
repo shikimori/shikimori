@@ -23,6 +23,6 @@ module UrlsConcern
   # Use this in place of params when generating links to Excel etc.
   # See https://github.com/rails/rails/issues/26289
   def safe_params
-    params.except(:host, :port, :protocol).permit!
+    params.except(:host, :port, :protocol, :authenticity_token).permit!
   end
 end

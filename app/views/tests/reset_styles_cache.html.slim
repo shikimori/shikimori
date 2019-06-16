@@ -7,7 +7,10 @@
 - else
   .midheadline Reset style cache
 
-form.b-form method='post' action=reset_styles_cache_tests_url(url: params[:url])
+form.b-form[
+  method='post'
+  action=reset_styles_cache_tests_url
+]
   = hidden_field_tag :authenticity_token, form_authenticity_token
   .b-input
     label Url

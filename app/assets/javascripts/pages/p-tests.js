@@ -1,4 +1,5 @@
 import delay from 'delay';
+import URI from 'urijs';
 
 function setLink() {
   $('#link').val(
@@ -35,4 +36,12 @@ pageLoad('.tests', () => {
       $(this).trigger('change');
     })
     .trigger('change');
+});
+
+pageLoad('tests_reset_styles_cache', () => {
+  $('.b-form').on('submit', ({ currentTarget }) => {
+    currentTarget.action = new URI(currentTarget.action)
+      .setQuery('url', $('input[name=url]', currentTarget).val())
+      .href();
+  });
 });
