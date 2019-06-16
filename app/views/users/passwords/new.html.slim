@@ -1,6 +1,6 @@
 header.head.m15
-  h1 Восстановление пароля
-  p.notice На данной странице вы сможете запустить процедуру восстановления пароля, введя ваш e-mail в расположенное ниже поле.
+  h1 = t '.title'
+  p.notice = t '.notice'
 
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   - if f.object.errors.any? || flash[:recaptcha_error].present?
@@ -24,5 +24,5 @@ header.head.m15
 
   .block
     = f.button :magic_submit
-    a.cancel href=new_user_session_url Войти в уже существующий аккаунт
-    a.cancel href=new_user_registration_url Зарегистрировать новый аккаунт
+    a.cancel href=new_user_session_url = t '.sign_in'
+    a.cancel href=new_user_registration_url = t '.sign_up'

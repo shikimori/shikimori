@@ -29,3 +29,5 @@ en:
     passwords:
       new:
         <<: *common
+        title: Password recovery
+        notice: On this page you can start the password recovery procedure by entering your e-mail in the field below.
