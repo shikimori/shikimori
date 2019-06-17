@@ -1,6 +1,6 @@
 class GenerateCopyrightedIds < ServiceObjectBase
   URL_TEMPLATE = 'https://lumendatabase.org/notices/search?'\
-    'utf8=%E2%9C%93&term=shikimori.org&sort_by=&page='
+    'utf8=%E2%9C%93&term=shikimori.one&sort_by=&page='
 
   VALID_PATH = %r{/(animes|mangas|ranobe|characters|people)/\w+(?=-)}
   FAIL_TEXT = 'Search Temporarily Unavailable'
@@ -13,11 +13,11 @@ class GenerateCopyrightedIds < ServiceObjectBase
     hash
   end
 
-  # rubocop:disable AbcSize
   def copyrighted_entries
     all_links.each_with_object({}) do |url, memo|
       path = URI(url).path
       next unless path.match? VALID_PATH
+
       parts = path.split('/')
 
       type = parts[1].singularize.to_sym
@@ -27,7 +27,6 @@ class GenerateCopyrightedIds < ServiceObjectBase
       (memo[:ranobe] ||= []).push id if type == :manga
     end
   end
-  # rubocop:enable AbcSize
 
   def all_links
     1.upto(total_pages).flat_map do |page|
@@ -52,7 +51,6 @@ private
     Nokogiri::HTML get_page(URL_TEMPLATE + page.to_s)
   end
 
-  # rubocop:disable AbcSize, MethodLength
   def get_page url
     Rails.cache.fetch(url, expires_in: 1.week) do
       response = Faraday.get(url) do |req|
@@ -68,5 +66,4 @@ private
       end
     end
   end
-  # rubocop:enable AbcSize, MethodLength
 end

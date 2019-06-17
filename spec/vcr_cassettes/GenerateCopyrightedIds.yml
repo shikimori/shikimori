@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://lumendatabase.org/notices/search?page=1&sort_by=&term=shikimori.org&utf8=%E2%9C%93
+    uri: https://lumendatabase.org/notices/search?page=1&sort_by=&term=shikimori.one&utf8=%E2%9C%93
     body:
       encoding: US-ASCII
       string: ''
@@ -57,7 +57,7 @@ http_interactions:
   recorded_at: Thu, 25 May 2017 08:45:49 GMT
 - request:
     method: get
-    uri: https://lumendatabase.org/notices/search?page=2&sort_by=&term=shikimori.org&utf8=%E2%9C%93
+    uri: https://lumendatabase.org/notices/search?page=2&sort_by=&term=shikimori.one&utf8=%E2%9C%93
     body:
       encoding: US-ASCII
       string: ''
