@@ -46,7 +46,7 @@ class Video < ApplicationRecord
   end
 
   def url= url
-    return if url.nil?
+    return if url.blank?
 
     self[:url] = "https:#{Url.new(super).cut_www.without_protocol}"
 

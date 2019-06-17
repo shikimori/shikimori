@@ -9,7 +9,7 @@ describe Ban do
   describe 'validations' do
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :moderator }
-    it { is_expected.to validate_presence_of :duration }
+    # it { is_expected.to validate_presence_of :duration }
     it { is_expected.to validate_presence_of :reason }
 
     # it { is_expected.to validate_presence_of :comment }
