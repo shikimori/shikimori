@@ -171,7 +171,7 @@
 })(jQuery);
 (function(d) {
     var i = d.tools.tooltip;
-    d.extend(i.conf, {direction: "up",bounce: false,slideOffset: 10,slideInSpeed: 200,slideOutSpeed: 200,slideFade: !d.browser.msie});
+    d.extend(i.conf, {direction: "up",bounce: false,slideOffset: 10,slideInSpeed: 200,slideOutSpeed: 200,slideFade: false});
     var e = {up: ["-", "top"],down: ["+", "top"],left: ["-", "left"],right: ["+", "left"]};
     i.addEffect("slide", function(g) {
         var a = this.getConf(), f = this.getTip(), b = a.slideFade ? {opacity: a.opacity} : {}, c = e[a.direction] || e.up;

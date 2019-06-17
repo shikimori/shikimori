@@ -21,7 +21,7 @@ $.fn.extend({
   }
 });
 
-async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EXPORTS) {
+function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EXPORTS) {
   const $root = $(root);
 
   UserRatesTracker.track(JS_EXPORTS, $root);
@@ -129,14 +129,14 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
 
   // с задержкой делаем потому, что collapsed блоки могут быть в контенте,
   // загруженном аяксом, а process для таких случаев вызывается ещё до вставки в DOM
-  await delay();
-  // сворачиваение всех нужных блоков "свернуть"
-  ($.cookie('collapses') || '')
-    .replace(/;$/, '')
-    .split(';')
-    .forEach(id =>
-      $(`#collapse-${id}`)
-        .filter(':not(.triggered)')
-        .trigger('click', true)
-    );
+  // await delay();
+  // // сворачиваение всех нужных блоков "свернуть"
+  // ($.cookie('collapses') || '')
+  //   .replace(/;$/, '')
+  //   .split(';')
+  //   .forEach(id =>
+  //     $(`#collapse-${id}`)
+  //       .filter(':not(.triggered)')
+  //       .trigger('click', true)
+  //   );
 }

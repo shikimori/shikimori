@@ -142,7 +142,7 @@ jQuery($ => {
     /**
      * remote handlers
      */
-  $('a[data-method]:not([data-remote]),span[data-method]:not([data-remote])').live('click', function (e) {
+  $(document).on('click', 'a[data-method]:not([data-remote]),span[data-method]:not([data-remote])', function (e) {
     const link = $(this);
 
 
@@ -179,7 +179,7 @@ jQuery($ => {
     /**
      *  confirmation handler
      */
-  $('a[data-confirm]:not([data-remote]),input[data-confirm]').live('click', function () {
+  $(document).on('click', 'a[data-confirm]:not([data-remote]),input[data-confirm]', function () {
     const el = $(this);
     if (el.triggerAndReturn('confirm')) {
       if (!confirm(el.attr('data-confirm'))) {
@@ -192,12 +192,12 @@ jQuery($ => {
     /**
      * remote handlers
      */
-  $('form[data-remote]').live('submit', function (e) {
+  $(document).on('submit', 'form[data-remote]', function (e) {
     $(this).callRemote();
     e.preventDefault();
   });
 
-  $('a[data-remote],input[data-remote],span[data-remote],div[data-remote],li[data-remote],button[data-remote],tr[data-remote]').live('click', function (e) {
+  $(document).on('click', 'a[data-remote],input[data-remote],span[data-remote],div[data-remote],li[data-remote],button[data-remote],tr[data-remote]', function (e) {
     if (inNewTab(e)) {
       return;
     }
@@ -233,10 +233,10 @@ jQuery($ => {
     });
   };
 
-  $(disable_with_form_remote_selector).live('ajax:before', disable_with_input_function);
-  $(disable_with_form_not_remote_selector).live('submit', disable_with_input_function);
+  $(document).on('ajax:before', disable_with_form_remote_selector, disable_with_input_function);
+  $(document).on('submit', disable_with_form_not_remote_selector, disable_with_input_function);
 
-  $(disable_with_form_remote_selector).live('ajax:complete', function () {
+  $(document).on('ajax:complete', disable_with_form_remote_selector, function () {
     $(this).find(disable_with_input_selector).each(function () {
       const input = $(this);
       input.removeAttr('disabled')
@@ -244,3 +244,4 @@ jQuery($ => {
     });
   });
 });
+

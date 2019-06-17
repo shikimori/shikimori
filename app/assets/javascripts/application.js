@@ -3,13 +3,7 @@
 //   .config('ebe5fd3d4c754a9592b7f30f70a9c16f')
 //   .install();
 
-import 'babel-polyfill'; // async won't work w/o it
-
-import sugar from 'vendor/sugar';
-import $ from 'jquery'; // eslint-disable-line import/newline-after-import
-
-window.$ = $;
-window.jQuery = window.$;
+import sugar from 'vendor/sugar'; // eslint-disable-line import/newline-after-import
 sugar.extend();
 
 import Turbolinks from 'turbolinks'; // eslint-disable-line import/newline-after-import
@@ -70,28 +64,7 @@ import 'helpers/p';
 
 import 'i18n/translations';
 
-$(document).on(Object.keys(bindings).join(' '), e => {
-  bindings[e.type].forEach(group => {
-    let bodyClasses;
-    if (group.conditions.length && (group.conditions[0][0] === '.')) {
-      bodyClasses = group.conditions
-        .filter(v => v[0] === '.')
-        .map(v => `p-${v.slice(1)} `);
-    } else {
-      bodyClasses = [];
-    }
-
-    if (!group.conditions.length) {
-      group.callback();
-    } else if (bodyClasses && bodyClasses.some(v => document.body.className.indexOf(v) !== -1)) {
-      group.callback();
-    } else if (group.conditions.some(v => document.body.id === v)) {
-      group.callback();
-    }
-  });
-});
-
-$(() => {
+$(document).one('turbolinks:load', () => {
   if (!window.JS_EXPORTS) { window.JS_EXPORTS = {}; }
 
   const $body = $(document.body);
@@ -138,4 +111,25 @@ $(() => {
   // отдельные эвенты для ресайзов и скрола
   $(window).on('resize', debounce(500, () => $(document.body).trigger('resize:debounced')));
   $(window).on('scroll', throttle(750, () => $(document.body).trigger('scroll:throttled')));
+});
+
+$(document).on(Object.keys(bindings).join(' '), e => {
+  bindings[e.type].forEach(group => {
+    let bodyClasses;
+    if (group.conditions.length && (group.conditions[0][0] === '.')) {
+      bodyClasses = group.conditions
+        .filter(v => v[0] === '.')
+        .map(v => `p-${v.slice(1)} `);
+    } else {
+      bodyClasses = [];
+    }
+
+    if (!group.conditions.length) {
+      group.callback();
+    } else if (bodyClasses && bodyClasses.some(v => document.body.className.indexOf(v) !== -1)) {
+      group.callback();
+    } else if (group.conditions.some(v => document.body.id === v)) {
+      group.callback();
+    }
+  });
 });

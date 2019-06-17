@@ -309,9 +309,6 @@ export default class ShikiEditor extends ShikiView
         @$textarea.focus()
         @$textarea.setCursorPosition @$textarea.val().length
 
-    if $.browser.opera && parseInt($.browser.version) < 12
-      @$('.editor-file').hide()
-
     # ajax загрузка файлов
     file_text_placeholder = "[#{I18n.t('frontend.shiki_editor.file')} #@]"
     @$textarea.shikiFile

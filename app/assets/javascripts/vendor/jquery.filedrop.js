@@ -37,7 +37,7 @@
 
 ;(function($) {
 
-  jQuery.event.props.push("dataTransfer");
+  jQuery.event.addProp('dataTransfer');
 
   var default_opts = {
       fallback_id: '',

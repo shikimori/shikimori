@@ -18,7 +18,7 @@ export default class LoaderBase {
     this.isLoading = false;
 
     if (window.ENV === 'development') {
-      this.camoBaseUrl = 'https://camo-v2.shikimori.org';
+      this.camoBaseUrl = 'https://camo-v2.shikimori.one';
     } else {
       this.camoBaseUrl = window.CAMO_URL;
     }

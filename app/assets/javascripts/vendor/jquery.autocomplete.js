@@ -32,7 +32,7 @@ $.fn.extend({
     });
   },
   result: function(handler) {
-    return this.bind("result", handler);
+    return this.on("result", handler);
   },
   search: function(handler) {
     return this.trigger("search", [handler]);
@@ -77,16 +77,7 @@ $.Autocompleter = function(input, options) {
 
   var blockSubmit;
 
-  // prevent form submit in opera when selecting with return key
-  $.browser.opera && $(input.form).bind("submit.autocomplete", function() {
-    if (blockSubmit) {
-      blockSubmit = false;
-      return false;
-    }
-  });
-
-  // only opera doesn't trigger keydown multiple times while pressed, others don't work with keypress at all
-  $input.bind(($.browser.opera ? "keypress" : "keydown") + ".autocomplete", function(event) {
+  $input.on('keydown.autocomplete', function(event) {
     // a keypress means the input has focus
     // avoids issue where input had focus before the autocomplete was applied
     hasFocus = 1;
@@ -166,7 +157,7 @@ $.Autocompleter = function(input, options) {
     if ( hasFocus++ > 1 && !select.visible() ) {
       onChange(0, true);
     }
-  }).bind("search", function() {
+  }).on("search", function() {
     // TODO why not just specifying both arguments?
     var fn = (arguments.length > 1) ? arguments[1] : null;
     function findValueCallback(q, data) {
@@ -185,17 +176,17 @@ $.Autocompleter = function(input, options) {
     $.each(trimWords($input.val()), function(i, value) {
       request(value, findValueCallback, findValueCallback);
     });
-  }).bind("flushCache", function() {
+  }).on("flushCache", function() {
     cache.flush();
-  }).bind("setOptions", function() {
+  }).on("setOptions", function() {
     $.extend(options, arguments[1]);
     // if we've updated the data, repopulate
     if ( "data" in arguments[1] )
       cache.populate();
-  }).bind("unautocomplete", function() {
+  }).on("unautocomplete", function() {
     select.unbind();
-    $input.unbind();
-    $(input.form).unbind(".autocomplete");
+    $input.off();
+    $(input.form).off(".autocomplete");
   });
 
 
@@ -656,8 +647,8 @@ $.Autocompleter.Select = function (options, input, select, config) {
   function movePosition(step) {
     active += step;
     if (active < 0) {
-      active = listItems.size() - 1;
-    } else if (active >= listItems.size()) {
+      active = listItems.length - 1;
+    } else if (active >= listItems.length) {
       active = 0;
     }
   }
@@ -712,8 +703,8 @@ $.Autocompleter.Select = function (options, input, select, config) {
       }
     },
     pageDown: function() {
-      if (active != listItems.size() - 1 && active + 8 > listItems.size()) {
-        moveSelect( listItems.size() - 1 - active );
+      if (active != listItems.length - 1 && active + 8 > listItems.length) {
+        moveSelect( listItems.length - 1 - active );
       } else {
         moveSelect(8);
       }
