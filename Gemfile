@@ -47,7 +47,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
-gem 'doorkeeper', '4.4.3' # https://github.com/doorkeeper-gem/doorkeeper/issues/1013
+gem 'doorkeeper', '4.2.6' # https://github.com/doorkeeper-gem/doorkeeper/issues/1013
 gem 'devise-doorkeeper'
 gem 'recaptcha'
 
