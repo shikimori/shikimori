@@ -84,6 +84,8 @@ Style/EmptyMethod:
   Enabled: false
 Layout/AlignParameters:
   Enabled: false
+Layout/AlignArguments:
+  EnforcedStyle: with_fixed_indentation
 Layout/MultilineMethodCallIndentation:
   Enabled: false
 Style/EmptyCaseCondition:
