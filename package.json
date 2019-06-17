@@ -9,7 +9,7 @@
     "@rails/webpacker": "3.5.5",
     "autoprefixer": "9.4.4",
     "autosize": "^4.0.0",
-    "axios": "0.18.0",
+    "axios": "0.18.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
