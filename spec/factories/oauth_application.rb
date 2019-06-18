@@ -5,5 +5,6 @@ FactoryBot.define do
     redirect_uri { 'https://example.com' }
     description_ru { '' }
     description_en { '' }
+    confidential { true }
   end
 end

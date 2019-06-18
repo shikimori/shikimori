@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_15_185136) do
+ActiveRecord::Schema.define(version: 2019_06_18_123147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -693,6 +693,7 @@ ActiveRecord::Schema.define(version: 2019_06_15_185136) do
     t.datetime "image_updated_at"
     t.text "description_ru", null: false
     t.text "description_en", null: false
+    t.boolean "confidential", default: true, null: false
     t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end

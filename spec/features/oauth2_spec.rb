@@ -1,6 +1,8 @@
 feature 'Authentication', type: :request do
   let(:json) { JSON.parse response.body }
-  let(:oauth_application) { create :oauth_application }
+  let(:oauth_application) do
+    create :oauth_application, redirect_uri: Doorkeeper.configuration.native_redirect_uri
+  end
   let(:user) { create :user, email: 'user@example.com', password: '12345678' }
 
   feature 'Doorkeeper::AuthorizationsController' do
@@ -9,7 +11,7 @@ feature 'Authentication', type: :request do
         before do
           visit '/oauth/authorize' \
             "?client_id=#{oauth_application.uid}" \
-            "&redirect_uri=#{Doorkeeper::NO_REDIRECT_URI}" \
+            "&redirect_uri=#{Doorkeeper.configuration.native_redirect_uri}" \
             '&response_type=code'
         end
         scenario { expect(current_path).to eq new_user_session_path }
@@ -20,9 +22,10 @@ feature 'Authentication', type: :request do
         before do
           visit '/oauth/authorize' \
             "?client_id=#{oauth_application.uid}" \
-            "&redirect_uri=#{Doorkeeper::NO_REDIRECT_URI}" \
+            "&redirect_uri=#{Doorkeeper.configuration.native_redirect_uri}" \
             '&response_type=code'
         end
+
         scenario 'authorize user token' do
           expect(current_path).to eq oauth_authorization_path
           find('form.authorize').submit
@@ -71,7 +74,7 @@ feature 'Authentication', type: :request do
 
           expect(json['access_token'].size).to eq 64
           expect(json['refresh_token']).to eq nil
-          expect(json['token_type']).to eq 'bearer'
+          expect(json['token_type']).to eq 'Bearer'
           expect(json['expires_in']).to eq 1.day
           expect(json['created_at'].present?).to eq true
           expect(response).to have_http_status :success
@@ -96,7 +99,7 @@ feature 'Authentication', type: :request do
 
           expect(json['access_token'].size).to eq 64
           expect(json['refresh_token']).to eq nil
-          expect(json['token_type']).to eq 'bearer'
+          expect(json['token_type']).to eq 'Bearer'
           expect(json['expires_in']).to eq 1.day
           expect(json['created_at'].present?).to eq true
           expect(response).to have_http_status :success
@@ -132,7 +135,7 @@ feature 'Authentication', type: :request do
         expect(json['access_token'].size).to eq 64
         expect(json['refresh_token'].size).to eq 64
         expect(json['refresh_token'].size).to_not eq refresh_token
-        expect(json['token_type']).to eq 'bearer'
+        expect(json['token_type']).to eq 'Bearer'
         expect(json['expires_in']).to eq 1.day
         expect(json['created_at'].present?).to eq true
         expect(response).to have_http_status :success

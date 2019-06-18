@@ -1,11 +1,11 @@
-module Doorkeeper
-  NO_REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
-end
-
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use (needs plugins)
   orm :active_record
   Devise::Doorkeeper.configure_doorkeeper(self)
+
+  # https://github.com/doorkeeper-gem/doorkeeper/issues/1143
+  opt_out_native_route_change
+
   # This block will be called to check whether the resource owner is authenticated or not.
   # resource_owner_authenticator do
     # fail "Please configure doorkeeper resource_owner_authenticator block located in #{__FILE__}"
