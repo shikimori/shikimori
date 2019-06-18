@@ -20,6 +20,8 @@ import 'magnific-popup/dist/magnific-popup.css';
 import 'nouislider/distribute/nouislider.css';
 import 'pikaday/scss/pikaday.scss';
 
+import 'jquery-appear-original';
+
 require('paste.js');
 require('imagesloaded');
 
