@@ -78,6 +78,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
+    "decaffeinate": "^5.1.12",
     "eslint": "5.11.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
