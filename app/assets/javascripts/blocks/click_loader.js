@@ -12,9 +12,7 @@ $(document).on('click', '.click-loader', async ({ currentTarget }) => {
     .data({ html: $loader.html() })
     .html(`<div class='ajax-loading vk-like' title='${I18n.t('frontend.blocks.click_loader.loading')}' />`);
 
-  const method = $loader.data('format') === 'json' ? 'getJSON' : 'get';
-
-  const { data } = await axios[method]($loader.data('href'));
+  const { data } = await axios.get($loader.data('href'));
 
   $loader
     .data({ locked: false })
