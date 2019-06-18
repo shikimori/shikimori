@@ -1,6 +1,8 @@
 import axios from 'helpers/axios';
 
-$(() => $('.b-postloader').appear());
+$(() => {
+  $.appear('.b-postloader');
+});
 
 // dynamic load of content for scrolled page
 $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) => {

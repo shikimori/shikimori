@@ -74,8 +74,14 @@
   $.fn.extend({
     // watching for element's appearance in browser viewport
     appear: function(options) {
+      $.appear(this.selector || this, options);
+    }
+  });
+
+  $.extend({
+    appear: function(selector, options) {
       var opts = $.extend({}, defaults, options || {});
-      var selector = this.selector || this;
+
       if (!check_binded) {
         var on_check = function() {
           if (check_lock) {
@@ -95,10 +101,7 @@
       }
       add_selector(selector);
       return $(selector);
-    }
-  });
-
-  $.extend({
+    },
     // force elements's appearance check
     force_appear: function() {
       if (check_binded) {

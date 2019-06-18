@@ -96,7 +96,7 @@ $(document).one('turbolinks:load', () => {
     );
   }
 
-  $('.b-appear_marker.active').appear();
+  $.appear('.b-appear_marker.active');
 
   $.formNavigate({
     size: 250,
