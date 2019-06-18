@@ -561,6 +561,7 @@ Rails.application.routes.draw do
       votes
       ip
       reset_styles_cache
+      oauth
     ].each do |page|
       get page
     end

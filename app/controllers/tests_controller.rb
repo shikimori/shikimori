@@ -215,6 +215,9 @@ class TestsController < ShikimoriController
     end
   end
 
+  def oauth
+  end
+
   def ip
     render json: {
       ip: request.ip,
