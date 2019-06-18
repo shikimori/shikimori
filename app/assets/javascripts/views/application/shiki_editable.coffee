@@ -68,7 +68,7 @@ export default class ShikiEditable extends ShikiView
         axios.post $new_marker.data('appear_url'), ids: @$root.attr('id')
 
       else
-        # эвент appear обрабатывается в shiki-topic
+        # эвент appear обрабатывается в topic
         $appears = @$('.b-appear_marker.active')
         $appears.trigger 'appear', [$appears, true]
 
