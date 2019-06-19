@@ -18,6 +18,8 @@ class Network::FaradayGet
     process fixed_url(@url)
   rescue *NET_ERRORS
     nil
+  rescue NoMethodError => error # thrown when @url == ''
+    raise unless error.message == "undefined method `include?' for nil:NilClass"
   end
 
 private
