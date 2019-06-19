@@ -7,7 +7,7 @@ en:
           all: All applications
           my: My applications
         notice:
-          all: List of all OAuth Applications
+          all: List of your OAuth Applications
           user: List of %{user} OAuth Applications
         no_oauth_applications: No OAuth Applications yet
         granted_applications: Apps has access to my account

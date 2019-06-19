@@ -33,7 +33,13 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
 
     elsif user_signed_in?
       @granted_applications = Users::GrantedApplications.call(current_user)
-      @collection = @collection.where.not(id: @granted_applications)
+
+      @collection =
+        if current_user.admin?
+          @collection.where.not(id: @granted_applications)
+        else
+          @collection.none
+        end
     end
   end
 

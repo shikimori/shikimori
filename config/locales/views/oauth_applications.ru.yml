@@ -7,7 +7,7 @@ ru:
           all: Все приложения
           my: Мои приложения
         notice:
-          all: Список всех OAuth приложений
+          all: Список твоих OAuth приложений
           user: Список OAuth приложений %{user}
         no_oauth_applications: Нет OAuth приложений
         granted_applications: К моему аккаунту есть доступ у приложений

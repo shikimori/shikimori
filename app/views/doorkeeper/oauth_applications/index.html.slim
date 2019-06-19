@@ -10,7 +10,7 @@ header.head.misc
   p.notice.clearfix
     - if params[:user_id]
       == t '.notice.user',
-        user: link_to("@#{current_user.nickname}", profile_url(@user))
+        user: link_to("@#{@user.nickname}", profile_url(@user))
     - else
       = t '.notice.all'
 
