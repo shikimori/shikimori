@@ -1,6 +1,4 @@
 class Api::V2::EpisodeNotificationsController < Api::V2Controller
-  skip_before_action :verify_authenticity_token
-
   api :POST, '/v2/episode_notifications', 'Notify shikimori about anime episode release'
   param :episode_notification, Hash do
     param :anime_id, :number, required: true
