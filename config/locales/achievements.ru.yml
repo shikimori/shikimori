@@ -43,6 +43,7 @@ ru:
       tsundere: Цундере
       yandere: Яндере
       yuuri: Юри
+      genki: Генки
       world_masterpiece_theater: Театр Мировых Шедевров
     hint:
       default: '%{neko_name} %{level} уровня'

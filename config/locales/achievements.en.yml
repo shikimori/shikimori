@@ -44,6 +44,7 @@ en:
 
 
 
+
     hint:
       default: '%{neko_name} level %{level}'
       animelist: '%{threshold} watched anime'
