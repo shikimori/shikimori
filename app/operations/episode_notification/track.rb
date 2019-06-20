@@ -41,6 +41,11 @@ private
   end
 
   def save model
+    is_persisted = model.persisted?
     model.save!
+
+    if is_persisted
+      EpisodeNotification::TrackEpisode.call model
+    end
   end
 end

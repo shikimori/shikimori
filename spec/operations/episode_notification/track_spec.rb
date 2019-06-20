@@ -4,6 +4,8 @@ describe EpisodeNotification::Track do
   let!(:episode_notification) { nil }
   let(:anime) { create :anime, :ongoing, episodes_aired: 2, episodes: 4 }
 
+  before { allow(EpisodeNotification::TrackEpisode).to receive(:call).and_call_original }
+
   subject! { described_class.call params }
   let(:params) do
     {
@@ -30,12 +32,14 @@ describe EpisodeNotification::Track do
         episode: episode,
         is_raw: true
     end
+    let(:is_anime365) { true }
 
     it do
       is_expected.to eq episode_notification
       expect(episode_notification.reload.is_raw).to eq true
       expect(episode_notification.created_at).to be_within(0.1).of Time.zone.now
       expect(anime.episode_notifications).to have(1).item
+      expect(EpisodeNotification::TrackEpisode).to have_received :call
     end
   end
 
@@ -57,6 +61,7 @@ describe EpisodeNotification::Track do
       expect(subject.created_at).to be_within(0.1).of 1.week.ago
       expect(anime.episode_notifications).to have(1).item
       expect(anime.reload.episodes_aired).to eq episode
+      expect(EpisodeNotification::TrackEpisode).to have_received :call
     end
 
     context 'no true values' do
@@ -69,6 +74,7 @@ describe EpisodeNotification::Track do
         is_expected.to be_new_record
         expect(anime.episode_notifications).to be_empty
         expect(anime.reload.episodes_aired).to eq 2
+        expect(EpisodeNotification::TrackEpisode).to_not have_received :call
       end
     end
 
@@ -88,6 +94,7 @@ describe EpisodeNotification::Track do
         expect(subject.created_at).to be_within(0.1).of Time.zone.now
         expect(anime.episode_notifications).to have(1).item
         expect(anime.reload.episodes_aired).to eq episode
+        expect(EpisodeNotification::TrackEpisode).to have_received :call
       end
     end
   end
