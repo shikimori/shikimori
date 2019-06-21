@@ -32,7 +32,8 @@ en:
 
       external_links:
         imported: Imported
-        to_edit: to edit these links copy them in fields above
+        to_change: To edit the link add it into area above.
+        to_disable: To disable the link, add it above and set the value <b>NONE</b> into the url field.
         from: from
     contest_winners:
       top_in: '#%{position} in '

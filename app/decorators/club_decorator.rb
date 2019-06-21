@@ -119,6 +119,7 @@ private
 
   def all_images
     return [] unless display_images?
+
     object
       .images
       .order(created_at: :desc)

@@ -23,7 +23,7 @@ describe ExternalLink do
       it { expect(external_link.url).to eq 'http://zzz' }
     end
 
-    describe 'visible?' do
+    describe '#visible?' do
       let(:external_link) { build :external_link, kind: kind }
 
       context 'visible' do
@@ -38,6 +38,18 @@ describe ExternalLink do
       context 'invisible' do
         let(:kind) { Types::ExternalLink::INVISIBLE_KINDS.sample }
         it { expect(external_link).to_not be_visible }
+      end
+    end
+
+    describe '#disabled?' do
+      let(:external_link) { build :external_link, url: url }
+      let(:url) { 'https://ya.ru' }
+
+      it { expect(external_link).to_not be_disabled }
+
+      context 'NONE url' do
+        let(:url) { ['http://NONE', 'https://NONE', 'NONE'].sample }
+        it { expect(external_link).to be_disabled }
       end
     end
 

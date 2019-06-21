@@ -198,6 +198,7 @@ class AniMangaDecorator < DbEntryDecorator
 
     (all_links.select(&:source_shikimori?) + all_links.uniq(&:label))
       .uniq(&:id)
+      .reject(&:disabled?)
       .sort_by { |link| Types::ExternalLink::Kind.values.index link.kind.to_sym }
   end
 

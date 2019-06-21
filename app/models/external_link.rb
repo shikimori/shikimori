@@ -17,6 +17,8 @@ class ExternalLink < ApplicationRecord
     zh: '维基百科'
   }
 
+  NO_URL = 'NONE'
+
   def url= value
     if value.present?
       super Url.new(value).with_protocol.to_s
@@ -28,6 +30,10 @@ class ExternalLink < ApplicationRecord
   def visible?
     !source_hidden? &&
       !Types::ExternalLink::INVISIBLE_KINDS.include?(kind.to_sym)
+  end
+
+  def disabled?
+    url&.ends_with? NO_URL
   end
 
   def label
