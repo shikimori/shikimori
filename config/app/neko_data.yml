@@ -7961,13 +7961,13 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :shinichiro_watanabe
+    :neko_id: :akiyuki_shinbou
     :level: 1
-    :image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
-    :border_color: "#000000"
-    :title_ru: Синъитиро Ватанабэ
+    :image: "/assets/achievements/anime/author/akiyuki_shinbou.png"
+    :border_color: "#ff0000"
+    :title_ru: Акиюки Симбо
     :text_ru: 
-    :title_en: Shinichiro Watanabe
+    :title_en: Akiyuki Shinbou
     :text_en: 
     :topic_id: 276032
     :rule: &78
@@ -7975,33 +7975,101 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 2053
-        - 474
-        - 1
-        - 5
-        - 1303
-        - 3508
-        - 205
-        - 12531
-        - 20057
-        - 23327
-        - 23283
-        - 36308
-        - 37435
-        - 875
-        - 4087
-        - 13203
+        - 1175
+        - 1100
+        - 2057
+        - 3398
+        - 2474
+        - 1671
+        - 2693
+        - 1245
+        - 1618
+        - 773
+        - 1048
+        - 176
+        - 514
+        - 76
+        - 343
+        - 490
+        - 2580
+        - 1546
+        - 1619
+        - 1732
+        - 1852
+        - 2605
+        - 2924
+        - 3165
+        - 3228
+        - 3604
+        - 4188
+        - 4789
+        - 4872
+        - 5030
+        - 6984
+        - 5419
+        - 5597
+        - 5081
+        - 6377
+        - 6050
+        - 6712
+        - 7044
+        - 7062
+        - 6747
+        - 7647
+        - 9563
+        - 8726
+        - 9074
+        - 10628
+        - 9756
+        - 9712
+        - 9379
+        - 10191
+        - 7135
+        - 11237
+        - 11597
+        - 10469
+        - 10638
+        - 11239
+        - 11977
+        - 11979
+        - 15689
+        - 14515
+        - 17074
+        - 11981
+        - 17739
+        - 18897
+        - 21603
+        - 21855
+        - 24227
+        - 28025
+        - 24629
+        - 27787
+        - 31181
+        - 32153
+        - 32553
+        - 9260
+        - 32268
+        - 31757
+        - 31646
+        - 33263
+        - 31758
+        - 35247
+        - 34498
+        - 35180
+        - 33047
+        - 37651
+        - 36999
       :generator:
-        person_id: 2009
+        person_id: 5089
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
-  neko_id: :shinichiro_watanabe
+  neko_id: :akiyuki_shinbou
   level: 1
-  image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
-  border_color: "#000000"
-  title_ru: Синъитиро Ватанабэ
+  image: "/assets/achievements/anime/author/akiyuki_shinbou.png"
+  border_color: "#ff0000"
+  title_ru: Акиюки Симбо
   text_ru: 
-  title_en: Shinichiro Watanabe
+  title_en: Akiyuki Shinbou
   text_en: 
   topic_id: 276032
   rule: *78
@@ -8059,58 +8127,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :gen_urobuchi
-    :level: 1
-    :image: "/assets/achievements/anime/author/gen_urobuchi.jpg"
-    :border_color: "#F00100"
-    :title_ru: Гэн Уробути
-    :text_ru: 
-    :title_en: Gen Urobuchi
-    :text_en: 
-    :topic_id: 276032
-    :rule: &80
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 438
-        - 5682
-        - 9756
-        - 10087
-        - 11741
-        - 11977
-        - 11979
-        - 11981
-        - 13391
-        - 13601
-        - 16524
-        - 21339
-        - 22729
-        - 23319
-        - 27655
-        - 29017
-        - 30091
-        - 32313
-        - 33783
-        - 36816
-        - 37897
-      :generator:
-        person_id: 10308
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :gen_urobuchi
-  level: 1
-  image: "/assets/achievements/anime/author/gen_urobuchi.jpg"
-  border_color: "#F00100"
-  title_ru: Гэн Уробути
-  text_ru: 
-  title_en: Gen Urobuchi
-  text_en: 
-  topic_id: 276032
-  rule: *80
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :hayao_miyazaki
     :level: 1
     :image: "/assets/achievements/anime/author/hayao_miyazaki.jpg"
@@ -8120,7 +8136,7 @@
     :title_en: Hayao Miyazaki
     :text_en: 
     :topic_id: 276032
-    :rule: &81
+    :rule: &80
       :algo: count
       :threshold: 100%
       :filters:
@@ -8172,6 +8188,58 @@
   title_ru: Хаяо Миядзаки
   text_ru: 
   title_en: Hayao Miyazaki
+  text_en: 
+  topic_id: 276032
+  rule: *80
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :gen_urobuchi
+    :level: 1
+    :image: "/assets/achievements/anime/author/gen_urobuchi.jpg"
+    :border_color: "#F00100"
+    :title_ru: Гэн Уробути
+    :text_ru: 
+    :title_en: Gen Urobuchi
+    :text_en: 
+    :topic_id: 276032
+    :rule: &81
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 438
+        - 5682
+        - 9756
+        - 10087
+        - 11741
+        - 11977
+        - 11979
+        - 11981
+        - 13391
+        - 13601
+        - 16524
+        - 21339
+        - 22729
+        - 23319
+        - 27655
+        - 29017
+        - 30091
+        - 32313
+        - 33783
+        - 36816
+        - 37897
+      :generator:
+        person_id: 10308
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :gen_urobuchi
+  level: 1
+  image: "/assets/achievements/anime/author/gen_urobuchi.jpg"
+  border_color: "#F00100"
+  title_ru: Гэн Уробути
+  text_ru: 
+  title_en: Gen Urobuchi
   text_en: 
   topic_id: 276032
   rule: *81
@@ -8233,13 +8301,13 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :mamoru_hosoda
+    :neko_id: :shinichiro_watanabe
     :level: 1
-    :image: "/assets/achievements/anime/author/mamoru_hosoda.jpg"
-    :border_color: "#314357"
-    :title_ru: Мамору Хосода
+    :image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
+    :border_color: "#000000"
+    :title_ru: Синъитиро Ватанабэ
     :text_ru: 
-    :title_en: Mamoru Hosoda
+    :title_en: Shinichiro Watanabe
     :text_en: 
     :topic_id: 276032
     :rule: &83
@@ -8247,210 +8315,36 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 1153
-        - 901
-        - 36936
-        - 28805
-        - 12355
-        - 5681
-        - 2236
-        - 464
-        - 2290
-        - 2397
-        - 2961
-        - 3602
-        - 893
-        - 1240
-        - 2499
-        - 2498
-        - 1861
-        - 883
-        - 903
+        - 2053
+        - 474
+        - 1
+        - 5
+        - 1303
+        - 3508
+        - 205
+        - 12531
+        - 20057
+        - 23327
+        - 23283
+        - 36308
+        - 37435
+        - 875
+        - 4087
+        - 13203
       :generator:
-        person_id: 5067
+        person_id: 2009
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
-  neko_id: :mamoru_hosoda
+  neko_id: :shinichiro_watanabe
   level: 1
-  image: "/assets/achievements/anime/author/mamoru_hosoda.jpg"
-  border_color: "#314357"
-  title_ru: Мамору Хосода
+  image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
+  border_color: "#000000"
+  title_ru: Синъитиро Ватанабэ
   text_ru: 
-  title_en: Mamoru Hosoda
+  title_en: Shinichiro Watanabe
   text_en: 
   topic_id: 276032
   rule: *83
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :clamp
-    :level: 1
-    :image: "/assets/achievements/anime/author/clamp.jpg"
-    :border_color: "#007276"
-    :title_ru: CLAMP
-    :text_ru: 
-    :title_en: CLAMP
-    :text_en: 
-    :topic_id: 276032
-    :rule: &84
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 52
-        - 59
-        - 155
-        - 156
-        - 177
-        - 232
-        - 371
-        - 372
-        - 435
-        - 439
-        - 595
-        - 596
-        - 793
-        - 807
-        - 861
-        - 969
-        - 1043
-        - 1078
-        - 1496
-        - 1563
-        - 1844
-        - 1954
-        - 2424
-        - 2685
-        - 3091
-        - 4918
-        - 4938
-        - 5678
-        - 6864
-        - 10490
-        - 10681
-        - 33354
-        - 35320
-      :generator:
-        person_id: 1877
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :clamp
-  level: 1
-  image: "/assets/achievements/anime/author/clamp.jpg"
-  border_color: "#007276"
-  title_ru: CLAMP
-  text_ru: 
-  title_en: CLAMP
-  text_en: 
-  topic_id: 276032
-  rule: *84
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :kunihiko_ikuhara
-    :level: 1
-    :image: "/assets/achievements/anime/author/kunihiko_ikuhara.jpg"
-    :border_color: "#EF795B"
-    :title_ru: Кунихико Икухара
-    :text_ru: 
-    :title_en: Kunihiko Ikuhara
-    :text_en: 
-    :topic_id: 276032
-    :rule: &85
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 37426
-        - 26165
-        - 10721
-        - 441
-        - 440
-        - 1239
-        - 532
-        - 531
-        - 740
-      :generator:
-        person_id: 5082
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :kunihiko_ikuhara
-  level: 1
-  image: "/assets/achievements/anime/author/kunihiko_ikuhara.jpg"
-  border_color: "#EF795B"
-  title_ru: Кунихико Икухара
-  text_ru: 
-  title_en: Kunihiko Ikuhara
-  text_en: 
-  topic_id: 276032
-  rule: *85
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :hideaki_anno
-    :level: 1
-    :image: "/assets/achievements/anime/author/hideaki_anno.jpg"
-    :border_color: 
-    :title_ru: Хидэаки Анно
-    :text_ru: 
-    :title_en: Hideaki Anno
-    :text_en: 
-    :topic_id: 276032
-    :rule: &86
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 151
-        - 3080
-        - 32
-        - 30
-        - 1251
-        - 22943
-        - 34930
-        - 34929
-        - 34549
-        - 28149
-        - 327
-        - 2050
-        - 145
-        - 5462
-        - 306
-        - 1034
-        - 474
-        - 1089
-        - 1088
-        - 2724
-        - 3785
-        - 3784
-        - 2759
-        - 532
-        - 531
-        - 6090
-        - 1148
-        - 1468
-        - 578
-        - 2461
-        - 2972
-        - 1935
-        - 1922
-        - 2607
-        - 572
-        - 949
-      :generator:
-        person_id: 5111
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :hideaki_anno
-  level: 1
-  image: "/assets/achievements/anime/author/hideaki_anno.jpg"
-  border_color: 
-  title_ru: Хидэаки Анно
-  text_ru: 
-  title_en: Hideaki Anno
-  text_en: 
-  topic_id: 276032
-  rule: *86
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8463,7 +8357,7 @@
     :title_en: Type-Moon
     :text_en: 
     :topic_id: 276032
-    :rule: &87
+    :rule: &84
       :algo: count
       :threshold: 100%
       :filters:
@@ -8529,7 +8423,74 @@
   title_en: Type-Moon
   text_en: 
   topic_id: 276032
-  rule: *87
+  rule: *84
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :hideaki_anno
+    :level: 1
+    :image: "/assets/achievements/anime/author/hideaki_anno.jpg"
+    :border_color: 
+    :title_ru: Хидэаки Анно
+    :text_ru: 
+    :title_en: Hideaki Anno
+    :text_en: 
+    :topic_id: 276032
+    :rule: &85
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 151
+        - 3080
+        - 32
+        - 30
+        - 1251
+        - 22943
+        - 34930
+        - 34929
+        - 34549
+        - 28149
+        - 327
+        - 2050
+        - 145
+        - 5462
+        - 306
+        - 1034
+        - 474
+        - 1089
+        - 1088
+        - 2724
+        - 3785
+        - 3784
+        - 2759
+        - 532
+        - 531
+        - 6090
+        - 1148
+        - 1468
+        - 578
+        - 2461
+        - 2972
+        - 1935
+        - 1922
+        - 2607
+        - 572
+        - 949
+      :generator:
+        person_id: 5111
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :hideaki_anno
+  level: 1
+  image: "/assets/achievements/anime/author/hideaki_anno.jpg"
+  border_color: 
+  title_ru: Хидэаки Анно
+  text_ru: 
+  title_en: Hideaki Anno
+  text_en: 
+  topic_id: 276032
+  rule: *85
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8542,7 +8503,7 @@
     :title_en: Shoji Kawamori
     :text_en: 
     :topic_id: 276032
-    :rule: &88
+    :rule: &86
       :algo: count
       :threshold: 100%
       :filters:
@@ -8641,7 +8602,57 @@
   title_en: Shoji Kawamori
   text_en: 
   topic_id: 276032
-  rule: *88
+  rule: *86
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :mamoru_hosoda
+    :level: 1
+    :image: "/assets/achievements/anime/author/mamoru_hosoda.jpg"
+    :border_color: "#314357"
+    :title_ru: Мамору Хосода
+    :text_ru: 
+    :title_en: Mamoru Hosoda
+    :text_en: 
+    :topic_id: 276032
+    :rule: &87
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 1153
+        - 901
+        - 36936
+        - 28805
+        - 12355
+        - 5681
+        - 2236
+        - 464
+        - 2290
+        - 2397
+        - 2961
+        - 3602
+        - 893
+        - 1240
+        - 2499
+        - 2498
+        - 1861
+        - 883
+        - 903
+      :generator:
+        person_id: 5067
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :mamoru_hosoda
+  level: 1
+  image: "/assets/achievements/anime/author/mamoru_hosoda.jpg"
+  border_color: "#314357"
+  title_ru: Мамору Хосода
+  text_ru: 
+  title_en: Mamoru Hosoda
+  text_en: 
+  topic_id: 276032
+  rule: *87
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8654,7 +8665,7 @@
     :title_en: Kenji Nakamura
     :text_en: 
     :topic_id: 276032
-    :rule: &89
+    :rule: &88
       :algo: count
       :threshold: 100%
       :filters:
@@ -8689,118 +8700,7 @@
   title_en: Kenji Nakamura
   text_en: 
   topic_id: 276032
-  rule: *89
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :masaaki_yuasa
-    :level: 1
-    :image: "/assets/achievements/anime/author/masaaki_yuasa.png"
-    :border_color: "#FA8072"
-    :title_ru: Масааки Юаса
-    :text_ru: 
-    :title_en: Masaaki Yuasa
-    :text_en: 
-    :topic_id: 276032
-    :rule: &90
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 415
-        - 27653
-        - 8364
-        - 8362
-        - 6460
-        - 6217
-        - 9878
-        - 9348
-        - 2677
-        - 601
-        - 1978
-        - 38594
-        - 35120
-        - 34792
-        - 34537
-        - 22135
-        - 16149
-        - 8985
-        - 7785
-        - 3701
-        - 3508
-        - 1454
-        - 875
-        - 4420
-      :generator:
-        person_id: 5068
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :masaaki_yuasa
-  level: 1
-  image: "/assets/achievements/anime/author/masaaki_yuasa.png"
-  border_color: "#FA8072"
-  title_ru: Масааки Юаса
-  text_ru: 
-  title_en: Masaaki Yuasa
-  text_en: 
-  topic_id: 276032
-  rule: *90
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :mamoru_oshii
-    :level: 1
-    :image: "/assets/achievements/anime/author/mamoru_oshii.png"
-    :border_color: "#B22222"
-    :title_ru: Мамору Оси
-    :text_ru: 
-    :title_en: Mamoru Oshii
-    :text_en: 
-    :topic_id: 276032
-    :rule: &91
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 5386
-        - 405
-        - 570
-        - 1289
-        - 801
-        - 2733
-        - 324
-        - 1981
-        - 9629
-        - 9001
-        - 6867
-        - 3089
-        - 2832
-        - 3336
-        - 468
-        - 43
-        - 4639
-        - 1096
-        - 1095
-        - 1288
-        - 885
-        - 3060
-        - 1921
-        - 1920
-        - 1293
-      :generator:
-        person_id: 4097
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :mamoru_oshii
-  level: 1
-  image: "/assets/achievements/anime/author/mamoru_oshii.png"
-  border_color: "#B22222"
-  title_ru: Мамору Оси
-  text_ru: 
-  title_en: Mamoru Oshii
-  text_en: 
-  topic_id: 276032
-  rule: *91
+  rule: *88
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8813,7 +8713,7 @@
     :title_en: Isao Takahata
     :text_en: 
     :topic_id: 276032
-    :rule: &92
+    :rule: &89
       :algo: count
       :threshold: 100%
       :filters:
@@ -8849,476 +8749,7 @@
   title_en: Isao Takahata
   text_en: 
   topic_id: 276032
-  rule: *92
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :kouji_morimoto
-    :level: 1
-    :image: "/assets/achievements/anime/author/kouji_morimoto.png"
-    :border_color: "#2E8B57"
-    :title_ru: Кодзи Моримото
-    :text_ru: 
-    :title_en: Kouji Morimoto
-    :text_en: 
-    :topic_id: 276032
-    :rule: &93
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 512
-        - 1951
-        - 1760
-        - 875
-        - 38162
-        - 35248
-        - 19573
-        - 9667
-        - 6795
-        - 1303
-        - 1105
-        - 3506
-        - 3684
-        - 3507
-        - 32247
-        - 3685
-        - 1978
-        - 1106
-        - 1462
-        - 3525
-        - 1979
-        - 2387
-        - 2314
-        - 9045
-        - 2182
-      :generator:
-        person_id: 5066
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :kouji_morimoto
-  level: 1
-  image: "/assets/achievements/anime/author/kouji_morimoto.png"
-  border_color: "#2E8B57"
-  title_ru: Кодзи Моримото
-  text_ru: 
-  title_en: Kouji Morimoto
-  text_en: 
-  topic_id: 276032
-  rule: *93
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :kenji_kamiyama
-    :level: 1
-    :image: 
-    :border_color: 
-    :title_ru: Кэндзи Камияма
-    :text_ru: 
-    :title_en: Kenji Kamiyama
-    :text_en: 
-    :topic_id: 276032
-    :rule: &94
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 347
-        - 405
-        - 467
-        - 570
-        - 767
-        - 801
-        - 1138
-        - 1566
-        - 1822
-        - 1827
-        - 2000
-        - 2449
-        - 2733
-        - 5630
-        - 6372
-        - 6637
-        - 9629
-        - 10405
-        - 11755
-        - 21587
-        - 32736
-        - 33163
-        - 33204
-        - 33685
-        - 33686
-        - 33687
-      :generator:
-        person_id: 5348
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :kenji_kamiyama
-  level: 1
-  image: 
-  border_color: 
-  title_ru: Кэндзи Камияма
-  text_ru: 
-  title_en: Kenji Kamiyama
-  text_en: 
-  topic_id: 276032
-  rule: *94
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :masamune_shirow
-    :level: 1
-    :image: 
-    :border_color: 
-    :title_ru: Масамунэ Сиро
-    :text_ru: 
-    :title_en: Masamune Shirow
-    :text_en: 
-    :topic_id: 276032
-    :rule: &95
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 43
-        - 54
-        - 467
-        - 468
-        - 801
-        - 937
-        - 1151
-        - 1152
-        - 1160
-        - 1270
-        - 1811
-        - 2078
-        - 2181
-        - 2596
-        - 2969
-        - 3363
-        - 4672
-        - 9737
-        - 10689
-        - 10693
-        - 17187
-        - 18989
-        - 20261
-        - 21575
-        - 22677
-        - 27411
-        - 31930
-        - 32214
-      :generator:
-        person_id: 2609
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :masamune_shirow
-  level: 1
-  image: 
-  border_color: 
-  title_ru: Масамунэ Сиро
-  text_ru: 
-  title_en: Masamune Shirow
-  text_en: 
-  topic_id: 276032
-  rule: *95
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :shinji_aramaki
-    :level: 1
-    :image: 
-    :border_color: 
-    :title_ru: Синдзи Арамаки
-    :text_ru: 
-    :title_en: Shinji Aramaki
-    :text_en: 
-    :topic_id: 276032
-    :rule: &96
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 54
-        - 202
-        - 430
-        - 442
-        - 568
-        - 719
-        - 782
-        - 971
-        - 1023
-        - 1247
-        - 1347
-        - 1693
-        - 1935
-        - 2068
-        - 2152
-        - 2461
-        - 2775
-        - 2969
-        - 3670
-        - 5505
-        - 6867
-        - 14629
-        - 16788
-        - 17269
-        - 22677
-        - 28149
-        - 36194
-      :generator:
-        person_id: 7454
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :shinji_aramaki
-  level: 1
-  image: 
-  border_color: 
-  title_ru: Синдзи Арамаки
-  text_ru: 
-  title_en: Shinji Aramaki
-  text_en: 
-  topic_id: 276032
-  rule: *96
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :satoshi_kon
-    :level: 1
-    :image: "/assets/achievements/anime/author/satoshi_kon.png"
-    :border_color: "#FF0000"
-    :title_ru: Сатоси Кон
-    :text_ru: 
-    :title_en: Satoshi Kon
-    :text_en: 
-    :topic_id: 276032
-    :rule: &97
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 2832
-        - 1943
-        - 323
-        - 759
-        - 1033
-        - 437
-        - 1462
-        - 2000
-      :generator:
-        person_id: 4580
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :satoshi_kon
-  level: 1
-  image: "/assets/achievements/anime/author/satoshi_kon.png"
-  border_color: "#FF0000"
-  title_ru: Сатоси Кон
-  text_ru: 
-  title_en: Satoshi Kon
-  text_en: 
-  topic_id: 276032
-  rule: *97
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :rintaro
-    :level: 1
-    :image: "/assets/achievements/anime/author/rintaro.png"
-    :border_color: "#3CB371"
-    :title_ru: Ринтаро
-    :text_ru: 
-    :title_en: Rintaro
-    :text_en: 
-    :topic_id: 276032
-    :rule: &98
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 134
-        - 155
-        - 207
-        - 322
-        - 323
-        - 326
-        - 426
-        - 448
-        - 496
-        - 522
-        - 658
-        - 1000
-        - 1016
-        - 1081
-        - 1148
-        - 1301
-        - 1302
-        - 1442
-        - 1497
-        - 1572
-        - 1626
-        - 1793
-        - 1893
-        - 1910
-        - 1951
-        - 1973
-        - 2470
-        - 2556
-        - 2747
-        - 2819
-        - 2997
-        - 2998
-        - 2999
-        - 3115
-        - 3152
-        - 3213
-        - 3595
-        - 3599
-        - 3800
-        - 3829
-        - 3834
-        - 4481
-        - 4513
-        - 5157
-        - 5554
-        - 5918
-        - 5997
-        - 6087
-        - 6262
-        - 6701
-        - 6920
-        - 7314
-        - 8234
-        - 8235
-        - 8240
-        - 9531
-        - 10282
-        - 10342
-        - 10979
-        - 12139
-        - 12141
-        - 13249
-        - 19731
-        - 20145
-        - 20381
-        - 25265
-        - 25267
-      :generator:
-        person_id: 7305
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :rintaro
-  level: 1
-  image: "/assets/achievements/anime/author/rintaro.png"
-  border_color: "#3CB371"
-  title_ru: Ринтаро
-  text_ru: 
-  title_en: Rintaro
-  text_en: 
-  topic_id: 276032
-  rule: *98
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :go_nagai
-    :level: 1
-    :image: "/assets/achievements/anime/author/go_nagai.jpg"
-    :border_color: 
-    :title_ru: Го Нагай
-    :text_ru: 
-    :title_en: Go Nagai
-    :text_en: 
-    :topic_id: 276032
-    :rule: &99
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 151
-        - 305
-        - 938
-        - 978
-        - 1064
-        - 1227
-        - 1337
-        - 1341
-        - 1342
-        - 1343
-        - 1556
-        - 1628
-        - 1629
-        - 1641
-        - 1661
-        - 1759
-        - 1853
-        - 1985
-        - 2067
-        - 2157
-        - 2234
-        - 2252
-        - 2253
-        - 2354
-        - 2355
-        - 2356
-        - 2497
-        - 2525
-        - 2692
-        - 2734
-        - 2790
-        - 2978
-        - 3481
-        - 3579
-        - 3881
-        - 3898
-        - 3910
-        - 4042
-        - 4119
-        - 4198
-        - 4385
-        - 4386
-        - 4387
-        - 4388
-        - 4406
-        - 4486
-        - 5250
-        - 5292
-        - 5485
-        - 5563
-        - 5566
-        - 5620
-        - 5658
-        - 5907
-        - 6097
-        - 6428
-        - 6496
-        - 8666
-        - 9074
-        - 9493
-        - 12885
-        - 19799
-        - 24763
-        - 29035
-        - 30912
-        - 31050
-        - 31467
-        - 34820
-        - 35120
-        - 36976
-        - 37562
-      :generator:
-        person_id: 2992
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :go_nagai
-  level: 1
-  image: "/assets/achievements/anime/author/go_nagai.jpg"
-  border_color: 
-  title_ru: Го Нагай
-  text_ru: 
-  title_en: Go Nagai
-  text_en: 
-  topic_id: 276032
-  rule: *99
+  rule: *89
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9331,7 +8762,7 @@
     :title_en: Osamu Tezuka
     :text_en: 
     :topic_id: 276032
-    :rule: &100
+    :rule: &90
       :algo: count
       :threshold: 100%
       :filters:
@@ -9448,6 +8879,650 @@
   title_ru: Осаму Тэдзука
   text_ru: 
   title_en: Osamu Tezuka
+  text_en: 
+  topic_id: 276032
+  rule: *90
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kenji_kamiyama
+    :level: 1
+    :image: 
+    :border_color: 
+    :title_ru: Кэндзи Камияма
+    :text_ru: 
+    :title_en: Kenji Kamiyama
+    :text_en: 
+    :topic_id: 276032
+    :rule: &91
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 347
+        - 405
+        - 467
+        - 570
+        - 767
+        - 801
+        - 1138
+        - 1566
+        - 1822
+        - 1827
+        - 2000
+        - 2449
+        - 2733
+        - 5630
+        - 6372
+        - 6637
+        - 9629
+        - 10405
+        - 11755
+        - 21587
+        - 32736
+        - 33163
+        - 33204
+        - 33685
+        - 33686
+        - 33687
+      :generator:
+        person_id: 5348
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :kenji_kamiyama
+  level: 1
+  image: 
+  border_color: 
+  title_ru: Кэндзи Камияма
+  text_ru: 
+  title_en: Kenji Kamiyama
+  text_en: 
+  topic_id: 276032
+  rule: *91
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :masamune_shirow
+    :level: 1
+    :image: 
+    :border_color: 
+    :title_ru: Масамунэ Сиро
+    :text_ru: 
+    :title_en: Masamune Shirow
+    :text_en: 
+    :topic_id: 276032
+    :rule: &92
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 43
+        - 54
+        - 467
+        - 468
+        - 801
+        - 937
+        - 1151
+        - 1152
+        - 1160
+        - 1270
+        - 1811
+        - 2078
+        - 2181
+        - 2596
+        - 2969
+        - 3363
+        - 4672
+        - 9737
+        - 10689
+        - 10693
+        - 17187
+        - 18989
+        - 20261
+        - 21575
+        - 22677
+        - 27411
+        - 31930
+        - 32214
+      :generator:
+        person_id: 2609
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :masamune_shirow
+  level: 1
+  image: 
+  border_color: 
+  title_ru: Масамунэ Сиро
+  text_ru: 
+  title_en: Masamune Shirow
+  text_en: 
+  topic_id: 276032
+  rule: *92
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :shinji_aramaki
+    :level: 1
+    :image: 
+    :border_color: 
+    :title_ru: Синдзи Арамаки
+    :text_ru: 
+    :title_en: Shinji Aramaki
+    :text_en: 
+    :topic_id: 276032
+    :rule: &93
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 54
+        - 202
+        - 430
+        - 442
+        - 568
+        - 719
+        - 782
+        - 971
+        - 1023
+        - 1247
+        - 1347
+        - 1693
+        - 1935
+        - 2068
+        - 2152
+        - 2461
+        - 2775
+        - 2969
+        - 3670
+        - 5505
+        - 6867
+        - 14629
+        - 16788
+        - 17269
+        - 22677
+        - 28149
+        - 36194
+      :generator:
+        person_id: 7454
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :shinji_aramaki
+  level: 1
+  image: 
+  border_color: 
+  title_ru: Синдзи Арамаки
+  text_ru: 
+  title_en: Shinji Aramaki
+  text_en: 
+  topic_id: 276032
+  rule: *93
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :mamoru_oshii
+    :level: 1
+    :image: "/assets/achievements/anime/author/mamoru_oshii.png"
+    :border_color: "#B22222"
+    :title_ru: Мамору Оси
+    :text_ru: 
+    :title_en: Mamoru Oshii
+    :text_en: 
+    :topic_id: 276032
+    :rule: &94
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 5386
+        - 405
+        - 570
+        - 1289
+        - 801
+        - 2733
+        - 324
+        - 1981
+        - 9629
+        - 9001
+        - 6867
+        - 3089
+        - 2832
+        - 3336
+        - 468
+        - 43
+        - 4639
+        - 1096
+        - 1095
+        - 1288
+        - 885
+        - 3060
+        - 1921
+        - 1920
+        - 1293
+      :generator:
+        person_id: 4097
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :mamoru_oshii
+  level: 1
+  image: "/assets/achievements/anime/author/mamoru_oshii.png"
+  border_color: "#B22222"
+  title_ru: Мамору Оси
+  text_ru: 
+  title_en: Mamoru Oshii
+  text_en: 
+  topic_id: 276032
+  rule: *94
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :kouji_morimoto
+    :level: 1
+    :image: "/assets/achievements/anime/author/kouji_morimoto.png"
+    :border_color: "#2E8B57"
+    :title_ru: Кодзи Моримото
+    :text_ru: 
+    :title_en: Kouji Morimoto
+    :text_en: 
+    :topic_id: 276032
+    :rule: &95
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 512
+        - 1951
+        - 1760
+        - 875
+        - 38162
+        - 35248
+        - 19573
+        - 9667
+        - 6795
+        - 1303
+        - 1105
+        - 3506
+        - 3684
+        - 3507
+        - 32247
+        - 3685
+        - 1978
+        - 1106
+        - 1462
+        - 3525
+        - 1979
+        - 2387
+        - 2314
+        - 9045
+        - 2182
+      :generator:
+        person_id: 5066
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :kouji_morimoto
+  level: 1
+  image: "/assets/achievements/anime/author/kouji_morimoto.png"
+  border_color: "#2E8B57"
+  title_ru: Кодзи Моримото
+  text_ru: 
+  title_en: Kouji Morimoto
+  text_en: 
+  topic_id: 276032
+  rule: *95
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :clamp
+    :level: 1
+    :image: "/assets/achievements/anime/author/clamp.jpg"
+    :border_color: "#007276"
+    :title_ru: CLAMP
+    :text_ru: 
+    :title_en: CLAMP
+    :text_en: 
+    :topic_id: 276032
+    :rule: &96
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 52
+        - 59
+        - 155
+        - 156
+        - 177
+        - 232
+        - 371
+        - 372
+        - 435
+        - 439
+        - 595
+        - 596
+        - 793
+        - 807
+        - 861
+        - 969
+        - 1043
+        - 1078
+        - 1496
+        - 1563
+        - 1844
+        - 1954
+        - 2424
+        - 2685
+        - 3091
+        - 4918
+        - 4938
+        - 5678
+        - 6864
+        - 10490
+        - 10681
+        - 33354
+        - 35320
+      :generator:
+        person_id: 1877
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :clamp
+  level: 1
+  image: "/assets/achievements/anime/author/clamp.jpg"
+  border_color: "#007276"
+  title_ru: CLAMP
+  text_ru: 
+  title_en: CLAMP
+  text_en: 
+  topic_id: 276032
+  rule: *96
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :masaaki_yuasa
+    :level: 1
+    :image: "/assets/achievements/anime/author/masaaki_yuasa.png"
+    :border_color: "#FA8072"
+    :title_ru: Масааки Юаса
+    :text_ru: 
+    :title_en: Masaaki Yuasa
+    :text_en: 
+    :topic_id: 276032
+    :rule: &97
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 415
+        - 27653
+        - 8364
+        - 8362
+        - 6460
+        - 6217
+        - 9878
+        - 9348
+        - 2677
+        - 601
+        - 1978
+        - 38594
+        - 35120
+        - 34792
+        - 34537
+        - 22135
+        - 16149
+        - 8985
+        - 7785
+        - 3701
+        - 3508
+        - 1454
+        - 875
+        - 4420
+      :generator:
+        person_id: 5068
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :masaaki_yuasa
+  level: 1
+  image: "/assets/achievements/anime/author/masaaki_yuasa.png"
+  border_color: "#FA8072"
+  title_ru: Масааки Юаса
+  text_ru: 
+  title_en: Masaaki Yuasa
+  text_en: 
+  topic_id: 276032
+  rule: *97
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :satoshi_kon
+    :level: 1
+    :image: "/assets/achievements/anime/author/satoshi_kon.png"
+    :border_color: "#FF0000"
+    :title_ru: Сатоси Кон
+    :text_ru: 
+    :title_en: Satoshi Kon
+    :text_en: 
+    :topic_id: 276032
+    :rule: &98
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 2832
+        - 1943
+        - 323
+        - 759
+        - 1033
+        - 437
+        - 1462
+        - 2000
+      :generator:
+        person_id: 4580
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :satoshi_kon
+  level: 1
+  image: "/assets/achievements/anime/author/satoshi_kon.png"
+  border_color: "#FF0000"
+  title_ru: Сатоси Кон
+  text_ru: 
+  title_en: Satoshi Kon
+  text_en: 
+  topic_id: 276032
+  rule: *98
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :rintaro
+    :level: 1
+    :image: "/assets/achievements/anime/author/rintaro.png"
+    :border_color: "#3CB371"
+    :title_ru: Ринтаро
+    :text_ru: 
+    :title_en: Rintaro
+    :text_en: 
+    :topic_id: 276032
+    :rule: &99
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 134
+        - 155
+        - 207
+        - 322
+        - 323
+        - 326
+        - 426
+        - 448
+        - 496
+        - 522
+        - 658
+        - 1000
+        - 1016
+        - 1081
+        - 1148
+        - 1301
+        - 1302
+        - 1442
+        - 1497
+        - 1572
+        - 1626
+        - 1793
+        - 1893
+        - 1910
+        - 1951
+        - 1973
+        - 2470
+        - 2556
+        - 2747
+        - 2819
+        - 2997
+        - 2998
+        - 2999
+        - 3115
+        - 3152
+        - 3213
+        - 3595
+        - 3599
+        - 3800
+        - 3829
+        - 3834
+        - 4481
+        - 4513
+        - 5157
+        - 5554
+        - 5918
+        - 5997
+        - 6087
+        - 6262
+        - 6701
+        - 6920
+        - 7314
+        - 8234
+        - 8235
+        - 8240
+        - 9531
+        - 10282
+        - 10342
+        - 10979
+        - 12139
+        - 12141
+        - 13249
+        - 19731
+        - 20145
+        - 20381
+        - 25265
+        - 25267
+      :generator:
+        person_id: 7305
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :rintaro
+  level: 1
+  image: "/assets/achievements/anime/author/rintaro.png"
+  border_color: "#3CB371"
+  title_ru: Ринтаро
+  text_ru: 
+  title_en: Rintaro
+  text_en: 
+  topic_id: 276032
+  rule: *99
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :go_nagai
+    :level: 1
+    :image: "/assets/achievements/anime/author/go_nagai.jpg"
+    :border_color: 
+    :title_ru: Го Нагай
+    :text_ru: 
+    :title_en: Go Nagai
+    :text_en: 
+    :topic_id: 276032
+    :rule: &100
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 151
+        - 305
+        - 938
+        - 978
+        - 1064
+        - 1227
+        - 1337
+        - 1341
+        - 1342
+        - 1343
+        - 1556
+        - 1628
+        - 1629
+        - 1641
+        - 1661
+        - 1759
+        - 1853
+        - 1985
+        - 2067
+        - 2157
+        - 2234
+        - 2252
+        - 2253
+        - 2354
+        - 2355
+        - 2356
+        - 2497
+        - 2525
+        - 2692
+        - 2734
+        - 2790
+        - 2978
+        - 3481
+        - 3579
+        - 3881
+        - 3898
+        - 3910
+        - 4042
+        - 4119
+        - 4198
+        - 4385
+        - 4386
+        - 4387
+        - 4388
+        - 4406
+        - 4486
+        - 5250
+        - 5292
+        - 5485
+        - 5563
+        - 5566
+        - 5620
+        - 5658
+        - 5907
+        - 6097
+        - 6428
+        - 6496
+        - 8666
+        - 9074
+        - 9493
+        - 12885
+        - 19799
+        - 24763
+        - 29035
+        - 30912
+        - 31050
+        - 31467
+        - 34820
+        - 35120
+        - 36976
+        - 37562
+      :generator:
+        person_id: 2992
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :go_nagai
+  level: 1
+  image: "/assets/achievements/anime/author/go_nagai.jpg"
+  border_color: 
+  title_ru: Го Нагай
+  text_ru: 
+  title_en: Go Nagai
   text_en: 
   topic_id: 276032
   rule: *100
@@ -9616,6 +9691,46 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :kunihiko_ikuhara
+    :level: 1
+    :image: "/assets/achievements/anime/author/kunihiko_ikuhara.jpg"
+    :border_color: "#EF795B"
+    :title_ru: Кунихико Икухара
+    :text_ru: 
+    :title_en: Kunihiko Ikuhara
+    :text_en: 
+    :topic_id: 276032
+    :rule: &103
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 37426
+        - 26165
+        - 10721
+        - 441
+        - 440
+        - 1239
+        - 532
+        - 531
+        - 740
+      :generator:
+        person_id: 5082
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :kunihiko_ikuhara
+  level: 1
+  image: "/assets/achievements/anime/author/kunihiko_ikuhara.jpg"
+  border_color: "#EF795B"
+  title_ru: Кунихико Икухара
+  text_ru: 
+  title_en: Kunihiko Ikuhara
+  text_en: 
+  topic_id: 276032
+  rule: *103
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :katsuhiro_otomo
     :level: 1
     :image: "/assets/achievements/anime/author/katsuhiro_otomo.png"
@@ -9625,7 +9740,7 @@
     :title_en: Katsuhiro Otomo
     :text_en: 
     :topic_id: 276032
-    :rule: &103
+    :rule: &104
       :algo: count
       :threshold: 100%
       :filters:
@@ -9656,7 +9771,7 @@
   title_en: Katsuhiro Otomo
   text_en: 
   topic_id: 276032
-  rule: *103
+  rule: *104
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9669,7 +9784,7 @@
     :title_en: Yoshiyuki Tomino
     :text_en: 
     :topic_id: 276032
-    :rule: &104
+    :rule: &105
       :algo: count
       :threshold: 100%
       :filters:
@@ -9785,7 +9900,7 @@
   title_en: Yoshiyuki Tomino
   text_en: 
   topic_id: 276032
-  rule: *104
+  rule: *105
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9798,7 +9913,7 @@
     :title_en: Rumiko Takahashi
     :text_en: 
     :topic_id: 276032
-    :rule: &105
+    :rule: &106
       :algo: count
       :threshold: 100%
       :filters:
@@ -9851,52 +9966,6 @@
   title_ru: Румико Такахаси
   text_ru: 
   title_en: Rumiko Takahashi
-  text_en: 
-  topic_id: 276032
-  rule: *105
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :yoshitaka_amano
-    :level: 1
-    :image: "/assets/achievements/anime/author/yoshitaka_amano.png"
-    :border_color: "#8B4513"
-    :title_ru: 'Ёситака Амано '
-    :text_ru: 
-    :title_en: Yoshitaka Amano
-    :text_en: 
-    :topic_id: 276032
-    :rule: &106
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 6909
-        - 1793
-        - 3258
-        - 543
-        - 732
-        - 3671
-        - 3670
-        - 1458
-        - 2389
-        - 4210
-        - 5802
-        - 3914
-        - 2249
-        - 10639
-        - 5819
-      :generator:
-        person_id: 2967
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :yoshitaka_amano
-  level: 1
-  image: "/assets/achievements/anime/author/yoshitaka_amano.png"
-  border_color: "#8B4513"
-  title_ru: 'Ёситака Амано '
-  text_ru: 
-  title_en: Yoshitaka Amano
   text_en: 
   topic_id: 276032
   rule: *106
@@ -9972,6 +10041,52 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :yoshitaka_amano
+    :level: 1
+    :image: "/assets/achievements/anime/author/yoshitaka_amano.png"
+    :border_color: "#8B4513"
+    :title_ru: 'Ёситака Амано '
+    :text_ru: 
+    :title_en: Yoshitaka Amano
+    :text_en: 
+    :topic_id: 276032
+    :rule: &108
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 6909
+        - 1793
+        - 3258
+        - 543
+        - 732
+        - 3671
+        - 3670
+        - 1458
+        - 2389
+        - 4210
+        - 5802
+        - 3914
+        - 2249
+        - 10639
+        - 5819
+      :generator:
+        person_id: 2967
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :yoshitaka_amano
+  level: 1
+  image: "/assets/achievements/anime/author/yoshitaka_amano.png"
+  border_color: "#8B4513"
+  title_ru: 'Ёситака Амано '
+  text_ru: 
+  title_en: Yoshitaka Amano
+  text_en: 
+  topic_id: 276032
+  rule: *108
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :leiji_matsumoto
     :level: 1
     :image: "/assets/achievements/anime/author/leiji_matsumoto.jpg"
@@ -9981,7 +10096,7 @@
     :title_en: Leiji Matsumoto
     :text_en: 
     :topic_id: 276032
-    :rule: &108
+    :rule: &109
       :algo: count
       :threshold: 100%
       :filters:
@@ -10050,7 +10165,7 @@
   title_en: Leiji Matsumoto
   text_en: 
   topic_id: 276032
-  rule: *108
+  rule: *109
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -10063,7 +10178,7 @@
     :title_en: Yoshikazu Yasuhiko
     :text_en: 
     :topic_id: 276032
-    :rule: &109
+    :rule: &110
       :algo: count
       :threshold: 100%
       :filters:
@@ -10112,7 +10227,7 @@
   title_en: Yoshikazu Yasuhiko
   text_en: 
   topic_id: 276032
-  rule: *109
+  rule: *110
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -10125,7 +10240,7 @@
     :title_en: Tomoharu Katsumata
     :text_en: 
     :topic_id: 276032
-    :rule: &110
+    :rule: &111
       :algo: count
       :threshold: 100%
       :filters:
@@ -10175,7 +10290,7 @@
   title_en: Tomoharu Katsumata
   text_en: 
   topic_id: 276032
-  rule: *110
+  rule: *111
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -10188,7 +10303,7 @@
     :title_en: Shoutarou Ishinomori
     :text_en: 
     :topic_id: 276032
-    :rule: &111
+    :rule: &112
       :algo: count
       :threshold: 100%
       :filters:
@@ -10238,121 +10353,6 @@
   title_ru: Сётаро Исиномори
   text_ru: 
   title_en: Shoutarou Ishinomori
-  text_en: 
-  topic_id: 276032
-  rule: *111
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :akiyuki_shinbou
-    :level: 1
-    :image: "/assets/achievements/anime/author/akiyuki_shinbou.png"
-    :border_color: "#ff0000"
-    :title_ru: Акиюки Симбо
-    :text_ru: 
-    :title_en: Akiyuki Shinbou
-    :text_en: 
-    :topic_id: 276032
-    :rule: &112
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 1175
-        - 1100
-        - 2057
-        - 3398
-        - 2474
-        - 1671
-        - 2693
-        - 1245
-        - 1618
-        - 773
-        - 1048
-        - 176
-        - 514
-        - 76
-        - 343
-        - 490
-        - 2580
-        - 1546
-        - 1619
-        - 1732
-        - 1852
-        - 2605
-        - 2924
-        - 3165
-        - 3228
-        - 3604
-        - 4188
-        - 4789
-        - 4872
-        - 5030
-        - 6984
-        - 5419
-        - 5597
-        - 5081
-        - 6377
-        - 6050
-        - 6712
-        - 7044
-        - 7062
-        - 6747
-        - 7647
-        - 9563
-        - 8726
-        - 9074
-        - 10628
-        - 9756
-        - 9712
-        - 9379
-        - 10191
-        - 7135
-        - 11237
-        - 11597
-        - 10469
-        - 10638
-        - 11239
-        - 11977
-        - 11979
-        - 15689
-        - 14515
-        - 17074
-        - 11981
-        - 17739
-        - 18897
-        - 21603
-        - 21855
-        - 24227
-        - 28025
-        - 24629
-        - 27787
-        - 31181
-        - 32153
-        - 32553
-        - 9260
-        - 32268
-        - 31757
-        - 31646
-        - 33263
-        - 31758
-        - 35247
-        - 34498
-        - 35180
-        - 33047
-        - 37651
-        - 36999
-      :generator:
-        person_id: 5089
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :akiyuki_shinbou
-  level: 1
-  image: "/assets/achievements/anime/author/akiyuki_shinbou.png"
-  border_color: "#ff0000"
-  title_ru: Акиюки Симбо
-  text_ru: 
-  title_en: Akiyuki Shinbou
   text_en: 
   topic_id: 276032
   rule: *112
