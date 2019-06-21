@@ -8113,7 +8113,7 @@
   attributes:
     :neko_id: :hayao_miyazaki
     :level: 1
-    :image: https://nyaa.shikimori.one/system/user_images/original/34807/794630.jpg
+    :image: "/assets/achievements/anime/author/hayao_miyazaki.jpg"
     :border_color: "#C48D5E"
     :title_ru: Хаяо Миядзаки
     :text_ru: 
@@ -8167,7 +8167,7 @@
   default_values: *2
   neko_id: :hayao_miyazaki
   level: 1
-  image: https://nyaa.shikimori.one/system/user_images/original/34807/794630.jpg
+  image: "/assets/achievements/anime/author/hayao_miyazaki.jpg"
   border_color: "#C48D5E"
   title_ru: Хаяо Миядзаки
   text_ru: 
@@ -8235,7 +8235,7 @@
   attributes:
     :neko_id: :mamoru_hosoda
     :level: 1
-    :image: https://nyaa.shikimori.one/system/user_images/original/50587/788830.jpg
+    :image: "/assets/achievements/anime/author/mamoru_hosoda.jpg"
     :border_color: "#314357"
     :title_ru: Мамору Хосода
     :text_ru: 
@@ -8272,7 +8272,7 @@
   default_values: *2
   neko_id: :mamoru_hosoda
   level: 1
-  image: https://nyaa.shikimori.one/system/user_images/original/50587/788830.jpg
+  image: "/assets/achievements/anime/author/mamoru_hosoda.jpg"
   border_color: "#314357"
   title_ru: Мамору Хосода
   text_ru: 
@@ -8349,7 +8349,7 @@
   attributes:
     :neko_id: :kunihiko_ikuhara
     :level: 1
-    :image: https://desu.shikimori.one/system/user_images/original/34807/798103.jpg
+    :image: "/assets/achievements/anime/author/kunihiko_ikuhara.jpg"
     :border_color: "#EF795B"
     :title_ru: Кунихико Икухара
     :text_ru: 
@@ -8376,7 +8376,7 @@
   default_values: *2
   neko_id: :kunihiko_ikuhara
   level: 1
-  image: https://desu.shikimori.one/system/user_images/original/34807/798103.jpg
+  image: "/assets/achievements/anime/author/kunihiko_ikuhara.jpg"
   border_color: "#EF795B"
   title_ru: Кунихико Икухара
   text_ru: 
@@ -8456,7 +8456,7 @@
   attributes:
     :neko_id: :type_moon
     :level: 1
-    :image: https://desu.shikimori.one/system/user_images/original/3824/801573.jpg
+    :image: "/assets/achievements/anime/author/type_moon.jpg"
     :border_color: "#4285B4"
     :title_ru: Type-Moon
     :text_ru: 
@@ -8522,7 +8522,7 @@
   default_values: *2
   neko_id: :type_moon
   level: 1
-  image: https://desu.shikimori.one/system/user_images/original/3824/801573.jpg
+  image: "/assets/achievements/anime/author/type_moon.jpg"
   border_color: "#4285B4"
   title_ru: Type-Moon
   text_ru: 
@@ -8535,7 +8535,7 @@
   attributes:
     :neko_id: :shoji_kawamori
     :level: 1
-    :image: https://desu.shikimori.one/system/user_images/original/3824/793818.jpg
+    :image: "/assets/achievements/anime/author/shoji_kawamori.jpg"
     :border_color: "#6483B8"
     :title_ru: Сёдзи Кавамори
     :text_ru: 
@@ -8634,7 +8634,7 @@
   default_values: *2
   neko_id: :shoji_kawamori
   level: 1
-  image: https://desu.shikimori.one/system/user_images/original/3824/793818.jpg
+  image: "/assets/achievements/anime/author/shoji_kawamori.jpg"
   border_color: "#6483B8"
   title_ru: Сёдзи Кавамори
   text_ru: 
@@ -8806,7 +8806,7 @@
   attributes:
     :neko_id: :isao_takahata
     :level: 1
-    :image: https://dere.shikimori.one/system/user_images/original/50587/788829.jpg
+    :image: "/assets/achievements/anime/author/isao_takahata.jpg"
     :border_color: "#4f5f53"
     :title_ru: Исао Такахата
     :text_ru: 
@@ -8842,7 +8842,7 @@
   default_values: *2
   neko_id: :isao_takahata
   level: 1
-  image: https://dere.shikimori.one/system/user_images/original/50587/788829.jpg
+  image: "/assets/achievements/anime/author/isao_takahata.jpg"
   border_color: "#4f5f53"
   title_ru: Исао Такахата
   text_ru: 
@@ -9791,7 +9791,7 @@
   attributes:
     :neko_id: :rumiko_takahashi
     :level: 1
-    :image: https://moe.shikimori.one/system/user_images/original/50587/788827.jpg
+    :image: "/assets/achievements/anime/author/rumiko_takahashi.jpg"
     :border_color: "#e3b288"
     :title_ru: Румико Такахаси
     :text_ru: 
@@ -9846,7 +9846,7 @@
   default_values: *2
   neko_id: :rumiko_takahashi
   level: 1
-  image: https://moe.shikimori.one/system/user_images/original/50587/788827.jpg
+  image: "/assets/achievements/anime/author/rumiko_takahashi.jpg"
   border_color: "#e3b288"
   title_ru: Румико Такахаси
   text_ru: 
@@ -9905,7 +9905,7 @@
   attributes:
     :neko_id: :osamu_dezaki
     :level: 1
-    :image: https://moe.shikimori.one/system/user_images/original/34807/800072.jpg
+    :image: "/assets/achievements/anime/author/osamu_dezaki.jpg"
     :border_color: "#285F8D"
     :title_ru: Осаму Дэдзаки
     :text_ru: 
@@ -9961,7 +9961,7 @@
   default_values: *2
   neko_id: :osamu_dezaki
   level: 1
-  image: https://moe.shikimori.one/system/user_images/original/34807/800072.jpg
+  image: "/assets/achievements/anime/author/osamu_dezaki.jpg"
   border_color: "#285F8D"
   title_ru: Осаму Дэдзаки
   text_ru: 
@@ -9974,7 +9974,7 @@
   attributes:
     :neko_id: :leiji_matsumoto
     :level: 1
-    :image: https://kawai.shikimori.one/system/user_images/original/50587/788831.jpg
+    :image: "/assets/achievements/anime/author/leiji_matsumoto.jpg"
     :border_color: "#e5ebe3"
     :title_ru: Лэйдзи Мацумото
     :text_ru: 
@@ -10043,7 +10043,7 @@
   default_values: *2
   neko_id: :leiji_matsumoto
   level: 1
-  image: https://kawai.shikimori.one/system/user_images/original/50587/788831.jpg
+  image: "/assets/achievements/anime/author/leiji_matsumoto.jpg"
   border_color: "#e5ebe3"
   title_ru: Лэйдзи Мацумото
   text_ru: 
@@ -10246,7 +10246,7 @@
   attributes:
     :neko_id: :akiyuki_shinbou
     :level: 1
-    :image: https://shinbopedia.files.wordpress.com/2019/06/kyuubey-grin-2x1-500x250px.png
+    :image: "/assets/achievements/anime/author/akiyuki_shinbou.png"
     :border_color: "#ff0000"
     :title_ru: Акиюки Симбо
     :text_ru: 
@@ -10348,7 +10348,7 @@
   default_values: *2
   neko_id: :akiyuki_shinbou
   level: 1
-  image: https://shinbopedia.files.wordpress.com/2019/06/kyuubey-grin-2x1-500x250px.png
+  image: "/assets/achievements/anime/author/akiyuki_shinbou.png"
   border_color: "#ff0000"
   title_ru: Акиюки Симбо
   text_ru: 

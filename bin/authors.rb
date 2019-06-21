@@ -8,22 +8,22 @@ authors_yml = "#{ENV['HOME']}/develop/neko-achievements/priv/rules/_authors.yml"
 puts 'loading authors...'
 raw_data = YAML.load_file(authors_yml)
 
-data = raw_data.dup.select { |rule| rule['level'].zero? }
+data = raw_data.dup#.select { |rule| rule['level'].zero? }
 
-puts 'generating anime_ids...'
-data
-  .each do |rule|
-    rule['filters'] ||= {}
-    rule['filters']['anime_ids'] = PersonRole
-      .where.not(anime_id: nil)
-      .where(person_id: rule['generator']['person_id'])
-      .includes(:anime)
-      .map(&:anime)
-      .select { |anime| Neko::IsAllowed.call anime }
-      .map(&:id)
-      .sort
-      .uniq
-    end
+# puts 'generating anime_ids...'
+# data
+#   .each do |rule|
+#     rule['filters'] ||= {}
+#     rule['filters']['anime_ids'] = PersonRole
+#       .where.not(anime_id: nil)
+#       .where(person_id: rule['generator']['person_id'])
+#       .includes(:anime)
+#       .map(&:anime)
+#       .select { |anime| Neko::IsAllowed.call anime }
+#       .map(&:id)
+#       .sort
+#       .uniq
+#     end
 
 # data.each do |rule|
 #   t = rule['threshold']
