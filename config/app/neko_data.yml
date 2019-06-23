@@ -8658,8 +8658,8 @@
   attributes:
     :neko_id: :kenji_nakamura
     :level: 1
-    :image: 
-    :border_color: 
+    :image: "/assets/achievements/anime/author/kenji_nakamura.jpg"
+    :border_color: "#C1A97E"
     :title_ru: Кэндзи Накамура
     :text_ru: 
     :title_en: Kenji Nakamura
@@ -8670,31 +8670,22 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 1
-        - 339
-        - 358
-        - 389
-        - 567
-        - 586
-        - 1048
-        - 1454
-        - 2246
-        - 2398
-        - 5474
-        - 6774
-        - 10163
-        - 12883
-        - 18229
         - 21039
         - 23703
+        - 18229
+        - 12883
+        - 10163
+        - 6774
+        - 2246
+        - 586
       :generator:
         person_id: 7217
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
   neko_id: :kenji_nakamura
   level: 1
-  image: 
-  border_color: 
+  image: "/assets/achievements/anime/author/kenji_nakamura.jpg"
+  border_color: "#C1A97E"
   title_ru: Кэндзи Накамура
   text_ru: 
   title_en: Kenji Nakamura
@@ -8887,8 +8878,8 @@
   attributes:
     :neko_id: :kenji_kamiyama
     :level: 1
-    :image: 
-    :border_color: 
+    :image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
+    :border_color: "#795F42"
     :title_ru: Кэндзи Камияма
     :text_ru: 
     :title_en: Kenji Kamiyama
@@ -8899,40 +8890,37 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 347
-        - 405
-        - 467
-        - 570
-        - 767
-        - 801
-        - 1138
-        - 1566
-        - 1822
-        - 1827
-        - 2000
-        - 2449
-        - 2733
-        - 5630
-        - 6372
-        - 6637
         - 9629
-        - 10405
-        - 11755
-        - 21587
-        - 32736
-        - 33163
+        - 6637
+        - 405
+        - 347
+        - 2000
+        - 767
+        - 1822
+        - 2733
+        - 570
+        - 36871
         - 33204
-        - 33685
-        - 33686
+        - 21587
+        - 10405
         - 33687
+        - 33686
+        - 33685
+        - 11755
+        - 6372
+        - 5630
+        - 1827
+        - 1566
+        - 801
+        - 467
       :generator:
         person_id: 5348
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
   neko_id: :kenji_kamiyama
   level: 1
-  image: 
-  border_color: 
+  image: "/assets/achievements/anime/author/kenji_kamiyama.jpg"
+  border_color: "#795F42"
   title_ru: Кэндзи Камияма
   text_ru: 
   title_en: Kenji Kamiyama
@@ -8944,8 +8932,8 @@
   attributes:
     :neko_id: :masamune_shirow
     :level: 1
-    :image: 
-    :border_color: 
+    :image: "/assets/achievements/anime/author/masamune_shirow.jpg"
+    :border_color: "#D08659"
     :title_ru: Масамунэ Сиро
     :text_ru: 
     :title_en: Masamune Shirow
@@ -8964,25 +8952,16 @@
         - 937
         - 1151
         - 1152
-        - 1160
         - 1270
-        - 1811
-        - 2078
         - 2181
         - 2596
         - 2969
         - 3363
-        - 4672
         - 9737
-        - 10689
-        - 10693
-        - 17187
         - 18989
-        - 20261
         - 21575
         - 22677
         - 27411
-        - 31930
         - 32214
       :generator:
         person_id: 2609
@@ -8990,8 +8969,8 @@
   default_values: *2
   neko_id: :masamune_shirow
   level: 1
-  image: 
-  border_color: 
+  image: "/assets/achievements/anime/author/masamune_shirow.jpg"
+  border_color: "#D08659"
   title_ru: Масамунэ Сиро
   text_ru: 
   title_en: Masamune Shirow
@@ -9003,8 +8982,8 @@
   attributes:
     :neko_id: :shinji_aramaki
     :level: 1
-    :image: 
-    :border_color: 
+    :image: "/assets/achievements/anime/author/shinji_aramaki.jpg"
+    :border_color: "#02ACF4"
     :title_ru: Синдзи Арамаки
     :text_ru: 
     :title_en: Shinji Aramaki
@@ -9015,41 +8994,39 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 54
-        - 202
-        - 430
+        - 36517
+        - 2152
+        - 1693
+        - 1247
         - 442
-        - 568
-        - 719
-        - 782
         - 971
         - 1023
-        - 1247
+        - 782
+        - 719
+        - 568
         - 1347
-        - 1693
-        - 1935
-        - 2068
-        - 2152
-        - 2461
-        - 2775
-        - 2969
         - 3670
-        - 5505
-        - 6867
-        - 14629
-        - 16788
-        - 17269
-        - 22677
+        - 2068
+        - 1935
+        - 36871
         - 28149
+        - 17269
         - 36194
+        - 14629
+        - 6867
+        - 5505
+        - 22677
+        - 2969
+        - 54
+        - 2461
       :generator:
         person_id: 7454
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
   neko_id: :shinji_aramaki
   level: 1
-  image: 
-  border_color: 
+  image: "/assets/achievements/anime/author/shinji_aramaki.jpg"
+  border_color: "#02ACF4"
   title_ru: Синдзи Арамаки
   text_ru: 
   title_en: Shinji Aramaki
@@ -9343,73 +9320,35 @@
       :threshold: 100%
       :filters:
         anime_ids:
-        - 134
-        - 155
-        - 207
-        - 322
-        - 323
-        - 326
-        - 426
-        - 448
-        - 496
-        - 522
-        - 658
-        - 1000
-        - 1016
-        - 1081
-        - 1148
-        - 1301
-        - 1302
+        - 3800
+        - 4481
         - 1442
-        - 1497
-        - 1572
-        - 1626
-        - 1793
-        - 1893
-        - 1910
-        - 1951
-        - 1973
-        - 2470
-        - 2556
-        - 2747
-        - 2819
-        - 2997
+        - 1016
         - 2998
         - 2999
         - 3115
-        - 3152
-        - 3213
-        - 3595
-        - 3599
-        - 3800
-        - 3829
-        - 3834
-        - 4481
-        - 4513
-        - 5157
-        - 5554
-        - 5918
-        - 5997
-        - 6087
-        - 6262
-        - 6701
-        - 6920
-        - 7314
-        - 8234
-        - 8235
-        - 8240
-        - 9531
-        - 10282
-        - 10342
-        - 10979
-        - 12139
-        - 12141
-        - 13249
-        - 19731
-        - 20145
-        - 20381
         - 25265
-        - 25267
+        - 13249
+        - 7314
+        - 1081
+        - 522
+        - 155
+        - 426
+        - 3152
+        - 1148
+        - 2556
+        - 9531
+        - 1951
+        - 5918
+        - 12141
+        - 3599
+        - 3595
+        - 1973
+        - 2997
+        - 496
+        - 1626
+        - 1302
+        - 1000
       :generator:
         person_id: 7305
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -21096,6 +21035,7 @@
         - 892
         - 6714
         - 11359
+        - 22695
         - 22699
       :threshold: 94.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -21131,6 +21071,7 @@
         - 892
         - 6714
         - 11359
+        - 22695
         - 22699
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
