@@ -24,7 +24,7 @@ export default class CommentsNotifier {
     );
 
     // явное указание о скрытии
-    $(document).on('disappear', () => this._decrementCounter());
+    $(document).on('disappear', ({ target }) => this._decrementCounter(target));
     // при добавление блока о новом комментарии/топике делаем инкремент
     $(document).on('reappear', () => this._incrementCounter());
 
@@ -105,7 +105,10 @@ export default class CommentsNotifier {
     this._update(this.currentCounter - $nodes.length);
   }
 
-  _decrementCounter() {
+  _decrementCounter(target) {
+    if (target.attributes['data-disabled'] && target.attributes['data-disabled'].value === 'true') {
+      return;
+    }
     this._update(this.currentCounter - 1);
   }
 

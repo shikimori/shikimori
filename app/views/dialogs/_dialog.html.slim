@@ -10,6 +10,7 @@
       - unless dialog.my_message?
         .b-new_marker.active[
           class=(:off if dialog.message.read)
+          data-click_activated='true'
           data-reappear='true'
           data-reappear_url=mark_read_api_messages_url(is_read: '0')
           data-appear_url=mark_read_api_messages_url(is_read: '1')
@@ -78,6 +79,5 @@
         - if !dialog.message.read && dialog.message.to == current_user
           .b-appear_marker.active[
             class="appear-message-#{dialog.message.id}"
-            data-disabled="false"
-            data-_appear_triggered="true"
+            data-disabled="true"
           ]
