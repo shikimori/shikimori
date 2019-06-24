@@ -17,9 +17,10 @@ class Poll < ApplicationRecord
     state :stopped
 
     event(:start) do
-      transition pending: :started, if: lambda { |poll|
-        poll.persisted? && poll.variants.size > 1
-      }
+      transition(
+        pending: :started,
+        if: ->(poll) { poll.persisted? && poll.variants.size > 1 }
+      )
     end
     event(:stop) { transition started: :stopped }
   end
