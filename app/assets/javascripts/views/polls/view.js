@@ -10,16 +10,26 @@ export default class Poll extends View {
     this.model = model;
     this._render();
 
-    if (this._canVote()) {
-      this.$vote = this.$('.poll-actions .vote');
-      this.$abstain = this.$('.poll-actions .abstain');
-      this._toggleActions();
+    if (!this.canVote) { return; }
 
-      this.$('.b-radio').on('click', this._radioClick);
+    this.$vote = this.$('.poll-actions .vote');
+    this.$abstain = this.$('.poll-actions .abstain');
+    this._toggleActions();
 
-      this.$vote.on('click', this._voteVariant);
-      this.$abstain.on('click', this._abstain);
-    }
+    this.$('.b-radio').on('click', this._radioClick);
+
+    this.$vote.on('click', this._voteVariant);
+    this.$abstain.on('click', this._abstain);
+  }
+
+  get canVote() {
+    return window.SHIKI_USER.isSignedIn &&
+      (this.model.state === 'started') &&
+      !this.model.vote.is_abstained && !this.model.vote.variant_id;
+  }
+
+  get checkedRadio() {
+    return this.$('input[type=radio]:checked')[0];
   }
 
   // handlers
@@ -34,7 +44,7 @@ export default class Poll extends View {
 
   @bind
   _voteVariant() {
-    const variantId = parseInt(this._checkedRadio().value);
+    const variantId = parseInt(this.checkedRadio.value);
     const variant = this.model.variants.find(v => v.id === variantId);
 
     this.model.vote = { is_abstained: false, variant_id: variant.id };
@@ -52,43 +62,34 @@ export default class Poll extends View {
   // private functions
   _render() {
     const $oldRoot = this.$root;
-    this._set_root(JST[TEMPLATE]({
-      model: this.model,
-      can_vote: this._canVote(),
-      bar_percent: this._variantPercent,
-      bar_class: this._variantClass
-    })
+    this._set_root(
+      JST[TEMPLATE]({
+        model: this.model,
+        can_vote: this.canVote,
+        bar_percent: this._variantPercent,
+        bar_class: this._variantClass
+      })
     );
     $oldRoot.replaceWith(this.$root);
   }
 
-  _vote(url) {
+  async _vote(url) {
     this.$root.addClass('b-ajax');
-    return axios
-      .post(url)
-      .then(_ => {
-        this.$root.removeClass('b-ajax');
-        this._render();
-      });
-  }
 
-  _canVote() {
-    return window.SHIKI_USER.isSignedIn &&
-      (this.model.state === 'started') &&
-      !this.model.vote.is_abstained && !this.model.vote.variant_id;
+    await axios.post(url);
+
+    this.$root.removeClass('b-ajax');
+    this._render();
   }
 
   _toggleActions() {
-    if (this._checkedRadio()) {
+    if (this.checkedRadio) {
       this.$abstain.addClass('hidden');
-      return this.$vote.removeClass('hidden');
+      this.$vote.removeClass('hidden');
+    } else {
+      this.$abstain.removeClass('hidden');
+      this.$vote.addClass('hidden');
     }
-    this.$abstain.removeClass('hidden');
-    return this.$vote.addClass('hidden');
-  }
-
-  _checkedRadio() {
-    return this.$('input[type=radio]:checked')[0];
   }
 
   @bind
