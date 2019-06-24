@@ -131,9 +131,8 @@ export default class ShikiEditor extends ShikiView
 
     # открытие блока ссылки
     @$('.links').on 'click:open', =>
-      @$('.links input[type=text]').val('')
-      @$('#link_type_url')
-        .attr(checked: true)
+      $(@$('[name="link_type"]:checked')[0] || @$('[name="link_type"]')[0])
+        .prop('checked', true)
         .trigger('change')
 
     # автокомплит для поля ввода ссылки
