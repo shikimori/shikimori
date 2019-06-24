@@ -115,6 +115,16 @@ module PermissionsPolicy
           )
           false
         end
+
+      elsif club.comment_policy_admins?
+        if club.admin? comment.user
+          true
+        else
+          comment.errors[:base].push(
+            I18n.t('activerecord.errors.models.comments.not_a_club_admin')
+          )
+          false
+        end
       else
         raise ArgumentError, club.comment_policy
       end

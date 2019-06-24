@@ -2,7 +2,7 @@ module Types
   module Club
     CommentPolicy = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:free, :members)
+      .enum(:free, :members, :admins)
 
     ImageUploadPolicy = Types::Strict::Symbol
       .constructor(&:to_sym)

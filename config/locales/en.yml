@@ -269,9 +269,10 @@ en:
       models:
         comments:
           not_a_moderator: 'Cannot touch [ban] or [broadcast] tags'
-          not_a_club_member: Join the club to leave comments
+          not_a_club_member: Commenting is allowed to club members only
+          not_a_club_admin: Commenting is allowed to club admins only
           in_club_black_list: You're banned in this club. Commenting is disabled
-          not_a_friend: Commenting is allowed to a friends only
+          not_a_friend: Commenting is allowed to friends only
           not_a_owner: Commenting is disabled
         messages:
           ignored: You can't send messages to this user
@@ -499,17 +500,18 @@ en:
     club:
       join_policy:
         free: Unrestricted
-        admin_invite: Admin Invite Only
-        owner_invite: Owner Invite Only
+        admin_invite: Admin invite only
+        owner_invite: Owner invite only
       comment_policy:
         free: Unrestricted
-        members: Club Members Only
+        members: Club members only
+        admins: Club admins only
       topic_policy:
-        members: Club Members Only
-        admins: Club Admins Only
+        members: Club members only
+        admins: Club admins only
       image_upload_policy:
-        members: Club Members Only
-        admins: Club Admins Only
+        members: Club members only
+        admins: Club admins only
     club_page:
       layout:
         menu: Menu
