@@ -20,6 +20,7 @@ class Abilities::Admin
     can :manage, Message
     can :manage, Club
     can :manage, ClubPage
+    can :manage, ClubImage
 
     can :delete_all_comments, User
     can :delete_all_topics, User
