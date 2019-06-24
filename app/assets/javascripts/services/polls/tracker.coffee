@@ -1,6 +1,6 @@
-TrackPoll = require './track_poll'
+import TrackPoll from './track_poll'
 
-module.exports = class PollsTracker
+export default class PollsTracker
   @track: (JS_EXPORTS, $root) ->
     if Object.isEmpty(JS_EXPORTS?.polls)
       return

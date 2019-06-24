@@ -1,11 +1,12 @@
-$with = require('helpers/with').default
+import $with from 'helpers/with'
+import Poll from 'views/polls/view'
 
-module.exports = class TrackPoll
+export default class TrackPoll
   constructor: (poll, $root) ->
     $with(@_selector(poll), $root)
       .data(model: poll)
       .each (_, node) ->
-        new Polls.View node, poll
+        new Poll node, poll
 
   _selector: (poll) ->
     ".poll-placeholder##{poll.id}"

@@ -1,4 +1,4 @@
-import delay from 'delay';
+// import delay from 'delay';
 
 import UserRatesTracker from 'services/user_rates/tracker';
 import TopicsTracker from 'services/topics/tracker';
