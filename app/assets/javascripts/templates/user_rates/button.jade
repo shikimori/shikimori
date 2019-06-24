@@ -1,56 +1,57 @@
-// es5 only in pug
-.b-add_to_list(class=model.status)
-  form(
-    action=form_url
-    data-method=form_method
-    data-remote='true'
-    data-type='json'
-  )
-    input(type='hidden' name='frontend' value='1')
-    input(type='hidden' name='user_rate[user_id]' value= user_id)
-    input(type='hidden' name='user_rate[target_id]' value= model.target_id)
-    input(type='hidden' name='user_rate[target_type]' value= model.target_type)
-    input(type='hidden' name='user_rate[status]' value= model.status)
-    input(type='hidden' name='user_rate[score]' value= model.score)
+div
+  // es5 only in pug. also only one root node
+  .b-add_to_list(class=model.status)
+    form(
+      action=form_url
+      data-method=form_method
+      data-remote='true'
+      data-type='json'
+    )
+      input(type='hidden' name='frontend' value='1')
+      input(type='hidden' name='user_rate[user_id]' value= user_id)
+      input(type='hidden' name='user_rate[target_id]' value= model.target_id)
+      input(type='hidden' name='user_rate[target_type]' value= model.target_type)
+      input(type='hidden' name='user_rate[status]' value= model.status)
+      input(type='hidden' name='user_rate[score]' value= model.score)
 
-    .trigger
-      .trigger-arrow
+      .trigger
+        .trigger-arrow
 
-      if model.id
-        .edit-trigger
-          .edit
-          .text
-            span.status-name(data-text= statuses[model.status])
-            if model.score > 0
-              span
-                | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
-                = model.score
-
-      else
-        .text.add-trigger(data-status= model.status)
-          .plus
-          span.status-name(
-            data-text=I18n.t('frontend.user_rates.button.add_to_list')
-          )
-
-    .expanded-options
-      for title,status in statuses
-        if !model.id || model.status != status
-          .option.add-trigger(data-status=status)
+        if model.id
+          .edit-trigger
+            .edit
             .text
-              span.status-name(data-text=title)
+              span.status-name(data-text= statuses[model.status])
+              if model.score > 0
+                span
+                  | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
+                  = model.score
 
-      if model.id
-        .option.remove-trigger(
-          data-action= destroy_url
-          data-method='delete'
-          data-remote='true'
-          data-type='json'
-          value=I18n.t('frontend.user_rates.button.remove_from_my_list')
-        )
-          .text
+        else
+          .text.add-trigger(data-status= model.status)
+            .plus
             span.status-name(
-              data-text=I18n.t('frontend.user_rates.button.remove_from_my_list')
+              data-text=I18n.t('frontend.user_rates.button.add_to_list')
             )
 
-!= extended_html
+      .expanded-options
+        for title,status in statuses
+          if !model.id || model.status != status
+            .option.add-trigger(data-status=status)
+              .text
+                span.status-name(data-text=title)
+
+        if model.id
+          .option.remove-trigger(
+            data-action= destroy_url
+            data-method='delete'
+            data-remote='true'
+            data-type='json'
+            value=I18n.t('frontend.user_rates.button.remove_from_my_list')
+          )
+            .text
+              span.status-name(
+                data-text=I18n.t('frontend.user_rates.button.remove_from_my_list')
+              )
+
+  != extended_html

@@ -1,45 +1,46 @@
-// es5 only in pug
-.rate-show
-  if model.target_type == 'Anime'
-    .rate-number
-      span.current-episodes= model.episodes
+div
+  // es5 only in pug. also only one root node
+  .rate-show
+    if model.target_type == 'Anime'
+      .rate-number
+        span.current-episodes= model.episodes
 
-      if entry.episodes != 0
-        span.b-separator
-          | /
-        span.total-episodes= entry.episodes
+        if entry.episodes != 0
+          span.b-separator
+            | /
+          span.total-episodes= entry.episodes
 
-      if model.episodes != entry.episodes || model.episodes == 0
-        span.item-add.increment(
-          data-action=increment_url
-          data-method='post'
-          data-remote='true'
-          data-type='json'
-        )
+        if model.episodes != entry.episodes || model.episodes == 0
+          span.item-add.increment(
+            data-action=increment_url
+            data-method='post'
+            data-remote='true'
+            data-type='json'
+          )
 
-    .episodes
-      = I18n.t('activerecord.attributes.user_rate.episodes')
+      .episodes
+        = I18n.t('activerecord.attributes.user_rate.episodes')
 
-  else
-    .rate-number
-      span.current-episodes= model.chapters
+    else
+      .rate-number
+        span.current-episodes= model.chapters
 
-      if entry.chapters != 0
-        span.b-separator
-          | /
-        span.total-episodes= entry.chapters
+        if entry.chapters != 0
+          span.b-separator
+            | /
+          span.total-episodes= entry.chapters
 
-      if model.chapters != entry.chapters || model.chapters == 0
-        span.item-add.increment(
-          data-action=increment_url
-          data-remote='true'
-          data-type='json'
-          data-method='post'
-        )
-    .episodes
-      = I18n.t('activerecord.attributes.user_rate.chapters')
+        if model.chapters != entry.chapters || model.chapters == 0
+          span.item-add.increment(
+            data-action=increment_url
+            data-remote='true'
+            data-type='json'
+            data-method='post'
+          )
+      .episodes
+        = I18n.t('activerecord.attributes.user_rate.chapters')
 
-  != rate_html
+    != rate_html
 
-  if model.text_html
-    .note!= model.text_html
+    if model.text_html
+      .note!= model.text_html

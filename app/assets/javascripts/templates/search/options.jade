@@ -1,11 +1,12 @@
-// es5 only in pug
-if hasIndex
-  .search-mode(
-    class=(currentMode === 'index' ? 'active' : '')
-    data-mode='index'
-  )= I18n.t('frontend.search.mode.index')
-each mode in ['anime', 'manga', 'ranobe', 'character', 'person']
-  .search-mode(
-    class=(currentMode === mode ? 'active' : '')
-    data-mode=mode
-  )= I18n.t('frontend.search.mode.' + mode)
+div
+  // es5 only in pug. also only one root node
+  if hasIndex
+    .search-mode(
+      class=(currentMode === 'index' ? 'active' : '')
+      data-mode='index'
+    )= I18n.t('frontend.search.mode.index')
+  each mode in ['anime', 'manga', 'ranobe', 'character', 'person']
+    .search-mode(
+      class=(currentMode === mode ? 'active' : '')
+      data-mode=mode
+    )= I18n.t('frontend.search.mode.' + mode)

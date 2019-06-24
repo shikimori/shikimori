@@ -1,39 +1,40 @@
-// es5 only in pug
-.b-poll
-  .poll
-    .name= model.name
-    .text!= model.text_html
+div
+  // es5 only in pug
+  .b-poll
+    .poll
+      .name= model.name
+      .text!= model.text_html
 
-  .poll-variants
-    for poll_variant in model.variants
-      if can_vote
-        .poll-variant.pending
-          label.b-radio
-            input(
-              name='poll_' + model.id
-              type='radio'
-              value=poll_variant.id
-            )
-            .radio-label
-              = poll_variant.label
-
-      else
-        .poll-variant.result
-          .votes-total= poll_variant.votes_total
-          .votes-percent #{bar_percent(poll_variant)}%
-          label
-            = poll_variant.label
-            if model.vote && model.vote.variant_id == poll_variant.id
-              .voted-for ✓
-
-          .bar.simple.horizontal
-            .line
-              .bar(
-                class=bar_class(poll_variant)
-                style='width: ' + bar_percent(poll_variant) + '%'
+    .poll-variants
+      for poll_variant in model.variants
+        if can_vote
+          .poll-variant.pending
+            label.b-radio
+              input(
+                name='poll_' + model.id
+                type='radio'
+                value=poll_variant.id
               )
+              .radio-label
+                = poll_variant.label
 
-  if can_vote
-    .poll-actions
-      .vote.hidden= I18n.t('frontend.polls.vote')
-      .abstain.hidden= I18n.t('frontend.polls.abstain')
+        else
+          .poll-variant.result
+            .votes-total= poll_variant.votes_total
+            .votes-percent #{bar_percent(poll_variant)}%
+            label
+              = poll_variant.label
+              if model.vote && model.vote.variant_id == poll_variant.id
+                .voted-for ✓
+
+            .bar.simple.horizontal
+              .line
+                .bar(
+                  class=bar_class(poll_variant)
+                  style='width: ' + bar_percent(poll_variant) + '%'
+                )
+
+    if can_vote
+      .poll-actions
+        .vote.hidden= I18n.t('frontend.polls.vote')
+        .abstain.hidden= I18n.t('frontend.polls.abstain')

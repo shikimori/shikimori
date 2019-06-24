@@ -1,7 +1,7 @@
-// es5 only in pug
 .b-rate.rateable(
   data-notices=I18n.t('activerecord.attributes.user_rate.scores')
 )
+  // es5 only in pug. also only one root node
   .stars-container
     .hoverable-trigger
     .stars.score(class='score-' + score)
