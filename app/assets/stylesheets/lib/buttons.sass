@@ -13,7 +13,8 @@
   font: 13px/20px 'Trebuchet MS',Tahoma,Arial,Helvetica,sans-serif
   margin-right: 5px
 
-  span, a
+  span,
+  a:not(.b-button)
     display: inline-block
     border-bottom: none
 
@@ -21,7 +22,8 @@
       margin-left: 0
 
   +gt_ipad
-    span, a
+    span,
+    a:not(.b-button)
       line-height: 15px !important
 
       &:before
@@ -31,7 +33,8 @@
       line-height: 15px !important
 
   +lte-ipad
-    span, a
+    span,
+    a:not(.b-button)
       line-height: 25px !important
 
       &:before
