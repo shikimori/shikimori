@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 $(document).on 'click', '.collapse', (e, custom) ->
   is_hide = $(@).children('.action').html().match(/свернуть|спрятать|collapse|hide/)
   $(@).toggleClass 'triggered', is_hide
@@ -52,15 +54,15 @@ $(document).on 'click', '.collapse', (e, custom) ->
     id = $(@).attr('id')
     if id && id != '' && id.indexOf('-') != -1
       name = id.split('-').slice(1).join('-') + ';'
-      collapses = $.cookie('collapses') || ''
+      collapses = Cookies.get('collapses') || ''
 
       if is_hide && collapses.indexOf(name) == -1
-        $.cookie 'collapses', collapses + name,
+        Cookies.set 'collapses', collapses + name,
           expires: 730
           path: '/'
 
       else if !is_hide && collapses.indexOf(name) != -1
-        $.cookie 'collapses', collapses.replace(name, ''),
+        Cookies.set 'collapses', collapses.replace(name, ''),
           expires: 730
           path: '/'
 

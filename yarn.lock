@@ -5271,6 +5271,11 @@ js-base64@^2.1.8, js-base64@^2.1.9, js-base64@^2.5.0:
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.0.tgz#42255ba183ab67ce59a0dee640afdc00ab5ae93e"
   integrity sha512-wlEBIZ5LP8usDylWbDNhKPEFVFdI5hCHpnVoT/Ysvoi/PRhJENm/Rlh9TvjYB38HFfKZN7OzEbRjmjvLkFw11g==
 
+js-cookie@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
+  integrity sha1-Gywnmm7s44ChIWi5JIUmWzWx7/s=
+
 js-storage@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/js-storage/-/js-storage-1.0.4.tgz#3bacf5bc694825aef79e1c38e96569bfb8209f16"

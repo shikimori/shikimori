@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import Turbolinks from 'turbolinks';
 import bowser from 'bowser';
 import flash from 'services/flash';
@@ -20,8 +21,12 @@ $(document).on('turbolinks:load', () => {
   $(document.body).process();
 
   // переключатели видов отображения списка
-  $('.b-list_switchers .switcher').on('click', function () {
-    $.cookie($(this).data('name'), $(this).data('value'), { expires: 730, path: '/' });
+  $('.b-list_switchers .switcher').on('click', ({ currentTarget }) => {
+    Cookies.set(
+      $(currentTarget).data('name'),
+      $(currentTarget).data('value'),
+      { expires: 730, path: '/' }
+    );
     Turbolinks.visit(document.location.href);
   });
 });
