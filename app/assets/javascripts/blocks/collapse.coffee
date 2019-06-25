@@ -13,7 +13,8 @@ $(document).on 'click', '.collapse', (e, custom) ->
   $hideable = $(@).parent().next() unless $hideable.exists()
 
   # скрываем не только следующий элемент, но и все последующие с классом collapse-merged
-  $hideable = $hideable.add($hideable.last().next())  while $hideable.last().next().hasClass('collapse-merged')
+  while $hideable.last().next().hasClass('collapse-merged')
+    $hideable = $hideable.add($hideable.last().next())
 
   # при этом игнорируем то, что имеет класс collapse-ignored
   $hideable = $hideable.filter(':not(.collapse-ignored)')  if $hideable.length > 1
@@ -50,20 +51,20 @@ $(document).on 'click', '.collapse', (e, custom) ->
   unless custom
     id = $(@).attr('id')
     if id && id != '' && id.indexOf('-') != -1
-      name = id.split('-').slice(1).join("-") + ";"
+      name = id.split('-').slice(1).join('-') + ';'
       collapses = $.cookie('collapses') || ''
 
       if is_hide && collapses.indexOf(name) == -1
-        $.cookie "collapses", collapses + name,
+        $.cookie 'collapses', collapses + name,
           expires: 730
-          path: "/"
+          path: '/'
 
       else if !is_hide && collapses.indexOf(name) != -1
-        $.cookie "collapses", collapses.replace(name, ""),
+        $.cookie 'collapses', collapses.replace(name, ''),
           expires: 730
-          path: "/"
+          path: '/'
 
-  $placeholder.next().trigger "show"
+  $placeholder.next().trigger 'show'
 
   # всем картинкам внутри спойлера надо заново проверить высоту
   #$hideable.find('img').addClass 'check-width'
@@ -80,4 +81,5 @@ $(document).on 'click', '.hide-expanded', ->
 # клик на содержимое спойлера
 $(document).on 'click', '.spoiler.target', ->
   return unless $(@).hasClass('dashed')
+
   $(@).hide().prev().show().prev().show()
