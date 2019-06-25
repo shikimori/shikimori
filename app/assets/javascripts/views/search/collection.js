@@ -36,15 +36,14 @@ export default class CollectionSearch extends View {
 
   set phrase(value) {
     const trimmedValue = value.trim();
+    if (this._phrase && this._phrase.trim() === trimmedValue) { return; }
+
     const priorPhrase = this._phrase;
-
-    if (this._phrase === trimmedValue) { return; }
-
-    this._phrase = trimmedValue;
+    this._phrase = value;
 
     if (priorPhrase !== undefined) { // it is undefined in constructor
       this._activate();
-      this.debouncedSearch(this._phrase);
+      this.debouncedSearch(trimmedValue);
     }
 
     this.$input.toggleClass('has-value', !Object.isEmpty(this._phrase));
@@ -142,7 +141,7 @@ export default class CollectionSearch extends View {
     const uri = URI(url).removeQuery('phrase');
 
     if (phrase) {
-      return uri.addQuery({ phrase: phrase });
+      return uri.addQuery({ phrase });
     }
     return uri;
   }
