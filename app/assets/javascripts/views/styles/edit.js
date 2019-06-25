@@ -1,5 +1,5 @@
 import { debounce } from 'throttle-debounce';
-import Cookies from 'js-cookie';
+import cookies from 'js-cookie';
 
 import axios from 'helpers/axios';
 
@@ -163,11 +163,11 @@ export default class EditStyles extends View {
   }
 
   _toggleExpand(newValue) {
-    let isExpanded = Cookies.get('expanded-styles') === '1';
+    let isExpanded = cookies.get('expanded-styles') === '1';
 
     if (newValue !== undefined) {
       isExpanded = newValue;
-      Cookies.set('expanded-styles', isExpanded ? '1' : '0', { expires: 730, path: '/' });
+      cookies.set('expanded-styles', isExpanded ? '1' : '0', { expires: 730, path: '/' });
     }
 
     this.$root.toggleClass('expanded', isExpanded);

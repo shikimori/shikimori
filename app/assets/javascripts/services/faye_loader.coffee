@@ -1,5 +1,5 @@
 import Faye from 'faye'
-import Cookies from 'js-cookie'
+import cookies from 'js-cookie'
 
 require 'jquery.idle/vanilla.idle'
 
@@ -75,7 +75,7 @@ export default class FayeLoader
         # websocket: "#{location.protocol}//#{location.hostname}#{port}/server-v1"
 
     #@client.disable 'eventsource'
-    @client.disable('websocket') if Cookies.get('faye-disable-websocket')
+    @client.disable('websocket') if cookies.get('faye-disable-websocket')
     # console.log 'faye connected'
 
   _disconnect: ->

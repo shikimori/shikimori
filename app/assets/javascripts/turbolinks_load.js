@@ -1,6 +1,6 @@
-import Cookies from 'js-cookie';
 import Turbolinks from 'turbolinks';
 import bowser from 'bowser';
+import cookies from 'js-cookie';
 import flash from 'services/flash';
 
 $(document).on('turbolinks:load', () => {
@@ -22,7 +22,7 @@ $(document).on('turbolinks:load', () => {
 
   // переключатели видов отображения списка
   $('.b-list_switchers .switcher').on('click', ({ currentTarget }) => {
-    Cookies.set(
+    cookies.set(
       $(currentTarget).data('name'),
       $(currentTarget).data('value'),
       { expires: 730, path: '/' }

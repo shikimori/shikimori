@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+import cookies from 'js-cookie'
 import delay from 'delay'
 
 import View from 'views/application/view'
@@ -32,7 +32,7 @@ class Ads.View extends View
   _replace_node: ->
     $close = $(CLOSE_AD_HTML)
 
-    if Cookies.get("#{@css_class}_disabled")
+    if cookies.get("#{@css_class}_disabled")
       @$node.remove()
     else
       $ad = $("<div>#{@html}</div>")
@@ -42,7 +42,7 @@ class Ads.View extends View
       @$node.replaceWith $ad
 
       $close.on 'click', =>
-        Cookies.set("#{@css_class}_disabled", '1', expires: 7)
+        cookies.set("#{@css_class}_disabled", '1', expires: 7)
         $ad.addClass 'removing'
         delay(1000).then =>
           remove_ad @css_class
