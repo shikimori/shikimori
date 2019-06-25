@@ -15,6 +15,8 @@ class Users::CheckHacked
     shikme.naru.to
   ]
   NOT_SPAM_DOMAINS = %w[
+    shikimori.org
+    shikimori.one
     animenewsnetwork.com
     google.com
     google.ru
@@ -30,7 +32,16 @@ class Users::CheckHacked
     youtu.be
     youtube.com
     radikal.ru
-  ]
+    cdjapan.co.jp
+    neowing.co.jp
+    amazon.co.jp
+  ] + Shikimori::ALLOWED_DOMAINS.flat_map do |domain|
+    [domain] + Shikimori::STATIC_SUBDOMAINS
+      .map { |subdomain| "#{subdomain}.#{domain}" }
+      .uniq
+  end
+
+  LINKS_CHECK_LIMIT = 7
 
   def call
     if spam?
@@ -66,6 +77,8 @@ private
       .scan(BbCodes::Tags::UrlTag::URL)
       .map(&:first)
       .reject { |v| NOT_SPAM_DOMAINS.include? Url.new(v).domain.cut_www.to_s }
+      .uniq
+      .take(LINKS_CHECK_LIMIT)
   end
 
   def follow urls
