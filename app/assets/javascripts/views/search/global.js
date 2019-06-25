@@ -20,7 +20,7 @@ export default class GlobalSearch extends View {
   initialize() {
     this.$input = this.$('.field input');
 
-    this.phrase = this.inputSearchPhrase;
+    this._phrase = this.inputSearchPhrase;
     this.currentMode = this.hasIndex ? 'index' : this.$root.data('default-mode') || 'anime';
 
     globalHandler.on('slash', this._onGlobalSlash);
@@ -91,7 +91,7 @@ export default class GlobalSearch extends View {
 
   set phrase(value) {
     const trimmedValue = value.trim();
-    if (this._phrase && this._phrase.trim() === trimmedValue) { return; }
+    if (this._phrase.trim() === trimmedValue) { return; }
 
     const priorPhrase = this._phrase;
     this._phrase = value;

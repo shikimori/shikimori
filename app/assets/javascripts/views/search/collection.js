@@ -15,7 +15,7 @@ export default class CollectionSearch extends View {
     this.isActive = false;
     this.debouncedSearch = debounce(250, phrase => this._search(phrase));
 
-    this.phrase = this.inputSearchPhrase;
+    this._phrase = this.inputSearchPhrase;
 
     this.$input.on('change blur paste', () => this._onChange());
     this.$input.on('keyup', e => this._onKeyup(e));
@@ -36,7 +36,7 @@ export default class CollectionSearch extends View {
 
   set phrase(value) {
     const trimmedValue = value.trim();
-    if (this._phrase && this._phrase.trim() === trimmedValue) { return; }
+    if (this._phrase.trim() === trimmedValue) { return; }
 
     const priorPhrase = this._phrase;
     this._phrase = value;
