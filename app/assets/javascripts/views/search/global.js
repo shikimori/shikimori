@@ -115,7 +115,7 @@ export default class GlobalSearch extends View {
   }
 
   get inputSearchPhrase() {
-    return this.$input.val().trim();
+    return this.$input.val();
   }
 
   cancel() {

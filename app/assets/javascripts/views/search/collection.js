@@ -27,7 +27,7 @@ export default class CollectionSearch extends View {
   }
 
   get inputSearchPhrase() {
-    return this.$input.val().trim();
+    return this.$input.val();
   }
 
   get phrase() {
@@ -101,7 +101,7 @@ export default class CollectionSearch extends View {
       return;
     }
 
-    if (phrase === this.inputSearchPhrase) {
+    if (phrase === this.inputSearchPhrase.trim()) {
       this._changeUrl(this._displayUrl(phrase));
       this._processResponse(data);
     }
