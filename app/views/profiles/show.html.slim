@@ -215,7 +215,7 @@
       .lifetime.b-stats_bar
         .title
           - if @resource.stats.spent_time.days.positive?
-            .value.b-tooltipped.unprocessed[
+            .value.b-tooltipped.dotted.unprocessed[
               title=@resource.stats.spent_time_in_days
               data-direction="top"
             ] = @resource.stats.spent_time_in_words
