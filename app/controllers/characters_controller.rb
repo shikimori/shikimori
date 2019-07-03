@@ -115,6 +115,7 @@ private
       .permit(
         :russian,
         :tags,
+        :imageboard_tag,
         :description_ru,
         :description_en,
         *Character::DESYNCABLE
