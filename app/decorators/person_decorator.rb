@@ -179,7 +179,7 @@ class PersonDecorator < DbEntryDecorator
       .reverse
   end
 
-  def job_title
+  def job_title # rubocop:disable all
     key =
       if main_role? :producer
         'producer'
@@ -191,12 +191,14 @@ class PersonDecorator < DbEntryDecorator
         'vocalist'
       elsif main_role? :seyu
         'seyu'
-      elsif anime? && manga?
-        'anime_manga_projects_participant'
-      elsif anime?
-        'anime_projects_participant'
-      elsif manga?
-        'manga_projects_participant'
+      else
+        jobs = []
+
+        jobs << 'anime' if anime?
+        jobs << 'manga' if manga?
+        jobs << 'ranobe' if ranobe?
+
+        "#{jobs.join('_')}_projects_participant"
       end
 
     i18n_t "job_title.#{key}"

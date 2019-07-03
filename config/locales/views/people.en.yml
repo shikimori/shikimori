@@ -17,6 +17,7 @@ en:
       positions_in_anime: Positions in anime
       positions_in_manga: Positions in manga
       positions_in_anime_manga: Positions in anime and manga
+      positions_in_anime_manga_ranobe: Positions in anime, manga and light novel
       and_more:
         zero: And %{count} users more
         one: And %{count} user more

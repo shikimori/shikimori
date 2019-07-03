@@ -37,8 +37,13 @@ ru:
       vocalist: Вокалист
       seyu: Сэйю
       anime_manga_projects_participant: Участник аниме и манга проектов
+      # anime_manga_ranobe_projects_participant: Участник аниме, манга и ранобэ проектов
       anime_projects_participant: Участник аниме проектов
+      # anime_ranobe_projects_participant: Участник аниме и ранобэ проектов
       manga_projects_participant: Участник манга проектов
+      # manga_ranobe_projects_participant: Участник манга и ранобэ проектов
+      # ranobe_projects_participant: Участник ранобэ проектов
+      _projects_participant: ''
   seyu_decorator:
     <<: *person_decorator
   collection_decorator:
