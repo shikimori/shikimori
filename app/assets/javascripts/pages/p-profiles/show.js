@@ -1,9 +1,5 @@
-/*
- * decaffeinate suggestions:
- * DS102: Remove unnecessary code created because of implicit returns
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
 import moment from 'moment';
+import { isMobile } from 'helpers/mobile_detect';
 
 pageLoad('profiles_show', () => {
   $('.friend-action').on('ajax:success', () => (
@@ -14,7 +10,7 @@ pageLoad('profiles_show', () => {
   ));
 
   $('h1.aliases').tipsy({
-    gravity: 'w',
+    gravity: isMobile() ? 'n' : 'w',
     html: true,
     prependTo: document.body
   });
