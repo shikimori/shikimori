@@ -47,7 +47,6 @@ private
   end
 
   def track_decreased_episodes
-
     episode_from = @anime.episodes_aired_change[0]
     episode_to = @anime.episodes_aired_change[1]
     return if episode_from < episode_to
