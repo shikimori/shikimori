@@ -9,7 +9,7 @@ class Animes::SeasonQuery
 
 private
 
-  def parse season # rubocop:disable MethodLength, AbcSize
+  def parse season # rubocop:disable MethodLength
     case @season
       when /^(?<season>[a-z]+)_(?<year>\d+)$/
         season_sql $LAST_MATCH_INFO[:year].to_i, $LAST_MATCH_INFO[:season]
