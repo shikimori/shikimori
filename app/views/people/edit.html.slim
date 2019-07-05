@@ -52,9 +52,15 @@
             a.b-js-action href=@resource.edit_field_url(:image)
               = t 'actions.edit'
 
-  - if @resource.desynced.any?
-    .block
-      b Desynced:
-      span  #{@resource.desynced.join(', ')}
+  .block
+    ul.b-list
+      li
+        .field = @resource.class.human_attribute_name(:desynced)
+        .value = @resource.desynced.join(', ')
+        - if can? :major_change, Version
+          a.b-js-action href=@resource.edit_field_url(:desynced)
+            = t '.moderators_only'
+        - else
+          .b-js-action = t '.moderators_only'
 
   = render 'db_entries/history', resource: @resource

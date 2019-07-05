@@ -12,6 +12,11 @@ class PeopleController < DbEntriesController
   # caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
 
   PER_PAGE = 48
+  UPDATE_PARAMS = [
+    :russian,
+    *Person::DESYNCABLE,
+    desynced: []
+  ]
 
   def index
     og page_title: search_title
@@ -69,7 +74,7 @@ private
   def update_params
     params
       .require(:person)
-      .permit(:russian, *Person::DESYNCABLE)
+      .permit(UPDATE_PARAMS)
   rescue ActionController::ParameterMissing
     {}
   end

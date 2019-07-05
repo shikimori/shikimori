@@ -11,21 +11,21 @@ class AnimesController < DbEntriesController
   EXTERNAL_LINK_PARAMS = %i[
     entry_id entry_type created_at updated_at imported_at source kind url
   ]
-  UPDATE_PARAMS = %i[
-    russian
-    license_name_ru
-    torrents_name
-    imageboard_tag
-    description_ru
-    description_en
-  ] + [
+  UPDATE_PARAMS = [
+    :russian,
+    :license_name_ru,
+    :torrents_name,
+    :imageboard_tag,
+    :description_ru,
+    :description_en,
     *Anime::DESYNCABLE,
     external_links: [EXTERNAL_LINK_PARAMS],
     synonyms: [],
     coub_tags: [],
     fansubbers: [],
     fandubbers: [],
-    options: []
+    options: [],
+    desynced: []
   ]
 
   before_action :set_breadcrumbs, if: :resource_id

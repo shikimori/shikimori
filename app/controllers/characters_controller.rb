@@ -10,6 +10,16 @@ class CharactersController < PeopleController
   #   unless: proc { user_signed_in? },
   #   expires_in: 2.days
 
+  UPDATE_PARAMS = [
+    :russian,
+    :tags,
+    :imageboard_tag,
+    :description_ru,
+    :description_en,
+    *Character::DESYNCABLE,
+    desynced: []
+  ]
+
   def index
     og page_title: i18n_i(:Character, :other)
 
@@ -112,14 +122,7 @@ private
   def update_params
     params
       .require(:character)
-      .permit(
-        :russian,
-        :tags,
-        :imageboard_tag,
-        :description_ru,
-        :description_en,
-        *Character::DESYNCABLE
-      )
+      .permit(UPDATE_PARAMS)
   rescue ActionController::ParameterMissing
     {}
   end

@@ -708,7 +708,7 @@ Rails.application.routes.draw do
 
   resources :characters, only: %i[show edit update] do
     concerns :db_entry, fields: Regexp.new(%w{
-      name russian japanese image description_ru description_en imageboard_tag
+      name russian japanese image description_ru description_en imageboard_tag desynced
     }.join('|'))
 
     get '(/page/:page)' => :index, as: '', on: :collection
@@ -738,7 +738,7 @@ Rails.application.routes.draw do
     end
 
     concerns :db_entry, fields: Regexp.new(%w{
-      name russian japanese image website birthday
+      name russian japanese image website birthday desynced
     }.join('|'))
 
     member do
