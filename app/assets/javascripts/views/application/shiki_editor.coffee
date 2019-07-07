@@ -150,7 +150,7 @@ export default class ShikiEditor extends ShikiView
           text: result.name
           type: radio_type
 
-        $radio.trigger("tag:build", param) if param
+        $radio.trigger('tag:build', param) if param
 
     # изменение типа ссылки
     @$('.links input[type=radio]').on 'change', ->
@@ -193,7 +193,7 @@ export default class ShikiEditor extends ShikiView
       if e.keyCode is 10 || e.keyCode is 13
         @$textarea.insertAtCaret(
           '[quote' +
-            ((if not @value or @value.isBlank() then "" else "=" + @value)) +
+            ((if not @value or @value.isBlank() then '' else '=' + @value)) +
             ']',
           '[/quote]'
         )
@@ -201,23 +201,23 @@ export default class ShikiEditor extends ShikiView
         false
 
     # автокомплит для поля ввода цитаты
-    @$(".quotes input[type=text]")
+    @$('.quotes input[type=text]')
       .completable()
       .on 'autocomplete:success autocomplete:text', (e, result) =>
         text = if Object.isString(result) then result else result.value
         @$textarea.insertAtCaret(
           '[quote' +
-            (if not text or text.isBlank() then "" else "=" + text) + ']',
+            (if not text or text.isBlank() then '' else '=' + text) + ']',
             '[/quote]'
         )
-        @$(".editor-quote").trigger('click')
+        @$('.editor-quote').trigger('click')
 
     # построение бб-кода для url
     @$('.links #link_type_url').on 'tag:build', (e, value) =>
       @$textarea.insertAtCaret(
         "[url=#{value}]",
-        "[/url]",
-        value.replace(/^https?:\/\/|\/.*/g, "")
+        '[/url]',
+        value.replace(/^https?:\/\/|\/.*/g, '')
       )
 
     # построение бб-кода для аниме,манги,персонажа и человека
@@ -317,7 +317,7 @@ export default class ShikiEditor extends ShikiView
 
     .on 'upload:started', (e, file_num) =>
       file_text = file_text_placeholder.replace('@', file_num)
-      @$textarea.insertAtCaret "", file_text
+      @$textarea.insertAtCaret '', file_text
       @$textarea.focus()
 
     .on 'upload:before upload:after', (e, file_num) =>
