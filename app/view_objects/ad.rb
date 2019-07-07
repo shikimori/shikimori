@@ -362,8 +362,8 @@ private
           [500, 500]
         end
 
-      "<div class='ad-placeholder' style='width: #{$LAST_MATCH_INFO[:width]}px; "\
-        "height: #{$LAST_MATCH_INFO[:height]}px;' data-banner_type='#{@banner_type}' >"
+      "<div class='ad-placeholder' style='width: #{width}px; "\
+        "height: #{height}px;' data-banner_type='#{@banner_type}' >"
 
     elsif yandex_direct?
       "<div id='#{@banner_type}'></div>"

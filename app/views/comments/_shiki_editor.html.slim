@@ -4,134 +4,131 @@
 - item_type = defined?(comment) && comment.kind_of?(Message) ? \
     'message' : 'comment'
 
-.header
-  .controls
-    aside.buttons
-      .editor-controls
-        span.editor-bold.b-tooltipped.unprocessed[
-          title=t('.bold')
-          data-direction='top'
-        ]
-        span.editor-italic.b-tooltipped.unprocessed[
-          title=t('.italic')
-          data-direction='top'
-        ]
-        span.editor-underline.b-tooltipped.unprocessed[
-          title=t('.underline')
-          data-direction='top'
-        ]
-        span.editor-strike.b-tooltipped.unprocessed[
-          title=t('.striked')
-          data-direction='top'
-        ]
+.controls
+  aside.buttons
+    .editor-controls
+      span.editor-bold.b-tooltipped.unprocessed[
+        title=t('.bold')
+        data-direction='top'
+      ]
+      span.editor-italic.b-tooltipped.unprocessed[
+        title=t('.italic')
+        data-direction='top'
+      ]
+      span.editor-underline.b-tooltipped.unprocessed[
+        title=t('.underline')
+        data-direction='top'
+      ]
+      span.editor-strike.b-tooltipped.unprocessed[
+        title=t('.striked')
+        data-direction='top'
+      ]
 
-        span.editor-link.b-tooltipped.unprocessed[
-          title=t('.link')
-          data-direction='top'
-        ]
-        span.editor-image.b-tooltipped.unprocessed[
-          title=t('.image_link')
-          data-direction='top'
-        ]
-        span.editor-quote.b-tooltipped.unprocessed[
-          title=t('.quote')
-          data-direction='top'
-        ]
-        span.editor-spoiler.b-tooltipped.unprocessed[
-          title=t('.spoiler')
-          data-direction='top'
-        ]
+      span.editor-link.b-tooltipped.unprocessed[
+        title=t('.link')
+        data-direction='top'
+      ]
+      span.editor-image.b-tooltipped.unprocessed[
+        title=t('.image_link')
+        data-direction='top'
+      ]
+      span.editor-quote.b-tooltipped.unprocessed[
+        title=t('.quote')
+        data-direction='top'
+      ]
+      span.editor-spoiler.b-tooltipped.unprocessed[
+        title=t('.spoiler')
+        data-direction='top'
+      ]
 
-        label.editor-file.b-tooltipped.unprocessed[
-          title=t('.upload_image')
-          data-direction='top'
-        ]
-          input type='file'
-        span.editor-smiley.b-tooltipped.unprocessed[
-          title=t('.smiley')
-          data-direction='top'
-        ]
+      label.editor-file.b-tooltipped.unprocessed[
+        title=t('.upload_image')
+        data-direction='top'
+      ]
+        input type='file'
+      span.editor-smiley.b-tooltipped.unprocessed[
+        title=t('.smiley')
+        data-direction='top'
+      ]
 
-    - if defined?(f)
-      - if comment.new_record?
-        aside.markers
-          - if comment.try :allowed_summary?
-            .b-summary_marker.active[
-              class=(:off unless comment.summary?)
-              data-text=t('markers.summary')
-            ]
-          - if comment.respond_to? :offtopic?
-            .b-offtopic_marker.active[
-              class=(:off unless comment.offtopic?)
-              data-text=t('markers.offtopic')
-            ]
+  - if defined?(f)
+    - if comment.new_record?
+      aside.markers
+        - if comment.try :allowed_summary?
+          .b-summary_marker.active[
+            class=(:off unless comment.summary?)
+            data-text=t('markers.summary')
+          ]
+        - if comment.respond_to? :offtopic?
+          .b-offtopic_marker.active[
+            class=(:off unless comment.offtopic?)
+            data-text=t('markers.offtopic')
+          ]
 
-  .smileys.hidden-block data-href=smileys_comments_url
-    .ajax-loading title=t('loading')
+.smileys.hidden data-href=smileys_comments_url
+  .ajax-loading title=t('loading')
 
-  .links.hidden-block
-    p
-      label
-        = radio_button_tag 'link_type', :url, false,
-          'data-placeholder' => t('.links.placeholder.page_url')
-        span = t '.links.text.link'
+// NOTE: do not remove .hidden-block. it is used in custom styles
+.links.hidden.hidden-block
+  label
+    = radio_button_tag 'link_type', :url, false,
+      'data-placeholder' => t('.links.placeholder.page_url')
+    span = t '.links.text.link'
 
-      label
-        = radio_button_tag 'link_type', :anime, false,
-          'data-placeholder' => t('.links.placeholder.anime_title'),
-          'data-autocomplete' => autocomplete_animes_url
-        span = Anime.model_name.human.downcase
+  label
+    = radio_button_tag 'link_type', :anime, false,
+      'data-placeholder' => t('.links.placeholder.anime_title'),
+      'data-autocomplete' => autocomplete_animes_url
+    span = Anime.model_name.human.downcase
 
-      label
-        = radio_button_tag 'link_type', :manga, false,
-          'data-placeholder' => t('.links.placeholder.manga_title'),
-          'data-autocomplete' => autocomplete_mangas_url
-        span = Manga.model_name.human.downcase
+  label
+    = radio_button_tag 'link_type', :manga, false,
+      'data-placeholder' => t('.links.placeholder.manga_title'),
+      'data-autocomplete' => autocomplete_mangas_url
+    span = Manga.model_name.human.downcase
 
-      label
-        = radio_button_tag 'link_type', :ranobe, false,
-          'data-placeholder' => t('.links.placeholder.ranobe_title'),
-          'data-autocomplete' => autocomplete_ranobe_index_url
-        span = Ranobe.model_name.human.downcase
+  label
+    = radio_button_tag 'link_type', :ranobe, false,
+      'data-placeholder' => t('.links.placeholder.ranobe_title'),
+      'data-autocomplete' => autocomplete_ranobe_index_url
+    span = Ranobe.model_name.human.downcase
 
-      label
-        = radio_button_tag 'link_type', :character, false,
-          'data-placeholder' => t('.links.placeholder.character_name'),
-          'data-autocomplete' => autocomplete_characters_url
-        span = Character.model_name.human.downcase
+  label
+    = radio_button_tag 'link_type', :character, false,
+      'data-placeholder' => t('.links.placeholder.character_name'),
+      'data-autocomplete' => autocomplete_characters_url
+    span = Character.model_name.human.downcase
 
-      label
-        = radio_button_tag 'link_type', :person, false,
-          'data-placeholder' => t('.links.placeholder.person_name'),
-          'data-autocomplete' => autocomplete_people_url
-        span = Person.model_name.human.downcase
+  label
+    = radio_button_tag 'link_type', :person, false,
+      'data-placeholder' => t('.links.placeholder.person_name'),
+      'data-autocomplete' => autocomplete_people_url
+    span = Person.model_name.human.downcase
 
-      = text_field_tag 'link_value', '', class: 'link-value ac_input'
+  .input-container
+    = text_field_tag 'link_value', '', class: 'link-value ac_input'
+    .b-button.ok data-type='links' OK
 
-      span.b-button.ok data-type='links' OK
+.images.hidden.hidden-block
+  span = t '.insert_image'
+  .input-container
+    = text_field_tag 'image_value', '',
+      class: 'link-value',
+      placeholder: t('.links.placeholder.image_url')
 
-  .images.hidden-block
-    p
-      label
-        = t '.insert_image'
-        = text_field_tag 'image_value', '',
-          class: 'link-value',
-          placeholder: t('.links.placeholder.image_url')
+    .b-button.ok data-type='images' OK
 
-      span.b-button.ok data-type='images' OK
+.quotes.hidden.hidden-block
+  span = t '.quote_user'
+  .input-container
+    = text_field_tag 'quote_value', '',
+      class: 'link-value ac_input',
+      placeholder: t('.links.placeholder.user_name'),
+      'data-autocomplete' => autocomplete_users_url
 
-  .quotes.hidden-block
-    p
-      label
-        = t '.quote_user'
-        = text_field_tag 'quote_value', '',
-          class: 'link-value ac_input',
-          placeholder: t('.links.placeholder.user_name'),
-          'data-autocomplete' => autocomplete_users_url
+    .b-button.ok data-type='quotes' OK
 
-      span.b-button.ok data-type='quotes' OK
-
-  = render 'blocks/upload_progress'
+= render 'blocks/upload_progress'
 
 .body
   .editor

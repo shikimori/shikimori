@@ -15,9 +15,80 @@
     font-weight: bold
     margin-bottom: 7px
 
-  .hidden-block
-    display: none
-    margin-top: 3px
+  .controls
+    display: flex
+    align-items: center
+    margin-bottom: 5px
+
+  .links,
+  .images,
+  .quotes,
+  .upload
+    align-items: center
+    display: flex
+    flex-wrap: wrap
+    line-height: inherit
+    margin-top: -5px
+
+    +iphone
+      padding: 4px 0
+
+    label,
+    .input-container
+      align-items: center
+      cursor: pointer
+      display: flex
+
+    label
+      height: 26px
+      margin-right: 15px
+
+    .input-container
+      +iphone
+        flex-basis: 100%
+        height: 42px
+
+      +gte_ipad
+        height: 36px
+
+    .link-value,
+    .b-button.ok
+      line-height: 24px
+
+    .link-value
+      background-color: #fcfcfc
+      border-color: #ddd
+      color: #333
+      padding: 0 5px
+
+      +iphone
+        flex-shrink: 0
+        flex-grow: 1
+
+      +gte_ipad
+        width: 380px
+
+    .b-button.ok
+      margin-left: 15px
+      font-size: 11px
+      padding: 0 5px
+
+  .links
+    input[type=radio]
+      margin-right: 5px
+
+  .images,
+  .quotes
+    flex-wrap: wrap
+
+    span
+      +iphone
+        line-height: 31px
+        flex-basis: 100%
+        margin-bottom: -5px
+
+      +gte_ipad
+        margin-right: 10px
 
   .smileys
     div
@@ -28,59 +99,8 @@
       margin-right: 3px
       margin-bottom: 3px
 
-  .links, .images, .quotes, .email, .upload
-    line-height: 36px
-
-    &.links
-      padding-left: 0
-
-      p
-        overflow: hidden
-        padding-left: 4px
-        white-space: nowrap
-
-    p
-      line-height: inherit
-
-    span
-      padding-left: 5px
-
-    .link-value
-      background-color: #FCFCFC
-      border-color: #DDD
-      color: #333
-      line-height: 24px
-      padding: 0 5px
-      width: 275px
-
-      &.ac_input
-        width: 200px
-
-    .b-button.ok
-      margin-left: 15px
-      font-size: 11px
-      line-height: 12px
-      padding: 3px 5px
-
-    label
-      display: inline-block
-      cursor: pointer
-      margin-right: 10px
-
   .b-upload_progress.active
     margin-bottom: 1px
-
-  .images,
-  .quotes,
-  .email
-    input
-      margin-left: 5px !important
-      width: 380px !important
-
-  .email
-    margin-top: -5px
-    margin-bottom: 10px
-    display: block
 
   .body
     .preview
@@ -100,13 +120,6 @@
 
   .ajax-loading
     height: 100%
-
-  .header
-    margin-bottom: 5px
-
-  .controls
-    display: flex
-    align-items: center
 
   aside.markers
     margin-left: auto
