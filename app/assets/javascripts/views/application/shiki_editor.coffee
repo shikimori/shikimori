@@ -112,9 +112,9 @@ export default class ShikiEditor extends ShikiView
         $block = @$(".#{key}s")
 
         if $button.hasClass('selected')
-          $block.animatedCollapse()
+          $block.hide()
         else
-          $block.animatedExpand()
+          $block.show()
           $block.trigger('click:open')
 
         $button.toggleClass('selected')
