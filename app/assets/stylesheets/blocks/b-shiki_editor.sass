@@ -17,30 +17,19 @@
 
   .hidden-block
     display: none
-    overflow: hidden
-
-    &.with-transition
-      transition: all 0.5s ease
+    margin-top: 3px
 
   .smileys
     div
       margin-bottom: 5px
+
     img
       cursor: pointer
       margin-right: 3px
       margin-bottom: 3px
 
   .links, .images, .quotes, .email, .upload
-    height: 38px
-    line-height: 30px
-    padding-bottom: 8px
-    padding-left: 4px
-
-    +iphone-s
-      height: 43px
-
-    +iphone-gt-s
-      height: 64px
+    line-height: 36px
 
     &.links
       padding-left: 0
@@ -55,9 +44,6 @@
 
     span
       padding-left: 5px
-
-    input
-      margin-top: 4px
 
     .link-value
       background-color: #FCFCFC
@@ -84,7 +70,9 @@
   .b-upload_progress.active
     margin-bottom: 1px
 
-  .images,.quotes,.email
+  .images,
+  .quotes,
+  .email
     input
       margin-left: 5px !important
       width: 380px !important
@@ -113,20 +101,32 @@
   .ajax-loading
     height: 100%
 
+  .header
+    margin-bottom: 5px
+
+  .controls
+    display: flex
+    align-items: center
+
   aside.markers
-    float: right
-    height: 20px
+    margin-left: auto
+    display: flex
+    height: 15px
 
     +lte_ipad
-      line-height: 20px
-      .b-summary_marker, .b-offtopic_marker
-        &:before
-          line-height: 20px
+      height: 20px
 
-.b-shiki_editor
+    .b-summary_marker,
+    .b-offtopic_marker
+      float: none
+      margin-top: 0
+
+      +lte_ipad
+        &:before
+          line-height: 18px
+
   aside.buttons
     float: none !important
-    margin: 0 0 5px
     overflow: hidden
     white-space: nowrap
 
@@ -134,10 +134,11 @@
     .editor-file
       +gt_ipad
         margin-left: $block_offset
+
       +ipad
         margin-left: $block_offset * 2
 
-    +iphone
+    +iphone-portrait
       span
         display: none
 
@@ -146,17 +147,21 @@
       .editor-smiley
         display: inline-block
 
-    +ipad_portrait
-      .editor-strike
-        display: none
-
-    +iphone
       .editor-spoiler
         margin-left: 0
 
-    +iphone_landscape
+    +iphone-landscape
       .editor-bold,
-      .editor-link,
+      .editor-italic,
+      .editor-strike,
+      .editor-underline
+        display: none
+
+      .editor-link
+        margin-left: 0
+
+    +ipad-portrait
+      .editor-strike
         display: none
 
   footer
