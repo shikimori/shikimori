@@ -1,11 +1,20 @@
 @import mixins/responsive
 @import mixins/placeholder
 
-=input
-  border-radius: 0
+=input_colors
   background-color: #fcfcfc
   border-color: #ddd
-  color: #333
+  color: #123
+
+  &:focus
+    border-color: $link-4
+
+  +placeholder
+    color: #999
+
+=input
+  +input_colors
+  border-radius: 0
   line-height: 27px
   margin: 0
   padding: 0 7px
@@ -29,12 +38,8 @@
   &[type=number]
     max-width: 100px
 
-  &:focus
-    border-color: $link-4
-
   +placeholder
     line-height: 27px
-    color: #999
     padding-top: 1px
 
     +iphone
