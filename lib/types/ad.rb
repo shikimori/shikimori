@@ -36,7 +36,7 @@ module Types
         :mt_300x600,
         :mt_970x250,
         :mt_728x90,
-        :mt_footer
+        :mt_footer_300x250
       )
 
     Platform = Types::Strict::Symbol

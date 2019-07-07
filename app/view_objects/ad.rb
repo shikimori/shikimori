@@ -40,7 +40,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         placement: Types::Ad::Placement[:content],
         platform: Types::Ad::Platform[:desktop]
       },
-      Types::Ad::Type[:mt_footer] => {
+      Types::Ad::Type[:mt_footer_300x250] => {
         provider: Types::Ad::Provider[:mytarget],
         mytarget_id: '457333',
         placement: Types::Ad::Placement[:footer],
@@ -173,7 +173,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         placement: Types::Ad::Placement[:content],
         platform: Types::Ad::Platform[:desktop]
       },
-      Types::Ad::Type[:mt_footer] => {
+      Types::Ad::Type[:mt_footer_300x250] => {
         provider: Types::Ad::Provider[:mytarget],
         mytarget_id: '99457',
         placement: Types::Ad::Placement[:footer],
@@ -200,7 +200,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:mt_728x90]
       ],
       Types::Ad::Meta[:footer] => [
-        Types::Ad::Type[:mt_footer]
+        Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
         # Types::Ad::Type[:special_x1170],
@@ -236,7 +236,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:footer] => [
-        Types::Ad::Type[:mt_footer]
+        Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
         # Types::Ad::Type[:special_x1170],
@@ -354,7 +354,14 @@ private
   end
 
   def ad_html # rubocop:disable all
-    if Rails.env.development? && @banner_type =~ /(?<width>\d+)x(?<height>\d+)/
+    if Rails.env.development?
+      width, height =
+        if @banner_type =~ /(?<width>\d+)x(?<height>\d+)/
+          [$LAST_MATCH_INFO[:width], $LAST_MATCH_INFO[:height]]
+        else
+          [500, 500]
+        end
+
       "<div class='ad-placeholder' style='width: #{$LAST_MATCH_INFO[:width]}px; "\
         "height: #{$LAST_MATCH_INFO[:height]}px;' data-banner_type='#{@banner_type}' >"
 
