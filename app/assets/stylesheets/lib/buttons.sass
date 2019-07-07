@@ -14,6 +14,7 @@
   margin-right: 5px
 
   span,
+  label,
   a:not(.b-button)
     display: inline-block
     border-bottom: none
@@ -23,6 +24,7 @@
 
   +gt_ipad
     span,
+    label,
     a:not(.b-button)
       line-height: 15px !important
 
@@ -34,6 +36,7 @@
 
   +lte-ipad
     span,
+    label,
     a:not(.b-button)
       line-height: 25px !important
 
@@ -56,12 +59,15 @@
         &:active
           color: $link-active
 
-    span:last-child, span:last-child
+    span:last-child,
+    span:last-child
       margin-right: 0
 
   .edit-controls, .delete-controls, .moderation-controls
     display: none
-    span:last-child, a:last-child
+
+    span:last-child,
+    a:last-child
       margin-right: 0
 
   .item-save
@@ -156,29 +162,10 @@
 
   .editor-file
     +icon_button('\e80c')
-    position: relative
-
-    span, a
-      height: 20px
-      margin: 0 0 0 -20px !important
-      overflow: hidden
-      padding: 0
-      position: absolute
-      width: 20px
+    cursor: pointer
 
     input
-      cursor: pointer
-      height: 20px
-      opacity: 0
-      padding: 0
-      position: absolute
-      right: 0
-      top: 0
-      width: 20px
-      z-index: 1
-
-  .editor-upload
-    display: none
+      display: none
 
   .cancel
     margin-right: 20px

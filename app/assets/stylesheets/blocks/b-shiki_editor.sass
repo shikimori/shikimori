@@ -31,8 +31,9 @@
       margin-bottom: 3px
 
   .links, .images, .quotes, .email, .upload
-    height: 25px
-    line-height: 25px
+    height: 32px
+    line-height: 30px
+    padding-bottom: 2px
     padding-left: 4px
 
     +iphone-s
@@ -45,7 +46,9 @@
       padding-left: 0
 
       p
+        overflow: hidden
         padding-left: 4px
+        white-space: nowrap
 
     p
       line-height: inherit
@@ -60,9 +63,7 @@
       background-color: #FCFCFC
       border-color: #DDD
       color: #333
-      line-height: 16px
-      margin-top: 2px
-      outline: none
+      line-height: 20px
       padding: 0 5px
       width: 275px
 
@@ -79,10 +80,6 @@
       display: inline-block
       cursor: pointer
       margin-right: 10px
-
-  .links p
-    overflow: hidden
-    white-space: nowrap
 
   .b-upload_progress.active
     margin-bottom: 1px
@@ -133,7 +130,8 @@
     overflow: hidden
     white-space: nowrap
 
-    .editor-link, .editor-file
+    .editor-link,
+    .editor-file
       +gt_ipad
         margin-left: $block_offset
       +ipad
@@ -148,20 +146,18 @@
       .editor-smiley
         display: inline-block
 
-    +ipad-portrait
+    +ipad_portrait
       .editor-strike
         display: none
 
-    +iphone_portrait
+    +iphone
       .editor-spoiler
         margin-left: 0
 
-    +iphone-landscape
+    +iphone_landscape
       .editor-bold,
       .editor-link,
-      .editor-file,
-      .editor-file span
-        display: inline-block
+        display: none
 
   footer
     margin-top: 10px

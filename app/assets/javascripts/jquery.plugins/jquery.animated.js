@@ -13,7 +13,6 @@ const finishExpand = $node =>
     .removeClass('animated-overflow');
 
 $.fn.extend({
-  // анимированное раскрытие элемента
   animatedExpand(startHeigth = 0) {
     return this.each(async function () {
       const $node = $(this);
@@ -38,7 +37,6 @@ $.fn.extend({
     });
   },
 
-  // анимированное скрытие элемента
   animatedCollapse() {
     return this.each(async function () {
       const $node = $(this);

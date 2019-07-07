@@ -322,9 +322,6 @@ export default class ShikiEditor extends ShikiView
       @$textarea.insertAtCaret '', file_text
       @$textarea.focus()
 
-    .on 'upload:before upload:after', (e, file_num) =>
-      @$('.editor-upload').trigger('click')
-
     .on 'upload:success', (e, data, file_num) =>
       file_text = file_text_placeholder.replace('@', file_num)
       if @$textarea.val().indexOf(file_text) == -1
