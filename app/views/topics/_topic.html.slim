@@ -35,6 +35,6 @@ article.b-topic.shiki-object.to-process[
   - if topic_view.show_body?
     = render 'topics/inner', topic_view: topic_view
 
-  / не заменять на minified?, для рецензий будет работать неправильно
+  / do not replace to `minified?`, it will work incorrectly for reviews
   - unless topic_view.is_mini
     = render 'topics/comments', comments_view: topic_view.comments_view
