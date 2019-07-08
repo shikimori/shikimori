@@ -33,10 +33,10 @@ en:
           many: days
         label:
           full: >-
-            %{hours} %{hour_word} since %{from_date} till %{to_date}
-            (%{days} %{day_word})
+            %{hours} %{hourWord} since %{fromDate} till %{toDate}
+            (%{days} %{dayWord})
           short: >-
-            %{hours} %{hour_word} on %{date}
+            %{hours} %{hourWord} on %{date}
 
       # p-user_rates
       p_user_rates:

@@ -33,10 +33,10 @@ ru:
           many: дней
         label:
           full: >-
-            %{hours} %{hour_word} с %{from_date} по %{to_date}
-            (%{days} %{day_word})
+            %{hours} %{hourWord} с %{fromDate} по %{toDate}
+            (%{days} %{dayWord})
           short: >-
-            %{hours} %{hour_word} %{date}
+            %{hours} %{hourWord} %{date}
 
       # p_user-rates
       p_user_rates:

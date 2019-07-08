@@ -59,8 +59,7 @@ pageLoad('profiles_show', () => {
           hours: entry.value,
           hourWord,
           date: fromDate
-        }
-        );
+        });
       }
       const days = dateDiff(entry.dates.from, entry.dates.to);
       const dayWord = days === Math.round(days) ?
@@ -77,8 +76,7 @@ pageLoad('profiles_show', () => {
         toDate,
         days,
         dayWord
-      }
-      );
+      });
     },
 
     x_axis(entry, index, stats, options) {
