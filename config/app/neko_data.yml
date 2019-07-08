@@ -4553,6 +4553,13 @@
         - 34394
         - 35472
         - 35473
+        - 38333
+        - 37773
+        - 38091
+        - 37940
+        - 39078
+        - 31537
+        - 38199
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5016,6 +5023,13 @@
         - 34394
         - 35472
         - 35473
+        - 38333
+        - 37773
+        - 38091
+        - 37940
+        - 39078
+        - 31537
+        - 38199
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5479,6 +5493,13 @@
         - 34394
         - 35472
         - 35473
+        - 38333
+        - 37773
+        - 38091
+        - 37940
+        - 39078
+        - 31537
+        - 38199
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -7854,8 +7875,8 @@
   attributes:
     :neko_id: :yoshiaki_kawajiri
     :level: 1
-    :image: 
-    :border_color: 
+    :image: https://desu.shikimori.one/system/user_images/original/34807/813553.jpg
+    :border_color: "#C73674"
     :title_ru: Ёсиаки Кавадзири
     :text_ru: 
     :title_en: Yoshiaki Kawajiri
@@ -7866,92 +7887,51 @@
       :threshold: 100%
       :filters:
         anime_ids:
+        - 4094
+        - 2178
+        - 1303
         - 156
-        - 207
-        - 242
-        - 302
-        - 311
-        - 326
-        - 372
-        - 496
-        - 499
-        - 522
         - 543
         - 566
-        - 595
-        - 599
-        - 617
-        - 618
-        - 956
-        - 1041
-        - 1081
-        - 1107
-        - 1269
-        - 1303
-        - 1352
-        - 1462
-        - 1483
-        - 1626
-        - 1793
-        - 1824
-        - 1825
-        - 1879
-        - 1880
-        - 1893
-        - 1951
-        - 2029
-        - 2178
-        - 2216
-        - 2389
-        - 2402
-        - 2427
-        - 2429
-        - 2456
         - 2500
-        - 2542
-        - 2621
-        - 2755
-        - 2770
+        - 617
+        - 1352
+        - 1951
+        - 1880
+        - 1879
+        - 499
         - 2998
-        - 3007
-        - 3014
-        - 3115
-        - 3829
-        - 4094
-        - 5618
-        - 5760
-        - 5935
-        - 6087
-        - 6262
-        - 6675
-        - 8235
-        - 8500
-        - 8763
-        - 9916
-        - 10271
+        - 1107
+        - 2770
         - 10629
-        - 10800
-        - 10889
-        - 14345
-        - 14397
-        - 15847
-        - 18689
-        - 28497
-        - 28537
-        - 29803
-        - 30276
-        - 31588
-        - 31764
-        - 33337
-        - 37451
+        - 6675
+        - 522
+        - 372
+        - 1462
+        - 3829
+        - 2456
+        - 3115
+        - 496
+        - 1825
+        - 1824
+        - 1626
+        - 2029
+        - 2427
+        - 2389
+        - 2755
+        - 595
+        - 1269
+        - 1793
+        - 3014
+        - 618
       :generator:
         person_id: 5812
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
   neko_id: :yoshiaki_kawajiri
   level: 1
-  image: 
-  border_color: 
+  image: https://desu.shikimori.one/system/user_images/original/34807/813553.jpg
+  border_color: "#C73674"
   title_ru: Ёсиаки Кавадзири
   text_ru: 
   title_en: Yoshiaki Kawajiri
@@ -10052,71 +10032,6 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :shoutarou_ishinomori
-    :level: 1
-    :image: 
-    :border_color: 
-    :title_ru: Сётаро Исиномори
-    :text_ru: 
-    :title_en: Shoutarou Ishinomori
-    :text_en: 
-    :topic_id: 276032
-    :rule: &110
-      :algo: count
-      :threshold: 100%
-      :filters:
-        anime_ids:
-        - 385
-        - 598
-        - 1537
-        - 1583
-        - 1678
-        - 1768
-        - 2161
-        - 2811
-        - 3100
-        - 3190
-        - 3234
-        - 3834
-        - 4690
-        - 4907
-        - 5273
-        - 5997
-        - 6311
-        - 6872
-        - 7290
-        - 7336
-        - 8394
-        - 9438
-        - 9629
-        - 9781
-        - 11545
-        - 11755
-        - 12809
-        - 16303
-        - 19505
-        - 19901
-        - 20109
-        - 20233
-        - 25473
-        - 31050
-      :generator:
-        person_id: 2478
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :shoutarou_ishinomori
-  level: 1
-  image: 
-  border_color: 
-  title_ru: Сётаро Исиномори
-  text_ru: 
-  title_en: Shoutarou Ishinomori
-  text_en: 
-  topic_id: 276032
-  rule: *110
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
     :neko_id: :tomoharu_katsumata
     :level: 1
     :image: "/assets/achievements/anime/author/tomoharu_katsumata.jpg"
@@ -10126,7 +10041,7 @@
     :title_en: Tomoharu Katsumata
     :text_en: 
     :topic_id: 276032
-    :rule: &111
+    :rule: &110
       :algo: count
       :threshold: 100%
       :filters:
@@ -10157,6 +10072,52 @@
   title_ru: Томохару Кацумата
   text_ru: 
   title_en: Tomoharu Katsumata
+  text_en: 
+  topic_id: 276032
+  rule: *110
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :toshio_maeda
+    :level: 1
+    :image: https://sjohnru.files.wordpress.com/2019/07/choujin-densetsu-urotsukidouji-1987-avatar.png
+    :border_color: "#FF4F00"
+    :title_ru: Тосио Маэда
+    :text_ru: 
+    :title_en: Toshio Maeda
+    :text_en: 
+    :topic_id: 276032
+    :rule: &111
+      :algo: count
+      :threshold: 100%
+      :filters:
+        anime_ids:
+        - 2341
+        - 2359
+        - 2338
+        - 2360
+        - 1272
+        - 2977
+        - 2343
+        - 2344
+        - 2340
+        - 2339
+        - 1274
+        - 2345
+        - 3982
+        - 1273
+        - 1353
+      :generator:
+        person_id: 6305
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :toshio_maeda
+  level: 1
+  image: https://sjohnru.files.wordpress.com/2019/07/choujin-densetsu-urotsukidouji-1987-avatar.png
+  border_color: "#FF4F00"
+  title_ru: Тосио Маэда
+  text_ru: 
+  title_en: Toshio Maeda
   text_en: 
   topic_id: 276032
   rule: *111
