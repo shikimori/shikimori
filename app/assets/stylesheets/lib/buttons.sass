@@ -8,7 +8,7 @@
   margin-top: -6px
 
 .buttons
-  color: #999999
+  color: #999
   float: right
   font: 13px/20px 'Trebuchet MS', Tahoma, Arial, Helvetica, sans-serif
   margin-right: 5px
@@ -22,6 +22,18 @@
     &:first-child
       margin-left: 0
 
+  +lte_ipad
+    span,
+    label,
+    a:not(.b-button)
+      line-height: 25px !important
+
+      &:before
+        line-height: 25px !important
+
+    & > div
+      line-height: 25px !important
+
   +gt_ipad
     span,
     label,
@@ -34,22 +46,10 @@
     & > div
       line-height: 15px !important
 
-  +lte-ipad
-    span,
-    label,
-    a:not(.b-button)
-      line-height: 25px !important
-
-      &:before
-        line-height: 25px !important
-
-    & > div
-      line-height: 25px !important
-
 
   .main-controls
     a
-      color: #666666
+      color: #666
 
       &:hover
         color: $link-hover
