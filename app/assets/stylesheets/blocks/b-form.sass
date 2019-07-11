@@ -1,4 +1,5 @@
 @import mixins/clearfix
+@import mixins/margins
 @import mixins/block
 @import mixins/clear_left
 @import mixins/clear_right
@@ -71,8 +72,8 @@
     +shiki_button
 
   .inputs
-    .b-input
-      margin-bottom: 20px
+  .inputs, .b-input
+    +mb(20px)
 
   .buttons
     margin-right: 0

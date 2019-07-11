@@ -18,7 +18,7 @@
   = f.input :linked_type, as: :hidden
 
   .inputs.m15
-    .fc-2.block
+    .block class=('fc-2' if topic_type_policy.news_topic?)
       .f-column
         - if topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
           = f.input :type, as: :select, include_blank: false,
