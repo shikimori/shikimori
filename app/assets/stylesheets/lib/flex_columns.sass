@@ -1,0 +1,21 @@
+@import mixins/responsive
+
+.fc-2
+  display: flex
+
+  +gte_ipad
+    margin-left: -20px
+    margin-right: -20px
+
+  & > .f-column
+    margin-left: 20px
+    margin-right: 20px
+
+    +gte_ipad
+      flex-basis: 50%
+
+    // &:first-child
+    //   background: rgba(#f00, 0.5)
+
+    // &:last-child
+    //   background: rgba(#0f0, 0.5)
