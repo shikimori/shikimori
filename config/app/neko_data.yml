@@ -4560,6 +4560,7 @@
         - 39078
         - 31537
         - 38199
+        - 39324
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5030,6 +5031,7 @@
         - 39078
         - 31537
         - 38199
+        - 39324
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5500,6 +5502,7 @@
         - 39078
         - 31537
         - 38199
+        - 39324
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
