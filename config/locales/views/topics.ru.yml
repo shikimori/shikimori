@@ -33,10 +33,12 @@ ru:
         news_topic: Новостной топик
       rules:
         go_next: Далее →
-      news_form:
-        topic_video: Видео к новости
-        topic_posters: Картинки к новости
+      video:
         attach: Прикрепить
+        topic_video: Видео к новости
+      posters:
+        drag_here: Перетаскивайте сюда картинки, они будут отображены отдельным блоком в топике.
+        topic_posters: Картинки к новости
     status_line:
       about: о
       by: от

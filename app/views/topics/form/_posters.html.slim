@@ -1,0 +1,13 @@
+.topic-posters
+  .title = t '.topic_posters'
+
+  label: .b-dropzone[
+    data-upload_url=api_user_images_url(linked_type: Topic.name)
+    data-hint=t('.drag_here')
+  ]
+    = render 'blocks/upload_progress'
+    .b-shiki_wall.unprocessed
+      = render partial: 'club_images/club_image',
+        collection: decomposed_body.wall_images,
+        locals: { topic_poster_edit: true }
+    input type='file' multiple='multiple'

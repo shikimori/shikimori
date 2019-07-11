@@ -1,0 +1,49 @@
+@import globals/variables
+@import mixins/column
+@import mixins/frame_form
+
+.p-topics-new,
+.p-topics-edit,
+.p-topics-create,
+.p-topics-update
+  .topic-video
+    +frame_form
+    margin-bottom: $block_offset / 2 !important
+
+    // +gte_ipad
+      float: right
+
+    .title
+      font-weight: bold
+
+      .remove
+        font-weight: normal
+
+    .video
+      line-height: 0
+
+      .b-video
+        margin-bottom: 0
+
+    .form
+      margin-top: 5px
+
+      input
+        width: 100%
+
+      .name-kind
+        display: flex
+        align-items: center
+
+        .b-input
+          margin-bottom: 0
+
+        .video-name
+          flex-grow: 1
+          margin-right: $block_offset * 0.75
+
+      .errors
+        color: $red
+        display: none
+        margin-bottom: $block_offset / 2
+

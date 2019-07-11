@@ -18,67 +18,42 @@
   = f.input :linked_type, as: :hidden
 
   .inputs.m15
-    - if topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
-      = f.input :type, as: :select, include_blank: false,
-        collection: [Topic, Topics::NewsTopic].map { |v| [v.model_name.human, v.name] },
-        input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
-    - else
-        = f.input :type, as: :hidden
+    .fc-2.block
+      .f-column
+        - if topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
+          = f.input :type, as: :select, include_blank: false,
+            collection: [Topic, Topics::NewsTopic].map { |v| [v.model_name.human, v.name] },
+            input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+        - else
+            = f.input :type, as: :hidden
 
-    - if topic_type_policy.any_club_topic?
-        = f.input :forum_id, as: :hidden
-    - else
-      = f.input :forum_id, as: :select, include_blank: false,
-        collection: Forum.public,
-        input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+        - if topic_type_policy.any_club_topic?
+            = f.input :forum_id, as: :hidden
+        - else
+          = f.input :forum_id, as: :select, include_blank: false,
+            collection: Forum.public,
+            input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
-    = f.input :title
+        = f.input :title
 
-    - if topic_type_policy.any_club_topic?
-      = f.input :linked_id, as: :hidden
-      = f.input :linked_type, as: :hidden
+        - if topic_type_policy.any_club_topic?
+          = f.input :linked_id, as: :hidden
+          = f.input :linked_type, as: :hidden
 
-    - else
-      .topic_linked
-        .b-input.string.optional
-          label.string.optional.control-label for="topic_linked"
-            = t 'activerecord.attributes.topic.linked'
-          input.string.optional#topic_linked[
-            type="text"
-            data-anime-placeholder=t('anime_title')
-            data-manga-placeholder=t('manga_title')
-            data-ranobe-placeholder=t('ranobe_title')
-            data-character-placeholder=t('character_name')
-            data-person-placeholder=t('person_name')
-            data-anime-autocomplete=autocomplete_animes_url
-            data-manga-autocomplete=autocomplete_mangas_url
-            data-ranobe-autocomplete=autocomplete_ranobe_index_url
-            data-character-autocomplete=autocomplete_characters_url
-            data-person-autocomplete=autocomplete_people_url
-            style=('display: none;' if topic.linked.present?)
-          ]
-          select.type[
-            style=('display: none;' if topic.linked.present?)
-          ]
-            option value=Anime.name = Anime.model_name.human
-            option value=Manga.name = Manga.model_name.human
-            option value=Ranobe.name = Ranobe.model_name.human
-            option value=Character.name = Character.model_name.human
-            option value=Person.name = Person.model_name.human
+        - else
+          = render 'topics/form/linked', topic: topic
 
-        .topic-link[
-          style=('display: none;' unless topic.linked.present?)
-        ]
-          - if topic.linked.present?
-            a.bubbled.b-link[
-              href=url_for(topic.linked)
-              title=topic.linked.name
-            ]
-              = topic.linked.name
-          .b-js-action.remove = t('actions.delete').downcase
+      - if topic_type_policy.news_topic?
+        .f-column.f-topic-video
+          .attachments-hidden
+
+          = render 'topics/form/video',
+            topic: topic,
+            f: f,
+            decomposed_body: Topics::DecomposeBody.new(topic)
 
     - if topic_type_policy.news_topic?
-      = render 'topics/form/news_form',
+      = render 'topics/form/posters',
         topic: topic,
         f: f,
         decomposed_body: Topics::DecomposeBody.new(topic)

@@ -33,10 +33,12 @@ en:
         news_topic: News topic
       rules:
         go_next: Next →
-      news_form:
-        topic_video: News video
-        topic_posters: News posters
+      video:
         attach: Attach
+        topic_video: News video
+      posters:
+        drag_here: Drag images here, they will be displayed in a separate block in the topic.
+        topic_posters: News posters
     status_line:
       about: about
       by: by

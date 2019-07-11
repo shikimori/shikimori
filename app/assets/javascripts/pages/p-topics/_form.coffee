@@ -1,4 +1,4 @@
-LINKED_TYPE_USER_SELECT = '.topic_linked select.type'
+LINKED_TYPE_USER_SELECT = '.topic-linked select.type'
 
 pageLoad 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $ '.b-form.edit_topic, .b-form.new_topic'
@@ -30,7 +30,7 @@ pageLoad 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $('#topic_forum_id', $form).trigger('change')
 
   # сброс привязанного к топику
-  $('.topic_linked .remove', $form).on 'click', ->
+  $('.topic-linked .remove', $form).on 'click', ->
     $topic_link.find('a').remove()
     $('#topic_linked_id', $form).val('')
     # $('#topic_linked_type', $form).val('')

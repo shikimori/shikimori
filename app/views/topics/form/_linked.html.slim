@@ -1,0 +1,38 @@
+.b-input.topic-linked
+  label for='topic_linked'
+    = t 'activerecord.attributes.topic.linked'
+
+  .linked-type
+    input#topic_linked[
+      type='text'
+      data-anime-placeholder=t('anime_title')
+      data-manga-placeholder=t('manga_title')
+      data-ranobe-placeholder=t('ranobe_title')
+      data-character-placeholder=t('character_name')
+      data-person-placeholder=t('person_name')
+      data-anime-autocomplete=autocomplete_animes_url
+      data-manga-autocomplete=autocomplete_mangas_url
+      data-ranobe-autocomplete=autocomplete_ranobe_index_url
+      data-character-autocomplete=autocomplete_characters_url
+      data-person-autocomplete=autocomplete_people_url
+      style=('display: none;' if topic.linked.present?)
+    ]
+    select.type[
+      style=('display: none;' if topic.linked.present?)
+    ]
+      option value=Anime.name = Anime.model_name.human
+      option value=Manga.name = Manga.model_name.human
+      option value=Ranobe.name = Ranobe.model_name.human
+      option value=Character.name = Character.model_name.human
+      option value=Person.name = Person.model_name.human
+
+  .topic-link[
+    style=('display: none;' unless topic.linked.present?)
+  ]
+    - if topic.linked.present?
+      a.bubbled.b-link[
+        href=url_for(topic.linked)
+        title=topic.linked.name
+      ]
+        = topic.linked.name
+    .b-js-action.remove = t('actions.delete').downcase

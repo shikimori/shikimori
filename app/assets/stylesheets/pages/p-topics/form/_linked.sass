@@ -1,0 +1,15 @@
+@import mixins/clearfix
+@import mixins/responsive
+
+.p-topics-new,
+.p-topics-edit,
+.p-topics-create,
+.p-topics-update
+  .topic-linked
+    .linked-type
+      display: flex
+      align-items: center
+
+      input
+        margin-right: $block_offset * 0.75
+        flex-grow: 1

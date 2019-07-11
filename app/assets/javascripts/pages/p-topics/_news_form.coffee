@@ -6,7 +6,7 @@ pageLoad 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $linked_type = $ '#topic_linked_type', $form
 
   # загрузка постера
-  $upload = $ '.topic_posters .b-dropzone', $form
+  $upload = $ '.topic-posters .b-dropzone', $form
   $wall = $upload.find('.b-shiki_wall')
 
   $upload
@@ -33,7 +33,7 @@ pageLoad 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
     remove_image $(@).closest('.b-image').remove(), $wall
 
   # прикреплённое видео
-  $topic_video = $ '.topic_video', $form
+  $topic_video = $ '.topic-video', $form
 
   if $topic_video.data 'video_id'
     attach_video {
@@ -64,7 +64,7 @@ pageLoad 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
 
   # создание/редактирование топика
   $form.on 'submit', ->
-    $attachments = $('.attachments', $form).empty()
+    $attachments = $('.attachments-hidden', $form).empty()
 
     # постеры
     $('.b-dropzone a', $form)

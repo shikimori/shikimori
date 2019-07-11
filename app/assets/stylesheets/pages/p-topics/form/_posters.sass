@@ -1,0 +1,22 @@
+@import mixins/responsive
+
+.p-topics-new,
+.p-topics-edit,
+.p-topics-create,
+.p-topics-update
+  .topic-posters
+    clear: right
+    margin-bottom: $block_offset * 1.5
+
+    .title
+      font-weight: bold
+
+      +gte_ipad
+        margin-top: -25px
+        position: absolute
+
+      +iphone
+        margin-bottom: 5px
+
+    .b-input
+      margin-bottom: 0
