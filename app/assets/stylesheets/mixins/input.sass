@@ -18,7 +18,7 @@
   line-height: 27px
   margin: 0
   padding: 0 7px
-  max-width: 100%
+  width: 100%
 
   &[type=submit],
   &[type=text],
@@ -46,13 +46,12 @@
       padding-top: 0
       line-height: 31px
 
-  +gte_ipad
-    &:not(textarea)
-      width: 375px
+  +iphone
+    line-height: 31px
 
   +lte_ipad
     font-size: 16px
 
-  +iphone
-    line-height: 31px
-    width: 100%
+  +gte_ipad
+    &:not(textarea)
+      max-width: 375px
