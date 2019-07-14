@@ -28,6 +28,7 @@ class NameValidator < ActiveModel::EachValidator
     user_agent
     country
     podcast
+    redirect
   ]
   FORBIDDEN_NAMES = /
     \A(?:

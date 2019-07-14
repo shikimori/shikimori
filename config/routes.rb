@@ -67,6 +67,8 @@ Rails.application.routes.draw do
     resources kind, only: [], concerns: %i[autocompletable]
   end
 
+  resource :redirects, only: :show
+
   resources :pages, path: '/', only: [] do
     collection do
       get :copyrighted
