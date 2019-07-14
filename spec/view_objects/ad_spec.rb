@@ -133,7 +133,10 @@ describe Ad do
   end
 
   describe '#to_html' do
-    before { ad.instance_variable_set '@banner_type', banner_type }
+    before do
+      ad.instance_variable_set '@banner_type', banner_type
+      ad.instance_variable_set '@rules', nil
+    end
 
     context 'advertur' do
       let(:banner_type) { :advrtr_240x400 }

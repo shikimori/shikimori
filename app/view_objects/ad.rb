@@ -9,7 +9,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       # disable after 2019-07-28
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://kassa.rambler.ru/movie/98662',
+        url: '/redirects?url=https://kassa.rambler.ru/movie/98662',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
@@ -26,7 +26,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       # disable after 2019-07-28
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://kassa.rambler.ru/movie/98662',
+        url: '/redirects?url=https://kassa.rambler.ru/movie/98662',
         images: (2..2).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
@@ -100,7 +100,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       # disable after 2019-07-28
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://kassa.rambler.ru/movie/98662',
+        url: '/redirects?url=https://kassa.rambler.ru/movie/98662',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
@@ -117,7 +117,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       # disable after 2019-07-28
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://kassa.rambler.ru/movie/98662',
+        url: '/redirects?url=https://kassa.rambler.ru/movie/98662',
         images: (2..2).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
