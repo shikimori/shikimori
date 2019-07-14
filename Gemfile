@@ -81,6 +81,7 @@ gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлд
 gem 'htmldiff-lcs', github: 'nbudin/htmldiff-lcs', require: 'htmldiff'
 
 gem 'acts-as-taggable-on'
+
 gem 'acts_as_list'
 gem 'retryable'
 gem 'truncate_html'

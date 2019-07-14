@@ -6,9 +6,58 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
 
   BANNERS = {
     true => {
+      # disable after 2019-07-28
       Types::Ad::Type[:special_x300] => {
+        provider: Types::Ad::Provider[:special],
+        url: 'https://kassa.rambler.ru/movie/98662',
+        images: (1..1).map do |i|
+          {
+            src: "/assets/globals/events/special_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          }
+        end,
+        rules: {
+          cookie: 'i1',
+          shows_per_week: 80
+        },
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
       },
+      # disable after 2019-07-28
       Types::Ad::Type[:special_x1170] => {
+        provider: Types::Ad::Provider[:special],
+        url: 'https://kassa.rambler.ru/movie/98662',
+        images: (2..2).map do |i|
+          {
+            src: "/assets/globals/events/special_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          }
+        end,
+        # html: (
+        #   <<~HTML
+        #     <style>
+        #       #iframe_special_x1170 {
+        #         max-width: 1150px;
+        #         width: 100%;
+        #         height: 180px;
+        #         margin: 0 auto;
+        #         overflow: hidden;
+        #       }
+        #       .spns_special_x1170 {
+        #         max-width: 1150px;
+        #         margin: 0 auto;
+        #         overflow: hidden;
+        #       }
+        #       .b-spns-special_x1170 {
+        #         margin: 0 auto 45px;
+        #         overflow: hidden;
+        #       }
+        #     </style>
+        #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
+        #   HTML
+        # ),
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
       },
       Types::Ad::Type[:mt_300x250] => {
         provider: Types::Ad::Provider[:mytarget],
@@ -48,64 +97,33 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       }
     },
     false => {
-      # disable after 2019-02-11
+      # disable after 2019-07-28
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://animeinrussia.ru/goto/1/',
+        url: 'https://kassa.rambler.ru/movie/98662',
+        images: (1..1).map do |i|
+          {
+            src: "/assets/globals/events/special_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          }
+        end,
+        rules: {
+          cookie: 'i1',
+          shows_per_week: 80
+        },
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      # disable after 2019-07-28
+      Types::Ad::Type[:special_x1170] => {
+        provider: Types::Ad::Provider[:special],
+        url: 'https://kassa.rambler.ru/movie/98662',
         images: (2..2).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
             src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
           }
         end,
-        # rules: {
-        #   cookie: 'i2',
-        #   shows_per_week: 30
-        # },
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:special_x1170] => {
-        provider: Types::Ad::Provider[:special],
-        # html: (
-        #   <<~HTML
-        #     <style>
-        #       #iframe_special_x1170 {
-        #         max-width: 1150px;
-        #         width: 100%;
-        #         height: 180px;
-        #         margin: 0 auto;
-        #         overflow: hidden;
-        #       }
-        #       .spns_special_x1170 {
-        #         max-width: 1150px;
-        #         margin: 0 auto;
-        #         overflow: hidden;
-        #       }
-        #       .b-spns-special_x1170 {
-        #         margin: 0 auto 45px;
-        #         overflow: hidden;
-        #       }
-        #     </style>
-        #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
-        #   HTML
-        # ),
-        url: 'https://www.animenagrani.com/',
-        images: (3..3).map do |i|
-          {
-            src: "/assets/globals/events/special_#{i}.jpg"
-            # src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
-          }
-        end,
-        # images: [{
-        #   url: 'https://creagames.com/ref/575?utm_source=shikimori&utm_medium=banner',
-        #   src: '/assets/globals/events/special_1.jpg?1',
-        #   src_2x: '/assets/globals/events/special_1@2x.jpg?1'
-        # }, {
-        #   url: 'https://creagames.com/games/kr?utm_source=shikimori&utm_medium=banner',
-        #   src: '/assets/globals/events/special_2.jpg',
-        #   src_2x: '/assets/globals/events/special_2@2x.jpg'
-        # }],
         placement: Types::Ad::Placement[:content],
         platform: Types::Ad::Platform[:desktop]
       },
@@ -188,9 +206,11 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
+        Types::Ad::Type[:special_x300], # disable after 2019-07-28
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
+        Types::Ad::Type[:special_x300], # disable after 2019-07-28
         Types::Ad::Type[:mt_300x600]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
@@ -203,25 +223,24 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170],
+        Types::Ad::Type[:special_x1170], # disable after 2019-07-28
         Types::Ad::Type[:mt_970x250]
       ]
     },
     false => {
       Types::Ad::Meta[:menu_300x250] => [
-        # Types::Ad::Type[:special_x300],
         # Types::Ad::Type[:mt_300x250],
         Types::Ad::Type[:yd_240x400],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300],
+        Types::Ad::Type[:special_x300], # disable after 2019-07-28
         # Types::Ad::Type[:mt_240x400],
         Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300],
+        Types::Ad::Type[:special_x300], # disable after 2019-07-28
         # Types::Ad::Type[:mt_300x600],
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:advrtr_240x400]
@@ -341,6 +360,10 @@ private
     provider == Types::Ad::Provider[:mytarget]
   end
 
+  def special?
+    provider == Types::Ad::Provider[:special]
+  end
+
   def banner?
     banner[:images].present?
   end
@@ -354,7 +377,7 @@ private
   end
 
   def ad_html # rubocop:disable all
-    if Rails.env.development?
+    if Rails.env.development? && !special?
       width, height =
         if @banner_type =~ /(?<width>\d+)x(?<height>\d+)/
           [$LAST_MATCH_INFO[:width], $LAST_MATCH_INFO[:height]]
