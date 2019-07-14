@@ -4,6 +4,7 @@ class Ads::Rules
   attr_reader :shows
   instance_cache :shows_policy, :shows_this_day, :shows_this_week
 
+  VERY_FAST = 'very_fast'
   FAST = 'fast'
   SLOW = 'slow'
 
@@ -13,6 +14,9 @@ class Ads::Rules
     ],
     FAST => [
       0.seconds, 30.seconds, 2.minutes, 3.minutes
+    ],
+    VERY_FAST => [
+      0.seconds, 5.seconds, 10.seconds
     ]
   }
   DAY_INTERVAL = 12.hours
@@ -56,7 +60,9 @@ private
   end
 
   def shows_policy
-    if shows_ratio >= period_ratio
+    if slow_shows_per_day - shows_this_day.size > INTERVALS[SLOW].size * 2
+      VERY_FAST
+    elsif shows_ratio >= period_ratio
       SLOW
     else
       FAST
@@ -85,15 +91,19 @@ private
   end
 
   def shows_this_day
-    @shows.select { |v| v > @day_ago }
+    @shows_this_day ||= @shows.select { |v| v > @day_ago }
   end
 
   def shows_per_day
     if fast_shows?
       (shows_per_week.to_f / 3.5).ceil
     else
-      (shows_per_week.to_f / 7).ceil
+      slow_shows_per_day
     end
+  end
+
+  def slow_shows_per_day
+    (shows_per_week.to_f / 7).ceil
   end
 
   def shows_per_week
