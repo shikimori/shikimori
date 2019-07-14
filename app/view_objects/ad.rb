@@ -258,7 +258,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170],
+        Types::Ad::Type[:special_x1170], # disable after 2019-07-28
         Types::Ad::Type[:yd_horizontal]
       ]
     }
@@ -274,18 +274,11 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
 
     META_TYPES[h.clean_host?][Types::Ad::Meta[meta]].each do |type|
       switch_banner Types::Ad::Type[type]
-      break if policy.allowed?
+      break if allowed?
     end
   end
 
   def allowed?
-    # # temporarily disable advertur
-    # if provider == Types::Ad::Provider[:advertur] &&
-        # h.params[:action] != 'advertur_test' && Rails.env.production? &&
-        # h.current_user&.id != 1
-      # return false
-    # end
-
     if h.controller.instance_variable_get controller_key(banner[:placement])
       false
     else
@@ -332,7 +325,7 @@ private
   def switch_banner banner_type
     @banner_type = banner_type
     @policy = build_policy
-    @rules = build_rules if banner[:rules]
+    @rules = build_rules
   end
 
   def build_policy
@@ -345,6 +338,8 @@ private
   end
 
   def build_rules
+    return unless banner[:rules]
+
     Ads::Rules.new banner[:rules], h.cookies[banner[:rules][:cookie]]
   end
 
