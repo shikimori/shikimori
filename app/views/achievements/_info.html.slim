@@ -5,7 +5,8 @@
       .key neko_id:&nbsp;
       .value = view.achievement.neko_id
 
-    - unless view.achievement.franchise_author?
+    / - unless view.achievement.franchise_author?
+    - unless view.achievement.franchise?
       .line.level
         .key #{t '.levels'}:&nbsp;
         .value = view.achievements.size
@@ -34,7 +35,8 @@
   .line
     .key #{t '.threshold'}:&nbsp;
     .value.thresholds
-      - if view.animes_count&.positive? && !view.achievement.franchise_author?
+      / - if view.animes_count&.positive? && !view.achievement.franchise_author?
+      - if view.animes_count&.positive? && !view.achievement.franchise?
         - view.achievements.each do |achievement|
           span
             - if view.filters
@@ -73,7 +75,8 @@
           .line
             .key #{t '.your_overall_progress'}:&nbsp;
             .value
-              - if view.user_achievement.franchise_author?
+              / - if view.user_achievement.franchise_author?
+              - if view.user_achievement.franchise?
                 = format_percent view.franchise_percent
               - else
                 = format_percent view.overall_percent
