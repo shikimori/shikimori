@@ -13,10 +13,30 @@ describe BbCodes::Tags::ImageTag do
     context 'common case' do
       it do
         is_expected.to eq(
-          "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :thumbnail, false}\" class=\"\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
-<span class=\"marker\">400x500</span></a>"
+          <<-HTML.squish.strip
+            <a href="#{user_image.image.url :original, false}"
+              rel="#{text_hash}"
+              class="b-image unprocessed"><img
+                src="#{user_image.image.url :thumbnail, false}"
+                data-width="#{user_image.width}"
+                data-height="#{user_image.height}"
+              /><span class="marker">400x500</span></a>
+          HTML
+        )
+      end
+    end
+
+    context 'no zoom' do
+      let(:text) { "[image=#{user_image.id} no-zoom]" }
+
+      it do
+        is_expected.to eq(
+          <<-HTML.squish.strip
+            <a class="b-image no-zoom"><img
+              src="#{user_image.image.url :original, false}"
+              class="check-width"
+            /></a>
+          HTML
         )
       end
     end
@@ -27,10 +47,10 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
       it do
         is_expected.to eq(
           "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :thumbnail, false}\" class=\"\" \
+<img src=\"#{user_image.image.url :thumbnail, false}\" \
 data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
 <span class=\"marker\">400x500</span></a> <a href=\"#{user_image_2.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image_2.image.url :thumbnail, false}\" class=\"\" \
+<img src=\"#{user_image_2.image.url :thumbnail, false}\" \
 data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
 <span class=\"marker\">1000x1000</span></a>"
         )
@@ -41,8 +61,11 @@ data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
       let(:user_image) { create :user_image, width: 249, height: 249 }
       it do
         is_expected.to eq(
-          "<img src=\"#{user_image.image.url :original, false}\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />"
+          <<-HTML.squish.strip
+            <a class="b-image no-zoom"><img
+              src="#{user_image.image.url :original, false}" class="check-width"
+            /></a>
+          HTML
         )
       end
 
@@ -52,8 +75,11 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />"
 
         it do
           is_expected.to eq(
-            "<img src=\"#{user_image.image.url :original, false}\" class=\"abc\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />"
+            <<-HTML.squish.strip
+              <a class="b-image no-zoom"><img
+                src="#{user_image.image.url :original, false}" class="check-width abc"
+              /></a>
+            HTML
           )
         end
       end
@@ -74,7 +100,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />"
       it do
         is_expected.to eq(
           "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\" class=\"\" width=\"400\" height=\"400\" \
+<img src=\"#{user_image.image.url :preview, false}\" width=\"400\" height=\"400\" \
 data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
 <span class=\"marker\">400x400</span></a>"
         )
@@ -86,7 +112,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
       it do
         is_expected.to eq(
           "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\" class=\"\" width=\"400\" \
+<img src=\"#{user_image.image.url :preview, false}\" width=\"400\" \
 data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
 <span class=\"marker\">400x500</span></a>"
         )
@@ -98,7 +124,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
       it do
         is_expected.to eq(
           "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\" class=\"\" height=\"400\" \
+<img src=\"#{user_image.image.url :preview, false}\" height=\"400\" \
 data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
 <span class=\"marker\">400x500</span></a>"
         )
@@ -110,7 +136,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
       it do
         is_expected.to eq(
           "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :preview, false}\" class=\"\" width=\"400\" height=\"500\" \
+<img src=\"#{user_image.image.url :preview, false}\" width=\"400\" height=\"500\" \
 data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
 <span class=\"marker\">400x500</span></a>"
         )
@@ -120,6 +146,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
     context 'with class' do
       let(:text) { "[image=#{user_image.id} w=400 h=500 c=test]" }
       it do
+        puts subject
         is_expected.to eq(
           "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{user_image.image.url :preview, false}\" class=\"test\" width=\"400\" height=\"500\" \

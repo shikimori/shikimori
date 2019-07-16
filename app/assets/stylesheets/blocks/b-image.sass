@@ -8,7 +8,7 @@
 .b-image
   +image_editable
   +media
-  cursor: zoom-in !important
+  cursor: zoom-in
 
   &:hover
     img
@@ -20,7 +20,15 @@
     img
       width: $media_width
 
-  &.unprocessed img
+  &.no-zoom
+    cursor: default
+
+    &:hover
+      img
+        opacity: 1
+
+  &.unprocessed img,
+  &.check-width img
     max-width: $media_width !important
     max-height: $media_width !important
 
@@ -42,3 +50,14 @@
       font-size: 12px
       line-height: 20px
       padding: 0 5px 0 1px
+
+img
+  &.check-width
+    max-width: $media_width !important
+    max-height: $media_width !important
+
+  &.normalized_width
+    max-width: $media_width !important
+
+  &.normalized_height
+    max-height: $media_width !important

@@ -157,12 +157,15 @@ describe BbCodes::Text do
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
       it do
         is_expected.to eq(
-          "<a href=\"#{user_image.image.url :original, false}\" "\
-          "rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">"\
-          "<img src=\"#{user_image.image.url :thumbnail, false}\" class=\"\" "\
-          "data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">"\
-          '<span class="marker">1000x1000</span>'\
-          '</a>'
+          <<-HTML.squish.strip
+            <a
+              href="#{user_image.image.url :original, false}"
+              rel="#{XXhash.xxh32 text, 0}"
+              class="b-image unprocessed"><img
+                src="#{user_image.image.url :thumbnail, false}"
+                data-width="#{user_image.width}"
+                data-height="#{user_image.height}"><span class="marker">1000x1000</span></a>
+          HTML
         )
       end
     end

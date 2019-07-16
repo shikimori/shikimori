@@ -12,12 +12,13 @@ class BbCodes::Tags::ImageTag
         (?: \s c(?:lass)?=(?<css_class>[\w_-]+) )? |
         (?: \s (?<width>\d+)x(?<height>\d+) )? |
         (?: \s w(?:idth)?=(?<width>\d+) )? |
-        (?: \s h(?:eight)?=(?<height>\d+) )?
+        (?: \s h(?:eight)?=(?<height>\d+) )? |
+        (?<no_zoom> \s no-zoom )?
       )*
     \]
   /xi
 
-  def format text, text_hash
+  def format text, text_hash # rubocop:disable MethodLength
     text.gsub REGEXP do |matched|
       if $LAST_MATCH_INFO[:id] == DELETED_MARKER
         DELETED_IMAGE_HTML
@@ -28,9 +29,9 @@ class BbCodes::Tags::ImageTag
           width: $LAST_MATCH_INFO[:width].to_i,
           height: $LAST_MATCH_INFO[:height].to_i,
           css_class: $LAST_MATCH_INFO[:css_class],
+          is_no_zoom: $LAST_MATCH_INFO[:no_zoom].present?,
           text_hash: text_hash
         )
-
       else
         matched
       end
@@ -39,60 +40,97 @@ class BbCodes::Tags::ImageTag
 
 private
 
-  def html_for user_image:, width:, height:, css_class:, text_hash:
-    if user_image.width <= 250 && user_image.height <= 250
-      small_image_html user_image, css_class
+  def html_for( # rubocop:disable ParameterLists, MethodLength
+    user_image:,
+    width:,
+    height:,
+    css_class:,
+    is_no_zoom:,
+    text_hash:
+  )
+    sizes_html = sizes_html user_image, width, height
+    marker_html = marker_html user_image, is_no_zoom
+
+    if is_no_zoom || small_image?(user_image)
+      small_image_html(
+        user_image: user_image,
+        sizes_html: sizes_html,
+        marker_html: marker_html,
+        css_class: css_class
+      )
     else
       large_image_html(
         user_image: user_image,
-        sizes_html: sizes_html(user_image, width, height),
+        sizes_html: sizes_html,
+        marker_html: marker_html,
         css_class: css_class,
         text_hash: text_hash
       )
     end
   end
 
-  def small_image_html user_image, css_class
+  def small_image_html user_image:, sizes_html:, marker_html:, css_class:
     original_url = ImageUrlGenerator.instance.url user_image, :original
+    css_class = [
+      ('check-width' unless sizes_html.present?),
+      (css_class if css_class.present?)
+    ].compact.join(' ')
 
-    if css_class
-      "<img src=\"#{original_url}\" "\
-        "class=\"#{css_class}\" data-width=\"#{user_image.width}\" "\
-        "data-height=\"#{user_image.height}\" />"
-    else
-      "<img src=\"#{original_url}\" data-width=\"#{user_image.width}\" "\
-        "data-height=\"#{user_image.height}\" />"
-    end
+    <<-HTML.squish.strip
+      <a class="b-image no-zoom"><img
+        src="#{original_url}"
+        #{"class=\"#{css_class}\"" if css_class.present?}
+        #{sizes_html}
+      />#{marker_html}</a>
+    HTML
   end
 
-  def large_image_html user_image:, sizes_html:, css_class:, text_hash:
+  def large_image_html user_image:, sizes_html:, marker_html:, css_class:, text_hash:
     original_url = ImageUrlGenerator.instance.url user_image, :original
     preview_url = ImageUrlGenerator.instance.url(
       user_image,
       sizes_html ? :preview : :thumbnail
     )
 
-    "<a href=\"#{original_url}\" rel=\"#{text_hash}\" "\
-    "class=\"b-image unprocessed\"><img src=\"#{preview_url}\" "\
-    "class=\"#{css_class if css_class}\"#{sizes_html} "\
-    "data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" "\
-    "/>\<span class=\"marker\">#{user_image.width}x#{user_image.height}</span>"\
-    '</a>'
+    <<-HTML.squish.strip
+      <a
+        href="#{original_url}"
+        rel="#{text_hash}"
+        class="b-image unprocessed"><img
+        src="#{preview_url}"
+        #{"class=\"#{css_class}\"" if css_class}
+        #{sizes_html}
+        data-width="#{user_image.width}"
+        data-height="#{user_image.height}"
+      />#{marker_html}</a>
+    HTML
   end
 
   def sizes_html user_image, width, height
     if width.positive? && height.positive?
       ratio = 1.0 * user_image.width / user_image.height
-      width = [700, width, user_image.width].min
-      height = (width / ratio).to_i if 1.0 * width / height != ratio
+      scaled_width = [700, width, user_image.width].min
+      scaled_height = 1.0 * width / height != ratio ? (scaled_width / ratio).to_i : height
 
-      " width=\"#{width}\" height=\"#{height}\""
+      "width=\"#{scaled_width}\" height=\"#{scaled_height}\""
 
     elsif width.positive?
-      " width=\"#{width}\""
+      "width=\"#{width}\""
 
     elsif height.positive?
-      " height=\"#{height.to_i}\""
+      "height=\"#{height}\""
     end
+  end
+
+  def small_image? user_image
+    user_image.width <= 250 && user_image.height <= 250
+  end
+
+  def marker_html user_image, is_no_zoom
+    return if small_image?(user_image) || is_no_zoom
+
+    <<-HTML.squish.strip
+      <span class="marker">#{user_image.width}x#{user_image.height}</span>
+    HTML
   end
 end

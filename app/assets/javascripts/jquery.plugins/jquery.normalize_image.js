@@ -14,7 +14,8 @@ function checkImage($image, options) {
     $image.addClass(normalizationClass);
   }
 
-  if (options.append_marker && !$link.children('.marker').exists() &&
+  if (options.appendMarker &&
+    $link.attr('href') && !$link.children('.marker').exists() &&
     ((imageWidth > 300) && (imageHeight > 300))
   ) {
     $link.append(`<span class='marker'>${imageWidth}x${imageHeight}</span>`);

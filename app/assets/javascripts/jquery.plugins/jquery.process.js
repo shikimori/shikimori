@@ -110,7 +110,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
 
   $with('img.check-width', $root)
     .removeClass('check-width')
-    .normalizeImage({ append_marker: true });
+    .normalizeImage({ appendMarker: true });
   $with('.b-image.unprocessed', $root)
     .removeClass('unprocessed')
     .magnificRelGallery();

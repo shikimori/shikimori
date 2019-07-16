@@ -10,9 +10,27 @@ describe BbCodes::Tags::ImgTag do
 
     context 'common case' do
       it do
-        is_expected.to eq "<a href=\"#{url}\" data-href=\"#{camo_url}\" "\
-          "rel=\"#{text_hash}\" class=\"b-image unprocessed\">"\
-          "<img src=\"#{camo_url}\" class=\"check-width\"></a>"
+        is_expected.to eq(
+          <<-HTML.squish.strip
+          <a href="#{url}"
+            data-href="#{camo_url}"
+            rel="#{text_hash}"
+            class="b-image unprocessed"><img
+              src="#{camo_url}"
+              class="check-width"></a>
+          HTML
+        )
+      end
+    end
+
+    context 'no-zoom' do
+      let(:text) { "[img no-zoom]#{url}[/img]" }
+      it do
+        is_expected.to eq(
+          <<-HTML.squish.strip
+            <a class="b-image no-zoom"><img src="#{camo_url}" class="check-width"></a>
+          HTML
+        )
       end
     end
 
@@ -33,22 +51,22 @@ describe BbCodes::Tags::ImgTag do
 
     context 'with sizes' do
       let(:text) { "[img 400x500]#{url}[/img]" }
-      it { is_expected.to include 'class="" width="400" height="500"></a>' }
+      it { is_expected.to include 'width="400" height="500"></a>' }
     end
 
     context 'with width' do
       let(:text) { "[img w=400]#{url}[/img]" }
-      it { is_expected.to include 'class="" width="400"></a>' }
+      it { is_expected.to include 'width="400"></a>' }
     end
 
     context 'with height' do
       let(:text) { "[img h=500]#{url}[/img]" }
-      it { is_expected.to include 'class="" height="500"></a>' }
+      it { is_expected.to include 'height="500"></a>' }
     end
 
     context 'with width&height' do
       let(:text) { "[img width=400 height=500]#{url}[/img]" }
-      it { is_expected.to include 'class="" width="400" height="500"></a>' }
+      it { is_expected.to include 'width="400" height="500"></a>' }
     end
 
     context 'with class' do
