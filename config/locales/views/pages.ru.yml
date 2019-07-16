@@ -257,6 +257,8 @@ ru:
         <span>это маленькая картинка</span>
         [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         <br>
+        [img no-zoom<span>без увеличения</span>]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        <br>
         [img w=132<span>ширина</span>]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
         <br>
         [img h=132<span>высота</span>]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
@@ -269,6 +271,7 @@ ru:
         [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
       image_example_2: >-
         [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img no-zoom]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         [img w=132]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
         [img h=132]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
         [img w=132 h=132]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
@@ -283,7 +286,25 @@ ru:
         не задавай вручную ширину, используй тег [poster].
 
       uploaded_image: Картинка, загруженная на сайт
-      uploaded_image_example: '[image=35894]'
+      uploaded_image_example_1: >-
+        [image=35894]
+        <br>
+        [poster=10656 no-zoom<span>без увеличения</span>]
+        <br>
+        [poster=10656 w=132<span>ширина</span>]
+        <br>
+        [poster=10656 h=132<span>высота</span>]
+        <br>
+        [poster=10656 w=132 h=132<span>ширина и высота</span>]
+        <br>
+        [poster=10656 132x132<span>ширина и высота</span>]
+      uploaded_image_example_2: >-
+        [image=35894]
+        [image=35894 no-zoom]
+        [image=35894 w=132]
+        [image=35894 h=132]
+        [image=35894 w=132 h=132]
+        [image=35894 132x132]
       uploaded_image_notice: >-
         Для image тега можно указывать ширину и высоту точно так же,
         как и для обычной картинки через img тег:

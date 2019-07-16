@@ -247,11 +247,11 @@ header.head
     .name = t '.uploaded_image'
     .example
       .title = t '.example_title'
-      .textarea = t '.uploaded_image_example'
+      .textarea == t '.uploaded_image_example_1'
     .result
       .title = t '.result_title'
       br
-      = BbCodes::Text.call t('.uploaded_image_example')
+      = BbCodes::Text.call t('.uploaded_image_example_2')
     .notice == t '.uploaded_image_notice'
 
   .block

@@ -257,6 +257,8 @@ en:
         <span>this is a small image</span>
         [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         <br>
+        [img no-zoom<span>without zoom</span>]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        <br>
         [img w=132<span>width</span>]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
         <br>
         [img h=132<span>height</span>]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
@@ -269,6 +271,7 @@ en:
         [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
       image_example_2: >-
         [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img no-zoom]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         [img w=132]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
         [img h=132]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
         [img w=132 h=132]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
@@ -283,7 +286,25 @@ en:
 
 
       uploaded_image: Uploaded image
-      uploaded_image_example: '[image=35894]'
+      uploaded_image_example_1: >-
+        [image=35894]
+        <br>
+        [poster=10656 no-zoom<span>without zoom</span>]
+        <br>
+        [poster=10656 w=132<span>width</span>]
+        <br>
+        [poster=10656 h=132<span>height</span>]
+        <br>
+        [poster=10656 w=132 h=132<span>width and height</span>]
+        <br>
+        [poster=10656 132x132<span>width and height</span>]
+      uploaded_image_example_2: >-
+        [image=35894]
+        [image=35894 no-zoom]
+        [image=35894 w=132]
+        [image=35894 h=132]
+        [image=35894 w=132 h=132]
+        [image=35894 132x132]
       uploaded_image_notice: >-
         Width and height for [image] tag can be specified in
         exactly the same way as for [img] tag:
