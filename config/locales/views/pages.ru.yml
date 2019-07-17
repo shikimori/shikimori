@@ -289,15 +289,15 @@ ru:
       uploaded_image_example_1: >-
         [image=35894]
         <br>
-        [poster=10656 no-zoom<span>без увеличения</span>]
+        [image=10656 no-zoom<span>без увеличения</span>]
         <br>
-        [poster=10656 w=132<span>ширина</span>]
+        [image=10656 w=132<span>ширина</span>]
         <br>
-        [poster=10656 h=132<span>высота</span>]
+        [image=10656 h=132<span>высота</span>]
         <br>
-        [poster=10656 w=132 h=132<span>ширина и высота</span>]
+        [image=10656 w=132 h=132<span>ширина и высота</span>]
         <br>
-        [poster=10656 132x132<span>ширина и высота</span>]
+        [image=10656 132x132<span>ширина и высота</span>]
       uploaded_image_example_2: >-
         [image=35894]
         [image=35894 no-zoom]

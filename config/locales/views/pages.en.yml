@@ -289,15 +289,15 @@ en:
       uploaded_image_example_1: >-
         [image=35894]
         <br>
-        [poster=10656 no-zoom<span>without zoom</span>]
+        [image=10656 no-zoom<span>without zoom</span>]
         <br>
-        [poster=10656 w=132<span>width</span>]
+        [image=10656 w=132<span>width</span>]
         <br>
-        [poster=10656 h=132<span>height</span>]
+        [image=10656 h=132<span>height</span>]
         <br>
-        [poster=10656 w=132 h=132<span>width and height</span>]
+        [image=10656 w=132 h=132<span>width and height</span>]
         <br>
-        [poster=10656 132x132<span>width and height</span>]
+        [image=10656 132x132<span>width and height</span>]
       uploaded_image_example_2: >-
         [image=35894]
         [image=35894 no-zoom]
