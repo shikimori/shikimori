@@ -7,7 +7,7 @@ import CommentsTracker from 'services/comments/tracker';
 import PollsTracker from 'services/polls/tracker';
 import DynamicParser from 'dynamic_elements/_parser';
 
-import WallGallery from 'views/wall/gallery';
+import Wall from 'views/wall/view';
 
 import {
   ANIME_TOOLTIP_OPTIONS,
@@ -48,7 +48,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   // стена картинок
   $with('.b-shiki_wall.unprocessed', $root)
     .removeClass('unprocessed')
-    .each((_index, node) => new WallGallery(node));
+    .each((_index, node) => new Wall(node));
 
   // блоки, загружаемые аяксом
   $with('.postloaded[data-href]', $root).each(function () {

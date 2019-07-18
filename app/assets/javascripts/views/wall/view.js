@@ -8,12 +8,12 @@ const MIN_CLUSTER_WEIGHT = 2.5;
 const MIN_TWO_CLUSTERS_WEIGHT = 5.8;
 const MIN_CLUSTER_HEIGHT = 80;
 
-export default class WallGallery extends View {
-  async initialize() {
-    if (!WallGallery.last_id) { WallGallery.last_id = 0; }
+let lastId = 0;
 
-    WallGallery.last_id += 1;
-    this.id = WallGallery.last_id;
+export default class Wall extends View {
+  async initialize() {
+    this.id = lastId;
+    lastId += 1;
 
     await this.$root.imagesLoaded();
 
@@ -44,10 +44,9 @@ export default class WallGallery extends View {
       }
       return new WallImage($(node));
     });
+    // this.images.forEach((image) => console.log(image.weight(), image.node));
   }
 
-    // console.log '-----------------------------'
-    // @images.forEach (image) -> console.log image.weight(), image.node
 
   _buildClusters() {
     if (this._isTwoClusters()) {

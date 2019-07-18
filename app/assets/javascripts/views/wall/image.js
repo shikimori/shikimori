@@ -3,7 +3,7 @@ import View from 'views/application/view';
 export default class WallImage extends View {
   initialize() {
     this.$image = this.$node.find('img');
-    [this.width, this.height] = Array.from(this._imageSizes());
+    [this.width, this.height] = this._imageSizes();
     [this.originalWidth, this.original_height] = Array.from([this.width, this.height]);
     this.ratio = this.width / this.height;
 
@@ -35,7 +35,7 @@ export default class WallImage extends View {
       left: this.left
     });
 
-    this.$node.shikiImage();
+    this._toShikiImage()
   }
 
   normalize(width, height) {
@@ -66,6 +66,10 @@ export default class WallImage extends View {
   weight() {
     return this.ratio.round(1);
     // return (1 / this.ratio).round(1)
+  }
+
+  _toShikiImage() {
+    this.$node.shikiImage();
   }
 
   _imageSizes() {

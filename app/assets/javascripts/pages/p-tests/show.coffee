@@ -1,7 +1,7 @@
-import WallGallery from 'views/wall/gallery'
+import Wall from 'views/wall/view'
 
 pageLoad 'tests_show', ->
-  new WallGallery $('.images-test .shiki-wall')
+  new Wall $('.images-test .shiki-wall')
 
   require.ensure [], (require) =>
     init_page require('highcharts')

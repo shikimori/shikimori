@@ -1,5 +1,5 @@
 import axios from 'helpers/axios'
-import WallGallery from 'views/wall/gallery'
+import Wall from 'views/wall/view'
 
 pageLoad 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $ '.b-form.edit_topic, .b-form.new_topic'
@@ -90,7 +90,7 @@ remove_image = ($image, $wall) ->
 
 reset_wall = ($wall) ->
   $wall.find('img').css(width: '', height: '')
-  new WallGallery $wall
+  new Wall $wall
 
 linked_anime_id = ($linked_type, $linked_id) ->
   $linked_id.val() if $linked_type.val() == 'Anime'
