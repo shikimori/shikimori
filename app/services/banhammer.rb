@@ -29,6 +29,7 @@ class Banhammer # rubocop:disable ClassLength
     у: %w[y у],
     х: %w[x h х],
     ч: %w[ch ч],
+    ь: %w[ъ ь],
     я: %w[ya я]
   }
 
