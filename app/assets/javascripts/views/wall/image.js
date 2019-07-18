@@ -35,7 +35,7 @@ export default class WallImage extends View {
       left: this.left
     });
 
-    this._toShikiImage()
+    this._toShikiImage();
   }
 
   normalize(width, height) {
