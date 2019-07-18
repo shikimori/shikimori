@@ -53,7 +53,7 @@ export default class WallCluster {
 
     if (minHeight !== heights.max()) {
       images.forEach(image => {
-        image.scale_height(minHeight);
+        image.scaleHeight(minHeight);
         image.positioned = false;
       });
 
