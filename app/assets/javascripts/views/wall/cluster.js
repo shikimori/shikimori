@@ -57,7 +57,7 @@ export default class WallCluster {
         image.positioned = false;
       });
 
-      images.forEach(image => this._put(image, false));
+      images.forEach(image => this._put(image));
     }
   }
 
