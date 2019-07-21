@@ -24,17 +24,18 @@ loader.use = [{ 'loader':'vue-style-loader' }, ...loader.use];
 // loader = environment.loaders.get('nodeModules');
 // loader.use = [{ 'loader':'vue-style-loader' }, ...loader.use];
 
-const cssLoader = environment.loaders.get('css')
-var loaderLength = cssLoader.use.length
+// https://github.com/rails/webpacker/issues/2162
+const cssLoader = environment.loaders.get('css');
+var loaderLength = cssLoader.use.length;
 for (var i = 0; i < loaderLength; i++) {
-  var loader = cssLoader.use[i]
-  if (loader.loader === 'css-loader') {
+  var currentLoader = cssLoader.use[i];
+  if (currentLoader.loader === 'css-loader') {
     // Copy localIdentName into modules
-    loader.options.modules = {
-      localIdentName: loader.options.localIdentName
-    }
+    currentLoader.options.modules = {
+      localIdentName: currentLoader.options.localIdentName
+    };
     // Delete localIdentName
-    delete loader.options.localIdentName
+    delete currentLoader.options.localIdentName;
   }
 }
 

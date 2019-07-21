@@ -107,7 +107,7 @@ rules:
     - error
     - always
     - js: never
-    - coffee: never
+      coffee: never
   import/first: 0
   import/order: 0
 
