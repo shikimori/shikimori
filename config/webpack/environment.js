@@ -2,33 +2,31 @@ const webpack = require('webpack');
 const { environment } = require('@rails/webpacker');
 
 // vue
-const { VueLoaderPlugin } = require('vue-loader');
-const vue = require('./loaders/vue');
 
-environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
-environment.loaders.prepend('vue', vue);
+// VueLoaderPlugin is used in vue-loader > 15.0.0
+// const { VueLoaderPlugin } = require('vue-loader');
+const vueLoader = require('./loaders/vue');
 
-// fix sass in vue https://github.com/rails/webpacker/issues/2162
-var loader = environment.loaders.get('css');
-loader.use = [{ 'loader':'vue-style-loader' }, ...loader.use];
-
-// loader = environment.loaders.get('sass');
-// loader.use = [{ 'loader':'vue-style-loader' }, ...loader.use];
-
-// loader = environment.loaders.get('moduleCss');
-// loader.use = [{ 'loader':'vue-style-loader' }, ...loader.use];
-
-// loader = environment.loaders.get('moduleSass');
-// loader.use = [{ 'loader':'vue-style-loader' }, ...loader.use];
-
-// loader = environment.loaders.get('nodeModules');
-// loader.use = [{ 'loader':'vue-style-loader' }, ...loader.use];
+// environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
+environment.loaders.prepend('vue', vueLoader);
 
 // https://github.com/rails/webpacker/issues/2162
 const cssLoader = environment.loaders.get('css');
-var loaderLength = cssLoader.use.length;
-for (var i = 0; i < loaderLength; i++) {
-  var currentLoader = cssLoader.use[i];
+for (let i = 0; i < cssLoader.use.length; i++) {
+  let currentLoader = cssLoader.use[i];
+  if (currentLoader.loader === 'css-loader') {
+    // Copy localIdentName into modules
+    currentLoader.options.modules = {
+      localIdentName: currentLoader.options.localIdentName
+    };
+    // Delete localIdentName
+    delete currentLoader.options.localIdentName;
+  }
+}
+
+const sassLoader = environment.loaders.get('sass');
+for (let i = 0; i < sassLoader.use.length; i++) {
+  let currentLoader = sassLoader.use[i];
   if (currentLoader.loader === 'css-loader') {
     // Copy localIdentName into modules
     currentLoader.options.modules = {
@@ -50,12 +48,6 @@ environment.loaders.get('file').exclude =
   /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
 environment.loaders.append('coffee', coffee);
-
-// environment.loaders.append('jade', {
-//   test: /\.(?:jade|pug)$/,
-//   loader: 'pug-loader',
-//   exclude: /node_modules/
-// });
 
 environment.loaders.append('pug', {
   test: /\.pug$/,

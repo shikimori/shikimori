@@ -44,7 +44,7 @@
     "uevent": "^1.0.0",
     "urijs": "^1.18.12",
     "vue": "^2.6.10",
-    "vue-loader": "^15.7.1",
+    "vue-loader": "14.2.2",
     "vue-template-compiler": "^2.6.10",
     "vuedraggable": "^2.17.0",
     "vuex": "3.0.1"
