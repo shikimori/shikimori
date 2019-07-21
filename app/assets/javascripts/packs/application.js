@@ -5,20 +5,18 @@ import 'regenerator-runtime/runtime';
 window.$ = require('jquery'); // eslint-disable-line import/newline-after-import
 window.jQuery = window.$;
 
-// require('pages/p-collections/_form');
+require('application');
+require('turbolinks_load');
+require('turbolinks_before_cache');
 
-// require('application');
-// require('turbolinks_load');
-// require('turbolinks_before_cache');
+// import App from 'test.vue';
+// import { Vue } from 'vue/instance';
 
-import App from 'test.vue';
-import { Vue } from 'vue/instance';
+// $(() => {
+//   $('#tests_colors').empty();
 
-$(() => {
-  $('#tests_colors').empty();
-
-  new Vue({
-    el: '#tests_colors',
-    render: h => h(App)
-  });
-});
+//   new Vue({
+//     el: document.body.id,
+//     render: h => h(App)
+//   });
+// });

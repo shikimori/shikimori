@@ -49,10 +49,17 @@ environment.loaders.get('file').exclude =
 
 environment.loaders.append('coffee', coffee);
 
+environment.loaders.append('jade', {
+  test: /\.pug$/,
+  loader: 'pug-loader',
+  exclude: /node_modules|vue/
+});
+
 environment.loaders.append('pug', {
   test: /\.pug$/,
   loader: 'pug-plain-loader',
-  exclude: /node_modules/
+  exclude: /node_modules/,
+  include: /vue/
 });
 environment.plugins.append(
   'Provide',

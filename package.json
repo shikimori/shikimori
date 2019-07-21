@@ -36,7 +36,7 @@
     "paste.js": "^0.0.21",
     "pikaday": "1.8.0",
     "pug": "^2.0.0-rc.3",
-    "pug-loader": "^2.3.0",
+    "pug-loader": "^2.4.0",
     "pug-plain-loader": "^1.0.0",
     "throttle-debounce": "2.0.1",
     "toastr": "WazeDev/toastr#master",
