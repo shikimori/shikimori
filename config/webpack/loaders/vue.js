@@ -5,7 +5,7 @@
 const extractCSS = false; // !(inDevServer && (devServer && devServer.hmr)) || isProduction
 
 module.exports = {
-  test: /\.vue(\.erb)?$/,
+  test: /\.vue$/,
   use: [{
     loader: 'vue-loader',
     options: { extractCSS }

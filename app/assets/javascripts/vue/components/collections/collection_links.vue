@@ -204,7 +204,7 @@ export default {
 </script>
 
 <style scoped lang="sass">
-  @import app/assets/stylesheets/globals/variables
+  @import "app/assets/stylesheets/globals/variables"
   .new-group
     padding-top: 8px
 
