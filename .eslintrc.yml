@@ -6,10 +6,13 @@ env:
   es6: true
   jquery: true
 
-parser: babel-eslint
+parser: vue-eslint-parser
 
 extends:
-  - airbnb
+  - plugin:vue/recommended
+  - eslint:recommended
+  - plugin:import/errors
+  - plugin:import/warnings
 
 # plugins:
 #   - react
@@ -24,10 +27,9 @@ globals:
   pageUnload: true
 
 parserOptions:
-  ecmaVersion: 6
+  ecmaVersion: 2018
   sourceType: module
-  # ecmaFeatures:
-    # jsx: true
+  parser: babel-eslint
 
 rules:
   quotes:
