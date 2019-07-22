@@ -2,12 +2,52 @@ const webpack = require('webpack');
 const { environment } = require('@rails/webpacker');
 
 // vue
-
 const { VueLoaderPlugin } = require('vue-loader');
 const vueLoader = require('./loaders/vue');
 
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
 environment.loaders.prepend('vue', vueLoader);
+
+// fix issue with SASS not working in vue
+const getStyleRule = require('@rails/webpacker/package/utils/get_style_rule');
+
+environment.loaders.delete('sass');
+environment.loaders.delete('moduleSass');
+
+environment.loaders.insert(
+  'sass',
+  getStyleRule(/\.sass$/i, false, [
+    { loader: 'sass-loader', options: { sourceMap: true, indentedSyntax: true } }
+  ]),
+  { after: 'css' }
+);
+environment.loaders.insert(
+  'scss',
+  getStyleRule(/\.scss$/i, false, [
+    {
+      loader: 'sass-loader',
+      options: { sourceMap: true }
+    }
+  ]),
+  { after: 'sass' }
+);
+environment.loaders.insert(
+  'moduleSass',
+  getStyleRule(/\.sass$/i, true, [
+    { loader: 'sass-loader', options: { sourceMap: true, indentedSyntax: true } }
+  ]),
+  { after: 'css' }
+);
+environment.loaders.insert(
+  'moduleScss',
+  getStyleRule(/\.scss$/i, true, [
+    {
+      loader: 'sass-loader',
+      options: { sourceMap: true }
+    }
+  ]),
+  { after: 'sass' }
+);
 
 environment.loaders.forEach(item => (
   item.value.use.forEach(currentLoader => {
@@ -21,55 +61,8 @@ environment.loaders.forEach(item => (
       // delete localIdentName
       delete currentLoader.options.localIdentName;
     }
-
-    // fix issue with SASS not working in vue
-    // https://vue-loader.vuejs.org/guide/pre-processors.html#sass-vs-scss
-    // if (currentLoader.loader === 'sass-loader') {
-    //   currentLoader.options.indentedSyntax = true;
-    // }
   })
 ));
-
-// fix issue with SASS not working in vue
-const moduleRegexp = environment.loaders.get('sass').exclude;
-const vueRegexp = /\.vue$/;
-
-const sassLoader = environment.loaders.get('sass');
-const moduleSassLoader = environment.loaders.get('moduleSass');
-
-environment.loaders.insert(
-  'sassVue',
-  {
-    ...sassLoader,
-    use: JSON.parse(JSON.stringify(sassLoader.use)),
-    include: vueRegexp
-  },
-  { after: 'sass' }
-);
-
-environment.loaders.insert(
-  'moduleSassVue',
-  {
-    ...moduleSassLoader,
-    use: JSON.parse(JSON.stringify(moduleSassLoader.use)),
-    include: [moduleRegexp, vueRegexp]
-  },
-  { after: 'moduleSass' }
-);
-
-environment.loaders.forEach(item => {
-  if (item.key !== 'sassVue' && item.key !== 'moduleSassVue') { return; }
-
-  item.value.use.forEach(currentLoader => {
-    // https://vue-loader.vuejs.org/guide/pre-processors.html#sass-vs-scss
-    if (currentLoader.loader === 'sass-loader') {
-      currentLoader.options.indentedSyntax = true;
-    }
-  });
-});
-
-environment.loaders.get('sass').exclude = [moduleRegexp, vueRegexp];
-environment.loaders.get('moduleSass').exclude = vueRegexp;
 
 // coffee
 // https://github.com/rails/webpacker/issues/2162
@@ -111,27 +104,7 @@ environment.plugins.append(
   new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ru/)
 );
 
-// const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-// environment.plugins.prepend('MomentLocalesPlugin', new MomentLocalesPlugin({
-//   localesToKeep: ['es-us', 'ru']
-// }))
-
-
-// // https://webpack.js.org/migrate/4/#commonschunkplugin
-// // https://webpack.js.org/plugins/commons-chunk-plugin/
-// environment.plugins.get('ExtractText').options.allChunks = true;
-// environment.plugins.add({
-//   key: 'CommonsChunk',
-//   value: new webpack.optimize.CommonsChunkPlugin({
-//     name: 'vendor',
-//     minChunks(module) {
-//       // this assumes your vendor imports exist in the node_modules directory
-//       return module.context && module.context.indexOf('node_modules') !== -1;
-//     }
-//   })
-// });
-
-// or using custom config
+// https://webpack.js.org/migrate/4/#commonschunkplugin
 environment.splitChunks(config => (
   Object.assign({}, config, {
     optimization: {

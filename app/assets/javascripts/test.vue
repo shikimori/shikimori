@@ -4,11 +4,6 @@
   </div>
 </template>
 
-<!--template lang='pug'>
-  #app
-    p {{ `${message}` }}
-</template-->
-
 <script>
 export default {
   data: function () {
