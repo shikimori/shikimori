@@ -105,13 +105,32 @@ environment.plugins.append(
 environment.splitChunks(config => (
   Object.assign({}, config, {
     optimization: {
-      runtimeChunk: {
-        name: 'runtime'
-      },
       splitChunks: {
-        chunks: 'all',
-        name: 'vendor'
-      }
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            chunks: 'initial',
+            priority: -10,
+            name: 'vendors'
+          },
+          'async-vendors': {
+            test: /[\\/]node_modules[\\/]/,
+            minChunks: 1,
+            chunks: 'async',
+            priority: 0,
+            name(module, chunks, _cacheGroupKey) {
+              const moduleFileName = module.identifier().split('/').reduceRight(item => item);
+              const allChunksNames = chunks.map(item => item.name).join('~');
+              // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
+              // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
+              return allChunksNames || moduleFileName;
+            }
+          }
+        }
+      },
+      runtimeChunk: false,
+      namedModules: true,
+      namedChunks: true
     }
   })
 ));
