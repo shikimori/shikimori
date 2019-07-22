@@ -4,12 +4,13 @@
     :data-group="link.group"
     :data-list_index='links.indexOf(link)'
   )
-    .delete(
-      @click="removeLink(link)"
-    )
-    .drag-handle(
-      v-if="link.linked_id"
-    )
+    div
+      .delete(
+        @click="removeLink(link)"
+      )
+      .drag-handle(
+        v-if="link.linked_id"
+      )
     .b-input.new-record(
       v-if="!link.linked_id"
     )
@@ -74,6 +75,7 @@ function highlight(selector) {
 }
 
 export default {
+  name: 'CollectionLink',
   props: {
     link: { type: Object, required: true },
     autocompleteUrl: { type: String, required: true },
@@ -136,4 +138,7 @@ textarea
 
 input
   max-width: 375px
+
+.delete:first-child:last-child
+  top: 3px
 </style>

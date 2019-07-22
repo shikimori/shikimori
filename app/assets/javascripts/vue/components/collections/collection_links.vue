@@ -18,40 +18,41 @@
               ) {{ I18n.t('actions.add').toLowerCase() }}
             input(
               :id="'group_' + groupName"
-              :value="groupName"
-              :data-original_value="groupName"
+              :value='groupName'
+              :data-original_value='groupName'
               :placeholder="I18n.t('frontend.collections.group_name')"
-              @blur="onGroupRename"
-              @change="onGroupRename"
-              @keydown.enter.prevent="onGroupRename"
-              type="text"
+              class='name'
+              @blur='onGroupRename'
+              @change='onGroupRename'
+              @keydown.enter.prevent='onGroupRename'
+              type='text'
             )
 
           draggable.collection_links(
-            :options="dragOptions"
-            @update="onDragUpdate"
-            @add="onDragAdd"
+            :options='dragOptions'
+            @update='onDragUpdate'
+            @add='onDragAdd'
           )
             CollectionLink(
-              v-for="link in groupedLinks[groupName]"
-              :key="link.id || link.key"
-              :link="link"
-              :autocomplete-url="autocompleteUrl"
+              v-for='link in groupedLinks[groupName]'
+              :key='link.id || link.key'
+              :link='link'
+              :autocomplete-url='autocompleteUrl'
             )
 
         .c-column.new-group(
-          v-if="links.length < maxLinks"
+          v-if='links.length < maxLinks'
         )
           div(
             v-if="Object.isEmpty(groupedLinks[''])"
           )
             .b-button(
-              @click="addNewGroup"
+              @click='addNewGroup'
             ) {{ I18n.t('actions.add') }}
-          div(
+          .button-container(
             v-if="!Object.isEmpty(groupedLinks[''])"
           )
-            .button-container
+            div
               .b-button.disabled {{ I18n.t('actions.add') }}
             .hint {{ I18n.t('frontend.collections.disabled_add_group_hint') }}
 
@@ -64,11 +65,11 @@
           .inner
             .b-input
               textarea(
-                @change="onRefill"
-                @keydown.ctrl.enter="onRefill"
-                @keydown.meta.enter="onRefill"
-                @focus.once="addAutosize"
-                v-bind:value="linksJSON"
+                @change='onRefill'
+                @keydown.ctrl.enter='onRefill'
+                @keydown.meta.enter='onRefill'
+                @focus.once='addAutosize'
+                v-bind:value='linksJSON'
               )
           .after
 </template>
@@ -100,6 +101,7 @@ function insertNodeAt(fatherNode, node, position) {
 }
 
 export default {
+  name: 'CollectionLinks',
   components: { CollectionLink, draggable },
   props: {
     maxLinks: { type: Number, required: true },
@@ -201,29 +203,29 @@ export default {
 };
 </script>
 
-<style scoped lang="sass">
-@import "app/assets/stylesheets/globals/variables";
+<style scoped lang='sass'>
+@import 'app/assets/stylesheets/globals/variables';
 
 .new-group
   padding-top: 8px
 
   .button-container
-    display: table-cell
-    margin-top: -8px
-    vertical-align: middle
+    display: flex
 
-  .hint
-    color: #9da2a8
-    display: table-cell
-    font-size: 11px
-    line-height: $line_height
-    vertical-align: middle
-    padding-left: 15px
+    .hint
+      align-self: center
+      color: #9da2a8
+      font-size: 11px
+      line-height: $line_height
+      padding-left: 15px
 
 .group
   label
     display: inline-block
     font-weight: bold
+
+  .name
+    max-width: 100%
 
   .add
     float: right
