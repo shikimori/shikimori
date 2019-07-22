@@ -16,7 +16,7 @@ header.head.misc
 
     div class=(@resource.can_start? ? 'cc-3_2' : 'cc-2_3')
       - if @resource.can_start?
-        .c-column
+        .c-column.block
           .block
             = BbCodes::Text.call @resource.bb_code
 
