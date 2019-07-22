@@ -4,7 +4,7 @@
     TestInput(
       :input-data="inputData"
     )
-    button.b-button Seond
+    button.b-button Submit
 </template>
 
 <script>
@@ -26,6 +26,9 @@ export default {
 </script>
 
 <style scoped lang="sass">
+form
+  display: block
+
 .test-label
   margin-bottom: 5px
 </style>
