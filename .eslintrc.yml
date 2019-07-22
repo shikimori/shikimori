@@ -1,8 +1,8 @@
 ---
+root: true
 env:
   browser: true
   node: true
-  # jest: true
   es6: true
   jquery: true
 
@@ -14,10 +14,8 @@ extends:
   - plugin:import/errors
   - plugin:import/warnings
 
-# plugins:
-#   - react
-#   - jsx-a11y
-#   - jsx-max-len
+plugins:
+  - vue
 
 globals:
   I18n: true
@@ -110,6 +108,22 @@ rules:
       coffee: never
   import/first: 0
   import/order: 0
+  vue/max-attributes-per-line:
+    - error
+    - singleline: 3
+      multiline:
+        max: 1
+        allowFirstLine: false
+  vue/singleline-html-element-content-newline: 0
+  vue/html-quotes: 0
+    # - 1
+    # - single
+  vue/component-name-in-template-casing:
+    - 2
+    - PascalCase
+    - ignores:
+      - router-view
+      - router-link
 
 settings:
   import/resolver:
@@ -119,3 +133,4 @@ settings:
       extensions:
         - '.js'
         - '.coffee'
+        - '.vue'
