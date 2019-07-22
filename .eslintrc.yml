@@ -9,6 +9,7 @@ env:
 parser: vue-eslint-parser
 
 extends:
+  - airbnb-base
   - plugin:vue/recommended
   - eslint:recommended
   - plugin:import/errors

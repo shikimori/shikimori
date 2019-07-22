@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+
 module.exports = function (api) {
   const validEnv = ['development', 'test', 'production'];
   const currentEnv = api.env();
