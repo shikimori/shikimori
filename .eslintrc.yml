@@ -106,6 +106,7 @@ rules:
     - always
     - js: never
       coffee: never
+      vue: never
   import/first: 0
   import/order: 0
   vue/max-attributes-per-line:
