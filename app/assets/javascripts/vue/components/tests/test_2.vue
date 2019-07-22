@@ -1,27 +1,29 @@
 <template lang="pug">
-  .form-group
+  .b-input
     input(
       type="text"
       class="form-control"
-      :class="input_data.append"
-      v-model="input_data.value"
-      :placeholder="input_data.placeholder"
-      :name="input_data.name"
-      :id="input_data.name"
+      autofocus
+      :class="inputData.append"
+      v-model="inputData.value"
+      :placeholder="inputData.placeholder"
+      :name="inputData.name"
+      :id="inputData.name"
     )
     label(
-      :for="input_data.name"
+      :for="inputData.name"
       generated="true"
       class="error"
-      v-if="input_data.error"
-    ) error: {{ input_data.error }}
+      v-if="inputData.error"
+    ) error: {{ inputData.error }}
   </div>
 </template>
 
 <script>
-  export default {
-    props: {
-      input_data: Object
-    }
+export default {
+  name: 'TestInput',
+  props: {
+    inputData: { type: Object, required: true }
   }
+};
 </script>

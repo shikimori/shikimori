@@ -1,5 +1,3 @@
-import CollectionLinks from 'vue/components/collections/collection_links.vue';
-
 pageLoad(
   'collections_new',
   'collections_edit',
@@ -11,7 +9,8 @@ pageLoad(
     if (!$('#vue_collection_links').exists()) { return; }
 
     const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
-    // const CollectionLinks = await import('vue/components/collections/collection_links.vue');
+    const { default: CollectionLinks } =
+      await import('vue/components/collections/collection_links');
     const storeSchema = await import ('vue/stores/collection_links');
 
     const collection = $('#collection_form').data('collection');

@@ -10,13 +10,4 @@ require('turbolinks_load');
 require('turbolinks_before_cache');
 
 require('pages/p-collections/_form');
-
-// import App from 'test';
-// import { Vue } from 'vue/instance';
-
-// $(() => {
-//   new Vue({
-//     el: `#${document.body.id}`,
-//     render: h => h(App)
-//   });
-// });
+require('pages/p-tests/vue');
