@@ -1,80 +1,80 @@
-<template lang="pug">
+<template lang='pug'>
   .block
     input(
-      type="hidden"
-      :name="`${resource_type.toLowerCase()}[external_links][]`"
-      v-if="is_empty"
+      type='hidden'
+      :name="`${resourceType.toLowerCase()}[external_links][]`"
+      v-if='isEmpty'
     )
     .b-nothing_here(
       v-if="!collection.length"
     )
       | {{ I18n.t('frontend.external_links.nothing_here') }}
     draggable.block(
-      :options="drag_options"
-      v-model="collection"
-      v-if="collection.length"
+      :options='dragOptions'
+      v-model='collection'
+      v-if='collection.length'
     )
       ExternalLink(
-        v-for="link in collection"
-        @add_next="add"
-        @focusLast="focusLast"
-        :key="link.id || link.key"
-        :link="link"
-        :kind_options="kind_options"
-        :resource_type="resource_type"
-        :entry_type="entry_type"
-        :entry_id="entry_id"
+        v-for='link in collection'
+        @add_next='add'
+        @focusLast='focusLast'
+        :key='link.id || link.key'
+        :link='link'
+        :kind-options='kindOptions'
+        :resource-type='resourceType'
+        :entry-type='entryType'
+        :entry-id='entryId'
       )
     .b-button(
-      @click="add"
+      @click='add'
     ) {{ I18n.t('actions.add') }}
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import ExternalLink from './external_link'
-import draggable from 'vuedraggable'
+import { mapGetters } from 'vuex';
+
+import ExternalLink from './external_link';
+import draggable from 'vuedraggable';
 import delay from 'delay';
 
 export default {
+  name: 'ExternalLinks',
   components: { ExternalLink, draggable },
   props: {
-    kind_options: Array,
-    resource_type: String,
-    entry_type: String,
-    entry_id: Number
+    kindOptions: { type: Array, required: true },
+    resourceType: { type: String, required: true },
+    entryType: { type: String, required: true },
+    entryId: { type: Number, required: true }
   },
-  data() {
-    return {
-      drag_options: {
-        group: 'external_links',
-        handle: '.drag-handle'
-      }
+  data: () => ({
+    dragOptions: {
+      group: 'external_links',
+      handle: '.drag-handle'
     }
-  },
+  }),
   computed: {
+    ...mapGetters([
+      'isEmpty'
+    ]),
     collection: {
       get() {
-        return this.$store.state.collection
+        return this.$store.state.collection;
       },
       set(items) {
-        this.$store.dispatch('replace', items)
+        this.$store.dispatch('replace', items);
       }
-    },
-    ...mapGetters([
-      'is_empty'
-    ]),
+    }
   },
   methods: {
     add() {
       this.$store.dispatch('add', {
-        kind: this.kind_options.first().last(),
+        kind: this.kindOptions.first().last(),
         source: 'shikimori',
         url: '',
         id: '',
-        entry_id: this.entry_id,
-        entry_type: this.entry_type
-      })
+        entryId: this.entryId,
+        entryType: this.entryType
+      });
     },
     async focusLast() {
       // do not use this.$nextTick. it passes "backspace" event to focused input
@@ -82,10 +82,10 @@ export default {
       $('input', this.$el).last().focus();
     }
   }
-}
+};
 </script>
 
-<style scoped lang="sass">
+<style scoped lang='sass'>
   .b-nothing_here
     margin-bottom: 15px
 </style>

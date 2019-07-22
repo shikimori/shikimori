@@ -2,15 +2,15 @@
   .block
     input(
       type='hidden'
-      :name='`${resource_type.toLowerCase()}[${field}][]`'
-      v-if='is_empty'
+      :name='`${resourceType.toLowerCase()}[${field}][]`'
+      v-if='isEmpty'
     )
     .b-nothing_here(
       v-if='!collection.length'
     )
       | {{ I18n.t('frontend.' + field + '.nothing_here') }}
     draggable.block(
-      :options='drag_options'
+      :options='dragOptions'
       v-model='collection'
       v-if='collection.length'
     )
@@ -25,12 +25,12 @@
           input(
             type='text'
             v-model='entry.name'
-            :name="`${resource_type.toLowerCase()}[${field}][]`"
+            :name="`${resourceType.toLowerCase()}[${field}][]`"
             :placeholder="I18n.t('frontend.' + field + '.name')"
             @keydown.enter="submit"
             @keydown.8='removeEmpty(entry)'
             @keydown.esc='removeEmpty(entry)'
-            :data-autocomplete='autocomplete_url'
+            :data-autocomplete='autocompleteUrl'
             :data-collection_index='index'
           )
 
@@ -40,42 +40,39 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import draggable from 'vuedraggable'
+import { mapGetters, mapActions } from 'vuex';
+import draggable from 'vuedraggable';
 import delay from 'delay';
 
 export default {
+  name: 'ArrayField',
   components: { draggable },
   props: {
-    field: String,
-    resource_type: String,
-    entry_type: String,
-    entry_id: Number,
-    autocomplete_url: String
+    field: { type: String, required: true },
+    resourceType: { type: String, required: true },
+    autocompleteUrl: { type: String, required: true }
   },
-  data() {
-    return {
-      drag_options: {
-        group: 'synonyms',
-        handle: '.drag-handle'
+  data: () => ({
+    dragOptions: {
+      group: 'synonyms',
+      handle: '.drag-handle'
+    }
+  }),
+  computed: {
+    ...mapGetters([
+      'isEmpty'
+    ]),
+    collection: {
+      get() {
+        return this.$store.state.collection;
+      },
+      set(items) {
+        this.$store.dispatch('replace', items);
       }
     }
   },
-  computed: {
-    collection: {
-      get() {
-        return this.$store.state.collection
-      },
-      set(items) {
-        this.$store.dispatch('replace', items)
-      }
-    },
-    ...mapGetters([
-      'is_empty'
-    ]),
-  },
   mounted() {
-    this.$nextTick(() => { this.autocomplete() });
+    this.$nextTick(() => { this.autocomplete(); });
   },
   methods: {
     ...mapActions([
@@ -93,16 +90,16 @@ export default {
       }
 
       if (!e.metaKey && !e.ctrlKey) {
-        e.preventDefault()
-        this.add()
+        e.preventDefault();
+        this.add();
       }
     },
     removeEmpty(entry) {
       if (Object.isEmpty(entry.name) &&
           this.$store.state.collection.length > 1
       ) {
-        this.remove(entry)
-        this.focusLast()
+        this.remove(entry);
+        this.focusLast();
       }
     },
     async focusLast() {
@@ -111,7 +108,7 @@ export default {
       $('input', this.$el).last().focus();
     },
     autocomplete() {
-      if (!this.autocomplete_url) { return; }
+      if (!this.autocompleteUrl) { return; }
 
       $('input', this.$el)
         .filter((index, node) => !$(node).data('autocomplete-enabled'))
@@ -122,7 +119,7 @@ export default {
         });
     }
   }
-}
+};
 </script>
 
 <style scoped lang='sass'>

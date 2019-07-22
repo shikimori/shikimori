@@ -29,7 +29,7 @@ module.exports = {
 
   getters: {
     collection(store) { return store.collection; },
-    is_empty(store) {
+    isEmpty(store) {
       return store.collection.every(item =>
         Object.isEmpty(item.url) && Object.isEmpty(item.name) && Object.isEmpty(item.name)
       );
