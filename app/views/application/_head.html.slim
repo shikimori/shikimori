@@ -99,15 +99,14 @@ title = og.meta_title
 
 - unless Rails.env.test?
   // = stylesheet_pack_tag 'vendor', media: 'all', data: { 'turbolinks-track' => 'reload'  }
-  / = stylesheet_pack_tag 'application', media: 'all', data: { 'turbolinks-track' => 'reload'  }
-  / = stylesheet_pack_tag 'vendor', media: 'all', data: { 'turbolinks-track' => 'reload'  }
+  = stylesheet_pack_tag 'application', media: 'all', data: { 'turbolinks-track' => 'reload'  }
+  = stylesheet_pack_tag 'vendors', media: 'all', data: { 'turbolinks-track' => 'reload'  }
   = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => 'reload' }
 
   = yield :head
 
-  = javascript_pack_tag 'runtime', data: { 'turbolinks-track' => 'reload' }
   = javascript_pack_tag 'application', data: { 'turbolinks-track' => 'reload' }
-  = javascript_pack_tag 'vendor', data: { 'turbolinks-track' => 'reload' }
+  = javascript_pack_tag 'vendors', data: { 'turbolinks-track' => 'reload' }
 
   - if Rails.env.production?
     - if clean_host?
