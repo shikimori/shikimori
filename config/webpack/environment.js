@@ -56,7 +56,8 @@ environment.loaders.forEach(item => (
     if (currentLoader.loader === 'css-loader') {
       // copy localIdentName into modules
       currentLoader.options.modules = {
-        localIdentName: currentLoader.options.localIdentName
+        localIdentName: '[local]'
+        // localIdentName: currentLoader.options.localIdentName
       };
       // delete localIdentName
       delete currentLoader.options.localIdentName;
