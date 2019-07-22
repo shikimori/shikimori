@@ -132,4 +132,8 @@ textarea
   height: auto
   resize: none
   min-height: auto
+  max-width: 375px
+
+input
+  max-width: 375px
 </style>

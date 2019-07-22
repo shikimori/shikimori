@@ -202,6 +202,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
+@import "app/assets/stylesheets/globals/variables";
+
 .new-group
   padding-top: 8px
 
@@ -214,8 +216,7 @@ export default {
     color: #9da2a8
     display: table-cell
     font-size: 11px
-    // line-height: $line_height
-    line-height: 1.65
+    line-height: $line_height
     vertical-align: middle
     padding-left: 15px
 
