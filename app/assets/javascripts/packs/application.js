@@ -1,5 +1,5 @@
-// import 'core-js/stable';
-// import 'regenerator-runtime/runtime';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 // must be require to prevent bugs with load order
 window.$ = require('jquery'); // eslint-disable-line import/newline-after-import
@@ -8,6 +8,3 @@ window.jQuery = window.$;
 require('application');
 require('turbolinks_load');
 require('turbolinks_before_cache');
-
-require('pages/p-collections/_form');
-require('pages/p-tests/vue');
