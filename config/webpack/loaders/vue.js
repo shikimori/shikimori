@@ -2,12 +2,12 @@
 
 // const isProduction = process.env.NODE_ENV === 'production'
 // const inDevServer = process.argv.find(v => v.includes('webpack-dev-server'))
-const extractCSS = false; // !(inDevServer && (devServer && devServer.hmr)) || isProduction
+// const extractCSS = false; // !(inDevServer && (devServer && devServer.hmr)) || isProduction
 
 module.exports = {
   test: /\.vue$/,
   use: [{
-    loader: 'vue-loader',
-    options: { extractCSS }
+    loader: 'vue-loader'
+    // options: { extractCSS }
   }]
 };

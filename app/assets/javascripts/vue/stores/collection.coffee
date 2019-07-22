@@ -1,10 +1,8 @@
-import { Vue, Vuex } from 'vue/instance'
-
 uniq_id = 987654321
 new_id = -> uniq_id += 1
 
 # store for simple collection of items
-module.exports = new Vuex.Store
+module.exports =
   state:
     collection: []
 

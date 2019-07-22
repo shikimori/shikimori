@@ -1,5 +1,3 @@
-import { Vue, Vuex } from 'vue/instance'
-
 uniq_id = 987654321
 new_id = -> uniq_id += 1
 
@@ -13,7 +11,7 @@ no_links_to_fill = (links, group) ->
   links.none (v) ->
     v.group == group && !v.linked_id
 
-module.exports = new Vuex.Store
+module.exports =
   state:
     collection: {}
 

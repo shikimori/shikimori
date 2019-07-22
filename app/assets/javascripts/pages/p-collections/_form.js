@@ -1,3 +1,5 @@
+import CollectionLinks from 'vue/components/collections/collection_links.vue';
+
 pageLoad(
   'collections_new',
   'collections_edit',
@@ -8,48 +10,28 @@ pageLoad(
 
     if (!$('#vue_collection_links').exists()) { return; }
 
-    //import(/* webpackChunkName: "vue" */ 'vue/instance')
+    const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
+    // const CollectionLinks = await import('vue/components/collections/collection_links.vue');
+    const storeSchema = await import ('vue/stores/collection_links');
 
-    require.ensure(
-      [
-        'vue/instance',
-        'vue/components/collections/collection_links.vue',
-        'vue/stores'
-      ],
-      () =>
-        initApp(
-          require('vue/instance').Vue,
-          require('vue/components/collections/collection_links.vue').default,
-          require('vue/stores').collection_links
-        )
-    );
+    const collection = $('#collection_form').data('collection');
+    const autocompleteUrl = $('#collection_form').data('autocomplete_url');
+    const maxLinks = $('#collection_form').data('max_links');
+
+    const store = new Vuex.Store(storeSchema);
+    store.state.collection = sortByGroups(collection);
+
+    new Vue({
+      el: '#vue_collection_links',
+      store,
+      render: h => h(CollectionLinks, { props: { maxLinks, autocompleteUrl } })
+    });
   }
 );
 
-var initApp = function(Vue, CollectionLinks, store) {
-  const collection = $('#collection_form').data('collection');
-  const autocomplete_url = $('#collection_form').data('autocomplete_url');
-  const max_links = $('#collection_form').data('max_links');
-
-  store.state.collection = sortByGroups(collection);
-
-  new Vue({
-    el: '#vue_collection_links',
-    store,
-    render(h) {
-      return h(CollectionLinks, {
-        props: {
-          max_links,
-          autocomplete_url
-        }
-      });
-    }
-  });
-};
 
 // sort with preserving initial order
 function sortByGroups(data) {
   data.links = [].concat.apply([], Object.values(data.links.groupBy(v => v.group)));
   return data;
 }
-
