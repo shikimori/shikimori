@@ -1,7 +1,7 @@
 import { bind } from 'decko';
 import View from 'views/application/view';
 
-export default class PredefinedCheckbox extends View {
+export class PredefinedCheckbox extends View {
   initialize(regexp) {
     this.cssTemplate = this.$root.data('css_template');
     this.regexp = regexp;

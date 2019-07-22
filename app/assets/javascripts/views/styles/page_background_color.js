@@ -6,14 +6,13 @@ const REGEXP = /\/\* AUTO=page_background_color.*?rgba\((\d+), (\d+), (\d+), (\d
 const ZERO_OPACITY = 255;
 const DEFAULT_OPACITIES = [ZERO_OPACITY, ZERO_OPACITY, ZERO_OPACITY, 1];
 
-export default class PageBackgroundColor extends View {
+export class PageBackgroundColor extends View {
   async initialize() {
     [this.slider] = this.$('.range-slider');
     this.css_template = this.$root.data('css_template');
 
-    this.initPromise = require.ensure([], require => {
-      this._initSlider(require('nouislider'));
-    });
+    this.initPromise = import('nouislider')
+      .then(noUiSlider => this._initSlider(noUiSlider));
   }
 
   async update(css) {
