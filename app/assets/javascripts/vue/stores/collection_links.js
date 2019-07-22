@@ -19,7 +19,7 @@ module.exports = {
   },
 
   actions: {
-    fill_link(context, { link, changes }) {
+    fillLink(context, { link, changes }) {
       context.commit('FILL_LINK', { link, changes });
 
       if (has_duplicate(context.state.collection.links, link)) {
@@ -31,10 +31,10 @@ module.exports = {
       }
     },
 
-    add_link(context, data) { context.commit('ADD_LINK', data); },
-    remove_link(context, data) { context.commit('REMOVE_LINK', data); },
-    move_link(context, data) { context.commit('MOVE_LINK', data); },
-    rename_group(context, data) { context.commit('RENAME_GROUP', data); },
+    addLink(context, data) { context.commit('ADD_LINK', data); },
+    removeLink(context, data) { context.commit('REMOVE_LINK', data); },
+    moveLink(context, data) { context.commit('MOVE_LINK', data); },
+    renameGroup(context, data) { context.commit('RENAME_GROUP', data); },
     refill(context, data) { context.commit('REFILL', data); }
   },
 
@@ -102,7 +102,7 @@ module.exports = {
     collection(store) { return store.collection; },
     links(store) { return store.collection.links; },
     groups(store) { return store.collection.links.map(v => v.group).unique(); },
-    grouped_links(store) { return store.collection.links.groupBy(v => v.group); }
+    groupedLinks(store) { return store.collection.links.groupBy(v => v.group); }
   },
 
   modules: {}

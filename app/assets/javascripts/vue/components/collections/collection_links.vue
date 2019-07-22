@@ -5,21 +5,21 @@
       .subheadline.m10 {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
       .cc-3-flex
         .c-column(
-          v-for='group_name in groups'
+          v-for='groupName in groups'
         )
           .b-input.group
             div
               label(
-                :for="'group_' + group_name"
+                :for="'group_' + groupName"
               ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
               .add.b-js-link(
                 v-if="links.length < maxLinks"
-                @click="add_link({group: group_name})"
+                @click="addLink({group: groupName})"
               ) {{ I18n.t('actions.add').toLowerCase() }}
             input(
-              :id="'group_' + group_name"
-              :value="group_name"
-              :data-original_value="group_name"
+              :id="'group_' + groupName"
+              :value="groupName"
+              :data-original_value="groupName"
               :placeholder="I18n.t('frontend.collections.group_name')"
               @blur="onGroupRename"
               @change="onGroupRename"
@@ -33,23 +33,23 @@
             @add="onDragAdd"
           )
             CollectionLink(
-              v-for="link in grouped_links[group_name]"
+              v-for="link in groupedLinks[groupName]"
               :key="link.id || link.key"
               :link="link"
-              :autocomplete_url="autocompleteUrl"
+              :autocomplete-url="autocompleteUrl"
             )
 
         .c-column.new-group(
           v-if="links.length < maxLinks"
         )
           div(
-            v-if="Object.isEmpty(grouped_links[''])"
+            v-if="Object.isEmpty(groupedLinks[''])"
           )
             .b-button(
               @click="addNewGroup"
             ) {{ I18n.t('actions.add') }}
           div(
-            v-if="!Object.isEmpty(grouped_links[''])"
+            v-if="!Object.isEmpty(groupedLinks[''])"
           )
             .button-container
               .b-button.disabled {{ I18n.t('actions.add') }}
@@ -116,7 +116,7 @@ export default {
       'collection',
       'links',
       'groups',
-      'grouped_links'
+      'groupedLinks'
     ]),
     linksJSON() {
       return JSON.stringify(this.links);
@@ -129,17 +129,17 @@ export default {
   },
   methods: {
     ...mapActions([
-      'add_link',
-      'move_link',
-      'rename_group',
+      'addLink',
+      'moveLink',
+      'renameGroup',
       'refill'
     ]),
     addNewGroup(e) {
       if (e.target != e.currentTarget) { return; }
-      this.add_link({ group: '' });
+      this.addLink({ group: '' });
     },
     onGroupRename(e) {
-      this.rename_group({
+      this.renameGroup({
         from_name: e.target.getAttribute('data-original_value'),
         to_name: e.target.value
       });
@@ -165,7 +165,7 @@ export default {
       let from_index = listIndex(e.to, e.oldIndex);
       let to_index = listIndex(e.to, e.newIndex);
 
-      this.move_link({
+      this.moveLink({
         from_index: from_index,
         to_index: to_index,
         group_index: to_index
@@ -191,7 +191,7 @@ export default {
         to_index += 1;
       }
 
-      this.move_link({
+      this.moveLink({
         from_index: from_index,
         to_index: to_index,
         group_index: group_index

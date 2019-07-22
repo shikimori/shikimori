@@ -5,7 +5,7 @@
     :data-list_index='links.indexOf(link)'
   )
     .delete(
-      @click="remove_link(link)"
+      @click="removeLink(link)"
     )
     .drag-handle(
       v-if="link.linked_id"
@@ -18,7 +18,7 @@
         input(
           type="text"
           :placeholder="I18n.t(`frontend.collections.autocomplete.${collection.kind}`)"
-          :data-autocomplete='autocomplete_url'
+          :data-autocomplete='autocompleteUrl'
         )
     .persisted(
       v-if="link.linked_id"
@@ -75,8 +75,8 @@ function highlight(selector) {
 
 export default {
   props: {
-    link: Object,
-    autocomplete_url: String
+    link: { type: Object, required: true },
+    autocompleteUrl: { type: String, required: true },
   },
   computed: {
     ...mapGetters([
@@ -104,7 +104,7 @@ export default {
   },
   methods: {
     assign(changes) {
-      this.fill_link({ link: this.link, changes: changes })
+      this.fillLink({ link: this.link, changes: changes })
 
       this.$nextTick(() => {
         $(this.$el).process()
@@ -120,8 +120,8 @@ export default {
       autosize(target)
     },
     ...mapActions([
-      'fill_link',
-      'remove_link'
+      'fillLink',
+      'removeLink'
     ])
   }
 }
