@@ -75,23 +75,19 @@ environment.loaders.get('babel').exclude = /node_modules\/(?!delay|p-defer|get-j
 environment.loaders.get('file').exclude =
   /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
-environment.loaders.append('coffee', coffee);
-
 environment.loaders.append('pug', {
   test: /\.pug$/,
-  loader: 'pug-loader',
-  exclude: [
-    /node_modules/,
-    /\/vue\//
+  oneOf: [
+    {
+      exclude: /\.vue/,
+      use: ['pug-loader']
+    },
+    {
+      use: ['pug-plain-loader']
+    }
   ]
 });
 
-environment.loaders.append('pugVue', {
-  test: /\.pug$/,
-  loader: 'pug-plain-loader',
-  exclude: /node_modules/,
-  include: /\/vue\//
-});
 environment.plugins.append(
   'Provide',
   new webpack.ProvidePlugin({

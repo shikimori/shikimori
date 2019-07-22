@@ -1,7 +1,6 @@
-<template>
-  <div id="app">
-    <p>{{ `${message}` }}</p>
-  </div>
+<template lang='pug'>
+  #app
+    p {{ `${message}` }}
 </template>
 
 <script>
