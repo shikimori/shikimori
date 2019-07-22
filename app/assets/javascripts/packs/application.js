@@ -9,6 +9,8 @@ window.jQuery = window.$;
 require('turbolinks_load');
 require('turbolinks_before_cache');
 
+// require('pages/p-collections/_form');
+
 import App from 'test.vue';
 import { Vue } from 'vue/instance';
 

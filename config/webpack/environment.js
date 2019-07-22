@@ -9,28 +9,67 @@ const vueLoader = require('./loaders/vue');
 environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
 environment.loaders.prepend('vue', vueLoader);
 
-environment.loaders.forEach(item => {
-  if (!item.value.use) { return; }
-
+environment.loaders.forEach(item => (
   item.value.use.forEach(currentLoader => {
-    // fixes webpack compilation
+    // fixes issue with webpacker not compatible with css-loader > 3.0
     // https://github.com/rails/webpacker/issues/2162
     if (currentLoader.loader === 'css-loader') {
-      // Copy localIdentName into modules
+      // copy localIdentName into modules
       currentLoader.options.modules = {
         localIdentName: currentLoader.options.localIdentName
       };
-      // Delete localIdentName
+      // delete localIdentName
       delete currentLoader.options.localIdentName;
     }
 
-    // fixes issue with SASS not working in vue
+    // fix issue with SASS not working in vue
+    // https://vue-loader.vuejs.org/guide/pre-processors.html#sass-vs-scss
+    // if (currentLoader.loader === 'sass-loader') {
+    //   currentLoader.options.indentedSyntax = true;
+    // }
+  })
+));
+
+// fix issue with SASS not working in vue
+const moduleRegexp = environment.loaders.get('sass').exclude;
+const vueRegexp = /\.vue$/;
+
+const sassLoader = environment.loaders.get('sass');
+const moduleSassLoader = environment.loaders.get('moduleSass');
+
+environment.loaders.insert(
+  'sassVue',
+  {
+    ...sassLoader,
+    use: JSON.parse(JSON.stringify(sassLoader.use)),
+    include: vueRegexp
+  },
+  { after: 'sass' }
+);
+
+environment.loaders.insert(
+  'moduleSassVue',
+  {
+    ...moduleSassLoader,
+    use: JSON.parse(JSON.stringify(moduleSassLoader.use)),
+    include: [moduleRegexp, vueRegexp]
+  },
+  { after: 'moduleSass' }
+);
+
+environment.loaders.forEach(item => {
+  if (item.key !== 'sassVue' && item.key !== 'moduleSassVue') { return; }
+
+  item.value.use.forEach(currentLoader => {
     // https://vue-loader.vuejs.org/guide/pre-processors.html#sass-vs-scss
     if (currentLoader.loader === 'sass-loader') {
       currentLoader.options.indentedSyntax = true;
     }
   });
 });
+
+environment.loaders.get('sass').exclude = [moduleRegexp, vueRegexp];
+environment.loaders.get('moduleSass').exclude = vueRegexp;
 
 // coffee
 // https://github.com/rails/webpacker/issues/2162
@@ -45,17 +84,20 @@ environment.loaders.get('file').exclude =
 
 environment.loaders.append('coffee', coffee);
 
-environment.loaders.append('jade', {
+environment.loaders.append('pug', {
   test: /\.pug$/,
   loader: 'pug-loader',
-  exclude: /node_modules|vue/
+  exclude: [
+    /node_modules/,
+    /\/vue\//
+  ]
 });
 
-environment.loaders.append('pug', {
+environment.loaders.append('pugVue', {
   test: /\.pug$/,
   loader: 'pug-plain-loader',
   exclude: /node_modules/,
-  include: /vue/
+  include: /\/vue\//
 });
 environment.plugins.append(
   'Provide',

@@ -1,4 +1,4 @@
-{ Vue, Vuex } = require('vue/instance')
+import { Vue, Vuex } from 'vue/instance'
 
 uniq_id = 987654321
 new_id = -> uniq_id += 1
