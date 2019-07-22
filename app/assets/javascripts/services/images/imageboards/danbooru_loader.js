@@ -1,6 +1,6 @@
-import LoaderBase from './loader_base';
+import { LoaderBase } from './loader_base';
 
-export default class DanbooruLoader extends LoaderBase {
+export class DanbooruLoader extends LoaderBase {
   _initialize() {
     this.name = 'Danbooru';
     this.baseUrl = 'http://danbooru.donmai.us';

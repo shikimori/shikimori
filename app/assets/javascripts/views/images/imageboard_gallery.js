@@ -7,14 +7,12 @@ export default class ImageboardGallery extends PreloadedGallery {
     this.rel = 'imageboards';
   }
 
-  _buildLoader() {
-    return require.ensure([], require => {
-      const ImageboardsLoader = require('services/images/imageboards_loader').default;
-      const tag = encodeURIComponent(this.$root.data('imageboard_tag') || '').trim();
+  async _buildLoader() {
+    const { ImageboardsLoader } = await import('services/images/imageboards_loader');
+    const tag = encodeURIComponent(this.$root.data('imageboard_tag') || '').trim();
 
-      if (tag) {
-        this.loader = new ImageboardsLoader(ImageboardGallery.BATCH_SIZE, tag);
-      }
-    });
+    if (tag) {
+      this.loader = new ImageboardsLoader(ImageboardGallery.BATCH_SIZE, tag);
+    }
   }
 }

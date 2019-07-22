@@ -3,7 +3,7 @@ import { Base64 } from 'js-base64';
 
 import axios from 'helpers/axios';
 
-export default class LoaderBase {
+export class LoaderBase {
   FETCH_EVENT = 'loader:fetch';
 
   constructor(tag, forbiddenTags) {

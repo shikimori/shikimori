@@ -1,6 +1,6 @@
 import uEvent from 'uevent';
 
-export default class StaticLoader {
+export class StaticLoader {
   FETCH_EVENT = 'loader:fetch';
 
   constructor(batchSize, cache) {

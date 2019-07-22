@@ -1,6 +1,6 @@
-import LoaderBase from './loader_base';
+import { LoaderBase } from './loader_base';
 
-export default class SafebooruLoader extends LoaderBase {
+export class SafebooruLoader extends LoaderBase {
   _initialize() {
     this.name = 'Safebooru';
     this.baseUrl = 'http://safebooru.org';
