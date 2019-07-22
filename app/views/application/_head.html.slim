@@ -103,8 +103,9 @@ title = og.meta_title
 
   = yield :head
 
-  / = javascript_pack_tag 'vendor', data: { 'turbolinks-track' => 'reload' }
+  / = javascript_pack_tag 'runtime~application', data: { 'turbolinks-track' => 'reload' }
   = javascript_pack_tag 'application', data: { 'turbolinks-track' => 'reload' }
+  = javascript_pack_tag 'vendor', data: { 'turbolinks-track' => 'reload' }
 
   - if Rails.env.production?
     - if clean_host?

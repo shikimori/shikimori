@@ -9,6 +9,7 @@
     "@rails/webpacker": "^4.0.7",
     "autosize": "^4.0.0",
     "axios": "0.18.1",
+    "blueimp-md5": "^2.10.0",
     "bowser": "^1.7.3",
     "chain-decorator": "^1.0.0",
     "codemirror": "5.42.2",
@@ -44,7 +45,7 @@
     "uevent": "^1.0.0",
     "urijs": "^1.18.12",
     "vue": "^2.6.10",
-    "vue-loader": "14.2.2",
+    "vue-loader": "15.7.1",
     "vue-template-compiler": "^2.6.10",
     "vuedraggable": "^2.17.0",
     "vuex": "3.0.1"
@@ -71,10 +72,5 @@
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --config config/webpack/development.js"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ]
+  "license": "OSL-3.0"
 }

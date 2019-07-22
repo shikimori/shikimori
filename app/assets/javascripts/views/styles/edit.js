@@ -14,7 +14,7 @@ const STICKY_MENU_REGEXP = /\/\* AUTO=sticky_menu \*\/ .*[\r\n]?/;
 export default class EditStyles extends View {
   cssCache = {}
 
-  initialize() {
+  async initialize() {
     this.$form = this.$('.edit_style');
     this.$preview = this.$('.preview');
 

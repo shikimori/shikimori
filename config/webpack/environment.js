@@ -3,41 +3,37 @@ const { environment } = require('@rails/webpacker');
 
 // vue
 
-// VueLoaderPlugin is used in vue-loader > 15.0.0
-// const { VueLoaderPlugin } = require('vue-loader');
+const { VueLoaderPlugin } = require('vue-loader');
 const vueLoader = require('./loaders/vue');
 
-// environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
+environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
 environment.loaders.prepend('vue', vueLoader);
 
-// https://github.com/rails/webpacker/issues/2162
-const cssLoader = environment.loaders.get('css');
-for (let i = 0; i < cssLoader.use.length; i++) {
-  let currentLoader = cssLoader.use[i];
-  if (currentLoader.loader === 'css-loader') {
-    // Copy localIdentName into modules
-    currentLoader.options.modules = {
-      localIdentName: currentLoader.options.localIdentName
-    };
-    // Delete localIdentName
-    delete currentLoader.options.localIdentName;
-  }
-}
+environment.loaders.forEach(item => {
+  if (!item.value.use) { return; }
 
-const sassLoader = environment.loaders.get('sass');
-for (let i = 0; i < sassLoader.use.length; i++) {
-  let currentLoader = sassLoader.use[i];
-  if (currentLoader.loader === 'css-loader') {
-    // Copy localIdentName into modules
-    currentLoader.options.modules = {
-      localIdentName: currentLoader.options.localIdentName
-    };
-    // Delete localIdentName
-    delete currentLoader.options.localIdentName;
-  }
-}
+  item.value.use.forEach(currentLoader => {
+    // fixes webpack compilation
+    // https://github.com/rails/webpacker/issues/2162
+    if (currentLoader.loader === 'css-loader') {
+      // Copy localIdentName into modules
+      currentLoader.options.modules = {
+        localIdentName: currentLoader.options.localIdentName
+      };
+      // Delete localIdentName
+      delete currentLoader.options.localIdentName;
+    }
+
+    // fixes issue with SASS not working in vue
+    // https://vue-loader.vuejs.org/guide/pre-processors.html#sass-vs-scss
+    if (currentLoader.loader === 'sass-loader') {
+      currentLoader.options.indentedSyntax = true;
+    }
+  });
+});
 
 // coffee
+// https://github.com/rails/webpacker/issues/2162
 const coffee = require('./loaders/coffee');
 
 environment.loaders.prepend('coffee', coffee);
@@ -93,11 +89,17 @@ environment.plugins.append(
 //   })
 // });
 
+// or using custom config
+environment.splitChunks(config => (
+  Object.assign({}, config, {
+    optimization: {
+      runtimeChunk: false,
+      splitChunks: {
+        chunks: 'all',
+        name: 'vendor'
+      }
+    }
+  })
+));
 
-// environment.splitChunks();
-
-// // or using custom config
-// environment.splitChunks(config => (
-//   Object.assign({}, config, { optimization: { splitChunks: false } })
-// ));
 module.exports = environment;
