@@ -50,7 +50,7 @@ export default {
   props: {
     field: { type: String, required: true },
     resourceType: { type: String, required: true },
-    autocompleteUrl: { type: String, required: true }
+    autocompleteUrl: { type: String, required: false, default: undefined }
   },
   data: () => ({
     dragOptions: {

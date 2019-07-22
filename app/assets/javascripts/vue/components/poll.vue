@@ -44,6 +44,7 @@ import draggable from 'vuedraggable';
 import delay from 'delay';
 
 export default {
+  name: 'Poll',
   components: { draggable },
   data() {
     return {
