@@ -93,7 +93,9 @@ environment.plugins.append(
 environment.splitChunks(config => (
   Object.assign({}, config, {
     optimization: {
-      runtimeChunk: false,
+      runtimeChunk: {
+        name: 'runtime'
+      },
       splitChunks: {
         chunks: 'all',
         name: 'vendor'
