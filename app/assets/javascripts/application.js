@@ -12,13 +12,12 @@ Turbolinks.start();
 import moment from 'moment';
 import delay from 'delay';
 
-const requireVendor = require.context('vendor', true);
+const requireVendor = require.context('vendor', false);
 requireVendor.keys().forEach(requireVendor);
 
 import 'magnific-popup';
 import 'magnific-popup/dist/magnific-popup.css';
 import 'nouislider/distribute/nouislider.css';
-import 'pikaday/scss/pikaday.scss';
 
 import 'jquery-appear-original';
 
