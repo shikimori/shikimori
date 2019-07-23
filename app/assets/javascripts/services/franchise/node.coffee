@@ -1,7 +1,8 @@
-d3 = require 'd3'
-axios = require('helpers/axios').default
+import d3 from 'd3'
 
-module.exports = class FranchiseNode
+import axios from 'helpers/axios'
+
+export class FranchiseNode
   SELECT_SCALE = 2
   BORDER_OFFSET = 3
 
