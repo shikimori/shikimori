@@ -2,7 +2,7 @@ import URI from 'urijs';
 import Turbolinks from 'turbolinks';
 
 import CollectionSearch from 'views/search/collection';
-import DatePicker from 'views/application/date_picker';
+import { DatePicker } from 'views/application/date_picker';
 import axios from 'helpers/axios';
 
 function datePicker() {
