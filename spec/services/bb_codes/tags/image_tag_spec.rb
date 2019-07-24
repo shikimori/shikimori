@@ -32,10 +32,10 @@ describe BbCodes::Tags::ImageTag do
       it do
         is_expected.to eq(
           <<-HTML.squish.strip
-            <a class="b-image no-zoom"><img
+            <span class="b-image no-zoom"><img
               src="#{user_image.image.url :original, false}"
               class="check-width"
-            /></a>
+            /></span>
           HTML
         )
       end
@@ -62,9 +62,9 @@ data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
       it do
         is_expected.to eq(
           <<-HTML.squish.strip
-            <a class="b-image no-zoom"><img
+            <span class="b-image no-zoom"><img
               src="#{user_image.image.url :original, false}" class="check-width"
-            /></a>
+            /></span>
           HTML
         )
       end
@@ -76,9 +76,9 @@ data-width=\"#{user_image_2.width}\" data-height=\"#{user_image_2.height}\" />\
         it do
           is_expected.to eq(
             <<-HTML.squish.strip
-              <a class="b-image no-zoom"><img
+              <span class="b-image no-zoom"><img
                 src="#{user_image.image.url :original, false}" class="check-width abc"
-              /></a>
+              /></span>
             HTML
           )
         end

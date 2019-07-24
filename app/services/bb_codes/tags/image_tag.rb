@@ -77,11 +77,11 @@ private
     ].compact.join(' ')
 
     <<-HTML.squish.strip
-      <a class="b-image no-zoom"><img
+      <span class="b-image no-zoom"><img
         src="#{original_url}"
         #{"class=\"#{css_class}\"" if css_class.present?}
         #{sizes_html}
-      />#{marker_html}</a>
+      />#{marker_html}</span>
     HTML
   end
 

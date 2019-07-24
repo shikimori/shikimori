@@ -1,6 +1,8 @@
 class CommentDecorator < BaseDecorator
   instance_cache :html_body
 
+  CACHE_VERSION = :v11
+
   def html_body
     if persisted?
       Rails.cache.fetch cache_key do
@@ -18,10 +20,6 @@ class CommentDecorator < BaseDecorator
 private
 
   def cache_key
-    CacheHelper.keys(
-      object,
-      :body,
-      :v10
-    )
+    CacheHelper.keys object, :body, CACHE_VERSION
   end
 end

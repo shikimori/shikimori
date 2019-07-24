@@ -12,6 +12,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
+  CACHE_VERSION = :v3
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -129,7 +130,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     return '' if @topic.original_body.blank?
 
     Rails.cache.fetch(
-      CacheHelper.keys(:body, Digest::MD5.hexdigest(@topic.original_body), :v2)
+      CacheHelper.keys(:body, Digest::MD5.hexdigest(@topic.original_body), CACHE_VERSION)
     ) do
       BbCodes::Text.call @topic.original_body
     end

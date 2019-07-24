@@ -8,7 +8,9 @@
 .b-image
   +image_editable
   +media
-  cursor: zoom-in !important
+
+  &:not(.no-zoom)
+    cursor: zoom-in !important
 
   &:hover
     img
@@ -20,12 +22,9 @@
     img
       width: $media_width
 
-  &.no-zoom
-    cursor: default !important
-
-    &:hover
-      img
-        opacity: 1
+  &.no-zoom:hover
+    img
+      opacity: 1
 
   &.unprocessed img,
   &.check-width img

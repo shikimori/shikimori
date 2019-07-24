@@ -53,7 +53,7 @@ private
 
     if is_no_zoom
       <<-HTML.squish.strip
-        <a class="b-image no-zoom">#{image_html}</a>
+        <span class="b-image no-zoom">#{image_html}</span>
       HTML
     else
       <<-HTML.squish.strip

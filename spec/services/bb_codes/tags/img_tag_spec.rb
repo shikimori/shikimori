@@ -28,7 +28,7 @@ describe BbCodes::Tags::ImgTag do
       it do
         is_expected.to eq(
           <<-HTML.squish.strip
-            <a class="b-image no-zoom"><img src="#{camo_url}" class="check-width"></a>
+            <span class="b-image no-zoom"><img src="#{camo_url}" class="check-width"></span>
           HTML
         )
       end
