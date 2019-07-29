@@ -12,12 +12,12 @@
     "blueimp-md5": "^2.10.0",
     "bowser": "^1.7.3",
     "chain-decorator": "^1.0.0",
-    "codemirror": "5.42.2",
+    "codemirror": "5.48.2",
     "coffee-loader": "^0.9.0",
     "coffeescript": "1.12.7",
     "d3": "3.5.17",
     "decko": "^1.2.0",
-    "delay": "4.1.0",
+    "delay": "4.3.0",
     "faye": "^1.2.4",
     "get-js": "0.0.5",
     "highcharts": "6.2.0",
@@ -49,7 +49,7 @@
     "vue-loader": "15.7.1",
     "vue-template-compiler": "^2.6.10",
     "vuedraggable": "^2.17.0",
-    "vuex": "3.0.1"
+    "vuex": "3.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
