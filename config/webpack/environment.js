@@ -113,7 +113,7 @@ environment.splitChunks(config => (
             priority: -10,
             name: 'vendors'
           },
-          'async-vendors': {
+          vendors_async: {
             test: /[\\/]node_modules[\\/]/,
             minChunks: 1,
             chunks: 'async',
@@ -125,6 +125,15 @@ environment.splitChunks(config => (
               // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
               return allChunksNames || moduleFileName;
             }
+          },
+          venros_styles: {
+            name: 'vendors',
+            test: /\.s?(?:c|a)ss$/,
+            chunks: 'all',
+            minChunks: 1,
+            reuseExistingChunk: true,
+            enforce: true,
+            priority: 1
           }
         }
       },
