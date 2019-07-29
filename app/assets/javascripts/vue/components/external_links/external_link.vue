@@ -1,57 +1,57 @@
-<template lang="pug">
+<template lang='pug'>
   .b-collection_item
     .delete(
       @click="remove(link)"
     )
     .drag-handle
     input(
-      type="hidden"
-      v-model="link.entry_id"
+      type='hidden'
+      v-model='link.entry_id'
       :name="fieldName('entry_id')"
     )
     input(
-      type="hidden"
-      v-model="link.entry_type"
+      type='hidden'
+      v-model='link.entry_type'
       :name="fieldName('entry_type')"
     )
     input(
-      type="hidden"
-      v-model="link.created_at"
+      type='hidden'
+      v-model='link.created_at'
       :name="fieldName('created_at')"
     )
     input(
-      type="hidden"
-      v-model="link.updated_at"
+      type='hidden'
+      v-model='link.updated_at'
       :name="fieldName('updated_at')"
     )
     input(
-      type="hidden"
-      v-model="link.imported_at"
+      type='hidden'
+      v-model='link.imported_at'
       :name="fieldName('imported_at')"
     )
     input(
-      type="hidden"
-      v-model="link.source"
+      type='hidden'
+      v-model='link.source'
       :name="fieldName('source')"
     )
     .b-input.select
       select(
-        v-model="link.kind"
+        v-model='link.kind'
         :name="fieldName('kind')"
       )
         option(
-          v-for="kind_option in kind_options"
-          :value="kind_option.last()"
-        ) {{ kind_option.first() }}
+          v-for='kindOption in kindOptions'
+          :value='kindOption.last()'
+        ) {{ kindOption.first() }}
     .b-input
       input(
-        type="text"
-        v-model="link.url"
+        type='text'
+        v-model='link.url'
         :name="fieldName('url')"
         :placeholder="I18n.t('activerecord.attributes.external_link.url')"
-        @keydown.enter="submit"
-        @keydown.8="removeEmpty(link)"
-        @keydown.esc="removeEmpty(link)"
+        @keydown.enter='submit'
+        @keydown.8='removeEmpty(link)'
+        @keydown.esc='removeEmpty(link)'
       )
 </template>
 
@@ -59,21 +59,25 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  name: 'ExternalLink',
   props: {
-    link: Object,
-    kind_options: Array,
-    resource_type: String,
-    entry_type: String,
-    entry_id: Number
+    link: { type: Object, required: true },
+    kindOptions: { type: Array, required: true },
+    resourceType: { type: String, required: true },
+    entryType: { type: String, required: true },
+    entryId: { type: Number, required: true }
   },
   computed: {
     ...mapGetters([
-    ]),
+    ])
   },
   methods: {
+    ...mapActions([
+      'remove'
+    ]),
     fieldName(name) {
       if (!Object.isEmpty(this.link.url)) {
-        return `${this.resource_type.toLowerCase()}[external_links][][${name}]`
+        return `${this.resourceType.toLowerCase()}[external_links][][${name}]`
       } else {
         return ''
       }
@@ -89,10 +93,7 @@ export default {
         this.remove(link)
         this.$emit('focusLast')
       }
-    },
-    ...mapActions([
-      'remove'
-    ])
+    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -102,7 +103,7 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style scoped lang='sass'>
 .b-collection_item
   &:first-child:last-child
     .drag-handle

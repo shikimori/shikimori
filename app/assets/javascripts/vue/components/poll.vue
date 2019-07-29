@@ -3,14 +3,14 @@
     input(
       type="hidden"
       name="poll[variants_attributes][]"
-      v-if="is_empty"
+      v-if="isEmpty"
     )
     .b-nothing_here(
       v-if="!collection.length"
     )
       | {{ I18n.t('frontend.poll_variants.nothing_here') }}
     draggable.block(
-      :options="drag_options"
+      :options="dragOptions"
       v-model="collection"
       v-if="collection.length"
     )
@@ -38,65 +38,62 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import draggable from 'vuedraggable'
+import { mapGetters, mapActions } from 'vuex';
+
+import draggable from 'vuedraggable';
 import delay from 'delay';
 
 export default {
+  name: 'Poll',
   components: { draggable },
-  props: {
-    resource_type: String,
-    entry_type: String,
-    entry_id: Number
-  },
   data() {
     return {
-      drag_options: {
+      dragOptions: {
         group: 'poll_variants',
         handle: '.drag-handle'
       }
-    }
+    };
   },
   computed: {
+    ...mapGetters([
+      'isEmpty'
+    ]),
     collection: {
       get() {
-        return this.$store.state.collection
+        return this.$store.state.collection;
       },
       set(items) {
-        this.$store.dispatch('replace', items)
+        this.$store.dispatch('replace', items);
       }
-    },
-    ...mapGetters([
-      'is_empty'
-    ]),
+    }
   },
   methods: {
+    ...mapActions([
+      'remove'
+    ]),
     add() {
-      this.$store.dispatch('add', { label: '' })
-      this.focusLast()
+      this.$store.dispatch('add', { label: '' });
+      this.focusLast();
     },
     submit(e) {
       if (!e.metaKey && !e.ctrlKey) {
-        e.preventDefault()
-        this.add()
+        e.preventDefault();
+        this.add();
       }
     },
     removeEmpty(pollVariant) {
       if (Object.isEmpty(pollVariant.label) && this.$store.state.collection.length > 1) {
-        this.remove(pollVariant)
-        this.focusLast()
+        this.remove(pollVariant);
+        this.focusLast();
       }
     },
     async focusLast() {
       // do not use this.$nextTick. it passes "backspace" event to focused input
       await delay();
       $('input', this.$el).last().focus();
-    },
-    ...mapActions([
-      'remove'
-    ])
+    }
   }
-}
+};
 </script>
 
 <style scoped lang="sass">

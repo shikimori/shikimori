@@ -4,9 +4,9 @@ import cookies from 'js-cookie';
 import axios from 'helpers/axios';
 
 import View from 'views/application/view';
-import PredefinedCheckbox from './predefined_checkbox';
-import PageBackgroundColor from './page_background_color';
-import BodyBackground from './body_background';
+import { PredefinedCheckbox } from './predefined_checkbox';
+import { PageBackgroundColor } from './page_background_color';
+import { BodyBackground } from './body_background';
 
 const PAGE_BORDER_REGEXP = /\/\* AUTO=page_border \*\/ .*[\r\n]?/;
 const STICKY_MENU_REGEXP = /\/\* AUTO=sticky_menu \*\/ .*[\r\n]?/;
@@ -14,7 +14,7 @@ const STICKY_MENU_REGEXP = /\/\* AUTO=sticky_menu \*\/ .*[\r\n]?/;
 export default class EditStyles extends View {
   cssCache = {}
 
-  initialize() {
+  async initialize() {
     this.$form = this.$('.edit_style');
     this.$preview = this.$('.preview');
 
@@ -34,36 +34,21 @@ export default class EditStyles extends View {
     this.$('.style_css .editor-expand').on('click', () => this._toggleExpand(true));
     this.$('.style_css .editor-collapse').on('click', () => this._toggleExpand(false));
 
-    require.ensure([], require => {
-      const CodeMirror = require('codemirror');
+    await this._importComponents();
 
-      require('codemirror/addon/hint/show-hint.js');
-      require('codemirror/addon/hint/css-hint.js');
+    this.editor = this._initEditor(this.CodeMirror);
+    // @editor.on 'cut', @_debouncedSync
+    // @editor.on 'paste', @_debouncedSync
+    this.editor.on('change', this._debouncedSync);
 
-      require('codemirror/addon/display/fullscreen.js');
-      require('codemirror/addon/dialog/dialog.js');
-      require('codemirror/addon/search/searchcursor.js');
-      require('codemirror/addon/search/search.js');
-      require('codemirror/addon/scroll/annotatescrollbar.js');
-      require('codemirror/addon/search/matchesonscrollbar.js');
-      require('codemirror/addon/search/jump-to-line.js');
+    this.components = [
+      new PageBackgroundColor(this.$('.page_background_color')),
+      new PredefinedCheckbox(this.$('.page_border'), PAGE_BORDER_REGEXP),
+      new PredefinedCheckbox(this.$('.sticky_menu'), STICKY_MENU_REGEXP),
+      new BodyBackground(this.$('.body_background'))
+    ];
 
-      this.md5 = require('blueimp-md5');
-
-      this.editor = this._initEditor(CodeMirror);
-      // @editor.on 'cut', @_debouncedSync
-      // @editor.on 'paste', @_debouncedSync
-      this.editor.on('change', this._debouncedSync);
-
-      this.components = [
-        new PageBackgroundColor(this.$('.page_background_color')),
-        new PredefinedCheckbox(this.$('.page_border'), PAGE_BORDER_REGEXP),
-        new PredefinedCheckbox(this.$('.sticky_menu'), STICKY_MENU_REGEXP),
-        new BodyBackground(this.$('.body_background'))
-      ];
-
-      this._syncComponents();
-    });
+    this._syncComponents();
   }
 
   preview() {
@@ -82,6 +67,25 @@ export default class EditStyles extends View {
     this.$('#style_css').val(this.editor.getValue());
     this.preview();
     this._syncComponents();
+  }
+
+  async _importComponents() {
+    const { default: CodeMirror } = await import(/* webpackChunkName: "codemirror" */ 'codemirror');
+    const { default: md5 } = await import(/* webpackChunkName: "codemirror" */ 'blueimp-md5');
+
+    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/hint/show-hint.js');
+    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/hint/css-hint.js');
+
+    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/display/fullscreen.js');
+    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/dialog/dialog.js');
+    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/searchcursor.js');
+    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/search.js');
+    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/scroll/annotatescrollbar.js');
+    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/matchesonscrollbar.js');
+    await import(/* webpackChunkName: "coremirror" */ 'codemirror/addon/search/jump-to-line.js');
+
+    this.md5 = md5;
+    this.CodeMirror = CodeMirror;
   }
 
   _loading() {

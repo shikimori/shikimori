@@ -30,14 +30,15 @@ export default class PreloadedGallery extends ShikiGallery {
     this.on('upload:success', (_e, image) => this._appendUploaded(image));
 
     this._cleanup();
-    this._buildLoader().then(() => {
-      this.loader.on(this.loader.FETCH_EVENT, loadedImages => {
-        this._imagesLoad(loadedImages);
-      });
 
-      this._appearMarker();
-      this._fetch();
+    await this._buildLoader();
+
+    this.loader.on(this.loader.FETCH_EVENT, loadedImages => {
+      this._imagesLoad(loadedImages);
     });
+
+    this._appearMarker();
+    this._fetch();
   }
 
   // callbacks
@@ -57,13 +58,11 @@ export default class PreloadedGallery extends ShikiGallery {
   }
 
   // private methods
-  _buildLoader() {
-    return require.ensure([], require => {
-      const StaticLoader = require('services/images/static_loader').default;
-      const images = this.$container.data('images');
+  async _buildLoader() {
+    const { StaticLoader } = await import('services/images/static_loader');
+    const images = this.$container.data('images');
 
-      this.loader = new StaticLoader(PreloadedGallery.BATCH_SIZE, images);
-    });
+    this.loader = new StaticLoader(PreloadedGallery.BATCH_SIZE, images);
   }
 
   _appearMarker() {

@@ -1,4 +1,4 @@
-module.exports = class ShikiMath
+export class ShikiMath
   # detecting whether point is above or below a line
   # x,y - point
   # x1,y1 - point 1 of line

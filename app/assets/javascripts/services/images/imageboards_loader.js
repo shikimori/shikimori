@@ -1,8 +1,8 @@
-import StaticLoader from './static_loader';
-import SafebooruLoader from './imageboards/safebooru_loader';
-import DanbooruLoader from './imageboards/danbooru_loader';
-import YandereLoader from './imageboards/yandere_loader';
-import KonachanLoader from './imageboards/konachan_loader';
+import { StaticLoader } from './static_loader';
+import { SafebooruLoader } from './imageboards/safebooru_loader';
+import { DanbooruLoader } from './imageboards/danbooru_loader';
+import { YandereLoader } from './imageboards/yandere_loader';
+import { KonachanLoader } from './imageboards/konachan_loader';
 
 const FORBIDDEN_TAGS = [
   'comic', 'cum', 'fellatio', 'pussy', 'penis', 'sex', 'pussy_juice', 'nude',
@@ -21,7 +21,7 @@ const LOADERS = [
   KonachanLoader
 ];
 
-export default class ImageboardsLoader extends StaticLoader {
+export class ImageboardsLoader extends StaticLoader {
   _initialize() {
     this.tag = this.cache;
     this.cache = {};

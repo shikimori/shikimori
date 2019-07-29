@@ -6,11 +6,11 @@ class YandexMetrika
   APP_ID = 'b658b57e3a5b4370a0448fc9ba85f129'
   APP_SECRET = '51bd8685f0074421895b4965eec15250'
   APP_TOKEN = 'c751573157874acea30ba2ec46b9f6db'
-  APP_COUNTER_ID = 7915231
+  APP_COUNTER_ID = 53_670_769
 
   method_object :months
 
-  def call
+  def call # rubocop:disable AbcSize
     # it is split on many requests because yandex rounds(3) all metrics on
     # requests with longer intervals
     ([3, @months].max / 3 - 1).downto(0)
@@ -39,7 +39,7 @@ private
   end
 
   def json_data date_from, date_to
-    JSON.parse(open(api_url(date_from, date_to)).read)['rows']
+    JSON.parse(OpenURI.open_uri(api_url(date_from, date_to)).read)['rows']
   end
 
   def api_url date_from, date_to

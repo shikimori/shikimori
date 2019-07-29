@@ -1,26 +1,34 @@
 <template lang="pug">
   form
-    div you wrote: {{input_data.value != '' ? input_data.value : 'nothing'}}
-    c_input(
-      :input_data="input_data"
+    .test-label You wrote: {{inputData.value != '' ? inputData.value : 'nothing'}}
+    TestInput(
+      :input-data="inputData"
     )
-    button Отправить
+    button.b-button Submit
 </template>
 
 <script>
-import c_input from './test_2'
+import TestInput from './test_2';
+
 export default {
-  components: { c_input },
-  data() {
-    return {
-      input_data: {
-        name: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5),
-        append: '',
-        value: '',
-        placeholder: '',
-        error: 'zz'
-      }
+  name: 'Test',
+  components: { TestInput },
+  data: () => ({
+    inputData: {
+      name: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5),
+      append: '',
+      value: '',
+      placeholder: '',
+      error: 'zz'
     }
-  }
-}
+  })
+};
 </script>
+
+<style scoped lang="sass">
+form
+  display: block
+
+.test-label
+  margin-bottom: 5px
+</style>

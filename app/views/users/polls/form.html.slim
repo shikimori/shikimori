@@ -14,7 +14,20 @@ header.head.misc
       url: @resource.persisted? ? profile_poll_url(@user, @resource) : profile_polls_url(@user),
       html: { class: 'b-form bold-labels' } do |f|
 
-    .cc-2_3.block
+    div class=(@resource.can_start? ? 'cc-3_2' : 'cc-2_3')
+      - if @resource.can_start?
+        .c-column.block
+          .block
+            = BbCodes::Text.call @resource.bb_code
+
+          - if @resource.can_start?
+            a.b-button[
+              href=start_profile_poll_url(@user, @resource)
+              title=t('actions.start')
+              data-method="post"
+              data-confirm=t('actions.confirm')
+            ] = t 'actions.start'
+
       .c-column.m0
         = f.input :user_id, as: :hidden
         = f.input :name, autofocus: @resource.name.blank?
@@ -44,13 +57,6 @@ header.head.misc
         .buttons
           a.cancel href=profile_polls_url(@user) = t 'actions.cancel'
           = f.button :magic_submit
-          - if @resource.can_start?
-            a.start.b-button[
-              href=start_profile_poll_url(@user, @resource)
-              title=t('actions.start')
-              data-method="post"
-              data-confirm=t('actions.confirm')
-            ] = t 'actions.start'
 
         - if @resource.persisted?
           a.remove[
@@ -59,7 +65,3 @@ header.head.misc
             data-method="delete"
             data-confirm=t('actions.confirm')
           ] = t 'actions.delete'
-
-      - if @resource.can_start?
-        .c-column.m0
-          = BbCodes::Text.call @resource.bb_code

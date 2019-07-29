@@ -1,23 +1,94 @@
 const webpack = require('webpack');
 const { environment } = require('@rails/webpacker');
 
+// vue
+const { VueLoaderPlugin } = require('vue-loader');
+const vueLoader = require('./loaders/vue');
+
+environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
+environment.loaders.prepend('vue', vueLoader);
+
+// fix issue with SASS not working in vue
+const getStyleRule = require('@rails/webpacker/package/utils/get_style_rule');
+
+environment.loaders.delete('sass');
+environment.loaders.delete('moduleSass');
+
+environment.loaders.insert(
+  'sass',
+  getStyleRule(/\.sass$/i, false, [
+    { loader: 'sass-loader', options: { sourceMap: true, indentedSyntax: true } }
+  ]),
+  { after: 'css' }
+);
+environment.loaders.insert(
+  'scss',
+  getStyleRule(/\.scss$/i, false, [
+    {
+      loader: 'sass-loader',
+      options: { sourceMap: true }
+    }
+  ]),
+  { after: 'sass' }
+);
+environment.loaders.insert(
+  'moduleSass',
+  getStyleRule(/\.sass$/i, true, [
+    { loader: 'sass-loader', options: { sourceMap: true, indentedSyntax: true } }
+  ]),
+  { after: 'css' }
+);
+environment.loaders.insert(
+  'moduleScss',
+  getStyleRule(/\.scss$/i, true, [
+    {
+      loader: 'sass-loader',
+      options: { sourceMap: true }
+    }
+  ]),
+  { after: 'sass' }
+);
+
+environment.loaders.forEach(item => (
+  item.value.use.forEach(currentLoader => {
+    // fixes issue with webpacker not compatible with css-loader > 3.0
+    // https://github.com/rails/webpacker/issues/2162
+    if (currentLoader.loader === 'css-loader') {
+      // copy localIdentName into modules
+      currentLoader.options.modules = {
+        localIdentName: '[local]'
+        // localIdentName: currentLoader.options.localIdentName
+      };
+      // delete localIdentName
+      delete currentLoader.options.localIdentName;
+    }
+  })
+));
+
+// coffee
+// https://github.com/rails/webpacker/issues/2162
 const coffee = require('./loaders/coffee');
-const vue = require('./loaders/vue');
 
-environment.loaders.get('babel').exclude =
-  /node_modules\/(?!delay|p-defer|get-js)/;
+environment.loaders.prepend('coffee', coffee);
 
+// other
+environment.loaders.get('babel').exclude = /node_modules\/(?!delay|p-defer|get-js)/;
 environment.loaders.get('file').exclude =
   /\.(js|jsx|coffee|ts|tsx|vue|elm|scss|sass|css|html|json|pug|jade)?(\.erb)?$/;
 
-environment.loaders.append('vue', vue);
-environment.loaders.append('coffee', coffee);
-
-environment.loaders.append('jade', {
-  test: /\.(?:jade|pug)$/,
-  loader: 'pug-loader',
-  exclude: /node_modules/
+environment.loaders.append('pug', {
+  test: /\.pug$/,
+  oneOf: [
+    {
+      exclude: /\.vue/,
+      use: ['pug-loader']
+    },
+    {
+      use: ['pug-plain-loader']
+    }
+  ]
 });
+
 environment.plugins.append(
   'Provide',
   new webpack.ProvidePlugin({
@@ -30,17 +101,38 @@ environment.plugins.append(
   new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /ru/)
 );
 
-// https://webpack.js.org/plugins/commons-chunk-plugin/
-environment.plugins.get('ExtractText').options.allChunks = true;
-environment.plugins.add({
-  key: 'CommonsChunk',
-  value: new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    minChunks(module) {
-      // this assumes your vendor imports exist in the node_modules directory
-      return module.context && module.context.indexOf('node_modules') !== -1;
+// https://webpack.js.org/migrate/4/#commonschunkplugin
+environment.splitChunks(config => (
+  Object.assign({}, config, {
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            chunks: 'initial',
+            priority: -10,
+            name: 'vendors'
+          },
+          'async-vendors': {
+            test: /[\\/]node_modules[\\/]/,
+            minChunks: 1,
+            chunks: 'async',
+            priority: 0,
+            name(module, chunks, _cacheGroupKey) {
+              const moduleFileName = module.identifier().split('/').reduceRight(item => item);
+              const allChunksNames = chunks.map(item => item.name).join('~');
+              // return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
+              // return allChunksNames || `${cacheGroupKey}-${moduleFileName}`;
+              return allChunksNames || moduleFileName;
+            }
+          }
+        }
+      },
+      runtimeChunk: false,
+      namedModules: true,
+      namedChunks: true
     }
   })
-});
+));
 
 module.exports = environment;

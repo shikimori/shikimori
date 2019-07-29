@@ -3,7 +3,7 @@ import View from 'views/application/view';
 
 const REGEXP = /\/\* AUTO=body_background.*?body { background: url\((.+?)\)(.*)}.*[\r\n]?/;
 
-export default class BodyBackground extends View {
+export class BodyBackground extends View {
   initialize() {
     this.cssTemplate = this.$root.data('css_template');
     [this.input] = this.$('#body_background_input');

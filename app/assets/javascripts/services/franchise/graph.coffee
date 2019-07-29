@@ -1,8 +1,9 @@
-d3 = require 'd3'
-Node = require './node'
-ShikiMath = require 'services/shiki_math'
+import d3 from 'd3'
 
-module.exports = class FranchiseGraph
+import { FranchiseNode } from './node'
+import { ShikiMath } from 'services/shiki_math'
+
+export class FranchiseGraph
   START_MARKERS = ['prequel']
   END_MARKERS = ['sequel']
 
@@ -13,7 +14,7 @@ module.exports = class FranchiseGraph
 
     @links_data = data.links
     @nodes_data = data.nodes.map (node) =>
-      new Node(node, @image_w, @image_h, node.id == data.current_id)
+      new FranchiseNode(node, @image_w, @image_h, node.id == data.current_id)
 
     @_prepare_data()
     @_position_nodes()

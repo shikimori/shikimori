@@ -148,13 +148,7 @@ pageLoad('.db_entries-edit_field', () => {
   }
 
   if ($('.edit-page.external_links').exists()) {
-    require.ensure([], () =>
-      initExternalLinksApp(
-        require('vue/instance').Vue,
-        require('vue/components/external_links/external_links.vue').default,
-        require('vue/stores').collection
-      )
-    );
+    initExternalLinksApp();
   }
 
   const ARRAY_FIELDS = [
@@ -166,41 +160,44 @@ pageLoad('.db_entries-edit_field', () => {
     'options'
   ];
   if ($(ARRAY_FIELDS.map(v => `.edit-page.${v}`).join(',')).exists()) {
-    require.ensure([], () =>
-      initArrayFieldApp(
-        require('vue/instance').Vue,
-        require('vue/components/array_field.vue').default,
-        require('vue/stores').collection
-      )
-    );
+    initArrayFieldApp();
   }
 });
 
-function initExternalLinksApp(Vue, ExternalLinks, store) {
+async function initExternalLinksApp() {
+  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
+  const { default: ExternalLinks } = await import('vue/components/external_links/external_links');
+  const storeSchema = await import ('vue/stores/collection');
+
   const $app = $('#vue_external_links');
   const values = $app.data('external_links');
 
+  const store = new Vuex.Store(storeSchema);
   store.state.collection = values;
 
-  return new Vue({
+  new Vue({
     el: '#vue_external_links',
     store,
-    render(h) {
-      return h(ExternalLinks, { props: {
-        kind_options: $app.data('kind_options'),
-        resource_type: $app.data('resource_type'),
-        entry_type: $app.data('entry_type'),
-        entry_id: $app.data('entry_id')
+    render: h => h(ExternalLinks, {
+      props: {
+        kindOptions: $app.data('kind_options'),
+        resourceType: $app.data('resource_type'),
+        entryType: $app.data('entry_type'),
+        entryId: $app.data('entry_id')
       }
-      });
-    }
+    })
   });
 }
 
-function initArrayFieldApp(Vue, Collection, store) {
+async function initArrayFieldApp() {
+  const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
+  const { default: ArrayField } = await import('vue/components/array_field');
+  const storeSchema = await import ('vue/stores/collection');
+
   const $app = $('#vue_app');
   const values = $app.data('values');
 
+  const store = new Vuex.Store(storeSchema);
   store.state.collection = values.map((synonym, index) =>
     ({
       key: index,
@@ -208,18 +205,17 @@ function initArrayFieldApp(Vue, Collection, store) {
     })
   );
 
-  return new Vue({
+  new Vue({
     el: '#vue_app',
     store,
-    render(h) {
-      return h(Collection, { props: {
-        resource_type: $app.data('resource_type'),
-        entry_type: $app.data('entry_type'),
-        entry_id: $app.data('entry_id'),
+    render: h => h(ArrayField, {
+      props: {
+        resourceType: $app.data('resource_type'),
+        // entryType: $app.data('entry_type'),
+        // entryId: $app.data('entry_id'),
         field: $app.data('field'),
-        autocomplete_url: $app.data('autocomplete_url')
+        autocompleteUrl: $app.data('autocomplete_url')
       }
-      });
-    }
+    })
   });
 }
