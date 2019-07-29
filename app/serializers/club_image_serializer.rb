@@ -1,5 +1,5 @@
 class ClubImageSerializer < ActiveModel::Serializer
-  attributes :id, :original_url, :main_url, :preview_url, :can_destroy
+  attributes :id, :original_url, :main_url, :preview_url, :can_destroy, :user_id
 
   def original_url
     ImageUrlGenerator.instance.url object, :original
