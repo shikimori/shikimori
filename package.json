@@ -6,6 +6,9 @@
   "name": "shikimori",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "@rails/webpacker": "^4.0.7",
     "autosize": "^4.0.0",
     "axios": "0.18.1",
@@ -15,6 +18,7 @@
     "codemirror": "5.48.2",
     "coffee-loader": "^0.9.0",
     "coffeescript": "1.12.7",
+    "css-loader": "^3.1.0",
     "d3": "3.5.17",
     "decko": "^1.2.0",
     "delay": "4.3.0",
@@ -36,6 +40,7 @@
     "packery": "2.1.2",
     "paste.js": "^0.0.21",
     "pikaday": "1.8.0",
+    "postcss-cssnext": "^3.1.0",
     "pug": "^2.0.0-rc.3",
     "pug-loader": "^2.4.0",
     "pug-plain-loader": "^1.0.0",
@@ -52,12 +57,8 @@
     "vuex": "3.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-proposal-decorators": "^7.4.4",
-    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
     "babel-eslint": "^10.0.2",
     "coffeelint": "^2.1.0",
-    "css-loader": "^3.1.0",
     "decaffeinate": "^6.0.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^13.2.0",
@@ -65,8 +66,6 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-vue": "^5.2.3",
     "fsevents": "1.2.4",
-    "postcss-cssnext": "^3.1.0",
-    "webpack": "^4.36.1",
     "webpack-dev-server": "^3.7.2"
   },
   "optionalDependencies": {
