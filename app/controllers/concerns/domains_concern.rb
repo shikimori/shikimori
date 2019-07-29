@@ -10,12 +10,12 @@ module DomainsConcern
   end
 
   def ru_host?
-    return true if Rails.env.test?
+    return true if Rails.env.test? || ENV['USER'] == 'morr'
 
     ShikimoriDomain::RU_HOSTS.include? request.host
   end
 
   def clean_host?
-    Rails.env.development? || ShikimoriDomain::CLEAN_HOST == request.host
+    Rails.env.development? || ENV['USER'] == 'morr' || ShikimoriDomain::CLEAN_HOST == request.host
   end
 end

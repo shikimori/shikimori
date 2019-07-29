@@ -39,7 +39,7 @@ module Shikimori
   DISCORD_CHANNEL_URL = 'https://discord.gg/pKzM9vS'
 
   PROTOCOLS = {
-    production: 'https',
+    production: ENV['USER'] == 'morr' ? 'http' : 'https',
     development: 'http',
     test: 'http'
   }
