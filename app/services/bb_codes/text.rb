@@ -43,7 +43,8 @@ class BbCodes::Text
        myflirtcontacts1.com |
        (?:[^.]\.)?chatchu.com |
        (?:[^.]\.)?chatree.net |
-       #{Users::CheckHacked::SPAM_DOMAINS.join '|'}
+       #{Users::CheckHacked::SPAM_DOMAINS.join '|'} |
+       t.me/rezero_translation # copyright request
       )
   }mix
 
