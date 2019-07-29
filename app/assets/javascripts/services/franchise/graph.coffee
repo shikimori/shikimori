@@ -38,8 +38,8 @@ export class FranchiseGraph
         @_scale @size,
           from_min: 0
           from_max: 100
-          to_min: 1300
-          to_max: 2000
+          to_min: 1600
+          to_max: 2461
 
     @screen_height = @screen_width
 

@@ -15,6 +15,7 @@ class Animes::FranchiseName
     'Tales of the Abyss' => 'tales_of',
     'ChaoS;HEAd' => 'science_adventure',
     'Fate/Zero' => 'fate',
+    'Fate/Apocrypha' => 'fate',
     'The iDOLM@STER' => 'idolmaster',
     '.hack//Sign' => 'hack',
     'Ore no Imouto ga Konnani Kawaii Wake ga Nai' => 'ore_no_imouto',

@@ -32,7 +32,7 @@ private
     end
   end
 
-  def add_franchise entries
+  def add_franchise entries # rubocop:disable AbcSize
     is_anime = entries.first.anime?
     franchise = Animes::FranchiseName.call entries, @franchises
 
@@ -41,7 +41,7 @@ private
       next if entry.franchise == franchise
 
       if is_anime && NekoRepository.instance.find(entry.franchise, 1) != Neko::Rule::NO_RULE
-        raise "cant't rename `#{entry.franchise}` -> `#{franchise}` becase found in NekoRepository"
+        raise "cant't rename `#{entry.franchise}` -> `#{franchise}` because found in NekoRepository"
       end
 
       puts "rename franchise: `#{entry.franchise}` -> `#{franchise}`" if Rails.env.development?
