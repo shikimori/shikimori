@@ -182,7 +182,7 @@ class Comment < ApplicationRecord
   def mark_offtopic flag
     # mark comment thread as offtopic
     if flag
-      ids = comment_thread.map(&:id) + [id]
+      ids = Comments::Replies.call(self).map(&:id) + [id]
       Comment.where(id: ids).update_all is_offtopic: flag
       self.is_offtopic = flag
       ids
@@ -196,27 +196,6 @@ class Comment < ApplicationRecord
   def mark_summary flag
     update is_summary: flag
     [id]
-  end
-
-  # ветка с ответами на этот комментарий
-  def comment_thread
-    comments = Comment
-      .where('id > ?', id)
-      .where(commentable_type: commentable_type, commentable_id: commentable_id)
-      .order(:id)
-
-    search_ids = Set.new [id]
-
-    comments.each do |comment|
-      search_ids.clone.each do |id|
-        next unless comment.body.include?("[comment=#{id}]") ||
-            comment.body.include?("[quote=#{id};") ||
-            comment.body.include?("[quote=c#{id};")
-        search_ids << comment.id
-      end
-    end
-
-    comments.select { |v| search_ids.include? v.id }
   end
 
   # запрет на изменение информации о бане
