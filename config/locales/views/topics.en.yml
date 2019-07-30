@@ -39,6 +39,8 @@ en:
       posters:
         drag_here: Drag images here, they will be displayed in a separate block in the topic.
         topic_posters: News posters
+      source:
+        hint: Link to the page where the news is taken from
     status_line:
       about: about
       by: by

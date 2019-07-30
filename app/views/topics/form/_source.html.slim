@@ -1,0 +1,6 @@
+.b-input
+  label for='topic_source'
+    = t 'activerecord.attributes.topic.source'
+
+  input.w-100#topic_source type='text' value=topic.decomposed_body.source
+  span.hint = t '.hint'

@@ -241,6 +241,7 @@ en:
         type: Type
         linked: Linked
         forum_id: Section
+        source: Source
       version:
         reason: Change reason
         changes: Changes list

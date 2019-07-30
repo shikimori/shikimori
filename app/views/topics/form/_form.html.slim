@@ -34,7 +34,8 @@
             collection: Forum.public,
             input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
-        = f.input :title
+        - if current_user.admin? && !topic_type_policy.any_club_topic?
+          = f.input :broadcast
 
         - if topic_type_policy.any_club_topic?
           = f.input :linked_id, as: :hidden
@@ -44,20 +45,16 @@
           = render 'topics/form/linked', topic: topic
 
       - if topic_type_policy.news_topic?
-        .f-column.f-topic-video
+        .f-column.f-topic-additionals
           .attachments-hidden
 
-          = render 'topics/form/video',
-            topic: topic,
-            f: f
+          = render 'topics/form/video', topic: topic, f: f
+
+    = f.input :title, input_html: { class: 'w-100' }
 
     - if topic_type_policy.news_topic?
-      = render 'topics/form/posters',
-        topic: topic,
-        f: f
-
-    - if current_user.admin? && !topic_type_policy.any_club_topic?
-      = f.input :broadcast
+      = render 'topics/form/source', topic: topic, f: f
+      = render 'topics/form/posters', topic: topic, f: f
 
     .b-shiki_editor.unprocessed.block
       .field-name = t ".#{topic_type_policy.news_topic? ? :news : :topic}_text"

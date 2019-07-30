@@ -6,17 +6,15 @@
 .b-input
   margin-bottom: $block-offset / 2
 
-  // +gte_ipad
-    // margin-bottom: 10px
-
-  // +iphone
-    // margin-bottom: 15px
-
   &:last-child
     margin-bottom: 0
 
   input
     +input
+
+    &.w-100
+      width: 100%
+      max-width: 100%
 
   textarea
     +textarea

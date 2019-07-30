@@ -241,6 +241,7 @@ ru:
         type: Тип
         linked: Связанное
         forum_id: Раздел
+        source: Источник
       version:
         reason: Причина правки
         item_diff: Список изменений
