@@ -30,7 +30,9 @@ pageLoad 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $('#topic_forum_id', $form).trigger('change')
 
   # сброс привязанного к топику
-  $('.topic-linked .remove', $form).on 'click', ->
+  $('.topic-linked .remove', $form).on 'click', (e) ->
+    e.preventDefault()
+
     $topic_link.find('a').remove()
     $('#topic_linked_id', $form).val('')
     # $('#topic_linked_type', $form).val('')

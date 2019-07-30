@@ -4,7 +4,7 @@
 ]
   .title
     span = t '.topic_video'
-    .b-js-action.remove.hidden = t('actions.delete').downcase
+    button.b-js-action.remove.hidden = t('actions.delete').downcase
 
   .form
     = f.simple_fields_for :video do |ff|

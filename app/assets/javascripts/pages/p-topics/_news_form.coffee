@@ -115,7 +115,8 @@ attach_video = (video_data, $topic_video, $wall) ->
     reset_wall $wall
 
     # удаление видео
-    $topic_video_remove.one 'click', ->
+    $topic_video_remove.one 'click', (e) ->
+      e.preventDefault()
       $topic_video.data video_id: null
       $topic_video_form.show()
       $topic_video_remove.addClass 'hidden'
