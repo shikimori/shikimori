@@ -82,7 +82,7 @@ export default class ShikiEditable extends ShikiView
 
       $notice = $("<div class='was_updated'>
         <div><span>#{message}</span><a class='actor b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a>.</div>
-        <div>Кликните для обновления.</div>
+        <div>Кликни для обновления.</div>
       </div>")
       $notice
         .appendTo(@$inner)
