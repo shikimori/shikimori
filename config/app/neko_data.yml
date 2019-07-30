@@ -16504,7 +16504,9 @@
       :algo: duration
       :filters:
         franchise: black_lagoon
-      :threshold: 97.2%
+      :threshold: 100%
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :black_lagoon
@@ -16534,6 +16536,8 @@
       :filters:
         franchise: black_lagoon
       :threshold: 0.01
+      :generator:
+        threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :black_lagoon
