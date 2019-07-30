@@ -22,7 +22,8 @@ class Animes::FranchiseName
     'Maria-sama ga Miteru' => 'maria_sama',
     'Kyoushoku Soukou Guyver' => 'guyver',
     'Aria The Natural' => 'aria',
-    'Marvel Future Avengers' => 'marvel'
+    'Marvel Future Avengers' => 'marvel',
+    'Re:Zero kara Hajimeru Isekai Seikatsu' => 're_zero'
   }
 
   def call
