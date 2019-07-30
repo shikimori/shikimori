@@ -35,6 +35,7 @@ private
 
   def write_shiki combined_data
     File.open(Animes::BannedRelations::CONFIG_PATH, 'w') do |v|
+      v.write("# GENERATED: call `Animes::GenerateBannedRelations.call` to update this file\n")
       v.write(
         combined_data
           .to_yaml

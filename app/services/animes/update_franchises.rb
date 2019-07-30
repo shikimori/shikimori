@@ -22,7 +22,7 @@ private
 
       chronology = Animes::ChronologyQuery.new(entry).fetch
       # ap chronology.map(&:id).join(', ')
-      # puts "anime_id: #{entry.id} chronology_size: #{chronology.size}" if Rails.env.development?
+      puts "anime_id: #{entry.id} chronology_size: #{chronology.size}" if Rails.env.development?
 
       if chronology.many?
         add_franchise chronology

@@ -31,7 +31,7 @@ class DbEntries::Description
 
     def parse_text value
       return unless value.present?
-      return value if value !~ /\[source\]/
+      return value unless value.match?(/\[source\]/)
 
       value[/(.+)(?=\[source\])/m, 1]
     end

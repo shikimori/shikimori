@@ -1,3 +1,4 @@
+# GENERATED: call `Animes::GenerateBannedRelations.call` to update this file
 ---
 -
   - A10012 # Carnival Phantasm
@@ -513,6 +514,12 @@
   - A29803 # Overlord
   - A38472 # Isekai Quartet
 -
+  - A29803 # Overlord
+  - A39988 # Isekai Quartet 2nd Season
+-
+  - A29803 # Overlord
+  - A39993 # Isekai Quartet Relay PV
+-
   - A29820 # Channel 5.5 4th Season
   - A338 # Versailles no Bara
 -
@@ -576,6 +583,12 @@
 -
   - A31240 # Re:Zero kara Hajimeru Isekai Seikatsu
   - A38472 # Isekai Quartet
+-
+  - A31240 # Re:Zero kara Hajimeru Isekai Seikatsu
+  - A39988 # Isekai Quartet 2nd Season
+-
+  - A31240 # Re:Zero kara Hajimeru Isekai Seikatsu
+  - A39993 # Isekai Quartet Relay PV
 -
   - A3199 # Nanatsu no Umi no Tico
   - A37423 # Shiawase Pasta Story
