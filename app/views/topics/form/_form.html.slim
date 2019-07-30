@@ -2,7 +2,7 @@
 - submit_url = topic.persisted? ? topic_url(topic) : topics_url
 
 = simple_form_for topic, url: submit_url, as: :topic do |f|
-  input type="hidden" name="rules_passed" value="1"
+  input type='hidden' name='rules_passed' value='1'
 
   - if topic.errors.any?
     .b-errors
@@ -62,7 +62,7 @@
     .b-shiki_editor.unprocessed.block
       .field-name = t ".#{topic_type_policy.news_topic? ? :news : :topic}_text"
       = render 'comments/shiki_editor',
-        text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
+        text: topic.decomposed_body.text,
         field_name: 'topic[body]'
 
   .buttons
