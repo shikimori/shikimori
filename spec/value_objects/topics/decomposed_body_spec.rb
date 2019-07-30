@@ -2,6 +2,19 @@ describe Topics::DecomposedBody do
   subject { Topics::DecomposedBody.from_value body }
   let(:image_1) { create :user_image }
 
+  context 'no body' do
+    let(:body) { nil }
+    it do
+      is_expected.to have_attributes(
+        text: '',
+        wall: nil,
+        source: nil
+      )
+      expect(subject.wall_video).to be_nil
+      expect(subject.wall_images).to be_empty
+    end
+  end
+
   context 'text only' do
     let(:body) do
       <<~TEXT.squish.strip

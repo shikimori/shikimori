@@ -71,39 +71,9 @@ describe Topic do
       end
     end
 
-    describe '#original_body & #appended_body' do
-      let(:topic) { build :topic, body: body, generated: is_generated }
-      let(:body) { 'test[wall][/wall]' }
-
-      context 'not generated topic' do
-        let(:is_generated) { false }
-
-        context 'with wall' do
-          it { expect(topic.original_body).to eq 'test' }
-          it { expect(topic.appended_body).to eq '[wall][/wall]' }
-        end
-
-        context 'without wall' do
-          let(:body) { 'test' }
-          it { expect(topic.original_body).to eq 'test' }
-          it { expect(topic.appended_body).to eq '' }
-        end
-      end
-
-      context 'generated topic' do
-        let(:is_generated) { true }
-
-        context 'with wall' do
-          it { expect(topic.original_body).to eq 'test[wall][/wall]' }
-          it { expect(topic.appended_body).to eq '' }
-        end
-
-        context 'without wall' do
-          let(:body) { 'test' }
-          it { expect(topic.original_body).to eq 'test' }
-          it { expect(topic.appended_body).to eq '' }
-        end
-      end
+    describe '#decomposed_body' do
+      let(:topic) { build :topic }
+      it { expect(topic.decomposed_body).to be_kind_of Topics::DecomposedBody }
     end
   end
 

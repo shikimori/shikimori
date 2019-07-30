@@ -127,12 +127,12 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def html_body
-    return '' if @topic.original_body.blank?
+    return '' if @topic.decomposed_body.text.blank?
 
     Rails.cache.fetch(
-      CacheHelper.keys(:body, Digest::MD5.hexdigest(@topic.original_body), CACHE_VERSION)
+      CacheHelper.keys(:body, Digest::MD5.hexdigest(@topic.decomposed_body.text), CACHE_VERSION)
     ) do
-      BbCodes::Text.call @topic.original_body
+      BbCodes::Text.call @topic.decomposed_body.text
     end
   end
 
@@ -154,7 +154,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def html_footer
-    BbCodes::Text.call @topic.appended_body
+    BbCodes::Text.call @topic.decomposed_body.wall
   end
 
   # для совместимости с комментариями для рендера тултипа

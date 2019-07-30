@@ -49,14 +49,12 @@
 
           = render 'topics/form/video',
             topic: topic,
-            f: f,
-            decomposed_body: Topics::DecomposeBody.new(topic)
+            f: f
 
     - if topic_type_policy.news_topic?
       = render 'topics/form/posters',
         topic: topic,
-        f: f,
-        decomposed_body: Topics::DecomposeBody.new(topic)
+        f: f
 
     - if current_user.admin? && !topic_type_policy.any_club_topic?
       = f.input :broadcast

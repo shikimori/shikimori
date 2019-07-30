@@ -8,8 +8,8 @@ describe Topics::ComposeBody do
     }
   end
   let(:body) { 'test' }
-  let(:wall_ids) { }
-  let(:video_id) { }
+  let(:wall_ids) {}
+  let(:video_id) {}
 
   subject { service.call }
 

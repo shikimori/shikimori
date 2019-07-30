@@ -1,6 +1,6 @@
 .topic-video[
-  data-video_id=decomposed_body.wall_video&.id
-  data-content="#{render('videos/video', video: decomposed_body.wall_video).to_str if decomposed_body.wall_video}"
+  data-video_id=topic.decomposed_body.wall_video&.id
+  data-content="#{render('videos/video', video: topic.decomposed_body.wall_video).to_str if topic.decomposed_body.wall_video}"
 ]
   .title
     span = t '.topic_video'
@@ -12,21 +12,21 @@
         hint: Video::ALLOWED_HOSTINGS.join(', '),
         label: Video.human_attribute_name(:url),
         wrapper_html: { class: 'video-url' },
-        input_html: { value: decomposed_body.wall_video&.url }
+        input_html: { value: topic.decomposed_body.wall_video&.url }
       .b-input
         label = Video.human_attribute_name :name
         .name-kind
           = ff.input :name,
             label: false,
             wrapper_html: { class: 'video-name' },
-            input_html: { value: decomposed_body.wall_video&.name }
+            input_html: { value: topic.decomposed_body.wall_video&.name }
           = ff.input :kind,
             as: :select,
             collection: Video.kind.options,
             include_blank: false,
             label: false,
             wrapper_html: { class: 'video-kind' },
-            input_html: { value: decomposed_body.wall_video&.kind }
+            input_html: { value: topic.decomposed_body.wall_video&.kind }
 
       .m5
         .errors

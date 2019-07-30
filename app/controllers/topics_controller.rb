@@ -33,6 +33,7 @@ class TopicsController < ShikimoriController
 
   def show
     raise AgeRestricted if @resource&.linked.try(:censored?) && censored_forbidden?
+
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
 
     # новости аниме без комментариев поисковым системам не скармливаем

@@ -16,8 +16,6 @@ class Topic < ApplicationRecord
     self if saved_change_to_title? || saved_change_to_forum_id?
   end
 
-  NEWS_WALL = %r{[\r\n]*\[wall[\s\S]+\[/wall\]\Z}
-
   FORUM_IDS = {
     'Anime' => 1,
     'Manga' => 1,
@@ -92,6 +90,15 @@ class Topic < ApplicationRecord
     self[:title]
   end
 
+  def body= value
+    @decomposed_body = nil
+    super value
+  end
+
+  def decomposed_body
+    @decomposed_body ||= Topics::DecomposedBody.from_value body
+  end
+
   def viewed?
     return true if generated?
 
@@ -140,20 +147,6 @@ class Topic < ApplicationRecord
   # for compatibily with comments API
   def offtopic?
     false
-  end
-
-  # оригинальный текст без сгенерированных автоматом тегов
-  def original_body
-    return body if generated?
-
-    (body || '').sub(NEWS_WALL, '')
-  end
-
-  # сгенерированные автоматом теги
-  def appended_body
-    return '' if generated?
-
-    (body || '')[NEWS_WALL] || ''
   end
 
 private
