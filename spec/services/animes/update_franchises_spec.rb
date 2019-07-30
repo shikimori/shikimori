@@ -46,7 +46,7 @@ describe Animes::UpdateFranchises do
 
       it do
         expect { call }.to raise_error(
-          "cant't rename `gintama` -> `test` becase found in NekoRepository"
+          "cant't rename `gintama` -> `test` because found in NekoRepository"
         )
       end
     end
