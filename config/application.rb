@@ -127,6 +127,10 @@ module Shikimori
         resource '*',
           headers: :any,
           methods: [:get, :options]
+
+        resource '/api/*',
+          headers: :any,
+          methods: [:get, :options, :post, :put, :patch]
       end
     end
 
