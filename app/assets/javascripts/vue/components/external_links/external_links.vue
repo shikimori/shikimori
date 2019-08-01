@@ -72,8 +72,8 @@ export default {
         source: 'shikimori',
         url: '',
         id: '',
-        entryId: this.entryId,
-        entryType: this.entryType
+        entry_id: this.entryId,
+        entry_type: this.entryType
       });
     },
     async focusLast() {

@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'ExternalLink',
@@ -77,30 +77,29 @@ export default {
     ]),
     fieldName(name) {
       if (!Object.isEmpty(this.link.url)) {
-        return `${this.resourceType.toLowerCase()}[external_links][][${name}]`
-      } else {
-        return ''
+        return `${this.resourceType.toLowerCase()}[external_links][][${name}]`;
       }
+      return '';
     },
     submit(e) {
       if (!e.metaKey && !e.ctrlKey) {
-        e.preventDefault()
-        this.$emit('add_next')
+        e.preventDefault();
+        this.$emit('add_next');
       }
     },
     removeEmpty(link) {
       if (Object.isEmpty(link.url) && this.$store.state.collection.length > 1) {
-        this.remove(link)
-        this.$emit('focusLast')
+        this.remove(link);
+        this.$emit('focusLast');
       }
     }
   },
   mounted() {
     this.$nextTick(() => {
-      $('input', this.$el).focus()
-    })
+      $('input', this.$el).focus();
+    });
   }
-}
+};
 </script>
 
 <style scoped lang='sass'>
