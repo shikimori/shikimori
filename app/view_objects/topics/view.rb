@@ -2,7 +2,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   vattr_initialize :topic, :is_preview, :is_mini
 
   delegate :id, :persisted?, :user, :created_at,
-    :updated_at, :body, :viewed?, to: :topic
+    :updated_at, :body, :viewed?, :decomposed_body, to: :topic
 
   delegate :comments_count, :summaries_count, to: :topic_comments_policy
   delegate :any_comments?, :any_summaries?, to: :topic_comments_policy

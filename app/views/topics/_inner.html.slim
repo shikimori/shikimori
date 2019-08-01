@@ -57,6 +57,12 @@
           ] = t '.read_more_link'
 
     footer class=('with-read_more-link' if topic_view.read_more_link?)
+      - if topic_view.decomposed_body.source.present?
+        .source
+          a.b-link[
+            href=topic_view.decomposed_body.source
+          ] = Url.new(topic_view.decomposed_body.source).domain
+
       = topic_view.html_footer
 
       - if topic_view.footer_vote?

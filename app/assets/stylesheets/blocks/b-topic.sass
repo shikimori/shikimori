@@ -60,44 +60,27 @@
 
     & > footer
       clear: left // need clearing when text is narrow and avatar is higher than text
-      // +ellipsis2
-      // color: #555
-      // font-size: 11px
-      // line-height: $line_height
-      // margin-top: 3px
 
-      // p
-        // display: inline-block
+      .source
+        display: flex
+        justify-content: flex-end
+        font-size: 11px
+        margin-top: 15px
 
-      // .b-user16
-        // display: inline-block
-        // font-size: 12px
-        // float: right
-        // padding-right: 5px
+        span
+          margin-right: 4px
+          color: $gray-4
 
-        // img
-          // margin-top: 1px
+        &:not(:last-child)
+          margin-bottom: 5px
 
-      // .date
-        // color: $date
-        // float: right
-        // margin-left: 10px
-
-      // .tags
-        // float: right
-
-        // a
-          // color: inherit
-          // text-decoration: inherit
-          // transition: color 0.2s ease, background-color 0.2s ease
-
-          // &:hover
-            // color: inherit
-            // text-decoration: inherit
-
-          // &:active
-            // color: inherit !important
-            // text-decoration: inherit
+        .b-link
+          &:before
+            font-size: 10px
+            position: absolute
+            +shikimori('\e829')
+            margin-left: -13px
+            margin-top: 1px
 
   .footer-vote
     +frame_form
