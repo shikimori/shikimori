@@ -11,7 +11,7 @@ en:
     page:
       back_to_clubs_page: Back to clubs page
       new_club: New club
-      edit_club: &edit_club Edit club
+      edit_club: &edit_club Settings
       pages:
         main: Main
         description: Description

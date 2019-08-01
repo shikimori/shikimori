@@ -773,6 +773,12 @@
       "src": "websymbols"
     },
     {
+      "uid": "21b42d3c3e6be44c3cc3d73042faa216",
+      "css": "sliders",
+      "code": 59470,
+      "src": "fontawesome"
+    },
+    {
       "uid": "e847891cd6b1d14528603a17092d0b6d",
       "css": "done_all",
       "code": 59446,
@@ -10855,7 +10861,7 @@
     {
       "uid": "4936771d14903b6233dd44e938feb68b",
       "css": "settings",
-      "code": 115,
+      "code": 59470,
       "src": "custom_icons",
       "selected": false,
       "svg": {

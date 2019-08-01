@@ -11,7 +11,7 @@ ru:
     page:
       back_to_clubs_page: Назад на страницу клуба
       new_club: Новый клуб
-      edit_club: &edit_club Редактировать клуб
+      edit_club: &edit_club Настройки
       pages:
         main: Основное
         description: Описание
