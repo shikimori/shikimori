@@ -19,6 +19,7 @@ en:
       your_comment: Your comment
     inner:
       read_more_link: Read more →
+      source: Source
     form:
       form:
         topic_text: Topic text

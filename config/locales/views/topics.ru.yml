@@ -19,6 +19,7 @@ ru:
       your_comment: Ваш комментарий
     inner:
       read_more_link: Читать дальше →
+      source: Источник
     form:
       form:
         topic_text: Текст топика
