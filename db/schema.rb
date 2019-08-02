@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_02_182742) do
+ActiveRecord::Schema.define(version: 2019_08_02_182954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -918,10 +918,6 @@ ActiveRecord::Schema.define(version: 2019_08_02_182742) do
     t.string "tagger_type", limit: 255
     t.string "context", limit: 255
     t.datetime "created_at"
-  end
-
-  create_table "tags", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
   end
 
   create_table "topic_ignores", id: :serial, force: :cascade do |t|
