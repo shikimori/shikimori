@@ -4,7 +4,7 @@ class Forum < ApplicationRecord
   validates :permalink, presence: true
 
   # разделы, в которые можно создавать топики из интерфейса
-  PUBLIC_SECTIONS = %w[offtopic animanga site games vn contests]
+  PUBLIC_SECTIONS = %w[animanga site games vn contests offtopic]
   VARIANTS = PUBLIC_SECTIONS + %w[
     clubs my_clubs reviews news collections cosplay
   ]
