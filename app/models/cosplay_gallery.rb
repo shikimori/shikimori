@@ -46,31 +46,36 @@ class CosplayGallery < ApplicationRecord
   acts_as_taggable_on :tags
 
   def to_param
-    "%d-%s" % [id, target.gsub(/&#\d{4};/, '-').gsub(/[^A-z0-9]+/, '-').gsub(/^-|-$/, '')]
+    format(
+      '%<id>d-%<target>s',
+      id: id,
+      target: target.gsub(/&#\d{4};/, '-').gsub(/[^A-z0-9]+/, '-').gsub(/^-|-$/, '')
+    )
   end
 
   # копирует все картинки в target, а текущую галерею помечает удалённой
-  def move_to(target)
-    self.images.each do |image|
+  def move_to target
+    images.each do |image|
       new_image = CosplayImage.create
-      image.attributes.each do |k,v|
+      image.attributes.each do |k, v|
         next if k == 'id'
-        if k == 'image_file_name'
-          new_image[k] = v.sub(image.id.to_s, new_image.id.to_s)
-        else
-          new_image[k] = v
-        end
+
+        new_image[k] = if k == 'image_file_name'
+                         v.sub(image.id.to_s, new_image.id.to_s)
+                       else
+                         v
+                       end
       end
       new_image[:cosplay_gallery_id] = target.id
       FileUtils.cp(image.image.path, new_image.image.path)
       new_image.image.reprocess!
       new_image.save
     end
-    self.update_attribute(:deleted, true)
+    update_attribute(:deleted, true)
   end
 
   # полное название галереи
-  def name linked = self.send(:any_linked)
+  def name linked = send(:any_linked)
     titles = title_components(linked).map { |c| c.map(&:name).to_sentence }
 
     i18n_t('title', cosplay: titles.first, cosplayer: titles.second).html_safe
@@ -93,7 +98,7 @@ class CosplayGallery < ApplicationRecord
   def self.without_topics
     visible
       .includes(:animes, :mangas, :characters, :topics)
-      .select { |v| !v.topics.present? }
+      .reject { |v| v.topics.present? }
       .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end
 
