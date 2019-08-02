@@ -146,7 +146,6 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />\
     context 'with class' do
       let(:text) { "[image=#{user_image.id} w=400 h=500 c=test]" }
       it do
-        puts subject
         is_expected.to eq(
           "<a href=\"#{user_image.image.url :original, false}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
 <img src=\"#{user_image.image.url :preview, false}\" class=\"test\" width=\"400\" height=\"500\" \
