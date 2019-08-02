@@ -43,8 +43,6 @@ class CosplayGallery < ApplicationRecord
 
   accepts_nested_attributes_for :images, :deleted_images
 
-  acts_as_taggable_on :tags
-
   def to_param
     format(
       '%<id>d-%<target>s',
