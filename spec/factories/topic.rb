@@ -5,6 +5,7 @@ FactoryBot.define do
     sequence(:title) { |n| "topic_#{n}" }
     sequence(:body) { |n| "topic_text_#{n}" }
     type { Topic.name }
+    tags { [] }
 
     locale { 'ru' }
 
