@@ -2,4 +2,3 @@ ru:
   frontend:
     tags_input:
       label: Теги
-      # placeholder: Тег
