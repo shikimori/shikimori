@@ -66,6 +66,7 @@
                 class=provider
                 href=send(:"user_#{provider}_omniauth_authorize_url")
                 title=t('.enable_authentication', provider: provider.to_s.titleize)
+                data-method='post'
               ]
 
       - if @resource.access_grants.any?
