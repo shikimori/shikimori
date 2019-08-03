@@ -6,7 +6,7 @@ pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   const $linkedId = $('#topic_linked_id', $form);
   const $linkedType = $('#topic_linked_type', $form);
 
-  // загрузка постера
+  // poster upload
   const $upload = $('.topic-posters .b-dropzone', $form);
   const $wall = $upload.find('.b-shiki_wall');
 
@@ -39,7 +39,7 @@ id='${data.id}'>\
     removeImage($(e.target).closest('.b-image').remove(), $wall);
   });
 
-  // прикреплённое видео
+  // attach video
   const $topicVideo = $('.topic-video', $form);
 
   if ($topicVideo.data('video_id')) {
@@ -49,11 +49,9 @@ id='${data.id}'>\
     }, $topicVideo, $wall);
   }
 
-  // загрузка видео
   const $topicVideoForm = $('.form', $topicVideo);
   const $attach = $('.attach', $topicVideoForm);
 
-  // прикрепление видео
   $attach.on('click', () => {
     const animeId = linkedAnimeId($linkedType, $linkedId);
     const url = $attach.data('url').replace('ANIME_ID', animeId || 0);
@@ -71,11 +69,11 @@ id='${data.id}'>\
     return axios.post(url, form).then(data => attachVideo(data.data, $topicVideo, $wall));
   });
 
-  // создание/редактирование топика
+  // create/edit a topic
   $form.on('submit', () => {
     const $attachments = $('.attachments-hidden', $form).empty();
 
-    // постеры
+    // posters
     $('.b-dropzone a', $form)
       .map((_index, node) => $(node).attr('id'))
       .each((_index, id) =>
@@ -84,7 +82,7 @@ id='${data.id}'>\
         )
       );
 
-    // видео
+    // video
     const videoId = $topicVideo.data('video_id');
     if (videoId) {
       $attachments.append(
