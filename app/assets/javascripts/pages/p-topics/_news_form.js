@@ -66,7 +66,9 @@ id='${data.id}'>\
 
     $topicVideo.addClass('b-ajax');
 
-    return axios.post(url, form).then(data => attachVideo(data.data, $topicVideo, $wall));
+    axios
+      .post(url, form)
+      .then(data => attachVideo(data.data, $topicVideo, $wall));
   });
 
   // create/edit a topic
@@ -90,6 +92,10 @@ id='${data.id}'>\
       );
     }
   });
+
+  if ($('#topic_tags').length) {
+    initTagsApp();
+  }
 });
 
 function removeImage($image, $wall) {
@@ -133,5 +139,24 @@ function attachVideo(videoData, $topicVideo, $wall) {
     $topicVideoRemove.addClass('hidden');
 
     removeImage($video, $wall);
+  });
+}
+
+async function initTagsApp() {
+  const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
+  const { default: TagsInput } = await import('vue/components/tags_input');
+
+  const $app = $('#vue_tags_input');
+  const $tags = $('.b-input.topic_tags');
+  $tags.hide();
+
+  new Vue({
+    el: '#vue_tags_input',
+    render: h => h(TagsInput, {
+      props: {
+        input: $tags.find('input')[0],
+        value: $app.data('value')
+      }
+    })
   });
 }

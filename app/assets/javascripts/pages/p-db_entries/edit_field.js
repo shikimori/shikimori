@@ -167,7 +167,7 @@ pageLoad('.db_entries-edit_field', () => {
 async function initExternalLinksApp() {
   const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { default: ExternalLinks } = await import('vue/components/external_links/external_links');
-  const storeSchema = await import ('vue/stores/collection');
+  const storeSchema = await import('vue/stores/collection');
 
   const $app = $('#vue_external_links');
   const values = $app.data('external_links');
@@ -192,7 +192,7 @@ async function initExternalLinksApp() {
 async function initArrayFieldApp() {
   const { Vue, Vuex } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { default: ArrayField } = await import('vue/components/array_field');
-  const storeSchema = await import ('vue/stores/collection');
+  const storeSchema = await import('vue/stores/collection');
 
   const $app = $('#vue_app');
   const values = $app.data('values');

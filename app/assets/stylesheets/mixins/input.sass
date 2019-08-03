@@ -1,5 +1,8 @@
-@import mixins/responsive
-@import mixins/placeholder
+@import ./responsive
+@import ./placeholder
+
+=input_focus
+  border-color: $link-4
 
 =input_colors
   background-color: #fcfcfc
@@ -7,7 +10,7 @@
   color: #123
 
   &:focus
-    border-color: $link-4
+    +input_focus
 
   +placeholder
     color: #999

@@ -242,6 +242,7 @@ ru:
         linked: Связанное
         forum_id: Раздел
         source: Источник
+        tags: Теги
       version:
         reason: Причина правки
         item_diff: Список изменений

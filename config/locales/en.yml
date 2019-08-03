@@ -242,6 +242,7 @@ en:
         linked: Linked
         forum_id: Section
         source: Source
+        tags: Tags
       version:
         reason: Change reason
         changes: Changes list

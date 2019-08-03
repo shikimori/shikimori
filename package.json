@@ -9,6 +9,7 @@
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@johmun/vue-tags-input": "^2.1.0",
     "@rails/webpacker": "^4.0.7",
     "autosize": "^4.0.0",
     "axios": "0.18.1",

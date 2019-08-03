@@ -12,7 +12,7 @@ class TopicsController < ShikimoriController
   before_action :force_redirects
   before_action :set_canonical, only: [:show]
 
-  UPDATE_PARAMS = %i[body title linked_id linked_type]
+  UPDATE_PARAMS = %i[body title linked_id linked_type tags]
   CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
 
   def index
@@ -130,7 +130,7 @@ class TopicsController < ShikimoriController
 
 private
 
-  def topic_params
+  def topic_params # rubocop:disable AbcSize
     allowed_params =
       if can?(:manage, Topic) || %w[new create].include?(params[:action])
         CREATE_PARAMS
@@ -141,6 +141,9 @@ private
 
     params.require(:topic).permit(*allowed_params).tap do |fixed_params|
       fixed_params[:body] = Topics::ComposeBody.call(params[:topic])
+      unless fixed_params[:tags].nil?
+        fixed_params[:tags] = fixed_params[:tags].split(',').map(&:strip).select(&:present?)
+      end
     end
   end
 
