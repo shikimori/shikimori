@@ -46,8 +46,8 @@
             as: :string
           #vue_tags_input[
             data-value=f.object.tags
-            data-autocomplete_basic=Topics::Tags::BASIC_TAGS
-            data-autocomplete_other=Topics::Tags.call
+            data-autocomplete_basic=Topics::TagsQuery::BASIC_TAGS
+            data-autocomplete_other=Topics::TagsQuery.call
           ]
 
         - if topic_type_policy.any_club_topic?

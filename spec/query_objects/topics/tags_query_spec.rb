@@ -1,4 +1,4 @@
-describe Topics::Tags do
+describe Topics::TagsQuery do
   subject { described_class.call }
 
   let!(:topic_1) { create :news_topic, tags: %i[яяя аниме] }

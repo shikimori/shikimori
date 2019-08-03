@@ -1,4 +1,4 @@
-class Topics::Tags
+class Topics::TagsQuery
   method_object
 
   BASIC_TAGS = %w[
