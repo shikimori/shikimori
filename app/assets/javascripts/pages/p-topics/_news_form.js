@@ -155,7 +155,9 @@ async function initTagsApp() {
     render: h => h(TagsInput, {
       props: {
         input: $tags.find('input')[0],
-        value: $app.data('value')
+        value: $app.data('value'),
+        autocompleteBasic: $app.data('autocomplete_basic'),
+        autocompleteOther: $app.data('autocomplete_other')
       }
     })
   });
