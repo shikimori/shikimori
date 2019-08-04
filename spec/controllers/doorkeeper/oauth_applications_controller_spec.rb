@@ -11,9 +11,9 @@ describe Doorkeeper::OauthApplicationsController do
 
       it do
         expect(collection).to eq [
-          # oauth_application_1,
-          # oauth_application_2,
-          # oauth_application_3
+          oauth_application_1,
+          oauth_application_2,
+          oauth_application_3
         ]
         expect(response).to have_http_status :success
       end
