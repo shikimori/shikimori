@@ -40,6 +40,8 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
         else
           @collection.none
         end
+    else
+      @collection = @collection.none
     end
   end
 
