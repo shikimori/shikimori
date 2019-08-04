@@ -22,7 +22,7 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   UPDATE_PARAMS = %i[name image redirect_uri description_ru description_en]
   CREATE_PARAMS = %i[owner_id owner_type] + UPDATE_PARAMS
 
-  def index # rubocop:disable MethodLength
+  def index
     @collection = OauthApplication
       .with_access_grants
       .order('users_count desc, oauth_applications.id')
@@ -33,15 +33,7 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
 
     elsif user_signed_in?
       @granted_applications = Users::GrantedApplications.call(current_user)
-
-      @collection =
-        if current_user.admin?
-          @collection.where.not(id: @granted_applications)
-        else
-          @collection.none
-        end
-    else
-      @collection = @collection.none
+      @collection = @collection.where.not id: @granted_applications
     end
   end
 
