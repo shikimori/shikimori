@@ -13,7 +13,9 @@
         placeholder=''
         v-model='tag'
       )
-    span.hint Заменяет "Раздел". Пока заполнять нужно и теги, и раздел. Через несколько дней раздел исчезнет и останутся только теги
+    span.hint
+      | Заменяет "Раздел". Пока заполнять нужно и теги, и раздел.
+      | Через несколько дней раздел исчезнет и останутся только теги
 </template>
 
 <script>
@@ -59,7 +61,7 @@ export default {
 <style scoped lang='sass'>
 @import 'app/assets/stylesheets/mixins/input'
 
-/deep/
+.b-input /deep/
   .ti-autocomplete
     display: none
 
