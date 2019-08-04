@@ -22,7 +22,7 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   UPDATE_PARAMS = %i[name image redirect_uri description_ru description_en]
   CREATE_PARAMS = %i[owner_id owner_type] + UPDATE_PARAMS
 
-  def index
+  def index # rubocop:disable MethodLength
     @collection = OauthApplication
       .with_access_grants
       .order('users_count desc, oauth_applications.id')

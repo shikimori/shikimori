@@ -100,7 +100,6 @@ gem 'ruby-esvidi', github: 'shikimori/ruby-esvidi'
 gem 'unicode' # to downcase russian words
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 
-gem 'rack-contrib', github: 'libc/rack-contrib', branch: 'rack_ruby_2+no-gvb' # для поддержки jsonp в api
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
 
 gem 'apipie-rails'
