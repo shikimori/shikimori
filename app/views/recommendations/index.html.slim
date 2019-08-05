@@ -104,17 +104,11 @@ header.head.misc
 
   .menu-slide-outer.x199
     .menu-slide-inner
-      .l-content.to-process data-dynamic="cutted_covers"
+      .l-content.to-process data-dynamic='cutted_covers'
         = render 'animes_collection/cached_collection', view: @view
 
       .l-menu
-        - if user_signed_in? || turbolinks_request?
-          = render 'animes_collection/menu', menu: @menu
-        - else
-          .to-process.b-ajax[
-            data-dynamic='postloaded'
-            data-postloaded-url=@menu.url
-          ]
+        = render 'animes_collection/menu', menu: @menu
 
   / - if user_signed_in? && !current_user.preferences.postload_in_catalog
   = render 'animes_collection/pagination'
