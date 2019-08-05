@@ -56,14 +56,10 @@
                     / title=title
                   / ] = title
 
-    .c-my_list
-      - if user_signed_in?
-        .user_list
-          = cache [:list, current_user] do
-            = render 'dashboards/user_list', dashboard_view: @dashboard_view
-      - else
-        .sign_in
-          = render 'devise/sessions/form', resource: User.new
+    .c-my_list.to-process.b-ajax[
+      data-dynamic='postloaded'
+      data-postloaded-url=dashboards_dynamic_url
+    ]
 
   .c-forum
     .b-forums

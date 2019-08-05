@@ -3,32 +3,33 @@ class NameValidator < ActiveModel::EachValidator
     Youtoome
   ]
   PREDEFINED_PATHS = %i[
-    api
+    about
     achievements
     animes
-    mangas
-    ranobe
+    api
     contests
-    users
-    forum
-    info
-    styles
+    country
+    dashboards
+    development
     faye
+    for_right_holders
+    forum
     ignores
-    polls
+    info
+    mangas
     oauth
     oauth2
-    tableau
     ongoings
-    about
-    development
-    terms
-    privacy
-    for_right_holders
-    user_agent
-    country
     podcast
+    polls
+    privacy
+    ranobe
     redirect
+    styles
+    tableau
+    terms
+    user_agent
+    users
   ]
   FORBIDDEN_NAMES = /
     \A(?:

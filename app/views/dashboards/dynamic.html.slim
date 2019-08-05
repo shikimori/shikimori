@@ -1,0 +1,7 @@
+- if user_signed_in?
+  .user_list
+    = cache [:list, current_user] do
+      = render 'dashboards/user_list', dashboard_view: @dashboard_view
+- else
+  .sign_in
+    = render 'devise/sessions/form', resource: User.new
