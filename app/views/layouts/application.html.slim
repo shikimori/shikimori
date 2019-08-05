@@ -55,17 +55,15 @@ html
         - unless params[:no_menu]
           - if current_user&.admin? && request.path == root_path
             javascript:
-              $(function() {
-                $('.b-admin_panel').load('/apanel');
-              });
               $(document.body).on('click', '.b-admin_panel .reload', function() {
-                $('.b-admin_panel').addClass('b-ajax')
+                var $panel = $('.b-admin_panel');
                 $(this).addClass('active');
-                $('.b-admin_panel').load('/apanel', function() {
-                  $('.b-admin_panel').removeClass('b-ajax')
-                });
+                $panel.load($panel.data('postloaded-url'))
               });
-            .b-admin_panel
+            .b-admin_panel.to-process[
+              data-dynamic='postloaded'
+              data-postloaded-url='/apanel'
+            ]
               .ajax-loading.vk-like
 
         - unless Rails.env.development? && params[:no_menu]
