@@ -2,13 +2,13 @@
 import delay from 'delay';
 
 pageLoad('dashboards_show', async () => {
-  $('.user_list .switch').on('click', ({ currentTarget }) => (
+  $('.l-page').on('click', '.user_list .switch', ({ currentTarget }) => {
     $(currentTarget)
       .closest('.list-type')
       .toggleClass('hidden')
       .siblings('.list-type')
-      .toggleClass('hidden')
-  ));
+      .toggleClass('hidden');
+  });
 
   await delay(500);
   $('.cc-news').imagesLoaded(() => {
@@ -24,12 +24,6 @@ pageLoad('dashboards_show', async () => {
   if ($node.children().length) {
     $node.addClass('block');
   }
-
-  // await delay(1500);
-  // if ('VK' in window) {
-  //   vkWidget();
-  // }
-  // getjs('//vk.com/js/api/openapi.js?146').then(vkWidget);
 });
 
 function alignBlocks($userNews, $generatedNews) {
@@ -41,17 +35,3 @@ function alignBlocks($userNews, $generatedNews) {
     alignBlocks($userNews, $generatedNews);
   }
 }
-
-// function vkWidget() {
-//   const $node = $('#vk_groups').addClass('block');
-
-//   window.VK.Widgets.Group(
-//     'vk_groups',
-//     {
-//       mode: 4,
-//       width: $node.width(),
-//       height: '500'
-//     },
-//     9273458
-//   );
-// }
