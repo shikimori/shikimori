@@ -2,13 +2,13 @@
 import delay from 'delay';
 
 pageLoad('dashboards_show', async () => {
-  $('.user_list .switch').on('click', function () {
-    return $(this)
+  $('.user_list .switch').on('click', ({ currentTarget }) => (
+    $(currentTarget)
       .closest('.list-type')
       .toggleClass('hidden')
       .siblings('.list-type')
-      .toggleClass('hidden');
-  });
+      .toggleClass('hidden')
+  ));
 
   await delay(500);
   $('.cc-news').imagesLoaded(() => {

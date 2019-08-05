@@ -115,10 +115,12 @@
     max-width: 230px
     margin: 0 auto
 
-  // блок загрузки ресурсов аниме
-  .resources-loader.postloaded
-    +plashka
+  .resources-loader
     +block
+
+    &.b-ajax
+      +plashka
+      min-height: 70px
 
   .cc-related-authors
     +clearfix

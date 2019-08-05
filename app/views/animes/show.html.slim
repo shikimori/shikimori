@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, user_signed_in?, :v10] do
+  = cache [@resource, user_signed_in?, :v11] do
     meta itemprop='url' content="#{{@resource.url}}"
     meta itemprop='headline' content=@resource.name
 
@@ -122,5 +122,7 @@
       = render 'resources'
 
     - else
-      .resources-loader.postloaded data-href=@resource.resources_url
-        .ajax-loading.vk-like title=t('loading')
+      .resources-loader.to-process.b-ajax[
+        data-dynamic='postloaded'
+        data-postloaded-url=@resource.resources_url
+      ]

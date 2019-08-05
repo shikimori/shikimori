@@ -20,8 +20,10 @@ header.head
       - if user_signed_in? || turbolinks_request?
         = render 'menu', social: true, menu: @menu
       - else
-        .postloaded data-href=@menu.url
-          .ajax-loading title=t('loading')
+        .to-process.b-ajax[
+          data-dynamic='postloaded'
+          data-postloaded-url=@menu.url
+        ]
 
 / - if user_signed_in? && !current_user.preferences.postload_in_catalog
 = render 'pagination', view: @view

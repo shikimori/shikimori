@@ -1,21 +1,22 @@
-import CuttedCovers from './cutted_covers';
-import TextAnnotated from './text_annotated';
 import AuthorizedAction from './authorized_action';
+import CodeHighlight from './code_highlight';
+import Comment from './comment';
+import CuttedCovers from './cutted_covers';
 import DayRegisteredAction from './day_registered_action';
-import WeekRegisteredAction from './week_registered_action';
+import DesktopAd from './desktop_ad';
+import Forum from './forum';
+import FullDialog from './full_dialog';
 import Html5Video from './html5_video';
 import LogEntry from './log_entry';
-import DesktopAd from './desktop_ad';
-import CodeHighlight from './code_highlight';
-import Tabs from './tabs';
-import Forum from './forum';
-import Topic from './topic';
-import Comment from './comment';
 import Message from './message';
+import Postloaded from './postloaded';
 import ShortDialog from './short_dialog';
-import FullDialog from './full_dialog';
-import UserRateExtended from './user_rates/extended';
+import Tabs from './tabs';
+import TextAnnotated from './text_annotated';
+import Topic from './topic';
 import UserRateButton from './user_rates/button';
+import UserRateExtended from './user_rates/extended';
+import WeekRegisteredAction from './week_registered_action';
 
 export default class DynamicParser {
   static PENDING_CLASS = 'to-process';
@@ -98,6 +99,10 @@ export default class DynamicParser {
 
   fullDialog(node) {
     new FullDialog(node);
+  }
+
+  postloaded(node) {
+    new Postloaded(node);
   }
 
   userRate(node) {

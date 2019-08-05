@@ -50,23 +50,6 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
     .removeClass('unprocessed')
     .each((_index, node) => new Wall(node));
 
-  // блоки, загружаемые аяксом
-  $with('.postloaded[data-href]', $root).each(function () {
-    const $this = $(this);
-    if (!$this.is(':visible')) {
-      return;
-    }
-
-    $this.load($this.data('href'), () =>
-      $this
-        .removeClass('postloaded')
-        .process()
-        .trigger('postloaded:success')
-    );
-
-    $this.attr('data-href', null);
-  });
-
   // чёрные мелкие тултипы
   $with('.b-tooltipped.unprocessed', $root)
     .removeClass('unprocessed')
