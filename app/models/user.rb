@@ -47,6 +47,8 @@ class User < ApplicationRecord
   update_index('users#user') { self if saved_change_to_nickname? }
   after_create :add_to_index # update_index does no work because of second save in StylesConcern
 
+  attribute :last_online_at, :datetime, default: -> { Time.zone.now }
+
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences
 
