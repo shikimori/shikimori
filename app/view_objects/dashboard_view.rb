@@ -127,6 +127,7 @@ class DashboardView < ViewObjectBase
       Topics::Query.new(Topic).by_forum(Forum::UPDATES_FORUM, nil, nil).first
 
     {
+      ongoings: [:ongoings, rand(5), :v1],
       reviews: Review.order(id: :desc).first,
       reviews_index: rand(REVIEWS_FETCH), # to randomize reviews output
       news: news,
