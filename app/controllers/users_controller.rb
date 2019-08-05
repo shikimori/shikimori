@@ -7,9 +7,16 @@ class UsersController < ShikimoriController
   def index
     og page_title: i18n_i('User', :other)
 
+    ids = Rails.cache.fetch([:search, params[:search], @page, :v2], expires_in: 1.minute) do
+      Users::Query.fetch
+        .search(params[:search])
+        .paginate(@page, LIMIT)
+        .pluck(:id)
+    end
+
     @collection = Users::Query.fetch
-      .search(params[:search])
-      .paginate(@page, LIMIT)
+      .where(id: ids)
+      .paginated_slice(@page, LIMIT)
       .transform(&:decorate)
   end
 

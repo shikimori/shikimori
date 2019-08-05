@@ -35,6 +35,10 @@ class QueryObjectBase
     chain PaginatedCollection.new(new_scope, page, limit)
   end
 
+  def paginated_slice page, limit
+    chain PaginatedCollection.new(@scope, page, limit)
+  end
+
   QUERY_METHODS.each do |method_name|
     define_method method_name do |*args|
       chain @scope.public_send(method_name, *args)
