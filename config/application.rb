@@ -114,6 +114,7 @@ module Shikimori
       config.middleware.insert 0, ProxyTest
     end
 
+    config.middleware.use Rack::JSONP
     config.middleware.use Rack::Attack
     # config.middleware.use LogBeforeTimeout
 

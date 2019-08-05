@@ -15,6 +15,14 @@ GIT
       tins (~> 1.0)
 
 GIT
+  remote: https://github.com/libc/rack-contrib.git
+  revision: 1b672c3551e86e7191485bffad2ec7d0d8fec012
+  branch: rack_ruby_2+no-gvb
+  specs:
+    rack-contrib (1.4.0)
+      rack (>= 1.4, < 3.0)
+
+GIT
   remote: https://github.com/morr/cancancan.git
   revision: 70d1753aa82da86d37c5c23fe34fb8e446b9bcd2
   branch: master
@@ -494,8 +502,6 @@ GEM
     rack (2.0.7)
     rack-attack (6.1.0)
       rack (>= 1.0, < 3)
-    rack-contrib (2.1.0)
-      rack (~> 2.0)
     rack-cors (1.0.3)
     rack-protection (2.0.5)
       rack
@@ -804,6 +810,7 @@ DEPENDENCIES
   pry-stack_explorer
   puma
   rack-attack
+  rack-contrib!
   rack-cors
   rack-utf8_sanitizer
   rails
