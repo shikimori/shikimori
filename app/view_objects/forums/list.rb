@@ -1,6 +1,6 @@
 class Forums::List < ViewObjectBase
   include Enumerable
-  instance_cache :decorated_forums
+  instance_cache :decorated_forums, :static_forums
 
   pattr_initialize [:with_forum_size]
 
@@ -19,11 +19,14 @@ private
   end
 
   def decorated_forums
-    visible_forums + static_forums
+    public_forums + static_forums
   end
 
-  def visible_forums
-    Forum.visible.map { |forum| decorate forum, false }
+  def public_forums
+    Forum
+      .public
+      .reject { |v| static_forums.find { |vv| vv.permalink == v.permalink } }
+      .map { |forum| decorate forum, false }
   end
 
   def static_forums

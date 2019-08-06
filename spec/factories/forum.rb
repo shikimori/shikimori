@@ -8,14 +8,12 @@ FactoryBot.define do
     trait :offtopic do
       id { (Random.rand * 100_000).to_i }
       permalink { 'offtopic' }
-      is_visible { true }
     end
 
     trait :animanga do
       id { Topic::FORUM_IDS[Anime.name] }
       permalink { 'animanga' }
       name_ru { 'Аниме и манга' }
-      is_visible { true }
     end
 
     trait :contest do

@@ -32,17 +32,11 @@ class Forum < ApplicationRecord
 
   class << self
     def public
-      cached
-        .select { |v| PUBLIC_SECTIONS.include? v.permalink }
-        .sort_by { |v| PUBLIC_SECTIONS.index v.permalink }
-    end
-
-    def visible
-      cached.select(&:is_visible).sort_by(&:position)
+      cached.select { |v| PUBLIC_SECTIONS.include? v.permalink }
     end
 
     def find_by_permalink permalink
-      (cached + [NEWS_FORUM, UPDATES_FORUM, MY_CLUBS_FORUM]).find do |forum|
+      (cached + [UPDATES_FORUM, MY_CLUBS_FORUM]).find do |forum|
         forum.permalink == permalink
       end
     end

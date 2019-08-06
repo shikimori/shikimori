@@ -2,7 +2,8 @@
 - submit_url = topic.persisted? ? topic_url(topic) : topics_url
 
 - is_show_broadcast = current_user.admin? && !topic_type_policy.any_club_topic?
-- is_show_forum = topic.persisted? && can?(:manage, Topic)
+- is_forum_id_hidden = topic_type_policy.any_club_topic? || (topic_type_policy.news_topic? && topic.new_record?)
+- is_show_forum = (!is_forum_id_hidden && !topic_type_policy.news_topic?) || (topic.persisted? && can?(:manage, Topic))
 
 = simple_form_for topic, url: submit_url, as: :topic do |f|
   input type='hidden' name='rules_passed' value='1'
@@ -23,15 +24,17 @@
   .inputs.m15
     .block class=('fc-2' if topic_type_policy.news_topic?)
       .f-column
-        - if topic_type_policy.any_club_topic? || (topic_type_policy.news_topic? && topic.new_record?)
+        - if is_forum_id_hidden
           = f.input :forum_id, as: :hidden
 
         - if is_show_forum || is_show_broadcast
           .b-input.cc-2a
             - if is_show_forum
               .c-column.m0
-                = f.input :forum_id, as: :select, include_blank: false,
-                  collection: [Forum.find_by_permalink('news')] + Forum.public
+                = f.input :forum_id,
+                  as: :select,
+                  include_blank: false,
+                  collection: topic_type_policy.news_topic? ? [Forum.find_by_permalink('news')] + Forum.public : Forum.public
 
             - if is_show_broadcast
               .c-column.m0

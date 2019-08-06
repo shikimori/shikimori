@@ -165,7 +165,7 @@ private
 
   def all_review_topic_views
     Topics::Query
-      .fetch(h.current_user, h.locale_from_host)
+      .fetch(h.locale_from_host)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)

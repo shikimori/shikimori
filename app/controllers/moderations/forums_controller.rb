@@ -3,7 +3,7 @@ class Moderations::ForumsController < ModerationsController
   before_action :set_breadcrumbs
 
   def index
-    @collection = @collection.order({ is_visible: :desc }, :position)
+    @collection = @collection.order(:position)
   end
 
   def edit
@@ -20,7 +20,7 @@ class Moderations::ForumsController < ModerationsController
 private
 
   def update_params
-    params.require(:forum).permit(:position, :permalink, :is_visible)
+    params.require(:forum).permit(:position, :permalink)
   end
 
   def set_breadcrumbs

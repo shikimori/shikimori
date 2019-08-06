@@ -10,7 +10,6 @@ table.b-table.b-editable_grid
       th = Forum.human_attribute_name :id
       th = Forum.human_attribute_name :name
       th = Forum.human_attribute_name :permalink
-      th = Forum.human_attribute_name :is_visible
       td.text
       th.actions Actions
 
@@ -21,7 +20,6 @@ table.b-table.b-editable_grid
         td = forum.id
         td = forum.name
         td = forum.permalink
-        td = forum.is_visible
         td.text
         td.actions
           a href=edit_moderations_forum_url(forum.id) edit
