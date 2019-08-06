@@ -1,5 +1,10 @@
-class Topics::ForumQuery
-  method_object %i[scope forum user is_censored_forbidden]
+class Topics::ForumQuery # rubocop:disable ClassLength
+  method_object %i[
+    scope
+    forum
+    user
+    is_censored_forbidden
+  ]
 
   FORUMS_QUERY = 'forum_id in (:user_forums)'
   NEWS_QUERY = <<-SQL.squish
@@ -46,63 +51,29 @@ class Topics::ForumQuery
     )
   SQL
 
-  def call
-    case @forum && @forum.permalink
+  def call # rubocop:disable all
+    case @forum&.permalink
       when nil
         if @user
           user_forums
         else
-          @scope.where(
-            'type not in (?) OR type IS NULL', [
-              Topics::EntryTopics::ClubTopic.name,
-              Topics::ClubUserTopic.name,
-              Topics::EntryTopics::ClubPageTopic.name
-            ]
-          )
+          guest_forums
         end
 
       when 'reviews'
-        @scope
-          .where(forum_id: @forum.id)
-          .except(:order)
-          .order(created_at: :desc)
+        reviews_forums
 
       when 'clubs'
-        new_scope = @scope
-          .where(forum_id: @forum.id)
-          .where(linked_type: [Club.name, ClubPage.name])
-
-        if @is_censored_forbidden
-          new_scope
-            .joins(CLUBS_JOIN)
-            .where(
-              CLUBS_WHERE,
-              user_club_ids: user_club_ids,
-              user_club_page_ids: user_club_page_ids
-            )
-        else
-          new_scope
-        end
+        clubs_forums
 
       when Forum::NEWS_FORUM.permalink
-        @scope
-          .where(NEWS_QUERY)
-          .except(:order)
-          .order(created_at: :desc)
+        news_forums
 
       when Forum::UPDATES_FORUM.permalink
-        @scope
-          .where(type: [Topics::NewsTopic.name], generated: true)
-          .except(:order)
-          .order(created_at: :desc)
+        updates_forums
 
       when Forum::MY_CLUBS_FORUM.permalink
-        @scope
-          .where(
-            MY_CLUBS_QUERY,
-            user_club_ids: user_club_ids,
-            user_club_page_ids: user_club_page_ids
-          )
+        my_clubs_forums
 
       else
         @scope
@@ -125,6 +96,63 @@ private
       @scope
         .where(FORUMS_QUERY, user_forums: @user.preferences.forums.map(&:to_i))
     end
+  end
+
+  def guest_forums
+    @scope.where(
+      'type not in (?) OR type IS NULL', [
+        Topics::EntryTopics::ClubTopic.name,
+        Topics::ClubUserTopic.name,
+        Topics::EntryTopics::ClubPageTopic.name
+      ]
+    )
+  end
+
+  def reviews_forums
+    @scope
+      .where(forum_id: @forum.id)
+      .except(:order)
+      .order(created_at: :desc)
+  end
+
+  def clubs_forums
+    new_scope = @scope
+      .where(forum_id: @forum.id)
+      .where(linked_type: [Club.name, ClubPage.name])
+
+    if @is_censored_forbidden
+      new_scope
+        .joins(CLUBS_JOIN)
+        .where(
+          CLUBS_WHERE,
+          user_club_ids: user_club_ids,
+          user_club_page_ids: user_club_page_ids
+        )
+    else
+      new_scope
+    end
+  end
+
+  def news_forums
+    @scope
+      .where(NEWS_QUERY)
+      .except(:order)
+      .order(created_at: :desc)
+  end
+
+  def updates_forums
+    @scope
+      .where(type: [Topics::NewsTopic.name], generated: true)
+      .except(:order)
+      .order(created_at: :desc)
+  end
+
+  def my_clubs_forums
+    @scope.where(
+      MY_CLUBS_QUERY,
+      user_club_ids: user_club_ids,
+      user_club_page_ids: user_club_page_ids
+    )
   end
 
   def user_club_ids
