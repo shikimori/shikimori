@@ -1,7 +1,17 @@
 class FillTagsInNewsTopicsV2 < ActiveRecord::Migration[5.2]
   def change
-    Topics::NewsTopic.where(forum_id: 16).update_all tags: %w[игры]
-    Topics::NewsTopic.where(forum_id: 17).update_all tags: %w[визуальные_новеллы]
-    Topics::NewsTopic.where(forum_id: 4).update_all tags: %w[сайт]
+    Topics::NewsTopic.where(linked_type: 'Anime').update_all tags: %w[аниме]
+    Topics::NewsTopic.where(linked_type: 'Manga').update_all tags: %w[манга]
+    Topics::NewsTopic.where(linked_type: 'Ranobe').update_all tags: %w[ранобэ]
+
+    Topics::NewsTopic.where(forum_id: 16).each do |topic|
+      topic.tags << 'игры'
+      topic.save!
+    end
+    Topics::NewsTopic.where(forum_id: 17).each do |topic|
+      topic.tags << 'визуальные_новеллы'
+      topic.save!
+    end
+    Topics::NewsTopic.where(forum_id: Forum::SITE_ID).update_all tags: %w[сайт]
   end
 end
