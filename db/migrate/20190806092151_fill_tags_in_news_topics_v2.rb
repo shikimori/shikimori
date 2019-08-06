@@ -4,13 +4,15 @@ class FillTagsInNewsTopicsV2 < ActiveRecord::Migration[5.2]
     Topics::NewsTopic.where(linked_type: 'Manga').update_all tags: %w[манга]
     Topics::NewsTopic.where(linked_type: 'Ranobe').update_all tags: %w[ранобэ]
 
-    Topics::NewsTopic.where(forum_id: 16).each do |topic|
-      topic.tags << 'игры'
-      topic.save!
-    end
-    Topics::NewsTopic.where(forum_id: 17).each do |topic|
-      topic.tags << 'визуальные_новеллы'
-      topic.save!
+    Topics::NewsTopic.wo_timestamp do
+      Topics::NewsTopic.where(forum_id: 16).each do |topic|
+        topic.tags << 'игры'
+        topic.save!
+      end
+      Topics::NewsTopic.where(forum_id: 17).each do |topic|
+        topic.tags << 'визуальные_новеллы'
+        topic.save!
+      end
     end
     Topics::NewsTopic.where(forum_id: Forum::SITE_ID).update_all tags: %w[сайт]
   end
