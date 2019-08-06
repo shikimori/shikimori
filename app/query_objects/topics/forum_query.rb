@@ -10,7 +10,7 @@ class Topics::ForumQuery # rubocop:disable ClassLength
   NEWS_QUERY = <<-SQL.squish
     (
       type = '#{Topics::NewsTopic.name}' and
-      generated = false
+      forum_id = #{Forum::NEWS_ID}
     ) or (
       type in (
         '#{Topics::EntryTopics::CosplayGalleryTopic.name}',
