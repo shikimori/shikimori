@@ -30,7 +30,7 @@ private
   end
 
   def pick_forum_id
-    if @forum == Forum::NEWS_FORUM
+    if @forum.id  == Forum::NEWS_ID
       Forum.cached.map(&:id)
 
     elsif @forum == Forum::MY_CLUBS_FORUM

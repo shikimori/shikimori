@@ -66,7 +66,7 @@ class Topics::ForumQuery # rubocop:disable ClassLength
       when 'clubs'
         clubs_forums
 
-      when Forum::NEWS_FORUM.permalink
+      when 'news'
         news_forums
 
       when Forum::UPDATES_FORUM.permalink

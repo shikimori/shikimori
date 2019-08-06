@@ -79,7 +79,7 @@ class Topics::Query < QueryObjectBase
 private
 
   def except_episodes scope, forum
-    if [Forum::NEWS_FORUM, Forum::UPDATES_FORUM].include? forum
+    if forum == Forum::UPDATES_FORUM || forum&.id == Forum::NEWS_ID
       scope.wo_episodes
     else
       scope.where.not(updated_at: nil)

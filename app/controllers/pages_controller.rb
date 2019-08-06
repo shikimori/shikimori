@@ -85,7 +85,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   def news_feed
     @collection = Topics::Query.fetch(locale_from_host)
-      .by_forum(Forum::NEWS_FORUM, current_user, censored_forbidden?)
+      .by_forum(Forum.news, current_user, censored_forbidden?)
       .limit(15)
       .as_views(true, false)
   end

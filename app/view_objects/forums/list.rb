@@ -31,7 +31,7 @@ private
 
   def static_forums
     [
-      decorate(Forum::NEWS_FORUM, true),
+      decorate(Forum.news, true),
       decorate(Forum.find_by_permalink('reviews'), true),
       decorate(Forum.find_by_permalink('contests'), true),
       decorate(Forum.find_by_permalink('collections'), true),

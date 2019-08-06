@@ -135,7 +135,7 @@ describe Topics::ForumQuery do
       create :contest_status_topic, created_at: 4.days.ago
     end
 
-    let(:forum) { Forum::NEWS_FORUM }
+    let(:forum) { Forum.news }
 
     it do
       is_expected.to eq [

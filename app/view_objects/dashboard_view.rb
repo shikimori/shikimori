@@ -86,7 +86,7 @@ class DashboardView < ViewObjectBase
   def news_topic_views
     Topics::Query
       .fetch(h.locale_from_host)
-      .by_forum(Forum::NEWS_FORUM, h.current_user, h.censored_forbidden?)
+      .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
       .limit(7)
       .paginate(page, NEWS_LIMIT)
       .as_views(true, true)
@@ -122,7 +122,7 @@ class DashboardView < ViewObjectBase
 
   def cache_keys
     news =
-      Topics::Query.new(Topic).by_forum(Forum::NEWS_FORUM, nil, nil).first
+      Topics::Query.new(Topic).by_forum(Forum.news, nil, nil).first
     updates =
       Topics::Query.new(Topic).by_forum(Forum::UPDATES_FORUM, nil, nil).first
 

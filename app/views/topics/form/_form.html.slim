@@ -34,7 +34,7 @@
                 = f.input :forum_id,
                   as: :select,
                   include_blank: false,
-                  collection: topic_type_policy.news_topic? ? [Forum.find_by_permalink('news')] + Forum.public : Forum.public
+                  collection: topic_type_policy.news_topic? ? [Forum.news] + Forum.public : Forum.public
 
             - if is_show_broadcast
               .c-column.m0

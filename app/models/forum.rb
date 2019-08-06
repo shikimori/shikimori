@@ -18,7 +18,6 @@ class Forum < ApplicationRecord
   COSPLAY_ID = 15
   NEWS_ID = 20
 
-  NEWS_FORUM = FakeForum.new 'news', 'Лента новостей', 'News feed'
   UPDATES_FORUM = FakeForum.new 'updates', 'Обновления аниме', 'Anime updates'
   MY_CLUBS_FORUM = FakeForum.new 'my_clubs', 'Мои клубы', 'My clubs'
 
@@ -33,6 +32,10 @@ class Forum < ApplicationRecord
   class << self
     def public
       cached.select { |v| PUBLIC_SECTIONS.include? v.permalink }
+    end
+
+    def news
+      find_by_permalink('news')
     end
 
     def find_by_permalink permalink

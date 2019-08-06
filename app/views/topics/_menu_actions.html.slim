@@ -23,14 +23,7 @@
             - if forum.size
               .topics #{forum.size} #{i18n_i 'topic', forum.size}
             .link-with-input
-              - if forum.id == Forum::NEWS_FORUM.permalink
-                input[
-                  type="checkbox"
-                  name="user_preferences[forums][]"
-                  value=forum.id
-                  disabled
-                ]
-              - elsif current_user.preferences.forums.include?(forum.id.to_s)
+              - if current_user.preferences.forums.include?(forum.id.to_s)
                 input[
                   type="checkbox"
                   name="user_preferences[forums][]"
