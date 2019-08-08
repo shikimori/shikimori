@@ -8,12 +8,12 @@
   - content_for :head do
     - if @forums_view.next_page_url
       link[
-        rel="next"
+        rel='next'
         href="#{{@forums_view.next_page_url}}"
       ]
     - if @forums_view.prev_page_url
       link[
-        rel="prev"
+        rel='prev'
         href="#{{@forums_view.prev_page_url}}"
       ]
 

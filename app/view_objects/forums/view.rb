@@ -6,7 +6,6 @@ class Forums::View < ViewObjectBase
     Forum.find_by_permalink @forum
   end
 
-  # rubocop:disable AbcSize
   def linked
     return @linked if @linked
     return unless h.params[:linked_id]
@@ -19,7 +18,7 @@ class Forums::View < ViewObjectBase
     )
   end
 
-  def topic_views
+  def topic_views # rubocop:disable AbcSize
     Topics::Query.fetch(h.locale_from_host)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
@@ -27,7 +26,6 @@ class Forums::View < ViewObjectBase
       .paginate(page, limit)
       .as_views(true, forum&.permalink == 'reviews')
   end
-  # rubocop:enable AbcSize
 
   def page_url page
     if linked.is_a? Club
