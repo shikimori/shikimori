@@ -6,7 +6,7 @@
   +block
   margin-bottom: 0
 
-  .comments-loader,
+  .comments-loader-wrapper,
   .comments-hider,
   .comments-expander
     +plashka
@@ -22,31 +22,20 @@
   .comments-expander
     display: none
 
-  .comments-collapser
-    +js-link
-    //+link_color
-    //color: $link
-    display: none
-    font-size: 12px
-    margin: 11px 5px 0 0
-    line-height: 1
-    position: absolute
-    right: 5px
-    // top: 50%
-    // transform: translateY(-50%)
+  .comments-loader-wrapper
+    position: relative
 
-    //&::before
-      //content: '['
-      //color: $gray-3
-      //padding-right: 1px
-
-    //&::after
-      //content: ']'
-      //color: $gray-3
-      //padding-left: 1px
+    .comments-collapser
+      +js-link
+      display: none
+      font-size: 12px
+      line-height: 1
+      position: absolute
+      right: 5px
+      top: 50%
+      transform: translateY(-50%)
 
   .comments-loaded
-    overflow: hidden
     position: relative
 
   .faye-loader
