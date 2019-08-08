@@ -1,6 +1,8 @@
 @import mixins/block
 @import mixins/link
+@import mixins/ellipsis2
 @import mixins/plashka
+@import mixins/responsive
 
 .b-comments
   +block
@@ -27,13 +29,22 @@
 
     .comments-collapser
       +js-link
-      display: none
       font-size: 12px
       line-height: 1
+      margin-top: 1px
       position: absolute
       right: 5px
       top: 50%
       transform: translateY(-50%)
+
+      +iphone
+        &:not(.hidden) + .comments-loader
+          padding-left: 5px
+          padding-right: 60px
+
+    +iphone
+      .comments-loader
+        +ellipsis2
 
   .comments-loaded
     position: relative

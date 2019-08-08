@@ -167,7 +167,7 @@ export default class Topic extends ShikiEditable
 
     # hide loaded comments
     @$comments_collapser.on 'click', (e) =>
-      @$comments_collapser.hide()
+      @$comments_collapser.addClass('hidden')
       @$comments_loader_wrapper.hide()
       @$comments_expander.show()
       @$('.comments-loaded').animatedCollapse()
@@ -185,7 +185,7 @@ export default class Topic extends ShikiEditable
 
       if @$comments_loader_wrapper
         @$comments_loader_wrapper.show()
-        @$comments_collapser.show()
+        @$comments_collapser.removeClass('hidden')
       else
         @$comments_hider.show()
 
@@ -417,7 +417,7 @@ export default class Topic extends ShikiEditable
       )
 
       @$comments_loader.html(load_comments)
-      @$comments_collapser.show()
+      @$comments_collapser.removeClass('hidden')
     else
       @$comments_loader_wrapper.remove()
       @$comments_loader_wrapper = null
