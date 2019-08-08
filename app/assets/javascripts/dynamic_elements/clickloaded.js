@@ -6,22 +6,27 @@ export default class Clickloaded extends ShikiView {
   isLoading = false;
 
   initialize() {
-    this.$root.on('click', this._load);
+    this.$root.on('click', this.fetch);
   }
 
   @bind
-  async _load() {
+  async fetch() {
     if (this.isLoading) { return; }
     this.isLoading = true;
+    const html = this.$root.html();
 
     this.$root.trigger('clickloaded:before');
 
-    this.$root
-      .data({ html: this.$root.html() })
-      .html(`<div class='ajax-loading vk-like' title='${I18n.t('frontend.blocks.click_loader.loading')}' />`);
+    this.$root.html(
+      `<div
+        class='ajax-loading vk-like'
+        title='${I18n.t('frontend.blocks.click_loader.loading')}'
+      />`
+    );
 
     const { data } = await axios.get(this.$root.data('clickloaded-url'));
 
+    this.$root.html(html);
     this.$root.trigger('clickloaded:success', [data]);
     this.isLoading = false;
   }

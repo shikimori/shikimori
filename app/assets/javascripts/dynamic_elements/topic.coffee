@@ -156,10 +156,10 @@ export default class Topic extends ShikiEditable
 
     # delegated handlers becase it is replaced on postload in
     # inherited classes (FullDialog)
-    @on 'ajax:before', '.comments-loader', @_before_comments_clickload
-    @on 'ajax:success', '.comments-loader', @_comments_clickloaded
+    @on 'clickloaded:before', '.comments-loader', @_before_comments_clickload
+    @on 'clickloaded:success', '.comments-loader', @_comments_clickloaded
     @on 'click', '.comments-loader', (e) =>
-      unless @$comments_loader.is('.click-loader')
+      unless @$comments_loader.data('dynamic') == 'clickloaded'
         @$comments_loader.hide()
         @$('.comments-loaded').animatedExpand()
         @$comments_hider.show()
@@ -321,10 +321,10 @@ export default class Topic extends ShikiEditable
 
   _before_comments_clickload: =>
     new_url = @$comments_loader
-      .data('href-template')
+      .data('clickloaded-url-template')
       .replace('SKIP', @$comments_loader.data('skip'))
 
-    @$comments_loader.data(href: new_url)
+    @$comments_loader.data('clickloaded-url': new_url)
 
   _comments_clickloaded: (e, data) =>
     $new_comments = $("<div class='comments-loaded'></div>").html(data.content)

@@ -4,8 +4,9 @@
       .comments-hider = comments_view.hide_comments_text
       .comments-collapser = t 'collapse'
       .comments-expander = comments_view.show_comments_text
-      .comments-loader.click-loader[
-        data-href-template=comments_view.fetch_url
+      .comments-loader.to-process[
+        data-dynamic='clickloaded'
+        data-clickloaded-url-template=comments_view.fetch_url
         data-skip=comments_view.comments_limit
         data-limit=comments_view.fold_limit
         data-count=comments_view.folded_comments

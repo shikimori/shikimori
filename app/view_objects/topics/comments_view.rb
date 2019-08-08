@@ -30,7 +30,7 @@ class Topics::CommentsView < ViewObjectBase
     end
   end
 
-  # число подгружаемых комментариев из click-loader блока
+  # число подгружаемых комментариев из comments-loader блока
   def fold_limit
     if @is_preview
       10
