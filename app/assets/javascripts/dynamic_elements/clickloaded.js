@@ -3,16 +3,18 @@ import ShikiView from 'views/application/shiki_view';
 import axios from 'helpers/axios';
 
 export default class Clickloaded extends ShikiView {
+  isLoading = false;
+
   initialize() {
     this.$root.on('click', this._load);
   }
 
   @bind
   async _load() {
-    if (this.$root.data('locked')) { return; }
+    if (this.isLoading) { return; }
+    this.isLoading = true;
 
-    this.$root.data({ locked: true });
-    // this.$root.trigger('ajax:before');
+    this.$root.trigger('clickloaded:before');
 
     this.$root
       .data({ html: this.$root.html() })
@@ -20,7 +22,7 @@ export default class Clickloaded extends ShikiView {
 
     const { data } = await axios.get(this.$root.data('clickloaded-url'));
 
-    this.$root.data({ locked: false });
     this.$root.trigger('clickloaded:success', [data]);
+    this.isLoading = false;
   }
 }
