@@ -60,7 +60,10 @@
 
   - if entry.japanese.present? || entry.english.present? || entry.synonyms.present?
     = info_line t('.other_names') do
-      span.other-names.click-loader data-href=entry.other_names_url
+      span.other-names.to-process[
+        data-dynamic='clickloaded'
+        data-clickloaded-url=entry.other_names_url
+      ]
         span ···
 
   - if entry.preview_topic_view.any_comments? || entry.preview_topic_view.any_summaries? || entry.reviews_count > 0

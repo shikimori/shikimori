@@ -1,5 +1,4 @@
 import ShikiView from 'views/application/shiki_view';
-
 import axios from 'helpers/axios';
 
 export default class Postloaded extends ShikiView {

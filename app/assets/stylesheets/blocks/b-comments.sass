@@ -6,13 +6,20 @@
   +block
   margin-bottom: 0
 
-  .comments-loader, .comments-hider, .comments-expander
+  .comments-loader,
+  .comments-hider,
+  .comments-expander
     +plashka
     border: 1px solid #F2F2F2
     clear: left
     margin: 5px 0 5px 0
 
-  .comments-hider, .comments-expander
+    // +iphone
+      text-align: left
+      padding-left: 10px
+
+  .comments-hider,
+  .comments-expander
     display: none
 
   .comments-collapser
@@ -21,11 +28,12 @@
     //color: $link
     display: none
     font-size: 12px
-    margin: 16px 5px 0 0
+    margin: 11px 5px 0 0
     line-height: 1
-    //padding: 0 5px
     position: absolute
-    right: 0
+    right: 5px
+    // top: 50%
+    // transform: translateY(-50%)
 
     //&::before
       //content: '['

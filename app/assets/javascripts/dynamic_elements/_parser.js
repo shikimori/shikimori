@@ -10,6 +10,7 @@ import Html5Video from './html5_video';
 import LogEntry from './log_entry';
 import Message from './message';
 import Postloaded from './postloaded';
+import Clickloaded from './clickloaded';
 import ShortDialog from './short_dialog';
 import Tabs from './tabs';
 import TextAnnotated from './text_annotated';
@@ -103,6 +104,10 @@ export default class DynamicParser {
 
   postloaded(node) {
     new Postloaded(node);
+  }
+
+  clickloaded(node) {
+    new Clickloaded(node);
   }
 
   userRate(node) {

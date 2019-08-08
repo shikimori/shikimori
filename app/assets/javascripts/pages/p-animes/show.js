@@ -19,10 +19,11 @@ pageLoad('animes_show', 'mangas_show', 'ranobe_show', () => {
   }
 
   // autoload of resource info for guests
-  $('.l-content')
-    .on('postloaded:success', '.resources-loader', () => $('.c-screenshot').magnificRelGallery());
+  $('.l-content').on('postloaded:success', '.resources-loader', () => (
+    $('.c-screenshot').magnificRelGallery()
+  ));
 
-  $('.other-names.click-loader').on('ajax:success', ({ currentTarget }, data) => {
+  $('.other-names').on('clickloaded:success', ({ currentTarget }, data) => {
     $(currentTarget).closest('.line').replaceWith(data);
   });
 
