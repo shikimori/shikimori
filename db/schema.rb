@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_06_185156) do
+ActiveRecord::Schema.define(version: 2019_08_08_145552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 2019_08_06_185156) do
     t.datetime "updated_at", null: false
     t.index ["neko_id", "level"], name: "index_achievements_on_neko_id_and_level"
     t.index ["user_id", "neko_id", "level"], name: "index_achievements_on_user_id_and_neko_id_and_level", unique: true
-    t.index ["user_id"], name: "index_achievements_on_user_id"
   end
 
   create_table "anime_calendars", id: :serial, force: :cascade do |t|
@@ -324,7 +323,6 @@ ActiveRecord::Schema.define(version: 2019_08_06_185156) do
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["created_at"], name: "index_comments_on_created_at"
     t.index ["user_id", "id"], name: "index_comments_on_user_id_and_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "contest_links", id: :serial, force: :cascade do |t|
@@ -493,7 +491,6 @@ ActiveRecord::Schema.define(version: 2019_08_06_185156) do
     t.datetime "updated_at"
     t.boolean "is_anime365", default: false, null: false
     t.index ["anime_id", "episode"], name: "index_episode_notifications_on_anime_id_and_episode", unique: true
-    t.index ["anime_id"], name: "index_episode_notifications_on_anime_id"
   end
 
   create_table "external_links", id: :serial, force: :cascade do |t|
@@ -672,6 +669,7 @@ ActiveRecord::Schema.define(version: 2019_08_06_185156) do
     t.string "previous_refresh_token", default: "", null: false
     t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id"
     t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
+    t.index ["resource_owner_id", "application_id"], name: "index_oauth_access_tokens_on_resource_owner_id_and_app_id"
     t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
     t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
   end
@@ -963,7 +961,6 @@ ActiveRecord::Schema.define(version: 2019_08_06_185156) do
     t.datetime "updated_at"
     t.string "prior_value", limit: 255
     t.index ["target_type", "user_id", "id"], name: "index_user_histories_on_target_type_and_user_id_and_id"
-    t.index ["target_type", "user_id"], name: "i_user_target"
     t.index ["updated_at"], name: "index_user_histories_on_updated_at"
     t.index ["user_id"], name: "index_user_histories_on_user_id"
   end
