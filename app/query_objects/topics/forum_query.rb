@@ -51,6 +51,12 @@ class Topics::ForumQuery # rubocop:disable ClassLength
     )
   SQL
 
+  FORUM_WITH_TAG_QUERY = <<-SQL.squish
+    forum_id = %<forum_id>i or (
+      forum_id = #{Forum::NEWS_ID} and (%<tags>s)
+  )
+  SQL
+
   def call # rubocop:disable all
     case @forum&.permalink
       when nil
@@ -74,6 +80,26 @@ class Topics::ForumQuery # rubocop:disable ClassLength
 
       when Forum::MY_CLUBS_FORUM.permalink
         my_clubs_forums
+
+      when 'animanga'
+        @scope.where(
+          format(FORUM_WITH_TAG_QUERY, forum_id: @forum.id, tags: tags_sql(%w[аниме манга ранобэ]))
+        )
+
+      when 'site'
+        @scope.where(
+          format(FORUM_WITH_TAG_QUERY, forum_id: @forum.id, tags: tags_sql(%w[сайт]))
+        )
+
+      when 'games'
+        @scope.where(
+          format(FORUM_WITH_TAG_QUERY, forum_id: @forum.id, tags: tags_sql(%w[игры]))
+        )
+
+      when 'vn'
+        @scope.where(
+          format(FORUM_WITH_TAG_QUERY, forum_id: @forum.id, tags: tags_sql(%w[визуальные_новеллы]))
+        )
 
       else
         @scope
@@ -161,5 +187,11 @@ private
 
   def user_club_page_ids
     @user_club_page_ids ||= ClubPage.where(club_id: user_club_ids).pluck(:id)
+  end
+
+  def tags_sql tags
+    tags
+      .map { |tag| "tags @> '{#{tag}}'" }
+      .join(' or ')
   end
 end

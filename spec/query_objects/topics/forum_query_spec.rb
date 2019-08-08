@@ -116,12 +116,22 @@ describe Topics::ForumQuery do
     end
   end
 
+  context 'animanga/site/games/vn' do
+    let(:forum) { animanga_forum }
+    let!(:anime_news_topic) do
+      create :news_topic,
+        tags: [%w[аниме манга ранобэ].sample],
+        updated_at: 2.days.ago
+    end
+    it { is_expected.to eq [anime_topic, anime_news_topic] }
+  end
+
   context 'reviews' do
     let(:forum) { reviews_forum }
     it { is_expected.to eq [review.topic(locale)] }
   end
 
-  context 'NEWS' do
+  context 'news' do
     let!(:generated_news_topic) { create :news_topic, :anime_anons }
     let!(:anime_news_topic) { create :news_topic, created_at: 1.day.ago }
     let!(:manga_news_topic) { create :news_topic, created_at: 2.days.ago }
@@ -147,7 +157,7 @@ describe Topics::ForumQuery do
     end
   end
 
-  context 'UPDATES' do
+  context 'updates' do
     let!(:anime_news_topic) { create :news_topic, :anime_anons, created_at: 1.day.ago }
     let!(:regular_news) { create :news_topic }
 
@@ -156,7 +166,7 @@ describe Topics::ForumQuery do
     it { is_expected.to eq [anime_news_topic] }
   end
 
-  context 'MY_CLUBS' do
+  context 'my_clubs' do
     let(:forum) { Forum::MY_CLUBS_FORUM }
 
     let!(:joined_club_2) { create :club, :with_topics, updated_at: 25.days.ago }
