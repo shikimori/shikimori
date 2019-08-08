@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_05_123142) do
+ActiveRecord::Schema.define(version: 2019_08_06_185156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -526,7 +526,6 @@ ActiveRecord::Schema.define(version: 2019_08_05_123142) do
     t.string "permalink", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean "is_visible"
     t.string "name_en"
   end
 

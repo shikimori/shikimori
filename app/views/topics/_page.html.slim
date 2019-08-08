@@ -27,34 +27,35 @@ header.head
     .l-content
       = yield
 
-    aside.l-menu.ajax-opacity
-      = render 'menu_actions', menu: @forums_view.menu
+    - unless Rails.env.development? && params[:no_menu]
+      aside.l-menu.ajax-opacity
+        = render 'menu_actions', menu: @forums_view.menu
 
-      - if linked
-        - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
-          = render 'animes/menu', resource: linked.decorate
+        - if linked
+          - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
+            = render 'animes/menu', resource: linked.decorate
 
-        - elsif linked.kind_of? Review
-          = render 'animes/menu', resource: linked.target.decorate
+          - elsif linked.kind_of? Review
+            = render 'animes/menu', resource: linked.target.decorate
 
-        - elsif linked.kind_of? Character
-          = render 'characters/menu', resource: linked.decorate
+          - elsif linked.kind_of? Character
+            = render 'characters/menu', resource: linked.decorate
 
-        - elsif linked.kind_of? Person
-          = render 'people/menu', resource: linked.decorate
+          - elsif linked.kind_of? Person
+            = render 'people/menu', resource: linked.decorate
 
-        - elsif linked.kind_of? Club
-          = render 'clubs/menu', club: linked.decorate
+          - elsif linked.kind_of? Club
+            = render 'clubs/menu', club: linked.decorate
 
-        - elsif linked.kind_of? Contest
-          = render 'contests/menu', resource: linked.decorate
+          - elsif linked.kind_of? Contest
+            = render 'contests/menu', resource: linked.decorate
 
-        - elsif linked.kind_of?(CosplayGallery) || linked.kind_of?(Collection)
+          - elsif linked.kind_of?(CosplayGallery) || linked.kind_of?(Collection)
+            = render 'spnsrs/ad', ad: Ad.new(:menu_300x600)
+            = render 'menu', menu: @forums_view.menu
+
+          - else raise "unknown linked: #{linked.class}"
+
+        - else
           = render 'spnsrs/ad', ad: Ad.new(:menu_300x600)
           = render 'menu', menu: @forums_view.menu
-
-        - else raise "unknown linked: #{linked.class}"
-
-      - else
-        = render 'spnsrs/ad', ad: Ad.new(:menu_300x600)
-        = render 'menu', menu: @forums_view.menu

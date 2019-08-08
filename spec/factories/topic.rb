@@ -101,10 +101,11 @@ FactoryBot.define do
 
     factory :news_topic, class: 'Topics::NewsTopic' do
       type { 'Topics::NewsTopic' }
-      forum { seed :animanga_forum }
+      forum { seed :news_forum }
 
       trait :anime_anons do
         linked { create :anime }
+        forum { seed :animanga_forum }
         action { :anons }
         generated { true }
       end

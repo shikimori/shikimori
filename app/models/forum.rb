@@ -16,8 +16,8 @@ class Forum < ApplicationRecord
   CONTESTS_ID = 13
   COLLECTION_ID = 14
   COSPLAY_ID = 15
+  NEWS_ID = 20
 
-  NEWS_FORUM = FakeForum.new 'news', 'Лента новостей', 'News feed'
   UPDATES_FORUM = FakeForum.new 'updates', 'Обновления аниме', 'Anime updates'
   MY_CLUBS_FORUM = FakeForum.new 'my_clubs', 'Мои клубы', 'My clubs'
 
@@ -31,17 +31,15 @@ class Forum < ApplicationRecord
 
   class << self
     def public
-      cached
-        .select { |v| PUBLIC_SECTIONS.include? v.permalink }
-        .sort_by { |v| PUBLIC_SECTIONS.index v.permalink }
+      cached.select { |v| PUBLIC_SECTIONS.include? v.permalink }
     end
 
-    def visible
-      cached.select(&:is_visible).sort_by(&:position)
+    def news
+      find_by_permalink('news')
     end
 
     def find_by_permalink permalink
-      (cached + [NEWS_FORUM, UPDATES_FORUM, MY_CLUBS_FORUM]).find do |forum|
+      (cached + [UPDATES_FORUM, MY_CLUBS_FORUM]).find do |forum|
         forum.permalink == permalink
       end
     end

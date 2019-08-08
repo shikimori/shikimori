@@ -8,6 +8,7 @@ class FactoryBotSeeds
     user_day_registered
     user_week_registered
 
+    news_forum
     reviews_forum
     animanga_forum
     contests_forum
