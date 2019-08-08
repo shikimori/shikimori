@@ -121,17 +121,17 @@ class DashboardView < ViewObjectBase
   end
 
   def cache_keys
-    news =
+    news_key =
       Topics::Query.new(Topic).by_forum(Forum.news, nil, nil).first
-    updates =
+    updates_key =
       Topics::Query.new(Topic).by_forum(Forum::UPDATES_FORUM, nil, nil).first
 
     {
       ongoings: [:ongoings, rand(5), :v1],
       reviews: Review.order(id: :desc).first,
       reviews_index: rand(REVIEWS_FETCH), # to randomize reviews output
-      news: news,
-      updates: updates
+      news: [:news, news_key],
+      updates: [:updates, updates_key]
     }
   end
 
