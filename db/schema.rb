@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_08_145552) do
+ActiveRecord::Schema.define(version: 2019_08_08_151243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -670,7 +670,6 @@ ActiveRecord::Schema.define(version: 2019_08_08_145552) do
     t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id"
     t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
     t.index ["resource_owner_id", "application_id"], name: "index_oauth_access_tokens_on_resource_owner_id_and_app_id"
-    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
     t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
   end
 
