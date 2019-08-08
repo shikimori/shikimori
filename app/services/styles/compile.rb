@@ -22,7 +22,11 @@ class Styles::Compile
 private
 
   def inline_imports downloaded_imports, compiled_css
-    "#{downloaded_imports.join("\n\n")}\n\n#{compiled_css}".strip
+    imports_css = downloaded_imports
+      .select(&:present?)
+      .join("\n\n")
+
+    "#{imports_css}\n\n#{compiled_css}".strip
   end
 
   def download_imports imports
