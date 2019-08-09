@@ -62,8 +62,7 @@ export default class Topic extends ShikiEditable
         </div>"
       )
 
-    @$comments_loader_wrapper = @$('.comments-loader-wrapper')
-    @$comments_loader = @$comments_loader_wrapper.children('.comments-loader')
+    @$comments_loader = @$('.comments-loader')
     @$comments_hider = @$('.comments-hider')
     @$comments_collapser = @$('.comments-collapser')
     @$comments_expander = @$('.comments-expander')
@@ -161,14 +160,14 @@ export default class Topic extends ShikiEditable
     @on 'clickloaded:success', '.comments-loader', @_comments_clickloaded
     @on 'click', '.comments-loader', (e) =>
       unless @$comments_loader.data('dynamic') == 'clickloaded'
-        @$comments_loader_wrapper.hide()
+        @$comments_loader.addClass('hidden')
         @$('.comments-loaded').animatedExpand()
         @$comments_hider.show()
 
     # hide loaded comments
     @$comments_collapser.on 'click', (e) =>
       @$comments_collapser.addClass('hidden')
-      @$comments_loader_wrapper.hide()
+      @$comments_loader.addClass('hidden')
       @$comments_expander.show()
       @$('.comments-loaded').animatedCollapse()
 
@@ -183,8 +182,8 @@ export default class Topic extends ShikiEditable
       @$comments_expander.hide()
       @$('.comments-loaded').animatedExpand()
 
-      if @$comments_loader_wrapper
-        @$comments_loader_wrapper.show()
+      if @$comments_loader
+        @$comments_loader.removeClass('hidden')
         @$comments_collapser.removeClass('hidden')
       else
         @$comments_hider.show()
@@ -334,7 +333,7 @@ export default class Topic extends ShikiEditable
 
     $new_comments
       .process(data.JS_EXPORTS)
-      .insertAfter(@$comments_loader_wrapper)
+      .insertAfter(@$comments_loader)
       .animatedExpand()
 
     @_update_comments_loader(data)
@@ -419,8 +418,7 @@ export default class Topic extends ShikiEditable
       @$comments_loader.html(load_comments)
       @$comments_collapser.removeClass('hidden')
     else
-      @$comments_loader_wrapper.remove()
-      @$comments_loader_wrapper = null
+      @$comments_loader.remove()
       @$comments_loader = null
 
       @$comments_hider.show()

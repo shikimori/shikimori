@@ -8,7 +8,7 @@
   +block
   margin-bottom: 0
 
-  .comments-loader-wrapper,
+  .comments-loader,
   .comments-hider,
   .comments-expander
     +plashka
@@ -24,27 +24,22 @@
   .comments-expander
     display: none
 
-  .comments-loader-wrapper
-    position: relative
-
-    .comments-collapser
-      +js-link
-      font-size: 12px
-      line-height: 1
-      margin-top: 1px
-      position: absolute
-      right: 5px
-      top: 50%
-      transform: translateY(-50%)
-
-      +iphone
-        &:not(.hidden) + .comments-loader
-          padding-left: 5px
-          padding-right: 60px
+  .comments-collapser
+    +js-link
+    font-size: 12px
+    line-height: 1
+    margin-top: 11px
+    position: absolute
+    right: 5px
 
     +iphone
-      .comments-loader
-        +ellipsis2
+      &:not(.hidden) + .comments-loader
+        padding-left: 5px
+        padding-right: 60px
+
+  +iphone
+    .comments-loader
+      +ellipsis2
 
   .comments-loaded
     position: relative
