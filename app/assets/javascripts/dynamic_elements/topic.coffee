@@ -253,10 +253,13 @@ export default class Topic extends ShikiEditable
     $placeholder = @$('.b-comments .faye-loader')
 
     unless $placeholder.exists()
-      $placeholder = $('<div class="click-loader faye-loader"></div>')
+      $placeholder = $('
+        <div class="faye-loader to-process" data-dynamic="clickloaded"></div>
+      ')
         .appendTo(@$('.b-comments'))
         .data(ids: [])
-        .on 'ajax:success', (e, data) ->
+        .process()
+        .on 'clickloaded:success', (e, data) ->
           $html = $(data.content).process data.JS_EXPORTS
           $placeholder.replaceWith $html
 
@@ -266,7 +269,7 @@ export default class Topic extends ShikiEditable
       $placeholder.data
         ids: $placeholder.data('ids').add(trackable_id)
       $placeholder.data
-        href: "/#{trackable_type}s/chosen/#{$placeholder.data("ids").join ","}"
+        'clickloaded-url': "/#{trackable_type}s/chosen/#{$placeholder.data('ids').join ","}"
 
       num = $placeholder.data('ids').length
 

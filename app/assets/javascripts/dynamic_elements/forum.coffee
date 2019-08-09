@@ -38,10 +38,13 @@ export default class Forum extends ShikiView
     $placeholder = @$('>.faye-loader')
 
     unless $placeholder.exists()
-      $placeholder = $('<div class="click-loader faye-loader" data-format="json"></div>')
+      $placeholder = $('
+        <div class="faye-loader to-process" data-dynamic="clickloaded"></div>
+      ')
         .prependTo(@$root)
         .data(ids: [])
-        .on 'ajax:success', (e, data) ->
+        .process()
+        .on 'clickloaded:success', (e, data) ->
           $html = $(data.content).process(data.JS_EXPORTS)
           $placeholder.replaceWith $html
 
@@ -49,7 +52,7 @@ export default class Forum extends ShikiView
       $placeholder.data
         ids: $placeholder.data('ids').add(comment_id)
       $placeholder.data
-        href: "/topics/chosen/#{$placeholder.data("ids").join ","}"
+        'clickloaded-url': "/topics/chosen/#{$placeholder.data("ids").join ","}"
 
       num = $placeholder.data('ids').length
       $placeholder.html(
