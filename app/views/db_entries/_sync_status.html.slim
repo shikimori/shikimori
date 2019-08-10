@@ -4,7 +4,8 @@
       li
         .field = resource.class.human_attribute_name(:imported_at)
         .value
-          span = l resource.imported_at, format: :full
+          - if resource.imported_at
+            span = l resource.imported_at, format: :full
       li
         .field = resource.class.human_attribute_name(:desynced)
         .value
