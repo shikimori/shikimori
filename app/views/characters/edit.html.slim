@@ -85,8 +85,6 @@
               data-dynamic="week_registered"
             ] = t 'actions.edit'
 
-  .block
-    ul.b-list
-      = render 'db_entries/sync_status', resource: @resource
+  = render 'db_entries/sync_status', resource: @resource
 
   = render 'db_entries/history', resource: @resource

@@ -277,21 +277,19 @@
                   data-dynamic='week_registered'
                 ] = t 'actions.edit'
 
+  ul.b-list
+    - if @resource.anime?
+      li
+        .field = @resource.class.human_attribute_name(:options)
+        .value
+          span = @resource.options.join(', ')
+          - if can? :major_change, Version
+            a.b-js-action href=@resource.edit_field_url(:options)
+              = t 'moderators_only'
+          - else
+            .b-js-action = t 'moderators_only'
 
-  .block
-    ul.b-list
-      - if @resource.anime?
-        li
-          .field = @resource.class.human_attribute_name(:options)
-          .value
-            span = @resource.options.join(', ')
-            - if can? :major_change, Version
-              a.b-js-action href=@resource.edit_field_url(:options)
-                = t 'moderators_only'
-            - else
-              .b-js-action = t 'moderators_only'
-
-      = render 'db_entries/sync_status', resource: @resource
+  = render 'db_entries/sync_status', resource: @resource
 
   - if current_user&.admin? && @resource.anime?
     = spoiler 'Torrents' do

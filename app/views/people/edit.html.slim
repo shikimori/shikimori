@@ -57,8 +57,6 @@
               a.b-js-action href=@resource.edit_field_url(:image)
                 = t 'actions.edit'
 
-  .block
-    ul.b-list
-      = render 'db_entries/sync_status', resource: @resource
+  = render 'db_entries/sync_status', resource: @resource
 
   = render 'db_entries/history', resource: @resource

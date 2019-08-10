@@ -1,13 +1,27 @@
-li
-  .field = resource.class.human_attribute_name(:imported_at)
-  .value
-    span = l resource.imported_at, format: :full
-li
-  .field = resource.class.human_attribute_name(:desynced)
-  .value
-    span = resource.desynced.join(', ')
-    - if can? :major_change, Version
-      a.b-js-action href=resource.edit_field_url(:desynced)
-        = t 'moderators_only'
-    - else
-      .b-js-action = t 'moderators_only'
+.cc-2
+  .c-column.block
+    ul.b-list
+      li
+        .field = resource.class.human_attribute_name(:imported_at)
+        .value
+          span = l resource.imported_at, format: :full
+      li
+        .field = resource.class.human_attribute_name(:desynced)
+        .value
+          span = resource.desynced.join(', ')
+          - if can? :major_change, Version
+            a.b-js-action href=resource.edit_field_url(:desynced)
+              = t 'moderators_only'
+          - else
+            .b-js-action = t 'moderators_only'
+
+  - if can? :major_change, Version
+    .c-column.block_m
+      ul.b-list
+        - if resource.mal_id
+          li
+            = render ExternalLink.new(entry: resource, kind: :myanimelist, source: :myanimelist, url: resource.mal_url)
+
+        - if resource.respond_to?(:smotret_anime_external_link) && resource.smotret_anime_external_link
+          li
+            = render resource.smotret_anime_external_link

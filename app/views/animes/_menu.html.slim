@@ -141,13 +141,7 @@
   - if resource.displayed_external_links.any?
     .block
       .subheadline = t '.on_other_sites'
-      - resource.displayed_external_links.each do |external_link|
-        .b-menu-line.b-external_link[
-          class=external_link.kind
-        ]
-          .linkeable.b-link[
-            data-href=external_link.url
-          ] = external_link.label
+      = render resource.displayed_external_links, class: 'b-menu-line'
 
   / - if user_signed_in? && current_user.day_registered?
   - if user_signed_in?

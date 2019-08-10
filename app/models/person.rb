@@ -54,4 +54,10 @@ class Person < DbEntry
 
   def source
   end
+
+  def mal_url
+    return unless mal_id
+
+    "http://myanimelist.net/people/#{mal_id}"
+  end
 end
