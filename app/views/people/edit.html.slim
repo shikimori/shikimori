@@ -6,61 +6,59 @@
       ul.b-list
         li
           .field = Person.human_attribute_name :name
-          .value = @resource.name
-          - if can? :major_change, Version
-            a.b-js-action href=@resource.edit_field_url(:name)
-              = t '.moderators_only'
-          - else
-            .b-js-action = t '.moderators_only'
+          .value
+            span = @resource.name
+            - if can? :major_change, Version
+              a.b-js-action href=@resource.edit_field_url(:name)
+                = t 'moderators_only'
+            - else
+              .b-js-action = t 'moderators_only'
 
         li
           .field = Person.human_attribute_name :russian
-          .value = @resource.russian
-          a.b-js-action href=@resource.edit_field_url(:russian)
-            = t 'actions.edit'
+          .value
+            span = @resource.russian
+            a.b-js-action href=@resource.edit_field_url(:russian)
+              = t 'actions.edit'
 
         li
           .field = Person.human_attribute_name :japanese
-          .value = @resource.japanese
-          a.b-js-action href=@resource.edit_field_url(:japanese)
-            = t 'actions.edit'
+          .value
+            span = @resource.japanese
+            a.b-js-action href=@resource.edit_field_url(:japanese)
+              = t 'actions.edit'
 
         li
           .field = Person.human_attribute_name :birthday
-          .value = formatted_date(@resource.birthday, true) if @resource.birthday
-          a.b-js-action href=@resource.edit_field_url(:birthday)
-            = t 'actions.edit'
+          .value
+            span = formatted_date(@resource.birthday, true) if @resource.birthday
+            a.b-js-action href=@resource.edit_field_url(:birthday)
+              = t 'actions.edit'
 
         li
           .field = Person.human_attribute_name :website
-          .value = @resource.website_html
-          a.b-js-action href=@resource.edit_field_url(:website)
-            = t 'actions.edit'
+          .value
+            span = @resource.website_html
+            a.b-js-action href=@resource.edit_field_url(:website)
+              = t 'actions.edit'
 
     .c-column.m0
       ul.b-list
         li
           .field = Person.human_attribute_name :image
-          - if @resource.image.exists?
-            - if can? :major_change, Version
-              a.b-js-action href=@resource.edit_field_url(:image)
-                = t '.moderators_only'
+          .value
+            - if @resource.image.exists?
+              - if can? :major_change, Version
+                a.b-js-action href=@resource.edit_field_url(:image)
+                  = t 'moderators_only'
+              - else
+                .b-js-action = t 'moderators_only'
             - else
-              .b-js-action = t '.moderators_only'
-
-          - else
-            a.b-js-action href=@resource.edit_field_url(:image)
-              = t 'actions.edit'
+              a.b-js-action href=@resource.edit_field_url(:image)
+                = t 'actions.edit'
 
   .block
     ul.b-list
-      li
-        .field = @resource.class.human_attribute_name(:desynced)
-        .value = @resource.desynced.join(', ')
-        - if can? :major_change, Version
-          a.b-js-action href=@resource.edit_field_url(:desynced)
-            = t '.moderators_only'
-        - else
-          .b-js-action = t '.moderators_only'
+      = render 'db_entries/sync_status', resource: @resource
 
   = render 'db_entries/history', resource: @resource

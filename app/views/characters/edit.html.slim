@@ -6,87 +6,87 @@
       ul.b-list
         li
           .field = Character.human_attribute_name :name
-          .value = @resource.name
-          - if can? :major_change, Version
-            a.b-js-action.to-process[
-              href=@resource.edit_field_url(:name)
-              data-dynamic="week_registered"
-            ] = t '.moderators_only'
-          - else
-            .b-js-action = t '.moderators_only'
+          .value
+            span = @resource.name
+            - if can? :major_change, Version
+              a.b-js-action.to-process[
+                href=@resource.edit_field_url(:name)
+                data-dynamic="week_registered"
+              ] = t 'moderators_only'
+            - else
+              .b-js-action = t 'moderators_only'
 
         li
           .field = Character.human_attribute_name :russian
-          .value = @resource.russian
-          a.b-js-action.to-process[
-            href=@resource.edit_field_url(:russian)
-            data-dynamic="week_registered"
-          ] = t 'actions.edit'
+          .value
+            span = @resource.russian
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:russian)
+              data-dynamic="week_registered"
+            ] = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :japanese
-          .value = @resource.japanese
-          a.b-js-action.to-process[
-            href=@resource.edit_field_url(:japanese)
-            data-dynamic="week_registered"
-          ] = t 'actions.edit'
+          .value
+            span = @resource.japanese
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:japanese)
+              data-dynamic="week_registered"
+            ] = t 'actions.edit'
 
     .c-column.m0
       ul.b-list
         li
           .field = @resource.class.human_attribute_name :image
-          - if @resource.image.exists?
-            - if can? :major_change, Version
+          .value
+            - if @resource.image.exists?
+              - if can? :major_change, Version
+                a.b-js-action.to-process[
+                  href=@resource.edit_field_url(:image)
+                  data-dynamic="week_registered"
+                ] = t 'moderators_only'
+              - else
+                .b-js-action = t 'moderators_only'
+            - else
               a.b-js-action.to-process[
                 href=@resource.edit_field_url(:image)
                 data-dynamic="week_registered"
-              ] = t '.moderators_only'
-            - else
-              .b-js-action = t '.moderators_only'
-
-          - else
-            a.b-js-action.to-process[
-              href=@resource.edit_field_url(:image)
-              data-dynamic="week_registered"
-            ] = t 'actions.edit'
+              ] = t 'actions.edit'
 
         - if ru_host?
           li
             .field = Character.human_attribute_name :description_ru
-            a.b-js-action.to-process[
-              href=@resource.edit_field_url(:description_ru)
-              data-dynamic="week_registered"
-            ] = t 'actions.edit'
+            .value
+              a.b-js-action.to-process[
+                href=@resource.edit_field_url(:description_ru)
+                data-dynamic="week_registered"
+              ] = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :description_en
-          a.b-js-action.to-process[
-            href=@resource.edit_field_url(:description_en)
-            data-dynamic="week_registered"
-          ] = t 'actions.edit'
+          .value
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:description_en)
+              data-dynamic="week_registered"
+            ] = t 'actions.edit'
 
         / li
           / .field = Character.human_attribute_name :cosplay
-          / .value.under_development = t('under_development').downcase
-          /a.b-js-action href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
+          / .value.under_development
+            / span = t('under_development').downcase
+            /a.b-js-action href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :imageboard_tag
-          .value = @resource.imageboard_tag
-          a.b-js-action.to-process[
-            href=@resource.edit_field_url(:imageboard_tag)
-            data-dynamic="week_registered"
-          ] = t 'actions.edit'
+          .value
+            span = @resource.imageboard_tag
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:imageboard_tag)
+              data-dynamic="week_registered"
+            ] = t 'actions.edit'
 
   .block
     ul.b-list
-      li
-        .field = @resource.class.human_attribute_name(:desynced)
-        .value = @resource.desynced.join(', ')
-        - if can? :major_change, Version
-          a.b-js-action href=@resource.edit_field_url(:desynced)
-            = t '.moderators_only'
-        - else
-          .b-js-action = t '.moderators_only'
+      = render 'db_entries/sync_status', resource: @resource
 
   = render 'db_entries/history', resource: @resource
