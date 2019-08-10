@@ -4,15 +4,14 @@ class Anidb::Authorization
   include Singleton
 
   CACHE_KEY = 'anidb_authorization_cookie'
-  COOKIES = %w(
-    adbuin
+  COOKIES = %w[
     adbsess
     adbss
     adbsessuser
     anidbsettings
     adbautouser
     adbautopass
-  )
+  ]
 
   LOGIN_PATH = '/perl-bin/animedb.pl?show=login'
   LOGIN = 'naruto1451'
@@ -70,14 +69,14 @@ class Anidb::Authorization
   end
 
   def login_params
-    %W(
+    %W[
       show=main
       xuser=#{LOGIN}
       xpass=#{PASSWORD}
       xdoautologin=on
       xkeepoldcookie=on
       do.auth.x=Login
-    ).join('&')
+    ].join('&')
   end
 
   def valid? cookies

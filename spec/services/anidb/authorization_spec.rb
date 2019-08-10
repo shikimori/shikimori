@@ -15,7 +15,6 @@ describe Anidb::Authorization do
         'adbsess=HeOtBhOHtFVJILxs; '\
         'adbsessuser=naruto1451; '\
         'adbss=740345-HeOtBhOH; '\
-        'adbuin=1491134069-bSaf; '\
         'anidbsettings=%7B%22USEAJAX%22%3A1%7D;'
       )
     end
