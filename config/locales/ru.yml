@@ -54,6 +54,8 @@ ru:
         fansubbers: Субтитры
         fandubbers: Озвучка
         options: Настройки
+        imported_at: Синхронизировано
+        desynced: Не синхронизируются
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания
@@ -73,6 +75,8 @@ ru:
         image: *poster
         russian: Русское имя
         imageboard_tag: Тег имиджборд
+        imported_at: Синхронизировано
+        desynced: Не синхронизируются
       person:
         <<: *character_attributes
         birthday: Дата рождения

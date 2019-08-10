@@ -54,6 +54,8 @@ en:
         fansubbers: Subtitles
         fandubbers: Dubbing
         options: Options
+        imported_at: Synchronized
+        desynced: Not synchronized
       manga: &manga_attributes
         <<: *anime_attributes
         volumes: Volumes
@@ -73,6 +75,8 @@ en:
         image: *poster
         russian: Russian name
         imageboard_tag: Imageboards tag
+        imported_at: Synchronized
+        desynced: Not synchronized
       person:
         <<: *character_attributes
         birthday: Birthday
