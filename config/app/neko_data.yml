@@ -14700,7 +14700,7 @@
         - 246
         - 11511
         - 12121
-      :threshold: 96.6%
+      :threshold: 96.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :fairy_tail
@@ -16840,7 +16840,7 @@
         - 36240
         - 36241
         - 36242
-      :threshold: 93.5%
+      :threshold: 93.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :one_piece
@@ -17408,7 +17408,7 @@
       :algo: duration
       :filters:
         franchise: tales_of
-      :threshold: 92.5%
+      :threshold: 92.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :tales_of
@@ -19327,7 +19327,7 @@
         - 33221
         - 35949
         - 36436
-      :threshold: 89%
+      :threshold: 89.7%
       :generator:
         not_ignored_ids:
         - 14007
@@ -19751,12 +19751,12 @@
       :filters:
         franchise: macross
         not_anime_ids:
+        - 1211
         - 10050
         - 31494
         - 35077
         - 38675
         - 38676
-        - 1211
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -19787,12 +19787,12 @@
       :filters:
         franchise: macross
         not_anime_ids:
+        - 1211
         - 10050
         - 31494
         - 35077
         - 38675
         - 38676
-        - 1211
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -22976,7 +22976,7 @@
         - 16576
         - 21595
         - 32346
-      :threshold: 88.6%
+      :threshold: 88.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yu_gi_oh
@@ -23162,7 +23162,7 @@
       :algo: duration
       :filters:
         franchise: senki_zesshou_symphogear
-      :threshold: 93.5%
+      :threshold: 93.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :senki_zesshou_symphogear
@@ -23339,7 +23339,7 @@
         not_anime_ids:
         - 10584
         - 39414
-      :threshold: 96.8%
+      :threshold: 96%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :gegege_no_kitarou
@@ -23949,7 +23949,7 @@
         not_anime_ids:
         - 10736
         - 30103
-      :threshold: 92.4%
+      :threshold: 92.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pretty_cure
@@ -24128,7 +24128,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 92.7%
+      :threshold: 93.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :digimon
@@ -25410,7 +25410,7 @@
         franchise: doraemon
         not_anime_ids:
         - 501
-      :threshold: 94.2%
+      :threshold: 94%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :doraemon
@@ -26181,7 +26181,7 @@
   attributes:
     :neko_id: :koihime_musou
     :level: 1
-    :image: https://nyaa.shikimori.one/system/user_images/original/9560/833670.jpg
+    :image: "/assets/achievements/anime/franchise/koihime_musou.jpg"
     :border_color: 
     :title_ru: Несравненная принцесса любви
     :text_ru: 
@@ -26195,12 +26195,12 @@
         not_anime_ids:
         - 15015
         - 15095
-      :threshold: 100%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :koihime_musou
   level: 1
-  image: https://nyaa.shikimori.one/system/user_images/original/9560/833670.jpg
+  image: "/assets/achievements/anime/franchise/koihime_musou.jpg"
   border_color: 
   title_ru: Несравненная принцесса любви
   text_ru: 
@@ -26213,7 +26213,7 @@
   attributes:
     :neko_id: :koihime_musou
     :level: 0
-    :image: https://nyaa.shikimori.one/system/user_images/original/9560/833670.jpg
+    :image: "/assets/achievements/anime/franchise/koihime_musou.jpg"
     :border_color: 
     :title_ru: Несравненная принцесса любви
     :text_ru: 
@@ -26232,7 +26232,7 @@
   default_values: *2
   neko_id: :koihime_musou
   level: 0
-  image: https://nyaa.shikimori.one/system/user_images/original/9560/833670.jpg
+  image: "/assets/achievements/anime/franchise/koihime_musou.jpg"
   border_color: 
   title_ru: Несравненная принцесса любви
   text_ru: 
