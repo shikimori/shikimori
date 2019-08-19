@@ -314,8 +314,6 @@ Rails.application.routes.draw do
         delete :cleanup, on: :collection
       end
 
-      resource :authenticity_token, only: %i[show]
-
       resources :bans, only: %i[index]
 
       resources :users, only: %i[index show], constraints: { id: user_id } do

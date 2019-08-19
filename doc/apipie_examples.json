@@ -740,23 +740,6 @@
       "recorded": true
     }
   ],
-  "authenticity_tokens#show": [
-    {
-      "verb": "GET",
-      "path": "/api/authenticity_token",
-      "versions": [
-        "1.0"
-      ],
-      "query": "",
-      "request_data": null,
-      "response_data": {
-        "authenticity_token": "t4rHcgAuOn1UU4hMViSRHKq8tLxd+LN63Y2UV1WVwYiXJCuoLNi1cwFLnTXtRP3du3NfGCDGztQ5kZQxl1ryoA=="
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    }
-  ],
   "authorizations#new": [
     {
       "verb": "GET",
