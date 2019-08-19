@@ -2,6 +2,10 @@ class Api::V1::VideosController < Api::V1Controller
   before_action :authenticate_user!, except: [:index]
   before_action :fetch_anime
 
+  before_action except: %i[index] do
+    doorkeeper_authorize! :content if doorkeeper_token.present?
+  end
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:anime_id/videos', 'List videos'
   def index
@@ -10,6 +14,7 @@ class Api::V1::VideosController < Api::V1Controller
   end
 
   api :POST, '/animes/:anime_id/videos', 'Create a video'
+  description 'Requires `content` oauth scope'
   param :video, Hash do
     param :kind, Video.kind.values, required: true
     param :name, String, required: true
@@ -23,8 +28,8 @@ class Api::V1::VideosController < Api::V1Controller
     respond_with @resource
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/animes/:anime_id/videos/:id', 'Destroy a video'
+  description 'Requires `content` oauth scope'
   def destroy
     @version = versioneer.delete params[:id], current_user
     head 200

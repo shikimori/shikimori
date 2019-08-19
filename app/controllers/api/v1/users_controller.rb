@@ -3,6 +3,10 @@ class Api::V1::UsersController < Api::V1Controller
   before_action :authorize_lists_access, only: %i[anime_rates manga_rates history]
   skip_before_action :verify_authenticity_token, only: :csrf_token
 
+  before_action only: %i[messages unread_messages] do
+    doorkeeper_authorize! :messages if doorkeeper_token.present?
+  end
+
   caches_action :anime_rates, :manga_rates,
     cache_path: proc {
       "#{user.cache_key_with_version}|#{Digest::MD5.hexdigest params.to_json}"
@@ -102,7 +106,8 @@ class Api::V1::UsersController < Api::V1Controller
     )
   end
 
-  api :GET, '/users/:id/messages', "Show current user's messages. Authorization required."
+  api :GET, '/users/:id/messages', "Show current user's messages"
+  description 'Requires `messages` oauth scope'
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{MESSAGES_LIMIT} maximum"
   param :type, %w[inbox private sent news notifications], required: true
@@ -118,7 +123,8 @@ class Api::V1::UsersController < Api::V1Controller
   end
 
   api :GET, '/users/:id/unread_messages',
-    "Show current user's unread messages counts. Authorization required."
+    "Show current user's unread messages counts"
+  description 'Requires `messages` oauth scope'
   def unread_messages
     respond_with(
       messages: current_user.unread_messages,

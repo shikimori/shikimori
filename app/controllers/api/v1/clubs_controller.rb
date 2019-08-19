@@ -6,6 +6,10 @@ class Api::V1::ClubsController < Api::V1Controller
 
   LIMIT = 30
 
+  before_action only: %i[update join leave] do
+    doorkeeper_authorize! :clubs if doorkeeper_token.present?
+  end
+
   caches_action :animes, :mangas, :characters, :members, :images,
     cache_path: proc {
       "#{@club.cache_key_with_version}|#{params[:action]}"
@@ -28,6 +32,7 @@ class Api::V1::ClubsController < Api::V1Controller
 
   api :PATCH, '/clubs/:id', 'Update a club'
   api :PUT, '/clubs/:id', 'Update a club'
+  description 'Requires `clubs` oauth scope'
   param :club, Hash do
     param :name, String
     param :description, String
@@ -88,6 +93,7 @@ class Api::V1::ClubsController < Api::V1Controller
   end
 
   api :POST, '/clubs/:id/join', 'Join a club'
+  description 'Requires `clubs` oauth scope'
   def join
     authorize! :join, @club
     @club.join current_user
@@ -95,6 +101,7 @@ class Api::V1::ClubsController < Api::V1Controller
   end
 
   api :POST, '/clubs/:id/leave', 'Leave a club'
+  description 'Requires `clubs` oauth scope'
   def leave
     authorize! :leave, @club
     @club.leave current_user

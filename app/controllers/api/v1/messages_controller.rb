@@ -7,13 +7,18 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   ANTISPAM_TOKEN_NAME = 'bde0c23a4b6c2e99z6a14003ce1d728d319'
   ANTISPAM_TOKEN_VALUE = '34f91ea4f1fa09e443f820b4ac5cf3d9dca'
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  before_action do
+    doorkeeper_authorize! :messages if doorkeeper_token.present?
+  end
+
   api :GET, '/messages/:id', 'Show a message'
+  description 'Requires `messages` oauth scope'
   def show
     respond_with @resource.decorate
   end
 
   api :POST, '/messages', 'Create a message'
+  description 'Requires `messages` oauth scope'
   param :message, Hash do
     param :body, String, required: true
     param :from_id, :number, required: true
@@ -37,6 +42,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
 
   api :PATCH, '/messages/:id', 'Update a message'
   api :PUT, '/messages/:id', 'Update a message'
+  description 'Requires `messages` oauth scope'
   param :message, Hash, required: true do
     param :body, String, required: true
   end
@@ -55,14 +61,15 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
     end
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/messages/:id', 'Destroy a message'
+  description 'Requires `messages` oauth scope'
   def destroy
     faye.destroy @resource
     respond_with @resource.decorate, notice: i18n_t('message.removed')
   end
 
   api :POST, '/messages/mark_read', 'Mark messages as read or unread'
+  description 'Requires `messages` oauth scope'
   param :ids, :undef
   def mark_read
     ids = (params[:ids] || '').split(',').map { |v| v.sub(/message-/, '').to_i }
@@ -75,6 +82,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   end
 
   api :POST, '/messages/read_all', 'Mark all messages as read'
+  description 'Requires `messages` oauth scope'
   param :type, %w[news notifications]
   def read_all
     MessagesService.new(current_user).read_messages type: @messages_type
@@ -93,6 +101,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   end
 
   api :POST, '/messages/delete_all', 'Delete all messages'
+  description 'Requires `messages` oauth scope'
   param :frontend, :bool
   param :type, %w[news notifications]
   error code: 302

@@ -1,7 +1,12 @@
 class Api::V1::UserImagesController < Api::V1Controller
   before_action :authenticate_user!
 
+  before_action do
+    doorkeeper_authorize! :content if doorkeeper_token.present?
+  end
+
   api :POST, '/user_images', 'Create an user image'
+  description 'Requires `content` oauth scope'
   param :image, :undef, require: true
   param :linked_type, String, require: true
   def create
