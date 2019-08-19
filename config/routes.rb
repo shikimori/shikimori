@@ -314,13 +314,7 @@ Rails.application.routes.draw do
         delete :cleanup, on: :collection
       end
 
-      resource :authenticity_token, only: %i[show]
-
       resources :bans, only: %i[index]
-
-      devise_scope :user do
-        resources :sessions, only: %i[create]
-      end
 
       resources :users, only: %i[index show], constraints: { id: user_id } do
         collection do

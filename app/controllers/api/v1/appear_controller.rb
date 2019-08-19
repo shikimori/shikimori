@@ -1,7 +1,6 @@
 class Api::V1::AppearController < Api::V1Controller
   before_action :authenticate_user!
 
-  # пометка элементов прочитанными
   api :POST, '/appear', 'Mark comments or topics as read'
   param :ids, :undef
   def create

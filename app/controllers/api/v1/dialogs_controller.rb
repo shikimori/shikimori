@@ -4,8 +4,12 @@ class Api::V1::DialogsController < Api::V1Controller
   before_action :authorize_messages_access
   before_action :fetch_target_user, only: %i[show destroy]
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  before_action do
+    doorkeeper_authorize! :messages if doorkeeper_token.present?
+  end
+
   api :GET, '/dialogs', 'List dialogs'
+  description 'Requires `messages` oauth scope'
   def index
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE * 2].min
 
@@ -14,8 +18,8 @@ class Api::V1::DialogsController < Api::V1Controller
     respond_with @collection, each_serializer: DialogSerializer
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/dialogs/:id', 'Show a dialog'
+  description 'Requires `messages` oauth scope'
   def show
     @limit = [[params[:limit].to_i, MESSAGES_PER_PAGE].max, MESSAGES_PER_PAGE * 2].min
 
@@ -27,8 +31,8 @@ class Api::V1::DialogsController < Api::V1Controller
     respond_with @collection
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/dialogs/:id', 'Destroy a dialog'
+  description 'Requires `messages` oauth scope'
   error code: 422
   def destroy
     message = Message.find_by(from: current_user, to: @target_user, kind: MessageType::PRIVATE) ||

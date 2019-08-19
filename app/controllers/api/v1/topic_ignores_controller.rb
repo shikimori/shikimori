@@ -28,7 +28,7 @@ class Api::V1::TopicIgnoresController < Api::V1Controller
           user_id: @resource.user_id
         }
       ),
-      method: 'POST',
+      method: 'POST'
       # notice: i18n_t('not_ignored')
     }
   end
@@ -43,7 +43,7 @@ private
     {
       id: topic_ignore.id,
       url: api_topic_ignore_url(topic_ignore),
-      method: 'DELETE',
+      method: 'DELETE'
       # notice: i18n_t('ignored')
     }
   end

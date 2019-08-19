@@ -122,3 +122,9 @@ en:
           home: 'Home'
       application:
         title: 'OAuth authorization required'
+
+    scopes:
+      clubs: 'Leave/join clubs'
+      content: 'Change database content'
+      friends_ignores: 'Add/remove friends, ignore users'
+      messages: 'Access your messages'
