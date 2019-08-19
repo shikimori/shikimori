@@ -4,11 +4,10 @@ class Api::V1::FriendsController < Api::V1Controller
 
   SPAM_LIMIT = 20
 
-  before_action only: %i[create destroy] do
+  before_action do
     doorkeeper_authorize! :friends_ignores if doorkeeper_token.present?
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/friends/:id', 'Create a friend'
   description 'Requires `friends_ignores` oauth scope'
   def create
@@ -34,7 +33,6 @@ class Api::V1::FriendsController < Api::V1Controller
     render json: { notice: add_notice }
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/friends/:id', 'Destroy a friend'
   description 'Requires `friends_ignores` oauth scope'
   def destroy

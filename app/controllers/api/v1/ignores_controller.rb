@@ -1,7 +1,7 @@
 class Api::V1::IgnoresController < Api::V1Controller
   before_action :authenticate_user!
 
-  before_action only: %i[create destroy] do
+  before_action do
     doorkeeper_authorize! :friends_ignores if doorkeeper_token.present?
   end
 
