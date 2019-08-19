@@ -4072,31 +4072,6 @@
       "recorded": true
     }
   ],
-  "sessions#create": [
-    {
-      "verb": "POST",
-      "path": "/api/sessions",
-      "versions": [
-        "1.0"
-      ],
-      "query": null,
-      "request_data": {
-        "user": {
-          "nickname": "user_9",
-          "password": "123456"
-        }
-      },
-      "response_data": {
-        "id": 23456809,
-        "nickname": "user_9",
-        "email": "email29@factory.com",
-        "avatar": "/assets/globals/missing_avatar/x32.png"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    }
-  ],
   "signup#create": [
     {
       "verb": "POST",

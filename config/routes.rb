@@ -318,10 +318,6 @@ Rails.application.routes.draw do
 
       resources :bans, only: %i[index]
 
-      devise_scope :user do
-        resources :sessions, only: %i[create]
-      end
-
       resources :users, only: %i[index show], constraints: { id: user_id } do
         collection do
           get :whoami
