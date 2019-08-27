@@ -102,7 +102,7 @@
               - else
                 .b-js-action = t 'moderators_only'
 
-          - if current_user&.admin?
+          - if can? :rollback_episode, @resource
             li
               .field = @resource.class.human_attribute_name(:episodes_aired)
               .value

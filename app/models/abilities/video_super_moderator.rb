@@ -3,6 +3,7 @@ class Abilities::VideoSuperModerator
   prepend Draper::CanCanCan
 
   def initialize _user
+    can :rollback_episode, Anime
     can %i[index show none edit update], AnimeVideoAuthor
 
     can %i[
