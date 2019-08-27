@@ -142,10 +142,10 @@ en:
 
     scopes:
       user_rates: Change your list of anime and manga
+      messages: Read your private messages, send private messages on your behalf
       comments: Comment on your behalf
       topics: Create topics and reviews on your behalf
-      clubs: Leave and join clubs
       content: Change database content
+      clubs: Leave and join clubs
       friends: Add and remove people to friends
       ignores: Add and remove people to ignore
-      messages: Read your private messages, send private messages on your behalf
