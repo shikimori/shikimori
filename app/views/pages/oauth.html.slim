@@ -29,44 +29,43 @@ header.head
   .midheadline 1. Create Application
   p Create your own application on the page #{link_to oauth_applications_path, oauth_applications_url}
 
-- if user_signed_in?
-  .block
-    form.b-form.green-form[
-      action=oauth_pages_url({}, anchor: 'step_1')
-      method='get'
-    ]
+.block
+  form.b-form.green-form[
+    action=oauth_pages_url({}, anchor: 'step_1')
+    method='get'
+  ]
+    .b-input
+      label for='oauth_application_id'
+        b OAuth Application
+      select#oauth_application_id[
+        name='oauth_application_id'
+      ]
+        option value='' None
+        - @oauth_applications.each do |oauth_application|
+          option[
+            value=oauth_application.id
+            selected=(@oauth_application == oauth_application)
+          ]= oauth_application.name
+
+    - if @oauth_application
+      .m20
+        = render partial: 'doorkeeper/oauth_applications/oauth_application',
+          object: @oauth_application,
+          locals: { content_by: 'mini' }
+
       .b-input
-        label for='oauth_application_id'
-          b OAuth Application
-        select#oauth_application_id[
-          name='oauth_application_id'
-        ]
-          option value='' None
-          - @oauth_applications.each do |oauth_application|
-            option[
-              value=oauth_application.id
-              selected=(@oauth_application == oauth_application)
-            ]= oauth_application.name
-
-      - if @oauth_application
-        .m20
-          = render partial: 'doorkeeper/oauth_applications/oauth_application',
-            object: @oauth_application,
-            locals: { content_by: 'mini' }
-
-        .b-input
-          b.m5 Scopes
-          - @oauth_application.scopes.each do |scope|
-            .m5
-              label
-                input[
-                  type='checkbox'
-                  value=scope
-                  name='scopes[]'
-                  checked=params[:scopes]&.include?(scope)
-                ]
-                = scope
-                span.hint = t "doorkeeper.scopes.#{scope}"
+        b.m5 Scopes
+        - @oauth_application.scopes.each do |scope|
+          .m5
+            label
+              input[
+                type='checkbox'
+                value=scope
+                name='scopes[]'
+                checked=params[:scopes]&.include?(scope)
+              ]
+              = scope
+              span.hint = t "doorkeeper.scopes.#{scope}"
 
 .block
   a name='step_2'
