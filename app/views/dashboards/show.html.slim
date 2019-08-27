@@ -115,14 +115,14 @@
               next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
 
     .c-generated_news
-      / - if ru_host?
-      /   / convert -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
-      /   center.block
-      /     a href="https://vk.com/wall-9273458_154251"
-      /       img[
-      /         style="max-width: 100%"
-      /         src="/assets/globals/events/vk.jpg?v3"
-      /         srcset="/assets/globals/events/vk@2x.jpg?v3 2x"
+      - if ru_host?
+        / convert -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
+        center.block
+          a href='https://kinoart.ru/events/sinemateka-klassika-anime'
+            img[
+              style="max-width: 100%"
+              src="/assets/globals/events/special_3.jpg?v3"
+              srcset="/assets/globals/events/special_3@2x.jpg?v3 2x"
             ]
 
       / - if Rails.env.production? && ru_host?
@@ -150,7 +150,7 @@
       /               t.parentNode.insertBefore(s, t);
       /           })(this, this.document, "yandexContextAsyncCallbacks");
 
-      = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
+      / = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
 
       / .midheadline.gray.m15 = t 'sponsors'
       / .container
