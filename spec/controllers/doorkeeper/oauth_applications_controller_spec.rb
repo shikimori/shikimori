@@ -79,6 +79,7 @@ describe Doorkeeper::OauthApplicationsController do
         expect(resource).to be_valid
         expect(resource).to be_persisted
         expect(resource).to have_attributes oauth_application_params.except(:image)
+        expect(resource.scopes).to eq OauthApplication::DEFAULT_SCOPES
         expect(resource.image).to be_exists
         expect(response).to redirect_to edit_oauth_application_url(resource)
       end

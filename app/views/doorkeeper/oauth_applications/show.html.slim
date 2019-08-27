@@ -38,9 +38,6 @@ header.head.misc
     .m5
       b = t 'doorkeeper.authorizations.new.able_to'
     ul.b-list
-      li = t 'doorkeeper.scopes.user_rates'
-      li = t 'doorkeeper.scopes.comments'
-      li = t 'doorkeeper.scopes.topics'
       - @resource.scopes.each do |scope|
         li = t "doorkeeper.scopes.#{scope}"
 

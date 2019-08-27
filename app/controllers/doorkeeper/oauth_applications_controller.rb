@@ -90,7 +90,10 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
 private
 
   def create_params
-    params.require(:oauth_application).permit(*CREATE_PARAMS)
+    params
+      .require(:oauth_application)
+      .permit(*CREATE_PARAMS)
+      .merge(scopes: OauthApplication::DEFAULT_SCOPES.join(' '))
   end
   alias new_params create_params
 
