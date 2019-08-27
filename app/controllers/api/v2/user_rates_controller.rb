@@ -6,6 +6,10 @@ class Api::V2::UserRatesController < Api::V2Controller
   MAX_LIMIT = 1000
   UNIQ_EXCEPTIONS = Api::V1::UserRatesController::UNIQ_EXCEPTIONS
 
+  before_action except: %i[show index] do
+    doorkeeper_authorize! :user_rates if doorkeeper_token.present?
+  end
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/v2/user_rates/:id', 'Show an user rate'
   def show
@@ -62,6 +66,7 @@ class Api::V2::UserRatesController < Api::V2Controller
   end
 
   api :POST, '/v2/user_rates', 'Create an user rate'
+  description 'Requires `user_rates` oauth scope'
   param :user_rate, Hash do
     param :user_id, :number, required: true
     param :target_id, :number, required: true
@@ -95,6 +100,7 @@ class Api::V2::UserRatesController < Api::V2Controller
 
   api :PATCH, '/v2/user_rates/:id', 'Update an user rate'
   api :PUT, '/v2/user_rates/:id', 'Update an user rate'
+  description 'Requires `user_rates` oauth scope'
   param :user_rate, Hash do
     param :status, :undef, required: false
     # param :status, UserRate.statuses.keys, required: false
@@ -111,6 +117,7 @@ class Api::V2::UserRatesController < Api::V2Controller
   end
 
   api :POST, '/v2/user_rates/:id/increment', 'Increment episodes/chapters by 1'
+  description 'Requires `user_rates` oauth scope'
   def increment
     @resource.update increment_params
     log @resource
@@ -125,8 +132,8 @@ class Api::V2::UserRatesController < Api::V2Controller
     respond_with @resource, location: nil
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/v2/user_rates/:id', 'Destroy an user rate'
+  description 'Requires `user_rates` oauth scope'
   def destroy
     @resource.destroy!
     log @resource

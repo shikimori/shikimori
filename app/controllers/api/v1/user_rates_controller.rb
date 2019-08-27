@@ -10,12 +10,17 @@ class Api::V1::UserRatesController < Api::V1Controller
   UNIQ_EXCEPTIONS = [ActiveRecord::RecordNotUnique, PG::UniqueViolation]
   ALLOWED_EXCEPTIONS = [PG::Error, RangeError, NotSaved]
 
+  before_action except: %i[show] do
+    doorkeeper_authorize! :user_rates if doorkeeper_token.present?
+  end
+
   api :GET, '/user_rates/:id', 'Show an user rate', deprecated: true
   def show
     respond_with @resource
   end
 
   api :POST, '/user_rates', 'Create an user rate', deprecated: true
+  description 'Requires `user_rates` oauth scope'
   param :user_rate, Hash do
     param :user_id, :number, required: true
     param :target_id, :number, required: true
@@ -49,6 +54,7 @@ class Api::V1::UserRatesController < Api::V1Controller
 
   api :PATCH, '/user_rates/:id', 'Update an user rate', deprecated: true
   api :PUT, '/user_rates/:id', 'Update an user rate', deprecated: true
+  description 'Requires `user_rates` oauth scope'
   param :user_rate, Hash do
     param :status, :undef, required: false
     # param :status, UserRate.statuses.keys, required: true
@@ -66,6 +72,7 @@ class Api::V1::UserRatesController < Api::V1Controller
 
   api :POST, '/user_rates/:id/increment', 'Increment episodes/chapters by 1',
     deprecated: true
+  description 'Requires `user_rates` oauth scope'
   def increment
     @resource.update increment_params
     log @resource
@@ -81,6 +88,7 @@ class Api::V1::UserRatesController < Api::V1Controller
   end
 
   api :DELETE, '/user_rates/:id', 'Destroy an user rate', deprecated: true
+  description 'Requires `user_rates` oauth scope'
   def destroy
     @resource.destroy!
     log @resource
@@ -96,6 +104,7 @@ class Api::V1::UserRatesController < Api::V1Controller
   end
 
   api :DELETE, '/user_rates/:type/cleanup', 'Delete entire user rates and history'
+  description 'Requires `user_rates` oauth scope'
   def cleanup
     user = current_user.object
 
@@ -117,8 +126,8 @@ class Api::V1::UserRatesController < Api::V1Controller
     render json: { notice: i18n_t("list_and_history_cleared.#{params[:type]}") }
   end
 
-  # сброс оценок в списке
   api :DELETE, '/user_rates/:type/reset', 'Reset all user scores to 0'
+  description 'Requires `user_rates` oauth scope'
   def reset
     user = current_user.object
 

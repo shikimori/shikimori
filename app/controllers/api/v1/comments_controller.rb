@@ -5,6 +5,10 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 
   LIMIT = 30
 
+  before_action only: %i[create update destroy] do
+    doorkeeper_authorize! :topics if doorkeeper_token.present?
+  end
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/comments/:id', 'Show a comment'
   def show
@@ -38,6 +42,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   end
 
   api :POST, '/comments', 'Create a comment'
+  description 'Requires `comments` oauth scope'
   param :comment, Hash do
     param :body, String, required: true
     param :commentable_id, :number, required: true
@@ -82,6 +87,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 
   api :PATCH, '/comments/:id', 'Update a comment'
   api :PUT, '/comments/:id', 'Update a comment'
+  description 'Requires `comments` oauth scope'
   param :comment, Hash do
     param :body, String, required: true
   end
@@ -95,8 +101,8 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
     end
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/comments/:id', 'Destroy a comment'
+  description 'Requires `comments` oauth scope'
   def destroy
     faye.destroy @resource
 

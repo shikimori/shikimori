@@ -1,11 +1,16 @@
 class Api::V2::Topics::IgnoresController < Api::V2Controller
   before_action :authenticate_user!
 
+  before_action do
+    doorkeeper_authorize! :topics if doorkeeper_token.present?
+  end
+
   resource_description do
     resource_id 'Topic Ignore'
   end
 
   api :POST, '/v2/topics/:topic_id/ignore', 'Ignore a topic'
+  description 'Requires `ignores` oauth scope'
   def create
     TopicIgnore.find_or_create_by(
       topic_id: params[:topic_id],
@@ -17,6 +22,7 @@ class Api::V2::Topics::IgnoresController < Api::V2Controller
   end
 
   api :DELETE, '/v2/topics/:topic_id/ignore', 'Unignore a topic'
+  description 'Requires `ignores` oauth scope'
   def destroy
     TopicIgnore
       .where(topic_id: params[:topic_id])

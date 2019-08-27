@@ -6,6 +6,10 @@ class Api::V1::TopicsController < Api::V1Controller
   UPDATE_PARAMS = %i[body title linked_id linked_type]
   CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
 
+  before_action only: %i[create update destroy] do
+    doorkeeper_authorize! :topics if doorkeeper_token.present?
+  end
+
   api :GET, '/topics', 'List topics'
   param :page, :pagination, required: false
   param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
@@ -55,6 +59,7 @@ class Api::V1::TopicsController < Api::V1Controller
   end
 
   api :POST, '/topics', 'Create a topic'
+  description 'Requires `topics` oauth scope'
   param :topic, Hash do
     param :body, String, required: true
     param :forum_id, :number, required: true
@@ -82,6 +87,7 @@ class Api::V1::TopicsController < Api::V1Controller
 
   api :PATCH, '/topics/:id', 'Update a topic'
   api :PUT, '/topics/:id', 'Update a topic'
+  description 'Requires `topics` oauth scope'
   param :topic, Hash do
     param :body, String, required: false
     param :linked_id, :number, required: false
@@ -105,6 +111,7 @@ class Api::V1::TopicsController < Api::V1Controller
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/topics/:id', 'Destroy a topic'
+  description 'Requires `topics` oauth scope'
   def destroy
     faye.destroy @resource
     render json: { notice: i18n_t('topic.deleted') }
