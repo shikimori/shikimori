@@ -74,7 +74,7 @@ module Clockwork
     AnimeOnline::CleanupAnimeVideos.perform_async
     DbEntries::CleanupMalBanned.perform_async
     Votable::CleanupCheatBotVotes.perform_async
-    # Users::CleanupDoorkeeperTokens.perform_async
+    Users::CleanupDoorkeeperTokens.perform_async
   end
 
   every 1.day, 'daily.torrents-check', at: '03:00' do
