@@ -199,7 +199,7 @@ describe AnimesController do
     let(:make_request) { post :rollback_episode, params: { id: anime.to_param } }
     let(:anime) { create :anime, episodes_aired: 10 }
 
-    context 'admin' do
+    context 'has access' do
       include_context :authenticated, :admin
       subject! { make_request }
       it do
@@ -208,8 +208,8 @@ describe AnimesController do
       end
     end
 
-    context 'not admin' do
-      include_context :authenticated, :version_moderator
+    context 'no access' do
+      include_context :authenticated, :forum_moderator
       it do
         expect { make_request }.to raise_error CanCan::AccessDenied
       end
