@@ -198,7 +198,7 @@ Rails.application.routes.draw do
         end
       end
       namespace :users do
-        resources :signup, only: %i[create]
+        # resources :signup, only: %i[create]
 
         scope ':user_id'  do
           resource :ignore, only: %i[create destroy]
