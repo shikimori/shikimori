@@ -3,7 +3,9 @@ class Abilities::Admin
   prepend Draper::CanCanCan
 
   def initialize _user # rubocop:disable all
+    can :upload_episode, Anime
     can :rollback_episode, Anime
+
     can %i[
       manage_super_moderator_role
       manage_video_super_moderator_role

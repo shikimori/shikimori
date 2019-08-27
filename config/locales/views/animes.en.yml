@@ -47,6 +47,7 @@ en:
       franchise: Franchise
       external_links: Links
       create_review: Create review
+      upload_episode: Add episodes from tokyotosho.info
       search_on:
         toshokan: Search on Toshokan
         rutracker: Search on Rutracker
@@ -54,6 +55,7 @@ en:
         type: Type
         name: Name
       new_torrent: New torrent
+      confirm_rollback: This action is irreversible. It will remove the topic about the episode and episode notifications from all users. Are you sure?
       parse_page: Parse page
       parse: Parse
       torrents:

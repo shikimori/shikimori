@@ -47,6 +47,7 @@ ru:
       franchise: Франшиза
       external_links: Ссылки
       create_review: Написать обзор
+      upload_episode: Добавить эпизоды со страницы tokyotosho.info
       search_on:
         toshokan: Поиск на тошокане
         rutracker: Поиск на рутрекере
@@ -54,6 +55,7 @@ ru:
         type: Тип
         name: Название
       new_torrent: Новый торрент
+      confirm_rollback: Это действие необратимо. Оно удалит топик об эпизоде и уведомления у всех пользователей. Точно откатить?
       parse_page: Распарсить страницу
       parse: Выполнить
       torrents:

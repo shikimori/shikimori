@@ -3,6 +3,8 @@ class TorrentsController < ShikimoriController
     @klass = Anime
     anime = Anime.find(params[:id].to_i)
 
+    authorize! :upload_episode, anime
+
     parser = TokyoToshokanParser
 
     if params[:torrent]['url']

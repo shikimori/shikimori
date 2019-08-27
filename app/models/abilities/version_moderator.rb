@@ -4,6 +4,8 @@ class Abilities::VersionModerator
 
   def initialize _user
     can :rollback_episode, Anime
+    can :upload_episode, Anime
+
     can :manage, Version do |version|
       !version.is_a?(Versions::RoleVersion)
     end

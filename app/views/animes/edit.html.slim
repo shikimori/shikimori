@@ -111,7 +111,7 @@
                   a.b-js-action[
                     href=rollback_episode_anime_url(@resource)
                     data-method='post'
-                    data-confirm=t('actions.confirm')
+                    data-confirm=t('.confirm_rollback')
                   ] = t 'actions.rollback'
 
         - else
@@ -291,43 +291,52 @@
 
   = render 'db_entries/sync_status', resource: @resource
 
-  - if current_user&.admin? && @resource.anime?
-    = spoiler 'Torrents' do
+  - if can? :upload_episode, Anime
+    = spoiler t('.upload_episode') do
       .cc-2
-        .c-column
-          .subheadline = t '.new_torrent'
-          .subcontent
-            = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
-              .b-input
-                p Link
-                = text_field_tag 'torrent[link]',
-                  params[:torrent] ? params[:torrent]['link'] : '',
-                  size: 100
-              .b-input
-                p PubDate
-                = text_field_tag 'torrent[pubDate]',
-                  params[:torrent] ? params[:torrent]['pubDate'] : '',
-                  size: 40
-              .b-input
-                p Title
-                = text_field_tag 'torrent[title]',
-                  params[:torrent] ? params[:torrent]['title'] : '',
-                  size: 100
-              .m5
-                = submit_tag t('actions.add'), class: 'b-button'
-
-        .c-column
+        .c-column.block
           .subheadline-buttons
             a.item-edit href=@resource.edit_field_url(:torrents_name)
           .subheadline = t '.parse_page'
           .subcontent
             = form_tag torrent_anime_path(@resource.object), method: :post do |f|
               .b-input
-                p URL
-                = text_field_tag 'torrent[url]',
-                  params[:torrent] ? params[:torrent]['url'] : '',
-                  size: 100
+                label
+                  | URL
+                  = text_field_tag 'torrent[url]',
+                    params[:torrent] ? params[:torrent]['url'] : '',
+                    class: 'w-100'
               .m5
                 = submit_tag t('.parse'), class: 'b-button'
+
+        .c-column.block_m
+          .subheadline = t '.search_on.toshokan'
+          - @resource.files.toshokan_search.each do |phrase|
+            div.m5
+              a.b-link href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
+                = phrase
+
+        / - if current_user.admin?
+        /   .c-column
+        /     .subheadline = t '.new_torrent'
+        /     .subcontent
+        /       = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
+        /         .b-input
+        /           p Link
+        /           = text_field_tag 'torrent[link]',
+        /             params[:torrent] ? params[:torrent]['link'] : '',
+        /             size: 100
+        /         .b-input
+        /           p PubDate
+        /           = text_field_tag 'torrent[pubDate]',
+        /             params[:torrent] ? params[:torrent]['pubDate'] : '',
+        /             size: 40
+        /         .b-input
+        /           p Title
+        /           = text_field_tag 'torrent[title]',
+        /             params[:torrent] ? params[:torrent]['title'] : '',
+        /             size: 100
+        /         .m5
+        /           = submit_tag t('actions.add'), class: 'b-button'
 
   = render 'db_entries/history', resource: @resource
