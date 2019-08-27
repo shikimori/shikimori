@@ -245,7 +245,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   def oauth
     @oauth_applications = (
-      current_user.oauth_applications +
+      (current_user&.oauth_applications || []) +
       OauthApplication.where(id: OauthApplication::TEST_APP_ID)
     ).uniq
 
