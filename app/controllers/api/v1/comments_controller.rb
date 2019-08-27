@@ -87,12 +87,14 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
 
   api :PATCH, '/comments/:id', 'Update a comment'
   api :PUT, '/comments/:id', 'Update a comment'
-  description 'Requires `comments` oauth scope'
+  description [
+    'Requires `comments` oauth scope.',
+    'Use `/api/v2/abuse_requests` to change `is_offtopic` and `is_summary` fields.'
+  ].join(' ')
   param :comment, Hash do
     param :body, String, required: true
   end
   param :frontend, :bool
-  description 'Use `/api/v2/abuse_requests` to change `is_offtopic` and `is_summary` fields.'
   def update
     if faye.update(@resource, update_params) && frontent_request?
       render :comment
