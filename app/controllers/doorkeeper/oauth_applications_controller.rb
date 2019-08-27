@@ -25,6 +25,9 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   CREATE_PARAMS = UPDATE_PARAMS + %i[owner_id owner_type]
   ALLOWED_SCOPES = OauthApplication::DEFAULT_SCOPES
 
+  ALL_UPDATE_PARAMS = UPDATE_PARAMS + [{ allowed_scopes: [] }]
+  ALL_CREATE_PARAMS = CREATE_PARAMS + [{ allowed_scopes: [] }]
+
   def index
     @collection = OauthApplication
       .with_access_grants
@@ -71,10 +74,6 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   end
 
   def update
-    @resource.assign_attributes scopes: (
-      (params[:oauth_application][:scopes] || []) & (ALLOWED_SCOPES + @resource.scopes.to_a)
-    ).join(' ')
-
     if @resource.update update_params
       redirect_to edit_oauth_application_url(@resource)
     else
@@ -99,19 +98,13 @@ private
   def create_params
     params
       .require(:oauth_application)
-      .permit(*CREATE_PARAMS)
-      .tap do |params|
-        params[:scopes] = (params[:scopes] || []).join(' ')
-      end
+      .permit(*(current_user.admin? ? ALL_CREATE_PARAMS : CREATE_PARAMS))
   end
   alias new_params create_params
 
   def update_params
     params
       .require(:oauth_application)
-      .permit(*UPDATE_PARAMS)
-      .tap do |params|
-        params[:scopes] = (params[:scopes] || []).join(' ')
-      end
+      .permit(*(current_user.admin? ? ALL_UPDATE_PARAMS : UPDATE_PARAMS))
   end
 end

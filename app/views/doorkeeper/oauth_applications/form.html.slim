@@ -48,28 +48,38 @@ header.head.misc
     as: :string,
     hint: "Set <span class='b-js-link sample'>#{Doorkeeper.configuration.native_redirect_uri}</span> for mobile and standalone apps".html_safe
 
-  - if current_user.admin?
-    .b-input
-      label.m5 Allowed Scopes
-      .m5
-        - @resource.allowed_scopes.each do |scope|
-          .b-tag = scope
-
-  .b-input
-    label Scopes
-    span.hint.m5 Ask Shikimori administrator if you need access to disabled scopes
-    - I18n.t('doorkeeper.scopes').each do |scope, text|
-      .m5
-        label
-          input[
-            type='checkbox'
-            value=scope
-            name='oauth_application[scopes][]'
-            checked=@resource.scopes.include?(scope.to_s)
-            disabled=!@resource.allowed_scopes.include?(scope.to_s)
-          ]
-          = scope
-          span.hint = t "doorkeeper.scopes.#{scope}"
+  .cc-2
+    .c-column
+      .b-input
+        label Scopes
+        span.hint.m5 Ask Shikimori administrator if you need access to disabled scopes
+        - I18n.t('doorkeeper.scopes').each do |scope, text|
+          .m5
+            label
+              input[
+                type='checkbox'
+                value=scope
+                name='oauth_application[scopes][]'
+                checked=@resource.scopes.include?(scope.to_s)
+                disabled=!@resource.allowed_scopes.include?(scope.to_s)
+              ]
+              = scope
+              span.hint = t "doorkeeper.scopes.#{scope}"
+    .c-column
+      - if current_user.admin?
+        .b-input
+          label.m5 Allowed scopes
+          - I18n.t('doorkeeper.scopes').each do |scope, text|
+            .m5
+              label
+                input[
+                  type='checkbox'
+                  value=scope
+                  name='oauth_application[allowed_scopes][]'
+                  checked=@resource.allowed_scopes.include?(scope.to_s)
+                ]
+                = scope
+                span.hint = t "doorkeeper.scopes.#{scope}"
 
   .cc-2
     .c-column
