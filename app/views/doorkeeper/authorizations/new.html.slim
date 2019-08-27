@@ -18,7 +18,7 @@ header.head
     li = t 'doorkeeper.scopes.user_rates'
     li = t 'doorkeeper.scopes.comments'
     li = t 'doorkeeper.scopes.topics'
-    - application.scopes.each do |scope|
+    - @pre_auth.scopes.each do |scope|
       li
         label
           input[

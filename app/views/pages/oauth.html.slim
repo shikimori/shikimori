@@ -36,7 +36,8 @@ header.head
       method='get'
     ]
       .b-input
-        label for='oauth_application_id' OAuth Application
+        label for='oauth_application_id'
+          b OAuth Application
         select#oauth_application_id[
           name='oauth_application_id'
         ]
@@ -48,9 +49,24 @@ header.head
             ]= oauth_application.name
 
       - if @oauth_application
-        = render partial: 'doorkeeper/oauth_applications/oauth_application',
-          object: @oauth_application,
-          locals: { content_by: 'mini' }
+        .m20
+          = render partial: 'doorkeeper/oauth_applications/oauth_application',
+            object: @oauth_application,
+            locals: { content_by: 'mini' }
+
+        .b-input
+          b.m5 Scopes
+          - @oauth_application.scopes.each do |scope|
+            .m5
+              label
+                input[
+                  type='checkbox'
+                  value=scope
+                  name='scopes[]'
+                  checked=params[:scopes]&.include?(scope)
+                ]
+                = scope
+                span.hint = t "doorkeeper.scopes.#{scope}"
 
 .block
   a name='step_2'
@@ -58,14 +74,14 @@ header.head
   p.m5
     | In your application, redirect the user to shikimori authorization page.
   code.b-code.m5
-    | #{oauth_authorization_url client_id: @oauth_application&.uid || 'CLIENT_ID', redirect_uri: @oauth_application&.redirect_uri || 'REDIRECT_URI', response_type: :code}
+    | #{oauth_authorization_url client_id: @oauth_application&.uid || 'CLIENT_ID', redirect_uri: @oauth_application&.redirect_uri || 'REDIRECT_URI', scope: (params[:scopes] || []).join(' '), response_type: :code}
   p
     | There the user must authorize your application so you could receive an authorization token.
 
   - if @oauth_application
     .m10
     a.b-link_button.maxi.dark[
-      href=oauth_authorization_url(client_id: @oauth_application.uid, redirect_uri: @oauth_application.redirect_uri, response_type: :code)
+      href=oauth_authorization_url(client_id: @oauth_application.uid, redirect_uri: @oauth_application.redirect_uri, scope: (params[:scopes] || []).join(' '), response_type: :code)
       target='_blank'
     ] Request Authorization Code for "#{@oauth_application.name}"
 
