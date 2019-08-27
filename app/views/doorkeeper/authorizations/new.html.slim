@@ -1,5 +1,6 @@
-= javascript_pack_tag 'standalone'
-= javascript_pack_tag 'vendors'
+- unless Rails.env.test?
+  = javascript_pack_tag 'standalone'
+  = javascript_pack_tag 'vendors'
 
 - application = @pre_auth.client.application.becomes OauthApplication
 
