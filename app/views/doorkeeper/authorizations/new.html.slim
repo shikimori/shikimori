@@ -1,12 +1,35 @@
+= javascript_pack_tag 'standalone'
+= javascript_pack_tag 'vendors'
+
 - application = @pre_auth.client.application.becomes OauthApplication
 
 header.head
   h1 = t '.title'
-  h2 == t '.prompt', account: link_to("@#{current_user.nickname}", profile_url(current_user))
+  h2 == t '.prompt', client_name: link_to("@#{current_user.nickname}", profile_url(current_user))
 
 .block
   center
     = render application
+
+.block
+  .m5
+    b = t 'doorkeeper.authorizations.new.able_to'
+  ul.b-list
+    li = t 'doorkeeper.scopes.user_rates'
+    li = t 'doorkeeper.scopes.comments'
+    li = t 'doorkeeper.scopes.topics'
+    - application.scopes.each do |scope|
+      li
+        label
+          input[
+            type='checkbox'
+            style='vertical-align: middle'
+            value=scope
+            onchange='$("input[name=scope]").val($(this).closest(".b-list").find("input:checked").toArray().map(function(node) { return node.value; }).join(" "));'
+            checked
+          ]
+          span style='padding-left: 6px; vertical-align: middle'
+            = t "doorkeeper.scopes.#{scope}"
 
 / - if @pre_auth.scopes.count > 0
   #oauth-permissions

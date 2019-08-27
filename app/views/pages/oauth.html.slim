@@ -25,7 +25,7 @@ header.head
 
 
 .block
-  a name="step_1"
+  a name='step_1'
   .midheadline 1. Create Application
   p Create your own application on the page #{link_to oauth_applications_path, oauth_applications_url}
 
@@ -33,14 +33,14 @@ header.head
   .block
     form.b-form.green-form[
       action=oauth_pages_url({}, anchor: 'step_1')
-      method="get"
+      method='get'
     ]
       .b-input
-        label for="oauth_application_id" OAuth Application
+        label for='oauth_application_id' OAuth Application
         select#oauth_application_id[
-          name="oauth_application_id"
+          name='oauth_application_id'
         ]
-          option value="" None
+          option value='' None
           - current_user.oauth_applications.each do |oauth_application|
             option[
               value=oauth_application.id
@@ -53,7 +53,7 @@ header.head
           locals: { content_by: 'mini' }
 
 .block
-  a name="step_2"
+  a name='step_2'
   .midheadline 2. Get Authorization Code
   p.m5
     | In your application, redirect the user to shikimori authorization page.
@@ -66,34 +66,34 @@ header.head
     .m10
     a.b-link_button.maxi.dark[
       href=oauth_authorization_url(client_id: @oauth_application.uid, redirect_uri: @oauth_application.redirect_uri, response_type: :code)
-      target="_blank"
+      target='_blank'
     ] Request Authorization Code for "#{@oauth_application.name}"
 
 - if @oauth_application
   .block
     form.b-form.green-form[
       action=oauth_pages_url({}, anchor: 'step_2')
-      method="get"
+      method='get'
     ]
       input[
-        type="hidden"
-        name="oauth_application_id"
+        type='hidden'
+        name='oauth_application_id'
         value=params[:oauth_application_id]
       ]
       .b-input.m10
-        label for="authorization_code" Authorization Code
+        label for='authorization_code' Authorization Code
         input#authorization_code[
-          type="text"
-          name="authorization_code"
+          type='text'
+          name='authorization_code'
           value=params[:authorization_code]
         ]
-      input.b-button type="submit" value="Submit"
+      input.b-button type='submit' value='Submit'
 
 .block
-  a name="step_3"
+  a name='step_3'
   .midheadline 3. Get Access Token
-  pre.to-process data-dynamic="code_highlight"
-    code.b-code.m5 data-language="bash" curl -X POST "#{oauth_token_url}" \
+  pre.to-process data-dynamic='code_highlight'
+    code.b-code.m5 data-language='bash' curl -X POST "#{oauth_token_url}" \
         -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
         -F grant_type="authorization_code" \
         -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \
@@ -118,46 +118,46 @@ header.head
   .block
     form.b-form.green-form[
       action=oauth_pages_url({}, anchor: 'step_3')
-      method="get"
+      method='get'
     ]
       input[
-        type="hidden"
-        name="oauth_application_id"
+        type='hidden'
+        name='oauth_application_id'
         value=params[:oauth_application_id]
       ]
       input#authorization_code[
-        type="hidden"
-        name="authorization_code"
+        type='hidden'
+        name='authorization_code'
         value=params[:authorization_code]
       ]
       .b-input
-        label for="access_token" Access Token
+        label for='access_token' Access Token
         input#access_token[
-          type="text"
-          name="access_token"
+          type='text'
+          name='access_token'
           value=params[:access_token]
         ]
       .b-input.m10
-        label for="refresh_token" Refresh Token
+        label for='refresh_token' Refresh Token
         input#refresh_token[
-          type="text"
-          name="refresh_token"
+          type='text'
+          name='refresh_token'
           value=params[:refresh_token]
         ]
-      input.b-button type="submit" value="Submit"
+      input.b-button type='submit' value='Submit'
 
 .block
   p.m5 Access Token is expired in 1 day.
   p.m5 When your Access Token is expired you will get 401 status code with the message
 
-  .to-process data-dynamic="code_highlight"
-    code.b-code data-language="json"
+  .to-process data-dynamic='code_highlight'
+    code.b-code data-language='json'
       | {"error":"invalid_token","error_description":"The access token is invalid","state":"unauthorized"}
 
 .block
   .midheadline 4. Request Shikimori protected resources with obtained Access Token
-  pre.to-process data-dynamic="code_highlight"
-    code.b-code.m5 data-language="bash" curl -X GET #{whoami_api_users_url} \
+  pre.to-process data-dynamic='code_highlight'
+    code.b-code.m5 data-language='bash' curl -X GET #{whoami_api_users_url} \
       -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
       -H "Authorization: Bearer #{params[:access_token].present? ? params[:access_token] : 'ACCESS_TOKEN'}"
 
@@ -165,8 +165,8 @@ header.head
   .midheadline 5. Refresh Access Token
 
   p.m5 Use your Refresh Token to obtain new Access Token and Refresh Token.
-  pre.to-process data-dynamic="code_highlight"
-    code.b-code.m5 data-language="bash" curl -X POST "#{oauth_token_url}" \
+  pre.to-process data-dynamic='code_highlight'
+    code.b-code.m5 data-language='bash' curl -X POST "#{oauth_token_url}" \
         -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
         -F grant_type="refresh_token" \
         -F client_id="#{@oauth_application&.uid || 'CLIENT_ID'}" \

@@ -16,8 +16,8 @@ header.head.misc
 
   = render 'application/breadcrumbs'
 
-.cc-info
-  .c-column
+.fc-2.info
+  .f-column
     .block
       = render @resource
 
@@ -28,12 +28,21 @@ header.head.misc
       = info_line i18n_i('User', :many) do
         = @resource.access_grants.select('count(distinct(resource_owner_id)) as users_count')[0].users_count
 
-  .c-column
+  .f-column
     - if @resource.description.value.present?
       .subheadline = OauthApplication.human_attribute_name :description
 
       .block
         = @resource.description_html
+
+    .m5
+      b = t 'doorkeeper.authorizations.new.able_to'
+    ul.b-list
+      li = t 'doorkeeper.scopes.user_rates'
+      li = t 'doorkeeper.scopes.comments'
+      li = t 'doorkeeper.scopes.topics'
+      - @resource.scopes.each do |scope|
+        li = t "doorkeeper.scopes.#{scope}"
 
 - if @has_access
   .b-form.green-form

@@ -5,11 +5,11 @@ class Api::V1::FriendsController < Api::V1Controller
   SPAM_LIMIT = 20
 
   before_action do
-    doorkeeper_authorize! :friends_ignores if doorkeeper_token.present?
+    doorkeeper_authorize! :ignores if doorkeeper_token.present?
   end
 
   api :POST, '/friends/:id', 'Create a friend'
-  description 'Requires `friends_ignores` oauth scope'
+  description 'Requires `ignores` oauth scope'
   def create
     current_user.friends << @user
 
@@ -34,7 +34,7 @@ class Api::V1::FriendsController < Api::V1Controller
   end
 
   api :DELETE, '/friends/:id', 'Destroy a friend'
-  description 'Requires `friends_ignores` oauth scope'
+  description 'Requires `ignores` oauth scope'
   def destroy
     current_user.friends.delete @user
 
