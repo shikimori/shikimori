@@ -110,7 +110,12 @@ describe Doorkeeper::OauthApplicationsController do
   end
 
   describe '#update' do
-    let(:oauth_application) { create :oauth_application, owner: user, scopes: 'ignores' }
+    let(:oauth_application) do
+      create :oauth_application,
+        owner: user,
+        scopes: 'ignores',
+        allowed_scopes: %w[ignores user_rates]
+    end
 
     subject! do
       post :update,

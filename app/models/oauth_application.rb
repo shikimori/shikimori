@@ -6,6 +6,10 @@ class OauthApplication < Doorkeeper::Application
     user_rates
   ]
 
+  attribute :allowed_scopes, :string,
+    array: true,
+    default: %w[user_rates comments topics]
+
   has_attached_file :image,
     styles: {
       x320: ['320x320#', :png],
@@ -24,4 +28,15 @@ class OauthApplication < Doorkeeper::Application
       .group(:id)
       .select('oauth_applications.*, count(distinct(resource_owner_id)) as users_count')
   }
+
+  def scopes= value
+    if value.nil?
+      super value
+      return
+    end
+
+    super(
+      (allowed_scopes & (value.is_a?(String) ? value.split(' ') : value)).join(' ')
+    )
+  end
 end

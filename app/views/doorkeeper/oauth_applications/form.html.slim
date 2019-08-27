@@ -44,10 +44,20 @@ header.head.misc
           p = OauthApplication.human_attribute_name :secret
           p = @resource.secret
 
-  = f.input :redirect_uri, as: :string, hint: "Set <span class='b-js-link sample'>#{Doorkeeper.configuration.native_redirect_uri}</span> for mobile and standalone apps".html_safe
+  = f.input :redirect_uri,
+    as: :string,
+    hint: "Set <span class='b-js-link sample'>#{Doorkeeper.configuration.native_redirect_uri}</span> for mobile and standalone apps".html_safe
+
+  - if current_user.admin?
+    .b-input
+      label.m5 Allowed Scopes
+      .m5
+        - @resource.allowed_scopes.each do |scope|
+          .b-tag = scope
 
   .b-input
-    label.m5 Scopes
+    label Scopes
+    span.hint.m5 Ask Shikimori administrator if you need access to disabled scopes
     - I18n.t('doorkeeper.scopes').each do |scope, text|
       .m5
         label
@@ -56,7 +66,7 @@ header.head.misc
             value=scope
             name='oauth_application[scopes][]'
             checked=@resource.scopes.include?(scope.to_s)
-            disabled=!(@resource.scopes.include?(scope.to_s) || OauthApplication::DEFAULT_SCOPES.include?(scope.to_s))
+            disabled=!@resource.allowed_scopes.include?(scope.to_s)
           ]
           = scope
           span.hint = t "doorkeeper.scopes.#{scope}"

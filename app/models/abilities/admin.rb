@@ -30,6 +30,8 @@ class Abilities::Admin
     can :manage, Version
     can :manage, Forum
 
+    can :manage, OauthApplication
+
     can :destroy, Ban
   end
 end
