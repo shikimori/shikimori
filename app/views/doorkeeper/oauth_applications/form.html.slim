@@ -68,7 +68,9 @@ header.head.misc
     .c-column
       - if current_user.admin?
         .b-input
-          label.m5 Allowed scopes
+          label Allowed scopes
+          span.hint.m5 style='color: #ff4136'
+            | Scopes must be manually removed in console from Doorkeeper::AccessGrant and Doorkeeper::AccessToken!
           - I18n.t('doorkeeper.scopes').each do |scope, text|
             .m5
               label
