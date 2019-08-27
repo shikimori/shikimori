@@ -5,6 +5,7 @@ class OauthApplication < Doorkeeper::Application
   DEFAULT_SCOPES = %w[
     user_rates
   ]
+  TEST_APP_ID = 15
 
   attribute :allowed_scopes, :string,
     array: true,

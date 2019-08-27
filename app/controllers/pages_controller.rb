@@ -244,10 +244,14 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def oauth
+    @oauth_applications = (
+      current_user.oauth_applications +
+      OauthApplication.where(id: OauthApplication::TEST_APP_ID)
+    ).uniq
+
     if params[:oauth_application_id]
-      @oauth_application = current_user
-        &.oauth_applications
-        &.find_by id: params[:oauth_application_id]
+      @oauth_application = @oauth_applications
+        .find { |v| v.id == params[:oauth_application_id].to_i }
 
       if params[:authorization_code].present?
         @authorization_code = params[:authorization_code]

@@ -42,7 +42,7 @@ header.head
           name='oauth_application_id'
         ]
           option value='' None
-          - current_user.oauth_applications.each do |oauth_application|
+          - @oauth_applications.each do |oauth_application|
             option[
               value=oauth_application.id
               selected=(@oauth_application == oauth_application)
