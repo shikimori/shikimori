@@ -20,7 +20,10 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   end
 
   UPDATE_PARAMS = %i[name image redirect_uri description_ru description_en]
-  CREATE_PARAMS = %i[owner_id owner_type] + UPDATE_PARAMS
+  CREATE_PARAMS = UPDATE_PARAMS + %i[owner_id owner_type] + [{
+    scopes: []
+  }]
+  ALLOWED_SCOPES = OauthApplication::DEFAULT_SCOPES
 
   def index
     @collection = OauthApplication
@@ -68,6 +71,10 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   end
 
   def update
+    @resource.assign_attributes scopes: (
+      (params[:oauth_application][:scopes] || []) & (ALLOWED_SCOPES + @resource.scopes.to_a)
+    ).join(' ')
+
     if @resource.update update_params
       redirect_to edit_oauth_application_url(@resource)
     else
@@ -93,7 +100,9 @@ private
     params
       .require(:oauth_application)
       .permit(*CREATE_PARAMS)
-      .merge(scopes: OauthApplication::DEFAULT_SCOPES.join(' '))
+      .tap do |params|
+        params[:scopes] = ((params[:scopes] || []) & ALLOWED_SCOPES).join(' ')
+      end
   end
   alias new_params create_params
 

@@ -2,7 +2,7 @@ class OauthApplication < Doorkeeper::Application
   belongs_to :owner, polymorphic: true
   has_many :user_rate_logs, dependent: :destroy
 
-  DEFAULT_SCOPES = %i[
+  DEFAULT_SCOPES = %w[
     user_rates
   ]
 

@@ -46,6 +46,21 @@ header.head.misc
 
   = f.input :redirect_uri, as: :string, hint: "Set <span class='b-js-link sample'>#{Doorkeeper.configuration.native_redirect_uri}</span> for mobile and standalone apps".html_safe
 
+  .b-input
+    label.m5 Scopes
+    - I18n.t('doorkeeper.scopes').each do |scope, text|
+      .m5
+        label
+          input[
+            type='checkbox'
+            value=scope
+            name='oauth_application[scopes][]'
+            checked=@resource.scopes.include?(scope.to_s)
+            disabled=!(@resource.scopes.include?(scope.to_s) || OauthApplication::DEFAULT_SCOPES.include?(scope.to_s))
+          ]
+          = scope
+          span.hint = t "doorkeeper.scopes.#{scope}"
+
   .cc-2
     .c-column
       .b-input.m5

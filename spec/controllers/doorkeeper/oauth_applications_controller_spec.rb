@@ -71,15 +71,16 @@ describe Doorkeeper::OauthApplicationsController do
           image: image,
           redirect_uri: 'https://test.com',
           description_ru: '',
-          description_en: ''
+          description_en: '',
+          scopes: %w[ignores user_rates]
         }
       end
 
       it do
         expect(resource).to be_valid
         expect(resource).to be_persisted
-        expect(resource).to have_attributes oauth_application_params.except(:image)
-        expect(resource.scopes).to eq OauthApplication::DEFAULT_SCOPES
+        expect(resource).to have_attributes oauth_application_params.except(:image, :scopes)
+        expect(resource.scopes).to eq %w[user_rates]
         expect(resource.image).to be_exists
         expect(response).to redirect_to edit_oauth_application_url(resource)
       end
@@ -109,7 +110,7 @@ describe Doorkeeper::OauthApplicationsController do
   end
 
   describe '#update' do
-    let(:oauth_application) { create :oauth_application, owner: user }
+    let(:oauth_application) { create :oauth_application, owner: user, scopes: 'ignores' }
 
     subject! do
       post :update,
@@ -123,14 +124,16 @@ describe Doorkeeper::OauthApplicationsController do
       let(:oauth_application_params) do
         {
           name: 'test',
-          redirect_uri: 'https://test.com'
+          redirect_uri: 'https://test.com',
+          scopes: %w[ignores friends user_rates]
         }
       end
 
       it do
         expect(resource).to be_valid
         expect(resource).to_not be_changed
-        expect(resource).to have_attributes oauth_application_params
+        expect(resource).to have_attributes oauth_application_params.except(:scopes)
+        expect(resource.scopes).to eq %w[user_rates ignores]
         expect(response).to redirect_to edit_oauth_application_url(resource)
       end
     end

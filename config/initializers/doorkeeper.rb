@@ -58,7 +58,9 @@ Doorkeeper.configure do
   # Define access token scopes for your provider
   # For more information go to
   # https://github.com/doorkeeper-gem/doorkeeper/wiki/Using-Scopes
-  default_scopes :user_rates
+  # TODO: change to :user_rates after 2019-10-01
+  # TODO: change to nothing after 2020-06-01
+  default_scopes :user_rates, :comments, :topics
 
   # Change the way client credentials are retrieved from the request object.
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
