@@ -29,14 +29,22 @@ class OauthApplication < Doorkeeper::Application
       .select('oauth_applications.*, count(distinct(resource_owner_id)) as users_count')
   }
 
-  def scopes= value
-    if value.nil?
-      super value
-      return
-    end
+  before_save :restrict_scopes,
+    if: -> {
+      will_save_change_to_scopes? || will_save_change_to_allowed_scopes?
+    }
 
-    super(
-      (allowed_scopes & (value.is_a?(String) ? value.split(' ') : value)).join(' ')
-    )
+  def scopes= value
+    if value.is_a? Array
+      super value.join ' '
+    else
+      super value
+    end
+  end
+
+private
+
+  def restrict_scopes
+    self.scopes = allowed_scopes & scopes.to_a
   end
 end
