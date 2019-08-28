@@ -1,3 +1,4 @@
+// do not remove. a lot of errors in old browsers otherwise (windows phone browser for example)
 require('core-js/stable');
 require('regenerator-runtime/runtime');
 
