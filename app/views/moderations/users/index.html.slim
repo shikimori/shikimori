@@ -5,7 +5,7 @@ header.head
 - if can? :manage, Ban
   form.b-form.block method='get' params=current_url
     .cc-3
-      - %i[id current_sign_in_ip last_sign_in_ip created_on].each do |field|
+      - %i[id email current_sign_in_ip last_sign_in_ip created_on].each do |field|
         .c-column.block_m
           .subheadline.m10
             = field

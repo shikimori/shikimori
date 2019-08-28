@@ -85,6 +85,20 @@ describe Users::Query do
     end
   end
 
+  describe '#email' do
+    subject { query.email email }
+
+    context 'present email' do
+      let(:email) { user_1.email }
+      it { is_expected.to eq [user_1] }
+    end
+
+    context 'missing email' do
+      let(:email) { ['', nil].sample }
+      it { is_expected.to eq all_users }
+    end
+  end
+
   describe '#current_sign_in_ip' do
     subject { query.current_sign_in_ip ip }
 

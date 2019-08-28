@@ -21,6 +21,12 @@ class Users::Query < QueryObjectBase
     chain @scope.where(id: value)
   end
 
+  def email value
+    return self if value.blank?
+
+    chain @scope.where(email: value)
+  end
+
   def current_sign_in_ip ip
     return self if ip.blank?
 
