@@ -291,7 +291,7 @@
 
   = render 'db_entries/sync_status', resource: @resource
 
-  - if can? :upload_episode, Anime
+  - if @resource.anime? && can?(:upload_episode, Anime)
     = spoiler t('.upload_episode') do
       .cc-2
         .c-column.block
