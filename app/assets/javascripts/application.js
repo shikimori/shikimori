@@ -109,7 +109,6 @@ $(document).one('turbolinks:load', () => {
     $(`a[name=${match[1]}]`).closest('.b-comment').yellowFade();
   }
 
-  // отдельные эвенты для ресайзов и скрола
   $(window).on('resize', debounce(500, () => $(document.body).trigger('resize:debounced')));
   $(window).on('scroll', throttle(750, () => $(document.body).trigger('scroll:throttled')));
 });
