@@ -7,9 +7,9 @@ module SiteHelper
 
       domain = url.sub(/^https?:\/\/(?:www\.)?([^\/]+)\/?.*/, '\1')
       if prefix.blank?
-        "<a class='b-link' href=\"#{url}\">#{domain}</a>"
+        "<a class='b-link' href=\"#{h(url)}\">#{domain}</a>"
       else
-        "#{prefix} <a class='b-link' href=\"#{url}\">#{domain}</a>"
+        "#{prefix} <a class='b-link' href=\"#{h(url)}\">#{domain}</a>"
       end
     else
       source

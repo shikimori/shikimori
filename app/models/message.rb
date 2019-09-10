@@ -13,9 +13,6 @@ class Message < ApplicationRecord
     user_id_key: :from_id
   )
 
-  # отменяю проверку, т.к. могут быть уведомления по AnimeHistory
-  # validates_presence_of :body
-
   validates :from, :to, presence: true
   validates :body,
     presence: true,
