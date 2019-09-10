@@ -15,5 +15,5 @@ production:
 test:
   <<: *defaults
   host: <%= ENV['PGHOST'] || 'localhost' %>
-  database: <%= ENV['PGDATABASE'] || 'shikimori_test' %>
+  database: <%= ENV['PGDATABASE'] || "shikimori_test_#{ENV['TEST_ENV_NUMBER']}" %>
   username: <%= ENV['PGUSER'] || 'shikimori_test' %>

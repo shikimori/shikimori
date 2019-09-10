@@ -65,7 +65,11 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   end
 
   def vk_access_token
-    ENV['VK_USER_ACCESS_TOKEN'] ||
+    if Rails.env.test?
       Rails.application.secrets.oauth[:vkontakte][:user_access_token]
+    else
+      ENV['VK_USER_ACCESS_TOKEN'] ||
+        Rails.application.secrets.oauth[:vkontakte][:user_access_token]
+    end
   end
 end

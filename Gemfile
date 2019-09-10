@@ -183,6 +183,8 @@ group :development, :test do
   gem 'guard-rubocop', require: false
   gem 'guard-spring', require: false
   gem 'rubocop-performance', require: false
+
+  gem 'parallel_tests'
   # gem 'guard-webpack', github: 'imarcelolz/guard-webpack', branch: 'master'
 end
 

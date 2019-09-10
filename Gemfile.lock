@@ -468,6 +468,8 @@ GEM
       terrapin (~> 0.6.0)
     paperclip-i18n (4.3.0)
     parallel (1.17.0)
+    parallel_tests (2.29.2)
+      parallel
     parser (2.6.3.0)
       ast (~> 2.4.0)
     pg (1.1.4)
@@ -795,6 +797,7 @@ DEPENDENCIES
   open_uri_redirections
   paperclip
   paperclip-i18n
+  parallel_tests
   pg
   pg_query
   pghero
