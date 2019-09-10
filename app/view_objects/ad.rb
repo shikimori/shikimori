@@ -6,10 +6,10 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
 
   BANNERS = {
     true => {
-      # disable after 2019-07-28
+      # disable after 2019-09-18
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: '/redirects?url=https://kassa.rambler.ru/movie/98662',
+        url: 'https://animeinrussia.ru/anime/promare/#tickets-widget',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
@@ -26,7 +26,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       # disable after 2019-07-28
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: '/redirects?url=https://kassa.rambler.ru/movie/98662',
+        url: 'https://animeinrussia.ru/anime/promare/#tickets-widget',
         images: (2..2).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
@@ -100,7 +100,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       # disable after 2019-07-28
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: '/redirects?url=https://kassa.rambler.ru/movie/98662',
+        url: 'https://animeinrussia.ru/anime/promare/#tickets-widget',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
@@ -117,7 +117,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       # disable after 2019-07-28
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: '/redirects?url=https://kassa.rambler.ru/movie/98662',
+        url: 'https://animeinrussia.ru/anime/promare/#tickets-widget',
         images: (2..2).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
@@ -210,7 +210,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-07-28
+        Types::Ad::Type[:special_x300], # disable after 2019-09-18
         Types::Ad::Type[:mt_300x600]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
@@ -223,7 +223,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # disable after 2019-07-28
+        Types::Ad::Type[:special_x1170], # disable after 2019-09-18
         Types::Ad::Type[:mt_970x250]
       ]
     },
@@ -240,7 +240,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-07-28
+        Types::Ad::Type[:special_x300], # disable after 2019-09-18
         # Types::Ad::Type[:mt_300x600],
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:advrtr_240x400]
@@ -258,7 +258,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # disable after 2019-07-28
+        Types::Ad::Type[:special_x1170], # disable after 2019-09-18
         Types::Ad::Type[:yd_horizontal]
       ]
     }
