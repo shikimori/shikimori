@@ -115,15 +115,15 @@
               next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
 
     .c-generated_news
-      - if ru_host?
-        / convert -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
-        center.block
-          a href='https://kinoart.ru/events/sinemateka-klassika-anime'
-            img[
-              style="max-width: 100%"
-              src="/assets/globals/events/special_3.jpg?v3"
-              srcset="/assets/globals/events/special_3@2x.jpg?v3 2x"
-            ]
+      / - if ru_host?
+      /   / convert -quality 86% -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
+      /   center.block
+      /     a href='https://kinoart.ru/events/sinemateka-klassika-anime'
+      /       img[
+      /         style="max-width: 100%"
+      /         src="/assets/globals/events/special_3.jpg?v3"
+      /         srcset="/assets/globals/events/special_3@2x.jpg?v3 2x"
+      /       ]
 
       / - if Rails.env.production? && ru_host?
       /   - if !user_signed_in? || !current_user.forum_moderator? || !current_user.version_moderator? || current_user.admin?
