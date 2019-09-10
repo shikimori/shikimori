@@ -211,5 +211,7 @@ private
 
   def add_to_index
     ClubsIndex.import self
+  rescue StandardError => error
+    Bugsnag.notify error if defined? Bugsnag
   end
 end

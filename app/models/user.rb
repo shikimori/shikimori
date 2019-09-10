@@ -450,5 +450,7 @@ private
 
   def add_to_index
     UsersIndex.import self
+  rescue StandardError => error
+    Bugsnag.notify error if defined? Bugsnag
   end
 end
