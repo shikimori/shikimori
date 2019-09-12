@@ -6,6 +6,23 @@
         .value
           - if resource.imported_at
             span = l resource.imported_at, format: :full
+
+          - if can? :sync, resource
+            - is_syncing = Rails.cache.read([:anime, :sync, resource.id])
+            - need_sync = !resource.imported_at || resource.imported_at < 2.hours.ago
+            - did_sync = resource.imported_at && resource.imported_at > 2.hours.ago
+
+            - if need_sync && !is_syncing
+              a.b-js-action[
+                href=resource.sync_url
+                data-method='post'
+                data-confirm=t('actions.confirm_sync')
+              ] = t '.sync'
+
+            - elsif is_syncing && !did_sync
+              span
+                b = t '.syncing'
+
       li
         .field = resource.class.human_attribute_name(:desynced)
         .value

@@ -39,3 +39,6 @@ en:
       top_in: '#%{position} in '
     edit_field:
       changes_history: Changes history
+    sync_status:
+      sync: Sync
+      syncing: Syncing

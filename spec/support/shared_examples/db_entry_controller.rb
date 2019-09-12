@@ -116,4 +116,32 @@ shared_examples :db_entry_controller do |entry_name|
       end
     end
   end
+
+  describe '#sync' do
+    let(:make_request) { post :sync, params: { id: entry.id } }
+    before do
+      entry.update mal_id: 123
+      allow(MalParsers::FetchEntry).to receive :perform_async
+    end
+
+    describe 'common user' do
+      include_context :authenticated, :user, :week_registered
+      it do
+        expect { make_request }.to raise_error CanCan::AccessDenied
+        expect(MalParsers::FetchEntry).to_not have_received :perform_async
+      end
+    end
+
+    describe 'moderator' do
+      include_context :authenticated, :version_moderator
+      before { make_request }
+
+      it do
+        expect(MalParsers::FetchEntry).to(
+          have_received(:perform_async).with entry.mal_id, entry.class.name.downcase
+        )
+        expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
+      end
+    end
+  end
 end

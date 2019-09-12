@@ -83,6 +83,21 @@ class DbEntriesController < ShikimoriController
     end
   end
 
+  def sync
+    authorize! :sync, @resource
+
+    MalParsers::FetchEntry.perform_async(
+      @resource.mal_id,
+      @resource.object.class.name.downcase
+    )
+    Rails.cache.write [:anime, :sync, @resource.id], true, expires_in: 1.hour
+
+    redirect_back(
+      fallback_location: @resource.edit_url,
+      notice: i18n_t('sync_scheduled')
+    )
+  end
+
 private
 
   def og_db_entry_meta

@@ -8,6 +8,7 @@ ru:
     cancel: Отмена
     confirm: Это действие необратимо. Точно?
     confirm_delete: Подтвердить удаление
+    confirm_sync: Подтвердить запуск синхронизации
     cancel_delete: Отменить удаление
     create: Создать
     delete: Удалить

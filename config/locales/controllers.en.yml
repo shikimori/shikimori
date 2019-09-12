@@ -284,6 +284,7 @@ en:
         list: Manga
       ranobe:
         list: Light Novel
+    sync_scheduled: Sync scheduled
 
   mangas_controller:
     <<: *animes_controller

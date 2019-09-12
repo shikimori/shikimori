@@ -11,7 +11,7 @@
             - if can? :major_change, Version
               a.b-js-action.to-process[
                 href=@resource.edit_field_url(:name)
-                data-dynamic="week_registered"
+                data-dynamic='week_registered'
               ] = t 'moderators_only'
             - else
               .b-js-action = t 'moderators_only'
@@ -22,7 +22,7 @@
             span = @resource.russian
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:russian)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
         li
@@ -31,7 +31,7 @@
             span = @resource.japanese
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:japanese)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
     .c-column.m0
@@ -43,14 +43,14 @@
               - if can? :major_change, Version
                 a.b-js-action.to-process[
                   href=@resource.edit_field_url(:image)
-                  data-dynamic="week_registered"
+                  data-dynamic='week_registered'
                 ] = t 'moderators_only'
               - else
                 .b-js-action = t 'moderators_only'
             - else
               a.b-js-action.to-process[
                 href=@resource.edit_field_url(:image)
-                data-dynamic="week_registered"
+                data-dynamic='week_registered'
               ] = t 'actions.edit'
 
         - if ru_host?
@@ -59,7 +59,7 @@
             .value
               a.b-js-action.to-process[
                 href=@resource.edit_field_url(:description_ru)
-                data-dynamic="week_registered"
+                data-dynamic='week_registered'
               ] = t 'actions.edit'
 
         li
@@ -67,7 +67,7 @@
           .value
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:description_en)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
         / li
@@ -82,7 +82,7 @@
             span = @resource.imageboard_tag
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:imageboard_tag)
-              data-dynamic="week_registered"
+              data-dynamic='week_registered'
             ] = t 'actions.edit'
 
   = render 'db_entries/sync_status', resource: @resource

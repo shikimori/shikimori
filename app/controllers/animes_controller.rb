@@ -243,7 +243,10 @@ private
     end
 
     if @resource.aired_on &&
-        [Time.zone.now.year + 1, Time.zone.now.year, Time.zone.now.year - 1].include?(@resource.aired_on.year)
+        [Time.zone.now.year + 1,
+         Time.zone.now.year,
+         Time.zone.now.year - 1
+        ].include?(@resource.aired_on.year)
 
       season_text = Titles::LocalizedSeasonText.new(
         @resource.object.class,

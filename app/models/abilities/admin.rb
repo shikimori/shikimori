@@ -5,6 +5,9 @@ class Abilities::Admin
   def initialize _user # rubocop:disable all
     can :upload_episode, Anime
     can :rollback_episode, Anime
+    can :sync, [Anime, Manga, Person, Character] do |entry|
+      entry.mal_id.present?
+    end
 
     can %i[
       manage_super_moderator_role

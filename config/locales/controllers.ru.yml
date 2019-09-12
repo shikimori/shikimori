@@ -284,6 +284,7 @@ ru:
         list: Манга
       ranobe:
         list: Ранобэ
+    sync_scheduled: Синхронизация запущена
 
   mangas_controller:
     <<: *animes_controller
