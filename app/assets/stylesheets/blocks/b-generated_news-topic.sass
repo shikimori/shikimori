@@ -8,5 +8,10 @@ $comments_left_margin: 24px
     & > footer
       margin-left: $comments_left_margin !important
 
+    // need to compensate fix for chrome77 bug, because preview topics do not have left margin
+    & > .body,
+    & > header > .name-date
+      margin-left: 0 !important
+
   .b-nothing_here
     margin-left: 0

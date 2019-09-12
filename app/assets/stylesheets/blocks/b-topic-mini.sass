@@ -4,10 +4,9 @@
     & > footer
       padding-left: 0 !important
 
-  & > .inner
+    // need to compensate fix for chrome77 bug, because preview topics do not have left margin
     & > .body,
     & > header > .name-date
-      // need to compensate fix for chrome77 bug, because preview topics do not have left margin
       margin-left: 0 !important
 
   .b-status-line
