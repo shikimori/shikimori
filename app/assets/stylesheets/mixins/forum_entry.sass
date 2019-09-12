@@ -7,6 +7,9 @@
 
 $aside_width: 250px
 
+$body_left_padding: 58px
+$body_phone_left_padding: 40px
+
 =icon_expandable
   +link_color(#123)
   display: block
@@ -28,7 +31,7 @@ $aside_width: 250px
   & > .inner
     +clearfix
     transition: margin-left 0.25s ease
-    width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
+    width: 100% // без этого в .aside-expanded режиме не будет смещения контента влево
 
     aside.markers
       .b-new_marker.off
@@ -67,6 +70,9 @@ $aside_width: 250px
         display: block
         font-size: 13px
         line-height: 1
+
+        +gte_ipad
+          margin-left: $body_left_padding // it fixes overflow bug in chrome 77 https://monosnap.com/file/i7BNJOKE9LQe4OFmgiPzUOCNMJ0Jos
 
         a.name
           +link
@@ -108,7 +114,13 @@ $aside_width: 250px
         img
           margin-top: 1px
 
-  // раскрытое меню в мобильной версии
+    & > .body
+      overflow: hidden // do not remove. will cause bugs for overflowed content
+
+      +gte_ipad
+        margin-left: $body_left_padding // it fixes overflow bug in chrome 77 https://monosnap.com/file/JS4AIZJKfDTyQWtETCeifMkm3Man8k
+
+  // expanded menu in mobile version
   &.aside-expanded
     +lte_ipad
       & > .item-mobile

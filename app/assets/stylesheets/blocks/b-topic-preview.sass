@@ -2,7 +2,7 @@
 @import mixins/responsive
 
 $body_left_padding: 58px
-$body_phone_left_padding: 42px
+$body_phone_left_padding: 40px
 
 .b-topic-preview
   margin-bottom: 35px
@@ -33,13 +33,18 @@ $body_phone_left_padding: 42px
       line-height: 1
       padding-top: 8px
 
+    & > .body
+      margin-left: 0 !important // removes margin from chrome 77 overflow bug fix
+
   & > .b-comments,
-  & > .inner > .body,
   & > .inner > footer
     padding-left: $body_left_padding
 
     +iphone
       padding-left: $body_phone_left_padding
 
+  & > .b-comments,
+  & > .inner > .body,
+  & > .inner > footer
     &.with-read_more-link
       margin-top: 10px
