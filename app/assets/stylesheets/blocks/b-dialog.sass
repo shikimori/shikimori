@@ -39,6 +39,11 @@
       aside.markers
         right: 0
 
+      & > .body,
+      & > header > .name-date
+        // need to compensate fix for chrome77 bug, because preview topics do not have left margin
+        margin-left: 38px !important
+
       .buttons,
       .item-mobile
         display: none !important
