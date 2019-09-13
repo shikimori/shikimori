@@ -38,3 +38,10 @@
 
     .body .b-nothing_here
       margin: 0
+
+  &.b-generated_news
+    & > .inner
+      & > .body,
+      & > header > .name-date
+        // need to compensate fix for chrome77 bug, because preview topics do not have left margin
+        margin-left: 0 !important
