@@ -9,6 +9,7 @@ $comment_border: 1px dashed #ddd
   +forum_entry
   border-top: $comment_border
   margin-bottom: 15px
+  overflow: hidden // fixes overflow bug in chrome 77 https://monosnap.com/file/9YvGTVRfO8UhjZbLK4ysZpIj6GJ97o
 
   &:first-child
     border-top-width: 0
@@ -57,6 +58,7 @@ $comment_border: 1px dashed #ddd
           display: inline-block
 
     .body
+
       .ban
         .b-user16
           margin-right: 0
