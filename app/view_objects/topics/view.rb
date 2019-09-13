@@ -172,7 +172,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def status_line?
-    minified?
+    true
   end
 
   def topic_type_policy

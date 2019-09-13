@@ -15,29 +15,28 @@
 =status_line_block_icon($symbol)
   +shikimori($symbol)
   color: #333
-  display: inline-block
   font-size: 14px
   padding-right: 5px
 
 .b-status-line
   +ellipsis2
+  align-items: center
+  display: flex
+  flex-wrap: wrap
   font-size: 12px
-  margin-bottom: 3px
+  line-height: 25px
+  margin: 2px 0 5px
 
   +iphone
     clear: both
 
   .section
-    +ellipsis2
-    border-left: 1px solid #acb1b4
-    display: inline-block
-    margin-left: 15px
-    padding-left: 14px
-
-    &:first-child
-      border-left: none
-      margin-left: 0
-      padding-left: 0
+    &:not(:last-child):after
+      content: ''
+      display: inline
+      border-right: 1px solid #acb1b4
+      margin-right: 15px
+      padding-right: 14px
 
     &.about
       span.about

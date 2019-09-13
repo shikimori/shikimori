@@ -48,10 +48,6 @@ class Topics::CollectionView < Topics::UserContentView
     @topic.linked.decorate
   end
 
-  def status_line?
-    true
-  end
-
 private
 
   def preview_html

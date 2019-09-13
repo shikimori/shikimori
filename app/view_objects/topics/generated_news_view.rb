@@ -7,6 +7,10 @@ class Topics::GeneratedNewsView < Topics::View
     false
   end
 
+  def status_line?
+    false
+  end
+
   def action_tag
     OpenStruct.new type: topic.action, text: topic.title.downcase
   end

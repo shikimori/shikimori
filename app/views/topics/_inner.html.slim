@@ -27,10 +27,10 @@
       - else
         = render 'topics/header/common', topic_view: topic_view
 
-    .body
-      - if topic_view.status_line?
-        = render 'topics/status_line', topic_view: topic_view
+    - if topic_view.status_line?
+      = render 'topics/status_line', topic_view: topic_view
 
+    .body
       - if topic_view.minified?
         - if topic_view.topic_type_policy.review_topic?
           = render 'topics/reviews/entry_cover', view: topic_view,

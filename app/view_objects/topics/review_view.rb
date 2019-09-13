@@ -53,10 +53,6 @@ class Topics::ReviewView < Topics::UserContentView
     preview? || minified?
   end
 
-  def status_line?
-    true
-  end
-
   def html_body
     text = review.text
 

@@ -23,6 +23,16 @@ $body-offset: 130px
     .body-truncated
       margin-left: $body-offset
 
+  // &:not(.b-topic-preview)
+  //   & > .inner
+  //     // need to compensate fix for chrome77 bug, because preview topics do not have left margin
+  //     & > .body
+  //       overflow: visible
+  //
+  //     & > .body,
+  //     & > header > .name-date
+  //       margin-left: 0 !important
+
   .b-review_votes .warn
     display: inline-block
 
