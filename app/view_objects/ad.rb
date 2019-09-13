@@ -18,7 +18,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         end,
         rules: {
           cookie: 'i1',
-          shows_per_week: 500
+          shows_per_week: 310
         },
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
@@ -109,7 +109,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         end,
         rules: {
           cookie: 'i1',
-          shows_per_week: 500
+          shows_per_week: 310
         },
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
