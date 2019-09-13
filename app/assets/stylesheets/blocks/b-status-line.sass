@@ -19,16 +19,18 @@
   padding-right: 5px
 
 .b-status-line
-  +ellipsis2
   align-items: center
   display: flex
   flex-wrap: wrap
-  font-size: 12px
-  line-height: 25px
-  margin: 2px 0 5px
+  // line-height: 15px
 
-  +iphone
-    clear: both
+  font-size: 12px
+  line-height: 23px
+  margin-bottom: 2px
+  width: 100%
+
+  +gte_ipad
+    margin-bottom: 5px
 
   .section
     &:not(:last-child):after

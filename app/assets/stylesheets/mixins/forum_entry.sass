@@ -7,8 +7,8 @@
 
 $aside_width: 250px
 
-$body_left_padding: 58px
-$body_phone_left_padding: 40px
+$body_left_margin: 58px
+$body_phone_left_margin: 40px
 
 =icon_expandable
   +link_color(#123)
@@ -66,38 +66,53 @@ $body_phone_left_padding: 40px
           margin: 1px 7px 4px 0
           width: 32px
 
-      .name-date
+    .name-date
+      +ellipsis2
+      font-size: 13px
+      height: 19px
+      line-height: 18px
+
+      +iphone
+        margin-left: $body_phone_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/Y6dgksSF2ctLTTDEXCWlyMg1HyTKpu
+
+      +gte_ipad
+        margin-left: $body_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/i7BNJOKE9LQe4OFmgiPzUOCNMJ0Jos
+
+      a.name
+        +link
+        font-weight: bold
+
+      .time
         +ellipsis2
-        display: block
-        font-size: 13px
-        line-height: 1
+        color: $gray-3
+        display: inline
+        font-size: 11px
+        padding-left: 10px
 
-        +iphone
-          margin-left: $body_phone_left_padding // it fixes overflow bug in chrome 77 https://monosnap.com/file/Y6dgksSF2ctLTTDEXCWlyMg1HyTKpu
-
-        +gte_ipad
-          margin-left: $body_left_padding // it fixes overflow bug in chrome 77 https://monosnap.com/file/i7BNJOKE9LQe4OFmgiPzUOCNMJ0Jos
-
-        a.name
-          +link
-          font-weight: bold
-
+      +lte_ipad
         .time
-          +ellipsis2
-          color: $gray-3
-          display: inline
-          font-size: 11px
-          padding-left: 10px
+          display: block
+          padding-left: 0
+          padding-top: 3px
 
-        +lte_ipad
-          .time
-            display: block
-            padding-left: 0
-            padding-top: 3px
+        time
+          line-height: $line_height
+          padding-left: 0
 
-          time
-            line-height: $line_height
-            padding-left: 0
+    .b-status-line
+      width: 100%
+
+      +iphone
+        margin-left: $body_phone_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/Y6dgksSF2ctLTTDEXCWlyMg1HyTKpu
+
+      +gte_ipad
+        margin-left: $body_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/i7BNJOKE9LQe4OFmgiPzUOCNMJ0Jos
+
+    .body
+      overflow: hidden // do not remove. will cause bugs for overflowed content
+
+      +iphone
+        clear: left
 
     .was_updated
       +link_color($gray-2)
@@ -117,12 +132,6 @@ $body_phone_left_padding: 40px
 
         img
           margin-top: 1px
-
-    & > .body
-      overflow: hidden // do not remove. will cause bugs for overflowed content
-
-      +gte_ipad
-        margin-left: $body_left_padding // it fixes overflow bug in chrome 77 https://monosnap.com/file/JS4AIZJKfDTyQWtETCeifMkm3Man8k
 
   // expanded menu in mobile version
   &.aside-expanded

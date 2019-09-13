@@ -1,8 +1,7 @@
 @import mixins/ellipsis2
 @import mixins/responsive
 
-$body_left_padding: 58px
-$body_phone_left_padding: 40px
+$body_left_margin: 58px
 
 .b-topic-preview
   margin-bottom: 35px
@@ -24,9 +23,15 @@ $body_phone_left_padding: 40px
       display: inline-block
 
   & > .inner
-    & > header
+    header
       .b-anime_status_tag
         margin-right: 10px
+
+    .body
+      clear: none !important
+
+      +gte_ipad
+        margin-left: $body_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/i7BNJOKE9LQe4OFmgiPzUOCNMJ0Jos
 
     .read_more-link
       font-size: 12px
@@ -34,14 +39,15 @@ $body_phone_left_padding: 40px
       padding-top: 8px
 
   & > .b-comments,
-  & > .inner > footer
-    padding-left: $body_left_padding
-
+  & > .inner footer
     +iphone
-      padding-left: $body_phone_left_padding
+      padding-left: 25px
+
+    +gte_ipad
+      padding-left: $body_left_margin
 
   & > .b-comments,
-  & > .inner > .body,
-  & > .inner > footer
+  & > .inner .body,
+  & > .inner footer
     &.with-read_more-link
       margin-top: 10px

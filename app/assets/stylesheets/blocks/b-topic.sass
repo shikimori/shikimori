@@ -30,7 +30,11 @@
   & > .inner
     min-height: 80px
 
-    & > header
+    header
+      a img
+        +lte_ipad
+          width: 42px
+
       .b-anime_status_tag
         margin-right: 10px
 
@@ -50,6 +54,13 @@
       .about + .time
         padding-left: 5px
 
+    .b-status-line
+      +lte_ipad
+        margin-left: 49px
+
+    .body
+      clear: left
+
     .body-truncated
       max-height: 172px
       overflow: hidden
@@ -58,7 +69,7 @@
       .b-height_shortener .expand
         margin-top: -6px
 
-    & > footer
+    footer
       clear: left // need clearing when text is narrow and avatar is higher than text
 
       .source

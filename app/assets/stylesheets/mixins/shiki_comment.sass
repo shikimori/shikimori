@@ -42,10 +42,13 @@ $comment_border: 1px dashed #ddd
     border: none
     padding: 0
 
-  .inner
+  & > .inner
     min-height: 58px
 
     .name-date
+      height: auto
+      line-height: 1
+
       a.name
         .normal
           color: #123
@@ -53,6 +56,8 @@ $comment_border: 1px dashed #ddd
           display: inline-block
 
     .body
+      +gte_ipad
+        margin-left: $body_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/JS4AIZJKfDTyQWtETCeifMkm3Man8k
 
       .ban
         .b-user16

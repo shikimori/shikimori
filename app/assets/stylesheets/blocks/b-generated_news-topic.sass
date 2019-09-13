@@ -2,15 +2,15 @@ $comments_left_margin: 24px
 
 .b-generated_news-topic
   & > .inner
-    & > .body
+    .body
       padding-left: 0 !important
 
-    & > footer
+    footer
       margin-left: $comments_left_margin !important
 
     // need to compensate fix for chrome77 bug, because preview topics do not have left margin
-    & > .body,
-    & > header > .name-date
+    .body,
+    header .name-date
       margin-left: 0 !important
 
   .b-nothing_here
