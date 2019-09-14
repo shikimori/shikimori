@@ -48,7 +48,7 @@ header.head.misc
     - if @resource.description.value.present?
       .subheadline = OauthApplication.human_attribute_name :description
 
-      .block
+      .block.description
         = @resource.description_html
 
     - unless @access_grant

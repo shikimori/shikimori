@@ -14,3 +14,7 @@ pageLoad(
       new ShikiEditor(editorNode)
     );
   });
+
+pageLoad('oauth_applications_show', () => {
+  $('.description').checkHeight({ max_height: 200 });
+});
