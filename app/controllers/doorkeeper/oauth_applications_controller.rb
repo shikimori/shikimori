@@ -44,14 +44,11 @@ class Doorkeeper::OauthApplicationsController < ShikimoriController
   end
 
   def show
+    og page_title: @resource.name
     @resource = DbEntryDecorator.new @resource
 
-    og page_title: @resource.name
     if user_signed_in?
-      @has_access = Users::GrantedApplications
-        .call(current_user)
-        .where(id: @resource.id)
-        .any?
+      @access_grant = current_user.access_grants.find_by(application_id: @resource.id)
     end
   end
 
