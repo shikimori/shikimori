@@ -34,7 +34,7 @@ $.fn.extend
 
         $(html)
           .insertAfter($root)
-          .on 'click', (e) =>
+          .on 'click', (e) ->
             return if expand_html? && !expand_html
 
             height = $root.height()

@@ -29,13 +29,18 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
   }
 
   $postloader.trigger('postloader:before', [$data, data]);
-  $data.process(data.JS_EXPORTS);
+  // $data.process(data.JS_EXPORTS);
+
 
   const $insertContent = $data.children();
   $postloader.replaceWith($insertContent);
-  $insertContent.first().trigger('postloader:success');
+  $insertContent
+    .process(data.JS_EXPORTS) // .process must be called after new content is inserted into DOM
+    .first()
+    .trigger('postloader:success');
 
-  $postloader.data({ locked: false });
+  // no need to set `locked: false` becaise $postloader is replaced by new content
+  // $postloader.data({ locked: false });
 });
 
 function filterPresentEntries($newEntries, $root, filter) {
