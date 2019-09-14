@@ -3,7 +3,8 @@ class BbCodes::Tags::SolidTag
 
   def format text
     text.gsub(
-      /\[solid\] (.*?) \[\/solid\]/mix,
-      '<div class="solid">\1</div>')
+      %r{\[solid\] (.*?) \[/solid\]}mix,
+      '<div class="solid">\1</div>'
+    )
   end
 end
