@@ -76,13 +76,13 @@ export default class ShikiEditable extends ShikiView
     @on "faye:#{@_type()}:updated", (e, data) =>
       $('.was_updated', @$inner).remove()
       message = if @_type() == 'message'
-        "#{@_type_label()} изменено пользователем"
+        "#{@_type_label()} #{I18n.t('frontend.shiki_editable.message_changed')}"
       else
-        "#{@_type_label()} изменён пользователем"
+        "#{@_type_label()} #{I18n.t('frontend.shiki_editable.changed')}"
 
       $notice = $("<div class='was_updated'>
         <div><span>#{message}</span><a class='actor b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a>.</div>
-        <div>Кликни для обновления.</div>
+        <div>#{I18n.t('frontend.shiki_editable.click_to_reload')}</div>
       </div>")
       $notice
         .appendTo(@$inner)
@@ -93,9 +93,9 @@ export default class ShikiEditable extends ShikiView
     # realtime уведомление об удалении
     @on "faye:#{@_type()}:deleted", (e, data) =>
       message = if @_type() == 'message'
-        "#{@_type_label()} удалено пользователем"
+        "#{@_type_label()} #{I18n.t('frontend.shiki_editable.message_deleted')}"
       else
-        "#{@_type_label()} удалён пользователем"
+        "#{@_type_label()} #{I18n.t('frontend.shiki_editable.deleted')}"
 
       @_replace "<div class='b-comment-info b-#{@_type()}'><span>#{message}</span><a class='b-user16' href='/#{data.actor}'><img src='#{data.actor_avatar}' srcset='#{data.actor_avatar_2x} 2x' /><span>#{data.actor}</span></a></div>"
       false # очень важно! иначе эвенты зациклятся из-за такого же обработчика в родителе

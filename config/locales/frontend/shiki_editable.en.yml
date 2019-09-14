@@ -1,0 +1,8 @@
+en:
+  frontend:
+    shiki_editable:
+      message_changed: is changed by
+      changed: is changed by
+      click_to_reload: Click to reload.
+      message_deleted: is deleted by
+      deleted: is deleted by

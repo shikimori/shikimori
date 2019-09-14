@@ -1,0 +1,8 @@
+ru:
+  frontend:
+    shiki_editable:
+      message_changed: изменено пользователем
+      changed: изменён пользователем
+      click_to_reload: Кликни для обновления.
+      message_deleted: удалено пользователем
+      deleted: удалён пользователем
