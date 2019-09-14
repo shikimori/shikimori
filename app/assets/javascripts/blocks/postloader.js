@@ -31,7 +31,6 @@ $(document).on('click appear', '.b-postloader', async ({ currentTarget, type }) 
   $postloader.trigger('postloader:before', [$data, data]);
   // $data.process(data.JS_EXPORTS);
 
-
   const $insertContent = $data.children();
   $postloader.replaceWith($insertContent);
   $insertContent
