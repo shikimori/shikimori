@@ -25,19 +25,20 @@ $body_phone_left_margin: 40px
   +clearfix
   overflow: hidden // fixes overflow bug in chrome 77 https://monosnap.com/file/9YvGTVRfO8UhjZbLK4ysZpIj6GJ97o
   padding-top: 5px
-  position: relative // for absolute positioned item-mobile
-
-  &:first-child
-    padding-top: 0
 
   & > .inner
     +clearfix
+    position: relative // for absolute positioned item-mobile
     transition: margin-left 0.25s ease
     width: 100% // без этого в .aside-expanded режиме не будет смещения контента влево
 
     aside.markers
-      .b-new_marker.off
-        display: none
+      +lte_ipad
+        padding-right: 38px // offset for item-mobile
+
+      +gt_ipad
+        .b-new_marker.off
+          display: none
 
     aside.buttons
       display: none
@@ -45,20 +46,22 @@ $body_phone_left_margin: 40px
       .item-cancel
         display: none
 
-    &:hover
-      aside.markers
-        .b-new_marker.off
-          display: block
+    +gt_ipad
+      &:hover
+        aside.markers
+          .b-new_marker.off
+            display: block
 
-      +gt_ipad
-        aside.buttons
-          display: block
+        +gt_ipad
+          aside.buttons
+            display: block
 
     header
       margin-bottom: 3px
 
       img
         float: left
+
         +gte_ipad
           margin: 1px 10px 7px 0
           width: 48px
@@ -74,7 +77,9 @@ $body_phone_left_margin: 40px
 
       +iphone
         margin-left: $body_phone_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/Y6dgksSF2ctLTTDEXCWlyMg1HyTKpu
-        padding-right: 35px // offset for item-mobile
+
+      +lte_ipad
+        padding-right: 38px // offset for item-mobile
 
       +gte_ipad
         margin-left: $body_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/i7BNJOKE9LQe4OFmgiPzUOCNMJ0Jos
@@ -135,7 +140,7 @@ $body_phone_left_margin: 40px
   .item-mobile
     position: absolute
     right: 0
-    top: 0
+    top: -5px
 
   // expanded menu in mobile version
   &.aside-expanded
@@ -151,7 +156,6 @@ $body_phone_left_margin: 40px
         aside.buttons
           display: block
           margin-right: -$aside_width - $block_offset * 1.5
-          padding-left: $block_offset * 1.5
           width: $aside_width
 
           .main-controls
