@@ -25,6 +25,7 @@ $body_phone_left_margin: 40px
   +clearfix
   overflow: hidden // fixes overflow bug in chrome 77 https://monosnap.com/file/9YvGTVRfO8UhjZbLK4ysZpIj6GJ97o
   padding-top: 5px
+  position: relative // for absolute positioned item-mobile
 
   &:first-child
     padding-top: 0
@@ -73,6 +74,7 @@ $body_phone_left_margin: 40px
 
       +iphone
         margin-left: $body_phone_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/Y6dgksSF2ctLTTDEXCWlyMg1HyTKpu
+        padding-right: 35px // offset for item-mobile
 
       +gte_ipad
         margin-left: $body_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/i7BNJOKE9LQe4OFmgiPzUOCNMJ0Jos
@@ -99,8 +101,6 @@ $body_phone_left_margin: 40px
           padding-left: 0
 
     .b-status-line
-      width: 100%
-
       +iphone
         margin-left: $body_phone_left_margin // it fixes overflow bug in chrome 77 https://monosnap.com/file/Y6dgksSF2ctLTTDEXCWlyMg1HyTKpu
 
@@ -131,6 +131,11 @@ $body_phone_left_margin: 40px
 
         img
           margin-top: 1px
+
+  .item-mobile
+    position: absolute
+    right: 0
+    top: 0
 
   // expanded menu in mobile version
   &.aside-expanded
