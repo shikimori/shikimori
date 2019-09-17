@@ -56,6 +56,7 @@ ru:
         options: Настройки
         imported_at: Синхронизировано
         desynced: Не синхронизируются
+        licensor: Лицензировано
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания
