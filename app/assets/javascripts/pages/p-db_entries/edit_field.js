@@ -235,6 +235,7 @@ async function initTagsApp($tags) {
     el: '#vue_app',
     render: h => h(TagsInput, {
       props: {
+        label: $tags.find('label').text(),
         input: $tags.find('input')[0],
         value: [$app.data('value')].compact(),
         autocompleteBasic: $app.data('autocomplete_basic'),

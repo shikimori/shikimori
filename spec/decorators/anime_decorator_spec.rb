@@ -9,11 +9,6 @@ describe AnimeDecorator do
   describe '#licensed?' do
     it { is_expected.to_not be_licensed }
 
-    context 'daisuki' do
-      let(:id) { Copyright::DAISUKI_COPYRIGHTED.sample }
-      it { is_expected.to_not be_licensed }
-    end
-
     context 'istari' do
       let(:id) { Copyright::ISTARI_COPYRIGHTED.sample }
       # it { is_expected.to_not be_licensed }

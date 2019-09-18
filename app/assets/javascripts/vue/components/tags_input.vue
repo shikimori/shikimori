@@ -1,13 +1,14 @@
 <template lang='pug'>
   .b-input
     label
-      | {{ I18n.t('frontend.tags_input.label') }}
+      | {{ label }}
       vue-tags-input(
         :add-on-key='addOnKey'
         :separators='separators'
         :autocomplete-items='autocompleteItems'
         :autocomplete-always-open='!!autocompleteItems.length'
         :tags='tags'
+        :max-tags='tagsLimit'
         @before-adding-tag='checkTag'
         @tags-changed='syncToInput'
         placeholder=''
@@ -22,11 +23,13 @@ export default {
   name: 'TagsInput',
   components: { VueTagsInput },
   props: {
+    label: { type: String, required: true },
     tagsLimit: { type: Number, required: true },
     autocompleteBasic: { type: Array, required: true },
     autocompleteOther: { type: Array, required: true },
     input: { type: HTMLInputElement, required: true },
-    value: { type: Array, required: true }
+    value: { type: Array, required: true },
+    isDowncase: { type: Boolean, required: false, default: false }
   },
   data() {
     return {
@@ -51,7 +54,9 @@ export default {
   },
   methods: {
     checkTag({ tag, addTag }) {
-      tag.text = tag.text.toLowerCase();
+      if (this.isDowncase) {
+        tag.text = tag.text.toLowerCase();
+      }
       addTag(tag);
     },
     syncToInput(newTags) {

@@ -154,11 +154,13 @@ async function initTagsApp() {
     el: '#vue_tags_input',
     render: h => h(TagsInput, {
       props: {
+        label: $tags.find('label').text(),
         input: $tags.find('input')[0],
         value: $app.data('value'),
         autocompleteBasic: $app.data('autocomplete_basic'),
         autocompleteOther: $app.data('autocomplete_other'),
-        tagsLimit: 3
+        tagsLimit: 3,
+        isDowncase: true
       }
     })
   });
