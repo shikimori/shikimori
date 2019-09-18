@@ -46,6 +46,9 @@
     = info_line i18n_io('Genre', entry.genres.one? ? :one : :few) do
       = render 'animes/genres_info', entry: entry
 
+  - if entry.licensor.present?
+    = info_line Anime.human_attribute_name(:licensor), entry.licensor
+
   - if entry.rating.present? && !entry.rating_none?
     = info_line Anime.human_attribute_name(:rating) do
       span.b-tooltipped.dotted.mobile.unprocessed[
