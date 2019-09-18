@@ -3,8 +3,8 @@
     label
       | {{ I18n.t('frontend.tags_input.label') }}
       vue-tags-input(
-        :add-on-key='[9, 13, 32, 188]'
-        :separators='[";", ",", " "]'
+        :add-on-key='addOnKey'
+        :separators='separators'
         :autocomplete-items='autocompleteItems'
         :autocomplete-always-open='!!autocompleteItems.length'
         :tags='tags'
@@ -22,6 +22,7 @@ export default {
   name: 'TagsInput',
   components: { VueTagsInput },
   props: {
+    tagsLimit: { type: Number, required: true },
     autocompleteBasic: { type: Array, required: true },
     autocompleteOther: { type: Array, required: true },
     input: { type: HTMLInputElement, required: true },
@@ -40,6 +41,12 @@ export default {
       )
         .filter(v => !this.tags.find(tag => tag.text === v))
         .map(v => ({ text: v }));
+    },
+    separators() {
+      return this.tagsLimit > 1 ? [';', ',', ' '] : undefined;
+    },
+    addOnKey() {
+      return this.tagsLimit > 1 ? [9, 13, 32, 188] : undefined;
     }
   },
   methods: {

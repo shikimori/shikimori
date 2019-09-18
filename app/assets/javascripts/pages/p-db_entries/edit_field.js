@@ -162,6 +162,10 @@ pageLoad('.db_entries-edit_field', () => {
   if ($(ARRAY_FIELDS.map(v => `.edit-page.${v}`).join(',')).exists()) {
     initArrayFieldApp();
   }
+
+  if ($('.edit-page.licensor').exists()) {
+    initTagsApp($('.anime_licensor, .manga_licensor'));
+  }
 });
 
 async function initExternalLinksApp() {
@@ -215,6 +219,27 @@ async function initArrayFieldApp() {
         // entryId: $app.data('entry_id'),
         field: $app.data('field'),
         autocompleteUrl: $app.data('autocomplete_url')
+      }
+    })
+  });
+}
+
+async function initTagsApp($tags) {
+  const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
+  const { default: TagsInput } = await import('vue/components/tags_input');
+
+  const $app = $('#vue_app');
+  $tags.hide();
+
+  new Vue({
+    el: '#vue_app',
+    render: h => h(TagsInput, {
+      props: {
+        input: $tags.find('input')[0],
+        value: [$app.data('value')].compact(),
+        autocompleteBasic: $app.data('autocomplete_basic'),
+        autocompleteOther: [],
+        tagsLimit: 1
       }
     })
   });

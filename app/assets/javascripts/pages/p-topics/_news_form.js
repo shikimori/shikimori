@@ -157,7 +157,8 @@ async function initTagsApp() {
         input: $tags.find('input')[0],
         value: $app.data('value'),
         autocompleteBasic: $app.data('autocomplete_basic'),
-        autocompleteOther: $app.data('autocomplete_other')
+        autocompleteOther: $app.data('autocomplete_other'),
+        tagsLimit: 3
       }
     })
   });

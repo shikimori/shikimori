@@ -680,7 +680,7 @@ Rails.application.routes.draw do
       name russian synonyms license_name_ru description_ru description_en image
       kind episodes rating duration
       screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids
-      external_links fansubbers fandubbers desynced options
+      external_links fansubbers fandubbers desynced options licensor
     }.join('|'))
 
     member do
@@ -700,7 +700,7 @@ Rails.application.routes.draw do
         name russian synonyms license_name_ru description_ru description_en image
         kind rating volumes chapters
         imageboard_tag aired_on released_on status genre_ids
-        external_links desynced
+        external_links desynced licensor
       }.join('|'))
     end
   end

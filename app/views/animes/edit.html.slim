@@ -153,6 +153,15 @@
                     href=@resource.collection_url(franchise: @resource.franchise)
                   ] = @resource.franchise
 
+        li
+          .field = @resource.class.human_attribute_name(:licensor)
+          .value
+            span = @resource.licensor
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:licensor)
+              data-dynamic='week_registered'
+            ] = t 'actions.edit'
+
     .c-column.m0
       ul.b-list
         li
