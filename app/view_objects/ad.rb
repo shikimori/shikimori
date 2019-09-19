@@ -206,11 +206,11 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300], # disable after 2019-09-18
+        # Types::Ad::Type[:special_x300], # disable after 2019-09-18
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300], # disable after 2019-09-18
+        # Types::Ad::Type[:special_x300], # disable after 2019-09-18
         Types::Ad::Type[:mt_300x600]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
@@ -234,13 +234,13 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        Types::Ad::Type[:special_x300], # disable after 2019-09-18
+        # Types::Ad::Type[:special_x300], # disable after 2019-09-18
         # Types::Ad::Type[:mt_240x400],
         Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        Types::Ad::Type[:special_x300], # disable after 2019-09-18
+        # Types::Ad::Type[:special_x300], # disable after 2019-09-18
         # Types::Ad::Type[:mt_300x600],
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:advrtr_240x400]
