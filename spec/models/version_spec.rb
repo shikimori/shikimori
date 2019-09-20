@@ -323,8 +323,39 @@ describe Version do
       end
     end
 
-    context 'trusted_fansub_changer' do
-      let(:user) { build_stubbed :user, :trusted_fansub_changer, :week_registered }
+    context 'version_super_moderator' do
+      let(:user) { build_stubbed :user, :version_super_moderator }
+      let(:version) do
+        build_stubbed :version,
+          item: item,
+          user: version_user,
+          item_diff: item_diff
+      end
+      let(:item) { build_stubbed :anime }
+      let(:item_diff) do
+        [
+          { name: ['a', 'b'] },
+          { english: ['a', 'b'] },
+          { description_ru: ['a', 'b'] }
+        ].sample
+      end
+      let(:version_user) { user }
+
+      it { is_expected.to be_able_to :auto_accept, version }
+
+      context 'not only fansubbers/fandubbers changed' do
+        let(:item_diff) { { name: %w[a b], english: %w[a b] } }
+        it { is_expected.to_not be_able_to :auto_accept, version }
+      end
+
+      context 'not fandubbers changed' do
+        let(:item_diff) { { english: %w[a b] } }
+        it { is_expected.to_not be_able_to :manage, version }
+      end
+    end
+
+    context 'version_fansub_moderator' do
+      let(:user) { build_stubbed :user, :version_fansub_moderator }
       let(:version) do
         build_stubbed :version,
           item: item,
@@ -335,21 +366,17 @@ describe Version do
       let(:item_diff) { [{ fandubbers: ['a', 'b'] }, { fansubbers: ['a', 'b'] }].sample }
       let(:version_user) { user }
 
+      it { is_expected.to be_able_to :manage, version }
       it { is_expected.to be_able_to :auto_accept, version }
-
-      context 'not user version' do
-        let(:version_user) { build_stubbed :user, :user }
-        it { is_expected.to_not be_able_to :auto_accept, version }
-      end
 
       context 'not only fansubbers/fandubbers changed' do
         let(:item_diff) { { fandubbers: %w[a b], name: %w[a b] } }
-        it { is_expected.to_not be_able_to :auto_accept, version }
+        it { is_expected.to_not be_able_to :manage, version }
       end
 
       context 'not fandubbers changed' do
         let(:item_diff) { { name: %w[a b] } }
-        it { is_expected.to_not be_able_to :auto_accept, version }
+        it { is_expected.to_not be_able_to :manage, version }
       end
     end
 
