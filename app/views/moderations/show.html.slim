@@ -13,7 +13,7 @@ header.head
           title=t('moderations/versions_controller.content_changes')
         ]
           = t 'moderations/versions_controller.content_changes'
-          span.size = @moderation_policy.content_count
+          span.size = @moderation_policy.content_versions_count
       li
         a.b-link[
           href=moderations_bans_url

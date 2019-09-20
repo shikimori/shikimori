@@ -51,7 +51,9 @@ en:
 
     hot_topics:
       hot_topics: Hot topics
+      texts: Texts
       content: Content
+      fansub: Fansub
       video: Video
 
     footer:

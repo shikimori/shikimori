@@ -24,10 +24,22 @@ class ModerationPolicy
     AbuseRequest.abuses.size + AbuseRequest.pending.size
   end
 
-  def content_count
+  def texts_versions_count
+    return 0 unless !@moderation_filter || @user&.version_moderator?
+
+    Version.pending_texts.size
+  end
+
+  def content_versions_count
     return 0 unless !@moderation_filter || @user&.version_moderator?
 
     Version.pending_content.size
+  end
+
+  def fansub_versions_count
+    return 0 unless !@moderation_filter || @user&.version_moderator?
+
+    Version.pending_fansub.size
   end
 
   def videos_count

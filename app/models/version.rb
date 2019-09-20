@@ -30,7 +30,13 @@ class Version < ApplicationRecord
   validates :item, presence: true, if: :new_record?
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
+  scope :pending_texts, -> {
+    where(state: :pending).where.not(item_type: AnimeVideo.name)
+  }
   scope :pending_content, -> {
+    where(state: :pending).where.not(item_type: AnimeVideo.name)
+  }
+  scope :pending_fansub, -> {
     where(state: :pending).where.not(item_type: AnimeVideo.name)
   }
   scope :pending_videos, -> {

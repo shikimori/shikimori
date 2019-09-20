@@ -50,7 +50,9 @@ ru:
 
     hot_topics:
       hot_topics: Темы дня
+      texts: Тексты
       content: Контент
+      fansub: Фансаб
       video: Видео
 
     footer:

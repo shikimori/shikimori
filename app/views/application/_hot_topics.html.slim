@@ -9,21 +9,43 @@
       ]
         = "#{i18n_i 'Review'}: #{layout.moderation_policy.reviews_count}"
 
+  - unless layout.moderation_policy.texts_versions_count.zero?
+    - unless current_user.admin? && layout.moderation_policy.texts_versions_count < 100
+      a.b-link.b-tooltipped.unprocessed.moderation[
+        href=moderations_versions_url(type: :texts)
+        data-direction='bottom'
+      ]
+        = "#{t '.texts'}: #{layout.moderation_policy.texts_versions_count}"
+
+  - unless layout.moderation_policy.fansub_versions_count.zero?
+    - unless current_user.admin? && layout.moderation_policy.fansub_versions_count < 100
+      a.b-link.b-tooltipped.unprocessed.moderation[
+        href=moderations_versions_url(type: :fansub)
+        data-direction='bottom'
+      ]
+        = "#{t '.fansub'}: #{layout.moderation_policy.fansub_versions_count}"
+
+  - unless layout.moderation_policy.content_versions_count.zero?
+    // TODO: uncomment when new moderators are found
+    // - unless (current_user.admin? && layout.moderation_policy.content_versions_count < 100) || (current_user.version_fansub_moderator? && layout.moderation_policy.content_versions_count < 30) || (current_user.version_texts_moderator? && layout.moderation_policy.content_versions_count < 30)
+    - unless current_user.admin? && layout.moderation_policy.content_versions_count < 100
+      a.b-link.b-tooltipped.unprocessed.moderation[
+        href=moderations_versions_url(type: :content)
+        data-direction='bottom'
+        class=(:misc if current_user.version_texts_moderator? || current_user.version_fansub_moderator?)
+      ]
+        = "#{t '.content'}: #{layout.moderation_policy.content_versions_count}"
+
   - unless layout.moderation_policy.abuses_count.zero?
+    // TODO: uncomment when new moderators are found
+    // - unless (current_user.admin? && layout.moderation_policy.abuses_count < 100) || (current_user.super_moderator? && layout.moderation_policy.abuses_count < 30)
     - unless current_user.admin? && layout.moderation_policy.abuses_count < 100
       a.b-link.b-tooltipped.unprocessed.moderation[
         href=moderations_bans_url
         data-direction='bottom'
+        class=(:misc if current_user.super_moderator?)
       ]
         = "#{i18n_i 'Forum'}: #{layout.moderation_policy.abuses_count}"
-
-  - unless layout.moderation_policy.content_count.zero?
-    - unless current_user.admin? && layout.moderation_policy.content_count < 100
-      a.b-link.b-tooltipped.unprocessed.moderation[
-        href=moderations_versions_url(type: :content)
-        data-direction='bottom'
-      ]
-        = "#{t '.content'}: #{layout.moderation_policy.content_count}"
 
   - unless layout.moderation_policy.videos_count.zero?
     - unless current_user.admin? && layout.moderation_policy.videos_count < 100

@@ -101,25 +101,69 @@ describe ModerationPolicy do
     end
   end
 
-  describe '#content_count' do
+  describe '#texts_versions_count' do
     before do
       allow(Version)
-        .to receive_message_chain(:pending_content, :size)
-        .and_return(content_count)
+        .to receive_message_chain(:pending_texts, :size)
+        .and_return(texts_versions_count)
     end
-    let(:content_count) { 1 }
+    let(:texts_versions_count) { 1 }
     let(:user) { build :user, :version_moderator }
 
-    it { expect(policy.content_count).to eq 1 }
+    it { expect(policy.texts_versions_count).to eq 1 }
 
     context 'not moderator' do
       let(:user) { build :user, :user }
-      it { expect(policy.content_count).to eq 0 }
+      it { expect(policy.texts_versions_count).to eq 0 }
     end
 
     context 'no user' do
       let(:user) { nil }
-      it { expect(policy.content_count).to eq 0 }
+      it { expect(policy.texts_versions_count).to eq 0 }
+    end
+  end
+
+  describe '#content_versions_count' do
+    before do
+      allow(Version)
+        .to receive_message_chain(:pending_content, :size)
+        .and_return(content_versions_count)
+    end
+    let(:content_versions_count) { 1 }
+    let(:user) { build :user, :version_moderator }
+
+    it { expect(policy.content_versions_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.content_versions_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.content_versions_count).to eq 0 }
+    end
+  end
+
+  describe '#fansub_versions_count' do
+    before do
+      allow(Version)
+        .to receive_message_chain(:pending_fansub, :size)
+        .and_return(fansub_versions_count)
+    end
+    let(:fansub_versions_count) { 1 }
+    let(:user) { build :user, :version_moderator }
+
+    it { expect(policy.fansub_versions_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.fansub_versions_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.fansub_versions_count).to eq 0 }
     end
   end
 
