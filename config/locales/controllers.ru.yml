@@ -226,7 +226,6 @@ ru:
     <<: *moderations_controller
     content_change: 'Правка #%{version_id}'
     content_changes: Журнал изменений контента
-    video_changes: Журнал изменений видео
     changes_accepted: Изменения приняты
     changes_rejected: Изменения отклонены
     changes_deleted: Изменения удалены

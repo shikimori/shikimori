@@ -41,10 +41,4 @@ class ModerationPolicy
 
     Version.pending_fansub.size
   end
-
-  def videos_count
-    return 0 unless !@moderation_filter || @user&.video_moderator?
-
-    Version.pending_videos.size
-  end
 end

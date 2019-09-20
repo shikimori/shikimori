@@ -226,7 +226,6 @@ en:
     <<: *moderations_controller
     content_change: 'Content change #%{version_id}'
     content_changes: Content changes journal
-    video_changes: Video changes journal
     changes_accepted: Changes accepted
     changes_rejected: Changes rejected
     changes_deleted: Changes deleted

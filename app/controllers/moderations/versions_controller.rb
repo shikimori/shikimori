@@ -2,20 +2,15 @@ class Moderations::VersionsController < ModerationsController
   load_and_authorize_resource except: [:index]
 
   def index
-    og page_title: i18n_t(params[:type] == 'content' ? 'content_changes' : 'video_changes')
+    # og page_title: i18n_t(params[:type] == 'content' ? 'content_changes' : 'video_changes')
+    og page_title: i18n_t('content_changes')
     @versions = VersionsView.new
   end
 
   def show
     og noindex: true
 
-    if @resource.item_type == AnimeVideo.name
-      og page_title: i18n_t('video_changes')
-      breadcrumb(
-        i18n_t('video_changes'),
-        moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[:anime_video])
-      )
-    elsif @resource.type == ::Versions::RoleVersion.name
+    if @resource.type == ::Versions::RoleVersion.name
       og page_title: t('moderations/roles_controller.page_title')
       breadcrumb(
         t('moderations/roles_controller.page_title'),

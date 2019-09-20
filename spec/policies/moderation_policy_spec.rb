@@ -166,26 +166,4 @@ describe ModerationPolicy do
       it { expect(policy.fansub_versions_count).to eq 0 }
     end
   end
-
-  describe '#videos_count' do
-    before do
-      allow(Version)
-        .to receive_message_chain(:pending_videos, :size)
-        .and_return(videos_count)
-    end
-    let(:videos_count) { 1 }
-    let(:user) { build :user, :video_moderator }
-
-    it { expect(policy.videos_count).to eq 1 }
-
-    context 'not moderator' do
-      let(:user) { build :user, :user }
-      it { expect(policy.videos_count).to eq 0 }
-    end
-
-    context 'no user' do
-      let(:user) { nil }
-      it { expect(policy.videos_count).to eq 0 }
-    end
-  end
 end

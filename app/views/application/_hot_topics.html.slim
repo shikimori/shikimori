@@ -47,14 +47,6 @@
       ]
         = "#{i18n_i 'Forum'}: #{layout.moderation_policy.abuses_count}"
 
-  - unless layout.moderation_policy.videos_count.zero?
-    - unless current_user.admin? && layout.moderation_policy.videos_count < 100
-      a.b-link.b-tooltipped.unprocessed.moderation[
-        href=moderations_versions_url(type: :anime_video)
-        data-direction='bottom'
-      ]
-        = "#{t '.video'}: #{layout.moderation_policy.videos_count}"
-
   - cache :hot_topics, expires_in: 10.minutes do
     - layout.hot_topics.each do |topic_view|
       a.b-link[

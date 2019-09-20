@@ -29,15 +29,6 @@ header.head
           = t 'moderations/abuse_requests_controller.page_title.index'
           span.size = AbuseRequest.pending.size
 
-      - if ru_host?
-        li
-          a[
-            href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[:anime_video])
-            title=t('moderations/versions_controller.video_changes')
-          ]
-            = t 'moderations/versions_controller.video_changes'
-            span.size = @moderation_policy.videos_count
-
       - if current_user&.review_moderator? || current_user&.admin?
         li
           a.b-link[
