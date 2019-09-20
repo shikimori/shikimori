@@ -25,7 +25,7 @@ class ModerationPolicy
   end
 
   def texts_versions_count
-    return 0 unless !@moderation_filter || @user&.version_moderator?
+    return 0 unless !@moderation_filter || @user&.version_texts_moderator?
 
     Version.pending_texts.size
   end
@@ -37,7 +37,7 @@ class ModerationPolicy
   end
 
   def fansub_versions_count
-    return 0 unless !@moderation_filter || @user&.version_moderator?
+    return 0 unless !@moderation_filter || @user&.version_fansub_moderator?
 
     Version.pending_fansub.size
   end
