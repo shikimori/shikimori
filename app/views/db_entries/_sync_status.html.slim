@@ -5,7 +5,10 @@
         .field = resource.class.human_attribute_name(:imported_at)
         .value
           - if resource.imported_at
-            span = l resource.imported_at, format: :full
+            span.time
+              time[
+                datetime=resource.imported_at.iso8601
+              ] = l resource.imported_at, format: '%e %B %Y %H:%m'
 
           - if can? :sync, resource
             - is_syncing = Rails.cache.read([:anime, :sync, resource.id])
