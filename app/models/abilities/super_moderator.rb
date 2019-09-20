@@ -7,7 +7,9 @@ class Abilities::SuperModerator
       manage_forum_moderator_role
       manage_review_moderator_role
       manage_collection_moderator_role
+      manage_version_super_moderator_role
       manage_version_moderator_role
+      manage_version_fansub_moderator_role
       manage_trusted_version_changer_role
       manage_not_trusted_version_changer_role
       manage_trusted_fansub_changer_role
