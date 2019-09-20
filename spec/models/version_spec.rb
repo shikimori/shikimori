@@ -323,51 +323,6 @@ describe Version do
       end
     end
 
-    context 'trusted_ranobe_external_links_changer' do
-      let(:user) { build_stubbed :user, :trusted_ranobe_external_links_changer, :week_registered }
-      let(:version) do
-        build_stubbed :collection_version,
-          item: item,
-          user: version_user,
-          item_diff: item_diff
-      end
-      let(:item) { build_stubbed :ranobe }
-      let(:item_diff) { { external_links: ['a', 'b'] } }
-      let(:version_user) { user }
-
-      it { is_expected.to be_able_to :auto_accept, version }
-
-      context 'not user version' do
-        let(:version_user) { build_stubbed :user, :user }
-        it { is_expected.to_not be_able_to :auto_accept, version }
-      end
-
-      context 'not ranobe version' do
-        let(:item) { build_stubbed :manga }
-        it { is_expected.to_not be_able_to :auto_accept, version }
-      end
-
-      context 'not only external_links changed' do
-        let(:item_diff) { { external_links: %w[a b], name: %w[a b] } }
-        it { is_expected.to_not be_able_to :auto_accept, version }
-      end
-
-      context 'not external_links changed' do
-        let(:item_diff) { { name: %w[a b] } }
-        it { is_expected.to_not be_able_to :auto_accept, version }
-      end
-
-      context 'not collection version' do
-        let(:version) do
-          build_stubbed :version,
-            item: item,
-            user: version_user,
-            item_diff: item_diff
-        end
-        it { is_expected.to_not be_able_to :auto_accept, version }
-      end
-    end
-
     context 'trusted_fansub_changer' do
       let(:user) { build_stubbed :user, :trusted_fansub_changer, :week_registered }
       let(:version) do

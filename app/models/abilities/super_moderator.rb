@@ -10,7 +10,6 @@ class Abilities::SuperModerator
       manage_version_moderator_role
       manage_trusted_version_changer_role
       manage_not_trusted_version_changer_role
-      manage_trusted_ranobe_external_links_changer_role
       manage_trusted_fansub_changer_role
       manage_retired_moderator_role
       manage_not_trusted_abuse_reporter_role

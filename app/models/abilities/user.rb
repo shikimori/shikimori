@@ -290,11 +290,6 @@ class Abilities::User
     can :auto_accept, Version do |version|
       version.user_id == @user.id && (
         @user.trusted_version_changer? || (
-          @user.trusted_ranobe_external_links_changer? &&
-            version.is_a?(Versions::CollectionVersion) &&
-            version.item.ranobe? &&
-            version.item_diff.keys == ['external_links']
-        ) || (
           @user.trusted_fansub_changer? &&
             (version.item_diff.keys == ['fansubbers'] || version.item_diff.keys == ['fandubbers'])
         ) || (
