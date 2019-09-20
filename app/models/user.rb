@@ -21,10 +21,11 @@ class User < ApplicationRecord
     admin
     super_moderator
     forum_moderator
+    version_super_moderator
     version_moderator
+    version_fansub_moderator
     trusted_version_changer
     trusted_video_uploader
-    trusted_fansub_changer
     review_moderator
     collection_moderator
     cosplay_moderator

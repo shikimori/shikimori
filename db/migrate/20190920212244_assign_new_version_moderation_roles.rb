@@ -10,5 +10,7 @@ class AssignNewVersionModerationRoles < ActiveRecord::Migration[5.2]
       user.roles.push Types::User::Roles[:version_fansub_moderator]
       user.save!
     end
+
+    Version.where(id: [642322, 635873]).destroy_all
   end
 end
