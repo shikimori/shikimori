@@ -347,12 +347,13 @@ describe Version do
       let(:item_diff) do
         [
           { name: ['a', 'b'] },
-          { english: ['a', 'b'] },
+          { russian: ['a', 'b'] },
           { description_ru: ['a', 'b'] }
         ].sample
       end
       let(:version_user) { user }
 
+      it { is_expected.to be_able_to :manage, version }
       it { is_expected.to be_able_to :auto_accept, version }
 
       context 'not only fansubbers/fandubbers changed' do
