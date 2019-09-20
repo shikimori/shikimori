@@ -16,7 +16,6 @@ class AnimeVideoReport < ApplicationRecord
   scope :processed,
     -> { where(state: %i[accepted rejected]).order(updated_at: :desc) }
 
-  after_create :auto_check
   after_create :auto_accept
 
   state_machine :state, initial: :pending do
@@ -99,10 +98,6 @@ private
       state: 'pending',
       anime_video_id: anime_video_id
     )
-  end
-
-  def auto_check
-    AnimeOnline::ReportWorker.perform_in 10.seconds, id
   end
 
   def auto_accept
