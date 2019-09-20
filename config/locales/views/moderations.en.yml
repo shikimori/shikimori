@@ -212,7 +212,7 @@ en:
         notice:
           super_moderator: Can assign moderators
           retired_moderator: Retired moderator
-          version_super_moderator: Moderator of all database content changes
+          version_texts_moderator: Moderator of all database content changes
           version_moderator: Moderator of most database content changes
           version_fansub_moderator: Moderator of fansubbers & fandubbers content changes
           trusted_version_changer: Can change database content without moderation

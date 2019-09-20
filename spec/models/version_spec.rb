@@ -323,8 +323,8 @@ describe Version do
       end
     end
 
-    context 'version_super_moderator' do
-      let(:user) { build_stubbed :user, :version_super_moderator }
+    context 'version_texts_moderator' do
+      let(:user) { build_stubbed :user, :version_texts_moderator }
       let(:version) do
         build_stubbed :version,
           item: item,

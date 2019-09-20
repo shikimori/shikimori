@@ -21,7 +21,7 @@ class User < ApplicationRecord
     admin
     super_moderator
     forum_moderator
-    version_super_moderator
+    version_texts_moderator
     version_moderator
     version_fansub_moderator
     trusted_version_changer

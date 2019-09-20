@@ -12,10 +12,6 @@ class Abilities::VersionFansubModerator
       entry.mal_id.present?
     end
 
-    MANAGED_FIELDS.each do |field|
-      can :"manage_#{field}", [Anime, Manga, Person, Character]
-    end
-
     can :manage, Version do |version|
       (version.item_diff.keys - MANAGED_FIELDS).none?
     end

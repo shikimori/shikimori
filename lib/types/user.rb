@@ -5,7 +5,7 @@ module Types
       forum_moderator
       retired_moderator
 
-      version_super_moderator
+      version_texts_moderator
       version_moderator
       version_fansub_moderator
 

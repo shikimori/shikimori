@@ -1,8 +1,7 @@
 class AssignNewVersionModerationRoles < ActiveRecord::Migration[5.2]
   def change
     User.where(id: [16148, 21887]).each do |user|
-      user.roles.delete Types::User::Roles[:version_moderator]
-      user.roles.push Types::User::Roles[:version_super_moderator]
+      user.roles.push Types::User::Roles[:version_texts_moderator]
       user.save!
     end
 

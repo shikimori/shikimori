@@ -1,4 +1,4 @@
-class Abilities::VersionSuperModerator
+class Abilities::VersionTextsModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
