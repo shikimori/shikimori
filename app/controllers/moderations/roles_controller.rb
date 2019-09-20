@@ -68,6 +68,7 @@ private
 
   def set_role
     @role = params[:id]
+    @is_versions = @role == 'version_moderator'
   end
 
   def fetch_target_user

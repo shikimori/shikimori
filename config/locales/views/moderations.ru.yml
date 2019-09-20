@@ -212,11 +212,12 @@ ru:
         notice:
           super_moderator: Может назначать модераторов
           retired_moderator: Модератор в отставке
-          version_moderator: Модератор пользовательских правок базы сайта
+          version_super_moderator: Модератор всех пользовательских правок базы сайта
+          version_moderator: Модератор большинства пользовательских правок базы сайта
+          version_fansub_moderator: Модератор правок фансабберов и фандабберов
           trusted_version_changer: Может менять контент без модерации изменений
           not_trusted_version_changer: Не может менять контент сайта
           trusted_ranobe_external_links_changer: Может менять ссылки для ранобэ без модерации
-          trusted_fansub_changer: Может менять фансабберов и фандабберов без модерации
           video_super_moderator: Может назначать модераторов видео
           api_video_uploader: Имеет доступ к видео api
           trusted_video_uploader: Может загружать видео без модерации

@@ -4,12 +4,15 @@ module Types
       super_moderator
       forum_moderator
       retired_moderator
+
+      version_super_moderator
       version_moderator
+      version_fansub_moderator
+
       trusted_version_changer
       trusted_attached_video_changer
       not_trusted_version_changer
       trusted_ranobe_external_links_changer
-      trusted_fansub_changer
       review_moderator
       collection_moderator
       cosplay_moderator
