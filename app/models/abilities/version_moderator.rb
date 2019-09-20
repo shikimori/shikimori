@@ -15,6 +15,7 @@ class Abilities::VersionModerator
 
     can :manage, Version do |version|
       !version.is_a?(Versions::RoleVersion) &&
+        version.item_diff &&
         (version.item_diff.keys & NOT_MANAGED_FIELDS).none?
     end
   end

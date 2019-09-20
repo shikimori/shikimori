@@ -32,12 +32,27 @@ class Version < ApplicationRecord
 
   scope :pending_texts, -> {
     where(state: :pending)
+      .where(
+        Abilities::VersionTextsModerator::MANAGED_FIELDS
+          .map { |v| "(item_diff->>'#{v}') is not null" }
+          .join(' or ')
+      )
   }
   scope :pending_content, -> {
     where(state: :pending)
+      .where(
+        Abilities::VersionModerator::NOT_MANAGED_FIELDS
+          .map { |v| "(item_diff->>'#{v}') is null" }
+          .join(' and ')
+      )
   }
   scope :pending_fansub, -> {
     where(state: :pending)
+      .where(
+        Abilities::VersionFansubModerator::MANAGED_FIELDS
+          .map { |v| "(item_diff->>'#{v}') is not null" }
+          .join(' or ')
+      )
   }
 
   state_machine :state, initial: :pending do

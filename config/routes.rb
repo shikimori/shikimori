@@ -135,7 +135,7 @@ Rails.application.routes.draw do
       get '/:type(/page/:page)' => :index,
         as: '',
         on: :collection,
-        type: /texts|content|fansubbers/
+        type: /texts|content|fansub/
       member do
         get :tooltip
         post :accept
