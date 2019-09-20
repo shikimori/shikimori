@@ -192,7 +192,19 @@ describe Version do
 
     context 'version_moderator' do
       let(:user) { build_stubbed :user, :version_moderator }
+      let(:version) { build_stubbed :version, item_diff: item_diff }
+      let(:item_diff) { { english: ['a', 'b'] } }
+
       it { is_expected.to be_able_to :manage, version }
+
+      context 'not manageable fields' do
+        let(:item_diff) do
+          {
+            Abilities::VersionModerator::NOT_MANAGED_FIELDS.sample.to_sym => ['a', 'b']
+          }
+        end
+        it { is_expected.to_not be_able_to :manage, version }
+      end
 
       context 'role version' do
         let(:version) { build_stubbed :role_version, user: user }
