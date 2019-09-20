@@ -1,6 +1,9 @@
 export default (selector, $root) => {
-  if ($root.is(selector)) {
-    return $root.find(selector).add($root);
+  const $filteredRoot = $root.filter(selector);
+
+  if ($filteredRoot.length) {
+    return $root.find(selector).add($filteredRoot);
   }
+
   return $root.find(selector);
 };

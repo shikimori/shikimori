@@ -18,9 +18,8 @@ import $with from 'helpers/with';
 
 $.fn.extend({
   process(JS_EXPORTS) {
-    return this.each(function () {
-      processCurrentDom(this, JS_EXPORTS);
-    });
+    processCurrentDom(this, JS_EXPORTS);
+    return this;
   }
 });
 
