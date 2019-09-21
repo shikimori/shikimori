@@ -9,6 +9,8 @@ class Moderations::RolesController < ModerationsController
   def index
     og noindex: true, nofollow: true
     og page_title: i18n_t('page_title')
+
+    @back_url = moderations_url
   end
 
   def show
