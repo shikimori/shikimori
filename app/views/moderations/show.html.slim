@@ -125,7 +125,7 @@ header.head
             title=t('moderations/user_rate_logs_controller.page_title.index')
           ] = t 'moderations/user_rate_logs_controller.page_title.index'
 
-- if @abuse_requests_stats || @bans_stats || @content_versions_stats
+- if @abuse_requests_stats || @bans_stats || @content_versions_stats || @reviews_stats || @collections_stats
   .midheadline.m15 Statistics for last 4 months
   .cc-3a
     - if @abuse_requests_stats
@@ -148,3 +148,17 @@ header.head
         ul.b-list
           - @content_versions_stats.each do |stat|
             li = "#{stat.moderator.nickname}: #{stat.count}"
+
+    - if @reviews_stats
+      .c-column
+        .subheadline.m10 Reviews
+        ul.b-list
+          - @reviews_stats.each do |stat|
+            li = "#{stat.approver.nickname}: #{stat.count}"
+
+    - if @collections_stats
+      .c-column
+        .subheadline.m10 Collections
+        ul.b-list
+          - @collections_stats.each do |stat|
+            li = "#{stat.approver.nickname}: #{stat.count}"
