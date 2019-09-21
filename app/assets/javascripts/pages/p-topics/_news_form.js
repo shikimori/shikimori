@@ -155,6 +155,7 @@ async function initTagsApp() {
     render: h => h(TagsInput, {
       props: {
         label: $tags.find('label').text(),
+        hint: $tags.find('.hint').html(),
         input: $tags.find('input')[0],
         value: $app.data('value'),
         autocompleteBasic: $app.data('autocomplete_basic'),

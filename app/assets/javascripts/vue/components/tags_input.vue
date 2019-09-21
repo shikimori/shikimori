@@ -14,6 +14,10 @@
         placeholder=''
         v-model='tag'
       )
+    span.hint(
+      v-if='hint'
+      v-html='hint'
+    )
 </template>
 
 <script>
@@ -24,6 +28,7 @@ export default {
   components: { VueTagsInput },
   props: {
     label: { type: String, required: true },
+    hint: { type: String, required: false, default: undefined },
     tagsLimit: { type: Number, required: true },
     autocompleteBasic: { type: Array, required: true },
     autocompleteOther: { type: Array, required: true },
