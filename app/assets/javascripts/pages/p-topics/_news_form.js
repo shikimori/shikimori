@@ -159,7 +159,7 @@ async function initTagsApp() {
         value: $app.data('value'),
         autocompleteBasic: $app.data('autocomplete_basic'),
         autocompleteOther: $app.data('autocomplete_other'),
-        tagsLimit: 3,
+        tagsLimit: 4,
         isDowncase: true
       }
     })
