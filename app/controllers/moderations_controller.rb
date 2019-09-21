@@ -69,7 +69,15 @@ private
         .group(:moderator_id)
         .select('moderator_id, count(*) as count')
         .where(
-          moderator_id: User.where("roles && '{#{Types::User::Roles[:version_moderator]}}'")
+          moderator_id: User.where(
+            <<~ROLES.squish
+              roles && '{
+                #{Types::User::Roles[:version_texts_moderator]},
+                #{Types::User::Roles[:version_moderator]},
+                #{Types::User::Roles[:version_fansub_moderator]}
+              }'
+            ROLES
+          )
         )
         .sort_by(&:count)
         .reverse
