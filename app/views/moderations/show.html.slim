@@ -9,25 +9,37 @@ header.head
     ul.b-list.block
       li
         a.b-link[
-          href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[:content])
-          title=t('moderations/versions_controller.content_changes')
+          href=moderations_versions_url
+          title=t('moderations/versions_controller.content_changes.all_content')
         ]
-          = t 'moderations/versions_controller.content_changes'
-          span.size = @moderation_policy.content_versions_count
+          = t 'moderations/versions_controller.content_changes.all_content'
+          - if @moderation_policy.all_content_versions_count.positive?
+            span.size = @moderation_policy.all_content_versions_count
+      - %i[texts content fansub].each do |type|
+        li.offset
+          a.b-link[
+            href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[type])
+            title=t("moderations/versions_controller.content_changes.#{type}")
+          ]
+            = t "moderations/versions_controller.content_changes.#{type}"
+            - if @moderation_policy.send(:"#{type}_versions_count").positive?
+              span.size = @moderation_policy.send(:"#{type}_versions_count")
       li
         a.b-link[
           href=moderations_bans_url
           title=t('moderations/bans_controller.page_title.index')
         ]
           = t 'moderations/bans_controller.page_title.index'
-          span.size = AbuseRequest.abuses.size
+          - if @moderation_policy.abuses_abuses_count.positive?
+            span.size = @moderation_policy.abuses_abuses_count
       li
         a.b-link[
           href=moderations_abuse_requests_url
           title=t('moderations/abuse_requests_controller.page_title.index')
         ]
           = t 'moderations/abuse_requests_controller.page_title.index'
-          span.size = AbuseRequest.pending.size
+          - if @moderation_policy.abuses_pending_count.positive?
+            span.size = @moderation_policy.abuses_pending_count
 
       - if current_user&.review_moderator? || current_user&.admin?
         li
@@ -36,7 +48,8 @@ header.head
             title=t('.reviews_journal')
           ]
             = t '.reviews_journal'
-            span.size = @moderation_policy.reviews_count
+            - if @moderation_policy.reviews_count.positive?
+              span.size = @moderation_policy.reviews_count
 
       - if current_user&.collection_moderator? || current_user&.admin?
         li
@@ -45,7 +58,8 @@ header.head
             title=t('.collections_journal')
           ]
             = t '.collections_journal'
-            span.size = @moderation_policy.collections_count
+            - if @moderation_policy.collections_count.positive?
+              span.size = @moderation_policy.collections_count
 
   .c-column
     .subheadline.m10 = t '.content'

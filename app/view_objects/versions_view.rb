@@ -11,7 +11,7 @@ class VersionsView < ViewObjectBase
   end
 
   def pending
-    Moderation::VersionsItemTypeQuery.call(h.params[:type])
+    Moderation::VersionsItemTypeQuery.call(type_param)
       .includes(:user, :moderator)
       .where(state: :pending)
       .order(:created_at)
@@ -22,7 +22,7 @@ class VersionsView < ViewObjectBase
   def next_page_url
     h.moderations_versions_url(
       page: page + 1,
-      type: h.params[:type],
+      type: type_param,
       created_on: h.params[:created_on]
     )
   end
@@ -34,11 +34,15 @@ class VersionsView < ViewObjectBase
       .sort_by { |v| v.nickname.downcase }
   end
 
+  def type_param
+    h.params[:type] || :all_content
+  end
+
 private
 
   def processed_query
     Moderation::ProcessedVersionsQuery
-      .new(h.params[:type], h.params[:created_on])
+      .new(type_param, h.params[:created_on])
       .postload(page, per_page_limit)
   end
 end

@@ -225,7 +225,11 @@ en:
   moderations/versions_controller:
     <<: *moderations_controller
     content_change: 'Content change #%{version_id}'
-    content_changes: Content changes journal
+    content_changes:
+      all_content: All content changes journal
+      texts: Texts changes journal
+      content: Content changes journal
+      fansub: Fansub changes journal
     changes_accepted: Changes accepted
     changes_rejected: Changes rejected
     changes_deleted: Changes deleted

@@ -132,7 +132,7 @@ Rails.application.routes.draw do
     end
 
     resources :versions, only: %i[show create destroy] do
-      get '/:type(/page/:page)' => :index,
+      get '(/:type)(/page/:page)' => :index,
         as: '',
         on: :collection,
         type: /texts|content|fansub/

@@ -3,12 +3,15 @@ class Moderation::VersionsItemTypeQuery
 
   Types = Types::Strict::Symbol
     .constructor(&:to_sym)
-    .enum(:texts, :content, :fansub, :role)
+    .enum(:all_content, :texts, :content, :fansub, :role)
 
   def call
     scope = Version.all
 
     case Types[type]
+      when Types[:all_content]
+        non_roles_scope(scope)
+
       when Types[:texts]
         texts_scope non_roles_scope(scope)
 

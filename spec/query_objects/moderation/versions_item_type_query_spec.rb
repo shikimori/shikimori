@@ -10,6 +10,11 @@ describe Moderation::VersionsItemTypeQuery do
   let!(:version_4) { create :version, item: manga, item_diff: { fansubbers: %w[a b] } }
   let!(:version_5) { create :role_version, item: user }
 
+  context 'all_content' do
+    let(:type) { 'all_content' }
+    it { is_expected.to eq [version_1, version_2, version_3, version_4] }
+  end
+
   context 'texts' do
     let(:type) { 'texts' }
     it { is_expected.to eq [version_1] }

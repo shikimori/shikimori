@@ -3,8 +3,8 @@ class Moderations::VersionsController < ModerationsController
 
   def index
     # og page_title: i18n_t(params[:type] == 'content' ? 'content_changes' : 'video_changes')
-    og page_title: i18n_t('content_changes')
     @versions = VersionsView.new
+    og page_title: i18n_t("content_changes.#{@versions.type_param}")
   end
 
   def show

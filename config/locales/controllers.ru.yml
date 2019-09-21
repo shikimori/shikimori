@@ -225,7 +225,11 @@ ru:
   moderations/versions_controller:
     <<: *moderations_controller
     content_change: 'Правка #%{version_id}'
-    content_changes: Журнал изменений контента
+    content_changes:
+      all_content: Журнал любых изменений контента
+      texts: Журнал изменений текстов
+      content: Журнал изменений контента
+      fansub: Журнал изменений фансаба
     changes_accepted: Изменения приняты
     changes_rejected: Изменения отклонены
     changes_deleted: Изменения удалены

@@ -74,7 +74,7 @@ describe ModerationPolicy do
     end
   end
 
-  describe '#abuses_count' do
+  describe '#abuses_total_count, #abuses_abuses_count, #abuses_pending_count' do
     before do
       allow(AbuseRequest)
         .to receive_message_chain(:abuses, :size)
@@ -82,22 +82,56 @@ describe ModerationPolicy do
 
       allow(AbuseRequest)
         .to receive_message_chain(:pending, :size)
-        .and_return(abuse_pending_count)
+        .and_return(abuses_pending_count)
     end
     let(:abuse_abuses_count) { 1 }
-    let(:abuse_pending_count) { 2 }
+    let(:abuses_pending_count) { 2 }
     let(:user) { build :user, :forum_moderator }
 
-    it { expect(policy.abuses_count).to eq 3 }
+    it do
+      expect(policy.abuses_total_count).to eq 3
+      expect(policy.abuses_abuses_count).to eq 1
+      expect(policy.abuses_pending_count).to eq 2
+    end
 
     context 'not moderator' do
       let(:user) { build :user, :user }
-      it { expect(policy.abuses_count).to eq 0 }
+      it do
+        expect(policy.abuses_total_count).to eq 0
+        expect(policy.abuses_abuses_count).to eq 0
+        expect(policy.abuses_pending_count).to eq 0
+      end
     end
 
     context 'no user' do
       let(:user) { nil }
-      it { expect(policy.abuses_count).to eq 0 }
+      it do
+        expect(policy.abuses_total_count).to eq 0
+        expect(policy.abuses_abuses_count).to eq 0
+        expect(policy.abuses_pending_count).to eq 0
+      end
+    end
+  end
+
+  describe '#all_content_versions_count' do
+    before do
+      allow(Moderation::VersionsItemTypeQuery)
+        .to receive_message_chain(:call, :pending, :size)
+        .and_return(versions_count)
+    end
+    let(:versions_count) { 1 }
+    let(:user) { build :user, :version_moderator }
+
+    it { expect(policy.all_content_versions_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.all_content_versions_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.all_content_versions_count).to eq 0 }
     end
   end
 
@@ -105,9 +139,9 @@ describe ModerationPolicy do
     before do
       allow(Moderation::VersionsItemTypeQuery)
         .to receive_message_chain(:call, :pending, :size)
-        .and_return(texts_versions_count)
+        .and_return(versions_count)
     end
-    let(:texts_versions_count) { 1 }
+    let(:versions_count) { 1 }
     let(:user) { build :user, :version_texts_moderator }
 
     it { expect(policy.texts_versions_count).to eq 1 }

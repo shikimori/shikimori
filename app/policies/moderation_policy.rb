@@ -3,7 +3,11 @@ class ModerationPolicy
 
   pattr_initialize :user, :locale, :moderation_filter
 
-  instance_cache :reviews_count, :collections_count, :abuse_count,
+  instance_cache :reviews_count, :collections_count,
+    :abuses_total_count,
+    :abuses_abuses_count,
+    :abuses_pending_count,
+    :all_content_versions_count,
     :texts_versions_count, :content_versions_count, :fansub_versions_count
 
   def reviews_count
@@ -18,10 +22,26 @@ class ModerationPolicy
     Collection.pending.published.where(locale: @locale).size
   end
 
-  def abuses_count
+  def abuses_total_count
+    abuses_abuses_count + abuses_pending_count
+  end
+
+  def abuses_abuses_count
     return 0 unless !@moderation_filter || @user&.forum_moderator?
 
-    AbuseRequest.abuses.size + AbuseRequest.pending.size
+    AbuseRequest.abuses.size
+  end
+
+  def abuses_pending_count
+    return 0 unless !@moderation_filter || @user&.forum_moderator?
+
+    AbuseRequest.pending.size
+  end
+
+  def all_content_versions_count
+    return 0 unless !@moderation_filter || @user&.version_moderator?
+
+    Moderation::VersionsItemTypeQuery.call(:all_content).pending.size
   end
 
   def texts_versions_count
