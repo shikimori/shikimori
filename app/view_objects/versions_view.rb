@@ -22,7 +22,7 @@ class VersionsView < ViewObjectBase
   def next_page_url
     h.moderations_versions_url(
       page: page + 1,
-      type: type_param,
+      type: h.params[:type],
       created_on: h.params[:created_on]
     )
   end
