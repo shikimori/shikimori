@@ -57,21 +57,12 @@ shared_examples :db_entry_controller do |entry_name|
     end
 
     context 'versions moderator' do
-      include_context :authenticated, :version_moderator
+      include_context :authenticated, :version_texts_moderator
 
-      describe 'russian' do
-        let(:field) { 'russian' }
-        before { make_request }
+      let(:field) { 'russian' }
+      before { make_request }
 
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'name' do
-        let(:field) { 'name' }
-        before { make_request }
-
-        it { expect(response).to have_http_status :success }
-      end
+      it { expect(response).to have_http_status :success }
     end
   end
 
@@ -104,7 +95,7 @@ shared_examples :db_entry_controller do |entry_name|
     end
 
     describe 'moderator' do
-      include_context :authenticated, :version_moderator
+      include_context :authenticated, :version_texts_moderator
       let(:changes) { { russian: 'test' } }
       before { make_request }
 
