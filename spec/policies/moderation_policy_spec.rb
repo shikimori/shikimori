@@ -103,12 +103,12 @@ describe ModerationPolicy do
 
   describe '#texts_versions_count' do
     before do
-      allow(Version)
-        .to receive_message_chain(:pending_texts, :size)
+      allow(Moderation::VersionsItemTypeQuery)
+        .to receive_message_chain(:call, :pending, :size)
         .and_return(texts_versions_count)
     end
     let(:texts_versions_count) { 1 }
-    let(:user) { build :user, :version_moderator }
+    let(:user) { build :user, :version_texts_moderator }
 
     it { expect(policy.texts_versions_count).to eq 1 }
 
@@ -125,8 +125,8 @@ describe ModerationPolicy do
 
   describe '#content_versions_count' do
     before do
-      allow(Version)
-        .to receive_message_chain(:pending_content, :size)
+      allow(Moderation::VersionsItemTypeQuery)
+        .to receive_message_chain(:call, :pending, :size)
         .and_return(content_versions_count)
     end
     let(:content_versions_count) { 1 }
@@ -147,12 +147,12 @@ describe ModerationPolicy do
 
   describe '#fansub_versions_count' do
     before do
-      allow(Version)
-        .to receive_message_chain(:pending_fansub, :size)
+      allow(Moderation::VersionsItemTypeQuery)
+        .to receive_message_chain(:call, :pending, :size)
         .and_return(fansub_versions_count)
     end
     let(:fansub_versions_count) { 1 }
-    let(:user) { build :user, :version_moderator }
+    let(:user) { build :user, :version_fansub_moderator }
 
     it { expect(policy.fansub_versions_count).to eq 1 }
 

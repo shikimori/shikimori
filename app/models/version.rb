@@ -30,29 +30,27 @@ class Version < ApplicationRecord
   validates :item, presence: true, if: :new_record?
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
-  scope :pending_texts, -> {
-    where(state: :pending)
-      .where(
-        Abilities::VersionTextsModerator::MANAGED_FIELDS
-          .map { |v| "(item_diff->>'#{v}') is not null" }
-          .join(' or ')
-      )
+  scope :pending, -> { where state: :pending }
+  scope :texts, -> {
+    where(
+      Abilities::VersionTextsModerator::MANAGED_FIELDS
+        .map { |v| "(item_diff->>'#{v}') is not null" }
+        .join(' or ')
+    )
   }
-  scope :pending_content, -> {
-    where(state: :pending)
-      .where(
-        Abilities::VersionModerator::NOT_MANAGED_FIELDS
-          .map { |v| "(item_diff->>'#{v}') is null" }
-          .join(' and ')
-      )
+  scope :content, -> {
+    where(
+      Abilities::VersionModerator::NOT_MANAGED_FIELDS
+        .map { |v| "(item_diff->>'#{v}') is null" }
+        .join(' and ')
+    )
   }
-  scope :pending_fansub, -> {
-    where(state: :pending)
-      .where(
-        Abilities::VersionFansubModerator::MANAGED_FIELDS
-          .map { |v| "(item_diff->>'#{v}') is not null" }
-          .join(' or ')
-      )
+  scope :fansub, -> {
+    where(
+      Abilities::VersionFansubModerator::MANAGED_FIELDS
+        .map { |v| "(item_diff->>'#{v}') is not null" }
+        .join(' or ')
+    )
   }
 
   state_machine :state, initial: :pending do

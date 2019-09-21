@@ -3,8 +3,8 @@ class ModerationPolicy
 
   pattr_initialize :user, :locale, :moderation_filter
 
-  instance_cache :reviews_count, :abuse_abuses_count,
-    :abuse_pending_count, :other_versions_count, :video_versions_count
+  instance_cache :reviews_count, :collections_count, :abuse_count,
+    :texts_versions_count, :content_versions_count, :fansub_versions_count
 
   def reviews_count
     return 0 unless !@moderation_filter || @user&.review_moderator?
@@ -27,18 +27,18 @@ class ModerationPolicy
   def texts_versions_count
     return 0 unless !@moderation_filter || @user&.version_texts_moderator?
 
-    Version.pending_texts.size
+    Moderation::VersionsItemTypeQuery.call(:texts).pending.size
   end
 
   def content_versions_count
     return 0 unless !@moderation_filter || @user&.version_moderator?
 
-    Version.pending_content.size
+    Moderation::VersionsItemTypeQuery.call(:content).pending.size
   end
 
   def fansub_versions_count
     return 0 unless !@moderation_filter || @user&.version_fansub_moderator?
 
-    Version.pending_fansub.size
+    Moderation::VersionsItemTypeQuery.call(:fansub).pending.size
   end
 end

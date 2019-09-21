@@ -3,23 +3,57 @@ class Moderation::VersionsItemTypeQuery
 
   Types = Types::Strict::Symbol
     .constructor(&:to_sym)
-    .enum(:content, :anime_video, :role)
+    .enum(:texts, :content, :fansub, :role)
 
   def call
-    case Types[type]
-      when Types[:content]
-        Version
-          .where('type is null or type != ?', Versions::RoleVersion.name)
-          .where.not(item_type: AnimeVideo.name)
+    scope = Version.all
 
-      when Types[:anime_video]
-        Version
-          .where('type is null or type != ?', Versions::RoleVersion.name)
-          .where(item_type: AnimeVideo.name)
+    case Types[type]
+      when Types[:texts]
+        texts_scope non_roles_scope(scope)
+
+      when Types[:content]
+        content_scope non_roles_scope(scope)
+
+      when Types[:fansub]
+        fansub_scope non_roles_scope(scope)
 
       when Types[:role]
-        Version
-          .where(type: Versions::RoleVersion.name)
+        roles_scope(scope)
     end
+  end
+
+private
+
+  def roles_scope scope
+    scope.where(type: Versions::RoleVersion.name)
+  end
+
+  def non_roles_scope scope
+    scope.where('type is null or type != ?', Versions::RoleVersion.name)
+  end
+
+  def texts_scope scope
+    scope.where(
+      Abilities::VersionTextsModerator::MANAGED_FIELDS
+        .map { |v| "(item_diff->>'#{v}') is not null" }
+        .join(' or ')
+    )
+  end
+
+  def content_scope scope
+    scope.where(
+      Abilities::VersionModerator::NOT_MANAGED_FIELDS
+        .map { |v| "(item_diff->>'#{v}') is null" }
+        .join(' and ')
+    )
+  end
+
+  def fansub_scope scope
+    scope.where(
+      Abilities::VersionFansubModerator::MANAGED_FIELDS
+        .map { |v| "(item_diff->>'#{v}') is not null" }
+        .join(' or ')
+    )
   end
 end

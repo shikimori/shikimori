@@ -1,24 +1,33 @@
 describe Moderation::VersionsItemTypeQuery do
   subject { described_class.call type }
 
-  let!(:version_1) { create :version, item: create(:anime) }
-  let!(:version_2) { create :version, item: create(:manga) }
-  let!(:version_3) { create :version, item: create(:anime_video) }
-  let!(:version_4) { create :role_version, item: user }
+  let(:anime) { create :anime }
+  let(:manga) { create :manga }
+
+  let!(:version_1) { create :version, item: anime, item_diff: { russian: %w[a b] } }
+  let!(:version_2) { create :version, item: manga, item_diff: { english: %w[a b] } }
+  let!(:version_3) { create :version, item: anime, item_diff: { english: %w[a b] } }
+  let!(:version_4) { create :version, item: manga, item_diff: { fansubbers: %w[a b] } }
+  let!(:version_5) { create :role_version, item: user }
+
+  context 'texts' do
+    let(:type) { 'texts' }
+    it { is_expected.to eq [version_1] }
+  end
 
   context 'content' do
     let(:type) { 'content' }
-    it { is_expected.to eq [version_1, version_2] }
+    it { is_expected.to eq [version_2, version_3] }
   end
 
-  context 'anime_video' do
-    let(:type) { 'anime_video' }
-    it { is_expected.to eq [version_3] }
+  context 'fansub' do
+    let(:type) { 'fansub' }
+    it { is_expected.to eq [version_4] }
   end
 
   context 'role' do
     let(:type) { 'role' }
-    it { is_expected.to eq [version_4] }
+    it { is_expected.to eq [version_5] }
   end
 
   context 'unknown type' do
