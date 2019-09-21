@@ -6,7 +6,7 @@
         :add-on-key='addOnKey'
         :separators='separators'
         :autocomplete-items='autocompleteItems'
-        :autocomplete-always-open='!!autocompleteItems.length'
+        :autocomplete-always-open='tags.length < tagsLimit && !!autocompleteItems.length'
         :tags='tags'
         :max-tags='tagsLimit'
         @before-adding-tag='checkTag'
