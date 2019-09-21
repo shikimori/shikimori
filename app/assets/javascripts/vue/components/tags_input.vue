@@ -43,6 +43,7 @@ export default {
         this.tags.length ? this.autocompleteOther : this.autocompleteBasic
       )
         .filter(v => !this.tags.find(tag => tag.text === v))
+        .filter(v => (this.tag ? v.startsWith(this.tag) : true))
         .map(v => ({ text: v }));
     },
     separators() {
