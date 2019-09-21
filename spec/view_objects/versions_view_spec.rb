@@ -24,12 +24,12 @@ describe VersionsView do
       updated_at: 4.minutes.ago
   end
 
-  let!(:moderator) { create :user, :version_moderator }
+  let!(:moderator) { create :user, :version_texts_moderator }
 
   before do
     allow(view.h)
       .to receive(:params)
-      .and_return type: 'content', created_on: created_on
+      .and_return type: 'texts', created_on: created_on
   end
 
   context 'no processed date' do

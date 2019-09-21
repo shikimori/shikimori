@@ -28,8 +28,11 @@ class VersionsView < ViewObjectBase
   end
 
   def moderators
+    type_suffix = h.params[:type] + '_' if h.params[:type] && h.params[:type] != 'content'
+    role = "version_#{type_suffix}moderator"
+
     User
-      .where("roles && '{version_moderator}'")
+      .where("roles && '{#{role}}'")
       .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
   end

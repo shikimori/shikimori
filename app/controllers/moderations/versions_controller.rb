@@ -2,7 +2,6 @@ class Moderations::VersionsController < ModerationsController
   load_and_authorize_resource except: [:index]
 
   def index
-    # og page_title: i18n_t(params[:type] == 'content' ? 'content_changes' : 'video_changes')
     @versions = VersionsView.new
     og page_title: i18n_t("content_changes.#{@versions.type_param}")
   end

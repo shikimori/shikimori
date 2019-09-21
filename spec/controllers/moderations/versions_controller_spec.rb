@@ -1,6 +1,6 @@
 describe Moderations::VersionsController do
   include_context :back_redirect
-  include_context :authenticated, :version_moderator
+  include_context :authenticated, :version_texts_moderator
 
   let(:version) do
     create :version,
@@ -72,7 +72,7 @@ describe Moderations::VersionsController do
     end
 
     describe 'moderator' do
-      include_context :authenticated, :version_moderator
+      include_context :authenticated, :version_texts_moderator
       let(:changes) { { 'russian' => [nil, 'zxcvbnn'] } }
       before { make_request }
 
