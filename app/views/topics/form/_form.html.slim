@@ -49,7 +49,7 @@
 
         - if topic_type_policy.news_topic?
           = f.input :tags,
-            input_html: { value: f.object.tags&.join(' '), class: 'w-100' },
+            input_html: { value: f.object.tags&.join(','), class: 'w-100' },
             as: :string
           #vue_tags_input[
             data-value=f.object.tags
