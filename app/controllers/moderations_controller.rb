@@ -21,11 +21,6 @@ class ModerationsController < ShikimoriController
     if can? :manage_version_moderator_role, User
       @content_versions_stats = content_versions_stats
     end
-
-    if can? :manage_video_moderator_role, User
-      @video_versions_stats = video_versions_stats
-      @anime_video_reports_stats = anime_video_reports_stats
-    end
   end
 
   def missing_screenshots
@@ -75,39 +70,6 @@ private
         .select('moderator_id, count(*) as count')
         .where(
           moderator_id: User.where("roles && '{#{Types::User::Roles[:version_moderator]}}'")
-        )
-        .sort_by(&:count)
-        .reverse
-    end
-  end
-
-  def video_versions_stats
-    Rails.cache.fetch %i[video_versions_stats v4], expires_in: 1.day do
-      Version
-        .where('created_at > ?', 4.month.ago)
-        .where(item_type: AnimeVideo.name)
-        .group(:moderator_id)
-        .select('moderator_id, count(*) as count')
-        .where(
-          moderator_id: User.where(
-            "roles && '{#{Types::User::Roles[:video_moderator]}}'"
-          )
-        )
-        .sort_by(&:count)
-        .reverse
-    end
-  end
-
-  def anime_video_reports_stats
-    Rails.cache.fetch %i[anime_video_reports_stats v4], expires_in: 1.day do
-      AnimeVideoReport
-        .where('created_at > ?', 4.month.ago)
-        .group(:approver_id)
-        .select('approver_id, count(*) as count')
-        .where(
-          approver_id: User.where(
-            "roles && '{#{Types::User::Roles[:video_moderator]}}'"
-          )
         )
         .sort_by(&:count)
         .reverse
