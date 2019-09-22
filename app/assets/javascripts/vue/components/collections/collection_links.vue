@@ -137,7 +137,7 @@ export default {
       'refill'
     ]),
     addNewGroup(e) {
-      if (e.target != e.currentTarget) { return; }
+      if (e.target !== e.currentTarget) { return; }
       this.addLink({ group: '' });
     },
     onGroupRename(e) {
@@ -164,27 +164,27 @@ export default {
     onDragUpdate(e) {
       restoreNode(e);
 
-      let from_index = listIndex(e.to, e.oldIndex);
-      let to_index = listIndex(e.to, e.newIndex);
+      const from_index = listIndex(e.to, e.oldIndex);
+      const to_index = listIndex(e.to, e.newIndex);
 
       this.moveLink({
-        from_index: from_index,
-        to_index: to_index,
+        from_index,
+        to_index,
         group_index: to_index
       });
     },
     onDragAdd(e) {
       restoreNode(e);
 
-      let from_index = listIndex(e.from, e.oldIndex);
-      let is_last_column_position = !e.to.childNodes[e.newIndex];
+      const from_index = listIndex(e.from, e.oldIndex);
+      const is_last_column_position = !e.to.childNodes[e.newIndex];
       let to_index = is_last_column_position ?
         listIndex(e.to, e.newIndex - 1) :
         listIndex(e.to, e.newIndex);
-      let group_index = to_index;
+      const group_index = to_index;
 
-      let is_move_right = to_index > from_index;
-      let is_move_left = to_index < from_index;
+      const is_move_right = to_index > from_index;
+      const is_move_left = to_index < from_index;
 
       if (is_move_right && !is_last_column_position) {
         to_index -= 1;
@@ -194,9 +194,9 @@ export default {
       }
 
       this.moveLink({
-        from_index: from_index,
-        to_index: to_index,
-        group_index: group_index
+        from_index,
+        to_index,
+        group_index
       });
     }
   }

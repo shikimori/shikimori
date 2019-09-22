@@ -6,12 +6,10 @@ const has_duplicate = (links, link) =>
     (v !== link) &&
       (v.linked_id === link.linked_id) &&
       (v.group === link.group)
-  )
-;
+  );
 
 const no_links_to_fill = (links, group) =>
-  links.none(v => (v.group === group) && !v.linked_id)
-;
+  links.none(v => (v.group === group) && !v.linked_id);
 
 module.exports = {
   state: {
@@ -76,13 +74,13 @@ module.exports = {
 
       if (from_element.group !== group) { from_element.group = group; }
 
-      if (!has_duplicate(state.collection.links,from_element)) {
+      if (!has_duplicate(state.collection.links, from_element)) {
         state.collection.links.splice(to_index, 0, from_element);
       }
     },
 
     RENAME_GROUP(state, { from_name, to_name }) {
-      state.collection.links.forEach(function(link) {
+      state.collection.links.forEach(link => {
         if (link.group === from_name) {
           link.group = to_name;
         }

@@ -61,16 +61,16 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import autosize from 'autosize'
+import { mapGetters, mapActions } from 'vuex';
+import autosize from 'autosize';
 
 function highlight(selector) {
-  let $node = $(selector)
+  const $node = $(selector);
 
   if (!$node.is(':appeared')) {
-    $.scrollTo($node, () => $node.yellowFade())
+    $.scrollTo($node, () => $node.yellowFade());
   } else {
-    $node.yellowFade()
+    $node.yellowFade();
   }
 }
 
@@ -78,7 +78,7 @@ export default {
   name: 'CollectionLink',
   props: {
     link: { type: Object, required: true },
-    autocompleteUrl: { type: String, required: true },
+    autocompleteUrl: { type: String, required: true }
   },
   computed: {
     ...mapGetters([
@@ -88,7 +88,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      $(this.$el).process()
+      $(this.$el).process();
 
       if (!this.link.linked_id) {
         $('input', this.$el)
@@ -99,34 +99,34 @@ export default {
               linked_id: parseInt(id),
               name,
               url
-            })
-          })
+            });
+          });
       }
-    })
+    });
   },
   methods: {
     assign(changes) {
-      this.fillLink({ link: this.link, changes: changes })
+      this.fillLink({ link: this.link, changes });
 
       this.$nextTick(() => {
-        $(this.$el).process()
+        $(this.$el).process();
 
         highlight(
           '.b-collection_item' +
             `[data-linked_id='${this.link.linked_id}']` +
             `[data-group='${this.link.group}']`
-        )
-      })
+        );
+      });
     },
-    add_autosize({target}) {
-      autosize(target)
+    add_autosize({ target }) {
+      autosize(target);
     },
     ...mapActions([
       'fillLink',
       'removeLink'
     ])
   }
-}
+};
 </script>
 
 <style scoped lang="sass">
