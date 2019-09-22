@@ -83,7 +83,7 @@ import flash from 'services/flash';
 import CollectionLink from './collection_link';
 
 function listIndex(node, index) {
-  return parseInt(node.childNodes[index].getAttribute('data-listIndex'));
+  return parseInt(node.childNodes[index].getAttribute('data-list_index'));
 }
 function restoreNode(e) {
   removeNode(e.item);
