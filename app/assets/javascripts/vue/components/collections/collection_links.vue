@@ -142,8 +142,8 @@ export default {
     },
     onGroupRename(e) {
       this.renameGroup({
-        from_name: e.target.getAttribute('data-original_value'),
-        to_name: e.target.value
+        fromName: e.target.getAttribute('data-original_value'),
+        toName: e.target.value
       });
     },
     onRefill({ target }) {
@@ -164,39 +164,39 @@ export default {
     onDragUpdate(e) {
       restoreNode(e);
 
-      const from_index = listIndex(e.to, e.oldIndex);
-      const to_index = listIndex(e.to, e.newIndex);
+      const fromIndex = listIndex(e.to, e.oldIndex);
+      const toIndex = listIndex(e.to, e.newIndex);
 
       this.moveLink({
-        from_index,
-        to_index,
-        group_index: to_index
+        fromIndex,
+        toIndex,
+        groupIndex: toIndex
       });
     },
     onDragAdd(e) {
       restoreNode(e);
 
-      const from_index = listIndex(e.from, e.oldIndex);
-      const is_last_column_position = !e.to.childNodes[e.newIndex];
-      let to_index = is_last_column_position ?
+      const fromIndex = listIndex(e.from, e.oldIndex);
+      const isLastColumnPosition = !e.to.childNodes[e.newIndex];
+      let toIndex = isLastColumnPosition ?
         listIndex(e.to, e.newIndex - 1) :
         listIndex(e.to, e.newIndex);
-      const group_index = to_index;
+      const groupIndex = toIndex;
 
-      const is_move_right = to_index > from_index;
-      const is_move_left = to_index < from_index;
+      const isMoveRight = toIndex > fromIndex;
+      const isMoveLeft = toIndex < fromIndex;
 
-      if (is_move_right && !is_last_column_position) {
-        to_index -= 1;
+      if (isMoveRight && !isLastColumnPosition) {
+        toIndex -= 1;
       }
-      if (is_move_left && is_last_column_position) {
-        to_index += 1;
+      if (isMoveLeft && isLastColumnPosition) {
+        toIndex += 1;
       }
 
       this.moveLink({
-        from_index,
-        to_index,
-        group_index
+        fromIndex,
+        toIndex,
+        groupIndex
       });
     }
   }

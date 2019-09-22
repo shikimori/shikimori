@@ -1,7 +1,7 @@
-let uniq_id = 987654321;
-const new_id = () => uniq_id += 1;
+let uniqId = 987654321;
+const newId = () => uniqId += 1;
 
-const has_duplicate = (links, link) =>
+const hasDuplicate = (links, link) =>
   links.some(v =>
     (v !== link) &&
       (v.linked_id === link.linked_id) &&
@@ -20,7 +20,7 @@ module.exports = {
     fillLink(context, { link, changes }) {
       context.commit('FILL_LINK', { link, changes });
 
-      if (has_duplicate(context.state.collection.links, link)) {
+      if (hasDuplicate(context.state.collection.links, link)) {
         context.commit('REMOVE_LINK', link);
       }
 
@@ -37,22 +37,22 @@ module.exports = {
   },
 
   mutations: {
-    ADD_LINK(state, link_data) {
-      const link = Object.add(link_data, {
+    ADD_LINK(state, linkData) {
+      const link = Object.add(linkData, {
         group: null,
         linked_id: null,
         name: null,
         text: '',
         url: null,
-        key: new_id()
+        key: newId()
       }, { resolve: false });
 
-      if (link.linked_id && has_duplicate(state.collection.links, link)) { return; }
+      if (link.linked_id && hasDuplicate(state.collection.links, link)) { return; }
 
-      const last_in_group = state.collection.links
+      const lastInGroup = state.collection.links
         .filter(v => v.group === link.group)
         .last();
-      const index = state.collection.links.indexOf(last_in_group);
+      const index = state.collection.links.indexOf(lastInGroup);
 
       if (index !== -1) {
         state.collection.links.splice(index + 1, 0, link);
@@ -68,21 +68,21 @@ module.exports = {
       );
     },
 
-    MOVE_LINK(state, { from_index, to_index, group_index }) {
-      const { group } = state.collection.links[group_index];
-      const from_element = state.collection.links.splice(from_index, 1)[0];
+    MOVE_LINK(state, { fromIndex, toIndex, groupIndex }) {
+      const { group } = state.collection.links[groupIndex];
+      const fromElement = state.collection.links.splice(fromIndex, 1)[0];
 
-      if (from_element.group !== group) { from_element.group = group; }
+      if (fromElement.group !== group) { fromElement.group = group; }
 
-      if (!has_duplicate(state.collection.links, from_element)) {
-        state.collection.links.splice(to_index, 0, from_element);
+      if (!hasDuplicate(state.collection.links, fromElement)) {
+        state.collection.links.splice(toIndex, 0, fromElement);
       }
     },
 
-    RENAME_GROUP(state, { from_name, to_name }) {
+    RENAME_GROUP(state, { fromName, toName }) {
       state.collection.links.forEach(link => {
-        if (link.group === from_name) {
-          link.group = to_name;
+        if (link.group === fromName) {
+          link.group = toName;
         }
       });
     },
