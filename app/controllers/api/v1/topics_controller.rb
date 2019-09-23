@@ -93,7 +93,8 @@ class Api::V1::TopicsController < Api::V1Controller
   api :GET, '/topics/:id', 'Show a topic'
   def show
     @topic = Topics::TopicViewFactory.new(false, false).find params[:id]
-    respond_with @topic, serializer: TopicSerializer
+    respond_with @topic,
+      serializer: TopicSerializer
   end
 
   api :POST, '/topics', 'Create a topic'

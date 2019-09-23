@@ -26,6 +26,11 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   TRUNCATE_OMNISSION = '…'
   CACHE_VERSION = :v24
 
+  # to fix work of TopicSerializer
+  def self.model_name
+    ActiveModel::Name.new(Topic)
+  end
+
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
   end
