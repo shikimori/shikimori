@@ -11,6 +11,6 @@ shared_examples_for :successful_resource_change do |type|
         raise ArgumentError, "unknown type #{type} (allowed :api or :frontend)"
     end
 
-    expect(response.content_type).to eq 'application/json'
+    expect(response.content_type).to eq 'application/json; charset=utf-8'
   end
 end

@@ -33,7 +33,7 @@ describe Api::V1::UserImagesController do
           expect(user.user_images).to have(1).item
 
           expect(response).to have_http_status :success
-          expect(response.content_type).to eq 'application/json'
+          expect(response.content_type).to eq 'application/json; charset=utf-8'
         end
       end
 

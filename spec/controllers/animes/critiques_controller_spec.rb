@@ -177,7 +177,7 @@ describe Animes::CritiquesController do
     end
 
     it do
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(assigns :critique).to be_destroyed
       expect(response).to have_http_status :success
     end

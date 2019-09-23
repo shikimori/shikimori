@@ -111,7 +111,7 @@ describe CharactersController do
 
     it do
       expect(collection).to eq [character]
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -129,7 +129,7 @@ describe CharactersController do
 
     it do
       expect(collection).to eq [entry]
-      expect(response.content_type).to eq 'text/html'
+      expect(response.content_type).to eq 'text/html; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end

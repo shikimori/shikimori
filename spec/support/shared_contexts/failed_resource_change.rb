@@ -6,7 +6,7 @@ shared_examples_for :failed_resource_change do
     expect(json).to include :errors
     expect(json[:errors]).to be_kind_of Array
 
-    expect(response.content_type).to eq 'application/json'
+    expect(response.content_type).to eq 'application/json; charset=utf-8'
     expect(response).to have_http_status 422
   end
 end

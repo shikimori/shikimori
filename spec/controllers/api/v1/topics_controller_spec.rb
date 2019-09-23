@@ -21,7 +21,7 @@ describe Api::V1::TopicsController do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -52,7 +52,7 @@ describe Api::V1::TopicsController do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -71,7 +71,7 @@ describe Api::V1::TopicsController do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -128,7 +128,7 @@ describe Api::V1::TopicsController do
 
       it do
         expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(json[:notice]).to eq 'Топик удалён'
       end
     end

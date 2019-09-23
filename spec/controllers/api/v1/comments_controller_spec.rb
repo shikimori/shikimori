@@ -12,7 +12,7 @@ describe Api::V1::CommentsController do
     it do
       expect(json).to have_key :user
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -36,7 +36,7 @@ describe Api::V1::CommentsController do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -176,7 +176,7 @@ describe Api::V1::CommentsController do
       subject! { make_request }
       it do
         expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(json[:notice]).to eq 'Комментарий удалён'
       end
     end

@@ -19,7 +19,7 @@ describe Api::V1::ClubsController, :show_in_doc do
 
     it do
       expect(collection).to eq [club_1, club_2]
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -43,7 +43,7 @@ describe Api::V1::ClubsController, :show_in_doc do
         expect(resource.errors).to be_empty
         expect(resource).to_not be_changed
         expect(resource).to have_attributes params
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response).to have_http_status :success
       end
     end
@@ -61,7 +61,7 @@ describe Api::V1::ClubsController, :show_in_doc do
 
       it do
         expect(resource.errors).to be_present
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response).to have_http_status 422
       end
     end

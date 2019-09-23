@@ -23,7 +23,7 @@ describe Users::ListExportsController do
             it do
               expect(collection).to eq [user_rate]
               expect(response).to have_http_status :success
-              expect(response.content_type).to eq "application/#{format}"
+              expect(response.content_type).to eq "application/#{format}; charset=utf-8"
             end
           end
         end

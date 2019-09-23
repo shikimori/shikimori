@@ -12,7 +12,7 @@ describe Autocomplete::FansubbersController do
 
     it do
       expect(json).to eq ['aaa']
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end

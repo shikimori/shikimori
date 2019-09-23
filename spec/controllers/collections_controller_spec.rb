@@ -172,7 +172,7 @@ describe CollectionsController do
     it do
       expect(assigns(:collection)).to eq [collection_2, collection_1]
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 end
