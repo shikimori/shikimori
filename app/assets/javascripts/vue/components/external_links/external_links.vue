@@ -10,7 +10,7 @@
     )
       | {{ I18n.t('frontend.external_links.nothing_here') }}
     draggable.block(
-      :options='dragOptions'
+      v-bind='dragOptions'
       v-model='collection'
       v-if='collection.length'
     )

@@ -13,8 +13,8 @@
                 :for="'group_' + groupName"
               ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
               .add.b-js-link(
-                v-if="links.length < maxLinks"
-                @click="addLink({group: groupName})"
+                v-if='links.length < maxLinks'
+                @click='addLink({group: groupName})'
               ) {{ I18n.t('actions.add').toLowerCase() }}
             input(
               :id="'group_' + groupName"
@@ -29,7 +29,7 @@
             )
 
           draggable.collection_links(
-            :options='dragOptions'
+            v-bind='dragOptions'
             @update='onDragUpdate'
             @add='onDragAdd'
           )

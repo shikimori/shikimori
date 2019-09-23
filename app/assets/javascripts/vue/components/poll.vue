@@ -1,39 +1,39 @@
-<template lang="pug">
+<template lang='pug'>
   .block
     input(
-      type="hidden"
-      name="poll[variants_attributes][]"
-      v-if="isEmpty"
+      type='hidden'
+      name='poll[variants_attributes][]'
+      v-if='isEmpty'
     )
     .b-nothing_here(
-      v-if="!collection.length"
+      v-if='!collection.length'
     )
       | {{ I18n.t('frontend.poll_variants.nothing_here') }}
     draggable.block(
-      :options="dragOptions"
-      v-model="collection"
+      v-bind='dragOptions'
+      v-model='collection'
       v-if="collection.length"
     )
       .b-collection_item.single-line(
-        v-for="pollVariant in collection"
+        v-for='pollVariant in collection'
       )
         .delete(
-          @click="remove(pollVariant)"
+          @click='remove(pollVariant)'
         )
         .drag-handle
         .b-input
           input(
-            type="text"
-            name="poll[variants_attributes][][label]"
-            v-model="pollVariant.label"
+            type='text'
+            name='poll[variants_attributes][][label]'
+            v-model='pollVariant.label'
             :placeholder="I18n.t('frontend.poll_variants.label')"
-            @keydown.enter="submit"
-            @keydown.8="removeEmpty(pollVariant)"
-            @keydown.esc="removeEmpty(pollVariant)"
+            @keydown.enter='submit'
+            @keydown.8='removeEmpty(pollVariant)'
+            @keydown.esc='removeEmpty(pollVariant)'
           )
 
     .b-button(
-      @click="add"
+      @click='add'
     ) {{ I18n.t('actions.add') }}
 </template>
 
@@ -96,7 +96,7 @@ export default {
 };
 </script>
 
-<style scoped lang="sass">
+<style scoped lang='sass'>
   .b-nothing_here
     margin-bottom: 15px
 </style>

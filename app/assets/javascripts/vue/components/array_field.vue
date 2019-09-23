@@ -10,7 +10,7 @@
     )
       | {{ I18n.t('frontend.' + field + '.nothing_here') }}
     draggable.block(
-      :options='dragOptions'
+      v-bind='dragOptions'
       v-model='collection'
       v-if='collection.length'
     )
@@ -27,7 +27,7 @@
             v-model='entry.name'
             :name="`${resourceType.toLowerCase()}[${field}][]`"
             :placeholder="I18n.t('frontend.' + field + '.name')"
-            @keydown.enter="submit"
+            @keydown.enter='submit'
             @keydown.8='removeEmpty(entry)'
             @keydown.esc='removeEmpty(entry)'
             :data-autocomplete='autocompleteUrl'
