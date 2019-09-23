@@ -1,11 +1,22 @@
 class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   vattr_initialize :topic, :is_preview, :is_mini
 
-  delegate :id, :persisted?, :user, :created_at,
-    :updated_at, :body, :viewed?, :decomposed_body, to: :topic
+  delegate :id,
+    :persisted?,
+    :user,
+    :body,
+    :viewed?,
+    :decomposed_body,
+    :tags,
+    :created_at,
+    :updated_at,
+    to: :topic
 
-  delegate :comments_count, :summaries_count, to: :topic_comments_policy
-  delegate :any_comments?, :any_summaries?, to: :topic_comments_policy
+  delegate :comments_count,
+    :summaries_count,
+    :any_comments?,
+    :any_summaries?,
+    to: :topic_comments_policy
 
   instance_cache :html_body, :html_body_truncated, :cleaned_preview_body,
     :comments_view, :urls, :action_tag, :topic_ignore,
