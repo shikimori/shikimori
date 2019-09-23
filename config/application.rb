@@ -11,6 +11,7 @@ require_relative '../lib/string'
 require_relative '../lib/responders/json_responder'
 require_relative '../lib/named_logger'
 require_relative '../lib/log_before_timeout'
+require_relative '../lib/mail_logger_interceptor'
 # require_relative '../config/initializers/log_before_timeout'
 
 unless Rails.env.test?
@@ -88,6 +89,7 @@ module Shikimori
     def redis
       Rails.application.config.redis
     end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 

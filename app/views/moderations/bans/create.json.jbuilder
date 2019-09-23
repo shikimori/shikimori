@@ -11,7 +11,7 @@ if @resource.comment
       partial: 'comments/comment',
       layout: false,
       object: @resource.comment.decorate,
-      formats: :html
+      formats: %i[html]
     )
   )
 elsif @resource.topic
@@ -21,7 +21,7 @@ elsif @resource.topic
       locals: {
         topic_view: Topics::TopicViewFactory.new(false, false).build(@resource.topic)
       },
-      formats: :html
+      formats: %i[html]
     )
   )
 end
