@@ -4,7 +4,8 @@ class Animes::OngoingsQuery
   def fetch limit
     Anime
       .where(status: :ongoing, kind: :tv)
-      .where.not(rating: :g, id: Anime::EXCLUDED_ONGOINGS)
+      .where.not(rating: :g)
+      .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where('score < 9.9')
       .where(adult_condition)
       .order(

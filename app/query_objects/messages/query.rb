@@ -44,7 +44,9 @@ class Messages::Query < QueryObjectBase
 
     if IGNORE_SUPPORTED_INBOX_TYPES.include? inbox_type
       ignores_ids = user.ignores.map(&:target_id)
-      scope = scope.where.not(from_id: ignores_ids, to_id: ignores_ids)
+      scope = scope
+        .where.not(from_id: ignores_ids)
+        .where.not(to_id: ignores_ids)
     end
 
     new scope
