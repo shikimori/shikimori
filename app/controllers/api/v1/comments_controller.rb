@@ -6,7 +6,7 @@ class Api::V1::CommentsController < Api::V1Controller # rubocop:disable ClassLen
   LIMIT = 30
 
   before_action only: %i[create update destroy] do
-    doorkeeper_authorize! :topics if doorkeeper_token.present?
+    doorkeeper_authorize! :comments if doorkeeper_token.present?
   end
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
