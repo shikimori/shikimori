@@ -95,6 +95,10 @@ header.head
         name='oauth_application_id'
         value=params[:oauth_application_id]
       ]
+      - @oauth_application.scopes.each do |scope|
+        - if params[:scopes]&.include?(scope)
+          input type='hidden' value=scope name='scopes[]'
+
       .b-input.m10
         label for='authorization_code' Authorization Code
         input#authorization_code[
@@ -140,6 +144,9 @@ header.head
         name='oauth_application_id'
         value=params[:oauth_application_id]
       ]
+      - @oauth_application.scopes.each do |scope|
+        - if params[:scopes]&.include?(scope)
+          input type='hidden' value=scope name='scopes[]'
       input#authorization_code[
         type='hidden'
         name='authorization_code'
