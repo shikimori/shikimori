@@ -1,10 +1,26 @@
+# fixes breaking change https://github.com/doorkeeper-gem/doorkeeper/issues/1143
+module DorkeeperRailsRoutesFix
+  def authorization_routes(mapping)
+    routes.resource(
+      :authorization,
+      path: 'authorize',
+      only: %i[create destroy],
+      as: mapping[:as],
+      controller: mapping[:controllers]
+    ) do
+      # routes.get '/native', action: :show, on: :member
+      routes.get '/:code', action: :show, on: :member
+      routes.get '/', action: :new, on: :member
+    end
+  end
+end
+
+Doorkeeper::Rails::Routes.send :prepend, DorkeeperRailsRoutesFix
+
 Doorkeeper.configure do
   # Change the ORM that doorkeeper will use (needs plugins)
   orm :active_record
   Devise::Doorkeeper.configure_doorkeeper(self)
-
-  # https://github.com/doorkeeper-gem/doorkeeper/issues/1143
-  opt_out_native_route_change
 
   # This block will be called to check whether the resource owner is authenticated or not.
   # resource_owner_authenticator do

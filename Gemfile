@@ -48,7 +48,8 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-vkontakte'
 gem 'omniauth-rails_csrf_protection' # provides a mitigation against CVE-2015-9284
-gem 'doorkeeper', '4.4.3' # https://github.com/doorkeeper-gem/doorkeeper/issues/1013
+# gem 'doorkeeper', '4.4.3' # https://github.com/doorkeeper-gem/doorkeeper/issues/1013
+gem 'doorkeeper', '5.0.2'
 gem 'devise-doorkeeper'
 gem 'recaptcha'
 
