@@ -52,7 +52,7 @@ feature 'Authentication', type: :request do
         scenario 'returns token' do
           expect(json['error']).to eq 'unsupported_grant_type'
           expect(Doorkeeper::AccessToken.count).to eq 0
-          expect(response).to have_http_status 401
+          expect(response).to have_http_status 400
         end
       end
     end
@@ -72,7 +72,7 @@ feature 'Authentication', type: :request do
           expect(Doorkeeper::AccessToken.count).to eq 1
           expect(Doorkeeper::AccessToken.first.application_id).to eq oauth_application.id
 
-          expect(json['access_token'].size).to eq 64
+          expect(json['access_token'].size).to eq 43
           expect(json['refresh_token']).to eq nil
           expect(json['token_type']).to eq 'Bearer'
           expect(json['expires_in']).to eq 1.day
@@ -97,7 +97,7 @@ feature 'Authentication', type: :request do
           expect(Doorkeeper::AccessToken.count).to eq 1
           expect(Doorkeeper::AccessToken.first.application_id).to eq oauth_application.id
 
-          expect(json['access_token'].size).to eq 64
+          expect(json['access_token'].size).to eq 43
           expect(json['refresh_token']).to eq nil
           expect(json['token_type']).to eq 'Bearer'
           expect(json['expires_in']).to eq 1.day
@@ -132,8 +132,8 @@ feature 'Authentication', type: :request do
         expect(Doorkeeper::AccessToken.count).to eq 2
         expect(Doorkeeper::AccessToken.second.application_id).to eq oauth_application.id
 
-        expect(json['access_token'].size).to eq 64
-        expect(json['refresh_token'].size).to eq 64
+        expect(json['access_token'].size).to eq 43
+        expect(json['refresh_token'].size).to eq 43
         expect(json['refresh_token'].size).to_not eq refresh_token
         expect(json['token_type']).to eq 'Bearer'
         expect(json['expires_in']).to eq 1.day
