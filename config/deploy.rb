@@ -170,11 +170,24 @@ namespace :sidekiq do
   desc "Copy files to public folder so nginx could serve them as static files"
   task :copy_assets do
     on roles(:web), in: :sequence, wait: 5 do
-      sidekiq_path = capture(
+      bundled_gem_path = capture(
         "cd #{release_path} && #{fetch :rbenv_prefix} bundle show sidekiq"
       )
-      sidekiq_asset_path = sidekiq_path.split("\n")[0] + "/web/assets/."
-      execute "cp -R #{sidekiq_asset_path} #{release_path}/public/sidekiq"
+      bundled_assets_path = bundled_gem_path.split("\n")[0] + "/web/assets/."
+      execute "cp -R #{bundled_assets_path} #{release_path}/public/sidekiq"
+    end
+  end
+end
+
+namespace :apipie do
+  desc "Copy files to public folder so nginx could serve them as static files"
+  task :copy_assets do
+    on roles(:web), in: :sequence, wait: 5 do
+      bundled_gem_path = capture(
+        "cd #{release_path} && #{fetch :rbenv_prefix} bundle show apipie-rails"
+      )
+      bundled_assets_path = bundled_gem_path.split("\n")[0] + "/app/public/apipie/javascripts"
+      execute "cp -R #{bundled_assets_path} #{release_path}/public/api/doc"
     end
   end
 end
@@ -203,6 +216,7 @@ namespace :clockwork do
 end
 
 before 'deploy:published', 'sidekiq:copy_assets'
+before 'deploy:published', 'apipie:copy_assets'
 
 after 'deploy:starting', 'deploy:file:lock'
 after 'deploy:published', 'deploy:file:unlock'
