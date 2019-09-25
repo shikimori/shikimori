@@ -1,6 +1,9 @@
 class SmotretAnime::EpisodeWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :anime365_parsers
+  sidekiq_options(
+    queue: :anime365_parsers,
+    retry: false
+  )
 
   EPISODES_API_URL = 'https://smotretanime.ru/api/series/%<smotret_anime_id>i?fields=id,episodes'
   TRUST_INTERVAL = 3.hours
