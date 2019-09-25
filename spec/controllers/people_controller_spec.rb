@@ -39,7 +39,7 @@ describe PeopleController do
   end
 
   describe '#favoured' do
-    let!(:favoured) { create :favourite, linked: person }
+    let!(:favoured) { create :favourite, linked: person, kind: :person }
     subject! { get :favoured, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end

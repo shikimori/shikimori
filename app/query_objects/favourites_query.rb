@@ -24,7 +24,6 @@ class FavouritesQuery
       .limit(limit)
   end
 
-  # rubocop:disable AbcSize
   def global_top klass, limit, user
     global_top_favored_ids = FavouritesQuery.new.top_favourite_ids(klass, limit)
     ai_genre_ids = AniMangaQuery::GENRES_EXCLUDED_BY_SEX[user.try(:sex) || '']
@@ -35,7 +34,6 @@ class FavouritesQuery
       .where.not("genre_ids && '{#{ai_genre_ids.join ','}}'")
       .sort_by { |v| global_top_favored_ids.index v.id }
   end
-  # rubocop:enable AbcSize
 
 private
 

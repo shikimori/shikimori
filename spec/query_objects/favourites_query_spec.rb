@@ -1,9 +1,15 @@
 describe FavouritesQuery do
   let!(:person) { create :person, name: 'test', mangaka: true }
 
-  let!(:user_1) { create :user, favourite_persons: [create(:favourite, linked: person)] }
-  let!(:user_2) { create :user, favourite_persons: [create(:favourite, linked: person)] }
-  let!(:user_3) { create :user, favourite_persons: [create(:favourite, linked: person)] }
+  let!(:user_1) do
+    create :user, favourite_persons: [create(:favourite, linked: person, kind: :person)]
+  end
+  let!(:user_2) do
+    create :user, favourite_persons: [create(:favourite, linked: person, kind: :person)]
+  end
+  let!(:user_3) do
+    create :user, favourite_persons: [create(:favourite, linked: person, kind: :person)]
+  end
   let!(:user_4) { create :user, sex: 'male' }
 
   let(:query) { FavouritesQuery.new }
@@ -21,9 +27,15 @@ describe FavouritesQuery do
     let!(:person_2) { create :person, name: 'test', mangaka: true }
     let!(:person_3) { create :person, name: 'test', mangaka: true }
 
-    let!(:user_5) { create :user, favourite_persons: [create(:favourite, linked: person_2)] }
-    let!(:user_6) { create :user, favourite_persons: [create(:favourite, linked: person_2)] }
-    let!(:user_7) { create :user, favourite_persons: [create(:favourite, linked: person_3)] }
+    let!(:user_5) do
+      create :user, favourite_persons: [create(:favourite, linked: person_2, kind: :person)]
+    end
+    let!(:user_6) do
+      create :user, favourite_persons: [create(:favourite, linked: person_2, kind: :person)]
+    end
+    let!(:user_7) do
+      create :user, favourite_persons: [create(:favourite, linked: person_3, kind: :person)]
+    end
 
     it { expect(query.top_favourite_ids Person, 2).to eq [person.id, person_2.id] }
   end
@@ -33,9 +45,15 @@ describe FavouritesQuery do
     let!(:anime_2) { create :anime }
     let!(:anime_3) { create :anime }
 
-    let!(:user_1) { create :user, favourite_persons: [create(:favourite, linked: anime_2)] }
-    let!(:user_2) { create :user, favourite_persons: [create(:favourite, linked: anime_2)] }
-    let!(:user_3) { create :user, favourite_persons: [create(:favourite, linked: anime_1)] }
+    let!(:user_1) do
+      create :user, favourite_persons: [create(:favourite, linked: anime_2, kind: :person)]
+    end
+    let!(:user_2) do
+      create :user, favourite_persons: [create(:favourite, linked: anime_2, kind: :person)]
+    end
+    let!(:user_3) do
+      create :user, favourite_persons: [create(:favourite, linked: anime_1, kind: :person)]
+    end
 
     context 'without user' do
       it { expect(query.global_top Anime, 100, nil).to eq [anime_2, anime_1] }
