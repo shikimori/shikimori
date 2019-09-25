@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_20_212244) do
+ActiveRecord::Schema.define(version: 2019_09_25_144359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -507,12 +507,12 @@ ActiveRecord::Schema.define(version: 2019_09_20_212244) do
   end
 
   create_table "favourites", id: :serial, force: :cascade do |t|
-    t.integer "linked_id"
-    t.string "linked_type", limit: 255
-    t.integer "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "kind", limit: 255, null: false
+    t.integer "linked_id", null: false
+    t.string "linked_type", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "kind"
     t.index ["linked_id", "linked_type", "kind", "user_id"], name: "uniq_favourites", unique: true
     t.index ["linked_type", "linked_id"], name: "i_linked"
     t.index ["user_id"], name: "index_favourites_on_user_id"
@@ -691,8 +691,8 @@ ActiveRecord::Schema.define(version: 2019_09_20_212244) do
     t.datetime "image_updated_at"
     t.text "description_ru", null: false
     t.text "description_en", null: false
-    t.boolean "confidential", default: true, null: false
     t.string "allowed_scopes", default: [], null: false, array: true
+    t.boolean "confidential", default: true, null: false
     t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end

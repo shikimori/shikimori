@@ -1,7 +1,7 @@
 module Types
   module Favourite
     KINDS = %i[
-      seui
+      seyu
       mangaka
       producer
       person
