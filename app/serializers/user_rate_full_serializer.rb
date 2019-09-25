@@ -1,10 +1,9 @@
 # TODO:
 # change status (it is digit now) and status_name to status (string)
 # rename UserRateFullSerializer to UserRateSerializer
-# get rid of Api::V2::UserRatesController
 class UserRateFullSerializer < ActiveModel::Serializer
   attributes :id, :score, :status, :text,
-    :episodes, :chapters, :volumes, :text_html, :rewatches
+    :episodes, :chapters, :volumes, :text_html, :rewatches, :created_at, :updated_at
 
   has_one :user
   has_one :anime
@@ -23,10 +22,10 @@ class UserRateFullSerializer < ActiveModel::Serializer
   end
 
   def anime
-    object.target.kind_of?(Anime) ? object.target : nil
+    object.target if object.target.is_a? Anime
   end
 
   def manga
-    object.target.kind_of?(Manga) ? object.target : nil
+    object.target if object.target.is_a? Manga
   end
 end
