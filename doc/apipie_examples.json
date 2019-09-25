@@ -40,7 +40,7 @@
   "User Ignore#create": [
     {
       "verb": "POST",
-      "path": "/api/v2/users/23456828/ignore",
+      "path": "/api/v2/users/23456827/ignore",
       "versions": [
         "2.0"
       ],
@@ -48,7 +48,7 @@
       "request_data": {
       },
       "response_data": {
-        "user_id": "23456828",
+        "user_id": "23456827",
         "is_ignored": true
       },
       "code": "200",
@@ -59,7 +59,7 @@
   "User Ignore#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/v2/users/23456829/ignore",
+      "path": "/api/v2/users/23456828/ignore",
       "versions": [
         "2.0"
       ],
@@ -67,7 +67,7 @@
       "request_data": {
       },
       "response_data": {
-        "user_id": "23456829",
+        "user_id": "23456828",
         "is_ignored": false
       },
       "code": "200",
@@ -260,8 +260,8 @@
           "source": "shikimori",
           "entry_id": 12,
           "entry_type": "Anime",
-          "created_at": "2019-06-15T19:10:15.346+03:00",
-          "updated_at": "2019-06-15T19:10:15.346+03:00",
+          "created_at": "2019-09-25T16:21:02.619+03:00",
+          "updated_at": "2019-09-25T16:21:02.619+03:00",
           "imported_at": null
         },
         {
@@ -305,7 +305,7 @@
         "nodes": [
           {
             "id": 11,
-            "date": 1560615015,
+            "date": 1569417662,
             "name": "anime_10",
             "image_url": "/assets/globals/missing_x96.jpg",
             "url": "/animes/11-anime-10",
@@ -315,7 +315,7 @@
           },
           {
             "id": 10,
-            "date": 1560615015,
+            "date": 1569417662,
             "name": "anime_9",
             "image_url": "/assets/globals/missing_x96.jpg",
             "url": "/animes/10-anime-9",
@@ -353,6 +353,7 @@
           },
           "url": "/animes/1-test",
           "kind": "tv",
+          "score": "8.0",
           "status": "released",
           "episodes": 0,
           "episodes_aired": 0,
@@ -390,6 +391,7 @@
             },
             "url": "/animes/7-anime-6",
             "kind": "tv",
+            "score": "1.0",
             "status": "released",
             "episodes": 0,
             "episodes_aired": 0,
@@ -473,8 +475,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/058dca0e1246a75958bf0f590b70dc61bffc2017.jpg?1560615015",
-          "preview": "/system/screenshots/x332/058dca0e1246a75958bf0f590b70dc61bffc2017.jpg?1560615015"
+          "original": "/system/screenshots/original/b1eea04319a85db2dcabe8cadd652078b38a0018.jpg?1569417662",
+          "preview": "/system/screenshots/x332/b1eea04319a85db2dcabe8cadd652078b38a0018.jpg?1569417662"
         }
       ],
       "code": "200",
@@ -504,6 +506,7 @@
           },
           "url": "/animes/13-asdf",
           "kind": "tv",
+          "score": "1.0",
           "status": "released",
           "episodes": 0,
           "episodes_aired": 0,
@@ -537,6 +540,7 @@
         },
         "url": "/animes/2-anime-1",
         "kind": "tv",
+        "score": "1.0",
         "status": "released",
         "episodes": 0,
         "episodes_aired": 0,
@@ -554,7 +558,6 @@
         ],
         "license_name_ru": null,
         "duration": 0,
-        "score": "1.0",
         "description": null,
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
         "description_source": null,
@@ -571,7 +574,7 @@
         "rates_statuses_stats": [
 
         ],
-        "updated_at": "2019-06-15T19:10:14.813+03:00",
+        "updated_at": "2019-09-25T16:21:02.129+03:00",
         "next_episode_at": null,
         "genres": [
 
@@ -614,6 +617,7 @@
           },
           "url": "/animes/4-anime-3",
           "kind": "tv",
+          "score": "1.0",
           "status": "released",
           "episodes": 0,
           "episodes_aired": 0,
@@ -642,10 +646,10 @@
           "body": "topic_text_1",
           "html_body": "topic_text_1",
           "html_footer": "",
-          "created_at": "2019-06-15T19:10:15.381+03:00",
+          "created_at": "2019-09-25T16:21:02.668+03:00",
           "comments_count": 0,
           "forum": {
-            "id": 5424,
+            "id": 36773,
             "position": 0,
             "name": "форум_1",
             "permalink": "offtopic",
@@ -664,7 +668,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           },
           "type": "Topic",
           "linked_id": 15,
@@ -681,6 +685,7 @@
             },
             "url": "/animes/15-anime-12",
             "kind": "tv",
+            "score": "1.0",
             "status": "released",
             "episodes": 0,
             "episodes_aired": 0,
@@ -771,7 +776,7 @@
           "comment": null,
           "moderator_id": 23456789,
           "reason": "moderator comment",
-          "created_at": "2019-06-15T19:10:15.505+03:00",
+          "created_at": "2019-09-25T16:21:02.814+03:00",
           "duration_minutes": 180,
           "user": {
             "id": 23456789,
@@ -786,7 +791,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           },
           "moderator": {
             "id": 23456789,
@@ -801,7 +806,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           }
         },
         {
@@ -813,14 +818,14 @@
             "commentable_type": "Topic",
             "body": "comment_body_3\n\n[ban=1]",
             "user_id": 23456789,
-            "created_at": "2019-06-15T19:10:15.505+03:00",
-            "updated_at": "2019-06-15T19:10:15.505+03:00",
+            "created_at": "2019-09-25T16:21:02.814+03:00",
+            "updated_at": "2019-09-25T16:21:02.814+03:00",
             "is_summary": false,
             "is_offtopic": false
           },
           "moderator_id": 23456789,
           "reason": "moderator comment",
-          "created_at": "2019-06-15T19:10:15.505+03:00",
+          "created_at": "2019-09-25T16:21:02.814+03:00",
           "duration_minutes": 180,
           "user": {
             "id": 23456789,
@@ -835,7 +840,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           },
           "moderator": {
             "id": 23456789,
@@ -850,7 +855,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           }
         }
       ],
@@ -885,6 +890,7 @@
             },
             "url": "/animes/23-anime-20",
             "kind": "tv",
+            "score": "1.0",
             "status": "anons",
             "episodes": 0,
             "episodes_aired": 0,
@@ -908,6 +914,7 @@
             },
             "url": "/animes/21-anime-18",
             "kind": "tv",
+            "score": "1.0",
             "status": "anons",
             "episodes": 0,
             "episodes_aired": 0,
@@ -931,6 +938,7 @@
             },
             "url": "/animes/22-anime-19",
             "kind": "tv",
+            "score": "1.0",
             "status": "anons",
             "episodes": 0,
             "episodes_aired": 0,
@@ -1000,7 +1008,7 @@
         "favoured": false,
         "thread_id": 270103,
         "topic_id": 270103,
-        "updated_at": "2019-06-15T19:10:15.653+03:00",
+        "updated_at": "2019-09-25T16:21:02.972+03:00",
         "seyu": [
           {
             "id": 2,
@@ -1028,6 +1036,7 @@
             },
             "url": "/animes/24-anime-21",
             "kind": "tv",
+            "score": "1.0",
             "status": "released",
             "episodes": 0,
             "episodes_aired": 0,
@@ -1070,6 +1079,7 @@
           },
           "url": "/animes/27-anime-24",
           "kind": "tv",
+          "score": "1.0",
           "status": "released",
           "episodes": 0,
           "episodes_aired": 0,
@@ -1122,10 +1132,11 @@
       "response_data": [
         {
           "id": 3,
-          "original_url": "/system/images/original/3.jpg?1560615016",
-          "main_url": "/system/images/original/3.jpg?1560615016",
-          "preview_url": "/system/images/preview/3.jpg?1560615016",
-          "can_destroy": null
+          "original_url": "/system/images/original/3.jpg?1569417663",
+          "main_url": "/system/images/original/3.jpg?1569417663",
+          "preview_url": "/system/images/preview/3.jpg?1569417663",
+          "can_destroy": null,
+          "user_id": 1003
         }
       ],
       "code": "200",
@@ -1231,6 +1242,7 @@
           },
           "url": "/mangas/3-manga-3",
           "kind": "manga",
+          "score": "1.0",
           "status": null,
           "volumes": 0,
           "chapters": 0,
@@ -1266,7 +1278,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:16.204+03:00"
+          "last_online_at": "2019-09-25T16:21:03.800+03:00"
         }
       ],
       "code": "200",
@@ -1328,6 +1340,7 @@
             },
             "url": "/mangas/1-manga-1",
             "kind": "manga",
+            "score": "1.0",
             "status": null,
             "volumes": 0,
             "chapters": 0,
@@ -1367,7 +1380,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           }
         ],
         "animes": [
@@ -1383,6 +1396,7 @@
             },
             "url": "/animes/25-anime-22",
             "kind": "tv",
+            "score": "1.0",
             "status": "released",
             "episodes": 0,
             "episodes_aired": 0,
@@ -1393,10 +1407,11 @@
         "images": [
           {
             "id": 1,
-            "original_url": "/system/images/original/1.jpg?1560615015",
-            "main_url": "/system/images/original/1.jpg?1560615015",
-            "preview_url": "/system/images/preview/1.jpg?1560615015",
-            "can_destroy": false
+            "original_url": "/system/images/original/1.jpg?1569417663",
+            "main_url": "/system/images/original/1.jpg?1569417663",
+            "preview_url": "/system/images/preview/1.jpg?1569417663",
+            "can_destroy": false,
+            "user_id": 1001
           }
         ]
       },
@@ -1505,8 +1520,8 @@
         "commentable_type": "Topic",
         "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "html_body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "created_at": "2019-06-15T19:10:16.393+03:00",
-        "updated_at": "2019-06-15T19:10:16.393+03:00",
+        "created_at": "2019-09-25T16:21:04.019+03:00",
+        "updated_at": "2019-09-25T16:21:04.019+03:00",
         "is_offtopic": true,
         "is_summary": true,
         "can_be_edited": true,
@@ -1523,7 +1538,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:16.393+03:00"
+          "last_online_at": "2019-09-25T16:21:04.019+03:00"
         }
       },
       "code": "201",
@@ -1566,8 +1581,8 @@
           "commentable_type": "User",
           "body": "comment_body_6",
           "html_body": "comment_body_6",
-          "created_at": "2019-06-15T19:10:16.366+03:00",
-          "updated_at": "2019-06-15T19:10:16.366+03:00",
+          "created_at": "2019-09-25T16:21:03.984+03:00",
+          "updated_at": "2019-09-25T16:21:03.984+03:00",
           "is_offtopic": false,
           "is_summary": false,
           "can_be_edited": false,
@@ -1584,7 +1599,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           }
         },
         {
@@ -1594,8 +1609,8 @@
           "commentable_type": "User",
           "body": "comment_body_5",
           "html_body": "comment_body_5",
-          "created_at": "2019-06-15T19:10:16.366+03:00",
-          "updated_at": "2019-06-15T19:10:16.366+03:00",
+          "created_at": "2019-09-25T16:21:03.984+03:00",
+          "updated_at": "2019-09-25T16:21:03.984+03:00",
           "is_offtopic": false,
           "is_summary": false,
           "can_be_edited": false,
@@ -1612,7 +1627,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           }
         }
       ],
@@ -1637,8 +1652,8 @@
         "commentable_type": "Topic",
         "body": "comment_body_4",
         "html_body": "comment_body_4",
-        "created_at": "2019-06-15T19:10:16.339+03:00",
-        "updated_at": "2019-06-15T19:10:16.339+03:00",
+        "created_at": "2019-09-25T16:21:03.949+03:00",
+        "updated_at": "2019-09-25T16:21:03.949+03:00",
         "is_offtopic": false,
         "is_summary": false,
         "can_be_edited": false,
@@ -1655,7 +1670,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:16.339+03:00"
+          "last_online_at": "2019-09-25T16:21:03.949+03:00"
         }
       },
       "code": "200",
@@ -1684,8 +1699,8 @@
         "commentable_type": "Topic",
         "body": "blablabla",
         "html_body": "blablabla",
-        "created_at": "2019-06-15T19:10:16.487+03:00",
-        "updated_at": "2019-06-15T19:10:16.487+03:00",
+        "created_at": "2019-09-25T16:21:04.065+03:00",
+        "updated_at": "2019-09-25T16:21:04.065+03:00",
         "is_offtopic": false,
         "is_summary": false,
         "can_be_edited": true,
@@ -1702,7 +1717,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:16.487+03:00"
+          "last_online_at": "2019-09-25T16:21:04.065+03:00"
         }
       },
       "code": "200",
@@ -1756,7 +1771,8 @@
         ],
         "comment_policy": [
           "free",
-          "members"
+          "members",
+          "admins"
         ],
         "image_upload_policy": [
           "members",
@@ -2418,8 +2434,8 @@
         "user_id": 23456789,
         "token": "test",
         "platform": "ios",
-        "created_at": "2019-06-15T19:10:16.589+03:00",
-        "updated_at": "2019-06-15T19:10:16.589+03:00",
+        "created_at": "2019-09-25T16:21:04.174+03:00",
+        "updated_at": "2019-09-25T16:21:04.174+03:00",
         "name": "test"
       },
       "code": "201",
@@ -2458,8 +2474,8 @@
           "user_id": 23456789,
           "token": "11111111111111111111111111111111111111",
           "platform": "ios",
-          "created_at": "2019-06-15T19:10:16.551+03:00",
-          "updated_at": "2019-06-15T19:10:16.551+03:00",
+          "created_at": "2019-09-25T16:21:04.134+03:00",
+          "updated_at": "2019-09-25T16:21:04.134+03:00",
           "name": "Nexus One"
         }
       ],
@@ -2486,8 +2502,8 @@
         "user_id": 23456789,
         "token": "test zxc",
         "platform": "ios",
-        "created_at": "2019-06-15T19:10:16.598+03:00",
-        "updated_at": "2019-06-15T19:10:16.598+03:00",
+        "created_at": "2019-09-25T16:21:04.183+03:00",
+        "updated_at": "2019-09-25T16:21:04.183+03:00",
         "name": "Nexus One"
       },
       "code": "200",
@@ -2553,7 +2569,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:16.618+03:00"
+            "last_online_at": "2019-09-25T16:21:04.204+03:00"
           },
           "message": {
             "id": 3,
@@ -2561,7 +2577,7 @@
             "read": false,
             "body": "test",
             "html_body": "test",
-            "created_at": "2019-06-15T19:10:16.618+03:00",
+            "created_at": "2019-09-25T16:21:04.204+03:00",
             "linked_id": 0,
             "linked_type": null,
             "linked": null
@@ -2589,7 +2605,7 @@
           "read": false,
           "body": "test",
           "html_body": "test",
-          "created_at": "2019-06-15T19:10:16.655+03:00",
+          "created_at": "2019-09-25T16:21:04.251+03:00",
           "linked_id": 0,
           "linked_type": null,
           "linked": null,
@@ -2606,7 +2622,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:16.655+03:00"
+            "last_online_at": "2019-09-25T16:21:04.251+03:00"
           },
           "to": {
             "id": 23456789,
@@ -2621,7 +2637,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           }
         },
         {
@@ -2630,7 +2646,7 @@
           "read": false,
           "body": "test",
           "html_body": "test",
-          "created_at": "2019-06-15T19:10:16.655+03:00",
+          "created_at": "2019-09-25T16:21:04.251+03:00",
           "linked_id": 0,
           "linked_type": null,
           "linked": null,
@@ -2647,7 +2663,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           },
           "to": {
             "id": 23456799,
@@ -2662,7 +2678,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:16.655+03:00"
+            "last_online_at": "2019-09-25T16:21:04.251+03:00"
           }
         }
       ],
@@ -2681,8 +2697,8 @@
       "query": null,
       "request_data": {
         "episode_notification": {
-          "aired_at": "2019-06-08T19:10:18+03:00",
-          "anime_id": "49",
+          "aired_at": "2019-09-18T16:21:06+03:00",
+          "anime_id": "45",
           "episode": "3",
           "is_anime365": "true",
           "is_fandub": "true",
@@ -2693,7 +2709,7 @@
       },
       "response_data": {
         "id": 1,
-        "anime_id": 49,
+        "anime_id": 45,
         "episode": 3,
         "is_raw": false,
         "is_subtitles": false,
@@ -2716,6 +2732,13 @@
       "query": "",
       "request_data": null,
       "response_data": [
+        {
+          "id": 36773,
+          "position": 0,
+          "name": "форум_1",
+          "permalink": "offtopic",
+          "url": "/forum/offtopic"
+        },
         {
           "id": 12,
           "position": 0,
@@ -2759,11 +2782,11 @@
           "url": "/forum/collections"
         },
         {
-          "id": 5424,
+          "id": 20,
           "position": 0,
-          "name": "форум_1",
-          "permalink": "offtopic",
-          "url": "/forum/offtopic"
+          "name": "Новости",
+          "permalink": "news",
+          "url": "/forum/news"
         }
       ],
       "code": "200",
@@ -2882,8 +2905,8 @@
           "source": "shikimori",
           "entry_id": 14,
           "entry_type": "Manga",
-          "created_at": "2019-06-15T19:10:16.980+03:00",
-          "updated_at": "2019-06-15T19:10:16.980+03:00",
+          "created_at": "2019-09-25T16:21:04.676+03:00",
+          "updated_at": "2019-09-25T16:21:04.676+03:00",
           "imported_at": null
         },
         {
@@ -2919,7 +2942,7 @@
         "nodes": [
           {
             "id": 12,
-            "date": 1560615016,
+            "date": 1569417664,
             "name": "манга_11",
             "image_url": "/assets/globals/missing_x96.jpg",
             "url": "/mangas/12-manga-10",
@@ -2957,6 +2980,7 @@
           },
           "url": "/mangas/5-test",
           "kind": "manga",
+          "score": "1.0",
           "status": null,
           "volumes": 0,
           "chapters": 0,
@@ -2995,6 +3019,7 @@
             },
             "url": "/mangas/11-manga-9",
             "kind": "manga",
+            "score": "1.0",
             "status": null,
             "volumes": 0,
             "chapters": 0,
@@ -3088,6 +3113,7 @@
           },
           "url": "/mangas/15-asdf",
           "kind": "manga",
+          "score": "1.0",
           "status": null,
           "volumes": 0,
           "chapters": 0,
@@ -3121,6 +3147,7 @@
         },
         "url": "/mangas/6-manga-4",
         "kind": "manga",
+        "score": "1.0",
         "status": null,
         "volumes": 0,
         "chapters": 0,
@@ -3136,7 +3163,6 @@
 
         ],
         "license_name_ru": null,
-        "score": "1.0",
         "description": null,
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
         "description_source": null,
@@ -3188,6 +3214,7 @@
           },
           "url": "/mangas/8-manga-6",
           "kind": "manga",
+          "score": "1.0",
           "status": null,
           "volumes": 0,
           "chapters": 0,
@@ -3216,10 +3243,10 @@
           "body": "topic_text_7",
           "html_body": "topic_text_7",
           "html_footer": "",
-          "created_at": "2019-06-15T19:10:16.998+03:00",
+          "created_at": "2019-09-25T16:21:04.697+03:00",
           "comments_count": 0,
           "forum": {
-            "id": 5424,
+            "id": 36773,
             "position": 0,
             "name": "форум_1",
             "permalink": "offtopic",
@@ -3238,7 +3265,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           },
           "type": "Topic",
           "linked_id": 17,
@@ -3255,6 +3282,7 @@
             },
             "url": "/mangas/17-manga-13",
             "kind": "manga",
+            "score": "1.0",
             "status": null,
             "volumes": 0,
             "chapters": 0,
@@ -3295,7 +3323,7 @@
         "read": false,
         "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "html_body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "created_at": "2019-06-15T19:10:17.032+03:00",
+        "created_at": "2019-09-25T16:21:04.735+03:00",
         "linked_id": 0,
         "linked_type": null,
         "linked": null,
@@ -3312,7 +3340,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:17.032+03:00"
+          "last_online_at": "2019-09-25T16:21:04.735+03:00"
         },
         "to": {
           "id": 23456803,
@@ -3327,7 +3355,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:17.032+03:00"
+          "last_online_at": "2019-09-25T16:21:04.735+03:00"
         }
       },
       "code": "201",
@@ -3420,7 +3448,7 @@
         "read": false,
         "body": "test",
         "html_body": "test",
-        "created_at": "2019-06-15T19:10:17.011+03:00",
+        "created_at": "2019-09-25T16:21:04.712+03:00",
         "linked_id": 0,
         "linked_type": null,
         "linked": null,
@@ -3437,7 +3465,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:17.011+03:00"
+          "last_online_at": "2019-09-25T16:21:04.712+03:00"
         },
         "to": {
           "id": 23456789,
@@ -3452,7 +3480,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:14.451+03:00"
+          "last_online_at": "2019-09-25T16:21:01.724+03:00"
         }
       },
       "code": "200",
@@ -3480,7 +3508,7 @@
         "read": false,
         "body": "blablabla",
         "html_body": "blablabla",
-        "created_at": "2019-06-15T19:10:17.086+03:00",
+        "created_at": "2019-09-25T16:21:04.759+03:00",
         "linked_id": 0,
         "linked_type": null,
         "linked": null,
@@ -3497,7 +3525,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:17.086+03:00"
+          "last_online_at": "2019-09-25T16:21:04.759+03:00"
         },
         "to": {
           "id": 23456804,
@@ -3512,7 +3540,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:17.086+03:00"
+          "last_online_at": "2019-09-25T16:21:04.759+03:00"
         }
       },
       "code": "200",
@@ -3569,16 +3597,7 @@
         },
         "url": "/people/4-person-4",
         "japanese": null,
-        "job_title": {
-          "producer": "Режиссёр аниме",
-          "mangaka": "Автор манги",
-          "composer": "Композитор",
-          "vocalist": "Вокалист",
-          "seyu": "Сэйю",
-          "anime_manga_projects_participant": "Участник аниме и манга проектов",
-          "anime_projects_participant": "Участник аниме проектов",
-          "manga_projects_participant": "Участник манга проектов"
-        },
+        "job_title": "",
         "birthday": null,
         "website": null,
         "groupped_roles": [
@@ -3599,7 +3618,7 @@
         "mangaka_favoured": false,
         "seyu": false,
         "seyu_favoured": false,
-        "updated_at": "2019-06-15T19:10:17.179+03:00"
+        "updated_at": "2019-09-25T16:21:04.891+03:00"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -3625,16 +3644,7 @@
         },
         "url": "/people/5-person-5",
         "japanese": null,
-        "job_title": {
-          "producer": "Режиссёр аниме",
-          "mangaka": "Автор манги",
-          "composer": "Композитор",
-          "vocalist": "Вокалист",
-          "seyu": "Сэйю",
-          "anime_manga_projects_participant": "Участник аниме и манга проектов",
-          "anime_projects_participant": "Участник аниме проектов",
-          "manga_projects_participant": "Участник манга проектов"
-        },
+        "job_title": "",
         "birthday": null,
         "website": null,
         "groupped_roles": [
@@ -3655,7 +3665,7 @@
         "mangaka_favoured": false,
         "seyu": true,
         "seyu_favoured": false,
-        "updated_at": "2019-06-15T19:10:17.194+03:00"
+        "updated_at": "2019-09-25T16:21:04.908+03:00"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -3699,8 +3709,8 @@
           "source": "shikimori",
           "entry_id": 27,
           "entry_type": "Manga",
-          "created_at": "2019-06-15T19:10:17.324+03:00",
-          "updated_at": "2019-06-15T19:10:17.324+03:00",
+          "created_at": "2019-09-25T16:21:05.055+03:00",
+          "updated_at": "2019-09-25T16:21:05.055+03:00",
           "imported_at": null
         },
         {
@@ -3736,7 +3746,7 @@
         "nodes": [
           {
             "id": 25,
-            "date": 1560615017,
+            "date": 1569417665,
             "name": "ранобэ_8",
             "image_url": "/assets/globals/missing_x96.jpg",
             "url": "/ranobe/25-ranobe-7",
@@ -3774,6 +3784,7 @@
           },
           "url": "/mangas/18-test",
           "kind": "novel",
+          "score": "1.0",
           "status": null,
           "volumes": 0,
           "chapters": 0,
@@ -3812,6 +3823,7 @@
             },
             "url": "/ranobe/24-ranobe-6",
             "kind": "novel",
+            "score": "1.0",
             "status": null,
             "volumes": 0,
             "chapters": 0,
@@ -3904,6 +3916,7 @@
         },
         "url": "/mangas/19-ranobe-2",
         "kind": "novel",
+        "score": "1.0",
         "status": null,
         "volumes": 0,
         "chapters": 0,
@@ -3919,7 +3932,6 @@
 
         ],
         "license_name_ru": null,
-        "score": "1.0",
         "description": null,
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
         "description_source": null,
@@ -3971,6 +3983,7 @@
           },
           "url": "/mangas/21-manga-14",
           "kind": "manga",
+          "score": "1.0",
           "status": null,
           "volumes": 0,
           "chapters": 0,
@@ -3999,10 +4012,10 @@
           "body": "topic_text_8",
           "html_body": "topic_text_8",
           "html_footer": "",
-          "created_at": "2019-06-15T19:10:17.335+03:00",
+          "created_at": "2019-09-25T16:21:05.066+03:00",
           "comments_count": 0,
           "forum": {
-            "id": 5424,
+            "id": 36773,
             "position": 0,
             "name": "форум_1",
             "permalink": "offtopic",
@@ -4021,7 +4034,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           },
           "type": "Topic",
           "linked_id": 28,
@@ -4038,6 +4051,7 @@
             },
             "url": "/mangas/28-ranobe-10",
             "kind": "novel",
+            "score": "1.0",
             "status": null,
             "volumes": 0,
             "chapters": 0,
@@ -4098,7 +4112,7 @@
       "query": "",
       "request_data": null,
       "response_data": [
-        23456810
+        23456809
       ],
       "code": "200",
       "show_in_doc": 1,
@@ -4150,9 +4164,9 @@
         "owner_type": "User",
         "name": "zzz",
         "css": "xxx",
-        "compiled_css": "@media only screen and (min-width: 1024px) { xxx }",
-        "created_at": "2019-06-15T19:10:17.436+03:00",
-        "updated_at": "2019-06-15T19:10:17.436+03:00"
+        "compiled_css": null,
+        "created_at": "2019-09-25T16:21:05.183+03:00",
+        "updated_at": "2019-09-25T16:21:05.183+03:00"
       },
       "code": "201",
       "show_in_doc": 1,
@@ -4203,9 +4217,9 @@
         "owner_type": "User",
         "name": "",
         "css": "",
-        "compiled_css": "",
-        "created_at": "2019-06-15T19:10:17.411+03:00",
-        "updated_at": "2019-06-15T19:10:17.411+03:00"
+        "compiled_css": null,
+        "created_at": "2019-09-25T16:21:05.149+03:00",
+        "updated_at": "2019-09-25T16:21:05.149+03:00"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -4233,8 +4247,8 @@
         "name": "zzz",
         "css": "xxx",
         "compiled_css": "@media only screen and (min-width: 1024px) { xxx }",
-        "created_at": "2019-06-15T19:10:17.444+03:00",
-        "updated_at": "2019-06-15T19:10:17.444+03:00"
+        "created_at": "2019-09-25T16:21:05.192+03:00",
+        "updated_at": "2019-09-25T16:21:05.192+03:00"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -4331,7 +4345,7 @@
         "body": "text",
         "html_body": "text",
         "html_footer": "",
-        "created_at": "2019-06-15T19:10:17.577+03:00",
+        "created_at": "2019-09-25T16:21:05.359+03:00",
         "comments_count": 0,
         "forum": {
           "id": 1,
@@ -4353,7 +4367,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:14.519+03:00"
+          "last_online_at": "2019-09-25T16:21:01.828+03:00"
         },
         "type": "Topic",
         "linked_id": 32,
@@ -4370,6 +4384,7 @@
           },
           "url": "/animes/32-anime-29",
           "kind": "tv",
+          "score": "1.0",
           "status": "released",
           "episodes": 0,
           "episodes_aired": 0,
@@ -4420,7 +4435,7 @@
           "body": "test [spoiler=спойлер]test[/spoiler] test",
           "html_body": "test <div class=\"b-spoiler unprocessed\"><label>спойлер</label><div class=\"content\"><div class=\"before\"></div><div class=\"inner\">test</div><div class=\"after\"></div></div></div> test",
           "html_footer": "",
-          "created_at": "2019-06-15T19:10:17.495+03:00",
+          "created_at": "2019-09-25T16:21:05.244+03:00",
           "comments_count": 0,
           "forum": {
             "id": 1,
@@ -4442,7 +4457,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           },
           "type": "Topic",
           "linked_id": 29,
@@ -4459,6 +4474,7 @@
             },
             "url": "/animes/29-anime-26",
             "kind": "tv",
+            "score": "1.0",
             "status": "released",
             "episodes": 0,
             "episodes_aired": 0,
@@ -4491,7 +4507,7 @@
         "body": "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
         "html_body": "<div class=\"b-prgrph\">ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>",
         "html_footer": "",
-        "created_at": "2019-06-15T19:10:17.520+03:00",
+        "created_at": "2019-09-25T16:21:05.266+03:00",
         "comments_count": 0,
         "forum": {
           "id": 12,
@@ -4513,7 +4529,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:14.451+03:00"
+          "last_online_at": "2019-09-25T16:21:01.724+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -4532,6 +4548,7 @@
             },
             "url": "/animes/30-anime-27",
             "kind": "tv",
+            "score": "1.0",
             "status": "released",
             "episodes": 0,
             "episodes_aired": 0,
@@ -4551,7 +4568,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:14.451+03:00"
+            "last_online_at": "2019-09-25T16:21:01.724+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -4562,7 +4579,7 @@
           "music": 1,
           "characters": 1,
           "animation": 1,
-          "created_at": "2019-06-15T19:10:17.520+03:00"
+          "created_at": "2019-09-25T16:21:05.266+03:00"
         },
         "viewed": true,
         "last_comment_viewed": null,
@@ -4593,10 +4610,10 @@
         "body": "blablalbla",
         "html_body": "blablalbla",
         "html_footer": "",
-        "created_at": "2019-06-15T19:10:17.598+03:00",
+        "created_at": "2019-09-25T16:21:05.381+03:00",
         "comments_count": 0,
         "forum": {
-          "id": 5424,
+          "id": 36773,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -4615,7 +4632,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:14.519+03:00"
+          "last_online_at": "2019-09-25T16:21:01.828+03:00"
         },
         "type": "Topic",
         "linked_id": null,
@@ -4655,6 +4672,7 @@
             },
             "url": "/animes/31-anime-28",
             "kind": "tv",
+            "score": "1.0",
             "status": "released",
             "episodes": 0,
             "episodes_aired": 0,
@@ -4663,7 +4681,7 @@
           },
           "event": "episode",
           "episode": 5,
-          "created_at": "2019-06-15T19:10:17.565+03:00",
+          "created_at": "2019-09-25T16:21:05.318+03:00",
           "url": "http://test.host/forum/animanga/anime-31-anime-28/270122-topic-11"
         }
       ],
@@ -4758,7 +4776,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:14.451+03:00"
+          "last_online_at": "2019-09-25T16:21:01.724+03:00"
         },
         "anime": {
           "id": 34,
@@ -4772,6 +4790,7 @@
           },
           "url": "/animes/34-anime-31",
           "kind": "tv",
+          "score": "1.0",
           "status": "released",
           "episodes": 0,
           "episodes_aired": 0,
@@ -4798,7 +4817,7 @@
           "rewatches": "5",
           "score": "10",
           "status": "completed",
-          "target_id": "54",
+          "target_id": "50",
           "target_type": "Anime",
           "text": "test",
           "user_id": "23456789",
@@ -4808,7 +4827,7 @@
       "response_data": {
         "id": 18,
         "user_id": 23456789,
-        "target_id": 54,
+        "target_id": 50,
         "target_type": "Anime",
         "score": 10,
         "status": "completed",
@@ -4818,8 +4837,8 @@
         "chapters": 4,
         "text": "test",
         "text_html": "test",
-        "created_at": "2019-06-15T19:10:18.620+03:00",
-        "updated_at": "2019-06-15T19:10:18.620+03:00"
+        "created_at": "2019-09-25T16:21:06.442+03:00",
+        "updated_at": "2019-09-25T16:21:06.442+03:00"
       },
       "code": "201",
       "show_in_doc": 1,
@@ -4839,7 +4858,7 @@
           "rewatches": "5",
           "score": "10",
           "status": "completed",
-          "target_id": "55",
+          "target_id": "51",
           "target_type": "Anime",
           "text": "test",
           "user_id": "23456789",
@@ -4849,7 +4868,7 @@
       "response_data": {
         "id": 19,
         "user_id": 23456789,
-        "target_id": 55,
+        "target_id": 51,
         "target_type": "Anime",
         "score": 10,
         "status": "completed",
@@ -4859,8 +4878,8 @@
         "chapters": 4,
         "text": "test",
         "text_html": "test",
-        "created_at": "2019-06-15T19:10:18.641+03:00",
-        "updated_at": "2019-06-15T19:10:18.641+03:00"
+        "created_at": "2019-09-25T16:21:06.482+03:00",
+        "updated_at": "2019-09-25T16:21:06.482+03:00"
       },
       "code": "201",
       "show_in_doc": 1,
@@ -4930,7 +4949,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:14.451+03:00"
+          "last_online_at": "2019-09-25T16:21:01.724+03:00"
         },
         "anime": {
           "id": 36,
@@ -4944,6 +4963,7 @@
           },
           "url": "/animes/36-anime-33",
           "kind": "tv",
+          "score": "1.0",
           "status": "released",
           "episodes": 0,
           "episodes_aired": 0,
@@ -4968,7 +4988,7 @@
       "response_data": {
         "id": 21,
         "user_id": 23456789,
-        "target_id": 57,
+        "target_id": 53,
         "target_type": "Anime",
         "score": 0,
         "status": "planned",
@@ -4978,8 +4998,8 @@
         "chapters": 0,
         "text": null,
         "text_html": null,
-        "created_at": "2019-06-15T19:10:18.693+03:00",
-        "updated_at": "2019-06-15T19:10:18.693+03:00"
+        "created_at": "2019-09-25T16:21:06.545+03:00",
+        "updated_at": "2019-09-25T16:21:06.545+03:00"
       },
       "code": "201",
       "show_in_doc": 1,
@@ -4999,7 +5019,7 @@
         {
           "id": 15,
           "user_id": 23456789,
-          "target_id": 51,
+          "target_id": 47,
           "target_type": "Anime",
           "score": 0,
           "status": "completed",
@@ -5009,13 +5029,13 @@
           "chapters": 0,
           "text": null,
           "text_html": null,
-          "created_at": "2019-06-15T19:10:18.584+03:00",
-          "updated_at": "2019-06-15T19:10:18.584+03:00"
+          "created_at": "2019-09-25T16:21:06.353+03:00",
+          "updated_at": "2019-09-25T16:21:06.353+03:00"
         },
         {
           "id": 16,
           "user_id": 23456789,
-          "target_id": 52,
+          "target_id": 48,
           "target_type": "Anime",
           "score": 0,
           "status": "planned",
@@ -5025,8 +5045,8 @@
           "chapters": 0,
           "text": null,
           "text_html": null,
-          "created_at": "2019-06-15T19:10:18.584+03:00",
-          "updated_at": "2019-06-15T19:10:18.584+03:00"
+          "created_at": "2019-09-25T16:21:06.353+03:00",
+          "updated_at": "2019-09-25T16:21:06.353+03:00"
         }
       ],
       "code": "200",
@@ -5074,8 +5094,8 @@
         "chapters": 0,
         "text": null,
         "text_html": null,
-        "created_at": "2019-06-15T19:10:17.729+03:00",
-        "updated_at": "2019-06-15T19:10:17.729+03:00"
+        "created_at": "2019-09-25T16:21:05.518+03:00",
+        "updated_at": "2019-09-25T16:21:05.518+03:00"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -5092,7 +5112,7 @@
       "response_data": {
         "id": 14,
         "user_id": 23456789,
-        "target_id": 50,
+        "target_id": 46,
         "target_type": "Anime",
         "score": 0,
         "status": "planned",
@@ -5102,8 +5122,8 @@
         "chapters": 0,
         "text": null,
         "text_html": null,
-        "created_at": "2019-06-15T19:10:18.568+03:00",
-        "updated_at": "2019-06-15T19:10:18.568+03:00"
+        "created_at": "2019-09-25T16:21:06.337+03:00",
+        "updated_at": "2019-09-25T16:21:06.337+03:00"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -5152,7 +5172,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:14.451+03:00"
+          "last_online_at": "2019-09-25T16:21:01.724+03:00"
         },
         "anime": {
           "id": 35,
@@ -5166,6 +5186,7 @@
           },
           "url": "/animes/35-anime-32",
           "kind": "tv",
+          "score": "1.0",
           "status": "released",
           "episodes": 0,
           "episodes_aired": 0,
@@ -5199,7 +5220,7 @@
       "response_data": {
         "id": 20,
         "user_id": 23456789,
-        "target_id": 56,
+        "target_id": 52,
         "target_type": "Anime",
         "score": 10,
         "status": "watching",
@@ -5209,8 +5230,8 @@
         "chapters": 4,
         "text": "test",
         "text_html": "test",
-        "created_at": "2019-06-15T19:10:18.666+03:00",
-        "updated_at": "2019-06-15T19:10:18.666+03:00"
+        "created_at": "2019-09-25T16:21:06.514+03:00",
+        "updated_at": "2019-09-25T16:21:06.514+03:00"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -5220,7 +5241,7 @@
   "users#anime_rates": [
     {
       "verb": "GET",
-      "path": "/api/users/23456819/anime_rates",
+      "path": "/api/users/23456818/anime_rates",
       "versions": [
         "1.0"
       ],
@@ -5238,8 +5259,8 @@
           "text_html": null,
           "rewatches": 0,
           "user": {
-            "id": 23456819,
-            "nickname": "user_12",
+            "id": 23456818,
+            "nickname": "user_11",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -5250,7 +5271,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:18.115+03:00"
+            "last_online_at": "2019-09-25T16:21:05.883+03:00"
           },
           "anime": {
             "id": 40,
@@ -5264,6 +5285,7 @@
             },
             "url": "/animes/40-anime-37",
             "kind": "tv",
+            "score": "1.0",
             "status": "released",
             "episodes": 0,
             "episodes_aired": 0,
@@ -5332,7 +5354,7 @@
   "users#bans": [
     {
       "verb": "GET",
-      "path": "/api/users/23456827/bans",
+      "path": "/api/users/23456826/bans",
       "versions": [
         "1.0"
       ],
@@ -5341,24 +5363,24 @@
       "response_data": [
         {
           "id": 3,
-          "user_id": 23456827,
+          "user_id": 23456826,
           "comment": {
             "id": 10,
             "commentable_id": 82468,
             "commentable_type": "Topic",
             "body": "comment_body_9\n\n[ban=3]",
-            "user_id": 23456827,
-            "created_at": "2019-06-15T19:10:18.340+03:00",
-            "updated_at": "2019-06-15T19:10:18.340+03:00",
+            "user_id": 23456826,
+            "created_at": "2019-09-25T16:21:06.178+03:00",
+            "updated_at": "2019-09-25T16:21:06.178+03:00",
             "is_summary": false,
             "is_offtopic": false
           },
-          "moderator_id": 23456827,
+          "moderator_id": 23456826,
           "reason": "moderator comment",
-          "created_at": "2019-06-15T19:10:18.340+03:00",
+          "created_at": "2019-09-25T16:21:06.178+03:00",
           "duration_minutes": 180,
           "user": {
-            "id": 23456827,
+            "id": 23456826,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -5370,10 +5392,10 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:18.340+03:00"
+            "last_online_at": "2019-09-25T16:21:06.178+03:00"
           },
           "moderator": {
-            "id": 23456827,
+            "id": 23456826,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -5385,7 +5407,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2019-06-15T19:10:18.340+03:00"
+            "last_online_at": "2019-09-25T16:21:06.178+03:00"
           }
         }
       ],
@@ -5397,7 +5419,7 @@
   "users#clubs": [
     {
       "verb": "GET",
-      "path": "/api/users/23456821/clubs",
+      "path": "/api/users/23456820/clubs",
       "versions": [
         "1.0"
       ],
@@ -5427,7 +5449,7 @@
   "users#favourites": [
     {
       "verb": "GET",
-      "path": "/api/users/23456822/favourites",
+      "path": "/api/users/23456821/favourites",
       "versions": [
         "1.0"
       ],
@@ -5464,7 +5486,7 @@
   "users#friends": [
     {
       "verb": "GET",
-      "path": "/api/users/23456817/friends",
+      "path": "/api/users/23456816/friends",
       "versions": [
         "1.0"
       ],
@@ -5472,8 +5494,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 23456818,
-          "nickname": "user_11",
+          "id": 23456817,
+          "nickname": "user_10",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -5484,7 +5506,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:18.093+03:00"
+          "last_online_at": "2019-09-25T16:21:05.860+03:00"
         }
       ],
       "code": "200",
@@ -5495,7 +5517,7 @@
   "users#history": [
     {
       "verb": "GET",
-      "path": "/api/users/23456826/history",
+      "path": "/api/users/23456825/history",
       "versions": [
         "1.0"
       ],
@@ -5504,7 +5526,7 @@
       "response_data": [
         {
           "id": 30,
-          "created_at": "2019-06-15T19:10:18.290+03:00",
+          "created_at": "2019-09-25T16:21:06.125+03:00",
           "description": "Запланировано",
           "target": {
             "id": 43,
@@ -5518,6 +5540,7 @@
             },
             "url": "/animes/43-anime-40",
             "kind": "tv",
+            "score": "1.0",
             "status": "released",
             "episodes": 0,
             "episodes_aired": 0,
@@ -5527,7 +5550,7 @@
         },
         {
           "id": 29,
-          "created_at": "2019-06-15T19:10:18.290+03:00",
+          "created_at": "2019-09-25T16:21:06.125+03:00",
           "description": "Импортировано аниме - 522 записи",
           "target": null
         }
@@ -5548,7 +5571,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 23456811,
+          "id": 23456810,
           "nickname": "Test1",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
@@ -5560,10 +5583,10 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:17.957+03:00"
+          "last_online_at": "2019-09-25T16:21:05.724+03:00"
         },
         {
-          "id": 23456812,
+          "id": 23456811,
           "nickname": "Test2",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
@@ -5575,7 +5598,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2019-06-15T19:10:17.957+03:00"
+          "last_online_at": "2019-09-25T16:21:05.724+03:00"
         }
       ],
       "code": "200",
@@ -5586,180 +5609,7 @@
   "users#info": [
     {
       "verb": "GET",
-      "path": "/api/users/23456815/info",
-      "versions": [
-        "1.0"
-      ],
-      "query": "",
-      "request_data": null,
-      "response_data": {
-        "id": 23456815,
-        "nickname": "Test",
-        "avatar": "http:///assets/globals/missing_avatar/x48.png",
-        "image": {
-          "x160": "http:///assets/globals/missing_avatar/x160.png",
-          "x148": "http:///assets/globals/missing_avatar/x148.png",
-          "x80": "http:///assets/globals/missing_avatar/x80.png",
-          "x64": "http:///assets/globals/missing_avatar/x64.png",
-          "x48": "http:///assets/globals/missing_avatar/x48.png",
-          "x32": "http:///assets/globals/missing_avatar/x32.png",
-          "x16": "http:///assets/globals/missing_avatar/x16.png"
-        },
-        "last_online_at": "2019-06-15T19:10:18.067+03:00",
-        "name": null,
-        "sex": null,
-        "website": null,
-        "birth_on": null,
-        "locale": "ru"
-      },
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    }
-  ],
-  "users#manga_rates": [
-    {
-      "verb": "GET",
-      "path": "/api/users/23456820/manga_rates",
-      "versions": [
-        "1.0"
-      ],
-      "query": "",
-      "request_data": null,
-      "response_data": [
-        {
-          "id": 13,
-          "score": 0,
-          "status": "watching",
-          "text": null,
-          "episodes": null,
-          "chapters": 0,
-          "volumes": 0,
-          "text_html": null,
-          "rewatches": 0,
-          "user": {
-            "id": 23456820,
-            "nickname": "Test",
-            "avatar": "http:///assets/globals/missing_avatar/x48.png",
-            "image": {
-              "x160": "http:///assets/globals/missing_avatar/x160.png",
-              "x148": "http:///assets/globals/missing_avatar/x148.png",
-              "x80": "http:///assets/globals/missing_avatar/x80.png",
-              "x64": "http:///assets/globals/missing_avatar/x64.png",
-              "x48": "http:///assets/globals/missing_avatar/x48.png",
-              "x32": "http:///assets/globals/missing_avatar/x32.png",
-              "x16": "http:///assets/globals/missing_avatar/x16.png"
-            },
-            "last_online_at": "2019-06-15T19:10:18.141+03:00"
-          },
-          "anime": null,
-          "manga": {
-            "id": 29,
-            "name": "manga_15",
-            "russian": "манга_18",
-            "image": {
-              "original": "/assets/globals/missing_original.jpg",
-              "preview": "/assets/globals/missing_preview.jpg",
-              "x96": "/assets/globals/missing_x96.jpg",
-              "x48": "/assets/globals/missing_x48.jpg"
-            },
-            "url": "/mangas/29-manga-15",
-            "kind": "manga",
-            "status": null,
-            "volumes": 0,
-            "chapters": 0,
-            "aired_on": null,
-            "released_on": null
-          }
-        }
-      ],
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    }
-  ],
-  "users#messages": [
-    {
-      "verb": "GET",
-      "path": "/api/users/23456823/messages",
-      "versions": [
-        "1.0"
-      ],
-      "query": "",
-      "request_data": null,
-      "response_data": [
-        {
-          "id": 20,
-          "kind": "anons",
-          "read": false,
-          "body": "anime [b]anons[/b]",
-          "html_body": "Анонсировано аниме anime_39",
-          "created_at": "2019-06-15T19:10:18.237+03:00",
-          "linked_id": 270126,
-          "linked_type": "Topic",
-          "linked": {
-            "id": 42,
-            "topic_url": "http://test.host/forum/animanga/270126-topic-14",
-            "thread_id": 270126,
-            "topic_id": 270126,
-            "type": "Anime",
-            "name": "anime_39",
-            "russian": null,
-            "image": {
-              "original": "/assets/globals/missing_original.jpg",
-              "preview": "/assets/globals/missing_preview.jpg",
-              "x96": "/assets/globals/missing_x96.jpg",
-              "x48": "/assets/globals/missing_x48.jpg"
-            },
-            "url": "/animes/42-anime-39",
-            "kind": "tv",
-            "status": "released",
-            "episodes": 0,
-            "episodes_aired": 0,
-            "aired_on": null,
-            "released_on": null
-          },
-          "from": {
-            "id": 23456824,
-            "nickname": "user_14",
-            "avatar": "http:///assets/globals/missing_avatar/x48.png",
-            "image": {
-              "x160": "http:///assets/globals/missing_avatar/x160.png",
-              "x148": "http:///assets/globals/missing_avatar/x148.png",
-              "x80": "http:///assets/globals/missing_avatar/x80.png",
-              "x64": "http:///assets/globals/missing_avatar/x64.png",
-              "x48": "http:///assets/globals/missing_avatar/x48.png",
-              "x32": "http:///assets/globals/missing_avatar/x32.png",
-              "x16": "http:///assets/globals/missing_avatar/x16.png"
-            },
-            "last_online_at": "2019-06-15T19:10:18.237+03:00"
-          },
-          "to": {
-            "id": 23456823,
-            "nickname": "Test",
-            "avatar": "http:///assets/globals/missing_avatar/x48.png",
-            "image": {
-              "x160": "http:///assets/globals/missing_avatar/x160.png",
-              "x148": "http:///assets/globals/missing_avatar/x148.png",
-              "x80": "http:///assets/globals/missing_avatar/x80.png",
-              "x64": "http:///assets/globals/missing_avatar/x64.png",
-              "x48": "http:///assets/globals/missing_avatar/x48.png",
-              "x32": "http:///assets/globals/missing_avatar/x32.png",
-              "x16": "http:///assets/globals/missing_avatar/x16.png"
-            },
-            "last_online_at": "2019-06-15T19:10:18.237+03:00"
-          }
-        }
-      ],
-      "code": "200",
-      "show_in_doc": 1,
-      "recorded": true
-    }
-  ],
-  "users#show": [
-    {
-      "verb": "GET",
-      "path": "/api/users/23456814",
+      "path": "/api/users/23456814/info",
       "versions": [
         "1.0"
       ],
@@ -5778,7 +5628,182 @@
           "x32": "http:///assets/globals/missing_avatar/x32.png",
           "x16": "http:///assets/globals/missing_avatar/x16.png"
         },
-        "last_online_at": "2019-06-15T19:10:18.032+03:00",
+        "last_online_at": "2019-09-25T16:21:05.830+03:00",
+        "name": null,
+        "sex": null,
+        "website": null,
+        "birth_on": null,
+        "locale": "ru"
+      },
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#manga_rates": [
+    {
+      "verb": "GET",
+      "path": "/api/users/23456819/manga_rates",
+      "versions": [
+        "1.0"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 13,
+          "score": 0,
+          "status": "watching",
+          "text": null,
+          "episodes": null,
+          "chapters": 0,
+          "volumes": 0,
+          "text_html": null,
+          "rewatches": 0,
+          "user": {
+            "id": 23456819,
+            "nickname": "Test",
+            "avatar": "http:///assets/globals/missing_avatar/x48.png",
+            "image": {
+              "x160": "http:///assets/globals/missing_avatar/x160.png",
+              "x148": "http:///assets/globals/missing_avatar/x148.png",
+              "x80": "http:///assets/globals/missing_avatar/x80.png",
+              "x64": "http:///assets/globals/missing_avatar/x64.png",
+              "x48": "http:///assets/globals/missing_avatar/x48.png",
+              "x32": "http:///assets/globals/missing_avatar/x32.png",
+              "x16": "http:///assets/globals/missing_avatar/x16.png"
+            },
+            "last_online_at": "2019-09-25T16:21:05.961+03:00"
+          },
+          "anime": null,
+          "manga": {
+            "id": 29,
+            "name": "manga_15",
+            "russian": "манга_18",
+            "image": {
+              "original": "/assets/globals/missing_original.jpg",
+              "preview": "/assets/globals/missing_preview.jpg",
+              "x96": "/assets/globals/missing_x96.jpg",
+              "x48": "/assets/globals/missing_x48.jpg"
+            },
+            "url": "/mangas/29-manga-15",
+            "kind": "manga",
+            "score": "1.0",
+            "status": null,
+            "volumes": 0,
+            "chapters": 0,
+            "aired_on": null,
+            "released_on": null
+          }
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#messages": [
+    {
+      "verb": "GET",
+      "path": "/api/users/23456822/messages",
+      "versions": [
+        "1.0"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 20,
+          "kind": "anons",
+          "read": false,
+          "body": "anime [b]anons[/b]",
+          "html_body": "Анонсировано аниме anime_39",
+          "created_at": "2019-09-25T16:21:06.067+03:00",
+          "linked_id": 270126,
+          "linked_type": "Topic",
+          "linked": {
+            "id": 42,
+            "topic_url": "http://test.host/forum/news/270126-topic-14",
+            "thread_id": 270126,
+            "topic_id": 270126,
+            "type": "Anime",
+            "name": "anime_39",
+            "russian": null,
+            "image": {
+              "original": "/assets/globals/missing_original.jpg",
+              "preview": "/assets/globals/missing_preview.jpg",
+              "x96": "/assets/globals/missing_x96.jpg",
+              "x48": "/assets/globals/missing_x48.jpg"
+            },
+            "url": "/animes/42-anime-39",
+            "kind": "tv",
+            "score": "1.0",
+            "status": "released",
+            "episodes": 0,
+            "episodes_aired": 0,
+            "aired_on": null,
+            "released_on": null
+          },
+          "from": {
+            "id": 23456823,
+            "nickname": "user_13",
+            "avatar": "http:///assets/globals/missing_avatar/x48.png",
+            "image": {
+              "x160": "http:///assets/globals/missing_avatar/x160.png",
+              "x148": "http:///assets/globals/missing_avatar/x148.png",
+              "x80": "http:///assets/globals/missing_avatar/x80.png",
+              "x64": "http:///assets/globals/missing_avatar/x64.png",
+              "x48": "http:///assets/globals/missing_avatar/x48.png",
+              "x32": "http:///assets/globals/missing_avatar/x32.png",
+              "x16": "http:///assets/globals/missing_avatar/x16.png"
+            },
+            "last_online_at": "2019-09-25T16:21:06.067+03:00"
+          },
+          "to": {
+            "id": 23456822,
+            "nickname": "Test",
+            "avatar": "http:///assets/globals/missing_avatar/x48.png",
+            "image": {
+              "x160": "http:///assets/globals/missing_avatar/x160.png",
+              "x148": "http:///assets/globals/missing_avatar/x148.png",
+              "x80": "http:///assets/globals/missing_avatar/x80.png",
+              "x64": "http:///assets/globals/missing_avatar/x64.png",
+              "x48": "http:///assets/globals/missing_avatar/x48.png",
+              "x32": "http:///assets/globals/missing_avatar/x32.png",
+              "x16": "http:///assets/globals/missing_avatar/x16.png"
+            },
+            "last_online_at": "2019-09-25T16:21:06.067+03:00"
+          }
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "users#show": [
+    {
+      "verb": "GET",
+      "path": "/api/users/23456813",
+      "versions": [
+        "1.0"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": {
+        "id": 23456813,
+        "nickname": "Test",
+        "avatar": "http:///assets/globals/missing_avatar/x48.png",
+        "image": {
+          "x160": "http:///assets/globals/missing_avatar/x160.png",
+          "x148": "http:///assets/globals/missing_avatar/x148.png",
+          "x80": "http:///assets/globals/missing_avatar/x80.png",
+          "x64": "http:///assets/globals/missing_avatar/x64.png",
+          "x48": "http:///assets/globals/missing_avatar/x48.png",
+          "x32": "http:///assets/globals/missing_avatar/x32.png",
+          "x16": "http:///assets/globals/missing_avatar/x16.png"
+        },
+        "last_online_at": "2019-09-25T16:21:05.789+03:00",
         "name": null,
         "sex": null,
         "full_years": null,
@@ -5790,7 +5815,7 @@
         "about_html": "",
         "common_info": [
           "Нет личных данных",
-          "на сайте с <span class='b-tooltipped dotted mobile unprocessed' data-direction='right' title='15 июня 2019 г.'>15 июня 2019 г.</span>"
+          "на сайте с <span class='b-tooltipped dotted mobile unprocessed' data-direction='right' title='25 сентября 2019 г.'>25 сентября 2019 г.</span>"
         ],
         "show_comments": false,
         "in_friends": null,
@@ -6007,7 +6032,7 @@
   "users#unread_messages": [
     {
       "verb": "GET",
-      "path": "/api/users/23456825/unread_messages",
+      "path": "/api/users/23456824/unread_messages",
       "versions": [
         "1.0"
       ],
@@ -6033,7 +6058,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 23456816,
+        "id": 23456815,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -6045,7 +6070,7 @@
           "x32": "http:///assets/globals/missing_avatar/x32.png",
           "x16": "http:///assets/globals/missing_avatar/x16.png"
         },
-        "last_online_at": "2019-06-15T19:10:18.080+03:00",
+        "last_online_at": "2019-09-25T16:21:05.845+03:00",
         "name": null,
         "sex": null,
         "website": null,

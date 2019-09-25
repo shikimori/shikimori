@@ -1,5 +1,5 @@
 class MangaSerializer < ActiveModel::Serializer
-  attributes :id, :name, :russian, :image, :url, :kind,
+  attributes :id, :name, :russian, :image, :url, :kind, :score,
     :status, :volumes, :chapters, :aired_on, :released_on
 
   def image
