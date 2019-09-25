@@ -1,4 +1,3 @@
-# TODO: remove `unless params[:user_id]` after 01-09-2017
 class Api::V2::UserRatesController < Api::V2Controller
   skip_before_action :verify_authenticity_token
   load_and_authorize_resource
@@ -58,8 +57,7 @@ class Api::V2::UserRatesController < Api::V2Controller
         end
       end
 
-    # TODO: remove `unless params[:user_id]` after 01-09-2017
-    scope.offset!(limit * (page - 1)).limit!(limit) unless params[:user_id]
+    scope.offset!(limit * (page - 1)).limit!(limit)
 
     @collection = Rails.cache.fetch(scope) { scope.to_a }
     respond_with @collection
