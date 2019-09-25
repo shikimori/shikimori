@@ -16,10 +16,10 @@ GIT
 
 GIT
   remote: https://github.com/morr/cancancan.git
-  revision: 70d1753aa82da86d37c5c23fe34fb8e446b9bcd2
+  revision: 0f536f86c8770b915bc1d9137c9d7cfd260e69fe
   branch: master
   specs:
-    cancancan (2.2.0)
+    cancancan (3.0.1)
 
 GIT
   remote: https://github.com/morr/devise-doorkeeper.git
