@@ -7,7 +7,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
     https?://(?:www\.)?(
       (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS} |
-      video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS} |
+      video.(?<hosting>sibnet).ru/(video[\wА-я_-]+|shell.php\?videoid=[\wА-я_-]+)#{PARAMS} |
       (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS} |
       video.(?<hosting>youmite).ru/embed/[\wА-я_-]+#{PARAMS} |
       (?<hosting>viuly).io/video/[\wА-я_.-]+#{PARAMS} |

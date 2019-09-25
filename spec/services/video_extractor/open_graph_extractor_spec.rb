@@ -41,6 +41,14 @@ describe VideoExtractor::OpenGraphExtractor, :vcr do
         let(:url) { 'http://video.sibnet.ru/video996603-Kyou_no_Asuka_Show_1_5_serii__rus__sub_' }
         it { is_expected.to be_nil }
       end
+
+      context 'embed url' do
+        let(:url) { 'https://video.sibnet.ru/shell.php?videoid=3510020' }
+
+        its(:hosting) { is_expected.to eq 'sibnet' }
+        its(:image_url) { is_expected.to eq '//video.sibnet.ru/upload/cover/video_3510020_0.jpg' }
+        its(:player_url) { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=3510020' }
+      end
     end
 
     # context 'yandex' do
