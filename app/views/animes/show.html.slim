@@ -44,7 +44,7 @@
                 data-text=t('.actions.review')
               ]
               a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
-                href=favourites_url(@resource.object.class.name, @resource.id)
+                href=toggle_api_favorites_url(linked_type: @resource.object.class.name, linked_id: @resource.id)
                 data-remote='true'
                 data-type='json'
                 data-kind=''

@@ -18,7 +18,7 @@
               data-dynamic='authorized'
             ]
             a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
-              href=favourites_producer_url(@resource.object.class.name, @resource)
+              href=toggle_api_favorites_url(linked_type: @resource.object.class.name, linked_id: @resource.id, kind: ::Types::Favourite::Kinds[:producer])
               style='display: none'
               data-remote='true'
               data-type='json'
@@ -29,7 +29,7 @@
               data-remove_text=t('.actions.remove_from_favorites')
             ]
             a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
-              href=favourites_mangaka_url(@resource.object.class.name, @resource)
+              href=toggle_api_favorites_url(linked_type: @resource.object.class.name, linked_id: @resource.id, kind: ::Types::Favourite::Kinds[:mangaka])
               style='display: none'
               data-remote='true'
               data-type='json'
@@ -40,7 +40,7 @@
               data-remove_text=t('.actions.remove_from_favorites')
             ]
             a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
-              href=favourites_seyu_url(@resource.object.class.name, @resource)
+              href=toggle_api_favorites_url(linked_type: @resource.object.class.name, linked_id: @resource.id, kind: ::Types::Favourite::Kinds[:seyu])
               style='display: none'
               data-remote='true'
               data-type='json'
@@ -51,7 +51,7 @@
               data-remove_text=t('.actions.remove_from_favorites')
             ]
             a.b-subposter-action.fav-add.b-tooltipped.unprocessed.to-process[
-              href=favourites_person_url(@resource.object.class.name, @resource)
+              href=toggle_api_favorites_url(linked_type: @resource.object.class.name, linked_id: @resource.id, kind: ::Types::Favourite::Kinds[:person])
               style='display: none'
               data-remote='true'
               data-type='json'

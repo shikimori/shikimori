@@ -320,16 +320,6 @@ en:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
     screenshot_deleted: Screenshot deleted
 
-  favourites_controller:
-    cant_add:
-      character: Only %{limit} characters can be added to favorite
-      anime: Only %{limit} animes can be added to favorite
-      manga: Only %{limit} mangas can be added to favorite
-      ranobe: Only %{limit} light novels can be added to favorite
-      person: Only %{limit} people can be added to favorite
-    added: Added to favorite
-    removed: Removed from favorite
-
   videos_controller:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
     version_pending: *version_pending
@@ -466,3 +456,13 @@ en:
     scores_reset:
       anime: All scores in your anime list reset
       manga: All scores in your manga list reset
+
+  api/favorites_controller:
+    cant_add:
+      character: Only %{limit} characters can be added to favorite
+      anime: Only %{limit} animes can be added to favorite
+      manga: Only %{limit} mangas can be added to favorite
+      ranobe: Only %{limit} light novels can be added to favorite
+      person: Only %{limit} people can be added to favorite
+    added: Added to favorite
+    removed: Removed from favorite

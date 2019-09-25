@@ -93,13 +93,13 @@ class User < ApplicationRecord
   has_many :friends, through: :friend_links, source: :dst
 
   has_many :favourites, dependent: :destroy
-  has_many :favourite_seyu, -> { where kind: Favourite::Seyu },
+  has_many :favourite_seyu, -> { where kind: Types::Favourite::Kinds[:seyu] },
     class_name: Favourite.name
-  has_many :favourite_producers, -> { where kind: Favourite::Producer },
+  has_many :favourite_producers, -> { where kind: Types::Favourite::Kinds[:producer] },
     class_name: Favourite.name
-  has_many :favourite_mangakas, -> { where kind: Favourite::Mangaka },
+  has_many :favourite_mangakas, -> { where kind: Types::Favourite::Kinds[:mangaka] },
     class_name: Favourite.name
-  has_many :favourite_persons, -> { where kind: Favourite::Person },
+  has_many :favourite_persons, -> { where kind: Types::Favourite::Kinds[:person] },
     class_name: Favourite.name
 
   has_many :fav_animes,

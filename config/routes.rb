@@ -366,6 +366,16 @@ Rails.application.routes.draw do
         post :preview, on: :collection
       end
       resources :achievements, only: %i[index]
+
+      resource :favorites, only: %i[] do
+        post ':linked_type/:linked_id(/:kind)' => 'favorites#create',
+          linked_type: /#{Types::Favourite::LinkedTypes.values.join('|')}/,
+          kind: /#{Types::Favourite::Kinds.values.join('|')}/,
+          as: :toggle
+        delete ':linked_type/:linked_id(/:kind)' => 'favorites#destroy',
+          linked_type: /#{Types::Favourite::LinkedTypes.values.join('|')}/,
+          kind: /#{Types::Favourite::Kinds.values.join('|')}/
+      end
     end
   end
   # /api
@@ -436,22 +446,6 @@ Rails.application.routes.draw do
 
   get 'topics/chosen/:ids' => 'topics#chosen', as: :topics_chosen
   get 'topics/:id/tooltip(/:test)' => 'topics#tooltip', as: :topic_tooltip
-
-  # favourites
-  post 'favourites/:linked_type/:linked_id' => 'favourites#create', as: :favourites
-  delete 'favourites/:linked_type/:linked_id' => 'favourites#destroy'
-
-  post 'favourites/seyu/:linked_type/:linked_id' => 'favourites#create', kind: Favourite::Seyu, as: :favourites_seyu
-  delete 'favourites/seyu/:linked_type/:linked_id' => 'favourites#destroy', kind: Favourite::Seyu
-
-  post 'favourites/producer/:linked_type/:linked_id' => 'favourites#create', kind: Favourite::Producer, as: :favourites_producer
-  delete 'favourites/producer/:linked_type/:linked_id' => 'favourites#destroy', kind: Favourite::Producer
-
-  post 'favourites/mangaka/:linked_type/:linked_id' => 'favourites#create', kind: Favourite::Mangaka, as: :favourites_mangaka
-  delete 'favourites/mangaka/:linked_type/:linked_id' => 'favourites#destroy', kind: Favourite::Mangaka
-
-  post 'favourites/person/:linked_type/:linked_id' => 'favourites#create', kind: Favourite::Person, as: :favourites_person
-  delete 'favourites/person/:linked_type/:linked_id' => 'favourites#destroy', kind: Favourite::Person
 
   resources :cosplay_galleries, only: [] do
     get :publishing, on: :collection

@@ -138,10 +138,18 @@ describe Api::V1::UsersController, :show_in_doc do
     let!(:fav_anime) { create :favourite, linked: anime }
     let!(:fav_manga) { create :favourite, linked: manga }
     let!(:fav_character) { create :favourite, linked: character }
-    let!(:fav_person) { create :favourite, linked: person, kind: Favourite::Person }
-    let!(:fav_mangaka) { create :favourite, linked: person, kind: Favourite::Mangaka }
-    let!(:fav_producer) { create :favourite, linked: person, kind: Favourite::Producer }
-    let!(:fav_seyu) { create :favourite, linked: person, kind: Favourite::Seyu }
+    let!(:fav_person) do
+      create :favourite, linked: person, kind: Types::Favourite::Kinds[:person]
+    end
+    let!(:fav_mangaka) do
+      create :favourite, linked: person, kind: Types::Favourite::Kinds[:mangaka]
+    end
+    let!(:fav_producer) do
+      create :favourite, linked: person, kind: Types::Favourite::Kinds[:producer]
+    end
+    let!(:fav_seyu) do
+      create :favourite, linked: person, kind: Types::Favourite::Kinds[:seyu]
+    end
 
     subject! { get :favourites, params: { id: user.id }, format: :json }
 
