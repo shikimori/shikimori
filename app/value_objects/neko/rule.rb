@@ -132,6 +132,7 @@ class Neko::Rule
     User
       .where(id: Achievement.where(neko_id: neko_id, level: level).select(:user_id))
       .where.not("roles && '{#{Types::User::Roles[:cheat_bot]}}'")
+      .where.not("roles && '{#{Types::User::Roles[:completed_announced_animes]}}'")
       .order(:id)
   end
 
