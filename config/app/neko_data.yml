@@ -16476,6 +16476,7 @@
         - 19261
         - 21899
         - 37864
+        - 40323
       :threshold: 90%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -16510,6 +16511,7 @@
         - 19261
         - 21899
         - 37864
+        - 40323
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -18352,7 +18354,8 @@
         not_anime_ids:
         - 31989
         - 35082
-      :threshold: 93.2%
+        - 37577
+      :threshold: 93%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :hibike_euphonium
@@ -18384,6 +18387,7 @@
         not_anime_ids:
         - 31989
         - 35082
+        - 37577
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21621,6 +21625,8 @@
       :algo: duration
       :filters:
         franchise: slayers
+        not_anime_ids:
+        - 40112
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21650,6 +21656,8 @@
       :algo: duration
       :filters:
         franchise: slayers
+        not_anime_ids:
+        - 40112
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -26811,6 +26819,9 @@
       :filters:
         genre_ids:
         - 15
+        or:
+          anime_ids:
+          - 523
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kids.yml
   default_values: *2
   neko_id: :kids
