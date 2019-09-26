@@ -1,5 +1,5 @@
 class Profiles::AchievementsPreviewView < ViewObjectBase
-  vattr_initialize :user
+  vattr_initialize :user, :is_own_profile
   instance_cache :achievements_view
 
   delegate :franchise_achievements_size, to: :achievements_view
@@ -7,6 +7,7 @@ class Profiles::AchievementsPreviewView < ViewObjectBase
 
   def available?
     return false unless @user.preferences.achievements_in_profile?
+    return false if @user.cheat_bot? && !@is_own_profile
 
     achievements_view.franchise_achievements_size.positive? ||
       achievements_view.common_achievements.size.positive? ||

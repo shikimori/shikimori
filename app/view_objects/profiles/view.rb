@@ -8,7 +8,7 @@ class Profiles::View < ViewObjectBase
   end
 
   def achievements_preview_view
-    @achievements_preview_view ||= Profiles::AchievementsPreviewView.new @user
+    @achievements_preview_view ||= Profiles::AchievementsPreviewView.new @user, own_profile?
   end
 
   def compatibility_view

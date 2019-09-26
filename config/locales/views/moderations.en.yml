@@ -225,7 +225,7 @@ en:
           not_trusted_abuse_reporter: Restriction in filing complaints on the forum (maximum 3 complaints per day)
           censored_avatar: Have avatar with adult content
           censored_profile: Have profile with adult content
-          cheat_bot: Cheat statistics, votes are not counted
+          cheat_bot: Cheat statistics, votes are not counted, achievements are not counted
       user:
         add: Add
         remove: Remove
