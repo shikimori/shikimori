@@ -34,15 +34,15 @@ describe ProfilesController do
     end
   end
 
-  describe '#favourites' do
-    context 'without favourites' do
-      subject! { get :favourites, params: { id: user.to_param } }
+  describe '#favorites' do
+    context 'without favorites' do
+      subject! { get :favorites, params: { id: user.to_param } }
       it { expect(response).to redirect_to profile_url(user) }
     end
 
-    context 'with favourites' do
+    context 'with favorites' do
       let!(:favourite) { create :favourite, user: user, linked: create(:anime) }
-      subject! { get :favourites, params: { id: user.to_param } }
+      subject! { get :favorites, params: { id: user.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end

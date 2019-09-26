@@ -859,7 +859,7 @@ Rails.application.routes.draw do
   resources :profiles, path: '/', constraints: { id: user_id }, only: %i[show update] do
     member do
       get :friends
-      get :favourites
+      get :favorites
       get :clubs
       get :moderation
       get :feed

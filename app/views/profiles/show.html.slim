@@ -280,7 +280,7 @@
         .block
           .subheadline.m10
             - if @resource.favorites.any?
-              a href=favourites_profile_url(@resource) title=t('profiles_controller.favorites')
+              a href=favorites_profile_url(@resource) title=t('profiles_controller.favorites')
                 = t('profiles_controller.favorites')
             - else
               = t('profiles_controller.favorites')

@@ -45,7 +45,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     redirect_to @resource.url if @resource.clubs.none?
   end
 
-  def favourites
+  def favorites
     og noindex: true
     og page_title: i18n_t('favorites')
     redirect_to @resource.url if @resource.favourites.none?
