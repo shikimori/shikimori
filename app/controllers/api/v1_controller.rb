@@ -32,4 +32,8 @@ private
   def frontent_request?
     params[:frontend] && params[:frontend] != 'false'
   end
+
+  def neko_request?
+    request.headers['User-Agent'] == 'Neko'
+  end
 end

@@ -57,9 +57,9 @@ class Api::V2::UserRatesController < Api::V2Controller
         end
       end
 
-    scope.offset!(limit * (page - 1)).limit!(limit)
+    scope.offset!(limit * (page - 1)).limit!(limit) unless params[:user_id] || neko_request?
 
-    @collection = Rails.cache.fetch(scope) { scope.to_a }
+    @collection = Rails.cache.fetch([scope, :v2]) { scope.to_a }
     respond_with @collection
   end
 
