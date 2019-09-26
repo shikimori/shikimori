@@ -29,6 +29,7 @@ module Types
       censored_avatar
       censored_profile
       cheat_bot
+      completed_announced_animes
       bot
       admin
     ]

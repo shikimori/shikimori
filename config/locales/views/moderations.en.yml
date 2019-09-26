@@ -226,6 +226,7 @@ en:
           censored_avatar: Have avatar with adult content
           censored_profile: Have profile with adult content
           cheat_bot: Cheat statistics, votes are not counted, achievements are not counted
+          completed_announced_animes: Announced animes in completed status, not counted in achievements statistics
       user:
         add: Add
         remove: Remove

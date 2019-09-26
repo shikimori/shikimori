@@ -64,6 +64,7 @@ private
     User
       .includes(:achievements)
       .where.not("roles && '{#{Types::User::Roles[:cheat_bot]}}'")
+      .where.not("roles && '{#{Types::User::Roles[:completed_announced_animes]}}'")
       .joins(USER_RATES_SQL)
       .group('users.id')
       .select('users.id, count(*) as user_rates_count')
