@@ -16,6 +16,7 @@ module Types
       collection_moderator
       cosplay_moderator
       contest_moderator
+      statistics_moderator
       video_super_moderator
       video_moderator
       api_video_uploader

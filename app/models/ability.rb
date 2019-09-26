@@ -50,6 +50,10 @@ class Ability
         merge Abilities::SuperModerator.new(user)
       end
 
+      if user.statistics_moderator? || user.admin?
+        merge Abilities::StatisticsModerator.new(user)
+      end
+
       merge Abilities::Admin.new(user) if user.admin?
     end
 

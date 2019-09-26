@@ -93,7 +93,7 @@ class SiteStatistics
   end
 
   def vk_admins
-    User.where(id: [4795, 210569]) # Harizmath, vibrant
+    User.where(id: [4795, 210_569]) # Harizmath, vibrant
   end
 
   def discord_admins
