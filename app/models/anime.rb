@@ -52,10 +52,14 @@ class Anime < DbEntry
 
   has_many :rates,
     -> { where target_type: Anime.name },
-   class_name: UserRate.name,
-   foreign_key: :target_id,
-   dependent: :destroy
+    class_name: UserRate.name,
+    foreign_key: :target_id,
+    dependent: :destroy
   has_many :user_rate_logs, -> { where target_type: Anime.name },
+    foreign_key: :target_id,
+    dependent: :destroy
+
+  has_many :user_histories, -> { where target_type: Anime.name },
     foreign_key: :target_id,
     dependent: :destroy
 
@@ -97,10 +101,6 @@ class Anime < DbEntry
   has_many :similar_animes,
     through: :similar,
     source: :dst
-
-  has_many :user_histories, -> { where target_type: Anime.name },
-    foreign_key: :target_id,
-    dependent: :destroy
 
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
   has_many :cosplay_galleries,

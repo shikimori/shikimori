@@ -9,6 +9,8 @@ describe Anime do
     it { is_expected.to have_many :rates }
     it { is_expected.to have_many(:user_rate_logs).dependent(:destroy) }
 
+    it { is_expected.to have_many(:user_histories).dependent :destroy }
+
     it { is_expected.to have_many :news_topics }
     it { is_expected.to have_many :anons_news_topics }
     it { is_expected.to have_many :episode_news_topics }
@@ -21,8 +23,6 @@ describe Anime do
 
     it { is_expected.to have_many(:similar).dependent :destroy }
     it { is_expected.to have_many :similar_animes }
-
-    it { is_expected.to have_many(:user_histories).dependent :destroy }
 
     it { is_expected.to have_many(:cosplay_gallery_links).dependent :destroy }
     it { is_expected.to have_many :cosplay_galleries }
