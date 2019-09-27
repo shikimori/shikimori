@@ -6,6 +6,7 @@ class Anime < DbEntry
   include CollectionsConcern
   include VersionsConcern
   include ClubsConcern
+  include ContestsConcern
 
   DESYNCABLE = %w[
     name synonyms kind episodes rating aired_on released_on status genres
@@ -154,11 +155,6 @@ class Anime < DbEntry
     class_name: ExternalLink.name,
     as: :entry,
     inverse_of: :entry
-
-  has_many :contest_winners,
-    -> { where item_type: Anime.name },
-    foreign_key: :item_id,
-    dependent: :destroy
 
   has_attached_file :image,
     styles: {

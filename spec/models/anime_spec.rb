@@ -51,8 +51,6 @@ describe Anime do
     it { is_expected.to have_many(:all_external_links).dependent :destroy }
     it { is_expected.to have_one :anidb_external_link }
     it { is_expected.to have_one :smotret_anime_external_link }
-
-    it { is_expected.to have_many(:contest_winners).dependent :destroy }
   end
 
   describe 'validations' do
@@ -268,4 +266,5 @@ describe Anime do
   it_behaves_like :collections_concern
   it_behaves_like :versions_concern
   it_behaves_like :clubs_concern, :anime
+  it_behaves_like :contests_concern
 end

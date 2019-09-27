@@ -20,4 +20,5 @@ describe Character do
   it_behaves_like :collections_concern
   it_behaves_like :versions_concern
   it_behaves_like :clubs_concern, :character
+  it_behaves_like :contests_concern
 end

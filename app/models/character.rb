@@ -5,6 +5,7 @@ class Character < DbEntry
   include CollectionsConcern
   include VersionsConcern
   include TopicsConcern
+  include ContestsConcern
 
   DESYNCABLE = %w[name japanese description_en image]
 

@@ -6,6 +6,7 @@ class Manga < DbEntry
   include CollectionsConcern
   include VersionsConcern
   include ClubsConcern
+  include ContestsConcern
 
   EXCLUDED_ONGOINGS = [-1]
 

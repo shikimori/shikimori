@@ -4,6 +4,7 @@ class Person < DbEntry
   include TopicsConcern
   include CollectionsConcern
   include VersionsConcern
+  include ContestsConcern
 
   DESYNCABLE = %w[name japanese website birthday image]
 
