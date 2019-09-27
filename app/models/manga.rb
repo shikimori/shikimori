@@ -73,7 +73,7 @@ class Manga < DbEntry
     foreign_key: :target_id,
     dependent: :destroy
 
-  has_many :recommendation_ignores, -> { where target_type: Anime.name },
+  has_many :recommendation_ignores, -> { where target_type: Manga.name },
     foreign_key: :target_id,
     dependent: :destroy
 
