@@ -6,6 +6,7 @@ class Character < DbEntry
   include VersionsConcern
   include TopicsConcern
   include ContestsConcern
+  include FavouritesConcern
 
   DESYNCABLE = %w[name japanese description_en image]
 
@@ -24,11 +25,6 @@ class Character < DbEntry
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
   has_many :cosplay_galleries, -> { where deleted: false, confirmed: true },
     through: :cosplay_gallery_links
-
-  has_many :contest_winners,
-    -> { where item_type: Character.name },
-    foreign_key: :item_id,
-    dependent: :destroy
 
   has_attached_file :image,
     styles: {

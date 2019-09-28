@@ -87,4 +87,5 @@ describe Manga do
   it_behaves_like :versions_concern
   it_behaves_like :clubs_concern, :manga
   it_behaves_like :contests_concern
+  it_behaves_like :favourites_concern
 end

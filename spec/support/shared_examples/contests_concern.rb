@@ -3,6 +3,7 @@ shared_examples :contests_concern do
     describe 'associations' do
       it { is_expected.to have_many(:contest_links).dependent :destroy }
       it { is_expected.to have_many(:contest_winners).dependent :destroy }
+      it { is_expected.to have_many :contests }
     end
   end
 end

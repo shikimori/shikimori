@@ -8,8 +8,10 @@ module ContestsConcern
       dependent: :destroy
 
     has_many :contest_winners,
-      -> { where item_type: entry.class.name },
+      ->(entry) { where item_type: entry.class.name },
       foreign_key: :item_id,
       dependent: :destroy
+
+    has_many :contests, through: :contest_links
   end
 end

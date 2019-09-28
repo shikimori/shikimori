@@ -5,6 +5,7 @@ class Person < DbEntry
   include CollectionsConcern
   include VersionsConcern
   include ContestsConcern
+  include FavouritesConcern
 
   DESYNCABLE = %w[name japanese website birthday image]
 
@@ -20,11 +21,6 @@ class Person < DbEntry
   has_many :animes, -> { order :id }, through: :person_roles
   has_many :mangas, -> { order :id }, through: :person_roles
   has_many :characters, -> { order :id }, through: :person_roles
-
-  has_many :versions,
-    -> { where item_type: Anime.name },
-    foreign_key: :item_id,
-    dependent: :destroy
 
   has_attached_file :image,
     styles: {
