@@ -8,7 +8,7 @@ describe ExternalLink do
     it { is_expected.to validate_presence_of :kind }
     it { is_expected.to validate_presence_of :source }
     it { is_expected.to validate_presence_of :url }
-    it { is_expected.to validate_uniqueness_of :url }
+    # it { is_expected.to validate_uniqueness_of(:url).scoped_to(:entry_id, :entry_type, :source) }
   end
 
   describe 'enumerize' do

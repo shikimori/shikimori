@@ -1,4 +1,4 @@
-class DbEntry::MergeIntoOther
+class DbEntry::MergeIntoOther # rubocop:disable ClassLength
   method_object %i[entry! other!]
 
   METHODS = %i[
