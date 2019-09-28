@@ -1,22 +1,63 @@
 class DbEntry::MergeIntoOther
   method_object %i[entry! other!]
 
+  METHODS = %i[
+    fields
+    user_rates
+    topics
+    reviews
+    collection_links
+    versions
+    club_links
+    cosplay_gallery_links
+    recommendation_ignores
+    contest_links
+    anime_links
+    favourites
+  ]
+
+  FIELDS = %i[
+    description_en
+    description_ru
+    english
+    genre_ids
+    imageboard_tag
+    license_name_ru
+    licensor
+    name
+    popularity
+    publisher_ids
+    ranked
+    rating
+    russian
+    score
+    source
+    stuio_ids
+    synonyms
+  ]
+
   def call
     @other.class.transaction do
-      merge_user_rates
-      merge_topics
-      merge_reviews
-      merge_collection_links
-      merge_versions
-      merge_club_links
-      merge_cosplay_gallery_links
-      merge_recommendation_ignores
+      METHODS.each do |method|
+        send :"merge_#{method}"
+      end
 
       @entry.class.find(@entry.id).destroy!
     end
   end
 
 private
+
+  def merge_fields
+    FIELDS.each do |field|
+      next unless @entry.respond_to?(field) && @other.respond_to?(field)
+      next unless @other.send(field).blank? && @entry.send(field).present?
+
+      @other.assign_attributes field => @entry.send(field)
+    end
+
+    @other.save! if @other.changed?
+  end
 
   def merge_user_rates
     @entry.rates.each do |user_rate|
@@ -31,53 +72,52 @@ private
         .where(user_id: user_rate.user_id)
         .where(target: @entry)
         .update_all target_id: @other.id, target_type: @other.class.name
-    rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
+    rescue ActiveRecord::RecordInvalid
     end
   end
 
   def merge_topics
-    @entry.all_topics.where(generated: false).each do |topic|
-      topic.update! linked: @other
-    end
+    @entry.all_topics
+      .where(generated: false)
+      .each { |v| v.update linked: @other }
   end
 
   def merge_reviews
-    @entry.reviews.each do |review|
-      review.update! target: @other
-    end
+    @entry.reviews.each { |v| v.update target: @other }
   end
 
   def merge_collection_links
-    @entry.collection_links.each do |collection_link|
-      collection_link.update! linked: @other
-    rescue ActiveRecord::RecordNotUnique
-    end
+    @entry.collection_links.each { |v| v.update linked: @other }
   end
 
   def merge_versions
-    @entry.versions.each do |version|
-      version.update! item: @other
-    end
+    @entry.versions.each { |v| v.update item: @other }
   end
 
   def merge_club_links
-    @entry.club_links.each do |club_link|
-      club_link.update! linked: @other
-    rescue ActiveRecord::RecordNotUnique
-    end
+    @entry.club_links.each { |v| v.update linked: @other }
   end
 
   def merge_cosplay_gallery_links
-    @entry.cosplay_gallery_links.each do |cosplay_gallery_link|
-      cosplay_gallery_link.update! linked: @other
-    rescue ActiveRecord::RecordNotUnique
-    end
+    @entry.cosplay_gallery_links.each { |v| v.update linked: @other }
   end
 
   def merge_recommendation_ignores
-    @entry.recommendation_ignores.each do |recommendation_ignore|
-      recommendation_ignore.update! target: @other
-    rescue ActiveRecord::RecordNotUnique
-    end
+    @entry.recommendation_ignores.each { |v| v.update target: @other }
+  end
+
+  def merge_contest_links
+    @entry.contest_links.each { |v| v.update linked: @other }
+    @entry.contest_winners.each { |v| v.update item: @other }
+  end
+
+  def merge_anime_links
+    return unless @entry.respond_to?(:anime_links) && @other.respond_to?(:anime_links)
+
+    @entry.anime_links.each { |v| v.update anime: @other }
+  end
+
+  def merge_favourites
+    @entry.favourites.each { |v| v.update linked: @other }
   end
 end
