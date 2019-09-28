@@ -2,6 +2,9 @@ class ExternalLink < ApplicationRecord
   belongs_to :entry, polymorphic: true, touch: true
   validates :entry, :source, :kind, :url, presence: true
 
+  validates :url,
+    uniqueness: { scope: %i[entry_id entry_type source] }
+
   enumerize :kind,
     in: Types::ExternalLink::Kind.values,
     predicates: { prefix: true }

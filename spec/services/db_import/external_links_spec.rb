@@ -8,6 +8,9 @@ describe DbImport::ExternalLinks do
     }, {
       kind: 'anime_db',
       url: 'http://anidb.info/perl-bin/animedb.pl?show=anime&aid=23'
+    }, {
+      kind: 'anime_db',
+      url: 'http://anidb.info/perl-bin/animedb.pl?show=anime&aid=23'
     }]
   end
   let!(:mal_external_link) { create :external_link, :myanimelist, :official_site, entry: target }

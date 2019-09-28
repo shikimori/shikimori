@@ -4,12 +4,11 @@ describe ExternalLink do
   end
 
   describe 'validations' do
-    it do
-      is_expected.to validate_presence_of :entry
-      is_expected.to validate_presence_of :kind
-      is_expected.to validate_presence_of :source
-      is_expected.to validate_presence_of :url
-    end
+    it { is_expected.to validate_presence_of :entry }
+    it { is_expected.to validate_presence_of :kind }
+    it { is_expected.to validate_presence_of :source }
+    it { is_expected.to validate_presence_of :url }
+    it { is_expected.to validate_uniqueness_of :url }
   end
 
   describe 'enumerize' do

@@ -21,14 +21,16 @@ private
     # I purposely do not use "ExternalLink.import" here.
     # "ExternalLink.create!" should fail with exception when
     # unknown "source" is encountered
-    new_external_links.each do |external_link|
-      ExternalLink.create!(
-        entry: @target,
-        source: :myanimelist,
-        kind: external_link[:kind],
-        url: external_link[:url]
-      )
-    end
+    new_external_links
+      .uniq { |external_link| external_link[:url] }
+      .each do |external_link|
+        ExternalLink.create!(
+          entry: @target,
+          source: :myanimelist,
+          kind: external_link[:kind],
+          url: external_link[:url]
+        )
+      end
   end
 
   def new_external_links

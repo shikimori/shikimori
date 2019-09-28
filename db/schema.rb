@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_27_123818) do
+ActiveRecord::Schema.define(version: 2019_09_28_002108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -504,6 +504,7 @@ ActiveRecord::Schema.define(version: 2019_09_27_123818) do
     t.datetime "imported_at"
     t.string "source", null: false
     t.index ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id"
+    t.index ["url", "entry_id", "entry_type", "source"], name: "external_links_url_entry_id_entry_type_source_uniq_index", unique: true
   end
 
   create_table "favourites", id: :serial, force: :cascade do |t|

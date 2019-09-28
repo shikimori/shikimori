@@ -43,7 +43,7 @@ private
     klass = association.classify.constantize
     models = collection.map { |item| klass.new fix(item) }
 
-    klass.import models
+    klass.import models, on_duplicate_key_ignore: true
   end
 
   def fix hash
