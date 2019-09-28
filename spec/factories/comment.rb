@@ -34,7 +34,7 @@ FactoryBot.define do
       after(:build) { |model| unstub_method model, :antispam_checks }
     end
 
-    trait :with_counter_cache do
+    trait :with_increment_comments do
       after(:build) { |model| unstub_method model, :increment_comments }
     end
 

@@ -1,10 +1,10 @@
 class DbEntry::MergeIntoOther # rubocop:disable ClassLength
   method_object %i[entry! other!]
 
-  METHODS = %i[
-    fields
+  RELATIONS = %i[
     user_rates
     topics
+    comments
     reviews
     collection_links
     versions
@@ -39,8 +39,10 @@ class DbEntry::MergeIntoOther # rubocop:disable ClassLength
 
   def call
     @other.class.transaction do
-      METHODS.each do |method|
-        send :"merge_#{method}"
+      merge_fields
+
+      RELATIONS.each do |relation|
+        send :"merge_#{relation}"
       end
 
       @entry.class.find(@entry.id).destroy!
@@ -81,6 +83,31 @@ private
     @entry.all_topics
       .where(generated: false)
       .each { |v| v.update linked: @other }
+  end
+
+  def merge_comments # rubocop:disable MethodLength
+    Shikimori::DOMAIN_LOCALES.each do |locale|
+      @entry_topic = @entry.maybe_topic(locale)
+      next if @entry_topic.comments_count.zero?
+
+      @other_topic = @other.maybe_topic(locale)
+
+      unless @other_topic.persisted?
+        @other_topic = @other.generate_topics(locale).first
+      end
+
+      @entry_topic
+        .comments
+        .includes(:commentable)
+        .find_each do |comment|
+          comment.update commentable: @other_topic
+          comment.send :increment_comments
+        end
+
+      if @entry_topic.commented_at && @entry_topic.commented_at < @other_topic.commented_at
+        @entry_topic.update! commented_at: @other_topic.commented_at
+      end
+    end
   end
 
   def merge_reviews

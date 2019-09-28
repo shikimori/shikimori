@@ -1,7 +1,7 @@
 describe DbEntry::MergeIntoOther do
   let(:type) { %i[anime manga].sample }
 
-  let(:entry_1) { create type, russian: 'zxc' }
+  let(:entry_1) { create type, :with_topics, russian: 'zxc' }
   let(:entry_2) { create type, russian: nil }
 
   let!(:user_rate_1_1) { create :user_rate, target: entry_1, user: user_1 }
@@ -16,6 +16,8 @@ describe DbEntry::MergeIntoOther do
 
   let!(:topic_1) { create :topic, linked: entry_1 }
   let!(:topic_2) { create :topic, linked: entry_1, generated: true }
+
+  let!(:comment_1) { create :comment, :with_increment_comments, commentable: entry_1.maybe_topic(:ru) }
 
   let!(:review) { create :review, target: entry_1 }
 
@@ -67,6 +69,9 @@ describe DbEntry::MergeIntoOther do
 
     expect(topic_1.reload.linked).to eq entry_2
     expect { topic_2.reload }.to raise_error ActiveRecord::RecordNotFound
+
+    expect(comment_1.reload.commentable).to eq entry_2.maybe_topic(:ru)
+    expect(entry_2.maybe_topic(:ru).comments_count).to eq 1
 
     expect(review.reload.target).to eq entry_2
     expect(collection_link.reload.linked).to eq entry_2
