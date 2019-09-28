@@ -46,6 +46,10 @@ describe DbEntry::MergeIntoOther do
   let!(:favourite_1_2) { create :favourite, linked: entry_2, user: user_1 }
   let!(:favourite_2_1) { create :favourite, linked: entry_1, user: user_2 }
 
+  let!(:external_link_1_1) { create :external_link, entry: entry_1, url: 'a' }
+  let!(:external_link_1_2) { create :external_link, entry: entry_1, url: 'b' }
+  let!(:external_link_2_1) { create :external_link, entry: entry_2, url: 'a' }
+
   subject! { described_class.call entry: entry_1, other: entry_2 }
 
   it do
@@ -79,5 +83,8 @@ describe DbEntry::MergeIntoOther do
 
     expect { favourite_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
     expect(favourite_2_1.reload.linked).to eq entry_2
+
+    expect { external_link_1_1.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect(external_link_1_2.reload.entry).to eq entry_2
   end
 end

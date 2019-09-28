@@ -14,6 +14,7 @@ class DbEntry::MergeIntoOther
     contest_links
     anime_links
     favourites
+    external_links
   ]
 
   FIELDS = %i[
@@ -119,5 +120,9 @@ private
 
   def merge_favourites
     @entry.favourites.each { |v| v.update linked: @other }
+  end
+
+  def merge_external_links
+    @entry.external_links.each { |v| v.update entry: @other }
   end
 end
