@@ -57,7 +57,7 @@ class Api::V1::FavoritesController < Api::V1Controller
 
       render json: { success: true, notice: i18n_t('added') }
     end
-  rescue ActiveRecord::RecordNotUnique
+  rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
     render json: { success: true, notice: i18n_t('added') }
   end
 

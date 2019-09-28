@@ -9,6 +9,14 @@ class Favourite < ApplicationRecord
     presence: true,
     if: -> { linked_type == Types::Favourite::LinkedTypes['Person'] }
 
+  validates :user_id,
+    uniqueness: { scope: %i[linked_id linked_type kind] },
+    if: -> { kind.present? }
+
+  validates :user_id,
+    uniqueness: { scope: %i[linked_id linked_type] },
+    if: -> { kind.blank? }
+
   LIMITS = {
     Types::Favourite::LinkedTypes['Character'] => 18,
     Types::Favourite::LinkedTypes['Anime'] => 7,
