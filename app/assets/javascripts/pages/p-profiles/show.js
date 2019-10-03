@@ -83,8 +83,7 @@ pageLoad('profiles_show', () => {
       let label;
       if (index < options.index_label) { return ''; }
 
-      const { from } = entry.dates;
-      // const { to } = entry.dates;
+      const { from, to } = entry.dates;
 
       if (index === 0) {
         options.index_label = 3;
@@ -93,7 +92,7 @@ pageLoad('profiles_show', () => {
         label = from.getFullYear();
         options.index_label = index + 3;
       } else if (options.prior.dates.from.getMonth() !== from.getMonth()) {
-        label = moment(from).format('MMM').capitalize();
+        label = moment(entry !== stats.last() ? from : to).format('MMM').capitalize();
         options.index_label = index + 3;
       } else if (options.range <= 120) { // and entry.value > 0
         label = from.getDate();
