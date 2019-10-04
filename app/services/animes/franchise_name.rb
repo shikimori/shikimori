@@ -23,7 +23,8 @@ class Animes::FranchiseName
     'Kyoushoku Soukou Guyver' => 'guyver',
     'Aria The Natural' => 'aria',
     'Marvel Future Avengers' => 'marvel',
-    'Re:Zero kara Hajimeru Isekai Seikatsu' => 're_zero'
+    'Re:Zero kara Hajimeru Isekai Seikatsu' => 're_zero',
+    'Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka' => 'danmachi'
   }
 
   def call
