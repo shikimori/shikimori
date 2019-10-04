@@ -59,10 +59,14 @@ private
   end
 
   def valid? entry, kind
-    entry[:episodeType] == kind &&
+    matched_kind?(entry[:episodeType], kind) &&
       entry[:isActive] == 1 &&
       entry[:isFirstUploaded] == 1 &&
       entry[:firstUploadedDateTime] != NO_DATE
+  end
+
+  def matched_kind? episode_type, kind
+    episode_type == kind || (kind == 'ona' && episode_type == 'tv')
   end
 
   def fetch url
