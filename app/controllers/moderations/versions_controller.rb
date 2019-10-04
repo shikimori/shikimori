@@ -16,9 +16,9 @@ class Moderations::VersionsController < ModerationsController
         moderations_roles_url
       )
     else
-      og page_title: i18n_t('content_changes')
+      og page_title: i18n_t('content_changes.all_content')
       breadcrumb(
-        i18n_t('content_changes'),
+        i18n_t('content_changes.all_content'),
         moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[:content])
       )
     end
