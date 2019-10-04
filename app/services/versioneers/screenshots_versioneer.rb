@@ -15,6 +15,8 @@ class Versioneers::ScreenshotsVersioneer
       version = find_version(author, UPLOAD) || build_version(author, UPLOAD)
       version.item_diff[field_key] << art.id
       version.save
+
+      version.apply_changes if version.auto_accepted?
     end
 
     [art, version]
@@ -24,6 +26,9 @@ class Versioneers::ScreenshotsVersioneer
     version = find_version(author, DELETE) || build_version(author, DELETE)
     version.item_diff[field_key] << art_id
     version.save
+
+    version.apply_changes if version.auto_accepted?
+
     version
   end
 
@@ -34,14 +39,13 @@ class Versioneers::ScreenshotsVersioneer
       ordered_ids.map(&:to_i)
     ]
     version.save
+
+    version.apply_changes if version.auto_accepted?
+
     version
   end
 
 private
-
-  def add_art version, art_id
-    version.item_diff[field_key] << art_id
-  end
 
   def build_art image
     item.screenshots.build(
@@ -54,9 +58,10 @@ private
 
   def find_version author, action
     Version
-      .where(user: author, item: item, state: :pending)
+      .where(user: author, item: item, state: %i[pending auto_accepted])
       .where('(item_diff->>:field) = :action', field: :action, action: action)
       .where('item_diff ? :field', field: field_key)
+      .where('created_at > ?', 10.minutes.ago)
       .first
   end
 
