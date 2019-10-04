@@ -284,8 +284,14 @@ class Abilities::User
     can %i[destroy], Version do |version|
       version.user_id == @user.id && version.pending?
     end
-    cannot :lesser_change, Version
-    cannot :major_change, Version
+
+    if @user.trusted_version_changer?
+      can :minor_change, Version
+      can :major_change, Version
+    else
+      cannot :minor_change, Version
+      cannot :major_change, Version
+    end
 
     can :auto_accept, Version do |version|
       version.user_id == @user.id && (

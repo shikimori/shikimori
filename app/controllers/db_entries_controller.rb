@@ -135,19 +135,14 @@ private
   def update_image
     versioneer = Versioneers::PostersVersioneer.new(@resource.object)
 
-    if can? :major_change, Version
-      versioneer.postmoderate(
-        update_params[:image],
-        current_user,
-        params[:reason]
-      )
-    else
-      versioneer.premoderate(
-        update_params[:image],
-        current_user,
-        params[:reason]
-      )
-    end
+    version = versioneer.premoderate(
+      update_params[:image],
+      current_user,
+      params[:reason]
+    )
+
+    version.auto_accept if version.persisted? && can?(:auto_accept, version)
+    version
   end
 
   def update_external_links

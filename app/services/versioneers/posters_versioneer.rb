@@ -9,12 +9,8 @@ class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
     end
   end
 
-  def postmoderate image, author = nil, reason = nil
-    Versions::PosterVersion.transaction do
-      version = create_version image, author, reason
-      @item.update! image: image if version.persisted? && version.auto_accept!
-      version
-    end
+  def postmoderate _image, _author = nil, _reason = nil
+    raise 'not implemented'
   end
 
 private
