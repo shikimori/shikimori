@@ -2,7 +2,7 @@ class Banhammer # rubocop:disable ClassLength
   include Translation
   include Singleton
 
-  Z = '[!@#$%&*^]'
+  Z = '[@#$%&*^]'
   X = '[\s.,:?!)(\]\[\'"«»-]'
   TAG = '(?: \[ [^\]]+ \] )*'
   TAG_REGEXP = /#{TAG}/mix

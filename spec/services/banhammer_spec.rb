@@ -38,6 +38,7 @@ describe Banhammer do
   end
 
   describe '#abusive?' do
+    it { expect(banhammer.abusive? 'BL!').to eq false }
     it { expect(banhammer.abusive? 'х*о').to eq false }
     it { expect(banhammer.abusive? 'тест').to eq false }
     it { expect(banhammer.abusive? '!!!').to eq false }
