@@ -31,27 +31,6 @@ class Version < ApplicationRecord
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
   scope :pending, -> { where state: :pending }
-  scope :texts, -> {
-    where(
-      Abilities::VersionTextsModerator::MANAGED_FIELDS
-        .map { |v| "(item_diff->>'#{v}') is not null" }
-        .join(' or ')
-    )
-  }
-  scope :content, -> {
-    where(
-      Abilities::VersionModerator::NOT_MANAGED_FIELDS
-        .map { |v| "(item_diff->>'#{v}') is null" }
-        .join(' and ')
-    )
-  }
-  scope :fansub, -> {
-    where(
-      Abilities::VersionFansubModerator::MANAGED_FIELDS
-        .map { |v| "(item_diff->>'#{v}') is not null" }
-        .join(' or ')
-    )
-  }
 
   state_machine :state, initial: :pending do
     state :accepted
