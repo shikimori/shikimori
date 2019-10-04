@@ -69,7 +69,7 @@
         .line
           .key #{t '.your_progress'}:&nbsp;
           .value
-            = format_percent view.user_progress
+            = format_percent [view.user_progress, 100.0].min
 
         - if view.filters
           .line
