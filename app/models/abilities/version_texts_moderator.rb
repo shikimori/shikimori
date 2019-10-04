@@ -3,6 +3,7 @@ class Abilities::VersionTextsModerator
   prepend Draper::CanCanCan
 
   MANAGED_FIELDS = %w[name russian description_ru]
+  MANAGED_MODELS = [Anime.name, Manga.name, Ranobe.name, Character.name, Person.name]
 
   def initialize _user
     can :rollback_episode, Anime
@@ -13,7 +14,10 @@ class Abilities::VersionTextsModerator
     end
 
     can :manage, Version do |version|
-      version.item_diff && (version.item_diff.keys - MANAGED_FIELDS).none?
+      !version.is_a?(Versions::RoleVersion) &&
+        version.item_diff &&
+        (version.item_diff.keys - MANAGED_FIELDS).none? &&
+        MANAGED_MODELS.include?(version.item_type)
     end
   end
 end

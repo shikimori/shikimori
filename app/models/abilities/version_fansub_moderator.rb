@@ -13,7 +13,9 @@ class Abilities::VersionFansubModerator
     end
 
     can :manage, Version do |version|
-      version.item_diff && (version.item_diff.keys - MANAGED_FIELDS).none?
+      !version.is_a?(Versions::RoleVersion) &&
+        version.item_diff &&
+        (version.item_diff.keys - MANAGED_FIELDS).none?
     end
   end
 end
