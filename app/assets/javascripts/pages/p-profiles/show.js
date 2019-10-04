@@ -84,18 +84,19 @@ pageLoad('profiles_show', () => {
       if (index < options.index_label) { return ''; }
 
       const { from, to } = entry.dates;
+      const date = entry !== stats.last() ? from : to;
 
       if (index === 0) {
         options.index_label = 3;
-        label = from.getFullYear();
-      } else if (options.prior.dates.from.getFullYear() !== from.getFullYear()) {
-        label = from.getFullYear();
+        label = date.getFullYear();
+      } else if (options.prior.dates.from.getFullYear() !== date.getFullYear()) {
+        label = date.getFullYear();
         options.index_label = index + 3;
-      } else if (options.prior.dates.from.getMonth() !== from.getMonth()) {
-        label = moment(entry !== stats.last() ? from : to).format('MMM').capitalize();
+      } else if (options.prior.dates.from.getMonth() !== date.getMonth()) {
+        label = moment(date).format('MMM').capitalize();
         options.index_label = index + 3;
       } else if (options.range <= 120) { // and entry.value > 0
-        label = from.getDate();
+        label = date.getDate();
         options.index_label = index + 2;
       }
 
