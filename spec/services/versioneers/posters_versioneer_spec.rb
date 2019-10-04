@@ -26,22 +26,23 @@ describe Versioneers::PostersVersioneer do
   end
 
   describe '#postmoderate' do
-    subject!(:version) { service.postmoderate image, author, reason }
+    subject(:version) { service.postmoderate image, author, reason }
 
     it do
-      expect(anime.image).to be_present
-      expect(anime).to_not be_changed
-
-      expect(version).to be_persisted
-      expect(version).to be_auto_accepted
-      expect(version).to be_instance_of Versions::PosterVersion
-      expect(version).to have_attributes(
-        user: author,
-        reason: reason,
-        item_diff: { 'image' => [nil, 'anime.jpg'] },
-        item: anime,
-        moderator: author
-      )
+      expect { subject }.to raise_error 'not implemented'
+      # expect(anime.image).to be_present
+      # expect(anime).to_not be_changed
+      #
+      # expect(version).to be_persisted
+      # expect(version).to be_auto_accepted
+      # expect(version).to be_instance_of Versions::PosterVersion
+      # expect(version).to have_attributes(
+      #   user: author,
+      #   reason: reason,
+      #   item_diff: { 'image' => [nil, 'anime.jpg'] },
+      #   item: anime,
+      #   moderator: author
+      # )
     end
   end
 end
