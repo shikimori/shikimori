@@ -135,7 +135,7 @@ private
   def update_image
     versioneer = Versioneers::PostersVersioneer.new(@resource.object)
 
-    if can? :major_change, @resource.object
+    if can? :major_change, Version
       versioneer.postmoderate(
         update_params[:image],
         current_user,
