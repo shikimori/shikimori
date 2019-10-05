@@ -14213,7 +14213,7 @@
       :algo: duration
       :filters:
         franchise: naruto
-      :threshold: 96.5%
+      :threshold: 96.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :naruto
@@ -14835,7 +14835,7 @@
         - 246
         - 11511
         - 12121
-      :threshold: 96.7%
+      :threshold: 96.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :fairy_tail
@@ -17133,6 +17133,8 @@
       :algo: duration
       :filters:
         franchise: mushishi
+        not_anime_ids:
+        - 39738
       :threshold: 92.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -17162,6 +17164,8 @@
       :algo: duration
       :filters:
         franchise: mushishi
+        not_anime_ids:
+        - 39738
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -18425,7 +18429,10 @@
         - 31989
         - 35082
         - 37577
-      :threshold: 93.9%
+      :threshold: 81.9%
+      :generator:
+        ignore_latest_ids:
+        - 35678
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :hibike_euphonium
@@ -18459,6 +18466,9 @@
         - 35082
         - 37577
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 35678
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :hibike_euphonium
@@ -19243,7 +19253,7 @@
         franchise: yuru_yuri
         not_anime_ids:
         - 12665
-      :threshold: 92.9%
+      :threshold: 93.8%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :yuru_yuri
@@ -19446,7 +19456,7 @@
         - 33221
         - 35949
         - 36436
-      :threshold: 89.6%
+      :threshold: 89.3%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -22857,7 +22867,7 @@
       :algo: duration
       :filters:
         franchise: senki_zesshou_symphogear
-      :threshold: 94.5%
+      :threshold: 94.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :senki_zesshou_symphogear
@@ -24021,7 +24031,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 97.3%
+      :threshold: 98%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
