@@ -19,19 +19,10 @@ class TestsController < ShikimoriController
   rescue Faraday::ConnectionFailed
   end
 
-  def echo
-    NamedLogger.echo.info params.to_yaml
-    render json: params
+  def achievements_notification
   end
 
-  # тест d3 графа
-  def d3
-    @anime = Anime.find params[:anime_id]
-    render :d3, layout: false
-  end
-
-  # страница для теста рамок
-  def border
+  def ajax
   end
 
   def animes
@@ -44,44 +35,10 @@ class TestsController < ShikimoriController
       .decorate
   end
 
-  def momentjs
-  end
-
-  def webm
-    render :webm, layout: false
-  end
-
-  def polls
-  end
-
-  def vk_video
-    @video = AnimeVideo.find(846_660).decorate
-    render :vk_video, layout: false
-  end
-
-  def wall
-  end
-
-  def ajax
+  def border
   end
 
   def colors
-  end
-
-  # def d3_data
-    # query = Animes::ChronologyQuery.new(Anime.find params[:anime_id])
-    # @entries = query.fetch
-    # @links = query.links
-  # end
-
-  def iframe
-  end
-
-  def iframe_inner
-    render :iframe_inner, layout: false
-  end
-
-  def achievements_notification
   end
 
   def franchises
@@ -183,6 +140,60 @@ class TestsController < ShikimoriController
       end
   end
 
+  def iframe
+  end
+
+  def iframe_inner
+    render :iframe_inner, layout: false
+  end
+
+  def ip
+    render json: {
+      ip: request.ip,
+      remote_ip: request.remote_ip
+    }
+  end
+
+  def momentjs
+  end
+
+  def news
+    @dashboard_view = DashboardView.new
+  end
+
+  def oauth
+  end
+
+  def polls
+  end
+
+  def reset_styles_cache
+    if request.post?
+      cache_key = format(Styles::Download::CACHE_KEY, url: params[:url])
+      @was_exist = Rails.cache.exist? cache_key
+      Rails.cache.delete cache_key if @was_exist
+
+      @count = Style
+        .where('imports is not null and ? = ANY(imports)', params[:url])
+        .update_all compiled_css: nil
+    end
+  end
+
+  def vk_video
+    @video = AnimeVideo.find(846_660).decorate
+    render :vk_video, layout: false
+  end
+
+  def echo
+    NamedLogger.echo.info params.to_yaml
+    render json: params
+  end
+
+  def d3
+    @anime = Anime.find params[:anime_id]
+    render :d3, layout: false
+  end
+
   def votes
     raise Forbidden unless current_user&.admin?
     return render plain: 'votable_type is not set' if params[:votable_type].blank?
@@ -203,27 +214,21 @@ class TestsController < ShikimoriController
       .transform(&:voter)
   end
 
-  def reset_styles_cache
-    if request.post?
-      cache_key = format(Styles::Download::CACHE_KEY, url: params[:url])
-      @was_exist = Rails.cache.exist? cache_key
-      Rails.cache.delete cache_key if @was_exist
-
-      @count = Style
-        .where('imports is not null and ? = ANY(imports)', params[:url])
-        .update_all compiled_css: nil
-    end
+  def vue
   end
 
-  def oauth
+  def wall
   end
 
-  def ip
-    render json: {
-      ip: request.ip,
-      remote_ip: request.remote_ip
-    }
+  def webm
+    render :webm, layout: false
   end
+
+  # def d3_data
+    # query = Animes::ChronologyQuery.new(Anime.find params[:anime_id])
+    # @entries = query.fetch
+    # @links = query.links
+  # end
 
 private
 

@@ -541,6 +541,7 @@ Rails.application.routes.draw do
       border
       webm
       polls
+      news
       animes
       wall
       ajax
