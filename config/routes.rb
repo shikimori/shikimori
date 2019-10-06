@@ -537,25 +537,25 @@ Rails.application.routes.draw do
 
     get 'd3/:anime_id' => :d3, as: :d3
     %i[
-      momentjs
-      border
-      webm
-      polls
-      news
-      animes
-      wall
-      ajax
-      vk_video
-      colors
       achievements_notification
-      vue
+      ajax
+      animes
+      border
+      colors
+      franchises
       iframe
       iframe_inner
-      franchises
-      votes
       ip
-      reset_styles_cache
+      momentjs
+      news
       oauth
+      polls
+      reset_styles_cache
+      vk_video
+      votes
+      vue
+      wall
+      webm
     ].each do |page|
       get page
     end

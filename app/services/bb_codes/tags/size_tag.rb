@@ -3,7 +3,7 @@ class BbCodes::Tags::SizeTag
 
   REGEXP = %r{
     \[size=(?<size>\d+)\]
-      (?<content>[\s\S]*?)
+      (?<content>.*?)
     \[/size\]
   }mix
 
