@@ -187,6 +187,9 @@ class TestsController < ShikimoriController
     end
   end
 
+  def swiper
+  end
+
   def vk_video
     @video = AnimeVideo.find(846_660).decorate
     render :vk_video, layout: false

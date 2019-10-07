@@ -12,6 +12,10 @@ class Topics::NewsWallView < Topics::NewsView
   end
 
   def show_source?
-    false
+    true
+  end
+
+  def html_footer
+    super.gsub('b-shiki_wall', 'b-shiki_swiper').html_safe
   end
 end

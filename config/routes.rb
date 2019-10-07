@@ -551,6 +551,7 @@ Rails.application.routes.draw do
       oauth
       polls
       reset_styles_cache
+      swiper
       vk_video
       votes
       vue

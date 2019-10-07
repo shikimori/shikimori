@@ -12,6 +12,7 @@ import LogEntry from './log_entry';
 import Message from './message';
 import Postloaded from './postloaded';
 import ShortDialog from './short_dialog';
+import Swiper from './swiper';
 import Tabs from './tabs';
 import TextAnnotated from './text_annotated';
 import Topic from './topic';
@@ -19,6 +20,8 @@ import UserRateButton from './user_rates/button';
 import UserRateExtended from './user_rates/extended';
 import Wall from 'views/wall/view';
 import WeekRegisteredAction from './week_registered_action';
+
+import { isTablet, isMobile } from 'helpers/mobile_detect';
 
 export default class DynamicParser {
   static PENDING_CLASS = 'to-process';
@@ -112,7 +115,17 @@ export default class DynamicParser {
   }
 
   wall(node) {
-    new Wall(node);
+    if (isMobile() || isTablet()) {
+      node.classList.remove('b-shiki_wall');
+      node.classList.add('b-shiki_swiper');
+      new Swiper(node);
+    } else {
+      new Wall(node);
+    }
+  }
+
+  swiper(node) {
+    new Swiper(node);
   }
 
   userRate(node) {
