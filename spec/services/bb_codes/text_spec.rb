@@ -77,7 +77,7 @@ describe BbCodes::Text do
 
     describe '[wall]' do
       let(:text) { '[wall][/wall]' }
-      it { is_expected.to eq '<div class="b-shiki_wall to-process" data-dynamic="wall"></div>' }
+      it { is_expected.to eq '<div class="b-shiki_wall to-process" data-dynamic="wall"><div class="inner"></div></div>' }
     end
 
     describe '[vkontakte]', :vcr do
