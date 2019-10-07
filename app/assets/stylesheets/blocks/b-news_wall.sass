@@ -1,3 +1,5 @@
+@import mixins/responsive
+
 .b-news_wall
   display: flex
   margin: -15px
@@ -6,3 +8,16 @@
   .b-postloader
     flex-basis: 100%
     margin: 15px
+
+  .b-news_wall-topic
+    padding: 15px
+    flex-basis: 25%
+
+    +iphone-portrait
+      flex-basis: 100%
+
+    +iphone-landscape
+      flex-basis: 50%
+
+    +ipad
+      flex-basis: 33%

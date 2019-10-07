@@ -1,9 +1,7 @@
 @import mixins/ellipsis2
 @import mixins/responsive
 
-.b-topic.b-news_wall-topic
-  padding: 15px
-  flex-basis: 25%
+.b-topic.b-news_wall-topic.b-news-topic
   border-top: none
 
   .b-anime_status_tag
@@ -25,26 +23,38 @@
         top: 0
         z-index: 1
 
-  footer
-    display: flex
-    flex-direction: column-reverse
+    footer
+      display: flex
+      flex-direction: column-reverse
 
-    .additionals
-      justify-content: flex-start
-      margin-top: -5px
-      position: absolute
-      z-index: 1
+      .additionals
+        justify-content: flex-start
+        margin-top: -5px
+        position: absolute
+        z-index: 1
 
-  header
-    order: 98
+    header
+      order: 98
 
-  .b-status-line
-    +ellipsis2
-    order: 99
+    .b-status-line
+      flex-wrap: nowrap
+      order: 99
+      margin: 0
 
-    .section.about
-      +ellipsis2
+      .section
+        &:after
+          display: none
 
-    .section.created_at
-      display: none
+        &:not(:first-child):before
+          content: ''
+          display: inline
+          border-left: 1px solid #acb1b4
+          margin-left: 15px
+          padding-left: 14px
+
+      .section.about
+        +ellipsis2
+
+      .section.created_at
+        display: none
 
