@@ -1,9 +1,13 @@
 class BbCodes::Tags::WallTag
   include Singleton
 
+  REGEXP = %r{
+    \[wall\]
+      (.*?)
+    \[/wall\]
+  }mix
+
   def format text
-    text.gsub(
-      /\[wall\] (.*?) \[\/wall\]/mix,
-      '<div class="b-shiki_wall unprocessed">\1</div>')
+    text.gsub(REGEXP, '<div class="b-shiki_wall to-process" data-dynamic="wall">\1</div>')
   end
 end

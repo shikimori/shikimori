@@ -16,7 +16,7 @@ $(document).on('turbolinks:before-cache', () => {
   }
 
   // TODO: remove after moving processCurrentDom logic into DynamicParser
-  $('.b-video, .b-shiki_wall, .b-tooltipped, .b-spoiler, .b-image, .b-show_more')
+  $('.b-video, .b-tooltipped, .b-spoiler, .b-image, .b-show_more')
     .addClass('unprocessed');
   $('.anime-tooltip-processed')
     .removeClass('anime-tooltip-processed')

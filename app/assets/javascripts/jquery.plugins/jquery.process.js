@@ -7,8 +7,6 @@ import CommentsTracker from 'services/comments/tracker';
 import PollsTracker from 'services/polls/tracker';
 import DynamicParser from 'dynamic_elements/_parser';
 
-import Wall from 'views/wall/view';
-
 import {
   ANIME_TOOLTIP_OPTIONS,
   COMMON_TOOLTIP_OPTIONS
@@ -43,11 +41,6 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
     .removeClass('linkeable');
 
   $with('.b-video.unprocessed', $root).shikiVideo();
-
-  // стена картинок
-  $with('.b-shiki_wall.unprocessed', $root)
-    .removeClass('unprocessed')
-    .each((_index, node) => new Wall(node));
 
   // чёрные мелкие тултипы
   $with('.b-tooltipped.unprocessed', $root)

@@ -1,4 +1,5 @@
 import AuthorizedAction from './authorized_action';
+import Clickloaded from './clickloaded';
 import CodeHighlight from './code_highlight';
 import Comment from './comment';
 import CuttedCovers from './cutted_covers';
@@ -10,13 +11,13 @@ import Html5Video from './html5_video';
 import LogEntry from './log_entry';
 import Message from './message';
 import Postloaded from './postloaded';
-import Clickloaded from './clickloaded';
 import ShortDialog from './short_dialog';
 import Tabs from './tabs';
 import TextAnnotated from './text_annotated';
 import Topic from './topic';
 import UserRateButton from './user_rates/button';
 import UserRateExtended from './user_rates/extended';
+import Wall from 'views/wall/view';
 import WeekRegisteredAction from './week_registered_action';
 
 export default class DynamicParser {
@@ -108,6 +109,10 @@ export default class DynamicParser {
 
   clickloaded(node) {
     new Clickloaded(node);
+  }
+
+  wall(node) {
+    new Wall(node);
   }
 
   userRate(node) {
