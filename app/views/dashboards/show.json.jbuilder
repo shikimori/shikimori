@@ -1,9 +1,11 @@
-json.content JsExports::Supervisor.instance.sweep(render(
-  partial: 'topics/topic',
-  collection: @dashboard_view.news_topic_views,
-  as: :topic_view,
-  formats: :html
-))
+json.content JsExports::Supervisor.instance.sweep(
+  render(
+    partial: 'topics/topic',
+    collection: @dashboard_view.news_topic_views,
+    as: :topic_view,
+    formats: :html
+  )
+)
 
 if @dashboard_view.news_topic_views.next_page
   json.postloader render 'blocks/postloader',

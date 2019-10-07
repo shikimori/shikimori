@@ -59,8 +59,16 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def action_tag
   end
 
-  def show_body?
+  def show_inner?
     preview? || !@topic.generated?
+  end
+
+  def show_buttons?
+    true
+  end
+
+  def show_body?
+    true
   end
 
   def footer_vote?
@@ -161,7 +169,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def read_more_link?
-    need_trucation? && truncated_body?
+    show_body? && need_trucation? && truncated_body?
   end
 
   def html_footer
@@ -192,6 +200,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def cache_key
     CacheHelper.keys(
+      self.class.name,
       @topic,
       @topic.respond_to?(:commented_at) ? @topic.commented_at : nil,
       @topic.linked,

@@ -18,7 +18,8 @@
         data-text=t('markers.new')
       ]
 
-    = render 'topics/buttons', topic_view: topic_view
+    - if topic_view.show_buttons?
+      = render 'topics/buttons', topic_view: topic_view
 
     /= cache [topic.object, topic.linked ? topic.linked : nil, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
     header
@@ -30,31 +31,32 @@
     - if topic_view.status_line?
       = render 'topics/status_line', topic_view: topic_view
 
-    .body
-      - if topic_view.minified?
-        - if topic_view.topic_type_policy.review_topic?
-          = render 'topics/reviews/entry_cover', view: topic_view,
-            entry: topic_view.topic.linked.target.decorate
+    - if topic_view.show_body?
+      .body
+        - if topic_view.minified?
+          - if topic_view.topic_type_policy.review_topic?
+            = render 'topics/reviews/entry_cover', view: topic_view,
+              entry: topic_view.topic.linked.target.decorate
 
-        - if topic_view.need_trucation?
-          .body-truncated
-            .body-truncated-inner[
-              itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
-            ]
-              = topic_view.html_body_truncated
+          - if topic_view.need_trucation?
+            .body-truncated
+              .body-truncated-inner[
+                itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
+              ]
+                = topic_view.html_body_truncated
+
+          - else
+            = topic_view.html_body
 
         - else
-          = topic_view.html_body
+          .body-inner itemprop="articleBody"
+            = topic_view.render_body
 
-      - else
-        .body-inner itemprop="articleBody"
-          = topic_view.render_body
-
-      - if topic_view.read_more_link?
-        .read_more-link
-          a.b-link[
-            href=topic_view.urls.poster_url
-          ] = t '.read_more_link'
+        - if topic_view.read_more_link?
+          .read_more-link
+            a.b-link[
+              href=topic_view.urls.poster_url
+            ] = t '.read_more_link'
 
     footer class=('with-read_more-link' if topic_view.read_more_link?)
       - if topic_view.tags.any? || topic_view.decomposed_body.source.present?
@@ -66,7 +68,7 @@
                   data-text=tag
                 ]
 
-          - if topic_view.decomposed_body.source.present?
+          - if topic_view.respond_to?(:show_source?) && topic_view.show_source?
             .source
               a.b-link.b-tooltipped.unprocessed[
                 href=topic_view.decomposed_body.source

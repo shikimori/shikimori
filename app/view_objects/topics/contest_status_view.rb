@@ -7,7 +7,7 @@ class Topics::ContestStatusView < Topics::NewsView
     true
   end
 
-  def show_body?
+  def show_inner?
     true
   end
 

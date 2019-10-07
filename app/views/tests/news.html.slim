@@ -1,10 +1,10 @@
-.subheadline news
-.block
+.midheadline news
+.topics
   = render partial: 'topics/topic',
-    collection: @dashboard_view.news_topic_views,
+    collection: @news,
     as: :topic_view
 
-  - if @dashboard_view.news_topic_views.next_page
+  - if @news.next_page
     = render 'blocks/postloader',
       filter: 'b-topic',
-      next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
+      next_url: news_tests_url(page: @news.next_page)

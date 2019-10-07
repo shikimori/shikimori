@@ -7,15 +7,16 @@
     ]
 
 .name-date
-  - if topic_view.action_tag
-    .b-anime_status_tag[
-      class=topic_view.action_tag.type
-      data-text=topic_view.action_tag.text
-    ]
-  - if user_signed_in?
-    .b-anime_status_tag.ignored.hidden[
-      data-text=t('.topic_ignored')
-    ]
+  .status-tags
+    - if topic_view.action_tag
+      .b-anime_status_tag[
+        class=topic_view.action_tag.type
+        data-text=topic_view.action_tag.text
+      ]
+    - if user_signed_in?
+      .b-anime_status_tag.ignored.hidden[
+        data-text=t('.topic_ignored')
+      ]
 
   a.name[
     href=topic_view.urls.poster_url

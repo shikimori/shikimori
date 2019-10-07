@@ -87,7 +87,7 @@ class DashboardView < ViewObjectBase
     Topics::Query
       .fetch(h.locale_from_host)
       .by_forum(Forum.news, h.current_user, h.censored_forbidden?)
-      .limit(7)
+      .limit(NEWS_LIMIT)
       .paginate(page, NEWS_LIMIT)
       .as_views(true, true)
   end

@@ -1,5 +1,5 @@
 class Topics::UserContentView < Topics::View
-  def show_body?
+  def show_inner?
     true
   end
 

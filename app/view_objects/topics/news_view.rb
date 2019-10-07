@@ -3,9 +3,9 @@ class Topics::NewsView < Topics::View
     super ['b-news-topic', css]
   end
 
-  # def minified?
-    # is_preview || is_mini
-  # end
+  def show_source?
+    decomposed_body.source.present?
+  end
 
   def topic_title
     topic.title
