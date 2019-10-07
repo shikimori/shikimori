@@ -8,9 +8,6 @@ class BbCodes::Tags::WallTag
   }mix
 
   def format text
-    text.gsub(
-      REGEXP,
-      '<div class="b-shiki_wall to-process" data-dynamic="wall"><div class="inner">\1</div></div>'
-    )
+    text.gsub(REGEXP, '<div class="b-shiki_wall to-process" data-dynamic="wall">\1</div>')
   end
 end

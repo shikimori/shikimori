@@ -15,8 +15,6 @@ export default class Wall extends View {
     this.id = lastId;
     lastId += 1;
 
-    this.$inner = this.$node.children('.inner');
-
     await this.$root.imagesLoaded();
 
     this._prepare();
@@ -33,7 +31,7 @@ export default class Wall extends View {
     this.maxHeight = parseInt(this.$node.css('max-height'));
     this.maxWidth = parseInt(this.$node.css('width'));
 
-    const $images = this.$inner
+    const $images = this.$node
       .children('a, .b-video')
       .attr({ rel: `wall-${this.id}` })
       .css({ width: '', height: '' });
