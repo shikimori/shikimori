@@ -2,7 +2,7 @@ import WallImage from './image';
 
 const HEIGHT_RATIO = {
   other: 1.0,
-  shrinked: 0.748
+  shrinked: 0.745
 };
 
 export default class WallVideo extends WallImage {
