@@ -18,7 +18,7 @@ import TextAnnotated from './text_annotated';
 import Topic from './topic';
 import UserRateButton from './user_rates/button';
 import UserRateExtended from './user_rates/extended';
-import Wall from 'views/wall/view';
+import Wall from './wall';
 import WeekRegisteredAction from './week_registered_action';
 
 import { isTablet, isMobile } from 'helpers/mobile_detect';
