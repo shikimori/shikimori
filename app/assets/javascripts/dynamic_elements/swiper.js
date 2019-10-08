@@ -55,5 +55,9 @@ export default class SwiperView extends ShikiView {
       spaceBetween: WallCluster.MARGIN,
       a11y: false
     });
+
+    // swiper.on('transitionEnd', () => {
+    //   console.log('transitionEnd', swiper);
+    // });
   }
 }
