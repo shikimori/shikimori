@@ -25,6 +25,8 @@ export default class WallVideo extends WallImage {
     });
   }
 
+  toShikiImage() {}
+
   _imageSizes() {
     return [
       this.$image[0].naturalWidth * 1.0,
@@ -35,6 +37,4 @@ export default class WallVideo extends WallImage {
   _heightRatio() {
     return HEIGHT_RATIO[this.is_shrinked ? 'shrinked' : 'other'];
   }
-
-  _toShikiImage() {}
 }

@@ -15,6 +15,7 @@ export default class WallCluster {
     this.images.forEach(image => image.normalize(this.maxWidth, this.maxHeight));
     this.images.forEach(image => this._put(image));
     this.images.forEach(image => image.apply());
+    this.images.forEach(image => image.toShikiImage());
   }
 
   width() {

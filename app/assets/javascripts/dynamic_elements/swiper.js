@@ -4,6 +4,8 @@ import ShikiView from 'views/application/shiki_view';
 import Wall from 'views/wall/view';
 import WallCluster from 'views/wall/cluster';
 
+const RATIO = 16.0 / 9;
+
 export default class SwiperView extends ShikiView {
   async initialize() {
     const [areaWidth, areaHeight] = this.computeSizes();
@@ -13,12 +15,12 @@ export default class SwiperView extends ShikiView {
 
     const wall = this.buildWall();
 
-    if (wall.images.length > 1) {
-      this.buildSwiper();
-    } else if (!wall.images.length) {
+    if (!wall.images.length) {
       this.setPlaceholder(areaWidth, areaHeight);
     } else if (this.width < areaWidth) {
       this.scaleWall(wall, areaWidth);
+    } else {
+      this.buildSwiper();
     }
   }
 
@@ -33,7 +35,7 @@ export default class SwiperView extends ShikiView {
     if (width > 400) {
       height = 160;
     } else {
-      height = (width / (16.0 / 9.0)).round();
+      height = (width / RATIO).round();
     }
 
     return [width, height];
@@ -70,10 +72,6 @@ export default class SwiperView extends ShikiView {
       spaceBetween: WallCluster.MARGIN,
       a11y: false
     });
-
-    // swiper.on('transitionEnd', () => {
-    //   console.log('transitionEnd', swiper);
-    // });
   }
 
   setPlaceholder(width, height) {
@@ -82,12 +80,15 @@ export default class SwiperView extends ShikiView {
 
   scaleWall(wall, width) {
     const image = wall.images.first();
-
-    if (image.ratio > 16.0 / 9) {
+    if (wall.images.length === 1 && image.ratio > RATIO) {
       return;
     }
 
-    this.$root.css('width', '');
-    image.$image.css({ width, height: '' });
+    new Wall(this.$root, {
+      isOneCluster: true,
+      maxWidth: width,
+      maxHeight: 9999,
+      awaitImagesLoaded: false
+    });
   }
 }

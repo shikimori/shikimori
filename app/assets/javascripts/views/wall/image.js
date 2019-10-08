@@ -34,8 +34,6 @@ export default class WallImage extends View {
       top: this.top,
       left: this.left
     });
-
-    this._toShikiImage();
   }
 
   normalize(width, height) {
@@ -68,7 +66,7 @@ export default class WallImage extends View {
     // return (1 / this.ratio).round(1)
   }
 
-  _toShikiImage() {
+  toShikiImage() {
     this.$node.shikiImage();
   }
 
