@@ -23,7 +23,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
-  CACHE_VERSION = :v3
+  CACHE_VERSION = :v4
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
