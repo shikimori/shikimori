@@ -23,7 +23,7 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
   }xi
 
   def image_url
-    "//img.youtube.com/vi/#{matches[:key]}/mqdefault.jpg"
+    "//img.youtube.com/vi/#{matches[:key]}/hqdefault.jpg"
   end
 
   def player_url
@@ -43,7 +43,7 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
     # задержка, т.к. ютуб блочит при частых запросах
     sleep 1 unless Rails.env.test?
 
-    open("http://i.ytimg.com/vi/#{matches[:key]}/mqdefault.jpg").read.present?
+    open("http://i.ytimg.com/vi/#{matches[:key]}/hqdefault.jpg").read.present?
   rescue *Network::FaradayGet::NET_ERRORS
     false
   end

@@ -48,7 +48,7 @@ describe Video do
     subject(:video) { build :video, url: 'http://www.youtube.com/watch?v=VdwKZ6JDENc' }
 
     its(:hosting) { is_expected.to eq 'youtube' }
-    its(:image_url) { is_expected.to eq '//img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg' }
+    its(:image_url) { is_expected.to eq '//img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg' }
     its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc' }
 
     describe 'url=' do

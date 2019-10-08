@@ -716,7 +716,7 @@
         {
           "id": 1,
           "url": "https://youtube.com/watch?v=VdwKZ6JDENc",
-          "image_url": "http://img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg",
+          "image_url": "http://img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg",
           "player_url": "http://youtube.com/embed/VdwKZ6JDENc",
           "name": null,
           "kind": "op",
@@ -6138,7 +6138,7 @@
       "response_data": {
         "id": 3,
         "url": "https://youtube.com/watch?v=l1YX30AmYsA",
-        "image_url": "http://img.youtube.com/vi/l1YX30AmYsA/mqdefault.jpg",
+        "image_url": "http://img.youtube.com/vi/l1YX30AmYsA/hqdefault.jpg",
         "player_url": "http://youtube.com/embed/l1YX30AmYsA",
         "name": "test",
         "kind": "pv",
@@ -6178,7 +6178,7 @@
         {
           "id": 2,
           "url": "https://youtube.com/watch?v=VdwKZ6JDENc",
-          "image_url": "http://img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg",
+          "image_url": "http://img.youtube.com/vi/VdwKZ6JDENc/hqdefault.jpg",
           "player_url": "http://youtube.com/embed/VdwKZ6JDENc",
           "name": null,
           "kind": "op",
