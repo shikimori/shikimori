@@ -3,16 +3,20 @@ import Swiper from 'swiper';
 import ShikiView from 'views/application/shiki_view';
 import Wall from 'views/wall/view';
 import WallCluster from 'views/wall/cluster';
+import WallImage from 'views/wall/image';
 
 export default class SwiperView extends ShikiView {
   async initialize() {
-    this.setSizes();
+    const width = this.setSizes();
     await this.imagesLoaded();
 
     const wall = this.buildWall();
+    const firstImage = wall.images.first();
 
     if (wall.images.length > 1) {
       this.buildSwiper();
+    } else if (firstImage?.constructor === WallImage) {
+      this.scaleSingleImage(firstImage, width);
     }
   }
 
@@ -26,6 +30,8 @@ export default class SwiperView extends ShikiView {
       height = (width / (16.0 / 9.0)).round();
     }
     this.$root.css('max-height', height);
+
+    return width;
   }
 
   async imagesLoaded() {
@@ -59,5 +65,10 @@ export default class SwiperView extends ShikiView {
     // swiper.on('transitionEnd', () => {
     //   console.log('transitionEnd', swiper);
     // });
+  }
+
+  scaleSingleImage(image, width) {
+    this.$root.css('width', '');
+    image.$image.css({ width, height: '' });
   }
 }
