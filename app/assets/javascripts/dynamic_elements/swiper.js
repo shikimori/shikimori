@@ -6,7 +6,7 @@ import WallCluster from 'views/wall/cluster';
 
 export default class ShikiSwiper extends ShikiView {
   async initialize() {
-    console.log('swiper')
+    console.log('swiper', this.root);
     await this.$root.imagesLoaded();
 
     const width = this.$root.width();

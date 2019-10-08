@@ -12,6 +12,7 @@ let lastId = 0;
 
 export default class Wall extends View {
   async initialize(options = {}) {
+    console.log('wall', this.root);
     this.id = lastId;
     lastId += 1;
 
