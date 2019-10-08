@@ -11,11 +11,19 @@ const MIN_CLUSTER_HEIGHT = 80;
 let lastId = 0;
 
 export default class Wall extends View {
-  async initialize() {
+  async initialize(options = {}) {
     this.id = lastId;
     lastId += 1;
 
-    await this.$root.imagesLoaded();
+    this.isOneCluster = options.isOneCluster;
+    this.minClusterHeight = options.isOneCluster !== undefined ?
+      options.minClusterHeight :
+      MIN_CLUSTER_HEIGHT;
+    this.maxWidth = options.maxWidth;
+
+    if (options.awaitImagesLoaded === undefined || options.awaitImagesLoaded) {
+      await this.$root.imagesLoaded();
+    }
 
     this._prepare();
     this._buildClusters();
@@ -28,13 +36,14 @@ export default class Wall extends View {
       height: ''
     });
 
-    this.maxHeight = parseInt(this.$node.css('max-height'));
-    this.maxWidth = parseInt(this.$node.css('width'));
+    this.maxContainerWidth = parseInt(this.$node.css('width'));
+
+    this.maxHeight = this.maxHeight || parseInt(this.$node.css('max-height'));
+    this.maxWidth = this.maxWidth || this.maxContainerWidth;
 
     const $images = this.$node
       .children('a, .b-video')
-      .attr({ rel: `wall-${this.id}` })
-      .css({ width: '', height: '' });
+      .attr({ rel: `wall-${this.id}` });
 
     $images.children().removeClass('check-width');
 
@@ -84,23 +93,24 @@ export default class Wall extends View {
     }
 
     this.$node.css({
-      width: ([width, this.maxWidth]).min(),
+      width: ([width, this.maxWidth, this.maxContainerWidth]).min(),
       height: ([height, this.maxHeight]).min()
     });
   }
 
   _isTwoClusters() {
-    return this.images.sum(image => image.weight()) > MIN_TWO_CLUSTERS_WEIGHT;
+    return !this.isOneCluster &&
+      this.images.sum(image => image.weight()) > MIN_TWO_CLUSTERS_WEIGHT;
   }
 
   _clusterFirstHeight() {
-    return [this.maxHeight - MIN_CLUSTER_HEIGHT, MIN_CLUSTER_HEIGHT].max();
+    return [this.maxHeight - this.minClusterHeight, this.minClusterHeight].max();
   }
 
   _clusterSecondHeight() {
     return [
       ((this.maxHeight - this.cluster_1.height()) + WallCluster.MARGIN).round(),
-      MIN_CLUSTER_HEIGHT
+      this.minClusterHeight
     ].max();
   }
 

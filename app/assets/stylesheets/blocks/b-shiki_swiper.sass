@@ -1,13 +1,36 @@
 .b-shiki_swiper
-  width: 100%
-  height: 100%
-  margin-left: auto
-  margin-right: auto
   position: relative
   overflow: hidden
-  list-style: none
-  padding: 0
-  z-index: 1
+  line-height: 0
+  width: 100%
+
+  &.to-process
+    max-height: 160px
+
+    img
+      max-height: 160px
+      opacity: 0
+
+  .b-image,
+  .b-video
+    &.fixed .video-link img
+      width: auto
+
+  // a
+  //   position: static
+  //
+  //   &:not(:last-child)
+  //     margin-right: 4px
+  //
+  //   img
+  //     max-width: none
+  //
+  // span.marker
+  //   display: none
+
+  // .b-video
+  //   margin-bottom: 0
+  //   overflow: visible
 
   .swiper-wrapper
     box-sizing: content-box

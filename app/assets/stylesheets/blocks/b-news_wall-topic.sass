@@ -3,6 +3,7 @@
 
 .b-topic.b-news_wall-topic.b-news-topic
   border-top: none
+  margin: 0
 
   .b-anime_status_tag
     font-size: 13px
@@ -23,18 +24,28 @@
         top: 0
         z-index: 1
 
+      a
+        height: auto
+
+        +iphone
+          font-size: 18px
+
+        +gte_ipad
+          font-size: 16px
+
     footer
       display: flex
       flex-direction: column-reverse
 
       .additionals
         justify-content: flex-start
-        margin-top: -5px
+        margin-top: 0
         position: absolute
         z-index: 1
 
     header
       order: 98
+      margin-top: 5px
 
     .b-status-line
       flex-wrap: nowrap

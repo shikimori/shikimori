@@ -12,7 +12,7 @@ class Topics::NewsWallView < Topics::NewsView
   end
 
   def show_source?
-    true
+    false
   end
 
   def html_footer
