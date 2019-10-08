@@ -19,7 +19,7 @@ export default class SwiperView extends ShikiView {
       this.setPlaceholder(areaWidth, areaHeight);
     } else if (this.width < areaWidth) {
       this.scaleWall(wall, areaWidth);
-    } else {
+    } else if (wall.images.length > 1) {
       this.buildSwiper();
     }
   }
