@@ -16,7 +16,8 @@ export default class Wall extends View {
     lastId += 1;
 
     this.isOneCluster = options.isOneCluster;
-    this.minClusterHeight = options.isOneCluster !== undefined ? options.minClusterHeight :
+    this.minClusterHeight = options.isOneCluster !== undefined ?
+      options.minClusterHeight :
       MIN_CLUSTER_HEIGHT;
     this.maxWidth = options.maxWidth;
     this.maxHeight = options.maxHeight;

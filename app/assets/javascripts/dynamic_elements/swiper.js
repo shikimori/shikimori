@@ -25,7 +25,7 @@ export default class SwiperView extends ShikiView {
   }
 
   get width() {
-    return this.$root.width();
+    return this.$root.width().floor();
   }
 
   computeSizes() {
@@ -35,7 +35,7 @@ export default class SwiperView extends ShikiView {
     if (width > 400) {
       height = 160;
     } else {
-      height = (width / RATIO).round();
+      height = (width / RATIO).floor();
     }
 
     return [width, height];
@@ -79,16 +79,22 @@ export default class SwiperView extends ShikiView {
   }
 
   scaleWall(wall, width) {
-    const image = wall.images.first();
-    if (wall.images.length === 1 && image.ratio > RATIO) {
+    const firstImage = wall.images.first();
+    if (wall.images.length === 1 && firstImage.ratio > RATIO) {
       return;
     }
 
-    new Wall(this.$root, {
+    const newWall = new Wall(this.$root, {
       isOneCluster: true,
       maxWidth: width,
       maxHeight: 9999,
       awaitImagesLoaded: false
+    });
+
+    newWall.images.forEach((image, index) => {
+      if (index > 0) {
+        image.$root.css({ left: '', 'margin-left': WallCluster.MARGIN });
+      }
     });
   }
 }
