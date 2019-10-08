@@ -24,7 +24,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :basic_tags, :other_tags
 
   BODY_TRUCATE_SIZE = 500
-  CACHE_VERSION = :v4
+  CACHE_VERSION = :v5
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
