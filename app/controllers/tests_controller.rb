@@ -162,8 +162,8 @@ class TestsController < ShikimoriController
     @news = Topics::Query
       .fetch(locale_from_host)
       .by_forum(Forum.news, current_user, censored_forbidden?)
-      .limit(16)
-      .paginate(@page, 16)
+      .limit(24)
+      .paginate(@page, 24)
       .transform do |topic|
         Topics::NewsWallView.new topic, true, true
       end

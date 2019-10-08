@@ -61,9 +61,15 @@
     footer class=('with-read_more-link' if topic_view.read_more_link?)
       - if topic_view.tags.any? || topic_view.decomposed_body.source.present?
         .additionals
-          - if topic_view.tags.any?
-            .tags
-              - topic_view.tags.each do |tag|
+          - if topic_view.basic_tags.any?
+            .basic-tags
+              - topic_view.basic_tags.each do |tag|
+                .b-anime_status_tag.other[
+                  data-text=tag
+                ]
+          - if topic_view.other_tags.any?
+            .other-tags
+              - topic_view.other_tags.each do |tag|
                 .b-anime_status_tag.other[
                   data-text=tag
                 ]

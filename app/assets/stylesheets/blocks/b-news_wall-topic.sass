@@ -36,11 +36,7 @@
         padding-right: 0 // no need in offset for item-mobile
 
       .status-tags
-        left: 3px
-        pointer-events: none
-        position: absolute
-        top: 3px
-        z-index: 2
+        display: none
 
       .name
         height: auto
@@ -56,11 +52,21 @@
       flex-direction: column-reverse
 
       .additionals
+        margin: 0
+
+      .basic-tags
         justify-content: flex-start
-        margin-top: -3px
-        margin-left: 3px
+        margin-top: -14px
+        pointer-events: none
+        left: 3px
+        position: absolute
+        z-index: 2
+
+      .other-tags
+        left: 3px
         pointer-events: none
         position: absolute
+        top: 3px
         z-index: 2
 
     header

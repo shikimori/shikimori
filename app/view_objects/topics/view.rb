@@ -20,7 +20,8 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   instance_cache :html_body, :html_body_truncated, :cleaned_preview_body,
     :comments_view, :urls, :action_tag, :topic_ignore,
-    :topic_comments_policy, :topic_type_policy
+    :topic_comments_policy, :topic_type_policy,
+    :basic_tags, :other_tags
 
   BODY_TRUCATE_SIZE = 500
   CACHE_VERSION = :v4
@@ -192,6 +193,14 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def status_line?
     true
+  end
+
+  def basic_tags
+    @topic.tags & Topics::TagsQuery::BASIC_TAGS
+  end
+
+  def other_tags
+    @topic.tags - basic_tags
   end
 
   def topic_type_policy

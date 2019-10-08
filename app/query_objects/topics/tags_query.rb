@@ -9,6 +9,7 @@ class Topics::TagsQuery
     кино
     игры
     визуальные_новеллы
+    лайв_экшен
   ]
 
   def call
