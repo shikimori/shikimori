@@ -1,12 +1,28 @@
 @import mixins/ellipsis2
+@import mixins/two_line_ellipsis
 @import mixins/responsive
+@import mixins/media_marker
 
 .b-topic.b-news_wall-topic.b-news-topic
   border-top: none
   margin: 0
 
   .b-anime_status_tag
-    font-size: 13px
+    border-radius: 2px
+    font-size: 11px
+    font-weight: bold
+    letter-spacing: 0.25px
+    line-height: 20px
+    // line-height: 18px
+    padding: 0 8px
+    text-transform: uppercase
+    border-color: rgba(#fff, 0.25)
+
+    // &.news
+    //   background-color: rgba(#ff8a3c, 0.9)
+    //
+    // &.other
+    //   background-color: rgba(#678, 0.9)
 
   & > .inner
     display: flex
@@ -20,18 +36,20 @@
         padding-right: 0 // no need in offset for item-mobile
 
       .status-tags
+        left: 3px
+        pointer-events: none
         position: absolute
-        top: 0
+        top: 3px
         z-index: 2
 
-      a
+      .name
         height: auto
 
         +iphone
-          font-size: 18px
+          +two_line_ellipsis(18px, 1.26)
 
         +gte_ipad
-          font-size: 16px
+          +two_line_ellipsis(16px, 1.26)
 
     footer
       display: flex
@@ -39,7 +57,9 @@
 
       .additionals
         justify-content: flex-start
-        margin-top: 0
+        margin-top: -3px
+        margin-left: 3px
+        pointer-events: none
         position: absolute
         z-index: 2
 
@@ -69,3 +89,6 @@
       .section.created_at
         display: none
 
+  .b-shiki_swiper
+    .b-video .marker
+      display: none
