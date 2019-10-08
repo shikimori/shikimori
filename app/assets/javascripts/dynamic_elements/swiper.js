@@ -6,7 +6,6 @@ import WallCluster from 'views/wall/cluster';
 
 export default class ShikiSwiper extends ShikiView {
   async initialize() {
-    console.log('swiper', this.root);
     await this.$root.imagesLoaded();
 
     const width = this.$root.width();
@@ -19,21 +18,23 @@ export default class ShikiSwiper extends ShikiView {
     }
     this.$root.css('max-height', height);
 
-    await new Wall(this.$root, {
+    const wall = new Wall(this.$root, {
       isOneCluster: true,
       maxWidth: 9999,
       awaitImagesLoaded: false
     });
 
-    this.$root.children()
-      .addClass('swiper-slide')
-      .removeAttr('style')
-      .wrapAll('<div class="swiper-wrapper" />');
+    if (wall.images.length > 1) {
+      this.$root.children()
+        .addClass('swiper-slide')
+        .removeAttr('style')
+        .wrapAll('<div class="swiper-wrapper" />');
 
-    new Swiper(this.root, {
-      slidesPerView: 'auto',
-      spaceBetween: WallCluster.MARGIN,
-      a11y: false
-    });
+      new Swiper(this.root, {
+        slidesPerView: 'auto',
+        spaceBetween: WallCluster.MARGIN,
+        a11y: false
+      });
+    }
   }
 }

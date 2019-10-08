@@ -26,8 +26,8 @@ export default class WallImage extends View {
 
   apply() {
     this.$image.css({
-      width: this.width
-      // height: this.height
+      width: this.width,
+      height: this.height
     });
 
     this.$node.css({
