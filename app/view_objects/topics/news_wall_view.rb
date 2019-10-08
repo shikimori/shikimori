@@ -16,7 +16,7 @@ class Topics::NewsWallView < Topics::NewsView
   end
 
   def html_footer
-    super
+    (@topic.decomposed_body.wall ? super : BbCodes::Text.call('[wall][/wall]'))
       .gsub('b-shiki_wall', 'b-shiki_swiper')
       .gsub('data-dynamic="wall"', 'data-dynamic="swiper"')
       .html_safe
