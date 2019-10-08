@@ -4,7 +4,7 @@ export default class WallImage extends View {
   initialize() {
     this.$image = this.$node.find('img');
     [this.width, this.height] = this._imageSizes();
-    [this.originalWidth, this.original_height] = Array.from([this.width, this.height]);
+    [this.originalWidth, this.originalHeight] = Array.from([this.width, this.height]);
     this.ratio = this.width / this.height;
 
     return this.reset();
@@ -15,7 +15,7 @@ export default class WallImage extends View {
     this.left = 0;
     this.top = 0;
     this.width = this.originalWidth;
-    this.height = this.original_height;
+    this.height = this.originalHeight;
   }
 
   position(left, top) {

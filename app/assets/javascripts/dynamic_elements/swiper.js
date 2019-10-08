@@ -7,6 +7,10 @@ import WallCluster from 'views/wall/cluster';
 export default class ShikiSwiper extends ShikiView {
   async initialize() {
     await this.$root.imagesLoaded();
+    if (this.$('.dynamically-replaced').length) {
+      // when thumbnail of video is broken, then it is replaced to shikimori custom thumbnail image
+      await this.$root.imagesLoaded();
+    }
 
     const width = this.$root.width();
     let height;

@@ -83,6 +83,11 @@ $.fn.extend({
         const $poster = $root.find('img');
 
         $poster.imagesLoaded(() => {
+          if ($poster[0].naturalWidth === 120 && $poster[0].naturalHeight === 90) {
+            $poster[0].src = '/assets/globals/missing_video.png';
+            $root.addClass('shrinked dynamically-replaced');
+          }
+
           if ((($poster[0].naturalWidth * 1.0) / $poster[0].naturalHeight).round(1) === 1.3) {
             $root.addClass('shrinked');
           }
