@@ -32,7 +32,9 @@ article.b-topic.shiki-object.to-process[
 
   a name="topic-#{topic_view.topic.id}"
 
-  - if topic_view.show_inner?
+  - if topic_view.is_a? Topics::NewsWallView
+    = render 'topics/news_wall/inner', topic_view: topic_view
+  - elsif topic_view.show_inner?
     = render 'topics/inner', topic_view: topic_view
 
   / do not replace to `minified?`, it will work incorrectly for reviews

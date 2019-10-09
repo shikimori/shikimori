@@ -1,0 +1,29 @@
+- cache topic_view.cache_key + [topic_view.topic.linked] do
+  .inner
+    a[
+      href=topic_view.urls.poster_url
+      title=topic_view.poster_title
+    ]
+      header
+        .name-date
+          .name[
+            href=topic_view.urls.poster_url
+            title=topic_view.poster_title
+          ] = topic_view.poster_title_html
+      footer
+        - if topic_view.basic_tags.any?
+          .basic-tags
+            - topic_view.basic_tags.each do |tag|
+              .b-anime_status_tag.other[
+                data-text=tag
+              ]
+        - if topic_view.other_tags.any?
+          .other-tags
+            - topic_view.other_tags.each do |tag|
+              .b-anime_status_tag.other[
+                data-text=tag
+              ]
+
+        = topic_view.html_footer
+
+    = render 'topics/status_line', topic_view: topic_view

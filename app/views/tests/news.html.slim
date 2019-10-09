@@ -1,9 +1,15 @@
 .midheadline news
+/ a href='/'
+  header
+    .a
+      .b z
+  footer
+    .c
+      .d x
 .b-news_wall
   = render partial: 'topics/topic',
     collection: @news,
     as: :topic_view
-
   - if @news.next_page
     = render 'blocks/postloader',
       filter: 'b-topic',

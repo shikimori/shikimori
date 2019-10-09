@@ -24,9 +24,30 @@
     // &.other
     //   background-color: rgba(#678, 0.9)
 
+  // +gt_ipad
+  //   &:hover > .inner .name-date .name
+  //     color: $link-hover
+  //     text-decoration: underline
+  //
+  // &:active > .inner .name-date .name
+  //   color: $link-active
+  //   text-decoration: underline
+
   & > .inner
-    display: flex
-    flex-direction: column
+    & > a
+      display: flex
+      flex-direction: column-reverse
+
+      +gt_ipad
+        &:hover
+          .name-date .name
+            color: $link-hover
+            text-decoration: underline
+
+      &:active
+        .name-date .name
+          color: $link-active
+          text-decoration: underline
 
     .name-date
       white-space: normal
@@ -50,32 +71,29 @@
     footer
       display: flex
       flex-direction: column-reverse
+      pointer-events: none
 
       .additionals
         margin: 0
 
       .basic-tags
         justify-content: flex-start
-        margin-top: -14px
-        pointer-events: none
+        margin-top: -3px
         left: 3px
         position: absolute
         z-index: 2
 
       .other-tags
         left: 3px
-        pointer-events: none
         position: absolute
         top: 3px
         z-index: 2
 
     header
-      order: 98
       margin-top: 5px
 
     .b-status-line
       flex-wrap: nowrap
-      order: 99
       margin: 0
 
       .section

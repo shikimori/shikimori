@@ -24,7 +24,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :basic_tags, :other_tags
 
   BODY_TRUCATE_SIZE = 500
-  CACHE_VERSION = :v5
+  CACHE_VERSION = :v6
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -62,14 +62,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def show_inner?
     preview? || !@topic.generated?
-  end
-
-  def show_buttons?
-    true
-  end
-
-  def show_body?
-    true
   end
 
   def footer_vote?
@@ -170,7 +162,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def read_more_link?
-    show_body? && need_trucation? && truncated_body?
+    need_trucation? && truncated_body?
   end
 
   def html_footer
@@ -193,6 +185,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def status_line?
     true
+  end
+
+  def show_source?
+    false
   end
 
   def basic_tags

@@ -18,8 +18,7 @@
         data-text=t('markers.new')
       ]
 
-    - if topic_view.show_buttons?
-      = render 'topics/buttons', topic_view: topic_view
+    = render 'topics/buttons', topic_view: topic_view
 
     /= cache [topic.object, topic.linked ? topic.linked : nil, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
     header
@@ -31,50 +30,43 @@
     - if topic_view.status_line?
       = render 'topics/status_line', topic_view: topic_view
 
-    - if topic_view.show_body?
-      .body
-        - if topic_view.minified?
-          - if topic_view.topic_type_policy.review_topic?
-            = render 'topics/reviews/entry_cover', view: topic_view,
-              entry: topic_view.topic.linked.target.decorate
+    .body
+      - if topic_view.minified?
+        - if topic_view.topic_type_policy.review_topic?
+          = render 'topics/reviews/entry_cover', view: topic_view,
+            entry: topic_view.topic.linked.target.decorate
 
-          - if topic_view.need_trucation?
-            .body-truncated
-              .body-truncated-inner[
-                itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
-              ]
-                = topic_view.html_body_truncated
-
-          - else
-            = topic_view.html_body
+        - if topic_view.need_trucation?
+          .body-truncated
+            .body-truncated-inner[
+              itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
+            ]
+              = topic_view.html_body_truncated
 
         - else
-          .body-inner itemprop="articleBody"
-            = topic_view.render_body
+          = topic_view.html_body
 
-        - if topic_view.read_more_link?
-          .read_more-link
-            a.b-link[
-              href=topic_view.urls.poster_url
-            ] = t '.read_more_link'
+      - else
+        .body-inner itemprop="articleBody"
+          = topic_view.render_body
+
+      - if topic_view.read_more_link?
+        .read_more-link
+          a.b-link[
+            href=topic_view.urls.poster_url
+          ] = t '.read_more_link'
 
     footer class=('with-read_more-link' if topic_view.read_more_link?)
-      - if topic_view.tags.any? || topic_view.decomposed_body.source.present?
+      - if topic_view.tags.any? || topic_view.show_source?
         .additionals
-          - if topic_view.basic_tags.any?
-            .basic-tags
-              - topic_view.basic_tags.each do |tag|
-                .b-anime_status_tag.other[
-                  data-text=tag
-                ]
-          - if topic_view.other_tags.any?
-            .other-tags
-              - topic_view.other_tags.each do |tag|
+          - if topic_view.tags.any?
+            .tags
+              - topic_view.tags.each do |tag|
                 .b-anime_status_tag.other[
                   data-text=tag
                 ]
 
-          - if topic_view.respond_to?(:show_source?) && topic_view.show_source?
+          - if topic_view.show_source?
             .source
               a.b-link.b-tooltipped.unprocessed[
                 href=topic_view.decomposed_body.source
@@ -88,23 +80,6 @@
 
       - if topic_view.footer_vote?
         = render 'topics/footer/vote', topic_view: topic_view
-
-      / p.tags
-        - if user_signed_in?
-          - if topic.tag.present? &&
-            !topic_view.topic_type_policy.news_topic? &&
-            !topic_view.topic_type_policy.review_topic?
-            span.tag
-              a title="#{topic.tag}" href="#{subforum_url topic}" = topic.tag
-          span.tag
-            a title="#{topic.forum.name}" href="#{forum_url topic.forum}" = topic.forum.name
-        - else
-          - if topic.tag.present? && !topic_view.topic_type_policy.news_topic? && !topic_view.topic_type_policy.review_topic?
-            span.tag title="#{topic.tag}" data-href="#{subforum_url topic}" = topic.tag
-          span.tag title="#{topic.forum.name}" data-href="#{forum_url topic.forum}" = topic.forum.name
-
-      / - if topic.author_in_footer?
-        = render 'users/user_16', user: topic_view.user
 
     .b-appear_marker[
       class="appear-topic-#{topic_view.topic.id}"
