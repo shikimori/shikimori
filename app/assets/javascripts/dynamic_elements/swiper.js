@@ -1,4 +1,4 @@
-import Swiper from 'swiper';
+import SwiperComponent from 'swiper';
 
 import ShikiView from 'views/application/shiki_view';
 import Wall from 'views/wall/view';
@@ -6,7 +6,7 @@ import WallCluster from 'views/wall/cluster';
 
 const RATIO = 16.0 / 9;
 
-export default class SwiperView extends ShikiView {
+export default class Swiper extends ShikiView {
   async initialize() {
     const [areaWidth, areaHeight] = this.computeSizes();
     this.setHeight(areaHeight);
@@ -67,7 +67,7 @@ export default class SwiperView extends ShikiView {
       .removeAttr('style')
       .wrapAll('<div class="swiper-wrapper" />');
 
-    new Swiper(this.root, {
+    new SwiperComponent(this.root, {
       slidesPerView: 'auto',
       spaceBetween: WallCluster.MARGIN,
       a11y: false
