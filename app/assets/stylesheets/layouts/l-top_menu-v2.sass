@@ -79,13 +79,27 @@ $top_menu_background_active: lighten($gray-4, 6%)
     //   &:active
     //     background-color: lighten($top_menu_background_hover, 10%)
 
+    // +gt_ipad
+    //   &:hover
+    //     .glyph
+    //       background: lighten($link-4, 15%)
+    //
+    // &:active
+    //   .glyph
+    //     background: lighten($link-4, 35%)
+
     .glyph
       // +background-inline-retina('/assets/layouts/l-top_menu-v2/glyph', 'png')
-      background-image: asset_url('/assets/layouts/l-top_menu-v2/glyph@2x.png')
-      background-size: contain !important
-      height: 26px
+      // -webkit-mask-image: asset_url('/assets/layouts/l-top_menu-v2/glyph.svg')
+      // -webkit-mask-size: contain
+      // -webkit-mask-repeat: no-repeat
+      // background-color: #fff
+      // transition: background-color 0.2s ease
+      background-image: asset_url('/assets/layouts/l-top_menu-v2/glyph.svg')
+      background-size: contain
+      background-repeat: no-repeat
+      height: 26px // ratio 1:1
       margin-right: 3px
-      margin-top: 2px
       width: 26px
 
       +iphone-portrait
@@ -93,7 +107,13 @@ $top_menu_background_active: lighten($gray-4, 6%)
 
     .logo
       // +background-inline-retina('/assets/layouts/l-top_menu-v2/logo', 'png')
-      background-image: asset_url('/assets/layouts/l-top_menu-v2/logo@2x.png')
-      background-size: contain !important
-      height: 26px
-      width: 127px
+      // -webkit-mask-image: asset_url('/assets/layouts/l-top_menu-v2/logo.svg')
+      // -webkit-mask-size: contain
+      // -webkit-mask-repeat: no-repeat
+      // background-color: #fff
+      // transition: 0.2s ease background-color
+      background-image: asset_url('/assets/layouts/l-top_menu-v2/logo.svg')
+      background-size: contain
+      background-repeat: no-repeat
+      height: 21px // ratio 7.95215311
+      width: 168px
