@@ -48,7 +48,7 @@ ru:
       # authorized_action.coffee
       authorized_action:
         register_to_complete_action: >-
-          Для этого действия вам необходима
+          Для этого действия тебе необходима
           <a href="/users/sign_up">регистрация</a> на сайте.
 
       # week_registered_action.coffee
