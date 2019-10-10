@@ -1,13 +1,14 @@
+@import mixins/responsive
 @import mixins/clearfix
 @import mixins/block
 
 .b-brief
   +block
-  +clearfix
 
   .moderators
-    float: right
-    margin-top: 10px
+    +gte_ipad
+      float: right
+      margin-top: 10px
 
     .b-user
       margin-left: 10px
