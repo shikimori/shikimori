@@ -1,13 +1,15 @@
-@import mixins/clearfix
 @import globals/variables
 @import mixins/bracket_action
 @import mixins/date
 @import mixins/link
 @import mixins/spoiler
+@import mixins/shiki_button
 
 =log_entry
-  +clearfix
+  display: flex
   line-height: 1.85
+  align-items: baseline
+  flex-wrap: wrap
 
   & > span
     padding-right: 5px
@@ -32,9 +34,6 @@
   .b-user16
     margin-right: 0
 
-    span
-      padding-right: 0
-
   .avatar
     position: absolute
     margin-top: 2px
@@ -45,10 +44,10 @@
   .spoiler
     +spoiler
 
-    &.collapse, &.collapsed
+    &.collapse,
+    &.collapsed
       font-size: 11px
-      margin: 0
-      float: right
+      margin: 0 0 0 auto
 
       span
         +js_link
@@ -57,7 +56,7 @@
         padding: 0
 
     &.target
-      +clearfix
+      flex-basis: 100%
 
   .quoteable
     font-weight: bold
@@ -78,13 +77,16 @@
       color: $link
 
   .moderation
-    float: right
+    display: flex
     font-size: 12px
-    position: relative
-    z-index: 1
+    justify-content: flex-end
+    margin: 15px 0 15px 0
 
     a
-      +js_link
-      margin-left: 10px
-      font-size: 11px
-      padding: 0
+      +shiki_button
+
+      &:not(:first-child)
+        margin-left: 10px
+
+      &:hover
+        text-decoration: none

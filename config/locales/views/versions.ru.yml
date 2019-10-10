@@ -1,21 +1,21 @@
 ru:
   versions:
     version:
-      accept: принять
+      accept: Принять
       accept_changes: Принять правку
       accept_with_author: Принять с добавлением пользователя в авторы
       accept_wo_author: Принять без добавления пользователя в авторы
-      accepted_to_taken: принято → взято
-      delete: удалить
+      accepted_to_taken: Принято → Взято
+      delete: Удалить
       delete_changes: Удалить правку
-      reject: отклонить
+      reject: Отклонить
       reject_changes: Отклонить правку
       reject_reason: Причина отказа (заполнять не обязательно)
       show: показать
-      show_changes: показать правку
-      take: взять
-      take_changes: Взять правку
-      taken_to_accepted: взято → принято
+      show_changes: показать
+      take: Взять
+      take_changes: Взять правк
+      taken_to_accepted: Взято → Принято
     changes:
       text_diff: &text_diff
         before: До изменения

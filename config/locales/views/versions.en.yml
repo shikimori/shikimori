@@ -1,21 +1,21 @@
 en:
   versions:
     version:
-      accept: accept
+      accept: Accept
       accept_changes: Accept changes
       accept_with_author: Accept changes and add user to description authors
       accept_wo_author: Accept changes and do not add user to description authors
-      accepted_to_taken: accepted → taken
-      delete: delete
+      accepted_to_taken: Accepted → Taken
+      delete: Delete
       delete_changes: Delete changes
-      reject: reject
+      reject: Reject
       reject_changes: Reject changes
       reject_reason: Reject reason (optional)
       show: show
-      show_changes: show details
-      take: take
+      show_changes: show
+      take: Take
       take_changes: Take changes
-      taken_to_accepted: taken → accepted
+      taken_to_accepted: Taken → Accepted
     changes:
       text_diff: &text_diff
         before: Before change

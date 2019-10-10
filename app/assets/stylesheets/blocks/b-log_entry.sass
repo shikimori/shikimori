@@ -17,7 +17,12 @@
       color: $blue
 
   .state
-    display: inline-block
+    margin-left: auto
+
+    ~ .spoiler
+      &.collapse,
+      &.collapsed
+        margin-left: 0
 
     &.pending
       color: $orange
@@ -50,8 +55,7 @@
     font-size: 11px
 
   .change-details
-    margin-top: 5px
-    margin-left: 5px
+    margin: 0 0 15px 8px
 
     .reason
       margin-bottom: 3px
