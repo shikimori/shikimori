@@ -2,7 +2,15 @@ class Abilities::VersionTextsModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
-  MANAGED_FIELDS = %w[name russian description_ru]
+  MANAGED_FIELDS = %w[
+    name
+    russian
+    english
+    license_name_ru
+    synonyms
+    description_ru
+    description_en
+  ]
   MANAGED_MODELS = [Anime.name, Manga.name, Ranobe.name, Character.name, Person.name]
 
   def initialize _user
