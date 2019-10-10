@@ -26,13 +26,14 @@
   &:last-child
     margin-bottom: 0
 
-  &:hover
-    // background-color: #B11C2F
-    // border-color: darken(#B11C2F, 3%)
-    background-color: $link-3
-    border-color: darken($link-3, 2%)
-    color: #fff
-    text-decoration: none
+  +gt_ipad
+    &:hover
+      // background-color: #B11C2F
+      // border-color: darken(#B11C2F, 3%)
+      background-color: $link-3
+      border-color: darken($link-3, 2%)
+      color: #fff
+      text-decoration: none
 
   &:active
     // background-color: lighten(#B11C2F, 5%)
@@ -51,10 +52,11 @@
     border-color: darken(#456, 3%)
     color: #fff
 
-    &:hover
-      background-color: $link-3
-      border-color: darken($link-3, 2%)
-      color: #fff
+    +gt_ipad
+      &:hover
+        background-color: $link-3
+        border-color: darken($link-3, 2%)
+        color: #fff
 
     &:active
       background-color: $link-2
@@ -64,9 +66,9 @@
     &.disabled,
     &.disabled:hover,
     &.disabled:active
-      cursor: default
       background-color: #7b8590
       border-color: darken(#7b8590, 3%)
+      cursor: default
 
   &.light-green
     transition: background-color 0.25s ease, border-color 0.25s ease
@@ -74,10 +76,11 @@
     border-color: darken($green, 3%)
     color: #fff
 
-    &:hover
-      background-color: $link-3
-      border-color: darken($link-3, 2%)
-      color: #fff
+    +gt_ipad
+      &:hover
+        background-color: $link-3
+        border-color: darken($link-3, 2%)
+        color: #fff
 
     &:active
       background-color: $link-2
@@ -90,10 +93,11 @@
     border-color: darken($red, 3%)
     color: #fff
 
-    &:hover
-      background-color: $link-3
-      border-color: darken($link-3, 2%)
-      color: #fff
+    +gt_ipad
+      &:hover
+        background-color: $link-3
+        border-color: darken($link-3, 2%)
+        color: #fff
 
     &:active
       background-color: $link-2
