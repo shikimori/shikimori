@@ -9,7 +9,8 @@ class MangasController < AnimesController
   ] + [
     *Manga::DESYNCABLE,
     external_links: [EXTERNAL_LINK_PARAMS],
-    synonyms: []
+    synonyms: [],
+    desynced: []
   ]
 
 private
