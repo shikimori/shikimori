@@ -174,3 +174,28 @@ Style.wo_timestamp { v = Style.new json[:style]; v.save validate: false }
 User.find(user_id).touch
 ```
 
+## Generate favicons
+
+```
+convert -resize 144x144 /tmp/glyph.png public/favicons/ms-icon-144x144.png
+convert -resize 228x228 /tmp/glyph.png public/favicons/opera-icon-228x228.png
+convert -resize 180x180 /tmp/glyph.png public/favicons/apple-touch-icon-180x180.png
+convert -resize 152x152 /tmp/glyph.png public/favicons/apple-touch-icon-152x152.png
+convert -resize 144x144 /tmp/glyph.png public/favicons/apple-touch-icon-144x144.png
+convert -resize 120x120 /tmp/glyph.png public/favicons/apple-touch-icon-120x120.png
+convert -resize 114x114 /tmp/glyph.png public/favicons/apple-touch-icon-114x114.png
+convert -resize 76x76 /tmp/glyph.png public/favicons/apple-touch-icon-76x76.png
+convert -resize 72x72 /tmp/glyph.png public/favicons/apple-touch-icon-72x72.png
+convert -resize 60x60 /tmp/glyph.png public/favicons/apple-touch-icon-60x60.png
+convert -resize 57x57 /tmp/glyph.png public/favicons/apple-touch-icon-57x57.png
+convert -resize 192x192 /tmp/glyph.png public/favicons/favicon-192x192.png
+convert -resize 96x96 /tmp/glyph.png public/favicons/favicon-96x96.png
+convert -resize 32x32 /tmp/glyph.png public/favicons/favicon-32x32.png
+convert -resize 16x16 /tmp/glyph.png public/favicons/favicon-16x16.png
+convert /tmp/glyph.png -bordercolor white -border 0 \
+  \( -clone 0 -resize 16x16 \) \
+  \( -clone 0 -resize 32x32 \) \
+  \( -clone 0 -resize 48x48 \) \
+  \( -clone 0 -resize 64x64 \) \
+  public/favicon.ico
+```
