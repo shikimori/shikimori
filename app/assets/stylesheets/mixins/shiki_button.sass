@@ -1,8 +1,10 @@
+@import mixins/responsive
+
 =shiki_button
-  background-color: #525252
+  background-color: #456
   border: 0
   clear: right
-  color: #FFFFFF
+  color: #fff
   cursor: pointer
   display: inline-block
   font-size: 13px
@@ -15,14 +17,14 @@
     font-weight: bold
     display: inline
 
-  &:hover
-    background-color: rgb(102, 102, 102)
-    color: rgb(255, 255, 255)
+  +gt_ipad
+    &:hover
+      background-color: $link-3
 
   &:active
-    background-color: rgb(80, 80, 80)
+    background-color: $link-2
 
   &[disabled],
   &.disabled
-    background-color: rgb(120, 120, 120)
+    background-color: #7b8590
     cursor: default
