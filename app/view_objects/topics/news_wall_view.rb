@@ -6,7 +6,7 @@ class Topics::NewsWallView < Topics::NewsView
   def html_footer
     BbCodes::Text.call(
       (@topic.decomposed_body.wall ?
-        @topic.decomposed_body.wall.gsub(%r{(\[wall\]\[.*?\]).?*(\[/wall\])}, '\1\2') :
+        @topic.decomposed_body.wall.gsub(%r{(\[wall\]\[.*?\]).*?(\[/wall\])}, '\1\2') :
         '[wall][/wall]'
       )
     )
