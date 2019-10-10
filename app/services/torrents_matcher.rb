@@ -14,7 +14,7 @@ class TorrentsMatcher
 
     if options[:exact_name] || anime.torrents_name.present?
       fixed_title = title.downcase.gsub(/[- :_]/, '')
-      fixed_name = (anime.torrents_name || name).downcase.gsub(/[- :_]/, '')
+      fixed_name = (anime.torrents_name || anime.name).downcase.gsub(/[- :_]/, '')
       return fixed_title.include? fixed_name
     end
 
