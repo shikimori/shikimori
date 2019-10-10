@@ -95,7 +95,7 @@
       .change-details
         - if version.reason.present?
           .reason class=(:m15 unless version.item_diff.keys.one?)
-            span #{Version.human_attribute_name :reason}:
+            span #{Version.human_attribute_name :reason}:&nbsp;
             = version.reason
 
         - if version.is_a? Versions::VideoVersion
