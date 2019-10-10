@@ -44,8 +44,19 @@
       +top_menu_icon('\e837')
 
     &.trigger
-      +top_menu_icon('m')
       width: 51px // to prevent flicker of content at left
+      align-items: center
+      cursor: pointer
+      justify-content: center
+
+      &:before
+        background-image: asset_url('/assets/layouts/l-top_menu-v2/trigger.svg')
+        background-repeat: no-repeat
+        background-size: contain
+        content: ''
+        display: block
+        height: 25px
+        width: 25px
 
     &.search
       +top_menu_icon('s')

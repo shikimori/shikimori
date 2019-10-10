@@ -277,12 +277,6 @@
       "src": "mfglabs"
     },
     {
-      "uid": "c55fdf978f617992b43ee7cbaa6ef87e",
-      "css": "menu-2",
-      "code": 109,
-      "src": "mfglabs"
-    },
-    {
       "uid": "06301c50d89b5d3e651bd07ebd6d7de7",
       "css": "cancel",
       "code": 10005,
@@ -8061,7 +8055,7 @@
     {
       "uid": "02811f43657ebd3a5dfb9cd7e78c66a1",
       "css": "menu",
-      "code": 109,
+      "code": 59472,
       "src": "custom_icons",
       "selected": false,
       "svg": {
