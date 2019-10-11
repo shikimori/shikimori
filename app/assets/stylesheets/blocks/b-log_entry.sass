@@ -21,7 +21,8 @@
 
   .state
     +gte_ipad
-      margin-left: auto
+      &:not(.inline)
+        margin-left: auto
 
       ~ .spoiler
         &.collapse,

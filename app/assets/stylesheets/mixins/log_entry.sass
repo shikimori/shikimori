@@ -11,7 +11,7 @@
   flex-wrap: wrap
   line-height: 1.85
 
-  & > span
+  & > span:not(:last-child)
     padding-right: 5px
 
   .date
@@ -92,8 +92,18 @@
     &:empty
       display: none
 
+    &.inline
+      margin: 0 0 0 auto
+
     a
-      +shiki_button
+      &:not(.link)
+        +shiki_button
+
+      &.link
+        +js_link
+        font-size: 11px
+        margin-left: 10px
+        padding: 0
 
       &:not(:first-child)
         margin-left: 10px

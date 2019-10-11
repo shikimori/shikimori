@@ -9,6 +9,7 @@ en:
     confirm: This action is irreversible. Are you sure?
     confirm_delete: Confirm deletion
     confirm_sync: Confirm sync
+    confirm_simple: Are you sure?
     cancel_delete: Cancel deletion
     create: Create
     delete: Delete
