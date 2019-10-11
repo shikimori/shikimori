@@ -111,6 +111,10 @@ export default class DynamicParser {
     new Tabs(node);
   }
 
+  textAnnotated(node) {
+    new TextAnnotated(node);
+  }
+
   topic(node) {
     new Topic(node);
   }
