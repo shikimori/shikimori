@@ -100,10 +100,14 @@
         +shiki_button
 
       &.link
-        +js_link
-        font-size: 11px
-        margin-left: 10px
-        padding: 0
+        +iphone
+          +shiki_button
+
+        +gte_ipad
+          +js_link
+          font-size: 11px
+          margin-left: 10px
+          padding: 0
 
       &:not(:first-child)
         margin-left: 10px
