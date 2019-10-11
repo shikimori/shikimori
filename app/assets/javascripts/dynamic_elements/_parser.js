@@ -42,24 +42,40 @@ export default class DynamicParser {
     });
   }
 
-  cuttedCovers(node) {
-    new CuttedCovers(node);
-  }
-
-  textAnnotated(node) {
-    new TextAnnotated(node);
-  }
-
   authorized(node) {
     new AuthorizedAction(node);
+  }
+
+  clickloaded(node) {
+    new Clickloaded(node);
+  }
+
+  codeHighlight(node) {
+    new CodeHighlight(node);
+  }
+
+  comment(node) {
+    new Comment(node);
+  }
+
+  cuttedCovers(node) {
+    new CuttedCovers(node);
   }
 
   dayRegistered(node) {
     new DayRegisteredAction(node);
   }
 
-  weekRegistered(node) {
-    new WeekRegisteredAction(node);
+  desktopAd(node) {
+    new DesktopAd(node);
+  }
+
+  forum(node) {
+    new Forum(node);
+  }
+
+  fullDialog(node) {
+    new FullDialog(node);
   }
 
   html5Video(node) {
@@ -70,48 +86,37 @@ export default class DynamicParser {
     new LogEntry(node);
   }
 
-  desktopAd(node) {
-    new DesktopAd(node);
-  }
-
-  codeHighlight(node) {
-    new CodeHighlight(node);
-  }
-
-  tabs(node) {
-    new Tabs(node);
-  }
-
-  forum(node) {
-    new Forum(node);
-  }
-
-  topic(node) {
-    new Topic(node);
-  }
-
-  comment(node) {
-    new Comment(node);
-  }
-
   message(node) {
     new Message(node);
-  }
-
-  shortDialog(node) {
-    new ShortDialog(node);
-  }
-
-  fullDialog(node) {
-    new FullDialog(node);
   }
 
   postloaded(node) {
     new Postloaded(node);
   }
 
-  clickloaded(node) {
-    new Clickloaded(node);
+  shortDialog(node) {
+    new ShortDialog(node);
+  }
+
+  swiper(node) {
+    new Swiper(node);
+  }
+
+
+  tabs(node) {
+    new Tabs(node);
+  }
+
+  topic(node) {
+    new Topic(node);
+  }
+
+  userRate(node) {
+    if (node.attributes['data-extended'].value === 'true') {
+      new UserRateExtended(node);
+    } else {
+      new UserRateButton(node);
+    }
   }
 
   wall(node) {
@@ -124,15 +129,7 @@ export default class DynamicParser {
     }
   }
 
-  swiper(node) {
-    new Swiper(node);
-  }
-
-  userRate(node) {
-    if (node.attributes['data-extended'].value === 'true') {
-      new UserRateExtended(node);
-    } else {
-      new UserRateButton(node);
-    }
+  weekRegistered(node) {
+    new WeekRegisteredAction(node);
   }
 }
