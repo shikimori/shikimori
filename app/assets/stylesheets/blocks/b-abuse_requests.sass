@@ -7,13 +7,11 @@
 @import mixins/link
 
 .b-abuse_request
-  +clear_right
-
-  .marker
-    float: none !important
-    margin: 4px 7px 0 0 !important
-    display: inline-block !important
-    vertical-align: top
+  &.b-log_entry
+    .marker
+      float: none
+      margin: 5px 8px 0 7px
+      align-self: flex-start
 
   .remove
     color: $red
