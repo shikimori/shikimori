@@ -1,5 +1,5 @@
 = cache [version, can?(:manage, version), can?(:destroy, version)], expires_in: 2.weeks do
-  .b-log_entry.to-process[
+  .b-log_entry.version.to-process[
     id=version.id
     data-dynamic='log_entry'
     data-url=moderations_version_url(version)
@@ -11,13 +11,13 @@
     span.date
       = version.created_at.strftime('%d.%m.%Y')
 
-    span
+    span.author data-text=t('.by')
       = render 'users/user_16', user: version.user
 
     span.column
       = version.changed_fields.join ', '
 
-    span.id
+    span.id data-text=(version.item.class.model_name.human if version.item)
       - if version.item
         - if version.item_type == AnimeVideo.name
           = render 'versions/anime_video', version: version

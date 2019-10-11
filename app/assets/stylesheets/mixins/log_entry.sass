@@ -1,22 +1,29 @@
 @import globals/variables
-@import mixins/bracket_action
 @import mixins/date
 @import mixins/link
-@import mixins/spoiler
+@import mixins/responsive
 @import mixins/shiki_button
+@import mixins/spoiler
 
 =log_entry
-  display: flex
-  line-height: 1.85
   align-items: baseline
+  display: flex
   flex-wrap: wrap
+  line-height: 1.85
 
   & > span
     padding-right: 5px
 
   .date
     +date
-    padding-right: 8px
+
+    +iphone
+      &:after
+        content: ''
+        width: 100%
+
+    +gte_ipad
+      padding-right: 8px
 
     &.normal
       padding-right: 5px
@@ -44,15 +51,15 @@
   .spoiler
     +spoiler
 
-    &.collapse,
+    &.collapse.triggered,
     &.collapsed
       font-size: 11px
       margin: 0 0 0 auto
+      padding-left: 5px
 
       span
         +js_link
         font-size: 11px
-        margin-left: 10px
         padding: 0
 
     &.target
@@ -81,6 +88,9 @@
     font-size: 12px
     justify-content: flex-end
     margin: 15px 0 15px 0
+
+    &:empty
+      display: none
 
     a
       +shiki_button

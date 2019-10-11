@@ -16,6 +16,7 @@ ru:
       take: Взять
       take_changes: Взять правк
       taken_to_accepted: Взято → Принято
+      by: От
     changes:
       text_diff: &text_diff
         before: До изменения

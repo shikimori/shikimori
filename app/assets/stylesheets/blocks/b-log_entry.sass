@@ -17,12 +17,13 @@
       color: $blue
 
   .state
-    margin-left: auto
+    +gte_ipad
+      margin-left: auto
 
-    ~ .spoiler
-      &.collapse,
-      &.collapsed
-        margin-left: 0
+      ~ .spoiler
+        &.collapse,
+        &.collapsed
+          margin-left: 0
 
     &.pending
       color: $orange
@@ -55,7 +56,7 @@
     font-size: 11px
 
   .change-details
-    margin: 0 0 15px 8px
+    margin: 5px 0 15px 8px
 
     .reason
       margin-bottom: 3px
@@ -155,3 +156,33 @@
     object
       height: 370px
       width: 650px
+
+  &.version
+    +iphone
+      margin-bottom: 20px
+
+      & > span:nth-child(1)
+        order: -10
+
+      & > span:nth-child(2)
+        order: -9
+
+      &:before
+        content: ''
+        height: 0
+        flex-basis: 100%
+
+      .spoiler
+        &.collapse,
+        &.collapsed
+          order: -8
+
+      .author,
+      .id
+        &:before
+          content: attr(data-text)
+          padding-right: 5px
+
+      .id
+        +ellipsis2
+        flex-basis: 100%
