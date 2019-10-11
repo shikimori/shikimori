@@ -1,6 +1,6 @@
-import ShikiView from 'views/application/shiki_view';
+import View from 'views/application/view';
 
-export default class Tabs extends ShikiView {
+export default class Tabs extends View {
   initialize() {
     this.$tabs = this.$('[data-tab]');
     this.$tabSwitches = this.$('[data-tab-switch]');
