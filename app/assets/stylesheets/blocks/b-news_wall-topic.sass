@@ -72,6 +72,18 @@
       display: flex
       flex-direction: column-reverse
       pointer-events: none
+      position: relative
+
+      &:before
+        content: ''
+        padding-top: 56.25% // 16:9 aspect ratio
+
+      .b-shiki_swiper
+        height: 100%
+        left: 0
+        position: absolute
+        top: 0
+        width: 100%
 
       .additionals
         margin: 0
