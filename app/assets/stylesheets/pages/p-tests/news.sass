@@ -1,3 +1,4 @@
+@import mixins/date
 @import mixins/ellipsis2
 @import mixins/responsive
 
@@ -9,20 +10,55 @@
       font-size: 18px
 
   .sections
-    flex-basis: 66%
-    flex-direction: column
     display: flex
-    flex-direction: row
     margin: 30px -10px 0
 
+    +lte_ipad
+      flex-direction: column
+
     .section
-      flex-basis: 25%
-      padding: 0 10px
+      +lte_ipad
+        padding: 10px 0
+
+      +gte_laptop
+        padding: 0 10px
+        flex-basis: 25%
 
   .fc-2-3-m .f-column
     .b-news_wall .b-news_wall-topic
       +gte_ipad
         flex-basis: 50%
+
+  .generated-news
+    min-width: 0 // neeed to allow overflow ellipsis inside of flex item
+
+  .generated-news-line
+    display: flex
+    margin-bottom: 20px
+
+    .poster
+      margin-right: 10px
+      flex-shrink: 0
+
+      img
+        width: 32px
+
+    .name-date
+      +ellipsis2
+
+      .name
+        +ellipsis2
+        display: block
+        font-size: 14px
+        font-weight: bold
+        line-height: 1
+        margin-bottom: 5px
+
+        span
+
+      .time
+        +date
+        margin-left: 7px
 
   .b-topic
     .b-status-line

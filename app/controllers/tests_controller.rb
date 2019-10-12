@@ -158,8 +158,6 @@ class TestsController < ShikimoriController
   end
 
   def news
-    @dashboard_view = DashboardView.new
-
     @page = (params[:page] || 1).to_i
     @news = Topics::Query
       .fetch(locale_from_host)
@@ -169,6 +167,12 @@ class TestsController < ShikimoriController
       .transform do |topic|
         Topics::NewsWallView.new topic, true, true
       end
+
+    @db_updates = Topics::Query
+      .fetch(locale_from_host)
+      .by_forum(Forum::UPDATES_FORUM, current_user, censored_forbidden?)
+      .limit(15)
+      .as_views(true, true)
   end
 
   def oauth

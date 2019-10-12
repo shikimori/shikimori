@@ -34,14 +34,50 @@
     .f-column style='height: 200px; background: rgba(0, 0, 255, 0.3);'
 
 .block
-  .midheadline news
+  .headline.m10 = t 'news'
   .fc-2-3-m
     .f-column
       .b-news_wall
         = render partial: 'topics/topic',
           collection: @news[0..7],
           as: :topic_view
-    .f-column
+    .f-column.generated-news
+      - @db_updates.each do |topic_view|
+        .generated-news-line
+          a.poster
+            img[
+              src=cdn_image(topic_view.decorated_linked, :x48)
+              srcset="#{cdn_image topic_view.decorated_linked, :x96} 2x"
+              alt=topic_view.decorated_linked.name
+            ]
+
+          .name-date
+            a.name.bubbled.unprocessed[
+              href=topic_view.urls.poster_url
+              title=topic_view.topic_title
+              data-tooltip_url=topic_view.decorated_linked.tooltip_url
+            ] = topic_view.topic_title_html
+
+            - if topic_view.action_tag
+              .b-anime_status_tag[
+                class=topic_view.action_tag.type
+                data-text=topic_view.action_tag.text
+              ]
+
+            span.time
+              time[
+                itemprop="commentTime"
+                datetime=topic_view.created_at.iso8601
+              ] = l topic_view.created_at, format: '%e %B %Y'
+
+            / = render partial: 'user_rates/placeholder',
+              locals: { target: topic_view.decorated_linked, extended: false }
+
+
+        / = render partial: 'topics/topic',
+          collection: @db_updates,
+          locals: { do_not_track: true },
+          as: :topic_view
 
   .b-news_wall
     = render partial: 'topics/topic',

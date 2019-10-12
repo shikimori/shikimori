@@ -1,4 +1,6 @@
 class Topics::GeneratedNewsView < Topics::View
+  instance_cache :decorated_linked
+
   def container_class
     super 'b-generated_news-topic'
   end
@@ -39,11 +41,15 @@ class Topics::GeneratedNewsView < Topics::View
     false
   end
 
+  def decorated_linked
+    topic.linked.decorate
+  end
+
 private
 
   def render_linked
     h.render(
-      topic.linked.decorate,
+      decorated_linked,
       cover_title: :none,
       cover_notice: :none,
       content_by: :block,
