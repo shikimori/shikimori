@@ -75,7 +75,9 @@ export default class Swiper extends ShikiView {
   }
 
   setPlaceholder(width, height) {
-    this.$root.css({ width, height });
+    this.$root
+      .css({ width, height })
+      .addClass('is-placeholder');
   }
 
   scaleWall(wall, width) {
