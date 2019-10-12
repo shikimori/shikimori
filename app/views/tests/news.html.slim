@@ -23,12 +23,23 @@
         href=forum_url 
       ] = t 'forum'
 
+.block2
+  .fc-2-3-m
+    .f-column style='height: 200px; background: rgba(255, 0, 0, 0.3);'
+    .f-column style='height: 200px; background: rgba(0, 255, 0, 0.3);'
+
+.block2
+  .fc-3-m
+    .f-column style='height: 200px; background: rgba(255, 0, 0, 0.3);'
+    .f-column style='height: 200px; background: rgba(0, 255, 0, 0.3);'
+    .f-column style='height: 200px; background: rgba(0, 0, 255, 0.3);'
+
 .block
   .midheadline news
   .fc-2-3-m
     .f-column.b-news_wall
       = render partial: 'topics/topic',
-        collection: @news[0..7],
+        collection: @news[0..1],
         as: :topic_view
     .f-column
 

@@ -6,6 +6,7 @@
     span
       font-weight: normal
       padding-right: 12px
+      font-size: 18px
 
   .sections
     flex-basis: 66%
@@ -16,11 +17,14 @@
 
     .section
       flex-basis: 25%
-      margin: 0 10px
+      padding: 0 10px
 
-  .fc-2-3-m .f-column.b-news_wall .b-news_wall-topic
-    +gte_ipad
-      flex-basis: 50%
+  .fc-2-3-m .f-column.b-news_wall
+    margin: 0
+
+    .b-news_wall-topic
+      +gte_ipad
+        flex-basis: 50%
 
   .b-topic
     .b-status-line
