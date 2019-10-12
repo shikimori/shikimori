@@ -1,11 +1,26 @@
 @import mixins/ellipsis2
+@import mixins/responsive
 
 .p-tests-news
-  .b-review-topic
-    padding-top: 0
+  .b-link_button
+    span
+      font-weight: normal
+      padding-right: 12px
 
-    & > .inner:hover aside.buttons
-      display: none
+  .sections
+    flex-basis: 66%
+    flex-direction: column
+    display: flex
+    flex-direction: row
+    margin: 30px -10px 0
+
+    .section
+      flex-basis: 25%
+      margin: 0 10px
+
+  .fc-2-3-m .f-column.b-news_wall .b-news_wall-topic
+    +gte_ipad
+      flex-basis: 50%
 
   .b-topic
     .b-status-line

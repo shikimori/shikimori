@@ -1,25 +1,42 @@
 .block
-  .fc-3-m
-    .f-column
-    .f-column
-    - cache [@dashboard_view.cache_keys[:reviews], @dashboard_view.cache_keys[:reviews_index]] do
-      .f-column
-        h2.midheadline.magenta.linkheadline
-          a[
-            href=forum_topics_url(:reviews)
-            title=i18n_i('Review', :other)
-          ] = i18n_i 'Review', :other
-        div
-          = render partial: 'topics/topic',
-            collection: @dashboard_view.review_topic_views,
-            as: :topic_view
+  .sections
+    .section
+      a.b-link_button.maxi.dark[
+        href=animes_collection_url
+      ]
+        span アニメ
+        = Anime.model_name.human
+    .section
+      a.b-link_button.maxi.dark[
+        href=mangas_collection_url
+      ]
+        span マンガ
+        = Manga.model_name.human
+    .section
+      a.b-link_button.maxi.dark[
+        href=ranobe_collection_url
+      ]
+        span ラノベ
+        = Ranobe.model_name.human
+    .section
+      a.b-link_button.maxi.dark[
+        href=forum_url 
+      ] = t 'forum'
 
 .block
   .midheadline news
+  .fc-2-3-m
+    .f-column.b-news_wall
+      = render partial: 'topics/topic',
+        collection: @news[0..7],
+        as: :topic_view
+    .f-column
+
   .b-news_wall
     = render partial: 'topics/topic',
-      collection: @news,
+      collection: @news[8..-1],
       as: :topic_view
+
     - if @news.next_page
       = render 'blocks/postloader',
         filter: 'b-topic',
