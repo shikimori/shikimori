@@ -3,14 +3,41 @@
 .fc-2
   +gte_ipad
     display: flex
-    margin-left: -20px
-    margin-right: -20px
+    margin: 0 -25px
 
   & > .f-column
+    position: relative
+
     +iphone
       margin-bottom: $block-offset
 
     +gte_ipad
-      margin-left: 20px
-      margin-right: 20px
+      margin: 0 25px
       flex-basis: 50%
+
+.fc-3
+  +gte_ipad
+    display: flex
+    margin: 0 -25px
+
+  & > .f-column
+    position: relative
+
+    +iphone
+      margin-bottom: $block-offset
+
+    +gte_ipad
+      margin: 0 25px
+      flex-basis: 33.333%
+
+.fc-3-m
+  +gte_ipad
+    display: flex
+    margin: $block-offset -25px
+
+  & > .f-column
+    position: relative
+
+    +gte_ipad
+      margin: $block-offset 25px
+      flex-basis: 33.333%

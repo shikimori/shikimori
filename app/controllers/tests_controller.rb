@@ -158,6 +158,8 @@ class TestsController < ShikimoriController
   end
 
   def news
+    @dashboard_view = DashboardView.new
+
     @page = (params[:page] || 1).to_i
     @news = Topics::Query
       .fetch(locale_from_host)
