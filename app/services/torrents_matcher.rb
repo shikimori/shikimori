@@ -2,6 +2,13 @@
 class TorrentsMatcher
   pattr_initialize :anime
 
+  SEASONS_REGEXP = [
+    /season 2\b|2nd season|\bs2\b/i,
+    /season 3\b|3rd season|\bs3\b/i,
+    /season 4\b|4th season|\bs4\b/i,
+    /season 5\b|5th season|\bs5\b/i
+  ]
+
   def matches_for title, options = { only_name: false, exact_name: false }
     title = title
       .delete('​')
@@ -19,13 +26,22 @@ class TorrentsMatcher
     end
 
     name_variants(title, options).any? do |query|
-      query_keywords = query.keywords
-      # long_query_keywords = query_keywords.select {|v| v.size > 2 }
-      # query_keywords = long_query_keywords if long_query_keywords.size > 2 && long_query_keywords.size >= query_keywords.size/2
+      fixed_query = query
+      fixed_title = title
+      SEASONS_REGEXP.each do |regexp|
+        if query.match?(regexp) && title.match?(regexp)
+          fixed_query = query.gsub(regexp, '')
+          fixed_title = title.gsub(regexp, '')
+        end
+      end
+
+      query_keywords = fixed_query.keywords
       next if query_keywords.empty?
 
-      title_keywords = title.keywords
-      query_specials = query.specials
+      title_keywords = fixed_title.keywords
+      title_specials = fixed_title.specials
+      query_specials = fixed_query.specials
+
       overlaps = query_keywords & title_keywords
 
       matched =
@@ -38,8 +54,17 @@ class TorrentsMatcher
             title_keywords.include?('tv') &&
             overlaps.size >= (query_keywords.size.to_f / 2.5).floor) ||
             (query_keywords.size > 3 && overlaps.size >= (query_keywords.size.to_f / 2).ceil)
-          ) && (query_specials & title.specials).size == query_specials.size
+          ) && (query_specials & title_specials).size == query_specials.size
         end
+
+      # ap(
+      #   query: query,
+      #   query_keywords:
+      #   query_keywords,
+      #   title_keywords: title_keywords,
+      #   matched: matched,
+      #   season_parts: season_parts(query)
+      # )
 
       if matched
         parts = season_parts(query)

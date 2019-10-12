@@ -16,16 +16,56 @@ describe TorrentsMatcher do
       positive_match('test zxcv', name: 'test zxcv')
       positive_match('test zxcv bnc', name: 'test zxcv')
       negative_match('ttest zxcv bnc', name: 'test zxcv')
-      negative_match('[OWA Raws] Kodomo no Jikan ~ Kodomo no Natsu Jikan ~ (DVD 1280x720 h264 AC3 soft-upcon).mp4 ', name: 'Kodomo no Jikan OVA 5')
-      negative_match('[ReinForce] To Aru Majutsu no Index II - 16 (TVS 1280x720 x264 AAC).mkv', name: 'Toaru Majutsu no Index II Specials')
-      positive_match('[ReinForce] To Aru Majutsu no Index II - 16 (TVS 1280x720 x264 AAC).mkv', name: 'Toaru Majutsu no Index II')
-      #positive_match('[HQR] Umi monogatari TV [DVDRip 1024x576 h264 aac]', name: 'Umi Monogatari: Anata ga Ite Kureta Koto', kind: 'TV')
-      negative_match('[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria Holic 2', kind: 'tv')
-      negative_match('[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria†Holic Alive', synonyms: ['Maria+Holic 2', 'Maria Holic 2', 'MariaHolic 2'], kind: 'TV')
-      positive_match('[Leopard-Raws] Maria Holic 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Maria Holic 2', kind: 'tv')
-      positive_match('[Leopard-Raws] Bakuman 2 #11 (DVD 704x480 H264 AAC).mp4', name: 'Bakuman 2', kind: 'tv')
-      negative_match('[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Testov Test', kind: 'tv', synonyms: ['Testov Test OVA'])
-      negative_match('[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4', name: 'Testov Test', kind: 'tv', synonyms: ['Testov Test (OVA)'])
+      negative_match(
+        '[OWA Raws] Kodomo no Jikan ~ Kodomo no Natsu Jikan ~ (DVD 1280x720 h264 AC3 soft-upcon).mp4 ',
+        name: 'Kodomo no Jikan OVA 5'
+      )
+      negative_match(
+        '[ReinForce] To Aru Majutsu no Index II - 16 (TVS 1280x720 x264 AAC).mkv',
+        name: 'Toaru Majutsu no Index II Specials'
+      )
+      positive_match(
+        '[ReinForce] To Aru Majutsu no Index II - 16 (TVS 1280x720 x264 AAC).mkv',
+        name: 'Toaru Majutsu no Index II'
+      )
+      # positive_match(
+      #   '[HQR] Umi monogatari TV [DVDRip 1024x576 h264 aac]',
+      #   name: 'Umi Monogatari: Anata ga Ite Kureta Koto',
+      #   kind: 'tv'
+      # )
+      negative_match(
+        '[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4',
+        name: 'Maria Holic 2',
+        kind: 'tv'
+      )
+      negative_match(
+        '[Leopard-Raws] Maria Holic - 11 (DVD 704x480 H264 AAC).mp4',
+        name: 'Maria†Holic Alive',
+        synonyms: ['Maria+Holic 2', 'Maria Holic 2', 'MariaHolic 2'],
+        kind: 'TV'
+      )
+      positive_match(
+        '[Leopard-Raws] Maria Holic 2e- 11 (DVD 704x480 H264 AAC).mp4',
+        name: 'Maria Holic 2',
+        kind: 'tv'
+      )
+      positive_match(
+        '[Leopard-Raws] Bakuman 2 #11 (DVD 704x480 H264 AAC).mp4',
+        name: 'Bakuman 2',
+        kind: 'tv'
+      )
+      negative_match(
+        '[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4',
+        name: 'Testov Test',
+        kind: 'tv',
+        synonyms: ['Testov Test OVA']
+      )
+      negative_match(
+        '[Leopard-Raws] Testov Test 2e- 11 (DVD 704x480 H264 AAC).mp4',
+        name: 'Testov Test',
+        kind: 'tv',
+        synonyms: ['Testov Test (OVA)']
+      )
     end
 
     it 'II treated like 2' do
@@ -86,6 +126,13 @@ describe TorrentsMatcher do
 
     it do
       positive_match('[HorribleSubs] Boogiepop wa Warawanai (2019) - 13 [1080p].mkv', name: 'Boogiepop wa Warawanai (2019)', kind: 'tv')
+    end
+
+    it 'does not match when only "2nd Season" is matched' do
+      negative_match(
+        '[BakedFish] Radiant 2nd Season - 01 & 02 - Batch [720p][MP4][AAC]',
+        name: 'SAO Alicization 2nd Season'
+      )
     end
   end
 end
