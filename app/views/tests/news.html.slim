@@ -1,30 +1,26 @@
-.midheadline zzz
-.fc-3-m
-  .f-column
-  .f-column
-  - cache [@dashboard_view.cache_keys[:reviews], @dashboard_view.cache_keys[:reviews_index]] do
+.block
+  .fc-3-m
     .f-column
-      h2.midheadline.magenta.linkheadline
-        a[
-          href=forum_topics_url(:reviews)
-          title=i18n_i('Review', :other)
-        ] = i18n_i 'Review', :other
-        / h2 = t '.reviews'
-        / a.b-link[
-          / href=forum_topics_url(:reviews)
-          / title=t('.all_reviews')
-        / ] = t '.all_reviews'
-      div
-        = render partial: 'topics/topic',
-          collection: @dashboard_view.review_topic_views,
-          as: :topic_view
+    .f-column
+    - cache [@dashboard_view.cache_keys[:reviews], @dashboard_view.cache_keys[:reviews_index]] do
+      .f-column
+        h2.midheadline.magenta.linkheadline
+          a[
+            href=forum_topics_url(:reviews)
+            title=i18n_i('Review', :other)
+          ] = i18n_i 'Review', :other
+        div
+          = render partial: 'topics/topic',
+            collection: @dashboard_view.review_topic_views,
+            as: :topic_view
 
-.midheadline news
-.b-news_wall
-  = render partial: 'topics/topic',
-    collection: @news,
-    as: :topic_view
-  - if @news.next_page
-    = render 'blocks/postloader',
-      filter: 'b-topic',
-      next_url: news_tests_url(page: @news.next_page)
+.block
+  .midheadline news
+  .b-news_wall
+    = render partial: 'topics/topic',
+      collection: @news,
+      as: :topic_view
+    - if @news.next_page
+      = render 'blocks/postloader',
+        filter: 'b-topic',
+        next_url: news_tests_url(page: @news.next_page)

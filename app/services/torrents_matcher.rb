@@ -41,13 +41,11 @@ class TorrentsMatcher
           ) && (query_specials & title.specials).size == query_specials.size
         end
 
-# ap({ query: query, query_keywords: query_keywords, title_keywords: title_keywords, matched: matched, season_parts: season_parts(query) })
-
       if matched
         parts = season_parts(query)
 
         if parts
-          Regexp.new("%s[\\s\\W]%s" % parts).match(title)
+          Regexp.new("#{parts[0]}[\\s\\W]#{parts[1]}").match(title)
         else
           true
         end
