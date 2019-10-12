@@ -193,7 +193,7 @@ describe Version do
     context 'version_moderator' do
       let(:user) { build_stubbed :user, :version_moderator }
       let(:version) { build_stubbed :version, item_diff: item_diff }
-      let(:item_diff) { { english: ['a', 'b'] } }
+      let(:item_diff) { { episodes: [1, 2] } }
 
       it { is_expected.to be_able_to :manage, version }
 
@@ -357,12 +357,12 @@ describe Version do
       it { is_expected.to be_able_to :auto_accept, version }
 
       context 'not only fansubbers/fandubbers changed' do
-        let(:item_diff) { { name: %w[a b], english: %w[a b] } }
+        let(:item_diff) { { name: %w[a b], episodes: [1, 2] } }
         it { is_expected.to_not be_able_to :auto_accept, version }
       end
 
       context 'not fandubbers changed' do
-        let(:item_diff) { { english: %w[a b] } }
+        let(:item_diff) { { episodes: [1, 2] } }
         it { is_expected.to_not be_able_to :manage, version }
       end
     end
