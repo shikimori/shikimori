@@ -44,7 +44,7 @@
     .f-column style='height: 200px; background: rgba(0, 255, 0, 0.3);'
     .f-column style='height: 200px; background: rgba(0, 0, 255, 0.3);'
 
-= cache @dashboard_view.cache_keys.values do
+= cache @view.cache_keys.values do
   .block
     .headline.orange.m15
       span = t 'news'
