@@ -10,6 +10,7 @@ import FullDialog from './full_dialog';
 import Html5Video from './html5_video';
 import LogEntry from './log_entry';
 import Message from './message';
+import NotImplementedYetAction from './not_implemented_yet_action';
 import Postloaded from './postloaded';
 import ShortDialog from './short_dialog';
 import Swiper from './swiper';
@@ -89,6 +90,10 @@ export default class DynamicParser {
 
   message(node) {
     new Message(node);
+  }
+
+  notImplementedYetAction(node) {
+    new NotImplementedYetAction(node);
   }
 
   postloaded(node) {

@@ -1,8 +1,6 @@
 en:
   frontend:
     dynamic_elements:
-      authorized_action: Action will be available after <a href="/users/sign_up">registering</a>.
-      day_registered_action: Action will be available one day after <a href="/users/sign_up">registering</a>.
       check_height:
         expand: expand
 
@@ -64,3 +62,5 @@ en:
         action_will_be_available: >-
           Action will be available one day after
           <a href="/users/sign_up">registration</a>.
+
+      not_implemented_yet_action: This action is temporarily not available

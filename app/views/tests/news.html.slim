@@ -45,7 +45,11 @@
     .f-column style='height: 200px; background: rgba(0, 0, 255, 0.3);'
 
 .block
-  .headline.m15 = t 'news'
+  .headline.m15
+    span = t 'news'
+    .buttons
+      .options.to-process data-dynamic='not_implemented_yet_action'
+
   .fc-2-3-m
     .f-column
       .b-news_wall

@@ -62,3 +62,5 @@ ru:
         action_will_be_available: >-
           Действие станет доступно через неделю после
           <a href="/users/sign_up">регистрации</a>.
+
+      not_implemented_yet_action: Это действие временно недоступно
