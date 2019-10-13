@@ -2,7 +2,7 @@ import { AuthorizedAction } from './authorized_action';
 import Clickloaded from './clickloaded';
 import CodeHighlight from './code_highlight';
 import Comment from './comment';
-import CuttedCovers from './cutted_covers';
+import { CuttedCovers } from './cutted_covers';
 import DayRegisteredAction from './day_registered_action';
 import DesktopAd from './desktop_ad';
 import Forum from './forum';
