@@ -10,6 +10,8 @@ en:
       news_feed: News Feed
       # other: Other
       our_projects: Our projects
+      v2:
+        generated_news: Database updates
 
     animes:
       title: Animes

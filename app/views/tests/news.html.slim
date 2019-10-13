@@ -45,7 +45,7 @@
     .f-column style='height: 200px; background: rgba(0, 0, 255, 0.3);'
 
 .block
-  .headline.m15
+  .headline.orange.m15
     span = t 'news'
     .buttons
       .options.to-process data-dynamic='not_implemented_yet_action'
@@ -57,6 +57,11 @@
           collection: @news[0..5],
           as: :topic_view
     .f-column.generated-news
+      .subheadline.blue.m12
+        a[
+          href=forum_topics_url(:updates)
+          title=t('dashboards.show.v2.generated_news')
+        ]= t 'dashboards.show.v2.generated_news'
       - @db_updates.each do |topic_view|
         - anime = topic_view.decorated_linked
         a.generated-news-line.bubbled.unprocessed[

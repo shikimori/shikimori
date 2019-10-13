@@ -10,7 +10,8 @@ ru:
       news_feed: Лента новостей
       # other: Прочее
       our_projects: Наши проекты
-
+      v2:
+        generated_news: Обновления базы сайта
     animes:
       title: Аниме
       # all_animes: все аниме
