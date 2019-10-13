@@ -1,28 +1,66 @@
 @import mixins/responsive
 
 .fc-2
-  +gte_ipad
+  +gte_iphone-landscape
     display: flex
-    margin: 0 -25px
+    flex-wrap: wrap
+
+  +iphone-landscape
+    margin: 0 #{-$column-flex-half_gutter-ipad}
+
+  +ipad
+    margin: 0 #{-$column-flex-half_gutter-ipad}
+
+  +gte_laptop
+    margin: 0 #{-$column-flex-half_gutter-desktop}
 
   & > .f-column
     flex-shrink: 0
 
-    +iphone
+    +iphone-portrait
       margin-bottom: $block-offset
 
-    +gte_ipad
-      padding: 0 25px
+    +iphone-landscape
+      padding: 0 $column-flex-half_gutter-ipad
+      flex-basis: 50%
+
+    +ipad
+      padding: 0 $column-flex-half_gutter-ipad
+      flex-basis: 50%
+
+    +gte_laptop
+      padding: 0 $column-flex-half_gutter-desktop
       flex-basis: 50%
 
 .fc-2-3-m
-  +gte_ipad
+  +iphone-portrait
+    margin-bottom: $block-offset
+
+  +gte_iphone-landscape
     display: flex
-    margin: -30px -25px
+    flex-wrap: wrap
+
+  +iphone-landscape
+    margin: #{-$block-offset} #{-$column-flex-half_gutter-ipad}
+
+  +ipad
+    margin: #{-$block-offset} #{-$column-flex-half_gutter-ipad}
+
+  +gte_laptop
+    margin: #{-$block-offset} #{-$column-flex-half_gutter-desktop}
 
   & > .f-column
-    flex-shrink: 0
-    padding: 30px 25px
+    +iphone-landscape
+      flex-shrink: 0
+      padding: $block-offset $column-flex-half_gutter-ipad
+
+    +ipad
+      flex-shrink: 0
+      padding: $block-offset $column-flex-half_gutter-ipad
+
+    +gte_laptop
+      flex-shrink: 0
+      padding: $block-offset $column-flex-half_gutter-desktop
 
     &:first-child
       +gte_ipad
@@ -33,9 +71,18 @@
         flex-basis: 33.333%
 
 .fc-3
-  +gte_ipad
+  +gte_iphone-landscape
     display: flex
-    margin: 0 -25px
+    flex-wrap: wrap
+
+  +iphone-landscape
+    margin: 0 #{-$column-flex-half_gutter-ipad}
+
+  +ipad
+    margin: 0 #{-$column-flex-half_gutter-ipad}
+
+  +gte_laptop
+    margin: 0 #{-$column-flex-half_gutter-desktop}
 
   & > .f-column
     flex-shrink: 0
@@ -44,17 +91,42 @@
       margin-bottom: $block-offset
 
     +gte_ipad
-      padding: 0 25px
+      padding: 0 $column-flex-half_gutter-ipad
+      flex-basis: 33.333%
+
+    +gte_laptop
+      padding: 0 $column-flex-half_gutter-desktop
       flex-basis: 33.333%
 
 .fc-3-m
-  +gte_ipad
+  +iphone-portrait
+    margin-bottom: $block-offset
+
+  +gte_iphone-landscape
     display: flex
-    margin: -$block-offset -25px
+    flex-wrap: wrap
+
+  +iphone-landscape
+    margin: #{-$block-offset} #{-$column-flex-half_gutter-ipad}
+
+  +ipad
+    margin: #{-$block-offset} #{-$column-flex-half_gutter-ipad}
+
+  +gte_laptop
+    margin: #{-$block-offset} #{-$column-flex-half_gutter-desktop}
 
   & > .f-column
-    flex-shrink: 0
-
-    +gte_ipad
-      padding: $block-offset 25px
+    +iphone-landscape
       flex-basis: 33.333%
+      flex-shrink: 0
+      padding: $block-offset $column-flex-half_gutter-ipad
+
+    +ipad
+      flex-basis: 33.333%
+      flex-shrink: 0
+      padding: $block-offset $column-flex-half_gutter-ipad
+
+    +gte_laptop
+      flex-basis: 33.333%
+      flex-shrink: 0
+      padding: $block-offset $column-flex-half_gutter-desktop

@@ -1,22 +1,40 @@
 @import mixins/responsive
 
 .b-news_wall
-  display: flex
-  flex-wrap: wrap
-  margin: -30px -25px
+  +gte_iphone-landscape
+    display: flex
+    flex-wrap: wrap
+
+  +iphone-landscape
+    margin: #{-$block-offset} #{-$column-flex-half_gutter-ipad}
+
+  +ipad
+    margin: #{-$block-offset} #{-$column-flex-half_gutter-ipad}
+
+  +gte_laptop
+    margin: #{-$block-offset} #{-$column-flex-half_gutter-desktop}
 
   .b-postloader
-    flex-basis: 100%
-    margin: 30px 25px
+    +ipad
+      flex-basis: 100%
+      margin: $block-offset $column-flex-half_gutter-ipad
+
+    +gte_laptop
+      flex-basis: 100%
+      margin: $block-offset $column-flex-half_gutter-desktop
 
   .b-news_wall-topic
-    padding: 30px 25px
-
     +iphone-portrait
       flex-basis: 100%
 
     +iphone-landscape
+      padding: $block-offset $column-flex-half_gutter-ipad
       flex-basis: 50%
 
-    +gte_ipad
+    +ipad
+      padding: $block-offset $column-flex-half_gutter-ipad
+      flex-basis: 33.333%
+
+    +gte_laptop
+      padding: $block-offset $column-flex-half_gutter-desktop
       flex-basis: 33.333%
