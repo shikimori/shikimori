@@ -43,35 +43,43 @@
           as: :topic_view
     .f-column.generated-news
       - @db_updates.each do |topic_view|
+        - anime = topic_view.decorated_linked
         .generated-news-line
-          a.poster
+          a.poster[
+            href=anime.url
+          ]
             img[
               src=cdn_image(topic_view.decorated_linked, :x48)
               srcset="#{cdn_image topic_view.decorated_linked, :x96} 2x"
               alt=topic_view.decorated_linked.name
             ]
 
-          .name-date
+          .info
             a.name.bubbled.unprocessed[
-              href=topic_view.urls.poster_url
+              href=anime.url
               title=topic_view.topic_title
               data-tooltip_url=topic_view.decorated_linked.tooltip_url
             ] = topic_view.topic_title_html
 
-            - if topic_view.action_tag
-              .b-anime_status_tag[
-                class=topic_view.action_tag.type
-                data-text=topic_view.action_tag.text
-              ]
+            .status-time
+              - if topic_view.action_tag
+                .b-anime_status_tag[
+                  class=topic_view.action_tag.type
+                  data-text=topic_view.action_tag.text
+                ]
 
-            span.time
-              time[
-                itemprop="commentTime"
-                datetime=topic_view.created_at.iso8601
-              ] = l topic_view.created_at, format: '%e %B %Y'
+              - if anime.kind.present?
+                .kind = anime.kind_text
 
-            / = render partial: 'user_rates/placeholder',
-              locals: { target: topic_view.decorated_linked, extended: false }
+              span.time
+                time[
+                  itemprop="commentTime"
+                  datetime=topic_view.created_at.iso8601
+                ] = l topic_view.created_at, format: '%e %B %Y'
+
+            .b-catalog_entry-tooltip
+              = render partial: 'user_rates/placeholder',
+                locals: { target: topic_view.decorated_linked, extended: false }
 
 
         / = render partial: 'topics/topic',
