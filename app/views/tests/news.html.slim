@@ -6,6 +6,17 @@
       ]
         span アニメ
         = Anime.model_name.human
+
+      .seasons
+        .season
+          a.b-link_button.dark[
+            href=animes_collection_url
+          ] Очень 2019
+        .season
+          a.b-link_button.dark[
+            href=animes_collection_url
+          ] Лето 2019
+
     .section
       a.b-link_button.maxi.dark[
         href=mangas_collection_url

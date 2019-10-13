@@ -173,6 +173,8 @@ class TestsController < ShikimoriController
       .by_forum(Forum::UPDATES_FORUM, current_user, censored_forbidden?)
       .limit(15)
       .as_views(true, true)
+
+    @dashboard_view = DashboardView.new
   end
 
   def oauth
