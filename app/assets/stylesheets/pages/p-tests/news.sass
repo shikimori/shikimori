@@ -40,13 +40,14 @@
 
   .generated-news-line
     display: flex
-    height: 56px // to prevent height flickering when anime poster is loading
-    margin-bottom: 12px
+    min-height: 50px // to prevent height flickering when anime poster is loading
+    margin-bottom: 18px
 
     .poster
-      padding-left: 10px
-      margin-left: auto
       flex-shrink: 0
+      line-height: 0
+      margin-left: auto
+      padding-left: 10px
 
       img
         width: 32px
