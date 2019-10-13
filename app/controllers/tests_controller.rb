@@ -174,7 +174,7 @@ class TestsController < ShikimoriController
       .limit(15)
       .as_views(true, true)
 
-    @dashboard_view = DashboardView.new
+    # @dashboard_view = DashboardView.new
   end
 
   def oauth
