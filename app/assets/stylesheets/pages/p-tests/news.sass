@@ -11,16 +11,19 @@
 
   .sections
     display: flex
-    margin: 30px -10px 0
 
-    +lte_ipad
+    +iphone
       flex-direction: column
+      margin: #{30px - 10px} 0 -10px
+
+    +gte_ipad
+      margin: 30px -10px 0
 
     .section
-      +lte_ipad
+      +iphone
         padding: 10px 0
 
-      +gte_laptop
+      +gte_ipad
         padding: 0 10px
         flex-basis: 25%
 
@@ -31,6 +34,9 @@
 
   .generated-news
     min-width: 0 // neeed to allow overflow ellipsis inside of flex item
+
+    +iphone
+      display: none
 
   .generated-news-line
     display: flex
