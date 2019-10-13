@@ -12,18 +12,18 @@ export const RATIO = {
   character: 350.0 / 225.0
 };
 
-const recalcStyles = function () {
+function recalcStyles() {
   $('#injectCSSContainer').empty();
 
   $(`.${CLASS_NAME}`).each((_index, node) => (
     $(node).data(CLASS_NAME)?.injectCss()
   ));
-};
+}
 
-const setHanler = function () {
+function setHanler() {
   GLOBAL_HANDLER = true;
   $(document).on('resize:debounced orientationchange', recalcStyles);
-};
+}
 
 export class CuttedCovers extends View {
   async initialize() {
