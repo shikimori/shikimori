@@ -39,7 +39,7 @@
     .f-column
       .b-news_wall
         = render partial: 'topics/topic',
-          collection: @news[0..7],
+          collection: @news[0..5],
           as: :topic_view
     .f-column.generated-news
       - @db_updates.each do |topic_view|
@@ -86,7 +86,7 @@
 
   .b-news_wall
     = render partial: 'topics/topic',
-      collection: @news[8..-1],
+      collection: @news[6..-1],
       as: :topic_view
 
     - if @news.next_page
