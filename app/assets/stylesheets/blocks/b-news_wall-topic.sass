@@ -25,12 +25,10 @@
         &:hover
           .name-date .name
             color: $link-hover
-            text-decoration: underline
 
       &:active
         .name-date .name
           color: $link-active
-          text-decoration: underline
 
     .name-date
       white-space: normal
@@ -44,6 +42,9 @@
 
       .name
         height: auto
+
+        &:hover
+          text-decoration: none
 
         +iphone
           +two_line_ellipsis(18px, 1.26)
