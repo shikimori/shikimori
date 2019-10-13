@@ -5,7 +5,7 @@ import UserRatesTracker from 'services/user_rates/tracker'
 import View from 'views/application/view'
 import JST from 'helpers/jst'
 
-import AuthorizedAction from '../authorized_action'
+import * as AuthorizedAction from '../authorized_action'
 
 export default class UserRateButton extends View
   TEMPLATE = 'user_rates/button'

@@ -1,4 +1,4 @@
-import AuthorizedAction from './authorized_action';
+import { AuthorizedAction } from './authorized_action';
 import Clickloaded from './clickloaded';
 import CodeHighlight from './code_highlight';
 import Comment from './comment';
