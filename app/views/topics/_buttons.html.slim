@@ -9,14 +9,15 @@ aside.buttons
       data-remote='true'
       data-type='json'
     ]
-    span.item-quote[
+    span.item-quote.to-process[
       title=t('actions.quote')
       data-text=t('actions.quote')
+      data-dynamic='day_registered'
     ]
     span.item-reply.to-process[
       title=t('actions.reply')
       data-text=t('actions.reply')
-      data-dynamic='authorized'
+      data-dynamic='day_registered'
     ]
     a.item-edit.short[
       href=edit_topic_url(topic_view.topic)
