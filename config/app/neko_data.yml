@@ -9893,6 +9893,53 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :yoshitaka_amano
+    :level: 1
+    :image: "/assets/achievements/anime/author/yoshitaka_amano.png"
+    :border_color: "#8B4513"
+    :title_ru: 'Ёситака Амано '
+    :text_ru: 
+    :title_en: Yoshitaka Amano
+    :text_en: 
+    :topic_id: 276032
+    :rule: &108
+      :algo: count
+      :threshold: 73%
+      :filters:
+        anime_ids:
+        - 6909
+        - 1793
+        - 3258
+        - 543
+        - 732
+        - 3671
+        - 3670
+        - 1458
+        - 2389
+        - 4210
+        - 5802
+        - 3914
+        - 2249
+        - 10639
+        - 5819
+        - 885
+      :generator:
+        person_id: 2967
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :yoshitaka_amano
+  level: 1
+  image: "/assets/achievements/anime/author/yoshitaka_amano.png"
+  border_color: "#8B4513"
+  title_ru: 'Ёситака Амано '
+  text_ru: 
+  title_en: Yoshitaka Amano
+  text_en: 
+  topic_id: 276032
+  rule: *108
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :leiji_matsumoto
     :level: 1
     :image: "/assets/achievements/anime/author/leiji_matsumoto.jpg"
@@ -9902,7 +9949,7 @@
     :title_en: Leiji Matsumoto
     :text_en: 
     :topic_id: 276032
-    :rule: &108
+    :rule: &109
       :algo: count
       :threshold: 74%
       :filters:
@@ -9961,53 +10008,6 @@
   title_ru: Лэйдзи Мацумото
   text_ru: 
   title_en: Leiji Matsumoto
-  text_en: 
-  topic_id: 276032
-  rule: *108
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :yoshitaka_amano
-    :level: 1
-    :image: "/assets/achievements/anime/author/yoshitaka_amano.png"
-    :border_color: "#8B4513"
-    :title_ru: 'Ёситака Амано '
-    :text_ru: 
-    :title_en: Yoshitaka Amano
-    :text_en: 
-    :topic_id: 276032
-    :rule: &109
-      :algo: count
-      :threshold: 73%
-      :filters:
-        anime_ids:
-        - 6909
-        - 1793
-        - 3258
-        - 543
-        - 732
-        - 3671
-        - 3670
-        - 1458
-        - 2389
-        - 4210
-        - 5802
-        - 3914
-        - 2249
-        - 10639
-        - 5819
-        - 885
-      :generator:
-        person_id: 2967
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :yoshitaka_amano
-  level: 1
-  image: "/assets/achievements/anime/author/yoshitaka_amano.png"
-  border_color: "#8B4513"
-  title_ru: 'Ёситака Амано '
-  text_ru: 
-  title_en: Yoshitaka Amano
   text_en: 
   topic_id: 276032
   rule: *109
