@@ -6,35 +6,40 @@
     flex-wrap: wrap
 
   +iphone-landscape
-    margin: #{-$block-offset} #{-$column-flex-half_gutter-ipad}
+    margin: #{-$flex-margin-mobile} #{-$flex-half_gutter-mobile}
 
   +ipad
-    margin: #{-$block-offset} #{-$column-flex-half_gutter-ipad}
+    margin: #{-$flex-margin-mobile} #{-$flex-half_gutter-mobile}
 
   +gte_laptop
-    margin: #{-$block-offset} #{-$column-flex-half_gutter-desktop}
+    margin: #{-$flex-margin-desktop} #{-$flex-half_gutter-desktop}
 
   .b-postloader
+    +iphone-landscape
+      flex-basis: 100%
+      margin: $flex-margin-mobile $flex-half_gutter-mobile
+
     +ipad
       flex-basis: 100%
-      margin: $block-offset $column-flex-half_gutter-ipad
+      margin: $flex-margin-mobile $flex-half_gutter-mobile
 
     +gte_laptop
       flex-basis: 100%
-      margin: $block-offset $column-flex-half_gutter-desktop
+      margin: $flex-margin-desktop $flex-half_gutter-desktop
 
   .b-news_wall-topic
     +iphone-portrait
       flex-basis: 100%
+      padding: 0 0 $flex-margin-mobile 0
 
     +iphone-landscape
-      padding: $block-offset $column-flex-half_gutter-ipad
+      padding: $flex-margin-mobile $flex-half_gutter-mobile
       flex-basis: 50%
 
     +ipad
-      padding: $block-offset $column-flex-half_gutter-ipad
+      padding: $flex-margin-mobile $flex-half_gutter-mobile
       flex-basis: 33.333%
 
     +gte_laptop
-      padding: $block-offset $column-flex-half_gutter-desktop
+      padding: $flex-margin-desktop $flex-half_gutter-desktop
       flex-basis: 33.333%
