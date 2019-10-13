@@ -44,22 +44,13 @@
     .f-column.generated-news
       - @db_updates.each do |topic_view|
         - anime = topic_view.decorated_linked
-        .generated-news-line
-          a.poster[
-            href=anime.url
-          ]
-            img[
-              src=cdn_image(topic_view.decorated_linked, :x48)
-              srcset="#{cdn_image topic_view.decorated_linked, :x96} 2x"
-              alt=topic_view.decorated_linked.name
-            ]
-
+        a.generated-news-line.bubbled.unprocessed[
+          href=anime.url
+          title=topic_view.topic_title
+          data-tooltip_url=topic_view.decorated_linked.tooltip_url
+        ]
           .info
-            a.name.bubbled.unprocessed[
-              href=anime.url
-              title=topic_view.topic_title
-              data-tooltip_url=topic_view.decorated_linked.tooltip_url
-            ] = topic_view.topic_title_html
+            .name = topic_view.topic_title_html
 
             .status-time
               - if topic_view.action_tag
@@ -77,7 +68,13 @@
                   datetime=topic_view.created_at.iso8601
                 ] = l topic_view.created_at, format: '%e %B %Y'
 
-            .b-catalog_entry-tooltip
+          .poster
+            img[
+              src=cdn_image(topic_view.decorated_linked, :x48)
+              srcset="#{cdn_image topic_view.decorated_linked, :x96} 2x"
+              alt=topic_view.decorated_linked.name
+            ]
+            / .b-catalog_entry-tooltip
               = render partial: 'user_rates/placeholder',
                 locals: { target: topic_view.decorated_linked, extended: false }
 
