@@ -18,8 +18,8 @@ class DashboardViewV2 < ViewObjectBase
 
   def cache_keys
     {
-      news: [:news, news_scope.cache_key],
-      db_updates: [:db_updates, db_updates_scope.cache_key]
+      news: [:news, news_scope.cache_key, page],
+      db_updates: [:db_updates, db_updates_scope.cache_key, page]
     }
   end
 

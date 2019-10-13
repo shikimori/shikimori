@@ -51,20 +51,23 @@
       .options.to-process data-dynamic='not_implemented_yet_action'
 
   .fc-2-3-m
-    = cache @dashboard_view.cache_keys[:news] + %i[part1] do
+    = cache @view.cache_keys[:news] + %i[part1] do
       .f-column
         .b-news_wall
           = render partial: 'topics/topic',
-            collection: @dashboard_view.news[0..5],
+            collection: @view.news[0..5],
+            locals: { do_not_track: true },
+            cache: true,
             as: :topic_view
-    = cache @dashboard_view.cache_keys[:db_updates] do
+
+    = cache @view.cache_keys[:db_updates] do
       .f-column.generated-news
         .subheadline.blue.m12
           a[
             href=forum_topics_url(:updates)
             title=t('dashboards.show.v2.generated_news')
           ]= t 'dashboards.show.v2.generated_news'
-        - @dashboard_view.db_updates.each do |topic_view|
+        - @view.db_updates.each do |topic_view|
           - anime = topic_view.decorated_linked
           a.generated-news-line.bubbled.unprocessed[
             href=anime.url
@@ -97,13 +100,15 @@
                 alt=topic_view.decorated_linked.name
               ]
 
-  = cache @dashboard_view.cache_keys[:news] + %i[part2] do
+  = cache @view.cache_keys[:news] + %i[part2] do
     .b-news_wall
       = render partial: 'topics/topic',
-        collection: @dashboard_view.news[6..-1],
+        collection: @view.news[6..-1],
+        locals: { do_not_track: true },
+        cache: true,
         as: :topic_view
 
-      - if @dashboard_view.news.next_page
+      - if @view.news.next_page
         = render 'blocks/postloader',
           filter: 'b-topic',
-          next_url: news_tests_url(page: @dashboard_view.news.next_page)
+          next_url: news_tests_url(page: @view.news.next_page)

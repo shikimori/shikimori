@@ -158,7 +158,7 @@ class TestsController < ShikimoriController
   end
 
   def news
-    @dashboard_view = DashboardViewV2.new
+    @view = DashboardViewV2.new
   end
 
   def oauth

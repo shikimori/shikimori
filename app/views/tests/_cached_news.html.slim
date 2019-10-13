@@ -1,0 +1,7 @@
+= cache view.cache_keys[:news] do
+  = render partial: 'topics/topic',
+    collection: view.news,
+    as: :topic_view,
+    locals: { do_not_track: true },
+    cache: true,
+    formats: :html
