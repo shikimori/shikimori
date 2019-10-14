@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_171432) do
+ActiveRecord::Schema.define(version: 2019_10_14_175946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -514,7 +514,7 @@ ActiveRecord::Schema.define(version: 2019_10_14_171432) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "kind"
-    t.integer "position"
+    t.integer "position", null: false
     t.index ["linked_id", "linked_type", "kind", "user_id"], name: "favorites_linked_id_linked_type_kind_user_id", unique: true, where: "(kind IS NOT NULL)"
     t.index ["linked_id", "linked_type", "user_id"], name: "favorites_linked_id_linked_type_user_id", unique: true, where: "(kind IS NULL)"
     t.index ["linked_type", "linked_id"], name: "i_linked"
