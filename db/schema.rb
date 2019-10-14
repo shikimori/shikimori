@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_170804) do
+ActiveRecord::Schema.define(version: 2019_10_14_171432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(version: 2019_10_14_170804) do
     t.text "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "position"
+    t.integer "position", null: false
     t.string "layout", default: "---\n:default: :content\n", null: false
     t.index ["club_id"], name: "index_club_pages_on_club_id"
   end
