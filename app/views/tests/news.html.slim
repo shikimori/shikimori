@@ -46,7 +46,7 @@
 
 = cache @view.cache_keys.values do
   .block
-    .headline.orange.m15
+    .headline.blue.m15
       span = t 'news'
       .buttons
         .options.to-process data-dynamic='not_implemented_yet_action'
@@ -63,7 +63,7 @@
 
       = cache @view.cache_keys[:db_updates] do
         .f-column.generated-news
-          .subheadline.blue.m15
+          .subheadline.orange.m15
             a[
               href=forum_topics_url(:updates)
               title=t('dashboards.show.v2.generated_news')
