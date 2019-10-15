@@ -3,8 +3,7 @@ class DashboardViewV2 < ViewObjectBase
 
   def news
     news_scope
-      .limit(15)
-      .paginate(page, 15)
+      .paginate(page, page == 1 ? 14 : 15, page == 1 ? 0 : -1)
       .transform do |topic|
         Topics::NewsWallView.new topic, true, true
       end

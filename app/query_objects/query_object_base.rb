@@ -19,9 +19,9 @@ class QueryObjectBase
     @scope.to_a[index]
   end
 
-  def paginate page, limit
+  def paginate page, limit, offset = 0
     new_scope = @scope
-      .offset(limit * (page - 1))
+      .offset(offset + limit * (page - 1))
       .limit(limit)
 
     chain PaginatedCollection.new(new_scope, page, limit)
