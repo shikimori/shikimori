@@ -56,7 +56,7 @@
         .f-column
           .b-news_wall
             = render partial: 'topics/topic',
-              collection: @view.news[0..5],
+              collection: @view.news[0..7],
               locals: { do_not_track: true },
               cache: true,
               as: :topic_view
@@ -108,7 +108,7 @@
     = cache @view.cache_keys[:news] + %i[part2] do
       .b-news_wall
         = render partial: 'topics/topic',
-          collection: @view.news[6..-1],
+          collection: @view.news[8..-1],
           locals: { do_not_track: true },
           cache: true,
           as: :topic_view
