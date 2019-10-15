@@ -68,8 +68,8 @@
 
   .generated-news-line
     display: flex
-    min-height: 50px // to prevent height flickering when anime poster is loading
-    margin-bottom: 18px
+    min-height: 75px // to prevent height flickering when anime poster is loading
+    margin-bottom: 24px
 
     .poster
       flex-shrink: 0
@@ -78,7 +78,7 @@
       padding-left: 10px
 
       img
-        width: 32px
+        width: 48px
 
     .info
       +ellipsis2
@@ -92,9 +92,10 @@
         margin-bottom: 8px
 
       .status-time
+        align-items: baseline
         display: flex
         line-height: 17px
-        align-items: baseline
+        margin-bottom: 7px
 
         .kind
           color: #123
@@ -106,6 +107,12 @@
 
         .time
           +date
+
+      .genres
+        display: flex
+
+        .b-tag:last-child
+          +ellipsis2
 
       .tag
         display: inline-block
