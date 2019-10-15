@@ -60,6 +60,7 @@
               locals: { do_not_track: true },
               cache: true,
               as: :topic_view
+              / collection: @view.news[0..7],
 
       = cache @view.cache_keys[:db_updates] do
         .f-column.generated-news

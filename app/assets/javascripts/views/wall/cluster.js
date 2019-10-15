@@ -64,7 +64,10 @@ export default class WallCluster {
 
   _scale() {
     const images = this._positioned();
-    const currentWidth = images.reduce((memo, v) => memo + v.width + WallCluster.MARGIN, 0.0);
+    const currentWidth = images.reduce((memo, image, index) => (
+      memo + image.width +
+        (index === images.length - 1 ? 0 : WallCluster.MARGIN)
+    ), 0.0);
 
     if (currentWidth > this.maxWidth) {
       images.forEach(image => {
