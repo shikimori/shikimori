@@ -7,16 +7,6 @@
         span アニメ
         = Anime.model_name.human
 
-      / .seasons
-        .season
-          a.b-link_button.dark[
-            href=animes_collection_url
-          ] Очень 2019
-        .season
-          a.b-link_button.dark[
-            href=animes_collection_url
-          ] Лето 2019
-
     .section
       a.b-link_button.maxi.dark[
         href=mangas_collection_url
@@ -33,6 +23,34 @@
       a.b-link_button.maxi.dark[
         href=forum_url 
       ] = t 'forum'
+
+  .sections
+    .section
+      .seasons
+        .season
+          a.b-link_button.dark[
+            href=animes_collection_url
+          ] Очень 2019
+        .season
+          a.b-link_button.dark[
+            href=animes_collection_url
+          ] Лето 2019
+    .section
+    .section
+    .section.hot-topics
+      .title Темы дня
+      - cache :hot_topics, expires_in: 10.minutes do
+        - @layout.hot_topics[0..5].each do |topic_view|
+          a.b-link[
+            href=topic_view.urls.topic_url
+            title=topic_view.topic_title
+            tabindex='-1'
+          ]
+            span.poster[
+              style="background-image: url(#{topic_view.poster false})"
+            ]
+            span
+              = topic_view.poster_title_html
 
 / .block2
   .fc-2-3-m

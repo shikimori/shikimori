@@ -34,12 +34,14 @@
 
     +iphone
       flex-direction: column
-      margin: #{30px - 10px} 0 -10px
+      margin: #{10px - 10px} 0 -10px
 
     +gte_ipad
-      margin: 30px -10px 0
+      margin: 10px -10px 0
 
     .section
+      min-width: 0
+
       +iphone
         padding: 10px 0
 
@@ -47,16 +49,47 @@
         padding: 0 10px
         flex-basis: 25%
 
-    // .seasons
-    //   display: flex
-    //   margin: 0 -10px
-    //
-    //   .season
-    //     flex-basis: 50%
-    //     padding: 0 10px
-    //
-    //     .b-link_button
-    //       min-width: 0
+    .seasons
+      display: flex
+      margin: 0 -10px
+    
+      .season
+        flex-basis: 50%
+        padding: 0 10px
+    
+        .b-link_button
+          min-width: 0
+
+  .hot-topics
+    .title
+      font-size: 14px
+      font-weight: bold
+      line-height: 30px
+      color: #456
+
+    .b-link
+      align-items: center
+      display: flex
+      overflow: hidden
+      font-size: 13px
+      line-height: 20px
+      margin-bottom: 8px
+
+      span:not(.poster)
+        +ellipsis2
+
+      &.moderation
+        color: $red
+
+      &.misc
+        color: $purple
+
+      .poster
+        background-size: 100%
+        flex-shrink: 0
+        height: 20px
+        margin-right: 5px
+        width: 20px
 
   .fc-2-3-m .f-column
     .b-news_wall .b-news_wall-topic
