@@ -95,14 +95,16 @@ class Api::V1::UsersController < Api::V1Controller
 
   api :GET, '/users/:id/favourites', "Show user's favourites"
   def favourites
+    view = Profiles::FavoritesView.new(user)
+
     respond_with(
-      animes: user.fav_animes.map { |v| FavouriteSerializer.new v },
-      mangas: user.fav_mangas.map { |v| FavouriteSerializer.new v },
-      characters: user.fav_characters.map { |v| FavouriteSerializer.new v },
-      people: user.fav_persons.map { |v| FavouriteSerializer.new v },
-      mangakas: user.fav_mangakas.map { |v| FavouriteSerializer.new v },
-      seyu: user.fav_seyu.map { |v| FavouriteSerializer.new v },
-      producers: user.fav_producers.map { |v| FavouriteSerializer.new v }
+      animes: view.animes.map { |v| FavouriteSerializer.new v },
+      mangas: view.mangas.map { |v| FavouriteSerializer.new v },
+      characters: view.characters.map { |v| FavouriteSerializer.new v },
+      people: view.people.map { |v| FavouriteSerializer.new v },
+      mangakas: view.mangakas.map { |v| FavouriteSerializer.new v },
+      seyu: view.seyu.map { |v| FavouriteSerializer.new v },
+      producers: view.producers.map { |v| FavouriteSerializer.new v }
     )
   end
 
