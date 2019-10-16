@@ -1,4 +1,6 @@
-header.head.misc
+header.head.misc[
+  class=('is-own-profile' if @view.own_profile?)
+]
   h1[
     class=(@user.nickname_changes? ? 'aliases' : '' if params[:controller] == 'profiles' && params[:action] == 'show')
     title=(@user.nickname_changes? ? @user.nicknames_tooltip : '' if params[:controller] == 'profiles' && params[:action] == 'show')
@@ -19,5 +21,7 @@ header.head.misc
   = yield :head_notice
   = render 'application/breadcrumbs'
 
-.block.m0
+.block[
+  class=('is-own-profile' if @view.own_profile?)
+]
   = yield
