@@ -7,6 +7,8 @@ class Favourite < ApplicationRecord
   enumerize :kind, in: Types::Favourite::Kinds.values
   enumerize :linked_type, in: Types::Favourite::LinkedTypes.values
 
+  scope :ordered, -> { order :position }
+
   validates :kind,
     presence: true,
     if: -> { linked_type == Types::Favourite::LinkedTypes['Person'] }

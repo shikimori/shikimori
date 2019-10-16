@@ -1,11 +1,11 @@
 = render layout: 'page' do
   // remember that cache digest does not work properly inside render layoyt: ...
   // don't forget to change cache version here
-  = cache [@resource.object.favourites, :v1] do
-    - if @resource.fav_animes.any?
+  = cache @favorites_view.cache_key do
+    - if @favorites_view.fav_animes.any?
       .subheadline.m10 = t '.favourite.anime'
       .cc-favourites.to-process data-dynamic="cutted_covers"
-        = render @resource.fav_animes.decorate
+        = render @favorites_view.fav_animes
 
     - if @resource.fav_mangas.any?
       .subheadline.m10 = t '.favourite.manga'

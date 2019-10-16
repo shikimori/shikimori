@@ -48,7 +48,9 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
   def favorites
     og noindex: true
     og page_title: i18n_t('favorites')
-    redirect_to @resource.url if @resource.favourites.none?
+
+    @favorites_view = Profiles::FavoritesView.new(@resource)
+    redirect_to @resource.url if @favorites_view.collection.none?
   end
 
   def feed
