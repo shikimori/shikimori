@@ -22,14 +22,6 @@ describe User do
     it { is_expected.to have_many :friends }
 
     it { is_expected.to have_many(:favourites).dependent(:destroy) }
-    it { is_expected.to have_many :fav_animes }
-    it { is_expected.to have_many :fav_mangas }
-    it { is_expected.to have_many :fav_ranobe }
-    it { is_expected.to have_many :fav_people }
-    it { is_expected.to have_many :fav_seyu }
-    it { is_expected.to have_many :fav_producers }
-    it { is_expected.to have_many :fav_mangakas }
-    it { is_expected.to have_many :fav_characters }
 
     it { is_expected.to have_many(:abuse_requests).dependent(:destroy) }
     it { is_expected.to have_many(:messages).dependent(:destroy) }

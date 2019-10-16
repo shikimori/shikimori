@@ -102,43 +102,6 @@ class User < ApplicationRecord
   has_many :favourite_persons, -> { where kind: Types::Favourite::Kinds[:person] },
     class_name: Favourite.name
 
-  has_many :fav_animes,
-    through: :favourites,
-    source: :linked,
-    source_type: Anime.name
-  has_many :fav_mangas,
-    through: :favourites,
-    source: :linked,
-    source_type: Manga.name
-  has_many :fav_ranobe,
-    through: :favourites,
-    source: :linked,
-    source_type: Ranobe.name
-  has_many :fav_characters,
-    through: :favourites,
-    source: :linked,
-    source_type: Character.name
-  has_many :fav_persons,
-    through: :favourite_persons,
-    source: :linked,
-    source_type: Person.name
-  has_many :fav_people,
-    through: :favourites,
-    source: :linked,
-    source_type: Person.name
-  has_many :fav_seyu,
-    through: :favourite_seyu,
-    source: :linked,
-    source_type: Person.name
-  has_many :fav_producers,
-    through: :favourite_producers,
-    source: :linked,
-    source_type: Person.name
-  has_many :fav_mangakas,
-    through: :favourite_mangakas,
-    source: :linked,
-    source_type: Person.name
-
   has_many :messages, foreign_key: :to_id, dependent: :destroy
   has_many :messages_from, foreign_key: :from_id, dependent: :destroy, class_name: Message.name
 
