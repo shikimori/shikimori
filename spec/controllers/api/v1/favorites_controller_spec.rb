@@ -1,7 +1,6 @@
 describe Api::V1::FavoritesController do
   include_context :authenticated, :user
 
-  let(:method_name) { "fav_#{klass.name.downcase.pluralize}" }
   let(:entry) { create klass.name.downcase.to_sym }
   let(:kind) { Types::Favourite::Kinds[:producer] }
 
@@ -18,7 +17,7 @@ describe Api::V1::FavoritesController do
 
     it do
       expect { make_request }.to change(Favourite, :count).by(1)
-      expect(user.fav_producers).to include(entry)
+      expect(user.favourites.map(&:linked)).to include(entry)
     end
   end
 
@@ -41,7 +40,31 @@ describe Api::V1::FavoritesController do
 
     it do
       expect { make_request }.to change(Favourite, :count).by(-1)
-      expect(user.reload.send(method_name)).not_to include(entry)
+      expect(user.reload.favourites.map(&:linked)).not_to include(entry)
+    end
+  end
+
+  describe '#reorder', :show_in_doc do
+    let(:klass) { Anime }
+    let(:entry_2) { create klass.name.downcase.to_sym }
+
+    let!(:favourite_1) { create :favourite, linked: entry }
+    let!(:favourite_2) { create :favourite, linked: entry_2, position: favourite_1.position + 1 }
+
+    before do
+      post :reorder,
+        params: {
+          id: favourite_2.id,
+          new_index: new_index
+        }
+    end
+
+    let(:new_index) { 0 }
+
+    it do
+      expect(favourite_1.reload).to be_last
+      expect(favourite_2.reload).to be_first
+      expect(response).to have_http_status :success
     end
   end
 
@@ -65,14 +88,14 @@ describe Api::V1::FavoritesController do
             let(:kind) { nil }
             it do
               expect { make_request }.to change(Favourite, :count).by(1)
-              expect(user.send(method_name)).to include(entry)
+              expect(user.favourites.map(&:linked)).to include(entry)
             end
           end
         else
           context 'with kind' do
             it do
               expect { make_request }.to change(Favourite, :count).by(1)
-              expect(user.fav_producers).to include(entry)
+              expect(user.favourites.map(&:linked)).to include(entry)
             end
           end
         end
@@ -96,7 +119,7 @@ describe Api::V1::FavoritesController do
 
         it do
           expect { make_request }.to change(Favourite, :count).by(-1)
-          expect(user.reload.send(method_name)).not_to include(entry)
+          expect(user.reload.favourites.map(&:linked)).not_to include(entry)
         end
       end
     end

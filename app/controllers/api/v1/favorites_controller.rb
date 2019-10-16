@@ -1,5 +1,6 @@
 class Api::V1::FavoritesController < Api::V1Controller
   before_action :authenticate_user!
+  load_and_authorize_resource only: %i[reorder], class: Favourite.name
 
   api :POST, '/favorites/:linked_type/:linked_id(/:kind)', 'Create a favorite'
   param :linked_id, :undef, required: true
@@ -83,5 +84,12 @@ class Api::V1::FavoritesController < Api::V1Controller
       )
       .destroy_all
     render json: { success: true, notice: i18n_t('removed') }
+  end
+
+  api :POST, '/favorites/:id/reorder', 'Assign a new position to a favorite'
+  param :new_index, :undef
+  def reorder
+    @resource.insert_at params[:new_index].to_i + 1
+    head 200
   end
 end

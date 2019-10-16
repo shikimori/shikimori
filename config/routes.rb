@@ -376,6 +376,9 @@ Rails.application.routes.draw do
           linked_type: /#{Types::Favourite::LinkedTypes.values.join('|')}/,
           kind: /#{Types::Favourite::Kinds.values.join('|')}/
       end
+      resources :favorites, only: %i[] do
+        post :reorder, on: :member
+      end
     end
   end
   # /api
