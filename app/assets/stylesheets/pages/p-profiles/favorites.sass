@@ -17,6 +17,47 @@
     +icon('✓')
     +link(#123)
 
+  .cc-favourites.sortable
+    &.draggable .b-catalog_entry
+      &:before
+        color: #123 !important
+
+    .b-catalog_entry
+      user-select: none
+
+      &:before
+        +icon_style
+        +shikimori('\006d')
+        background: #fff
+        border-radius: 3px
+        box-shadow: 0 0 0 1px rgba(#123, 0.5)
+        color: #123
+        position: absolute
+        right: 5px
+        top: 5px
+        z-index: 1
+
+      &.sortable-ghost
+        opacity: 0.3
+
+      +gt_ipad
+        &:hover:before
+          color: $link-hover
+
+      &:active:before
+        color: $link-active
+
+      &:after
+        background: transparent
+        content: ''
+        cursor: pointer
+        height: 100%
+        left: 0
+        position: absolute
+        top: 0
+        width: 100%
+        z-index: 2
+
   .cc-favourites
     +block0
     +clear_left

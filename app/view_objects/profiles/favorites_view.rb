@@ -15,59 +15,51 @@ class Profiles::FavoritesView < ViewObjectBase
   end
 
   def animes
-    collection
-      .select { |v| v.linked_type == Anime.name }
-      .map(&:linked)
-      .map(&:decorate)
+    build(
+      collection.select { |v| v.linked_type == Anime.name }
+    )
   end
 
   def mangas
-    collection
-      .select { |v| v.linked_type == Manga.name }
-      .map(&:linked)
-      .map(&:decorate)
+    build(
+      collection.select { |v| v.linked_type == Manga.name }
+    )
   end
 
   def ranobe
-    collection
-      .select { |v| v.linked_type == Ranobe.name }
-      .map(&:linked)
-      .map(&:decorate)
+    build(
+      collection.select { |v| v.linked_type == Ranobe.name }
+    )
   end
 
   def characters
-    collection
-      .select { |v| v.linked_type == Character.name }
-      .map(&:linked)
-      .map(&:decorate)
+    build(
+      collection.select { |v| v.linked_type == Character.name }
+    )
   end
 
   def seyu
-    collection
-      .select { |v| v.linked_type == Person.name && v.seyu? }
-      .map(&:linked)
-      .map(&:decorate)
+    build(
+      collection.select { |v| v.linked_type == Person.name && v.seyu? }
+    )
   end
 
   def producers
-    collection
-      .select { |v| v.linked_type == Person.name && v.producer? }
-      .map(&:linked)
-      .map(&:decorate)
+    build(
+      collection.select { |v| v.linked_type == Person.name && v.producer? }
+    )
   end
 
   def mangakas
-    collection
-      .select { |v| v.linked_type == Person.name && v.mangaka? }
-      .map(&:linked)
-      .map(&:decorate)
+    build(
+      collection.select { |v| v.linked_type == Person.name && v.mangaka? }
+    )
   end
 
   def people
-    collection
-      .select { |v| v.linked_type == Person.name && v.person? }
-      .map(&:linked)
-      .map(&:decorate)
+    build(
+      collection.select { |v| v.linked_type == Person.name && v.person? }
+    )
   end
 
   def cache_key
@@ -78,5 +70,11 @@ private
 
   def scope
     @user.favourites
+  end
+
+  def build collection
+    collection.map do |favorite|
+      FavoriteEntry.new favorite.linked.decorate, favorite
+    end
   end
 end

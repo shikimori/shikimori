@@ -11,7 +11,12 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'animes')
         .subheadline.m10 = t '.favourite.anime'
-        .cc-favourites.to-process data-dynamic="cutted_covers"
+        .cc-favourites.to-process[
+          class=(:sortable if params[:edit])
+          data-dynamic='cutted_covers'
+          data-favorite_ids=(@favorites_view.animes.map(&:favorite).map(&:id) if params[:edit])
+          data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
+        ]
           = render @favorites_view.animes, (params[:edit] ? { cover_by: :link, content_by: :none } : {})
 
     - unless params[:edit] && params[:edit] != 'mangas'
@@ -23,7 +28,12 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'mangas')
         .subheadline.m10 = t '.favourite.manga'
-        .cc-favourites.to-process data-dynamic="cutted_covers"
+        .cc-favourites.to-process[
+          class=(:sortable if params[:edit])
+          data-dynamic='cutted_covers'
+          data-favorite_ids=(@favorites_view.mangas.map(&:favorite).map(&:id) if params[:edit])
+          data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
+        ]
           = render @favorites_view.mangas, (params[:edit] ? { cover_by: :link, content_by: :none } : {})
 
     - unless params[:edit] && params[:edit] != 'ranobe'
@@ -35,7 +45,12 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'ranobe')
         .subheadline.m10 = t '.favourite.ranobe'
-        .cc-favourites.to-process data-dynamic="cutted_covers"
+        .cc-favourites.to-process[
+          class=(:sortable if params[:edit])
+          data-dynamic='cutted_covers'
+          data-favorite_ids=(@favorites_view.ranobe.map(&:favorite).map(&:id) if params[:edit])
+          data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
+        ]
           = render @favorites_view.ranobe, (params[:edit] ? { cover_by: :link, content_by: :none } : {})
 
     - unless params[:edit] && params[:edit] != 'characters'
@@ -47,8 +62,14 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'characters')
         .subheadline.m10 = t '.favourite.character'
-        .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="character"
-          = render @favorites_view.characters
+        .cc-favourites.to-process[
+          class=(:sortable if params[:edit])
+          data-dynamic='cutted_covers'
+          data-ratio_type='character'
+          data-favorite_ids=(@favorites_view.characters.map(&:favorite).map(&:id) if params[:edit])
+          data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
+        ]
+          = render @favorites_view.characters, (params[:edit] ? { cover_by: :link, content_by: :none } : {})
 
     - unless params[:edit] && params[:edit] != 'seyu'
       - if @favorites_view.seyu.any?
@@ -59,8 +80,14 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'seyu')
         .subheadline.m10 = t '.favourite.seyu'
-        .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-          = render @favorites_view.seyu
+        .cc-favourites.to-process[
+          class=(:sortable if params[:edit])
+          data-dynamic='cutted_covers'
+          data-ratio_type='person'
+          data-favorite_ids=(@favorites_view.seyu.map(&:favorite).map(&:id) if params[:edit])
+          data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
+        ]
+          = render @favorites_view.seyu, (params[:edit] ? { cover_by: :link, content_by: :none } : {})
 
     - unless params[:edit] && params[:edit] != 'producers'
       - if @favorites_view.producers.any?
@@ -71,8 +98,14 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'producers')
         .subheadline.m10 = t '.favourite.producer'
-        .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-          = render @favorites_view.producers
+        .cc-favourites.to-process[
+          class=(:sortable if params[:edit])
+          data-dynamic='cutted_covers'
+          data-ratio_type='person'
+          data-favorite_ids=(@favorites_view.producers.map(&:favorite).map(&:id) if params[:edit])
+          data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
+        ]
+          = render @favorites_view.producers, (params[:edit] ? { cover_by: :link, content_by: :none } : {})
 
     - unless params[:edit] && params[:edit] != 'mangakas'
       - if @favorites_view.mangakas.any?
@@ -83,8 +116,14 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'mangakas')
         .subheadline.m10 = t '.favourite.mangaka'
-        .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-          = render @favorites_view.mangakas
+        .cc-favourites.to-process[
+          class=(:sortable if params[:edit])
+          data-dynamic='cutted_covers'
+          data-ratio_type='person'
+          data-favorite_ids=(@favorites_view.mangakas.map(&:favorite).map(&:id) if params[:edit])
+          data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
+        ]
+          = render @favorites_view.mangakas, (params[:edit] ? { cover_by: :link, content_by: :none } : {})
 
     - unless params[:edit] && params[:edit] != 'people'
       - if @favorites_view.people.any?
@@ -95,8 +134,14 @@
             - else
               a.item-edit href=favorites_profile_url(@resource, edit: 'people')
         .subheadline.m10 = t '.favourite.person'
-        .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-          = render @favorites_view.people
+        .cc-favourites.to-process[
+          class=(:sortable if params[:edit])
+          data-dynamic='cutted_covers'
+          data-ratio_type='person'
+          data-favorite_ids=(@favorites_view.people.map(&:favorite).map(&:id) if params[:edit])
+          data-reorder_url=(reorder_api_favorite_path('ID') if params[:edit])
+        ]
+          = render @favorites_view.people, (params[:edit] ? { cover_by: :link, content_by: :none } : {})
 
   - if params[:edit]
     a.b-button href=favorites_profile_url(@resource) = t('back').capitalize

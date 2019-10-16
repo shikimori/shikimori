@@ -7,33 +7,31 @@
 $icon_desktop_size: 20px
 $icon_mobile_size: 30px
 
+=icon_style($font-size: 14px)
+  cursor: pointer
+  display: inline-block
+  font-size: $font-size
+  line-height: $icon_desktop_size
+  text-align: center
+  width: $icon_desktop_size
+
+  +lte_ipad
+    font-size: 20px
+    line-height: $icon_mobile_size
+    width: $icon_mobile_size
+
 =icon($content, $font-size: 14px)
   cursor: pointer
 
   &:before,
   &:after
-    cursor: pointer
-    display: inline-block
-    font-size: $font-size
-    line-height: $icon_desktop_size
-
-    // For safety - reset parent styles, that can break glyph codes
-    font-variant: normal
-    text-transform: none
+    +icon_style($font-size)
 
   &:before
     +shikimori($content)
-    text-align: center
-    width: $icon_desktop_size
 
   +lte_ipad
     white-space: nowrap
-    //margin-bottom: 10px
-
-    &:before
-      font-size: 20px
-      width: $icon_mobile_size
-      line-height: $icon_mobile_size
 
     &:after
       font-size: 20px
