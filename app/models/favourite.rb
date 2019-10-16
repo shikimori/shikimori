@@ -24,10 +24,10 @@ class Favourite < ApplicationRecord
     if: -> { kind.blank? }
 
   LIMITS = {
-    Types::Favourite::LinkedTypes['Character'] => 18,
-    Types::Favourite::LinkedTypes['Anime'] => 7,
-    Types::Favourite::LinkedTypes['Manga'] => 7,
-    Types::Favourite::LinkedTypes['Ranobe'] => 7,
-    Types::Favourite::LinkedTypes['Person'] => 9
+    Types::Favourite::LinkedTypes['Character'] => 144,
+    Types::Favourite::LinkedTypes['Anime'] => 144,
+    Types::Favourite::LinkedTypes['Manga'] => 144,
+    Types::Favourite::LinkedTypes['Ranobe'] => 144,
+    Types::Favourite::LinkedTypes['Person'] => 144
   }
 end
