@@ -1,8 +1,17 @@
 @import mixins/block
 @import mixins/column
 @import mixins/responsive
+@import mixins/icons
 
 .p-profiles-favorites
+  .is-own-profile
+    .b-catalog_entry .image-decor::before,
+    .b-catalog_entry .image-decor::after
+      display: none
+
+  .item-edit
+    +icon('\e842')
+
   .cc-favourites
     +block0
     +clear_left
