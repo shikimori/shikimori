@@ -22,4 +22,21 @@ describe Favourite do
       end
     end
   end
+
+  describe 'permissions' do
+    let(:favourite) { build_stubbed :favourite, user: favourite_user }
+    let(:user) { build_stubbed :user }
+
+    subject { Ability.new user }
+
+    context 'favourite owner' do
+      let(:favourite_user) { user }
+      it { is_expected.to be_able_to :manage, favourite }
+    end
+
+    context 'favourite owner' do
+      let(:favourite_user) { build_stubbed :user }
+      it { is_expected.to_not be_able_to :manage, favourite }
+    end
+  end
 end

@@ -39,6 +39,7 @@ class Abilities::User
     version_abilities if @user.week_registered?
     style_abilities
     list_import_abilities
+    favourites_abilities
   end
 
   def topic_abilities
@@ -368,6 +369,10 @@ class Abilities::User
       oauth_application.owner_id == @user.id &&
         oauth_application.owner_type == User.name
     end
+  end
+
+  def favourites_abilities
+    can %i[manage], Favourite, user_id: @user.id
   end
 
 private
