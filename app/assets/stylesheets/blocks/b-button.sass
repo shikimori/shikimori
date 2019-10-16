@@ -1,4 +1,5 @@
 @import mixins/shiki_button
+@import mixins/responsive
 
 .b-button
   +shiki_button
@@ -6,3 +7,10 @@
 a.b-button
   color: #fff
   text-decoration: none
+
+  +gt_ipad
+    &:hover
+      color: #fff
+
+  &:active
+    color: #fff

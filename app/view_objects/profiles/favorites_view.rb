@@ -71,7 +71,7 @@ class Profiles::FavoritesView < ViewObjectBase
   end
 
   def cache_key
-    [scope, :v1]
+    scope
   end
 
 private
