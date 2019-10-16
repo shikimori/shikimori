@@ -9,7 +9,7 @@ class MakeFavouritesPositionNotNullable < ActiveRecord::Migration[5.2]
           .group_by { |v| [v.linked_type, v.kind] }
           .values
           .each do |favorites|
-            favorites.each_with_index do |v, index|
+            favorites.sort_by(&:id).each_with_index do |v, index|
               v.update_column :position, index
             end
           end
