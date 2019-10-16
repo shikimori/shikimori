@@ -2,42 +2,42 @@
   // remember that cache digest does not work properly inside render layoyt: ...
   // don't forget to change cache version here
   = cache @favorites_view.cache_key do
-    - if @favorites_view.fav_animes.any?
+    - if @favorites_view.animes.any?
       .subheadline.m10 = t '.favourite.anime'
       .cc-favourites.to-process data-dynamic="cutted_covers"
-        = render @favorites_view.fav_animes
+        = render @favorites_view.animes
 
-    - if @resource.fav_mangas.any?
+    - if @favorites_view.mangas.any?
       .subheadline.m10 = t '.favourite.manga'
       .cc-favourites.to-process data-dynamic="cutted_covers"
-        = render @resource.fav_mangas.decorate
+        = render @favorites_view.mangas
 
-    - if @resource.fav_ranobe.any?
+    - if @favorites_view.ranobe.any?
       .subheadline.m10 = t '.favourite.ranobe'
       .cc-favourites.to-process data-dynamic="cutted_covers"
-        = render @resource.fav_ranobe.decorate
+        = render @favorites_view.ranobe
 
-    - if @resource.fav_characters.any?
+    - if @favorites_view.characters.any?
       .subheadline.m10 = t '.favourite.character'
       .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="character"
-        = render @resource.fav_characters.decorate
+        = render @favorites_view.characters
 
-    - if @resource.fav_seyu.any?
+    - if @favorites_view.seyu.any?
       .subheadline.m10 = t '.favourite.seyu'
       .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-        = render @resource.fav_seyu.decorate
+        = render @favorites_view.seyu
 
-    - if @resource.fav_producers.any?
+    - if @favorites_view.producers.any?
       .subheadline.m10 = t '.favourite.producer'
       .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-        = render @resource.fav_producers.decorate
+        = render @favorites_view.producers
 
-    - if @resource.fav_mangakas.any?
+    - if @favorites_view.mangakas.any?
       .subheadline.m10 = t '.favourite.mangaka'
       .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-        = render @resource.fav_mangakas.decorate
+        = render @favorites_view.mangakas
 
-    - if @resource.fav_persons.any?
+    - if @favorites_view.people.any?
       .subheadline.m10 = t '.favourite.person'
       .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-        = render @resource.fav_persons.decorate
+        = render @favorites_view.people

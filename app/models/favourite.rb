@@ -4,7 +4,9 @@ class Favourite < ApplicationRecord
   belongs_to :linked, polymorphic: true, touch: true
   belongs_to :user, touch: true
 
-  enumerize :kind, in: Types::Favourite::Kinds.values
+  enumerize :kind,
+    in: Types::Favourite::Kinds.values,
+    predicates: true
   enumerize :linked_type, in: Types::Favourite::LinkedTypes.values
 
   scope :ordered, -> { order :position }
