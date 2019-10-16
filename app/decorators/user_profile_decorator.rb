@@ -63,15 +63,21 @@ class UserProfileDecorator < UserDecorator
     4
   end
 
-  def favorites # rubocop:disable AbcSize
+  def favorites
     return if preferences.favorites_in_profile.zero?
 
-    (fav_animes + fav_mangas + fav_ranobe + fav_characters + fav_people)
-      .shuffle
-      .take(preferences.favorites_in_profile)
-      .sort_by do |fav|
-        [fav.class.name == Manga.name ? Anime.name : fav.class.name, fav.name]
+    object
+      .favourites
+      .includes(:linked)
+      .order('random()')
+      .limit(preferences.favorites_in_profile)
+      .sort_by do |favorite|
+        [
+          favorite.linked_type == Manga.name ? Anime.name : favorite.linked_type,
+          favorite.position
+        ]
       end
+      .map(&:linked)
       .map(&:decorate)
   end
 
