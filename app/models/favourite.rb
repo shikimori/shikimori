@@ -30,4 +30,17 @@ class Favourite < ApplicationRecord
     Types::Favourite::LinkedTypes['Ranobe'] => 144,
     Types::Favourite::LinkedTypes['Person'] => 144
   }
+
+  # kind cannot be nil, otherwise reordering in acts_as_list wont work as it is expected
+  def kind=value
+    if value.blank?
+      attributes['kind'] = ''
+    else
+      super
+    end
+  end
+
+  def kind
+    super || ''
+  end
 end

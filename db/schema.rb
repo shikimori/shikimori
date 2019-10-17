@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_175946) do
+ActiveRecord::Schema.define(version: 2019_10_16_202830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -513,7 +513,7 @@ ActiveRecord::Schema.define(version: 2019_10_14_175946) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "kind"
+    t.string "kind", default: "", null: false
     t.integer "position", null: false
     t.index ["linked_id", "linked_type", "kind", "user_id"], name: "favorites_linked_id_linked_type_kind_user_id", unique: true, where: "(kind IS NOT NULL)"
     t.index ["linked_id", "linked_type", "user_id"], name: "favorites_linked_id_linked_type_user_id", unique: true, where: "(kind IS NULL)"
@@ -694,8 +694,8 @@ ActiveRecord::Schema.define(version: 2019_10_14_175946) do
     t.datetime "image_updated_at"
     t.text "description_ru", null: false
     t.text "description_en", null: false
-    t.string "allowed_scopes", default: [], null: false, array: true
     t.boolean "confidential", default: true, null: false
+    t.string "allowed_scopes", default: [], null: false, array: true
     t.index ["owner_id", "owner_type"], name: "index_oauth_applications_on_owner_id_and_owner_type"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
