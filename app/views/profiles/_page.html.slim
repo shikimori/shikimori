@@ -1,5 +1,5 @@
 header.head.misc[
-  class=('is-own-profile' if @view.own_profile?)
+  class=('is-own-profile' if @view.respond_to?(:own_profile?) && @view.own_profile?)
 ]
   h1[
     class=(@user.nickname_changes? ? 'aliases' : '' if params[:controller] == 'profiles' && params[:action] == 'show')
@@ -22,6 +22,6 @@ header.head.misc[
   = render 'application/breadcrumbs'
 
 .block[
-  class=('is-own-profile' if @view.own_profile?)
+  class=('is-own-profile' if @view.respond_to?(:own_profile?) && @view.own_profile?)
 ]
   = yield
