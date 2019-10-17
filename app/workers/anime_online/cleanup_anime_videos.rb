@@ -1,4 +1,5 @@
 class AnimeOnline::CleanupAnimeVideos
+  include Sidekiq::Worker
   CLEANUP_INTERVAL = 6.months
 
   def perform
