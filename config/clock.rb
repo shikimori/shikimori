@@ -71,7 +71,6 @@ module Clockwork
     # SubtitlesImporter.perform_async :ongoings
     ImagesVerifier.perform_async
     AnimeOnline::FixAnimeVideoAuthors.perform_async
-    AnimeOnline::CleanupAnimeVideos.perform_async
     DbEntries::CleanupMalBanned.perform_async
     Votable::CleanupCheatBotVotes.perform_async
     Users::CleanupDoorkeeperTokens.perform_async
