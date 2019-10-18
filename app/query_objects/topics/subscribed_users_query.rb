@@ -9,7 +9,7 @@ class Topics::SubscribedUsersQuery
 
   ACTIVITY_INTERVAL = 4.months
 
-  def call # rubocop:disable MethodLength, PerceivedComplexity, CyclomaticComplexity
+  def call # rubocop:disable all
     if @topic.broadcast?
       all_scope
 

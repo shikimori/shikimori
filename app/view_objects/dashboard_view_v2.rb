@@ -1,5 +1,17 @@
 class DashboardViewV2 < ViewObjectBase
-  instance_cache :news, :db_updates, :cache_keys
+  instance_cache :review_topic_views,
+    :news,
+    :db_updates,
+    :cache_keys
+
+  def review_topic_views
+    reviews_scope
+      .as_views(true, true)
+      .shuffle
+      .reject { |view| view.topic.linked.target.censored? }
+      .take(3)
+      .sort_by { |view| -view.topic.id }
+  end
 
   def news
     news_scope
@@ -17,6 +29,7 @@ class DashboardViewV2 < ViewObjectBase
 
   def cache_keys
     {
+      reviews: Review.order(id: :desc).first,
       news: [:news, news_scope.cache_key, page],
       db_updates: [:db_updates, db_updates_scope.cache_key, page]
     }
@@ -34,6 +47,13 @@ class DashboardViewV2 < ViewObjectBase
 
 private
 
+  def reviews_scope
+    Topics::Query
+      .fetch(h.locale_from_host)
+      .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
+      .limit(6)
+  end
+
   def news_scope
     Topics::Query
       .fetch(h.locale_from_host)
@@ -44,5 +64,9 @@ private
     Topics::Query
       .fetch(h.locale_from_host)
       .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
+  end
+
+  def reviews_forum
+    Forum.find_by_permalink('reviews')
   end
 end

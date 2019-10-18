@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReviewsController < AnimesController
+class ReviewsController < AnimesController # rubocop:disable ClassLength
   load_and_authorize_resource
 
   before_action :actualize_resource

@@ -42,8 +42,20 @@
           ] = i18n_i 'Ongoing', :other
     .section
     .section
-    .section.hot-topics
-      .title Темы дня
+      .title = i18n_i 'Review', :other
+      - @view.review_topic_views.each do |topic_view|
+        a.b-link[
+          href=topic_view.urls.topic_url
+          title=topic_view.topic_title
+        ]
+          span.poster[
+            style="background-image: url(#{topic_view.poster false})"
+          ]
+          span
+            = topic_view.poster_title_html
+
+    .section
+      .title = t 'application.hot_topics.hot_topics'
       - cache :hot_topics, expires_in: 10.minutes do
         - @layout.hot_topics[0..5].each do |topic_view|
           a.b-link[
