@@ -4,12 +4,16 @@ class DashboardViewV2 < ViewObjectBase
     :db_updates,
     :cache_keys
 
+  def contests
+    Contests::CurrentQuery.call
+  end
+
   def review_topic_views
     reviews_scope
       .as_views(true, true)
       .shuffle
       .reject { |view| view.topic.linked.target.censored? }
-      .take(3)
+      .take(5 - contests.size)
       .sort_by { |view| -view.topic.id }
   end
 
