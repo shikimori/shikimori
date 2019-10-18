@@ -70,6 +70,29 @@
       border-color: darken(#7b8590, 3%)
       cursor: default
 
+  &.dark-2
+    background-color: #678
+    border-color: darken(#678, 3%)
+    color: #fff
+
+    +gt_ipad
+      &:hover
+        background-color: $link-3
+        border-color: darken($link-3, 2%)
+        color: #fff
+
+    &:active
+      background-color: $link-2
+      border-color: darken($link-4, 2%)
+      color: #fff
+
+    &.disabled,
+    &.disabled:hover,
+    &.disabled:active
+      background-color: #7b8590
+      border-color: darken(#7b8590, 3%)
+      cursor: default
+
   &.light-green
     transition: background-color 0.25s ease, border-color 0.25s ease
     background-color: $green

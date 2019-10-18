@@ -30,15 +30,15 @@
         .seasons
           - @view.anime_seasons.each do |season|
             .season
-              a.b-link_button[
+              a.b-link_button.dark-2[
                 href=animes_collection_url(season.url_params)
               ] = season.catalog_title
           .season
-            a.b-link_button[
+            a.b-link_button.dark-2[
               href=animes_collection_url(season: Date.today.year)
             ] #{Anime.model_name.human} #{Date.today.year}
           .season
-            a.b-link_button[
+            a.b-link_button.dark-2[
               href=animes_collection_url(status: :ongoing)
             ] = i18n_i 'Ongoing', :other
         a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
