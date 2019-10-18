@@ -46,14 +46,19 @@ class DashboardView < ViewObjectBase
       .take(2)
   end
 
+  def admin_area?
+    h.params[:no_admin].blank? && h.current_user&.admin?
+  end
+
   def cache_keys
     {
+      admin: admin_area?,
       versions: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION],
       collections: collections_scope.cache_key,
       reviews: reviews_scope.cache_key,
       contests: contests_scope.cache_key,
-      news: [:news, news_scope.cache_key, page],
-      db_updates: [:db_updates, db_updates_scope.cache_key, page]
+      news: [news_scope.cache_key, page],
+      db_updates: [db_updates_scope.cache_key, page]
     }
   end
 

@@ -95,19 +95,18 @@
               span
                 = topic_view.poster_title_html
 
-  - unless params[:no_menu]
-    - if current_user&.admin? && request.path == root_path
-      javascript:
-        $(document.body).on('click', '.b-admin_panel .reload', function() {
-          var $panel = $('.b-admin_panel');
-          $(this).addClass('active');
-          $panel.load($panel.data('postloaded-url'))
-        });
-      .b-admin_panel.to-process[
-        data-dynamic='postloaded'
-        data-postloaded-url='/apanel'
-      ]
-        .ajax-loading.vk-like
+  - if params[:no_admin].blank? && current_user&.admin?
+    javascript:
+      $(document.body).on('click', '.b-admin_panel .reload', function() {
+        var $panel = $('.b-admin_panel');
+        $(this).addClass('active');
+        $panel.load($panel.data('postloaded-url'))
+      });
+    .b-admin_panel.to-process[
+      data-dynamic='postloaded'
+      data-postloaded-url='/apanel'
+    ]
+      .ajax-loading.vk-like
 
   .block
     .headline.blue.m15
