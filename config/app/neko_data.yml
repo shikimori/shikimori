@@ -8440,7 +8440,7 @@
     :topic_id: 276032
     :rule: &86
       :algo: count
-      :threshold: 80%
+      :threshold: 58%
       :filters:
         anime_ids:
         - 151
@@ -10065,7 +10065,7 @@
     :topic_id: 276032
     :rule: &111
       :algo: count
-      :threshold: 74%
+      :threshold: 68%
       :filters:
         anime_ids:
         - 731
