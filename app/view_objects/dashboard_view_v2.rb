@@ -22,6 +22,16 @@ class DashboardViewV2 < ViewObjectBase
     }
   end
 
+  def anime_seasons
+    [
+      Titles::SeasonTitle.new(1.month.from_now, :season_year, Anime),
+      Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime),
+      Titles::SeasonTitle.new(3.months.ago, :season_year, Anime)
+    ]
+      .uniq(&:short_title)
+      .take(2)
+  end
+
 private
 
   def news_scope

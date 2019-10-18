@@ -27,14 +27,19 @@
   .sections
     .section
       .seasons
+        - @view.anime_seasons.each do |season|
+          .season
+            a.b-link_button.dark[
+              href=animes_collection_url(season.url_params)
+            ] = season.catalog_title
         .season
           a.b-link_button.dark[
-            href=animes_collection_url
-          ] Осень 2019
+            href=animes_collection_url(season: Date.today.year)
+          ] #{Anime.model_name.human} #{Date.today.year}
         .season
           a.b-link_button.dark[
-            href=animes_collection_url
-          ] Лето 2019
+            href=animes_collection_url(status: :ongoing)
+          ] = i18n_i 'Ongoing', :other
     .section
     .section
     .section.hot-topics
