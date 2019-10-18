@@ -5,7 +5,7 @@ describe ReviewsQuery do
     Review.wo_antispam do
       @reviews = [
         create(:review, target: entry, user: user),
-        create(:review, target: entry, user: user, created_at: ReviewsQuery::NewReviewBubbleInterval.ago),
+        create(:review, target: entry, user: user, created_at: ReviewsQuery::NEW_REVIEW_BUBBLE_INTERVAL.ago),
         create(:review, target: entry, user: user),
         create(:review, target: entry, user: user, locale: :en)
       ]
