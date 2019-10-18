@@ -7,13 +7,16 @@
 .p-tests-news
   .b-link_button
     span
+      font-size: 18px
       font-weight: normal
       padding-right: 12px
-      font-size: 18px
 
   .headline
-    display: flex
     align-items: center
+    display: flex
+    // headline must be upper to flex container with negative margins below
+    position: relative
+    z-index: 1
 
     .buttons
       margin-left: auto
