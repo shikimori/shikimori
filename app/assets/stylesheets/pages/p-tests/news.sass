@@ -35,18 +35,27 @@
   .sections
     display: flex
 
-    +iphone
+    +iphone-portrait
       flex-direction: column
       margin: #{10px - 10px} 0 -10px
 
+    +iphone-landscape
+      flex-wrap: wrap
+      margin: 10px -10px -10px
+
     +gte_ipad
+      flex-wrap: wrap
       margin: 10px -10px 0
 
     .section
       min-width: 0
 
-      +iphone
+      +iphone-portrait
         padding: 10px 0
+
+      +iphone-landscape
+        padding: 10px 10px
+        flex-basis: 50%
 
       +gte_ipad
         padding: 0 10px
