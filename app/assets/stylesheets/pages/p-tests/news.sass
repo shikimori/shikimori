@@ -64,14 +64,17 @@
     .seasons
       display: flex
       flex-wrap: wrap
-      margin: -5px -10px
+      margin: -5px
+
+      +iphone-portrait
+        margin: 5px -5px 15px
+
+      +iphone-landscape
+        margin: 0 -5px
 
       .season
         flex-basis: 50%
-        padding: 5px 10px
-
-        .b-link_button
-          min-width: 0
+        padding: 5px
 
     .shiki-socials
       margin-top: 10px
@@ -86,6 +89,15 @@
       line-height: 24px
       margin-bottom: 4px
       color: #456
+
+      &.contests
+        +iphone-portrait
+          margin-top: 30px
+
+    .b-link_button
+      padding-left: 0
+      padding-right: 0
+      min-width: 0
 
     .b-link
       align-items: center
@@ -110,7 +122,6 @@
         height: 20px
         margin-right: 5px
         width: 20px
-
 
   .fc-2-3-m .f-column
     .b-news_wall .b-news_wall-topic
