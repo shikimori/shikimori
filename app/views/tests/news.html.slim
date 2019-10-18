@@ -41,6 +41,12 @@
             a.b-link_button.dark[
               href=animes_collection_url(status: :ongoing)
             ] = i18n_i 'Ongoing', :other
+        a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
+          img[
+            src="/assets/globals/socials_narrow.png?v3"
+            srcset="/assets/globals/socials_narrow@2x.png?v3 2x"
+          ]
+
       .section
         .title = i18n_i 'Collection', :other
         - @view.collection_topic_views.each do |topic_view|
@@ -53,6 +59,7 @@
             ]
             span
               = topic_view.poster_title_html
+
       .section
         .title = i18n_i 'Review', :other
         - @view.review_topic_views.each do |topic_view|

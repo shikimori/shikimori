@@ -5,7 +5,7 @@ class DashboardViewV2 < ViewObjectBase
     :db_updates,
     :cache_keys
 
-  CACHE_VERSION = :v3
+  CACHE_VERSION = :v4
 
   def collection_topic_views
     take_2_plus_other(collections_scope, 6)
