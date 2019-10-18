@@ -1,5 +1,6 @@
 @import globals/variables
 @import mixins/column
+@import mixins/frame_form
 @import mixins/shikimori
 
 .b-admin_panel + .b-hot_topics-v2
@@ -7,12 +8,13 @@
   margin-top: 0
 
 .b-admin_panel
+  +frame_form
   // color: #ff8a3c
   // background-color: #ffe8d8
   // border-bottom: 1px solid #ffd5b8
-  margin-bottom: 5px
+  margin-bottom: 35px
   margin-top: -5px
-  min-height: 51px
+  min-height: 63px
   display: flex
   align-items: center
 
@@ -37,11 +39,12 @@
     display: flex
     flex-direction: column
     margin-left: auto
+    justify-content: space-between
 
     .reload
       color: #666
       cursor: pointer
-      margin-bottom: 5px
+      margin-bottom: 11px
 
       &:before
         +shikimori('\e801')

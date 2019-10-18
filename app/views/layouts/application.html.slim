@@ -52,20 +52,6 @@ html
               | shikimori.org забанен мосгорсудом
             .b-close data-cookie-name='red_alert'
 
-        - unless params[:no_menu]
-          - if current_user&.admin? && request.path == root_path
-            javascript:
-              $(document.body).on('click', '.b-admin_panel .reload', function() {
-                var $panel = $('.b-admin_panel');
-                $(this).addClass('active');
-                $panel.load($panel.data('postloaded-url'))
-              });
-            .b-admin_panel.to-process[
-              data-dynamic='postloaded'
-              data-postloaded-url='/apanel'
-            ]
-              .ajax-loading.vk-like
-
         - unless Rails.env.development? && params[:no_menu]
           - if @layout.hot_topics?
             = render 'application/hot_topics', layout: @layout
