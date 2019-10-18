@@ -7,7 +7,7 @@ li.contest id=contest.id
     a href=contest_url(contest)
       = contest.title
 
-  - elsif current_user&.contest_moderator?
+  - elsif can? :manage, contest
     a href=edit_contest_url(contest)
       = contest.title
 
