@@ -8,10 +8,10 @@ header.head
   = cache Studio.all.cache_key, expires_in: 1.day do
     - @collection.select(&:real?).each do |studio|
       .studio
-        - if studio.image.exists?
+        - if studio.image_file_name
           - if user_signed_in?
             a href=animes_collection_url(studio: studio) title=studio.name
-              img.logo src=studio.image.url alt="#{studio.name}" title=studio.name
+              img.logo src=cdn_image(studio, :original) alt="#{studio.name}" title=studio.name
           - else
             img.logo src=studio.image.url alt=studio.name title=studio.name
         a.name href=animes_collection_url(studio: studio) title=studio.name
