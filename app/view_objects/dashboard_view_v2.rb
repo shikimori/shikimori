@@ -5,21 +5,17 @@ class DashboardViewV2 < ViewObjectBase
     :db_updates,
     :cache_keys
 
+  CACHE_VERSION = :v3
+
   def collection_topic_views
-    collections_scope
-      .as_views(true, true)
-      .shuffle
-      .take(6)
-      .sort_by { |view| -view.topic.id }
+    take_2_plus_other(collections_scope, 6)
   end
 
-  def review_topic_views # rubocop:disable AbcSize
-    reviews_scope
-      .as_views(true, true)
-      .shuffle
-      .reject { |view| view.topic.linked.target.censored? }
-      .take(6 - (contests.size.zero? ? 0 : contests.size + 1))
-      .sort_by { |view| -view.topic.id }
+  def review_topic_views
+    take_2_plus_other(
+      reviews_scope,
+      contests.size.zero? ? 6 : 5 - contests.size
+    )
   end
 
   def contests
@@ -52,7 +48,7 @@ class DashboardViewV2 < ViewObjectBase
 
   def cache_keys
     {
-      versions: [Date.today, :"variant-#{rand(5)}", :v2],
+      versions: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION],
       collections: collections_scope.cache_key,
       reviews: reviews_scope.cache_key,
       contests: contests_scope.cache_key,
@@ -63,18 +59,32 @@ class DashboardViewV2 < ViewObjectBase
 
 private
 
+  def take_2_plus_other scope, limit
+    views = scope
+      .as_views(true, true)
+      .sort_by { |view| -view.topic.id }
+
+    two_views = views[0..1]
+
+    other_views = views[2..-1].shuffle
+      .take(limit - 2)
+      .sort_by { |view| -view.topic.id }
+
+    two_views + other_views
+  end
+
   def collections_scope
     Topics::Query
       .fetch(h.locale_from_host)
       .by_forum(collections_forum, h.current_user, h.censored_forbidden?)
-      .limit(12)
+      .limit(15)
   end
 
   def reviews_scope
     Topics::Query
       .fetch(h.locale_from_host)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
-      .limit(8)
+      .limit(10)
   end
 
   def contests_scope
