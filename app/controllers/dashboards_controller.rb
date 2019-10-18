@@ -8,13 +8,4 @@ class DashboardsController < ShikimoriController
 
     @view = DashboardView.new
   end
-
-  def show_v2
-    show
-    @view = DashboardViewV2.new
-  end
-
-  def dynamic
-    @view = DashboardView.new
-  end
 end

@@ -383,11 +383,10 @@ Rails.application.routes.draw do
   end
   # /api
 
-  root to: 'dashboards#show_v2'
+  root to: 'dashboards#show'
 
-  get '/', to: 'dashboards#show_v2', as: :new_session
-  get '/page/:page', to: 'dashboards#show_v2', as: :root_page
-  get '/dashboards/dynamic', to: 'dashboards#dynamic', as: :dashboards_dynamic
+  get '/', to: 'dashboards#show', as: :new_session
+  get '/page/:page', to: 'dashboards#show', as: :root_page
 
   # seo redirects
   get 'r' => redirect('/reviews')

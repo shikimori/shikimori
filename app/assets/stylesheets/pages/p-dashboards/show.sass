@@ -1,218 +1,222 @@
-@import mixins/column
+@import mixins/date
 @import mixins/ellipsis2
-@import mixins/link
-@import mixins/marker
-@import mixins/menu-blocks
 @import mixins/responsive
-@import mixins/selected
+@import mixins/shikimori
+@import mixins/link
 
 .p-dashboards-show
-  .midheadline
-    h2
-      font-size: inherit
-      font-weight: inherit
-      display: inline-block
+  .b-link_button
+    span
+      font-size: 18px
+      font-weight: normal
+      padding-right: 12px
+
+  .headline
+    align-items: center
+    display: flex
+    // headline must be upper to flex container with negative margins below
+    position: relative
+    z-index: 1
+
+    .buttons
+      margin-left: auto
+
+      .options
+        +link_color(#4bf)
+        cursor: pointer
+
+        &:before
+          +shikimori('\e84e')
+          font-size: 18px
+
+  .subheadline.orange a
+    +link_color(#ff8a3c)
+
+  .sections
+    display: flex
+
+    +iphone-portrait
+      flex-direction: column
+      margin: #{10px - 10px} 0 -10px
+
+    +iphone-landscape
+      flex-wrap: wrap
+      margin: 10px -10px -10px
+
+    +gte_ipad
+      flex-wrap: wrap
+      margin: 10px -10px 0
+
+    .section
+      min-width: 0
+
+      +iphone-portrait
+        padding: 10px 0
+
+      +iphone-landscape
+        padding: 10px 10px
+        flex-basis: 50%
+
+      +gte_ipad
+        padding: 0 10px
+        flex-basis: 25%
+
+    .seasons
+      display: flex
+      flex-wrap: wrap
+      margin: -5px
+
+      +iphone-portrait
+        margin: 5px -5px 15px
+
+      +iphone-landscape
+        margin: 0 -5px
+
+      .season
+        flex-basis: 50%
+        padding: 5px
+
+    .shiki-socials
+      margin-top: 10px
+      display: block
+
+      img
+        max-width: 100%
+
+    .title
+      font-size: 14px
+      font-weight: bold
+      line-height: 24px
+      margin-bottom: 4px
+      color: #456
+
+      &.contests
+        +iphone-portrait
+          margin-top: 30px
+
+    .b-link_button
+      padding-left: 0
+      padding-right: 0
+      min-width: 0
 
     .b-link
-      +bordered-link
-      font-size: 11px
-      font-weight: normal
-      margin-left: 10px
-      padding-right: 0
-      text-transform: none
-      vertical-align: middle
+      align-items: center
+      display: flex
+      overflow: hidden
+      font-size: 13px
+      line-height: 20px
+      margin-bottom: 8px
 
-      &:before
-        display: none
+      span:not(.poster)
+        +ellipsis2
 
-  .b-topic
-    .buttons
-      display: none !important
+      &.moderation
+        color: $red
 
-    & > .inner .name-date
-      +lte_ipad
-        padding-right: 0 // no need in offset for item-mobile
+      &.misc
+        color: $purple
 
-  .cc-ongoings
-    +cc
+      .poster
+        background-size: 100%
+        flex-shrink: 0
+        height: 20px
+        margin-right: 5px
+        width: 20px
 
-    +gte_ipad
-      margin-bottom: $block_offset * 2
+  .fc-2-3-m .f-column
+    .b-news_wall .b-news_wall-topic
+      +gte_ipad
+        flex-basis: 50%
 
-    +iphone
-      margin-bottom: $block_offset
-
-    .c-column
-      +gt_laptop
-        +column(8, 1/8, 1%)
-
-      +laptop
-        +column(7, 1/7, 1.5%)
-        &:nth-child(8)
-          display: none
-
-      +ipad
-        +column(6)
-        &:nth-child(7), &:nth-child(8)
-          display: none
-
-      +iphone_landscape
-        +column(3)
-        &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8)
-          display: none
-
-      +iphone_portrait
-        +column(2)
-        &:nth-child(3), &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8)
-          display: none
-
-  .cc-second
-    +cc
-
-    +gte_ipad
-      margin-bottom: $block_offset * 2
-
-      .cc-inner
-        +cc
-        +column(2, 3/4)
-        margin-bottom: 0
-
-        .c-content
-          float: right
-          padding-left: 5.5%
-          width: 66.6666%
-
-        .c-my_list
-          width: 33.3333%
-          min-height: 285px
-          float: left
-
-      .c-forum
-        +column(2, 1/4)
+  .generated-news
+    min-width: 0 // neeed to allow overflow ellipsis inside of flex item
 
     +iphone
-      margin-bottom: $block_offset
+      display: none
 
-      .c-content
-        +column(1)
-        margin-bottom: $block_offset
+  .generated-news-line
+    display: flex
+    min-height: 75px // to prevent height flickering when anime poster is loading
+    margin-bottom: 24px
 
-    +iphone_landscape
-      .c-my_list
-        +column(2)
-        margin-right: 4% !important
+    .poster
+      flex-shrink: 0
+      line-height: 0
+      margin-left: auto
+      padding-left: 10px
 
-      .c-forum
-        +column(2)
+      img
+        width: 48px
 
-    +iphone_portrait
-      .c-my_list
-        +column_bm(1)
+    .info
+      +ellipsis2
 
-      .c-forum
-        +column(1)
+      .name
+        +ellipsis2
+        display: block
+        font-size: 15px
+        font-weight: bold
+        line-height: 1
+        margin-bottom: 8px
 
-  .cc-news
-    +clear_left
+      .status-time
+        align-items: baseline
+        display: flex
+        line-height: 17px
+        margin-bottom: 7px
 
-    .c-news_topics
-      +gt_ipad
-        +column_bm(2, 2/3, 6%)
+        .kind
+          color: #123
+          display: inline-block
+          margin-right: 7px
 
-      +ipad_landscape
-        +column_b(2, 2/3, 6%)
+        .b-anime_status_tag
+          margin-right: 7px
 
-      +ipad_portrait
-        +column_b(2, 3/5, 6%)
+        .time
+          +date
 
-      +iphone
-        +column_bm(1, 1)
+      .genres
+        display: flex
 
-      .b-topic
-        border-top-width: 5px
+        .b-tag:last-child
+          +ellipsis2
 
-        +gte_ipad
-          margin-bottom: $block_offset * 2
+      .tag
+        display: inline-block
 
-        +iphone
-          margin-bottom: $block_offset
-
-        &:last-child
-          margin-bottom: 0
-
-        &:not(:first-child)
-          padding-top: 10px
-
-        .name-date a
-          font-size: 16px !important
-
-    .c-generated_news
-      +gt_ipad
-        +column_b(2, 1/3, 6%)
-
-      +ipad_landscape
-        +column_b(2, 1/3, 6%)
-
-      +ipad_portrait
-        +column_b(2, 2/5, 6%)
-
-      +iphone
-        display: none
-
-      & > .container
-        width: 100%
-        min-height: 400px
-        max-height: 600px
-        margin-bottom: 60px
+        &:not(:last-child)
+          margin-right: 5px
 
       .b-add_to_list
-        +lte_ipad
-          width: auto
-          min-width: auto
+        margin-top: 7px
 
-      .b-topic
-        border-top-color: #ccc
+  .b-topic
+    .b-status-line
+      flex-wrap: nowrap
+      margin: 0
 
-        &:not(:first-child)
-          padding-top: 10px
+      &:not(:last-child)
+        margin-bottom: 8px
 
-        .name-date a
-          font-size: 14px !important
+      .section
+        &:after
+          display: none
 
-  .c-my_list
-    background: #e9f7fb
-    border: 1px solid rgba(144, 213, 236, 0.45)
-    padding: 5px 10px 8px
+        &:not(:first-child):before
+          // content: ''
+          // display: inline
+          // border-left: 1px solid #acb1b4
+          // margin-left: 15px
+          // padding-left: 14px
 
-  .c-content
-    .options
-      margin-bottom: 5px
-      margin-top: -3px
+      .section.about
+        +ellipsis2
 
-      .option
-        +js-link
-        font-weight: bold
-        display: inline-block
-        margin-right: 22px
+      .section.created_at,
+      .section.changed_at
+        display: none
 
-        &.active
-          +selected
-
-    .slides .reviews
-      .b-catalog_entry
-        margin-bottom: 0 !important
-
-  .contests .contest
-    +ellipsis2
-
-    a
-      font-weight: bold
-      line-height: 22px
-
-  .user-rate
-    +menu-block-with-image
-    min-height: 42px
-
-    img
-      max-height: 40px
-      margin-bottom: 0
+      .section.additional
+        margin-left: auto
+        padding-left: 30px

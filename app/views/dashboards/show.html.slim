@@ -1,215 +1,184 @@
-- content_for :head do
-  = auto_discovery_link_tag :rss, news_feed_pages_url(format: :rss), title: 'Shiki News'
-
-= cache @dashboard_view.cache_keys.values, expires_in: 1.day do
-  - cache @dashboard_view.cache_keys[:ongoings], expires_in: 1.day do
-    .block2
-      .midheadline.linkheadline
-        a href=animes_collection_url(status: :ongoing)
-          = t '.currently_airing'
-        / a.b-link[
-          / href="#{animes_collection_url}"
-          / title="#{t '.all_animess'}"
-        / ] = t '.mangas'
-
-      .cc-ongoings.to-process data-dynamic='cutted_covers'
-        = render partial: 'animes/anime',
-          collection: @dashboard_view.ongoings,
-          locals: { cover_notice: :studio },
-          cache: ->(entry, _) { CacheHelper.keys entry, :studio }
-
-  / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
-
-  .cc-second
-    .cc-inner
-      .c-content.to-process data-dynamic='tabs'
-        .options
-          .option.active data-tab-switch=true
-            = i18n_i 'Anime', :other
-          .option data-tab-switch=true
-            = i18n_i 'Manga', :other
-          .option data-tab-switch=true
-            = i18n_i 'Ranobe', :other
-
-        .slides
-          .slide.animes data-tab=true
-            = render 'dashboards/animes', dashboard_view: @dashboard_view
-
-          .slide.mangas.hidden data-tab=true
-            = render 'dashboards/mangas', dashboard_view: @dashboard_view
-
-          .slide.ranobe.hidden data-tab=true
-            = render 'dashboards/ranobe', dashboard_view: @dashboard_view
-
-          / .slide.hidden
-            / .midheadline: h2 = t '.other'
-            / ul.b-list
-              / - @dashboard_view.pages.each_with_index do |(url, title), index|
-                / li
-                  / - if index < DashboardView::SPECIAL_PAGES
-                    / a.b-link[
-                      / href=url
-                      / title=title
-                    / ] = title
-                  / - else
-                    / a.b-link[
-                      / href=url
-                      / title=title
-                    / ] = title
-
-      .c-my_list.to-process.b-ajax[
-        data-dynamic='postloaded'
-        data-postloaded-url=dashboards_dynamic_url
-      ]
-
-    .c-forum
-      .b-forums
+= cache @view.cache_keys.values do
+  .block
+    .sections
+      .section
         a.b-link_button.maxi.dark[
-          href=forum_url
+          href=animes_collection_url
+        ]
+          span アニメ
+          = Anime.model_name.human
+
+      .section
+        a.b-link_button.maxi.dark[
+          href=mangas_collection_url
+        ]
+          span マンガ
+          = Manga.model_name.human
+      .section
+        a.b-link_button.maxi.dark[
+          href=ranobe_collection_url
+        ]
+          span ラノベ
+          = Ranobe.model_name.human
+      .section
+        a.b-link_button.maxi.dark[
+          href=forum_url 
         ] = t 'forum'
-        .block
-          - @dashboard_view.forums.each do |forum|
-            .forum
-              .topics #{forum.size} #{i18n_i 'topic', forum.size}
-              .link-with-input
-                a.link href=forum.url = forum.name
 
-      - if @dashboard_view.contests.any?
-        .contests.block
-          h2.midheadline.green.linkheadline.m5
-            a[
-              href=contests_url
-              title=i18n_i('Contest', :other)
-            ] = i18n_i 'Contest', :other
-          .block
-            - @dashboard_view.contests.each do |contest|
-              .contest
-                a.b-link[
-                  href=contest_url(contest)
-                  title=contest.title
-                ] = contest.title
+    .sections
+      .section
+        .seasons
+          - @view.anime_seasons.each do |season|
+            .season
+              a.b-link_button.dark-2[
+                href=animes_collection_url(season.url_params)
+              ] = season.catalog_title
+          .season
+            a.b-link_button.dark-2[
+              href=animes_collection_url(season: Date.today.year)
+            ] #{Anime.model_name.human} #{Date.today.year}
+          .season
+            a.b-link_button.dark-2[
+              href=animes_collection_url(status: :ongoing)
+            ] = i18n_i 'Ongoing', :other
+        a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
+          img[
+            src="/assets/globals/socials_narrow.png?v3"
+            srcset="/assets/globals/socials_narrow@2x.png?v3 2x"
+          ]
 
-  / - cache @dashboard_view.cache_keys.values do
-  .cc-news
-    .c-news_topics.m0
-      h2.midheadline.orange.linkheadline
-        a[
-          href=forum_topics_url(:news)
-          title=t('.news_feed')
-        ] = t '.news_feed'
-        / h2 = t '.news_feed'
-        / a.b-link[
-          / href="#{forum_topics_url :news}"
-          / title="#{t '.all_news'}"
-        / ] = t '.all_news'
-
-      - cache @dashboard_view.cache_keys[:news] do
-        div
-          = render partial: 'topics/topic',
-            collection: @dashboard_view.news_topic_views,
-            as: :topic_view
-
-          - if @dashboard_view.news_topic_views.next_page
-            = render 'blocks/postloader',
-              filter: 'b-topic',
-              next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
-
-    .c-generated_news
-      / - if ru_host?
-      /   / convert -quality 86% -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
-      /   center.block
-      /     a href='https://kinoart.ru/events/sinemateka-klassika-anime'
-      /       img[
-      /         style="max-width: 100%"
-      /         src="/assets/globals/events/special_3.jpg?v3"
-      /         srcset="/assets/globals/events/special_3@2x.jpg?v3 2x"
-      /       ]
-
-      / - if Rails.env.production? && ru_host?
-      /   - if !user_signed_in? || !current_user.forum_moderator? || !current_user.version_moderator? || current_user.admin?
-      /     .y-sponsored#yandex_rtb_R-A-227837-1
-      /       javascript:
-      /           (function(w, d, n, s, t) {
-      /               if (mobile_detect.tablet() || mobile_detect.phone()) {
-      /                 return;
-      /               }
-      /               w[n] = w[n] || [];
-      /               w[n].push(function() {
-      /                   Ya.Context.AdvManager.render({
-      /                       blockId: "R-A-227837-1",
-      /                       renderTo: "yandex_rtb_R-A-227837-1",
-      /                       horizontalAlign: true,
-      /                       async: true
-      /                   });
-      /               });
-      /               t = d.getElementsByTagName('script')[0];
-      /               s = d.createElement('script');
-      /               s.type = "text/javascript";
-      /               s.src = "//an.yandex.ru/system/context.js";
-      /               s.async = true;
-      /               t.parentNode.insertBefore(s, t);
-      /           })(this, this.document, 'yandexContextAsyncCallbacks');
-
-      / = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
-
-      / .midheadline.gray.m15 = t 'sponsors'
-      / .container
-        / - if Rails.env.production?
-          / = render 'dashboards/ad'
-        / - else
-          / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
-
-      - cache [@dashboard_view.cache_keys[:reviews], @dashboard_view.cache_keys[:reviews_index]] do
-        - if @dashboard_view.review_topic_views.any?
-          .block
-            h2.midheadline.magenta.linkheadline
-              a[
-                href=forum_topics_url(:reviews)
-                title=i18n_i('Review', :other)
-              ] = i18n_i 'Review', :other
-              / h2 = t '.reviews'
-              / a.b-link[
-                / href=forum_topics_url(:reviews)
-                / title=t('.all_reviews')
-              / ] = t '.all_reviews'
-            div
-              = render partial: 'topics/topic',
-                collection: @dashboard_view.review_topic_views,
-                as: :topic_view
-
-      - if ru_host?
-        .midheadline.yellow = t '.our_projects'
-        / #vk_groups
-        center.block
-          a href=StickyTopicView.socials(locale_from_host).object.url
-            img[
-              style="max-width: 100%"
-              src="/assets/globals/socials.png?v3"
-              srcset="/assets/globals/socials@2x.png?v3 2x"
+      .section
+        .title = i18n_i 'Collection', :other
+        - @view.collection_topic_views.each do |topic_view|
+          a.b-link[
+            href=topic_view.urls.topic_url
+            title=topic_view.topic_title
+          ]
+            span.poster[
+              style="background-image: url(#{topic_view.poster false})"
             ]
+            span
+              = topic_view.poster_title_html
 
-        / center.block
-        /   a href='/forum/site/278111-shikikast'
-        /     img[
-        /       style="max-width: 100%"
-        /       src="/assets/globals/shikicast.png?v1"
-        /       srcset="/assets/globals/shikicast@2x.png?v1 2x"
-        /     ]
+      .section
+        .title = i18n_i 'Review', :other
+        - @view.review_topic_views.each do |topic_view|
+          a.b-link[
+            href=topic_view.urls.topic_url
+            title=topic_view.topic_title
+          ]
+            span.poster[
+              style="background-image: url(#{topic_view.poster false})"
+            ]
+            span
+              = topic_view.poster_title_html
+        - if @view.contests.any?
+          .title.contests = i18n_i 'Contest', :other
+          - @view.contests.each do |contest|
+            a.b-link[
+              href=contest_url(contest)
+              title=contest.title
+            ]
+              span = contest.title
 
-      - cache @dashboard_view.cache_keys[:updates] do
-        .block
-          .midheadline.orange.linkheadline
+      .section
+        .title = t 'application.hot_topics.hot_topics'
+        - cache :hot_topics, expires_in: 10.minutes do
+          - @layout.hot_topics[0..5].each do |topic_view|
+            a.b-link[
+              href=topic_view.urls.topic_url
+              title=topic_view.topic_title
+            ]
+              span.poster[
+                style="background-image: url(#{topic_view.poster false})"
+              ]
+              span
+                = topic_view.poster_title_html
+
+  - unless params[:no_menu]
+    - if current_user&.admin? && request.path == root_path
+      javascript:
+        $(document.body).on('click', '.b-admin_panel .reload', function() {
+          var $panel = $('.b-admin_panel');
+          $(this).addClass('active');
+          $panel.load($panel.data('postloaded-url'))
+        });
+      .b-admin_panel.to-process[
+        data-dynamic='postloaded'
+        data-postloaded-url='/apanel'
+      ]
+        .ajax-loading.vk-like
+
+  .block
+    .headline.blue.m15
+      span = t 'news'
+      .buttons
+        .options.to-process data-dynamic='not_implemented_yet_action'
+
+    .fc-2-3-m
+      = cache @view.cache_keys[:news] + %i[part1] do
+        .f-column
+          .b-news_wall
+            = render partial: 'topics/topic',
+              collection: @view.news_topic_views[0..7],
+              locals: { do_not_track: true },
+              cache: true,
+              as: :topic_view
+              / collection: @view.news[0..7],
+
+      = cache @view.cache_keys[:db_updates] do
+        .f-column.generated-news
+          .subheadline.orange.m15
             a[
               href=forum_topics_url(:updates)
-              title=t('.anime_updates')
-            ] = t '.anime_updates'
-            / = t '.anime_updates'
-            / a.b-link[
-              / href=forum_topics_url(:updates)
-              / title=t('.all_updates')
-            / ] = t '.all_updates'
-          div
-            = render partial: 'topics/topic',
-              collection: @dashboard_view.generated_news_topic_views,
-              locals: { do_not_track: true },
-              as: :topic_view
+              title=t('dashboards.show.v2.generated_news')
+            ]= t 'dashboards.show.v2.generated_news'
+          - @view.db_updates.each do |topic_view|
+            - anime = topic_view.decorated_linked
+            a.generated-news-line.bubbled.unprocessed[
+              href=anime.url
+              title=topic_view.topic_title
+              data-tooltip_url=topic_view.decorated_linked.tooltip_url
+            ]
+              .info
+                .name = topic_view.topic_title_html
+
+                .status-time
+                  - if topic_view.action_tag
+                    .b-anime_status_tag[
+                      class=topic_view.action_tag.type
+                      data-text=topic_view.action_tag.text
+                    ]
+
+                  - if anime.kind.present?
+                    .kind = anime.kind_text
+
+                  span.time
+                    time[
+                      itemprop='commentTime'
+                      datetime=topic_view.created_at.iso8601
+                    ] = l topic_view.created_at, format: '%e %B %Y'
+
+                .genres
+                  - anime.main_genres[0..3].each do |genre|
+                    .b-tag = localization_span genre
+
+              .poster
+                img[
+                  src=cdn_image(topic_view.decorated_linked, :x48)
+                  srcset="#{cdn_image topic_view.decorated_linked, :x96} 2x"
+                  alt=topic_view.decorated_linked.name
+                ]
+
+    = cache @view.cache_keys[:news] + %i[part2] do
+      .b-news_wall
+        = render partial: 'topics/topic',
+          collection: @view.news_topic_views[8..-1],
+          locals: { do_not_track: true },
+          cache: true,
+          as: :topic_view
+
+        - if @view.news_topic_views.next_page
+          = render 'blocks/postloader',
+            filter: 'b-topic',
+            next_url: root_page_url(page: @view.news_topic_views.next_page)
