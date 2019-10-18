@@ -12,7 +12,7 @@
           / title="#{t '.all_animess'}"
         / ] = t '.mangas'
 
-      .cc-ongoings.to-process data-dynamic="cutted_covers"
+      .cc-ongoings.to-process data-dynamic='cutted_covers'
         = render partial: 'animes/anime',
           collection: @dashboard_view.ongoings,
           locals: { cover_notice: :studio },
@@ -142,13 +142,13 @@
       /                       async: true
       /                   });
       /               });
-      /               t = d.getElementsByTagName("script")[0];
-      /               s = d.createElement("script");
+      /               t = d.getElementsByTagName('script')[0];
+      /               s = d.createElement('script');
       /               s.type = "text/javascript";
       /               s.src = "//an.yandex.ru/system/context.js";
       /               s.async = true;
       /               t.parentNode.insertBefore(s, t);
-      /           })(this, this.document, "yandexContextAsyncCallbacks");
+      /           })(this, this.document, 'yandexContextAsyncCallbacks');
 
       / = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
 

@@ -1,0 +1,222 @@
+@import mixins/date
+@import mixins/ellipsis2
+@import mixins/responsive
+@import mixins/shikimori
+@import mixins/link
+
+.p-dashboards-show_v2
+  .b-link_button
+    span
+      font-size: 18px
+      font-weight: normal
+      padding-right: 12px
+
+  .headline
+    align-items: center
+    display: flex
+    // headline must be upper to flex container with negative margins below
+    position: relative
+    z-index: 1
+
+    .buttons
+      margin-left: auto
+
+      .options
+        +link_color(#4bf)
+        cursor: pointer
+
+        &:before
+          +shikimori('\e84e')
+          font-size: 18px
+
+  .subheadline.orange a
+    +link_color(#ff8a3c)
+
+  .sections
+    display: flex
+
+    +iphone-portrait
+      flex-direction: column
+      margin: #{10px - 10px} 0 -10px
+
+    +iphone-landscape
+      flex-wrap: wrap
+      margin: 10px -10px -10px
+
+    +gte_ipad
+      flex-wrap: wrap
+      margin: 10px -10px 0
+
+    .section
+      min-width: 0
+
+      +iphone-portrait
+        padding: 10px 0
+
+      +iphone-landscape
+        padding: 10px 10px
+        flex-basis: 50%
+
+      +gte_ipad
+        padding: 0 10px
+        flex-basis: 25%
+
+    .seasons
+      display: flex
+      flex-wrap: wrap
+      margin: -5px
+
+      +iphone-portrait
+        margin: 5px -5px 15px
+
+      +iphone-landscape
+        margin: 0 -5px
+
+      .season
+        flex-basis: 50%
+        padding: 5px
+
+    .shiki-socials
+      margin-top: 10px
+      display: block
+
+      img
+        max-width: 100%
+
+    .title
+      font-size: 14px
+      font-weight: bold
+      line-height: 24px
+      margin-bottom: 4px
+      color: #456
+
+      &.contests
+        +iphone-portrait
+          margin-top: 30px
+
+    .b-link_button
+      padding-left: 0
+      padding-right: 0
+      min-width: 0
+
+    .b-link
+      align-items: center
+      display: flex
+      overflow: hidden
+      font-size: 13px
+      line-height: 20px
+      margin-bottom: 8px
+
+      span:not(.poster)
+        +ellipsis2
+
+      &.moderation
+        color: $red
+
+      &.misc
+        color: $purple
+
+      .poster
+        background-size: 100%
+        flex-shrink: 0
+        height: 20px
+        margin-right: 5px
+        width: 20px
+
+  .fc-2-3-m .f-column
+    .b-news_wall .b-news_wall-topic
+      +gte_ipad
+        flex-basis: 50%
+
+  .generated-news
+    min-width: 0 // neeed to allow overflow ellipsis inside of flex item
+
+    +iphone
+      display: none
+
+  .generated-news-line
+    display: flex
+    min-height: 75px // to prevent height flickering when anime poster is loading
+    margin-bottom: 24px
+
+    .poster
+      flex-shrink: 0
+      line-height: 0
+      margin-left: auto
+      padding-left: 10px
+
+      img
+        width: 48px
+
+    .info
+      +ellipsis2
+
+      .name
+        +ellipsis2
+        display: block
+        font-size: 15px
+        font-weight: bold
+        line-height: 1
+        margin-bottom: 8px
+
+      .status-time
+        align-items: baseline
+        display: flex
+        line-height: 17px
+        margin-bottom: 7px
+
+        .kind
+          color: #123
+          display: inline-block
+          margin-right: 7px
+
+        .b-anime_status_tag
+          margin-right: 7px
+
+        .time
+          +date
+
+      .genres
+        display: flex
+
+        .b-tag:last-child
+          +ellipsis2
+
+      .tag
+        display: inline-block
+
+        &:not(:last-child)
+          margin-right: 5px
+
+      .b-add_to_list
+        margin-top: 7px
+
+  .b-topic
+    .b-status-line
+      flex-wrap: nowrap
+      margin: 0
+
+      &:not(:last-child)
+        margin-bottom: 8px
+
+      .section
+        &:after
+          display: none
+
+        &:not(:first-child):before
+          // content: ''
+          // display: inline
+          // border-left: 1px solid #acb1b4
+          // margin-left: 15px
+          // padding-left: 14px
+
+      .section.about
+        +ellipsis2
+
+      .section.created_at,
+      .section.changed_at
+        display: none
+
+      .section.additional
+        margin-left: auto
+        padding-left: 30px

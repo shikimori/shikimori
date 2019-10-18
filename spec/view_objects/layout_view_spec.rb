@@ -164,7 +164,7 @@ describe LayoutView do
 
     context 'dashboards' do
       let(:controller_name) { 'dashboards' }
-      it { expect(view).to be_hot_topics }
+      it { expect(view).to_not be_hot_topics }
     end
 
     context 'topics' do
