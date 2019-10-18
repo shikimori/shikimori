@@ -40,17 +40,6 @@ class DashboardViewV2 < ViewObjectBase
       .as_views(true, true)
   end
 
-  def cache_keys
-    {
-      versions: "v#{rand(5)}",
-      collections: collections_scope.cache_key,
-      reviews: reviews_scope.cache_key,
-      contests: contests_scope.cache_key,
-      news: [:news, news_scope.cache_key, page],
-      db_updates: [:db_updates, db_updates_scope.cache_key, page]
-    }
-  end
-
   def anime_seasons
     [
       Titles::SeasonTitle.new(1.month.from_now, :season_year, Anime),
@@ -59,6 +48,17 @@ class DashboardViewV2 < ViewObjectBase
     ]
       .uniq(&:short_title)
       .take(2)
+  end
+
+  def cache_keys
+    {
+      versions: [Date.today, :"variant-#{rand(5)}", :v2],
+      collections: collections_scope.cache_key,
+      reviews: reviews_scope.cache_key,
+      contests: contests_scope.cache_key,
+      news: [:news, news_scope.cache_key, page],
+      db_updates: [:db_updates, db_updates_scope.cache_key, page]
+    }
   end
 
 private
