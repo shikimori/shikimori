@@ -20,7 +20,7 @@ class Moderations::ForumsController < ModerationsController
 private
 
   def update_params
-    params.require(:forum).permit(:position, :permalink)
+    params.require(:forum).permit(:position, :name_ru, :name_en, :permalink)
   end
 
   def set_breadcrumbs
