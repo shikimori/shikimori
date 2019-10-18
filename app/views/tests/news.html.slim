@@ -41,6 +41,17 @@
             href=animes_collection_url(status: :ongoing)
           ] = i18n_i 'Ongoing', :other
     .section
+      .title = i18n_i 'Collection', :other
+      - @view.collection_topic_views.each do |topic_view|
+        a.b-link[
+          href=topic_view.urls.topic_url
+          title=topic_view.topic_title
+        ]
+          span.poster[
+            style="background-image: url(#{topic_view.poster false})"
+          ]
+          span
+            = topic_view.poster_title_html
     .section
       .title = i18n_i 'Review', :other
       - @view.review_topic_views.each do |topic_view|

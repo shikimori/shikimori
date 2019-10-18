@@ -1,11 +1,20 @@
 class DashboardViewV2 < ViewObjectBase
-  instance_cache :review_topic_views,
+  instance_cache :collection_topic_views,
+    :review_topic_views,
     :news,
     :db_updates,
     :cache_keys
 
   def contests
     Contests::CurrentQuery.call
+  end
+
+  def collection_topic_views
+    collections_scope
+      .as_views(true, true)
+      .shuffle
+      .take(6)
+      .sort_by { |view| -view.topic.id }
   end
 
   def review_topic_views
@@ -55,6 +64,13 @@ private
     Topics::Query
       .fetch(h.locale_from_host)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
+      .limit(8)
+  end
+
+  def collections_scope
+    Topics::Query
+      .fetch(h.locale_from_host)
+      .by_forum(collections_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
   end
 
@@ -72,5 +88,9 @@ private
 
   def reviews_forum
     Forum.find_by_permalink('reviews')
+  end
+
+  def collections_forum
+    Forum.find_by_permalink('collections')
   end
 end
