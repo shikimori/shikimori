@@ -48,7 +48,11 @@
           ]
 
       .section
-        .title = i18n_i 'Collection', :other
+        a.title[
+          href=collections_url
+          title=(i18n_i 'Collection', :other)
+        ]
+          = i18n_i 'Collection', :other
         - @view.collection_topic_views.each do |topic_view|
           a.b-link[
             href=topic_view.urls.topic_url
@@ -61,7 +65,10 @@
               = topic_view.poster_title_html
 
       .section
-        .title = i18n_i 'Review', :other
+        a.title[
+          href=forum_topics_url(:reviews)
+          title=i18n_i('Review', :other)
+        ] = i18n_i 'Review', :other
         - @view.review_topic_views.each do |topic_view|
           a.b-link[
             href=topic_view.urls.topic_url
@@ -95,7 +102,7 @@
               span
                 = topic_view.poster_title_html
 
-  - if params[:no_admin].blank? && current_user&.admin?
+  - if @view.admin_area?
     javascript:
       $(document.body).on('click', '.b-admin_panel .reload', function() {
         var $panel = $('.b-admin_panel');
