@@ -41,11 +41,14 @@
 
     +iphone-landscape
       flex-wrap: wrap
-      margin: 10px -10px -10px
+      margin: 5px -10px -10px
 
     +gte_ipad
       flex-wrap: wrap
-      margin: 10px -10px 0
+      margin: 10px -15px 0
+
+      &:last-child
+        margin-top: 20px
 
     .section
       min-width: 0
@@ -58,7 +61,7 @@
         flex-basis: 50%
 
       +gte_ipad
-        padding: 0 10px
+        padding: 0 15px
         flex-basis: 25%
 
     .seasons
