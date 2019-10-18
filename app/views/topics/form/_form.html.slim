@@ -22,7 +22,7 @@
   = f.input :linked_type, as: :hidden
 
   .inputs.m15
-    .block class=('fc-2' if topic_type_policy.news_topic?)
+    div class=('fc-2' if topic_type_policy.news_topic?)
       .f-column
         - if is_forum_id_hidden
           = f.input :forum_id, as: :hidden
