@@ -17,6 +17,12 @@
 @import mixins/link
 @import mixins/placeholder
 
+$variables: ( --headline-font: Open Sans )
+
+\:root
+  @each $variable, $value in $variables
+    #{$variable}: $value
+
 body
   background-image: asset_url("/assets/background/square_bg.png")
   font-family: $font-family
