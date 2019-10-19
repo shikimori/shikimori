@@ -1,7 +1,12 @@
+@import mixins/block
+
 .p-topics-new,
 .p-topics-edit,
 .p-topics-create,
 .p-topics-update
+  .f-column
+    margin-bottom: $block-offset / 2 // similar to b-input offset
+
   .f-topic-additionals
     display: flex
     flex-direction: column
