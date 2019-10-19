@@ -73,7 +73,7 @@ class UserProfileDecorator < UserDecorator
       .limit(preferences.favorites_in_profile)
       .sort_by do |favorite|
         [
-          favorite.linked_type == Manga.name ? Anime.name : favorite.linked_type,
+          favorite.linked_type == Manga.name ? 'Anime1' : favorite.linked_type,
           favorite.position
         ]
       end
