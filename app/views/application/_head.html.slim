@@ -44,6 +44,11 @@ link[
 ]
 link rel='yandex-tableau-widget' href='/yandex-tableau-widget-manifest.json'
 
+link[
+  href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap&subset=cyrillic"
+  rel="stylesheet"
+]
+
 - if defined?(@collection) && @collection.respond_to?(:next_page?)
   - if @collection.next_page?
     link rel='next' href==current_url(page: @collection.next_page)
