@@ -1,17 +1,9 @@
 en:
   dashboards:
     show:
-      # all_contests: all contests
-      # all_news: all news
-      # all_reviews: all reviews
-      anime_updates: Anime Updates
-      # all_updates: all updates
-      currently_airing: Currently Airing
-      news_feed: News Feed
-      # other: Other
-      our_projects: Our projects
-      v2:
-        generated_news: Anime updates
+      new_collections: New collections
+      new_reviews: New reviews
+      generated_news: Anime updates
     animes:
       title: Animes
       # all_animes: all animes

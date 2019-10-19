@@ -50,48 +50,11 @@
       .section
         a.title[
           href=collections_url
-          title=(i18n_i 'Collection', :other)
+          title=t('.new_collections')
         ]
-          = i18n_i 'Collection', :other
-        - @view.collection_topic_views.each do |topic_view|
-          a.b-link[
-            href=topic_view.urls.topic_url
-            title=topic_view.topic_title
-          ]
-            span.poster[
-              style="background-image: url(#{topic_view.poster false})"
-            ]
-            span
-              = topic_view.poster_title_html
-
-      .section
-        a.title[
-          href=forum_topics_url(:reviews)
-          title=i18n_i('Review', :other)
-        ] = i18n_i 'Review', :other
-        - @view.review_topic_views.each do |topic_view|
-          a.b-link[
-            href=topic_view.urls.topic_url
-            title=topic_view.topic_title
-          ]
-            span.poster[
-              style="background-image: url(#{topic_view.poster false})"
-            ]
-            span
-              = topic_view.poster_title_html
-        - if @view.contests.any?
-          .title.contests = i18n_i 'Contest', :other
-          - @view.contests.each do |contest|
-            a.b-link[
-              href=contest_url(contest)
-              title=contest.title
-            ]
-              span = contest.title
-
-      .section
-        .title = t 'application.hot_topics.hot_topics'
-        - cache :hot_topics, expires_in: 10.minutes do
-          - @layout.hot_topics[0..5].each do |topic_view|
+          = t '.new_collections'
+        .links
+          - @view.collection_topic_views.each do |topic_view|
             a.b-link[
               href=topic_view.urls.topic_url
               title=topic_view.topic_title
@@ -101,6 +64,47 @@
               ]
               span
                 = topic_view.poster_title_html
+
+      .section
+        a.title[
+          href=forum_topics_url(:reviews)
+          title=t('.new_reviews')
+        ] = t '.new_reviews'
+        .links
+          - @view.review_topic_views.each do |topic_view|
+            a.b-link[
+              href=topic_view.urls.topic_url
+              title=topic_view.topic_title
+            ]
+              span.poster[
+                style="background-image: url(#{topic_view.poster false})"
+              ]
+              span
+                = topic_view.poster_title_html
+        - if @view.contests.any?
+          .title.contests = i18n_i 'Contest', :other
+          .links
+            - @view.contests.each do |contest|
+              a.b-link[
+                href=contest_url(contest)
+                title=contest.title
+              ]
+                span = contest.title
+
+      .section
+        .title = t 'application.hot_topics.hot_topics'
+        .links
+          - cache :hot_topics, expires_in: 10.minutes do
+            - @layout.hot_topics[0..5].each do |topic_view|
+              a.b-link[
+                href=topic_view.urls.topic_url
+                title=topic_view.topic_title
+              ]
+                span.poster[
+                  style="background-image: url(#{topic_view.poster false})"
+                ]
+                span
+                  = topic_view.poster_title_html
 
   - if @view.admin_area?
     javascript:
@@ -137,8 +141,8 @@
           .subheadline.orange.m15
             a[
               href=forum_topics_url(:updates)
-              title=t('dashboards.show.v2.generated_news')
-            ]= t 'dashboards.show.v2.generated_news'
+              title=t('.generated_news')
+            ] = t '.generated_news'
           - @view.db_updates.each do |topic_view|
             - anime = topic_view.decorated_linked
             a.generated-news-line.bubbled.unprocessed[

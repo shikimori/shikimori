@@ -37,7 +37,7 @@
 
     +iphone-portrait
       flex-direction: column
-      margin: #{10px - 7px} 0 -7px
+      margin: -5px 0 -5px
 
     +iphone-landscape
       flex-wrap: wrap
@@ -54,7 +54,16 @@
       min-width: 0
 
       +iphone-portrait
-        padding: 7px 0
+        padding: 5px 0
+
+        .b-link_button.maxi
+          font-size: 15px
+          padding: 8px 20px
+
+        .b-link
+          &:nth-child(4),
+          &:nth-child(5)
+            display: none
 
       +iphone-landscape
         padding: 10px 10px
@@ -69,8 +78,9 @@
         margin-bottom: 86px
 
       &.other .seasons
+        padding: 0
         position: absolute
-        margin-top: -255px
+        margin-top: -221px
 
     .seasons
       display: flex
@@ -110,7 +120,7 @@
 
       &.contests
         +iphone-portrait
-          margin-top: 30px
+          margin-top: 18px
 
     .b-link_button
       padding-left: 0

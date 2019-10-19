@@ -1,17 +1,9 @@
 ru:
   dashboards:
     show:
-      # all_contests: все опросы
-      # all_news: все новости
-      # all_reviews: все рецензии
-      anime_updates: Обновления аниме
-      # all_updates: все обновления
-      currently_airing: Сейчас на экранах
-      news_feed: Лента новостей
-      # other: Прочее
-      our_projects: Наши проекты
-      v2:
-        generated_news: Обновления аниме
+      new_collections: Новые коллекции
+      new_reviews: Новые рецензии
+      generated_news: Обновления аниме
     animes:
       title: Аниме
       # all_animes: все аниме
