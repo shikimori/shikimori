@@ -1,0 +1,34 @@
+.cc-2a
+  .c-column.m0
+    .midheadline.red.linkheadline
+      a[
+        href=mangas_collection_url
+        title=t('.title')
+      ] = t '.title'
+
+    - dashboard_view.manga_kinds.each do |season|
+      a.b-link_button[
+        class=season.text
+        href=mangas_collection_url(season.url_params)
+        title=season.title
+      ] = season.title
+
+  .c-column
+    .midheadline.blue = t '.recommended.title'
+
+    a.b-link_button.favourite[
+      href=recommendations_favourites_manga_url
+    ] = t '.recommended.favourite'
+
+    a.b-link_button.personalized[
+      href=recommendations_url(klass: 'manga')
+    ] = t '.recommended.personalized'
+
+.others
+  .note #{t '.others'}:
+
+  - dashboard_view.db_others(Manga).each do |season|
+    a.b-link[
+      href=mangas_collection_url(season.url_params)
+      title=season.full_title
+    ] = season.catalog_title

@@ -1017,7 +1017,7 @@ ActiveRecord::Schema.define(version: 2019_10_19_155403) do
     t.boolean "apply_user_styles", default: true, null: false
     t.integer "favorites_in_profile", default: 8, null: false
     t.boolean "achievements_in_profile", default: true, null: false
-    t.string "dashboard_type", default: "new", null: false
+    t.string "dashboard_type", default: "old", null: false
     t.index ["user_id"], name: "index_profile_settings_on_user_id"
   end
 

@@ -6,6 +6,16 @@ class DashboardsController < ShikimoriController
     og image: "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}" \
       '/favicons/opera-icon-228x228.png'
 
+    if current_user&.preferences&.dashboard_type_new?
+      @view = DashboardViewV2.new
+      render :show_v2
+    else
+      @view = DashboardView.new
+      render :show
+    end
+  end
+
+  def dynamic
     @view = DashboardView.new
   end
 end

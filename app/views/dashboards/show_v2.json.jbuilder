@@ -1,8 +1,7 @@
 json.content JsExports::Supervisor.instance.sweep(
   render(
-    partial: 'topics/topic',
-    collection: @view.news_topic_views,
-    as: :topic_view,
+    partial: 'dashboards/cached_news',
+    locals: { view: @view },
     formats: :html
   )
 )

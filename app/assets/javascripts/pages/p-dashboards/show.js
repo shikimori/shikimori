@@ -1,32 +1,39 @@
-pageLoad('dashboards_show', () => {
-  alignGeneratedNews();
-  $(document).on('resize:debounced orientationchange', alignGeneratedNews);
-});
+// import getjs from 'get-js';
+import delay from 'delay';
 
-pageUnload('dashboards_show', () => {
-  $(document).off('resize:debounced orientationchange', alignGeneratedNews);
-});
+pageLoad('dashboards_show', async () => {
+  if (!$('.p-dashboards-show .v1').length) { return; }
 
-function alignGeneratedNews() {
-  const $target = $('.generated-news');
+  $('.l-page').on('click', '.user_list .switch', ({ currentTarget }) => {
+    $(currentTarget)
+      .closest('.list-type')
+      .toggleClass('hidden')
+      .siblings('.list-type')
+      .toggleClass('hidden');
+  });
 
-  if (!$target.is(':visible')) {
-    return; // disable on iphone
+  await delay(500);
+  $('.cc-news').imagesLoaded(() => {
+    const $userNews = $('.c-news_topics');
+    const $generatedNews = $('.c-generated_news');
+
+    alignBlocks($userNews, $generatedNews);
+  });
+
+  await delay(500);
+  const $node = $('.y-sponsored');
+
+  if ($node.children().length) {
+    $node.addClass('block');
   }
+});
 
-  $target.children().show();
+function alignBlocks($userNews, $generatedNews) {
+  const $topics = $generatedNews.find('.b-topic');
+  const height = $userNews.outerHeight();
 
-  const $siblings = $target.siblings().children('.b-news_wall');
-  const siblingsHeight = $siblings.outerHeight();
-
-  shorten($target, $target.children(), siblingsHeight, 0);
-}
-
-function shorten($target, $targetChildren, siblingsHeight, indexToHide) {
-  const targetHeight = $target.innerHeight();
-
-  if (targetHeight - 5 > siblingsHeight) {
-    $targetChildren.eq($targetChildren.length - 1 - indexToHide).hide();
-    shorten($target, $targetChildren, siblingsHeight, indexToHide + 1);
+  if ($topics.length && (height < $generatedNews.outerHeight())) {
+    $topics.last().remove();
+    alignBlocks($userNews, $generatedNews);
   }
 }
