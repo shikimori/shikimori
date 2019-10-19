@@ -101,6 +101,35 @@
     header
       margin-top: 5px
 
+    .b-status-line
+      flex-wrap: nowrap
+      margin: 0
+
+      &:not(:last-child)
+        margin-bottom: 8px
+
+      .section
+        &:after
+          display: none
+
+      .section.about
+        display: flex
+        min-width: 0
+
+        // .author
+          +ellipsis2
+
+        & > .b-link
+          +ellipsis2
+
+      .section.created_at,
+      .section.changed_at
+        display: none
+
+      .section.additional
+        margin-left: auto
+        padding-left: 30px
+
   .b-shiki_swiper
     .b-video .marker
       display: none

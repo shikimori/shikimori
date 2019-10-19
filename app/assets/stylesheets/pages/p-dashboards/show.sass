@@ -222,36 +222,6 @@
       .b-add_to_list
         margin-top: 7px
 
-  .b-topic
-    .b-status-line
-      flex-wrap: nowrap
-      margin: 0
-
-      &:not(:last-child)
-        margin-bottom: 8px
-
-      .section
-        &:after
-          display: none
-
-        &:not(:first-child):before
-          // content: ''
-          // display: inline
-          // border-left: 1px solid #acb1b4
-          // margin-left: 15px
-          // padding-left: 14px
-
-      .section.about
-        +ellipsis2
-
-      .section.created_at,
-      .section.changed_at
-        display: none
-
-      .section.additional
-        margin-left: auto
-        padding-left: 30px
-
   .other-news
     +iphone-landscape
       margin-top: $flex-margin-mobile
