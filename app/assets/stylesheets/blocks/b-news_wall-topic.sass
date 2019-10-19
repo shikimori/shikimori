@@ -3,130 +3,134 @@
 @import mixins/responsive
 @import mixins/media_marker
 
-.b-topic.b-news_wall-topic.b-news-topic
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:400,500,600,700|Open+Sans:400,600,700|Oswald:400,500,600,700|Raleway:400,500,600,700|Roboto:400,500,700&display=swap&subset=cyrillic')
+
+.b-news_wall-topic
   border-top: none
   margin: 0
 
-  .b-anime_status_tag
-    border-radius: 2px
-    font-size: 11px
-    font-weight: bold
-    letter-spacing: 0.25px
-    line-height: 20px
-    padding: 0 8px
-    text-transform: uppercase
-    border-color: rgba(#fff, 0.25)
+  .poster
+    margin-bottom: 10px
 
-  & > .inner
-    // border-top: 1px solid #155785
+  .tags
+    display: flex
+    margin-bottom: 10px
 
-    & > a
-      display: flex
-      flex-direction: column-reverse
+    .b-anime_status_tag
+      margin-right: 8px
 
-      +gt_ipad
-        &:hover
-          .name-date .name
-            color: $link-hover
+  .title
+    font-family: Open Sans
+    font-size: 14px
+    line-height: $line-height
+    margin-bottom: 10px
+  //   border-radius: 2px
+  //   font-size: 11px
+  //   font-weight: bold
+  //   letter-spacing: 0.25px
+  //   line-height: 20px
+  //   padding: 0 8px
+  //   text-transform: uppercase
+  //   border-color: rgba(#fff, 0.25)
+  //
+  // & > .inner
+  //   // border-top: 1px solid #155785
+  //
+  //   & > a
+  //     // display: flex
+  //     // flex-direction: column
+  //
+  //     +gt_ipad
+  //       &:hover
+  //         .name-date .name
+  //           color: $link-hover
+  //
+  //     &:active
+  //       .name-date .name
+  //         color: $link-active
+  //
+  //   .name-date
+  //     white-space: normal
+  //     line-height: 1.55
+  //
+  //     +lte_ipad
+  //       padding-right: 0 // no need in offset for item-mobile
+  //
+  //     .status-tags
+  //       display: none
+  //
+  //     .name
+  //       color: #123
+  //       height: auto
+  //
+  //       &:hover
+  //         text-decoration: none
+  //
+  //       +iphone
+  //         +two_line_ellipsis(18px, 1.26)
+  //
+  //       +gte_ipad
+  //         +two_line_ellipsis(18px, 1.35)
+  //
+  //   // .body .body-truncated
+  //     // font-size: 13px
+  //     max-height: 84px
+  //
 
-      &:active
-        .name-date .name
-          color: $link-active
+  .poster
+    display: flex
+    flex-direction: column-reverse
+    pointer-events: none
+    position: relative
 
-    .name-date
-      white-space: normal
-      line-height: 1.55
+    &:before
+      content: ''
+      padding-top: 56.25% // 16:9 aspect ratio
 
-      +lte_ipad
-        padding-right: 0 // no need in offset for item-mobile
+    .b-shiki_swiper
+      height: 100%
+      left: 0
+      position: absolute
+      top: 0
+      width: 100%
 
-      .status-tags
-        display: none
+      &.is-placeholder
+        background-image: asset_url('/assets/blocks/b-news_wall-topic/placeholder.svg')
+        background-size: contain
+        background-repeat: no-repeat
 
-      .name
-        color: #123
-        height: auto
-
-        &:hover
-          text-decoration: none
-
-        +iphone
-          +two_line_ellipsis(18px, 1.26)
-
-        +gte_ipad
-          +two_line_ellipsis(18px, 1.35)
-
-    // .body .body-truncated
-      // font-size: 13px
-      max-height: 84px
-
-    footer
-      display: flex
-      flex-direction: column-reverse
-      pointer-events: none
-      position: relative
-
-      &:before
-        content: ''
-        padding-top: 56.25% // 16:9 aspect ratio
-
-      .b-shiki_swiper
-        height: 100%
-        left: 0
-        position: absolute
-        top: 0
-        width: 100%
-
-        &.is-placeholder
-          background-image: asset_url('/assets/blocks/b-news_wall-topic/placeholder.svg')
-          background-size: contain
-          background-repeat: no-repeat
-
-      .additionals
-        margin: 0
-
-      .basic-tags
-        justify-content: flex-start
-        margin-top: -5px
-        left: 5px
-        position: absolute
-        z-index: 2
-
-      .other-tags
-        left: 5px
-        position: absolute
-        top: 5px
-        z-index: 2
-
-    header
-      margin-top: 5px
-
-    .b-status-line
-      flex-wrap: nowrap
+    // .additionals
       margin: 0
-
-      &:not(:last-child)
-        margin-bottom: 8px
-
-      .section
-        &:after
-          display: none
-
-      .section.about
-        display: flex
-        min-width: 0
-
-        & > .b-link
-          +ellipsis2
-
-      .section.created_at,
-      .section.changed_at
-        display: none
-
-      .section.additional
-        margin-left: auto
-        padding-left: 30px
-
-  .b-shiki_swiper
-    .b-video .marker
-      display: none
+  //
+  //   header
+  //     margin-top: 5px
+  //
+  //   .b-status-line
+  //     flex-wrap: nowrap
+  //     margin: 0
+  //
+  //     &:not(:last-child)
+  //       margin-bottom: 8px
+  //
+  //     .section
+  //       &:after
+  //         display: none
+  //
+  //     .section.about
+  //       display: flex
+  //       min-width: 0
+  //
+  //       & > .b-link
+  //         +ellipsis2
+  //
+  //     .section.created_at,
+  //     .section.changed_at
+  //       display: none
+  //
+  //     .section.additional
+  //       margin-left: auto
+  //       padding-left: 30px
+  //
+  // .b-shiki_swiper
+  //   .b-video .marker
+  //     display: none
