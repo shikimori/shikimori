@@ -1,6 +1,6 @@
 = cache @view.cache_keys.values do
   .block
-    .sections
+    .sections.main
       .section
         a.b-link_button.maxi.dark[
           href=animes_collection_url
@@ -22,10 +22,10 @@
           = Ranobe.model_name.human
       .section
         a.b-link_button.maxi.dark[
-          href=forum_url 
+          href=forum_url
         ] = t 'forum'
 
-    .sections
+    .sections.other
       .section
         .seasons
           - @view.anime_seasons.each do |season|
