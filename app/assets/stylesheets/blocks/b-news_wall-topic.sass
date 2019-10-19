@@ -115,7 +115,6 @@
       .section.about
         display: flex
         min-width: 0
-        width: calc(100% - 50px) // othewise flex can be overflowed by long author's nickname
 
         & > .b-link
           +ellipsis2
@@ -126,6 +125,7 @@
 
       .section.additional
         margin-left: auto
+        padding-left: 30px
 
   .b-shiki_swiper
     .b-video .marker

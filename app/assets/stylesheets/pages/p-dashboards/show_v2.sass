@@ -68,10 +68,12 @@
       +iphone-landscape
         padding: 10px 10px
         flex-basis: 50%
+        max-width: 50%
 
       +gte_ipad
         padding: 0 15px
         flex-basis: 25%
+        max-width: 25%
 
     +iphone-portrait
       &.main .section:first-child
@@ -99,6 +101,7 @@
 
       .season
         flex-basis: 50%
+        max-width: 50%
         padding: 5px
 
     .shiki-socials
@@ -171,6 +174,7 @@
     .b-news_wall .b-news_wall-topic
       +gte_ipad
         flex-basis: 50%
+        max-width: 50%
 
   .generated-news
     min-width: 0 // neeed to allow overflow ellipsis inside of flex item
