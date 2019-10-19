@@ -3,6 +3,7 @@ FactoryBot.define do
     user { seed :user }
     list_privacy { :public }
     comment_policy { 'users' }
+    dashboard_type { 'new' }
     forums do
       [
         Topic::FORUM_IDS['Review'],

@@ -177,6 +177,7 @@ en:
         anime_in_profile: Show Anime List in Profile
         apply_user_styles: Apply user styles
         body_width: Maximum Site Width
+        dashboard_type: Home page view
         favorites_in_profile: Number of Favorites in Profile
         comment_policy: Can Comment My Profile
         comments_in_profile: Show Comments in Profile
@@ -388,6 +389,9 @@ en:
       body_width:
         x1200: 1200 pixels
         x1000: 1000 pixels
+      dashboard_type:
+        new: New
+        old: Old
       list_privacy:
         public: All Visitors
         users: Registered Users

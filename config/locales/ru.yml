@@ -177,6 +177,7 @@ ru:
         anime_in_profile: Отображать аниме в профиле
         apply_user_styles: Применять пользовательские стили
         body_width: Максимальная ширина сайта
+        dashboard_type: Вид главной страницы
         favorites_in_profile: Количество избранного в профиле
         comment_policy: Могут комментировать мой профиль
         comments_in_profile: Отображать комментарии в профиле
@@ -388,6 +389,9 @@ ru:
       body_width:
         x1200: 1200 пикселей
         x1000: 1000 пикселей
+      dashboard_type:
+        new: Новый
+        old: Старый
       list_privacy:
         public: Все посетители сайта
         users: Зарегистрированные пользователи сайта

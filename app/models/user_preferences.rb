@@ -9,6 +9,10 @@ class UserPreferences < ApplicationRecord
     in: %i[x1200 x1000],
     predicates: { prefix: true },
     default: :x1200
+  enumerize :dashboard_type,
+    in: %i[new old],
+    predicates: { prefix: true },
+    default: :new
   enumerize :comment_policy,
     in: %i[users friends owner],
     predicates: { prefix: true },
