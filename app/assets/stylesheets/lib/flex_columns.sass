@@ -22,18 +22,15 @@
 
     +iphone-landscape
       padding: 0 $flex-half_gutter-mobile
-      flex-basis: 50%
-      max-width: 50%
+      width: 50%
 
     +ipad
       padding: 0 $flex-half_gutter-mobile
-      flex-basis: 50%
-      max-width: 50%
+      width: 50%
 
     +gte_laptop
       padding: 0 $flex-half_gutter-desktop
-      flex-basis: 50%
-      max-width: 50%
+      width: 50%
 
 .fc-2-3-m
   +iphone-portrait
@@ -67,17 +64,14 @@
 
     &:first-child
       +iphone-landscape
-        flex-basis: 100%
-        max-width: 100%
+        width: 100%
 
       +gte_ipad
-        flex-basis: 66.666%
-        max-width: 66.666%
+        width: 66.666%
 
     &:last-child
       +gte_ipad
-        flex-basis: 33.333%
-        max-width: 33.333%
+        width: 33.333%
 
 .fc-3
   +gte_iphone-landscape
@@ -100,14 +94,12 @@
       margin-bottom: $flex-margin-mobile
 
     +gte_ipad
-      flex-basis: 33.333%
-      max-width: 33.333%
       padding: 0 $flex-half_gutter-mobile
+      width: 33.333%
 
     +gte_laptop
-      flex-basis: 33.333%
-      max-width: 33.333%
       padding: 0 $flex-half_gutter-desktop
+      width: 33.333%
 
 .fc-3-m
   +iphone-portrait
@@ -128,19 +120,16 @@
 
   & > .f-column
     +iphone-landscape
-      flex-basis: 33.333%
       flex-shrink: 0
-      max-width: 33.333%
       padding: $flex-margin-mobile $flex-half_gutter-mobile
+      width: 33.333%
 
     +ipad
-      flex-basis: 33.333%
       flex-shrink: 0
-      max-width: 33.333%
       padding: $flex-margin-mobile $flex-half_gutter-mobile
+      width: 33.333%
 
     +gte_laptop
-      flex-basis: 33.333%
       flex-shrink: 0
-      max-width: 33.333%
       padding: $flex-margin-desktop $flex-half_gutter-desktop
+      width: 33.333%
