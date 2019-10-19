@@ -26,7 +26,7 @@
         ] = t 'forum'
 
     .sections.other
-      .section
+      .section.seasons-socials
         .seasons
           - @view.anime_seasons.each do |season|
             .season
@@ -42,10 +42,6 @@
               href=animes_collection_url(status: :ongoing)
             ] = i18n_i 'Ongoing', :other
         a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
-          img[
-            src="/assets/globals/socials_narrow.png?v3"
-            srcset="/assets/globals/socials_narrow@2x.png?v3 2x"
-          ]
 
       .section
         a.title[

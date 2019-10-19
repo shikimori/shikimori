@@ -82,30 +82,36 @@
         position: absolute
         margin-top: -221px
 
-    .seasons
+    .seasons-socials
       display: flex
-      flex-wrap: wrap
-      margin: -5px
+      flex-direction: column
 
-      +iphone-portrait
-        margin: 5px -5px 15px
+      .seasons
+        display: flex
+        flex-wrap: wrap
+        margin: -5px
 
-      +iphone-landscape
-        margin: 0 -5px
+        +iphone-portrait
+          margin: 5px -5px 15px
 
-      .season
-        flex-basis: 50%
-        padding: 5px
+        +iphone-landscape
+          margin: 0 -5px
 
-    .shiki-socials
-      margin-top: 12px
-      display: block
+        .season
+          flex-basis: 50%
+          padding: 5px
 
-      +iphone-portrait
-        display: none
+      .shiki-socials
+        background-image: asset_url('/assets/globals/socials@2x.png')
+        background-position-y: 50%
+        background-repeat: no-repeat
+        background-size: cover
+        display: block
+        flex-grow: 1
+        margin-top: 12px
 
-      img
-        max-width: 100%
+        +iphone-portrait
+          display: none
 
     a.title
       +link(#456)
@@ -135,7 +141,9 @@
       overflow: hidden
       font-size: 13px
       line-height: 20px
-      margin-bottom: 8px
+
+      &:not(:last-child)
+        margin-bottom: 8px
 
       span:not(.poster)
         +ellipsis2
