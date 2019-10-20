@@ -129,7 +129,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       },
       Types::Ad::Type[:advrtr_x728] => {
         provider: Types::Ad::Provider[:advertur],
-        advertur_id: 1_256,
+        advertur_id: 92_445,
         width: 728,
         height: 90,
         placement: Types::Ad::Placement[:content],
@@ -137,34 +137,18 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       },
       Types::Ad::Type[:advrtr_240x400] => {
         provider: Types::Ad::Provider[:advertur],
-        advertur_id: 2_731,
+        advertur_id: 92_129,
         width: 240,
         height: 400,
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
-      Types::Ad::Type[:yd_300x600] => {
-        provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-227837-4',
+      Types::Ad::Type[:advrtr_300x250] => {
+        provider: Types::Ad::Provider[:advertur],
+        advertur_id: 92_485,
+        width: 300,
+        height: 250,
         placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:yd_240x500] => {
-        provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-227837-5',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:yd_240x400] => {
-        provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-227837-2',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:yd_horizontal] => {
-        provider: Types::Ad::Provider[:yandex_direct],
-        yandex_id: 'R-A-227837-7',
-        placement: Types::Ad::Placement[:content],
         platform: Types::Ad::Platform[:desktop]
       },
       Types::Ad::Type[:mt_300x250] => {
@@ -230,28 +214,29 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
     false => {
       Types::Ad::Meta[:menu_300x250] => [
         # Types::Ad::Type[:mt_300x250],
-        Types::Ad::Type[:yd_240x400],
+        # Types::Ad::Type[:yd_240x400],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
         # Types::Ad::Type[:special_x300], # disable after 2019-10-04
         # Types::Ad::Type[:mt_240x400],
-        Types::Ad::Type[:yd_240x500],
+        # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
         # Types::Ad::Type[:special_x300], # disable after 2019-10-04
         # Types::Ad::Type[:mt_300x600],
-        Types::Ad::Type[:yd_300x600],
-        Types::Ad::Type[:advrtr_240x400]
+        # Types::Ad::Type[:yd_300x600],
+        # Types::Ad::Type[:advrtr_240x400],
+        Types::Ad::Type[:advrtr_300x250]
       ],
       Types::Ad::Meta[:horizontal_x250] => [
-        Types::Ad::Type[:yd_horizontal],
+        # Types::Ad::Type[:yd_horizontal],
         Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:horizontal_x90] => [
         # Types::Ad::Type[:mt_728x90],
-        Types::Ad::Type[:yd_horizontal],
+        # Types::Ad::Type[:yd_horizontal],
         Types::Ad::Type[:advrtr_x728]
       ],
       Types::Ad::Meta[:footer] => [
@@ -259,7 +244,7 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
       ],
       Types::Ad::Meta[:special_x1170] => [
         # Types::Ad::Type[:special_x1170], # disable after 2019-10-04
-        Types::Ad::Type[:yd_horizontal]
+        # Types::Ad::Type[:yd_horizontal]
       ]
     }
   }
