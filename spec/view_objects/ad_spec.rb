@@ -59,7 +59,7 @@ describe Ad do
   end
 
   describe '#platform' do
-    it { expect(ad.platform).to eq Ad::BANNERS[is_clean_host][:yd_300x600][:platform] }
+    it { expect(ad.platform).to eq Ad::BANNERS[is_clean_host][:advrtr_300x250][:platform] }
   end
 
   describe '#provider' do
@@ -108,17 +108,26 @@ describe Ad do
   end
 
   describe '#ad_params' do
-    context 'yandex direct' do
-      before { ad.instance_variable_set '@banner_type', banner_type }
-      let(:banner_type) { :yd_240x500 }
+    # context 'yandex_direct' do
+    #   before { ad.instance_variable_set '@banner_type', banner_type }
+    #   let(:is_clean_host) { true }
+    #   let(:banner_type) { :yd_240x500 }
+    #
+    #   it do
+    #     expect(ad.ad_params).to eq(
+    #       blockId: Ad::BANNERS[is_clean_host][banner_type][:yandex_id],
+    #       renderTo: banner_type,
+    #       async: true
+    #     )
+    #   end
+    # end
 
-      it do
-        expect(ad.ad_params).to eq(
-          blockId: Ad::BANNERS[is_clean_host][banner_type][:yandex_id],
-          renderTo: banner_type,
-          async: true
-        )
-      end
+    context 'my_target' do
+      before { ad.instance_variable_set '@banner_type', banner_type }
+      let(:is_clean_host) { true }
+      let(:banner_type) { :mt_300x600 }
+
+      it { expect(ad.ad_params).to be_nil }
     end
 
     # context 'other' do
@@ -153,19 +162,34 @@ describe Ad do
       end
     end
 
-    context 'yandex_direct' do
-      let(:banner_type) { :yd_240x400 }
+    context 'my_target' do
+      let(:is_clean_host) { true }
+      let(:banner_type) { :mt_300x600 }
       it do
         expect(ad.to_html).to eq(
-          <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spns-yd_240x400">
-              <center>
-                <div id='yd_240x400'></div>
-              </center>
-            </div>
+          <<-HTML.squish
+            <div class="b-spns-mt_300x600"><center><ins
+              class="mrg-tag" style="display:inline-block;text-decoration: none;"
+              data-ad-client="ad-#{banner[:mytarget_id]}"
+              data-ad-slot="#{banner[:mytarget_id]}"></ins></center></div>
           HTML
         )
       end
     end
+
+    # context 'yandex_direct' do
+    #   let(:banner_type) { :yd_240x400 }
+    #   it do
+    #     expect(ad.to_html).to eq(
+    #       <<-HTML.gsub(/\n|^\ +/, '')
+    #         <div class="b-spns-yd_240x400">
+    #           <center>
+    #             <div id='yd_240x400'></div>
+    #           </center>
+    #         </div>
+    #       HTML
+    #     )
+    #   end
+    # end
   end
 end

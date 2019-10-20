@@ -29,10 +29,10 @@ class Ads.Yandex extends Ads.View
         pending_ads.forEach (render) -> render()
         pending_ads = []
 
-      t = d.getElementsByTagName("script")[0]
-      s = d.createElement("script")
-      s.type = "text/javascript"
-      s.src = "//an.yandex.ru/system/context.js"
+      t = d.getElementsByTagName('script')[0]
+      s = d.createElement('script')
+      s.type = 'text/javascript'
+      s.src = '//an.yandex.ru/system/context.js'
       s.async = true
       s.onerror = =>
         if 'remove_ad' of window

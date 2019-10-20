@@ -4,251 +4,6 @@ class Ad < ViewObjectBase # rubocop:disable ClassLength
   # block_2: [92_445, 1_256],
   # block_3: [92_485, nil]
 
-  BANNERS = {
-    true => {
-      # disable after 2019-10-04
-      Types::Ad::Type[:special_x300] => {
-        provider: Types::Ad::Provider[:special],
-        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
-        images: (1..1).map do |i|
-          {
-            src: "/assets/globals/events/special_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
-          }
-        end,
-        rules: {
-          cookie: 'i1',
-          shows_per_week: 310
-        },
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      # disable after 2019-10-04
-      Types::Ad::Type[:special_x1170] => {
-        provider: Types::Ad::Provider[:special],
-        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
-        images: (2..2).map do |i|
-          {
-            src: "/assets/globals/events/special_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
-          }
-        end,
-        # html: (
-        #   <<~HTML
-        #     <style>
-        #       #iframe_special_x1170 {
-        #         max-width: 1150px;
-        #         width: 100%;
-        #         height: 180px;
-        #         margin: 0 auto;
-        #         overflow: hidden;
-        #       }
-        #       .spns_special_x1170 {
-        #         max-width: 1150px;
-        #         margin: 0 auto;
-        #         overflow: hidden;
-        #       }
-        #       .b-spns-special_x1170 {
-        #         margin: 0 auto 45px;
-        #         overflow: hidden;
-        #       }
-        #     </style>
-        #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
-        #   HTML
-        # ),
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_300x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491744',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_240x400] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491736',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_300x600] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491732',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_970x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491748',
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_728x90] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '491746',
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_footer_300x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '457333',
-        placement: Types::Ad::Placement[:footer],
-        platform: Types::Ad::Platform[:mobile]
-      }
-    },
-    false => {
-      # disable after 2019-10-04
-      Types::Ad::Type[:special_x300] => {
-        provider: Types::Ad::Provider[:special],
-        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
-        images: (1..1).map do |i|
-          {
-            src: "/assets/globals/events/special_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
-          }
-        end,
-        rules: {
-          cookie: 'i1',
-          shows_per_week: 310
-        },
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      # disable after 2019-10-04
-      Types::Ad::Type[:special_x1170] => {
-        provider: Types::Ad::Provider[:special],
-        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
-        images: (2..2).map do |i|
-          {
-            src: "/assets/globals/events/special_#{i}.jpg",
-            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
-          }
-        end,
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:advrtr_x728] => {
-        provider: Types::Ad::Provider[:advertur],
-        advertur_id: 92_445,
-        width: 728,
-        height: 90,
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:advrtr_240x400] => {
-        provider: Types::Ad::Provider[:advertur],
-        advertur_id: 92_129,
-        width: 240,
-        height: 400,
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:advrtr_300x250] => {
-        provider: Types::Ad::Provider[:advertur],
-        advertur_id: 92_485,
-        width: 300,
-        height: 250,
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_300x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '239817',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_240x400] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '239815',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_300x600] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '239819',
-        placement: Types::Ad::Placement[:menu],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_728x90] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '239978',
-        placement: Types::Ad::Placement[:content],
-        platform: Types::Ad::Platform[:desktop]
-      },
-      Types::Ad::Type[:mt_footer_300x250] => {
-        provider: Types::Ad::Provider[:mytarget],
-        mytarget_id: '99457',
-        placement: Types::Ad::Placement[:footer],
-        platform: Types::Ad::Platform[:mobile]
-      }
-    }
-  }
-
-  META_TYPES = {
-    true => {
-      Types::Ad::Meta[:menu_300x250] => [
-        Types::Ad::Type[:mt_300x250]
-      ],
-      Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
-        Types::Ad::Type[:mt_240x400]
-      ],
-      Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
-        Types::Ad::Type[:mt_300x600]
-      ],
-      Types::Ad::Meta[:horizontal_x250] => [
-        Types::Ad::Type[:mt_970x250]
-      ],
-      Types::Ad::Meta[:horizontal_x90] => [
-        Types::Ad::Type[:mt_728x90]
-      ],
-      Types::Ad::Meta[:footer] => [
-        Types::Ad::Type[:mt_footer_300x250]
-      ],
-      Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # disable after 2019-10-04
-        Types::Ad::Type[:mt_970x250]
-      ]
-    },
-    false => {
-      Types::Ad::Meta[:menu_300x250] => [
-        # Types::Ad::Type[:mt_300x250],
-        # Types::Ad::Type[:yd_240x400],
-        Types::Ad::Type[:advrtr_240x400]
-      ],
-      Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
-        # Types::Ad::Type[:mt_240x400],
-        # Types::Ad::Type[:yd_240x500],
-        Types::Ad::Type[:advrtr_240x400]
-      ],
-      Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
-        # Types::Ad::Type[:mt_300x600],
-        # Types::Ad::Type[:yd_300x600],
-        # Types::Ad::Type[:advrtr_240x400],
-        Types::Ad::Type[:advrtr_300x250]
-      ],
-      Types::Ad::Meta[:horizontal_x250] => [
-        # Types::Ad::Type[:yd_horizontal],
-        Types::Ad::Type[:advrtr_x728]
-      ],
-      Types::Ad::Meta[:horizontal_x90] => [
-        # Types::Ad::Type[:mt_728x90],
-        # Types::Ad::Type[:yd_horizontal],
-        Types::Ad::Type[:advrtr_x728]
-      ],
-      Types::Ad::Meta[:footer] => [
-        Types::Ad::Type[:mt_footer_300x250]
-      ],
-      Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # disable after 2019-10-04
-        # Types::Ad::Type[:yd_horizontal]
-      ]
-    }
-  }
-
   # CACHE_KEY = Digest::MD5.hexdigest(META_TYPES.to_json)
 
   attr_reader :banner_type, :policy
@@ -439,4 +194,275 @@ private
   def controller_key placement
     :"@is_#{placement}_ad_shown"
   end
+
+  BANNERS = {
+    true => {
+      # disable after 2019-10-04
+      Types::Ad::Type[:special_x300] => {
+        provider: Types::Ad::Provider[:special],
+        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
+        images: (1..1).map do |i|
+          {
+            src: "/assets/globals/events/special_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          }
+        end,
+        rules: {
+          cookie: 'i1',
+          shows_per_week: 310
+        },
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      # disable after 2019-10-04
+      Types::Ad::Type[:special_x1170] => {
+        provider: Types::Ad::Provider[:special],
+        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
+        images: (2..2).map do |i|
+          {
+            src: "/assets/globals/events/special_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          }
+        end,
+        # html: (
+        #   <<~HTML
+        #     <style>
+        #       #iframe_special_x1170 {
+        #         max-width: 1150px;
+        #         width: 100%;
+        #         height: 180px;
+        #         margin: 0 auto;
+        #         overflow: hidden;
+        #       }
+        #       .spns_special_x1170 {
+        #         max-width: 1150px;
+        #         margin: 0 auto;
+        #         overflow: hidden;
+        #       }
+        #       .b-spns-special_x1170 {
+        #         margin: 0 auto 45px;
+        #         overflow: hidden;
+        #       }
+        #     </style>
+        #     <iframe id="iframe_special_x1170" src="/1150x180Dogs.html">
+        #   HTML
+        # ),
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_300x250] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491744',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_240x400] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491736',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_300x600] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491732',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_970x250] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491748',
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_728x90] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '491746',
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_footer_300x250] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '457333',
+        placement: Types::Ad::Placement[:footer],
+        platform: Types::Ad::Platform[:mobile]
+      },
+      Types::Ad::Type[:yd_300x600] => {
+        provider: Types::Ad::Provider[:yandex_direct],
+        yandex_id: 'R-A-438288-1',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:yd_240x600] => {
+        provider: Types::Ad::Provider[:yandex_direct],
+        yandex_id: 'R-A-438288-2',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:yd_970x250] => {
+        provider: Types::Ad::Provider[:yandex_direct],
+        yandex_id: 'R-A-438288-3',
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:yd_970x90] => {
+        provider: Types::Ad::Provider[:yandex_direct],
+        yandex_id: 'R-A-438288-4',
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      }
+    },
+    false => {
+      # disable after 2019-10-04
+      Types::Ad::Type[:special_x300] => {
+        provider: Types::Ad::Provider[:special],
+        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
+        images: (1..1).map do |i|
+          {
+            src: "/assets/globals/events/special_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          }
+        end,
+        rules: {
+          cookie: 'i1',
+          shows_per_week: 310
+        },
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      # disable after 2019-10-04
+      Types::Ad::Type[:special_x1170] => {
+        provider: Types::Ad::Provider[:special],
+        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
+        images: (2..2).map do |i|
+          {
+            src: "/assets/globals/events/special_#{i}.jpg",
+            src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
+          }
+        end,
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:advrtr_x728] => {
+        provider: Types::Ad::Provider[:advertur],
+        advertur_id: 92_445,
+        width: 728,
+        height: 90,
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:advrtr_240x400] => {
+        provider: Types::Ad::Provider[:advertur],
+        advertur_id: 92_129,
+        width: 240,
+        height: 400,
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:advrtr_300x250] => {
+        provider: Types::Ad::Provider[:advertur],
+        advertur_id: 92_485,
+        width: 300,
+        height: 250,
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_300x250] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '239817',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_240x400] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '239815',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_300x600] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '239819',
+        placement: Types::Ad::Placement[:menu],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_728x90] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '239978',
+        placement: Types::Ad::Placement[:content],
+        platform: Types::Ad::Platform[:desktop]
+      },
+      Types::Ad::Type[:mt_footer_300x250] => {
+        provider: Types::Ad::Provider[:mytarget],
+        mytarget_id: '99457',
+        placement: Types::Ad::Placement[:footer],
+        platform: Types::Ad::Platform[:mobile]
+      }
+    }
+  }
+
+  META_TYPES = {
+    true => {
+      Types::Ad::Meta[:menu_300x250] => [
+        Types::Ad::Type[:mt_300x250]
+      ],
+      Types::Ad::Meta[:menu_240x400] => [
+        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
+        Types::Ad::Type[:yd_240x600],
+        Types::Ad::Type[:mt_240x400]
+      ],
+      Types::Ad::Meta[:menu_300x600] => [
+        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
+        Types::Ad::Type[:yd_300x600],
+        Types::Ad::Type[:mt_300x600]
+      ],
+      Types::Ad::Meta[:horizontal_x250] => [
+        Types::Ad::Type[:yd_970x250],
+        Types::Ad::Type[:mt_970x250]
+      ],
+      Types::Ad::Meta[:horizontal_x90] => [
+        Types::Ad::Type[:yd_970x90],
+        Types::Ad::Type[:mt_728x90]
+      ],
+      Types::Ad::Meta[:footer] => [
+        Types::Ad::Type[:mt_footer_300x250]
+      ],
+      Types::Ad::Meta[:special_x1170] => [
+        # Types::Ad::Type[:special_x1170], # disable after 2019-10-04
+        Types::Ad::Type[:yd_970x250],
+        Types::Ad::Type[:mt_970x250]
+      ]
+    },
+    false => {
+      Types::Ad::Meta[:menu_300x250] => [
+        # Types::Ad::Type[:mt_300x250],
+        # Types::Ad::Type[:yd_240x400],
+        Types::Ad::Type[:advrtr_240x400]
+      ],
+      Types::Ad::Meta[:menu_240x400] => [
+        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
+        # Types::Ad::Type[:mt_240x400],
+        # Types::Ad::Type[:yd_240x500],
+        Types::Ad::Type[:advrtr_240x400]
+      ],
+      Types::Ad::Meta[:menu_300x600] => [
+        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
+        # Types::Ad::Type[:mt_300x600],
+        # Types::Ad::Type[:yd_300x600],
+        # Types::Ad::Type[:advrtr_240x400],
+        Types::Ad::Type[:advrtr_300x250]
+      ],
+      Types::Ad::Meta[:horizontal_x250] => [
+        Types::Ad::Type[:advrtr_x728]
+      ],
+      Types::Ad::Meta[:horizontal_x90] => [
+        # Types::Ad::Type[:mt_728x90],
+        Types::Ad::Type[:advrtr_x728]
+      ],
+      Types::Ad::Meta[:footer] => [
+        Types::Ad::Type[:mt_footer_300x250]
+      ],
+      Types::Ad::Meta[:special_x1170] => [
+        # Types::Ad::Type[:special_x1170], # disable after 2019-10-04
+      ]
+    }
+  }
 end
