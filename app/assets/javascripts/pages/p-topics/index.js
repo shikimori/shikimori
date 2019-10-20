@@ -1,3 +1,4 @@
+import delay from 'delay';
 import AnimesMenu from 'views/animes/menu';
 
 pageLoad(
@@ -11,6 +12,12 @@ pageLoad(
     if ($('.b-animes-menu').exists()) {
       new AnimesMenu('.b-animes-menu');
     }
+
+    $('.reload').on('click', async ({ currentTarget }) => {
+      currentTarget.classList.add('active');
+      await delay(750);
+      currentTarget.classList.remove('active');
+    });
   });
 
 pageLoad('topics_index', () => {
