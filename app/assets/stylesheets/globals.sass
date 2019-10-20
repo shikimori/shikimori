@@ -1,16 +1,102 @@
 @import mixins/font_face
-@import globals/variables
 
-// +font-face("shikimori", font-files("shikimori.woff", "shikimori.woff2", "shikimori.ttf", "shikimori.svg#FontshikimoriRegular"), "shikimori.eot", normal, normal)
-// +font-face("shikimori", "shikimori", normal, $asset-pipeline: true, $file-formats: eot woff woff2 ttf svg);
+// +font-face('shikimori', 'shikimori', normal, $asset-pipeline: true, $file-formats: eot woff woff2 ttf svg);
 +font-face('shikimori', 'shikimori');
-/*@font-face {*/
-  /*font-family: 'shikimori';*/
-  /*src: url('/font/shikimori.eot?54133551');*/
-  /*src: url('/font/shikimori.eot?54133551#iefix') format('embedded-opentype'),*/
-       /*url('/font/shikimori.woff?54133551') format('woff'),*/
-       /*url('/font/shikimori.ttf?54133551') format('truetype'),*/
-       /*url('/font/shikimori.svg?54133551#shikimori') format('svg');*/
-  /*font-weight: normal;*/
-  /*font-style: normal;*/
-/*}*/
+
+$font-family: "Helvetica Neue", Arial, Verdana, sans-serif
+$line_height: 1.65
+
+// site content
+$site-body-width: 1200px
+
+// default offset
+$block_offset: 30px
+
+// default sizes of standard media element
+$media_height: 132px
+$media_width: 235px
+
+$flex-half_gutter-mobile: 16px
+$flex-half_gutter-desktop: 25px
+
+$flex-margin-mobile: 22px
+$flex-margin-desktop: 27px
+
+// ссылки
+$link: #176093
+$link-hover: #dd5202
+$link-active: #ff0202
+
+$link-border: rgba(#176093, 0.3)
+$link-border-hover: rgba(#dd5202, 0.3)
+$link-border-active: rgba(#ff0202, 0.3)
+
+// цвета
+//$link: #176093
+$link-2: #155785
+$link-3: #1d78b7
+$link-4: #2b8acc
+
+$gray-1: #acb1b4
+$gray-2: #9da2a8
+$gray-3: #7b8084
+$gray-4: #4e5257
+
+$anons_tag: #ca4929
+$ongoing_tag: #1d78b7
+$released_tag: #419541
+
+$green-check: #24a232
+$red-check: #c32017
+
+// даты
+$date: #acb1b4
+
+// adaptive
+/*320px for common smartphones including iPhone at portrait orientation*/
+/*480px and below for iPhones at landscape orientation and many of the HTC handsets*/
+/*768px – 980px for iPad and other tablets*/
+/*980px and upwards for desktop monitors*/
+/*1200px and upwards for larger desktop monitors*/
+$phone: 320px
+$iphone: 480px
+$ipad: 768px
+// TODO: выпилить $desktop
+$desktop: $ipad + 1px
+
+//$iphone_max: 568px
+//$iphone_max: 640px // эта цифра и для последних самсунговских плафонов
+$iphone_max: 767px // берём всё до ипада
+$ipad_max: 1024px
+$laptop_max: 1199px
+
+// icons
+$icon-planned: '\e838'
+$icon-on_hold: '\e836'
+$icon-watching: '\e823'
+$icon-rewatching: '\e825'
+$icon-completed: '\e824'
+$icon-dropped: '\e828'
+
+// Cool
+$aqua:  #7fdbff
+$blue:  #0074d9
+$navy:  #001f3f
+$teal:  #39cccc
+$green: #2ecc40
+$olive: #3d9970
+$lime:  #01ff70
+
+// warm
+$yellow:  #ffdc00
+$orange:  #ff851b
+$red:     #ff4136
+$fuchsia: #f012be
+$purple:  #b10dc9
+$maroon:  #85144b
+
+// Gray Scale
+$white:  #fff
+$silver: #ddd
+$gray:   #aaa
+$black:  #111
