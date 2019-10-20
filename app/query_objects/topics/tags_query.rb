@@ -10,6 +10,7 @@ class Topics::TagsQuery
     игры
     визуальные_новеллы
     лайв_экшен
+    прочее
   ]
 
   def call

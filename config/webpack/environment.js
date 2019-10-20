@@ -1,6 +1,8 @@
 const webpack = require('webpack');
 const { environment } = require('@rails/webpacker');
 
+const globImporter = require('node-sass-glob-importer');
+
 // vue
 const { VueLoaderPlugin } = require('vue-loader');
 const vueLoader = require('./loaders/vue');
@@ -17,10 +19,18 @@ environment.loaders.delete('moduleSass');
 environment.loaders.insert(
   'sass',
   getStyleRule(/\.sass$/i, false, [
-    { loader: 'sass-loader', options: { sourceMap: true, indentedSyntax: true } }
+    {
+      loader: 'sass-loader',
+      options: {
+        sourceMap: true,
+        indentedSyntax: true,
+        importer: globImporter()
+      }
+    }
   ]),
   { after: 'css' }
 );
+
 environment.loaders.insert(
   'scss',
   getStyleRule(/\.scss$/i, false, [

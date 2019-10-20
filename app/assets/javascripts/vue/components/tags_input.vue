@@ -74,7 +74,8 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-@import 'app/assets/stylesheets/mixins/input'
+@import 'app/assets/stylesheets/globals/variables'
+@import 'app/assets/stylesheets/mixins/*'
 
 .b-input /deep/
   .ti-autocomplete

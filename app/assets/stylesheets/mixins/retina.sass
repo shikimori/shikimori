@@ -4,10 +4,10 @@
 
 =background-inline-retina($path, $ext, $w: auto, $h: auto, $repeat: no-repeat)
   // background: inline-image($path + "." + $ext) $repeat
-  background: asset_url($path + "." + $ext) $repeat
+  background: url($path + "." + $ext) $repeat
   background-size: $w $h
 
   +retina_media
     // background: inline-image($path + "@2x" + "." + $ext) $repeat
-    background: asset_url($path + "@2x" + "." + $ext) $repeat
+    background: url($path + "@2x" + "." + $ext) $repeat
     background-size: $w $h

@@ -9,3 +9,5 @@ window.jQuery = window.$;
 require('application');
 require('turbolinks_load');
 require('turbolinks_before_cache');
+
+import '../../stylesheets/application.sass';

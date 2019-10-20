@@ -44,6 +44,11 @@ link[
 ]
 link rel='yandex-tableau-widget' href='/yandex-tableau-widget-manifest.json'
 
+link[
+  href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap&subset=cyrillic"
+  rel="stylesheet"
+]
+
 - if defined?(@collection) && @collection.respond_to?(:next_page?)
   - if @collection.next_page?
     link rel='next' href==current_url(page: @collection.next_page)
@@ -102,10 +107,12 @@ title = og.meta_title
   script src='//dmc1acwvwny3.cloudfront.net/atatus.js'
 
 - unless Rails.env.test?
+  = stylesheet_pack_tag 'application', media: 'all', data: { 'turbolinks-track' => 'reload' }
   / = stylesheet_pack_tag 'vendor', media: 'all', data: { 'turbolinks-track' => 'reload'  }
   / = stylesheet_pack_tag 'application', media: 'all', data: { 'turbolinks-track' => 'reload'  }
   = stylesheet_pack_tag 'vendors', media: 'all', data: { 'turbolinks-track' => 'reload'  }
-  = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => 'reload' }
+
+  / = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => 'reload' }
 
   = yield :head
 

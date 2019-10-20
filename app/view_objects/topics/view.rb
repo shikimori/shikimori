@@ -20,8 +20,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   instance_cache :html_body, :html_body_truncated, :cleaned_preview_body,
     :comments_view, :urls, :action_tag, :topic_ignore,
-    :topic_comments_policy, :topic_type_policy,
-    :basic_tags, :other_tags
+    :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
   CACHE_VERSION = :v6
@@ -51,6 +50,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def container_class css = nil
     [
+      'b-topic',
       css,
       ('b-topic-preview' if preview?),
       ('b-topic-minified' if minified?)
@@ -189,14 +189,6 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def show_source?
     false
-  end
-
-  def basic_tags
-    @topic.tags & Topics::TagsQuery::BASIC_TAGS
-  end
-
-  def other_tags
-    @topic.tags - basic_tags
   end
 
   def topic_type_policy
