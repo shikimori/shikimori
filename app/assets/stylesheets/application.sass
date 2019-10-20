@@ -1,5 +1,3 @@
-//= require_tree ./globals
-
 //= require_tree ./vendor
 //= require ./lib/reset
 //= require ./lib/screen
@@ -16,16 +14,21 @@
 @import mixins/responsive
 @import mixins/link
 @import mixins/placeholder
+@import mixins/font_face
+@import mixins/css4
 
-$variables: ( --headline-font: Open Sans )
+// +font-face('shikimori', 'shikimori', normal, $asset-pipeline: true, $file-formats: eot woff woff2 ttf svg);
++font-face('shikimori', 'shikimori');
 
-\:root
-  @each $variable, $value in $variables
-    #{$variable}: $value
+@if $css4
+  \:root
+    @each $variable, $value in $variables
+      #{$variable}: $value
 
 body
   background-image: asset_url("/assets/background/square_bg.png")
-  font-family: $font-family
+  +css4
+    font-family: var(--font-main)
   font-size: 13px
   min-height: 100vh
   // -moz-osx-font-smoothing: grayscale
@@ -78,7 +81,8 @@ input,
 select,
 textarea
   border: 1px solid #999999
-  font-family: $font-family
+  +css4
+    font-family: var(--font-main)
 
   +gte_ipad
     font-size: 13px

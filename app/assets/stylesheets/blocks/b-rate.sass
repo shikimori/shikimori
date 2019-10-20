@@ -1,4 +1,5 @@
 @import mixins/block
+@import mixins/css4
 @import mixins/responsive
 @import mixins/shikimori
 
@@ -46,7 +47,8 @@
 
   .score-notice
     color: #123
-    font-family: $font-family
+    +css4
+      font-family: var(--font-main)
     font-size: 11px
     line-height: 1
     margin-top: -5px

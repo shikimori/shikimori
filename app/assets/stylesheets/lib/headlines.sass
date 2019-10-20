@@ -1,5 +1,6 @@
 @import globals
 @import mixins/brackets_surrounded
+@import mixins/css4
 @import mixins/dash_separated
 @import mixins/ellipsis2
 @import mixins/hover_underlined
@@ -15,7 +16,8 @@ header.head
     border-bottom: none
     color: #123
     display: inline-block
-    font-family: var(--headline-font)
+    +css4
+      font-family: var(--font-alt)
     font-size: 30px
     font-weight: normal
 
@@ -57,7 +59,8 @@ header.head
   .misc, a.edit
     color: $gray-2
     display: inline-block
-    font-family: $font-family
+    +css4
+      font-family: var(--font-main)
     font-size: 11px
     line-height: 12px
     padding: 17px 0 0 10px
