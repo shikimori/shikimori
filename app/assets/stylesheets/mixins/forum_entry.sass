@@ -1,4 +1,5 @@
 @import globals
+@import mixins/css4
 @import mixins/clearfix
 @import mixins/ellipsis2
 @import mixins/icons
@@ -72,7 +73,6 @@ $body_phone_left_margin: 40px
 
     .name-date
       +ellipsis2
-      font-family: Open Sans
       font-size: 13px
       line-height: 18px
 
@@ -87,6 +87,8 @@ $body_phone_left_margin: 40px
 
       .name
         +link
+        // +css4
+          font-family: var(--font-alt)
         font-weight: 600
 
       .time

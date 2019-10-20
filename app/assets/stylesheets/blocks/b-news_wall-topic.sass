@@ -1,3 +1,4 @@
+@import mixins/css4
 @import mixins/link
 @import mixins/two_line_ellipsis
 // @import mixins/responsive
@@ -37,7 +38,8 @@
   .title
     +two_line_ellipsis(15px, 1.55)
     color: #123
-    font-family: Open Sans
+    +css4
+      font-family: var(--font-alt)
     font-weight: 600
     margin-bottom: 10px
   //   border-radius: 2px

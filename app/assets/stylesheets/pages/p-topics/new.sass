@@ -1,3 +1,4 @@
+@import mixins/css4
 @import mixins/block
 
 .p-topics-new
@@ -9,6 +10,8 @@
         border-color: $link-border-hover
 
     .type-name
+      +css4
+        font-family: var(--font-alt)
       display: block
       font-size: 18px
       font-weight: bold

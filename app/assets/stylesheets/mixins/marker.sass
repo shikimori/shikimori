@@ -1,9 +1,10 @@
 @import globals
-@import mixins/static_marker
+@import mixins/css4
+@import mixins/responsive
 
 =marker($width, $color, $hover_color, $active_color)
   float: right
-  margin: 1px 0 0 15px
+  margin: -1px 0 2px 15px
   width: $width
 
   +gt_ipad
@@ -15,7 +16,10 @@
     color: #fff
     content: attr(data-text)
     font-size: 11px
-    line-height: 1.2
+    +css4
+      font-family: var(--font-alt)
+      letter-spacing: var(--font-alt-text-letter-spacing)
+    line-height: 14px
     position: absolute
     text-align: center
     width: $width - 2px
