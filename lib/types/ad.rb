@@ -27,6 +27,7 @@ module Types
         :special_x1170,
         :advrtr_x728,
         :advrtr_240x400,
+        :advrtr_300x250,
         :yd_300x600,
         :yd_240x500,
         :yd_240x400,
