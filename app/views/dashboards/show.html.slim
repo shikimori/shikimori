@@ -1,216 +1,215 @@
 - content_for :head do
   = auto_discovery_link_tag :rss, news_feed_pages_url(format: :rss), title: 'Shiki News'
 
-.v1
-  = cache @view.cache_keys.values, expires_in: 1.day do
-    - cache @view.cache_keys[:ongoings], expires_in: 1.day do
-      .block2
-        .midheadline.linkheadline
-          a href=animes_collection_url(status: :ongoing)
-            = t '.currently_airing'
-          / a.b-link[
-            / href="#{animes_collection_url}"
-            / title="#{t '.all_animess'}"
-          / ] = t '.mangas'
+= cache @view.cache_keys.values, expires_in: 1.day do
+  - cache @view.cache_keys[:ongoings], expires_in: 1.day do
+    .block2
+      .midheadline.linkheadline
+        a href=animes_collection_url(status: :ongoing)
+          = t '.currently_airing'
+        / a.b-link[
+          / href="#{animes_collection_url}"
+          / title="#{t '.all_animess'}"
+        / ] = t '.mangas'
 
-        .cc-ongoings.to-process data-dynamic='cutted_covers'
-          = render partial: 'animes/anime',
-            collection: @view.ongoings,
-            locals: { cover_notice: :studio },
-            cache: ->(entry, _) { CacheHelper.keys entry, :studio }
+      .cc-ongoings.to-process data-dynamic='cutted_covers'
+        = render partial: 'animes/anime',
+          collection: @view.ongoings,
+          locals: { cover_notice: :studio },
+          cache: ->(entry, _) { CacheHelper.keys entry, :studio }
 
-    / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
+  / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
 
-    .cc-second
-      .cc-inner
-        .c-content.to-process data-dynamic='tabs'
-          .options
-            .option.active data-tab-switch=true
-              = i18n_i 'Anime', :other
-            .option data-tab-switch=true
-              = i18n_i 'Manga', :other
-            .option data-tab-switch=true
-              = i18n_i 'Ranobe', :other
+  .cc-second
+    .cc-inner
+      .c-content.to-process data-dynamic='tabs'
+        .options
+          .option.active data-tab-switch=true
+            = i18n_i 'Anime', :other
+          .option data-tab-switch=true
+            = i18n_i 'Manga', :other
+          .option data-tab-switch=true
+            = i18n_i 'Ranobe', :other
 
-          .slides
-            .slide.animes data-tab=true
-              = render 'dashboards/animes', dashboard_view: @view
+        .slides
+          .slide.animes data-tab=true
+            = render 'dashboards/animes', dashboard_view: @view
 
-            .slide.mangas.hidden data-tab=true
-              = render 'dashboards/mangas', dashboard_view: @view
+          .slide.mangas.hidden data-tab=true
+            = render 'dashboards/mangas', dashboard_view: @view
 
-            .slide.ranobe.hidden data-tab=true
-              = render 'dashboards/ranobe', dashboard_view: @view
+          .slide.ranobe.hidden data-tab=true
+            = render 'dashboards/ranobe', dashboard_view: @view
 
-            / .slide.hidden
-              / .midheadline: h2 = t '.other'
-              / ul.b-list
-                / - @view.pages.each_with_index do |(url, title), index|
-                  / li
-                    / - if index < DashboardView::SPECIAL_PAGES
-                      / a.b-link[
-                        / href=url
-                        / title=title
-                      / ] = title
-                    / - else
-                      / a.b-link[
-                        / href=url
-                        / title=title
-                      / ] = title
+          / .slide.hidden
+            / .midheadline: h2 = t '.other'
+            / ul.b-list
+              / - @view.pages.each_with_index do |(url, title), index|
+                / li
+                  / - if index < DashboardView::SPECIAL_PAGES
+                    / a.b-link[
+                      / href=url
+                      / title=title
+                    / ] = title
+                  / - else
+                    / a.b-link[
+                      / href=url
+                      / title=title
+                    / ] = title
 
-        .c-my_list.to-process.b-ajax[
-          data-dynamic='postloaded'
-          data-postloaded-url=dashboards_dynamic_url
-        ]
+      .c-my_list.to-process.b-ajax[
+        data-dynamic='postloaded'
+        data-postloaded-url=dashboards_dynamic_url
+      ]
 
-      .c-forum
-        .b-forums
-          a.b-link_button.maxi.dark[
-            href=forum_url
-          ] = t 'forum'
+    .c-forum
+      .b-forums
+        a.b-link_button.maxi.dark[
+          href=forum_url
+        ] = t 'forum'
+        .block
+          - @view.forums.each do |forum|
+            .forum
+              .topics #{forum.size} #{i18n_i 'topic', forum.size}
+              .link-with-input
+                a.link href=forum.url = forum.name
+
+      - if @view.contests.any?
+        .contests.block
+          h2.midheadline.green.linkheadline.m5
+            a[
+              href=contests_url
+              title=i18n_i('Contest', :other)
+            ] = i18n_i 'Contest', :other
           .block
-            - @view.forums.each do |forum|
-              .forum
-                .topics #{forum.size} #{i18n_i 'topic', forum.size}
-                .link-with-input
-                  a.link href=forum.url = forum.name
+            - @view.contests.each do |contest|
+              .contest
+                a.b-link[
+                  href=contest_url(contest)
+                  title=contest.title
+                ] = contest.title
 
-        - if @view.contests.any?
-          .contests.block
-            h2.midheadline.green.linkheadline.m5
-              a[
-                href=contests_url
-                title=i18n_i('Contest', :other)
-              ] = i18n_i 'Contest', :other
-            .block
-              - @view.contests.each do |contest|
-                .contest
-                  a.b-link[
-                    href=contest_url(contest)
-                    title=contest.title
-                  ] = contest.title
+  / - cache @view.cache_keys.values do
+  .cc-news
+    .c-news_topics.m0
+      h2.midheadline.orange.linkheadline
+        a[
+          href=forum_topics_url(:news)
+          title=t('.news_feed')
+        ] = t '.news_feed'
+        / h2 = t '.news_feed'
+        / a.b-link[
+          / href="#{forum_topics_url :news}"
+          / title="#{t '.all_news'}"
+        / ] = t '.all_news'
 
-    / - cache @view.cache_keys.values do
-    .cc-news
-      .c-news_topics.m0
-        h2.midheadline.orange.linkheadline
-          a[
-            href=forum_topics_url(:news)
-            title=t('.news_feed')
-          ] = t '.news_feed'
-          / h2 = t '.news_feed'
-          / a.b-link[
-            / href="#{forum_topics_url :news}"
-            / title="#{t '.all_news'}"
-          / ] = t '.all_news'
+      - cache @view.cache_keys[:news] do
+        div
+          = render partial: 'topics/topic',
+            collection: @view.news_topic_views,
+            as: :topic_view
 
-        - cache @view.cache_keys[:news] do
-          div
-            = render partial: 'topics/topic',
-              collection: @view.news_topic_views,
-              as: :topic_view
+          - if @view.news_topic_views.next_page
+            = render 'blocks/postloader',
+              filter: 'b-topic',
+              next_url: root_page_url(page: @view.news_topic_views.next_page)
 
-            - if @view.news_topic_views.next_page
-              = render 'blocks/postloader',
-                filter: 'b-topic',
-                next_url: root_page_url(page: @view.news_topic_views.next_page)
+    .c-generated_news
+      / - if ru_host?
+      /   / convert -quality 86% -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
+      /   center.block
+      /     a href='https://kinoart.ru/events/sinemateka-klassika-anime'
+      /       img[
+      /         style="max-width: 100%"
+      /         src="/assets/globals/events/special_3.jpg?v3"
+      /         srcset="/assets/globals/events/special_3@2x.jpg?v3 2x"
+      /       ]
 
-      .c-generated_news
-        / - if ru_host?
-        /   / convert -quality 86% -resize 50% app/assets/images/globals/events/vk@2x.jpg app/assets/images/globals/events/vk.jpg
-        /   center.block
-        /     a href='https://kinoart.ru/events/sinemateka-klassika-anime'
-        /       img[
-        /         style="max-width: 100%"
-        /         src="/assets/globals/events/special_3.jpg?v3"
-        /         srcset="/assets/globals/events/special_3@2x.jpg?v3 2x"
-        /       ]
+      / - if Rails.env.production? && ru_host?
+      /   - if !user_signed_in? || !current_user.forum_moderator? || !current_user.version_moderator? || current_user.admin?
+      /     .y-sponsored#yandex_rtb_R-A-227837-1
+      /       javascript:
+      /           (function(w, d, n, s, t) {
+      /               if (mobile_detect.tablet() || mobile_detect.phone()) {
+      /                 return;
+      /               }
+      /               w[n] = w[n] || [];
+      /               w[n].push(function() {
+      /                   Ya.Context.AdvManager.render({
+      /                       blockId: "R-A-227837-1",
+      /                       renderTo: "yandex_rtb_R-A-227837-1",
+      /                       horizontalAlign: true,
+      /                       async: true
+      /                   });
+      /               });
+      /               t = d.getElementsByTagName('script')[0];
+      /               s = d.createElement('script');
+      /               s.type = "text/javascript";
+      /               s.src = "//an.yandex.ru/system/context.js";
+      /               s.async = true;
+      /               t.parentNode.insertBefore(s, t);
+      /           })(this, this.document, 'yandexContextAsyncCallbacks');
 
-        / - if Rails.env.production? && ru_host?
-        /   - if !user_signed_in? || !current_user.forum_moderator? || !current_user.version_moderator? || current_user.admin?
-        /     .y-sponsored#yandex_rtb_R-A-227837-1
-        /       javascript:
-        /           (function(w, d, n, s, t) {
-        /               if (mobile_detect.tablet() || mobile_detect.phone()) {
-        /                 return;
-        /               }
-        /               w[n] = w[n] || [];
-        /               w[n].push(function() {
-        /                   Ya.Context.AdvManager.render({
-        /                       blockId: "R-A-227837-1",
-        /                       renderTo: "yandex_rtb_R-A-227837-1",
-        /                       horizontalAlign: true,
-        /                       async: true
-        /                   });
-        /               });
-        /               t = d.getElementsByTagName('script')[0];
-        /               s = d.createElement('script');
-        /               s.type = "text/javascript";
-        /               s.src = "//an.yandex.ru/system/context.js";
-        /               s.async = true;
-        /               t.parentNode.insertBefore(s, t);
-        /           })(this, this.document, 'yandexContextAsyncCallbacks');
+      / = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
 
-        / = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
+      / .midheadline.gray.m15 = t 'sponsors'
+      / .container
+        / - if Rails.env.production?
+          / = render 'dashboards/ad'
+        / - else
+          / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-        / .midheadline.gray.m15 = t 'sponsors'
-        / .container
-          / - if Rails.env.production?
-            / = render 'dashboards/ad'
-          / - else
-            / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
-
-        - cache [@view.cache_keys[:reviews], @view.cache_keys[:reviews_index]] do
-          - if @view.review_topic_views.any?
-            .block
-              h2.midheadline.magenta.linkheadline
-                a[
-                  href=forum_topics_url(:reviews)
-                  title=i18n_i('Review', :other)
-                ] = i18n_i 'Review', :other
-                / h2 = t '.reviews'
-                / a.b-link[
-                  / href=forum_topics_url(:reviews)
-                  / title=t('.all_reviews')
-                / ] = t '.all_reviews'
-              div
-                = render partial: 'topics/topic',
-                  collection: @view.review_topic_views,
-                  as: :topic_view
-
-        - if ru_host?
-          .midheadline.yellow = t '.our_projects'
-          / #vk_groups
-          center.block
-            a href=StickyTopicView.socials(locale_from_host).object.url
-              img[
-                style="max-width: 100%"
-                src="/assets/globals/socials.png?v3"
-                srcset="/assets/globals/socials@2x.png?v3 2x"
-              ]
-
-          / center.block
-          /   a href='/forum/site/278111-shikikast'
-          /     img[
-          /       style="max-width: 100%"
-          /       src="/assets/globals/shikicast.png?v1"
-          /       srcset="/assets/globals/shikicast@2x.png?v1 2x"
-          /     ]
-
-        - cache @view.cache_keys[:updates] do
+      - cache [@view.cache_keys[:reviews], @view.cache_keys[:reviews_index]] do
+        - if @view.review_topic_views.any?
           .block
-            .midheadline.orange.linkheadline
+            h2.midheadline.magenta.linkheadline
               a[
-                href=forum_topics_url(:updates)
-                title=t('.anime_updates')
-              ] = t '.anime_updates'
-              / = t '.anime_updates'
+                href=forum_topics_url(:reviews)
+                title=i18n_i('Review', :other)
+              ] = i18n_i 'Review', :other
+              / h2 = t '.reviews'
               / a.b-link[
-                / href=forum_topics_url(:updates)
-                / title=t('.all_updates')
-              / ] = t '.all_updates'
+                / href=forum_topics_url(:reviews)
+                / title=t('.all_reviews')
+              / ] = t '.all_reviews'
             div
               = render partial: 'topics/topic',
-                collection: @view.generated_news_topic_views,
-                locals: { do_not_track: true },
+                collection: @view.review_topic_views,
                 as: :topic_view
+
+      - if ru_host?
+        .midheadline.yellow = t '.our_projects'
+        / #vk_groups
+        center.block
+          a href=StickyTopicView.socials(locale_from_host).object.url
+            img[
+              style="max-width: 100%"
+              src="/assets/globals/socials.png?v3"
+              srcset="/assets/globals/socials@2x.png?v3 2x"
+            ]
+
+        / center.block
+        /   a href='/forum/site/278111-shikikast'
+        /     img[
+        /       style="max-width: 100%"
+        /       src="/assets/globals/shikicast.png?v1"
+        /       srcset="/assets/globals/shikicast@2x.png?v1 2x"
+        /     ]
+
+      - cache @view.cache_keys[:updates] do
+        .block
+          .midheadline.orange.linkheadline
+            a[
+              href=forum_topics_url(:updates)
+              title=t('.anime_updates')
+            ] = t '.anime_updates'
+            / = t '.anime_updates'
+            / a.b-link[
+              / href=forum_topics_url(:updates)
+              / title=t('.all_updates')
+            / ] = t '.all_updates'
+          div
+            = render partial: 'topics/topic',
+              collection: @view.generated_news_topic_views,
+              locals: { do_not_track: true },
+              as: :topic_view

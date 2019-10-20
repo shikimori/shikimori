@@ -2,7 +2,7 @@
 import delay from 'delay';
 
 pageLoad('dashboards_show', async () => {
-  if (!$('.p-dashboards-show .v1').length) { return; }
+  if ($('.p-dashboards-show .v2').length) { return; }
 
   $('.l-page').on('click', '.user_list .switch', ({ currentTarget }) => {
     $(currentTarget)
