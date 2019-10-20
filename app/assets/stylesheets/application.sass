@@ -1,30 +1,60 @@
-//= require_tree ./globals
-
-//= require_tree ./vendor
-//= require ./lib/reset
-//= require ./lib/screen
-//= require ./layouts/l-page
-//= require ./layouts/l-menu
-//= require ./layouts/l-footer
-//= require ./layouts/l-top_menu-v2
-//= require_tree ./blocks
-//= require ./lib/headlines
-//= require_tree ./lib
-//= require_tree ./pages
-
-@import globals
-@import mixins/responsive
-@import mixins/link
-@import mixins/placeholder
+@import ./globals/variables
+@import ./mixins/*
 
 $variables: ( --headline-font: Open Sans )
++font-face('shikimori', '../fonts/shikimori', $weight: normal, $exts: eot woff woff2 ttf svg);
 
 \:root
   @each $variable, $value in $variables
     #{$variable}: $value
 
+@import ./vendor/*
+
+@import ./libs/reset
+@import ./libs/screen
+@import ./layouts/l-page
+@import ./layouts/l-menu
+@import ./layouts/l-footer
+@import ./layouts/l-top_menu-v2
+
+@import ./blocks/*
+@import ./libs/headlines
+@import ./libs/colors
+@import ./libs/animated-height
+@import ./libs/autocomplete
+@import ./libs/bar
+@import ./libs/blocks
+@import ./libs/bubble
+@import ./libs/buttons
+@import ./libs/collapse
+@import ./libs/flex_columns
+@import ./libs/float_columns
+@import ./libs/icons
+@import ./libs/localization
+@import ./libs/margins
+@import ./libs/responsive
+@import ./libs/smiley
+@import ./libs/tipsy
+@import ./libs/toastr
+@import ./libs/tooltip
+@import ./libs/yellow_fade
+@import ./pages/p-animes
+@import ./pages/p-profiles
+@import ./pages/p-topics
+@import ./pages/*/*
+
+@import 'node_modules/magnific-popup/dist/magnific-popup';
+@import 'node_modules/nouislider/distribute/nouislider';
+// used in views/styles/edit.js
+@import 'node_modules/codemirror/lib/codemirror';
+@import 'node_modules/codemirror/theme/solarized';
+@import 'node_modules/codemirror/addon/hint/show-hint';
+@import 'node_modules/codemirror/addon/dialog/dialog';
+@import 'node_modules/codemirror/addon/display/fullscreen';
+@import 'node_modules/codemirror/addon/search/matchesonscrollbar';
+
 body
-  background-image: asset_url("/assets/background/square_bg.png")
+  background-image: url('/assets/background/square_bg.png')
   font-family: $font-family
   font-size: 13px
   min-height: 100vh

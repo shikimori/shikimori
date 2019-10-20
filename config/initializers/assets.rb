@@ -15,7 +15,6 @@ Rails.application.config.assets.paths << Rails.root.join('app/assets/fonts')
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
 Rails.application.config.assets.precompile += %w[
-  application.css
   pghero/favicon.png
   page503.css
   page404.css
@@ -24,5 +23,6 @@ Rails.application.config.assets.precompile += %w[
 
 Rails.application.config.assets.precompile.delete_if do |condition|
   next if condition.is_a? String
-  condition =~ 'application.js'
+
+  condition =~ 'application\.(js|css|sass)'
 end
