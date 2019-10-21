@@ -92,8 +92,9 @@ header.head
   font-weight: bold
   +css4
     font-family: var(--font-alt)
+  letter-spacing: 0.17px
   line-height: $line_height
-  margin-bottom: 5px
+  margin-bottom: 10px
   padding: 4px 10px 2px
   text-transform: uppercase
   transition: color 0.2s ease
@@ -170,26 +171,22 @@ header.head
         &:hover
           color: $link-active
 
-.midheadline
-  @extend .headline
-  font-size: 16px
-  margin-bottom: 10px
-  padding-bottom: 2px
-  padding-top: 3px
-
+.midheadline,
 .subheadline
   @extend .headline
-  margin-bottom: 5px
+  font-size: 15px
+  line-height: 30px
+  padding: 0 10px
 
-  +gt_ipad
-    font-size: 14px
-    padding: 5px 10px 4px 8px
-    line-height: 15px
-
+  // +gt_ipad
+  //   font-size: 14px
+  //   padding: 5px 10px 4px 8px
+  //   line-height: 15px
+  //
   +lte_ipad
-    font-size: 16px
-    padding-top: 3px
-    padding-bottom: 2px
+    // font-size: 16px
+    // padding-top: 3px
+    // padding-bottom: 2px
 
     .b-user16 img
       margin-top: 5px
@@ -247,8 +244,8 @@ header.head
 .subheadline-buttons
   position: absolute
   right: 3px
-  margin-top: 2px
+  margin-top: 5px
 
   +lte_ipad
-    margin-top: 1px
+    margin-top: 0
     right: 8px

@@ -4,7 +4,7 @@
 = cache @view.cache_keys.values, expires_in: 1.day do
   - cache @view.cache_keys[:ongoings], expires_in: 1.day do
     .block2
-      .midheadline.linkheadline
+      .subheadline.linkheadline
         a href=animes_collection_url(status: :ongoing)
           = t '.currently_airing'
         / a.b-link[
@@ -42,7 +42,7 @@
             = render 'dashboards/ranobe', dashboard_view: @view
 
           / .slide.hidden
-            / .midheadline: h2 = t '.other'
+            / .subeadline: h2 = t '.other'
             / ul.b-list
               / - @view.pages.each_with_index do |(url, title), index|
                 / li
@@ -76,7 +76,7 @@
 
       - if @view.contests.any?
         .contests.block
-          h2.midheadline.green.linkheadline.m5
+          h2.subeadline.green.linkheadline.m5
             a[
               href=contests_url
               title=i18n_i('Contest', :other)
@@ -92,7 +92,7 @@
   / - cache @view.cache_keys.values do
   .cc-news
     .c-news_topics.m0
-      h2.midheadline.orange.linkheadline
+      h2.subeadline.orange.linkheadline
         a[
           href=forum_topics_url(:news)
           title=t('.news_feed')
@@ -152,7 +152,7 @@
 
       / = render 'spnsrs/ad', ad: Ad.new(:menu_300x250)
 
-      / .midheadline.gray.m15 = t 'sponsors'
+      / .subheadline.gray.m15 = t 'sponsors'
       / .container
         / - if Rails.env.production?
           / = render 'dashboards/ad'
@@ -162,7 +162,7 @@
       - cache [@view.cache_keys[:reviews], @view.cache_keys[:reviews_index]] do
         - if @view.review_topic_views.any?
           .block
-            h2.midheadline.magenta.linkheadline
+            h2.subheadline.magenta.linkheadline
               a[
                 href=forum_topics_url(:reviews)
                 title=i18n_i('Review', :other)
@@ -178,7 +178,7 @@
                 as: :topic_view
 
       - if ru_host?
-        .midheadline.yellow = t '.our_projects'
+        .subheadline.yellow = t '.our_projects'
         / #vk_groups
         center.block
           a href=StickyTopicView.socials(locale_from_host).object.url
@@ -198,7 +198,7 @@
 
       - cache @view.cache_keys[:updates] do
         .block
-          .midheadline.orange.linkheadline
+          .subheadline.orange.linkheadline
             a[
               href=forum_topics_url(:updates)
               title=t('.anime_updates')

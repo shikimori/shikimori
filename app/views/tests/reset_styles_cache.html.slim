@@ -1,10 +1,10 @@
 - if request.post?
   - if @was_exist
-    .midheadline.green Success. Url is used in #{pluralize @count, 'style'}
+    .subheadline.green Success. Url is used in #{pluralize @count, 'style'}
   - else
-    .midheadline.red Cache entry not found
+    .subheadline.red Cache entry not found
 - else
-  .midheadline Reset style cache
+  .subheadline Reset style cache
 
 form.b-form[
   method='post'

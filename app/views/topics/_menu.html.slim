@@ -17,7 +17,7 @@
 / - cache [:site_block, :reviews, presenter.reviews_key], expires_in: 6.hours do
 
 / .block2.sponsors
-  / .midheadline.gray.m10 = t 'sponsors'
+  / .subheadline.gray = t 'sponsors'
   / .container
     / / - if Rails.env.production?
       / / = render 'dashboards/ad'
@@ -26,7 +26,7 @@
 
 - if menu.reviews.any?
   .block2.reviews
-    h2.midheadline.m13
+    h2.subheadline.m13
       a[
         href=forum_topics_url(:reviews)
         title=t('.to_reviews')
@@ -55,7 +55,7 @@
             ] = l review.created_at, format: '%e %B %Y'
 
 .block2.clubs
-  h2.midheadline.m13
+  h2.subheadline.m13
     a[
       href=clubs_url
       title=t('.to_clubs')
@@ -85,7 +85,7 @@
 
 - cache %i[sticky_topics v2] do
   .block2.sticky-topics
-    h2.midheadline.m8 = t '.sticky_topics'
+    h2.subheadline.m8 = t '.sticky_topics'
     div
       - menu.sticky_topics.take(3).each do |topic|
         a.topic href=topic.object.url

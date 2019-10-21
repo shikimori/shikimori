@@ -4,7 +4,7 @@ header.head
 
 = cache [@wakanim.cache_key, @istari.cache_key, @capella_film.cache_key, @vgtrk.cache_key] do
   .block2
-    .midheadline.m10 Istari
+    .subheadline Istari
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @istari.decorate,
@@ -12,7 +12,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Capella Film
+    .subheadline Capella Film
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @capella_film.decorate,
@@ -20,7 +20,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Vgtrk
+    .subheadline Vgtrk
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @vgtrk.decorate,
@@ -28,7 +28,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Pioner
+    .subheadline Pioner
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @pioner.decorate,
@@ -36,7 +36,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Exponenta
+    .subheadline Exponenta
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @exponenta.decorate,
@@ -44,7 +44,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Wakanim
+    .subheadline Wakanim
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @wakanim.decorate,
@@ -52,7 +52,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Other
+    .subheadline Other
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @other.decorate,
