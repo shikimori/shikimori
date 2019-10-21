@@ -79,19 +79,22 @@ strong, b
 
 input,
 select
-  border: 1px solid #999999
   +css4
     font-family: var(--font-alt)
 
+textarea
+  +css4
+    font-family: var(--font-main)
+
+input,
+select,
+textarea
+  border: 1px solid #999999
   +gte_ipad
     font-size: 13px
 
   +iphone
     font-size: 15px
-
-textarea
-  +css4
-    font-family: var(--font-main)
 
 input:not([type]),
 input[type=email],
