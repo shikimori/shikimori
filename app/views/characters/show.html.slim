@@ -39,7 +39,7 @@
         .cc
           - if @resource.credentials?
             .c-info-left
-              .subheadline.m5 = t '.names'
+              .subheadline = t '.names'
               .b-entry-info
                 = info_line t('in_russian'), @resource.russian
                 = info_line t('in_japanese'), @resource.japanese
@@ -74,7 +74,7 @@
                 = render @resource.top_seyu.take(3)
 
       .c-description
-        .subheadline.m5 = Character.human_attribute_name :description
+        .subheadline = Character.human_attribute_name :description
         .block
           meta[
             itemprop='image'

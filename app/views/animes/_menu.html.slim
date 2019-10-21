@@ -15,14 +15,14 @@
   - cache [:stats, resource] do
     - if resource.with_score?
       .block
-        .subheadline.m5 = t '.scores'
+        .subheadline = t '.scores'
         #rates_scores_stats[
           data-stats=resource.rates_scores_stats.to_json
           data-bar='horizontal'
         ]
 
     .block
-      .subheadline.m5 = t '.in_users_lists'
+      .subheadline = t '.in_users_lists'
       #rates_statuses_stats[
         data-stats=resource.rates_statuses_stats.to_json
         data-bar='horizontal'
@@ -140,7 +140,7 @@
     - if resource.display_sensitive?
   - if resource.displayed_external_links.any?
     .block
-      .subheadline.m5 = t '.on_other_sites'
+      .subheadline.m8 = t '.on_other_sites'
       = render resource.displayed_external_links, class: 'b-menu-line'
 
   / - if user_signed_in? && current_user.day_registered?
