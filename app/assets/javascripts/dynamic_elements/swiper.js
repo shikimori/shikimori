@@ -17,7 +17,7 @@ export default class Swiper extends ShikiView {
 
     if (!wall.images.length) {
       this.setPlaceholder(areaWidth, areaHeight);
-    } else if (this.width < areaWidth) {
+    } else if (this.width < areaWidth && this.isCover) {
       this.scaleWall(wall, areaWidth);
     } else if (wall.images.length > 1) {
       this.buildSwiper();
@@ -28,12 +28,30 @@ export default class Swiper extends ShikiView {
     return this.$root.width().floor();
   }
 
+  get isCover() {
+    return this.align === 'cover';
+  }
+
+  get align() {
+    if (!this._align) {
+      this._align = this.$root.data('swiper-align') || 'contain';
+    }
+    return this._align;
+  }
+
+  get desiredHeight() {
+    if (!this._desiredHeight) {
+      this._desiredHeight = this.$root.data('swiper-height') || 160;
+    }
+    return this._desiredHeight;
+  }
+
   computeSizes() {
     const { width } = this;
     let height;
 
     if (width > 400) {
-      height = 160;
+      height = this.desiredHeight;
     } else {
       height = (width / RATIO).floor();
     }

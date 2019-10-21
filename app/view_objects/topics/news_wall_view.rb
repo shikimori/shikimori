@@ -17,7 +17,7 @@ class Topics::NewsWallView < Topics::NewsView
   def html_wall
     BbCodes::Text.call(wall_bb_code)
       .gsub('b-shiki_wall', 'b-shiki_swiper')
-      .gsub('data-dynamic="wall"', 'data-dynamic="swiper"')
+      .gsub('data-dynamic="wall"', 'data-dynamic="swiper" data-swiper-align="cover"')
       .gsub('<a', '<span')
       .gsub('</a>', '</span>')
       .html_safe
