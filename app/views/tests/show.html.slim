@@ -37,13 +37,13 @@ header.head
   = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
 
 .block
-  .subheadline @font-face: shikimori
+  .subheadline.m5 @font-face: shikimori
   .fonts-test
     - 71.times do |i|
       div class="icon-#{i}"
 
 .block
-  .subheadline График
+  .subheadline.m5 График
   .traffic-test data-stats="#{@traffic.to_json}"
 
 /*.half-chart*/
@@ -51,7 +51,7 @@ header.head
     /*span Всего:&nbsp;&nbsp;*/
     /*a.selected*/
       /*| #{@users_count}&nbsp;&nbsp;*/
-  /*.subheadline users*/
+  /*.subheadline.m5 users*/
   /*.subcontent.users-test data-stats="#{@users.to_json}"*/
 
 /*.half-chart*/
@@ -59,11 +59,11 @@ header.head
     /*span Всего:&nbsp;&nbsp;*/
     /*a.selected*/
       /*| #{@comments_count}&nbsp;&nbsp;*/
-  /*.subheadline comments*/
+  /*.subheadline.m5 comments*/
   /*.subcontent.comments-test data-stats="#{@comments.to_json}"*/
 
 .images-test
-  .subheadline Растягивающаяся галерея
+  .subheadline.m5 Растягивающаяся галерея
   .main
     .shiki-wall.unprocessed
       a href="/images/static/embed/8bxMha3liII.jpg"

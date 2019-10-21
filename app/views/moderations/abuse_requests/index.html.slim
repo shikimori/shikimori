@@ -21,7 +21,7 @@ header.head
   .block
     .b-options-floated
       a.expand-all.b-js-link = t '.expand_all'
-    .subheadline = t '.queue'
+    .subheadline.m5 = t '.queue'
     div
       = render @pending
 
@@ -30,7 +30,7 @@ header.head
     - if can? :manage, Ban
       .b-options-floated
         a href=moderations_bans_url = t '.bans_plus_warnings'
-    .subheadline = t '.history'
+    .subheadline.m5 = t '.history'
     .block
       = render @processed
 

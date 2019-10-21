@@ -1,13 +1,13 @@
 .block.mini-charts
   .scores.block
-    .subheadline = i18n_i 'Score', :other
+    .subheadline.m5 = i18n_i 'Score', :other
     #scores[
       data-stats=stats.scores(params[:list_type]).to_json
       data-bar="horizontal"
     ]
 
   .types.block
-    .subheadline = i18n_i 'Kind', :other
+    .subheadline.m5 = i18n_i 'Kind', :other
     #types[
       data-stats=stats.kinds(params[:list_type]).to_json
       data-bar="horizontal"
@@ -15,7 +15,7 @@
 
   - if list_type == :anime
     .ratings.block
-      .subheadline = i18n_i 'Rating', :other
+      .subheadline.m5 = i18n_i 'Rating', :other
       #ratings[
         data-stats=stats.anime_ratings.to_json
         data-bar="horizontal"

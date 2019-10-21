@@ -11,7 +11,7 @@ header.head
   /p Приравнением к 5 все оценки ниже 5 (0.1 к точности)
 
 - @users.each do |user|
-  h3.subheadline class="#{'blue' if user.id == -1}"
+  h3.subheadline.m5 class="#{'blue' if user.id == -1}"
     - if user.id != -1
       - rates = Recommendations::RatesFetcher.new(Anime, [user.id]).fetch(Recommendations::Normalizations::None.new)[user.id].values
       | #{user.nickname}&nbsp;&nbsp;&nbsp;

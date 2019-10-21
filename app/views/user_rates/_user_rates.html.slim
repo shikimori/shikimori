@@ -3,7 +3,7 @@
     a name=UserRate.statuses[status]
     .b-options-floated.collapse id="collapse-#{UserRate.statuses[status]}"
       span.action #{t 'collapse'} (#{list.size})
-    .subheadline class=(:m10 if library.list_view == 'posters')
+    .subheadline.m5 class=(:m10 if library.list_view == 'posters')
       = UserRate.status_name status, library.klass.name
     .collapsed.tiny ...
 

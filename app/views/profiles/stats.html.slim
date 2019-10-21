@@ -28,16 +28,16 @@
             /- if @resource.stats.anime? && @resource.stats.kinda_manga?
               /a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @resource, :anime}" Аниме
               /a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @resource, :manga}" Манга
-          /.subheadline Оценки
+          /.subheadline.m5 Оценки
           /#scores data-stats="#{@resource.stats.scores[@kind].to_json}" data-bar="horizontal"
 
         /.types
-          /.subheadline Типы
+          /.subheadline.m5 Типы
           /#types data-stats="#{@resource.stats.kinds[@kind].to_json}" data-bar="horizontal"
 
         /- if @kind != :manga
           /.ratings
-            /.subheadline Рейтинги
+            /.subheadline.m5 Рейтинги
             /#ratings data-stats="#{@resource.stats.ratings[@kind].to_json}" data-bar="horizontal"
 
   /.activity

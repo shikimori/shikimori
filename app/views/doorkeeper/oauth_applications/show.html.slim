@@ -46,7 +46,7 @@ header.head.misc
           ] = t '.revoke_access'
 
     - if @resource.description.value.present?
-      .subheadline = OauthApplication.human_attribute_name :description
+      .subheadline.m5 = OauthApplication.human_attribute_name :description
 
       .block.description
         = @resource.description_html

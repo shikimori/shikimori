@@ -60,7 +60,7 @@
         ]
 
     .invite
-      .subheadline = i18n_i 'invitation'
+      .subheadline.m5 = i18n_i 'invitation'
       = simple_form_for [club, club.new_invite],
           remote: true,
           authenticity_token: true,

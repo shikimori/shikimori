@@ -57,7 +57,7 @@
             .hint {{ I18n.t('frontend.collections.disabled_add_group_hint') }}
 
     .block.json
-      .subheadline JSON
+      .subheadline.m5 JSON
       .b-spoiler.unprocessed
         label {{ I18n.t('frontend.collections.json_warning') }}
         .content

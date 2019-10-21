@@ -1,5 +1,5 @@
 - if resource.parameterized_versions.any?
-  .subheadline = t 'db_entries.versions.changes_history'
+  .subheadline.m5 = t 'db_entries.versions.changes_history'
   .block
     = render partial: 'versions/version',
       collection: resource.parameterized_versions

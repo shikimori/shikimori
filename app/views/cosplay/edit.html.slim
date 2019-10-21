@@ -17,7 +17,7 @@ header.head.misc
       .completable-title
         span.character.item-minus
         span.character.item-add
-        .subheadline Персонажи
+        .subheadline.m5 Персонажи
       .m30.completable-block
         - (@characters || []).each do |v|
           .entry.character-entry
@@ -28,7 +28,7 @@ header.head.misc
       .completable-title
         span.anime.item-minus
         span.anime.item-add
-        .subheadline Аниме
+        .subheadline.m5 Аниме
       .m30.completable-block
         - (@animes || []).each do |v|
           .entry.anime-entry
@@ -40,7 +40,7 @@ header.head.misc
       .completable-title
         span.manga.item-minus
         span.manga.item-add
-        .subheadline Манга
+        .subheadline.m5 Манга
       .m30.completable-block
         - (@mangas || []).each do |v|
           .entry.manga-entry
@@ -53,7 +53,7 @@ header.head.misc
         .completable-title
           span.tag.item-minus
           span.tag.item-add
-          .subheadline Теги
+          .subheadline.m5 Теги
         .m40.completable-block
           - (@tags || []).each do |v|
             .entry.tag-entry
@@ -78,7 +78,7 @@ header.head.misc
       .block
         .b-options-floated
           .item-save сохранить
-        .subheadline Общая информация
+        .subheadline.m5 Общая информация
 
         .right
           p
@@ -126,7 +126,7 @@ header.head.misc
           = f.object.cos_rain_id
 
       .block
-        .subheadline = t 'actions.actions'
+        .subheadline.m5 = t 'actions.actions'
         p
           = label_tag :move_from_confirm, "Перенести <b>в эту</b> галерею фото из другой галереи".html_safe
           = check_box_tag 'move_from[confirm]', '1', false, 'autocomplete' => 'off'
@@ -152,7 +152,7 @@ header.head.misc
             | ]
 
       .block
-        .subheadline = t 'gallery'
+        .subheadline.m5 = t 'gallery'
         = f.fields_for :images do |ff|
           .gallery
             .info
@@ -176,7 +176,7 @@ header.head.misc
 
       - if f.object.deleted_images.any?
         .block
-          .subheadline Удалённое
+          .subheadline.m5 Удалённое
           = f.fields_for :deleted_images do |ff|
             .gallery
               .info

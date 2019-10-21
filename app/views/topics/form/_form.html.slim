@@ -10,7 +10,7 @@
 
   - if topic.errors.any?
     .b-errors
-      .subheadline = i18n_i 'error', :other
+      .subheadline.m5 = i18n_i 'error', :other
       .block
         == topic.errors.full_messages.join('<br>')
 

@@ -1,7 +1,7 @@
 = simple_form_for resource, as: 'user', url: session_path('user') do |f|
   - if f.object.errors.any?
     .b-errors
-      .subheadline  = t '.errors'
+      .subheadline.m5  = t '.errors'
       .block
         == f.object.errors.full_messages.join('<br>')
 

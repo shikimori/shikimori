@@ -11,7 +11,7 @@ header.head
         == @resource.errors.full_messages.join('<br>')
       div
   - else
-      .subheadline = Forum.model_name.human
+      .subheadline.m5 = Forum.model_name.human
 
   .inputs.block
     = f.input :name_ru

@@ -14,7 +14,7 @@
         data-variant_name='club[admin_ids][]'
         data-autocomplete=autocomplete_club_club_roles_url(@resource)
       ]
-      .subheadline = i18n_i 'admin', :other
+      .subheadline.m5 = i18n_i 'admin', :other
       .variants
         - @resource.admins.each do |user|
           .variant
@@ -28,7 +28,7 @@
         data-variant_name='club[banned_user_ids][]'
         data-autocomplete=autocomplete_users_url
       ]
-      .subheadline = i18n_i 'ban', :other
+      .subheadline.m5 = i18n_i 'ban', :other
       .variants
         - @resource.banned_users.each do |user|
           .variant
@@ -42,7 +42,7 @@
       data-variant_name='kick_ids[]'
       data-autocomplete=autocomplete_club_club_roles_url(@resource)
     ]
-    .subheadline = t '.remove_users'
+    .subheadline.m5 = t '.remove_users'
     .variants
 
   .buttons

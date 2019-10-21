@@ -8,7 +8,7 @@ header.head.m15
     html: { method: :patch, class: 'b-form' } do |f|
   - if resource.errors.any?
     .b-errors.m15
-      .subheadline Ошибк#{resource.errors.full_messages.one? ? 'а' : 'и'}
+      .subheadline.m5 Ошибк#{resource.errors.full_messages.one? ? 'а' : 'и'}
       .block
         - resource.errors.full_messages.each do |message|
           p style="color: red"

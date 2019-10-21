@@ -30,7 +30,7 @@ header.head
     .block
       .b-options-floated
         a.expand-all.b-js-link = t '.expand_all'
-      .subheadline = t '.queue'
+      .subheadline.m5 = t '.queue'
       div
         - if @pending.any?
           = render @pending
@@ -38,7 +38,7 @@ header.head
           .b-nothing_here = t '.queue_empty'
 
   - if @declined && @declined.any?
-    .subheadline = t '.declined'
+    .subheadline.m5 = t '.declined'
     .block
       = spoiler '...' do
         = render @declined
@@ -46,7 +46,7 @@ header.head
 .block
   .b-options-floated
     a href=moderations_abuse_requests_url = t '.offtopic_plus_summaries'
-  .subheadline = t '.history'
+  .subheadline.m5 = t '.history'
   .block
     = render @collection
     - if @collection.size == controller.class::LIMIT

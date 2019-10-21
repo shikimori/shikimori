@@ -58,7 +58,7 @@ header.head
 
 - if @versions.any?
   .block
-    .subheadline = t '.history'
+    .subheadline.m5 = t '.history'
     .block
       = render partial: 'versions/version', collection: @versions
 

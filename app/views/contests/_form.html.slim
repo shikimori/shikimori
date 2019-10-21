@@ -1,11 +1,11 @@
 = simple_form_for contest.object, html: { class: "b-form block edit contest #{contest.strategy_type}" } do |f|
   - if contest.errors.any?
     .b-errors
-      .subheadline = i18n_i 'error', :other
+      .subheadline.m5 = i18n_i 'error', :other
       .block
         == contest.errors.full_messages.join('<br>')
 
-  .subheadline = t '.common'
+  .subheadline.m5 = t '.common'
   .block
     .cc-2
       .c-column
@@ -52,7 +52,7 @@
 
   .cc-2
     .c-column
-      .subheadline = t '.duration'
+      .subheadline.m5 = t '.duration'
       = f.input :matches_per_round,
           disabled: contest.started? || contest.finished?,
           hint: (contest.swiss? ? t('.matches_per_round_swiss_hint') : ''),
@@ -76,12 +76,12 @@
 
     .c-column
       - if contest.persisted?
-        .subheadline = t '.status'
+        .subheadline.m5 = t '.status'
         .block
           p.m5 = contest.human_state_name.capitalize
 
         - if contest.object.can_propose? || contest.can_start? || contest.can_stop_propose?
-          .subheadline = t '.actions'
+          .subheadline.m5 = t '.actions'
           .contest_actions
             - if contest.object.can_propose?
               div: a.b-js-link[
@@ -132,7 +132,7 @@
               /span.action-misc действие перезагрузит страницу без сохранения прочих изменений
 
       - if contest.rounds.any? && !contest.swiss?
-        .subheadline = t 'tournament_bracket'
+        .subheadline.m5 = t 'tournament_bracket'
         .block_m.grid
           a[
             href=grid_contest_url(contest)
@@ -162,7 +162,7 @@
           data-member_type=contest.member_type
           data-autocomplete=(contest.anime? ? autocomplete_animes_url : autocomplete_characters_url)
           ]
-        .subheadline = contest.anime? ? i18n_i('Anime') : i18n_i('Character', :other)
+        .subheadline.m5 = contest.anime? ? i18n_i('Anime') : i18n_i('Character', :other)
 
         = hidden_field_tag 'contest[member_ids][]', ''
         .variants

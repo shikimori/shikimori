@@ -4,7 +4,7 @@ header.head.misc
 
 - if @resource.errors.any?
   .b-errors
-    .subheadline = i18n_i 'error', :other
+    .subheadline.m5 = i18n_i 'error', :other
     == @resource.errors.full_messages.join('<br>')
 
 #collection_form[
@@ -13,7 +13,7 @@ header.head.misc
   data-max_links=Collection::Update::MAX_LINKS
 ]
   = simple_form_for @resource do |f|
-    .subheadline = t :settings
+    .subheadline.m5 = t :settings
     .cc-2.block
       .c-column
         .block

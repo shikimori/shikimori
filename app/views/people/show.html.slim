@@ -73,7 +73,7 @@
         .cc
           - if @resource.credentials?
             .c-info-left
-              .subheadline = t 'information'
+              .subheadline.m5 = t 'information'
               .b-entry-info
                 - if @resource.credentials?
                   = info_line t('in_english'), @resource.name
@@ -84,7 +84,7 @@
 
           - if @resource.grouped_roles.any?
             .c-info-right
-              .subheadline = t ".positions_in_#{@resource.occupation_key}"
+              .subheadline.m5 = t ".positions_in_#{@resource.occupation_key}"
               .b-entry-info
                 - @resource.grouped_roles.each do |role,times|
                   = info_line role, times
