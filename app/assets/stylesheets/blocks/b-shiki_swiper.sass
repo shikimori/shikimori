@@ -4,10 +4,10 @@
   line-height: 0
   width: 100%
 
-  &.to-process
+  // &.to-process
     max-height: 160px
 
-    img
+    // img
       max-height: 160px
       opacity: 0
 
@@ -15,6 +15,10 @@
   .b-video
     &.fixed .video-link img
       width: auto
+
+    &.unprocessed img
+      max-width: 100% !important
+      max-height: none !important
 
     img
       max-width: none

@@ -20,9 +20,6 @@
       .title
         color: $link-active
 
-  .poster
-    margin-bottom: 10px
-
   .status-line
     display: flex
     margin-bottom: 10px
@@ -57,63 +54,12 @@
       font-family: var(--font-alt)
     font-weight: 600
     margin-bottom: 10px
-  //   border-radius: 2px
-  //   font-size: 11px
-  //   font-weight: bold
-  //   letter-spacing: 0.25px
-  //   line-height: 20px
-  //   padding: 0 8px
-  //   text-transform: uppercase
-  //   border-color: rgba(#fff, 0.25)
-  //
-  // & > .inner
-  //   // border-top: 1px solid #155785
-  //
-  //   & > a
-  //     // display: flex
-  //     // flex-direction: column
-  //
-  //     +gt_ipad
-  //       &:hover
-  //         .name-date .name
-  //           color: $link-hover
-  //
-  //     &:active
-  //       .name-date .name
-  //         color: $link-active
-  //
-  //   .name-date
-  //     white-space: normal
-  //     line-height: 1.55
-  //
-  //     +lte_ipad
-  //       padding-right: 0 // no need in offset for item-mobile
-  //
-  //     .status-tags
-  //       display: none
-  //
-  //     .name
-  //       color: #123
-  //       height: auto
-  //
-  //       &:hover
-  //         text-decoration: none
-  //
-  //       +iphone
-  //         +two_line_ellipsis(18px, 1.26)
-  //
-  //       +gte_ipad
-  //         +two_line_ellipsis(18px, 1.35)
-  //
-  //   // .body .body-truncated
-  //     // font-size: 13px
-  //     max-height: 84px
-  //
 
   .poster
     display: flex
     flex-direction: column-reverse
-    pointer-events: none
+    margin-bottom: 10px
+    // pointer-events: none
     position: relative
 
     &:before
@@ -131,39 +77,3 @@
         background-image: asset_url('/assets/blocks/b-news_wall-topic/placeholder.svg')
         background-size: contain
         background-repeat: no-repeat
-
-    // .additionals
-      margin: 0
-  //
-  //   header
-  //     margin-top: 5px
-  //
-  //   .b-status-line
-  //     flex-wrap: nowrap
-  //     margin: 0
-  //
-  //     &:not(:last-child)
-  //       margin-bottom: 8px
-  //
-  //     .section
-  //       &:after
-  //         display: none
-  //
-  //     .section.about
-  //       display: flex
-  //       min-width: 0
-  //
-  //       & > .b-link
-  //         +ellipsis2
-  //
-  //     .section.created_at,
-  //     .section.changed_at
-  //       display: none
-  //
-  //     .section.additional
-  //       margin-left: auto
-  //       padding-left: 30px
-  //
-  // .b-shiki_swiper
-  //   .b-video .marker
-  //     display: none
