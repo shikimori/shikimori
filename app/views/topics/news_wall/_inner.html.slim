@@ -6,11 +6,17 @@
     .poster
       = topic_view.html_wall
 
-    .tags
-      - topic_view.tags.each do |tag|
-        .b-anime_status_tag.other[
-          data-text=tag
-        ]
+    .info
+      .tags
+        - topic_view.tags.each do |tag|
+          .b-anime_status_tag.other[
+            data-text=tag
+          ]
+      time[
+        datetime=topic_view.created_at.iso8601
+        data-no-tooltip="true"
+      ] = topic_view.format_date topic_view.created_at
+      .comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
 
     .title[
       href=topic_view.urls.poster_url

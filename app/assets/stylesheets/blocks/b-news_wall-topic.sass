@@ -1,8 +1,10 @@
 @import mixins/css4
-@import mixins/link
+// @import mixins/link
+@import mixins/date
 @import mixins/two_line_ellipsis
-// @import mixins/responsive
-@import mixins/media_marker
+@import mixins/responsive
+// @import mixins/media_marker
+@import mixins/shikimori
 
 .b-news_wall-topic
   border-top: none
@@ -21,19 +23,31 @@
   .poster
     margin-bottom: 10px
 
-  .tags
+  .info
     display: flex
     margin-bottom: 10px
 
-    .b-anime_status_tag
-      margin-right: 8px
+    .tags
+      display: inline-flex
+      margin-right: 12px
 
-    // Lato:400,700
-    // Montserrat:400,500,600,700
-    // Open+Sans:400,600,700
-    // Oswald:400,500,600,700
-    // Raleway:400,500,600,700
-    // Roboto:400,500,700
+      .b-anime_status_tag
+        &:not(:last-child)
+          margin-right: 8px
+
+    time
+      +date
+
+    .comments
+      line-height: 18px
+      color: #333
+      margin-left: auto
+      font-size: 12px
+
+      &:before
+        +shikimori('f')
+        font-size: 13px
+        padding-right: 5px
 
   .title
     +two_line_ellipsis(15px, 1.55)
