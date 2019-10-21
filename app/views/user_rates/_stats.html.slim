@@ -22,7 +22,7 @@
       ]
 
 .block
-  .subheadline.m10 = i18n_i 'Genre', :other
+  .subheadline = i18n_i 'Genre', :other
   - if stats.genres[list_type].any?
     .stat-categories
       - stats.genres[list_type].each do |stat|
@@ -36,7 +36,7 @@
 
 - if list_type == :anime
   .block
-    .subheadline.m10 = i18n_i 'Studio', :other
+    .subheadline = i18n_i 'Studio', :other
     - if stats.studios[list_type].any?
       .stat-categories
         - stats.studios[list_type].each do |stat|
@@ -50,7 +50,7 @@
 
 - else
   .block
-    .subheadline.m10 = i18n_i 'Publisher', :other
+    .subheadline = i18n_i 'Publisher', :other
     - if stats.publishers[list_type].any?
       .stat-categories
         - stats.publishers[list_type].each do |stat|

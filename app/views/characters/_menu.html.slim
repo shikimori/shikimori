@@ -15,7 +15,7 @@
 
   - if resource.menu_clubs.any?
     .block
-      .subheadline.m10
+      .subheadline
         - if resource.menu_clubs.size == DbEntryDecorator::MAX_CLUBS
           .linkeable data-href=clubs_character_url(resource)
             = t 'in_clubs'

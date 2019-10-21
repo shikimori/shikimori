@@ -15,7 +15,7 @@
           = f.button :magic_submit
 
   .block.videos-deleter
-    .subheadline.m10 = t '.video'
+    .subheadline = t '.video'
     .cc
       = render video
 
@@ -34,6 +34,6 @@
 
   - if @resource.videos.any?# || @resource.versions[:videos].any?
     .block.videos-deleter
-      .subheadline.m10 = t '.videos'
+      .subheadline = t '.videos'
       .cc
         = render @resource.videos, edition: true

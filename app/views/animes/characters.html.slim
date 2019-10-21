@@ -2,9 +2,9 @@
   = cache [@resource, params[:action], :v2] do
     - if @resource.roles.main_characters.any?
       - if @resource.roles.supporting_characters.any?
-        h2.subheadline.m10 = t '.main_characters'
+        h2.subheadline = t '.main_characters'
       - else
-        h2.subheadline.m10 = t '.characters'
+        h2.subheadline = t '.characters'
 
       .cc-characters.to-process[
         data-dynamic="cutted_covers"
@@ -14,9 +14,9 @@
 
     - if @resource.roles.supporting_characters.any?
       - if @resource.roles.main_characters.any?
-        h2.subheadline.m10 = t '.supporting_characters'
+        h2.subheadline = t '.supporting_characters'
       - else
-        h2.subheadline.m10 = t '.characters'
+        h2.subheadline = t '.characters'
 
       .cc-characters.to-process[
         data-dynamic="cutted_covers"

@@ -247,7 +247,7 @@
     .c-column.c-right
       .cc-2a.m30
         .c-column.m0
-          .subheadline.m10
+          .subheadline
             - if @resource.friends.any? && @resource.friends.size > @resource.friends_to_display
               a href=friends_profile_url(@resource) title=t('profiles_controller.friends')
                 = t('profiles_controller.friends')
@@ -261,7 +261,7 @@
               .b-nothing_here = t('.no_friends')
 
         .c-column.m0
-          .subheadline.m10
+          .subheadline
             - if @resource.clubs_for_domain.any? && @resource.clubs_for_domain.size > @resource.clubs_to_display
               a href=clubs_profile_url(@resource) title=i18n_i('Club', :other)
                 = i18n_i 'Club', :other
@@ -278,7 +278,7 @@
 
       - if @resource.favorites
         .block
-          .subheadline.m10
+          .subheadline
             - if @resource.favorites.any?
               a href=favorites_profile_url(@resource) title=t('profiles_controller.favorites')
                 = t('profiles_controller.favorites')

@@ -5,7 +5,7 @@ header.head
 
 - unless params[:type] == 'anime_video'
   .block
-    .subheadline.m10 = t '.instruction'
+    .subheadline = t '.instruction'
     .b-brief
       .moderators
         = render partial: 'users/user',

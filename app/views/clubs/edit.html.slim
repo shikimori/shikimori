@@ -12,7 +12,7 @@
         class=(:selected if @page == page)
         href=edit_club_url(@club, page: page)
       ] = t ".pages.#{page}"
-  h2.subheadline.m10 = t :settings
+  h2.subheadline = t :settings
 
   .block.edit-page class="#{@page}"
     = render "clubs/edit/#{@page}"

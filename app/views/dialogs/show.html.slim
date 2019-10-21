@@ -30,6 +30,6 @@
           p = t '.admin_message_postscriptum'
 
       .editor-container
-        .subheadline.m10 = t '.your_message'
+        .subheadline = t '.your_message'
         = render 'comments/form',
           comment: @dialog.new_message(@replied_message)

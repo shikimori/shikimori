@@ -40,7 +40,7 @@
         ratio_type: 'person'
 
     - if club.members_sample.any?
-      .subheadline.m10
+      .subheadline
         span.linkeable data-href=members_club_url(club)
           = i18n_i 'member', :other
           .count = club.members.count
@@ -50,14 +50,14 @@
           locals: { content_by: :avatar }
 
     - if club.admins.any?
-      .subheadline.m10 = i18n_i 'administration'
+      .subheadline = i18n_i 'administration'
       .cc-4.admin
         = render partial: 'users/user',
           collection: club.admins,
           locals: { content_by: :named_avatar }
 
     - if club.menu_clubs.any?
-      .subheadline.m10 = i18n_i 'club', :other
+      .subheadline = i18n_i 'club', :other
       .clubs
         = render partial: 'clubs/club',
           collection: club.menu_clubs,

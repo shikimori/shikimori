@@ -92,7 +92,7 @@
 
     - if resource.menu_clubs.any?
       .block
-        .subheadline.m10
+        .subheadline
           - if resource.menu_clubs.size == DbEntryDecorator::MAX_CLUBS
             .linkeable data-href=resource.clubs_url
               = t 'in_clubs'
@@ -173,7 +173,7 @@
 
   - if show_social?
     .block
-      .subheadline.m10 = t 'share'
+      .subheadline = t 'share'
       .addthis_toolbox.addthis_default_style.addthis_32x32_style
         a.addthis_button_vk
         a.addthis_button_facebook

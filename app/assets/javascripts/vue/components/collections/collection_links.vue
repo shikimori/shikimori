@@ -2,7 +2,7 @@
   .block
     .block
       .b-options-floated {{ `${links.length} / ${maxLinks}` }}
-      .subheadline.m10 {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
+      .subheadline {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
       .cc-3-flex
         .c-column(
           v-for='groupName in groups'

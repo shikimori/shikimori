@@ -27,13 +27,13 @@ header.head.misc
 
 - if @granted_applications&.any?
   .block.m15
-    .subheadline.m10 = t '.granted_applications'
+    .subheadline = t '.granted_applications'
     .cc-6
       = render @granted_applications
 
   - if @collection.any?
     .block
-      .subheadline.m10 = t '.other_applications'
+      .subheadline = t '.other_applications'
       .cc-6
         = render @collection
 - else

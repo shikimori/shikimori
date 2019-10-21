@@ -4,7 +4,7 @@ header.head
 
 .cc-3.block
   .c-column
-    .subheadline.m10 = t '.moderation'
+    .subheadline = t '.moderation'
 
     ul.b-list.block
       li
@@ -62,7 +62,7 @@ header.head
               span.size = @moderation_policy.collections_count
 
   .c-column
-    .subheadline.m10 = t '.content'
+    .subheadline = t '.content'
 
     - if ru_host?
       .block
@@ -104,7 +104,7 @@ header.head
                 span = t '.forums'
 
   .c-column
-    .subheadline.m10 = i18n_io 'user', :few
+    .subheadline = i18n_io 'user', :few
     .block
       ul.b-list
         li
@@ -130,35 +130,35 @@ header.head
   .cc-3a
     - if @abuse_requests_stats
       .c-column
-        .subheadline.m10 Abuse Requests
+        .subheadline Abuse Requests
         ul.b-list
           - @abuse_requests_stats.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"
 
     - if @bans_stats
       .c-column
-        .subheadline.m10 Bans
+        .subheadline Bans
         ul.b-list
           - @bans_stats.each do |stat|
             li = "#{stat.moderator.nickname}: #{stat.count}"
 
     - if @content_versions_stats
       .c-column
-        .subheadline.m10 Content Changes
+        .subheadline Content Changes
         ul.b-list
           - @content_versions_stats.each do |stat|
             li = "#{stat.moderator.nickname}: #{stat.count}"
 
     - if @reviews_stats
       .c-column
-        .subheadline.m10 Reviews
+        .subheadline Reviews
         ul.b-list
           - @reviews_stats.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"
 
     - if @collections_stats
       .c-column
-        .subheadline.m10 Collections
+        .subheadline Collections
         ul.b-list
           - @collections_stats.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"

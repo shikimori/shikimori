@@ -14,7 +14,7 @@
       .block
         == topic.errors.full_messages.join('<br>')
 
-  .subheadline.m10
+  .subheadline
     = t topic.persisted? ? '.edit.title' : '.new.title'
 
   = f.input :user_id, as: :hidden

@@ -10,7 +10,7 @@
         class=(:selected if @page == page || page == ProfilesController::PARENT_PAGES[params[:page]])
         href=@resource.edit_url(page: page)
       ] = t ".pages.#{page}"
-  h2.subheadline.m10 = t :settings
+  h2.subheadline = t :settings
 
   .block.edit-page class=@page
     = render "profiles/edit/#{@page}"

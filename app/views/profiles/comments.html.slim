@@ -14,7 +14,7 @@
       placeholder=t('search.text')
       data-search_url=comments_profile_url(@resource)
     ]
-  h2.subheadline.m10 = og.headline
+  h2.subheadline = og.headline
   .b-comments
     - if @collection.any?
       = render @collection

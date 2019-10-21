@@ -30,7 +30,7 @@
       .block
         .b-options-floated.count
           = resource.members.size
-        .subheadline.m10 = t '.candidates'
+        .subheadline = t '.candidates'
         .cc-4a.user_rates-minified.to-process[
           data-dynamic='cutted_covers'
           data-ratio_type=(:person if resource.character?)

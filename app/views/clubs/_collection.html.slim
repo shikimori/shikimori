@@ -1,12 +1,12 @@
 - if @favourites&.any?
-  .subheadline.m10 = t '.favourites'
+  .subheadline = t '.favourites'
   .b-clubs
     = render partial: 'clubs/club',
       collection: @favourites,
       locals: { content_by: :detailed },
       cache: ->(entry, _) { CacheHelper.keys entry, :detailed }
 
-  .subheadline.m10 = t '.all_clubs'
+  .subheadline = t '.all_clubs'
 
 .b-clubs
   = render partial: 'clubs/club',

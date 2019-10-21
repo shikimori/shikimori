@@ -4,7 +4,7 @@
       .b-options-floated.collapse
         span.action #{t 'collapse'} (#{group.size})
         /a.rss href="#{rss_anime_url @resource, type: key}" title="RSS"
-      h2.subheadline.m10 = t ".torrents.#{key}"
+      h2.subheadline = t ".torrents.#{key}"
       .collapsed.tiny ...
       table.b-table
         - group.each do |entry|
@@ -34,7 +34,7 @@
           span.action #{t 'collapse'} (#{subs[:feed].size})
           /- if subs[:link].nil?
             a.rss href="#{subtitles_anime_url @resource, :group => Digest::MD5.hexdigest(subs[:title])}" title="RSS"
-        h2.subheadline.m10
+        h2.subheadline
           = "#{i18n_i('subtitle', :other).capitalize} #{subs[:title]}"
         .collapsed.tiny ...
         table.b-table

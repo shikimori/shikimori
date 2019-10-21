@@ -24,7 +24,7 @@
 
   .block
     = form_tag ignores_url, method: :post, class: 'b-form' do |f|
-      .subheadline.m10 = t '.add_users'
+      .subheadline = t '.add_users'
       .b-input
         input.user_ids.m15[
           type="text"

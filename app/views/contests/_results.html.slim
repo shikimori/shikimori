@@ -1,7 +1,7 @@
 .results
   - cache contest do
     - contest.winner_entries.each_with_index do |entry, index|
-      .subheadline.m10
+      .subheadline
         = I18n.russian? ? index + 1 : (index + 1).ordinalize
         | &nbsp;
         = t '.place'

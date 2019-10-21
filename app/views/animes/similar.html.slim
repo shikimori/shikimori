@@ -1,6 +1,6 @@
 = render layout: 'page' do
   = cache [@resource, params[:action]] do
-    .subheadline.m10 = og.headline
+    .subheadline = og.headline
     .cc-5.cc-similar.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @resource.related.similar,

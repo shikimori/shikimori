@@ -7,7 +7,7 @@
       name: 'franchises_order',
       values: %w(popularity alphabet)
 
-  h2.subheadline.m10 = og.headline
+  h2.subheadline = og.headline
   .cc
     - @view.all_franchise_achievements.each do |achievement|
       = render 'users/achievements/badge',

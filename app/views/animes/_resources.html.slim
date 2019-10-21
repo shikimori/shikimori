@@ -16,7 +16,7 @@
             span.linkeable data-href=@resource.franchise_url
               = t 'animes.page.franchise'
 
-        .subheadline.m10 = t '.linked'
+        .subheadline = t '.linked'
         .cc.to-process data-dynamic="cutted_covers"
           = render partial: 'animes/variants/list_item',
             collection: @resource.related.related.take(related_size),
@@ -38,7 +38,7 @@
 
     - if @resource.roles.main_people.any?
       .c-column.c-authors.block_m
-        .subheadline.m10
+        .subheadline
           span.linkeable data-href=@resource.staff_url = t '.staff'
         .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
           = render partial: 'people/variants/list_item',
@@ -48,7 +48,7 @@
 - if @resource.roles.main_characters.any?
   .cc-characters
     .c-characters.m0
-      .subheadline.m10
+      .subheadline
         span.linkeable data-href=@resource.characters_url
           = t 'animes.page.main_characters'
       .cc.m0.to-process data-dynamic="cutted_covers" data-ratio_type="person"
@@ -57,7 +57,7 @@
 - elsif @resource.roles.supporting_characters.any?
   .cc-characters
     .c-characters.m0
-      .subheadline.m10
+      .subheadline
         span.linkeable data-href=@resource.characters_url
           = t 'animes.page.characters'
       .cc.m0.to-process data-dynamic="cutted_covers" data-ratio_type="person"
@@ -67,7 +67,7 @@
   .cc.m0 class="#{@resource.videos(4).any? && @resource.screenshots(5).any? ? (@resource.videos(4).one? ? 'one-video' : 'two-videos') : 'no-video'}"
     - if @resource.screenshots(5).any?
       .c-screenshots
-        .subheadline.m10
+        .subheadline
           - if user_signed_in?
             span.linkeable data-href=@resource.screenshots_url
               = t '.screenshots'
@@ -78,7 +78,7 @@
 
     - if @resource.videos(4).any?
       .c-videos
-        .subheadline.m10
+        .subheadline
           - if user_signed_in?
             span.linkeable data-href=@resource.videos_url = t '.videos'
           - else
@@ -88,7 +88,7 @@
 
 - if @resource.related.similar.any?
   .block
-    .subheadline.m10
+    .subheadline
       span.linkeable data-href=@resource.similar_url = t '.similar'
     .cc.cc-similar.to-process data-dynamic='cutted_covers'
       = render @resource.related.similar.take(AnimeDecorator::VISIBLE_RELATED)

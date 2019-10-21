@@ -11,7 +11,7 @@
         name: 'related_view',
         values: %w(list posters)
 
-    .subheadline.m10 = og.headline
+    .subheadline = og.headline
 
     - if cookies['related_view'] == 'posters'
       .cc-6.to-process data-dynamic='cutted_covers'

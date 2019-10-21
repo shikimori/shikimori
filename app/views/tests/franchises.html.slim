@@ -57,7 +57,7 @@
     .c-column
       .b-options-floated
         = @matched_collection.size
-      .subheadline.m10 Matched
+      .subheadline Matched
       ul.b-list
         - @matched_collection.each do |franchise, infos|
           li
@@ -81,7 +81,7 @@
     .c-column
       .b-options-floated
         = @not_matched_collection.size
-      .subheadline.m10 Not Matched
+      .subheadline Not Matched
       ul.b-list
         - @not_matched_collection.each do |franchise, infos|
           li

@@ -10,7 +10,7 @@
     ] = t 'by.aired_on'
 
   - cache [@resource, params[:action], params[:order_by], params[:type]] do
-    .subheadline.m10
+    .subheadline
       = og.headline
       .misc-links
         - if @resource.work_types.many?

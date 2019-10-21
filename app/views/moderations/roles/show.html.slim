@@ -8,7 +8,7 @@ header.head
 
 - if can? :"manage_#{@role}_role", User
   .block
-    .subheadline.m10 = t '.add_user'
+    .subheadline = t '.add_user'
     .b-collection_search[
       data-display_url=current_url(search: nil)
       data-search_url=search_moderations_role_url(@role)
@@ -40,7 +40,7 @@ header.head
 - cache [params[:role], @collection.cache_key, can?(:"manage_#{@role}_role", User)] do
   .block
     .b-options-floated = @collection.except(:limit, :offset).size
-    .subheadline.m10 = t '.users'
+    .subheadline = t '.users'
     .cc-4
       - if @collection.none?
         .b-nothing_here = t '.nothing_here'
