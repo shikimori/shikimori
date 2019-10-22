@@ -62,41 +62,52 @@ export default class Swiper extends ShikiView {
     const imageHeight = image.naturalHeight;
 
     const imageRatio = imageWidth / imageHeight;
-    // const areaRatio = areaWidth / areaHeight;
+    const areaRatio = areaWidth / areaHeight;
 
-    const isHorizontal = imageRatio < 1;
-    // const isVertical = imageRatio > 1;
+    const isVertical = imageRatio < areaRatio
+    const isHorizontal = imageRatio > areaRatio
+
+    if (isVertical) {
+      if (this.isAlignCover) {
+        this.alignVertical(areaWidth, areaHeight, imageRatio);
+      } else {
+        this.$images.css('height', areaHeight);
+      }
+    }
 
     if (isHorizontal) {
       if (this.isAlignCover) {
         this.alignHorizontal(areaWidth, areaHeight, imageRatio);
       } else {
-        this.$images.css('height', areaHeight);
+        this.$images.css('width', areaWidth);
       }
     }
   }
 
-  alignHorizontal(areaWidth, areaHeight, imageRatio) {
+  alignVertical(areaWidth, areaHeight, imageRatio) {
     const scaledImageHeight = areaWidth / imageRatio;
     const visiblePercent = ((areaHeight / scaledImageHeight) * 100).round(2);
 
     const marginTopPercent = [
-      17,
+      10,
       (100 - visiblePercent) / 2
     ].min();
-
-    console.log(this.$images[0]);
-    // console.log('imageWidth', imageWidth);
-    // console.log('imageHeight', imageHeight);
-    // console.log('imageRatio', imageRatio);
-    // console.log('areaRatio', areaRatio);
-    // console.log('scaledImageHeight', scaledImageHeight);
-    // console.log('visiblePercent', visiblePercent);
-    // console.log('marginTopPercent', marginTopPercent);
 
     this.$images.css({
       'margin-top': marginTopPercent > 0 ? `-${marginTopPercent}%` : '',
       width: areaWidth
+    });
+  }
+
+  alignHorizontal(areaWidth, areaHeight, imageRatio) {
+    const scaledImageWidth = areaHeight * imageRatio;
+    const visiblePercent = ((areaWidth / scaledImageWidth) * 100).round(2);
+
+    const marginLeftPercent = (100 - visiblePercent) / 2;
+
+    this.$images.css({
+      'margin-left': marginLeftPercent > 0 ? `-${marginLeftPercent}%` : '',
+      height: areaHeight
     });
   }
 
