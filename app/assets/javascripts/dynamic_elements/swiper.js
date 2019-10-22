@@ -1,4 +1,5 @@
 import SwiperComponent from 'swiper';
+import memoize from 'memoize-decorator';
 
 import ShikiView from 'views/application/shiki_view';
 import Wall from 'views/wall/view';
@@ -13,14 +14,10 @@ export default class Swiper extends ShikiView {
 
     await this.imagesLoaded();
 
-    const wall = this.buildWall();
-
-    if (!wall.images.length) {
-      this.setPlaceholder(areaWidth, areaHeight);
-    } else if (this.width < areaWidth && this.isCover) {
-      this.scaleWall(wall, areaWidth);
-    } else if (wall.images.length > 1) {
-      this.buildSwiper();
+    if (this.$images.length === 1) {
+      this.initializeImage(areaWidth, areaHeight);
+    } else {
+      this.initializeWallOrSwiper(areaWidth, areaHeight);
     }
   }
 
@@ -28,22 +25,79 @@ export default class Swiper extends ShikiView {
     return this.$root.width().floor();
   }
 
-  get isCover() {
+  get isAlignCover() {
     return this.align === 'cover';
   }
 
+  @memoize
   get align() {
-    if (!this._align) {
-      this._align = this.$root.data('swiper-align') || 'contain';
-    }
-    return this._align;
+    return this.$root.data('swiper-align') || 'contain';
   }
 
+  @memoize
   get desiredHeight() {
-    if (!this._desiredHeight) {
-      this._desiredHeight = this.$root.data('swiper-height') || 160;
+    return this.$root.data('swiper-height') || 160;
+  }
+
+  @memoize
+  get $images() {
+    return this.$root.find('img');
+  }
+
+  initializeWallOrSwiper(areaWidth, areaHeight) {
+    const wall = this.buildWall();
+
+    if (!wall.images.length) {
+      this.setPlaceholder(areaWidth, areaHeight);
+    } else if (this.width < areaWidth && this.isAlignCover) {
+      this.scaleWall(wall, areaWidth);
+    } else if (wall.images.length > 1) {
+      this.buildSwiper();
     }
-    return this._desiredHeight;
+  }
+
+  initializeImage(areaWidth, areaHeight) {
+    const image = this.$images[0];
+    const imageWidth = image.naturalWidth;
+    const imageHeight = image.naturalHeight;
+
+    const imageRatio = imageWidth / imageHeight;
+    // const areaRatio = areaWidth / areaHeight;
+
+    const isHorizontal = imageRatio < 1;
+    // const isVertical = imageRatio > 1;
+
+    if (isHorizontal) {
+      if (this.isAlignCover) {
+        this.alignHorizontal(areaWidth, areaHeight, imageRatio);
+      } else {
+        this.$images.css('height', areaHeight);
+      }
+    }
+  }
+
+  alignHorizontal(areaWidth, areaHeight, imageRatio) {
+    const scaledImageHeight = areaWidth / imageRatio;
+    const visiblePercent = ((areaHeight / scaledImageHeight) * 100).round(2);
+
+    const marginTopPercent = [
+      17,
+      (100 - visiblePercent) / 2
+    ].min();
+
+    console.log(this.$images[0]);
+    // console.log('imageWidth', imageWidth);
+    // console.log('imageHeight', imageHeight);
+    // console.log('imageRatio', imageRatio);
+    // console.log('areaRatio', areaRatio);
+    // console.log('scaledImageHeight', scaledImageHeight);
+    // console.log('visiblePercent', visiblePercent);
+    // console.log('marginTopPercent', marginTopPercent);
+
+    this.$images.css({
+      'margin-top': marginTopPercent > 0 ? `-${marginTopPercent}%` : '',
+      width: areaWidth
+    });
   }
 
   computeSizes() {

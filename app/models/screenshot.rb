@@ -7,9 +7,9 @@ class Screenshot < ApplicationRecord
 
   has_attached_file :image,
     styles: { x166: ['166x93#', :jpg], x332: ['332x186#', :jpg] },
-    url: "/system/screenshots/:style/:access_token.:extension"
+    url: '/system/screenshots/:style/:access_token.:extension'
 
-  #validates_presence_of :anime # ну что за хрень с валидациями??
+  # validates_presence_of :anime # ну что за хрень с валидациями??
   validates :image,
     attachment_presence: true,
     attachment_content_type: { content_type: /\Aimage/ }
@@ -17,9 +17,9 @@ class Screenshot < ApplicationRecord
 
   def access_token
     # для пары аниме по кривому адресу лежат
-    if anime_id == 9969 || anime_id == 15417
+    if anime_id == 9969 || anime_id == 15_417
       Digest::SHA1.hexdigest("918:#{url}")
-    elsif anime_id == 12365
+    elsif anime_id == 12_365
       Digest::SHA1.hexdigest("7674:#{url}")
     elsif anime_id == 3044
       Digest::SHA1.hexdigest("2747:#{url}")
@@ -28,12 +28,10 @@ class Screenshot < ApplicationRecord
     end
   end
 
-  # пометка скриншота удалённым
   def mark_deleted
     update_attribute :status, DELETED
   end
 
-  # пометка скриншота принятм
   def mark_accepted
     update_attribute :status, nil
   end
