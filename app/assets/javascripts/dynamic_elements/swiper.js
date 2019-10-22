@@ -40,6 +40,11 @@ export default class Swiper extends ShikiView {
   }
 
   @memoize
+  get $links() {
+    return this.$root.children('a');
+  }
+
+  @memoize
   get $images() {
     return this.$root.find('img');
   }
@@ -82,6 +87,8 @@ export default class Swiper extends ShikiView {
         this.$images.css('width', areaWidth);
       }
     }
+
+    this.$links.shikiImage();
   }
 
   alignVertical(areaWidth, areaHeight, imageRatio) {
