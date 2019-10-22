@@ -64,8 +64,8 @@ export default class Swiper extends ShikiView {
     const imageRatio = imageWidth / imageHeight;
     const areaRatio = areaWidth / areaHeight;
 
-    const isVertical = imageRatio < areaRatio
-    const isHorizontal = imageRatio > areaRatio
+    const isVertical = imageRatio < areaRatio;
+    const isHorizontal = imageRatio > areaRatio;
 
     if (isVertical) {
       if (this.isAlignCover) {
