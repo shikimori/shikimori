@@ -1,4 +1,3 @@
-@import mixins/two_line_ellipsis
 @import mixins/ellipsis2
 @import mixins/date
 
@@ -23,45 +22,39 @@
         width: 48px
 
     .info
-      flex-grow: 1
       min-width: 0 // neeed to allow overflow ellipsis inside of flex item
 
-      .name
-        +two_line_ellipsis(14px, 1.45)
-        display: block
-        font-weight: bold
-        margin-bottom: 3px
+    .name
+      +ellipsis2
+      display: block
+      font-size: 14px
+      font-weight: bold
+      line-height: 1.45
+      margin-bottom: 2px
+      margin-top: -4px
+
+    .status-time
+      margin-bottom: 3px
 
       .b-anime_status_tag
         margin-right: 6px
         font-weight: normal
 
-      .status-time
-        align-items: baseline
-        display: flex
-        line-height: 17px
-        margin-bottom: 7px
+      time
+        +date
 
-        .kind
-          color: #123
-          display: inline-block
-          margin-right: 7px
+    .tags
+      align-items: flex-start
+      display: flex
+      flex-wrap: wrap
+      height: 44px
+      overflow: hidden
+      margin: -2px -5px
+      padding-left: 1px
 
-        .time
-          +date
-
-      .genres
-        display: flex
-
-        .b-tag:last-child
-          +ellipsis2
-
-      .tag
-        display: inline-block
-
-        &:not(:last-child)
-          margin-right: 5px
-
-      .b-add_to_list
-        margin-top: 7px
+      .b-tag
+        font-size: 12px
+        margin: 2px 5px
+        pointer-events: none
+        white-space: nowrap
 
