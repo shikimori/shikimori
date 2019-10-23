@@ -6,6 +6,8 @@ class DashboardViewV2 < ViewObjectBase
     :cache_keys
 
   CACHE_VERSION = :v8
+  NEWS_FIRST_PAGE_LIMIT = 6
+  NEWS_OTHER_PAGES_LIMIT = 15
 
   def collection_topic_views
     take_2_plus_other(collections_scope, 6)
@@ -24,7 +26,11 @@ class DashboardViewV2 < ViewObjectBase
 
   def news_topic_views
     news_scope
-      .paginate(page, page == 1 ? 12 : 15, page == 1 ? 0 : -3)
+      .paginate(
+        page,
+        page == 1 ? NEWS_FIRST_PAGE_LIMIT : NEWS_OTHER_PAGES_LIMIT,
+        page == 1 ? 0 : NEWS_FIRST_PAGE_LIMIT - NEWS_OTHER_PAGES_LIMIT
+      )
       .transform do |topic|
         Topics::NewsWallView.new topic, true, true
       end
