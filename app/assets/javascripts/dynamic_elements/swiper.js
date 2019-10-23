@@ -12,9 +12,13 @@ export default class Swiper extends ShikiView {
     const [areaWidth, areaHeight] = this.computeSizes();
     this.setHeight(areaHeight);
 
-    await this.imagesLoaded();
+    this.root.classList.add('is-loading');
+    const hasFailed = await this.imagesLoaded();
+    this.root.classList.remove('is-loading');
 
-    if (this.$images.length === 1) {
+    if (hasFailed && this.$images.length === 1) {
+      this.root.classList.add('is-placeholder');
+    } else if (this.$images.length === 1) {
       this.initializeImage(areaWidth, areaHeight);
     } else {
       this.initializeWallOrSwiper(areaWidth, areaHeight);
@@ -132,11 +136,15 @@ export default class Swiper extends ShikiView {
   }
 
   async imagesLoaded() {
-    await this.$root.imagesLoaded();
+    let hasFailed = false;
+
+    await this.$root.imagesLoaded().catch(() => hasFailed = true);
+
     if (this.$('.dynamically-replaced').length) {
       // when thumbnail of video is broken, then it is replaced to shikimori custom thumbnail image
-      await this.$root.imagesLoaded();
+      await this.$root.imagesLoaded().catch(() => hasFailed = true);
     }
+    return hasFailed;
   }
 
   buildWall() {
