@@ -1,5 +1,6 @@
 @import mixins/date
 @import mixins/ellipsis2
+@import mixins/two_line_ellipsis
 @import mixins/responsive
 @import mixins/shikimori
 @import mixins/link
@@ -29,7 +30,7 @@
           +shikimori('\e84e')
           font-size: 18px
 
-  .subheadline.orange a
+  .headline.orange a
     +link_color(#ff8a3c)
 
   .sections
@@ -173,6 +174,8 @@
         width: 50%
 
   .generated-news
+    display: flex
+    flex-wrap: wrap
     min-width: 0 // neeed to allow overflow ellipsis inside of flex item
 
     +iphone
@@ -182,26 +185,22 @@
     display: flex
     min-height: 75px // to prevent height flickering when anime poster is loading
     margin-bottom: 18px
+    width: 25%
 
     .poster
       flex-shrink: 0
       line-height: 0
-      margin-left: auto
-      padding-left: 10px
+      margin-right: 20px
 
       img
         width: 48px
 
     .info
-      +ellipsis2
-
       .name
-        +ellipsis2
+        +two_line_ellipsis(14px, 1.45)
         display: block
-        font-size: 15px
         font-weight: bold
-        line-height: 1
-        margin-bottom: 8px
+        margin-bottom: 3px
 
       .status-time
         align-items: baseline
