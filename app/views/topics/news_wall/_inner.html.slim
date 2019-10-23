@@ -7,11 +7,12 @@
       = topic_view.html_wall
 
     .status-line
-      .tags
-        - topic_view.tags.each do |tag|
-          .b-anime_status_tag.other[
-            data-text=tag
-          ]
+      - if topic_view.tags.any?
+        .tags
+          - topic_view.tags.each do |tag|
+            .b-anime_status_tag.other[
+              data-text=tag
+            ]
       time[
         datetime=topic_view.created_at.iso8601
         data-no-tooltip="true"
