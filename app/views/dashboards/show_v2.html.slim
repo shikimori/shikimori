@@ -118,7 +118,7 @@
 
     .block2
       .headline.blue.m15 = t '.latest_news'
-      .b-news_wall
+      .news_wall
         = render partial: 'topics/topic',
           collection: @view.news_topic_views[0..2],
           locals: { do_not_track: true },
@@ -139,7 +139,7 @@
 
     .block2
       .headline.skyblue.m15 = t '.more_news'
-      .b-news_wall
+      .news_wall
         = render partial: 'topics/topic',
           collection: @view.news_topic_views[3..-1],
           locals: { do_not_track: true },

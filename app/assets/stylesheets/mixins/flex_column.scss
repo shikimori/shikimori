@@ -1,0 +1,53 @@
+@mixin fcolumn-responsive(
+  $portrait-columns: 1,
+  $landscape-columns: 2,
+  $ipad-columns: '',
+  $desktop-columns: '',
+  $gutter: '',
+  $offset: '',
+  $gutter-mobile: $flex-gutter-mobile,
+  $offset-mobile: $flex-offset-mobile,
+  $gutter-desktop: $flex-gutter-desktop,
+  $offset-desktop: $flex-offset-desktop,
+  $selector: 'f-column'
+) {
+  @if ($gutter != '') {
+    $gutter-mobile: $gutter;
+    $gutter-desktop: $gutter;
+  }
+  @if ($offset != '') {
+    $offset-mobile: $offset;
+    $offset-desktop: $offset;
+  }
+
+  @include iphone-portrait {
+    @include fcolumn($portrait-columns, $gutter-mobile, $offset-mobile, $selector);
+  }
+
+  @include iphone-landscape {
+    @include fcolumn($landscape-columns, $gutter-mobile, $offset-mobile, $selector);
+  }
+
+  @include ipad {
+    @include fcolumn($ipad-columns, $gutter-desktop, $offset-desktop, $selector);
+  }
+
+  @include gte_laptop {
+    @include fcolumn($desktop-columns, $gutter-desktop, $offset-desktop, $selector);
+  }
+}
+
+@mixin fcolumn($columns, $gutter, $offset, $column_selector) {
+  // background: rgba(green, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: -$offset;
+  margin-left: -$gutter;
+
+  #{$column_selector} {
+    // background: rgba(blue, 0.5);
+    margin-bottom: $offset;
+    margin-left: $gutter;
+    width: calc(#{100% / $columns} - #{$gutter});
+  }
+}

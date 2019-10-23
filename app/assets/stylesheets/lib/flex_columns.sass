@@ -18,7 +18,7 @@
     flex-shrink: 0
 
     +iphone-portrait
-      margin-bottom: $flex-margin-mobile
+      margin-bottom: $flex-offset-mobile
 
     +iphone-landscape
       padding: 0 $flex-gutter-mobile
@@ -34,33 +34,33 @@
 
 .fc-2-3-m
   +iphone-portrait
-    margin-bottom: $flex-margin-mobile
+    margin-bottom: $flex-offset-mobile
 
   +gte_iphone-landscape
     display: flex
     flex-wrap: wrap
 
   +iphone-landscape
-    margin: #{-$flex-margin-mobile} #{-$flex-gutter-mobile}
+    margin: #{-$flex-offset-mobile} #{-$flex-gutter-mobile}
 
   +ipad
-    margin: #{-$flex-margin-mobile} #{-$flex-gutter-mobile}
+    margin: #{-$flex-offset-mobile} #{-$flex-gutter-mobile}
 
   +gte_laptop
-    margin: #{-$flex-margin-desktop} #{-$flex-gutter-desktop}
+    margin: #{-$flex-offset-desktop} #{-$flex-gutter-desktop}
 
   & > .f-column
     +iphone-landscape
       flex-shrink: 0
-      padding: $flex-margin-mobile $flex-gutter-mobile
+      padding: $flex-offset-mobile $flex-gutter-mobile
 
     +ipad
       flex-shrink: 0
-      padding: $flex-margin-mobile $flex-gutter-mobile
+      padding: $flex-offset-mobile $flex-gutter-mobile
 
     +gte_laptop
       flex-shrink: 0
-      padding: $flex-margin-desktop $flex-gutter-desktop
+      padding: $flex-offset-desktop $flex-gutter-desktop
 
     &:first-child
       +iphone-landscape
@@ -91,7 +91,7 @@
     flex-shrink: 0
 
     +iphone
-      margin-bottom: $flex-margin-mobile
+      margin-bottom: $flex-offset-mobile
 
     +gte_ipad
       padding: 0 $flex-gutter-mobile
@@ -103,33 +103,33 @@
 
 .fc-3-m
   +iphone-portrait
-    margin-bottom: $flex-margin-mobile
+    margin-bottom: $flex-offset-mobile
 
   +gte_iphone-landscape
     display: flex
     flex-wrap: wrap
 
   +iphone-landscape
-    margin: #{-$flex-margin-mobile} #{-$flex-gutter-mobile}
+    margin: #{-$flex-offset-mobile} #{-$flex-gutter-mobile}
 
   +ipad
-    margin: #{-$flex-margin-mobile} #{-$flex-gutter-mobile}
+    margin: #{-$flex-offset-mobile} #{-$flex-gutter-mobile}
 
   +gte_laptop
-    margin: #{-$flex-margin-desktop} #{-$flex-gutter-desktop}
+    margin: #{-$flex-offset-desktop} #{-$flex-gutter-desktop}
 
   & > .f-column
     +iphone-landscape
       flex-shrink: 0
-      padding: $flex-margin-mobile $flex-gutter-mobile
+      padding: $flex-offset-mobile $flex-gutter-mobile
       width: 33.333%
 
     +ipad
       flex-shrink: 0
-      padding: $flex-margin-mobile $flex-gutter-mobile
+      padding: $flex-offset-mobile $flex-gutter-mobile
       width: 33.333%
 
     +gte_laptop
       flex-shrink: 0
-      padding: $flex-margin-desktop $flex-gutter-desktop
+      padding: $flex-offset-desktop $flex-gutter-desktop
       width: 33.333%

@@ -2,6 +2,7 @@
 @import mixins/responsive
 @import mixins/shikimori
 @import mixins/link
+@import mixins/flex_column
 
 .p-dashboards-show .v2
   .b-link_button
@@ -164,17 +165,5 @@
   // .b-admin_panel
     display: none
 
-  .fc-2-3-m .f-column
-    .b-news_wall .b-news_wall-topic
-      +gte_ipad
-        width: 50%
-
-  .other-news
-    +iphone-landscape
-      margin-top: $flex-margin-mobile
-
-    +ipad
-      margin-top: $flex-margin-mobile
-
-    +gte_laptop
-      margin-top: $flex-margin-desktop
+  .news_wall
+    +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 3, $selector: '.b-news_wall-topic')
