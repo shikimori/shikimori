@@ -20,11 +20,11 @@ $block_offset: 30px;
 $media_height: 132px;
 $media_width: 235px;
 
-$flex-half_gutter-mobile: 16px;
-$flex-half_gutter-desktop: 25px;
+$flex-gutter-mobile: 32px;
+$flex-gutter-desktop: 50px;
 
-$flex-margin-mobile: 22px;
-$flex-margin-desktop: 24px;
+$flex-margin-mobile: 30px;
+$flex-margin-desktop: 40px;
 
 // ссылки
 $link: #176093;
@@ -66,13 +66,10 @@ $phone: 320px;
 $iphone: 480px;
 $ipad: 768px;
 
-// TODO: выпилить $desktop
-$desktop: $ipad + 1px;
-
 //$iphone_max: 568px
 //$iphone_max: 640px // эта цифра и для последних самсунговских плафонов
 $iphone_max: 767px;
-$ipad_max: 1024px;
+$ipad_max: 1023px;
 $laptop_max: 1199px;
 
 // icons

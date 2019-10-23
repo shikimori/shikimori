@@ -1,17 +1,25 @@
 @import mixins/ellipsis2
 @import mixins/date
+@import mixins/responsive
+@import mixins/flex_column
 
 .p-dashboards-show .v2
   .db-updates
-    display: flex
-    flex-wrap: wrap
-    margin: -10px -20px
+    +iphone-portrait
+      +fc(1, 40px, 20px, '.db-update')
+
+    +iphone-landscape
+      +fc(2, 40px, 20px, '.db-update')
+
+    +ipad
+      +fc(3, 40px, 20px, '.db-update')
+
+    +gte_laptop
+      +fc(4, 40px, 20px, '.db-update')
 
   .db-update
     display: flex
     min-height: 75px // to prevent height flickering when anime poster is loading
-    width: 25%
-    padding: 10px 20px
 
     .poster
       flex-shrink: 0

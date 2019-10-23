@@ -1,45 +1,58 @@
+@import mixins/flex_column
 @import mixins/responsive
 
 .b-news_wall
-  +gte_iphone-landscape
-    display: flex
-    flex-wrap: wrap
+  +iphone-portrait
+    +fc(1, $flex-gutter-mobile, $flex-margin-mobile, '.b-news_wall-topic')
 
   +iphone-landscape
-    margin: #{-$flex-margin-mobile} #{-$flex-half_gutter-mobile}
+    +fc(2, $flex-gutter-mobile, $flex-margin-mobile, '.b-news_wall-topic')
 
   +ipad
-    margin: #{-$flex-margin-mobile} #{-$flex-half_gutter-mobile}
+    +fc(3, $flex-gutter-desktop, $flex-margin-desktop, '.b-news_wall-topic')
 
   +gte_laptop
-    margin: #{-$flex-margin-desktop} #{-$flex-half_gutter-desktop}
+    +fc(3, $flex-gutter-desktop, $flex-margin-desktop, '.b-news_wall-topic')
 
-  .b-postloader
-    +iphone-landscape
-      margin: $flex-margin-mobile $flex-half_gutter-mobile
-      width: 100%
-
-    +ipad
-      margin: $flex-margin-mobile $flex-half_gutter-mobile
-      width: 100%
-
-    +gte_laptop
-      margin: $flex-margin-desktop $flex-half_gutter-desktop
-      width: 100%
-
-  .b-news_wall-topic
-    +iphone-portrait
-      padding: 0 0 $flex-margin-mobile 0
-      width: 100%
-
-    +iphone-landscape
-      padding: $flex-margin-mobile $flex-half_gutter-mobile
-      width: 50%
-
-    +ipad
-      padding: $flex-margin-mobile $flex-half_gutter-mobile
-      width: 33.333%
-
-    +gte_laptop
-      padding: $flex-margin-desktop $flex-half_gutter-desktop
-      width: 33.333%
+  // +gte_iphone-landscape
+  //   display: flex
+  //   flex-wrap: wrap
+  //
+  // +iphone-landscape
+  //   margin: #{-$flex-margin-mobile} #{-$flex-gutter-mobile}
+  //
+  // +ipad
+  //   margin: #{-$flex-margin-mobile} #{-$flex-gutter-mobile}
+  //
+  // +gte_laptop
+  //   margin: #{-$flex-margin-desktop} #{-$flex-gutter-desktop}
+  //
+  // .b-postloader
+  //   +iphone-landscape
+  //     margin: $flex-margin-mobile $flex-gutter-mobile
+  //     width: 100%
+  //
+  //   +ipad
+  //     margin: $flex-margin-mobile $flex-gutter-mobile
+  //     width: 100%
+  //
+  //   +gte_laptop
+  //     margin: $flex-margin-desktop $flex-gutter-desktop
+  //     width: 100%
+  //
+  // .b-news_wall-topic
+  //   +iphone-portrait
+  //     padding: 0 0 $flex-margin-mobile 0
+  //     width: 100%
+  //
+  //   +iphone-landscape
+  //     padding: $flex-margin-mobile $flex-gutter-mobile
+  //     width: 50%
+  //
+  //   +ipad
+  //     padding: $flex-margin-mobile $flex-gutter-mobile
+  //     width: 33.333%
+  //
+  //   +gte_laptop
+  //     padding: $flex-margin-desktop $flex-gutter-desktop
+  //     width: 33.333%

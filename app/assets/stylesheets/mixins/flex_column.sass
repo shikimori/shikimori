@@ -1,0 +1,12 @@
+=fc($columns, $horizontal_margin, $vertical_margin, $column_selector)
+  // background: rgba(green, 0.5)
+  display: flex
+  flex-wrap: wrap
+  margin-bottom: -$vertical_margin
+  margin-left: -$horizontal_margin
+
+  #{$column_selector}
+    // background: rgba(blue, 0.5)
+    margin-bottom: $vertical_margin
+    margin-left: $horizontal_margin
+    width: calc(#{100% / $columns} - #{$horizontal_margin})
