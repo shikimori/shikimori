@@ -1,12 +1,25 @@
-=fc($columns, $horizontal_margin, $vertical_margin, $column_selector)
+=fcolumn-responsive($iphone-portrait-columns, $iphone-landscape-columns, $ipad-columns, $laptop-columns, $gutter, $offset, $column_selector)
+  +iphone-portrait
+    +fcolumn($iphone-portrait-columns, $gutter, $offset, $column_selector)
+
+  +iphone-landscape
+    +fcolumn($iphone-landscape-columns, $gutter, $offset, $column_selector)
+
+  +ipad
+    +fcolumn($ipad-columns, $gutter, $offset, $column_selector)
+
+  +gte_laptop
+    +fcolumn($laptop-columns, $gutter, $offset, $column_selector)
+
+=fcolumn($columns, $gutter, $offset, $column_selector)
   // background: rgba(green, 0.5)
   display: flex
   flex-wrap: wrap
-  margin-bottom: -$vertical_margin
-  margin-left: -$horizontal_margin
+  margin-bottom: -$offset
+  margin-left: -$gutter
 
   #{$column_selector}
     // background: rgba(blue, 0.5)
-    margin-bottom: $vertical_margin
-    margin-left: $horizontal_margin
-    width: calc(#{100% / $columns} - #{$horizontal_margin})
+    margin-bottom: $offset
+    margin-left: $gutter
+    width: calc(#{100% / $columns} - #{$gutter})

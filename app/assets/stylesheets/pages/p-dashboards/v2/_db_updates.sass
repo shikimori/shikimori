@@ -5,17 +5,7 @@
 
 .p-dashboards-show .v2
   .db-updates
-    +iphone-portrait
-      +fc(1, 40px, 20px, '.db-update')
-
-    +iphone-landscape
-      +fc(2, 40px, 20px, '.db-update')
-
-    +ipad
-      +fc(3, 40px, 20px, '.db-update')
-
-    +gte_laptop
-      +fc(4, 40px, 20px, '.db-update')
+    +fcolumn-responsive(1, 2, 3, 4, 40px, 20px, '.db-update')
 
   .db-update
     display: flex
