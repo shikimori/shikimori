@@ -23,7 +23,7 @@ export default class Wall extends View {
     this.maxHeight = options.maxHeight;
 
     if (options.awaitImagesLoaded === undefined || options.awaitImagesLoaded) {
-      await this.$root.imagesLoaded();
+      await this.$root.imagesLoaded().catch(() => {});
     }
 
     this._prepare();
