@@ -7,6 +7,23 @@
 @import mixins/selected
 
 .p-dashboards-show
+  .linkheadline
+    & > a
+      text-decoration: underline
+      color: inherit
+
+      &:before
+        color: inherit
+
+      &:hover,
+      &:hover:before
+        color: $link-hover
+
+      +gt_ipad
+        &:active,
+        &:active:before
+          color: $link-active
+
   .subheadline
     h2
       font-size: inherit
