@@ -1,5 +1,5 @@
 - anime = topic_view.decorated_linked
-a.generated-news-line.bubbled.unprocessed[
+a.db-update.bubbled.unprocessed[
   href=anime.url
   title=topic_view.topic_title
   data-tooltip_url=topic_view.decorated_linked.tooltip_url
@@ -11,15 +11,16 @@ a.generated-news-line.bubbled.unprocessed[
       alt=topic_view.decorated_linked.name
     ]
   .info
-    .name = topic_view.topic_title_html
-
-    .status-time
+    .name
       - if topic_view.action_tag
         .b-anime_status_tag[
           class=topic_view.action_tag.type
           data-text=topic_view.action_tag.text
         ]
 
+      = topic_view.topic_title_html
+
+    .status-time
       - if anime.kind.present?
         .kind = anime.kind_text
 

@@ -24,7 +24,7 @@ class DashboardViewV2 < ViewObjectBase
 
   def news_topic_views
     news_scope
-      .paginate(page, page == 1 ? 8 : 15, page == 1 ? 0 : -7)
+      .paginate(page, page == 1 ? 12 : 15, page == 1 ? 0 : -3)
       .transform do |topic|
         Topics::NewsWallView.new topic, true, true
       end
@@ -32,7 +32,7 @@ class DashboardViewV2 < ViewObjectBase
 
   def db_updates
     db_updates_scope
-      .limit(15)
+      .limit(8)
       .as_views(true, true)
   end
 

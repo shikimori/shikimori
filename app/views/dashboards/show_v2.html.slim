@@ -132,10 +132,24 @@
             href=forum_topics_url(:updates)
             title=t('.generated_news')
           ] = t '.generated_news'
-        .generated-news
+        .db-updates
           = render partial: 'dashboards/v2/db_update',
             collection: @view.db_updates,
             as: :topic_view
+
+    .block2
+      .headline.blue.m15 = t '.more_news'
+      .b-news_wall
+        = render partial: 'topics/topic',
+          collection: @view.news_topic_views[3..-1],
+          locals: { do_not_track: true },
+          cache: true,
+          as: :topic_view
+
+        - if @view.news_topic_views.next_page
+          = render 'blocks/postloader',
+            filter: 'b-topic',
+            next_url: root_page_url(page: @view.news_topic_views.next_page)
 
     / .block
     /   .headline.blue.m15

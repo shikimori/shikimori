@@ -1,0 +1,67 @@
+@import mixins/two_line_ellipsis
+@import mixins/ellipsis2
+@import mixins/date
+
+.p-dashboards-show .v2
+  .db-updates
+    display: flex
+    flex-wrap: wrap
+    margin: -10px -20px
+
+  .db-update
+    display: flex
+    min-height: 75px // to prevent height flickering when anime poster is loading
+    width: 25%
+    padding: 10px 20px
+
+    .poster
+      flex-shrink: 0
+      line-height: 0
+      margin-right: 15px
+
+      img
+        width: 48px
+
+    .info
+      flex-grow: 1
+      min-width: 0 // neeed to allow overflow ellipsis inside of flex item
+
+      .name
+        +two_line_ellipsis(14px, 1.45)
+        display: block
+        font-weight: bold
+        margin-bottom: 3px
+
+      .b-anime_status_tag
+        margin-right: 6px
+        font-weight: normal
+
+      .status-time
+        align-items: baseline
+        display: flex
+        line-height: 17px
+        margin-bottom: 7px
+
+        .kind
+          color: #123
+          display: inline-block
+          margin-right: 7px
+
+        .time
+          +date
+
+      .genres
+        display: flex
+
+        .b-tag:last-child
+          +ellipsis2
+
+      .tag
+        display: inline-block
+
+        &:not(:last-child)
+          margin-right: 5px
+
+      .b-add_to_list
+        margin-top: 7px
+
