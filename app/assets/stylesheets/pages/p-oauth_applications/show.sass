@@ -1,11 +1,20 @@
-@import mixins/float_column
+@import mixins/flex_column
 
 .p-oauth_applications-show
   .info .f-column
-    flex-basis: 100%
+    +ipad
+      &:first-child
+        +fcolumn-size(4, 1, $flex-gutter-desktop)
 
-    &:first-child
-      flex-basis: 225px
+      &:last-child
+        +fcolumn-size(4, 3, $flex-gutter-desktop)
+
+    +gte_laptop
+      &:first-child
+        +fcolumn-size(5, 1, $flex-gutter-desktop)
+
+      &:last-child
+        +fcolumn-size(5, 4, $flex-gutter-desktop)
 
   .b-oauth_application .name-logo .logo
     margin-right: 0
