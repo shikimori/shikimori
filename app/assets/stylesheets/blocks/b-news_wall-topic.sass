@@ -1,10 +1,8 @@
 @import mixins/css4
-// @import mixins/link
 @import mixins/date
-@import mixins/two_line_ellipsis
 @import mixins/responsive
-// @import mixins/media_marker
 @import mixins/shikimori
+@import mixins/two_line_ellipsis
 
 .b-news_wall-topic
   border-top: none
@@ -22,9 +20,32 @@
       .title
         color: $link-active
 
+  .poster
+    display: flex
+    flex-direction: column-reverse
+    margin-bottom: 10px
+    // pointer-events: none
+    position: relative
+
+    &:before
+      content: ''
+      padding-top: 56.25% // 16:9 aspect ratio
+
+    .b-shiki_swiper
+      height: 100%
+      left: 0
+      position: absolute
+      top: 0
+      width: 100%
+
+      &.is-placeholder
+        background-image: asset_url('/assets/blocks/b-news_wall-topic/placeholder.svg')
+        background-size: contain
+        background-repeat: no-repeat
+
   .status-line
     display: flex
-    margin-bottom: 10px
+    margin-bottom: 7px
     align-items: baseline
 
     .tags
@@ -55,26 +76,3 @@
     +css4
       font-family: var(--font-alt)
     font-weight: 600
-
-  .poster
-    display: flex
-    flex-direction: column-reverse
-    margin-bottom: 10px
-    pointer-events: none
-    position: relative
-
-    &:before
-      content: ''
-      padding-top: 56.25% // 16:9 aspect ratio
-
-    .b-shiki_swiper
-      height: 100%
-      left: 0
-      position: absolute
-      top: 0
-      width: 100%
-
-      &.is-placeholder
-        background-image: asset_url('/assets/blocks/b-news_wall-topic/placeholder.svg')
-        background-size: contain
-        background-repeat: no-repeat

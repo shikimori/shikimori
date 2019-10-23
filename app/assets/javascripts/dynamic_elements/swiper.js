@@ -100,10 +100,8 @@ export default class Swiper extends ShikiView {
       (100 - visiblePercent) / 2
     ].min();
 
-    this.$images.css({
-      'margin-top': marginTopPercent > 0 ? `-${marginTopPercent}%` : '',
-      width: areaWidth
-    });
+    this.$links.css('margin-top', marginTopPercent > 0 ? `-${marginTopPercent}%` : '');
+    this.$images.css('width', areaWidth);
   }
 
   alignHorizontal(areaWidth, areaHeight, imageRatio) {
@@ -112,10 +110,8 @@ export default class Swiper extends ShikiView {
 
     const marginLeftPercent = (100 - visiblePercent) / 2;
 
-    this.$images.css({
-      'margin-left': marginLeftPercent > 0 ? `-${marginLeftPercent}%` : '',
-      height: areaHeight
-    });
+    this.$links.css('margin-left', marginLeftPercent > 0 ? `-${marginLeftPercent}%` : '');
+    this.$images.css('height', areaHeight);
   }
 
   computeSizes() {

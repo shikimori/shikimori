@@ -1,1 +1,8 @@
+@import mixins/flex_column
+
 .p-tests-news
+  .news_wall
+    +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 3, $selector: '.b-news_wall-topic, .b-postloader')
+
+    .b-postloader
+      width: 100%
