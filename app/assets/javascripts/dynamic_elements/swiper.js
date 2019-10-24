@@ -132,9 +132,10 @@ export default class Swiper extends ShikiView {
 
   alignHorizontal(imageRatio) {
     const scaledImageWidth = this.areaHeight * imageRatio;
-    const visiblePercent = ((this.areaWidth / scaledImageWidth) * 100).round(2);
+    const scaleRatio = this.areaWidth / scaledImageWidth;
+    const visiblePercent = (scaleRatio * 100).round(2);
 
-    const marginLeftPercent = (100 - visiblePercent) / 2;
+    const marginLeftPercent = (100 - visiblePercent) / 2 / scaleRatio;
 
     this.$links.css('margin-left', marginLeftPercent > 0 ? `-${marginLeftPercent}%` : '');
     this.$images.css('height', this.areaHeight);
