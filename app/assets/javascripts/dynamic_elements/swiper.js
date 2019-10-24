@@ -43,6 +43,7 @@ export default class Swiper extends ShikiView {
     return this.$root.width().floor();
   }
 
+  @memoize
   get isAlignCover() {
     return this.align === 'cover';
   }
@@ -58,13 +59,18 @@ export default class Swiper extends ShikiView {
   }
 
   @memoize
+  get isVideo() {
+    return this.$root.children('.b-video').length;
+  }
+
+  @memoize
   get $links() {
-    return this.$root.children('a');
+    return this.$root.children();
   }
 
   @memoize
   get $images() {
-    return this.$root.find('img');
+    return this.$links.find('img');
   }
 
   update() {
@@ -127,7 +133,9 @@ export default class Swiper extends ShikiView {
       ((100 - visiblePercent) / 2 / scaleRatio).round(2)
     ].min();
 
-    this.$links.css('margin-top', marginTopPercent > 0 ? `-${marginTopPercent}%` : '');
+    if (!this.isVideo) {
+      this.$links.css('margin-top', marginTopPercent > 0 ? `-${marginTopPercent}%` : '');
+    }
     this.$images.css('width', this.areaWidth);
   }
 
@@ -138,7 +146,9 @@ export default class Swiper extends ShikiView {
 
     const marginLeftPercent = ((100 - visiblePercent) / 2 / scaleRatio).round(2);
 
-    this.$links.css('margin-left', marginLeftPercent > 0 ? `-${marginLeftPercent}%` : '');
+    if (!this.isVideo) {
+      this.$links.css('margin-left', marginLeftPercent > 0 ? `-${marginLeftPercent}%` : '');
+    }
     this.$images.css('height', this.areaHeight);
   }
 
