@@ -100,7 +100,7 @@ export default class Swiper extends ShikiView {
 
     if (isVertical) {
       if (this.isAlignCover) {
-        this.alignVertical(this.areaWidth, this.areaHeight, imageRatio);
+        this.alignVertical(imageRatio);
       } else {
         this.$images.css('height', this.areaHeight);
       }
