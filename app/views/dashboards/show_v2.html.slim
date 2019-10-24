@@ -8,7 +8,7 @@
           ]
             span アニメ
             = Anime.model_name.human
-    
+
         .section
           a.b-link_button.maxi.dark[
             href=mangas_collection_url
@@ -25,7 +25,7 @@
           a.b-link_button.maxi.dark[
             href=forum_url
           ] = t 'forum'
-    
+
       .sections.other
         .section.seasons-socials
           .seasons
@@ -43,7 +43,7 @@
                 href=animes_collection_url(status: :ongoing)
               ] = i18n_i 'Ongoing', :other
           a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
-    
+
         .section
           a.title[
             href=collections_url
@@ -61,7 +61,7 @@
                 ]
                 span
                   = topic_view.poster_title_html
-    
+
         .section
           a.title[
             href=forum_topics_url(:reviews)
@@ -87,7 +87,7 @@
                   title=contest.title
                 ]
                   span = contest.title
-    
+
         .section
           .title = t 'application.hot_topics.hot_topics'
           .links
@@ -102,7 +102,7 @@
                   ]
                   span
                     = topic_view.poster_title_html
-    
+
     - if @view.admin_area?
       javascript:
         $(document.body).on('click', '.b-admin_panel .reload', function() {
@@ -115,7 +115,7 @@
         data-postloaded-url='/apanel'
       ]
         .ajax-loading.vk-like
-    
+
     .block2
       .headline.blue.m15 = t '.latest_news'
       .news_wall.latest-news
@@ -146,7 +146,7 @@
           locals: { do_not_track: true },
           cache: true,
           as: :topic_view
-    
+
         - if @view.news_topic_views.next_page
           = render 'blocks/postloader',
             filter: 'b-topic',

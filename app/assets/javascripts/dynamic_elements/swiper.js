@@ -5,24 +5,38 @@ import ShikiView from 'views/application/shiki_view';
 import Wall from 'views/wall/view';
 import WallCluster from 'views/wall/cluster';
 
+const CLASS_NAME = 'b-shiki_swiper';
+let GLOBAL_HANDLER = false;
 const RATIO = 16.0 / 9;
+
+function setHanler() {
+  GLOBAL_HANDLER = true;
+  $(document).on('resize:debounced orientationchange', update);
+}
+
+function update() {
+  $(`.${CLASS_NAME}`).each((_index, node) => (
+    $(node).data(CLASS_NAME)?.update()
+  ));
+}
 
 export default class Swiper extends ShikiView {
   async initialize() {
-    const [areaWidth, areaHeight] = this.computeSizes();
-    this.setHeight(areaHeight);
+    if (!GLOBAL_HANDLER) { setHanler(); }
+
+    this.computeSizes();
+    this.$root.css('max-height', this.areaHeight);
 
     this.root.classList.add('is-loading');
     const hasFailed = await this.imagesLoaded();
     this.root.classList.remove('is-loading');
 
-    if (hasFailed && this.$images.length === 1) {
+    if ((hasFailed && this.$images.length === 1) || !this.$images.length) {
       this.root.classList.add('is-placeholder');
-    } else if (this.$images.length === 1) {
-      this.initializeImage(areaWidth, areaHeight);
-    } else {
-      this.initializeWallOrSwiper(areaWidth, areaHeight);
+      return;
     }
+
+    this.update();
   }
 
   get width() {
@@ -53,51 +67,59 @@ export default class Swiper extends ShikiView {
     return this.$root.find('img');
   }
 
-  initializeWallOrSwiper(areaWidth, areaHeight) {
+  update() {
+    if (this.$images.length === 1) {
+      this.initializeImage();
+    } else {
+      this.initializeWallOrSwiper();
+    }
+  }
+
+  initializeWallOrSwiper() {
     const wall = this.buildWall();
 
     if (!wall.images.length) {
-      this.setPlaceholder(areaWidth, areaHeight);
-    } else if (this.width < areaWidth && this.isAlignCover) {
-      this.scaleWall(wall, areaWidth);
+      this.setPlaceholder();
+    } else if (this.width < this.areaWidth && this.isAlignCover) {
+      this.scaleWall(wall, this.areaWidth);
     } else if (wall.images.length > 1) {
       this.buildSwiper();
     }
   }
 
-  initializeImage(areaWidth, areaHeight) {
+  initializeImage() {
     const image = this.$images[0];
     const imageWidth = image.naturalWidth;
     const imageHeight = image.naturalHeight;
 
     const imageRatio = imageWidth / imageHeight;
-    const areaRatio = areaWidth / areaHeight;
+    const areaRatio = this.areaWidth / this.areaHeight;
 
     const isVertical = imageRatio < areaRatio;
     const isHorizontal = imageRatio > areaRatio;
 
     if (isVertical) {
       if (this.isAlignCover) {
-        this.alignVertical(areaWidth, areaHeight, imageRatio);
+        this.alignVertical(this.areaWidth, this.areaHeight, imageRatio);
       } else {
-        this.$images.css('height', areaHeight);
+        this.$images.css('height', this.areaHeight);
       }
     }
 
     if (isHorizontal) {
       if (this.isAlignCover) {
-        this.alignHorizontal(areaWidth, areaHeight, imageRatio);
+        this.alignHorizontal(imageRatio);
       } else {
-        this.$images.css('width', areaWidth);
+        this.$images.css('width', this.areaWidth);
       }
     }
 
     this.$links.shikiImage();
   }
 
-  alignVertical(areaWidth, areaHeight, imageRatio) {
-    const scaledImageHeight = areaWidth / imageRatio;
-    const visiblePercent = ((areaHeight / scaledImageHeight) * 100).round(2);
+  alignVertical(imageRatio) {
+    const scaledImageHeight = this.areaWidth / imageRatio;
+    const visiblePercent = ((this.areaHeight / scaledImageHeight) * 100).round(2);
 
     const marginTopPercent = [
       10,
@@ -105,17 +127,17 @@ export default class Swiper extends ShikiView {
     ].min();
 
     this.$links.css('margin-top', marginTopPercent > 0 ? `-${marginTopPercent}%` : '');
-    this.$images.css('width', areaWidth);
+    this.$images.css('width', this.areaWidth);
   }
 
-  alignHorizontal(areaWidth, areaHeight, imageRatio) {
-    const scaledImageWidth = areaHeight * imageRatio;
-    const visiblePercent = ((areaWidth / scaledImageWidth) * 100).round(2);
+  alignHorizontal(imageRatio) {
+    const scaledImageWidth = this.areaHeight * imageRatio;
+    const visiblePercent = ((this.areaWidth / scaledImageWidth) * 100).round(2);
 
     const marginLeftPercent = (100 - visiblePercent) / 2;
 
     this.$links.css('margin-left', marginLeftPercent > 0 ? `-${marginLeftPercent}%` : '');
-    this.$images.css('height', areaHeight);
+    this.$images.css('height', this.areaHeight);
   }
 
   computeSizes() {
@@ -128,11 +150,8 @@ export default class Swiper extends ShikiView {
       height = (width / RATIO).floor();
     }
 
-    return [width, height];
-  }
-
-  setHeight(height) {
-    this.$root.css('max-height', height);
+    this.areaWidth = width;
+    this.areaHeight = height;
   }
 
   async imagesLoaded() {
