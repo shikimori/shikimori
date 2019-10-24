@@ -24,11 +24,10 @@ export default class Swiper extends View {
   async initialize() {
     if (!GLOBAL_HANDLER) { setHanler(); }
 
-    this.computeSizes();
-    this.$root.css('max-height', this.areaHeight);
+    this._computeSizes();
 
     this.root.classList.add('is-loading');
-    const hasFailed = await this.imagesLoaded();
+    const hasFailed = await this._imagesLoaded();
     this.root.classList.remove('is-loading');
 
     if ((hasFailed && this.$images.length === 1) || !this.$images.length) {
@@ -36,7 +35,7 @@ export default class Swiper extends View {
       return;
     }
 
-    this.update();
+    this._initializeContent();
   }
 
   get width() {
@@ -74,26 +73,31 @@ export default class Swiper extends View {
   }
 
   update() {
+    this._computeSizes();
+    this._initializeContent();
+  }
+
+  _initializeContent() {
     if (this.$images.length === 1) {
-      this.initializeImage();
+      this._initializeImage();
     } else {
-      this.initializeWallOrSwiper();
+      this._initializeWallOrSwiper();
     }
   }
 
-  initializeWallOrSwiper() {
-    const wall = this.buildWall();
+  _initializeWallOrSwiper() {
+    const wall = this._buildWall();
 
     if (!wall.images.length) {
-      this.setPlaceholder();
+      this._setPlaceholder();
     } else if (this.width < this.areaWidth && this.isAlignCover) {
-      this.scaleWall(wall, this.areaWidth);
+      this._scaleWall(wall, this.areaWidth);
     } else if (wall.images.length > 1) {
-      this.buildSwiper();
+      this._buildSwiper();
     }
   }
 
-  initializeImage() {
+  _initializeImage() {
     const image = this.$images[0];
     const imageWidth = image.naturalWidth;
     const imageHeight = image.naturalHeight;
@@ -106,7 +110,7 @@ export default class Swiper extends View {
 
     if (isVertical) {
       if (this.isAlignCover) {
-        this.alignVertical(imageRatio);
+        this._alignVertical(imageRatio);
       } else {
         this.$images.css('height', this.areaHeight);
       }
@@ -114,7 +118,7 @@ export default class Swiper extends View {
 
     if (isHorizontal) {
       if (this.isAlignCover) {
-        this.alignHorizontal(imageRatio);
+        this._alignHorizontal(imageRatio);
       } else {
         this.$images.css('width', this.areaWidth);
       }
@@ -127,7 +131,7 @@ export default class Swiper extends View {
     }
   }
 
-  alignVertical(imageRatio) {
+  _alignVertical(imageRatio) {
     const scaledImageHeight = this.areaWidth / imageRatio;
     const scaleRatio = this.areaHeight / scaledImageHeight;
     const visiblePercent = scaleRatio * 100;
@@ -143,7 +147,7 @@ export default class Swiper extends View {
     this.$images.css('width', this.areaWidth);
   }
 
-  alignHorizontal(imageRatio) {
+  _alignHorizontal(imageRatio) {
     const scaledImageWidth = this.areaHeight * imageRatio;
     const scaleRatio = this.areaWidth / scaledImageWidth;
     const visiblePercent = scaleRatio * 100;
@@ -156,7 +160,7 @@ export default class Swiper extends View {
     this.$images.css('height', this.areaHeight);
   }
 
-  computeSizes() {
+  _computeSizes() {
     const { width } = this;
     let height;
 
@@ -168,9 +172,11 @@ export default class Swiper extends View {
 
     this.areaWidth = width;
     this.areaHeight = height;
+
+    this.$root.css('max-height', this.areaHeight);
   }
 
-  async imagesLoaded() {
+  async _imagesLoaded() {
     let hasFailed = false;
 
     await this.$root.imagesLoaded().catch(() => hasFailed = true);
@@ -182,7 +188,7 @@ export default class Swiper extends View {
     return hasFailed;
   }
 
-  buildWall() {
+  _buildWall() {
     return new Wall(this.$root, {
       isOneCluster: true,
       maxWidth: 9999,
@@ -190,7 +196,7 @@ export default class Swiper extends View {
     });
   }
 
-  buildSwiper() {
+  _buildSwiper() {
     this.$root.children()
       .addClass('swiper-slide')
       .removeAttr('style')
@@ -203,13 +209,13 @@ export default class Swiper extends View {
     });
   }
 
-  setPlaceholder(width, height) {
+  _setPlaceholder(width, height) {
     this.$root
       .css({ width, height })
       .addClass('is-placeholder');
   }
 
-  scaleWall(wall, width) {
+  _scaleWall(wall, width) {
     const firstImage = wall.images.first();
     if (wall.images.length === 1 && firstImage.ratio > RATIO) {
       return;
