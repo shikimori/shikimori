@@ -1,7 +1,8 @@
-import ShikiView from 'views/application/shiki_view';
 import axios from 'helpers/axios';
 
-export default class Postloaded extends ShikiView {
+import View from 'views/application/view';
+
+export default class Postloaded extends View {
   async initialize() {
     const { data } = await axios.get(this.$root.data('postloaded-url'));
 
