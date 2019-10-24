@@ -5,7 +5,7 @@
     cache: true,
     as: :topic_view
 
-  - if @view.news_topic_views.next_page
+  / - if @view.news_topic_views.next_page
     = render 'blocks/postloader',
       filter: 'b-topic',
       next_url: news_tests_url(page: @view.news_topic_views.next_page)

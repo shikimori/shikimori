@@ -54,7 +54,7 @@ export default class Swiper extends ShikiView {
 
   @memoize
   get desiredHeight() {
-    return this.$root.data('swiper-height') || 160;
+    return this.$root.data('swiper-height') || 0;
   }
 
   @memoize
@@ -144,7 +144,7 @@ export default class Swiper extends ShikiView {
     const { width } = this;
     let height;
 
-    if (width > 400) {
+    if (this.desiredHeight !== 0) {
       height = this.desiredHeight;
     } else {
       height = (width / RATIO).floor();
