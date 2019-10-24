@@ -120,7 +120,11 @@ export default class Swiper extends View {
       }
     }
 
-    this.$links.shikiImage();
+    if (this.isVideo) {
+      this.$links.shikiVideo();
+    } else {
+      this.$links.shikiImage();
+    }
   }
 
   alignVertical(imageRatio) {
