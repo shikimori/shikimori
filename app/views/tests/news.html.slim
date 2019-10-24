@@ -1,6 +1,6 @@
 .news_wall
   = render partial: 'topics/topic',
-    collection: @view.news_topic_views[0..2],
+    collection: @view.news_topic_views,
     locals: { do_not_track: true },
     cache: true,
     as: :topic_view

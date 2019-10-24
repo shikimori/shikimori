@@ -21,6 +21,8 @@ function update() {
 }
 
 export default class Swiper extends View {
+  isPlaceholder = false;
+
   async initialize() {
     if (!GLOBAL_HANDLER) { setHanler(); }
 
@@ -31,8 +33,7 @@ export default class Swiper extends View {
     this.root.classList.remove('is-loading');
 
     if ((hasFailed && this.$images.length === 1) || !this.$images.length) {
-      this.root.classList.add('is-placeholder');
-      return;
+      this.isPlaceholder = true;
     }
 
     this._initializeContent();
@@ -78,7 +79,9 @@ export default class Swiper extends View {
   }
 
   _initializeContent() {
-    if (this.$images.length === 1) {
+    if (this.isPlaceholder) {
+      this.root.classList.add('is-placeholder');
+    } else if (this.$images.length === 1) {
       this._initializeImage();
     } else {
       this._initializeWallOrSwiper();
