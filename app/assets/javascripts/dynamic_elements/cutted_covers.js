@@ -16,7 +16,7 @@ function update() {
   $('#injectCSSContainer').empty();
 
   $(`.${CLASS_NAME}`).each((_index, node) => (
-    $(node).data(CLASS_NAME)?.injectCss()
+    $(node).view().injectCss()
   ));
 }
 
@@ -41,8 +41,6 @@ export class CuttedCovers extends View {
 
     this.node.id = this.collection_id;
     this.node.classList.add(CLASS_NAME);
-
-    this.$node.data(CLASS_NAME, this);
   }
 
   injectCss() {

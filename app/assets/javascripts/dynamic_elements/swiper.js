@@ -1,7 +1,7 @@
 import SwiperComponent from 'swiper';
 import memoize from 'memoize-decorator';
 
-import ShikiView from 'views/application/shiki_view';
+import View from 'views/application/view';
 import Wall from 'views/wall/view';
 import WallCluster from 'views/wall/cluster';
 
@@ -16,11 +16,11 @@ function setHanler() {
 
 function update() {
   $(`.${CLASS_NAME}`).each((_index, node) => (
-    $(node).data(CLASS_NAME)?.update()
+    $(node).view()?.update()
   ));
 }
 
-export default class Swiper extends ShikiView {
+export default class Swiper extends View {
   async initialize() {
     if (!GLOBAL_HANDLER) { setHanler(); }
 
