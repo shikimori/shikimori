@@ -2,14 +2,48 @@
 @import mixins/date
 @import mixins/responsive
 @import mixins/flex_column
+@import mixins/swiper
+
+$height: 82px
 
 .p-dashboards-show .v2
   .db-updates
-    +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 4, $gutter: 40px, $offset: 20px, $selector: '.db-update')
+    overflow: hidden
+
+    .inner
+      +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 3, $desktop-columns: 4, $gutter: 40px, $offset: 20px, $selector: '.db-update')
+
+      +iphone
+        margin-left: 0
+        flex-wrap: nowrap
+
+        .db-update
+          margin-left: 0
+          margin-right: 30px
+          flex-shrink: 0
+
+      +iphone-portrait
+        .db-update
+          width: calc(100vw - 80px)
+
+          &:last-child
+            width: 100%
+            margin-right: 0
+
+      +iphone-landscape
+        .db-update
+          width: calc(50vw - 50px)
+
+          &:nth-last-child(2)
+            width: calc(50vw - 40px)
+
+          &:last-child
+            width: 50%
+            margin-right: 0
 
   .db-update
     display: flex
-    min-height: 75px // to prevent height flickering when anime poster is loading
+    min-height: $height // to prevent height flickering when anime poster is loading
 
     .poster
       flex-shrink: 0
@@ -55,4 +89,3 @@
         margin: 2px 5px
         pointer-events: none
         white-space: nowrap
-

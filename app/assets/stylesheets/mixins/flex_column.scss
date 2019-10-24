@@ -25,12 +25,16 @@
     $desktop-columns: $ipad-columns;
   }
 
-  @include iphone-portrait {
-    @include fcolumn($portrait-columns, $gutter-mobile, $offset-mobile, $selector);
+  @if ($portrait-columns != 0) {
+    @include iphone-portrait {
+      @include fcolumn($portrait-columns, $gutter-mobile, $offset-mobile, $selector);
+    }
   }
 
-  @include iphone-landscape {
-    @include fcolumn($landscape-columns, $gutter-mobile, $offset-mobile, $selector);
+  @if ($landscape-columns != 0) {
+    @include iphone-landscape {
+      @include fcolumn($landscape-columns, $gutter-mobile, $offset-mobile, $selector);
+    }
   }
 
   @include ipad {
