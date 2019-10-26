@@ -29,7 +29,7 @@ a.db-update.bubbled.unprocessed[
       - if anime.kind.present?
         .b-tag = anime.kind_text
 
-      - if anime.rating.present?
+      - if anime.rating.present? && !anime.rating.none?
         .b-tag = anime.rating_text
 
       - anime.main_genres.each do |genre|
