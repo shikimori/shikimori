@@ -113,20 +113,20 @@ private
 
     @groups['Kara no Kyoukai'] = Anime
       .where("name ilike '%Kara no K%'")
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:name)
 
     @groups['Ghost in the Shell'] = Anime
       .where("name ilike '%Ghost in the S%'")
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where('id < 10000')
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:name)
 
     @groups['Break Blade'] = Anime
       .where("name ilike '%Break Bla%'")
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:name)
 
     @groups['Miyazaki Hayao'] = Person.find(1870)
@@ -134,14 +134,14 @@ private
       .where('animes.id not in (?)', Anime::EXCLUDED_ONGOINGS)
       .where('animes.id not in (?)', TRANSLATE_ANIME_IGNORE_IDS)
       .where('animes.kind != ?', 'music')
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
       .limit(10)
 
     @groups['На первой странице жанра'] = Anime
       .where(id: [2835,2034,1729,3750,444,795,1569,1382,4188,540,268,4188,2559,11077,6904,666,2158,3907,1089,3665,85,401,2951,1092,813,6171,6811,535,1172,6793,60,5671,658,437,10083,4163,2951,8063,8634,5774,5719,741,5902,734,795,855,667,6331])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Онгоинги'] = translatable
@@ -202,14 +202,14 @@ private
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: added_ids)
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['В избранном у пользователей'] = Anime
       .where(id: FavouritesQuery.new.top_favourite_ids(Anime, 300))
       .where.not(id: added_ids)
       .where.not(kind: [:special, :music])
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Подборка фильмов'] = Anime
@@ -220,49 +220,49 @@ private
     @groups['Подборка 9'] = Anime
       .where(id: [1576,5734,5702,6633,1520,690,1372,142,942])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Подборка 8'] = Anime
       .where(id: [411,3701,1065,232,1485,85,3604,2112,407,1293,210,2829,4087,1808,3420,1483,880,455,323,1412,586,129,1454,593,364,2835,166,1852,2216,2409,1878,489,181,1589,11235,131,147,710,852,1250,5233,5984,798,1858,130,2204,696,1006,539,538,1147,541,540,1146,5504,1067,2460,1846,845,5675,4483,390,94,6758,173,1860,411,92,238,3322,1546,274,107,872,144,5041,52,2030,1397,3363,1576,2369,1086,3614,1602,2543,696,538,1133,539,5675,5420])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Подборка 7'] = Anime
       .where(id: [3091,7711,1974,338,721,1914,1453,18,1486,395,384,9181,9617,123,872,306,133,32,5671,593,4087,166,5039,1860,2216,8937,4028,586,2594,634,3420,5005,3001,114,587,156,1690,4087,800,277,1592,2403,5060,11759,2162,417,4657,207])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Подборка 6'] = Anime
       .where(id: [590,4719,4550,2924,6811,2508,106,5835,145,5958,4186,5150,200,2927,1965,3673,2012,940,3229,50,5597,4879,483,1013,341,198,4884,3467,195,3298,178,7088,1555,325,5079,3125,857,3927,2581,392,77,4192,967,1088,6046,5485,93,65,1719,1915,5074,132,67,26,389,209,165,2002,134,95,4038,3613,25,20,709,154,113,4581,5034,2683,953,878,5226,935,763,573,3731,334,68,4789])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Подборка 5'] = Anime
       .where(id: [1498,3457,4752,150,270,27,1726,777,180,239,236,257,182,534,1164,1017,1045,3230,167,174,30,3588,329])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Подборка 4'] = Anime
       .where(id: [1555,189,79,2476,4999,53,62,120,2993,248,3455,4214,3627,2595,291,4744,471,1222,846,4262,4063,259,177,969,569,251,1699,322,6201])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Подборка 3'] = Anime
       .where(id: [43,387,227,1462,534,543,1002,6610,6164,4903,416,1172,535,2130,1738,1292,512,572,101,2787,5040,5682,6,2963,3225,5162,5713,256,47,237,856,169,153,59,2985,61,6676,343,33,3002,135,790,379,3594,5507,5525,1536,949])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Подборка 2'] = Anime
       .where(id: [24,2104,355,1691,356,4654,1195,1840,3712,469,66,1887,2605,3228,6377,2104,158,3470,1579,2129,490,2986,1519,889,3572,1818,267,4725,400,2026,97,202,4106,1594,3713,228,98,99,76,7059,30,226,64,1827,2596])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Подборка 1'] = Anime
@@ -270,13 +270,13 @@ private
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: added_ids)
       .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
 
     @groups['Ai'] = Anime
       .where(id: [2238,149,553,3210,243,719,1020,3375,3656,1532,850,3750,1729,444,98,879,4535,1569,6203,143])
       .where.not(id: added_ids)
-      .where(censored: false)
+      .where(is_censored: false)
       .order(:ranked)
   end
 

@@ -30,8 +30,8 @@ describe Animes::OngoingsQuery do
 
     context 'adult filter' do
       context 'is_adult' do
-        let!(:ongoing_1) { create :anime, :ongoing, censored: true }
-        let!(:ongoing_2) { create :anime, :ongoing, censored: false }
+        let!(:ongoing_1) { create :anime, :ongoing, is_censored: true }
+        let!(:ongoing_2) { create :anime, :ongoing, is_censored: false }
 
         context 'adult' do
           let(:is_adult) { true }

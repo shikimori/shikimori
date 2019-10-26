@@ -17,7 +17,7 @@ private
     if is_adult
       AnimeVideo::XPLAY_CONDITION
     else
-      { censored: false }
+      { is_censored: false }
     end
   end
 end

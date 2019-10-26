@@ -34,7 +34,7 @@ private
     entry_ids = svd.klass# .where("aired_on > '2011-01-01' and kind = 'tv'") # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       .where('score >= 6 and duration > 5')
       .where.not(kind: [:special, :music])
-      .where(censored: false)
+      .where(is_censored: false)
       .where.not(status: 'Not yet aired')
       .where("
         (aired_on > '1995-01-01') or

@@ -50,7 +50,7 @@ class AnimesCollectionController < ShikimoriController
 
   def autocomplete
     scope = @view.klass == Manga ? Manga.where.not(kind: Ranobe::KIND) : @view.klass.all
-    scope.where! censored: false if params[:censored] == 'false'
+    scope.where! is_censored: false if params[:censored] == 'false'
 
     @collection = "Autocomplete::#{@view.klass.name}".constantize.call(
       scope: scope,
