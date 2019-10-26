@@ -120,7 +120,7 @@ header.head
           = render @statistics.thanks_to, content_by: :avatar
           .clearfix
 
-  / .subheadline = t '.community'
+  / .subheadline.m5 = t '.community'
   / .block.traffic-chart data-stats=@statistics.traffic.to_json
 
   .cc.block
@@ -128,19 +128,19 @@ header.head
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
         a.b-link = @statistics.users_count
-      .subheadline = i18n_i 'User', :other
+      .subheadline.m5 = i18n_i 'User', :other
       .block.users-chart data-stats=@statistics.users.to_json
 
     .c-chart
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
         a.b-link = @statistics.comments_count
-      .subheadline = i18n_i 'Comment', :other
+      .subheadline.m5 = i18n_i 'Comment', :other
       .block.comments-chart data-stats=@statistics.comments.to_json
 
 = render 'spnsrs/ad', ad: Ad.new(:horizontal_x250)
 
-.subheadline.m3 = i18n_i 'Comment', :other
+.subheadline.m0 = i18n_i 'Comment', :other
 div
   .b-topic.to-process[
     data-dynamic='topic'

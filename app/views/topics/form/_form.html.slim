@@ -10,11 +10,11 @@
 
   - if topic.errors.any?
     .b-errors
-      .subheadline = i18n_i 'error', :other
+      .subheadline.m5 = i18n_i 'error', :other
       .block
         == topic.errors.full_messages.join('<br>')
 
-  .subheadline.m10
+  .subheadline
     = t topic.persisted? ? '.edit.title' : '.new.title'
 
   = f.input :user_id, as: :hidden
@@ -22,54 +22,55 @@
   = f.input :linked_type, as: :hidden
 
   .inputs.m15
-    div class=('fc-2' if topic_type_policy.news_topic?)
-      .f-column
-        - if is_forum_id_hidden
-          = f.input :forum_id, as: :hidden
+    .b-input
+      div class=('fc-2' if topic_type_policy.news_topic?)
+        .f-column
+          - if is_forum_id_hidden
+            = f.input :forum_id, as: :hidden
 
-        - if is_show_forum || is_show_broadcast
-          .b-input.cc-2a
-            - if is_show_forum
-              .c-column.m0
-                = f.input :forum_id,
-                  as: :select,
-                  include_blank: false,
-                  collection: topic_type_policy.news_topic? ? [Forum.news] + Forum.public : Forum.public
+          - if is_show_forum || is_show_broadcast
+            .b-input.cc-2a
+              - if is_show_forum
+                .c-column.m0
+                  = f.input :forum_id,
+                    as: :select,
+                    include_blank: false,
+                    collection: topic_type_policy.news_topic? ? [Forum.news] + Forum.public : Forum.public
 
-            - if is_show_broadcast
-              .c-column.m0
-                = f.input :broadcast
+              - if is_show_broadcast
+                .c-column.m0
+                  = f.input :broadcast
 
-        - if topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
-          = f.input :type, as: :select, include_blank: false,
-            collection: [Topic, Topics::NewsTopic].map { |v| [v.model_name.human, v.name] },
-            input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
-        - else
-            = f.input :type, as: :hidden
+          - if topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
+            = f.input :type, as: :select, include_blank: false,
+              collection: [Topic, Topics::NewsTopic].map { |v| [v.model_name.human, v.name] },
+              input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+          - else
+              = f.input :type, as: :hidden
+
+          - if topic_type_policy.news_topic?
+            = f.input :tags,
+              input_html: { value: f.object.tags&.join(','), class: 'w-100' },
+              hint: 'Не задавай в теги имена собственные: названия аниме, имена людей, названия компаний.<br>Первым тегом должен быть основной раздел, к которому относится новость. Выбирай его из выпадающего списка.<br>Следующие теги, уточняющие, старайся выбрать из второго списка.<br>Крайне желательно не добавлять новых тегов, если среди уже имеющихся в базе тегов есть любой хоть чуть-чуть подходящий.'.html_safe,
+              as: :string
+            #vue_tags_input[
+              data-value=f.object.tags
+              data-autocomplete_basic=Topics::TagsQuery::BASIC_TAGS
+              data-autocomplete_other=Topics::TagsQuery.call
+            ]
+
+          - if topic_type_policy.any_club_topic?
+            = f.input :linked_id, as: :hidden
+            = f.input :linked_type, as: :hidden
+
+          - else
+            = render 'topics/form/linked', topic: topic
 
         - if topic_type_policy.news_topic?
-          = f.input :tags,
-            input_html: { value: f.object.tags&.join(','), class: 'w-100' },
-            hint: 'Не задавай в теги имена собственные: названия аниме, имена людей, названия компаний.<br>Первым тегом должен быть основной раздел, к которому относится новость. Выбирай его из выпадающего списка.<br>Следующие теги, уточняющие, старайся выбрать из второго списка.<br>Крайне желательно не добавлять новых тегов, если среди уже имеющихся в базе тегов есть любой хоть чуть-чуть подходящий.'.html_safe,
-            as: :string
-          #vue_tags_input[
-            data-value=f.object.tags
-            data-autocomplete_basic=Topics::TagsQuery::BASIC_TAGS
-            data-autocomplete_other=Topics::TagsQuery.call
-          ]
+          .f-column.f-topic-additionals
+            .attachments-hidden
 
-        - if topic_type_policy.any_club_topic?
-          = f.input :linked_id, as: :hidden
-          = f.input :linked_type, as: :hidden
-
-        - else
-          = render 'topics/form/linked', topic: topic
-
-      - if topic_type_policy.news_topic?
-        .f-column.f-topic-additionals
-          .attachments-hidden
-
-          = render 'topics/form/video', topic: topic, f: f
+            = render 'topics/form/video', topic: topic, f: f
 
     = f.input :title, input_html: { class: 'w-100' }
 

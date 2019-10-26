@@ -3,7 +3,7 @@ header.head
   p.description Just some tests
 
 .block
-  .subheadline.m10 Tests
+  .subheadline Tests
   ul.b-list
     li: a.b-link href=colors_tests_url Colors
     li: a.b-link href=achievements_notification_tests_url Achievements Notification
@@ -20,30 +20,30 @@ header.head
     li: a.b-link href=ip_tests_url IP
 
 .block
-  .subheadline.m10 spoiler
+  .subheadline spoiler
   div == BbCodes::Text.call "[spoiler=спойлер1]aaa[spoiler=спойлер2]bbb[spoiler=спойлер3]ccc[/spoiler]bbb[/spoiler]aaa[/spoiler]"
   div == BbCodes::Text.call "[spoiler=[b]Темы прошлых опросов[/b]]содержимое[/spoiler]"
 
-.subheadline.m10 content_by block
+.subheadline content_by block
 .subcontent.cc.m0.animes-2
   = render partial: 'animes/anime', collection: Anime.where(id: [457, 1]).decorate, locals: { cover_notice: :studio, content_by: :block }
 
-.subheadline.m10 tooltipped c8
+.subheadline tooltipped c8
 .subcontent.cc.m0.animes-8
   = render partial: 'animes/anime', collection: Anime.where(id: [20583, 22199, 20899, 22319, 23283, 22097, 22789, 18689, 23327, 20785, 23421, 24475]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
 
-.subheadline.m10 tooltipped c5
+.subheadline tooltipped c5
 .subcontent.cc.m0.animes-5
   = render partial: 'animes/anime', collection: Anime.where(id: [9969, 5114, 12355, 21939, 16498]).decorate, locals: { cover_notice: :studio, content_by: :tooltip }
 
 .block
-  .subheadline @font-face: shikimori
+  .subheadline.m5 @font-face: shikimori
   .fonts-test
     - 71.times do |i|
       div class="icon-#{i}"
 
 .block
-  .subheadline График
+  .subheadline.m5 График
   .traffic-test data-stats="#{@traffic.to_json}"
 
 /*.half-chart*/
@@ -51,7 +51,7 @@ header.head
     /*span Всего:&nbsp;&nbsp;*/
     /*a.selected*/
       /*| #{@users_count}&nbsp;&nbsp;*/
-  /*.subheadline users*/
+  /*.subheadline.m5 users*/
   /*.subcontent.users-test data-stats="#{@users.to_json}"*/
 
 /*.half-chart*/
@@ -59,11 +59,11 @@ header.head
     /*span Всего:&nbsp;&nbsp;*/
     /*a.selected*/
       /*| #{@comments_count}&nbsp;&nbsp;*/
-  /*.subheadline comments*/
+  /*.subheadline.m5 comments*/
   /*.subcontent.comments-test data-stats="#{@comments.to_json}"*/
 
 .images-test
-  .subheadline Растягивающаяся галерея
+  .subheadline.m5 Растягивающаяся галерея
   .main
     .shiki-wall.unprocessed
       a href="/images/static/embed/8bxMha3liII.jpg"

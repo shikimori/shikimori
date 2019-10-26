@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  h1.subheadline.m10 #{t 'cosplay'} #{localized_name @resource}
+  h1.subheadline #{t 'cosplay'} #{localized_name @resource}
 
   = render @collection, with_headline: true
   - if @add_postloader

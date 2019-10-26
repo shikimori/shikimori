@@ -1,7 +1,7 @@
-import ShikiView from 'views/application/shiki_view';
+import View from 'views/application/view';
 import WallView from 'views/wall/view';
 
-export default class Wall extends ShikiView {
+export default class Wall extends View {
   initialize() {
     new WallView(this.$root);
   }

@@ -4,7 +4,7 @@ header.head
 
 = cache [@wakanim.cache_key, @istari.cache_key, @capella_film.cache_key, @vgtrk.cache_key] do
   .block2
-    .midheadline.m10 Istari
+    .subheadline.m5 Istari
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @istari.decorate,
@@ -12,7 +12,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Capella Film
+    .subheadline.m5 Capella Film
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @capella_film.decorate,
@@ -20,7 +20,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Vgtrk
+    .subheadline.m5 Vgtrk
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @vgtrk.decorate,
@@ -28,7 +28,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Pioner
+    .subheadline.m5 Pioner
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @pioner.decorate,
@@ -36,7 +36,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Exponenta
+    .subheadline.m5 Exponenta
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @exponenta.decorate,
@@ -44,7 +44,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Wakanim
+    .subheadline.m5 Wakanim
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @wakanim.decorate,
@@ -52,7 +52,7 @@ header.head
         cache: ->(entry, _) { CacheHelper.keys entry, :relation }
 
   .block2
-    .midheadline.m10 Other
+    .subheadline.m5 Other
     .cc-7.to-process data-dynamic='cutted_covers'
       = render partial: 'animes/anime',
         collection: @other.decorate,
@@ -61,7 +61,7 @@ header.head
 
 = render 'spnsrs/ad', ad: Ad.new(:horizontal_x250)
 
-.subheadline.m3 = i18n_i 'Comment', :other
+.subheadline.m0 = i18n_i 'Comment', :other
 div
   .b-topic.to-process[
     data-dynamic='topic'

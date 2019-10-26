@@ -1,6 +1,7 @@
 @import mixins/block
 @import mixins/ellipsis2
 @import mixins/link
+@import mixins/shikimori
 
 .b-forums
   +block
@@ -41,3 +42,18 @@
     font-size: 12px
     margin-top: 5px
     position: absolute
+
+    &:hover
+      &:after
+        +shikimori('\e801')
+        color: inherit
+        font-size: 12px
+        margin-left: 7px
+        position: absolute
+
+    &.active
+      font-weight: normal // fix .active from +b-link
+
+      &:after
+        animation: rotating 0.75s linear infinite
+

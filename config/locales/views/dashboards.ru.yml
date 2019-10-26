@@ -11,9 +11,11 @@ ru:
       # other: Прочее
       our_projects: Наши проекты
     show_v2:
+      latest_news: Последние новости
       new_collections: Новые коллекции
       new_reviews: Новые рецензии
       generated_news: Обновления аниме
+      more_news: Ещё новости
     animes:
       title: Аниме
       # all_animes: все аниме

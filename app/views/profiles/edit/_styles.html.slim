@@ -20,7 +20,7 @@
       a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
       = f.button :magic_submit
 
-.subheadline.m10 = t '.site_styles'
+.subheadline = t '.site_styles'
 = render 'styles/editor',
   style: @resource.style,
   default_backgrounds: true,

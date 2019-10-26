@@ -1,5 +1,34 @@
-.midheadline swiper test
+.headline swiper test
+.subheadline.red swiper must be placed in a container that restricts swiper height. otherwise its height will be flickering
+
+.block2
+  .fc-3
+    .f-column
+      .subheadline vertical
+      .b-shiki_swiper.to-process data-dynamic='swiper'
+        a.b-image href='https://pp.userapi.com/c636321/v636321712/4c003/Mg0Dpl1RQdw.jpg'
+          img src='https://pp.userapi.com/c636321/v636321712/4c006/5brU0YG8H80.jpg'
+    .f-column
+      .subheadline vertial data-swiper-align='cover'
+      .b-shiki_swiper.to-process data-dynamic='swiper' data-swiper-align='cover'
+        a.b-image href='https://pp.userapi.com/c636321/v636321712/4c003/Mg0Dpl1RQdw.jpg'
+          img src='https://pp.userapi.com/c636321/v636321712/4c006/5brU0YG8H80.jpg'
+
+.block2
+  .fc-3
+    .f-column
+      .subheadline horizontal
+      .b-shiki_swiper.to-process data-dynamic='swiper'
+        a.b-image href='https://desu.shikimori.one/system/user_images/original/314943/872568.jpg'
+          img src='https://desu.shikimori.one/system/user_images/preview/314943/872568.jpg'
+    .f-column
+      .subheadline horizontal data-swiper-align='cover'
+      .b-shiki_swiper.to-process data-dynamic='swiper' data-swiper-align='cover'
+        a.b-image href='https://desu.shikimori.one/system/user_images/original/314943/872568.jpg'
+          img src='https://desu.shikimori.one/system/user_images/preview/314943/872568.jpg'
+
 .block
+  .subheadline multiple images
   .b-shiki_swiper.to-process data-dynamic='swiper'
     = BbCodes::Text.call '[video=4510]'
     = BbCodes::Text.call '[image=225657]'
@@ -28,9 +57,8 @@
     a.b-image href='https://pp.userapi.com/c636321/v636321210/618c1/RGB_P_Kvu4Y.jpg'
       img src='https://pp.userapi.com/c636321/v636321210/618c4/AaMhA5FHZbw.jpg'
 
-.block style='max-width: 600px'
+.block2
   .b-shiki_swiper.to-process data-dynamic='swiper'
-    = BbCodes::Text.call '[video=29390]'
     a.b-image href='https://pp.userapi.com/c636321/v636321712/4c003/Mg0Dpl1RQdw.jpg'
       img src='https://pp.userapi.com/c636321/v636321712/4c006/5brU0YG8H80.jpg'
     a.b-image href='https://pp.userapi.com/c636321/v636321123/5232c/w2Wq1uIbwX0.jpg'
@@ -55,3 +83,63 @@
       img src='https://pp.userapi.com/c636321/v636321344/4e471/7PRaPEknEUU.jpg'
     a.b-image href='https://pp.userapi.com/c636321/v636321210/618c1/RGB_P_Kvu4Y.jpg'
       img src='https://pp.userapi.com/c636321/v636321210/618c4/AaMhA5FHZbw.jpg'
+
+.block2
+  .subheadline
+    | data-swiper-height=250
+  .b-shiki_swiper.to-process data-dynamic='swiper' data-swiper-height=250
+    a.b-image href='https://pp.userapi.com/c636321/v636321712/4c003/Mg0Dpl1RQdw.jpg'
+      img src='https://pp.userapi.com/c636321/v636321712/4c006/5brU0YG8H80.jpg'
+    a.b-image href='https://pp.userapi.com/c636321/v636321123/5232c/w2Wq1uIbwX0.jpg'
+      img src='https://pp.userapi.com/c636321/v636321123/5232f/x_DmzxLCBFA.jpg'
+    a.b-image href='https://pp.userapi.com/c636321/v636321012/575be/5_l9yMiHxYQ.jpg'
+      img src='https://pp.userapi.com/c636321/v636321012/575c1/cRhXFWaj8IM.jpg'
+    a.b-image href='https://pp.userapi.com/c636321/v636321008/42b17/7l45puGuH_Q.jpg'
+      img src='https://pp.userapi.com/c636321/v636321008/42b1a/bZH5Mt4jcnw.jpg'
+    a.b-image href='https://pp.userapi.com/c637817/v637817630/30316/sN_ugoV30B4.jpg'
+      img src='https://pp.userapi.com/c637817/v637817630/30319/5sF9G0zBd1g.jpg'
+    a.b-image href='https://pp.userapi.com/c637817/v637817188/3a0b3/2HCfK6fx7yc.jpg'
+      img src='https://pp.userapi.com/c637817/v637817188/3a0b6/tmpnXCZdzpw.jpg'
+    a.b-image href='https://pp.userapi.com/c637817/v637817515/2d9e7/TzdHSBpg0yE.jpg'
+      img src='https://pp.userapi.com/c637817/v637817515/2d9ea/7QNwCi9a_Lg.jpg'
+    a.b-image href='https://pp.userapi.com/c636321/v636321265/434d1/QrzsRyWrwig.jpg'
+      img src='https://pp.userapi.com/c636321/v636321265/434d5/TD3mFk191N0.jpg'
+    a.b-image href='https://pp.userapi.com/c636321/v636321239/46fc4/RBNjB330pFo.jpg'
+      img src='https://pp.userapi.com/c636321/v636321239/46fc7/OYM_55xTSOw.jpg'
+    a.b-image href='https://pp.userapi.com/c636321/v636321582/4bee9/xFUwVej7-iA.jpg'
+      img src='https://pp.userapi.com/c636321/v636321582/4beec/j52qtl5cXP0.jpg'
+    a.b-image href='https://pp.userapi.com/c636321/v636321344/4e46e/8fFkWCq6Lo0.jpg'
+      img src='https://pp.userapi.com/c636321/v636321344/4e471/7PRaPEknEUU.jpg'
+    a.b-image href='https://pp.userapi.com/c636321/v636321210/618c1/RGB_P_Kvu4Y.jpg'
+      img src='https://pp.userapi.com/c636321/v636321210/618c4/AaMhA5FHZbw.jpg'
+
+.block2
+  .subheadline restricted width of the container
+  .fc-2
+    .f-column
+      .b-shiki_swiper.to-process data-dynamic='swiper'
+        = BbCodes::Text.call '[video=29390]'
+        a.b-image href='https://pp.userapi.com/c636321/v636321712/4c003/Mg0Dpl1RQdw.jpg'
+          img src='https://pp.userapi.com/c636321/v636321712/4c006/5brU0YG8H80.jpg'
+        a.b-image href='https://pp.userapi.com/c636321/v636321123/5232c/w2Wq1uIbwX0.jpg'
+          img src='https://pp.userapi.com/c636321/v636321123/5232f/x_DmzxLCBFA.jpg'
+        a.b-image href='https://pp.userapi.com/c636321/v636321012/575be/5_l9yMiHxYQ.jpg'
+          img src='https://pp.userapi.com/c636321/v636321012/575c1/cRhXFWaj8IM.jpg'
+        a.b-image href='https://pp.userapi.com/c636321/v636321008/42b17/7l45puGuH_Q.jpg'
+          img src='https://pp.userapi.com/c636321/v636321008/42b1a/bZH5Mt4jcnw.jpg'
+        a.b-image href='https://pp.userapi.com/c637817/v637817630/30316/sN_ugoV30B4.jpg'
+          img src='https://pp.userapi.com/c637817/v637817630/30319/5sF9G0zBd1g.jpg'
+        a.b-image href='https://pp.userapi.com/c637817/v637817188/3a0b3/2HCfK6fx7yc.jpg'
+          img src='https://pp.userapi.com/c637817/v637817188/3a0b6/tmpnXCZdzpw.jpg'
+        a.b-image href='https://pp.userapi.com/c637817/v637817515/2d9e7/TzdHSBpg0yE.jpg'
+          img src='https://pp.userapi.com/c637817/v637817515/2d9ea/7QNwCi9a_Lg.jpg'
+        a.b-image href='https://pp.userapi.com/c636321/v636321265/434d1/QrzsRyWrwig.jpg'
+          img src='https://pp.userapi.com/c636321/v636321265/434d5/TD3mFk191N0.jpg'
+        a.b-image href='https://pp.userapi.com/c636321/v636321239/46fc4/RBNjB330pFo.jpg'
+          img src='https://pp.userapi.com/c636321/v636321239/46fc7/OYM_55xTSOw.jpg'
+        a.b-image href='https://pp.userapi.com/c636321/v636321582/4bee9/xFUwVej7-iA.jpg'
+          img src='https://pp.userapi.com/c636321/v636321582/4beec/j52qtl5cXP0.jpg'
+        a.b-image href='https://pp.userapi.com/c636321/v636321344/4e46e/8fFkWCq6Lo0.jpg'
+          img src='https://pp.userapi.com/c636321/v636321344/4e471/7PRaPEknEUU.jpg'
+        a.b-image href='https://pp.userapi.com/c636321/v636321210/618c1/RGB_P_Kvu4Y.jpg'
+          img src='https://pp.userapi.com/c636321/v636321210/618c4/AaMhA5FHZbw.jpg'

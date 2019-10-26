@@ -1,132 +1,73 @@
-@import mixins/link
-@import mixins/two_line_ellipsis
+@import mixins/css4
+@import mixins/date
 @import mixins/responsive
-@import mixins/media_marker
+@import mixins/shikimori
+@import mixins/two_line_ellipsis
 
-.b-topic.b-news_wall-topic.b-news-topic
+.b-news_wall-topic
   border-top: none
   margin: 0
 
-  .b-anime_status_tag
-    border-radius: 2px
-    font-size: 11px
-    font-weight: bold
-    letter-spacing: 0.25px
-    line-height: 20px
-    padding: 0 8px
-    text-transform: uppercase
-    border-color: rgba(#fff, 0.25)
+  & > a
+    display: block
 
-  & > .inner
-    // border-top: 1px solid #155785
+    +gt_ipad
+      &:hover
+        .title
+          color: $link-hover
 
-    & > a
-      display: flex
-      flex-direction: column-reverse
+    &:active
+      .title
+        color: $link-active
 
-      +gt_ipad
-        &:hover
-          .name-date .name
-            color: $link-hover
+  .poster
+    display: flex
+    flex-direction: column-reverse
+    margin-bottom: 10px
+    pointer-events: none
+    position: relative
 
-      &:active
-        .name-date .name
-          color: $link-active
+    &:before
+      content: ''
+      padding-top: 56.25% // 16:9 aspect ratio
 
-    .name-date
-      white-space: normal
-      line-height: 1.55
+    .b-shiki_swiper
+      height: 100%
+      left: 0
+      position: absolute
+      top: 0
+      width: 100%
 
-      +lte_ipad
-        padding-right: 0 // no need in offset for item-mobile
+  .status-line
+    display: flex
+    margin-bottom: 7px
+    align-items: baseline
 
-      .status-tags
-        display: none
+    .tags
+      display: inline-flex
+      margin-right: 12px
 
-      .name
-        color: #123
-        height: auto
+      .b-anime_status_tag
+        &:not(:last-child)
+          margin-right: 8px
 
-        &:hover
-          text-decoration: none
+    time
+      +date
 
-        +iphone
-          +two_line_ellipsis(18px, 1.26)
-
-        +gte_ipad
-          +two_line_ellipsis(18px, 1.35)
-
-    // .body .body-truncated
-      // font-size: 13px
-      max-height: 84px
-
-    footer
-      display: flex
-      flex-direction: column-reverse
-      pointer-events: none
-      position: relative
+    .comments
+      line-height: 18px
+      color: #333
+      margin-left: auto
+      font-size: 12px
 
       &:before
-        content: ''
-        padding-top: 56.25% // 16:9 aspect ratio
+        +shikimori('f')
+        font-size: 13px
+        padding-right: 5px
 
-      .b-shiki_swiper
-        height: 100%
-        left: 0
-        position: absolute
-        top: 0
-        width: 100%
-
-        &.is-placeholder
-          background-image: asset_url('/assets/blocks/b-news_wall-topic/placeholder.svg')
-          background-size: contain
-          background-repeat: no-repeat
-
-      .additionals
-        margin: 0
-
-      .basic-tags
-        justify-content: flex-start
-        margin-top: -5px
-        left: 5px
-        position: absolute
-        z-index: 2
-
-      .other-tags
-        left: 5px
-        position: absolute
-        top: 5px
-        z-index: 2
-
-    header
-      margin-top: 5px
-
-    .b-status-line
-      flex-wrap: nowrap
-      margin: 0
-
-      &:not(:last-child)
-        margin-bottom: 8px
-
-      .section
-        &:after
-          display: none
-
-      .section.about
-        display: flex
-        min-width: 0
-
-        & > .b-link
-          +ellipsis2
-
-      .section.created_at,
-      .section.changed_at
-        display: none
-
-      .section.additional
-        margin-left: auto
-        padding-left: 30px
-
-  .b-shiki_swiper
-    .b-video .marker
-      display: none
+  .title
+    +two_line_ellipsis(15px, 1.55)
+    color: #123
+    +css4
+      font-family: var(--font-alt)
+    font-weight: 600

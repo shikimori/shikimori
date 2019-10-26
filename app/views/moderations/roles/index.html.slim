@@ -4,7 +4,7 @@ header.head
     = og.headline
   = render 'application/breadcrumbs'
 
-.subheadline.m10 = t '.roles'
+.subheadline = t '.roles'
 ul.b-list.block
   - User.roles.values.each do |role|
     - next if %w[video_super_moderator video_moderator api_video_uploader trusted_video_uploader not_trusted_video_uploader trusted_video_changer].include? role

@@ -12,7 +12,7 @@
 
   - cache @club.forum_topics_query do
     - if @club.forum_topics_views.any?
-      .subheadline.m10
+      .subheadline
         a[
           href=club_club_topics_url(@club)
           title=i18n_i('Topic', :other)

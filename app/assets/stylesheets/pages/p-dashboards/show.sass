@@ -1,4 +1,4 @@
-@import mixins/column
+@import mixins/float_column
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/marker
@@ -7,7 +7,24 @@
 @import mixins/selected
 
 .p-dashboards-show
-  .midheadline
+  .linkheadline
+    & > a
+      text-decoration: underline
+      color: inherit
+
+      &:before
+        color: inherit
+
+      &:hover,
+      &:hover:before
+        color: $link-hover
+
+      +gt_ipad
+        &:active,
+        &:active:before
+          color: $link-active
+
+  .subheadline
     h2
       font-size: inherit
       font-weight: inherit

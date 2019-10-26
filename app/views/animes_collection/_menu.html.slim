@@ -11,7 +11,7 @@
     ul.b-block_list.franchise.anime-params
 
   .block
-    .subheadline = t 'dashboards.animes.recommended.title'
+    .subheadline.m5 = t 'dashboards.animes.recommended.title'
 
     .b-list style="margin-left: 5px"
       li: a.b-link[
@@ -32,7 +32,7 @@
     = render 'spnsrs/ad', ad: Ad.new(:menu_240x400)
 
   .block
-    .subheadline = menu.klass.human_attribute_name :status
+    .subheadline.m5 = menu.klass.human_attribute_name :status
     ul.b-block_list.statuses.anime-params
       - menu.statuses.each do |status|
         li class="status-#{status.text}"
@@ -41,7 +41,7 @@
 
   - if menu.kinds.any?
     .block
-      .subheadline = menu.klass.human_attribute_name(:kind)
+      .subheadline.m5 = menu.klass.human_attribute_name(:kind)
       ul.b-block_list.kinds.anime-params
         - menu.kinds.each do |kind|
           li class="kind-#{kind.text}"
@@ -70,7 +70,7 @@
 
   - if menu.show_sorting?
     .block
-      .subheadline = i18n_i 'Sorting'
+      .subheadline.m5 = i18n_i 'Sorting'
       ul.b-block_list.orders.anime-params.subcontent
         li.order-by-ranked = t 'by.ranked'
         li.order-by-kind.hidden = t 'by.kind'
@@ -101,15 +101,15 @@
     = render 'animes_collection/mylist', klass: menu.klass
 
   .block.hidden
-    .subheadline = i18n_i 'Studio'
+    .subheadline.m5 = i18n_i 'Studio'
     ul.b-block_list.studios.anime-params
 
   .block.hidden
-    .subheadline = i18n_i 'Publisher'
+    .subheadline.m5 = i18n_i 'Publisher'
     ul.b-block_list.publishers.anime-params
 
   .block
-    .subheadline = i18n_i 'Season'
+    .subheadline.m5 = i18n_i 'Season'
     ul.b-block_list.seasons.anime-params
       - menu.seasons.each do |season|
         li class="season-#{season.text}"
@@ -118,7 +118,7 @@
 
   - unless %w[user_rates userlist_comparer].include? params[:controller]
     .block.scores
-      .subheadline = i18n_i 'Score'
+      .subheadline.m5 = i18n_i 'Score'
       ul.b-block_list.scores.anime-params
         - [8, 7, 6].each do |score|
           li class="score-#{score}"
@@ -127,7 +127,7 @@
 
   - if menu.klass == Anime
     .block.durations
-      .subheadline = i18n_i 'Episode'
+      .subheadline.m5 = i18n_i 'Episode'
       ul.b-block_list.durations.anime-params
         - ::Types::Anime::Duration.values.each do |value|
           li class="duration-#{value}"
@@ -135,7 +135,7 @@
             = t ".anime.duration.#{value}"
 
     .block.ratings
-      .subheadline = i18n_i 'Rating'
+      .subheadline.m5 = i18n_i 'Rating'
       ul.b-block_list.ratings.anime-params
         - Anime.rating.options.each do |title, rating|
           - next if rating == 'none'
@@ -149,7 +149,7 @@
             ]
 
   .block.genres
-    .subheadline = i18n_i 'Genre', :other
+    .subheadline.m5 = i18n_i 'Genre', :other
     = text_spoiler t('.show_list') do
       ul.b-block_list.genres.anime-params.m10
         - menu.sorted_genres.each do |genre|

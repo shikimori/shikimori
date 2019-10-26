@@ -1,34 +1,38 @@
+import Swiper from 'swiper';
+import { isMobile } from 'helpers/mobile_detect';
+
+let swipers = [];
+
 pageLoad('dashboards_show', () => {
   if (!$('.p-dashboards-show .v2').length) { return; }
-  alignGeneratedNews();
-  $(document).on('resize:debounced orientationchange', alignGeneratedNews);
+  reInitSwipers();
+  $(document).on('resize:debounced orientationchange', reInitSwipers);
 });
 
 pageUnload('dashboards_show', () => {
   if (!$('.p-dashboards-show .v2').length) { return; }
-  $(document).off('resize:debounced orientationchange', alignGeneratedNews);
+  destroySwipers();
+
+  $(document).off('resize:debounced orientationchange', reInitSwipers);
 });
 
-function alignGeneratedNews() {
-  const $target = $('.generated-news');
+function reInitSwipers() {
+  console.log('reInitSwipers');
+  destroySwipers();
 
-  if (!$target.is(':visible')) {
-    return; // disable on iphone
+  if (isMobile()) {
+    swipers.push(
+      new Swiper('.db-updates', {
+        slidesPerView: 'auto',
+        spaceBetween: 0,
+        wrapperClass: 'inner',
+        slideClass: 'db-update'
+      })
+    );
   }
-
-  $target.children().show();
-
-  const $siblings = $target.siblings().children('.b-news_wall');
-  const siblingsHeight = $siblings.outerHeight();
-
-  shorten($target, $target.children(), siblingsHeight, 0);
 }
 
-function shorten($target, $targetChildren, siblingsHeight, indexToHide) {
-  const targetHeight = $target.innerHeight();
-
-  if (targetHeight - 5 > siblingsHeight) {
-    $targetChildren.eq($targetChildren.length - 1 - indexToHide).hide();
-    shorten($target, $targetChildren, siblingsHeight, indexToHide + 1);
-  }
+function destroySwipers() {
+  swipers.forEach(swiper => swiper.destroy());
+  swipers = [];
 }

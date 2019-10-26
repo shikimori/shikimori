@@ -1,24 +1,24 @@
 = render layout: 'page' do
-  /h2.subheadline.m10 = og.headline
+  /h2.subheadline = og.headline
 
   .cc-3_4
     .c-column
       /- if @kind == :anime
       .cc-2
         .c-column.genres
-          .subheadline.m10 Жанры
+          .subheadline Жанры
           = render 'category_stats', resource: @resource, klass: Anime.name.downcase.to_sym, category: :genres, caption: 'Жанры'
 
         .c-column.studios
-          .subheadline.m10 Студии
+          .subheadline Студии
           = render 'category_stats', resource: @resource, klass: Anime.name.downcase.to_sym, category: :studios, caption: 'Студии'
         /- else
           /.genres
-            /.subheadline.m10 Жанры
+            /.subheadline Жанры
             /= render 'category_stats', resource: @resource, klass: Manga.name.downcase.to_sym, category: :genres, caption: 'Жанры'
 
           /.studios
-            /.subheadline.m10 Издатели
+            /.subheadline Издатели
             /= render 'category_stats', resource: @resource, klass: Manga.name.downcase.to_sym, category: :publishers, caption: 'Студии'
 
     .c-column
@@ -28,20 +28,20 @@
             /- if @resource.stats.anime? && @resource.stats.kinda_manga?
               /a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @resource, :anime}" Аниме
               /a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @resource, :manga}" Манга
-          /.subheadline Оценки
+          /.subheadline.m5 Оценки
           /#scores data-stats="#{@resource.stats.scores[@kind].to_json}" data-bar="horizontal"
 
         /.types
-          /.subheadline Типы
+          /.subheadline.m5 Типы
           /#types data-stats="#{@resource.stats.kinds[@kind].to_json}" data-bar="horizontal"
 
         /- if @kind != :manga
           /.ratings
-            /.subheadline Рейтинги
+            /.subheadline.m5 Рейтинги
             /#ratings data-stats="#{@resource.stats.ratings[@kind].to_json}" data-bar="horizontal"
 
   /.activity
-    /.subheadline.m10 Активность
+    /.subheadline Активность
     /- if @resource.stats.activity.any?
       /#activity_inc data-stats="#{@resource.stats.activity.to_json}" data-bar="vertical" data-flattened="true"
     /- else

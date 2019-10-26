@@ -18,7 +18,7 @@
   .b-options-floated.about-options
     = f.input :about_on_top
   .block
-    .subheadline.m10 = t '.about_me'
+    .subheadline = t '.about_me'
     .b-shiki_editor.unprocessed
       = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
 

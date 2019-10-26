@@ -64,7 +64,7 @@
 
           - if @resource.top_seyu.present?
             .c-info-right
-              .subheadline.m10
+              .subheadline
                 .linkeable href=seyu_character_url(@resource) = t 'seyu'
                 /- if @resource.seyu.size > 3
                   | Сэйю <span>#{@resource.seyu.size}</span>
@@ -74,7 +74,7 @@
                 = render @resource.top_seyu.take(3)
 
       .c-description
-        .subheadline.m5 = Character.human_attribute_name :description
+        .subheadline = Character.human_attribute_name :description
         .block
           meta[
             itemprop='image'
@@ -87,7 +87,7 @@
           = render 'blocks/description', resource: @resource
 
     - if @resource.animes(7).any?
-      .subheadline.m10
+      .subheadline
         .linkeable[
           data-href=animes_character_url(@resource)
         ] = i18n_i 'Anime', :other
@@ -95,7 +95,7 @@
         = render @resource.animes(7)
 
     - if @resource.mangas(7).any?
-      .subheadline.m10
+      .subheadline
         .linkeable[
           data-href=mangas_character_url(@resource)
         ] = i18n_i 'Manga', :other
@@ -103,7 +103,7 @@
         = render @resource.mangas(7)
 
     - if @resource.ranobe(7).any?
-      .subheadline.m10
+      .subheadline
         .linkeable[
           data-href=ranobe_character_url(@resource)
         ] = i18n_i 'Ranobe', :other

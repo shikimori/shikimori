@@ -1,11 +1,15 @@
+@import mixins/css4
+
 .l-top_menu-v2
   .menu-icon,
   .menu-dropdown > span
     align-items: center
     color: inherit
     display: flex
+    +css4
+      font-family: var(--font-alt)
+      letter-spacing: var(--font-alt-text-letter-spacing)
     height: $top_menu-height // need for mobile profile height
-    letter-spacing: 0.25px
     outline: none
     user-select: none
 
@@ -56,8 +60,9 @@
         border: 1px solid $top_menu-background_color
         color: $top_menu-background_color
         font-size: 8px
+        font-family: Tahoma
         height: 14px
-        line-height: 15px
+        line-height: 14px
         position: absolute
         right: 6px
         text-align: center

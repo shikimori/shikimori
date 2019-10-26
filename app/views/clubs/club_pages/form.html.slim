@@ -1,10 +1,10 @@
 = render layout: 'clubs/page' do
   - if @resource.errors.any?
     .b-errors
-      .subheadline = i18n_i 'error', :other
+      .subheadline.m5 = i18n_i 'error', :other
       == @resource.errors.full_messages.join('<br>')
 
-  .subheadline.m10
+  .subheadline
     - if @resource.persisted?
       a[
         href=club_club_page_path(@club, @resource)

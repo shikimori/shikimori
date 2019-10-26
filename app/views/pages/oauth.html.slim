@@ -2,7 +2,7 @@ header.head
   h1 OAuth2 Guide
 
 .block2
-  .midheadline How OAuth works
+  .subheadline.m5 How OAuth works
   pre
     code.b-code +-------------------+                                          +---------------+
       |                   |----------- Authorization Grant --------->|               |
@@ -26,7 +26,7 @@ header.head
 
 .block
   a name='step_1'
-  .midheadline 1. Create Application
+  .subheadline.m5 1. Create Application
   p Create your own application on the page #{link_to oauth_applications_path, oauth_applications_url}
 
 .block
@@ -69,7 +69,7 @@ header.head
 
 .block
   a name='step_2'
-  .midheadline 2. Get Authorization Code
+  .subheadline.m5 2. Get Authorization Code
   p.m5
     | In your application, redirect the user to shikimori authorization page.
   code.b-code.m5
@@ -110,7 +110,7 @@ header.head
 
 .block
   a name='step_3'
-  .midheadline 3. Get Access Token
+  .subheadline.m5 3. Get Access Token
   pre.to-process data-dynamic='code_highlight'
     code.b-code.m5 data-language='bash' curl -X POST "#{oauth_token_url}" \
         -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
@@ -177,14 +177,14 @@ header.head
       | {"error":"invalid_token","error_description":"The access token is invalid","state":"unauthorized"}
 
 .block
-  .midheadline 4. Request Shikimori protected resources with obtained Access Token
+  .subheadline.m5 4. Request Shikimori protected resources with obtained Access Token
   pre.to-process data-dynamic='code_highlight'
     code.b-code.m5 data-language='bash' curl -X GET #{whoami_api_users_url} \
       -H "User-Agent: #{@oauth_application&.name || 'APPLICATION_NAME'}" \
       -H "Authorization: Bearer #{params[:access_token].present? ? params[:access_token] : 'ACCESS_TOKEN'}"
 
 .block
-  .midheadline 5. Refresh Access Token
+  .subheadline.m5 5. Refresh Access Token
 
   p.m5 Use your Refresh Token to obtain new Access Token and Refresh Token.
   pre.to-process data-dynamic='code_highlight'

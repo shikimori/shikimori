@@ -6,7 +6,7 @@
       = t 'answers.no'
   .subheadline-buttons
     a.item-edit href=@resource.edit_field_url(:coub_tags)
-  .subheadline.m10 = og.headline
+  .subheadline = og.headline
 
   .block
     - if @resource.coubs.coubs.any?

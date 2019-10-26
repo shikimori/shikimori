@@ -1,0 +1,36 @@
+- anime = topic_view.decorated_linked
+a.db-update.bubbled.unprocessed[
+  href=anime.url
+  title=topic_view.topic_title
+  data-tooltip_url=topic_view.decorated_linked.tooltip_url
+]
+  .poster
+    img[
+      src=cdn_image(topic_view.decorated_linked, :x48)
+      srcset="#{cdn_image topic_view.decorated_linked, :x96} 2x"
+      alt=topic_view.decorated_linked.name
+    ]
+  .info
+    .name
+      = topic_view.topic_title_html
+
+    .status-time
+      - if topic_view.action_tag
+        .b-anime_status_tag[
+          class=topic_view.action_tag.type
+          data-text=topic_view.action_tag.text
+        ]
+      time[
+        itemprop='commentTime'
+        datetime=topic_view.created_at.iso8601
+      ] = l topic_view.created_at, format: '%e %B %Y'
+
+    .tags
+      - if anime.kind.present?
+        .b-tag = anime.kind_text
+
+      - if anime.rating.present?
+        .b-tag = anime.rating_text
+
+      - anime.main_genres.each do |genre|
+        .b-tag = localization_span genre

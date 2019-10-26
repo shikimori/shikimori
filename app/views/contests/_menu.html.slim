@@ -1,7 +1,7 @@
 .b-contests-menu
   - if user_signed_in?
     .block.actions.r-iphone
-      .subheadline = t 'actions.actions'
+      .subheadline.m5 = t 'actions.actions'
       ul.b-block_list
         - if can?(:edit, resource) && resource.persisted?
           li.edit-entry
@@ -30,7 +30,7 @@
       .block
         .b-options-floated.count
           = resource.members.size
-        .subheadline.m10 = t '.candidates'
+        .subheadline = t '.candidates'
         .cc-4a.user_rates-minified.to-process[
           data-dynamic='cutted_covers'
           data-ratio_type=(:person if resource.character?)

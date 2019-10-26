@@ -31,7 +31,7 @@
       .c-column
         .b-options-floated
           span = contest.displayed_round.title
-        .subheadline = t '.in_this_round'
+        .subheadline.m5 = t '.in_this_round'
         .block
           = render 'contest_matches/match_days',
             contest: contest,
@@ -49,7 +49,7 @@
               data-href=round_contest_url(contest, round: contest.prior_round)
               title=contest.prior_round.title
             ] = contest.prior_round.title
-          .subheadline = t '.in_previous_round'
+          .subheadline.m5 = t '.in_previous_round'
           .block
             = render 'contest_matches/match_days',
               contest: contest,

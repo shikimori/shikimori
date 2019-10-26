@@ -9,8 +9,8 @@
 ]
   - collection.groups.each_with_index do |(group, entries), index|
     - if group.present?
-      .midheadline = group
-      / .subheadline.m10 = group
+      .subheadline.m5 = group
+      / .subheadline = group
     .cc-collection-groups.to-process[
       data-dynamic="cutted_covers"
       data-ratio_type=collection.kind

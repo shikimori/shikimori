@@ -2,7 +2,7 @@
   - if params[:video_id]
     .subheadline-buttons
       a.item-edit href=edit_video_anime_url(@resource, params[:video_id])
-    .subheadline.m10 #{Video.model_name.human} ##{params[:video_id]}
+    .subheadline #{Video.model_name.human} ##{params[:video_id]}
     .cc.m10
       = render @resource.videos.find(params[:video_id])
 
@@ -10,7 +10,7 @@
     = cache [@resource, params[:action], :v2] do
       .subheadline-buttons
         a.item-edit href=@resource.edit_field_url(:videos)
-      .subheadline.m10 = Video.model_name.human
+      .subheadline = Video.model_name.human
       .cc.m10
         = render @resource.videos
 

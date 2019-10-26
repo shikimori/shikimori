@@ -5,11 +5,11 @@
 
   - if review.errors.any?
     .b-errors
-      .subheadline = i18n_i 'Error', :other
+      .subheadline.m5 = i18n_i 'Error', :other
       .block
         == review.errors.full_messages.join('<br>')
 
-  .subheadline = og.headline
+  .subheadline.m5 = og.headline
 
   .b-review-topic.block
     .body

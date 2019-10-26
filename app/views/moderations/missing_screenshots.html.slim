@@ -7,7 +7,7 @@ header.head
         limit: Moderation::MissingScreenshotsQuery::LIMIT
   = render 'application/breadcrumbs'
 
-.subheadline = t '.animes'
+.subheadline.m5 = t '.animes'
 ul.b-list.cc-3
   - @collection.each do |anime|
     li.c-column.m0

@@ -2,7 +2,7 @@
   .block
     .block
       .b-options-floated {{ `${links.length} / ${maxLinks}` }}
-      .subheadline.m10 {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
+      .subheadline {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
       .cc-3-flex
         .c-column(
           v-for='groupName in groups'
@@ -57,7 +57,7 @@
             .hint {{ I18n.t('frontend.collections.disabled_add_group_hint') }}
 
     .block.json
-      .subheadline JSON
+      .subheadline.m5 JSON
       .b-spoiler.unprocessed
         label {{ I18n.t('frontend.collections.json_warning') }}
         .content
@@ -204,7 +204,7 @@ export default {
 </script>
 
 <style scoped lang='sass'>
-@import 'app/assets/stylesheets/globals/variables';
+@import 'app/assets/stylesheets/globals'
 
 .new-group
   padding-top: 8px

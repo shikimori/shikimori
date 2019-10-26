@@ -7,7 +7,7 @@ header.head
     .cc-3
       - %i[id email current_sign_in_ip last_sign_in_ip created_on].each do |field|
         .c-column.block_m
-          .subheadline.m10
+          .subheadline
             = field
             - if params[field].present?
               .misc-links
@@ -37,7 +37,7 @@ header.head
     .clear
 
   .b-options-floated = @collection.except(:limit, :offset).size
-  .subheadline.m10 = i18n_i('User', :other)
+  .subheadline = i18n_i('User', :other)
   .search-results.cc-4
     - if @collection.any?
       = render partial: 'users/user',

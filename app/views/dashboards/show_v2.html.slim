@@ -116,77 +116,38 @@
       ]
         .ajax-loading.vk-like
 
-    .block
-      .headline.blue.m15
-        span = t 'news'
-        .buttons
-          .options.to-process data-dynamic='not_implemented_yet_action'
+    .block2
+      .headline.blue.m15 = t '.latest_news'
+      .news_wall.latest-news
+        = render partial: 'topics/topic',
+          collection: @view.news_topic_views[0..2],
+          locals: { do_not_track: true },
+          cache: true,
+          as: :topic_view
 
-      .fc-2-3-m
-        = cache @view.cache_keys[:news] + %i[part1] do
-          .f-column
-            .b-news_wall
-              = render partial: 'topics/topic',
-                collection: @view.news_topic_views[0..7],
-                locals: { do_not_track: true },
-                cache: true,
-                as: :topic_view
-                / collection: @view.news[0..7],
-
-        = cache @view.cache_keys[:db_updates] do
-          .f-column.generated-news
-            .subheadline.orange.m15
-              a[
-                href=forum_topics_url(:updates)
-                title=t('.generated_news')
-              ] = t '.generated_news'
-            - @view.db_updates.each do |topic_view|
-              - anime = topic_view.decorated_linked
-              a.generated-news-line.bubbled.unprocessed[
-                href=anime.url
-                title=topic_view.topic_title
-                data-tooltip_url=topic_view.decorated_linked.tooltip_url
-              ]
-                .info
-                  .name = topic_view.topic_title_html
-
-                  .status-time
-                    - if topic_view.action_tag
-                      .b-anime_status_tag[
-                        class=topic_view.action_tag.type
-                        data-text=topic_view.action_tag.text
-                      ]
-
-                    - if anime.kind.present?
-                      .kind = anime.kind_text
-
-                    span.time
-                      time[
-                        itemprop='commentTime'
-                        datetime=topic_view.created_at.iso8601
-                      ] = l topic_view.created_at, format: '%e %B %Y'
-
-                  .genres
-                    - anime.main_genres[0..3].each do |genre|
-                      .b-tag = localization_span genre
-
-                .poster
-                  img[
-                    src=cdn_image(topic_view.decorated_linked, :x48)
-                    srcset="#{cdn_image topic_view.decorated_linked, :x96} 2x"
-                    alt=topic_view.decorated_linked.name
-                  ]
-
-      .other-news
-        = cache @view.cache_keys[:news] + %i[part2] do
-          .b-news_wall
-            = render partial: 'topics/topic',
-              collection: @view.news_topic_views[8..-1],
-              locals: { do_not_track: true },
-              cache: true,
+    = cache @view.cache_keys[:db_updates] do
+      .block2
+        .headline.orange.m15
+          a[
+            href=forum_topics_url(:updates)
+            title=t('.generated_news')
+          ] = t '.generated_news'
+        .db-updates
+          .inner
+            = render partial: 'dashboards/v2/db_update',
+              collection: @view.db_updates,
               as: :topic_view
 
-            - if @view.news_topic_views.next_page
-              = render 'blocks/postloader',
-                filter: 'b-topic',
-                next_url: root_page_url(page: @view.news_topic_views.next_page)
+    .block2
+      .headline.skyblue.m15 = t '.more_news'
+      .news_wall.other-news
+        = render partial: 'topics/topic',
+          collection: @view.news_topic_views[2..-1],
+          locals: { do_not_track: true },
+          cache: true,
+          as: :topic_view
+
+        - if @view.news_topic_views.next_page
+          = render 'blocks/postloader',
+            filter: 'b-topic',
+            next_url: root_page_url(page: @view.news_topic_views.next_page)

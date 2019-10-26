@@ -3,7 +3,7 @@ header.head
   p.notice = t '.notice'
   = render 'application/breadcrumbs'
 
-.subheadline.m10 = t '.instruction'
+.subheadline = t '.instruction'
 .b-brief
   .moderators
     = render partial: 'users/user',
@@ -15,7 +15,7 @@ header.head
       li: p == instruction
 
 - if @pending.any?
-  .subheadline = t '.queue'
+  .subheadline.m5 = t '.queue'
   .block
     - if @pending.any?
       = render partial: 'moderations/collections/collection',
@@ -27,7 +27,7 @@ header.head
       .b-nothing_here = t '.queue_empty'
 
 - if @processed.any?
-  .subheadline = t '.history'
+  .subheadline.m5 = t '.history'
   .block
     = render partial: 'moderations/collections/collection',
       collection: @processed

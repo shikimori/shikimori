@@ -5,33 +5,33 @@ header.head
 
 .cc-2
   .c-column
-    .subheadline Общее
+    .subheadline.m5 Общее
     ul.block.b-list
       - @forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
-    h2.subheadline Аниме
+    h2.subheadline.m5 Аниме
     ul.block.b-list
       - @anime_forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
 
-    h2.subheadline Манга
+    h2.subheadline.m5 Манга
     ul.block.b-list
       - @manga_forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
-    h2.subheadline Ранобэ
+    h2.subheadline.m5 Ранобэ
     ul.block.b-list
       - @ranobe_forums.each do |title, url|
         li
           a.b-link href=url title=title = title
 
   .c-column
-    .subheadline Жанры аниме
+    .subheadline.m5 Жанры аниме
     ul.block.b-list
       - @anime_genres.each do |title, url|
         li

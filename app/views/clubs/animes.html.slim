@@ -3,7 +3,7 @@
     = render 'blocks/list_switchers',
       name: 'club_animes',
       values: %w(posters list)
-  h2.subheadline.m10 = og.headline
+  h2.subheadline = og.headline
   - if cookies['club_animes'] == 'list'
     div
       = render partial: 'animes/variants/list_item',

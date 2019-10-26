@@ -56,11 +56,11 @@
       span = @people_to_import
 
     / - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
-      / .subheadline Calendar Unrecognized
+      / .subheadline.m5 Calendar Unrecognized
       / .m15
         / - @calendar_unrecognized.each do |name|
           / p.m5 = name
-    / .subheadline links
+    / .subheadline.m5 links
     / .m15
       / p: a href="#{publishing_cosplay_galleries_url}" Cosplay Publishing
 

@@ -4,7 +4,7 @@ header.head.misc
 
 - if @resource.errors.any?
   .b-errors
-    .subheadline = i18n_i 'error', :other
+    .subheadline.m5 = i18n_i 'error', :other
     == @resource.errors.full_messages.join('<br>')
 
 #poll_form[

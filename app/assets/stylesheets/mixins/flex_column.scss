@@ -1,0 +1,66 @@
+@import 'mixins/responsive';
+
+@mixin fcolumn-responsive(
+  $portrait-columns: 1,
+  $landscape-columns: 2,
+  $ipad-columns: '',
+  $desktop-columns: '',
+  $gutter: '',
+  $offset: '',
+  $gutter-mobile: $flex-gutter-mobile,
+  $offset-mobile: $flex-offset-mobile,
+  $gutter-desktop: $flex-gutter-desktop,
+  $offset-desktop: $flex-offset-desktop,
+  $selector: '.f-column'
+) {
+  @if ($gutter != '') {
+    $gutter-mobile: $gutter;
+    $gutter-desktop: $gutter;
+  }
+  @if ($offset != '') {
+    $offset-mobile: $offset;
+    $offset-desktop: $offset;
+  }
+  @if ($desktop-columns == '') {
+    $desktop-columns: $ipad-columns;
+  }
+
+  @if ($portrait-columns != 0) {
+    @include iphone-portrait {
+      @include fcolumn($portrait-columns, $gutter-mobile, $offset-mobile, $selector);
+    }
+  }
+
+  @if ($landscape-columns != 0) {
+    @include iphone-landscape {
+      @include fcolumn($landscape-columns, $gutter-mobile, $offset-mobile, $selector);
+    }
+  }
+
+  @include ipad {
+    @include fcolumn($ipad-columns, $gutter-desktop, $offset-desktop, $selector);
+  }
+
+  @include gte_laptop {
+    @include fcolumn($desktop-columns, $gutter-desktop, $offset-desktop, $selector);
+  }
+}
+
+@mixin fcolumn($columns, $gutter, $offset, $selector) {
+  // background: rgba(green, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: -$offset;
+  margin-left: -$gutter;
+
+  & > #{$selector} {
+    // background: rgba(blue, 0.5);
+    margin-bottom: $offset;
+    margin-left: $gutter;
+    @include fcolumn-size($columns, 1, $gutter);
+  }
+}
+
+@mixin fcolumn-size($columns, $ratio, $gutter) {
+  width: calc(#{100% * $ratio / $columns} - #{$gutter});
+}

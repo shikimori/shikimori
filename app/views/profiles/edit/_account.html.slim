@@ -46,7 +46,7 @@
 
       - if @resource.user_tokens.any?
         .block
-          .subheadline = t '.connected_accounts'
+          .subheadline.m5 = t '.connected_accounts'
           .value.oauth.remove
             - @resource.user_tokens.each do |token|
               a.b-oauth_token[
@@ -59,7 +59,7 @@
 
       - if @resource.unconnected_providers.any?
         .block
-          .subheadline = t '.not_connected_accounts'
+          .subheadline.m5 = t '.not_connected_accounts'
           .value.oauth.add
             - @resource.unconnected_providers.each do |provider|
               a.b-oauth_token[
@@ -71,7 +71,7 @@
 
       - if @resource.access_grants.any?
         .block
-          .subheadline = t '.granted_oauth_apps'
+          .subheadline.m5 = t '.granted_oauth_apps'
           .cc-6
             = render partial: 'doorkeeper/oauth_applications/oauth_application',
               collection: Users::GrantedApplications.call(@resource),

@@ -16,7 +16,7 @@
   .block
     .b-options-floated.count
       = contest.uncertain_suggestions.size
-    .subheadline = t '.unlikely_candidates'
+    .subheadline.m5 = t '.unlikely_candidates'
     .proposing
       = render partial: 'private_suggestion',
         collection: contest.uncertain_suggestions,

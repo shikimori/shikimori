@@ -1,7 +1,7 @@
 = render layout: 'people/page' do
   - cache [@resource, params[:action], :v2] do
     .b-options-floated.count = @resource.favoured_size
-    .subheadline.m10 = og.headline
+    .subheadline = og.headline
     .block
       = render @resource.all_favoured, content_by: :avatar_fixed_margin
       - if @resource.all_favoured.size != @resource.favoured_size

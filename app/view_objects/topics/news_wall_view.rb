@@ -1,12 +1,26 @@
 class Topics::NewsWallView < Topics::NewsView
+  instance_cache :html_wall
+  # , :basic_tags, :other_tags
+
   def container_class css = nil
-    super ['b-news_wall-topic', css]
+    ['b-news_wall-topic', css]
   end
 
-  def html_footer
+  # def basic_tags
+  #   @topic.tags & Topics::TagsQuery::BASIC_TAGS
+  # end
+
+  # def other_tags
+  #   @topic.tags - basic_tags
+  # end
+
+  def html_wall
     BbCodes::Text.call(wall_bb_code)
       .gsub('b-shiki_wall', 'b-shiki_swiper')
-      .gsub('data-dynamic="wall"', 'data-dynamic="swiper"')
+      .gsub(
+        'data-dynamic="wall"',
+        'data-dynamic="swiper" data-swiper-align="cover"'
+      )
       .gsub('<a', '<span')
       .gsub('</a>', '</span>')
       .html_safe

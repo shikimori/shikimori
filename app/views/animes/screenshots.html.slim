@@ -2,7 +2,7 @@
   = cache [@resource, params[:action]] do
     .subheadline-buttons
       a.item-edit href=@resource.edit_field_url(:screenshots)
-    .subheadline.m10 = og.headline
+    .subheadline = og.headline
     .cc.m10
       = render @resource.screenshots
 

@@ -162,10 +162,10 @@ describe LayoutView do
     end
     let(:controller_action) { 'index' }
 
-    context 'dashboards' do
-      let(:controller_name) { 'dashboards' }
-      it { expect(view).to_not be_hot_topics }
-    end
+    # context 'dashboards' do
+    #   let(:controller_name) { 'dashboards' }
+    #   it { expect(view).to_not be_hot_topics }
+    # end
 
     context 'topics' do
       let(:controller_name) { 'topics' }

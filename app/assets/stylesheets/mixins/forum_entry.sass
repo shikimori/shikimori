@@ -1,4 +1,5 @@
-@import globals/variables
+@import globals
+@import mixins/css4
 @import mixins/clearfix
 @import mixins/ellipsis2
 @import mixins/icons
@@ -86,7 +87,9 @@ $body_phone_left_margin: 40px
 
       .name
         +link
-        font-weight: bold
+        // +css4
+          font-family: var(--font-alt)
+        font-weight: 600
 
       .time
         +ellipsis2

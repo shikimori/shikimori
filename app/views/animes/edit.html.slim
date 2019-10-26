@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  h2.subheadline.m10 = og.headline
+  h2.subheadline = og.headline
 
   .block.cc-2
     .c-column.m0
@@ -306,7 +306,7 @@
         .c-column.block
           .subheadline-buttons
             a.item-edit href=@resource.edit_field_url(:torrents_name)
-          .subheadline = t '.parse_page'
+          .subheadline.m5 = t '.parse_page'
           .subcontent
             = form_tag torrent_anime_path(@resource.object), method: :post do |f|
               .b-input
@@ -319,7 +319,7 @@
                 = submit_tag t('.parse'), class: 'b-button'
 
         .c-column.block_m
-          .subheadline = t '.search_on.toshokan'
+          .subheadline.m5 = t '.search_on.toshokan'
           - @resource.files.toshokan_search.each do |phrase|
             div.m5
               a.b-link href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
@@ -327,7 +327,7 @@
 
         / - if current_user.admin?
         /   .c-column
-        /     .subheadline = t '.new_torrent'
+        /     .subheadline.m5 = t '.new_torrent'
         /     .subcontent
         /       = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
         /         .b-input

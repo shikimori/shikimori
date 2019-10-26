@@ -1,8 +1,9 @@
 import { bind } from 'decko';
-import ShikiView from 'views/application/shiki_view';
 import axios from 'helpers/axios';
 
-export default class Clickloaded extends ShikiView {
+import View from 'views/application/view';
+
+export default class Clickloaded extends View {
   isLoading = false;
 
   initialize() {

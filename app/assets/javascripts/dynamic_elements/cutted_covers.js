@@ -12,21 +12,23 @@ export const RATIO = {
   character: 350.0 / 225.0
 };
 
-function recalcStyles() {
+function update() {
   $('#injectCSSContainer').empty();
 
   $(`.${CLASS_NAME}`).each((_index, node) => (
-    $(node).data(CLASS_NAME)?.injectCss()
+    $(node).view().injectCss()
   ));
 }
 
 function setHanler() {
   GLOBAL_HANDLER = true;
-  $(document).on('resize:debounced orientationchange', recalcStyles);
+  $(document).on('resize:debounced orientationchange', update);
 }
 
 export class CuttedCovers extends View {
   async initialize() {
+    if (!GLOBAL_HANDLER) { setHanler(); }
+
     // $.process иногда выполняется ДО вставки в DOM, а этот код должен быть
     // выполнен, когда уже @root вставлен в DOM. поэтому delay
     await delay();
@@ -39,12 +41,6 @@ export class CuttedCovers extends View {
 
     this.node.id = this.collection_id;
     this.node.classList.add(CLASS_NAME);
-
-    this.$node.data(CLASS_NAME, this);
-
-    if (!GLOBAL_HANDLER) {
-      setHanler();
-    }
   }
 
   injectCss() {

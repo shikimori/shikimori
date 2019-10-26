@@ -1,5 +1,6 @@
-@import globals/variables
+@import globals
 @import mixins/brackets_surrounded
+@import mixins/css4
 @import mixins/dash_separated
 @import mixins/ellipsis2
 @import mixins/hover_underlined
@@ -13,9 +14,12 @@ header.head
 
   h1, h2
     border-bottom: none
-    color: #111
+    color: #123
     display: inline-block
-    font: 26px normal tahoma, verdana, arial, sans-serif
+    +css4
+      font-family: var(--font-alt)
+    font-size: 30px
+    font-weight: normal
 
     +iphone
       font-size: 24px
@@ -55,7 +59,8 @@ header.head
   .misc, a.edit
     color: $gray-2
     display: inline-block
-    font-family: $font-family
+    +css4
+      font-family: var(--font-main)
     font-size: 11px
     line-height: 12px
     padding: 17px 0 0 10px
@@ -84,9 +89,13 @@ header.head
   border-left: 5px solid darken(#dbe0e6, 1%)
   color: #123
   font-size: 18px
-  font-weight: bold
+  font-weight: 700
+  -webkit-font-smoothing: antialiased
+  +css4
+    font-family: var(--font-alt)
+  letter-spacing: 0.13px
   line-height: $line_height
-  margin-bottom: 5px
+  margin-bottom: 10px
   padding: 4px 10px 2px
   text-transform: uppercase
   transition: color 0.2s ease
@@ -122,23 +131,6 @@ header.head
       &:before
         color: $link-active
 
-  &.linkheadline
-    & > a
-      text-decoration: underline
-      color: inherit
-
-      &:before
-        color: inherit
-
-      &:hover,
-      &:hover:before
-        color: $link-hover
-
-      +gt_ipad
-        &:active,
-        &:active:before
-          color: $link-active
-
   .misc-links
     +gte_ipad
       padding-left: 10px
@@ -156,33 +148,29 @@ header.head
       padding-right: 0
       text-transform: none
 
-
       &.selected
         color: $link-hover
 
         &:hover
           color: $link-active
 
-.midheadline
-  @extend .headline
-  font-size: 16px
-  margin-bottom: 10px
-  padding-bottom: 2px
-  padding-top: 3px
-
+// midheadline is left here by compatibility reasons. otherwise it could break user styles
+.midheadline,
 .subheadline
   @extend .headline
-  margin-bottom: 5px
+  font-size: 15px
+  line-height: 30px
+  padding: 0 10px
 
-  +gt_ipad
-    font-size: 14px
-    padding: 6px 10px 4px 8px
-    line-height: 14px
-
+  // +gt_ipad
+  //   font-size: 14px
+  //   padding: 5px 10px 4px 8px
+  //   line-height: 15px
+  //
   +lte_ipad
-    font-size: 16px
-    padding-top: 3px
-    padding-bottom: 2px
+    // font-size: 16px
+    // padding-top: 3px
+    // padding-bottom: 2px
 
     .b-user16 img
       margin-top: 5px
@@ -240,8 +228,8 @@ header.head
 .subheadline-buttons
   position: absolute
   right: 3px
-  margin-top: 2px
+  margin-top: 5px
 
   +lte_ipad
-    margin-top: 1px
+    margin-top: 0
     right: 8px

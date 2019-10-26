@@ -9,20 +9,20 @@
   - roles = @resource.roles.select { |role| RolesPolicy.accessible? role }
   - if roles.any?
     .block
-      .subheadline = t '.roles'
+      .subheadline.m5 = t '.roles'
       - roles.each do |role|
         div = role.titleize
 
   - if can? :manage, Ban
     .cc-2.block
       .c-column
-        .subheadline = t 'actions.moderation.ban'
+        .subheadline.m5 = t 'actions.moderation.ban'
         p.m10 = t '.ban_warning_for_moderator'
         = render template: 'moderations/bans/new',
           locals: { ban_in_profile: true, ban: @ban }
 
       .c-column.block_m
-        .subheadline = User.model_name.human
+        .subheadline.m5 = User.model_name.human
         .b-entry-info
           - %i[id email created_at current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
             - unless %i[current_sign_in_ip last_sign_in_ip].include?(field) && @resource.admin?
@@ -39,7 +39,7 @@
                   = @resource.send(field)
 
   .block2
-    .subheadline = t 'profiles.show.ban_history'
+    .subheadline.m5 = t 'profiles.show.ban_history'
     .bans
       - if @resource.bans.any?
         = render partial: 'moderations/bans/ban', collection: @resource.bans.order(id: :desc)

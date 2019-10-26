@@ -12,11 +12,11 @@
           span.brackets = resource.preview_topic_view.comments_count
 
     - if resource.preview_topic_view.any_comments?
-      .subheadline.m3
+      .subheadline.m0
         = i18n_io resource.preview_topic_view.any_summaries? ? 'Summary' : 'Comment', :few
 
   - else
-    .subheadline.m3
+    .subheadline.m0
       - if resource.preview_topic_view.comments_count > 0
         a[
           href=resource.preview_topic_view.url

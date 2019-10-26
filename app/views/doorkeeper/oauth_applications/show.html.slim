@@ -16,44 +16,45 @@ header.head.misc
 
   = render 'application/breadcrumbs'
 
-.fc-2.info.block
-  .f-column
-    .block
-      = render @resource
+.block2_m
+  .fc-2.info
+    .f-column
+      .block
+        = render @resource
 
-    .b-entry-info
-      = info_line OauthApplication.human_attribute_name :owner do
-        = render 'users/user_16', user: @resource.owner
+      .b-entry-info
+        = info_line OauthApplication.human_attribute_name :owner do
+          = render 'users/user_16', user: @resource.owner
 
-      = info_line i18n_i('User', :many) do
-        = @resource.access_grants.select('count(distinct(resource_owner_id)) as users_count')[0].users_count
+        = info_line i18n_i('User', :many) do
+          = @resource.access_grants.select('count(distinct(resource_owner_id)) as users_count')[0].users_count
 
-  .f-column
-    - if @access_grant
-      .b-form.green-form.block
-        p.m5 = t '.have_access'
+    .f-column
+      - if @access_grant
+        .b-form.green-form.block
+          p.m5 = t '.have_access'
+          .m5
+            b = t 'doorkeeper.authorizations.new.is_able_to'
+          ul.b-list.m10
+            - @access_grant.scopes.each do |scope|
+              li = t "doorkeeper.scopes.#{scope}"
+
+          .m5
+            a.b-button[
+              href=revoke_oauth_application_url(@resource)
+              data-method="post"
+              data-confirm=t('actions.confirm')
+            ] = t '.revoke_access'
+
+      - if @resource.description.value.present?
+        .subheadline.m5 = OauthApplication.human_attribute_name :description
+
+        .block.description
+          = @resource.description_html
+
+      - unless @access_grant
         .m5
-          b = t 'doorkeeper.authorizations.new.is_able_to'
-        ul.b-list.m10
-          - @access_grant.scopes.each do |scope|
+          b = t 'doorkeeper.authorizations.new.able_to'
+        ul.b-list
+          - @resource.scopes.each do |scope|
             li = t "doorkeeper.scopes.#{scope}"
-
-        .m5
-          a.b-button[
-            href=revoke_oauth_application_url(@resource)
-            data-method="post"
-            data-confirm=t('actions.confirm')
-          ] = t '.revoke_access'
-
-    - if @resource.description.value.present?
-      .subheadline = OauthApplication.human_attribute_name :description
-
-      .block.description
-        = @resource.description_html
-
-    - unless @access_grant
-      .m5
-        b = t 'doorkeeper.authorizations.new.able_to'
-      ul.b-list
-        - @resource.scopes.each do |scope|
-          li = t "doorkeeper.scopes.#{scope}"

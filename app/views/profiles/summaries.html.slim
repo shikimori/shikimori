@@ -8,7 +8,7 @@
       = i18n_io('Comment', :few)
       span.brackets = @resource.stats.comments_count
 
-  h2.subheadline.m10 = og.headline
+  h2.subheadline = og.headline
   .b-comments
     - if @collection.any?
       = render @collection

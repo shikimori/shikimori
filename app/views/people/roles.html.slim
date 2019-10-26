@@ -10,5 +10,5 @@
     ] = t 'by.aired_on'
 
   = cache [@resource, params[:action], !!params[:order_by]] do
-    .subheadline.m10 = og.headline
+    .subheadline = og.headline
     = render partial: 'role', collection: @resource.character_works

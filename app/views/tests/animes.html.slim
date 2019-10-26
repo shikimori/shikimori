@@ -1,5 +1,5 @@
 .block
-  .subheadline.m10 extended & button
+  .subheadline extended & button
   .cc-3a
     .c-column.m0
       = render partial: 'user_rates/placeholder',
@@ -9,14 +9,14 @@
         locals: { target: @resource, extended: false }
 
 .block
-  .subheadline.m10 button
+  .subheadline button
   .cc-3a
     = render partial: 'animes/anime',
       collection: @collection_1,
       locals: { cover_notice: :studio, content_by: :block }
 
 .block
-  .subheadline.m10 catalog_entry
+  .subheadline catalog_entry
   .cc-6.to-process data-dynamic='cutted_covers'
     = render partial: 'animes/anime',
       collection: @collection_2,

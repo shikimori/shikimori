@@ -1,6 +1,6 @@
 - if params[:detailed]
   .b-user_rate-extended
-    .midheadline = localization_span @user_rate.target
+    .subheadline.m5 = localization_span @user_rate.target
     .cc
       .c-column
         = render 'user_rates/form', resource: @user_rate

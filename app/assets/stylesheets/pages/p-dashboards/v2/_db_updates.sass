@@ -1,0 +1,91 @@
+@import mixins/ellipsis2
+@import mixins/date
+@import mixins/responsive
+@import mixins/flex_column
+@import mixins/swiper
+
+$height: 82px
+
+.p-dashboards-show .v2
+  .db-updates
+    overflow: hidden
+
+    .inner
+      +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 3, $desktop-columns: 4, $gutter: 40px, $offset: 20px, $selector: '.db-update')
+
+      +iphone
+        margin-left: 0
+        flex-wrap: nowrap
+
+        .db-update
+          margin-left: 0
+          margin-right: 30px
+          flex-shrink: 0
+
+      +iphone-portrait
+        .db-update
+          width: calc(100vw - 80px)
+
+          &:last-child
+            width: 100%
+            margin-right: 0
+
+      +iphone-landscape
+        .db-update
+          width: calc(50vw - 50px)
+
+          &:nth-last-child(2)
+            width: calc(50vw - 40px)
+
+          &:last-child
+            width: 50%
+            margin-right: 0
+
+  .db-update
+    display: flex
+    min-height: $height // to prevent height flickering when anime poster is loading
+
+    .poster
+      flex-shrink: 0
+      line-height: 0
+      margin-right: 15px
+
+      img
+        width: 48px
+
+    .info
+      min-width: 0 // neeed to allow overflow ellipsis inside of flex item
+
+    .name
+      +ellipsis2
+      display: block
+      font-size: 14px
+      font-weight: bold
+      line-height: 1.45
+      margin-bottom: 2px
+      margin-top: -4px
+
+    .status-time
+      margin-bottom: 3px
+
+      .b-anime_status_tag
+        margin-right: 6px
+        font-weight: normal
+
+      time
+        +date
+
+    .tags
+      align-items: flex-start
+      display: flex
+      flex-wrap: wrap
+      height: 44px
+      overflow: hidden
+      margin: -2px -5px
+      padding-left: 1px
+
+      .b-tag
+        font-size: 12px
+        margin: 2px 5px
+        pointer-events: none
+        white-space: nowrap

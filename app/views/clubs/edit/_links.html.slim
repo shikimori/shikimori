@@ -9,7 +9,7 @@
         data-variant_name='club[anime_ids][]'
         data-autocomplete=autocomplete_animes_url
       ]
-      .subheadline = i18n_i 'anime'
+      .subheadline.m5 = i18n_i 'anime'
       .variants
         - @resource.all_animes.uniq(&:id).each do |anime|
           .variant
@@ -23,7 +23,7 @@
         data-variant_name='club[character_ids][]'
         data-autocomplete=autocomplete_characters_url
       ]
-      .subheadline = i18n_i 'character', :other
+      .subheadline.m5 = i18n_i 'character', :other
       .variants
         - @resource.all_characters.uniq(&:id).each do |character|
           .variant
@@ -38,7 +38,7 @@
         data-variant_name='club[manga_ids][]'
         data-autocomplete=autocomplete_mangas_url
       ]
-      .subheadline = i18n_i 'manga'
+      .subheadline.m5 = i18n_i 'manga'
       .variants
         - @resource.all_mangas.uniq(&:id).each do |manga|
           .variant
@@ -52,7 +52,7 @@
         data-variant_name='club[ranobe_ids][]'
         data-autocomplete=autocomplete_ranobe_index_url
       ]
-      .subheadline = i18n_i 'ranobe'
+      .subheadline.m5 = i18n_i 'ranobe'
       .variants
         - @resource.all_ranobe.uniq(&:id).each do |ranobe|
           .variant
@@ -67,7 +67,7 @@
         data-variant_name='club[club_ids][]'
         data-autocomplete=autocomplete_clubs_url
       ]
-      .subheadline = i18n_i 'club', :other
+      .subheadline.m5 = i18n_i 'club', :other
       .variants
         - @resource.all_clubs.uniq(&:id).each do |club|
           .variant
@@ -76,7 +76,7 @@
 
   /- if @resource && @resource.admins.include?(current_user)
     div style="display: none;"
-      .subheadline = i18n_i 'moderator', :other
+      .subheadline.m5 = i18n_i 'moderator', :other
       .m30
         input.moderator-suggest.subheadline-input[
           type='text'
