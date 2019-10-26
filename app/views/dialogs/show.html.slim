@@ -1,7 +1,7 @@
 = render layout: 'page' do
   = render 'navigation'
 
-  .subheadline
+  .subheadline.m0
     == t '.conversation_with_user',
       user: (render 'users/user_16', user: @dialog.target_user)
 
