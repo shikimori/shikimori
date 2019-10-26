@@ -582,6 +582,7 @@ ru:
         pv: PV
         op: OP
         ed: ED
+        cm: CM
         character_trailer: Трейлер персонажа
         clip: Отрывок
         episode_preview: Превью эпизода

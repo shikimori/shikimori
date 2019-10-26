@@ -8,14 +8,15 @@ module Types
     # dailymotion twitch
     KINDS = %i[
       pv
-      op
-      ed
       character_trailer
       clip
       episode_preview
+      cm
+      other
       op_clip
       ed_clip
-      other
+      op
+      ed
     ]
 
     Hosting = Types::Strict::Symbol

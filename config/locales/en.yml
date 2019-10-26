@@ -582,6 +582,7 @@ en:
         pv: PV
         op: OP
         ed: ED
+        cm: CM
         character_trailer: Character trailer
         clip: Clip
         episode_preview: Episode preview
