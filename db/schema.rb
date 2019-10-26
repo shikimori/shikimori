@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_26_202529) do
+ActiveRecord::Schema.define(version: 2019_10_26_212254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_202529) do
     t.string "rating", limit: 255
     t.integer "episodes_aired", default: 0, null: false
     t.string "russian", limit: 255
-    t.boolean "censored", default: false
+    t.boolean "is_censored", default: false
     t.datetime "imported_at"
     t.datetime "next_episode_at"
     t.string "imageboard_tag", limit: 255
@@ -596,7 +596,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_202529) do
     t.string "image_content_type", limit: 255
     t.integer "image_file_size"
     t.datetime "image_updated_at"
-    t.boolean "censored", default: false
+    t.boolean "is_censored", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "imageboard_tag", limit: 255

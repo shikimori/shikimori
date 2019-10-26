@@ -14,8 +14,11 @@ private
 
   def assign_genres genres
     entry.genre_ids = genres.map { |v| find_or_create_genre(v).id }
-    entry.censored = (entry.respond_to?(:rating_rx?) && entry.rating_rx?) ||
-      entry.genres.any?(&:censored?)
+
+    unless :censored.in? desynced_fields
+      entry.censored = (entry.respond_to?(:rating_rx?) && entry.rating_rx?) ||
+        entry.genres.any?(&:censored?)
+    end
   end
 
   def find_or_create_genre data

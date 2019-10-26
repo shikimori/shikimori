@@ -12,7 +12,7 @@ FactoryBot.define do
     status { :released }
     franchise { nil }
     rating { :pg_13 }
-    censored { false }
+    is_censored { false }
     next_episode_at { nil }
     imageboard_tag { nil }
     coub_tags { [] }

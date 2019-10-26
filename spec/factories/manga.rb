@@ -8,6 +8,7 @@ FactoryBot.define do
     score { 1 }
     kind { :manga }
     franchise { nil }
+    is_censored { false }
     type { Manga.name }
     imageboard_tag { nil }
 

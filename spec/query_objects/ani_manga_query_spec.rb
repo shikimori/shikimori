@@ -72,13 +72,13 @@ describe AniMangaQuery do
 
       let!(:anime_1) do
         create :anime,
-          censored: true,
+          is_censored: true,
           genre_ids: [yaoi.id, hentai.id],
           studio_ids: [porn.id]
       end
       let!(:anime_2) do
         create :anime,
-          censored: true,
+          is_censored: true,
           genre_ids: [yaoi.id],
           studio_ids: [porn.id]
       end
@@ -492,18 +492,6 @@ describe AniMangaQuery do
       let(:phrase) { 'search query' }
 
       it { expect(fetch search: phrase).to eq [anime_2] }
-    end
-
-    describe 'with_video' do
-      let!(:anime_1) { create :anime, :with_video, :tv }
-      let!(:anime_2) { create :anime, :tv }
-      let!(:anime_3) { create :anime, :tv }
-      let!(:anime_adult) { create :anime, :with_video, :tv, rating: Anime::ADULT_RATING }
-
-      it do
-        expect(fetch with_video: true).to eq [anime_1]
-        expect(fetch with_video: true, is_adult: true).to eq [anime_adult]
-      end
     end
   end
 end

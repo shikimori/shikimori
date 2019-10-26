@@ -262,7 +262,7 @@ class Anime < DbEntry
   end
 
   def censored?
-    super || ADULT_RATING == rating
+    is_censored || ADULT_RATING == rating
     # || (kind_ova? && SUB_ADULT_RATING == rating)
   end
 

@@ -81,7 +81,6 @@ class AniMangaQuery
     ids!
     exclude_ids!
     search!
-    video!
 
     order @query
   end
@@ -174,7 +173,7 @@ private
 
   def censored!
     if @genre
-      genres = bang_split(@genre.split(','), true).each { |k,v| v.flatten! }
+      genres = bang_split(@genre.split(','), true).each { |_k, v| v.flatten! }
     end
     ratings = bang_split @rating.split(',') if @rating
 
@@ -188,7 +187,7 @@ private
     return if @publisher || @studio
 
     if @params[:censored] == true || @params[:censored] == 'true'
-      @query = @query.where(censored: false)
+      @query = @query.where(is_censored: false)
     end
   end
 
@@ -391,15 +390,6 @@ private
       phrase: @search_phrase,
       ids_limit: SEARCH_IDS_LIMIT
     )
-  end
-
-  # фильтрация по наличию видео
-  def video!
-    return if @params[:with_video].blank?
-
-    @query = @query
-      .where('animes.id in (select distinct(anime_id) from anime_videos)')
-      .where(@params[:is_adult] ? AnimeVideo::XPLAY_CONDITION : AnimeVideo::PLAY_CONDITION)
   end
 
   # сортировка по параметрам запроса
