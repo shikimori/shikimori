@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_19_155403) do
+ActiveRecord::Schema.define(version: 2019_10_26_202529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -854,6 +854,8 @@ ActiveRecord::Schema.define(version: 2019_10_19_155403) do
     t.datetime "updated_at"
     t.integer "position", null: false
     t.string "status", limit: 255
+    t.integer "width"
+    t.integer "height"
     t.index ["anime_id", "url"], name: "index_screenshots_on_anime_id_and_url", unique: true
   end
 

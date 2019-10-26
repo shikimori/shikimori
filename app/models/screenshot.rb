@@ -15,6 +15,8 @@ class Screenshot < ApplicationRecord
     attachment_content_type: { content_type: /\Aimage/ }
   validates :url, :anime, presence: true
 
+  before_create :set_dimentions
+
   def access_token
     # для пары аниме по кривому адресу лежат
     if anime_id == 9969 || anime_id == 15_417
@@ -34,5 +36,16 @@ class Screenshot < ApplicationRecord
 
   def mark_accepted
     update_attribute :status, nil
+  end
+
+private
+
+  def set_dimentions
+    geometry =
+      Paperclip::Geometry.from_file image.queued_for_write[:original] ||
+      image.path
+    self.width = geometry.width.to_i
+    self.height = geometry.height.to_i
+    save! if persisted?
   end
 end

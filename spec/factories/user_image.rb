@@ -5,7 +5,7 @@ FactoryBot.define do
     width { 1000 }
     height { 1000 }
 
-    after(:build) do |user_image|
+    after :build do |user_image|
       user_image.stub :set_dimentions
     end
   end

@@ -8,5 +8,9 @@ FactoryBot.define do
     trait :uploaded do
       status { Screenshot::UPLOADED }
     end
+
+    after :build do |user_image|
+      user_image.stub :set_dimentions
+    end
   end
 end
