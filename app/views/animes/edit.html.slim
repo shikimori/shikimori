@@ -287,6 +287,19 @@
                 ] = t 'actions.edit'
 
   ul.b-list
+    li
+      .field = @resource.class.human_attribute_name(:is_censored)
+      .value
+        - if @resource.censored?
+          span.censored = t 'yes'
+        - else
+          span = t 'no'
+        - if can? :major_change, Version
+          a.b-js-action href=@resource.edit_field_url(:is_censored)
+            = t 'moderators_only'
+        - else
+          .b-js-action = t 'moderators_only'
+
     - if @resource.anime?
       li
         .field = @resource.class.human_attribute_name(:options)

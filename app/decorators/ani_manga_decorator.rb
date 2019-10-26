@@ -103,18 +103,6 @@ class AniMangaDecorator < DbEntryDecorator
     Animes::ChronologyQuery.new(object).fetch.map(&:decorate)
   end
 
-  # показывать ли ссылки, если аниме или манга для взрослых?
-  def display_sensitive?
-    !object.censored?
-  end
-
-  # есть ли видео для просмотра онлайн?
-  def anime_videos?
-    display_sensitive? &&
-      object.respond_to?(:anime_videos) &&
-      object.anime_videos.available.any?
-  end
-
   def release_date_text # rubocop:disable all
     return unless released_on || aired_on
 

@@ -19,6 +19,7 @@ class AnimesController < DbEntriesController
     imageboard_tag
     description_ru
     description_en
+    is_censored
   ] + [
     *Anime::DESYNCABLE,
     external_links: [EXTERNAL_LINK_PARAMS],

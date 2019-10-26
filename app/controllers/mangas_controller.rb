@@ -6,6 +6,7 @@ class MangasController < AnimesController
     imageboard_tag
     description_ru
     description_en
+    is_censored
   ] + [
     *Manga::DESYNCABLE,
     external_links: [EXTERNAL_LINK_PARAMS],

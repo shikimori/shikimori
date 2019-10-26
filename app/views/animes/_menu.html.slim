@@ -136,8 +136,6 @@
             as: :topic_view,
             locals: { with_tooltip: true }
 
-  / - if user_signed_in?
-    - if resource.display_sensitive?
   - if resource.displayed_external_links.any?
     .block
       .subheadline.m8 = t '.on_other_sites'

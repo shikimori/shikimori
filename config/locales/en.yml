@@ -57,6 +57,7 @@ en:
         imported_at: Synchronized
         desynced: Not synchronized
         licensor: Licensed by
+        is_censored: 18+ content
       manga: &manga_attributes
         <<: *anime_attributes
         volumes: Volumes

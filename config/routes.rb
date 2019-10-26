@@ -680,6 +680,7 @@ Rails.application.routes.draw do
       kind episodes rating duration
       screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids
       external_links fansubbers fandubbers desynced options licensor
+      is_censored
     }.join('|'))
 
     member do
@@ -700,6 +701,7 @@ Rails.application.routes.draw do
         kind rating volumes chapters
         imageboard_tag aired_on released_on status genre_ids
         external_links desynced licensor
+        is_censored
       }.join('|'))
     end
   end

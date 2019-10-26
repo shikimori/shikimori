@@ -57,6 +57,7 @@ ru:
         imported_at: Синхронизировано
         desynced: Не синхронизируются
         licensor: Лицензировано
+        is_censored: 18+ контент
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания
