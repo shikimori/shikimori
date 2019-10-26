@@ -11,7 +11,7 @@ class Video < ApplicationRecord
     in: Types::Video::Hosting.values,
     predicates: true
   enumerize :kind,
-    in: %i[pv op ed other],
+    in: Types::Video::Kind.values,
     predicates: true
 
   validates :uploader_id, :url, :kind, presence: true
