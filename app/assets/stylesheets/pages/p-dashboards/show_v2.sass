@@ -79,6 +79,7 @@
         padding: 0
         position: absolute
         margin-top: -221px
+        width: calc(100% + 10px)
 
     .seasons-socials
       display: flex
@@ -96,6 +97,7 @@
         margin: 0 -5px
 
       .season
+        display: flex
         padding: 5px
         width: 50%
 
@@ -130,11 +132,13 @@
           margin-top: 8px // equal to b-link margin-bottom
 
     .b-link_button
+      align-items: center
+      justify-content: center
+      display: flex
+      flex-grow: 1
+      min-width: 0
       padding-left: 0
       padding-right: 0
-
-      +gte-ipad
-        min-width: 0
 
     .b-link
       align-items: center
