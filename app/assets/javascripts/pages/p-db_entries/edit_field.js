@@ -1,3 +1,4 @@
+import Sortable from 'sortablejs';
 import ImageboardGallery from 'views/images/imageboard_gallery';
 
 pageLoad('.db_entries-edit_field', () => {
@@ -62,6 +63,11 @@ pageLoad('.db_entries-edit_field', () => {
           .appendTo($('.cc', $screenshotsUploader))
           .shikiImage()
       );
+
+    new Sortable($screenshotsPositioner.find('.cc')[0], {
+      draggable: '.b-image',
+      handle: '.drag-handle'
+    });
   }
 
   if ($('.edit-page.videos').exists()) {

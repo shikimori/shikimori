@@ -61,14 +61,12 @@ $.fn.extend({
       // перемещение влево
       $('.move-left', $root).on('click', () => {
         $root.insertBefore($root.prev());
-        $root.removeClass('mobile-editing');
         return false;
       });
 
       // перемещение вправо
       return $('.move-right', $root).on('click', () => {
         $root.insertAfter($root.next());
-        $root.removeClass('mobile-editing');
         return false;
       });
     });

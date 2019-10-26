@@ -9,7 +9,8 @@
     top: 0px
     z-index: 1
 
-  .controls, .move-controls
+  .controls,
+  .move-controls
     display: none
     z-index: 1
 
@@ -59,6 +60,7 @@
 
   .edit,
   .delete,
+  .drag-handle,
   .confirm,
   .cancel,
   .move-left,
@@ -85,6 +87,19 @@
   .delete
     +icon('✕', 12px)
 
+  .drag-handle
+    +icon('m', 11px)
+    vertical-align: top
+
+    +lte_ipad
+      display: none
+
+    &:before
+      cursor: -webkit-grab
+
+  &.sortable-ghost
+    opacity: 0.3
+
   .confirm
     +icon('✓', 12px)
     display: none
@@ -103,12 +118,18 @@
     position: absolute
     top: 50%
 
+    +gte_laptop
+      display: none
+
   .move-right
     +icon('\e83f', 12px)
     margin-top: -10px !important
     position: absolute
     right: 0
     top: 50%
+
+    +gte_laptop
+      display: none
 
   .mobile-edit
     +icon('\e842', 12px)
