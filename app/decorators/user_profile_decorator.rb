@@ -69,7 +69,7 @@ class UserProfileDecorator < UserDecorator
     object
       .favourites
       .includes(:linked)
-      .order('random()')
+      .order(Arel.sql('random()'))
       .limit(preferences.favorites_in_profile)
       .sort_by do |favorite|
         [
