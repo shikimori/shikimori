@@ -77,12 +77,12 @@ FactoryBot.define do
 
     trait :pg_13 do
       rating { :pg_13 }
-      censored { false }
+      is_censored { false }
     end
 
     trait :rx_hentai do
       rating { :rx }
-      censored { true }
+      is_censored { true }
     end
 
     trait :ongoing do
