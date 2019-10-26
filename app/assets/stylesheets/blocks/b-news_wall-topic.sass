@@ -39,13 +39,15 @@
       width: 100%
 
   .status-line
-    display: flex
-    margin-bottom: 7px
     align-items: baseline
+    display: flex
+    flex-wrap: wrap
+    margin-bottom: 2px
 
     .tags
       display: inline-flex
       margin-right: 12px
+      margin-bottom: 5px
 
       .b-anime_status_tag
         &:not(:last-child)
@@ -53,6 +55,8 @@
 
     time
       +date
+      line-height: 18px
+      margin-bottom: 5px // need margin in case of content wrapping
 
     .comments
       line-height: 18px

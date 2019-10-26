@@ -89,6 +89,22 @@ export default {
 
   .ti-input
     +input
-    padding: 1px
+    padding: 0 1px
     max-width: 100% !important
+
+  .ti-tag
+    .ti-icon-close
+      transition: opacity 0.25s ease
+      opacity: 0.8
+
+      +gte_laptop
+        &:hover
+          opacity: 1
+
+      &:active
+        opacity: 0.6
+
+    .ti-content
+      align-items: flex-start
+      padding-top: 1px
 </style>
