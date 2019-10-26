@@ -1,6 +1,6 @@
 class CleanupScreenshots
   include Sidekiq::Worker
-  MAXIMUM_SCREENSHOTS = 40
+  MAXIMUM_SCREENSHOTS = 75
 
   def perform
     animes.each do |anime|
