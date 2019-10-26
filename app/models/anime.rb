@@ -117,7 +117,7 @@ class Anime < DbEntry
     inverse_of: :anime
   has_many :all_screenshots, class_name: Screenshot.name, dependent: :destroy
 
-  has_many :videos, -> { where(state: 'confirmed').order(:id) },
+  has_many :videos, -> { where(state: 'confirmed').ordered },
     inverse_of: :anime
   has_many :all_videos, class_name: Video.name, dependent: :destroy
 

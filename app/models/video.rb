@@ -24,11 +24,21 @@ class Video < ApplicationRecord
   before_create :check_hosting
 
   scope :youtube, -> { where hosting: :youtube }
+  scope :ordered, -> {
+    order(
+      Arel.sql(
+        <<~SQL.squish
+          case kind
+            #{kind.values.map.with_index { |v, index| "when '#{v}' then #{index}" }.join("\n")}
+            else 99999999999
+          end, id
+        SQL
+      )
+    )
+  }
 
   YOUTUBE_PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
   VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
-
-  default_scope -> { order kind: :desc, id: :desc }
 
   state_machine :state, initial: :uploaded do
     state :uploaded
