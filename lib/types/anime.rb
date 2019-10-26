@@ -12,7 +12,6 @@ module Types
       strict_torrent_name_match
       disabled_torrents_sync
       disabled_anime365_sync
-      not_censored
     ]
 
     Options = Types::Strict::Symbol
