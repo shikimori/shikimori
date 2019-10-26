@@ -579,9 +579,14 @@ en:
         registration: Registration
     video:
       kind:
-        op: OP
         pv: PV
+        op: OP
         ed: ED
+        character_trailer: Character trailer
+        clip: Clip
+        episode_preview: Episode preview
+        op_clip: OP Clip
+        ed_clip: ED Clip
         other: Other
     list_import:
       list_type:

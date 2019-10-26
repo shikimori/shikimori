@@ -579,9 +579,14 @@ ru:
         registration: Регистрация на сайте
     video:
       kind:
-        op: OP
         pv: PV
+        op: OP
         ed: ED
+        character_trailer: Трейлер персонажа
+        clip: Отрывок
+        episode_preview: Превью эпизода
+        op_clip: Клип OP
+        ed_clip: Клип ED
         other: Прочее
     list_import:
       list_type:
