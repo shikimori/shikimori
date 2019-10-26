@@ -442,6 +442,7 @@ en:
           (for cases with a long name, when the parser alone cannot find the episodes)
         disabled_torrents_sync: disable of searching of new episodes on torrents
         disabled_anime365_sync: disable of searching of new episodes on anime365
+        not_censored: forced mark that there is no 18+ content
     manga: &manga_enumerize
       status:
         anons: Planned
