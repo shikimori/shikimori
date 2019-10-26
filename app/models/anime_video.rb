@@ -17,12 +17,12 @@ class AnimeVideo < ApplicationRecord
   SQL
   PLAY_CONDITION = <<-SQL.squish
     animes.rating != '#{Anime::ADULT_RATING}' and
-    animes.censored = false and
+    animes.is_censored = false and
     not #{ADULT_OVA_CONDITION}
   SQL
   XPLAY_CONDITION = <<-SQL.squish
     animes.rating = '#{Anime::ADULT_RATING}' or
-    animes.censored = true or
+    animes.is_censored = true or
     #{ADULT_OVA_CONDITION}
   SQL
 

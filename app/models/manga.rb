@@ -165,6 +165,10 @@ class Manga < DbEntry
     false
   end
 
+  def censored?
+    is_censored
+  end
+
 private
 
   def set_type

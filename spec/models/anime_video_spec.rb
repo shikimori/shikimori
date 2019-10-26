@@ -47,7 +47,7 @@ describe AnimeVideo do
 
       context 'true' do
         context 'by_censored' do
-          before { create :anime_video, anime: create(:anime, censored: false) }
+          before { create :anime_video, anime: create(:anime, is_censored: false) }
           it { is_expected.to have(1).item }
         end
 
@@ -59,7 +59,7 @@ describe AnimeVideo do
 
       context 'false' do
         context 'by_censored' do
-          before { create :anime_video, anime: create(:anime, censored: true) }
+          before { create :anime_video, anime: create(:anime, is_censored: true) }
           it { is_expected.to be_blank }
         end
 
@@ -78,7 +78,7 @@ describe AnimeVideo do
 
       context 'false' do
         context 'by_censored' do
-          before { create :anime_video, anime: create(:anime, censored: false) }
+          before { create :anime_video, anime: create(:anime, is_censored: false) }
           it { is_expected.to be_blank }
         end
 
@@ -90,7 +90,7 @@ describe AnimeVideo do
 
       context 'true' do
         context 'by_censored' do
-          before { create :anime_video, anime: create(:anime, censored: true) }
+          before { create :anime_video, anime: create(:anime, is_censored: true) }
           it { is_expected.to have(1).item }
         end
 

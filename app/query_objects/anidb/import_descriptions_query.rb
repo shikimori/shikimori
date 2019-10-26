@@ -14,7 +14,7 @@ class Anidb::ImportDescriptionsQuery
       then 999999
       else popularity
     end), (case
-      when censored=true
+      when is_censored=true
       then 2
       else 1
     end),

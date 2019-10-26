@@ -333,7 +333,7 @@ describe DbImport::Anime do
         let(:rating) { 'pg' }
         it do
           expect(entry.rating).to eq 'pg'
-          expect(entry.censored).to eq false
+          expect(entry.is_censored).to eq false
         end
       end
 
@@ -341,7 +341,7 @@ describe DbImport::Anime do
         let(:rating) { 'rx' }
         it do
           expect(entry.rating).to eq 'rx'
-          expect(entry.censored).to eq true
+          expect(entry.is_censored).to eq true
         end
       end
     end
@@ -349,13 +349,13 @@ describe DbImport::Anime do
     context 'by genre' do
       context 'not hentai' do
         let(:genre_id) { 1 }
-        it { expect(entry.censored).to eq false }
+        it { expect(entry.is_censored).to eq false }
       end
 
       context 'hentai' do
         let(:genre_id) { Genre::CENSORED_IDS.sample }
         before { allow_any_instance_of(Genre).to receive(:id).and_return genre_id }
-        it { expect(entry.censored).to eq true }
+        it { expect(entry.is_censored).to eq true }
       end
     end
   end

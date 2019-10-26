@@ -65,7 +65,7 @@ class Topics::Query < QueryObjectBase
   def except_hentai
     chain @scope
       .joins("left join animes on animes.id=linked_id and linked_type='Anime'")
-      .where('animes.id is null or animes.censored=false')
+      .where('animes.id is null or animes.is_censored=false')
   end
 
   def as_views is_preview, is_mini

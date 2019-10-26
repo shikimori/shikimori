@@ -1,6 +1,12 @@
 describe EntryWeight do
   subject { described_class.call entry }
-  let(:entry) { build :anime, kind: kind, score: score, aired_on: aired_on, censored: is_censored }
+  let(:entry) do
+    build :anime,
+      kind: kind,
+      score: score,
+      aired_on: aired_on,
+      is_censored: is_censored
+  end
 
   let(:kind) { :tv }
   let(:score) { 10 }
