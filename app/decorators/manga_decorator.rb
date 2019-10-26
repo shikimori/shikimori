@@ -3,16 +3,12 @@ class MangaDecorator < AniMangaDecorator
     []
   end
 
-  def screenshots limit=nil
+  def screenshots _limit = nil
     []
   end
 
-  def videos limit=nil
+  def videos _limit = nil
     []
-  end
-
-  def licensed?
-    true
   end
 
   # тип элемента для schema.org

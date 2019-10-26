@@ -84,10 +84,6 @@ class AnimeDecorator < AniMangaDecorator
     'http://schema.org/Movie'
   end
 
-  def licensed?
-    Copyright::COPYRIGHTED.include?(id)
-  end
-
   def sorted_fansubbers
     @sorted_fansubbers ||= object.fansubbers
       .map { |name| fix_group_name name }
