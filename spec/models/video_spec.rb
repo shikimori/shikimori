@@ -12,7 +12,7 @@ describe Video do
   end
 
   describe 'enumerize' do
-    it { is_expected.to enumerize(:kind).in :pv, :op, :ed, :other }
+    it { is_expected.to enumerize(:hosting).in(*Types::Video::Hosting.values) }
   end
 
   describe 'validations' do

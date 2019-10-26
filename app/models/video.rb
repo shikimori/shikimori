@@ -8,13 +8,11 @@ class Video < ApplicationRecord
   belongs_to :uploader, class_name: User.name
 
   enumerize :hosting,
-    in: %i[
-      youtube vk ok coub rutube vimeo sibnet yandex
-      streamable smotret_anime myvi youmite viuly stormo
-      mediafile
-    ], # dailymotion twitch
+    in: Types::Video::Hosting.values,
     predicates: true
-  enumerize :kind, in: %i[pv op ed other], predicates: true
+  enumerize :kind,
+    in: %i[pv op ed other],
+    predicates: true
 
   validates :uploader_id, :url, :kind, presence: true
   validates_uniqueness_of :url,
