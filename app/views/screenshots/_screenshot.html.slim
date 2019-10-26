@@ -1,8 +1,9 @@
 a.c-screenshot.b-image[
   class=("entry-#{screenshot_counter+1}" if defined? screenshot_counter)
+  class=('unprocessed' if local_assigns[:gallery])
   href=cdn_image(screenshot, :original)
   title="#{t '.screenshot'} #{screenshot_counter+1 if defined? screenshot_counter} #{t '.of'} #{localized_name screenshot.anime}"
-  rel='screenshot'
+  rel=(local_assigns[:gallery] ? "gallery-#{local_assigns[:gallery]}" : 'screenshot')
 ]
   - if defined? edition
     .mobile-edit

@@ -2,8 +2,12 @@
   .changes
     .change
       .label #{t '.before'}:
-      = render partial: 'screenshots/screenshot', collection: version.screenshots_prior
+      = render partial: 'screenshots/screenshot',
+        collection: version.screenshots_prior,
+        locals: { gallery: "before-#{version.id}" }
 
     .change
       .label #{t '.after'}:
-      = render partial: 'screenshots/screenshot', collection: version.screenshots
+      = render partial: 'screenshots/screenshot',
+        collection: version.screenshots,
+        locals: { gallery: "after-#{version.id}" }
