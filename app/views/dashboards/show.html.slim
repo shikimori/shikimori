@@ -42,7 +42,7 @@
             = render 'dashboards/ranobe', dashboard_view: @view
 
           / .slide.hidden
-            / .subeadline: h2 = t '.other'
+            / .subheadline: h2 = t '.other'
             / ul.b-list
               / - @view.pages.each_with_index do |(url, title), index|
                 / li
@@ -76,7 +76,7 @@
 
       - if @view.contests.any?
         .contests.block
-          h2.subeadline.green.linkheadline.m5
+          h2.subheadline.green.linkheadline.m5
             a[
               href=contests_url
               title=i18n_i('Contest', :other)
@@ -92,7 +92,7 @@
   / - cache @view.cache_keys.values do
   .cc-news
     .c-news_topics.m0
-      h2.subeadline.orange.linkheadline
+      h2.subheadline.orange.linkheadline
         a[
           href=forum_topics_url(:news)
           title=t('.news_feed')
