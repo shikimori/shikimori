@@ -30,7 +30,7 @@
         .text itemprop='description'
           = anime.decorate.description_html_truncated
 
-      - if anime.kind.present? || anime.year.present? || (anime.anime? && ranime.rating.present? && !anime.rating_none?) || anime.status
+      - if anime.kind.present? || anime.year.present? || (anime.anime? && anime.rating.present? && !anime.rating_none?) || anime.status
         = info_line Anime.human_attribute_name(:kind) do
           - if anime.kind.present?
             .b-tag.linkeable data-href=anime.collection_url(type: anime.kind)
