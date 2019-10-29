@@ -170,15 +170,15 @@
     display: none
 
   .news_wall
-    +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 3, $selector: '.b-news_wall-topic, .b-postloader')
+    +fcolumn-responsive($ipad-columns: 2, $desktop-columns: 3, $selector: '.b-news_wall-topic, .b-postloader')
 
     &.latest-news
-      +iphone
+      +lte_ipad
         .b-news_wall-topic:last-child
           display: none
 
     &.other-news
-      +gte_ipad
+      +gte_laptop
         .b-news_wall-topic:first-child
           display: none
 

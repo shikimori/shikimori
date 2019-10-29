@@ -1,5 +1,5 @@
 import Swiper from 'swiper';
-import { isMobile } from 'helpers/mobile_detect';
+import { isPhone } from 'helpers/mobile_detect';
 
 let swipers = [];
 
@@ -20,7 +20,7 @@ function reInitSwipers() {
   console.log('reInitSwipers');
   destroySwipers();
 
-  if (isMobile()) {
+  if (isPhone()) {
     swipers.push(
       new Swiper('.db-updates', {
         slidesPerView: 'auto',
