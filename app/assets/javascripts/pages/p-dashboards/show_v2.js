@@ -24,7 +24,8 @@ function reInitSwipers() {
     swipers.push(
       new Swiper('.db-updates', {
         slidesPerView: 'auto',
-        spaceBetween: 0,
+        slidesPerColumn: 2,
+        spaceBetween: 30,
         wrapperClass: 'inner',
         slideClass: 'db-update'
       })
