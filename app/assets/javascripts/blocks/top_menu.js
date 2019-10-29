@@ -5,7 +5,7 @@ import GlobalSearch from 'views/search/global';
 
 import showModal from 'helpers/show_modal';
 import globalHandler from 'helpers/global_handler';
-import { isTablet, isMobile } from 'helpers/mobile_detect';
+import { isMobile } from 'helpers/mobile_detect';
 
 let search;
 
@@ -94,7 +94,7 @@ $(document).on('turbolinks:load', () => {
         await delay();
         $buttons.blur();
       },
-      isIgnored: () => !isTablet() && !isMobile() && isProfile,
+      isIgnored: () => !isMobile() && isProfile,
       isHidden: () => !$outerNode.hasClass('active')
     });
 
@@ -107,12 +107,12 @@ $(document).on('turbolinks:load', () => {
 
     $outerNode.hover(
       () => {
-        if (isTablet() || isMobile()) { return; }
+        if (isMobile()) { return; }
         needToClose = false;
         show();
       },
       () => {
-        if (isTablet() || isMobile()) { return; }
+        if (isMobile()) { return; }
         needToClose = true;
         debouncedHide();
       }

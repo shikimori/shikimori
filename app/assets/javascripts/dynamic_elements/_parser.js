@@ -23,7 +23,7 @@ import UserRateExtended from './user_rates/extended';
 import Wall from './wall';
 import WeekRegisteredAction from './week_registered_action';
 
-import { isTablet, isMobile } from 'helpers/mobile_detect';
+import { isMobile } from 'helpers/mobile_detect';
 
 export default class DynamicParser {
   static PENDING_CLASS = 'to-process';
@@ -133,7 +133,7 @@ export default class DynamicParser {
   }
 
   wall(node) {
-    if (isMobile() || isTablet()) {
+    if (isMobile()) {
       node.classList.remove('b-shiki_wall');
       node.classList.add('b-shiki_swiper');
       new Swiper(node);

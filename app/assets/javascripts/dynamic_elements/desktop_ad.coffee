@@ -20,6 +20,6 @@ export default class DesktopAd extends View
 
   _platform_matches: (platform) ->
     if platform == 'desktop'
-      mobileDetect.isTablet() || !mobileDetect.isMobile()
+      mobileDetect.isTablet() || !mobileDetect.isPhone()
     else
       mobileDetect.mobileDetect.phone() || mobileDetect.mobileDetect.tablet()

@@ -4,7 +4,7 @@ import autosize from 'autosize'
 import axios from 'helpers/axios'
 import ShikiView from 'views/application/shiki_view'
 
-import { isMobile, isTablet } from 'helpers/mobile_detect'
+import { isMobile } from 'helpers/mobile_detect'
 import flash from 'services/flash'
 
 # TODO: refactor constructor
@@ -377,7 +377,7 @@ export default class ShikiEditor extends ShikiView
       .setCursorPosition(@$textarea.val().length)
 
     setTimeout =>
-      if (isMobile() || isTablet()) && !@$textarea.is(':appeared')
+      if (isMobile()) && !@$textarea.is(':appeared')
         $.scrollTo @$form, null, =>
           @$textarea.focus()
 

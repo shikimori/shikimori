@@ -11,7 +11,7 @@ import {
   ANIME_TOOLTIP_OPTIONS,
   COMMON_TOOLTIP_OPTIONS
 } from 'helpers/tooltip_options';
-import { isMobile, isTablet } from 'helpers/mobile_detect';
+import { isMobile } from 'helpers/mobile_detect';
 import $with from 'helpers/with';
 
 $.fn.extend({
@@ -46,7 +46,7 @@ async function processCurrentDom(root = document.body, JS_EXPORTS = window.JS_EX
   $with('.b-tooltipped.unprocessed', $root)
     .removeClass('unprocessed')
     .each(function () {
-      if ((isMobile() || isTablet()) && !this.classList.contains('mobile')) {
+      if ((isMobile()) && !this.classList.contains('mobile')) {
         return;
       }
 
