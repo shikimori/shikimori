@@ -13,7 +13,7 @@ $height: 84px
     .inner
       +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 3, $desktop-columns: 4, $gutter: 40px, $offset: 20px, $selector: '.db-update')
 
-      +iphone
+      +lte_ipad
         flex-direction: column
         height: $height * 2 + 40px
         margin-left: 0
@@ -23,11 +23,15 @@ $height: 84px
           margin-left: 0
           margin-top: 0 !important // overriders margin-top set by swiper
 
-          +iphone-portrait
-            width: calc(100vw - 20px)
+      .db-update
+        +iphone-portrait
+          width: calc(100vw - 20px)
 
-          +iphone-landscape
-            width: calc(50vw - 25px)
+        +iphone-landscape
+          width: calc(50vw - 25px)
+
+        +ipad
+          width: calc(33vw - 25px)
 
   .db-update
     display: flex
