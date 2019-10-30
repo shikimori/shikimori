@@ -8,6 +8,7 @@ export default class FayeLoader
     'turbolinks:load'
     'ajax:success'
     'postloader:success'
+    'clickloaded:success'
   ]
   INACTIVITY_INTERVAL = 10 * 60 * 1000
 

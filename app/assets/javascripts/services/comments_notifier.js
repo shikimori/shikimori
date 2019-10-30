@@ -19,7 +19,7 @@ export default class CommentsNotifier {
     $(document).on('appear', (e, $appeared, byClick) => this._appear(e, $appeared, byClick));
     $(document).on('faye:added', () => this._incrementCounter());
     $(document).on(
-      'turbolinks:load faye:loaded ajax:success postloader:success',
+      'turbolinks:load faye:loaded ajax:success postloader:success clickloaded:success',
       () => this._refresh()
     );
 
