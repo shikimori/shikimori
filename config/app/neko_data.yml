@@ -8304,6 +8304,137 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :takahiro_oomori
+    :level: 1
+    :image: "/assets/achievements/anime/author/takahiro_oomori.jpg"
+    :border_color: "#508090"
+    :title_ru: Такахиро Омори
+    :text_ru: 
+    :title_en: Takahiro Oomori
+    :text_en: 
+    :topic_id: 276032
+    :rule: &84
+      :algo: count
+      :threshold: 59%
+      :filters:
+        anime_ids:
+        - 1769
+        - 4591
+        - 19365
+        - 36538
+        - 36275
+        - 34591
+        - 34534
+        - 32983
+        - 18849
+        - 11665
+        - 10379
+        - 5300
+        - 20651
+        - 4081
+        - 604
+        - 8129
+        - 634
+        - 34966
+        - 1594
+        - 228
+        - 1180
+        - 10408
+        - 74
+        - 32915
+        - 27833
+        - 31552
+        - 27831
+        - 30191
+        - 23199
+        - 8408
+        - 6746
+        - 3901
+        - 2251
+        - 1485
+        - 1343
+        - 544
+        - 1924
+        - 2098
+        - 2461
+        - 4058
+        - 377
+        - 1795
+        - 2054
+        - 1468
+      :generator:
+        person_id: 6671
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :takahiro_oomori
+  level: 1
+  image: "/assets/achievements/anime/author/takahiro_oomori.jpg"
+  border_color: "#508090"
+  title_ru: Такахиро Омори
+  text_ru: 
+  title_en: Takahiro Oomori
+  text_en: 
+  topic_id: 276032
+  rule: *84
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :yasuhiro_takemoto
+    :level: 1
+    :image: "/assets/achievements/anime/author/yasuhiro_takemoto.jpg"
+    :border_color: "#FFDC33"
+    :title_ru: Ясухиро Такэмото
+    :text_ru: 
+    :title_en: Yasuhiro Takemoto
+    :text_en: 
+    :topic_id: 276032
+    :rule: &85
+      :algo: count
+      :threshold: 64%
+      :filters:
+        anime_ids:
+        - 22147
+        - 30206
+        - 73
+        - 1015
+        - 72
+        - 30415
+        - 12189
+        - 33206
+        - 35363
+        - 1887
+        - 4472
+        - 5957
+        - 7311
+        - 5118
+        - 1006
+        - 1135
+        - 1805
+        - 28675
+        - 2098
+        - 4382
+        - 253
+        - 13469
+        - 13259
+        - 13375
+        - 13373
+      :generator:
+        person_id: 6771
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :yasuhiro_takemoto
+  level: 1
+  image: "/assets/achievements/anime/author/yasuhiro_takemoto.jpg"
+  border_color: "#FFDC33"
+  title_ru: Ясухиро Такэмото
+  text_ru: 
+  title_en: Yasuhiro Takemoto
+  text_en: 
+  topic_id: 276032
+  rule: *85
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :shinichiro_watanabe
     :level: 1
     :image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
@@ -8313,7 +8444,7 @@
     :title_en: Shinichiro Watanabe
     :text_en: 
     :topic_id: 276032
-    :rule: &84
+    :rule: &86
       :algo: count
       :threshold: 62%
       :filters:
@@ -8347,7 +8478,61 @@
   title_en: Shinichiro Watanabe
   text_en: 
   topic_id: 276032
-  rule: *84
+  rule: *86
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :chiaki_kon
+    :level: 1
+    :image: "/assets/achievements/anime/author/chiaki_kon.jpg"
+    :border_color: "#ED8859"
+    :title_ru: Тиаки Кон
+    :text_ru: 
+    :title_en: Chiaki Kon
+    :text_en: 
+    :topic_id: 276032
+    :rule: &87
+      :algo: count
+      :threshold: 65%
+      :filters:
+        anime_ids:
+        - 934
+        - 1889
+        - 2899
+        - 6064
+        - 4896
+        - 3092
+        - 4814
+        - 25649
+        - 13767
+        - 8063
+        - 9926
+        - 11123
+        - 20371
+        - 4477
+        - 5690
+        - 5835
+        - 8476
+        - 12967
+        - 16890
+        - 21781
+        - 36873
+        - 17895
+        - 31733
+      :generator:
+        person_id: 6831
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :chiaki_kon
+  level: 1
+  image: "/assets/achievements/anime/author/chiaki_kon.jpg"
+  border_color: "#ED8859"
+  title_ru: Тиаки Кон
+  text_ru: 
+  title_en: Chiaki Kon
+  text_en: 
+  topic_id: 276032
+  rule: *87
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8360,7 +8545,7 @@
     :title_en: Type-Moon
     :text_en: 
     :topic_id: 276032
-    :rule: &85
+    :rule: &88
       :algo: count
       :threshold: 72%
       :filters:
@@ -8426,7 +8611,7 @@
   title_en: Type-Moon
   text_en: 
   topic_id: 276032
-  rule: *85
+  rule: *88
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8439,7 +8624,7 @@
     :title_en: Hideaki Anno
     :text_en: 
     :topic_id: 276032
-    :rule: &86
+    :rule: &89
       :algo: count
       :threshold: 58%
       :filters:
@@ -8490,7 +8675,7 @@
   title_en: Hideaki Anno
   text_en: 
   topic_id: 276032
-  rule: *86
+  rule: *89
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8503,7 +8688,7 @@
     :title_en: Shoji Kawamori
     :text_en: 
     :topic_id: 276032
-    :rule: &87
+    :rule: &90
       :algo: count
       :threshold: 100%
       :filters:
@@ -8601,7 +8786,7 @@
   title_en: Shoji Kawamori
   text_en: 
   topic_id: 276032
-  rule: *87
+  rule: *90
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8614,7 +8799,7 @@
     :title_en: Mamoru Hosoda
     :text_en: 
     :topic_id: 276032
-    :rule: &88
+    :rule: &91
       :algo: count
       :threshold: 42%
       :filters:
@@ -8651,7 +8836,62 @@
   title_en: Mamoru Hosoda
   text_en: 
   topic_id: 276032
-  rule: *88
+  rule: *91
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :morio_asaka
+    :level: 1
+    :image: "/assets/achievements/anime/author/morio_asaka.jpg"
+    :border_color: "#AE050D"
+    :title_ru: Морио Асака
+    :text_ru: 
+    :title_en: Morio Asaka
+    :text_en: 
+    :topic_id: 276032
+    :rule: &92
+      :algo: count
+      :threshold: 66%
+      :filters:
+        anime_ids:
+        - 5678
+        - 1078
+        - 28297
+        - 37379
+        - 14397
+        - 10800
+        - 7193
+        - 7972
+        - 877
+        - 408
+        - 134
+        - 596
+        - 59
+        - 652
+        - 383
+        - 33354
+        - 35320
+        - 372
+        - 371
+        - 232
+        - 2009
+        - 2274
+        - 2017
+        - 2093
+      :generator:
+        person_id: 5921
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :morio_asaka
+  level: 1
+  image: "/assets/achievements/anime/author/morio_asaka.jpg"
+  border_color: "#AE050D"
+  title_ru: Морио Асака
+  text_ru: 
+  title_en: Morio Asaka
+  text_en: 
+  topic_id: 276032
+  rule: *92
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8664,7 +8904,7 @@
     :title_en: Osamu Tezuka
     :text_en: 
     :topic_id: 276032
-    :rule: &89
+    :rule: &93
       :algo: count
       :threshold: 50%
       :filters:
@@ -8754,7 +8994,7 @@
   title_en: Osamu Tezuka
   text_en: 
   topic_id: 276032
-  rule: *89
+  rule: *93
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8767,7 +9007,7 @@
     :title_en: Isao Takahata
     :text_en: 
     :topic_id: 276032
-    :rule: &90
+    :rule: &94
       :algo: count
       :threshold: 72%
       :filters:
@@ -8803,7 +9043,7 @@
   title_en: Isao Takahata
   text_en: 
   topic_id: 276032
-  rule: *90
+  rule: *94
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8816,7 +9056,7 @@
     :title_en: Kenji Kamiyama
     :text_en: 
     :topic_id: 276032
-    :rule: &91
+    :rule: &95
       :algo: count
       :threshold: 56%
       :filters:
@@ -8855,7 +9095,7 @@
   title_en: Kenji Kamiyama
   text_en: 
   topic_id: 276032
-  rule: *91
+  rule: *95
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8868,7 +9108,7 @@
     :title_en: Masamune Shirow
     :text_en: 
     :topic_id: 276032
-    :rule: &92
+    :rule: &96
       :algo: count
       :threshold: 89%
       :filters:
@@ -8905,7 +9145,7 @@
   title_en: Masamune Shirow
   text_en: 
   topic_id: 276032
-  rule: *92
+  rule: *96
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8918,7 +9158,7 @@
     :title_en: Mamoru Oshii
     :text_en: 
     :topic_id: 276032
-    :rule: &93
+    :rule: &97
       :algo: count
       :threshold: 68%
       :filters:
@@ -8961,7 +9201,7 @@
   title_en: Mamoru Oshii
   text_en: 
   topic_id: 276032
-  rule: *93
+  rule: *97
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -8974,7 +9214,7 @@
     :title_en: Kouji Morimoto
     :text_en: 
     :topic_id: 276032
-    :rule: &94
+    :rule: &98
       :algo: count
       :threshold: 88%
       :filters:
@@ -9017,7 +9257,7 @@
   title_en: Kouji Morimoto
   text_en: 
   topic_id: 276032
-  rule: *94
+  rule: *98
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9030,7 +9270,7 @@
     :title_en: CLAMP
     :text_en: 
     :topic_id: 276032
-    :rule: &95
+    :rule: &99
       :algo: count
       :threshold: 54%
       :filters:
@@ -9081,7 +9321,7 @@
   title_en: CLAMP
   text_en: 
   topic_id: 276032
-  rule: *95
+  rule: *99
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9094,7 +9334,7 @@
     :title_en: Masaaki Yuasa
     :text_en: 
     :topic_id: 276032
-    :rule: &96
+    :rule: &100
       :algo: count
       :threshold: 58%
       :filters:
@@ -9136,7 +9376,7 @@
   title_en: Masaaki Yuasa
   text_en: 
   topic_id: 276032
-  rule: *96
+  rule: *100
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9149,7 +9389,7 @@
     :title_en: Satoshi Kon
     :text_en: 
     :topic_id: 276032
-    :rule: &97
+    :rule: &101
       :algo: count
       :threshold: 100%
       :filters:
@@ -9175,7 +9415,7 @@
   title_en: Satoshi Kon
   text_en: 
   topic_id: 276032
-  rule: *97
+  rule: *101
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9188,7 +9428,7 @@
     :title_en: Yoshiaki Kawajiri
     :text_en: 
     :topic_id: 276032
-    :rule: &98
+    :rule: &102
       :algo: count
       :threshold: 62%
       :filters:
@@ -9242,7 +9482,7 @@
   title_en: Yoshiaki Kawajiri
   text_en: 
   topic_id: 276032
-  rule: *98
+  rule: *102
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9255,7 +9495,7 @@
     :title_en: Kenji Nakamura
     :text_en: 
     :topic_id: 276032
-    :rule: &99
+    :rule: &103
       :algo: count
       :threshold: 87%
       :filters:
@@ -9281,7 +9521,7 @@
   title_en: Kenji Nakamura
   text_en: 
   topic_id: 276032
-  rule: *99
+  rule: *103
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9294,7 +9534,7 @@
     :title_en: Shinji Aramaki
     :text_en: 
     :topic_id: 276032
-    :rule: &100
+    :rule: &104
       :algo: count
       :threshold: 68%
       :filters:
@@ -9337,7 +9577,7 @@
   title_en: Shinji Aramaki
   text_en: 
   topic_id: 276032
-  rule: *100
+  rule: *104
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9350,7 +9590,7 @@
     :title_en: Junichi Satou
     :text_en: 
     :topic_id: 276032
-    :rule: &101
+    :rule: &105
       :algo: count
       :threshold: 51%
       :filters:
@@ -9410,7 +9650,7 @@
   title_en: Junichi Satou
   text_en: 
   topic_id: 276032
-  rule: *101
+  rule: *105
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9423,7 +9663,7 @@
     :title_en: Kouichi Mashimo
     :text_en: 
     :topic_id: 276032
-    :rule: &102
+    :rule: &106
       :algo: count
       :threshold: 70%
       :filters:
@@ -9475,7 +9715,7 @@
   title_en: Kouichi Mashimo
   text_en: 
   topic_id: 276032
-  rule: *102
+  rule: *106
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9488,7 +9728,7 @@
     :title_en: Go Nagai
     :text_en: 
     :topic_id: 276032
-    :rule: &103
+    :rule: &107
       :algo: count
       :threshold: 36%
       :filters:
@@ -9567,7 +9807,7 @@
   title_en: Go Nagai
   text_en: 
   topic_id: 276032
-  rule: *103
+  rule: *107
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9580,7 +9820,7 @@
     :title_en: Ryousuke Takahashi
     :text_en: 
     :topic_id: 276032
-    :rule: &104
+    :rule: &108
       :algo: count
       :threshold: 100%
       :filters:
@@ -9654,7 +9894,7 @@
   title_en: Ryousuke Takahashi
   text_en: 
   topic_id: 276032
-  rule: *104
+  rule: *108
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9667,7 +9907,7 @@
     :title_en: Kunihiko Ikuhara
     :text_en: 
     :topic_id: 276032
-    :rule: &105
+    :rule: &109
       :algo: count
       :threshold: 77%
       :filters:
@@ -9694,7 +9934,7 @@
   title_en: Kunihiko Ikuhara
   text_en: 
   topic_id: 276032
-  rule: *105
+  rule: *109
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9707,7 +9947,7 @@
     :title_en: Katsuhiro Otomo
     :text_en: 
     :topic_id: 276032
-    :rule: &106
+    :rule: &110
       :algo: count
       :threshold: 76%
       :filters:
@@ -9738,7 +9978,7 @@
   title_en: Katsuhiro Otomo
   text_en: 
   topic_id: 276032
-  rule: *106
+  rule: *110
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9751,7 +9991,7 @@
     :title_en: Yoshiyuki Tomino
     :text_en: 
     :topic_id: 276032
-    :rule: &107
+    :rule: &111
       :algo: count
       :threshold: 100%
       :filters:
@@ -9867,7 +10107,7 @@
   title_en: Yoshiyuki Tomino
   text_en: 
   topic_id: 276032
-  rule: *107
+  rule: *111
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9880,7 +10120,7 @@
     :title_en: Rumiko Takahashi
     :text_en: 
     :topic_id: 276032
-    :rule: &108
+    :rule: &112
       :algo: count
       :threshold: 62%
       :filters:
@@ -9935,7 +10175,7 @@
   title_en: Rumiko Takahashi
   text_en: 
   topic_id: 276032
-  rule: *108
+  rule: *112
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -9948,7 +10188,7 @@
     :title_en: Osamu Dezaki
     :text_en: 
     :topic_id: 276032
-    :rule: &109
+    :rule: &113
       :algo: count
       :threshold: 55%
       :filters:
@@ -10004,7 +10244,7 @@
   title_en: Osamu Dezaki
   text_en: 
   topic_id: 276032
-  rule: *109
+  rule: *113
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -10017,7 +10257,7 @@
     :title_en: Yoshitaka Amano
     :text_en: 
     :topic_id: 276032
-    :rule: &110
+    :rule: &114
       :algo: count
       :threshold: 73%
       :filters:
@@ -10051,7 +10291,7 @@
   title_en: Yoshitaka Amano
   text_en: 
   topic_id: 276032
-  rule: *110
+  rule: *114
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -10064,7 +10304,7 @@
     :title_en: Leiji Matsumoto
     :text_en: 
     :topic_id: 276032
-    :rule: &111
+    :rule: &115
       :algo: count
       :threshold: 68%
       :filters:
@@ -10125,7 +10365,7 @@
   title_en: Leiji Matsumoto
   text_en: 
   topic_id: 276032
-  rule: *111
+  rule: *115
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -10138,7 +10378,7 @@
     :title_en: Rintaro
     :text_en: 
     :topic_id: 276032
-    :rule: &112
+    :rule: &116
       :algo: count
       :threshold: 41%
       :filters:
@@ -10185,7 +10425,7 @@
   title_en: Rintaro
   text_en: 
   topic_id: 276032
-  rule: *112
+  rule: *116
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -10198,7 +10438,7 @@
     :title_en: Toshio Maeda
     :text_en: 
     :topic_id: 276032
-    :rule: &113
+    :rule: &117
       :algo: count
       :threshold: 66%
       :filters:
@@ -10229,246 +10469,6 @@
   title_ru: Тосио Маэда
   text_ru: 
   title_en: Toshio Maeda
-  text_en: 
-  topic_id: 276032
-  rule: *113
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :yasuhiro_takemoto
-    :level: 1
-    :image: "/assets/achievements/anime/author/yasuhiro_takemoto.jpg"
-    :border_color: "#FFDC33"
-    :title_ru: Ясухиро Такэмото
-    :text_ru: 
-    :title_en: Yasuhiro Takemoto
-    :text_en: 
-    :topic_id: 276032
-    :rule: &114
-      :algo: count
-      :threshold: 64%
-      :filters:
-        anime_ids:
-        - 22147
-        - 30206
-        - 73
-        - 1015
-        - 72
-        - 30415
-        - 12189
-        - 33206
-        - 35363
-        - 1887
-        - 4472
-        - 5957
-        - 7311
-        - 5118
-        - 1006
-        - 1135
-        - 1805
-        - 28675
-        - 2098
-        - 4382
-        - 253
-        - 13469
-        - 13259
-        - 13375
-        - 13373
-      :generator:
-        person_id: 6771
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :yasuhiro_takemoto
-  level: 1
-  image: "/assets/achievements/anime/author/yasuhiro_takemoto.jpg"
-  border_color: "#FFDC33"
-  title_ru: Ясухиро Такэмото
-  text_ru: 
-  title_en: Yasuhiro Takemoto
-  text_en: 
-  topic_id: 276032
-  rule: *114
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :takahiro_oomori
-    :level: 1
-    :image: "/assets/achievements/anime/author/takahiro_oomori.jpg"
-    :border_color: "#508090"
-    :title_ru: Такахиро Омори
-    :text_ru: 
-    :title_en: Takahiro Oomori
-    :text_en: 
-    :topic_id: 276032
-    :rule: &115
-      :algo: count
-      :threshold: 59%
-      :filters:
-        anime_ids:
-        - 1769
-        - 4591
-        - 19365
-        - 36538
-        - 36275
-        - 34591
-        - 34534
-        - 32983
-        - 18849
-        - 11665
-        - 10379
-        - 5300
-        - 20651
-        - 4081
-        - 604
-        - 8129
-        - 634
-        - 34966
-        - 1594
-        - 228
-        - 1180
-        - 10408
-        - 74
-        - 32915
-        - 27833
-        - 31552
-        - 27831
-        - 30191
-        - 23199
-        - 8408
-        - 6746
-        - 3901
-        - 2251
-        - 1485
-        - 1343
-        - 544
-        - 1924
-        - 2098
-        - 2461
-        - 4058
-        - 377
-        - 1795
-        - 2054
-        - 1468
-      :generator:
-        person_id: 6671
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :takahiro_oomori
-  level: 1
-  image: "/assets/achievements/anime/author/takahiro_oomori.jpg"
-  border_color: "#508090"
-  title_ru: Такахиро Омори
-  text_ru: 
-  title_en: Takahiro Oomori
-  text_en: 
-  topic_id: 276032
-  rule: *115
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :morio_asaka
-    :level: 1
-    :image: "/assets/achievements/anime/author/morio_asaka.jpg"
-    :border_color: "#AE050D"
-    :title_ru: Морио Асака
-    :text_ru: 
-    :title_en: Morio Asaka
-    :text_en: 
-    :topic_id: 276032
-    :rule: &116
-      :algo: count
-      :threshold: 66%
-      :filters:
-        anime_ids:
-        - 5678
-        - 1078
-        - 28297
-        - 37379
-        - 14397
-        - 10800
-        - 7193
-        - 7972
-        - 877
-        - 408
-        - 134
-        - 596
-        - 59
-        - 652
-        - 383
-        - 33354
-        - 35320
-        - 372
-        - 371
-        - 232
-        - 2009
-        - 2274
-        - 2017
-        - 2093
-      :generator:
-        person_id: 5921
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :morio_asaka
-  level: 1
-  image: "/assets/achievements/anime/author/morio_asaka.jpg"
-  border_color: "#AE050D"
-  title_ru: Морио Асака
-  text_ru: 
-  title_en: Morio Asaka
-  text_en: 
-  topic_id: 276032
-  rule: *116
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :chiaki_kon
-    :level: 1
-    :image: "/assets/achievements/anime/author/chiaki_kon.jpg"
-    :border_color: "#ED8859"
-    :title_ru: Тиаки Кон
-    :text_ru: 
-    :title_en: Chiaki Kon
-    :text_en: 
-    :topic_id: 276032
-    :rule: &117
-      :algo: count
-      :threshold: 65%
-      :filters:
-        anime_ids:
-        - 934
-        - 1889
-        - 2899
-        - 6064
-        - 4896
-        - 3092
-        - 4814
-        - 25649
-        - 13767
-        - 8063
-        - 9926
-        - 11123
-        - 20371
-        - 4477
-        - 5690
-        - 5835
-        - 8476
-        - 12967
-        - 16890
-        - 21781
-        - 36873
-        - 17895
-        - 31733
-      :generator:
-        person_id: 6831
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :chiaki_kon
-  level: 1
-  image: "/assets/achievements/anime/author/chiaki_kon.jpg"
-  border_color: "#ED8859"
-  title_ru: Тиаки Кон
-  text_ru: 
-  title_en: Chiaki Kon
   text_en: 
   topic_id: 276032
   rule: *117
