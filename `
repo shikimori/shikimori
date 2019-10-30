@@ -28,10 +28,8 @@ function reInitSwipers() {
         spaceBetween: 30,
         wrapperClass: 'inner',
         slideClass: 'db-update',
-        navigation: {
-          nextEl: '.mobile-slider-next',
-          prevEl: '.mobile-slider-prev'
-        }
+        slidePrevClass: 'mobile-slider-prev',
+        slideNextClass: 'mobile-slider-next'
       })
     );
   }

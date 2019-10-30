@@ -1,7 +1,8 @@
-@import mixins/ellipsis2
 @import mixins/date
-@import mixins/responsive
+@import mixins/ellipsis2
 @import mixins/flex_column
+@import mixins/responsive
+@import mixins/shikimori
 @import mixins/swiper
 
 $height: 84px
@@ -9,6 +10,7 @@ $height: 84px
 .p-dashboards-show .v2
   .db-updates
     overflow: hidden
+    position: relative
 
     .inner
       +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 3, $desktop-columns: 4, $gutter: 40px, $offset: 20px, $selector: '.db-update')
@@ -32,6 +34,71 @@ $height: 84px
 
         +ipad
           width: calc(33vw - 25px)
+
+  +lte_ipad
+    .mobile-slider-prev,
+    .mobile-slider-next
+      -webkit-tap-highlight-color: transparent
+      align-items: center
+      cursor: pointer
+      display: inline-flex
+      height: 100%
+      justify-content: center
+      outline: none
+      position: absolute
+      top: 0
+      user-select: none
+      width: 35px
+      z-index: 1
+
+      &:before
+        content: ''
+        height: 100%
+        left: 0
+        opacity: 0.5
+        position: absolute
+        top: 0
+        transition: opacity 0.25s ease
+        width: 100%
+
+      &:after
+        color: rgba(#123, 0.75)
+        content: ''
+        font-size: 24px
+        font-weight: bold
+        text-shadow: 1px 1px 2px rgba(#fff, 0.5)
+        transition: color 0.25s ease
+        z-index: 2
+
+      &:active:after
+        color: #123
+
+      &.swiper-button-disabled
+        display: none
+
+    .mobile-slider-prev
+      left: 0
+
+      &:before
+        background: linear-gradient(to left, rgba(#d5d5d5, 0), rgba(#d5d5d5, 0.75) 50%, rgba(#d5d5d5, 1))
+
+      &:after
+        +shikimori('\e83e')
+
+      &:active:before
+        opacity: 1
+
+    .mobile-slider-next
+      right: 0
+
+      &:before
+        background: linear-gradient(to right, rgba(#d5d5d5, 0), rgba(#d5d5d5, 0.75) 50%, rgba(#d5d5d5, 1))
+
+      &:after
+        +shikimori('\e83f')
+
+      &:active:before
+        opacity: 1
 
   .db-update
     display: flex
