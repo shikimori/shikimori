@@ -25,66 +25,66 @@
             a.mail.b-tooltipped.unprocessed[
               href=profile_dialogs_url(@resource)
               title=t('.my_mail')
-              data-direction="top"
+              data-direction='top'
             ]
             a.settings.b-tooltipped.unprocessed[
               href=@resource.edit_url(page: :account)
               title=t('.my_profile_settings')
-              data-direction="top"
+              data-direction='top'
             ]
             a.ban.b-tooltipped.unprocessed[
               href=moderation_profile_url(@resource)
               title=t('.my_bans')
-              data-direction="top"
+              data-direction='top'
             ]
 
           - else
             a.talk.b-tooltipped.unprocessed[
               href=profile_dialog_url(current_user, @resource)
               title=t('.send_message')
-              data-direction="top"
+              data-direction='top'
             ]
             a.fav-add.friend-action.b-tooltipped.unprocessed[
               href=api_friend_url(@resource.id)
               style=('display: none;' if @resource.is_friended?)
               title=t('.add_to_friends')
-              data-remote="true"
-              data-method="post"
-              data-type="json"
-              data-direction="top"
+              data-remote='true'
+              data-method='post'
+              data-type='json'
+              data-direction='top'
             ]
             a.fav-remove.friend-action.b-tooltipped.unprocessed[
               href=api_friend_url(@resource.id)
               style=('display: none;' unless @resource.is_friended?)
               title=t('.remove_from_friends')
-              data-remote="true"
-              data-method="delete"
-              data-type="json"
-              data-direction="top"
+              data-remote='true'
+              data-method='delete'
+              data-type='json'
+              data-direction='top'
             ]
             a.ignore-add.ignore-action.b-tooltipped.unprocessed[
               href=api_ignore_url(@resource.id)
               style=('display: none;' if @view.ignored?)
               title=t('.add_to_ignored')
-              data-remote="true"
-              data-method="post"
-              data-type="json"
-              data-direction="top"
+              data-remote='true'
+              data-method='post'
+              data-type='json'
+              data-direction='top'
             ]
             a.ignore-remove.ignore-action.b-tooltipped.unprocessed[
               href=api_ignore_url(@resource.id)
               style=('display: none;' unless @view.ignored?)
               title=t('.remove_from_ignored')
-              data-remote="true"
-              data-method="delete"
-              data-type="json"
-              data-direction="top"
+              data-remote='true'
+              data-method='delete'
+              data-type='json'
+              data-direction='top'
             ]
             - if can? :edit, @resource
               a.settings.b-tooltipped.unprocessed[
                 href=@resource.edit_url(page: :account)
                 title=t('.user_profile_settings')
-                data-direction="top"
+                data-direction='top'
               ]
             a.ban.b-tooltipped.unprocessed[
               href=moderation_profile_url(@resource)
@@ -115,43 +115,48 @@
     - if user_signed_in?
       - if @view.own_profile?
         a href=profile_dialogs_url(@resource)
-          = t('.my_mail')
-        a href=@resource.edit_url(page: :account)
-          = t('.my_profile_settings')
+          = t '.my_mail'
+        a href=profile_list_history_url(@resource)
+          = i18n_io 'History', :one
+        a.history-action href=@resource.edit_url(page: :account)
+          = t '.my_profile_settings'
         a href=moderation_profile_url(@resource)
-          = t('.my_bans')
+          = t '.my_bans'
 
       - else
         a href=profile_dialog_url(current_user, @resource) = t('.send_message')
         span.friend-action[
           style=('display: none;' if @resource.is_friended?)
-          data-remote="true"
+          data-remote='true'
           data-action=api_friend_url(@resource.id)
-          data-method="post"
-          data-type="json"
-        ] = t('.add_to_friends')
+          data-method='post'
+          data-type='json'
+        ] = t '.add_to_friends'
         span.friend-action[
           style=('display: none;' unless @resource.is_friended?)
-          data-remote="true"
+          data-remote='true'
           data-action=api_friend_url(@resource.id)
-          data-method="delete"
-          data-type="json"
-        ] = t('.remove_from_friends')
+          data-method='delete'
+          data-type='json'
+        ] = t '.remove_from_friends'
         span.ignore-action[
           style=('display: none;' if @view.ignored?)
-          data-remote="true"
+          data-remote='true'
           data-action=api_ignore_url(@resource.id)
-          data-method="post"
-          data-type="json"
-        ] = t('.add_to_ignored')
+          data-method='post'
+          data-type='json'
+        ] = t '.add_to_ignored'
         span.ignore-action[
           style=('display: none;' unless @view.ignored?)
-          data-remote="true"
+          data-remote='true'
           data-action=api_ignore_url(@resource.id)
-          data-method="delete"
-          data-type="json"
-        ] = t('.remove_from_ignored')
+          data-method='delete'
+          data-type='json'
+        ] = t '.remove_from_ignored'
 
+        - if @view.history_view.display?
+          a.history-action href=profile_list_history_url(@resource)
+            = i18n_io 'History', :one
         a href=moderation_profile_url(@resource)
           = t can?(:manage, Ban) ? '.moderation' : '.ban_history'
 
@@ -217,7 +222,7 @@
           - if @resource.stats.spent_time.days.positive?
             .value.b-tooltipped.dotted.unprocessed[
               title=@resource.stats.spent_time_in_days
-              data-direction="top"
+              data-direction='top'
             ] = @resource.stats.spent_time_in_words
             .label == @resource.stats.spent_time_label
           - else
@@ -232,8 +237,8 @@
             .cut.year
 
           .first style="width: #{@resource.stats.spent_time_percent}%"
-          /.second style="width: 12%" title="Запланировано"
-          /.third style="width: 58%"
+          /.second style='width: 12%' title="Запланировано"
+          /.third style='width: 58%'
           .third style="width: #{100 - @resource.stats.spent_time_percent}%"
         .times
           .time class=(:checked if @resource.stats.spent_time.weeks >= 1) 1 #{i18n_i 'datetime.week'}
@@ -285,8 +290,8 @@
             - else
               = t('profiles_controller.favorites')
           .cc-favourites.user_rates-minified.to-process[
-            data-dynamic="cutted_covers"
-            data-ratio_type="character"
+            data-dynamic='cutted_covers'
+            data-ratio_type='character'
           ]
             - if @resource.favorites.any?
               = render @resource.favorites, cover_by: :image_link
