@@ -9,6 +9,8 @@
   $offset: '',
   $gutter-mobile: $flex-gutter-mobile,
   $offset-mobile: $flex-offset-mobile,
+  $gutter-tablet: '',
+  $offset-tablet: '',
   $gutter-desktop: $flex-gutter-desktop,
   $offset-desktop: $flex-offset-desktop,
   $selector: '.f-column'
@@ -20,6 +22,12 @@
   @if ($offset != '') {
     $offset-mobile: $offset;
     $offset-desktop: $offset;
+  }
+  @if ($offset-tablet == '') {
+    $offset-tablet: $offset-desktop;
+  }
+  @if ($gutter-tablet == '') {
+    $gutter-tablet: $gutter-desktop;
   }
   @if ($desktop-columns == '') {
     $desktop-columns: $ipad-columns;
@@ -38,7 +46,7 @@
   }
 
   @include ipad {
-    @include fcolumn($ipad-columns, $gutter-desktop, $offset-desktop, $selector);
+    @include fcolumn($ipad-columns, $gutter-tablet, $offset-tablet, $selector);
   }
 
   @include gte_laptop {
