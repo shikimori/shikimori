@@ -25,7 +25,7 @@ function reInitSwipers() {
       new Swiper('.db-updates', {
         slidesPerView: 'auto',
         slidesPerColumn: 2,
-        spaceBetween: 0,
+        spaceBetween: 30,
         wrapperClass: 'inner',
         slideClass: 'db-update',
         navigation: {

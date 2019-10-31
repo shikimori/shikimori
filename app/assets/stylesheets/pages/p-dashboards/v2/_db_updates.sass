@@ -13,7 +13,7 @@ $height: 84px
     position: relative
 
     .inner
-      +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 3, $desktop-columns: 4, $gutter: 40px, $offset-mobile: 20px, $offset-desktop: 30px, $selector: '.db-update')
+      +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 3, $desktop-columns: 4, $gutter: 40px, $offset-mobile: 20px, $offset-tablet: 20px, $offset-desktop: 30px, $selector: '.db-update')
 
       +lte_ipad
         flex-direction: column
@@ -25,6 +25,8 @@ $height: 84px
           margin-left: 0
 
       .db-update
+        margin-top: 0px !important // overriders margin-top set by swiper
+
         +iphone-portrait
           width: calc(100vw - 20px)
 
@@ -33,6 +35,9 @@ $height: 84px
 
         +ipad
           width: calc(33vw - 25px)
+
+        +gte_laptop
+          margin-right: 0px !important // overriders margin-top set by swiper
 
   +lte_ipad
     .mobile-slider-prev,
