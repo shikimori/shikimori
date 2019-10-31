@@ -81,9 +81,13 @@ $height: 84px
 
       &:before
         background: linear-gradient(to left, rgba(#d5d5d5, 0), rgba(#d5d5d5, 0.75) 50%, rgba(#d5d5d5, 1))
+        // background: red
+        border-bottom-right-radius: 100% 50%
+        border-top-right-radius: 100% 50%
 
       &:after
         +shikimori('\e83e')
+        margin-right: 5px
 
       &:active:before
         opacity: 1
@@ -93,9 +97,13 @@ $height: 84px
 
       &:before
         background: linear-gradient(to right, rgba(#d5d5d5, 0), rgba(#d5d5d5, 0.75) 50%, rgba(#d5d5d5, 1))
+        // background: red
+        border-bottom-left-radius: 100% 50%
+        border-top-left-radius: 100% 50%
 
       &:after
         +shikimori('\e83f')
+        margin-left: 5px
 
       &:active:before
         opacity: 1
