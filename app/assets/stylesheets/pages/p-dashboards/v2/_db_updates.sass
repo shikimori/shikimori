@@ -25,7 +25,6 @@ $height: 84px
           margin-left: 0
 
       .db-update
-        margin-top: 0px !important // overriders margin-top set by swiper
 
         +iphone-portrait
           width: calc(100vw - 20px)
@@ -36,8 +35,8 @@ $height: 84px
         +ipad
           width: calc(33vw - 25px)
 
-        +gte_laptop
-          margin-right: 0px !important // overriders margin-top set by swiper
+        +lte_ipad
+          margin-top: 0px !important // overriders margin-top set by swiper
 
   +lte_ipad
     .mobile-slider-prev,
