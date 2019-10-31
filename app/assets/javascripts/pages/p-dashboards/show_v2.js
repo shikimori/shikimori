@@ -17,7 +17,6 @@ pageUnload('dashboards_show', () => {
 });
 
 function reInitSwipers() {
-  console.log('reInitSwipers');
   destroySwipers();
 
   if (isMobile()) {
