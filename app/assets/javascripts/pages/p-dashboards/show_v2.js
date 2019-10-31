@@ -2,6 +2,7 @@ import Swiper from 'swiper';
 import { isMobile } from 'helpers/mobile_detect';
 
 let swipers = [];
+window.z = swipers;
 
 pageLoad('dashboards_show', () => {
   if (!$('.p-dashboards-show .v2').length) { return; }
@@ -24,7 +25,7 @@ function reInitSwipers() {
       new Swiper('.db-updates', {
         slidesPerView: 'auto',
         slidesPerColumn: 2,
-        spaceBetween: 30,
+        spaceBetween: 0,
         wrapperClass: 'inner',
         slideClass: 'db-update',
         navigation: {
