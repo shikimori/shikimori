@@ -35,6 +35,7 @@ private
       decorate(Forum.find_by_permalink('reviews'), true),
       decorate(Forum.find_by_permalink('contests'), true),
       decorate(Forum.find_by_permalink('collections'), true),
+      decorate(Forum.find_by_permalink('articles'), true),
       decorate(Forum::MY_CLUBS_FORUM, true),
       decorate(Forum.find_by_permalink('clubs'), true)
     ]
