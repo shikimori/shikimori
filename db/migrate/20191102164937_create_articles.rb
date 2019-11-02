@@ -7,7 +7,7 @@ class CreateArticles < ActiveRecord::Migration[5.2]
       t.string :moderation_state, limit: 255, default: "pending"
       t.integer :approver_id
       t.text :tags, default: [], null: false, array: true
-      t.string :locate, null: false
+      t.string :locale, null: false
 
       t.timestamps
     end
