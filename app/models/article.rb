@@ -10,7 +10,7 @@ class Article < ApplicationRecord
   update_index('articles#article') { self if saved_change_to_name? }
 
   belongs_to :user
-  validates :name, :user, :kind, presence: true
+  validates :name, :user, :text, presence: true
   validates :locale, presence: true
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
