@@ -6,7 +6,7 @@
     data-hint=t('.drag_here')
   ]
     = render 'blocks/upload_progress'
-    .b-shiki_wall.unprocessed
+    .b-shiki_wall.to-process data-dynamic='wall'
       = render partial: 'club_images/club_image',
         collection: topic.decomposed_body.wall_images,
         locals: { topic_poster_edit: true }
