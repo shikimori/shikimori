@@ -93,6 +93,9 @@ export default {
     max-width: 100% !important
 
   .ti-tag
+    font-size: 12px
+    margin: 4px 2px
+
     .ti-icon-close
       transition: opacity 0.25s ease
       opacity: 0.8
@@ -106,5 +109,13 @@ export default {
 
     .ti-content
       align-items: flex-start
-      padding-top: 1px
+
+  .ti-new-tag-input-wrapper
+    margin: 0
+    padding: 0
+
+    .ti-new-tag-input
+      +input
+      border: none
+      padding: 0 7px
 </style>
