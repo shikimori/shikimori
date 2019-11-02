@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_26_212254) do
+ActiveRecord::Schema.define(version: 2019_11_02_164937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -156,6 +156,19 @@ ActiveRecord::Schema.define(version: 2019_10_26_212254) do
     t.index ["russian"], name: "index_animes_on_russian"
     t.index ["score"], name: "index_animes_on_score"
     t.index ["status", "score", "kind"], name: "anime_online_dashboard_query"
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "user_id", null: false
+    t.text "text", null: false
+    t.string "moderation_state", limit: 255, default: "pending"
+    t.integer "approver_id"
+    t.text "tags", default: [], null: false, array: true
+    t.string "locate", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "bans", id: :serial, force: :cascade do |t|
