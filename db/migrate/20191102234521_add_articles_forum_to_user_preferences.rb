@@ -10,5 +10,4 @@ class AddArticlesForumToUserPreferences < ActiveRecord::Migration[5.2]
         SQL
       ).to_a
   end
-
 end

@@ -437,8 +437,8 @@ Rails.application.routes.draw do
     get '/' => 'topics#index',  as: :forum
     scope(
       '(/:forum)(/:linked_type-:linked_id)',
-      forum: /animanga|site|offtopic|clubs|my_clubs|reviews|cosplay|contests|news|updates|games|vn|collections/,
-      linked_type: /anime|manga|ranobe|character|person|club|contest|collection|cosplay_gallery/,
+      forum: /animanga|site|offtopic|clubs|my_clubs|reviews|cosplay|contests|news|updates|games|vn|collections|articles/,
+      linked_type: /anime|manga|ranobe|character|person|club|contest|collection|article|cosplay_gallery/,
       format: /html|json|rss/
     ) do
       get '/new' => 'topics#new', as: :new_topic
