@@ -2,6 +2,7 @@ ru:
   activerecord:
     models:
       anime: Аниме
+      article: Статья
       character: Персонаж
       club: Клуб
       collection: Коллекция
@@ -232,6 +233,9 @@ ru:
       collection_link:
         group: Группа
         text: Комментарий
+      article:
+        name: Название
+        text: Текст
       poll:
         name: Название
         text: Текст

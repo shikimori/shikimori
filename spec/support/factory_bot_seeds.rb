@@ -15,6 +15,7 @@ class FactoryBotSeeds
     clubs_forum
     cosplay_forum
     collections_forum
+    articles_forum
     offtopic_forum
 
     offtopic_topic

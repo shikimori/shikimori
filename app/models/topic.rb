@@ -53,7 +53,8 @@ class Topic < ApplicationRecord
     Review,
     Contest,
     CosplayGallery,
-    Collection
+    Collection,
+    Article
   ].map(&:name)
 
   belongs_to :forum

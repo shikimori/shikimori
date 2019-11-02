@@ -2,6 +2,7 @@ en:
   activerecord:
     models:
       anime: Anime
+      article: Article
       character: Character
       club: Club
       collection: Collection
@@ -229,6 +230,9 @@ en:
         kind: Type
         text: Description
         state: State
+      article:
+        name: Name
+        text: Text
       collection_link:
         group: Group
         text: Comment
