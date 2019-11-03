@@ -886,6 +886,7 @@ Rails.application.routes.draw do
 
       get 'reviews(/page/:page)' => :reviews, as: :reviews
       get 'collections(/page/:page)' => :collections, as: :collections
+      get 'articles(/page/:page)' => :articles, as: :articles
       get 'topics(/page/:page)' => :topics, as: :topics
       get 'comments(/page/:page)' => :comments, as: :comments
       scope 'comments' do

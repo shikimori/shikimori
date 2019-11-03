@@ -45,6 +45,12 @@ ru:
           few: коллекции
           many: коллекций
           other: коллекции
+      articles:
+        subjective:
+          one: статья
+          few: статьи
+          many: статей
+          other: статьи
       content_change:
         subjective:
           one: правка контента

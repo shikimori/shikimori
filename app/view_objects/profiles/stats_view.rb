@@ -175,7 +175,7 @@ class Profiles::StatsView # rubocop:disable ClassLength
   end
 
   def articles_count
-    user.articles.count
+    user.articles.available.count
   end
 
   def versions_count
