@@ -174,6 +174,10 @@ class Profiles::StatsView # rubocop:disable ClassLength
     user.collections.available.count
   end
 
+  def articles_count
+    user.articles.count
+  end
+
   def versions_count
     user
       .versions

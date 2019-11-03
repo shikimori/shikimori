@@ -28,6 +28,7 @@ class User < ApplicationRecord
     trusted_video_uploader
     review_moderator
     collection_moderator
+    article_moderator
     cosplay_moderator
     contest_moderator
     video_super_moderator
@@ -116,6 +117,7 @@ class User < ApplicationRecord
   has_many :clubs, through: :club_roles
 
   has_many :collections, dependent: :destroy
+  has_many :articles, dependent: :destroy
 
   has_many :versions, dependent: :destroy
 

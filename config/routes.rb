@@ -175,6 +175,15 @@ Rails.application.routes.draw do
         post :cancel
       end
     end
+    resources :articles, only: [] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+
+      member do
+        post :accept
+        post :reject
+        post :cancel
+      end
+    end
 
     resources :forums, only: %i[index edit] do
       patch :update, on: :member, as: :update

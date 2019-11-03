@@ -61,6 +61,16 @@ header.head
             - if @moderation_policy.collections_count.positive?
               span.size = @moderation_policy.collections_count
 
+      - if current_user&.article_moderator? || current_user&.admin?
+        li
+          a.b-link[
+            href=moderations_articles_url
+            title=t('.articles_journal')
+          ]
+            = t '.articles_journal'
+            - if @moderation_policy.articles_count.positive?
+              span.size = @moderation_policy.articles_count
+
   .c-column
     .subheadline = t '.content'
 
@@ -125,7 +135,7 @@ header.head
             title=t('moderations/user_rate_logs_controller.page_title.index')
           ] = t 'moderations/user_rate_logs_controller.page_title.index'
 
-- if @abuse_requests_stats || @bans_stats || @content_versions_stats || @reviews_stats || @collections_stats
+- if @abuse_requests_stats || @bans_stats || @content_versions_stats || @reviews_stats || @collections_stats || @articles_stats
   .subheadline.m15 Statistics for last 4 months
   .cc-3a
     - if @abuse_requests_stats
@@ -161,4 +171,11 @@ header.head
         .subheadline Collections
         ul.b-list
           - @collections_stats.each do |stat|
+            li = "#{stat.approver.nickname}: #{stat.count}"
+
+    - if @articles_stats
+      .c-column
+        .subheadline articles
+        ul.b-list
+          - @articles_stats.each do |stat|
             li = "#{stat.approver.nickname}: #{stat.count}"

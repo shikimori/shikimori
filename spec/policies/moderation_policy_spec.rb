@@ -74,6 +74,42 @@ describe ModerationPolicy do
     end
   end
 
+  describe '#articles_count' do
+    before do
+      allow(Article)
+        .to receive_message_chain(:pending, :where, :size)
+        .and_return(articles_count)
+    end
+    let(:articles_count) { 1 }
+    let(:user) { build :user, :article_moderator }
+
+    it { expect(policy.articles_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.articles_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.articles_count).to eq 0 }
+    end
+
+    context 'no moderation filter' do
+      let(:moderation_filter) { false }
+
+      context 'not moderator' do
+        let(:user) { build :user, :user }
+        it { expect(policy.articles_count).to eq 1 }
+      end
+
+      context 'no user' do
+        let(:user) { nil }
+        it { expect(policy.articles_count).to eq 1 }
+      end
+    end
+  end
+
   describe '#abuses_total_count, #abuses_abuses_count, #abuses_pending_count' do
     before do
       allow(AbuseRequest)
