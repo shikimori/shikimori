@@ -3,10 +3,13 @@ FactoryBot.define do
     name { 'article name' }
     user { seed :user }
     text { 'article text' }
+    state { :unpublished }
     moderation_state { 'pending' }
     approver_id { nil }
     tags { [] }
     locale { :ru }
+
+    Types::Article::State.values.each { |value| trait(value) { state { value } } }
 
     after :build do |model|
       stub_method model, :antispam_checks

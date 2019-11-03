@@ -12,6 +12,7 @@ describe Article do
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
+    it { is_expected.to enumerize(:state).in(*Types::Article::State.values) }
   end
 
   describe 'permissions' do

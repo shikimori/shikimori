@@ -14,6 +14,11 @@ class Article < ApplicationRecord
   validates :locale, presence: true
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
+  enumerize :state, in: Types::Collection::State.values, predicates: true
+
+  scope :unpublished, -> { where state: :unpublished }
+  scope :published, -> { where state: :published }
+  scope :available, -> { published.where.not(moderation_state: :rejected) }
 
   def to_param
     "#{id}-#{name.permalinked}"
