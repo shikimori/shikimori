@@ -1,0 +1,38 @@
+header.head
+  h1 = og.headline
+  p.notice = t '.notice'
+  = render 'application/breadcrumbs'
+
+.subheadline = t '.instruction'
+.b-brief
+  .moderators
+    = render partial: 'users/user',
+      collection: @moderators,
+      locals: { content_by: :named_avatar }
+
+  / ul.b-list
+    - t('.instructions').each do |instruction|
+      li: p == instruction
+
+- if @pending.any?
+  .subheadline.m5 = t '.queue'
+  .block
+    - if @pending.any?
+      = render partial: 'moderations/articles/article',
+        article: @pending
+      - if @pending.size == Moderations::ArticlesController::PENDING_PER_PAGE
+        .m5
+        .b-nothing_here = t '.more_summaries_pending'
+    - else
+      .b-nothing_here = t '.queue_empty'
+
+- if @processed.any?
+  .subheadline.m5 = t '.history'
+  .block
+    = render partial: 'moderations/articles/article',
+      article: @processed
+
+    - if @processed.size == controller.class::PROCESSED_PER_PAGE
+      = render 'blocks/postloader',
+        filter: 'b-log_entry',
+        next_url: current_url(page: @page + 1)

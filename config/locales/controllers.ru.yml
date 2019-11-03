@@ -131,6 +131,11 @@ ru:
     collection_created: Коллекция создана
     collection_deleted: Коллекция удалена
 
+  artices_controller:
+    new_article: Новая статья
+    article_created: Статья создана
+    article_deleted: Статья удалена
+
   clubs_controller:
     new_club: Новый клуб
     club_created: Клуб создан
@@ -206,6 +211,10 @@ ru:
   moderations/collections_controller:
     <<: *moderations_controller
     page_title: Модерация коллекций
+
+  moderations/articles_controller:
+    <<: *moderations_controller
+    page_title: Модерация статей
 
   moderations/users_controller:
     <<: *moderations_controller

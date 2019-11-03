@@ -141,6 +141,26 @@ en:
         accept: accept
         move_to_offtopic: move to offtopic
 
+    articles:
+      index:
+        notice: This is the history of article moderation
+        instruction: Instructions
+        instructions:
+          - Rejected article are converted to 'Off-Topic' forum topics
+            and cannot be restored.
+          - Reject article containing either implicit or explicit trolling,
+            abusive language or which are meant to cause flaming.
+        queue: Queue
+        more_summaries_pending: >-
+          That's not all yet. Other articles will be available for
+          moderation after processing the ones above.
+        queue_empty: Queue is empty
+        history: History
+
+      article:
+        accept: accept
+        move_to_offtopic: move to offtopic
+
     versions:
       index:
         expand_all: :moderations.bans.index.expand_all
