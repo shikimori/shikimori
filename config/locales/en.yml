@@ -58,6 +58,7 @@ en:
         desynced: Not synchronized
         licensor: Licensed by
         is_censored: 18+ content
+        source: Source
       manga: &manga_attributes
         <<: *anime_attributes
         volumes: Volumes
@@ -79,6 +80,7 @@ en:
         imageboard_tag: Imageboards tag
         imported_at: Synchronized
         desynced: Not synchronized
+        source: Source
       person:
         <<: *character_attributes
         birthday: Birthday

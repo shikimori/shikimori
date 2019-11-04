@@ -58,6 +58,7 @@ ru:
         desynced: Не синхронизируются
         licensor: Лицензировано
         is_censored: 18+ контент
+        source: Источник
       manga: &manga_attributes
         <<: *anime_attributes
         aired_on: Дата начала издания
@@ -79,6 +80,7 @@ ru:
         imageboard_tag: Тег имиджборд
         imported_at: Синхронизировано
         desynced: Не синхронизируются
+        source: Источник
       person:
         <<: *character_attributes
         birthday: Дата рождения
