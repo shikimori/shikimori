@@ -10,6 +10,7 @@ class Abilities::VersionTextsModerator
     synonyms
     description_ru
     description_en
+    japanese
   ]
   MANAGED_MODELS = [Anime.name, Manga.name, Ranobe.name, Character.name, Person.name]
 
