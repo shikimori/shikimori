@@ -56,7 +56,7 @@ shared_examples :db_entry_controller do |entry_name|
       end
     end
 
-    context 'versions moderator' do
+    context 'version_texts_moderator' do
       include_context :authenticated, :version_texts_moderator
 
       let(:field) { 'russian' }

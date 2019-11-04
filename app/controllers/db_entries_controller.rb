@@ -162,7 +162,9 @@ private
     Version.new(
       user: current_user,
       item: @resource.decorated? ? @resource.object : @resource,
-      item_diff: {},
+      item_diff: {
+        @field => []
+      },
       state: 'pending'
     )
   end
