@@ -121,19 +121,17 @@ private
     @topic.persisted? ? @topic : @topic.linked
   end
 
-  # rubocop:disable AbcSize
   def only_summaries_shown?
-    return false unless %w(animes mangas ranobe).include? h.params[:controller]
+    return false unless %w[animes mangas ranobe].include? h.params[:controller]
     return true if h.params[:action] == 'summaries'
 
     h.params[:action] == 'show' &&
       topic_comments_policy.summaries_count.positive?
   end
-  # rubocop:enable AbcSize
 
   def new_comment_summary?
-    return false unless %w(animes mangas).include? h.params[:controller]
-    %w(show summaries).include? h.params[:action]
+    %w[animes mangas ranobe].include?(h.params[:controller]) &&
+      h.params[:action] == 'summaries'
   end
 
   def comment_word number
