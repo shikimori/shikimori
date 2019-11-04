@@ -676,7 +676,6 @@ Rails.application.routes.draw do
         post :rollback_episode if kind == 'animes'
       end
 
-      # обзоры
       resources :reviews, type: kind.singularize.capitalize, except: [:show]
     end
   end
