@@ -49,6 +49,8 @@ ru:
       created_at: Создано %{date}
     menu_actions:
       create_topic: Создать топик
+      create_review: Написать рецензию
+      create_articels: Написать рецензию
       reload_forum: обновить форум
     page:
       refresh: Обновить страницу

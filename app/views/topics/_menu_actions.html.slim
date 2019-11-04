@@ -1,9 +1,20 @@
-- unless ['new', 'create'].include? params[:action]
+- unless %w[new create].include? params[:action]
   .b-forums
-    a.b-link_button.dark.create-topic.to-process[
-      data-dynamic='week_registered'
-      href=menu.new_topic_url
-    ] = t '.create_topic'
+    - if forum == Forum.reviews
+      a.b-link_button.dark.create-review.to-process[
+        data-dynamic='week_registered'
+        href=menu.new_review_url
+      ] = t '.create_review'
+    - elsif forum == Forum.articles
+      a.b-link_button.dark.create-article.to-process[
+        data-dynamic='week_registered'
+        href=menu.new_article_url
+      ] = t '.create_review'
+    - else
+      a.b-link_button.dark.create-topic.to-process[
+        data-dynamic='week_registered'
+        href=menu.new_topic_url
+      ] = t '.create_topic'
 
     - if menu.changeable_forums?
       = simple_form_for current_user.preferences,

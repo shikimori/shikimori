@@ -48,7 +48,9 @@ en:
       changed_at: Changed at %{date}
       created_at: Created at %{date}
     menu_actions:
-      create_topic: Create a Topic
+      create_topic: Create a topic
+      create_review: Write a review
+      create_articels: Write an article
       reload_forum: refresh forum
     page:
       refresh: Refresh page

@@ -39,14 +39,26 @@ class Forum < ApplicationRecord
       find_by_permalink('news')
     end
 
+    def reviews
+      find_by_permalink('reviews')
+    end
+
+    def articles
+      find_by_permalink('articles')
+    end
+
     def find_by_permalink permalink
-      (cached + [UPDATES_FORUM, MY_CLUBS_FORUM]).find do |forum|
+      cached_plus_special.find do |forum|
         forum.permalink == permalink
       end
     end
 
     def cached
       @cached ||= all.to_a.sort_by(&:position)
+    end
+
+    def cached_plus_special
+      @cached_plus_special ||= cached + [UPDATES_FORUM, MY_CLUBS_FORUM]
     end
   end
 end
