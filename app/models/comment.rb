@@ -200,8 +200,7 @@ class Comment < ApplicationRecord
     [id]
   end
 
-  # запрет на изменение информации о бане
-  def forbid_tag_change
+  def forbid_tag_change # rubocop:disable all
     [/(\[ban=\d+\])/, /\[broadcast\]/].each do |tag|
       prior_ban = (changes_to_save[:body].first || '').match(tag).try :[], 1
       current_ban = (changes_to_save[:body].last || '').match(tag).try :[], 1
@@ -218,7 +217,11 @@ class Comment < ApplicationRecord
   def allowed_summary?
     commentable.instance_of?(Topics::EntryTopics::AnimeTopic) ||
       commentable.instance_of?(Topics::EntryTopics::MangaTopic) ||
-        commentable.instance_of?(Topics::EntryTopics::RanobeTopic)
+        commentable.instance_of?(Topics::EntryTopics::RanobeTopic) ||
+          # commentable is Anime/Manga/Ranobe when commentable has no created main topic
+          commentable.is_a?(Anime) ||
+            commentable.is_a?(Manga) ||
+              commentable.is_a?(Ranobe)
   end
 
   private
