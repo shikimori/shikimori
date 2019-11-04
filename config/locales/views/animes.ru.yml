@@ -35,7 +35,7 @@ ru:
     page:
       actions:
         comment: Комментировать
-        review: Написать обзор
+        review: Написать рецензию
         add_to_favorites: Добавить в избранное
         remove_from_favorites: Удалить из избранного
         edit: Редактировать
@@ -46,7 +46,7 @@ ru:
       chronology: Хронология
       franchise: Франшиза
       external_links: Ссылки
-      create_review: Написать обзор
+      create_review: Написать рецензию
       upload_episode: Добавить эпизоды со страницы tokyotosho.info
       search_on:
         toshokan: Поиск на тошокане
