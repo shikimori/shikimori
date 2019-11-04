@@ -5,6 +5,7 @@
 =link_button_icon($icon)
   &:before
     +shikimori($icon)
+    font-weight: normal
     padding-right: 8px
 
 .b-link_button
@@ -139,6 +140,8 @@
   // forum
   &.create-topic
     +link_button_icon('\002b')
+    &:before
+      font-weight: bold
 
   &.create-review
     +link_button_icon('\e820')
