@@ -77,7 +77,7 @@ class Forums::Menu < ViewObjectBase
   end
 
   def new_article_url
-    h.new_article_url(collection: { user_id: h.current_user&.id })
+    h.new_article_url(article: { user_id: h.current_user&.id })
   end
 
   def new_collection_url

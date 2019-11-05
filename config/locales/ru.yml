@@ -236,6 +236,7 @@ ru:
       article:
         name: Название
         text: Текст
+        state: Статус
       poll:
         name: Название
         text: Текст
@@ -541,6 +542,10 @@ ru:
         ranobe: Ранобэ
         character: Персонажи
         person: Люди
+      state:
+        unpublished: Не опубликовано
+        published: Опубликовано
+    article:
       state:
         unpublished: Не опубликовано
         published: Опубликовано

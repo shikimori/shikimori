@@ -233,6 +233,7 @@ en:
       article:
         name: Name
         text: Text
+        state: State
       collection_link:
         group: Group
         text: Comment
@@ -541,6 +542,10 @@ en:
         ranobe: Light Novels
         character: Characters
         person: People
+      state:
+        unpublished: Not published
+        published: Published
+    article:
       state:
         unpublished: Not published
         published: Published

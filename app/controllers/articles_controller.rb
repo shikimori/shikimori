@@ -11,7 +11,7 @@ class ArticlesController < ShikimoriController
   def index # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 4].max, 8].min
 
-    @article = Articles::Query.fetch(locale_from_host)
+    @collection = Articles::Query.fetch(locale_from_host)
       .search(params[:search], locale_from_host)
       .paginate(@page, @limit)
       .transform do |article|

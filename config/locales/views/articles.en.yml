@@ -1,0 +1,17 @@
+en:
+  articles:
+    index:
+      new: Write a new article
+      notice: List of all articles
+      nothing_here: No articles
+      my_unpublished_articles: My unpublished articles
+    form:
+      hint:
+        unpublished: >-
+          The publication will make the article visible to everyone and
+          create a topic on the forum<br>
+          Cancellation of publication is not possible.
+        published: >-
+          Cancellation of publication is not possible
+    preview:
+      more: +%{count} more
