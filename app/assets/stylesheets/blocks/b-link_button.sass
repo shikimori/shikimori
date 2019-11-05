@@ -1,5 +1,6 @@
-@import mixins/responsive
+@import mixins/css4
 @import mixins/ellipsis2
+@import mixins/responsive
 @import mixins/shikimori
 
 =link_button_icon($icon)
@@ -17,7 +18,9 @@
   cursor: pointer
   display: block
   font-size: 15px
-  font-weight: bold
+  +css4
+    font-family: var(--font-alt)
+  font-weight: 600
   line-height: 1
   margin-bottom: 10px
   min-width: 154px
@@ -134,6 +137,8 @@
 
   &.maxi
     font-size: 20px
+    +css4
+      font-family: var(--font-main)
     padding: 9px 20px
 
   // forum
