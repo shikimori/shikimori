@@ -508,6 +508,10 @@ Rails.application.routes.draw do
     get '(/p-:page)' => 'collections#index', as: '', on: :collection
   end
 
+  resources :articles do
+    get '(/p-:page)' => 'articles#index', as: '', on: :collection
+  end
+
   resources :club_invites, only: [] do
     post :accept, on: :member
     post :reject, on: :member
