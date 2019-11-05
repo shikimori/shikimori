@@ -71,6 +71,10 @@ class Forums::Menu < ViewObjectBase
     )
   end
 
+  def new_collection_url
+    h.new_collection_url(collection: { user_id: h.current_user&.id })
+  end
+
 private
 
   def ru_sticky_topics

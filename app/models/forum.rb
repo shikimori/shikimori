@@ -47,6 +47,10 @@ class Forum < ApplicationRecord
       find_by_permalink('articles')
     end
 
+    def collections
+      find_by_permalink('collections')
+    end
+
     def find_by_permalink permalink
       cached_plus_special.find do |forum|
         forum.permalink == permalink

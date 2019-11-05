@@ -54,6 +54,7 @@ en:
       create_topic: Create a topic
       create_review: Write a review
       create_article: Write an article
+      create_collection: Create a collection
       reload_forum: refresh forum
     page:
       refresh: Refresh page

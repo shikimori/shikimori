@@ -10,6 +10,11 @@
         data-dynamic='week_registered'
         href=menu.new_article_url
       ] = t '.create_article'
+    - elsif forum == Forum.collections
+      a.b-link_button.dark.create-collection.to-process[
+        data-dynamic='week_registered'
+        href=menu.new_collection_url
+      ] = t '.create_collection'
     - else
       a.b-link_button.dark.create-topic.to-process[
         data-dynamic='week_registered'
