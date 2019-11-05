@@ -29,9 +29,12 @@ en:
         new:
           title: New topic
       type:
-        pick_topic_type: Pick topic type
+        pick_topic_type: Choose topic type
         common_topic: Common topic
         news_topic: News topic
+      review:
+        pick_target: Choose what a review is about
+        go_next: Next →
       rules:
         go_next: Next →
       video:

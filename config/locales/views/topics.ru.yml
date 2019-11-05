@@ -32,6 +32,9 @@ ru:
         pick_topic_type: Выбери тип топика
         common_topic: Обычный топик
         news_topic: Новостной топик
+      review:
+        pick_target: Выбери, о чём рецензия
+        go_next: Далее →
       rules:
         go_next: Далее →
       video:

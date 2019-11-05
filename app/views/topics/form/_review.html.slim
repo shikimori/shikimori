@@ -1,12 +1,19 @@
-.midheadline.m15 = t '.pick_topic_type'
-.cc-2a
+.midheadline = t '.pick_target'
+.b-form.new_topic.m15
+  = render 'topics/form/linked',
+    topic: topic,
+    label: false
+
+a.b-link_button.dark.inline.disabled[
+  href=''
+] = t '.go_next'
+/ .cc-2a
   .c-column
     a.topic-type[
       href=url_for(safe_params.merge('topic[type]' => Topic.name))
     ]
       span.type-name: span = t '.common_topic'
       = image_tag 'pages/topics/common_topic.jpg', class: 'type-preview'
-
   .c-column
     a.topic-type[
       href=url_for(safe_params.merge('topic[type]' => Topics::NewsTopic.name))

@@ -9,8 +9,10 @@ ru:
 
   topics_controller: &topics_controller
     title: Форум Шикимори
-    new_topic: Добавление топика
-    new_news: Добавление новости
+    new_topic: Создать топик
+    new_news: Написать новость
+    new_review: Написать рецензию
+    new_article: Написать статью
     topic:
       created: Топик создан
       updated: Топик обновлён

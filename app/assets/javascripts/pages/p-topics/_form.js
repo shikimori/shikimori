@@ -2,7 +2,6 @@ const LINKED_TYPE_USER_SELECT = '.topic-linked select.type';
 
 pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   const $form = $('.b-form.edit_topic, .b-form.new_topic');
-  if (!$form.length) { return; }
 
   const $topicLinked = $('#topic_linked', $form);
   const $linkedType = $('#topic_linked_type', $form);
