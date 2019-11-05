@@ -10,9 +10,9 @@ en:
   topics_controller: &topics_controller
     title: Shikimori Forum
     new_topic: Create a topic
+    new_news: Write news
     new_review: Write a review
     new_aricle: Write an article
-    new_news: Write news
     topic:
       created: Topic created
       updated: Topic updated
