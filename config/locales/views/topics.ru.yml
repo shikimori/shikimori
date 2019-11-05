@@ -52,6 +52,7 @@ ru:
       created_at: Создано %{date}
     menu_actions:
       create_topic: Создать топик
+      create_news: Написать новость
       create_review: Написать рецензию
       create_article: Написать статью
       create_collection: Создать коллекцию

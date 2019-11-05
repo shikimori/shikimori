@@ -55,6 +55,19 @@ class Forums::Menu < ViewObjectBase
     )
   end
 
+  def new_news_url # rubocop:disable AbcSize
+    h.new_topic_url(
+      forum: forum,
+      linked_id: h.params[:linked_id],
+      linked_type: h.params[:linked_type],
+      'topic[user_id]' => h.current_user&.id,
+      'topic[forum_id]' => forum ? forum.id : nil,
+      'topic[linked_id]' => linked ? linked.id : nil,
+      'topic[linked_type]' => linked ? linked.class.name : nil,
+      'topic[type]' => Topics::NewsTopic.name
+    )
+  end
+
   def new_review_url
     h.new_topic_url(
       forum: Forum.reviews,

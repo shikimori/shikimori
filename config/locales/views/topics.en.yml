@@ -52,6 +52,7 @@ en:
       created_at: Created at %{date}
     menu_actions:
       create_topic: Create a topic
+      create_news: Write news
       create_review: Write a review
       create_article: Write an article
       create_collection: Create a collection
