@@ -62,12 +62,20 @@ class Api::V1::UsersController < Api::V1Controller
   param :limit, :pagination,
     required: false,
     desc: "#{USER_RATES_LIMIT} maximum"
-  def anime_rates
+  param :censored, %w[true false],
+    required: false,
+    desc: 'Set to `true` to discard hentai, yaoi and yuri'
+  def anime_rates # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 1].max, USER_RATES_LIMIT].min
 
-    @rates = Rails.cache.fetch [user, :anime_rates, params[:status]] do
+    @rates = Rails.cache.fetch [user, :anime_rates, params[:status], params[:censored]] do
       rates = user.anime_rates.includes(:anime, :user)
-      rates = rates.where status: params[:status] if params[:status].present?
+      rates.where! status: params[:status] if params[:status].present?
+
+      if params[:censored] == 'true'
+        rates = rates.joins(:anime).where(animes: { is_censored: false })
+      end
+
       rates.to_a
     end
 
@@ -80,12 +88,20 @@ class Api::V1::UsersController < Api::V1Controller
   param :limit, :pagination,
     required: false,
     desc: "#{USER_RATES_LIMIT} maximum"
-  def manga_rates
+  param :censored, %w[true false],
+    required: false,
+    desc: 'Set to `true` to discard hentai, yaoi and yuri'
+  def manga_rates # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 1].max, USER_RATES_LIMIT].min
 
-    @rates = Rails.cache.fetch [user, :manga_rates, params[:status]] do
+    @rates = Rails.cache.fetch [user, :manga_rates, params[:status], params[:censored]] do
       rates = user.manga_rates.includes(:manga, :user)
-      rates = rates.where status: params[:status] if params[:status].present?
+      rates.where! status: params[:status] if params[:status].present?
+
+      if params[:censored] == 'true'
+        rates = rates.joins(:manga).where(mangas: { is_censored: false })
+      end
+
       rates.to_a
     end
 
