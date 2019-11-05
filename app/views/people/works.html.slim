@@ -23,5 +23,5 @@
               class=(:selected if params[:type] == klass.name)
               href=current_url(type: klass.name)
             ] = klass.model_name.human
-    .cc-5.to-process data-dynamic="cutted_covers"
+    .cc-5.to-process data-dynamic='cutted_covers'
       = render @resource.works, cover_notice: :role
