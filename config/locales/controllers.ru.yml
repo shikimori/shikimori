@@ -133,7 +133,7 @@ ru:
     collection_created: Коллекция создана
     collection_deleted: Коллекция удалена
 
-  artices_controller:
+  articles_controller:
     new_article: Новая статья
     article_created: Статья создана
     article_deleted: Статья удалена
