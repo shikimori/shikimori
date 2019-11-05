@@ -1,7 +1,7 @@
 const LINKED_TYPE_USER_SELECT = '.topic-linked select.type';
 
 pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
-  const $form = $('.b-form.edit_topic, .b-form.new_topic');
+  const $form = $('.b-form.edit_topic, .b-form.new_topic, .new-review-form');
 
   const $topicLinked = $('#topic_linked', $form);
   const $linkedType = $('#topic_linked_type', $form);
@@ -10,6 +10,7 @@ pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   const initialLinkedType = $('#topic_linked_type').val() ||
     $('option', LINKED_TYPE_USER_SELECT).val();
 
+  let isLinkedInitialized = false;
   $(LINKED_TYPE_USER_SELECT)
     .on('change', ({ currentTarget }) => {
       const { value } = currentTarget;
@@ -20,9 +21,14 @@ pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
         .data('autocomplete', $topicLinked.data(`${loweredValue}-autocomplete`))
         .attr('placeholder', $topicLinked.data(`${loweredValue}-placeholder`))
         .trigger('flushCache');
+
+      if (isLinkedInitialized) {
+        $topicLinked.focus();
+      }
     })
     .val(initialLinkedType)
     .trigger('change');
+  isLinkedInitialized = true;
 
   $('.b-shiki_editor', $form).shikiEditor();
   $('#topic_forum_id', $form).trigger('change');
@@ -40,7 +46,6 @@ pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
     $topicLink.hide();
   });
 
-  // выбор привязанного к топику
   $topicLinked.completable()
     .on('autocomplete:success', ({ currentTarget }, entry) => {
       const pluralLinkedType = `${$linkedType.val().toLowerCase()}s`.replace('ranobes', 'ranobe');

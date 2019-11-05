@@ -1,22 +1,13 @@
 .midheadline = t '.pick_target'
-.b-form.new_topic.m15
+.new-review-form
+  input#topic_linked_id type='hidden'
+  input#topic_linked_type type='hidden'
+
   = render 'topics/form/linked',
     topic: topic,
-    label: false
+    label: false,
+    review_types: true
 
-a.b-link_button.dark.inline.disabled[
-  href=''
-] = t '.go_next'
-/ .cc-2a
-  .c-column
-    a.topic-type[
-      href=url_for(safe_params.merge('topic[type]' => Topic.name))
-    ]
-      span.type-name: span = t '.common_topic'
-      = image_tag 'pages/topics/common_topic.jpg', class: 'type-preview'
-  .c-column
-    a.topic-type[
-      href=url_for(safe_params.merge('topic[type]' => Topics::NewsTopic.name))
-    ]
-      span.type-name: span = t '.news_topic'
-      = image_tag 'pages/topics/news_topic.jpg', class: 'type-preview'
+  a.b-link_button.dark.inline.disabled[
+    data-url_template=new_anime_review_url('TARGET_ID', 'review[user_id]' => current_user&.id, 'review[target_id]' => 'TARGET_ID', 'review[target_type]' => 'TARGET_TYPE')
+  ] = t '.go_next'
