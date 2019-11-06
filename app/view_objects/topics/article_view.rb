@@ -66,6 +66,10 @@ class Topics::ArticleView < Topics::UserContentView
     BbCodes::EntryText.call text, article
   end
 
+  def footer_vote?
+    false
+  end
+
 private
 
   def body
