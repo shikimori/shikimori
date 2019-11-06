@@ -1,0 +1,17 @@
+.subheadline = og.headline
+.b-review-topic.block
+  .body
+    = BbCodes::Text.call t '.introduction',
+      kind: @resource.anime? ? t('this.anime') : t('this.manga')
+
+    - if text
+      = text
+      = BbCodes::Text.call "[right][club]293[/club][/right]"
+      = BbCodes::Text.call "[right][profile=21887]Joseph[/profile][/right]"
+    - else
+      = BbCodes::Text.call t '.guidelines'
+
+center
+  a.b-link_button.dark.inline[
+    href=url_for(safe_params.merge(rules_passed: '1'))
+  ] = t 'topics.form.rules.go_next'

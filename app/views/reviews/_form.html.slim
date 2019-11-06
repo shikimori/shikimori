@@ -9,20 +9,10 @@
       .block
         == review.errors.full_messages.join('<br>')
 
-  .subheadline.m5 = og.headline
+  .subheadline = og.headline
 
-  .b-review-topic.block
+  .b-review-topic.m15
     .body
-      = BbCodes::Text.call t '.introduction',
-        kind: resource.anime? ? t('this.anime') : t('this.manga')
-
-      - if @additional_text
-        = @additional_text
-        = BbCodes::Text.call "[right][club]293[/club][/right]"
-        = BbCodes::Text.call "[right][profile=21887]Joseph[/profile][/right]"
-      - else
-        = BbCodes::Text.call t '.guidelines'
-
       = render 'stars', review: review, in_edit: true, with_music: resource.anime?
 
   .b-shiki_editor.unprocessed.block
