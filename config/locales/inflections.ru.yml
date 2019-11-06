@@ -596,6 +596,9 @@ ru:
       collection:
         one: коллекция
         few: коллекции
+      article:
+        one: статья
+        few: статьи
       genre:
         one: жанр
         few: жанры
