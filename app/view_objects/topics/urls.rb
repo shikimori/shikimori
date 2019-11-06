@@ -24,6 +24,9 @@ class Topics::Urls < ViewObjectBase
     elsif topic_type_policy.collection_topic?
       h.edit_collection_url topic.linked
 
+    elsif topic_type_policy.article_topic?
+      h.edit_article_url topic.linked
+
     elsif topic_type_policy.club_page_topic?
       h.edit_club_club_page_path topic.linked.club, topic.linked
 
