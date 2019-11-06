@@ -32,6 +32,9 @@ class Topics::TopicViewFactory
     elsif topic_type_policy.collection_topic?
       collection_topic topic
 
+    elsif topic_type_policy.article_topic?
+      article_topic topic
+
     else
       common_topic topic
     end
@@ -69,6 +72,10 @@ private
 
   def collection_topic topic
     Topics::CollectionView.new topic, is_preview, is_mini
+  end
+
+  def article_topic topic
+    Topics::ArticleView.new topic, is_preview, is_mini
   end
 
   def common_topic topic

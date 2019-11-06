@@ -48,13 +48,14 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     @is_mini
   end
 
-  def container_class css = nil
-    [
-      'b-topic',
-      css,
-      ('b-topic-preview' if preview?),
-      ('b-topic-minified' if minified?)
-    ].compact.join ' '
+  def container_classes additional = []
+    (
+      [
+        'b-topic',
+        ('b-topic-preview' if preview?),
+        ('b-topic-minified' if minified?)
+      ] + Array(additional)
+    ).compact
   end
 
   def action_tag

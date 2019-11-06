@@ -14,6 +14,7 @@ describe Topic::TypePolicy do
   let(:club_user_topic) { build_stubbed :club_user_topic }
   let(:club_page_topic) { build_stubbed :club_page_topic }
   let(:collection_topic) { build_stubbed :collection_topic }
+  let(:article_topic) { build_stubbed :article_topic }
 
   describe '#forum_topic?' do
     subject { policy.forum_topic? }
@@ -189,6 +190,20 @@ describe Topic::TypePolicy do
 
     context 'cosplay gallery topic' do
       let(:topic) { collection_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'not cospaly gallery topic' do
+      let(:topic) { forum_topic }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#article_topic?' do
+    subject { policy.article_topic? }
+
+    context 'cosplay gallery topic' do
+      let(:topic) { article_topic }
       it { is_expected.to eq true }
     end
 

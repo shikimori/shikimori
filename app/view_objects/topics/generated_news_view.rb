@@ -1,7 +1,7 @@
 class Topics::GeneratedNewsView < Topics::View
   instance_cache :decorated_linked
 
-  def container_class
+  def container_classes
     super 'b-generated_news-topic'
   end
 

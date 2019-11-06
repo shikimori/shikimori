@@ -1,6 +1,8 @@
 class Topics::NewsView < Topics::View
-  def container_class css = nil
-    super ['b-news-topic', css]
+  def container_classes additional = []
+    super(
+      ['b-news-topic', *additional]
+    )
   end
 
   def show_source?

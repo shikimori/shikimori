@@ -1,6 +1,6 @@
 class Topics::ReviewView < Topics::ArticleView
-  def container_class
-    super('b-review-topic').gsub('b-article-topic', '').gsub('  ', ' ').trim
+  def container_classes
+    super('b-review-topic').reject { |v| v == 'b-article-topic' }
   end
 
   def action_tag

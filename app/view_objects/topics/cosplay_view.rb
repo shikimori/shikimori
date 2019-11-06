@@ -1,7 +1,7 @@
 class Topics::CosplayView < Topics::UserContentView
   IMAGES_IN_PREVIEW = 7
 
-  def container_class
+  def container_classes
     super 'b-cosplay-topic'
   end
 

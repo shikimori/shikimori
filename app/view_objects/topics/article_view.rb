@@ -1,6 +1,8 @@
 class Topics::ArticleView < Topics::UserContentView
-  def container_class
-    super 'b-article-topic'
+  def container_classes additional = []
+    super(
+      ['b-article-topic', *additional]
+    )
   end
 
   def need_trucation?

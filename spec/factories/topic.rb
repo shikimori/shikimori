@@ -99,6 +99,11 @@ FactoryBot.define do
       generated { true }
     end
 
+    factory :article_topic, class: 'Topics::EntryTopics::ArticleTopic' do
+      type { 'Topics::EntryTopics::ArticleTopic' }
+      generated { true }
+    end
+
     factory :news_topic, class: 'Topics::NewsTopic' do
       type { 'Topics::NewsTopic' }
       forum { seed :news_forum }

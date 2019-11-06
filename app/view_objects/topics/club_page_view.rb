@@ -1,5 +1,5 @@
 class Topics::ClubPageView < Topics::View
-  def container_class
+  def container_classes
     super 'b-club_page-topic'
   end
 
