@@ -1,16 +1,10 @@
 class Topics::ArticleView < Topics::UserContentView
-  def container_classes additional = []
-    super(
-      ['b-article-topic', *additional]
-    )
+  def container_classes
+    super 'b-article-topic'
   end
 
   def need_trucation?
     true
-  end
-
-  def minified?
-    is_preview || is_mini
   end
 
   def action_tag
@@ -20,35 +14,16 @@ class Topics::ArticleView < Topics::UserContentView
     )
   end
 
-  def offtopic_tag
-    I18n.t 'markers.offtopic' if article.rejected?
+  def topic_title
+    article.name
   end
 
-  # def topic_title
-  #   if preview?
-  #     article.target.name
-  #   else
-  #     i18n_t(
-  #       "title.#{article.target_type.downcase}",
-  #       target_name: h.h(h.localized_name(article.target))
-  #     ).html_safe
-  #   end
-  # end
-  #
-  # def topic_title_html
-  #   if preview?
-  #     h.localization_span article.target
-  #   else
-  #     topic_title
-  #   end
-  # end
+  def topic_title_html
+    topic_title
+  end
 
   def render_body
     preview? ? html_body_truncated : html_body
-  end
-
-  def read_more_link?
-    preview? || minified?
   end
 
   def html_body
@@ -66,7 +41,15 @@ class Topics::ArticleView < Topics::UserContentView
     BbCodes::EntryText.call text, article
   end
 
+  def read_more_link?
+    preview? || minified?
+  end
+
   def footer_vote?
+    false
+  end
+
+  def linked_in_avatar?
     false
   end
 

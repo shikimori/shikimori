@@ -70,18 +70,18 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def poster_title
-    if !preview?
-      @topic.user.nickname
-    else
+    if linked_in_avatar?
       topic_title
+    else
+      @topic.user.nickname
     end
   end
 
   def poster_title_html
-    if !preview?
-      @topic.user.nickname
-    else
+    if linked_in_avatar?
       topic_title_html
+    else
+      @topic.user.nickname
     end
   end
 

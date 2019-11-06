@@ -1,6 +1,14 @@
-class Topics::ReviewView < Topics::ArticleView
+class Topics::ReviewView < Topics::UserContentView
   def container_classes
-    super('b-review-topic').reject { |v| v == 'b-article-topic' }
+    super 'b-review-topic'
+  end
+
+  def need_trucation?
+    true
+  end
+
+  def minified?
+    is_preview || is_mini
   end
 
   def action_tag
@@ -33,11 +41,34 @@ class Topics::ReviewView < Topics::ArticleView
     preview? ? html_body_truncated : (stars_html + html_body)
   end
 
+  def html_body
+    text = review.text
+
+    if preview? || minified?
+      text = text
+        .gsub(%r{\[/?center\]}mix, '')
+        .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')
+        .gsub(/\[(poster|image)=.*?\]/, '')
+        .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
+        .strip
+    end
+
+    BbCodes::EntryText.call text, review
+  end
+
+  def read_more_link?
+    preview? || minified?
+  end
+
   def vote_results?
     review.votes_count.positive?
   end
 
 private
+
+  def body
+    review.text
+  end
 
   def stars_html
     h.render 'reviews/stars',
