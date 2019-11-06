@@ -1,14 +1,6 @@
-class Topics::ReviewView < Topics::UserContentView
+class Topics::ReviewView < Topics::ArticleView
   def container_class
-    super 'b-review-topic'
-  end
-
-  def need_trucation?
-    true
-  end
-
-  def minified?
-    is_preview || is_mini
+    super('b-review-topic').gsub('b-article-topic', '').gsub('  ', ' ').trim
   end
 
   def action_tag
@@ -16,10 +8,6 @@ class Topics::ReviewView < Topics::UserContentView
       type: 'review',
       text: i18n_i('review', :one)
     )
-  end
-
-  def offtopic_tag
-    I18n.t 'markers.offtopic' if review.rejected?
   end
 
   def topic_title
@@ -49,30 +37,7 @@ class Topics::ReviewView < Topics::UserContentView
     review.votes_count.positive?
   end
 
-  def read_more_link?
-    preview? || minified?
-  end
-
-  def html_body
-    text = review.text
-
-    if preview? || minified?
-      text = text
-        .gsub(%r{\[/?center\]}mix, '')
-        .gsub(%r{\[(img|poster|image).*?\].*\[/\1\]}, '')
-        .gsub(/\[(poster|image)=.*?\]/, '')
-        .gsub(%r{\[spoiler.*?\]\s*\[/spoiler\]}, '')
-        .strip
-    end
-
-    BbCodes::EntryText.call text, review
-  end
-
 private
-
-  def body
-    review.text
-  end
 
   def stars_html
     h.render 'reviews/stars',

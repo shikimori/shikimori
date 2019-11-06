@@ -109,6 +109,7 @@ ru:
       club_page: Топик обсуждения [club_page=%{club_page_id}]страницы[/club_page] [club=%{club_id}]клуба[/club].
       cosplay_gallery: Топик обсуждения косплея.
       collection: Топик обсуждения [collection=%{id}]коллекции[/collection].
+      article: Топик обсуждения [article=%{id}]статьи[/article].
 
     full_title:
       anime: Обсуждение аниме [anime]%{id}[/anime]
@@ -125,6 +126,7 @@ ru:
       club_page: Страница [club_page]%{club_page_id}[/club_page] клуба [club]%{club_id}[/club]
       cosplay_gallery: Обсуждение косплея
       collection: Обсуждение коллекции [collection]%{id}[/collection]
+      article: Обсуждение статьи [article]%{id}[/article]
 
   topics/news_topic:
     full_title:

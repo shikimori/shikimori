@@ -109,6 +109,7 @@ en:
       club_page: '[club=%{club_id}]Club[/club] [club_page=%{club_page_id}]page[/club_page] discussion thread.'
       cosplay_gallery: 'Cosplay discussion thread.'
       collection: '[collection=%{id}]Collection[/collection] discussion thread.'
+      article: '[article=%{id}]Article[/article] discussion thread.'
 
     full_title:
       anime: Anime [anime]%{id}[/anime] discussion
@@ -125,6 +126,7 @@ en:
       club_page: Club [club_page]%{club_id}[/club_page] page [club_page]%{club_page_id}[/club_page] discussion
       cosplay_gallery: Cosplay discussion
       collection: 'Collection [collection]%{id}[/collection] discussion'
+      article: 'Article [article]%{id}[/article] discussion'
 
   topics/news_topic:
     full_title:
