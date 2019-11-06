@@ -115,7 +115,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .where(type: Topics::EntryTopics::ArticleTopic.name)
       .order(created_at: :desc)
 
-    @article = QueryObjectBase.new(scope)
+    @collection = QueryObjectBase.new(scope)
       .paginate(@page, TOPICS_LIMIT)
       .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
