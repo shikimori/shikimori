@@ -2,7 +2,7 @@
   input type="hidden" name="page" value=@page
 
   .block
-    .b-shiki_editor.unprocessed
+    .b-shiki_editor.unprocessed.size-xl
       = render 'comments/shiki_editor',
         text: @resource.description.text,
         field_name: 'club[description]'

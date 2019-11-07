@@ -19,7 +19,7 @@
     = f.input :about_on_top
   .block
     .subheadline = t '.about_me'
-    .b-shiki_editor.unprocessed
+    .b-shiki_editor.unprocessed.size-xl
       = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
 
   .buttons

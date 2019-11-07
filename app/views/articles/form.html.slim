@@ -14,7 +14,7 @@ header.head.misc
       .block
         = f.input :user_id, as: :hidden
         = f.input :name
-        .b-shiki_editor.unprocessed.block
+        .b-shiki_editor.unprocessed.block.size-xl
           = render 'comments/shiki_editor', text: @resource.text, field_name: 'article[text]'
 
         - if @resource.persisted?

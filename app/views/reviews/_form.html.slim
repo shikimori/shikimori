@@ -15,8 +15,10 @@
     .body
       = render 'stars', review: review, in_edit: true, with_music: resource.anime?
 
-  .b-shiki_editor.unprocessed.block
-    = render 'comments/shiki_editor', text: review.text, field_name: 'review[text]'
+  .b-shiki_editor.unprocessed.block.size-xl
+    = render 'comments/shiki_editor',
+      text: review.text,
+      field_name: 'review[text]'
 
   .buttons
     a.cancel href=@back_url = t 'actions.cancel'
