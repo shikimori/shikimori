@@ -2,6 +2,7 @@ en:
   activerecord:
     models:
       anime: Anime
+      article: Article
       character: Character
       club: Club
       collection: Collection
@@ -228,6 +229,10 @@ en:
         name: Name
         kind: Type
         text: Description
+        state: State
+      article:
+        name: Name
+        text: Text
         state: State
       collection_link:
         group: Group
@@ -537,6 +542,10 @@ en:
         ranobe: Light Novels
         character: Characters
         person: People
+      state:
+        unpublished: Not published
+        published: Published
+    article:
       state:
         unpublished: Not published
         published: Published

@@ -20,7 +20,13 @@ FactoryBot.define do
     trait :collection do
       id { Topic::FORUM_IDS[Collection.name] }
       permalink { 'collections' }
-      name_ru { 'Клубы' }
+      name_ru { 'Коллекции' }
+    end
+
+    trait :articles do
+      id { Topic::FORUM_IDS[Article.name] }
+      permalink { 'articles' }
+      name_ru { 'Статьи' }
     end
 
     trait :contest do
@@ -55,6 +61,7 @@ FactoryBot.define do
     factory :animanga_forum, traits: [:animanga]
     factory :clubs_forum, traits: [:club]
     factory :collections_forum, traits: [:collection]
+    factory :articles_forum, traits: [:articles]
     factory :contests_forum, traits: [:contest]
     factory :cosplay_forum, traits: [:cosplay]
     factory :news_forum, traits: [:news]

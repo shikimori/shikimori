@@ -1,39 +1,51 @@
-- unless ['new', 'create'].include? params[:action]
+- unless %w[new create].include? params[:action]
   .b-forums
-    - if user_signed_in? && current_user.week_registered?
-      a.b-link_button.dark.create-topic[
-        href=menu.new_topic_url
-      ] = t '.create_topic'
+    - if forum == Forum.reviews
+      a.b-link_button.dark.create-review.to-process[
+        data-dynamic='week_registered'
+        href=menu.new_review_url
+      ] = t '.create_review'
+    - elsif forum == Forum.articles
+      a.b-link_button.dark.create-article.to-process[
+        data-dynamic='week_registered'
+        href=menu.new_article_url
+      ] = t '.create_article'
+    - elsif forum == Forum.collections
+      a.b-link_button.dark.create-collection.to-process[
+        data-dynamic='week_registered'
+        href=menu.new_collection_url
+      ] = t '.create_collection'
     - else
       a.b-link_button.dark.create-topic.to-process[
-        data-dynamic="week_registered"
-      ] = t '.create_topic'
+        data-dynamic='week_registered'
+        href=(forum == Forum.news ? menu.new_news_url : menu.new_topic_url)
+      ] = t(forum == Forum.news ? '.create_news' : '.create_topic')
 
     - if menu.changeable_forums?
       = simple_form_for current_user.preferences,
           url: profile_user_preferences_url(current_user),
           remote: true do |f|
         input[
-          type="hidden"
-          name="user_preferences[forums][]"
-          value=""
+          type='hidden'
+          name='user_preferences[forums][]'
+          value=''
         ]
         - menu.forums.each do |forum|
-          .forum class="#{forum.is_special ? :special : :common}"
+          .forum class=(forum.is_special ? :special : :common)
             - if forum.size
               .topics #{forum.size} #{i18n_i 'topic', forum.size}
             .link-with-input
               - if current_user.preferences.forums.include?(forum.id.to_s)
                 input[
-                  type="checkbox"
-                  name="user_preferences[forums][]"
+                  type='checkbox'
+                  name='user_preferences[forums][]'
                   value=forum.id
                   checked
                 ]
               - else
                 input[
-                  type="checkbox"
-                  name="user_preferences[forums][]"
+                  type='checkbox'
+                  name='user_preferences[forums][]'
                   value=forum.id
                 ]
               a.link href=forum.url = forum.name

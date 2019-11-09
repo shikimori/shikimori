@@ -7,6 +7,7 @@ describe Collection do
   describe 'validations' do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :kind }
     it { is_expected.to validate_presence_of :locale }
   end
 

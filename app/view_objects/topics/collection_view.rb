@@ -1,7 +1,7 @@
 class Topics::CollectionView < Topics::UserContentView
   instance_cache :collection
 
-  def container_class
+  def container_classes
     super 'b-collection-topic'
   end
 

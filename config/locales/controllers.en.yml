@@ -9,8 +9,10 @@ en:
 
   topics_controller: &topics_controller
     title: Shikimori Forum
-    new_topic: Add topic
-    new_news: Add news
+    new_topic: Create a topic
+    new_news: Write news
+    new_review: Write a review
+    new_aricle: Write an article
     topic:
       created: Topic created
       updated: Topic updated
@@ -113,7 +115,6 @@ en:
       ranobe: |
 
 
-
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Personalized recommendations
@@ -131,6 +132,11 @@ en:
     new_collection: New collection
     collection_created: Collection created
     collection_deleted: Collection deleted
+
+  articles_controller:
+    new_article: New article
+    article_created: Article created
+    article_deleted: Article deleted
 
   clubs_controller:
     new_club: New club
@@ -207,6 +213,10 @@ en:
   moderations/collections_controller:
     <<: *moderations_controller
     page_title: Collections moderation
+
+  moderations/articles_controller:
+    <<: *moderations_controller
+    page_title: Articles moderation
 
   moderations/users_controller:
     <<: *moderations_controller

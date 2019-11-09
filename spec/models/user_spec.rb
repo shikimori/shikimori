@@ -38,6 +38,8 @@ describe User do
     it { is_expected.to have_many :clubs }
 
     it { is_expected.to have_many(:collections).dependent(:destroy) }
+    it { is_expected.to have_many(:articles).dependent(:destroy) }
+
     it { is_expected.to have_many(:versions).dependent(:destroy) }
 
     it { is_expected.to have_many :topics }

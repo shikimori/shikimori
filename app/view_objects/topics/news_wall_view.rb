@@ -2,8 +2,8 @@ class Topics::NewsWallView < Topics::NewsView
   instance_cache :html_wall
   # , :basic_tags, :other_tags
 
-  def container_class css = nil
-    ['b-news_wall-topic', css]
+  def container_classes additional = []
+    ['b-news_wall-topic', *additional]
   end
 
   # def basic_tags

@@ -2,6 +2,7 @@ ru:
   activerecord:
     models:
       anime: Аниме
+      article: Статья
       character: Персонаж
       club: Клуб
       collection: Коллекция
@@ -232,6 +233,10 @@ ru:
       collection_link:
         group: Группа
         text: Комментарий
+      article:
+        name: Название
+        text: Текст
+        state: Статус
       poll:
         name: Название
         text: Текст
@@ -537,6 +542,10 @@ ru:
         ranobe: Ранобэ
         character: Персонажи
         person: Люди
+      state:
+        unpublished: Не опубликовано
+        published: Опубликовано
+    article:
       state:
         unpublished: Не опубликовано
         published: Опубликовано

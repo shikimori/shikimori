@@ -12,13 +12,13 @@ en:
         profile: Account
         site: Site
       items:
-        play: Play
         anime: :activerecord.models.anime
         manga: :activerecord.models.manga
         ranobe: :activerecord.models.ranobe
         clubs: Clubs
         collections: Collections
         reviews: Reviews
+        articles: Articles
         forum: :forum
         users: Users
         contests: Contests

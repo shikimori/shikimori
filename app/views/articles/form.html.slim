@@ -1,0 +1,41 @@
+header.head.misc
+  h1 = og.headline
+  = render 'application/breadcrumbs'
+
+- if @resource.errors.any?
+  .b-errors
+    .subheadline.m5 = i18n_i 'error', :other
+    == @resource.errors.full_messages.join('<br>')
+
+= simple_form_for @resource do |f|
+  .subheadline.m5 = t :settings
+  .cc-2.block
+    .c-column
+      .block
+        = f.input :user_id, as: :hidden
+        = f.input :name
+        .b-shiki_editor.unprocessed.block
+          = render 'comments/shiki_editor', text: @resource.text, field_name: 'article[text]'
+
+        - if @resource.persisted?
+          = f.input :state,
+            include_blank: false,
+            disabled: @resource.published?,
+            hint: t(".hint.#{@resource.state}").html_safe
+        - else
+          .buttons
+            a.cancel href=articles_url = t 'actions.cancel'
+            = f.button :magic_submit
+
+  - if @resource.persisted?
+    .block
+      .buttons
+        a.cancel href=articles_url = t 'actions.cancel'
+        = f.button :magic_submit
+
+      a.remove[
+        href=article_url(@resource)
+        title=t('actions.delete')
+        data-method='delete'
+        data-confirm=t('actions.confirm')
+      ] = t 'actions.delete'

@@ -1,10 +1,12 @@
-@import mixins/responsive
+@import mixins/css4
 @import mixins/ellipsis2
+@import mixins/responsive
 @import mixins/shikimori
 
 =link_button_icon($icon)
   &:before
     +shikimori($icon)
+    font-weight: normal
     padding-right: 8px
 
 .b-link_button
@@ -16,7 +18,9 @@
   cursor: pointer
   display: block
   font-size: 15px
-  font-weight: bold
+  +css4
+    font-family: var(--font-alt)
+  font-weight: 600
   line-height: 1
   margin-bottom: 10px
   min-width: 154px
@@ -48,9 +52,8 @@
     border-color: darken($link-4, 2%)
     color: #fff
 
-  // &.left-aligned
-    // text-align: left
-    // padding-left: 15px
+  &.inline
+    display: inline-block
 
   &.dark
     background-color: #456
@@ -70,7 +73,7 @@
 
     &.disabled,
     &.disabled:hover,
-    &.disabled:active
+    &.disabled:active,
       background-color: #7b8590
       border-color: darken(#7b8590, 3%)
       cursor: default
@@ -134,22 +137,24 @@
 
   &.maxi
     font-size: 20px
+    +css4
+      font-family: var(--font-main)
     padding: 9px 20px
 
   // forum
   &.create-topic
     +link_button_icon('\002b')
+    &:before
+      font-weight: bold
+
+  &.create-review
+    +link_button_icon('\e820')
+
+  &.create-article
+    +link_button_icon('\e830')
+
+  &.create-collection
+    +link_button_icon('\f00a')
 
   &.join-club
     +link_button_icon('\002b')
-
-  // anime page
-  &.watch-online
-    +link_button_icon('\e831')
-  &.is-licensed
-    +link_button_icon('\e82b')
-  &.is-censored//, &.is-licensed
-    +link_button_icon('抵')
-
-  &.upload-video
-    +link_button_icon('\e80c')

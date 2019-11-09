@@ -107,6 +107,19 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
+  def articles
+    og noindex: true
+    og page_title: i18n_io('Article', :few)
+
+    scope = @resource.topics
+      .where(type: Topics::EntryTopics::ArticleTopic.name)
+      .order(created_at: :desc)
+
+    @collection = QueryObjectBase.new(scope)
+      .paginate(@page, TOPICS_LIMIT)
+      .transform { |topic| Topics::TopicViewFactory.new(true, true).build topic }
+  end
+
   def comments
     og noindex: true
     og page_title: i18n_io('Comment', :few)

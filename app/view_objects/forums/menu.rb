@@ -48,11 +48,40 @@ class Forums::Menu < ViewObjectBase
       forum: forum,
       linked_id: h.params[:linked_id],
       linked_type: h.params[:linked_type],
-      'topic[user_id]' => h.current_user.id,
+      'topic[user_id]' => h.current_user&.id,
       'topic[forum_id]' => forum ? forum.id : nil,
       'topic[linked_id]' => linked ? linked.id : nil,
       'topic[linked_type]' => linked ? linked.class.name : nil
     )
+  end
+
+  def new_news_url # rubocop:disable AbcSize
+    h.new_topic_url(
+      forum: forum,
+      linked_id: h.params[:linked_id],
+      linked_type: h.params[:linked_type],
+      'topic[user_id]' => h.current_user&.id,
+      'topic[forum_id]' => forum ? forum.id : nil,
+      'topic[linked_id]' => linked ? linked.id : nil,
+      'topic[linked_type]' => linked ? linked.class.name : nil,
+      'topic[type]' => Topics::NewsTopic.name
+    )
+  end
+
+  def new_review_url
+    h.new_topic_url(
+      forum: Forum.reviews,
+      'topic[user_id]' => h.current_user&.id,
+      'topic[forum_id]' => forum ? forum.id : nil
+    )
+  end
+
+  def new_article_url
+    h.new_article_url(article: { user_id: h.current_user&.id })
+  end
+
+  def new_collection_url
+    h.new_collection_url(collection: { user_id: h.current_user&.id })
   end
 
 private

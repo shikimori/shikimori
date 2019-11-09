@@ -29,9 +29,12 @@ en:
         new:
           title: New topic
       type:
-        pick_topic_type: Pick topic type
+        pick_topic_type: Choose topic type
         common_topic: Common topic
         news_topic: News topic
+      review:
+        pick_target: Choose what a review is about
+        go_next: Next →
       rules:
         go_next: Next →
       video:
@@ -48,7 +51,11 @@ en:
       changed_at: Changed at %{date}
       created_at: Created at %{date}
     menu_actions:
-      create_topic: Create a Topic
+      create_topic: Create a topic
+      create_news: Write news
+      create_review: Write a review
+      create_article: Write an article
+      create_collection: Create a collection
       reload_forum: refresh forum
     page:
       refresh: Refresh page

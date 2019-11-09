@@ -26,6 +26,10 @@ class Ability
         merge Abilities::CollectionModerator.new(user)
       end
 
+      if user.article_moderator? || user.admin?
+        merge Abilities::ArticleModerator.new(user)
+      end
+
       if user.video_super_moderator? || user.admin?
         merge Abilities::VideoSuperModerator.new(user)
       end
@@ -100,6 +104,7 @@ class Ability
     can :read, Review
     can :read, Topic
     can :read, Collection
+    can :read, Article
     can :read, OauthApplication
     can :read, Ban
     can :read, AbuseRequest

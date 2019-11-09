@@ -17,7 +17,7 @@ export default class WeekRegisteredAction extends View {
       flash.info(I18n.t(`${AuthorizedAction.I18N_KEY}.register_to_complete_action`));
       e.stopImmediatePropagation();
       e.preventDefault();
-    } if (!window.SHIKI_USER.isWeekRegistered) {
+    } else if (!window.SHIKI_USER.isWeekRegistered) {
       flash.info(I18n.t(`${I18N_KEY}.action_will_be_available`));
       e.stopImmediatePropagation();
       e.preventDefault();

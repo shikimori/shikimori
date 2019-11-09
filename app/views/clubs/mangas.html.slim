@@ -10,7 +10,7 @@
         collection: @resource.mangas,
         as: :entry
   - else
-    .cc-5.to-process data-dynamic="cutted_covers"
+    .cc-5.to-process data-dynamic='cutted_covers'
       = render partial: 'mangas/manga',
         collection: @resource.mangas,
         locals: { cover_notice: :year_kind },

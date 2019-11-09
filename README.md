@@ -105,6 +105,7 @@ pry(main)> PeopleIndex.reset!
 pry(main)> CharactersIndex.reset!
 pry(main)> ClubsIndex.reset!
 pry(main)> CollectionsIndex.reset!
+pry(main)> ArticlesIndex.reset!
 pry(main)> UsersIndex.reset!
 pry(main)> TopicsIndex.reset!
 ```

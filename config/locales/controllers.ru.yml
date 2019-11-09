@@ -9,8 +9,10 @@ ru:
 
   topics_controller: &topics_controller
     title: Форум Шикимори
-    new_topic: Добавление топика
-    new_news: Добавление новости
+    new_topic: Создать топик
+    new_news: Написать новость
+    new_review: Написать рецензию
+    new_article: Написать статью
     topic:
       created: Топик создан
       updated: Топик обновлён
@@ -131,6 +133,11 @@ ru:
     collection_created: Коллекция создана
     collection_deleted: Коллекция удалена
 
+  articles_controller:
+    new_article: Новая статья
+    article_created: Статья создана
+    article_deleted: Статья удалена
+
   clubs_controller:
     new_club: Новый клуб
     club_created: Клуб создан
@@ -206,6 +213,10 @@ ru:
   moderations/collections_controller:
     <<: *moderations_controller
     page_title: Модерация коллекций
+
+  moderations/articles_controller:
+    <<: *moderations_controller
+    page_title: Модерация статей
 
   moderations/users_controller:
     <<: *moderations_controller

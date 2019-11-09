@@ -16,7 +16,7 @@ ru:
           cosplay: Тебе нравится?
           collection: Эта коллекция полезна?
     comments:
-      your_comment: Ваш комментарий
+      your_comment: Твой комментарий
     inner:
       read_more_link: Читать дальше →
       source: Источник
@@ -32,6 +32,9 @@ ru:
         pick_topic_type: Выбери тип топика
         common_topic: Обычный топик
         news_topic: Новостной топик
+      review:
+        pick_target: Выбери, о чём рецензия
+        go_next: Далее →
       rules:
         go_next: Далее →
       video:
@@ -49,6 +52,10 @@ ru:
       created_at: Создано %{date}
     menu_actions:
       create_topic: Создать топик
+      create_news: Написать новость
+      create_review: Написать рецензию
+      create_article: Написать статью
+      create_collection: Создать коллекцию
       reload_forum: обновить форум
     page:
       refresh: Обновить страницу

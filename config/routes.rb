@@ -175,6 +175,15 @@ Rails.application.routes.draw do
         post :cancel
       end
     end
+    resources :articles, only: [] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+
+      member do
+        post :accept
+        post :reject
+        post :cancel
+      end
+    end
 
     resources :forums, only: %i[index edit] do
       patch :update, on: :member, as: :update
@@ -437,8 +446,8 @@ Rails.application.routes.draw do
     get '/' => 'topics#index',  as: :forum
     scope(
       '(/:forum)(/:linked_type-:linked_id)',
-      forum: /animanga|site|offtopic|clubs|my_clubs|reviews|cosplay|contests|news|updates|games|vn|collections/,
-      linked_type: /anime|manga|ranobe|character|person|club|contest|collection|cosplay_gallery/,
+      forum: /animanga|site|offtopic|clubs|my_clubs|reviews|cosplay|contests|news|updates|games|vn|collections|articles/,
+      linked_type: /anime|manga|ranobe|character|person|club|contest|collection|article|cosplay_gallery/,
       format: /html|json|rss/
     ) do
       get '/new' => 'topics#new', as: :new_topic
@@ -497,6 +506,10 @@ Rails.application.routes.draw do
 
   resources :collections do
     get '(/p-:page)' => 'collections#index', as: '', on: :collection
+  end
+
+  resources :articles do
+    get '(/p-:page)' => 'articles#index', as: '', on: :collection
   end
 
   resources :club_invites, only: [] do
@@ -667,7 +680,6 @@ Rails.application.routes.draw do
         post :rollback_episode if kind == 'animes'
       end
 
-      # обзоры
       resources :reviews, type: kind.singularize.capitalize, except: [:show]
     end
   end
@@ -877,6 +889,7 @@ Rails.application.routes.draw do
 
       get 'reviews(/page/:page)' => :reviews, as: :reviews
       get 'collections(/page/:page)' => :collections, as: :collections
+      get 'articles(/page/:page)' => :articles, as: :articles
       get 'topics(/page/:page)' => :topics, as: :topics
       get 'comments(/page/:page)' => :comments, as: :comments
       scope 'comments' do

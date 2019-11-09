@@ -34,9 +34,9 @@ ru:
 
   topics/review_view:
     title:
-      anime: Обзор аниме &laquo;%{target_name}&raquo;
-      manga: Обзор манги &laquo;%{target_name}&raquo;
-      ranobe: Обзор ранобэ &laquo;%{target_name}&raquo;
+      anime: Рецензия на аниме &laquo;%{target_name}&raquo;
+      manga: Рецензия на мангу &laquo;%{target_name}&raquo;
+      ranobe: Рецензия на ранобэ &laquo;%{target_name}&raquo;
 
   topics/comments_view: &comments
     show_comments: Показать %{comment_count} %{comment_word}

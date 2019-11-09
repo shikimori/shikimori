@@ -12,7 +12,6 @@ class AniMangaDecorator < DbEntryDecorator
     :roles, :related, :friend_rates, :recent_rates, :chronology,
     :rates_scores_stats, :rates_statuses_stats, :displayed_external_links
 
-  # топики
   def topic_views
     object
       .topics
@@ -25,7 +24,6 @@ class AniMangaDecorator < DbEntryDecorator
       .map { |topic_view| format_menu_topic topic_view, :updated_at }
   end
 
-  # число обзоров
   def reviews_count
     object.reviews.visible.count
   end
@@ -43,34 +41,28 @@ class AniMangaDecorator < DbEntryDecorator
     anime? && h.current_user&.staff?
   end
 
-  # есть ли обзоры
   def reviews?
     reviews_count.positive?
   end
 
-  # есть ли косплей
   def cosplay?
     CosplayGalleriesQuery.new(object).fetch(1, 1).any?
   end
 
-  # аниме в списке пользователя
   def current_rate
     return unless h.user_signed_in?
 
     rates.where(user_id: h.current_user.id).decorate.first
   end
 
-  # объект с ролями аниме
   def roles
     RolesQuery.new object
   end
 
-  # презентер связанных аниме
   def related
     RelatedDecorator.new object
   end
 
-  # оценки друзей
   def friend_rates
     if h.user_signed_in?
       rates_query.friend_rates
@@ -79,26 +71,22 @@ class AniMangaDecorator < DbEntryDecorator
     end
   end
 
-  # статусы пользователей сайта
   def rates_statuses_stats
     rates_query.statuses_stats.map do |k, v|
       { name: UserRate.status_name(k, object.class.name), value: v }
     end
   end
 
-  # оценки пользователей сайта
   def rates_scores_stats
     rates_query.scores_stats.map do |k, v|
       { name: k, value: v }
     end
   end
 
-  # последние изменения от других пользователей
   # def recent_rates limit
     # rates_query.recent_rates limit
   # end
 
-  # полная хронология аниме
   def chronology
     Animes::ChronologyQuery.new(object).fetch.map(&:decorate)
   end

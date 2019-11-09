@@ -1,6 +1,7 @@
 .b-input.topic-linked
-  label for='topic_linked'
-    = t 'activerecord.attributes.topic.linked'
+  - unless local_assigns[:label] == false
+    label for='topic_linked'
+      = t 'activerecord.attributes.topic.linked'
 
   .linked-type
     input#topic_linked[
@@ -23,8 +24,9 @@
       option value=Anime.name = Anime.model_name.human
       option value=Manga.name = Manga.model_name.human
       option value=Ranobe.name = Ranobe.model_name.human
-      option value=Character.name = Character.model_name.human
-      option value=Person.name = Person.model_name.human
+      - unless local_assigns[:review_types] == true
+        option value=Character.name = Character.model_name.human
+        option value=Person.name = Person.model_name.human
 
   .topic-link[
     style=('display: none;' unless topic.linked.present?)

@@ -77,7 +77,7 @@
 
         - if contest_match.round.number > 1 && (contest_match.defeated_by(contest_match.left, contest_match.round) + contest_match.defeated_by(contest_match.right, contest_match.round)).any?
           .match-losers.cc.to-process[
-            data-dynamic="cutted_covers"
+            data-dynamic='cutted_covers'
             data-ratio_type=(:person if contest_match.round.contest.character?)
           ]
             = render partial: 'contest_matches/losers',
@@ -113,7 +113,7 @@
                   locals: { content_by: :none }
 
           - if contest_match.defeated_by(contest_match.left, contest_match.round).any?
-            .match-losers.to-process data-dynamic="cutted_covers"
+            .match-losers.to-process data-dynamic='cutted_covers'
               = render 'contest_matches/losers',
                 losers: contest_match.defeated_by(contest_match.left, contest_match.round),
                 position: 'center'

@@ -20,6 +20,12 @@ class Topics::UserContentView < Topics::View
     linked.updated_at
   end
 
+  def offtopic_tag
+    if @topic.linked.respond_to?(:rejected?) && @topic.linked.rejected?
+      I18n.t 'markers.offtopic'
+    end
+  end
+
   def footer_vote?
     !preview?
   end

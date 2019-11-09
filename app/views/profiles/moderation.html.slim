@@ -84,6 +84,14 @@
         .b-entry-info
           = info_line t('.moderation.amount'), @resource.stats.collections_count
 
+    - if @resource.stats.articles_count.positive?
+      .c-column
+        .subheadline
+          a href=articles_profile_url(@resource)
+            = i18n_io 'Article', :few
+        .b-entry-info
+          = info_line t('.moderation.amount'), @resource.stats.articles_count
+
     - if @resource.stats.comments_count.positive?
       .c-column
         .subheadline

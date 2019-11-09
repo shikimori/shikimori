@@ -22,6 +22,12 @@ class ModerationPolicy
     Collection.pending.published.where(locale: @locale).size
   end
 
+  def articles_count
+    return 0 unless !@moderation_filter || @user&.article_moderator?
+
+    Article.pending.where(locale: @locale).size
+  end
+
   def abuses_total_count
     abuses_abuses_count + abuses_pending_count
   end

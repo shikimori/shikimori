@@ -4,6 +4,7 @@ FactoryBot.define do
     user { seed :user }
     kind { :anime }
     state { :unpublished }
+    moderation_state { :pending }
     text { '' }
     locale { :ru }
 

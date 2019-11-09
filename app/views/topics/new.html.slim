@@ -1,7 +1,10 @@
 - topic_type_policy = Topic::TypePolicy.new @resource
 
 = render layout: 'topics/page' do |f|
-  - if @resource.type.nil?
+  - if @resource.forum == Forum.reviews
+    = render 'topics/form/review',
+      topic: @resource
+  - elsif @resource.type.nil?
     = render 'topics/form/type',
       topic: @resource,
       back_url: page_breadcrumbs.first.second

@@ -1,0 +1,33 @@
+header.head.misc
+  h1
+    = og.headline
+    a.misc.to-process[
+      href=new_article_url(article: { user_id: current_user&.id })
+      title=t('.new')
+      data-dynamic='week_registered'
+    ] = t('actions.create').downcase
+  p.notice.clearfix = t '.notice'
+
+.b-search-results
+  - if @unpublished_articles&.any?
+    .block
+      b #{t '.my_unpublished_articles'}:&nbsp;
+      - @unpublished_articles.each do |article|
+        a href=edit_article_url(article) = article.name
+        - unless article == @unpublished_articles.last
+          | ,&nbsp;
+
+  .block
+    - if @collection.any?
+      = render partial: 'topics/topic',
+        collection: @collection,
+        as: :topic_view,
+        cache: true
+    - else
+      .b-nothing_here = t '.nothing_here'
+
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        filter: 'b-article-topic',
+        next_url: articles_url(page: @collection.next_page, search: params[:search]),
+        prev_url: (articles_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)

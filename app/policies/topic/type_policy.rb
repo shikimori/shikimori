@@ -54,4 +54,8 @@ class Topic::TypePolicy
   def collection_topic?
     topic.class.name == Topics::EntryTopics::CollectionTopic.name
   end
+
+  def article_topic?
+    topic.class.name == Topics::EntryTopics::ArticleTopic.name
+  end
 end

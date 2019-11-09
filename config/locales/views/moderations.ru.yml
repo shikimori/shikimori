@@ -10,6 +10,7 @@ ru:
       moderation: Модерация
       reviews_journal: Журнал рецензий
       collections_journal: Журнал коллекций
+      articles_journal: Журнал статей
       anime_video_authors: Авторы видео
       forums: Форумы
 
@@ -137,6 +138,26 @@ ru:
         history: История
 
       collection:
+        accept: принять
+        move_to_offtopic: переместить в оффтопик
+
+    articles:
+      index:
+        notice: История модерации статей
+        instruction: Инструкция
+        instructions:
+          - Отклонённые статьи превращаются в топик оффтопика
+            без возможности восстановления.
+          - Отклоняйте статьи, содержащие троллинг,
+            написанные с целью вызывать срач.
+        queue: Очередь
+        more_summaries_pending: >-
+          Это ещё не всё.
+          Прочие статьи будут доступны после принятия отображённых выше.
+        queue_empty: Очередь пуста
+        history: История
+
+      article:
         accept: принять
         move_to_offtopic: переместить в оффтопик
 

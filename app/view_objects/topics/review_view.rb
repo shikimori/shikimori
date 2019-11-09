@@ -1,5 +1,5 @@
 class Topics::ReviewView < Topics::UserContentView
-  def container_class
+  def container_classes
     super 'b-review-topic'
   end
 
@@ -16,10 +16,6 @@ class Topics::ReviewView < Topics::UserContentView
       type: 'review',
       text: i18n_i('review', :one)
     )
-  end
-
-  def offtopic_tag
-    I18n.t 'markers.offtopic' if review.rejected?
   end
 
   def topic_title
@@ -45,14 +41,6 @@ class Topics::ReviewView < Topics::UserContentView
     preview? ? html_body_truncated : (stars_html + html_body)
   end
 
-  def vote_results?
-    review.votes_count.positive?
-  end
-
-  def read_more_link?
-    preview? || minified?
-  end
-
   def html_body
     text = review.text
 
@@ -66,6 +54,14 @@ class Topics::ReviewView < Topics::UserContentView
     end
 
     BbCodes::EntryText.call text, review
+  end
+
+  def read_more_link?
+    preview? || minified?
+  end
+
+  def vote_results?
+    review.votes_count.positive?
   end
 
 private

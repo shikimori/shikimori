@@ -1,0 +1,48 @@
+.b-log_entry.mobile-multiline[
+  id=article.id
+]
+  span
+    a[
+      href=article_url(article)
+    ]
+      span.id-label #
+      = article.id
+
+  span.date
+    = article.created_at.strftime '%d.%m.%Y'
+
+  span.author
+    = render 'users/user_16', user: article.user
+
+  span
+    = article.name
+
+  span
+    = render 'reviews/votes', review: article
+
+  span.state.inline class=article.moderation_state
+    = article.human_moderation_state_name
+
+  - if article.approver.present?
+    .moderator
+      = render 'users/user_16', user: article.approver
+
+  - if can? :manage, Article
+    - if article.can_accept? || article.can_reject? || article.can_cancel?
+      .moderation.inline
+        - if article.can_accept?
+          a.link.accept[
+            href=accept_moderations_article_path(article)
+            data-method='post'
+          ] = t '.accept'
+        - if article.can_reject?
+          a.link.reject[
+            href=reject_moderations_article_path(article)
+            data-method='post'
+          ] = t '.move_to_offtopic'
+        - if article.can_cancel?
+          a.link.cancel[
+            href=cancel_moderations_article_path(article)
+            data-method='post'
+            data-confirm=t('actions.confirm_simple')
+          ] = t('actions.cancel').downcase

@@ -6,7 +6,7 @@ class Forum < ApplicationRecord
   # разделы, в которые можно создавать топики из интерфейса
   PUBLIC_SECTIONS = %w[animanga site games vn contests offtopic]
   VARIANTS = PUBLIC_SECTIONS + %w[
-    clubs my_clubs reviews news collections cosplay
+    clubs my_clubs reviews news collections articles cosplay
   ]
 
   ANIME_NEWS_ID = 1
@@ -17,6 +17,7 @@ class Forum < ApplicationRecord
   COLLECTION_ID = 14
   COSPLAY_ID = 15
   NEWS_ID = 20
+  ARTICLES_ID = 21
 
   UPDATES_FORUM = FakeForum.new 'updates', 'Обновления аниме', 'Anime updates'
   MY_CLUBS_FORUM = FakeForum.new 'my_clubs', 'Мои клубы', 'My clubs'
@@ -38,14 +39,30 @@ class Forum < ApplicationRecord
       find_by_permalink('news')
     end
 
+    def reviews
+      find_by_permalink('reviews')
+    end
+
+    def articles
+      find_by_permalink('articles')
+    end
+
+    def collections
+      find_by_permalink('collections')
+    end
+
     def find_by_permalink permalink
-      (cached + [UPDATES_FORUM, MY_CLUBS_FORUM]).find do |forum|
+      cached_plus_special.find do |forum|
         forum.permalink == permalink
       end
     end
 
     def cached
       @cached ||= all.to_a.sort_by(&:position)
+    end
+
+    def cached_plus_special
+      @cached_plus_special ||= cached + [UPDATES_FORUM, MY_CLUBS_FORUM]
     end
   end
 end

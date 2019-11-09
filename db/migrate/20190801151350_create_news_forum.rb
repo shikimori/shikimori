@@ -11,5 +11,4 @@ class CreateNewsForum < ActiveRecord::Migration[5.2]
   def down
     Forum.find_by(id: 20)&.destroy
   end
-
 end

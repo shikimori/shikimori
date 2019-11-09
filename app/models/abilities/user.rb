@@ -5,7 +5,8 @@ class Abilities::User
 
   GENERATED_USER_TOPICS = [
     Topics::EntryTopics::ReviewTopic.name,
-    Topics::EntryTopics::CollectionTopic.name
+    Topics::EntryTopics::CollectionTopic.name,
+    Topics::EntryTopics::ArticleTopic.name
   ]
 
   USER_TOPIC_TYPES = [
@@ -23,6 +24,7 @@ class Abilities::User
       comment_abilities if @user.day_registered?
       review_abilities if @user.week_registered?
       collection_abilities if @user.week_registered?
+      article_abilities if @user.week_registered?
       other_abilities
       club_abilities
       oauth_applications_abilities if @user.day_registered?
@@ -164,6 +166,12 @@ class Abilities::User
   def collection_abilities
     can %i[new create edit update destroy], Collection do |collection|
       collection.user_id == @user.id
+    end
+  end
+
+  def article_abilities
+    can %i[new create edit update destroy], Article do |article|
+      article.user_id == @user.id
     end
   end
 

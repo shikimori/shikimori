@@ -27,7 +27,8 @@ class Topic < ApplicationRecord
     'Review' => 12,
     'Contest' => Forum::CONTESTS_ID,
     'CosplayGallery' => Forum::COSPLAY_ID,
-    'Collection' => Forum::COLLECTION_ID
+    'Collection' => Forum::COLLECTION_ID,
+    'Article' => Forum::ARTICLES_ID
   }
 
   TOPIC_IDS = {
@@ -52,7 +53,8 @@ class Topic < ApplicationRecord
     Review,
     Contest,
     CosplayGallery,
-    Collection
+    Collection,
+    Article
   ].map(&:name)
 
   belongs_to :forum

@@ -10,8 +10,7 @@ class CollectionsController < ShikimoriController
   ]
   CREATE_PARAMS = %i[user_id kind] + UPDATE_PARAMS
 
-  # rubocop:disable AbcSize
-  def index
+  def index # rubocop:disable AbcSize
     @limit = [[params[:limit].to_i, 4].max, 8].min
 
     @collection = Collections::Query.fetch(locale_from_host)
@@ -27,7 +26,6 @@ class CollectionsController < ShikimoriController
       @unpublished_collections = current_user.collections.unpublished
     end
   end
-  # rubocop:enable AbcSize
 
   def show
     raise ActiveRecord::RecordNotFound unless @resource.published?

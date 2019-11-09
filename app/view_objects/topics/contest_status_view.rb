@@ -1,5 +1,5 @@
 class Topics::ContestStatusView < Topics::NewsView
-  def container_class
+  def container_classes
     super 'b-contest_status-topic'
   end
 
