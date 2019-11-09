@@ -1,0 +1,22 @@
+@import mixins/block
+@import mixins/clear_left
+@import mixins/float_column
+@import mixins/responsive
+@import mixins/shikimori
+
+.p-achievements-author
+  +iphone_portrait
+    .b-badge
+      +column(2, 1/2, 2%)
+
+  +iphone_landscape
+    .b-badge
+      +column(3, 1/3, 1%)
+
+  +ipad_laptop
+    .b-badge
+      +column(5, 1/5, 0.5%)
+
+  +gt_laptop
+    .b-badge
+      +column(6, 1/6, 0.5%)
