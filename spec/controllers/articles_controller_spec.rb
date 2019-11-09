@@ -20,12 +20,14 @@ describe ArticlesController do
         {
           user_id: user.id,
           name: 'test',
-          text: 'zxc'
+          text: 'zxc',
+          tags: 'qwe, rty'
         }
       end
 
       it do
         expect(resource).to be_persisted
+        expect(resource).to have_attributes params.merge(tags: %w[qwe rty])
         expect(response).to redirect_to edit_article_url(resource)
       end
     end

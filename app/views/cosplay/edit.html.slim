@@ -21,7 +21,7 @@ header.head.misc
       .m30.completable-block
         - (@characters || []).each do |v|
           .entry.character-entry
-            input type="hidden" name="characters[]" value="#{v.id}"
+            input type='hidden' name='characters[]' value="#{v.id}"
             = render partial: 'characters/suggest',
               locals: { character: v, render_after_name: '<span class="item-minus"></span>', url_builder: :character_url, render_link: true }
 
@@ -33,7 +33,7 @@ header.head.misc
         - (@animes || []).each do |v|
           .entry.anime-entry
             span.item-minus
-            input type="hidden" name="animes[]" value="#{v.id}"
+            input type='hidden' name='animes[]' value="#{v.id}"
             a.title title="#{v.name}" href="#{anime_url v}"
               == v.name
 
@@ -45,7 +45,7 @@ header.head.misc
         - (@mangas || []).each do |v|
           .entry.manga-entry
             span.item-minus
-            input type="hidden" name="mangas[]" value="#{v.id}"
+            input type='hidden' name='mangas[]' value="#{v.id}"
             a.title title="#{v.name}" href="#{manga_url v}"
               == v.name
 
@@ -58,7 +58,7 @@ header.head.misc
           - (@tags || []).each do |v|
             .entry.tag-entry
               span.item-minus
-              input type="hidden" name="tags[]" value="#{v}"
+              input type='hidden' name='tags[]' value="#{v}"
               span.title title="#{{v}}"
                 == v
 

@@ -4,7 +4,7 @@
     | &nbsp;
     = t '.warning_text', gender: current_user&.sex
 
-- cache contest_match do
+- cache [contest_match, current_user&.sex] do
   .b-contest_match[
     data-model=ContestMatchSerializer.new(contest_match).to_json
     data-page_url=round_match_contest_url(contest_match.round.contest, round: contest_match.round, match_id: contest_match.id)

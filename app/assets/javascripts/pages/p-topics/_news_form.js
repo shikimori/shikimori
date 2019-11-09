@@ -80,7 +80,7 @@ id='${data.id}'>\
       .map((_index, node) => $(node).attr('id'))
       .each((_index, id) =>
         $attachments.append(
-          `<input type="hidden" name="topic[wall_ids][]" value="${id}" />`
+          `<input type='hidden' name='topic[wall_ids][]' value="${id}" />`
         )
       );
 
@@ -88,7 +88,7 @@ id='${data.id}'>\
     const videoId = $topicVideo.data('video_id');
     if (videoId) {
       $attachments.append(
-        `<input type="hidden" name="topic[video_id]" value="${videoId}" />`
+        `<input type='hidden' name='topic[video_id]' value="${videoId}" />`
       );
     }
   });

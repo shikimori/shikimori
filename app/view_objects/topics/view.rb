@@ -152,7 +152,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   def html_body_truncated
     h.truncate_html(
       cleaned_preview_body,
-      length: BODY_TRUCATE_SIZE,
+      length: self.class::BODY_TRUCATE_SIZE,
       separator: ' ',
       word_boundary: /\S[\.\?\!<>]/
     ).html_safe

@@ -9,23 +9,32 @@ header.head.misc
 
 = simple_form_for @resource do |f|
   .subheadline.m5 = t :settings
-  .cc-2.block
-    .c-column
-      .block
-        = f.input :user_id, as: :hidden
-        = f.input :name
-        .b-shiki_editor.unprocessed.block
-          = render 'comments/shiki_editor', text: @resource.text, field_name: 'article[text]'
+  .block
+    = f.input :user_id, as: :hidden
+    = f.input :name,
+      input_html: { class: 'w-100' }
 
-        - if @resource.persisted?
-          = f.input :state,
-            include_blank: false,
-            disabled: @resource.published?,
-            hint: t(".hint.#{@resource.state}").html_safe
-        - else
-          .buttons
-            a.cancel href=articles_url = t 'actions.cancel'
-            = f.button :magic_submit
+    = f.input :tags,
+      input_html: { value: f.object.tags&.join(','), class: 'w-100' },
+      as: :string
+    #vue_tags_input[
+      data-value=f.object.tags
+      data-autocomplete_basic=Articles::TagsQuery.call
+    ]
+
+    .b-input
+      .b-shiki_editor.unprocessed.size-xl
+        = render 'comments/shiki_editor', text: @resource.text, field_name: 'article[text]'
+
+    - if @resource.persisted?
+      = f.input :state,
+        include_blank: false,
+        disabled: @resource.published?,
+        hint: t(".hint.#{@resource.state}").html_safe
+    - else
+      .buttons
+        a.cancel href=articles_url = t 'actions.cancel'
+        = f.button :magic_submit
 
   - if @resource.persisted?
     .block

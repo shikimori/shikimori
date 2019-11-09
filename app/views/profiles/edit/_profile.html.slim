@@ -1,5 +1,5 @@
 = simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
-  input type="hidden" name="page" value=@page
+  input type='hidden' name='page' value=@page
 
   .block
     = f.input :list_privacy, include_blank: false
@@ -19,7 +19,7 @@
     = f.input :about_on_top
   .block
     .subheadline = t '.about_me'
-    .b-shiki_editor.unprocessed
+    .b-shiki_editor.unprocessed.size-xl
       = render 'comments/shiki_editor', text: @resource.about || '', field_name: 'user[about]'
 
   .buttons

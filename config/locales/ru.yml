@@ -237,6 +237,7 @@ ru:
         name: Название
         text: Текст
         state: Статус
+        tags: Теги
       poll:
         name: Название
         text: Текст

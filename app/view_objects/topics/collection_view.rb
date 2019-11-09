@@ -40,10 +40,6 @@ class Topics::CollectionView < Topics::UserContentView
     )
   end
 
-  def offtopic_tag
-    I18n.t 'markers.offtopic' if collection.rejected?
-  end
-
   def collection
     @topic.linked.decorate
   end

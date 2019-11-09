@@ -49,6 +49,7 @@ en:
     take: Take
     upload: Upload
     upload_image: Upload image
+    write: Write
   by:
     id: By ID
     aired_on: By release date

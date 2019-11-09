@@ -1,4 +1,8 @@
 class Topics::ArticleView < Topics::UserContentView
+  BODY_TRUCATE_SIZE = 125
+
+  delegate :tags, to: :article
+
   def container_classes
     super 'b-article-topic'
   end
@@ -20,6 +24,18 @@ class Topics::ArticleView < Topics::UserContentView
 
   def topic_title_html
     topic_title
+  end
+
+  def url options = {}
+    if is_mini
+      canonical_url
+    else
+      super
+    end
+  end
+
+  def canonical_url
+    h.article_url article
   end
 
   def render_body
