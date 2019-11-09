@@ -199,11 +199,12 @@ puts 'generating 0 levels...'
 franchises_index = data
   .map { |rule| rule['filters']['franchise'] }
 
-data
+data = data + (data
   .select { |rule| rule['filters']['franchise'].present? }
-  .each do |rule|
-    data.push rule.dup.merge('level' => 0, 'threshold' => 0.01)
+  .map do |rule|
+    rule.dup.merge('level' => 0, 'threshold' => 0.01)
   end
+)
 
 data = data.sort_by do |rule|
   [franchises_index.index(rule['filters']['franchise']), -rule['level']]
