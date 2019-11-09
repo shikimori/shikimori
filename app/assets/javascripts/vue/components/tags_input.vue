@@ -45,7 +45,9 @@ export default {
   computed: {
     autocompleteItems() {
       return (
-        this.tags.length ? this.autocompleteOther : this.autocompleteBasic
+        this.tags.length && this.autocompleteOther.length ?
+          this.autocompleteOther :
+          this.autocompleteBasic
       )
         .filter(v => !this.tags.find(tag => tag.text === v))
         .filter(v => (this.tag ? v.startsWith(this.tag) : true))
@@ -77,6 +79,9 @@ export default {
 @import 'app/assets/stylesheets/mixins/input'
 
 .b-input /deep/
+  .vue-tags-input
+    max-width: 100% !important
+
   .ti-autocomplete
     display: none
 
@@ -91,6 +96,9 @@ export default {
     +input
     padding: 0 1px
     max-width: 100% !important
+
+    input
+      width: 100% !important
 
   .ti-tag
     font-size: 12px

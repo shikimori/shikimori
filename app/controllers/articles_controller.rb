@@ -5,7 +5,7 @@ class ArticlesController < ShikimoriController
   before_action :set_breadcrumbs, except: :index
   before_action :resource_redirect, if: :resource_id
 
-  UPDATE_PARAMS = %i[name text state]
+  UPDATE_PARAMS = %i[name text state tags]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
 
   def index # rubocop:disable AbcSize
@@ -92,11 +92,22 @@ private
   end
 
   def create_params
-    params.require(:article).permit(*CREATE_PARAMS)
+    article_params CREATE_PARAMS
   end
   alias new_params create_params
 
   def update_params
-    params.require(:article).permit(*UPDATE_PARAMS)
+    article_params UPDATE_PARAMS
+  end
+
+  def article_params permitted_keys
+    params
+      .require(:article)
+      .permit(*permitted_keys)
+      .tap do |fixed_params|
+        unless fixed_params[:tags].nil?
+          fixed_params[:tags] = fixed_params[:tags].split(',').map(&:strip).select(&:present?)
+        end
+      end
   end
 end

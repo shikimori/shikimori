@@ -234,6 +234,7 @@ en:
         name: Name
         text: Text
         state: State
+        tags: Tags
       collection_link:
         group: Group
         text: Comment
