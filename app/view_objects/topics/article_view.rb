@@ -1,6 +1,8 @@
 class Topics::ArticleView < Topics::UserContentView
   BODY_TRUCATE_SIZE = 125
 
+  delegate :tags, to: :article
+
   def container_classes
     super 'b-article-topic'
   end

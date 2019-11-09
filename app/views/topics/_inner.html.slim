@@ -57,7 +57,6 @@
           ] = t '.read_more_link'
 
     footer class=('with-read_more-link' if topic_view.read_more_link?)
-      - 1/0
       - if topic_view.tags.any? || topic_view.show_source?
         .additionals
           - if topic_view.tags.any?
