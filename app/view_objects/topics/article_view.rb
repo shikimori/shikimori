@@ -24,6 +24,18 @@ class Topics::ArticleView < Topics::UserContentView
     topic_title
   end
 
+  def url options = {}
+    if is_mini
+      canonical_url
+    else
+      super
+    end
+  end
+
+  def canonical_url
+    h.article_url article
+  end
+
   def render_body
     preview? ? html_body_truncated : html_body
   end
