@@ -9,7 +9,7 @@
   - else
     = cache [@resource, params[:action], :v3] do
       - wo_preview = @resource.videos.reject(&:episode_preview?)
-      - with_preview = @resource.videos.select(&:episode_preview?)
+      - with_preview = @resource.videos.select(&:episode_preview?).sort_by { |v| [v.name, v.id] }
 
       - if wo_preview.any?
         .block
