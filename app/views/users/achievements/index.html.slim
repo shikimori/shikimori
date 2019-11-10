@@ -1,5 +1,7 @@
 = render layout: 'page' do
   .block2
+    .b-options-floated.mobile-phone
+      | #{@view.common_achievements_size} / #{@view.all_common_achievements_size}
     h2.headline.blue.m10 = t 'achievements.group.common'
     - if @view.common_achievements.any?
       .cc-achievements
@@ -11,6 +13,8 @@
   .cc-franchises-genres
     .c-genres
       .block2
+        .b-options-floated.mobile-phone
+          | #{@view.genre_achievements_size} / #{@view.all_genre_achievements_size}
         h2.subheadline.orange.m10 = t 'achievements.group.genre'
         - if @view.genre_achievements.any?
           .cc-achievements
@@ -24,7 +28,7 @@
         .b-options-floated.mobile-phone.before-buttons-2
           a[
             href=franchise_profile_achievements_url(@resource)
-          ] #{@view.franchise_achievements_size} / #{@view.all_franchise_achievements.size}
+          ] #{@view.franchise_achievements_size} / #{@view.all_franchise_achievements_size}
         .subheadline-buttons
           = render 'blocks/list_switchers',
             name: 'franchises_order',
@@ -46,9 +50,7 @@
 
   .block2
     .b-options-floated.mobile-phone.before-buttons-2
-      a[
-        href=author_profile_achievements_url(@resource)
-      ] #{@view.author_achievements_size} / #{@view.all_author_achievements.size}
+      | #{@view.author_achievements_size} / #{@view.all_author_achievements_size}
     .subheadline-buttons
       = render 'blocks/list_switchers',
         name: 'authors_order',

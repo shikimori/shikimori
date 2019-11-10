@@ -4,30 +4,32 @@ class Profiles::AchievementsView < ViewObjectBase
   STUDIOS_LINE_COUNT = 4
   ACHIEVEMENTS_PER_ROW = 4
 
-  instance_cache :user_achievements, :common_achievements, :genre_achievements,
+  instance_cache :user_achievements,
+    :common_achievements, :common_achievements_size,
+    :all_common_achievements, :all_common_achievements_size,
+    :genre_achievements, :genre_achievements_size,
+    :all_genre_achievements, :all_genre_achievements_size,
     :franchise_achievements, :franchise_achievements_size,
     :all_franchise_achievements, :missing_franchise_achievements,
     :author_achievements, :author_achievements_size,
     :all_author_achievements, :missing_author_achievements
 
-  def common_achievements
-    user_achievements.select(&:common?)
-  end
+  %i[common genre franchise author].each do |type|
+    define_method :"#{type}_achievements" do
+      type_achievements type
+    end
 
-  def genre_achievements
-    user_achievements.select(&:genre?)
-  end
+    define_method :"#{type}_achievements_size" do
+      type_achievements_size type
+    end
 
-  def franchise_achievements
-    type_achievements :franchise
-  end
+    define_method :"all_#{type}_achievements" do
+      all_type_achievements type
+    end
 
-  def franchise_achievements_size
-    type_achievements_size :franchise
-  end
-
-  def all_franchise_achievements
-    all_type_achievements :franchise
+    define_method :"all_#{type}_achievements_size" do
+      all_type_achievements_size type
+    end
   end
 
   def missing_franchise_achievements
@@ -40,18 +42,6 @@ class Profiles::AchievementsView < ViewObjectBase
           franchise_achievements.size
         )
       )
-  end
-
-  def author_achievements
-    type_achievements :author
-  end
-
-  def author_achievements_size
-    type_achievements_size :author
-  end
-
-  def all_author_achievements
-    all_type_achievements :author
   end
 
   def missing_author_achievements
@@ -108,7 +98,7 @@ private
   end
 
   def type_achievements_size type
-    type_achievements(type).select { |rule| rule.level == 1 }.size
+    type_achievements(type).select { |rule| rule.level.positive? }.size
   end
 
   def all_type_achievements type
@@ -117,5 +107,11 @@ private
       .select { |v| v.send :"#{type}?" }
       .select { |rule| type != :franchise || rule.level.zero? }
       .sort_by { |rule| franchise_sort_criteria rule }
+  end
+
+  def all_type_achievements_size type
+    all_type_achievements(type)
+      .select { |rule| (rule.franchise? && rule.level.zero?) || rule.level == 1 }
+      .size
   end
 end
