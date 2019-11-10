@@ -1,7 +1,7 @@
 - cache topic_view.cache_key + [topic_view.topic.linked] do
   a[
     href=topic_view.urls.poster_url
-    title=topic_view.poster_title
+    title=topic_view.topic_title
   ]
     .poster
       = topic_view.html_wall
@@ -21,8 +21,8 @@
 
     .title[
       href=topic_view.urls.poster_url
-      title=topic_view.poster_title
-    ] = topic_view.poster_title_html
+      title=topic_view.topic_title
+    ] = topic_view.topic_title_html
 
   / = render 'topics/status_line', topic_view: topic_view
 
