@@ -18,14 +18,6 @@ class Topics::ArticleView < Topics::UserContentView
     )
   end
 
-  def topic_title
-    article.name
-  end
-
-  def topic_title_html
-    topic_title
-  end
-
   def url options = {}
     if is_mini
       canonical_url

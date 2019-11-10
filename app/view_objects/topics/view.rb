@@ -23,7 +23,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
-  CACHE_VERSION = :v7
+  CACHE_VERSION = :v8
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -70,7 +70,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def poster_title
-    if linked_in_avatar?
+    if preview?
       topic_title
     else
       @topic.user.nickname
@@ -78,7 +78,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def poster_title_html
-    if linked_in_avatar?
+    if preview?
       topic_title_html
     else
       @topic.user.nickname
