@@ -47,7 +47,7 @@ export class CuttedCovers extends View {
   }
 
   injectCss() {
-    if (!$.contains(document.documentElement, this.$poster[0])) {
+    if (!this.$poster || !$.contains(document.documentElement, this.$poster[0])) {
       this._fetchPoster();
     }
     const height = (this.$poster.width() * this.ratio_value).round(2);
