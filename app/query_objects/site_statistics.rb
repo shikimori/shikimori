@@ -17,6 +17,8 @@ class SiteStatistics
 
   ACHIEVEMENT_USER_IDS = [3824, 210, 16398, 34807, 29386, 84020, 72620, 50587, 100600, 77362, 7642, 9158] # rubocop:disable all
 
+  CACHE_VERSION = :v2
+
   # def traffic
   #   YandexMetrika.call METRIKA_MONTHS
   # end
@@ -63,7 +65,9 @@ class SiteStatistics
 
   def version_moderators
     User
-      .where("roles && '{#{Types::User::Roles[:version_moderator]}}'")
+      .where("roles && '{#{Types::User::Roles[:version_texts_moderator]}}'")
+      .or(User.where("roles && '{#{Types::User::Roles[:version_moderator]}}'"))
+      .or(User.where("roles && '{#{Types::User::Roles[:version_fansub_moderator]}}'"))
       .where.not(id: User::MORR_ID)
       .sort_by { |v| v.nickname.downcase }
   end
@@ -138,6 +142,10 @@ class SiteStatistics
 
   def top_video_contributors
     AnimeOnline::Contributors.call limit: USERS_LIMIT * 2
+  end
+
+  def cache_key
+    [:about_block, CACHE_VERSION, Time.zone.today]
   end
 
 private

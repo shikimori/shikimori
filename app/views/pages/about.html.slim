@@ -50,7 +50,7 @@ header.head
         data-turbolinks='false'
       ] API
 
-= cache [:about_block, :v10, Time.zone.today] do
+= cache @statistics.cache_key do
   .b-brief
     .description
       .members-block
