@@ -81,7 +81,7 @@ export default class CommentsNotifier {
     let count = $commentNew.length;
 
     $fayeLoader.each(function () {
-      count += $(this).data('ids').length;
+      count += $(this).data('ids')?.length || 0;
     });
 
     this._update(count);
