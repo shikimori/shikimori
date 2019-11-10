@@ -53,11 +53,6 @@
       | #{@view.author_achievements_size} / #{@view.all_author_achievements_size}
     h2.subheadline.green.m10 = t 'achievements.group.author'
     .cc-authors
-      / = render partial: 'users/achievements/badge',
-        collection: @view.author_achievements,
-        as: :achievement,
-        locals: { tipsy_size: 'medium' }
-
       = render partial: 'users/achievements/achievement',
         collection: @view.author_achievements,
         locals: { badge_only: true }
