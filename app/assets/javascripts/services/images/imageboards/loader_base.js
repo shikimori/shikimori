@@ -33,7 +33,7 @@ export class LoaderBase {
     axios
       .get(this._shikiLoadUrl())
       .catch(() => this._fetchFail())
-      .then(response => this._fetchSuccess(response.data));
+      .then(response => this._fetchSuccess(response?.data || []));
   }
 
   // handlers
