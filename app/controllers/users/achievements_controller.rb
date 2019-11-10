@@ -1,15 +1,19 @@
 class Users::AchievementsController < ProfilesController
   before_action :additional_breadcrumbs, except: [:index]
-  before_action { og page_title: i18n_t('achievements') }
+  before_action do
+    og page_title: i18n_t('achievements')
+    @view = Profiles::AchievementsView.new @user
+  end
 
   def index
-    @view = Profiles::AchievementsView.new(@user)
   end
 
   def franchise
     og page_title: t('achievements.group.franchise')
+  end
 
-    @view = Profiles::AchievementsView.new(@user)
+  def author
+    og page_title: t('achievements.group.author')
   end
 
 private

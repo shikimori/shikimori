@@ -4,6 +4,7 @@
   - break if index > 0 && !local_assigns[:images]
 
   .b-achievement[
+    class=(:unavailable if local_assigns[:unavailable])
     data-progress=achievement.progress
     data-title=achievement.title(current_user, ru_host?)
     data-hint=achievement.hint(current_user, ru_host?)

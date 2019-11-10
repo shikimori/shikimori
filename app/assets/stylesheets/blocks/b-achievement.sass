@@ -80,6 +80,13 @@
     .about
       display: none
 
+  &.unavailable:not(:hover)
+    filter: grayscale(88%)
+    filter: gray // IE 6-9
+
+    img
+      opacity: 0.5
+
   .gained
     +shikimori
     background: #fff

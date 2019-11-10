@@ -5,8 +5,10 @@ class Profiles::AchievementsView < ViewObjectBase
   ACHIEVEMENTS_PER_ROW = 4
 
   instance_cache :user_achievements, :common_achievements, :genre_achievements,
-    :franchise_achievements,
-    :all_franchise_achievements, :missing_franchise_achievements
+    :franchise_achievements, :franchise_achievements_size,
+    :all_franchise_achievements, :missing_franchise_achievements,
+    :author_achievements, :author_achievements_size,
+    :all_author_achievements, :missing_author_achievements
 
   def common_achievements
     user_achievements.select(&:common?)
@@ -17,21 +19,15 @@ class Profiles::AchievementsView < ViewObjectBase
   end
 
   def franchise_achievements
-    user_achievements
-      .select(&:franchise?)
-      .sort_by { |rule| [rule.level.zero? ? 1 : 0] + franchise_sort_criteria(rule) }
+    type_achievements :franchise
   end
 
   def franchise_achievements_size
-    franchise_achievements.select { |rule| rule.level == 1 }.size
+    type_achievements_size :franchise
   end
 
   def all_franchise_achievements
-    NekoRepository
-      .instance
-      .select(&:franchise?)
-      .select { |rule| rule.level.zero? }
-      .sort_by { |rule| franchise_sort_criteria rule }
+    all_type_achievements :franchise
   end
 
   def missing_franchise_achievements
@@ -40,9 +36,27 @@ class Profiles::AchievementsView < ViewObjectBase
       .select { |rule| rule.level.zero? }
       .take(
         missing_franchise_achievements_size(
-          genre_achievements.size, franchise_achievements.size
+          genre_achievements.size,
+          franchise_achievements.size
         )
       )
+  end
+
+  def author_achievements
+    type_achievements :author
+  end
+
+  def author_achievements_size
+    type_achievements_size :author
+  end
+
+  def all_author_achievements
+    all_type_achievements :author
+  end
+
+  def missing_author_achievements
+    all_author_achievements
+      .reject { |rule| author_achievements.map(&:neko_id).include? rule.neko_id }
   end
 
 private
@@ -60,7 +74,7 @@ private
     franchise_achievements_size
   )
     count = [
-      (genre_achievements_count * 6.66).round -
+      (genre_achievements_count * 6.88).round -
         STUDIOS_LINE_COUNT -
         franchise_achievements_size,
       0
@@ -85,5 +99,23 @@ private
     else
       rule.sort_criteria
     end
+  end
+
+  def type_achievements type
+    user_achievements
+      .select { |v| v.send :"#{type}?" }
+      .sort_by { |rule| [rule.level.zero? ? 1 : 0] + franchise_sort_criteria(rule) }
+  end
+
+  def type_achievements_size type
+    type_achievements(type).select { |rule| rule.level == 1 }.size
+  end
+
+  def all_type_achievements type
+    NekoRepository
+      .instance
+      .select { |v| v.send :"#{type}?" }
+      .select { |rule| type != :franchise || rule.level.zero? }
+      .sort_by { |rule| franchise_sort_criteria rule }
   end
 end
