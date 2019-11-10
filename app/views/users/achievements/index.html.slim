@@ -49,12 +49,8 @@
             p.b-nothing_here = t '.no_achievements'
 
   .block2
-    .b-options-floated.mobile-phone.before-buttons-2
+    .b-options-floated.mobile-phone
       | #{@view.author_achievements_size} / #{@view.all_author_achievements_size}
-    .subheadline-buttons
-      = render 'blocks/list_switchers',
-        name: 'authors_order',
-        values: %w(popularity alphabet)
     h2.subheadline.green.m10 = t 'achievements.group.author'
     .cc-authors
       / = render partial: 'users/achievements/badge',
