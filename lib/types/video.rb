@@ -10,13 +10,13 @@ module Types
       pv
       character_trailer
       clip
-      episode_preview
       cm
       other
       op_clip
       ed_clip
       op
       ed
+      episode_preview
     ]
 
     Hosting = Types::Strict::Symbol

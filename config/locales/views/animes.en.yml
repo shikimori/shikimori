@@ -67,6 +67,7 @@ en:
         zero: And %{count} users more
         one: And %{count} user more
         other: And %{count} users more
+      episodes_preview: Episodes preview
 
     menu:
       scores: Scores

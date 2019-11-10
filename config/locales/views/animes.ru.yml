@@ -67,6 +67,7 @@ ru:
         one: И ещё %{count} человек
         few: И ещё %{count} человека
         many: И ещё %{count} человек
+      episodes_preview: Превью эпизодов
 
     menu:
       scores: Оценки людей

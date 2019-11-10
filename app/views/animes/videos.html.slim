@@ -7,12 +7,25 @@
       = render @resource.videos.find(params[:video_id])
 
   - else
-    = cache [@resource, params[:action], :v2] do
-      .subheadline-buttons
-        a.item-edit href=@resource.edit_field_url(:videos)
-      .subheadline = Video.model_name.human
-      .cc.m10
-        = render @resource.videos
+    = cache [@resource, params[:action], :v3] do
+      - wo_preview = @resource.videos.reject(&:episode_preview?)
+      - with_preview = @resource.videos.select(&:episode_preview?)
+
+      - if wo_preview.any?
+        .block
+          .subheadline-buttons
+            a.item-edit href=@resource.edit_field_url(:videos)
+          .subheadline = Video.model_name.human
+          .cc.m10
+            = render wo_preview
+
+      - if with_preview.any?
+        .block
+          .subheadline-buttons
+            a.item-edit href=@resource.edit_field_url(:videos)
+          .subheadline = t '.episodes_preview'
+          .cc.m10
+            = render with_preview
 
     = render partial: 'blocks/source',
       locals: {\
