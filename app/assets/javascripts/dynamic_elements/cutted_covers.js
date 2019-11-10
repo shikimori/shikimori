@@ -5,6 +5,7 @@ let PRIOR_ID = 0;
 let GLOBAL_HANDLER = false;
 
 export const CLASS_NAME = 'd-cutted_covers';
+const DATA_KEY = 'cutted-covers';
 
 export const RATIO = {
   entry: 318.0 / 225.0,
@@ -16,7 +17,7 @@ function update() {
   $('#injectCSSContainer').empty();
 
   $(`.${CLASS_NAME}`).each((_index, node) => (
-    $(node).view().injectCss()
+    $(node).data(DATA_KEY)?.injectCss()
   ));
 }
 
@@ -41,6 +42,8 @@ export class CuttedCovers extends View {
 
     this.node.id = this.collection_id;
     this.node.classList.add(CLASS_NAME);
+
+    this.$node.data(DATA_KEY, this);
   }
 
   injectCss() {

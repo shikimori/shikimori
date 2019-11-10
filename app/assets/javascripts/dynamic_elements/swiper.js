@@ -6,6 +6,8 @@ import Wall from 'views/wall/view';
 import WallCluster from 'views/wall/cluster';
 
 const CLASS_NAME = 'b-shiki_swiper';
+const DATA_KEY = 'swiper';
+
 let GLOBAL_HANDLER = false;
 const RATIO = 16.0 / 9;
 
@@ -16,7 +18,7 @@ function setHanler() {
 
 function update() {
   $(`.${CLASS_NAME}`).each((_index, node) => (
-    $(node).view()?.update()
+    $(node).data(DATA_KEY)?.update()
   ));
 }
 
@@ -37,6 +39,7 @@ export default class Swiper extends View {
     }
 
     this._initializeContent();
+    this.$node.data(DATA_KEY, this);
   }
 
   get width() {
