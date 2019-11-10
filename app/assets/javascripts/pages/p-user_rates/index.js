@@ -73,7 +73,7 @@ pageLoad('user_rates_index', () => {
     $('.remove', $form).on('ajax:success', () => $poster.remove());
     $form.on('ajax:success', (_e, data) => {
       $poster.children('.text')
-        .html(data.text_html || '')
+        .html(data && data.text_html ? data.text_html : '')
         .toggleClass('hidden', Object.isEmpty(data.text_html));
 
       updateTextInCache(data);
