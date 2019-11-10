@@ -12,7 +12,7 @@ class Profiles::AchievementsView < ViewObjectBase
     :franchise_achievements, :franchise_achievements_size,
     :all_franchise_achievements, :missing_franchise_achievements,
     :author_achievements, :author_achievements_size,
-    :all_author_achievements, :missing_author_achievements
+    :all_author_achievements
 
   %i[common genre franchise author].each do |type|
     define_method :"#{type}_achievements" do
@@ -42,11 +42,6 @@ class Profiles::AchievementsView < ViewObjectBase
           franchise_achievements.size
         )
       )
-  end
-
-  def missing_author_achievements
-    all_author_achievements
-      .reject { |rule| author_achievements.map(&:neko_id).include? rule.neko_id }
   end
 
 private
