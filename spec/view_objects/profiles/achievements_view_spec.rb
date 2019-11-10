@@ -45,5 +45,4 @@ describe Profiles::AchievementsView do
   it { expect(view.author_achievements).to eq [tetsurou_araki, tensai_okamura] }
   it { expect(view.author_achievements_size).to eq 2 }
   it { expect(view.all_author_achievements).to have_at_least(43).items }
-  it { expect(view.missing_author_achievements).to have(2).items }
 end
