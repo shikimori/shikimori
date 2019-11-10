@@ -136,7 +136,7 @@ $(document).on('turbolinks:before-cache', () => {
   }
 
   $('.l-top_menu-v2').removeClass('is-submenu is-search-mobile');
-  $('.l-top_menu-v2 .submenu').prop('style', false);
+  $('.l-top_menu-v2 .submenu').removeAttr('style');
   $('.l-top_menu-v2 .active').removeClass('active');
 });
 
