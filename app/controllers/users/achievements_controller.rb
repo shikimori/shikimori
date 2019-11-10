@@ -12,6 +12,10 @@ class Users::AchievementsController < ProfilesController
     og page_title: t('achievements.group.franchise')
   end
 
+  def author
+    og page_title: t('achievements.group.author')
+  end
+
 private
 
   def additional_breadcrumbs
