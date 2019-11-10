@@ -17,6 +17,8 @@
       .b-anime_status_tag.ignored.hidden[
         data-text=t('.topic_ignored')
       ]
+    - if topic_view.try :offtopic_tag
+      .b-anime_status_tag.offtopic data-text=topic_view.offtopic_tag
 
   a.name[
     href=topic_view.urls.poster_url
