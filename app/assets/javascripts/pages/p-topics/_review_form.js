@@ -25,8 +25,8 @@ pageLoad('topics_new', () => {
         $link.data('url_template')
           .replace('/animes/', `/${$linkedType.val().toLowerCase()}s/`)
           .replace('ranobes', 'ranobe')
-          .replace('TARGET_ID', $linkedId.val())
-          .replace('TARGET_TYPE', $linkedType.val())
+          .replace(/TARGET_ID/g, $linkedId.val())
+          .replace(/TARGET_TYPE/g, $linkedType.val())
       )
       .removeClass('disabled');
   });
