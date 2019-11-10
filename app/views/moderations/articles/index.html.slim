@@ -19,7 +19,7 @@ header.head
   .block
     - if @pending.any?
       = render partial: 'moderations/articles/article',
-        article: @pending
+        collection: @pending
       - if @pending.size == Moderations::ArticlesController::PENDING_PER_PAGE
         .m5
         .b-nothing_here = t '.more_summaries_pending'
@@ -30,7 +30,7 @@ header.head
   .subheadline.m5 = t '.history'
   .block
     = render partial: 'moderations/articles/article',
-      article: @processed
+      collection: @processed
 
     - if @processed.size == controller.class::PROCESSED_PER_PAGE
       = render 'blocks/postloader',
