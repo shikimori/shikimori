@@ -20,6 +20,7 @@ import 'magnific-popup/dist/magnific-popup.css';
 import 'nouislider/distribute/nouislider.css';
 
 import 'jquery-appear-original';
+import 'jquery-mousewheel';
 
 require('paste.js');
 require('imagesloaded');

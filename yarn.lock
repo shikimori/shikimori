@@ -4855,6 +4855,11 @@ jquery-appear-original@^0.6.2:
   resolved "https://registry.yarnpkg.com/jquery-appear-original/-/jquery-appear-original-0.6.2.tgz#a1341a727e15348639ea5fe2fe4ec4737a170c05"
   integrity sha512-PxvsyDld5SthfNwL19vh4aga/2hYCK/zH90l1/aYxFAD6IyG53Y1kHt5hjaT1Ch3u6ztdHWx93olsjNXSN0gEw==
 
+jquery-mousewheel@^3.1.13:
+  version "3.1.13"
+  resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
+  integrity sha1-BvAzXxbjU6aV5yBr9QUDy1I6buU=
+
 jquery.idle@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/jquery.idle/-/jquery.idle-1.3.0.tgz#959c89036321e739d7f123637b2dfa865282a65c"
