@@ -113,24 +113,6 @@
       +iphone-portrait
         display: none
 
-    a.title
-      +link(#456)
-      display: block
-
-    .title
-      font-size: 14px
-      font-weight: bold
-      line-height: 24px
-      margin-bottom: 4px
-      color: #456
-
-      &.contests
-        +iphone-portrait
-          margin-top: 18px
-
-        +gte_iphone-landscape
-          margin-top: 8px // equal to b-link margin-bottom
-
     .b-link_button
       align-items: center
       justify-content: center
@@ -140,31 +122,6 @@
       padding-left: 0
       padding-right: 0
 
-    .b-link
-      align-items: center
-      display: flex
-      overflow: hidden
-      font-size: 13px
-      line-height: 20px
-
-      &:not(:last-child)
-        margin-bottom: 8px
-
-      span:not(.poster)
-        +ellipsis2
-
-      &.moderation
-        color: $red
-
-      &.misc
-        color: $purple
-
-      .poster
-        background-size: 100%
-        flex-shrink: 0
-        height: 20px
-        margin-right: 5px
-        width: 20px
 
   // .b-admin_panel
     display: none
