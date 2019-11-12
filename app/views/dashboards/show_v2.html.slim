@@ -1,5 +1,6 @@
 .v2
-  = cache @view.cache_keys.values do
+  / = cache @view.cache_keys.values do
+  cache
     .block
       .sections.main
         .section
@@ -137,7 +138,12 @@
           ]
             = t '.new_collections'
           .links
-            - @view.collection_topic_views.each do |topic_view|
+            = render partial: 'topics/topic',
+              collection: @view.collection_topic_views,
+              as: :topic_view,
+              cache: true
+
+            / - @view.collection_topic_views.each do |topic_view|
               a.b-link[
                 href=topic_view.urls.topic_url
                 title=topic_view.topic_title

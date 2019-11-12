@@ -10,7 +10,8 @@ class DashboardViewV2 < ViewObjectBase
   NEWS_OTHER_PAGES_LIMIT = 15
 
   def collection_topic_views
-    take_2_plus_other(collections_scope, 6)
+    # take_2_plus_other(collections_scope, 6)
+    collections_scope.as_views(true, true)
   end
 
   def review_topic_views
