@@ -129,13 +129,13 @@
           as: :topic_view
 
     .block2
-      / .headline.blue.m15 = t '.content_updates'
+      .headline.green.m15 = t '.new_content'
       .content-updates
         .f-column
-          a.title[
-            href=collections_url
-            title=t('.new_collections')
-          ]
+          / a.title[
+          /   href=collections_url
+          /   title=t('.new_collections')
+          / ]
             = t '.new_collections'
           .links
             = render partial: 'topics/topic',
@@ -155,10 +155,10 @@
                   = topic_view.poster_title_html
 
         .f-column
-          a.title[
-            href=forum_topics_url(:reviews)
-            title=t('.new_reviews')
-          ] = t '.new_reviews'
+          / a.title[
+          /   href=forum_topics_url(:reviews)
+          /   title=t('.new_reviews')
+          / ] = t '.new_reviews'
           .links
             - @view.review_topic_views.each do |topic_view|
               a.b-link[

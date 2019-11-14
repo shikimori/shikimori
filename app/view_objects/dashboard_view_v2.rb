@@ -11,7 +11,11 @@ class DashboardViewV2 < ViewObjectBase
 
   def collection_topic_views
     # take_2_plus_other(collections_scope, 6)
-    collections_scope.as_views(true, true)
+    collections_scope
+      .as_views(true, true)
+      .each do |topic_view|
+        topic_view.is_hide_body = true
+      end
   end
 
   def review_topic_views
@@ -89,7 +93,7 @@ private
     Topics::Query
       .fetch(h.locale_from_host)
       .by_forum(collections_forum, h.current_user, h.censored_forbidden?)
-      .limit(15)
+      .limit(6)
   end
 
   def reviews_scope
