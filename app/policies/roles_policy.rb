@@ -8,6 +8,7 @@ class RolesPolicy
     censored_avatar
     censored_profile
     cheat_bot
+    completed_announced_animes
   ]
 
   static_facade :accessible?, :role
