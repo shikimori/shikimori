@@ -160,7 +160,12 @@
           /   title=t('.new_reviews')
           / ] = t '.new_reviews'
           .links
-            - @view.review_topic_views.each do |topic_view|
+            = render partial: 'topics/topic',
+              collection: @view.review_topic_views,
+              as: :topic_view,
+              cache: true
+
+            / - @view.review_topic_views.each do |topic_view|
               a.b-link[
                 href=topic_view.urls.topic_url
                 title=topic_view.topic_title

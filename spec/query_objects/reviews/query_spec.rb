@@ -1,11 +1,11 @@
-describe ReviewsQuery do
+describe Reviews::Query do
   let(:entry) { create :anime }
 
   before do
     Review.wo_antispam do
       @reviews = [
         create(:review, target: entry, user: user),
-        create(:review, target: entry, user: user, created_at: ReviewsQuery::NEW_REVIEW_BUBBLE_INTERVAL.ago),
+        create(:review, target: entry, user: user, created_at: Reviews::Query::NEW_REVIEW_BUBBLE_INTERVAL.ago),
         create(:review, target: entry, user: user),
         create(:review, target: entry, user: user, locale: :en)
       ]
@@ -17,7 +17,7 @@ describe ReviewsQuery do
     let(:locale) { :ru }
 
     describe 'with_id' do
-      let(:query) { ReviewsQuery.new entry, user, locale, @reviews[0].id }
+      let(:query) { Reviews::Query.new entry, user, locale, @reviews[0].id }
 
       it 'has 1 item' do
         expect(subject.size).to eq(1)
@@ -26,7 +26,7 @@ describe ReviewsQuery do
     end
 
     describe 'without_id' do
-      let(:query) { ReviewsQuery.new entry, user, locale }
+      let(:query) { Reviews::Query.new entry, user, locale }
 
       it 'has 3 items' do
         is_expected.to have(3).items

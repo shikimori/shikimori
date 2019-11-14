@@ -18,7 +18,7 @@ class ReviewsController < AnimesController # rubocop:disable ClassLength
 
   # обзоры аниме или манги
   def index
-    query = ReviewsQuery.new(
+    query = Reviews::Query.new(
       @resource.object,
       current_user,
       locale_from_host,

@@ -10,16 +10,7 @@ class DashboardViewV2 < ViewObjectBase
   NEWS_OTHER_PAGES_LIMIT = 15
 
   def collection_topic_views
-    # take_2_plus_other(collections_scope, 6)
-    collections_scope
-      .transform do |collection|
-        topic_view = Topics::TopicViewFactory
-          .new(true, true)
-          .build(collection.maybe_topic(h.locale_from_host))
-
-        topic_view.is_hide_body = true
-        topic_view
-      end
+    take_2_plus_other(collections_scope, 6)
   end
 
   def review_topic_views
@@ -81,7 +72,6 @@ private
 
   def take_2_plus_other scope, limit
     views = scope
-      .as_views(true, true)
       .sort_by { |view| -view.topic.id }
 
     two_views = views[0..1]
@@ -93,16 +83,36 @@ private
     two_views + other_views
   end
 
+  def build_view collection
+  end
+
   def collections_scope
     Collections::Query
       .fetch(h.locale_from_host)
-      .limit(6)
+      .limit(16)
+      .transform do |collection|
+        topic_view = Topics::TopicViewFactory
+          .new(true, true)
+          .build(collection.maybe_topic(h.locale_from_host))
+
+        topic_view.is_hide_body = true
+        topic_view
+      end
   end
 
   def reviews_scope
-    Reviews::Query
+    Topics::Query
       .fetch(h.locale_from_host)
+      .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(10)
+      .transform do |topic|
+        topic_view = Topics::TopicViewFactory
+          .new(true, true)
+          .build(topic)
+
+        topic_view.is_hide_body = true
+        topic_view
+      end
   end
 
   def contests_scope

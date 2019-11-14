@@ -1,3 +1,4 @@
+@import mixins/date
 @import mixins/ellipsis2
 @import mixins/css4
 @import mixins/flex_column
@@ -7,7 +8,7 @@
 .p-dashboards-show .v2
   .content-updates
     // +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 3, $desktop-columns: 3)
-    +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 2, $desktop-columns: 2)
+    +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 2, $desktop-columns: 3)
 
     a.title
       +link(#456)
@@ -36,8 +37,22 @@
       &:not(:last-child)
         margin-bottom: 15px
 
-      .section.changed_at
-        display: none
+      .section
+        &:after
+          display: none
+
+        &.changed_at
+          display: none
+
+        &.additional
+          margin-left: auto
+
+        time
+          +date
+          margin-left: 12px
+
+          &:before
+            display: none
 
       & > .inner
         min-height: auto
