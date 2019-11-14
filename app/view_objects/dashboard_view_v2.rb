@@ -12,9 +12,13 @@ class DashboardViewV2 < ViewObjectBase
   def collection_topic_views
     # take_2_plus_other(collections_scope, 6)
     collections_scope
-      .as_views(true, true)
-      .each do |topic_view|
+      .transform do |collection|
+        topic_view = Topics::TopicViewFactory
+          .new(true, true)
+          .build(collection.maybe_topic(h.locale_from_host))
+
         topic_view.is_hide_body = true
+        topic_view
       end
   end
 
@@ -90,16 +94,14 @@ private
   end
 
   def collections_scope
-    Topics::Query
+    Collections::Query
       .fetch(h.locale_from_host)
-      .by_forum(collections_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
   end
 
   def reviews_scope
-    Topics::Query
+    Reviews::Query
       .fetch(h.locale_from_host)
-      .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(10)
   end
 
