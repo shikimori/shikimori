@@ -326,12 +326,15 @@ Rails.application.routes.draw do
 
       resources :bans, only: %i[index]
 
-      resources :users, only: %i[index show], constraints: { id: user_id } do
+      resources :users, only: %i[] do
         collection do
           get :whoami
           get :csrf_token
           post :csrf_token
+          get :sign_out
         end
+      end
+      resources :users, only: %i[index show], constraints: { id: user_id } do
         member do
           get :info
           get :friends

@@ -54,7 +54,7 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#whoami' do
-    describe 'signed_in' do
+    describe 'signed in' do
       before { sign_in user }
       subject! { get :whoami, format: :json }
 
@@ -70,6 +70,25 @@ describe Api::V1::UsersController, :show_in_doc do
       describe 'guest' do
         subject! { get :whoami, format: :json }
         specify { expect(response.body).to eq 'null' }
+      end
+    end
+  end
+
+  describe '#sign_out' do
+    describe 'signed in' do
+      before { sign_in user }
+      subject! { get :sign_out }
+
+      it do
+        expect(controller.current_user).to be_nil
+        expect(response).to have_http_status :success
+      end
+    end
+
+    unless ENV['APIPIE_RECORD']
+      describe 'guest' do
+        subject! { get :sign_out }
+        it { expect(response).to have_http_status :success }
       end
     end
   end

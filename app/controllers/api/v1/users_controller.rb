@@ -47,6 +47,13 @@ class Api::V1::UsersController < Api::V1Controller
     respond_with current_user, serializer: UserInfoSerializer
   end
 
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  api :GET, '/users/sign_out'
+  def sign_out
+    super current_user
+    render plain: 'signed out'
+  end
+
   api :GET, '/users/:id/friends', "Show user's friends"
   def friends
     respond_with user.friends

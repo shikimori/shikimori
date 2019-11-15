@@ -56,6 +56,12 @@ class ApplicationController < ActionController::Base
     @decorated_current_user ||= super.try :decorate
   end
 
+  def sign_out *args
+    result = super(*args)
+    @decorated_current_user = nil
+    result
+  end
+
 private
 
   def set_layout
