@@ -36,6 +36,13 @@ class DashboardViewV2 < ViewObjectBase
       end
   end
 
+  def hot_topics_views
+    Topics::HotTopicsQuery
+      .call(h.locale_from_host)
+      .map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
+      .each { |topic_view| topic_view.is_hide_body = true }
+  end
+
   def db_updates
     db_updates_scope
       .limit(8)

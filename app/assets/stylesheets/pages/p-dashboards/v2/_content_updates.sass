@@ -15,7 +15,7 @@
       display: block
 
     .title
-      font-size: 17px
+      font-size: 16px
       font-weight: 600
       +css4
         font-family: var(--font-alt)
@@ -47,12 +47,20 @@
         &.additional
           margin-left: auto
 
+        &.about
+          .about,
+          .about + .b-link
+            display: none
+
         time
           +date
           margin-left: 12px
 
           &:before
             display: none
+
+        .review-votes_count
+          display: none
 
       & > .inner
         min-height: auto
@@ -62,32 +70,32 @@
           +css4
             font-family: var(--font-alt)
 
-  .links
-    .b-link
-      align-items: center
-      display: flex
-      overflow: hidden
-      font-size: 13px
-      line-height: 20px
-
-      &:not(:last-child)
-        margin-bottom: 8px
-
-      span:not(.poster)
-        +ellipsis2
-
-      &.moderation
-        color: $red
-
-      &.misc
-        color: $purple
-
-      .poster
-        background-size: 100%
-        flex-shrink: 0
-        height: 20px
-        margin-right: 5px
-        width: 20px
+  // .links
+  //   .b-link
+  //     align-items: center
+  //     display: flex
+  //     overflow: hidden
+  //     font-size: 13px
+  //     line-height: 20px
+  //
+  //     &:not(:last-child)
+  //       margin-bottom: 8px
+  //
+  //     span:not(.poster)
+  //       +ellipsis2
+  //
+  //     &.moderation
+  //       color: $red
+  //
+  //     &.misc
+  //       color: $purple
+  //
+  //     .poster
+  //       background-size: 100%
+  //       flex-shrink: 0
+  //       height: 20px
+  //       margin-right: 5px
+  //       width: 20px
 
 
     // .f-column

@@ -57,30 +57,30 @@
               href=topic_view.urls.poster_url
             ] = t '.read_more_link'
 
-    footer class=('with-read_more-link' if topic_view.read_more_link?)
-      - if topic_view.tags.any? || topic_view.show_source?
-        .additionals
-          - if topic_view.tags.any?
-            .tags
-              - topic_view.tags.each do |tag|
-                .b-anime_status_tag.other[
-                  data-text=tag
-                ]
+      footer class=('with-read_more-link' if topic_view.read_more_link?)
+        - if topic_view.tags.any? || topic_view.show_source?
+          .additionals
+            - if topic_view.tags.any?
+              .tags
+                - topic_view.tags.each do |tag|
+                  .b-anime_status_tag.other[
+                    data-text=tag
+                  ]
 
-          - if topic_view.show_source?
-            .source
-              a.b-link.b-tooltipped.unprocessed[
-                href=topic_view.decomposed_body.source
-                data-text=t('.source')
-                data-direction='top'
-                title=t('.source')
-                rel='nofollow'
-              ] = Url.new(topic_view.decomposed_body.source).domain
+            - if topic_view.show_source?
+              .source
+                a.b-link.b-tooltipped.unprocessed[
+                  href=topic_view.decomposed_body.source
+                  data-text=t('.source')
+                  data-direction='top'
+                  title=t('.source')
+                  rel='nofollow'
+                ] = Url.new(topic_view.decomposed_body.source).domain
 
-      = topic_view.html_footer
+        = topic_view.html_footer
 
-      - if topic_view.footer_vote?
-        = render 'topics/footer/vote', topic_view: topic_view
+        - if topic_view.footer_vote?
+          = render 'topics/footer/vote', topic_view: topic_view
 
     .b-appear_marker[
       class="appear-topic-#{topic_view.topic.id}"
