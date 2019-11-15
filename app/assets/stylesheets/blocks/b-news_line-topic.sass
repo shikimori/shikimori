@@ -1,10 +1,69 @@
 @import mixins/css4
 @import mixins/date
+@import mixins/ellipsis2
 @import mixins/responsive
 @import mixins/shikimori
 @import mixins/two_line_ellipsis
 
 .b-news_line-topic
+  margin-bottom: 12px
+  // header
+    display: flex
+    align-items: baseline
+    .b-anime_status_tag
+      margin-right: 10px
+    .title
+      font-weight: 600
+      +css4
+        font-family: var(--font-alt)
+
+  & > a
+    display: block
+
+    +gt_ipad
+      &:hover
+        .title
+          color: $link-hover
+
+    &:active
+      .title
+        color: $link-active
+
+  .title
+    +ellipsis2
+    font-size: 14px
+    font-weight: 600
+    margin-bottom: 4px
+
+    +css4
+      font-family: var(--font-alt)
+
+  .status-line
+    align-items: baseline
+    display: flex
+    flex-wrap: wrap
+    margin-bottom: 2px
+
+    .b-anime_status_tag
+      &:not(:last-child)
+        margin-right: 8px
+
+    time
+      +date
+      line-height: 18px
+      margin-bottom: 5px // need margin in case of content wrapping
+
+    .comments
+      line-height: 18px
+      color: #333
+      margin-left: auto
+      font-size: 12px
+
+      &:before
+        +shikimori('f')
+        font-size: 13px
+        padding-right: 5px
+
   // padding-top: 0
   // border-top: none
   //
@@ -44,7 +103,6 @@
   //     font-weight: 600
   //     +css4
   //       font-family: var(--font-alt)
-
 
 
 

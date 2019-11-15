@@ -2,6 +2,8 @@ class DashboardViewV2 < ViewObjectBase
   instance_cache :collection_topic_views,
     :review_topic_views,
     :news_topic_views,
+    :contests_topics_views,
+    :hot_topics_views,
     :db_updates,
     :cache_keys
 
@@ -33,6 +35,13 @@ class DashboardViewV2 < ViewObjectBase
       )
       .transform do |topic|
         Topics::NewsWallView.new topic, true, true
+      end
+  end
+
+  def contests_topics_views
+    contests_scope
+      .map do |contest|
+        Topics::NewsLineView.new contest.maybe_topic(h.locale_from_host), true, true
       end
   end
 

@@ -129,7 +129,7 @@
           as: :topic_view
 
     .block2
-      .headline.green.m15 = t '.new_content'
+      .headline.green = t '.latest_content'
       .content-updates
         .f-column
           / a.title[
@@ -175,7 +175,7 @@
                 ]
                 span
                   = topic_view.poster_title_html
-          - if @view.contests.any?
+          / - if @view.contests.any?
             / .title.contests = i18n_i 'Contest', :other
             / .links
             - @view.contests.each do |contest|

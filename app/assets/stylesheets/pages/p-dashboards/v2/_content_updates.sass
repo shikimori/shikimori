@@ -1,34 +1,34 @@
-@import mixins/date
-@import mixins/ellipsis2
-@import mixins/css4
+// @import mixins/date
+// @import mixins/ellipsis2
+// @import mixins/css4
 @import mixins/flex_column
-@import mixins/link
-@import mixins/responsive
+// @import mixins/link
+// @import mixins/responsive
 
 .p-dashboards-show .v2
   .content-updates
     // +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 3, $desktop-columns: 3)
     +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 2, $desktop-columns: 3)
 
-    a.title
-      +link(#456)
-      display: block
-
-    .title
-      font-size: 16px
-      font-weight: 600
-      +css4
-        font-family: var(--font-alt)
-      line-height: 24px
-      margin-bottom: 9px
-      color: #456
-
-      &.contests
-        +iphone-portrait
-          margin-top: 18px
-
-        +gte_iphone-landscape
-          margin-top: 8px // equal to b-link margin-bottom
+    // a.title
+    //   +link(#456)
+    //   display: block
+    //
+    // .title
+    //   font-size: 16px
+    //   font-weight: 600
+    //   +css4
+    //     font-family: var(--font-alt)
+    //   line-height: 24px
+    //   margin-bottom: 9px
+    //   color: #456
+    //
+    //   &.contests
+    //     +iphone-portrait
+    //       margin-top: 18px
+    //
+    //     +gte_iphone-landscape
+    //       margin-top: 8px // equal to b-link margin-bottom
 
   // .links
   //   .b-link

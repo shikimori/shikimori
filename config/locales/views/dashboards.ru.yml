@@ -12,9 +12,7 @@ ru:
       our_projects: Наши проекты
     show_v2:
       latest_news: Новости
-      new_collections: Новые коллекции
-      new_reviews: Новые рецензии
-      new_content: Новый контент
+      latest_content: Контент
       generated_news: Обновления аниме
       more_news: Ещё новости
     animes:

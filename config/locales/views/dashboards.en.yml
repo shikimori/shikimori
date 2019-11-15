@@ -12,9 +12,7 @@ en:
       our_projects: Our projects
     show_v2:
       latest_news: News
-      new_collections: New collections
-      new_reviews: New reviews
-      new_content: New content
+      latest_content: Content
       generated_news: Anime updates
       more_news: More news
     animes:
