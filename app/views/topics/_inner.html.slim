@@ -1,4 +1,4 @@
-- cache topic_view.cache_key + [topic_view.topic.linked] do
+- cache topic_view.cache_key do
   /# Template Dependency: topics/cosplay/*
   /# Template Dependency: topics/reviews/*
   /# Template Dependency: reviews/stars
@@ -30,57 +30,56 @@
     - if topic_view.status_line?
       = render 'topics/status_line', topic_view: topic_view
 
-    - unless topic_view.hide_body?
-      .body
-        - if topic_view.minified?
-          - if topic_view.topic_type_policy.review_topic?
-            = render 'topics/reviews/entry_cover', view: topic_view,
-              entry: topic_view.topic.linked.target.decorate
+    .body
+      - if topic_view.minified?
+        - if topic_view.topic_type_policy.review_topic?
+          = render 'topics/reviews/entry_cover', view: topic_view,
+            entry: topic_view.topic.linked.target.decorate
 
-          - if topic_view.need_trucation?
-            .body-truncated
-              .body-truncated-inner[
-                itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
-              ]
-                = topic_view.html_body_truncated
-
-          - else
-            = topic_view.html_body
+        - if topic_view.need_trucation?
+          .body-truncated
+            .body-truncated-inner[
+              itemprop=(topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody)
+            ]
+              = topic_view.html_body_truncated
 
         - else
-          .body-inner itemprop='articleBody'
-            = topic_view.render_body
+          = topic_view.html_body
 
-        - if topic_view.read_more_link?
-          .read_more-link
-            a.b-link[
-              href=topic_view.urls.poster_url
-            ] = t '.read_more_link'
+      - else
+        .body-inner itemprop='articleBody'
+          = topic_view.render_body
 
-      footer class=('with-read_more-link' if topic_view.read_more_link?)
-        - if topic_view.tags.any? || topic_view.show_source?
-          .additionals
-            - if topic_view.tags.any?
-              .tags
-                - topic_view.tags.each do |tag|
-                  .b-anime_status_tag.other[
-                    data-text=tag
-                  ]
+      - if topic_view.read_more_link?
+        .read_more-link
+          a.b-link[
+            href=topic_view.urls.poster_url
+          ] = t '.read_more_link'
 
-            - if topic_view.show_source?
-              .source
-                a.b-link.b-tooltipped.unprocessed[
-                  href=topic_view.decomposed_body.source
-                  data-text=t('.source')
-                  data-direction='top'
-                  title=t('.source')
-                  rel='nofollow'
-                ] = Url.new(topic_view.decomposed_body.source).domain
+    footer class=('with-read_more-link' if topic_view.read_more_link?)
+      - if topic_view.tags.any? || topic_view.show_source?
+        .additionals
+          - if topic_view.tags.any?
+            .tags
+              - topic_view.tags.each do |tag|
+                .b-anime_status_tag.other[
+                  data-text=tag
+                ]
 
-        = topic_view.html_footer
+          - if topic_view.show_source?
+            .source
+              a.b-link.b-tooltipped.unprocessed[
+                href=topic_view.decomposed_body.source
+                data-text=t('.source')
+                data-direction='top'
+                title=t('.source')
+                rel='nofollow'
+              ] = Url.new(topic_view.decomposed_body.source).domain
 
-        - if topic_view.footer_vote?
-          = render 'topics/footer/vote', topic_view: topic_view
+      = topic_view.html_footer
+
+      - if topic_view.footer_vote?
+        = render 'topics/footer/vote', topic_view: topic_view
 
     .b-appear_marker[
       class="appear-topic-#{topic_view.topic.id}"

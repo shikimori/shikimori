@@ -39,8 +39,7 @@ class DashboardViewV2 < ViewObjectBase
   def hot_topics_views
     Topics::HotTopicsQuery
       .call(h.locale_from_host)
-      .map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
-      .each { |topic_view| topic_view.is_hide_body = true }
+      .map { |topic| Topics::NewsLineView.new topic, true, true }
   end
 
   def db_updates
@@ -98,12 +97,7 @@ private
       .fetch(h.locale_from_host)
       .limit(16)
       .transform do |collection|
-        topic_view = Topics::TopicViewFactory
-          .new(true, true)
-          .build(collection.maybe_topic(h.locale_from_host))
-
-        topic_view.is_hide_body = true
-        topic_view
+        Topics::NewsLineView.new collection.maybe_topic(h.locale_from_host), true, true
       end
   end
 
@@ -112,14 +106,7 @@ private
       .fetch(h.locale_from_host)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(10)
-      .transform do |topic|
-        topic_view = Topics::TopicViewFactory
-          .new(true, true)
-          .build(topic)
-
-        topic_view.is_hide_body = true
-        topic_view
-      end
+      .transform { |topic| Topics::NewsLineView.new topic, true, true }
   end
 
   def contests_scope
