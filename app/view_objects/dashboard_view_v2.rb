@@ -90,17 +90,17 @@ class DashboardViewV2 < ViewObjectBase
 
 private
 
-  def take_n_plus_other scope, n, limit
+  def take_n_plus_other scope, take_n, limit
     views = scope
       .sort_by { |view| -view.topic.id }
 
-    two_views = views[0..n]
+    n_views = views[0..(take_n-1)]
 
-    other_views = (views[n..-1] || []).shuffle
-      .take(limit - n - 1)
+    other_views = (views[take_n..-1] || []).shuffle
+      .take(limit - take_n)
       .sort_by { |view| -view.topic.id }
 
-    two_views + other_views
+    n_views + other_views
   end
 
   def build_view collection
