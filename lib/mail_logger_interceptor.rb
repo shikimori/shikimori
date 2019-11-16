@@ -1,6 +1,5 @@
 class MailLoggerInterceptor
-  # rubocop:disable AbcSize
-  def self.delivering_email mail
+  def self.delivering_email mail # rubocop:disable AbcSize
     return if mail.to.empty?
 
     body =
@@ -18,5 +17,4 @@ class MailLoggerInterceptor
       BODY: #{body}
     TEXT
   end
-  # rubocop:enable AbcSize
 end

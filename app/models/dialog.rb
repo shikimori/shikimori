@@ -2,6 +2,11 @@ class Dialog
   include ActiveModel::Serialization
   vattr_initialize :user, :message
 
+  # to fix work of TopicSerializer
+  def self.model_name
+    ActiveModel::Name.new(self)
+  end
+
   def target_user
     my_message? ? message.to : message.from
   end

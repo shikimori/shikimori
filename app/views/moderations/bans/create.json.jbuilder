@@ -7,7 +7,8 @@ json.notice I18n.t "messages.user_#{@resource.warning? ? 'warned' : 'banned'}"
 if @resource.comment
   json.html render(
     partial: 'comments/comment',
+    object: @resource.comment,
     layout: false,
-    object: @resource.comment
+    formats: %i[html]
   )
 end

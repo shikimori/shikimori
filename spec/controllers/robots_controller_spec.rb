@@ -7,7 +7,7 @@ describe RobotsController do
       let(:is_clean) { true }
       it do
         expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'text/plain'
+        expect(response.content_type).to eq 'text/plain; charset=utf-8'
       end
     end
 
@@ -15,7 +15,7 @@ describe RobotsController do
       let(:is_clean) { false }
       it do
         expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'text/plain'
+        expect(response.content_type).to eq 'text/plain; charset=utf-8'
       end
     end
   end

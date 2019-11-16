@@ -146,18 +146,21 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     disk_free = df[3].to_f
     @disk_space = (((disk_total - disk_free) / disk_total) * 100).round(2)
 
-    mem = `free -m`.try :split, /\s+/
+    begin
+      mem = `free -m`.try(:split, /\s+/)
 
-    if mem
-      mem_total = mem[8].to_f
-      mem_free = mem[10].to_f
-      @mem_space = (((mem_total - mem_free) / mem_total) * 100).round(2)
-      @mem_space = 99 if @mem_space.nan?
+      if mem
+        mem_total = mem[8].to_f
+        mem_free = mem[10].to_f
+        @mem_space = (((mem_total - mem_free) / mem_total) * 100).round(2)
+        @mem_space = 99 if @mem_space.nan?
 
-      # swap_total = mem[19].to_f
-      # swap_free = mem[21].to_f
-      # @swap_space = (((swap_total-swap_free) / swap_total)*100).round(2)
-      # @swap_space = 99 if @swap_space.nan?
+        # swap_total = mem[19].to_f
+        # swap_free = mem[21].to_f
+        # @swap_space = (((swap_total-swap_free) / swap_total)*100).round(2)
+        # @swap_space = 99 if @swap_space.nan?
+      end
+    rescue Errno::ENOENT
     end
 
     @calendar_update = AnimeCalendar.last.try :created_at

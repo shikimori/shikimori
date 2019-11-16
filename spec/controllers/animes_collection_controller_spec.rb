@@ -13,7 +13,7 @@ describe AnimesCollectionController do
               before { get :index, params: { klass: kind } }
 
               it do
-                expect(response.content_type).to eq 'text/html'
+                expect(response.content_type).to eq 'text/html; charset=utf-8'
                 expect(response).to have_http_status :success
               end
             end
@@ -22,7 +22,7 @@ describe AnimesCollectionController do
               before { get :index, params: { klass: kind }, format: 'json' }
 
               it do
-                expect(response.content_type).to eq 'application/json'
+                expect(response.content_type).to eq 'application/json; charset=utf-8'
                 expect(response).to have_http_status :success
               end
             end
@@ -34,7 +34,7 @@ describe AnimesCollectionController do
                 before { get :index, params: { klass: kind, season: 'summer_2012' } }
 
                 it do
-                  expect(response.content_type).to eq 'text/html'
+                  expect(response.content_type).to eq 'text/html; charset=utf-8'
                   expect(response).to have_http_status :success
                 end
               end
@@ -43,7 +43,7 @@ describe AnimesCollectionController do
                 before { get :index, params: { klass: kind, season: 'summer_2012' }, format: 'json' }
 
                 it do
-                  expect(response.content_type).to eq 'application/json'
+                  expect(response.content_type).to eq 'application/json; charset=utf-8'
                   expect(response).to have_http_status :success
                 end
               end
@@ -65,7 +65,7 @@ describe AnimesCollectionController do
 
         it do
           expect(collection).to eq [entry]
-          expect(response.content_type).to eq 'application/json'
+          expect(response.content_type).to eq 'application/json; charset=utf-8'
           expect(response).to have_http_status :success
         end
       end
@@ -83,7 +83,7 @@ describe AnimesCollectionController do
 
         it do
           expect(collection).to eq [entry]
-          expect(response.content_type).to eq 'text/html'
+          expect(response.content_type).to eq 'text/html; charset=utf-8'
           expect(response).to have_http_status :success
         end
       end

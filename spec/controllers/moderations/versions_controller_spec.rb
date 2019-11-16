@@ -95,7 +95,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_accepted
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -105,7 +105,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_taken
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -115,7 +115,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_rejected
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -126,7 +126,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_accepted
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -137,7 +137,7 @@ describe Moderations::VersionsController do
 
     it do
       expect(resource).to be_taken
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -149,7 +149,7 @@ describe Moderations::VersionsController do
       before { make_request }
       it do
         expect(resource).to be_deleted
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response).to have_http_status :success
       end
     end
@@ -160,7 +160,7 @@ describe Moderations::VersionsController do
 
       it do
         expect(resource).to be_deleted
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response).to have_http_status :success
       end
     end

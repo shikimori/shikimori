@@ -37,7 +37,7 @@ describe Api::V1::RanobeController, :show_in_doc do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(collection).to have(1).item
     end
   end
@@ -48,7 +48,7 @@ describe Api::V1::RanobeController, :show_in_doc do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -59,7 +59,7 @@ describe Api::V1::RanobeController, :show_in_doc do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(collection).to have(1).item
     end
   end
@@ -74,7 +74,7 @@ describe Api::V1::RanobeController, :show_in_doc do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(collection).to have(2).items
     end
   end
@@ -86,7 +86,7 @@ describe Api::V1::RanobeController, :show_in_doc do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(collection).to have(1).item
     end
   end
@@ -99,7 +99,7 @@ describe Api::V1::RanobeController, :show_in_doc do
 
     it do
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -116,7 +116,7 @@ describe Api::V1::RanobeController, :show_in_doc do
     it do
       expect(collection).to have(2).items
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 
@@ -129,7 +129,7 @@ describe Api::V1::RanobeController, :show_in_doc do
     it do
       expect(response).to have_http_status :success
       expect(collection).to have(1).item
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 end

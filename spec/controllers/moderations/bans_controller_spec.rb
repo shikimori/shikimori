@@ -60,7 +60,7 @@ describe Moderations::BansController do
     it do
       expect(response).to have_http_status :success
       expect(json.keys).to eq %i[id abuse_request_id comment_id notice html]
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
   end
 

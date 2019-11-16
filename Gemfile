@@ -60,7 +60,7 @@ gem 'rack-attack'
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
 
-gem 'actionpack-action_caching'
+gem 'actionpack-action_caching', github: 'rails/actionpack-action_caching', branch: 'master' # becase latest version does not support rails 6
 gem 'attr_extras'
 gem 'nokogiri'
 gem 'paperclip'
@@ -71,7 +71,7 @@ gem 'sixarm_ruby_unaccent' # adds method `unaccent`. it is used in Tags::Generat
 gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
 gem 'state_machine'
-gem 'active_model_serializers'
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-10-stable' # because latest version does not support rails 6
 
 # gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor
@@ -137,7 +137,7 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'bullet'
+  # gem 'bullet'
 
   # gem 'web-console'
   # gem 'listen'

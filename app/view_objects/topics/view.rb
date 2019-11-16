@@ -25,6 +25,11 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   BODY_TRUCATE_SIZE = 500
   CACHE_VERSION = :v8
 
+  # to fix work of TopicSerializer
+  def self.model_name
+    ActiveModel::Name.new(Topic)
+  end
+
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
   end

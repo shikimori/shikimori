@@ -1,6 +1,11 @@
 class RoleEntry < SimpleDelegator
   attr_reader :roles
 
+  # to fix work of TopicSerializer
+  def self.model_name
+    ActiveModel::Name.new(self)
+  end
+
   def initialize entry, roles
     super entry
     @roles = roles

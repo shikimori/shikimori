@@ -13,6 +13,7 @@ require_relative '../lib/open_image'
 require_relative '../lib/responders/json_responder'
 require_relative '../lib/named_logger'
 require_relative '../lib/log_before_timeout'
+require_relative '../lib/mail_logger_interceptor'
 # require_relative '../config/initializers/log_before_timeout'
 
 Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
@@ -82,8 +83,12 @@ module Shikimori
     def redis
       Rails.application.config.redis
     end
+
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.0
+    config.load_defaults 6.0
+
+    # disable zeitwerk autoloader
+    config.autoloader = :classic
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += Dir["#{config.root}/app/models"]

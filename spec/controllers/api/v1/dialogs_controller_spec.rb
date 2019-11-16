@@ -30,7 +30,7 @@ describe Api::V1::DialogsController, :show_in_doc do
       let(:message) { create :message, from: user, to: target_user }
 
       it do
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect { message.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(response).to have_http_status :success
         expect(json[:notice]).to eq 'Переписка удалена'
@@ -39,7 +39,7 @@ describe Api::V1::DialogsController, :show_in_doc do
 
     context 'without messages' do
       it do
-        expect(response.content_type).to eq 'application/json'
+        expect(response.content_type).to eq 'application/json; charset=utf-8'
         expect(response).to have_http_status :unprocessable_entity
         expect(json).to eq ['Не найдено ни одного сообщения для удаления']
       end

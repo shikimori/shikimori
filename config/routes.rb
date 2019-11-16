@@ -1,6 +1,5 @@
 require 'sidekiq/web'
 
-
 Rails.application.routes.draw do
   user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
 

@@ -11,7 +11,8 @@ module User::NotificationsConcern
     @unread_messages ||= Message.where(to_id: id)
       .where(kind: MessageType::PRIVATE)
       .where(read: false)
-      .where.not(from_id: ignored_ids, to_id: ignored_ids)
+      .where.not(from_id: ignored_ids)
+      .where.not(to_id: ignored_ids)
       .count
   end
 
@@ -21,7 +22,8 @@ module User::NotificationsConcern
     @unread_news ||= Message.where(to_id: id)
       .where(kind: MessagesQuery::NEWS_KINDS)
       .where(read: false)
-      .where.not(from_id: ignored_ids, to_id: ignored_ids)
+      .where.not(from_id: ignored_ids)
+      .where.not(to_id: ignored_ids)
       .count
   end
 
@@ -31,7 +33,8 @@ module User::NotificationsConcern
     @unread_notifications ||= Message.where(to_id: id)
       .where(kind: MessagesQuery::NOTIFICATION_KINDS)
       .where(read: false)
-      .where.not(from_id: ignored_ids, to_id: ignored_ids)
+      .where.not(from_id: ignored_ids)
+      .where.not(to_id: ignored_ids)
       .count
   end
 end

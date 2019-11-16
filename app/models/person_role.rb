@@ -14,11 +14,18 @@ class PersonRole < ApplicationRecord
     'Art'
   ]
 
-  scope :main, -> { where(roles: %w[Main]).where.not(character_id: 0) }
-  scope :supporting, -> { where.not(roles: %w[Main], character_id: 0) }
-
+  scope :main, -> {
+    where(roles: %w[Main])
+      .where.not(character_id: 0)
+  }
+  scope :supporting, -> {
+    where.not(roles: %w[Main])
+      .where.not(character_id: 0)
+  }
   scope :people, -> {
-    includes(:person).where.not(person_id: 0, people: { name: '' })
+    includes(:person)
+      .where.not(person_id: 0)
+      .where.not(people: { name: '' })
   }
   scope :directors, -> {
     people.where(

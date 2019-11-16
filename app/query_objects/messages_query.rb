@@ -29,7 +29,8 @@ class MessagesQuery < SimpleQueryBase
     Message
       .where(where_by_type)
       .where(where_by_sender)
-      .where.not(from_id: ignores_ids, to_id: ignores_ids)
+      .where.not(from_id: ignores_ids)
+      .where.not(to_id: ignores_ids)
       .includes(:linked, :from, :to)
       .order(*order_by_type)
   end

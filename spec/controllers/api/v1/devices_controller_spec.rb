@@ -8,7 +8,7 @@ describe Api::V1::DevicesController, :show_in_doc do
 
     it do
       expect(assigns(:devices)).to eq [device_1]
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -27,7 +27,7 @@ describe Api::V1::DevicesController, :show_in_doc do
     it do
       expect(assigns(:device)).to be_persisted
       expect(assigns(:device)).to have_attributes params
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :created
     end
   end
@@ -41,7 +41,7 @@ describe Api::V1::DevicesController, :show_in_doc do
 
     it do
       expect(assigns :device).to have_attributes params
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end

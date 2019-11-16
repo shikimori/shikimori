@@ -25,7 +25,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         value: false,
         affected_ids: [comment.id]
       )
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -51,7 +51,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         value: false,
         affected_ids: [comment.id]
       )
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -79,7 +79,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         value: false,
         affected_ids: [comment.id]
       )
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
@@ -107,7 +107,7 @@ describe Api::V2::AbuseRequestsController, :show_in_doc do
         value: false,
         affected_ids: [comment.id]
       )
-      expect(response.content_type).to eq 'application/json'
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
       expect(response).to have_http_status :success
     end
   end
