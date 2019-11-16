@@ -5,7 +5,10 @@ class DashboardViewV2 < ViewObjectBase
     :hot_topic_views,
     :db_updates,
     :news_topic_views,
-    :cache_keys
+    :cache_keys,
+    :reviews_views,
+    :articles_views,
+    :collections_views
 
   CACHE_VERSION = :v8
   NEWS_FIRST_PAGE_LIMIT = 6
@@ -13,22 +16,28 @@ class DashboardViewV2 < ViewObjectBase
 
   TOPICS_PER_COLUMN = 6
 
-  def second_column_topic_views
-    (
-      take_n_plus_other(reviews_scope, 1, 2) +
-        take_n_plus_other(articles_scope, 1, 2) +
-        take_n_plus_other(collections_scope, 1, 2)
-    ).sort_by { |v| -v.created_at.to_i }
-  end
-
   def first_column_topic_views
-    displayed_ids = second_column_topic_views.map(&:id) + hot_topic_views.map(&:id)
+    # displayed_ids = second_column_topic_views.map(&:id) + hot_topic_views.map(&:id)
+        # .reject { |v| displayed_ids.include? v.id }
 
     contest_topic_views +
-      (reviews_scope + articles_scope + collections_scope)
+      (reviews_views + articles_views + collections_views)
         .sort_by { |v| -v.created_at.to_i }
-        .reject { |v| displayed_ids.include? v.id }
         .take(TOPICS_PER_COLUMN - contest_topic_views.size)
+  end
+
+  def second_column_topic_views
+    displayed_ids = first_column_topic_views.map(&:id)
+
+    reviews = reviews_views.reject { |v| displayed_ids.include? v.id }
+    articles = articles_views.reject { |v| displayed_ids.include? v.id }
+    collections = collections_views.reject { |v| displayed_ids.include? v.id }
+
+    (
+      take_n_plus_other(reviews, 1, 2) +
+        take_n_plus_other(articles, 1, 2) +
+        take_n_plus_other(collections, 1, 2)
+    ) # .sort_by { |v| -v.created_at.to_i }
   end
 
   def contest_topic_views
@@ -39,11 +48,11 @@ class DashboardViewV2 < ViewObjectBase
   end
 
   def hot_topic_views
-    # displayed_ids = (second_column_topic_views + first_column_topic_views).map(&:id)
-      # .reject { |v| displayed_ids.include? v.id }
+    displayed_ids = (first_column_topic_views + second_column_topic_views).map(&:id)
 
     Topics::HotTopicsQuery
       .call(h.locale_from_host)
+      .reject { |v| displayed_ids.include? v.id }
       .map { |topic| Topics::NewsLineView.new topic, true, true }
   end
 
@@ -88,11 +97,23 @@ class DashboardViewV2 < ViewObjectBase
       contests: contests_scope.cache_key,
       news: [news_scope.cache_key, page],
       db_updates: [db_updates_scope.cache_key, page],
-      version: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION],
+      version: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION]
     }
   end
 
 private
+
+  def reviews_views
+    reviews_scope.to_a
+  end
+
+  def articles_views
+    articles_scope.to_a
+  end
+
+  def collections_views
+    collections_scope.to_a
+  end
 
   def take_n_plus_other scope, take_n, limit
     views = scope
@@ -133,7 +154,9 @@ private
       .fetch(h.locale_from_host)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(6)
-      .transform { |topic| Topics::NewsLineView.new topic, true, true }
+      .transform do |topic|
+        Topics::NewsLineView.new topic, true, true
+      end
   end
 
   def contests_scope
