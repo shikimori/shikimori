@@ -22,4 +22,11 @@ class Topics::ContestStatusView < Topics::NewsView
       formats: :html # must add format because topic also is rendered in rss xml
     )
   end
+
+  def action_tag
+    OpenStruct.new(
+      type: 'contest',
+      text: i18n_i('contest', :one)
+    )
+  end
 end
