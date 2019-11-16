@@ -5,22 +5,18 @@
       .fc-content-updates
         .f-column
           = render partial: 'topics/topic',
-            collection: @view.contest_topic_views,
-            as: :topic_view,
-            cache: true
-          = render partial: 'topics/topic',
-            collection: @view.collection_topic_views,
+            collection: @view.first_column_topic_views,
             as: :topic_view,
             cache: true
 
         .f-column
           = render partial: 'topics/topic',
-            collection: @view.review_topic_views,
+            collection: @view.second_column_topic_views,
             as: :topic_view,
             cache: true
 
     .f-column
-      .headline.magenta = t 'application.hot_topics.hot_topics'
+      .headline = t 'application.hot_topics.hot_topics'
       .f-column
         = render partial: 'topics/topic',
           collection: @view.hot_topic_views[0..5],

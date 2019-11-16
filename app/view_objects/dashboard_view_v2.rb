@@ -1,34 +1,50 @@
 class DashboardViewV2 < ViewObjectBase
-  instance_cache :collection_topic_views,
-    :review_topic_views,
-    :news_topic_views,
+  instance_cache :first_column_topic_views,
+    :second_column_topic_views,
     :contest_topic_views,
     :hot_topic_views,
     :db_updates,
+    :news_topic_views,
     :cache_keys
 
   CACHE_VERSION = :v8
   NEWS_FIRST_PAGE_LIMIT = 6
   NEWS_OTHER_PAGES_LIMIT = 15
 
-  def collection_topic_views
-    take_n_plus_other(
-      collections_scope,
-      2,
-      contest_topic_views.size.zero? ? 6 : 6 - contest_topic_views.size
-    )
+  TOPICS_PER_COLUMN = 6
+
+  def second_column_topic_views
+    (
+      take_n_plus_other(reviews_scope, 1, 2) +
+        take_n_plus_other(articles_scope, 1, 2) +
+        take_n_plus_other(collections_scope, 1, 2)
+    ).sort_by { |v| -v.created_at.to_i }
   end
 
-  def review_topic_views
-    take_n_plus_other(
-      reviews_scope,
-      1,
-      6
-    )
+  def first_column_topic_views
+    displayed_ids = second_column_topic_views.map(&:id) + hot_topic_views.map(&:id)
+
+    contest_topic_views +
+      (reviews_scope + articles_scope + collections_scope)
+        .sort_by { |v| -v.created_at.to_i }
+        .reject { |v| displayed_ids.include? v.id }
+        .take(TOPICS_PER_COLUMN - contest_topic_views.size)
   end
 
-  def contests
+  def contest_topic_views
     contests_scope
+      .map do |contest|
+        Topics::NewsLineView.new contest.maybe_topic(h.locale_from_host), true, true
+      end
+  end
+
+  def hot_topic_views
+    # displayed_ids = (second_column_topic_views + first_column_topic_views).map(&:id)
+      # .reject { |v| displayed_ids.include? v.id }
+
+    Topics::HotTopicsQuery
+      .call(h.locale_from_host)
+      .map { |topic| Topics::NewsLineView.new topic, true, true }
   end
 
   def news_topic_views
@@ -41,19 +57,6 @@ class DashboardViewV2 < ViewObjectBase
       .transform do |topic|
         Topics::NewsWallView.new topic, true, true
       end
-  end
-
-  def contest_topic_views
-    contests_scope
-      .map do |contest|
-        Topics::NewsLineView.new contest.maybe_topic(h.locale_from_host), true, true
-      end
-  end
-
-  def hot_topic_views
-    Topics::HotTopicsQuery
-      .call(h.locale_from_host)
-      .map { |topic| Topics::NewsLineView.new topic, true, true }
   end
 
   def db_updates
@@ -79,12 +82,13 @@ class DashboardViewV2 < ViewObjectBase
   def cache_keys
     {
       admin: admin_area?,
-      versions: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION],
       collections: collections_scope.cache_key,
+      articles: articles_scope.cache_key,
       reviews: reviews_scope.cache_key,
       contests: contests_scope.cache_key,
       news: [news_scope.cache_key, page],
-      db_updates: [db_updates_scope.cache_key, page]
+      db_updates: [db_updates_scope.cache_key, page],
+      version: [Date.today, :"variant-#{rand(5)}", CACHE_VERSION],
     }
   end
 
@@ -94,7 +98,7 @@ private
     views = scope
       .sort_by { |view| -view.topic.id }
 
-    n_views = views[0..(take_n-1)]
+    n_views = views[0..(take_n - 1)]
 
     other_views = (views[take_n..-1] || []).shuffle
       .take(limit - take_n)
@@ -115,11 +119,20 @@ private
       end
   end
 
+  def articles_scope
+    Articles::Query
+      .fetch(h.locale_from_host)
+      .limit(6)
+      .transform do |article|
+        Topics::NewsLineView.new article.maybe_topic(h.locale_from_host), true, true
+      end
+  end
+
   def reviews_scope
     Topics::Query
       .fetch(h.locale_from_host)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
-      .limit(10)
+      .limit(6)
       .transform { |topic| Topics::NewsLineView.new topic, true, true }
   end
 
