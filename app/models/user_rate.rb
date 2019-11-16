@@ -168,7 +168,7 @@ private
     if persisted? && changes[counter]
       # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
       if self[counter].positive? && (changes[counter].first || 0).zero?
-        self.status = :watching if changes['status'].nil? && !rewatching? && !completed?
+        self.status = :watching if changes['status'].nil? && !rewatching? && !completed? && !dropped?
       end
 
       # перевели с какой-то цифры в ноль - помечаем, что перенесли в запланированное

@@ -394,6 +394,25 @@ describe UserRate do
             it { is_expected.to be_completed }
           end
         end
+
+        context 'dropped' do
+          let(:old_status) { :dropped }
+
+          context 'started watching' do
+            let(:old_value) { 0 }
+            let(:new_value) { 1 }
+
+            its(:episodes) { is_expected.to eq new_value }
+            it { is_expected.to be_dropped }
+          end
+
+          context 'finished watching' do
+            let(:new_value) { target_value }
+
+            its(:episodes) { is_expected.to eq target_value }
+            it { is_expected.to be_completed }
+          end
+        end
       end
 
       context 'manga' do
