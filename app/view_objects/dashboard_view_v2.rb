@@ -12,15 +12,17 @@ class DashboardViewV2 < ViewObjectBase
   NEWS_OTHER_PAGES_LIMIT = 15
 
   def collection_topic_views
-    take_2_plus_other(
+    take_n_plus_other(
       collections_scope,
+      2,
       contest_topic_views.size.zero? ? 6 : 6 - contest_topic_views.size
     )
   end
 
   def review_topic_views
-    take_2_plus_other(
+    take_n_plus_other(
       reviews_scope,
+      1,
       6
     )
   end
@@ -88,14 +90,14 @@ class DashboardViewV2 < ViewObjectBase
 
 private
 
-  def take_2_plus_other scope, limit
+  def take_n_plus_other scope, n, limit
     views = scope
       .sort_by { |view| -view.topic.id }
 
-    two_views = views[0..1]
+    two_views = views[0..n]
 
-    other_views = (views[2..-1] || []).shuffle
-      .take(limit - 2)
+    other_views = (views[n..-1] || []).shuffle
+      .take(limit - n - 1)
       .sort_by { |view| -view.topic.id }
 
     two_views + other_views
