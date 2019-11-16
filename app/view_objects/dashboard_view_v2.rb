@@ -2,8 +2,8 @@ class DashboardViewV2 < ViewObjectBase
   instance_cache :collection_topic_views,
     :review_topic_views,
     :news_topic_views,
-    :contests_topics_views,
-    :hot_topics_views,
+    :contest_topic_views,
+    :hot_topic_views,
     :db_updates,
     :cache_keys
 
@@ -12,13 +12,16 @@ class DashboardViewV2 < ViewObjectBase
   NEWS_OTHER_PAGES_LIMIT = 15
 
   def collection_topic_views
-    take_2_plus_other(collections_scope, 6)
+    take_2_plus_other(
+      collections_scope,
+      contest_topic_views.size.zero? ? 6 : 6 - contest_topic_views.size
+    )
   end
 
   def review_topic_views
     take_2_plus_other(
       reviews_scope,
-      contests.size.zero? ? 6 : 5 - contests.size
+      6
     )
   end
 
@@ -38,14 +41,14 @@ class DashboardViewV2 < ViewObjectBase
       end
   end
 
-  def contests_topics_views
+  def contest_topic_views
     contests_scope
       .map do |contest|
         Topics::NewsLineView.new contest.maybe_topic(h.locale_from_host), true, true
       end
   end
 
-  def hot_topics_views
+  def hot_topic_views
     Topics::HotTopicsQuery
       .call(h.locale_from_host)
       .map { |topic| Topics::NewsLineView.new topic, true, true }
