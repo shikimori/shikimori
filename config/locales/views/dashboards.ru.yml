@@ -12,9 +12,11 @@ ru:
       our_projects: Наши проекты
     show_v2:
       latest_news: Новости
-      latest_content: Контент
       generated_news: Обновления аниме
       more_news: Ещё новости
+    v2:
+      content_updates:
+        latest_content: Контент
     animes:
       title: Аниме
       # all_animes: все аниме

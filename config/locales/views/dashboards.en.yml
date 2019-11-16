@@ -12,9 +12,11 @@ en:
       our_projects: Our projects
     show_v2:
       latest_news: News
-      latest_content: Content
       generated_news: Anime updates
       more_news: More news
+    v2:
+      content_updates:
+        latest_content: Content
     animes:
       title: Animes
       # all_animes: all animes
