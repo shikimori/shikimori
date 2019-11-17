@@ -22,7 +22,7 @@ function reInitSwipers() {
 
   if (isMobile()) {
     swipers.push(
-      new Swiper('.db-updates', {
+      new Swiper('.fc-db-updates', {
         slidesPerView: 'auto',
         slidesPerColumn: 2,
         spaceBetween: 30,
