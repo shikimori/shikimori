@@ -8,7 +8,9 @@ export const isTablet = () =>
   );
 
 export const isPhone = () =>
-  !!mobileDetect.phone() || document.documentElement.clientWidth <= 480;
+  document.documentElement.clientWidth <= 1023 || (
+    !!mobileDetect.phone() && document.documentElement.clientWidth <= 480
+  );
 
 export const isMobile = () =>
   document.documentElement.clientWidth <= 1023 || (
