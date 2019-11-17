@@ -22,7 +22,7 @@ function reInitSwipers() {
 
   if (isMobile()) {
     swipers.push(
-      new Swiper('.fc-db-updates', {
+      new Swiper('.db-updates', {
         slidesPerView: 'auto',
         slidesPerColumn: 2,
         spaceBetween: 30,
@@ -38,7 +38,7 @@ function reInitSwipers() {
 
   if (isPhone()) {
     swipers.push(
-      new Swiper('.fc-content-updates', {
+      new Swiper('.content-updates', {
         slidesPerView: 'auto',
         slidesPerColumn: 3,
         spaceBetween: 30,
@@ -52,7 +52,7 @@ function reInitSwipers() {
     );
 
     swipers.push(
-      new Swiper('.fc-hot-topics', {
+      new Swiper('.hot-topics', {
         slidesPerView: 'auto',
         slidesPerColumn: 3,
         spaceBetween: 30,

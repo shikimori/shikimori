@@ -4,14 +4,14 @@
 $news_line_topic_margin: 16px
 $height: 45px + $news_line_topic_margin
 .p-dashboards-show .v2
-  .fc-content-updates .inner
+  .content-updates .inner
     +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 2, $desktop-columns: 2, $offset: $news_line_topic_margin, $selector: '.b-news_line-topic')
 
-  .fc-hot-topics .inner
+  .hot-topics .inner
     +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 1, $desktop-columns: 1, $offset: $news_line_topic_margin, $selector: '.b-news_line-topic')
 
-  .fc-hot-topics,
-  .fc-content-updates
+  .hot-topics,
+  .content-updates
     overflow: hidden
     position: relative
 
