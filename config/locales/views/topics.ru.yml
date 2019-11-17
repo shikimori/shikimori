@@ -89,3 +89,6 @@ ru:
       finished:
         <<: *contest_started
         winners: Победители
+    news_line:
+      inner:
+        by: от

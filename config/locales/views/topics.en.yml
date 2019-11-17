@@ -89,3 +89,6 @@ en:
       finished:
         <<: *contest_started
         winners: Winners
+    news_line:
+      inner:
+        by: by

@@ -1,14 +1,15 @@
 @import mixins/flex_column
 @import mixins/responsive
 
-$height: 45px + 12px
+$news_line_topic_margin: 16px
+$height: 45px + $news_line_topic_margin
 .p-dashboards-show .v2
   .fc-content-updates
     overflow: hidden
     position: relative
 
     .inner
-      +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 2, $desktop-columns: 2, $offset: 12px, $selector: '.b-news_line-topic')
+      +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 2, $desktop-columns: 2, $offset: $news_line_topic_margin, $selector: '.b-news_line-topic')
 
       +iphone
         flex-direction: column
