@@ -1,7 +1,7 @@
 @import mixins/flex_column
 @import mixins/responsive
 
-$height: 50px
+$height: 45px + 12px
 .p-dashboards-show .v2
   .fc-content-updates
     overflow: hidden
@@ -12,7 +12,7 @@ $height: 50px
 
       +iphone
         flex-direction: column
-        height: $height * 2 + 40px
+        height: $height * 4
         margin-left: 0
 
         .b-news_line-topic
