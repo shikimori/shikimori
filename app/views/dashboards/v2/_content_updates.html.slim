@@ -17,8 +17,11 @@
 
     .f-column
       .headline = t 'application.hot_topics.hot_topics'
-      .f-column
-        = render partial: 'topics/topic',
-          collection: view.hot_topic_views[0..5],
-          as: :topic_view,
-          cache: true
+      .fc-hot-topics
+        .mobile-slider-prev
+        .mobile-slider-next
+        .inner
+          = render partial: 'topics/topic',
+            collection: view.hot_topic_views[0..5],
+            as: :topic_view,
+            cache: true

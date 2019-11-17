@@ -4,13 +4,18 @@
 $news_line_topic_margin: 16px
 $height: 45px + $news_line_topic_margin
 .p-dashboards-show .v2
+  .fc-content-updates .inner
+    +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 2, $desktop-columns: 2, $offset: $news_line_topic_margin, $selector: '.b-news_line-topic')
+
+  .fc-hot-topics .inner
+    +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 1, $desktop-columns: 1, $offset: $news_line_topic_margin, $selector: '.b-news_line-topic')
+
+  .fc-hot-topics,
   .fc-content-updates
     overflow: hidden
     position: relative
 
     .inner
-      +fcolumn-responsive($portrait-columns: 1, $landscape-columns: 2, $ipad-columns: 2, $desktop-columns: 2, $offset: $news_line_topic_margin, $selector: '.b-news_line-topic')
-
       +iphone
         flex-direction: column
         height: $height * 3 // it is a hack but i don't know any better way to make flex wrap
@@ -32,3 +37,8 @@ $height: 45px + $news_line_topic_margin
       +gte_ipad
         flex-direction: column
         height: $height * 6 // it is a hack but i don't know any better way to make flex wrap
+
+    .mobile-slider-prev,
+    .mobile-slider-next
+      +ipad
+        display: none
