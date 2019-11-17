@@ -17,9 +17,6 @@ class DashboardViewV2 < ViewObjectBase
   TOPICS_PER_COLUMN = 6
 
   def first_column_topic_views
-    # displayed_ids = second_column_topic_views.map(&:id) + hot_topic_views.map(&:id)
-        # .reject { |v| displayed_ids.include? v.id }
-
     contest_topic_views +
       (reviews_views + articles_views + collections_views)
         .sort_by { |v| -v.created_at.to_i }
@@ -37,7 +34,7 @@ class DashboardViewV2 < ViewObjectBase
       take_n_plus_other(reviews, 1, 2) +
         take_n_plus_other(articles, 1, 2) +
         take_n_plus_other(collections, 1, 2)
-    ) # .sort_by { |v| -v.created_at.to_i }
+    )
   end
 
   def contest_topic_views

@@ -39,7 +39,6 @@
     align-items: baseline
     color: #333
     display: flex
-    flex-wrap: wrap
     font-size: 11px
 
     .b-anime_status_tag
@@ -47,24 +46,33 @@
 
     time
       +date
+      flex-shrink: 0
       line-height: 18px
 
     & > span
+      flex-shrink: 0
       padding: 0 5px 0 7px
 
     .author
-      display: flex
+      +ellipsis2
       align-items: baseline
+      display: flex
+      flex-shrink: 1
 
       img
         align-self: center
         height: 14px
         margin-right: 4px
 
+      span
+        +ellipsis2
+
     .comments
+      flex-shrink: 0
+      font-size: 12px
       line-height: 18px
       margin-left: auto
-      font-size: 12px
+      padding-left: 12px
 
       &:before
         +shikimori('f')

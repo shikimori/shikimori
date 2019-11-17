@@ -23,7 +23,8 @@
           srcset="#{topic_view.user.avatar_url 32} 2x"
           alt=topic_view.user.nickname
         ]
-        span = topic_view.user.nickname
+        span
+          = topic_view.user.nickname
 
       .comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
 

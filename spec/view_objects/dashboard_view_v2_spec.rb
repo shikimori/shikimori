@@ -3,23 +3,23 @@ describe DashboardViewV2 do
 
   let(:view) { DashboardViewV2.new }
 
-  describe '#collection_topic_views' do
-    let!(:collection) { create :collection, :with_topics }
-    it { expect(view.collection_topic_views).to have(1).item }
-  end
-
-  describe '#review_topic_views' do
-    let!(:review) { create :review, :with_topics }
-    it { expect(view.review_topic_views).to have(1).item }
-  end
-
-  describe '#contests' do
-    let!(:contest_1) { create :contest, :created }
-    let!(:contest_2) { create :contest, :started }
-    let!(:contest_3) { create :contest, :finished }
-
-    it { expect(view.contests).to eq [contest_2] }
-  end
+  # describe '#collection_topic_views' do
+  #   let!(:collection) { create :collection, :with_topics }
+  #   it { expect(view.collection_topic_views).to have(1).item }
+  # end
+  #
+  # describe '#review_topic_views' do
+  #   let!(:review) { create :review, :with_topics }
+  #   it { expect(view.review_topic_views).to have(1).item }
+  # end
+  #
+  # describe '#contests' do
+  #   let!(:contest_1) { create :contest, :created }
+  #   let!(:contest_2) { create :contest, :started }
+  #   let!(:contest_3) { create :contest, :finished }
+  #
+  #   it { expect(view.contests).to eq [contest_2] }
+  # end
 
   describe '#news_topic_views' do
     let!(:news_topic) { create :news_topic, generated: false }
