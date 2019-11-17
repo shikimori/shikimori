@@ -7,11 +7,11 @@
         .mobile-slider-next
         .inner
           = render partial: 'topics/topic',
-            collection: @view.first_column_topic_views,
+            collection: view.first_column_topic_views,
             as: :topic_view,
             cache: true
           = render partial: 'topics/topic',
-            collection: @view.second_column_topic_views,
+            collection: view.second_column_topic_views,
             as: :topic_view,
             cache: true
 
@@ -19,6 +19,6 @@
       .headline = t 'application.hot_topics.hot_topics'
       .f-column
         = render partial: 'topics/topic',
-          collection: @view.hot_topic_views[0..5],
+          collection: view.hot_topic_views[0..5],
           as: :topic_view,
           cache: true

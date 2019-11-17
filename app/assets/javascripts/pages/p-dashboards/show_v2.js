@@ -38,7 +38,7 @@ function reInitSwipers() {
     swipers.push(
       new Swiper('.fc-content-updates', {
         slidesPerView: 'auto',
-        slidesPerColumn: 4,
+        slidesPerColumn: 3,
         spaceBetween: 30,
         wrapperClass: 'inner',
         slideClass: 'b-news_line-topic',

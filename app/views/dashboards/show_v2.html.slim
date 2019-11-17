@@ -128,7 +128,7 @@
           cache: true,
           as: :topic_view
 
-    = render 'dashboards/v2/content_updates'
+    = render 'dashboards/v2/content_updates', view: @view
 
     = cache @view.cache_keys[:db_updates] do
       .block2
