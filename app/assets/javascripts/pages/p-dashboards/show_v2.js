@@ -34,6 +34,20 @@ function reInitSwipers() {
         }
       })
     );
+
+    swipers.push(
+      // new Swiper('.fc-content-updates', {
+      //   slidesPerView: 'auto',
+      //   slidesPerColumn: 2,
+      //   spaceBetween: 30,
+      //   wrapperClass: 'inner',
+      //   slideClass: 'b-news_line-topic',
+      //   navigation: {
+      //     nextEl: '.mobile-slider-next',
+      //     prevEl: '.mobile-slider-prev'
+      //   }
+      // })
+    );
   }
 }
 

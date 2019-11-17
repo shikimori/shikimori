@@ -1,6 +1,10 @@
 class Topics::NewsLineView < Topics::View
   instance_cache :view
-  delegate :urls, :topic_title, :topic_title_html, to: :view
+  delegate :urls,
+    :poster,
+    :topic_title,
+    :topic_title_html,
+    to: :view
 
   def container_classes additional = []
     ['b-news_line-topic', *additional]

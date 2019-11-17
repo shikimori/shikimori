@@ -1,24 +1,12 @@
 - cache topic_view.cache_key do
-  / header
-    - if topic_view.action_tag
-      .b-anime_status_tag[
-        class=topic_view.action_tag.type
-        data-text=topic_view.action_tag.text
-      ]
-    a[
-      href=topic_view.urls.poster_url
-      title=topic_view.topic_title
-    ]
-      .title[
-        href=topic_view.urls.poster_url
-        title=topic_view.topic_title
-      ] = topic_view.topic_title_html
-
   a[
     href=topic_view.urls.poster_url
     title=topic_view.topic_title
   ]
     .title
+      / span.poster[
+      /   style="background-image: url(#{topic_view.poster false})"
+      / ]
       = topic_view.topic_title_html
 
     .status-line

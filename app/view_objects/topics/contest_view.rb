@@ -13,4 +13,8 @@ class Topics::ContestView < Topics::View
       text: i18n_i('contest', :one)
     )
   end
+
+  def linked_in_avatar?
+    false
+  end
 end

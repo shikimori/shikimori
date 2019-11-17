@@ -3,17 +3,14 @@
     .f-column
       .headline.green = t '.latest_content'
       .fc-content-updates
-        .f-column
-          = render partial: 'topics/topic',
-            collection: @view.first_column_topic_views,
-            as: :topic_view,
-            cache: true
-
-        .f-column
-          = render partial: 'topics/topic',
-            collection: @view.second_column_topic_views,
-            as: :topic_view,
-            cache: true
+        = render partial: 'topics/topic',
+          collection: @view.first_column_topic_views,
+          as: :topic_view,
+          cache: true
+        = render partial: 'topics/topic',
+          collection: @view.second_column_topic_views,
+          as: :topic_view,
+          cache: true
 
     .f-column
       .headline = t 'application.hot_topics.hot_topics'
