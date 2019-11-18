@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_10_190250) do
+ActiveRecord::Schema.define(version: 2019_11_18_133804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 2019_11_10_190250) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_verified", default: false, null: false
-    t.index ["name"], name: "index_anime_video_authors_on_name"
   end
 
   create_table "anime_video_reports", id: :serial, force: :cascade do |t|
@@ -79,8 +78,6 @@ ActiveRecord::Schema.define(version: 2019_11_10_190250) do
     t.datetime "updated_at", null: false
     t.string "message", limit: 1000
     t.index ["anime_video_id", "kind", "state"], name: "index_anime_video_reports_on_anime_video_id_and_kind_and_state"
-    t.index ["kind"], name: "index_anime_video_reports_on_kind"
-    t.index ["state", "updated_at"], name: "index_anime_video_reports_on_state_and_updated_at"
     t.index ["user_id", "state"], name: "index_anime_video_reports_on_user_id_and_state"
   end
 
@@ -100,7 +97,6 @@ ActiveRecord::Schema.define(version: 2019_11_10_190250) do
     t.boolean "is_first", default: false, null: false
     t.index ["anime_id", "state"], name: "index_anime_videos_on_anime_id_and_state"
     t.index ["anime_video_author_id"], name: "index_anime_videos_on_anime_video_author_id"
-    t.index ["url"], name: "index_anime_videos_on_url"
   end
 
   create_table "animes", id: :serial, force: :cascade do |t|
@@ -1120,7 +1116,6 @@ ActiveRecord::Schema.define(version: 2019_11_10_190250) do
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["roles"], name: "index_users_on_roles", using: :gin
-    t.index ["style_id"], name: "index_users_on_style_id"
   end
 
   create_table "versions", id: :serial, force: :cascade do |t|
