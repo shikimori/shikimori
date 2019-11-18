@@ -1,7 +1,7 @@
 class Users::MarkAsCompletedAnnouncedAnimes
   include Sidekiq::Worker
 
-  COMPLETED_ANNOUNCES_LIMIT = 3
+  COMPLETED_ANNOUNCES_LIMIT = 2
 
   def perform
     User.transaction do
