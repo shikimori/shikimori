@@ -7,11 +7,11 @@ class RecommendationsController < AnimesCollectionController
   COOKIE_NAME = 'recommendations_url'
   THRESHOLDS = {
     Anime => {
-      'pearson_z' => [150, 2000, 5000, 7500, 10_000],
+      'pearson_z' => [1000, 4000, 9_000, 12_500, 20_000],
       'svd' => [150, 1250, 2000, 3000, 5000]
     },
     Manga => {
-      'pearson_z' => [30, 150, 400, 750, 1250]
+      'pearson_z' => [30, 200, 500, 1000, 1500]
     }
   }
   TOPIC_URL = '//shikimori.one/s/104346-spisok-otbornyh-i-vkusnyh-animeh'
