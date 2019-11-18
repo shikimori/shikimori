@@ -1,11 +1,8 @@
 class DashboardsController < ShikimoriController
   before_action do
-    if current_user&.preferences&.dashboard_type_new?
-      @view = DashboardViewV2.new
-    else
-      @view = DashboardView.new
-      render :show
-    end
+    @view = current_user&.preferences&.dashboard_type_new? ?
+      DashboardViewV2.new :
+      DashboardView.new
   end
 
   def show

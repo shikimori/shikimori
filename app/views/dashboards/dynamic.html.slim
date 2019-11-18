@@ -1,6 +1,16 @@
 - if user_signed_in?
   - if @view.is_a? DashboardViewV2
-    = render 'devise/sessions/form', resource: User.new
+    .my-list
+      .headline
+        | Мой список
+        .misc-links
+          a[
+            href=profile_user_rates_url(current_user, list_type: 'anime')
+          ] = Anime.model_name.human.downcase
+          a[
+            href=profile_user_rates_url(current_user, list_type: 'manga')
+          ] = Manga.model_name.human.downcase
+
   - else
     .user_list
       = cache [:list, current_user] do
