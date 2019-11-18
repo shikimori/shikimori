@@ -100,7 +100,7 @@ ru:
             <<: *sign_in
 
       dashboards:
-        show:
+        dynamic:
           <<: *sign_in
 
       club_invite: &send
