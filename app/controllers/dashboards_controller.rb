@@ -1,4 +1,13 @@
 class DashboardsController < ShikimoriController
+  before_action do
+    if current_user&.preferences&.dashboard_type_new?
+      @view = DashboardViewV2.new
+    else
+      @view = DashboardView.new
+      render :show
+    end
+  end
+
   def show
     og type: 'website'
     og page_title: i18n_t('page_title')
@@ -6,16 +15,13 @@ class DashboardsController < ShikimoriController
     og image: "#{Shikimori::PROTOCOL}://#{Shikimori::DOMAIN}" \
       '/favicons/opera-icon-228x228.png'
 
-    if current_user&.preferences&.dashboard_type_new?
-      @view = DashboardViewV2.new
+    if @view.is_a? DashboardViewV2
       render :show_v2
     else
-      @view = DashboardView.new
       render :show
     end
   end
 
   def dynamic
-    @view = DashboardView.new
   end
 end

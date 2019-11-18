@@ -45,64 +45,75 @@
               ] = i18n_i 'Ongoing', :other
           a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
 
-        / .section
-          a.title[
-            href=collections_url
-            title=t('.new_collections')
+        .section
+          / a.title[
+          /   href=collections_url
+          /   title=t('.new_collections')
+          / ]
+          /   = t '.new_collections'
+          / .links
+          /   - @view.collection_topic_views.each do |topic_view|
+          /     a.b-link[
+          /       href=topic_view.urls.topic_url
+          /       title=topic_view.topic_title
+          /     ]
+          /       span.poster[
+          /         style="background-image: url(#{topic_view.poster false})"
+          /       ]
+          /       span
+          /         = topic_view.poster_title_html
+
+        .section
+          / a.title[
+          /   href=forum_topics_url(:reviews)
+          /   title=t('.new_reviews')
+          / ] = t '.new_reviews'
+          / .links
+          /   - @view.review_topic_views.each do |topic_view|
+          /     a.b-link[
+          /       href=topic_view.urls.topic_url
+          /       title=topic_view.topic_title
+          /     ]
+          /       span.poster[
+          /         style="background-image: url(#{topic_view.poster false})"
+          /       ]
+          /       span
+          /         = topic_view.poster_title_html
+          / - if @view.contests.any?
+          /   .title.contests = i18n_i 'Contest', :other
+          /   .links
+          /     - @view.contests.each do |contest|
+          /       a.b-link[
+          /         href=contest_url(contest)
+          /         title=contest.title
+          /       ]
+          /         span = contest.title
+
+        .section
+          / .title = t 'application.hot_topics.hot_topics'
+          / .links
+          /   - cache :hot_topics, expires_in: 10.minutes do
+          /     - @layout.hot_topics[0..5].each do |topic_view|
+          /       a.b-link[
+          /         href=topic_view.urls.topic_url
+          /         title=topic_view.topic_title
+          /       ]
+          /         span.poster[
+          /           style="background-image: url(#{topic_view.poster false})"
+          /         ]
+          /         span
+          /           = topic_view.poster_title_html
+
+    .block
+      .fc-2_3
+        .f-column
+          .headline test
+        .f-column
+          .headline test
+          .to-process.b-ajax[
+            data-dynamic='postloaded'
+            data-postloaded-url=dashboards_dynamic_url
           ]
-            = t '.new_collections'
-          .links
-            - @view.collection_topic_views.each do |topic_view|
-              a.b-link[
-                href=topic_view.urls.topic_url
-                title=topic_view.topic_title
-              ]
-                span.poster[
-                  style="background-image: url(#{topic_view.poster false})"
-                ]
-                span
-                  = topic_view.poster_title_html
-
-        / .section
-          a.title[
-            href=forum_topics_url(:reviews)
-            title=t('.new_reviews')
-          ] = t '.new_reviews'
-          .links
-            - @view.review_topic_views.each do |topic_view|
-              a.b-link[
-                href=topic_view.urls.topic_url
-                title=topic_view.topic_title
-              ]
-                span.poster[
-                  style="background-image: url(#{topic_view.poster false})"
-                ]
-                span
-                  = topic_view.poster_title_html
-          - if @view.contests.any?
-            .title.contests = i18n_i 'Contest', :other
-            .links
-              - @view.contests.each do |contest|
-                a.b-link[
-                  href=contest_url(contest)
-                  title=contest.title
-                ]
-                  span = contest.title
-
-        / .section
-          .title = t 'application.hot_topics.hot_topics'
-          .links
-            - cache :hot_topics, expires_in: 10.minutes do
-              - @layout.hot_topics[0..5].each do |topic_view|
-                a.b-link[
-                  href=topic_view.urls.topic_url
-                  title=topic_view.topic_title
-                ]
-                  span.poster[
-                    style="background-image: url(#{topic_view.poster false})"
-                  ]
-                  span
-                    = topic_view.poster_title_html
 
     = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
 
