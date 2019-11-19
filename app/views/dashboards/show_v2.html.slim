@@ -103,6 +103,8 @@
                   span
                     = topic_view.poster_title_html
 
+    = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
+
     - if @view.admin_area?
       javascript:
         $(document.body).on('click', '.b-admin_panel .reload', function() {
