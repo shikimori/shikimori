@@ -17,6 +17,8 @@ ru:
     v2:
       content_updates:
         latest_content: Контент
+      my_list:
+        my_list: Мой список
     animes:
       title: Аниме
       # all_animes: все аниме

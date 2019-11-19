@@ -17,6 +17,8 @@ en:
     v2:
       content_updates:
         latest_content: Content
+      my_list:
+        my_list: My list
     animes:
       title: Animes
       # all_animes: all animes

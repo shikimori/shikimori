@@ -1,0 +1,32 @@
+.my-list
+  .headline
+    = t '.my_list'
+    .misc-links
+      a[
+        href=profile_user_rates_url(current_user, list_type: 'anime')
+      ] = Anime.model_name.human.downcase
+      a[
+        href=profile_user_rates_url(current_user, list_type: 'manga')
+      ] = Manga.model_name.human.downcase
+
+  - history.each do |entry|
+    a.history[
+      href=entry.url
+      title=entry.name
+    ]
+      img[
+        src=entry.image
+        srcset=("#{entry.image_2x} 2x" if entry.image_2x)
+        alt=entry.name
+      ]
+      div
+        .title
+          = entry.localized_name
+
+        .action
+          = entry.reversed_action
+
+        time[
+          datetime=entry.created_at.iso8601
+        ] = entry.localized_date
+

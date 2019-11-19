@@ -1,4 +1,4 @@
-class DashboardViewV2 < ViewObjectBase
+class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   instance_cache :first_column_topic_views,
     :second_column_topic_views,
     :contest_topic_views,
@@ -8,13 +8,16 @@ class DashboardViewV2 < ViewObjectBase
     :cache_keys,
     :reviews_views,
     :articles_views,
-    :collections_views
+    :collections_views,
+    :history
 
   CACHE_VERSION = :v8
   NEWS_FIRST_PAGE_LIMIT = 6
   NEWS_OTHER_PAGES_LIMIT = 15
 
   TOPICS_PER_COLUMN = 6
+
+  DISPLAYED_HISTORY = 2
 
   def first_column_topic_views
     contest_topic_views +
@@ -79,6 +82,10 @@ class DashboardViewV2 < ViewObjectBase
     ]
       .uniq(&:short_title)
       .take(2)
+  end
+
+  def history
+    Profiles::HistoryView.new(h.current_user).preview(DISPLAYED_HISTORY)
   end
 
   def admin_area?

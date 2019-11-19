@@ -3,7 +3,7 @@
     = t '.my_anime_list'
     .switch = t '.to_manga'
   .m20
-    - dashboard_view.list_counts(:anime).each do |list_stats|
+    - view.list_counts(:anime).each do |list_stats|
       .list-stat
         .value
           = list_stats.size
@@ -16,7 +16,7 @@
     = t '.my_manga_list'
     .switch = t '.to_anime'
   .m20
-    - dashboard_view.list_counts(:manga).each do |list_stats|
+    - view.list_counts(:manga).each do |list_stats|
       .list-stat
         .value
           = list_stats.size
