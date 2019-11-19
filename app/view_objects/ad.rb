@@ -197,11 +197,11 @@ private
 
   BANNERS = {
     true => {
-      # disable after 2019-10-04
+      # disable after 2019-12-03
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
-        images: (1..1).map do |i|
+        url: 'https://redir.wargaming.net/iqf1c6t2/?pub_id=shikimori',
+        images: (3..4).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
             src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
@@ -209,16 +209,16 @@ private
         end,
         rules: {
           cookie: 'i1',
-          shows_per_week: 310
+          shows_per_week: 380
         },
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
-      # disable after 2019-10-04
+      # disable after 2019-12-03
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
-        images: (2..2).map do |i|
+        url: 'https://redir.wargaming.net/iqf1c6t2/?pub_id=shikimori',
+        images: (1..2).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
             src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
@@ -312,11 +312,11 @@ private
       }
     },
     false => {
-      # disable after 2019-10-04
+      # disable after 2019-12-03
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
-        images: (1..1).map do |i|
+        url: 'https://redir.wargaming.net/iqf1c6t2/?pub_id=shikimori',
+        images: (3..4).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
             src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
@@ -324,16 +324,16 @@ private
         end,
         rules: {
           cookie: 'i1',
-          shows_per_week: 310
+          shows_per_week: 380
         },
         placement: Types::Ad::Placement[:menu],
         platform: Types::Ad::Platform[:desktop]
       },
-      # disable after 2019-10-04
+      # disable after 2019-12-03
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'http://worlds.animeinrussia.ru/#tickets-widget',
-        images: (2..2).map do |i|
+        url: 'https://redir.wargaming.net/iqf1c6t2/?pub_id=shikimori',
+        images: (1..2).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
             src_2x: "/assets/globals/events/special_#{i}@2x.jpg"
@@ -405,12 +405,12 @@ private
         Types::Ad::Type[:mt_300x250]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
+        Types::Ad::Type[:special_x300], # disable after 2019-12-03
         Types::Ad::Type[:yd_240x600],
         Types::Ad::Type[:mt_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
+        Types::Ad::Type[:special_x300], # disable after 2019-12-03
         Types::Ad::Type[:yd_300x600],
         Types::Ad::Type[:mt_300x600]
       ],
@@ -426,7 +426,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # disable after 2019-10-04
+        Types::Ad::Type[:special_x1170], # disable after 2019-12-03
         Types::Ad::Type[:yd_970x250],
         Types::Ad::Type[:mt_970x250]
       ]
@@ -438,13 +438,13 @@ private
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_240x400] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
+        Types::Ad::Type[:special_x300], # disable after 2019-12-03
         # Types::Ad::Type[:mt_240x400],
         # Types::Ad::Type[:yd_240x500],
         Types::Ad::Type[:advrtr_240x400]
       ],
       Types::Ad::Meta[:menu_300x600] => [
-        # Types::Ad::Type[:special_x300], # disable after 2019-10-04
+        Types::Ad::Type[:special_x300], # disable after 2019-12-03
         # Types::Ad::Type[:mt_300x600],
         # Types::Ad::Type[:yd_300x600],
         # Types::Ad::Type[:advrtr_240x400],
@@ -461,7 +461,7 @@ private
         Types::Ad::Type[:mt_footer_300x250]
       ],
       Types::Ad::Meta[:special_x1170] => [
-        # Types::Ad::Type[:special_x1170], # disable after 2019-10-04
+        Types::Ad::Type[:special_x1170] # disable after 2019-12-03
       ]
     }
   }
