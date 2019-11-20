@@ -27,7 +27,6 @@ private
     "#{super}_#{@metric}_#{@threshold}"
   end
 
-  # удаление из рекомендаций заблокированных пользователем аниме
   def postprocess data
     return unless data
     return data if data == []

@@ -1,6 +1,6 @@
 import axios from 'helpers/axios';
 
-const store = {};
+let store = {};
 let queue = [];
 
 const queueLimit = 300;
@@ -39,11 +39,11 @@ export default {
     updateQueue(url);
 
     return promise;
-  }
+  },
   // clear(url) {
     // delete store[url];
   // },
-  // reset() {
-  //   store = {};
-  // }
+  reset() { // used in recommendations
+    store = {};
+  }
 };
