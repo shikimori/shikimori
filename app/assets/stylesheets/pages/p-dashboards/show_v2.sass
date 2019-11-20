@@ -32,7 +32,7 @@
 
   .fc-main
     $gutter-desktop: 25px
-    +fcolumn-responsive($ipad-columns: 3, $gutter-desktop: $gutter-desktop)
+    +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 4, $gutter-desktop: $gutter-desktop, $offset-mobile: 20px)
     margin-top: 10px
 
     .f-column
@@ -77,18 +77,12 @@
         min-width: 0
 
     .shiki-socials
-      background-image: asset_url('/assets/globals/socials@2x.png')
-      background-repeat: no-repeat
-      background-size: contain
-      display: block
-      height: 100%
-
-      +iphone-portrait
-        display: none
+      img
+        max-width: 100%
 
   .b-admin_panel
     margin-top: -25px
-    
+
   .news_wall
     +fcolumn-responsive($ipad-columns: 2, $desktop-columns: 3, $selector: '.b-news_wall-topic, .b-postloader')
 

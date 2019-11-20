@@ -37,7 +37,15 @@
           ] = t 'forum'
 
         .f-column.socials
-          a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
+          a.shiki-socials[
+            href=StickyTopicView.socials(locale_from_host).object.url
+            title=StickyTopicView.socials(locale_from_host).object.topic_title
+          ]
+            img[
+              src='/assets/globals/socials.png'
+              srcset='/assets/globals/socials@2x.png 2x'
+              alt=StickyTopicView.socials(locale_from_host).object.topic_title
+            ]
 
     - if @view.admin_area?
       javascript:
