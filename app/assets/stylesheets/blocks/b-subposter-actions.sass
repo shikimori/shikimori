@@ -5,6 +5,10 @@
   flex-wrap: wrap
   justify-content: space-around
 
+  +iphone-portrait
+    align-items: center
+    flex-direction: column
+
 .b-subposter-action
   +link_color(#444)
   cursor: pointer
@@ -30,7 +34,6 @@
 
   +iphone-portrait
     display: flex
-    width: 100%
     align-items: center
     text-align: left
     height: auto
@@ -43,16 +46,6 @@
       width: 20px
       height: 30px
       line-height: 30px
-
-    &:after
-      color: #123
-      content: attr(data-text)
-      font-size: 15px
-      line-height: 17px
-      padding-left: 12px
-      vertical-align: middle
-      word-break: break-word
-      word-wrap: break-word
 
   // db_entry
   &.fav-add:before

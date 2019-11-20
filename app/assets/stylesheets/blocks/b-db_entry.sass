@@ -68,14 +68,19 @@
       max-width: 100%
 
     +iphone-portrait
+      & > .cc
+        display: flex
+
       .c-poster
-        +column(2, 0.57, 7%)
+        // +column(2, 0.7, 7%)
 
       .c-actions
-        +column(2, 0.43, 7%)
+        flex-grow: 1
+        margin-left: 10px
+        // +column(2, 0.3, 7%)
 
         .b-subposter-action:not(:last-child)
-          margin-bottom: 10px
+          margin-bottom: 16px
 
   & > .c-about
     z-index: 1 // без этого нижний блок с description перекрывает текущий
