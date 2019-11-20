@@ -1,5 +1,5 @@
 describe Topics::HotTopicsQuery do
-  subject { Topics::HotTopicsQuery.call 'ru' }
+  subject { Topics::HotTopicsQuery.call limit: 8, locale: 'ru' }
 
   describe '#call' do
     describe 'order by comments count' do
