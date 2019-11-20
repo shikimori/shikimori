@@ -11,7 +11,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
     :collections_views,
     :history
 
-  CACHE_VERSION = :v9
+  CACHE_VERSION = :v10
   NEWS_FIRST_PAGE_LIMIT = 6
   NEWS_OTHER_PAGES_LIMIT = 15
 
@@ -48,10 +48,11 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def hot_topic_views
-    displayed_ids = (first_column_topic_views + second_column_topic_views).map(&:id)
+    displayed_ids = (first_column_topic_views + second_column_topic_views)
+      .map(&:id)
 
     Topics::HotTopicsQuery
-      .call(h.locale_from_host)
+      .call(limit: 12, locale: h.locale_from_host)
       .reject { |v| displayed_ids.include? v.id }
       .map { |topic| Topics::NewsLineView.new topic, true, true }
   end

@@ -1,9 +1,9 @@
 class DashboardsController < ShikimoriController
   before_action do
-    # @view = current_user&.preferences&.dashboard_type_new? ?
-    #   DashboardViewV2.new :
-    #   DashboardView.new
-    @view = DashboardViewV2.new
+    @view = current_user&.preferences&.dashboard_type_new? ?
+      DashboardViewV2.new :
+      DashboardView.new
+    # @view = DashboardViewV2.new
   end
 
   def show

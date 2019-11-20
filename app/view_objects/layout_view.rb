@@ -63,9 +63,8 @@ class LayoutView < ViewObjectBase
   end
 
   def hot_topics
-    Topics::HotTopicsQuery.call(h.locale_from_host).map do |topic|
-      Topics::TopicViewFactory.new(true, true).build topic
-    end
+    Topics::HotTopicsQuery.call(limit: 8, locale: h.locale_from_host)
+      .map { |topic| Topics::TopicViewFactory.new(true, true).build topic }
   end
 
   def moderation_policy

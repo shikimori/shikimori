@@ -1,4 +1,4 @@
-class Topics::HotTopicsQuery < ServiceObjectBase
+class Topics::HotTopicsQuery
   SELECT_SQL = <<-SQL
     commentable_id,
     max(commentable_type) as commentable_type,
@@ -17,11 +17,11 @@ class Topics::HotTopicsQuery < ServiceObjectBase
   INTERVAL = Rails.env.development? ? 1.month : 1.day
   LIMIT = 8
 
-  pattr_initialize :locale
+  method_object %i[locale limit]
 
   def call
     topic_comments
-      .limit(LIMIT)
+      .limit(@limit)
       .map(&:commentable)
   end
 
