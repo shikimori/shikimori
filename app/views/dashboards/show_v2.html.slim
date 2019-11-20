@@ -1,6 +1,5 @@
 .v2
-  / = cache @view.cache_keys.values do
-  cache
+  = cache @view.cache_keys.values do
     .block
       .fc-main
         .f-column.to-process.b-ajax[
@@ -52,6 +51,8 @@
         data-postloaded-url='/apanel'
       ]
         .ajax-loading.vk-like
+
+    = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
 
     .block2
       .headline.blue.m15 = t '.latest_news'

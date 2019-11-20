@@ -11,7 +11,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
     :collections_views,
     :history
 
-  CACHE_VERSION = :v8
+  CACHE_VERSION = :v9
   NEWS_FIRST_PAGE_LIMIT = 6
   NEWS_OTHER_PAGES_LIMIT = 15
 
