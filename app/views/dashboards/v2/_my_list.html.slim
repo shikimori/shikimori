@@ -8,8 +8,6 @@
       a[
         href=profile_user_rates_url(current_user, list_type: 'manga')
       ] = i18n_i(:manga, 1, :genitive)
-  / .title
-    = t '.my_list'
 
   - history.each do |entry|
     a.history[

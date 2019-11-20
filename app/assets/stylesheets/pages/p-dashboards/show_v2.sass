@@ -30,107 +30,125 @@
   .headline.orange a
     +link_color(#ff8a3c)
 
-  .sections
-    display: flex
-
-    +iphone-portrait
-      flex-direction: column
-      margin: -5px 0 -5px
-
-    +iphone-landscape
-      flex-wrap: wrap
-      margin: 5px -10px -10px
-
-    +gte_ipad
-      flex-wrap: wrap
-      margin: 10px -15px 0
-
-      &:last-child
-        margin-top: 20px
-
-    .section
-      min-width: 0
-
-      +iphone-portrait
-        padding: 5px 0
-
-        .b-link_button.maxi
-          font-size: 15px
-          padding: 8px 20px
-
-        .b-link
-          &:nth-child(4),
-          &:nth-child(5)
-            display: none
-
-      +iphone-landscape
-        padding: 10px 10px
-        width: 50%
-
-      +gte_ipad
-        padding: 0 15px
-        width: 25%
-
-    +iphone-portrait
-      &.main .section:first-child
-        margin-bottom: 86px
-
-      &.other .seasons
-        padding: 0
-        position: absolute
-        margin-top: -221px
-        width: calc(100% + 10px)
-
-    .seasons-socials
-      display: flex
-      flex-direction: column
-
-    .seasons
-      display: flex
-      flex-wrap: wrap
-      margin: -5px
-
-      +iphone-portrait
-        margin: 5px -5px 15px
-
-      +iphone-landscape
-        margin: 0 -5px
-
-      .season
-        display: flex
-        padding: 5px
-        width: 50%
-
-    .b-link_button
-      align-items: center
-      justify-content: center
-      display: flex
-      flex-grow: 1
-      min-width: 0
-      padding-left: 0
-      padding-right: 0
+  // .sections
+  //   display: flex
+  //
+  //   +iphone-portrait
+  //     flex-direction: column
+  //     margin: -5px 0 -5px
+  //
+  //   +iphone-landscape
+  //     flex-wrap: wrap
+  //     margin: 5px -10px -10px
+  //
+  //   +gte_ipad
+  //     flex-wrap: wrap
+  //     margin: 10px -15px 0
+  //
+  //     &:last-child
+  //       margin-top: 20px
+  //
+  //   .section
+  //     min-width: 0
+  //
+  //     +iphone-portrait
+  //       padding: 5px 0
+  //
+  //       .b-link_button.maxi
+  //         font-size: 15px
+  //         padding: 8px 20px
+  //
+  //       .b-link
+  //         &:nth-child(4),
+  //         &:nth-child(5)
+  //           display: none
+  //
+  //     +iphone-landscape
+  //       padding: 10px 10px
+  //       width: 50%
+  //
+  //     +gte_ipad
+  //       padding: 0 15px
+  //       width: 25%
+  //
+  //   +iphone-portrait
+  //     &.main .section:first-child
+  //       margin-bottom: 86px
+  //
+  //     &.other .seasons
+  //       padding: 0
+  //       position: absolute
+  //       margin-top: -221px
+  //       width: calc(100% + 10px)
+  //
+  //   .seasons-socials
+  //     display: flex
+  //     flex-direction: column
+  //
+  //   .seasons
+  //     display: flex
+  //     flex-wrap: wrap
+  //     margin: -5px
+  //
+  //     +iphone-portrait
+  //       margin: 5px -5px 15px
+  //
+  //     +iphone-landscape
+  //       margin: 0 -5px
+  //
+  //     .season
+  //       display: flex
+  //       padding: 5px
+  //       width: 50%
+  //
+  //   .b-link_button
+  //     align-items: center
+  //     justify-content: center
+  //     display: flex
+  //     flex-grow: 1
+  //     min-width: 0
+  //     padding-left: 0
+  //     padding-right: 0
 
 
   // .b-admin_panel
     display: none
 
-  .my-list
-    .headline
-      display: flex
+  .fc-main
+    +fcolumn-responsive($columns: 4, $ipad-columns: 3, $gutter-desktop: 25px)
 
-      .misc-links
-        margin-left: auto
+    .f-column
+      &.manga-ranobe
+        +gte_laptop
+          +fcolumn-size(4, 1, 25px)
 
-  .shiki-socials
-    background-image: asset_url('/assets/globals/socials@2x.png')
-    background-position-y: 50%
-    background-repeat: no-repeat
-    background-size: contain
-    display: block
-    height: 100%
+      &.socials
+        +ipad
+          display: none
 
-    +iphone-portrait
-      display: none
+    .my-list
+      .headline
+        display: flex
+
+        .misc-links
+          margin-left: auto
+
+    .fc-seasons
+      +fcolumn-responsive($columns: 2, $gutter: 10px, $offset: 10px, $selector: '.b-link_button')
+
+      .b-link_button
+        min-width: 0
+
+    .shiki-socials
+      background-image: asset_url('/assets/globals/socials@2x.png')
+      background-position-y: 50%
+      background-repeat: no-repeat
+      background-size: contain
+      display: block
+      height: 100%
+
+      +iphone-portrait
+        display: none
 
   .news_wall
     +fcolumn-responsive($ipad-columns: 2, $desktop-columns: 3, $selector: '.b-news_wall-topic, .b-postloader')
