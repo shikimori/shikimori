@@ -43,7 +43,7 @@
               a.b-link_button.dark-2[
                 href=animes_collection_url(status: :ongoing)
               ] = i18n_i 'Ongoing', :other
-          a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
+          / a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
 
         .section
           / a.title[
@@ -105,7 +105,17 @@
           /           = topic_view.poster_title_html
 
     .block
-      .fc-2_3
+      .fc-4
+        .f-column
+          .to-process.b-ajax[
+            data-dynamic='postloaded'
+            data-postloaded-url=dashboards_dynamic_url
+          ]
+        .f-column
+        .f-column
+        .f-column
+          a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
+      / .fc-2_3
         .f-column
           .headline test
         .f-column
@@ -113,8 +123,6 @@
             data-dynamic='postloaded'
             data-postloaded-url=dashboards_dynamic_url
           ]
-
-    = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
 
     - if @view.admin_area?
       javascript:

@@ -8,7 +8,7 @@
         .value
           = list_stats.size
         a.b-link[
-          href="#{profile_user_rates_url current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id}"
+          href=profile_user_rates_url(current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id)
           ] = list_stats.localized_name
 
 .list-type.hidden
@@ -21,19 +21,19 @@
         .value
           = list_stats.size
         a.b-link[
-          href="#{profile_user_rates_url current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id}"
+          href=profile_user_rates_url(current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id)
         ] = list_stats.localized_name
 
 .history
   .title
     = t '.my_history'
-    a.link href="#{profile_list_history_url current_user}" = t '.all_history'
-  - dashboard_view.history.each do |entry|
+    a.link href=profile_list_history_url(current_user) = t '.all_history'
+  - view.history.each do |entry|
     .list-change
       a[
-        class="#{:bubbled unless entry.special?}"
-        href="#{entry.url}"
-        title="#{entry.name}"
+        class=(:bubbled unless entry.special?)
+        href=entry.url
+        title=entry.name
       ]
         .title
           = entry.localized_name

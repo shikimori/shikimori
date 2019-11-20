@@ -101,18 +101,6 @@
         padding: 5px
         width: 50%
 
-    .shiki-socials
-      background-image: asset_url('/assets/globals/socials@2x.png')
-      background-position-y: 50%
-      background-repeat: no-repeat
-      background-size: cover
-      display: block
-      flex-grow: 1
-      margin-top: 12px
-
-      +iphone-portrait
-        display: none
-
     .b-link_button
       align-items: center
       justify-content: center
@@ -132,6 +120,17 @@
 
       .misc-links
         margin-left: auto
+
+  .shiki-socials
+    background-image: asset_url('/assets/globals/socials@2x.png')
+    background-position-y: 50%
+    background-repeat: no-repeat
+    background-size: contain
+    display: block
+    height: 100%
+
+    +iphone-portrait
+      display: none
 
   .news_wall
     +fcolumn-responsive($ipad-columns: 2, $desktop-columns: 3, $selector: '.b-news_wall-topic, .b-postloader')

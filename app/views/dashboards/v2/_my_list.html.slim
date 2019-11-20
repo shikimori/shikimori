@@ -1,13 +1,15 @@
 .my-list
-  .headline
+  .midheadline
     = t '.my_list'
     .misc-links
       a[
         href=profile_user_rates_url(current_user, list_type: 'anime')
-      ] = Anime.model_name.human.downcase
+      ] = i18n_i(:anime, 1, :genitive)
       a[
         href=profile_user_rates_url(current_user, list_type: 'manga')
-      ] = Manga.model_name.human.downcase
+      ] = i18n_i(:manga, 1, :genitive)
+  / .title
+    = t '.my_list'
 
   - history.each do |entry|
     a.history[
