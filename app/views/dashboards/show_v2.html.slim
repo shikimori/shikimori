@@ -2,10 +2,6 @@
   = cache @view.cache_keys.values do
     .block
       .fc-main
-        .f-column.to-process.b-ajax[
-          data-dynamic='postloaded'
-          data-postloaded-url=dashboards_dynamic_url
-        ]
         .f-column.anime
           a.b-link_button.maxi.dark[
             href=animes_collection_url
@@ -46,6 +42,11 @@
               srcset='/assets/globals/socials@2x.png 2x'
               alt=StickyTopicView.socials(locale_from_host).object.topic_title
             ]
+
+        .f-column.to-process.b-ajax[
+          data-dynamic='postloaded'
+          data-postloaded-url=dashboards_dynamic_url
+        ]
 
     - if @view.admin_area?
       javascript:
