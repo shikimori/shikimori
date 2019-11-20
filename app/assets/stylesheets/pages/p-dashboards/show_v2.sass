@@ -32,11 +32,12 @@
 
   .fc-main
     $gutter-desktop: 25px
-    +fcolumn-responsive($columns: 4, $ipad-columns: 3, $gutter-desktop: $gutter-desktop)
+    +fcolumn-responsive($ipad-columns: 3, $gutter-desktop: $gutter-desktop)
     margin-top: 10px
 
     .f-column
-      min-height: 172px
+      &:first-child
+        min-height: 172px
 
       &.anime
         +ipad
