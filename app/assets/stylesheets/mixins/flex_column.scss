@@ -1,8 +1,9 @@
 @import 'mixins/responsive';
 
 @mixin fcolumn-responsive(
-  $portrait-columns: 1,
-  $landscape-columns: 2,
+  $columns: '',
+  $portrait-columns: '',
+  $landscape-columns: '',
   $ipad-columns: '',
   $desktop-columns: '',
   $gutter: '',
@@ -15,6 +16,28 @@
   $offset-desktop: $flex-offset-desktop,
   $selector: '.f-column'
 ) {
+  @if ($columns != '') {
+    @if ($portrait-columns == '') {
+      $portrait-columns: $columns;
+    }
+    @if ($landscape-columns == '') {
+      $landscape-columns: $columns;
+    }
+    @if ($ipad-columns == '') {
+      $ipad-columns: $columns;
+    }
+    @if ($desktop-columns == '') {
+      $desktop-columns: $columns;
+    }
+  } @else {
+    @if ($portrait-columns == '') {
+      $portrait-columns: 1;
+    }
+    @if ($landscape-columns == '') {
+      $landscape-columns: 2;
+    }
+  }
+
   @if ($gutter != '') {
     $gutter-mobile: $gutter;
     $gutter-desktop: $gutter;
