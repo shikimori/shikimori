@@ -160,7 +160,7 @@ ru:
       misc:
         ssl_hint: Экспериментальное
         anime_manga_recommendations: Рекомендации аниме и манги
-        restore_rejected_recommendations: Восстановить отклонённые вами рекомендации %{kind}
+        restore_rejected_recommendations: Восстановить отклонённые тобой рекомендации %{kind}
         confirm_to_restore_recommendations: Подтверди намерение восстановить все заблокированные тобой рекомендации для %{kind}.
         sure_to_restore_recommendations: Ты действительно хочешь восстановить все заблокированные тобой рекомендации для %{kind}?
         history_of_nickname_changes: История изменения никнеймов
