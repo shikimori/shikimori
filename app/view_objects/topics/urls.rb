@@ -2,7 +2,6 @@ class Topics::Urls < ViewObjectBase
   pattr_initialize :view
   delegate :topic, :is_preview, to: :view
 
-  # адрес заголовка топика
   def poster_url
     if is_preview
       topic_url
@@ -11,7 +10,6 @@ class Topics::Urls < ViewObjectBase
     end
   end
 
-  # адрес текста топика
   def body_url
     h.entry_body_url topic
   end
