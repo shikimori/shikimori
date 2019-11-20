@@ -7,25 +7,25 @@
 $icon_desktop_size: 20px
 $icon_mobile_size: 30px
 
-=icon_style($font-size: 14px)
+=icon_style($desktop-font-size: 14px, $mobile-font-size: 17px)
   cursor: pointer
   display: inline-block
-  font-size: $font-size
+  font-size: $desktop-font-size
   line-height: $icon_desktop_size
   text-align: center
   width: $icon_desktop_size
 
   +lte_ipad
-    font-size: 16px
+    font-size: $mobile-font-size
     line-height: $icon_mobile_size
     width: $icon_mobile_size
 
-=icon($content, $font-size: 14px)
+=icon($content, $desktop-font-size: 14px, $mobile-font-size: 17px)
   cursor: pointer
 
   &:before,
   &:after
-    +icon_style($font-size)
+    +icon_style($desktop-font-size, $mobile-font-size)
 
   &:before
     +shikimori($content)
@@ -34,7 +34,7 @@ $icon_mobile_size: 30px
     white-space: nowrap
 
     &:after
-      font-size: 16px
+      font-size: 17px
       padding-left: 5px
 
 =menu_icon($content, $font-size: 14px)
