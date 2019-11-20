@@ -33,6 +33,7 @@
   .fc-main
     $gutter-desktop: 25px
     +fcolumn-responsive($columns: 4, $ipad-columns: 3, $gutter-desktop: $gutter-desktop)
+    margin-top: 10px
 
     .f-column
       min-height: 172px
@@ -84,6 +85,9 @@
       +iphone-portrait
         display: none
 
+  .b-admin_panel
+    margin-top: -25px
+    
   .news_wall
     +fcolumn-responsive($ipad-columns: 2, $desktop-columns: 3, $selector: '.b-news_wall-topic, .b-postloader')
 
