@@ -1,7 +1,18 @@
 .block2
   .fc-2_3
     .f-column
-      .headline.green = t '.latest_content'
+      .headline.green
+        = t '.latest_content'
+        .misc-links
+          a[
+            href=collections_url
+          ] = i18n_i(:collection, 2)
+          a[
+            href=forum_topics_url(:reviews)
+          ] = i18n_i(:review, 2)
+          a[
+            href=articles_url
+          ] = i18n_i(:article, 2)
       .content-updates
         .mobile-slider-prev
         .mobile-slider-next
