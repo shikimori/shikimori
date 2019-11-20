@@ -1,7 +1,13 @@
 - if user_signed_in?
-  .user_list
-    = cache [:list, current_user] do
-      = render 'dashboards/user_list', dashboard_view: @view
+  - if @view.is_a? DashboardViewV2
+    = render 'dashboards/v2/my_list', history: @view.history
+  - else
+    .user_list
+      = cache [:list, current_user] do
+        = render 'dashboards/user_list', view: @view
 - else
-  .sign_in
-    = render 'devise/sessions/form', resource: User.new
+  - if @view.is_a? DashboardViewV2
+    = render 'dashboards/v2/devise'
+  - else
+    .sign_in
+      = render 'devise/sessions/form', resource: User.new

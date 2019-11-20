@@ -3,5 +3,18 @@
 .fc-2
   +fcolumn-responsive($ipad-columns: 2)
 
+.fc-2_3
+  +fcolumn-responsive($landscape-columns: 1, $ipad-columns: 2)
+
+  +gte_ipad
+    & > .f-column:first-child
+      +fcolumn-size(2/3, $flex-gutter-desktop)
+
+    & > .f-column:last-child
+      +fcolumn-size(1/3, $flex-gutter-desktop)
+
 .fc-3
   +fcolumn-responsive($landscape-columns: 1, $ipad-columns: 3)
+
+// .fc-4
+  +fcolumn-responsive($landscape-columns: 2, $ipad-columns: 4)

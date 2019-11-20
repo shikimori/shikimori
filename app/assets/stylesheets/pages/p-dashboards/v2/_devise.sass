@@ -1,0 +1,23 @@
+@import mixins/responsive
+
+.p-dashboards-show .v2
+  .devise
+    background: #e9f7fb
+    border: 1px solid rgba(144, 213, 236, 0.45)
+    padding: 5px 10px 8px
+
+    .social
+      margin-bottom: 15px
+
+      p
+        font-weight: 500
+        font-size: 14px
+
+    .links
+      display: flex
+
+      +lte_ipad
+        flex-direction: column
+
+      +gte_laptop
+        justify-content: space-between

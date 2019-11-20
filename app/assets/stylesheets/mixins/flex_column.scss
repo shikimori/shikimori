@@ -1,8 +1,9 @@
 @import 'mixins/responsive';
 
 @mixin fcolumn-responsive(
-  $portrait-columns: 1,
-  $landscape-columns: 2,
+  $columns: '', // one field to set all columns value
+  $portrait-columns: '',
+  $landscape-columns: '',
   $ipad-columns: '',
   $desktop-columns: '',
   $gutter: '',
@@ -15,6 +16,28 @@
   $offset-desktop: $flex-offset-desktop,
   $selector: '.f-column'
 ) {
+  @if ($columns != '') {
+    @if ($portrait-columns == '') {
+      $portrait-columns: $columns;
+    }
+    @if ($landscape-columns == '') {
+      $landscape-columns: $columns;
+    }
+    @if ($ipad-columns == '') {
+      $ipad-columns: $columns;
+    }
+    @if ($desktop-columns == '') {
+      $desktop-columns: $columns;
+    }
+  } @else {
+    @if ($portrait-columns == '') {
+      $portrait-columns: 1;
+    }
+    @if ($landscape-columns == '') {
+      $landscape-columns: 2;
+    }
+  }
+
   @if ($gutter != '') {
     $gutter-mobile: $gutter;
     $gutter-desktop: $gutter;
@@ -65,10 +88,10 @@
     // background: rgba(blue, 0.5);
     margin-bottom: $offset;
     margin-left: $gutter;
-    @include fcolumn-size($columns, 1, $gutter);
+    @include fcolumn-size(1 / $columns, $gutter);
   }
 }
 
-@mixin fcolumn-size($columns, $ratio, $gutter) {
-  width: calc(#{100% * $ratio / $columns} - #{$gutter});
+@mixin fcolumn-size($ratio, $gutter) {
+  width: calc(#{100% * $ratio} - #{$gutter});
 }

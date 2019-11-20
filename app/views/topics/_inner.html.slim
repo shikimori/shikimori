@@ -1,4 +1,4 @@
-- cache topic_view.cache_key + [topic_view.topic.linked] do
+- cache topic_view.cache_key do
   /# Template Dependency: topics/cosplay/*
   /# Template Dependency: topics/reviews/*
   /# Template Dependency: reviews/stars
@@ -47,7 +47,7 @@
           = topic_view.html_body
 
       - else
-        .body-inner itemprop="articleBody"
+        .body-inner itemprop='articleBody'
           = topic_view.render_body
 
       - if topic_view.read_more_link?

@@ -12,10 +12,17 @@ ru:
       our_projects: Наши проекты
     show_v2:
       latest_news: Новости
-      new_collections: Новые коллекции
-      new_reviews: Новые рецензии
       generated_news: Обновления аниме
       more_news: Ещё новости
+    v2:
+      content_updates:
+        latest_content: Контент
+      my_list:
+        my_list: Мой список
+      devise:
+        sign_in: Вход по паролю
+        sign_up: Регистрация
+        forgot_password: Восстановление пароля
     animes:
       title: Аниме
       # all_animes: все аниме

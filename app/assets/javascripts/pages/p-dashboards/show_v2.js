@@ -1,5 +1,5 @@
 import Swiper from 'swiper';
-import { isMobile } from 'helpers/mobile_detect';
+import { isPhone, isMobile } from 'helpers/mobile_detect';
 
 let swipers = [];
 window.z = swipers;
@@ -28,6 +28,36 @@ function reInitSwipers() {
         spaceBetween: 30,
         wrapperClass: 'inner',
         slideClass: 'db-update',
+        navigation: {
+          nextEl: '.mobile-slider-next',
+          prevEl: '.mobile-slider-prev'
+        }
+      })
+    );
+  }
+
+  if (isPhone()) {
+    swipers.push(
+      new Swiper('.content-updates', {
+        slidesPerView: 'auto',
+        slidesPerColumn: 3,
+        spaceBetween: 30,
+        wrapperClass: 'inner',
+        slideClass: 'b-news_line-topic',
+        navigation: {
+          nextEl: '.mobile-slider-next',
+          prevEl: '.mobile-slider-prev'
+        }
+      })
+    );
+
+    swipers.push(
+      new Swiper('.hot-topics', {
+        slidesPerView: 'auto',
+        slidesPerColumn: 3,
+        spaceBetween: 30,
+        wrapperClass: 'inner',
+        slideClass: 'b-news_line-topic',
         navigation: {
           nextEl: '.mobile-slider-next',
           prevEl: '.mobile-slider-prev'

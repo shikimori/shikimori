@@ -25,6 +25,8 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   BODY_TRUCATE_SIZE = 500
   CACHE_VERSION = :v8
 
+  attr_accessor :is_hide_body
+
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
   end
@@ -46,6 +48,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
 
   def minified?
     @is_mini
+  end
+
+  def hide_body?
+    @is_hide_body
   end
 
   def container_classes additional = []
@@ -207,6 +213,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
       @is_mini,
+      @is_hide_body,
       :v14
     )
   end

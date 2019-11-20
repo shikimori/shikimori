@@ -12,10 +12,17 @@ en:
       our_projects: Our projects
     show_v2:
       latest_news: News
-      new_collections: New collections
-      new_reviews: New reviews
       generated_news: Anime updates
       more_news: More news
+    v2:
+      content_updates:
+        latest_content: Content
+      my_list:
+        my_list: My list
+      devise:
+        sign_in: Sign in with password
+        sign_up: Sign up
+        forgot_password: Password recovery
     animes:
       title: Animes
       # all_animes: all animes

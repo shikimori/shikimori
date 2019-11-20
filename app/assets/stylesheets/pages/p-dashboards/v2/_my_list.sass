@@ -1,0 +1,40 @@
+@import globals
+@import mixins/date
+
+.p-dashboards-show .v2
+  .my-list
+    .midheadline
+      align-items: baseline
+      display: flex
+
+      .misc-links
+        margin-left: auto
+        line-height: 1
+
+    .history
+      display: flex
+
+      &:not(:last-child)
+        margin-bottom: 18px
+
+      &:hover .title
+        color: inherit
+
+      img
+        margin-right: 10px
+        height: 54px
+
+      .title
+        font-size: 14px
+        font-weight: bold
+        line-height: 1
+        margin-bottom: 8px
+
+      .action
+        color: #333
+        font-size: 12px
+        line-height: 1
+        margin-bottom: 2px
+
+      time
+        +date

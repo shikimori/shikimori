@@ -17,7 +17,7 @@ $height: 87px
 
       +lte_ipad
         flex-direction: column
-        height: $height * 2 + 40px
+        height: $height * 2 + 40px // it is a hack but i don't know any better way to make flex wrap
         margin-left: 0
 
         .db-update
@@ -25,7 +25,6 @@ $height: 87px
           margin-left: 0
 
       .db-update
-
         +iphone-portrait
           width: calc(100vw - 20px)
 

@@ -34,6 +34,8 @@ article.shiki-object.to-process[
 
   - if topic_view.is_a? Topics::NewsWallView
     = render 'topics/news_wall/inner', topic_view: topic_view
+  - elsif topic_view.is_a? Topics::NewsLineView
+    = render 'topics/news_line/inner', topic_view: topic_view
   - elsif topic_view.show_inner?
     = render 'topics/inner', topic_view: topic_view
 

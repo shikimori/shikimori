@@ -6,4 +6,15 @@ class Topics::ContestView < Topics::View
   def show_inner?
     true
   end
+
+  def action_tag
+    OpenStruct.new(
+      type: 'contest',
+      text: i18n_i('contest', :one)
+    )
+  end
+
+  def linked_in_avatar?
+    false
+  end
 end
