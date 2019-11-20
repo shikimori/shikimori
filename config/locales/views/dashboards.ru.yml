@@ -19,6 +19,10 @@ ru:
         latest_content: Контент
       my_list:
         my_list: Мой список
+      devise:
+        sign_in: Вход по паролю
+        sign_up: Регистрация
+        forgot_password: Восстановление пароля
     animes:
       title: Аниме
       # all_animes: все аниме

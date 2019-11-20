@@ -7,6 +7,7 @@
         = render 'dashboards/user_list', view: @view
 - else
   - if @view.is_a? DashboardViewV2
+    = render 'dashboards/v2/devise'
   - else
     .sign_in
       = render 'devise/sessions/form', resource: User.new

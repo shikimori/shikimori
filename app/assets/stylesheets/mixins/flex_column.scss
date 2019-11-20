@@ -88,10 +88,10 @@
     // background: rgba(blue, 0.5);
     margin-bottom: $offset;
     margin-left: $gutter;
-    @include fcolumn-size($columns, 1, $gutter);
+    @include fcolumn-size(1 / $columns, $gutter);
   }
 }
 
-@mixin fcolumn-size($columns, $ratio, $gutter) {
-  width: calc(#{100% * $ratio / $columns} - #{$gutter});
+@mixin fcolumn-size($ratio, $gutter) {
+  width: calc(#{100% * $ratio} - #{$gutter});
 }

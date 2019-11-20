@@ -4,17 +4,17 @@
   .info .f-column
     +ipad
       &:first-child
-        +fcolumn-size(4, 1, $flex-gutter-desktop)
+        +fcolumn-size(1/4, $flex-gutter-desktop)
 
       &:last-child
-        +fcolumn-size(4, 3, $flex-gutter-desktop)
+        +fcolumn-size(3/4, $flex-gutter-desktop)
 
     +gte_laptop
       &:first-child
-        +fcolumn-size(5, 1, $flex-gutter-desktop)
+        +fcolumn-size(1/5, $flex-gutter-desktop)
 
       &:last-child
-        +fcolumn-size(5, 4, $flex-gutter-desktop)
+        +fcolumn-size(4/5, $flex-gutter-desktop)
 
   .b-oauth_application .name-logo .logo
     margin-right: 0

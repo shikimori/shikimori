@@ -1,0 +1,8 @@
+.devise
+  = render 'devise/social'
+
+  .m10
+    a.b-link_button.dark href=new_user_session_url = t '.sign_in'
+  .links
+    a href=new_user_registration_url = t '.sign_up'
+    a href=new_user_password_url = t '.forgot_password'

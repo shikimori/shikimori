@@ -19,6 +19,10 @@ en:
         latest_content: Content
       my_list:
         my_list: My list
+      devise:
+        sign_in: Sign in with password
+        sign_up: Sign up
+        forgot_password: Password recovery
     animes:
       title: Animes
       # all_animes: all animes

@@ -1,58 +1,13 @@
 .v2
   / = cache @view.cache_keys.values do
   cache
-    / .block
-      / .sections.main
-      /   .section
-      /     a.b-link_button.maxi.dark[
-      /       href=animes_collection_url
-      /     ]
-      /       span アニメ
-      /       = Anime.model_name.human
-      /
-      /   .section
-      /     a.b-link_button.maxi.dark[
-      /       href=mangas_collection_url
-      /     ]
-      /       span マンガ
-      /       = Manga.model_name.human
-      /   .section
-      /     a.b-link_button.maxi.dark[
-      /       href=ranobe_collection_url
-      /     ]
-      /       span ラノベ
-      /       = Ranobe.model_name.human
-      /   .section
-      /     a.b-link_button.maxi.dark[
-      /       href=forum_url
-      /     ] = t 'forum'
-      /
-      / .sections.other
-      /   .section.seasons-socials
-      /     .seasons
-      /       - @view.anime_seasons.each do |season|
-      /         .season
-      /           a.b-link_button.dark-2[
-      /             href=animes_collection_url(season.url_params)
-      /           ] = season.catalog_title
-      /       .season
-      /         a.b-link_button.dark-2[
-      /           href=animes_collection_url(season: Date.today.year)
-      /         ] #{Anime.model_name.human} #{Date.today.year}
-      /       .season
-      /         a.b-link_button.dark-2[
-      /           href=animes_collection_url(status: :ongoing)
-      /         ] = i18n_i 'Ongoing', :other
-
-
     .block2
       .fc-main
-        .f-column
-          .to-process.b-ajax[
-            data-dynamic='postloaded'
-            data-postloaded-url=dashboards_dynamic_url
-          ]
-        .f-column
+        .f-column.to-process.b-ajax[
+          data-dynamic='postloaded'
+          data-postloaded-url=dashboards_dynamic_url
+        ]
+        .f-column.anime
           a.b-link_button.maxi.dark[
             href=animes_collection_url
           ]
@@ -84,16 +39,8 @@
 
         .f-column.socials
           a.shiki-socials href=StickyTopicView.socials(locale_from_host).object.url
-      / .fc-2_3
-        .f-column
-          .headline test
-        .f-column
-          .to-process.b-ajax[
-            data-dynamic='postloaded'
-            data-postloaded-url=dashboards_dynamic_url
-          ]
 
-    / - if @view.admin_area?
+    - if @view.admin_area?
       javascript:
         $(document.body).on('click', '.b-admin_panel .reload', function() {
           var $panel = $('.b-admin_panel');
