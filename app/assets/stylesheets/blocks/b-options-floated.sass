@@ -24,12 +24,15 @@
 .b-options-floated
   font-size: 11px
   line-height: 12px
-  margin-top: 11px
   position: absolute
   right: 10px
 
   +lte_ipad
     line-height: $line_height
+    margin-top: 8px
+
+  +gte_laptop
+    margin-top: 11px
 
   // страница персонажа - переключение типов
   a, .link
