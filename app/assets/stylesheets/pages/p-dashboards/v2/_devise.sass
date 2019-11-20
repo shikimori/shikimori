@@ -1,3 +1,5 @@
+@import mixins/responsive
+
 .p-dashboards-show .v2
   .devise
     background: #e9f7fb
@@ -13,4 +15,9 @@
 
     .links
       display: flex
-      justify-content: space-between
+
+      +lte_ipad
+        flex-direction: column
+
+      +gte_laptop
+        justify-content: space-between
