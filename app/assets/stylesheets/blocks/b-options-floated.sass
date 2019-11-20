@@ -4,11 +4,13 @@
 @import mixins/responsive
 
 =top_line_options_floated
-  margin-top: 0
+  display: flex
+  flex-wrap: wrap
+  justify-content: flex-end
   margin-bottom: 5px
+  margin-top: 0
   padding-right: 0
   position: initial
-  text-align: right
 
   a
     +link_color
