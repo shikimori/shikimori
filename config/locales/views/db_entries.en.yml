@@ -15,6 +15,7 @@ en:
         up: move up
       image:
         warning: The current picture will be permanently deleted.
+        image_size: 'Image size: %{size}'
       videos:
         videos: Edit videos
         videos: Edit video
