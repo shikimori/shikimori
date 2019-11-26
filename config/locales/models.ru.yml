@@ -96,7 +96,20 @@ ru:
           kids: детских ранобэ
 
   topics/entry_topic:
-    title: Обсуждение
+    title:
+      anime: Обсуждение аниме
+      manga: Обсуждение манги
+      ranobe: Обсуждение ранобэ
+      character: Обсуждение персонажа
+      person: Обсуждение человека
+      review: Обсуждение рецензии
+      contest: Обсуждение турнира
+      club: Обсуждение клуба
+      club_page: Обсуждение страницы
+      cosplay_gallery: Обсуждение косплея
+      collection: Обсуждение коллекции
+      article: Обсуждение статьи
+      default: Топик
     body:
       anime: Топик обсуждения [anime=%{id}]аниме[/anime].
       manga: Топик обсуждения [manga=%{id}]манги[/manga].

@@ -1,6 +1,11 @@
 class Topics::EntryTopic < Topic
+  DEFAULT_TITLE = I18n.t 'topics/entry_topic.title.default'
+
   def title
-    I18n.t 'topics/entry_topic.title'
+    I18n.t(
+      "topics/entry_topic.title.#{linked.class.name.underscore}",
+      default: DEFAULT_TITLE
+    )
   end
 
   # used in Messages::MentionSource

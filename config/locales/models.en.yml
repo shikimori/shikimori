@@ -96,7 +96,20 @@ en:
 
 
   topics/entry_topic:
-    title: Discussion
+    title:
+      anime: Anime thread
+      manga: Manga thread
+      ranobe: Light novel thread
+      character: Character thread
+      person: Person thread
+      review: Review thread
+      contest: Contest thread
+      club: Club thread
+      club_page: Club page thread
+      cosplay_gallery: Cosplay thread
+      collection: Collection thread
+      article: Article thread
+      default: Thread
     body:
       anime: '[anime=%{id}]Anime[/anime] discussion thread.'
       manga: '[manga=%{id}]Manga[/manga] discussion thread.'

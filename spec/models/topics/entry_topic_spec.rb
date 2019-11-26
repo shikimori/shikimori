@@ -4,7 +4,7 @@ describe Topics::EntryTopic do
     let(:linked) { build_stubbed :club }
 
     describe '#title' do
-      it { expect(topic.title).to eq 'Обсуждение' }
+      it { expect(topic.title).to eq 'Обсуждение клуба' }
     end
 
     describe '#full_title' do

@@ -12,19 +12,20 @@
           class=topic_view.action_tag.type
           data-text=topic_view.action_tag.text
         ]
-      time[
-        datetime=topic_view.created_at.iso8601
-        data-no-tooltip='true'
-      ] = topic_view.format_date topic_view.created_at
-      span = t '.by'
-      .author
-        img[
-          src=topic_view.user.avatar_url(16)
-          srcset="#{topic_view.user.avatar_url 32} 2x"
-          alt=topic_view.user.nickname
-        ]
-        span
-          = topic_view.user.nickname
+      - unless topic_view.db_entry_topic?
+        time[
+          datetime=topic_view.created_at.iso8601
+          data-no-tooltip='true'
+        ] = topic_view.format_date topic_view.created_at
+        span = t '.by'
+        .author
+          img[
+            src=topic_view.user.avatar_url(16)
+            srcset="#{topic_view.user.avatar_url 32} 2x"
+            alt=topic_view.user.nickname
+          ]
+          span
+            = topic_view.user.nickname
 
       .comments == topic_view.comments_count.to_s.gsub(/(\d)(?=(\d{3})+$)/, '\1 ')
 

@@ -23,7 +23,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
-  CACHE_VERSION = :v8
+  CACHE_VERSION = :v9
 
   attr_accessor :is_hide_body
 
