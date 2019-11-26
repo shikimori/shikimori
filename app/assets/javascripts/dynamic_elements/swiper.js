@@ -22,7 +22,7 @@ function update() {
   ));
 }
 
-// import delay from 'delay';
+import delay from 'delay';
 
 export default class Swiper extends View {
   isPlaceholder = false;
@@ -44,9 +44,9 @@ export default class Swiper extends View {
 
     this._initializeContent();
 
-    // await delay(500);
-    // this.update();
-    // window.z = this;
+    await delay(500);
+    this.update();
+    window.z = this;
   }
 
   get width() {
@@ -258,10 +258,12 @@ export default class Swiper extends View {
   }
 
   _buildSwiper() {
-    this.$root.children()
-      .addClass('swiper-slide')
-      .removeAttr('style')
-      .wrapAll('<div class="swiper-wrapper" />');
+    if (!this.$root.children('.swiper-wrapper').length) {
+      this.$root.children()
+        .addClass('swiper-slide')
+        .removeAttr('style')
+        .wrapAll('<div class="swiper-wrapper" />');
+    }
 
     this.swiper = new SwiperComponent(this.root, {
       slidesPerView: 'auto',
