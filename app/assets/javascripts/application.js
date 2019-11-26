@@ -110,7 +110,16 @@ $(document).one('turbolinks:load', () => {
     $(`a[name=${match[1]}]`).closest('.b-comment').yellowFade();
   }
 
-  $(window).on('resize', debounce(500, () => $(document.body).trigger('resize:debounced')));
+  let windowWidth = window.innerWidth;
+  let windowHeight = window.innerHeight;
+  $(window).on('resize', debounce(500, () => {
+    // additional check to prevent fake resize events on iOS
+    if (windowWidth !== window.innerWidth || windowHeight !== window.innerHeigh) {
+      $(document.body).trigger('resize:debounced');
+      windowWidth = window.innerWidth;
+      windowHeight = window.innerHeight;
+    }
+  }));
   $(window).on('scroll', throttle(750, () => $(document.body).trigger('scroll:throttled')));
 });
 
