@@ -20,10 +20,8 @@ import TextAnnotated from './text_annotated';
 import Topic from './topic';
 import UserRateButton from './user_rates/button';
 import UserRateExtended from './user_rates/extended';
-import Wall from './wall';
+import WallOrSwiper from './wall_or_swiper';
 import WeekRegisteredAction from './week_registered_action';
-
-import { isMobile } from 'helpers/mobile_detect';
 
 export default class DynamicParser {
   static PENDING_CLASS = 'to-process';
@@ -133,13 +131,7 @@ export default class DynamicParser {
   }
 
   wall(node) {
-    if (isMobile()) {
-      node.classList.remove('b-shiki_wall');
-      node.classList.add('b-shiki_swiper');
-      new Swiper(node);
-    } else {
-      new Wall(node);
-    }
+    new WallOrSwiper(node);
   }
 
   weekRegistered(node) {

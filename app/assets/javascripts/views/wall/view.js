@@ -8,12 +8,12 @@ const MIN_CLUSTER_WEIGHT = 2.5;
 const MIN_TWO_CLUSTERS_WEIGHT = 5.8;
 const MIN_CLUSTER_HEIGHT = 80;
 
-let lastId = 0;
+// let lastId = 0;
 
 export default class Wall extends View {
   async initialize(options = {}) {
-    this.id = lastId;
-    lastId += 1;
+    // this.id = lastId;
+    // lastId += 1;
 
     this.isOneCluster = options.isOneCluster;
     this.minClusterHeight = options.isOneCluster !== undefined ?
@@ -30,6 +30,7 @@ export default class Wall extends View {
     this._buildClusters();
     this._mason();
     this._toShikiImages();
+    // window.x = this;
   }
 
   get isTwoClusters() {
@@ -37,11 +38,20 @@ export default class Wall extends View {
       this.images.sum(image => image.weight()) > MIN_TWO_CLUSTERS_WEIGHT;
   }
 
+  update() {
+  }
+
+  destroy() {
+    this.$node.removeAttr('style');
+    this.images.forEach(image => image.destroy());
+  }
+
   _prepare() {
-    this.$node.css({
-      width: '',
-      height: ''
-    });
+    // this.$node.css({
+    //   width: '',
+    //   height: ''
+    // });
+    this.$node.removeAttr('style');
 
     this.maxContainerWidth = parseInt(this.$node.css('width'));
 
@@ -49,7 +59,7 @@ export default class Wall extends View {
     this.maxWidth = this.maxWidth || this.maxContainerWidth;
 
     const $images = this.$node
-      .children()
+      .find('.b-image, .b-video')
       .attr({ rel: `wall-${this.id}` });
 
     $images.children().removeClass('check-width');

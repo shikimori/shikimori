@@ -5,7 +5,7 @@ import View from 'views/application/view';
 import Wall from 'views/wall/view';
 import WallCluster from 'views/wall/cluster';
 
-const CLASS_NAME = 'b-shiki_swiper';
+const GLOBAL_SELECTOR = 'b-shiki_swiper';
 const DATA_KEY = 'swiper';
 
 let GLOBAL_HANDLER = false;
@@ -17,16 +17,20 @@ function setHanler() {
 }
 
 function update() {
-  $(`.${CLASS_NAME}`).each((_index, node) => (
+  $(`.${GLOBAL_SELECTOR}`).each((_index, node) => (
     $(node).data(DATA_KEY)?.update()
   ));
 }
 
+// import delay from 'delay';
+
 export default class Swiper extends View {
   isPlaceholder = false;
 
-  async initialize() {
+  async initialize(isGlobalUpdate = true) {
     if (!GLOBAL_HANDLER) { setHanler(); }
+    this.$node.data(DATA_KEY, this);
+    this.isGlobalUpdate = isGlobalUpdate;
 
     this._computeSizes();
 
@@ -39,7 +43,10 @@ export default class Swiper extends View {
     }
 
     this._initializeContent();
-    this.$node.data(DATA_KEY, this);
+
+    // await delay(500);
+    // this.update();
+    window.z = this;
   }
 
   get width() {
@@ -76,9 +83,16 @@ export default class Swiper extends View {
     return this.$links.find('img');
   }
 
-  update() {
+  update(isForced) {
+    if (!isForced && !this.isGlobalUpdate) {
+      return;
+    }
+
     this._computeSizes();
     this._initializeContent();
+  }
+
+  destroy() {
   }
 
   _initializeContent() {
@@ -92,13 +106,20 @@ export default class Swiper extends View {
   }
 
   _initializeWallOrSwiper() {
-    const wall = this._buildWall();
+    // if (this.wall) {
+    //   this.wall.destroy();
+    // }
+    if (this.swiper) {
+      this.swiper.destroy();
+    }
 
-    if (!wall.images.length) {
+    this.wall = this._buildWall();
+
+    if (!this.wall.images.length) {
       this._setPlaceholder();
     } else if (this.width < this.areaWidth && this.isAlignCover) {
-      this._scaleWall(wall, this.areaWidth);
-    } else if (wall.images.length > 1) {
+      this._scaleWall(this.wall, this.areaWidth);
+    } else if (this.wall.images.length > 1) {
       this._buildSwiper();
     }
   }
@@ -167,6 +188,9 @@ export default class Swiper extends View {
   }
 
   _computeSizes() {
+    // this.$node.removeAttr('style');
+    // await delay();
+
     const { width } = this;
     let height;
 
@@ -208,7 +232,7 @@ export default class Swiper extends View {
       .removeAttr('style')
       .wrapAll('<div class="swiper-wrapper" />');
 
-    new SwiperComponent(this.root, {
+    this.swiper = new SwiperComponent(this.root, {
       slidesPerView: 'auto',
       spaceBetween: WallCluster.MARGIN,
       a11y: false

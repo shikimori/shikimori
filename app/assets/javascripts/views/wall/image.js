@@ -36,6 +36,11 @@ export default class WallImage extends View {
     });
   }
 
+  destroy() {
+    this.$node.removeAttr('style');
+    this.$image.removeAttr('style');
+  }
+
   normalize(width, height) {
     if (this.width > width) {
       this.scaleWidth(width);

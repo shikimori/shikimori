@@ -1,4 +1,4 @@
-import { CLASS_NAME } from 'dynamic_elements/cutted_covers';
+import { GLOBAL_SELECTOR } from 'dynamic_elements/cutted_covers';
 
 $.fn.extend({
   process_hidden_content() {
@@ -7,8 +7,8 @@ $.fn.extend({
 
       // хак для корректной работы галерей аниме внутри спойлеров
       $content.find('.align-posters').trigger('spoiler:opened');
-      $content.find(`.${CLASS_NAME}`).each(function () {
-        const data = $(this).data(CLASS_NAME);
+      $content.find(`.${GLOBAL_SELECTOR}`).each(function () {
+        const data = $(this).data(GLOBAL_SELECTOR);
         if (data) {
           data.inject_css();
         }

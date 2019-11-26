@@ -4,7 +4,7 @@ import View from 'views/application/view';
 let PRIOR_ID = 0;
 let GLOBAL_HANDLER = false;
 
-export const CLASS_NAME = 'd-cutted_covers';
+export const GLOBAL_SELECTOR = 'd-cutted_covers';
 const DATA_KEY = 'cutted-covers';
 
 export const RATIO = {
@@ -16,7 +16,7 @@ export const RATIO = {
 function update() {
   $('#injectCSSContainer').empty();
 
-  $(`.${CLASS_NAME}`).each((_index, node) => (
+  $(`.${GLOBAL_SELECTOR}`).each((_index, node) => (
     $(node).data(DATA_KEY)?.injectCss()
   ));
 }
@@ -41,7 +41,7 @@ export class CuttedCovers extends View {
     this.injectCss();
 
     this.node.id = this.collection_id;
-    this.node.classList.add(CLASS_NAME);
+    this.node.classList.add(GLOBAL_SELECTOR);
 
     this.$node.data(DATA_KEY, this);
   }

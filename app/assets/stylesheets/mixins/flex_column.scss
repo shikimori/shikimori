@@ -1,7 +1,7 @@
 @import 'mixins/responsive';
 
 @mixin fcolumn-responsive(
-  $columns: '', // one field to set all columns value
+  $columns: '', // one argument to rule all columns
   $portrait-columns: '',
   $landscape-columns: '',
   $ipad-columns: '',
