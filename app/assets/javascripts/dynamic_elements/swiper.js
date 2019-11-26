@@ -74,6 +74,11 @@ export default class Swiper extends View {
   }
 
   @memoize
+  get isVideoShrinked() {
+    return this.isVideo && this.$root.children('.b-video.shrinked').length;
+  }
+
+  @memoize
   get $links() {
     return this.$root.children();
   }
@@ -106,11 +111,13 @@ export default class Swiper extends View {
   }
 
   _initializeWallOrSwiper() {
-    // if (this.wall) {
-    //   this.wall.destroy();
-    // }
+    if (this.wall) {
+      this.wall.destroy();
+      this.wall = null;
+    }
     if (this.swiper) {
       this.swiper.destroy();
+      this.swiper = null;
     }
 
     this.wall = this._buildWall();
@@ -127,10 +134,12 @@ export default class Swiper extends View {
   _initializeImage() {
     const image = this.$images[0];
     const imageWidth = image.naturalWidth;
-    const imageHeight = image.naturalHeight;
+    const imageHeight = this.isVideoShrinked ? image.naturalHeight * 0.744047619 : image.naturalHeight;
 
     const imageRatio = imageWidth / imageHeight;
     const areaRatio = this.areaWidth / this.areaHeight;
+
+    console.log(imageWidth, imageHeight, imageRatio)
 
     const isVertical = imageRatio < areaRatio;
     const isHorizontal = imageRatio > areaRatio;
