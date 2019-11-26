@@ -110,27 +110,6 @@ export default class Swiper extends View {
     }
   }
 
-  _initializeWallOrSwiper() {
-    if (this.wall) {
-      this.wall.destroy();
-      this.wall = null;
-    }
-    if (this.swiper) {
-      this.swiper.destroy();
-      this.swiper = null;
-    }
-
-    this.wall = this._buildWall();
-
-    if (!this.wall.images.length) {
-      this._setPlaceholder();
-    } else if (this.width < this.areaWidth && this.isAlignCover) {
-      this._scaleWall(this.wall, this.areaWidth);
-    } else if (this.wall.images.length > 1) {
-      this._buildSwiper();
-    }
-  }
-
   _initializeImage() {
     const image = this.$images[0];
     const imageWidth = image.naturalWidth;
@@ -167,6 +146,27 @@ export default class Swiper extends View {
     }
   }
 
+  _initializeWallOrSwiper() {
+    if (this.wall) {
+      this.wall.destroy();
+      this.wall = null;
+    }
+    if (this.swiper) {
+      this.swiper.destroy();
+      this.swiper = null;
+    }
+
+    this.wall = this._buildWall();
+
+    if (!this.wall.images.length) {
+      this._setPlaceholder();
+    } else if (this.width < this.areaWidth && this.isAlignCover) {
+      this._scaleWall(this.wall, this.areaWidth);
+    } else if (this.wall.images.length > 1) {
+      this._buildSwiper();
+    }
+  }
+
   _alignVertical(imageRatio) {
     const scaledImageHeight = this.areaWidth / imageRatio;
     const scaleRatio = this.areaHeight / scaledImageHeight;
@@ -197,9 +197,6 @@ export default class Swiper extends View {
   }
 
   _computeSizes() {
-    // this.$node.removeAttr('style');
-    // await delay();
-
     const { width } = this;
     let height;
 
@@ -228,9 +225,22 @@ export default class Swiper extends View {
   }
 
   _buildWall() {
+    let maxHeight = null;
+    if (this.isVideo) {
+      const image = this.$images[0];
+      const imageWidth = image.naturalWidth;
+      const imageHeight = image.naturalHeight;
+      const imageRatio = imageWidth / imageHeight;
+
+      if (imageWidth > this.areaWidth) {
+        maxHeight = this.areaWidth / imageRatio * (this.isVideoShrinked ? 0.744047619 : 1);
+      }
+    }
+
     return new Wall(this.$root, {
       isOneCluster: true,
       maxWidth: 9999,
+      maxHeight,
       awaitImagesLoaded: false
     });
   }
