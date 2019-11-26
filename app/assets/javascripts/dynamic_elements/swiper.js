@@ -98,6 +98,18 @@ export default class Swiper extends View {
   }
 
   destroy() {
+    if (this.wall) {
+      this.wall.destroy();
+      this.wall = null;
+    } else {
+      this.$images.each((_index, node) => $(node).removeAttr('style'));
+      this.$node.removeAttr('style');
+    }
+
+    if (this.swiper) {
+      this.swiper.destroy();
+      this.swiper = null;
+    }
   }
 
   _initializeContent() {
