@@ -46,7 +46,7 @@ export default class Swiper extends View {
 
     // await delay(500);
     // this.update();
-    window.z = this;
+    // window.z = this;
   }
 
   get width() {
@@ -134,12 +134,12 @@ export default class Swiper extends View {
   _initializeImage() {
     const image = this.$images[0];
     const imageWidth = image.naturalWidth;
-    const imageHeight = this.isVideoShrinked ? image.naturalHeight * 0.744047619 : image.naturalHeight;
+    const imageHeight = !this.isAlignCover && this.isVideoShrinked ?
+      image.naturalHeight * 0.744047619 :
+      image.naturalHeight;
 
     const imageRatio = imageWidth / imageHeight;
     const areaRatio = this.areaWidth / this.areaHeight;
-
-    console.log(imageWidth, imageHeight, imageRatio)
 
     const isVertical = imageRatio < areaRatio;
     const isHorizontal = imageRatio > areaRatio;
