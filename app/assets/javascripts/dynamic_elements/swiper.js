@@ -93,6 +93,10 @@ export default class Swiper extends View {
       return;
     }
 
+    if (this.swiper || this.wall) {
+      this.destroy();
+    }
+
     this._computeSizes();
     this._initializeContent();
   }
@@ -109,6 +113,7 @@ export default class Swiper extends View {
     if (this.swiper) {
       this.swiper.destroy();
       this.swiper = null;
+      this.$links.unwrap();
     }
   }
 
@@ -179,6 +184,66 @@ export default class Swiper extends View {
     }
   }
 
+  _buildWall() {
+    let maxHeight = null;
+    if (this.isVideo) {
+      const image = this.$images[0];
+      const imageWidth = image.naturalWidth;
+      const imageHeight = image.naturalHeight;
+      const imageRatio = imageWidth / imageHeight;
+
+      if (imageWidth > this.areaWidth) {
+        maxHeight = this.areaWidth / imageRatio * (this.isVideoShrinked ? 0.744047619 : 1);
+      }
+    }
+
+    return new Wall(this.$root, {
+      isOneCluster: true,
+      maxWidth: 9999,
+      maxHeight,
+      awaitImagesLoaded: false
+    });
+  }
+
+  _setPlaceholder(width, height) {
+    this.$root
+      .css({ width, height })
+      .addClass('is-placeholder');
+  }
+
+  _scaleWall(wall, width) {
+    const firstImage = wall.images.first();
+    if (wall.images.length === 1 && firstImage.ratio > RATIO) {
+      return;
+    }
+
+    const newWall = new Wall(this.$root, {
+      isOneCluster: true,
+      maxWidth: width,
+      maxHeight: 9999,
+      awaitImagesLoaded: false
+    });
+
+    newWall.images.forEach((image, index) => {
+      if (index > 0) {
+        image.$root.css({ left: '', 'margin-left': WallCluster.MARGIN });
+      }
+    });
+  }
+
+  _buildSwiper() {
+    this.$root.children()
+      .addClass('swiper-slide')
+      .removeAttr('style')
+      .wrapAll('<div class="swiper-wrapper" />');
+
+    this.swiper = new SwiperComponent(this.root, {
+      slidesPerView: 'auto',
+      spaceBetween: WallCluster.MARGIN,
+      a11y: false
+    });
+  }
+
   _alignVertical(imageRatio) {
     const scaledImageHeight = this.areaWidth / imageRatio;
     const scaleRatio = this.areaHeight / scaledImageHeight;
@@ -234,67 +299,5 @@ export default class Swiper extends View {
       await this.$root.imagesLoaded().catch(() => hasFailed = true);
     }
     return hasFailed;
-  }
-
-  _buildWall() {
-    let maxHeight = null;
-    if (this.isVideo) {
-      const image = this.$images[0];
-      const imageWidth = image.naturalWidth;
-      const imageHeight = image.naturalHeight;
-      const imageRatio = imageWidth / imageHeight;
-
-      if (imageWidth > this.areaWidth) {
-        maxHeight = this.areaWidth / imageRatio * (this.isVideoShrinked ? 0.744047619 : 1);
-      }
-    }
-
-    return new Wall(this.$root, {
-      isOneCluster: true,
-      maxWidth: 9999,
-      maxHeight,
-      awaitImagesLoaded: false
-    });
-  }
-
-  _buildSwiper() {
-    if (!this.$root.children('.swiper-wrapper').length) {
-      this.$root.children()
-        .addClass('swiper-slide')
-        .removeAttr('style')
-        .wrapAll('<div class="swiper-wrapper" />');
-    }
-
-    this.swiper = new SwiperComponent(this.root, {
-      slidesPerView: 'auto',
-      spaceBetween: WallCluster.MARGIN,
-      a11y: false
-    });
-  }
-
-  _setPlaceholder(width, height) {
-    this.$root
-      .css({ width, height })
-      .addClass('is-placeholder');
-  }
-
-  _scaleWall(wall, width) {
-    const firstImage = wall.images.first();
-    if (wall.images.length === 1 && firstImage.ratio > RATIO) {
-      return;
-    }
-
-    const newWall = new Wall(this.$root, {
-      isOneCluster: true,
-      maxWidth: width,
-      maxHeight: 9999,
-      awaitImagesLoaded: false
-    });
-
-    newWall.images.forEach((image, index) => {
-      if (index > 0) {
-        image.$root.css({ left: '', 'margin-left': WallCluster.MARGIN });
-      }
-    });
   }
 }
