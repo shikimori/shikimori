@@ -8,12 +8,12 @@ const MIN_CLUSTER_WEIGHT = 2.5;
 const MIN_TWO_CLUSTERS_WEIGHT = 5.8;
 const MIN_CLUSTER_HEIGHT = 80;
 
-// let lastId = 0;
+let lastId = 0;
 
 export default class Wall extends View {
   async initialize(options = {}) {
-    // this.id = lastId;
-    // lastId += 1;
+    this.id = lastId;
+    lastId += 1;
 
     this.isOneCluster = options.isOneCluster;
     this.minClusterHeight = options.isOneCluster !== undefined ?
@@ -30,7 +30,6 @@ export default class Wall extends View {
     this._buildClusters();
     this._mason();
     this._toShikiImages();
-    // window.x = this;
   }
 
   get isTwoClusters() {
