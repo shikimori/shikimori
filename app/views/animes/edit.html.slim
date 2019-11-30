@@ -269,7 +269,7 @@
         li
           .field = t '.external_links'
           .value
-            span = @resource.displayed_external_links.map(&:label).join(', ').html_safe
+            span = @resource.available_external_links.map(&:label).join(', ').html_safe
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:external_links)
               data-dynamic='week_registered'

@@ -8,19 +8,21 @@ module Types
 
     COMMON_KINDS = %i[official_site wikipedia anime_news_network myanimelist]
 
+    WATCH_ONLINE_KINDS = %i[
+      wakanim
+      crunchyroll
+      youtube
+      netflix
+      hulu
+      amazon
+    ]
     KINDS = {
       anime: COMMON_KINDS + %i[
         anime_db
         world_art
         kage_project
         smotret_anime
-        wakanim
-        crunchyroll
-        youtube
-        netflix
-        hulu
-        amazon
-      ],
+      ] + WATCH_ONLINE_KINDS,
       manga: COMMON_KINDS + %i[
         readmanga
         mangaupdates

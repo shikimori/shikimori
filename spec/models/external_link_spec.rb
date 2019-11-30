@@ -52,6 +52,18 @@ describe ExternalLink do
       end
     end
 
+    describe '#watch_online?' do
+      let(:external_link) { build :external_link, kind }
+      let(:kind) { Types::ExternalLink::Kind[:wikipedia] }
+
+      it { expect(external_link).to_not be_watch_online }
+
+      context 'watch online kind' do
+        let(:kind) { Types::ExternalLink::Kind[:crunchyroll] }
+        it { expect(external_link).to be_watch_online }
+      end
+    end
+
     describe '#label' do
       let(:external_link) { build :external_link, kind, url: url }
       subject { external_link.label }

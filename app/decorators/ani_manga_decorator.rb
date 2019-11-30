@@ -10,7 +10,7 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?,
     :current_rate, :changes, :versions, :versions_page,
     :roles, :related, :friend_rates, :recent_rates, :chronology,
-    :rates_scores_stats, :rates_statuses_stats, :displayed_external_links
+    :rates_scores_stats, :rates_statuses_stats, :available_external_links, :menu_external_links
 
   def topic_views
     object
@@ -168,7 +168,11 @@ class AniMangaDecorator < DbEntryDecorator
     I18n.russian? ? text.capitalize : text
   end
 
-  def displayed_external_links # rubocop:disable all
+  def menu_external_links
+    available_external_links.reject(&:watch_online?)
+  end
+
+  def available_external_links # rubocop:disable all
     all_links = (object.all_external_links.select(&:visible?) + (mal_id ? [mal_external_link] : []))
       .sort_by { |link| Types::ExternalLink::Source.values.index link.source.to_sym }
 

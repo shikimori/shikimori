@@ -232,7 +232,7 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:id/external_links'
   def external_links
-    @collection = @resource.displayed_external_links
+    @collection = @resource.available_external_links
     respond_with @collection
   end
 

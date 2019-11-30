@@ -132,7 +132,7 @@ describe AniMangaDecorator do
     end
   end
 
-  describe '#displayed_external_links' do
+  describe '#available_external_links, #menu_external_links' do
     let(:anime) do
       build_stubbed :anime,
         mal_id: mal_id,
@@ -140,7 +140,8 @@ describe AniMangaDecorator do
           external_link_1,
           external_link_2,
           external_link_3,
-          external_link_4
+          external_link_4,
+          external_link_5
         ]
     end
     let!(:external_link_1) do
@@ -160,24 +161,40 @@ describe AniMangaDecorator do
         source: :smotret_anime,
         url: 'https://ja.wikipedia.org/wiki/%E3%81%93%E3%81%AE%E9%9F%B3%E3%81%A8%E3%81%BE%E3%82%8C!c'
     end
+    let!(:external_link_5) { build_stubbed :external_link, :wakanim }
 
     context 'without mal_id' do
       let(:mal_id) { nil }
-      it do
-        expect(decorator.displayed_external_links).to eq [
+      its(:menu_external_links) do
+        is_expected.to eq [
           external_link_1,
           external_link_4
+        ]
+      end
+      its(:available_external_links) do
+        is_expected.to eq [
+          external_link_1,
+          external_link_4,
+          external_link_5
         ]
       end
     end
 
     context 'with mal_id' do
       let(:mal_id) { 123 }
-      it do
-        expect(decorator.displayed_external_links).to eq [
+      its(:menu_external_links) do
+        is_expected.to eq [
           external_link_1,
           external_link_4,
           decorator.send(:mal_external_link)
+        ]
+      end
+      its(:available_external_links) do
+        is_expected.to eq [
+          external_link_1,
+          external_link_4,
+          decorator.send(:mal_external_link),
+          external_link_5
         ]
       end
     end

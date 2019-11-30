@@ -39,6 +39,10 @@ class ExternalLink < ApplicationRecord
     url&.ends_with? NO_URL
   end
 
+  def watch_online?
+    Types::ExternalLink::WATCH_ONLINE_KINDS.include? kind.to_sym
+  end
+
   def label
     if kind_wikipedia? && url =~ %r{/(?<lang>ru|en|ja|zh)\.wikipedia\.org/}
       WIKIPEDIA_LABELS[$LAST_MATCH_INFO[:lang].to_sym] || kind_text
