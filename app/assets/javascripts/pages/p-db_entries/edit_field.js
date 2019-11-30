@@ -194,6 +194,7 @@ async function initExternalLinksApp() {
         resourceType: $app.data('resource_type'),
         entryType: $app.data('entry_type'),
         entryId: $app.data('entry_id')
+        watchOnlineKinds: $app.data('watch_online_kinds')
       }
     })
   });
