@@ -14,6 +14,12 @@ module Types
         world_art
         kage_project
         smotret_anime
+        wakanim
+        crunchyroll
+        youtube
+        netflix
+        hulu
+        amazon
       ],
       manga: COMMON_KINDS + %i[
         readmanga
