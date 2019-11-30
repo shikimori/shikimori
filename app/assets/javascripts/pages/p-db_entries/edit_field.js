@@ -193,7 +193,7 @@ async function initExternalLinksApp() {
         kindOptions: $app.data('kind_options'),
         resourceType: $app.data('resource_type'),
         entryType: $app.data('entry_type'),
-        entryId: $app.data('entry_id')
+        entryId: $app.data('entry_id'),
         watchOnlineKinds: $app.data('watch_online_kinds')
       }
     })

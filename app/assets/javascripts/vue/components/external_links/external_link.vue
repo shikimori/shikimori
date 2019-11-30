@@ -53,10 +53,14 @@
         @keydown.8='removeEmpty(link)'
         @keydown.esc='removeEmpty(link)'
       )
+      span.hint.warn(
+        v-if='isWatchOnlineKind'
+      )
+        | {{ I18n.t('frontend.external_links.watch_online') }}
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'ExternalLink',
@@ -65,11 +69,18 @@ export default {
     kindOptions: { type: Array, required: true },
     resourceType: { type: String, required: true },
     entryType: { type: String, required: true },
-    entryId: { type: Number, required: true }
+    entryId: { type: Number, required: true },
+    watchOnlineKinds: { type: Array, required: true }
   },
   computed: {
-    ...mapGetters([
-    ])
+    isWatchOnlineKind() {
+      return this.watchOnlineKinds.includes(this.link.kind);
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      $('input', this.$el).focus();
+    });
   },
   methods: {
     ...mapActions([
@@ -93,11 +104,6 @@ export default {
         this.$emit('focusLast');
       }
     }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      $('input', this.$el).focus();
-    });
   }
 };
 </script>
@@ -114,6 +120,11 @@ export default {
     &.select
       margin-bottom: 5px
 
+    .hint.warn
+      margin-top: 3px
+      color: #fc575e
+
   .drag-handle
     margin-top: 3px
+
 </style>

@@ -24,6 +24,7 @@
         :resource-type='resourceType'
         :entry-type='entryType'
         :entry-id='entryId'
+        :watch-online-kinds='watchOnlineKinds'
       )
     .b-button(
       @click='add'
@@ -44,7 +45,8 @@ export default {
     kindOptions: { type: Array, required: true },
     resourceType: { type: String, required: true },
     entryType: { type: String, required: true },
-    entryId: { type: Number, required: true }
+    entryId: { type: Number, required: true },
+    watchOnlineKinds: { type: Array, required: true }
   },
   data: () => ({
     dragOptions: {
