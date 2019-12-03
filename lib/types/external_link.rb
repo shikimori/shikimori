@@ -22,6 +22,7 @@ module Types
         world_art
         kage_project
         smotret_anime
+        youtube_channel
       ] + WATCH_ONLINE_KINDS,
       manga: COMMON_KINDS + %i[
         readmanga

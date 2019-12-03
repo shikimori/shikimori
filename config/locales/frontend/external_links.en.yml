@@ -2,4 +2,10 @@ en:
   frontend:
     external_links:
       nothing_here: No external links
-      watch_online: ink to the official channel or online player
+      groups:
+        links: Links
+        watch_online: Online Viewing
+      warn:
+        youtube: Link to the official channel (online viewing)
+        youtube_channel: Link to the official channel (not online viewing)
+        watch_online: Link to the online player

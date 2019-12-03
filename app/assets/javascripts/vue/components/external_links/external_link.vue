@@ -39,10 +39,20 @@
         v-model='link.kind'
         :name="fieldName('kind')"
       )
-        option(
-          v-for='kindOption in kindOptions'
-          :value='kindOption.last()'
-        ) {{ kindOption.first() }}
+        optgroup(
+          :label='I18n.t("frontend.external_links.groups.links")'
+        )
+          option(
+            v-for='kindOption in kindOptionsLinks'
+            :value='kindOption.last()'
+          ) {{ kindOption.first() }}
+        optgroup(
+          :label='I18n.t("frontend.external_links.groups.watch_online")'
+        )
+          option(
+            v-for='kindOption in kindOptionsWatchOnline'
+            :value='kindOption.last()'
+          ) {{ kindOption.first() }}
     .b-input
       input(
         type='text'
@@ -54,9 +64,17 @@
         @keydown.esc='removeEmpty(link)'
       )
       span.hint.warn(
-        v-if='isWatchOnlineKind'
+        v-if='isYoutubeKind'
       )
-        | {{ I18n.t('frontend.external_links.watch_online') }}
+        | {{ I18n.t('frontend.external_links.warn.youtube') }}
+      span.hint.warn(
+        v-else-if='isYoutubeChannelKind'
+      )
+        | {{ I18n.t('frontend.external_links.warn.youtube_channel') }}
+      span.hint.warn(
+        v-else-if='isWatchOnlineKind'
+      )
+        | {{ I18n.t('frontend.external_links.warn.watch_online') }}
 </template>
 
 <script>
@@ -73,8 +91,20 @@ export default {
     watchOnlineKinds: { type: Array, required: true }
   },
   computed: {
+    isYoutubeKind() {
+      return this.link.kind === 'youtube';
+    },
+    isYoutubeChannelKind() {
+      return this.link.kind === 'youtube_channel';
+    },
     isWatchOnlineKind() {
       return this.watchOnlineKinds.includes(this.link.kind);
+    },
+    kindOptionsLinks() {
+      return this.kindOptions.filter(v => !this.watchOnlineKinds.includes(v[1]));
+    },
+    kindOptionsWatchOnline() {
+      return this.kindOptions.filter(v => this.watchOnlineKinds.includes(v[1]));
     }
   },
   mounted() {
