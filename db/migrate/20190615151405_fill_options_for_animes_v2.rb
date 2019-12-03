@@ -1,6 +1,6 @@
-class FillOptionsForAnimes < ActiveRecord::Migration[5.2]
+class FillOptionsForAnimesV2 < ActiveRecord::Migration[5.2]
   def change
-    return if Rails.env.production?
+    return unless Rails.env.production?
 
     Anime
       .where(id: 26123)
