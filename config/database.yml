@@ -1,11 +1,10 @@
-# SQLite version 3.x
-#   gem install sqlite3-ruby (not necessary on OS X Leopard)
 development: &defaults
   adapter: postgresql
   encoding: utf8
-  database: shikimori_production
-  username: shikimori_production
-  host: localhost
+  database: <%= ENV['PGDATABASE'] || 'shikimori_production' %>
+  username: <%= ENV['PGUSER'] || 'shikimori_production' %>
+  password: <%= ENV['PGPASSWORD'] %>
+  host: <%= ENV['PGHOST'] || 'localhost' %>
   pool: 100
   timeout: 5000
 
@@ -14,6 +13,7 @@ production:
 
 test:
   <<: *defaults
-  host: <%= ENV['PGHOST'] || 'localhost' %>
   database: <%= ENV['PGDATABASE'] || "shikimori_test_#{ENV['TEST_ENV_NUMBER']}" %>
   username: <%= ENV['PGUSER'] || 'shikimori_test' %>
+  password: <%= ENV['PGPASSWORD'] %>
+  host: <%= ENV['PGHOST'] || 'localhost' %>

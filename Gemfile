@@ -126,7 +126,6 @@ group :beta, :production do
 end
 
 group :development do
-  gem 'dotenv-rails'
   gem 'meta_request'
 
   gem 'spring'
@@ -166,6 +165,7 @@ gem 'pry-rails'
 gem 'pry-stack_explorer'
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'puma'
 
   gem 'rb-fchange', require: false

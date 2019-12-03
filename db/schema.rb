@@ -141,11 +141,11 @@ ActiveRecord::Schema.define(version: 2019_11_18_133804) do
     t.integer "studio_ids", default: [], null: false, array: true
     t.string "season"
     t.string "franchise"
+    t.string "options", default: [], null: false, array: true
     t.string "license_name_ru"
     t.text "coub_tags", default: [], null: false, array: true
     t.text "fansubbers", default: [], null: false, array: true
     t.text "fandubbers", default: [], null: false, array: true
-    t.string "options", default: [], null: false, array: true
     t.string "licensor"
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
