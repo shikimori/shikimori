@@ -68,6 +68,7 @@ en:
         one: And %{count} user more
         other: And %{count} users more
       episodes_preview: Episodes preview
+      watch_online: Watch Online
 
     menu:
       scores: Scores

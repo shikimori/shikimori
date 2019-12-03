@@ -107,11 +107,13 @@
                 .block
                   = render 'mangas/publishers_info', entry: @resource
 
-            - if @resource.anime?
-              .watch-online-placeholer[
-                data-total_episodes=@resource.episodes
-                data-episodes_aired=@resource.episodes_aired
-              ]
+            - if @resource.watch_online_external_link
+              .watch-online
+                .b-link_button.dark.linkeable[
+                  data-href=@resource.watch_online_external_link.url
+                  target='_blank'
+                ] = t '.watch_online'
+                .kind = @resource.watch_online_external_link.kind_text
 
       .c-description
         .subheadline.m5 = Anime.human_attribute_name :description

@@ -150,7 +150,27 @@
             border-top: none
             padding-top: 0
 
-  // блок "показать остальное"
+  .c-info-right
+    .watch-online
+      display: flex
+      flex-direction: column
+      align-items: center
+
+      .b-link_button
+        max-width: 200px
+        display: flex
+        align-items: center
+        margin: 0
+
+        &:after
+          +shikimori('\f08e')
+          font-weight: normal
+          margin-left: 6px
+
+      .kind
+        color: $gray-4
+
+  // "show other" block
   .related-shower
     +plashka
     border: 1px solid #F2F2F2
