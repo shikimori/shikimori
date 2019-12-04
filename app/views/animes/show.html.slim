@@ -107,13 +107,25 @@
                 .block
                   = render 'mangas/publishers_info', entry: @resource
 
-            - if @resource.watch_online_external_link
+            - if @resource.watch_online_external_links.any?
               .watch-online
-                .b-link_button.dark.linkeable[
-                  data-href=@resource.watch_online_external_link.url
-                  target='_blank'
-                ] = t '.watch_online'
-                .kind = @resource.watch_online_external_link.kind_text
+                - @resource.watch_online_external_links.each_with_index do |external_link, index|
+                  - if index.zero?
+                    .first
+                      .b-link_button.dark.linkeable[
+                        data-href=external_link.url
+                        title=external_link.kind_text
+                        target='_blank'
+                      ] = t '.watch_online'
+                    .kind = external_link.kind_text
+                  - else
+                    .linkeable.kind[
+                      data-href=external_link.url
+                      title=external_link.kind_text
+                      target='_blank'
+                    ]
+                      = external_link.kind_text
+                      span
 
       .c-description
         .subheadline.m5 = Anime.human_attribute_name :description

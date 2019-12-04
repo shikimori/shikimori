@@ -1,7 +1,8 @@
-@import mixins/clearfix
 @import mixins/block
 @import mixins/clear_left
 @import mixins/clear_right
+@import mixins/clearfix
+@import mixins/comma_separated
 @import mixins/float_column
 @import mixins/icons
 @import mixins/link
@@ -152,9 +153,14 @@
 
   .c-info-right
     .watch-online
-      align-items: center
       display: flex
-      flex-direction: column
+      flex-wrap: wrap
+      justify-content: center
+
+      .first
+        display: flex
+        flex-basis: 100%
+        justify-content: center
 
       .b-link_button
         align-items: center
@@ -168,9 +174,24 @@
           margin-left: 6px
 
       .kind
+        +comma_separated(5px)
         color: $gray-4
         font-size: 12px
         margin-top: 3px
+
+      a.kind
+        +link
+
+        span
+          padding-left: 4px
+          padding-right: 12px
+
+          &:after
+            position: absolute
+            +shikimori('\f08e')
+            font-size: 11px
+            margin-top: 1px
+            font-weight: normal
 
   // "show other" block
   .related-shower

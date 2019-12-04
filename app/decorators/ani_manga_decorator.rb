@@ -11,7 +11,7 @@ class AniMangaDecorator < DbEntryDecorator
     :current_rate, :changes, :versions, :versions_page,
     :roles, :related, :friend_rates, :recent_rates, :chronology,
     :rates_scores_stats, :rates_statuses_stats, :available_external_links,
-    :watch_online_external_link, :menu_external_links
+    :watch_online_external_links, :menu_external_links
 
   def topic_views
     object
@@ -169,8 +169,8 @@ class AniMangaDecorator < DbEntryDecorator
     I18n.russian? ? text.capitalize : text
   end
 
-  def watch_online_external_link
-    available_external_links.find(&:watch_online?)
+  def watch_online_external_links
+    available_external_links.select(&:watch_online?)
   end
 
   def menu_external_links
