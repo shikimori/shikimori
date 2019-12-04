@@ -111,7 +111,7 @@
               .watch-online
                 - @resource.watch_online_external_links.each_with_index do |external_link, index|
                   - if index.zero?
-                    .first
+                    .line
                       .b-link_button.dark.linkeable[
                         data-href=external_link.url
                         title=external_link.kind_text
