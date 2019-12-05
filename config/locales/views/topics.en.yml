@@ -5,6 +5,7 @@ en:
     header:
       mini: &header_mini
         topic_ignored: ignored
+        topic_closed: closed
       common:
         <<: *header_mini
         about: about

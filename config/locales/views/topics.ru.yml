@@ -5,6 +5,7 @@ ru:
     header:
       mini: &header_mini
         topic_ignored: в игноре
+        topic_closed: закрыт
       common:
         <<: *header_mini
         about: о

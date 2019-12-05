@@ -7,6 +7,10 @@
       ]
     - if topic_view.try :offtopic_tag
       .b-anime_status_tag.offtopic data-text=topic_view.offtopic_tag
+    - if topic_view.closed?
+      .b-anime_status_tag.other[
+        data-text=t('.topic_closed')
+     ]
     - if user_signed_in?
       .b-anime_status_tag.ignored.hidden[
         data-text=t('.topic_ignored')

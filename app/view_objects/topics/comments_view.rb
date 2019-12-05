@@ -1,5 +1,5 @@
 class Topics::CommentsView < ViewObjectBase
-  pattr_initialize :topic, :is_preview
+  vattr_initialize :topic, :is_preview
 
   instance_cache :comments, :folded_comments
   instance_cache :only_summaries_shown?

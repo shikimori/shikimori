@@ -50,6 +50,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     @is_mini
   end
 
+  def closed?
+    @topic.is_closed
+  end
+
   def hide_body?
     @is_hide_body
   end

@@ -19,6 +19,7 @@
     - else
       p.b-nothing_here = t 'no_comments'
 
-  .editor-container
-    .subheadline = t '.your_comment'
-    = render 'comments/form', comment: comments_view.new_comment
+  - unless comments_view.topic.is_closed
+    .editor-container
+      .subheadline = t '.your_comment'
+      = render 'comments/form', comment: comments_view.new_comment
