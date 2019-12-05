@@ -258,6 +258,8 @@ ru:
         forum_id: Раздел
         source: Источник
         tags: Теги
+        is_closed: Закрыт
+        broadcast: Рассылка
       version:
         reason: Причина правки
         item_diff: Список изменений

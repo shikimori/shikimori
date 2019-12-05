@@ -23,7 +23,6 @@ module Routing
 
     def shiki_port
       if Rails.env.development? && (Draper::ViewContext.current.request.try(:port) || '80') != '80'
-      else
         Draper::ViewContext.current.request.port
       end
     end

@@ -145,7 +145,8 @@ private
       else
         UPDATE_PARAMS
       end
-    allowed_params += [:broadcast] if current_user&.admin?
+    allowed_params += [:broadcast] if can? :broadcast, Topic
+    allowed_params += [:is_closed] if can? :close, Topic
 
     params.require(:topic).permit(*allowed_params).tap do |fixed_params|
       fixed_params[:body] = Topics::ComposeBody.call(params[:topic])

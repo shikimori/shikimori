@@ -17,6 +17,8 @@ class Abilities::ForumModerator
           Abilities::User::GENERATED_USER_TOPICS.include?(topic.type)
       )
     end
+    can :close, Topic
+    cannot :broadcast, Topic
 
     can %i[edit update], Genre
 

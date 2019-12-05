@@ -258,6 +258,8 @@ en:
         forum_id: Section
         source: Source
         tags: Tags
+        is_closed: Closed
+        broadcast: Broadcast
       version:
         reason: Change reason
         changes: Changes list
