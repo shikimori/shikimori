@@ -81,7 +81,8 @@ class Abilities::User
 
   def comment_abilities
     can %i[new create], Comment do |comment|
-      comment.user_id == @user.id
+      comment.user_id == @user.id &&
+        !(comment.commentable.is_a?(Topic) && comment.commentable.is_closed)
     end
     can :update, Comment do |comment|
       (
