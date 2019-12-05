@@ -218,6 +218,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       @is_preview,
       @is_mini,
       @is_hide_body,
+      closed?, # not sure whetner it is necessary
       :v14
     )
   end
