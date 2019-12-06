@@ -30,7 +30,7 @@ class MalParsers::FetchEntry
     person: DbImport::Person
   }
 
-  TYPES = Types::Coercible::String.enum('anime', 'manga', 'character', 'person')
+  TYPES = Types::Coercible::String.enum(*PARSERS.keys.map(&:to_s))
 
   def perform id, type
     IMPORTS[type.to_sym].call import_data(id, type)
