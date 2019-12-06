@@ -49,14 +49,15 @@ module Shikimori
   # ALLOWED_PROTOCOL = Rails.env.production? && !LOCAL_RUN ? 'https' : 'http'
 
   IGNORED_EXCEPTIONS = %w[
+    AbstractController::ActionNotFound
     ActionController::InvalidAuthenticityToken
-    CanCan::AccessDenied
+    ActionController::RoutingError
     ActionController::UnknownFormat
     ActionController::UnknownHttpMethod
     ActionDispatch::RemoteIp::IpSpoofAttackError
-    ActiveRecord::RecordNotFound
-    ActionController::RoutingError
     ActiveRecord::PreparedStatementCacheExpired
+    ActiveRecord::RecordNotFound
+    CanCan::AccessDenied
     I18n::InvalidLocale
     Unicorn::ClientShutdown
     Unauthorized
