@@ -66,7 +66,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :mem_cache_store, '192.168.0.3', {
-    namespace: 'shikimori_production_v2',
+    namespace: 'shikimori_production_v3',
     compress: true,
     value_max_bytes: 1024 * 1024 * 32
   }
