@@ -4,8 +4,7 @@ en:
       nothing_here: No external links
       groups:
         links: Links
-        watch_online: Online Viewing
+        watch_online: Online Watching
       warn:
-        youtube: Link to the official channel (online viewing)
-        youtube_channel: Link to the official channel (not online viewing)
-        watch_online: Link to the online player
+        youtube: Link to the official channel with episodes of online watching
+        watch_online: Link to the playlist/online player/official channel with online watching
