@@ -11,7 +11,6 @@ module Types
       wikipedia
       anime_news_network
       myanimelist
-      twitter
     ]
 
     WATCH_ONLINE_KINDS = %i[
@@ -29,7 +28,7 @@ module Types
         kage_project
         smotret_anime
         youtube_channel
-      ] + WATCH_ONLINE_KINDS,
+      ] + WATCH_ONLINE_KINDS + %i[twitter],
       manga: COMMON_KINDS + %i[
         readmanga
         mangaupdates
@@ -37,7 +36,7 @@ module Types
         mangachan
         mangahub
       ],
-      ranobe: COMMON_KINDS + %i[ruranobe novelupdates]
+      ranobe: COMMON_KINDS + %i[twitter] + %i[ruranobe novelupdates]
     }
 
     INVISIBLE_KINDS = %i[myanimelist smotret_anime mangachan]
