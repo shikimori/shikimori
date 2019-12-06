@@ -135,6 +135,17 @@ header.head
             title=t('moderations/user_rate_logs_controller.page_title.index')
           ] = t 'moderations/user_rate_logs_controller.page_title.index'
 
+    - if @clubs.any?
+      .subheadline = i18n_io 'club', :few
+      .block
+        ul.b-list
+          - @clubs.each do |club_view|
+            li
+              a.b-link[
+                href=club_view.object.url
+                title=club_view.object.name
+              ] = club_view.object.name
+
 - if @abuse_requests_stats || @bans_stats || @content_versions_stats || @reviews_stats || @collections_stats || @articles_stats
   .subheadline.m15 Statistics for last 4 months
   .cc-3a

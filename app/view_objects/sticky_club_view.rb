@@ -11,7 +11,9 @@ class StickyClubView
   attribute :description, String
 
   CLUB_IDS = {
-    faq: { ru: 1_093, en: nil }
+    faq: { ru: 1_093, en: nil },
+    content_moderation: { ru: 2052, en: nil },
+    forum_moderation: { ru: 917, en: nil }
   }
 
   CLUB_IDS.keys.each do |club_name|
@@ -30,8 +32,6 @@ class StickyClubView
         )
     end
   end
-
-  private_class_method
 
   def self.club_name club_id
     clubs[club_id].name

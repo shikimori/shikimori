@@ -620,6 +620,9 @@ ru:
       video_report:
         one: жалоба на видео
         few: жалобы на видео
+      club:
+        one: клуб
+        few: клубы
 
   i18n:
     inflections:

@@ -209,3 +209,7 @@ en:
     faq:
       # name: FAQ
       description: Frequently asked questions
+    forum_moderation:
+      description: Forum moderation
+    content_moderation:
+      description: Content moderation

@@ -230,3 +230,7 @@ ru:
     faq:
       # name: FAQ
       description: Часто задаваемые вопросы
+    forum_moderation:
+      description: Модерация форума
+    content_moderation:
+      description: Модерация контента
