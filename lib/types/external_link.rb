@@ -6,7 +6,13 @@ module Types
       .constructor(&:to_sym)
       .enum(*SOURCES)
 
-    COMMON_KINDS = %i[official_site wikipedia anime_news_network myanimelist]
+    COMMON_KINDS = %i[
+      official_site
+      wikipedia
+      anime_news_network
+      myanimelist
+      twitter
+    ]
 
     WATCH_ONLINE_KINDS = %i[
       wakanim
