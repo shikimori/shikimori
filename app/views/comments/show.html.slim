@@ -46,4 +46,6 @@
           data-dynamic='topic'
           data-faye='false'
         ]
-          = render 'topics/comments', comments_view: @view
+          = render 'topics/comments',
+            comments_view: @view,
+            commentable: @view.comment.commentable

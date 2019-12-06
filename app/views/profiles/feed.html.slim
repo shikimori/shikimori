@@ -5,4 +5,6 @@
       data-dynamic='topic'
       data-faye=@resource.main_comments_view.faye_channel.to_json
     ]
-      = render 'topics/comments', comments_view: @resource.main_comments_view
+      = render 'topics/comments',
+        comments_view: @resource.main_comments_view,
+        commentable: @resource

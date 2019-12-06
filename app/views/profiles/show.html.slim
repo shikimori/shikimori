@@ -324,4 +324,5 @@
           data-faye=@resource.preview_comments_view.faye_channel.to_json
         ]
           = render 'topics/comments',
-            comments_view: @resource.preview_comments_view
+            comments_view: @resource.preview_comments_view,
+            commentable: @resource

@@ -33,4 +33,5 @@
       data-faye=resource.preview_topic_view.faye_channel.to_json
     ]
       = render 'topics/comments',
-        comments_view: resource.preview_topic_view.comments_view
+        comments_view: resource.preview_topic_view.comments_view,
+        commentable: resource.preview_topic_view.topic

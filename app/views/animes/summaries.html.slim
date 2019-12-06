@@ -16,4 +16,5 @@
       data-faye='false'
     ]
       = render 'topics/comments',
-        comments_view: @resource.main_topic_view.comments_view
+        comments_view: @resource.main_topic_view.comments_view,
+        commentable: @resource.main_topic_view.topic
