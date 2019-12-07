@@ -31,9 +31,9 @@ ru:
         sci-fi: '%{kind} в жанре фантастика'
         seinen: сэйнэн %{kind}
         shoujo: сёдзё %{kind}
-        shoujo_ai: сёдзё-Ай %{kind}
+        shoujo_ai: сёдзё-ай %{kind}
         shounen: сёнен %{kind}
-        shounen_ai: сёнен-Ай %{kind}
+        shounen_ai: сёнен-ай %{kind}
         space: '%{kind} про космос'
         sports: '%{kind} про спорт'
         sumurai: '%{kind} про самураев'
