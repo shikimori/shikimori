@@ -61,7 +61,7 @@ module Clockwork
 
     # AutobanFix.perform_async
 
-    # MalParsers::ScheduleExpiredAuthorized.perform_async
+    MalParsers::ScheduleExpiredAuthorized.perform_async
 
     PgCaches::Cleanup.perform_async
   end
