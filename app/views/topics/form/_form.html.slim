@@ -1,10 +1,11 @@
 - topic_type_policy = Topic::TypePolicy.new topic
 - submit_url = topic.persisted? ? topic_url(topic) : topics_url
 
+- is_edit_type = topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
 - is_show_broadcast = can?(:broadcast, topic) && !topic_type_policy.any_club_topic?
 - is_show_closed = topic.persisted? && can?(:close, topic) && !topic_type_policy.any_club_topic?
 - is_forum_id_hidden = topic_type_policy.any_club_topic? || (topic_type_policy.news_topic? && topic.new_record?)
-- is_show_forum = (!is_forum_id_hidden && !topic_type_policy.news_topic?) || (topic.persisted? && can?(:manage, Topic))
+- is_show_forum = !topic_type_policy.any_club_topic? && ((!is_forum_id_hidden && !topic_type_policy.news_topic?) || (topic.persisted? && can?(:manage, Topic)))
 
 = simple_form_for topic, url: submit_url, as: :topic do |f|
   input type='hidden' name='rules_passed' value='1'
@@ -23,32 +24,29 @@
   = f.input :linked_type, as: :hidden
 
   .inputs.m15
-    .b-input
-      div class=('fc-2' if topic_type_policy.news_topic?)
+    div[
+      class=('b-input' unless topic_type_policy.any_club_topic?)
+    ]
+      div[
+        class=('fc-2' if topic_type_policy.news_topic? || is_show_broadcast || is_show_closed)
+      ]
         .f-column
           - if is_forum_id_hidden
             = f.input :forum_id, as: :hidden
 
-          .b-input.cc-2a
-            .c-column.m0
-              - if topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
-                = f.input :type, as: :select, include_blank: false,
-                  collection: [Topic, Topics::NewsTopic].map { |v| [v.model_name.human, v.name] },
-                  input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
-              - else
-                = f.input :type, as: :hidden
+          .cc-2a class=('b-input' if is_edit_type || is_show_forum)
+            - if is_edit_type
+              = f.input :type, as: :select, include_blank: false,
+                collection: [Topic, Topics::NewsTopic].map { |v| [v.model_name.human, v.name] },
+                input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+            - else
+              = f.input :type, as: :hidden
 
-              - if is_show_forum
-                = f.input :forum_id,
-                  as: :select,
-                  include_blank: false,
-                  collection: topic_type_policy.news_topic? ? [Forum.news] + Forum.public : Forum.public
-
-            .c-column.m0 style='margin-top: 5px'
-              - if is_show_broadcast
-                = f.input :broadcast
-              - if is_show_closed
-                = f.input :is_closed
+            - if is_show_forum
+              = f.input :forum_id,
+                as: :select,
+                include_blank: false,
+                collection: topic_type_policy.news_topic? ? [Forum.news] + Forum.public : Forum.public
 
           - if topic_type_policy.news_topic?
             = f.input :tags,
@@ -68,11 +66,16 @@
           - else
             = render 'topics/form/linked', topic: topic
 
-        - if topic_type_policy.news_topic?
+        - if topic_type_policy.news_topic? || is_show_broadcast || is_show_closed
           .f-column.f-topic-additionals
-            .attachments-hidden
+            - if is_show_broadcast
+              = f.input :broadcast, wrapper_class: ('b-input m10' if is_show_closed)
+            - if is_show_closed
+              = f.input :is_closed
 
-            = render 'topics/form/video', topic: topic, f: f
+            - if topic_type_policy.news_topic?
+              .attachments-hidden
+              = render 'topics/form/video', topic: topic, f: f
 
     = f.input :title, input_html: { class: 'w-100' }
 
