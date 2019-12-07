@@ -125,7 +125,7 @@ private
         UsersHelper.localized_name(@resource, current_user),
         @resource.url
       )
-      @back_url = @resource.edit_url
+      @back_url = @resource.url
     end
 
     if params[:action] == 'edit_field' && params[:field].present?
