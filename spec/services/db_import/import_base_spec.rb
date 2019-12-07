@@ -10,6 +10,13 @@ describe DbImport::ImportBase do
     def assign_japanese japanese
       entry.japanese = japanese
     end
+
+    def schedule_fetch_authorized
+      MalParsers::FetchEntryAuthorized.perform_async(
+        entry.mal_id,
+        entry.class.name
+      )
+    end
   end
   let(:service) { DbImport::Test.new data }
   let(:data) do
@@ -25,6 +32,7 @@ describe DbImport::ImportBase do
 
   include_context :timecop
 
+  before { allow(MalParsers::FetchEntryAuthorized).to receive :perform_async }
   subject(:entry) { service.call }
 
   it do
@@ -36,15 +44,22 @@ describe DbImport::ImportBase do
   end
 
   describe 'create' do
-    it do
+    it '', :focus do
       expect { subject }.to change(Anime, :count).by 1
       expect(entry).to be_persisted
+      expect(MalParsers::FetchEntryAuthorized)
+        .to have_received(:perform_async)
+        .with(entry.mal_id, entry.class.name)
     end
 
     context 'banned id' do
       let(:id) { 99_999_999 }
       it { expect { subject }.to_not change Anime, :count }
-      it { expect(entry).to be_nil }
+      it do
+        expect(entry).to be_nil
+        expect(MalParsers::FetchEntryAuthorized)
+          .to_not have_received(:perform_async)
+      end
     end
   end
 
@@ -55,6 +70,8 @@ describe DbImport::ImportBase do
       expect { subject }.to_not change Anime, :count
       expect(entry).to be_persisted
       expect(entry).to have_attributes(data.except(:zzz))
+      expect(MalParsers::FetchEntryAuthorized)
+        .to_not have_received(:perform_async)
     end
 
     context 'banned id' do
