@@ -42,8 +42,6 @@ class Abilities::ForumModerator
       Topic.where(user_id: user.id).sum(:comments_count) < MAXIMUM_COMMENTS_TO_DELETE
     end
 
-    can :delete_all_reviews, User
-
     can %i[
       manage_not_trusted_abuse_reporter_role
     ], User
