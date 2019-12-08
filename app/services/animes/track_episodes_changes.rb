@@ -29,6 +29,8 @@ private
     return unless @anime.episodes_aired_change[1] == @anime.episodes
 
     @anime.status = :released
+    # NOTE: think about looking at news topic about last episode and taking its
+    # created_at instead of Time.zone.today
     @anime.released_on = Time.zone.today
   end
 
