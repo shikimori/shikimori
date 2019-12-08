@@ -57,7 +57,7 @@ id='${data.id}'>\
     const url = $attach.data('url').replace('ANIME_ID', animeId || 0);
     const form = {
       video: {
-        anime_id: animeId,
+        // anime_id: animeId,
         url: $('#topic_video_url', $topicVideoForm).val(),
         kind: $('#topic_video_kind', $topicVideoForm).val(),
         name: $('#topic_video_name', $topicVideoForm).val()

@@ -68,11 +68,14 @@
             = f.input :linked_id, as: :hidden
             = f.input :linked_type, as: :hidden
 
-          - else
+          - elsif !topic_type_policy.news_topic?
             = render 'topics/form/linked', topic: topic
 
         - if topic_type_policy.news_topic? || is_show_broadcast || is_show_closed
           .f-column.f-topic-additionals
+            - if topic_type_policy.news_topic?
+              = render 'topics/form/linked', topic: topic
+
             - if is_show_broadcast
               = f.input :broadcast, wrapper_class: ('b-input m10' if is_show_closed)
             - if is_show_closed
