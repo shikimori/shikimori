@@ -18,6 +18,7 @@ module Types
       crunchyroll
       youtube
       netflix
+      hidive
       hulu
       amazon
     ]
