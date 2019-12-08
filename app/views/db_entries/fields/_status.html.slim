@@ -1,7 +1,8 @@
 .cc-2
   .c-column
     = simple_form_for resource.object do |f|
-      = f.input :status, include_blank: false
+      = f.input :status,
+        include_blank: false
       = render 'versions/reason'
 
       .buttons

@@ -692,7 +692,7 @@ Rails.application.routes.draw do
   resources :animes, only: %i[edit update] do
     concerns :db_entry, fields: Regexp.new(%w{
       name russian synonyms license_name_ru description_ru description_en image
-      kind episodes rating duration
+      status kind episodes rating duration
       screenshots videos torrents_name imageboard_tag coub_tags aired_on released_on genre_ids
       external_links fansubbers fandubbers desynced options licensor
       is_censored
@@ -713,8 +713,8 @@ Rails.application.routes.draw do
     resources type, only: %i[edit update] do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian synonyms license_name_ru description_ru description_en image
-        kind rating volumes chapters
-        imageboard_tag aired_on released_on status genre_ids
+        status kind rating volumes chapters
+        imageboard_tag aired_on released_on genre_ids
         external_links desynced licensor
         is_censored
       }.join('|'))
