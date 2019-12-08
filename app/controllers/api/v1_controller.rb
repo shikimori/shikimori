@@ -22,6 +22,10 @@ class Api::V1Controller < ShikimoriController
 
 private
 
+  # do not touch it on api access
+  def touch_last_online
+  end
+
   def api_error exception
     render(
       json: [exception.message],
