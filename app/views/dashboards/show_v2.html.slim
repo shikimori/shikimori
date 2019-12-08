@@ -48,19 +48,6 @@
           data-postloaded-url=dashboards_dynamic_url
         ]
 
-    - if @view.admin_area?
-      javascript:
-        $(document.body).on('click', '.b-admin_panel .reload', function() {
-          var $panel = $('.b-admin_panel');
-          $(this).addClass('active');
-          $panel.load($panel.data('postloaded-url'))
-        });
-      .b-admin_panel.to-process[
-        data-dynamic='postloaded'
-        data-postloaded-url='/apanel'
-      ]
-        .ajax-loading.vk-like
-
     / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
 
     .block2
@@ -88,6 +75,19 @@
             = render partial: 'dashboards/v2/db_update',
               collection: @view.db_updates,
               as: :topic_view
+
+    - if @view.admin_area?
+      javascript:
+        $(document.body).on('click', '.b-admin_panel .reload', function() {
+          var $panel = $('.b-admin_panel');
+          $(this).addClass('active');
+          $panel.load($panel.data('postloaded-url'))
+        });
+      .b-admin_panel.to-process[
+        data-dynamic='postloaded'
+        data-postloaded-url='/apanel'
+      ]
+        .ajax-loading.vk-like
 
     .block2
       .headline.skyblue.m15 = t '.more_news'
