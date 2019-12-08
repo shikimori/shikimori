@@ -3,7 +3,7 @@
     = collection.description_html
 
 .collection-groups[
- class=('to-process' if collection.texts.any?)
+  class=('to-process' if collection.texts.any?)
   data-dynamic=(:text_annotated if collection.texts.any?)
   data-texts=collection.texts.to_json
 ]

@@ -6,9 +6,13 @@ export default class TextAnnotated extends View {
   }
 
   addText(text) {
+    const groupSelector = text.group_index == null ?
+      '' :
+      `.cc-collection-groups[data-index=${text.group_index}]`;
+
     this.$(`
-      .cc-collection-groups[data-index=${text.group_index}]
-      .b-catalog_entry#${text.linked_id}
+      ${groupSelector}
+      .b-catalog_entry.c-${text.linked_type}#${text.linked_id}
       .image-decor
     `).each((_index, node) =>
       $(node).append(`<div class='text'>${text.text}</div>`)

@@ -17,6 +17,7 @@ class CollectionDecorator < DbEntryDecorator
         {
           group_index: groups.keys.index(link.group),
           linked_id: link.linked_id,
+          linked_type: link.send(kind).class.base_class.name.downcase,
           text: BbCodes::Text.call(link.text)
         }
       end

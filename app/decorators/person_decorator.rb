@@ -8,7 +8,8 @@ class PersonDecorator < DbEntryDecorator
 
   instance_cache :website,
     :flatten_roles, :all_roles, :grouped_roles, :roles_names,
-    :works, :work_types, :character_works, :best_works, :best_roles,
+    :works, :works_texts, :work_types, :character_works,
+    :best_works, :best_roles,
     :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?,
     :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
 
@@ -66,6 +67,17 @@ class PersonDecorator < DbEntryDecorator
       .map { |role| RoleEntry.new(role.entry.decorate, role.roles) }
       .sort_by { |anime| sort_criteria anime }
       .reverse
+  end
+
+  def works_texts
+    works
+      .map do |entry|
+        {
+          linked_id: entry.id,
+          linked_type: entry.object.class.base_class.name.downcase,
+          text: entry.formatted_roles
+        }
+      end
   end
 
   def work_types

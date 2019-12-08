@@ -1,9 +1,10 @@
 @import globals
-@import mixins/float_column
+// @import mixins/css4
 @import mixins/ellipsis2
+@import mixins/float_column
 @import mixins/link
-@import mixins/two_line_ellipsis
 @import mixins/shikimori
+@import mixins/two_line_ellipsis
 
 $max_minified_width: 162px
 $max_width: 167px
@@ -61,10 +62,13 @@ $max_width: 167px
       & > .text
         +two_line_ellipsis(12px, $line_height)
         transition: all 0.25s ease
-        background: rgba(0,0,0,0.55)
+        background: linear-gradient(to bottom, rgba(#000, 0.6) 5%, rgba(#000, 0.8) 66%)
         bottom: 0
         color: #fff
         font-size: 12px
+        // +css4
+          font-family: var(--font-alt)
+        letter-spacing: 0.13px
         line-height: 1.45
         padding: 2px 5px
         position: absolute
