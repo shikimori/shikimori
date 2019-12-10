@@ -44,7 +44,7 @@ describe DbImport::ImportBase do
   end
 
   describe 'create' do
-    it '', :focus do
+    it do
       expect { subject }.to change(Anime, :count).by 1
       expect(entry).to be_persisted
       expect(MalParsers::FetchEntryAuthorized)
