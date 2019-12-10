@@ -6,5 +6,6 @@ class Abilities::StatisticsModerator
     can %i[
       manage_cheat_bot_role
     ], User
+    can :access_list, User
   end
 end

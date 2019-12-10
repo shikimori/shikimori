@@ -19,5 +19,6 @@ class Abilities::SuperModerator
     ], User
 
     can :destroy, Ban
+    can :access_list, User
   end
 end

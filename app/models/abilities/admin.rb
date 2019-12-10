@@ -18,6 +18,7 @@ class Abilities::Admin
     ], User
 
     can :manage, User
+    can :access_list, User
     can :manage, ListImport
 
     can :manage, Topic
