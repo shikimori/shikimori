@@ -65,7 +65,7 @@
               title=t('.recommended.personalized')
             ] = t '.recommended.personalized'
 
-        .f-column
+        .f-column.ranobe
           .midheadline.green.linkheadline
             a[
               href=ranobe_collection_url
@@ -76,6 +76,10 @@
               href=recommendations_favourites_ranobe_url
               title=t('.recommended.favourite')
             ] = t '.recommended.favourite'
+
+          a.b-link_button.dark.forum[
+            href=forum_url
+          ] = t 'forum'
 
         .f-column.to-process.b-ajax[
           data-dynamic='postloaded'

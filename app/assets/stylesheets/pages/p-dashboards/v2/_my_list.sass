@@ -1,5 +1,6 @@
 @import globals
 @import mixins/date
+@import mixins/ellipsis2
 
 .p-dashboards-show .v2
   .my-list
@@ -20,17 +21,22 @@
       &:hover .title
         color: inherit
 
+      .content
+        +ellipsis2
+
       img
         margin-right: 10px
-        height: 54px
+        width: 48px
 
       .title
+        +ellipsis2
         font-size: 14px
         font-weight: bold
         line-height: 1
         margin-bottom: 8px
 
       .action
+        +ellipsis2
         color: #333
         font-size: 12px
         line-height: 1
