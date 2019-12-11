@@ -19,6 +19,28 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
 
   DISPLAYED_HISTORY = 2
 
+  ONGOINGS_FETCH = 24
+  ONGOINGS_TAKE = 8
+  IGNORE_ONGOING_IDS = [31_592, 32_585, 35_517, 32_977, 8_687, 36_231, 38_008, 38_427, 39_003]
+
+  THIS_SEASON_SQL = Animes::SeasonQuery
+    .call(
+      Anime.all,
+      Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text
+    )
+    .to_where_sql
+
+  PRIOR_SEASON_SQL = Animes::SeasonQuery
+    .call(
+      Anime.all,
+      Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text
+    )
+    .to_where_sql
+
+  def ongoings
+    all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
+  end
+
   def first_column_topic_views
     contest_topic_views +
       (reviews_views + articles_views + collections_views)
@@ -102,6 +124,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   def cache_keys
     {
       admin: admin_area?,
+      ongoings: [:ongoings, rand(5), :v1],
       collections: collections_scope.cache_key,
       articles: articles_scope.cache_key,
       reviews: reviews_scope.cache_key,
@@ -113,6 +136,32 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   end
 
 private
+
+  def all_ongoings
+    if new_ongoings.size < ONGOINGS_TAKE * 1.5
+      new_ongoings + old_ongoings.take(ONGOINGS_TAKE * 1.5 - new_ongoings.size)
+    else
+      new_ongoings
+    end
+  end
+
+  def new_ongoings
+    Animes::OngoingsQuery.new(false)
+      .fetch(ONGOINGS_FETCH)
+      .where.not(id: IGNORE_ONGOING_IDS)
+      .where("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where('score > 7.3')
+      .decorate
+  end
+
+  def old_ongoings
+    Animes::OngoingsQuery.new(false)
+      .fetch(ONGOINGS_FETCH)
+      .where.not(id: IGNORE_ONGOING_IDS)
+      .where.not("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where('score > 7.3')
+      .decorate
+  end
 
   def reviews_views
     reviews_scope.to_a

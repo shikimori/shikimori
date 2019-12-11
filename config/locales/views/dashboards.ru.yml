@@ -17,6 +17,7 @@ ru:
       recommended:
         favourite: Избранное
         personalized: Рекомендации
+      currently_airing: Сейчас на экранах
     v2:
       content_updates:
         latest_content: Контент

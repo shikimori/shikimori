@@ -7,10 +7,10 @@ class Titles::KindTitle
   end
 
   def url_params
-    { type: text }
+    { kind: text }
   end
 
   def title
-    klass.kind.options.find { |title, kind| kind == text }.first
+    klass.kind.options.find { |_title, kind| kind == text }.first
   end
 end

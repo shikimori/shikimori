@@ -3,6 +3,16 @@ describe DashboardViewV2 do
 
   let(:view) { DashboardViewV2.new }
 
+  describe '#ongoings' do
+    let!(:anons) { create :anime, :anons }
+    let!(:released) { create :anime, :released }
+    let!(:ongoing_1) { create :anime, :ongoing, ranked: 10, score: 8 }
+    let!(:ongoing_2) { create :anime, :ongoing, ranked: 5, score: 8 }
+    let!(:ongoing_3) { create :anime, :ongoing, ranked: 5, score: 7 }
+
+    it { expect(view.ongoings).to eq [ongoing_2, ongoing_1] }
+  end
+
   describe '#collections_views' do
     let!(:collection) { create :collection, :published, :with_topics }
     it { expect(view.collections_views).to have(1).item }
@@ -43,6 +53,15 @@ describe DashboardViewV2 do
   describe '#anime_seasons' do
     it { expect(view.anime_seasons).to have(2).items }
     it { expect(view.anime_seasons.first).to be_kind_of Titles::SeasonTitle }
+  end
+
+  describe '#manga_kinds' do
+    it do
+      expect(view.manga_kinds.first).to be_kind_of Titles::KindTitle
+      expect(view.manga_kinds.map(&:text)).to eq %w[
+        manga manhwa manhua one_shot doujin
+      ]
+    end
   end
 
   describe '#history' do
