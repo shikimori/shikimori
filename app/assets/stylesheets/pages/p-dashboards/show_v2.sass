@@ -1,11 +1,98 @@
+@import mixins/css4
 @import mixins/ellipsis2
+@import mixins/flex_column
+@import mixins/link
 @import mixins/responsive
 @import mixins/shikimori
-@import mixins/link
-@import mixins/flex_column
+
+=color_1($color, $background)
+  color: $color
+  background: $background
+
+=color_2($color, $background)
+  color: lighten($color, 3%)
+  background: lighten($background, 5%)
+  border: 1px solid lighten($background, 2%)
 
 .p-dashboards-show .v2
-  .b-link_button
+  .fc-main
+    $gutter-desktop: 25px
+    +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 3, $gutter-desktop: $gutter-desktop, $offset-mobile: 20px)
+
+    .f-column
+      display: flex
+
+    $section-size: 58px
+    .section-link
+      align-self: center
+      display: block
+      +css4
+        font-family: var(--font-alt)
+      margin: 0 30px 0 15px
+      width: $section-size
+
+      &:not(:last-child)
+        margin-bottom: 24px
+
+      +gte_laptop
+        &:hover
+          .label
+            color: $link-hover
+
+      &:active
+        .label
+          color: $link-active
+
+      .icon
+        width: $section-size
+        height: $section-size
+        display: flex
+        justify-content: center
+        align-items: center
+        margin-bottom: 5px
+        border-radius: 10px
+
+        &.anime
+          +color_1(hsl(357, 96%, 66%), hsl(365, 94%, 93%))
+
+        &.manga
+          +color_1(hsl(195, 71%, 65%), hsl(193, 94%, 93%))
+
+        &.ranobe
+          +color_1(hsl(92, 75%, 44%), hsl(92, 94%, 93%))
+
+      .label
+        color: #123
+        text-align: center
+
+    .tags
+      margin: -4px -5px
+
+      .tag-link
+        border-radius: 3px
+        display: inline-block
+        +css4
+          font-family: var(--font-alt)
+        font-size: 12px
+        line-height: 21px
+        margin: 4px 5px
+        padding: 0 10px
+        // text-transform: uppercase
+
+        &.anime
+          +color_2(hsl(357, 96%, 66%), hsl(365, 94%, 93%))
+
+        &.manga
+          +color_2(hsl(195, 71%, 65%), hsl(193, 94%, 93%))
+
+        &.ranobe
+          +color_2(hsl(92, 75%, 44%), hsl(92, 94%, 89%))
+
+        &:before
+          content: '#'
+          padding-right: 2px
+
+  // .b-link_button
     span
       font-size: 18px
       font-weight: normal
@@ -30,55 +117,55 @@
   .headline.orange a
     +link_color(#ff8a3c)
 
-  .fc-main
-    $gutter-desktop: 25px
-    +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 4, $gutter-desktop: $gutter-desktop, $offset-mobile: 20px)
-    margin-top: 10px
-
-    .f-column
-      &:last-child
-        min-height: 172px
-
-      &.anime
-        +ipad
-          +fcolumn-size(11.5/30, $gutter-desktop)
-
-        +laptop
-          +fcolumn-size(0.29, $gutter-desktop)
-
-        +gt_laptop
-          +fcolumn-size(0.265, $gutter-desktop)
-
-      &.manga-ranobe
-        +ipad
-          +fcolumn-size(8.5/30, $gutter-desktop)
-
-        +laptop
-          +fcolumn-size(0.21, $gutter-desktop)
-
-        +gt_laptop
-          +fcolumn-size(0.235, $gutter-desktop)
-
-      &.socials
-        +ipad
-          display: none
-
-    .my-list
-      .headline
-        display: flex
-
-        .misc-links
-          margin-left: auto
-
-    .fc-seasons
-      +fcolumn-responsive($columns: 2, $gutter: 10px, $offset: 10px, $selector: '.b-link_button')
-
-      .b-link_button
-        min-width: 0
-
-    .shiki-socials
-      img
-        max-width: 100%
+  // .fc-main
+  //   $gutter-desktop: 25px
+  //   +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 4, $gutter-desktop: $gutter-desktop, $offset-mobile: 20px)
+  //   margin-top: 10px
+  //
+  //   .f-column
+  //     &:last-child
+  //       min-height: 172px
+  //
+  //     &.anime
+  //       +ipad
+  //         +fcolumn-size(11.5/30, $gutter-desktop)
+  //
+  //       +laptop
+  //         +fcolumn-size(0.29, $gutter-desktop)
+  //
+  //       +gt_laptop
+  //         +fcolumn-size(0.265, $gutter-desktop)
+  //
+  //     &.manga-ranobe
+  //       +ipad
+  //         +fcolumn-size(8.5/30, $gutter-desktop)
+  //
+  //       +laptop
+  //         +fcolumn-size(0.21, $gutter-desktop)
+  //
+  //       +gt_laptop
+  //         +fcolumn-size(0.235, $gutter-desktop)
+  //
+  //     &.socials
+  //       +ipad
+  //         display: none
+  //
+  //   .my-list
+  //     .headline
+  //       display: flex
+  //
+  //       .misc-links
+  //         margin-left: auto
+  //
+  //   .fc-seasons
+  //     +fcolumn-responsive($columns: 2, $gutter: 10px, $offset: 10px, $selector: '.b-link_button')
+  //
+  //     .b-link_button
+  //       min-width: 0
+  //
+  //   .shiki-socials
+  //     img
+  //       max-width: 100%
 
   .b-admin_panel
     margin-top: -25px

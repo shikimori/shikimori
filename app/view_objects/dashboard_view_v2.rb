@@ -85,6 +85,12 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
       .take(2)
   end
 
+  def manga_kinds
+    (Manga.kind.values - [Ranobe::KIND]).map do |kind|
+      Titles::KindTitle.new kind, Manga
+    end
+  end
+
   def history
     Profiles::HistoryView.new(h.current_user).preview(DISPLAYED_HISTORY)
   end

@@ -14,6 +14,9 @@ ru:
       latest_news: Новости
       generated_news: Обновления аниме
       more_news: Ещё новости
+      recommended:
+        favourite: Избранное
+        personalized: Рекомендации
     v2:
       content_updates:
         latest_content: Контент

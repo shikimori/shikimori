@@ -1,54 +1,177 @@
 .v2
-  = cache @view.cache_keys.values do
-    .block
-      .fc-main
-        .f-column.anime
-          a.b-link_button.maxi.dark[
-            href=animes_collection_url
-          ]
-            = Anime.model_name.human
-          .fc-seasons
-            - @view.anime_seasons.each do |season|
-              a.b-link_button.dark-2[
-                href=animes_collection_url(season.url_params)
-              ] = season.catalog_title
-            a.b-link_button.dark-2[
-              href=animes_collection_url(season: Date.today.year)
-            ] #{Anime.model_name.human} #{Date.today.year}
-            a.b-link_button.dark-2[
-              href=animes_collection_url(status: :ongoing)
-            ] = i18n_i 'Ongoing', :other
-
-        .f-column.manga-ranobe
-          a.b-link_button.maxi.dark[
-            href=mangas_collection_url
-          ]
-            = Manga.model_name.human
-          a.b-link_button.maxi.dark[
-            href=ranobe_collection_url
-          ]
-            = Ranobe.model_name.human
-          a.b-link_button.maxi.dark[
-            href=forum_url
-          ] = t 'forum'
-
-        .f-column.socials
-          a.shiki-socials[
-            href=StickyTopicView.socials(locale_from_host).object.url
-            title=StickyTopicView.socials(locale_from_host).object.topic_title
-          ]
-            img[
-              src='/assets/globals/socials.png'
-              srcset='/assets/globals/socials@2x.png 2x'
-              alt=StickyTopicView.socials(locale_from_host).object.topic_title
-            ]
-
-        .f-column.to-process.b-ajax[
-          data-dynamic='postloaded'
-          data-postloaded-url=dashboards_dynamic_url
+  .block
+    .fc-main
+      .f-column
+        a.section-link[
+          href=animes_collection_url
         ]
+          .icon.anime アニメ
+          .label = Anime.model_name.human
 
-    / = render 'spnsrs/ad', ad: Ad.new(:special_x1170)
+        .tags
+          - @view.anime_seasons.each do |season|
+            a.tag-link.anime[
+              href=animes_collection_url(season.url_params)
+              title=season.catalog_title
+            ] = season.catalog_title
+          a.tag-link.anime[
+            href=animes_collection_url(season: Time.zone.today.year)
+            title="#{Anime.model_name.human} #{Time.zone.today.year}"
+          ] #{Anime.model_name.human} #{Time.zone.today.year}
+          a.tag-link.anime[
+            href=animes_collection_url(status: :ongoing)
+            title=i18n_i('Ongoing', :other)
+          ] = i18n_i 'Ongoing', :other
+          a.tag-link.anime[
+            href=recommendations_favourites_anime_url
+            title=t('.recommended.favourite')
+          ] = t '.recommended.favourite'
+          a.tag-link.anime[
+            href=recommendations_url(klass: 'anime')
+            title=t('.recommended.personalized')
+          ] = t '.recommended.personalized'
+
+      .f-column
+        a.section-link[
+          href=mangas_collection_url
+        ]
+          .icon.manga マンガ
+          .label = Manga.model_name.human
+        .tags
+          - @view.manga_kinds.each do |season|
+            a.tag-link.manga[
+              href=mangas_collection_url(season.url_params)
+              title=season.title
+            ] = season.title
+          a.tag-link.manga[
+            href=recommendations_favourites_manga_url
+            title=t('.recommended.favourite')
+          ] = t '.recommended.favourite'
+          a.tag-link.manga[
+            href=recommendations_url(klass: 'manga')
+            title=t('.recommended.personalized')
+          ] = t '.recommended.personalized'
+
+      .f-column
+        a.section-link[
+          href=ranobe_collection_url
+        ]
+          .icon.ranobe ラノベ
+          .label = Ranobe.model_name.human
+        .tags
+          a.tag-link.ranobe[
+            href=recommendations_favourites_ranobe_url
+            title=t('.recommended.favourite')
+          ] = t '.recommended.favourite'
+
+
+    / .fc-main
+    /   .f-column
+    /     a.section-link[
+    /       href=animes_collection_url
+    /     ]
+    /       .icon.anime アニメ
+    /       .label = anime.model_name.human
+    /
+    /   .f-column
+    /     a.section-link[
+    /       href=mangas_collection_url
+    /     ]
+    /       .icon.manga マンガ
+    /       .label = manga.model_name.human
+    /
+    /   .f-column
+    /     a.section-link[
+    /       href=ranobe_collection_url
+    /     ]
+    /       .icon.ranobe ラノベ
+    /       .label = ranobe.model_name.human
+
+      / .f-column.anime
+      /   a.b-link_button.maxi.dark[
+      /     href=animes_collection_url
+      /   ]
+      /     = anime.model_name.human
+      /   .fc-seasons
+      /     - @view.anime_seasons.each do |season|
+      /       a.b-link_button.dark-2[
+      /         href=animes_collection_url(season.url_params)
+      /       ] = season.catalog_title
+      /     a.b-link_button.dark-2[
+      /       href=animes_collection_url(season: date.today.year)
+      /     ] #{anime.model_name.human} #{date.today.year}
+      /     a.b-link_button.dark-2[
+      /       href=animes_collection_url(status: :ongoing)
+      /     ] = i18n_i 'ongoing', :other
+      /
+      / .f-column.manga-ranobe
+      /   a.b-link_button.maxi.dark[
+      /     href=mangas_collection_url
+      /   ]
+      /     = manga.model_name.human
+      /   a.b-link_button.maxi.dark[
+      /     href=ranobe_collection_url
+      /   ]
+      /     = ranobe.model_name.human
+      /   a.b-link_button.maxi.dark[
+      /     href=forum_url
+      /   ] = t 'forum'
+
+      / .f-column.to-process.b-ajax[
+      /   data-dynamic='postloaded'
+      /   data-postloaded-url=dashboards_dynamic_url
+      / ]
+
+  = cache @view.cache_keys.values do
+    / .block
+    /   .fc-main
+    /     .f-column.anime
+    /       a.b-link_button.maxi.dark[
+    /         href=animes_collection_url
+    /       ]
+    /         = anime.model_name.human
+    /       .fc-seasons
+    /         - @view.anime_seasons.each do |season|
+    /           a.b-link_button.dark-2[
+    /             href=animes_collection_url(season.url_params)
+    /           ] = season.catalog_title
+    /         a.b-link_button.dark-2[
+    /           href=animes_collection_url(season: date.today.year)
+    /         ] #{anime.model_name.human} #{date.today.year}
+    /         a.b-link_button.dark-2[
+    /           href=animes_collection_url(status: :ongoing)
+    /         ] = i18n_i 'ongoing', :other
+    /
+    /     .f-column.manga-ranobe
+    /       a.b-link_button.maxi.dark[
+    /         href=mangas_collection_url
+    /       ]
+    /         = manga.model_name.human
+    /       a.b-link_button.maxi.dark[
+    /         href=ranobe_collection_url
+    /       ]
+    /         = ranobe.model_name.human
+    /       a.b-link_button.maxi.dark[
+    /         href=forum_url
+    /       ] = t 'forum'
+    /
+    /     .f-column.socials
+    /       a.shiki-socials[
+    /         href=stickytopicview.socials(locale_from_host).object.url
+    /         title=stickytopicview.socials(locale_from_host).object.topic_title
+    /       ]
+    /         img[
+    /           src='/assets/globals/socials.png'
+    /           srcset='/assets/globals/socials@2x.png 2x'
+    /           alt=stickytopicview.socials(locale_from_host).object.topic_title
+    /         ]
+    /
+    /     .f-column.to-process.b-ajax[
+    /       data-dynamic='postloaded'
+    /       data-postloaded-url=dashboards_dynamic_url
+    /     ]
+
+    / = render 'spnsrs/ad', ad: ad.new(:special_x1170)
 
     .block2
       .headline.blue.m15 = t '.latest_news'
@@ -80,7 +203,7 @@
       javascript:
         $(document.body).on('click', '.b-admin_panel .reload', function() {
           var $panel = $('.b-admin_panel');
-          $(this).addClass('active');
+          $(this).addclass('active');
           $panel.load($panel.data('postloaded-url'))
         });
       .b-admin_panel.to-process[
