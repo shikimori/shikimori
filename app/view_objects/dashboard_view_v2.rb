@@ -17,7 +17,7 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
 
   TOPICS_PER_COLUMN = 6
 
-  DISPLAYED_HISTORY = 2
+  DISPLAYED_HISTORY = 1
 
   ONGOINGS_FETCH = 24
   ONGOINGS_TAKE = 8

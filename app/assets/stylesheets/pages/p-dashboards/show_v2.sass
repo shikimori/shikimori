@@ -18,30 +18,11 @@
       border-color: darken($border, 3%)
 
 .p-dashboards-show .v2
-  .fc-main
+  +gte_ipad
+    padding-top: 10px
+
+  .fc-section-tags
     +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 4, $gutter-desktop: 25px)
-
-    .midheadline
-      position: relative
-
-      &.red
-        a
-          color: #fc575e
-
-      &.blue
-        a
-          color: #4bf
-
-      &.green
-        a
-          color: #74d61f
-
-      +gte_laptop
-        &:hover a
-          color: $link-hover
-
-      &:active a
-        color: $link-active
 
     .tags
       margin: -4px -5px
@@ -70,12 +51,6 @@
           content: '#'
           padding-right: 2px
 
-  // .b-link_button
-    span
-      font-size: 18px
-      font-weight: normal
-      padding-right: 12px
-
   .headline
     // headline must be upper to flex container with negative margins below
     position: relative
@@ -94,56 +69,6 @@
 
   .headline.orange a
     +link_color(#ff8a3c)
-
-  // .fc-main
-  //   $gutter-desktop: 25px
-  //   +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 4, $gutter-desktop: $gutter-desktop, $offset-mobile: 20px)
-  //   margin-top: 10px
-  //
-  //   .f-column
-  //     &:last-child
-  //       min-height: 172px
-  //
-  //     &.anime
-  //       +ipad
-  //         +fcolumn-size(11.5/30, $gutter-desktop)
-  //
-  //       +laptop
-  //         +fcolumn-size(0.29, $gutter-desktop)
-  //
-  //       +gt_laptop
-  //         +fcolumn-size(0.265, $gutter-desktop)
-  //
-  //     &.manga-ranobe
-  //       +ipad
-  //         +fcolumn-size(8.5/30, $gutter-desktop)
-  //
-  //       +laptop
-  //         +fcolumn-size(0.21, $gutter-desktop)
-  //
-  //       +gt_laptop
-  //         +fcolumn-size(0.235, $gutter-desktop)
-  //
-  //     &.socials
-  //       +ipad
-  //         display: none
-  //
-  //   .my-list
-  //     .headline
-  //       display: flex
-  //
-  //       .misc-links
-  //         margin-left: auto
-  //
-  //   .fc-seasons
-  //     +fcolumn-responsive($columns: 2, $gutter: 10px, $offset: 10px, $selector: '.b-link_button')
-  //
-  //     .b-link_button
-  //       min-width: 0
-  //
-  //   .shiki-socials
-  //     img
-  //       max-width: 100%
 
   .b-admin_panel
     margin-top: -25px

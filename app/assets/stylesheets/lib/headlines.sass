@@ -131,6 +131,23 @@ header.head
       &:before
         color: $link-active
 
+  &.linkheadline
+    & > a
+      // text-decoration: underline
+      color: inherit
+
+      &:before
+        color: inherit
+
+      &:hover,
+      &:hover:before
+        color: $link-hover
+
+      +gt_ipad
+        &:active,
+        &:active:before
+          color: $link-active
+
   .misc-links
     +css4
       font-family: var(--font-main)

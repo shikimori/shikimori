@@ -5,10 +5,6 @@
         .subheadline.linkheadline
           a href=animes_collection_url(status: :ongoing)
             = t '.currently_airing'
-          / a.b-link[
-            / href="#{animes_collection_url}"
-            / title="#{t '.all_animess'}"
-          / ] = t '.mangas'
 
         .cc-ongoings.to-process data-dynamic='cutted_covers'
           = render partial: 'animes/anime',
@@ -17,9 +13,9 @@
             cache: ->(entry, _) { CacheHelper.keys entry, :studio }
 
     .block2
-      .fc-main
+      .fc-section-tags
         .f-column
-          .midheadline.red
+          .midheadline.red.linkheadline
             a[
               href=animes_collection_url
               title=Anime.model_name.human
@@ -49,7 +45,7 @@
             ] = t '.recommended.personalized'
 
         .f-column
-          .midheadline.blue
+          .midheadline.blue.linkheadline
             a[
               href=mangas_collection_url
               title=Manga.model_name.human
@@ -70,7 +66,7 @@
             ] = t '.recommended.personalized'
 
         .f-column
-          .midheadline.green
+          .midheadline.green.linkheadline
             a[
               href=ranobe_collection_url
               title=Ranobe.model_name.human
