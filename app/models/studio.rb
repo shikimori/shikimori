@@ -123,6 +123,7 @@ class Studio < ApplicationRecord
     'NHK',
     'Oh! Production',
     'Ashi Productions Co. Inc.',
+    'REVOROOT',
 
     # from wikipedia
     'a-1 pictures inc.',
