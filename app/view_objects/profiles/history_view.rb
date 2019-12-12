@@ -16,6 +16,7 @@ class Profiles::HistoryView < ViewObjectBase
   ]
 
   LIMIT = 4
+  CACHE_VERSION = :v2
 
   def display?
     formatted.any?
@@ -28,7 +29,7 @@ class Profiles::HistoryView < ViewObjectBase
 private
 
   def formatted
-    @formatted ||= Rails.cache.fetch CacheHelper.keys(:history, @user) do
+    @formatted ||= Rails.cache.fetch CacheHelper.keys(:history, @user, CACHE_VERSION) do
       grouped_history.map { |_, entries| format entries }.compact
     end
   end
@@ -87,6 +88,7 @@ private
 
   def format_mal_import entries
     Users::FormattedHistory.new(
+      user_id: entry.user_id,
       image: '/assets/blocks/history/mal.png',
       name: 'MyAnimeList',
       action: entries.reverse.map(&:format).join(', ').html_safe,
@@ -98,6 +100,7 @@ private
 
   def format_ap_import entries
     Users::FormattedHistory.new(
+      user_id: entry.user_id,
       image: '/assets/blocks/history/anime-planet.jpg',
       name: 'Anime-Planet',
       action: entries.reverse.map(&:format).join(', ').html_safe,
@@ -112,6 +115,9 @@ private
     target = entry.target
 
     Users::FormattedHistory.new(
+      user_id: entry.user_id,
+      target_id: entry.target_id,
+      target_type: entry.target_type,
       image: ImageUrlGenerator.instance.url(target, :x48),
       image_2x: ImageUrlGenerator.instance.url(target, :x96),
       name: target.name,

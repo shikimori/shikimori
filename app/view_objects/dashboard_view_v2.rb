@@ -114,7 +114,9 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def history
-    Profiles::HistoryView.new(h.current_user).preview(DISPLAYED_HISTORY)
+    entry = Profiles::HistoryView.new(h.current_user).preview(DISPLAYED_HISTORY).first
+
+    Users::UserRateHistory.new entry.attributes
   end
 
   def admin_area?

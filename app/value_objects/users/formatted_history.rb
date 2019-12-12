@@ -11,6 +11,10 @@ class Users::FormattedHistory
   attribute :url, String
   attribute :action_info, String
 
+  attribute :user_id, Integer
+  attribute :target_id, Integer
+  attribute :target_type, String
+
   def localized_name
     h.localization_span self
   end

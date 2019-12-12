@@ -12,24 +12,22 @@
         href=profile_list_history_url(current_user)
       ] = i18n_io('history', :one)
 
-  - history.each do |entry|
-    a.history[
-      href=entry.url
-      title=entry.name
+  a.history[
+    href=history.url
+    title=history.name
+  ]
+    img[
+      src=history.image
+      srcset=("#{history.image_2x} 2x" if history.image_2x)
+      alt=history.name
     ]
-      img[
-        src=entry.image
-        srcset=("#{entry.image_2x} 2x" if entry.image_2x)
-        alt=entry.name
-      ]
-      .content
-        .title
-          = entry.localized_name
+    .content
+      .title
+        = history.localized_name
 
-        .action
-          = entry.reversed_action
+      .action
+        = history.reversed_action
 
-        time[
-          datetime=entry.created_at.iso8601
-        ] = entry.localized_date
-
+      time[
+        datetime=history.created_at.iso8601
+      ] = history.localized_date

@@ -10,22 +10,22 @@ describe DashboardViewV2 do
     let!(:ongoing_2) { create :anime, :ongoing, ranked: 5, score: 8 }
     let!(:ongoing_3) { create :anime, :ongoing, ranked: 5, score: 7 }
 
-    it { expect(view.ongoings).to eq [ongoing_2, ongoing_1] }
+    its(:ongoings) { is_expected.to eq [ongoing_2, ongoing_1] }
   end
 
   describe '#collections_views' do
     let!(:collection) { create :collection, :published, :with_topics }
-    it { expect(view.collections_views).to have(1).item }
+    its(:collections_views) { is_expected.to have(1).item }
   end
 
   describe '#reviews_views' do
     let!(:review) { create :review, :with_topics }
-    it { expect(view.reviews_views).to have(1).item }
+    its(:reviews_views) { is_expected.to have(1).item }
   end
 
   describe '#articles_views' do
     let!(:article) { create :article, :published, :with_topics }
-    it { expect(view.articles_views).to have(1).item }
+    its(:articles_views) { is_expected.to have(1).item }
   end
 
   describe '#contest_topic_views' do
@@ -38,16 +38,16 @@ describe DashboardViewV2 do
 
   describe '#news_topic_views' do
     let!(:news_topic) { create :news_topic, generated: false }
-    it { expect(view.news_topic_views).to have(1).item }
+    its(:news_topic_views) { is_expected.to have(1).item }
   end
 
   describe '#db_updates' do
     let!(:news_topic) { create :news_topic, :anime_anons }
-    it { expect(view.db_updates).to have(1).item }
+    its(:db_updates) { is_expected.to have(1).item }
   end
 
   describe '#cache_keys' do
-    it { expect(view.cache_keys).to be_kind_of Hash }
+    its(:cache_keys) { is_expected.to be_kind_of Hash }
   end
 
   describe '#anime_seasons' do
@@ -66,6 +66,9 @@ describe DashboardViewV2 do
 
   describe '#history' do
     let!(:user_history) { create :user_history, user: user, target: create(:anime) }
-    it { expect(view.history).to have(1).item }
+    its(:history) do
+      is_expected.to be_present
+      is_expected.to be_kind_of Users::UserRateHistory
+    end
   end
 end
