@@ -1,16 +1,40 @@
 @import globals
+@import mixins/dash_separated
 @import mixins/date
 @import mixins/ellipsis2
+@import mixins/link
 
 .p-dashboards-show .v2
   .my-list
-    .midheadline
+    background: #e9f7fb
+    border: 1px solid rgba(144, 213, 236, 0.45)
+    padding: 5px 10px 8px
+
+    .label
       align-items: baseline
+      color: #123
       display: flex
+      font-size: 14px
+      font-weight: 500
+      margin-bottom: 8px
 
       .misc-links
-        margin-left: auto
-        line-height: 1
+        margin-left: 8px
+
+        a
+          +link
+          +dash_separated
+          font-weight: normal
+          display: inline
+          font-size: 11px
+          line-height: 1
+          text-transform: none
+
+    // .midheadline
+    //   align-items: baseline
+    //   display: flex
+    //
+    //   .misc-links
 
     .history
       display: flex

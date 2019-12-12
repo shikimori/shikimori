@@ -1,5 +1,5 @@
 .my-list
-  .midheadline
+  .label
     = t '.my_list'
     .misc-links
       a[
@@ -8,6 +8,9 @@
       a[
         href=profile_user_rates_url(current_user, list_type: 'manga')
       ] = i18n_i(:manga, 1, :genitive)
+      a[
+        href=profile_list_history_url(current_user)
+      ] = i18n_io('history', :one)
 
   - history.each do |entry|
     a.history[
