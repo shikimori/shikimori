@@ -1,6 +1,9 @@
 class MalParsers::FetchPage
   include Sidekiq::Worker
-  sidekiq_options queue: :mal_parsers
+  sidekiq_options(
+    queue: :mal_parsers,
+    retry: false
+  )
 
   TYPES = Types::Strict::String.enum('anime', 'manga')
   REFRESH_INTERVAL = 8.hours

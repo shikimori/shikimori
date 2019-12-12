@@ -1,7 +1,9 @@
 class MalParsers::FetchEntryAuthorized
   include Sidekiq::Worker
-
-  sidekiq_options queue: :mal_parsers
+  sidekiq_options(
+    queue: :mal_parsers,
+    retry: false
+  )
 
   def perform entry_id, entry_type
     "DbImport::#{entry_type}".constantize.call parsed_data(entry_id, entry_type)

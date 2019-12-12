@@ -1,6 +1,9 @@
 class MalParsers::FetchEntry
   include Sidekiq::Worker
-  sidekiq_options queue: :mal_parsers
+  sidekiq_options(
+    queue: :mal_parsers,
+    retry: false
+  )
 
   DATA = :data
   PARSERS = {
