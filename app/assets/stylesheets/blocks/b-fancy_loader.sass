@@ -4,8 +4,6 @@
   left: 50%
   border: 1px solid rgba(255, 255, 255, 0.1)
   border-left-color: rgba(255, 255, 255, 0.4)
-  -webkit-border-radius: 999px
-  -moz-border-radius: 999px
   border-radius: 999px
 
   &::before, &::after
@@ -14,16 +12,11 @@
     left: 50%
     border: 1px solid rgba(255, 255, 255, 0.1)
     border-left-color: rgba(255, 255, 255, 0.4)
-    -webkit-border-radius: 999px
-    -moz-border-radius: 999px
     border-radius: 999px
 
   margin: -25px 0 0 -25px
   height: 50px
   width: 50px
-  -webkit-animation: animation-rotate 1000ms linear infinite
-  -moz-animation: animation-rotate 1000ms linear infinite
-  -o-animation: animation-rotate 1000ms linear infinite
   animation: animation-rotate 1000ms linear infinite
 
   &::before
@@ -31,9 +24,6 @@
     margin: -23px 0 0 -23px
     height: 44px
     width: 44px
-    -webkit-animation: animation-rotate 1000ms linear infinite
-    -moz-animation: animation-rotate 1000ms linear infinite
-    -o-animation: animation-rotate 1000ms linear infinite
     animation: animation-rotate 1000ms linear infinite
 
   &::after
@@ -41,22 +31,7 @@
     margin: -29px 0 0 -29px
     height: 56px
     width: 56px
-    -webkit-animation: animation-rotate 2000ms linear infinite
-    -moz-animation: animation-rotate 2000ms linear infinite
-    -o-animation: animation-rotate 2000ms linear infinite
     animation: animation-rotate 2000ms linear infinite
-
-@-webkit-keyframes animation-rotate
-  100%
-    -webkit-transform: rotate(360deg)
-
-@-moz-keyframes animation-rotate
-  100%
-    -moz-transform: rotate(360deg)
-
-@-o-keyframes animation-rotate
-  100%
-    -o-transform: rotate(360deg)
 
 @keyframes animation-rotate
   100%

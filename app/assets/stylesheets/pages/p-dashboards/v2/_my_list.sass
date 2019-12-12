@@ -1,7 +1,5 @@
 @import globals
 @import mixins/dash_separated
-@import mixins/date
-@import mixins/ellipsis2
 @import mixins/link
 
 .p-dashboards-show .v2
@@ -29,36 +27,3 @@
           font-size: 11px
           line-height: 1
           text-transform: none
-
-    .history
-      display: flex
-
-      &:not(:last-child)
-        margin-bottom: 18px
-
-      &:hover .title
-        color: inherit
-
-      .content
-        +ellipsis2
-
-      img
-        margin-right: 10px
-        width: 48px
-
-      .title
-        +ellipsis2
-        font-size: 14px
-        font-weight: bold
-        line-height: 1
-        margin-bottom: 8px
-
-      .action
-        +ellipsis2
-        color: #333
-        font-size: 12px
-        line-height: 1
-        margin-bottom: 2px
-
-      time
-        +date

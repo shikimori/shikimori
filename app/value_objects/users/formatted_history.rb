@@ -14,6 +14,9 @@ class Users::FormattedHistory
   attribute :user_id, Integer
   attribute :target_id, Integer
   attribute :target_type, String
+  attribute :episodes, Integer
+  attribute :volumes, Integer
+  attribute :chapters, Integer
 
   def localized_name
     h.localization_span self

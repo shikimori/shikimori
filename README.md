@@ -98,16 +98,16 @@ guard
 In rails console:
 
 ```
-pry(main)> AnimesIndex.reset!
-pry(main)> MangasIndex.reset!
-pry(main)> RanobeIndex.reset!
-pry(main)> PeopleIndex.reset!
-pry(main)> CharactersIndex.reset!
-pry(main)> ClubsIndex.reset!
-pry(main)> CollectionsIndex.reset!
-pry(main)> ArticlesIndex.reset!
-pry(main)> UsersIndex.reset!
-pry(main)> TopicsIndex.reset!
+AnimesIndex.reset!
+MangasIndex.reset!
+RanobeIndex.reset!
+PeopleIndex.reset!
+CharactersIndex.reset!
+ClubsIndex.reset!
+CollectionsIndex.reset!
+ArticlesIndex.reset!
+UsersIndex.reset!
+TopicsIndex.reset!
 ```
 
 

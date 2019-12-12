@@ -1,0 +1,73 @@
+@import mixins/date
+@import mixins/ellipsis2
+
+.b-user_rate-history
+  height: 75px
+  display: flex
+
+  &:not(:last-child)
+    margin-bottom: 18px
+
+  &:hover .title
+    color: inherit
+
+  .content
+    +ellipsis2
+    display: flex
+    flex-grow: 1
+    flex-direction: column
+
+  img
+    margin-right: 10px
+    width: 48px
+
+  .title
+    +ellipsis2
+    // +two_line_ellipsis(14px, 1.25)
+    font-size: 14px
+    font-weight: bold
+    line-height: 1.25
+    margin-bottom: 8px
+
+  .progress
+    height: 5px
+    background: #aaa
+    margin-bottom: 8px
+
+    .completed
+      background: $green
+      height: 5px
+
+  .status-counter
+    color: #333
+    display: flex
+
+    .status
+      font-size: 13px
+      font-weight: 500
+      line-height: 1
+      margin-right: 16px
+
+    .counter
+      margin-left: auto
+      line-height: 1
+
+  .status-time
+    display: flex
+    margin-top: auto
+
+    time
+      +date
+      margin-left: auto
+
+  .action-time
+    .action
+      +ellipsis2
+      color: #333
+      font-size: 12px
+      line-height: 1
+      margin-bottom: 2px
+
+    time
+      +date
+
