@@ -37,7 +37,7 @@
 
     .f-sections
       +gte_ipad
-        width: calc(100% - 270px)
+        width: calc(100% - 300px)
 
       .fc-headlines,
       .fc-tags
@@ -115,17 +115,31 @@
         margin-top: auto
 
         +iphone
+          clear: left
+          margin-left: 8px
           padding-top: $block-offset
+          margin-bottom: -13px
 
         +iphone-landscape-ipad
           width: 50%
 
-        +lte_ipad
+        +ipad
           clear: left
-          margin-left: 8px
+          padding-bottom: 12px
+          padding-top: 30px
+          position: relative
+          width: 100%
 
         .b-link_button
           min-width: 0
+
+          +iphone
+            margin-bottom: -15px
+
+          +ipad
+            position: absolute
+            right: 0
+            width: 224px
 
           +gte_laptop
             max-width: 150px
