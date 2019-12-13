@@ -16,7 +16,7 @@ class Profiles::HistoryView < ViewObjectBase
   ]
 
   LIMIT = 4
-  CACHE_VERSION = :v2
+  CACHE_VERSION = :v3
 
   def display?
     formatted.any?
@@ -87,6 +87,8 @@ private
   end
 
   def format_mal_import entries
+    entry = entries.first
+
     Users::FormattedHistory.new(
       user_id: entry.user_id,
       image: '/assets/blocks/history/mal.png',
@@ -99,6 +101,8 @@ private
   end
 
   def format_ap_import entries
+    entry = entries.first
+
     Users::FormattedHistory.new(
       user_id: entry.user_id,
       image: '/assets/blocks/history/anime-planet.jpg',
