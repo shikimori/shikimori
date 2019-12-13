@@ -164,6 +164,8 @@ private
   def increment_params
     if @resource.anime?
       { episodes: (params[:episodes] || @resource.episodes) + 1 }
+    elsif params.key?(:volumes)
+      { volumes: (params[:volumes] || @resource.volumes) + 1 }
     else
       { chapters: (params[:chapters] || @resource.chapters) + 1 }
     end

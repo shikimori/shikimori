@@ -58,10 +58,15 @@ export default class UserRateExtended extends UserRateButton
     JST[EXTENDED_TEMPLATE](
       entry: @entry
       model: @model
-      increment_url: "/api/v2/user_rates/#{@model.id}/increment" if @_is_persisted()
+      increment_url: @_increment_url()
       rate_html: JST[SCORE_TEMPLATE](score: @model.score)
     )
 
   _render: ->
     super()
     @$('.b-rate').rateable()
+
+  _increment_url: ->
+    if @_is_persisted()
+      suffix = '?volumes' if @model.volumes != 0
+      "/api/v2/user_rates/#{@model.id}/increment#{suffix || ''}"

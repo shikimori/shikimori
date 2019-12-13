@@ -21,6 +21,24 @@ div
       .episodes
         = I18n.t('activerecord.attributes.user_rate.episodes')
 
+    else if model.volumes != 0
+      .rate-number
+        span.current-episodes= model.volumes
+
+        if entry.volumes != 0
+          span.b-separator
+            | /
+          span.total-episodes= entry.volumes
+
+        if model.volumes != entry.volumes || model.volumes == 0
+          span.item-add.increment(
+            data-action=increment_url
+            data-remote='true'
+            data-type='json'
+            data-method='post'
+          )
+      .episodes
+        = I18n.t('activerecord.attributes.user_rate.volumes')
     else
       .rate-number
         span.current-episodes= model.chapters
