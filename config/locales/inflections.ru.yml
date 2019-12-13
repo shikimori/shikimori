@@ -567,6 +567,12 @@ ru:
             other: годы
 
     ordinal:
+      anime:
+        one: аниме
+        few: аниме
+      manga:
+        one: манга
+        few: манга
       episode:
         one: эпизод
         few: эпизоды

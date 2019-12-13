@@ -4,10 +4,10 @@
     .misc-links
       a[
         href=profile_user_rates_url(current_user, list_type: 'anime')
-      ] = i18n_i(:anime, 1, :genitive)
+      ] = i18n_io(:anime, :one)
       a[
         href=profile_user_rates_url(current_user, list_type: 'manga')
-      ] = i18n_i(:manga, 1, :genitive)
+      ] = i18n_io(:manga, :one)
       a[
         href=profile_list_history_url(current_user)
       ] = i18n_io('history', :one)
