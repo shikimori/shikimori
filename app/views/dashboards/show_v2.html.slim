@@ -51,7 +51,11 @@
                 a.tag-link.anime-tag[
                   href=animes_collection_url(season: Time.zone.today.year)
                   title="#{Anime.model_name.human} #{Time.zone.today.year}"
-                ] #{Anime.model_name.human} #{Time.zone.today.year}
+                ] = Time.zone.today.year
+                a.tag-link.anime-tag[
+                  href=animes_collection_url(season: Time.zone.today.year - 1)
+                  title="#{Anime.model_name.human} #{Time.zone.today.year - 1}"
+                ] = Time.zone.today.year - 1
                 a.tag-link.anime-tag[
                   href=animes_collection_url(status: :ongoing)
                   title=i18n_i('Ongoing', :other)
