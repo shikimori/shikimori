@@ -1,6 +1,6 @@
 .my-list
   .label
-    = t '.my_list'
+    span = t '.my_list'
     .misc-links
       a[
         href=profile_user_rates_url(current_user, list_type: 'anime')
@@ -45,16 +45,21 @@
             = history.user_rate.status_name
           .counter
             - if history.user_rate.volumes.positive?
-              ' #{i18n_io 'Volume', :one} #{history.user_rate.volumes}
-              | / #{history.volumes.positive? ? history.volumes : '???'}
+              span = i18n_io 'Volume', :few
+              | #{history.user_rate.volumes} / #{history.volumes.positive? ? history.volumes : '???'}
             - elsif history.user_rate.chapters.positive?
-              ' #{i18n_io 'Chapter', :one} #{history.user_rate.chapters}
-              | / #{history.chapters.positive? ? history.chapters : '???'}
+              span = i18n_io 'Chapter', :few
+              | #{history.user_rate.chapters} / #{history.chapters.positive? ? history.chapters : '???'}
             - elsif history.user_rate.episodes.positive?
-              ' #{i18n_io 'Episode', :one} #{history.user_rate.episodes}
-              | / #{history.episodes.positive? ? history.episodes : '???'}
+              span = i18n_io 'Episode', :few
+              | #{history.user_rate.episodes} / #{history.episodes.positive? ? history.episodes : '???'}
 
-        .status-time
+        .score-time
+          - if history.user_rate.score.positive?
+            .stars-container
+              .score class="score-#{history.user_rate.score.round}"
+              .background
+
           time[
             datetime=history.created_at.iso8601
           ] = history.localized_date

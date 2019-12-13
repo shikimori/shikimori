@@ -1,5 +1,6 @@
 @import mixins/date
 @import mixins/ellipsis2
+@import mixins/shikimori
 
 .b-user_rate-history
   height: 75px
@@ -23,10 +24,9 @@
 
   .title
     +ellipsis2
-    // +two_line_ellipsis(14px, 1.25)
     font-size: 14px
     font-weight: bold
-    line-height: 1.25
+    line-height: 1
     margin-bottom: 8px
 
   .progress
@@ -46,19 +46,69 @@
       font-size: 13px
       font-weight: 500
       line-height: 1
-      margin-right: 16px
+      margin-right: 12px
 
     .counter
       margin-left: auto
       line-height: 1
+      font-weight: 500
 
-  .status-time
+      span
+        font-weight: normal
+        font-size: 11px
+        padding-right: 5px
+
+  .score-time
     display: flex
     margin-top: auto
+    line-height: 1
+
+    .stars-container
+      .score,
+      .background
+        +shikimori
+
+        &:after
+          display: block
+          letter-spacing: 4px
+
+      .background
+        color: #ccc
+
+        &:after
+          content: '\e840\e840\e840\e840\e840'
+
+      .score
+        color: #4c86c8
+        position: absolute
+
+        &.score-0:after
+          content: ''
+        &.score-1:after
+          content: '\e841'
+        &.score-2:after
+          content: '\e840'
+        &.score-3:after
+          content: '\e840\e841'
+        &.score-4:after
+          content: '\e840\e840'
+        &.score-5:after
+          content: '\e840\e840\e841'
+        &.score-6:after
+          content: '\e840\e840\e840'
+        &.score-7:after
+          content: '\e840\e840\e840\e841'
+        &.score-8:after
+          content: '\e840\e840\e840\e840'
+        &.score-9:after
+          content: '\e840\e840\e840\e840\e841'
+        &.score-10:after
+          content: '\e840\e840\e840\e840\e840'
 
     time
       +date
       margin-left: auto
+      color: $gray-3
 
   .action-time
     .action

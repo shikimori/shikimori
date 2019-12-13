@@ -14,6 +14,11 @@
 
     .block2
       .fc-section-tags
+        .f-column.to-process.b-ajax[
+          data-dynamic='postloaded'
+          data-postloaded-url=dashboards_dynamic_url
+        ]
+
         .f-column
           .midheadline.red.linkheadline
             a[
@@ -80,11 +85,6 @@
           a.b-link_button.dark.forum[
             href=forum_url
           ] = t 'forum'
-
-        .f-column.to-process.b-ajax[
-          data-dynamic='postloaded'
-          data-postloaded-url=dashboards_dynamic_url
-        ]
 
     .block2
       .headline.skyblue.m15 = t '.latest_news'
