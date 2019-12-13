@@ -6,6 +6,9 @@
     border: 1px solid rgba(144, 213, 236, 0.45)
     padding: 5px 10px 8px
 
+    +iphone-landscape
+      width: 320px
+
     .social
       margin-bottom: 10px
 
@@ -19,7 +22,10 @@
     .links
       display: flex
 
-      +lte_ipad
+      +iphone
+        justify-content: space-between
+
+      +ipad
         flex-direction: column
 
       +gte_laptop
