@@ -2,7 +2,6 @@ import Swiper from 'swiper';
 import { isPhone, isMobile } from 'helpers/mobile_detect';
 
 let swipers = [];
-window.z = swipers;
 
 pageLoad('dashboards_show', () => {
   if (!$('.p-dashboards-show .v2').length) { return; }
@@ -37,6 +36,7 @@ function reInitSwipers() {
   }
 
   if (isPhone()) {
+    console.log(isPhone())
     swipers.push(
       new Swiper('.content-updates', {
         slidesPerView: 'auto',
