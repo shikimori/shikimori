@@ -21,45 +21,91 @@
   +gte_ipad
     padding-top: 5px
 
-  .fc-section-tags
-    +fcolumn-responsive($ipad-columns: 3, $desktop-columns: 4, $gutter-desktop: 30px)
-
-    .f-column.ranobe
+  .fc-user-sections
+    +gte_ipad
       display: flex
-      flex-direction: column
 
-      +gte_laptop
-        max-height: 125px
+    .f-user
+      +gte_ipad
+        width: 270px
+        margin-right: 30px
 
-      .forum
-        margin-top: auto
+    .f-sections
+      +gte_ipad
+        width: calc(100% - 270px)
+
+      .fc-headlines,
+      .fc-tags
+        display: flex
+        +ipad
+          margin-left: -15px
+
+        +gte_laptop
+          margin-left: -30px
+
+      .fc-headlines .f-headline
+        +ipad
+          margin-left: 15px
+          width: calc(33% - 15px)
+
+      .fc-tags
+        +ipad
+          flex-wrap: wrap
+          margin-left: 0
+
+          .f-tags
+            flex-wrap: wrap
+            display: inline-flex
+
+      .fc-headlines .f-headline,
+      .fc-tags .f-tags
+        +gte_laptop
+          margin-left: 30px
+
+        +laptop
+          &:not(:last-child)
+            width: calc(38% - 30px)
+
+          &:last-child
+            width: calc(23% - 30px)
+
+        +gt_laptop
+          width: calc(33% - 30px)
+
+    .f-tags.ranobe
+      +gte_ipad
+        display: flex
+        flex-direction: column
+
+        .forum
+          margin-top: auto
 
     .tags
-      margin: -4px -5px
+      margin: -8px 0 0 -10px
 
-      .tag-link
-        border-radius: 3px
-        display: inline-block
-        +css4
-          font-family: var(--font-alt)
-        font-size: 12px
-        line-height: 21px
-        margin: 4px 5px
-        padding: 0 10px
-        // text-transform: lowercase
+    .tag-link
+      border-radius: 3px
+      display: inline-block
+      +css4
+        font-family: var(--font-alt)
+      font-size: 12px
+      line-height: 21px
+      margin: 8px 0 0 10px
+      padding: 0 10px
+      // text-transform: lowercase
 
-        &.anime
-          +tag(hsl(357, 96%, 66%), hsl(365, 94%, 96%), hsl(365, 94%, 94%))
+      &.anime
+        +tag(hsl(357, 96%, 66%), hsl(365, 94%, 96%), hsl(365, 94%, 94%))
 
-        &.manga
-          +tag(hsl(195, 71%, 65%), hsl(193, 94%, 96%), hsl(193, 94%, 94%))
+      &.manga
+        +tag(hsl(195, 71%, 65%), hsl(193, 94%, 96%), hsl(193, 94%, 94%))
 
-        &.ranobe
-          +tag(hsl(92, 75%, 44%), hsl(100, 94%, 96%), hsl(100, 94%, 90%))
+      &.ranobe
+        +tag(hsl(92, 75%, 44%), hsl(100, 94%, 96%), hsl(100, 94%, 90%))
 
-        &:before
-          content: '#'
-          padding-right: 2px
+      &:before
+        content: '#'
+        padding-right: 2px
 
   .headline
     // headline must be upper to flex container with negative margins below

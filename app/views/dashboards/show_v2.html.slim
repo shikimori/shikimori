@@ -13,78 +13,84 @@
             cache: ->(entry, _) { CacheHelper.keys entry, :studio }
 
     .block2
-      .fc-section-tags
-        .f-column.to-process.b-ajax[
+      .fc-user-sections
+        .f-user.to-process.b-ajax[
           data-dynamic='postloaded'
           data-postloaded-url=dashboards_dynamic_url
         ]
 
-        .f-column
-          .midheadline.red.linkheadline
-            a[
-              href=animes_collection_url
-              title=Anime.model_name.human
-            ] = Anime.model_name.human
+        .f-sections
+          .fc-headlines
+            .f-headline
+              .midheadline.red.linkheadline
+                a[
+                  href=animes_collection_url
+                  title=Anime.model_name.human
+                ] = Anime.model_name.human
+            .f-headline
+              .midheadline.blue.linkheadline
+                a[
+                  href=mangas_collection_url
+                  title=Manga.model_name.human
+                ] = Manga.model_name.human
+            .f-headline
+              .midheadline.green.linkheadline
+                a[
+                  href=ranobe_collection_url
+                  title=Ranobe.model_name.human
+                ] = Ranobe.model_name.human
 
-          .tags
-            - @view.anime_seasons.each do |season|
-              a.tag-link.anime[
-                href=animes_collection_url(season.url_params)
-                title=season.catalog_title
-              ] = season.catalog_title
-            a.tag-link.anime[
-              href=animes_collection_url(season: Time.zone.today.year)
-              title="#{Anime.model_name.human} #{Time.zone.today.year}"
-            ] #{Anime.model_name.human} #{Time.zone.today.year}
-            a.tag-link.anime[
-              href=animes_collection_url(status: :ongoing)
-              title=i18n_i('Ongoing', :other)
-            ] = i18n_i 'Ongoing', :other
-            a.tag-link.anime[
-              href=recommendations_favourites_anime_url
-              title=t('.recommended.favourite')
-            ] = t '.recommended.favourite'
-            a.tag-link.anime[
-              href=recommendations_url(klass: 'anime')
-              title=t('.recommended.personalized')
-            ] = t '.recommended.personalized'
+          .fc-tags
+            .f-tags
+              .tags
+                - @view.anime_seasons.each do |season|
+                  a.tag-link.anime[
+                    href=animes_collection_url(season.url_params)
+                    title=season.catalog_title
+                  ] = season.catalog_title
+                a.tag-link.anime[
+                  href=animes_collection_url(season: Time.zone.today.year)
+                  title="#{Anime.model_name.human} #{Time.zone.today.year}"
+                ] #{Anime.model_name.human} #{Time.zone.today.year}
+                a.tag-link.anime[
+                  href=animes_collection_url(status: :ongoing)
+                  title=i18n_i('Ongoing', :other)
+                ] = i18n_i 'Ongoing', :other
+                a.tag-link.anime[
+                  href=recommendations_favourites_anime_url
+                  title=t('.recommended.favourite')
+                ] = t '.recommended.favourite'
+                a.tag-link.anime[
+                  href=recommendations_url(klass: 'anime')
+                  title=t('.recommended.personalized')
+                ] = t '.recommended.personalized'
 
-        .f-column
-          .midheadline.blue.linkheadline
-            a[
-              href=mangas_collection_url
-              title=Manga.model_name.human
-            ] = Manga.model_name.human
-          .tags
-            - @view.manga_kinds.each do |season|
-              a.tag-link.manga[
-                href=mangas_collection_url(season.url_params)
-                title=season.title
-              ] = season.title
-            a.tag-link.manga[
-              href=recommendations_favourites_manga_url
-              title=t('.recommended.favourite')
-            ] = t '.recommended.favourite'
-            a.tag-link.manga[
-              href=recommendations_url(klass: 'manga')
-              title=t('.recommended.personalized')
-            ] = t '.recommended.personalized'
+            .f-tags
+              .tags
+                - @view.manga_kinds.each do |season|
+                  a.tag-link.manga[
+                    href=mangas_collection_url(season.url_params)
+                    title=season.title
+                  ] = season.title
+                a.tag-link.manga[
+                  href=recommendations_favourites_manga_url
+                  title=t('.recommended.favourite')
+                ] = t '.recommended.favourite'
+                a.tag-link.manga[
+                  href=recommendations_url(klass: 'manga')
+                  title=t('.recommended.personalized')
+                ] = t '.recommended.personalized'
 
-        .f-column.ranobe
-          .midheadline.green.linkheadline
-            a[
-              href=ranobe_collection_url
-              title=Ranobe.model_name.human
-            ] = Ranobe.model_name.human
-          .tags
-            a.tag-link.ranobe[
-              href=recommendations_favourites_ranobe_url
-              title=t('.recommended.favourite')
-            ] = t '.recommended.favourite'
+            .f-tags.ranobe
+              .tags
+                a.tag-link.ranobe[
+                  href=recommendations_favourites_ranobe_url
+                  title=t('.recommended.favourite')
+                ] = t '.recommended.favourite'
 
-          a.b-link_button.dark.forum[
-            href=forum_url
-          ] = t 'forum'
+              a.b-link_button.dark.forum[
+                href=forum_url
+              ] = t 'forum'
 
     .block2
       .headline.skyblue.m15 = t '.latest_news'
