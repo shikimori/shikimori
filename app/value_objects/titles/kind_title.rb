@@ -1,6 +1,6 @@
 class Titles::KindTitle
   include Translation
-  pattr_initialize :kind, :klass
+  vattr_initialize :kind, :klass
 
   def text
     kind.to_s

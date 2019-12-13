@@ -41,56 +41,59 @@
                 ] = Ranobe.model_name.human
 
           .fc-tags
-            .f-tags
+            .f-tags.anime-tags
               .tags
                 - @view.anime_seasons.each do |season|
-                  a.tag-link.anime[
+                  a.tag-link.anime-tag[
                     href=animes_collection_url(season.url_params)
                     title=season.catalog_title
                   ] = season.catalog_title
-                a.tag-link.anime[
+                a.tag-link.anime-tag[
                   href=animes_collection_url(season: Time.zone.today.year)
                   title="#{Anime.model_name.human} #{Time.zone.today.year}"
                 ] #{Anime.model_name.human} #{Time.zone.today.year}
-                a.tag-link.anime[
+                a.tag-link.anime-tag[
                   href=animes_collection_url(status: :ongoing)
                   title=i18n_i('Ongoing', :other)
                 ] = i18n_i 'Ongoing', :other
-                a.tag-link.anime[
+                a.tag-link.anime-tag[
                   href=recommendations_favourites_anime_url
                   title=t('.recommended.favourite')
                 ] = t '.recommended.favourite'
-                a.tag-link.anime[
+                a.tag-link.anime-tag[
                   href=recommendations_url(klass: 'anime')
                   title=t('.recommended.personalized')
                 ] = t '.recommended.personalized'
 
-            .f-tags
+            .f-tags.manga-tags
               .tags
                 - @view.manga_kinds.each do |season|
-                  a.tag-link.manga[
+                  a.tag-link.manga-tag[
                     href=mangas_collection_url(season.url_params)
                     title=season.title
+                    class=(:doujin if season.kind == 'doujin')
+                    class=(:one_shot if season.kind == 'one_shot')
                   ] = season.title
-                a.tag-link.manga[
+                a.tag-link.manga-tag[
                   href=recommendations_favourites_manga_url
                   title=t('.recommended.favourite')
                 ] = t '.recommended.favourite'
-                a.tag-link.manga[
+                a.tag-link.manga-tag[
                   href=recommendations_url(klass: 'manga')
                   title=t('.recommended.personalized')
                 ] = t '.recommended.personalized'
 
-            .f-tags.ranobe
+            .f-tags.ranobe-tags
               .tags
-                a.tag-link.ranobe[
+                a.tag-link.ranobe-tag[
                   href=recommendations_favourites_ranobe_url
                   title=t('.recommended.favourite')
                 ] = t '.recommended.favourite'
 
-              a.b-link_button.dark.forum[
-                href=forum_url
-              ] = t 'forum'
+              .forum-container
+                a.b-link_button.dark.forum[
+                  href=forum_url
+                ] = t 'forum'
 
     .block2
       .headline.skyblue.m15 = t '.latest_news'
