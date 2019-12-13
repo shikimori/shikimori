@@ -114,17 +114,21 @@
       .forum-container
         margin-top: auto
 
-        // +lte_ipad
-        //   clear: left
-        //   margin-left: 8px
-        //   padding-top: 16px
+        +iphone
+          padding-top: $block-offset
 
-      .forum
-        min-width: 0
-        max-width: 150px
+        +iphone-landscape-ipad
+          width: 50%
 
         +lte_ipad
-          display: none
+          clear: left
+          margin-left: 8px
+
+        .b-link_button
+          min-width: 0
+
+          +gte_laptop
+            max-width: 150px
 
     .tags
       +gte_laptop
