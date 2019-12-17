@@ -48,7 +48,7 @@ class Comment < ApplicationRecord
   after_create :increment_comments
   after_create :creation_callbacks
 
-  after_save :release_the_banhammer!
+  after_save :release_the_banhammer!, if: -> { saved_change_to_body? }
   after_save :touch_commentable
   after_save :notify_quoted, if: -> { saved_change_to_body? }
 
@@ -149,7 +149,6 @@ class Comment < ApplicationRecord
     )
   end
 
-  # автобан за мат
   def release_the_banhammer!
     Banhammer.instance.release! self
   end
