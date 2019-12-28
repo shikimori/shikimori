@@ -45,9 +45,7 @@ class NameValidator < ActiveModel::EachValidator
   def validate_each record, attribute, value
     return unless value.is_a? String
 
-    is_taken = value.match?(FORBIDDEN_NAMES) ||
-      presence(record, value, Club, :name) ||
-      presence(record, value, User, :nickname)
+    is_taken = validate_value record, value
 
     if is_taken
       message = options[:message] ||
@@ -64,8 +62,15 @@ class NameValidator < ActiveModel::EachValidator
 
 private
 
+  def validate_value record, value
+    value.match?(FORBIDDEN_NAMES) ||
+      presence(record, value, Club, :name) ||
+      presence(record, value, User, :nickname)
+  end
+
   def presence record, value, klass, field
     query = record.is_a?(klass) ? klass.where.not(id: record.id) : klass
+
     query
       .where(
         "#{postgres_word_normalizer field} = #{postgres_word_normalizer '?'}",
