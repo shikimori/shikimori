@@ -8,7 +8,7 @@ class ReviewsController < AnimesController # rubocop:disable ClassLength
   before_action :add_breadcrumbs, except: [:index]
   skip_before_action :og_meta
 
-  GUIDELINES_TOPIC_ID = 299_770
+  RULES_TOPIC_ID = 299_770
 
   # обзоры аниме или манги
   def index
@@ -27,7 +27,7 @@ class ReviewsController < AnimesController # rubocop:disable ClassLength
 
   def new
     og page_title: i18n_t('new_review')
-    @additional_text = additinal_text if ru_host? && I18n.russian?
+    @rules_topic = Topics::TopicViewFactory.new(false, false).find_by(id: RULES_TOPIC_ID)
   end
 
   def edit
@@ -123,15 +123,6 @@ private
     if @resource.is_a? Review
       @review = @resource.decorate
       @resource = @anime || @manga || @ranobe
-    end
-  end
-
-  def additinal_text
-    topic = Topic.find_by id: GUIDELINES_TOPIC_ID
-    return unless topic
-
-    Rails.cache.fetch [topic, :guideline] do
-      BbCodes::EntryText.call topic.body, nil
     end
   end
 end

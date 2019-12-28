@@ -21,6 +21,31 @@ describe Topics::TopicViewFactory do
     end
   end
 
+  describe '#find_by' do
+    let(:topic) { create :topic }
+    subject(:view) { factory.find_by id: topic_id }
+
+    context 'missing topic' do
+      let(:topic_id) { 999999 }
+      it { expect(view).to be_nil }
+    end
+
+    context 'common topic' do
+      let(:topic_id) { topic.id }
+
+      context 'not preview' do
+        let(:is_preview) { false }
+        it { expect(view).to be_a Topics::View }
+        it { expect(view.is_preview).to eq false }
+      end
+
+      context 'preview' do
+        let(:is_preview) { true }
+        it { expect(view.is_preview).to eq true }
+      end
+    end
+  end
+
   describe '#build' do
     subject(:view) { factory.build topic }
 

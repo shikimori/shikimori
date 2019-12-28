@@ -5,6 +5,11 @@ class Topics::TopicViewFactory
     build Topic.find(topic_id)
   end
 
+  def find_by params
+    topic = Topic.find_by params
+    build topic if topic
+  end
+
   def build topic # rubocop:disable all
     topic_type_policy = Topic::TypePolicy.new(topic)
 

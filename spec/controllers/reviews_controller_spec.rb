@@ -4,8 +4,6 @@ describe ReviewsController do
   let(:anime) { create :anime }
   let(:review) { create :review, :with_topics, user: user, target: anime }
 
-  before { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
-
   describe '#index' do
     before { get :index, params: { anime_id: anime.to_param, type: 'Anime' } }
     it { expect(response).to have_http_status :success }

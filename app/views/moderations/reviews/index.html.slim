@@ -14,6 +14,13 @@ header.head
     - t('.instructions').each do |instruction|
       li: p == instruction
 
+  - if @rules_topic
+    br
+    = @rules_topic.html_body
+    .right-text
+      a.b-link href=@rules_topic.url = @rules_topic.topic_title
+      = BbCodes::Text.call "[right][profile=#{@rules_topic.user.id}]#{@rules_topic.user.nickname}[/profile][/right]"
+
 - if @pending.any?
   .subheadline.m5 = t '.queue'
   .block

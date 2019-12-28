@@ -4,6 +4,8 @@ class Moderations::ReviewsController < ModerationsController
   PENDING_PER_PAGE = 15
   PROCESSED_PER_PAGE = 25
 
+  RULES_TOPIC_ID = 299_745
+
   def index
     og page_title: i18n_t('page_title')
 
@@ -14,6 +16,8 @@ class Moderations::ReviewsController < ModerationsController
 
     @processed = QueryObjectBase.new(processed_scope).paginate(@page, PROCESSED_PER_PAGE)
     @pending = pending_scope
+
+    @rules_topic = Topics::TopicViewFactory.new(false, false).find_by(id: RULES_TOPIC_ID)
   end
 
   def accept
