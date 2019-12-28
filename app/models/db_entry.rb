@@ -16,7 +16,7 @@ class DbEntry < ApplicationRecord
   def to_param
     @to_param ||= begin
       # change ids to new ones because of google DMCA bans
-      changed_id = CopyrightedIds.instance.change id, self.class.name.downcase
+      changed_id = CopyrightedIds.instance.change id, self.class.base_class.name.downcase
       "#{changed_id}-#{name.permalinked}"
     end
   end
