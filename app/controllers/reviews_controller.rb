@@ -8,13 +8,7 @@ class ReviewsController < AnimesController # rubocop:disable ClassLength
   before_action :add_breadcrumbs, except: [:index]
   skip_before_action :og_meta
 
-  REVIEWS_CLUB_ID = 293
-  ADDITIONAL_TEXT = %r{
-    \[spoiler=Рекомендации\]
-      (?<text>[\s\S]+)
-    \[/spoiler\]
-    \s*\Z
-  }mix
+  GUIDELINES_TOPIC_ID = 299_770
 
   # обзоры аниме или манги
   def index
@@ -133,13 +127,11 @@ private
   end
 
   def additinal_text
-    reviews_club = Club.find_by(id: REVIEWS_CLUB_ID)
+    topic = Topic.find_by id: GUIDELINES_TOPIC_ID
+    return unless topic
 
-    Rails.cache.fetch [reviews_club, :guideline] do
-      if reviews_club.description =~ ADDITIONAL_TEXT
-        text = $LAST_MATCH_INFO[:text]
-        BbCodes::EntryText.call text, reviews_club
-      end
+    Rails.cache.fetch [topic, :guideline] do
+      BbCodes::EntryText.call topic.body, nil
     end
   end
 end
