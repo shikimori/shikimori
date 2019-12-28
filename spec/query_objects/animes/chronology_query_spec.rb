@@ -31,8 +31,8 @@ describe Animes::ChronologyQuery do
       it do
         expect(query.new(anime_1).links).to eq [
           related_1_2,
-          related_2_3,
           related_2_1,
+          related_2_3,
           related_3_2
         ]
       end

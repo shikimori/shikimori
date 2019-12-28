@@ -39,9 +39,9 @@ describe CollectionDecorator do
     it do
       expect(decorator.texts).to eq(
         [
-          { group_index: 0, linked_id: anime_1.id, text: 'a' },
-          { group_index: 0, linked_id: anime_2.id, text: 'b' },
-          { group_index: 1, linked_id: anime_3.id, text: '<strong>z</strong>' }
+          { group_index: 0, linked_id: anime_1.id, text: 'a', linked_type: 'anime' },
+          { group_index: 0, linked_id: anime_2.id, text: 'b', linked_type: 'anime' },
+          { group_index: 1, linked_id: anime_3.id, text: '<strong>z</strong>', linked_type: 'anime' }
         ]
       )
     end
