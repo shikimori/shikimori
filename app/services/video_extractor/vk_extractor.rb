@@ -13,15 +13,21 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   end
 
   def image_url
+    url = parsed_data[:photo_800] || parsed_data[:photo_320]
+    return unless url
+
     Url
-      .new(parsed_data[:photo_800] || parsed_data[:photo_320])
+      .new(url)
       .without_protocol
       .to_s
   end
 
   def player_url
+    url = parsed_data[:player]
+    return unless url
+
     Url
-      .new(parsed_data[:player])
+      .new(url)
       .without_protocol
       .to_s
       .gsub(/&__ref=[^&]+/, '')
