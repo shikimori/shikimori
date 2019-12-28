@@ -1,7 +1,7 @@
 class BbCodes::Tags::VideoUrlTag
   include Singleton
 
-  MAXIMUM_VIDEOS = 30
+  MAXIMUM_VIDEOS = 75
   PREPROCESS_REGEXP = %r{\[url=(?<url>#{VideoExtractor.matcher})\].*?\[/url\]}mi
   VIDEO_REGEXP = /(?<text>[^"\]=]|^)(?<url>#{VideoExtractor.matcher})/mi
 
