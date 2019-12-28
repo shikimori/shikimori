@@ -26,6 +26,7 @@ postgres=# alter user shikimori_test with superuser;
 ```
 
 ### Create databases
+Make sure `en_US.UTF-8` database collation is set https://gist.github.com/ffmike/877447#gistcomment-2851598
 ```sh
 rails db:create
 ```
