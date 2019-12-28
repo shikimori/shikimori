@@ -6,7 +6,7 @@ describe DbEntries::CleanupMalBanned do
   let!(:role_3) { create :person_role, anime_id: 114, person_id: 1009 }
   let!(:role_4) { create :person_role, manga_id: 114, person_id: 1009 }
 
-  let!(:banned_anime) { create :anime, id: 33209 }
+  let!(:banned_anime) { create :anime, id: 35614 }
   let!(:anime) { create :anime }
 
   let!(:banned_manga) { create :manga, id: 59267 }

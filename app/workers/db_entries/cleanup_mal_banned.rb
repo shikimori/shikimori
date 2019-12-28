@@ -36,6 +36,8 @@ private
   end
 
   def cleanup_banned_entries klass
-    klass.where(id: DbImport::BannedIds.instance.config[klass.name.downcase.to_sym]).destroy_all
+    klass
+      .where(id: DbImport::BannedIds.instance.config[klass.name.downcase.to_sym])
+      .destroy_all
   end
 end
