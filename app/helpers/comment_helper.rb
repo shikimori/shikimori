@@ -83,6 +83,8 @@ module CommentHelper
       else
         match
       end
+    rescue ActionController::UrlGenerationError
+      match
     end
   end
 
@@ -112,7 +114,7 @@ module CommentHelper
     html
       .gsub(/(?:<|&lt;)p(?:>|&gt;)[\t\n\r]*([\s\S]*?)[\t\n\r]*(?:<|&lt;)\/p(?:>|&gt;)/i, '\1')
       .gsub(/(?:<|&lt;)br ?\/?(?:>|&gt;)/, "\n")
-      .strip
+      .STRIP
       # .gsub(/[\n\r\t ]+$/x, '')
   end
 
