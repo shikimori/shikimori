@@ -12,62 +12,65 @@
         href=profile_list_history_url(current_user)
       ] = i18n_io('history', :one)
 
-  a.b-user_rate-history[
-    href=history.url
-    title=history.name
-  ]
-    img[
-      src=history.image
-      srcset=("#{history.image_2x} 2x" if history.image_2x)
-      alt=history.name
+  - if history
+    a.b-user_rate-history[
+      href=history.url
+      title=history.name
     ]
-    .content
-      .title
-        = history.localized_name
+      img[
+        src=history.image
+        srcset=("#{history.image_2x} 2x" if history.image_2x)
+        alt=history.name
+      ]
+      .content
+        .title
+          = history.localized_name
 
-      - if history.user_rate
-        .progress
-          - if history.volumes.positive? && history.user_rate.volumes.positive?
-            .completed[
-              style='width: #{(history.user_rate.volumes * 100.0 / history.volumes).round}%'
-            ]
-          - elsif history.chapters.positive? && history.user_rate.chapters.positive?
-            .completed[
-              style='width: #{(history.user_rate.chapters * 100.0 / history.chapters).round}%'
-            ]
-          - elsif history.episodes.positive? && history.user_rate.episodes.positive?
-            .completed[
-              style='width: #{(history.user_rate.episodes * 100.0 / history.episodes).round}%'
-            ]
+        - if history.user_rate
+          .progress
+            - if history.volumes.positive? && history.user_rate.volumes.positive?
+              .completed[
+                style='width: #{(history.user_rate.volumes * 100.0 / history.volumes).round}%'
+              ]
+            - elsif history.chapters.positive? && history.user_rate.chapters.positive?
+              .completed[
+                style='width: #{(history.user_rate.chapters * 100.0 / history.chapters).round}%'
+              ]
+            - elsif history.episodes.positive? && history.user_rate.episodes.positive?
+              .completed[
+                style='width: #{(history.user_rate.episodes * 100.0 / history.episodes).round}%'
+              ]
 
-        .status-counter
-          .status
-            = history.user_rate.status_name
-          .counter
-            - if history.user_rate.volumes.positive?
-              span = i18n_io 'Volume', :few
-              | #{history.user_rate.volumes} / #{history.volumes.positive? ? history.volumes : '???'}
-            - elsif history.user_rate.chapters.positive?
-              span = i18n_io 'Chapter', :few
-              | #{history.user_rate.chapters} / #{history.chapters.positive? ? history.chapters : '???'}
-            - elsif history.user_rate.episodes.positive?
-              span = i18n_io 'Episode', :few
-              | #{history.user_rate.episodes} / #{history.episodes.positive? ? history.episodes : '???'}
+          .status-counter
+            .status
+              = history.user_rate.status_name
+            .counter
+              - if history.user_rate.volumes.positive?
+                span = i18n_io 'Volume', :few
+                | #{history.user_rate.volumes} / #{history.volumes.positive? ? history.volumes : '???'}
+              - elsif history.user_rate.chapters.positive?
+                span = i18n_io 'Chapter', :few
+                | #{history.user_rate.chapters} / #{history.chapters.positive? ? history.chapters : '???'}
+              - elsif history.user_rate.episodes.positive?
+                span = i18n_io 'Episode', :few
+                | #{history.user_rate.episodes} / #{history.episodes.positive? ? history.episodes : '???'}
 
-        .score-time
-          - if history.user_rate.score.positive?
-            .stars-container
-              .score class="score-#{history.user_rate.score.round}"
-              .background
+          .score-time
+            - if history.user_rate.score.positive?
+              .stars-container
+                .score class="score-#{history.user_rate.score.round}"
+                .background
 
-          time[
-            datetime=history.created_at.iso8601
-          ] = history.localized_date
-      - else
-        .action-time
-          .action
-            = history.reversed_action
+            time[
+              datetime=history.created_at.iso8601
+            ] = history.localized_date
+        - else
+          .action-time
+            .action
+              = history.reversed_action
 
-          time[
-            datetime=history.created_at.iso8601
-          ] = history.localized_date
+            time[
+              datetime=history.created_at.iso8601
+            ] = history.localized_date
+  - else
+    p.b-nothing_here = t 'profiles.edit.list.list_import_history_blank'
