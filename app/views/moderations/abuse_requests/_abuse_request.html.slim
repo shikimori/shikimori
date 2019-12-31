@@ -10,8 +10,9 @@
   span.date
     = abuse_request.created_at.strftime('%d.%m.%Y')
 
-  span
-    = render 'users/user_16', user: abuse_request.user
+  - if can? :manage, Ban
+    span
+      = render 'users/user_16', user: abuse_request.user
 
   - unless abuse_request.value
     span.remove
