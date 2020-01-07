@@ -36,7 +36,6 @@ function reInitSwipers() {
   }
 
   if (isPhone()) {
-    console.log(isPhone())
     swipers.push(
       new Swiper('.content-updates', {
         slidesPerView: 'auto',
