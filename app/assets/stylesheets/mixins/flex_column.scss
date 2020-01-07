@@ -5,6 +5,7 @@
   $portrait-columns: '',
   $landscape-columns: '',
   $ipad-columns: '',
+  $laptop-columns: '',
   $desktop-columns: '',
   $gutter: '',
   $offset: '',
@@ -12,6 +13,8 @@
   $offset-mobile: $flex-offset-mobile,
   $gutter-tablet: '',
   $offset-tablet: '',
+  $gutter-laptop: '',
+  $offset-laptop: '',
   $gutter-desktop: $flex-gutter-desktop,
   $offset-desktop: $flex-offset-desktop,
   $selector: '.f-column'
@@ -25,6 +28,9 @@
     }
     @if ($ipad-columns == '') {
       $ipad-columns: $columns;
+    }
+    @if ($laptop-columns == '') {
+      $laptop-columns: $columns;
     }
     @if ($desktop-columns == '') {
       $desktop-columns: $columns;
@@ -52,8 +58,17 @@
   @if ($gutter-tablet == '') {
     $gutter-tablet: $gutter-desktop;
   }
+  @if ($offset-laptop == '') {
+    $offset-laptop: $offset-desktop;
+  }
+  @if ($gutter-laptop == '') {
+    $gutter-laptop: $gutter-desktop;
+  }
+  @if ($laptop-columns == '') {
+    $laptop-columns: $ipad-columns;
+  }
   @if ($desktop-columns == '') {
-    $desktop-columns: $ipad-columns;
+    $desktop-columns: $laptop-columns;
   }
 
   @if ($portrait-columns != 0) {
@@ -68,12 +83,23 @@
     }
   }
 
-  @include ipad {
-    @include fcolumn($ipad-columns, $gutter-tablet, $offset-tablet, $selector);
+  @if ($ipad-columns != 0) {
+    @include ipad {
+      @include fcolumn($ipad-columns, $gutter-tablet, $offset-tablet, $selector);
+    }
   }
 
-  @include gte_laptop {
-    @include fcolumn($desktop-columns, $gutter-desktop, $offset-desktop, $selector);
+  @if ($laptop-columns != $desktop-columns) {
+    @include laptop {
+      @include fcolumn($laptop-columns, $gutter-laptop, $offset-laptop, $selector);
+    }
+    @include gt_laptop {
+      @include fcolumn($desktop-columns, $gutter-desktop, $offset-desktop, $selector);
+    }
+  } @else  {
+    @include gte_laptop {
+      @include fcolumn($desktop-columns, $gutter-desktop, $offset-desktop, $selector);
+    }
   }
 }
 

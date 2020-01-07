@@ -6,7 +6,7 @@
           a href=animes_collection_url(status: :ongoing)
             = t '.currently_airing'
 
-        .cc-ongoings.to-process data-dynamic='cutted_covers'
+        .fc-ongoings.to-process data-dynamic='cutted_covers'
           = render partial: 'animes/anime',
             collection: @view.ongoings,
             locals: { cover_notice: :studio },

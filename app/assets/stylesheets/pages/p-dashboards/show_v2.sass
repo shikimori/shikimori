@@ -23,6 +23,14 @@
   +gte_ipad
     padding-top: 5px
 
+  .fc-ongoings
+    +fcolumn-responsive($columns: 0, $laptop-columns: 7, $desktop-columns: 8, $gutter-laptop: 12px, $gutter-desktop: 15px, $selector: '.c-column')
+
+    .c-column
+      +laptop
+        &:nth-child(8)
+          display: none
+
   .fc-user-sections
     +gte_ipad
       display: flex
