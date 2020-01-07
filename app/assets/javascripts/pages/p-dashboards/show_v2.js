@@ -21,6 +21,20 @@ function reInitSwipers() {
 
   if (isMobile()) {
     swipers.push(
+      new Swiper('.fc-ongoings', {
+        slidesPerView: 'auto',
+        slidesPerColumn: 1,
+        spaceBetween: 0,
+        wrapperClass: 'inner',
+        slideClass: 'b-catalog_entry',
+        navigation: {
+          nextEl: '.mobile-slider-next',
+          prevEl: '.mobile-slider-prev'
+        }
+      })
+    );
+
+    swipers.push(
       new Swiper('.db-updates', {
         slidesPerView: 'auto',
         slidesPerColumn: 2,

@@ -1,3 +1,4 @@
+@import layouts/l-page
 @import mixins/block
 @import mixins/clearfix
 @import mixins/css4
@@ -19,17 +20,56 @@
       background-color: darken($background, 3%)
       border-color: darken($border, 3%)
 
+=slider_column($columns, $gutter, $is_mobile)
+  $container-outer-padding: 0px
+
+  @if $is_mobile
+    $container-outer-padding: $l-page-mobile-padding
+  @else
+    $container-outer-padding: $l-page-desktop-padding
+
+  flex-shrink: 0
+  margin-left: 0
+  margin-right: $gutter
+  margin-top: 0px !important // overriders margin-top set by swiper
+  width: calc(#{100vw / $columns} - #{$gutter} - #{$container-outer-padding * 2 / $columns - $gutter / $columns})
+
+  &:last-child
+    margin-right: 0
+
 .p-dashboards-show .v2
   +gte_ipad
     padding-top: 5px
 
   .fc-ongoings
-    +fcolumn-responsive($columns: 0, $laptop-columns: 7, $desktop-columns: 8, $gutter-laptop: 12px, $gutter-desktop: 15px, $selector: '.c-column')
+    overflow: hidden
+    position: relative
 
-    .c-column
-      +laptop
-        &:nth-child(8)
-          display: none
+    +iphone
+      .mobile-slider-prev:before,
+      .mobile-slider-next:before
+        max-height: 80%
+
+    .inner
+      +fcolumn-responsive($columns: 1, $laptop-columns: 7, $desktop-columns: 8, $gutter-laptop: 12px, $gutter-desktop: 15px, $selector: '.b-catalog_entry')
+
+      +lte_ipad
+        flex-wrap: nowrap
+        margin-left: 0
+
+      .b-catalog_entry
+        +iphone-portrait
+          +slider-column(3, 12px, true)
+
+        +iphone-landscape
+          +slider-column(4, 12px, true)
+
+        +ipad
+          +slider-column(5, 12px, true)
+
+        +laptop
+          &:nth-child(8)
+            display: none
 
   .fc-user-sections
     +gte_ipad

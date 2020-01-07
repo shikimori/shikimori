@@ -23,6 +23,7 @@ $height: 87px
         .db-update
           flex-shrink: 0
           margin-left: 0
+          margin-top: 0px !important // overriders margin-top set by swiper
 
       .db-update
         +iphone-portrait
@@ -33,9 +34,6 @@ $height: 87px
 
         +ipad
           width: calc(33vw - 25px)
-
-        +lte_ipad
-          margin-top: 0px !important // overriders margin-top set by swiper
 
   +lte_ipad
     .mobile-slider-prev,
@@ -60,9 +58,11 @@ $height: 87px
         left: 0
         opacity: 0.5
         position: absolute
-        top: 0
+        top: 50%
+        transform: translateY(-50%)
         // transition: opacity 0.25s ease
         width: 100%
+        max-height: 125px
 
       &:after
         color: rgba(#123, 0.75)
@@ -95,6 +95,14 @@ $height: 87px
       &:active:before
         opacity: 1
 
+      &.bright
+        &:before
+          background: linear-gradient(to left, rgba(#e5e5e5, 0.2), rgba(#e5e5e5, 0.8) 70%, rgba(#e5e5e5, 1))
+          opacity: 1
+
+        &:active:before
+          background: linear-gradient(to left, rgba(#e5e5e5, 0.4), rgba(#e5e5e5, 0.9) 70%, rgba(#e5e5e5, 1))
+
     .mobile-slider-next
       right: 0
 
@@ -110,6 +118,14 @@ $height: 87px
 
       &:active:before
         opacity: 1
+
+      &.bright
+        &:before
+          background: linear-gradient(to right, rgba(#e5e5e5, 0.2), rgba(#e5e5e5, 0.8) 70%, rgba(#e5e5e5, 1))
+          opacity: 1
+
+        &:active:before
+          background: linear-gradient(to right, rgba(#e5e5e5, 0.4), rgba(#e5e5e5, 0.9) 60%, rgba(#e5e5e5, 1))
 
   .db-update
     display: flex

@@ -2,15 +2,18 @@
 @import mixins/responsive
 @import mixins/float_column
 
+$l-page-mobile-padding: 10px
+$l-page-desktop-padding: 15px
+
 .l-page
   background: white
   clear: both
   margin: 0 auto
-  padding: 15px 10px 0 10px
+  padding: 15px #{$l-page-mobile-padding} 0 #{$l-page-mobile-padding}
 
   +gt_laptop
-    padding-left: 15px
-    padding-right: 15px
+    padding-left: #{$l-page-desktop-padding}
+    padding-right: #{$l-page-desktop-padding}
 
   position: relative
   z-index: 1

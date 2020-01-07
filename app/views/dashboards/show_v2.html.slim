@@ -7,10 +7,13 @@
             = t '.currently_airing'
 
         .fc-ongoings.to-process data-dynamic='cutted_covers'
-          = render partial: 'animes/anime',
-            collection: @view.ongoings,
-            locals: { cover_notice: :studio },
-            cache: ->(entry, _) { CacheHelper.keys entry, :studio }
+          .mobile-slider-prev.bright
+          .mobile-slider-next.bright
+          .inner
+            = render partial: 'animes/anime',
+              collection: @view.ongoings,
+              locals: { cover_notice: :studio },
+              cache: ->(entry, _) { CacheHelper.keys entry, :studio }
 
     .block2
       .fc-user-sections
