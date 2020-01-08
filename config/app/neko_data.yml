@@ -14816,6 +14816,7 @@
         - 5163
         - 6768
         - 8728
+        - 9591
         - 17277
         - 18881
         - 23359
@@ -14826,7 +14827,7 @@
         - 33360
         - 34438
         - 40334
-      :threshold: 93.6%
+      :threshold: 94.1%
       :generator:
         ignore_latest_ids:
         - 34437
@@ -14868,6 +14869,7 @@
         - 5163
         - 6768
         - 8728
+        - 9591
         - 17277
         - 18881
         - 23359
@@ -23485,7 +23487,10 @@
       :algo: duration
       :filters:
         franchise: senki_zesshou_symphogear
-      :threshold: 94.6%
+        not_anime_ids:
+        - 32151
+        - 36692
+      :threshold: 98.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :senki_zesshou_symphogear
@@ -23514,6 +23519,9 @@
       :algo: duration
       :filters:
         franchise: senki_zesshou_symphogear
+        not_anime_ids:
+        - 32151
+        - 36692
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -23718,7 +23726,7 @@
     :border_color: 
     :title_ru: Красавцы из клуба защитников Земли
     :text_ru: 
-    :title_en: Binan Koukou Chikyuu Boueibu LOVE!
+    :title_en: Binan Koukou Chikyuu Boueibu
     :text_en: 
     :topic_id: 247360
     :rule: &415
@@ -23734,7 +23742,7 @@
   border_color: 
   title_ru: Красавцы из клуба защитников Земли
   text_ru: 
-  title_en: Binan Koukou Chikyuu Boueibu LOVE!
+  title_en: Binan Koukou Chikyuu Boueibu
   text_en: 
   topic_id: 247360
   rule: *415
@@ -23747,7 +23755,7 @@
     :border_color: 
     :title_ru: Красавцы из клуба защитников Земли
     :text_ru: 
-    :title_en: Binan Koukou Chikyuu Boueibu LOVE!
+    :title_en: Binan Koukou Chikyuu Boueibu
     :text_en: 
     :topic_id: 247360
     :rule: &416
@@ -23763,7 +23771,7 @@
   border_color: 
   title_ru: Красавцы из клуба защитников Земли
   text_ru: 
-  title_en: Binan Koukou Chikyuu Boueibu LOVE!
+  title_en: Binan Koukou Chikyuu Boueibu
   text_en: 
   topic_id: 247360
   rule: *416
@@ -24835,7 +24843,12 @@
       :algo: duration
       :filters:
         franchise: maria_sama
-      :threshold: 96.7%
+        not_anime_ids:
+        - 2954
+        - 3468
+        - 3469
+        - 6299
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :maria_sama
@@ -24864,6 +24877,11 @@
       :algo: duration
       :filters:
         franchise: maria_sama
+        not_anime_ids:
+        - 2954
+        - 3468
+        - 3469
+        - 6299
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -29634,6 +29652,7 @@
         - 37982
         - 24037
         - 22273
+        - 39326
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
