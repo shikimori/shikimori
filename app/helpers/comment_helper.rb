@@ -114,7 +114,7 @@ module CommentHelper
     html
       .gsub(/(?:<|&lt;)p(?:>|&gt;)[\t\n\r]*([\s\S]*?)[\t\n\r]*(?:<|&lt;)\/p(?:>|&gt;)/i, '\1')
       .gsub(/(?:<|&lt;)br ?\/?(?:>|&gt;)/, "\n")
-      .STRIP
+      .strip
       # .gsub(/[\n\r\t ]+$/x, '')
   end
 
