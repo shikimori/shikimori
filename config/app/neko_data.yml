@@ -18567,10 +18567,15 @@
         franchise: love_live
         not_anime_ids:
         - 21853
+        - 25897
         - 30829
+        - 30896
+        - 32476
+        - 32481
+        - 32730
         - 36473
         - 40245
-      :threshold: 95%
+      :threshold: 96%
       :generator:
         not_ignored_ids:
         - 14951
@@ -18612,7 +18617,12 @@
         franchise: love_live
         not_anime_ids:
         - 21853
+        - 25897
         - 30829
+        - 30896
+        - 32476
+        - 32481
+        - 32730
         - 36473
         - 40245
       :threshold: 0.01
