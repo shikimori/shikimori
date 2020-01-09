@@ -47,24 +47,24 @@ class ModerationPolicy
   def all_content_versions_count
     return 0 unless !@moderation_filter || @user&.version_moderator?
 
-    Moderation::VersionsItemTypeQuery.call(:all_content).pending.size
+    Moderation::VersionsItemTypeQuery.fetch(:all_content).pending.size
   end
 
   def texts_versions_count
     return 0 unless !@moderation_filter || @user&.version_texts_moderator?
 
-    Moderation::VersionsItemTypeQuery.call(:texts).pending.size
+    Moderation::VersionsItemTypeQuery.fetch(:texts).pending.size
   end
 
   def content_versions_count
     return 0 unless !@moderation_filter || @user&.version_moderator?
 
-    Moderation::VersionsItemTypeQuery.call(:content).pending.size
+    Moderation::VersionsItemTypeQuery.fetch(:content).pending.size
   end
 
   def fansub_versions_count
     return 0 unless !@moderation_filter || @user&.version_fansub_moderator?
 
-    Moderation::VersionsItemTypeQuery.call(:fansub).pending.size
+    Moderation::VersionsItemTypeQuery.fetch(:fansub).pending.size
   end
 end
