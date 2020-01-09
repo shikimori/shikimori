@@ -1,11 +1,12 @@
 class VersionsView < ViewObjectBase
   instance_cache :moderators, :pending, :processed
-  per_page_limit 25
+
+  PER_PAGE = 25
 
   def processed
     Moderation::ProcessedVersionsQuery
       .fetch(type_param, h.params[:created_on])
-      .paginate(page, per_page_limit)
+      .paginate(page, PER_PAGE)
       .transform(&:decorate)
   end
 
@@ -14,7 +15,7 @@ class VersionsView < ViewObjectBase
       .includes(:user, :moderator)
       .where(state: :pending)
       .order(:created_at)
-      .paginate(page, per_page_limit)
+      .paginate(page, PER_PAGE)
       .transform(&:decorate)
   end
 
@@ -23,7 +24,7 @@ class VersionsView < ViewObjectBase
       page: page + 1,
       type: h.params[:type],
       created_on: h.params[:created_on],
-      is_pending: is_pending
+      is_pending: is_pending ? '1' : '0'
     )
   end
 
