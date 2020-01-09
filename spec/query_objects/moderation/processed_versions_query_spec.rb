@@ -1,10 +1,10 @@
 describe Moderation::ProcessedVersionsQuery do
   include_context :timecop, '2016-03-18 15:00:00'
 
-  let(:query) { Moderation::ProcessedVersionsQuery.new 'texts', created_on }
+  let(:query) { Moderation::ProcessedVersionsQuery.fetch 'texts', created_on }
   let(:created_on) { nil }
 
-  let!(:version_1) do 
+  let!(:version_1) do
     create :version, state: 'taken', updated_at: 1.minute.ago, created_at: 28.hours.ago
   end
   let!(:version_2) do
@@ -18,12 +18,12 @@ describe Moderation::ProcessedVersionsQuery do
   end
 
   describe '#fetch' do
-    subject { query.fetch page, limit }
+    subject { query.paginate page, limit }
     let(:limit) { 2 }
 
     context 'first_page' do
       let(:page) { 1 }
-      it { is_expected.to eq [version_1, version_3, version_4] }
+      it { is_expected.to eq [version_1, version_3] }
 
       context 'with created_on' do
         let(:created_on) { 1.day.ago.to_date.to_s }
@@ -34,21 +34,6 @@ describe Moderation::ProcessedVersionsQuery do
     context 'second_page' do
       let(:page) { 2 }
       it { is_expected.to eq [version_4] }
-    end
-  end
-
-  describe '#postload' do
-    subject { query.postload page, limit }
-    let(:limit) { 2 }
-
-    context 'first_page' do
-      let(:page) { 1 }
-      it { is_expected.to eq [[version_1, version_3], true] }
-    end
-
-    context 'second_page' do
-      let(:page) { 2 }
-      it { is_expected.to eq [[version_4], false] }
     end
   end
 end

@@ -1,29 +1,29 @@
 class VersionsView < ViewObjectBase
-  instance_cache :moderators, :pending, :processed, :processed_query
+  instance_cache :moderators, :pending, :processed
   per_page_limit 25
 
   def processed
-    processed_query.first.map(&:decorate)
-  end
-
-  def postloader?
-    processed_query.second
+    Moderation::ProcessedVersionsQuery
+      .fetch(type_param, h.params[:created_on])
+      .paginate(page, per_page_limit)
+      .transform(&:decorate)
   end
 
   def pending
-    Moderation::VersionsItemTypeQuery.call(type_param)
+    Moderation::VersionsItemTypeQuery.fetch(type_param)
       .includes(:user, :moderator)
       .where(state: :pending)
       .order(:created_at)
-      .limit(per_page_limit)
-      .decorate
+      .paginate(page, per_page_limit)
+      .transform(&:decorate)
   end
 
-  def next_page_url
+  def next_page_url is_pending
     h.moderations_versions_url(
       page: page + 1,
       type: h.params[:type],
-      created_on: h.params[:created_on]
+      created_on: h.params[:created_on],
+      is_pending: is_pending
     )
   end
 
@@ -39,13 +39,5 @@ class VersionsView < ViewObjectBase
 
   def type_param
     h.params[:type] || :all_content
-  end
-
-private
-
-  def processed_query
-    Moderation::ProcessedVersionsQuery
-      .new(type_param, h.params[:created_on])
-      .postload(page, per_page_limit)
   end
 end

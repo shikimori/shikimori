@@ -35,9 +35,8 @@ describe VersionsView do
   context 'no processed date' do
     let(:created_on) { nil }
     it do
-      expect(view.processed.map(&:object)).to eq [version_1, version_3, version_4]
-      expect(view.postloader?).to eq false
-      expect(view.pending).to have(1).item
+      expect(view.processed).to eq [version_1, version_3, version_4]
+      expect(view.pending).to eq [version_2]
       expect(view.moderators).to eq [moderator]
     end
   end
@@ -45,9 +44,8 @@ describe VersionsView do
   context 'with processed date' do
     let(:created_on) { 2.days.ago.to_date.to_s }
     it do
-      expect(view.processed.map(&:object)).to eq [version_3, version_4]
-      expect(view.postloader?).to eq false
-      expect(view.pending).to have(1).item
+      expect(view.processed).to eq [version_3, version_4]
+      expect(view.pending).to eq [version_2]
       expect(view.moderators).to eq [moderator]
     end
   end

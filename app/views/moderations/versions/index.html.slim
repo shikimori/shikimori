@@ -38,23 +38,25 @@ header.head
     .block
       - if @versions.pending.any?
         = render partial: 'versions/version', collection: @versions.pending
-        - if @versions.pending.size == @versions.per_page_limit
-          .m5
-          .b-nothing_here = t '.more_content_changes_pending'
+
+        - if @versions.pending.next_page?
+          = render 'blocks/postloader',
+            next_url: @versions.next_page_url(true),
+            ignore_appear: true
 
       - else
         .b-nothing_here = t '.queue_empty'
 
 .block
   input.subheadline-input.date-filter[
-    type="text"
-    data-name="created_on"
+    type='text'
+    data-name='created_on'
     placeholder=t('date_field')
     value=params[:created_on]
   ]
   .subheadline.m5 = t '.history'
   .block
     = render partial: 'versions/version', collection: @versions.processed
-    - if @versions.postloader?
+    - if @versions.processed.next_page?
       = render 'blocks/postloader',
-        next_url: @versions.next_page_url
+        next_url: @versions.next_page_url(false)
