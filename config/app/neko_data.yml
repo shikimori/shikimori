@@ -16427,7 +16427,9 @@
       :algo: duration
       :filters:
         franchise: danganronpa
-      :threshold: 96.3%
+        not_anime_ids:
+        - 37103
+      :threshold: 97.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :danganronpa
@@ -16456,6 +16458,8 @@
       :algo: duration
       :filters:
         franchise: danganronpa
+        not_anime_ids:
+        - 37103
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -22277,6 +22281,8 @@
       :algo: duration
       :filters:
         franchise: genshiken
+        not_anime_ids:
+        - 7882
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -22306,6 +22312,8 @@
       :algo: duration
       :filters:
         franchise: genshiken
+        not_anime_ids:
+        - 7882
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
