@@ -15,7 +15,9 @@ class Animes::ChronologyQuery
   end
 
   def links
-    related_entries.flat_map { |_source_id, related| related }
+    related_entries.flat_map do |_source_id, related|
+      related.sort_by { |v| v.send(related_field) }
+    end
   end
 
 private
