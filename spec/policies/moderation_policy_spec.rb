@@ -152,7 +152,7 @@ describe ModerationPolicy do
   describe '#all_content_versions_count' do
     before do
       allow(Moderation::VersionsItemTypeQuery)
-        .to receive_message_chain(:call, :pending, :size)
+        .to receive_message_chain(:fetch, :pending, :size)
         .and_return(versions_count)
     end
     let(:versions_count) { 1 }
@@ -174,7 +174,7 @@ describe ModerationPolicy do
   describe '#texts_versions_count' do
     before do
       allow(Moderation::VersionsItemTypeQuery)
-        .to receive_message_chain(:call, :pending, :size)
+        .to receive_message_chain(:fetch, :pending, :size)
         .and_return(versions_count)
     end
     let(:versions_count) { 1 }
@@ -196,7 +196,7 @@ describe ModerationPolicy do
   describe '#content_versions_count' do
     before do
       allow(Moderation::VersionsItemTypeQuery)
-        .to receive_message_chain(:call, :pending, :size)
+        .to receive_message_chain(:fetch, :pending, :size)
         .and_return(content_versions_count)
     end
     let(:content_versions_count) { 1 }
@@ -218,7 +218,7 @@ describe ModerationPolicy do
   describe '#fansub_versions_count' do
     before do
       allow(Moderation::VersionsItemTypeQuery)
-        .to receive_message_chain(:call, :pending, :size)
+        .to receive_message_chain(:fetch, :pending, :size)
         .and_return(fansub_versions_count)
     end
     let(:fansub_versions_count) { 1 }
