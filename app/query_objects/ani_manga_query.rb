@@ -508,7 +508,7 @@ private
         "#{klass.table_name}.id desc"
 
       when 'rate_id'
-        'user_rates.id desc'
+        "user_rates.id, #{klass.table_name}.id"
 
       when 'my', 'rate'
         <<-SQL.squish
