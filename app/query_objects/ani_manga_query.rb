@@ -510,6 +510,9 @@ private
       when 'rate_id'
         "user_rates.id, #{klass.table_name}.id"
 
+      when 'rate_updated'
+        "user_rates.updated_at desc, user_rates.id, #{klass.table_name}.id"
+
       when 'my', 'rate'
         <<-SQL.squish
           user_rates.score desc,

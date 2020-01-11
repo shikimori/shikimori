@@ -78,16 +78,16 @@
         li.order-by-name = t 'by.name'
         li.order-by-aired_on = t 'by.aired_on'
 
-        / используется в профиле пользователя
-        - if defined?(in_user_profile)
-          li.order-by-my style="display: none" = t 'by.score'
+        - if local_assigns[:in_user_profile]
+          li.order-by-my style='display: none' = t 'by.score'
           li.order-by-rate_id = t 'by.date_added'
+          li.order-by-rate_updated = t 'by.date_updated'
           - if menu.klass == Anime
-            li.order-by-episodes style="display: none" = t 'by.episodes'
+            li.order-by-episodes style='display: none' = t 'by.episodes'
           - else
-            li.order-by-chapters style="display: none" = t 'by.chapters'
-            li.order-by-volumes style="display: none" = t 'by.volumes'
-          li.order-by-status style="display: none" = t 'by.status'
+            li.order-by-chapters style='display: none' = t 'by.chapters'
+            li.order-by-volumes style='display: none' = t 'by.volumes'
+          li.order-by-status style='display: none' = t 'by.status'
         - else
           li.order-by-id = t 'by.id'
 

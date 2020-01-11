@@ -55,6 +55,7 @@ en:
     id: By ID
     aired_on: By release date
     date_added: By date added
+    date_updated: By date updated
     kind: By type
     name: In alphabetical order
     chapters: By number of chapters

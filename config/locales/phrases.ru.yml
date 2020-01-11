@@ -55,6 +55,7 @@ ru:
     id: По ID
     aired_on: По дате выхода
     date_added: По дате добавления
+    date_updated: По дате изменения
     kind: По типу
     name: По алфавиту
     chapters: По числу глав
