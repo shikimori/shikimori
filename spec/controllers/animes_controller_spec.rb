@@ -195,6 +195,27 @@ describe AnimesController do
     end
   end
 
+  describe '#increment_episode' do
+    let(:make_request) { post :increment_episode, params: { id: anime.to_param } }
+    let(:anime) { create :anime, :ongoing, episodes_aired: 10 }
+
+    context 'has access' do
+      include_context :authenticated, :admin
+      subject! { make_request }
+      it do
+        expect(resource.episodes_aired).to eq 11
+        expect(response).to redirect_to edit_anime_url(anime)
+      end
+    end
+
+    context 'no access' do
+      include_context :authenticated, :forum_moderator
+      it do
+        expect { make_request }.to raise_error CanCan::AccessDenied
+      end
+    end
+  end
+
   describe '#rollback_episode' do
     let(:make_request) { post :rollback_episode, params: { id: anime.to_param } }
     let(:anime) { create :anime, episodes_aired: 10 }

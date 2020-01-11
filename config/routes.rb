@@ -680,7 +680,10 @@ Rails.application.routes.draw do
 
         get 'cosplay/:anything' => redirect { |params, request| "/#{kind}/#{params[:id]}/cosplay" }, anything: /.*/
 
-        post :rollback_episode if kind == 'animes'
+        if kind == 'animes'
+          post :increment_episode
+          post :rollback_episode
+        end
       end
 
       resources :reviews, type: kind.singularize.capitalize, except: [:show]

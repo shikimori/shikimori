@@ -5,6 +5,7 @@ class Abilities::VersionFansubModerator
   MANAGED_FIELDS = %w[fandubbers fansubbers]
 
   def initialize _user
+    can :increment_episode, Anime
     can :rollback_episode, Anime
     can :upload_episode, Anime
 

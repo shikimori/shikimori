@@ -42,7 +42,8 @@ ru:
     quote: Цитировать
     reject: Отклонить
     reply: Ответить
-    rollback: Откатить
+    rollback: Откатить (-)
+    increment: Увеличить (+)
     start: Запустить
     stop: Остановить
     take: Взять

@@ -15,6 +15,7 @@ class Abilities::VersionTextsModerator
   MANAGED_MODELS = [Anime.name, Manga.name, Ranobe.name, Character.name, Person.name]
 
   def initialize _user
+    can :increment_episode, Anime
     can :rollback_episode, Anime
     can :upload_episode, Anime
 

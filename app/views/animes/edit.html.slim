@@ -143,17 +143,22 @@
               - else
                 .b-js-action = t 'moderators_only'
 
-          - if can? :rollback_episode, @resource
-            li
-              .field = @resource.class.human_attribute_name(:episodes_aired)
-              .value
-                span = @resource.episodes_aired
-                - if @resource.episodes_aired.positive?
-                  a.b-js-action[
-                    href=rollback_episode_anime_url(@resource)
-                    data-method='post'
-                    data-confirm=t('.confirm_rollback')
-                  ] = t 'actions.rollback'
+          li
+            .field = @resource.class.human_attribute_name(:episodes_aired)
+            .value
+              span = @resource.episodes_aired
+              - if can?(:rollback_episode, @resource) && !@resource.released?
+                a.b-js-action[
+                  href=increment_episode_anime_url(@resource)
+                  data-method='post'
+                  data-confirm=t('actions.confirm_simple')
+                ] = t 'actions.increment'
+              - if can?(:rollback_episode, @resource) && @resource.episodes_aired.positive?
+                a.b-js-action[
+                  href=rollback_episode_anime_url(@resource)
+                  data-method='post'
+                  data-confirm=t('.confirm_rollback')
+                ] = t 'actions.rollback'
 
         - else
           li

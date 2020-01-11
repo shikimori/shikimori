@@ -4,6 +4,7 @@ class Abilities::VideoSuperModerator
 
   def initialize _user
     can :upload_episode, Anime
+    can :increment_episode, Anime
     can :rollback_episode, Anime
 
     can %i[index show none edit update], AnimeVideoAuthor

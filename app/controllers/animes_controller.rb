@@ -190,6 +190,13 @@ class AnimesController < DbEntriesController
     render json: @resource.files.episodes_data
   end
 
+  def increment_episode
+    authorize! :increment_episode, @resource
+
+    Anime::IncrementEpisode.call @resource
+    redirect_back fallback_location: @resource.edit_url
+  end
+
   def rollback_episode
     authorize! :rollback_episode, @resource
 
