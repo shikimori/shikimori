@@ -95,13 +95,9 @@ private
   end
 
   def versions_scope
-    QueryObjectBase
-      .new(
-        Moderation::ProcessedVersionsQuery
-          .new(Moderation::VersionsItemTypeQuery::Types[:role], nil)
-          .query
-          .where("item_diff->>'role' = ?", @role)
-      )
+    Moderation::ProcessedVersionsQuery
+      .fetch(Moderation::VersionsItemTypeQuery::Types[:role], nil)
+      .where("item_diff->>'role' = ?", @role)
       .paginate(params[:action] == 'versions' ? page : 1, VERSIONS_PER_PAGE)
       .transform(&:decorate)
   end
