@@ -313,6 +313,24 @@
 
   = render 'db_entries/sync_status', resource: @resource
 
+  - if @resource.anime? && @resource.anime_calendars.any?
+    = spoiler 'animecalendar.eu' do
+      .subheadline
+        a href='http://animecalendar.eu/' animecalendar.eu
+      table.b-table.block_m
+        thead
+          tr
+            th style='text-align: right; width: 60px; padding-right: 25px'
+              = t '.anime_calendar.episode'
+            th = t '.anime_calendar.date'
+        tbody
+          - @resource.anime_calendars.sort_by(&:episode).each do |anime_calendar|
+            tr
+              td style='text-align: right; padding-right: 25px'
+                = anime_calendar.episode
+              td = l anime_calendar.start_at, format: :full
+
+
   - if @resource.anime? && can?(:upload_episode, Anime)
     = spoiler t('.upload_episode') do
       .cc-2

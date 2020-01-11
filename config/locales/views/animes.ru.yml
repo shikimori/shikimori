@@ -69,6 +69,9 @@ ru:
         many: И ещё %{count} человек
       episodes_preview: Превью эпизодов
       watch_online: Онлайн просмотр
+      anime_calendar:
+        episode: Эпизод
+        date: Дата
 
     menu:
       scores: Оценки людей
