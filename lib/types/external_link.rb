@@ -26,6 +26,7 @@ module Types
       anime: COMMON_KINDS + %i[
         anime_db
         world_art
+        kinopoisk
         kage_project
         smotret_anime
       ] + WATCH_ONLINE_KINDS + %i[twitter],
