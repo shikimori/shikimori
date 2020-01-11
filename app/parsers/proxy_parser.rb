@@ -100,6 +100,9 @@ private
     Nokogiri::HTML(open('https://webanetlabs.net/publ/24').read)
       .css('.uSpoilerText a.link')
       .map { |v| 'https://webanetlabs.net' + v.attr(:href) }
+  rescue StandardError => e
+    print "webanetlabs: #{e.message}\n"
+    []
   end
 
   # def rebro_weebly
