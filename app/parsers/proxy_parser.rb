@@ -3,7 +3,7 @@ require 'thread_pool'
 # http://pastebin.com/r2Xz6i0M
 class ProxyParser
   TEST_URL = "https://shikimori.one#{ProxyTest::TEST_PAGE_PATH}"
-  WHAT_IS_MY_IP_URL = "https://#{Shikimori::DOMAIN}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
+  WHAT_IS_MY_IP_URL = "https://#{Shikimori::DOMAINS[:production]}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
 
   # HIDEME_URL = "http://hideme.ru/api/proxylist.php?out=js&code=253879821"
 
