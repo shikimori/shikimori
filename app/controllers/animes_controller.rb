@@ -193,14 +193,17 @@ class AnimesController < DbEntriesController
   def increment_episode
     authorize! :increment_episode, @resource
 
-    Anime::IncrementEpisode.call @resource
+    Anime::IncrementEpisode.call(
+      anime: @resource.object,
+      user: current_user
+    )
     redirect_back fallback_location: @resource.edit_url
   end
 
   def rollback_episode
     authorize! :rollback_episode, @resource
 
-    Anime::RollbackEpisode.call @resource, @resource.episodes_aired
+    Anime::RollbackEpisode.call @resource.object, @resource.episodes_aired
     redirect_back fallback_location: @resource.edit_url
   end
 

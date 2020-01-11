@@ -1,7 +1,15 @@
 class Anime::IncrementEpisode
-  method_object :anime
+  method_object %i[anime! user]
 
   def call
-    @anime.update episodes_aired: @anime.episodes_aired + 1 unless @anime.released?
+    return if @anime.released?
+
+    if user
+      Versioneers::FieldsVersioneer
+        .new(@anime)
+        .postmoderate({ episodes_aired: @anime.episodes_aired + 1 }, @user)
+    else
+      @anime.update episodes_aired: @anime.episodes_aired + 1
+    end
   end
 end
