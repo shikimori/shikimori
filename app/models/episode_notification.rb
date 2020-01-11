@@ -14,7 +14,7 @@ class EpisodeNotification < ApplicationRecord
     if nothig_to_rollback?
       save!
     elsif !old_released_anime?
-      Anime::RollbackEpisode.call anime, episode
+      Anime::RollbackEpisode.call anime: anime, episode: episode
     else
       destroy!
     end

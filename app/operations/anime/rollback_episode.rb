@@ -1,8 +1,17 @@
 class Anime::RollbackEpisode
-  method_object :anime, :episode
+  method_object %i[anime! episode! user]
 
   def call
-    @anime.update episodes_aired: @episode - 1 if @anime.episodes_aired >= @episode
+    return if @anime.episodes_aired < @episode
+
     @anime.episode_notifications.where('episode >= ?', @episode).destroy_all
+
+    if user
+      Versioneers::FieldsVersioneer
+        .new(@anime)
+        .postmoderate({ episodes_aired: @episode - 1 }, @user)
+    else
+      @anime.update episodes_aired: @episode - 1
+    end
   end
 end

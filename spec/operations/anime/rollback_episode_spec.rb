@@ -16,61 +16,103 @@ describe Anime::RollbackEpisode do
   end
   let(:episodes_aired) { 10 }
 
-  subject! { described_class.call anime, episode }
+  subject { described_class.call anime: anime, episode: episode, user: user }
 
-  context 'episode == episodes_aired' do
-    let(:episode) { 10 }
+  context 'no user' do
+    let(:user) { nil }
 
-    context 'ongoing' do
+    context 'episode == episodes_aired' do
+      let(:episode) { 10 }
+
+      context 'ongoing' do
+        let(:status) { :ongoing }
+        it do
+          expect { subject }.to_not change Version, :count
+
+          expect(anime).to_not be_changed
+          expect(anime.episodes_aired).to eq 9
+
+          expect(notification_9.reload).to be_persisted
+          expect { notification_10.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect { notification_11.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context 'released' do
+        let(:status) { :released }
+        it do
+          expect { subject }.to_not change Version, :count
+
+          expect(anime).to_not be_changed
+          expect(anime).to be_ongoing
+          expect(anime.episodes_aired).to eq 9
+
+          expect(notification_9.reload).to be_persisted
+          expect { notification_10.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect { notification_11.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+    end
+
+    context 'episode > episodes_aired' do
+      let(:episode) { 11 }
       let(:status) { :ongoing }
-      it do
-        expect(anime).to_not be_changed
-        expect(anime.episodes_aired).to eq 9
 
-        expect(notification_9).to be_persisted
-        expect { notification_10.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect { notification_11.reload }.to raise_error ActiveRecord::RecordNotFound
+      it do
+        expect { subject }.to_not change Version, :count
+
+        expect(anime).to_not be_changed
+        expect(anime.episodes_aired).to eq 10
+
+        expect(notification_9.reload).to be_persisted
+        expect(notification_10.reload).to be_persisted
+        expect(notification_11.reload).to be_persisted
       end
     end
 
-    context 'released' do
-      let(:status) { :released }
-      it do
-        expect(anime).to_not be_changed
-        expect(anime).to be_ongoing
-        expect(anime.episodes_aired).to eq 9
+    context 'episode < episodes_aired' do
+      let(:episode) { 9 }
+      let(:status) { :ongoing }
 
-        expect(notification_9).to be_persisted
+      it do
+        expect { subject }.to_not change Version, :count
+
+        expect(anime).to_not be_changed
+        expect(anime.episodes_aired).to eq 8
+        expect { notification_9.reload }.to raise_error ActiveRecord::RecordNotFound
         expect { notification_10.reload }.to raise_error ActiveRecord::RecordNotFound
         expect { notification_11.reload }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
 
-  context 'episode > episodes_aired' do
-    let(:episode) { 11 }
-    let(:status) { :ongoing }
+  context 'with user' do
+    let(:user) { user_admin }
 
-    it do
-      expect(anime).to_not be_changed
-      expect(anime.episodes_aired).to eq 10
+    context 'episode == episodes_aired' do
+      let(:episode) { 10 }
 
-      expect(notification_9).to be_persisted
-      expect(notification_10).to be_persisted
-      expect { notification_11.reload }.to raise_error ActiveRecord::RecordNotFound
-    end
-  end
+      context 'ongoing' do
+        let(:status) { :ongoing }
+        it do
+          expect { subject }.to change(Version, :count).by 1
+          expect(subject).to be_persisted
+          expect(subject).to have_attributes(
+            item: anime,
+            state: 'auto_accepted',
+            item_diff: {
+              'episodes_aired' => [10, 9]
+            }
+          )
 
-  context 'episode < episodes_aired' do
-    let(:episode) { 9 }
-    let(:status) { :ongoing }
+          expect(anime).to_not be_changed
+          expect(anime.episodes_aired).to eq 9
 
-    it do
-      expect(anime).to_not be_changed
-      expect(anime.episodes_aired).to eq 8
-      expect { notification_9.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect { notification_10.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect { notification_11.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect(notification_9.reload).to be_persisted
+          expect { notification_10.reload }.to raise_error ActiveRecord::RecordNotFound
+          expect { notification_11.reload }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
     end
   end
 end
