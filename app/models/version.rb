@@ -3,8 +3,6 @@ class Version < ApplicationRecord
 
   antispam(
     per_day: 35,
-    scope: -> { where.not item_type: AnimeVideo.name },
-    enable_if: -> { item_type != AnimeVideo.name },
     disable_if: -> {
       user.version_texts_moderator? ||
         user.version_moderator? ||
@@ -13,15 +11,6 @@ class Version < ApplicationRecord
     },
     user_id_key: :user_id
   )
-  # antispam(
-  #   per_day: 50,
-  #   scope: -> { where item_type: AnimeVideo.name },
-  #   enable_if: -> { item_type == AnimeVideo.name },
-  #   disable_if: -> {
-  #     user.video_moderator? || user.trusted_video_uploader? || user.trusted_video_changer?
-  #   },
-  #   user_id_key: :user_id
-  # )
 
   MAXIMUM_REASON_SIZE = 255
 
