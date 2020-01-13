@@ -10,7 +10,6 @@ class AnimeOnline::VideoPlayer
   PREFERENCES_KIND = 'anime_video_kind'
   PREFERENCES_LANGUAGE = 'anime_video_language'
   PREFERENCES_HOSTING = 'anime_video_hosting'
-  PREFERENCES_AUTHOR = 'anime_video_author'
 
   CACHE_VERSION = :v6
 
@@ -26,8 +25,7 @@ class AnimeOnline::VideoPlayer
         try_select_by(
           h.cookies[PREFERENCES_KIND],
           h.cookies[PREFERENCES_LANGUAGE],
-          h.cookies[PREFERENCES_HOSTING],
-          h.cookies[PREFERENCES_AUTHOR]
+          h.cookies[PREFERENCES_HOSTING]
         )
       end
 
@@ -39,11 +37,9 @@ class AnimeOnline::VideoPlayer
   end
 
   def videos
-    videos = @anime.anime_videos
+    @anime.anime_videos
       .includes(:author)
       .where(episode: current_episode)
-
-    AnimeOnline::FilterSovetRomantica.call(videos)
       .map(&:decorate)
       .sort_by(&:sort_criteria)
   end

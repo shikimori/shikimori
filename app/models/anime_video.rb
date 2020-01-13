@@ -160,19 +160,6 @@ class AnimeVideo < ApplicationRecord
     )&.user
   end
 
-  def author_name
-    author.try :name
-  end
-
-  def author_name= name
-    fixed_name = name&.strip
-
-    self.author =
-      if fixed_name.present?
-        AnimeVideoAuthor.find_or_create_by name: fixed_name
-      end
-  end
-
   def any_videos?(
     anime_id: self.anime_id,
     episode: self.episode,
@@ -187,13 +174,6 @@ class AnimeVideo < ApplicationRecord
   end
 
 private
-
-  # def check_copyrighted_authors
-  #   return unless author_name&.match? COPYRIGHTED_AUTHORS
-
-  #   errors.add :base, 'Видео этого автора не могут быть загружены на сайт'
-  #   throw :abort
-  # end
 
   def check_banned_hostings
     self.state = 'banned_hosting' if BANNED_HOSTINGS.include? hosting

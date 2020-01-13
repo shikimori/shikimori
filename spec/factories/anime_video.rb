@@ -5,7 +5,6 @@ FactoryBot.define do
     kind { AnimeVideo.kind.values.first }
     anime { seed :anime }
     episode { 1 }
-    author { nil }
     state { 'working' }
 
     after :build do |model|

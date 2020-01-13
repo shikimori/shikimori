@@ -84,7 +84,10 @@ header.head
       - if @collection.any?
         - @collection.each do |author|
           .b-log_entry
-            span = author.name
+            - if can? :manage_fansub_authors
+              span = author.name
+            - else
+              span = author.name
 
       - else
         .b-nothing_here Нет авторов

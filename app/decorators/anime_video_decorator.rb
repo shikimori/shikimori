@@ -75,8 +75,6 @@ class AnimeVideoDecorator < BaseDecorator
       # unknown language приравниваем к russian language
       AnimeVideo.language.values.index(language.gsub('unknown', 'russian')),
       HOSTINGS_ORDER[hosting] || hosting,
-      (author_name || '').downcase.gsub(/[^a-zа-я]/, ''),
-      (author_name || '').downcase,
       AnimeVideo.quality.values.index(quality),
       is_first ? 0 : 1,
       -id
@@ -88,8 +86,7 @@ class AnimeVideoDecorator < BaseDecorator
     [
       kind.fandub? || kind.unknown? ? '' : kind,
       vk? ? '' : hosting,
-      language_english?,
-      author_name || ''
+      language_english?
     ]
   end
 
