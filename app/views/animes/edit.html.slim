@@ -94,7 +94,7 @@
           .field = @resource.class.human_attribute_name(:genres)
           .value
             span = @resource.genres.map { |v| localization_span v }.join(', ').html_safe
-            - if can? :major_change, Version
+            - if can? :major_change, Version.new(item: @resource.object, item_diff: { genre_ids: [] })
               a.b-js-action.to-process[
                 href=@resource.edit_field_url(:genre_ids)
                 data-dynamic='week_registered'
@@ -299,7 +299,7 @@
           span.censored = t 'yes'
         - else
           span = t 'no'
-        - if can? :major_change, Version
+        - if can? :major_change, Version.new(item: @resource.object, item_diff: { is_censored: [] })
           a.b-js-action href=@resource.edit_field_url(:is_censored)
             = t 'moderators_only'
         - else
@@ -310,7 +310,7 @@
         .field = @resource.class.human_attribute_name(:options)
         .value
           span = @resource.options.join(', ')
-          - if can? :major_change, Version
+          - if can? :major_change, Version.new(item: @resource.object, item_diff: { options: [] })
             a.b-js-action href=@resource.edit_field_url(:options)
               = t 'moderators_only'
           - else
