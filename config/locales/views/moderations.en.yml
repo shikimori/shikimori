@@ -7,6 +7,7 @@ en:
       missing_anime_descriptions: Animes w/o description
       missing_manga_descriptions: Mangas w/o description
       missing_screenshots: Animes w/o screenshots
+      fansub_authors: Fansub/fandub authors
       moderation: Moderation
       reviews_journal: Reviews journal
       collections_journal: Collections journal

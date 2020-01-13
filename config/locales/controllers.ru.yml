@@ -251,7 +251,7 @@ ru:
 
   moderations/authors_controller:
     <<: *moderations_controller
-    page_title: Модерация авторов
+    page_title: Модерация авторов фансаба/фанддаба
 
   moderations/forums_controller:
     <<: *moderations_controller

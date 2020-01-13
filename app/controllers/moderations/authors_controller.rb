@@ -11,20 +11,11 @@ class Moderations::AuthorsController < ModerationsController
   SQL
 
   def index
-    @collection = Anime
-      .connection
-      .execute(
-        format(QUERY_SQL, field: params[:fansub] ? 'fansubbers' : 'fandubbers')
-      )
-      .map { |v| v['name'] }
-      .sort
-
-    if params[:search].present?
-      @collection = @collection.select { |v| v.downcase.include? params[:search].downcase }
-    end
+    og page_title: i18n_t('page_title')
+    @collection = filter fetch_authors
   end
 
-  # def edit # rubocop:disable AbcSize
+  # def edit
   #   og page_title: "Редактирование автора ##{@resource.id}"
   #   og page_title: @resource.name
   #   @back_url = moderations_anime_video_authors_url
@@ -60,9 +51,35 @@ class Moderations::AuthorsController < ModerationsController
   #   end
   # end
 
-  # private
+private
 
-  # def rename_author # rubocop:disable AbcSize
+  def fetch_authors
+    Anime
+      .connection
+      .execute(
+        format(QUERY_SQL, field: params[:fansub] ? 'fansubbers' : 'fandubbers')
+      )
+      .sort_by { |v| v['name'] }
+      .map { |v| build v }
+  end
+
+  def build entry
+    OpenStruct.new(
+      name: entry['name'],
+      is_verified: false
+    )
+  end
+
+  def filter collection
+    if params[:search].present?
+      collection = collection
+        .select { |v| v.name.downcase.include? params[:search].downcase }
+    end
+
+    collection
+  end
+
+  # def rename_author
   #   if params[:anime_id].present? || params[:kind].present?
   #     AnimeVideoAuthor::SplitRename.call(
   #       model: @resource,

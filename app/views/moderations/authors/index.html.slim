@@ -47,12 +47,8 @@ header.head
     form
       - if params[:is_verified].present?
         input type='hidden' name='is_verified' value=params[:is_verified]
-      - if params[:broken_videos].present?
-        input type='hidden' name='broken_videos' value=params[:broken_videos]
-      - if params[:anime_id].present?
-        input type='hidden' name='anime_id' value=params[:anime_id]
-      - if params[:limit].present?
-        input type='hidden' name='limit' value=params[:limit]
+      - if params[:fansub].present?
+        input type='hidden' name='fansub' value=params[:fansub]
 
       input[
         type='text'
@@ -68,23 +64,6 @@ header.head
       input.b-button type='submit' value='Поиск'
 
   .block.search-results
-    / form
-    /   - if params[:is_verified].present?
-    /     input type='hidden' name='is_verified' value=params[:is_verified]
-    /   - if params[:broken_videos].present?
-    /     input type='hidden' name='broken_videos' value=params[:broken_videos]
-    /   - if params[:search].present?
-    /     input type='hidden' name='search' value=params[:search]
-    /   - if params[:limit].present?
-    /     input type='hidden' name='limit' value=params[:limit]
-    /
-    /   input#anime_id name='anime_id' type='hidden' value=params[:anime_id]
-    /   input.anime-suggest.subheadline-input.downgrade_landscape[
-    /     data-autocomplete=autocomplete_animes_url
-    /     placeholder=t('anime_title')
-    /     type='text'
-    /   ]
-
     .b-options-floated
       = @collection.size
     .subheadline.m10
@@ -95,7 +74,7 @@ header.head
         .misc-links
           a href=current_url(anime_id: nil) без аниме
       / - else
-      | Все авторы #{params[:fansub] ? 'фансаба' : 'фандаба'}
+      | Авторы #{params[:fansub] ? 'фансаба' : 'фандаба'}
       .misc-links
         a[
           href=(params[:fansub] ? current_url(fansub: nil) : current_url(fansub: '1'))
@@ -103,9 +82,9 @@ header.head
 
     .block
       - if @collection.any?
-        - @collection.each do |name|
+        - @collection.each do |author|
           .b-log_entry
-            span = name
+            span = author.name
 
       - else
         .b-nothing_here Нет авторов
