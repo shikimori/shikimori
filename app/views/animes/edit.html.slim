@@ -335,7 +335,6 @@
                 = anime_calendar.episode
               td = l anime_calendar.start_at, format: '%d.%m.%Y %H:%M'
 
-
   - if @resource.anime? && can?(:upload_episode, Anime)
     = spoiler t('.upload_episode') do
       .cc-2
