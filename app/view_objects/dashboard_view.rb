@@ -25,7 +25,18 @@ class DashboardView < ViewObjectBase
     )
     .to_where_sql
 
-  IGNORE_ONGOING_IDS = [31_592, 32_585, 35_517, 32_977, 8_687, 36_231, 38_008, 38_427, 39_003]
+  IGNORE_ONGOING_IDS = [
+    31_592,
+    32_585,
+    35_517,
+    32_977,
+    8_687,
+    36_231,
+    38_008,
+    38_427,
+    39_003,
+    40_368
+  ]
 
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
     :new_ongoings, :old_ongoings, :cache_keys
