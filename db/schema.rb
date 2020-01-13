@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_13_171036) do
+ActiveRecord::Schema.define(version: 2020_01_13_171639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2020_01_13_171036) do
   end
 
   create_table "anime_video_authors", id: :serial, force: :cascade do |t|
-    t.string "name", limit: 255
+    t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_verified", default: false, null: false
