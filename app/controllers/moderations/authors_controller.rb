@@ -12,7 +12,7 @@ class Moderations::AuthorsController < ModerationsController
 
   def index
     og page_title: i18n_t('page_title')
-    @collection = filter fetch_authors
+    @collection = assign_is_verified filter fetch_authors
   end
 
   # def edit
@@ -66,6 +66,7 @@ private
   def build entry
     OpenStruct.new(
       name: entry['name'],
+      search_name: entry['name'].downcase,
       is_verified: false
     )
   end
@@ -73,10 +74,21 @@ private
   def filter collection
     if params[:search].present?
       collection = collection
-        .select { |v| v.name.downcase.include? params[:search].downcase }
+        .select { |v| v.search_name.include? params[:search].downcase }
     end
 
     collection
+  end
+
+  def assign_is_verified collection
+    anime_video_authors = AnimeVideoAuthor
+      .where(name: collection.map(&:name))
+
+    collection.each do |author|
+      author.is_verified = anime_video_authors
+        .find { |v| v.name == author.name }
+        &.is_verified || false
+    end
   end
 
   # def rename_author

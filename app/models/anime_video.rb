@@ -32,10 +32,6 @@ class AnimeVideo < ApplicationRecord
   # COPYRIGHTED_AUTHORS = /wakanim/i # |crunchyroll|crunchy|FreakCrSuBuS
 
   belongs_to :anime
-  belongs_to :author,
-    class_name: AnimeVideoAuthor.name,
-    foreign_key: :anime_video_author_id,
-    optional: true
   has_many :reports, class_name: AnimeVideoReport.name, dependent: :destroy
 
   enumerize :kind,
