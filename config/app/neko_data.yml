@@ -10010,8 +10010,8 @@
   attributes:
     :neko_id: :yoshiyuki_tomino
     :level: 1
-    :image: 
-    :border_color: 
+    :image: "/assets/achievements/anime/author/yoshiyuki_tomino.jpg"
+    :border_color: "#6495ED"
     :title_ru: Ёсиюки Томино
     :text_ru: 
     :title_en: Yoshiyuki Tomino
@@ -10019,115 +10019,71 @@
     :topic_id: 276032
     :rule: &111
       :algo: count
-      :threshold: 100%
+      :threshold: 80%
       :filters:
         anime_ids:
-        - 80
-        - 81
-        - 82
-        - 83
-        - 84
-        - 85
-        - 86
-        - 87
-        - 88
-        - 89
-        - 90
-        - 92
-        - 93
-        - 94
-        - 95
-        - 96
-        - 283
-        - 302
-        - 307
-        - 574
-        - 864
-        - 929
-        - 930
-        - 1068
-        - 1069
-        - 1090
-        - 1091
-        - 1092
-        - 1215
-        - 1241
-        - 1542
-        - 1650
-        - 1657
-        - 1663
-        - 1792
-        - 1916
-        - 1917
-        - 1939
-        - 1967
-        - 1968
-        - 1969
-        - 2128
-        - 2200
-        - 2225
-        - 2254
-        - 2273
-        - 2302
-        - 2303
-        - 2304
-        - 2305
-        - 2306
-        - 2391
-        - 2402
-        - 2576
-        - 2581
-        - 2598
-        - 2599
-        - 2601
-        - 2695
-        - 2718
-        - 2747
         - 2760
         - 2761
-        - 2987
-        - 3024
-        - 3054
-        - 3288
+        - 1092
+        - 2254
+        - 1091
+        - 1090
+        - 930
+        - 80
         - 3305
-        - 3819
-        - 3858
-        - 3927
-        - 4232
-        - 4810
-        - 5303
-        - 5372
-        - 5476
-        - 5760
-        - 6336
-        - 7060
-        - 7113
-        - 8899
-        - 9916
-        - 10808
-        - 10937
-        - 17671
-        - 19319
-        - 19977
-        - 19989
-        - 20147
-        - 20975
-        - 23259
-        - 24835
-        - 31251
-        - 31973
-        - 32792
-        - 33051
-        - 35224
+        - 2200
+        - 1069
+        - 1068
+        - 2128
+        - 81
+        - 90
+        - 96
+        - 89
+        - 2695
+        - 84
+        - 88
+        - 82
+        - 2598
+        - 86
+        - 85
+        - 929
+        - 34391
         - 37764
+        - 35224
+        - 33051
+        - 31973
+        - 31251
+        - 10937
+        - 23259
+        - 19319
+        - 10808
+        - 6336
+        - 4232
+        - 3927
+        - 2581
+        - 1215
+        - 1916
+        - 1969
+        - 574
+        - 1968
+        - 1967
+        - 1917
+        - 864
+        - 94
+        - 93
+        - 95
+        - 1542
+        - 91
+        - 1657
+        - 92
       :generator:
         person_id: 2337
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
   default_values: *2
   neko_id: :yoshiyuki_tomino
   level: 1
-  image: 
-  border_color: 
+  image: "/assets/achievements/anime/author/yoshiyuki_tomino.jpg"
+  border_color: "#6495ED"
   title_ru: Ёсиюки Томино
   text_ru: 
   title_en: Yoshiyuki Tomino
@@ -29679,6 +29635,11 @@
         - 24037
         - 22273
         - 39326
+        - 33013
+        - 33417
+        - 4744
+        - 5772
+        - 36817
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
