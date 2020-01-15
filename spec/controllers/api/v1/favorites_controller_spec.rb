@@ -2,7 +2,7 @@ describe Api::V1::FavoritesController do
   include_context :authenticated, :user
 
   let(:entry) { create klass.name.downcase.to_sym }
-  let(:kind) { Types::Favourite::Kinds[:producer] }
+  let(:kind) { Types::Favourite::Kind[:producer] }
 
   describe '#create', :show_in_doc do
     let(:make_request) do

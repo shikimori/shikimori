@@ -31,9 +31,12 @@ class Api::V1::FavoritesController < Api::V1Controller
     favorites_limit = Favourite::LIMITS[params[:linked_type]]
     raise CanCan::AccessDenied unless favorites_limit
 
+    params[:kind] = ::Types::Favourite::Kind[:common] if params[:kind].blank?
+
     added_scope = Favourite
       .where(linked_type: params[:linked_type], user_id: current_user.id)
-    added_scope.where! kind: params[:kind] if params[:kind].present?
+      .where(kind: params[:kind])
+
     added_count = added_scope.size
 
     if added_count >= favorites_limit

@@ -1,12 +1,13 @@
 module Types
   module Favourite
     KINDS = %i[
+      common
       seyu
       mangaka
       producer
       person
     ]
-    Kinds = Types::Strict::Symbol
+    Kind = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(*KINDS)
 
@@ -17,6 +18,6 @@ module Types
       Person
       Character
     ]
-    LinkedTypes = Types::String.enum(*LINKED_TYPES)
+    LinkedType = Types::String.enum(*LINKED_TYPES)
   end
 end

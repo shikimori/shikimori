@@ -245,19 +245,19 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def seyu_favoured?
-    h.user_signed_in? && h.current_user.favoured?(object, Types::Favourite::Kinds[:seyu])
+    h.user_signed_in? && h.current_user.favoured?(object, Types::Favourite::Kind[:seyu])
   end
 
   def producer_favoured?
-    h.user_signed_in? && h.current_user.favoured?(object, Types::Favourite::Kinds[:producer])
+    h.user_signed_in? && h.current_user.favoured?(object, Types::Favourite::Kind[:producer])
   end
 
   def mangaka_favoured?
-    h.user_signed_in? && h.current_user.favoured?(object, Types::Favourite::Kinds[:mangaka])
+    h.user_signed_in? && h.current_user.favoured?(object, Types::Favourite::Kind[:mangaka])
   end
 
   def person_favoured?
-    h.user_signed_in? && h.current_user.favoured?(object, Types::Favourite::Kinds[:person])
+    h.user_signed_in? && h.current_user.favoured?(object, Types::Favourite::Kind[:person])
   end
 
   # тип элемента для schema.org

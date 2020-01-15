@@ -5,15 +5,13 @@ class Favourite < ApplicationRecord
   belongs_to :user, touch: true
 
   enumerize :kind,
-    in: Types::Favourite::Kinds.values,
+    in: Types::Favourite::Kind.values,
     predicates: true
-  enumerize :linked_type, in: Types::Favourite::LinkedTypes.values
+  enumerize :linked_type, in: Types::Favourite::LinkedType.values
 
   scope :ordered, -> { order :position }
 
-  validates :kind,
-    presence: true,
-    if: -> { linked_type == Types::Favourite::LinkedTypes['Person'] }
+  validates :kind, presence: true
 
   validates :user_id,
     uniqueness: { scope: %i[linked_id linked_type kind] },
@@ -24,23 +22,10 @@ class Favourite < ApplicationRecord
     if: -> { kind.blank? }
 
   LIMITS = {
-    Types::Favourite::LinkedTypes['Character'] => 144,
-    Types::Favourite::LinkedTypes['Anime'] => 144,
-    Types::Favourite::LinkedTypes['Manga'] => 144,
-    Types::Favourite::LinkedTypes['Ranobe'] => 144,
-    Types::Favourite::LinkedTypes['Person'] => 144
+    Types::Favourite::LinkedType['Character'] => 144,
+    Types::Favourite::LinkedType['Anime'] => 144,
+    Types::Favourite::LinkedType['Manga'] => 144,
+    Types::Favourite::LinkedType['Ranobe'] => 144,
+    Types::Favourite::LinkedType['Person'] => 144
   }
-
-  # kind cannot be nil, otherwise reordering in acts_as_list wont work as it is expected
-  def kind=value
-    if value.blank?
-      attributes['kind'] = ''
-    else
-      super
-    end
-  end
-
-  def kind
-    super || ''
-  end
 end

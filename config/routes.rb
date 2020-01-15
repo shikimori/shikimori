@@ -383,12 +383,12 @@ Rails.application.routes.draw do
 
       resource :favorites, only: %i[] do
         post ':linked_type/:linked_id(/:kind)' => 'favorites#create',
-          linked_type: /#{Types::Favourite::LinkedTypes.values.join('|')}/,
-          kind: /#{Types::Favourite::Kinds.values.join('|')}/,
+          linked_type: /#{Types::Favourite::LinkedType.values.join('|')}/,
+          kind: /#{Types::Favourite::Kind.values.join('|')}/,
           as: :toggle
         delete ':linked_type/:linked_id(/:kind)' => 'favorites#destroy',
-          linked_type: /#{Types::Favourite::LinkedTypes.values.join('|')}/,
-          kind: /#{Types::Favourite::Kinds.values.join('|')}/
+          linked_type: /#{Types::Favourite::LinkedType.values.join('|')}/,
+          kind: /#{Types::Favourite::Kind.values.join('|')}/
       end
       resources :favorites, only: %i[] do
         post :reorder, on: :member
