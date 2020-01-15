@@ -1,5 +1,6 @@
 class Moderations::AuthorsController < ModerationsController
   before_action :check_access!, only: %i[edit update]
+  before_action -> { @back_url = params[:back_url] }
   helper_method :collection, :author
 
   QUERY_SQL = <<~SQL.squish
@@ -19,7 +20,6 @@ class Moderations::AuthorsController < ModerationsController
   def edit
     og page_title: 'Редактирование автора'
     og page_title: update_params[:name]
-    @back_url = params[:back_url]
   #   breadcrumb i18n_t('page_title'), @back_url
   #
   #   @scope = @resource.anime_videos
@@ -39,6 +39,10 @@ class Moderations::AuthorsController < ModerationsController
       AnimeVideoAuthor
         .find_or_initialize_by(name: update_params[:name])
         .update! is_verified: update_params[:is_verified] == '1'
+    end
+
+    if update_params.key?(:new_name) && update_params[:new_name] != update_params[:name]
+      1/0
     end
 
     redirect_to params[:back_url] || moderations_authors_url
@@ -67,9 +71,7 @@ private
   end
 
   def author
-    @author ||= AnimeVideoAuthor.find_by(
-      name: params[:author][:prior_name] || params[:author][:name]
-    )
+    @author ||= AnimeVideoAuthor.find_by name: update_params[:name]
   end
 
   def fetch_authors
@@ -124,7 +126,7 @@ private
   # end
   #
   def update_params
-    params.require(:author).permit(:name, :is_verified)
+    params.require(:author).permit(:name, :new_name, :is_verified)
   end
   #
   # def filter_authors anime

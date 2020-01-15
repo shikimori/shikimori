@@ -7,12 +7,12 @@ header.head
 
 = form_tag(moderations_authors_url, method: 'patch', class: 'b-form') do
   input name='back_url' type='hidden' value=params[:back_url]
-  input name='author[prior_name]' type='hidden' value=params[:back_url]
+  input name='author[name]' type='hidden' value=params[:author][:name]
   input name='author[is_verified]' type='hidden' value=(author&.is_verified || false)
 
   .b-input
     label = AnimeVideoAuthor.human_attribute_name :name
-    input name='author[name]' value=params[:author][:name]
+    input name='author[new_name]' value=params[:author][:name]
 
   .b-input
     label
