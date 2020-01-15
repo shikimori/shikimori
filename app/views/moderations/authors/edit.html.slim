@@ -5,6 +5,32 @@ header.head
   / .notice У автора #{@resource.anime_videos.count} видео
   = render 'application/breadcrumbs'
 
+= form_tag(moderations_authors_url, method: 'patch', class: 'b-form') do
+  input name='back_url' type='hidden' value=params[:back_url]
+  input name='author[prior_name]' type='hidden' value=params[:back_url]
+  input name='author[is_verified]' type='hidden' value=(author&.is_verified || false)
+
+  .b-input
+    label = AnimeVideoAuthor.human_attribute_name :name
+    input name='author[name]' value=params[:author][:name]
+
+  .b-input
+    label
+      input[
+        name='author[is_verified]'
+        type='checkbox'
+        checked=author&.is_verified
+        value='1'
+      ]
+      = AnimeVideoAuthor.human_attribute_name :is_verified
+
+  input[
+    type='submit'
+    value=t('simple_form.magic_submit.default.submit')
+    class="btn-primary btn-submit btn"
+    data-disable-with=t('simple_form.magic_submit.default.disable_with').html_safe
+  ]
+
 / = simple_form_for [:moderations, :authors] do |f|
 /   .cc-2
 /     .c-column

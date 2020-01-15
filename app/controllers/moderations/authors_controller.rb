@@ -1,6 +1,6 @@
 class Moderations::AuthorsController < ModerationsController
   before_action :check_access!, only: %i[edit update]
-  helper_method :collection
+  helper_method :collection, :author
 
   QUERY_SQL = <<~SQL.squish
     select distinct(name)
@@ -18,7 +18,7 @@ class Moderations::AuthorsController < ModerationsController
 
   def edit
     og page_title: 'Редактирование автора'
-    og page_title: params[:name]
+    og page_title: update_params[:name]
     @back_url = params[:back_url]
   #   breadcrumb i18n_t('page_title'), @back_url
   #
@@ -38,10 +38,10 @@ class Moderations::AuthorsController < ModerationsController
     if update_params.key? :is_verified
       AnimeVideoAuthor
         .find_or_initialize_by(name: update_params[:name])
-        .update! is_verified: update_params[:is_verified]
+        .update! is_verified: update_params[:is_verified] == '1'
     end
 
-    redirect_back fallback_location: moderations_authors_url
+    redirect_to params[:back_url] || moderations_authors_url
 
   #   if update_params.key? :name
   #     rename_author
@@ -66,6 +66,12 @@ private
     @collection ||= assign_is_verified filter fetch_authors
   end
 
+  def author
+    @author ||= AnimeVideoAuthor.find_by(
+      name: params[:author][:prior_name] || params[:author][:name]
+    )
+  end
+
   def fetch_authors
     Anime
       .connection
@@ -78,8 +84,8 @@ private
 
   def build entry
     OpenStruct.new(
-      name: entry['name'].strip,
-      search_name: entry['name'].strip.downcase,
+      name: entry['name'],
+      search_name: entry['name'].downcase,
       is_verified: false
     )
   end
