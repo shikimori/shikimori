@@ -2,7 +2,6 @@ header.head
   h2
     a.back href=@back_url data-text=t('back')
     = og.headline
-  / .notice У автора #{@resource.anime_videos.count} видео
   = render 'application/breadcrumbs'
 
 = form_tag(moderations_authors_url, method: 'patch', class: 'b-form block') do
@@ -27,7 +26,7 @@ header.head
   input[
     type='submit'
     value=t('simple_form.magic_submit.default.submit')
-    class="btn-primary btn-submit btn"
+    class='btn-primary btn-submit btn'
     data-disable-with=t('simple_form.magic_submit.default.disable_with').html_safe
   ]
 

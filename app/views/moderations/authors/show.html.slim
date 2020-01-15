@@ -63,7 +63,7 @@ header.head
 
       input.b-button type='submit' value='Поиск'
 
-  = cache [Anime.all.cache_key, AnimeVideoAuthor.all.cache_key, params.values] do
+  = cache [Anime.all.cache_key, AnimeVideoAuthor.all.cache_key, params.values, can?(:manage_fansub_authors, Anime)] do
     .block.search-results
       .b-options-floated
         = collection.size
@@ -89,18 +89,18 @@ header.head
                 a[
                   href=edit_moderations_authors_url(author: { name: author.name }, back_url: current_url)
                 ] = author.name
+                - if author.is_verified
+                  a.is-verified[
+                    href=moderations_authors_url(author: { name: author.name, is_verified: false })
+                    data-method='patch'
+                  ] ✓
+                - else
+                  a.not-verified[
+                    href=moderations_authors_url(author: { name: author.name, is_verified: true })
+                    data-method='patch'
+                  ] ✕
               - else
                 span = author.name
-              - if author.is_verified
-                a.is-verified[
-                  href=moderations_authors_url(author: { name: author.name, is_verified: false })
-                  data-method='patch'
-                ] ✓
-              - else
-                a.not-verified[
-                  href=moderations_authors_url(author: { name: author.name, is_verified: true })
-                  data-method='patch'
-                ] ✕
 
 
         - else
