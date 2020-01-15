@@ -63,31 +63,45 @@ header.head
 
       input.b-button type='submit' value='Поиск'
 
-  .block.search-results
-    .b-options-floated
-      = @collection.size
-    .subheadline.m10
-      / - if @anime
-        ' Авторы аниме
-        a.b-link.bubbled href=anime_url(@anime)
-          = localization_span @anime
+  = cache [Anime.all.cache_key, AnimeVideoAuthor.all.cache_key, params.values] do
+    .block.search-results
+      .b-options-floated
+        = collection.size
+      .subheadline.m10
+        / - if @anime
+          ' Авторы аниме
+          a.b-link.bubbled href=anime_url(@anime)
+            = localization_span @anime
+          .misc-links
+            a href=current_url(anime_id: nil) без аниме
+        / - else
+        | Авторы #{params[:fansub] ? 'фансаба' : 'фандаба'}
         .misc-links
-          a href=current_url(anime_id: nil) без аниме
-      / - else
-      | Авторы #{params[:fansub] ? 'фансаба' : 'фандаба'}
-      .misc-links
-        a[
-          href=(params[:fansub] ? current_url(fansub: nil) : current_url(fansub: '1'))
-        ] = params[:fansub] ? 'фандаба' : 'фансаба'
+          a[
+            href=(params[:fansub] ? current_url(fansub: nil) : current_url(fansub: '1'))
+          ] = params[:fansub] ? 'фандаба' : 'фансаба'
 
-    .block
-      - if @collection.any?
-        - @collection.each do |author|
-          .b-log_entry
-            - if can? :manage_fansub_authors
-              span = author.name
-            - else
-              span = author.name
+      .block
+        - if collection.any?
+          - collection.each do |author|
+            .b-log_entry
+              - if can? :manage_fansub_authors, Anime
+                a[
+                  href=edit_moderations_authors_url(author: { name: author.name }, back_url: current_url)
+                ] = author.name
+              - else
+                span = author.name
+              - if author.is_verified
+                a.is-verified[
+                  href=moderations_authors_url(author: { name: author.name, is_verified: false })
+                  data-method='patch'
+                ] ✓
+              - else
+                a.not-verified[
+                  href=moderations_authors_url(author: { name: author.name, is_verified: true })
+                  data-method='patch'
+                ] ✕
 
-      - else
-        .b-nothing_here Нет авторов
+
+        - else
+          .b-nothing_here Нет авторов

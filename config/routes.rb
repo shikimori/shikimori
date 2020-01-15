@@ -185,7 +185,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :authors, only: %i[index edit update]
+    resource :authors, only: %i[show edit update]
 
     resources :forums, only: %i[index edit] do
       patch :update, on: :member, as: :update

@@ -7,6 +7,8 @@ class Abilities::VideoSuperModerator
     can :increment_episode, Anime
     can :rollback_episode, Anime
 
+    can :manage_fansub_authors, Anime
+
     can %i[index show none edit update], AnimeVideoAuthor
 
     can %i[

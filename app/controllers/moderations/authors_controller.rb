@@ -1,5 +1,6 @@
 class Moderations::AuthorsController < ModerationsController
-  # load_and_authorize_resource
+  before_action :check_access!, only: %i[edit update]
+  helper_method :collection
 
   QUERY_SQL = <<~SQL.squish
     select distinct(name)
@@ -7,18 +8,18 @@ class Moderations::AuthorsController < ModerationsController
         select unnest(%<field>s) as name
           from animes
         ) as t
+      where name != ''
       order by name
   SQL
 
-  def index
+  def show
     og page_title: i18n_t('page_title')
-    @collection = assign_is_verified filter fetch_authors
   end
 
-  # def edit
-  #   og page_title: "Редактирование автора ##{@resource.id}"
-  #   og page_title: @resource.name
-  #   @back_url = moderations_anime_video_authors_url
+  def edit
+    og page_title: 'Редактирование автора'
+    og page_title: params[:name]
+    @back_url = params[:back_url]
   #   breadcrumb i18n_t('page_title'), @back_url
   #
   #   @scope = @resource.anime_videos
@@ -31,13 +32,17 @@ class Moderations::AuthorsController < ModerationsController
   #   end
   #
   #   @scope.where! kind: params[:kind] if params[:kind].present?
-  # end
-  #
-  # def update
-  #   if update_params.key? :is_verified
-  #     @resource.update is_verified: update_params[:is_verified]
-  #   end
-  #
+  end
+
+  def update
+    if update_params.key? :is_verified
+      AnimeVideoAuthor
+        .find_or_initialize_by(name: update_params[:name])
+        .update! is_verified: update_params[:is_verified]
+    end
+
+    redirect_back fallback_location: moderations_authors_url
+
   #   if update_params.key? :name
   #     rename_author
   #
@@ -49,9 +54,17 @@ class Moderations::AuthorsController < ModerationsController
   #   else
   #     redirect_back fallback_location: moderations_anime_video_authors_url
   #   end
-  # end
+  end
 
 private
+
+  def check_access!
+    authorize! :manage_fansub_authors, Anime
+  end
+
+  def collection
+    @collection ||= assign_is_verified filter fetch_authors
+  end
 
   def fetch_authors
     Anime
@@ -65,8 +78,8 @@ private
 
   def build entry
     OpenStruct.new(
-      name: entry['name'],
-      search_name: entry['name'].downcase,
+      name: entry['name'].strip,
+      search_name: entry['name'].strip.downcase,
       is_verified: false
     )
   end
@@ -104,9 +117,9 @@ private
   #   end
   # end
   #
-  # def update_params
-  #   params.require(:anime_video_author).permit(:name, :is_verified, :anime_id)
-  # end
+  def update_params
+    params.require(:author).permit(:name, :is_verified)
+  end
   #
   # def filter_authors anime
   #   scope = anime.anime_videos

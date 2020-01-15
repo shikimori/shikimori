@@ -1,4 +1,6 @@
-.p-moderations-index.p-authors-index
+@import mixins/shiki_check
+
+.p-moderations-show.p-authors-show
   .b-collection_search
     .b-button
       width: 120px
@@ -7,3 +9,17 @@
 
     .clear
       display: block
+
+  .is-verified,
+  .not-verified
+    cursor: pointer
+    margin-left: 6px
+
+    &:hover
+      text-decoration: none
+
+  .is-verified
+    +shiki_check($green-check)
+
+  .not-verified
+    +shiki_check($red-check)
