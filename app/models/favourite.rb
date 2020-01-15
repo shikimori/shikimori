@@ -11,6 +11,7 @@ class Favourite < ApplicationRecord
 
   scope :ordered, -> { order :position }
 
+  # kind cannot be blank, otherwise acts_as_list ordering wont work properly
   validates :kind, presence: true
 
   validates :user_id,
