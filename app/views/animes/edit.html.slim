@@ -225,7 +225,7 @@
               data-dynamic='week_registered'
             ] = t 'actions.edit'
 
-        - if @resource.anime? && !Copyright::SCREENSHOTS.include?(@resource.id)
+        - if @resource.anime? && @resource.screenshots_allowed?
           li
             .field = @resource.class.human_attribute_name(:screenshots)
             .value

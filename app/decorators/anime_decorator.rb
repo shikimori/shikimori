@@ -1,7 +1,6 @@
 class AnimeDecorator < AniMangaDecorator
   instance_cache :files, :coubs, :next_episode_at
 
-  # новости
   def news_topic_views
     object
       .news_topics
@@ -13,13 +12,9 @@ class AnimeDecorator < AniMangaDecorator
       .map { |topic_view| format_menu_topic topic_view, :created_at }
   end
 
-  # скриншоты
   def screenshots limit = nil
-    return [] if Copyright::SCREENSHOTS.include?(id)
-    # return [] unless h.ignore_copyright?
+    return [] unless screenshots_allowed?
     return [] if censored?
-
-    # return [] if forbidden?
 
     @screenshots ||= {}
     @screenshots[limit] ||=
@@ -30,7 +25,10 @@ class AnimeDecorator < AniMangaDecorator
       end
   end
 
-  # видео
+  def screenshots_allowed?
+    !Copyright::SCREENSHOTS.include?(id) && !censored?
+  end
+
   def videos limit = nil
     return [] if Copyright::VIDEOS.include?(id)
 

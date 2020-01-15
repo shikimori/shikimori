@@ -73,7 +73,7 @@ class AnimesController < DbEntriesController
   end
 
   def screenshots
-    unless @resource.screenshots.any? && user_signed_in? # && ignore_copyright?
+    unless @resource.screenshots_allowed? && @resource.screenshots.any? && user_signed_in?
       return redirect_to @resource.url, status: 301
     end
 
