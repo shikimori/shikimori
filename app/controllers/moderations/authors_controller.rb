@@ -1,7 +1,7 @@
 class Moderations::AuthorsController < ModerationsController
   before_action :check_access!, only: %i[edit update]
   before_action -> { @back_url = params[:back_url] }
-  helper_method :collection, :author
+  helper_method :collection, :author, :animes
 
   QUERY_SQL = <<~SQL.squish
     select distinct(name)
@@ -20,18 +20,6 @@ class Moderations::AuthorsController < ModerationsController
   def edit
     og page_title: 'Редактирование автора'
     og page_title: update_params[:name]
-  #   breadcrumb i18n_t('page_title'), @back_url
-  #
-  #   @scope = @resource.anime_videos
-  #     .order(:episode, :kind, :id)
-  #     .includes(:anime)
-  #
-  #   if params[:anime_id].present?
-  #     @anime = Anime.find params[:anime_id]
-  #     @scope.where! anime_id: params[:anime_id]
-  #   end
-  #
-  #   @scope.where! kind: params[:kind] if params[:kind].present?
   end
 
   def update
@@ -42,22 +30,28 @@ class Moderations::AuthorsController < ModerationsController
     end
 
     if update_params.key?(:new_name) && update_params[:new_name] != update_params[:name]
-      1/0
+      if author
+        if new_author
+          author.destroy!
+        else
+          author.update! name: update_params[:new_name]
+        end
+      end
+
+      animes.each do |anime|
+        anime.fansubbers = anime
+          .fansubbers
+          .map { |v| v.gsub(update_params[:name], update_params[:new_name]) }
+
+        anime.fandubbers = anime
+          .fandubbers
+          .map { |v| v.gsub(update_params[:name], update_params[:new_name]) }
+
+        anime.save!
+      end
     end
 
     redirect_to params[:back_url] || moderations_authors_url
-
-  #   if update_params.key? :name
-  #     rename_author
-  #
-  #     if @resource.persisted?
-  #       redirect_to edit_moderations_anime_video_author_url(@resource)
-  #     else
-  #       redirect_to moderations_anime_video_authors_url
-  #     end
-  #   else
-  #     redirect_back fallback_location: moderations_anime_video_authors_url
-  #   end
   end
 
 private
@@ -72,6 +66,25 @@ private
 
   def author
     @author ||= AnimeVideoAuthor.find_by name: update_params[:name]
+  end
+
+  def new_author
+    @new_author ||= AnimeVideoAuthor.find_by name: update_params[:new_name]
+  end
+
+  def animes
+    @animes = Anime
+      .where(
+        ':name = ANY(fansubbers) or :name = ANY(fandubbers)',
+        name: update_params[:name]
+      )
+      .order(
+        AniMangaQuery.order_sql(
+          current_user.preferences.russian_names? ? 'russian' : 'name',
+          Anime
+        )
+      )
+      .to_a
   end
 
   def fetch_authors
@@ -112,49 +125,7 @@ private
     end
   end
 
-  # def rename_author
-  #   if params[:anime_id].present? || params[:kind].present?
-  #     AnimeVideoAuthor::SplitRename.call(
-  #       model: @resource,
-  #       new_name: update_params[:name],
-  #       anime_id: (params[:anime_id] if params[:anime_id].present?),
-  #       kind: (params[:kind] if params[:kind].present?)
-  #     )
-  #   else
-  #     AnimeVideoAuthor::Rename.call @resource, update_params[:name]
-  #   end
-  # end
-  #
   def update_params
     params.require(:author).permit(:name, :new_name, :is_verified)
   end
-  #
-  # def filter_authors anime
-  #   scope = anime.anime_videos
-  #   scope = scope.available if params[:broken_videos] == 'false'
-  #
-  #   scope
-  #     .except(:order)
-  #     .distinct
-  #     .pluck(:anime_video_author_id)
-  #     .compact
-  # end
-  #
-  # def videos_scope
-  #   if params[:broken_videos] == 'false'
-  #     AnimeVideo.available
-  #   else
-  #     AnimeVideo.all
-  #   end
-  # end
-  #
-  # def cache_key
-  #   [
-  #     :anime_video_authors,
-  #     AnimeVideoAuthor.order(:updated_at).last.updated_at,
-  #     AnimeVideoAuthor.last.id,
-  #     AnimeVideoAuthor.count,
-  #     params[:anime_id]
-  #   ]
-  # end
 end

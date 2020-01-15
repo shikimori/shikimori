@@ -171,11 +171,11 @@
               = check_box_tag 'contest[member_ids][]', member.id, checked: true
               - if contest.anime?
                 a.bubbled href=anime_url(member)
-                  = member.name
+                  = localized_name member
                   span.b-bracket-details
                     = member.score
               - else
-                a.bubbled href=character_url(member) = member.name
+                a.bubbled href=character_url(member) = localized_name member
 
             /.variant
               = hidden_field_tag 'members[]', member.id
