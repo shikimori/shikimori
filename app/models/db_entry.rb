@@ -2,7 +2,7 @@ class DbEntry < ApplicationRecord
   self.abstract_class = true
 
   SIGNIFICANT_MAJOR_FIELDS = %w[name license_name_ru genres image censored]
-  SIGNIFICANT_MINOR_FIELDS = %w[duration desynced options]
+  SIGNIFICANT_MINOR_FIELDS = %w[desynced options]
 
   def cache_key
     super + '/' + to_param

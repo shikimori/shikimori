@@ -135,14 +135,10 @@
             .field = @resource.class.human_attribute_name(:duration)
             .value
               span = humanize_minutes @resource.duration
-              - if can? :minor_change, Version
-                a.b-js-action.to-process[
-                  href=@resource.edit_field_url(:duration)
-                  data-dynamic='week_registered'
-                ] = t 'moderators_only'
-              - else
-                .b-js-action = t 'moderators_only'
-
+              a.b-js-action.to-process[
+                href=@resource.edit_field_url(:duration)
+                data-dynamic='week_registered'
+              ] = t 'actions.edit'
           li
             .field = @resource.class.human_attribute_name(:episodes_aired)
             .value
