@@ -1,4 +1,4 @@
-class Moderations::AuthorsController < ModerationsController
+class Moderations::AuthorsController < ModerationsController # rubocop:disable ClassLength
   before_action :check_access!, only: %i[edit update]
   before_action -> { @back_url = params[:back_url] }
   helper_method :collection, :author, :animes
@@ -22,11 +22,13 @@ class Moderations::AuthorsController < ModerationsController
     og page_title: update_params[:name]
   end
 
-  def update
+  def update # rubocop:disable all
     if update_params.key? :is_verified
       AnimeVideoAuthor
         .find_or_initialize_by(name: update_params[:name])
-        .update! is_verified: update_params[:is_verified] == '1'
+        .update!(
+          is_verified: update_params[:is_verified] == '1' || update_params[:is_verified] == 'true'
+        )
     end
 
     if update_params.key?(:new_name) && update_params[:new_name] != update_params[:name]
@@ -61,7 +63,7 @@ private
   end
 
   def collection
-    @collection ||= assign_is_verified filter fetch_authors
+    @collection ||= filter_verified assign_is_verified filter fetch_authors
   end
 
   def author
@@ -123,6 +125,16 @@ private
         .find { |v| v.name == author.name }
         &.is_verified || false
     end
+  end
+
+  def filter_verified collection
+    if params[:is_verified] == 'true'
+      collection = collection.select(&:is_verified)
+    end
+    if params[:is_verified] == 'false'
+      collection = collection.reject(&:is_verified)
+    end
+    collection
   end
 
   def update_params

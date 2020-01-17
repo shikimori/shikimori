@@ -1,4 +1,3 @@
-# скриншоты, имеющие status не отображаются. это или только загруженные, или
 class Screenshot < ApplicationRecord
   UPLOADED = 'uploaded'
   DELETED = 'deleted'

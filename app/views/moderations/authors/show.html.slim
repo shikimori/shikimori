@@ -7,40 +7,23 @@ header.head
   - AnimeOnline::FixAnimeVideoAuthors::STUDIOS.sort.each do |studio|
     .b-tag = studio
 
-/ .subheadline.m10 = t 'navigation'
-/ ul.b-list.block
-/   li.m15
-/     a.b-link[
-/       href=(request.fullpath == current_url(is_verified: nil) ? moderations_authors_url : current_url(is_verified: nil))
-/     ] Все авторы
-/
-/   li
-/     a.b-js-link[
-/       class=(:active if params[:limit] == '5000')
-/       href=current_url(limit: (5000 if params[:limit] != '5000'))
-/     ] Limit 5000
-/
-/   li
-/     a.b-js-link[
-/       class=(:active if params[:broken_videos] == 'false')
-/       href=current_url(broken_videos: ('false' if params[:broken_videos] != 'false'))
-/     ] Не показывать у кого все видео сломаны
-/
-/   li
-/     a.b-js-link[
-/       class=(:active if params[:is_verified] == 'true')
-/       href=current_url(is_verified: ('true' if params[:is_verified] != 'true'))
-/     ] Только проверенные авторы
-/   li.m15
-/     a.b-js-link[
-/       class=(:active if params[:is_verified] == 'false')
-/       href=current_url(is_verified: ('false' if params[:is_verified] != 'false'))
-/     ] Только не проверенные авторы
-/
-/   li
-/     a.b-link[
-/       href=none_moderations_authors_url
-/     ] Видео без авторов
+.subheadline.m10 = t 'navigation'
+ul.b-list.block
+  - if params.key? :is_verified
+    li
+      a.b-link[
+        href=current_url(is_verified: nil)
+      ] Все авторы
+  li
+    a.b-js-link[
+      class=(:active if params[:is_verified] == 'true')
+      href=current_url(is_verified: ('true' if params[:is_verified] != 'true'))
+    ] Только проверенные авторы
+  li.m15
+    a.b-js-link[
+      class=(:active if params[:is_verified] == 'false')
+      href=current_url(is_verified: ('false' if params[:is_verified] != 'false'))
+    ] Только не проверенные авторы
 
 .b-collection_search
   .field
@@ -91,12 +74,12 @@ header.head
                 ] = author.name
                 - if author.is_verified
                   a.is-verified[
-                    href=moderations_authors_url(author: { name: author.name, is_verified: false })
+                    href=moderations_authors_url(author: { name: author.name, is_verified: false }, back_url: current_url)
                     data-method='patch'
                   ] ✓
                 - else
                   a.not-verified[
-                    href=moderations_authors_url(author: { name: author.name, is_verified: true })
+                    href=moderations_authors_url(author: { name: author.name, is_verified: true }, back_url: current_url)
                     data-method='patch'
                   ] ✕
               - else
