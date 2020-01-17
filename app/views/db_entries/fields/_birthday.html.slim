@@ -1,7 +1,7 @@
 .cc-2
   .c-column
     = simple_form_for resource.object do |f|
-      = f.input :birthday, start_year: 1920, end_year: Time.zone.now.year - 10
+      = f.input :birthday, start_year: 1920, end_year: Time.zone.now.year
       = render 'versions/reason'
 
       .buttons
