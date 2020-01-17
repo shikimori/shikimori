@@ -1,0 +1,5 @@
+#agignore
+yarn.lock
+Gemfile.lock
+LICENSE
+doc
