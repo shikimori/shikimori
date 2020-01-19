@@ -44,7 +44,7 @@ $.fn.extend({
         // false
 
       // результат удаления при удалении через аякс-запрос
-      $('.confirm', $root).on('ajax:success', async () => {
+      $('.confirm', $root).on('ajax:before', async () => {
         $root
           .removeClass('deletable')
           .addClass('deleted');
