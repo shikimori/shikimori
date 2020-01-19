@@ -1,10 +1,6 @@
 # TODO : проверить необходимость метода allowed?
 # TODO : вынести методы относящиеся ко вью
 class AnimeVideo < ApplicationRecord
-  # for Versions
-  SIGNIFICANT_MAJOR_FIELDS = []
-  SIGNIFICANT_MINOR_FIELDS = []
-
   R_OVA_EPISODES = 2
   ADULT_OVA_CONDITION = <<-SQL.squish
     (

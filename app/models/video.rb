@@ -1,9 +1,6 @@
 class Video < ApplicationRecord
   ALLOWED_HOSTINGS = %i[youtube vk rutube sibnet smotret_anime] # dailymotion
 
-  SIGNIFICANT_MAJOR_FIELDS = %w[]
-  SIGNIFICANT_MINOR_FIELDS = %w[]
-
   belongs_to :anime, optional: true
   belongs_to :uploader, class_name: User.name
 
