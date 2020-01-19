@@ -15155,6 +15155,7 @@
         - 36327
         - 36729
         - 38784
+        - 40761
       :threshold: 90%
       :generator:
         ignore_latest_ids:
@@ -15214,6 +15215,7 @@
         - 36327
         - 36729
         - 38784
+        - 40761
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -19384,7 +19386,7 @@
     :level: 1
     :image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
     :border_color: 
-    :title_ru: Яркая Чихая
+    :title_ru: Яркая Тихая
     :text_ru: 
     :title_en: Chihayafuru
     :text_en: 
@@ -19400,7 +19402,7 @@
   level: 1
   image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
   border_color: 
-  title_ru: Яркая Чихая
+  title_ru: Яркая Тихая
   text_ru: 
   title_en: Chihayafuru
   text_en: 
@@ -19413,7 +19415,7 @@
     :level: 0
     :image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
     :border_color: 
-    :title_ru: Яркая Чихая
+    :title_ru: Яркая Тихая
     :text_ru: 
     :title_en: Chihayafuru
     :text_en: 
@@ -19429,7 +19431,7 @@
   level: 0
   image: "/assets/achievements/anime/franchise/chihayafuru.jpg"
   border_color: 
-  title_ru: Яркая Чихая
+  title_ru: Яркая Тихая
   text_ru: 
   title_en: Chihayafuru
   text_en: 
