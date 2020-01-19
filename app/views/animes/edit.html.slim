@@ -231,6 +231,7 @@
                 data-dynamic='week_registered'
               ] = t 'actions.edit'
 
+        - if @resource.anime?
           li.m15
             .field = @resource.class.human_attribute_name(:videos)
             .value
