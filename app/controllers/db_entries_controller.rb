@@ -151,9 +151,11 @@ private
     Version.new(
       user: current_user,
       item: @resource.decorated? ? @resource.object : @resource,
-      item_diff: {
-        @field => []
-      },
+      item_diff: (
+        update_params.present? ?
+          { update_params.keys.first => [] } :
+          { @field => [] }
+      ),
       state: 'pending'
     )
   end
