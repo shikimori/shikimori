@@ -82,6 +82,7 @@ Rails.application.routes.draw do
       get :how_to_edit_achievements
       get :csrf_token
       post :csrf_token
+      get :hentai
 
       get :bb_codes
       get :feedback

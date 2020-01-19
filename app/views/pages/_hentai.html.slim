@@ -1,0 +1,7 @@
+- @collection.each do |anime|
+  .block2_m
+    .subheadline
+      a.bubbled href=anime_url(anime)
+        = anime.name
+    .cc.block2_m
+      = render anime.screenshots, edition: true

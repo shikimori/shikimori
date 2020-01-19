@@ -290,4 +290,22 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       raise CanCan::AccessDenied
     end
   end
+
+  def hentai
+    authorize! :manage, Version
+
+    scope = Anime
+      .order(AniMangaQuery.order_sql('ranked', Anime))
+      .where(is_censored: true)
+      .where(
+        id: Screenshot
+          .where(status: [nil, 'uploaded'])
+          .distinct
+          .select(:anime_id)
+      )
+
+    @page = [params[:page].to_i, 1].max
+    @limit = 5
+    @collection = QueryObjectBase.new(scope).paginate(@page, @limit)
+  end
 end

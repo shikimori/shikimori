@@ -1,0 +1,7 @@
+.p-animes.p-animes-edit_field.p-db_entries.p-db_entries-edit_field
+  .edit-page.screenshots
+    = render 'hentai'
+    - if @collection.next_page?
+      = render 'blocks/postloader',
+        next_url: current_url(page: @collection.next_page),
+        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)
