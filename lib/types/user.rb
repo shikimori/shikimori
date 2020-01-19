@@ -10,7 +10,6 @@ module Types
       version_fansub_moderator
 
       trusted_version_changer
-      trusted_attached_video_changer
       not_trusted_version_changer
       review_moderator
       collection_moderator

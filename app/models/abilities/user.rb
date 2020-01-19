@@ -289,13 +289,8 @@ class Abilities::User
 
     can :auto_accept, Version do |version|
       version.user_id == @user.id && (
-        (
-          (@user.video_moderator? || @user.video_super_moderator?) &&
-            version.item_diff.keys == ['options']
-        ) || (
-          @user.trusted_attached_video_changer? &&
-            (version.is_a?(Versions::VideoVersion) || version.item_type == Video.name)
-        )
+        (@user.video_moderator? || @user.video_super_moderator?) &&
+          version.item_diff.keys == ['options']
       )
     end
   end
