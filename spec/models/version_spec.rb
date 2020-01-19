@@ -392,48 +392,6 @@ describe Version do
         it { is_expected.to_not be_able_to :manage, version }
       end
     end
-
-    context 'trusted_attached_video_changer' do
-      let(:user) { build_stubbed :user, :trusted_attached_video_changer, :week_registered }
-      let(:version) do
-        [
-          build_stubbed(:video_version, item: item, user: version_user),
-          build_stubbed(:version, item: video, user: version_user)
-        ].sample
-      end
-      let(:item) { build_stubbed :anime }
-      let(:video) { build_stubbed :video, anime: item }
-      let(:version_user) { user }
-
-      it { is_expected.to be_able_to :auto_accept, version }
-
-      context 'not user version' do
-        let(:version_user) { build_stubbed :user, :user }
-        it { is_expected.to_not be_able_to :auto_accept, version }
-      end
-
-      context 'not video version' do
-        let(:version) { build_stubbed :version, item: item, user: version_user }
-        it { is_expected.to_not be_able_to :auto_accept, version }
-      end
-    end
-
-    context 'video_moderator' do
-      let(:user) { build_stubbed :user, :video_moderator }
-      let(:version) { build_stubbed :version, user: user, item: item }
-
-      context 'not anime video' do
-        let(:item) { build_stubbed :anime }
-        it { is_expected.to_not be_able_to :manage, version }
-        it { is_expected.to be_able_to :minor_change, version }
-        it { is_expected.to_not be_able_to :major_change, version }
-      end
-
-      context 'anime video' do
-        let(:item) { build_stubbed :anime_video }
-        it { is_expected.to be_able_to :manage, version }
-      end
-    end
   end
 
   it_behaves_like :antispam_concern, :version

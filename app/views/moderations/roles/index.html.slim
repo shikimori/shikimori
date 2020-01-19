@@ -7,7 +7,6 @@ header.head
 .subheadline = t '.roles'
 ul.b-list.block
   - User.roles.values.each do |role|
-    - next if %w[video_super_moderator video_moderator api_video_uploader trusted_video_uploader not_trusted_video_uploader trusted_video_changer].include? role
     li
       - if RolesPolicy.accessible? role
         a.b-js-link[
@@ -23,5 +22,5 @@ ul.b-list.block
       - if RolesPolicy.accessible?(role) && current_user&.send("#{role}?")
         .have-role ✓
 
-    - if %w[retired_moderator version_fansub_moderator not_trusted_version_changer statistics_moderator trusted_video_changer completed_announced_animes].include? role
+    - if %w[retired_moderator version_fansub_moderator not_trusted_version_changer statistics_moderator completed_announced_animes].include? role
       .m15

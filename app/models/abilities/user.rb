@@ -1,4 +1,4 @@
-# rubocop:disable AbcSize, CyclomaticComplexity, PerceivedComplexity, MethodLength, MissingCopEnableDirective, ClassLength
+# rubocop:disable all
 class Abilities::User
   include CanCan::Ability
   prepend Draper::CanCanCan
@@ -36,8 +36,6 @@ class Abilities::User
     user_abilities
     user_rate_abilities
     user_history_abilities
-    anime_video_report_abilities
-    anime_video_abilities if @user.day_registered?
     version_abilities if @user.week_registered?
     style_abilities
     list_import_abilities
@@ -231,49 +229,14 @@ class Abilities::User
     end
   end
 
-  def anime_video_report_abilities
-    can :create, AnimeVideoReport do |report|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        report.user_id == @user.id && (
-          report.broken? || report.wrong? || report.other?
-        )
-    end
-    can :destroy, AnimeVideoReport do |report|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        report.user_id == @user.id && report.pending?
-    end
-  end
-
-  def anime_video_abilities
-    can %i[new create], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        anime_video.uploaded?
-    end
-    can %i[edit update], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        !anime_video.copyrighted? &&
-        !anime_video.banned_hosting?
-    end
-    can :destroy, AnimeVideo do |anime_video|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        (anime_video.uploader == @user && (
-          @user.api_video_uploader? || anime_video.created_at > 1.week.ago)
-        )
-    end
-  end
-
   def version_abilities
     can %i[create], Version do |version|
       if version.is_a? Versions::RoleVersion
         false
       else
-        major_field = (
+        restricted_field = (
           version.item_diff.keys &
-            "#{version.item_type}::SIGNIFICANT_MAJOR_FIELDS".constantize
-        ).first
-        minor_field = (
-          version.item_diff.keys &
-            "#{version.item_type}::SIGNIFICANT_MINOR_FIELDS".constantize
+            "#{version.item_type}::RESTRICTED_FIELDS".constantize
         ).first
 
         !@user.banned? && !@user.not_trusted_version_changer? &&
@@ -281,38 +244,14 @@ class Abilities::User
             # must be new ability object here otherwise
             # it will return false in runtime
             # (i.e. during Version creation in DbEntriesController)
-            Ability.new(@user).can?(:major_change, version) ||
-            major_field.nil? ||
-            version.item_diff.dig(major_field, 0).nil?  # changing from nil value
-          ) && (
-            Ability.new(@user).can?(:minor_change, version) ||
-            minor_field.nil? ||
-            version.item_diff.dig(minor_field, 0).nil?  # changing from nil value
+            Ability.new(@user).can?(:restricted_update, version) ||
+            restricted_field.nil? ||
+            version.item_diff.dig(restricted_field, 0).nil?  # changing from nil value
           )
       end
     end
     can %i[destroy], Version do |version|
       version.user_id == @user.id && version.pending?
-    end
-
-    if @user.trusted_version_changer?
-      can :minor_change, Version
-      can :major_change, Version
-    else
-      cannot :minor_change, Version
-      cannot :major_change, Version
-    end
-
-    can :auto_accept, Version do |version|
-      version.user_id == @user.id && (
-        @user.trusted_version_changer? || (
-          (@user.video_moderator? || @user.video_super_moderator?) &&
-            version.item_diff.keys == ['options']
-        ) || (
-          @user.trusted_attached_video_changer? &&
-            (version.is_a?(Versions::VideoVersion) || version.item_type == Video.name)
-        )
-      )
     end
   end
 

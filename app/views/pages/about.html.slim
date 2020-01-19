@@ -78,16 +78,12 @@ header.head
             = render @statistics.discord_admins, content_by: :avatar
 
         .members-block.left
-          p = t '.moderation_video'
-          = render @statistics.video_moderators, content_by: :avatar
+          p = t '.retired_moderators'
+          = render @statistics.retired_moderators, content_by: :avatar
 
         / .members-block.left
           p = t '.moderation_cosplay'
           = render @statistics.cosplay_moderators, content_by: :avatar
-
-        .members-block.left
-          p = t '.retired_moderators'
-          = render @statistics.retired_moderators, content_by: :avatar
 
       .members-block.clearfix
         .subheadline.blue.m10 = t '.content_changes'

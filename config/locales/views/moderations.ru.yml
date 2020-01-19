@@ -239,11 +239,6 @@ ru:
           version_fansub_moderator: Модератор правок фансабберов и фандабберов
           trusted_version_changer: Может менять контент без модерации изменений
           not_trusted_version_changer: Не может менять контент сайта
-          video_super_moderator: Может назначать модераторов видео
-          api_video_uploader: Имеет доступ к видео api
-          trusted_video_uploader: Может загружать видео без модерации
-          not_trusted_video_uploader: Не может загружать видео
-          trusted_video_changer: Может редактировать загруженные видео без модерации
           not_trusted_abuse_reporter: Ограничение в подаче жалоб на форуме (максимум 3 жалобы в день)
           censored_avatar: Аватарка со взрослым контентом
           censored_profile: Профиль со взрослым контентом

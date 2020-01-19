@@ -12,7 +12,13 @@ class Abilities::VersionTextsModerator
     description_en
     japanese
   ]
-  MANAGED_MODELS = [Anime.name, Manga.name, Ranobe.name, Character.name, Person.name]
+  MANAGED_MODELS = [
+    Anime.name,
+    Manga.name,
+    Ranobe.name,
+    Character.name,
+    Person.name
+  ]
 
   def initialize _user
     can :increment_episode, Anime

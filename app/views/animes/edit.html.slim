@@ -8,7 +8,7 @@
           .field = @resource.class.human_attribute_name(:name)
           .value
             span = @resource.name
-            - if can? :major_change, Version.new(item: @resource.object, item_diff: { russian: [] })
+            - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { russian: [] })
               a.b-js-action href=@resource.edit_field_url(:name)
                 = t 'moderators_only'
             - else
@@ -27,7 +27,7 @@
           .field = @resource.class.human_attribute_name(:license_name_ru)
           .value
             span = @resource.license_name_ru
-            - if can? :major_change, Version.new(item: @resource.object, item_diff: { license_name_ru: [] })
+            - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { license_name_ru: [] })
               a.b-js-action href=@resource.edit_field_url(:license_name_ru)
                 = t 'moderators_only'
             - else
@@ -94,7 +94,7 @@
           .field = @resource.class.human_attribute_name(:genres)
           .value
             span = @resource.genres.map { |v| localization_span v }.join(', ').html_safe
-            - if can? :major_change, Version.new(item: @resource.object, item_diff: { genre_ids: [] })
+            - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { genre_ids: [] })
               a.b-js-action.to-process[
                 href=@resource.edit_field_url(:genre_ids)
                 data-dynamic='week_registered'
@@ -191,7 +191,7 @@
           .field = @resource.class.human_attribute_name(:image)
           .value
             - if @resource.image.exists?
-              - if can? :major_change, Version.new(item: @resource.object, item_diff: { image: [] })
+              - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { image: [] })
                 a.b-js-action.to-process[
                   href=@resource.edit_field_url(:image)
                   data-dynamic='week_registered'
@@ -295,7 +295,7 @@
           span.censored = t 'yes'
         - else
           span = t 'no'
-        - if can? :major_change, Version.new(item: @resource.object, item_diff: { is_censored: [] })
+        - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { is_censored: [] })
           a.b-js-action href=@resource.edit_field_url(:is_censored)
             = t 'moderators_only'
         - else
@@ -306,7 +306,7 @@
         .field = @resource.class.human_attribute_name(:options)
         .value
           span = @resource.options.join(', ')
-          - if can? :major_change, Version.new(item: @resource.object, item_diff: { options: [] })
+          - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { options: [] })
             a.b-js-action href=@resource.edit_field_url(:options)
               = t 'moderators_only'
           - else

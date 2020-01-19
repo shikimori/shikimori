@@ -85,13 +85,6 @@ class SiteStatistics
       .sort_by { |v| v.nickname.downcase }
   end
 
-  def video_moderators
-    User
-      .where("roles && '{#{Types::User::Roles[:video_moderator]}}'")
-      .where.not(id: User::MORR_ID)
-      .sort_by { |v| v.nickname.downcase }
-  end
-
   def cosplay_moderators
     User.where(id: User::COSPLAY_MODERATORS - User::ADMINS)
   end

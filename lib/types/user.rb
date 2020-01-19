@@ -10,7 +10,6 @@ module Types
       version_fansub_moderator
 
       trusted_version_changer
-      trusted_attached_video_changer
       not_trusted_version_changer
       review_moderator
       collection_moderator
@@ -18,13 +17,6 @@ module Types
       cosplay_moderator
       contest_moderator
       statistics_moderator
-
-      video_super_moderator
-      video_moderator
-      api_video_uploader
-      trusted_video_uploader
-      not_trusted_video_uploader
-      trusted_video_changer
 
       not_trusted_abuse_reporter
       censored_avatar

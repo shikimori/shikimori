@@ -87,7 +87,7 @@ a.menu-icon.forum.desktop[
       data-count=([99, current_user.unread_count].min)
     ]
 
-  - if current_user.super_moderator? || current_user.video_super_moderator? || current_user.admin?
+  - if current_user.super_moderator? || current_user.admin?
     a.menu-icon.moderation.desktop[
       title=t('.items.moderation')
       href=moderations_url

@@ -56,7 +56,7 @@ class AnimeOnline::VideoPlayer
 
   def all_kind?
     (
-      h.current_user&.trusted_video_uploader? || h.can?(:edit, current_video)
+      h.can?(:edit, current_video)
     ) && (
       videos_by_kind.many? ||
       videos.group_by(&:kind_text).many? ||

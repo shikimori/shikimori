@@ -239,11 +239,6 @@ en:
           version_fansub_moderator: Moderator of fansubbers & fandubbers content changes
           trusted_version_changer: Can change database content without moderation
           not_trusted_version_changer: Cannot change database content
-          video_super_moderator: Can assign video moderators
-          api_video_uploader: Have access to videos api
-          trusted_video_uploader: Can upload videos wihtout moderation
-          not_trusted_video_uploader: Cannot upload videos
-          trusted_video_changer: Can edit uploaded videos without moderation
           not_trusted_abuse_reporter: Restriction in filing complaints on the forum (maximum 3 complaints per day)
           censored_avatar: Have avatar with adult content
           censored_profile: Have profile with adult content
