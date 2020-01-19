@@ -426,7 +426,7 @@ describe Version do
         let(:item) { build_stubbed :anime }
         it { is_expected.to_not be_able_to :manage, version }
         it { is_expected.to be_able_to :minor_change, version }
-        it { is_expected.to_not be_able_to :major_change, version }
+        it { is_expected.to_not be_able_to :restricted_update, version }
       end
 
       context 'anime video' do

@@ -58,6 +58,10 @@ class Ability
         merge Abilities::StatisticsModerator.new(user)
       end
 
+      if user.trusted_version_changer? || user.admin?
+        merge Abilities::TrustedVersionChange.new(user)
+      end
+
       merge Abilities::Admin.new(user) if user.admin?
     end
 

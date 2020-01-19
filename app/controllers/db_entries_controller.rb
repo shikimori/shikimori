@@ -42,7 +42,7 @@ class DbEntriesController < ShikimoriController
     @field = params[:field]
 
     authorize! :create, temp_verison
-    authorize! :major_change, temp_verison if major_fields.include? @field
+    authorize! :restricted_update, temp_verison if major_fields.include? @field
     authorize! :minor_change, temp_verison if minor_fields.include? @field
 
     render template: 'db_entries/edit_field'
@@ -50,7 +50,7 @@ class DbEntriesController < ShikimoriController
 
   def update
     if (update_params.keys & major_fields).any?
-      authorize! :major_change, temp_verison
+      authorize! :restricted_update, temp_verison
     end
 
     if (update_params.keys & minor_fields).any?
@@ -108,7 +108,7 @@ private
   end
 
   def major_fields
-    @resource.object.class::SIGNIFICANT_MAJOR_FIELDS.select do |field|
+    @resource.object.class::RESTRICTED_FIELDS.select do |field|
       field != 'image' || @resource.image.exists?
     end
   end

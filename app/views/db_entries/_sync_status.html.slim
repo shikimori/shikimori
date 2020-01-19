@@ -30,13 +30,13 @@
         .field = resource.class.human_attribute_name(:desynced)
         .value
           span = resource.desynced.join(', ')
-          - if can? :major_change, Version.new(item: @resource.object, item_diff: { desynced: [] })
+          - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { desynced: [] })
             a.b-js-action href=resource.edit_field_url(:desynced)
               = t 'moderators_only'
           - else
             .b-js-action = t 'moderators_only'
 
-  - if can? :major_change, Version
+  - if can? :restricted_update, Version
     .c-column.block_m
       ul.b-list
         - if resource.mal_id

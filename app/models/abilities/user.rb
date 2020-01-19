@@ -1,4 +1,4 @@
-# rubocop:disable AbcSize, CyclomaticComplexity, PerceivedComplexity, MethodLength, MissingCopEnableDirective, ClassLength
+# rubocop:disable all
 class Abilities::User
   include CanCan::Ability
   prepend Draper::CanCanCan
@@ -267,13 +267,9 @@ class Abilities::User
       if version.is_a? Versions::RoleVersion
         false
       else
-        major_field = (
+        restricted_field = (
           version.item_diff.keys &
-            "#{version.item_type}::SIGNIFICANT_MAJOR_FIELDS".constantize
-        ).first
-        minor_field = (
-          version.item_diff.keys &
-            "#{version.item_type}::SIGNIFICANT_MINOR_FIELDS".constantize
+            "#{version.item_type}::RESTRICTED_FIELDS".constantize
         ).first
 
         !@user.banned? && !@user.not_trusted_version_changer? &&
@@ -281,13 +277,9 @@ class Abilities::User
             # must be new ability object here otherwise
             # it will return false in runtime
             # (i.e. during Version creation in DbEntriesController)
-            Ability.new(@user).can?(:major_change, version) ||
-            major_field.nil? ||
-            version.item_diff.dig(major_field, 0).nil?  # changing from nil value
-          ) && (
-            Ability.new(@user).can?(:minor_change, version) ||
-            minor_field.nil? ||
-            version.item_diff.dig(minor_field, 0).nil?  # changing from nil value
+            Ability.new(@user).can?(:restricted_update, version) ||
+            restricted_field.nil? ||
+            version.item_diff.dig(restricted_field, 0).nil?  # changing from nil value
           )
       end
     end
@@ -295,17 +287,9 @@ class Abilities::User
       version.user_id == @user.id && version.pending?
     end
 
-    if @user.trusted_version_changer?
-      can :minor_change, Version
-      can :major_change, Version
-    else
-      cannot :minor_change, Version
-      cannot :major_change, Version
-    end
-
     can :auto_accept, Version do |version|
       version.user_id == @user.id && (
-        @user.trusted_version_changer? || (
+        (
           (@user.video_moderator? || @user.video_super_moderator?) &&
             version.item_diff.keys == ['options']
         ) || (
