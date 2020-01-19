@@ -64,30 +64,6 @@ describe AnimeVideoReport do
     end
   end
 
-  describe 'callbacks' do
-    describe 'after_create' do
-      describe '#auto_accept' do
-        subject { create :anime_video_report, :with_video, kind, user: user }
-        let(:kind) { :broken }
-
-        context 'user' do
-          it { is_expected.to be_pending }
-        end
-
-        context 'video moderator' do
-          let(:user) { create :user, :video_moderator }
-          it { is_expected.to be_accepted }
-
-          context 'kind=other' do
-            let(:kind) { :other }
-            let(:user) { create :user, :video_moderator }
-            it { is_expected.to be_pending }
-          end
-        end
-      end
-    end
-  end
-
   describe '#doubles' do
     let!(:report) { create :anime_video_report, anime_video: anime_video, state: state_1 }
     let(:state_1) { 'rejected' }
@@ -371,70 +347,6 @@ describe AnimeVideoReport do
           end
         end
       end
-    end
-  end
-
-  describe 'permissions' do
-    let(:report) do
-      build_stubbed :anime_video_report, state,
-        user_id: user_id,
-        kind: kind
-    end
-    let(:state) { :pending }
-    let(:user_id) { user.id }
-    let(:kind) { :broken }
-
-    subject { Ability.new user }
-
-    context 'moderator' do
-      let(:user) { build_stubbed :user, :video_moderator }
-      it { is_expected.to be_able_to :manage, report }
-    end
-
-    context 'user' do
-      let(:user) { build_stubbed :user, :user }
-      it { is_expected.to_not be_able_to :manage, report }
-
-      context 'pending' do
-        it { is_expected.to be_able_to :destroy, report }
-      end
-
-      context 'not pending' do
-        let(:state) { %i[accepted rejected].sample }
-        it { is_expected.to_not be_able_to :destroy, report }
-      end
-
-      context 'uploaded' do
-        let(:kind) { :uploaded }
-        it { is_expected.to_not be_able_to :create, report }
-      end
-
-      %i[wrong broken].each do |kind|
-        context kind.to_s do
-          let(:kind) { kind }
-
-          context 'not banned' do
-            it { is_expected.to be_able_to :create, report }
-          end
-
-          context 'banned' do
-            let(:user) { build_stubbed :user, :user, :banned }
-            it { is_expected.to_not be_able_to :create, report }
-          end
-
-          context 'not trusted video uploader' do
-            let(:user) { build_stubbed :user, :user, :not_trusted_video_uploader }
-            it { is_expected.to_not be_able_to :create, report }
-          end
-        end
-      end
-    end
-
-    context 'guest' do
-      let(:user) { nil }
-      let(:user_id) { User::GUEST_ID }
-      it { is_expected.to_not be_able_to :manage, report }
-      it { is_expected.to be_able_to :create, report }
     end
   end
 end

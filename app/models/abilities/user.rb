@@ -36,8 +36,6 @@ class Abilities::User
     user_abilities
     user_rate_abilities
     user_history_abilities
-    anime_video_report_abilities
-    anime_video_abilities if @user.day_registered?
     version_abilities if @user.week_registered?
     style_abilities
     list_import_abilities
@@ -231,37 +229,6 @@ class Abilities::User
     end
   end
 
-  def anime_video_report_abilities
-    can :create, AnimeVideoReport do |report|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        report.user_id == @user.id && (
-          report.broken? || report.wrong? || report.other?
-        )
-    end
-    can :destroy, AnimeVideoReport do |report|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        report.user_id == @user.id && report.pending?
-    end
-  end
-
-  def anime_video_abilities
-    can %i[new create], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        anime_video.uploaded?
-    end
-    can %i[edit update], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        !anime_video.copyrighted? &&
-        !anime_video.banned_hosting?
-    end
-    can :destroy, AnimeVideo do |anime_video|
-      !@user.banned? && !@user.not_trusted_video_uploader? &&
-        (anime_video.uploader == @user && (
-          @user.api_video_uploader? || anime_video.created_at > 1.week.ago)
-        )
-    end
-  end
-
   def version_abilities
     can %i[create], Version do |version|
       if version.is_a? Versions::RoleVersion
@@ -285,13 +252,6 @@ class Abilities::User
     end
     can %i[destroy], Version do |version|
       version.user_id == @user.id && version.pending?
-    end
-
-    can :auto_accept, Version do |version|
-      version.user_id == @user.id && (
-        (@user.video_moderator? || @user.video_super_moderator?) &&
-          version.item_diff.keys == ['options']
-      )
     end
   end
 

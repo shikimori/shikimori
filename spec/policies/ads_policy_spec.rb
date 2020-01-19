@@ -42,9 +42,10 @@ describe AdsPolicy do
           forum_moderator
           review_moderator
           version_moderator
-          video_moderator
+          version_texts_moderator
+          version_fansub_moderator
           trusted_version_changer
-          trusted_video_uploader
+          retired_moderator
         ].sample
       end
 

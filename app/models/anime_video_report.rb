@@ -16,8 +16,6 @@ class AnimeVideoReport < ApplicationRecord
   scope :processed,
     -> { where(state: %i[accepted rejected]).order(updated_at: :desc) }
 
-  after_create :auto_accept
-
   state_machine :state, initial: :pending do
     state :pending
     state :accepted do
@@ -98,9 +96,5 @@ private
       state: 'pending',
       anime_video_id: anime_video_id
     )
-  end
-
-  def auto_accept
-    accept! user if user.video_moderator? && !other?
   end
 end

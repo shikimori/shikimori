@@ -30,14 +30,6 @@ class Ability
         merge Abilities::ArticleModerator.new(user)
       end
 
-      if user.video_super_moderator? || user.admin?
-        merge Abilities::VideoSuperModerator.new(user)
-      end
-
-      if user.video_moderator? || user.video_super_moderator? || user.admin?
-        merge Abilities::VideoModerator.new(user)
-      end
-
       if user.version_texts_moderator? || user.admin?
         merge Abilities::VersionTextsModerator.new(user)
       end
@@ -59,7 +51,7 @@ class Ability
       end
 
       if user.trusted_version_changer? || user.admin?
-        merge Abilities::TrustedVersionChange.new(user)
+        merge Abilities::TrustedVersionChanger.new(user)
       end
 
       merge Abilities::Admin.new(user) if user.admin?

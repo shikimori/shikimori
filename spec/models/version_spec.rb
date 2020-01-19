@@ -392,23 +392,6 @@ describe Version do
         it { is_expected.to_not be_able_to :manage, version }
       end
     end
-
-    context 'video_moderator' do
-      let(:user) { build_stubbed :user, :video_moderator }
-      let(:version) { build_stubbed :version, user: user, item: item }
-
-      context 'not anime video' do
-        let(:item) { build_stubbed :anime }
-        it { is_expected.to_not be_able_to :manage, version }
-        it { is_expected.to be_able_to :minor_change, version }
-        it { is_expected.to_not be_able_to :restricted_update, version }
-      end
-
-      context 'anime video' do
-        let(:item) { build_stubbed :anime_video }
-        it { is_expected.to be_able_to :manage, version }
-      end
-    end
   end
 
   it_behaves_like :antispam_concern, :version

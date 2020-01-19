@@ -25,14 +25,11 @@ class User < ApplicationRecord
     version_moderator
     version_fansub_moderator
     trusted_version_changer
-    trusted_video_uploader
     review_moderator
     collection_moderator
     article_moderator
     cosplay_moderator
     contest_moderator
-    video_super_moderator
-    video_moderator
   ]
 
   devise(

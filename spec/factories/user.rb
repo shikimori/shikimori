@@ -46,7 +46,7 @@ FactoryBot.define do
       roles { %i[bot] }
     end
 
-    (Types::User::ROLES - %i[admin api_video_uploader]).each do |role|
+    (Types::User::ROLES - %i[admin]).each do |role|
       trait(role) { roles { [role] } }
     end
 
