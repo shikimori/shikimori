@@ -299,7 +299,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       .where(is_censored: true)
       .where(
         id: Screenshot
-          .where(status: [nil, 'uploaded'])
+          .where(status: nil)
           .distinct
           .select(:anime_id)
       )
