@@ -1,7 +1,13 @@
-- @collection.each do |anime|
-  .block2_m
-    .subheadline
-      a.bubbled href=anime_url(anime)
-        = anime.name
-    .cc.block2_m
-      = render anime.screenshots, edition: true
+= cache Screenshot.where(anime_id: @collection.map(&:id)).cache_key do
+  - @collection.each do |anime|
+    .block2_m
+      .subheadline
+        a.bubbled href=anime_url(anime)
+          = localized_name anime
+      .block2_m
+        .cc
+          = render anime.screenshots, edition: true
+        .b-button.delete-all Удалить все кадры #{anime.name}
+        p Кнопка посылает много запросов на сервер.
+        p Между массовым удалением кадров двух аниме нужно подождать минуту.
+        p Иначе включится антиспам сервера, и запросы не сработают.
