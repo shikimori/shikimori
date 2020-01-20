@@ -18,6 +18,8 @@ module Types
       contest_moderator
       statistics_moderator
 
+      video_super_moderator
+
       not_trusted_abuse_reporter
       censored_avatar
       censored_profile

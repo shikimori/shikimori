@@ -46,6 +46,10 @@ class Ability
         merge Abilities::SuperModerator.new(user)
       end
 
+      if user.video_super_moderator? || user.admin?
+        merge Abilities::VideoSuperModerator.new(user)
+      end
+
       if user.statistics_moderator? || user.admin?
         merge Abilities::StatisticsModerator.new(user)
       end
