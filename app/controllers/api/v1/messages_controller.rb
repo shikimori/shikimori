@@ -153,7 +153,7 @@ private
   end
 
   def append_info
-    return unless @resource.to.admin?
+    return unless @resource.to&.admin?
 
     @resource.body = @resource.body.strip + info_text
   end
