@@ -4,7 +4,10 @@ class ShikimoriController < ApplicationController
   before_action { og noindex: true, nofollow: true unless shikimori? }
   before_action do
     @page = [
-      [params[:page].to_i, 1].max,
+      [
+        params[:page].respond_to?(:to_i) ? params[:page].to_i : 1,
+        1
+      ].max,
       defined?(self.class::MAX_PAGE) ? self.class::MAX_PAGE : 5000
     ].min
   end
