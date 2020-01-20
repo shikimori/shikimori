@@ -33,7 +33,7 @@ class Moderations::AuthorsController < ModerationsController # rubocop:disable C
 
     if update_params.key?(:new_name) && update_params[:new_name] != update_params[:name]
       if author
-        if new_author
+        if new_author || update_params[:new_name].blank?
           author.destroy!
         else
           author.update! name: update_params[:new_name]
@@ -44,10 +44,12 @@ class Moderations::AuthorsController < ModerationsController # rubocop:disable C
         anime.fansubbers = anime
           .fansubbers
           .map { |v| v.gsub(update_params[:name], update_params[:new_name]) }
+          .select(&:present?)
 
         anime.fandubbers = anime
           .fandubbers
           .map { |v| v.gsub(update_params[:name], update_params[:new_name]) }
+          .select(&:present?)
 
         anime.save!
       end
