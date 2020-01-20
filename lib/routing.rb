@@ -96,6 +96,7 @@ module Routing
   end
 
   def camo_url image_url
+    # NOTE: Do not allow direct urls to https cause it exposes user ip addresses
     # if (
     #     image_url.starts_with?('//', 'https://') ||
     #     image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2')
