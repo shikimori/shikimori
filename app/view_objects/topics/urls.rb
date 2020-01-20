@@ -41,6 +41,9 @@ class Topics::Urls < ViewObjectBase
     elsif topic_type_policy.collection_topic?
       h.collection_url topic.linked
 
+    elsif topic_type_policy.article_topic?
+      h.article_url topic.linked
+
     else
       h.topic_path topic
     end
