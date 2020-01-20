@@ -104,6 +104,10 @@ module Routing
     #   return image_url
     # end
 
+    if image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2', 'css')
+      return image_url
+    end
+
     url = Url.new(image_url)
     return url.without_protocol.to_s if url.domain.to_s.match? SHIKIMORI_DOMAIN
 
