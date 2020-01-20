@@ -5,7 +5,7 @@ module Routing
   SHIKIMORI_DOMAIN = /
     \A
     (?: (?:#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )?
-    shikimori \. (?: org|dev|local|test )
+    shikimori \. (?: org|one|dev|local|test )
     \Z
   /mix
   # FORCE_CAMO_DOMAIN = /imgur.com/i
