@@ -4,11 +4,11 @@ module Routing
 
   SHIKIMORI_DOMAIN = /
     \A
-    (?: (?:play|#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )?
+    (?: (?:#{Shikimori::STATIC_SUBDOMAINS.join '|'})\. )?
     shikimori \. (?: org|dev|local|test )
     \Z
   /mix
-  FORCE_CAMO_DOMAIN = /imgur.com/i
+  # FORCE_CAMO_DOMAIN = /imgur.com/i
 
   included do
     def shiki_domain
@@ -96,12 +96,12 @@ module Routing
   end
 
   def camo_url image_url
-    if (
-        image_url.starts_with?('//', 'https://') ||
-        image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2')
-      ) && !image_url.match?(FORCE_CAMO_DOMAIN)
-      return image_url
-    end
+    # if (
+    #     image_url.starts_with?('//', 'https://') ||
+    #     image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2')
+    #   ) && !image_url.match?(FORCE_CAMO_DOMAIN)
+    #   return image_url
+    # end
 
     url = Url.new(image_url)
     return url.without_protocol.to_s if url.domain.to_s.match? SHIKIMORI_DOMAIN
