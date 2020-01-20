@@ -1,7 +1,7 @@
 class Moderations::AuthorsController < ModerationsController # rubocop:disable ClassLength
   before_action :check_access!, only: %i[edit update]
   before_action -> { @back_url = params[:back_url] }
-  helper_method :collection, :author, :animes
+  helper_method :collection, :author
 
   QUERY_SQL = <<~SQL.squish
     select distinct(name)
@@ -20,6 +20,14 @@ class Moderations::AuthorsController < ModerationsController # rubocop:disable C
   def edit
     og page_title: 'Редактирование автора'
     og page_title: update_params[:name]
+
+    @fansub_animes = Anime
+      .where(':name = ANY(fansubbers)', name: update_params[:name])
+      .order(order_sql)
+
+    @fandub_animes = Anime
+      .where(':name = ANY(fandubbers)', name: update_params[:name])
+      .order(order_sql)
   end
 
   def update # rubocop:disable all
@@ -137,6 +145,13 @@ private
       collection = collection.reject(&:is_verified)
     end
     collection
+  end
+
+  def order_sql
+    AniMangaQuery.order_sql(
+      current_user.preferences.russian_names? ? 'russian' : 'name',
+      Anime
+    )
   end
 
   def update_params

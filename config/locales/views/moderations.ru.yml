@@ -278,3 +278,7 @@ ru:
         notice: Редактирование жанра
       update:
         <<: *edit
+    authors:
+      edit:
+        fansub_animes: Аниме с фансабом
+        fandub_animes: Аниме с фандабом

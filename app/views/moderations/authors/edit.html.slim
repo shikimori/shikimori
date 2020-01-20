@@ -30,12 +30,25 @@ header.head
     data-disable-with=t('simple_form.magic_submit.default.disable_with').html_safe
   ]
 
-.block
-  .b-options-floated = animes.size
-  .subheadline = Anime.model_name.human
-  - if animes.any?
-    - animes.each do |anime|
-      div.m5
-        a.bubbled href=anime_url(anime) = localized_name anime
-  - else
-    .b-nothing_here = t 'nothing_here'
+.fc-2
+  .f-column
+    .block
+      .b-options-floated = @fansub_animes.size
+      .subheadline = t '.fansub_animes'
+      - if @fansub_animes.any?
+        - @fansub_animes.each do |anime|
+          div.m5
+            a.bubbled href=anime_url(anime) = localized_name anime
+      - else
+        .b-nothing_here = t 'nothing_here'
+
+  .f-column
+    .block
+      .b-options-floated = @fandub_animes.size
+      .subheadline = t '.fandub_animes'
+      - if @fandub_animes.any?
+        - @fandub_animes.each do |anime|
+          div.m5
+            a.bubbled href=anime_url(anime) = localized_name anime
+      - else
+        .b-nothing_here = t 'nothing_here'

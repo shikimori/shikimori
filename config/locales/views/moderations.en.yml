@@ -278,3 +278,7 @@ en:
         notice: Edit genre
       update:
         <<: *edit
+    authors:
+      edit:
+        fansub_animes: Fansub animes
+        fandub_animes: Fandub animes
