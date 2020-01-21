@@ -168,6 +168,11 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#watch_online' do
+    subject! { get :watch_online, params: { id: anime.to_param } }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#other_names' do
     subject! { get :other_names, params: { id: anime.to_param } }
     it { expect(response).to have_http_status :success }

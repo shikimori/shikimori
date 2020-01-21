@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, user_signed_in?, :v16] do
+  = cache [@resource, user_signed_in?, :v17] do
     meta itemprop='url' content="#{{@resource.url}}"
     meta itemprop='headline' content=@resource.name
 
@@ -108,24 +108,14 @@
                   = render 'mangas/publishers_info', entry: @resource
 
             - if @resource.watch_online_external_links.any?
-              .watch-online
-                - @resource.watch_online_external_links.each_with_index do |external_link, index|
-                  - if index.zero?
-                    .line
-                      .b-link_button.dark.linkeable[
-                        data-href=external_link.url
-                        title=external_link.kind_text
-                        target='_blank'
-                      ] = t '.watch_online'
-                    .kind = external_link.kind_text
-                  - else
-                    .linkeable.kind[
-                      data-href=external_link.url
-                      title=external_link.kind_text
-                      target='_blank'
-                    ]
-                      = external_link.kind_text
-                      span
+              - if user_signed_in?
+                .watch-online
+                  = render 'watch_online'
+              - else
+                .watch-online.to-process[
+                  data-dynamic='postloaded'
+                  data-postloaded-url=watch_online_anime_url(@resource)
+                ]
 
       .c-description
         .subheadline.m5 = Anime.human_attribute_name :description

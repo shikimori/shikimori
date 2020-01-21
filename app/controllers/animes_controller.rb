@@ -180,6 +180,10 @@ class AnimesController < DbEntriesController
     render partial: 'resources'
   end
 
+  def watch_online
+    render partial: 'watch_online'
+  end
+
   def other_names
     og noindex: true
   end

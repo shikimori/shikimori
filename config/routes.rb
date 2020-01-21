@@ -706,6 +706,7 @@ Rails.application.routes.draw do
 
     member do
       get 'edit/videos/:video_id' => :edit_field, as: :edit_video, field: :videos
+      get :watch_online
       post 'torrent' => 'torrents#create'
     end
 
