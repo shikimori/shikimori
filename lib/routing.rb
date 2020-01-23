@@ -94,12 +94,14 @@ module Routing
     end
   end
 
-  def camo_root_url
-    camo_host = Rails.application.secrets[:camo][:host].gsub('%DOMAIN%', shiki_one_domain)
+  def camo_root_url is_force_shikimori_one
+    camo_host = Rails.application.secrets[:camo][:host]
+      .gsub('%DOMAIN%', is_force_shikimori_one ? shiki_one_domain : shiki_domain)
+
     Shikimori::PROTOCOL + '://' + camo_host + Rails.application.secrets[:camo][:endpoint_path]
   end
 
-  def camo_url image_url
+  def camo_url image_url, force_shikimori_one: false
     # NOTE: Do not allow direct urls to https cause it exposes user ip addresses
     # if (
     #     image_url.starts_with?('//', 'https://') ||
@@ -116,7 +118,8 @@ module Routing
     return url.without_protocol.to_s if url.domain.to_s.match? SHIKIMORI_DOMAIN
 
     @camo_urls ||= {}
-    @camo_urls[image_url] = camo_root_url + "#{camo_digest image_url}?url=#{CGI.escape image_url}"
+    @camo_urls[image_url] = camo_root_url(force_shikimori_one) +
+      "#{camo_digest image_url}?url=#{CGI.escape image_url}"
   end
 
 private

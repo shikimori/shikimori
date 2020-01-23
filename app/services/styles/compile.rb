@@ -43,7 +43,7 @@ private
         url = url.gsub(/["'`]$/, '')
       end
 
-      "#{UrlGenerator.instance.camo_url url}#{quote}"
+      "#{UrlGenerator.instance.camo_url url, force_shikimori_one: true}#{quote}"
     end
   end
 
