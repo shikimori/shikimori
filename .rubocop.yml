@@ -82,9 +82,9 @@ Style/MutableConstant:
   Enabled: false
 Style/EmptyMethod:
   Enabled: false
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
-Layout/AlignArguments:
+Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
 Layout/MultilineMethodCallIndentation:
   Enabled: false
@@ -94,7 +94,7 @@ Style/MultilineTernaryOperator:
   Enabled: false
 Layout/EndAlignment:
   Enabled: false
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Enabled: false
 Style/RescueModifier:
   Enabled: false
