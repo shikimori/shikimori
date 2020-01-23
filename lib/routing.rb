@@ -21,6 +21,10 @@ module Routing
       end
     end
 
+    def shiki_one_domain
+      Rails.env.production? ? Shikimori::DOMAIN : shiki_domain
+    end
+
     def shiki_port
       if Rails.env.development? && (Draper::ViewContext.current.request.try(:port) || '80') != '80'
         Draper::ViewContext.current.request.port
@@ -91,7 +95,7 @@ module Routing
   end
 
   def camo_root_url
-    camo_host = Rails.application.secrets[:camo][:host].gsub('%DOMAIN%', shiki_domain)
+    camo_host = Rails.application.secrets[:camo][:host].gsub('%DOMAIN%', shiki_one_domain)
     Shikimori::PROTOCOL + '://' + camo_host + Rails.application.secrets[:camo][:endpoint_path]
   end
 
