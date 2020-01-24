@@ -20,6 +20,7 @@ class Moderations::AuthorsController < ModerationsController # rubocop:disable C
   def edit
     og page_title: 'Редактирование автора'
     og page_title: update_params[:name]
+    breadcrumb i18n_t('page_title'), moderations_authors_url
 
     @fansub_animes = Anime
       .where(':name = ANY(fansubbers)', name: update_params[:name])
