@@ -1,5 +1,5 @@
 class Moderations::AuthorsController < ModerationsController # rubocop:disable ClassLength
-  before_action :check_access!, only: %i[edit update]
+  before_action :check_access!, only: %i[update]
   before_action -> { @back_url = params[:back_url] }
   helper_method :collection, :author
 

@@ -11,7 +11,11 @@ header.head
 
   .b-input
     label = AnimeVideoAuthor.human_attribute_name :name
-    input name='author[new_name]' value=params[:author][:name]
+    input[
+      name='author[new_name]'
+      value=params[:author][:name]
+      disabled=!can?(:manage_fansub_authors, Anime)
+    ]
 
   .b-input
     label
@@ -20,6 +24,7 @@ header.head
         type='checkbox'
         checked=author&.is_verified
         value='1'
+        disabled=!can?(:manage_fansub_authors, Anime)
       ]
       = AnimeVideoAuthor.human_attribute_name :is_verified
 
@@ -28,6 +33,7 @@ header.head
     value=t('simple_form.magic_submit.default.submit')
     class='btn-primary btn-submit btn'
     data-disable-with=t('simple_form.magic_submit.default.disable_with').html_safe
+    disabled=!can?(:manage_fansub_authors, Anime)
   ]
 
 .fc-2

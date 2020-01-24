@@ -68,10 +68,10 @@ ul.b-list.block
         - if collection.any?
           - collection.each do |author|
             .b-log_entry
+              a[
+                href=edit_moderations_authors_url(author: { name: author.name }, back_url: current_url)
+              ] = author.name
               - if can? :manage_fansub_authors, Anime
-                a[
-                  href=edit_moderations_authors_url(author: { name: author.name }, back_url: current_url)
-                ] = author.name
                 - if author.is_verified
                   a.is-verified[
                     href=moderations_authors_url(author: { name: author.name, is_verified: false }, back_url: current_url)
@@ -82,9 +82,6 @@ ul.b-list.block
                     href=moderations_authors_url(author: { name: author.name, is_verified: true }, back_url: current_url)
                     data-method='patch'
                   ] ✕
-              - else
-                span = author.name
-
 
         - else
           .b-nothing_here Нет авторов

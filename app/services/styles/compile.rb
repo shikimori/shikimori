@@ -38,9 +38,9 @@ private
   def camo_images css
     css.gsub(BbCodes::Tags::UrlTag::URL) do
       url = $LAST_MATCH_INFO[:url]
-      if url =~ /(?<quote>["'`])$/
+      if url =~ /(?<quote>["'`;]+)$/
         quote = $LAST_MATCH_INFO[:quote]
-        url = url.gsub(/["'`]$/, '')
+        url = url.gsub(/["'`;]+$/, '')
       end
 
       "#{UrlGenerator.instance.camo_url url, force_shikimori_one: true}#{quote}"
