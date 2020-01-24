@@ -7,23 +7,24 @@ header.head
   - AnimeOnline::FixAnimeVideoAuthors::STUDIOS.sort.each do |studio|
     .b-tag = studio
 
-.subheadline.m10 = t 'navigation'
-ul.b-list.block
-  - if params.key? :is_verified
+- if can? :manage_fansub_authors, Anime
+  .subheadline.m10 = t 'navigation'
+  ul.b-list.block
+    - if params.key? :is_verified
+      li
+        a.b-link[
+          href=current_url(is_verified: nil)
+        ] Все авторы
     li
-      a.b-link[
-        href=current_url(is_verified: nil)
-      ] Все авторы
-  li
-    a.b-js-link[
-      class=(:active if params[:is_verified] == 'true')
-      href=current_url(is_verified: ('true' if params[:is_verified] != 'true'))
-    ] Только проверенные авторы
-  li.m15
-    a.b-js-link[
-      class=(:active if params[:is_verified] == 'false')
-      href=current_url(is_verified: ('false' if params[:is_verified] != 'false'))
-    ] Только не проверенные авторы
+      a.b-js-link[
+        class=(:active if params[:is_verified] == 'true')
+        href=current_url(is_verified: ('true' if params[:is_verified] != 'true'))
+      ] Только проверенные авторы
+    li.m15
+      a.b-js-link[
+        class=(:active if params[:is_verified] == 'false')
+        href=current_url(is_verified: ('false' if params[:is_verified] != 'false'))
+      ] Только не проверенные авторы
 
 .b-collection_search
   .field
