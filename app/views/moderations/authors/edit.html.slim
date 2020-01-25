@@ -17,24 +17,25 @@ header.head
       disabled=!can?(:manage_fansub_authors, Anime)
     ]
 
-  .b-input
-    label
-      input[
-        name='author[is_verified]'
-        type='checkbox'
-        checked=author&.is_verified
-        value='1'
-        disabled=!can?(:manage_fansub_authors, Anime)
-      ]
-      = AnimeVideoAuthor.human_attribute_name :is_verified
+  - if can? :manage_fansub_authors, Anime
+    .b-input
+      label
+        input[
+          name='author[is_verified]'
+          type='checkbox'
+          checked=author&.is_verified
+          value='1'
+          disabled=!can?(:manage_fansub_authors, Anime)
+        ]
+        = AnimeVideoAuthor.human_attribute_name :is_verified
 
-  input[
-    type='submit'
-    value=t('simple_form.magic_submit.default.submit')
-    class='btn-primary btn-submit btn'
-    data-disable-with=t('simple_form.magic_submit.default.disable_with').html_safe
-    disabled=!can?(:manage_fansub_authors, Anime)
-  ]
+    input[
+      type='submit'
+      value=t('simple_form.magic_submit.default.submit')
+      class='btn-primary btn-submit btn'
+      data-disable-with=t('simple_form.magic_submit.default.disable_with').html_safe
+      disabled=!can?(:manage_fansub_authors, Anime)
+    ]
 
 .fc-2
   .f-column
