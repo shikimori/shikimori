@@ -7,7 +7,7 @@ import { KonachanLoader } from './imageboards/konachan_loader';
 const FORBIDDEN_TAGS = [
   'comic', 'cum', 'fellatio', 'pussy', 'penis', 'sex', 'pussy_juice', 'nude',
   'nipples', 'spread_legs', 'flat_color', 'micro_bikini', 'monochrome',
-  'bottomless', 'censored', 'chibi', 'meme', 'dakimakura', 'undressing',
+  'bottomless', 'censored', 'meme', 'dakimakura', 'undressing',
   'lowres', 'plump', 'cameltoe', 'bandaid_on_pussy', 'bandaids_on_nipples',
   'oral', 'footjob', 'erect_nipples\b.*\bpanties', 'breasts\b.*\btopless',
   'crotch_zipper', 'bdsm', 'side-tie_panties', 'anal', 'masturbation',
