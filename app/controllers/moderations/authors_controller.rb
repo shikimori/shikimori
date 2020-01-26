@@ -52,13 +52,13 @@ class Moderations::AuthorsController < ModerationsController # rubocop:disable C
       animes.each do |anime|
         anime.fansubbers = anime
           .fansubbers
-          .map { |v| v.gsub(update_params[:name], update_params[:new_name]) }
+          .map { |v| v == update_params[:name] ? update_params[:new_name] : v }
           .select(&:present?)
           .uniq
 
         anime.fandubbers = anime
           .fandubbers
-          .map { |v| v.gsub(update_params[:name], update_params[:new_name]) }
+          .map { |v| v == update_params[:name] ? update_params[:new_name] : v }
           .select(&:present?)
           .uniq
 
