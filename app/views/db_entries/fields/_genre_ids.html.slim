@@ -3,7 +3,7 @@
     .m5: b = t '.current_genres'
     .cc-1
       - @resource.genres.each do |genre|
-        .c-column.genre id="#{genre.id}"
+        .c-column.genre id=genre.id
           .name = localization_span genre
           .b-js-actions
             .b-js-link.up = t '.up'
@@ -15,8 +15,8 @@
     .cc-3
       - Genre.where(kind: @resource.object.class.name.downcase).sort_by { |v| localized_name v }.each do |genre|
         .c-column.genre[
-          id="#{genre.id}"
-          class="#{:included if @resource.genres.include? genre}"
+          id=genre.id
+          class=(:included if @resource.genres.include? genre)
         ]
           .name = localization_span genre
           .b-js-actions
@@ -34,7 +34,7 @@
         = f.input :user_id, as: :hidden
         = f.input :reason
 
-      .item_diff data-current_ids="#{@resource.genres.map(&:id).to_json}"
+      .item_diff data-current_ids=@resource.genres.map(&:id).to_json
         = f.input :item_diff, as: :hidden
 
       .buttons
