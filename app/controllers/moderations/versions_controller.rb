@@ -85,7 +85,7 @@ private
       .require(:version)
       .permit(:type, :item_id, :item_type, :user_id, :reason)
       .to_h
-      .merge(item_diff: build_item_diff)
+      .merge(item_diff: build_item_diff, state: 'pending')
   end
 
   def build_item_diff
