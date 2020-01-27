@@ -7,6 +7,12 @@ class Styles::Compile
     @import \s+ url \( ['"]? (?<url>.*?) ['"]? \);
     [\n\r]*
   /mix
+  SUFFIX_REGEXP = /
+    (?<suffix>
+      ["'`;)]+
+      (?:\s*!important)?
+    )$
+  /mix
 
   def call
     compiled_css = strip_comments(media_query(sanitize(camo_images(@css))))
@@ -38,12 +44,13 @@ private
   def camo_images css
     css.gsub(BbCodes::Tags::UrlTag::URL) do
       url = $LAST_MATCH_INFO[:url]
-      if url =~ /(?<quote>["'`;]+)$/
-        quote = $LAST_MATCH_INFO[:quote]
-        url = url.gsub(/["'`;]+$/, '')
+
+      if url =~ SUFFIX_REGEXP
+        suffix = $LAST_MATCH_INFO[:suffix]
+        url = url.gsub(SUFFIX_REGEXP, '')
       end
 
-      "#{UrlGenerator.instance.camo_url url, force_shikimori_one: true}#{quote}"
+      "#{UrlGenerator.instance.camo_url url, force_shikimori_one: true}#{suffix}"
     end
   end
 

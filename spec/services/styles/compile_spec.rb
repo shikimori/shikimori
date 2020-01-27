@@ -13,8 +13,26 @@ describe Styles::Compile do
 
   context '#camo_images' do
     let(:image_url) { 'http://s8.hostingkartinok.com/uploads/images/2016/02/87303db8016e56e8a9eeea92f81f5760.jpg' }
-    let(:quote) { ['"', "'", '`', ''].sample }
-    let(:css) { "body { background: url(#{quote}#{image_url}#{quote}); };" }
+    let(:css) { "body { background: url(#{quote}#{image_url}#{quote})#{suffix} };" }
+    let(:quote) do
+      [
+        '"',
+        "'",
+        '`',
+        ''
+      ].sample
+    end
+    let(:suffix) do
+      [
+        ', test',
+        ' ;',
+        ';',
+        '',
+        '!important',
+        ' !important',
+        ' !important;'
+      ].sample
+    end
 
     it do
       is_expected.to eq(
@@ -22,7 +40,7 @@ describe Styles::Compile do
         compiled_css: <<-CSS.squish
           #{described_class::MEDIA_QUERY_CSS} {
             body {
-              background: url(#{quote}#{UrlGenerator.instance.camo_url image_url}#{quote});
+              background: url(#{quote}#{UrlGenerator.instance.camo_url image_url}#{quote})#{suffix}
             };
           }
         CSS

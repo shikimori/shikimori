@@ -4,7 +4,6 @@ class YandexMetrika
   API_URL = 'https://api-metrika.yandex.ru/analytics/v3/data/ga'
 
   APP_ID = 'b658b57e3a5b4370a0448fc9ba85f129'
-  APP_SECRET = '51bd8685f0074421895b4965eec15250'
   APP_TOKEN = 'c751573157874acea30ba2ec46b9f6db'
   APP_COUNTER_ID = 53_670_769
 

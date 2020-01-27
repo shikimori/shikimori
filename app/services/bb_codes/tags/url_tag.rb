@@ -31,7 +31,9 @@ class BbCodes::Tags::UrlTag
       text = match_text $LAST_MATCH_INFO[:text], url
       css_class = $LAST_MATCH_INFO[:class]
 
-      webm_link?(url) ? video_bb_code(url) : link_tag(url, text, css_class)
+      webm_link?(url) ?
+        video_bb_code(url) :
+        link_tag(url, text, css_class)
     end
   end
 

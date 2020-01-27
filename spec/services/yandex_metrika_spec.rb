@@ -1,5 +1,5 @@
 describe YandexMetrika, :vcr do
-  subject { YandexMetrika.call 18 }
+  subject { described_class.call 18 }
 
   include_context :timecop, '2015-01-03'
 
