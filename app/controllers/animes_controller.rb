@@ -199,6 +199,7 @@ class AnimesController < DbEntriesController
 
     Anime::IncrementEpisode.call(
       anime: @resource.object,
+      aired_at: Time.zone.parse(params[:aired_at]) || Time.zone.now,
       user: current_user
     )
     redirect_back fallback_location: @resource.edit_url

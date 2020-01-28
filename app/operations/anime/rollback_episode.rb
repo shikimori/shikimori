@@ -4,7 +4,10 @@ class Anime::RollbackEpisode
   def call
     return if @anime.episodes_aired < @episode
 
-    @anime.episode_notifications.where('episode >= ?', @episode).destroy_all
+    @anime
+      .episode_notifications
+      .where('episode >= ?', @episode)
+      .destroy_all
 
     if user
       Versioneers::FieldsVersioneer
