@@ -11,7 +11,7 @@ describe EpisodeNotification::Track do
 
   let(:params) do
     {
-      anime_id: anime.id,
+      anime: anime,
       episode: episode,
       aired_at: aired_at,
       is_raw: is_raw,

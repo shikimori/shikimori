@@ -33,7 +33,7 @@ private
 
   def convert_params params
     {
-      anime_id: params[:anime_id],
+      anime: Anime.find(params[:anime_id]),
       episode: params[:episode],
       aired_at: params[:aired_at],
       is_raw: ActiveRecord::Type::Boolean.new.cast(params[:is_raw]),

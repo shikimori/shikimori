@@ -17,7 +17,7 @@ class SmotretAnime::EpisodeWorker
 
     if data
       episodes = extract data[:episodes] || [], anime.kind, anime.episodes_aired
-      episodes.each { |episode| track anime.id, episode }
+      episodes.each { |episode| track anime, episode }
     else
       unlink anime, smotret_anime_id
     end
@@ -36,9 +36,9 @@ private
       .destroy_all
   end
 
-  def track anime_id, episode
+  def track anime, episode
     EpisodeNotification::Track.call(
-      anime_id: anime_id,
+      anime_id: anime,
       episode: episode[:episode],
       aired_at: episode[:aired_at],
       is_anime365: true

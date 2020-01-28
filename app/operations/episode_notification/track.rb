@@ -1,6 +1,6 @@
 class EpisodeNotification::Track
   method_object %i[
-    anime_id!
+    anime!
     episode!
     aired_at
     is_raw
@@ -33,7 +33,7 @@ private
 
   def find_or_initialize
     EpisodeNotification.find_or_initialize_by(
-      anime_id: @anime_id,
+      anime_id: @anime.id,
       episode: @episode
     )
   end
