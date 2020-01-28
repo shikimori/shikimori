@@ -43,7 +43,12 @@ describe Api::V2::EpisodeNotificationsController, :show_in_doc do
       context 'no episode notifiaction' do
         it do
           expect(anime.reload.episodes_aired).to eq 3
-          expect(EpisodeNotification::Track).to have_received(:call).with params
+          expect(EpisodeNotification::Track)
+            .to have_received(:call)
+            .with(
+              **params.except(:anime_id),
+              anime: anime
+            )
           expect(anime.episode_notifications.first).to have_attributes(
             episode: 3,
             is_raw: false,

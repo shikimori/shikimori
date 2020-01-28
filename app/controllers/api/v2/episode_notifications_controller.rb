@@ -16,13 +16,13 @@ class Api::V2::EpisodeNotificationsController < Api::V2Controller
     @resource = EpisodeNotification::Track.call convert_params(episode_notification_params)
 
     render json: {
-      id: @resource.id,
-      anime_id: @resource.anime_id,
-      episode: @resource.episode,
-      is_raw: @resource.is_raw,
-      is_subtitles: @resource.is_subtitles,
-      is_fandub: @resource.is_fandub,
-      is_anime365: @resource.is_anime365,
+      id: @resource&.id,
+      anime_id: @resource&.anime_id,
+      episode: @resource&.episode,
+      is_raw: @resource&.is_raw,
+      is_subtitles: @resource&.is_subtitles,
+      is_fandub: @resource&.is_fandub,
+      is_anime365: @resource&.is_anime365,
       topic_id: topic_id(@resource)
     }
   rescue ActiveRecord::RecordNotSaved => e
@@ -54,6 +54,8 @@ private
   end
 
   def topic_id episode_notification
+    return unless episode_notification
+
     episode_notification
       .anime
       .all_topics

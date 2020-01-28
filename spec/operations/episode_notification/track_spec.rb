@@ -76,7 +76,7 @@ describe EpisodeNotification::Track do
         let(:is_anime365) { false }
 
         it do
-          is_expected.to be_new_record
+          is_expected.to be_nil
           expect(anime.episode_notifications).to be_empty
           expect(anime.reload.episodes_aired).to eq 2
           expect(EpisodeNotification::TrackEpisode).to_not have_received :call

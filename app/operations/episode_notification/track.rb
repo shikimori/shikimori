@@ -13,17 +13,17 @@ class EpisodeNotification::Track
   EPISODES_AIRED_MESSAGE = 'invalid episode number: episode >> anime.episodes_aired'
 
   def call
+    return unless @is_raw || @is_subtitles || @is_fandub || @is_anime365
+
     model = find_or_initialize
 
-    if @is_raw || @is_subtitles || @is_fandub || @is_anime365
-      assign model
-      validate model
+    assign model
+    validate model
 
-      if model.errors.none?
-        save model
-      else
-        raise ActiveRecord::RecordNotSaved.new(model.errors[:base][0], model)
-      end
+    if model.errors.none?
+      save model
+    else
+      raise ActiveRecord::RecordNotSaved.new(model.errors[:base][0], model)
     end
 
     model
@@ -32,10 +32,9 @@ class EpisodeNotification::Track
 private
 
   def find_or_initialize
-    EpisodeNotification.find_or_initialize_by(
-      anime_id: @anime.id,
-      episode: @episode
-    )
+    @anime
+      .episode_notifications
+      .find_or_initialize_by(episode: @episode)
   end
 
   def assign model # rubocop:disable all

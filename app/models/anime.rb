@@ -126,7 +126,7 @@ class Anime < DbEntry
   has_many :anime_calendars, dependent: :destroy
 
   has_many :anime_videos, dependent: :destroy
-  has_many :episode_notifications, dependent: :destroy
+  has_many :episode_notifications, dependent: :destroy, inverse_of: :anime
 
   has_many :name_matches,
     -> { where target_type: Anime.name },
