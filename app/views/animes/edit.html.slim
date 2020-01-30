@@ -144,10 +144,10 @@
             .value
               span = @resource.episodes_aired
               - if can?(:rollback_episode, @resource) && !@resource.released?
-                a.b-js-action[
+                a.b-js-action.increment-episode[
                   href=increment_episode_anime_url(@resource)
                   data-method='post'
-                  data-confirm=t('actions.confirm_simple')
+                  data-custom_confirm_text=t('.confirm_episode_date')
                 ] = t 'actions.increment'
               - if can?(:rollback_episode, @resource) && @resource.episodes_aired.positive?
                 a.b-js-action[
