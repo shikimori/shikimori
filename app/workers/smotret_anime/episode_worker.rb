@@ -38,7 +38,7 @@ private
 
   def track anime, episode
     EpisodeNotification::Track.call(
-      anime_id: anime,
+      anime: anime,
       episode: episode[:episode],
       aired_at: episode[:aired_at],
       is_anime365: true
