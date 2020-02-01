@@ -16,7 +16,7 @@ class CalendarsQuery
   def fetch
     entries = (fetch_ongoings + fetch_announced)
       .map { |anime| CalendarEntry.new(anime.decorate) }
-      # .select { |v| v.id == 39_017 }
+      # .select { |v| v.id == 41_206 }
 
     exclude_overdue(
       entries
