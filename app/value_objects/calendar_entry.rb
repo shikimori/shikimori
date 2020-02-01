@@ -1,16 +1,15 @@
 class CalendarEntry < SimpleDelegator
   prepend ActiveCacher.instance
 
-  attr_reader :anime, :locale
+  attr_reader :anime
   instance_cache :last_news, :average_interval, :next_episode_start_at
 
   DEFAULT_TV_DURATION = 26
 
-  def initialize anime_with_data, locale
+  def initialize anime_with_data
     super anime_with_data
 
     @anime = anime_with_data
-    @locale = locale
 
     raise 'Anime is not decorated' unless @anime.decorated?
   end
@@ -101,6 +100,6 @@ private
   end
 
   def episode_news_topics
-    @anime.episode_news_topics.select { |v| v.locale == @locale }
+    @anime.episode_news_topics.select { |v| v.locale == 'ru' }
   end
 end

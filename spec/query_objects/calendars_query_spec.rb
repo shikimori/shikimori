@@ -1,6 +1,5 @@
 describe CalendarsQuery do
   let(:query) { CalendarsQuery.new }
-  let(:locale) { :ru }
 
   include_context :timecop, '28-12-2015 00:00:00'
 
@@ -19,8 +18,8 @@ describe CalendarsQuery do
     it do
       expect(query.send :fetch_ongoings).to eq [anime_2, anime_3]
       expect(query.send :fetch_anonses).to eq [anime_6, anime_7, anime_8]
-      expect(query.fetch(locale)).to eq [anime_2, anime_3, anime_6, anime_7, anime_8]
-      expect(query.fetch_grouped(locale)).to have(3).items
+      expect(query.fetch).to eq [anime_2, anime_3, anime_6, anime_7, anime_8]
+      expect(query.fetch_grouped).to have(3).items
     end
   end
 
@@ -28,6 +27,6 @@ describe CalendarsQuery do
     let!(:anime_1) { create :anime, :anons, aired_on: '01-01-2016' }
     let!(:anime_2) { create :anime, :anons, aired_on: '02-01-2016' }
 
-    it { expect(query.fetch(locale)).to eq [anime_2] }
+    it { expect(query.fetch).to eq [anime_2] }
   end
 end

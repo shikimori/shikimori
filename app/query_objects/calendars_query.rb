@@ -7,15 +7,15 @@ class CalendarsQuery
   SQL
 
   # список онгоингов, сгруппированный по времени выхода
-  def fetch_grouped locale
-    group fetch(locale)
+  def fetch_grouped
+    group fetch
   end
 
   # список онгоингов
-  def fetch locale
+  def fetch
     # Rails.cache.fetch cache_key do
     entries = (fetch_ongoings + fetch_anonses).map do |anime|
-      CalendarEntry.new(anime.decorate, locale)
+      CalendarEntry.new(anime.decorate)
     end
 
     exclude_overdue(
