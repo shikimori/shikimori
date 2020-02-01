@@ -123,7 +123,9 @@ class Anime < DbEntry
     foreign_key: :target_id,
     dependent: :destroy
 
-  has_many :anime_calendars, dependent: :destroy
+  has_many :anime_calendars,
+    -> { order :episode },
+    dependent: :destroy
 
   has_many :anime_videos, dependent: :destroy
   has_many :episode_notifications, dependent: :destroy, inverse_of: :anime
