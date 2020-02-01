@@ -120,7 +120,7 @@ module Routing
     url = Url.new(image_url)
     return url.without_protocol.to_s if url.domain.to_s.match? SHIKIMORI_DOMAIN
 
-    fixed_url = url.with_protocol.to_s
+    fixed_url = url.starts_with?('//') ? url.with_protocol.to_s : image_url
 
     @camo_urls[image_url] = camo_root_url(force_shikimori_one) +
       "#{camo_digest fixed_url}?url=#{CGI.escape fixed_url}"
