@@ -62,12 +62,12 @@ class AnimeDecorator < AniMangaDecorator
         (next_broadcast_at if with_broadcast)
   end
 
-  # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
+  # try to take the date from animecalendar if possible
   def aired_on
     anons? ? (next_episode_at(false) || super) : super
   end
 
-  # тип элемента для schema.org
+  # for schema.org
   def itemtype
     'http://schema.org/Movie'
   end
