@@ -53,26 +53,18 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   def next_episode_at with_broadcast = true
-    if ongoing? || anons?
-      calendars = calendars_for_next_episode
+    return unless ongoing? || anons?
 
-      date =
-        if calendars[0].present? && calendars[0].start_at > Time.zone.now
-          calendars[0].start_at
-
-        elsif calendars[1].present?
-          calendars[1].start_at
-        end
-
-      date ||
+    calendars_for_next_episode
+      .find { |v| v.episode > episodes_aired }
+      &.start_at ||
         object.next_episode_at ||
         (next_broadcast_at if with_broadcast)
-    end
   end
 
   # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
   def aired_on
-    next_episode_at(false) || super
+    anons? ? (next_episode_at(false) || super) : super
   end
 
   # тип элемента для schema.org
@@ -92,6 +84,13 @@ class AnimeDecorator < AniMangaDecorator
       .sort_by { |name| group_name_sort_criteria name }
   end
 
+  def calendars_for_next_episode
+    @calendars_for_next_episode ||= association_cached?(:anime_calendars) ?
+      anime_calendars
+        .select { |v| v.episode == episodes_aired + 1 || v.episode == episodes_aired + 2 } :
+      anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
+  end
+
 private
 
   def next_broadcast_at
@@ -106,12 +105,5 @@ private
 
   def group_name_sort_criteria name
     name.downcase.gsub(/[^a-zа-я]/i, '')
-  end
-
-  def calendars_for_next_episode
-    @calendars_for_next_episode ||= association_cached?(:anime_calendars) ?
-      anime_calendars
-        .select { |v| v.episode == episodes_aired + 1 || v.episode == episodes_aired + 2 } :
-      anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
   end
 end

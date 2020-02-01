@@ -10,6 +10,7 @@ class CalendarEntry < SimpleDelegator
   def initialize anime
     raise ArgumentError, 'object must be decorated' unless anime.decorated?
 
+    @decorated_anime = anime
     super anime
   end
 
@@ -28,11 +29,14 @@ class CalendarEntry < SimpleDelegator
   end
 
   def next_episode
-    episodes_aired + 1
+    @decorated_anime
+      .calendars_for_next_episode
+      .find { |v| v.start_at == next_episode_start_at }
+      &.episode || episodes_aired + 1
   end
 
   def next_episode_start_at
-    next_episode_at || (
+    next_episode_at(true) || (
       aired_on.in_time_zone + ANNOUNCE_DATE_OFFSET if anons? && aired_on
     )
   end

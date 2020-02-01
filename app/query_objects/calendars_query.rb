@@ -14,17 +14,15 @@ class CalendarsQuery
   end
 
   def fetch
-    # Rails.cache.fetch cache_key do
     entries = (fetch_ongoings + fetch_announced)
       .map { |anime| CalendarEntry.new(anime.decorate) }
+      # .select { |v| v.id == 39_017 }
 
     exclude_overdue(
       entries
         .select(&:next_episode_start_at)
         .sort_by(&:next_episode_start_at)
     )
-      # fill_in_list entries, current_user if current_user.present?
-    # end
   end
 
   def cache_key
@@ -39,15 +37,6 @@ class CalendarsQuery
 
 private
 
-  # определение в списке ли пользователя аниме
-  # def fill_in_list entries, current_user
-    # rates = Set.new current_user.anime_rates.select(:target_id).map(&:target_id)
-    # entries.each do |anime|
-      # anime.in_list = rates.include? anime.id
-    # end
-  # end
-
-  # группировка выборки по датам
   def group entries
     entries = entries.group_by do |anime|
       # key_date = if anime.ongoing?
@@ -78,9 +67,9 @@ private
     Anime
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
-      .where(status: :ongoing) # .where(id: 31680)
-      .where(kind: %i[tv ona]) # 15133 - спешл Aoi Sekai no Chuushin de
-      .where.not(id: Anime::EXCLUDED_ONGOINGS + [15_547]) # 15547 - Cross Fight B-Daman eS
+      .where(status: :ongoing)
+      .where(kind: %i[tv ona])
+      .where.not(id: Anime::EXCLUDED_ONGOINGS + [15_547])
       .where(Arel.sql(ONGOINGS_SQL))
       .where(
         'episodes_aired != 0 or (aired_on is not null and aired_on > ?)',
@@ -93,7 +82,7 @@ private
     Anime
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
-      .where(status: :anons) # .where(id: 31680)
+      .where(status: :anons)
       .where(kind: %i[tv ona])
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where(
@@ -120,7 +109,6 @@ private
       # .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
   end
 
-  # выкидывание просроченных аниме
   def exclude_overdue entries
     entries.select do |v|
       (v.next_episode_start_at && v.next_episode_start_at > Time.zone.now - 1.week) ||
