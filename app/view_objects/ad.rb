@@ -200,7 +200,7 @@ private
       # disable after 2020-02-16
       Types::Ad::Type[:special_x300] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://redir.wargaming.net/iqf1c6t2/?pub_id=shikimori',
+        url: 'https://wo.ws/2tiDb3o',
         images: (1..1).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
@@ -217,7 +217,7 @@ private
       # disable after 2020-02-16
       Types::Ad::Type[:special_x1170] => {
         provider: Types::Ad::Provider[:special],
-        url: 'https://redir.wargaming.net/iqf1c6t2/?pub_id=shikimori',
+        url: 'https://wo.ws/2tiDb3o',
         images: (2..2).map do |i|
           {
             src: "/assets/globals/events/special_#{i}.jpg",
