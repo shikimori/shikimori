@@ -15,7 +15,7 @@ class CalendarsQuery
   def fetch locale
     # Rails.cache.fetch cache_key do
     entries = (fetch_ongoings + fetch_anonses).map do |anime|
-      AnimeDecorator.new CalendarEntry.new(anime, locale)
+      CalendarEntry.new(anime.decorate, locale)
     end
 
     exclude_overdue(

@@ -55,9 +55,7 @@ class AnimeDecorator < AniMangaDecorator
   # дата выхода следующего эпизода
   def next_episode_at with_broadcast = true
     if ongoing? || anons?
-      calendars = anime_calendars
-        .where(episode: [episodes_aired + 1, episodes_aired + 2])
-        .to_a
+      calendars = calendars_for_next_episode
 
       date =
         if calendars[0].present? && calendars[0].start_at > Time.zone.now
@@ -108,5 +106,12 @@ private
 
   def group_name_sort_criteria name
     name.downcase.gsub(/[^a-zа-я]/i, '')
+  end
+
+  def calendars_for_next_episode
+    @calendars_for_next_episode ||= association_cached?(:anime_calendars) ?
+      anime_calendars
+        .select { |v| v.episode == episodes_aired + 1 || v.episode == episodes_aired + 2 } :
+      anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
   end
 end
