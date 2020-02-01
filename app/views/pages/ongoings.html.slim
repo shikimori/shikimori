@@ -7,7 +7,7 @@ header.head.m15
       p == sentence
 
 = cache @ongoings_query.cache_key do
-  - @ongoings_query.fetch_grouped(locale_from_host).each do |index, group|
+  - @ongoings_query.fetch_grouped.each do |index, group|
     .block.m0
       - if index == -1
         .b-options-floated.collapse.for-headline id="collapse-calendar_delayed"

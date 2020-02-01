@@ -6,48 +6,37 @@ class CalendarsQuery
       anime_calendars.episode = episodes_aired + 1
   SQL
 
-  # список онгоингов, сгруппированный по времени выхода
-  def fetch_grouped locale
-    group fetch(locale)
+  ANNOUNCED_FROM = 1.week
+  ANNOUNCED_UNTIL = 1.month
+
+  def fetch_grouped
+    group fetch
   end
 
-  # список онгоингов
-  def fetch locale
-    # Rails.cache.fetch cache_key do
-    entries = (fetch_ongoings + fetch_anonses).map do |anime|
-      AnimeDecorator.new CalendarEntry.new(anime, locale)
-    end
+  def fetch
+    entries = (fetch_ongoings + fetch_announced)
+      .map { |anime| CalendarEntry.new(anime.decorate) }
+      # .select { |v| v.id == 39_017 }
 
     exclude_overdue(
       entries
         .select(&:next_episode_start_at)
         .sort_by(&:next_episode_start_at)
     )
-      # fill_in_list entries, current_user if current_user.present?
-    # end
   end
 
   def cache_key
     [
       :calendar,
-      :v3,
       AnimeCalendar.last.try(:id),
       Topics::NewsTopic.last.try(:id),
-      Time.zone.today.to_s
+      Time.zone.today.to_s,
+      :v4
     ]
   end
 
 private
 
-  # определение в списке ли пользователя аниме
-  # def fill_in_list entries, current_user
-    # rates = Set.new current_user.anime_rates.select(:target_id).map(&:target_id)
-    # entries.each do |anime|
-      # anime.in_list = rates.include? anime.id
-    # end
-  # end
-
-  # группировка выборки по датам
   def group entries
     entries = entries.group_by do |anime|
       # key_date = if anime.ongoing?
@@ -74,14 +63,13 @@ private
     Hash[entries.sort]
   end
 
-  # выборка онгоингов
   def fetch_ongoings
     Anime
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
-      .where(status: :ongoing) # .where(id: 31680)
-      .where(kind: %i[tv ona]) # 15133 - спешл Aoi Sekai no Chuushin de
-      .where.not(id: Anime::EXCLUDED_ONGOINGS + [15_547]) # 15547 - Cross Fight B-Daman eS
+      .where(status: :ongoing)
+      .where(kind: %i[tv ona])
+      .where.not(id: Anime::EXCLUDED_ONGOINGS + [15_547])
       .where(Arel.sql(ONGOINGS_SQL))
       .where(
         'episodes_aired != 0 or (aired_on is not null and aired_on > ?)',
@@ -90,24 +78,26 @@ private
       .order(Arel.sql('animes.id'))
   end
 
-  # выборка анонсов
-  def fetch_anonses
+  def fetch_announced
     Anime
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
-      .where(status: :anons) # .where(id: 31680)
+      .where(status: :anons)
       .where(kind: %i[tv ona])
-      .where(episodes_aired: 0)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where(
-        "anime_calendars.episode=1 or (
-          anime_calendars.episode is null and aired_on >= :from and
-          aired_on <= :to and aired_on != :new_year)",
-        from: Time.zone.today - 1.week,
-        to: Time.zone.today + 1.month,
-        new_year: Time.zone.today.beginning_of_year
+        "(
+          anime_calendars.start_at is not null and
+            start_at >= :from and
+            start_at <= :to
+        ) or (
+          aired_on >= :from and
+            aired_on <= :to and aired_on != :new_year
+        )",
+        from: ANNOUNCED_FROM.ago.to_date,
+        to: ANNOUNCED_UNTIL.from_now.to_date,
+        new_year: Time.zone.today.beginning_of_year.to_date
       )
-      .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
       .where.not(
         Arel.sql(
           "anime_calendars.episode is null
@@ -116,9 +106,9 @@ private
         )
       )
       .order(Arel.sql('animes.id'))
+      # .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
   end
 
-  # выкидывание просроченных аниме
   def exclude_overdue entries
     entries.select do |v|
       (v.next_episode_start_at && v.next_episode_start_at > Time.zone.now - 1.week) ||

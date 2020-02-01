@@ -52,29 +52,19 @@ class AnimeDecorator < AniMangaDecorator
     Coubs::Fetch.call(tags: coub_tags, iterator: nil)
   end
 
-  # дата выхода следующего эпизода
   def next_episode_at with_broadcast = true
-    if ongoing? || anons?
-      calendars = anime_calendars
-        .where(episode: [episodes_aired + 1, episodes_aired + 2])
-        .to_a
+    return unless ongoing? || anons?
 
-      date =
-        if calendars[0].present? && calendars[0].start_at > Time.zone.now
-          calendars[0].start_at
-
-        elsif calendars[1].present?
-          calendars[1].start_at
-        end
-
-      date || object.next_episode_at || (next_broadcast_at if with_broadcast)
-    end
+    calendars_for_next_episode
+      .find { |v| v.episode > episodes_aired }
+      &.start_at ||
+        object.next_episode_at ||
+        (next_broadcast_at if with_broadcast)
   end
 
-  # для анонса перебиваем дату анонса на дату с анимекалендаря,
-  # если таковая имеется
+  # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
   def aired_on
-    anons? && next_episode_at(false) ? next_episode_at(false) : object.aired_on
+    anons? ? (next_episode_at(false) || super) : super
   end
 
   # тип элемента для schema.org
@@ -92,6 +82,13 @@ class AnimeDecorator < AniMangaDecorator
     @sorted_fandubbers ||= object.fandubbers
       .map { |name| fix_group_name name }
       .sort_by { |name| group_name_sort_criteria name }
+  end
+
+  def calendars_for_next_episode
+    @calendars_for_next_episode ||= association_cached?(:anime_calendars) ?
+      anime_calendars
+        .select { |v| v.episode == episodes_aired + 1 || v.episode == episodes_aired + 2 } :
+      anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
   end
 
 private

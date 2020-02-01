@@ -40,12 +40,12 @@ span.misc
     - if time_of_next_episode(anime) != '00:00'
       span.right = time_of_next_episode anime
 
-    - if (anime.next_episode || 1) == 1
+    - if anime.next_episode == 1
       span.anons = i18n_i 'anons'
     - elsif anime.next_episode == anime.episodes
       span.released = t '.released'
     - else
-      span #{anime.next_episode || 1} #{i18n_i 'episode'}
+      span #{anime.next_episode} #{i18n_i 'episode'}
 
   - elsif cover_notice == :relation
     span.relation = t "relation.#{anime.relation}"
