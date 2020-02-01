@@ -1,7 +1,6 @@
 class CalendarEntry < SimpleDelegator
   prepend ActiveCacher.instance
 
-  attr_reader :anime
   instance_cache :last_news, :average_interval, :next_episode_start_at
 
   DEFAULT_TV_DURATION = 26

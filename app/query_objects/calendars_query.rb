@@ -14,7 +14,7 @@ class CalendarsQuery
   # список онгоингов
   def fetch
     # Rails.cache.fetch cache_key do
-    entries = (fetch_ongoings + fetch_anonses).map do |anime|
+    entries = (fetch_ongoings + fetch_announced).map do |anime|
       CalendarEntry.new(anime.decorate)
     end
 
@@ -91,7 +91,7 @@ private
   end
 
   # выборка анонсов
-  def fetch_anonses
+  def fetch_announced
     Anime
       .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)

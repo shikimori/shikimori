@@ -11,6 +11,6 @@ class CalendarEntrySerializer < ActiveModel::Serializer
   end
 
   def anime
-    object
+    object.object
   end
 end
