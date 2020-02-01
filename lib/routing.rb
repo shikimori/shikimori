@@ -102,6 +102,9 @@ module Routing
   end
 
   def camo_url image_url, force_shikimori_one: false
+    @camo_urls ||= {}
+    return @camo_urls[image_url] if @camo_urls[image_url]
+
     # NOTE: Do not allow direct urls to https cause it exposes user ip addresses
     # if (
     #     image_url.starts_with?('//', 'https://') ||
