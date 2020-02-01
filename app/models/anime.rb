@@ -10,7 +10,7 @@ class Anime < DbEntry
   include FavouritesConcern
 
   DESYNCABLE = %w[
-    name synonyms kind episodes rating aired_on released_on status genres
+    name synonyms kind episodes rating aired_on released_on status genre_ids
     duration description_en image external_links is_censored
   ]
   EXCLUDED_ONGOINGS = %w[

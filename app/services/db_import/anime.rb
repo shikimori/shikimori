@@ -13,7 +13,9 @@ private
   end
 
   def assign_genres genres
-    entry.genre_ids = genres.map { |v| find_or_create_genre(v).id }
+    unless :genre_ids.in? desynced_fields
+      entry.genre_ids = genres.map { |v| find_or_create_genre(v).id }
+    end
 
     unless :is_censored.in? desynced_fields
       entry.is_censored = (entry.respond_to?(:rating_rx?) && entry.rating_rx?) ||

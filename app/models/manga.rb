@@ -12,7 +12,7 @@ class Manga < DbEntry
   EXCLUDED_ONGOINGS = [-1]
 
   DESYNCABLE = %w[
-    name synonyms kind volumes chapters aired_on released_on status genres
+    name synonyms kind volumes chapters aired_on released_on status genre_ids
     description_en image external_links is_censored
   ]
   CHAPTER_DURATION = 8
