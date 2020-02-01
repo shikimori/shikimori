@@ -6,12 +6,13 @@ class CalendarsQuery
       anime_calendars.episode = episodes_aired + 1
   SQL
 
-  # список онгоингов, сгруппированный по времени выхода
+  ANNOUNCED_FROM = 1.week
+  ANNOUNCED_UNTIL = 1.month
+
   def fetch_grouped
     group fetch
   end
 
-  # список онгоингов
   def fetch
     # Rails.cache.fetch cache_key do
     entries = (fetch_ongoings + fetch_announced).map do |anime|
@@ -74,7 +75,6 @@ private
     Hash[entries.sort]
   end
 
-  # выборка онгоингов
   def fetch_ongoings
     Anime
       .includes(:episode_news_topics, :anime_calendars)
@@ -90,7 +90,6 @@ private
       .order(Arel.sql('animes.id'))
   end
 
-  # выборка анонсов
   def fetch_announced
     Anime
       .includes(:episode_news_topics, :anime_calendars)
@@ -103,9 +102,9 @@ private
         "anime_calendars.episode=1 or (
           anime_calendars.episode is null and aired_on >= :from and
           aired_on <= :to and aired_on != :new_year)",
-        from: Time.zone.today - 1.week,
-        to: Time.zone.today + 1.month,
-        new_year: Time.zone.today.beginning_of_year
+        from: ANNOUNCED_FROM.ago.to_date,
+        to: ANNOUNCED_UNTIL.from_now.to_date,
+        new_year: Time.zone.today.beginning_of_year.to_date
       )
       .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
       .where.not(

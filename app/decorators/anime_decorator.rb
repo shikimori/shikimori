@@ -1,6 +1,8 @@
 class AnimeDecorator < AniMangaDecorator
   instance_cache :files, :coubs, :next_episode_at
 
+  ANNOUNCE_DATE_OFFSET = 9.hours
+
   def news_topic_views
     object
       .news_topics
@@ -65,14 +67,16 @@ class AnimeDecorator < AniMangaDecorator
           calendars[1].start_at
         end
 
-      date || object.next_episode_at || (next_broadcast_at if with_broadcast)
+      date ||
+        object.next_episode_at ||
+        (next_broadcast_at if with_broadcast) ||
+        (object.aired_on.in_time_zone + 8.hours if anons? && object.aired_on)
     end
   end
 
-  # для анонса перебиваем дату анонса на дату с анимекалендаря,
-  # если таковая имеется
+  # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
   def aired_on
-    anons? && next_episode_at(false) ? next_episode_at(false) : object.aired_on
+    next_episode_at(false) if anons?
   end
 
   # тип элемента для schema.org
