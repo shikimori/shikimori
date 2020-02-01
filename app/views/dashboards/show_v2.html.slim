@@ -133,9 +133,11 @@
     - if @view.admin_area?
       javascript:
         $(document.body).on('click', '.b-admin_panel .reload', function() {
-          var $panel = $('.b-admin_panel');
-          $(this).addclass('active');
-          $panel.load($panel.data('postloaded-url'))
+          var $panel = $('.b-admin_panel').addClass('b-ajax');
+          $(this).addClass('active');
+          $panel.load($panel.data('postloaded-url'), () => (
+            $panel.removeClass('b-ajax')
+          ));
         });
       .b-admin_panel.to-process[
         data-dynamic='postloaded'
