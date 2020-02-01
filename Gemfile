@@ -54,7 +54,7 @@ gem 'recaptcha'
 
 # application
 gem 'mal_parser', github: 'shikimori/mal_parser'
-gem 'chewy', github: 'toptal/chewy', branch: 'master'
+gem 'chewy'
 gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'rack-attack'
 gem 'rack-cors'
