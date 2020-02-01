@@ -102,28 +102,12 @@ module Routing
   end
 
   def camo_url image_url, force_shikimori_one: false
-    @camo_urls ||= {}
-    return @camo_urls[image_url] if @camo_urls[image_url]
-
-    # NOTE: Do not allow direct urls to https cause it exposes user ip addresses
-    # if (
-    #     image_url.starts_with?('//', 'https://') ||
-    #     image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2')
-    #   ) && !image_url.match?(FORCE_CAMO_DOMAIN)
-    #   return image_url
-    # end
-
-    if image_url.match? /\.(?:eot|svg|ttf|woff|woff2|css)(?:$|\?)/
-      return image_url
+    if force_shikimori_one
+      generate_camo_url image_url, true
+    else
+      @camo_urls ||= {}
+      @camo_urls[image_url] ||= generate_camo_url image_url, false
     end
-
-    url = Url.new(image_url)
-    return url.without_protocol.to_s if url.domain.to_s.match? SHIKIMORI_DOMAIN
-
-    fixed_url = url.starts_with?('//') ? url.with_protocol.to_s : image_url
-
-    @camo_urls[image_url] = camo_root_url(force_shikimori_one) +
-      "#{camo_digest fixed_url}?url=#{CGI.escape fixed_url}"
   end
 
 private
@@ -138,5 +122,27 @@ private
       Rails.application.secrets[:camo][:key],
       url
     )
+  end
+
+  def generate_camo_url image_url, force_shikimori_one
+    # NOTE: Do not allow direct urls to https cause it exposes user ip addresses
+    # if (
+    #     image_url.starts_with?('//', 'https://') ||
+    #     image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2')
+    #   ) && !image_url.match?(FORCE_CAMO_DOMAIN)
+    #   return image_url
+    # end
+
+    if image_url.match?(/\.(?:eot|svg|ttf|woff|woff2|css)(?:$|\?)/)
+      return image_url
+    end
+
+    url = Url.new(image_url)
+    return url.without_protocol.to_s if url.domain.to_s.match? SHIKIMORI_DOMAIN
+
+    fixed_url = url.starts_with?('//') ? url.with_protocol.to_s : image_url
+
+    camo_root_url(force_shikimori_one) +
+      "#{camo_digest fixed_url}?url=#{CGI.escape fixed_url}"
   end
 end
