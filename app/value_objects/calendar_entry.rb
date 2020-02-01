@@ -5,20 +5,21 @@ class CalendarEntry < SimpleDelegator
   instance_cache :last_news, :average_interval, :next_episode_start_at
 
   DEFAULT_TV_DURATION = 26
+  EPISODES_FOR_AVERAGE_INTERVAL = 2
 
-  def initialize anime_with_data
-    super anime_with_data
+  def initialize anime
+    raise ArgumentError, 'object must be decorated' unless anime.decorated?
 
-    @anime = anime_with_data
-
-    raise 'Anime is not decorated' unless @anime.decorated?
+    super anime
   end
 
   def average_interval
-    if @anime.episodes_aired.zero?
+    if episodes_aired.zero?
       0
     else
-      episode_news_topics.size < 2 ? 7.days : episode_average_interval
+      episode_news_topics.size >= EPISODES_FOR_AVERAGE_INTERVAL ?
+        episode_average_interval :
+        7.days
     end
   end
 
@@ -27,40 +28,20 @@ class CalendarEntry < SimpleDelegator
   end
 
   def next_episode
-    if ongoing? && last_news
-      last_news.value.to_i + 1
-    else
-      1
-    end
+    episodes_aired + 1
   end
 
-  # def next_episode_start_at
-  #   anime.next_episode_at ||
-  #     aired_at ||
-  #     broadcast_at ||
-  #     anime_calendars.first&.start_at
-  # end
-
   def next_episode_start_at
-    @anime.next_episode_at
+    next_episode_at
   end
 
   def next_episode_end_at
     next_episode_start_at + ((duration.zero? ? DEFAULT_TV_DURATION : duration) + 5).minutes
   end
 
-  # compatibility with decorators
-  def decorated?
-    true
-  end
-
-  def object
-    @anime
-  end
-
 private
 
-  def episode_average_interval
+  def episode_average_interval # rubocop:disable all
     times = []
     prior_time = episode_news_topics.first.created_at
 
@@ -83,23 +64,17 @@ private
     [7.days, interval].max
   end
 
-  def aired_at
-    if @anime.aired_on && @anime.aired_on.to_datetime >= 1.day.ago
-      @anime.aired_on.to_datetime
-    end
-  end
-
   def broadcast_at
-    return unless @anime.broadcast_at
+    return unless super
 
-    if @anime.broadcast_at > 1.hour.ago
-      @anime.broadcast_at
-    elsif last_news && @anime.broadcast_at - last_news.created_at < 14.days
-      @anime.broadcast_at + 1.week
+    if super > 1.hour.ago
+      super
+    elsif last_news && super - last_news.created_at < 14.days
+      super + 1.week
     end
   end
 
   def episode_news_topics
-    @anime.episode_news_topics.select { |v| v.locale == 'ru' }
+    super.select { |v| v.locale == 'ru' }
   end
 end
