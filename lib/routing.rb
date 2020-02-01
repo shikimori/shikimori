@@ -113,7 +113,7 @@ module Routing
     #   return image_url
     # end
 
-    if image_url.ends_with?('eot', 'svg', 'ttf', 'woff', 'woff2', 'css')
+    if image_url.match? /\.(?:eot|svg|ttf|woff|woff2|css)(?:$|\?)/
       return image_url
     end
 
