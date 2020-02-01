@@ -30,10 +30,10 @@ class CalendarsQuery
   def cache_key
     [
       :calendar,
-      :v3,
       AnimeCalendar.last.try(:id),
       Topics::NewsTopic.last.try(:id),
-      Time.zone.today.to_s
+      Time.zone.today.to_s,
+      :v4
     ]
   end
 
