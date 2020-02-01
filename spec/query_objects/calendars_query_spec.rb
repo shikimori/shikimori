@@ -37,7 +37,7 @@ describe CalendarsQuery do
     end
   end
 
-  context 'announced', :focus do
+  context 'announced' do
     let!(:old) do
       create :anime, :anons,
         name: 'old',
