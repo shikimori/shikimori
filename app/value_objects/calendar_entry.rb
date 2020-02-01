@@ -5,6 +5,7 @@ class CalendarEntry < SimpleDelegator
 
   DEFAULT_TV_DURATION = 26
   EPISODES_FOR_AVERAGE_INTERVAL = 2
+  ANNOUNCE_DATE_OFFSET = 9.hours
 
   def initialize anime
     raise ArgumentError, 'object must be decorated' unless anime.decorated?
@@ -31,7 +32,9 @@ class CalendarEntry < SimpleDelegator
   end
 
   def next_episode_start_at
-    next_episode_at
+    next_episode_at || (
+      aired_on.in_time_zone + ANNOUNCE_DATE_OFFSET if anons? && aired_on
+    )
   end
 
   def next_episode_end_at

@@ -15,9 +15,8 @@ class CalendarsQuery
 
   def fetch
     # Rails.cache.fetch cache_key do
-    entries = (fetch_ongoings + fetch_announced).map do |anime|
-      CalendarEntry.new(anime.decorate)
-    end
+    entries = (fetch_ongoings + fetch_announced)
+      .map { |anime| CalendarEntry.new(anime.decorate) }
 
     exclude_overdue(
       entries
@@ -96,17 +95,20 @@ private
       .references(:anime_calendars)
       .where(status: :anons) # .where(id: 31680)
       .where(kind: %i[tv ona])
-      .where(episodes_aired: 0)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where(
-        "anime_calendars.episode=1 or (
-          anime_calendars.episode is null and aired_on >= :from and
-          aired_on <= :to and aired_on != :new_year)",
+        "(
+          anime_calendars.start_at is not null and
+            start_at >= :from and
+            start_at <= :to
+        ) or (
+          aired_on >= :from and
+            aired_on <= :to and aired_on != :new_year
+        )",
         from: ANNOUNCED_FROM.ago.to_date,
         to: ANNOUNCED_UNTIL.from_now.to_date,
         new_year: Time.zone.today.beginning_of_year.to_date
       )
-      .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
       .where.not(
         Arel.sql(
           "anime_calendars.episode is null
@@ -115,6 +117,7 @@ private
         )
       )
       .order(Arel.sql('animes.id'))
+      # .where(Arel.sql("kind != 'ona' or anime_calendars.episode is not null"))
   end
 
   # выкидывание просроченных аниме
