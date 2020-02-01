@@ -7,17 +7,30 @@ describe CalendarsQuery do
     let!(:anime_1) { create :anime, name: '1' }
 
     let!(:anime_2) { create :anime, :ongoing, name: '2', next_episode_at: 1.hour.from_now }
-    let!(:anime_3) { create :anime, :ongoing, name: '3', duration: 20, next_episode_at: 2.hours.from_now }
+    let!(:anime_3) do
+      create :anime, :ongoing, name: '3', duration: 20, next_episode_at: 2.hours.from_now
+    end
     let!(:anime_4) { create :anime, :ongoing, :ova, name: '4' }
-    let!(:anime_5) { create :anime, :ongoing, name: '5', episodes_aired: 0, aired_on: Time.zone.now - 1.day - 1.month }
+    let!(:anime_5) do
+      create :anime, :ongoing,
+        name: '5',
+        episodes_aired: 0,
+        aired_on: Time.zone.now - 1.day - 1.month
+    end
 
     let!(:anime_6) { create :anime, :anons, name: '6', aired_on: 1.day.from_now }
     let!(:anime_7) { create :anime, :anons, name: '7', aired_on: 2.days.from_now }
     let!(:anime_8) { create :anime, :anons, name: '8', aired_on: 2.days.from_now }
 
+    describe 'ongoings query' do
+      it { expect(query.send :fetch_ongoings).to eq [anime_2, anime_3] }
+    end
+
+    describe 'anonses query' do
+      it { expect(query.send :fetch_announced).to eq [anime_6, anime_7, anime_8] }
+    end
+
     it do
-      expect(query.send :fetch_ongoings).to eq [anime_2, anime_3]
-      expect(query.send :fetch_anonses).to eq [anime_6, anime_7, anime_8]
       expect(query.fetch).to eq [anime_2, anime_3, anime_6, anime_7, anime_8]
       expect(query.fetch_grouped).to have(3).items
     end
