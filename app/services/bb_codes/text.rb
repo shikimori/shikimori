@@ -96,6 +96,10 @@ private
       BbCodes::Tags::CleanupNewLines::TAGS
     )
 
+    # must be in the beginning to avaid collisions
+    # when other bbcodes coud produce text that can be accidentally treated as db_entry mention
+    text = BbCodes::DbEntryMention.call text
+
     HASH_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text, text_hash
     end
@@ -109,7 +113,6 @@ private
     end
 
     text = text.gsub OBSOLETE_TAGS, ''
-    text = BbCodes::DbEntryMention.call text
 
     DB_ENTRY_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text
