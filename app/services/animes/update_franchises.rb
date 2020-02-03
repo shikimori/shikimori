@@ -56,13 +56,13 @@ private
   def cant_rename? entries, franchise
     entries.first.anime? &&
       NekoRepository.instance.find(franchise, 1) != Neko::Rule::NO_RULE &&
-        !animes_left_in_franchise?(entries, franchise)
+        no_animes_left_in_franchise?(entries, franchise)
   end
 
-  def animes_left_in_franchise? entries, franchise
+  def no_animes_left_in_franchise? entries, franchise
     Anime
       .where(franchise: franchise)
       .where.not(id: entries.map(&:id))
-      .any?
+      .none?
   end
 end
