@@ -20043,6 +20043,7 @@
         - 33221
         - 35949
         - 36436
+        - 32158
       :threshold: 88.9%
       :generator:
         ignore_latest_ids:
@@ -20101,6 +20102,7 @@
         - 33221
         - 35949
         - 36436
+        - 32158
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -26303,7 +26305,7 @@
     :border_color: 
     :title_ru: Несравненная принцесса любви
     :text_ru: 
-    :title_en: Shin Koihime†Musou
+    :title_en: Koihime†Musou
     :text_en: 
     :topic_id: 247360
     :rule: &500
@@ -26324,7 +26326,7 @@
   border_color: 
   title_ru: Несравненная принцесса любви
   text_ru: 
-  title_en: Shin Koihime†Musou
+  title_en: Koihime†Musou
   text_en: 
   topic_id: 247360
   rule: *500
@@ -26337,7 +26339,7 @@
     :border_color: 
     :title_ru: Несравненная принцесса любви
     :text_ru: 
-    :title_en: Shin Koihime†Musou
+    :title_en: Koihime†Musou
     :text_en: 
     :topic_id: 247360
     :rule: &501
@@ -26358,7 +26360,7 @@
   border_color: 
   title_ru: Несравненная принцесса любви
   text_ru: 
-  title_en: Shin Koihime†Musou
+  title_en: Koihime†Musou
   text_en: 
   topic_id: 247360
   rule: *501
