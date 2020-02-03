@@ -9,7 +9,7 @@ class AnimesCollection::View < ViewObjectBase
   SEASON_LIMIT = 1000
 
   DEFAULT_ORDER = 'ranked'
-  CACHE_VERSION = 21
+  CACHE_VERSION = 22
 
   def collection
     if season_page?
