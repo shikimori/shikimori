@@ -29,7 +29,7 @@ describe Animes::UpdateFranchises do
     end
 
     describe 'scope passed to call method' do
-      subject!(:call) { described_class.new.call [anime_1, anime_2] }
+      subject! { described_class.new.call [anime_1, anime_2] }
 
       let!(:relation_23) { nil }
       let!(:relation_32) { nil }
@@ -44,10 +44,27 @@ describe Animes::UpdateFranchises do
     describe 'safe achievement franchises rename' do
       let(:franchise) { 'gintama' }
 
-      it do
-        expect { call }.to raise_error(
-          "cant't rename `gintama` -> `test` because found in NekoRepository"
-        )
+      context 'no animes left in the franchise' do
+        it do
+          expect { call }.to raise_error(
+            "cant't rename `gintama` -> `test` because found in NekoRepository"
+          )
+        end
+      end
+
+      context 'have animes left in the franchise' do
+        let!(:anime_4) { create :anime, name: franchise, franchise: franchise }
+        let!(:anime_5) { create :anime, name: "#{franchise} 2", franchise: franchise }
+        let!(:relation_45) { create :related_anime, source: anime_4, anime: anime_5 }
+        before { call }
+
+        it do
+          expect(anime_1.reload.franchise).to eq 'test'
+          expect(anime_2.reload.franchise).to eq 'test'
+          expect(anime_3.reload.franchise).to eq 'test'
+          expect(anime_4.reload.franchise).to eq franchise
+          expect(anime_5.reload.franchise).to eq franchise
+        end
       end
     end
   end
