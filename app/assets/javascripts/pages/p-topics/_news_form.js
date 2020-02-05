@@ -3,8 +3,8 @@ import Wall from 'views/wall/view';
 
 pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   const $form = $('.b-form.edit_topic, .b-form.new_topic');
-  const $linkedId = $('#topic_linked_id', $form);
-  const $linkedType = $('#topic_linked_type', $form);
+  // const $linkedId = $('#topic_linked_id', $form);
+  // const $linkedType = $('#topic_linked_type', $form);
 
   // poster upload
   const $upload = $('.topic-posters .b-dropzone', $form);
@@ -53,8 +53,8 @@ id='${data.id}'>\
   const $attach = $('.attach', $topicVideoForm);
 
   $attach.on('click', () => {
-    const animeId = linkedAnimeId($linkedType, $linkedId);
-    const url = $attach.data('url').replace('ANIME_ID', animeId || 0);
+    // const animeId = linkedAnimeId($linkedType, $linkedId);
+    const url = $attach.data('url'); // .replace('ANIME_ID', animeId || 0);
     const form = {
       video: {
         // anime_id: animeId,
