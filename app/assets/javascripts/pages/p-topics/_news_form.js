@@ -54,7 +54,7 @@ id='${data.id}'>\
 
   $attach.on('click', () => {
     // const animeId = linkedAnimeId($linkedType, $linkedId);
-    const url = $attach.data('url'); // .replace('ANIME_ID', animeId || 0);
+    const url = $attach.data('url').replace('ANIME_ID', 0); // .replace('ANIME_ID', animeId || 0);
     const form = {
       video: {
         // anime_id: animeId,
