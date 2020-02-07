@@ -116,18 +116,19 @@ class Users::StatisticsQuery
           history.value = rate.episodes > 0 ? rate.episodes : rate.chapters
         end
       end
-      .select { |history| history.value.to_i > 0 }
+      .select { |history| history.value.to_i.positive? }
 
     histories += added
 
-    imported = Set.new histories
+    imported = Set.new(histories)
       .select do |v|
         v.action == UserHistoryAction::STATUS ||
           v.action == UserHistoryAction::COMPLETE_WITH_SCORE
       end
       .group_by { |v| v.updated_at.strftime DATE_FORMAT }
       .select { |_k, v| v.size > 15 }
-      .values.flatten
+      .values
+      .flatten
       .map(&:id)
 
     # переписываем rates_cache на нужный нам формат данных
@@ -136,7 +137,9 @@ class Users::StatisticsQuery
       rez["#{v.target_id}#{v.target_type}"] = {
         duration: v[:duration],
         completed: 0,
-        episodes: v[:entry_episodes] > 0 ? v[:entry_episodes] : v[:entry_episodes_aired]
+        episodes: (
+          v[:entry_episodes] > 0 ? v[:entry_episodes] : v[:entry_episodes_aired]
+        )
       }
     end
 
@@ -173,7 +176,8 @@ class Users::StatisticsQuery
 
       next if from > Time.zone.now || from > end_date + 1.hour
 
-      history = histories.select { |v| v.updated_at >= from && v.updated_at < to }
+      history = histories
+        .select { |v| v.updated_at >= from && v.updated_at < to }
 
       spent_time = 0
 
