@@ -48,12 +48,12 @@ private
 
   def match calendars
     calendars.each do |calendar|
-      if FIXES[:matches][calendar[:title]]
-        calendar[:anime] = find_anime FIXES[:matches][calendar[:title]]
-
-      else
-        calendar[:anime] = match_anime calendar[:title]
-      end
+      calendar[:anime] =
+        if FIXES[:matches][calendar[:title]]
+          find_anime FIXES[:matches][calendar[:title]]
+        else
+          match_anime calendar[:title]
+        end
     end
   end
 
@@ -71,14 +71,14 @@ private
         anime: nil,
         title: title,
         start_at: i_data.dtstart - 4.hours,
-        episode: episode - (FIXES[:episodes_diff][title] || 0),
+        episode: episode - (FIXES[:episodes_diff][title] || 0)
       }
     end
   end
 
   def calendars_data
     raw_data = Rails.cache.fetch(:ical_calendar, expires_in: 1.hours) do
-      open(CALENDAR_URL).read
+      OpenURI.open_uri(CALENDAR_URL).read
     end
 
     Icalendar::Calendar.parse raw_data
@@ -87,7 +87,7 @@ private
   def find_anime anime_id
     @db_cache ||= {}
 
-    if @db_cache.keys.include? anime_id
+    if @db_cache.key?(anime_id)
       @db_cache[anime_id]
     else
       @db_cache[anime_id] = Anime.find_by id: anime_id
@@ -97,7 +97,7 @@ private
   def match_anime name
     @matches_cache ||= {}
 
-    if @matches_cache.keys.include? name
+    if @matches_cache.key?(name)
       @matches_cache[name]
 
     else
