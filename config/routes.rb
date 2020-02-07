@@ -586,9 +586,12 @@ Rails.application.routes.draw do
     #get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
   end
 
-  resources :imageboards, only: [], concerns: %i[autocompletable] do
+  resources :imageboards, only: [], concerns: %i[autocompletable]
+  resources :imageboards, only: [] do
+    # in order to have higher priority the route must be placed below autocompletable
     get ':url' => :index, as: :fetch, url: /.*/, on: :collection
   end
+
   resources :coubs, only: [] do
     # autocomplete is added manually, not through cocern
     # because it must be defined before fetch method (it must have higher priority)
