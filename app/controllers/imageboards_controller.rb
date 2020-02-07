@@ -13,7 +13,7 @@ class ImageboardsController < ShikimoriController
   def index
     Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       url = Base64.decode64 URI.decode(params[:url])
-      raise Forbidden, url unless url.match? VALID_URL
+      raise CanCan::AccessDenied, url unless url.match? VALID_URL
 
       json = PgCache.fetch pg_cache_key, expires_in: EXPIRES_IN do
         content = OpenURI.open_uri(url, USER_AGENT_WITH_SSL).read

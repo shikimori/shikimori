@@ -201,7 +201,7 @@ class CosplayController < ShikimoriController
           @target.cosplayers << cosplayer unless @target.cosplayers.all.include?(cosplayer)
         end
       end
-      raise Forbidden if @target.id == @source.id
+      raise CanCan::AccessDenied if @target.id == @source.id
       @source.move_to(@target)
       redirect_to edit_cosplay_cosplay_gallery_url(params[:cosplay_id], @target) and return
     end

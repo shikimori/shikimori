@@ -164,7 +164,10 @@ class Users::ProfileStatsQuery
   end
 
   def scores_by_type type
-    stats.by_criteria(:score, 1.upto(10).to_a.reverse)[type.to_sym]
+    stats.by_criteria(
+      :score,
+      1.upto(10).to_a.reverse
+    )[type.to_sym]
   end
 
   def kinds_by_type type

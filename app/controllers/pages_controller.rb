@@ -132,7 +132,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
   end
 
   def admin_panel # rubocop:disable all
-    raise Forbidden unless user_signed_in? && current_user.admin?
+    raise CanCan::AccessDenied unless user_signed_in? && current_user.admin?
 
     @code =
       if Rails.env.production?

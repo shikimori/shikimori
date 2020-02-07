@@ -198,7 +198,7 @@ class TestsController < ShikimoriController
   end
 
   def votes
-    raise Forbidden unless current_user&.admin?
+    raise CanCan::AccessDenied unless current_user&.admin?
     return render plain: 'votable_type is not set' if params[:votable_type].blank?
     return render plain: 'votable_id is not set' if params[:votable_id].blank?
 
