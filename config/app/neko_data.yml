@@ -28860,6 +28860,7 @@
         - 20919
         - 29974
         - 27417
+        - 35079
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -29250,6 +29251,7 @@
         - 20919
         - 29974
         - 27417
+        - 35079
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -29642,6 +29644,7 @@
         - 20919
         - 29974
         - 27417
+        - 35079
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
