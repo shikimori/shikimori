@@ -61,7 +61,6 @@ module Shikimori
     I18n::InvalidLocale
     Unicorn::ClientShutdown
     Unauthorized
-    Forbidden
     AgeRestricted
     MismatchedEntries
     CopyrightedResource

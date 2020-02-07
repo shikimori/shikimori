@@ -96,7 +96,7 @@ class ShikimoriController < ApplicationController
     unless current_user.can_post?
       banned_till = current_user.read_only_at.strftime('%H:%M %d.%m.%Y')
 
-      raise Forbidden, t(
+      raise CanCan::AccessDenied, t(
         'shikimori_controller.you_are_banned',
         datetime: banned_till,
         gender: current_user.sex

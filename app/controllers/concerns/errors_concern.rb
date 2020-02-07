@@ -37,7 +37,7 @@ module ErrorsConcern
     raise error if (request.ip == '127.0.0.1' || request.ip == '::1') && (
       !error.is_a?(AgeRestricted) &&
       !error.is_a?(CopyrightedResource) &&
-      !error.is_a?(Forbidden)
+      !error.is_a?(CanCan::AccessDenied)
     )
 
     if NOT_FOUND_ERRORS.include? error.class
@@ -46,7 +46,7 @@ module ErrorsConcern
     elsif error.is_a?(AgeRestricted)
       age_restricted_error(error)
 
-    elsif error.is_a?(Forbidden) || error.is_a?(CanCan::AccessDenied)
+    elsif error.is_a?(CanCan::AccessDenied)
       forbidden_error(error)
 
     elsif error.is_a?(StatusCodeError)
