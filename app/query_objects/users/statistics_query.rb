@@ -22,8 +22,7 @@ class Users::StatisticsQuery
         animes.episodes as entry_episodes, animes.episodes_aired as entry_episodes_aired')
       .map { |anime| ExtendedUserRate.new anime }
 
-    @anime_valuable_rates = @anime_rates
-      .select { |v| v.completed? || v.watching? || v.rewatching? }
+    @anime_valuable_rates = @anime_rates.reject(&:dropped?)
     @anime_history = @user
       .history
       .where(target_type: Anime.name)
@@ -51,8 +50,7 @@ class Users::StatisticsQuery
         mangas.chapters as entry_chapters, mangas.volumes as entry_volumes")
       .map { |manga| ExtendedUserRate.new manga }
 
-    @manga_valuable_rates = @manga_rates
-      .select { |v| v.completed? || v.watching? || v.rewatching? }
+    @manga_valuable_rates = @manga_rates.reject(&:dropped?)
     @manga_history = @user
       .history
       .where(target_type: Manga.name)
