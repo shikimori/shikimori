@@ -5,5 +5,12 @@ json.array! @collection.reverse do |entry|
 
   json.data entry.id
   json.value name
-  json.label render('suggest', entry: entry, entry_name: name)
+  json.label render(
+    partial: 'suggest',
+    locals: {
+      entry: entry,
+      entry_name: name
+    },
+    formats: :html
+  )
 end
