@@ -41,7 +41,7 @@ private
 
     case season
       when 'winter'
-        date_from = Date.new(year, 1) - 8.days
+        date_from = Date.new(year, 1) - 9.days
         date_to = Date.new(year, 4) - 9.days
         additionals =
           if @klass == Anime
@@ -52,15 +52,15 @@ private
         additional = " and (#{additionals})"
 
       when 'spring'
-        date_from = Date.new(year, 4) - 8.days
+        date_from = Date.new(year, 4) - 9.days
         date_to = Date.new(year, 7) - 9.days
 
       when 'summer'
-        date_from = Date.new(year, 7) - 8.days
+        date_from = Date.new(year, 7) - 9.days
         date_to = Date.new(year, 10) - 9.days
 
       when 'fall'
-        date_from = Date.new(year, 10) - 8.days
+        date_from = Date.new(year, 10) - 9.days
         date_to = Date.new(year + 1, 1) - 9.days
 
       else
