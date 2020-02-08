@@ -33,6 +33,7 @@ update_times = ->
 update_time = (node) ->
   $node = $(node)
   timeinfo = get_timeinfo($node)
+
   new_value =
     if timeinfo.format == '1_day_absolute'
       if timeinfo.moment.unix() > moment().subtract(1, 'day').unix()
