@@ -1,4 +1,5 @@
 class ListImport < ApplicationRecord
+  include AntispamConcern
   include Translation
 
   antispam per_day: 10, user_id_key: :user_id
@@ -39,7 +40,8 @@ class ListImport < ApplicationRecord
         application/gzip
         text/plain
       ]
-    }
+    },
+    if: :pending?
 
   after_create :schedule_worker
 
