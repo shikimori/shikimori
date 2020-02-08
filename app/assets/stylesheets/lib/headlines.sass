@@ -214,25 +214,18 @@ header.head
   width: 248px
   z-index: 1
 
-  +gte_ipad
-    font-size: 12px
-    line-height: 18px
-
-  +iphone
-    font-size: 13px
-    line-height: 21px
-    padding-bottom: 2px
-    padding-top: 2px
-
   +iphone-portrait
     margin-bottom: 10px
     position: initial
     width: 100%
 
+  +iphone-landscape
+    line-height: 28px
+
   +gte_laptop
-    margin-right: 4px
-    margin-top: 4px
-    line-height: 20px
+    margin-right: 3px
+    margin-top: 3px
+    line-height: 22px
 
   &.downgrade_landscape
     +iphone-landscape
