@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_04_133010) do
+ActiveRecord::Schema.define(version: 2020_02_08_114418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -571,10 +571,10 @@ ActiveRecord::Schema.define(version: 2020_02_04_133010) do
 
   create_table "list_imports", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "list_file_name", null: false
-    t.string "list_content_type", null: false
-    t.integer "list_file_size", null: false
-    t.datetime "list_updated_at", null: false
+    t.string "list_file_name"
+    t.string "list_content_type"
+    t.integer "list_file_size"
+    t.datetime "list_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "state", null: false
