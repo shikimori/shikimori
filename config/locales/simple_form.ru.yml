@@ -75,7 +75,7 @@ ru:
         author_name: >-
           Формат записи: Название_проекта/студии (Ник_даббера1 & Ник_даббера2)
       list_import:
-        list: Поддерживает Shikimori JSON и MyAnimeList XML списки
+        list: Поддерживает Shikimori JSON и MyAnimeList XML списки (до 15mb)
 
     magic_submit:
       devise:
