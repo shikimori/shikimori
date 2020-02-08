@@ -164,10 +164,12 @@ module Shikimori
       IPAddr.new proxy
     end
 
-    config.action_mailer.default_url_options = { host: Shikimori::DOMAIN }
+    config.action_mailer.default_url_options = {
+      host: Shikimori::DOMAIN
+    }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      address: 'smtp.mailgun.org',
+      address: 'smtp.eu.mailgun.org',
       port: 587,
       user_name: Rails.application.secrets.mailgun[:login],
       password: Rails.application.secrets.mailgun[:password],
