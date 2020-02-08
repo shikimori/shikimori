@@ -37,7 +37,8 @@ class ListImport < ApplicationRecord
         application/gzip
         text/plain
       ]
-    }
+    },
+    size: { in: 0..2.megabytes }
 
   after_create :schedule_worker
 
