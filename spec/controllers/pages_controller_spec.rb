@@ -66,23 +66,24 @@ describe PagesController do
   end
 
   describe 'admin_panel' do
+    subject { get :admin_panel }
     context 'guest' do
-      before { get :admin_panel }
-      it { is_expected.to respond_with 403 }
+      it { expect { subject }.to raise_error CanCan::AccessDenied }
     end
 
     context 'user' do
       include_context :authenticated, :user
-      before { get :admin_panel }
-      it { is_expected.to respond_with 403 }
+      it { expect { subject }.to raise_error CanCan::AccessDenied }
     end
 
     context 'admin' do
       include_context :authenticated, :admin
 
-      before { allow_any_instance_of(PagesController).to receive(:`).and_return '' }
-      before { allow(Rails.application.redis).to receive(:info).and_return('db0' => '=,') }
-      before { get :admin_panel }
+      before do
+        allow_any_instance_of(PagesController).to receive(:`).and_return ''
+        allow(Rails.application.redis).to receive(:info).and_return('db0' => '=,')
+      end
+      before { subject }
 
       it { expect(response).to have_http_status :success }
     end
