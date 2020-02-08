@@ -209,8 +209,6 @@ header.head
 // инпунт с правого края заголовка
 .subheadline-input
   +input
-  margin-right: 2px
-  margin-top: 2px
   position: absolute
   right: 0
   width: 248px
@@ -230,6 +228,11 @@ header.head
     margin-bottom: 10px
     position: initial
     width: 100%
+
+  +gte_laptop
+    margin-right: 4px
+    margin-top: 4px
+    line-height: 20px
 
   &.downgrade_landscape
     +iphone-landscape
