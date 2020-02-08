@@ -75,6 +75,8 @@ module Clockwork
     Votable::CleanupCheatBotVotes.perform_async
     Users::CleanupDoorkeeperTokens.perform_async
     Users::MarkAsCompletedAnnouncedAnimes.perform_async
+
+    ListImports::Cleanup.perform_async
   end
 
   every 1.day, 'daily.torrents-check', at: '03:00' do
