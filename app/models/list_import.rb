@@ -1,6 +1,8 @@
 class ListImport < ApplicationRecord
   include Translation
 
+  antispam per_day: 10, user_id_key: :user_id
+
   ERROR_EXCEPTION = 'error_exception'
   ERROR_BROKEN_FILE = 'broken_file'
   ERROR_EMPTY_LIST = 'empty_list'
@@ -37,8 +39,7 @@ class ListImport < ApplicationRecord
         application/gzip
         text/plain
       ]
-    },
-    size: { in: 0..2.megabytes }
+    }
 
   after_create :schedule_worker
 
