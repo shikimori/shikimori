@@ -2,7 +2,10 @@ json.content render(
   partial: 'animes/variants/list_item',
   collection: @collection,
   as: :entry,
-  locals: { no_user_rate: true, with_status: true },
+  locals: {
+    no_user_rate: true,
+    with_status: true
+  },
   formats: :html
 )
 
