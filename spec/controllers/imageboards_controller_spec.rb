@@ -5,14 +5,20 @@ describe ImageboardsController do
     let(:data) { [{ 'url' => url, 'test' => 'test' }] }
 
     before { stub_request(:any, url).to_return body: data.to_json }
-    subject! { get :index, params: { url: URI.encode(Base64.encode64(url).strip) } }
+    subject do
+      get :index,
+        params: {
+          url: URI.encode(Base64.encode64(url).strip)
+        }
+    end
 
     context 'not allowed url' do
       let(:url) { 'http://lenta.ru/image.jpg' }
-      it { expect(response).to be_forbidden }
+      it { expect { subject }.to raise_error CanCan::AccessDenied }
     end
 
     context 'allowed url' do
+      before { subject }
       let(:url) { 'https://yande.re/post/index.json?page=1&limit=100&tags=kaichou_wa_maid-sama!' }
       it { expect(JSON.parse(response.body)).to eq data }
     end
