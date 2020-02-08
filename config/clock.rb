@@ -111,7 +111,7 @@ module Clockwork
     UserImagesCleaner.perform_async
     SakuhindbImporter.perform_async with_fail: true
     # SubtitlesImporter.perform_async :latest
-    BadVideosCleaner.perform_async
+    # BadVideosCleaner.perform_async
     Screenshots::Cleanup.perform_async
 
     MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 100
