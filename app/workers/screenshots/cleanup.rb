@@ -1,4 +1,4 @@
-class CleanupScreenshots
+class Screenshots::Cleanup
   include Sidekiq::Worker
   MAXIMUM_SCREENSHOTS = 75
 
