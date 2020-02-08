@@ -47,30 +47,44 @@ describe CommentsController do
   end
 
   describe '#fetch' do
-    it do
-      get :fetch, params: { comment_id: comment.id, topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10 }
-      expect(response).to have_http_status :success
+    subject do
+      get :fetch,
+        params: {
+          comment_id: comment_id,
+          topic_type: Topic.name,
+          topic_id: topic_id,
+          skip: 1,
+          limit: 10
+        }
+    end
+    let(:comment_id) { comment.id }
+    let(:topic_id) { offtopic_topic.id }
+
+    describe do
+      before { subject }
+      it { expect(response).to have_http_status :success }
     end
 
-    it 'not_found for wrong comment' do
-      expect do
-        get :fetch, params: { comment_id: (comment.id + 1), topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10 }
-      end.to raise_error ActiveRecord::RecordNotFound
+    context 'non existing comment' do
+      let(:comment_id) { comment.id + 999 }
+      it { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
     end
 
-    it 'not_found for wrong topic' do
-      expect do
-        get :fetch, params: { comment_id: comment.id, topic_type: Topic.name, topic_id: (offtopic_topic.id + 1), skip: 1, limit: 10 }
-      end.to raise_error ActiveRecord::RecordNotFound
+    context 'non existing topic' do
+      let(:topic_id) { offtopic_topic.id + 999 }
+      it { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
     end
 
-    it 'forbidden for mismatched comment and topic' do
-      comment = create :comment, topic: create(:topic)
-      get :fetch, params: { comment_id: comment.id, topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10 }
-      expect(response).to be_forbidden
+    context 'comment of another topic' do
+      let(:comment_id) { comment_2.id }
+      let(:comment_2) { create :comment, topic: create(:topic) }
+      it { expect { subject }.to raise_error CanCan::AccessDenied }
+    end
 
-      get :fetch, params: { comment_id: comment.id, topic_type: Topic.name, topic_id: create(:topic).id, skip: 1, limit: 10 }
-      expect(response).to be_forbidden
+    context 'topic of another comment' do
+      let(:topic_id) { topic_2.id }
+      let(:topic_2) { create :topic }
+      it { expect { subject }.to raise_error CanCan::AccessDenied }
     end
   end
 
