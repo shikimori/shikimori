@@ -29,11 +29,11 @@ describe ListImport do
   describe 'callbacks' do
     describe '#schedule_worker' do
       let(:list_import) { build :list_import, :with_schedule }
-      before { allow(ListImports::Worker).to receive :perform_async }
+      before { allow(ListImports::ImportWorker).to receive :perform_async }
       subject! { list_import.save! }
 
       it do
-        expect(ListImports::Worker)
+        expect(ListImports::ImportWorker)
           .to have_received(:perform_async)
           .with list_import.id
       end

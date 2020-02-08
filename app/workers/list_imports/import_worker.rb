@@ -1,4 +1,4 @@
-class ListImports::Worker
+class ListImports::ImportWorker
   include Sidekiq::Worker
   sidekiq_options queue: :imports
 

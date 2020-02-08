@@ -1,5 +1,5 @@
-describe ListImports::Worker do
-  let(:worker) { ListImports::Worker.new }
+describe ListImports::ImportWorker do
+  let(:worker) { described_class.new }
   let(:list_import) { create :list_import, state }
 
   before { allow(ListImports::Import).to receive :call }

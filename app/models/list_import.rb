@@ -52,6 +52,6 @@ class ListImport < ApplicationRecord
 private
 
   def schedule_worker
-    ListImports::Worker.perform_async id
+    ListImports::ImportWorker.perform_async id
   end
 end
