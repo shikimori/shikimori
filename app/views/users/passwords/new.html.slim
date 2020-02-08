@@ -5,10 +5,12 @@ header.head.m15
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   - if f.object.errors.any? || flash[:recaptcha_error].present?
     .b-errors
-      .subheadline.m5 = t '.errors'
+      .subheadline.m5 = t 'errors'
       .block
-        p == f.object.errors.full_messages.join('<br>')
-        p = flash[:recaptcha_error]
+        - if f.object.errors.any?
+          p == f.object.errors.full_messages.join('<br>')
+        - if flash[:recaptcha_error].present?
+          p = flash[:recaptcha_error]
 
   .block
     = f.input :email,

@@ -1,5 +1,6 @@
 class Users::ListImportsController < ProfilesController
   load_and_authorize_resource
+
   before_action do
     @back_url = edit_profile_url @user, page: :list
     breadcrumb t(:settings), edit_profile_url(@user, page: :list)
@@ -11,7 +12,7 @@ class Users::ListImportsController < ProfilesController
   end
 
   def create
-    if @resource.save
+    if verify_recaptcha && @resource.save
       redirect_to profile_list_import_url(@user, @resource)
     else
       new

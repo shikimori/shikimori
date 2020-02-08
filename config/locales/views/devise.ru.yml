@@ -1,7 +1,6 @@
 ru:
   devise:
     common: &common
-      errors: Ошибки
       forgot_password: Забыли пароль?
       sign_in: Войти в уже существующий аккаунт
       sign_up: Зарегистрировать новый аккаунт

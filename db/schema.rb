@@ -571,7 +571,7 @@ ActiveRecord::Schema.define(version: 2020_02_08_114418) do
 
   create_table "list_imports", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "list_file_name"
+    t.string "list_file_name", null: false
     t.string "list_content_type"
     t.integer "list_file_size"
     t.datetime "list_updated_at"

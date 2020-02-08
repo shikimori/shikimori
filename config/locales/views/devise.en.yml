@@ -1,7 +1,6 @@
 en:
   devise:
     common: &common
-      errors: Errors
       forgot_password: Forgot your password?
       sign_in: Sign in
       sign_up: Sign up
