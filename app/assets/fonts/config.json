@@ -725,6 +725,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "27b13eff5eb0ca15e01a6e65ffe6eeec",
+      "css": "sort-alt-down",
+      "code": 61793,
+      "src": "fontawesome"
+    },
+    {
       "uid": "180ceba44a3c8a0e0215fcc4ae5169f4",
       "css": "schedule",
       "code": 59443,

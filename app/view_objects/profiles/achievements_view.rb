@@ -71,7 +71,7 @@ private
     count + (missing_row_count == ACHIEVEMENTS_PER_ROW ? 0 : missing_row_count)
   end
 
-  def franchise_sort_criteria rule
+  def franchise_sort_criteria rule # rubocop:disable AbcSize
     if h.cookies[:franchises_order] == 'alphabet'
       rule_name = rule.title(h.current_user, h.ru_host?).downcase.gsub(/[^[:alnum:]]+/, '')
 
@@ -81,6 +81,8 @@ private
           rule_name,
         rule.level
       ]
+    elsif h.cookies[:franchises_order] == 'progress'
+      [-rule.progress] + rule.sort_criteria
     else
       rule.sort_criteria
     end
@@ -93,20 +95,22 @@ private
   end
 
   def type_achievements_size type
-    type_achievements(type).select { |rule| rule.level.positive? }.size
+    type_achievements(type).count { |rule| rule.level.positive? }
   end
 
   def all_type_achievements type
+    user_type_achievements = type_achievements type
+
     NekoRepository
       .instance
       .select { |v| v.send :"#{type}?" }
       .select { |rule| type != :franchise || rule.level.zero? }
+      .map { |rule| user_type_achievements.find { |v| v.neko_id == rule.neko_id } || rule }
       .sort_by { |rule| franchise_sort_criteria rule }
   end
 
   def all_type_achievements_size type
     all_type_achievements(type)
-      .select { |rule| (rule.franchise? && rule.level.zero?) || rule.level == 1 }
-      .size
+      .count { |rule| (rule.franchise? && rule.level.zero?) || rule.level == 1 }
   end
 end

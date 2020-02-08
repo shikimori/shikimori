@@ -1,11 +1,11 @@
 = render layout: 'page' do
-  .b-options-floated.mobile-phone.before-buttons-2
+  .b-options-floated.mobile-phone.before-buttons-3
     | #{@view.franchise_achievements_size} / #{@view.all_franchise_achievements_size}
 
   .subheadline-buttons
     = render 'blocks/list_switchers',
       name: 'franchises_order',
-      values: %w(popularity alphabet)
+      values: %w[popularity alphabet progress]
 
   h2.subheadline = og.headline
   .cc

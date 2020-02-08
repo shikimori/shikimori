@@ -8,6 +8,7 @@ en:
       posters: Display as posters
       popularity: Order by popularity
       alphabet: Order by alphabet
+      progress: Order by completion percentage
     ignored:
       topic:
         ignored_user: Topic of ignored user
