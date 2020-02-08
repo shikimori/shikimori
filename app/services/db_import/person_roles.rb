@@ -22,9 +22,13 @@ private
   def import person_roles
     PersonRole.import person_roles
 
-    now = Time.zone.now
-    Character.where(id: person_roles.map(&:character_id).compact).update_all(updated_at: now)
-    Person.where(id: person_roles.map(&:person_id).compact).update_all(updated_at: now)
+    Character
+      .where(id: person_roles.map(&:character_id).compact)
+      .update_all updated_at: Time.zone.now
+
+    Person
+      .where(id: person_roles.map(&:person_id).compact)
+      .update_all updated_at: Time.zone.now
   end
 
   def build person_roles, target_id_key
