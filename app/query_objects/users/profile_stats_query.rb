@@ -4,8 +4,9 @@ class Users::ProfileStatsQuery
 
   vattr_initialize :user
 
-  instance_cache :stats
-  instance_cache :anime_spent_time, :manga_spent_time, :spent_time
+  instance_cache :stats, :anime_spent_time, :manga_spent_time, :spent_time
+
+  CACHE_VERSION = :v5
 
   def to_profile_stats
     stats_hash = Profiles::Stats.attributes.each_with_object({}) do |k, memo|
@@ -184,7 +185,7 @@ class Users::ProfileStatsQuery
   end
 
   def stats
-    Rails.cache.fetch [:user_statistics_query, :v4, user] do
+    Rails.cache.fetch [:user_statistics_query, user, CACHE_VERSION] do
       Users::StatisticsQuery.new user
     end
   end
