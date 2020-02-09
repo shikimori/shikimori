@@ -23,7 +23,7 @@ AllCops:
     - lib/dsl_attribute.rb
   UseCache: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
   AllowURI: true
   IgnoreCopDirectives: true
