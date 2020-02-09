@@ -8,7 +8,12 @@ describe ExternalLink do
     it { is_expected.to validate_presence_of :kind }
     it { is_expected.to validate_presence_of :source }
     it { is_expected.to validate_presence_of :url }
-    # it { is_expected.to validate_uniqueness_of(:url).scoped_to(:entry_id, :entry_type, :source) }
+
+    # describe 'checksum' do
+    #   let(:anime) { create :anime }
+    #   subject { build :external_link, entry: anime }
+    #   it { is_expected.to validate_uniqueness_of :checksum }
+    # end
   end
 
   describe 'enumerize' do
@@ -16,6 +21,13 @@ describe ExternalLink do
     it { is_expected.to enumerize(:source).in(*Types::ExternalLink::Source.values) }
   end
 
+  describe 'callbacks' do
+    describe '#compute_checksum' do
+      let(:anime) { create :anime, id: 1 }
+      let(:external_link) { create :external_link, entry: anime }
+      it { expect(external_link.checksum).to eq 'f794d7a0f8e6369163e0294db4b268a4' }
+    end
+  end
   describe 'instance methods' do
     describe '#url=' do
       let(:external_link) { build :external_link, url: 'zzz' }

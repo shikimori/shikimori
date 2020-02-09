@@ -48,9 +48,9 @@ describe DbEntry::MergeIntoOther do
   let!(:favourite_1_2) { create :favourite, linked: entry_2, user: user_1 }
   let!(:favourite_2_1) { create :favourite, linked: entry_1, user: user_2 }
 
-  let!(:external_link_1_1) { create :external_link, entry: entry_1, url: 'a' }
-  let!(:external_link_1_2) { create :external_link, entry: entry_1, url: 'b' }
-  let!(:external_link_2_1) { create :external_link, entry: entry_2, url: 'a' }
+  let!(:external_link_1_1) { create :external_link, entry: entry_1, url: 'https://a.com/' }
+  let!(:external_link_1_2) { create :external_link, entry: entry_1, url: 'http://b.com' }
+  let!(:external_link_2_1) { create :external_link, entry: entry_2, url: 'http://a.com' }
 
   subject! { described_class.call entry: entry_1, other: entry_2 }
 

@@ -2,8 +2,7 @@ class ExternalLink < ApplicationRecord
   belongs_to :entry, polymorphic: true, touch: true
   validates :entry, :source, :kind, :url, presence: true
 
-  validates :url,
-    uniqueness: { scope: %i[entry_id entry_type source] }
+  validates :checksum, uniqueness: true
 
   enumerize :kind,
     in: Types::ExternalLink::Kind.values,
@@ -12,6 +11,14 @@ class ExternalLink < ApplicationRecord
   enumerize :source,
     in: Types::ExternalLink::Source.values,
     predicates: { prefix: true }
+
+  before_validation :compute_checksum, if: -> {
+    new_record? ||
+      will_save_change_to_url? ||
+      will_save_change_to_entry_id? ||
+      will_save_change_to_entry_type? ||
+      will_save_change_to_source?
+  }
 
   WIKIPEDIA_LABELS = {
     ru: 'Википедия',
@@ -49,5 +56,18 @@ class ExternalLink < ApplicationRecord
     else
       kind_text
     end
+  end
+
+private
+
+  def compute_checksum
+    self.checksum = Digest::MD5.hexdigest(
+      <<~HASH
+        #{url}
+        #{entry_id}
+        #{entry_type}
+        #{source}
+      HASH
+    )
   end
 end
