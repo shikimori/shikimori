@@ -63,7 +63,7 @@ private
   def compute_checksum
     self.checksum = Digest::MD5.hexdigest(
       <<~HASH
-        #{url}
+        #{Url.new(url).without_protocol.cut_slash if url.present?}
         #{entry_id}
         #{entry_type}
         #{source}

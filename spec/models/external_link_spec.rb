@@ -25,7 +25,7 @@ describe ExternalLink do
     describe '#compute_checksum' do
       let(:anime) { create :anime, id: 1 }
       let(:external_link) { create :external_link, entry: anime }
-      it { expect(external_link.checksum).to eq 'f794d7a0f8e6369163e0294db4b268a4' }
+      it { expect(external_link.checksum).to eq '85050d13de8bb1bb9083fbb810a0e338' }
     end
   end
   describe 'instance methods' do

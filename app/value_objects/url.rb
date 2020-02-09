@@ -66,6 +66,10 @@ class Url
     chain @url.sub(%r{\A(https?://)?[\w_-]+\.([\w_-]+\.[\w_-]+)}, '\1\2')
   end
 
+  def cut_slash
+    chain @url.sub(%r{/\Z}, '')
+  end
+
   def params hash
     @url.split('?').first + '?' + query_string_updated(hash)
   end

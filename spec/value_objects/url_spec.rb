@@ -214,6 +214,18 @@ describe Url do
     end
   end
 
+  describe '#cut_slash' do
+    subject { url.cut_slash.to_s }
+
+    let(:string) do
+      %w[
+        http://test.org/test/
+        http://test.org/test
+      ].sample
+    end
+    it { is_expected.to eq 'http://test.org/test' }
+  end
+
   describe '#params' do
     subject { url.params(hash) }
     let(:hash) do
