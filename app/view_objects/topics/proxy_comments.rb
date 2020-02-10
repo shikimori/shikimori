@@ -12,7 +12,11 @@ class Topics::ProxyComments < Topics::CommentsView
   end
 
   def faye_channel
-    ["#{model.class.name.underscore}-#{model.id}"]
+    channel = model.is_a?(User) ?
+      FayePublisher::PROFILE_FAYE_CHANNEL :
+      model.class.name.underscore
+
+    ["#{channel}-#{model.id}"]
   end
 
   def comments_limit

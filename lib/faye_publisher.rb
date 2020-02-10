@@ -3,6 +3,9 @@
 class FayePublisher # rubocop:disable ClassLength
   BROADCAST_FEED = 'broadcast'
 
+  PROFILE_FAYE_CHANNEL = 'profile'
+  TOPIC_FAYE_CHANNEL = 'topic'
+
   def self.faye_url
     shiki_domain = UrlGenerator.instance.shiki_domain
     faye_host = Rails.application.secrets[:faye][:host].gsub('%DOMAIN%', shiki_domain)
@@ -135,7 +138,9 @@ private
 
   def comment_channels comment, channels
     topic = comment.commentable
-    topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
+    topic_type = comment.commentable_type == User.name ?
+      PROFILE_FAYE_CHANNEL :
+      TOPIC_FAYE_CHANNEL
 
     mixed_channels = channels +
       subscribed_channels(topic) + linked_channels(topic) +
