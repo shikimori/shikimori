@@ -20623,219 +20623,153 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :yowamushi_pedal
+    :neko_id: :initial_d
     :level: 1
-    :image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
+    :image: "/assets/achievements/anime/franchise/initial_d.jpg"
     :border_color: 
-    :title_ru: Трусливый велосипедист
+    :title_ru: Инициал Ди
     :text_ru: 
-    :title_en: Yowamushi Pedal
+    :title_en: Initial D
     :text_en: 
     :topic_id: 247360
     :rule: &318
       :algo: duration
       :filters:
-        franchise: yowamushi_pedal
+        franchise: initial_d
         not_anime_ids:
-        - 25755
-        - 30790
-        - 35880
+        - 821
+        - 12725
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :yowamushi_pedal
+  neko_id: :initial_d
   level: 1
-  image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
+  image: "/assets/achievements/anime/franchise/initial_d.jpg"
   border_color: 
-  title_ru: Трусливый велосипедист
+  title_ru: Инициал Ди
   text_ru: 
-  title_en: Yowamushi Pedal
+  title_en: Initial D
   text_en: 
   topic_id: 247360
   rule: *318
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :yowamushi_pedal
+    :neko_id: :initial_d
     :level: 0
-    :image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
+    :image: "/assets/achievements/anime/franchise/initial_d.jpg"
     :border_color: 
-    :title_ru: Трусливый велосипедист
+    :title_ru: Инициал Ди
     :text_ru: 
-    :title_en: Yowamushi Pedal
+    :title_en: Initial D
     :text_en: 
     :topic_id: 247360
     :rule: &319
       :algo: duration
       :filters:
-        franchise: yowamushi_pedal
+        franchise: initial_d
         not_anime_ids:
-        - 25755
-        - 30790
-        - 35880
+        - 821
+        - 12725
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :yowamushi_pedal
+  neko_id: :initial_d
   level: 0
-  image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
+  image: "/assets/achievements/anime/franchise/initial_d.jpg"
   border_color: 
-  title_ru: Трусливый велосипедист
+  title_ru: Инициал Ди
   text_ru: 
-  title_en: Yowamushi Pedal
+  title_en: Initial D
   text_en: 
   topic_id: 247360
   rule: *319
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :initial_d
+    :neko_id: :macross
     :level: 1
-    :image: "/assets/achievements/anime/franchise/initial_d.jpg"
+    :image: "/assets/achievements/anime/franchise/macross.jpg"
     :border_color: 
-    :title_ru: Инициал Ди
+    :title_ru: Макросс
     :text_ru: 
-    :title_en: Initial D
+    :title_en: Macross
     :text_en: 
     :topic_id: 247360
     :rule: &320
       :algo: duration
       :filters:
-        franchise: initial_d
+        franchise: macross
         not_anime_ids:
-        - 821
-        - 12725
+        - 1211
+        - 4939
+        - 10050
+        - 10361
+        - 28809
+        - 31494
+        - 33806
+        - 35077
+        - 38675
+        - 38676
       :threshold: 95%
+      :generator:
+        ignore_latest_ids:
+        - 38373
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :initial_d
+  neko_id: :macross
   level: 1
-  image: "/assets/achievements/anime/franchise/initial_d.jpg"
+  image: "/assets/achievements/anime/franchise/macross.jpg"
   border_color: 
-  title_ru: Инициал Ди
+  title_ru: Макросс
   text_ru: 
-  title_en: Initial D
+  title_en: Macross
   text_en: 
   topic_id: 247360
   rule: *320
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
-    :neko_id: :initial_d
+    :neko_id: :macross
     :level: 0
-    :image: "/assets/achievements/anime/franchise/initial_d.jpg"
+    :image: "/assets/achievements/anime/franchise/macross.jpg"
     :border_color: 
-    :title_ru: Инициал Ди
+    :title_ru: Макросс
     :text_ru: 
-    :title_en: Initial D
+    :title_en: Macross
     :text_en: 
     :topic_id: 247360
     :rule: &321
       :algo: duration
       :filters:
-        franchise: initial_d
+        franchise: macross
         not_anime_ids:
-        - 821
-        - 12725
+        - 1211
+        - 4939
+        - 10050
+        - 10361
+        - 28809
+        - 31494
+        - 33806
+        - 35077
+        - 38675
+        - 38676
       :threshold: 0.01
+      :generator:
+        ignore_latest_ids:
+        - 38373
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
-  neko_id: :initial_d
+  neko_id: :macross
   level: 0
-  image: "/assets/achievements/anime/franchise/initial_d.jpg"
+  image: "/assets/achievements/anime/franchise/macross.jpg"
   border_color: 
-  title_ru: Инициал Ди
+  title_ru: Макросс
   text_ru: 
-  title_en: Initial D
+  title_en: Macross
   text_en: 
   topic_id: 247360
   rule: *321
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :macross
-    :level: 1
-    :image: "/assets/achievements/anime/franchise/macross.jpg"
-    :border_color: 
-    :title_ru: Макросс
-    :text_ru: 
-    :title_en: Macross
-    :text_en: 
-    :topic_id: 247360
-    :rule: &322
-      :algo: duration
-      :filters:
-        franchise: macross
-        not_anime_ids:
-        - 1211
-        - 4939
-        - 10050
-        - 10361
-        - 28809
-        - 31494
-        - 33806
-        - 35077
-        - 38675
-        - 38676
-      :threshold: 95%
-      :generator:
-        ignore_latest_ids:
-        - 38373
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :macross
-  level: 1
-  image: "/assets/achievements/anime/franchise/macross.jpg"
-  border_color: 
-  title_ru: Макросс
-  text_ru: 
-  title_en: Macross
-  text_en: 
-  topic_id: 247360
-  rule: *322
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :macross
-    :level: 0
-    :image: "/assets/achievements/anime/franchise/macross.jpg"
-    :border_color: 
-    :title_ru: Макросс
-    :text_ru: 
-    :title_en: Macross
-    :text_en: 
-    :topic_id: 247360
-    :rule: &323
-      :algo: duration
-      :filters:
-        franchise: macross
-        not_anime_ids:
-        - 1211
-        - 4939
-        - 10050
-        - 10361
-        - 28809
-        - 31494
-        - 33806
-        - 35077
-        - 38675
-        - 38676
-      :threshold: 0.01
-      :generator:
-        ignore_latest_ids:
-        - 38373
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
-  default_values: *2
-  neko_id: :macross
-  level: 0
-  image: "/assets/achievements/anime/franchise/macross.jpg"
-  border_color: 
-  title_ru: Макросс
-  text_ru: 
-  title_en: Macross
-  text_en: 
-  topic_id: 247360
-  rule: *323
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -20848,7 +20782,7 @@
     :title_en: Tenchi Muyou!
     :text_en: 
     :topic_id: 247360
-    :rule: &324
+    :rule: &322
       :algo: duration
       :filters:
         franchise: tenchi_muyou
@@ -20869,7 +20803,7 @@
   title_en: Tenchi Muyou!
   text_en: 
   topic_id: 247360
-  rule: *324
+  rule: *322
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -20882,7 +20816,7 @@
     :title_en: Tenchi Muyou!
     :text_en: 
     :topic_id: 247360
-    :rule: &325
+    :rule: &323
       :algo: duration
       :filters:
         franchise: tenchi_muyou
@@ -20903,7 +20837,7 @@
   title_en: Tenchi Muyou!
   text_en: 
   topic_id: 247360
-  rule: *325
+  rule: *323
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -20916,7 +20850,7 @@
     :title_en: Utawarerumono
     :text_en: 
     :topic_id: 247360
-    :rule: &326
+    :rule: &324
       :algo: duration
       :filters:
         franchise: utawarerumono
@@ -20935,7 +20869,7 @@
   title_en: Utawarerumono
   text_en: 
   topic_id: 247360
-  rule: *326
+  rule: *324
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -20948,7 +20882,7 @@
     :title_en: Utawarerumono
     :text_en: 
     :topic_id: 247360
-    :rule: &327
+    :rule: &325
       :algo: duration
       :filters:
         franchise: utawarerumono
@@ -20967,7 +20901,7 @@
   title_en: Utawarerumono
   text_en: 
   topic_id: 247360
-  rule: *327
+  rule: *325
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -20980,7 +20914,7 @@
     :title_en: Detective Conan
     :text_en: 
     :topic_id: 247360
-    :rule: &328
+    :rule: &326
       :algo: duration
       :filters:
         franchise: detective_conan
@@ -21001,7 +20935,7 @@
   title_en: Detective Conan
   text_en: 
   topic_id: 247360
-  rule: *328
+  rule: *326
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21014,7 +20948,7 @@
     :title_en: Detective Conan
     :text_en: 
     :topic_id: 247360
-    :rule: &329
+    :rule: &327
       :algo: duration
       :filters:
         franchise: detective_conan
@@ -21035,7 +20969,7 @@
   title_en: Detective Conan
   text_en: 
   topic_id: 247360
-  rule: *329
+  rule: *327
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21048,7 +20982,7 @@
     :title_en: Hajime no Ippo
     :text_en: 
     :topic_id: 247360
-    :rule: &330
+    :rule: &328
       :algo: duration
       :filters:
         franchise: hajime_no_ippo
@@ -21064,7 +20998,7 @@
   title_en: Hajime no Ippo
   text_en: 
   topic_id: 247360
-  rule: *330
+  rule: *328
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21077,7 +21011,7 @@
     :title_en: Hajime no Ippo
     :text_en: 
     :topic_id: 247360
-    :rule: &331
+    :rule: &329
       :algo: duration
       :filters:
         franchise: hajime_no_ippo
@@ -21093,7 +21027,7 @@
   title_en: Hajime no Ippo
   text_en: 
   topic_id: 247360
-  rule: *331
+  rule: *329
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21106,7 +21040,7 @@
     :title_en: Hetalia
     :text_en: 
     :topic_id: 247360
-    :rule: &332
+    :rule: &330
       :algo: duration
       :filters:
         franchise: hetalia
@@ -21126,7 +21060,7 @@
   title_en: Hetalia
   text_en: 
   topic_id: 247360
-  rule: *332
+  rule: *330
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21139,7 +21073,7 @@
     :title_en: Hetalia
     :text_en: 
     :topic_id: 247360
-    :rule: &333
+    :rule: &331
       :algo: duration
       :filters:
         franchise: hetalia
@@ -21159,7 +21093,7 @@
   title_en: Hetalia
   text_en: 
   topic_id: 247360
-  rule: *333
+  rule: *331
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21172,7 +21106,7 @@
     :title_en: WIXOSS
     :text_en: 
     :topic_id: 247360
-    :rule: &334
+    :rule: &332
       :algo: duration
       :filters:
         franchise: selector_spread_wixoss
@@ -21191,7 +21125,7 @@
   title_en: WIXOSS
   text_en: 
   topic_id: 247360
-  rule: *334
+  rule: *332
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21204,7 +21138,7 @@
     :title_en: WIXOSS
     :text_en: 
     :topic_id: 247360
-    :rule: &335
+    :rule: &333
       :algo: duration
       :filters:
         franchise: selector_spread_wixoss
@@ -21223,7 +21157,7 @@
   title_en: WIXOSS
   text_en: 
   topic_id: 247360
-  rule: *335
+  rule: *333
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21236,7 +21170,7 @@
     :title_en: Yozakura Quartet
     :text_en: 
     :topic_id: 247360
-    :rule: &336
+    :rule: &334
       :algo: duration
       :filters:
         franchise: yozakura_quartet
@@ -21252,7 +21186,7 @@
   title_en: Yozakura Quartet
   text_en: 
   topic_id: 247360
-  rule: *336
+  rule: *334
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21265,7 +21199,7 @@
     :title_en: Yozakura Quartet
     :text_en: 
     :topic_id: 247360
-    :rule: &337
+    :rule: &335
       :algo: duration
       :filters:
         franchise: yozakura_quartet
@@ -21281,7 +21215,7 @@
   title_en: Yozakura Quartet
   text_en: 
   topic_id: 247360
-  rule: *337
+  rule: *335
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21294,7 +21228,7 @@
     :title_en: Strike Witches
     :text_en: 
     :topic_id: 247360
-    :rule: &338
+    :rule: &336
       :algo: duration
       :filters:
         franchise: brave_witches
@@ -21313,7 +21247,7 @@
   title_en: Strike Witches
   text_en: 
   topic_id: 247360
-  rule: *338
+  rule: *336
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21326,7 +21260,7 @@
     :title_en: Strike Witches
     :text_en: 
     :topic_id: 247360
-    :rule: &339
+    :rule: &337
       :algo: duration
       :filters:
         franchise: brave_witches
@@ -21345,7 +21279,7 @@
   title_en: Strike Witches
   text_en: 
   topic_id: 247360
-  rule: *339
+  rule: *337
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21358,7 +21292,7 @@
     :title_en: InuYasha
     :text_en: 
     :topic_id: 247360
-    :rule: &340
+    :rule: &338
       :algo: duration
       :filters:
         franchise: inuyasha
@@ -21374,7 +21308,7 @@
   title_en: InuYasha
   text_en: 
   topic_id: 247360
-  rule: *340
+  rule: *338
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
@@ -21387,7 +21321,7 @@
     :title_en: InuYasha
     :text_en: 
     :topic_id: 247360
-    :rule: &341
+    :rule: &339
       :algo: duration
       :filters:
         franchise: inuyasha
@@ -21401,6 +21335,72 @@
   title_ru: Инуяся
   text_ru: 
   title_en: InuYasha
+  text_en: 
+  topic_id: 247360
+  rule: *339
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :yowamushi_pedal
+    :level: 1
+    :image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
+    :border_color: 
+    :title_ru: Трусливый велосипедист
+    :text_ru: 
+    :title_en: Yowamushi Pedal
+    :text_en: 
+    :topic_id: 247360
+    :rule: &340
+      :algo: duration
+      :filters:
+        franchise: yowamushi_pedal
+        not_anime_ids:
+        - 25755
+        - 30790
+        - 35880
+      :threshold: 95%
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :yowamushi_pedal
+  level: 1
+  image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
+  border_color: 
+  title_ru: Трусливый велосипедист
+  text_ru: 
+  title_en: Yowamushi Pedal
+  text_en: 
+  topic_id: 247360
+  rule: *340
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
+    :neko_id: :yowamushi_pedal
+    :level: 0
+    :image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
+    :border_color: 
+    :title_ru: Трусливый велосипедист
+    :text_ru: 
+    :title_en: Yowamushi Pedal
+    :text_en: 
+    :topic_id: 247360
+    :rule: &341
+      :algo: duration
+      :filters:
+        franchise: yowamushi_pedal
+        not_anime_ids:
+        - 25755
+        - 30790
+        - 35880
+      :threshold: 0.01
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
+  default_values: *2
+  neko_id: :yowamushi_pedal
+  level: 0
+  image: "/assets/achievements/anime/franchise/yowamushi_pedal.jpg"
+  border_color: 
+  title_ru: Трусливый велосипедист
+  text_ru: 
+  title_en: Yowamushi Pedal
   text_en: 
   topic_id: 247360
   rule: *341
