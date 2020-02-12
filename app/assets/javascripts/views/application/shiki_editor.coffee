@@ -142,7 +142,7 @@ export default class ShikiEditor extends ShikiView
       .completable()
       .on 'autocomplete:success autocomplete:text',  (e, result) =>
         $radio = @$('.links input[type=radio]:checked')
-        radio_type = $radio.prop('id').replace('link_type_', '')
+        radio_type = $radio.val()
 
         param = if Object.isString(result)
           if radio_type == 'url'
@@ -347,11 +347,11 @@ export default class ShikiEditor extends ShikiView
     $.scrollTo @$root unless @$('.editor-controls').is(':appeared')
 
   _mark_offtopic: (is_offtopic) ->
-    @$('#comment_is_offtopic').val if is_offtopic then 'true' else 'false'
+    @$('input[name="comment[is_offtopic]"]').val(if is_offtopic then 'true' else 'false')
     @$('.b-offtopic_marker').toggleClass 'off', !is_offtopic
 
   _mark_review: (is_review) ->
-    @$('#comment_is_summary').val if is_review then 'true' else 'false'
+    @$('input[name="comment[is_summary]"]').val(if is_review then 'true' else 'false')
     @$('.b-summary_marker').toggleClass 'off', !is_review
 
   # очистка редактора

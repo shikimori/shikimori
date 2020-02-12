@@ -112,7 +112,9 @@
     span = Person.model_name.human.downcase
 
   .input-container
-    = text_field_tag 'link_value', '', class: 'link-value ac_input'
+    = text_field_tag 'link_value', '',
+      class: 'link-value ac_input',
+      id: nil
     .b-button.ok data-type='links' OK
 
 .images.hidden.hidden-block
@@ -120,7 +122,8 @@
   .input-container
     = text_field_tag 'image_value', '',
       class: 'link-value',
-      placeholder: t('.links.placeholder.image_url')
+      placeholder: t('.links.placeholder.image_url'),
+      id: nil
 
     .b-button.ok data-type='images' OK
 
@@ -130,7 +133,8 @@
     = text_field_tag 'quote_value', '',
       class: 'link-value ac_input',
       placeholder: t('.links.placeholder.user_name'),
-      'data-autocomplete' => autocomplete_users_url
+      'data-autocomplete' => autocomplete_users_url,
+      id:nil
 
     .b-button.ok data-type='quotes' OK
 
@@ -141,16 +145,16 @@
     - if defined? f
       - if f.object.kind_of? Comment
         - if f.object.persisted?
-          = f.input :user_id, as: :hidden
-        = f.input :commentable_id, as: :hidden
-        = f.input :commentable_type, as: :hidden
-        = f.input :is_offtopic, as: :hidden
-        = f.input :is_summary, as: :hidden
+          = f.input :user_id, as: :hidden, input_html: { id: nil }
+        = f.input :commentable_id, as: :hidden, input_html: { id: nil }
+        = f.input :commentable_type, as: :hidden, input_html: { id: nil }
+        = f.input :is_offtopic, as: :hidden, input_html: { id: nil }
+        = f.input :is_summary, as: :hidden, input_html: { id: nil }
 
       - elsif f.object.kind_of? Message
-        = f.input :kind, as: :hidden
-        = f.input :from_id, as: :hidden
-        = f.input :to_id, as: :hidden
+        = f.input :kind, as: :hidden, input_html: { id: nil }
+        = f.input :from_id, as: :hidden, input_html: { id: nil }
+        = f.input :to_id, as: :hidden, input_html: { id: nil }
       - else
         - raise ArgumentError, f.object
 
@@ -161,7 +165,8 @@
           placeholder: (browser.ie? ? '' : t('.comment')),
           tabindex: 0,
           'data-upload_url' => api_user_images_url(linked_type: Comment.name),
-          'data-item_type' => item_type\
+          'data-item_type' => item_type,
+          id: nil\
         }
     - else
       = text_area_tag field_name, text,
@@ -169,25 +174,35 @@
         placeholder: (browser.ie? ? '' : t('.text')),
         tabindex: 0,
         'data-upload_url' => api_user_images_url(linked_type: nil),
-        'data-item_type' => item_type
+        'data-item_type' => item_type,
+        id: nil
   .preview
 
 footer
   - if defined?(f)
     - if comment.persisted?
-      = f.button :magic_submit
-      .b-button.preview tabindex='0' data-preview_url=preview_url = t '.preview'
+      = f.button :magic_submit, id: nil
+      .b-button.preview[
+        tabindex='0'
+        data-preview_url=preview_url
+      ] = t '.preview'
       .unpreview tabindex='0' = t '.back_to_editing'
       .cancel tabindex='0' = t 'actions.cancel'
 
     - else
       = f.button :magic_submit
       .unpreview tabindex='0' = t '.back_to_editing'
-      .b-button.preview tabindex='0' data-preview_url=preview_url = t '.preview'
+      .b-button.preview[
+        tabindex='0'
+        data-preview_url=preview_url
+      ] = t '.preview'
       .hide = t '.hide'
 
   - else
-    .b-button.preview tabindex='0' data-preview_url=preview_url = t '.preview'
+    .b-button.preview[
+      tabindex='0'
+      data-preview_url=preview_url
+    ] = t '.preview'
     .unpreview tabindex='0' = t '.back_to_editing'
 
   .about-bb_codes
