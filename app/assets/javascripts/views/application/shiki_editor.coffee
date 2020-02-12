@@ -215,7 +215,7 @@ export default class ShikiEditor extends ShikiView
         @$('.editor-quote').trigger('click')
 
     # построение бб-кода для url
-    @$('.links #link_type_url').on 'tag:build', (e, value) =>
+    @$('.links input[value=url]').on 'tag:build', (e, value) =>
       @$textarea.insertAtCaret(
         "[url=#{value}]",
         '[/url]',
@@ -224,20 +224,16 @@ export default class ShikiEditor extends ShikiView
 
     # построение бб-кода для аниме,манги,персонажа и человека
     LINK_TYPES = [
-      '.links #link_type_anime'
-      '.links #link_type_manga'
-      '.links #link_type_ranobe'
-      '.links #link_type_character'
-      '.links #link_type_person'
+      '.links input[value=anime]'
+      '.links input[value=manga]'
+      '.links input[value=ranobe]'
+      '.links input[value=character]'
+      '.links input[value=person]'
     ]
     @$(LINK_TYPES.join(',')).on 'tag:build', (e, data) =>
       @$textarea.insertAtCaret(
         "[#{data.type}=#{data.id}]", "[/#{data.type}]", data.text
       )
-    # @$('.links #link_type_ranobe').on 'tag:build', (e, data) =>
-      # @$textarea.insertAtCaret(
-        # "[#{data.type}=#{data.id}]", "[/#{data.type}]", data.text
-      # )
 
     # открытие блока со смайлами
     @$('.smileys').on 'click:open', (e) =>

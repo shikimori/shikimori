@@ -72,37 +72,43 @@
 .links.hidden.hidden-block
   label
     = radio_button_tag 'link_type', :url, false,
-      'data-placeholder' => t('.links.placeholder.page_url')
+      'data-placeholder' => t('.links.placeholder.page_url'),
+      id: nil
     span = t '.links.text.link'
 
   label
     = radio_button_tag 'link_type', :anime, false,
       'data-placeholder' => t('.links.placeholder.anime_title'),
-      'data-autocomplete' => autocomplete_animes_url
+      'data-autocomplete' => autocomplete_animes_url,
+      id: nil
     span = Anime.model_name.human.downcase
 
   label
     = radio_button_tag 'link_type', :manga, false,
       'data-placeholder' => t('.links.placeholder.manga_title'),
-      'data-autocomplete' => autocomplete_mangas_url
+      'data-autocomplete' => autocomplete_mangas_url,
+      id: nil
     span = Manga.model_name.human.downcase
 
   label
     = radio_button_tag 'link_type', :ranobe, false,
       'data-placeholder' => t('.links.placeholder.ranobe_title'),
-      'data-autocomplete' => autocomplete_ranobe_index_url
+      'data-autocomplete' => autocomplete_ranobe_index_url,
+      id: nil
     span = Ranobe.model_name.human.downcase
 
   label
     = radio_button_tag 'link_type', :character, false,
       'data-placeholder' => t('.links.placeholder.character_name'),
-      'data-autocomplete' => autocomplete_characters_url
+      'data-autocomplete' => autocomplete_characters_url,
+      id: nil
     span = Character.model_name.human.downcase
 
   label
     = radio_button_tag 'link_type', :person, false,
       'data-placeholder' => t('.links.placeholder.person_name'),
-      'data-autocomplete' => autocomplete_people_url
+      'data-autocomplete' => autocomplete_people_url,
+      id: nil
     span = Person.model_name.human.downcase
 
   .input-container
