@@ -67,7 +67,10 @@ class Video < ApplicationRecord
 
   def camo_image_url
     if vk?
-      UrlGenerator.instance.camo_url Url.new(image_url).with_http.to_s
+      UrlGenerator.instance.camo_url(
+        Url.new(image_url).with_http.to_s,
+        force_shikimori_one: true
+      )
     else
       image_url
     end
