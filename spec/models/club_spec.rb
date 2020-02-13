@@ -269,6 +269,11 @@ describe Club do
           it { is_expected.to be_able_to :invite, club }
         end
 
+        context 'member_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:member_invite] }
+          it { is_expected.to be_able_to :invite, club }
+        end
+
         context 'admin_invite' do
           let(:join_policy) { Types::Club::JoinPolicy[:admin_invite] }
           it { is_expected.to be_able_to :invite, club }
@@ -303,6 +308,11 @@ describe Club do
         describe 'join' do
           context 'free_join' do
             let(:join_policy) { Types::Club::JoinPolicy[:free] }
+            it { is_expected.to be_able_to :join, club }
+          end
+
+          context 'member_invite' do
+            let(:join_policy) { Types::Club::JoinPolicy[:member_invite] }
             it { is_expected.to be_able_to :join, club }
           end
 
@@ -344,6 +354,11 @@ describe Club do
       describe 'invite' do
         context 'free' do
           let(:join_policy) { Types::Club::JoinPolicy[:free] }
+          it { is_expected.to be_able_to :invite, club }
+        end
+
+        context 'member_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:member_invite] }
           it { is_expected.to be_able_to :invite, club }
         end
 
@@ -435,6 +450,11 @@ describe Club do
       describe 'invite' do
         context 'free' do
           let(:join_policy) { Types::Club::JoinPolicy[:free] }
+          it { is_expected.to be_able_to :invite, club }
+        end
+
+        context 'member_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:member_invite] }
           it { is_expected.to be_able_to :invite, club }
         end
 

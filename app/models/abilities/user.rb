@@ -193,6 +193,7 @@ class Abilities::User
     can :invite, Club do |club|
       club.member?(@user) && (
         club.join_policy_free? ||
+        (club.join_policy_member_invite? && (club.member?(@user) || club.owner?(@user))) ||
         (club.join_policy_admin_invite? && (club.admin?(@user) || club.owner?(@user))) ||
         (club.join_policy_owner_invite? && club.owner?(@user))
       )
