@@ -524,6 +524,7 @@ en:
     club:
       join_policy:
         free: Unrestricted
+        member_invite: Member invite only
         admin_invite: Admin invite only
         owner_invite: Owner invite only
       comment_policy:

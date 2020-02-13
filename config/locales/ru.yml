@@ -524,6 +524,7 @@ ru:
     club:
       join_policy:
         free: Свободное для всех желающих
+        member_invite: Только по приглашению участника
         admin_invite: Только по приглашению администрации
         owner_invite: Только по приглашению создателя
       comment_policy:

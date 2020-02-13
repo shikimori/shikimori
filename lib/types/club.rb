@@ -10,7 +10,7 @@ module Types
 
     JoinPolicy = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:free, :admin_invite, :owner_invite)
+      .enum(:free, :member_invite, :admin_invite, :owner_invite)
 
     TopicPolicy = Types::Strict::Symbol
       .constructor(&:to_sym)
