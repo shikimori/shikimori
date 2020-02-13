@@ -25,16 +25,16 @@ pageLoad('.db_entries-edit_field', () => {
         return `${text}`;
       };
 
-      $('[id$=_description_ru]', $form).val(
+      $('[name$="description_ru]"]', $form).val(
         newDescription(
-          $('[id$=_description_ru_text]', $form).val(),
-          $('[id$=_description_ru_source]', $form).val()
+          $('[name$="description_ru_text]"]', $form).val(),
+          $('[name$="description_ru_source]"]', $form).val()
         )
       );
-      $('[id$=_description_en]', $form).val(
+      $('[name$="description_en]"]', $form).val(
         newDescription(
-          $('[id$=_description_en_text]', $form).val(),
-          $('[id$=_description_en_source]', $form).val()
+          $('[name$="description_en_text]"]', $form).val(),
+          $('[name$="description_en_source]"]', $form).val()
         )
       );
     });
