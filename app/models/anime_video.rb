@@ -63,11 +63,6 @@ class AnimeVideo < ApplicationRecord # rubocop:disable all
       saved_change_to_anime_id?
   }
 
-  scope :allowed_play, -> { available.joins(:anime).where(PLAY_CONDITION) }
-  scope :allowed_xplay, -> { available.joins(:anime).where(XPLAY_CONDITION) }
-
-  scope :available, -> { where state: %w[working uploaded] }
-
   COPYRIGHT_BAN_ANIME_IDS = [-1]
 
   state_machine :state, initial: :working do
