@@ -28,14 +28,13 @@ class Profiles::AchievementsView < ViewObjectBase
     end
 
     define_method :"all_#{type}_achievements_size" do
-      all_type_achievements_size type
+      all_type_achievements(type).size
     end
   end
 
   def missing_franchise_achievements
     all_franchise_achievements
-      .reject { |rule| franchise_achievements.map(&:neko_id).include? rule.neko_id }
-      .select { |rule| rule.level.zero? }
+      .reject { |rule| rule.is_a? Achievement }
       .take(
         missing_franchise_achievements_size(
           genre_achievements.size,
@@ -103,14 +102,14 @@ private
 
     NekoRepository
       .instance
-      .select { |v| v.send :"#{type}?" }
+      .select { |rule| rule.send :"#{type}?" }
       .select { |rule| type != :franchise || rule.level.zero? }
-      .map { |rule| user_type_achievements.find { |v| v.neko_id == rule.neko_id } || rule }
+      .group_by(&:neko_id)
+      .map do |neko_id, rules|
+        user_type_achievements
+          .select { |v| v.neko_id == neko_id }
+          .max_by(&:level) || rules.min_by(&:level)
+      end
       .sort_by { |rule| franchise_sort_criteria rule }
-  end
-
-  def all_type_achievements_size type
-    all_type_achievements(type)
-      .count { |rule| (rule.franchise? && rule.level.zero?) || rule.level == 1 }
   end
 end
