@@ -18,62 +18,7 @@ describe AnimeVideo do
     it { is_expected.to enumerize(:quality).in :bd, :web, :tv, :dvd, :unknown }
   end
 
-  describe 'state_machine' do
-    subject(:video) { create :anime_video }
-
-    context 'initial' do
-      it { is_expected.to be_working }
-    end
-
-    context 'broken' do
-      before { video.broken }
-      it { is_expected.to be_broken }
-    end
-
-    context 'wrong' do
-      before { video.wrong }
-      it { is_expected.to be_wrong }
-    end
-
-    context 'ban' do
-      before { video.ban }
-      it { is_expected.to be_banned_hosting }
-    end
-  end
-
   describe 'instance methods' do
-    describe '#url=' do
-      let(:video) { build :anime_video, url: url }
-
-      describe 'new record' do
-        context 'normal url' do
-          let(:url) { 'http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16&hd=2' }
-          it { expect(video.url).to eq 'http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16' }
-        end
-
-        context 'url w/o http' do
-          let(:url) { 'vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16' }
-          it { expect(video.url).to eq "http://#{url}" }
-        end
-      end
-
-      describe 'persisted video', :vcr do
-        let(:video) { build_stubbed :anime_video, url: url }
-        let(:url) { 'http://rutube.ru/video/ef370e68cd9687a30ea67a68658c6ef8/?ref=logo' }
-        before { video.url = new_url }
-
-        describe 'indirect url' do
-          let(:new_url) { '<iframe width="720" height="405" src="//rutube.ru/play/embed/3599097" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
-          it { expect(video.url).to eq 'http://rutube.ru/play/embed/ef370e68cd9687a30ea67a68658c6ef8' }
-        end
-
-        describe 'direct url' do
-          let(:new_url) { 'http://rutube.ru/play/embed/3599097' }
-          it { expect(video.url).to eq 'http://rutube.ru/play/embed/ef370e68cd9687a30ea67a68658c6ef8' }
-        end
-      end
-    end
-
     describe '#hosting' do
       let(:anime_video) { build :anime_video }
       before { anime_video[:url] = url }
