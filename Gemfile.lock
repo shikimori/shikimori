@@ -71,9 +71,9 @@ GIT
 
 GIT
   remote: https://github.com/shikimori/mal_parser.git
-  revision: 249f7461862e269360a3139917c2cad8a5275844
+  revision: a223bdd0ab055cc581c1083284cd320afaa69d56
   specs:
-    mal_parser (0.1.1)
+    mal_parser (0.1.2)
       attr_extras
       nokogiri
 
@@ -152,7 +152,7 @@ GEM
       rails (>= 4.1)
     arel (9.0.0)
     ast (2.4.0)
-    attr_extras (6.2.1)
+    attr_extras (6.2.3)
     autoprefixer-rails (9.6.1.1)
       execjs
     awesome_print (1.8.0)
@@ -422,7 +422,7 @@ GEM
     net-ssh (5.2.0)
     newrelic_rpm (6.7.0.359)
     nio4r (2.5.2)
-    nokogiri (1.10.7)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
@@ -734,7 +734,6 @@ DEPENDENCIES
   browser
   bugsnag
   bullet
-  byebug
   cancancan!
   capistrano
   capistrano-bundler

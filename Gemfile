@@ -158,7 +158,6 @@ group :development do
 end
 
 gem 'awesome_print'
-gem 'byebug'
 gem 'colorize'
 gem 'pry-byebug'
 gem 'pry-rails'
