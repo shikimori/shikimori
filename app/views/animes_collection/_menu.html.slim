@@ -129,7 +129,7 @@
     .block.durations
       .subheadline.m5 = i18n_i 'Episode'
       ul.b-block_list.durations.anime-params
-        - ::Types::Anime::Duration.values.each do |value|
+        - Animes::Filters::ByDuration::DRY_TYPE.values.each do |value|
           li class="duration-#{value}"
             input type='checkbox' autocomplete='off'
             = t ".anime.duration.#{value}"

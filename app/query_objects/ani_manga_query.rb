@@ -4,11 +4,6 @@ class AniMangaQuery
   EXCLUDE_IDS_KEY = :exclude_ids
   EXCLUDE_AI_GENRES_KEY = :exclude_ai_genres
 
-  DURATION_SQL = {
-    S: '(duration >= 0 and duration <= 10)',
-    D: '(duration > 10 and duration <= 30)',
-    F: '(duration > 30)'
-  }
   DEFAULT_ORDER = 'ranked'
   GENRES_EXCLUDED_BY_SEX = {
     'male' => Genre::YAOI_IDS + Genre::SHOUNEN_AI_IDS,
@@ -64,7 +59,8 @@ class AniMangaQuery
       scope: @query,
       params: {
         kind: @kind,
-        rating: @rating
+        rating: @rating,
+        duration: @duration
       },
       user: @user
     )
@@ -201,27 +197,6 @@ private
 
     @score.split(',').each do |score|
       @query = @query.where("score >= #{score.to_i}")
-    end
-  end
-
-  # фильтрация по длительности эпизода
-  def duration!
-    return if @duration.blank?
-
-    durations = bang_split(@duration.split(','))
-
-    if durations[:include].any?
-      durations_sql = durations[:include]
-        .map { |duration| DURATION_SQL[Types::Anime::Duration[duration]] }
-        .join(' or ')
-      @query = @query.where durations_sql
-    end
-
-    if durations[:exclude].any?
-      durations_sql = durations[:exclude]
-        .map { |duration| DURATION_SQL[Types::Anime::Duration[duration]] }
-        .join(' or ')
-      @query = @query.where("not (#{durations_sql})")
     end
   end
 

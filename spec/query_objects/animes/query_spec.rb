@@ -17,11 +17,11 @@ describe Animes::Query do
   end
 
   context '#by_kind' do
-    let(:params) { { kind: 'tv' } }
+    let(:params) { { kind: 'zzz' } }
     before do
       allow(Animes::Filters::ByKind)
         .to receive(:call)
-        .with(Anime.all, 'tv')
+        .with(Anime.all, 'zzz')
         .and_return [anime]
     end
 
@@ -29,11 +29,23 @@ describe Animes::Query do
   end
 
   context '#by_rating' do
-    let(:params) { { rating: 'tv' } }
+    let(:params) { { rating: 'zzz' } }
     before do
       allow(Animes::Filters::ByRating)
         .to receive(:call)
-        .with(Anime.all, 'tv')
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
+  context '#by_duration' do
+    let(:params) { { rating: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByDuration)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
         .and_return [anime]
     end
 
