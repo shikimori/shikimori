@@ -41,7 +41,7 @@ describe Animes::Query do
   end
 
   context '#by_duration' do
-    let(:params) { { rating: 'zzz' } }
+    let(:params) { { duration: 'zzz' } }
     before do
       allow(Animes::Filters::ByDuration)
         .to receive(:call)

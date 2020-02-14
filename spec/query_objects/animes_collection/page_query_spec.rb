@@ -15,8 +15,8 @@ describe AnimesCollection::PageQuery do
   let!(:manga) { create :manga, ranked: 1 }
   let!(:ranobe) { create :ranobe, ranked: 2 }
 
-  let(:filters) { { type: type } }
-  let(:type) { nil }
+  let(:filters) { { kind: kind } }
+  let(:kind) { nil }
 
   context 'anime' do
     let(:klass) { Anime }
@@ -33,7 +33,7 @@ describe AnimesCollection::PageQuery do
       end
     end
 
-    context 'without type' do
+    context 'without kind' do
       it do
         is_expected.to have_attributes(
           collection: [anime_1, anime_2],
@@ -43,8 +43,8 @@ describe AnimesCollection::PageQuery do
       end
     end
 
-    context 'with type' do
-      let(:type) { 'tv' }
+    context 'with kind' do
+      let(:kind) { 'tv' }
       it do
         is_expected.to have_attributes(
           collection: [anime_1],
