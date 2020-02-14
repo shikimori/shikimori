@@ -5,6 +5,7 @@ class Animes::Query < QueryObjectBase
       .by_rating(params[:rating])
       .by_duration(params[:duration])
       .by_score(params[:score])
+      .by_franchise(params[:franchise])
   end
 
   def by_kind value
@@ -29,5 +30,11 @@ class Animes::Query < QueryObjectBase
     return self if value.blank?
 
     chain Animes::Filters::ByScore.call(@scope, value)
+  end
+
+  def by_franchise value
+    return self if value.blank?
+
+    chain Animes::Filters::ByFranchise.call(@scope, value)
   end
 end

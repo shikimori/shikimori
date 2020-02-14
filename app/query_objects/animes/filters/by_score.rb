@@ -16,9 +16,7 @@ class Animes::Filters::ByScore < Animes::Filters::FilterBase
       scope = scope.where(sql)
     end
 
-    if negatives.any?
-      fail_with negatives[0]
-    end
+    fail_with negatives[0] if negatives.any?
 
     scope
   end

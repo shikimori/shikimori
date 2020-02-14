@@ -61,7 +61,8 @@ class AniMangaQuery
         kind: @kind,
         rating: @rating,
         duration: @duration,
-        score: @score
+        score: @score,
+        franchise: @franchise
       },
       user: @user
     )
@@ -74,7 +75,6 @@ class AniMangaQuery
 
     season!
     status!
-    franchise!
     achievement!
 
     mylist!
@@ -226,23 +226,6 @@ private
         ')'
     end
     @query = @query.where query.join(' AND ') unless query.empty?
-  end
-
-  # filter by franchise
-  def franchise!
-    return if @franchise.blank?
-
-    franchises = bang_split @franchise.split(',')
-
-    if franchises[:include].any?
-      @query = @query.where(franchise: franchises[:include])
-    end
-    if franchises[:exclude].any?
-      @query = @query.where(
-        'franchise not in (?) or franchise is null',
-        franchises[:exclude]
-      )
-    end
   end
 
   # filter by achievement

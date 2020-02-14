@@ -63,4 +63,16 @@ describe Animes::Query do
 
     it { is_expected.to eq [anime] }
   end
+
+  context '#by_franchise' do
+    let(:params) { { franchise: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByFranchise)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
 end
