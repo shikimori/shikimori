@@ -8,6 +8,10 @@ module Types
       .constructor(&:to_sym)
       .enum(:anons, :ongoing, :released)
 
+    StatusExtended = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:anons, :ongoing, :released, :planned, :latest)
+
     Rating = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(:none, :g, :pg, :pg_13, :r, :r_plus, :rx)
@@ -15,10 +19,6 @@ module Types
     Duration = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(:S, :D, :F)
-
-    Status = Types::Strict::Symbol
-      .constructor(&:to_sym)
-      .enum(:anons, :ongoing, :released, :planned, :latest)
 
     OPTIONS = %i[
       strict_torrent_name_match

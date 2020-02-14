@@ -4,7 +4,7 @@ class Animes::StatusQuery
   LATEST_INTERVAL = 3.month
 
   def call
-    case Types::Anime::Status[@status]
+    case Types::Anime::StatusExtended[@status]
       when :anons, :ongoing, :released
         @scope.where(status: @status.to_s)
 
