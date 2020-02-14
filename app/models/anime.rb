@@ -202,7 +202,9 @@ class Anime < DbEntry
       other
       unknown
     ]
-  enumerize :status, in: %i[anons ongoing released], predicates: true
+  enumerize :status,
+    in: Types::Anime::Status.values,
+    predicates: true
   enumerize :rating,
     in: Types::Anime::Rating.values,
     predicates: { prefix: true }

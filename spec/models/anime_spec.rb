@@ -59,7 +59,7 @@ describe Anime do
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:kind).in :tv, :movie, :ova, :ona, :special, :music }
-    it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
+    it { is_expected.to enumerize(:status).in(*Types::Anime::Status.values) }
     it { is_expected.to enumerize(:rating).in(*Types::Anime::Rating.values) }
     it { is_expected.to enumerize(:origin) }
     it { is_expected.to enumerize(:options).in(*Types::Anime::Options.values) }

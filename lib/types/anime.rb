@@ -1,5 +1,9 @@
 module Types
   module Anime
+    Status = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:anons, :ongoing, :released)
+
     Rating = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(:none, :g, :pg, :pg_13, :r, :r_plus, :rx)
