@@ -1,6 +1,6 @@
 class Animes::Filters::Kind
   include Animes::Filters::Helpers
-  method_object :scope, :term
+  method_object :scope, :terms
 
   TV_13_SQL = <<~SQL.squish
     (
@@ -29,26 +29,28 @@ class Animes::Filters::Kind
     )
   SQL
 
+  SQL_BY_EPISODES = {
+    'tv_13' => TV_13_SQL,
+    'tv_24' => TV_24_SQL,
+    'tv_48' => TV_48_SQL
+  }
+
   def call
-    kinds[:complex].each do |kind|
-      with_bang = kind.starts_with? '!'
+    terms_by_kind = build_kinds parse_terms(@terms)
+    simple_queries = build_simple_queries terms_by_kind
+    complex_queries = build_complex_queries terms_by_kind
 
-      query_template =
-        case kind
-          when 'tv_13', '!tv_13' then TV_13_SQL
-          when 'tv_24', '!tv_24' then TV_24_SQL
-          when 'tv_48', '!tv_48' then TV_48_SQL
-        end
+    apply_scopes(
+      (simple_queries[:includes] + complex_queries[:includes]).compact,
+      (simple_queries[:excludes] + complex_queries[:excludes]).compact
+    )
+  end
 
-      complex_queries[with_bang ? :exclude : :include].push(
-        format(query_template, table_name: table_name)
-      )
-    end
+private
 
-    includes = (simple_queries[:include] + complex_queries[:include]).compact
-    excludes = (simple_queries[:exclude] + complex_queries[:exclude]).compact
-
+  def apply_scopes includes, excludes
     scope = @scope
+
     if includes.any?
       scope = scope.where includes.join(' or ')
     end
@@ -56,37 +58,39 @@ class Animes::Filters::Kind
     if excludes.any?
       scope = scope.where 'not(' + excludes.join(' or ') + ')'
     end
+
     scope
   end
 
-private
-
-  def kinds
-    @kinds ||= @term
-      .split(',')
-      .each_with_object(complex: [], simple: []) do |kind, memo|
-        memo[kind.match?(/tv_\d+/) ? :complex : :simple] << kind
-      end
+  def build_kinds terms
+    terms.each_with_object(complex: [], simple: []) do |term, memo|
+      memo[term.value.match?(/tv_\d+/) ? :complex : :simple] << term
+    end
   end
 
-  def simple_kinds
-    @simple_kinds ||= bang_split kinds[:simple]
-  end
+  def build_simple_queries terms_by_kind
+    includes = terms_by_kind[:simple].reject do |term|
+      term.is_negative ||
+        term.value == 'tv' && terms_by_kind[:complex].any? { |q| q.value =~ /^tv_/ }
+    end
+    excludes = terms_by_kind[:simple].select(&:is_negative)
 
-  def simple_queries
-    @simple_queries ||= {
-      include: simple_kinds[:include]
-        .delete_if { |term| term == 'tv' && kinds[:complex].any? { |q| q =~ /^tv_/ } }
-        .map { |term| "#{table_name}.kind = #{sanitize term}" },
-      exclude: simple_kinds[:exclude]
-        .map { |term| "#{table_name}.kind = #{sanitize term}" }
+    {
+      includes: includes.map { |term| "#{table_name}.kind = #{sanitize term.value}" },
+      excludes: excludes.map { |term| "#{table_name}.kind = #{sanitize term.value}" }
     }
   end
 
-  def complex_queries
-    @complex_queries ||= {
-      include: [],
-      exclude: []
-    }
+  def build_complex_queries terms_by_kind
+    complex_queries = { includes: [], excludes: [] }
+
+    terms_by_kind[:complex].each do |term|
+      key = term.is_negative ? :excludes : :includes
+      complex_queries[key].push(
+        format(SQL_BY_EPISODES[term.value], table_name: table_name)
+      )
+    end
+
+    complex_queries
   end
 end

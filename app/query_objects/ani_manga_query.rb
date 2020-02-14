@@ -19,7 +19,7 @@ class AniMangaQuery
 
   SEARCH_IDS_LIMIT = 250
 
-  def initialize klass, params, user=nil
+  def initialize klass, params, user = nil
     @params = params
 
     @klass = klass
@@ -40,7 +40,7 @@ class AniMangaQuery
     @achievement = params[:achievement]
 
     @mylist = params[:mylist].to_s.gsub(/\b\d\b/) do |status_id|
-      UserRate.statuses.find { |name, id| id == status_id.to_i }.first
+      UserRate.statuses.find { |_name, id| id == status_id.to_i }.first
     end
 
     # phrase is used in collection-search (userlist comparer)
@@ -241,6 +241,7 @@ private
   # фильтрация по рейнтингу
   def rating!
     return if @rating.blank?
+
     ratings = bang_split @rating.split(',')
 
     if ratings[:include].any?
@@ -263,6 +264,7 @@ private
   # фильтрация по длительности эпизода
   def duration!
     return if @duration.blank?
+
     durations = bang_split(@duration.split(','))
 
     if durations[:include].any?
@@ -283,6 +285,7 @@ private
   # фильтрация по сезонам
   def season!
     return if @season.blank?
+
     seasons = bang_split @season.split(',')
 
     query = seasons[:include].map do |season|
@@ -301,6 +304,7 @@ private
   # фильтрация по статусам
   def status!
     return if @status.blank?
+
     statuses = bang_split @status.split(',')
 
     query = statuses[:include].map do |status|
@@ -319,6 +323,7 @@ private
   # filter by franchise
   def franchise!
     return if @franchise.blank?
+
     franchises = bang_split @franchise.split(',')
 
     if franchises[:include].any?
@@ -344,13 +349,13 @@ private
   # фильтрация по наличию в собственном списке
   def mylist!
     return if @mylist.blank? || @user.blank?
+
     statuses = bang_split(@mylist.split(','), false)
 
     animelist = @user
       .send("#{@klass.base_class.name.downcase}_rates")
       .includes(@klass.base_class.name.downcase.to_sym)
       .each_with_object(include: [], exclude: []) do |entry, memo|
-
         if statuses[:include].include?(entry.status)
           memo[:include] << entry.target_id
         end
@@ -404,9 +409,8 @@ private
 
   # разбитие на 2 группы по наличию !, плюс возможная обработка элементов
   def bang_split values, force_integer = false
-    data = values.inject(:include => [], :exclude => []) do |rez,v|
-      rez[v.starts_with?('!') ? :exclude : :include] << v.sub('!', '')
-      rez
+    data = values.each_with_object(include: [], exclude: []) do |v, memo|
+      memo[v.starts_with?('!') ? :exclude : :include] << v.sub('!', '')
     end
 
     if force_integer
