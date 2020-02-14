@@ -23,7 +23,6 @@ class AniMangaQuery
     @params = params
 
     @klass = klass
-    @query = @klass.all
 
     @kind = params[:kind] || params[:type] || ''
 
@@ -61,14 +60,21 @@ class AniMangaQuery
   end
 
   def fetch
-    kind!
+    @query = Animes::Query.fetch(
+      klass: @klass,
+      params: {
+        kind: @kind,
+        rating: @rating
+      },
+      user: @user
+    )
+
     censored!
     disable_music!
 
     exclude_ai_genres!
     associations!
 
-    rating!
     score!
     duration!
     season!
@@ -120,10 +126,6 @@ private
       @achievement.present? ||
       @studio.present? ||
       @ids&.any?
-  end
-
-  def kind!
-    @query = Animes::Query.new(@query).kind(@kind)
   end
 
   def censored!
@@ -190,20 +192,6 @@ private
     end
     ids[:exclude].each do |ids|
       @query.where! "not (#{field} && '{#{ids.map(&:to_i).join ','}}')"
-    end
-  end
-
-  # фильтрация по рейнтингу
-  def rating!
-    return if @rating.blank?
-
-    ratings = bang_split @rating.split(',')
-
-    if ratings[:include].any?
-      @query = @query.where(rating: ratings[:include])
-    end
-    if ratings[:exclude].any?
-      @query = @query.where.not(rating: ratings[:exclude])
     end
   end
 
