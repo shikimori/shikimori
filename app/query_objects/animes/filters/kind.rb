@@ -1,5 +1,6 @@
 class Animes::Filters::Kind < Animes::Filters::FilterBase
-  KINDS_EXTENDED = Types::Anime::KINDS + %i[tv_13 tv_24 tv_48]
+  EXTENDED = %i[tv_13 tv_24 tv_48]
+  KINDS_EXTENDED = Types::Anime::KINDS + EXTENDED
 
   KindExtended = Types::Strict::Symbol
     .constructor(&:to_sym)
@@ -69,14 +70,15 @@ private
 
   def build_kinds
     terms.each_with_object(complex: [], simple: []) do |term, memo|
-      memo[term.value.match?(/tv_\d+/) ? :complex : :simple] << term
+      memo[EXTENDED.include?(term.value) ? :complex : :simple] << term
     end
   end
 
   def build_simple_queries terms_by_kind
     includes = terms_by_kind[:simple].reject do |term|
       term.is_negative ||
-        term.value == 'tv' && terms_by_kind[:complex].any? { |q| q.value =~ /^tv_/ }
+        term.value == KindExtended[:tv] &&
+          terms_by_kind[:complex].any? { |q| EXTENDED.include? q.value }
     end
     excludes = terms_by_kind[:simple].select(&:is_negative)
 
