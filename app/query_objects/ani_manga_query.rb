@@ -72,7 +72,6 @@ class AniMangaQuery
     associations!
 
     score!
-    duration!
     season!
     status!
     franchise!
