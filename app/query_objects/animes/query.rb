@@ -1,12 +1,19 @@
 class Animes::Query < QueryObjectBase
   def self.fetch klass:, params:, user:
     new(klass.all)
-      .kind(params[:kind] || params[:type])
+      .by_kind(params[:kind] || params[:type])
+      .by_rating(params[:rating])
   end
 
-  def kind value
+  def by_kind value
     return self if value.blank?
 
-    chain Animes::Filters::Kind.call(@scope, value)
+    chain Animes::Filters::ByKind.call(@scope, value)
+  end
+
+  def by_rating value
+    return self if value.blank?
+
+    chain Animes::Filters::ByRating.call(@scope, value)
   end
 end

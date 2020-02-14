@@ -1,4 +1,4 @@
-describe Animes::Filters::Rating do
+describe Animes::Filters::ByRating do
   subject { described_class.call Anime.order(:id), terms }
 
   let!(:anime_1) { create :anime, rating: :r }

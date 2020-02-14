@@ -1,4 +1,4 @@
-describe Animes::Filters::Kind do
+describe Animes::Filters::ByKind do
   subject { described_class.call Anime.order(:id), terms }
 
   let!(:anime_1) { create :anime, :tv, episodes: 13 }

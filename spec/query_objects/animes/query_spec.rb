@@ -16,10 +16,22 @@ describe Animes::Query do
     it { is_expected.to eq Anime.all }
   end
 
-  context 'kind' do
+  context '#by_kind' do
     let(:params) { { kind: 'tv' } }
     before do
-      allow(Animes::Filters::Kind)
+      allow(Animes::Filters::ByKind)
+        .to receive(:call)
+        .with(Anime.all, 'tv')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
+  context '#by_rating' do
+    let(:params) { { rating: 'tv' } }
+    before do
+      allow(Animes::Filters::ByRating)
         .to receive(:call)
         .with(Anime.all, 'tv')
         .and_return [anime]

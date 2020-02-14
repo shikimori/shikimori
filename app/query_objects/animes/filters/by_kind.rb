@@ -1,4 +1,4 @@
-class Animes::Filters::Kind < Animes::Filters::FilterBase
+class Animes::Filters::ByKind < Animes::Filters::FilterBase
   EXTENDED = %i[tv_13 tv_24 tv_48]
   KINDS_EXTENDED = Types::Anime::KINDS + EXTENDED
 

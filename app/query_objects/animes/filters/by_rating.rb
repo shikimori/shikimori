@@ -1,4 +1,4 @@
-class Animes::Filters::Rating < Animes::Filters::FilterBase
+class Animes::Filters::ByRating < Animes::Filters::FilterBase
   dry_type Types::Anime::Rating
 
   def call
