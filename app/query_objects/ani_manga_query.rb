@@ -22,6 +22,7 @@ class AniMangaQuery
     @params = params
 
     @klass = klass
+    @query = klass.all
 
     @kind = params[:kind] || ''
 
@@ -60,7 +61,7 @@ class AniMangaQuery
 
   def fetch
     @query = Animes::Query.fetch(
-      klass: @klass,
+      scope: @query,
       params: {
         kind: @kind,
         rating: @rating
