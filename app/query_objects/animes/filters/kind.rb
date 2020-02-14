@@ -1,7 +1,4 @@
-class Animes::Filters::Kind
-  include Animes::Filters::Helpers
-  method_object :scope, :value
-
+class Animes::Filters::Kind < Animes::Filters::FilterBase
   TV_13_SQL = <<~SQL.squish
     (
       %<table_name>s.kind = 'tv' and (
@@ -36,7 +33,7 @@ class Animes::Filters::Kind
   }
 
   def call
-    terms_by_kind = build_kinds parse_terms(@value)
+    terms_by_kind = build_kinds
     simple_queries = build_simple_queries terms_by_kind
     complex_queries = build_complex_queries terms_by_kind
 
@@ -62,7 +59,7 @@ private
     scope
   end
 
-  def build_kinds terms
+  def build_kinds
     terms.each_with_object(complex: [], simple: []) do |term, memo|
       memo[term.value.match?(/tv_\d+/) ? :complex : :simple] << term
     end

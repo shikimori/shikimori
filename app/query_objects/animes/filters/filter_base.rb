@@ -2,6 +2,8 @@ class Animes::Filters::FilterBase
   method_object :scope, :value
   delegate :positives, :negatives, to: :terms
 
+private
+
   def terms
     @terms ||= Animes::Filters::Terms.new(@value)
   end
