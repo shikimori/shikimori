@@ -1,7 +1,7 @@
 class Animes::Query < QueryObjectBase
   def self.fetch klass:, params:, user:
     new(klass.all)
-      .by_kind(params[:kind] || params[:type])
+      .by_kind(params[:kind])
       .by_rating(params[:rating])
   end
 

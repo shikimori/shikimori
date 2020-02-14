@@ -1,5 +1,4 @@
 # TODO: refactor to bunch of simplier query objects
-# TODO: remove type param after 2018-06-01
 class AniMangaQuery
   IDS_KEY = :ids
   EXCLUDE_IDS_KEY = :exclude_ids
@@ -24,7 +23,7 @@ class AniMangaQuery
 
     @klass = klass
 
-    @kind = params[:kind] || params[:type] || ''
+    @kind = params[:kind] || ''
 
     @genre = params[:genre]
     @studio = params[:studio]
