@@ -1,12 +1,12 @@
 describe Animes::Query do
   subject do
     described_class.fetch(
-      klass: klass,
+      scope: scope,
       params: params,
       user: user
     )
   end
-  let(:klass) { Anime }
+  let(:scope) { Anime.all }
   let(:params) { {} }
   let(:user) { nil }
 
