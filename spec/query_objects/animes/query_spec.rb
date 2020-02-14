@@ -51,4 +51,16 @@ describe Animes::Query do
 
     it { is_expected.to eq [anime] }
   end
+
+  context '#by_score' do
+    let(:params) { { score: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByScore)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
 end

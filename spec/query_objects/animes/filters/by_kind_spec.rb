@@ -78,7 +78,7 @@ describe Animes::Filters::ByKind do
     end
   end
 
-  context 'multiple termss' do
+  context 'multiple terms' do
     context 'positive' do
       let(:terms) { 'tv_13,tv_24' }
       it do

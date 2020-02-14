@@ -6,7 +6,7 @@ describe Animes::Filters::ByRating do
   let!(:anime_3) { create :anime, rating: :g }
   let!(:anime_4) { create :anime, rating: :r_plus }
 
-  context 'inclusive' do
+  context 'positive' do
     context 'r' do
       let(:terms) { 'r' }
       it { is_expected.to eq [anime_1, anime_2] }
@@ -23,7 +23,7 @@ describe Animes::Filters::ByRating do
     end
   end
 
-  context 'exclusive' do
+  context 'negative' do
     context '!r' do
       let(:terms) { '!r' }
       it { is_expected.to eq [anime_3, anime_4] }

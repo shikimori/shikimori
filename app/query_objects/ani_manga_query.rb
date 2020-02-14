@@ -60,7 +60,8 @@ class AniMangaQuery
       params: {
         kind: @kind,
         rating: @rating,
-        duration: @duration
+        duration: @duration,
+        score: @score
       },
       user: @user
     )
@@ -71,7 +72,6 @@ class AniMangaQuery
     exclude_ai_genres!
     associations!
 
-    score!
     season!
     status!
     franchise!
@@ -187,15 +187,6 @@ private
     end
     ids[:exclude].each do |ids|
       @query.where! "not (#{field} && '{#{ids.map(&:to_i).join ','}}')"
-    end
-  end
-
-  # фильтрация по оценке
-  def score!
-    return if @score.blank?
-
-    @score.split(',').each do |score|
-      @query = @query.where("score >= #{score.to_i}")
     end
   end
 

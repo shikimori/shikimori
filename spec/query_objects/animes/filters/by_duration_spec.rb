@@ -11,7 +11,7 @@ describe Animes::Filters::ByDuration do
   let!(:anime_6) { create :anime, duration: 35 }
   let!(:anime_7) { create :anime, duration: 35 }
 
-  context 'inclusive' do
+  context 'positive' do
     context 'S' do
       let(:terms) { 'S' }
       it { is_expected.to eq [anime_1, anime_2] }
@@ -43,7 +43,7 @@ describe Animes::Filters::ByDuration do
     end
   end
 
-  context 'exclusive' do
+  context 'negative' do
     context '!S' do
       let(:terms) { '!S' }
       it { is_expected.to eq [anime_3, anime_4, anime_5, anime_6, anime_7] }
