@@ -9,46 +9,46 @@ describe Animes::Filters::Rating do
   context 'inclusive' do
     context 'r' do
       let(:terms) { 'r' }
-      it { is_expected.to have(2).items }
+      it { is_expected.to eq [anime_1, anime_2] }
     end
 
     context 'r' do
       let(:terms) { 'g' }
-      it { is_expected.to have(1).item }
+      it { is_expected.to eq [anime_3] }
     end
 
     context 'r,g' do
       let(:terms) { 'r,g' }
-      it { is_expected.to have(3).items }
+      it { is_expected.to eq [anime_1, anime_2, anime_3] }
     end
   end
 
   context 'exclusive' do
     context '!r' do
       let(:terms) { '!r' }
-      it { is_expected.to have(2).items }
+      it { is_expected.to eq [anime_3, anime_4] }
     end
 
     context '!g' do
       let(:terms) { '!g' }
-      it { is_expected.to have(3).items }
+      it { is_expected.to eq [anime_1, anime_2, anime_4] }
     end
 
     context '!r,!g' do
       let(:terms) { '!r,!g' }
-      it { is_expected.to have(1).item }
+      it { is_expected.to eq [anime_4] }
     end
   end
 
   context 'both' do
     context '!r,!g' do
       let(:terms) { 'r,!g' }
-      it { is_expected.to have(2).items }
+      it { is_expected.to eq [anime_1, anime_2] }
     end
 
     context '!r,!g' do
       let(:terms) { '!r,g' }
-      it { is_expected.to have(1).item }
+      it { is_expected.to [anime_3] }
     end
   end
 end
