@@ -48,7 +48,7 @@ describe Animes::Filters::Rating do
 
     context '!r,!g' do
       let(:terms) { '!r,g' }
-      it { is_expected.to [anime_3] }
+      it { is_expected.to eq [anime_3] }
     end
   end
 end

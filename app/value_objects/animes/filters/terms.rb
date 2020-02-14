@@ -1,7 +1,8 @@
 class Animes::Filters::Terms
   include Enumerable
 
-  def initialize value
+  def initialize value, dry_type
+    @dry_type = dry_type
     @terms = parse value
   end
 
@@ -24,9 +25,10 @@ private
       .split(',')
       .map do |term|
         is_negative = term[0] == '!'
+        value = is_negative ? term[1..-1] : term
 
         OpenStruct.new(
-          value: is_negative ? term[1..-1] : term,
+          value: @dry_type ? @dry_type[value] : value,
           is_negative: is_negative
         )
       end

@@ -1,4 +1,12 @@
 class Animes::Filters::Kind < Animes::Filters::FilterBase
+  KINDS_EXTENDED = Types::Anime::KINDS + %i[tv_13 tv_24 tv_48]
+
+  KindExtended = Types::Strict::Symbol
+    .constructor(&:to_sym)
+    .enum(*KINDS_EXTENDED)
+
+  dry_type KindExtended
+
   TV_13_SQL = <<~SQL.squish
     (
       %<table_name>s.kind = 'tv' and (
@@ -27,9 +35,9 @@ class Animes::Filters::Kind < Animes::Filters::FilterBase
   SQL
 
   SQL_BY_EPISODES = {
-    'tv_13' => TV_13_SQL,
-    'tv_24' => TV_24_SQL,
-    'tv_48' => TV_48_SQL
+    KindExtended[:tv_13] => TV_13_SQL,
+    KindExtended[:tv_24] => TV_24_SQL,
+    KindExtended[:tv_48] => TV_48_SQL
   }
 
   def call

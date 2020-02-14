@@ -1,8 +1,10 @@
 module Types
   module Anime
+    KINDS = %i[tv movie ova ona special music]
+
     Kind = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:tv, :movie, :ova, :ona, :special, :music)
+      .enum(*KINDS)
 
     Status = Types::Strict::Symbol
       .constructor(&:to_sym)
