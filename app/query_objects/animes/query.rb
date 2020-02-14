@@ -1,5 +1,5 @@
 class Animes::Query < QueryObjectBase
-  def self.fetch scope:, params:, user:
+  def self.fetch scope:, params:, _user:
     new(scope)
       .by_kind(params[:kind])
       .by_rating(params[:rating])
