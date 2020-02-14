@@ -1,5 +1,9 @@
 module Types
   module Anime
+    Kind = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(:tv, :movie, :ova, :ona, :special, :music)
+
     Status = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(:anons, :ongoing, :released)

@@ -181,7 +181,7 @@ class Anime < DbEntry
   before_post_process { translit_paperclip_file_name :image }
 
   enumerize :kind,
-    in: %i[tv movie ova ona special music],
+    in: Types::Anime::Kind.values,
     predicates: { prefix: true }
   enumerize :origin,
     in: %i[
