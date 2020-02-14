@@ -1,6 +1,6 @@
 class Animes::Filters::Kind
   include Animes::Filters::Helpers
-  method_object :scope, :terms
+  method_object :scope, :value
 
   TV_13_SQL = <<~SQL.squish
     (
@@ -36,7 +36,7 @@ class Animes::Filters::Kind
   }
 
   def call
-    terms_by_kind = build_kinds parse_terms(@terms)
+    terms_by_kind = build_kinds parse_terms(@value)
     simple_queries = build_simple_queries terms_by_kind
     complex_queries = build_complex_queries terms_by_kind
 
