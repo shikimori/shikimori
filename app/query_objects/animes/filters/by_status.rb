@@ -15,7 +15,8 @@ class Animes::Filters::ByStatus < Animes::Filters::FilterBase
     StatusExtended[:released] => "status = '#{Types::Anime::Status[:released]}'",
     StatusExtended[:latest] => <<~SQL.squish
       status = '#{Types::Anime::Status[:released]}'
-        and released_on >= (now() - interval '#{LATEST_INTERVAL.to_i} seconds')::date
+        and released_on is not null
+        and released_on >= %<date>s
     SQL
   }
 
@@ -23,15 +24,23 @@ class Animes::Filters::ByStatus < Animes::Filters::FilterBase
     scope = @scope
 
     if positives.any?
-      sql = positives.map { |term| SQL_QUERIES[term] }.join(' or ')
+      sql = positives.map { |term| format_sql term }.join(' or ')
       scope = scope.where(sql)
     end
 
     if negatives.any?
-      sql = negatives.map { |term| SQL_QUERIES[term] }.join(' or ')
+      sql = negatives.map { |term| format_sql term }.join(' or ')
       scope = scope.where("not (#{sql})")
     end
 
     scope
+  end
+
+private
+
+  def format_sql term
+    term == StatusExtended[:latest] ?
+      format(SQL_QUERIES[term], date: sanitize(LATEST_INTERVAL.ago.to_date)) :
+      SQL_QUERIES[term]
   end
 end

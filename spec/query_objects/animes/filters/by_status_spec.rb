@@ -8,22 +8,17 @@ describe Animes::Filters::ByStatus do
 
   let!(:anime_4) { create :anime, :released }
   let!(:anime_5) do
-    create :anime, :released, released_on: described_class::LATEST_INTERVAL.ago - 1.day
+    create :anime, :released, released_on: described_class::LATEST_INTERVAL.ago.to_date - 1.day
   end
 
   let!(:anime_6) do
-    create :anime, :released, released_on: described_class::LATEST_INTERVAL.ago + 1.day
+    create :anime, :released, released_on: described_class::LATEST_INTERVAL.ago.to_date
   end
 
   context 'positive' do
     context 'ongoing' do
       let(:terms) { 'ongoing' }
       it { is_expected.to eq [anime_1] }
-    end
-
-    context 'latest' do
-      let(:terms) { 'latest' }
-      it { is_expected.to eq [anime_6] }
     end
 
     context 'anons' do
@@ -34,6 +29,11 @@ describe Animes::Filters::ByStatus do
     context 'released' do
       let(:terms) { 'released' }
       it { is_expected.to eq [anime_4, anime_5, anime_6] }
+    end
+
+    context 'latest' do
+      let(:terms) { 'latest' }
+      it { is_expected.to eq [anime_6] }
     end
 
     context 'ongoing,anons' do
@@ -55,9 +55,9 @@ describe Animes::Filters::ByStatus do
   end
 
   context 'both' do
-    context 'ongoing' do
-      let(:terms) { '!anons,ongoing' }
-      it { is_expected.to eq [anime_1] }
+    context 'released,!latest' do
+      let(:terms) { 'released,!latest' }
+      it { is_expected.to eq [anime_4, anime_5] }
     end
   end
 end
