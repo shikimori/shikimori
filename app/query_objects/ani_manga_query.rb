@@ -2,14 +2,8 @@
 class AniMangaQuery
   IDS_KEY = :ids
   EXCLUDE_IDS_KEY = :exclude_ids
-  EXCLUDE_AI_GENRES_KEY = :exclude_ai_genres
 
   DEFAULT_ORDER = 'ranked'
-  GENRES_EXCLUDED_BY_SEX = {
-    'male' => Genre::YAOI_IDS + Genre::SHOUNEN_AI_IDS,
-    'female' => Genre::HENTAI_IDS + Genre::SHOUJO_AI_IDS + Genre::YURI_IDS,
-    '' => Genre::CENSORED_IDS + Genre::SHOUNEN_AI_IDS + Genre::SHOUJO_AI_IDS
-  }
 
   SEARCH_IDS_LIMIT = 250
 
@@ -39,8 +33,6 @@ class AniMangaQuery
 
     # phrase is used in collection-search (userlist comparer)
     @search_phrase = params[:search] || params[:q] || params[:phrase]
-
-    @exclude_ai_genres = params[EXCLUDE_AI_GENRES_KEY]
 
     @ids = params[IDS_KEY]
     @exclude_ids = params[EXCLUDE_IDS_KEY]
@@ -72,10 +64,12 @@ class AniMangaQuery
       user: @user
     )
 
+    if @exclude_ai_genres
+      @query = @query.exclude_ai_genres @user.sex
+    end
+
     censored!
     disable_music!
-
-    exclude_ai_genres!
 
     mylist!
 
@@ -146,21 +140,6 @@ private
     unless @kind.match?(/music/) || do_not_censore?
       @query = @query.where("#{table_name}.kind != ?", :music)
     end
-  end
-
-  # отключение всего зацензуренной для парней/девушек
-  def exclude_ai_genres!
-    return unless @exclude_ai_genres && @user
-    return if do_not_censore?
-
-    excludes = GENRES_EXCLUDED_BY_SEX[@user.sex || '']
-
-    @genre =
-      if @genre.present?
-        "#{@genre},!#{excludes.join ',!'}"
-      else
-        "!#{excludes.join ',!'}"
-      end
   end
 
   # фильтрация по наличию в собственном списке

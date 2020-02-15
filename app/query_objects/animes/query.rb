@@ -1,4 +1,10 @@
 class Animes::Query < QueryObjectBase
+  GENRES_EXCLUDED_BY_SEX = {
+    'male' => Genre::YAOI_IDS + Genre::SHOUNEN_AI_IDS,
+    'female' => Genre::HENTAI_IDS + Genre::SHOUJO_AI_IDS + Genre::YURI_IDS,
+    '' => Genre::CENSORED_IDS + Genre::SHOUNEN_AI_IDS + Genre::SHOUJO_AI_IDS
+  }
+
   def self.fetch scope:, params:, user:
     new(scope)
       .by_achievement(params[:achievement])
@@ -92,5 +98,11 @@ class Animes::Query < QueryObjectBase
     return self if value.blank?
 
     chain Animes::Filters::ByStudio.call(@scope, value)
+  end
+
+  def exclude_ai_genres sex
+    excludes = GENRES_EXCLUDED_BY_SEX[sex || '']
+
+    chain Animes::Filters::ByGenre.call(@scope, "!#{excludes.join ',!'}")
   end
 end

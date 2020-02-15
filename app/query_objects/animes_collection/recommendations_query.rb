@@ -12,12 +12,14 @@ private
 
   def query
     return [] if @ranked_ids.blank?
-    @query ||= super.sort_by { |entry| @ranked_ids.index entry.id }
+
+    @query ||= super
+      .exclude_ai_genres(@user&.sex)
+      .sort_by { |entry| @ranked_ids.index entry.id }
   end
 
   def filters
     super.merge(
-      AniMangaQuery::EXCLUDE_AI_GENRES_KEY => true,
       AniMangaQuery::IDS_KEY => ranked_ids
     )
   end

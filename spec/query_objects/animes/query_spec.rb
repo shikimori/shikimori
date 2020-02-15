@@ -183,4 +183,38 @@ describe Animes::Query do
 
     it { is_expected.to eq [anime] }
   end
+
+  describe '#exclude_ai_genres' do
+    let!(:common_anime) { create :anime }
+    let!(:anime_yaoi) { create :anime, genre_ids: [yaoi.id] }
+    let!(:anime_hentai) { create :anime, genre_ids: [hentai.id] }
+    let!(:anime_yuri) { create :anime, genre_ids: [yuri.id] }
+    let!(:anime_shounen_ai) { create :anime, genre_ids: [shounen_ai.id] }
+    let!(:anime_shoujo_ai) { create :anime, genre_ids: [shoujo_ai.id] }
+
+    let(:yaoi) { create :genre, id: Genre::YAOI_IDS.sample }
+    let(:yuri) { create :genre, id: Genre::YURI_IDS.sample }
+    let(:hentai) { create :genre, id: Genre::HENTAI_IDS.sample }
+    let(:shounen_ai) { create :genre, id: Genre::SHOUNEN_AI_IDS.sample }
+    let(:shoujo_ai) { create :genre, id: Genre::SHOUJO_AI_IDS.sample }
+
+    let(:options) { { AniMangaQuery::EXCLUDE_AI_GENRES_KEY => true } }
+
+    subject { described_class.new(Anime.order(:id)).exclude_ai_genres sex }
+
+    context 'male' do
+      let(:sex) { 'male' }
+      it { is_expected.to eq [common_anime, anime_hentai, anime_yuri, anime_shoujo_ai] }
+    end
+
+    context 'female' do
+      let(:sex) { 'female' }
+      it { is_expected.to eq [common_anime, anime_yaoi, anime_shounen_ai] }
+    end
+
+    context 'not specified' do
+      let(:sex) { ['', nil].sample }
+      it { is_expected.to eq [common_anime] }
+    end
+  end
 end
