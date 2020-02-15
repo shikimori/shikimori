@@ -81,9 +81,4 @@ class Genre < ApplicationRecord
   def censored?
     CENSORED_IDS.include? id
   end
-
-  # возвращет все id, связанные с текущим
-  def self.related id
-    [id]
-  end
 end
