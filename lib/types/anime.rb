@@ -1,6 +1,7 @@
 module Types
   module Anime
     KINDS = %i[tv movie ova ona special music]
+    STATUSES = %i[anons ongoing released]
 
     Kind = Types::Strict::Symbol
       .constructor(&:to_sym)
@@ -8,11 +9,7 @@ module Types
 
     Status = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:anons, :ongoing, :released)
-
-    StatusExtended = Types::Strict::Symbol
-      .constructor(&:to_sym)
-      .enum(:anons, :ongoing, :released, :planned, :latest)
+      .enum(*STATUSES)
 
     Rating = Types::Strict::Symbol
       .constructor(&:to_sym)

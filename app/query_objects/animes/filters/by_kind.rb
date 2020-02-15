@@ -8,37 +8,36 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
 
   dry_type KindExtended
 
-  TV_13_SQL = <<~SQL.squish
-    (
-      %<table_name>s.kind = 'tv' and (
-        (episodes != 0 and episodes <= 16) or
-        (episodes = 0 and episodes_aired <= 16)
+  SQL_QUERIES = {
+    KindExtended[:tv_13] => (
+      <<~SQL.squish
+        (
+          %<table_name>s.kind = 'tv' and (
+            (episodes != 0 and episodes <= 16) or
+            (episodes = 0 and episodes_aired <= 16)
+          )
+        )
+      SQL
+    ),
+    KindExtended[:tv_24] => (
+      <<~SQL.squish
+        (
+          %<table_name>s.kind = 'tv' and (
+            (episodes != 0 and episodes >= 17 and episodes <= 28) or
+            (episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)
+          )
+        )
+      SQL
+    ),
+    KindExtended[:tv_48] => <<~SQL.squish
+      (
+        %<table_name>s.kind = 'tv' and (
+          (episodes != 0 and episodes >= 29) or
+          (episodes = 0 and episodes_aired >= 29)
+        )
       )
-    )
-  SQL
+    SQL
 
-  TV_24_SQL = <<~SQL.squish
-    (
-      %<table_name>s.kind = 'tv' and (
-        (episodes != 0 and episodes >= 17 and episodes <= 28) or
-        (episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)
-      )
-    )
-  SQL
-
-  TV_48_SQL = <<~SQL.squish
-    (
-      %<table_name>s.kind = 'tv' and (
-        (episodes != 0 and episodes >= 29) or
-        (episodes = 0 and episodes_aired >= 29)
-      )
-    )
-  SQL
-
-  SQL_BY_EPISODES = {
-    KindExtended[:tv_13] => TV_13_SQL,
-    KindExtended[:tv_24] => TV_24_SQL,
-    KindExtended[:tv_48] => TV_48_SQL
   }
 
   def call
@@ -94,7 +93,7 @@ private
     terms_by_kind[:complex].each do |term|
       key = term.is_negative ? :excludes : :includes
       complex_queries[key].push(
-        format(SQL_BY_EPISODES[term.value], table_name: table_name)
+        format(SQL_QUERIES[term.value], table_name: table_name)
       )
     end
 

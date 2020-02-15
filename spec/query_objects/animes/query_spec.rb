@@ -75,4 +75,28 @@ describe Animes::Query do
 
     it { is_expected.to eq [anime] }
   end
+
+  context '#by_achievement' do
+    let(:params) { { achievement: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByAchievement)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
+  context '#by_status' do
+    let(:params) { { status: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByStatus)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
 end

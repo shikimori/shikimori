@@ -58,12 +58,13 @@ class AniMangaQuery
     @query = Animes::Query.fetch(
       scope: @query,
       params: {
+        achievement: @achievement,
+        duration: @duration,
+        franchise: @franchise,
         kind: @kind,
         rating: @rating,
-        duration: @duration,
         score: @score,
-        franchise: @franchise,
-        achievement: @achievement
+        status: @status
       },
       user: @user
     )
@@ -75,7 +76,6 @@ class AniMangaQuery
     associations!
 
     season!
-    status!
 
     mylist!
 
@@ -204,25 +204,6 @@ private
     query = seasons[:exclude].map do |season|
       'NOT (' +
         Animes::SeasonQuery.call(@klass.all, season).to_where_sql +
-        ')'
-    end
-    @query = @query.where query.join(' AND ') unless query.empty?
-  end
-
-  # фильтрация по статусам
-  def status!
-    return if @status.blank?
-
-    statuses = bang_split @status.split(',')
-
-    query = statuses[:include].map do |status|
-      Animes::StatusQuery.call(@klass.all, status).to_where_sql
-    end
-    @query = @query.where query.join(' OR ') unless query.empty?
-
-    query = statuses[:exclude].map do |status|
-      'NOT (' +
-        Animes::StatusQuery.call(@klass.all, status).to_where_sql +
         ')'
     end
     @query = @query.where query.join(' AND ') unless query.empty?
