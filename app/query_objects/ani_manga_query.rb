@@ -63,6 +63,7 @@ class AniMangaQuery
         kind: @kind,
         rating: @rating,
         score: @score,
+        season: @season,
         status: @status
       },
       user: @user
