@@ -79,7 +79,7 @@
         li.order-by-aired_on = t 'by.aired_on'
 
         - if local_assigns[:in_user_profile]
-          li.order-by-my style='display: none' = t 'by.score'
+          li.order-by-rate_score style='display: none' = t 'by.score'
           li.order-by-rate_id = t 'by.date_added'
           li.order-by-rate_updated = t 'by.date_updated'
           - if menu.klass == Anime
