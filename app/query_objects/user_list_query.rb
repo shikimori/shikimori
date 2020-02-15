@@ -26,7 +26,9 @@ private
       .references(list_type.to_sym)
       .where("#{@klass.table_name}.id in (?)", target_ids)
       .order(
-        Arel.sql("user_rates.status, #{AniMangaQuery.order_sql order, @klass}")
+        Arel.sql(
+          Animes::Filters::OrderBy.terms_sql([:rate_status, @params[:order].to_sym], @klass)
+        )
       )
   end
 
@@ -47,10 +49,6 @@ private
 
   def list_type
     @klass.name.downcase
-  end
-
-  def order
-    @params[:order]
   end
 
   def anime?
