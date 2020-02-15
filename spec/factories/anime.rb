@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :anime do
     sequence(:name) { |n| "anime_#{n}" }
     sequence(:ranked)
-    # sequence(:russian) { |n| "russian_anime_#{n}" }
+    sequence(:russian) { |n| "аниме_#{n}" }
     description_ru { '' }
     description_en { '' }
     duration { 0 }
