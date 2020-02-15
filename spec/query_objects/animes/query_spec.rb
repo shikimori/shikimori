@@ -40,6 +40,24 @@ describe Animes::Query do
     it { is_expected.to eq [anime] }
   end
 
+  context '#by_exclude_ids' do
+    let!(:anime_1) { create :anime }
+    let!(:anime_2) { create :anime }
+    let!(:anime_3) { create :anime }
+
+    let(:scope) { Anime.order :id }
+    let(:params) do
+      {
+        exclude_ids: [
+          "#{anime_3.id},#{anime_2.id}",
+          [anime_3.id, anime_2.id]
+        ].sample
+      }
+    end
+
+    it { is_expected.to eq [anime_1] }
+  end
+
   context '#by_franchise' do
     let(:params) { { franchise: 'zzz' } }
     before do
@@ -59,10 +77,12 @@ describe Animes::Query do
 
     let(:scope) { Anime.order :id }
     let(:params) do
-      [
-        { ids: "#{anime_3.id},#{anime_2.id}" },
-        [anime_3.id, anime_2.id]
-      ][0]
+      {
+        ids: [
+          "#{anime_3.id},#{anime_2.id}",
+          [anime_3.id, anime_2.id]
+        ].sample
+      }
     end
 
     it { is_expected.to eq [anime_2, anime_3] }

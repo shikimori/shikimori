@@ -3,6 +3,7 @@ class Animes::Query < QueryObjectBase
     new(scope)
       .by_achievement(params[:achievement])
       .by_duration(params[:duration])
+      .by_exclude_ids(params[:exclude_ids])
       .by_franchise(params[:franchise])
       .by_ids(params[:ids])
       .by_kind(params[:kind])
@@ -21,6 +22,12 @@ class Animes::Query < QueryObjectBase
     return self if value.blank?
 
     chain Animes::Filters::ByDuration.call(@scope, value)
+  end
+
+  def by_exclude_ids value
+    return self if value.blank?
+
+    chain @scope.where.not(id: value.is_a?(String) ? value.split(',') : value)
   end
 
   def by_franchise value

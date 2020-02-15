@@ -43,10 +43,7 @@ class AniMangaQuery
     @exclude_ai_genres = params[EXCLUDE_AI_GENRES_KEY]
 
     @ids = params[IDS_KEY]
-    @ids = @ids.split(',') if @ids.is_a? String
-
     @exclude_ids = params[EXCLUDE_IDS_KEY]
-    @exclude_ids = @exclude_ids.split(',') if @exclude_ids.is_a? String
 
     @user = user
 
@@ -60,6 +57,7 @@ class AniMangaQuery
       params: {
         achievement: @achievement,
         duration: @duration,
+        exclude_ids: @exclude_ids,
         franchise: @franchise,
         ids: @ids,
         kind: @kind,
@@ -80,7 +78,6 @@ class AniMangaQuery
 
     mylist!
 
-    exclude_ids!
     search!
 
     order @query
@@ -233,13 +230,6 @@ private
 
     @query = @query.where(id: animelist[:include]) if animelist[:include].any?
     @query = @query.where.not(id: animelist[:exclude]) if animelist[:exclude].any?
-  end
-
-  # фильтрация по id
-  def exclude_ids!
-    return if @exclude_ids.blank?
-
-    @query = @query.where.not(id: @exclude_ids.map(&:to_i))
   end
 
   # поиск по названию
