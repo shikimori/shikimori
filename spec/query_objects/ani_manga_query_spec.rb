@@ -83,39 +83,6 @@ describe AniMangaQuery do
       end
     end
 
-    describe 'mylist' do
-      let(:anime_1) { create :anime, score: 9 }
-      let(:anime_2) { create :anime, score: 8 }
-      let(:anime_3) { create :anime, score: 7 }
-
-      let!(:user_rate_1) { create :user_rate, :planned, target: anime_1, user: user }
-      let!(:user_rate_2) { create :user_rate, :watching, target: anime_2, user: user }
-      let!(:user_rate_3) { create :user_rate, :watching, target: anime_3, user: user }
-
-      let!(:anime_4) { create :anime }
-      let!(:anime_5) { create :anime }
-
-      it 'inclusive' do
-        expect(fetch({ mylist: UserRate.statuses[:planned].to_s }, user))
-          .to eq [anime_1]
-        expect(fetch({ mylist: 'watching' }, user)).to eq [anime_2, anime_3]
-        expect(fetch({ mylist: UserRate.statuses[:watching].to_s }, user))
-          .to eq [anime_2, anime_3]
-        expect(fetch({ mylist: "#{UserRate.statuses[:planned]},#{UserRate.statuses[:watching]}" }, user))
-          .to eq [anime_1, anime_2, anime_3]
-      end
-
-      it 'exclusive' do
-        expect(fetch({ mylist: "!#{UserRate.statuses[:planned]}" }, user)).to have(4).items
-        expect(fetch({ mylist: '!planned' }, user)).to have(4).items
-        expect(fetch({ mylist: "!#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}" }, user)).to have(2).items
-      end
-
-      it 'both' do
-        expect(fetch({ mylist: "#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}" }, user)).to have(1).item
-      end
-    end
-
     describe 'order' do
       let!(:anime_1) { create :anime, ranked: 10, name: 'AAA', episodes: 10 }
       let!(:anime_2) { create :anime, ranked: 5, name: 'BBB', episodes: 20 }
@@ -130,20 +97,6 @@ describe AniMangaQuery do
         let!(:anime_3) { create :anime, ranked: 5, name: 'BBB', episodes: 0, episodes_aired: 15 }
         it { expect(fetch(order: 'position').map(&:id)).to eq [anime_2.id, anime_3.id, anime_1.id] }
       end
-    end
-
-    describe 'search' do
-      let!(:anime_1) { create :anime }
-      let!(:anime_2) { create :anime }
-
-      before do
-        allow(Search::Anime).to receive(:call)
-          .and_return(Anime.where(id: anime_2.id))
-          # .with(scope: Anime.all, phrase: phrase, ids_limit: AniMangaQuery::SEARCH_IDS_LIMIT)
-      end
-      let(:phrase) { 'search query' }
-
-      it { expect(fetch search: phrase).to eq [anime_2] }
     end
   end
 end

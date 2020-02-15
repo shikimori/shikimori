@@ -9,7 +9,6 @@ class Animes::Filters::ByUserList < Animes::Filters::FilterBase
     scope = scope.where(id: terms_sql(positives)) if positives.any?
     scope = scope.where.not(id: terms_sql(negatives)) if negatives.any?
 
-    ap scope.to_sql
     scope
   end
 
