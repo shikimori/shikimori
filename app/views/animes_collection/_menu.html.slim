@@ -89,7 +89,7 @@
             li.order-by-volumes style='display: none' = t 'by.volumes'
           li.order-by-status style='display: none' = t 'by.status'
         - else
-          li.order-by-id = t 'by.id'
+          li.order-by-id_desc = t 'by.id'
 
         / используется в userlist comparer
         - if defined?(custom_sorts) && !custom_sorts.empty?
