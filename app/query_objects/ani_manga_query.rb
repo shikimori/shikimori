@@ -62,7 +62,8 @@ class AniMangaQuery
         rating: @rating,
         duration: @duration,
         score: @score,
-        franchise: @franchise
+        franchise: @franchise,
+        achievement: @achievement
       },
       user: @user
     )
@@ -75,7 +76,6 @@ class AniMangaQuery
 
     season!
     status!
-    achievement!
 
     mylist!
 
@@ -226,15 +226,6 @@ private
         ')'
     end
     @query = @query.where query.join(' AND ') unless query.empty?
-  end
-
-  # filter by achievement
-  def achievement!
-    return if @achievement.blank?
-
-    @query = @query.merge(
-      NekoRepository.instance.find(@achievement, 1).animes_scope.except(:order)
-    )
   end
 
   # фильтрация по наличию в собственном списке
