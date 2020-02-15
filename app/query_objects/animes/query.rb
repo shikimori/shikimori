@@ -5,7 +5,7 @@ class Animes::Query < QueryObjectBase
     '' => Genre::CENSORED_IDS + Genre::SHOUNEN_AI_IDS + Genre::SHOUJO_AI_IDS
   }
 
-  def self.fetch scope:, params:, user:
+  def self.fetch scope:, params:, user: # rubocop:disable AbcSize
     new(scope)
       .by_achievement(params[:achievement])
       .by_duration(params[:duration])
