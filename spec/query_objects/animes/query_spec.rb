@@ -112,6 +112,19 @@ describe Animes::Query do
     it { is_expected.to eq [anime] }
   end
 
+  context '#by_user_list' do
+    let(:params) { { mylist: 'zzz' } }
+    let(:user) { seed :user }
+    before do
+      allow(Animes::Filters::ByUserList)
+        .to receive(:call)
+        .with(Anime.all, 'zzz', user)
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
   context '#by_publisher' do
     let(:params) { { publisher: 'zzz' } }
     before do

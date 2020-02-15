@@ -6,7 +6,7 @@ class Animes::Query < QueryObjectBase
   }
   SEARCH_IDS_LIMIT = 250
 
-  def self.fetch scope:, params:, user: # rubocop:disable AbcSize
+  def self.fetch scope:, params:, user: # rubocop:disable AbcSize, MethodLength
     new(scope)
       .by_achievement(params[:achievement])
       .by_duration(params[:duration])
@@ -21,8 +21,9 @@ class Animes::Query < QueryObjectBase
       .by_season(params[:season])
       .by_status(params[:status])
       .by_studio(params[:studio])
+      .by_user_list(params[:mylist], user)
       .search(params[:search] || params[:q] || params[:phrase])
-      # phrase is used in collection-search (userlist comparer)
+      # "phrase" is used in collection-search (userlist comparer)
   end
 
   def by_achievement value
@@ -101,6 +102,12 @@ class Animes::Query < QueryObjectBase
     return self if value.blank?
 
     chain Animes::Filters::ByStudio.call(@scope, value)
+  end
+
+  def by_user_list value, user
+    return self if value.blank? || user.nil?
+
+    chain Animes::Filters::ByUserList.call(@scope, value, user)
   end
 
   def exclude_ai_genres sex

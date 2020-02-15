@@ -11,7 +11,12 @@ class Animes::Filters::FilterBase
 private
 
   def terms
-    @terms ||= Animes::Filters::Terms.new(@value, dry_type)
+    @terms ||= Animes::Filters::Terms.new(fixed_value, dry_type)
+  end
+
+  # can be overriden in child class
+  def fixed_value
+    @value
   end
 
   def table_name

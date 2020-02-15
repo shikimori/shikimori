@@ -9,10 +9,7 @@ class Animes::Filters::ByScore < Animes::Filters::FilterBase
     scope = @scope
 
     if positives.any?
-      sql = positives
-        .map { |score| "score >= #{score}" }
-        .join(' or ')
-
+      sql = positives.map { |score| "score >= #{score}" }.join(' or ')
       scope = scope.where(sql)
     end
 

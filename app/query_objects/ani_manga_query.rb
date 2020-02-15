@@ -25,9 +25,7 @@ class AniMangaQuery
     @franchise = params[:franchise]
     @achievement = params[:achievement]
 
-    @mylist = params[:mylist].to_s.gsub(/\b\d\b/) do |status_id|
-      UserRate.statuses.find { |_name, id| id == status_id.to_i }.first
-    end
+    @mylist = params[:mylist]
 
     @search = params[:search] || params[:q] || params[:phrase]
 
@@ -51,13 +49,14 @@ class AniMangaQuery
         genre: @genre,
         ids: @ids,
         kind: @kind,
+        mylist: @mylist,
         publisher: @publisher,
         rating: @rating,
         score: @score,
+        search: @search,
         season: @seasor,
         status: @status,
-        studio: @studio,
-        search: @search
+        studio: @studio
       },
       user: @user
     )
@@ -68,8 +67,6 @@ class AniMangaQuery
 
     censored!
     disable_music!
-
-    mylist!
 
     order @query
   end
@@ -127,32 +124,6 @@ private
     unless @kind.match?(/music/) || do_not_censore?
       @query = @query.where("#{table_name}.kind != ?", :music)
     end
-  end
-
-  # фильтрация по наличию в собственном списке
-  def mylist!
-    return if @mylist.blank? || @user.blank?
-
-    statuses = bang_split(@mylist.split(','), false)
-
-    animelist = @user
-      .send("#{@klass.base_class.name.downcase}_rates")
-      .includes(@klass.base_class.name.downcase.to_sym)
-      .each_with_object(include: [], exclude: []) do |entry, memo|
-        if statuses[:include].include?(entry.status)
-          memo[:include] << entry.target_id
-        end
-
-        if statuses[:exclude].include?(entry.status)
-          memo[:exclude] << entry.target_id
-        end
-      end
-
-    animelist[:include] << 0 if statuses[:include].any? && animelist[:include].none?
-    animelist[:exclude] << 0 if statuses[:exclude].any? && animelist[:exclude].none?
-
-    @query = @query.where(id: animelist[:include]) if animelist[:include].any?
-    @query = @query.where.not(id: animelist[:exclude]) if animelist[:exclude].any?
   end
 
   # сортировка по параметрам запроса
