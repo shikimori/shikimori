@@ -54,8 +54,14 @@ pageLoad('user_rates_index', () => {
 
   // сортировка по клику на колонку
   $('.order-control').on('click', ({ currentTarget }) => {
-    const type = $(currentTarget).data('order');
-    $(`.orders.anime-params li.order-by-${type}`).trigger('click');
+    const $node = $(currentTarget);
+
+    if ($node.hasClass('active')) {
+      $('.order-by-ranked').trigger('click');
+    } else {
+      const type = $node.data('order');
+      $(`.orders.anime-params li.order-by-${type}`).trigger('click');
+    }
   });
 
   // редактирование user_rate posters
