@@ -42,7 +42,9 @@ describe AniMangaQuery do
           expect(fetch censored: true).to have(1).items
         end
         it 'search' do
-          allow_any_instance_of(AniMangaQuery).to receive :search!
+          allow_any_instance_of(Search::Anime).to receive(:call) do |instance|
+            instance.send(:scope)
+          end
           expect(fetch search: 'test').to have(3).items
         end
         it 'yaoi' do

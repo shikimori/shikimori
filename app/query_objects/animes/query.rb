@@ -4,6 +4,7 @@ class Animes::Query < QueryObjectBase
     'female' => Genre::HENTAI_IDS + Genre::SHOUJO_AI_IDS + Genre::YURI_IDS,
     '' => Genre::CENSORED_IDS + Genre::SHOUNEN_AI_IDS + Genre::SHOUJO_AI_IDS
   }
+  SEARCH_IDS_LIMIT = 250
 
   def self.fetch scope:, params:, user: # rubocop:disable AbcSize
     new(scope)
@@ -20,6 +21,8 @@ class Animes::Query < QueryObjectBase
       .by_season(params[:season])
       .by_status(params[:status])
       .by_studio(params[:studio])
+      .search(params[:search] || params[:q] || params[:phrase])
+      # phrase is used in collection-search (userlist comparer)
   end
 
   def by_achievement value
@@ -104,5 +107,15 @@ class Animes::Query < QueryObjectBase
     excludes = GENRES_EXCLUDED_BY_SEX[sex || '']
 
     chain Animes::Filters::ByGenre.call(@scope, "!#{excludes.join ',!'}")
+  end
+
+  def search value
+    return self if value.blank?
+
+    chain "Search::#{@scope.klass.name}".constantize.call(
+      scope: @scope,
+      phrase: value,
+      ids_limit: SEARCH_IDS_LIMIT
+    )
   end
 end

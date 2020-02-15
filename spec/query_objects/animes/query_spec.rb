@@ -217,4 +217,17 @@ describe Animes::Query do
       it { is_expected.to eq [common_anime] }
     end
   end
+
+  context '#by_search' do
+    let(:params) { { search: 'zzz' } }
+    let!(:anime_1) { create :anime }
+    let!(:anime_2) { create :anime }
+
+    before do
+      allow(Search::Anime).to receive(:call)
+        .and_return(Anime.where(id: anime_2.id))
+    end
+
+    it { is_expected.to eq [anime_2] }
+  end
 end

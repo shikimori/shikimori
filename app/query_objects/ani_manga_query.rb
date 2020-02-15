@@ -5,8 +5,6 @@ class AniMangaQuery
 
   DEFAULT_ORDER = 'ranked'
 
-  SEARCH_IDS_LIMIT = 250
-
   def initialize klass, params, user = nil
     @params = params
 
@@ -31,8 +29,7 @@ class AniMangaQuery
       UserRate.statuses.find { |_name, id| id == status_id.to_i }.first
     end
 
-    # phrase is used in collection-search (userlist comparer)
-    @search_phrase = params[:search] || params[:q] || params[:phrase]
+    @search = params[:search] || params[:q] || params[:phrase]
 
     @ids = params[IDS_KEY]
     @exclude_ids = params[EXCLUDE_IDS_KEY]
@@ -59,7 +56,8 @@ class AniMangaQuery
         score: @score,
         season: @seasor,
         status: @status,
-        studio: @studio
+        studio: @studio,
+        search: @search
       },
       user: @user
     )
@@ -73,19 +71,12 @@ class AniMangaQuery
 
     mylist!
 
-    search!
-
     order @query
-  end
-
-  def complete
-    search!
-    @query.limit(AUTOCOMPLETE_LIMIT).reverse
   end
 
   # сортировка по параметрам
   def order query
-    if @search_phrase.blank?
+    if @search.blank?
       params_order query
     else
       query
@@ -100,10 +91,6 @@ private
 
   def userlist?
     !!@params[:userlist]
-  end
-
-  def search?
-    @search_phrase.present?
   end
 
   def do_not_censore?
@@ -166,17 +153,6 @@ private
 
     @query = @query.where(id: animelist[:include]) if animelist[:include].any?
     @query = @query.where.not(id: animelist[:exclude]) if animelist[:exclude].any?
-  end
-
-  # поиск по названию
-  def search!
-    return if @search_phrase.blank?
-
-    @query = "Search::#{@klass.name}".constantize.call(
-      scope: @query,
-      phrase: @search_phrase,
-      ids_limit: SEARCH_IDS_LIMIT
-    )
   end
 
   # сортировка по параметрам запроса
