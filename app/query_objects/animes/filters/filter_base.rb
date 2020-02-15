@@ -3,7 +3,6 @@ class Animes::Filters::FilterBase
 
   method_object :scope, :value
 
-  dsl_attribute :is_integer, false
   dsl_attribute :dry_type
 
   delegate :positives, :negatives, to: :terms
