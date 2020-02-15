@@ -16,6 +16,53 @@ describe Animes::Query do
     it { is_expected.to eq Anime.all }
   end
 
+  context '#by_achievement' do
+    let(:params) { { achievement: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByAchievement)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
+  context '#by_duration' do
+    let(:params) { { duration: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByDuration)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
+  context '#by_franchise' do
+    let(:params) { { franchise: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByFranchise)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
+  context '#by_ids' do
+    let!(:anime_1) { create :anime }
+    let!(:anime_2) { create :anime }
+    let!(:anime_3) { create :anime }
+
+    let(:scope) { Anime.order :id }
+    let(:params) { { ids: "#{anime_3.id},#{anime_2.id}" } }
+
+    it { is_expected.to eq [anime_2, anime_3] }
+  end
+
   context '#by_kind' do
     let(:params) { { kind: 'zzz' } }
     before do
@@ -40,46 +87,10 @@ describe Animes::Query do
     it { is_expected.to eq [anime] }
   end
 
-  context '#by_duration' do
-    let(:params) { { duration: 'zzz' } }
-    before do
-      allow(Animes::Filters::ByDuration)
-        .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
-    end
-
-    it { is_expected.to eq [anime] }
-  end
-
   context '#by_score' do
     let(:params) { { score: 'zzz' } }
     before do
       allow(Animes::Filters::ByScore)
-        .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
-    end
-
-    it { is_expected.to eq [anime] }
-  end
-
-  context '#by_franchise' do
-    let(:params) { { franchise: 'zzz' } }
-    before do
-      allow(Animes::Filters::ByFranchise)
-        .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
-    end
-
-    it { is_expected.to eq [anime] }
-  end
-
-  context '#by_achievement' do
-    let(:params) { { achievement: 'zzz' } }
-    before do
-      allow(Animes::Filters::ByAchievement)
         .to receive(:call)
         .with(Anime.all, 'zzz')
         .and_return [anime]

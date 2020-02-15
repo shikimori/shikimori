@@ -61,6 +61,7 @@ class AniMangaQuery
         achievement: @achievement,
         duration: @duration,
         franchise: @franchise,
+        ids: @ids,
         kind: @kind,
         rating: @rating,
         score: @score,
@@ -79,7 +80,6 @@ class AniMangaQuery
 
     mylist!
 
-    ids!
     exclude_ids!
     search!
 
@@ -233,13 +233,6 @@ private
 
     @query = @query.where(id: animelist[:include]) if animelist[:include].any?
     @query = @query.where.not(id: animelist[:exclude]) if animelist[:exclude].any?
-  end
-
-  # фильтрация по id
-  def ids!
-    return if @ids.blank?
-
-    @query = @query.where(id: @ids.map(&:to_i))
   end
 
   # фильтрация по id

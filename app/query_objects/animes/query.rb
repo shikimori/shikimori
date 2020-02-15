@@ -4,6 +4,7 @@ class Animes::Query < QueryObjectBase
       .by_achievement(params[:achievement])
       .by_duration(params[:duration])
       .by_franchise(params[:franchise])
+      .by_ids(params[:ids])
       .by_kind(params[:kind])
       .by_rating(params[:rating])
       .by_score(params[:score])
@@ -26,6 +27,12 @@ class Animes::Query < QueryObjectBase
     return self if value.blank?
 
     chain Animes::Filters::ByFranchise.call(@scope, value)
+  end
+
+  def by_ids value
+    return self if value.blank?
+
+    chain @scope.where(id: value.split(',').map(&:to_i))
   end
 
   def by_kind value
