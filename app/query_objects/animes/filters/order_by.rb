@@ -17,8 +17,9 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
       :id,
       :id_desc,
       :rate_id,
+      :rate_status,
       :rate_updated,
-      :my, :rate,
+      :rate_score,
       :site_score,
       :kind, # :type
       :user_1,
@@ -76,8 +77,9 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     Field[:id] => '%<table_name>s.id',
     Field[:id_desc] => '%<table_name>s.id desc',
     Field[:rate_id] => 'user_rates.id',
+    Field[:rate_status] => 'user_rates.status',
     Field[:rate_updated] => 'user_rates.updated_at desc, user_rates.id',
-    Field[:my] => (
+    Field[:rate_score] => (
       <<-SQL.squish
         user_rates.score desc,
         %<table_name>s.name,
@@ -88,8 +90,6 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     Field[:kind] => '%<table_name>s.kind',
     Field[:random] => 'random()'
   }
-
-  ORDER_SQL[Field[:rate]] = Field[:my]
 
   CUSTOM_SORTINGS = [
     [Field[:user_1]],
