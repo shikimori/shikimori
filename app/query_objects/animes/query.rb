@@ -1,15 +1,14 @@
-class Animes::Query < QueryObjectBase
+class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
   GENRES_EXCLUDED_BY_SEX = {
     'male' => Genre::YAOI_IDS + Genre::SHOUNEN_AI_IDS,
     'female' => Genre::HENTAI_IDS + Genre::SHOUJO_AI_IDS + Genre::YURI_IDS,
     '' => Genre::CENSORED_IDS + Genre::SHOUNEN_AI_IDS + Genre::SHOUJO_AI_IDS
   }
 
-  DEFAULT_ORDER = Animes::Filters::OrderBy::Field[:ranked]
   SEARCH_IDS_LIMIT = 250
 
   def self.fetch scope:, params:, user: # rubocop:disable AbcSize, MethodLength
-    new(scope)
+    new_scope = new(scope)
       .by_achievement(params[:achievement])
       .by_duration(params[:duration])
       .by_exclude_ids(params[:exclude_ids])
@@ -24,9 +23,15 @@ class Animes::Query < QueryObjectBase
       .by_status(params[:status])
       .by_studio(params[:studio])
       .by_user_list(params[:mylist], user)
-      .order_by(params[:order] || DEFAULT_ORDER)
-      .search(params[:search] || params[:q] || params[:phrase])
-      # "phrase" is used in collection-search (userlist comparer)
+
+    # "phrase" is used in collection-search (userlist comparer)
+    search_term = params[:search] || params[:q] || params[:phrase]
+
+    if search_term.present?
+      new_scope.search(search_term)
+    else
+      new_scope.order_by(params[:order])
+    end
   end
 
   def by_achievement value
