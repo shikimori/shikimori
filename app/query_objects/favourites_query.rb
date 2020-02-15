@@ -26,7 +26,7 @@ class FavouritesQuery
 
   def global_top klass, limit, user
     global_top_favored_ids = FavouritesQuery.new.top_favourite_ids(klass, limit)
-    ai_genre_ids = AniMangaQuery::GENRES_EXCLUDED_BY_SEX[user.try(:sex) || '']
+    ai_genre_ids = Animes::Query::GENRES_EXCLUDED_BY_SEX[user.try(:sex) || '']
 
     klass
       .where(id: global_top_favored_ids - user_exclude_ids(user, klass))
