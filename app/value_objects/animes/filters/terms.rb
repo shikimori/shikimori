@@ -21,16 +21,16 @@ class Animes::Filters::Terms
 private
 
   def parse value
-    value
-      .split(',')
-      .map do |term|
-        is_negative = term[0] == '!'
-        value = is_negative ? term[1..-1] : term
+    splitted_value = value.is_a?(Symbol) ? [value] : value.split(',')
 
-        OpenStruct.new(
-          value: @dry_type ? @dry_type[value] : value,
-          is_negative: is_negative
-        )
-      end
+    splitted_value.map do |term|
+      is_negative = term[0] == '!'
+      value = is_negative ? term[1..-1] : term
+
+      OpenStruct.new(
+        value: @dry_type ? @dry_type[value] : value,
+        is_negative: is_negative
+      )
+    end
   end
 end

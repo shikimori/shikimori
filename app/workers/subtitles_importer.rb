@@ -1,8 +1,10 @@
+# rubocop:disable all
+# TODO: unused. delete
 class SubtitlesImporter
   include Sidekiq::Worker
   sidekiq_options(
     unique: :until_executed,
-    unique_args: -> (args) { args },
+    unique_args: ->(args) { args },
     retry: 1
   )
 
@@ -22,7 +24,7 @@ class SubtitlesImporter
 
   def import_latest
     print "getting parallel subtitles for latests...\n"
-    animes = Animes::StatusQuery.call(Anime.all, :latest)
+    animes = Animes::Query.new(Anime.all).by_status(status)
     get_fansubs animes
   end
 

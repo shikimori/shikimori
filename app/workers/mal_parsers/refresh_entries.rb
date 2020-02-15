@@ -17,8 +17,8 @@ class MalParsers::RefreshEntries
 private
 
   def ids klass, status
-    Animes::StatusQuery
-      .call(klass.all, status)
+    Animes::Query.new(klass.all)
+      .by_status(status)
       .order(:id)
       .pluck(:id)
   end
