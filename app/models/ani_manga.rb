@@ -7,7 +7,7 @@ module AniManga
 
   # если жанров слишком много, то оставляем только 6 основных
   def main_genres
-    all_genres = genres.sort_by { |v| Genre::LongNameGenres.include?(v.english) ? 0 : v.id }
+    all_genres = genres.sort_by { |v| Genre::LONG_NAME_GENRES.include?(v.english) ? 0 : v.id }
     return all_genres if genres.size <= 5
 
     selected_genres = genres.select(&:main?)
@@ -17,7 +17,7 @@ module AniManga
       selected_genres << genre unless selected_genres.include? genre
     end
 
-    selected_genres.sort_by { |v| Genre::LongNameGenres.include?(v.english) ? 0 : v.id }
+    selected_genres.sort_by { |v| Genre::LONG_NAME_GENRES.include?(v.english) ? 0 : v.id }
   end
 
   # из списка студий/издателей аниме возвращает единственного настоящего

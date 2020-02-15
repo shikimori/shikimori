@@ -5,12 +5,15 @@ class Animes::Query < QueryObjectBase
       .by_duration(params[:duration])
       .by_exclude_ids(params[:exclude_ids])
       .by_franchise(params[:franchise])
+      .by_genre(params[:genre])
       .by_ids(params[:ids])
       .by_kind(params[:kind])
+      .by_publisher(params[:publisher])
       .by_rating(params[:rating])
       .by_score(params[:score])
       .by_season(params[:season])
       .by_status(params[:status])
+      .by_studio(params[:studio])
   end
 
   def by_achievement value
@@ -37,6 +40,12 @@ class Animes::Query < QueryObjectBase
     chain Animes::Filters::ByFranchise.call(@scope, value)
   end
 
+  def by_genre value
+    return self if value.blank?
+
+    chain Animes::Filters::ByGenre.call(@scope, value)
+  end
+
   def by_ids value
     return self if value.blank?
 
@@ -47,6 +56,12 @@ class Animes::Query < QueryObjectBase
     return self if value.blank?
 
     chain Animes::Filters::ByKind.call(@scope, value)
+  end
+
+  def by_publisher value
+    return self if value.blank?
+
+    chain Animes::Filters::ByPublisher.call(@scope, value)
   end
 
   def by_rating value
@@ -71,5 +86,11 @@ class Animes::Query < QueryObjectBase
     return self if value.blank?
 
     chain Animes::Filters::ByStatus.call(@scope, value)
+  end
+
+  def by_studio value
+    return self if value.blank?
+
+    chain Animes::Filters::ByStudio.call(@scope, value)
   end
 end

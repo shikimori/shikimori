@@ -70,6 +70,18 @@ describe Animes::Query do
     it { is_expected.to eq [anime] }
   end
 
+  context '#by_genre' do
+    let(:params) { { genre: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByGenre)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
   context '#by_ids' do
     let!(:anime_1) { create :anime }
     let!(:anime_2) { create :anime }
@@ -92,6 +104,18 @@ describe Animes::Query do
     let(:params) { { kind: 'zzz' } }
     before do
       allow(Animes::Filters::ByKind)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
+  context '#by_publisher' do
+    let(:params) { { publisher: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByPublisher)
         .to receive(:call)
         .with(Anime.all, 'zzz')
         .and_return [anime]
@@ -140,6 +164,18 @@ describe Animes::Query do
     let(:params) { { status: 'zzz' } }
     before do
       allow(Animes::Filters::ByStatus)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
+  context '#by_studio' do
+    let(:params) { { studio: 'zzz' } }
+    before do
+      allow(Animes::Filters::ByStudio)
         .to receive(:call)
         .with(Anime.all, 'zzz')
         .and_return [anime]

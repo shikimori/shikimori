@@ -8,22 +8,18 @@ class Genre < ApplicationRecord
 
   enumerize :kind, in: %i[anime manga], predicates: true
 
-  Merged = {}
-
   DOUJINSHI_IDS = [61]
 
-  HENTAI_IDS = [12,59] + DOUJINSHI_IDS
-  YAOI_IDS = [33,65]
-  YURI_IDS = [34,75]
+  HENTAI_IDS = [12, 59] + DOUJINSHI_IDS
+  YAOI_IDS = [33, 65]
+  YURI_IDS = [34, 75]
 
-  SHOUNEN_AI_IDS = [28,55]
-  SHOUJO_AI_IDS = [26,73]
+  SHOUNEN_AI_IDS = [28, 55]
+  SHOUJO_AI_IDS = [26, 73]
 
   CENSORED_IDS = HENTAI_IDS + YAOI_IDS + YURI_IDS
 
-  MiscGenresPosition = 10000000
-
-  MainGenres = [
+  MAIN_GENRES = [
     'Seinen',
     'Josei',
     'Yaoi',
@@ -46,7 +42,7 @@ class Genre < ApplicationRecord
     'Shounen'
   ]
 
-  LongNameGenres = [
+  LONG_NAME_GENRES = [
     'Slice of Life',
     'Martial Arts',
     'Supernatural',
@@ -55,7 +51,7 @@ class Genre < ApplicationRecord
 
   # основной ли жанр
   def main?
-    MainGenres.include?(self.english)
+    MAIN_GENRES.include?(english)
   end
 
   def title ru_case: :subjective, user: nil
@@ -75,7 +71,7 @@ class Genre < ApplicationRecord
   end
 
   def to_param
-    "#{id}-#{english.gsub ' ', '-'}"
+    "#{id}-#{english.tr ' ', '-'}"
   end
 
   def censored?

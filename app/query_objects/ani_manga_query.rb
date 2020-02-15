@@ -59,12 +59,15 @@ class AniMangaQuery
         duration: @duration,
         exclude_ids: @exclude_ids,
         franchise: @franchise,
+        genre: @genre,
         ids: @ids,
         kind: @kind,
+        publisher: @publisher,
         rating: @rating,
         score: @score,
-        season: @season,
-        status: @status
+        season: @seasor,
+        status: @status,
+        studio: @studio
       },
       user: @user
     )
@@ -73,7 +76,6 @@ class AniMangaQuery
     disable_music!
 
     exclude_ai_genres!
-    associations!
 
     mylist!
 
@@ -159,31 +161,6 @@ private
       else
         "!#{excludes.join ',!'}"
       end
-  end
-
-  # фильтрация по жанрам, студиям и издателям
-  def associations!
-    [
-      [Genre, @genre],
-      [Studio, @studio],
-      [Publisher, @publisher]
-    ].each do |association_klass, values|
-      association! association_klass, values if values.present?
-    end
-  end
-
-  def association! association_klass, values
-    ids = bang_split(values.split(','), true) do |v|
-      association_klass.related(v.to_i)
-    end
-    field = "#{association_klass.name.downcase}_ids"
-
-    ids[:include].each do |ids|
-      @query.where! "#{field} && '{#{ids.map(&:to_i).join ','}}'"
-    end
-    ids[:exclude].each do |ids|
-      @query.where! "not (#{field} && '{#{ids.map(&:to_i).join ','}}')"
-    end
   end
 
   # фильтрация по наличию в собственном списке
