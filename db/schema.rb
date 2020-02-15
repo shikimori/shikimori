@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_15_110845) do
+ActiveRecord::Schema.define(version: 2020_02_15_151806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_110845) do
     t.string "status", limit: 255
     t.string "rating", limit: 255
     t.integer "episodes_aired", default: 0, null: false
-    t.string "russian", limit: 255
+    t.string "russian", default: "", null: false
     t.boolean "is_censored", default: false
     t.datetime "imported_at"
     t.datetime "next_episode_at"
@@ -193,7 +193,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_110845) do
     t.datetime "image_updated_at"
     t.datetime "imported_at"
     t.string "imageboard_tag", limit: 255
-    t.string "russian"
+    t.string "russian", default: "", null: false
     t.string "source", limit: 255
     t.text "desynced", default: [], null: false, array: true
     t.integer "mal_id"
@@ -594,7 +594,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_110845) do
     t.integer "chapters", default: 0, null: false
     t.integer "chapters_aired", default: 0, null: false
     t.string "status", limit: 255
-    t.string "russian", limit: 255
+    t.string "russian", default: "", null: false
     t.decimal "score", default: "0.0", null: false
     t.integer "ranked"
     t.integer "popularity"
@@ -726,7 +726,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_110845) do
     t.boolean "mangaka", default: false
     t.boolean "seyu", default: false
     t.text "desynced", default: [], null: false, array: true
-    t.string "russian"
+    t.string "russian", default: "", null: false
     t.integer "mal_id"
     t.index ["name"], name: "index_people_on_name"
   end
@@ -979,6 +979,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_110845) do
     t.string "prior_value", limit: 255
     t.index ["target_type", "user_id", "id"], name: "index_user_histories_on_target_type_and_user_id_and_id"
     t.index ["updated_at"], name: "index_user_histories_on_updated_at"
+    t.index ["user_id", "updated_at"], name: "index_user_histories_on_user_id_and_updated_at"
     t.index ["user_id"], name: "index_user_histories_on_user_id"
   end
 
@@ -1113,6 +1114,7 @@ ActiveRecord::Schema.define(version: 2020_02_15_110845) do
     t.string "roles", limit: 4096, default: [], null: false, array: true
     t.text "notification_settings", default: [], null: false, array: true
     t.index ["email"], name: "index_users_on_email"
+    t.index ["last_online_at"], name: "index_users_on_last_online_at"
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["roles"], name: "index_users_on_roles", using: :gin
