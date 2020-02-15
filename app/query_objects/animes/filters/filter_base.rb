@@ -26,4 +26,8 @@ private
   def sanitize term
     ApplicationRecord.sanitize term
   end
+
+  def fail_with_negative!
+    dry_type["!#{negatives[0]}"]
+  end
 end

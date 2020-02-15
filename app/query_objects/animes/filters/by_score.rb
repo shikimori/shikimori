@@ -13,14 +13,8 @@ class Animes::Filters::ByScore < Animes::Filters::FilterBase
       scope = scope.where(sql)
     end
 
-    fail_with negatives[0] if negatives.any?
+    fail_with_negative! if negatives.any?
 
     scope
-  end
-
-private
-
-  def fail_with value
-    Score["!#{value}"]
   end
 end
