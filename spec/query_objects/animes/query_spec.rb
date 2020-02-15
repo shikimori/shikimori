@@ -231,6 +231,18 @@ describe Animes::Query do
     end
   end
 
+  context '#order_by' do
+    let(:params) { { order: 'zzz' } }
+    before do
+      allow(Animes::Filters::OrderBy)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
   context '#by_search' do
     let(:params) { { search: 'zzz' } }
     let!(:anime_1) { create :anime }
