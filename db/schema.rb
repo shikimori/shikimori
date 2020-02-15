@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_114009) do
+ActiveRecord::Schema.define(version: 2020_02_15_110845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -77,7 +77,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_114009) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "message", limit: 1000
-    t.index ["anime_video_id", "kind", "state"], name: "index_anime_video_reports_on_anime_video_id_and_kind_and_state"
     t.index ["user_id", "state"], name: "index_anime_video_reports_on_user_id_and_state"
   end
 
@@ -963,7 +962,6 @@ ActiveRecord::Schema.define(version: 2020_02_10_114009) do
     t.boolean "is_closed", default: false, null: false
     t.index ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at"
     t.index ["linked_id", "linked_type", "comments_count", "generated"], name: "entries_total_select"
-    t.index ["tags"], name: "index_topics_on_tags", using: :gin
     t.index ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id"
     t.index ["type", "updated_at"], name: "index_topics_on_type_and_updated_at"
     t.index ["type", "user_id"], name: "i_entries_type_user_id"
