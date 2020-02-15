@@ -74,8 +74,6 @@ class AniMangaQuery
     exclude_ai_genres!
     associations!
 
-    season!
-
     mylist!
 
     search!
@@ -185,25 +183,6 @@ private
     ids[:exclude].each do |ids|
       @query.where! "not (#{field} && '{#{ids.map(&:to_i).join ','}}')"
     end
-  end
-
-  # фильтрация по сезонам
-  def season!
-    return if @season.blank?
-
-    seasons = bang_split @season.split(',')
-
-    query = seasons[:include].map do |season|
-      Animes::SeasonQuery.call(@klass.all, season).to_where_sql
-    end
-    @query = @query.where query.join(' OR ') unless query.empty?
-
-    query = seasons[:exclude].map do |season|
-      'NOT (' +
-        Animes::SeasonQuery.call(@klass.all, season).to_where_sql +
-        ')'
-    end
-    @query = @query.where query.join(' AND ') unless query.empty?
   end
 
   # фильтрация по наличию в собственном списке

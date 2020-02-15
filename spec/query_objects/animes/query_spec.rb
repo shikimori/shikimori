@@ -124,6 +124,18 @@ describe Animes::Query do
     it { is_expected.to eq [anime] }
   end
 
+  context '#by_season' do
+    let(:params) { { season: 'zzz' } }
+    before do
+      allow(Animes::Filters::BySeason)
+        .to receive(:call)
+        .with(Anime.all, 'zzz')
+        .and_return [anime]
+    end
+
+    it { is_expected.to eq [anime] }
+  end
+
   context '#by_status' do
     let(:params) { { status: 'zzz' } }
     before do
