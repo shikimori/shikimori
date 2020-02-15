@@ -1,4 +1,4 @@
-class Animes::Filters::OrderBy # rubocop:disable ClassLength
+class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable ClassLength
   method_object :scope, :value
 
   Field = Types::Strict::Symbol
@@ -15,6 +15,7 @@ class Animes::Filters::OrderBy # rubocop:disable ClassLength
       :released_on,
       :aired_on,
       :id,
+      :id_desc,
       :rate_id,
       :rate_updated,
       :my, :rate,
@@ -25,9 +26,9 @@ class Animes::Filters::OrderBy # rubocop:disable ClassLength
       :random
     )
 
-  REPLACEMENTS = {
-    Field[:rate] => Field[:my]
-  }
+  dry_type Field
+
+  DEFAULT_ORDER = Field[:ranked]
 
   ORDER_SQL = {
     Field[:name] => '%<table_name>s.name',
@@ -47,7 +48,7 @@ class Animes::Filters::OrderBy # rubocop:disable ClassLength
     Field[:popularity] => (
       <<-SQL.squish
         (case
-          when %<table_name>s.popularity=0
+          when %<table_name>s.popularity = 0
           then 999999
           else %<table_name>s.popularity
         end)
@@ -56,7 +57,7 @@ class Animes::Filters::OrderBy # rubocop:disable ClassLength
     Field[:ranked] => (
       <<-SQL.squish
         (case
-          when %<table_name>s.ranked=0
+          when %<table_name>s.ranked = 0
           then 999999
           else %<table_name>s.ranked
         end), %<table_name>s.score desc
@@ -72,7 +73,8 @@ class Animes::Filters::OrderBy # rubocop:disable ClassLength
       SQL
     ),
     Field[:aired_on] => '%<table_name>s.aired_on desc',
-    Field[:id] => '%<table_name>s.id desc',
+    Field[:id] => '%<table_name>s.id',
+    Field[:id_desc] => '%<table_name>s.id desc',
     Field[:rate_id] => 'user_rates.id',
     Field[:rate_updated] => 'user_rates.updated_at desc, user_rates.id',
     Field[:my] => (
@@ -87,38 +89,40 @@ class Animes::Filters::OrderBy # rubocop:disable ClassLength
     Field[:random] => 'random()'
   }
 
+  ORDER_SQL[Field[:rate]] = Field[:my]
+
+  CUSTOM_SORTINGS = [
+    [Field[:user_1]],
+    [Field[:user_2]]
+  ]
+
   def call
-    return if custom_sorting?
+    return @scope if custom_sorting?
 
-    @scope.order Arel.sql(order_sql)
+    fail_with_negative! if negatives.any?
+
+    @scope.order Arel.sql(terms_sql)
   end
-
-    # if @search.blank?
-    #   params_order query
-    # else
-    #   query
-    # end
 
 private
 
+  def terms_sql
+    sort_fields
+      .map { |term| term_sql term }
+      .join(',')
+  end
+
+  def term_sql term
+    format ORDER_SQL[term], table_name: @scope.table_name
+  end
+
+  def sort_fields
+    (
+      (positives.any? ? positives : [DEFAULT_ORDER]) + [Field[:id]]
+    ).uniq
+  end
+
   def custom_sorting?
-    term == Field[:user_1] || term == Field[:user_2]
-  end
-
-  def term
-    @term ||= begin
-      converted_value = Field[@value]
-      REPLACEMENTS[converted_value] || converted_value
-    end
-  end
-
-  def order_sql
-    field_sql = format(ORDER_SQL[term], table_name: @scope.table_name)
-
-    if term == Field[:id]
-      field_sql
-    else
-      field_sql + ',' + format(ORDER_SQL[Field[:id]], table_name: @scope.table_name)
-    end
+    CUSTOM_SORTINGS.include? positives
   end
 end
