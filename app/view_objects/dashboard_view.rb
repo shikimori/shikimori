@@ -11,18 +11,12 @@ class DashboardView < ViewObjectBase
 
   SPECIAL_PAGES = 2
 
-  THIS_SEASON_SQL = Animes::SeasonQuery
-    .call(
-      Anime.all,
-      Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text
-    )
+  CURRENT_SEASON_SQL = Animes::Query.new(Anime.all)
+    .by_season(Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text)
     .to_where_sql
 
-  PRIOR_SEASON_SQL = Animes::SeasonQuery
-    .call(
-      Anime.all,
-      Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text
-    )
+  PRIOR_SEASON_SQL = Animes::Query.new(Anime.all)
+    .by_season(Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text)
     .to_where_sql
 
   IGNORE_ONGOING_IDS = [
@@ -160,7 +154,7 @@ private
     Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
-      .where("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where("(#{CURRENT_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
       .where('score > 7.3')
       .decorate
   end
@@ -169,7 +163,7 @@ private
     Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
-      .where.not("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where.not("(#{CURRENT_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
       .where('score > 7.3')
       .decorate
   end

@@ -23,19 +23,8 @@ class DashboardViewV2 < ViewObjectBase # rubocop:disable ClassLength
   ONGOINGS_TAKE = 8
   IGNORE_ONGOING_IDS = DashboardView::IGNORE_ONGOING_IDS
 
-  THIS_SEASON_SQL = Animes::SeasonQuery
-    .call(
-      Anime.all,
-      Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text
-    )
-    .to_where_sql
-
-  PRIOR_SEASON_SQL = Animes::SeasonQuery
-    .call(
-      Anime.all,
-      Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text
-    )
-    .to_where_sql
+  CURRENT_SEASON_SQL = DashboardView::CURRENT_SEASON_SQL
+  PRIOR_SEASON_SQL = DashboardView::PRIOR_SEASON_SQL
 
   def ongoings
     all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
@@ -151,7 +140,7 @@ private
     Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
-      .where("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where("(#{CURRENT_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
       .where('score > 7.3')
       .decorate
   end
@@ -160,7 +149,7 @@ private
     Animes::OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .where.not(id: IGNORE_ONGOING_IDS)
-      .where.not("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where.not("(#{CURRENT_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
       .where('score > 7.3')
       .decorate
   end
