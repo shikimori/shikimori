@@ -101,25 +101,28 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
 
     fail_with_negative! if negatives.any?
 
-    @scope.order Arel.sql(terms_sql)
+    @scope.order(
+      Arel.sql(
+        self.class.terms_sql(positives, @scope)
+      )
+    )
+  end
+
+  def self.terms_sql terms, scope
+    (terms + [Field[:id]])
+      .map { |term| term_sql term, scope }
+      .uniq
+      .join(',')
+  end
+
+  def self.term_sql term, scope
+    format ORDER_SQL[term], table_name: scope.table_name
   end
 
 private
 
-  def terms_sql
-    sort_fields
-      .map { |term| term_sql term }
-      .join(',')
-  end
-
-  def term_sql term
-    format ORDER_SQL[term], table_name: @scope.table_name
-  end
-
-  def sort_fields
-    (
-      (positives.any? ? positives : [DEFAULT_ORDER]) + [Field[:id]]
-    ).uniq
+  def fixed_value
+    @value.blank? ? DEFAULT_ORDER : @value
   end
 
   def custom_sorting?
