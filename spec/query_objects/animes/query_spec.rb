@@ -58,7 +58,12 @@ describe Animes::Query do
     let!(:anime_3) { create :anime }
 
     let(:scope) { Anime.order :id }
-    let(:params) { { ids: "#{anime_3.id},#{anime_2.id}" } }
+    let(:params) do
+      [
+        { ids: "#{anime_3.id},#{anime_2.id}" },
+        [anime_3.id, anime_2.id]
+      ][0]
+    end
 
     it { is_expected.to eq [anime_2, anime_3] }
   end

@@ -32,7 +32,7 @@ class Animes::Query < QueryObjectBase
   def by_ids value
     return self if value.blank?
 
-    chain @scope.where(id: value.split(',').map(&:to_i))
+    chain @scope.where(id: value.is_a?(String) ? value.split(',') : value)
   end
 
   def by_kind value

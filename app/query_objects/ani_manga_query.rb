@@ -120,7 +120,7 @@ private
       @franchise.present? ||
       @achievement.present? ||
       @studio.present? ||
-      @ids&.any?
+      @ids.present?
   end
 
   def censored!
