@@ -1,7 +1,7 @@
 import moment from 'moment';
 import URI from 'urijs';
 
-const DATE_FORMAT = 'MM.DD.YYYY HH:mm';
+const DATE_FORMAT = 'DD.MM.YYYY HH:mm';
 
 pageLoad('animes_edit', () => {
   $('.increment-episode').on('click', e => {
