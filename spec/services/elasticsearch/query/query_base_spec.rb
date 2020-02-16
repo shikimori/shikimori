@@ -6,10 +6,10 @@ describe Elasticsearch::Query::QueryBase, :vcr do
 
   subject { Elasticsearch::Query::Anime.call phrase: phrase, limit: ids_limit }
 
-  let!(:anime_1) { create :anime, name: 'test' }
-  let!(:anime_2) { create :anime, name: 'test zxct qqq' }
-  let!(:anime_3) { create :anime, name: 'zxc' }
-  let!(:anime_4) { create :anime, name: 'qw' }
+  let!(:anime_1) { create :anime, name: 'test', russian: 'аниме_1' }
+  let!(:anime_2) { create :anime, name: 'test zxct qqq', russian: 'аниме_2' }
+  let!(:anime_3) { create :anime, name: 'zxc', russian: 'аниме_3' }
+  let!(:anime_4) { create :anime, name: 'qw', russian: 'аниме_4' }
 
   let(:ids_limit) { 10 }
   let(:phrase) { 'Test' }
