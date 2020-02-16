@@ -3,10 +3,16 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
   before { allow(parser).to receive :save_cache }
 
   let(:parser) { WikipediaParser.new }
-  let(:zero_no_tsukaima) { create :anime, name: 'Zero no Tsukaima', synonyms: ["Zero's Familiar"], english: ['The Familiar of Zero'] }
-  let(:toradora) { create :anime, name: 'Toradora!' }
+  let(:zero_no_tsukaima) do
+    create :anime,
+      name: 'Zero no Tsukaima',
+      synonyms: ["Zero's Familiar"],
+      english: ['The Familiar of Zero'],
+      russian: ''
+  end
+  let(:toradora) { create :anime, name: 'Toradora!', russian: '' }
   let(:bleach) { create :anime, name: 'Bleach', russian: 'Блич' }
-  let(:is) { create :anime, name: 'IS: Infinite Stratos' }
+  let(:is) { create :anime, name: 'IS: Infinite Stratos', russian: '' }
 
   it 'fetches pages from wikipedia' do
     data = parser.fetch_pages([zero_no_tsukaima.name.gsub(/ /, '_')])
