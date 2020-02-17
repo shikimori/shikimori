@@ -102,21 +102,27 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     fail_with_negative! if negatives.any?
 
     @scope.order(
-      Arel.sql(
-        self.class.terms_sql(positives, @scope)
+      self.class.terms_sql(
+        terms: positives,
+        scope: @scope,
+        arel_sql: true
       )
     )
   end
 
-  def self.terms_sql terms, scope
-    (terms + [Field[:id]])
-      .map { |term| term_sql term, scope }
+  def self.terms_sql terms:, scope:, arel_sql:
+    sql = (terms + [Field[:id]])
+      .map { |term| term_sql term: term, scope: scope, arel_sql: false }
       .uniq
       .join(',')
+
+    arel_sql ? Arel.sql(sql) : sql
   end
 
-  def self.term_sql term, scope
-    format ORDER_SQL[term], table_name: scope.table_name
+  def self.term_sql term:, scope:, arel_sql:
+    sql = format ORDER_SQL[term], table_name: scope.table_name
+
+    arel_sql ? Arel.sql(sql) : sql
   end
 
 private
