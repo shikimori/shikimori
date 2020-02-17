@@ -91,6 +91,38 @@ describe Animes::Filters::Policy do
     end
   end
 
+  describe 'genre' do
+    let(:hentai_genres) do
+      Genre::HENTAI_IDS + Genre::YAOI_IDS + Genre::YURI_IDS
+    end
+    context 'hentai, yaoi or yuri' do
+      let(:genre) do
+        [
+          hentai_genres.sample.to_s,
+          "#{hentai_genres.sample},!#{hentai_genres.sample}",
+          "!#{hentai_genres.sample},#{hentai_genres.sample}"
+        ].sample
+      end
+
+      it { expect(no_hentai).to eq false }
+      it { expect(no_music).to eq true }
+    end
+
+    context 'other' do
+      let(:genre) do
+        [
+          'z',
+          "!#{hentai_genres.sample}",
+          "#{hentai_genres.max}1",
+          (hentai_genres.max + 1).to_s
+        ].sample
+      end
+
+      it { expect(no_hentai).to eq true }
+      it { expect(no_music).to eq true }
+    end
+  end
+
   describe 'ids' do
     let(:ids) { any_args }
 
@@ -143,7 +175,7 @@ describe Animes::Filters::Policy do
       end
 
       it { expect(no_hentai).to eq true }
-      # it { expect(no_music).to eq true }
+      it { expect(no_music).to eq true }
     end
   end
 

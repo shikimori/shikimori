@@ -5,10 +5,13 @@ class Animes::Filters::Policy
       /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}|#{Types::Anime::Rating[:r_plus]})\b/
     MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
 
+    HENTAI_GENRES_IDS = Genre::HENTAI_IDS + Genre::YAOI_IDS + Genre::YURI_IDS
+    HENTAI_GENRES_REGEXP = /(?:\A|,)(?:#{HENTAI_GENRES_IDS.join '|'})\b/
+
     def exclude_hentai? params
       return false if forbid_filtering? params
 
-      !adult_rating?(params[:rating])
+      !adult_rating?(params[:rating]) && !hentai_genre?(params[:genre])
     end
 
     def exclude_music? params
@@ -21,6 +24,10 @@ class Animes::Filters::Policy
       rating == Types::Anime::Rating[:rx] ||
         rating == Types::Anime::Rating[:r_plus] ||
         rating.is_a?(String) && rating.match?(ADULT_RATING_REGEXP)
+    end
+
+    def hentai_genre? genre
+      genre.is_a?(String) && genre.match?(HENTAI_GENRES_REGEXP)
     end
 
     def music_kind? kind
@@ -39,17 +46,3 @@ class Animes::Filters::Policy
     end
   end
 end
-
-  # def censored!
-  #   if @genre
-  #     genres = bang_split(@genre.split(','), true).each { |_k, v| v.flatten! }
-  #   end
-  #   ratings = bang_split @rating.split(',') if @rating
-  #
-  #   rx = ratings && ratings[:include].include?(Anime::ADULT_RATING)
-  #   hentai = genres && (genres[:include] & Genre::HENTAI_IDS).any?
-  #   yaoi = genres && (genres[:include] & Genre::YAOI_IDS).any?
-  #   yuri = genres && (genres[:include] & Genre::YURI_IDS).any?
-  #
-  #   return if do_not_censore?
-  #   return if rx || hentai || yaoi || yuri
