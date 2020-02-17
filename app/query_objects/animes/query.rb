@@ -27,6 +27,14 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
     # "phrase" is used in collection-search (userlist comparer)
     search_term = params[:search] || params[:q] || params[:phrase]
 
+    if Animes::Filters::Policy.exclude_hentai? params
+      new_scope = new_scope.exclude_hentai
+    end
+
+    if Animes::Filters::Policy.exclude_music? params
+      new_scope = new_scope.exclude_music
+    end
+
     if search_term.present?
       new_scope.search(search_term)
     else
@@ -138,5 +146,13 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
       phrase: value,
       ids_limit: SEARCH_IDS_LIMIT
     )
+  end
+
+  def exclude_hentai
+    chain @scope.where(is_censored: false)
+  end
+
+  def exclude_music
+    chian @scope.where.not(kind: Types::Anime::Kind[:music])
   end
 end

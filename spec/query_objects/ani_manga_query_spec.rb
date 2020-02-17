@@ -82,21 +82,5 @@ describe AniMangaQuery do
         end
       end
     end
-
-    describe 'order' do
-      let!(:anime_1) { create :anime, ranked: 10, name: 'AAA', episodes: 10 }
-      let!(:anime_2) { create :anime, ranked: 5, name: 'BBB', episodes: 20 }
-
-      it do
-        expect(fetch.first.id).to eq anime_2.id
-        expect(fetch(order: 'name').first.id).to eq anime_1.id
-        expect(fetch(order: 'id').first.id).to eq anime_2.id
-      end
-
-      describe 'episodes' do
-        let!(:anime_3) { create :anime, ranked: 5, name: 'BBB', episodes: 0, episodes_aired: 15 }
-        it { expect(fetch(order: 'position').map(&:id)).to eq [anime_2.id, anime_3.id, anime_1.id] }
-      end
-    end
   end
 end

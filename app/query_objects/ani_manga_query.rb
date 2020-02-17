@@ -39,7 +39,7 @@ class AniMangaQuery
   end
 
   def fetch
-    @query = Animes::Query.fetch(
+    Animes::Query.fetch(
       scope: @query,
       params: {
         achievement: @achievement,
@@ -61,15 +61,6 @@ class AniMangaQuery
       },
       user: @user
     )
-
-    if @exclude_ai_genres
-      @query = @query.exclude_ai_genres @user.sex
-    end
-
-    censored!
-    disable_music!
-
-    @query
   end
 
 private

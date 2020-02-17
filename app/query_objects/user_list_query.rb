@@ -3,7 +3,8 @@ class UserListQuery
     @klass = klass
     @user = user
 
-    @params = params.merge klass: @klass, userlist: true
+    @params = params.merge klass: @klass
+    raise 'must show hentai in profile' # @params = params.merge klass: @klass, userlist: true
   end
 
   def fetch
