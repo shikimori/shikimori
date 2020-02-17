@@ -212,8 +212,6 @@ describe Animes::Query do
     let(:shounen_ai) { create :genre, id: Genre::SHOUNEN_AI_IDS.sample }
     let(:shoujo_ai) { create :genre, id: Genre::SHOUJO_AI_IDS.sample }
 
-    let(:options) { { AniMangaQuery::EXCLUDE_AI_GENRES_KEY => true } }
-
     subject { described_class.new(Anime.order(:id)).exclude_ai_genres sex }
 
     context 'male' do

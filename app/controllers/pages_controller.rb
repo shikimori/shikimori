@@ -35,27 +35,64 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
     @wakanim = Anime
       .where(id: Copyright::WAKANIM_COPYRIGHTED)
-      .order(AniMangaQuery.order_sql('released_on', Anime))
+      .order(
+        Animes::Filters::OrderBy.term_sql(
+          term: :released_on,
+          scope: Anime,
+          arel_sql: true
+        )
+      )
 
     @istari = Anime
       .where(id: Copyright::ISTARI_COPYRIGHTED)
-      .order(AniMangaQuery.order_sql('released_on', Anime))
+      .order(
+        Animes::Filters::OrderBy.term_sql(
+          term: :released_on,
+          scope: Anime,
+          arel_sql: true
+        )
+      )
 
     @vgtrk = Anime
       .where(id: Copyright::VGTRK_COPYRIGHTED)
-      .order(AniMangaQuery.order_sql('released_on', Anime))
+      .order(
+        Animes::Filters::OrderBy.term_sql(
+          term: :released_on,
+          scope: Anime,
+          arel_sql: true
+        )
+      )
 
     @capella_film = Anime
       .where(id: Copyright::CAPELLA_FILM_COPYRIGHTED)
-      .order(AniMangaQuery.order_sql('released_on', Anime))
+      .order(
+        Animes::Filters::OrderBy.term_sql(
+          term: :released_on,
+          scope: Anime,
+          arel_sql: true
+        )
+      )
 
     @exponenta = Anime
       .where(id: Copyright::EXPONENTA_COPYRIGHTED)
-      .order(AniMangaQuery.order_sql('released_on', Anime))
+      .order(
+        Animes::Filters::OrderBy.term_sql(
+          term: :released_on,
+          scope: Anime,
+          arel_sql: true
+        )
+      )
 
     @pioner = Anime
       .where(id: Copyright::PIONER_COPYRIGHTED)
-      .order(AniMangaQuery.order_sql('released_on', Anime))
+      .order(
+        Animes::Filters::OrderBy.term_sql(
+          term: :released_on,
+          scope: Anime,
+          arel_sql: true
+        )
+      )
+
 
     @other = Anime
       .where(
@@ -64,7 +101,13 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
           Copyright::VGTRK_COPYRIGHTED - Copyright::CAPELLA_FILM_COPYRIGHTED -
           Copyright::EXPONENTA_COPYRIGHTED - Copyright::PIONER_COPYRIGHTED
       )
-      .order(AniMangaQuery.order_sql('released_on', Anime))
+      .order(
+        Animes::Filters::OrderBy.term_sql(
+          term: :released_on,
+          scope: Anime,
+          arel_sql: true
+        )
+      )
 
     @topic_view =
       Topics::TopicViewFactory.new(false, false).find(COPYRIGHTED_TOPIC_ID)

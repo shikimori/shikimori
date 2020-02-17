@@ -29,7 +29,11 @@ private
   end
 
   def query
-    scope = AniMangaQuery.new(@klass, filters, @user).fetch
+    scope = Animes::Query.fetch(
+      scope: @klass.all,
+      params: filters,
+      user: @user
+    )
 
     if @klass == Manga
       scope.where.not(kind: Ranobe::KIND)

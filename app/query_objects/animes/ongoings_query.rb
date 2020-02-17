@@ -7,7 +7,13 @@ class Animes::OngoingsQuery
       .where.not(rating: :g, id: Anime::EXCLUDED_ONGOINGS)
       .where('score < 9.9')
       .where(adult_condition)
-      .order(AniMangaQuery.order_sql('ranked', Anime))
+      .order(
+        Animes::Filters::OrderBy.term_sql(
+          term: :ranked,
+          scope: Anime,
+          arel_sql: true
+        )
+      )
       .limit(limit)
   end
 

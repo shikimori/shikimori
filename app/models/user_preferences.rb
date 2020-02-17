@@ -17,6 +17,8 @@ class UserPreferences < ApplicationRecord
     in: %i[users friends owner],
     predicates: { prefix: true },
     default: :users
+  enumerize :default_sort,
+    in: Animes::Filters::OrderBy::Field.values
 
   boolean_attribute :comments_auto_collapsed
   boolean_attribute :comments_auto_loaded
@@ -30,7 +32,11 @@ class UserPreferences < ApplicationRecord
   before_create :set_forums unless Rails.env.test?
 
   def default_sort
-    super || (russian_names? ? 'russian' : 'name')
+    super || (
+      russian_names? ?
+        Animes::Filters::OrderBy::Field[:russian] :
+        Animes::Filters::OrderBy::Field[:name]
+    )
   end
 
   %i[

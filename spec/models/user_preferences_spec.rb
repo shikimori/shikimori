@@ -21,5 +21,8 @@ describe UserPreferences do
     it do
       is_expected.to enumerize(:comment_policy).in(:users, :friends, :owner).with_default :users
     end
+    it do
+      is_expected.to enumerize(:default_sort).in(*Animes::Filters::OrderBy::Field.values)
+    end
   end
 end

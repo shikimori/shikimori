@@ -27,8 +27,10 @@ private
       .references(list_type.to_sym)
       .where("#{@klass.table_name}.id in (?)", target_ids)
       .order(
-        Arel.sql(
-          Animes::Filters::OrderBy.terms_sql([:rate_status, @params[:order].to_sym], @klass)
+        Animes::Filters::OrderBy.terms_sql(
+          terms: [:rate_status, @params[:order].to_sym],
+          scope: @klass,
+          arel_sql: true
         )
       )
   end
