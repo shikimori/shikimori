@@ -10,7 +10,10 @@ describe Animes::Filters::Policy do
       mylist: mylist,
       publisher: publisher,
       rating: rating,
-      studio: studio
+      studio: studio,
+      search: search,
+      q: q,
+      phrase: phrase
     }
   end
   let(:achievement) { nil }
@@ -23,6 +26,9 @@ describe Animes::Filters::Policy do
   let(:publisher) { nil }
   let(:rating) { nil }
   let(:studio) { nil }
+  let(:search) { nil }
+  let(:q) { nil }
+  let(:phrase) { nil }
 
   let(:no_hentai) { Animes::Filters::Policy.exclude_hentai? params }
   let(:no_music) { Animes::Filters::Policy.exclude_music? params }
@@ -181,6 +187,27 @@ describe Animes::Filters::Policy do
 
   describe 'studio' do
     let(:studio) { any_args }
+
+    it { expect(no_hentai).to eq false }
+    it { expect(no_music).to eq false }
+  end
+
+  describe 'search' do
+    let(:search) { any_args }
+
+    it { expect(no_hentai).to eq false }
+    it { expect(no_music).to eq false }
+  end
+
+  describe 'q' do
+    let(:q) { any_args }
+
+    it { expect(no_hentai).to eq false }
+    it { expect(no_music).to eq false }
+  end
+
+  describe 'phrase' do
+    let(:search) { any_args }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }

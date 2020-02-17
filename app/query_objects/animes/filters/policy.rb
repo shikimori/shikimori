@@ -42,7 +42,10 @@ class Animes::Filters::Policy
         params[:ids].present? ||
         params[:mylist].present? ||
         params[:publisher].present? ||
-        params[:studio].present?
+        params[:studio].present? ||
+        params[:search].present? ||
+        params[:q].present? ||
+        params[:phrase].present?
     end
   end
 end
