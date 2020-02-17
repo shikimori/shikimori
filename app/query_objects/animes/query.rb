@@ -7,7 +7,7 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
 
   SEARCH_IDS_LIMIT = 250
 
-  def self.fetch scope:, params:, user: # rubocop:disable all
+  def self.fetch scope:, params:, user: # rubocop:disable AbcSize, MethodLength
     new_scope = new(scope)
       .by_achievement(params[:achievement])
       .by_duration(params[:duration])

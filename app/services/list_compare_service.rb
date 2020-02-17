@@ -101,9 +101,8 @@ private
   end
 
   def fetch_entries(ids)
-    AniMangaQuery
-      .new(klass, @params, @user_1)
-      .fetch
+    Animes::Query
+      .fetch(scope: klass, params: @params, user: @user_1)
       .where("#{klass.table_name}.id in (?)", ids)
       .select(
         [

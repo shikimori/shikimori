@@ -41,7 +41,7 @@ private
   def set_sort_order
     return if params[:order].present?
 
-    if current_user.preferences.default_sort == AniMangaQuery::DEFAULT_ORDER
+    if current_user.preferences.default_sort == Animes::Filters::OrderBy::DEFAULT_ORDER
       params[:order] = current_user.preferences.default_sort
     else
       redirect_to current_url(order: current_user.preferences.default_sort)

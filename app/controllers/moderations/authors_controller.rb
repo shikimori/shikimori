@@ -93,12 +93,7 @@ private
         ':name = ANY(fansubbers) or :name = ANY(fandubbers)',
         name: update_params[:name]
       )
-      .order(
-        AniMangaQuery.order_sql(
-          current_user.preferences.russian_names? ? 'russian' : 'name',
-          Anime
-        )
-      )
+      .order(order_sql)
       .to_a
   end
 
@@ -151,9 +146,9 @@ private
   end
 
   def order_sql
-    AniMangaQuery.order_sql(
-      current_user.preferences.russian_names? ? 'russian' : 'name',
-      Anime
+    Animes::Filters::OrderBy.arel_sql(
+      term: current_user.preferences.russian_names? ? :russian : :name,
+      scope: Anime
     )
   end
 

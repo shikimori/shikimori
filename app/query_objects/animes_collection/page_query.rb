@@ -30,7 +30,7 @@ private
 
   def query
     scope = Animes::Query.fetch(
-      scope: @klass.all,
+      scope: @klass,
       params: filters,
       user: @user
     )

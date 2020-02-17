@@ -259,8 +259,8 @@ describe AnimesCollection::View do
         # template: 'd',
         # is_adult: 'e',
         kind: 'tv',
-        # AniMangaQuery::IDS_KEY => ['c'],
-        # AniMangaQuery::EXCLUDE_IDS_KEY => ['b']
+        # ids: ['c'],
+        # exclude_ids: ['b']
       }
     end
 

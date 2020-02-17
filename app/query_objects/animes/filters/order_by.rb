@@ -122,7 +122,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
   end
 
   def self.term_sql term:, scope:, arel_sql:
-    sql = format ORDER_SQL[term], table_name: scope.table_name
+    sql = format ORDER_SQL[Field[term]], table_name: scope.table_name
 
     arel_sql ? Arel.sql(sql) : sql
   end

@@ -309,7 +309,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     authorize! :manage, Version
 
     scope = Anime
-      .order(AniMangaQuery.order_sql('ranked', Anime))
+      .order(Animes::Filters::OrderBy.arel_sql(term: :ranked, scope: Anime))
       .where(is_censored: true)
       .where(
         id: Screenshot
