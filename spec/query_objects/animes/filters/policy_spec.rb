@@ -131,14 +131,14 @@ describe Animes::Filters::Policy do
       it { expect(no_music).to eq true }
     end
 
-    context 'other', :focus do
+    context 'other' do
       let(:rating) do
         [
-          # "!#{Anime::SUB_ADULT_RATING}",
+          "!#{Anime::SUB_ADULT_RATING}",
           "#{Types::Anime::Rating[:g]},!#{Anime::ADULT_RATING}",
-          # "!#{Anime::ADULT_RATING},#{Types::Anime::Rating[:g]}",
-          # Types::Anime::Rating[:g],
-          # Types::Anime::Rating[:g].to_s
+          "!#{Anime::ADULT_RATING},#{Types::Anime::Rating[:g]}",
+          Types::Anime::Rating[:g],
+          Types::Anime::Rating[:g].to_s
         ].sample
       end
 

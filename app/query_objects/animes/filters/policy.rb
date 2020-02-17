@@ -2,7 +2,7 @@ class Animes::Filters::Policy
   class << self
     FALSY = [false, 'false', 0, '0']
     ADULT_RATING_REGEXP =
-      /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}||#{Types::Anime::Rating[:r_plus]})\b/
+      /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}|#{Types::Anime::Rating[:r_plus]})\b/
     MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
 
     def exclude_hentai? params
