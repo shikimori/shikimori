@@ -22,8 +22,16 @@ private
 
   def terms_sql terms
     @user
-      .send("#{@scope.klass.base_class.name.downcase}_rates")
+      .send(association_name)
       .where(status: terms)
       .select(:target_id)
+  end
+
+  def association_name
+    if @scope.respond_to? :klass
+      :"#{@scope.klass.base_class.name.downcase}_rates"
+    else
+      :"#{@scope.base_class.name.downcase}_rates"
+    end
   end
 end
