@@ -8,10 +8,9 @@ class Animes::OngoingsQuery
       .where('score < 9.9')
       .where(adult_condition)
       .order(
-        Animes::Filters::OrderBy.term_sql(
+        Animes::Filters::OrderBy.arel_sql(
           term: :ranked,
-          scope: Anime,
-          arel_sql: true
+          scope: Anime
         )
       )
       .limit(limit)

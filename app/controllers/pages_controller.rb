@@ -36,63 +36,38 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
     @wakanim = Anime
       .where(id: Copyright::WAKANIM_COPYRIGHTED)
       .order(
-        Animes::Filters::OrderBy.term_sql(
-          term: :released_on,
-          scope: Anime,
-          arel_sql: true
-        )
+        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
       )
 
     @istari = Anime
       .where(id: Copyright::ISTARI_COPYRIGHTED)
       .order(
-        Animes::Filters::OrderBy.term_sql(
-          term: :released_on,
-          scope: Anime,
-          arel_sql: true
-        )
+        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
       )
 
     @vgtrk = Anime
       .where(id: Copyright::VGTRK_COPYRIGHTED)
       .order(
-        Animes::Filters::OrderBy.term_sql(
-          term: :released_on,
-          scope: Anime,
-          arel_sql: true
-        )
+        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
       )
 
     @capella_film = Anime
       .where(id: Copyright::CAPELLA_FILM_COPYRIGHTED)
       .order(
-        Animes::Filters::OrderBy.term_sql(
-          term: :released_on,
-          scope: Anime,
-          arel_sql: true
-        )
+        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
       )
 
     @exponenta = Anime
       .where(id: Copyright::EXPONENTA_COPYRIGHTED)
       .order(
-        Animes::Filters::OrderBy.term_sql(
-          term: :released_on,
-          scope: Anime,
-          arel_sql: true
-        )
+        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
       )
 
     @pioner = Anime
       .where(id: Copyright::PIONER_COPYRIGHTED)
       .order(
-        Animes::Filters::OrderBy.term_sql(
-          term: :released_on,
-          scope: Anime,
-          arel_sql: true
-        )
+        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
       )
-
 
     @other = Anime
       .where(
@@ -102,11 +77,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
           Copyright::EXPONENTA_COPYRIGHTED - Copyright::PIONER_COPYRIGHTED
       )
       .order(
-        Animes::Filters::OrderBy.term_sql(
-          term: :released_on,
-          scope: Anime,
-          arel_sql: true
-        )
+        Animes::Filters::OrderBy.arel_sql(term: :released_on, scope: Anime)
       )
 
     @topic_view =

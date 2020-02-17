@@ -101,13 +101,15 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
 
     fail_with_negative! if negatives.any?
 
-    @scope.order(
-      self.class.terms_sql(
-        terms: positives,
-        scope: @scope,
-        arel_sql: true
-      )
-    )
+    @scope.order(self.class.arel_sql(terms: positives, scope: @scope))
+  end
+
+  def self.arel_sql term: nil, terms: nil, scope:
+    if term
+      term_sql term: term, scope: scope, arel_sql: true
+    else
+      terms_sql terms: terms, scope: scope, arel_sql: true
+    end
   end
 
   def self.terms_sql terms:, scope:, arel_sql:
