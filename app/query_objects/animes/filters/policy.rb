@@ -1,16 +1,27 @@
 class Animes::Filters::Policy
-  def self.exclude_hentai? params
-    true
-  end
+  class << self
+    FALSY = [false, 'false', 0, '0']
 
-  def self.exclude_music? params
-    is_music = params[:kind].is_a?(String) && params[:kind].match?(/(\A|,)music/) ||
-      params[:kind] == Types::Anime::Kind[:music]
+    def exclude_hentai? params
+      !forbid_filtering?(params)
+    end
 
-    !is_music
-    #   unless @kind.match?(/music/) || do_not_censore?
-    #     @query = @query.where("#{table_name}.kind != ?", :music)
-    #   end
+    def exclude_music? params
+      is_music = params[:kind].is_a?(String) && params[:kind].match?(/(\A|,)music/) ||
+        params[:kind] == Types::Anime::Kind[:music]
+
+      !is_music && !forbid_filtering?(params)
+      #   !@kind.match?(/music/) && !do_not_censore?
+      #     @query = @query.where("#{table_name}.kind != ?", :music)
+      #   end
+    end
+
+  private
+
+    def forbid_filtering? params
+      FALSY.include?(params[:censored]) ||
+        params[:mylist].present?
+    end
   end
 end
 
@@ -37,5 +48,3 @@ end
   #   return if do_not_censore?
   #   return if rx || hentai || yaoi || yuri
   #   return if @publisher || @studio
-  #
-
