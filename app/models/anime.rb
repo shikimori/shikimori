@@ -24,8 +24,8 @@ class Anime < DbEntry
     35478 39040 38427 39654 38767 39635 39031
   ]
 
-  ADULT_RATING = 'rx'
-  SUB_ADULT_RATING = 'r_plus'
+  ADULT_RATING = Types::Anime::Rating[:rx]
+  SUB_ADULT_RATING = Types::Anime::Rating[:r_plus]
   FORBIDDEN_ADULT_IDS = [
     # banned by roskomnadzor
     5042,

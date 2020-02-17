@@ -88,7 +88,7 @@ private
     end
     ratings = bang_split @rating.split(',') if @rating
 
-    rx = ratings && ratings[:include].include?(Anime::ADULT_RATING)
+    rx = ratings && ratings[:include].include?(Anime::ADULT_RATING.to_s)
     hentai = genres && (genres[:include] & Genre::HENTAI_IDS).any?
     yaoi = genres && (genres[:include] & Genre::YAOI_IDS).any?
     yuri = genres && (genres[:include] & Genre::YURI_IDS).any?

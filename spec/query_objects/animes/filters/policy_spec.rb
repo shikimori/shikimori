@@ -8,6 +8,8 @@ describe Animes::Filters::Policy do
       ids: ids,
       kind: kind,
       mylist: mylist,
+      publisher: publisher,
+      rating: rating,
       studio: studio
     }
   end
@@ -18,13 +20,24 @@ describe Animes::Filters::Policy do
   let(:ids) { nil }
   let(:kind) { nil }
   let(:mylist) { nil }
+  let(:publisher) { nil }
+  let(:rating) { nil }
   let(:studio) { nil }
 
   let(:no_hentai) { Animes::Filters::Policy.exclude_hentai? params }
   let(:no_music) { Animes::Filters::Policy.exclude_music? params }
 
-  it { expect(no_hentai).to eq true }
-  it { expect(no_music).to eq true }
+  describe 'no params' do
+    it { expect(no_hentai).to eq true }
+    it { expect(no_music).to eq true }
+  end
+
+  describe 'achievement' do
+    let(:achievement) { any_args }
+
+    it { expect(no_hentai).to eq false }
+    it { expect(no_music).to eq false }
+  end
 
   describe 'censored' do
     context 'true' do
@@ -40,6 +53,13 @@ describe Animes::Filters::Policy do
       it { expect(no_hentai).to eq false }
       it { expect(no_music).to eq false }
     end
+  end
+
+  describe 'franchise' do
+    let(:franchise) { any_args }
+
+    it { expect(no_hentai).to eq false }
+    it { expect(no_music).to eq false }
   end
 
   describe 'kind' do
@@ -71,8 +91,64 @@ describe Animes::Filters::Policy do
     end
   end
 
+  describe 'ids' do
+    let(:ids) { any_args }
+
+    it { expect(no_hentai).to eq false }
+    it { expect(no_music).to eq false }
+  end
+
   describe 'mylist' do
-    let(:mylist) { 'zxc' }
+    let(:mylist) { any_args }
+
+    it { expect(no_hentai).to eq false }
+    it { expect(no_music).to eq false }
+  end
+
+  describe 'publisher' do
+    let(:publisher) { any_args }
+
+    it { expect(no_hentai).to eq false }
+    it { expect(no_music).to eq false }
+  end
+
+  describe 'rating' do
+    context 'rx || r_plus' do
+      let(:rating) do
+        [
+          Anime::ADULT_RATING,
+          Anime::SUB_ADULT_RATING,
+          Anime::ADULT_RATING.to_s,
+          "#{Anime::ADULT_RATING},#{Anime::SUB_ADULT_RATING}",
+          "#{Anime::ADULT_RATING},!#{Anime::SUB_ADULT_RATING}",
+          "!#{Anime::ADULT_RATING},#{Anime::SUB_ADULT_RATING}",
+          "#{Types::Anime::Rating[:g]},#{Anime::ADULT_RATING},",
+          "#{Anime::ADULT_RATING},#{Types::Anime::Rating[:g]}"
+        ].sample
+      end
+
+      it { expect(no_hentai).to eq false }
+      it { expect(no_music).to eq true }
+    end
+
+    context 'other', :focus do
+      let(:rating) do
+        [
+          # "!#{Anime::SUB_ADULT_RATING}",
+          "#{Types::Anime::Rating[:g]},!#{Anime::ADULT_RATING}",
+          # "!#{Anime::ADULT_RATING},#{Types::Anime::Rating[:g]}",
+          # Types::Anime::Rating[:g],
+          # Types::Anime::Rating[:g].to_s
+        ].sample
+      end
+
+      it { expect(no_hentai).to eq true }
+      # it { expect(no_music).to eq true }
+    end
+  end
+
+  describe 'studio' do
+    let(:studio) { any_args }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }

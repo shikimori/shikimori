@@ -1,39 +1,45 @@
 class Animes::Filters::Policy
   class << self
     FALSY = [false, 'false', 0, '0']
+    ADULT_RATING_REGEXP =
+      /(?:\A|,)(?:#{Types::Anime::Rating[:rx]}||#{Types::Anime::Rating[:r_plus]})\b/
+    MUSIC_REGEXP = /(?:\A|,)#{Types::Anime::Kind[:music]}\b/
 
     def exclude_hentai? params
-      !forbid_filtering?(params)
+      return false if forbid_filtering? params
+
+      !adult_rating?(params[:rating])
     end
 
     def exclude_music? params
-      is_music = params[:kind].is_a?(String) && params[:kind].match?(/(\A|,)music/) ||
-        params[:kind] == Types::Anime::Kind[:music]
-
-      !is_music && !forbid_filtering?(params)
-      #   !@kind.match?(/music/) && !do_not_censore?
-      #     @query = @query.where("#{table_name}.kind != ?", :music)
-      #   end
+      !music_kind?(params[:kind]) && !forbid_filtering?(params)
     end
 
   private
 
-    def forbid_filtering? params
+    def adult_rating? rating
+      rating == Types::Anime::Rating[:rx] ||
+        rating == Types::Anime::Rating[:r_plus] ||
+        rating.is_a?(String) && rating.match?(ADULT_RATING_REGEXP)
+    end
+
+    def music_kind? kind
+      kind == Types::Anime::Kind[:music] ||
+        kind.is_a?(String) && kind.match?(MUSIC_REGEXP)
+    end
+
+    def forbid_filtering? params # rubocop:disable all
       FALSY.include?(params[:censored]) ||
-        params[:mylist].present?
+        params[:achievement].present? ||
+        params[:franchise].present? ||
+        params[:ids].present? ||
+        params[:mylist].present? ||
+        params[:publisher].present? ||
+        params[:studio].present?
     end
   end
 end
 
-  # def do_not_censore?
-  #   [false, 'false'].include?(@params[:censored]) ||
-  #     mylist? || userlist? ||
-  #     @franchise.present? ||
-  #     @achievement.present? ||
-  #     @studio.present? ||
-  #     @ids.present?
-  # end
-  #
   # def censored!
   #   if @genre
   #     genres = bang_split(@genre.split(','), true).each { |_k, v| v.flatten! }
@@ -47,4 +53,3 @@ end
   #
   #   return if do_not_censore?
   #   return if rx || hentai || yaoi || yuri
-  #   return if @publisher || @studio

@@ -42,7 +42,7 @@ class AnimesCollectionController < ShikimoriController
     if @model[:genre]&.any?(&:censored?) && censored_forbidden?
       raise AgeRestricted
     end
-    if params[:rating]&.split(',')&.include?(Anime::ADULT_RATING) &&
+    if params[:rating]&.split(',')&.include?(Anime::ADULT_RATING.to_s) &&
         censored_forbidden?
       raise AgeRestricted
     end
