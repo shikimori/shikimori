@@ -153,6 +153,6 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
   end
 
   def exclude_music
-    chian @scope.where.not(kind: Types::Anime::Kind[:music])
+    chain @scope.where.not(kind: Types::Anime::Kind[:music])
   end
 end

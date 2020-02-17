@@ -10,10 +10,11 @@ describe Animes::Query do
   let(:params) { {} }
   let(:user) { nil }
 
-  let(:anime) { build_stubbed :anime }
+  let(:anime) { create :anime }
+  let(:animes_scope) { Anime.where id: anime.id }
 
   context 'no params' do
-    it { is_expected.to eq Anime.all }
+    it { is_expected.to eq Anime.all.to_a }
   end
 
   context '#by_achievement' do
@@ -21,8 +22,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByAchievement)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -33,8 +34,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByDuration)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -63,8 +64,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByFranchise)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -75,8 +76,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByGenre)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -105,8 +106,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByKind)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -118,8 +119,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByUserList)
         .to receive(:call)
-        .with(Anime.all, 'zzz', user)
-        .and_return [anime]
+        .with(any_args, 'zzz', user)
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -130,8 +131,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByPublisher)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -142,8 +143,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByRating)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -154,8 +155,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByScore)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -166,8 +167,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::BySeason)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -178,8 +179,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByStatus)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -190,8 +191,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::ByStudio)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
@@ -236,8 +237,8 @@ describe Animes::Query do
     before do
       allow(Animes::Filters::OrderBy)
         .to receive(:call)
-        .with(Anime.all, 'zzz')
-        .and_return [anime]
+        .with(any_args, 'zzz')
+        .and_return animes_scope
     end
 
     it { is_expected.to eq [anime] }
