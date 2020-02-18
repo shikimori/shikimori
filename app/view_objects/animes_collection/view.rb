@@ -83,6 +83,10 @@ class AnimesCollection::View < ViewObjectBase
     )
   end
 
+  def anime?
+    @klass == Anime
+  end
+
 private
 
   def anime_ova_ona? db_entry

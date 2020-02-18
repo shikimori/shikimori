@@ -1,5 +1,4 @@
-# TODO: refactor to view objects
-class AnimesCollectionController < ShikimoriController
+class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLength
   CENSORED = /\b(?:sex|секс|porno?|порно)\b/mix
 
   before_action do
@@ -9,18 +8,18 @@ class AnimesCollectionController < ShikimoriController
     @menu = Menus::CollectionMenu.new @view.klass
   end
 
-  def index
+  def index # rubocop:disable all
     model = prepare_model
 
     og noindex: true, nofollow: true if params[:search] || request.url.include?('!')
 
-    forbidden_params_redirect_check
     censored_search_check
+    forbidden_params_redirect_check
     genres_redirect_check model[:genre]
-    studios_redirect_check model[:studio]
-    publishers_redirect_check model[:publisher]
     guest_mylist_check
     one_found_redirect_check
+    publishers_redirect_check model[:publisher]
+    studios_redirect_check model[:studio]
 
     if params[:rel] || request.url.include?('order') ||
         og.description.blank? || @view.collection.empty? ||
@@ -120,17 +119,10 @@ private
   end
 
   def forbidden_params_redirect_check
-    if params.include?(:duration) && @view.klass != Anime
-      raise ForceRedirect, current_url(duration: nil)
-    end
-
-    if params.include?(:studio) && @view.klass != Anime
-      raise ForceRedirect, current_url(studio: nil)
-    end
-
-    if params.include?(:publisher) && @view.klass == Anime
-      raise ForceRedirect, current_url(publisher: nil)
-    end
+    non_anime_duration_check
+    non_anime_rating_check
+    non_anime_studio_check
+    non_manga_publisher_check
 
     if params[:page] == '0' || params[:page] == '1'
       raise ForceRedirect, current_url(page: nil)
@@ -139,6 +131,30 @@ private
     if params[:order] == AnimesCollection::View::DEFAULT_ORDER.to_s
       raise ForceRedirect, current_url(order: nil)
     end
+  end
+
+  def non_anime_duration_check
+    return unless params.include?(:duration) && !@view.anime?
+
+    raise ForceRedirect, current_url(duration: nil)
+  end
+
+  def non_anime_rating_check
+    return unless params.include?(:rating) && !@view.anime?
+
+    raise ForceRedirect, current_url(rating: nil)
+  end
+
+  def non_anime_studio_check
+    return unless params.include?(:studio) && !@view.anime?
+
+    raise ForceRedirect, current_url(studio: nil)
+  end
+
+  def non_manga_publisher_check
+    return unless params.include?(:publisher) && @view.anime?
+
+    raise ForceRedirect, current_url(publisher: nil)
   end
 
   def censored_search_check
