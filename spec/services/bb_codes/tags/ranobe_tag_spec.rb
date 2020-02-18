@@ -3,7 +3,7 @@ describe BbCodes::Tags::RanobeTag do
 
   describe '#format' do
     subject { tag.format text }
-    let(:ranobe) { create :ranobe, id: 9876543, name: 'zxcvbn', russian: nil }
+    let(:ranobe) { create :ranobe, id: 9876543, name: 'zxcvbn', russian: '' }
 
     let(:html) do
       <<-HTML.squish

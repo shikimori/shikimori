@@ -3,7 +3,7 @@ describe BbCodes::Tags::MangaTag do
 
   describe '#format' do
     subject { tag.format text }
-    let(:manga) { create :manga, id: 9876543, name: 'zxcvbn', russian: nil }
+    let(:manga) { create :manga, id: 9876543, name: 'zxcvbn', russian: '' }
 
     let(:html) do
       <<-HTML.squish

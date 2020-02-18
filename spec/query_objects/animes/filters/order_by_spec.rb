@@ -44,12 +44,24 @@ describe Animes::Filters::OrderBy do
   end
 
   describe '.terms_sql' do
-    subject { described_class.terms_sql %i[id name], Anime.all }
+    subject do
+      described_class.terms_sql(
+        terms: %i[id name],
+        scope: [Anime.all, Anime].sample,
+        arel_sql: false
+      )
+    end
     it { is_expected.to eq 'animes.id,animes.name' }
   end
 
   describe '.term_sql' do
-    subject { described_class.term_sql :id, Anime.all }
+    subject do
+      described_class.term_sql(
+        term: :id,
+        scope: [Anime.all, Anime].sample,
+        arel_sql: false
+      )
+    end
     it { is_expected.to eq 'animes.id' }
   end
 end

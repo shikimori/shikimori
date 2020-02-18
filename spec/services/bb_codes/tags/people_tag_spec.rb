@@ -3,7 +3,7 @@ describe BbCodes::Tags::PersonTag do
 
   describe '#format' do
     subject { tag.format text }
-    let(:person) { create :person, id: 9876543, name: 'zxcvbn', russian: nil }
+    let(:person) { create :person, id: 9876543, name: 'zxcvbn', russian: '' }
 
     let(:html) do
       <<-HTML.squish

@@ -48,7 +48,7 @@ class TranslationsController < ShikimoriController
 
     @filtered_groups =
       @groups.map do |key, values|
-        filtered = values.select do |anime|
+        filtered = values.to_a.select do |anime|
           def anime.too_short?
             anime? &&
               (ongoing? || anons? || latest?) && score > 7 && kind_tv? &&

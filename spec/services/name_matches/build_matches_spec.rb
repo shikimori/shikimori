@@ -22,9 +22,32 @@ describe NameMatches::BuildMatches do
     subject(:name_matches) { service.call }
 
     it do
-      expect(name_matches.map(&:phrase)).to eq %w(
-        ootnikzootnik! ootnikzootnik!tv ootnikzootnik!2000 hunterxhunter hunters englisunter ハンターxハンター hunterxhuntertv hunterxhunter2000 hunterstv hunters2000 englisuntertv englisunter2000 ハンターxハンターtv ハンターxハンター2000 ootnikzootnik ootnikzootniktv ootnikzootnik2000 охотник! охотник!tv охотник!2000 охотник охотникtv охотник2000
-      )
+      expect(name_matches.map(&:phrase)).to eq %w[
+        ootnikzootnik!
+        ootnikzootnik!tv
+        ootnikzootnik!2000
+        hunterxhunter
+        hunters
+        englisunter
+        ハンターxハンター
+        hunterxhuntertv
+        hunterxhunter2000
+        hunterstv
+        hunters2000
+        englisuntertv
+        englisunter2000
+        ハンターxハンターtv
+        ハンターxハンター2000
+        ootnikzootnik
+        ootnikzootniktv
+        ootnikzootnik2000
+        охотник!
+        охотник!tv
+        охотник!2000
+        охотник
+        охотникtv
+        охотник2000
+      ]
       expect(name_matches.first).to be_kind_of NameMatch
       expect(name_matches.first).to be_new_record
       expect(name_matches.first).to be_valid
@@ -80,15 +103,15 @@ describe NameMatches::BuildMatches do
     end
 
     context 'only name' do
-      let(:entry) { build_stubbed :anime, :tv, id: id, name: name }
+      let(:entry) { build_stubbed :anime, :tv, id: id, name: name, russian: '' }
       let(:name) { 'JoJo no Kimyou na Bouken (2000)' }
 
       it do
-        expect(name_matches.map(&:phrase)).to eq %w(
+        expect(name_matches.map(&:phrase)).to eq %w[
           jojonokimyonaboken2000
           jojonokimyonaboken2000tv
           jojonokimyonaboken
-        )
+        ]
         expect(name_matches.first).to be_kind_of NameMatch
         expect(name_matches.first).to be_new_record
         expect(name_matches.first).to be_valid

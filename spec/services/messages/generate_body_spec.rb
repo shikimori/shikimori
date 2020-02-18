@@ -218,7 +218,7 @@ describe Messages::GenerateBody do
 
     context 'version_accepted' do
       let(:kind) { MessageType::VERSION_ACCEPTED }
-      let(:anime) { create :anime, id: 1, name: 'test' }
+      let(:anime) { create :anime, id: 1, name: 'test', russian: '' }
       let(:linked) { create :version, item: anime, id: 1 }
       it do
         is_expected.to eq(
@@ -236,7 +236,7 @@ describe Messages::GenerateBody do
 
     context 'version_rejected' do
       let(:kind) { MessageType::VERSION_REJECTED }
-      let(:anime) { create :anime, id: 1, name: 'test' }
+      let(:anime) { create :anime, id: 1, name: 'test', russian: '' }
       let(:linked) { create :version, item: anime, id: 1, moderator: user_from }
 
       context 'with reason' do

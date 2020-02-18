@@ -2,8 +2,8 @@ describe NameMatches::Refresh do
   let(:worker) { NameMatches::Refresh.new }
 
   describe '#perform' do
-    let!(:anime) { create :anime, name: 'test', id: 999_999 }
-    let!(:anime_2) { create :anime, name: 'test2', id: 999_998 }
+    let!(:anime) { create :anime, name: 'test', russian: '', id: 999_999 }
+    let!(:anime_2) { create :anime, name: 'test2', russian: '', id: 999_998 }
 
     let!(:anime_match) { create :name_match, target: anime }
     let!(:anime_match_2) do
