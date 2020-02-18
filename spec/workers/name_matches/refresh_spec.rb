@@ -18,7 +18,7 @@ describe NameMatches::Refresh do
       it do
         expect(anime.name_matches).to have(2).items
         expect(anime_2.name_matches).to have(2).items
-        expect{anime_match.reload}.to raise_error ActiveRecord::RecordNotFound
+        expect { anime_match.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(anime_match_2.reload).to be_persisted
         expect(manga_match.reload).to be_persisted
       end
@@ -29,7 +29,7 @@ describe NameMatches::Refresh do
       it do
         expect(anime.name_matches).to have(2).items
         expect(anime_2.name_matches).to be_empty
-        expect{anime_match.reload}.to raise_error ActiveRecord::RecordNotFound
+        expect { anime_match.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(anime_match_2.reload).to be_persisted
         expect(manga_match.reload).to be_persisted
       end
