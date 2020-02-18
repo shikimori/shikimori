@@ -16,7 +16,7 @@ class QueryObjectBase
   ]
   DELEGATE_METHODS = %i[== === eql? equal?]
 
-  pattr_initialize :scope
+  vattr_initialize :scope
 
   def to_a
     @scope.to_a

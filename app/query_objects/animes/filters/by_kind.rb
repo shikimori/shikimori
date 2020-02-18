@@ -13,8 +13,8 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
       <<~SQL.squish
         (
           %<table_name>s.kind = 'tv' and (
-            (episodes != 0 and episodes <= 16) or
-            (episodes = 0 and episodes_aired <= 16)
+            (%<table_name>s.episodes != 0 and %<table_name>s.episodes <= 16) or
+            (%<table_name>s.episodes = 0 and %<table_name>s.episodes_aired <= 16)
           )
         )
       SQL
@@ -23,8 +23,10 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
       <<~SQL.squish
         (
           %<table_name>s.kind = 'tv' and (
-            (episodes != 0 and episodes >= 17 and episodes <= 28) or
-            (episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)
+            (%<table_name>s.episodes != 0 and %<table_name>s.episodes >= 17 and
+              %<table_name>s.episodes <= 28) or
+            (%<table_name>s.episodes = 0 and %<table_name>s.episodes_aired >= 17 and
+              %<table_name>s.episodes_aired <= 28)
           )
         )
       SQL
@@ -32,8 +34,8 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
     KindExtended[:tv_48] => <<~SQL.squish
       (
         %<table_name>s.kind = 'tv' and (
-          (episodes != 0 and episodes >= 29) or
-          (episodes = 0 and episodes_aired >= 29)
+          (%<table_name>s.episodes != 0 and %<table_name>s.episodes >= 29) or
+          (%<table_name>s.episodes = 0 and %<table_name>s.episodes_aired >= 29)
         )
       )
     SQL

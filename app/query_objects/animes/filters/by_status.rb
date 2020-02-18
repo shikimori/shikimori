@@ -10,11 +10,11 @@ class Animes::Filters::ByStatus < Animes::Filters::FilterBase
   LATEST_INTERVAL = 3.months
 
   SQL_QUERIES = {
-    StatusExtended[:anons] => "status = '#{Types::Anime::Status[:anons]}'",
-    StatusExtended[:ongoing] => "status = '#{Types::Anime::Status[:ongoing]}'",
-    StatusExtended[:released] => "status = '#{Types::Anime::Status[:released]}'",
+    StatusExtended[:anons] => "%<table_name>s.status = '#{Types::Anime::Status[:anons]}'",
+    StatusExtended[:ongoing] => "%<table_name>s.status = '#{Types::Anime::Status[:ongoing]}'",
+    StatusExtended[:released] => "%<table_name>s.status = '#{Types::Anime::Status[:released]}'",
     StatusExtended[:latest] => <<~SQL.squish
-      status = '#{Types::Anime::Status[:released]}'
+      %<table_name>s.status = '#{Types::Anime::Status[:released]}'
         and released_on is not null
         and released_on >= %<date>s
     SQL
@@ -39,8 +39,10 @@ class Animes::Filters::ByStatus < Animes::Filters::FilterBase
 private
 
   def format_sql term
-    term == StatusExtended[:latest] ?
-      format(SQL_QUERIES[term], date: sanitize(LATEST_INTERVAL.ago.to_date)) :
-      SQL_QUERIES[term]
+    format(
+      SQL_QUERIES[term],
+      table_name: table_name,
+      date: sanitize(LATEST_INTERVAL.ago.to_date)
+    )
   end
 end
