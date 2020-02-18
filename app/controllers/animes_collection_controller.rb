@@ -11,8 +11,6 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
   def index # rubocop:disable all
     model = prepare_model
 
-    og noindex: true, nofollow: true if params[:search] || request.url.include?('!')
-
     censored_search_check
     forbidden_params_redirect_check
     genres_redirect_check model[:genre]
@@ -21,13 +19,7 @@ class AnimesCollectionController < ShikimoriController # rubocop:disable ClassLe
     publishers_redirect_check model[:publisher]
     studios_redirect_check model[:studio]
 
-    if params[:rel] || request.url.include?('order') ||
-        og.description.blank? || @view.collection.empty? ||
-        params
-          .to_unsafe_h
-          .any? { |k, v| k != 'genre' && v.is_a?(String) && v.include?(',') }
-      og noindex: true, nofollow: true
-    end
+    og noindex: true, nofollow: true if noindex?
 
     unless @view.recommendations?
       og page_title: t('page', page: @view.page) if @view.page > 1
@@ -212,5 +204,14 @@ private
       studios: model[:studio],
       publishers: model[:publisher]
     )
+  end
+
+  def noindex?
+    params[:rel] ||
+      request.url.include?('order') ||
+      og.description.blank? ||
+      @view.collection.empty? ||
+      params[:search] ||
+      request.url.include?('!')
   end
 end
