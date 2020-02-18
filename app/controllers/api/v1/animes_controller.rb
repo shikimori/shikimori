@@ -156,10 +156,10 @@ class Api::V1::AnimesController < Api::V1Controller # rubocop:disable ClassLengt
         </li>
       </ul>
     DOC
-  param AniMangaQuery::IDS_KEY, :undef,
+  param :ids, :undef,
     required: false,
     desc: 'List of anime ids separated by comma'
-  param AniMangaQuery::EXCLUDE_IDS_KEY, :undef,
+  param :exclude_ids, :undef,
     required: false,
     desc: 'List of anime ids separated by comma'
   param :search, String,

@@ -84,10 +84,10 @@ class Api::V1::RanobeController < Api::V1::MangasController
         </li>
       </ul>
     DOC
-  param AniMangaQuery::IDS_KEY, :undef,
+  param :ids, :undef,
     required: false,
     desc: 'List of ranobe ids separated by comma'
-  param AniMangaQuery::EXCLUDE_IDS_KEY, :undef,
+  param :exclude_ids, :undef,
     required: false,
     desc: 'List of ranobe ids separated by comma'
   param :search, String,
