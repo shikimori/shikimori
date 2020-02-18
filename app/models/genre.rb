@@ -49,7 +49,8 @@ class Genre < ApplicationRecord
     'Psychological'
   ]
 
-  # основной ли жанр
+  Merged = {}
+
   def main?
     MAIN_GENRES.include?(english)
   end

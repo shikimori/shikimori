@@ -328,7 +328,7 @@ describe AnimesCollection::View do
     it do
       expect(view.compiled_filters).to eq params.merge(
         censored: true,
-        order: 'ranked'
+        order: :ranked
       )
     end
   end
