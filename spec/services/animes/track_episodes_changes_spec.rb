@@ -44,9 +44,33 @@ describe Animes::TrackEpisodesChanges do
       let(:old_episodes_aired) { 7 }
       let(:new_episodes_aired) { 8 }
 
-      it 'changes anime status to released' do
-        expect(anime).to be_released
-        expect(anime.released_on).to eq Time.zone.today
+      describe 'change anime status to released' do
+        let(:news_topics) { topic }
+        let(:topic) do
+          create :news_topic,
+            linked: anime,
+            action: AnimeHistoryAction::Episode,
+            value: topic_episode,
+            created_at: 1.day.ago
+        end
+
+        context 'has last episode topic' do
+          let(:topic_episode) { episodes }
+
+          it do
+            expect(anime).to be_released
+            expect(anime.released_on).to eq Time.zone.yesterday
+          end
+        end
+
+        context 'no last episode topic' do
+          let(:topic_episode) { episodes - 1 }
+
+          it do
+            expect(anime).to be_released
+            expect(anime.released_on).to eq Time.zone.today
+          end
+        end
       end
     end
 

@@ -28,10 +28,16 @@ private
     return if @anime.episodes.zero?
     return unless @anime.episodes_aired_change[1] == @anime.episodes
 
+    last_episode_topic = Topics::NewsTopic.find_by(
+      linked: @anime,
+      action: AnimeHistoryAction::Episode,
+      value: @anime.episodes
+    )
+
     @anime.status = :released
-    # NOTE: think about looking at news topic about last episode and taking its
-    # created_at instead of Time.zone.today
-    @anime.released_on = Time.zone.today
+    @anime.released_on = last_episode_topic ?
+      last_episode_topic.created_at.to_date :
+      Time.zone.today
   end
 
   # change status from released to ongoing
