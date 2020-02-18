@@ -1,5 +1,10 @@
 class Animes::Filters::ByStudio < Animes::Filters::FilterBase
-  dry_type Types::Integer.constructor(&:to_i)
+  dry_type(
+    Types::Integer.constructor do |value|
+      fixed_value = value.to_i
+      Studio::Merged[fixed_value] || value
+    end
+  )
 
   def call
     scope = @scope

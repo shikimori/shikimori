@@ -1,5 +1,10 @@
 class Animes::Filters::ByPublisher < Animes::Filters::FilterBase
-  dry_type Types::Integer.constructor(&:to_i)
+  dry_type(
+    Types::Integer.constructor do |value|
+      fixed_value = value.to_i
+      Publisher::Merged[fixed_value] || value
+    end
+  )
 
   def call
     scope = @scope
