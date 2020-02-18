@@ -28,6 +28,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     )
 
   dry_type Field
+  field :order
 
   DEFAULT_ORDER = Field[:ranked]
 

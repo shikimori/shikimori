@@ -41,6 +41,11 @@ describe Animes::Filters::OrderBy do
         it { is_expected.to eq [anime_3, anime_2, anime_1] }
       end
     end
+
+    context 'invalid parameter' do
+      let(:terms) { 'z' }
+      it { expect { subject }.to raise_error InvalidParameterError }
+    end
   end
 
   describe '.terms_sql' do
