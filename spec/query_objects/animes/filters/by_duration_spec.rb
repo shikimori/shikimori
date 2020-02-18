@@ -1,5 +1,7 @@
 describe Animes::Filters::ByDuration do
-  subject { described_class.call Anime.order(:id), terms }
+  subject { described_class.call scope, terms }
+
+  let(:scope) { Anime.order(:id) }
 
   let!(:anime_1) { create :anime, duration: 0 }
   let!(:anime_2) { create :anime, duration: 10 }
@@ -70,5 +72,16 @@ describe Animes::Filters::ByDuration do
       let(:terms) { '!S,F' }
       it { is_expected.to eq [anime_5, anime_6, anime_7] }
     end
+  end
+
+  context 'invalid parameter' do
+    let(:terms) { %w[s !s].sample }
+    it { expect { subject }.to raise_error InvalidParameterError }
+  end
+
+  context 'invalid scope' do
+    let(:scope) { [Manga.all, Ranobe.all].sample }
+    let(:terms) { 'S' }
+    it { expect { subject }.to raise_error InvalidParameterError }
   end
 end

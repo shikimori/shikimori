@@ -13,18 +13,25 @@ class Animes::Filters::ByDuration < Animes::Filters::FilterBase
   }
 
   def call
+    fail_with_scope! unless anime?
+
     scope = @scope
 
-    if positives.any?
-      sql = positives.map { |term| SQL_QUERIES[term] }.join(' or ')
-      scope = scope.where(sql)
-    end
-
-    if negatives.any?
-      sql = negatives.map { |term| SQL_QUERIES[term] }.join(' or ')
-      scope = scope.where("not (#{sql})")
-    end
+    scope = apply_positives scope if positives.any?
+    scope = apply_negatives scope if negatives.any?
 
     scope
+  end
+
+private
+
+  def apply_positives scope
+    sql = positives.map { |term| SQL_QUERIES[term] }.join(' or ')
+    scope.where(sql)
+  end
+
+  def apply_negatives scope
+    sql = negatives.map { |term| SQL_QUERIES[term] }.join(' or ')
+    scope.where("not (#{sql})")
   end
 end

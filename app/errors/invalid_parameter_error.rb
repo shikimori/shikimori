@@ -8,6 +8,6 @@ class InvalidParameterError < ArgumentError
   end
 
   def to_s
-    "Invalid #{@field} value \"#{@value}\"#{ ". #{@additional}" if @additional}"
+    "Invalid #{@field} value \"#{@value}\"#{". #{@additional}" if @additional}"
   end
 end

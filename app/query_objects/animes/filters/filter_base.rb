@@ -45,4 +45,12 @@ private
   def fail_with_negative!
     dry_type["!#{negatives[0]}"]
   end
+
+  def fail_with_scope!
+    raise InvalidParameterError.new field, @value
+  end
+
+  def anime?
+    @scope.name == Anime.name
+  end
 end
