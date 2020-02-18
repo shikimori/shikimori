@@ -10,14 +10,16 @@ class AnimesCollectionController < ShikimoriController
   end
 
   def index
+    model = prepare_model
+
+    og noindex: true, nofollow: true if params[:search] || request.url.include?('!')
+
     forbidden_params_redirect_check
-    @model = prepare_model # should be placed after is_adult check
-
-    if params[:search] || request.url.include?('!')
-      og noindex: true, nofollow: true
-    end
-
     censored_search_check
+    genres_redirect_check model[:genre]
+    studios_redirect_check model[:studio]
+    publishers_redirect_check model[:publisher]
+    guest_mylist_check
     one_found_redirect_check
 
     if params[:rel] || request.url.include?('order') ||
@@ -30,9 +32,9 @@ class AnimesCollectionController < ShikimoriController
 
     unless @view.recommendations?
       og page_title: t('page', page: @view.page) if @view.page > 1
-      og page_title: collection_title(@model).title
+      og page_title: collection_title(model).title
 
-      og notice: build_page_notice(@model)
+      og notice: build_page_notice(model)
       og description: i18n_t("description.#{@view.klass.name.downcase}")
     end
 
@@ -42,12 +44,12 @@ class AnimesCollectionController < ShikimoriController
       klass: @view.klass,
       season: params[:season],
       kind: params[:kind],
-      genres: @model[:genre],
-      studios: @model[:studio],
-      publishers: @model[:publisher]
+      genres: model[:genre],
+      studios: model[:studio],
+      publishers: model[:publisher]
     ).keywords
 
-    if @model[:genre]&.any?(&:censored?) && censored_forbidden?
+    if model[:genre]&.any?(&:censored?) && censored_forbidden?
       raise AgeRestricted
     end
     if params[:rating]&.split(',')&.include?(Anime::ADULT_RATING.to_s) &&
@@ -87,32 +89,48 @@ private
       )
       model[kind] = terms
         .positives
-        .sort
         .map { |term| @menu.send(kind.to_s.pluralize).find { |v| v.id == term } }
-
-      if terms.negatives.none?
-        ensure_redirect! current_url(kind => model[kind].map(&:to_param).join(','))
-      end
     end
 
     model
   end
 
-  def forbidden_params_redirect_check
-    # if params.include?(:mylist) && !user_signed_in?
-    #   raise ForceRedirect, current_url(mylist: nil)
-    # end
+  def genres_redirect_check genres
+    return unless params.include?(:genre) && !params[:genre].include?('!')
 
+    ensure_redirect! current_url(genre: genres.map(&:to_param).sort.join(','))
+  end
+
+  def studios_redirect_check studios
+    return unless params.include?(:studio) && !params[:studio].include?('!')
+
+    ensure_redirect! current_url(studio: studios.map(&:to_param).sort.join(','))
+  end
+
+  def publishers_redirect_check publishers
+    return unless params.include?(:publisher) && !params[:publisher].include?('!')
+
+    ensure_redirect! current_url(publisher: publishers.map(&:to_param).sort.join(','))
+  end
+
+  def guest_mylist_check
+    return unless !user_signed_in? && params.include?(:mylist)
+
+    raise ForceRedirect, current_url(mylist: nil)
+  end
+
+  def forbidden_params_redirect_check
     if params.include?(:duration) && @view.klass != Anime
       raise ForceRedirect, current_url(duration: nil)
     end
 
-    # if params[:status]&.include? 'planned'
-    #   raise(
-    #     ForceRedirect,
-    #     current_url(status: params['status'].gsub('planned', 'anons'))
-    #   )
-    # end
+    if params.include?(:studio) && @view.klass != Anime
+      raise ForceRedirect, current_url(studio: nil)
+    end
+
+    if params.include?(:publisher) && @view.klass == Anime
+      raise ForceRedirect, current_url(publisher: nil)
+    end
 
     if params[:page] == '0' || params[:page] == '1'
       raise ForceRedirect, current_url(page: nil)
