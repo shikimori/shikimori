@@ -6,8 +6,6 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
     .constructor(&:to_sym)
     .enum(*KINDS_EXTENDED)
 
-  dry_type KindExtended
-
   SQL_QUERIES = {
     KindExtended[:tv_13] => (
       <<~SQL.squish
@@ -51,6 +49,12 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
       (simple_queries[:includes] + complex_queries[:includes]).compact,
       (simple_queries[:excludes] + complex_queries[:excludes]).compact
     )
+  end
+
+  def dry_type
+    @scope.name == Anime.name ?
+      KindExtended :
+      Types::Manga::Kind
   end
 
 private

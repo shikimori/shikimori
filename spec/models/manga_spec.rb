@@ -40,7 +40,7 @@ describe Manga do
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:type).in :Manga, :Ranobe }
-    it { is_expected.to enumerize(:kind).in :doujin, :manga, :manhua, :manhwa, :novel, :one_shot }
+    it { is_expected.to enumerize(:kind).in(*Types::Manga::Kind.values) }
     it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
   end
 
