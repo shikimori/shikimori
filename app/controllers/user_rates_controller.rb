@@ -14,6 +14,8 @@ class UserRatesController < ProfilesController
     @library = UserLibraryView.new @resource
     @menu = Menus::CollectionMenu.new @library.klass
 
+    @library.any? # just call to init params parsing and potential redirect if params are invalid
+
     og page_title: t("#{params[:list_type]}_list")
   end
 
