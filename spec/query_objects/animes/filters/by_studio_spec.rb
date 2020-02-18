@@ -1,5 +1,7 @@
 describe Animes::Filters::ByStudio do
-  subject { described_class.call Anime.order(:id), terms }
+  subject { described_class.call scope, terms }
+
+  let(:scope) { Anime.order :id }
 
   let(:ghibli) { create :studio, id: 83 }
   let(:ghibli_clone) { create :studio, id: 48 }
@@ -60,5 +62,11 @@ describe Animes::Filters::ByStudio do
       let(:terms) { "!#{ghibli.to_param},#{shaft.to_param}" }
       it { is_expected.to eq [anime_5] }
     end
+  end
+
+  context 'invalid scope' do
+    let(:scope) { [Manga.all, Ranobe.all].sample }
+    let(:terms) { 'S' }
+    it { expect { subject }.to raise_error InvalidParameterError }
   end
 end

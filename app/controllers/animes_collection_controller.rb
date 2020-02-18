@@ -111,7 +111,6 @@ private
   end
 
   def forbidden_params_redirect_check
-    non_anime_studio_check
     non_manga_publisher_check
 
     if params[:page] == '0' || params[:page] == '1'
@@ -121,12 +120,6 @@ private
     if params[:order] == AnimesCollection::View::DEFAULT_ORDER.to_s
       raise ForceRedirect, current_url(order: nil)
     end
-  end
-
-  def non_anime_studio_check
-    return unless params.include?(:studio) && !@view.anime?
-
-    raise ForceRedirect, current_url(studio: nil)
   end
 
   def non_manga_publisher_check
