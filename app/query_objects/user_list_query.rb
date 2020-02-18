@@ -1,11 +1,5 @@
 class UserListQuery
-  def initialize klass, user, params
-    @klass = klass
-    @user = user
-
-    @params = params.merge klass: @klass
-    raise 'must show hentai in profile' # @params = params.merge klass: @klass, userlist: true
-  end
+  pattr_initialize :klass, :user, :params
 
   def fetch
     user_rates
@@ -23,24 +17,24 @@ private
     # user_rates.merge(AniMangaQuery.new(@klass, @params, @user).fetch.except(:order))
     @user
       .send("#{list_type}_rates")
+      .merge(db_entries.except(:order).scope)
       .includes(list_type.to_sym)
       .references(list_type.to_sym)
-      .where("#{@klass.table_name}.id in (?)", target_ids)
       .order(
-        Animes::Filters::OrderBy.terms_sql(
+        Animes::Filters::OrderBy.arel_sql(
           terms: [:rate_status, @params[:order].to_sym],
-          scope: @klass,
-          arel_sql: true
+          scope: @klass
         )
       )
   end
 
-  def target_ids
-    @target_ids ||= AniMangaQuery
-      .new(@klass, @params, @user)
-      .fetch
-      .except(:order)
-      .pluck(:id)
+  def db_entries
+    Animes::Query.fetch(
+      scope: @klass,
+      params: params_with_mylist,
+      user: @user,
+      is_apply_excludes: false
+    )
   end
 
   def statuses
@@ -56,5 +50,13 @@ private
 
   def anime?
     list_type == 'anime'
+  end
+
+  def params_with_mylist
+    if @params[:statuses].blank?
+      @params.merge(statuses: statuses.keys.join(','))
+    else
+      @params
+    end
   end
 end
