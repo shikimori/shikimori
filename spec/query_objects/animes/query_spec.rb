@@ -11,6 +11,8 @@ describe Animes::Query do
   let(:user) { nil }
 
   let(:anime) { create :anime }
+  let(:anime_2) { create :anime }
+
   let(:animes_scope) { Anime.where id: anime.id }
 
   context 'no params' do
@@ -244,14 +246,12 @@ describe Animes::Query do
 
   context '#by_search' do
     let(:params) { { search: 'zzz' } }
-    let!(:anime_1) { create :anime }
-    let!(:anime_2) { create :anime }
 
     before do
       allow(Search::Anime).to receive(:call)
-        .and_return(Anime.where(id: anime_2.id))
+        .and_return animes_scope
     end
 
-    it { is_expected.to eq [anime_2] }
+    it { is_expected.to eq [anime] }
   end
 end

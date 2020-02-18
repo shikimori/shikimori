@@ -141,19 +141,11 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
   def search value
     return self if value.blank?
 
-    if @scope.respond_to? :model
-      chain "Search::#{@scope.model.name}".constantize.call(
-        scope: @scope,
-        phrase: value,
-        ids_limit: SEARCH_IDS_LIMIT
-      )
-    else
-      chain "Search::#{@scope.name}".constantize.call(
-        scope: @scope.all,
-        phrase: value,
-        ids_limit: SEARCH_IDS_LIMIT
-      )
-    end
+    chain "Search::#{@scope.name}".constantize.call(
+      scope: @scope.all,
+      phrase: value,
+      ids_limit: SEARCH_IDS_LIMIT
+    )
   end
 
   def exclude_hentai
