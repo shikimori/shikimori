@@ -1,4 +1,6 @@
 class Animes::Filters::ByPublisher < Animes::Filters::FilterBase
+  dry_type Types::Integer.constructor(&:to_i)
+
   def call
     scope = @scope
 
