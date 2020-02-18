@@ -60,8 +60,8 @@ describe Elasticsearch::Query::QueryBase, :vcr do
   end
 
   describe 'multiple names produce the same relevance' do
-    let!(:anime_1) { create :anime, name: 'test', english: 'test' }
-    let!(:anime_2) { create :anime, name: 'test' }
+    let!(:anime_1) { create :anime, name: 'test', english: 'test', russian: '' }
+    let!(:anime_2) { create :anime, name: 'test', russian: '' }
     let!(:anime_3) {}
     let!(:anime_4) {}
 

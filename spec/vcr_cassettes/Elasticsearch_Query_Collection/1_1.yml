@@ -276,4 +276,50 @@ http_interactions:
         zxct","locale":"ru"}}]}}'
     http_version: 
   recorded_at: Thu, 10 May 2018 16:00:00 GMT
+- request:
+    method: get
+    uri: http://localhost:9200/
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - 'elasticsearch-ruby/7.4.0 (RUBY_VERSION: 2.6.5; darwin x86_64; Faraday v0.15.4)'
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '302'
+    body:
+      encoding: ASCII-8BIT
+      string: |
+        {
+          "name" : "956Bjgn",
+          "cluster_name" : "elasticsearch_morr",
+          "cluster_uuid" : "K4K2EebKQIq0rNTNse-xgg",
+          "version" : {
+            "number" : "6.8.5",
+            "build_flavor" : "oss",
+            "build_type" : "tar",
+            "build_hash" : "78990e9",
+            "build_date" : "2019-11-13T20:04:24.100411Z",
+            "build_snapshot" : false,
+            "lucene_version" : "7.7.2",
+            "minimum_wire_compatibility_version" : "5.6.0",
+            "minimum_index_compatibility_version" : "5.0.0"
+          },
+          "tagline" : "You Know, for Search"
+        }
+    http_version: 
+  recorded_at: Thu, 10 May 2018 16:00:00 GMT
 recorded_with: VCR 4.0.0

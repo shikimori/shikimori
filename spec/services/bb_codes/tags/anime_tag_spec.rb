@@ -12,7 +12,7 @@ describe BbCodes::Tags::AnimeTag do
       HTML
     end
     let(:name_html) { anime.name }
-    let(:russian) { nil }
+    let(:russian) { '' }
 
     context 'missing anime' do
       context 'without fallback' do

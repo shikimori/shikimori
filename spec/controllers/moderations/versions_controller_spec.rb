@@ -73,7 +73,7 @@ describe Moderations::VersionsController do
 
     describe 'moderator' do
       include_context :authenticated, :version_texts_moderator
-      let(:changes) { { 'russian' => [nil, 'zxcvbnn'] } }
+      let(:changes) { { 'russian' => [anime.russian, 'zxcvbnn'] } }
       before { make_request }
 
       it do

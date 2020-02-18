@@ -28,8 +28,8 @@ private
   end
 
   def association_name
-    if @scope.respond_to? :klass
-      :"#{@scope.klass.base_class.name.downcase}_rates"
+    if @scope.respond_to? :model
+      :"#{@scope.model.base_class.name.downcase}_rates"
     else
       :"#{@scope.base_class.name.downcase}_rates"
     end
