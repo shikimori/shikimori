@@ -111,8 +111,6 @@ private
   end
 
   def forbidden_params_redirect_check
-    # non_anime_duration_check
-    non_anime_rating_check
     non_anime_studio_check
     non_manga_publisher_check
 
@@ -123,12 +121,6 @@ private
     if params[:order] == AnimesCollection::View::DEFAULT_ORDER.to_s
       raise ForceRedirect, current_url(order: nil)
     end
-  end
-
-  def non_anime_rating_check
-    return unless params.include?(:rating) && !@view.anime?
-
-    raise ForceRedirect, current_url(rating: nil)
   end
 
   def non_anime_studio_check

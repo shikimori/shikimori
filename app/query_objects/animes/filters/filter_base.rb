@@ -29,7 +29,7 @@ private
     @terms ||= Animes::Filters::Terms.new(fixed_value, dry_type)
   end
 
-  # can be overriden in child class
+  # can be overriden in a child class
   def fixed_value
     @value
   end

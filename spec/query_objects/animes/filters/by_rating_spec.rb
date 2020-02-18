@@ -1,5 +1,7 @@
 describe Animes::Filters::ByRating do
-  subject { described_class.call Anime.order(:id), terms }
+  subject { described_class.call scope, terms }
+
+  let(:scope) { Anime.order :id }
 
   let!(:anime_1) { create :anime, rating: :r }
   let!(:anime_2) { create :anime, rating: :r }
@@ -50,5 +52,16 @@ describe Animes::Filters::ByRating do
       let(:terms) { '!r,g' }
       it { is_expected.to eq [anime_3] }
     end
+  end
+
+  context 'invalid parameter' do
+    let(:terms) { %w[s !s].sample }
+    it { expect { subject }.to raise_error InvalidParameterError }
+  end
+
+  context 'invalid scope' do
+    let(:scope) { [Manga.all, Ranobe.all].sample }
+    let(:terms) { 'S' }
+    it { expect { subject }.to raise_error InvalidParameterError }
   end
 end
