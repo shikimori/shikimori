@@ -1,5 +1,7 @@
 describe Animes::Filters::ByPublisher do
-  subject { described_class.call Manga.order(:id), terms }
+  subject { described_class.call scope, terms }
+
+  let(:scope) { Manga.order :id }
 
   let(:kakao) { create :publisher, id: 206 }
   let(:kakao_clone) { create :publisher, id: 81 }
@@ -60,5 +62,11 @@ describe Animes::Filters::ByPublisher do
       let(:terms) { "!#{kakao.to_param},#{naver.to_param}" }
       it { is_expected.to eq [manga_5] }
     end
+  end
+
+  context 'invalid scope' do
+    let(:scope) { Anime.all }
+    let(:terms) { 'S' }
+    it { expect { subject }.to raise_error InvalidParameterError }
   end
 end

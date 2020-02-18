@@ -3,8 +3,11 @@ class Animes::Filters::ByPublisher < Animes::Filters::FilterBase
     fixed_value = value.to_i
     Studio::Merged[fixed_value] || fixed_value
   }
+  field :publisher
 
   def call
+    fail_with_scope! if anime?
+
     scope = @scope
 
     positives.each do |term|
