@@ -155,7 +155,7 @@ private
         i18n_t 'order.by_popularity'
       when 'released_on', 'aired_on'
         i18n_t 'order.by_released_date'
-      when 'id'
+      when 'id_desc'
         i18n_t 'order.by_add_date'
       when 'ranked'
         i18n_t 'order.by_ranking'
