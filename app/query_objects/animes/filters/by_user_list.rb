@@ -1,5 +1,6 @@
 class Animes::Filters::ByUserList < Animes::Filters::FilterBase
   dry_type Types::UserRate::Status
+  field :mylist
 
   method_object :scope, :value, :user
 

@@ -40,6 +40,8 @@ class Animes::Filters::ByKind < Animes::Filters::FilterBase
 
   }
 
+  field :kind
+
   def call
     terms_by_kind = build_kinds
     simple_queries = build_simple_queries terms_by_kind

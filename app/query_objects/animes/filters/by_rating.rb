@@ -1,5 +1,6 @@
 class Animes::Filters::ByRating < Animes::Filters::FilterBase
   dry_type Types::Anime::Rating
+  field :rating
 
   def call
     scope = @scope

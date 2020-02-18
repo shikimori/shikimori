@@ -6,6 +6,7 @@ class Animes::Filters::ByStatus < Animes::Filters::FilterBase
     .enum(*STATUSES_EXTENDED)
 
   dry_type StatusExtended
+  field :status
 
   LATEST_INTERVAL = 3.months
 

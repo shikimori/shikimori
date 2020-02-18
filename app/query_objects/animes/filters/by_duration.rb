@@ -4,6 +4,7 @@ class Animes::Filters::ByDuration < Animes::Filters::FilterBase
     .enum(:S, :D, :F)
 
   dry_type Duration
+  field :duration
 
   SQL_QUERIES = {
     Duration[:S] => '(duration >= 0 and duration <= 10)',

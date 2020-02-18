@@ -1,11 +1,27 @@
 class Animes::Filters::FilterBase
   extend DslAttribute
-
   method_object :scope, :value
 
   dsl_attribute :dry_type
+  dsl_attribute :field
 
   delegate :positives, :negatives, to: :terms
+
+  module DryRescue
+    def call
+      super
+    rescue Dry::Types::ConstraintError => e
+      if field
+        raise InvalidParameterError.new(field, e.input, e.message)
+      else
+        raise
+      end
+    end
+  end
+
+  def self.inherited subclass
+    subclass.send :prepend, DryRescue
+  end
 
 private
 

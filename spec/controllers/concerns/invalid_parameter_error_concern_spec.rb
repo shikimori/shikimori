@@ -10,7 +10,9 @@ describe InvalidParameterErrorConcern, type: :controller do
     describe '#index' do
       before { get :index, params: { status: 'zxc' } }
       it do
-        expect(json).to eq ['Invalid status value zxc']
+        expect(json).to eq [
+          'Invalid status value "zxc". "zxc" violates constraints (included_in?([:anons, :ongoing, :released, :latest], :zxc) failed)'
+        ]
         expect(response).to have_http_status 422
       end
     end

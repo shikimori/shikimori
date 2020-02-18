@@ -1,4 +1,4 @@
-class AnimesCollection::View < ViewObjectBase
+class AnimesCollection::View < ViewObjectBase # rubocop:disable ClassLength
   vattr_initialize :klass, :user
 
   instance_cache :collection, :results
@@ -35,7 +35,7 @@ class AnimesCollection::View < ViewObjectBase
     !recommendations?
   end
 
-  def cache_key
+  def cache_key # rubocop:disable AbcSize
     user_key = user if h.params[:mylist]
 
     if h.params[:search] || h.params[:q]
