@@ -7,8 +7,8 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
 
   SEARCH_IDS_LIMIT = 250
 
-  def self.fetch scope:, params:, user: # rubocop:disable AbcSize, MethodLength
-    new_scope = new(scope)
+  def self.fetch scope:, params:, user:, is_apply_excludes: true # rubocop:disable all
+    new_scope = new(scope.respond_to?(:to_a) ? scope : scope.all)
       .by_achievement(params[:achievement])
       .by_duration(params[:duration])
       .by_exclude_ids(params[:exclude_ids])
@@ -27,11 +27,11 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
     # "phrase" is used in collection-search (userlist comparer)
     search_term = params[:search] || params[:q] || params[:phrase]
 
-    if Animes::Filters::Policy.exclude_hentai? params
+    if is_apply_excludes && Animes::Filters::Policy.exclude_hentai?(params)
       new_scope = new_scope.exclude_hentai
     end
 
-    if Animes::Filters::Policy.exclude_music? params
+    if is_apply_excludes && Animes::Filters::Policy.exclude_music?(params)
       new_scope = new_scope.exclude_music
     end
 
