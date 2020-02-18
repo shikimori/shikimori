@@ -6,7 +6,7 @@ describe Animes::Query do
       user: user
     )
   end
-  let(:scope) { Anime.all }
+  let(:scope) { [Anime.all, Anime].sample }
   let(:params) { {} }
   let(:user) { nil }
 
