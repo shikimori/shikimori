@@ -33,7 +33,7 @@ export default (base_path, current_url, change_callback) ->
     return null unless field && value
 
     field: field
-    value: value
+    value: String(value)
 
   # удаление ! из начала и мусора из конца параметра
   remove_bang = (value) ->
