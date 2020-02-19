@@ -1,6 +1,7 @@
 # TODO: refactor to normal classes
 import inNewTab from 'helpers/in_new_tab'
 import urlParse from 'url-parse'
+import URI from 'urijs'
 
 DEFAULT_ORDER = 'ranked'
 DEFAULT_DATA =
@@ -17,9 +18,10 @@ DEFAULT_DATA =
   score: []
   options: []
   mylist: []
-  search: []
   'order-by': []
   licensor: []
+
+GET_FILTERS = ['licensor']
 
 export default (base_path, current_url, change_callback) ->
   $root = $('.b-collection-filters')
@@ -106,7 +108,8 @@ export default (base_path, current_url, change_callback) ->
     $params_block.find('li').map(->
       extract_li_info $(@)
     ).each (index, li_info) ->
-      filters.params[li_info.field][index] = (if to_exclude then '!' + li_info.value else li_info.value)
+      filters.params[li_info.field][index] =
+        (if to_exclude then '!' + li_info.value else li_info.value)
 
     change_callback filters.compile()
     filters.parse filters.compile()
@@ -120,8 +123,11 @@ export default (base_path, current_url, change_callback) ->
       .addClass (if not to_exclude then 'item-add' else 'item-minus')
 
     li_info = extract_li_info $(@).parent()
-    value_key = filters.params[li_info.field].indexOf(if to_exclude then li_info.value else '!' + li_info.value)
-    filters.params[li_info.field][value_key] = (if to_exclude then '!' + li_info.value else li_info.value)
+    value_key = filters.params[li_info.field].indexOf(
+      if to_exclude then li_info.value else '!' + li_info.value
+    )
+    filters.params[li_info.field][value_key] =
+      (if to_exclude then '!' + li_info.value else li_info.value)
     change_callback filters.compile()
     false
 
@@ -142,8 +148,6 @@ export default (base_path, current_url, change_callback) ->
         @set field, value
       else
         @params[field].push value
-
-      return if field == 'search'
 
       $li = $("li[data-field='#{field}'][data-value='#{remove_bang value}']", $root)
 
@@ -167,13 +171,18 @@ export default (base_path, current_url, change_callback) ->
             .removeClass('item-minus')
             .addClass((if value[0] is '!' then 'item-minus' else 'item-add')).show()
         else
-          $li.prepend "<span class=\"filter " + ((if value[0] is "!" then 'item-minus' else 'item-add')) + "\"></span>"
+          $li.prepend(
+            '<span class="filter ' +
+              ((if value[0] is '!' then 'item-minus' else 'item-add')) +
+              '"></span>'
+          )
 
     # отмена выбора элемента
     remove: (field, value) ->
       # т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
       value = remove_bang(value)
       @params[field] = @params[field].subtract([value, "!#{value}"])
+
       try # because there can bad order, and it will break jQuery selector
         $li = $("li[data-field='#{field}'][data-value='#{value}']", $root)
         $li.removeClass 'selected'
@@ -186,21 +195,24 @@ export default (base_path, current_url, change_callback) ->
 
     # формирование строки урла по выбранным элементам
     compile: ->
-      filters_path = Object.reduce(
-        @params,
-        (memo, values, field) ->
-          return memo unless values
+      path_filters = ''
+      location_filters = urlParse(window.location.href, true).query
+
+      Object.forEach @params, (values, field) ->
+        if GET_FILTERS.includes(field)
+          if values?.length
+            location_filters[field] = values.join(',')
+          else
+            delete location_filters[field]
+
+        else if values?.length
           if field == 'order-by' && values[0] == DEFAULT_ORDER &&
               !location.href.match(/\/list\/(anime|manga)/)
-            return memo
+            return
 
-          if values.length
-            memo + "/#{field}/#{values.join ','}"
-          else
-            memo
-        , ''
-      )
-      @last_compiled = base_path + filters_path + location.search
+          path_filters += "/#{field}/#{values.join ','}"
+
+      @last_compiled = URI(base_path + path_filters).query(location_filters).toString()
 
     last_compiled: null
 
@@ -218,7 +230,7 @@ export default (base_path, current_url, change_callback) ->
         .replace(/\?.*/, '')
         .match(/[\w\-]+\/[^\/]+/g)
 
-      uri_query = urlParse(window.location.href, window.location, true).query
+      uri_query = urlParse(window.location.href, true).query
 
       if uri_query.licensor
         parts = (parts || []).concat ["licensor/#{uri_query.licensor}"]
