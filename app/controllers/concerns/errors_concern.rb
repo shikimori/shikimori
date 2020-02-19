@@ -96,9 +96,11 @@ private
 
   def copyrighted_error error
     resource = error.resource
-    @new_url = url_for safe_params.merge(resource_id_key => resource.to_param)
+    @new_url = url_for(
+      safe_params.merge(resource_id_key => resource.to_param, ignore302: nil)
+    )
 
-    if params[:format] == 'rss'
+    if %w[rss os json].include?(request.format) || params[:ignore302] == '1'
       redirect_to @new_url, status: 301
     else
       render 'pages/page_moved.html', layout: false, status: 404, formats: :html
