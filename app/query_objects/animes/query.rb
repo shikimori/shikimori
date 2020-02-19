@@ -16,6 +16,7 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
       .by_genre(params[:genre])
       .by_ids(params[:ids])
       .by_kind(params[:kind])
+      .by_licensor(params[:licensor])
       .by_publisher(params[:publisher])
       .by_rating(params[:rating])
       .by_score(params[:score])
@@ -82,6 +83,12 @@ class Animes::Query < QueryObjectBase # rubocop:disable ClassLength
     return self if value.blank?
 
     chain Animes::Filters::ByKind.call(@scope, value)
+  end
+
+  def by_licensor value
+    return self if value.blank?
+
+    chain Animes::Filters::ByLicensor.call(@scope, value)
   end
 
   def by_publisher value

@@ -118,6 +118,18 @@ describe Animes::Query do
       it { is_expected.to eq [anime] }
     end
 
+    context '#by_licensor' do
+      let(:params) { { licensor: 'zzz' } }
+      before do
+        allow(Animes::Filters::ByLicensor)
+          .to receive(:call)
+          .with(any_args, 'zzz')
+          .and_return animes_scope
+      end
+
+      it { is_expected.to eq [anime] }
+    end
+
     context '#by_user_list' do
       let(:params) { { mylist: 'zzz' } }
       let(:user) { seed :user }
