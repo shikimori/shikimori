@@ -38,22 +38,22 @@ export default (base_path, current_url, change_callback) ->
     value.replace(/^!/, '').replace /\?.*/, ''
 
   # добавляет нужный параметр в меню с навигацией
-  add_option = (key, value) ->
+  add_option = (field, value) ->
     # добавляем всегда без !
     value = remove_bang(value)
     text = value.replace(/^\d+-/, '')
     target_year = null
 
-    if key == 'publisher' && text.match(/-/)
+    if field == 'publisher' && text.match(/-/)
       text = text.replace(/-/g, ' ')
-    else if key == 'season' && value.match(/^\d+$/)
+    else if field == 'season' && value.match(/^\d+$/)
       target_year = parseInt(value, 10)
       text = value + ' год'
-    else if key == 'licensor'
+    else if field == 'licensor'
       text = value
 
     value = value.replace(/\./g, '')
-    $li = $("<li data-field='#{key}' data-value='#{value}'><input type='checkbox'/>#{text}</li>")
+    $li = $("<li data-field='#{field}' data-value='#{value}'><input type='checkbox'/>#{text}</li>")
 
     # для сезонов вставляем не в начало, а после предыдущего года
     if target_year
@@ -67,9 +67,9 @@ export default (base_path, current_url, change_callback) ->
       if $placeholders.length
         $li.insertBefore $placeholders.first()
       else
-        $(".anime-params.#{key}s", $root).append $li
+        $(".anime-params.#{field}s", $root).append $li
     else
-      $(".anime-params.#{key}s", $root).prepend($li).parent().removeClass 'hidden'
+      $(".anime-params.#{field}s", $root).prepend($li).parent().removeClass 'hidden'
     $li
 
   # клики по меню
@@ -188,14 +188,14 @@ export default (base_path, current_url, change_callback) ->
     compile: ->
       filters_path = Object.reduce(
         @params,
-        (memo, values, key) ->
+        (memo, values, field) ->
           return memo unless values
-          if key == 'order-by' && values[0] == DEFAULT_ORDER &&
+          if field == 'order-by' && values[0] == DEFAULT_ORDER &&
               !location.href.match(/\/list\/(anime|manga)/)
             return memo
 
           if values.length
-            memo + "/#{key}/#{values.join ','}"
+            memo + "/#{field}/#{values.join ','}"
           else
             memo
         , ''
@@ -224,17 +224,17 @@ export default (base_path, current_url, change_callback) ->
         parts = (parts || []).concat ["licensor/#{uri_query.licensor}"]
 
       (parts || []).forEach (match) =>
-        key = match.split('/')[0]
-        return if key == 'page' || (key not of DEFAULT_DATA)
+        field = match.split('/')[0]
+        return if field == 'page' || (field not of DEFAULT_DATA)
 
         match
           .split('/')[1]
           .split(',')
           .forEach (value) =>
             try
-              @add key, value
+              @add field, value
             catch # becase there can bad order, and it will break jQuery selector
-              if key == 'order-by'
+              if field == 'order-by'
                 @add 'order-by', DEFAULT_ORDER
 
       if Object.isEmpty(@params['order-by'])
