@@ -35,7 +35,10 @@
     .subheadline.m5 = menu.klass.human_attribute_name :status
     ul.b-block_list.statuses.anime-params
       - menu.statuses.each do |status|
-        li class="status-#{status.text}"
+        li[
+          data-field='status'
+          data-value=status.text
+        ]
           input type='checkbox' autocomplete='off'
           = status.catalog_title
 
@@ -44,13 +47,19 @@
       .subheadline.m5 = menu.klass.human_attribute_name(:kind)
       ul.b-block_list.kinds.anime-params
         - menu.kinds.each do |kind|
-          li class="kind-#{kind.text}"
+          li[
+            data-field='kind'
+            data-value=kind.text
+          ]
             input type='checkbox' autocomplete='off'
             = kind.title
 
           - if kind.text == 'tv'
             - %w(13 24 48).each do |episodes_kind|
-              li.sub class="kind-tv_#{episodes_kind}"
+              li.sub[
+                data-field='kind'
+                data-value="tv_#{episodes_kind}"
+              ]
                 input type='checkbox' autocomplete='off'
                   = t ".anime.kind.tv_#{episodes_kind}.name"
                   span.b-question.b-tooltipped.mobile.unprocessed[
@@ -72,30 +81,72 @@
     .block
       .subheadline.m5 = i18n_i 'Sorting'
       ul.b-block_list.orders.anime-params.subcontent
-        li.order-by-ranked = t 'by.ranked'
-        li.order-by-kind.hidden = t 'by.kind'
-        li.order-by-popularity = t 'by.popularity'
-        li.order-by-name = t 'by.name'
-        li.order-by-aired_on = t 'by.aired_on'
+        li[
+          data-field='order-by'
+          data-value='ranked'
+        ] = t 'by.ranked'
+        li.hidden[
+          data-field='order-by'
+          data-value='kind'
+        ] = t 'by.kind'
+        li[
+          data-field='order-by'
+          data-value='popularity'
+        ] = t 'by.popularity'
+        li[
+          data-field='order-by'
+          data-value='name'
+        ] = t 'by.name'
+        li[
+          data-field='order-by'
+          data-value='aired_on'
+        ] = t 'by.aired_on'
 
         - if local_assigns[:in_user_profile]
-          li.order-by-rate_score style='display: none' = t 'by.score'
-          li.order-by-rate_id = t 'by.date_added'
-          li.order-by-rate_updated = t 'by.date_updated'
+          li[
+            data-field='order-by'
+            data-value='rate_score'
+            style='display: none'
+          ] = t 'by.score'
+          li[
+            data-field='order-by'
+            data-value='rate_id'
+          ] = t 'by.date_added'
+          li[
+            data-field='order-by'
+            data-value='rate_updated'
+          ] = t 'by.date_updated'
           - if menu.klass == Anime
-            li.order-by-episodes style='display: none' = t 'by.episodes'
+            li.hidden[
+              data-field='order-by'
+              data-value='episodes'
+            ] = t 'by.episodes'
           - else
-            li.order-by-chapters style='display: none' = t 'by.chapters'
-            li.order-by-volumes style='display: none' = t 'by.volumes'
-          li.order-by-status style='display: none' = t 'by.status'
+            li.hidden[
+              data-field='order-by'
+              data-value='chapters'
+            ] = t 'by.chapters'
+            li.hidden[
+              data-field='order-by'
+              data-value='volumes'
+            ] = t 'by.volumes'
+          li.hidden[
+            data-field='order-by'
+            data-value='status'
+          ] = t 'by.status'
         - else
-          li.order-by-id_desc = t 'by.id'
+          li[
+            data-field='order-by'
+            data-value='id_desc'
+          ] = t 'by.id'
 
         / используется в userlist comparer
         - if defined?(custom_sorts) && !custom_sorts.empty?
           - custom_sorts.each do |name, title|
-            li class="order-by-#{name}"
-              = title
+            li[
+              data-field='order-by'
+              data-value=name
+            ] = title
 
   - if user_signed_in? && !defined?(in_user_profile)
     = render 'animes_collection/mylist', klass: menu.klass
@@ -112,7 +163,10 @@
     .subheadline.m5 = i18n_i 'Season'
     ul.b-block_list.seasons.anime-params
       - menu.seasons.each do |season|
-        li class="season-#{season.text}"
+        li[
+          data-field='season'
+          data-value=season.text
+        ]
           input type='checkbox' autocomplete='off'
           = season.catalog_title
 
@@ -121,7 +175,10 @@
       .subheadline.m5 = i18n_i 'Score'
       ul.b-block_list.scores.anime-params
         - [8, 7, 6].each do |score|
-          li class="score-#{score}"
+          li[
+            data-field='score'
+            data-value=score
+          ]
             input type='checkbox' autocomplete='off'
             | #{score}+
 
@@ -130,7 +187,10 @@
       .subheadline.m5 = i18n_i 'Episode'
       ul.b-block_list.durations.anime-params
         - Animes::Filters::ByDuration::DRY_TYPE.values.each do |value|
-          li class="duration-#{value}"
+          li[
+            data-field='duration'
+            data-value=value
+          ]
             input type='checkbox' autocomplete='off'
             = t ".anime.duration.#{value}"
 
@@ -140,7 +200,10 @@
         - Anime.rating.options.each do |title, rating|
           - next if rating == 'none'
           - next if rating == 'rx' && !user_signed_in?
-          li class="rating-#{rating}"
+          li[
+            data-field='rating'
+            data-value=rating
+          ]
             input type='checkbox' autocomplete='off'
             = title
             span.b-question.b-tooltipped.mobile.unprocessed[
@@ -154,7 +217,11 @@
       ul.b-block_list.genres.anime-params.m10
         - menu.sorted_genres.each do |genre|
           - next if genre.censored? && !user_signed_in?
-          li class="genre-#{genre.to_param} #{:m10 if genre.position && genre.position % 10 == 0}"
+          li[
+            class=(:m10 if genre.position && genre.position % 10 == 0)
+            data-field='genre'
+            data-value=genre.to_param
+          ]
             input type='checkbox' autocomplete='off'
             = localization_span genre
             - if genre.description.present?
@@ -163,3 +230,9 @@
                 data-predelay='150'
                 data-href=tooltip_moderations_genre_url(genre)
               ]
+
+  .block.licensors
+    span.filter.block-filter.item-sign
+    .subheadline.m5 = Anime.human_attribute_name :licensor
+    = text_spoiler t('.show_list') do
+      ul.b-block_list.licensors.anime-params.m10

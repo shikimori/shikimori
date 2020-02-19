@@ -1,5 +1,6 @@
 # TODO: refactor to normal classes
 import inNewTab from 'helpers/in_new_tab'
+import urlParse from 'url-parse'
 
 DEFAULT_ORDER = 'ranked'
 DEFAULT_DATA =
@@ -18,25 +19,18 @@ DEFAULT_DATA =
   mylist: []
   search: []
   'order-by': []
+  licensor: []
 
 export default (base_path, current_url, change_callback) ->
   $root = $('.b-collection-filters')
 
   # вытаскивание из класса элемента типа и значения
   extract_li_info = ($li) ->
-    matches = $li.attr('class').match(/([\w\-]+)-([\w.\-]+)/)
-    return null unless matches
+    field = $li.data('field')
+    value = $li.data('value')
+    return null unless field && value
 
-    type = matches[1]
-    value = matches[2]
-    if type.match(/genre-\d+/) || type.match(/studio-\d+/) ||
-        type.match(/publisher-\d+/) || type.match(/kind-\w+/) ||
-        type.match(/rating-\w+/) || type.match(/score-\d+/) ||
-        type.match(/duration-\w+/)
-      tmp = type.split('-')
-      type = tmp[0]
-      value = tmp.slice(1).join('-') + '-' + value
-    type: type
+    field: field
     value: value
 
   # удаление ! из начала и мусора из конца параметра
@@ -49,14 +43,17 @@ export default (base_path, current_url, change_callback) ->
     value = remove_bang(value)
     text = value.replace(/^\d+-/, '')
     target_year = null
+
     if key == 'publisher' && text.match(/-/)
       text = text.replace(/-/g, ' ')
     else if key == 'season' && value.match(/^\d+$/)
       target_year = parseInt(value, 10)
       text = value + ' год'
+    else if key == 'licensor'
+      text = value
 
     value = value.replace(/\./g, '')
-    $li = $("<li class='#{key}-#{value}'><input type='checkbox'/>#{text}</li>")
+    $li = $("<li data-field='#{key}' data-value='#{value}'><input type='checkbox'/>#{text}</li>")
 
     # для сезонов вставляем не в начало, а после предыдущего года
     if target_year
@@ -88,11 +85,11 @@ export default (base_path, current_url, change_callback) ->
 
     unless already_selected
       if 'type' of e.target && e.target.type == 'checkbox'
-        filters.add li_info.type, li_info.value
+        filters.add li_info.field, li_info.value
       else
-        filters.set li_info.type, li_info.value
+        filters.set li_info.field, li_info.value
     else
-      filters.remove li_info.type, li_info.value
+      filters.remove li_info.field, li_info.value
 
     change_callback filters.compile()
     false unless 'type' of e.target && e.target.type == 'checkbox'
@@ -109,7 +106,7 @@ export default (base_path, current_url, change_callback) ->
     $params_block.find('li').map(->
       extract_li_info $(@)
     ).each (index, li_info) ->
-      filters.params[li_info.type][index] = (if to_exclude then '!' + li_info.value else li_info.value)
+      filters.params[li_info.field][index] = (if to_exclude then '!' + li_info.value else li_info.value)
 
     change_callback filters.compile()
     filters.parse filters.compile()
@@ -123,8 +120,8 @@ export default (base_path, current_url, change_callback) ->
       .addClass (if not to_exclude then 'item-add' else 'item-minus')
 
     li_info = extract_li_info $(@).parent()
-    value_key = filters.params[li_info.type].indexOf(if to_exclude then li_info.value else '!' + li_info.value)
-    filters.params[li_info.type][value_key] = (if to_exclude then '!' + li_info.value else li_info.value)
+    value_key = filters.params[li_info.field].indexOf(if to_exclude then li_info.value else '!' + li_info.value)
+    filters.params[li_info.field][value_key] = (if to_exclude then '!' + li_info.value else li_info.value)
     change_callback filters.compile()
     false
 
@@ -132,26 +129,26 @@ export default (base_path, current_url, change_callback) ->
     params: null
 
     # установка значения параметра
-    set: (key, value) ->
+    set: (field, value) ->
       self = this
-      @params[key].forEach (value) ->
-        self.remove key, value
+      @params[field].forEach (value) ->
+        self.remove field, value
 
-      @add key, value
+      @add field, value
 
     # выбор элемента
-    add: (key, value) ->
-      if key is Object.keys(@params).last() && @params[key].length > 0
-        @set key, value
+    add: (field, value) ->
+      if field is Object.keys(@params).last() && @params[field].length > 0
+        @set field, value
       else
-        @params[key].push value
+        @params[field].push value
 
-      return if key == 'search'
+      return if field == 'search'
 
-      $li = $("li.#{key}-#{remove_bang value}", $root)
+      $li = $("li[data-field='#{field}'][data-value='#{remove_bang value}']", $root)
 
       # если такого элемента нет, то создаем его
-      $li = add_option(key, value)  unless $li.length
+      $li = add_option(field, value)  unless $li.length
 
       # если элемент есть, но скрыт, то показываем его
       $li.css display: 'block' if $li.css('display') == 'none'
@@ -173,12 +170,12 @@ export default (base_path, current_url, change_callback) ->
           $li.prepend "<span class=\"filter " + ((if value[0] is "!" then 'item-minus' else 'item-add')) + "\"></span>"
 
     # отмена выбора элемента
-    remove: (key, value) ->
+    remove: (field, value) ->
       # т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
       value = remove_bang(value)
-      @params[key] = @params[key].subtract([value, "!#{value}"])
-      try # becase there can bad order, and it will break jQuery selector
-        $li = $(".#{key}-#{value}", $root)
+      @params[field] = @params[field].subtract([value, "!#{value}"])
+      try # because there can bad order, and it will break jQuery selector
+        $li = $("li[data-field='#{field}'][data-value='#{value}']", $root)
         $li.removeClass 'selected'
 
         # снятие галочки с чекбокса
@@ -221,6 +218,11 @@ export default (base_path, current_url, change_callback) ->
         .replace(/\?.*/, '')
         .match(/[\w\-]+\/[^\/]+/g)
 
+      uri_query = urlParse(window.location.href, window.location, true).query
+
+      if uri_query.licensor
+        parts = (parts || []).concat ["licensor/#{uri_query.licensor}"]
+
       (parts || []).forEach (match) =>
         key = match.split('/')[0]
         return if key == 'page' || (key not of DEFAULT_DATA)
@@ -240,8 +242,11 @@ export default (base_path, current_url, change_callback) ->
 
   filters.parse current_url
 
-  # раскрываем жанры, если какой-то из них выбран
+  # раскрываем фильтры, если какой-то из них выбран
   if filters.params.genre.length
     $root.find('.genres .b-spoiler').spoiler().trigger('spoiler:open')
+
+  if filters.params.licensor.length
+    $root.find('.licensors .b-spoiler').spoiler().trigger('spoiler:open')
 
   filters

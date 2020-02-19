@@ -3,6 +3,9 @@
   .subheadline.m5 = i18n_i('list').capitalize
   ul.b-block_list.mylist.anime-params
     - UserRate.statuses.each do |name, id|
-      li class="mylist-#{name}"
-        input type="checkbox" autocomplete="off"
+      li[
+        data-field='mylist'
+        data-value=name
+      ]
+        input type='checkbox' autocomplete='off'
         = UserRate.status_name name, klass.name
