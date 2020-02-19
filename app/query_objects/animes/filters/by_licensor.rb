@@ -3,8 +3,6 @@ class Animes::Filters::ByLicensor < Animes::Filters::FilterBase
   # field :rating
 
   def call
-    fail_with_scope! unless anime?
-
     scope = @scope
 
     scope = scope.where(licensor: positives) if positives.any?
