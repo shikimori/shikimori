@@ -11,6 +11,7 @@ FactoryBot.define do
     is_censored { false }
     type { Manga.name }
     imageboard_tag { nil }
+    licensor { '' }
 
     factory :ranobe, class: 'Ranobe' do
       sequence(:name) { |n| "ranobe_#{n}" }

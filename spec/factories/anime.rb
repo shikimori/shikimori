@@ -19,6 +19,7 @@ FactoryBot.define do
     fansubbers { [] }
     fandubbers { [] }
     options { [] }
+    licensor { '' }
 
     after :build do |model|
       stub_method model, :track_changes

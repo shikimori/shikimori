@@ -6,7 +6,7 @@ describe Animes::Filters::ByLicensor do
   let!(:anime_1) { create :anime, licensor: 'r' }
   let!(:anime_2) { create :anime, licensor: 'r' }
   let!(:anime_3) { create :anime, licensor: 'g' }
-  let!(:anime_4) { create :anime, licensor: [nil, ''].sample }
+  let!(:anime_4) { create :anime }
 
   context 'positive' do
     context 'r' do
