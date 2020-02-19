@@ -53,4 +53,10 @@ describe Animes::Filters::ByLicensor do
       it { is_expected.to eq [anime_3] }
     end
   end
+
+  context 'invalid scope' do
+    let(:scope) { [Manga.all, Ranobe.all].sample }
+    let(:terms) { 'S' }
+    it { expect { subject }.to raise_error InvalidParameterError }
+  end
 end
