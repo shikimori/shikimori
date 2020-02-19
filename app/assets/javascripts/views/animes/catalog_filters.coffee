@@ -105,7 +105,6 @@ export default (base_path, current_url, change_callback) ->
     else
       $(@).hasClass('item-add')
 
-    #$(@).removeClass((if to_exclude then 'item-add' else 'item-minus')).addClass (if not to_exclude then "item-add" else "item-minus")
     $params_block.find('li').map(->
       extract_li_info $(@)
     ).each (index, li_info) ->
@@ -160,7 +159,7 @@ export default (base_path, current_url, change_callback) ->
       # если элемент с чекбоксом, то ставим галочку на чекбокс
       $input = $li.children('input')
       if $input.length
-        $input.attr checked: true
+        $input.prop checked: true
 
         # добавляем или показываем плюсик
         $filter = $li.children('.filter')
@@ -179,7 +178,7 @@ export default (base_path, current_url, change_callback) ->
         $li.removeClass 'selected'
 
         # снятие галочки с чекбокса
-        $li.children('input').attr checked: false
+        $li.children('input').prop checked: false
 
         # скрытие плюсика/минусика
         $li.children('.filter').hide()
@@ -207,7 +206,7 @@ export default (base_path, current_url, change_callback) ->
     # парсинг строки урла и выбор
     parse: (url) ->
       $('.anime-params .selected', $root).toggleClass 'selected'
-      $('.anime-params input[type=checkbox]:checked', $root).attr checked: false
+      $('.anime-params input[type=checkbox]:checked', $root).prop checked: false
       $('.anime-params .filter', $root).hide()
 
       @params = JSON.parse(JSON.stringify(DEFAULT_DATA))
