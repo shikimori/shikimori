@@ -17,7 +17,7 @@ DEFAULT_DATA =
   options: []
   mylist: []
   search: []
-  "order-by": []
+  'order-by': []
 
 export default (base_path, current_url, change_callback) ->
   $root = $('.b-collection-filters')
@@ -26,40 +26,41 @@ export default (base_path, current_url, change_callback) ->
   extract_li_info = ($li) ->
     matches = $li.attr('class').match(/([\w\-]+)-([\w.\-]+)/)
     return null unless matches
+
     type = matches[1]
     value = matches[2]
     if type.match(/genre-\d+/) || type.match(/studio-\d+/) ||
         type.match(/publisher-\d+/) || type.match(/kind-\w+/) ||
         type.match(/rating-\w+/) || type.match(/score-\d+/) ||
         type.match(/duration-\w+/)
-      tmp = type.split("-")
+      tmp = type.split('-')
       type = tmp[0]
-      value = tmp.slice(1).join("-") + "-" + value
+      value = tmp.slice(1).join('-') + '-' + value
     type: type
     value: value
 
   # удаление ! из начала и мусора из конца параметра
   remove_bang = (value) ->
-    value.replace(/^!/, "").replace /\?.*/, ""
+    value.replace(/^!/, '').replace /\?.*/, ''
 
   # добавляет нужный параметр в меню с навигацией
   add_option = (key, value) ->
     # добавляем всегда без !
     value = remove_bang(value)
-    text = value.replace(/^\d+-/, "")
+    text = value.replace(/^\d+-/, '')
     target_year = null
-    if key == "publisher" && text.match(/-/)
-      text = text.replace(/-/g, " ")
-    else if key == "season" && value.match(/^\d+$/)
+    if key == 'publisher' && text.match(/-/)
+      text = text.replace(/-/g, ' ')
+    else if key == 'season' && value.match(/^\d+$/)
       target_year = parseInt(value, 10)
-      text = value + " год"
+      text = value + ' год'
 
-    value = value.replace(/\./g, "")
+    value = value.replace(/\./g, '')
     $li = $("<li class='#{key}-#{value}'><input type='checkbox'/>#{text}</li>")
 
     # для сезонов вставляем не в начало, а после предыдущего года
     if target_year
-      $placeholders = $("ul.seasons li", $root).filter((index) ->
+      $placeholders = $('ul.seasons li', $root).filter((index) ->
         match = @className.match(/season-(\d+)/)
         return false unless match
         year = parseInt(match[1], 10)
@@ -71,7 +72,7 @@ export default (base_path, current_url, change_callback) ->
       else
         $(".anime-params.#{key}s", $root).append $li
     else
-      $(".anime-params.#{key}s", $root).prepend($li).parent().removeClass "hidden"
+      $(".anime-params.#{key}s", $root).prepend($li).parent().removeClass 'hidden'
     $li
 
   # клики по меню
@@ -119,10 +120,10 @@ export default (base_path, current_url, change_callback) ->
 
     $(@)
       .removeClass((if to_exclude then 'item-add' else 'item-minus'))
-      .addClass (if not to_exclude then "item-add" else "item-minus")
+      .addClass (if not to_exclude then 'item-add' else 'item-minus')
 
     li_info = extract_li_info $(@).parent()
-    value_key = filters.params[li_info.type].indexOf(if to_exclude then li_info.value else "!" + li_info.value)
+    value_key = filters.params[li_info.type].indexOf(if to_exclude then li_info.value else '!' + li_info.value)
     filters.params[li_info.type][value_key] = (if to_exclude then '!' + li_info.value else li_info.value)
     change_callback filters.compile()
     false
@@ -164,9 +165,12 @@ export default (base_path, current_url, change_callback) ->
         # добавляем или показываем плюсик
         $filter = $li.children('.filter')
         if $filter.length
-          $filter.removeClass("item-add").removeClass("item-minus").addClass((if value[0] is "!" then "item-minus" else "item-add")).show()
+          $filter
+            .removeClass('item-add')
+            .removeClass('item-minus')
+            .addClass((if value[0] is '!' then 'item-minus' else 'item-add')).show()
         else
-          $li.prepend "<span class=\"filter " + ((if value[0] is "!" then "item-minus" else "item-add")) + "\"></span>"
+          $li.prepend "<span class=\"filter " + ((if value[0] is "!" then 'item-minus' else 'item-add')) + "\"></span>"
 
     # отмена выбора элемента
     remove: (key, value) ->
