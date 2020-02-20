@@ -22,6 +22,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
       :rate_score,
       :site_score,
       :kind, # :type
+      :licensor,
       :user_1,
       :user_2,
       :random
@@ -89,6 +90,7 @@ class Animes::Filters::OrderBy < Animes::Filters::FilterBase # rubocop:disable C
     ),
     Field[:site_score] => '%<table_name>s.site_score desc',
     Field[:kind] => '%<table_name>s.kind',
+    Field[:licensor] => '%<table_name>s.licensor',
     Field[:random] => 'random()'
   }
 
