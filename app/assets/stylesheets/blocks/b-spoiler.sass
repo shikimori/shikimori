@@ -16,8 +16,10 @@ $border_color: #ffb3b3
     letter-spacing: 0.5px
 
   .content
-    cursor: pointer
     display: none
+
+    &:not(.only-show)
+      cursor: pointer
 
     .inner, .inner-prgrph
       border-bottom: 1px dashed $border_color

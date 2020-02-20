@@ -31,16 +31,18 @@ $.fn.extend({
         $content.process_hidden_content();
       });
 
-      $content.on('click', e => {
-        if ((e.target !== $content[0]) && ($(e.target).parent()[0] !== $content[0]) &&
-          !$(e.target).hasClass('inner-prgrph')
-        ) {
-          return;
-        }
+      if (!$content.hasClass('only-show')) {
+        $content.on('click', e => {
+          if ((e.target !== $content[0]) && ($(e.target).parent()[0] !== $content[0]) &&
+            !$(e.target).hasClass('inner-prgrph')
+          ) {
+            return;
+          }
 
-        $label.css({ display: 'inline' });
-        $content.hide();
-      });
+          $label.css({ display: 'inline' });
+          $content.hide();
+        });
+      }
     });
   }
 });
