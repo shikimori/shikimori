@@ -46,7 +46,7 @@ export default (base_path, current_url, change_callback) ->
     text = value.replace(/^\d+-/, '')
     target_year = null
 
-    if field == 'publisher' && text.match(/-/)
+    if (field == 'publisher' || field == 'studio') && text.match(/-/)
       text = text.replace(/-/g, ' ')
     else if field == 'season' && value.match(/^\d+$/)
       target_year = parseInt(value, 10)
