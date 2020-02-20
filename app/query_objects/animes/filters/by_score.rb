@@ -4,6 +4,7 @@ class Animes::Filters::ByScore < Animes::Filters::FilterBase
     .enum(1, 2, 3, 4, 5, 6, 7, 8, 9)
 
   dry_type Score
+  field :score
 
   def call
     scope = @scope
