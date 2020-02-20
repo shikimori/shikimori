@@ -9027,6 +9027,7 @@
         - 30217
         - 3235
         - 8181
+        - 9531
       :generator:
         person_id: 1938
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -10383,6 +10384,8 @@
         - 5153
         - 2582
         - 2257
+        - 9972
+        - 2258
       :generator:
         person_id: 5957
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
@@ -18606,6 +18609,8 @@
         - 39944
         - 40245
         - 41202
+        - 41188
+        - 41182
       :threshold: 95.6%
       :generator:
         not_ignored_ids:
@@ -18618,6 +18623,9 @@
         - 32953
         - 31780
         - 20877
+        - 39944
+        - 40245
+        - 41202
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -18658,6 +18666,8 @@
         - 39944
         - 40245
         - 41202
+        - 41188
+        - 41182
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -18670,6 +18680,9 @@
         - 32953
         - 31780
         - 20877
+        - 39944
+        - 40245
+        - 41202
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :love_live
@@ -20920,6 +20933,12 @@
         franchise: detective_conan
         not_anime_ids:
         - 1365
+        - 40348
+        - 36269
+        - 9786
+        - 33151
+        - 33150
+        - 36760
       :threshold: 93.6%
       :generator:
         ignore_latest_ids:
@@ -20954,6 +20973,12 @@
         franchise: detective_conan
         not_anime_ids:
         - 1365
+        - 40348
+        - 36269
+        - 9786
+        - 33151
+        - 33150
+        - 36760
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -21296,6 +21321,8 @@
       :algo: duration
       :filters:
         franchise: inuyasha
+        not_anime_ids:
+        - 31133
       :threshold: 95.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21325,6 +21352,8 @@
       :algo: duration
       :filters:
         franchise: inuyasha
+        not_anime_ids:
+        - 31133
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -23306,6 +23335,9 @@
       :algo: duration
       :filters:
         franchise: aquarion
+        not_anime_ids:
+        - 6032
+        - 16415
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -23335,6 +23367,9 @@
       :algo: duration
       :filters:
         franchise: aquarion
+        not_anime_ids:
+        - 6032
+        - 16415
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
