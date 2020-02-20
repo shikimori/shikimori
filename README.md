@@ -142,7 +142,7 @@ https://chrisbateman.github.io/webpack-visualizer/
 
 ## Move data from development to production
 ```ruby
-user = User.find(215190);
+user = User.find(547860);
 
 File.open('/tmp/z.json', 'w') do |f|
   f.write({
@@ -150,6 +150,7 @@ File.open('/tmp/z.json', 'w') do |f|
     user_preferences: user.preferences,
     style: user.style,
     user_history: UserHistory.where(user_id: user.id),
+    user_rate_logs: UserRateLog.where(user_id: user.id),
     user_rates: UserRate.where(user_id: user.id)
   }.to_json);
 end;
@@ -160,14 +161,23 @@ scp /tmp/z.json devops@shiki_web:/tmp/
 ```
 
 ```ruby
-user_id = 215190;
+user_id = 547860;
 json = JSON.parse(open('/tmp/z.json').read).symbolize_keys;
 
-UserRate.where(user_id: user_id).destroy_all;
-UserHistory.where(user_id: user_id).destroy_all;
+ApplicationRecord.transaction do
+  UserRate.where(user_id: user_id).destroy_all;
+  UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }); };
+end
 
-UserHistory.wo_timestamp { UserHistory.import(json[:user_history].map {|v| UserHistory.new v }); };
-UserRate.wo_timestamp { UserRate.import(json[:user_rates].map {|v| UserRate.new v }); };
+ApplicationRecord.transaction do
+  UserRateLog.where(user_id: user_id).destroy_all;
+  UserRateLog.wo_timestamp { UserRate.import(json[:user_rate_logs].map {|v| UserRateLog.new v }); };
+end
+
+ApplicationRecord.transaction do
+  UserHistory.where(user_id: user_id).destroy_all;
+  UserHistory.wo_timestamp { UserHistory.import(json[:user_history].map {|v| UserHistory.new v }); };
+end
 
 User.wo_timestamp { v = User.new json[:user]; v.save validate: false }
 UserPreferences.wo_timestamp { v = UserPreferences.new json[:user_preferences]; v.save validate: false }
