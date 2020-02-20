@@ -17771,8 +17771,6 @@
       :algo: duration
       :filters:
         franchise: strike_the_blood
-        not_anime_ids:
-        - 41138
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -17802,8 +17800,6 @@
       :algo: duration
       :filters:
         franchise: strike_the_blood
-        not_anime_ids:
-        - 41138
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -18606,12 +18602,9 @@
         - 32481
         - 32730
         - 36473
-        - 39944
-        - 40245
-        - 41202
-        - 41188
         - 41182
-      :threshold: 95.6%
+        - 41188
+      :threshold: 95.7%
       :generator:
         not_ignored_ids:
         - 14951
@@ -18663,11 +18656,8 @@
         - 32481
         - 32730
         - 36473
-        - 39944
-        - 40245
-        - 41202
-        - 41188
         - 41182
+        - 41188
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -20933,13 +20923,13 @@
         franchise: detective_conan
         not_anime_ids:
         - 1365
-        - 40348
-        - 36269
         - 9786
-        - 33151
         - 33150
+        - 33151
+        - 36269
         - 36760
-      :threshold: 93.6%
+        - 40348
+      :threshold: 93.3%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -20973,12 +20963,12 @@
         franchise: detective_conan
         not_anime_ids:
         - 1365
-        - 40348
-        - 36269
         - 9786
-        - 33151
         - 33150
+        - 33151
+        - 36269
         - 36760
+        - 40348
       :threshold: 0.01
       :generator:
         ignore_latest_ids:
@@ -23338,7 +23328,7 @@
         not_anime_ids:
         - 6032
         - 16415
-      :threshold: 95%
+      :threshold: 98.7%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aquarion
@@ -24292,7 +24282,7 @@
         - 28103
         - 37668
         - 39414
-      :threshold: 95.9%
+      :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :gegege_no_kitarou
@@ -24982,7 +24972,7 @@
         not_anime_ids:
         - 10736
         - 30103
-      :threshold: 91.5%
+      :threshold: 91.4%
       :generator:
         ignore_latest_ids:
         - 38850
