@@ -19,6 +19,11 @@ describe Animes::Filters::ByLicensor do
       it { is_expected.to eq [anime_3] }
     end
 
+    context 'ANYTHING' do
+      let(:terms) { described_class::ANYTHING }
+      it { is_expected.to eq [anime_1, anime_2, anime_3] }
+    end
+
     context 'r,g' do
       let(:terms) { 'r,g' }
       it { is_expected.to eq [anime_1, anime_2, anime_3] }
@@ -38,6 +43,11 @@ describe Animes::Filters::ByLicensor do
 
     context '!r,!g' do
       let(:terms) { '!r,!g' }
+      it { is_expected.to eq [anime_4] }
+    end
+
+    context 'ANYTHING' do
+      let(:terms) { "!#{described_class::ANYTHING}" }
       it { is_expected.to eq [anime_4] }
     end
   end

@@ -231,8 +231,14 @@
                 data-href=tooltip_moderations_genre_url(genre)
               ]
 
-  .block.licensors
-    span.filter.block-filter.item-sign
+  .block.anime-params-block.licensors
     .subheadline.m5 = Anime.human_attribute_name :licensor
-    = text_spoiler t('.show_list') do
-      ul.b-block_list.licensors.anime-params.m10
+    ul.b-block_list.licensors.anime-params.m10
+      li[
+        data-field='licensor'
+        data-value=Animes::Filters::ByLicensor::ANYTHING
+      ]
+        input type='checkbox' autocomplete='off'
+        = t 'yes'
+      = text_spoiler t('.show_list') do
+
