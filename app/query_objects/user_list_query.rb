@@ -63,7 +63,7 @@ private
   def params_order
     term = @params[:order].to_sym
 
-    if @klass == Anime && (term == :volumes || term == :chapters)
+    if @klass == Anime && %i[volumes chapters].include?(term)
       :episodes
     elsif @klass != Anime && term == :episodes
       :chapters
