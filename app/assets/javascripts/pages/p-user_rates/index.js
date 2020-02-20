@@ -60,7 +60,7 @@ pageLoad('user_rates_index', () => {
       $('.order-by-ranked').trigger('click');
     } else {
       const type = $node.data('order');
-      $(`.orders.anime-params li.order-by-${type}`).trigger('click');
+      $(`.orders.anime-params li[data-field='order-by'][data-value='${type}']`).trigger('click');
     }
   });
 
