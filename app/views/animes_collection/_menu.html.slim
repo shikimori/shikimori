@@ -234,11 +234,19 @@
   .block.anime-params-block.licensors
     .subheadline.m5 = Anime.human_attribute_name :licensor
     ul.b-block_list.licensors.anime-params.m10
-      li[
+      li.m10[
         data-field='licensor'
         data-value=Animes::Filters::ByLicensor::ANYTHING
       ]
         input type='checkbox' autocomplete='off'
         = t 'yes'
       = text_spoiler t('.show_list') do
-
+        - menu.licensors.each do |group|
+          - group.each do |licensor|
+              li[
+                class=(:m10 if group != menu.licensors.last && licensor == group.last)
+                data-field='licensor'
+                data-value=licensor
+              ]
+                input type='checkbox' autocomplete='off'
+                = licensor

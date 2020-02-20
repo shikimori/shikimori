@@ -21,6 +21,10 @@ class Menus::CollectionMenu < ViewObjectBase
     PublishersRepository.instance.to_a
   end
 
+  def licensors
+    @licensors ||= LicensorsRepository.instance.send @klass.name.downcase
+  end
+
   def kinds
     return [] if klass == Ranobe
 
@@ -36,7 +40,7 @@ class Menus::CollectionMenu < ViewObjectBase
     ]
   end
 
-  def seasons
+  def seasons # rubocop:disable all
     [
       Titles::SeasonTitle.new(3.months.from_now, :season_year, klass),
       Titles::SeasonTitle.new(Time.zone.now, :season_year, klass),

@@ -2,14 +2,28 @@ class LicensorsRepository
   include Singleton
 
   def anime
-    @anime ||= Anime.where.not(licensor: '').distinct.pluck(:licensor).sort
+    @anime ||= fetch(Anime, 5)
   end
 
   def manga
-    @manga ||= Manga.where.not(licensor: '').distinct.pluck(:licensor).sort
+    @manga ||= fetch(Manga, 5)
   end
 
   def ranobe
-    @ranobe ||= Ranobe.where.not(licensor: '').distinct.pluck(:licensor).sort
+    @ranobe ||= fetch(Ranobe, 0)
+  end
+
+private
+
+  def fetch scope, group_limit
+    scope
+      .where.not(licensor: '')
+      .group(:licensor)
+      .count
+      .group_by { |_licensor, count| count >= group_limit ? 0 : 1 }
+      .sort_by(&:first)
+      .map do |_grouping, licensors|
+        licensors.map { |licensor, _count| licensor }.sort
+      end
   end
 end
