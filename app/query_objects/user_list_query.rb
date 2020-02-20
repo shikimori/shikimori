@@ -22,7 +22,7 @@ private
       .references(list_type.to_sym)
       .order(
         Animes::Filters::OrderBy.arel_sql(
-          terms: [:rate_status, @params[:order].to_sym],
+          terms: [:rate_status, params_order],
           scope: @klass
         )
       )
@@ -57,6 +57,18 @@ private
       @params.merge(statuses: statuses.keys.join(','))
     else
       @params
+    end
+  end
+
+  def params_order
+    term = @params[:order].to_sym
+
+    if @klass == Anime && (term == :volumes || term == :chapters)
+      :episodes
+    elsif @klass != Anime && term == :episodes
+      :chapters
+    else
+      term
     end
   end
 end
