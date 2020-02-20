@@ -1,3 +1,5 @@
+- is_licensor = params[:licensor].present? && params[:licensor].match?(Animes::Filters::ByLicensor::ANYTHING)
+
 - if view.season_page?
   / специальная вёрстка отображения отдельного сезона:
   / каталог разбит на куски по kind, каждый кусок отображается с заголовков
@@ -6,7 +8,7 @@
   - else
     - kinds_with_colors.each do |data|
       - next unless @view.collection[data[:kind]]
-      - cover_notice = params[:licensor].present? ? :licensor : :studio
+      - cover_notice = is_licensor ? :licensor : :studio
 
       .headline class=data[:color]
         = t "titles/collection_title.kind.#{@view.klass.name.downcase}.long.#{data[:kind]}"
@@ -29,7 +31,8 @@
     - if (!@view.collection || @view.collection.none?) && @view.page == 1
       .b-nothing_here = t 'nothing_here'
     - else
-      - cover_notice = params[:licensor].present? ? :year_licensor : :year_kind
+      - cover_notice = is_licensor ? :year_licensor : :year_kind
+
       = render partial: 'animes/anime',
         collection: @view.collection,
         locals: { cover_notice: cover_notice },
