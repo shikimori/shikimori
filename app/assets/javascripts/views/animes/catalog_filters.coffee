@@ -100,16 +100,25 @@ export default (base_path, current_url, change_callback) ->
   $('.anime-params-block .block-filter', $root).on 'click', (e) ->
     $params_block = $(@).closest('.anime-params-block')
 
-    to_exclude = if $(@).hasClass('item-sign')
-      $params_block.find('li').length == $params_block.find('.item-add').length
-    else
-      $(@).hasClass('item-add')
+    to_exclude =
+      if $(@).hasClass('item-sign')
+        $params_block.find('li').length == $params_block.find('.item-add:visible').length
+      else
+        $(@).hasClass('item-add')
 
-    $params_block.find('li').map(->
-      extract_li_info $(@)
-    ).each (index, li_info) ->
-      filters.params[li_info.field][index] =
-        (if to_exclude then '!' + li_info.value else li_info.value)
+    to_disable = $(@).hasClass('item-sign') &&
+      $params_block.find('li').length == $params_block.find('.item-minus:visible').length
+
+    $params_block
+      .find('li')
+      .map(-> extract_li_info $(@))
+      .each (index, li_info) ->
+        if to_disable
+          filters.params[li_info.field] = []
+        else
+          filters.params[li_info.field][index] = (
+            if to_exclude then '!' + li_info.value else li_info.value
+          )
 
     change_callback filters.compile()
     filters.parse filters.compile()
