@@ -75,8 +75,8 @@ class Banhammer # rubocop:disable ClassLength
     abusiveness(text).positive?
   end
 
-  def censor text
-    replace_abusiveness text, 'x'
+  def censor text, replacement
+    replace_abusiveness text, replacement
   end
 
 private

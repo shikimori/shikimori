@@ -20,7 +20,8 @@ describe Banhammer do
   end
 
   describe '#censor' do
-    it { expect(banhammer.censor 'test хуй').to eq 'test xxx' }
+    subject { banhammer.censor 'test хуй', 'x' }
+    it { is_expected.to eq 'test xxx' }
   end
 
   describe '#ban' do

@@ -107,6 +107,7 @@ private
       .permit(:body, :is_summary, :is_offtopic, :commentable_id, :commentable_type, :user_id)
       .tap do |comment|
         comment[:user_id] ||= current_user.id
+        comment[:body] = Banhammer.instance.censor comment[:body], nil
       end
   end
 end
