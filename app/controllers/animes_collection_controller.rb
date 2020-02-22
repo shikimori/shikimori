@@ -81,6 +81,7 @@ private
       model[kind] = terms
         .positives
         .map { |term| @menu.send(kind.to_s.pluralize).find { |v| v.id == term } }
+        .compact
     end
 
     model
