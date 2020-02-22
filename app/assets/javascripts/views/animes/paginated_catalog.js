@@ -208,6 +208,8 @@ export default class PaginatedCatalog {
       !(this.$linkNext.hasClass('disabled') && this.$linkPrev.hasClass('disabled'))
     );
 
+    this.$content.trigger('ajax:success');
+
     if (url) {
       // google analytics
       if ('_gaq' in window) {
