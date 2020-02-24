@@ -135,4 +135,27 @@ describe ListImports::Import do
       expect(Achievements::Track).to_not have_received :perform_async
     end
   end
+
+  context 'missing field', :focus do
+    let(:list_import) do
+      create :list_import, :shiki_json_broken_2, :anime, :pending, user: user
+    end
+
+    it do
+      expect(list_import).to be_failed
+      expect(list_import.output).to eq(
+        'error' => {
+          'type' => ListImport::ERROR_MISSING_FIELDS,
+          'fields' => %w[target_type status]
+        }
+      )
+
+      expect(user.anime_rates).to be_empty
+      expect(user.manga_rates).to be_empty
+
+      expect(user.history).to be_empty
+
+      expect(Achievements::Track).to_not have_received :perform_async
+    end
+  end
 end

@@ -8,6 +8,7 @@ class ListImport < ApplicationRecord
   ERROR_BROKEN_FILE = 'broken_file'
   ERROR_EMPTY_LIST = 'empty_list'
   ERROR_MISMATCHED_LIST_TYPE = 'mismatched_list_type'
+  ERROR_MISSING_FIELDS = 'missing_fields'
 
   belongs_to :user, touch: true
 

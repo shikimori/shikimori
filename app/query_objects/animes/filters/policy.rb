@@ -38,14 +38,25 @@ class Animes::Filters::Policy
     def forbid_filtering? params # rubocop:disable all
       FALSY.include?(params[:censored]) ||
         params[:achievement].present? ||
-        params[:franchise].present? ||
         params[:ids].present? ||
-        params[:mylist].present? ||
-        params[:publisher].present? ||
-        params[:studio].present? ||
+        present_and_not_all_negatives?(params[:franchise]) ||
+        present_and_not_all_negatives?(params[:mylist]) ||
+        present_and_not_all_negatives?(params[:publisher]) ||
+        present_and_not_all_negatives?(params[:studio]) ||
         params[:search].present? ||
         params[:q].present? ||
         params[:phrase].present?
     end
+
+    def present_and_not_all_negatives? value
+      value.present?# && !value.include?('!')
+    end
   end
 end
+
+# Benchmark.bmbm do |x|
+#   x.report { 'test'.include? '!' }
+#   x.report { 'test'.match? '!' }
+#   x.report { 'test'.match? /!/ }
+#   x.report { 'test'[/!/] }
+# end

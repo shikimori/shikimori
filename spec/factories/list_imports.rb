@@ -46,6 +46,9 @@ FactoryBot.define do
     trait :shiki_json_broken do
       list { File.new "#{Rails.root}/spec/files/list_broken.json" }
     end
+    trait :shiki_json_broken_2 do
+      list { File.new "#{Rails.root}/spec/files/list_broken_2.json" }
+    end
     trait :broken_file do
       list { File.new "#{Rails.root}/spec/files/broken_list.txt" }
     end
