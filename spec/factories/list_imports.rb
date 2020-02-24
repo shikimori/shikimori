@@ -69,5 +69,9 @@ FactoryBot.define do
       failed
       output { { error: { type: ListImport::ERROR_MISMATCHED_LIST_TYPE } } }
     end
+    trait :error_missing_fields do
+      failed
+      output { { error: { type: ListImport::ERROR_MISSING_FIELDS, fields: %i[status] } } }
+    end
   end
 end

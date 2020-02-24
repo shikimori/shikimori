@@ -136,7 +136,7 @@ describe ListImports::Import do
     end
   end
 
-  context 'missing field', :focus do
+  context 'missing field' do
     let(:list_import) do
       create :list_import, :shiki_json_broken_2, :anime, :pending, user: user
     end

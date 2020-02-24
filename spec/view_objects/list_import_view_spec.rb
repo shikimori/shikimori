@@ -117,10 +117,10 @@ describe ListImportView do
     end
 
     context 'ERROR_MISMATCHED_LIST_TYPE' do
-      let(:list_import) { build_stubbed :list_import, :error_mismatched_list_type }
+      let(:list_import) { build_stubbed :list_import, :error_missing_fields }
       it { expect(view).to_not be_empty_list_error }
       it { expect(view).to_not be_broken_file_error }
-      it { expect(view).to be_mismatched_list_type_error }
+      it { expect(view).to be_missing_fields_error }
     end
   end
 end

@@ -2,10 +2,6 @@ class ListImportView < ViewObjectBase
   pattr_initialize :list_import
   instance_cache :added, :updated, :not_imported
 
-  ERROR_EMPTY_LIST = ListImport::ERROR_EMPTY_LIST
-  ERROR_BROKEN_FILE = ListImport::ERROR_BROKEN_FILE
-  ERROR_MISMATCHED_LIST_TYPE = ListImport::ERROR_MISMATCHED_LIST_TYPE
-
   def added
     output_collection ListImports::ImportList::ADDED
   end
@@ -31,17 +27,22 @@ class ListImportView < ViewObjectBase
 
   def empty_list_error?
     @list_import.failed? &&
-      @list_import.output&.dig('error', 'type') == ERROR_EMPTY_LIST
+      @list_import.output&.dig('error', 'type') == ListImport::ERROR_EMPTY_LIST
   end
 
   def broken_file_error?
     @list_import.failed? &&
-      @list_import.output&.dig('error', 'type') == ERROR_BROKEN_FILE
+      @list_import.output&.dig('error', 'type') == ListImport::ERROR_BROKEN_FILE
   end
 
   def mismatched_list_type_error?
     @list_import.failed? &&
-      @list_import.output&.dig('error', 'type') == ERROR_MISMATCHED_LIST_TYPE
+      @list_import.output&.dig('error', 'type') == ListImport::ERROR_MISMATCHED_LIST_TYPE
+  end
+
+  def missing_fields_error?
+    @list_import.failed? &&
+      @list_import.output&.dig('error', 'type') == ListImport::ERROR_MISSING_FIELDS
   end
 
   def list_diff list_entry_before, list_entry_after
