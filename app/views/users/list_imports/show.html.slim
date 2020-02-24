@@ -22,6 +22,9 @@
               = t 'users.list_imports.show.broken_file'
             - elsif @view.mismatched_list_type_error?
               = t 'users.list_imports.show.mismatched_list_type'
+            - elsif @view.missing_fields_error?
+              = t 'users.list_imports.show.missing_fields',
+                fields: '`' + @view.missing_fields.join('`, `') + '`'
             - else
               = @resource.output&.dig('error', 'class')
 

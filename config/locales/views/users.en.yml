@@ -36,6 +36,7 @@ en:
         empty_list: Uploaded list is empty.
         broken_file: The uploaded file can not be read. The file is either corrupted, or it is not a file with a list.
         mismatched_list_type: Invalid list type selected.
+        missing_fields: 'Invalid list format. The list is missing fields: %{fields}'
       pending:
         please_wait: >-
           Please wait until the end of import.

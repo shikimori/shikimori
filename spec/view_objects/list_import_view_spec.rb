@@ -121,6 +121,7 @@ describe ListImportView do
       it { expect(view).to_not be_empty_list_error }
       it { expect(view).to_not be_broken_file_error }
       it { expect(view).to be_missing_fields_error }
+      it { expect(view.missing_fields).to eq %w[status] }
     end
   end
 end

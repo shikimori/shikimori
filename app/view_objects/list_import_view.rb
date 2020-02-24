@@ -45,6 +45,10 @@ class ListImportView < ViewObjectBase
       @list_import.output&.dig('error', 'type') == ListImport::ERROR_MISSING_FIELDS
   end
 
+  def missing_fields
+    @list_import.output['error']['fields']
+  end
+
   def list_diff list_entry_before, list_entry_after
     html_before = render_to_string(
       partial: 'users/list_imports/list_entry_details',
