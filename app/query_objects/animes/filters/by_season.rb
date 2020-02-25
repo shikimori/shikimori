@@ -21,13 +21,13 @@ private
 
   def parse season # rubocop:disable MethodLength
     case season
-      when /^(?<season>[a-z]+)_(?<year>\d+)$/
+      when /^(?<season>[a-z]+)_(?<year>\d{4})$/
         season_sql $LAST_MATCH_INFO[:year].to_i, $LAST_MATCH_INFO[:season]
 
-      when /^\d+$/
+      when /^\d{4}$/
         year_sql season.to_i
 
-      when /^(?<year_from>\d+)_(?<year_to>\d+)$/
+      when /^(?<year_from>\d{4})_(?<year_to>\d{4})$/
         years_sql(
           $LAST_MATCH_INFO[:year_from].to_i,
           $LAST_MATCH_INFO[:year_to].to_i
