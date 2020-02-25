@@ -49,14 +49,7 @@ class Animes::Filters::Policy
     end
 
     def present_and_not_all_negatives? value
-      value.present?# && !value.include?('!')
+      value.present? && value.count('!') != (value.count(',') + 1)
     end
   end
 end
-
-# Benchmark.bmbm do |x|
-#   x.report { 'test'.include? '!' }
-#   x.report { 'test'.match? '!' }
-#   x.report { 'test'.match? /!/ }
-#   x.report { 'test'[/!/] }
-# end

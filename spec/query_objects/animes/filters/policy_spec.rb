@@ -39,7 +39,7 @@ describe Animes::Filters::Policy do
   end
 
   describe 'achievement' do
-    let(:achievement) { any_args }
+    let(:achievement) { 'zzzz' }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }
@@ -62,10 +62,31 @@ describe Animes::Filters::Policy do
   end
 
   describe 'franchise' do
-    let(:franchise) { any_args }
+    let(:franchise) { 'zzzz' }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }
+
+    context '!zzz' do
+      let(:franchise) { '!zzz' }
+
+      it { expect(no_hentai).to eq true }
+      it { expect(no_music).to eq true }
+    end
+
+    context '!zzz,xxx' do
+      let(:franchise) { '!zzz,xxx' }
+
+      it { expect(no_hentai).to eq false }
+      it { expect(no_music).to eq false }
+    end
+
+    context '!zzz,!xxx' do
+      let(:franchise) { '!zzz,!xxx' }
+
+      it { expect(no_hentai).to eq true }
+      it { expect(no_music).to eq true }
+    end
   end
 
   describe 'kind' do
@@ -130,21 +151,21 @@ describe Animes::Filters::Policy do
   end
 
   describe 'ids' do
-    let(:ids) { any_args }
+    let(:ids) { 'zzzz' }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }
   end
 
   describe 'mylist' do
-    let(:mylist) { any_args }
+    let(:mylist) { 'zzzz' }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }
   end
 
   describe 'publisher' do
-    let(:publisher) { any_args }
+    let(:publisher) { 'zzzz' }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }
@@ -186,28 +207,28 @@ describe Animes::Filters::Policy do
   end
 
   describe 'studio' do
-    let(:studio) { any_args }
+    let(:studio) { 'zzzz' }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }
   end
 
   describe 'search' do
-    let(:search) { any_args }
+    let(:search) { 'zzzz' }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }
   end
 
   describe 'q' do
-    let(:q) { any_args }
+    let(:q) { 'zzzz' }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }
   end
 
   describe 'phrase' do
-    let(:search) { any_args }
+    let(:search) { 'zzzz' }
 
     it { expect(no_hentai).to eq false }
     it { expect(no_music).to eq false }
