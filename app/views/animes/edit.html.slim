@@ -42,6 +42,15 @@
               data-dynamic='week_registered'
             ] = t 'actions.edit'
 
+        li
+          .field = @resource.class.human_attribute_name(:japanese)
+          .value
+            span = @resource.synonyms.join(', ')
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:japanese)
+              data-dynamic='week_registered'
+            ] = t 'actions.edit'
+
         - if @resource.franchise.present?
           li
             .field = @resource.class.human_attribute_name(:franchise)

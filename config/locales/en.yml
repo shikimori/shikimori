@@ -39,6 +39,7 @@ en:
         image: &poster Poster
         kind: Type
         name: Name
+        japanese: Japanese
         synonyms: Alternative names
         poster: *poster
         rating: Rating

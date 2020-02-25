@@ -39,6 +39,7 @@ ru:
         image: &poster Постер
         kind: Тип
         name: Английское название
+        japanese: Японское название
         synonyms: Альтернативные названия
         poster: *poster
         rating: Рейтинг

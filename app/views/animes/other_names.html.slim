@@ -1,11 +1,11 @@
-= info_line t('in_japanese') do
-  - if @resource.japanese.present?
+- if @resource.japanese.present?
+  = info_line t('in_japanese') do
     span itemprop="alternativeHeadline" == @resource.japanese
 
-= info_line t('in_english') do
-  - if @resource.english.present?
+- if @resource.english.present?
+  = info_line t('in_english') do
     span itemprop="alternativeHeadline" == @resource.english
 
-= info_line t('.other_names') do
-  - if @resource.synonyms.present?
+- if @resource.synonyms.present?
+  = info_line t('.other_names') do
     span itemprop="alternativeHeadline" == @resource.synonyms.join(', ')
