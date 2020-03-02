@@ -1,5 +1,6 @@
 class Animes::Filters::ByRating < Animes::Filters::FilterBase
-  dry_type Types::Anime::Rating
+  # NOTE: disabled until 01-04-2020
+  # dry_type Types::Anime::Rating
   field :rating
 
   def call
