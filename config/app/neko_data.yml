@@ -18612,7 +18612,7 @@
         - 41188
         - 41189
         - 41204
-      :threshold: 95.7%
+      :threshold: 95.6%
       :generator:
         not_ignored_ids:
         - 14951
@@ -21137,6 +21137,7 @@
         franchise: selector_spread_wixoss
         not_anime_ids:
         - 27613
+        - 31280
         - 36083
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -21169,6 +21170,7 @@
         franchise: selector_spread_wixoss
         not_anime_ids:
         - 27613
+        - 31280
         - 36083
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
@@ -21656,16 +21658,17 @@
       :filters:
         franchise: dragon_ball
         not_anime_ids:
-        - 33947
+        - 502
         - 892
         - 6714
         - 11359
+        - 11659
+        - 18603
         - 22695
         - 22699
-        - 18603
-        - 11659
         - 23933
         - 23935
+        - 33947
       :threshold: 95.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21696,16 +21699,17 @@
       :filters:
         franchise: dragon_ball
         not_anime_ids:
-        - 33947
+        - 502
         - 892
         - 6714
         - 11359
+        - 11659
+        - 18603
         - 22695
         - 22699
-        - 18603
-        - 11659
         - 23933
         - 23935
+        - 33947
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -24865,7 +24869,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 97.4%
+      :threshold: 97.5%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -25127,7 +25131,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 93.3%
+      :threshold: 94.2%
       :generator:
         ignore_latest_ids:
         - 38088
@@ -26617,7 +26621,7 @@
         franchise: doraemon
         not_anime_ids:
         - 501
-      :threshold: 93.7%
+      :threshold: 94%
       :generator:
         ignore_latest_ids:
         - 40044
