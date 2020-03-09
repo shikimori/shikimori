@@ -14,13 +14,16 @@ module Types
     ]
 
     WATCH_ONLINE_KINDS = %i[
-      wakanim
       crunchyroll
-      youtube
-      netflix
+      wakanim
+      amazon
       hidive
       hulu
-      amazon
+      ivi
+      kinopoisk
+      netflix
+      okko
+      youtube
     ]
     KINDS = {
       anime: COMMON_KINDS + %i[
