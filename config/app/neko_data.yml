@@ -4587,6 +4587,8 @@
         - 31537
         - 39324
         - 39071
+        - 38924
+        - 38759
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5058,6 +5060,8 @@
         - 31537
         - 39324
         - 39071
+        - 38924
+        - 38759
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5529,6 +5533,8 @@
         - 31537
         - 39324
         - 39071
+        - 38924
+        - 38759
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -18604,6 +18610,8 @@
         - 36473
         - 41182
         - 41188
+        - 41189
+        - 41204
       :threshold: 95.7%
       :generator:
         not_ignored_ids:
@@ -18658,6 +18666,8 @@
         - 36473
         - 41182
         - 41188
+        - 41189
+        - 41204
       :threshold: 0.01
       :generator:
         not_ignored_ids:
@@ -21127,7 +21137,7 @@
         franchise: selector_spread_wixoss
         not_anime_ids:
         - 27613
-        - 31280
+        - 36083
       :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21159,7 +21169,7 @@
         franchise: selector_spread_wixoss
         not_anime_ids:
         - 27613
-        - 31280
+        - 36083
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21646,12 +21656,16 @@
       :filters:
         franchise: dragon_ball
         not_anime_ids:
-        - 502
+        - 33947
         - 892
         - 6714
         - 11359
         - 22695
         - 22699
+        - 18603
+        - 11659
+        - 23933
+        - 23935
       :threshold: 95.2%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21682,12 +21696,16 @@
       :filters:
         franchise: dragon_ball
         not_anime_ids:
-        - 502
+        - 33947
         - 892
         - 6714
         - 11359
         - 22695
         - 22699
+        - 18603
+        - 11659
+        - 23933
+        - 23935
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -29863,6 +29881,8 @@
         - 4744
         - 5772
         - 36817
+        - 36817
+        - 37188
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/oniichan.yml
   default_values: *2
   neko_id: :oniichan
