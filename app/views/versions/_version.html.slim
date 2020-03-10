@@ -23,7 +23,7 @@
           = render 'versions/anime_video', version: version
         - elsif version.item_type == Video.name
           = render 'versions/video', version: version
-        - elsif version.item_type == Genre.name
+        - elsif [Genre.name, Studio.name, Publisher.name].include?(version.item_type)
           = render 'versions/genre', version: version
         - elsif version.is_a? Versions::RoleVersion
           = render 'users/user_16', user: version.item

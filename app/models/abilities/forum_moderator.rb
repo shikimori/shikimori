@@ -20,8 +20,6 @@ class Abilities::ForumModerator
     can :close, Topic
     cannot :broadcast, Topic
 
-    can %i[edit update], Genre
-
     can :manage, Ban
     cannot :destroy, Ban
 

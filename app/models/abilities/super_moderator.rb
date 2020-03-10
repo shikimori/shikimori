@@ -20,5 +20,14 @@ class Abilities::SuperModerator
 
     can :destroy, Ban
     can :access_list, User
+
+    can :manage, Genre
+    cannot :destroy, Genre
+
+    can :manage, Studio
+    cannot :destroy, Studio
+
+    can :manage, Publisher
+    cannot :destroy, Publisher
   end
 end
