@@ -43,7 +43,7 @@ private
 
   def genre_params
     if current_user.admin?
-      params.require(:genre).permit(:name, :russian, :position, :seo, :description)
+      params.require(:genre).permit(:russian, :position, :seo, :description)
     else
       params.require(:genre).permit(:description)
     end

@@ -16,7 +16,7 @@ header.head
 
     .inputs.block
       - if can? :manage, Genre
-        = f.input :name
+        = f.input :name, input_html: { disabled: true }
         = f.input :russian
         = f.input :position
         = f.input :seo
