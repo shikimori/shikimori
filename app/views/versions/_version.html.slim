@@ -1,3 +1,4 @@
+// NOTE: can?(:manage, version.item) added because of genres, studios and publishers
 = cache [version, can?(:manage, version), can?(:destroy, version), can?(:manage, version.item), :v2], expires_in: 2.weeks do
   .b-log_entry.mobile-multiline.to-process[
     id=version.id
