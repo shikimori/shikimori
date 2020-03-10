@@ -3,7 +3,7 @@ describe Moderations::GenresController do
   let!(:genre) { create :genre }
 
   describe '#index' do
-    before { get :index }
+    subject! { get :index }
     it do
       expect(response).to have_http_status :success
       expect(collection).to have(1).item
@@ -11,22 +11,23 @@ describe Moderations::GenresController do
   end
 
   describe '#edit' do
-    before { get :edit, params: { id: genre.id } }
+    subject! { get :edit, params: { id: genre.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
     let(:params) { { description: 'new description' } }
-    before { patch :update, params: { id: genre.id, genre: params } }
+    subject { patch :update, params: { id: genre.id, genre: params } }
 
     it do
+      expect { subject }.to change(Version, :count).by 1
       expect(response).to redirect_to moderations_genres_url
       expect(resource).to have_attributes params
     end
   end
 
   describe '#tooltip' do
-    before { get :tooltip, params: { id: genre } }
+    subject! { get :tooltip, params: { id: genre } }
     it { expect(response).to have_http_status :success }
   end
 end

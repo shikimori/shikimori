@@ -258,13 +258,14 @@ ru:
 
   moderations/genres_controller:
     <<: *moderations_controller
+    no_changes: &no_changes Нет изменений
 
   animes_controller: &animes_controller
     version_pending: *version_pending
     version_accepted: *version_accepted
     version_taken: *version_accepted
     version_auto_accepted: *version_accepted
-    no_changes: &no_changes Нет изменений
+    no_changes: *no_changes
     entry_edit: Редактирование аниме
     edit: Редактирование
     characters:

@@ -192,6 +192,7 @@ Rails.application.routes.draw do
       patch :update, on: :member, as: :update
     end
     resources :genres, only: %i[index edit update] do
+      get '(/page/:page)' => :index, as: '', on: :collection
       get :tooltip, on: :member
     end
   end

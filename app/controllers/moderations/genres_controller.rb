@@ -11,10 +11,21 @@ class Moderations::GenresController < ModerationsController
   end
 
   def update
-    if @resource.update genre_params
+    version = Versioneers::FieldsVersioneer
+      .new(@resource)
+      .postmoderate(
+        genre_params.is_a?(Hash) ? genre_params : genre_params.to_unsafe_h,
+        current_user,
+        ''
+      )
+
+    if version.persisted?
       redirect_to moderations_genres_url
     else
-      render action: 'edit'
+      redirect_back(
+        fallback_location: moderations_genre_url(@resource),
+        alert: @version.errors[:base]&.dig(0) || i18n_t('no_changes')
+      )
     end
   end
 
