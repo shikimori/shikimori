@@ -3,6 +3,8 @@ class Moderations::GenresController < ModerationsController
   load_and_authorize_resource
   before_action :set_breadcrumbs, except: %i[tooltip]
 
+  helper_method :versioned_view
+
   def index
     @collection = @collection.order(:kind, :position, :name)
   end
@@ -24,7 +26,7 @@ class Moderations::GenresController < ModerationsController
     else
       redirect_back(
         fallback_location: moderations_genre_url(@resource),
-        alert: @version.errors[:base]&.dig(0) || i18n_t('no_changes')
+        alert: version.errors[:base]&.dig(0) || i18n_t('no_changes')
       )
     end
   end
@@ -34,6 +36,10 @@ class Moderations::GenresController < ModerationsController
   end
 
 private
+
+  def versioned_view
+    @versioned_view ||= VersionedView.new @resource
+  end
 
   def genre_params
     if current_user.admin?

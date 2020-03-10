@@ -1,4 +1,6 @@
 class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
+  include VersionedConcern
+
   instance_cache :description_html,
     :menu_clubs, :all_clubs, :menu_collections,
     :contest_winners,
@@ -169,11 +171,6 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
     @authors[field] ||= versions_scope.authors(field)
   end
 
-  def parameterized_versions
-    versions_scope
-      .paginate([h.params[:page].to_i, 1].max, 20)
-      .transform(&:decorate)
-  end
 
   def contest_winners
     object.contest_winners
@@ -209,14 +206,11 @@ class DbEntryDecorator < BaseDecorator # rubocop:disable ClassLength
 private
 
   def versions_scope
-    scope = VersionsQuery.fetch(object)
-
-    scope = scope.by_field(h.params[:field]) if h.params[:field]
     if h.params[:video_id]
-      scope = scope.where(item_id: h.params[:video_id], item_type: Video.name)
+      super.where(item_id: h.params[:video_id], item_type: Video.name)
+    else
+      super
     end
-
-    scope
   end
 
   def show_description_ru?
@@ -237,7 +231,7 @@ private
   end
 
   def klass_lower
-    if object.is_a? Character # becase character has method :anime?
+    if object.is_a? Character # because character has method :anime?
       Character.name.downcase
 
     elsif object.is_a? Person

@@ -3,23 +3,26 @@ header.head
   .notice = t '.notice'
   = render 'application/breadcrumbs'
 
-= simple_form_for [:moderations, @resource] do |f|
-  - if @resource.errors.any?
-    .errors
-      .subheadline.red Errors
-      .subcontent
-        == @resource.errors.full_messages.join('<br>')
-      div
-  - else
-      .subheadline.m5 = Genre.model_name.human
+.block
+  = simple_form_for [:moderations, @resource] do |f|
+    - if @resource.errors.any?
+      .errors
+        .subheadline.red Errors
+        .subcontent
+          == @resource.errors.full_messages.join('<br>')
+        div
+    - else
+        .subheadline.m5 = Genre.model_name.human
 
-  .inputs.block
-    - if can? :manage, Genre
-      = f.input :name
-      = f.input :russian
-      = f.input :position
-      = f.input :seo
-    = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
+    .inputs.block
+      - if can? :manage, Genre
+        = f.input :name
+        = f.input :russian
+        = f.input :position
+        = f.input :seo
+      = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
 
-  = f.button :magic_submit
-  = link_to t('actions.cancel'), moderations_genres_url, class: 'cancel'
+    = f.button :magic_submit
+    = link_to t('actions.cancel'), moderations_genres_url, class: 'cancel'
+
+= render 'db_entries/history', resource: versioned_view

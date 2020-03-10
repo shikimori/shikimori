@@ -7,5 +7,5 @@
     - if resource.parameterized_versions.next_page?
       = render 'blocks/postloader',
         filter: 'b-log_entry',
-        next_url: resource.versions_url(resource.parameterized_versions.next_page),
-        prev_url: (resource.versions_url(resource.parameterized_versions.prev_page) if resource.parameterized_versions.prev_page?)
+        next_url: resource.respond_to?(:versions_url) ? resource.versions_url(resource.parameterized_versions.next_page) : current_url(page: resource.parameterized_versions.next_page),
+        prev_url: ((resource.respond_to?(:versions_url) ? resource.versions_url(resource.parameterized_versions.prev_page) : current_url(page: resource.parameterized_versions.prev_page)) if resource.parameterized_versions.prev_page?)
