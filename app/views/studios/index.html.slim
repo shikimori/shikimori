@@ -6,14 +6,22 @@ header.head
 
 .block
   = cache Studio.all.cache_key, expires_in: 1.day do
-    - @collection.select(&:real?).each do |studio|
+    - @collection.select(&:is_visible).each do |studio|
       .studio
         - if studio.image_file_name
           - if user_signed_in?
             a href=animes_collection_url(studio: studio) title=studio.name
-              img.logo src=cdn_image(studio, :original) alt="#{studio.name}" title=studio.name
+              img.logo[
+                src=cdn_image(studio, :original)
+                alt=studio.name
+                title=studio.name
+              ]
           - else
-            img.logo src=studio.image.url alt=studio.name title=studio.name
+            img.logo[
+              src=studio.image.url
+              alt=studio.name
+              title=studio.name
+            ]
         a.name href=animes_collection_url(studio: studio) title=studio.name
           = studio.name
         .animes
@@ -21,4 +29,4 @@ header.head
           span.num = studio.animes_count
         .years
           | #{t '.over_the_period'}:&nbsp;
-          span.num #{studio.min_year.year}-#{[DateTime.now.year, studio.max_year.year].min}
+          span.num #{studio.min_year.year}-#{[Time.zone.today.year, studio.max_year.year].min}

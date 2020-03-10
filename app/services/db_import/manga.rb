@@ -18,6 +18,6 @@ private
   def find_or_create_publisher data
     PublishersRepository.instance.find data[:id]
   rescue ActiveRecord::RecordNotFound
-    Publisher.create! id: data[:id], name: data[:name]
+    Publisher.create! id: data[:id], name: data[:name], is_visible: true
   end
 end

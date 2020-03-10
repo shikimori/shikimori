@@ -130,7 +130,7 @@ class Users::ProfileStatsQuery
     {
       anime: stats.by_categories(
         'studio',
-        StudiosRepository.instance.select(&:real?),
+        StudiosRepository.instance.select(&:is_visible),
         stats.anime_valuable_rates,
         nil,
         17

@@ -6,6 +6,6 @@ class StudioSerializer < ActiveModel::Serializer
   end
 
   def real
-    object.real?
+    object.is_visible?
   end
 end

@@ -23,11 +23,6 @@ class Publisher < ApplicationRecord
     related << id
   end
 
-  # создающий ли это мангу издатель или просто продюссер
-  def real?
-    true
-  end
-
   # возвращет настоящего издателя, если это был склеенный издатель
   def real
     Merged.keys.include?(self.id) ? self.class.find(Merged[self.id]) : self
