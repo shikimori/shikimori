@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_19_174730) do
+ActiveRecord::Schema.define(version: 2020_03_10_180551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 2020_02_19_174730) do
     t.text "coub_tags", default: [], null: false, array: true
     t.text "fansubbers", default: [], null: false, array: true
     t.text "fandubbers", default: [], null: false, array: true
-    t.string "licensor"
+    t.string "licensor", default: "", null: false
     t.index ["kind"], name: "index_animes_on_kind"
     t.index ["name"], name: "index_animes_on_name"
     t.index ["russian"], name: "index_animes_on_russian"
@@ -625,7 +625,7 @@ ActiveRecord::Schema.define(version: 2020_02_19_174730) do
     t.integer "publisher_ids", default: [], null: false, array: true
     t.string "franchise"
     t.string "license_name_ru"
-    t.string "licensor"
+    t.string "licensor", default: "", null: false
     t.index ["kind"], name: "index_mangas_on_kind"
     t.index ["name"], name: "index_mangas_on_name"
     t.index ["russian"], name: "index_mangas_on_russian"
@@ -900,6 +900,7 @@ ActiveRecord::Schema.define(version: 2020_02_19_174730) do
     t.text "description_ru"
     t.text "description_en"
     t.string "website", limit: 255
+    t.boolean "is_visible", null: false
   end
 
   create_table "styles", id: :serial, force: :cascade do |t|
