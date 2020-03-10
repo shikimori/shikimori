@@ -15,8 +15,8 @@ header.head
         .subheadline.m5 = Studio.model_name.human
 
     .inputs.block
-      = f.input :name
-      = f.input :is_visible
+      = f.input :name, input_html: { disabled: cannot?(:update, @resource) }
+      = f.input :is_visible, input_html: { disabled: cannot?(:update, @resource) }
 
     = f.button :magic_submit
     = link_to t('actions.cancel'), moderations_studios_url, class: 'cancel'

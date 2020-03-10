@@ -40,6 +40,7 @@ class Abilities::User
     style_abilities
     list_import_abilities
     favourites_abilities
+    genres_studios_publishers_abilities
   end
 
   def topic_abilities
@@ -322,6 +323,12 @@ class Abilities::User
 
   def favourites_abilities
     can %i[manage], Favourite, user_id: @user.id
+  end
+
+  def genres_studios_publishers_abilities
+    can %i[read edit], Genre
+    can %i[read edit], Studio
+    can %i[read edit], Publisher
   end
 
 private

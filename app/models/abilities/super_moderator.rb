@@ -3,6 +3,15 @@ class Abilities::SuperModerator
   prepend Draper::CanCanCan
 
   def initialize _user
+    roles_abilities
+
+    can :destroy, Ban
+    can :access_list, User
+
+    genres_studios_publishers_abilities
+  end
+
+  def roles_abilities
     can %i[
       manage_forum_moderator_role
       manage_review_moderator_role
@@ -17,17 +26,11 @@ class Abilities::SuperModerator
       manage_not_trusted_abuse_reporter_role
       manage_cheat_bot_role
     ], User
+  end
 
-    can :destroy, Ban
-    can :access_list, User
-
-    can :manage, Genre
-    cannot :destroy, Genre
-
-    can :manage, Studio
-    cannot :destroy, Studio
-
-    can :manage, Publisher
-    cannot :destroy, Publisher
+  def genres_studios_publishers_abilities
+    can :update, Genre
+    can :update, Studio
+    can :update, Publisher
   end
 end

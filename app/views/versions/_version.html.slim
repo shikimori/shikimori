@@ -1,5 +1,4 @@
-// NOTE: can?(:manage, version.item) added because of genres, studios and publishers
-= cache [version, can?(:manage, version), can?(:destroy, version), can?(:manage, version.item), :v2], expires_in: 2.weeks do
+= cache [version, can?(:manage, version), can?(:destroy, version), :v2], expires_in: 2.weeks do
   .b-log_entry.mobile-multiline.to-process[
     id=version.id
     data-dynamic='log_entry'
@@ -25,7 +24,7 @@
         - elsif version.item_type == Video.name
           = render 'versions/video', version: version
         - elsif [Genre.name, Studio.name, Publisher.name].include?(version.item_type)
-          = render 'versions/genre', version: version
+          = render 'versions/genre_studio_publisher', version: version
         - elsif version.is_a? Versions::RoleVersion
           = render 'users/user_16', user: version.item
         - else
