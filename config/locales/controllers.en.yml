@@ -188,6 +188,7 @@ en:
   moderations_controller: &moderations_controller
     title: Moderation and content
     missing_screenshots_title: Missing screenshots
+    no_changes: &no_changes No changes
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller
@@ -259,12 +260,18 @@ en:
   moderations/genres_controller:
     <<: *moderations_controller
 
+  moderations/studios_controller:
+    <<: *moderations_controller
+
+  moderations/publishers_controller:
+    <<: *moderations_controller
+
   animes_controller: &animes_controller
     version_pending: *version_pending
     version_accepted: *version_accepted
     version_taken: *version_accepted
     version_auto_accepted: *version_accepted
-    no_changes: &no_changes No changes
+    no_changes: *no_changes
     entry_edit: Edit anime
     edit: Edit
     characters:

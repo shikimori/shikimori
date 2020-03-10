@@ -6,23 +6,20 @@ header.head
 table.b-table.b-editable_grid
   thead
     tr
-      th = Genre.human_attribute_name :position
-      - if can? :manage, Genre
-        th ID
-        th MAL_ID
+      th ID
       th Name EN
       th Name RU
       th = Genre.human_attribute_name :type
       th.text Description RU
       - if can? :edit, Genre
-        th.actions Actions
+        th.actions
 
   tbody
     - @collection.each do |genre|
       tr
         td = genre.position
+        td = genre.id
         - if can? :manage, Genre
-          td = genre.id
           td = genre.mal_id
         td = genre.name
         td = genre.russian

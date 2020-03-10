@@ -12,17 +12,13 @@ header.head
           == @resource.errors.full_messages.join('<br>')
         div
     - else
-        .subheadline.m5 = Genre.model_name.human
+        .subheadline.m5 = Studio.model_name.human
 
     .inputs.block
       = f.input :name
-      = f.input :russian
-      = f.input :position
-      - if can? :manage, Genre
-        = f.input :seo
-      = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
+      = f.input :is_visible
 
     = f.button :magic_submit
-    = link_to t('actions.cancel'), moderations_genres_url, class: 'cancel'
+    = link_to t('actions.cancel'), moderations_studios_url, class: 'cancel'
 
 = render 'db_entries/history', resource: versioned_view

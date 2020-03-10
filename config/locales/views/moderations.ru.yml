@@ -2,7 +2,6 @@ ru:
   moderations:
     show:
       content: Контент
-      genres: Жанры
       header_notice: Журналы модерации и информация о контенте сайта
       missing_anime_descriptions: Аниме без описаний
       missing_manga_descriptions: Манга без описаний
@@ -271,11 +270,26 @@ ru:
         <<: *edit
     genres:
       index: &index
-        genres: Жанры
-        notice: Список всех жанров сайта
+        notice: Список всех жанров аниме и манги
       edit: &edit
         <<: *index
         notice: Редактирование жанра
+      update:
+        <<: *edit
+    studios:
+      index: &index
+        notice: Список всех студий аниме
+      edit: &edit
+        <<: *index
+        notice: Редактирование студии
+      update:
+        <<: *edit
+    publishers:
+      index: &index
+        notice: Список всех издателей манги
+      edit: &edit
+        <<: *index
+        notice: Редактирование издателя
       update:
         <<: *edit
     authors:

@@ -43,16 +43,16 @@ private
 
   def genre_params
     if current_user.admin?
-      params.require(:genre).permit(:russian, :position, :seo, :description)
+      params.require(:genre).permit(:name, :russian, :position, :seo, :description)
     else
-      params.require(:genre).permit(:description)
+      params.require(:genre).permit(:name, :russian, :position, :description)
     end
   end
 
   def set_breadcrumbs
-    og page_title: t('.genres')
+    og page_title: i18n_io('Genre', :few)
     og page_title: "#{@resource.name} / #{@resource.russian}" if @resource
 
-    breadcrumb t('.genres'), moderations_genres_url if @resource
+    breadcrumb i18n_io('Genre', :few), moderations_genres_url if @resource
   end
 end

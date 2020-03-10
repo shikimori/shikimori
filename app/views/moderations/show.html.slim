@@ -104,10 +104,28 @@ header.head
             - if can? :read, Genre
               a.b-link[
                 href=moderations_genres_url
-                title=t('.genres')
-              ] = t '.genres'
+                title=i18n_io('Genre', :few)
+              ] = i18n_io 'Genre', :few
             - else
-              span = t '.genres'
+              span = i18n_io 'Genre', :few
+
+          li
+            - if can? :read, Studio
+              a.b-link[
+                href=moderations_studios_url
+                title=i18n_io('Studio', :few)
+              ] = i18n_io 'Studio', :few
+            - else
+              span = i18n_io 'Studio', :few
+
+          li
+            - if can? :read, Publisher
+              a.b-link[
+                href=moderations_publishers_url
+                title=i18n_io('Publisher', :few)
+              ] = i18n_io 'Publisher', :few
+            - else
+              span = i18n_io 'Publisher', :few
 
             li
               - if can? :manage, Forum

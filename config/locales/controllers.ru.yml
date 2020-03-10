@@ -188,6 +188,7 @@ ru:
   moderations_controller: &moderations_controller
     title: Модерация и контент
     missing_screenshots_title: Аниме без кадров
+    no_changes: &no_changes Нет изменений
 
   moderations/abuse_requests_controller:
     <<: *moderations_controller
@@ -258,7 +259,12 @@ ru:
 
   moderations/genres_controller:
     <<: *moderations_controller
-    no_changes: &no_changes Нет изменений
+
+  moderations/studios_controller:
+    <<: *moderations_controller
+
+  moderations/publishers_controller:
+    <<: *moderations_controller
 
   animes_controller: &animes_controller
     version_pending: *version_pending

@@ -195,6 +195,12 @@ Rails.application.routes.draw do
       get '(/page/:page)' => :index, as: '', on: :collection
       get :tooltip, on: :member
     end
+    resources :studios, only: %i[index edit update] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+    end
+    resources :publishers, only: %i[index edit update] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+    end
   end
 
   # api

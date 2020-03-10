@@ -2,7 +2,6 @@ en:
   moderations:
     show:
       content: Site content
-      genres: Genres
       header_notice: Moderation journals
       missing_anime_descriptions: Animes w/o description
       missing_manga_descriptions: Mangas w/o description
@@ -271,11 +270,26 @@ en:
         <<: *edit
     genres:
       index: &index
-        genres: Genres
-        notice: List of all site genres
+        notice: List of all anime&manga genres
       edit: &edit
         <<: *index
         notice: Edit genre
+      update:
+        <<: *edit
+    studios:
+      index: &index
+        notice: List of all anime producers
+      edit: &edit
+        <<: *index
+        notice: Edit producer
+      update:
+        <<: *edit
+    publishers:
+      index: &index
+        notice: List of all manga publishers
+      edit: &edit
+        <<: *index
+        notice: Edit publisher
       update:
         <<: *edit
     authors:

@@ -10,6 +10,8 @@ en:
       contest: Contest
       forum: Forum
       genre: Genre
+      studio: Producer
+      publisher: Publisher
       manga: Manga
       person: Person
       poll: Poll
@@ -111,7 +113,13 @@ en:
         reason: Reason
         duration: Duration
       genre:
+        name: Title
+        russian: Title (in russian)
         description: Description
+      studio:
+        name: Name
+        filtered_name: Displayed name
+        is_visible: Studio?
       user:
         avatar: Avatar
         birth_on: Birthday

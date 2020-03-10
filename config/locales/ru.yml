@@ -10,6 +10,8 @@ ru:
       contest: Турнир
       forum: Раздел
       genre: Жанр
+      studio: Студия
+      publisher: Издатель
       manga: Манга
       person: Человек
       poll: Опрос
@@ -111,7 +113,13 @@ ru:
         reason: Причина
         duration: Срок
       genre:
+        name: Название
+        russian: Название (на английском)
         description: Описание
+      studio:
+        name: Название
+        filtered_name: Отображаемое название
+        is_visible: Студия?
       user:
         avatar: Аватар
         birth_on: Дата рождения

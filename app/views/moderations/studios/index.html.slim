@@ -1,0 +1,27 @@
+header.head
+  h1 = og.headline
+  .notice = t '.notice'
+  = render 'application/breadcrumbs'
+
+table.b-table.b-editable_grid
+  thead
+    tr
+      th ID
+      th = Studio.human_attribute_name :name
+      th = Studio.human_attribute_name :filtered_name
+      th = Studio.human_attribute_name :is_visible
+      - if can? :edit, Studio
+        th.actions
+
+  tbody
+    - @collection.each do |studio|
+      tr
+        td = studio.id
+        td = studio.name
+        td
+          - if studio.name != studio.filtered_name
+            = studio.filtered_name
+        td = studio.is_visible
+        - if can? :edit, Studio
+          td.actions
+            a href=edit_moderations_studio_url(studio) edit

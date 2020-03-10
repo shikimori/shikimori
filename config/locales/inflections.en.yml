@@ -35,6 +35,11 @@ en:
         one: year
         other: years
 
+    ordinal:
+      studio:
+        one: publisher
+        few: publishers
+
   i18n:
     inflections:
       user_signed_in:
