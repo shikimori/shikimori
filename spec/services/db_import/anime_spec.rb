@@ -136,7 +136,7 @@ describe DbImport::Anime do
           expect(entry.studios).to have(1).item
           expect(entry.studios.first).to have_attributes(
             id: studio.id,
-            name: studio.name
+            name: studio.name,
           )
         end
       end

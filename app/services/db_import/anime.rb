@@ -36,7 +36,11 @@ private
   def find_or_create_studio data
     StudiosRepository.instance.find data[:id]
   rescue ActiveRecord::RecordNotFound
-    Studio.create! id: data[:id], name: data[:name]
+    Studio.create!(
+      id: data[:id],
+      name: data[:name],
+      is_visible: false
+    )
   end
 
   def assign_related related
