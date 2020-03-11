@@ -113,10 +113,12 @@ ru:
         reason: Причина
         duration: Срок
       genre:
+        position: Позиция
         name: Название
         russian: Название (на английском)
         description: Описание
       studio:
+        image: Картинка
         name: Название
         filtered_name: Отображаемое название
         is_visible: Студия?

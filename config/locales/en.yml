@@ -117,6 +117,7 @@ en:
         russian: Title (in russian)
         description: Description
       studio:
+        image: image
         name: Name
         filtered_name: Displayed name
         is_visible: Studio?
