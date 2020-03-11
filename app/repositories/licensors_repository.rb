@@ -14,7 +14,9 @@ class LicensorsRepository
   end
 
   def reset
-    @collection = nil
+    @anime = nil
+    @manga = nil
+    @ranobe = nil
     true
   end
 
