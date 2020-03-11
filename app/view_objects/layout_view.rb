@@ -77,7 +77,7 @@ private
     return if h.controller.class.superclass == ApplicationController
     return if h.controller.class.superclass == ShikimoriController
 
-    h.controller.class.superclass.name.to_underscore.sub(/_controller$/, '')
+    h.controller.class.superclass.name.to_underscore.sub(/_controller$/, '').gsub(/::_?/, '_')
   end
 
   def controller_classes controller_name
