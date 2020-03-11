@@ -1,7 +1,5 @@
 class Animes::Filters::ByScore < Animes::Filters::FilterBase
-  Score = Types::Strict::Integer
-    .constructor(&:to_i)
-    .enum(1, 2, 3, 4, 5, 6, 7, 8, 9)
+  Score = Types::Coercible::Integer.enum(1, 2, 3, 4, 5, 6, 7, 8, 9)
 
   dry_type Score
   field :score

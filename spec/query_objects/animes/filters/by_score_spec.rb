@@ -20,7 +20,7 @@ describe Animes::Filters::ByScore do
   context 'negative' do
     context '!6' do
       let(:terms) { '!6' }
-      it { expect { subject }.to raise_error Dry::Types::ConstraintError }
+      it { expect { subject }.to raise_error InvalidParameterError }
     end
   end
 end
