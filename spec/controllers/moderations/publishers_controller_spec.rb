@@ -1,6 +1,6 @@
-describe Moderations::StudiosController do
+describe Moderations::PublishersController do
   include_context :authenticated, :admin
-  let!(:studio) { create :studio }
+  let!(:publisher) { create :publisher }
 
   describe '#index' do
     subject! { get :index }
@@ -11,17 +11,17 @@ describe Moderations::StudiosController do
   end
 
   describe '#edit' do
-    subject! { get :edit, params: { id: studio.id } }
+    subject! { get :edit, params: { id: publisher.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
     let(:params) { { name: 'new description' } }
-    subject { patch :update, params: { id: studio.id, studio: params } }
+    subject { patch :update, params: { id: publisher.id, publisher: params } }
 
     it do
       expect { subject }.to change(Version, :count).by 1
-      expect(response).to redirect_to moderations_studios_url
+      expect(response).to redirect_to moderations_publishers_url
       expect(resource).to have_attributes params
     end
   end

@@ -1,0 +1,23 @@
+header.head
+  h1 = og.headline
+  .notice = t '.notice'
+  = render 'application/breadcrumbs'
+
+.block
+  = simple_form_for [:moderations, @resource] do |f|
+    - if @resource.errors.any?
+      .errors
+        .subheadline.red Errors
+        .subcontent
+          == @resource.errors.full_messages.join('<br>')
+        div
+    - else
+        .subheadline.m5 = Publisher.model_name.human
+
+    .inputs.block
+      = f.input :name, input_html: { disabled: cannot?(:update, @resource) }
+
+    = f.button :magic_submit
+    = link_to t('actions.cancel'), moderations_publishers_url, class: 'cancel'
+
+= render 'db_entries/history', resource: versioned_view

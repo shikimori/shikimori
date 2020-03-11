@@ -278,7 +278,7 @@ ru:
         <<: *edit
     studios:
       index: &index
-        notice: Список всех студий аниме
+        notice: Список всех аниме студий
       edit: &edit
         <<: *index
         notice: Редактирование студии
