@@ -48,7 +48,7 @@
             ]
 
       - if anime.respond_to?(:studios) && anime.real_studios.any?
-        = info_line i18n_io('Producer', anime.real_studios.one? ? :one : :few) do
+        = info_line i18n_io('Studio', anime.real_studios.one? ? :one : :few) do
           - anime.real_studios.each do |studio|
             .b-tag.linkeable[
               data-href=anime.collection_url(studio: studio.to_param)
