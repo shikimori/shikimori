@@ -11,14 +11,16 @@ table.b-table.b-editable_grid.block2
       th = Studio.human_attribute_name :filtered_name
       th = Studio.human_attribute_name :is_visible
       th = Studio.human_attribute_name :image
-      - if can? :edit, Studio
-        th.actions
 
   tbody
     - @collection.each do |studio|
       tr
-        td = studio.id
-        td = studio.name
+        td
+          a href=edit_moderations_studio_url(studio)
+            = studio.id
+        td
+          a href=edit_moderations_studio_url(studio)
+            = studio.name
         td
           - if studio.name != studio.filtered_name
             = studio.filtered_name
@@ -29,9 +31,5 @@ table.b-table.b-editable_grid.block2
               src=cdn_image(studio, :original)
               style='width: 200px'
             ]
-
-        - if can? :edit, Studio
-          td.actions
-            a href=edit_moderations_studio_url(studio) edit
 
 = render 'db_entries/versions', collection: @versions

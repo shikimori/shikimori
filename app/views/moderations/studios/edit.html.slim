@@ -24,7 +24,9 @@ header.head
           style='width: 200px'
         ]
 
-      = f.input :is_visible, input_html: { disabled: cannot?(:update, @resource) }
+      = f.input :is_visible,
+        input_html: { disabled: cannot?(:update, @resource) },
+        hint: 'При наличии у аниме студии с этой галочкой остальные студии без галочки не отображаются'
 
     = f.button :magic_submit
     = link_to t('actions.cancel'), moderations_studios_url, class: 'cancel'

@@ -12,25 +12,26 @@ table.b-table.b-editable_grid.block2
       th = Genre.human_attribute_name :russian
       th = Genre.human_attribute_name :type
       th.text Description RU
-      - if can? :edit, Genre
-        th.actions
 
   tbody
     - @collection.each do |genre|
       tr
-        td = genre.position
+        td
+          a href=edit_moderations_genre_url(genre)
+            = genre.position
         td = genre.id
         - if can? :manage, Genre
           td = genre.mal_id
-        td = genre.name
-        td = genre.russian
+        td
+          a href=edit_moderations_genre_url(genre)
+            = genre.name
+        td
+          a href=edit_moderations_genre_url(genre)
+            = genre.russian
         td = genre.kind_text
         td.text == truncate_html(BbCodes::Text.call(genre.description),
           length: 50,
           separator: ' ',
           word_boundary: /\S[\.\?\!<>]/)
-        - if can? :edit, Genre
-          td.actions
-            a href=edit_moderations_genre_url(genre) edit
 
 = render 'db_entries/versions', collection: @versions

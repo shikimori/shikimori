@@ -8,16 +8,15 @@ table.b-table.b-editable_grid.block2
     tr
       th ID
       th = Publisher.human_attribute_name :name
-      - if can? :edit, Publisher
-        th.actions
 
   tbody
     - @collection.each do |publisher|
       tr
-        td = publisher.id
-        td = publisher.name
-        - if can? :edit, Publisher
-          td.actions
-            a href=edit_moderations_publisher_url(publisher) edit
+        td
+          a href=edit_moderations_publisher_url(publisher)
+            = publisher.id
+        td
+          a href=edit_moderations_publisher_url(publisher)
+            = publisher.name
 
 = render 'db_entries/versions', collection: @versions
