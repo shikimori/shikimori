@@ -2,7 +2,9 @@ class Versions::PosterVersion < Version
   FIELD = 'image'
 
   def apply_changes
-    item.desynced = (item.desynced + [FIELD]).uniq
+    if item.respond_to? :desynced
+      item.desynced = (item.desynced + [FIELD]).uniq
+    end
     item.save
   end
 

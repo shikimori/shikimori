@@ -10,7 +10,7 @@ class Versioneers::PostersVersioneer < Versioneers::FieldsVersioneer
   end
 
   def postmoderate _image, _author = nil, _reason = nil
-    raise 'not implemented'
+    super
   end
 
 private

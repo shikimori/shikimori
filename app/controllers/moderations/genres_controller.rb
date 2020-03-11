@@ -28,21 +28,29 @@ class Moderations::GenresController < ModerationsController
     render 'db_entries/versions', locals: { collection: @versions } if json?
   end
 
-  def update
-    version = Versioneers::FieldsVersioneer
-      .new(@resource)
-      .postmoderate(
-        update_params.is_a?(Hash) ? update_params : update_params.to_unsafe_h,
-        current_user,
-        ''
-      )
+  def update # rubocop:disable all
+    versions = []
 
-    if version.persisted?
+    versions.push(
+      Versioneers::FieldsVersioneer
+        .new(@resource)
+        .postmoderate(update_params.to_unsafe_h.except(:image), current_user)
+    )
+
+    if update_params[:image]
+      versions.push(
+        Versioneers::PostersVersioneer
+          .new(@resource)
+          .postmoderate(update_params[:image], current_user)
+      )
+    end
+
+    if versions.any?(&:persisted?)
       redirect_to index_url
     else
       redirect_back(
         fallback_location: edit_url(@resource),
-        alert: version.errors[:base]&.dig(0) || i18n_t('no_changes')
+        alert: versions.map { |v| v.errors[:base]&.dig(0) }.compact.first || i18n_t('no_changes')
       )
     end
   end
