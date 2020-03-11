@@ -15,14 +15,17 @@ header.head
         .subheadline.m5 = Genre.model_name.human
 
     .inputs.block
-      = f.input :position
+      = f.input :position, input_html: { disabled: cannot?(:update, @resource) }
       = f.input :id, input_html: { disabled: true }
-      = f.input :name
-      = f.input :russian
+      = f.input :name, input_html: { disabled: cannot?(:update, @resource) }
+      = f.input :russian, input_html: { disabled: cannot?(:update, @resource) }
       = f.input :kind, input_html: { disabled: true }
       = f.input :seo,
-        hint: 'Приоритет отображения единственного жанра в хлебных крошках на странице аниме или манги'
-      = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
+        hint: 'Приоритет отображения единственного жанра в хлебных крошках на странице аниме или манги',
+        input_html: { disabled: cannot?(:update, @resource) }
+      = f.input :description,
+        input_html: { style: 'height: 196px; width: 600px;' },
+        input_html: { disabled: cannot?(:update, @resource) }
     = f.button :magic_submit
     = link_to t('actions.cancel'), moderations_genres_url, class: 'cancel'
 
