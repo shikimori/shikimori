@@ -13,6 +13,11 @@ class LicensorsRepository
     @ranobe ||= fetch(Ranobe, 0)
   end
 
+  def reset
+    @collection = nil
+    true
+  end
+
 private
 
   def fetch scope, group_limit

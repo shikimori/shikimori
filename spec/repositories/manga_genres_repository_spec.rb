@@ -1,5 +1,7 @@
 describe MangaGenresRepository do
-  let(:query) { MangaGenresRepository.instance }
+  let(:query) { described_class.instance }
+
+  before { query.reset }
 
   it { expect(query).to be_kind_of RepositoryBase }
 

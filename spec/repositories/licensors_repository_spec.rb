@@ -1,5 +1,7 @@
 describe LicensorsRepository do
-  let(:query) { LicensorsRepository.instance }
+  let(:query) { described_class.instance }
+
+  before { query.reset }
 
   let!(:anime_1) { create :anime }
   let!(:anime_2) { create :anime, licensor: 'zxc' }
