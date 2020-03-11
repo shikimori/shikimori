@@ -115,8 +115,8 @@ ru:
       genre:
         id: ID
         position: Позиция
-        name: Название
-        russian: Название (на английском)
+        name: Название (на английском)
+        russian: Название
         description: Описание
         seo: Приоритет для SEO
         kind: Тип
