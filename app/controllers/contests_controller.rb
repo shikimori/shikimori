@@ -42,7 +42,6 @@ class ContestsController < ShikimoriController
     og keywords: i18n_t('index_keywords')
     og description: i18n_t('index_description')
 
-    @page = [params[:page].to_i, 1].max
     @collection = Contests::Query.fetch.paginate(@page, LIMIT)
   end
 

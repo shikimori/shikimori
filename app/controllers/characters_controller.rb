@@ -99,8 +99,6 @@ class CharactersController < PeopleController
   def edit
     og noindex: true
     og page_title: i18n_t('entry_edit')
-
-    @page = params[:page]
   end
 
   def autocomplete

@@ -318,7 +318,6 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
           .select(:anime_id)
       )
 
-    @page = [params[:page].to_i, 1].max
     @limit = 5
     @collection = QueryObjectBase.new(scope).paginate(@page, @limit)
   end
