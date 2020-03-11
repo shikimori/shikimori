@@ -166,8 +166,6 @@ GEM
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     browser (2.6.1)
-    bugsnag (6.12.1)
-      concurrent-ruby (~> 1.0)
     builder (3.2.4)
     bullet (6.1.0)
       activesupport (>= 3.0.0)
@@ -617,6 +615,8 @@ GEM
       tilt
     scout_apm (2.6.6)
       parser
+    sentry-raven (2.13.0)
+      faraday (>= 0.7.6, < 1.0)
     sexp_processor (4.14.1)
     shellany (0.0.1)
     shoulda-matchers (4.2.0)
@@ -732,7 +732,6 @@ DEPENDENCIES
   binding_of_caller
   bootsnap
   browser
-  bugsnag
   bullet
   cancancan!
   capistrano
@@ -833,6 +832,7 @@ DEPENDENCIES
   ruby-esvidi!
   sassc-rails
   scout_apm
+  sentry-raven
   shallow_attributes!
   shoulda-matchers
   sidekiq

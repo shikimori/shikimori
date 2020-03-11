@@ -25,14 +25,14 @@ module ErrorsConcern
         cookies: JSON.parse(cookies.to_json)
     end
     Honeybadger.notify error if defined? Honeybadger
-    Raven.capture_exception error if defined? Raven
     Appsignal.set_error error if defined? Appsignal
     Bugsnag.notify error if defined? Bugsnag
+    capture_sentry error if defined? Raven
 
-    # NamedLogger
-      # .send("#{Rails.env}_errors")
-      # .error("#{error.message}\n#{error.backtrace.join("\n")}")
-    # Rails.logger.error("#{error.message}\n#{error.backtrace.join("\n")}")
+    NamedLogger
+      .send("#{Rails.env}_errors")
+      .error("#{error.message}\n#{error.backtrace.join("\n")}")
+    Rails.logger.error("#{error.message}\n#{error.backtrace.join("\n")}")
 
     raise error if (request.ip == '127.0.0.1' || request.ip == '::1') && (
       !error.is_a?(AgeRestricted) &&
@@ -126,5 +126,18 @@ private
 
   def error_json_response?
     json? || (is_a?(Api::V1Controller) && !params[:frontend])
+  end
+
+  def capture_sentry error
+    if current_user.present?
+      Raven.user_context(
+        id: current_user.id,
+        email: current_user.email,
+        role: current_user.role
+      )
+      Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+    end
+
+    Raven.capture_exception error
   end
 end
