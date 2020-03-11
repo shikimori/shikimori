@@ -6,13 +6,6 @@ shared_examples :db_entry_controller do |entry_name|
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#versions' do
-    before do
-      get :versions, params: { id: entry.to_param, page: 2 }, format: :json
-    end
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#edit' do
     let(:make_request) { get :edit, params: { id: entry.to_param } }
 
@@ -25,6 +18,11 @@ shared_examples :db_entry_controller do |entry_name|
       include_context :authenticated, :user
       before { make_request }
       it { expect(response).to have_http_status :success }
+
+      context 'page 2' do
+        let(:make_request) { get :edit, params: { id: entry.to_param, page: 2 }, format: :json }
+        it { expect(response).to have_http_status :success }
+      end
     end
   end
 
