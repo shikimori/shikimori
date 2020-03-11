@@ -96,7 +96,7 @@
             - if @resource.respond_to?(:studios) && @resource.studios.any?
               .block
                 .subheadline
-                  = i18n_io 'Studio', @resource.real_studios.size > 1 ? :few : :one
+                  = i18n_io 'Producer', @resource.real_studios.size > 1 ? :few : :one
                 .block
                   = render 'animes/studios_info', entry: @resource
 

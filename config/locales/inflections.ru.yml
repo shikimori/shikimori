@@ -587,6 +587,9 @@ ru:
       studio:
         one: студия
         few: студии
+      producer:
+        one: студия
+        few: студии
       publisher:
         one: издатель
         few: издатели
