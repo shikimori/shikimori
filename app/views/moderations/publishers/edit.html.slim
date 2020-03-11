@@ -21,4 +21,4 @@ header.head
     = f.button :magic_submit
     = link_to t('actions.cancel'), moderations_publishers_url, class: 'cancel'
 
-= render 'db_entries/history', resource: versioned_view
+= render 'db_entries/versions', collection: @versions

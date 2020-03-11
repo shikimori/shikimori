@@ -1,8 +1,8 @@
 describe VersionsQuery do
-  let(:query) { described_class.fetch anime }
+  let(:query) { described_class.by_item anime }
   let(:anime) { create :anime }
 
-  describe '.fetch' do
+  describe '.by_item' do
     it { expect(query).to eq [] }
 
     describe 'deleted' do
@@ -15,6 +15,47 @@ describe VersionsQuery do
     describe 'another entry' do
       let!(:version_1) { create :version, item: anime }
       let!(:version_2) { create :version, item: create(:anime) }
+
+      it { expect(query).to eq [version_1] }
+    end
+
+    describe 'associated' do
+      let!(:version_1) { create :version, item: anime }
+      let!(:version_2) { create :version, associated: anime }
+
+      it { expect(query).to eq [version_2, version_1] }
+    end
+
+    describe 'ordering' do
+      let!(:version_1) { create :version, item: anime, created_at: 2.days.ago }
+      let!(:version_2) { create :version, item: anime, created_at: 1.day.ago }
+
+      it { expect(query).to eq [version_2, version_1] }
+    end
+  end
+
+  describe '.by_type' do
+    let(:query) { described_class.by_type Anime.name }
+
+    it { expect(query).to eq [] }
+
+    describe 'deleted' do
+      let!(:pending) { create :version, item: anime }
+      let!(:deleted) { create :version, item: anime, state: 'deleted' }
+
+      it { expect(query).to eq [pending] }
+    end
+
+    describe 'another entry' do
+      let!(:version_1) { create :version, item: anime }
+      let!(:version_2) { create :version, item: create(:anime) }
+
+      it { expect(query).to eq [version_2, version_1] }
+    end
+
+    describe 'another type' do
+      let!(:version_1) { create :version, item: anime }
+      let!(:version_2) { create :version, item: create(:manga) }
 
       it { expect(query).to eq [version_1] }
     end

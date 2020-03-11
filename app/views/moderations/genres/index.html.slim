@@ -3,7 +3,7 @@ header.head
   .notice = t '.notice'
   = render 'application/breadcrumbs'
 
-table.b-table.b-editable_grid
+table.b-table.b-editable_grid.block2
   thead
     tr
       th = Genre.human_attribute_name :position
@@ -32,3 +32,5 @@ table.b-table.b-editable_grid
         - if can? :edit, Genre
           td.actions
             a href=edit_moderations_genre_url(genre) edit
+
+= render 'db_entries/versions', collection: @versions

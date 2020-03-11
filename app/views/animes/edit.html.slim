@@ -389,4 +389,4 @@
         /         .m5
         /           = submit_tag t('actions.add'), class: 'b-button'
 
-  = render 'db_entries/history', resource: @resource
+  = render 'db_entries/versions', collection: @resource.parameterized_versions

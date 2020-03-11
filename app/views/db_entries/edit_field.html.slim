@@ -4,4 +4,4 @@
   .block.edit-page class=@field
     = render "db_entries/fields/#{@field}", resource: @resource
 
-  = render 'db_entries/history', resource: @resource
+  = render 'db_entries/versions', collection: @resource.parameterized_versions

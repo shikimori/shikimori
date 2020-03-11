@@ -23,8 +23,7 @@ header.head
       = f.input :seo,
         hint: 'Приоритет отображения единственного жанра в хлебных крошках на странице аниме или манги'
       = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
-
     = f.button :magic_submit
     = link_to t('actions.cancel'), moderations_genres_url, class: 'cancel'
 
-= render 'db_entries/history', resource: versioned_view
+= render 'db_entries/versions', collection: @versions

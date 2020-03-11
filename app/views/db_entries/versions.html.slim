@@ -1,11 +1,1 @@
-- if @collection.any?
-  .subheadline
-    | #{t '.changes_history'} #{t '.page', page: @page}
-  .block
-    = render partial: 'versions/version', collection: @collection
-
-    - if @collection.next_page?
-      = render 'blocks/postloader',
-        filter: 'b-log_entry',
-        next_url: current_url(page: @collection.next_page),
-        prev_url: (current_url(page: @collection.prev_page) if @collection.prev_page?)
+= render 'versions', collection: @collection

@@ -1,12 +1,23 @@
 class VersionsQuery < QueryObjectBase
-  def self.fetch item
+  def self.by_item item
     new(
       Version
         .where(item: item)
         .or(Version.where(associated: item))
         .where.not(state: :deleted)
         .includes(:user, :moderator, :item)
-        .order(created_at: :desc)
+        .order(created_at: :desc, id: :desc)
+    )
+  end
+
+  def self.by_type type
+    new(
+      Version
+        .where(item_type: type)
+        .or(Version.where(associated_type: type))
+        .where.not(state: :deleted)
+        .includes(:user, :moderator, :item)
+        .order(created_at: :desc, id: :desc)
     )
   end
 

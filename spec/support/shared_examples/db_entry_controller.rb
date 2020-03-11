@@ -71,7 +71,7 @@ shared_examples :db_entry_controller do |entry_name|
       patch :update, params: { id: entry.id }.merge(entry_name => changes)
     end
     let(:role) { :user }
-    let(:versions) { VersionsQuery.fetch(resource) }
+    let(:versions) { VersionsQuery.by_item(resource) }
 
     describe 'common user' do
       include_context :authenticated, :user, :week_registered

@@ -87,4 +87,4 @@
 
   = render 'db_entries/sync_status', resource: @resource
 
-  = render 'db_entries/history', resource: @resource
+  = render 'db_entries/versions', collection: @resource.parameterized_versions

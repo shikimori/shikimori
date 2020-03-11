@@ -6,16 +6,26 @@ class Moderations::GenresController < ModerationsController
   helper_method :versioned_view
 
   ORDER_FIELDS = %i[kind position name]
+  VERSIONS_LIMIT = 20
 
   def index
-    @collection = @collection.order(*self.class::ORDER_FIELDS)
+    @versions = VersionsQuery.by_type(type.capitalize)
+      .paginate(@page, VERSIONS_LIMIT)
+      .transform(&:decorate)
+
+    if json?
+      render 'db_entries/versions', collection: @versions
+    else
+      @collection = @collection.order(*self.class::ORDER_FIELDS)
+    end
   end
 
   def edit
-    if json?
-      @collection = versioned_view.parameterized_versions
-      render 'db_entries/versions'
-    end
+    @versions = VersionsQuery.by_item(@resource)
+      .paginate(@page, VERSIONS_LIMIT)
+      .transform(&:decorate)
+
+    render 'db_entries/versions', collection: @versions if json?
   end
 
   def update
@@ -59,10 +69,6 @@ private
 
   def edit_url resource
     send :"moderations_#{type}_url", resource
-  end
-
-  def versioned_view
-    @versioned_view ||= VersionedView.new @resource
   end
 
   def set_breadcrumbs

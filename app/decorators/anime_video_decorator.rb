@@ -95,7 +95,7 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def versions
-    @versions ||= VersionsQuery.fetch(object).transform(&:decorate).to_a
+    @versions ||= VersionsQuery.by_item(object).transform(&:decorate).to_a
   end
 
 private
