@@ -18,8 +18,7 @@ header.head
       = f.input :name
       = f.input :russian
       = f.input :position
-      - if can? :manage, Genre
-        = f.input :seo
+      = f.input :seo
       = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
 
     = f.button :magic_submit

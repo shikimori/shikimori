@@ -6,9 +6,10 @@ header.head
 table.b-table.b-editable_grid
   thead
     tr
+      th = Genre.human_attribute_name :position
       th ID
-      th Name EN
-      th Name RU
+      th = Genre.human_attribute_name :name
+      th = Genre.human_attribute_name :russian
       th = Genre.human_attribute_name :type
       th.text Description RU
       - if can? :edit, Genre

@@ -42,11 +42,9 @@ private
   end
 
   def genre_params
-    if current_user.admin?
-      params.require(:genre).permit(:name, :russian, :position, :seo, :description)
-    else
-      params.require(:genre).permit(:name, :russian, :position, :description)
-    end
+    params
+      .require(:genre)
+      .permit(:name, :russian, :position, :seo, :description)
   end
 
   def set_breadcrumbs

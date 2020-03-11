@@ -117,6 +117,7 @@ ru:
         name: Название
         russian: Название (на английском)
         description: Описание
+        seo: Приоритет для SEO
       studio:
         image: Картинка
         name: Название
