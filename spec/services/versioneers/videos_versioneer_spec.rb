@@ -1,5 +1,5 @@
 describe Versioneers::VideosVersioneer do
-  let(:versioneer) { Versioneers::VideosVersioneer.new anime }
+  let(:versioneer) { described_class.new anime }
   let(:anime) { create :anime }
 
   describe '#upload' do
@@ -32,8 +32,8 @@ describe Versioneers::VideosVersioneer do
       expect(version).to have_attributes(
         item: anime,
         item_diff: {
-          'action' => Versioneers::VideosVersioneer::UPLOAD.to_s,
-          Versioneers::VideosVersioneer::KEY => [video.id]
+          'action' => described_class::UPLOAD.to_s,
+          described_class::KEY => [video.id]
         },
         user: user
       )
@@ -53,8 +53,8 @@ describe Versioneers::VideosVersioneer do
       expect(version).to have_attributes(
         item: anime,
         item_diff: {
-          'action' => Versioneers::VideosVersioneer::DELETE.to_s,
-          Versioneers::VideosVersioneer::KEY => [video.id]
+          'action' => described_class::DELETE.to_s,
+          described_class::KEY => [video.id]
         },
         user: user
       )

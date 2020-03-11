@@ -1,5 +1,5 @@
 describe Versioneers::FieldsVersioneer do
-  let(:service) { Versioneers::FieldsVersioneer.new anime, associated: associated }
+  let(:service) { described_class.new anime, associated: associated }
 
   let(:anime) { create :anime, name: 'test', episodes: 3, episodes_aired: 5 }
   let(:associated) { [nil, author].sample }

@@ -1,5 +1,5 @@
 describe Versioneers::PostersVersioneer do
-  let(:service) { Versioneers::PostersVersioneer.new anime }
+  let(:service) { described_class.new anime }
   let(:anime) { create :anime }
   let(:image) { Rack::Test::UploadedFile.new 'spec/files/anime.jpg', 'image/jpg' }
   let(:author) { build_stubbed :user }

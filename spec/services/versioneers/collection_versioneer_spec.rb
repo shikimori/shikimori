@@ -1,5 +1,5 @@
 describe Versioneers::CollectionVersioneer do
-  let(:service) { Versioneers::CollectionVersioneer.new anime, :external_links }
+  let(:service) { described_class.new anime, :external_links }
   let(:anime) { create :anime }
   let(:author) { build_stubbed :user }
   let(:reason) { 'change reason' }
