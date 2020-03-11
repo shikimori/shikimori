@@ -130,12 +130,8 @@ private
 
   def capture_sentry error
     if current_user.present?
-      Raven.user_context(
-        id: current_user.id,
-        email: current_user.email,
-        role: current_user.role
-      )
-      Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+      Raven.user_context id: current_user.id
+      Raven.extra_context params: params.to_unsafe_h, url: request.url
     end
 
     Raven.capture_exception error
