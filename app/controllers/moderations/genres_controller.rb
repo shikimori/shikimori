@@ -5,27 +5,33 @@ class Moderations::GenresController < ModerationsController
 
   helper_method :versioned_view
 
+  ORDER_FIELDS = %i[kind position name]
+
   def index
-    @collection = @collection.order(:kind, :position, :name)
+    @collection = @collection.order(*self.class::ORDER_FIELDS)
   end
 
   def edit
+    if json?
+      @collection = versioned_view.parameterized_versions
+      render 'db_entries/versions'
+    end
   end
 
   def update
     version = Versioneers::FieldsVersioneer
       .new(@resource)
       .postmoderate(
-        genre_params.is_a?(Hash) ? genre_params : genre_params.to_unsafe_h,
+        update_params.is_a?(Hash) ? update_params : update_params.to_unsafe_h,
         current_user,
         ''
       )
 
     if version.persisted?
-      redirect_to moderations_genres_url
+      redirect_to index_url
     else
       redirect_back(
-        fallback_location: moderations_genre_url(@resource),
+        fallback_location: edit_url(@resource),
         alert: version.errors[:base]&.dig(0) || i18n_t('no_changes')
       )
     end
@@ -37,20 +43,32 @@ class Moderations::GenresController < ModerationsController
 
 private
 
-  def versioned_view
-    @versioned_view ||= VersionedView.new @resource
-  end
-
-  def genre_params
+  def update_params
     params
       .require(:genre)
       .permit(:name, :russian, :position, :seo, :description)
   end
 
-  def set_breadcrumbs
-    og page_title: i18n_io('Genre', :few)
-    og page_title: "#{@resource.name} / #{@resource.russian}" if @resource
+  def type
+    self.class.name.split('::')[1].gsub('Controller', '').downcase.singularize
+  end
 
-    breadcrumb i18n_io('Genre', :few), moderations_genres_url if @resource
+  def index_url
+    send :"moderations_#{type.pluralize}_url"
+  end
+
+  def edit_url resource
+    send :"moderations_#{type}_url", resource
+  end
+
+  def versioned_view
+    @versioned_view ||= VersionedView.new @resource
+  end
+
+  def set_breadcrumbs
+    og page_title: i18n_io(type.capitalize, :few)
+    og page_title: @resource.name if @resource
+
+    breadcrumb i18n_io(type.capitalize, :few), index_url if @resource
   end
 end
