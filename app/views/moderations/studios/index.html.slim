@@ -9,7 +9,7 @@ table.b-table.b-editable_grid.block2
       th ID
       th = Studio.human_attribute_name :name
       th = Studio.human_attribute_name :filtered_name
-      th = Studio.human_attribute_name :is_visible
+      th style='width: 1%' = Studio.human_attribute_name :is_visible
       th = Studio.human_attribute_name :image
 
   tbody
@@ -24,7 +24,10 @@ table.b-table.b-editable_grid.block2
         td
           - if studio.name != studio.filtered_name
             = studio.filtered_name
-        td = studio.is_visible
+        td style='text-align: center; padding-right: 20px'
+          .check[
+            class=(studio.is_visible ? :yes : :no)
+          ]
         td
           - if studio.image_file_name
             img[
