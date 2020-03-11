@@ -96,11 +96,6 @@ class CharactersController < PeopleController
   def tooltip
   end
 
-  def edit
-    og noindex: true
-    og page_title: i18n_t('entry_edit')
-  end
-
   def autocomplete
     @collection = Autocomplete::Character.call(
       scope: Character.all,

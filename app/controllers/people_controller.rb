@@ -1,9 +1,5 @@
 # rubocop:disable ClassLength
 class PeopleController < DbEntriesController
-  respond_to :html, only: %i[show tooltip]
-  respond_to :html, :json, only: :index
-  respond_to :json, only: :autocomplete
-
   before_action :resource_redirect, if: :resource_id
   before_action :set_breadcrumbs, if: -> { @resource }
   before_action :js_export, only: %i[show]
