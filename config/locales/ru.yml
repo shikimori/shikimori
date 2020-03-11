@@ -113,16 +113,22 @@ ru:
         reason: Причина
         duration: Срок
       genre:
+        id: ID
         position: Позиция
         name: Название
         russian: Название (на английском)
         description: Описание
         seo: Приоритет для SEO
+        kind: Тип
       studio:
-        image: Картинка
+        id: ID
         name: Название
         filtered_name: Отображаемое название
+        image: Картинка
         is_visible: Студия?
+      publisher:
+        id: ID
+        name: Название
       user:
         avatar: Аватар
         birth_on: Дата рождения

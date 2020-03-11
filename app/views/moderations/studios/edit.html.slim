@@ -15,6 +15,7 @@ header.head
         .subheadline.m5 = Studio.model_name.human
 
     .inputs.block
+      = f.input :id, input_html: { disabled: true }
       = f.input :name, input_html: { disabled: cannot?(:update, @resource) }
       = f.input :is_visible, input_html: { disabled: cannot?(:update, @resource) }
 

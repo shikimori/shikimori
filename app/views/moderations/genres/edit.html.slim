@@ -15,10 +15,13 @@ header.head
         .subheadline.m5 = Genre.model_name.human
 
     .inputs.block
+      = f.input :position
+      = f.input :id, input_html: { disabled: true }
       = f.input :name
       = f.input :russian
-      = f.input :position
-      = f.input :seo
+      = f.input :kind, input_html: { disabled: true }
+      = f.input :seo,
+        hint: 'Приоритет отображения единственного жанра в хлебных крошках на странице аниме или манги'
       = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
 
     = f.button :magic_submit
