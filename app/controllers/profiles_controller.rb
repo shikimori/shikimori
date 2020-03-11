@@ -21,7 +21,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
 
   TOPICS_LIMIT = 8
   COMMENTS_LIMIT = 20
-  VERSIONS_LIMIT = 30
+  VERSIONS_PER_PAGE = 30
 
   def show
     og noindex: true if @resource.created_at > 1.year.ago
@@ -158,7 +158,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
       .order(id: :desc)
 
     @collection = QueryObjectBase.new(scope)
-      .paginate(@page, VERSIONS_LIMIT)
+      .paginate(@page, VERSIONS_PER_PAGE)
       .transform(&:decorate)
   end
 

@@ -35,7 +35,6 @@ Rails.application.routes.draw do
       get :favoured
       get 'tooltip(/:minified)' => :tooltip, as: :tooltip, minified: /minified/
       get 'edit/:field' => :edit_field, as: :edit_field, field: options[:fields]
-      get 'versions(/page/:page)' => :versions, as: :versions
       post :sync
     end
   end

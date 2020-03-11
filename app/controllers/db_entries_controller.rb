@@ -12,10 +12,6 @@ class DbEntriesController < ShikimoriController
     og noindex: true
   end
 
-  def versions
-    @collection = @resource.parameterized_versions
-  end
-
   def collections
     return redirect_to @resource.url, status: 301 if @resource.collections_scope.none?
 
@@ -35,6 +31,11 @@ class DbEntriesController < ShikimoriController
 
   def edit
     og noindex: true, page_title: i18n_t('entry_edit')
+
+    if json?
+      render 'db_entries/versions',
+        locals: { collection: @resource.parameterized_versions }
+    end
   end
 
   def edit_field
@@ -44,7 +45,12 @@ class DbEntriesController < ShikimoriController
     authorize! :create, temp_verison
     authorize! :restricted_update, temp_verison if restricted_fields.include? @field
 
-    render template: 'db_entries/edit_field'
+    if json?
+      render 'db_entries/versions',
+        locals: { collection: @resource.parameterized_versions }
+    else
+      render template: 'db_entries/edit_field'
+    end
   end
 
   def update

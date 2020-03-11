@@ -1,9 +1,11 @@
 module VersionedConcern
   extend ActiveSupport::Concern
 
+  VERSIONS_PER_PAGE = 20
+
   def parameterized_versions
     versions_scope
-      .paginate([h.params[:page].to_i, 1].max, 20)
+      .paginate([h.params[:page].to_i, 1].max, VERSIONS_PER_PAGE)
       .transform(&:decorate)
   end
 

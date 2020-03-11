@@ -4,7 +4,7 @@ json.content render(
   formats: :html
 )
 
-if @collection.size == controller.class::VERSIONS_LIMIT
+if @collection.size == controller.class::VERSIONS_PER_PAGE
   json.postloader render(
     'blocks/postloader',
     filter: 'b-log_entry',

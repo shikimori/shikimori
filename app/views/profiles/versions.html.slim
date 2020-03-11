@@ -7,7 +7,7 @@
     - else
       p.b-nothing_here = t '.no_content_changes'
 
-    - if @collection.size == controller.class::VERSIONS_LIMIT
+    - if @collection.size == controller.class::VERSIONS_PER_PAGE
       = render 'blocks/postloader',
         filter: 'b-log_entry',
         next_url: current_url(page: @page + 1)

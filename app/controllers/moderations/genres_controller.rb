@@ -6,15 +6,15 @@ class Moderations::GenresController < ModerationsController
   helper_method :versioned_view
 
   ORDER_FIELDS = %i[kind position name]
-  VERSIONS_LIMIT = 20
+  VERSIONS_PER_PAGE = 20
 
   def index
     @versions = VersionsQuery.by_type(type.capitalize)
-      .paginate(@page, VERSIONS_LIMIT)
+      .paginate(@page, VERSIONS_PER_PAGE)
       .transform(&:decorate)
 
     if json?
-      render 'db_entries/versions', collection: @versions
+      render 'db_entries/versions', locals: { collection: @versions }
     else
       @collection = @collection.order(*self.class::ORDER_FIELDS)
     end
@@ -22,10 +22,10 @@ class Moderations::GenresController < ModerationsController
 
   def edit
     @versions = VersionsQuery.by_item(@resource)
-      .paginate(@page, VERSIONS_LIMIT)
+      .paginate(@page, VERSIONS_PER_PAGE)
       .transform(&:decorate)
 
-    render 'db_entries/versions', collection: @versions if json?
+    render 'db_entries/versions', locals: { collection: @versions } if json?
   end
 
   def update
