@@ -127,7 +127,7 @@ private
   def prepare
     @genres = Genre.order(:position).map { |v| UsersHelper.localized_name v, current_user }
     @studios_by_id = Studio.all.each_with_object({}) { |v, memo| memo[v.id] = v }
-    @studios = @studios_by_id.select(&:is_visible).map { |k, v| v.filtered_name }
+    @studios = @studios_by_id.select { |_k, v| v.is_visible }.map { |_k, v| v.filtered_name }
 
     start_on = Time.zone.parse("#{Time.zone.now.year}-01-01") - YEARS_AGO
     finish_on = Time.zone.parse("#{Time.zone.now.year}-01-01") - 1.day + 1.year
