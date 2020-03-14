@@ -9,7 +9,7 @@ class UserTokensController < ShikimoriController
       flash[:notice] = i18n_t 'success', type: @resource.provider.titleize
     end
 
-    redirect_to edit_profile_url(@resource.user, page: 'account')
+    redirect_to edit_profile_url(@resource.user, section: 'account')
   end
 
 private

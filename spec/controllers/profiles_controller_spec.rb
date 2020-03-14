@@ -106,57 +106,59 @@ describe ProfilesController do
   end
 
   describe '#edit' do
-    let(:make_request) { get :edit, params: { id: user.to_param, page: page } }
+    let(:make_request) { get :edit, params: { id: user.to_param, section: section } }
 
     context 'when valid access' do
       before { sign_in user }
       subject! { make_request }
 
       describe 'account' do
-        let(:page) { 'account' }
+        let(:section) { 'account' }
         it { expect(response).to have_http_status :success }
       end
 
       describe 'profile' do
-        let(:page) { 'profile' }
+        let(:section) { 'profile' }
         it { expect(response).to have_http_status :success }
       end
 
       describe 'password' do
-        let(:page) { 'password' }
+        let(:section) { 'password' }
         it { expect(response).to have_http_status :success }
       end
 
       describe 'styles' do
         let!(:user) { create :user, :with_assign_style }
-        let(:page) { 'styles' }
+        let(:section) { 'styles' }
         it { expect(response).to have_http_status :success }
       end
 
       describe 'list' do
-        let(:page) { 'list' }
+        let(:section) { 'list' }
         it { expect(response).to have_http_status :success }
       end
 
       describe 'notifications' do
-        let(:page) { 'notifications' }
+        let(:section) { 'notifications' }
         it { expect(response).to have_http_status :success }
       end
 
       describe 'misc' do
-        let(:page) { 'misc' }
+        let(:section) { 'misc' }
         it { expect(response).to have_http_status :success }
       end
     end
 
     context 'when invalid access' do
-      let(:page) { 'account' }
+      let(:section) { 'account' }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
   describe '#update' do
-    let(:make_request) { patch :update, params: { id: user.to_param, page: 'account', user: update_params } }
+    let(:make_request) do
+      patch :update, params: { id: user.to_param, section: 'account', user: update_params }
+    end
 
     context 'when valid access' do
       before { sign_in user }
@@ -170,7 +172,7 @@ describe ProfilesController do
           it do
             expect(resource.nickname).to eq 'morr'
             expect(resource.errors).to be_empty
-            expect(response).to redirect_to edit_profile_url(resource, page: 'account')
+            expect(response).to redirect_to edit_profile_url(resource, section: 'account')
           end
         end
 

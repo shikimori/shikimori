@@ -26,7 +26,7 @@ private
 
       flash[:notice] = i18n_t 'account_linked', provider: provider
     end
-    redirect_to edit_profile_url(current_user, page: 'account')
+    redirect_to edit_profile_url(current_user, section: 'account')
   end
 
   def omniauth_sign_in
@@ -80,7 +80,7 @@ private
       flash[:alert] = i18n_t 'authentication_failed'
 
       if user_signed_in?
-        redirect_to edit_profile_url(current_user, page: 'account')
+        redirect_to edit_profile_url(current_user, section: 'account')
       else
         redirect_to root_url
       end

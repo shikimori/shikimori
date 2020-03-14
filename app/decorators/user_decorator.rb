@@ -20,10 +20,10 @@ class UserDecorator < BaseDecorator
     )
   end
 
-  def edit_url page:
+  def edit_url section:
     h.edit_profile_url(
       will_save_change_to_nickname? ? to_param(changes['nickname'][0]) : self,
-      page: page
+      section: section
     )
   end
 

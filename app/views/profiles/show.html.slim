@@ -28,7 +28,7 @@
               data-direction='top'
             ]
             a.settings.b-tooltipped.unprocessed[
-              href=@resource.edit_url(page: :account)
+              href=@resource.edit_url(section: :account)
               title=t('.my_profile_settings')
               data-direction='top'
             ]
@@ -82,7 +82,7 @@
             ]
             - if can? :edit, @resource
               a.settings.b-tooltipped.unprocessed[
-                href=@resource.edit_url(page: :account)
+                href=@resource.edit_url(section: :account)
                 title=t('.user_profile_settings')
                 data-direction='top'
               ]
@@ -118,7 +118,7 @@
           = t '.my_mail'
         a href=profile_list_history_url(@resource)
           = i18n_io 'History', :one
-        a.history-action href=@resource.edit_url(page: :account)
+        a.history-action href=@resource.edit_url(section: :account)
           = t '.my_profile_settings'
         a href=moderation_profile_url(@resource)
           = t '.my_bans'
@@ -161,7 +161,7 @@
           = t can?(:manage, Ban) ? '.moderation' : '.ban_history'
 
         - if can? :edit, @resource
-          a href=@resource.edit_url(page: :account)
+          a href=@resource.edit_url(section: :account)
             = t('.user_profile_settings')
 
   .c-info
@@ -305,7 +305,7 @@
     .about.block
       - if @view.own_profile?
         .subheadline-buttons
-          a.item-edit href=@resource.edit_url(page: 'profile')
+          a.item-edit href=@resource.edit_url(section: 'profile')
       .subheadline
         = t('.about')
       = @view.about_html

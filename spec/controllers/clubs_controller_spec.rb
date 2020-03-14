@@ -15,7 +15,7 @@ describe ClubsController do
     end
 
     describe 'pagination' do
-      subject! { get :index, params: { page: 1 } }
+      subject! { get :index, params: { page: 2 } }
       it { expect(response).to have_http_status :success }
     end
   end
@@ -44,7 +44,7 @@ describe ClubsController do
   describe '#edit' do
     include_context :authenticated, :user, :week_registered
     let(:club) { create :club, owner: user }
-    subject! { get :edit, params: { id: club.to_param, page: 'main' } }
+    subject! { get :edit, params: { id: club.to_param, section: 'main' } }
 
     it { expect(response).to have_http_status :success }
   end
@@ -59,7 +59,7 @@ describe ClubsController do
 
       it do
         expect(resource).to be_persisted
-        expect(response).to redirect_to edit_club_url(resource, page: 'main')
+        expect(response).to redirect_to edit_club_url(resource, section: 'main')
       end
     end
 
@@ -84,7 +84,7 @@ describe ClubsController do
           params: {
             id: club.id,
             club: params,
-            page: 'description'
+            section: 'description'
           }
       end
       let(:params) { { name: 'test club' } }
@@ -93,7 +93,7 @@ describe ClubsController do
         expect(resource.errors).to be_empty
         expect(resource).to_not be_changed
         expect(resource).to have_attributes params
-        expect(response).to redirect_to edit_club_url(resource, page: :description)
+        expect(response).to redirect_to edit_club_url(resource, section: :description)
       end
     end
 
@@ -103,7 +103,7 @@ describe ClubsController do
           params: {
             id: club.id,
             club: params,
-            page: 'description'
+            section: 'description'
           }
       end
       let(:params) { { name: '' } }
