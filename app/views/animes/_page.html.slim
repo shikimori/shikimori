@@ -15,7 +15,7 @@ header.head
       ]
       = @resource.headline
 
-  /- if params[:page] != 'cosplay'
+  /- if params[:section] != 'cosplay'
   /- else
     h2.h1-like title=h1_text(@resource)
       = h1_text @resource, true

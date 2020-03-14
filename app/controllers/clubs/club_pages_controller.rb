@@ -84,7 +84,7 @@ private
     @club = @club.decorate
 
     og page_title: @club.name
-    if %w[new create update destroy].include? params[:page]
+    if %w[new create update destroy].include? params[:section]
       og page_title: t(:settings)
     end
     og page_title: t('clubs.page.pages.pages')
@@ -94,8 +94,8 @@ private
   end
 
   def prepare_form
-    @page = 'pages'
-    @back_url = edit_club_url @club, page: @page
+    @section = 'pages'
+    @back_url = edit_club_url @club, section: @section
     breadcrumb i18n_i('Page', :other), @back_url
   end
 

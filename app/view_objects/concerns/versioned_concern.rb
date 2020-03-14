@@ -5,7 +5,7 @@ module VersionedConcern
 
   def parameterized_versions
     versions_scope
-      .paginate([h.params[:page].to_i, 1].max, VERSIONS_PER_PAGE)
+      .paginate(h.page, VERSIONS_PER_PAGE)
       .transform(&:decorate)
   end
 

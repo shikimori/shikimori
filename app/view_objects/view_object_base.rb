@@ -8,7 +8,7 @@ class ViewObjectBase
   dsl_attribute :per_page_limit
 
   def page
-    (h.params[:page] || 1).to_i
+    h.page
   end
 
   def read_attribute_for_serialization attribute

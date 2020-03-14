@@ -13,7 +13,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     end
   end
 
-  PARENT_PAGES = {
+  PARENT_SECTIONS = {
     'password' => 'account',
     'ignored_topics' => 'misc',
     'ignored_users' => 'misc'
@@ -177,17 +177,17 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     authorize! :edit, @resource
     og page_title: t(:settings)
 
-    if PARENT_PAGES[params[:page]]
-      og page_title: t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}")
+    if PARENT_SECTIONS[params[:section]]
+      og page_title: t("profiles.page.pages.#{PARENT_SECTIONS[params[:section]]}")
       breadcrumb(
-        # t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}"),
+        # t("profiles.page.pages.#{PARENT_SECTIONS[params[:page]]}"),
         t(:settings),
-        @resource.edit_url(page: PARENT_PAGES[params[:page]])
+        @resource.edit_url(section: PARENT_SECTIONS[params[:section]])
       )
     end
-    og page_title: t("profiles.page.pages.#{params[:page]}") rescue I18n::MissingTranslation
+    og page_title: t("profiles.page.pages.#{params[:section]}") rescue I18n::MissingTranslation
 
-    @page = params[:page]
+    @section = params[:section]
     @resource.email = '' if @resource.email =~ /^generated_/ && params[:action] == 'edit'
   end
 
@@ -199,8 +199,8 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     if update_profile
       bypass_sign_in @resource if params[:user][:password].present?
 
-      params[:page] = 'account' if params[:page] == 'password'
-      redirect_to @resource.edit_url(page: params[:page]),
+      params[:section] = 'account' if params[:section] == 'password'
+      redirect_to @resource.edit_url(section: params[:section]),
         notice: t('changes_saved')
     else
       flash[:alert] = t('changes_not_saved')

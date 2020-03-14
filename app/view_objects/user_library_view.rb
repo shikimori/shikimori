@@ -155,10 +155,6 @@ private
     ]
   end
 
-  def page
-    (h.params[:page] || 1).to_i
-  end
-
   def limit
     ENTRIES_PER_PAGE[list_view]
   end

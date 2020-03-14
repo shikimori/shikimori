@@ -1,7 +1,7 @@
 .block
   = simple_form_for @resource.preferences,
       url: profile_user_preferences_url(@resource) do |f|
-    input type='hidden' name='page' value=@page
+    input type='hidden' name='section' value=@section
     .block
       / = f.input :show_hentai_images
       = f.input :is_comments_auto_collapsed
@@ -68,10 +68,10 @@
   .c-column
     .block
       .mischeadline = t '.ignored_topics'
-      div: a.b-link href=@resource.edit_url(page: 'ignored_topics')
+      div: a.b-link href=@resource.edit_url(section: 'ignored_topics')
         = t '.show_list_of_ignored'
 
     .block
       .mischeadline = t '.ignored_users'
-      div: a.b-link href=@resource.edit_url(page: 'ignored_users')
+      div: a.b-link href=@resource.edit_url(section: 'ignored_users')
         = t '.show_list_of_ignored'

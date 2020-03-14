@@ -5,12 +5,12 @@
       == @resource.errors.full_messages.join('<br>')
 
   .b-options-floated.mobile-phone
-    - %w(account profile styles list notifications misc).each do |page|
+    - %w(account profile styles list notifications misc).each do |section|
       a[
-        class=(:selected if @page == page || page == ProfilesController::PARENT_PAGES[params[:page]])
-        href=@resource.edit_url(page: page)
-      ] = t ".pages.#{page}"
+        class=(:selected if @section == section || section == ProfilesController::PARENT_SECTIONS[params[:section]])
+        href=@resource.edit_url(section: section)
+      ] = t ".pages.#{section}"
   h2.subheadline = t :settings
 
-  .block.edit-page class=@page
-    = render "profiles/edit/#{@page}"
+  .block.edit-page class=@section
+    = render "profiles/edit/#{@section}"

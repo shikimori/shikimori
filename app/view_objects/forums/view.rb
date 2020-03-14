@@ -66,10 +66,6 @@ class Forums::View < ViewObjectBase
     Forums::Form.new
   end
 
-  def page
-    (h.params[:page] || 1).to_i
-  end
-
 private
 
   def user_subscriptions

@@ -112,10 +112,6 @@ private
   end
 
   def forbidden_params_redirect_check
-    if params[:page] == '0' || params[:page] == '1'
-      raise ForceRedirect, current_url(page: nil)
-    end
-
     if params[:order] == AnimesCollection::View::DEFAULT_ORDER.to_s
       raise ForceRedirect, current_url(order: nil)
     end

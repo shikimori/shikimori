@@ -186,8 +186,4 @@ private
   def reviews_forum
     Forum.find_by_permalink('reviews')
   end
-
-  def page
-    (h.params[:page] || 1).to_i
-  end
 end

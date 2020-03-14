@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Club::Update < ServiceObjectBase
-  pattr_initialize :model, :kick_ids, :params, :page
+  pattr_initialize :model, :kick_ids, :params, :section
 
   ALLOWED_EXCEPTIONS = [PG::UniqueViolation, ActiveRecord::RecordNotUnique]
 
@@ -44,10 +44,10 @@ private
   end
 
   def links_page?
-    @page == 'links'
+    @section == 'links'
   end
 
   def members_page?
-    @page == 'members'
+    @section == 'members'
   end
 end
