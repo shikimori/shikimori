@@ -20,7 +20,7 @@ module Types
       hidive
       hulu
       ivi
-      kinopoisk
+      kinopoisk_hd
       netflix
       okko
       youtube
