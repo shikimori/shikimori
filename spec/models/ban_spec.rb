@@ -231,15 +231,10 @@ describe Ban do
       let(:role) do
         (
           Types::User::Roles.values -
-          %i[forum_moderator - super_moderator - admmin]
+          %i[forum_moderator - super_moderator - admin]
         ).sample
       end
-      it do
-        if ENV['USER'] == 'morr' && subject.can?(:manage, ban)
-          binding.pry
-        end
-        is_expected.to_not be_able_to :manage, ban
-      end
+      it { is_expected.to_not be_able_to :manage, ban }
       it { is_expected.to be_able_to :read, ban }
     end
   end
