@@ -4,12 +4,14 @@ describe Clubs::ClubPagesController do
   let(:club_page) { create :club_page, club: club }
 
   describe '#new' do
-    before { get :new, params: { club_id: club.id, club_page: { club_id: club.id } } }
+    subject! do
+      get :new, params: { club_id: club.id, club_page: { club_id: club.id } }
+    end
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
-    before { post :create, params: { club_id: club.id, club_page: params } }
+    subject! { post :create, params: { club_id: club.id, club_page: params } }
 
     context 'success' do
       let(:params) do
@@ -50,7 +52,14 @@ describe Clubs::ClubPagesController do
   end
 
   describe '#update' do
-    before { patch :update, params: { club_id: club.id, id: club_page.id, club_page: params } }
+    subject! do
+      patch :update,
+        params: {
+          club_id: club.id,
+          id: club_page.id,
+          club_page: params
+        }
+    end
 
     context 'success' do
       let(:params) do
@@ -88,11 +97,13 @@ describe Clubs::ClubPagesController do
   end
 
   describe '#destroy' do
-    before { delete :destroy, params: { club_id: club.id, id: club_page.id } }
+    subject! do
+      delete :destroy, params: { club_id: club.id, id: club_page.id }
+    end
 
     it do
       expect(resource).to be_destroyed
-      expect(response).to redirect_to edit_club_url(club, page: :pages)
+      expect(response).to redirect_to edit_club_url(club, section: :pages)
     end
   end
 
@@ -101,7 +112,7 @@ describe Clubs::ClubPagesController do
     let!(:club_page) { create :club_page, club: club, position: 2 }
     let!(:club_page_2) { create :club_page, club: club, position: 1 }
 
-    before { post :up, params: { club_id: club.id, id: club_page.id } }
+    subject! { post :up, params: { club_id: club.id, id: club_page.id } }
 
     it do
       expect(club_page.reload.position).to eq 1
@@ -116,7 +127,7 @@ describe Clubs::ClubPagesController do
     let!(:club_page) { create :club_page, club: club, position: 1 }
     let!(:club_page_2) { create :club_page, club: club, position: 2 }
 
-    before { post :down, params: { club_id: club.id, id: club_page.id } }
+    subject! { post :down, params: { club_id: club.id, id: club_page.id } }
 
     it do
       expect(club_page.reload.position).to eq 2
