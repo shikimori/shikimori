@@ -2,7 +2,8 @@ module PaginationConcern
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_page, :verify_page
+    before_action :set_page
+    before_action :verify_page
     helper_method :page
   end
 
@@ -19,7 +20,9 @@ module PaginationConcern
     ].min
   end
 
-  def verify_page
+  def verify_page # rubocop:disable all
+    return unless request.get? && !json?
+
     if params[:page] == '1' || (params[:page].present? && @page <= 0)
       redirect_to current_url page: nil if params[:page] == '1' || params[:page].present?
     end
