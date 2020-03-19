@@ -2,8 +2,8 @@ class Users::ListImportsController < ProfilesController
   load_and_authorize_resource
 
   before_action do
-    @back_url = edit_profile_url @user, page: :list
-    breadcrumb t(:settings), edit_profile_url(@user, page: :list)
+    @back_url = edit_profile_url @user, section: :list
+    breadcrumb t(:settings), edit_profile_url(@user, section: :list)
     og page_title: t(:settings)
   end
 

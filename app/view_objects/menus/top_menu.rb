@@ -122,7 +122,7 @@ class Menus::TopMenu < ViewObjectBase # rubocop:disable ClassLength
       placement: :profile,
       group: :profile,
       if: :user_signed_in?,
-      url: ->(h) { h.edit_profile_url h.current_user, page: :account }
+      url: ->(h) { h.edit_profile_url h.current_user, section: :account }
     }, {
       name: :site_rules,
       placement: :profile,

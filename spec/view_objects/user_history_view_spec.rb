@@ -1,4 +1,5 @@
 describe UserHistoryView do
+  include_context :view_context_stub
   let(:view) { UserHistoryView.new user }
 
   let(:anime) { create :anime }

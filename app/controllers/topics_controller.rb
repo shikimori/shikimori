@@ -9,7 +9,6 @@ class TopicsController < ShikimoriController
 
   before_action :set_view
   before_action :set_breadcrumbs
-  before_action :force_redirects
   before_action :set_canonical, only: [:show]
 
   UPDATE_PARAMS = %i[body title linked_id linked_type tags]
@@ -165,7 +164,7 @@ private
   end
 
   def set_breadcrumbs
-    og page_title: t('page', page: @forums_view.page) if @forums_view.page > 1
+    og page_title: t('page', page: @page) if @page > 1
     og page_title: i18n_t('title')
     breadcrumb t('forum'), forum_url
 
@@ -205,10 +204,6 @@ private
         )
       end
     end
-  end
-
-  def force_redirects
-    raise ForceRedirect, current_url(page: nil) if @forums_view.page < 1
   end
 
   def set_canonical

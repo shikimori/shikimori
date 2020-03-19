@@ -1,5 +1,5 @@
 = simple_form_for @resource.object, url: @resource.url do |f|
-  input type='hidden' name='page' value=@page
+  input type='hidden' name='section' value=@section
 
   .cc-2
     .c-column.block_m
@@ -13,7 +13,7 @@
         = f.input :email, input_html: { disabled: true }
 
         .change-password
-          a href=@resource.edit_url(page: 'password')
+          a href=@resource.edit_url(section: :password)
             = t '.change_email_and_password'
 
         = f.input :name

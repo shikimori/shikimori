@@ -2,22 +2,20 @@ describe AnimesCollection::View do
   let(:view) { AnimesCollection::View.new klass, user }
   let(:user) { user }
 
-  include_context :view_object_warden_stub
+  include_context :view_context_stub
 
   let(:klass) { Anime }
   let(:user) { seed :user }
-  let(:params) do
+  let(:view_context_params) do
     {
       controller: 'animes_collection',
       action: 'index'
     }
   end
-  let(:strong_params) { ActionController::Parameters.new params }
 
   before do
-    allow(view.h).to receive(:params).and_return strong_params
-    allow(view.h).to receive(:safe_params).and_return params
-    allow(view.h).to receive(:url_params).and_return params
+    allow(view.h).to receive(:safe_params).and_return view_context_params
+    allow(view.h).to receive(:url_params).and_return view_context_params
   end
 
   describe '#collection' do
@@ -25,7 +23,13 @@ describe AnimesCollection::View do
 
     context 'season page' do
       let!(:anime_1) { create :anime, :tv, aired_on: Date.parse('10-10-2016') }
-      let(:params) { { controller: 'animes_collection', season: 'fall_2016' } }
+      let(:view_context_params) do
+        {
+          controller: 'animes_collection',
+          season: 'fall_2016'
+        }
+      end
+
       it do
         expect(collection).to have(1).item
         expect(collection['tv']).to have(1).item
@@ -97,7 +101,7 @@ describe AnimesCollection::View do
       subject { view.collection }
 
       context 'recommendations' do
-        let(:params) do
+        let(:view_context_params) do
           {
             controller: 'recommendations',
             action: 'index',
@@ -159,8 +163,11 @@ describe AnimesCollection::View do
 
   describe '#season_page?' do
     subject { view.season_page? }
-    let(:params) do
-      { season: season, controller: controller_name }
+    let(:view_context_params) do
+      {
+        controller: controller_name,
+        season: season
+      }
     end
 
     let(:season) { 'fall_2016' }
@@ -184,7 +191,7 @@ describe AnimesCollection::View do
 
   describe '#recommendations?' do
     subject { view.recommendations? }
-    let(:params) { { controller: controller_name } }
+    let(:view_context_params) { { controller: controller_name } }
 
     context 'recommendations controller' do
       let(:controller_name) { 'recommendations' }
@@ -199,7 +206,7 @@ describe AnimesCollection::View do
 
   describe '#cache?' do
     subject { view.cache? }
-    let(:params) { { controller: controller_name } }
+    let(:view_context_params) { { controller: controller_name } }
 
     context 'recommendations controller' do
       let(:controller_name) { 'recommendations' }
@@ -214,7 +221,7 @@ describe AnimesCollection::View do
 
   describe '#cache_key & #cache?' do
     subject { view.cache_key }
-    let(:params) do
+    let(:view_context_params) do
       {
         controller: 'test',
         format: 'json',
@@ -235,30 +242,30 @@ describe AnimesCollection::View do
     subject { view.cache_expires_in }
 
     context 'no season, no status params' do
-      let(:params) { { page: '1' } }
+      let(:view_context_params) { { page: '1' } }
       it { is_expected.to eq 3.days }
     end
 
     context 'season param' do
-      let(:params) { { season: '1' } }
+      let(:view_context_params) { { season: '1' } }
       it { is_expected.to eq 1.day }
     end
 
     context 'status param' do
-      let(:params) { { status: '1' } }
+      let(:view_context_params) { { status: '1' } }
       it { is_expected.to eq 1.day }
     end
   end
 
   describe 'pagination urls' do
-    let(:params) do
+    let(:view_context_params) do
       {
         controller: 'animes_collection',
         klass: 'anime',
         # format: 'a',
         # template: 'd',
         # is_adult: 'e',
-        kind: 'tv',
+        kind: 'tv'
         # ids: ['c'],
         # exclude_ids: ['b']
       }
@@ -269,7 +276,7 @@ describe AnimesCollection::View do
         allow(view).to receive(:page).and_return page
         allow(view).to receive(:pages_count).and_return pages_count
         allow(view.h).to receive(:current_url) do |v|
-          view.h.animes_collection_url params.merge(v)
+          view.h.animes_collection_url view_context_params.merge(v)
         end
       end
 
@@ -298,7 +305,7 @@ describe AnimesCollection::View do
         allow(view).to receive(:page).and_return page
         allow(view).to receive(:pages_count).and_return pages_count
         allow(view.h).to receive(:current_url) do |v|
-          view.h.animes_collection_url params.merge(v)
+          view.h.animes_collection_url view_context_params.merge(v)
         end
       end
 
@@ -326,7 +333,7 @@ describe AnimesCollection::View do
 
   describe '#compiled_filters' do
     it do
-      expect(view.compiled_filters).to eq params.merge(
+      expect(view.compiled_filters).to eq view_context_params.merge(
         censored: true,
         order: :ranked
       )

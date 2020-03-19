@@ -54,7 +54,7 @@ describe Animes::Filters::ByRating do
     end
   end
 
-  pending 'invalid parameter' do
+  context 'invalid parameter' do
     let(:terms) { %w[s !s].sample }
     it { expect { subject }.to raise_error InvalidParameterError }
   end

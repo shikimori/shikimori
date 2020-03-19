@@ -17,11 +17,9 @@ class DbEntriesController < ShikimoriController
 
     og noindex: true, page_title: t('in_collections')
 
-    page = [params[:page].to_i, 1].max
-
     @collection = Collections::Query.fetch(locale_from_host)
       .where(id: @resource.collections_scope)
-      .paginate(page, COLLETIONS_PER_PAGE)
+      .paginate(@page, COLLETIONS_PER_PAGE)
       .transform do |collection|
         Topics::TopicViewFactory
           .new(true, true)

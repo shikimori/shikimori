@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include InvalidParameterErrorConcern
   include DomainsConcern
   include LocaleConcern
+  include PaginationConcern
 
   protect_from_forgery with: :exception, prepend: true # https://stackoverflow.com/questions/43356105/actioncontrollerinvalidauthenticitytoken-rails-5-devise-audited-papertra
 

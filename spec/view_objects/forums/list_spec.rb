@@ -1,5 +1,5 @@
 describe Forums::List do
-  include_context :view_object_warden_stub
+  include_context :view_context_stub
 
   let(:view) { Forums::List.new with_forum_size: with_forum_size }
   let(:with_forum_size) { false }

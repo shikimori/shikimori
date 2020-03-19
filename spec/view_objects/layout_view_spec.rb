@@ -1,5 +1,5 @@
 describe LayoutView do
-  include_context :view_object_warden_stub
+  include_context :view_context_stub
 
   let(:view) { described_class.new }
 
@@ -154,11 +154,11 @@ describe LayoutView do
   end
 
   describe '#hot_topics?' do
-    before do
-      allow(view.h).to receive(:params).and_return(
+    let(:view_context_params) do
+      {
         controller: controller_name,
         action: controller_action
-      )
+      }
     end
     let(:controller_action) { 'index' }
 

@@ -1,5 +1,5 @@
 class Clubs::Query < QueryObjectBase
-  FAVOURED_IDS = [72, 19, 315, 903, 912, 2046]
+  FAVOURED_IDS = [72, 315, 2046]
   SEARCH_LIMIT = 999
 
   def self.fetch is_user_signed_in, locale

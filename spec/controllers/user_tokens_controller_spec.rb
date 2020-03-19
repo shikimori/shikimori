@@ -9,7 +9,7 @@ describe UserTokensController do
 
       it do
         expect { user_token.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect(response).to redirect_to edit_profile_url(user, page: 'account')
+        expect(response).to redirect_to edit_profile_url(user, section: 'account')
       end
     end
 

@@ -1,5 +1,5 @@
 describe Forums::Menu do
-  include_context :view_object_warden_stub
+  include_context :view_context_stub
 
   let(:view) { Forums::Menu.new double(id: 1), nil }
 

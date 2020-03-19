@@ -72,10 +72,9 @@ git clone git@github.com:shikimori/faye-server.git
 cd shikimori
 ```
 
-#### Install `yarn` and `honcho` (OSX)
+#### Install `yarn`, `tmux` and `overmind` (OSX)
 ```sh
-brew install yarn
-brew install honcho # https://github.com/nickstenning/honcho
+brew install yarn tmux overmind
 ```
 
 #### Install dependent gems and npm packages
@@ -86,7 +85,7 @@ bundle install
 
 #### Start all services
 ```sh
-honcho start
+overmind start
 ```
 
 ### Autorun rspec & rubocop

@@ -1,13 +1,11 @@
 describe Forums::View do
-  include_context :view_object_warden_stub
+  include_context :view_context_stub
 
   let(:view) { Forums::View.new forum, options }
   let(:anime) { create :anime }
   let(:forum) { nil }
-  let(:params) { {} }
+  let(:view_context_params) { {} }
   let(:options) { {} }
-
-  before { allow(view.h).to receive(:params).and_return params }
 
   describe '#forum' do
     context 'offtopic' do
@@ -43,7 +41,7 @@ describe Forums::View do
 
   describe '#page' do
     context 'has page in params' do
-      let(:params) { { page: 2 } }
+      let(:view_context_params) { { page: 2 } }
       it { expect(view.send :page).to eq 2 }
     end
 
@@ -58,14 +56,19 @@ describe Forums::View do
     end
 
     context 'rss format' do
-      let(:params) { { format: 'rss' } }
+      let(:view_context_params) { { format: 'rss' } }
       it { expect(view.send :limit).to eq 30 }
     end
   end
 
   describe '#page_url' do
     context 'first page' do
-      let(:params) { { linked_type: anime.class.name, linked_id: anime.id } }
+      let(:view_context_params) do
+        {
+          linked_type: anime.class.name,
+          linked_id: anime.id
+        }
+      end
       before do
         allow(view).to receive(:topic_views).and_return double(
           next_page: 2,
@@ -82,7 +85,7 @@ describe Forums::View do
     end
 
     context 'second page' do
-      let(:params) { { page: 2 } }
+      let(:view_context_params) { { page: 2 } }
       it do
         expect(view.next_page_url).to be_nil
         expect(view.current_page_url).to eq "#{Shikimori::PROTOCOL}://test.host/forum/p-2"
@@ -139,7 +142,7 @@ describe Forums::View do
         .and_return permalink
     end
 
-    let(:params) do
+    let(:view_context_params) do
       {
         linked_type: entry.class.name.downcase,
         linked_id: entry.id
@@ -180,14 +183,14 @@ describe Forums::View do
     end
 
     context 'other' do
-      let(:params) { { linked: 'zzz' } }
+      let(:view_context_params) { { linked: 'zzz' } }
       let(:permalink) { 'other' }
 
       it { expect(view.linked).to be_nil }
     end
 
     context 'no linekd' do
-      let(:params) { {} }
+      let(:view_context_params) { {} }
       let(:permalink) {}
 
       it { expect(view.linked).to be_nil }
@@ -196,12 +199,12 @@ describe Forums::View do
 
   describe '#page' do
     context 'no page' do
-      let(:params) { {} }
+      let(:view_context_params) { {} }
       it { expect(view.page).to eq 1 }
     end
 
     context 'with page' do
-      let(:params) { { page: 2 } }
+      let(:view_context_params) { { page: 2 } }
       it { expect(view.page).to eq 2 }
     end
   end

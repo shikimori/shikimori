@@ -1,5 +1,5 @@
 describe OpenGraphView do
-  include_context :view_object_warden_stub
+  include_context :view_context_stub
 
   let(:view) { described_class.new }
 
@@ -30,11 +30,12 @@ describe OpenGraphView do
 
     context 'page param' do
       before do
-        allow(view.h).to receive(:params).and_return params
-        allow(view.h).to receive(:current_url) { |hash| view.h.url_for(params.merge(hash)) }
+        allow(view.h).to receive(:current_url) do |hash|
+          view.h.url_for(view_context_params.merge(hash))
+        end
       end
 
-      let(:params) do
+      let(:view_context_params) do
         {
           controller: 'animes_collection',
           action: 'index',

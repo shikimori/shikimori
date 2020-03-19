@@ -18,7 +18,7 @@ class Forums::View < ViewObjectBase
     )
   end
 
-  def topic_views # rubocop:disable AbcSize
+  def topic_views # rubocop:disable Metrics/AbcSize
     Topics::Query.fetch(h.locale_from_host)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
@@ -64,10 +64,6 @@ class Forums::View < ViewObjectBase
 
   def form
     Forums::Form.new
-  end
-
-  def page
-    (h.params[:page] || 1).to_i
   end
 
 private

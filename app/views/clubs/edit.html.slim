@@ -7,12 +7,12 @@
       == @resource.errors.full_messages.join('<br>')
 
   .b-options-floated.mobile-phone
-    - %w(main description pages links members styles).each do |page|
+    - %w(main description pages links members styles).each do |section|
       a[
-        class=(:selected if @page == page)
-        href=edit_club_url(@club, page: page)
-      ] = t ".pages.#{page}"
+        class=(:selected if @section == section)
+        href=edit_club_url(@club, section: section)
+      ] = t ".pages.#{section}"
   h2.subheadline = t :settings
 
-  .block.edit-page class="#{@page}"
-    = render "clubs/edit/#{@page}"
+  .block.edit-page class="#{@section}"
+    = render "clubs/edit/#{@section}"

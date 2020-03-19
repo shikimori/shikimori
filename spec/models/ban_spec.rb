@@ -234,7 +234,12 @@ describe Ban do
           %i[forum_moderator - super_moderator - admmin]
         ).sample
       end
-      it { is_expected.to_not be_able_to :manage, ban }
+      it do
+        if ENV['USER'] == 'morr' && subject.can?(:manage, abuse_request)
+          binding.pry
+        end
+        is_expected.to_not be_able_to :manage, ban
+      end
       it { is_expected.to be_able_to :read, ban }
     end
   end

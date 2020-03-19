@@ -490,9 +490,9 @@ Rails.application.routes.draw do
       get :characters
       get :images
 
-      get 'edit/:page' => :edit,
+      get 'edit/:section' => :edit,
         as: :edit,
-        page: /main|description|links|members|styles|pages/
+        section: /main|description|links|members|styles|pages/
     end
 
     collection do
@@ -902,9 +902,9 @@ Rails.application.routes.draw do
       get :moderation
       get :feed
       #get :stats
-      get 'edit/:page' => :edit,
+      get 'edit/:section' => :edit,
         as: :edit,
-        page: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
+        section: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
       get 'reviews(/page/:page)' => :reviews, as: :reviews
       get 'collections(/page/:page)' => :collections, as: :collections

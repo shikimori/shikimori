@@ -17,7 +17,7 @@ describe IgnoresController do
       expect(user.ignores).to have(3).items
 
       expect(response)
-        .to redirect_to edit_profile_url(user, page: 'ignored_topics')
+        .to redirect_to edit_profile_url(user, section: 'ignored_topics')
     end
   end
 end

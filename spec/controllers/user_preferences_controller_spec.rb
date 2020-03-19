@@ -4,7 +4,7 @@ describe UserPreferencesController do
       patch :update,
         params: {
           profile_id: user.to_param,
-          page: 'profile',
+          section: 'profile',
           user: user_params,
           user_preferences: preferences_params
         }
@@ -23,7 +23,7 @@ describe UserPreferencesController do
         before { make_request }
         it do
           expect(resource.preferences.anime_in_profile).to eq preferences_params[:anime_in_profile]
-          expect(response).to redirect_to user.decorate.edit_url(page: :profile)
+          expect(response).to redirect_to user.decorate.edit_url(section: :profile)
         end
       end
 
@@ -49,7 +49,7 @@ describe UserPreferencesController do
 
         it do
           expect(resource.about).to eq user_params[:about]
-          expect(response).to redirect_to edit_profile_url(user, page: :profile)
+          expect(response).to redirect_to edit_profile_url(user, section: :profile)
         end
       end
 

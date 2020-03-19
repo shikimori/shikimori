@@ -19,7 +19,7 @@ class UserPreferencesController < ProfilesController
       return super if params[:user].present?
       return head 200 if request.xhr?
 
-      redirect_to @resource.edit_url(page: params[:page]),
+      redirect_to @resource.edit_url(section: params[:section]),
         notice: t('changes_saved')
     else
       flash[:alert] = t 'changes_not_saved'

@@ -61,7 +61,7 @@ class ClubsController < ShikimoriController
     @resource = Club::Create.call create_params, locale_from_host
 
     if @resource.errors.blank?
-      redirect_to edit_club_url(@resource, page: 'main'),
+      redirect_to edit_club_url(@resource, section: 'main'),
         notice: i18n_t('club_created')
     else
       new
@@ -71,15 +71,15 @@ class ClubsController < ShikimoriController
 
   def edit
     og page_title: t(:settings)
-    og page_title: t("clubs.page.pages.#{params[:page]}")
-    @page = params[:page]
+    og page_title: t("clubs.page.pages.#{params[:section]}")
+    @section = params[:section]
   end
 
   def update
-    Club::Update.call @resource, params[:kick_ids], update_params, params[:page]
+    Club::Update.call @resource, params[:kick_ids], update_params, params[:section]
 
     if @resource.errors.blank?
-      redirect_to edit_club_url(@resource, page: params[:page]),
+      redirect_to edit_club_url(@resource, section: params[:section]),
         notice: t('changes_saved')
     else
       flash[:alert] = t('changes_not_saved')

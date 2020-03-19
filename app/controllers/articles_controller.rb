@@ -52,7 +52,7 @@ class ArticlesController < ShikimoriController
 
   def edit
     og page_title: @resource.name
-    @page = params[:page]
+    @section = params[:section]
     render :form
   end
 
