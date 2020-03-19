@@ -17,6 +17,9 @@ shared_context :view_context_stub do
     allow(view_context.controller)
       .to receive(:default_url_options)
       .and_return ApplicationController.default_url_options
+    allow(view_context)
+      .to receive(:page)
+      .and_return 1
 
     # allow(view_context).to receive(:censored_forbidden?).and_return true
     def view_context.censored_forbidden?; true; end
