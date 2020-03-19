@@ -1,7 +1,8 @@
 describe VersionsView do
-  let(:view) { VersionsView.new }
-
   include_context :timecop, '2016-03-18 15:00:00'
+  include_context :view_context_stub
+
+  let(:view) { VersionsView.new }
 
   let!(:version_1) do
     create :version, :taken,
@@ -26,10 +27,11 @@ describe VersionsView do
 
   let!(:moderator) { create :user, :version_texts_moderator }
 
-  before do
-    allow(view.h)
-      .to receive(:params)
-      .and_return type: 'texts', created_on: created_on
+  let(:view_context_params) do
+    {
+      type: 'texts',
+      created_on: created_on
+    }
   end
 
   context 'no processed date' do

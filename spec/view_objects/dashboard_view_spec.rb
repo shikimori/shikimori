@@ -1,6 +1,5 @@
 describe DashboardView do
   include_context :view_context_stub
-
   let(:view) { DashboardView.new }
 
   describe '#ongoings' do
