@@ -1,5 +1,5 @@
 describe Forums::View do
-  include_context :view_object_warden_stub
+  include_context :view_context_stub
 
   let(:view) { Forums::View.new forum, options }
   let(:anime) { create :anime }

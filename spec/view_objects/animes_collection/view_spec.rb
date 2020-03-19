@@ -2,7 +2,7 @@ describe AnimesCollection::View do
   let(:view) { AnimesCollection::View.new klass, user }
   let(:user) { user }
 
-  include_context :view_object_warden_stub
+  include_context :view_context_stub
 
   let(:klass) { Anime }
   let(:user) { seed :user }

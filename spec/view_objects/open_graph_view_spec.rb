@@ -1,5 +1,5 @@
 describe OpenGraphView do
-  include_context :view_object_warden_stub
+  include_context :view_context_stub
 
   let(:view) { described_class.new }
 

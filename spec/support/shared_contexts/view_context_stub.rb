@@ -1,4 +1,4 @@
-shared_context :view_object_warden_stub do
+shared_context :view_context_stub do
   before do
     # Draper::ViewContext.test_strategy :full
     # Draper::ViewContext.build!
