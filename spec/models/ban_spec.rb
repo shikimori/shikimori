@@ -235,7 +235,7 @@ describe Ban do
         ).sample
       end
       it do
-        if ENV['USER'] == 'morr' && subject.can?(:manage, abuse_request)
+        if ENV['USER'] == 'morr' && subject.can?(:manage, ban)
           binding.pry
         end
         is_expected.to_not be_able_to :manage, ban
