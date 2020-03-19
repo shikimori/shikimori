@@ -80,9 +80,13 @@ describe Menus::CollectionMenu do
   end
 
   describe '#show_sorting?' do
-    before { allow(view.h).to receive(:params).and_return params }
-
-    let(:params) { { controller: controller_name, search: search, q: q } }
+    let(:view_context_params) do
+      {
+        controller: controller_name,
+        search: search,
+        q: q
+      }
+    end
     let(:controller_name) { 'animes_collection' }
     let(:search) { '' }
     let(:q) { '' }

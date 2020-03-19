@@ -154,11 +154,11 @@ describe LayoutView do
   end
 
   describe '#hot_topics?' do
-    before do
-      allow(view.h).to receive(:params).and_return(
+    let(:view_context_params) do
+      {
         controller: controller_name,
         action: controller_action
-      )
+      }
     end
     let(:controller_action) { 'index' }
 

@@ -1,4 +1,5 @@
 shared_context :view_context_stub do
+  let(:view_context_params) { {} }
   before do
     # Draper::ViewContext.test_strategy :full
     # Draper::ViewContext.build!
@@ -10,19 +11,22 @@ shared_context :view_context_stub do
     view_context.request.env['warden'] ||= WardenStub.new
     allow(view_context)
       .to receive(:params)
-      .and_return ActionController::Parameters.new
+      .and_return ActionController::Parameters.new(view_context_params)
     allow(view_context)
       .to receive(:current_user)
       .and_return(user ? user.decorate : nil)
     allow(view_context.controller)
       .to receive(:default_url_options)
       .and_return ApplicationController.default_url_options
+
     allow(view_context)
       .to receive(:page)
-      .and_return 1
+      .and_return(view_context.params[:page] || 1)
 
     # allow(view_context).to receive(:censored_forbidden?).and_return true
-    def view_context.censored_forbidden?; true; end
+    def view_context.censored_forbidden?
+      true
+    end
   end
 
   after do
