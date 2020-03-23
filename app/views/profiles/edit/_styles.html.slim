@@ -1,7 +1,7 @@
 .block
   = simple_form_for @resource.preferences,
       url: profile_user_preferences_url(@resource) do |f|
-    input type='hidden' name='page' value=@page
+    input type='hidden' name='section' value=@section
 
     .block
       = f.input :body_width, include_blank: false

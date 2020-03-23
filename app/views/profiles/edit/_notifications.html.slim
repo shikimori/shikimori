@@ -1,5 +1,5 @@
 = simple_form_for @resource.object, url: @resource.url do |f|
-  input type='hidden' name='page' value=@page
+  input type='hidden' name='section' value=@section
 
   = f.input :notification_settings,
     as: :check_boxes,
