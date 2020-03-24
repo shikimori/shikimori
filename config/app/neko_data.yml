@@ -4589,6 +4589,7 @@
         - 39071
         - 38924
         - 38759
+        - 39388
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5062,6 +5063,7 @@
         - 39071
         - 38924
         - 38759
+        - 39388
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -5535,6 +5537,7 @@
         - 39071
         - 38924
         - 38759
+        - 39388
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/moe.yml
   default_values: *2
   neko_id: :moe
@@ -7742,6 +7745,7 @@
         - 37055
         - 38529
         - 38691
+        - 38656
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/sovietanime.yml
   default_values: *2
   neko_id: :sovietanime
@@ -11775,6 +11779,11 @@
         - 3137
         - 1848
         - 39196
+        - 39388
+        - 40483
+        - 15051
+        - 19111
+        - 24997
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -12986,6 +12995,11 @@
         - 3137
         - 1848
         - 39196
+        - 39388
+        - 40483
+        - 15051
+        - 19111
+        - 24997
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -14197,6 +14211,11 @@
         - 3137
         - 1848
         - 39196
+        - 39388
+        - 40483
+        - 15051
+        - 19111
+        - 24997
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/genki.yml
   default_values: *2
   neko_id: :genki
@@ -20932,7 +20951,6 @@
       :filters:
         franchise: detective_conan
         not_anime_ids:
-        - 1365
         - 9786
         - 33150
         - 33151
@@ -20972,7 +20990,6 @@
       :filters:
         franchise: detective_conan
         not_anime_ids:
-        - 1365
         - 9786
         - 33150
         - 33151
@@ -21069,8 +21086,6 @@
       :algo: duration
       :filters:
         franchise: hetalia
-        not_anime_ids:
-        - 9865
       :threshold: 90%
       :generator:
         threshold: 90%
@@ -21102,8 +21117,6 @@
       :algo: duration
       :filters:
         franchise: hetalia
-        not_anime_ids:
-        - 9865
       :threshold: 0.01
       :generator:
         threshold: 90%
@@ -31422,6 +31435,9 @@
         - 4038
         - 7745
         - 37920
+        - 38297
+        - 39388
+        - 40483
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -32471,6 +32487,9 @@
         - 4038
         - 7745
         - 37920
+        - 38297
+        - 39388
+        - 40483
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
@@ -33520,6 +33539,9 @@
         - 4038
         - 7745
         - 37920
+        - 38297
+        - 39388
+        - 40483
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/tsundere.yml
   default_values: *2
   neko_id: :tsundere
