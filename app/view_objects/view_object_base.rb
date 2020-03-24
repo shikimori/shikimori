@@ -8,7 +8,7 @@ class ViewObjectBase
   dsl_attribute :per_page_limit
 
   def page
-    h.page
+    h.controller.instance_variable_get(:'@page')
   end
 
   def read_attribute_for_serialization attribute

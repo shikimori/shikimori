@@ -11,6 +11,10 @@ module PaginationConcern
     @page
   end
 
+  def current_page
+    @page
+  end
+
   def set_page
     @page = [
       params[:page].present? && params[:page].respond_to?(:to_i) ?

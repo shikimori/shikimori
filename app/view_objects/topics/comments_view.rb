@@ -24,7 +24,7 @@ class Topics::CommentsView < ViewObjectBase
   # число отображаемых напрямую комментариев
   def comments_limit
     if @is_preview
-      h.page > 1 ? 1 : 3
+      page > 1 ? 1 : 3
     else
       fold_limit
     end
@@ -109,7 +109,7 @@ class Topics::CommentsView < ViewObjectBase
       @topic.respond_to?(:commented_at) ?
         @topic.commented_at : @topic.updated_at,
       comments_limit,
-      h.page,
+      page,
       only_summaries_shown?,
       new_comment_summary?
     ]
