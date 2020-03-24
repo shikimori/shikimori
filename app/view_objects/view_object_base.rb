@@ -8,6 +8,7 @@ class ViewObjectBase
   dsl_attribute :per_page_limit
 
   def page
+    # do not use h.page because of conflicts with sidekiq
     h.controller.instance_variable_get(:'@page')
   end
 
