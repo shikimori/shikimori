@@ -3,9 +3,6 @@ class ViewObjectBase
   include Translation
 
   prepend ActiveCacher.instance
-  extend DslAttribute
-
-  dsl_attribute :per_page_limit
 
   def page
     # do not use h.page because of conflicts with sidekiq module (fails on /about and /ongoings)
