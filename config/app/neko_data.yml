@@ -17267,7 +17267,7 @@
         - 36242
         - 38419
         - 40181
-      :threshold: 93%
+      :threshold: 93.1%
       :generator:
         ignore_latest_ids:
         - 38234
@@ -20094,7 +20094,7 @@
         - 33221
         - 35949
         - 36436
-      :threshold: 88.7%
+      :threshold: 88.5%
       :generator:
         ignore_latest_ids:
         - 38714
@@ -20951,6 +20951,7 @@
       :filters:
         franchise: detective_conan
         not_anime_ids:
+        - 1365
         - 9786
         - 33150
         - 33151
@@ -20990,6 +20991,7 @@
       :filters:
         franchise: detective_conan
         not_anime_ids:
+        - 1365
         - 9786
         - 33150
         - 33151
@@ -21754,7 +21756,7 @@
         franchise: osomatsu_san
         not_anime_ids:
         - 38056
-      :threshold: 93.2%
+      :threshold: 94.3%
       :generator:
         ignore_latest_ids:
         - 38201
@@ -22634,7 +22636,7 @@
       :algo: duration
       :filters:
         franchise: diamond_no_ace
-      :threshold: 98.8%
+      :threshold: 98.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :diamond_no_ace
