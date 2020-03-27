@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_181152) do
+ActiveRecord::Schema.define(version: 2020_03_27_174557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -902,6 +902,8 @@ ActiveRecord::Schema.define(version: 2020_03_10_181152) do
     t.text "description_en"
     t.string "website", limit: 255
     t.boolean "is_visible", null: false
+    t.boolean "is_publisher"
+    t.boolean "is_verified", default: false, null: false
   end
 
   create_table "styles", id: :serial, force: :cascade do |t|
