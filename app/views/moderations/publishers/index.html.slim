@@ -6,8 +6,8 @@ header.head
 table.b-table.b-editable_grid.block2
   thead
     tr
-      th ID
-      th = Publisher.human_attribute_name :name
+      = th field: :id
+      = th field: :name
 
   tbody
     - @collection.each do |publisher|

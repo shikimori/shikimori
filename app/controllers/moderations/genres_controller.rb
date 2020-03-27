@@ -1,11 +1,13 @@
 class Moderations::GenresController < ModerationsController
+  include SortingConcern
+
   skip_before_action :authenticate_user!, only: %i[tooltip]
   load_and_authorize_resource
   before_action :set_breadcrumbs, except: %i[tooltip]
 
   helper_method :versioned_view
 
-  ORDER_FIELDS = %i[kind position name]
+  SORTING_FIELDS = %i[kind position name]
   VERSIONS_PER_PAGE = 20
 
   def index
@@ -16,7 +18,7 @@ class Moderations::GenresController < ModerationsController
     if json?
       render 'db_entries/versions', locals: { collection: @versions }
     else
-      @collection = @collection.order(*self.class::ORDER_FIELDS)
+      @collection = @collection.order(sorting_field)
     end
   end
 

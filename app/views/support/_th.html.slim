@@ -1,0 +1,20 @@
+- sort_2_hash = sort_2.blank? ? {} : { field_2: sort_2.keys.first, order_2: sort_2.values.first }
+th[
+  style="width: #{width}"
+  colspan=colspan
+]
+  - if field
+    - if sorting_field == field
+      a[
+        href=current_url({sort_field: field, sort_order: sorting_order == :asc ? :desc : :asc }.merge(sort_2_hash))
+        class=(sorting_order == :asc ? 'sort-asc' : 'sort-desc')
+      ]
+        = label
+    - else
+      - sorting_order = controller.class::SORTING_FIELD == field ? controller.class::SORTING_ORDER : default_order
+      a.sort-possible[
+        href=current_url({ sort_field: field, sort_order: sorting_order }.merge(sort_2_hash))
+      ]
+        = label
+  - else
+    = label

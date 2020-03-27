@@ -1,5 +1,5 @@
 class Moderations::PublishersController < Moderations::GenresController
-  ORDER_FIELDS = %i[name]
+  ORDER_FIELD = :id
 
 private
 

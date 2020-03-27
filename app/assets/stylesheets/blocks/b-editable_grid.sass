@@ -1,3 +1,5 @@
+@import mixins/shikimori
+
 .b-editable_grid
   thead
     th
@@ -6,6 +8,32 @@
       background: #567
       font-weight: normal
       vertical-align: center
+
+      a
+        color: #fff
+        display: block
+
+        &:hover
+          color: #fff
+
+        &.sort-possible,
+        &.sort-asc,
+        &.sort-desc
+          &:after
+            float: right
+            opacity: 0.8
+
+          &:hover:after
+            opacity: 1
+
+        &.sort-possible:after
+          +shikimori('\f0dc')
+
+        &.sort-asc:after
+          +shikimori('\f161')
+
+        &.sort-desc:after
+          +shikimori('\f160')
 
   tbody
     tr:nth-child(odd) td
@@ -27,7 +55,7 @@
       padding-left: 10px
 
     &:last-child
-      padding-right: 0
+      padding-right: 10px
 
     &.text
       width: 99%
