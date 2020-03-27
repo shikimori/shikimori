@@ -901,7 +901,7 @@ ActiveRecord::Schema.define(version: 2020_03_27_174821) do
     t.text "description_en"
     t.string "website", limit: 255
     t.boolean "is_visible", null: false
-    t.boolean "is_publisher"
+    t.boolean "is_publisher", default: false, null: false
     t.boolean "is_verified", default: false, null: false
   end
 
