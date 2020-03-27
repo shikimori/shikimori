@@ -19,8 +19,6 @@ module SortingConcern
         build_sort(sorting_field(type), sorting_order(type)),
         build_sort(sorting_field_2, sorting_order_2)
       ]
-    elsif !params[:sorting_field] && self.class.const_defined?('SORTING_FIELDS')
-      self.class::SORTING_FIELDS
     else
       [
         build_sort(sorting_field(type), sorting_order(type))

@@ -18,7 +18,7 @@ class Moderations::GenresController < ModerationsController
     if json?
       render 'db_entries/versions', locals: { collection: @versions }
     else
-      @collection = @collection.order(sorting_field)
+      @collection = @collection.order(sorting_options)
     end
   end
 
