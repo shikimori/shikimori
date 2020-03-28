@@ -23563,11 +23563,11 @@
       :filters:
         franchise: senki_zesshou_symphogear
         not_anime_ids:
+        - 20843
         - 32151
         - 36692
-        - 20843
         - 40659
-      :threshold: 95%
+      :threshold: 100%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :senki_zesshou_symphogear
@@ -23597,9 +23597,9 @@
       :filters:
         franchise: senki_zesshou_symphogear
         not_anime_ids:
+        - 20843
         - 32151
         - 36692
-        - 20843
         - 40659
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
