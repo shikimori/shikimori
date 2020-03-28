@@ -127,6 +127,8 @@ ru:
         filtered_name: Отображаемое название
         image: Картинка
         is_visible: Студия?
+        is_publisher: Издатель?
+        is_verified: Проверено?
       publisher:
         id: ID
         name: Название

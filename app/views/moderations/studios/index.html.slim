@@ -6,11 +6,13 @@ header.head
 table.b-table.b-editable_grid.block2
   thead
     tr
-      th ID
-      th = Studio.human_attribute_name :name
-      th = Studio.human_attribute_name :filtered_name
-      th style='width: 1%' = Studio.human_attribute_name :is_visible
-      th = Studio.human_attribute_name :image
+      = th field: :id
+      = th field: :name
+      = th label: Studio.human_attribute_name(:filtered_name)
+      = th field: :is_visible, label: "#{Studio.human_attribute_name(:is_visible)} (DEPRECATED)"
+      = th field: :is_publisher
+      = th field: :is_verified
+      = th label: Studio.human_attribute_name(:image)
 
   tbody
     - @collection.each do |studio|
@@ -26,6 +28,14 @@ table.b-table.b-editable_grid.block2
         td style='text-align: center; padding-right: 20px'
           .check[
             class=(studio.is_visible ? :yes : :no)
+          ]
+        td style='text-align: center; padding-right: 20px'
+          .check[
+            class=(studio.is_publisher ? :yes : :no)
+          ]
+        td style='text-align: center; padding-right: 20px'
+          .check[
+            class=(studio.is_verified ? :yes : :no)
           ]
         td
           - if studio.image_file_name
