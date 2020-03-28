@@ -30,13 +30,25 @@ table.b-table.b-editable_grid.block2
             class=(studio.is_visible ? :yes : :no)
           ]
         td style='text-align: center; padding-right: 20px'
-          .check[
-            class=(studio.is_publisher ? :yes : :no)
-          ]
+          - if can? :update, studio
+            a.check[
+              class=(studio.is_publisher ? :yes : :no)
+              href=moderations_studio_url(studio, studio: { is_publisher: studio.is_publisher ? 0 : 1})
+              data-remote='true'
+              data-method='patch'
+            ]
+          - else
+            .check class=(studio.is_publisher ? :yes : :no)
         td style='text-align: center; padding-right: 20px'
-          .check[
-            class=(studio.is_verified ? :yes : :no)
-          ]
+          - if can? :update, studio
+            a.check[
+              class=(studio.is_verified ? :yes : :no)
+              href=moderations_studio_url(studio, studio: { is_verified: studio.is_verified ? 0 : 1})
+              data-remote='true'
+              data-method='patch'
+            ]
+          - else
+            .check class=(studio.is_publisher ? :yes : :no)
         td
           - if studio.image_file_name
             img[
