@@ -6,12 +6,12 @@ header.head
 table.b-table.b-editable_grid.block2
   thead
     tr
-      th = Genre.human_attribute_name :position
-      th = Genre.human_attribute_name :id
-      th = Genre.human_attribute_name :name
-      th = Genre.human_attribute_name :russian
-      th = Genre.human_attribute_name :type
-      th.text Description RU
+      = th field: :position
+      = th field: :id
+      = th field: :name
+      = th field: :russian
+      th = Genre.human_attribute_name :kind
+      th.text = Genre.human_attribute_name :description
 
   tbody
     - @collection.each do |genre|

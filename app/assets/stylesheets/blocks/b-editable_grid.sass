@@ -3,15 +3,16 @@
 .b-editable_grid
   thead
     th
-      padding: 6px 0
-      color: #fff
       background: #567
+      color: #fff
       font-weight: normal
-      vertical-align: center
+      padding: 6px 0
 
       a
         color: #fff
         display: block
+        white-space: nowrap
+        width: 100%
 
         &:hover
           color: #fff
@@ -19,20 +20,24 @@
         &.sort-possible,
         &.sort-asc,
         &.sort-desc
-          &:after
+          &:before
             float: right
             opacity: 0.8
 
-          &:hover:after
+          &:after
+            margin-left: 20px
+            content: ''
+
+          &:hover:before
             opacity: 1
 
-        &.sort-possible:after
+        &.sort-possible:before
           +shikimori('\f0dc')
 
-        &.sort-asc:after
+        &.sort-asc:before
           +shikimori('\f160')
 
-        &.sort-desc:after
+        &.sort-desc:before
           +shikimori('\f161')
 
   tbody

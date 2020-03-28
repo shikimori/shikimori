@@ -97,9 +97,9 @@ ru:
         body: Текст
       contest:
         title_ru: Название
-        title_en: Название (на английском)
+        title_en: Название (англ.)
         description_ru: Описание
-        description_en: Описание (на английском)
+        description_en: Описание (англ.)
         description: Описание
         matches_per_round: Число голосований этапа
         match_duration: Длительность голосования
@@ -115,7 +115,7 @@ ru:
       genre:
         id: ID
         position: Позиция
-        name: Название (на английском)
+        name: Название (англ.)
         russian: Название
         description: Описание
         seo: Приоритет для SEO
@@ -296,7 +296,7 @@ ru:
         uid: Client ID
         description: Описание
         description_ru: Описание
-        description_en: Описание (на английском)
+        description_en: Описание (англ.)
 
     errors:
       messages:

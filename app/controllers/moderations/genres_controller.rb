@@ -7,7 +7,7 @@ class Moderations::GenresController < ModerationsController
 
   helper_method :versioned_view
 
-  SORTING_FIELDS = %i[kind position name]
+  SORTING_FIELDS = :position
   VERSIONS_PER_PAGE = 20
 
   def index
@@ -17,6 +17,8 @@ class Moderations::GenresController < ModerationsController
 
     if json?
       render 'db_entries/versions', locals: { collection: @versions }
+    elsif resource_class == Genre
+      @collection = @collection.order(:kind, sorting_options)
     else
       @collection = @collection.order(sorting_options)
     end

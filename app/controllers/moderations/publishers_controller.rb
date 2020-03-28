@@ -1,5 +1,5 @@
 class Moderations::PublishersController < Moderations::GenresController
-  ORDER_FIELD = :id
+  SORTING_FIELD = :id
 
 private
 
