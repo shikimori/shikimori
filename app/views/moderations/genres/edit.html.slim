@@ -17,6 +17,8 @@ header.head
     .inputs.block
       = f.input :position, input_html: { disabled: cannot?(:update, @resource) }
       = f.input :id, input_html: { disabled: true }
+      - if can? :update, Genre
+        = f.input :mal_id, input_html: { disabled: true }
       = f.input :name, input_html: { disabled: cannot?(:update, @resource) }
       = f.input :russian, input_html: { disabled: cannot?(:update, @resource) }
       = f.input :kind, input_html: { disabled: true }

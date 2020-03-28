@@ -13,8 +13,7 @@ table.b-table.b-editable_grid.block2
     - @collection.each do |publisher|
       tr
         td.id
-          a href=edit_moderations_publisher_url(publisher)
-            = publisher.id
+          a href=edit_moderations_publisher_url(publisher) ##{publisher.id}
         td
           a href=edit_moderations_publisher_url(publisher)
             = publisher.name

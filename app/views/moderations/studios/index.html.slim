@@ -16,8 +16,7 @@ table.b-table.b-editable_grid.block2
     - @collection.each do |studio|
       tr
         td.id
-          a href=edit_moderations_studio_url(studio)
-            = studio.id
+          a href=edit_moderations_studio_url(studio) ##{studio.id}
         td
           a href=edit_moderations_studio_url(studio)
             = studio.name
