@@ -12,7 +12,7 @@ table.b-table.b-editable_grid.block2
   tbody
     - @collection.each do |publisher|
       tr
-        td
+        td.id
           a href=edit_moderations_publisher_url(publisher)
             = publisher.id
         td

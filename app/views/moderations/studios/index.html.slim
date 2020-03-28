@@ -15,7 +15,7 @@ table.b-table.b-editable_grid.block2
   tbody
     - @collection.each do |studio|
       tr
-        td
+        td.id
           a href=edit_moderations_studio_url(studio)
             = studio.id
         td

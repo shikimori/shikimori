@@ -7,7 +7,9 @@ class Moderations::GenresController < ModerationsController
 
   helper_method :versioned_view
 
-  SORTING_FIELDS = :position
+  SORTING_FIELD = :position
+  SORTING_ORDER = :asc
+
   VERSIONS_PER_PAGE = 20
 
   def index

@@ -120,6 +120,7 @@ ru:
         description: Описание
         seo: Приоритет для SEO
         kind: Тип
+        mal_id: MAL ID
       studio:
         id: ID
         name: Название

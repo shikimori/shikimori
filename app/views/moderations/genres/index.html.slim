@@ -6,8 +6,10 @@ header.head
 table.b-table.b-editable_grid.block2
   thead
     tr
-      = th field: :position
       = th field: :id
+      = th field: :position
+      - if can? :update, Genre
+        = th field: :mal_id
       = th field: :name
       = th field: :russian
       th = Genre.human_attribute_name :kind
@@ -16,11 +18,12 @@ table.b-table.b-editable_grid.block2
   tbody
     - @collection.each do |genre|
       tr
-        td
+        td.id
           a href=edit_moderations_genre_url(genre)
-            = genre.position
-        td = genre.id
-        - if can? :manage, Genre
+            = genre.id
+        td.id
+          = genre.position
+        - if can? :update, Genre
           td = genre.mal_id
         td
           a href=edit_moderations_genre_url(genre)

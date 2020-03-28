@@ -120,6 +120,7 @@ en:
         description: Description
         seo: SEO priority
         kind: type
+        mal_id: MAL ID
       studio:
         id: ID
         name: Name
