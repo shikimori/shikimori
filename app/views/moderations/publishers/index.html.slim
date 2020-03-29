@@ -8,6 +8,7 @@ table.b-table.b-editable_grid.block2
     tr
       = th field: :id
       = th field: :name
+      th
 
   tbody
     - @collection.each do |publisher|
@@ -17,5 +18,8 @@ table.b-table.b-editable_grid.block2
         td
           a href=edit_moderations_publisher_url(publisher)
             = publisher.name
+        td.actions
+          a href=mangas_collection_url(publisher: publisher.to_param)
+            = Manga.model_name.human
 
 = render 'db_entries/versions', collection: @versions

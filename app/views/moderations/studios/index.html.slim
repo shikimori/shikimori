@@ -9,10 +9,11 @@ table.b-table.b-editable_grid.block2
       = th field: :id
       = th field: :name
       = th label: Studio.human_attribute_name(:filtered_name)
-      = th field: :is_visible, label: "#{Studio.human_attribute_name(:is_visible)} (DEPRECATED)"
+      = th field: :is_visible
       = th field: :is_publisher
       = th field: :is_verified
       = th label: Studio.human_attribute_name(:image)
+      th
 
   tbody
     - @collection.each do |studio|
@@ -55,5 +56,8 @@ table.b-table.b-editable_grid.block2
               src=cdn_image(studio, :original)
               style='width: 200px'
             ]
+        td.actions
+          a href=animes_collection_url(studio: studio.to_param)
+            = Anime.model_name.human
 
 = render 'db_entries/versions', collection: @versions
