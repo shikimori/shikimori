@@ -279,6 +279,7 @@ en:
     studios:
       index: &index
         notice: List of all anime producers
+        filtered_name: Disp. name
       edit: &edit
         <<: *index
         notice: Edit producer

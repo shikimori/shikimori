@@ -279,6 +279,7 @@ ru:
     studios:
       index: &index
         notice: Список всех аниме студий
+        filtered_name: Отобр. название
       edit: &edit
         <<: *index
         notice: Редактирование студии
