@@ -21,6 +21,12 @@ table.b-table.b-editable_grid.block2
         td.id
           a href=edit_moderations_genre_url(genre) ##{genre.id}
         td.id
+          - if genre.anime?
+            a.catalog-link href=animes_collection_url(genre: genre.to_param)
+          - else
+            a.catalog-link href=mangas_collection_url(genre: genre.to_param)
+
+        td.id
           = genre.position
         - if can? :update, Genre
           td ##{genre.mal_id}
@@ -34,12 +40,5 @@ table.b-table.b-editable_grid.block2
           length: 50,
           separator: ' ',
           word_boundary: /\S[\.\?\!<>]/)
-        td.actions
-          - if genre.anime?
-            a href=animes_collection_url(genre: genre.to_param)
-              = Anime.model_name.human
-          - else
-            a href=mangas_collection_url(genre: genre.to_param)
-              = Manga.model_name.human
 
 = render 'db_entries/versions', collection: @versions

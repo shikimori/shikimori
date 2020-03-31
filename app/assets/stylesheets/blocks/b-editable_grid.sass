@@ -1,3 +1,4 @@
+@import mixins/link
 @import mixins/shikimori
 
 .b-editable_grid
@@ -75,3 +76,9 @@
 
       .ajax-loading.vk-like
         min-height: 10px
+
+  .catalog-link
+    +link-color(#123)
+
+    &:before
+      +shikimori('\e809')
