@@ -90,6 +90,7 @@ module SortingConcern
     field: nil,
     default_order: :asc,
     colspan: nil,
+    css_class: nil,
     width: 'auto',
     sort_2: field && field != default_sorting_field ?
       sorting_2_defaults :
@@ -102,6 +103,7 @@ module SortingConcern
         field: field&.to_sym,
         default_order: default_order,
         colspan: colspan,
+        css_class: css_class,
         width: width,
         sort_2: sort_2
       }
