@@ -126,9 +126,9 @@ en:
         name: Name
         filtered_name: Displayed name
         image: Image
-        is_visible: Studio?
-        is_publisher: Publisher?
-        is_verified: Verified?
+        is_visible: Studio
+        is_publisher: Publisher
+        is_verified: Verified
       publisher:
         id: ID
         name: Title
