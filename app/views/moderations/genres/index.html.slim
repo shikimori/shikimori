@@ -7,13 +7,13 @@ table.b-table.b-editable_grid.block2
   thead
     tr
       = th field: :id
+      th
       = th field: :position
       - if can? :update, Genre
         = th field: :mal_id
       = th field: :name
       = th field: :russian
       th.text = Genre.human_attribute_name :description
-      th
 
   tbody
     - @collection.each do |genre|
