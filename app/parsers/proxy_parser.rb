@@ -116,7 +116,7 @@ private
   # end
 
   def proxy_24
-    Nokogiri::HTML(open('http://proxyserverlist-24.blogspot.ru/').read)
+    Nokogiri::HTML(open('http://www.proxyserverlist24.top').read)
       .css('.post-title.entry-title a')
       .map { |v| v.attr :href }
   end
