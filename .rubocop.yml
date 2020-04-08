@@ -52,10 +52,10 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Max: 15
 
+Migration/DepartmentName:
+  Enabled: false
 Style/MultilineBlockChain:
   Enabled: false
-# Style/NumericPredicate:
-  # Enabled: false
 Style/GuardClause:
   Enabled: false
 Style/Documentation:
