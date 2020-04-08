@@ -27,6 +27,7 @@ class Abilities::User
       article_abilities if @user.week_registered?
       other_abilities
       club_abilities
+      club_image_abilities if @user.week_registered?
       oauth_applications_abilities if @user.day_registered?
       poll_abilities
     end
@@ -231,6 +232,17 @@ class Abilities::User
     end
   end
 
+  def club_image_abilities
+    can :create, ClubImage do |image|
+      can?(:upload_image, image.club) && image.user == @user
+    end
+
+    can :destroy, ClubImage do |image|
+      (image.club.member?(@user) && image.user == @user) ||
+        image.club.admin?(@user)
+    end
+  end
+
   def version_abilities
     can %i[create], Version do |version|
       if version.is_a? Versions::RoleVersion
@@ -271,17 +283,7 @@ class Abilities::User
   end
 
   def other_abilities
-    can :create, ClubImage do |image|
-      can?(:upload_image, image.club) && image.user == @user
-    end
-
-    can :destroy, ClubImage do |image|
-      (image.club.member?(@user) && image.user == @user) ||
-        image.club.admin?(@user)
-    end
-
     can :manage, Device, user_id: @user.id
-    can :read, Genre
   end
 
   def list_import_abilities
