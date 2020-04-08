@@ -108,7 +108,7 @@ describe Genre do
     context 'guest' do
       let(:user) { nil }
 
-      it { is_expected.to_not be_able_to :read, genre }
+      it { is_expected.to be_able_to :read, genre }
       it { is_expected.to be_able_to :tooltip, genre }
       it { is_expected.to_not be_able_to :edit, genre }
       it { is_expected.to_not be_able_to :update, genre }
