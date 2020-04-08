@@ -93,7 +93,7 @@ class Ability
     end
 
     can %i[read tooltip], Version
-    can :tooltip, Genre
+    can %i[read tooltip], Genre
     can :see_contest, Contest
     can :see_club, Club
     can :read, ClubPage
