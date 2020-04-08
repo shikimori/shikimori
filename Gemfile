@@ -162,7 +162,7 @@ gem 'awesome_print'
 gem 'colorize'
 gem 'pry-byebug'
 gem 'pry-rails'
-gem 'pry-stack_explorer'
+# gem 'pry-stack_explorer'
 
 group :development, :test do
   gem 'dotenv-rails'
