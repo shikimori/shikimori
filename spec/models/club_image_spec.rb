@@ -12,7 +12,7 @@ describe ClubImage do
   end
 
   describe 'permissions' do
-    let(:user) { build_stubbed :user, :user, :day_registered }
+    let(:user) { build_stubbed :user, :user, :week_registered }
 
     subject { Ability.new user }
 
