@@ -74,7 +74,7 @@ id='${data.id}'>\
 
   // create/edit a topic
   $form.on('submit', () => {
-    const $attachments = $('.attachments-hidden', $form).empty();
+    const $attachments = $('.attachments-submit-container', $form).empty();
 
     // posters
     $('.b-dropzone a', $form)
@@ -115,7 +115,7 @@ function resetWall($wall) {
 
 function attachVideo(videoData, $topicVideo, $wall) {
   const $topicVideoForm = $('.form', $topicVideo);
-  const $topicVideoRemove = $('.remove-form', $topicVideo);
+  const $topicVideoRemove = $('.remove', $topicVideo);
   const $topicVideoErrors = $('.errors', $topicVideo);
 
   $topicVideo.removeClass('b-ajax');
@@ -133,7 +133,7 @@ function attachVideo(videoData, $topicVideo, $wall) {
   const $video = $(videoData.content).prependTo($wall);
   resetWall($wall);
 
-  $topicVideoRemove.find('button').one('click', e => {
+  $topicVideoRemove.one('click', e => {
     e.preventDefault();
     $topicVideo.data({ video_id: null });
     $topicVideoForm.show();

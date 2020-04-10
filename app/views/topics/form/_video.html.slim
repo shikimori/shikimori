@@ -3,8 +3,7 @@
   data-content="#{render('videos/video', video: topic.decomposed_body.wall_video).to_str if topic.decomposed_body.wall_video}"
 ]
   .m8: b = t '.topic_video'
-  .remove-form.hidden
-    button.b-js-action = t('actions.delete')
+  button.b-button.remove.hidden = t('actions.delete')
 
   .form
     = f.simple_fields_for :video do |ff|
