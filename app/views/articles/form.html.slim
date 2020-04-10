@@ -15,17 +15,18 @@ header.head.misc
     = f.input :name,
       input_html: { class: 'w-100' }
 
-    .fc-2
-      .f-column
-        = f.input :tags,
-          input_html: { value: f.object.tags&.join(','), class: 'w-100' },
-          as: :string
-        #vue_tags_input[
-          data-value=f.object.tags
-          data-autocomplete_basic=Articles::TagsQuery.call
-        ]
-      .f-column
-        = render 'topics/form/video', topic: @resource, f: f
+    .b-input
+      .fc-2
+        .f-column
+          = f.input :tags,
+            input_html: { value: f.object.tags&.join(','), class: 'w-100' },
+            as: :string
+          #vue_tags_input[
+            data-value=f.object.tags
+            data-autocomplete_basic=Articles::TagsQuery.call
+          ]
+        .f-column
+          = render 'topics/form/video', topic: @resource, f: f
 
     = render 'topics/form/posters', topic: @resource, f: f
 
