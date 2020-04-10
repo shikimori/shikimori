@@ -40,10 +40,10 @@ ru:
         go_next: Далее →
       video:
         attach: Прикрепить
-        topic_video: Видео к новости
+        topic_video: Видео
       posters:
-        drag_here: Перетаскивайте сюда картинки, они будут отображены отдельным блоком в топике.
-        topic_posters: Картинки к новости
+        drag_here: Перетаскивай сюда картинки
+        topic_posters: Картинки
       source:
         hint: Ссылка на страницу, откуда взята новость
     status_line:
