@@ -1,5 +1,4 @@
 @import globals
-@import mixins/clearfix
 @import mixins/responsive
 
 $min_height: 89px
@@ -29,7 +28,6 @@ $min_height: 89px
     content: attr(data-text)
 
 .b-dropzone
-  +clearfix
   background-color: #f9f9f9
   border: 2px dashed #ccc
   cursor: pointer
@@ -43,16 +41,13 @@ $min_height: 89px
     &:before
       color: $gray-4
 
-    input[type=file]
-      color: $gray-4
-
   &:before
     color: $gray-2
     content: attr(data-hint)
     font-size: 15px
     position: absolute
     left: 50%
-    line-height: 1.4
+    line-height: 1.3
     top: 50%
     transform: translateX(-50%) translateY(-50%)
     text-align: center
@@ -72,7 +67,7 @@ $min_height: 89px
   .b-upload_progress.active
     margin-bottom: 3px
 
-  input[type=file]
+  input
     opacity: 0
 
   .b-shiki_wall:not(:empty)

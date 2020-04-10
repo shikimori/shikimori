@@ -22,6 +22,8 @@ header.head.misc
       data-autocomplete_basic=Articles::TagsQuery.call
     ]
 
+    = render 'topics/form/posters', topic: @resource, f: f
+
     .b-input
       .b-shiki_editor.unprocessed.size-xl
         = render 'comments/shiki_editor', text: @resource.body, field_name: 'article[body]'
