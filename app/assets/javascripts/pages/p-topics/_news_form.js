@@ -55,6 +55,7 @@ id='${data.id}'>\
   $attach.on('click', () => {
     // const animeId = linkedAnimeId($linkedType, $linkedId);
     const url = $attach.data('url').replace('ANIME_ID', 0); // .replace('ANIME_ID', animeId || 0);
+
     const form = {
       video: {
         // anime_id: animeId,
@@ -108,9 +109,9 @@ function resetWall($wall) {
   new Wall($wall);
 }
 
-function linkedAnimeId($linkedType, $linkedId) {
-  return $linkedType.val() === 'Anime' ? $linkedId.val() : null;
-}
+// function linkedAnimeId($linkedType, $linkedId) {
+//   return $linkedType.val() === 'Anime' ? $linkedId.val() : null;
+// }
 
 function attachVideo(videoData, $topicVideo, $wall) {
   const $topicVideoForm = $('.form', $topicVideo);
