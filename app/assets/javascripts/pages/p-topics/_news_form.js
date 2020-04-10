@@ -7,10 +7,10 @@ pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   const $wall = initWall($form);
   const $video = initVideo('topic', $form, $wall);
   initTagsApp('topic');
-  initForm($form, $wall, $video);
+  initForm('topic', $form, $wall, $video);
 });
 
-export function initForm($form, $wall, $video) {
+export function initForm(type, $form, $wall, $video) {
   $form.on('submit', () => {
     const $attachments = $('.attachments-submit-container', $form).empty();
 
@@ -19,7 +19,7 @@ export function initForm($form, $wall, $video) {
       .map((_index, node) => $(node).attr('id'))
       .each((_index, id) =>
         $attachments.append(
-          `<input type='hidden' name='topic[wall_ids][]' value="${id}" />`
+          `<input type='hidden' name='${type}[wall_ids][]' value="${id}" />`
         )
       );
 
@@ -27,7 +27,7 @@ export function initForm($form, $wall, $video) {
     const videoId = $video.data('video_id');
     if (videoId) {
       $attachments.append(
-        `<input type='hidden' name='topic[video_id]' value="${videoId}" />`
+        `<input type='hidden' name='${type}[video_id]' value="${videoId}" />`
       );
     }
   });

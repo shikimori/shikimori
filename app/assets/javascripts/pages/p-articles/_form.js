@@ -8,5 +8,5 @@ pageLoad('articles_new', 'articles_edit', 'articles_create', 'articles_update', 
   const $wall = initWall($form);
   const $video = initVideo('articles', $form, $wall);
   initTagsApp('article');
-  initForm($form, $wall, $video);
+  initForm('topic', $form, $wall, $video);
 });
