@@ -42,7 +42,7 @@ en:
         attach: Attach
         topic_video: Video
       posters:
-        drag_here: Drag&drop images here
+        drag_here: Click or drag&drop images here
         topic_posters: Images
       source:
         hint: Link to the page where the news is taken from

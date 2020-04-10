@@ -1,5 +1,6 @@
 @import globals
 @import mixins/clearfix
+@import mixins/responsive
 
 $min_height: 89px
 
@@ -48,10 +49,16 @@ $min_height: 89px
   &:before
     color: $gray-2
     content: attr(data-hint)
-    display: block
-    font-size: 13px
-    line-height: 1
-    margin: 5px 0 5px
+    font-size: 15px
+    position: absolute
+    left: 50%
+    line-height: 1.4
+    top: 50%
+    transform: translateX(-50%) translateY(-50%)
+    text-align: center
+
+    +iphone
+      font-size: 14px
 
   .image-container
     margin-right: 11px
@@ -66,12 +73,7 @@ $min_height: 89px
     margin-bottom: 3px
 
   input[type=file]
-    align-items: center
-    border: none
-    bottom: 5px
-    color: $gray-2
-    display: flex
-    position: absolute
+    opacity: 0
 
   .b-shiki_wall:not(:empty)
     margin-bottom: 15px
