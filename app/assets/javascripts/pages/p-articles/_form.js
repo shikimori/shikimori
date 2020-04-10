@@ -6,7 +6,7 @@ pageLoad('articles_new', 'articles_edit', 'articles_create', 'articles_update', 
   $('.b-shiki_editor.unprocessed').shikiEditor();
 
   const $wall = initWall($form);
-  const $video = initVideo('articles', $form, $wall);
+  const $video = initVideo('article', $form, $wall);
   initTagsApp('article');
   initForm('topic', $form, $wall, $video);
 });
