@@ -1,5 +1,6 @@
 @import globals
 @import mixins/responsive
+@import mixins/css4
 
 $min_height: 89px
 
@@ -31,6 +32,7 @@ $min_height: 89px
   background-color: #f9f9f9
   border: 2px dashed #ccc
   cursor: pointer
+  display: block
   min-height: $min_height
   padding: 0 10px 25px
   position: relative
@@ -44,13 +46,17 @@ $min_height: 89px
   &:before
     color: $gray-2
     content: attr(data-hint)
-    font-size: 15px
-    position: absolute
+    font-size: 14px
     left: 50%
     line-height: 1.3
+    position: absolute
+    text-align: center
     top: 50%
     transform: translateX(-50%) translateY(-50%)
-    text-align: center
+    width: 90%
+
+    +css4
+      font-family: var(--font-alt)
 
     +iphone
       font-size: 14px
