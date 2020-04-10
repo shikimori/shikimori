@@ -1,7 +1,14 @@
+import { initTagsApp, initVideo, initWall, initForm } from './_news_form';
+
 const LINKED_TYPE_USER_SELECT = '.topic-linked select.type';
 
 pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
   const $form = $('.b-form.edit_topic, .b-form.new_topic, .new-review-form');
+
+  const $wall = initWall($form);
+  const $video = initVideo('topic', $form, $wall);
+  initTagsApp('topic');
+  initForm('topic', $form, $wall, $video);
 
   const $topicLinked = $('#topic_linked', $form);
   const $linkedType = $('#topic_linked_type', $form);

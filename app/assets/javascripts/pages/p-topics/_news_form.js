@@ -1,15 +1,6 @@
 import axios from 'helpers/axios';
 import Wall from 'views/wall/view';
 
-pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
-  const $form = $('.b-form.edit_topic, .b-form.new_topic');
-
-  const $wall = initWall($form);
-  const $video = initVideo('topic', $form, $wall);
-  initTagsApp('topic');
-  initForm('topic', $form, $wall, $video);
-});
-
 export function initForm(type, $form, $wall, $video) {
   $form.on('submit', () => {
     const $attachments = $('.attachments-submit-container', $form).empty();
