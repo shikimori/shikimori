@@ -114,7 +114,7 @@ function linkedAnimeId($linkedType, $linkedId) {
 
 function attachVideo(videoData, $topicVideo, $wall) {
   const $topicVideoForm = $('.form', $topicVideo);
-  const $topicVideoRemove = $('.remove', $topicVideo);
+  const $topicVideoRemove = $('.remove-form', $topicVideo);
   const $topicVideoErrors = $('.errors', $topicVideo);
 
   $topicVideo.removeClass('b-ajax');
@@ -132,7 +132,7 @@ function attachVideo(videoData, $topicVideo, $wall) {
   const $video = $(videoData.content).prependTo($wall);
   resetWall($wall);
 
-  $topicVideoRemove.one('click', e => {
+  $topicVideoRemove.find('button').one('click', e => {
     e.preventDefault();
     $topicVideo.data({ video_id: null });
     $topicVideoForm.show();
