@@ -1,5 +1,6 @@
 class Article < ApplicationRecord
   include AntispamConcern
+  include DecomposableBodyConcern
   include ModeratableConcern
   include TopicsConcern
 
