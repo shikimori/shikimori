@@ -24,7 +24,7 @@ header.head.misc
 
     .b-input
       .b-shiki_editor.unprocessed.size-xl
-        = render 'comments/shiki_editor', text: @resource.text, field_name: 'article[text]'
+        = render 'comments/shiki_editor', text: @resource.body, field_name: 'article[body]'
 
     - if @resource.persisted?
       = f.input :state,

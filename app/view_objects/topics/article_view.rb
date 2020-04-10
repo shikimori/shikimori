@@ -35,7 +35,7 @@ class Topics::ArticleView < Topics::UserContentView
   end
 
   def html_body
-    text = article.text
+    text = article.body
 
     if preview? || minified?
       text = text

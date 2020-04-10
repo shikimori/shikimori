@@ -5,7 +5,7 @@ class ArticlesController < ShikimoriController
   before_action :set_breadcrumbs, except: :index
   before_action :resource_redirect, if: :resource_id
 
-  UPDATE_PARAMS = %i[name text state tags]
+  UPDATE_PARAMS = %i[name body state tags]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
 
   def index # rubocop:disable AbcSize

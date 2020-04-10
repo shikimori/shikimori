@@ -20,7 +20,7 @@ describe ArticlesController do
         {
           user_id: user.id,
           name: 'test',
-          text: 'zxc',
+          body: 'zxc',
           tags: 'qwe, rty'
         }
       end
