@@ -24,17 +24,4 @@ class Article < ApplicationRecord
   def to_param
     "#{id}-#{name.permalinked}"
   end
-
-  # compatibility with DbEntry
-  def topic_user
-    user
-  end
-
-  def description_ru
-    body
-  end
-
-  def description_en
-    body
-  end
 end

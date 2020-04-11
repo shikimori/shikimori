@@ -35,7 +35,9 @@ class Topics::ArticleView < Topics::UserContentView
   end
 
   def html_body
-    text = article.body
+    return '' if @topic.decomposed_body.text.blank?
+
+    text = @topic.decomposed_body.text
 
     if preview? || minified?
       text = text
@@ -62,10 +64,6 @@ class Topics::ArticleView < Topics::UserContentView
   end
 
 private
-
-  def body
-    article.text
-  end
 
   def article
     @topic.linked
