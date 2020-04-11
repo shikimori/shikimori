@@ -149,6 +149,7 @@ private
 
     params.require(:topic).permit(*allowed_params).tap do |fixed_params|
       fixed_params[:body] = Topics::ComposeBody.call(params[:topic])
+
       unless fixed_params[:tags].nil?
         fixed_params[:tags] = fixed_params[:tags].split(',').map(&:strip).select(&:present?)
       end

@@ -105,6 +105,8 @@ private
       .require(:article)
       .permit(*permitted_keys)
       .tap do |fixed_params|
+        fixed_params[:body] = Topics::ComposeBody.call(params[:article])
+
         unless fixed_params[:tags].nil?
           fixed_params[:tags] = fixed_params[:tags].split(',').map(&:strip).select(&:present?)
         end
