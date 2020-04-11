@@ -1,4 +1,4 @@
-import { initTagsApp, initVideo, initWall, initForm } from './_news_form';
+import { initTagsApp, initVideo, initWall, initForm } from './_extended_form';
 
 const LINKED_TYPE_USER_SELECT = '.topic-linked select.type';
 

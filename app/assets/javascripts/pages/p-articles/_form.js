@@ -1,4 +1,4 @@
-import { initTagsApp, initVideo, initWall, initForm } from '../p-topics/_news_form';
+import { initTagsApp, initVideo, initWall, initForm } from '../p-topics/_extended_form';
 
 pageLoad('articles_new', 'articles_edit', 'articles_create', 'articles_update', () => {
   const $form = $('.b-form.edit_article, .b-form.new_article');
