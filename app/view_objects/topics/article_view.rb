@@ -55,6 +55,10 @@ class Topics::ArticleView < Topics::UserContentView
     preview? || minified?
   end
 
+  def skip_body?
+    preview? && html_footer.present?
+  end
+
   def footer_vote?
     false
   end

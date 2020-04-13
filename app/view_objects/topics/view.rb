@@ -18,14 +18,12 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :any_summaries?,
     to: :topic_comments_policy
 
-  instance_cache :html_body, :html_body_truncated, :cleaned_preview_body,
-    :comments_view, :urls, :action_tag, :topic_ignore,
+  instance_cache :html_body, :html_body_truncated, :html_footer,
+    :cleaned_preview_body, :comments_view, :urls, :action_tag, :topic_ignore,
     :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
   CACHE_VERSION = :v9
-
-  attr_accessor :is_hide_body
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -54,8 +52,8 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     @topic.is_closed
   end
 
-  def hide_body?
-    @is_hide_body
+  def skip_body?
+    false
   end
 
   def container_classes additional = []
@@ -217,7 +215,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
       @is_mini,
-      @is_hide_body,
+      skip_body?,
       closed?, # not sure whetner it is necessary
       :v14
     )
