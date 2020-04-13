@@ -37,10 +37,6 @@ class Topics::ReviewView < Topics::UserContentView
     end
   end
 
-  def render_body
-    preview? ? html_body_truncated : (stars_html + html_body)
-  end
-
   def html_body
     text = review.text
 
@@ -53,7 +49,7 @@ class Topics::ReviewView < Topics::UserContentView
         .strip
     end
 
-    BbCodes::EntryText.call text, review
+    stars_html + super(text)
   end
 
   def read_more_link?

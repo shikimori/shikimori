@@ -30,13 +30,7 @@ class Topics::ArticleView < Topics::UserContentView
     h.article_url article
   end
 
-  def render_body
-    preview? ? html_body_truncated : html_body
-  end
-
   def html_body
-    return '' if @topic.decomposed_body.text.blank?
-
     text = @topic.decomposed_body.text
 
     if preview? || minified?
@@ -48,7 +42,11 @@ class Topics::ArticleView < Topics::UserContentView
         .strip
     end
 
-    BbCodes::EntryText.call text, article
+    posters_html + super(text)
+  end
+
+  def html_footer
+    super if preview?
   end
 
   def read_more_link?
@@ -71,5 +69,15 @@ private
 
   def article
     @topic.linked
+  end
+
+  def posters_html
+    html = BbCodes::Text.call @topic.decomposed_body.wall
+
+    if html.present?
+      "<div class='m10'>#{html}</div>".html_safe
+    else
+      ''.html_safe
+    end
   end
 end

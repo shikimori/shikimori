@@ -110,7 +110,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def render_body
-    html_body
+    preview? ? html_body_truncated : html_body
   end
 
   def poster is_2x
@@ -147,13 +147,11 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     true
   end
 
-  def html_body
-    return '' if @topic.decomposed_body.text.blank?
+  def html_body text = @topic.decomposed_body.text
+    return '' if text.blank?
 
-    Rails.cache.fetch(
-      CacheHelper.keys(:body, Digest::MD5.hexdigest(@topic.decomposed_body.text), CACHE_VERSION)
-    ) do
-      BbCodes::Text.call @topic.decomposed_body.text
+    Rails.cache.fetch CacheHelper.keys(:body, Digest::MD5.hexdigest(text), CACHE_VERSION) do
+      BbCodes::Text.call text
     end
   end
 
