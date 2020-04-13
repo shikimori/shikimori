@@ -42,11 +42,7 @@ class Topics::ArticleView < Topics::UserContentView
         .strip
     end
 
-    posters_html + super(text)
-  end
-
-  def html_footer
-    super if preview?
+    super(text)
   end
 
   def read_more_link?
@@ -69,15 +65,5 @@ private
 
   def article
     @topic.linked
-  end
-
-  def posters_html
-    html = BbCodes::Text.call @topic.decomposed_body.wall
-
-    if html.present?
-      "<div class='m10'>#{html}</div>".html_safe
-    else
-      ''.html_safe
-    end
   end
 end

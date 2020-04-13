@@ -57,7 +57,7 @@
               href=topic_view.urls.poster_url
             ] = t '.read_more_link'
 
-    footer class=('with-read_more-link' if topic_view.read_more_link?)
+    footer
       - if topic_view.tags.any? || topic_view.show_source?
         .additionals
           - if topic_view.tags.any?
