@@ -24,4 +24,9 @@ class Article < ApplicationRecord
   def to_param
     "#{id}-#{name.permalinked}"
   end
+
+  # compatibility with TopicsConcern
+  def topic_user
+    user
+  end
 end
