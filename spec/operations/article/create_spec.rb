@@ -10,7 +10,7 @@ describe Article::Create do
       {
         name: 'Test Article Name',
         user_id: user.id,
-        text: 'Test Article Text'
+        body: 'Test Article Text'
       }
     end
 
