@@ -67,14 +67,9 @@ private
   end
 
   def stars_html
-    h.render(
-      partial: 'reviews/stars',
-      locals: {
-        review: review,
-        with_music: review.entry.is_a?(Anime)
-      },
-      formats: :html
-    )
+    h.render 'reviews/stars',
+      review: review,
+      with_music: review.entry.is_a?(Anime)
   end
 
   def review
