@@ -52,6 +52,10 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     @topic.is_closed
   end
 
+  def prebody?
+    false
+  end
+
   def skip_body?
     false
   end

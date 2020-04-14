@@ -30,6 +30,19 @@
     - if topic_view.status_line?
       = render 'topics/status_line', topic_view: topic_view
 
+    - if topic_view.prebody?
+      .prebody
+        - if topic_view.tags.any?
+          .additionals
+            - if topic_view.tags.any?
+              .tags
+                - topic_view.tags.each do |tag|
+                  .b-anime_status_tag.other[
+                    data-text=tag
+                  ]
+
+        = topic_view.html_footer
+
     - unless topic_view.skip_body?
       .body
         - if topic_view.minified?
@@ -58,9 +71,9 @@
             ] = t '.read_more_link'
 
     footer
-      - if topic_view.tags.any? || topic_view.show_source?
+      - if (topic_view.tags.any? && !topic_view.prebody?) || topic_view.show_source?
         .additionals
-          - if topic_view.tags.any?
+          - if topic_view.tags.any? && !topic_view.prebody?
             .tags
               - topic_view.tags.each do |tag|
                 .b-anime_status_tag.other[
@@ -77,7 +90,8 @@
                 rel='nofollow'
               ] = Url.new(topic_view.decomposed_body.source).domain
 
-      = topic_view.html_footer
+      - unless topic_view.prebody?
+        = topic_view.html_footer
 
       - if topic_view.footer_vote?
         = render 'topics/footer/vote', topic_view: topic_view

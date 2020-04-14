@@ -53,6 +53,12 @@ class Topics::ArticleView < Topics::UserContentView
     preview? && html_footer.present?
   end
 
+  def prebody?
+    return false if preview?
+
+    html_footer.present? || tags.any?
+  end
+
   def footer_vote?
     false
   end
