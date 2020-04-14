@@ -18349,10 +18349,10 @@
         franchise: tales_of
         not_anime_ids:
         - 8754
-        - 38110
         - 34939
         - 37230
-      :threshold: 92.6%
+        - 38110
+      :threshold: 93%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :tales_of
@@ -18383,9 +18383,9 @@
         franchise: tales_of
         not_anime_ids:
         - 8754
-        - 38110
         - 34939
         - 37230
+        - 38110
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -21137,7 +21137,7 @@
         - 36269
         - 36760
         - 40348
-      :threshold: 93.3%
+      :threshold: 93.7%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -24919,7 +24919,7 @@
       :algo: duration
       :filters:
         franchise: pripara
-      :threshold: 93.9%
+      :threshold: 94.9%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :pripara
@@ -25103,7 +25103,7 @@
         franchise: aikatsu
         not_anime_ids:
         - 28723
-      :threshold: 97.5%
+      :threshold: 97.4%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :aikatsu
@@ -25228,7 +25228,7 @@
         not_anime_ids:
         - 10736
         - 30103
-      :threshold: 91.4%
+      :threshold: 91.5%
       :generator:
         ignore_latest_ids:
         - 38850
@@ -25453,7 +25453,7 @@
         franchise: digimon
         not_anime_ids:
         - 4712
-      :threshold: 94.2%
+      :threshold: 94%
       :generator:
         ignore_latest_ids:
         - 38088
