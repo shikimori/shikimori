@@ -15,6 +15,7 @@ jobs:
           PGDATABASE: circle_test
           DATABASE_URL: postgres://postgres@127.0.0.1/circle_test
           REDIS_HOST: 127.0.0.1
+          BUNDLER_VERSION: 2.1.4
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
