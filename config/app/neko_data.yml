@@ -18347,6 +18347,11 @@
       :algo: duration
       :filters:
         franchise: tales_of
+        not_anime_ids:
+        - 8754
+        - 38110
+        - 34939
+        - 37230
       :threshold: 92.6%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -18376,6 +18381,11 @@
       :algo: duration
       :filters:
         franchise: tales_of
+        not_anime_ids:
+        - 8754
+        - 38110
+        - 34939
+        - 37230
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
