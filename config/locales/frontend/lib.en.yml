@@ -28,7 +28,7 @@ en:
         too_many_files: 'Too many files: max %{count} files at once'
         too_large_file: 'File is too large: 4 MB max'
         please_try_again_later: Please try again later
-        browser_not_supported: Your browser is not supported
+        browser_not_supported: Error occured or maybe your browser is too old
         loading_file: loading file %{filename} (%{filesize} kB)...
         wait_till_loaded: Wait till files are loaded
         drop_pictures_here: Drop pictures here

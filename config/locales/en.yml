@@ -96,7 +96,7 @@ en:
       message:
         body: Text
       contest:
-        title_ru: Title (in russian)
+        title_ru: Title (in Russian)
         title_en: Title
         description_ru: Description (rus)
         description_en: Description
@@ -116,7 +116,7 @@ en:
         id: ID
         position: Position
         name: Title
-        russian: Title (in russian)
+        russian: Title (in Russian)
         description: Description
         seo: SEO priority
         kind: type

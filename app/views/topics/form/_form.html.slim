@@ -22,6 +22,7 @@
   = f.input :user_id, as: :hidden
   = f.input :linked_id, as: :hidden
   = f.input :linked_type, as: :hidden
+  .attachments-submit-container.hidden
 
   .inputs.m15
     = f.input :title, input_html: { class: 'w-100' }
@@ -72,7 +73,7 @@
             = render 'topics/form/linked', topic: topic
 
         - if topic_type_policy.news_topic? || is_show_broadcast || is_show_closed
-          .f-column.f-topic-additionals
+          .f-column
             - if topic_type_policy.news_topic?
               = render 'topics/form/linked', topic: topic
 
@@ -82,7 +83,6 @@
               = f.input :is_closed
 
             - if topic_type_policy.news_topic?
-              .attachments-hidden
               = render 'topics/form/video', topic: topic, f: f
 
     - if topic_type_policy.news_topic?

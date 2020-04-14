@@ -5,7 +5,7 @@ class ArticlesController < ShikimoriController
   before_action :set_breadcrumbs, except: :index
   before_action :resource_redirect, if: :resource_id
 
-  UPDATE_PARAMS = %i[name text state tags]
+  UPDATE_PARAMS = %i[name body state tags]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
 
   def index # rubocop:disable AbcSize
@@ -105,6 +105,10 @@ private
       .require(:article)
       .permit(*permitted_keys)
       .tap do |fixed_params|
+        if params[:article][:body].present?
+          fixed_params[:body] = Topics::ComposeBody.call(params[:article])
+        end
+
         unless fixed_params[:tags].nil?
           fixed_params[:tags] = fixed_params[:tags].split(',').map(&:strip).select(&:present?)
         end

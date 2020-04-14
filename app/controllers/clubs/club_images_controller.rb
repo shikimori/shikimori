@@ -2,8 +2,7 @@ class Clubs::ClubImagesController < ShikimoriController
   load_and_authorize_resource :club
   load_and_authorize_resource only: [:destroy]
 
-  # rubocop:disable AbcSize
-  def create
+  def create # rubocop:disable AbcSize
     if request.xhr?
       @resource = create_image params[:image]
 
@@ -19,7 +18,6 @@ class Clubs::ClubImagesController < ShikimoriController
       redirect_to club_url(@club), alert: i18n_t('no_images_uploaded')
     end
   end
-  # rubocop:enable AbcSize
 
   def destroy
     @resource.destroy!

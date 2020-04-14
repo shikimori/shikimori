@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_175634) do
+ActiveRecord::Schema.define(version: 2020_04_14_180240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 2020_04_14_175634) do
   create_table "articles", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id", null: false
-    t.text "text", null: false
+    t.text "body", null: false
     t.string "moderation_state", limit: 255, default: "pending"
     t.integer "approver_id"
     t.text "tags", default: [], null: false, array: true

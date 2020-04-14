@@ -1,7 +1,8 @@
 class Article < ApplicationRecord
   include AntispamConcern
-  include TopicsConcern
+  include DecomposableBodyConcern
   include ModeratableConcern
+  include TopicsConcern
 
   antispam(
     per_day: 5,
@@ -10,7 +11,7 @@ class Article < ApplicationRecord
   update_index('articles#article') { self if saved_change_to_name? }
 
   belongs_to :user
-  validates :name, :user, :text, presence: true
+  validates :name, :user, :body, presence: true
   validates :locale, presence: true
 
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
@@ -24,16 +25,8 @@ class Article < ApplicationRecord
     "#{id}-#{name.permalinked}"
   end
 
-  # compatibility with DbEntry
+  # compatibility with TopicsConcern
   def topic_user
     user
-  end
-
-  def description_ru
-    text
-  end
-
-  def description_en
-    text
   end
 end

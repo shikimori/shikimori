@@ -71,7 +71,7 @@ GIT
 
 GIT
   remote: https://github.com/shikimori/mal_parser.git
-  revision: a223bdd0ab055cc581c1083284cd320afaa69d56
+  revision: 7965f37f65ca2c8e62a1934b2d222c3044c39a1e
   specs:
     mal_parser (0.1.2)
       attr_extras
@@ -326,7 +326,7 @@ GEM
       actionpack (>= 3.0)
       multi_json
       request_store (>= 1.0)
-    guard (2.16.1)
+    guard (2.16.2)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
       lumberjack (>= 1.0.12, < 2.0)
@@ -483,10 +483,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    pry-stack_explorer (0.4.9.3)
-      binding_of_caller (>= 0.7)
-      pry (>= 0.9.11)
-    public_suffix (4.0.3)
+    public_suffix (4.0.4)
     puma (4.3.1)
       nio4r (~> 2.0)
     rack (2.2.2)
@@ -802,7 +799,6 @@ DEPENDENCIES
   pghero
   pry-byebug
   pry-rails
-  pry-stack_explorer
   puma
   rack-attack
   rack-cors
@@ -861,4 +857,4 @@ DEPENDENCIES
   xxhash
 
 BUNDLED WITH
-   1.17.2
+   2.1.4

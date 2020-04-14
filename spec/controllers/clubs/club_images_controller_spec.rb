@@ -1,5 +1,5 @@
 describe Clubs::ClubImagesController do
-  include_context :authenticated, :user
+  include_context :authenticated, :user, :week_registered
   let(:club) { create :club, owner: user }
   let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 

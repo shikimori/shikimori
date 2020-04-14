@@ -52,10 +52,10 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Max: 15
 
+Migration/DepartmentName:
+  Enabled: false
 Style/MultilineBlockChain:
   Enabled: false
-# Style/NumericPredicate:
-  # Enabled: false
 Style/GuardClause:
   Enabled: false
 Style/Documentation:
@@ -110,6 +110,16 @@ Lint/UriEscapeUnescape:
   Enabled: false
 Naming/RescuedExceptionsVariableName:
   Enabled: false
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
 
 Style/StringLiterals:
   Description: Checks if uses of quotes match the configured preference.

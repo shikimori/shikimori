@@ -27,15 +27,15 @@ ru:
       jquery_shiki_file:
         too_many_files: 'Слишком много файлов: максимум %{count} за раз'
         too_large_file: 'Файл слишком большой: максимум 4 мегабайта'
-        please_try_again_later: Пожалуйста, повторите попытку позже
-        browser_not_supported: Ваш браузер не поддерживает данный функционал
+        please_try_again_later: Ошибка, попробуй еще раз позже
+        browser_not_supported: Случилась ошибка, или версия браузера устарела
         loading_file: загрузка файла %{filename} (%{filesize} Кб)...
-        wait_till_loaded: Дождитесь загрузки файлов
-        drop_pictures_here: Перетаскивайте сюда картинки
+        wait_till_loaded: Дождись загрузки файлов
+        drop_pictures_here: Перетаскивай сюда картинки
         file_type_not_allowed: Файл не является изображением
 
       postloader:
         loading: Загрузка...
 
       paginated_catalog:
-        please_try_again_later: Пожалуйста, повторите попытку позже
+        please_try_again_later: Ошибка, попробуй ещё раз позже

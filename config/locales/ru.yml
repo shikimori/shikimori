@@ -280,7 +280,7 @@ ru:
         source: Источник
         tags: Теги
         is_closed: Закрыт
-        broadcast: Рассылка
+        broadcast: Массовая рассылка
       version:
         reason: Причина правки
         item_diff: Список изменений

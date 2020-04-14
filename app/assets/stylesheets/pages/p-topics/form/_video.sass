@@ -5,25 +5,23 @@
 .p-topics-new,
 .p-topics-edit,
 .p-topics-create,
-.p-topics-update
+.p-topics-update,
+.p-articles-new,
+.p-articles-edit,
+.p-articles-create,
+.p-articles-update
   .topic-video
-    +frame_form
-
-    .title
-      font-weight: bold
-
-      .remove
-        font-weight: normal
-
     .video
       line-height: 0
 
       .b-video
         margin-bottom: 0
 
+    .remove-form
+      +frame_form
+
     .form
-      // do not move to `.title`. `.form` can be hidden so we must avoid unnecessary margin
-      margin-top: 5px
+      +frame_form
 
       .name-kind
         display: flex

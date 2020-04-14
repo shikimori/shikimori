@@ -30,12 +30,8 @@ class Topics::ArticleView < Topics::UserContentView
     h.article_url article
   end
 
-  def render_body
-    preview? ? html_body_truncated : html_body
-  end
-
   def html_body
-    text = article.text
+    text = @topic.decomposed_body.text
 
     if preview? || minified?
       text = text
@@ -46,11 +42,21 @@ class Topics::ArticleView < Topics::UserContentView
         .strip
     end
 
-    BbCodes::EntryText.call text, article
+    super(text)
   end
 
   def read_more_link?
     preview? || minified?
+  end
+
+  def skip_body?
+    preview? && html_footer.present?
+  end
+
+  def prebody?
+    return false if preview?
+
+    html_footer.present? || tags.any?
   end
 
   def footer_vote?
@@ -62,10 +68,6 @@ class Topics::ArticleView < Topics::UserContentView
   end
 
 private
-
-  def body
-    article.text
-  end
 
   def article
     @topic.linked

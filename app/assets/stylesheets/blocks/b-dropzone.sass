@@ -1,5 +1,6 @@
 @import globals
-@import mixins/clearfix
+@import mixins/responsive
+@import mixins/css4
 
 $min_height: 89px
 
@@ -24,16 +25,16 @@ $min_height: 89px
     border-color: $green
     color: $green
 
-  &::before
+  &:before
     content: attr(data-text)
 
 .b-dropzone
-  +clearfix
   background-color: #f9f9f9
   border: 2px dashed #ccc
   cursor: pointer
+  display: block
   min-height: $min_height
-  padding: 0 10px 25px
+  padding: 6px
   position: relative
 
   &:hover
@@ -42,16 +43,23 @@ $min_height: 89px
     &:before
       color: $gray-4
 
-    input[type=file]
-      color: $gray-4
-
   &:before
     color: $gray-2
     content: attr(data-hint)
-    display: block
-    font-size: 13px
-    line-height: 1
-    margin: 5px 0 5px
+    font-size: 14px
+    left: 50%
+    line-height: 1.3
+    position: absolute
+    text-align: center
+    top: 50%
+    transform: translateX(-50%) translateY(-50%)
+    width: 90%
+
+    +css4
+      font-family: var(--font-alt)
+
+    +iphone
+      font-size: 14px
 
   .image-container
     margin-right: 11px
@@ -65,10 +73,5 @@ $min_height: 89px
   .b-upload_progress.active
     margin-bottom: 3px
 
-  input[type=file]
-    align-items: center
-    border: none
-    bottom: 5px
-    color: $gray-2
-    display: flex
-    position: absolute
+  input
+    display: none

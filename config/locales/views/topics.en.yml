@@ -40,10 +40,10 @@ en:
         go_next: Next →
       video:
         attach: Attach
-        topic_video: News video
+        topic_video: Video
       posters:
-        drag_here: Drag images here, they will be displayed in a separate block in the topic.
-        topic_posters: News posters
+        drag_here: Click or drag&drop images here
+        topic_posters: Images
       source:
         hint: Link to the page where the news is taken from
     status_line:

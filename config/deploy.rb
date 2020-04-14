@@ -35,13 +35,15 @@ set :keep_releases, 5
 set :log_level, :info
 set :format, :airbrussh
 
+set :branch, ENV['BRANCH'] if ENV['BRANCH']
+
 Airbrussh.configure do |config|
   config.truncate = false
 end
 
-def current_branch
-  ENV['BRANCH'] || `git rev-parse --abbrev-ref HEAD`.chomp
-end
+# def current_branch
+#   ENV['BRANCH'] || `git rev-parse --abbrev-ref HEAD`.chomp
+# end
 
 def bundle_exec command, witin_path = "#{self.deploy_to}/current"
   execute "cd #{witin_path} && "\

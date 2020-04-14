@@ -1,12 +1,30 @@
 import axios from 'helpers/axios';
 import Wall from 'views/wall/view';
 
-pageLoad('topics_new', 'topics_edit', 'topics_create', 'topics_update', () => {
-  const $form = $('.b-form.edit_topic, .b-form.new_topic');
-  // const $linkedId = $('#topic_linked_id', $form);
-  // const $linkedType = $('#topic_linked_type', $form);
+export function initForm(type, $form, $wall, $video) {
+  $form.on('submit', () => {
+    const $attachments = $('.attachments-submit-container', $form).empty();
 
-  // poster upload
+    // posters
+    $('.b-dropzone a', $form)
+      .map((_index, node) => $(node).attr('id'))
+      .each((_index, id) =>
+        $attachments.append(
+          `<input type='hidden' name='${type}[wall_ids][]' value="${id}" />`
+        )
+      );
+
+    // video
+    const videoId = $video.data('video_id');
+    if (videoId) {
+      $attachments.append(
+        `<input type='hidden' name='${type}[video_id]' value="${videoId}" />`
+      );
+    }
+  });
+}
+
+export function initWall($form) {
   const $upload = $('.topic-posters .b-dropzone', $form);
   const $wall = $upload.find('.b-shiki_wall');
 
@@ -39,64 +57,8 @@ id='${data.id}'>\
     removeImage($(e.target).closest('.b-image').remove(), $wall);
   });
 
-  // attach video
-  const $topicVideo = $('.topic-video', $form);
-
-  if ($topicVideo.data('video_id')) {
-    attachVideo({
-      video_id: $topicVideo.data('video_id'),
-      content: $topicVideo.data('content')
-    }, $topicVideo, $wall);
-  }
-
-  const $topicVideoForm = $('.form', $topicVideo);
-  const $attach = $('.attach', $topicVideoForm);
-
-  $attach.on('click', () => {
-    // const animeId = linkedAnimeId($linkedType, $linkedId);
-    const url = $attach.data('url').replace('ANIME_ID', 0); // .replace('ANIME_ID', animeId || 0);
-    const form = {
-      video: {
-        // anime_id: animeId,
-        url: $('#topic_video_url', $topicVideoForm).val(),
-        kind: $('#topic_video_kind', $topicVideoForm).val(),
-        name: $('#topic_video_name', $topicVideoForm).val()
-      }
-    };
-
-    $topicVideo.addClass('b-ajax');
-
-    axios
-      .post(url, form)
-      .then(data => attachVideo(data.data, $topicVideo, $wall));
-  });
-
-  // create/edit a topic
-  $form.on('submit', () => {
-    const $attachments = $('.attachments-hidden', $form).empty();
-
-    // posters
-    $('.b-dropzone a', $form)
-      .map((_index, node) => $(node).attr('id'))
-      .each((_index, id) =>
-        $attachments.append(
-          `<input type='hidden' name='topic[wall_ids][]' value="${id}" />`
-        )
-      );
-
-    // video
-    const videoId = $topicVideo.data('video_id');
-    if (videoId) {
-      $attachments.append(
-        `<input type='hidden' name='topic[video_id]' value="${videoId}" />`
-      );
-    }
-  });
-
-  if ($('#topic_tags').length) {
-    initTagsApp();
-  }
-});
+  return $wall;
+}
 
 function removeImage($image, $wall) {
   $image.remove();
@@ -108,8 +70,46 @@ function resetWall($wall) {
   new Wall($wall);
 }
 
-function linkedAnimeId($linkedType, $linkedId) {
-  return $linkedType.val() === 'Anime' ? $linkedId.val() : null;
+// function linkedAnimeId($linkedType, $linkedId) {
+//   return $linkedType.val() === 'Anime' ? $linkedId.val() : null;
+// }
+
+export function initVideo(type, $form, $wall) {
+  const $video = $('.topic-video', $form);
+  // const $linkedId = $('#topic_linked_id', $form);
+  // const $linkedType = $('#topic_linked_type', $form);
+
+  if ($video.data('video_id')) {
+    attachVideo({
+      video_id: $video.data('video_id'),
+      content: $video.data('content')
+    }, $video, $wall);
+  }
+
+  const $videoForm = $('.form', $video);
+  const $attach = $('.attach', $videoForm);
+
+  $attach.on('click', () => {
+    // const animeId = linkedAnimeId($linkedType, $linkedId);
+    const url = $attach.data('url').replace('ANIME_ID', 0); // .replace('ANIME_ID', animeId || 0);
+
+    const form = {
+      video: {
+        // anime_id: animeId,
+        url: $(`#${type}_video_url`, $videoForm).val(),
+        kind: $(`#${type}_video_kind`, $videoForm).val(),
+        name: $(`#${type}_video_name`, $videoForm).val()
+      }
+    };
+
+    $video.addClass('b-ajax');
+
+    axios
+      .post(url, form)
+      .then(data => attachVideo(data.data, $video, $wall));
+  });
+
+  return $video;
 }
 
 function attachVideo(videoData, $topicVideo, $wall) {
@@ -142,12 +142,14 @@ function attachVideo(videoData, $topicVideo, $wall) {
   });
 }
 
-async function initTagsApp() {
+export async function initTagsApp(type) {
+  if (!$(`#${type}_tags`).length) { return; }
+
   const { Vue } = await import(/* webpackChunkName: "vue" */ 'vue/instance');
   const { default: TagsInput } = await import('vue/components/tags_input');
 
   const $app = $('#vue_tags_input');
-  const $tags = $('.b-input.topic_tags');
+  const $tags = $(`.b-input.${type}_tags`);
   $tags.hide();
 
   new Vue({
@@ -159,7 +161,7 @@ async function initTagsApp() {
         input: $tags.find('input')[0],
         value: $app.data('value'),
         autocompleteBasic: $app.data('autocomplete_basic'),
-        autocompleteOther: $app.data('autocomplete_other'),
+        autocompleteOther: $app.data('autocomplete_other') || [],
         tagsLimit: 3,
         isDowncase: true
       }

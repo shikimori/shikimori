@@ -18,14 +18,12 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     :any_summaries?,
     to: :topic_comments_policy
 
-  instance_cache :html_body, :html_body_truncated, :cleaned_preview_body,
-    :comments_view, :urls, :action_tag, :topic_ignore,
+  instance_cache :html_body, :html_body_truncated, :html_footer,
+    :cleaned_preview_body, :comments_view, :urls, :action_tag, :topic_ignore,
     :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
   CACHE_VERSION = :v9
-
-  attr_accessor :is_hide_body
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -54,8 +52,12 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     @topic.is_closed
   end
 
-  def hide_body?
-    @is_hide_body
+  def prebody?
+    false
+  end
+
+  def skip_body?
+    false
   end
 
   def container_classes additional = []
@@ -112,7 +114,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
   end
 
   def render_body
-    html_body
+    preview? ? html_body_truncated : html_body
   end
 
   def poster is_2x
@@ -149,13 +151,11 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
     true
   end
 
-  def html_body
-    return '' if @topic.decomposed_body.text.blank?
+  def html_body text = @topic.decomposed_body.text
+    return '' if text.blank?
 
-    Rails.cache.fetch(
-      CacheHelper.keys(:body, Digest::MD5.hexdigest(@topic.decomposed_body.text), CACHE_VERSION)
-    ) do
-      BbCodes::Text.call @topic.decomposed_body.text
+    Rails.cache.fetch CacheHelper.keys(:body, Digest::MD5.hexdigest(text), CACHE_VERSION) do
+      BbCodes::Text.call text
     end
   end
 
@@ -217,7 +217,7 @@ class Topics::View < ViewObjectBase # rubocop:disable ClassLength
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
       @is_mini,
-      @is_hide_body,
+      skip_body?,
       closed?, # not sure whetner it is necessary
       :v14
     )
