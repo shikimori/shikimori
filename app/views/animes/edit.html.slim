@@ -45,7 +45,7 @@
         li
           .field = @resource.class.human_attribute_name(:japanese)
           .value
-            span = @resource.synonyms.join(', ')
+            span = @resource.japanese
             a.b-js-action.to-process[
               href=@resource.edit_field_url(:japanese)
               data-dynamic='week_registered'
