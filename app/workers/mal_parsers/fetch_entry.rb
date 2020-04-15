@@ -17,18 +17,18 @@ class MalParsers::FetchEntry
       characters: MalParser::Entry::Characters,
       recommendations: MalParser::Entry::Recommendations
     },
-    ranobe: {
-      DATA => MalParser::Entry::Manga,
-      characters: MalParser::Entry::Characters,
-      recommendations: MalParser::Entry::Recommendations
-    },
+    # ranobe: {
+    #   DATA => MalParser::Entry::Manga,
+    #   characters: MalParser::Entry::Characters,
+    #   recommendations: MalParser::Entry::Recommendations
+    # },
     character: { DATA => MalParser::Entry::Character },
     person: { DATA => MalParser::Entry::Person }
   }
   IMPORTS = {
     anime: DbImport::Anime,
     manga: DbImport::Manga,
-    ranobe: DbImport::Manga,
+    # ranobe: DbImport::Manga,
     character: DbImport::Character,
     person: DbImport::Person
   }

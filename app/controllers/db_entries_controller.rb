@@ -87,7 +87,7 @@ class DbEntriesController < ShikimoriController
 
     MalParsers::FetchEntry.perform_async(
       @resource.mal_id,
-      @resource.object.class.name.downcase
+      @resource.object.class.base_class.name.downcase
     )
     Rails.cache.write [:anime, :sync, @resource.id], true, expires_in: 1.hour
 
