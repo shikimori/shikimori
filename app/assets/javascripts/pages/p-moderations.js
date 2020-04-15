@@ -1,5 +1,6 @@
 import URI from 'urijs';
 import Turbolinks from 'turbolinks';
+import cookies from 'js-cookie';
 
 import CollectionSearch from 'views/search/collection';
 import { DatePicker } from 'views/application/date_picker';
@@ -17,6 +18,14 @@ function datePicker() {
 
 pageLoad('moderations_show', () => {
   const $form = $('form#sync');
+
+  if (cookies.get('sync_type')) {
+    $form.find('select').val(cookies.get('sync_type'));
+  }
+
+  $form.find('select').on('change', ({ currentTarget }) => {
+    cookies.set('sync_type', currentTarget.value, { expires: 1, path: '/' })
+  });
 
   $form.find('input,select')
     .on('change keyup paste', () => {
