@@ -19,7 +19,7 @@ en:
       running: Runnig…
       in_progress: Tasks in progress
       queue: Tasks in queue
-      proxies_count: Available proxies count
+      proxies_count: Proxies available
 
     missing_screenshots:
       animes: Animes

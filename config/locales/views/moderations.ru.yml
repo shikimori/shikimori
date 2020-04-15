@@ -19,7 +19,7 @@ ru:
       running: Запускается…
       in_progress: Задачи выполняются
       queue: Задачи в очереди
-      proxies_count: Число доступных проксей
+      proxies_count: Проксей доступно
 
     missing_screenshots:
       animes: Аниме
