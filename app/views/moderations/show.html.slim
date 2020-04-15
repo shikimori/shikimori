@@ -174,7 +174,7 @@ header.head
   .block
     .subheadline.m15 = t '.mal_sync'
     form.b-form#sync[
-      data-url_template=sync_anime_url('ID')
+      data-url_template=sync_animes_url
       method='post'
     ]
       = hidden_field_tag :authenticity_token, form_authenticity_token
@@ -182,13 +182,16 @@ header.head
         .f-column
           .b-input
             label = t '.type'
-            select
+            select[
+              name='db_entry[type]'
+            ]
               - [Anime, Manga, Character, Person].each do |klass|
                 option value=klass.name.downcase = klass.model_name.human
         .f-column
           .b-input
-            label ID
+            label MAL ID
             input[
+              name='db_entry[mal_id]'
               type='text'
               autocomplete='off'
             ]

@@ -23,11 +23,7 @@ pageLoad('moderations_show', () => {
       const type = $('form#sync select').val();
       const id = $('form#sync input[type=text]').val();
 
-      $form.prop(
-        'action',
-        $form.data('url_template').replace('ID', id).replace('anime', type)
-      );
-
+      $form.prop('action', $form.data('url_template').replace('anime', type));
       $form.find('input[type=submit]').prop('disabled', !id);
     })
     .trigger('change');

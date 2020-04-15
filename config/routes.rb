@@ -37,6 +37,10 @@ Rails.application.routes.draw do
       get 'edit/:field' => :edit_field, as: :edit_field, field: options[:fields]
       post :sync
     end
+
+    collection do
+      post :sync
+    end
   end
   concern :autocompletable do
     get :autocomplete, on: :collection, format: :json

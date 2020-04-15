@@ -83,16 +83,16 @@ class DbEntriesController < ShikimoriController
   end
 
   def sync
-    authorize! :sync, @resource
+    authorize! :sync, resource_klass
 
-    MalParsers::FetchEntry.perform_async(
-      @resource.mal_id,
-      @resource.object.class.base_class.name.downcase
-    )
-    Rails.cache.write [:anime, :sync, @resource.id], true, expires_in: 1.hour
+    id = @resource ? @resource.mal_id : params[:db_entry][:mal_id]
+    type = resource_klass.base_class.name.downcase
+
+    MalParsers::FetchEntry.perform_async id, type
+    Rails.cache.write [type, :sync, id], true, expires_in: 1.hour
 
     redirect_back(
-      fallback_location: @resource.edit_url,
+      fallback_location: @resource ? @resource.edit_url : moderations_url,
       notice: i18n_t('sync_scheduled')
     )
   end
