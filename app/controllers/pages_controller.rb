@@ -4,7 +4,7 @@ require_dependency 'site_statistics'
 
 class PagesController < ShikimoriController # rubocop:disable ClassLength
   include CommentHelper
-  include Sidekiq::Paginator
+  include SidekiqPaginatorConcern
 
   respond_to :html, except: [:news]
   respond_to :rss, only: [:news]
@@ -212,7 +212,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
       @sidkiq_stats = Sidekiq::Stats.new
       @sidkiq_enqueued = Sidekiq::Queue
         .all
-        .map { |queue| page "queue:#{queue.name}", queue.name, 100 }
+        .map { |queue| sidekiq_page "queue:#{queue.name}", queue.name, 100 }
         .map(&:third)
         .flatten
         .map { |v| JSON.parse v }
@@ -223,7 +223,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
         .map { |v| v[2]['payload'] }
         .sort_by { |v| Time.at v['enqueued_at'] }
 
-      @sidkiq_retries = page('retry', 'retries', 100)[2]
+      @sidkiq_retries = sidekiq_page('retry', 'retries', 100)[2]
         .flatten
         .select { |v| v.is_a? String }
         .map { |v| JSON.parse v }
