@@ -3,8 +3,8 @@
     = f.input :russian
     = render 'versions/reason'
 
-  - topic = Topic.find_by id: 269461
-  - if topic
+  / - topic = Topic.find_by id: 269461
+  / - if topic
     .block
       = BbCodes::Text.call topic.body + "[p][right][topic=269461][/topic][/right][/p]"
 
