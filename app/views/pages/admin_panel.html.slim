@@ -102,21 +102,21 @@
         span.busy
           = job['class']
         span.enqueued_at
-          = time_ago_in_words Time.at(job['enqueued_at'])
+          = time_ago_in_words Time.zone.at(job['enqueued_at'])
 
     - @sidkiq_enqueued&.each do |job|
       .job
         span.enqueued
           = job['class']
         span.enqueued_at
-          = time_ago_in_words Time.at(job['enqueued_at'])
+          = time_ago_in_words Time.zone.at(job['enqueued_at'])
 
     - @sidkiq_retries&.each do |job|
       .job
         span.retries
           = job['class']
         span.enqueued_at
-          = time_ago_in_words Time.at(job['enqueued_at'])
+          = time_ago_in_words Time.zone.at(job['enqueued_at'])
 
 .status
   .reload

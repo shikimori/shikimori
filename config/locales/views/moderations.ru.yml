@@ -17,6 +17,9 @@ ru:
       type: Тип
       run: Запустить
       running: Запускается…
+      in_progress: Задачи выполняются
+      queue: Задачи в очереди
+      proxies_count: Число доступных проксей
 
     missing_screenshots:
       animes: Аниме

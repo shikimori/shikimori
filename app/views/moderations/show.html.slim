@@ -172,42 +172,71 @@ header.head
 
 - if can? :sync, Anime
   .block
-    .subheadline.m15 = t '.mal_sync'
-    form.b-form#sync[
-      data-url_template=sync_animes_url
-      method='post'
-    ]
-      = hidden_field_tag :authenticity_token, form_authenticity_token
-      .fc.m20
-        .f-column
-          .b-input
-            label = t '.type'
-            select[
-              name='db_entry[type]'
-            ]
-              - [Anime, Manga, Character, Person].each do |klass|
-                option value=klass.name.downcase = klass.model_name.human
-        .f-column
-          .b-input
-            label MAL ID
-            input[
-              name='db_entry[mal_id]'
-              type='text'
-              autocomplete='off'
-            ]
+    .fc-3
+      .f-column
+        .subheadline.m15 = t '.mal_sync'
+        form.b-form#sync[
+          data-url_template=sync_animes_url
+          method='post'
+        ]
+          = hidden_field_tag :authenticity_token, form_authenticity_token
+          .fc.m20
+            .f-column
+              .b-input
+                label = t '.type'
+                select[
+                  name='db_entry[type]'
+                ]
+                  - [Anime, Manga, Character, Person].each do |klass|
+                    option value=klass.name.downcase = klass.model_name.human
+            .f-column
+              .b-input
+                label MAL ID
+                input[
+                  name='db_entry[mal_id]'
+                  type='text'
+                  autocomplete='off'
+                ]
 
-      input[
-        type='submit'
-        value=t('.run')
-        data-disable-with=t('.running')
-      ]
+          input[
+            type='submit'
+            value=t('.run')
+            data-disable-with=t('.running')
+          ]
 
-  / a.b-js-action[
-  /   href=resource.sync_url
-  /   data-method='post'
-  /   data-confirm=t('actions.confirm_sync')
-  / ] = t '.sync'
+      .f-column
+        .block
+          .b-options-floated = @proxies_count
+          .subheadline = t '.proxies_count'
 
+        .block
+          .b-options-floated = @sidkiq_busy.size
+          .subheadline = t '.in_progress'
+          - @sidkiq_busy&.each do |job|
+            .job
+              span.busy = job['class']
+              span = job['args']
+              time[
+                itemprop='dateCreated'
+                datetime=job['enqueued_at'].iso8601
+              ] = l job['enqueued_at'], format: '%e %B %Y'
+
+      .f-column
+        .block
+          .b-options-floated
+            - if @sidkiq_enqueued.size == @enqueued_limit
+              | #{@enqueued_limit}+
+            - else
+              = @sidkiq_enqueued.size
+          .subheadline = t '.queue'
+          - @sidkiq_enqueued&.each do |job|
+            .job
+              span.enqueued = job['class']
+              span = job['args']
+              time[
+                itemprop='dateCreated'
+                datetime=job['enqueued_at'].iso8601
+              ] = l job['enqueued_at'], format: '%e %B %Y'
 
 - if @abuse_requests_stats || @bans_stats || @content_versions_stats || @reviews_stats || @collections_stats || @articles_stats
   .subheadline.m15 Statistics for last 4 months

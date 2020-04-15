@@ -1,4 +1,5 @@
 class ModerationsController < ShikimoriController # rubocop:disable ClassLength
+  include SidekiqPaginatorConcern
   before_action :authenticate_user!
 
   before_action do
@@ -37,6 +38,37 @@ class ModerationsController < ShikimoriController # rubocop:disable ClassLength
 
     if can? :manage_article_moderator_role, User
       @articles_stats = articles_stats
+    end
+
+    if can? :sync, Anime
+      @proxies_count = Proxy.count
+
+      @enqueued_limit = 100
+      @sidkiq_enqueued = Sidekiq::Queue
+        .all
+        .select { |queue| queue.name == 'mal_parsers' }
+        .map { |queue| sidekiq_page "queue:#{queue.name}", queue.name, @enqueued_limit }
+        .map(&:third)
+        .flatten
+        .map do |v|
+          job = JSON.parse v
+          job['enqueued_at'] = Time.zone.at(job['enqueued_at'])
+          job
+        end
+        .select { |v| v['class'].match?(/MalParsers/) }
+        .sort_by { |v| v['enqueued_at'] }
+
+      @sidkiq_busy = Sidekiq::Workers.new
+        .to_a
+        .map { |v| v[2]['payload'] }
+        .select { |v| v['class'].match?(/MalParsers/) }
+        .map do |job|
+          job['enqueued_at'] = Time.zone.at(job['enqueued_at'])
+          job
+        end
+        .select { |v| v['class'].match?(/MalParsers/) }
+        .sort_by { |v| v['enqueued_at'] }
+
     end
   end
 

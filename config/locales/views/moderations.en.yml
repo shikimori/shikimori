@@ -17,6 +17,9 @@ en:
       type: Type
       run: Run
       running: Runnig…
+      in_progress: Tasks in progress
+      queue: Tasks in queue
+      proxies_count: Available proxies count
 
     missing_screenshots:
       animes: Animes
