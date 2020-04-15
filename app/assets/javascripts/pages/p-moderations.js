@@ -23,16 +23,19 @@ pageLoad('moderations_show', () => {
     $form.find('select').val(cookies.get('sync_type'));
   }
 
-  $form.find('select').on('change', ({ currentTarget }) => {
+  $form.find('select').on('change', ({ currentTarget }) => (
     cookies.set('sync_type', currentTarget.value, { expires: 1, path: '/' })
-  });
+  ));
 
   $form.find('input,select')
     .on('change keyup paste', () => {
       const type = $('form#sync select').val();
       const id = $('form#sync input[type=text]').val();
 
-      $form.prop('action', $form.data('url_template').replace('anime', type));
+      $form.prop(
+        'action',
+        $form.data('url_template').replace('anime', type).replace('persons', 'people')
+      );
       $form.find('input[type=submit]').prop('disabled', !id);
     })
     .trigger('change');
