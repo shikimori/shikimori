@@ -170,6 +170,42 @@ header.head
                   title=club_view.object.name
                 ] = club_view.object.name
 
+- if can? :sync, Anime
+  .block
+    .subheadline.m15 = t '.mal_sync'
+    form.b-form#sync[
+      data-url_template=sync_anime_url('ID')
+      method='post'
+    ]
+      = hidden_field_tag :authenticity_token, form_authenticity_token
+      .fc.m20
+        .f-column
+          .b-input
+            label = t '.type'
+            select
+              - [Anime, Manga, Character, Person].each do |klass|
+                option value=klass.name.downcase = klass.model_name.human
+        .f-column
+          .b-input
+            label ID
+            input[
+              type='text'
+              autocomplete='off'
+            ]
+
+      input[
+        type='submit'
+        value=t('.run')
+        data-disable-with=t('.running')
+      ]
+
+  / a.b-js-action[
+  /   href=resource.sync_url
+  /   data-method='post'
+  /   data-confirm=t('actions.confirm_sync')
+  / ] = t '.sync'
+
+
 - if @abuse_requests_stats || @bans_stats || @content_versions_stats || @reviews_stats || @collections_stats || @articles_stats
   .subheadline.m15 Statistics for last 4 months
   .cc-3a

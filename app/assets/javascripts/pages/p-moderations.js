@@ -15,6 +15,24 @@ function datePicker() {
     });
 }
 
+pageLoad('moderations_show', () => {
+  const $form = $('form#sync');
+
+  $form.find('input,select')
+    .on('change keyup paste', () => {
+      const type = $('form#sync select').val();
+      const id = $('form#sync input[type=text]').val();
+
+      $form.prop(
+        'action',
+        $form.data('url_template').replace('ID', id).replace('anime', type)
+      );
+
+      $form.find('input[type=submit]').prop('disabled', !id);
+    })
+    .trigger('change');
+});
+
 pageLoad('anime_video_reports_index', 'profiles_videos', () => {
   datePicker();
 

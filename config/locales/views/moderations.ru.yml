@@ -13,6 +13,10 @@ ru:
       articles_journal: Журнал статей
       anime_video_authors: Авторы видео
       forums: Форумы
+      mal_sync: Синхронизация с MAL
+      type: Тип
+      run: Запустить
+      running: Запускается…
 
     missing_screenshots:
       animes: Аниме

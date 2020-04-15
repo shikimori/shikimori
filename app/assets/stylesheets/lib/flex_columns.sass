@@ -1,5 +1,15 @@
 @import mixins/flex_column
 
+.fc
+  display: flex
+
+  .f-column:not(:last-child)
+    +iphone
+      margin-right: $flex-gutter-mobile
+
+    +gte_ipad
+      margin-right: $flex-gutter-desktop
+
 .fc-2
   +fcolumn-responsive($ipad-columns: 2)
 
