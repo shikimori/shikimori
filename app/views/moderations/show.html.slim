@@ -2,172 +2,173 @@ header.head
   h1 = og.headline
   p.notice  = t '.header_notice'
 
-.cc-3.block
-  .c-column
-    .subheadline = t '.moderation'
+.block
+  .fc-3
+    .f-column
+      .subheadline = t '.moderation'
 
-    ul.b-list.block
-      li
-        a.b-link[
-          href=moderations_versions_url
-          title=t('moderations/versions_controller.content_changes.all_content')
-        ]
-          = t 'moderations/versions_controller.content_changes.all_content'
-          - if @moderation_policy.all_content_versions_count.positive?
-            span.size = @moderation_policy.all_content_versions_count
-      - %i[texts content fansub].each do |type|
-        li.offset
-          a.b-link[
-            href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[type])
-            title=t("moderations/versions_controller.content_changes.#{type}")
-          ]
-            = t "moderations/versions_controller.content_changes.#{type}"
-            - if @moderation_policy.send(:"#{type}_versions_count").positive?
-              span.size = @moderation_policy.send(:"#{type}_versions_count")
-      li
-        a.b-link[
-          href=moderations_bans_url
-          title=t('moderations/bans_controller.page_title.index')
-        ]
-          = t 'moderations/bans_controller.page_title.index'
-          - if @moderation_policy.abuses_abuses_count.positive?
-            span.size = @moderation_policy.abuses_abuses_count
-      li
-        a.b-link[
-          href=moderations_abuse_requests_url
-          title=t('moderations/abuse_requests_controller.page_title.index')
-        ]
-          = t 'moderations/abuse_requests_controller.page_title.index'
-          - if @moderation_policy.abuses_pending_count.positive?
-            span.size = @moderation_policy.abuses_pending_count
-
-      - if current_user&.review_moderator? || current_user&.admin?
+      ul.b-list.block
         li
           a.b-link[
-            href=moderations_reviews_url
-            title=t('.reviews_journal')
+            href=moderations_versions_url
+            title=t('moderations/versions_controller.content_changes.all_content')
           ]
-            = t '.reviews_journal'
-            - if @moderation_policy.reviews_count.positive?
-              span.size = @moderation_policy.reviews_count
-
-      - if current_user&.collection_moderator? || current_user&.admin?
+            = t 'moderations/versions_controller.content_changes.all_content'
+            - if @moderation_policy.all_content_versions_count.positive?
+              span.size = @moderation_policy.all_content_versions_count
+        - %i[texts content fansub].each do |type|
+          li.offset
+            a.b-link[
+              href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[type])
+              title=t("moderations/versions_controller.content_changes.#{type}")
+            ]
+              = t "moderations/versions_controller.content_changes.#{type}"
+              - if @moderation_policy.send(:"#{type}_versions_count").positive?
+                span.size = @moderation_policy.send(:"#{type}_versions_count")
         li
           a.b-link[
-            href=moderations_collections_url
-            title=t('.collections_journal')
+            href=moderations_bans_url
+            title=t('moderations/bans_controller.page_title.index')
           ]
-            = t '.collections_journal'
-            - if @moderation_policy.collections_count.positive?
-              span.size = @moderation_policy.collections_count
-
-      - if current_user&.article_moderator? || current_user&.admin?
+            = t 'moderations/bans_controller.page_title.index'
+            - if @moderation_policy.abuses_abuses_count.positive?
+              span.size = @moderation_policy.abuses_abuses_count
         li
           a.b-link[
-            href=moderations_articles_url
-            title=t('.articles_journal')
+            href=moderations_abuse_requests_url
+            title=t('moderations/abuse_requests_controller.page_title.index')
           ]
-            = t '.articles_journal'
-            - if @moderation_policy.articles_count.positive?
-              span.size = @moderation_policy.articles_count
+            = t 'moderations/abuse_requests_controller.page_title.index'
+            - if @moderation_policy.abuses_pending_count.positive?
+              span.size = @moderation_policy.abuses_pending_count
 
-  .c-column
-    .subheadline = t '.content'
-
-    - if ru_host?
-      .block
-        ul.b-list
+        - if current_user&.review_moderator? || current_user&.admin?
           li
             a.b-link[
-              href=anime_translations_url
-              title=t('.missing_anime_descriptions')
-            ] = t '.missing_anime_descriptions'
+              href=moderations_reviews_url
+              title=t('.reviews_journal')
+            ]
+              = t '.reviews_journal'
+              - if @moderation_policy.reviews_count.positive?
+                span.size = @moderation_policy.reviews_count
+
+        - if current_user&.collection_moderator? || current_user&.admin?
           li
             a.b-link[
-              href=manga_translations_url
-              title=t('.missing_manga_descriptions')
-            ] = t '.missing_manga_descriptions'
+              href=moderations_collections_url
+              title=t('.collections_journal')
+            ]
+              = t '.collections_journal'
+              - if @moderation_policy.collections_count.positive?
+                span.size = @moderation_policy.collections_count
+
+        - if current_user&.article_moderator? || current_user&.admin?
           li
             a.b-link[
-              href=missing_screenshots_moderations_url
-              title=t('.missing_screenshots')
-            ] = t '.missing_screenshots'
-          li
-            a.b-link[
-              href=moderations_authors_url
-              title=t('.fansub_authors')
-            ] = t '.fansub_authors'
+              href=moderations_articles_url
+              title=t('.articles_journal')
+            ]
+              = t '.articles_journal'
+              - if @moderation_policy.articles_count.positive?
+                span.size = @moderation_policy.articles_count
 
-      .block
-        ul.b-list
-          li
-            - if can? :read, Genre
-              a.b-link[
-                href=moderations_genres_url
-                title=i18n_io('Genre', :few)
-              ] = i18n_io 'Genre', :few
-            - else
-              span = i18n_io 'Genre', :few
+    .f-column
+      .subheadline = t '.content'
 
-          li
-            - if can? :read, Studio
-              a.b-link[
-                href=moderations_studios_url
-                title=i18n_io('Studio', :few)
-              ] = i18n_io 'Studio', :few
-            - else
-              span = i18n_io 'Studio', :few
-
-          li
-            - if can? :read, Publisher
-              a.b-link[
-                href=moderations_publishers_url
-                title=i18n_io('Publisher', :few)
-              ] = i18n_io 'Publisher', :few
-            - else
-              span = i18n_io 'Publisher', :few
-
+      - if ru_host?
+        .block
+          ul.b-list
             li
-              - if can? :manage, Forum
+              a.b-link[
+                href=anime_translations_url
+                title=t('.missing_anime_descriptions')
+              ] = t '.missing_anime_descriptions'
+            li
+              a.b-link[
+                href=manga_translations_url
+                title=t('.missing_manga_descriptions')
+              ] = t '.missing_manga_descriptions'
+            li
+              a.b-link[
+                href=missing_screenshots_moderations_url
+                title=t('.missing_screenshots')
+              ] = t '.missing_screenshots'
+            li
+              a.b-link[
+                href=moderations_authors_url
+                title=t('.fansub_authors')
+              ] = t '.fansub_authors'
+
+        .block
+          ul.b-list
+            li
+              - if can? :read, Genre
                 a.b-link[
-                  href=moderations_forums_url
-                  title=t('.forums')
-                ] = t '.forums'
+                  href=moderations_genres_url
+                  title=i18n_io('Genre', :few)
+                ] = i18n_io 'Genre', :few
               - else
-                span = t '.forums'
+                span = i18n_io 'Genre', :few
 
-  .c-column
-    .subheadline = i18n_io 'user', :few
-    .block
-      ul.b-list
-        li
-          a.b-link[
-            href=moderations_users_url
-            title=t('moderations/users_controller.page_title')
-          ] = t 'moderations/users_controller.page_title'
+            li
+              - if can? :read, Studio
+                a.b-link[
+                  href=moderations_studios_url
+                  title=i18n_io('Studio', :few)
+                ] = i18n_io 'Studio', :few
+              - else
+                span = i18n_io 'Studio', :few
 
-        li
-          a.b-link[
-            href=moderations_roles_url
-            title=t('moderations/roles_controller.page_title')
-          ] = t 'moderations/roles_controller.page_title'
+            li
+              - if can? :read, Publisher
+                a.b-link[
+                  href=moderations_publishers_url
+                  title=i18n_io('Publisher', :few)
+                ] = i18n_io 'Publisher', :few
+              - else
+                span = i18n_io 'Publisher', :few
 
-        li
-          a.b-link[
-            href=moderations_user_rate_logs_url
-            title=t('moderations/user_rate_logs_controller.page_title.index')
-          ] = t 'moderations/user_rate_logs_controller.page_title.index'
+              li
+                - if can? :manage, Forum
+                  a.b-link[
+                    href=moderations_forums_url
+                    title=t('.forums')
+                  ] = t '.forums'
+                - else
+                  span = t '.forums'
 
-    - if @clubs.any?
-      .subheadline = i18n_io 'club', :few
+    .f-column
+      .subheadline = i18n_io 'user', :few
       .block
         ul.b-list
-          - @clubs.each do |club_view|
-            li
-              a.b-link[
-                href=club_view.object.url
-                title=club_view.object.name
-              ] = club_view.object.name
+          li
+            a.b-link[
+              href=moderations_users_url
+              title=t('moderations/users_controller.page_title')
+            ] = t 'moderations/users_controller.page_title'
+
+          li
+            a.b-link[
+              href=moderations_roles_url
+              title=t('moderations/roles_controller.page_title')
+            ] = t 'moderations/roles_controller.page_title'
+
+          li
+            a.b-link[
+              href=moderations_user_rate_logs_url
+              title=t('moderations/user_rate_logs_controller.page_title.index')
+            ] = t 'moderations/user_rate_logs_controller.page_title.index'
+
+      - if @clubs.any?
+        .subheadline = i18n_io 'club', :few
+        .block
+          ul.b-list
+            - @clubs.each do |club_view|
+              li
+                a.b-link[
+                  href=club_view.object.url
+                  title=club_view.object.name
+                ] = club_view.object.name
 
 - if @abuse_requests_stats || @bans_stats || @content_versions_stats || @reviews_stats || @collections_stats || @articles_stats
   .subheadline.m15 Statistics for last 4 months
