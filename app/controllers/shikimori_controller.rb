@@ -19,13 +19,15 @@ class ShikimoriController < ApplicationController
     @resource = @resource.decorate
     instance_variable_set "@#{resource_klass.name.downcase}", @resource
 
-    if @resource.respond_to? :name
-      og page_title: @resource.name
-    elsif @resource.respond_to? :title
-      og page_title: @resource.title
-    end
+    if request.get?
+      if @resource.respond_to? :name
+        og page_title: @resource.name
+      elsif @resource.respond_to? :title
+        og page_title: @resource.title
+      end
 
-    raise AgeRestricted if @resource.try(:censored?) && censored_forbidden?
+      raise AgeRestricted if @resource.try(:censored?) && censored_forbidden?
+    end
   end
 
   def censored_forbidden?
