@@ -2,7 +2,7 @@ shared_examples :touch_related_in_db_entry do |db_entry|
   describe '#touch_related' do
     let(:model) { create db_entry }
     before do
-      allow(Animes::TouchRelated).to receive :perform_async
+      allow(Animes::TouchRelated).to receive :perform_in
     end
     subject! do
       db_entry.to_s.capitalize.constantize
@@ -12,17 +12,25 @@ shared_examples :touch_related_in_db_entry do |db_entry|
 
     context 'russian' do
       let(:field) { :russian }
-      it { expect(Animes::TouchRelated).to have_received(:perform_async).with model.id }
+      it do
+        expect(Animes::TouchRelated)
+          .to have_received(:perform_in)
+          .with 3.seconds, model.id, model.class.base_class.name
+      end
     end
 
     context 'name' do
       let(:field) { :name }
-      it { expect(Animes::TouchRelated).to have_received(:perform_async).with model.id }
+      it do
+        expect(Animes::TouchRelated)
+          .to have_received(:perform_in)
+          .with 3.seconds, model.id, model.class.base_class.name
+      end
     end
 
     context 'other fields' do
       let(:field) { :updated_at }
-      it { expect(Animes::TouchRelated).to_not have_received :perform_async }
+      it { expect(Animes::TouchRelated).to_not have_received :perform_in }
     end
   end
 end

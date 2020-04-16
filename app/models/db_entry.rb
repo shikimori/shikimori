@@ -50,7 +50,7 @@ class DbEntry < ApplicationRecord
   def touch_related
     return unless changes[:name] || changes[:russian]
 
-    Animes::TouchRelated.perform_in 10.seconds, id, self.class.base_class.name
+    Animes::TouchRelated.perform_in 3.seconds, id, self.class.base_class.name
   end
 
   def mal_url
