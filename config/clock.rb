@@ -8,7 +8,7 @@ module Clockwork
   every 10.minutes, 'toshokan' do
     ImportToshokanTorrents.perform_async true
     # ImportNyaaTorrents.perform_async
-    NamedLogger.info.clockwork 'toshokan finished'
+    NamedLogger.clockwork.info 'toshokan finished'
   end
 
   every 30.minutes, 'half-hourly.import', at: ['**:15', '**:45'] do
@@ -19,45 +19,45 @@ module Clockwork
     MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
     MalParsers::ScheduleExpired.perform_async 'anime'
 
-    NamedLogger.info.clockwork 'half-hourly.import finished'
+    NamedLogger.clockwork.info 'half-hourly.import finished'
   end
 
   every 15.minutes, 'kill-freezed-postgres-queries' do
     KillFreezedPostgresQueries.perform_async
 
-    NamedLogger.info.clockwork 'kill-freezed-postgres-queries finished'
+    NamedLogger.clockwork.info 'kill-freezed-postgres-queries finished'
   end
 
   every 1.hour, 'hourly', at: '**:45' do
     ProxyWorker.perform_async
     BadReviewsCleaner.perform_async
 
-    NamedLogger.info.clockwork 'hourly finished'
+    NamedLogger.clockwork.info 'hourly finished'
   end
 
   every 2.hours, '2.hours', at: '**:05' do
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'a'
 
-    NamedLogger.info.clockwork '2.hours finished'
+    NamedLogger.clockwork.info '2.hours finished'
   end
 
   every 1.day, 'daily.smotret-anime.1/3', at: '10:02' do
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'b'
 
-    NamedLogger.info.clockwork 'daily.smotret-anime.1/3 finished'
+    NamedLogger.clockwork.info 'daily.smotret-anime.1/3 finished'
   end
 
   every 1.day, 'daily.smotret-anime.2/3', at: '18:02' do
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'b'
 
-    NamedLogger.info.clockwork 'daily.smotret-anime.2/3 finished'
+    NamedLogger.clockwork.info 'daily.smotret-anime.2/3 finished'
   end
 
   every 1.day, 'daily.smotret-anime.3/3', at: '00:02' do
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'b'
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'c'
 
-    NamedLogger.info.clockwork 'daily.smotret-anime.3/3 finished'
+    NamedLogger.clockwork.info 'daily.smotret-anime.3/3 finished'
   end
 
   every 1.day, 'daily.imports', at: '23:30' do
@@ -67,7 +67,7 @@ module Clockwork
     MalParsers::ScheduleMissingPersonRoles.perform_async 'character'
     MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
 
-    NamedLogger.info.clockwork 'daily.imports finished'
+    NamedLogger.clockwork.info 'daily.imports finished'
   end
 
   every 1.day, 'daily.misc', at: '00:31' do
@@ -80,7 +80,7 @@ module Clockwork
     # AnimeLinksVerifier.perform_async
     # AutobanFix.perform_async
 
-    NamedLogger.info.clockwork 'daily.misc finished'
+    NamedLogger.clockwork.info 'daily.misc finished'
   end
 
   every 1.day, 'daily.long-stuff', at: '03:00' do
@@ -95,19 +95,19 @@ module Clockwork
 
     ListImports::Cleanup.perform_async
 
-    NamedLogger.info.clockwork 'daily.long-stuff finished'
+    NamedLogger.clockwork.info 'daily.long-stuff finished'
   end
 
   every 1.day, 'daily.torrents-check', at: '03:00' do
     ImportToshokanTorrents.perform_async false
 
-    NamedLogger.info.clockwork 'daily.torrents-check finished'
+    NamedLogger.clockwork.info 'daily.torrents-check finished'
   end
 
   every 1.day, 'daily.contests', at: '03:38' do
     Contests::Progress.perform_async
 
-    NamedLogger.info.clockwork 'daily.contests finished'
+    NamedLogger.clockwork.info 'daily.contests finished'
   end
 
   # every 1.day, 'daily.mangas', at: '04:00' do
@@ -119,13 +119,13 @@ module Clockwork
     UserRates::LogsCleaner.perform_async
     ViewingsCleaner.perform_async
 
-    NamedLogger.info.clockwork 'daily.cleanups finished'
+    NamedLogger.clockwork.info 'daily.cleanups finished'
   end
 
   every 1.day, 'daily.statistics', at: '07:00' do
     Achievements::UpdateStatistics.perform_async
 
-    NamedLogger.info.clockwork 'daily.statistics finished'
+    NamedLogger.clockwork.info 'daily.statistics finished'
   end
 
   every 1.week, 'weekly.stuff.1', at: 'Monday 00:45' do
@@ -133,7 +133,7 @@ module Clockwork
     Tags::CleanupImageboardsCacheJob.perform_async
     Tags::CleanupCoubCacheJob.perform_async
 
-    NamedLogger.info.clockwork 'weekly.stuff.1 finished'
+    NamedLogger.clockwork.info 'weekly.stuff.1 finished'
   end
 
   every 1.week, 'weekly.stuff.2', at: 'Monday 01:45' do
@@ -148,7 +148,7 @@ module Clockwork
     MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 100
     MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 100
 
-    NamedLogger.info.clockwork 'weekly.stuff.2 finished'
+    NamedLogger.clockwork.info 'weekly.stuff.2 finished'
   end
 
   every 1.week, 'weekly.stuff.3', at: 'Monday 02:45' do
@@ -158,7 +158,7 @@ module Clockwork
     CharactersVerifier.perform_async
     PeopleVerifier.perform_async
 
-    NamedLogger.info.clockwork 'weekly.stuff.3 finished'
+    NamedLogger.clockwork.info 'weekly.stuff.3 finished'
   end
 
   # every 1.week, 'weekly.vacuum', at: 'Monday 05:00' do
@@ -177,19 +177,19 @@ module Clockwork
 
     SmotretAnime::ScheduleLinkWorkers.perform_async
 
-    NamedLogger.info.clockwork 'weekly.stuff.cpu_intensive finished'
+    NamedLogger.clockwork.info 'weekly.stuff.cpu_intensive finished'
   end
 
   every 1.week, 'weekly.stuff.cpu_intensive.3', at: 'Thursday 03:45' do
     Tags::ImportDanbooruTagsWorker.perform_async
 
-    NamedLogger.info.clockwork 'weekly.stuff.cpu_intensive.3 finished'
+    NamedLogger.clockwork.info 'weekly.stuff.cpu_intensive.3 finished'
   end
 
   every 1.day, 'monthly.very-very-long-coub', at: '22:00', if: lambda { |t| t.day == 10 } do
     Tags::ImportCoubTagsWorker.perform_async
 
-    NamedLogger.info.clockwork 'monthly.very-very-long-coub finished'
+    NamedLogger.clockwork.info 'monthly.very-very-long-coub finished'
   end
 
   every 1.day, 'monthly.schedule_missing', at: '05:00', if: lambda { |t| t.day == 28 } do
@@ -198,7 +198,7 @@ module Clockwork
     MalParsers::ScheduleMissing.perform_async 'character'
     MalParsers::ScheduleMissing.perform_async 'person'
 
-    NamedLogger.info.clockwork 'monthly.schedule_missing finished'
+    NamedLogger.clockwork.info 'monthly.schedule_missing finished'
   end
 
   # every 1.day, 'monthly.vacuum', at: '05:00', if: lambda { |t| t.day == 28 } do
