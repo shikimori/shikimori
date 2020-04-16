@@ -207,7 +207,9 @@ header.head
       .f-column
         .block
           .b-options-floated = @proxies_count
-          .subheadline = t '.proxies_count'
+          .subheadline[
+            class=(:red if @proxies_count < 100)
+          ] = t '.proxies_count'
 
         .block
           .b-options-floated = @sidkiq_busy.size
