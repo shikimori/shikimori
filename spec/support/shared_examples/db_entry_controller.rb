@@ -127,7 +127,7 @@ shared_examples :db_entry_controller do |entry_name|
 
       it do
         expect(MalParsers::FetchEntry).to(
-          have_received(:perform_async).with entry.mal_id, entry.class.name.downcase
+          have_received(:perform_async).with entry.mal_id, entry.class.base_class.name.downcase
         )
         expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
       end
