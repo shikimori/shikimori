@@ -14,13 +14,15 @@ default: &defaults
   # all configuration options.
 
   ignore_errors:
-    - CanCan::AccessDenied
+    - AbstractController::ActionNotFound
     - ActionController::InvalidAuthenticityToken
-    - ActionController::UnknownFormat
-    - ActionDispatch::RemoteIp::IpSpoofAttackError
-    - ActiveRecord::RecordNotFound
     - ActionController::RoutingError
+    - ActionController::UnknownFormat
+    - ActionController::UnknownHttpMethod
+    - ActionDispatch::RemoteIp::IpSpoofAttackError
     - ActiveRecord::PreparedStatementCacheExpired
+    - ActiveRecord::RecordNotFound
+    - CanCan::AccessDenied
     - I18n::InvalidLocale
     - Unicorn::ClientShutdown
     - Unauthorized
