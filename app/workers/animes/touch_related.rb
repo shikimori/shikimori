@@ -3,7 +3,9 @@ class Animes::TouchRelated
   include Sidekiq::Worker
   sidekiq_options queue: :low_priority
 
-  def perform db_entry # rubocop:disable all
+  def perform id, type # rubocop:disable all
+    db_entry = type.constantize.find id
+
     touch db_entry.animes if db_entry.respond_to? :animes
     touch db_entry.mangas if db_entry.respond_to? :mangas
     touch db_entry.people if db_entry.respond_to? :people

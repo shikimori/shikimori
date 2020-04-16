@@ -45,13 +45,16 @@ module Clockwork
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'c'
   end
 
-  every 1.day, 'daily.stuff', at: '00:30' do
-    ImportAnimeCalendars.perform_async
+  every 1.day, 'daily.imports', at: '23:30' do
     MalParsers::ScheduleExpired.perform_async 'manga'
     MalParsers::ScheduleExpired.perform_async 'character'
     MalParsers::ScheduleExpired.perform_async 'person'
     MalParsers::ScheduleMissingPersonRoles.perform_async 'character'
     MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
+  end
+
+  every 1.day, 'daily.stuff', at: '00:30' do
+    ImportAnimeCalendars.perform_async
 
     SakuhindbImporter.perform_async with_fail: false
 

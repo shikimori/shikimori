@@ -16,7 +16,7 @@ class DbEntry < ApplicationRecord
 
   def self.inherited klass
     super
-    klass.before_update :touch_related
+    klass.before_save :touch_related
   end
 
   def to_param
@@ -50,7 +50,7 @@ class DbEntry < ApplicationRecord
   def touch_related
     return unless changes[:name] || changes[:russian]
 
-    Animes::TouchRelated.perform_async id
+    Animes::TouchRelated.perform_in 10.seconds, id, self.class.base_class.name
   end
 
   def mal_url
