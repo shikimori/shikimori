@@ -32,15 +32,15 @@ module Clockwork
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'a'
   end
 
-  every 1.day, 'daily.1/3', at: '10:02' do
+  every 1.day, 'daily.smotret-anime.1/3', at: '10:02' do
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'b'
   end
 
-  every 1.day, 'daily.2/3', at: '18:02' do
+  every 1.day, 'daily.smotret-anime.2/3', at: '18:02' do
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'b'
   end
 
-  every 1.day, 'daily.3/3', at: '00:02' do
+  every 1.day, 'daily.smotret-anime.3/3', at: '00:02' do
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'b'
     SmotretAnime::ScheduleEpisodeWorkers.perform_async 'c'
   end
@@ -53,20 +53,15 @@ module Clockwork
     MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
   end
 
-  every 1.day, 'daily.stuff', at: '00:30' do
+  every 1.day, 'daily.misc', at: '00:31' do
     ImportAnimeCalendars.perform_async
-
     SakuhindbImporter.perform_async with_fail: false
+    FinishExpiredAnimes.perform_async
+    MalParsers::ScheduleExpiredAuthorized.perform_async
+    PgCaches::Cleanup.perform_async
 
     # AnimeLinksVerifier.perform_async
-
-    FinishExpiredAnimes.perform_async
-
     # AutobanFix.perform_async
-
-    MalParsers::ScheduleExpiredAuthorized.perform_async
-
-    PgCaches::Cleanup.perform_async
   end
 
   every 1.day, 'daily.long-stuff', at: '03:00' do
