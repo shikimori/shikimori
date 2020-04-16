@@ -85,7 +85,7 @@ private
   def anonymouse? proxy, ip
     content = Proxy.get(TEST_URL, timeout: 10, proxy: proxy)
     content&.include?(ProxyTest::SUCCESS_CONFIRMATION_MESSAGE) && !content.include?(ip)
-  rescue *Network::FaradayGet::NET_ERRORS
+  rescue *::Network::FaradayGet::NET_ERRORS
     false
   end
 
