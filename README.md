@@ -217,3 +217,12 @@ convert -resize 64x64 /tmp/favicon.png public/favicon.ico
 
 cp app/assets/images/src/favicon.svg public/favicons/safari-pinned-tab.svg
 ```
+
+## Grant access to pg_stat_statements_reset()
+```sh
+psql -d postgres
+```
+```sql
+\connect shikimori_production;
+GRANT EXECUTE ON FUNCTION pg_stat_statements_reset() TO shikimori_production;
+```
