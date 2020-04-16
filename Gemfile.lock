@@ -150,6 +150,8 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.5.17)
       rails (>= 4.1)
+    appsignal (2.10.4)
+      rack
     arel (9.0.0)
     ast (2.4.0)
     attr_extras (6.2.3)
@@ -726,6 +728,7 @@ DEPENDENCIES
   airbrussh
   amatch!
   apipie-rails
+  appsignal
   attr_extras
   autoprefixer-rails
   awesome_print
