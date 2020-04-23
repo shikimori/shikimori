@@ -14,6 +14,7 @@ module AniManga
 
     all_genres.each do |genre|
       break if selected_genres.size > 5
+
       selected_genres << genre unless selected_genres.include? genre
     end
 
@@ -25,8 +26,9 @@ module AniManga
     define_method "real_#{kind}" do
       return [] if send(kind).empty?
       return send(kind).map(&:real) if send(kind).size == 1
+
       @real_st_pub_cache ||= send(kind).map(&:real).select(&:is_visible?)
-      @real_st_pub_cache.empty? ? [send(kind).first.real] : @real_st_pub_cache
+      @real_st_pub_cache.empty? ? send(kind).map(&:real) : @real_st_pub_cache
     end
   end
 
