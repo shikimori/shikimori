@@ -8507,6 +8507,53 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :shinichiro_watanabe
+    :level: 1
+    :image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
+    :border_color: "#000000"
+    :title_ru: Синъитиро Ватанабэ
+    :text_ru: 
+    :title_en: Shinichiro Watanabe
+    :text_en: 
+    :topic_id: 276032
+    :rule: &86
+      :algo: count
+      :threshold: 62%
+      :filters:
+        anime_ids:
+        - 2053
+        - 474
+        - 1
+        - 5
+        - 1303
+        - 3508
+        - 205
+        - 12531
+        - 20057
+        - 23327
+        - 23283
+        - 36308
+        - 37435
+        - 875
+        - 4087
+        - 13203
+      :generator:
+        person_id: 2009
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :shinichiro_watanabe
+  level: 1
+  image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
+  border_color: "#000000"
+  title_ru: Синъитиро Ватанабэ
+  text_ru: 
+  title_en: Shinichiro Watanabe
+  text_en: 
+  topic_id: 276032
+  rule: *86
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :yasuhiro_takemoto
     :level: 1
     :image: "/assets/achievements/anime/author/yasuhiro_takemoto.jpg"
@@ -8516,7 +8563,7 @@
     :title_en: Yasuhiro Takemoto
     :text_en: 
     :topic_id: 276032
-    :rule: &86
+    :rule: &87
       :algo: count
       :threshold: 64%
       :filters:
@@ -8557,53 +8604,6 @@
   title_ru: Ясухиро Такэмото
   text_ru: 
   title_en: Yasuhiro Takemoto
-  text_en: 
-  topic_id: 276032
-  rule: *86
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :shinichiro_watanabe
-    :level: 1
-    :image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
-    :border_color: "#000000"
-    :title_ru: Синъитиро Ватанабэ
-    :text_ru: 
-    :title_en: Shinichiro Watanabe
-    :text_en: 
-    :topic_id: 276032
-    :rule: &87
-      :algo: count
-      :threshold: 62%
-      :filters:
-        anime_ids:
-        - 2053
-        - 474
-        - 1
-        - 5
-        - 1303
-        - 3508
-        - 205
-        - 12531
-        - 20057
-        - 23327
-        - 23283
-        - 36308
-        - 37435
-        - 875
-        - 4087
-        - 13203
-      :generator:
-        person_id: 2009
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :shinichiro_watanabe
-  level: 1
-  image: "/assets/achievements/anime/author/shinichiro_watanabe.jpg"
-  border_color: "#000000"
-  title_ru: Синъитиро Ватанабэ
-  text_ru: 
-  title_en: Shinichiro Watanabe
   text_en: 
   topic_id: 276032
   rule: *87
@@ -9289,6 +9289,62 @@
   mandatory_attributes: *4
 - !ruby/object:Neko::Rule
   attributes:
+    :neko_id: :masaaki_yuasa
+    :level: 1
+    :image: "/assets/achievements/anime/author/masaaki_yuasa.png"
+    :border_color: "#FA8072"
+    :title_ru: Масааки Юаса
+    :text_ru: 
+    :title_en: Masaaki Yuasa
+    :text_en: 
+    :topic_id: 276032
+    :rule: &99
+      :algo: count
+      :threshold: 50%
+      :filters:
+        anime_ids:
+        - 415
+        - 39792
+        - 27653
+        - 8364
+        - 8362
+        - 6460
+        - 6217
+        - 9878
+        - 9348
+        - 2677
+        - 601
+        - 1978
+        - 38594
+        - 35120
+        - 34792
+        - 34537
+        - 22135
+        - 16149
+        - 8985
+        - 7785
+        - 3701
+        - 3508
+        - 1454
+        - 875
+        - 4420
+      :generator:
+        person_id: 5068
+      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
+  default_values: *2
+  neko_id: :masaaki_yuasa
+  level: 1
+  image: "/assets/achievements/anime/author/masaaki_yuasa.png"
+  border_color: "#FA8072"
+  title_ru: Масааки Юаса
+  text_ru: 
+  title_en: Masaaki Yuasa
+  text_en: 
+  topic_id: 276032
+  rule: *99
+  mandatory_attributes: *4
+- !ruby/object:Neko::Rule
+  attributes:
     :neko_id: :kouji_morimoto
     :level: 1
     :image: "/assets/achievements/anime/author/kouji_morimoto.png"
@@ -9298,7 +9354,7 @@
     :title_en: Kouji Morimoto
     :text_en: 
     :topic_id: 276032
-    :rule: &99
+    :rule: &100
       :algo: count
       :threshold: 75%
       :filters:
@@ -9340,62 +9396,6 @@
   title_ru: Кодзи Моримото
   text_ru: 
   title_en: Kouji Morimoto
-  text_en: 
-  topic_id: 276032
-  rule: *99
-  mandatory_attributes: *4
-- !ruby/object:Neko::Rule
-  attributes:
-    :neko_id: :masaaki_yuasa
-    :level: 1
-    :image: "/assets/achievements/anime/author/masaaki_yuasa.png"
-    :border_color: "#FA8072"
-    :title_ru: Масааки Юаса
-    :text_ru: 
-    :title_en: Masaaki Yuasa
-    :text_en: 
-    :topic_id: 276032
-    :rule: &100
-      :algo: count
-      :threshold: 50%
-      :filters:
-        anime_ids:
-        - 415
-        - 39792
-        - 27653
-        - 8364
-        - 8362
-        - 6460
-        - 6217
-        - 9878
-        - 9348
-        - 2677
-        - 601
-        - 1978
-        - 38594
-        - 35120
-        - 34792
-        - 34537
-        - 22135
-        - 16149
-        - 8985
-        - 7785
-        - 3701
-        - 3508
-        - 1454
-        - 875
-        - 4420
-      :generator:
-        person_id: 5068
-      :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_authors.yml
-  default_values: *2
-  neko_id: :masaaki_yuasa
-  level: 1
-  image: "/assets/achievements/anime/author/masaaki_yuasa.png"
-  border_color: "#FA8072"
-  title_ru: Масааки Юаса
-  text_ru: 
-  title_en: Masaaki Yuasa
   text_en: 
   topic_id: 276032
   rule: *100
