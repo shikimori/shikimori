@@ -6041,6 +6041,7 @@
         - 37991
         - 36903
         - 34443
+        - 40269
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -6551,6 +6552,7 @@
         - 37991
         - 36903
         - 34443
+        - 40269
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -7061,6 +7063,7 @@
         - 37991
         - 36903
         - 34443
+        - 40269
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/gar.yml
   default_values: *2
   neko_id: :gar
@@ -14489,9 +14492,9 @@
         franchise: one_punch_man
         not_anime_ids:
         - 39652
-      :threshold: 100%
+      :threshold: 96%
       :generator:
-        threshold: 100%
+        threshold: 96%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :one_punch_man
@@ -14524,7 +14527,7 @@
         - 39652
       :threshold: 0.01
       :generator:
-        threshold: 100%
+        threshold: 96%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :one_punch_man
@@ -15687,11 +15690,11 @@
       :algo: duration
       :filters:
         franchise: mob_psycho
-        not_anime_ids:
-        - 36616
       :threshold: 100%
       :generator:
         threshold: 100%
+        not_ignored_ids:
+        - 36616
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :mob_psycho
@@ -15720,11 +15723,11 @@
       :algo: duration
       :filters:
         franchise: mob_psycho
-        not_anime_ids:
-        - 36616
       :threshold: 0.01
       :generator:
         threshold: 100%
+        not_ignored_ids:
+        - 36616
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :mob_psycho
@@ -22425,6 +22428,8 @@
         franchise: gatchaman
         not_anime_ids:
         - 3153
+        - 31517
+        - 38705
       :threshold: 92.1%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -22456,6 +22461,8 @@
         franchise: gatchaman
         not_anime_ids:
         - 3153
+        - 31517
+        - 38705
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -29629,6 +29636,7 @@
         - 29974
         - 27417
         - 35079
+        - 26
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -30021,6 +30029,7 @@
         - 29974
         - 27417
         - 35079
+        - 26
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
@@ -30415,6 +30424,7 @@
         - 29974
         - 27417
         - 35079
+        - 26
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/kuudere.yml
   default_values: *2
   neko_id: :kuudere
