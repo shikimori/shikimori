@@ -36,7 +36,9 @@ class MalParsers::FetchEntry
   TYPES = Types::Coercible::String.enum(*PARSERS.keys.map(&:to_s))
 
   def perform id, type
-    IMPORTS[type.to_sym].call import_data(id, type)
+    data = parse(id, type)
+
+    IMPORTS[type.to_sym].call data
   rescue InvalidIdError
     entry = TYPES[type].classify.constantize.find_by id: id
 
@@ -51,7 +53,7 @@ class MalParsers::FetchEntry
 
 private
 
-  def import_data id, type
+  def parse id, type
     parsers(type).each_with_object({}) do |(parser_kind, parser_klass), memo|
       if parser_kind == DATA
         memo.merge! parser_klass.call(id)

@@ -240,9 +240,9 @@ ru:
         notice:
           super_moderator: Может назначать модераторов
           retired_moderator: Модератор в отставке
-          version_names_moderator: Модератор пользовательских правок названий базы сайта
-          version_texts_moderator: Модератор пользовательских правок текстов базы сайта
-          version_moderator: Модератор большинства пользовательских правок базы сайта
+          version_names_moderator: Модератор пользовательских правок названий в базе сайта
+          version_texts_moderator: Модератор пользовательских правок текстов в базе сайта
+          version_moderator: Модератор большинства пользовательских правок в базе сайта
           version_fansub_moderator: Модератор правок фансабберов и фандабберов
           trusted_version_changer: Может менять контент без модерации изменений
           not_trusted_version_changer: Не может менять контент сайта

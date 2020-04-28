@@ -125,7 +125,9 @@ class Manga < DbEntry
   enumerize :kind,
     in: Types::Manga::Kind.values,
     predicates: { prefix: true }
-  enumerize :status, in: %i[anons ongoing released], predicates: true
+  enumerize :status,
+    in: Types::Manga::Status.values,
+    predicates: true
 
   validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
