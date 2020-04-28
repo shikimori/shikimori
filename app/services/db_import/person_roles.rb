@@ -24,7 +24,6 @@ private
 
   def schedule entries, klass
     ids = entries.map { |v| v[:id] }
-    ap [entries, ids]
 
     (ids - klass.where(id: ids).pluck(:id)).each do |id|
       MalParsers::FetchEntry.perform_in 3.seconds, id, klass.name.downcase

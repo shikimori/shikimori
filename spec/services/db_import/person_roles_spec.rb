@@ -28,7 +28,7 @@ describe DbImport::PersonRoles do
   let(:person_roles) { target.person_roles.order :id }
 
   let!(:character) { create :character }
-  let!(:person) { create :character }
+  let!(:person) { create :person }
 
   before { allow(MalParsers::FetchEntry).to receive :perform_in }
   subject! { service.call }
@@ -102,13 +102,10 @@ describe DbImport::PersonRoles do
 
   describe 'schedules imports' do
     it do
-      expect(MalParsers::FetchEntry).to have_received(:perform_in).thrice
+      expect(MalParsers::FetchEntry).to have_received(:perform_in).twice
       expect(MalParsers::FetchEntry)
         .to have_received(:perform_in)
         .with 3.seconds, characters[1][:id], 'character'
-      expect(MalParsers::FetchEntry)
-        .to have_received(:perform_in)
-        .with 3.seconds, characters[2][:id], 'character'
       expect(MalParsers::FetchEntry)
         .to have_received(:perform_in)
         .with 3.seconds, staff[1][:id], 'person'
