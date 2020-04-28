@@ -335,6 +335,37 @@ describe Version do
       end
     end
 
+    context 'version_names_moderator' do
+      let(:user) { build_stubbed :user, :version_names_moderator }
+      let(:version) do
+        build_stubbed :version,
+          item: item,
+          user: version_user,
+          item_diff: item_diff
+      end
+      let(:item) { build_stubbed :anime }
+      let(:item_diff) do
+        [
+          { name: ['a', 'b'] },
+          { russian: ['a', 'b'] }
+        ].sample
+      end
+      let(:version_user) { user }
+
+      it { is_expected.to be_able_to :manage, version }
+      it { is_expected.to be_able_to :auto_accept, version }
+
+      context 'not only names changed' do
+        let(:item_diff) { { name: %w[a b], source: [1, 2] } }
+        it { is_expected.to be_able_to :auto_accept, version }
+      end
+
+      context 'not texts changed' do
+        let(:item_diff) { { episodes: [1, 2] } }
+        it { is_expected.to_not be_able_to :manage, version }
+      end
+    end
+
     context 'version_texts_moderator' do
       let(:user) { build_stubbed :user, :version_texts_moderator }
       let(:version) do
@@ -346,9 +377,8 @@ describe Version do
       let(:item) { build_stubbed :anime }
       let(:item_diff) do
         [
-          { name: ['a', 'b'] },
-          { russian: ['a', 'b'] },
-          { description_ru: ['a', 'b'] }
+          { description_ru: ['a', 'b'] },
+          { description_en: ['a', 'b'] }
         ].sample
       end
       let(:version_user) { user }
@@ -357,7 +387,7 @@ describe Version do
       it { is_expected.to be_able_to :auto_accept, version }
 
       context 'not only texts changed' do
-        let(:item_diff) { { name: %w[a b], source: [1, 2] } }
+        let(:item_diff) { { description_ru: %w[a b], source: [1, 2] } }
         it { is_expected.to be_able_to :auto_accept, version }
       end
 
