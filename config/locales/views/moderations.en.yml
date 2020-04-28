@@ -240,9 +240,10 @@ en:
         notice:
           super_moderator: Can assign moderators
           retired_moderator: Retired moderator
-          version_texts_moderator: Moderator of all database content changes
-          version_moderator: Moderator of most database content changes
-          version_fansub_moderator: Moderator of fansubbers & fandubbers content changes
+          version_names_moderator: Moderator of names edits in the database
+          version_texts_moderator: Moderator of texts edits in the database
+          version_moderator: Moderator of most edits in the database
+          version_fansub_moderator: Moderator of fansubbers & fandubbers edits in the database
           trusted_version_changer: Can change database content without moderation
           not_trusted_version_changer: Cannot change database content
           not_trusted_abuse_reporter: Restriction in filing complaints on the forum (maximum 3 complaints per day)
