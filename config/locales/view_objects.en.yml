@@ -70,11 +70,15 @@ en:
           ongoing: ongoing %{kind}
           released: released %{kind}
           latest: latest %{kind}
+          paused: paused %{kind}
+          discontinued: discontinued %{kind}
         many_kinds:
           anons: upcoming manga
           ongoing: ongoing manga
           released: released manga
           latest: latest manga
+          paused: paused manga
+          discontinued: discontinued manga
       ranobe:
         one_kind:
           <<: *manga_one_kind
@@ -83,6 +87,8 @@ en:
           ongoing: ongoing light novels
           released: released light novels
           latest: latest light novels
+          paused: paused light novels
+          discontinued: discontinued light novels
 
     kind:
       anime:

@@ -36,8 +36,10 @@ class Menus::CollectionMenu < ViewObjectBase
       Titles::StatusTitle.new(:anons, klass),
       Titles::StatusTitle.new(:ongoing, klass),
       Titles::StatusTitle.new(:released, klass),
-      Titles::StatusTitle.new(:latest, klass)
-    ]
+      Titles::StatusTitle.new(:latest, klass),
+      (Titles::StatusTitle.new(:paused, klass) if klass != Anime),
+      (Titles::StatusTitle.new(:discontinued, klass) if klass != Anime)
+    ].compact
   end
 
   def seasons # rubocop:disable all

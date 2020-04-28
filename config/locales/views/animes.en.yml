@@ -27,6 +27,8 @@ en:
           ongoing: Publishing
           released: Published
           latest: Published Recently
+          paused: Paused
+          discontinued: Discontinued
       ranobe:
         <<: *manga_menu
       show_list: Show list

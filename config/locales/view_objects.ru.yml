@@ -70,11 +70,15 @@ ru:
           ongoing: онгоинги %{kind}
           released: вышедшие %{kind}
           latest: недавно вышедшие %{kind}
+          paused: приостановленные %{kind}
+          discontinued: прекращённые %{kind}
         many_kinds:
           anons: анонсы манги
           ongoing: онгоинги манги
           released: вышедшая манга
           latest: недавно вышедшая манга
+          paused: приостановленная манга
+          discontinued: прекращённая манга
       ranobe:
         one_kind:
           <<: *manga_one_kind
@@ -83,6 +87,8 @@ ru:
           ongoing: онгоинги ранобэ
           released: вышедшие ранобэ
           latest: недавно вышедшие ранобэ
+          paused: приостановленные ранобэ
+          discontinued: прекращённые ранобэ
 
     kind:
       anime:
