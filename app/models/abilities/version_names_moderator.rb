@@ -5,6 +5,7 @@ class Abilities::VersionNamesModerator
   MANAGED_FIELDS = %w[
     name
     russian
+    synonyms
   ]
   MANAGED_MODELS = Abilities::VersionTextsModerator::MANAGED_MODELS
 
