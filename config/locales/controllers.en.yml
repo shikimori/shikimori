@@ -238,6 +238,7 @@ en:
     content_change: 'Content change #%{version_id}'
     content_changes:
       all_content: All content changes journal
+      names: Names changes journal
       texts: Texts changes journal
       content: Content changes journal
       fansub: Fansub changes journal

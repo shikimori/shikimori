@@ -238,6 +238,7 @@ ru:
     content_change: 'Правка #%{version_id}'
     content_changes:
       all_content: Журнал любых изменений контента
+      names: Журнал изменений названий
       texts: Журнал изменений текстов
       content: Журнал изменений контента
       fansub: Журнал изменений фансаба

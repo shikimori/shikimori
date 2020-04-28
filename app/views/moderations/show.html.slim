@@ -16,7 +16,7 @@ header.head
             = t 'moderations/versions_controller.content_changes.all_content'
             - if @moderation_policy.all_content_versions_count.positive?
               span.size = @moderation_policy.all_content_versions_count
-        - %i[texts content fansub].each do |type|
+        - %i[names texts content fansub].each do |type|
           li.offset
             a.b-link[
               href=moderations_versions_url(type: Moderation::VersionsItemTypeQuery::Types[type])

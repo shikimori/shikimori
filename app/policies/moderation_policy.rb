@@ -8,7 +8,7 @@ class ModerationPolicy
     :abuses_abuses_count,
     :abuses_pending_count,
     :all_content_versions_count,
-    :texts_versions_count, :content_versions_count, :fansub_versions_count
+    :names_versions_count, :texts_versions_count, :content_versions_count, :fansub_versions_count
 
   def reviews_count
     return 0 unless !@moderation_filter || @user&.review_moderator?
@@ -48,6 +48,12 @@ class ModerationPolicy
     return 0 unless !@moderation_filter || @user&.version_moderator?
 
     Moderation::VersionsItemTypeQuery.fetch(:all_content).pending.size
+  end
+
+  def names_versions_count
+    return 0 unless !@moderation_filter || @user&.version_names_moderator?
+
+    Moderation::VersionsItemTypeQuery.fetch(:names).pending.size
   end
 
   def texts_versions_count
