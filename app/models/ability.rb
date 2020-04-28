@@ -30,6 +30,10 @@ class Ability
         merge Abilities::ArticleModerator.new(user)
       end
 
+      if user.version_names_moderator? || user.admin?
+        merge Abilities::VersionNamesModerator.new(user)
+      end
+
       if user.version_texts_moderator? || user.admin?
         merge Abilities::VersionTextsModerator.new(user)
       end

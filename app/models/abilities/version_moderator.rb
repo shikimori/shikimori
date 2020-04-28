@@ -3,6 +3,7 @@ class Abilities::VersionModerator
   prepend Draper::CanCanCan
 
   NOT_MANAGED_FIELDS = Abilities::VersionTextsModerator::MANAGED_FIELDS +
+    Abilities::VersionNamesModerator::MANAGED_FIELDS +
     Abilities::VersionFansubModerator::MANAGED_FIELDS
 
   MANAGED_MODELS = Abilities::VersionTextsModerator::MANAGED_MODELS

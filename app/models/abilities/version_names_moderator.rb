@@ -1,18 +1,12 @@
-class Abilities::VersionTextsModerator
+class Abilities::VersionNamesModerator
   include CanCan::Ability
   prepend Draper::CanCanCan
 
   MANAGED_FIELDS = %w[
-    description_ru
-    description_en
+    name
+    russian
   ]
-  MANAGED_MODELS = [
-    Anime.name,
-    Manga.name,
-    Ranobe.name,
-    Character.name,
-    Person.name
-  ]
+  MANAGED_MODELS = Abilities::VersionTextsModerator::MANAGED_MODELS
 
   def initialize _user
     can :increment_episode, Anime

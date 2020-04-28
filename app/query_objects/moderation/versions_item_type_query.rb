@@ -1,13 +1,13 @@
 class Moderation::VersionsItemTypeQuery < QueryObjectBase
   Types = Types::Strict::Symbol
     .constructor(&:to_sym)
-    .enum(:all_content, :texts, :content, :fansub, :role)
+    .enum(:all_content, :names, :texts, :content, :fansub, :role)
 
   VERSION_NOT_MANAGED_FIELDS_SQL = Abilities::VersionModerator::NOT_MANAGED_FIELDS
     .map { |v| "(item_diff->>'#{v}') is null" }
     .join(' and ')
 
-  def self.fetch type
+  def self.fetch type # rubocop:disable all
     scope = new Version.all
 
     case Types[type]
@@ -16,6 +16,9 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 
       when Types[:texts]
         scope.non_roles.texts
+
+      when Types[:names]
+        scope.non_roles.names
 
       when Types[:content]
         scope.non_roles.content
@@ -34,6 +37,16 @@ class Moderation::VersionsItemTypeQuery < QueryObjectBase
 
   def non_roles
     chain @scope.where('type is null or type != ?', Versions::RoleVersion.name)
+  end
+
+  def names
+    chain @scope
+      .where(
+        Abilities::VersionNamesModerator::MANAGED_FIELDS
+          .map { |v| "(item_diff->>'#{v}') is not null" }
+          .join(' or ')
+      )
+      .where(item_type: Abilities::VersionNamesModerator::MANAGED_MODELS)
   end
 
   def texts
