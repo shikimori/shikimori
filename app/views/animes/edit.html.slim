@@ -8,7 +8,7 @@
           .field = @resource.class.human_attribute_name(:name)
           .value
             span = @resource.name
-            - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { russian: [] })
+            - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { name: [] })
               a.b-js-action href=@resource.edit_field_url(:name)
                 = t 'moderators_only'
             - else
@@ -27,11 +27,10 @@
           .field = @resource.class.human_attribute_name(:license_name_ru)
           .value
             span = @resource.license_name_ru
-            - if can? :restricted_update, Version.new(item: @resource.object, item_diff: { license_name_ru: [] })
-              a.b-js-action href=@resource.edit_field_url(:license_name_ru)
-                = t 'moderators_only'
-            - else
-              .b-js-action = t 'moderators_only'
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:license_name_ru)
+              data-dynamic='week_registered'
+            ] = t 'actions.edit'
 
         li
           .field = @resource.class.human_attribute_name(:synonyms)
