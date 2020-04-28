@@ -81,6 +81,7 @@ describe Versions::RoleVersion do
         it { is_expected.to be_able_to :manage_forum_moderator_role, user }
         it { is_expected.to be_able_to :manage_review_moderator_role, user }
         it { is_expected.to be_able_to :manage_collection_moderator_role, user }
+        it { is_expected.to be_able_to :manage_version_names_moderator_role, user }
         it { is_expected.to be_able_to :manage_version_texts_moderator_role, user }
         it { is_expected.to be_able_to :manage_version_moderator_role, user }
         it { is_expected.to be_able_to :manage_version_fansub_moderator_role, user }
@@ -115,6 +116,7 @@ describe Versions::RoleVersion do
         it { is_expected.to be_able_to :manage_forum_moderator_role, user }
         it { is_expected.to be_able_to :manage_review_moderator_role, user }
         it { is_expected.to be_able_to :manage_collection_moderator_role, user }
+        it { is_expected.to be_able_to :manage_version_names_moderator_role, user }
         it { is_expected.to be_able_to :manage_version_texts_moderator_role, user }
         it { is_expected.to be_able_to :manage_version_moderator_role, user }
         it { is_expected.to be_able_to :manage_version_fansub_moderator_role, user }
@@ -149,6 +151,7 @@ describe Versions::RoleVersion do
         it { is_expected.to_not be_able_to :manage_forum_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_review_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_collection_moderator_role, user }
+        it { is_expected.to_not be_able_to :manage_version_names_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_version_texts_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_version_moderator_role, user }
         it { is_expected.to_not be_able_to :manage_version_fansub_moderator_role, user }

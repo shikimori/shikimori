@@ -16,6 +16,7 @@ class Abilities::SuperModerator
       manage_forum_moderator_role
       manage_review_moderator_role
       manage_collection_moderator_role
+      manage_version_names_moderator_role
       manage_version_texts_moderator_role
       manage_version_moderator_role
       manage_version_fansub_moderator_role
