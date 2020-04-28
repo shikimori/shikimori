@@ -1,5 +1,9 @@
 class Animes::Filters::ByStatus < Animes::Filters::FilterBase
-  STATUSES_EXTENDED = Types::Anime::STATUSES + %i[latest]
+  STATUSES_EXTENDED = (
+    Types::Anime::STATUSES +
+    Types::Manga::STATUSES +
+    %i[latest]
+  ).uniq
 
   StatusExtended = Types::Strict::Symbol
     .constructor(&:to_sym)
@@ -14,6 +18,9 @@ class Animes::Filters::ByStatus < Animes::Filters::FilterBase
     StatusExtended[:anons] => "%<table_name>s.status = '#{Types::Anime::Status[:anons]}'",
     StatusExtended[:ongoing] => "%<table_name>s.status = '#{Types::Anime::Status[:ongoing]}'",
     StatusExtended[:released] => "%<table_name>s.status = '#{Types::Anime::Status[:released]}'",
+    StatusExtended[:paused] => "%<table_name>s.status = '#{Types::Manga::Status[:paused]}'",
+    StatusExtended[:discontinued] =>
+      "%<table_name>s.status = '#{Types::Manga::Status[:discontinued]}'",
     StatusExtended[:latest] => <<~SQL.squish
       %<table_name>s.status = '#{Types::Anime::Status[:released]}'
         and released_on is not null
