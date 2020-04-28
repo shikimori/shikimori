@@ -6,11 +6,30 @@ class DbImport::PersonRoles
       cleanup :character_id if @characters.any?
       cleanup :person_id if @staff.any?
 
-      import(build(@characters, :character_id) + build(@staff, :person_id))
+      character_roles = cleanup_banned @characters, :character_id
+      staff_roles = cleanup_banned @staff, :person_id
+
+      results = import(
+        build(character_roles, :character_id) + build(staff_roles, :person_id)
+      )
+
+      schedule character_roles, Character
+      schedule staff_roles, Person
+
+      results
     end
   end
 
 private
+
+  def schedule entries, klass
+    ids = entries.map { |v| v[:id] }
+    ap [entries, ids]
+
+    (ids - klass.where(id: ids).pluck(:id)).each do |id|
+      MalParsers::FetchEntry.perform_in 3.seconds, id, klass.name.downcase
+    end
+  end
 
   def cleanup target_id_key
     PersonRole
@@ -32,9 +51,7 @@ private
   end
 
   def build person_roles, target_id_key
-    cleaned_roles = cleanup_banned person_roles, target_id_key
-
-    cleaned_roles.map do |person_role|
+    person_roles.map do |person_role|
       PersonRole.new(
         entry_id_key => @target.id,
         target_id_key => person_role[:id],

@@ -8,10 +8,10 @@ describe DbImport::PersonRoles do
       id: character.id,
       roles: %w[Main]
     }, {
-      id: 145176,
+      id: 123_456,
       roles: %w[Supporting]
     }, {
-      id: 1009,
+      id: 1009, # banned mal id
       roles: %w[Supporting]
     }]
   end
@@ -19,18 +19,22 @@ describe DbImport::PersonRoles do
     [{
       id: person.id,
       roles: %w[Director]
+    }, {
+      id: 123_458,
+      roles: %w[Producer]
     }]
   end
   let!(:person_role) {}
   let(:person_roles) { target.person_roles.order :id }
 
-  let!(:character) { build_stubbed :character }
-  let!(:person) { build_stubbed :character }
+  let!(:character) { create :character }
+  let!(:person) { create :character }
 
+  before { allow(MalParsers::FetchEntry).to receive :perform_in }
   subject! { service.call }
 
   it do
-    expect(person_roles).to have(3).items
+    expect(person_roles).to have(4).items
     expect(person_roles[0]).to have_attributes(
       anime_id: target.id,
       manga_id: nil,
@@ -41,16 +45,23 @@ describe DbImport::PersonRoles do
     expect(person_roles[1]).to have_attributes(
       anime_id: target.id,
       manga_id: nil,
-      character_id: 145_176,
+      character_id: characters[1][:id],
       person_id: nil,
-      roles: %w[Supporting]
+      roles: characters[1][:roles]
     )
     expect(person_roles[2]).to have_attributes(
       anime_id: target.id,
       manga_id: nil,
       character_id: nil,
       person_id: person.id,
-      roles: %w[Director]
+      roles: staff[0][:roles]
+    )
+    expect(person_roles[3]).to have_attributes(
+      anime_id: target.id,
+      manga_id: nil,
+      character_id: nil,
+      person_id: staff[1][:id],
+      roles: staff[1][:roles]
     )
   end
 
@@ -62,7 +73,7 @@ describe DbImport::PersonRoles do
     end
     it do
       expect { person_role.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect(person_roles).to have(3).items
+      expect(person_roles).to have(4).items
     end
   end
 
@@ -75,7 +86,7 @@ describe DbImport::PersonRoles do
 
     it do
       expect(person_role.reload).to be_persisted
-      expect(person_roles).to have(4).items
+      expect(person_roles).to have(5).items
     end
   end
 
@@ -86,6 +97,21 @@ describe DbImport::PersonRoles do
     it do
       expect(character.reload.updated_at).to be_within(0.1).of Time.zone.now
       expect(person.reload.updated_at).to be_within(0.1).of Time.zone.now
+    end
+  end
+
+  describe 'schedules imports' do
+    it do
+      expect(MalParsers::FetchEntry).to have_received(:perform_in).thrice
+      expect(MalParsers::FetchEntry)
+        .to have_received(:perform_in)
+        .with 3.seconds, characters[1][:id], 'character'
+      expect(MalParsers::FetchEntry)
+        .to have_received(:perform_in)
+        .with 3.seconds, characters[2][:id], 'character'
+      expect(MalParsers::FetchEntry)
+        .to have_received(:perform_in)
+        .with 3.seconds, staff[1][:id], 'person'
     end
   end
 end
