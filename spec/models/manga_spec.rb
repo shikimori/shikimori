@@ -41,7 +41,7 @@ describe Manga do
   describe 'enumerize' do
     it { is_expected.to enumerize(:type).in :Manga, :Ranobe }
     it { is_expected.to enumerize(:kind).in(*Types::Manga::Kind.values) }
-    it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
+    it { is_expected.to enumerize(:status).in(*Types::Manga::Status.values) }
   end
 
   describe 'callbacks' do
