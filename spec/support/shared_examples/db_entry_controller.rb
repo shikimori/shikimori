@@ -54,8 +54,8 @@ shared_examples :db_entry_controller do |entry_name|
       end
     end
 
-    context 'version_texts_moderator' do
-      include_context :authenticated, :version_texts_moderator
+    context 'version_names_moderator' do
+      include_context :authenticated, :version_names_moderator
 
       let(:field) { 'russian' }
       before { make_request }
@@ -93,7 +93,7 @@ shared_examples :db_entry_controller do |entry_name|
     end
 
     describe 'moderator' do
-      include_context :authenticated, :version_texts_moderator
+      include_context :authenticated, :version_names_moderator
       let(:changes) { { russian: 'test' } }
       before { make_request }
 
