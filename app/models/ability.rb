@@ -10,7 +10,11 @@ class Ability
     if user
       merge Abilities::User.new(user)
 
-      if user.forum_moderator? || user.super_moderator? || user.admin?
+      if user.forum_moderator? || user.admin?
+        merge Abilities::ForumModerator.new(user)
+      end
+
+      if user.forum_moderator? user.admin?
         merge Abilities::ForumModerator.new(user)
       end
 
