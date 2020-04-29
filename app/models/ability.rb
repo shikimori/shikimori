@@ -14,8 +14,8 @@ class Ability
         merge Abilities::ForumModerator.new(user)
       end
 
-      if user.forum_moderator? user.admin?
-        merge Abilities::ForumModerator.new(user)
+      if user.news_moderator? || user.admin?
+        merge Abilities::NewsModerator.new(user)
       end
 
       if user.contest_moderator? || user.admin?
