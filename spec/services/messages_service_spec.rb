@@ -11,9 +11,22 @@ describe MessagesService do
     create :message, :private, to: user, from: user
   end
 
-  describe '#read' do
+  describe '#read_by' do
+    subject! do
+      service.read_by(
+        kind: kind,
+        type: type,
+        is_read: is_read,
+        ids: ids
+      )
+    end
+    let(:kind) { nil }
+    let(:type) { nil }
+    let(:is_read) { true }
+    let(:ids) { nil }
+
     context 'kind' do
-      before { service.read kind: MessageType::PROFILE_COMMENTED }
+      let(:kind) { MessageType::PROFILE_COMMENTED }
 
       it do
         expect(message_1.reload).to be_read
@@ -23,7 +36,7 @@ describe MessagesService do
     end
 
     context 'type' do
-      before { service.read type: :notifications }
+      let(:type) { :notifications }
 
       it do
         expect(message_1.reload).to be_read
@@ -31,11 +44,30 @@ describe MessagesService do
         expect(message_3.reload).to_not be_read
       end
     end
+
+    context 'ids' do
+      let(:ids) { [message_3.id] }
+
+      it do
+        expect(message_1.reload).to_not be_read
+        expect(message_2.reload).to_not be_read
+        expect(message_3.reload).to be_read
+      end
+    end
   end
 
-  describe '#delete' do
+  describe '#delete_by' do
+    subject! do
+      service.delete_by(
+        kind: kind,
+        type: type
+      )
+    end
+    let(:kind) { nil }
+    let(:type) { nil }
+
     context 'kind' do
-      before { service.delete kind: MessageType::PROFILE_COMMENTED }
+      let(:kind) { MessageType::PROFILE_COMMENTED }
 
       it do
         expect { message_1.reload }.to raise_error ActiveRecord::RecordNotFound
@@ -45,7 +77,7 @@ describe MessagesService do
     end
 
     context 'type' do
-      before { service.delete type: :notifications }
+      let(:type) { :notifications }
 
       it do
         expect { message_1.reload }.to raise_error ActiveRecord::RecordNotFound

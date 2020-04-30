@@ -85,7 +85,9 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   description 'Requires `messages` oauth scope'
   param :type, %w[news notifications]
   def read_all
-    MessagesService.new(current_user).read type: @messages_type
+    MessagesService
+      .new(current_user)
+      .read_by(type: @messages_type, is_read: true)
 
     if frontent_request?
       redirect_back(
@@ -106,7 +108,7 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   param :type, %w[news notifications]
   error code: 302
   def delete_all
-    MessagesService.new(current_user).delete type: @messages_type
+    MessagesService.new(current_user).delete_by type: @messages_type
 
     if frontent_request?
       redirect_back(

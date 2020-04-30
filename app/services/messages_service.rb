@@ -1,19 +1,30 @@
 class MessagesService
   pattr_initialize :user
 
-  def read kind: nil, type: nil
-    Message
-      .where(to: user, kind: kind || kinds_by_type(type), read: false)
-      .update_all(read: true)
+  def read_by kind: nil, type: nil, ids: nil, is_read: # rubocop:disable CyclomaticComplexity
+    raise ArgumentError unless kind || type || ids
 
+    scope = Message
+      .where(to: user)
+      .where(read: !is_read)
+
+    scope.where! kind: kind if kind
+    scope.where! kind: kinds_by_type(type) if type
+    scope.where! id: ids if ids
+
+    scope.update_all read: is_read
     user.touch
   end
 
-  def delete kind: nil, type: nil
-    Message
-      .where(to: user, kind: kind || kinds_by_type(type))
-      .delete_all
+  def delete_by kind: nil, type: nil
+    raise ArgumentError unless kind || type || ids
 
+    scope = Message.where(to: user)
+
+    scope.where! kind: kind if kind
+    scope.where! kind: kinds_by_type(type) if type
+
+    scope.delete_all
     user.touch
   end
 
