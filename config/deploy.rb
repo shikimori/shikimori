@@ -37,7 +37,7 @@ set :format, :airbrussh
 
 set :branch, ENV['BRANCH'] if ENV['BRANCH']
 
-set :appsignal_config, name: 'Backend'
+set :appsignal_config, name: YAML.load_file('config/appsignal.yml')[fetch(:rails_env).to_s]['name']
 set :appsignal_revision, `git log --pretty=format:'%h' -n 1 #{fetch(:branch)}`
 set :appsignal_env, :production
 
