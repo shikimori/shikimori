@@ -5,13 +5,13 @@ class Abilities::SuperModerator
   def initialize _user
     roles_abilities
 
-    can :destroy, Ban
+    can :manage, Ban
     can :access_list, User
 
     genres_studios_publishers_abilities
   end
 
-  def roles_abilities
+  def roles_abilities # rubocop:disable MethodLength
     can %i[
       manage_forum_moderator_role
       manage_review_moderator_role
@@ -25,6 +25,8 @@ class Abilities::SuperModerator
       manage_trusted_fansub_changer_role
       manage_retired_moderator_role
       manage_not_trusted_abuse_reporter_role
+      manage_censored_avatar_role
+      manage_censored_profile_role
       manage_cheat_bot_role
     ], User
   end
