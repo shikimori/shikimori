@@ -74,9 +74,9 @@ class Api::V1::MessagesController < Api::V1Controller # rubocop:disable ClassLen
   def mark_read
     ids = (params[:ids] || '').split(',').map { |v| v.sub(/message-/, '').to_i }
 
-    Message
-      .where(id: ids, to_id: current_user.id)
-      .update_all(read: params[:is_read] == '1')
+    MessagesService
+      .new(current_user)
+      .read_by(ids: ids, is_read: params[:is_read] == '1')
 
     head 200
   end
