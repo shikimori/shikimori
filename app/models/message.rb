@@ -54,6 +54,13 @@ class Message < ApplicationRecord
     read
   end
 
+  # must touch updated_at for all users to invalidate unread_count cache
+  def self.import messages, *args
+    result = super
+    User.where(id: messages.map(&:to_id)).update_all updated_at: Time.zone.now
+    result
+  end
+
 private
 
   def check_spam_abuse

@@ -3,7 +3,6 @@ class Comments::NotifyQuoted
 
   ANTISPAM_LIMIT = 15
 
-  # rubocop:disable AbcSize
   def call
     Message.wo_antispam do
       Message.import messages_to_create
@@ -13,7 +12,6 @@ class Comments::NotifyQuoted
     reply new_quoted.comments - old_quoted.comments, :append
     reply old_quoted.comments - new_quoted.comments, :remove
   end
-  # rubocop:enable AbcSize
 
 private
 
@@ -34,8 +32,7 @@ private
     end
   end
 
-  # rubocop:disable AbcSize
-  def users_to_notify
+  def users_to_notify # rubocop:disable AbcSize
     users = (new_quoted.users - old_quoted.users)
       .reject { |user| user.id == @user.id }
     return [] if users.none?
@@ -48,7 +45,6 @@ private
         notifications.none? { |message| message.to_id == user.id }
     end
   end
-  # rubocop:enable AbcSize
 
   def messages_to_destroy
     users = old_quoted.users - new_quoted.users
