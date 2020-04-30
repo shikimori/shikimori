@@ -8,7 +8,7 @@ Please follow the [contribution guidelines](https://github.com/shikimori/shikimo
 ## Requirements
 OSX or Linux
 
-PostgreSQL >= 10.0, Ruby >= 2.6, NodeJS >= 10.0, Memcached, Redis
+PostgreSQL >= 10.0, Ruby >= 2.6, NodeJS >= 10.0, Elasticsearch >= 6.0, Memcached, Redis
 
 ## Issues Board (Agile Season)
 https://agileseason.com/shared/boards/a98d1565b276f3781070f0e74a7ffcf1
@@ -60,6 +60,9 @@ pg_dump -c shikimori_production > db/dump.sql
 ```
 
 ## Local Run
+Everything you need to run is listed in [Procfile](https://github.com/shikimori/shikimori/blob/master/Procfile).
+Shikimori uses [Overmind](https://github.com/DarthSim/overmind) to execute `Procfile`.
+
 ### Requirements
 
 #### Checkout all projects
