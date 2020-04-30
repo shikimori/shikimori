@@ -46,19 +46,6 @@ shikimori_production=# CREATE EXTENSION hstore;
 shikimori_production=# CREATE EXTENSION pg_stat_statements;
 ```
 
-### Restore from a backup
-```sh
-rails db:drop && rails db:create
-psql -U shikimori_production -d shikimori_production -f db/dump.sql
-RAILS_ENV=test rails db:schema:load
-rake db:migrate
-```
-
-### Make a backup
-```sh
-pg_dump -c shikimori_production > db/dump.sql
-```
-
 ## Local Run
 Everything you need to run is listed in [Procfile](https://github.com/shikimori/shikimori/blob/master/Procfile).
 Shikimori uses [Overmind](https://github.com/DarthSim/overmind) to execute `Procfile`.
@@ -86,6 +73,21 @@ In linux you have to install them another way.
 yarn install
 bundle install
 ```
+
+### Restore from a backup
+```sh
+rails db:drop && rails db:create
+psql -U shikimori_production -d shikimori_production -f db/dump.sql
+RAILS_ENV=test rails db:schema:load
+rake db:migrate
+```
+
+## Other
+#### Make a backup
+```sh
+pg_dump -c shikimori_production > db/dump.sql
+```
+
 
 #### Start all services
 ```sh
