@@ -82,21 +82,9 @@ RAILS_ENV=test rails db:schema:load
 rake db:migrate
 ```
 
-## Other
-#### Make a backup
-```sh
-pg_dump -c shikimori_production > db/dump.sql
-```
-
-
-#### Start all services
+### Start all services
 ```sh
 overmind start
-```
-
-### Autorun rspec & rubocop
-```sh
-guard
 ```
 
 ## Elasticsearch
@@ -122,14 +110,23 @@ TopicsIndex.reset!
 rails neko:update
 ```
 
+## Other
+### Make a backup
+```sh
+pg_dump -c shikimori_production > db/dump.sql
+```
 
-## Add new video hosting
+### Autorun rspec & rubocop
+```sh
+guard
+```
+
+### Add new video hosting
 ```ruby
 # app/services/video_extractor/player_url_extractor.rb
 ```
 
-
-## Webpack debugger
+### Webpack debugger
 https://nodejs.org/en/docs/inspector/
 Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google.com/webstore/detail/nim-node-inspector-manage/gnhhdgbaldcilmgcpfddgdbkhjohddkj
 ```sh
@@ -137,15 +134,15 @@ Install the Chrome Extension NIM (Node Inspector Manager): https://chrome.google
 ```
 
 
-## Webpack visualizer
+### Webpack visualizer
 https://chrisbateman.github.io/webpack-visualizer/
 
-## Dependabot
+### Dependabot
 ```
 @dependabot ignore this dependency
 ```
 
-## Move data from development to production
+### Move data from development to production
 ```ruby
 user = User.find(547860);
 
@@ -191,7 +188,7 @@ Style.wo_timestamp { v = Style.new json[:style]; v.save validate: false }
 User.find(user_id).touch
 ```
 
-## Generate favicons
+### Generate favicons
 
 ```sh
 convert -resize 144x144 /tmp/favicon.png public/favicons/ms-icon-144x144.png
@@ -224,7 +221,7 @@ convert -resize 64x64 /tmp/favicon.png public/favicon.ico
 cp app/assets/images/src/favicon.svg public/favicons/safari-pinned-tab.svg
 ```
 
-## Grant access to pg_stat_statements_reset()
+### Grant access to pg_stat_statements_reset()
 ```sh
 psql -d postgres
 ```
