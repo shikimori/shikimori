@@ -1,6 +1,6 @@
 describe Moderations::VersionsController do
   include_context :back_redirect
-  include_context :authenticated, :version_texts_moderator
+  include_context :authenticated, :version_names_moderator
 
   let(:version) do
     create :version,
@@ -15,24 +15,24 @@ describe Moderations::VersionsController do
 
   describe '#index' do
     describe 'html' do
-      before { get :index, params: { type: 'content' } }
+      subject! { get :index, params: { type: 'content' } }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'json' do
-      before { get :index, params: { type: 'content', page: 2 }, format: :json }
+      subject! { get :index, params: { type: 'content', page: 2 }, format: :json }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#show' do
     describe 'html' do
-      before { get :show, params: { id: version.id } }
+      subject! { get :show, params: { id: version.id } }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'json' do
-      before { get :show, params: { id: version.id }, format: :json }
+      subject! { get :show, params: { id: version.id }, format: :json }
       it { expect(response).to have_http_status :success }
     end
   end
@@ -54,7 +54,7 @@ describe Moderations::VersionsController do
       include_context :authenticated, :user, :week_registered
 
       context 'common change' do
-        before { make_request }
+        subject! { make_request }
         let(:changes) { { 'russian' => ['fofofo', 'zxcvbnn'] } }
 
         it do
@@ -72,9 +72,9 @@ describe Moderations::VersionsController do
     end
 
     describe 'moderator' do
-      include_context :authenticated, :version_texts_moderator
+      include_context :authenticated, :version_names_moderator
       let(:changes) { { 'russian' => [anime.russian, 'zxcvbnn'] } }
-      before { make_request }
+      subject! { make_request }
 
       it do
         expect(resource).to be_persisted
@@ -86,12 +86,12 @@ describe Moderations::VersionsController do
   end
 
   describe '#tooltip' do
-    before { get :tooltip, params: { id: version.id } }
+    subject! { get :tooltip, params: { id: version.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#accept' do
-    before { post :accept, params: { id: version.id } }
+    subject! { post :accept, params: { id: version.id } }
 
     it do
       expect(resource).to be_accepted
@@ -101,7 +101,7 @@ describe Moderations::VersionsController do
   end
 
   describe '#take' do
-    before { post :take, params: { id: version.id } }
+    subject! { post :take, params: { id: version.id } }
 
     it do
       expect(resource).to be_taken
@@ -111,7 +111,7 @@ describe Moderations::VersionsController do
   end
 
   describe '#reject' do
-    before { post :reject, params: { id: version.id, reason: 'test' } }
+    subject! { post :reject, params: { id: version.id, reason: 'test' } }
 
     it do
       expect(resource).to be_rejected
@@ -121,8 +121,13 @@ describe Moderations::VersionsController do
   end
 
   describe '#accept_taken' do
-    let(:version) { create :description_version, :taken, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
-    before { post :accept_taken, params: { id: version.id } }
+    subject! { post :accept_taken, params: { id: version.id } }
+    let(:version) do
+      create :description_version, :taken,
+        item: anime,
+        item_diff: { russian: ['a', 'bbb'] },
+        user: author
+    end
 
     it do
       expect(resource).to be_accepted
@@ -132,8 +137,13 @@ describe Moderations::VersionsController do
   end
 
   describe '#take_accepted' do
-    let(:version) { create :description_version, :accepted, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
-    before { post :take_accepted, params: { id: version.id } }
+    subject! { post :take_accepted, params: { id: version.id } }
+    let(:version) do
+      create :description_version, :accepted,
+        item: anime,
+        item_diff: { russian: ['a', 'bbb'] },
+        user: author
+    end
 
     it do
       expect(resource).to be_taken
@@ -146,7 +156,7 @@ describe Moderations::VersionsController do
     let(:make_request) { delete :destroy, params: { id: version.id } }
 
     context 'moderator' do
-      before { make_request }
+      subject! { make_request }
       it do
         expect(resource).to be_deleted
         expect(response.content_type).to eq 'application/json'
@@ -156,7 +166,7 @@ describe Moderations::VersionsController do
 
     context 'author' do
       include_context :authenticated, :user, :week_registered
-      before { make_request }
+      subject! { make_request }
 
       it do
         expect(resource).to be_deleted
