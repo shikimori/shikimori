@@ -75,10 +75,11 @@ git clone git@github.com:shikimori/faye-server.git
 cd shikimori
 ```
 
-#### Install `yarn`, `tmux` and `overmind` (OSX)
+#### Install `yarn`, `tmux` and `overmind` via Homebrew (OSX)
 ```sh
 brew install yarn tmux overmind
 ```
+In linux you have to install them another way.
 
 #### Install dependent gems and npm packages
 ```sh
