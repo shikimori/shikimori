@@ -5,8 +5,8 @@ describe Messages::CreateNotification do
   let(:bot) { seed :user }
 
   describe '#user_registered' do
-    let(:target) { build_stubbed :user }
-    let!(:sender) { seed :user }
+    let(:target) { user_2 }
+    let!(:sender) { user }
     it do
       expect { service.user_registered }.to change(target.messages, :count).by 1
     end

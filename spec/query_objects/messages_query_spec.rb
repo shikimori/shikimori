@@ -1,8 +1,6 @@
 describe MessagesQuery do
   let(:query) { MessagesQuery.new user, messages_type }
 
-  let(:user) { build_stubbed :user }
-  let(:user_2) { build_stubbed :user }
   let!(:private) do
     create :message,
       kind: MessageType::PRIVATE,

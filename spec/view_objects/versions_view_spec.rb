@@ -25,11 +25,11 @@ describe VersionsView do
       updated_at: 4.minutes.ago
   end
 
-  let!(:moderator) { create :user, :version_texts_moderator }
+  let!(:moderator) { create :user, :version_names_moderator }
 
   let(:view_context_params) do
     {
-      type: 'texts',
+      type: 'names',
       created_on: created_on
     }
   end

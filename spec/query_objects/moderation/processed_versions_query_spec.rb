@@ -1,7 +1,7 @@
 describe Moderation::ProcessedVersionsQuery do
   include_context :timecop, '2016-03-18 15:00:00'
 
-  let(:query) { Moderation::ProcessedVersionsQuery.fetch 'texts', created_on }
+  let(:query) { Moderation::ProcessedVersionsQuery.fetch 'names', created_on }
   let(:created_on) { nil }
 
   let!(:version_1) do
