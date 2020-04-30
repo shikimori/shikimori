@@ -24,9 +24,9 @@ require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
 require 'capistrano/copy_files'
 require 'airbrussh/capistrano'
-if defined? Appsignal
-  require 'appsignal/capistrano'
-end
+# if defined? Appsignal
+require 'appsignal/capistrano'
+# end
 # require 'capistrano/honeybadger'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.

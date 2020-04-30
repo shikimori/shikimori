@@ -37,6 +37,10 @@ set :format, :airbrussh
 
 set :branch, ENV['BRANCH'] if ENV['BRANCH']
 
+set :appsignal_config, name: 'Backend'
+set :appsignal_revision, `git log --pretty=format:'%h' -n 1 #{fetch(:branch)}`
+set :appsignal_env, :production
+
 Airbrussh.configure do |config|
   config.truncate = false
 end
