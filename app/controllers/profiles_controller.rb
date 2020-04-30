@@ -29,7 +29,7 @@ class ProfilesController < ShikimoriController # rubocop:disable ClassLength
     if user_signed_in? && current_user.id == @resource.id
       MessagesService
         .new(@resource.object)
-        .read_messages(kind: MessageType::PROFILE_COMMENTED)
+        .read(kind: MessageType::PROFILE_COMMENTED)
     end
   end
 

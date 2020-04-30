@@ -4,7 +4,7 @@ class Message < ApplicationRecord
   include Translation
 
   belongs_to :from, class_name: User.name
-  belongs_to :to, class_name: User.name
+  belongs_to :to, class_name: User.name, touch: true
   belongs_to :linked, polymorphic: true, optional: true
 
   antispam(

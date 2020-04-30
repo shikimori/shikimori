@@ -98,7 +98,7 @@ describe Message do
     describe '#delete_by' do
       let(:message) do
         create :message,
-          to: build_stubbed(:user),
+          to: user_2,
           from: build_stubbed(:user)
       end
       before { message.delete_by user }
