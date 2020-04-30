@@ -35,7 +35,7 @@ describe ClubInvite do
       build :club_invite, src: from, dst: to, club: club, status: status
     end
     let(:from) { user }
-    let(:to) { build_stubbed :user }
+    let(:to) { user_2 }
     let(:status) { Types::ClubInvite::Status[:pending] }
 
     describe '#check_banned' do
@@ -118,7 +118,7 @@ describe ClubInvite do
         end
 
         context 'from another user' do
-          let(:club_invite_1_user) { build_stubbed :user }
+          let(:club_invite_1_user) { user_3 }
           it { expect(club_invite_2).to be_persisted }
         end
       end
@@ -159,7 +159,7 @@ describe ClubInvite do
         end
 
         context 'from another user' do
-          let(:club_invite_1_user) { build_stubbed :user }
+          let(:club_invite_1_user) { user_3 }
           it do
             expect(club_invite_2.errors.messages[:base]).to eq [
               I18n.t('activerecord.errors.models.club_invite.attributes.base.limited')
