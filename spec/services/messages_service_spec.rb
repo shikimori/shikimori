@@ -7,9 +7,7 @@ describe MessagesService do
   let!(:message_2) do
     create :message, :profile_commented, to: create(:user), from: user, created_at: 30.minutes.ago
   end
-  let!(:message_3) do
-    create :message, :private, to: user, from: user
-  end
+  let!(:message_3) { create :message, :private, to: user, from: user }
 
   describe '#read_by' do
     subject! do
@@ -52,6 +50,17 @@ describe MessagesService do
         expect(message_1.reload).to_not be_read
         expect(message_2.reload).to_not be_read
         expect(message_3.reload).to be_read
+      end
+
+      context 'is_read' do
+        let(:is_read) { false }
+        let!(:message_3) { create :message, :private, to: user, from: user, read: true }
+
+        it do
+          expect(message_1.reload).to_not be_read
+          expect(message_2.reload).to_not be_read
+          expect(message_3.reload).to_not be_read
+        end
       end
     end
   end
