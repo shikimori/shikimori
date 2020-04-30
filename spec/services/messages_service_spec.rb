@@ -33,9 +33,9 @@ describe MessagesService do
     end
   end
 
-  describe '#delete_messages' do
+  describe '#delete' do
     context 'kind' do
-      before { service.delete_messages kind: MessageType::PROFILE_COMMENTED }
+      before { service.delete kind: MessageType::PROFILE_COMMENTED }
 
       it do
         expect { message_1.reload }.to raise_error ActiveRecord::RecordNotFound
@@ -45,7 +45,7 @@ describe MessagesService do
     end
 
     context 'type' do
-      before { service.delete_messages type: :notifications }
+      before { service.delete type: :notifications }
 
       it do
         expect { message_1.reload }.to raise_error ActiveRecord::RecordNotFound

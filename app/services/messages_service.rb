@@ -9,7 +9,7 @@ class MessagesService
     user.touch
   end
 
-  def delete_messages kind: nil, type: nil
+  def delete kind: nil, type: nil
     Message
       .where(to: user, kind: kind || kinds_by_type(type))
       .delete_all
