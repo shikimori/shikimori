@@ -151,9 +151,9 @@ class Api::V1::UsersController < Api::V1Controller
   description 'Requires `messages` oauth scope'
   def unread_messages
     respond_with(
-      messages: current_user.unread_messages,
-      news: current_user.unread_news,
-      notifications: current_user.unread_notifications
+      messages: current_user.unread.messages,
+      news: current_user.unread.news,
+      notifications: current_user.unread.notifications
     )
   end
 
