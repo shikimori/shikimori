@@ -110,15 +110,14 @@
             - else
               .b-js-action = t 'moderators_only'
 
-        - if @resource.kinda_manga?
-          li
-            .field = @resource.class.human_attribute_name(:status)
-            .value
-              span = @resource.status_text
-              a.b-js-action.to-process[
-                href=@resource.edit_field_url(:status)
-                data-dynamic='week_registered'
-              ] = t 'actions.edit'
+        li
+          .field = @resource.class.human_attribute_name(:status)
+          .value
+            span = @resource.status_text
+            a.b-js-action.to-process[
+              href=@resource.edit_field_url(:status)
+              data-dynamic='week_registered'
+            ] = t 'actions.edit'
 
         li
           .field = @resource.class.human_attribute_name(:aired_on)
