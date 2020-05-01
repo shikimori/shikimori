@@ -38,13 +38,15 @@ class Viewing::BulkCreate
   end
 
   def read_notifiactions
-    Message.where(
-      read: false,
-      to_id: user.id,
-      kind: MessageType::QUOTED_BY_USER,
-      linked_id: new_viewed_ids,
-      linked_type: viewed_klass.name
-    ).update_all(read: true)
+    Message
+      .where(
+        read: false,
+        to_id: user.id,
+        kind: MessageType::QUOTED_BY_USER,
+        linked_id: new_viewed_ids,
+        linked_type: viewed_klass.name
+      )
+      .update_all(read: true)
 
     user.touch
   end
