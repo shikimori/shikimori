@@ -45,5 +45,7 @@ class Viewing::BulkCreate
       linked_id: new_viewed_ids,
       linked_type: viewed_klass.name
     ).update_all(read: true)
+
+    user.touch
   end
 end
