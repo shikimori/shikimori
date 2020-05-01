@@ -8,6 +8,7 @@ class Abilities::VersionNamesModerator
     english
     license_name_ru
     synonyms
+    japanese
   ]
   MANAGED_MODELS = Abilities::VersionTextsModerator::MANAGED_MODELS
 
