@@ -80,11 +80,11 @@ a.menu-icon.forum.desktop[
       data-count=current_user.unvoted_contests
     ]
 
-  - if current_user.unread_count.positive?
+  - if current_user.unread.count.positive?
     a.menu-icon.mail[
       href=current_user.unread_messages_url
       title=t(:mail)
-      data-count=([99, current_user.unread_count].min)
+      data-count=([99, current_user.unread.count].min)
     ]
 
   - if current_user.super_moderator? || current_user.admin?
@@ -95,7 +95,7 @@ a.menu-icon.forum.desktop[
 
   .menu-dropdown.profile
     span[
-      data-unread_count=([99, current_user.unread_count].min if current_user.unread_count.positive?)
+      data-unread_count=([99, current_user.unread.count].min if current_user.unread.count.positive?)
       tabindex='0'
     ]
       a.submenu-triangle href=current_user.url
@@ -121,11 +121,11 @@ a.menu-icon.forum.desktop[
           ]
             span.text
               = item.title
-              - if item.name == :mail && current_user.unread_count > 0
+              - if item.name == :mail && current_user.unread.count > 0
                 span.unread
-                  span = current_user.unread_messages
-                  span = current_user.unread_news
-                  span = current_user.unread_notifications
+                  span = current_user.unread.messages
+                  span = current_user.unread.news
+                  span = current_user.unread.notifications
             / - if item.name == :mail && current_user.unread_count > 0
               span.unread
                 span = current_user.unread_messages

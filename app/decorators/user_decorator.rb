@@ -74,9 +74,9 @@ class UserDecorator < BaseDecorator
   end
 
   def unread_messages_url
-    if unread_messages > 0 || (unread_news == 0 && unread_notifications == 0)
+    if unread.messages.positive? || (unread.news.zero? && unread.notifications.zero?)
       h.profile_dialogs_url object
-    elsif unread_news > 0
+    elsif unread.news.positive?
       h.index_profile_messages_url object, messages_type: :news
     else
       h.index_profile_messages_url object, messages_type: :notifications
