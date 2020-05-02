@@ -9,8 +9,13 @@ class EpisodeNotification::Track
     is_anime365
   ]
 
-  EPISODES_MESSAGE = 'invalid episode number: episode > anime.episodes'
-  EPISODES_AIRED_MESSAGE = 'invalid episode number: episode >> anime.episodes_aired'
+  EPISODES_MESSAGE = <<~MESSAGE.squish
+    invalid episode number: episode(%<episode>d) > anime(%<anime_id>d).episodes(%<episodes>d)
+  MESSAGE
+  EPISODES_AIRED_MESSAGE = <<~MESSAGE.squish
+    invalid episode number: episode (%<episode>d) >>
+      anime(%<anime_id>d).episodes_aired(%<episodes_aired>d)
+  MESSAGE
 
   def call
     return unless @is_raw || @is_subtitles || @is_fandub || @is_anime365
@@ -48,9 +53,23 @@ private
     end
   end
 
-  def validate model
-    model.errors[:base] << EPISODES_MESSAGE if episodes_overflow?(model)
-    model.errors[:base] << EPISODES_AIRED_MESSAGE if episodes_aired_overflow?(model)
+  def validate model # rubocop:disable MethodLength, AbcSize
+    if episodes_overflow?(model)
+      model.errors[:base] << format(
+        EPISODES_MESSAGE,
+        episode: model.episode,
+        anime_id: model.anime.id,
+        episodes: model.anime.episodes
+      )
+    end
+    if episodes_aired_overflow?(model)
+      model.errors[:base] << format(
+        EPISODES_AIRED_MESSAGE,
+        episode: model.episode,
+        anime_id: model.anime.id,
+        episodes_aired: model.anime.episodes_aired
+      )
+    end
   end
 
   def save model

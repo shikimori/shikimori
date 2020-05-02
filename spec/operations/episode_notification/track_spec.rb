@@ -118,7 +118,12 @@ describe EpisodeNotification::Track do
         it do
           expect { subject }.to raise_error(
             ActiveRecord::RecordNotSaved,
-            described_class::EPISODES_MESSAGE
+            format(
+              described_class::EPISODES_MESSAGE,
+              episode: episode,
+              anime_id: anime.id,
+              episodes: anime.episodes
+            )
           )
         end
       end
@@ -142,7 +147,12 @@ describe EpisodeNotification::Track do
         it do
           expect { subject }.to raise_error(
             ActiveRecord::RecordNotSaved,
-            described_class::EPISODES_AIRED_MESSAGE
+            format(
+              described_class::EPISODES_AIRED_MESSAGE,
+              episode: episode,
+              anime_id: anime.id,
+              episodes_aired: anime.episodes_aired
+            )
           )
         end
       end
