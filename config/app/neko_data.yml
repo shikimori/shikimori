@@ -21279,12 +21279,19 @@
         not_anime_ids:
         - 1365
         - 9786
+        - 10766
+        - 33145
+        - 33146
+        - 33148
+        - 33149
         - 33150
         - 33151
+        - 33152
         - 36269
         - 36760
+        - 38788
         - 40348
-      :threshold: 93.7%
+      :threshold: 93.3%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -21319,10 +21326,17 @@
         not_anime_ids:
         - 1365
         - 9786
+        - 10766
+        - 33145
+        - 33146
+        - 33148
+        - 33149
         - 33150
         - 33151
+        - 33152
         - 36269
         - 36760
+        - 38788
         - 40348
       :threshold: 0.01
       :generator:
@@ -24632,6 +24646,8 @@
       :algo: duration
       :filters:
         franchise: major
+        not_anime_ids:
+        - 32324
       :threshold: 95%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
@@ -24661,6 +24677,8 @@
       :algo: duration
       :filters:
         franchise: major
+        not_anime_ids:
+        - 32324
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
