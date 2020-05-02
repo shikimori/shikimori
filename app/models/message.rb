@@ -9,6 +9,8 @@ class Message < ApplicationRecord
 
   antispam(
     interval: 3.seconds,
+    per_day: 250,
+    scope: -> { where kind: MessageType::PRIVATE },
     disable_if: -> { kind != MessageType::PRIVATE || from.bot? },
     user_id_key: :from_id
   )
