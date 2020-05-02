@@ -61,7 +61,7 @@ class TorrentsParser
   EPISODES_WITH_COMMA_FOR_HISTORY_REGEXES = [
     /#{END_OF_NAME}_(\d+)-(\d+),_?(\d+)_raw_720/i
   ]
-def self.extract_episodes_num episode_name
+  def self.extract_episodes_num episode_name
     return [] if IGNORED_TORRENTS.include? episode_name
     return [] if ignored_phrases? episode_name
 
@@ -142,13 +142,10 @@ def self.extract_episodes_num episode_name
     print format("fetched %<size>d torrens\n", size: feed.size)
     return 0 if feed.empty?
 
-    animes = if !anime_id.nil?
-               [Anime.find(anime_id)]
-             else
-               get_ongoings
-    end
+    animes = !anime_id.nil? ? [Anime.find(anime_id)] : get_ongoings
+    errors = []
 
-    animes.sum do |anime|
+    result = animes.sum do |anime|
       matches = feed.select do |v|
         unless ANIME_WITH_ALL_SUB_GROUPS.include?(anime.id) # некоторые аниме только эти негодяи сабят
           next if v[:title].include? '[KRT]' # эти негодяи совсем криво торренты именуют
@@ -163,6 +160,15 @@ def self.extract_episodes_num episode_name
       end
 
       matches.any? ? add_episodes(anime, matches) : 0
+    rescue ActiveRecord::RecordNotSaved => e
+      errors << e.message
+      0
+    end
+
+    if errors.none?
+      result
+    else
+      raise MissingEpisodeError, errors
     end
   end
 
