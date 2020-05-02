@@ -63,6 +63,7 @@ module Shikimori
     Unauthorized
     AgeRestricted
     MismatchedEntries
+    InvalidEpisodesError
     CopyrightedResource
     Net::SMTPServerBusy
     Net::SMTPFatalError

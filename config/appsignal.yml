@@ -28,6 +28,7 @@ default: &defaults
     - Unauthorized
     - AgeRestricted
     - MismatchedEntries
+    - InvalidEpisodesError
     - CopyrightedResource
     - Net::SMTPServerBusy
     - Net::SMTPFatalError
