@@ -250,7 +250,7 @@ class PagesController < ShikimoriController # rubocop:disable ClassLength
 
   def tableau
     render json: {
-      messages: user_signed_in? ? current_user.unread_count : 0
+      messages: user_signed_in? ? current_user.unread.count : 0
     }
   end
 
