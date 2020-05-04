@@ -40,6 +40,7 @@ en:
       top_in: '#%{position} in '
     edit_field:
       changes_history: Changes history
-    sync_status:
+    synchronization:
+      synchronization: Synchronization
       sync: Sync
       syncing: Syncing

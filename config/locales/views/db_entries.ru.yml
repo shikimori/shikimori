@@ -40,6 +40,8 @@ ru:
       top_in: '№%{position} в '
     edit_field:
       changes_history: История правок
-    sync_status:
+    synchronization:
+      synchronization: Синхронизация
       sync: Синхронизировать
       syncing: Запущена синхронизация
+
