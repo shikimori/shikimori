@@ -8,8 +8,10 @@ class Abilities::SuperModerator
     can :manage, Ban
     can :access_list, User
 
-    can :merge, Anime
-    can :merge, Manga
+    can %i[merge destroy], Anime
+    can %i[merge destroy], Manga
+    can %i[merge destroy], Character
+    can %i[merge destroy], Person
 
     genres_studios_publishers_abilities
   end
