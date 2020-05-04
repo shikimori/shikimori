@@ -33,7 +33,8 @@
 
   - if abuse_request.reason.present?
     span = t '.for_reason'
-    span.reason = abuse_request.reason
+    span.reason
+      = h(abuse_request.reason).gsub("\n", '<br>').html_safe
 
   span
     == Messages::MentionSource.call abuse_request.comment.commentable, abuse_request.comment.id
