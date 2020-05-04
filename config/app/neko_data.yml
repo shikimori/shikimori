@@ -21278,8 +21278,10 @@
         franchise: detective_conan
         not_anime_ids:
         - 1365
+        - 6115
         - 9786
         - 10766
+        - 18429
         - 33145
         - 33146
         - 33148
@@ -21291,7 +21293,7 @@
         - 36760
         - 38788
         - 40348
-      :threshold: 93.3%
+      :threshold: 93.6%
       :generator:
         ignore_latest_ids:
         - 38770
@@ -21325,8 +21327,10 @@
         franchise: detective_conan
         not_anime_ids:
         - 1365
+        - 6115
         - 9786
         - 10766
+        - 18429
         - 33145
         - 33146
         - 33148
@@ -21889,9 +21893,8 @@
       :filters:
         franchise: tiger_bunny
         not_anime_ids:
-        - 12015
         - 30178
-      :threshold: 91.7%
+      :threshold: 92.3%
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
   default_values: *2
   neko_id: :tiger_bunny
@@ -21921,7 +21924,6 @@
       :filters:
         franchise: tiger_bunny
         not_anime_ids:
-        - 12015
         - 30178
       :threshold: 0.01
       :source: https://github.com/shikimori/neko-achievements/tree/master/priv/rules/_franchises.yml
