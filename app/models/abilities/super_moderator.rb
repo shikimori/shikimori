@@ -8,6 +8,9 @@ class Abilities::SuperModerator
     can :manage, Ban
     can :access_list, User
 
+    can :merge, Anime
+    can :merge, Manga
+
     genres_studios_publishers_abilities
   end
 

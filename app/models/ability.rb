@@ -1,4 +1,4 @@
-# rubocop:disable AbcSize, CyclomaticComplexity, PerceivedComplexity, MethodLength, MissingCopEnableDirective
+# rubocop:disable all
 class Ability
   include CanCan::Ability
   prepend Draper::CanCanCan
