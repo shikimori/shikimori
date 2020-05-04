@@ -321,7 +321,6 @@
               .b-js-action = t 'moderators_only'
 
   = render 'db_entries/synchronization', resource: @resource
-  = render 'db_entries/dangerous_actions', resource: @resource
 
   - if @resource.anime? && @resource.anime_calendars.any?
     = spoiler 'animecalendar.eu' do
@@ -342,28 +341,32 @@
 
   - if @resource.anime? && can?(:upload_episode, Anime)
     = spoiler t('.upload_episode') do
-      .fc-2
-        .f-column
-          .subheadline-buttons
-            a.item-edit href=@resource.edit_field_url(:torrents_name)
-          .subheadline.m5 = t '.parse_page'
-          .subcontent
-            = form_tag torrent_anime_path(@resource.object), method: :post do |f|
-              .b-input
-                label
-                  | URL
-                  = text_field_tag 'torrent[url]',
-                    params[:torrent] ? params[:torrent]['url'] : '',
-                    class: 'w-100'
-              .m5
-                = submit_tag t('.parse'), class: 'b-button'
+      .block_m
+        .fc-2
+          .f-column
+            .subheadline-buttons
+              a.item-edit href=@resource.edit_field_url(:torrents_name)
+            .subheadline.m5 = t '.parse_page'
+            .subcontent
+              = form_tag torrent_anime_path(@resource.object), method: :post do |f|
+                .b-input
+                  label
+                    | URL
+                    = text_field_tag 'torrent[url]',
+                      params[:torrent] ? params[:torrent]['url'] : '',
+                      class: 'w-100'
+                .m5
+                  = submit_tag t('.parse'), class: 'b-button'
 
-        .f-column
-          .subheadline.m5 = t '.search_on.toshokan'
-          - @resource.files.toshokan_search.each do |phrase|
-            div.m5
-              a.b-link href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
-                = phrase
+          .f-column
+            .subheadline.m5 = t '.search_on.toshokan'
+            - @resource.files.toshokan_search.each do |phrase|
+              div.m5
+                a.b-link href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
+                  = phrase
+
+  = render 'db_entries/dangerous_actions', resource: @resource
+
 
         / - if current_user.admin?
         /   .c-column
