@@ -3,6 +3,11 @@
     = simple_form_for resource.object do |f|
       = f.input :status,
         include_blank: false
+
+      .b-warning
+        p.warning Если хотите, чтобы правка была принята модератором, в причине
+          правки обязательно распишите причину изменения со ссылкой на первоисточник.
+
       = render 'versions/reason'
 
       .buttons
