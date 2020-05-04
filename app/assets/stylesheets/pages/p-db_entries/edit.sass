@@ -1,5 +1,5 @@
-@import globals
 @import mixins/ellipsis2
+@import mixins/responsive
 
 .p-db_entries-edit
   .b-list
@@ -26,3 +26,18 @@
     .b-js-action
       margin-left: 5px
       text-transform: lowercase
+
+  .dangerous-actions
+    .collapsed
+      background-color: lighten(#fedddf, 2%)
+      border-color: darken(#fedddf, 1%)
+      color: #fc575e
+
+      +gte_laptop
+        &:hover
+          background-color: #fedddf
+          border-color: darken(#fec2c5, 2%)
+
+      &:active
+          background-color: darken(#fedddf, 2%)
+          border-color: darken(#fec2c5, 3%)

@@ -7,7 +7,7 @@
   margin: -1px 0 2px 15px
   width: $width
 
-  +gt_ipad
+  +gte_laptop
     transition: all 0.25s ease
 
   &:before
@@ -27,7 +27,7 @@
   &.active
     cursor: pointer
 
-    +gt_ipad
+    +gte_laptop
       &:hover:before
         background-color: $hover_color
         border-color: darken($hover_color, 1.5%)
@@ -42,7 +42,7 @@
       border-color: $gray-1
       background-color: transparent
 
-    +gt_ipad
+    +gte_laptop
       &:hover:before
         color: white
         background-color: $hover_color

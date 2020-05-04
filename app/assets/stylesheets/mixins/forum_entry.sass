@@ -37,7 +37,7 @@ $body_phone_left_margin: 40px
       +lte_ipad
         padding-right: 38px // offset for item-mobile
 
-      +gt_ipad
+      +gte_laptop
         .b-new_marker.off
           display: none
 
@@ -47,13 +47,13 @@ $body_phone_left_margin: 40px
       .item-cancel
         display: none
 
-    +gt_ipad
+    +gte_laptop
       &:hover
         aside.markers
           .b-new_marker.off
             display: block
 
-        +gt_ipad
+        +gte_laptop
           aside.buttons
             display: block
 

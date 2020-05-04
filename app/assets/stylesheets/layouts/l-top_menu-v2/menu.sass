@@ -31,7 +31,7 @@
     transition: background 0.2s ease
     background-color: $top_menu_background_hover
 
-  +gt_ipad
+  +gte_laptop
     .menu-icon:hover,
       transition: background 0.2s ease
       background-color: $top_menu_background_hover
@@ -86,7 +86,7 @@
       +ellipsis2
       background: lighten($top_menu-background_color, 4%)
 
-      +gt_ipad
+      +gte_laptop
         cursor: default
 
       span,
@@ -109,7 +109,7 @@
         +lte_ipad
           pointer-events: none
 
-        +gt_ipad
+        +gte_laptop
           &:hover
             transition: background 0.2s ease
             background-color: lighten($top_menu_background_active, 2%)
@@ -178,7 +178,7 @@
           margin-left: -3px
 
     &.profile
-      +gt_ipad
+      +gte_laptop
         margin-left: auto
 
       & > span

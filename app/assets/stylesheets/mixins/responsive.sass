@@ -40,10 +40,6 @@
   @media screen and (max-width: $ipad_max)
     @content
 
-=gt_ipad
-  @media screen and (min-width: $ipad_max+1)
-    @content
-
 =gte_ipad
   @media screen and (min-width: $ipad)
     @content
@@ -51,7 +47,7 @@
 =gte_ipad-landscape
   +ipad-landscape
     @content
-  +gt_ipad
+  +gte_laptop
     @content
 
 =ipad_laptop

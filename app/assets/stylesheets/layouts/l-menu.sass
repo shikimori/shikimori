@@ -17,7 +17,7 @@
 .menu-slide-outer
   &.x199
     .l-menu
-      +gt_ipad
+      +gte_laptop
         +column(2, .221, 3%)
       +ipad-landscape
         +column(2, .228, 3%)
@@ -31,7 +31,7 @@
     .l-content
       transition: margin 0.25s ease // возможно надо отключить, чтобы не тормозило
 
-      +gt_ipad
+      +gte_laptop
         +column(2, .779, 3%) // 241px должно получиться
       +ipad-landscape
         +column(2, .772, 3%) // 241px должно получиться
@@ -140,7 +140,7 @@
     +lte_ipad
       width: 26px
 
-    +gt_ipad
+    +gte_laptop
       display: none
 
     +ipad-landscape
