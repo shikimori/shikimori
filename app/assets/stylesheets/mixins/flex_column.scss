@@ -107,12 +107,12 @@
   // background: rgba(green, 0.5);
   display: flex;
   flex-wrap: wrap;
-  margin-top: -$offset;
+  margin-bottom: -$offset;
   margin-left: -$gutter;
 
   & > #{$selector} {
     // background: rgba(blue, 0.5);
-    margin-top: $offset;
+    margin-bottom: $offset;
     margin-left: $gutter;
     @include fcolumn-size(1 / $columns, $gutter);
   }
