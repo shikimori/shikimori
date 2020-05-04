@@ -33,14 +33,14 @@ class MalParsers::FetchEntry
     person: DbImport::Person
   }
 
-  TYPES = Types::Coercible::String.enum(*PARSERS.keys.map(&:to_s))
+  Type = Types::Coercible::String.enum(*PARSERS.keys.map(&:to_s))
 
   def perform id, type
     data = parse(id, type)
 
     IMPORTS[type.to_sym].call data
   rescue InvalidIdError
-    entry = TYPES[type].classify.constantize.find_by id: id
+    entry = Type[type].classify.constantize.find_by id: id
 
     if entry
       entry.update mal_id: nil, imported_at: Time.zone.now
@@ -64,6 +64,6 @@ private
   end
 
   def parsers type
-    PARSERS[TYPES[type].to_sym]
+    PARSERS[Type[type].to_sym]
   end
 end

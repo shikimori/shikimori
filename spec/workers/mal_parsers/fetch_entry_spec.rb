@@ -1,5 +1,5 @@
 describe MalParsers::FetchEntry do
-  let(:worker) { MalParsers::FetchEntry.new }
+  let(:worker) { described_class.new }
 
   include_context :timecop
 
