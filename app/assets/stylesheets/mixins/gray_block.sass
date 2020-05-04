@@ -1,4 +1,5 @@
 @import globals
+@import mixins/responsive
 
 =gray-block
   background: #f9f9f9
@@ -6,11 +7,13 @@
   cursor: pointer
   line-height: $line_height
   padding: 5px 10px
-  transition: color 0.2s ease, background-color 0.2s ease
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s
 
-  &:hover
-    background-color: #EEEEEE
-    color: black
+  +gt_ipad
+    &:hover
+      background-color: #eee
+      color: #123
 
   &:active
-    background-color: #E7E7E7
+    background-color: #e7e7e7
+    color: #123
