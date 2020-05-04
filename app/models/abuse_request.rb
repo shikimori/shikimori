@@ -12,8 +12,6 @@ class AbuseRequest < ApplicationRecord
     user_id_key: :user_id
   )
 
-  MAXIMUM_REASON_SIZE = 255
-
   belongs_to :comment
   belongs_to :user
   belongs_to :approver,
@@ -24,7 +22,6 @@ class AbuseRequest < ApplicationRecord
   enumerize :kind, in: %i[offtopic summary spoiler abuse], predicates: true
 
   validates :user, :comment, presence: true
-  validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
   scope :pending, -> { where state: 'pending', kind: %w[offtopic summary] }
   scope :abuses, -> { where state: 'pending', kind: %w[spoiler abuse] }
@@ -62,14 +59,6 @@ class AbuseRequest < ApplicationRecord
 
     before_transition pending: :rejected do |abuse_request, transition|
       abuse_request.approver = transition.args.first
-    end
-  end
-
-  def reason= value
-    if !value || value.size <= MAXIMUM_REASON_SIZE
-      super
-    else
-      super value[0..MAXIMUM_REASON_SIZE - 1]
     end
   end
 

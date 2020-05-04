@@ -8,7 +8,6 @@ describe Version do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :item_diff }
-    # it { is_expected.to validate_length_of(:reason).is_at_most Version::MAXIMUM_REASON_SIZE }
 
     context 'new record' do
       subject { build :version }
@@ -116,11 +115,6 @@ describe Version do
   describe 'instance methods' do
     let(:anime) { create :anime, episodes: 10 }
     let(:version) { create :version, item: anime, item_diff: { episodes: [1, 2] } }
-
-    describe '#reason=' do
-      let(:version) { build :version, reason: 'a' * 3000 }
-      it { expect(version.reason).to have(Version::MAXIMUM_REASON_SIZE).items }
-    end
 
     describe '#apply_changes' do
       before { version.apply_changes }

@@ -12,8 +12,6 @@ class Version < ApplicationRecord
     user_id_key: :user_id
   )
 
-  MAXIMUM_REASON_SIZE = 255
-
   belongs_to :user
   belongs_to :moderator, class_name: User.name, optional: true
   # optional item becase it can be deleted later and we don't need this version to fail on validation
@@ -22,7 +20,6 @@ class Version < ApplicationRecord
 
   validates :item_diff, presence: true
   validates :item, presence: true, if: :new_record?
-  validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
   scope :pending, -> { where state: :pending }
 
@@ -88,14 +85,6 @@ class Version < ApplicationRecord
 
     after_transition pending: :deleted do |version, _transition|
       version.cleanup if version.respond_to? :cleanup
-    end
-  end
-
-  def reason= value
-    if !value || value.size <= MAXIMUM_REASON_SIZE
-      super
-    else
-      super value[0..MAXIMUM_REASON_SIZE - 1]
     end
   end
 
