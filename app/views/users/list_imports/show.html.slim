@@ -25,8 +25,9 @@
             - elsif @view.missing_fields_error?
               = t 'users.list_imports.show.missing_fields',
                 fields: '`' + @view.missing_fields.join('`, `') + '`'
-            - else
-              = @resource.output&.dig('error', 'class')
+            - elsif @resource.output&.dig('error', 'class').present?
+              ' #{@resource.output.dig 'error', 'class'}:
+              = @resource.output.dig 'error', 'message'
 
   - unless @resource.failed?
     = render "users/list_imports/#{@resource.state}",
