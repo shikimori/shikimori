@@ -1,6 +1,8 @@
 span.details
   span.column
-    = UserRate.status_name list_entry.status, list_entry.target_type
+    - if list_entry.status.present?
+      = UserRate.status_name list_entry.status, list_entry.target_type
+
     - if list_entry.rewatches.positive?
       = " #{list_entry.rewatches}x"
 
