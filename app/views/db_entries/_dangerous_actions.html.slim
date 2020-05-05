@@ -1,11 +1,12 @@
-- if can?(:merge, resource) || can?(:destroy, resource)
-  .dangerous-actions
-    = spoiler 'Dangerous Actions' do
-      .block
-        .fc-2
-          - if can?(:merge, resource)
-            .f-column
-              | merge
-          - if can?(:destroy, resource)
-            .f-column
-              | destroy
+- if current_user&.admin?
+  - if can?(:merge, resource) || can?(:destroy, resource)
+    .dangerous-actions
+      = spoiler 'Dangerous Actions' do
+        .block
+          .fc-2
+            - if can?(:merge, resource)
+              .f-column
+                | merge
+            - if can?(:destroy, resource)
+              .f-column
+                | destroy
