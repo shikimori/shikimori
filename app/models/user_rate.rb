@@ -33,7 +33,7 @@ class UserRate < ApplicationRecord
 
   after_destroy :log_deleted
 
-  validates :target, :user, presence: true
+  validates :target, :user, :status, presence: true
   validates :user_id, uniqueness: { scope: %i[target_id target_type] }
   validates :text, length: { maximum: MAXIMUM_TEXT_SIZE }
 

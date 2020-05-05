@@ -9,6 +9,7 @@ describe UserRate do
   describe 'validations' do
     it { is_expected.to validate_presence_of :target }
     it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :status }
   end
 
   describe 'callbacks' do
@@ -43,7 +44,7 @@ describe UserRate do
     let(:chapters) { 100 }
 
     describe '#text=' do
-      let(:user_rate) { build :user_rate, text: 'a' * 3000 }
+      let(:user_rate) { build :user_rate, text: 'a' * (UserRate::MAXIMUM_TEXT_SIZE + 1) }
       it { expect(user_rate.text).to have(UserRate::MAXIMUM_TEXT_SIZE).items }
     end
 
