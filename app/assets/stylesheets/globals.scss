@@ -23,8 +23,11 @@ $media_width: 235px;
 $flex-gutter-mobile: 32px;
 $flex-gutter-desktop: 50px;
 
-$flex-offset-mobile: 40px;
-$flex-offset-desktop: 48px;
+
+// $flex-offset-mobile: 40px;
+$flex-offset-mobile: $block_offset;
+// $flex-offset-desktop: 48px;
+$flex-offset-desktop: $block_offset;
 
 // ссылки
 $link: #176093;
