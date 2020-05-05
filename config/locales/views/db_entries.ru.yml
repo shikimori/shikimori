@@ -44,4 +44,5 @@ ru:
       synchronization: Синхронизация
       sync: Синхронизировать
       syncing: Запущена синхронизация
-
+    dangerous_actions:
+      dangerous_actions: Опасные действия

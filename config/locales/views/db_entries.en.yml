@@ -44,3 +44,5 @@ en:
       synchronization: Synchronization
       sync: Sync
       syncing: Syncing
+    dangerous_actions:
+      dangerous_actions: Dangerous actions

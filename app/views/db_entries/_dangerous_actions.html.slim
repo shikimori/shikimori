@@ -1,7 +1,7 @@
 - if current_user&.admin?
   - if can?(:merge, resource) || can?(:destroy, resource)
     .dangerous-actions
-      = spoiler 'Dangerous Actions' do
+      = spoiler t('.dangerous_actions') do
         .block
           .fc-2
             - if can?(:merge, resource)
