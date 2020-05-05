@@ -41,7 +41,7 @@ module Types
         mangachan
         mangahub
       ],
-      ranobe: COMMON_KINDS + %i[twitter novel_tl ruranobe novelupdates]
+      ranobe: COMMON_KINDS + %i[twitter novel_tl ruranobe novelupdates mangaupdates]
     }
 
     INVISIBLE_KINDS = %i[myanimelist smotret_anime mangachan]
