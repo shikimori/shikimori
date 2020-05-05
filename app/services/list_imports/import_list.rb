@@ -74,9 +74,10 @@ private
       user_rate.save!
       output_updated old_list_entry, ListImports::ListEntry.build(user_rate)
     else
-      user_rate
-        .changes
-        .each { |field, values| user_rate[field] = values.first } # restore model to previos state
+      # have to restore model to previos state
+      # without it ListImports::ListEntry.build above could fail when
+      # imported list has duplicated record
+      user_rate.changes.each { |field, values| user_rate[field] = values.first }
       output list_entry, NOT_IMPORTED
     end
   end
