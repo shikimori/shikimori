@@ -4,7 +4,7 @@ class UserRate < ApplicationRecord
   MAXIMUM_EPISODES = 10_000
   MAXIMUM_SCORE = 10
 
-  MAXIMUM_TEXT_SIZE = 2048
+  MAXIMUM_TEXT_SIZE = 4096
 
   enum status: {
     planned: 0,
