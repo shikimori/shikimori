@@ -21,6 +21,7 @@ module Types
       hulu
       ivi
       kinopoisk_hd
+      wink
       netflix
       okko
       youtube
