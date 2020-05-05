@@ -68,11 +68,13 @@ private
 
     list_entry.export(user_rate)
 
-    if user_rate.changed?
+    return output list_entry, NOT_CHANGED unless user_rate.changed?
+
+    if user_rate.valid?
       user_rate.save!
       output_updated old_list_entry, ListImports::ListEntry.build(user_rate)
     else
-      output list_entry, NOT_CHANGED
+      output list_entry, NOT_IMPORTED
     end
   end
 

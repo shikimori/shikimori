@@ -3,8 +3,9 @@ describe ListImports::ImportList do
 
   let(:list_import) { create :list_import, :anime, duplicate_policy, user: user }
   let(:duplicate_policy) { Types::ListImport::DuplicatePolicy[:replace] }
-  let(:list) do
-    [ListImports::ListEntry.new(
+  let(:list) { [list_entry] }
+  let(:list_entry) do
+    ListImports::ListEntry.new(
       target_title: 'Test name',
       target_id: 999_999,
       target_type: 'Anime',
@@ -13,7 +14,7 @@ describe ListImports::ImportList do
       rewatches: 1,
       episodes: 30,
       text: 'test'
-    )]
+    )
   end
   let!(:target) do
     create :anime,
@@ -85,6 +86,36 @@ describe ListImports::ImportList do
           ListImports::ImportList::NOT_CHANGED => []
         )
         expect(list_import).to_not be_changed
+      end
+
+      context 'invalid new user_rate (missing status)' do
+        let(:list_entry) do
+          ListImports::ListEntry.new(
+            target_title: 'Test name',
+            target_id: 999_999,
+            target_type: 'Anime',
+            score: 7,
+            rewatches: 1,
+            episodes: 30,
+            text: 'test'
+          )
+        end
+
+        it do
+          expect(user.anime_rates).to have(1).item
+          expect(user.anime_rates.first).to have_attributes user_rate.attributes
+          expect(user.manga_rates).to be_empty
+
+          expect(list_import.output).to eq(
+            ListImports::ImportList::ADDED => [],
+            ListImports::ImportList::UPDATED => [],
+            ListImports::ImportList::NOT_IMPORTED => JSON.parse(
+              [list[0]].to_json
+            ),
+            ListImports::ImportList::NOT_CHANGED => []
+          )
+          expect(list_import).to_not be_changed
+        end
       end
     end
 
