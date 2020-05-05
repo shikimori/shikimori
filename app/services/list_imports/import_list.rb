@@ -74,6 +74,9 @@ private
       user_rate.save!
       output_updated old_list_entry, ListImports::ListEntry.build(user_rate)
     else
+      user_rate
+        .changes
+        .each { |field, values| user_rate[field] = values.first } # restore model to previos state
       output list_entry, NOT_IMPORTED
     end
   end
