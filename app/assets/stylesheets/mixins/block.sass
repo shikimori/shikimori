@@ -1,6 +1,6 @@
 @import globals
 
-=block($margin: $block_offset)
+=block($margin: $block-offset)
   margin-bottom: $margin
   line-height: $line_height
   position: relative
@@ -13,19 +13,19 @@
   margin-bottom: 0
 
 =block2
-  +block($block_offset * 1.5)
+  +block($block-offset * 1.5)
 
 =block3
-  +block($block_offset * 2)
+  +block($block-offset * 2)
 
 =block_m
   +block
 
   &:last-child
-    margin-bottom: $block_offset !important
+    margin-bottom: $block-offset !important
 
 =block2_m
   +block2
 
   &:last-child
-    margin-bottom: $block_offset * 1.5 !important
+    margin-bottom: $block-offset * 1.5 !important

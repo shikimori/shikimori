@@ -14,7 +14,7 @@ $line_height: 1.65;
 $site-body-width: 1200px;
 
 // default offset
-$block_offset: 30px;
+$block-offset: 30px;
 
 // default sizes of standard media element
 $media_height: 132px;
@@ -25,9 +25,9 @@ $flex-gutter-desktop: 50px;
 
 
 // $flex-offset-mobile: 40px;
-$flex-offset-mobile: $block_offset;
+$flex-offset-mobile: $block-offset;
 // $flex-offset-desktop: 48px;
-$flex-offset-desktop: $block_offset;
+$flex-offset-desktop: $block-offset;
 
 // ссылки
 $link: #176093;
